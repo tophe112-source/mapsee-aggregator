@@ -95,6 +95,41 @@ _THEATER_RX = re.compile(
 _PROMOTABLE_TO_THEATER = {"music", "other"}
 
 
+# NIGHTLIFE -> 'party'. Measured 2026-07-27: 'party' was a valid category key
+# that NO adapter ever emitted and no rule ever created - so bar.ventures, whose
+# whole identity is the crawl, opened onto an empty layer. Crawls, happy hours,
+# trivia and karaoke are genuinely NOT concerts, so they add net-new supply
+# rather than relabelling music. Promoted only out of generic buckets, and NEVER
+# out of 'music': a DJ set is already a concert, and bar.ventures shows music
+# anyway, so restealing it would just mislabel the general map.
+_PARTY_RX = re.compile(
+    r"\b(bar\s+crawl|pub\s+crawl|happy\s+hour|club\s+night|nightlife|"
+    r"dance\s+part(?:y|ies)|silent\s+disco|block\s+part(?:y|ies)|"
+    r"karaoke|trivia\s+night|quiz\s+night|bingo\s+night|"
+    r"singles?\s+(?:night|mixer)|speed\s+dating|"
+    r"launch\s+part(?:y|ies)|after[\s-]?part(?:y|ies)|"
+    r"new\s+year'?s?\s+eve|nye\s+part(?:y|ies)|"
+    r"rooftop\s+part(?:y|ies)|warehouse\s+part(?:y|ies)|"
+    r"cocktail\s+(?:hour|night|class)|wine\s+tasting|beer\s+(?:tasting|festival)|"
+    r"tap\s?takeover|pub\s+quiz)\b", re.I)
+_PROMOTABLE_TO_PARTY = {"community", "food", "other"}
+
+
+# KIDS. Measured 2026-07-27: exactly ONE 'kids' event existed across six major
+# metros, because only Ticketmaster's rare "family" segment mapped to it - while
+# storytimes, family days and children's workshops sat in community/learning.
+# Promoted out of generic buckets so the Kids filter reflects what is actually
+# happening for families.
+_KIDS_RX = re.compile(
+    r"\b(story\s?time|family\s+(?:day|fun|friendly|workshop|concert)|"
+    r"kids?\s+(?:club|craft|workshop|class|hour|day|camp|activit)|"
+    r"children'?s?\s+(?:workshop|hour|program|craft|story|activit)|"
+    r"toddler|preschool|pre[\s-]?k\b|baby\s+(?:time|rhyme|song)|rhyme\s?time|"
+    r"puppet\s+show|petting\s+zoo|face\s+painting|egg\s+hunt|"
+    r"lego\s+(?:club|build)|youth\s+(?:program|workshop|club))\b", re.I)
+_PROMOTABLE_TO_KIDS = {"community", "learning", "arts", "outdoors", "other"}
+
+
 def map_category(rec: Dict[str, Any]) -> str:
     """Map the captured category to a Mapsee frontend category KEY (site/js/app.js).
     Accepts a Ticketmaster segment / schema.org @type, OR an already-valid Mapsee
@@ -108,6 +143,10 @@ def map_category(rec: Dict[str, Any]) -> str:
             return "volunteer"
     if key in _PROMOTABLE_TO_THEATER and _THEATER_RX.search(rec.get("name") or ""):
         return "theater"           # comedy/standup/film at a music venue -> stage layer
+    if key in _PROMOTABLE_TO_KIDS and _KIDS_RX.search(rec.get("name") or ""):
+        return "kids"              # storytime/family day hiding in community/learning
+    if key in _PROMOTABLE_TO_PARTY and _PARTY_RX.search(rec.get("name") or ""):
+        return "party"             # crawls/happy hours/karaoke -> the nightlife layer
     return key
 
 
