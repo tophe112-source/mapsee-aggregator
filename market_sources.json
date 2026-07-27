@@ -391,5 +391,198 @@
         "season_end": "2026-10-31"
       }
     ]
+  },
+  {
+    "name": "Maryland Farmers Markets",
+    "type": "socrata",
+    "timezone": "America/New_York",
+    "url": "https://opendata.maryland.gov/resource/fpk6-yugb.json",
+    "limit": 300,
+    "horizon_days": 42,
+    "url_home": "https://marylandsbest.maryland.gov/farmers-markets/",
+    "map": {
+      "name": "market_name",
+      "lat": "latitude",
+      "lon": "longitude",
+      "days": "market_day",
+      "hours": "market_hours",
+      "address": "full_market_address"
+    }
+  },
+  {
+    "name": "San Mateo County Farmers Markets",
+    "type": "socrata",
+    "timezone": "America/Los_Angeles",
+    "url": "https://datahub.smcgov.org/resource/ehqe-kh4j.json?%24select=market_name%2Copen_days_1%2Copen_hours_1%2Clocation_1_address%2Clocation_1_city%2Clocation_1.latitude+as+lat%2Clocation_1.longitude+as+lon",
+    "limit": 100,
+    "horizon_days": 42,
+    "url_home": "https://datahub.smcgov.org/Community/Certified-Farmers-Markets/ehqe-kh4j",
+    "map": {
+      "name": "market_name",
+      "lat": "lat",
+      "lon": "lon",
+      "days": "open_days_1",
+      "hours": "open_hours_1",
+      "address": "location_1_address"
+    }
+  },
+  {
+    "name": "Montgomery County MD Farmers Markets",
+    "type": "socrata",
+    "timezone": "America/New_York",
+    "url": "https://data.montgomerycountymd.gov/resource/5bba-wcx9.json?%24select=market_name%2Cdays%2Ctimes_open_season_1%2Cmarket_physical_address%2Clocation.latitude+as+lat%2Clocation.longitude+as+lon",
+    "limit": 100,
+    "horizon_days": 42,
+    "url_home": "https://www.montgomerycountymd.gov/agservices/farmersmarkets.html",
+    "map": {
+      "name": "market_name",
+      "lat": "lat",
+      "lon": "lon",
+      "days": "days",
+      "hours": "times_open_season_1",
+      "address": "market_physical_address"
+    }
+  },
+  {
+    "name": "Los Angeles Farmers Markets",
+    "type": "inline",
+    "city": "Los Angeles, CA",
+    "horizon_days": 42,
+    "markets": [
+      {
+        "name": "Santa Monica Farmers Market (Wednesday Downtown)",
+        "address": "155-199 Arizona Ave, Santa Monica, CA 90401",
+        "days": "Wednesday",
+        "hours": "8 a.m. - 1 p.m.",
+        "lat": 34.01655,
+        "lon": -118.498
+      },
+      {
+        "name": "Santa Monica Farmers Market (Saturday Downtown)",
+        "address": "155-199 Arizona Ave, Santa Monica, CA 90401",
+        "days": "Saturday",
+        "hours": "8 a.m. - 1 p.m.",
+        "lat": 34.0167,
+        "lon": -118.4976
+      },
+      {
+        "name": "Santa Monica Farmers Market (Pico)",
+        "address": "2200 Virginia Ave, Santa Monica, CA 90404",
+        "days": "Saturday",
+        "hours": "8 a.m. - 1 p.m.",
+        "lat": 34.02124,
+        "lon": -118.46813
+      },
+      {
+        "name": "Santa Monica Farmers Market (Main Street)",
+        "address": "2640 Main St, Santa Monica, CA 90405",
+        "days": "Sunday",
+        "hours": "8:30 a.m. - 1:30 p.m.",
+        "lat": 34.00185,
+        "lon": -118.4837
+      },
+      {
+        "name": "Hollywood Farmers Market",
+        "address": "1600 Ivar Ave, Los Angeles, CA 90028",
+        "days": "Sunday",
+        "hours": "8 a.m. - 1 p.m.",
+        "lat": 34.09974,
+        "lon": -118.3283
+      },
+      {
+        "name": "Smorgasburg LA",
+        "address": "777 S Alameda St, Los Angeles, CA 90021",
+        "days": "Sunday",
+        "hours": "10 a.m. - 4 p.m.",
+        "lat": 34.03472,
+        "lon": -118.24181
+      },
+      {
+        "name": "Melrose Trading Post",
+        "address": "7850 Melrose Ave, Los Angeles, CA 90046",
+        "days": "Sunday",
+        "hours": "10 a.m. - 5 p.m.",
+        "lat": 34.08372,
+        "lon": -118.36096
+      },
+      {
+        "name": "Pasadena Certified Farmers Market (Victory Park)",
+        "address": "2900 N Sierra Madre Blvd, Pasadena, CA 91107",
+        "days": "Saturday",
+        "hours": "8:30 a.m. - 12:30 p.m.",
+        "lat": 34.1617,
+        "lon": -118.0946
+      },
+      {
+        "name": "Studio City Farmers Market",
+        "address": "Ventura Pl, Studio City, CA 91604",
+        "days": "Sunday",
+        "hours": "8 a.m. - 1 p.m.",
+        "lat": 34.14443,
+        "lon": -118.39436
+      },
+      {
+        "name": "Mar Vista Farmers Market",
+        "address": "3826 Grand View Blvd, Los Angeles, CA 90066",
+        "days": "Sunday",
+        "hours": "9 a.m. - 2 p.m.",
+        "lat": 34.00444,
+        "lon": -118.43057
+      },
+      {
+        "name": "Culver City Farmers Market",
+        "address": "Main St at Culver Blvd, Culver City, CA 90232",
+        "days": "Tuesday",
+        "hours": "2 p.m. - 7 p.m.",
+        "lat": 34.0246,
+        "lon": -118.3947
+      },
+      {
+        "name": "Beverly Hills Farmers Market",
+        "address": "9300 Civic Center Dr, Beverly Hills, CA 90210",
+        "days": "Sunday",
+        "hours": "8 a.m. - 1 p.m.",
+        "lat": 34.07628,
+        "lon": -118.39614
+      },
+      {
+        "name": "Atwater Village Farmers Market",
+        "address": "3528 Larga Ave, Los Angeles, CA 90039",
+        "days": "Sunday",
+        "hours": "9 a.m. - 2 p.m.",
+        "lat": 34.11731,
+        "lon": -118.25954
+      },
+      {
+        "name": "Echo Park Farmers Market",
+        "address": "1146 Logan St, Los Angeles, CA 90026",
+        "days": "Friday",
+        "hours": "3 p.m. - 7:30 p.m."
+      },
+      {
+        "name": "Silver Lake Farmers Market (Saturday)",
+        "address": "3700 Sunset Blvd, Los Angeles, CA 90026",
+        "days": "Saturday",
+        "hours": "8 a.m. - 1:30 p.m."
+      },
+      {
+        "name": "Silver Lake Farmers Market (Tuesday)",
+        "address": "3700 Sunset Blvd, Los Angeles, CA 90026",
+        "days": "Tuesday",
+        "hours": "1:30 p.m. - 7 p.m."
+      },
+      {
+        "name": "Pasadena Certified Farmers Market (Villa Parke)",
+        "address": "363 E Villa St, Pasadena, CA 91101",
+        "days": "Tuesday",
+        "hours": "8:30 a.m. - 12:30 p.m."
+      },
+      {
+        "name": "Melrose Place Farmers Market",
+        "address": "8400 Melrose Ave, Los Angeles, CA 90069",
+        "days": "Sunday",
+        "hours": "8 a.m. - 2 p.m."
+      }
+    ]
   }
 ]
