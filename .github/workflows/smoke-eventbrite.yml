@@ -1,0 +1,40 @@
+name: Smoke test - Eventbrite API
+
+# Manual-only: confirms EVENTBRITE_API_TOKEN authenticates and the adapter
+# imports events, using a single metro / single page so it finishes in ~1 min.
+on:
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      EVENTBRITE_API_TOKEN: ${{ secrets.EVENTBRITE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Import one metro via the Eventbrite API
+        run: |
+          python - <<'PY'
+          import json
+          json.dump({"include_my_organizations": True, "pages": 1,
+                     "metros": [{"slug": "wa--seattle", "name": "Seattle"}]},
+                    open("eb_smoke.json", "w"))
+          PY
+          python mapsee_ingest_eventbrite.py --config eb_smoke.json --store eb_smoke_store.json
+          python - <<'PY'
+          import json, os
+          if not os.path.exists("eb_smoke_store.json"):
+              print("RESULT: no store written - adapter imported nothing"); raise SystemExit(0)
+          d = json.load(open("eb_smoke_store.json", encoding="utf-8"))
+          evs = d["events"] if isinstance(d, dict) and "events" in d else list(d.values())
+          print(f"RESULT: {len(evs)} events imported")
+          for e in evs[:5]:
+              if isinstance(e, dict):
+                  print("   -", str(e.get("name"))[:60], "|", str(e.get("start_local"))[:16])
+          PY
