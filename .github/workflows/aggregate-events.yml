@@ -15,7 +15,11 @@ name: Aggregate public events
 #   • feeds — ICS + open-data + venue/GraphQL calendars. These carry no coords,
 #     so each venue is geocoded via Photon (~1.1s); isolated with its own cache
 #     so a slow feed can't drag the TM sweep and the cache actually persists.
-#   • extra_sources — SeatGeek/Meetup/DICE/AXS metro sweep (skipped whole when
+#   • meetup — ONE Meetup sweep (US then international). Meetup shares no key
+#     with Ticketmaster, so it runs parallel; it used to run in TWO places
+#     (here for the US, a separate job for international), which was both
+#     confusing and what pushed extra_sources past its timeout.
+#   • extra_sources — SeatGeek/DICE/AXS metro sweep (skipped whole when
 #     none of those keys are set) + Eventbrite + NPS/Localist/Sports.
 #
 # Minutes are billed per job-minute, so fewer jobs + one daily run + no key
@@ -128,14 +132,14 @@ jobs:
             echo "no international events ingested — nothing to sync"
           fi
 
-  meetup_global:
-    name: Meetup sweep (all international metros, parallel)
+  meetup:
+    name: Meetup sweep (US + international metros, parallel)
     runs-on: ubuntu-latest
     # Separate job on purpose: Meetup does not share Ticketmaster's rate-limited
     # key, so sweeping it in parallel roughly halves international wall clock and
     # lets metros_global.json keep growing.
     if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
-    timeout-minutes: 240
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -154,7 +158,31 @@ jobs:
         run: |
           TOK="$(python meetup_token.py)"
           if [ -n "$TOK" ]; then echo "::add-mask::$TOK"; echo "MEETUP_OAUTH_TOKEN=$TOK" >> "$GITHUB_ENV"; echo "meetup: token minted OK"; else echo "meetup: NO token (running unauthenticated)"; fi
-      - name: Sweep Meetup across every metro in metros_global.json
+      - name: Sweep Meetup across the US metros
+        run: |
+          set +e
+          METROS=()
+          while IFS= read -r _L; do METROS+=("$_L"); done < <(sed -E 's/#.*//; s/[[:space:]]//g' metros_us.txt | grep -E '^-?[0-9.]+,-?[0-9.]+$')
+          echo "US metros loaded: ${#METROS[@]}"
+          for LL in "${METROS[@]}"; do
+            R=25; case "$LL" in "38.9072,-77.0369"|"47.6062,-122.3321") R=100;; esac
+            python mapsee_ingest_meetup.py --latlong "$LL" --radius "$R" --store meetup_events.json
+          done
+          exit 0
+      - name: Sync the US leg NOW (a later timeout must not discard it)
+        run: |
+          # Hard lesson: extra_sources was cancelled at its timeout mid-loop and
+          # threw away ~42k already-ingested events because the only sync ran at
+          # the very end. Checkpoint between legs so the worst a timeout can cost
+          # is the leg still in flight.
+          ONLY_NEW="--only-new"
+          [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
+          if [ -f meetup_events.json ]; then
+            python mapsee_supabase_sync.py --store meetup_events.json $ONLY_NEW
+          else
+            echo "no US Meetup events yet - nothing to sync"
+          fi
+      - name: Sweep Meetup across the international metros
         run: |
           set +e
           [ -f metros_global.json ] || { echo "no metros_global.json — skipping"; exit 0; }
@@ -296,11 +324,11 @@ jobs:
           fi
 
   extra_sources:
-    name: SeatGeek + Meetup + Eventbrite + NPS + Localist + Sports
+    name: SeatGeek + Eventbrite + NPS + Localist + Sports
     runs-on: ubuntu-latest
     # only on the Mon/Thu cron + manual dispatch — NOT the daily cron (this is the heavy job)
     if: ${{ github.event_name != 'schedule' || github.event.schedule == '40 6 * * 1,4' }}
-    timeout-minutes: 45
+    timeout-minutes: 120
     # same per-run geocode cap (TheSportsDB venue lookups) so this job also finishes
     # and persists its cache instead of timing out mid-backlog
     env:
@@ -322,21 +350,12 @@ jobs:
             ics_feed_cache.json
           key: geocode-cache-extra-${{ github.run_id }}
           restore-keys: geocode-cache-
-      - name: Mint fresh Meetup token (skips if JWT secrets unset — tokens expire hourly)
-        env:
-          MEETUP_CLIENT_KEY: ${{ secrets.MEETUP_CLIENT_KEY }}
-          MEETUP_MEMBER_ID: ${{ secrets.MEETUP_MEMBER_ID }}
-          MEETUP_SIGNING_KEY_ID: ${{ secrets.MEETUP_SIGNING_KEY_ID }}
-          MEETUP_PRIVATE_KEY: ${{ secrets.MEETUP_PRIVATE_KEY }}
-        run: |
-          TOK="$(python meetup_token.py)"
-          if [ -n "$TOK" ]; then echo "::add-mask::$TOK"; echo "MEETUP_OAUTH_TOKEN=$TOK" >> "$GITHUB_ENV"; fi
-      - name: SeatGeek + Meetup + DICE + AXS metro sweep (skipped wholesale when no keys are set)
+      - name: SeatGeek + DICE + AXS metro sweep (skipped wholesale when no keys are set)
         run: |
           set +e
           # every adapter here needs a key/token — if NONE are present the 50-metro
           # loop is pure no-op churn (200 python starts), so skip it entirely
-          if [ -z "${SEATGEEK_CLIENT_ID}${MEETUP_OAUTH_TOKEN}${DICE_API_KEY}${AXS_API_KEY}" ]; then
+          if [ -z "${SEATGEEK_CLIENT_ID}${DICE_API_KEY}${AXS_API_KEY}" ]; then
             echo "no SeatGeek/Meetup/DICE/AXS keys set — skipping the metro sweep"; exit 0
           fi
           METROS=()
@@ -345,7 +364,6 @@ jobs:
           for LL in "${METROS[@]}"; do
             R=25; case "$LL" in "38.9072,-77.0369"|"47.6062,-122.3321") R=100;; esac   # DC + Seattle — wide metros
             [ -n "$SEATGEEK_CLIENT_ID" ] && python mapsee_ingest_seatgeek.py --latlong "$LL" --radius "$R" --within-days 90 --store extra_events.json
-            [ -n "$MEETUP_OAUTH_TOKEN" ] && python mapsee_ingest_meetup.py  --latlong "$LL" --radius "$R" --store extra_events.json
             [ -n "$DICE_API_KEY" ]       && python mapsee_ingest_dice.py    --latlong "$LL" --radius "$R" --within-days 90  --store extra_events.json
             [ -n "$AXS_API_KEY" ]        && python mapsee_ingest_axs.py     --latlong "$LL" --radius "$R" --within-days 120 --store extra_events.json
           done

@@ -399,6 +399,18 @@ def _locate(name, suffix):
     return metro or "?", country or "?"
 
 
+_ISO_COUNTRY = {
+    "US": "United States", "GB": "United Kingdom", "CA": "Canada", "AU": "Australia",
+    "NZ": "New Zealand", "IE": "Ireland", "FR": "France", "DE": "Germany",
+    "NL": "Netherlands", "BE": "Belgium", "CH": "Switzerland", "ES": "Spain",
+    "IT": "Italy", "SE": "Sweden", "NO": "Norway", "DK": "Denmark", "FI": "Finland",
+    "AT": "Austria", "PL": "Poland", "PT": "Portugal", "CZ": "Czechia",
+    "MX": "Mexico", "BR": "Brazil", "IN": "India", "JP": "Japan", "KR": "South Korea",
+    "SG": "Singapore", "HK": "Hong Kong", "AE": "United Arab Emirates",
+    "ZA": "South Africa",
+}
+
+
 def _coverage_rows():
     """One row per configured source: (type, name, metro, country, category)."""
     rows = []
@@ -422,6 +434,17 @@ def _coverage_rows():
                         metro, country = canon, "United States"
                         break
             cat = e.get("category") or ("(per-event)" if t == "localist" else "?")
+            # ODS entries carry an ISO `countries` array instead of a
+            # geocode_suffix, so _locate() cannot see them and they landed under
+            # "?" - which made a covered country still read as thin and sent the
+            # next curation run back over ground it had already won (Belgium
+            # showed 0 with 1363 events configured; Brisbane 11 datasets showed
+            # as nothing). Emit one row per declared country instead.
+            iso = [c for c in (e.get("countries") or []) if c]
+            if iso:
+                for code in iso:
+                    rows.append((t, name, metro, _ISO_COUNTRY.get(code.upper(), code.upper()), cat))
+                continue
             rows.append((t, name, metro, country, cat))
     return rows
 

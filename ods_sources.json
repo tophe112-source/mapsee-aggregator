@@ -93,7 +93,10 @@
         "image": "imagen_evento_ampliada",
         "image_alt": "imagen_evento"
       },
-      "url": "https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/eventos-de-la-agenda-cultural-categorizados-y-geolocalizados/records"
+      "url": "https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/eventos-de-la-agenda-cultural-categorizados-y-geolocalizados/records",
+      "countries": [
+        "ES"
+      ]
     },
     {
       "name": "Bologna Agenda Cultura (Bologna, Italy)",
@@ -112,7 +115,10 @@
         "geo": "coordinate",
         "url": "url"
       },
-      "url": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/eventi-bologna-agenda-cultura/records"
+      "url": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/eventi-bologna-agenda-cultura/records",
+      "countries": [
+        "IT"
+      ]
     },
     {
       "name": "Basel-Stadt Veranstaltungen (Basel, Switzerland)",
@@ -131,7 +137,10 @@
         "city": "gemeinde_name",
         "geo": "geo_point_2d"
       },
-      "url": "https://data.bs.ch/api/explore/v2.1/catalog/datasets/100074/records"
+      "url": "https://data.bs.ch/api/explore/v2.1/catalog/datasets/100074/records",
+      "countries": [
+        "CH"
+      ]
     },
     {
       "name": "Brisbane City Council Library Events (Brisbane)",
@@ -152,7 +161,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/library-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/library-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Brisbane Active Parks Events (Brisbane)",
@@ -173,7 +185,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/active-parks-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/active-parks-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Brisbane GOLD Program Events (Brisbane)",
@@ -194,7 +209,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/gold-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/gold-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Brisbane Creative Events (Brisbane)",
@@ -215,7 +233,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/creative-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/creative-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Brisbane City Council Music Events (Brisbane)",
@@ -236,7 +257,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/music-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/music-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Brisbane Infants and Toddlers Events (Brisbane)",
@@ -257,7 +281,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/infants-and-toddlers-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/infants-and-toddlers-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Museum of Brisbane Events (Brisbane)",
@@ -278,7 +305,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/mob-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/mob-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Brisbane Botanic Gardens Events (Brisbane)",
@@ -299,7 +329,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/brisbane-botanic-gardens-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/brisbane-botanic-gardens-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Brisbane Chill Out Youth Events (Brisbane)",
@@ -320,7 +353,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/chill-out-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/chill-out-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Sir Thomas Brisbane Planetarium Events (Brisbane)",
@@ -341,7 +377,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/sir-thomas-brisbane-planetarium-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/sir-thomas-brisbane-planetarium-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Brisbane Markets Events (Brisbane)",
@@ -362,7 +401,10 @@
         "url": "web_link",
         "image": "eventimage"
       },
-      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/markets-events/records"
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/markets-events/records",
+      "countries": [
+        "AU"
+      ]
     },
     {
       "name": "Evenements en Wallonie (iMio, Belgium)",
@@ -385,7 +427,10 @@
         "geo": "coordinates",
         "url": "event_url"
       },
-      "url": "https://digitalwallonia.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-en-wallonie/records"
+      "url": "https://digitalwallonia.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-en-wallonie/records",
+      "countries": [
+        "BE"
+      ]
     }
   ]
 }
