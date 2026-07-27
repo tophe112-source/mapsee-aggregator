@@ -74,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     # runs on the DAILY cron + manual (unless extra_only); skipped on the Mon/Thu extra-sources cron
     if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
-    timeout-minutes: 120             # US + global are SERIAL on the shared ~2 req/s key
+    timeout-minutes: 300             # US + international TM are SERIAL on the shared ~2 req/s key
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -84,61 +84,12 @@ jobs:
           cache-dependency-path: requirements.txt
       - name: Install deps
         run: pip install -r requirements.txt
-      - name: Ingest top ~50 US metros (Ticketmaster, serial — shared key is ~2 req/s)
+      - name: Ingest US metros from metros_us.txt (Ticketmaster, serial — shared key is ~2 req/s)
         run: |
           set +e                       # one metro failing must not abort the sweep
-          METROS=(
-            "40.7128,-74.0060"    # New York
-            "34.0522,-118.2437"   # Los Angeles
-            "41.8781,-87.6298"    # Chicago
-            "32.7767,-96.7970"    # Dallas
-            "29.7604,-95.3698"    # Houston
-            "38.9072,-77.0369"    # Washington DC
-            "39.9526,-75.1652"    # Philadelphia
-            "33.7490,-84.3880"    # Atlanta
-            "42.3601,-71.0589"    # Boston
-            "37.7749,-122.4194"   # San Francisco
-            "33.4484,-112.0740"   # Phoenix
-            "47.6062,-122.3321"   # Seattle
-            "42.3314,-83.0458"    # Detroit
-            "44.9778,-93.2650"    # Minneapolis
-            "32.7157,-117.1611"   # San Diego
-            "39.7392,-104.9903"   # Denver
-            "25.7617,-80.1918"    # Miami
-            "27.9506,-82.4572"    # Tampa
-            "28.5383,-81.3792"    # Orlando
-            "38.6270,-90.1994"    # St. Louis
-            "40.4406,-79.9959"    # Pittsburgh
-            "35.2271,-80.8431"    # Charlotte
-            "45.5152,-122.6784"   # Portland OR
-            "38.5816,-121.4944"   # Sacramento
-            "36.1699,-115.1398"   # Las Vegas
-            "39.1031,-84.5120"    # Cincinnati
-            "39.0997,-94.5786"    # Kansas City
-            "39.9612,-82.9988"    # Columbus
-            "41.4993,-81.6944"    # Cleveland
-            "39.7684,-86.1581"    # Indianapolis
-            "36.1627,-86.7816"    # Nashville
-            "30.2672,-97.7431"    # Austin
-            "29.4241,-98.4936"    # San Antonio
-            "39.2904,-76.6122"    # Baltimore
-            "43.0389,-87.9065"    # Milwaukee
-            "40.7608,-111.8910"   # Salt Lake City
-            "29.9511,-90.0715"    # New Orleans
-            "35.7796,-78.6382"    # Raleigh
-            "42.8864,-78.8784"    # Buffalo
-            "38.2527,-85.7585"    # Louisville
-            "35.1495,-90.0490"    # Memphis
-            "35.4676,-97.5164"    # Oklahoma City
-            "30.3322,-81.6557"    # Jacksonville
-            "41.7658,-72.6734"    # Hartford
-            "37.5407,-77.4360"    # Richmond
-            "42.9634,-85.6681"    # Grand Rapids
-            "35.0844,-106.6504"   # Albuquerque
-            "41.2565,-95.9345"    # Omaha
-            "21.3069,-157.8583"   # Honolulu
-            "64.8378,-147.7164"   # Fairbanks
-          )
+          METROS=()
+          while IFS= read -r _L; do METROS+=("$_L"); done < <(sed -E 's/#.*//; s/[[:space:]]//g' metros_us.txt | grep -E '^-?[0-9.]+,-?[0-9.]+$')
+          echo "US metros loaded: ${#METROS[@]}"
           for LL in "${METROS[@]}"; do
             echo "== metro $LL =="
             R=25; case "$LL" in "38.9072,-77.0369"|"47.6062,-122.3321") R=100;; esac   # DC + Seattle — wide metros
@@ -154,20 +105,14 @@ jobs:
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
           python mapsee_supabase_sync.py --store mapsee_events.json $ONLY_NEW
-      - name: Mint fresh Meetup token (optional; global sweep works unauthenticated)
-        env:
-          MEETUP_CLIENT_KEY: ${{ secrets.MEETUP_CLIENT_KEY }}
-          MEETUP_MEMBER_ID: ${{ secrets.MEETUP_MEMBER_ID }}
-          MEETUP_SIGNING_KEY_ID: ${{ secrets.MEETUP_SIGNING_KEY_ID }}
-          MEETUP_PRIVATE_KEY: ${{ secrets.MEETUP_PRIVATE_KEY }}
-        run: |
-          TOK="$(python meetup_token.py)"
-          if [ -n "$TOK" ]; then echo "::add-mask::$TOK"; echo "MEETUP_OAUTH_TOKEN=$TOK" >> "$GITHUB_ENV"; fi
-      - name: Sweep Ticketmaster + Meetup across the top-10-country metros (ex-US)
+      - name: Sweep Ticketmaster across the international metros (ex-US)
         run: |
           set +e
           [ -f metros_global.json ] || { echo "no metros_global.json — skipping international"; exit 0; }
-          python mapsee_sweep_global.py --config metros_global.json --store global_events.json --within-days 90
+          # Ticketmaster ONLY: its key is ~2 req/s so this stays serial in one
+          # job. Meetup shares no key, so it sweeps in parallel (meetup_global) -
+          # that is what lets metros_global.json keep growing.
+          python mapsee_sweep_global.py --config metros_global.json --store global_events.json --within-days 90 --sources ticketmaster
           python - <<'PY'
           import json
           try: print("global events in store:", len(json.load(open("global_events.json"))["events"]))
@@ -181,6 +126,48 @@ jobs:
             python mapsee_supabase_sync.py --store global_events.json $ONLY_NEW
           else
             echo "no international events ingested — nothing to sync"
+          fi
+
+  meetup_global:
+    name: Meetup sweep (all international metros, parallel)
+    runs-on: ubuntu-latest
+    # Separate job on purpose: Meetup does not share Ticketmaster's rate-limited
+    # key, so sweeping it in parallel roughly halves international wall clock and
+    # lets metros_global.json keep growing.
+    if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Mint fresh Meetup token (optional; the sweep works unauthenticated)
+        env:
+          MEETUP_CLIENT_KEY: ${{ secrets.MEETUP_CLIENT_KEY }}
+          MEETUP_MEMBER_ID: ${{ secrets.MEETUP_MEMBER_ID }}
+          MEETUP_SIGNING_KEY_ID: ${{ secrets.MEETUP_SIGNING_KEY_ID }}
+          MEETUP_PRIVATE_KEY: ${{ secrets.MEETUP_PRIVATE_KEY }}
+        run: |
+          TOK="$(python meetup_token.py)"
+          if [ -n "$TOK" ]; then echo "::add-mask::$TOK"; echo "MEETUP_OAUTH_TOKEN=$TOK" >> "$GITHUB_ENV"; echo "meetup: token minted OK"; else echo "meetup: NO token (running unauthenticated)"; fi
+      - name: Sweep Meetup across every metro in metros_global.json
+        run: |
+          set +e
+          [ -f metros_global.json ] || { echo "no metros_global.json — skipping"; exit 0; }
+          python mapsee_sweep_global.py --config metros_global.json --store meetup_events.json --within-days 90 --sources meetup
+          exit 0
+      - name: Sync Meetup events to Supabase (events carry coords — no geocoding)
+        run: |
+          ONLY_NEW="--only-new"
+          [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
+          if [ -f meetup_events.json ]; then
+            python mapsee_supabase_sync.py --store meetup_events.json $ONLY_NEW
+          else
+            echo "no Meetup events ingested — nothing to sync"
           fi
 
   feeds:
@@ -352,21 +339,9 @@ jobs:
           if [ -z "${SEATGEEK_CLIENT_ID}${MEETUP_OAUTH_TOKEN}${DICE_API_KEY}${AXS_API_KEY}" ]; then
             echo "no SeatGeek/Meetup/DICE/AXS keys set — skipping the metro sweep"; exit 0
           fi
-          METROS=(
-            "40.7128,-74.0060" "34.0522,-118.2437" "41.8781,-87.6298" "32.7767,-96.7970"
-            "29.7604,-95.3698" "38.9072,-77.0369" "39.9526,-75.1652" "33.7490,-84.3880"
-            "42.3601,-71.0589" "37.7749,-122.4194" "33.4484,-112.0740" "47.6062,-122.3321"
-            "42.3314,-83.0458" "44.9778,-93.2650" "32.7157,-117.1611" "39.7392,-104.9903"
-            "25.7617,-80.1918" "27.9506,-82.4572" "28.5383,-81.3792" "38.6270,-90.1994"
-            "40.4406,-79.9959" "35.2271,-80.8431" "45.5152,-122.6784" "38.5816,-121.4944"
-            "36.1699,-115.1398" "39.1031,-84.5120" "39.0997,-94.5786" "39.9612,-82.9988"
-            "41.4993,-81.6944" "39.7684,-86.1581" "36.1627,-86.7816" "30.2672,-97.7431"
-            "29.4241,-98.4936" "39.2904,-76.6122" "43.0389,-87.9065" "40.7608,-111.8910"
-            "29.9511,-90.0715" "35.7796,-78.6382" "42.8864,-78.8784" "38.2527,-85.7585"
-            "35.1495,-90.0490" "35.4676,-97.5164" "30.3322,-81.6557" "41.7658,-72.6734"
-            "37.5407,-77.4360" "42.9634,-85.6681" "35.0844,-106.6504" "41.2565,-95.9345"
-            "21.3069,-157.8583" "64.8378,-147.7164"
-          )
+          METROS=()
+          while IFS= read -r _L; do METROS+=("$_L"); done < <(sed -E 's/#.*//; s/[[:space:]]//g' metros_us.txt | grep -E '^-?[0-9.]+,-?[0-9.]+$')
+          echo "US metros loaded: ${#METROS[@]}"
           for LL in "${METROS[@]}"; do
             R=25; case "$LL" in "38.9072,-77.0369"|"47.6062,-122.3321") R=100;; esac   # DC + Seattle — wide metros
             [ -n "$SEATGEEK_CLIENT_ID" ] && python mapsee_ingest_seatgeek.py --latlong "$LL" --radius "$R" --within-days 90 --store extra_events.json

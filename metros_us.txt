@@ -1,0 +1,85 @@
+# US metros swept by BOTH the ticketmaster job and the extra_sources
+# (SeatGeek / DICE / AXS / Meetup) job. ONE list, read by both - add a
+# metro here and every US sweep picks it up. Format: lat,lon  # name
+# Blank lines and #-comments are ignored.
+
+40.7128,-74.0060      # New York
+34.0522,-118.2437     # Los Angeles
+41.8781,-87.6298      # Chicago
+32.7767,-96.7970      # Dallas
+29.7604,-95.3698      # Houston
+38.9072,-77.0369      # Washington DC
+39.9526,-75.1652      # Philadelphia
+33.7490,-84.3880      # Atlanta
+42.3601,-71.0589      # Boston
+37.7749,-122.4194     # San Francisco
+33.4484,-112.0740     # Phoenix
+47.6062,-122.3321     # Seattle
+42.3314,-83.0458      # Detroit
+44.9778,-93.2650      # Minneapolis
+32.7157,-117.1611     # San Diego
+39.7392,-104.9903     # Denver
+25.7617,-80.1918      # Miami
+27.9506,-82.4572      # Tampa
+28.5383,-81.3792      # Orlando
+38.6270,-90.1994      # St. Louis
+40.4406,-79.9959      # Pittsburgh
+35.2271,-80.8431      # Charlotte
+45.5152,-122.6784     # Portland OR
+38.5816,-121.4944     # Sacramento
+36.1699,-115.1398     # Las Vegas
+39.1031,-84.5120      # Cincinnati
+39.0997,-94.5786      # Kansas City
+39.9612,-82.9988      # Columbus
+41.4993,-81.6944      # Cleveland
+39.7684,-86.1581      # Indianapolis
+36.1627,-86.7816      # Nashville
+30.2672,-97.7431      # Austin
+29.4241,-98.4936      # San Antonio
+39.2904,-76.6122      # Baltimore
+43.0389,-87.9065      # Milwaukee
+40.7608,-111.8910     # Salt Lake City
+29.9511,-90.0715      # New Orleans
+35.7796,-78.6382      # Raleigh
+42.8864,-78.8784      # Buffalo
+38.2527,-85.7585      # Louisville
+35.1495,-90.0490      # Memphis
+35.4676,-97.5164      # Oklahoma City
+30.3322,-81.6557      # Jacksonville
+41.7658,-72.6734      # Hartford
+37.5407,-77.4360      # Richmond
+42.9634,-85.6681      # Grand Rapids
+35.0844,-106.6504     # Albuquerque
+41.2565,-95.9345      # Omaha
+21.3069,-157.8583     # Honolulu
+64.8378,-147.7164     # Fairbanks
+32.2226,-110.9747     # Tucson
+36.7378,-119.7871     # Fresno
+43.6150,-116.2023     # Boise
+47.6588,-117.4260     # Spokane
+41.5868,-93.6250      # Des Moines
+34.7465,-92.2896      # Little Rock
+33.5186,-86.8104      # Birmingham AL
+35.9606,-83.9207      # Knoxville
+34.8526,-82.3940      # Greenville SC
+32.7765,-79.9311      # Charleston SC
+32.0809,-81.0912      # Savannah
+27.3364,-82.5307      # Sarasota
+39.5296,-119.8138     # Reno
+38.8339,-104.8214     # Colorado Springs
+31.7619,-106.4850     # El Paso
+36.1540,-95.9928      # Tulsa
+37.6872,-97.3301      # Wichita
+43.0731,-89.4012      # Madison
+42.2808,-83.7430      # Ann Arbor
+43.1566,-77.6088      # Rochester NY
+43.0481,-76.1474      # Syracuse
+42.6526,-73.7562      # Albany NY
+41.8240,-71.4128      # Providence
+43.6591,-70.2568      # Portland ME
+44.4759,-73.2121      # Burlington VT
+61.2181,-149.9003     # Anchorage
+40.0150,-105.2705     # Boulder
+35.5951,-82.5515      # Asheville
+35.6870,-105.9378     # Santa Fe
+35.0456,-85.3097      # Chattanooga

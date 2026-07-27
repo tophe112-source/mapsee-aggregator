@@ -1,82 +1,998 @@
 {
-  "_comment": "Top-10-country international sweep for Ticketmaster (official API, countryCode-filtered, events carry coords so NO geocoding needed) + Meetup (global eventSearch on lat/lon). Country picks weigh: (1) legally harvestable data via official APIs/schema.org in that country, (2) virality potential - mobile-first, English or low-localization friction, existing event-app culture, (3) wholesome-community value. US lives in the main metros job; this covers the other 9. Add/trim metros freely; each metro runs TM (with countryCode) + Meetup.",
+  "_comment": "International sweep for Ticketmaster (official API, countryCode-filtered, events carry coords so NO geocoding needed) + Meetup (global eventSearch on lat/lon). Broadened once the aggregator moved to a PUBLIC repo with unlimited Actions minutes: breadth is now limited by API rate limits, not CI cost. Ticketmaster does not serve every country listed here - in those, Meetup still returns events, so the entry is worth keeping. The US is covered by the main metros job and is intentionally NOT repeated here. Add a metro: append {name, latlong, radius} - no code change needed.",
   "countries": [
-    { "code": "GB", "name": "United Kingdom", "metros": [
-      { "name": "London",     "latlong": "51.5074,-0.1278",  "radius": 25 },
-      { "name": "Manchester", "latlong": "53.4808,-2.2426",  "radius": 25 },
-      { "name": "Birmingham", "latlong": "52.4862,-1.8904",  "radius": 25 },
-      { "name": "Glasgow",    "latlong": "55.8642,-4.2518",  "radius": 25 },
-      { "name": "Bristol",    "latlong": "51.4545,-2.5879",  "radius": 25 }
-    ] },
-    { "code": "CA", "name": "Canada", "metros": [
-      { "name": "Toronto",    "latlong": "43.6532,-79.3832", "radius": 25 },
-      { "name": "Montreal",   "latlong": "45.5019,-73.5674", "radius": 25 },
-      { "name": "Vancouver",  "latlong": "49.2827,-123.1207","radius": 25 },
-      { "name": "Calgary",    "latlong": "51.0447,-114.0719","radius": 25 },
-      { "name": "Ottawa",     "latlong": "45.4215,-75.6972", "radius": 25 }
-    ] },
-    { "code": "AU", "name": "Australia", "metros": [
-      { "name": "Sydney",     "latlong": "-33.8688,151.2093","radius": 25 },
-      { "name": "Melbourne",  "latlong": "-37.8136,144.9631","radius": 25 },
-      { "name": "Brisbane",   "latlong": "-27.4698,153.0251","radius": 25 },
-      { "name": "Perth",      "latlong": "-31.9523,115.8613","radius": 25 },
-      { "name": "Adelaide",   "latlong": "-34.9285,138.6007","radius": 25 }
-    ] },
-    { "code": "IE", "name": "Ireland", "metros": [
-      { "name": "Dublin",     "latlong": "53.3498,-6.2603",  "radius": 25 },
-      { "name": "Cork",       "latlong": "51.8985,-8.4756",  "radius": 25 },
-      { "name": "Galway",     "latlong": "53.2707,-9.0568",  "radius": 25 }
-    ] },
-    { "code": "NZ", "name": "New Zealand", "metros": [
-      { "name": "Auckland",   "latlong": "-36.8485,174.7633","radius": 25 },
-      { "name": "Wellington", "latlong": "-41.2865,174.7762","radius": 25 },
-      { "name": "Christchurch","latlong": "-43.5321,172.6362","radius": 25 },
-      { "name": "Hamilton",   "latlong": "-37.7870,175.2793","radius": 25 },
-      { "name": "Tauranga",   "latlong": "-37.6878,176.1651","radius": 25 },
-      { "name": "Dunedin",    "latlong": "-45.8788,170.5028","radius": 25 }
-    ] },
-    { "code": "FR", "name": "France", "metros": [
-      { "name": "Paris",      "latlong": "48.8566,2.3522",   "radius": 25 },
-      { "name": "Lyon",       "latlong": "45.7640,4.8357",   "radius": 25 },
-      { "name": "Marseille",  "latlong": "43.2965,5.3698",   "radius": 25 },
-      { "name": "Toulouse",   "latlong": "43.6047,1.4442",   "radius": 25 },
-      { "name": "Bordeaux",   "latlong": "44.8378,-0.5792",  "radius": 25 },
-      { "name": "Nantes",     "latlong": "47.2184,-1.5536",  "radius": 25 },
-      { "name": "Nice",       "latlong": "43.7102,7.2620",   "radius": 25 },
-      { "name": "Strasbourg", "latlong": "48.5734,7.7521",   "radius": 25 }
-    ] },
-    { "code": "DE", "name": "Germany", "metros": [
-      { "name": "Berlin",     "latlong": "52.5200,13.4050",  "radius": 25 },
-      { "name": "Munich",     "latlong": "48.1351,11.5820",  "radius": 25 },
-      { "name": "Hamburg",    "latlong": "53.5511,9.9937",   "radius": 25 },
-      { "name": "Cologne",    "latlong": "50.9375,6.9603",   "radius": 25 },
-      { "name": "Frankfurt",  "latlong": "50.1109,8.6821",   "radius": 25 }
-    ] },
-    { "code": "NL", "name": "Netherlands", "metros": [
-      { "name": "Amsterdam",  "latlong": "52.3676,4.9041",   "radius": 25 },
-      { "name": "Rotterdam",  "latlong": "51.9244,4.4777",   "radius": 25 },
-      { "name": "Utrecht",    "latlong": "52.0907,5.1214",   "radius": 25 }
-    ] },
-    { "code": "MX", "name": "Mexico", "metros": [
-      { "name": "Mexico City","latlong": "19.4326,-99.1332", "radius": 25 },
-      { "name": "Guadalajara","latlong": "20.6597,-103.3496","radius": 25 },
-      { "name": "Monterrey",  "latlong": "25.6866,-100.3161","radius": 25 }
-    ] },
-    { "code": "IN", "name": "India", "metros": [
-      { "name": "Bengaluru",  "latlong": "12.9716,77.5946",  "radius": 25 },
-      { "name": "Mumbai",     "latlong": "19.0760,72.8777",  "radius": 25 },
-      { "name": "Delhi",      "latlong": "28.6139,77.2090",  "radius": 25 },
-      { "name": "Hyderabad",  "latlong": "17.3850,78.4867",  "radius": 25 },
-      { "name": "Pune",       "latlong": "18.5204,73.8567",  "radius": 25 }
-    ] },
-    { "code": "JP", "name": "Japan", "metros": [
-      { "name": "Tokyo",      "latlong": "35.6762,139.6503", "radius": 25 },
-      { "name": "Osaka",      "latlong": "34.6937,135.5023", "radius": 25 },
-      { "name": "Kyoto",      "latlong": "35.0116,135.7681", "radius": 25 },
-      { "name": "Yokohama",   "latlong": "35.4437,139.6380", "radius": 25 },
-      { "name": "Nagoya",     "latlong": "35.1815,136.9066", "radius": 25 },
-      { "name": "Fukuoka",    "latlong": "33.5904,130.4017", "radius": 25 },
-      { "name": "Sapporo",    "latlong": "43.0618,141.3545", "radius": 25 }
-    ] }
+    {
+      "code": "GB",
+      "name": "United Kingdom",
+      "metros": [
+        {
+          "name": "London",
+          "latlong": "51.5074,-0.1278",
+          "radius": 25
+        },
+        {
+          "name": "Manchester",
+          "latlong": "53.4808,-2.2426",
+          "radius": 25
+        },
+        {
+          "name": "Birmingham",
+          "latlong": "52.4862,-1.8904",
+          "radius": 25
+        },
+        {
+          "name": "Glasgow",
+          "latlong": "55.8642,-4.2518",
+          "radius": 25
+        },
+        {
+          "name": "Bristol",
+          "latlong": "51.4545,-2.5879",
+          "radius": 25
+        },
+        {
+          "name": "Leeds",
+          "latlong": "53.8008,-1.5491",
+          "radius": 25
+        },
+        {
+          "name": "Liverpool",
+          "latlong": "53.4084,-2.9916",
+          "radius": 25
+        },
+        {
+          "name": "Edinburgh",
+          "latlong": "55.9533,-3.1883",
+          "radius": 25
+        },
+        {
+          "name": "Sheffield",
+          "latlong": "53.3811,-1.4701",
+          "radius": 25
+        },
+        {
+          "name": "Newcastle upon Tyne",
+          "latlong": "54.9783,-1.6178",
+          "radius": 25
+        },
+        {
+          "name": "Cardiff",
+          "latlong": "51.4816,-3.1791",
+          "radius": 25
+        },
+        {
+          "name": "Belfast",
+          "latlong": "54.5973,-5.9301",
+          "radius": 25
+        },
+        {
+          "name": "Nottingham",
+          "latlong": "52.9548,-1.1581",
+          "radius": 25
+        },
+        {
+          "name": "Brighton",
+          "latlong": "50.8225,-0.1372",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "CA",
+      "name": "Canada",
+      "metros": [
+        {
+          "name": "Toronto",
+          "latlong": "43.6532,-79.3832",
+          "radius": 25
+        },
+        {
+          "name": "Montreal",
+          "latlong": "45.5019,-73.5674",
+          "radius": 25
+        },
+        {
+          "name": "Vancouver",
+          "latlong": "49.2827,-123.1207",
+          "radius": 25
+        },
+        {
+          "name": "Calgary",
+          "latlong": "51.0447,-114.0719",
+          "radius": 25
+        },
+        {
+          "name": "Ottawa",
+          "latlong": "45.4215,-75.6972",
+          "radius": 25
+        },
+        {
+          "name": "Edmonton",
+          "latlong": "53.5461,-113.4938",
+          "radius": 25
+        },
+        {
+          "name": "Winnipeg",
+          "latlong": "49.8951,-97.1384",
+          "radius": 25
+        },
+        {
+          "name": "Quebec City",
+          "latlong": "46.8139,-71.208",
+          "radius": 25
+        },
+        {
+          "name": "Hamilton",
+          "latlong": "43.2557,-79.8711",
+          "radius": 25
+        },
+        {
+          "name": "Halifax",
+          "latlong": "44.6488,-63.5752",
+          "radius": 25
+        },
+        {
+          "name": "Victoria",
+          "latlong": "48.4284,-123.3656",
+          "radius": 25
+        },
+        {
+          "name": "Kitchener",
+          "latlong": "43.4516,-80.4925",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "AU",
+      "name": "Australia",
+      "metros": [
+        {
+          "name": "Sydney",
+          "latlong": "-33.8688,151.2093",
+          "radius": 25
+        },
+        {
+          "name": "Melbourne",
+          "latlong": "-37.8136,144.9631",
+          "radius": 25
+        },
+        {
+          "name": "Brisbane",
+          "latlong": "-27.4698,153.0251",
+          "radius": 25
+        },
+        {
+          "name": "Perth",
+          "latlong": "-31.9523,115.8613",
+          "radius": 25
+        },
+        {
+          "name": "Adelaide",
+          "latlong": "-34.9285,138.6007",
+          "radius": 25
+        },
+        {
+          "name": "Canberra",
+          "latlong": "-35.2809,149.13",
+          "radius": 25
+        },
+        {
+          "name": "Gold Coast",
+          "latlong": "-28.0167,153.4",
+          "radius": 25
+        },
+        {
+          "name": "Newcastle",
+          "latlong": "-32.9283,151.7817",
+          "radius": 25
+        },
+        {
+          "name": "Hobart",
+          "latlong": "-42.8821,147.3272",
+          "radius": 25
+        },
+        {
+          "name": "Darwin",
+          "latlong": "-12.4634,130.8456",
+          "radius": 25
+        },
+        {
+          "name": "Wollongong",
+          "latlong": "-34.4278,150.8931",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "IE",
+      "name": "Ireland",
+      "metros": [
+        {
+          "name": "Dublin",
+          "latlong": "53.3498,-6.2603",
+          "radius": 25
+        },
+        {
+          "name": "Cork",
+          "latlong": "51.8985,-8.4756",
+          "radius": 25
+        },
+        {
+          "name": "Galway",
+          "latlong": "53.2707,-9.0568",
+          "radius": 25
+        },
+        {
+          "name": "Limerick",
+          "latlong": "52.6638,-8.6267",
+          "radius": 25
+        },
+        {
+          "name": "Waterford",
+          "latlong": "52.2593,-7.1101",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "NZ",
+      "name": "New Zealand",
+      "metros": [
+        {
+          "name": "Auckland",
+          "latlong": "-36.8485,174.7633",
+          "radius": 25
+        },
+        {
+          "name": "Wellington",
+          "latlong": "-41.2865,174.7762",
+          "radius": 25
+        },
+        {
+          "name": "Christchurch",
+          "latlong": "-43.5321,172.6362",
+          "radius": 25
+        },
+        {
+          "name": "Hamilton",
+          "latlong": "-37.7870,175.2793",
+          "radius": 25
+        },
+        {
+          "name": "Tauranga",
+          "latlong": "-37.6878,176.1651",
+          "radius": 25
+        },
+        {
+          "name": "Dunedin",
+          "latlong": "-45.8788,170.5028",
+          "radius": 25
+        },
+        {
+          "name": "Napier",
+          "latlong": "-39.4928,176.912",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "FR",
+      "name": "France",
+      "metros": [
+        {
+          "name": "Paris",
+          "latlong": "48.8566,2.3522",
+          "radius": 25
+        },
+        {
+          "name": "Lyon",
+          "latlong": "45.7640,4.8357",
+          "radius": 25
+        },
+        {
+          "name": "Marseille",
+          "latlong": "43.2965,5.3698",
+          "radius": 25
+        },
+        {
+          "name": "Toulouse",
+          "latlong": "43.6047,1.4442",
+          "radius": 25
+        },
+        {
+          "name": "Bordeaux",
+          "latlong": "44.8378,-0.5792",
+          "radius": 25
+        },
+        {
+          "name": "Nantes",
+          "latlong": "47.2184,-1.5536",
+          "radius": 25
+        },
+        {
+          "name": "Nice",
+          "latlong": "43.7102,7.2620",
+          "radius": 25
+        },
+        {
+          "name": "Strasbourg",
+          "latlong": "48.5734,7.7521",
+          "radius": 25
+        },
+        {
+          "name": "Lille",
+          "latlong": "50.6292,3.0573",
+          "radius": 25
+        },
+        {
+          "name": "Rennes",
+          "latlong": "48.1173,-1.6778",
+          "radius": 25
+        },
+        {
+          "name": "Montpellier",
+          "latlong": "43.6108,3.8767",
+          "radius": 25
+        },
+        {
+          "name": "Grenoble",
+          "latlong": "45.1885,5.7245",
+          "radius": 25
+        },
+        {
+          "name": "Nancy",
+          "latlong": "48.6921,6.1844",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "DE",
+      "name": "Germany",
+      "metros": [
+        {
+          "name": "Berlin",
+          "latlong": "52.5200,13.4050",
+          "radius": 25
+        },
+        {
+          "name": "Munich",
+          "latlong": "48.1351,11.5820",
+          "radius": 25
+        },
+        {
+          "name": "Hamburg",
+          "latlong": "53.5511,9.9937",
+          "radius": 25
+        },
+        {
+          "name": "Cologne",
+          "latlong": "50.9375,6.9603",
+          "radius": 25
+        },
+        {
+          "name": "Frankfurt",
+          "latlong": "50.1109,8.6821",
+          "radius": 25
+        },
+        {
+          "name": "Leipzig",
+          "latlong": "51.3397,12.3731",
+          "radius": 25
+        },
+        {
+          "name": "Stuttgart",
+          "latlong": "48.7758,9.1829",
+          "radius": 25
+        },
+        {
+          "name": "Dusseldorf",
+          "latlong": "51.2277,6.7735",
+          "radius": 25
+        },
+        {
+          "name": "Dortmund",
+          "latlong": "51.5136,7.4653",
+          "radius": 25
+        },
+        {
+          "name": "Essen",
+          "latlong": "51.4556,7.0116",
+          "radius": 25
+        },
+        {
+          "name": "Bremen",
+          "latlong": "53.0793,8.8017",
+          "radius": 25
+        },
+        {
+          "name": "Dresden",
+          "latlong": "51.0504,13.7373",
+          "radius": 25
+        },
+        {
+          "name": "Hannover",
+          "latlong": "52.3759,9.732",
+          "radius": 25
+        },
+        {
+          "name": "Nuremberg",
+          "latlong": "49.4521,11.0767",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "NL",
+      "name": "Netherlands",
+      "metros": [
+        {
+          "name": "Amsterdam",
+          "latlong": "52.3676,4.9041",
+          "radius": 25
+        },
+        {
+          "name": "Rotterdam",
+          "latlong": "51.9244,4.4777",
+          "radius": 25
+        },
+        {
+          "name": "Utrecht",
+          "latlong": "52.0907,5.1214",
+          "radius": 25
+        },
+        {
+          "name": "The Hague",
+          "latlong": "52.0705,4.3007",
+          "radius": 25
+        },
+        {
+          "name": "Eindhoven",
+          "latlong": "51.4416,5.4697",
+          "radius": 25
+        },
+        {
+          "name": "Groningen",
+          "latlong": "53.2194,6.5665",
+          "radius": 25
+        },
+        {
+          "name": "Tilburg",
+          "latlong": "51.5555,5.0913",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "MX",
+      "name": "Mexico",
+      "metros": [
+        {
+          "name": "Mexico City",
+          "latlong": "19.4326,-99.1332",
+          "radius": 25
+        },
+        {
+          "name": "Guadalajara",
+          "latlong": "20.6597,-103.3496",
+          "radius": 25
+        },
+        {
+          "name": "Monterrey",
+          "latlong": "25.6866,-100.3161",
+          "radius": 25
+        },
+        {
+          "name": "Puebla",
+          "latlong": "19.0414,-98.2063",
+          "radius": 25
+        },
+        {
+          "name": "Tijuana",
+          "latlong": "32.5149,-117.0382",
+          "radius": 25
+        },
+        {
+          "name": "Cancun",
+          "latlong": "21.1619,-86.8515",
+          "radius": 25
+        },
+        {
+          "name": "Merida",
+          "latlong": "20.9674,-89.5926",
+          "radius": 25
+        },
+        {
+          "name": "Queretaro",
+          "latlong": "20.5888,-100.3899",
+          "radius": 25
+        },
+        {
+          "name": "Leon",
+          "latlong": "21.1219,-101.6833",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "IN",
+      "name": "India",
+      "metros": [
+        {
+          "name": "Bengaluru",
+          "latlong": "12.9716,77.5946",
+          "radius": 25
+        },
+        {
+          "name": "Mumbai",
+          "latlong": "19.0760,72.8777",
+          "radius": 25
+        },
+        {
+          "name": "Delhi",
+          "latlong": "28.6139,77.2090",
+          "radius": 25
+        },
+        {
+          "name": "Hyderabad",
+          "latlong": "17.3850,78.4867",
+          "radius": 25
+        },
+        {
+          "name": "Pune",
+          "latlong": "18.5204,73.8567",
+          "radius": 25
+        },
+        {
+          "name": "Chennai",
+          "latlong": "13.0827,80.2707",
+          "radius": 25
+        },
+        {
+          "name": "Kolkata",
+          "latlong": "22.5726,88.3639",
+          "radius": 25
+        },
+        {
+          "name": "Ahmedabad",
+          "latlong": "23.0225,72.5714",
+          "radius": 25
+        },
+        {
+          "name": "Jaipur",
+          "latlong": "26.9124,75.7873",
+          "radius": 25
+        },
+        {
+          "name": "Chandigarh",
+          "latlong": "30.7333,76.7794",
+          "radius": 25
+        },
+        {
+          "name": "Kochi",
+          "latlong": "9.9312,76.2673",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "JP",
+      "name": "Japan",
+      "metros": [
+        {
+          "name": "Tokyo",
+          "latlong": "35.6762,139.6503",
+          "radius": 25
+        },
+        {
+          "name": "Osaka",
+          "latlong": "34.6937,135.5023",
+          "radius": 25
+        },
+        {
+          "name": "Kyoto",
+          "latlong": "35.0116,135.7681",
+          "radius": 25
+        },
+        {
+          "name": "Yokohama",
+          "latlong": "35.4437,139.6380",
+          "radius": 25
+        },
+        {
+          "name": "Nagoya",
+          "latlong": "35.1815,136.9066",
+          "radius": 25
+        },
+        {
+          "name": "Fukuoka",
+          "latlong": "33.5904,130.4017",
+          "radius": 25
+        },
+        {
+          "name": "Sapporo",
+          "latlong": "43.0618,141.3545",
+          "radius": 25
+        },
+        {
+          "name": "Kobe",
+          "latlong": "34.6901,135.1955",
+          "radius": 25
+        },
+        {
+          "name": "Sendai",
+          "latlong": "38.2682,140.8694",
+          "radius": 25
+        },
+        {
+          "name": "Hiroshima",
+          "latlong": "34.3853,132.4553",
+          "radius": 25
+        },
+        {
+          "name": "Naha",
+          "latlong": "26.2124,127.6809",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "ES",
+      "name": "Spain",
+      "metros": [
+        {
+          "name": "Madrid",
+          "latlong": "40.4168,-3.7038",
+          "radius": 25
+        },
+        {
+          "name": "Barcelona",
+          "latlong": "41.3851,2.1734",
+          "radius": 25
+        },
+        {
+          "name": "Valencia",
+          "latlong": "39.4699,-0.3763",
+          "radius": 25
+        },
+        {
+          "name": "Seville",
+          "latlong": "37.3891,-5.9845",
+          "radius": 25
+        },
+        {
+          "name": "Bilbao",
+          "latlong": "43.263,-2.935",
+          "radius": 25
+        },
+        {
+          "name": "Malaga",
+          "latlong": "36.7213,-4.4214",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "IT",
+      "name": "Italy",
+      "metros": [
+        {
+          "name": "Rome",
+          "latlong": "41.9028,12.4964",
+          "radius": 25
+        },
+        {
+          "name": "Milan",
+          "latlong": "45.4642,9.19",
+          "radius": 25
+        },
+        {
+          "name": "Naples",
+          "latlong": "40.8518,14.2681",
+          "radius": 25
+        },
+        {
+          "name": "Turin",
+          "latlong": "45.0703,7.6869",
+          "radius": 25
+        },
+        {
+          "name": "Bologna",
+          "latlong": "44.4949,11.3426",
+          "radius": 25
+        },
+        {
+          "name": "Florence",
+          "latlong": "43.7696,11.2558",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "CH",
+      "name": "Switzerland",
+      "metros": [
+        {
+          "name": "Zurich",
+          "latlong": "47.3769,8.5417",
+          "radius": 25
+        },
+        {
+          "name": "Geneva",
+          "latlong": "46.2044,6.1432",
+          "radius": 25
+        },
+        {
+          "name": "Basel",
+          "latlong": "47.5596,7.5886",
+          "radius": 25
+        },
+        {
+          "name": "Bern",
+          "latlong": "46.948,7.4474",
+          "radius": 25
+        },
+        {
+          "name": "Lausanne",
+          "latlong": "46.5197,6.6323",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "BE",
+      "name": "Belgium",
+      "metros": [
+        {
+          "name": "Brussels",
+          "latlong": "50.8503,4.3517",
+          "radius": 25
+        },
+        {
+          "name": "Antwerp",
+          "latlong": "51.2194,4.4025",
+          "radius": 25
+        },
+        {
+          "name": "Ghent",
+          "latlong": "51.0543,3.7174",
+          "radius": 25
+        },
+        {
+          "name": "Liege",
+          "latlong": "50.6326,5.5797",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "SE",
+      "name": "Sweden",
+      "metros": [
+        {
+          "name": "Stockholm",
+          "latlong": "59.3293,18.0686",
+          "radius": 25
+        },
+        {
+          "name": "Gothenburg",
+          "latlong": "57.7089,11.9746",
+          "radius": 25
+        },
+        {
+          "name": "Malmo",
+          "latlong": "55.605,13.0038",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "NO",
+      "name": "Norway",
+      "metros": [
+        {
+          "name": "Oslo",
+          "latlong": "59.9139,10.7522",
+          "radius": 25
+        },
+        {
+          "name": "Bergen",
+          "latlong": "60.3913,5.3221",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "DK",
+      "name": "Denmark",
+      "metros": [
+        {
+          "name": "Copenhagen",
+          "latlong": "55.6761,12.5683",
+          "radius": 25
+        },
+        {
+          "name": "Aarhus",
+          "latlong": "56.1629,10.2039",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "FI",
+      "name": "Finland",
+      "metros": [
+        {
+          "name": "Helsinki",
+          "latlong": "60.1699,24.9384",
+          "radius": 25
+        },
+        {
+          "name": "Tampere",
+          "latlong": "61.4978,23.761",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "AT",
+      "name": "Austria",
+      "metros": [
+        {
+          "name": "Vienna",
+          "latlong": "48.2082,16.3738",
+          "radius": 25
+        },
+        {
+          "name": "Graz",
+          "latlong": "47.0707,15.4395",
+          "radius": 25
+        },
+        {
+          "name": "Salzburg",
+          "latlong": "47.8095,13.055",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "PL",
+      "name": "Poland",
+      "metros": [
+        {
+          "name": "Warsaw",
+          "latlong": "52.2297,21.0122",
+          "radius": 25
+        },
+        {
+          "name": "Krakow",
+          "latlong": "50.0647,19.945",
+          "radius": 25
+        },
+        {
+          "name": "Gdansk",
+          "latlong": "54.352,18.6466",
+          "radius": 25
+        },
+        {
+          "name": "Wroclaw",
+          "latlong": "51.1079,17.0385",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "PT",
+      "name": "Portugal",
+      "metros": [
+        {
+          "name": "Lisbon",
+          "latlong": "38.7223,-9.1393",
+          "radius": 25
+        },
+        {
+          "name": "Porto",
+          "latlong": "41.1579,-8.6291",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "CZ",
+      "name": "Czechia",
+      "metros": [
+        {
+          "name": "Prague",
+          "latlong": "50.0755,14.4378",
+          "radius": 25
+        },
+        {
+          "name": "Brno",
+          "latlong": "49.1951,16.6068",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "ZA",
+      "name": "South Africa",
+      "metros": [
+        {
+          "name": "Johannesburg",
+          "latlong": "-26.2041,28.0473",
+          "radius": 25
+        },
+        {
+          "name": "Cape Town",
+          "latlong": "-33.9249,18.4241",
+          "radius": 25
+        },
+        {
+          "name": "Durban",
+          "latlong": "-29.8587,31.0218",
+          "radius": 25
+        },
+        {
+          "name": "Pretoria",
+          "latlong": "-25.7479,28.2293",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "SG",
+      "name": "Singapore",
+      "metros": [
+        {
+          "name": "Singapore",
+          "latlong": "1.3521,103.8198",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "KR",
+      "name": "South Korea",
+      "metros": [
+        {
+          "name": "Seoul",
+          "latlong": "37.5665,126.978",
+          "radius": 25
+        },
+        {
+          "name": "Busan",
+          "latlong": "35.1796,129.0756",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "AE",
+      "name": "United Arab Emirates",
+      "metros": [
+        {
+          "name": "Dubai",
+          "latlong": "25.2048,55.2708",
+          "radius": 25
+        },
+        {
+          "name": "Abu Dhabi",
+          "latlong": "24.4539,54.3773",
+          "radius": 25
+        }
+      ]
+    },
+    {
+      "code": "HK",
+      "name": "Hong Kong",
+      "metros": [
+        {
+          "name": "Hong Kong",
+          "latlong": "22.3193,114.1694",
+          "radius": 25
+        }
+      ]
+    }
   ]
 }
