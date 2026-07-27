@@ -60,13 +60,31 @@ GQL = "https://api.meetup.com/gql-ext"
 # free. Terms are English on purpose: Meetup's international listings are
 # heavily English-titled, and per-language variants would multiply calls for
 # thin marginal yield.
+#
+# The sweep is organised BY LENS, because each lens filters the shared pool to
+# its own categories and is only as good as the supply behind those categories:
+#   mapsee.me    everything
+#   bar.ventures party + music + food
+#   oneday.cafe  food + market
+#   plansie.com  community + kids + outdoors + arts + learning
 DEFAULT_KEYWORDS = ("social:community,music:music,tech:learning,"
                     "outdoors:outdoors,art:arts,sports:sports,volunteer:volunteer,"
                     # food + drink (oneday.cafe)
                     "food:food,dinner:food,cooking:food,tasting:food,brunch:food,"
                     "potluck:food,supper club:food,food truck:food,"
                     # markets (oneday.cafe)
-                    "farmers market:market,night market:market")
+                    "farmers market:market,night market:market,"
+                    # going out / meeting people (bar.ventures). "20s and 30s"
+                    # and "young professionals" are how Meetup's own social
+                    # groups actually self-describe, so they out-yield the
+                    # generic terms by a wide margin.
+                    "20s and 30s:party,young professionals:party,nightlife:party,"
+                    "happy hour:party,trivia:party,karaoke:party,board games:party,"
+                    "dance:party,singles:party,"
+                    # neighbourhood life (plansie.com)
+                    "hiking:outdoors,book club:learning,language exchange:learning,"
+                    "craft:arts,photography:arts,museum:arts,"
+                    "family:kids,storytime:kids,workshop:learning")
 
 QUERY = """
 query($query: String!, $lat: Float!, $lon: Float!, $radius: Float,
