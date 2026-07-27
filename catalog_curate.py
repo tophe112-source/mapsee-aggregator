@@ -162,9 +162,16 @@ def verify_ics(s, e):
     if r.status_code != 200 or "BEGIN:VCALENDAR" not in txt[:400]:
         return False, f"http {r.status_code} / no VCALENDAR"
     today = _today_int()
-    starts = re.findall(r"DTSTART[^:\n]*:(\d{8})", txt)
+    # Scope the scan to VEVENT BODIES. Scanning the whole file also catches the
+    # DTSTARTs inside VTIMEZONE STANDARD/DAYLIGHT sub-components, which carry
+    # DST-transition dates - so a calendar whose real events all ended years ago
+    # can report thousands of "future" dates and sail through this gate on
+    # timezone metadata alone. (Seen in the wild: a dead market calendar
+    # reporting "51 vevents / 15946 future" under two different URLs.)
+    bodies = re.findall(r"BEGIN:VEVENT(.*?)END:VEVENT", txt, re.S)
+    starts = [d for b in bodies for d in re.findall(r"^DTSTART[^:\n]*:(\d{8})", b, re.M)]
     fut = sum(1 for d in starts if int(d) >= today)
-    return (fut > 0), f"{txt.count('BEGIN:VEVENT')} vevents / {fut} future"
+    return (fut > 0), f"{len(bodies)} vevents / {fut} future"
 
 
 def verify_opendata(s, e):

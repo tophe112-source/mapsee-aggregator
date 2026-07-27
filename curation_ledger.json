@@ -485,15 +485,15 @@
   "dandenongmarket.com.au/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Dandenong Market (Melbourne)",
-    "reason": "51 vevents / 15946 future",
-    "status": "ok",
+    "reason": "past-only (newest event Oct 2024); earlier 'ok' was the VTIMEZONE DTSTART bug",
+    "status": "fail",
     "type": "ics"
   },
   "dandenongmarket.com.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Dandenong Market (Melbourne)",
-    "reason": "51 vevents / 15946 future",
-    "status": "ok",
+    "reason": "past-only (newest event Oct 2024); earlier 'ok' was the VTIMEZONE DTSTART bug",
+    "status": "fail",
     "type": "ics"
   },
   "darksphere.co.uk/?post_type=tribe_events&ical=1&eventDisplay=list": {
