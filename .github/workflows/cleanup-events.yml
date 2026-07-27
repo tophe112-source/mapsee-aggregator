@@ -1,0 +1,34 @@
+name: Cleanup past events
+
+# Deletes aggregator-imported events (external_source='mapsee') that started more
+# than a WEEK ago — keeping the events table lean while leaving a week for
+# attendees to chat about a show after it happens. Scoped to imported events only,
+# so user/community events are never touched. Runs daily.
+#
+# Required repo secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+
+on:
+  schedule:
+    - cron: "23 8 * * *"        # daily, ~08:23 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: cleanup-events
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install requests
+      - name: Delete aggregator events older than a week
+        run: python mapsee_cleanup.py --older-than-days 7
