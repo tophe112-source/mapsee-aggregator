@@ -285,7 +285,11 @@ def cmd_audit():
     stale = 0
     for t, (fname, key) in CONFIG.items():
         fpath = os.path.join(HERE, fname)
-        cur = json.load(open(fpath, encoding="utf-8"))
+        # _entries(), not a bare json.load: ods_sources.json nests its list under
+        # "sources", so iterating the raw object walks the dict KEYS ("_comment",
+        # "sources") and blows up on dict(e, type=t). Same trap that hit
+        # _coverage_rows(); every reader of these configs must go through here.
+        cur = _entries(fname, json.load(open(fpath, encoding="utf-8")))
         print(f"\n=== {fname} ({len(cur)}) ===")
         for e in cur:
             e2 = dict(e, type=t)
