@@ -21,30 +21,30 @@
     "type": "ics"
   },
   "abnc.ca/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Allan Brooks Nature Centre (Vernon, Canada)",
-    "reason": "11 vevents / 14 future",
+    "reason": "9 vevents / 9 future",
     "status": "ok",
     "type": "ics"
   },
   "acrosstheboardcafe.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260723,
+    "checked": 20260727,
     "name": "Across the Board Game Cafe (Winnipeg, Canada)",
-    "reason": "7 vevents / 9 future",
+    "reason": "8 vevents / 7 future",
     "status": "ok",
     "type": "ics"
   },
   "adelaidecentralmarket.com.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Adelaide Central Market Events",
-    "reason": "8 vevents / 9 future",
+    "reason": "8 vevents / 6 future",
     "status": "ok",
     "type": "ics"
   },
   "adelaidefarmersmarket.com.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Adelaide Showground Farmers Market",
-    "reason": "30 vevents / 32 future",
+    "reason": "30 vevents / 29 future",
     "status": "ok",
     "type": "ics"
   },
@@ -58,14 +58,14 @@
   "aldeburghfoodanddrink.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Aldeburgh Food and Drink Festival (Suffolk)",
-    "reason": "3 vevents / 6 future",
+    "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
   },
   "allamassor.se/events/category/mat-dryck/?ical=1": {
     "checked": 20260727,
     "name": "Alla Massor mat och dryck (Sweden)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -79,21 +79,21 @@
   "amadorwine.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Amador Vintners Wine Events (California)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "americanlibraryinparis.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "American Library in Paris (Paris, France)",
-    "reason": "24 vevents / 27 future",
+    "reason": "20 vevents / 20 future",
     "status": "ok",
     "type": "ics"
   },
   "analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/eventos-de-la-agenda-cultural-categorizados-y-geolocalizados/records": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Agenda cultural de Castilla y Leon (Spain)",
-    "reason": "495 records",
+    "reason": "476 records",
     "status": "ok",
     "type": "ods"
   },
@@ -104,52 +104,73 @@
     "status": "fail",
     "type": "ics"
   },
+  "arlingtontx.libcal.com/ical_subscribe.php?cid=20065": {
+    "checked": 20260727,
+    "name": "Arlington Public Library Events (Dallas)",
+    "reason": "500 vevents / 232 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "arlingtonva.libcal.com/ical_subscribe.php?cid=12881": {
+    "checked": 20260727,
+    "name": "Arlington Public Library (DC metro)",
+    "reason": "500 vevents / 100 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "artpace.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Artpace (San Antonio, TX)",
-    "reason": "2 vevents / 4 future",
+    "reason": "2 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
   "asapconnections.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "ASAP Appalachian Grown Markets (Asheville, NC)",
-    "reason": "16 vevents / 19 future",
+    "reason": "16 vevents / 16 future",
     "status": "ok",
     "type": "ics"
   },
   "astronomy.org.nz/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Auckland Astronomical Society (Auckland, New Zealand)",
-    "reason": "1 vevents / 4 future",
+    "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
   "athertonmillandmarket.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Atherton Mill and Market (Charlotte, NC)",
-    "reason": "11 vevents / 14 future",
+    "reason": "11 vevents / 11 future",
     "status": "ok",
     "type": "ics"
   },
   "atlantictu.libcal.com/ical_subscribe.php?cid=6653": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "Atlantic Technological University Library (Sligo, Ireland)",
-    "reason": "9 vevents / 4 future",
+    "reason": "9 vevents / 3 future",
     "status": "ok",
     "type": "ics"
   },
   "attenborougharts.com/whats-on/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Attenborough Arts Centre (Leicester, UK)",
-    "reason": "14 vevents / 16 future",
+    "reason": "30 vevents / 29 future",
     "status": "ok",
     "type": "ics"
   },
   "aus.libcal.com/ical_subscribe.php?src=p&cid=21902": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "AUS University Library (Sharjah)",
     "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "austincc.libcal.com/ical_subscribe.php?cid=22696": {
+    "checked": 20260727,
+    "name": "Austin Community College Library Events (Austin)",
+    "reason": "8 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
@@ -161,30 +182,30 @@
     "type": "ics"
   },
   "ballaratobservatory.org.au/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Ballarat Municipal Observatory (Ballarat, Australia)",
-    "reason": "1 vevents / 4 future",
+    "reason": "2 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
   "bangalore.afindia.org/events/?ical=1": {
-    "checked": 20260722,
+    "checked": 20260727,
     "name": "Alliance Francaise de Bangalore (Bengaluru, India)",
-    "reason": "848 vevents / 5 future",
+    "reason": "851 vevents / 3 future",
     "status": "ok",
     "type": "ics"
   },
   "bangaloreinternationalcentre.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Bangalore International Centre (Bengaluru, India)",
-    "reason": "11 vevents / 11 future",
+    "reason": "8 vevents / 8 future",
     "status": "ok",
     "type": "ics"
   },
   "base.milano.it/events/?ical=1": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "BASE Milano (Milan, Italy)",
-    "reason": "30 vevents / 31 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -202,6 +223,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "beavertonlibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260727,
+    "name": "Beaverton City Library Events (Portland)",
+    "reason": "43 vevents / 43 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "bengale.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise du Bengale (Kolkata, India)",
@@ -212,28 +240,35 @@
   "berlinfoodweek.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Berlin Food Week (Germany)",
-    "reason": "2 vevents / 5 future",
+    "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
   "bhopal.afindia.org/events/?ical=1": {
-    "checked": 20260722,
+    "checked": 20260727,
     "name": "Alliance Francaise de Bhopal (Bhopal, India)",
-    "reason": "134 vevents / 1 future",
+    "reason": "134 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "bhpl.libcal.com/ical_subscribe.php?cid=13598": {
+    "checked": 20260727,
+    "name": "Beverly Hills Public Library Events (Los Angeles)",
+    "reason": "399 vevents / 333 future",
     "status": "ok",
     "type": "ics"
   },
   "bissellbrothers.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Bissell Brothers Brewing (Portland, ME)",
-    "reason": "8 vevents / 11 future",
+    "reason": "8 vevents / 8 future",
     "status": "ok",
     "type": "ics"
   },
   "blackfriarsrestaurant.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Blackfriars Cookery School (Newcastle upon Tyne)",
-    "reason": "30 vevents / 31 future",
+    "reason": "30 vevents / 28 future",
     "status": "ok",
     "type": "ics"
   },
@@ -275,7 +310,7 @@
   "brafb.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Blue Ridge Area Food Bank (Verona, VA)",
-    "reason": "13 vevents / 16 future",
+    "reason": "13 vevents / 13 future",
     "status": "ok",
     "type": "ics"
   },
@@ -300,6 +335,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "brooklinelibrary.libcal.com/ical_subscribe.php?cid=20102": {
+    "checked": 20260727,
+    "name": "Public Library of Brookline Events (Boston)",
+    "reason": "455 vevents / 356 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "brooklynbrewery.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Brooklyn Brewery Events (New York)",
@@ -310,14 +352,14 @@
   "budddairyfoodhall.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Budd Dairy Food Hall (Columbus, OH)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "bueze.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Buergerzentrum Ehrenfeld BueZe (Cologne, Germany)",
-    "reason": "12 vevents / 15 future",
+    "reason": "12 vevents / 12 future",
     "status": "ok",
     "type": "ics"
   },
@@ -329,37 +371,114 @@
     "type": "ics"
   },
   "c-base.org/calendar/exported/c-base-events.ics": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "c-base Berlin (Berlin, Germany)",
-    "reason": "1768 vevents / 23 future",
+    "reason": "1768 vevents / 19 future",
     "status": "ok",
     "type": "ics"
   },
+  "calendar.gsu.edu": {
+    "checked": 20260727,
+    "name": "Georgia State University (Atlanta)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "calendar.gwu.edu": {
+    "checked": 20260727,
+    "name": "George Washington University (DC)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
   "calendar.hku.hk/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "HKU Event Calendar (Hong Kong)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
+  "calendar.phoenixpubliclibrary.org/ical_subscribe.php?cid=15413": {
+    "checked": 20260727,
+    "name": "Phoenix Public Library - Burton Barr Central (Phoenix)",
+    "reason": "421 vevents / 318 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.pitt.edu": {
+    "checked": 20260727,
+    "name": "University of Pittsburgh (Pittsburgh)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "calendar.prattlibrary.org/calendar.ics": {
+    "checked": 20260727,
+    "name": "Enoch Pratt Free Library (Baltimore)",
+    "reason": "2500 vevents / 1939 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.ucsd.edu": {
+    "checked": 20260727,
+    "name": "UC San Diego (San Diego)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "calendar.up.edu": {
+    "checked": 20260727,
+    "name": "University of Portland (Portland OR)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "calendar.usc.edu": {
+    "checked": 20260727,
+    "name": "University of Southern California (Los Angeles)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "calendar.utdallas.edu": {
+    "checked": 20260727,
+    "name": "UT Dallas (Dallas)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "calendar.utexas.edu": {
+    "checked": 20260727,
+    "name": "UT Austin (Austin)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "campusevents.charlotte.edu": {
+    "checked": 20260727,
+    "name": "UNC Charlotte (Charlotte)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
   "camstl.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Contemporary Art Museum St. Louis (St. Louis, MO)",
-    "reason": "6 vevents / 9 future",
+    "reason": "4 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
   "canberra.libcal.com/ical_subscribe.php?cid=10851": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "University of Canberra Library (Canberra, Australia)",
-    "reason": "40 vevents / 22 future",
+    "reason": "35 vevents / 14 future",
     "status": "ok",
     "type": "ics"
   },
   "canterbury.libcal.com/ical_subscribe.php?cid=1616": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "University of Canterbury Library (Christchurch, New Zealand)",
-    "reason": "92 vevents / 77 future",
+    "reason": "88 vevents / 71 future",
     "status": "ok",
     "type": "ics"
   },
@@ -373,7 +492,7 @@
   "capitalregionfarmersmarket.com.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Capital Region Farmers Market (Canberra)",
-    "reason": "30 vevents / 35 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -384,24 +503,52 @@
     "status": "fail",
     "type": "ics"
   },
+  "carnegielibrary.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Carnegie Library of Pittsburgh (Pittsburgh)",
+    "reason": "http 403 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "castlemainefestival.com.au/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Castlemaine State Festival (Castlemaine, Australia)",
-    "reason": "1 vevents / 4 future",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ccls.libcal.com/ical_subscribe.php?cid=12583": {
+    "checked": 20260727,
+    "name": "Chester County Library System Events (Philadelphia)",
+    "reason": "500 vevents / 372 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cedarparktexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260727,
+    "name": "Cedar Park City Events (Austin)",
+    "reason": "11 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "centercityphila.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Center City District Events (Philadelphia)",
+    "reason": "5 vevents / 5 future",
     "status": "ok",
     "type": "ics"
   },
   "centralnsw.com/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Central NSW arts & culture (Orange, NSW, Australia)",
-    "reason": "30 vevents / 7 future",
-    "status": "ok",
+    "reason": "30 vevents / 0 future",
+    "status": "fail",
     "type": "ics"
   },
   "chandigarh.afindia.org/events/?ical=1": {
-    "checked": 20260722,
+    "checked": 20260727,
     "name": "Alliance Francaise de Chandigarh (Chandigarh, India)",
-    "reason": "265 vevents / 3 future",
+    "reason": "265 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
@@ -429,28 +576,28 @@
   "chicagosfoodbank.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Greater Chicago Food Depository Events",
-    "reason": "11 vevents / 13 future",
+    "reason": "11 vevents / 10 future",
     "status": "ok",
     "type": "ics"
   },
   "childrensmuseumofphoenix.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Children's Museum of Phoenix (Phoenix, AZ)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "cityparksfoundation.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "City Parks Foundation (New York, NY)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "civictheatre.ie/whats-on/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "The Civic Theatre (Tallaght, Dublin, Ireland)",
-    "reason": "30 vevents / 30 future",
+    "reason": "30 vevents / 29 future",
     "status": "ok",
     "type": "ics"
   },
@@ -462,9 +609,9 @@
     "type": "ics"
   },
   "communitygarden.org.au/events/?ical=1": {
-    "checked": 20260722,
+    "checked": 20260727,
     "name": "Australian City Farms & Community Gardens Network (Australia)",
-    "reason": "4 vevents / 9 future",
+    "reason": "4 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
@@ -478,7 +625,7 @@
   "creaturecomfortsbeer.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Creature Comforts Brewing (Athens, GA)",
-    "reason": "26 vevents / 29 future",
+    "reason": "26 vevents / 26 future",
     "status": "ok",
     "type": "ics"
   },
@@ -496,10 +643,24 @@
     "status": "ok",
     "type": "ics"
   },
+  "dallasculture.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Dallas Office of Arts and Culture (Dallas)",
+    "reason": "15 vevents / 15 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "dallasfarmersmarket.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Dallas Farmers Market Events",
-    "reason": "12 vevents / 18 future",
+    "reason": "12 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dallasparks.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260727,
+    "name": "City of Dallas Parks & Recreation (Dallas)",
+    "reason": "27 vevents / 26 future",
     "status": "ok",
     "type": "ics"
   },
@@ -524,45 +685,87 @@
     "status": "fail",
     "type": "ics"
   },
+  "data.austintexas.gov/resource/p9ma-z6y9.json": {
+    "checked": 20260727,
+    "name": "Austin Convention Center Event Listings (Austin)",
+    "reason": "3 rows, sample: 2026 Texas Bar Examination - July",
+    "status": "ok",
+    "type": "opendata"
+  },
   "data.bs.ch/api/explore/v2.1/catalog/datasets/100074/records": {
-    "checked": 20260722,
+    "checked": 20260727,
     "name": "Basel-Stadt Veranstaltungen (Basel, Switzerland)",
-    "reason": "15118 records",
+    "reason": "15174 records",
     "status": "ok",
     "type": "ods"
   },
   "data.calgary.ca/resource/n625-9k5x.json": {
-    "checked": 20260723,
+    "checked": 20260727,
     "name": "City of Calgary Events",
     "reason": "3 rows, sample: Community Nature Walk",
     "status": "ok",
     "type": "opendata"
   },
   "data.cityofchicago.org/resource/tn7v-6rnw.json": {
-    "checked": 20260726,
+    "checked": 20260727,
     "name": "Chicago Park District Activities (Chicago)",
-    "reason": "3 rows, sample: Stick & Puck at McFetridge",
+    "reason": "3 rows, sample: Ice Skating - Freestyle Ice (Studio Rink) at McFetridge",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.cityofchicago.org/resource/vsdy-d8k7.json": {
+    "checked": 20260727,
+    "name": "Chicago Library Events",
+    "reason": "3 rows, sample: Apna Ghar: Our Home",
     "status": "ok",
     "type": "opendata"
   },
   "data.cityofnewyork.us/resource/fzy4-e84j.json": {
-    "checked": 20260723,
+    "checked": 20260727,
     "name": "NYC Older Adult Center Activities (New York)",
-    "reason": "3 rows, sample: Mixed voice singing",
+    "reason": "3 rows, sample: Arts and crafts",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.cityofnewyork.us/resource/tvpp-9vvx.json": {
+    "checked": 20260727,
+    "name": "NYC Permitted Events",
+    "reason": "3 rows, sample: Family Camping",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.cityofnewyork.us/resource/w3wp-dpdi.json": {
+    "checked": 20260727,
+    "name": "NYC Parks Events",
+    "reason": "3 rows, sample: Faber Pool: Lap Swim",
     "status": "ok",
     "type": "opendata"
   },
   "data.edmonton.ca/resource/64u3-c7bh.json": {
-    "checked": 20260723,
+    "checked": 20260727,
     "name": "City of Edmonton Public Events (Edmonton)",
-    "reason": "3 rows, sample: Tee Time on the Plaza",
+    "reason": "3 rows, sample: EPL Children's Programming - Outdoor Fun",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.seattle.gov/resource/dm95-f8w5.json": {
+    "checked": 20260727,
+    "name": "Seattle Special Events",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.sfgov.org/resource/8i3s-ih2a.json": {
+    "checked": 20260727,
+    "name": "Our415 Events and Activities (San Francisco)",
+    "reason": "3 rows, sample: LTS - Coffman Pool - Level 4",
     "status": "ok",
     "type": "opendata"
   },
   "delart.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Delaware Art Museum (Wilmington, DE)",
-    "reason": "30 vevents / 32 future",
+    "reason": "30 vevents / 29 future",
     "status": "ok",
     "type": "ics"
   },
@@ -573,24 +776,31 @@
     "status": "fail",
     "type": "ics"
   },
+  "denverlibrary.libcal.com/ical_subscribe.php?cid=20634": {
+    "checked": 20260727,
+    "name": "Denver Public Library - Programs & Events (Denver)",
+    "reason": "500 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
   "devourfest.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Devour! The Food Film Fest (Wolfville, NS)",
-    "reason": "983 vevents / 7 future",
+    "reason": "983 vevents / 6 future",
     "status": "ok",
     "type": "ics"
   },
   "downtownwinnipegbiz.com/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Downtown Winnipeg BIZ (Winnipeg, Canada)",
-    "reason": "30 vevents / 33 future",
-    "status": "ok",
+    "reason": "ReadTimeout: HTTPSConnectionPool(host='downtownwinnipegbiz.com', port=443",
+    "status": "fail",
     "type": "ics"
   },
   "dubaiastronomy.com/events/?ical=1": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Dubai Astronomy Group (Dubai)",
-    "reason": "5 vevents / 5 future",
+    "reason": "8 vevents / 8 future",
     "status": "ok",
     "type": "ics"
   },
@@ -604,7 +814,7 @@
   "easternmarket.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Eastern Market Events (Detroit)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -623,23 +833,23 @@
     "type": "ics"
   },
   "eintrittfrei-muenchen.de/?ical=1&eventDisplay=list": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Eintritt Frei Muenchen (Munich, Germany)",
-    "reason": "30 vevents / 33 future",
-    "status": "ok",
+    "reason": "http 403 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "eldoradowines.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "El Dorado Wines Events (California)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "emeraldtaverngames.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260723,
+    "checked": 20260727,
     "name": "Emerald Tavern Games & Cafe (Austin, TX)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -650,17 +860,80 @@
     "status": "fail",
     "type": "ics"
   },
-  "events.goodgames.com.au/events/list/?ical=1": {
-    "checked": 20260723,
-    "name": "Good Games (Australia)",
-    "reason": "30 vevents / 27 future",
+  "events.baltimoremagazine.com/calendar.ics": {
+    "checked": 20260727,
+    "name": "Baltimore Magazine Events Calendar (Baltimore)",
+    "reason": "2435 vevents / 1745 future",
     "status": "ok",
     "type": "ics"
   },
+  "events.depaul.edu": {
+    "checked": 20260727,
+    "name": "DePaul University (Chicago)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "events.goodgames.com.au/events/list/?ical=1": {
+    "checked": 20260727,
+    "name": "Good Games (Australia)",
+    "reason": "30 vevents / 22 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.miami.edu": {
+    "checked": 20260727,
+    "name": "University of Miami (Miami)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "events.miamibeachfl.gov/?ical=1": {
+    "checked": 20260727,
+    "name": "City of Miami Beach Events (Miami)",
+    "reason": "ReadTimeout: HTTPSConnectionPool(host='events.miamibeachfl.gov', port=443",
+    "status": "fail",
+    "type": "ics"
+  },
+  "events.newschool.edu": {
+    "checked": 20260727,
+    "name": "The New School (NYC)",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "localist"
+  },
+  "events.northeastern.edu": {
+    "checked": 20260727,
+    "name": "Northeastern University (Boston)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "events.seattleu.edu": {
+    "checked": 20260727,
+    "name": "Seattle University",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "events.stanford.edu": {
+    "checked": 20260727,
+    "name": "Stanford University (SF Bay)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
+  "events.towson.edu": {
+    "checked": 20260727,
+    "name": "Towson University (Baltimore)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
   "exeter-uk.libcal.com/ical_subscribe.php?cid=8108": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "University of Exeter Library (Exeter, United Kingdom)",
-    "reason": "89 vevents / 87 future",
+    "reason": "90 vevents / 86 future",
     "status": "ok",
     "type": "ics"
   },
@@ -674,14 +947,14 @@
   "feedhopenow.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Second Harvest Food Bank of Central Florida (Orlando)",
-    "reason": "2 vevents / 5 future",
+    "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
   "feedingamericawi.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Feeding America Eastern Wisconsin (Milwaukee)",
-    "reason": "9 vevents / 11 future",
+    "reason": "9 vevents / 8 future",
     "status": "ok",
     "type": "ics"
   },
@@ -695,7 +968,7 @@
   "fiddleheadbrewing.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Fiddlehead Brewing (Shelburne, VT)",
-    "reason": "1 vevents / 4 future",
+    "reason": "1 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
@@ -713,10 +986,17 @@
     "status": "fail",
     "type": "ics"
   },
+  "fiu.libcal.com/ical_subscribe.php?cid=15594": {
+    "checked": 20260727,
+    "name": "FIU Library Events (Miami)",
+    "reason": "9 vevents / 8 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "foodbanknyc.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Food Bank For New York City",
-    "reason": "30 vevents / 35 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -730,15 +1010,15 @@
   "foodmuseum.org.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Food Museum (Stowmarket, Suffolk)",
-    "reason": "15 vevents / 12 future",
+    "reason": "15 vevents / 7 future",
     "status": "ok",
     "type": "ics"
   },
   "footscrayarts.com/events/?ical=1": {
-    "checked": 20260722,
+    "checked": 20260727,
     "name": "Footscray Community Arts (Melbourne, Australia)",
-    "reason": "2 vevents / 3 future",
-    "status": "ok",
+    "reason": "2 vevents / 0 future",
+    "status": "fail",
     "type": "ics"
   },
   "forgegamesandhobbies.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
@@ -749,39 +1029,46 @@
     "type": "ics"
   },
   "forterra.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Forterra (Seattle, WA)",
-    "reason": "9 vevents / 12 future",
+    "reason": "9 vevents / 9 future",
     "status": "ok",
     "type": "ics"
   },
   "fortwhyte.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "FortWhyte Alive (Winnipeg, Canada)",
-    "reason": "26 vevents / 29 future",
+    "reason": "9 vevents / 9 future",
     "status": "ok",
     "type": "ics"
   },
   "frenchmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "French Market District (New Orleans)",
-    "reason": "6 vevents / 9 future",
+    "reason": "6 vevents / 6 future",
     "status": "ok",
     "type": "ics"
   },
   "friendsanbg.org.au/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Friends of the Australian National Botanic Gardens (Canberra, Australia)",
-    "reason": "28 vevents / 31 future",
+    "reason": "25 vevents / 25 future",
     "status": "ok",
     "type": "ics"
   },
   "frostscience.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Phillip and Patricia Frost Museum of Science (Miami, FL)",
-    "reason": "23 vevents / 24 future",
+    "reason": "21 vevents / 21 future",
     "status": "ok",
     "type": "ics"
+  },
+  "ftc.enterprise.localist.com": {
+    "checked": 20260727,
+    "name": "Florida Technical College (Orlando)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
   },
   "ftwaynesfarmersmarket.com/events/?ical=1": {
     "checked": 20260727,
@@ -793,28 +1080,42 @@
   "gansmarket.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Gansevoort Market (New York)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "gardinermuseum.on.ca/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Gardiner Museum (Toronto, Canada)",
-    "reason": "30 vevents / 19 future",
+    "reason": "30 vevents / 17 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "gastonlibrary.libcal.com/ical_subscribe.php?cid=4371": {
+    "checked": 20260727,
+    "name": "Gaston County Public Library Programs (Charlotte)",
+    "reason": "113 vevents / 104 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "gatech.libcal.com/ical_subscribe.php?cid=19127": {
+    "checked": 20260727,
+    "name": "Georgia Tech Library Programming (Atlanta)",
+    "reason": "20 vevents / 17 future",
     "status": "ok",
     "type": "ics"
   },
   "gingerandspicefest.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Ginger and Spice Festival (Market Drayton)",
-    "reason": "7 vevents / 10 future",
+    "reason": "7 vevents / 7 future",
     "status": "ok",
     "type": "ics"
   },
   "glazermuseum.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Glazer Children's Museum (Tampa, FL)",
-    "reason": "8 vevents / 10 future",
+    "reason": "6 vevents / 6 future",
     "status": "ok",
     "type": "ics"
   },
@@ -826,16 +1127,16 @@
     "type": "ics"
   },
   "godalming-tc.gov.uk/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Godalming Town Council (Godalming, UK)",
-    "reason": "9 vevents / 12 future",
+    "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
   "gof.nu/?post_type=tribe_events&ical=1": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Goteborgs Ornitologiska Forening (Gothenburg, Sweden)",
-    "reason": "26 vevents / 30 future",
+    "reason": "29 vevents / 28 future",
     "status": "ok",
     "type": "ics"
   },
@@ -849,14 +1150,14 @@
   "granvilleisland.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Granville Island Events (Vancouver)",
-    "reason": "8 vevents / 5 future",
+    "reason": "8 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
   "greatlakesbrewing.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Great Lakes Brewing Company (Cleveland)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -877,7 +1178,7 @@
   "gsfb.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Good Shepherd Food Bank (Auburn, ME)",
-    "reason": "9 vevents / 10 future",
+    "reason": "9 vevents / 7 future",
     "status": "ok",
     "type": "ics"
   },
@@ -891,42 +1192,49 @@
   "hampshirefarmersmarkets.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Hampshire Farmers Markets (UK)",
-    "reason": "30 vevents / 31 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "harboroughmarket.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Harborough Market (Leicestershire)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "harvesters.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Harvesters Community Food Network (Kansas City)",
-    "reason": "6 vevents / 4 future",
+    "reason": "6 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
   "healthebay.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Heal the Bay (Santa Monica, CA)",
-    "reason": "3 vevents / 6 future",
+    "reason": "1 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
   "helenamay.com/events/?ical=1": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "The Helena May (Hong Kong)",
     "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hermannpark.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Hermann Park Conservancy Events (Houston)",
+    "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
   },
   "highlandbrewing.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Highland Brewing (Asheville, NC)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -938,16 +1246,23 @@
     "type": "ics"
   },
   "houstonarboretum.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Houston Arboretum & Nature Center (Houston, TX)",
-    "reason": "10 vevents / 13 future",
+    "reason": "4 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
   "houstonfoodbank.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Houston Food Bank",
-    "reason": "18 vevents / 19 future",
+    "reason": "19 vevents / 17 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "huntersville.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260727,
+    "name": "Town of Huntersville Events (Charlotte)",
+    "reason": "47 vevents / 47 future",
     "status": "ok",
     "type": "ics"
   },
@@ -968,14 +1283,14 @@
   "idahofoodbank.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Idaho Foodbank (Boise)",
-    "reason": "7 vevents / 9 future",
+    "reason": "7 vevents / 6 future",
     "status": "ok",
     "type": "ics"
   },
   "indeedbrewing.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Indeed Brewing (Minneapolis)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1008,30 +1323,30 @@
     "type": "ics"
   },
   "jcwc.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Johnson Creek Watershed Council (Portland, OR)",
-    "reason": "14 vevents / 17 future",
+    "reason": "14 vevents / 14 future",
     "status": "ok",
     "type": "ics"
   },
   "jmkac.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "John Michael Kohler Arts Center (Sheboygan, WI)",
-    "reason": "12 vevents / 17 future",
+    "reason": "12 vevents / 12 future",
     "status": "ok",
     "type": "ics"
   },
   "kaminsciencecenter.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Kamin Science Center (Pittsburgh, PA)",
-    "reason": "16 vevents / 19 future",
+    "reason": "15 vevents / 15 future",
     "status": "ok",
     "type": "ics"
   },
   "kestreltrust.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Kestrel Land Trust (Amherst, MA)",
-    "reason": "8 vevents / 10 future",
+    "reason": "7 vevents / 7 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1043,9 +1358,9 @@
     "type": "ics"
   },
   "knzb.org.nz/events/?ical=1": {
-    "checked": 20260723,
+    "checked": 20260727,
     "name": "Keep New Zealand Beautiful (New Zealand)",
-    "reason": "5 vevents / 6 future",
+    "reason": "7 vevents / 7 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1057,9 +1372,9 @@
     "type": "ics"
   },
   "kulturstedetlindegaarden.dk/events/?ical=1": {
-    "checked": 20260722,
+    "checked": 20260727,
     "name": "Kulturstedet Lindegaarden (Kgs. Lyngby, Denmark)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1080,42 +1395,42 @@
   "lacosechadc.com/events/?ical=1": {
     "checked": 20260727,
     "name": "La Cosecha Market (Washington DC)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "lancaster-uk.libcal.com/ical_subscribe.php?cid=718": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "Lancaster University Library (Lancaster, United Kingdom)",
-    "reason": "13 vevents / 1 future",
+    "reason": "6 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
   "law-uk.libcal.com/ical_subscribe.php?cid=7896": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "University of Law Library Events (London, United Kingdom)",
-    "reason": "24 vevents / 13 future",
+    "reason": "23 vevents / 13 future",
     "status": "ok",
     "type": "ics"
   },
   "leeds.libcal.com/ical_subscribe.php?cid=8882": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "University of Leeds Skills@Library Workshops (Leeds, United Kingdom)",
-    "reason": "19 vevents / 12 future",
+    "reason": "18 vevents / 9 future",
     "status": "ok",
     "type": "ics"
   },
   "leeds.libcal.com/ical_subscribe.php?cid=8929": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "University of Leeds Researcher Skills (Leeds, United Kingdom)",
-    "reason": "5 vevents / 2 future",
+    "reason": "7 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
   "leeds.libcal.com/ical_subscribe.php?cid=9035": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "University of Leeds Public Events (Leeds, United Kingdom)",
-    "reason": "2 vevents / 1 future",
+    "reason": "1 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1134,51 +1449,65 @@
     "type": "ics"
   },
   "libcal.library.ubc.ca/ical_subscribe.php?cid=7544": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "UBC Library (Vancouver, Canada)",
-    "reason": "72 vevents / 49 future",
+    "reason": "80 vevents / 58 future",
     "status": "ok",
     "type": "ics"
   },
   "libcal.vu.nl/ical_subscribe.php?cid=7052": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "VU Amsterdam University Library (Amsterdam)",
     "reason": "3 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
+  "librarycalendar.fairfaxcounty.gov/ical_subscribe.php?cid=6524": {
+    "checked": 20260727,
+    "name": "Fairfax County Public Library (DC metro)",
+    "reason": "500 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "lonestar.enterprise.localist.com": {
+    "checked": 20260727,
+    "name": "Lone Star College (Houston)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
+  },
   "lonsdalequay.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Lonsdale Quay Market (North Vancouver)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "lovewimbledon.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Love Wimbledon BID (Wimbledon, London, UK)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "lowcountryfoodbank.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Lowcountry Food Bank (Charleston, SC)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "lsbu-uk.libcal.com/ical_subscribe.php?cid=6613": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "London South Bank University Library (London, United Kingdom)",
-    "reason": "112 vevents / 63 future",
+    "reason": "98 vevents / 50 future",
     "status": "ok",
     "type": "ics"
   },
   "lsbu-uk.libcal.com/ical_subscribe.php?cid=8278": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "LSBU Library Wellbeing (London, United Kingdom)",
-    "reason": "8 vevents / 3 future",
+    "reason": "6 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1197,10 +1526,10 @@
     "type": "ics"
   },
   "madrid.impacthub.net/events/?ical=1": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Impact Hub Madrid (Madrid, Spain)",
-    "reason": "1 vevents / 1 future",
-    "status": "ok",
+    "reason": "1 vevents / 0 future",
+    "status": "fail",
     "type": "ics"
   },
   "margaretriver.wine/events/?ical=1": {
@@ -1225,37 +1554,37 @@
     "type": "ics"
   },
   "massey.libcal.com/ical_subscribe.php?cid=2383": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Massey University Library (Palmerston North, New Zealand)",
-    "reason": "38 vevents / 33 future",
+    "reason": "38 vevents / 27 future",
     "status": "ok",
     "type": "ics"
   },
   "mathallenoslo.no/events/?ical=1": {
     "checked": 20260727,
     "name": "Mathallen Oslo Food Hall",
-    "reason": "26 vevents / 27 future",
+    "reason": "26 vevents / 26 future",
     "status": "ok",
     "type": "ics"
   },
   "mbo.org.au/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Mount Burnett Observatory (Mount Burnett, Australia)",
-    "reason": "5 vevents / 8 future",
+    "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
   },
   "mdfoodbank.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Maryland Food Bank (Baltimore)",
-    "reason": "6 vevents / 11 future",
+    "reason": "6 vevents / 6 future",
     "status": "ok",
     "type": "ics"
   },
   "meatmarket.org.au/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Meat Market (Melbourne, Australia)",
-    "reason": "4 vevents / 7 future",
+    "reason": "8 vevents / 8 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1274,30 +1603,30 @@
     "type": "ics"
   },
   "merikarvia.fi/tapahtumat/?ical=1": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Merikarvia Municipality (Merikarvia, Finland)",
-    "reason": "19 vevents / 21 future",
+    "reason": "10 vevents / 8 future",
     "status": "ok",
     "type": "ics"
   },
   "mezrab.nl/events/?ical=1": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Mezrab (Amsterdam)",
-    "reason": "2030 vevents / 190 future",
+    "reason": "2030 vevents / 187 future",
     "status": "ok",
     "type": "ics"
   },
   "mguinc.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260723,
+    "checked": 20260727,
     "name": "Meta-Games Unlimited (Springfield, MO)",
-    "reason": "30 vevents / 3 future",
-    "status": "ok",
+    "reason": "30 vevents / 0 future",
+    "status": "fail",
     "type": "ics"
   },
   "millriverpark.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Mill River Park Collaborative (Stamford, CT)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1308,19 +1637,40 @@
     "status": "fail",
     "type": "ics"
   },
+  "minneapolisparks.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Minneapolis Park & Recreation Board (Minneapolis)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "mintmuseum.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Mint Museum (Charlotte, NC)",
-    "reason": "21 vevents / 24 future",
+    "reason": "9 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mnl.libcal.com/ical_subscribe.php?cid=19360": {
+    "checked": 20260727,
+    "name": "Montgomery County-Norristown Public Library (Philadelphia)",
+    "reason": "345 vevents / 217 future",
     "status": "ok",
     "type": "ics"
   },
   "mods.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Museum of Discovery and Science (Fort Lauderdale, FL)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "msudenver.enterprise.localist.com": {
+    "checked": 20260727,
+    "name": "Metropolitan State University of Denver (Denver)",
+    "reason": "5 events",
+    "status": "ok",
+    "type": "localist"
   },
   "nagpur.afindia.org/events/?ical=1": {
     "checked": 20260722,
@@ -1344,16 +1694,16 @@
     "type": "ics"
   },
   "neponset.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Neponset River Watershed Association (Canton, MA)",
-    "reason": "30 vevents / 37 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "nlb.libcal.com/ical_subscribe.php?cid=11498": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "National Library Board GoLibrary (Singapore)",
-    "reason": "500 vevents / 83 future",
+    "reason": "500 vevents / 86 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1367,26 +1717,26 @@
   "nourishknoxville.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Nourish Knoxville Farmers Markets (Knoxville, TN)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "nus.libcal.com/ical_subscribe.php?cid=11372": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "NUS Medical & Science Library (Singapore)",
     "reason": "20 vevents / 20 future",
     "status": "ok",
     "type": "ics"
   },
   "nus.libcal.com/ical_subscribe.php?cid=11414": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "NUS Central Library (Singapore)",
     "reason": "19 vevents / 17 future",
     "status": "ok",
     "type": "ics"
   },
   "occii.org/agenda/?ical=1": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "OCCII (Amsterdam)",
     "reason": "1751 vevents / 16 future",
     "status": "ok",
@@ -1400,18 +1750,25 @@
     "type": "ics"
   },
   "oldstrathcona.ca/events-full/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Old Strathcona BIA (Edmonton, Canada)",
-    "reason": "19 vevents / 21 future",
+    "reason": "18 vevents / 17 future",
     "status": "ok",
     "type": "ics"
   },
   "opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/eventi-bologna-agenda-cultura/records": {
-    "checked": 20260722,
+    "checked": 20260727,
     "name": "Bologna Agenda Cultura (Bologna, Italy)",
-    "reason": "30307 records",
+    "reason": "30387 records",
     "status": "ok",
     "type": "ods"
+  },
+  "orcity.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260727,
+    "name": "Oregon City Community & Recreation (Portland)",
+    "reason": "335 vevents / 335 future",
+    "status": "ok",
+    "type": "ics"
   },
   "oregonfoodbank.org/events/?ical=1": {
     "checked": 20260727,
@@ -1423,14 +1780,14 @@
   "oregonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Oregon Wine Board Events",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "osc.org/visit/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Orlando Science Center (Orlando, FL)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1442,23 +1799,30 @@
     "type": "ics"
   },
   "paris.demosphere.net/events.ics": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Demosphere Paris - Ile-de-France (Paris, France)",
     "reason": "1 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
+  "parkerrec.com/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar": {
+    "checked": 20260727,
+    "name": "Parker Recreation & Community Events (Denver)",
+    "reason": "18 vevents / 18 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "permaculturevictoria.org.au/events/?ical=1": {
-    "checked": 20260722,
+    "checked": 20260727,
     "name": "Permaculture Victoria (Melbourne, Australia)",
-    "reason": "1109 vevents / 42 future",
+    "reason": "1109 vevents / 39 future",
     "status": "ok",
     "type": "ics"
   },
   "perrinbrewing.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Perrin Brewing (Comstock Park, MI)",
-    "reason": "1 vevents / 4 future",
+    "reason": "1 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1469,10 +1833,17 @@
     "status": "ok",
     "type": "ics"
   },
+  "phoenixlocalevents.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Phoenix Local Events (Phoenix)",
+    "reason": "22 vevents / 22 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "piedmontpark.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Piedmont Park Conservancy (Atlanta, GA)",
-    "reason": "10 vevents / 13 future",
+    "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1483,11 +1854,32 @@
     "status": "fail",
     "type": "ics"
   },
+  "pitt.libcal.com/ical_subscribe.php?cid=2274": {
+    "checked": 20260727,
+    "name": "University of Pittsburgh Library System Events (Pittsburgh)",
+    "reason": "11 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "pittsburghparks.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Pittsburgh Parks Conservancy (Pittsburgh)",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "pittsburghpublicmarket.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Pittsburgh Public Market / Neighborhood Allies Events",
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
+    "type": "ics"
+  },
+  "poncecitymarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Ponce City Market Events (Atlanta)",
+    "reason": "30 vevents / 29 future",
+    "status": "ok",
     "type": "ics"
   },
   "pondicherry.afindia.org/events/?ical=1": {
@@ -1498,39 +1890,46 @@
     "type": "ics"
   },
   "portdiscovery.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Port Discovery Children's Museum (Baltimore, MD)",
-    "reason": "30 vevents / 33 future",
+    "reason": "28 vevents / 28 future",
     "status": "ok",
     "type": "ics"
   },
   "portlandfarmersmarket.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Portland Farmers Market Events",
-    "reason": "3 vevents / 6 future",
+    "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
   },
   "portlandmuseum.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Portland Museum of Art (Portland, ME)",
-    "reason": "24 vevents / 27 future",
+    "reason": "8 vevents / 8 future",
     "status": "ok",
     "type": "ics"
   },
   "prolocofaenza.it/eventi/categoria/sagre-e-mercati/?ical=1": {
     "checked": 20260727,
     "name": "Pro Loco Faenza sagre e mercati (Italy)",
-    "reason": "9 vevents / 12 future",
+    "reason": "9 vevents / 9 future",
     "status": "ok",
     "type": "ics"
   },
   "prospectpark.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Prospect Park Alliance (Brooklyn, NY)",
-    "reason": "30 vevents / 32 future",
+    "reason": "30 vevents / 29 future",
     "status": "ok",
     "type": "ics"
+  },
+  "public.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-publics-openagenda/records": {
+    "checked": 20260727,
+    "name": "OpenAgenda (GB/IE/DE/NL/CA/BE/CH/ES/IT/SE)",
+    "reason": "1193451 records",
+    "status": "ok",
+    "type": "ods"
   },
   "pune.afindia.org/events/?ical=1": {
     "checked": 20260722,
@@ -1540,10 +1939,10 @@
     "type": "ics"
   },
   "queenstreetwest.ca/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Queen Street West BIA (Toronto, Canada)",
-    "reason": "1 vevents / 4 future",
-    "status": "ok",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "qvm.com.au/events/?ical=1": {
@@ -1554,79 +1953,86 @@
     "type": "ics"
   },
   "radolfzell-stadtbibliothek.de/veranstaltungen/?ical=1": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Stadtbibliothek Radolfzell (Radolfzell, Germany)",
-    "reason": "3 vevents / 6 future",
+    "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
   },
   "ramart.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Racine Art Museum (Racine, WI)",
-    "reason": "25 vevents / 28 future",
+    "reason": "22 vevents / 20 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "readingterminalmarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Reading Terminal Market Events (Philadelphia)",
+    "reason": "10 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
   "rfbo.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Regional Food Bank of Oklahoma (Oklahoma City)",
-    "reason": "1 vevents / 4 future",
+    "reason": "1 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
   "rhinegeist.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Rhinegeist Brewery (Cincinnati)",
-    "reason": "18 vevents / 21 future",
+    "reason": "18 vevents / 18 future",
     "status": "ok",
     "type": "ics"
   },
   "riverbank.ie/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Riverbank Arts Centre (Newbridge, Ireland)",
-    "reason": "30 vevents / 31 future",
-    "status": "ok",
+    "reason": "ReadTimeout: HTTPSConnectionPool(host='www.riverbank.ie', port=443): Read",
+    "status": "fail",
     "type": "ics"
   },
   "riversideparknyc.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Riverside Park Conservancy (New York, NY)",
-    "reason": "30 vevents / 33 future",
+    "reason": "24 vevents / 24 future",
     "status": "ok",
     "type": "ics"
   },
   "rshartisanmarket.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "R.S.H Artisan Markets (Yorkshire)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "russianriverbrewing.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Russian River Brewing (Santa Rosa, CA)",
-    "reason": "2 vevents / 5 future",
+    "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
   "safoodbank.org/events/?ical=1": {
     "checked": 20260727,
     "name": "San Antonio Food Bank",
-    "reason": "3 vevents / 4 future",
+    "reason": "3 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
   "saintpaulaudubon.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Saint Paul Audubon Society (St. Paul, MN)",
-    "reason": "8 vevents / 11 future",
+    "reason": "13 vevents / 13 future",
     "status": "ok",
     "type": "ics"
   },
   "santafebrewing.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Santa Fe Brewing (New Mexico)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1638,44 +2044,44 @@
     "type": "ics"
   },
   "savesfbay.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Save The Bay (Oakland, CA)",
-    "reason": "3 vevents / 6 future",
+    "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
   "sccf.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Sanibel-Captiva Conservation Foundation (Sanibel, FL)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "scenichudson.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Scenic Hudson (Poughkeepsie, NY)",
-    "reason": "8 vevents / 11 future",
+    "reason": "5 vevents / 5 future",
     "status": "ok",
     "type": "ics"
   },
   "schlitzaudubon.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Schlitz Audubon Nature Center (Milwaukee, WI)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "schuylkillcenter.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Schuylkill Center for Environmental Education (Philadelphia, PA)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "sciencenter.org/experiences/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Sciencenter (Ithaca, NY)",
-    "reason": "30 vevents / 35 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1701,7 +2107,7 @@
     "type": "ics"
   },
   "sigtunastiftelsen.se/?post_type=tribe_events&ical=1": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Sigtunastiftelsen (Sigtuna, Sweden)",
     "reason": "30 vevents / 26 future",
     "status": "ok",
@@ -1722,23 +2128,23 @@
     "type": "ics"
   },
   "smm.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Science Museum of Minnesota (St. Paul, MN)",
-    "reason": "12 vevents / 15 future",
+    "reason": "11 vevents / 11 future",
     "status": "ok",
     "type": "ics"
   },
   "smu-sg.libcal.com/ical_subscribe.php?cid=11382": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "SMU Libraries (Singapore)",
     "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
   },
   "stanleyparkecology.ca/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Stanley Park Ecology Society (Vancouver, Canada)",
-    "reason": "30 vevents / 31 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1764,9 +2170,9 @@
     "type": "ics"
   },
   "sun.ac.za.libcal.com/ical_subscribe.php?cid=21790": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Stellenbosch University Library (Stellenbosch, South Africa)",
-    "reason": "27 vevents / 27 future",
+    "reason": "27 vevents / 24 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1780,14 +2186,14 @@
   "surlybrewing.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Surly Brewing (Minneapolis)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "swordandboard.net/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260723,
+    "checked": 20260727,
     "name": "Sword and Board (Ukiah, CA)",
-    "reason": "29 vevents / 32 future",
+    "reason": "28 vevents / 28 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1799,30 +2205,30 @@
     "type": "ics"
   },
   "tacomaartmuseum.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Tacoma Art Museum (Tacoma, WA)",
-    "reason": "5 vevents / 7 future",
+    "reason": "3 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
   "tafb.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Tarrant Area Food Bank (Fort Worth)",
-    "reason": "9 vevents / 14 future",
+    "reason": "9 vevents / 9 future",
     "status": "ok",
     "type": "ics"
   },
   "taubmanmuseum.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Taubman Museum of Art (Roanoke, VA)",
-    "reason": "30 vevents / 29 future",
+    "reason": "30 vevents / 21 future",
     "status": "ok",
     "type": "ics"
   },
   "techniquest.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Techniquest (Cardiff, United Kingdom)",
-    "reason": "2323 vevents / 275 future",
+    "reason": "2324 vevents / 234 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1834,9 +2240,9 @@
     "type": "ics"
   },
   "textilemuseum.ca/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Textile Museum of Canada (Toronto, Canada)",
-    "reason": "6 vevents / 8 future",
+    "reason": "4 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1862,37 +2268,37 @@
     "type": "ics"
   },
   "thecontemporaryaustin.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "The Contemporary Austin (Austin, TX)",
-    "reason": "7 vevents / 13 future",
+    "reason": "6 vevents / 6 future",
     "status": "ok",
     "type": "ics"
   },
   "thefarmcookeryschool.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "The Farm Cookery School (Wiltshire)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "themuseum.ca/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "THEMUSEUM (Kitchener, Canada)",
-    "reason": "3625 vevents / 183 future",
+    "reason": "3571 vevents / 156 future",
     "status": "ok",
     "type": "ics"
   },
   "tilburguniversity.libcal.com/ical_subscribe.php?cid=7924": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Tilburg University Library (Tilburg)",
     "reason": "9 vevents / 8 future",
     "status": "ok",
     "type": "ics"
   },
   "torontobotanicalgarden.ca/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Toronto Botanical Garden (Toronto, Canada)",
-    "reason": "24 vevents / 30 future",
+    "reason": "26 vevents / 26 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1904,9 +2310,16 @@
     "type": "ics"
   },
   "toulouse.demosphere.net/events.ics": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Demosphere Toulouse (Toulouse, France)",
-    "reason": "49 vevents / 49 future",
+    "reason": "52 vevents / 52 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "townhallseattle.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Town Hall Seattle",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1917,10 +2330,59 @@
     "status": "fail",
     "type": "ics"
   },
+  "trumba.com/calendars/freedom_trail_foundation_events.ics": {
+    "checked": 20260727,
+    "name": "Freedom Trail Foundation Events (Boston)",
+    "reason": "200 vevents / 200 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trumba.com/calendars/homepagesidebarevents.ics": {
+    "checked": 20260727,
+    "name": "City of Long Beach Events (Los Angeles)",
+    "reason": "200 vevents / 199 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trumba.com/calendars/sanantonio.ics": {
+    "checked": 20260727,
+    "name": "San Antonio City Calendar",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trumba.com/calendars/sea_artsci.ics": {
+    "checked": 20260727,
+    "name": "UW College of Arts and Sciences",
+    "reason": "18 vevents / 18 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trumba.com/calendars/sea_campus.ics": {
+    "checked": 20260727,
+    "name": "UW Seattle Campus Events",
+    "reason": "700 vevents / 700 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trumba.com/calendars/sea_lib.ics": {
+    "checked": 20260727,
+    "name": "UW Libraries, Seattle",
+    "reason": "45 vevents / 41 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trumba.com/calendars/seattlegov-city-wide.ics": {
+    "checked": 20260727,
+    "name": "Seattle City Calendar",
+    "reason": "500 vevents / 485 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "tucsonmuseumofart.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Tucson Museum of Art (Tucson, AZ)",
-    "reason": "2 vevents / 2 future",
+    "reason": "4 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1932,121 +2394,149 @@
     "type": "ics"
   },
   "u-bordeaux.libcal.com/ical_subscribe.php?cid=8971": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Universite de Bordeaux - Agenda des BU (Bordeaux, France)",
     "reason": "9 vevents / 9 future",
     "status": "ok",
     "type": "ics"
   },
+  "ucdenver.enterprise.localist.com": {
+    "checked": 20260727,
+    "name": "University of Colorado Denver (Denver)",
+    "reason": "4 events",
+    "status": "ok",
+    "type": "localist"
+  },
   "uct.ac.za.libcal.com/ical_subscribe.php?cid=497": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "UCT Libraries (Cape Town, South Africa)",
     "reason": "34 vevents / 34 future",
     "status": "ok",
     "type": "ics"
   },
   "udem.libcal.com/ical_subscribe.php?cid=16310": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Universidad de Monterrey Events (Monterrey)",
-    "reason": "79 vevents / 43 future",
+    "reason": "65 vevents / 43 future",
     "status": "ok",
     "type": "ics"
   },
   "ufs.libcal.com/ical_subscribe.php?cid=20592": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "University of the Free State Library (Bloemfontein, South Africa)",
-    "reason": "12 vevents / 10 future",
+    "reason": "12 vevents / 8 future",
     "status": "ok",
     "type": "ics"
   },
   "uio.no/om/aktuelt/arrangementer/?vrtx=ical": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "University of Oslo (Oslo, Norway)",
-    "reason": "29 vevents / 29 future",
+    "reason": "27 vevents / 27 future",
     "status": "ok",
     "type": "ics"
   },
   "uj-ac-za.libcal.com/ical_subscribe.php?cid=16682": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "University of Johannesburg Library - Training (Johannesburg, South Africa)",
-    "reason": "21 vevents / 15 future",
+    "reason": "20 vevents / 11 future",
     "status": "ok",
     "type": "ics"
   },
   "uj-ac-za.libcal.com/ical_subscribe.php?cid=16683": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "University of Johannesburg Library - Events (Johannesburg, South Africa)",
-    "reason": "65 vevents / 53 future",
+    "reason": "64 vevents / 37 future",
     "status": "ok",
     "type": "ics"
   },
   "ul.libcal.com/ical_subscribe.php?cid=6956": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "University of Limerick - Glucksman Library (Limerick, Ireland)",
-    "reason": "12 vevents / 5 future",
+    "reason": "10 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "umn.libcal.com/ical_subscribe.php?cid=12437": {
+    "checked": 20260727,
+    "name": "UMN Libraries - Innovation & Technology (Minneapolis)",
+    "reason": "86 vevents / 53 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "umn.libcal.com/ical_subscribe.php?cid=3064": {
+    "checked": 20260727,
+    "name": "UMN Libraries - Workshops (Minneapolis)",
+    "reason": "34 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "union-nc.libcal.com/ical_subscribe.php?cid=21886": {
+    "checked": 20260727,
+    "name": "Union County Public Library Programs (Charlotte)",
+    "reason": "500 vevents / 340 future",
     "status": "ok",
     "type": "ics"
   },
   "unionmarketdc.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Union Market Events (Washington DC)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "univ-amu.libcal.com/ical_subscribe.php?cid=8791": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Aix-Marseille Universite - Agenda culturel des BU (Marseille, France)",
-    "reason": "7 vevents / 5 future",
+    "reason": "6 vevents / 5 future",
     "status": "ok",
     "type": "ics"
   },
   "universityofgalway.libcal.com/ical_subscribe.php?cid=8158": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "University of Galway Library (Galway, Ireland)",
-    "reason": "27 vevents / 18 future",
+    "reason": "33 vevents / 20 future",
     "status": "ok",
     "type": "ics"
   },
   "unizulu.libcal.com/ical_subscribe.php?cid=17483": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "University of Zululand Library (Richards Bay, South Africa)",
-    "reason": "29 vevents / 18 future",
+    "reason": "37 vevents / 14 future",
     "status": "ok",
     "type": "ics"
   },
   "up-mx.libcal.com/ical_subscribe.php?cid=18847": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Universidad Panamericana - Intercampus (Mexico City)",
-    "reason": "16 vevents / 7 future",
+    "reason": "15 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
   "up-mx.libcal.com/ical_subscribe.php?cid=19179": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Universidad Panamericana - Guadalajara",
     "reason": "6 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
   "usyd.libcal.com/ical_subscribe.php?cid=3560": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "University of Sydney Library (Sydney, Australia)",
-    "reason": "22 vevents / 19 future",
+    "reason": "78 vevents / 76 future",
     "status": "ok",
     "type": "ics"
   },
   "utas.libcal.com/ical_subscribe.php?cid=7380": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "University of Tasmania Library (Hobart, Australia)",
-    "reason": "6 vevents / 4 future",
+    "reason": "5 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
   "vancouverfarmersmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Vancouver Farmers Markets (BC)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -2058,16 +2548,16 @@
     "type": "ics"
   },
   "visitwicklow.ie/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Visit Wicklow (Wicklow, Ireland)",
-    "reason": "12 vevents / 10 future",
+    "reason": "6 vevents / 5 future",
     "status": "ok",
     "type": "ics"
   },
   "voedselboslingehout.nl/agenda/?ical=1": {
     "checked": 20260727,
     "name": "Voedselbos Lingehout (Gelderland, Netherlands)",
-    "reason": "16 vevents / 19 future",
+    "reason": "16 vevents / 16 future",
     "status": "ok",
     "type": "ics"
   },
@@ -2079,9 +2569,9 @@
     "type": "ics"
   },
   "waikato.libcal.com/ical_subscribe.php?cid=10863": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "University of Waikato Library (Hamilton, New Zealand)",
-    "reason": "54 vevents / 50 future",
+    "reason": "52 vevents / 46 future",
     "status": "ok",
     "type": "ics"
   },
@@ -2102,28 +2592,28 @@
   "washingtonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Washington State Wine Events",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "wellplayedasheville.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260723,
+    "checked": 20260727,
     "name": "Well Played Board Game Cafe (Asheville, NC)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 29 future",
     "status": "ok",
     "type": "ics"
   },
   "westendbia.com/events/list/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "West End BIA (Vancouver, Canada)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "westernsydney.libcal.com/ical_subscribe.php?cid=10895": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "Western Sydney University Library (Sydney, Australia)",
-    "reason": "109 vevents / 100 future",
+    "reason": "103 vevents / 89 future",
     "status": "ok",
     "type": "ics"
   },
@@ -2142,9 +2632,9 @@
     "type": "ics"
   },
   "wildflower.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Lady Bird Johnson Wildflower Center (Austin, TX)",
-    "reason": "17 vevents / 19 future",
+    "reason": "11 vevents / 10 future",
     "status": "ok",
     "type": "ics"
   },
@@ -2158,7 +2648,7 @@
   "winebc.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Wine Growers British Columbia",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -2170,51 +2660,51 @@
     "type": "ics"
   },
   "wits.ac.za.libcal.com/ical_subscribe.php?cid=16432": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Wits University Library (Johannesburg, South Africa)",
     "reason": "7 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
   "wolvas.org.uk/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Wolverhampton Astronomical Society (Wolverhampton, United Kingdom)",
-    "reason": "3 vevents / 6 future",
+    "reason": "18 vevents / 18 future",
     "status": "ok",
     "type": "ics"
   },
   "wonderhub.ca/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "Nutrien Wonderhub (Saskatoon, Canada)",
-    "reason": "9 vevents / 9 future",
+    "reason": "4 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
   "wonderlab.org/events/?ical=1": {
-    "checked": 20260720,
+    "checked": 20260727,
     "name": "WonderLab Museum (Bloomington, IN)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
   "wpl.libcal.com/ical_subscribe.php?cid=1677": {
-    "checked": 20260719,
+    "checked": 20260727,
     "name": "Winnipeg Public Library (Winnipeg, Canada)",
-    "reason": "500 vevents / 256 future",
+    "reason": "500 vevents / 223 future",
     "status": "ok",
     "type": "ics"
   },
   "wutw.co.uk/whats-on/category/markets/?ical=1": {
     "checked": 20260727,
     "name": "Woodstock Farmers Market (Oxfordshire)",
-    "reason": "18 vevents / 23 future",
+    "reason": "18 vevents / 18 future",
     "status": "ok",
     "type": "ics"
   },
   "zinnschmelze.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260721,
+    "checked": 20260727,
     "name": "Zinnschmelze Kulturzentrum (Hamburg, Germany)",
-    "reason": "30 vevents / 33 future",
+    "reason": "30 vevents / 28 future",
     "status": "ok",
     "type": "ics"
   }
