@@ -18,6 +18,21 @@ jobs:
           python-version: "3.12"
       - name: Install deps
         run: pip install -r requirements.txt
+      - name: Check the token itself (/v3/users/me/)
+        run: |
+          python - <<'PY'
+          import os, json, urllib.request, urllib.error
+          tok = os.environ.get("EVENTBRITE_API_TOKEN", "")
+          print(f"token present: {bool(tok)}  length: {len(tok)}  looks-trimmed: {tok == tok.strip()}")
+          req = urllib.request.Request("https://www.eventbriteapi.com/v3/users/me/",
+                                       headers={"Authorization": f"Bearer {tok.strip()}"})
+          try:
+              d = json.load(urllib.request.urlopen(req, timeout=20))
+              print(f"RESULT: token VALID - account id {d.get('id')}, name {d.get('name')}")
+          except urllib.error.HTTPError as e:
+              body = e.read().decode()[:300]
+              print(f"RESULT: token REJECTED - HTTP {e.code}: {body}")
+          PY
       - name: Import one metro via the Eventbrite API
         run: |
           python - <<'PY'
