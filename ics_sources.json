@@ -1755,5 +1755,26 @@
     "category": "food",
     "geocode_suffix": ", Gelderland, Netherlands",
     "limit": 300
+  },
+  {
+    "name": "British Cider Week (Devon, UK)",
+    "url": "https://britishciderweek.org.uk/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", United Kingdom",
+    "limit": 300
+  },
+  {
+    "name": "Cromane Seafest (Co. Kerry, Ireland)",
+    "url": "https://www.cromaneseafest.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Cromane, Co. Kerry, Ireland",
+    "limit": 300
+  },
+  {
+    "name": "Clitheroe Food Festival (Clitheroe, UK)",
+    "url": "https://www.clitheroefoodfestival.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Clitheroe, Lancashire, UK",
+    "limit": 300
   }
 ]

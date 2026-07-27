@@ -286,6 +286,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "britishciderweek.org.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "British Cider Week (Devon, UK)",
+    "reason": "2 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "broadwaymarket.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Broadway Market Events (Buffalo)",
@@ -447,6 +454,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "clitheroefoodfestival.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Clitheroe Food Festival (Clitheroe, UK)",
+    "reason": "47 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "communitygarden.org.au/events/?ical=1": {
     "checked": 20260722,
     "name": "Australian City Farms & Community Gardens Network (Australia)",
@@ -473,6 +487,13 @@
     "name": "Crescent City Farmers Market Events (New Orleans)",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
+    "type": "ics"
+  },
+  "cromaneseafest.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Cromane Seafest (Co. Kerry, Ireland)",
+    "reason": "19 vevents / 19 future",
+    "status": "ok",
     "type": "ics"
   },
   "dallasfarmersmarket.org/events/?ical=1": {
@@ -962,6 +983,13 @@
     "checked": 20260727,
     "name": "Industry City Food Hall (Brooklyn)",
     "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "insidethecask.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Inside the Cask (London, UK)",
+    "reason": "6 vevents / 5 future",
     "status": "ok",
     "type": "ics"
   },
