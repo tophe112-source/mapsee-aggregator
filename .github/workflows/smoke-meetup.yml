@@ -1,0 +1,32 @@
+name: Smoke test - Meetup token
+
+# Manual-only: confirms the MEETUP_* JWT secrets can mint an access token,
+# in ~30s instead of waiting out a full 165-metro sweep.
+on:
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      MEETUP_CLIENT_KEY: ${{ secrets.MEETUP_CLIENT_KEY }}
+      MEETUP_MEMBER_ID: ${{ secrets.MEETUP_MEMBER_ID }}
+      MEETUP_SIGNING_KEY_ID: ${{ secrets.MEETUP_SIGNING_KEY_ID }}
+      MEETUP_PRIVATE_KEY: ${{ secrets.MEETUP_PRIVATE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install pyjwt cryptography requests
+      - name: Mint a Meetup token
+        run: |
+          TOK="$(python meetup_token.py)"
+          if [ -n "$TOK" ]; then
+            echo "::add-mask::$TOK"
+            echo "RESULT: token minted OK (length ${#TOK})"
+          else
+            echo "RESULT: mint FAILED - see the [meetup-token] error above"
+          fi
