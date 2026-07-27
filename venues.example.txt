@@ -1,0 +1,15 @@
+# Mapsee venue feeds — used with:  python mapsee_ingest.py --venues-file venues.example.txt
+#
+# One feed per line. Format (label optional; blank lines and #comments ignored):
+#     ics   <url>     -> an iCal/.ics calendar feed
+#     page  <url>     -> an HTML event page that embeds schema.org/Event JSON-LD
+#     <url>           -> auto: ".ics" ending => ics, otherwise => page
+#
+# Replace the examples below with real local venue feeds. Good sources to look for:
+#   - a venue's "Subscribe to calendar" / iCal link (often on its events page footer)
+#   - the venue's individual show pages (they usually embed JSON-LD for Google)
+#   - municipal / library / university calendars (frequently publish .ics)
+
+# ics   https://exampletheatre.org/events/?ical=1
+# page  https://examplemusichall.com/shows
+# https://examplevenue.org/calendar.ics
