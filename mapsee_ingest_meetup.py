@@ -51,8 +51,22 @@ GQL = "https://api.meetup.com/gql-ext"
 # One broad keyword per Mapsee layer — trimmed from 12 to 8 by dropping the
 # redundant ones (cooking/popup fold into food, games into social, learning into
 # tech), which cuts ~33% of the per-metro Meetup requests with ~no coverage loss.
-DEFAULT_KEYWORDS = ("social:community,music:music,food:food,tech:learning,"
-                    "outdoors:outdoors,art:arts,sports:sports,volunteer:volunteer")
+# eventSearch REQUIRES a keyword, so coverage is the union of these sweeps: one
+# GraphQL call per keyword per metro (~0.3s apart). The list was trimmed to 8
+# when Actions minutes were scarce; the public repo removed that constraint, so
+# FOOD and MARKET are now swept properly - they feed the oneday.cafe lens, which
+# measured just 4.9% of the pool while a single "food" keyword had to carry it.
+# Duplicates across keywords collapse on the store fingerprint, so overlap is
+# free. Terms are English on purpose: Meetup's international listings are
+# heavily English-titled, and per-language variants would multiply calls for
+# thin marginal yield.
+DEFAULT_KEYWORDS = ("social:community,music:music,tech:learning,"
+                    "outdoors:outdoors,art:arts,sports:sports,volunteer:volunteer,"
+                    # food + drink (oneday.cafe)
+                    "food:food,dinner:food,cooking:food,tasting:food,brunch:food,"
+                    "potluck:food,supper club:food,food truck:food,"
+                    # markets (oneday.cafe)
+                    "farmers market:market,night market:market")
 
 QUERY = """
 query($query: String!, $lat: Float!, $lon: Float!, $radius: Float,
