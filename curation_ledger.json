@@ -790,6 +790,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "digitalwallonia.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-en-wallonie/records": {
+    "checked": 20260727,
+    "name": "Evenements en Wallonie (iMio, Belgium)",
+    "reason": "22440 records",
+    "status": "ok",
+    "type": "ods"
+  },
   "downtownwinnipegbiz.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Downtown Winnipeg BIZ (Winnipeg, Canada)",
@@ -1909,6 +1916,83 @@
     "reason": "8 vevents / 8 future",
     "status": "ok",
     "type": "ics"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/active-parks-events/records": {
+    "checked": 20260727,
+    "name": "Brisbane Active Parks Events (Brisbane)",
+    "reason": "2000 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/brisbane-botanic-gardens-events/records": {
+    "checked": 20260727,
+    "name": "Brisbane Botanic Gardens Events (Brisbane)",
+    "reason": "292 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/chill-out-events/records": {
+    "checked": 20260727,
+    "name": "Brisbane Chill Out Youth Events (Brisbane)",
+    "reason": "387 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/creative-events/records": {
+    "checked": 20260727,
+    "name": "Brisbane Creative Events (Brisbane)",
+    "reason": "966 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/gold-events/records": {
+    "checked": 20260727,
+    "name": "Brisbane GOLD Program Events (Brisbane)",
+    "reason": "2000 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/infants-and-toddlers-events/records": {
+    "checked": 20260727,
+    "name": "Brisbane Infants and Toddlers Events (Brisbane)",
+    "reason": "518 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/library-events/records": {
+    "checked": 20260727,
+    "name": "Brisbane City Council Library Events (Brisbane)",
+    "reason": "1804 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/markets-events/records": {
+    "checked": 20260727,
+    "name": "Brisbane Markets Events (Brisbane)",
+    "reason": "297 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/mob-events/records": {
+    "checked": 20260727,
+    "name": "Museum of Brisbane Events (Brisbane)",
+    "reason": "315 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/music-events/records": {
+    "checked": 20260727,
+    "name": "Brisbane City Council Music Events (Brisbane)",
+    "reason": "1000 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/sir-thomas-brisbane-planetarium-events/records": {
+    "checked": 20260727,
+    "name": "Sir Thomas Brisbane Planetarium Events (Brisbane)",
+    "reason": "100 records",
+    "status": "ok",
+    "type": "ods"
   },
   "prolocofaenza.it/eventi/categoria/sagre-e-mercati/?ical=1": {
     "checked": 20260727,

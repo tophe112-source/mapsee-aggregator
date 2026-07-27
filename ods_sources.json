@@ -132,6 +132,260 @@
         "geo": "geo_point_2d"
       },
       "url": "https://data.bs.ch/api/explore/v2.1/catalog/datasets/100074/records"
+    },
+    {
+      "name": "Brisbane City Council Library Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "library-events",
+      "category": "learning",
+      "within_days": 90,
+      "max": 2000,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/library-events/records"
+    },
+    {
+      "name": "Brisbane Active Parks Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "active-parks-events",
+      "category": "outdoors",
+      "within_days": 90,
+      "max": 2000,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/active-parks-events/records"
+    },
+    {
+      "name": "Brisbane GOLD Program Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "gold-events",
+      "category": "community",
+      "within_days": 90,
+      "max": 2000,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/gold-events/records"
+    },
+    {
+      "name": "Brisbane Creative Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "creative-events",
+      "category": "arts",
+      "within_days": 90,
+      "max": 1000,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/creative-events/records"
+    },
+    {
+      "name": "Brisbane City Council Music Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "music-events",
+      "category": "music",
+      "within_days": 90,
+      "max": 1000,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/music-events/records"
+    },
+    {
+      "name": "Brisbane Infants and Toddlers Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "infants-and-toddlers-events",
+      "category": "kids",
+      "within_days": 90,
+      "max": 600,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/infants-and-toddlers-events/records"
+    },
+    {
+      "name": "Museum of Brisbane Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "mob-events",
+      "category": "arts",
+      "within_days": 90,
+      "max": 400,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/mob-events/records"
+    },
+    {
+      "name": "Brisbane Botanic Gardens Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "brisbane-botanic-gardens-events",
+      "category": "outdoors",
+      "within_days": 90,
+      "max": 400,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/brisbane-botanic-gardens-events/records"
+    },
+    {
+      "name": "Brisbane Chill Out Youth Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "chill-out-events",
+      "category": "kids",
+      "within_days": 90,
+      "max": 400,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/chill-out-events/records"
+    },
+    {
+      "name": "Sir Thomas Brisbane Planetarium Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "sir-thomas-brisbane-planetarium-events",
+      "category": "learning",
+      "within_days": 90,
+      "max": 300,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/sir-thomas-brisbane-planetarium-events/records"
+    },
+    {
+      "name": "Brisbane Markets Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "markets-events",
+      "category": "market",
+      "within_days": 90,
+      "max": 300,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/markets-events/records"
+    },
+    {
+      "name": "Evenements en Wallonie (iMio, Belgium)",
+      "domain": "digitalwallonia.opendatasoft.com",
+      "dataset": "evenements-en-wallonie",
+      "category": "community",
+      "within_days": 90,
+      "max": 3000,
+      "map": {
+        "id": "id",
+        "title": "title",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "address": "address_street_name",
+        "city": "address_city",
+        "region": "owner_name",
+        "postal": "address_postal_code",
+        "country": "address_country",
+        "geo": "coordinates",
+        "url": "event_url"
+      },
+      "url": "https://digitalwallonia.opendatasoft.com/api/explore/v2.1/catalog/datasets/evenements-en-wallonie/records"
     }
   ]
 }
