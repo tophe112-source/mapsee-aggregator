@@ -1272,5 +1272,488 @@
     "category": "community",
     "geocode_suffix": ", Australia",
     "limit": 300
+  },
+  {
+    "name": "Granville Island Events (Vancouver)",
+    "url": "https://granvilleisland.com/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Granville Island, Vancouver, BC, Canada",
+    "limit": 300
+  },
+  {
+    "name": "Eastern Market Events (Detroit)",
+    "url": "https://easternmarket.org/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Eastern Market, Detroit, MI",
+    "limit": 300
+  },
+  {
+    "name": "Adelaide Central Market Events",
+    "url": "https://adelaidecentralmarket.com.au/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Adelaide Central Market, Adelaide, Australia",
+    "limit": 300
+  },
+  {
+    "name": "Dallas Farmers Market Events",
+    "url": "https://dallasfarmersmarket.org/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Dallas Farmers Market, Dallas, TX",
+    "limit": 300
+  },
+  {
+    "name": "Union Market Events (Washington DC)",
+    "url": "https://unionmarketdc.com/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Union Market, Washington, DC",
+    "limit": 300
+  },
+  {
+    "name": "Portland Farmers Market Events",
+    "url": "https://www.portlandfarmersmarket.org/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300
+  },
+  {
+    "name": "Greater Chicago Food Depository Events",
+    "url": "https://www.chicagosfoodbank.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Chicago, IL",
+    "limit": 300
+  },
+  {
+    "name": "Feeding America Eastern Wisconsin (Milwaukee)",
+    "url": "https://feedingamericawi.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300
+  },
+  {
+    "name": "Food Bank For New York City",
+    "url": "https://foodbanknyc.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300
+  },
+  {
+    "name": "Houston Food Bank",
+    "url": "https://houstonfoodbank.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Houston, TX",
+    "limit": 300
+  },
+  {
+    "name": "Harvesters Community Food Network (Kansas City)",
+    "url": "https://harvesters.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Kansas City, MO",
+    "limit": 300
+  },
+  {
+    "name": "Maryland Food Bank (Baltimore)",
+    "url": "https://mdfoodbank.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "food",
+    "geocode_suffix": ", Baltimore, MD",
+    "limit": 300
+  },
+  {
+    "name": "Regional Food Bank of Oklahoma (Oklahoma City)",
+    "url": "https://rfbo.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Oklahoma City, OK",
+    "limit": 300
+  },
+  {
+    "name": "Blue Ridge Area Food Bank (Verona, VA)",
+    "url": "https://brafb.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Verona, VA",
+    "limit": 300
+  },
+  {
+    "name": "Good Shepherd Food Bank (Auburn, ME)",
+    "url": "https://gsfb.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Auburn, ME",
+    "limit": 300
+  },
+  {
+    "name": "Idaho Foodbank (Boise)",
+    "url": "https://idahofoodbank.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Boise, ID",
+    "limit": 300
+  },
+  {
+    "name": "San Antonio Food Bank",
+    "url": "https://safoodbank.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", San Antonio, TX",
+    "limit": 300
+  },
+  {
+    "name": "Tarrant Area Food Bank (Fort Worth)",
+    "url": "https://tafb.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Fort Worth, TX",
+    "limit": 300
+  },
+  {
+    "name": "Lowcountry Food Bank (Charleston, SC)",
+    "url": "https://lowcountryfoodbank.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Charleston, SC",
+    "limit": 300
+  },
+  {
+    "name": "Second Harvest Food Bank of Central Florida (Orlando)",
+    "url": "https://feedhopenow.org/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Orlando, FL",
+    "limit": 300
+  },
+  {
+    "name": "Great Lakes Brewing Company (Cleveland)",
+    "url": "https://greatlakesbrewing.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Cleveland, OH",
+    "limit": 300
+  },
+  {
+    "name": "Russian River Brewing (Santa Rosa, CA)",
+    "url": "https://russianriverbrewing.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Santa Rosa, CA",
+    "limit": 300
+  },
+  {
+    "name": "Highland Brewing (Asheville, NC)",
+    "url": "https://highlandbrewing.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Asheville, NC",
+    "limit": 300
+  },
+  {
+    "name": "Creature Comforts Brewing (Athens, GA)",
+    "url": "https://creaturecomfortsbeer.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Athens, GA",
+    "limit": 300
+  },
+  {
+    "name": "Bissell Brothers Brewing (Portland, ME)",
+    "url": "https://bissellbrothers.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Portland, ME",
+    "limit": 300
+  },
+  {
+    "name": "Fiddlehead Brewing (Shelburne, VT)",
+    "url": "https://fiddleheadbrewing.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Shelburne, VT",
+    "limit": 300
+  },
+  {
+    "name": "Surly Brewing (Minneapolis)",
+    "url": "https://surlybrewing.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300
+  },
+  {
+    "name": "Indeed Brewing (Minneapolis)",
+    "url": "https://indeedbrewing.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Minneapolis, MN",
+    "limit": 300
+  },
+  {
+    "name": "Rhinegeist Brewery (Cincinnati)",
+    "url": "https://rhinegeist.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Cincinnati, OH",
+    "limit": 300
+  },
+  {
+    "name": "Perrin Brewing (Comstock Park, MI)",
+    "url": "https://perrinbrewing.com/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Comstock Park, MI",
+    "limit": 300
+  },
+  {
+    "name": "Budd Dairy Food Hall (Columbus, OH)",
+    "url": "https://budddairyfoodhall.com/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Columbus, OH",
+    "limit": 300
+  },
+  {
+    "name": "Industry City Food Hall (Brooklyn)",
+    "url": "https://industrycity.com/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Brooklyn, NY",
+    "limit": 300
+  },
+  {
+    "name": "Gansevoort Market (New York)",
+    "url": "https://gansmarket.com/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", New York, NY",
+    "limit": 300
+  },
+  {
+    "name": "La Cosecha Market (Washington DC)",
+    "url": "https://lacosechadc.com/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300
+  },
+  {
+    "name": "Eat Street Northshore (Brisbane)",
+    "url": "https://eatstreetnorthshore.com.au/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Brisbane, Australia",
+    "limit": 300
+  },
+  {
+    "name": "Capital Region Farmers Market (Canberra)",
+    "url": "https://capitalregionfarmersmarket.com.au/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Canberra, Australia",
+    "limit": 300
+  },
+  {
+    "name": "Ottawa Farmers Market",
+    "url": "https://ottawafarmersmarket.ca/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Ottawa, ON, Canada",
+    "limit": 300
+  },
+  {
+    "name": "Mathallen Oslo Food Hall",
+    "url": "https://mathallenoslo.no/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Mathallen, Oslo, Norway",
+    "limit": 300
+  },
+  {
+    "name": "Margaret River Wine Region Events (Australia)",
+    "url": "https://margaretriver.wine/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Margaret River, WA, Australia",
+    "limit": 300
+  },
+  {
+    "name": "Aldeburgh Food and Drink Festival (Suffolk)",
+    "url": "https://aldeburghfoodanddrink.co.uk/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Snape, Suffolk, UK",
+    "limit": 300
+  },
+  {
+    "name": "Ginger and Spice Festival (Market Drayton)",
+    "url": "https://gingerandspicefest.co.uk/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Market Drayton, Shropshire, UK",
+    "limit": 300
+  },
+  {
+    "name": "The Farm Cookery School (Wiltshire)",
+    "url": "https://thefarmcookeryschool.co.uk/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Bromham, Wiltshire, UK",
+    "limit": 300
+  },
+  {
+    "name": "Blackfriars Cookery School (Newcastle upon Tyne)",
+    "url": "https://blackfriarsrestaurant.co.uk/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Newcastle upon Tyne, UK",
+    "limit": 300
+  },
+  {
+    "name": "Philleigh Way Cookery School (Cornwall)",
+    "url": "https://philleighway.co.uk/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Philleigh, Truro, Cornwall, UK",
+    "limit": 300
+  },
+  {
+    "name": "Food Museum (Stowmarket, Suffolk)",
+    "url": "https://foodmuseum.org.uk/events/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Stowmarket, Suffolk, UK",
+    "limit": 300
+  },
+  {
+    "name": "Hampshire Farmers Markets (UK)",
+    "url": "https://hampshirefarmersmarkets.co.uk/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Hampshire, UK",
+    "limit": 300
+  },
+  {
+    "name": "R.S.H Artisan Markets (Yorkshire)",
+    "url": "https://rshartisanmarket.co.uk/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Yorkshire, UK",
+    "limit": 300
+  },
+  {
+    "name": "Harborough Market (Leicestershire)",
+    "url": "https://www.harboroughmarket.co.uk/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Market Harborough, Leicestershire, UK",
+    "limit": 300
+  },
+  {
+    "name": "WGC Market (Welwyn Garden City)",
+    "url": "https://wgcmarket.co.uk/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Welwyn Garden City, Hertfordshire, UK",
+    "limit": 300
+  },
+  {
+    "name": "Woodstock Farmers Market (Oxfordshire)",
+    "url": "https://www.wutw.co.uk/whats-on/category/markets/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Woodstock, Oxfordshire, UK",
+    "limit": 300
+  },
+  {
+    "name": "Nourish Knoxville Farmers Markets (Knoxville, TN)",
+    "url": "https://nourishknoxville.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "market",
+    "geocode_suffix": ", Knoxville, TN",
+    "limit": 300
+  },
+  {
+    "name": "French Market District (New Orleans)",
+    "url": "https://frenchmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "market",
+    "geocode_suffix": ", French Market, New Orleans, LA",
+    "limit": 300
+  },
+  {
+    "name": "ASAP Appalachian Grown Markets (Asheville, NC)",
+    "url": "https://asapconnections.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "market",
+    "geocode_suffix": ", Asheville, NC",
+    "limit": 300
+  },
+  {
+    "name": "Atherton Mill and Market (Charlotte, NC)",
+    "url": "https://athertonmillandmarket.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "market",
+    "geocode_suffix": ", Charlotte, NC",
+    "limit": 300
+  },
+  {
+    "name": "Bristol Brewing (Colorado Springs)",
+    "url": "https://bristolbrewing.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "food",
+    "geocode_suffix": ", Colorado Springs, CO",
+    "limit": 300
+  },
+  {
+    "name": "Santa Fe Brewing (New Mexico)",
+    "url": "https://santafebrewing.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "food",
+    "geocode_suffix": ", Santa Fe, NM",
+    "limit": 300
+  },
+  {
+    "name": "Amador Vintners Wine Events (California)",
+    "url": "https://amadorwine.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "food",
+    "geocode_suffix": ", Amador County, CA",
+    "limit": 300
+  },
+  {
+    "name": "El Dorado Wines Events (California)",
+    "url": "https://eldoradowines.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "food",
+    "geocode_suffix": ", El Dorado County, CA",
+    "limit": 300
+  },
+  {
+    "name": "Oregon Wine Board Events",
+    "url": "https://oregonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "food",
+    "geocode_suffix": ", Oregon",
+    "limit": 300
+  },
+  {
+    "name": "Washington State Wine Events",
+    "url": "https://washingtonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "food",
+    "geocode_suffix": ", Washington",
+    "limit": 300
+  },
+  {
+    "name": "Adelaide Showground Farmers Market",
+    "url": "https://adelaidefarmersmarket.com.au/events/?ical=1",
+    "category": "market",
+    "geocode_suffix": ", Adelaide, Australia",
+    "limit": 300
+  },
+  {
+    "name": "Vancouver Farmers Markets (BC)",
+    "url": "https://vancouverfarmersmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "market",
+    "geocode_suffix": ", Vancouver, BC, Canada",
+    "limit": 300
+  },
+  {
+    "name": "Lonsdale Quay Market (North Vancouver)",
+    "url": "https://lonsdalequay.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "market",
+    "geocode_suffix": ", North Vancouver, BC, Canada",
+    "limit": 300
+  },
+  {
+    "name": "Devour! The Food Film Fest (Wolfville, NS)",
+    "url": "https://devourfest.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "food",
+    "geocode_suffix": ", Wolfville, NS, Canada",
+    "limit": 300
+  },
+  {
+    "name": "Wine Growers British Columbia",
+    "url": "https://www.winebc.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "food",
+    "geocode_suffix": ", Okanagan, BC, Canada",
+    "limit": 300
+  },
+  {
+    "name": "Berlin Food Week (Germany)",
+    "url": "https://www.berlinfoodweek.de/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "food",
+    "geocode_suffix": ", Berlin, Germany",
+    "limit": 300
+  },
+  {
+    "name": "Pro Loco Faenza sagre e mercati (Italy)",
+    "url": "https://www.prolocofaenza.it/eventi/categoria/sagre-e-mercati/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Faenza, Italy",
+    "limit": 300
+  },
+  {
+    "name": "Alla Massor mat och dryck (Sweden)",
+    "url": "https://www.allamassor.se/events/category/mat-dryck/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Sweden",
+    "limit": 300
+  },
+  {
+    "name": "Voedselbos Lingehout (Gelderland, Netherlands)",
+    "url": "https://voedselboslingehout.nl/agenda/?ical=1",
+    "category": "food",
+    "geocode_suffix": ", Gelderland, Netherlands",
+    "limit": 300
   }
 ]

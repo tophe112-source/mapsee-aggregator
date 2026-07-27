@@ -1,4 +1,25 @@
 {
+  "2harvest.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Second Harvest Heartland Events (Minneapolis)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "a2gov.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Ann Arbor Farmers Market Events (Michigan)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "abergavennyfoodfestival.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Abergavenny Food Festival (Wales)",
+    "reason": "http 403 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "abnc.ca/events/?ical=1": {
     "checked": 20260720,
     "name": "Allan Brooks Nature Centre (Vernon, Canada)",
@@ -13,11 +34,53 @@
     "status": "ok",
     "type": "ics"
   },
+  "adelaidecentralmarket.com.au/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Adelaide Central Market Events",
+    "reason": "8 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "adelaidefarmersmarket.com.au/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Adelaide Showground Farmers Market",
+    "reason": "30 vevents / 32 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "ahmedabad.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise d'Ahmedabad (Ahmedabad, India)",
     "reason": "215 vevents / 0 future",
     "status": "fail",
+    "type": "ics"
+  },
+  "aldeburghfoodanddrink.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Aldeburgh Food and Drink Festival (Suffolk)",
+    "reason": "3 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "allamassor.se/events/category/mat-dryck/?ical=1": {
+    "checked": 20260727,
+    "name": "Alla Massor mat och dryck (Sweden)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "altrinchammarket.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Altrincham Market Events (UK)",
+    "reason": "ConnectTimeout: HTTPSConnectionPool(host='altrinchammarket.co.uk', port=443): Max retr",
+    "status": "fail",
+    "type": "ics"
+  },
+  "amadorwine.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Amador Vintners Wine Events (California)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
     "type": "ics"
   },
   "americanlibraryinparis.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
@@ -34,6 +97,13 @@
     "status": "ok",
     "type": "ods"
   },
+  "anchoragemarkets.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Anchorage Downtown Market Events",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='www.anchoragemarkets.com', port=443): Max re",
+    "status": "fail",
+    "type": "ics"
+  },
   "artpace.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Artpace (San Antonio, TX)",
@@ -41,10 +111,24 @@
     "status": "ok",
     "type": "ics"
   },
+  "asapconnections.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "ASAP Appalachian Grown Markets (Asheville, NC)",
+    "reason": "16 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "astronomy.org.nz/events/?ical=1": {
     "checked": 20260720,
     "name": "Auckland Astronomical Society (Auckland, New Zealand)",
     "reason": "1 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "athertonmillandmarket.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Atherton Mill and Market (Charlotte, NC)",
+    "reason": "11 vevents / 14 future",
     "status": "ok",
     "type": "ics"
   },
@@ -104,6 +188,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "bcfm.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Boulder County Farmers Markets Events",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "be.pfmsacramento.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Sacramento Farmers Markets Events",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='be.pfmsacramento.org', port=443): Max retrie",
+    "status": "fail",
+    "type": "ics"
+  },
   "bengale.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise du Bengale (Kolkata, India)",
@@ -111,10 +209,31 @@
     "status": "fail",
     "type": "ics"
   },
+  "berlinfoodweek.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Berlin Food Week (Germany)",
+    "reason": "2 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "bhopal.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise de Bhopal (Bhopal, India)",
     "reason": "134 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bissellbrothers.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Bissell Brothers Brewing (Portland, ME)",
+    "reason": "8 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "blackfriarsrestaurant.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Blackfriars Cookery School (Newcastle upon Tyne)",
+    "reason": "30 vevents / 31 future",
     "status": "ok",
     "type": "ics"
   },
@@ -139,11 +258,67 @@
     "status": "fail",
     "type": "ics"
   },
+  "boroughmarket.org.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Borough Market Events (London)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "bostonpublicmarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Boston Public Market Events",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "brafb.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Blue Ridge Area Food Bank (Verona, VA)",
+    "reason": "13 vevents / 16 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bristolbrewing.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Bristol Brewing (Colorado Springs)",
+    "reason": "27 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broadwaymarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Broadway Market Events (Buffalo)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "brooklynbrewery.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Brooklyn Brewery Events (New York)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "budddairyfoodhall.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Budd Dairy Food Hall (Columbus, OH)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "bueze.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260721,
     "name": "Buergerzentrum Ehrenfeld BueZe (Cologne, Germany)",
     "reason": "12 vevents / 15 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "burymarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Bury Market Events (UK)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "c-base.org/calendar/exported/c-base-events.ics": {
@@ -181,6 +356,27 @@
     "status": "ok",
     "type": "ics"
   },
+  "capitalareafoodbank.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Capital Area Food Bank Events (Washington DC)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "capitalregionfarmersmarket.com.au/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Capital Region Farmers Market (Canberra)",
+    "reason": "30 vevents / 35 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cardiffmarket.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Cardiff Market / Cardiff Food Events",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='www.cardiffmarket.co.uk', port=443): Max ret",
+    "status": "fail",
+    "type": "ics"
+  },
   "castlemainefestival.com.au/events/?ical=1": {
     "checked": 20260720,
     "name": "Castlemaine State Festival (Castlemaine, Australia)",
@@ -199,6 +395,34 @@
     "checked": 20260722,
     "name": "Alliance Francaise de Chandigarh (Chandigarh, India)",
     "reason": "265 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "charlestonwineandfood.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Charleston Wine + Food Events",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "chelseamarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Chelsea Market Events (New York)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "chicagofoodauthority.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Taste of Chicago / Chicago Food Events",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "chicagosfoodbank.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Greater Chicago Food Depository Events",
+    "reason": "11 vevents / 13 future",
     "status": "ok",
     "type": "ics"
   },
@@ -227,6 +451,48 @@
     "checked": 20260722,
     "name": "Australian City Farms & Community Gardens Network (Australia)",
     "reason": "4 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cookingschool.centralmarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Central Market Cooking School (Texas)",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='cookingschool.centralmarket.com', port=443):",
+    "status": "fail",
+    "type": "ics"
+  },
+  "creaturecomfortsbeer.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Creature Comforts Brewing (Athens, GA)",
+    "reason": "26 vevents / 29 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "crescentcityfarmersmarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Crescent City Farmers Market Events (New Orleans)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "dallasfarmersmarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Dallas Farmers Market Events",
+    "reason": "12 vevents / 18 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dandenongmarket.com.au/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Dandenong Market (Melbourne)",
+    "reason": "51 vevents / 15946 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dandenongmarket.com.au/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Dandenong Market (Melbourne)",
+    "reason": "51 vevents / 15946 future",
     "status": "ok",
     "type": "ics"
   },
@@ -286,6 +552,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "devourfest.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Devour! The Food Film Fest (Wolfville, NS)",
+    "reason": "983 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "downtownwinnipegbiz.com/events/?ical=1": {
     "checked": 20260720,
     "name": "Downtown Winnipeg BIZ (Winnipeg, Canada)",
@@ -300,9 +573,44 @@
     "status": "ok",
     "type": "ics"
   },
+  "easternmarket-dc.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Eastern Market DC Events",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "easternmarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Eastern Market Events (Detroit)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "eatstreetnorthshore.com.au/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Eat Street Northshore (Brisbane)",
+    "reason": "9 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ediblecommunities.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Edible Communities Events",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "eintrittfrei-muenchen.de/?ical=1&eventDisplay=list": {
     "checked": 20260721,
     "name": "Eintritt Frei Muenchen (Munich, Germany)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "eldoradowines.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "El Dorado Wines Events (California)",
     "reason": "30 vevents / 33 future",
     "status": "ok",
     "type": "ics"
@@ -335,6 +643,76 @@
     "status": "ok",
     "type": "ics"
   },
+  "farmersmarketcoalition.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Farmers Market Coalition Events",
+    "reason": "5 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "feedhopenow.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Second Harvest Food Bank of Central Florida (Orlando)",
+    "reason": "2 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "feedingamericawi.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Feeding America Eastern Wisconsin (Milwaukee)",
+    "reason": "9 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ferrybuildingmarketplace.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Ferry Building Marketplace Events (San Francisco)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "fiddleheadbrewing.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Fiddlehead Brewing (Shelburne, VT)",
+    "reason": "1 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "findlaymarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Findlay Market Events (Cincinnati)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "fingerlakeswinecountry.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Finger Lakes Wine Country Events (New York)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "foodbanknyc.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Food Bank For New York City",
+    "reason": "30 vevents / 35 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "foodbankrockies.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Food Bank of the Rockies Events (Denver)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "foodmuseum.org.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Food Museum (Stowmarket, Suffolk)",
+    "reason": "15 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "footscrayarts.com/events/?ical=1": {
     "checked": 20260722,
     "name": "Footscray Community Arts (Melbourne, Australia)",
@@ -363,6 +741,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "frenchmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "French Market District (New Orleans)",
+    "reason": "6 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "friendsanbg.org.au/events/?ical=1": {
     "checked": 20260720,
     "name": "Friends of the Australian National Botanic Gardens (Canberra, Australia)",
@@ -377,10 +762,31 @@
     "status": "ok",
     "type": "ics"
   },
+  "ftwaynesfarmersmarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Fort Wayne Farmers Market Events",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "gansmarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Gansevoort Market (New York)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "gardinermuseum.on.ca/events/?ical=1": {
     "checked": 20260720,
     "name": "Gardiner Museum (Toronto, Canada)",
     "reason": "30 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "gingerandspicefest.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Ginger and Spice Festival (Market Drayton)",
+    "reason": "7 vevents / 10 future",
     "status": "ok",
     "type": "ics"
   },
@@ -412,6 +818,76 @@
     "status": "ok",
     "type": "ics"
   },
+  "grandcentralmarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Grand Central Market Events (Los Angeles)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "granvilleisland.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Granville Island Events (Vancouver)",
+    "reason": "8 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "greatlakesbrewing.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Great Lakes Brewing Company (Cleveland)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "greencitymarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Green City Market Events (Chicago)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "grownyc.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Union Square Greenmarket / GrowNYC Events",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "gsfb.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Good Shepherd Food Bank (Auburn, ME)",
+    "reason": "9 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "haleyhouse.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Haley House Community Kitchen (Boston)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "hampshirefarmersmarkets.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Hampshire Farmers Markets (UK)",
+    "reason": "30 vevents / 31 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "harboroughmarket.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Harborough Market (Leicestershire)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "harvesters.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Harvesters Community Food Network (Kansas City)",
+    "reason": "6 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "healthebay.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Heal the Bay (Santa Monica, CA)",
@@ -426,6 +902,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "highlandbrewing.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Highland Brewing (Asheville, NC)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hollywoodfarmersmarket.net/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Hollywood Farmers Market Events (Los Angeles)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "houstonarboretum.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Houston Arboretum & Nature Center (Houston, TX)",
@@ -433,10 +923,52 @@
     "status": "ok",
     "type": "ics"
   },
+  "houstonfoodbank.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Houston Food Bank",
+    "reason": "18 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "hyderabad.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise de Hyderabad (Hyderabad, India)",
     "reason": "497 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "ice.edu/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Cozymeal / Institute of Culinary Education (New York)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "idahofoodbank.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Idaho Foodbank (Boise)",
+    "reason": "7 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "indeedbrewing.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Indeed Brewing (Minneapolis)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "industrycity.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Industry City Food Hall (Brooklyn)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "jackdaniels.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Jack Daniel Distillery Events (Lynchburg)",
+    "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
   },
@@ -475,11 +1007,25 @@
     "status": "ok",
     "type": "ics"
   },
+  "kitchenconservatory.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Kitchen Conservatory Cooking Classes (St. Louis)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "knzb.org.nz/events/?ical=1": {
     "checked": 20260723,
     "name": "Keep New Zealand Beautiful (New Zealand)",
     "reason": "5 vevents / 6 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "krogstreetmarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Krog Street Market Events (Atlanta)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "kulturstedetlindegaarden.dk/events/?ical=1": {
@@ -489,11 +1035,25 @@
     "status": "ok",
     "type": "ics"
   },
+  "kybourbontrail.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Kentucky Bourbon Trail Events",
+    "reason": "http 403 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "labyrinthdc.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260723,
     "name": "Labyrinth Games & Puzzles (Washington, DC)",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
+    "type": "ics"
+  },
+  "lacosechadc.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "La Cosecha Market (Washington DC)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
     "type": "ics"
   },
   "lancaster-uk.libcal.com/ical_subscribe.php?cid=718": {
@@ -531,6 +1091,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "leedsmarkets.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Kirkgate Market Events (Leeds)",
+    "reason": "ConnectTimeout: HTTPSConnectionPool(host='leedsmarkets.co.uk', port=443): Max retries ",
+    "status": "fail",
+    "type": "ics"
+  },
+  "lexingtonmarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Lexington Market Events (Baltimore)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "libcal.library.ubc.ca/ical_subscribe.php?cid=7544": {
     "checked": 20260719,
     "name": "UBC Library (Vancouver, Canada)",
@@ -545,9 +1119,23 @@
     "status": "ok",
     "type": "ics"
   },
+  "lonsdalequay.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Lonsdale Quay Market (North Vancouver)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "lovewimbledon.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Love Wimbledon BID (Wimbledon, London, UK)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lowcountryfoodbank.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Lowcountry Food Bank (Charleston, SC)",
     "reason": "30 vevents / 33 future",
     "status": "ok",
     "type": "ics"
@@ -587,10 +1175,38 @@
     "status": "ok",
     "type": "ics"
   },
+  "margaretriver.wine/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Margaret River Wine Region Events (Australia)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mariettasquaremarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Historic Roswell / Marietta Square Market Events",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "markthal.nl/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Markthal Rotterdam Events",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "massey.libcal.com/ical_subscribe.php?cid=2383": {
     "checked": 20260720,
     "name": "Massey University Library (Palmerston North, New Zealand)",
     "reason": "38 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mathallenoslo.no/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Mathallen Oslo Food Hall",
+    "reason": "26 vevents / 27 future",
     "status": "ok",
     "type": "ics"
   },
@@ -601,11 +1217,32 @@
     "status": "ok",
     "type": "ics"
   },
+  "mdfoodbank.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Maryland Food Bank (Baltimore)",
+    "reason": "6 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "meatmarket.org.au/events/?ical=1": {
     "checked": 20260720,
     "name": "Meat Market (Melbourne, Australia)",
     "reason": "4 vevents / 7 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "mercadodesanmiguel.es/eventos/?ical=1": {
+    "checked": 20260727,
+    "name": "Mercado de San Miguel Events (Madrid)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "mercatocentrale.it/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Mercato Centrale Events (Italy)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "merikarvia.fi/tapahtumat/?ical=1": {
@@ -636,6 +1273,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "milwaukeepublicmarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Milwaukee Public Market Events",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "mintmuseum.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Mint Museum (Charlotte, NC)",
@@ -657,6 +1301,20 @@
     "status": "fail",
     "type": "ics"
   },
+  "napavintners.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Napa Valley Vintners Events (Napa)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "nashvillefarmersmarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Nashville Farmers Market Events",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "neponset.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Neponset River Watershed Association (Canton, MA)",
@@ -668,6 +1326,20 @@
     "checked": 20260720,
     "name": "National Library Board GoLibrary (Singapore)",
     "reason": "500 vevents / 83 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "norwichmarket.net/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Kingsland Market / Norwich Market Events",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='www.norwichmarket.net', port=443): Max retri",
+    "status": "fail",
+    "type": "ics"
+  },
+  "nourishknoxville.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Nourish Knoxville Farmers Markets (Knoxville, TN)",
+    "reason": "30 vevents / 33 future",
     "status": "ok",
     "type": "ics"
   },
@@ -692,6 +1364,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "ohiocitymarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Cleveland Public Market District Events",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='ohiocitymarket.org', port=443): Max retries ",
+    "status": "fail",
+    "type": "ics"
+  },
   "oldstrathcona.ca/events-full/?ical=1": {
     "checked": 20260720,
     "name": "Old Strathcona BIA (Edmonton, Canada)",
@@ -706,10 +1385,31 @@
     "status": "ok",
     "type": "ods"
   },
+  "oregonfoodbank.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Oregon Food Bank Events (Portland)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "oregonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Oregon Wine Board Events",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "osc.org/visit/events/?ical=1": {
     "checked": 20260720,
     "name": "Orlando Science Center (Orlando, FL)",
     "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ottawafarmersmarket.ca/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Ottawa Farmers Market",
+    "reason": "2 vevents / 1 future",
     "status": "ok",
     "type": "ics"
   },
@@ -727,11 +1427,39 @@
     "status": "ok",
     "type": "ics"
   },
+  "perrinbrewing.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Perrin Brewing (Comstock Park, MI)",
+    "reason": "1 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "philleighway.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Philleigh Way Cookery School (Cornwall)",
+    "reason": "14 vevents / 14 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "piedmontpark.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Piedmont Park Conservancy (Atlanta, GA)",
     "reason": "10 vevents / 13 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "pikeplacemarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Pike Place Market Events (Seattle)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "pittsburghpublicmarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Pittsburgh Public Market / Neighborhood Allies Events",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "pondicherry.afindia.org/events/?ical=1": {
@@ -748,10 +1476,24 @@
     "status": "ok",
     "type": "ics"
   },
+  "portlandfarmersmarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Portland Farmers Market Events",
+    "reason": "3 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "portlandmuseum.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Portland Museum of Art (Portland, ME)",
     "reason": "24 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "prolocofaenza.it/eventi/categoria/sagre-e-mercati/?ical=1": {
+    "checked": 20260727,
+    "name": "Pro Loco Faenza sagre e mercati (Italy)",
+    "reason": "9 vevents / 12 future",
     "status": "ok",
     "type": "ics"
   },
@@ -776,6 +1518,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "qvm.com.au/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Queen Victoria Market Events (Melbourne)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "radolfzell-stadtbibliothek.de/veranstaltungen/?ical=1": {
     "checked": 20260721,
     "name": "Stadtbibliothek Radolfzell (Radolfzell, Germany)",
@@ -787,6 +1536,20 @@
     "checked": 20260720,
     "name": "Racine Art Museum (Racine, WI)",
     "reason": "25 vevents / 28 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "rfbo.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Regional Food Bank of Oklahoma (Oklahoma City)",
+    "reason": "1 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "rhinegeist.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Rhinegeist Brewery (Cincinnati)",
+    "reason": "18 vevents / 21 future",
     "status": "ok",
     "type": "ics"
   },
@@ -804,11 +1567,46 @@
     "status": "ok",
     "type": "ics"
   },
+  "rshartisanmarket.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "R.S.H Artisan Markets (Yorkshire)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "russianriverbrewing.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Russian River Brewing (Santa Rosa, CA)",
+    "reason": "2 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "safoodbank.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "San Antonio Food Bank",
+    "reason": "3 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "saintpaulaudubon.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Saint Paul Audubon Society (St. Paul, MN)",
     "reason": "8 vevents / 11 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "santafebrewing.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Santa Fe Brewing (New Mexico)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "santamonicafarmersmarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Santa Monica Farmers Market Events",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='www.santamonicafarmersmarket.com', port=443)",
+    "status": "fail",
     "type": "ics"
   },
   "savesfbay.org/events/?ical=1": {
@@ -853,11 +1651,46 @@
     "status": "ok",
     "type": "ics"
   },
+  "seattlefarmersmarkets.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Ballard Farmers Market / Seattle Neighborhood Farmers Markets",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "sfmfoodbank.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "SF-Marin Food Bank Events",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "sierranevada.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Sierra Nevada Brewing Events (Chico)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "sigtunastiftelsen.se/?post_type=tribe_events&ical=1": {
     "checked": 20260721,
     "name": "Sigtunastiftelsen (Sigtuna, Sweden)",
     "reason": "30 vevents / 26 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "slowfood.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Slow Food International Events",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "slowfoodusa.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Slow Food USA Events",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "smm.org/events/?ical=1": {
@@ -881,10 +1714,45 @@
     "status": "ok",
     "type": "ics"
   },
+  "stlawrencemarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "St Lawrence Market Events (Toronto)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "stonebrewing.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Stone Brewing Events (San Diego)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "strochmarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "St. Roch Market Events (New Orleans)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "sun.ac.za.libcal.com/ical_subscribe.php?cid=21790": {
     "checked": 20260720,
     "name": "Stellenbosch University Library (Stellenbosch, South Africa)",
     "reason": "27 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "surlatable.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Sur La Table Culinary (Seattle)",
+    "reason": "http 410 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "surlybrewing.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Surly Brewing (Minneapolis)",
+    "reason": "30 vevents / 33 future",
     "status": "ok",
     "type": "ics"
   },
@@ -909,6 +1777,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "tafb.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Tarrant Area Food Bank (Fort Worth)",
+    "reason": "9 vevents / 14 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "taubmanmuseum.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Taubman Museum of Art (Roanoke, VA)",
@@ -923,6 +1798,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "texaswinetrail.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Texas Hill Country Wineries Events",
+    "reason": "ConnectTimeout: HTTPSConnectionPool(host='texaswinetrail.com', port=443): Max retries ",
+    "status": "fail",
+    "type": "ics"
+  },
   "textilemuseum.ca/events/?ical=1": {
     "checked": 20260720,
     "name": "Textile Museum of Canada (Toronto, Canada)",
@@ -930,10 +1812,38 @@
     "status": "ok",
     "type": "ics"
   },
+  "thecharlestoncitymarket.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Charleston City Market Events",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "thechoppingblock.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "The Chopping Block Cooking Classes (Chicago)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "thecitymarketkc.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "City Market Kansas City Events",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "thecontemporaryaustin.org/events/?ical=1": {
     "checked": 20260720,
     "name": "The Contemporary Austin (Austin, TX)",
     "reason": "7 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "thefarmcookeryschool.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "The Farm Cookery School (Wiltshire)",
+    "reason": "30 vevents / 33 future",
     "status": "ok",
     "type": "ics"
   },
@@ -956,6 +1866,13 @@
     "name": "Toronto Botanical Garden (Toronto, Canada)",
     "reason": "24 vevents / 30 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "torvehallernekbh.dk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Torvehallerne Events (Copenhagen)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "toulouse.demosphere.net/events.ics": {
@@ -1042,6 +1959,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "unionmarketdc.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Union Market Events (Washington DC)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "univ-amu.libcal.com/ical_subscribe.php?cid=8791": {
     "checked": 20260721,
     "name": "Aix-Marseille Universite - Agenda culturel des BU (Marseille, France)",
@@ -1091,11 +2015,39 @@
     "status": "ok",
     "type": "ics"
   },
+  "vancouverfarmersmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Vancouver Farmers Markets (BC)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "virginiawine.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Virginia Wine Events",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "visitwicklow.ie/events/?ical=1": {
     "checked": 20260720,
     "name": "Visit Wicklow (Wicklow, Ireland)",
     "reason": "12 vevents / 10 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "voedselboslingehout.nl/agenda/?ical=1": {
+    "checked": 20260727,
+    "name": "Voedselbos Lingehout (Gelderland, Netherlands)",
+    "reason": "16 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "vtfma.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Vermont Farmers Market Events",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='www.vtfma.org', port=443): Max retries excee",
+    "status": "fail",
     "type": "ics"
   },
   "waikato.libcal.com/ical_subscribe.php?cid=10863": {
@@ -1119,6 +2071,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "washingtonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Washington State Wine Events",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "wellplayedasheville.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260723,
     "name": "Well Played Board Game Cafe (Asheville, NC)",
@@ -1140,11 +2099,46 @@
     "status": "ok",
     "type": "ics"
   },
+  "westsidemarket.org/events/?ical=1": {
+    "checked": 20260727,
+    "name": "West Side Market Events (Cleveland)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "wgcmarket.co.uk/events/?ical=1": {
+    "checked": 20260727,
+    "name": "WGC Market (Welwyn Garden City)",
+    "reason": "13 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "wildflower.org/events/?ical=1": {
     "checked": 20260720,
     "name": "Lady Bird Johnson Wildflower Center (Austin, TX)",
     "reason": "17 vevents / 19 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "willamettewines.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Willamette Valley Wineries Events (Oregon)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "winebc.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260727,
+    "name": "Wine Growers British Columbia",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wineriesofoldmission.com/events/?ical=1": {
+    "checked": 20260727,
+    "name": "Traverse City Wine Coast Events (Michigan)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "wits.ac.za.libcal.com/ical_subscribe.php?cid=16432": {
@@ -1179,6 +2173,13 @@
     "checked": 20260719,
     "name": "Winnipeg Public Library (Winnipeg, Canada)",
     "reason": "500 vevents / 256 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wutw.co.uk/whats-on/category/markets/?ical=1": {
+    "checked": 20260727,
+    "name": "Woodstock Farmers Market (Oxfordshire)",
+    "reason": "18 vevents / 23 future",
     "status": "ok",
     "type": "ics"
   },
