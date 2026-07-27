@@ -1,0 +1,26 @@
+name: Smoke test - Uber Eats API
+
+# Manual-only: confirms the Uber Eats credentials authenticate and the
+# eats.store scope is accepted, without running the full aggregate sweep.
+# Prints the raw /v1/eats/stores response (--dump) for field-map debugging.
+on:
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      UBER_CLIENT_ID: ${{ secrets.UBER_CLIENT_ID }}
+      UBER_CLIENT_SECRET: ${{ secrets.UBER_CLIENT_SECRET }}
+      UBER_AUTH_URL: ${{ secrets.UBER_AUTH_URL }}
+      UBER_API_BASE: ${{ secrets.UBER_API_BASE }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install requests
+        run: pip install requests
+      - name: Call Uber Eats Marketplace API (auth + eats.store)
+        run: python mapsee_ingest_ubereats.py --store /tmp/smoke.json --dump

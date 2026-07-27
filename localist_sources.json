@@ -1,0 +1,102 @@
+[
+  {
+    "name": "Seattle University",
+    "base_url": "https://events.seattleu.edu",
+    "days": 90
+  },
+  {
+    "name": "The New School (NYC)",
+    "base_url": "https://events.newschool.edu",
+    "days": 90
+  },
+  {
+    "name": "George Washington University (DC)",
+    "base_url": "https://calendar.gwu.edu",
+    "days": 90
+  },
+  {
+    "name": "DePaul University (Chicago)",
+    "base_url": "https://events.depaul.edu",
+    "days": 90
+  },
+  {
+    "name": "UT Dallas (Dallas)",
+    "base_url": "https://calendar.utdallas.edu",
+    "days": 90
+  },
+  {
+    "name": "Georgia State University (Atlanta)",
+    "base_url": "https://calendar.gsu.edu",
+    "days": 90
+  },
+  {
+    "name": "Northeastern University (Boston)",
+    "base_url": "https://events.northeastern.edu",
+    "days": 90
+  },
+  {
+    "name": "Stanford University (SF Bay)",
+    "base_url": "https://events.stanford.edu",
+    "days": 90
+  },
+  {
+    "name": "UC San Diego (San Diego)",
+    "base_url": "https://calendar.ucsd.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Miami (Miami)",
+    "base_url": "https://events.miami.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Southern California (Los Angeles)",
+    "base_url": "https://calendar.usc.edu",
+    "days": 90
+  },
+  {
+    "name": "Lone Star College (Houston)",
+    "base_url": "https://lonestar.enterprise.localist.com",
+    "days": 90
+  },
+  {
+    "name": "University of Colorado Denver (Denver)",
+    "base_url": "https://ucdenver.enterprise.localist.com",
+    "days": 90
+  },
+  {
+    "name": "Metropolitan State University of Denver (Denver)",
+    "base_url": "https://msudenver.enterprise.localist.com",
+    "days": 90
+  },
+  {
+    "name": "University of Portland (Portland OR)",
+    "base_url": "https://calendar.up.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Pittsburgh (Pittsburgh)",
+    "base_url": "https://calendar.pitt.edu",
+    "days": 90
+  },
+  {
+    "name": "Towson University (Baltimore)",
+    "base_url": "https://events.towson.edu",
+    "days": 90
+  },
+  {
+    "name": "UNC Charlotte (Charlotte)",
+    "base_url": "https://campusevents.charlotte.edu",
+    "days": 90
+  },
+  {
+    "name": "Florida Technical College (Orlando)",
+    "base_url": "https://ftc.enterprise.localist.com",
+    "days": 90
+  },
+  {
+    "name": "UT Austin (Austin)",
+    "base_url": "https://calendar.utexas.edu",
+    "days": 90
+  }
+]

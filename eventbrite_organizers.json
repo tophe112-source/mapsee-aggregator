@@ -1,0 +1,2124 @@
+{
+  "_comment": "Eventbrite via the official API v3. The API cannot list a third party's events (public search retired 2019; organization endpoints only serve orgs YOUR token belongs to; /o/ organizer-profile ids are a different id space), so ingestion is: discover event IDS from the public robots-allowed /d/<metro>/all-events/ pages, then hydrate every event through /v3/events/{id}?expand=venue,category under your token - all stored data comes from the API. 'pages' = discovery pages per metro (~20 events each; mind the 2000-calls/hour token quota). 'organizers' below is a curated REFERENCE list (most-active organizers per metro, harvested July 2026) - NOT fetched, since the API can't list them; kept for curation and in case Eventbrite grants org-level access later. include_my_organizations pulls orgs your own token owns via the full API path.",
+  "include_my_organizations": true,
+  "pages": 1,
+  "metros": [
+    {
+      "slug": "ny--new-york",
+      "name": "New York"
+    },
+    {
+      "slug": "ca--los-angeles",
+      "name": "Los Angeles"
+    },
+    {
+      "slug": "il--chicago",
+      "name": "Chicago"
+    },
+    {
+      "slug": "tx--dallas",
+      "name": "Dallas"
+    },
+    {
+      "slug": "tx--houston",
+      "name": "Houston"
+    },
+    {
+      "slug": "dc--washington",
+      "name": "Washington DC"
+    },
+    {
+      "slug": "pa--philadelphia",
+      "name": "Philadelphia"
+    },
+    {
+      "slug": "ga--atlanta",
+      "name": "Atlanta"
+    },
+    {
+      "slug": "ma--boston",
+      "name": "Boston"
+    },
+    {
+      "slug": "ca--san-francisco",
+      "name": "San Francisco"
+    },
+    {
+      "slug": "az--phoenix",
+      "name": "Phoenix"
+    },
+    {
+      "slug": "wa--seattle",
+      "name": "Seattle"
+    },
+    {
+      "slug": "mi--detroit",
+      "name": "Detroit"
+    },
+    {
+      "slug": "mn--minneapolis",
+      "name": "Minneapolis"
+    },
+    {
+      "slug": "ca--san-diego",
+      "name": "San Diego"
+    },
+    {
+      "slug": "co--denver",
+      "name": "Denver"
+    },
+    {
+      "slug": "fl--miami",
+      "name": "Miami"
+    },
+    {
+      "slug": "fl--tampa",
+      "name": "Tampa"
+    },
+    {
+      "slug": "fl--orlando",
+      "name": "Orlando"
+    },
+    {
+      "slug": "mo--st-louis",
+      "name": "St. Louis"
+    },
+    {
+      "slug": "pa--pittsburgh",
+      "name": "Pittsburgh"
+    },
+    {
+      "slug": "nc--charlotte",
+      "name": "Charlotte"
+    },
+    {
+      "slug": "or--portland",
+      "name": "Portland"
+    },
+    {
+      "slug": "ca--sacramento",
+      "name": "Sacramento"
+    },
+    {
+      "slug": "nv--las-vegas",
+      "name": "Las Vegas"
+    },
+    {
+      "slug": "oh--cincinnati",
+      "name": "Cincinnati"
+    },
+    {
+      "slug": "mo--kansas-city",
+      "name": "Kansas City"
+    },
+    {
+      "slug": "oh--columbus",
+      "name": "Columbus"
+    },
+    {
+      "slug": "oh--cleveland",
+      "name": "Cleveland"
+    },
+    {
+      "slug": "in--indianapolis",
+      "name": "Indianapolis"
+    },
+    {
+      "slug": "tn--nashville",
+      "name": "Nashville"
+    },
+    {
+      "slug": "tx--austin",
+      "name": "Austin"
+    },
+    {
+      "slug": "tx--san-antonio",
+      "name": "San Antonio"
+    },
+    {
+      "slug": "md--baltimore",
+      "name": "Baltimore"
+    },
+    {
+      "slug": "wi--milwaukee",
+      "name": "Milwaukee"
+    },
+    {
+      "slug": "ut--salt-lake-city",
+      "name": "Salt Lake City"
+    },
+    {
+      "slug": "la--new-orleans",
+      "name": "New Orleans"
+    },
+    {
+      "slug": "nc--raleigh",
+      "name": "Raleigh"
+    },
+    {
+      "slug": "ky--louisville",
+      "name": "Louisville"
+    },
+    {
+      "slug": "tn--memphis",
+      "name": "Memphis"
+    },
+    {
+      "slug": "ok--oklahoma-city",
+      "name": "Oklahoma City"
+    },
+    {
+      "slug": "fl--jacksonville",
+      "name": "Jacksonville"
+    },
+    {
+      "slug": "va--richmond",
+      "name": "Richmond"
+    },
+    {
+      "slug": "nm--albuquerque",
+      "name": "Albuquerque"
+    },
+    {
+      "slug": "hi--honolulu",
+      "name": "Honolulu"
+    },
+    {
+      "slug": "ny--buffalo",
+      "name": "Buffalo"
+    },
+    {
+      "slug": "ct--hartford",
+      "name": "Hartford"
+    },
+    {
+      "slug": "mi--grand-rapids",
+      "name": "Grand Rapids"
+    },
+    {
+      "slug": "ne--omaha",
+      "name": "Omaha"
+    },
+    {
+      "slug": "ca--san-jose",
+      "name": "San Jose"
+    }
+  ],
+  "organizers": [
+    {
+      "id": "105655500371",
+      "name": "Elsewhere",
+      "metro": "New York"
+    },
+    {
+      "id": "6373273797",
+      "name": "The Poetry Society of New York",
+      "metro": "New York"
+    },
+    {
+      "id": "5494940201",
+      "name": "JiggyTime Ent",
+      "metro": "New York"
+    },
+    {
+      "id": "9789186973",
+      "name": "Run The City LLC",
+      "metro": "New York"
+    },
+    {
+      "id": "82796394943",
+      "name": "WhatsTheMotiveUS",
+      "metro": "New York"
+    },
+    {
+      "id": "16028691897",
+      "name": "El Museo del Barrio",
+      "metro": "New York"
+    },
+    {
+      "id": "109511595401",
+      "name": "Refuge.NYC",
+      "metro": "New York"
+    },
+    {
+      "id": "8184194121",
+      "name": "MoMA PS1",
+      "metro": "New York"
+    },
+    {
+      "id": "8399593435",
+      "name": "L.A. Concerts",
+      "metro": "Los Angeles"
+    },
+    {
+      "id": "55455569553",
+      "name": "Too Chillz",
+      "metro": "Los Angeles"
+    },
+    {
+      "id": "4280872805",
+      "name": "Santa Fe Springs Swap Meet",
+      "metro": "Los Angeles"
+    },
+    {
+      "id": "11369190113",
+      "name": "We Love Kandy Tour",
+      "metro": "Los Angeles"
+    },
+    {
+      "id": "27437881057",
+      "name": "Level 10 Entertainment",
+      "metro": "Los Angeles"
+    },
+    {
+      "id": "8641709466",
+      "name": "Wasted Presents",
+      "metro": "Los Angeles"
+    },
+    {
+      "id": "15166975815",
+      "name": "Endless Nightlife",
+      "metro": "Los Angeles"
+    },
+    {
+      "id": "16479149179",
+      "name": "TGIII Entertainment",
+      "metro": "Los Angeles"
+    },
+    {
+      "id": "16575466715",
+      "name": "I Love House Music Chicago",
+      "metro": "Chicago"
+    },
+    {
+      "id": "18677495634",
+      "name": "ORLOVE",
+      "metro": "Chicago"
+    },
+    {
+      "id": "3341634842",
+      "name": "AFRO FUSION",
+      "metro": "Chicago"
+    },
+    {
+      "id": "29794547045",
+      "name": "Chicago Promotional Group",
+      "metro": "Chicago"
+    },
+    {
+      "id": "14845709584",
+      "name": "ChicAfrik & F.A Events",
+      "metro": "Chicago"
+    },
+    {
+      "id": "32948164917",
+      "name": "CNE Presents",
+      "metro": "Chicago"
+    },
+    {
+      "id": "26419566405",
+      "name": "“L”ENTERTAINMENT",
+      "metro": "Chicago"
+    },
+    {
+      "id": "70469607243",
+      "name": "Nightlife Functions",
+      "metro": "Chicago"
+    },
+    {
+      "id": "27824480441",
+      "name": "It'll Do Club",
+      "metro": "Dallas"
+    },
+    {
+      "id": "8541049746",
+      "name": "Half Price Books",
+      "metro": "Dallas"
+    },
+    {
+      "id": "121179145516",
+      "name": "Pub Crawler Carl",
+      "metro": "Dallas"
+    },
+    {
+      "id": "121351925569",
+      "name": "AAMD",
+      "metro": "Dallas"
+    },
+    {
+      "id": "17742299769",
+      "name": "Southern University Alumni Fed-Dallas Chapter",
+      "metro": "Dallas"
+    },
+    {
+      "id": "120621068130",
+      "name": "Blush Bookstore - Dallas",
+      "metro": "Dallas"
+    },
+    {
+      "id": "13939332045",
+      "name": "Lez Play Dallas",
+      "metro": "Dallas"
+    },
+    {
+      "id": "20180587135",
+      "name": "Art Overdose DTX, LLC",
+      "metro": "Dallas"
+    },
+    {
+      "id": "76848760913",
+      "name": "Zedsdateideas",
+      "metro": "Houston"
+    },
+    {
+      "id": "6733344773",
+      "name": "Anime Matsuri Convention",
+      "metro": "Houston"
+    },
+    {
+      "id": "17591032257",
+      "name": "Elite Experience Events Cultural Organization",
+      "metro": "Houston"
+    },
+    {
+      "id": "107778931061",
+      "name": "Soleties Run Club",
+      "metro": "Houston"
+    },
+    {
+      "id": "16087670880",
+      "name": "Houston Millennials",
+      "metro": "Houston"
+    },
+    {
+      "id": "89460338283",
+      "name": "Black Flight Attendants USA",
+      "metro": "Houston"
+    },
+    {
+      "id": "23383974975",
+      "name": "Houston Horror Film Fest",
+      "metro": "Houston"
+    },
+    {
+      "id": "818345599",
+      "name": "Explore Mars Inc.",
+      "metro": "Houston"
+    },
+    {
+      "id": "21755427386",
+      "name": "MVEMNT.COM | @JoinTheMVEMNT",
+      "metro": "Washington DC"
+    },
+    {
+      "id": "18140077860",
+      "name": "Sixth & I: Talks",
+      "metro": "Washington DC"
+    },
+    {
+      "id": "999309541",
+      "name": "Prince Georges Cultural Arts Foundation",
+      "metro": "Washington DC"
+    },
+    {
+      "id": "4107823883",
+      "name": "Organizer",
+      "metro": "Washington DC"
+    },
+    {
+      "id": "1253125905",
+      "name": "The Grandiose Group",
+      "metro": "Washington DC"
+    },
+    {
+      "id": "11851436371",
+      "name": "Citizens' Climate Lobby",
+      "metro": "Washington DC"
+    },
+    {
+      "id": "29330712775",
+      "name": "D S T R K T",
+      "metro": "Washington DC"
+    },
+    {
+      "id": "48141164633",
+      "name": "TAMASHA NIGHTS BY DJ BROWNY",
+      "metro": "Washington DC"
+    },
+    {
+      "id": "16886073851",
+      "name": "A Taste of Your Town",
+      "metro": "Philadelphia"
+    },
+    {
+      "id": "18061548979",
+      "name": "One Group",
+      "metro": "Philadelphia"
+    },
+    {
+      "id": "81544593243",
+      "name": "Barnes & Noble - Philadelphia",
+      "metro": "Philadelphia"
+    },
+    {
+      "id": "17241227646",
+      "name": "African Restaurant Week",
+      "metro": "Philadelphia"
+    },
+    {
+      "id": "33475478453",
+      "name": "Dakota Vision©",
+      "metro": "Philadelphia"
+    },
+    {
+      "id": "34493092233",
+      "name": "4NAV4LIFE",
+      "metro": "Philadelphia"
+    },
+    {
+      "id": "121379516362",
+      "name": "Congregation Mikveh Israel",
+      "metro": "Philadelphia"
+    },
+    {
+      "id": "19947352844",
+      "name": "CareFreeBlackGirl,LLC",
+      "metro": "Philadelphia"
+    },
+    {
+      "id": "17366018107",
+      "name": "Gully Mack",
+      "metro": "Atlanta"
+    },
+    {
+      "id": "13918197129",
+      "name": "Royal @allroyalmarketing",
+      "metro": "Atlanta"
+    },
+    {
+      "id": "18736981138",
+      "name": "Crowded Functions ATL",
+      "metro": "Atlanta"
+    },
+    {
+      "id": "5152278241",
+      "name": "Liquified & Collectiv Presents",
+      "metro": "Atlanta"
+    },
+    {
+      "id": "14416620842",
+      "name": "TEAM LITTY ATL @OfficialTeamlittyAtl",
+      "metro": "Atlanta"
+    },
+    {
+      "id": "17105076211",
+      "name": "Believe Music Hall",
+      "metro": "Atlanta"
+    },
+    {
+      "id": "34444987843",
+      "name": "Born Civil Group",
+      "metro": "Atlanta"
+    },
+    {
+      "id": "113091379701",
+      "name": "WBUR CitySpace",
+      "metro": "Boston"
+    },
+    {
+      "id": "74507930",
+      "name": "Harvard Book Store",
+      "metro": "Boston"
+    },
+    {
+      "id": "120860352477",
+      "name": "Binge Thinking",
+      "metro": "Boston"
+    },
+    {
+      "id": "54587525483",
+      "name": "AFRICA 2 THE WORLD",
+      "metro": "Boston"
+    },
+    {
+      "id": "92052235443",
+      "name": "Lovestruck Books & Cafe",
+      "metro": "Boston"
+    },
+    {
+      "id": "26233643995",
+      "name": "Biotech Vendor Services Inc. (BVS)",
+      "metro": "Boston"
+    },
+    {
+      "id": "10776815314",
+      "name": "Boston Harbor Now",
+      "metro": "Boston"
+    },
+    {
+      "id": "9828389483",
+      "name": "Brookline Booksmith",
+      "metro": "Boston"
+    },
+    {
+      "id": "27068567835",
+      "name": "OASIS",
+      "metro": "San Francisco"
+    },
+    {
+      "id": "25140120541",
+      "name": "Perreo Society",
+      "metro": "San Francisco"
+    },
+    {
+      "id": "7205909733",
+      "name": "Yerba Buena Gardens Festival",
+      "metro": "San Francisco"
+    },
+    {
+      "id": "17594122740",
+      "name": "The Great Northern",
+      "metro": "San Francisco"
+    },
+    {
+      "id": "14549904341",
+      "name": "ALL DAY ALL NIGHT EVENTS",
+      "metro": "San Francisco"
+    },
+    {
+      "id": "75467307963",
+      "name": "The Faight Collective",
+      "metro": "San Francisco"
+    },
+    {
+      "id": "28162898903",
+      "name": "San Francisco Orchid Society (SFOS)",
+      "metro": "San Francisco"
+    },
+    {
+      "id": "63825501803",
+      "name": "Bhangra And Beats",
+      "metro": "San Francisco"
+    },
+    {
+      "id": "59297385323",
+      "name": "Vital Lounge",
+      "metro": "Phoenix"
+    },
+    {
+      "id": "17235338710",
+      "name": "Changing Hands Bookstore",
+      "metro": "Phoenix"
+    },
+    {
+      "id": "40859205253",
+      "name": "AIA Phoenix Metro",
+      "metro": "Phoenix"
+    },
+    {
+      "id": "62759793703",
+      "name": "Terror Trader",
+      "metro": "Phoenix"
+    },
+    {
+      "id": "121411686991",
+      "name": "Deep Stories",
+      "metro": "Phoenix"
+    },
+    {
+      "id": "120805365242",
+      "name": "Not Your Average Book Club",
+      "metro": "Phoenix"
+    },
+    {
+      "id": "33687455981",
+      "name": "Phoenix Championship Wrestling",
+      "metro": "Phoenix"
+    },
+    {
+      "id": "42587096413",
+      "name": "Twin Flame",
+      "metro": "Phoenix"
+    },
+    {
+      "id": "18831550522",
+      "name": "Substation",
+      "metro": "Seattle"
+    },
+    {
+      "id": "30353358534",
+      "name": "Third Place Books",
+      "metro": "Seattle"
+    },
+    {
+      "id": "27601744125",
+      "name": "Seattle Indies",
+      "metro": "Seattle"
+    },
+    {
+      "id": "352356349",
+      "name": "Glazer's Camera",
+      "metro": "Seattle"
+    },
+    {
+      "id": "112498075441",
+      "name": "Lovestruck in Seattle",
+      "metro": "Seattle"
+    },
+    {
+      "id": "8341021280",
+      "name": "谷雨书苑 ValleyRain International",
+      "metro": "Seattle"
+    },
+    {
+      "id": "19997500437",
+      "name": "Africatown Community Land Trust",
+      "metro": "Seattle"
+    },
+    {
+      "id": "9640362443",
+      "name": "Crude Mechanicals",
+      "metro": "Seattle"
+    },
+    {
+      "id": "76337617783",
+      "name": "Orchid Theatre",
+      "metro": "Detroit"
+    },
+    {
+      "id": "11101506352",
+      "name": "Dine Drink Detroit",
+      "metro": "Detroit"
+    },
+    {
+      "id": "17262931517",
+      "name": "NW Goldberg Cares",
+      "metro": "Detroit"
+    },
+    {
+      "id": "43289650103",
+      "name": "SOTC Productions",
+      "metro": "Detroit"
+    },
+    {
+      "id": "28020418473",
+      "name": "@cityglowyoga",
+      "metro": "Detroit"
+    },
+    {
+      "id": "84685899533",
+      "name": "PRIDE Royal Oak",
+      "metro": "Detroit"
+    },
+    {
+      "id": "114523756641",
+      "name": "Retro  Revenue",
+      "metro": "Detroit"
+    },
+    {
+      "id": "109405346831",
+      "name": "Disco Walls",
+      "metro": "Detroit"
+    },
+    {
+      "id": "20257335640",
+      "name": "The Cedar Cultural Center",
+      "metro": "Minneapolis"
+    },
+    {
+      "id": "17975642816",
+      "name": "Crooners Supper Club",
+      "metro": "Minneapolis"
+    },
+    {
+      "id": "86737480773",
+      "name": "Tropes & Trifles",
+      "metro": "Minneapolis"
+    },
+    {
+      "id": "31383153993",
+      "name": "F1RST Wrestling",
+      "metro": "Minneapolis"
+    },
+    {
+      "id": "1710925224",
+      "name": "NAMI Minnesota",
+      "metro": "Minneapolis"
+    },
+    {
+      "id": "89335792523",
+      "name": "Roxy's Cabaret",
+      "metro": "Minneapolis"
+    },
+    {
+      "id": "39943882533",
+      "name": "Minnesota Bride",
+      "metro": "Minneapolis"
+    },
+    {
+      "id": "54632689433",
+      "name": "Brit's Pub",
+      "metro": "Minneapolis"
+    },
+    {
+      "id": "1146472521",
+      "name": "Tiki Oasis",
+      "metro": "San Diego"
+    },
+    {
+      "id": "12790401437",
+      "name": "Experience Level Entertainment (XLE)",
+      "metro": "San Diego"
+    },
+    {
+      "id": "74502853713",
+      "name": "ANDY SANTIAGO PRESENTS",
+      "metro": "San Diego"
+    },
+    {
+      "id": "17151517037",
+      "name": "Quartyard",
+      "metro": "San Diego"
+    },
+    {
+      "id": "1643444140",
+      "name": "San Diego Magazine",
+      "metro": "San Diego"
+    },
+    {
+      "id": "14661084190",
+      "name": "QueerGxrl Events",
+      "metro": "San Diego"
+    },
+    {
+      "id": "31279857947",
+      "name": "NDIA San Diego-Gold Coast Conference",
+      "metro": "San Diego"
+    },
+    {
+      "id": "121532835133",
+      "name": "Attack of the Killer Tomatoes",
+      "metro": "San Diego"
+    },
+    {
+      "id": "89996606063",
+      "name": "Tattered Cover Book Store",
+      "metro": "Denver"
+    },
+    {
+      "id": "9470002211",
+      "name": "Museum of Contemporary Art Denver",
+      "metro": "Denver"
+    },
+    {
+      "id": "58314774863",
+      "name": "Drink Denver",
+      "metro": "Denver"
+    },
+    {
+      "id": "34737168893",
+      "name": "McGregor Square",
+      "metro": "Denver"
+    },
+    {
+      "id": "15303877465",
+      "name": "Book Bliss, LLC",
+      "metro": "Denver"
+    },
+    {
+      "id": "116863329811",
+      "name": "Carboy Winery Denver",
+      "metro": "Denver"
+    },
+    {
+      "id": "3385983122",
+      "name": "Deaf Evangelism Ministry of the United Pentecostal Church International",
+      "metro": "Denver"
+    },
+    {
+      "id": "63742877453",
+      "name": "True EDMMM Events",
+      "metro": "Denver"
+    },
+    {
+      "id": "110631419681",
+      "name": "MIDLINE Miami",
+      "metro": "Miami"
+    },
+    {
+      "id": "51330071813",
+      "name": "@MANLIKEAYA",
+      "metro": "Miami"
+    },
+    {
+      "id": "56549846243",
+      "name": "Regatta Grove",
+      "metro": "Miami"
+    },
+    {
+      "id": "4389002451",
+      "name": "JEWELZ",
+      "metro": "Miami"
+    },
+    {
+      "id": "18217167738",
+      "name": "NO SLEEP SOUTH BEACH PROMOTERS UNITED",
+      "metro": "Miami"
+    },
+    {
+      "id": "39509241193",
+      "name": "The Dirty Rabbit",
+      "metro": "Miami"
+    },
+    {
+      "id": "17002946271",
+      "name": "Museum of Art and Design (MOAD) at MDC",
+      "metro": "Miami"
+    },
+    {
+      "id": "16933046373",
+      "name": "City of Doral",
+      "metro": "Miami"
+    },
+    {
+      "id": "30131772212",
+      "name": "Oxford Commons Hospitality Company",
+      "metro": "Tampa"
+    },
+    {
+      "id": "63477230853",
+      "name": "Tampa Bay Seminole Club",
+      "metro": "Tampa"
+    },
+    {
+      "id": "17248458913",
+      "name": "Armature Works",
+      "metro": "Tampa"
+    },
+    {
+      "id": "119115938461",
+      "name": "Z Spot Eventz",
+      "metro": "Tampa"
+    },
+    {
+      "id": "10915640334",
+      "name": "Gold Boot Productions Inc.",
+      "metro": "Tampa"
+    },
+    {
+      "id": "14578960319",
+      "name": "Tampa Business Club",
+      "metro": "Tampa"
+    },
+    {
+      "id": "9107635275",
+      "name": "Touch of Magic Events",
+      "metro": "Tampa"
+    },
+    {
+      "id": "7710761127",
+      "name": "Florida Party Consultants",
+      "metro": "Tampa"
+    },
+    {
+      "id": "29757062477",
+      "name": "The Vanguard",
+      "metro": "Orlando"
+    },
+    {
+      "id": "84855780433",
+      "name": "Celine Orlando",
+      "metro": "Orlando"
+    },
+    {
+      "id": "80333051403",
+      "name": "Essence Of Gouyad",
+      "metro": "Orlando"
+    },
+    {
+      "id": "19161527303",
+      "name": "WRLD Entertainment",
+      "metro": "Orlando"
+    },
+    {
+      "id": "802314159",
+      "name": "Pre-Dating Speed Dating and Lock & Key Events",
+      "metro": "Orlando"
+    },
+    {
+      "id": "109429273151",
+      "name": "Daylite",
+      "metro": "Orlando"
+    },
+    {
+      "id": "2027889551",
+      "name": "Jazzy Jeff | Kreative Marketing Group LLC",
+      "metro": "Orlando"
+    },
+    {
+      "id": "104370276341",
+      "name": "Armor Of God",
+      "metro": "Orlando"
+    },
+    {
+      "id": "15358125562",
+      "name": "The Novel Neighbor",
+      "metro": "St. Louis"
+    },
+    {
+      "id": "9906908294",
+      "name": "Althoff Catholic High School",
+      "metro": "St. Louis"
+    },
+    {
+      "id": "29307847833",
+      "name": "Paisley Boutique",
+      "metro": "St. Louis"
+    },
+    {
+      "id": "43163160833",
+      "name": "ATM DJ Ron Gotti",
+      "metro": "St. Louis"
+    },
+    {
+      "id": "13507961441",
+      "name": "Fred Finley | Keith Harris | Koncepts",
+      "metro": "St. Louis"
+    },
+    {
+      "id": "11876128011",
+      "name": "INTERNATIONAL TAKEOVER",
+      "metro": "St. Louis"
+    },
+    {
+      "id": "12952098448",
+      "name": "FrizzyByNature",
+      "metro": "St. Louis"
+    },
+    {
+      "id": "7955537652",
+      "name": "Happy 2 Give",
+      "metro": "St. Louis"
+    },
+    {
+      "id": "17130840306",
+      "name": "Riverstone Books",
+      "metro": "Pittsburgh"
+    },
+    {
+      "id": "67364542883",
+      "name": "PGH Pinball",
+      "metro": "Pittsburgh"
+    },
+    {
+      "id": "18141783718",
+      "name": "Pennsylvania Council of Teachers of Mathematics",
+      "metro": "Pittsburgh"
+    },
+    {
+      "id": "106278430571",
+      "name": "The Comedy Bar - Pittsburgh",
+      "metro": "Pittsburgh"
+    },
+    {
+      "id": "111584625741",
+      "name": "The Dog Penn",
+      "metro": "Pittsburgh"
+    },
+    {
+      "id": "12890631168",
+      "name": "Pittsburgh Irish Festival",
+      "metro": "Pittsburgh"
+    },
+    {
+      "id": "19121912930",
+      "name": "White Whale Bookstore",
+      "metro": "Pittsburgh"
+    },
+    {
+      "id": "25241916157",
+      "name": "The Evening Muse",
+      "metro": "Charlotte"
+    },
+    {
+      "id": "110157928281",
+      "name": "Trope Bookshop",
+      "metro": "Charlotte"
+    },
+    {
+      "id": "6259176669",
+      "name": "Hornets Hoops",
+      "metro": "Charlotte"
+    },
+    {
+      "id": "6774009447",
+      "name": "Eddietainment.com",
+      "metro": "Charlotte"
+    },
+    {
+      "id": "11129327748",
+      "name": "Create Amazing LLC",
+      "metro": "Charlotte"
+    },
+    {
+      "id": "120667502914",
+      "name": "PerreoO Therapy, LLC",
+      "metro": "Charlotte"
+    },
+    {
+      "id": "17960368640",
+      "name": "Clt entertainment",
+      "metro": "Charlotte"
+    },
+    {
+      "id": "2003344933",
+      "name": "The WICT Network: Carolinas",
+      "metro": "Charlotte"
+    },
+    {
+      "id": "120780819617",
+      "name": "Tergar USA",
+      "metro": "Portland"
+    },
+    {
+      "id": "18494218613",
+      "name": "Ponderosa Lounge and Grill",
+      "metro": "Portland"
+    },
+    {
+      "id": "18149184161",
+      "name": "Oregon Brewery Running Series®",
+      "metro": "Portland"
+    },
+    {
+      "id": "11390461981",
+      "name": "Powell's Books",
+      "metro": "Portland"
+    },
+    {
+      "id": "3225803660",
+      "name": "Kelly's Olympian",
+      "metro": "Portland"
+    },
+    {
+      "id": "91384382973",
+      "name": "BRUNCH PORTLAND",
+      "metro": "Portland"
+    },
+    {
+      "id": "20186597918",
+      "name": "Klip Klop Productions",
+      "metro": "Portland"
+    },
+    {
+      "id": "121423215127",
+      "name": "Core Collective Sculpt Studio",
+      "metro": "Portland"
+    },
+    {
+      "id": "14280440204",
+      "name": "Swabbies on the River",
+      "metro": "Sacramento"
+    },
+    {
+      "id": "10897951372",
+      "name": "Old School Ent.",
+      "metro": "Sacramento"
+    },
+    {
+      "id": "107067999131",
+      "name": "Le Love Club",
+      "metro": "Sacramento"
+    },
+    {
+      "id": "90283006933",
+      "name": "Nights in the Valley",
+      "metro": "Sacramento"
+    },
+    {
+      "id": "60996758243",
+      "name": "FlirtFest-Events",
+      "metro": "Sacramento"
+    },
+    {
+      "id": "46153064673",
+      "name": "Black Expo Events",
+      "metro": "Sacramento"
+    },
+    {
+      "id": "65790128593",
+      "name": "Kūhai Hālau O Nohea",
+      "metro": "Sacramento"
+    },
+    {
+      "id": "121483797254",
+      "name": "Lowrider Magazine",
+      "metro": "Sacramento"
+    },
+    {
+      "id": "118911003891",
+      "name": "LA VEGAS EVENTS",
+      "metro": "Las Vegas"
+    },
+    {
+      "id": "36726114733",
+      "name": "LALITPARTIES",
+      "metro": "Las Vegas"
+    },
+    {
+      "id": "79539283653",
+      "name": "La Palma",
+      "metro": "Las Vegas"
+    },
+    {
+      "id": "63012319093",
+      "name": "Vegas Girl Events",
+      "metro": "Las Vegas"
+    },
+    {
+      "id": "28910491675",
+      "name": "Tuscany Suites & Casino",
+      "metro": "Las Vegas"
+    },
+    {
+      "id": "121175697548",
+      "name": "World Darts Ventures",
+      "metro": "Las Vegas"
+    },
+    {
+      "id": "6352624255",
+      "name": "Nevada Boxing Hall of Fame",
+      "metro": "Las Vegas"
+    },
+    {
+      "id": "4703963855",
+      "name": "Sneaker Con",
+      "metro": "Las Vegas"
+    },
+    {
+      "id": "31226398331",
+      "name": "The Redmoor",
+      "metro": "Cincinnati"
+    },
+    {
+      "id": "28546525623",
+      "name": "VIPLifestyles",
+      "metro": "Cincinnati"
+    },
+    {
+      "id": "120701397527",
+      "name": "Aureum Party Series",
+      "metro": "Cincinnati"
+    },
+    {
+      "id": "1736015636",
+      "name": "Star 23 Enterprise",
+      "metro": "Cincinnati"
+    },
+    {
+      "id": "103464147531",
+      "name": "T Charles Entertainment",
+      "metro": "Cincinnati"
+    },
+    {
+      "id": "120747718520",
+      "name": "Community Shares of Greater Cincinnati",
+      "metro": "Cincinnati"
+    },
+    {
+      "id": "121314875018",
+      "name": "Queen City Divas",
+      "metro": "Cincinnati"
+    },
+    {
+      "id": "116654326961",
+      "name": "JA84 Entertainment",
+      "metro": "Cincinnati"
+    },
+    {
+      "id": "17987405583",
+      "name": "The Ship",
+      "metro": "Kansas City"
+    },
+    {
+      "id": "13541064552",
+      "name": "Kemper Museum of Contemporary Art",
+      "metro": "Kansas City"
+    },
+    {
+      "id": "68122330523",
+      "name": "Tez Carter",
+      "metro": "Kansas City"
+    },
+    {
+      "id": "254804231",
+      "name": "Rainy Day Books",
+      "metro": "Kansas City"
+    },
+    {
+      "id": "76554062363",
+      "name": "Under the Cover",
+      "metro": "Kansas City"
+    },
+    {
+      "id": "121239195947",
+      "name": "Kansas City Pilates Club",
+      "metro": "Kansas City"
+    },
+    {
+      "id": "38066703623",
+      "name": "The Bird Comedy Theater Training Center",
+      "metro": "Kansas City"
+    },
+    {
+      "id": "46735533613",
+      "name": "The Sending Project",
+      "metro": "Kansas City"
+    },
+    {
+      "id": "28657352015",
+      "name": "KidsLinked",
+      "metro": "Columbus"
+    },
+    {
+      "id": "16711132776",
+      "name": "Gramercy Books",
+      "metro": "Columbus"
+    },
+    {
+      "id": "113948356841",
+      "name": "The Attic Comedy Club",
+      "metro": "Columbus"
+    },
+    {
+      "id": "80934834603",
+      "name": "Storyline Bookshop",
+      "metro": "Columbus"
+    },
+    {
+      "id": "60577926803",
+      "name": "Mid-Ohio Regional Planning Commission",
+      "metro": "Columbus"
+    },
+    {
+      "id": "16526502347",
+      "name": "The African American Male Wellness Agency",
+      "metro": "Columbus"
+    },
+    {
+      "id": "47728314773",
+      "name": "Hosted By Joanna Edger And Amanda Shepard",
+      "metro": "Columbus"
+    },
+    {
+      "id": "63363681533",
+      "name": "Not Your Mama’s Craft Market",
+      "metro": "Columbus"
+    },
+    {
+      "id": "26829040801",
+      "name": "Arnold Hines / AH Events",
+      "metro": "Cleveland"
+    },
+    {
+      "id": "68350113923",
+      "name": "People Love Poetry",
+      "metro": "Cleveland"
+    },
+    {
+      "id": "120941095751",
+      "name": "Secret City",
+      "metro": "Cleveland"
+    },
+    {
+      "id": "17888426546",
+      "name": "Absolute Intense Wrestling",
+      "metro": "Cleveland"
+    },
+    {
+      "id": "69542180383",
+      "name": "The City Social",
+      "metro": "Cleveland"
+    },
+    {
+      "id": "89272311243",
+      "name": "Cleveland Health & Social Club",
+      "metro": "Cleveland"
+    },
+    {
+      "id": "34171774645",
+      "name": "Fresh Fest Cleveland",
+      "metro": "Cleveland"
+    },
+    {
+      "id": "30028236500",
+      "name": "OhioX",
+      "metro": "Cleveland"
+    },
+    {
+      "id": "10775420619",
+      "name": "Press Forward",
+      "metro": "Indianapolis"
+    },
+    {
+      "id": "89799808053",
+      "name": "FIND Indianapolis",
+      "metro": "Indianapolis"
+    },
+    {
+      "id": "1251436159",
+      "name": "White Rabbit Cabaret",
+      "metro": "Indianapolis"
+    },
+    {
+      "id": "119595602771",
+      "name": "1 Vision Media | XO models",
+      "metro": "Indianapolis"
+    },
+    {
+      "id": "45392971003",
+      "name": "317 Shows",
+      "metro": "Indianapolis"
+    },
+    {
+      "id": "8253107159",
+      "name": "Indy Chamber",
+      "metro": "Indianapolis"
+    },
+    {
+      "id": "121015464715",
+      "name": "Indy lemon drop festival",
+      "metro": "Indianapolis"
+    },
+    {
+      "id": "34443636449",
+      "name": "Where's Mike G?",
+      "metro": "Indianapolis"
+    },
+    {
+      "id": "5798249608",
+      "name": "Parnassus Books",
+      "metro": "Nashville"
+    },
+    {
+      "id": "80257878853",
+      "name": "Members",
+      "metro": "Nashville"
+    },
+    {
+      "id": "17388491326",
+      "name": "Tomato Art Fest",
+      "metro": "Nashville"
+    },
+    {
+      "id": "86992040303",
+      "name": "WNXP Nashville",
+      "metro": "Nashville"
+    },
+    {
+      "id": "13053791350",
+      "name": "iHeartMedia",
+      "metro": "Nashville"
+    },
+    {
+      "id": "17139239693",
+      "name": "Nashville Lifestyles Magazine",
+      "metro": "Nashville"
+    },
+    {
+      "id": "37981370443",
+      "name": "The Cobra",
+      "metro": "Nashville"
+    },
+    {
+      "id": "120878544939",
+      "name": "Social Commerce Festival",
+      "metro": "Nashville"
+    },
+    {
+      "id": "17675610187",
+      "name": "BookPeople",
+      "metro": "Austin"
+    },
+    {
+      "id": "415421738",
+      "name": "DJ Hella Yella",
+      "metro": "Austin"
+    },
+    {
+      "id": "108626674011",
+      "name": "The Highball @ Alamo Drafthouse South Lamar",
+      "metro": "Austin"
+    },
+    {
+      "id": "17845361184",
+      "name": "Saxon Pub",
+      "metro": "Austin"
+    },
+    {
+      "id": "32185376515",
+      "name": "The Dating Doc",
+      "metro": "Austin"
+    },
+    {
+      "id": "75820795173",
+      "name": "Mr VanSuya",
+      "metro": "Austin"
+    },
+    {
+      "id": "114113716311",
+      "name": "Organizer",
+      "metro": "Austin"
+    },
+    {
+      "id": "120955189723",
+      "name": "Rain On 4th",
+      "metro": "Austin"
+    },
+    {
+      "id": "81468635233",
+      "name": "SAMSAT",
+      "metro": "San Antonio"
+    },
+    {
+      "id": "26139666727",
+      "name": "San Antonio Chapter",
+      "metro": "San Antonio"
+    },
+    {
+      "id": "34130542023",
+      "name": "San Antonio River Foundation",
+      "metro": "San Antonio"
+    },
+    {
+      "id": "82373203193",
+      "name": "Complete Chess",
+      "metro": "San Antonio"
+    },
+    {
+      "id": "30372890306",
+      "name": "Central Market Cooking School San Antonio",
+      "metro": "San Antonio"
+    },
+    {
+      "id": "121172959515",
+      "name": "Organizer",
+      "metro": "San Antonio"
+    },
+    {
+      "id": "121479570875",
+      "name": "3|Oak",
+      "metro": "San Antonio"
+    },
+    {
+      "id": "8477772887",
+      "name": "Prezzy ElPrezidente",
+      "metro": "Baltimore"
+    },
+    {
+      "id": "17106440696",
+      "name": "The Flywire",
+      "metro": "Baltimore"
+    },
+    {
+      "id": "15685968510",
+      "name": "Live Baltimore",
+      "metro": "Baltimore"
+    },
+    {
+      "id": "8524626583",
+      "name": "Events4GoodPeople",
+      "metro": "Baltimore"
+    },
+    {
+      "id": "45140586593",
+      "name": "Two Twenty Two Wellness",
+      "metro": "Baltimore"
+    },
+    {
+      "id": "40287118483",
+      "name": "CC's Beauty Institute, LLC",
+      "metro": "Baltimore"
+    },
+    {
+      "id": "21595851117",
+      "name": "Biddy Presents",
+      "metro": "Baltimore"
+    },
+    {
+      "id": "8317262122",
+      "name": "Organizer",
+      "metro": "Baltimore"
+    },
+    {
+      "id": "111322181401",
+      "name": "The Argo",
+      "metro": "Milwaukee"
+    },
+    {
+      "id": "104720792901",
+      "name": "The Well Red Damsel",
+      "metro": "Milwaukee"
+    },
+    {
+      "id": "17113476605",
+      "name": "The Cooperage",
+      "metro": "Milwaukee"
+    },
+    {
+      "id": "101552780971",
+      "name": "Davidson Park",
+      "metro": "Milwaukee"
+    },
+    {
+      "id": "9405086963",
+      "name": "Green Schools Consortium of Milwaukee",
+      "metro": "Milwaukee"
+    },
+    {
+      "id": "4451764733",
+      "name": "Wisconsin LGBT Chamber of Commerce",
+      "metro": "Milwaukee"
+    },
+    {
+      "id": "18677131100",
+      "name": "The King's English Bookshop",
+      "metro": "Salt Lake City"
+    },
+    {
+      "id": "82076571203",
+      "name": "Lovebound Library",
+      "metro": "Salt Lake City"
+    },
+    {
+      "id": "84980034163",
+      "name": "The Vibrant Book Club",
+      "metro": "Salt Lake City"
+    },
+    {
+      "id": "11125543442",
+      "name": "Clark Planetarium",
+      "metro": "Salt Lake City"
+    },
+    {
+      "id": "52206171883",
+      "name": "International Artist Lounge",
+      "metro": "Salt Lake City"
+    },
+    {
+      "id": "33171827673",
+      "name": "Great Minds Ent. SLC",
+      "metro": "Salt Lake City"
+    },
+    {
+      "id": "57036861653",
+      "name": "OurSundays",
+      "metro": "Salt Lake City"
+    },
+    {
+      "id": "121469825129",
+      "name": "Alta Cultura",
+      "metro": "Salt Lake City"
+    },
+    {
+      "id": "120759962633",
+      "name": "BIG STAN PRODUCTIONS",
+      "metro": "New Orleans"
+    },
+    {
+      "id": "1180809207",
+      "name": "Greater New Orleans STEM Initiative",
+      "metro": "New Orleans"
+    },
+    {
+      "id": "51108713073",
+      "name": "Absolute Service Solutions",
+      "metro": "New Orleans"
+    },
+    {
+      "id": "70225490303",
+      "name": "Anime Conclave",
+      "metro": "New Orleans"
+    },
+    {
+      "id": "29963798570",
+      "name": "Afrobeatnola",
+      "metro": "New Orleans"
+    },
+    {
+      "id": "114001345181",
+      "name": "Organizer",
+      "metro": "New Orleans"
+    },
+    {
+      "id": "18431626514",
+      "name": "NU WORLD LLC.",
+      "metro": "New Orleans"
+    },
+    {
+      "id": "29147170913",
+      "name": "Fulton Street Books & Coffee",
+      "metro": "New Orleans"
+    },
+    {
+      "id": "17882467120",
+      "name": "Quail Ridge Books",
+      "metro": "Raleigh"
+    },
+    {
+      "id": "1638662904",
+      "name": "KnuElement",
+      "metro": "Raleigh"
+    },
+    {
+      "id": "17429823641",
+      "name": "Kids Exchange Consignment Sale",
+      "metro": "Raleigh"
+    },
+    {
+      "id": "121336691673",
+      "name": "Plies 40 & Up With A Good Job",
+      "metro": "Raleigh"
+    },
+    {
+      "id": "58180118823",
+      "name": "The Content House LLC",
+      "metro": "Raleigh"
+    },
+    {
+      "id": "58940736133",
+      "name": "Audio Advice",
+      "metro": "Raleigh"
+    },
+    {
+      "id": "113212501661",
+      "name": "NakhraNights",
+      "metro": "Raleigh"
+    },
+    {
+      "id": "81776948423",
+      "name": "A Party Life & Ambience Entertainment",
+      "metro": "Raleigh"
+    },
+    {
+      "id": "33263927893",
+      "name": "Carmichael's Bookstores",
+      "metro": "Louisville"
+    },
+    {
+      "id": "88599262653",
+      "name": "Sky Soul Festival",
+      "metro": "Louisville"
+    },
+    {
+      "id": "17965555697",
+      "name": "ISSA Kentuckiana",
+      "metro": "Louisville"
+    },
+    {
+      "id": "38722119643",
+      "name": "Nyce Vibes ENT",
+      "metro": "Louisville"
+    },
+    {
+      "id": "54118374253",
+      "name": "Ultimate Wedding Expo",
+      "metro": "Louisville"
+    },
+    {
+      "id": "23036412953",
+      "name": "Memphis Wrestling",
+      "metro": "Memphis"
+    },
+    {
+      "id": "8341705033",
+      "name": "the Homemade Kitchen",
+      "metro": "Memphis"
+    },
+    {
+      "id": "20052658862",
+      "name": "UrbanArt Commission",
+      "metro": "Memphis"
+    },
+    {
+      "id": "120307853871",
+      "name": "Hotel Pontotoc",
+      "metro": "Memphis"
+    },
+    {
+      "id": "39981977343",
+      "name": "Memphis Literacy Institute",
+      "metro": "Memphis"
+    },
+    {
+      "id": "18353220487",
+      "name": "FoodieLand",
+      "metro": "Memphis"
+    },
+    {
+      "id": "42143241023",
+      "name": "GraceLife Pentecostal Church",
+      "metro": "Memphis"
+    },
+    {
+      "id": "71245500743",
+      "name": "Strive Networking",
+      "metro": "Oklahoma City"
+    },
+    {
+      "id": "26111361971",
+      "name": "Oklahoma REALTORS®",
+      "metro": "Oklahoma City"
+    },
+    {
+      "id": "82750888613",
+      "name": "111Project",
+      "metro": "Oklahoma City"
+    },
+    {
+      "id": "119490119521",
+      "name": "Coal Creek Winery & Event Center",
+      "metro": "Oklahoma City"
+    },
+    {
+      "id": "75647148093",
+      "name": "Yours Truly Uptown 23rd St",
+      "metro": "Oklahoma City"
+    },
+    {
+      "id": "115960040741",
+      "name": "The Boom",
+      "metro": "Oklahoma City"
+    },
+    {
+      "id": "17889495980",
+      "name": "Oklahoma Writing Project",
+      "metro": "Oklahoma City"
+    },
+    {
+      "id": "90038799363",
+      "name": "DECCA LIVE",
+      "metro": "Jacksonville"
+    },
+    {
+      "id": "8665232986",
+      "name": "Myth Nightclub",
+      "metro": "Jacksonville"
+    },
+    {
+      "id": "20193263251",
+      "name": "Murray Hill Theatre",
+      "metro": "Jacksonville"
+    },
+    {
+      "id": "622028935",
+      "name": "Brooks Institute of Higher Learning",
+      "metro": "Jacksonville"
+    },
+    {
+      "id": "14145283685",
+      "name": "Hall of Heroes",
+      "metro": "Jacksonville"
+    },
+    {
+      "id": "18331175243",
+      "name": "#RnBMostly",
+      "metro": "Jacksonville"
+    },
+    {
+      "id": "47380819213",
+      "name": "JoHanna Moresco",
+      "metro": "Jacksonville"
+    },
+    {
+      "id": "60623916493",
+      "name": "Elektronic Group",
+      "metro": "Jacksonville"
+    },
+    {
+      "id": "18118706299",
+      "name": "Organizer 18118706299",
+      "metro": "Richmond"
+    },
+    {
+      "id": "7882537201",
+      "name": "Joh Bros Entertainment Group",
+      "metro": "Richmond"
+    },
+    {
+      "id": "33539479345",
+      "name": "Facejay Elite",
+      "metro": "Richmond"
+    },
+    {
+      "id": "12999386161",
+      "name": "UnlockingRVA",
+      "metro": "Richmond"
+    },
+    {
+      "id": "13200809322",
+      "name": "LX Group",
+      "metro": "Richmond"
+    },
+    {
+      "id": "121330767492",
+      "name": "AfterFlow",
+      "metro": "Richmond"
+    },
+    {
+      "id": "13053800413",
+      "name": "The Veil Brewing Co.",
+      "metro": "Richmond"
+    },
+    {
+      "id": "15188268830",
+      "name": "Gold Coast Ent",
+      "metro": "Richmond"
+    },
+    {
+      "id": "18737258063",
+      "name": "SISTER",
+      "metro": "Albuquerque"
+    },
+    {
+      "id": "79870757843",
+      "name": "ABQ LIVE",
+      "metro": "Albuquerque"
+    },
+    {
+      "id": "39701255953",
+      "name": "Juno",
+      "metro": "Albuquerque"
+    },
+    {
+      "id": "17268356226",
+      "name": "Marcos Jay Events",
+      "metro": "Albuquerque"
+    },
+    {
+      "id": "34204363179",
+      "name": "Agri-Nature Center of Los Ranchos",
+      "metro": "Albuquerque"
+    },
+    {
+      "id": "121177296664",
+      "name": "ARRIVE Albuquerque",
+      "metro": "Albuquerque"
+    },
+    {
+      "id": "18284480653",
+      "name": "The District",
+      "metro": "Honolulu"
+    },
+    {
+      "id": "109718725231",
+      "name": "The Parlor",
+      "metro": "Honolulu"
+    },
+    {
+      "id": "9875197864",
+      "name": "Hawai‘i Public Radio",
+      "metro": "Honolulu"
+    },
+    {
+      "id": "8442680951",
+      "name": "SME Honolulu",
+      "metro": "Honolulu"
+    },
+    {
+      "id": "13445482126",
+      "name": "DJ JAMES COLES",
+      "metro": "Honolulu"
+    },
+    {
+      "id": "120900201481",
+      "name": "PAPA HAWAI'I",
+      "metro": "Honolulu"
+    },
+    {
+      "id": "11147515175",
+      "name": "Hawaii Agricultural Foundation",
+      "metro": "Honolulu"
+    },
+    {
+      "id": "45596626683",
+      "name": "TWRK SATURDAYS",
+      "metro": "Honolulu"
+    },
+    {
+      "id": "18964841070",
+      "name": "SE2 SILENT DISCO",
+      "metro": "Buffalo"
+    },
+    {
+      "id": "94730231103",
+      "name": "Locust Street Art",
+      "metro": "Buffalo"
+    },
+    {
+      "id": "28346110469",
+      "name": "Hyatt's All Things Creative",
+      "metro": "Buffalo"
+    },
+    {
+      "id": "8365694794",
+      "name": "Hydraulic Hearth",
+      "metro": "Buffalo"
+    },
+    {
+      "id": "40700129463",
+      "name": "AAARIA EDU",
+      "metro": "Buffalo"
+    },
+    {
+      "id": "115314342271",
+      "name": "Mind Over Foundation",
+      "metro": "Buffalo"
+    },
+    {
+      "id": "16755297782",
+      "name": "Crawl With US",
+      "metro": "Buffalo"
+    },
+    {
+      "id": "73343957833",
+      "name": "Sips & Sparks",
+      "metro": "Hartford"
+    },
+    {
+      "id": "7625297037",
+      "name": "Sub Edge Farm",
+      "metro": "Hartford"
+    },
+    {
+      "id": "79625482853",
+      "name": "Wine ETC.",
+      "metro": "Hartford"
+    },
+    {
+      "id": "19667842875",
+      "name": "Silhouettes by Chris",
+      "metro": "Hartford"
+    },
+    {
+      "id": "121002183392",
+      "name": "Pilates After Dark",
+      "metro": "Hartford"
+    },
+    {
+      "id": "15821619466",
+      "name": "University of Hartford, Department of Mechanical Engineering",
+      "metro": "Hartford"
+    },
+    {
+      "id": "32938254023",
+      "name": "Team S.I. Ent.",
+      "metro": "Hartford"
+    },
+    {
+      "id": "12775059792",
+      "name": "Van Andel Institute for Education",
+      "metro": "Grand Rapids"
+    },
+    {
+      "id": "2696133744",
+      "name": "Future Pro USA",
+      "metro": "Grand Rapids"
+    },
+    {
+      "id": "78594929123",
+      "name": "Grand River Makerspace",
+      "metro": "Grand Rapids"
+    },
+    {
+      "id": "19940970478",
+      "name": "CREW West Michigan",
+      "metro": "Grand Rapids"
+    },
+    {
+      "id": "16732915193",
+      "name": "Deaf and Hard of Hearing Services",
+      "metro": "Grand Rapids"
+    },
+    {
+      "id": "33045366599",
+      "name": "ICCF Community Homes (ICCF)",
+      "metro": "Grand Rapids"
+    },
+    {
+      "id": "48249950843",
+      "name": "Nebraska Crossroads Music Festival",
+      "metro": "Omaha"
+    },
+    {
+      "id": "47022578963",
+      "name": "Fun-Plex",
+      "metro": "Omaha"
+    },
+    {
+      "id": "43542588363",
+      "name": "The Bay Omaha",
+      "metro": "Omaha"
+    },
+    {
+      "id": "23369944444",
+      "name": "In the Market for Blues",
+      "metro": "Omaha"
+    },
+    {
+      "id": "29936401121",
+      "name": "Great Big Family Productions",
+      "metro": "Omaha"
+    },
+    {
+      "id": "9877536118",
+      "name": "White Rhino Productions LLC",
+      "metro": "Omaha"
+    },
+    {
+      "id": "108795427071",
+      "name": "Epoca Cantina & Christina X",
+      "metro": "Omaha"
+    },
+    {
+      "id": "18561533542",
+      "name": "15Utah",
+      "metro": "San Jose"
+    },
+    {
+      "id": "44106045143",
+      "name": "Music in the Park San Jose",
+      "metro": "San Jose"
+    },
+    {
+      "id": "110032758181",
+      "name": "OffKai Expo",
+      "metro": "San Jose"
+    },
+    {
+      "id": "106089477091",
+      "name": "VTuber Con Central",
+      "metro": "San Jose"
+    },
+    {
+      "id": "5573826567",
+      "name": "SocialSF",
+      "metro": "San Jose"
+    },
+    {
+      "id": "84906633933",
+      "name": "VirtualTakeover",
+      "metro": "San Jose"
+    },
+    {
+      "id": "33348066771",
+      "name": "Saratoga Chamber of Commerce",
+      "metro": "San Jose"
+    },
+    {
+      "id": "121418896104",
+      "name": "LNT VT",
+      "metro": "San Jose"
+    }
+  ]
+}

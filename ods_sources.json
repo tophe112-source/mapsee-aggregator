@@ -1,0 +1,137 @@
+{
+  "_comment": "Opendatasoft public event datasets (international civic/community events, geo-tagged). OpenAgenda is the flagship - public community events, hugely rich in France (~29k upcoming) plus real coverage in GB/IE/DE/NL/CA. Filtered to events STARTING within within_days so dates are fresh. France gets its own source (dense) so the sparse target countries aren't crowded out under the offset cap. Add more ODS city datasets as verified: find them at <portal>/api/explore/v2.1/catalog/datasets?where=search(\"events\"). Each source: {domain, dataset, category, within_days, countries (ISO filter), max, map:{...}}. Events carry {lon,lat} so no geocoding.",
+  "sources": [
+    {
+      "name": "OpenAgenda France",
+      "domain": "public.opendatasoft.com",
+      "dataset": "evenements-publics-openagenda",
+      "category": "community",
+      "within_days": 90,
+      "countries": [
+        "FR"
+      ],
+      "max": 10000,
+      "map": {
+        "id": "uid",
+        "title": "title_fr",
+        "title_alt": "title_en",
+        "description": "longdescription_fr",
+        "description_alt": "description_fr",
+        "start": "firstdate_begin",
+        "end": "lastdate_end",
+        "venue": "location_name",
+        "address": "location_address",
+        "city": "location_city",
+        "region": "location_region",
+        "postal": "location_postalcode",
+        "country": "location_countrycode",
+        "geo": "location_coordinates",
+        "url": "canonicalurl",
+        "image": "originalimage",
+        "image_alt": "thumbnail"
+      }
+    },
+    {
+      "name": "OpenAgenda (GB/IE/DE/NL/CA/BE/CH/ES/IT/SE)",
+      "domain": "public.opendatasoft.com",
+      "dataset": "evenements-publics-openagenda",
+      "category": "community",
+      "within_days": 90,
+      "countries": [
+        "GB",
+        "IE",
+        "DE",
+        "NL",
+        "CA",
+        "BE",
+        "CH",
+        "ES",
+        "IT",
+        "SE"
+      ],
+      "max": 6000,
+      "map": {
+        "id": "uid",
+        "title": "title_en",
+        "title_alt": "title_fr",
+        "description": "longdescription_fr",
+        "description_alt": "description_fr",
+        "start": "firstdate_begin",
+        "end": "lastdate_end",
+        "venue": "location_name",
+        "address": "location_address",
+        "city": "location_city",
+        "region": "location_region",
+        "postal": "location_postalcode",
+        "country": "location_countrycode",
+        "geo": "location_coordinates",
+        "url": "canonicalurl",
+        "image": "originalimage",
+        "image_alt": "thumbnail"
+      }
+    },
+    {
+      "name": "Agenda cultural de Castilla y Leon (Spain)",
+      "domain": "analisis.datosabiertos.jcyl.es",
+      "dataset": "eventos-de-la-agenda-cultural-categorizados-y-geolocalizados",
+      "category": "arts",
+      "within_days": 90,
+      "max": 3000,
+      "map": {
+        "id": "id_evento",
+        "title": "titulo",
+        "description": "descripcion",
+        "start": "fecha_inicio",
+        "end": "fecha_fin",
+        "venue": "lugar_celebracion",
+        "address": "calle",
+        "city": "nombre_localidad",
+        "region": "nombre_provincia",
+        "postal": "cp",
+        "geo": "posicion",
+        "url": "enlace_contenido",
+        "image": "imagen_evento_ampliada",
+        "image_alt": "imagen_evento"
+      },
+      "url": "https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/eventos-de-la-agenda-cultural-categorizados-y-geolocalizados/records"
+    },
+    {
+      "name": "Bologna Agenda Cultura (Bologna, Italy)",
+      "domain": "opendata.comune.bologna.it",
+      "dataset": "eventi-bologna-agenda-cultura",
+      "category": "arts",
+      "within_days": 90,
+      "max": 3000,
+      "map": {
+        "id": "id",
+        "title": "title",
+        "description": "description",
+        "start": "start",
+        "end": "end",
+        "address": "address",
+        "geo": "coordinate",
+        "url": "url"
+      },
+      "url": "https://opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/eventi-bologna-agenda-cultura/records"
+    },
+    {
+      "name": "Basel-Stadt Veranstaltungen (Basel, Switzerland)",
+      "domain": "data.bs.ch",
+      "dataset": "100074",
+      "category": "community",
+      "within_days": 90,
+      "max": 3000,
+      "map": {
+        "id": "termin_key",
+        "title": "name",
+        "description": "beschreibung",
+        "start": "datum_von",
+        "end": "datum_bis",
+        "address": "strasse_name_kanton",
+        "city": "gemeinde_name",
+        "geo": "geo_point_2d"
+      },
+      "url": "https://data.bs.ch/api/explore/v2.1/catalog/datasets/100074/records"
+    }
+  ]
+}

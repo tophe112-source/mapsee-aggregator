@@ -1,0 +1,11 @@
+{
+  "api_key": "3",
+  "category": "sports",
+  "leagues": [
+    { "id": "4387", "name": "NBA" },
+    { "id": "4380", "name": "NHL" },
+    { "id": "4424", "name": "MLB" },
+    { "id": "4391", "name": "NFL" },
+    { "id": "4346", "name": "MLS" }
+  ]
+}

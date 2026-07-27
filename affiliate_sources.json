@@ -1,0 +1,47 @@
+{
+  "_comment": "DoorDash / Uber Eats affiliate catalog feeds (Impact-style). Each feed is SKIPPED while its ${ENV_VAR} is unset, so this is a silent no-op until the affiliate programs approve the account and the repo secrets are set (DOORDASH_FEED_URL / UBEREATS_FEED_URL = the signed catalog download URL from the network dashboard). 'map' translates that catalog's column names - adjust to the real export headers on first run. Caps are deliberate: Impact catalogs can carry 100k+ rows; raise max_locations consciously, per market.",
+  "days_ahead": 3,
+  "pickup_hours": ["11:00", "21:00"],
+  "feeds": [
+    {
+      "source": "DOORDASH",
+      "url": "${DOORDASH_FEED_URL}",
+      "format": "csv",
+      "max_locations": 500,
+      "countries": ["US"],
+      "map": {
+        "id": "CatalogItemId",
+        "name": "Name",
+        "description": "Description",
+        "url": "TrackingLink",
+        "address": "StreetAddress",
+        "city": "City",
+        "region": "State",
+        "postal": "PostalCode",
+        "country": "Country",
+        "lat": "Latitude",
+        "lon": "Longitude"
+      }
+    },
+    {
+      "source": "UBER_EATS",
+      "url": "${UBEREATS_FEED_URL}",
+      "format": "csv",
+      "max_locations": 500,
+      "countries": ["US"],
+      "map": {
+        "id": "CatalogItemId",
+        "name": "Name",
+        "description": "Description",
+        "url": "TrackingLink",
+        "address": "StreetAddress",
+        "city": "City",
+        "region": "State",
+        "postal": "PostalCode",
+        "country": "Country",
+        "lat": "Latitude",
+        "lon": "Longitude"
+      }
+    }
+  ]
+}

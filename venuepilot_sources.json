@@ -1,0 +1,18 @@
+{
+  "_comment": "Venues that ticket through VenuePilot (public GraphQL API, no key). Each site: account_ids from the venue's widget config (window.venuepilotSettings.general.accountIds), a Mapsee category, and a venue block for location (the public API returns only the venue NAME, so supply address+city+region for the sync to geocode, or lat+lon). Single venue per site.",
+  "sites": [
+    {
+      "name": "Baba Yaga",
+      "account_ids": [2906],
+      "category": "music",
+      "within_days": 150,
+      "venue": {
+        "name": "Baba Yaga",
+        "address": "124 S Washington St",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98104"
+      }
+    }
+  ]
+}

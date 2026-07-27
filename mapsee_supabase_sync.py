@@ -1,0 +1,687 @@
+#!/usr/bin/env python3
+"""
+mapsee_supabase_sync.py — the production write_to_mapsee() for the live app.
+
+Pushes aggregated public events (produced by mapsee_ingest.py into
+mapsee_events.json) into Mapsee's Supabase `public.events` table as the
+"mapsee" host account, so they appear in the Nearby map (events_near RPC).
+
+It UPSERTs via PostgREST using the SERVICE ROLE key, idempotent on
+(external_source, external_id) — so re-runs update in place, never duplicate.
+Location is filled automatically by the events lat/lon trigger; ends_at is left
+NULL (the app's effective_end() treats it as +6h).
+
+PREREQUISITES
+  1. Apply migration 0039_aggregated_events.sql.
+  2. Create ONE host identity for the aggregator (a Supabase auth user —
+     anonymous sign-in once, or a dedicated account). Use its profiles.id below.
+  3. Environment (server-side only — never ship the service role key to a client):
+        export SUPABASE_URL="https://<project>.supabase.co"
+        export SUPABASE_SERVICE_ROLE_KEY="<service_role secret, NOT the anon key>"
+        export MAPSEE_HOST_PROFILE_ID="<uuid of the aggregator's profiles.id>"
+
+RUN  (on a host that can reach Supabase — e.g. your machine or CI, NOT the
+      Cowork sandbox, whose network is proxy-blocked from Supabase):
+        python mapsee_supabase_sync.py --store mapsee_events.json
+        python mapsee_supabase_sync.py --store mapsee_events.json --dry-run   # print only
+
+Typical pipeline (cron):
+        python mapsee_ingest.py --city "Seattle" --sqlite-db /tmp/mapsee.db --store mapsee_events.json
+        python mapsee_supabase_sync.py --store mapsee_events.json
+"""
+from __future__ import annotations
+import argparse
+import html
+import json
+import os
+import re
+import sys
+import urllib.parse
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
+from typing import Any, Dict, List, Optional
+
+from mapsee_music_links import spotify_search_url, youtube_search_url, bandcamp_search_url, SpotifyResolver
+
+# Map an event's category (from Ticketmaster's segment, when carried) to a
+# Mapsee FRONTEND category KEY — must match the keys in site/js/app.js CATEGORIES.
+# The UI looks events up by key (catLabel/catEmoji), so a label like "Music"
+# renders as "Other". Emit the key; the app supplies the label + emoji.
+CATEGORY_KEYS = {
+    "music": "music",
+    "sports": "sports",
+    # Performing arts / stage & screen live in their own 'theater' key now
+    # (comedy, standup, plays, broadway, dance, film) — 'arts' stays visual arts.
+    "arts & theatre": "theater",
+    "arts & theater": "theater",
+    "theatre": "theater",
+    "theater": "theater",
+    "film": "theater",
+    "comedy": "theater",
+    "festival": "music",
+    "food": "food",
+    "family": "kids",
+    "miscellaneous": "other",
+}
+DEFAULT_CATEGORY_KEY = "other"   # unknown/unlabeled segment -> Other
+
+
+MAPSEE_CATEGORY_KEYS = {"running", "sports", "music", "food", "community", "party",
+                        "market", "outdoors", "arts", "theater", "kids", "learning", "volunteer", "other"}
+
+
+# Volunteer events hide inside generic civic buckets — a "Green Lake Litter Patrol"
+# arrives from the city calendar tagged "community". Promote clearly-volunteer events
+# onto the volunteer layer (rose pins) by keyword, but ONLY out of generic categories,
+# so a stray word in a concert/theatre title can't hijack a strong one.
+_VOLUNTEER_RX = re.compile(
+    r"\b(volunteers?|volunteering|clean[\s-]?ups?|stewardship|litter|"
+    r"food\s?bank|habitat\s+restoration|mutual\s+aid|work\s+part(?:y|ies)|"
+    r"trail\s+work|tree\s+planting|beach\s+clean|park\s+clean|blood\s+drive|"
+    r"days?\s+of\s+service)\b", re.I)
+_PROMOTABLE_TO_VOLUNTEER = {"community", "learning", "outdoors", "other"}
+
+
+# Comedy / standup / film / theater booked at a MUSIC venue inherit that venue
+# feed's hardcoded "music" category. High-precision title signals move them onto
+# the 'theater' layer. Kept tight (e.g. "comedy night/show", not a bare "comedy"
+# that could be a band name) so a real concert is never miscast, and only from
+# music/other — a strong existing category (sports, food…) is left alone.
+_THEATER_RX = re.compile(
+    r"\b(stand[\s-]?up|comedy\s+(?:night|show|hour|special|showcase)|open\s+mic\s+comedy|"
+    r"improv|sketch\s+comedy|burlesque|drag\s+(?:show|brunch|bingo|race)|"
+    r"film\s+screening|movie\s+night|screening\s+of|\bplay(?:\s+reading)?\b|"
+    r"broadway|matinee|one[\s-]?(?:wo)?man\s+show)\b", re.I)
+_PROMOTABLE_TO_THEATER = {"music", "other"}
+
+
+def map_category(rec: Dict[str, Any]) -> str:
+    """Map the captured category to a Mapsee frontend category KEY (site/js/app.js).
+    Accepts a Ticketmaster segment / schema.org @type, OR an already-valid Mapsee
+    key (e.g. from an open-data source config). Clearly-volunteer events sitting in a
+    generic bucket are promoted to the 'volunteer' layer by keyword."""
+    raw = (rec.get("category") or "").strip().lower()
+    key = raw if raw in MAPSEE_CATEGORY_KEYS else CATEGORY_KEYS.get(raw, DEFAULT_CATEGORY_KEY)
+    if key in _PROMOTABLE_TO_VOLUNTEER:
+        text = f"{rec.get('name') or ''} {rec.get('description') or ''}"
+        if _VOLUNTEER_RX.search(text):
+            return "volunteer"
+    if key in _PROMOTABLE_TO_THEATER and _THEATER_RX.search(rec.get("name") or ""):
+        return "theater"           # comedy/standup/film at a music venue -> stage layer
+    return key
+
+
+def primary_url(rec: Dict[str, Any]) -> Optional[str]:
+    for s in rec.get("sources", []):
+        if s.get("url"):
+            return s["url"]
+    return None
+
+
+def venue_show_search_url(rec: Dict[str, Any]) -> Optional[str]:
+    """A web-search deep link that lands on the VENUE'S OWN page for this show.
+    Ticketmaster/SeatGeek listings routinely omit detail the venue's site has
+    (support acts, set times, age limits, doors, parking). Their data carries no
+    field for the venue's own URL, so we build a Google search scoped to
+    venue + headliner + date — the venue's own event page is almost always the
+    top hit. Venue-fed events skip this: their Tickets / info link already IS the
+    venue page (see to_row). Returns None without a venue name to search on."""
+    venue = (rec.get("venue_name") or "").strip()
+    if not venue:
+        return None
+    terms = [venue]
+    artist = _pick_artist(rec)
+    if artist and artist.strip().lower() != venue.lower():
+        terms.append(artist.strip())
+    date = str(rec.get("start_local") or rec.get("start_utc") or "")[:10].strip()
+    if date:
+        terms.append(date)
+    return f"https://www.google.com/search?q={urllib.parse.quote(' '.join(terms))}"
+
+
+_WS_RUN = re.compile(r"[ \t ]{2,}")
+
+
+_HTML_TAG = re.compile(
+    r"</?(?:p|span|div|br|hr|a|b|i|u|em|strong|ul|ol|li|dl|dt|dd|h[1-6]|table|thead|tbody|tr|td|th|"
+    r"img|font|blockquote|pre|code|small|sub|sup|section|article|header|footer|nav|figure|figcaption|"
+    r"iframe|style|script)\b[^>]*>", re.I)
+
+
+def _clean_text(s: Optional[str]) -> Optional[str]:
+    """Decode HTML entities the feeds send pre-encoded (&#39; -> ', &#160; -> space,
+    &amp; -> &) and normalize whitespace, so the DB stores clean display text for
+    EVERY consumer (map pins, push notifications, flyers, OG images, search) instead
+    of raw entity codes. Canonical fix: clean once here at the write boundary."""
+    if not s:
+        return s
+    s = html.unescape(str(s))
+    s = _HTML_TAG.sub(" ", s)          # strip HTML tags (<p>, <span>, <br>, ...)
+    s = s.replace(" ", " ")            # decoded nbsp -> normal space
+    s = _WS_RUN.sub(" ", s)                 # collapse space/tab runs (keeps newlines)
+    return s.strip()
+
+
+def _street_address(rec: Dict[str, Any]) -> Optional[str]:
+    """The venue's street address (e.g. '200 University St, Seattle, WA 98101'), or
+    None when the source has no street line. Shown as a 📍 line in the description;
+    the map link still routes to the exact geocoded coordinates regardless."""
+    line1 = (rec.get("address") or "").strip().rstrip(".")
+    if not line1:
+        return None
+    state_zip = " ".join(p for p in (rec.get("region"), rec.get("postal_code")) if p)  # "WA 98101"
+    return ", ".join(p for p in (line1, rec.get("city"), state_zip) if p)
+
+
+def _pick_artist(rec: Dict[str, Any]) -> Optional[str]:
+    """Best guess at the performer to build listen links from: the headliner
+    (lineup[0]) if present, else the event title. Not the promoter — that's the
+    booking company, not the act."""
+    lu = rec.get("lineup") or []
+    if isinstance(lu, list) and lu and str(lu[0]).strip():
+        return str(lu[0]).strip()
+    name = (rec.get("name") or "").strip()
+    return name or None
+
+
+def _host_name(rec: Dict[str, Any]) -> str:
+    """The actual promoter when Ticketmaster gives a real one; otherwise 'mapsee.me'.
+    Skips generic filler like 'PROMOTED BY VENUE'."""
+    p = (rec.get("promoter") or "").strip()
+    if not p or "promoted by venue" in p.lower():
+        return "mapsee.me"
+    return p
+
+
+_TF = None                                             # lazily-built TimezoneFinder
+
+
+def _us_tz_by_lon(lat: float, lon: float) -> Optional[str]:
+    """Coarse US timezone from coordinates — fallback when timezonefinder isn't
+    installed. Fixes the big offset errors (e.g. Pacific parks); only ~1h off in
+    edge cases like Arizona (no DST)."""
+    if lat >= 51 and lon <= -129:
+        return "America/Anchorage"
+    if lon <= -150:
+        return "Pacific/Honolulu"
+    if lon <= -114:
+        return "America/Los_Angeles"
+    if lon <= -100:
+        return "America/Denver"
+    if lon <= -85:
+        return "America/Chicago"
+    return "America/New_York"
+
+
+def _tz_for(lat, lon):
+    """IANA timezone for coordinates — precise via timezonefinder when available,
+    else a coarse US longitude fallback."""
+    try:
+        lat = float(lat)
+        lon = float(lon)
+    except (TypeError, ValueError):
+        return None
+    name = None
+    try:
+        from timezonefinder import TimezoneFinder
+        global _TF
+        if _TF is None:
+            _TF = TimezoneFinder()
+        name = _TF.timezone_at(lat=lat, lng=lon)
+    except Exception:
+        name = None
+    if not name:
+        name = _us_tz_by_lon(lat, lon)
+    try:
+        return ZoneInfo(name) if name else None
+    except Exception:
+        return None
+
+
+_OFFSET_RE = re.compile(r"[+-]\d{2}:\d{2}$")
+
+
+def _to_utc_if_naive(s: Optional[str], lat, lon) -> Optional[str]:
+    """A NAIVE local datetime (no 'Z', no offset — e.g. NPS "2026-07-20T10:00:00")
+    is converted to real UTC using the event's coordinates, so it isn't stored
+    shifted by the local UTC offset. Already-UTC/offset/date-only values pass
+    through untouched."""
+    if not s:
+        return s
+    s = str(s).strip()
+    if len(s) == 10:                                   # date-only (all-day)
+        return s
+    if s.endswith("Z") or _OFFSET_RE.search(s):        # already timezone-aware
+        return s
+    tz = _tz_for(lat, lon)
+    if tz is None:
+        return s
+    try:
+        dt = datetime.fromisoformat(s).replace(tzinfo=tz)
+    except ValueError:
+        return s
+    return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+# Typical event length by category (hours) — used to synthesize an end time when
+# the source doesn't provide one, so every event gets a sensible ends_at instead
+# of the app falling back to a flat +6h.
+_DURATION_H = {
+    "music": 3.0, "party": 4.0, "sports": 3.0, "arts": 3.0, "food": 3.0,
+    "community": 2.0, "market": 5.0, "outdoors": 3.0, "learning": 2.0,
+    "kids": 2.0, "volunteer": 3.0, "running": 3.0, "other": 3.0,
+}
+
+
+def _compute_end(starts_at: Optional[str], real_end: Optional[str], category: str) -> Optional[str]:
+    """The event's end time: the source's REAL end when we have one, otherwise
+    start + a category-typical duration (an educated guess). Robust to date-only
+    and non-ISO times, which fall back to an all-day (end-of-day) end."""
+    if real_end:
+        return real_end
+    if not starts_at:
+        return None
+    s = str(starts_at).strip()
+    if len(s) == 10:                                   # date-only -> all-day
+        return s + "T23:59:59"
+    try:
+        dtv = datetime.fromisoformat(s.replace("Z", "+00:00"))
+    except ValueError:
+        return (s[:10] + "T23:59:59") if len(s) >= 10 else None   # unparseable time -> all-day
+    end = dtv + timedelta(hours=_DURATION_H.get(category, 3.0))
+    if s.endswith("Z"):
+        return end.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return end.isoformat()
+
+
+def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
+    """Map one normalized event -> a public.events row for PostgREST upsert."""
+    # Pin color by provenance, so imported listings read differently on the
+    # map: TEAL = city open data, VIOLET = big-venue feeds (Ticketmaster).
+    # Community-created events keep the app default blue (#2563eb).
+    _src = (rec.get("source")
+            or ((rec.get("sources") or [{}])[0].get("source")) or "")
+    color = "#0891b2" if str(_src).startswith(("opendata:", "ics:", "program:")) else "#7c3aed"
+    category_key = map_category(rec)
+    # Volunteering is first-class: ROSE pins across every source, so "ways to
+    # help nearby" reads as its own layer on the map (not generic civic teal).
+    if category_key == "volunteer":
+        color = "#e11d48"
+    parts = [_clean_text(rec["description"])] if rec.get("description") else []
+    address = _street_address(rec)
+    if address:
+        parts.append("📍 " + address)               # human-readable address (map routes to exact coords)
+    url = primary_url(rec)
+    if url:  # give attendees (and the venue) a click-through; supports promotion
+        parts.append(f"Tickets / info: {url}")
+    # 🔎 More on this show — the venue's OWN page usually carries detail the
+    # ticket aggregators miss (support acts, set times, age limits, parking).
+    # Venue-fed / open-data events already point at the source's own page via
+    # Tickets / info, so only the big-venue aggregators (Ticketmaster, SeatGeek)
+    # get this web-search fallback.
+    if not str(_src).startswith(("opendata:", "venue:", "ics:", "program:")):
+        show = venue_show_search_url(rec)
+        if show:
+            parts.append(f"🔎 More on this show: {show}")
+    # 🎵 Listen — let people hear the performer before a show. Exact links win
+    # (Ticketmaster's attraction externalLinks, or a resolved Spotify artist page
+    # from the enrichment pass); otherwise a search deep-link that opens the
+    # artist in Spotify / YouTube Music. Only for music (or when a source already
+    # handed us a music link), so non-music listings stay clean.
+    if category_key == "music" or rec.get("spotify_url") or rec.get("youtube_url"):
+        artist = _pick_artist(rec)
+        sp = rec.get("spotify_url") or spotify_search_url(artist)
+        yt = rec.get("youtube_url") or youtube_search_url(artist)
+        bc = bandcamp_search_url(artist)   # search-only (no exact-page API); land on the band
+        listen = [f"Spotify: {sp}" if sp else None, f"YouTube: {yt}" if yt else None,
+                  f"Bandcamp: {bc}" if bc else None]
+        listen = [x for x in listen if x]
+        if listen:
+            parts.append("🎵 Listen — " + "  ·  ".join(listen))
+    description = "\n\n".join(parts) or None
+    # Volunteering is free community time — strip any ticket price the source
+    # baked in (e.g. a Ticketmaster event promoted to the volunteer layer keeps
+    # its "Approx. price: $39 · Rock" line). Drop the price + its " · " separator.
+    if category_key == "volunteer" and description:
+        description = re.sub(r"Approx\. price:\s*[^\n·]*(?:\s*·\s*)?", "", description)
+        description = re.sub(r"\n{3,}", "\n\n", description).strip() or None
+    lat, lon = rec.get("latitude"), rec.get("longitude")
+    # Normalize naive local times (e.g. NPS "2026-07-20T10:00:00") to real UTC via
+    # the event's coordinates, so no source is stored offset by its UTC offset.
+    starts_at = _to_utc_if_naive(rec.get("start_utc") or rec.get("start_local"), lat, lon)
+    end_src = _to_utc_if_naive(rec.get("end_utc") or rec.get("end_local"), lat, lon)
+    return {
+        "title": _clean_text(rec.get("name")),
+        "description": description,
+        "lat": lat,
+        "lon": lon,                                  # trigger fills events.location
+        "place_name": _clean_text(rec.get("venue_name")),   # venue name -> map-pin label + "where"
+        "host_name": _clean_text(_host_name(rec)),   # actual promoter when available, else "mapsee.me"
+        "starts_at": starts_at,
+        "ends_at": _compute_end(starts_at, end_src, category_key),
+        "created_by": host_id,                       # the aggregator's profiles.id
+        "is_private": False,                         # public -> discoverable in events_near
+        # NOTE: no "visibility" — that column was dropped in migration 0003; is_private is the flag now.
+        "category": category_key,                    # frontend category KEY (site/js/app.js)
+        "color_hex": color,                          # provenance pin color (see above)
+        "poster_path": rec.get("poster_image_url") or None,   # external URL → banner + og:image (client/worker pass http(s) through)
+        "icon": None,                                # let the app render the category's emoji
+        "external_source": "mapsee",                 # provenance (migration 0039)
+        "external_id": rec["fingerprint"],           # cross-source dedup key -> idempotent
+    }
+
+
+def _addr_parts(rec: Dict[str, Any]):
+    """(street, city, state) for the US Census batch geocoder, or None.
+    Deliberately no ZIP — Ticketmaster's postal is sometimes wrong, and
+    street+city+state geocodes reliably on its own."""
+    line1 = (rec.get("address") or "").strip().rstrip(".")
+    if not line1:
+        return None                                   # no street -> would only hit a city centroid
+    return (line1, (rec.get("city") or "").strip(), (rec.get("region") or "").strip())
+
+
+def batch_geocode(session, addr_tuples):
+    """Geocode many US addresses at once with the free, key-less US Census BATCH
+    geocoder (up to 10k per request) — Ticketmaster's own venue lat/long is often
+    imprecise (it placed The Showbox ~0.5 mi off). Input: list of (street, city,
+    state). Returns {(street, city, state): (lat, lon)} for confident matches."""
+    import io
+    import csv
+    result: Dict[Any, Any] = {}
+    keys = list(addr_tuples)
+    for start in range(0, len(keys), 9000):
+        chunk = keys[start:start + 9000]
+        buf = io.StringIO()
+        writer = csv.writer(buf)
+        idmap = {}
+        for j, (street, city, state) in enumerate(chunk):
+            rid = str(start + j)
+            idmap[rid] = (street, city, state)
+            writer.writerow([rid, street, city, state, ""])   # id, street, city, state, zip(blank)
+        try:
+            r = session.post(
+                "https://geocoding.geo.census.gov/geocoder/locations/addressbatch",
+                files={"addressFile": ("addrs.csv", buf.getvalue())},
+                data={"benchmark": "Public_AR_Current"},
+                timeout=180,
+            )
+            if r.status_code != 200:
+                continue
+            for row in csv.reader(io.StringIO(r.text)):
+                # id, input, Match/No_Match/Tie, type, matched_addr, "lon,lat", tiger, side
+                if len(row) >= 6 and row[2] == "Match" and "," in row[5]:
+                    lon, lat = row[5].split(",")[:2]
+                    if row[0] in idmap:
+                        result[idmap[row[0]]] = (float(lat), float(lon))
+        except Exception:
+            continue
+    return result
+
+
+def _enrich_music_links(recs: List[Dict[str, Any]], session) -> None:
+    """Upgrade music events to EXACT Spotify artist pages when a Spotify app
+    credential is set (SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET). No-op without
+    creds — to_row still emits Spotify/YouTube search deep-links. Resolutions are
+    cached by artist name (spotify_cache.json) so a name is queried at most once."""
+    cid = os.environ.get("SPOTIFY_CLIENT_ID", "").strip()
+    secret = os.environ.get("SPOTIFY_CLIENT_SECRET", "").strip()
+    if not (cid and secret):
+        return
+    cache_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "spotify_cache.json")
+    try:
+        cache = json.loads(open(cache_path, encoding="utf-8").read()) if os.path.exists(cache_path) else {}
+    except Exception:
+        cache = {}
+    resolver = SpotifyResolver(cid, secret, session, cache)
+    resolved = 0
+    for rec in recs:
+        if map_category(rec) != "music" or rec.get("spotify_url"):
+            continue                                   # non-music, or TM already gave an exact link
+        artist = _pick_artist(rec)
+        if not artist:
+            continue
+        u = resolver.artist_url(artist)
+        if u:
+            rec["spotify_url"] = u
+            resolved += 1
+    try:
+        with open(cache_path, "w", encoding="utf-8") as fh:
+            json.dump(cache, fh, ensure_ascii=False)
+    except Exception:
+        pass
+    print(f"Spotify: resolved {resolved} exact artist pages ({len(cache)} names cached).")
+
+
+def build_rows(store_path: str, host_id: str, geo_session=None) -> List[Dict[str, Any]]:
+    data = json.loads(open(store_path, encoding="utf-8").read())
+    recs = []
+    for rec in data.get("events", []):
+        if not rec.get("fingerprint") or not (rec.get("start_utc") or rec.get("start_local")):
+            continue
+        has_coords = rec.get("latitude") is not None and rec.get("longitude") is not None
+        if not has_coords:
+            # No SOURCE coordinates. Some adapters (the JSON-LD venue crawler for
+            # Sea Monster / Ticket Tomato, …) deliberately arrive coordless and
+            # defer geocoding to here. Keep the event only if we can place it: a
+            # street address to geocode below AND a network session to do it.
+            # Coordless AND address-less is unplaceable — drop it.
+            if geo_session is None or _addr_parts(rec) is None:
+                continue
+        recs.append(rec)
+
+    if geo_session is not None:                       # production run (has network)
+        _enrich_music_links(recs, geo_session)        # exact Spotify pages when a key is set
+        # Batch-geocode the unique venue addresses ONCE and write the result back
+        # into the rec BEFORE to_row. This both (a) supplies coordinates for events
+        # that arrived without any (deferred-geocode adapters) and (b) overrides
+        # imprecise source coords (Ticketmaster is often ~0.5mi off). Doing it
+        # pre-to_row means the map pin AND the naive-local-time→UTC conversion
+        # (which needs coords to know the timezone) both use the best coordinates.
+        parts_of = {i: p for i, p in ((i, _addr_parts(r)) for i, r in enumerate(recs)) if p}
+        coords = batch_geocode(geo_session, list({p for p in parts_of.values()}))
+        applied = 0
+        for i, p in parts_of.items():
+            c = coords.get(p)
+            if c:
+                recs[i]["latitude"], recs[i]["longitude"] = c[0], c[1]
+                applied += 1
+        print(f"Geocoded {applied}/{len(recs)} rows ({len(coords)} unique addresses matched).")
+
+    rows, dropped = [], 0
+    for rec in recs:
+        if rec.get("latitude") is None or rec.get("longitude") is None:
+            dropped += 1                              # coordless AND the geocoder couldn't place it
+            continue
+        rows.append(to_row(rec, host_id))
+    if dropped:
+        print(f"Dropped {dropped} coordless events the geocoder couldn't place (address missing/unmatched).")
+    return rows
+
+
+def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> int:
+    import requests, time
+    endpoint = url.rstrip("/") + "/rest/v1/events?on_conflict=external_source,external_id"
+    headers = {
+        "apikey": key,
+        "Authorization": f"Bearer {key}",
+        "Content-Type": "application/json",
+        "Prefer": "resolution=merge-duplicates,return=minimal",
+    }
+    def _post(batch):
+        return requests.post(endpoint, headers=headers, data=json.dumps(batch), timeout=30)
+
+    def _post_retry(batch, tries=3):
+        # A batch can fail transiently on a statement timeout (57014) or lock wait,
+        # esp. if a moderation trigger is slow. Back off and retry the whole batch
+        # before falling back to costly row-by-row isolation.
+        retryable = {408, 429, 500, 502, 503, 504}   # 57014 surfaces as HTTP 500
+        for n in range(tries):
+            resp = _post(batch)
+            if resp.status_code < 300 or resp.status_code not in retryable:
+                return resp
+            time.sleep(0.5 * (n + 1))
+        return resp
+
+    sent = skipped = 0
+    for i in range(0, len(rows), 50):               # fast path: batch upserts
+        chunk = rows[i:i + 50]
+        resp = _post_retry(chunk)
+        if resp.status_code < 300:
+            sent += len(chunk)
+            continue
+        # A whole-batch rejection is usually one bad row (e.g. the moderation
+        # trigger raising 'content_blocked'). Re-send the batch row-by-row so the
+        # clean events still land and only the offending ones are skipped + logged.
+        for row in chunk:
+            r = _post([row])
+            if r.status_code < 300:
+                sent += 1
+            else:
+                skipped += 1
+                try:
+                    reason = r.json().get("message", "")
+                except Exception:
+                    reason = r.text[:80]
+                print(f"  skipped [{r.status_code} {reason}] {row.get('title')!r}")
+    return sent, skipped
+
+
+_LEET = str.maketrans("@0135$!7", "aoiessit")
+
+
+def fetch_existing_ids(session, url: str, key: str):
+    """Set of external_ids already in Supabase (external_source='mapsee'), paged."""
+    ids = set()
+    endpoint = url.rstrip("/") + "/rest/v1/events?external_source=eq.mapsee&select=external_id"
+    base = {"apikey": key, "Authorization": f"Bearer {key}", "Range-Unit": "items"}
+    start, size = 0, 10000
+    while True:
+        try:
+            r = session.get(endpoint, headers=dict(base, Range=f"{start}-{start + size - 1}"), timeout=60)
+        except Exception:
+            break
+        if r.status_code not in (200, 206):
+            break
+        rows = r.json()
+        if not rows:
+            break
+        for row in rows:
+            if row.get("external_id"):
+                ids.add(row["external_id"])
+        if len(rows) < size:
+            break
+        start += size
+    return ids
+
+
+def fetch_claimed_ids(session, url: str, key: str):
+    """external_ids of imported events a real user has CLAIMED (0043). We must
+    never touch those on sync — the claimer owns the row now, and re-upserting
+    would clobber their edits. Excluding them (not re-inserting) is safe: the row
+    already exists, so no duplicate appears."""
+    ids = set()
+    endpoint = (url.rstrip("/")
+                + "/rest/v1/events?external_source=eq.mapsee&claimed_at=not.is.null&select=external_id")
+    base = {"apikey": key, "Authorization": f"Bearer {key}", "Range-Unit": "items"}
+    start, size = 0, 10000
+    while True:
+        try:
+            r = session.get(endpoint, headers=dict(base, Range=f"{start}-{start + size - 1}"), timeout=60)
+        except Exception:
+            break
+        if r.status_code not in (200, 206):
+            break                                        # column missing (pre-0043) → nothing to skip
+        rows = r.json()
+        if not rows:
+            break
+        for row in rows:
+            if row.get("external_id"):
+                ids.add(row["external_id"])
+        if len(rows) < size:
+            break
+        start += size
+    return ids
+
+
+def load_blocklist(session, url: str, key: str):
+    """The moderation terms, so we can drop blocked content BEFORE sending it — mirrors
+    public.is_clean so those events never hit the slow per-row 'content_blocked' retry."""
+    try:
+        r = session.get(url.rstrip("/") + "/rest/v1/moderation_terms?select=term",
+                        headers={"apikey": key, "Authorization": f"Bearer {key}"}, timeout=30)
+        if r.status_code == 200:
+            return [row["term"].lower() for row in r.json() if row.get("term")]
+    except Exception:
+        pass
+    return []
+
+
+def is_clean(text: str, terms) -> bool:
+    """Local mirror of public.is_clean: lower-case, common leet swaps, word-boundary match."""
+    if not text:
+        return True
+    norm = text.lower().translate(_LEET)
+    return not any(re.search(r"\b" + re.escape(t) + r"\b", norm) for t in terms)
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description="Upsert aggregated events into Mapsee's Supabase.")
+    ap.add_argument("--store", default="mapsee_events.json")
+    ap.add_argument("--dry-run", action="store_true", help="Print rows that WOULD be upserted; send nothing.")
+    ap.add_argument("--only-new", action="store_true",
+                    help="Skip events already in Supabase — upsert only new ones (much faster steady-state).")
+    a = ap.parse_args()
+
+    host_id = os.environ.get("MAPSEE_HOST_PROFILE_ID", "<MAPSEE_HOST_PROFILE_ID>")
+
+    if a.dry_run:
+        rows = build_rows(a.store, host_id)           # preview: skip geocoding (no network)
+        print(f"Prepared {len(rows)} event rows from {a.store}.")
+        for row in rows[:3]:
+            print(json.dumps(row, ensure_ascii=False, indent=1))
+        print(f"... {len(rows)} rows total. Dry run — nothing sent to Supabase.")
+        return
+
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+    if not (url and key):
+        sys.exit("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (server-side secrets).")
+    if host_id == "<MAPSEE_HOST_PROFILE_ID>":
+        sys.exit("Set MAPSEE_HOST_PROFILE_ID to the aggregator's profiles.id (used as created_by).")
+
+    import requests                                   # batch-geocode venue addresses (TM coords imprecise)
+    geo = requests.Session()
+    geo.headers.update({"User-Agent": "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"})
+    rows = build_rows(a.store, host_id, geo)
+    print(f"Prepared {len(rows)} event rows from {a.store}.")
+
+    # Never touch CLAIMED imports (a real user owns them now) — in EITHER mode,
+    # so a full refresh can't clobber a claimer's edits and only-new stays correct.
+    claimed = fetch_claimed_ids(geo, url, key)
+    if claimed:
+        before = len(rows)
+        rows = [r for r in rows if r["external_id"] not in claimed]
+        print(f"Claimed-guard: skipped {before - len(rows)} claimed events.")
+
+    if a.only_new:                                    # skip events already in the DB
+        existing = fetch_existing_ids(geo, url, key)
+        before = len(rows)
+        rows = [r for r in rows if r["external_id"] not in existing]
+        print(f"Only-new: {len(rows)} of {before} are new ({len(existing)} already in Supabase).")
+
+    terms = load_blocklist(geo, url, key)             # drop blocked content before the slow retry
+    if terms:
+        before = len(rows)
+        rows = [r for r in rows if all(is_clean(r.get(f) or "", terms)
+                                       for f in ("title", "description", "place_name", "host_name"))]
+        print(f"Moderation pre-filter: dropped {before - len(rows)} of {before} rows.")
+
+    n, skipped = upsert(rows, url, key)
+    tail = f"; skipped {skipped} (blocked by your moderation filter — see log above)" if skipped else ""
+    print(f"Upserted {n} events into Supabase as host {host_id}{tail}. "
+          f"They will now appear in events_near / the Nearby map.")
+
+
+if __name__ == "__main__":
+    main()

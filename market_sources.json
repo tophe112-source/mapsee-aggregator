@@ -1,0 +1,395 @@
+[
+  {
+    "name": "NYC Farmers Markets",
+    "type": "socrata",
+    "timezone": "America/New_York",
+    "url": "https://data.cityofnewyork.us/resource/8vwk-6iz2.json",
+    "limit": 300,
+    "horizon_days": 42,
+    "url_home": "https://www.grownyc.org/greenmarket",
+    "map": {
+      "name": "marketname",
+      "lat": "latitude",
+      "lon": "longitude",
+      "days": "daysoperation",
+      "hours": "hoursoperations",
+      "address": "streetaddress"
+    }
+  },
+  {
+    "name": "Seattle Farmers Markets",
+    "type": "inline",
+    "city": "Seattle, WA",
+    "timezone": "America/Los_Angeles",
+    "horizon_days": 42,
+    "url_home": "https://seattlefarmersmarkets.org/",
+    "markets": [
+      {
+        "name": "Ballard Farmers Market",
+        "address": "Ballard Ave NW & Vernon Pl NW, Seattle, WA",
+        "days": "Sunday",
+        "hours": "9 a.m. - 2 p.m."
+      },
+      {
+        "name": "University District Farmers Market",
+        "address": "University Way NE & NE 50th St, Seattle, WA",
+        "days": "Saturday",
+        "hours": "9 a.m. - 2 p.m."
+      },
+      {
+        "name": "Capitol Hill Farmers Market",
+        "address": "Broadway E & E Denny Way, Seattle, WA",
+        "days": "Sunday",
+        "hours": "11 a.m. - 3 p.m."
+      },
+      {
+        "name": "West Seattle Farmers Market",
+        "address": "California Ave SW & SW Alaska St, Seattle, WA",
+        "days": "Sunday",
+        "hours": "10 a.m. - 2 p.m."
+      },
+      {
+        "name": "Columbia City Farmers Market",
+        "address": "S Edmunds St & 37th Ave S, Seattle, WA 98118",
+        "days": "Wednesday",
+        "hours": "3 p.m. - 7 p.m.",
+        "season_start": "2026-05-06",
+        "season_end": "2026-10-28"
+      },
+      {
+        "name": "Lake City Farmers Market",
+        "address": "NE 125th St & 28th Ave NE, Seattle, WA 98125",
+        "days": "Thursday",
+        "hours": "3 p.m. - 7 p.m.",
+        "season_start": "2026-06-04",
+        "season_end": "2026-10-29"
+      },
+      {
+        "name": "Phinney Farmers Market",
+        "address": "6761 Phinney Ave N, Seattle, WA 98103",
+        "days": "Friday",
+        "hours": "3 p.m. - 7 p.m.",
+        "season_start": "2026-06-05",
+        "season_end": "2026-09-25"
+      },
+      {
+        "name": "Magnolia Farmers Market",
+        "address": "W McGraw St & 33rd Ave W, Seattle, WA",
+        "days": "Saturday",
+        "hours": "10 a.m. - 2 p.m.",
+        "season_start": "2026-06-06",
+        "season_end": "2026-10-10"
+      },
+      {
+        "name": "Wallingford Farmers Market",
+        "address": "4800 Meridian Ave N, Seattle, WA",
+        "days": "Wednesday",
+        "hours": "3 p.m. - 7 p.m.",
+        "season_start": "2026-05-27",
+        "season_end": "2026-09-30"
+      },
+      {
+        "name": "Queen Anne Farmers Market",
+        "address": "W Crockett St & Queen Anne Ave N, Seattle, WA",
+        "days": "Thursday",
+        "hours": "3 p.m. - 7:30 p.m.",
+        "season_start": "2026-06-04",
+        "season_end": "2026-10-08"
+      }
+    ]
+  },
+  {
+    "name": "DC Farmers Markets",
+    "type": "inline",
+    "city": "Washington, DC",
+    "timezone": "America/New_York",
+    "horizon_days": 42,
+    "url_home": "https://www.freshfarm.org/markets",
+    "markets": [
+      {
+        "name": "Dupont Circle FRESHFARM Market",
+        "address": "1500 20th St NW, Washington, DC",
+        "days": "Sunday",
+        "hours": "8:30 a.m. - 1:30 p.m."
+      },
+      {
+        "name": "Foggy Bottom FRESHFARM Market",
+        "address": "901 23rd St NW, Washington, DC",
+        "days": "Wednesday",
+        "hours": "3 p.m. - 7 p.m."
+      },
+      {
+        "name": "Mount Vernon Triangle FRESHFARM Market",
+        "address": "499 I St NW, Washington, DC",
+        "days": "Saturday",
+        "hours": "9 a.m. - 1 p.m."
+      },
+      {
+        "name": "Columbia Heights FRESHFARM Market",
+        "address": "14th St NW & Park Rd NW, Washington, DC",
+        "days": "Saturday",
+        "hours": "9 a.m. - 1 p.m."
+      },
+      {
+        "name": "Columbia Heights FRESHFARM Market (Wed)",
+        "address": "14th St NW & Park Rd NW, Washington, DC",
+        "days": "Wednesday",
+        "hours": "3 p.m. - 7 p.m."
+      },
+      {
+        "name": "FRESHFARM Downtown DC",
+        "address": "810 Vermont Ave NW, Washington, DC",
+        "days": "Thursday",
+        "hours": "11 a.m. - 2:30 p.m."
+      },
+      {
+        "name": "H Street NE FRESHFARM Market",
+        "address": "1300 H St NE, Washington, DC",
+        "days": "Saturday",
+        "hours": "9 a.m. - 12:30 p.m."
+      },
+      {
+        "name": "Eastern Market",
+        "address": "225 7th St SE, Washington, DC",
+        "days": "Saturday",
+        "hours": "9 a.m. - 4 p.m."
+      }
+    ]
+  },
+  {
+    "name": "Fairfax County Farmers Markets",
+    "type": "inline",
+    "city": "Fairfax, VA",
+    "timezone": "America/New_York",
+    "horizon_days": 42,
+    "url_home": "https://www.fairfaxcounty.gov/parks/farmersmarkets",
+    "markets": [
+      {
+        "name": "Mount Vernon Farmers Market",
+        "address": "Sherwood Regional Library, 2501 Sherwood Hall Lane, Alexandria, VA 22306",
+        "days": "Wednesday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-04-22",
+        "season_end": "2026-11-25"
+      },
+      {
+        "name": "Oakmont Farmers Market",
+        "address": "Oakmont Recreation Center, 3200 Jermantown Road, Oakton, VA 22124",
+        "days": "Wednesday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-05-06",
+        "season_end": "2026-10-28"
+      },
+      {
+        "name": "Wakefield Farmers Market",
+        "address": "Wakefield Park, 8100 Braddock Road, Annandale, VA 22003",
+        "days": "Wednesday",
+        "hours": "2 p.m. - 6 p.m.",
+        "season_start": "2026-05-06",
+        "season_end": "2026-10-28"
+      },
+      {
+        "name": "Annandale Farmers Market",
+        "address": "Mason District Park, 6621 Columbia Pike, Annandale, VA 22003",
+        "days": "Thursday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-05-07",
+        "season_end": "2026-10-29"
+      },
+      {
+        "name": "Herndon Farmers Market",
+        "address": "700 Lynn Street, Herndon, VA 20170",
+        "days": "Thursday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-05-07",
+        "season_end": "2026-10-29"
+      },
+      {
+        "name": "McLean Farmers Market",
+        "address": "Lewinsville Park, 1659 Chain Bridge Road, McLean, VA 22101",
+        "days": "Friday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-05-01",
+        "season_end": "2026-10-30"
+      },
+      {
+        "name": "Kingstowne Farmers Market",
+        "address": "5870 Kingstowne Towne Center, Alexandria, VA 22315",
+        "days": "Friday",
+        "hours": "3 p.m. - 7 p.m.",
+        "season_start": "2026-05-01",
+        "season_end": "2026-10-23"
+      },
+      {
+        "name": "Burke Farmers Market",
+        "address": "5671 Roberts Parkway, Burke, VA 22015",
+        "days": "Saturday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-04-18",
+        "season_end": "2026-11-21"
+      },
+      {
+        "name": "Reston Farmers Market",
+        "address": "1609 Washington Plaza N, Reston, VA 20190",
+        "days": "Saturday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-04-25",
+        "season_end": "2026-11-21"
+      },
+      {
+        "name": "Lorton Farmers Market",
+        "address": "8990 Lorton Station Boulevard, Lorton, VA 22079",
+        "days": "Sunday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-05-03",
+        "season_end": "2026-11-22"
+      }
+    ]
+  },
+  {
+    "name": "City of Fairfax Farmers Market",
+    "type": "inline",
+    "city": "Fairfax, VA",
+    "timezone": "America/New_York",
+    "horizon_days": 42,
+    "url_home": "https://www.fairfaxsaturdaymarket.com/",
+    "markets": [
+      {
+        "name": "Fairfax Saturday Farmers Market",
+        "address": "10500 Page Avenue, Fairfax, VA 22030",
+        "days": "Saturday",
+        "hours": "9 a.m. - 1 p.m.",
+        "season_start": "2026-05-09",
+        "season_end": "2026-10-31"
+      }
+    ]
+  },
+  {
+    "name": "Alexandria Farmers Markets",
+    "type": "inline",
+    "city": "Alexandria, VA",
+    "timezone": "America/New_York",
+    "horizon_days": 42,
+    "url_home": "https://www.alexandriava.gov/FarmersMarket",
+    "markets": [
+      {
+        "name": "Old Town Farmers' Market",
+        "address": "100 N Royal Street, Alexandria, VA 22314",
+        "days": "Saturday",
+        "hours": "7 a.m. - Noon"
+      },
+      {
+        "name": "Old Town North Farmers' Market",
+        "address": "Montgomery Park, 901 N Royal Street, Alexandria, VA 22314",
+        "days": "Sunday",
+        "hours": "9 a.m. - 1 p.m."
+      },
+      {
+        "name": "Del Ray Farmers' Market",
+        "address": "E Oxford Ave & Mount Vernon Ave, Alexandria, VA 22301",
+        "days": "Saturday",
+        "hours": "8 a.m. - Noon"
+      },
+      {
+        "name": "West End Farmers' Market",
+        "address": "Ben Brenman Park, 4800 Brenman Park Drive, Alexandria, VA 22304",
+        "days": "Sunday",
+        "hours": "8:30 a.m. - 1 p.m.",
+        "season_start": "2026-05-03",
+        "season_end": "2026-11-15"
+      },
+      {
+        "name": "The Market at Southern Towers",
+        "address": "4901 Seminary Road, Alexandria, VA 22311",
+        "days": "Saturday, Sunday",
+        "hours": "7 a.m. - 1 p.m."
+      }
+    ]
+  },
+  {
+    "name": "Arlington Farmers Markets",
+    "type": "inline",
+    "city": "Arlington, VA",
+    "timezone": "America/New_York",
+    "horizon_days": 42,
+    "url_home": "https://www.arlingtonva.us/Government/Topics/Urban-Agriculture/Farmers-Markets",
+    "markets": [
+      {
+        "name": "Arlington Farmers Market (Courthouse)",
+        "address": "1400 N Courthouse Road, Arlington, VA 22201",
+        "days": "Saturday",
+        "hours": "9 a.m. - Noon"
+      },
+      {
+        "name": "Ballston Farmers Market",
+        "address": "901 N Taylor Street, Arlington, VA 22203",
+        "days": "Thursday",
+        "hours": "3 p.m. - 6 p.m."
+      },
+      {
+        "name": "Columbia Pike Farmers Market",
+        "address": "Columbia Pike & S Walter Reed Drive, Arlington, VA 22204",
+        "days": "Sunday",
+        "hours": "9 a.m. - 1 p.m."
+      },
+      {
+        "name": "Westover Farmers Market",
+        "address": "1644 N McKinley Road, Arlington, VA 22205",
+        "days": "Sunday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-04-01",
+        "season_end": "2026-11-30"
+      },
+      {
+        "name": "Fairlington Farmers Market",
+        "address": "3308 S Stafford Street, Arlington, VA 22206",
+        "days": "Sunday",
+        "hours": "9 a.m. - 1 p.m.",
+        "season_start": "2026-05-01",
+        "season_end": "2026-11-30"
+      },
+      {
+        "name": "Rosslyn Farmers Market",
+        "address": "1800 N Lynn Street, Arlington, VA 22209",
+        "days": "Wednesday",
+        "hours": "2 p.m. - 6 p.m.",
+        "season_start": "2026-05-01",
+        "season_end": "2026-10-31"
+      },
+      {
+        "name": "Lubber Run Farmers Market",
+        "address": "4401 N Henderson Road, Arlington, VA 22203",
+        "days": "Saturday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-04-01",
+        "season_end": "2026-11-30"
+      }
+    ]
+  },
+  {
+    "name": "Falls Church and Vienna Farmers Markets",
+    "type": "inline",
+    "city": "Falls Church, VA",
+    "timezone": "America/New_York",
+    "horizon_days": 42,
+    "url_home": "https://www.fallschurchva.gov/471/Farmers-Market",
+    "markets": [
+      {
+        "name": "Falls Church Farmers Market",
+        "address": "300 Park Avenue, Falls Church, VA 22046",
+        "days": "Saturday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-04-01",
+        "season_end": "2026-12-31"
+      },
+      {
+        "name": "Vienna Farmers Market",
+        "address": "Vienna Community Center, 120 Cherry Street SE, Vienna, VA 22180",
+        "days": "Saturday",
+        "hours": "8 a.m. - Noon",
+        "season_start": "2026-05-01",
+        "season_end": "2026-10-31"
+      }
+    ]
+  }
+]

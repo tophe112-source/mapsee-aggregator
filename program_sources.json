@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Seattle Free Summer Meals",
+    "category": "community",
+    "url": "https://www.hungerfreewa.org/freesummerfood",
+    "timezone": "America/Los_Angeles",
+    "season_start": "2026-06-29",
+    "season_end": "2026-08-20",
+    "days": "Monday Tuesday Wednesday Thursday Friday",
+    "horizon_days": 42,
+    "title_prefix": "Free Summer Meals",
+    "blurb": "Free lunch, games and activities for kids and teens ages 0-18. No registration, just show up. Seattle Parks & Recreation with United Way of King County.",
+    "sites": [
+      { "name": "North Acres Park", "address": "12718 1st Ave NE, Seattle, WA 98125", "start": "11:00", "end": "14:30", "meals": "Lunch 11am-12pm, Snack 1pm-2pm" },
+      { "name": "Little Brook", "address": "14043 32nd Ave NE, Seattle, WA 98125", "start": "10:30", "end": "15:30", "meals": "Lunch 12pm-1pm, Snack 2pm-3pm, plus Naturalist STEM activities" },
+      { "name": "Pratt Park", "address": "201 20th Ave S, Seattle, WA 98144", "start": "10:30", "end": "15:30", "meals": "Lunch 12pm-1pm, Snack 2:30pm-3:30pm, plus Naturalist STEM activities" },
+      { "name": "Cheryl Chow Park", "address": "3640 35th Ave S, Seattle, WA 98144", "start": "10:30", "end": "14:30", "meals": "Lunch 11am-12pm, Snack 1pm-2pm" },
+      { "name": "Judkins Park", "address": "2150 S Norman St, Seattle, WA 98144", "start": "11:00", "end": "14:30", "meals": "Lunch 11am-12pm, Snack 1:30pm-2:30pm" },
+      { "name": "Othello Park", "address": "4351 S Othello St, Seattle, WA 98118", "start": "10:30", "end": "15:30", "meals": "Lunch 12pm-1pm, Snack 2pm-3pm" },
+      { "name": "Brighton Park", "address": "6000 39th Ave S, Seattle, WA 98118", "start": "10:00", "end": "13:00", "meals": "Breakfast 10am-11am, Snack 12pm-1pm" },
+      { "name": "Beacon Hill Park", "address": "1902 13th Ave S, Seattle, WA 98108", "start": "09:30", "end": "13:00", "meals": "Breakfast 9:30am-10:30am, Snack 12pm-1pm" },
+      { "name": "Highland Park", "address": "1100 SW Cloverdale St, Seattle, WA 98106", "start": "10:30", "end": "15:30", "meals": "Lunch 12pm-1pm, Snack 2pm-3pm" },
+      { "name": "Roxhill Park", "address": "2850 SW Roxbury St, Seattle, WA 98126", "start": "11:00", "end": "14:00", "meals": "Lunch 11am-12pm, Snack 1pm-2pm, plus Naturalist STEM activities" }
+    ]
+  }
+]

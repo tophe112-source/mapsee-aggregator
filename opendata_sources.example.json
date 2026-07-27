@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Example City Events",
+    "url": "https://data.example.gov/resource/xxxx-xxxx.json",
+    "app_token": null,
+    "category": "community",
+    "where": "start_date_time > '{now}'",
+    "limit": 1000,
+    "map": {
+      "id": "event_id",
+      "title": "event_name",
+      "description": "description",
+      "start": "start_date_time",
+      "end": "end_date_time",
+      "venue": "location_name",
+      "address": "address",
+      "lat": "latitude",
+      "lon": "longitude",
+      "geo": "geolocation",
+      "url": "event_url"
+    }
+  }
+]

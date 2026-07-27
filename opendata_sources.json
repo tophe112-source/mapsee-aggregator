@@ -1,0 +1,196 @@
+[
+  {
+    "name": "Seattle Special Events",
+    "url": "https://data.seattle.gov/resource/dm95-f8w5.json",
+    "app_token": null,
+    "category": "community",
+    "where": "event_start_date > '{now}' AND permit_status != 'Cancelled'",
+    "limit": 1000,
+    "geocode_venue": true,
+    "geocode_suffix": ", Seattle, WA",
+    "map": {
+      "id": "year_month_app",
+      "title": "name_of_event",
+      "start": "event_start_date",
+      "end": "event_end_date",
+      "venue": "event_location_neighborhood"
+    }
+  },
+  {
+    "name": "NYC Permitted Events",
+    "url": "https://data.cityofnewyork.us/resource/tvpp-9vvx.json",
+    "app_token": null,
+    "category": "community",
+    "where": "start_date_time > '{now}'",
+    "order": "start_date_time",
+    "limit": 250,
+    "geocode_venue": true,
+    "geocode_suffix": ", New York, NY",
+    "map": {
+      "id": "event_id",
+      "title": "event_name",
+      "start": "start_date_time",
+      "end": "end_date_time",
+      "venue": "event_location",
+      "venue2": "event_borough"
+    }
+  },
+  {
+    "name": "Chicago Library Events",
+    "url": "https://data.cityofchicago.org/resource/vsdy-d8k7.json",
+    "app_token": null,
+    "category": "learning",
+    "where": "start > '{now}' AND cancelled = false",
+    "order": "start",
+    "limit": 200,
+    "geocode_venue": true,
+    "geocode_suffix": " Branch Library, Chicago, IL",
+    "map": {
+      "id": "event_page",
+      "title": "title",
+      "description": "description",
+      "start": "start",
+      "end": "end",
+      "venue": "location_name",
+      "url": "event_page"
+    }
+  },
+  {
+    "name": "NYC Parks Events",
+    "url": "https://data.cityofnewyork.us/resource/w3wp-dpdi.json",
+    "app_token": null,
+    "category": "community",
+    "timezone": "America/New_York",
+    "order": "startdate",
+    "limit": 500,
+    "map": {
+      "id": "guid",
+      "title": "title",
+      "description": "description",
+      "start": "startdate",
+      "start_time": "starttime",
+      "end": "enddate",
+      "end_time": "endtime",
+      "venue": "location",
+      "latlon": "coordinates",
+      "url": "link"
+    }
+  },
+  {
+    "name": "Our415 Events and Activities (San Francisco)",
+    "url": "https://data.sfgov.org/resource/8i3s-ih2a.json",
+    "app_token": null,
+    "category": "community",
+    "where": "event_start_date > '{now}'",
+    "order": "event_start_date",
+    "limit": 500,
+    "map": {
+      "id": "id",
+      "title": "event_name",
+      "start": "event_start_date",
+      "end": "event_end_date",
+      "venue": "site_location_name",
+      "address": "site_address",
+      "lat": "latitude",
+      "lon": "longitude",
+      "url": "more_info"
+    }
+  },
+  {
+    "name": "Austin Convention Center Event Listings (Austin)",
+    "url": "https://data.austintexas.gov/resource/p9ma-z6y9.json",
+    "app_token": null,
+    "category": "community",
+    "where": "arrive_date > '{now}'",
+    "order": "arrive_date",
+    "limit": 500,
+    "geocode_venue": true,
+    "geocode_suffix": ", Austin, TX",
+    "map": {
+      "title": "event_name",
+      "start": "arrive_date",
+      "end": "depart_date",
+      "venue": "location",
+      "url": "website"
+    }
+  },
+  {
+    "name": "City of Calgary Events",
+    "url": "https://data.calgary.ca/resource/n625-9k5x.json",
+    "app_token": null,
+    "category": "community",
+    "limit": 1000,
+    "map": {
+      "title": "title",
+      "start": "next_date_times",
+      "description": "notes",
+      "venue": "address",
+      "address": "address",
+      "lat": "latitude",
+      "lon": "longitude",
+      "url": "more_info_url"
+    }
+  },
+  {
+    "name": "City of Edmonton Public Events (Edmonton)",
+    "url": "https://data.edmonton.ca/resource/64u3-c7bh.json",
+    "app_token": null,
+    "category": "community",
+    "where": "begins > '{now}'",
+    "order": "begins",
+    "limit": 500,
+    "map": {
+      "title": "title",
+      "start": "begins",
+      "start_time": "start_time",
+      "end": "ends",
+      "end_time": "end_time",
+      "venue": "event_venue",
+      "venue2": "neighbourhood",
+      "lat": "latitude",
+      "lon": "longitude",
+      "url": "event_link"
+    }
+  },
+  {
+    "name": "NYC Older Adult Center Activities (New York)",
+    "url": "https://data.cityofnewyork.us/resource/fzy4-e84j.json",
+    "app_token": null,
+    "category": "community",
+    "where": "starttime > '{now}'",
+    "order": "starttime",
+    "limit": 500,
+    "map": {
+      "title": "eventname",
+      "description": "description",
+      "start": "starttime",
+      "end": "endtime",
+      "venue": "eventlocation",
+      "venue2": "borough",
+      "address": "eventlocation",
+      "lat": "latitude",
+      "lon": "longitude"
+    }
+  },
+  {
+    "name": "Chicago Park District Activities (Chicago)",
+    "url": "https://data.cityofchicago.org/resource/tn7v-6rnw.json",
+    "app_token": null,
+    "category": "community",
+    "where": "start_date > '{now}'",
+    "order": "start_date",
+    "limit": 500,
+    "map": {
+      "id": "activity_id",
+      "title": "title",
+      "description": "description",
+      "start": "start_date",
+      "end": "end_date",
+      "venue": "location_facility",
+      "address": "address",
+      "lat": "latitude",
+      "lon": "longitude",
+      "url": "information_link"
+    }
+  }
+]

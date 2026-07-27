@@ -1,0 +1,5 @@
+{
+  "_comment": "Restaurants imported from their OWN sites (schema.org Restaurant JSON-LD): each becomes one 'Name · pickup' food event per open day for days_ahead days, with a read-only menu preview and a claim nudge. hours (0=Sun..6=Sat) overrides/fills a missing openingHoursSpecification; name fills a missing JSON-LD name. Restaurants with no hours from either source are skipped. Add entries like: {\"url\": \"https://example-cafe.com\", \"name\": \"Example Cafe\", \"hours\": {\"days\": [1,2,3,4,5], \"open\": \"11:00\", \"close\": \"19:00\"}}",
+  "days_ahead": 21,
+  "restaurants": []
+}

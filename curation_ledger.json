@@ -1,0 +1,1192 @@
+{
+  "abnc.ca/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Allan Brooks Nature Centre (Vernon, Canada)",
+    "reason": "11 vevents / 14 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "acrosstheboardcafe.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Across the Board Game Cafe (Winnipeg, Canada)",
+    "reason": "7 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ahmedabad.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise d'Ahmedabad (Ahmedabad, India)",
+    "reason": "215 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "americanlibraryinparis.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260721,
+    "name": "American Library in Paris (Paris, France)",
+    "reason": "24 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/eventos-de-la-agenda-cultural-categorizados-y-geolocalizados/records": {
+    "checked": 20260721,
+    "name": "Agenda cultural de Castilla y Leon (Spain)",
+    "reason": "495 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "artpace.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Artpace (San Antonio, TX)",
+    "reason": "2 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "astronomy.org.nz/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Auckland Astronomical Society (Auckland, New Zealand)",
+    "reason": "1 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "atlantictu.libcal.com/ical_subscribe.php?cid=6653": {
+    "checked": 20260719,
+    "name": "Atlantic Technological University Library (Sligo, Ireland)",
+    "reason": "9 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "attenborougharts.com/whats-on/?ical=1": {
+    "checked": 20260720,
+    "name": "Attenborough Arts Centre (Leicester, UK)",
+    "reason": "14 vevents / 16 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "aus.libcal.com/ical_subscribe.php?src=p&cid=21902": {
+    "checked": 20260721,
+    "name": "AUS University Library (Sharjah)",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "badmooncafe.co.uk/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Bad Moon Cafe (London, UK)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "ballaratobservatory.org.au/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Ballarat Municipal Observatory (Ballarat, Australia)",
+    "reason": "1 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bangalore.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Bangalore (Bengaluru, India)",
+    "reason": "848 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bangaloreinternationalcentre.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Bangalore International Centre (Bengaluru, India)",
+    "reason": "11 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "base.milano.it/events/?ical=1": {
+    "checked": 20260721,
+    "name": "BASE Milano (Milan, Italy)",
+    "reason": "30 vevents / 31 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bengale.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise du Bengale (Kolkata, India)",
+    "reason": "749 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "bhopal.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Bhopal (Bhopal, India)",
+    "reason": "134 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "boardgamemuseum.co.uk/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Board Game Museum & Cafe (Hastings, UK)",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='boardgamemuseum.co.uk', port=443): Max retri",
+    "status": "fail",
+    "type": "ics"
+  },
+  "boardgamemuseum.co.uk/events/list/?ical=1": {
+    "checked": 20260723,
+    "name": "Board Game Museum & Cafe (Hastings, UK)",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='boardgamemuseum.co.uk', port=443): Max retri",
+    "status": "fail",
+    "type": "ics"
+  },
+  "boardgameparadise.store/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Board Game Paradise (Redlands, CA)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "bueze.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260721,
+    "name": "Buergerzentrum Ehrenfeld BueZe (Cologne, Germany)",
+    "reason": "12 vevents / 15 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "c-base.org/calendar/exported/c-base-events.ics": {
+    "checked": 20260721,
+    "name": "c-base Berlin (Berlin, Germany)",
+    "reason": "1768 vevents / 23 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.hku.hk/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260721,
+    "name": "HKU Event Calendar (Hong Kong)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "camstl.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Contemporary Art Museum St. Louis (St. Louis, MO)",
+    "reason": "6 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "canberra.libcal.com/ical_subscribe.php?cid=10851": {
+    "checked": 20260719,
+    "name": "University of Canberra Library (Canberra, Australia)",
+    "reason": "40 vevents / 22 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "canterbury.libcal.com/ical_subscribe.php?cid=1616": {
+    "checked": 20260720,
+    "name": "University of Canterbury Library (Christchurch, New Zealand)",
+    "reason": "92 vevents / 77 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "castlemainefestival.com.au/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Castlemaine State Festival (Castlemaine, Australia)",
+    "reason": "1 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "centralnsw.com/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Central NSW arts & culture (Orange, NSW, Australia)",
+    "reason": "30 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chandigarh.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Chandigarh (Chandigarh, India)",
+    "reason": "265 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "childrensmuseumofphoenix.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Children's Museum of Phoenix (Phoenix, AZ)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityparksfoundation.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "City Parks Foundation (New York, NY)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "civictheatre.ie/whats-on/?ical=1": {
+    "checked": 20260720,
+    "name": "The Civic Theatre (Tallaght, Dublin, Ireland)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "communitygarden.org.au/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Australian City Farms & Community Gardens Network (Australia)",
+    "reason": "4 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "darksphere.co.uk/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Dark Sphere (London, UK)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "data.bs.ch/api/explore/v2.1/catalog/datasets/100074/records": {
+    "checked": 20260722,
+    "name": "Basel-Stadt Veranstaltungen (Basel, Switzerland)",
+    "reason": "15118 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "data.calgary.ca/resource/n625-9k5x.json": {
+    "checked": 20260723,
+    "name": "City of Calgary Events",
+    "reason": "3 rows, sample: Community Nature Walk",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.cityofchicago.org/resource/tn7v-6rnw.json": {
+    "checked": 20260726,
+    "name": "Chicago Park District Activities (Chicago)",
+    "reason": "3 rows, sample: Stick & Puck at McFetridge",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.cityofnewyork.us/resource/fzy4-e84j.json": {
+    "checked": 20260723,
+    "name": "NYC Older Adult Center Activities (New York)",
+    "reason": "3 rows, sample: Mixed voice singing",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.edmonton.ca/resource/64u3-c7bh.json": {
+    "checked": 20260723,
+    "name": "City of Edmonton Public Events (Edmonton)",
+    "reason": "3 rows, sample: Tee Time on the Plaza",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "delart.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Delaware Art Museum (Wilmington, DE)",
+    "reason": "30 vevents / 32 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "delhi.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Delhi (New Delhi, India)",
+    "reason": "1 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "downtownwinnipegbiz.com/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Downtown Winnipeg BIZ (Winnipeg, Canada)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dubaiastronomy.com/events/?ical=1": {
+    "checked": 20260721,
+    "name": "Dubai Astronomy Group (Dubai)",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "eintrittfrei-muenchen.de/?ical=1&eventDisplay=list": {
+    "checked": 20260721,
+    "name": "Eintritt Frei Muenchen (Munich, Germany)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "emeraldtaverngames.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Emerald Tavern Games & Cafe (Austin, TX)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "eur-nl.libcal.com/ical_subscribe.php?cid=7009": {
+    "checked": 20260721,
+    "name": "Erasmus University Rotterdam - Research Data (Rotterdam)",
+    "reason": "1 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "events.goodgames.com.au/events/list/?ical=1": {
+    "checked": 20260723,
+    "name": "Good Games (Australia)",
+    "reason": "30 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "exeter-uk.libcal.com/ical_subscribe.php?cid=8108": {
+    "checked": 20260719,
+    "name": "University of Exeter Library (Exeter, United Kingdom)",
+    "reason": "89 vevents / 87 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "footscrayarts.com/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Footscray Community Arts (Melbourne, Australia)",
+    "reason": "2 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "forgegamesandhobbies.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "The Forge Games & Hobbies (Charlottesville, VA)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "forterra.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Forterra (Seattle, WA)",
+    "reason": "9 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "fortwhyte.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "FortWhyte Alive (Winnipeg, Canada)",
+    "reason": "26 vevents / 29 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "friendsanbg.org.au/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Friends of the Australian National Botanic Gardens (Canberra, Australia)",
+    "reason": "28 vevents / 31 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "frostscience.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Phillip and Patricia Frost Museum of Science (Miami, FL)",
+    "reason": "23 vevents / 24 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "gardinermuseum.on.ca/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Gardiner Museum (Toronto, Canada)",
+    "reason": "30 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "glazermuseum.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Glazer Children's Museum (Tampa, FL)",
+    "reason": "8 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "goa.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Goa (Panaji, India)",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='goa.afindia.org', port=443): Max retries exc",
+    "status": "fail",
+    "type": "ics"
+  },
+  "godalming-tc.gov.uk/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Godalming Town Council (Godalming, UK)",
+    "reason": "9 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "gof.nu/?post_type=tribe_events&ical=1": {
+    "checked": 20260721,
+    "name": "Goteborgs Ornitologiska Forening (Gothenburg, Sweden)",
+    "reason": "26 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "healthebay.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Heal the Bay (Santa Monica, CA)",
+    "reason": "3 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "helenamay.com/events/?ical=1": {
+    "checked": 20260721,
+    "name": "The Helena May (Hong Kong)",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "houstonarboretum.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Houston Arboretum & Nature Center (Houston, TX)",
+    "reason": "10 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hyderabad.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Hyderabad (Hyderabad, India)",
+    "reason": "497 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "jaipur.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Jaipur (Jaipur, India)",
+    "reason": "1 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "jcwc.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Johnson Creek Watershed Council (Portland, OR)",
+    "reason": "14 vevents / 17 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "jmkac.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "John Michael Kohler Arts Center (Sheboygan, WI)",
+    "reason": "12 vevents / 17 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "kaminsciencecenter.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Kamin Science Center (Pittsburgh, PA)",
+    "reason": "16 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "kestreltrust.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Kestrel Land Trust (Amherst, MA)",
+    "reason": "8 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "knzb.org.nz/events/?ical=1": {
+    "checked": 20260723,
+    "name": "Keep New Zealand Beautiful (New Zealand)",
+    "reason": "5 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "kulturstedetlindegaarden.dk/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Kulturstedet Lindegaarden (Kgs. Lyngby, Denmark)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "labyrinthdc.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Labyrinth Games & Puzzles (Washington, DC)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "lancaster-uk.libcal.com/ical_subscribe.php?cid=718": {
+    "checked": 20260719,
+    "name": "Lancaster University Library (Lancaster, United Kingdom)",
+    "reason": "13 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "law-uk.libcal.com/ical_subscribe.php?cid=7896": {
+    "checked": 20260719,
+    "name": "University of Law Library Events (London, United Kingdom)",
+    "reason": "24 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "leeds.libcal.com/ical_subscribe.php?cid=8882": {
+    "checked": 20260719,
+    "name": "University of Leeds Skills@Library Workshops (Leeds, United Kingdom)",
+    "reason": "19 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "leeds.libcal.com/ical_subscribe.php?cid=8929": {
+    "checked": 20260719,
+    "name": "University of Leeds Researcher Skills (Leeds, United Kingdom)",
+    "reason": "5 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "leeds.libcal.com/ical_subscribe.php?cid=9035": {
+    "checked": 20260719,
+    "name": "University of Leeds Public Events (Leeds, United Kingdom)",
+    "reason": "2 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "libcal.library.ubc.ca/ical_subscribe.php?cid=7544": {
+    "checked": 20260719,
+    "name": "UBC Library (Vancouver, Canada)",
+    "reason": "72 vevents / 49 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "libcal.vu.nl/ical_subscribe.php?cid=7052": {
+    "checked": 20260721,
+    "name": "VU Amsterdam University Library (Amsterdam)",
+    "reason": "3 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lovewimbledon.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Love Wimbledon BID (Wimbledon, London, UK)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lsbu-uk.libcal.com/ical_subscribe.php?cid=6613": {
+    "checked": 20260719,
+    "name": "London South Bank University Library (London, United Kingdom)",
+    "reason": "112 vevents / 63 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lsbu-uk.libcal.com/ical_subscribe.php?cid=8278": {
+    "checked": 20260719,
+    "name": "LSBU Library Wellbeing (London, United Kingdom)",
+    "reason": "8 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lucknow.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Lucknow (Lucknow, India)",
+    "reason": "9 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "madras.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Madras (Chennai, India)",
+    "reason": "435 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "madrid.impacthub.net/events/?ical=1": {
+    "checked": 20260721,
+    "name": "Impact Hub Madrid (Madrid, Spain)",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "massey.libcal.com/ical_subscribe.php?cid=2383": {
+    "checked": 20260720,
+    "name": "Massey University Library (Palmerston North, New Zealand)",
+    "reason": "38 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mbo.org.au/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Mount Burnett Observatory (Mount Burnett, Australia)",
+    "reason": "5 vevents / 8 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "meatmarket.org.au/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Meat Market (Melbourne, Australia)",
+    "reason": "4 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "merikarvia.fi/tapahtumat/?ical=1": {
+    "checked": 20260721,
+    "name": "Merikarvia Municipality (Merikarvia, Finland)",
+    "reason": "19 vevents / 21 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mezrab.nl/events/?ical=1": {
+    "checked": 20260721,
+    "name": "Mezrab (Amsterdam)",
+    "reason": "2030 vevents / 190 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mguinc.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Meta-Games Unlimited (Springfield, MO)",
+    "reason": "30 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "millriverpark.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Mill River Park Collaborative (Stamford, CT)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mintmuseum.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Mint Museum (Charlotte, NC)",
+    "reason": "21 vevents / 24 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mods.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Museum of Discovery and Science (Fort Lauderdale, FL)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nagpur.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Nagpur (Nagpur, India)",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='nagpur.afindia.org', port=443): Max retries ",
+    "status": "fail",
+    "type": "ics"
+  },
+  "neponset.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Neponset River Watershed Association (Canton, MA)",
+    "reason": "30 vevents / 37 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?cid=11498": {
+    "checked": 20260720,
+    "name": "National Library Board GoLibrary (Singapore)",
+    "reason": "500 vevents / 83 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nus.libcal.com/ical_subscribe.php?cid=11372": {
+    "checked": 20260720,
+    "name": "NUS Medical & Science Library (Singapore)",
+    "reason": "20 vevents / 20 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nus.libcal.com/ical_subscribe.php?cid=11414": {
+    "checked": 20260720,
+    "name": "NUS Central Library (Singapore)",
+    "reason": "19 vevents / 17 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "occii.org/agenda/?ical=1": {
+    "checked": 20260721,
+    "name": "OCCII (Amsterdam)",
+    "reason": "1751 vevents / 16 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "oldstrathcona.ca/events-full/?ical=1": {
+    "checked": 20260720,
+    "name": "Old Strathcona BIA (Edmonton, Canada)",
+    "reason": "19 vevents / 21 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/eventi-bologna-agenda-cultura/records": {
+    "checked": 20260722,
+    "name": "Bologna Agenda Cultura (Bologna, Italy)",
+    "reason": "30307 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "osc.org/visit/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Orlando Science Center (Orlando, FL)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "paris.demosphere.net/events.ics": {
+    "checked": 20260721,
+    "name": "Demosphere Paris - Ile-de-France (Paris, France)",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "permaculturevictoria.org.au/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Permaculture Victoria (Melbourne, Australia)",
+    "reason": "1109 vevents / 42 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "piedmontpark.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Piedmont Park Conservancy (Atlanta, GA)",
+    "reason": "10 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "pondicherry.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Pondichery (Puducherry, India)",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='pondicherry.afindia.org', port=443): Max ret",
+    "status": "fail",
+    "type": "ics"
+  },
+  "portdiscovery.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Port Discovery Children's Museum (Baltimore, MD)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "portlandmuseum.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Portland Museum of Art (Portland, ME)",
+    "reason": "24 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "prospectpark.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Prospect Park Alliance (Brooklyn, NY)",
+    "reason": "30 vevents / 32 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "pune.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Pune (Pune, India)",
+    "reason": "44 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "queenstreetwest.ca/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Queen Street West BIA (Toronto, Canada)",
+    "reason": "1 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "radolfzell-stadtbibliothek.de/veranstaltungen/?ical=1": {
+    "checked": 20260721,
+    "name": "Stadtbibliothek Radolfzell (Radolfzell, Germany)",
+    "reason": "3 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ramart.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Racine Art Museum (Racine, WI)",
+    "reason": "25 vevents / 28 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "riverbank.ie/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Riverbank Arts Centre (Newbridge, Ireland)",
+    "reason": "30 vevents / 31 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "riversideparknyc.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Riverside Park Conservancy (New York, NY)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "saintpaulaudubon.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Saint Paul Audubon Society (St. Paul, MN)",
+    "reason": "8 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "savesfbay.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Save The Bay (Oakland, CA)",
+    "reason": "3 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "sccf.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Sanibel-Captiva Conservation Foundation (Sanibel, FL)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "scenichudson.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Scenic Hudson (Poughkeepsie, NY)",
+    "reason": "8 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "schlitzaudubon.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Schlitz Audubon Nature Center (Milwaukee, WI)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "schuylkillcenter.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Schuylkill Center for Environmental Education (Philadelphia, PA)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "sciencenter.org/experiences/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Sciencenter (Ithaca, NY)",
+    "reason": "30 vevents / 35 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "sigtunastiftelsen.se/?post_type=tribe_events&ical=1": {
+    "checked": 20260721,
+    "name": "Sigtunastiftelsen (Sigtuna, Sweden)",
+    "reason": "30 vevents / 26 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "smm.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Science Museum of Minnesota (St. Paul, MN)",
+    "reason": "12 vevents / 15 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "smu-sg.libcal.com/ical_subscribe.php?cid=11382": {
+    "checked": 20260720,
+    "name": "SMU Libraries (Singapore)",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "stanleyparkecology.ca/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Stanley Park Ecology Society (Vancouver, Canada)",
+    "reason": "30 vevents / 31 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "sun.ac.za.libcal.com/ical_subscribe.php?cid=21790": {
+    "checked": 20260720,
+    "name": "Stellenbosch University Library (Stellenbosch, South Africa)",
+    "reason": "27 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "swordandboard.net/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Sword and Board (Ukiah, CA)",
+    "reason": "29 vevents / 32 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "tabletopevents.co.uk/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Table Top Events (Belper, UK)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "tacomaartmuseum.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Tacoma Art Museum (Tacoma, WA)",
+    "reason": "5 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "taubmanmuseum.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Taubman Museum of Art (Roanoke, VA)",
+    "reason": "30 vevents / 29 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "techniquest.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Techniquest (Cardiff, United Kingdom)",
+    "reason": "2323 vevents / 275 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "textilemuseum.ca/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Textile Museum of Canada (Toronto, Canada)",
+    "reason": "6 vevents / 8 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "thecontemporaryaustin.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "The Contemporary Austin (Austin, TX)",
+    "reason": "7 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "themuseum.ca/events/?ical=1": {
+    "checked": 20260720,
+    "name": "THEMUSEUM (Kitchener, Canada)",
+    "reason": "3625 vevents / 183 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "tilburguniversity.libcal.com/ical_subscribe.php?cid=7924": {
+    "checked": 20260721,
+    "name": "Tilburg University Library (Tilburg)",
+    "reason": "9 vevents / 8 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "torontobotanicalgarden.ca/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Toronto Botanical Garden (Toronto, Canada)",
+    "reason": "24 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "toulouse.demosphere.net/events.ics": {
+    "checked": 20260721,
+    "name": "Demosphere Toulouse (Toulouse, France)",
+    "reason": "49 vevents / 49 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trivandrum.afindia.org/events/?ical=1": {
+    "checked": 20260722,
+    "name": "Alliance Francaise de Trivandrum (Thiruvananthapuram, India)",
+    "reason": "396 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "tucsonmuseumofart.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Tucson Museum of Art (Tucson, AZ)",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "tuj.libcal.com/ical_subscribe.php?cid=11359": {
+    "checked": 20260721,
+    "name": "Temple University Japan - ICAS Events (Tokyo)",
+    "reason": "4 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "u-bordeaux.libcal.com/ical_subscribe.php?cid=8971": {
+    "checked": 20260721,
+    "name": "Universite de Bordeaux - Agenda des BU (Bordeaux, France)",
+    "reason": "9 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "uct.ac.za.libcal.com/ical_subscribe.php?cid=497": {
+    "checked": 20260720,
+    "name": "UCT Libraries (Cape Town, South Africa)",
+    "reason": "34 vevents / 34 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "udem.libcal.com/ical_subscribe.php?cid=16310": {
+    "checked": 20260721,
+    "name": "Universidad de Monterrey Events (Monterrey)",
+    "reason": "79 vevents / 43 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ufs.libcal.com/ical_subscribe.php?cid=20592": {
+    "checked": 20260720,
+    "name": "University of the Free State Library (Bloemfontein, South Africa)",
+    "reason": "12 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "uio.no/om/aktuelt/arrangementer/?vrtx=ical": {
+    "checked": 20260721,
+    "name": "University of Oslo (Oslo, Norway)",
+    "reason": "29 vevents / 29 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "uj-ac-za.libcal.com/ical_subscribe.php?cid=16682": {
+    "checked": 20260720,
+    "name": "University of Johannesburg Library - Training (Johannesburg, South Africa)",
+    "reason": "21 vevents / 15 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "uj-ac-za.libcal.com/ical_subscribe.php?cid=16683": {
+    "checked": 20260720,
+    "name": "University of Johannesburg Library - Events (Johannesburg, South Africa)",
+    "reason": "65 vevents / 53 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ul.libcal.com/ical_subscribe.php?cid=6956": {
+    "checked": 20260719,
+    "name": "University of Limerick - Glucksman Library (Limerick, Ireland)",
+    "reason": "12 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "univ-amu.libcal.com/ical_subscribe.php?cid=8791": {
+    "checked": 20260721,
+    "name": "Aix-Marseille Universite - Agenda culturel des BU (Marseille, France)",
+    "reason": "7 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "universityofgalway.libcal.com/ical_subscribe.php?cid=8158": {
+    "checked": 20260719,
+    "name": "University of Galway Library (Galway, Ireland)",
+    "reason": "27 vevents / 18 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "unizulu.libcal.com/ical_subscribe.php?cid=17483": {
+    "checked": 20260720,
+    "name": "University of Zululand Library (Richards Bay, South Africa)",
+    "reason": "29 vevents / 18 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "up-mx.libcal.com/ical_subscribe.php?cid=18847": {
+    "checked": 20260721,
+    "name": "Universidad Panamericana - Intercampus (Mexico City)",
+    "reason": "16 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "up-mx.libcal.com/ical_subscribe.php?cid=19179": {
+    "checked": 20260721,
+    "name": "Universidad Panamericana - Guadalajara",
+    "reason": "6 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "usyd.libcal.com/ical_subscribe.php?cid=3560": {
+    "checked": 20260719,
+    "name": "University of Sydney Library (Sydney, Australia)",
+    "reason": "22 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "utas.libcal.com/ical_subscribe.php?cid=7380": {
+    "checked": 20260719,
+    "name": "University of Tasmania Library (Hobart, Australia)",
+    "reason": "6 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "visitwicklow.ie/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Visit Wicklow (Wicklow, Ireland)",
+    "reason": "12 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "waikato.libcal.com/ical_subscribe.php?cid=10863": {
+    "checked": 20260720,
+    "name": "University of Waikato Library (Hamilton, New Zealand)",
+    "reason": "54 vevents / 50 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wanderingdragongames.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "The Wandering Dragon Game Shoppe (Plainfield, IL)",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='wanderingdragongames.com', port=443): Max re",
+    "status": "fail",
+    "type": "ics"
+  },
+  "wargamesworkshop.co.uk/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Wargames Workshop (Milton Keynes, UK)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "wellplayedasheville.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260723,
+    "name": "Well Played Board Game Cafe (Asheville, NC)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "westendbia.com/events/list/?ical=1": {
+    "checked": 20260720,
+    "name": "West End BIA (Vancouver, Canada)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "westernsydney.libcal.com/ical_subscribe.php?cid=10895": {
+    "checked": 20260719,
+    "name": "Western Sydney University Library (Sydney, Australia)",
+    "reason": "109 vevents / 100 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wildflower.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Lady Bird Johnson Wildflower Center (Austin, TX)",
+    "reason": "17 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wits.ac.za.libcal.com/ical_subscribe.php?cid=16432": {
+    "checked": 20260720,
+    "name": "Wits University Library (Johannesburg, South Africa)",
+    "reason": "7 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wolvas.org.uk/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Wolverhampton Astronomical Society (Wolverhampton, United Kingdom)",
+    "reason": "3 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wonderhub.ca/events/?ical=1": {
+    "checked": 20260720,
+    "name": "Nutrien Wonderhub (Saskatoon, Canada)",
+    "reason": "9 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wonderlab.org/events/?ical=1": {
+    "checked": 20260720,
+    "name": "WonderLab Museum (Bloomington, IN)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?cid=1677": {
+    "checked": 20260719,
+    "name": "Winnipeg Public Library (Winnipeg, Canada)",
+    "reason": "500 vevents / 256 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "zinnschmelze.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260721,
+    "name": "Zinnschmelze Kulturzentrum (Hamburg, Germany)",
+    "reason": "30 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  }
+}

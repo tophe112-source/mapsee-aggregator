@@ -1,0 +1,54 @@
+{
+ "_comment": "Venue / local-ticketing sites whose event pages embed schema.org Event JSON-LD. Each entry: listing page(s) crawled for links matching link_pattern; every matched page's Event block imports. url_template turns a captured fragment (e.g. a Wix {\"slug\":...}) into the page URL. Category = mapsee frontend key. Optional \"venue\" {name, address, city, region, postal_code, lat, lon} FILLS a missing/partial event location for single-venue sites (every show is at the same place) - supply address+city+region and the sync geocodes it, or lat+lon to skip geocoding.",
+ "sites": [
+  {
+   "name": "Ticket Tomato",
+   "listing": [
+    "https://www.tickettomato.com/calendar?search=&city=all"
+   ],
+   "link_pattern": "/event/\\d+",
+   "category": "community",
+   "max_events": 150
+  },
+  {
+   "name": "Sea Monster Lounge",
+   "listing": [
+    "https://www.seamonsterlounge.com/buy-tickets-in-advance"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "category": "music",
+   "max_events": 100
+  },
+  {
+   "name": "Songbyrd Music House",
+   "listing": [
+    "https://songbyrddc.com/events/"
+   ],
+   "link_pattern": "https://songbyrddc\\.com/event/[a-z0-9\\-]+/",
+   "category": "music",
+   "max_events": 80,
+   "venue": {
+    "name": "Songbyrd Music House",
+    "address": "540 Penn St NE",
+    "city": "Washington",
+    "region": "DC",
+    "postal_code": "20002"
+   }
+  },
+  {
+   "name": "Nectar Lounge",
+   "listing": [
+    "https://www.nectarlounge.com/"
+   ],
+   "category": "music",
+   "max_events": 100,
+   "venue": {
+    "name": "Nectar Lounge",
+    "address": "412 N 36th St",
+    "city": "Seattle",
+    "region": "WA"
+   }
+  }
+ ]
+}
