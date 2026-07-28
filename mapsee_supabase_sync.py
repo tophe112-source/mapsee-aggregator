@@ -39,7 +39,7 @@ import sys
 import urllib.parse
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from mapsee_music_links import spotify_search_url, youtube_search_url, bandcamp_search_url, SpotifyResolver
 
@@ -130,11 +130,109 @@ _KIDS_RX = re.compile(
 _PROMOTABLE_TO_KIDS = {"community", "learning", "arts", "outdoors", "other"}
 
 
+# ---------------------------------------------------------------------------
+# SECONDARY categories (migration 0108: events.categories, max 2 extras).
+#
+# Every rule above REPLACES the primary, which throws information away: a food
+# festival matching _PARTY_RX became 'party' and stopped being food, so it left
+# oneday.cafe entirely. Secondaries fix that in both directions —
+#   1. a demoted primary is kept as a secondary, and
+#   2. cross-cutting signals are added, so a vintage market with a band and food
+#      trucks reaches fleabop AND bar.ventures AND oneday.cafe from one row.
+#
+# These are strictly ADDITIVE — they widen where an event surfaces and never
+# change its pin, colour or primary key. That lower stake is why they may scan
+# the description, which the primary rules deliberately don't: the signal for
+# "with food trucks and live music" is almost never in the title. The regexes
+# stay multi-word for the same reason a bare "food" would tag every concert
+# whose blurb says "no outside food".
+_SECONDARY_RX = [
+    ("market", re.compile(
+        r"\b(flea\s+market|farmers?\s+market|night\s+market|craft\s+fair|"
+        r"makers?\s+market|artisan\s+market|vintage\s+(?:market|fair|sale|pop[\s-]?up)|"
+        r"swap\s+meet|clothing\s+swap|rummage\s+sale|estate\s+sale|holiday\s+market|"
+        r"bazaar|street\s+fair|pop[\s-]?up\s+shop|craft\s+market|record\s+fair)\b", re.I)),
+    ("food", re.compile(
+        r"\b(food\s+trucks?|food\s+hall|food\s+vendors?|supper\s+club|tasting\s+menu|"
+        r"pop[\s-]?up\s+(?:dinner|kitchen)|beer\s+garden|brewery|winery|cidery|"
+        r"wine\s+tasting|beer\s+(?:tasting|festival)|bbq|barbecue|"
+        r"chili\s+cook[\s-]?off|bake\s+sale|farm\s+dinner|potluck)\b", re.I)),
+    ("music", re.compile(
+        r"\b(live\s+music|live\s+bands?|dj\s+set|open\s+mic|acoustic\s+set|"
+        r"concert\s+series|jazz\s+night|drum\s+circle)\b", re.I)),
+    ("outdoors", re.compile(
+        r"\b(hik(?:e|ing)|trail\s+(?:run|walk|day)|nature\s+walk|guided\s+walk|"
+        r"bird\s?watching|kayak|canoe|paddle\s?board|camp(?:ing|out)|"
+        r"beach\s+clean|garden\s+tour|stargazing|tide\s?pool)\b", re.I)),
+    ("arts", re.compile(
+        r"\b(art\s+walk|gallery\s+(?:opening|night|walk)|craft\s+workshop|pottery|"
+        r"paint\s+(?:and|&|n)\s+sip|life\s+drawing|art\s+fair|open\s+studios?|"
+        r"mural\s+(?:tour|project)|printmaking)\b", re.I)),
+    ("learning", re.compile(
+        r"\b(workshop|masterclass|master\s+class|seminar|lecture|panel\s+discussion|"
+        r"book\s+club|author\s+talk|guest\s+speaker|bootcamp|intro\s+to\s+)\b", re.I)),
+    ("running", re.compile(
+        r"\b(5k|10k|half\s+marathon|marathon|fun\s+run|park\s?run|"
+        r"turkey\s+trot|road\s+race|group\s+run)\b", re.I)),
+    ("kids", _KIDS_RX),
+    ("party", _PARTY_RX),
+    ("theater", _THEATER_RX),
+    ("volunteer", _VOLUNTEER_RX),
+]
+MAX_EXTRA_CATEGORIES = 2          # DB CHECK allows 2 (migration 0108) => 3 total
+_DESC_SCAN_CHARS = 600            # enough for the real blurb, short of the boilerplate
+                                  # footer ("parking info", "our sponsors") that
+                                  # would otherwise tag half a feed 'learning'
+
+
+def _base_category(rec: Dict[str, Any]) -> str:
+    """The source's own classification, mapped to a Mapsee key — no promotions."""
+    raw = (rec.get("category") or "").strip().lower()
+    return raw if raw in MAPSEE_CATEGORY_KEYS else CATEGORY_KEYS.get(raw, DEFAULT_CATEGORY_KEY)
+
+
+def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
+    """(primary, secondaries) for one record. Secondaries is None, never [], so
+    the column stays NULL — 0108's CHECK rejects an empty array."""
+    base = _base_category(rec)
+    primary = map_category(rec)
+
+    extras: List[str] = []
+
+    def add(key: str) -> None:
+        if key and key != primary and key in MAPSEE_CATEGORY_KEYS and key not in extras:
+            extras.append(key)
+
+    # 1. A promotion fired => the source's own key survives as a secondary.
+    #    'other' carries no information, so it is not worth a slot.
+    if base != primary and base != DEFAULT_CATEGORY_KEY:
+        add(base)
+
+    # 2. Anything a source already told us explicitly (no adapter emits this
+    #    today, but Eventbrite subcategories and Dice genres are the obvious
+    #    next win, and this is the seam they plug into).
+    for c in (rec.get("categories") or []):
+        add(str(c).strip().lower())
+
+    # 3. Keyword signals, in the fixed priority of _SECONDARY_RX.
+    text = f"{rec.get('name') or ''}  {(rec.get('description') or '')[:_DESC_SCAN_CHARS]}"
+    for key, rx in _SECONDARY_RX:
+        if len(extras) >= MAX_EXTRA_CATEGORIES:
+            break
+        if rx.search(text):
+            add(key)
+
+    return primary, (extras[:MAX_EXTRA_CATEGORIES] or None)
+
+
 def map_category(rec: Dict[str, Any]) -> str:
     """Map the captured category to a Mapsee frontend category KEY (site/js/app.js).
     Accepts a Ticketmaster segment / schema.org @type, OR an already-valid Mapsee
     key (e.g. from an open-data source config). Clearly-volunteer events sitting in a
-    generic bucket are promoted to the 'volunteer' layer by keyword."""
+    generic bucket are promoted to the 'volunteer' layer by keyword.
+
+    Still the PRIMARY-only answer: the pin colour, the emoji and _compute_end all
+    need exactly one key. derive_categories() wraps this for the full set."""
     raw = (rec.get("category") or "").strip().lower()
     key = raw if raw in MAPSEE_CATEGORY_KEYS else CATEGORY_KEYS.get(raw, DEFAULT_CATEGORY_KEY)
     if key in _PROMOTABLE_TO_VOLUNTEER:
@@ -373,7 +471,7 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     _src = (rec.get("source")
             or ((rec.get("sources") or [{}])[0].get("source")) or "")
     color = "#0891b2" if str(_src).startswith(("opendata:", "ics:", "program:")) else "#7c3aed"
-    category_key = map_category(rec)
+    category_key, extra_categories = derive_categories(rec)
     # Volunteering is first-class: ROSE pins across every source, so "ways to
     # help nearby" reads as its own layer on the map (not generic civic teal).
     if category_key == "volunteer":
@@ -433,7 +531,8 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         "created_by": host_id,                       # the aggregator's profiles.id
         "is_private": False,                         # public -> discoverable in events_near
         # NOTE: no "visibility" — that column was dropped in migration 0003; is_private is the flag now.
-        "category": category_key,                    # frontend category KEY (site/js/app.js)
+        "category": category_key,                    # PRIMARY key -> pin colour + emoji (site/js/app.js)
+        "categories": extra_categories,              # up to 2 secondaries (migration 0108), or None
         "color_hex": color,                          # provenance pin color (see above)
         "poster_path": rec.get("poster_image_url") or None,   # external URL → banner + og:image (client/worker pass http(s) through)
         "icon": None,                                # let the app render the category's emoji
