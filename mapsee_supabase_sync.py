@@ -66,7 +66,7 @@ CATEGORY_KEYS = {
 DEFAULT_CATEGORY_KEY = "other"   # unknown/unlabeled segment -> Other
 
 
-MAPSEE_CATEGORY_KEYS = {"running", "sports", "music", "food", "community", "party",
+MAPSEE_CATEGORY_KEYS = {"running", "fitness", "sports", "music", "food", "community", "party",
                         "market", "outdoors", "arts", "theater", "kids", "learning", "volunteer", "other"}
 
 
@@ -130,6 +130,39 @@ _KIDS_RX = re.compile(
 _PROMOTABLE_TO_KIDS = {"community", "learning", "arts", "outdoors", "other"}
 
 
+# FITNESS. The gap wegosie.com exposed: a community yoga class, a beginners'
+# climbing night and a Saturday bootcamp all arrived tagged 'community',
+# 'learning' or 'other', so a lens about moving your body opened onto almost
+# nothing. This promotes them onto their own layer.
+#
+# Precision matters more here than anywhere else because the vocabulary overlaps
+# other categories badly:
+#   • "boxing" is also Boxing Day       • "spin"/"row"/"ride" are common words
+#   • "walk"  is also an ART walk       • "class" is also a LEARNING class
+# So single ambiguous words are always qualified, and the whole rule only fires
+# out of generic buckets — a real sports fixture or a concert is never restolen.
+_FITNESS_RX = re.compile(
+    r"\b(yoga|vinyasa|hatha|ashtanga|pilates|barre\s+class|zumba|aerobics|"
+    r"tai\s?chi|qi\s?gong|"
+    r"hiit\b|crossfit|calisthenics|kettlebell|bootcamp|boot\s+camp|"
+    r"strength\s+training|weight\s+training|circuit\s+training|"
+    r"spin\s+class|spinning\s+class|indoor\s+cycling|"
+    r"fitness\s+(?:class|session|challenge)|workout|exercise\s+class|"
+    r"martial\s+arts|karate|judo|jiu[\s-]?jitsu|taekwondo|kickboxing|muay\s+thai|"
+    r"boxing(?!\s+day)|"
+    r"rock\s+climbing|bouldering|climbing\s+(?:gym|night|session)|"
+    r"group\s+(?:ride|walk)|bike\s+ride|cycling\s+club|gran\s+fondo|charity\s+ride|"
+    r"walking\s+(?:club|group)|"
+    r"lap\s+swim|open\s+water\s+swim|masters\s+swim|swim\s+lesson|"
+    r"triathlon|duathlon|obstacle\s+race|tough\s+mudder|spartan\s+race|"
+    r"rowing\s+club|learn\s+to\s+row|erg\s+session|"
+    r"snowshoe|cross[\s-]?country\s+ski|ski\s+(?:trip|club|day|tour)|snowboard)\b", re.I)
+# NOT promotable out of 'outdoors': a hike or a ski trip should keep its green
+# pin and stay on the outdoors layer — it reaches wegosie as a SECONDARY instead
+# (see _SECONDARY_RX). Nor out of 'sports': a league fixture is already sport.
+_PROMOTABLE_TO_FITNESS = {"community", "learning", "other"}
+
+
 # ---------------------------------------------------------------------------
 # SECONDARY categories (migration 0108: events.categories, max 2 extras).
 #
@@ -164,6 +197,27 @@ _SECONDARY_RX = [
         r"\b(hik(?:e|ing)|trail\s+(?:run|walk|day)|nature\s+walk|guided\s+walk|"
         r"bird\s?watching|kayak|canoe|paddle\s?board|camp(?:ing|out)|"
         r"beach\s+clean|garden\s+tour|stargazing|tide\s?pool)\b", re.I)),
+    # Placed directly after 'outdoors' and BEFORE 'learning' on purpose. Only two
+    # slots exist, and this is what fills wegosie.com: a hike or a ski trip keeps
+    # 'outdoors' as its primary and reaches the movement lens through here. Ahead
+    # of 'learning' because that regex claims "bootcamp", which is a fitness word
+    # far more often than an educational one.
+    # Wider than _FITNESS_RX above: that one has to be safe enough to REPLACE a
+    # primary, whereas this only ever adds a layer, so the human-powered outdoor
+    # verbs (hike, paddle, climb) are welcome here even though they are too
+    # generic to re-key an event on their own.
+    ("fitness", re.compile(
+        r"\b(yoga|pilates|barre|zumba|aerobics|tai\s?chi|hiit\b|crossfit|bootcamp|"
+        r"boot\s+camp|kettlebell|calisthenics|strength\s+training|circuit\s+training|"
+        r"spin\s+class|indoor\s+cycling|fitness|workout|exercise\s+class|"
+        r"martial\s+arts|karate|judo|jiu[\s-]?jitsu|taekwondo|kickboxing|muay\s+thai|"
+        r"boxing(?!\s+day)|rock\s+climbing|bouldering|climbing\s+(?:gym|night|session)|"
+        r"hik(?:e|ing)|trail\s+run|snowshoe|cross[\s-]?country\s+ski|ski\s+(?:trip|tour|day)|"
+        r"snowboard|group\s+(?:ride|run|walk)|bike\s+ride|cycling\s+club|gran\s+fondo|"
+        r"kayak|canoe|paddle\s?board|paddling|"
+        r"lap\s+swim|open\s+water\s+swim|masters\s+swim|"
+        r"triathlon|duathlon|obstacle\s+race|tough\s+mudder|spartan\s+race|"
+        r"rowing\s+club|learn\s+to\s+row|walking\s+(?:club|group))\b", re.I)),
     ("arts", re.compile(
         r"\b(art\s+walk|gallery\s+(?:opening|night|walk)|craft\s+workshop|pottery|"
         r"paint\s+(?:and|&|n)\s+sip|life\s+drawing|art\s+fair|open\s+studios?|"
@@ -179,6 +233,13 @@ _SECONDARY_RX = [
     ("theater", _THEATER_RX),
     ("volunteer", _VOLUNTEER_RX),
 ]
+# A band called "The Rowing Club" is not a rowing club, and a play called
+# "Boxing" is not a boxing class. Performance categories describe what you WATCH,
+# so a movement word in a bill, a band name or a show title is a NAME rather than
+# an activity — never widen those onto the movement lens. (Measured: this is the
+# only false positive the fitness rule produced across the test corpus.)
+_NO_FITNESS_SECONDARY_FROM = {"music", "theater"}
+
 MAX_EXTRA_CATEGORIES = 2          # DB CHECK allows 2 (migration 0108) => 3 total
 _DESC_SCAN_CHARS = 600            # enough for the real blurb, short of the boilerplate
                                   # footer ("parking info", "our sponsors") that
@@ -219,6 +280,8 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
     for key, rx in _SECONDARY_RX:
         if len(extras) >= MAX_EXTRA_CATEGORIES:
             break
+        if key == "fitness" and primary in _NO_FITNESS_SECONDARY_FROM:
+            continue
         if rx.search(text):
             add(key)
 
@@ -245,6 +308,11 @@ def map_category(rec: Dict[str, Any]) -> str:
         return "kids"              # storytime/family day hiding in community/learning
     if key in _PROMOTABLE_TO_PARTY and _PARTY_RX.search(rec.get("name") or ""):
         return "party"             # crawls/happy hours/karaoke -> the nightlife layer
+    # Last in the chain deliberately: a volunteer trail-work party, a kids' karate
+    # storytime or a boxing-themed club night should keep the more specific layer
+    # the rules above already found for it.
+    if key in _PROMOTABLE_TO_FITNESS and _FITNESS_RX.search(rec.get("name") or ""):
+        return "fitness"           # yoga/HIIT/climbing hiding in community/learning
     return key
 
 
