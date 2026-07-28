@@ -189,7 +189,14 @@ def to_event(ev: Dict[str, Any], category_override: Optional[str] = None) -> Opt
     logo = ev.get("logo") or {}
     poster = None
     if isinstance(logo, dict):
-        poster = (logo.get("original") or {}).get("url") or logo.get("url")
+        # Prefer logo.url over logo.original.url. Posters are HOTLINKED, so the
+        # stored URL is what every visitor downloads, and the app paints it as a
+        # ~38x52 list thumbnail. `logo.url` is Eventbrite's own display variant
+        # (signed, typically w=512, auto-format + compressed); `original` is the
+        # untouched upload, which can be 5760x3456 / ~940KB. Both are signed, so
+        # the size cannot be rewritten after the fact - picking the right one
+        # here is the only chance we get.
+        poster = logo.get("url") or (logo.get("original") or {}).get("url")
     date_key = (start_utc or start_local or "")[:10]
     nev = NormalizedEvent(
         source="eventbrite",

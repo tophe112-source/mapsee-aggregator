@@ -384,20 +384,44 @@ def http_get(session: requests.Session, url: str, limiter: RateLimiter,
 # =========================================================================== #
 # SOURCE 1 — TICKETMASTER DISCOVERY API
 # =========================================================================== #
+# Posters are HOTLINKED, so whatever width we store here is what every visitor
+# downloads — and the app renders them as ~38x52 list thumbnails. Taking the
+# largest variant meant shipping a 2426x1365 Ticketmaster SOURCE image (and, from
+# other feeds, a 5760x3456 / 937KB one) to paint a postage stamp; poster images
+# were ~2MB of a ~8MB mapsee.me load.
+#
+# So: pick the SMALLEST variant that is still wide enough to look sharp as the
+# full-width poster banner on an event page and as the 1200px OG card. Anything
+# narrower than the floor is upscaled mush; anything wider is waste nobody sees.
+MIN_POSTER_W = 800          # comfortably covers phone poster banners at 2x
+IDEAL_POSTER_W = 1200       # matches the og:image width we advertise
+
+
 def pick_best_image(images: Iterable[Dict[str, Any]]) -> Optional[str]:
-    """Highest-resolution poster from Ticketmaster images[] (prefer non-fallback, max area)."""
-    best_url: Optional[str] = None
-    best_area = -1
-    best_is_fallback = True
-    for img in images or []:
-        url = img.get("url")
-        if not url:
-            continue
-        area = (_to_float(img.get("width")) or 0) * (_to_float(img.get("height")) or 0)
-        is_fallback = bool(img.get("fallback", False))
-        if (not is_fallback and best_is_fallback) or (is_fallback == best_is_fallback and area > best_area):
-            best_url, best_area, best_is_fallback = url, area, is_fallback
-    return best_url
+    """Smallest Ticketmaster variant >= MIN_POSTER_W (prefer non-fallback).
+
+    Falls back to the widest available when every variant is small, and to the
+    old max-area behaviour when the feed omits width/height entirely.
+    """
+    def _w(img: Dict[str, Any]) -> float:
+        return _to_float(img.get("width")) or 0.0
+
+    usable = [i for i in (images or []) if i.get("url")]
+    if not usable:
+        return None
+
+    # a real poster beats a generic fallback placeholder, whatever the size
+    real = [i for i in usable if not bool(i.get("fallback", False))] or usable
+
+    sized = [i for i in real if _w(i) > 0]
+    if not sized:                                   # no dimensions in the feed
+        return real[0].get("url")
+
+    big_enough = [i for i in sized if _w(i) >= MIN_POSTER_W]
+    if big_enough:
+        # closest to ideal from below/above, but never larger than needed
+        return min(big_enough, key=lambda i: (abs(_w(i) - IDEAL_POSTER_W), _w(i))).get("url")
+    return max(sized, key=_w).get("url")            # everything is small: take the widest
 
 
 def _primary_segment(raw: Dict[str, Any]) -> Optional[str]:
