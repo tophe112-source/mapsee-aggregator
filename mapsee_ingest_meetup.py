@@ -84,7 +84,16 @@ DEFAULT_KEYWORDS = ("social:community,music:music,tech:learning,"
                     # neighbourhood life (plansie.com)
                     "hiking:outdoors,book club:learning,language exchange:learning,"
                     "craft:arts,photography:arts,museum:arts,"
-                    "family:kids,storytime:kids,workshop:learning")
+                    "family:kids,storytime:kids,workshop:learning,"
+                    # moving your body (wegosie.com). Missing entirely until now,
+                    # which is why the movement lens had almost no Meetup supply:
+                    # the only thing that surfaced fitness events was "dance",
+                    # and that filed them under party.
+                    "fitness:fitness,workout:fitness,yoga:fitness,pilates:fitness,"
+                    "bootcamp:fitness,climbing:fitness,martial arts:fitness,"
+                    "swimming:fitness,"
+                    "running:running,run club:running,"
+                    "cycling:fitness,bike ride:fitness")
 
 QUERY = """
 query($query: String!, $lat: Float!, $lon: Float!, $radius: Float,

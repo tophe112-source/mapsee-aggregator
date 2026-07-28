@@ -162,6 +162,21 @@ _FITNESS_RX = re.compile(
 # (see _SECONDARY_RX). Nor out of 'sports': a league fixture is already sport.
 _PROMOTABLE_TO_FITNESS = {"community", "learning", "other"}
 
+# Unambiguous exercise words — ones that cannot plausibly appear in a nightlife,
+# market or concert listing. Because they cannot, this is the ONE fitness rule
+# allowed to read the description as well as the title, and the one allowed to
+# override a source's own key.
+_FITNESS_STRONG_RX = re.compile(
+    r"\b(work\s?outs?|working\s+out|yoga|pilates|hiit\b|crossfit|bootcamp|boot\s+camp|"
+    r"calisthenics|kettlebell|strength\s+training|circuit\s+training|spin\s+class|"
+    r"exercise\s+(?:class|station|routine)s?)\b", re.I)
+# Keys that came from a SEARCH KEYWORD rather than from the listing's content.
+# Meetup tags an event with whichever term found it, so a station-to-station
+# workout in a park arrived as 'party' purely because the "dance" sweep matched
+# it. Those guesses lose to strong evidence. A deliberate 'sports', 'music' or
+# 'food' key is real classification and is left alone.
+_WEAK_KEY_FOR_FITNESS = {"party", "community", "learning", "other"}
+
 
 # ---------------------------------------------------------------------------
 # SECONDARY categories (migration 0108: events.categories, max 2 extras).
@@ -218,6 +233,15 @@ _SECONDARY_RX = [
         r"lap\s+swim|open\s+water\s+swim|masters\s+swim|"
         r"triathlon|duathlon|obstacle\s+race|tough\s+mudder|spartan\s+race|"
         r"rowing\s+club|learn\s+to\s+row|walking\s+(?:club|group))\b", re.I)),
+    # Explicitly inclusive language — the listing going out of its way to say
+    # anyone can turn up. Kept to multi-word phrases because the obvious single
+    # words ("group", "meetup", "community") appear in nearly every listing and
+    # would tag the whole feed.
+    ("community", re.compile(
+        r"\b(skill[\s-]?shar\w*|all\s+levels\s+welcome|beginners?\s+welcome|"
+        r"no\s+experience\s+(?:necessary|needed|required)|newcomers?\s+welcome|"
+        r"open\s+to\s+(?:all|everyone)|meet\s+new\s+people|"
+        r"learn\s+from\s+(?:one\s+another|each\s+other)|welcoming\s+(?:group|space))\b", re.I)),
     ("arts", re.compile(
         r"\b(art\s+walk|gallery\s+(?:opening|night|walk)|craft\s+workshop|pottery|"
         r"paint\s+(?:and|&|n)\s+sip|life\s+drawing|art\s+fair|open\s+studios?|"
@@ -246,6 +270,13 @@ _DESC_SCAN_CHARS = 600            # enough for the real blurb, short of the boil
                                   # would otherwise tag half a feed 'learning'
 
 
+def _strong_fitness_override(rec: Dict[str, Any], base: str) -> bool:
+    """Did the strong fitness rule beat a keyword-derived key? Used to decide
+    whether that key is worth keeping as a secondary — see derive_categories."""
+    return base in _WEAK_KEY_FOR_FITNESS and bool(_FITNESS_STRONG_RX.search(
+        f"{rec.get('name') or ''} {rec.get('description') or ''}"))
+
+
 def _base_category(rec: Dict[str, Any]) -> str:
     """The source's own classification, mapped to a Mapsee key — no promotions."""
     raw = (rec.get("category") or "").strip().lower()
@@ -266,7 +297,13 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
 
     # 1. A promotion fired => the source's own key survives as a secondary.
     #    'other' carries no information, so it is not worth a slot.
-    if base != primary and base != DEFAULT_CATEGORY_KEY:
+    #
+    #    EXCEPT when the strong fitness rule overrode a keyword guess. That key
+    #    was never a classification — Meetup's "dance" sweep calling a park
+    #    workout a party — so carrying it forward would leave that workout on
+    #    bar.ventures, which is the mislabelling the override exists to fix.
+    if base != primary and base != DEFAULT_CATEGORY_KEY \
+       and not (primary == "fitness" and _strong_fitness_override(rec, base)):
         add(base)
 
     # 2. Anything a source already told us explicitly (no adapter emits this
@@ -313,6 +350,11 @@ def map_category(rec: Dict[str, Any]) -> str:
     # the rules above already found for it.
     if key in _PROMOTABLE_TO_FITNESS and _FITNESS_RX.search(rec.get("name") or ""):
         return "fitness"           # yoga/HIIT/climbing hiding in community/learning
+    # …and the strong rule, which may also read the description and may override a
+    # keyword-derived key (see _WEAK_KEY_FOR_FITNESS).
+    if key in _WEAK_KEY_FOR_FITNESS and _FITNESS_STRONG_RX.search(
+            f"{rec.get('name') or ''} {rec.get('description') or ''}"):
+        return "fitness"
     return key
 
 

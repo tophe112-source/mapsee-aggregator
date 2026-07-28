@@ -59,4 +59,50 @@ for name, cat, desc, want_primary, want_wegosie in CASES:
 
 print()
 print(f"{len(CASES)-len(fails)}/{len(CASES)} passed")
-sys.exit(1 if fails else 0)
+
+# ---------------------------------------------------------------------------
+# Keyword-derived keys vs. content. Meetup tags an event with whichever search
+# term found it, so its key can be plain wrong — a park workout arrived as
+# 'party' because the "dance" sweep matched it. These check that strong exercise
+# evidence overrides that, WITHOUT letting it steal genuine nightlife.
+# (name, source category, description, want_primary, must_include, must_exclude)
+PUMP = ("Let's workout together and get strong! This is a group with no formal exercise "
+        "expert, but I will demo a few different exercises that I like to do. Lets l skill "
+        "share and learn from one another! To start, I'll have stations set up in Jimmy "
+        "Hendrix Park, and we will rotate through them, giving around 2 minutes for each station.")
+
+CONTENT_CASES = [
+    # the reported listing: meetup.com/pump-up-a-jam/events/315847839
+    ("Pump Up... A Jam", "party", PUMP, "fitness", {"community"}, {"party"}),
+    # a title that says nothing, with the evidence in the blurb
+    ("Tuesday Morning Meetup", "community", "Bootcamp in the park, all levels welcome.",
+     "fitness", {"community"}, set()),
+    # genuine nightlife found by the same sweep must stay put
+    ("Friday Night Dance Party", "party", "DJs till late, cocktails at the bar.",
+     "party", set(), {"fitness"}),
+    ("Silent Disco Warehouse Party", "party", "Three channels, one dancefloor.",
+     "party", set(), {"fitness"}),
+    # a DELIBERATE key is real classification and is never overridden
+    ("Yoga-Themed Album Launch", "music", "Live set, then a workout playlist.",
+     "music", set(), {"fitness"}),
+    ("Sunday League Football", "sports", "Weekly workout for the squad.", "sports", set(), set()),
+    # the general demoted-key rule must survive the exception above
+    ("Taco Crawl & Happy Hour", "food", "Food trucks all evening.", "party", {"food"}, set()),
+    # "community" is inclusive LANGUAGE, not a word that appears everywhere
+    ("Farmers Market", "market", "Local produce and a coffee cart.", "market", set(), {"community"}),
+    ("Jazz Night", "music", "Our house trio plays two sets.", "music", set(), {"community"}),
+]
+
+cfails = []
+for name, cat, desc, want_primary, must_have, must_not in CONTENT_CASES:
+    primary, extras = derive_categories({"name": name, "category": cat, "description": desc})
+    got = set(extras or [])
+    ok = primary == want_primary and must_have <= got and not (must_not & (got | {primary}))
+    if not ok:
+        cfails.append(name)
+    print(f"{'ok ' if ok else 'FAIL'} {name[:38]:<40} -> {primary:<10} + {sorted(got)}"
+          f"{'' if ok else f'   (wanted {want_primary} +{sorted(must_have)} -{sorted(must_not)})'}")
+
+print()
+print(f"{len(CONTENT_CASES)-len(cfails)}/{len(CONTENT_CASES)} passed")
+sys.exit(1 if (fails or cfails) else 0)
