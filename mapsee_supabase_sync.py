@@ -201,6 +201,38 @@ def _clean_text(s: Optional[str]) -> Optional[str]:
     return s.strip()
 
 
+# --- description size control -------------------------------------------------
+# `description` is the single largest thing in the events table: measured at
+# ~999 chars average across aggregated rows, ~172 MB of a 380 MB table, with a
+# heavy tail (p50 681, p90 1996, p99 5073, max 17090). Migration 0055 sized it at
+# "300-500 bytes" when it dropped the column from events_near; it has since
+# doubled. At ~1KB most values also sit UNDER Postgres's ~2KB TOAST threshold,
+# so they are stored inline and never compressed.
+#
+# Cap the SOURCE PROSE ONLY, before it becomes parts[0]. The lines appended after
+# it - 📍 address, "Tickets / info:", 🔎 More on this show, 🎵 Listen - are the
+# deep link and the facts. Truncating the ASSEMBLED string would cut off exactly
+# what the aggregator exists to preserve ("we take the facts, keep a deep link").
+#
+# 800 leaves the median description untouched and trims only the long tail. Cut
+# on a sentence boundary where there is one nearby, else a word boundary, so the
+# text never ends mid-word.
+DESCRIPTION_MAX = 800
+
+
+def _cap_prose(text: Optional[str]) -> Optional[str]:
+    """Trim over-long SOURCE prose to DESCRIPTION_MAX, on a natural boundary."""
+    if not text or len(text) <= DESCRIPTION_MAX:
+        return text
+    head = text[:DESCRIPTION_MAX]
+    cut = max(head.rfind(". "), head.rfind("! "), head.rfind("? "))
+    if cut < DESCRIPTION_MAX * 0.6:          # no sentence break near the end
+        cut = head.rfind(" ")
+    if cut <= 0:                             # one enormous unbroken token
+        cut = DESCRIPTION_MAX
+    return head[:cut].rstrip(" ,;:.!?-—") + "…"
+
+
 def _street_address(rec: Dict[str, Any]) -> Optional[str]:
     """The venue's street address (e.g. '200 University St, Seattle, WA 98101'), or
     None when the source has no street line. Shown as a 📍 line in the description;
@@ -346,7 +378,7 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     # help nearby" reads as its own layer on the map (not generic civic teal).
     if category_key == "volunteer":
         color = "#e11d48"
-    parts = [_clean_text(rec["description"])] if rec.get("description") else []
+    parts = [_cap_prose(_clean_text(rec["description"]))] if rec.get("description") else []
     address = _street_address(rec)
     if address:
         parts.append("📍 " + address)               # human-readable address (map routes to exact coords)
