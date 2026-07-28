@@ -66,7 +66,12 @@ _GENRE = {
     "cabaret": "arts", "film": "arts", "exhibition": "arts", "dance": "arts",
     "sport": "sports", "sports": "sports",
     "food": "food", "food & wine": "food", "food and wine": "food", "drink": "food",
-    "market": "market", "markets": "market", "fashion": "market",
+    "market": "market", "markets": "market",
+    # "fashion" is NOT a market. Moshtix/DICE tag club nights, label parties and
+    # VIP-table listings as fashion, and mapping it here put Barcelona nightclubs
+    # and "Buy Rental Properties" seminars into the market category - which is
+    # the whole content of fleabop.com. Fashion EVENTS are closer to arts.
+    "fashion": "arts",
     "family": "kids", "kids": "kids",
     "workshop": "learning", "conference": "learning", "seminar": "learning", "talk": "learning",
     "community": "community",
