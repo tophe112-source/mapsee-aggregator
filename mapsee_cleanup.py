@@ -13,18 +13,47 @@ about a show before it disappears. Aggregator events store ends_at = NULL, so a
 start-time cutoff reliably means "over" for single-day events; if it ever removed a
 still-upcoming event, the next ingest run would simply re-add it (90-day window).
 
+WHY THIS DELETES IN BATCHES. It used to issue one DELETE for the whole cutoff
+window and eventually started failing with
+
+    Delete failed [500]: {"code":"57014","message":"canceling statement due to
+                          statement timeout"}
+
+A dozen tables carry `on delete cascade` on events — event_messages, event_rsvps,
+invites, cohosts, food_orders and friends — so removing a week of imported events
+is really removing that many rows across all of them, in ONE statement, against a
+hosted statement timeout. It cannot be waited out; it has to be cut up. So this
+pages through ids and deletes a bounded slice at a time, halving the slice if the
+database still says no, and leaving whatever it did not reach for the next
+scheduled run. A janitor job that makes partial progress is working; one that
+fails the build because it could not finish in a single statement is not.
+
 Env:  SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 Run:  python mapsee_cleanup.py [--older-than-days 7] [--dry-run]
 """
 import argparse
 import os
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 
 try:
     import requests
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
+
+# Ids go back to PostgREST inside `id=in.(...)`, i.e. in the URL, and a UUID plus
+# its separator is ~37 bytes. 100 keeps the whole request line near 4KB, well
+# under the 8KB that fronting proxies commonly cap it at. Raising this trades
+# fewer round trips for a request line that can start getting rejected.
+BATCH_DEFAULT = 100
+BATCH_MIN = 10                 # below this, a timeout is not about batch size
+TIMEOUT_CODE = "57014"         # postgres: canceling statement due to statement timeout
+
+
+def _timed_out(resp) -> bool:
+    """A statement timeout, which is a signal to take smaller bites."""
+    return resp.status_code >= 500 and TIMEOUT_CODE in (resp.text or "")
 
 
 def main() -> int:
@@ -33,6 +62,11 @@ def main() -> int:
                     help="Delete aggregator events that started more than N days ago "
                          "(default 7 = a week of post-event chat).")
     ap.add_argument("--dry-run", action="store_true", help="Report the count; delete nothing.")
+    ap.add_argument("--batch", type=int, default=BATCH_DEFAULT,
+                    help=f"Events per delete statement (default {BATCH_DEFAULT}).")
+    ap.add_argument("--max-seconds", type=int, default=600,
+                    help="Stop cleanly after this long and leave the rest for the next run "
+                         "(default 600).")
     a = ap.parse_args()
 
     url = os.environ.get("SUPABASE_URL")
@@ -44,26 +78,94 @@ def main() -> int:
               ).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     # SAFETY: always scoped to imported events AND a past cutoff — never unfiltered.
+    # Carried on the id-batched deletes below too, belt and braces: the primary
+    # keys alone would be enough to identify the rows, but then a bug in the id
+    # fetch could delete something this job is not allowed to touch.
     flt = f"external_source=eq.mapsee&starts_at=lt.{cutoff}"
     assert "external_source=eq.mapsee" in flt and "starts_at=lt." in flt, "refusing an unscoped delete"
     base = url.rstrip("/") + "/rest/v1/events?" + flt
     auth = {"apikey": key, "Authorization": f"Bearer {key}"}
 
-    # How many match?
-    cnt = requests.get(base + "&select=external_id",
-                       headers=dict(auth, **{"Range-Unit": "items", "Range": "0-0", "Prefer": "count=exact"}),
+    # How many match? ESTIMATED, from the planner. An exact count walks every
+    # matching row and was itself timing out — and when it did, the old code read
+    # the missing Content-Range as "?" and carried on as though it had an answer.
+    # This number is only ever printed, so a planner estimate is the right price.
+    cnt = requests.get(base + "&select=id",
+                       headers=dict(auth, **{"Range-Unit": "items", "Range": "0-0",
+                                             "Prefer": "count=estimated"}),
                        timeout=60)
-    total = cnt.headers.get("Content-Range", "*/?").split("/")[-1]
-    print(f"Aggregator events that started before {cutoff}: {total}")
+    if cnt.status_code >= 300:
+        print(f"Couldn't count matching events [{cnt.status_code}]: {cnt.text[:200]}")
+        total = "unknown"
+    else:
+        total = cnt.headers.get("Content-Range", "*/unknown").split("/")[-1]
+    print(f"Aggregator events that started before {cutoff}: ~{total}")
 
     if a.dry_run:
         print("Dry run — nothing deleted.")
         return 0
 
-    resp = requests.delete(base, headers=dict(auth, Prefer="count=exact"), timeout=300)
-    if resp.status_code >= 300:
-        sys.exit(f"Delete failed [{resp.status_code}]: {resp.text[:300]}")
-    print(f"Deleted past aggregator events (HTTP {resp.status_code}); {total} were eligible.")
+    batch = max(BATCH_MIN, a.batch)
+    deleted = 0
+    started = time.monotonic()
+
+    while True:
+        left = a.max_seconds - (time.monotonic() - started)
+        if left <= 0:
+            print(f"Reached the {a.max_seconds}s budget — the next scheduled run picks up "
+                  f"where this left off.")
+            break
+
+        page = requests.get(f"{base}&select=id&limit={batch}", headers=auth,
+                            timeout=min(120, max(10, int(left))))
+        # No `order`: sorting is work the database does not need to do here.
+        # Paging is stable without it because every row this returns is deleted
+        # before the next fetch, so the window always moves forward.
+        if _timed_out(page):
+            if batch <= BATCH_MIN:
+                sys.exit(f"Even {batch} ids time out on fetch — apply migration 0113 "
+                         f"(events_aggregator_cleanup_idx), which is what makes this "
+                         f"filter index-backed.")
+            batch = max(BATCH_MIN, batch // 2)
+            print(f"Fetch timed out — retrying with batches of {batch}.")
+            continue
+        if page.status_code >= 300:
+            sys.exit(f"Couldn't list events to delete [{page.status_code}]: {page.text[:300]}")
+
+        ids = [r["id"] for r in (page.json() or []) if r.get("id")]
+        if not ids:
+            print("Nothing left to delete.")
+            break
+
+        resp = requests.delete(f"{base}&id=in.({','.join(ids)})",
+                               headers=dict(auth, Prefer="return=minimal,count=exact"),
+                               timeout=min(300, max(30, int(left))))
+        if _timed_out(resp):
+            if batch <= BATCH_MIN:
+                sys.exit(f"Even {batch} events at a time exceed the statement timeout. "
+                         f"The cascade from events is wide (event_messages, rsvps, "
+                         f"invites, orders…); this needs looking at server-side.")
+            batch = max(BATCH_MIN, batch // 2)
+            print(f"Delete timed out — retrying with batches of {batch}.")
+            continue
+        if resp.status_code >= 300:
+            sys.exit(f"Delete failed [{resp.status_code}]: {resp.text[:300]}")
+
+        # The exact number removed, from the delete itself. Not len(ids): the
+        # scope filters ride along on the delete, so a row whose starts_at moved
+        # between the fetch and now is correctly skipped, and counting the ids we
+        # ASKED about would quietly overstate the work.
+        try:
+            got = int(resp.headers.get("Content-Range", "*/0").split("/")[-1])
+        except ValueError:
+            got = len(ids)
+        if got == 0:
+            sys.exit(f"Fetched {len(ids)} ids but deleted none — the filters disagree with "
+                     f"themselves. Stopping rather than spinning on the same page.")
+        deleted += got
+        print(f"  deleted {deleted}…", flush=True)
+
+    print(f"Deleted {deleted} past aggregator events (est. {total} were eligible).")
     return 0
 
 

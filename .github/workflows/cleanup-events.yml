@@ -30,5 +30,9 @@ jobs:
           python-version: "3.12"
       - name: Install deps
         run: pip install requests
+      # --max-seconds is PAIRED with timeout-minutes above: the script stops
+      # cleanly inside its own budget and leaves the rest for tomorrow's run,
+      # rather than being killed mid-batch by the job timeout. The gap covers
+      # checkout, setup-python and pip. Move one, move the other.
       - name: Delete aggregator events older than a week
-        run: python mapsee_cleanup.py --older-than-days 7
+        run: python mapsee_cleanup.py --older-than-days 7 --max-seconds 600
