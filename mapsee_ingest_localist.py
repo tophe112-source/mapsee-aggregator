@@ -25,7 +25,7 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
 
 # Localist event_type filter name -> Mapsee frontend category KEY.
 _TYPE_MAP = {
@@ -37,15 +37,27 @@ _TYPE_MAP = {
     "volunteer": "volunteer", "community": "community", "festival": "music",
     "food": "food", "market": "market", "kids": "kids", "family": "kids",
     "outdoor": "outdoors", "recreation": "outdoors",
+    # movement (wegosie.com). Campus calendars carry these as their own
+    # event_types, and every one of them used to land on "community".
+    "fitness": "fitness", "wellness": "fitness", "exercise": "fitness",
+    "yoga": "fitness", "intramural": "fitness", "run": "running",
+    "walk": "fitness", "hike": "outdoors", "bike": "fitness",
 }
 
 
-def _category(event: Dict[str, Any], default: Optional[str]) -> str:
+def _categories(event: Dict[str, Any], default: Optional[str]) -> tuple:
+    """(primary, extras). Localist events carry a LIST of event_types — a campus
+    "Wellness Walk" is tagged Recreation AND Wellness — and this used to return
+    the first match and bin the rest. Keeping the others as secondaries is free
+    breadth: that walk now reaches both the outdoors and the movement lens."""
+    hits = []
     for t in (((event.get("filters") or {}).get("event_types")) or []):
         m = _TYPE_MAP.get((t.get("name") or "").strip().lower())
-        if m:
-            return m
-    return default or "community"
+        if m and m not in hits:
+            hits.append(m)
+    if not hits:
+        return (default or "community", [])
+    return (hits[0], norm_categories(hits[0], hits[1:]))
 
 
 def to_event(wrap: Dict[str, Any], src: Dict[str, Any]) -> Optional[NormalizedEvent]:
@@ -81,7 +93,7 @@ def to_event(wrap: Dict[str, Any], src: Dict[str, Any]) -> Optional[NormalizedEv
         latitude=lat, longitude=lon,
         address=geo.get("street"), city=geo.get("city"),
         region=geo.get("state"), country=geo.get("country"), postal_code=geo.get("zip"),
-        category=_category(event, src.get("category")),
+        **dict(zip(("category", "categories"), _categories(event, src.get("category")))),
         poster_image_url=event.get("photo_url") or None,
         ticket_url=event.get("localist_url") or event.get("url") or None,
     )

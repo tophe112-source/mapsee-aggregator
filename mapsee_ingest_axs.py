@@ -40,7 +40,7 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
 
 # AXS gives partners an events endpoint; set it via env so no code change is
 # needed when you onboard. Left blank on purpose - the script no-ops without it.
@@ -64,6 +64,39 @@ def _get(session, params) -> Optional[requests.Response]:
         print(f"[axs] 429 rate-limited; backing off {wait:.0f}s ({attempt}/5)")
         time.sleep(wait)
     return r
+
+
+# AXS genre/category strings are free-ish text ("Concerts", "Rock/Pop", "Comedy",
+# "Family", "Sports"). Matched as substrings, longest-intent first, because the
+# values are inconsistent between promoters.
+_AXS_GENRE = (
+    ("comedy", ("theater", [])), ("stand-up", ("theater", [])), ("standup", ("theater", [])),
+    ("theat", ("theater", [])), ("broadway", ("theater", [])), ("musical", ("theater", ["music"])),
+    ("film", ("theater", [])), ("cinema", ("theater", [])),
+    ("concert", ("music", [])), ("music", ("music", [])), ("rock", ("music", [])),
+    ("pop", ("music", [])), ("hip", ("music", [])), ("rap", ("music", [])),
+    ("country", ("music", [])), ("jazz", ("music", [])), ("blues", ("music", [])),
+    ("metal", ("music", [])), ("electronic", ("music", ["party"])), ("edm", ("music", ["party"])),
+    ("dance", ("music", ["party"])), ("dj", ("music", ["party"])), ("club", ("music", ["party"])),
+    ("festival", ("music", ["party"])),
+    ("sport", ("sports", [])), ("game", ("sports", [])),
+    ("family", ("kids", [])), ("kid", ("kids", [])), ("children", ("kids", [])),
+    ("food", ("food", [])), ("beer", ("food", ["party"])), ("wine", ("food", ["party"])),
+    ("fair", ("market", [])), ("market", ("market", [])), ("craft", ("market", ["arts"])),
+    ("art", ("arts", [])), ("expo", ("learning", [])),
+)
+
+
+def _categories(raw, name: str) -> tuple:
+    """(primary, extras) from the AXS genre string, falling back to the event
+    title when the genre is missing or unrecognised."""
+    for hay in (str(raw or "").lower(), (name or "").lower()):
+        if not hay:
+            continue
+        for needle, (primary, extras) in _AXS_GENRE:
+            if needle in hay:
+                return (primary, norm_categories(primary, extras))
+    return ("other", [])
 
 
 def _first(d: Dict[str, Any], *keys):
@@ -113,9 +146,14 @@ def to_event(ev: Dict[str, Any]) -> Optional[NormalizedEvent]:
         region=_first(venue, "state", "region", "stateCode"),
         country=_first(venue, "country", "countryCode"),
         postal_code=_first(venue, "postalCode", "zip", "zipCode"),
-        # AXS is broad (music, comedy, theater, faires) - leave it generic and let
-        # the sync's category keyword pass sort stage/screen from music.
-        category=_first(ev, "category", "genre") or "other",
+        # AXS is broad (music, comedy, theater, faires). Its raw category/genre
+        # string used to be passed straight through, which meant it matched
+        # nothing in the sync's key table and every AXS listing landed on
+        # 'other' — a major concert ticketer contributing nothing to the music
+        # or nightlife lens. Map it instead, and keep the sync's title-based
+        # theater/party promotions as the backstop they were meant to be.
+        **dict(zip(("category", "categories"),
+                   _categories(_first(ev, "category", "genre"), name))),
         lineup=lineup,
         poster_image_url=_first(ev, "image", "imageUrl", "eventImage"),
         ticket_url=_first(ev, "url", "ticketUrl", "eventUrl"),

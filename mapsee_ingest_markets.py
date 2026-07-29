@@ -201,6 +201,9 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
             latitude=lat, longitude=lon,
             address=mk.get("address"),
             category="market",
+            # A farmers/night market IS a food destination — this is the single
+            # richest supply oneday.cafe has, and it was reaching only fleabop.
+            categories=["food"],
             ticket_url=mk.get("url") or src.get("url_home"),
         )
         ev.fingerprint = fp

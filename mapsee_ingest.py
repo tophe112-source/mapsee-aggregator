@@ -208,6 +208,13 @@ class NormalizedEvent:
     country: Optional[str] = None
     postal_code: Optional[str] = None
     category: Optional[str] = None
+    # Up to MAX_EXTRA_CATEGORIES additional keys, on top of `category`. Sources
+    # that genuinely carry several labels — Localist lists every event_type, an
+    # Eventbrite "Sports & Fitness" listing is both — put the rest here so one
+    # row can surface on more than one lens instead of being forced to pick.
+    # The sync (mapsee_supabase_sync.derive_categories) folds these in alongside
+    # its own keyword rules and writes them to events.categories (migration 0108).
+    categories: List[str] = field(default_factory=list)
     promoter: Optional[str] = None
     lineup: List[str] = field(default_factory=list)
     poster_image_url: Optional[str] = None
@@ -234,6 +241,36 @@ _FILLABLE = (
     "postal_code", "category", "promoter", "poster_image_url",
     "spotify_url", "youtube_url",
 )
+# events.categories accepts 2 extras beyond the primary (migration 0108).
+MAX_EXTRA_CATEGORIES = 2
+# The category vocabulary, which MUST stay in step with site/js/app.js CATEGORIES
+# and mapsee_supabase_sync.MAPSEE_CATEGORY_KEYS. Adapters normalise through
+# norm_categories() so a typo or a source's own vocabulary can never reach the
+# database as a category nobody filters on.
+VALID_CATEGORIES = frozenset({
+    "running", "fitness", "sports", "music", "food", "community", "party",
+    "market", "outdoors", "arts", "theater", "kids", "learning", "volunteer", "other",
+})
+
+
+def norm_categories(primary: Optional[str], *extras: Any) -> List[str]:
+    """Clean a source's EXTRA category keys: valid ones only, de-duplicated, the
+    primary dropped (it is already `category`), capped at MAX_EXTRA_CATEGORIES.
+    Accepts loose input — strings, Nones, or iterables of them."""
+    flat: List[str] = []
+    for e in extras:
+        if e is None:
+            continue
+        if isinstance(e, str):
+            flat.append(e)
+        else:
+            flat.extend(str(x) for x in e if x)
+    out: List[str] = []
+    for c in flat:
+        k = c.strip().lower()
+        if k and k != (primary or "").strip().lower() and k in VALID_CATEGORIES and k not in out:
+            out.append(k)
+    return out[:MAX_EXTRA_CATEGORIES]
 
 
 class EventStore:
@@ -282,6 +319,14 @@ class EventStore:
                     rec[f] = val
         if ev.lineup and not rec.get("lineup"):
             rec["lineup"] = ev.lineup
+        # Categories UNION rather than fill-only: when two feeds describe the
+        # same event they usually label it differently — a venue calendar calls a
+        # park session "music", the city calendar calls it "community" — and
+        # breadth across lenses is the entire point of the field. Capped, and the
+        # merged primary is excluded so it is never repeated as a secondary.
+        if ev.categories:
+            rec["categories"] = norm_categories(
+                rec.get("category"), rec.get("categories"), ev.categories)
 
     def _add_source_ref(self, rec: Dict[str, Any], ev: NormalizedEvent) -> None:
         ref = ev.source_ref()

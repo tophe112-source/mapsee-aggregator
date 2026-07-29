@@ -52,35 +52,43 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
 
 API = "https://www.eventbriteapi.com/v3"
 WEB_UA = "Mozilla/5.0 (compatible; MapseeAggregator/1.0; +https://mapsee.me; events@mapsee.me)"
 
-# Eventbrite top-level category NAME -> Mapsee frontend category key. Anything
-# unmapped falls to 'other'; the sync's keyword passes still promote volunteer /
-# theater titles afterwards.
+# Eventbrite top-level category NAME -> (primary Mapsee KEY, [secondary keys]).
+# Anything unmapped falls to 'other'; the sync's keyword passes still promote
+# volunteer / theater titles afterwards.
+#
+# Several of Eventbrite's buckets are genuinely two things at once, and being
+# forced to pick one used to cost a whole lens. "Sports & Fitness" is the clear
+# case: it holds both a Sunday league fixture and a beginners' yoga class, and
+# collapsing it to `sports` alone meant no Eventbrite listing ever carried the
+# `fitness` key. "Health & Wellness" was worse — it is where the yoga, pilates
+# and run clubs actually live, and it mapped to `community`, which is to say
+# nowhere useful. Secondaries (migration 0108) let one row reach both lenses.
 _EB_CATEGORY = {
-    "music": "music",
-    "performing & visual arts": "arts",
-    "film, media & entertainment": "theater",
-    "food & drink": "food",
-    "community & culture": "community",
-    "sports & fitness": "sports",
-    "health & wellness": "community",
-    "science & technology": "learning",
-    "business & professional": "learning",
-    "family & education": "kids",
-    "charity & causes": "community",
-    "travel & outdoor": "outdoors",
-    "seasonal & holiday": "party",
-    "hobbies & special interest": "community",
-    "religion & spirituality": "community",
-    "school activities": "kids",
-    "government & politics": "community",
-    "home & lifestyle": "community",
-    "auto, boat & air": "other",
-    "fashion & beauty": "other",
+    "music": ("music", []),
+    "performing & visual arts": ("arts", ["theater"]),
+    "film, media & entertainment": ("theater", []),
+    "food & drink": ("food", []),
+    "community & culture": ("community", []),
+    "sports & fitness": ("sports", ["fitness"]),
+    "health & wellness": ("fitness", ["community"]),
+    "science & technology": ("learning", []),
+    "business & professional": ("learning", []),
+    "family & education": ("kids", ["learning"]),
+    "charity & causes": ("community", ["volunteer"]),
+    "travel & outdoor": ("outdoors", ["fitness"]),
+    "seasonal & holiday": ("party", ["community"]),
+    "hobbies & special interest": ("community", []),
+    "religion & spirituality": ("community", []),
+    "school activities": ("kids", []),
+    "government & politics": ("community", []),
+    "home & lifestyle": ("community", []),
+    "auto, boat & air": ("other", []),
+    "fashion & beauty": ("other", []),
 }
 
 _MIN_INTERVAL_S = 0.3        # API pacing: ~3 req/s keeps a 1000-call run ~6 min
@@ -161,11 +169,15 @@ def discover_event_ids(web, slug: str, pages: int) -> List[str]:
 
 
 # ---- official-API event -> NormalizedEvent -----------------------------------
-def _category(ev: Dict[str, Any], override: Optional[str]) -> str:
-    if override:
-        return override
+def _categories(ev: Dict[str, Any], override: Optional[str]) -> tuple:
+    """(primary, extras). An explicit override still wins outright — it is a
+    deliberate per-source choice — but it no longer discards the secondaries the
+    listing's own category implies."""
     name = str(((ev.get("category") or {}).get("name")) or "").strip().lower()
-    return _EB_CATEGORY.get(name, "other")
+    primary, extras = _EB_CATEGORY.get(name, ("other", []))
+    if override:
+        primary = override
+    return (primary, norm_categories(primary, extras))
 
 
 def to_event(ev: Dict[str, Any], category_override: Optional[str] = None) -> Optional[NormalizedEvent]:
@@ -211,7 +223,7 @@ def to_event(ev: Dict[str, Any], category_override: Optional[str] = None) -> Opt
         address=addr.get("address_1") or None,
         city=addr.get("city"), region=addr.get("region"),
         country=addr.get("country"), postal_code=addr.get("postal_code"),
-        category=_category(ev, category_override),
+        **dict(zip(("category", "categories"), _categories(ev, category_override))),
         poster_image_url=poster,
         ticket_url=ev.get("url"),
     )
