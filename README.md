@@ -95,6 +95,33 @@ Most additions are **config, not code** - append an entry to `ics_sources.json`,
 it, and open a PR. New *platforms* need a small adapter; the existing ones are
 the template.
 
+## Known limit: Trumba .ics caps at 500
+
+Every `trumba.com/calendars/<name>.ics` feed returns **at most 500 VEVENTs**,
+chronologically. On a busy municipal calendar that is roughly a four-week
+horizon, not the 90 days the rest of the pipeline works to — Seattle's city-wide
+feed, measured, covered 26 Jul to 22 Aug. Nothing in the config can widen it.
+
+What follows from that:
+
+- **Keep `limit` at 500 for Trumba sources.** A lower `limit` throws away events
+  the feed already paid to deliver. Seattle city-wide sat at 400 and was dropping
+  a hundred, including two of the eleven outdoor-movie nights.
+- **The daily cron is what gives coverage**, not the window: each run's 500 rolls
+  forward a day, so events enter the map about four weeks out rather than ninety.
+  Skipping days loses events permanently — they age past the horizon unseen.
+- **One department calendar is not the city.** Seattle publishes several. The
+  city-wide feed carries only a subset of Parks' programming, which is why Parks
+  is configured separately. To find a department's own feed, open its events page
+  and look for `$Trumba.addSpud({ webName: "..." })` in the source — that webName
+  is the .ics filename. A `filterview` in the same block is a saved view, not a
+  separate calendar, and the unfiltered feed is the one to subscribe to.
+
+Titles are the series, not the programme. Seattle's "Movies in the Park" page
+lists nights that appear in the calendar as `Center City Cinema`; searching the
+app for the page's heading finds nothing. Worth remembering before concluding a
+source was missed.
+
 ## License
 
 MIT - see [LICENSE](LICENSE).

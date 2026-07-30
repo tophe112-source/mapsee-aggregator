@@ -4,7 +4,14 @@
     "url": "https://www.trumba.com/calendars/seattlegov-city-wide.ics",
     "category": "community",
     "geocode_suffix": ", Seattle, WA",
-    "limit": 400
+    "limit": 500
+  },
+  {
+    "name": "Seattle Parks and Recreation",
+    "url": "https://www.trumba.com/calendars/parks-recreation.ics",
+    "category": "community",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 500
   },
   {
     "name": "UW Seattle Campus Events",
@@ -1025,7 +1032,7 @@
     "name": "Eintritt Frei Muenchen (Munich, Germany)",
     "url": "https://www.eintrittfrei-muenchen.de/?ical=1&eventDisplay=list",
     "category": "community",
-    "geocode_suffix": ", M\u00fcnchen, Germany",
+    "geocode_suffix": ", München, Germany",
     "limit": 300
   },
   {
@@ -1046,7 +1053,7 @@
     "name": "Buergerzentrum Ehrenfeld BueZe (Cologne, Germany)",
     "url": "https://www.bueze.de/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
-    "geocode_suffix": ", K\u00f6ln, Germany",
+    "geocode_suffix": ", Köln, Germany",
     "limit": 300
   },
   {
