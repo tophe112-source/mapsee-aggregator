@@ -212,11 +212,38 @@ def verify_opendata(s, e):
 
 
 def verify_ods(s, e):
-    r = s.get(_ods_url(e), params={"limit": 3}, timeout=25)
+    """Records exist AND at least one is in the future.
+
+    This used to accept any dataset with total_count > 0, which is not the same
+    claim: a finished 2019 festival archive passes that and then ingests nothing
+    but past events. Same hole as verify_opendata had, one step weaker — it never
+    looked at a date at all.
+    """
+    start = (e.get("map") or {}).get("start")
+    today = _as_date(_today_int()).isoformat()
+    params = {"limit": 3}
+    if start:
+        params["where"] = f"{start} >= date'{today}'"
+        params["order_by"] = start
+    r = s.get(_ods_url(e), params=params, timeout=25)
+    if r.status_code >= 400 and start:
+        # Not every dataset types its start column as a date, and the portal
+        # answers 400 rather than coercing. Fall back rather than condemn a
+        # source over query syntax — but say the dates went unchecked.
+        r = s.get(_ods_url(e), params={"limit": 3}, timeout=25)
+        if r.status_code != 200:
+            return False, f"http {r.status_code}"
+        n = (r.json() or {}).get("total_count", 0)
+        return (n > 0), f"{n} records (start '{start}' not date-filterable — dates unchecked)"
     if r.status_code != 200 or "json" not in r.headers.get("content-type", ""):
         return False, f"http {r.status_code}"
-    n = (r.json() or {}).get("total_count", 0)
-    return (n > 0), f"{n} records"
+    payload = r.json() or {}
+    n = payload.get("total_count", 0)
+    if not start:
+        return (n > 0), f"{n} records (no start column mapped — dates unchecked)"
+    if not n:
+        return False, "0 future records"
+    return True, f"{n} future records"
 
 
 VERIFIERS = {"localist": verify_localist, "ics": verify_ics, "opendata": verify_opendata, "ods": verify_ods}
