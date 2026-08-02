@@ -1811,19 +1811,5 @@
     "category": "learning",
     "geocode_suffix": ", Chattanooga, TN",
     "limit": 300
-  },
-  {
-    "name": "Houston Food Bank",
-    "url": "https://www.houstonfoodbank.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", Houston, TX",
-    "limit": 200
-  },
-  {
-    "name": "Food Bank For New York City",
-    "url": "https://www.foodbanknyc.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", New York, NY",
-    "limit": 200
   }
 ]
