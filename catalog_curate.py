@@ -31,6 +31,8 @@ Usage:
   #      "order":"start","limit":500,"geocode_venue":true,
   #      "geocode_suffix":", City, ST",
   #      "map":{"id":"...","title":"...","start":"...","venue":"..."}}]
+  # find NEW Socrata event datasets across every Socrata domain, as candidates
+  python catalog_curate.py discover [--limit 400] [--out candidates.json]
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
@@ -192,6 +194,20 @@ def verify_opendata(s, e):
         col = m.get(key)
         if col and col not in rows[0]:
             return False, f"missing column '{col}' for {key}"
+    # SODA compares a TEXT column as text, so "$where date > '2026-08-02'" is
+    # true for "April 01 2011" ('A' sorts after '2') and for "20-Jun". Datasets
+    # whose dates are human-formatted strings were passing this check with
+    # nothing but archive rows behind them, so the sampled values have to parse
+    # as real dates and actually be in the future.
+    start_col = m.get("start")
+    if start_col:
+        today = _as_date(_today_int()).isoformat()
+        iso = [str(row.get(start_col) or "")[:10] for row in rows]
+        parseable = [v for v in iso if re.fullmatch(r"\d{4}-\d{2}-\d{2}", v)]
+        if not parseable:
+            return False, f"'{start_col}' is not a date column (sample: {iso[0]!r})"
+        if not any(v >= today for v in parseable):
+            return False, f"no future rows (latest sampled {max(parseable)})"
     return True, f"{len(rows)} rows, sample: {rows[0].get(m.get('title',''))}"
 
 
@@ -204,6 +220,140 @@ def verify_ods(s, e):
 
 
 VERIFIERS = {"localist": verify_localist, "ics": verify_ics, "opendata": verify_opendata, "ods": verify_ods}
+
+
+# --- discovery -------------------------------------------------------------
+# Socrata publishes a federated CATALOG of every dataset on every Socrata
+# domain, so event datasets can be FOUND rather than guessed at. 1,389 match
+# "events" against the ten in opendata_sources.json, and coverage says the thin
+# ground is real. This only proposes; cmd_verify still has to prove each one
+# returns future events before cmd_merge will take it.
+SOCRATA_CATALOG = "https://api.us.socrata.com/api/catalog/v1"
+DISCOVER_QUERIES = [
+    ("events", "community"), ("community events", "community"),
+    ("festivals", "community"), ("special events", "community"),
+    ("library events", "learning"), ("library programs", "learning"),
+    ("parks events", "outdoors"), ("recreation programs", "outdoors"),
+    ("farmers markets", "market"), ("volunteer", "volunteer"),
+    ("art events", "arts"), ("youth programs", "kids"),
+]
+# Column-name inference. Datatypes in the catalog are unreliable — NYC ships a
+# real date column typed 'Text' — so names propose and the live probe disposes.
+_COL_RX = {
+    "start": r"^(event_?)?(start|begin|from)?_?date(_?time)?$|^start|^event_date|^date_?time$|^begin",
+    "end": r"^(event_?)?end_?date|^end_?time$|^to_date|^thru",
+    "title": r"^(event_?)?(name|title)|^name_of_event|^program_?name|^title$",
+    "venue": r"venue|facility|park_?name|site_?name|location_?name|place|building",
+    "address": r"address|street",
+    "description": r"descript|details|summary|abstract",
+    "url": r"url|link|website|more_?info",
+    "id": r"^id$|_id$|^uid$|permit|^event_?number|^objectid$",
+    "start_time": r"^start_?time$|^begin_?time$|^time_?start",
+    "end_time": r"^end_?time$|^time_?end",
+}
+_POINT_TYPES = {"point", "location", "multipoint"}
+# Datasets that MATCH an event search but are not an event listing. A permit
+# table's "title" is the applicant — the Cambridge parking feed proposed
+# "Harvard University Law School move-in" as a community event — and a dataset
+# stamped with a past year is an archive whatever its rows say.
+_DISCOVER_REJECT = re.compile(
+    r"permit|parking|licen[cs]e|application|violation|citation|inspection|"
+    r"archive|historical|\b(19|20)([01]\d|2[0-4])\b", re.I)
+
+
+def _pick(fields, pattern):
+    rx = re.compile(pattern, re.I)
+    for f in fields:
+        if rx.search(f):
+            return f
+    return None
+
+
+def _infer_map(fields, datatypes):
+    """A candidate `map` from column names, or None when the shape can't work."""
+    m = {}
+    for key, rx in _COL_RX.items():
+        col = _pick(fields, rx)
+        if col:
+            m[key] = col
+    # A location the dataset carries ITSELF. Guessing a geocode_suffix from a
+    # domain would silently place a whole feed in the wrong city, so a dataset
+    # without coordinates is left for a human instead.
+    geo = next((f for f, t in zip(fields, datatypes)
+                if str(t).lower() in _POINT_TYPES), None)
+    if geo:
+        m["geo"] = geo
+    else:
+        lat = _pick(fields, r"^lat(itude)?$")
+        lon = _pick(fields, r"^(lon|lng|long(itude)?)$")
+        if lat and lon:
+            m["lat"], m["lon"] = lat, lon
+        else:
+            return None
+    if not (m.get("title") and m.get("start")):
+        return None
+    return m
+
+
+def cmd_discover(limit=400, out="candidates.json", per_query=100):
+    seen_keys = _config_keys()
+    led = _load_ledger()
+    session = _session()
+    found, skipped = {}, {"configured": 0, "no_shape": 0, "ledger": 0, "not_events": 0}
+    for q, category in DISCOVER_QUERIES:
+        try:
+            r = session.get(SOCRATA_CATALOG, timeout=45,
+                            params={"q": q, "only": "dataset", "limit": per_query})
+            r.raise_for_status()
+            results = r.json().get("results", [])
+        except Exception as exc:  # noqa: BLE001
+            print(f"  ({q}: {exc})")
+            continue
+        for item in results:
+            res, meta = item.get("resource", {}), item.get("metadata", {})
+            domain, ds_id = meta.get("domain"), res.get("id")
+            if not (domain and ds_id):
+                continue
+            url = f"https://{domain}/resource/{ds_id}.json"
+            key = _canon(url)
+            if key in found:
+                continue
+            if key in seen_keys:
+                skipped["configured"] += 1
+                continue
+            if key in led and led[key].get("ok") is False:
+                skipped["ledger"] += 1
+                continue
+            if _DISCOVER_REJECT.search(res.get("name") or ""):
+                skipped["not_events"] += 1
+                continue
+            m = _infer_map(res.get("columns_field_name") or [],
+                           res.get("columns_datatype") or [])
+            if not m:
+                skipped["no_shape"] += 1
+                continue
+            found[key] = {
+                "type": "opendata",
+                "name": f"{res.get('name')} ({domain})"[:90],
+                "url": url,
+                "app_token": None,
+                "category": category,
+                "where": f"{m['start']} > '{{now}}'",
+                "order": m["start"],
+                "limit": 1000,
+                "map": m,
+            }
+        print(f"  {q:22} -> {len(found)} candidate(s) so far")
+        if len(found) >= limit:
+            break
+    out_list = list(found.values())[:limit]
+    json.dump(out_list, open(out, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+    print(f"\n{len(out_list)} candidate(s) -> {out}")
+    print(f"skipped: {skipped['configured']} already configured, "
+          f"{skipped['ledger']} known dead, {skipped['not_events']} permit/archive "
+          f"tables, {skipped['no_shape']} without a usable title/date/location shape")
+    print(f"Next: python catalog_curate.py verify {out}")
+    return 0
 
 
 # --- commands --------------------------------------------------------------
@@ -757,11 +907,15 @@ def cmd_coverage():
 
 
 def main(argv):
-    cmds = {"verify", "merge", "audit", "ledger", "coverage"}
+    cmds = {"verify", "merge", "audit", "ledger", "coverage", "discover"}
     if len(argv) < 2 or argv[1] not in cmds:
         print(__doc__)
         return 2
     cmd = argv[1]
+    if cmd == "discover":
+        lim = int(argv[argv.index("--limit") + 1]) if "--limit" in argv else 400
+        out = argv[argv.index("--out") + 1] if "--out" in argv else "candidates.json"
+        return cmd_discover(limit=lim, out=out)
     if cmd == "audit":
         return cmd_audit()
     if cmd == "ledger":

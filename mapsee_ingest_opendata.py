@@ -186,6 +186,12 @@ def _iso_parts(s):
     if dt.tzinfo:
         return (dt.isoformat(), dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
                 dt.date().isoformat())
+    # A naive EXACT midnight is a date stored in a timestamp column, not an event
+    # that starts at 00:00 — civic datasets do this constantly (Chicago's youth
+    # programs are all "T00:00:00"), and taken literally the whole feed renders
+    # at midnight. Emit an all-day event instead, which is what it is.
+    if dt.hour == dt.minute == dt.second == 0:
+        return (dt.date().isoformat(), None, dt.date().isoformat())
     return (dt.isoformat(), None, dt.date().isoformat())      # naive local (no tz in the dataset)
 
 

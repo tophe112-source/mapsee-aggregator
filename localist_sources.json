@@ -118,5 +118,100 @@
     "name": "Oklahoma State",
     "base_url": "https://events.okstate.edu",
     "days": 90
+  },
+  {
+    "name": "University of Colorado Boulder",
+    "base_url": "https://calendar.colorado.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Nevada Reno",
+    "base_url": "https://events.unr.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Kansas",
+    "base_url": "https://calendar.ku.edu",
+    "days": 90
+  },
+  {
+    "name": "Kansas State",
+    "base_url": "https://events.k-state.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Tennessee",
+    "base_url": "https://calendar.utk.edu",
+    "days": 90
+  },
+  {
+    "name": "NC State",
+    "base_url": "https://calendar.ncsu.edu",
+    "days": 90
+  },
+  {
+    "name": "UNC Chapel Hill",
+    "base_url": "https://calendar.unc.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Georgia",
+    "base_url": "https://calendar.uga.edu",
+    "days": 90
+  },
+  {
+    "name": "Florida State",
+    "base_url": "https://calendar.fsu.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Alabama",
+    "base_url": "https://calendar.ua.edu",
+    "days": 90
+  },
+  {
+    "name": "Auburn",
+    "base_url": "https://calendar.auburn.edu",
+    "days": 90
+  },
+  {
+    "name": "LSU",
+    "base_url": "https://calendar.lsu.edu",
+    "days": 90
+  },
+  {
+    "name": "Cornell",
+    "base_url": "https://events.cornell.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Delaware",
+    "base_url": "https://events.udel.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Vermont",
+    "base_url": "https://events.uvm.edu",
+    "days": 90
+  },
+  {
+    "name": "University of Rhode Island",
+    "base_url": "https://events.uri.edu",
+    "days": 90
+  },
+  {
+    "name": "Purdue",
+    "base_url": "https://events.purdue.edu",
+    "days": 90
+  },
+  {
+    "name": "Oregon State",
+    "base_url": "https://events.oregonstate.edu",
+    "days": 90
+  },
+  {
+    "name": "San Jose State",
+    "base_url": "https://events.sjsu.edu",
+    "days": 90
   }
 ]

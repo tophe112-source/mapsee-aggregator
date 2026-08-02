@@ -192,5 +192,24 @@
       "lon": "longitude",
       "url": "information_link"
     }
+  },
+  {
+    "name": "My CHI. My Future. Youth Programs (Chicago)",
+    "url": "https://data.cityofchicago.org/resource/w22p-bfyb.json",
+    "app_token": null,
+    "category": "kids",
+    "where": "start_date_and_time > '{now}'",
+    "order": "start_date_and_time",
+    "limit": 1000,
+    "map": {
+      "id": "program_id",
+      "title": "program_name",
+      "start": "start_date_and_time",
+      "description": "description",
+      "address": "address",
+      "venue": "org_name",
+      "geo": "location",
+      "url": "registration_url"
+    }
   }
 ]

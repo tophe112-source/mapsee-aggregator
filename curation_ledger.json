@@ -335,6 +335,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "bronx.lehman.cuny.edu/resource/pj9s-b2ar.json": {
+    "checked": 20260802,
+    "name": "Bronx Volunteer Opportunities (bronx.lehman.cuny.edu)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
   "brooklinelibrary.libcal.com/ical_subscribe.php?cid=20102": {
     "checked": 20260727,
     "name": "Public Library of Brookline Events (Boston)",
@@ -685,6 +692,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "data.act.gov.au/resource/j746-krni.json": {
+    "checked": 20260802,
+    "name": "ACT Public Art List (www.data.act.gov.au)",
+    "reason": "http 400",
+    "status": "fail",
+    "type": "opendata"
+  },
   "data.austintexas.gov/resource/p9ma-z6y9.json": {
     "checked": 20260727,
     "name": "Austin Convention Center Event Listings (Austin)",
@@ -706,6 +720,62 @@
     "status": "ok",
     "type": "opendata"
   },
+  "data.cambridgema.gov/resource/4ixn-jz5x.json": {
+    "checked": 20260802,
+    "name": "Special Event Parking Permits (data.cambridgema.gov)",
+    "reason": "3 rows, sample: Harvard University Law School move-in",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.cambridgema.gov/resource/kkbh-kxre.json": {
+    "checked": 20260802,
+    "name": "Farmer's Market Permits (data.cambridgema.gov)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.cityofchicago.org/resource/6t9t-2gbi.json": {
+    "checked": 20260802,
+    "name": "Chicago Park District: Movies in the Parks 2016 (data.cityofchicago.org)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.cityofchicago.org/resource/7piw-z6r6.json": {
+    "checked": 20260802,
+    "name": "Chicago Park District: Movies in the Parks 2019 (data.cityofchicago.org)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.cityofchicago.org/resource/a7gu-2qz6.json": {
+    "checked": 20260802,
+    "name": "Chicago Park District: Movies in the Parks 2017 (data.cityofchicago.org)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.cityofchicago.org/resource/cyqk-tzjs.json": {
+    "checked": 20260802,
+    "name": "Chicago Park District: Movies in the Parks 2014 (data.cityofchicago.org)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.cityofchicago.org/resource/e2v8-k3us.json": {
+    "checked": 20260802,
+    "name": "Chicago Park District: Movies in the Parks 2018 (data.cityofchicago.org)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.cityofchicago.org/resource/k5us-juc5.json": {
+    "checked": 20260802,
+    "name": "Halloweek On the Block Events (data.cityofchicago.org)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
   "data.cityofchicago.org/resource/tn7v-6rnw.json": {
     "checked": 20260727,
     "name": "Chicago Park District Activities (Chicago)",
@@ -713,10 +783,38 @@
     "status": "ok",
     "type": "opendata"
   },
+  "data.cityofchicago.org/resource/v2a6-nxhe.json": {
+    "checked": 20260802,
+    "name": "Chicago Park District: Movies in the Parks 2015 (data.cityofchicago.org)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
   "data.cityofchicago.org/resource/vsdy-d8k7.json": {
     "checked": 20260727,
     "name": "Chicago Library Events",
     "reason": "3 rows, sample: Apna Ghar: Our Home",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.cityofchicago.org/resource/w22p-bfyb.json": {
+    "checked": 20260802,
+    "name": "My CHI. My Future. Programs (data.cityofchicago.org)",
+    "reason": "3 rows, sample: Playstreets Event By CICS West Belden",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.cityofnewyork.us/resource/3vyj-dkjt.json": {
+    "checked": 20260802,
+    "name": "Safety Events (data.cityofnewyork.us)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.cityofnewyork.us/resource/bquu-z2ht.json": {
+    "checked": 20260802,
+    "name": "NYC Service: Volunteer Opportunities (Historical) (data.cityofnewyork.us)",
+    "reason": "3 rows, sample: Garden Assistant Volunteer Program",
     "status": "ok",
     "type": "opendata"
   },
@@ -741,11 +839,53 @@
     "status": "ok",
     "type": "opendata"
   },
+  "data.colorado.gov/resource/ms6b-y4xc.json": {
+    "checked": 20260802,
+    "name": "Farmers Markets in Colorado 2017 (data.colorado.gov)",
+    "reason": "3 rows, sample: The Saturday Market at Tagawa Gardens",
+    "status": "ok",
+    "type": "opendata"
+  },
   "data.edmonton.ca/resource/64u3-c7bh.json": {
     "checked": 20260727,
     "name": "City of Edmonton Public Events (Edmonton)",
     "reason": "3 rows, sample: EPL Children's Programming - Outdoor Fun",
     "status": "ok",
+    "type": "opendata"
+  },
+  "data.kingcounty.gov/resource/vcj4-3vp9.json": {
+    "checked": 20260802,
+    "name": "Regional AFIS Program Community Events (data.kingcounty.gov)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.lacity.org/resource/8spw-3fhx.json": {
+    "checked": 20260802,
+    "name": "Building and Safety Temporary Special Event (TSE) Permits (data.lacity.org)",
+    "reason": "3 rows, sample: TEEN CANCER",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.lacity.org/resource/9aw9-mn4p.json": {
+    "checked": 20260802,
+    "name": "LA City Events (2022-2025) (data.lacity.org)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.lacity.org/resource/acy8-72w9.json": {
+    "checked": 20260802,
+    "name": "Events from LA Festival Guide 2014 (data.lacity.org)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.lacity.org/resource/d3th-bqdk.json": {
+    "checked": 20260802,
+    "name": "What's Happening LA Calendar Dataset - ARCHIVED (data.lacity.org)",
+    "reason": "0 rows",
+    "status": "fail",
     "type": "opendata"
   },
   "data.seattle.gov/resource/dm95-f8w5.json": {
@@ -760,6 +900,13 @@
     "name": "Our415 Events and Activities (San Francisco)",
     "reason": "3 rows, sample: LTS - Coffman Pool - Level 4",
     "status": "ok",
+    "type": "opendata"
+  },
+  "data.weho.org/resource/p6yp-4ai9.json": {
+    "checked": 20260802,
+    "name": "Art Events (data.weho.org)",
+    "reason": "0 rows",
+    "status": "fail",
     "type": "opendata"
   },
   "delart.org/events/?ical=1": {
