@@ -323,6 +323,11 @@ jobs:
           else
             echo "no feeds ingested — nothing to sync"
           fi
+      # One market reaches the map from a curated list, OpenStreetMap AND the USDA
+      # directories, and those sources run on different weekdays into a store that is
+      # rebuilt each run — so the duplicates only ever meet here, in the table.
+      - name: Collapse duplicate market events
+        run: python mapsee_dedupe_markets.py --max-seconds 300 || true
 
   extra_sources:
     name: SeatGeek + Eventbrite + NPS + Localist + Sports
@@ -369,10 +374,16 @@ jobs:
             [ -n "$AXS_API_KEY" ]        && python mapsee_ingest_axs.py     --latlong "$LL" --radius "$R" --within-days 120 --store extra_events.json
           done
           exit 0                         # a trailing skipped-adapter guard ([ -n "$AXS_KEY" ]) must not fail the step + skip the sync
-      - name: NPS + Localist + TheSportsDB (Localist + sports run without any key)
+      - name: NPS + Recreation.gov + Localist + TheSportsDB (Localist + sports run without any key)
         run: |
           set +e
           python mapsee_ingest_nps.py --within-days 90 --store extra_events.json
+          # Recreation.gov (RIDB): federal recreation land BEYOND the national
+          # parks — Forest Service, BLM, Army Corps, Reclamation. The adapter and
+          # the RECREATION_GOV_KEY env entry both already existed; the line that
+          # actually RUNS it never did, so it has never once executed. Keyless it
+          # no-ops in a line, exactly like the ticketing adapters above.
+          [ -n "$RECREATION_GOV_KEY" ] && python mapsee_ingest_recreation.py --within-days 120 --store extra_events.json
           [ -f localist_sources.json ]    && python mapsee_ingest_localist.py    --config localist_sources.json    --store extra_events.json
           [ -f thesportsdb_leagues.json ] && python mapsee_ingest_thesportsdb.py --config thesportsdb_leagues.json --store extra_events.json
           exit 0                         # trailing "[ -f … ] && python" must not fail the step + skip the sync

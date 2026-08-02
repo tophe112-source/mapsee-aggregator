@@ -60,7 +60,12 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, _to_float
+from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint,
+                           geohash_encode, _to_float)
+
+# Geohash precision for a market's cross-source identity: 5 is a ~4.9km cell.
+# See market_events for why identity is a cell and not the address.
+_IDENT_PRECISION = 5
 
 # ---- persistent geocode cache (shared with the other adapters) --------------
 GEO_CACHE_PATH = os.environ.get("GEOCODE_CACHE", "geocode_cache.json")
@@ -211,6 +216,17 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
         return []
     label = "market:" + src["name"].lower().replace(" ", "-")
     place = mk.get("address") or name
+    # Cross-source identity is the NAME plus a ~5km geohash cell, NOT the address.
+    # One market reaches this function as "Ballard Ave NW & Vernon Pl NW" from the
+    # curated list, "5345 Ballard Ave NW" from USDA and "5301 Ballard Avenue
+    # Northwest" from OpenStreetMap, so an address-keyed fingerprint filed it three
+    # times; the coordinates agree to a few hundred metres. The cell has to be a
+    # pure function of THIS row — sources run on different weekdays and the store
+    # is rebuilt every run, so the duplicates are never in memory together to be
+    # compared. A market sitting on a cell boundary still slips through, which is
+    # what mapsee_dedupe_markets.py sweeps up in the database, the one place where
+    # every source's rows do meet. `place` stays the address, for display.
+    ident = "market " + geohash_encode(lat, lon, _IDENT_PRECISION)
     # A nationwide source spans four zones, so the row may carry its own; a
     # city-scoped source declares one for the whole config.
     tz = _tz(mk.get("timezone") or src.get("timezone"))
@@ -218,7 +234,7 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
     for d in _occurrences(weekdays, src.get("horizon_days", 42),
                           _as_date(mk.get("season_start")), _as_date(mk.get("season_end"))):
         ds = d.isoformat()
-        fp = make_fingerprint(name, ds, place)
+        fp = make_fingerprint(name, ds, ident)
         sl, su = _localize(ds, start_t, tz)
         el, eu = _localize(ds, end_t, tz)
         ev = NormalizedEvent(

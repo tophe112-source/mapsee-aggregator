@@ -98,5 +98,25 @@
     "name": "UT Austin (Austin)",
     "base_url": "https://calendar.utexas.edu",
     "days": 90
+  },
+  {
+    "name": "University of Rochester",
+    "base_url": "https://events.rochester.edu",
+    "days": 90
+  },
+  {
+    "name": "Georgia Southern (Savannah)",
+    "base_url": "https://calendar.georgiasouthern.edu",
+    "days": 90
+  },
+  {
+    "name": "Boise State",
+    "base_url": "https://events.boisestate.edu",
+    "days": 90
+  },
+  {
+    "name": "Oklahoma State",
+    "base_url": "https://events.okstate.edu",
+    "days": 90
   }
 ]
