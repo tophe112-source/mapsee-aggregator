@@ -1,4 +1,5 @@
 {
+ "_DISABLED": "HELD PENDING PERMISSION FROM parkrun. Their Terms and Conditions reserve all rights in site content, reference an Anti-Scraping Policy, and state that no part of the site may be reproduced in whole or in part without the copyright owner's permission. events.json is reachable without a key, but reachable is not the same as licensed, and this would have republished ~17,700 of their events across mapsee.me and wegosie.com. The adapter is correct and stays; only the config is parked. TO RE-ENABLE once parkrun says yes (partnerships via parkrun.com): rename this file back to parkrun_sources.json — the workflow step is guarded on that filename and needs no other change.",
  "_comment": "parkrun: free weekly timed runs, from parkrun's own public event list (the one their event map reads). Each event is a weekly SCHEDULE, expanded into dated occurrences over horizon_days. seriesid 1 = 5k on Saturday, seriesid 2 = junior 2k on Sunday.",
  "url": "https://images.parkrun.com/events.json",
  "horizon_days": 42,

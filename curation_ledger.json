@@ -853,6 +853,20 @@
     "status": "ok",
     "type": "opendata"
   },
+  "data.gov.au/data/api/3/action/datastore_search?resource_id=db354a7b-5472-4e07-a6f0-6e4ed650f855": {
+    "checked": 20260802,
+    "name": "Corangamite Shire Events (Australia)",
+    "reason": "no future rows (latest sampled 2023-06-08)",
+    "status": "fail",
+    "type": "ckan"
+  },
+  "data.gov.ie/api/3/action/datastore_search?resource_id=61b9eab1-45a6-41be-9c4b-80496b544de0": {
+    "checked": 20260802,
+    "name": "Events (Ireland)",
+    "reason": "no future rows (latest sampled 2025-01-18)",
+    "status": "fail",
+    "type": "ckan"
+  },
   "data.kingcounty.gov/resource/vcj4-3vp9.json": {
     "checked": 20260802,
     "name": "Regional AFIS Program Community Events (data.kingcounty.gov)",

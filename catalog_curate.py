@@ -58,6 +58,9 @@ CONFIG = {
     # a derived "url" (the records API) is the dedup/ledger key. The file nests
     # entries under "sources" - _entries()/cmd_merge handle both shapes.
     "ods": ("ods_sources.json", "url"),
+    # CKAN DataStore resources. Entries carry the full datastore_search URL, so
+    # the ledger/dedup key needs no special case the way ods does.
+    "ckan": ("ckan_sources.json", "url"),
 }
 
 def _ods_url(e):
@@ -154,8 +157,22 @@ def verify_localist(s, e):
     r = s.get(e["base_url"].rstrip("/") + "/api/2/events?days=30&pp=5", timeout=15)
     if r.status_code != 200 or "json" not in r.headers.get("content-type", ""):
         return False, f"http {r.status_code}"
-    n = len(r.json().get("events") or [])
-    return (n > 0), f"{n} events"
+    evs = r.json().get("events") or []
+    if not evs:
+        return False, "0 events"
+    # `days=30` is the API's promise, not ours. Reading the instance starts back
+    # makes the future-events guarantee local, so an installation that ignores
+    # the parameter cannot pass on a backlog. (verify_ics learned this the hard
+    # way off VTIMEZONE dates; verify_opendata off text date columns.)
+    today = _as_date(_today_int()).isoformat()
+    starts = [str((i.get("event_instance") or {}).get("start") or "")[:10]
+              for item in evs
+              for i in ((item.get("event") or {}).get("event_instances") or [])]
+    starts = [v for v in starts if re.fullmatch(r"\d{4}-\d{2}-\d{2}", v)]
+    if not starts:
+        return False, f"{len(evs)} events, none with a parseable start"
+    fut = sum(1 for v in starts if v >= today)
+    return (fut > 0), f"{len(evs)} events / {fut} future instance(s)"
 
 
 def verify_ics(s, e):
@@ -246,7 +263,42 @@ def verify_ods(s, e):
     return True, f"{n} future records"
 
 
-VERIFIERS = {"localist": verify_localist, "ics": verify_ics, "opendata": verify_opendata, "ods": verify_ods}
+def verify_ckan(s, e):
+    """Rows exist AND at least one start parses to a future date.
+
+    datastore_search has no range operator, so unlike Socrata there is no WHERE
+    clause doing this server-side — the check has to read the dates back, which
+    is where verify_opendata and verify_ods both ended up anyway.
+    """
+    m = e.get("map") or {}
+    start = m.get("start")
+    params = {"limit": 5}
+    if start:
+        params["sort"] = f"{start} desc"
+    r = s.get(e["url"], params=params, timeout=45)
+    if r.status_code != 200 or "json" not in r.headers.get("content-type", ""):
+        return False, f"http {r.status_code}"
+    payload = r.json() or {}
+    if not payload.get("success"):
+        return False, f"ckan error: {str(payload.get('error'))[:80]}"
+    rows = (payload.get("result") or {}).get("records") or []
+    if not rows:
+        return False, "0 rows"
+    if not start:
+        return False, "no start column mapped"
+    today = _as_date(_today_int()).isoformat()
+    iso = [str(row.get(start) or "")[:10] for row in rows]
+    parseable = [v for v in iso if re.fullmatch(r"\d{4}-\d{2}-\d{2}", v)]
+    if not parseable:
+        return False, f"'{start}' is not a date column (sample: {iso[0]!r})"
+    if not any(v >= today for v in parseable):
+        return False, f"no future rows (latest sampled {max(parseable)})"
+    title = m.get("title")
+    return True, f"{len(rows)} rows, sample: {str(rows[0].get(title))[:40]}"
+
+
+VERIFIERS = {"localist": verify_localist, "ics": verify_ics, "opendata": verify_opendata,
+             "ods": verify_ods, "ckan": verify_ckan}
 
 
 # --- discovery -------------------------------------------------------------
@@ -296,8 +348,13 @@ def _pick(fields, pattern):
     return None
 
 
-def _infer_map(fields, datatypes):
-    """A candidate `map` from column names, or None when the shape can't work."""
+def _infer_map(fields, datatypes, allow_geocode=False):
+    """A candidate `map` from column names, or None when the shape can't work.
+
+    allow_geocode relaxes the coordinate requirement for portals whose COUNTRY
+    is known: a ", Ireland" suffix cannot relocate a feed the way a guessed city
+    would, it only makes the Photon lookup less precise.
+    """
     m = {}
     for key, rx in _COL_RX.items():
         col = _pick(fields, rx)
@@ -315,17 +372,124 @@ def _infer_map(fields, datatypes):
         lon = _pick(fields, r"^(lon|lng|long(itude)?)$")
         if lat and lon:
             m["lat"], m["lon"] = lat, lon
-        else:
+        elif not (allow_geocode and (m.get("venue") or m.get("address"))):
             return None
     if not (m.get("title") and m.get("start")):
         return None
     return m
 
 
-def cmd_discover(limit=400, out="candidates.json", per_query=100):
+# CKAN portals, with the country their data is in. CKAN is what the countries
+# coverage kept reporting at zero actually publish through — Socrata is a US
+# product and OpenDataSoft is largely France and Belgium.
+CKAN_PORTALS = [
+    ("data.gov.uk", "United Kingdom"), ("open.canada.ca", "Canada"),
+    ("data.gov.ie", "Ireland"), ("www.avoindata.fi/data", "Finland"),
+    ("dados.gov.pt", "Portugal"), ("data.overheid.nl/data", "Netherlands"),
+    ("www.govdata.de/ckan", "Germany"), ("data.gov.au/data", "Australia"),
+    ("opendata.swiss", "Switzerland"), ("www.dati.gov.it/opendata", "Italy"),
+    ("admin.opendata.dk", "Denmark"),
+]
+CKAN_QUERIES = [("events", "community"), ("festival", "community"),
+                ("library events", "learning"), ("markets", "market"),
+                ("parks events", "outdoors")]
+
+
+def _ckan_text(value):
+    """A CKAN title is a string on most portals and a {lang: text} map on the
+    multilingual ones (opendata.swiss ships de/fr/it/en)."""
+    if isinstance(value, dict):
+        for lang in ("en", "de", "fr", "it", "nl", "da", "fi", "pt"):
+            if value.get(lang):
+                return str(value[lang])
+        return next((str(v) for v in value.values() if v), "")
+    return str(value or "")
+
+
+def _discover_ckan(session, seen_keys, led, limit, per_query=20, probe_cap=6):
+    """package_search each portal, then read the DataStore field list of every
+    active resource to infer a map. The field list needs its own request per
+    resource, so probe_cap bounds how many a single dataset can cost."""
+    found, skipped = {}, {"configured": 0, "ledger": 0, "no_shape": 0,
+                          "not_events": 0, "no_datastore": 0}
+    for domain, country in CKAN_PORTALS:
+        base = f"https://{domain}/api/3/action"
+        hits = 0
+        for q, category in CKAN_QUERIES:
+            try:
+                r = session.get(f"{base}/package_search", timeout=45,
+                                params={"q": q, "rows": per_query})
+                r.raise_for_status()
+                pkgs = ((r.json() or {}).get("result") or {}).get("results") or []
+            except Exception as exc:  # noqa: BLE001
+                print(f"  {domain:26} {q:14} unreachable ({str(exc)[:40]})")
+                break
+            for pkg in pkgs:
+                title = _ckan_text(pkg.get("title")) or _ckan_text(pkg.get("name"))
+                if _DISCOVER_REJECT.search(title):
+                    skipped["not_events"] += 1
+                    continue
+                probed = 0
+                for res in (pkg.get("resources") or []):
+                    if probed >= probe_cap:
+                        break
+                    if not res.get("datastore_active") or not res.get("id"):
+                        skipped["no_datastore"] += 1
+                        continue
+                    probed += 1
+                    url = f"{base}/datastore_search?resource_id={res['id']}"
+                    key = _canon(url)
+                    if key in found:
+                        continue
+                    if key in seen_keys:
+                        skipped["configured"] += 1
+                        continue
+                    if key in led and led[key].get("ok") is False:
+                        skipped["ledger"] += 1
+                        continue
+                    try:
+                        fr = session.get(f"{base}/datastore_search", timeout=30,
+                                         params={"resource_id": res["id"], "limit": 0})
+                        flds = (((fr.json() or {}).get("result") or {}).get("fields")) or []
+                    except Exception:  # noqa: BLE001
+                        continue
+                    names = [f.get("id") for f in flds if f.get("id")]
+                    types = [f.get("type") for f in flds]
+                    m = _infer_map(names, types, allow_geocode=True)
+                    if not m:
+                        skipped["no_shape"] += 1
+                        continue
+                    entry = {
+                        "type": "ckan",
+                        "name": f"{title} ({country})"[:90],
+                        "url": url,
+                        "category": category,
+                        "limit": 2000,
+                        "map": m,
+                    }
+                    if not (m.get("geo") or m.get("lat")):
+                        entry["geocode_venue"] = True
+                        entry["geocode_suffix"] = f", {country}"
+                    found[key] = entry
+                    hits += 1
+                    if len(found) >= limit:
+                        return found, skipped
+        print(f"  {domain:26} -> {hits} candidate(s)")
+    return found, skipped
+
+
+def cmd_discover(limit=400, out="candidates.json", per_query=100, backend="socrata"):
     seen_keys = _config_keys()
     led = _load_ledger()
     session = _session()
+    if backend == "ckan":
+        found, skipped = _discover_ckan(session, seen_keys, led, limit)
+        out_list = list(found.values())[:limit]
+        json.dump(out_list, open(out, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+        print(f"\n{len(out_list)} candidate(s) -> {out}")
+        print("skipped: " + ", ".join(f"{v} {k}" for k, v in skipped.items()))
+        print(f"Next: python catalog_curate.py verify {out}")
+        return 0
     found, skipped = {}, {"configured": 0, "no_shape": 0, "ledger": 0, "not_events": 0}
     for q, category in DISCOVER_QUERIES:
         try:
@@ -526,8 +690,13 @@ _METRO_ALIASES = {
 }
 # App category keys that curated feeds are responsible for (ticketing APIs
 # already blanket music/theater/sports/food nationally - see the skill doc).
+# 'party' is NOT here on purpose. It is not a curation target: no feed declares
+# it, because nightlife reaches that layer by keyword promotion at sync time
+# (_PARTY_RX in mapsee_supabase_sync — crawls, happy hours, karaoke arrive tagged
+# music or community and get moved). Listing it meant the report raised a gap in
+# every country that no source could ever close.
 _CURATED_CATEGORIES = ["community", "learning", "arts", "outdoors", "volunteer",
-                       "kids", "market", "running", "party"]
+                       "kids", "market", "running"]
 
 
 def _parse_place(text):
@@ -942,7 +1111,8 @@ def main(argv):
     if cmd == "discover":
         lim = int(argv[argv.index("--limit") + 1]) if "--limit" in argv else 400
         out = argv[argv.index("--out") + 1] if "--out" in argv else "candidates.json"
-        return cmd_discover(limit=lim, out=out)
+        backend = "ckan" if "ckan" in argv[2:3] else "socrata"
+        return cmd_discover(limit=lim, out=out, backend=backend)
     if cmd == "audit":
         return cmd_audit()
     if cmd == "ledger":
