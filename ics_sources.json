@@ -18,7 +18,7 @@
     "url": "https://www.trumba.com/calendars/sea_campus.ics",
     "category": "learning",
     "geocode_suffix": ", University of Washington, Seattle, WA",
-    "limit": 400
+    "limit": 1000
   },
   {
     "name": "UW College of Arts and Sciences",
@@ -60,7 +60,7 @@
     "url": "https://www.trumba.com/calendars/sanantonio.ics",
     "category": "community",
     "geocode_suffix": ", San Antonio, TX",
-    "limit": 200
+    "limit": 700
   },
   {
     "name": "City of Long Beach Events (Los Angeles)",
@@ -74,7 +74,7 @@
     "url": "https://bhpl.libcal.com/ical_subscribe.php?cid=13598",
     "category": "learning",
     "geocode_suffix": ", Los Angeles, CA",
-    "limit": 300
+    "limit": 500
   },
   {
     "name": "Hermann Park Conservancy Events (Houston)",
@@ -123,7 +123,7 @@
     "url": "https://ccls.libcal.com/ical_subscribe.php?cid=12583",
     "category": "learning",
     "geocode_suffix": ", Philadelphia, PA",
-    "limit": 300
+    "limit": 500
   },
   {
     "name": "Montgomery County-Norristown Public Library (Philadelphia)",
@@ -158,7 +158,7 @@
     "url": "https://brooklinelibrary.libcal.com/ical_subscribe.php?cid=20102",
     "category": "learning",
     "geocode_suffix": ", Boston, MA",
-    "limit": 300
+    "limit": 600
   },
   {
     "name": "Ponce City Market Events (Atlanta)",
@@ -214,7 +214,7 @@
     "url": "https://www.orcity.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
     "category": "community",
     "geocode_suffix": ", Portland, OR",
-    "limit": 300
+    "limit": 500
   },
   {
     "name": "Austin Community College Library Events (Austin)",
@@ -242,7 +242,7 @@
     "url": "https://union-nc.libcal.com/ical_subscribe.php?cid=21886",
     "category": "learning",
     "geocode_suffix": ", Charlotte, NC",
-    "limit": 300
+    "limit": 500
   },
   {
     "name": "Town of Huntersville Events (Charlotte)",
@@ -298,14 +298,14 @@
     "url": "https://calendar.prattlibrary.org/calendar.ics",
     "category": "learning",
     "geocode_suffix": ", Baltimore, MD",
-    "limit": 300
+    "limit": 2500
   },
   {
     "name": "Baltimore Magazine Events Calendar (Baltimore)",
     "url": "https://events.baltimoremagazine.com/calendar.ics",
     "category": "community",
     "geocode_suffix": ", Baltimore, MD",
-    "limit": 300
+    "limit": 2200
   },
   {
     "name": "University of Exeter Library (Exeter, United Kingdom)",
@@ -1789,7 +1789,7 @@
     "url": "https://santafelibrary.org/events/feed/ical/",
     "category": "learning",
     "geocode_suffix": ", Santa Fe, NM",
-    "limit": 400
+    "limit": 1500
   },
   {
     "name": "Fletcher Free Library (Burlington VT)",
