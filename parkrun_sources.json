@@ -1,0 +1,35 @@
+{
+ "_comment": "parkrun: free weekly timed runs, from parkrun's own public event list (the one their event map reads). Each event is a weekly SCHEDULE, expanded into dated occurrences over horizon_days. seriesid 1 = 5k on Saturday, seriesid 2 = junior 2k on Sunday.",
+ "url": "https://images.parkrun.com/events.json",
+ "horizon_days": 42,
+ "run_weekdays": [
+  3
+ ],
+ "_start_times_comment": "START TIMES ARE NOT IN THE FEED and vary by country and season, so events are all-day and link to the event page unless pinned here. Keyed by parkrun country code, value a naive local HH:MM:SS; the sync converts it to a real instant from the coordinates. Add one only when you have checked it: a wrong entry puts a wrong start time on the map, an absent one is an honest all-day event. Codes (verified from the feed): 3=Australia, 4=Austria, 14=Canada, 23=Denmark, 30=Finland, 32=Germany, 42=Ireland, 44=Italy, 46=Japan, 54=Lithuania, 57=Malaysia, 64=Netherlands, 65=New Zealand, 67=Norway, 74=Poland, 82=Singapore, 85=South Africa, 88=Sweden, 97=United Kingdom, 98=United States",
+ "start_times": {},
+ "only_countries": [],
+ "_countries_comment": "ISO codes this one feed covers, for catalog_curate.py coverage (which must not hit the network). Verified against the feed; not used for filtering — that is only_countries, by parkrun country code.",
+ "countries": [
+  "AU",
+  "AT",
+  "CA",
+  "DK",
+  "FI",
+  "DE",
+  "IE",
+  "IT",
+  "JP",
+  "LT",
+  "MY",
+  "NL",
+  "NZ",
+  "NO",
+  "PL",
+  "SG",
+  "ZA",
+  "SE",
+  "GB",
+  "US"
+ ],
+ "category": "running"
+}

@@ -252,6 +252,16 @@ jobs:
           else
             echo "no market_sources.json — skipping markets"
           fi
+      # ~2,900 free weekly runs in 21 countries — the whole 'running' layer, which
+      # had no curated feed in ANY country. One fetch; the config pins it to one
+      # weekday because a weekly schedule re-expands to identical rows.
+      - name: Import parkrun (weekly 5k + junior 2k, expanded to dated occurrences)
+        run: |
+          if [ -f parkrun_sources.json ]; then
+            python mapsee_ingest_parkrun.py --config parkrun_sources.json --store feeds_events.json
+          else
+            echo "no parkrun_sources.json — skipping parkrun"
+          fi
       - name: Import curated recurring community programs (e.g. free summer meals, expanded to dated occurrences)
         run: |
           if [ -f program_sources.json ]; then

@@ -47,6 +47,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import re
 import sys
@@ -457,6 +458,89 @@ _USDA_TZ_SPLITS = {
 }
 
 
+# A coarse United States outline, (lon, lat), for clipping the national query
+# grid. It only has to be good enough to tell land from ocean at a 100-mile
+# radius — points near the edge are kept anyway (see usda_grid), so an outline
+# this rough costs a few wasted queries, never coverage.
+_CONUS_OUTLINE = [
+    (-124.7, 48.4), (-123.0, 49.0), (-95.2, 49.0), (-95.2, 49.4), (-89.5, 48.1),
+    (-84.5, 46.5), (-82.5, 45.0), (-83.0, 42.0), (-79.0, 43.3), (-76.5, 44.5),
+    (-71.5, 45.0), (-69.2, 47.4), (-67.0, 45.2), (-70.0, 43.0), (-70.0, 41.5),
+    (-73.9, 40.5), (-75.5, 39.0), (-75.9, 37.0), (-75.5, 35.2), (-80.9, 32.0),
+    (-81.5, 30.7), (-80.0, 26.5), (-80.4, 25.1), (-81.8, 24.4), (-82.8, 27.8),
+    (-84.0, 30.0),
+    (-88.0, 30.2), (-90.0, 29.0), (-93.8, 29.7), (-97.1, 26.0), (-99.2, 26.4),
+    (-101.4, 29.8), (-103.0, 28.9), (-106.5, 31.8), (-111.0, 31.3), (-114.8, 32.5),
+    (-117.1, 32.5), (-120.6, 34.5), (-122.0, 36.9), (-124.4, 40.4), (-124.6, 46.3),
+]
+# Islands and Alaska are mostly water inside their bounding box, so they get
+# explicit points rather than a clipped grid.
+_USDA_REGIONS = {
+    "conus": {"outline": _CONUS_OUTLINE, "bbox": (24.0, 49.5, -125.0, -66.5)},
+    "ak": {"points": [(61.2, -149.9), (64.8, -147.7), (58.3, -134.4), (60.5, -151.3)]},
+    "hi": {"points": [(21.3, -157.8), (20.8, -156.3), (19.6, -155.5), (22.0, -159.5)]},
+    "pr": {"points": [(18.4, -66.1)]},
+}
+_MILES_PER_DEG_LAT = 69.0
+
+
+def _in_outline(lat: float, lon: float, outline: List[Tuple[float, float]]) -> bool:
+    """Ray casting, (lon, lat) vertices."""
+    inside = False
+    n = len(outline)
+    for i in range(n):
+        x1, y1 = outline[i]
+        x2, y2 = outline[(i + 1) % n]
+        if (y1 > lat) != (y2 > lat):
+            xi = x1 + (lat - y1) * (x2 - x1) / (y2 - y1)
+            if lon < xi:
+                inside = not inside
+    return inside
+
+
+def usda_grid(spec: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Query areas covering whole regions, spaced from the radius they use.
+
+    The metro list every other US source is built on is a ceiling here and
+    nowhere else: city portals are municipal and Ticketmaster is venue-based,
+    but this directory is national, free, and returns coordinates — and farmers
+    markets skew small-town relative to population, which is exactly the ground
+    80 metro circles miss. Spacing is 1.3x the radius, so the square cell each
+    circle has to cover has a half-diagonal of 0.92r and the country tiles with
+    no seams. Changing radius_miles re-spaces the grid automatically; the two
+    can never drift apart.
+    """
+    radius = spec.get("radius_miles", 100)
+    step = radius * 1.3
+    out: List[Dict[str, Any]] = []
+    for region in spec.get("regions", ["conus"]):
+        cfg = _USDA_REGIONS.get(region)
+        if not cfg:
+            continue
+        if cfg.get("points"):
+            for i, (lat, lon) in enumerate(cfg["points"], 1):
+                out.append({"name": f"{region}-{i}", "lat": lat, "lon": lon, "radius": radius})
+            continue
+        lo_lat, hi_lat, lo_lon, hi_lon = cfg["bbox"]
+        d_lat = step / _MILES_PER_DEG_LAT
+        lat = lo_lat
+        while lat <= hi_lat:
+            d_lon = step / (_MILES_PER_DEG_LAT * max(0.2, math.cos(math.radians(lat))))
+            lon = lo_lon
+            while lon <= hi_lon:
+                # Keep a point whose CELL touches land even when its centre sits
+                # offshore — dropping those would open a hole along every coast.
+                if any(_in_outline(lat + dy, lon + dx, cfg["outline"])
+                       for dy, dx in ((0, 0), (d_lat / 2, 0), (-d_lat / 2, 0),
+                                      (0, d_lon / 2), (0, -d_lon / 2))):
+                    out.append({"name": f"{region} {lat:.1f},{lon:.1f}",
+                                "lat": round(lat, 3), "lon": round(lon, 3),
+                                "radius": radius})
+                lon += d_lon
+            lat += d_lat
+    return out
+
+
 def _usda_field(row: Dict[str, Any], *names: str) -> str:
     """First non-empty value among `names`, tolerating the location_/underscore
     spellings the directories are inconsistent about."""
@@ -645,12 +729,13 @@ def load_usda(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
               "(free key at usdalocalfoodportal.com/fe/datasharing)")
         return []
     stale_years = src.get("stale_years", _USDA_STALE_YEARS)
+    areas = src.get("areas") or usda_grid(src.get("grid") or {})
     out: List[Dict[str, Any]] = []
     seen: set = set()
     rows_seen = skipped_stale = skipped_noschedule = 0
     probed = False
     for directory in src.get("directories", _USDA_DIRECTORIES):
-        for area in src.get("areas", []):
+        for area in areas:
             rows = _usda_query(session, src, key, directory, area)
             if rows is None:
                 return out

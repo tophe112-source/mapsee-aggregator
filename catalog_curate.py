@@ -399,6 +399,27 @@ def _locate(name, suffix):
     return metro or "?", country or "?"
 
 
+_TZ_COUNTRY = {
+    "Europe/London": "GB", "Europe/Dublin": "IE", "Europe/Paris": "FR",
+    "Europe/Berlin": "DE", "Europe/Amsterdam": "NL", "Europe/Brussels": "BE",
+    "Europe/Zurich": "CH", "Europe/Madrid": "ES", "Europe/Rome": "IT",
+    "Europe/Stockholm": "SE", "Europe/Oslo": "NO", "Europe/Copenhagen": "DK",
+    "Europe/Helsinki": "FI", "Europe/Vienna": "AT", "Europe/Warsaw": "PL",
+    "Europe/Lisbon": "PT", "Europe/Prague": "CZ", "Asia/Tokyo": "JP",
+    "Asia/Seoul": "KR", "Asia/Singapore": "SG", "Asia/Hong_Kong": "HK",
+    "Asia/Dubai": "AE", "Asia/Kolkata": "IN", "Africa/Johannesburg": "ZA",
+    "Pacific/Auckland": "NZ", "America/Mexico_City": "MX", "America/Toronto": "CA",
+    "America/Vancouver": "CA", "America/Edmonton": "CA", "America/Winnipeg": "CA",
+    "America/Halifax": "CA", "America/Montreal": "CA",
+}
+_TLD_COUNTRY = {
+    "uk": "GB", "ie": "IE", "ca": "CA", "au": "AU", "nz": "NZ", "de": "DE",
+    "fr": "FR", "nl": "NL", "be": "BE", "ch": "CH", "es": "ES", "it": "IT",
+    "se": "SE", "no": "NO", "dk": "DK", "fi": "FI", "at": "AT", "pl": "PL",
+    "pt": "PT", "cz": "CZ", "mx": "MX", "in": "IN", "jp": "JP", "kr": "KR",
+    "sg": "SG", "hk": "HK", "ae": "AE", "za": "ZA",
+}
+
 _ISO_COUNTRY = {
     "US": "United States", "GB": "United Kingdom", "CA": "Canada", "AU": "Australia",
     "NZ": "New Zealand", "IE": "Ireland", "FR": "France", "DE": "Germany",
@@ -406,9 +427,198 @@ _ISO_COUNTRY = {
     "IT": "Italy", "SE": "Sweden", "NO": "Norway", "DK": "Denmark", "FI": "Finland",
     "AT": "Austria", "PL": "Poland", "PT": "Portugal", "CZ": "Czechia",
     "MX": "Mexico", "BR": "Brazil", "IN": "India", "JP": "Japan", "KR": "South Korea",
+    "LT": "Lithuania", "MY": "Malaysia",
     "SG": "Singapore", "HK": "Hong Kong", "AE": "United Arab Emirates",
     "ZA": "South Africa",
 }
+
+
+try:
+    # Only for expanding a market source's national grid spec into the places it
+    # covers. Guarded: curation must still run if the pipeline module is absent.
+    from mapsee_ingest_markets import usda_grid as _usda_grid
+except Exception:  # noqa: BLE001
+    _usda_grid = None
+
+
+def _tz_country(tz):
+    """Country from an IANA timezone — the only location signal some configs carry."""
+    if not tz:
+        return None
+    if tz in _TZ_COUNTRY:
+        return _ISO_COUNTRY[_TZ_COUNTRY[tz]]
+    if tz.startswith("Australia/"):
+        return "Australia"
+    if tz.startswith(("America/", "US/")) or tz == "Pacific/Honolulu":
+        return "United States"
+    return None
+
+
+def _url_country(url):
+    """Country from a ccTLD. Coarse, but a .co.uk venue calendar is not in Ohio."""
+    m = re.match(r"https?://([^/]+)", url or "")
+    if not m:
+        return None
+    code = _TLD_COUNTRY.get(m.group(1).rsplit(".", 1)[-1].lower())
+    return _ISO_COUNTRY.get(code) if code else None
+
+
+def _scan_name_metro(name):
+    """'NYC Parks Events', 'Seattle University' carry the metro in the bare name."""
+    scan = dict(_METRO_ALIASES)
+    scan.update({c: c for c in ("Seattle", "New York", "Chicago", "Boston",
+                                "Austin", "Denver", "Miami", "Atlanta")})
+    for alias, canon in scan.items():
+        if re.search(r"\b" + re.escape(alias) + r"\b", name or ""):
+            return canon
+    return None
+
+
+def _bbox_place(text):
+    """'London, GB' -> (London, United Kingdom); 'Portland OR' -> (Portland, US).
+
+    The bbox and USDA area lists spell a foreign metro with an ISO suffix and a
+    domestic one bare, so a two-letter tail is read as a COUNTRY first — ', CA'
+    in that list is Canada, never California.
+    """
+    parts = [p.strip() for p in (text or "").split(",") if p.strip()]
+    if len(parts) >= 2 and len(parts[-1]) == 2 and parts[-1].upper() in _ISO_COUNTRY:
+        metro = ", ".join(parts[:-1])
+        return _METRO_ALIASES.get(metro, metro), _ISO_COUNTRY[parts[-1].upper()]
+    metro = parts[0] if parts else "?"
+    m = re.fullmatch(r"(.+?)\s+([A-Z]{2})", metro)
+    if m and m.group(2) in _US_STATES:
+        metro = m.group(1)                     # 'Portland OR' -> Portland
+    return _METRO_ALIASES.get(metro, metro), "United States"
+
+
+def _rows_market(data):
+    """One row per PLACE a market source covers — a bounding box, a query area,
+    or the source's own city. Breadth, not depth: ten hand-curated Seattle
+    markets are one covered metro, while OSM's box list is 245 of them."""
+    out = []
+    for e in data:
+        name = e.get("name") or "?"
+        hint = _tz_country(e.get("timezone"))
+        if e.get("grid"):
+            # A national grid covers every metro AND everything between them, so
+            # it is expanded for the country totals but filed under one synthetic
+            # metro — 200-odd "conus 41.2,-95.3" rows would bury the metro table.
+            for area in (_usda_grid(e["grid"]) if _usda_grid else []):
+                region = str(area.get("name", "")).split(" ")[0].split("-")[0]
+                country = "Puerto Rico" if region == "pr" else "United States"
+                out.append((name, f"(national grid: {region})", country, "market"))
+            continue
+        places = e.get("bboxes") or e.get("areas")
+        if places:
+            for p in places:
+                metro, country = _bbox_place(p.get("name") or p.get("city") or "")
+                out.append((name, metro, country, "market"))
+            continue
+        metro, country = _parse_place(e.get("city") or "")
+        if not metro or metro == "?":
+            metro = _scan_name_metro(name) or "?"
+        out.append((name, metro, country or hint or "?", "market"))
+    return out
+
+
+def _rows_jsonld(data):
+    out = []
+    for e in data.get("sites", []):
+        name = e.get("name") or "?"
+        metro = _scan_name_metro(name) or "?"
+        country = _url_country((e.get("listing") or [None])[0])
+        if not country:
+            country = "United States" if metro != "?" else "?"
+        out.append((name, metro, country, e.get("category") or "?"))
+    return out
+
+
+def _rows_program(data):
+    out = []
+    for e in data:
+        name = e.get("name") or "?"
+        # The sites carry full street addresses; the first one locates the program.
+        addr = ((e.get("sites") or [{}])[0].get("address") or "")
+        metro, country = _parse_place(re.sub(r"\s+\d{5}(?:-\d{4})?\s*$", "", addr))
+        if not metro or metro == "?":
+            metro = _scan_name_metro(name) or "?"
+        out.append((name, metro, country or _tz_country(e.get("timezone")) or "?",
+                    e.get("category") or "?"))
+    return out
+
+
+def _rows_venuepilot(data):
+    out = []
+    for e in data.get("sites", []):
+        v = e.get("venue") or {}
+        metro, country = _parse_place(f"{v.get('city', '')}, {v.get('region', '')}".strip(" ,"))
+        out.append((e.get("name") or "?", metro or "?", country or "?",
+                    e.get("category") or "?"))
+    return out
+
+
+def _rows_restaurant(data):
+    out = []
+    for e in data.get("restaurants", []):
+        metro, country = _parse_place(f"{e.get('city', '')}, {e.get('region', '')}".strip(" ,"))
+        out.append((e.get("name") or "?", metro or "?", country or "?",
+                    e.get("category") or "food"))
+    return out
+
+
+def _rows_parkrun(data):
+    """One feed, ~2,900 events, 21 countries — so it is filed per country it
+    declares. Metro is meaningless here: parkrun is denser than a metro list."""
+    if not data.get("url"):
+        return []
+    cat = data.get("category") or "running"
+    return [("parkrun", "(worldwide)", _ISO_COUNTRY.get(c.upper(), c.upper()), cat)
+            for c in (data.get("countries") or ["?"])]
+
+
+def _rows_affiliate(data):
+    out = []
+    for e in data.get("feeds", []):
+        name = e.get("source") or e.get("name") or "?"
+        for code in (e.get("countries") or ["?"]):
+            out.append((name, "?", _ISO_COUNTRY.get(code.upper(), code.upper()),
+                        e.get("category") or "food"))
+    return out
+
+
+# Configs the coverage report READS but curation never probes. Their reach lives
+# in a nested list — bounding boxes, query areas, venues — rather than one URL
+# per source, so they cannot join CONFIG: audit/verify would try to HTTP-probe a
+# bounding box. Leaving them out entirely was worse, though; it meant the report
+# ranked market coverage as thin in exactly the countries a national source had
+# just covered, and every gap it printed was computed from 4 of the 10 configs.
+EXTRA_CONFIG = {
+    "market": ("market_sources.json", _rows_market),
+    "parkrun": ("parkrun_sources.json", _rows_parkrun),
+    "jsonld": ("jsonld_sources.json", _rows_jsonld),
+    "program": ("program_sources.json", _rows_program),
+    "venuepilot": ("venuepilot_sources.json", _rows_venuepilot),
+    "restaurant": ("restaurant_sources.json", _rows_restaurant),
+    "affiliate": ("affiliate_sources.json", _rows_affiliate),
+}
+ALL_TYPES = sorted(CONFIG) + sorted(EXTRA_CONFIG)
+
+
+def _extra_coverage_rows():
+    rows = []
+    for t, (fname, expand) in sorted(EXTRA_CONFIG.items()):
+        p = os.path.join(HERE, fname)
+        if not os.path.exists(p):
+            continue
+        try:
+            data = json.load(open(p, encoding="utf-8"))
+        except Exception as exc:  # noqa: BLE001
+            print(f"  (skipped {fname}: {exc})")
+            continue
+        for name, metro, country, cat in expand(data):
+            rows.append((t, name, metro, country, cat))
+    return rows
 
 
 def _coverage_rows():
@@ -423,16 +633,9 @@ def _coverage_rows():
             suffix = e.get("geocode_suffix") or ""
             metro, country = _locate(name, suffix)
             if metro == "?":
-                # 'NYC Parks Events', 'Seattle University' carry the metro in
-                # the bare name; scan for aliases and big-city names
-                scan = dict(_METRO_ALIASES)
-                scan.update({c: c for c in ("Seattle", "New York", "Chicago",
-                                            "Boston", "Austin", "Denver",
-                                            "Miami", "Atlanta")})
-                for alias, canon in scan.items():
-                    if re.search(r"\b" + re.escape(alias) + r"\b", name):
-                        metro, country = canon, "United States"
-                        break
+                hit = _scan_name_metro(name)
+                if hit:
+                    metro, country = hit, "United States"
             cat = e.get("category") or ("(per-event)" if t == "localist" else "?")
             # ODS entries carry an ISO `countries` array instead of a
             # geocode_suffix, so _locate() cannot see them and they landed under
@@ -446,7 +649,7 @@ def _coverage_rows():
                     rows.append((t, name, metro, _ISO_COUNTRY.get(code.upper(), code.upper()), cat))
                 continue
             rows.append((t, name, metro, country, cat))
-    return rows
+    return rows + _extra_coverage_rows()
 
 
 def _sweep_countries():
@@ -462,9 +665,12 @@ def _sweep_countries():
 
 def cmd_coverage():
     rows = _coverage_rows()
-    types = sorted(CONFIG)
+    counts = {t: sum(1 for r in rows if r[0] == t) for t in ALL_TYPES}
+    # Ten source types will not fit a terminal line beside a metro and a country,
+    # and an all-zero column is noise, so only configured types get one.
+    types = [t for t in ALL_TYPES if counts[t]]
+    W = 8
     print("=== mapsee catalog coverage ===")
-    counts = {t: sum(1 for r in rows if r[0] == t) for t in types}
     print("  " + "  ".join(f"{t}={counts[t]}" for t in types) + f"  total={len(rows)}\n")
 
     # -- per country --
@@ -473,10 +679,10 @@ def cmd_coverage():
         by_country.setdefault(country, {}).setdefault(t, 0)
         by_country[country][t] += 1
     print("-- sources per country --")
-    print(f"{'country':<22}" + "".join(f"{t:>10}" for t in types) + f"{'total':>8}")
+    print(f"{'country':<22}" + "".join(f"{t[:W - 1]:>{W}}" for t in types) + f"{'total':>8}")
     for country, tc in sorted(by_country.items(), key=lambda kv: -sum(kv[1].values())):
         tot = sum(tc.values())
-        print(f"{country:<22}" + "".join(f"{tc.get(t, 0):>10}" for t in types) + f"{tot:>8}")
+        print(f"{country:<22}" + "".join(f"{tc.get(t, 0):>{W}}" for t in types) + f"{tot:>8}")
     thin_countries = [c for c, tc in by_country.items()
                       if sum(tc.values()) <= 2 and c != "?"]
     if thin_countries:
@@ -492,7 +698,8 @@ def cmd_coverage():
         by_metro.setdefault((metro, country), {}).setdefault(t, 0)
         by_metro[(metro, country)][t] += 1
     print("\n-- sources per metro (* = only one source type) --")
-    print(f"{'metro':<28}{'country':<20}" + "".join(f"{t:>10}" for t in types) + f"{'total':>8}")
+    print(f"{'metro':<26}{'country':<16}"
+          + "".join(f"{t[:W - 1]:>{W}}" for t in types) + f"{'total':>8}")
     single_type = []
     for (metro, country), tc in sorted(by_metro.items(),
                                        key=lambda kv: (-sum(kv[1].values()), kv[0])):
@@ -500,15 +707,15 @@ def cmd_coverage():
         star = "*" if len(tc) == 1 else " "
         if len(tc) == 1:
             single_type.append((tot, metro, country, next(iter(tc))))
-        print(f"{star}{metro:<27}{country:<20}"
-              + "".join(f"{tc.get(t, 0):>10}" for t in types) + f"{tot:>8}")
+        print(f"{star}{str(metro)[:24]:<25}{str(country)[:15]:<16}"
+              + "".join(f"{tc.get(t, 0):>{W}}" for t in types) + f"{tot:>8}")
 
     # -- categories per country (localist is per-event, counted separately) --
     cat_by_country = {}
     for t, _n, _m, country, cat in rows:
         cat_by_country.setdefault(country, {}).setdefault(cat, 0)
         cat_by_country[country][cat] += 1
-    print("\n-- curated categories per country (ics + opendata; '.' = none) --")
+    print("\n-- curated categories per country (every config; '.' = none) --")
     print(f"{'country':<22}" + "".join(f"{c[:6]:>8}" for c in _CURATED_CATEGORIES))
     cat_gaps = {}
     for country in sorted(cat_by_country, key=lambda c: -sum(cat_by_country[c].values())):
