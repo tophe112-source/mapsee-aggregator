@@ -49,6 +49,33 @@
     "city": "Seattle",
     "region": "WA"
    }
+  },
+  {
+   "name": "Go Providence",
+   "listing": [
+    "https://www.goprovidence.com/events/"
+   ],
+   "link_pattern": "/event/[a-z0-9%\\-&.]+/\\d+/",
+   "category": "community",
+   "max_events": 80
+  },
+  {
+   "name": "Visit Chattanooga",
+   "listing": [
+    "https://www.visitchattanooga.com/events/"
+   ],
+   "link_pattern": "/event/[a-z0-9%\\-&.]+/\\d+/",
+   "category": "community",
+   "max_events": 80
+  },
+  {
+   "name": "Visit Greenville SC",
+   "listing": [
+    "https://www.visitgreenvillesc.com/events/"
+   ],
+   "link_pattern": "/event/[a-z0-9%\\-&.]+/\\d+/",
+   "category": "community",
+   "max_events": 80
   }
  ]
 }

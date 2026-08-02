@@ -25,7 +25,7 @@ Roughly 200 curated sources across 20+ countries, plus keyed API sweeps:
 | Ticketmaster / SeatGeek / DICE / AXS / Moshtix | `mapsee_ingest*.py` | Keyed APIs, skipped silently when unset |
 | Eventbrite | `mapsee_ingest_eventbrite.py` | Official API, organizer feeds |
 | Parks / recreation | `mapsee_ingest_nps.py`, `_recreation.py` | US National Park Service, Recreation.gov |
-| Farmers markets | `mapsee_ingest_markets.py` | |
+| Farmers markets | `mapsee_ingest_markets.py` | City open data, OpenStreetMap `amenity=marketplace`, and the **USDA Local Food Directories** (`USDA_LOCALFOOD_API_KEY`, free at [usdalocalfoodportal.com](https://www.usdalocalfoodportal.com/fe/datasharing)). All three publish weekly schedules, which this expands into dated occurrences |
 | Seoul Open Data | `mapsee_ingest_seoul.py` | Korea's own government API standard |
 | Restaurants / takeout | `mapsee_ingest_restaurants.py`, `_affiliates.py`, `_ubereats.py` | Pickup windows from published hours |
 

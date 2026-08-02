@@ -68,6 +68,7 @@ env:
   NPS_API_KEY: ${{ secrets.NPS_API_KEY }}                     # nps.gov/subjects/developer
   THESPORTSDB_KEY: ${{ secrets.THESPORTSDB_KEY }}             # optional; "3" test key used if unset
   RECREATION_GOV_KEY: ${{ secrets.RECREATION_GOV_KEY }}       # ridb.recreation.gov/docs (free)
+  USDA_LOCALFOOD_API_KEY: ${{ secrets.USDA_LOCALFOOD_API_KEY }}  # usdalocalfoodportal.com/fe/datasharing
   # Optional: exact Spotify artist "listen" links on music events.
   SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}         # developer.spotify.com/dashboard
   SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}

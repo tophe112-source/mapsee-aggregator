@@ -120,10 +120,20 @@ def _iter_items(doc: Any):
             yield doc
 
 
+# Most schema.org Event subtypes are spelled "...Event" (MusicEvent, TheaterEvent,
+# SportsEvent), so a suffix test caught them — but not all of them are, and the
+# exceptions are exactly the listings worth having. A destination site marks its
+# summer blowout up as `Festival`, and this dropped every one of them on the
+# floor without a word. Same for the others below.
+_EVENT_TYPES = {"festival", "hackathon", "courseinstance", "eventseries"}
+
+
 def _is_event(item: Dict[str, Any]) -> bool:
     t = item.get("@type")
     types = t if isinstance(t, list) else [t]
-    return any(isinstance(x, str) and x.endswith("Event") for x in types)
+    return any(isinstance(x, str)
+               and (x.endswith("Event") or x.strip().lower() in _EVENT_TYPES)
+               for x in types)
 
 
 def _clean(s: Optional[str]) -> Optional[str]:

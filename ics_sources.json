@@ -1783,5 +1783,33 @@
     "category": "food",
     "geocode_suffix": ", Clitheroe, Lancashire, UK",
     "limit": 300
+  },
+  {
+    "name": "Santa Fe Public Library",
+    "url": "https://santafelibrary.org/events/feed/ical/",
+    "category": "learning",
+    "geocode_suffix": ", Santa Fe, NM",
+    "limit": 400
+  },
+  {
+    "name": "Fletcher Free Library (Burlington VT)",
+    "url": "https://fletcherfree.libcal.com/ical_subscribe.php?cid=21587",
+    "category": "learning",
+    "geocode_suffix": ", Burlington, VT",
+    "limit": 400
+  },
+  {
+    "name": "Fresno County Public Library",
+    "url": "https://fresnolibrary.libcal.com/ical_subscribe.php?cid=11003",
+    "category": "learning",
+    "geocode_suffix": ", Fresno, CA",
+    "limit": 300
+  },
+  {
+    "name": "Chattanooga Public Library",
+    "url": "https://chattlibrary.org/events/?ical=1",
+    "category": "learning",
+    "geocode_suffix": ", Chattanooga, TN",
+    "limit": 300
   }
 ]

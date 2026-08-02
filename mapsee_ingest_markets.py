@@ -19,6 +19,27 @@ Config (market_sources.json): a list of sources, each either
       { "name": "Seattle Farmers Markets", "type": "inline", "city": "Seattle, WA",
         "markets": [ {"name":"Ballard Farmers Market","address":"Ballard Ave NW ...",
                       "days":"Sunday","hours":"9 a.m. - 2 p.m."}, ... ] }
+  • OpenStreetMap, via Overpass — amenity=marketplace inside each bbox:
+      { "name": "OpenStreetMap Marketplaces", "type": "overpass",
+        "run_weekdays": [0], "pause_s": 4,
+        "bboxes": [ {"name":"Seattle","city":"Seattle","s":..,"n":..,"w":..,"e":..} ] }
+    OSM carries BOTH halves of the problem — coordinates and an opening_hours
+    schedule — so these cost nothing from the geocode budget, and one config
+    covers every metro at once instead of a curated list per city. Marketplaces
+    open more than _OSM_MAX_DAYS days a week are treated as shops, not market
+    days, and skipped.
+  • USDA Local Food Directories — the national registry, one query per area:
+      { "name": "USDA Local Food Directories", "type": "usda",
+        "run_weekdays": [2], "radius": 30, "directories": ["farmersmarket"],
+        "areas": [ {"name":"Seattle","lat":47.61,"lon":-122.33}, ... ] }
+    Needs USDA_LOCALFOOD_API_KEY (free, usdalocalfoodportal.com/fe/datasharing);
+    silently skipped when unset, like every other keyed adapter here. Rows carry
+    coordinates AND a "Sat: 9:00 AM-2:00 PM;" schedule, so they cost nothing
+    from the geocode budget. Areas may use "zip" instead of lat/lon.
+
+"run_weekdays" (any source): only run on these weekdays (0 = Monday). Markets
+are weekly schedules expanded over a rolling horizon, so a daily re-run emits
+identical rows; --force ignores it.
 
     python mapsee_ingest_markets.py --config market_sources.json --store mapsee_events.json
 """
@@ -85,6 +106,7 @@ def _geocode(session, query: str) -> Tuple[Optional[float], Optional[float]]:
 # ---- schedule parsing -------------------------------------------------------
 _DAYS = {"monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3,
          "friday": 4, "saturday": 5, "sunday": 6}
+_DAY_NAMES = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
 
 
 def _weekdays(s: Optional[str]) -> List[int]:
@@ -103,6 +125,13 @@ def _parse_time(s: Optional[str]) -> Optional[str]:
         return "00:00:00"
     m = re.search(r"(\d{1,2})(?::(\d{2}))?\s*([ap])\s*\.?\s*m", low)
     if not m:
+        # 24-hour clock ("15:00", "09:30") — how OpenStreetMap writes
+        # opening_hours. Without this every OSM time parsed as None and the
+        # market rendered open-ended. fullmatch so it cannot swallow half of a
+        # date or a range that only carried am/pm on its first half.
+        m24 = re.fullmatch(r"\s*(\d{1,2}):(\d{2})\s*", low)
+        if m24 and int(m24.group(1)) <= 23:
+            return f"{int(m24.group(1)):02d}:{m24.group(2)}:00"
         return None
     h, mi, ap = int(m.group(1)), m.group(2) or "00", m.group(3)
     if ap == "p" and h != 12:
@@ -182,7 +211,9 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
         return []
     label = "market:" + src["name"].lower().replace(" ", "-")
     place = mk.get("address") or name
-    tz = _tz(src.get("timezone"))
+    # A nationwide source spans four zones, so the row may carry its own; a
+    # city-scoped source declares one for the whole config.
+    tz = _tz(mk.get("timezone") or src.get("timezone"))
     out: List[NormalizedEvent] = []
     for d in _occurrences(weekdays, src.get("horizon_days", 42),
                           _as_date(mk.get("season_start")), _as_date(mk.get("season_end"))):
@@ -226,8 +257,444 @@ def load_socrata(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
     } for row in rows]
 
 
+# ---- OpenStreetMap marketplaces (Overpass) ---------------------------------
+# WHY THIS SOURCE. `market` was the thinnest lens in the database — ~1.4k events
+# nationally against 20k+ for music — because every market here had to be
+# curated by hand, city by city. OSM already holds `amenity=marketplace`
+# worldwide WITH coordinates and an opening_hours schedule: exactly the two
+# things this adapter needs, and the two most tedious to gather. No API key, and
+# because the coordinates arrive with the row it costs NOTHING from the geocode
+# budget — unlike the inline sources, where every market is a Photon lookup.
+#
+# It feeds oneday.cafe too: market_events tags every occurrence `food` as well.
+_OSM_ABBR = {"mo": 0, "tu": 1, "we": 2, "th": 3, "fr": 4, "sa": 5, "su": 6}
+_OSM_MONTHS = {m: i + 1 for i, m in enumerate(
+    ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])}
+# A marketplace open most of the week is a SHOP — a permanent hall, a corner
+# grocer tagged as a marketplace — not a market DAY. Expanding those would bury
+# the real thing under a daily repeat of somewhere that is merely open.
+_OSM_MAX_DAYS = 3
+
+
+def _osm_season(text: str) -> Tuple[Optional[str], Optional[str]]:
+    """'May-Sep' / 'Jun 1-Oct 7' -> ISO season bounds in the CURRENT year."""
+    yr = datetime.now().year
+    m = re.search(r"\b([a-z]{3})[a-z]*\.?\s*(\d{0,2})\s*-\s*([a-z]{3})[a-z]*\.?\s*(\d{0,2})", text)
+    if not m or m.group(1) not in _OSM_MONTHS or m.group(3) not in _OSM_MONTHS:
+        return None, None
+    m1, d1, m2, d2 = _OSM_MONTHS[m.group(1)], m.group(2), _OSM_MONTHS[m.group(3)], m.group(4)
+    try:
+        start = date(yr, m1, int(d1) if d1 else 1)
+        if d2:
+            end = date(yr, m2, int(d2))
+        else:                                     # bare month -> its last day
+            end = date(yr + (1 if m2 == 12 else 0), (m2 % 12) + 1, 1) - timedelta(days=1)
+        return start.isoformat(), end.isoformat()
+    except ValueError:
+        return None, None
+
+
+def parse_opening_hours(oh: str) -> Optional[Dict[str, Any]]:
+    """OSM opening_hours -> {days, hours, season_start, season_end}, or None when
+    it is not a market day (open too often, or no parseable day + time)."""
+    text = (oh or "").lower().strip()
+    if not text or text == "off" or "closed" in text:
+        return None
+    s_start, s_end = _osm_season(text)
+    days: set = set()
+    times: List[Tuple[str, str]] = []
+    # Rules are ';'-separated, each "<days> <from>-<to>". Both halves can repeat
+    # ("Mo 16:30-20:00;Th-Sa 11:00-18:00") and the day half may be a range.
+    day_range = r"\b(mo|tu|we|th|fr|sa|su)\s*-\s*(mo|tu|we|th|fr|sa|su)\b"
+    for rule in text.split(";"):
+        got: set = set()
+        for a, b in re.findall(day_range, rule):
+            i, j = _OSM_ABBR[a], _OSM_ABBR[b]
+            got.update((i + k) % 7 for k in range((j - i) % 7 + 1))   # wraps Sa-Mo
+        stripped = re.sub(day_range, " ", rule)
+        for d in re.findall(r"\b(mo|tu|we|th|fr|sa|su)\b", stripped):
+            got.add(_OSM_ABBR[d])
+        t = re.search(r"(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})", rule)
+        if got and t:
+            days |= got
+            times.append((t.group(1), t.group(2)))
+    if not days or not times or len(days) > _OSM_MAX_DAYS:
+        return None
+    return {"days": ", ".join(_DAY_NAMES[d] for d in sorted(days)),
+            "hours": f"{times[0][0]}-{times[0][1]}",
+            "season_start": s_start, "season_end": s_end}
+
+
+def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """amenity=marketplace inside each configured bbox, as market dicts."""
+    endpoint = src.get("endpoint", "https://overpass-api.de/api/interpreter")
+    out: List[Dict[str, Any]] = []
+    seen: set = set()
+    for bbox in src.get("bboxes", []):
+        area = "{s},{w},{n},{e}".format(**bbox)
+        q = ("[out:json][timeout:90];("
+             'node["amenity"="marketplace"](' + area + ");"
+             'way["amenity"="marketplace"](' + area + ");"
+             ");out center tags;")
+        # The public endpoint hands out a couple of slots and answers 429 (or 504)
+        # when they are busy — at 80 metros a run that is normal traffic, not an
+        # error, so it is worth waiting out rather than dropping the metro. Honour
+        # Retry-After when offered; otherwise back off 5s / 15s / 45s.
+        els = None
+        for attempt in range(4):
+            try:
+                r = session.post(endpoint, data=q.encode("utf-8"), timeout=180)
+                if r.status_code in (429, 504) and attempt < 3:
+                    wait = int(r.headers.get("Retry-After") or 0) or (5 * 3 ** attempt)
+                    print(f"[markets] overpass {bbox.get('name', '?')}: "
+                          f"{r.status_code}, retrying in {wait}s")
+                    time.sleep(wait)
+                    continue
+                r.raise_for_status()
+                els = r.json().get("elements", [])
+                break
+            except Exception as exc:
+                if attempt == 3:
+                    print(f"[markets] overpass {bbox.get('name', '?')} FAILED: {exc}")
+                else:
+                    time.sleep(5 * 3 ** attempt)
+        if els is None:
+            continue
+        hit = 0
+        for el in els:
+            t = el.get("tags") or {}
+            name = (t.get("name") or "").strip()
+            if not name:
+                continue                          # an unnamed pin is not an event
+            sched = parse_opening_hours(t.get("opening_hours") or "")
+            if not sched:
+                continue                          # no schedule -> nothing to date
+            lat = el.get("lat", (el.get("center") or {}).get("lat"))
+            lon = el.get("lon", (el.get("center") or {}).get("lon"))
+            if lat is None or lon is None:
+                continue
+            key = (name.lower(), round(float(lat), 4), round(float(lon), 4))
+            if key in seen:                       # configured bboxes may overlap
+                continue
+            seen.add(key)
+            street = " ".join(x for x in (t.get("addr:housenumber"), t.get("addr:street")) if x)
+            city = t.get("addr:city") or bbox.get("city") or ""
+            mk = {"name": name, "lat": lat, "lon": lon,
+                  "address": ", ".join(x for x in (street, city) if x) or None,
+                  "url": t.get("website") or t.get("contact:website")}
+            mk.update(sched)
+            out.append(mk)
+            hit += 1
+        print(f"[markets] overpass {bbox.get('name', '?')}: {hit} market(s) "
+              f"from {len(els)} marketplaces")
+        time.sleep(src.get("pause_s", 2))         # a free endpoint; do not hammer it
+    return out
+
+
+# ---- USDA Local Food Directories -------------------------------------------
+# WHY THIS SOURCE. Every US source above is either one city's open-data portal
+# or a list somebody typed by hand, so coverage stops at whichever metros have
+# been curated. USDA runs the national registry — farmers markets, on-farm
+# markets, CSAs, food hubs — and each row carries the two expensive fields
+# (coordinates, and a weekly "Sat: 9:00 AM-2:00 PM;" schedule) already filled
+# in, so nothing here touches the geocode budget.
+#
+# The catch is staleness: listings are self-reported and many still carry the
+# season they were registered with, years ago. See _usda_season for how a season
+# that ended in a past year is rolled forward, and _USDA_STALE_YEARS for the
+# cutoff past which a listing is presumed dead rather than merely un-edited.
+_USDA_BASE = "https://www.usdalocalfoodportal.com/api"
+_USDA_DIRECTORIES = ["farmersmarket", "onfarmmarket"]
+_USDA_MAX_SEASONS = 4          # the API exposes season1..season4 per listing
+_USDA_STALE_YEARS = 4          # listing untouched this long -> presumed closed
+_USDA_ABBR = {"mon": 0, "tue": 1, "wed": 2, "thu": 3, "fri": 4, "sat": 5, "sun": 6}
+_USDA_MONTHS = {m: i + 1 for i, m in enumerate(
+    ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])}
+
+# Times are meaningless without a zone once a source is national. State is the
+# best signal the API gives; the handful of states split across two zones are
+# resolved by longitude (or latitude, for Idaho's panhandle).
+_USDA_STATE_TZ = {
+    **{s: "America/New_York" for s in
+       "CT DC DE FL GA IN KY MA MD ME MI NC NH NJ NY OH PA RI SC TN VA VT WV".split()},
+    **{s: "America/Chicago" for s in
+       "AL AR IA IL KS LA MN MO MS ND NE OK SD TX WI".split()},
+    **{s: "America/Denver" for s in "CO MT NM UT WY".split()},
+    **{s: "America/Los_Angeles" for s in "CA NV OR WA".split()},
+    "AZ": "America/Phoenix", "ID": "America/Boise", "AK": "America/Anchorage",
+    "HI": "Pacific/Honolulu", "PR": "America/Puerto_Rico", "VI": "America/Puerto_Rico",
+    "GU": "Pacific/Guam",
+}
+_USDA_TZ_SPLITS = {
+    "FL": lambda lat, lon: "America/Chicago" if lon < -85.0 else None,   # panhandle
+    "TX": lambda lat, lon: "America/Denver" if lon < -104.9 else None,   # El Paso
+    "TN": lambda lat, lon: "America/Chicago" if lon < -85.4 else None,
+    "KY": lambda lat, lon: "America/Chicago" if lon < -85.9 else None,
+    "IN": lambda lat, lon: "America/Chicago" if lon < -87.2 else None,
+    "MI": lambda lat, lon: "America/Chicago" if lon < -87.0 else None,   # western UP
+    "KS": lambda lat, lon: "America/Denver" if lon < -101.0 else None,
+    "NE": lambda lat, lon: "America/Denver" if lon < -101.0 else None,
+    "ND": lambda lat, lon: "America/Denver" if lon < -101.0 else None,
+    "SD": lambda lat, lon: "America/Denver" if lon < -101.0 else None,
+    "OR": lambda lat, lon: "America/Boise" if lon > -117.5 else None,    # Malheur
+    "ID": lambda lat, lon: "America/Los_Angeles" if lat > 45.5 else None,
+}
+
+
+def _usda_field(row: Dict[str, Any], *names: str) -> str:
+    """First non-empty value among `names`, tolerating the location_/underscore
+    spellings the directories are inconsistent about."""
+    for n in names:
+        for key in (n, f"location_{n}", n.replace("season", "season_")):
+            v = row.get(key)
+            if v not in (None, "", "null"):
+                return str(v).strip()
+    return ""
+
+
+def _usda_state(row: Dict[str, Any]) -> Optional[str]:
+    st = _usda_field(row, "state", "listing_state")
+    if len(st) == 2 and st.isalpha():
+        return st.upper()
+    m = re.search(r"\b([A-Z]{2})\b[ ,]*\d{5}(?:-\d{4})?\s*$",
+                  _usda_field(row, "address", "listing_address"))
+    return m.group(1) if m else None
+
+
+def _usda_timezone(state: Optional[str], lat: Optional[float], lon: Optional[float]) -> Optional[str]:
+    if not state:
+        return None
+    split = _USDA_TZ_SPLITS.get(state)
+    if split and lat is not None and lon is not None:
+        alt = split(lat, lon)
+        if alt:
+            return alt
+    return _USDA_STATE_TZ.get(state)
+
+
+def _usda_hours(text: str) -> Optional[str]:
+    """The time half of a schedule chunk, normalized for _parse_hours."""
+    low = (text or "").lower()
+    clock = r"\d{1,2}(?::\d{2})?\s*[ap]\.?\s*m\.?"
+    m = re.search(rf"({clock})\s*(?:-|–|—|to)\s*({clock})", low)
+    if m:
+        return f"{m.group(1)} - {m.group(2)}"
+    m24 = re.search(r"(\d{1,2}:\d{2})\s*(?:-|–|—|to)\s*(\d{1,2}:\d{2})", low)
+    if m24:
+        return f"{m24.group(1)} - {m24.group(2)}"
+    one = re.search(rf"({clock})", low)         # start-only listing; better than dropping it
+    return one.group(1) if one else None
+
+
+def _usda_weekdays(text: str) -> set:
+    """'Sat' / 'Mon-Fri' / 'Tues, Thurs' -> weekday indices."""
+    low = (text or "").lower()
+    tok = r"(mon|tue|wed|thu|fri|sat|sun)"
+    rng = tok + r"[a-z]*\.?\s*-\s*" + tok
+    out: set = set()
+    for a, b in re.findall(rng, low):
+        i, j = _USDA_ABBR[a], _USDA_ABBR[b]
+        out.update((i + k) % 7 for k in range((j - i) % 7 + 1))
+    for d in re.findall(tok, re.sub(rng, " ", low)):
+        out.add(_USDA_ABBR[d])
+    return out
+
+
+def _usda_blocks(time_text: str) -> List[Tuple[str, str]]:
+    """'Wed: 3:00 PM-7:00 PM;Sat: 9:00 AM-2:00 PM;' -> [(days, hours), ...].
+
+    One block per distinct time window, NOT per day: a market open Saturday and
+    Sunday 9-2 is one weekly schedule, while the same market's Wednesday
+    afternoon session is a different one and must not inherit the morning hours.
+    """
+    by_hours: Dict[str, set] = {}
+    for chunk in re.split(r"[;\n]+", time_text or ""):
+        chunk = chunk.strip()
+        if not chunk:
+            continue
+        # Read days and hours off the WHOLE chunk rather than splitting on the
+        # "Sat:" separator — the separator is not always there ("Saturday 8:00
+        # AM - 12:00 PM"), and splitting on the first colon eats the start hour.
+        # The two patterns cannot collide: one matches day words, the other clocks.
+        days = _usda_weekdays(chunk)
+        hours = _usda_hours(chunk)
+        if days and hours:
+            by_hours.setdefault(hours, set()).update(days)
+    return [(", ".join(_DAY_NAMES[d] for d in sorted(ds)), h) for h, ds in by_hours.items()]
+
+
+def _usda_dates(text: str) -> List[date]:
+    """Every date in a season string, in order. Handles '05/01/2025',
+    '2025-05-01' and 'May 1' (bare month/day defaults to the current year)."""
+    low = (text or "").lower()
+    found: List[Tuple[int, date]] = []
+    for m in re.finditer(r"(\d{4})-(\d{2})-(\d{2})", low):
+        try:
+            found.append((m.start(), date(int(m.group(1)), int(m.group(2)), int(m.group(3)))))
+        except ValueError:
+            pass
+    for m in re.finditer(r"\b(\d{1,2})/(\d{1,2})/(\d{2,4})\b", low):
+        yr = int(m.group(3))
+        try:
+            found.append((m.start(), date(yr + 2000 if yr < 100 else yr,
+                                          int(m.group(1)), int(m.group(2)))))
+        except ValueError:
+            pass
+    for m in re.finditer(r"\b([a-z]{3,9})\.?\s+(\d{1,2})(?:st|nd|rd|th)?(?:,?\s*(\d{4}))?", low):
+        mo = _USDA_MONTHS.get(m.group(1)[:3])
+        if not mo:
+            continue
+        try:
+            found.append((m.start(), date(int(m.group(3)) if m.group(3) else datetime.now().year,
+                                          mo, int(m.group(2)))))
+        except ValueError:
+            pass
+    return [d for _, d in sorted(found)]
+
+
+def _roll_year(d: date, years: int) -> date:
+    try:
+        return d.replace(year=d.year + years)
+    except ValueError:                            # Feb 29 -> Feb 28
+        return d.replace(year=d.year + years, day=28)
+
+
+def _usda_season(text: str) -> Tuple[Optional[str], Optional[str]]:
+    """Season string -> ISO (start, end), rolled into the current year when it
+    ended in a past one.
+
+    Listings are self-reported and rarely re-dated: most still carry the season
+    they were registered with. Taken literally, every one of those expands to
+    zero occurrences and the whole directory yields nothing — so a market whose
+    season ran May-October in 2021 is assumed to still run May-October. The
+    guard against reviving markets that genuinely closed is _USDA_STALE_YEARS,
+    applied to the listing's own update time.
+    """
+    ds = _usda_dates(text)
+    if not ds:
+        return None, None
+    start, end = ds[0], (ds[1] if len(ds) > 1 else ds[0])
+    shift = datetime.now().year - end.year
+    if shift > 0:
+        start, end = _roll_year(start, shift), _roll_year(end, shift)
+    return start.isoformat(), end.isoformat()
+
+
+def _usda_fresh(row: Dict[str, Any], years: int) -> bool:
+    stamp = _usda_field(row, "update_time", "updatetime", "update_date")
+    yr = re.search(r"(19|20)\d{2}", stamp)
+    if not yr:
+        return True                               # no stamp -> give it the benefit
+    return datetime.now().year - int(yr.group(0)) <= years
+
+
+def _usda_query(session, src: Dict[str, Any], key: str, directory: str,
+                area: Dict[str, Any]) -> Optional[List[Dict[str, Any]]]:
+    """One directory × one area. None means "stop the whole source" (bad key)."""
+    params: Dict[str, Any] = {"apikey": key}
+    if area.get("zip"):
+        params["zip"] = str(area["zip"])
+    else:
+        params["x"] = area.get("lon", area.get("x"))
+        params["y"] = area.get("lat", area.get("y"))
+    params["radius"] = area.get("radius", src.get("radius", 30))
+    try:
+        r = session.get(f"{_USDA_BASE}/{directory}/", params=params, timeout=45)
+    except Exception as exc:
+        print(f"[markets] usda {directory} {area.get('name', '?')} FAILED: {exc}")
+        return []
+    if r.status_code in (401, 403):
+        # Every area would fail the same way, so stop rather than spend 150
+        # requests confirming it.
+        print(f"[markets] usda: {r.status_code} from the API — check "
+              f"USDA_LOCALFOOD_API_KEY. Abandoning this source.")
+        return None
+    if r.status_code != 200:
+        print(f"[markets] usda {directory} {area.get('name', '?')}: HTTP {r.status_code}")
+        return []
+    try:
+        payload = r.json()
+    except ValueError:
+        print(f"[markets] usda {directory} {area.get('name', '?')}: non-JSON response")
+        return []
+    if isinstance(payload, dict):
+        payload = payload.get("data") or payload.get("results") or []
+    return payload if isinstance(payload, list) else []
+
+
+def load_usda(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
+    key = os.environ.get(src.get("api_key_env", "USDA_LOCALFOOD_API_KEY"), "").strip()
+    if not key:
+        print("[markets] usda: no USDA_LOCALFOOD_API_KEY set — skipping "
+              "(free key at usdalocalfoodportal.com/fe/datasharing)")
+        return []
+    stale_years = src.get("stale_years", _USDA_STALE_YEARS)
+    out: List[Dict[str, Any]] = []
+    seen: set = set()
+    rows_seen = skipped_stale = skipped_noschedule = 0
+    probed = False
+    for directory in src.get("directories", _USDA_DIRECTORIES):
+        for area in src.get("areas", []):
+            rows = _usda_query(session, src, key, directory, area)
+            if rows is None:
+                return out
+            for row in rows:
+                name = _usda_field(row, "listing_name", "name")
+                if not name:
+                    continue
+                lat, lon = _to_float(row.get("location_y")), _to_float(row.get("location_x"))
+                ident = _usda_field(row, "listing_id", "id") or name.lower()
+                # Configured areas overlap, and radius queries are generous.
+                if (directory, ident) in seen:
+                    continue
+                seen.add((directory, ident))
+                rows_seen += 1
+                if not _usda_fresh(row, stale_years):
+                    skipped_stale += 1
+                    continue
+                address = _usda_field(row, "listing_address", "address") or None
+                tz = _usda_timezone(_usda_state(row), lat, lon)
+                url = _usda_field(row, "media_website", "listing_website", "website") or None
+                got = 0
+                for si in range(1, _USDA_MAX_SEASONS + 1):
+                    hours_text = _usda_field(row, f"season{si}_time")
+                    if not hours_text:
+                        continue
+                    s_start, s_end = _usda_season(_usda_field(row, f"season{si}_date"))
+                    for days, hours in _usda_blocks(hours_text):
+                        out.append({"name": name, "lat": lat, "lon": lon,
+                                    "address": address, "url": url, "timezone": tz,
+                                    "days": days, "hours": hours,
+                                    "season_start": s_start, "season_end": s_end})
+                        got += 1
+                if not got:
+                    skipped_noschedule += 1
+                    if not probed:
+                        # The directories are not versioned and the field names
+                        # are undocumented, so if season1_time is ever spelled
+                        # differently this line says so on the first run instead
+                        # of the source quietly returning nothing.
+                        probed = True
+                        print(f"[markets] usda: first listing with no parseable schedule "
+                              f"({name}) — fields present: {sorted(row)}")
+            time.sleep(src.get("pause_s", 1))
+        print(f"[markets] usda {directory}: {len(out)} schedule(s) so far "
+              f"from {rows_seen} listing(s)")
+    print(f"[markets] usda: {rows_seen} listing(s); skipped {skipped_stale} stale "
+          f"(>{stale_years}y) and {skipped_noschedule} without a parseable schedule")
+    return out
+
+
 def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
-    markets = load_socrata(session, src) if src.get("type") == "socrata" else src.get("markets", [])
+    kind = src.get("type")
+    if kind == "socrata":
+        markets = load_socrata(session, src)
+    elif kind == "overpass":
+        markets = load_overpass(session, src)
+    elif kind == "usda":
+        markets = load_usda(session, src)
+    else:
+        markets = src.get("markets", [])
     kept = 0
     for mk in markets:
         for ev in market_events(mk, src, session):
@@ -241,6 +708,10 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Expand recurring markets into dated Mapsee events.")
     ap.add_argument("--config", required=True)
     ap.add_argument("--store", default="mapsee_events.json")
+    # Sources may declare "run_weekdays"; this ignores that and runs them all,
+    # for a manual backfill or when testing a new source.
+    ap.add_argument("--force", action="store_true",
+                    help="run every source regardless of its run_weekdays")
     a = ap.parse_args(argv)
     sources = json.loads(open(a.config, encoding="utf-8").read())
     session = requests.Session()
@@ -248,6 +719,14 @@ def main(argv=None) -> int:
     store = EventStore(a.store)
     total = 0
     for src in sources:
+        # A source can pin itself to certain weekdays. Markets are WEEKLY
+        # schedules expanded over a 42-day horizon: re-deriving them every day
+        # produces byte-identical rows, and the OSM sweep is 245 network calls,
+        # so daily would spend half an hour to change nothing.
+        wd = src.get("run_weekdays")
+        if wd and not a.force and datetime.now().weekday() not in wd:
+            print(f"[markets] {src.get('name', '?')}: skipped (runs on weekdays {wd})")
+            continue
         try:
             total += ingest(store, session, src)
         except Exception as exc:

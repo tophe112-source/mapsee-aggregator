@@ -584,5 +584,2394 @@
         "hours": "8 a.m. - 2 p.m."
       }
     ]
+  },
+  {
+    "name": "OpenStreetMap Marketplaces",
+    "type": "overpass",
+    "horizon_days": 42,
+    "pause_s": 4,
+    "bboxes": [
+      {
+        "name": "New York",
+        "city": "New York",
+        "s": 40.3928,
+        "n": 41.0328,
+        "w": -74.426,
+        "e": -73.586
+      },
+      {
+        "name": "Los Angeles",
+        "city": "Los Angeles",
+        "s": 33.7322,
+        "n": 34.3722,
+        "w": -118.6637,
+        "e": -117.8237
+      },
+      {
+        "name": "Chicago",
+        "city": "Chicago",
+        "s": 41.5581,
+        "n": 42.1981,
+        "w": -88.0498,
+        "e": -87.2098
+      },
+      {
+        "name": "Dallas",
+        "city": "Dallas",
+        "s": 32.4567,
+        "n": 33.0967,
+        "w": -97.217,
+        "e": -96.377
+      },
+      {
+        "name": "Houston",
+        "city": "Houston",
+        "s": 29.4404,
+        "n": 30.0804,
+        "w": -95.7898,
+        "e": -94.9498
+      },
+      {
+        "name": "Washington DC",
+        "city": "Washington DC",
+        "s": 38.5872,
+        "n": 39.2272,
+        "w": -77.4569,
+        "e": -76.6169
+      },
+      {
+        "name": "Philadelphia",
+        "city": "Philadelphia",
+        "s": 39.6326,
+        "n": 40.2726,
+        "w": -75.5852,
+        "e": -74.7452
+      },
+      {
+        "name": "Atlanta",
+        "city": "Atlanta",
+        "s": 33.429,
+        "n": 34.069,
+        "w": -84.808,
+        "e": -83.968
+      },
+      {
+        "name": "Boston",
+        "city": "Boston",
+        "s": 42.0401,
+        "n": 42.6801,
+        "w": -71.4789,
+        "e": -70.6389
+      },
+      {
+        "name": "San Francisco",
+        "city": "San Francisco",
+        "s": 37.4549,
+        "n": 38.0949,
+        "w": -122.8394,
+        "e": -121.9994
+      },
+      {
+        "name": "Phoenix",
+        "city": "Phoenix",
+        "s": 33.1284,
+        "n": 33.7684,
+        "w": -112.494,
+        "e": -111.654
+      },
+      {
+        "name": "Seattle",
+        "city": "Seattle",
+        "s": 47.2862,
+        "n": 47.9262,
+        "w": -122.7521,
+        "e": -121.9121
+      },
+      {
+        "name": "Detroit",
+        "city": "Detroit",
+        "s": 42.0114,
+        "n": 42.6514,
+        "w": -83.4658,
+        "e": -82.6258
+      },
+      {
+        "name": "Minneapolis",
+        "city": "Minneapolis",
+        "s": 44.6578,
+        "n": 45.2978,
+        "w": -93.685,
+        "e": -92.845
+      },
+      {
+        "name": "San Diego",
+        "city": "San Diego",
+        "s": 32.3957,
+        "n": 33.0357,
+        "w": -117.5811,
+        "e": -116.7411
+      },
+      {
+        "name": "Denver",
+        "city": "Denver",
+        "s": 39.4192,
+        "n": 40.0592,
+        "w": -105.4103,
+        "e": -104.5703
+      },
+      {
+        "name": "Miami",
+        "city": "Miami",
+        "s": 25.4417,
+        "n": 26.0817,
+        "w": -80.6118,
+        "e": -79.7718
+      },
+      {
+        "name": "Tampa",
+        "city": "Tampa",
+        "s": 27.6306,
+        "n": 28.2706,
+        "w": -82.8772,
+        "e": -82.0372
+      },
+      {
+        "name": "Orlando",
+        "city": "Orlando",
+        "s": 28.2183,
+        "n": 28.8583,
+        "w": -81.7992,
+        "e": -80.9592
+      },
+      {
+        "name": "St. Louis",
+        "city": "St. Louis",
+        "s": 38.307,
+        "n": 38.947,
+        "w": -90.6194,
+        "e": -89.7794
+      },
+      {
+        "name": "Pittsburgh",
+        "city": "Pittsburgh",
+        "s": 40.1206,
+        "n": 40.7606,
+        "w": -80.4159,
+        "e": -79.5759
+      },
+      {
+        "name": "Charlotte",
+        "city": "Charlotte",
+        "s": 34.9071,
+        "n": 35.5471,
+        "w": -81.2631,
+        "e": -80.4231
+      },
+      {
+        "name": "Portland OR",
+        "city": "Portland OR",
+        "s": 45.1952,
+        "n": 45.8352,
+        "w": -123.0984,
+        "e": -122.2584
+      },
+      {
+        "name": "Sacramento",
+        "city": "Sacramento",
+        "s": 38.2616,
+        "n": 38.9016,
+        "w": -121.9144,
+        "e": -121.0744
+      },
+      {
+        "name": "Las Vegas",
+        "city": "Las Vegas",
+        "s": 35.8499,
+        "n": 36.4899,
+        "w": -115.5598,
+        "e": -114.7198
+      },
+      {
+        "name": "Cincinnati",
+        "city": "Cincinnati",
+        "s": 38.7831,
+        "n": 39.4231,
+        "w": -84.932,
+        "e": -84.092
+      },
+      {
+        "name": "Kansas City",
+        "city": "Kansas City",
+        "s": 38.7797,
+        "n": 39.4197,
+        "w": -94.9986,
+        "e": -94.1586
+      },
+      {
+        "name": "Columbus",
+        "city": "Columbus",
+        "s": 39.6412,
+        "n": 40.2812,
+        "w": -83.4188,
+        "e": -82.5788
+      },
+      {
+        "name": "Cleveland",
+        "city": "Cleveland",
+        "s": 41.1793,
+        "n": 41.8193,
+        "w": -82.1144,
+        "e": -81.2744
+      },
+      {
+        "name": "Indianapolis",
+        "city": "Indianapolis",
+        "s": 39.4484,
+        "n": 40.0884,
+        "w": -86.5781,
+        "e": -85.7381
+      },
+      {
+        "name": "Nashville",
+        "city": "Nashville",
+        "s": 35.8427,
+        "n": 36.4827,
+        "w": -87.2016,
+        "e": -86.3616
+      },
+      {
+        "name": "Austin",
+        "city": "Austin",
+        "s": 29.9472,
+        "n": 30.5872,
+        "w": -98.1631,
+        "e": -97.3231
+      },
+      {
+        "name": "San Antonio",
+        "city": "San Antonio",
+        "s": 29.1041,
+        "n": 29.7441,
+        "w": -98.9136,
+        "e": -98.0736
+      },
+      {
+        "name": "Baltimore",
+        "city": "Baltimore",
+        "s": 38.9704,
+        "n": 39.6104,
+        "w": -77.0322,
+        "e": -76.1922
+      },
+      {
+        "name": "Milwaukee",
+        "city": "Milwaukee",
+        "s": 42.7189,
+        "n": 43.3589,
+        "w": -88.3265,
+        "e": -87.4865
+      },
+      {
+        "name": "Salt Lake City",
+        "city": "Salt Lake City",
+        "s": 40.4408,
+        "n": 41.0808,
+        "w": -112.311,
+        "e": -111.471
+      },
+      {
+        "name": "New Orleans",
+        "city": "New Orleans",
+        "s": 29.6311,
+        "n": 30.2711,
+        "w": -90.4915,
+        "e": -89.6515
+      },
+      {
+        "name": "Raleigh",
+        "city": "Raleigh",
+        "s": 35.4596,
+        "n": 36.0996,
+        "w": -79.0582,
+        "e": -78.2182
+      },
+      {
+        "name": "Buffalo",
+        "city": "Buffalo",
+        "s": 42.5664,
+        "n": 43.2064,
+        "w": -79.2984,
+        "e": -78.4584
+      },
+      {
+        "name": "Louisville",
+        "city": "Louisville",
+        "s": 37.9327,
+        "n": 38.5727,
+        "w": -86.1785,
+        "e": -85.3385
+      },
+      {
+        "name": "Memphis",
+        "city": "Memphis",
+        "s": 34.8295,
+        "n": 35.4695,
+        "w": -90.469,
+        "e": -89.629
+      },
+      {
+        "name": "Oklahoma City",
+        "city": "Oklahoma City",
+        "s": 35.1476,
+        "n": 35.7876,
+        "w": -97.9364,
+        "e": -97.0964
+      },
+      {
+        "name": "Jacksonville",
+        "city": "Jacksonville",
+        "s": 30.0122,
+        "n": 30.6522,
+        "w": -82.0757,
+        "e": -81.2357
+      },
+      {
+        "name": "Hartford",
+        "city": "Hartford",
+        "s": 41.4458,
+        "n": 42.0858,
+        "w": -73.0934,
+        "e": -72.2534
+      },
+      {
+        "name": "Richmond",
+        "city": "Richmond",
+        "s": 37.2207,
+        "n": 37.8607,
+        "w": -77.856,
+        "e": -77.016
+      },
+      {
+        "name": "Grand Rapids",
+        "city": "Grand Rapids",
+        "s": 42.6434,
+        "n": 43.2834,
+        "w": -86.0881,
+        "e": -85.2481
+      },
+      {
+        "name": "Albuquerque",
+        "city": "Albuquerque",
+        "s": 34.7644,
+        "n": 35.4044,
+        "w": -107.0704,
+        "e": -106.2304
+      },
+      {
+        "name": "Omaha",
+        "city": "Omaha",
+        "s": 40.9365,
+        "n": 41.5765,
+        "w": -96.3545,
+        "e": -95.5145
+      },
+      {
+        "name": "Honolulu",
+        "city": "Honolulu",
+        "s": 20.9869,
+        "n": 21.6269,
+        "w": -158.2783,
+        "e": -157.4383
+      },
+      {
+        "name": "Fairbanks",
+        "city": "Fairbanks",
+        "s": 64.5178,
+        "n": 65.1578,
+        "w": -148.1364,
+        "e": -147.2964
+      },
+      {
+        "name": "Tucson",
+        "city": "Tucson",
+        "s": 31.9026,
+        "n": 32.5426,
+        "w": -111.3947,
+        "e": -110.5547
+      },
+      {
+        "name": "Fresno",
+        "city": "Fresno",
+        "s": 36.4178,
+        "n": 37.0578,
+        "w": -120.2071,
+        "e": -119.3671
+      },
+      {
+        "name": "Boise",
+        "city": "Boise",
+        "s": 43.295,
+        "n": 43.935,
+        "w": -116.6223,
+        "e": -115.7823
+      },
+      {
+        "name": "Spokane",
+        "city": "Spokane",
+        "s": 47.3388,
+        "n": 47.9788,
+        "w": -117.846,
+        "e": -117.006
+      },
+      {
+        "name": "Des Moines",
+        "city": "Des Moines",
+        "s": 41.2668,
+        "n": 41.9068,
+        "w": -94.045,
+        "e": -93.205
+      },
+      {
+        "name": "Little Rock",
+        "city": "Little Rock",
+        "s": 34.4265,
+        "n": 35.0665,
+        "w": -92.7096,
+        "e": -91.8696
+      },
+      {
+        "name": "Birmingham AL",
+        "city": "Birmingham AL",
+        "s": 33.1986,
+        "n": 33.8386,
+        "w": -87.2304,
+        "e": -86.3904
+      },
+      {
+        "name": "Knoxville",
+        "city": "Knoxville",
+        "s": 35.6406,
+        "n": 36.2806,
+        "w": -84.3407,
+        "e": -83.5007
+      },
+      {
+        "name": "Greenville SC",
+        "city": "Greenville SC",
+        "s": 34.5326,
+        "n": 35.1726,
+        "w": -82.814,
+        "e": -81.974
+      },
+      {
+        "name": "Charleston SC",
+        "city": "Charleston SC",
+        "s": 32.4565,
+        "n": 33.0965,
+        "w": -80.3511,
+        "e": -79.5111
+      },
+      {
+        "name": "Savannah",
+        "city": "Savannah",
+        "s": 31.7609,
+        "n": 32.4009,
+        "w": -81.5112,
+        "e": -80.6712
+      },
+      {
+        "name": "Sarasota",
+        "city": "Sarasota",
+        "s": 27.0164,
+        "n": 27.6564,
+        "w": -82.9507,
+        "e": -82.1107
+      },
+      {
+        "name": "Reno",
+        "city": "Reno",
+        "s": 39.2096,
+        "n": 39.8496,
+        "w": -120.2338,
+        "e": -119.3938
+      },
+      {
+        "name": "Colorado Springs",
+        "city": "Colorado Springs",
+        "s": 38.5139,
+        "n": 39.1539,
+        "w": -105.2414,
+        "e": -104.4014
+      },
+      {
+        "name": "El Paso",
+        "city": "El Paso",
+        "s": 31.4419,
+        "n": 32.0819,
+        "w": -106.905,
+        "e": -106.065
+      },
+      {
+        "name": "Tulsa",
+        "city": "Tulsa",
+        "s": 35.834,
+        "n": 36.474,
+        "w": -96.4128,
+        "e": -95.5728
+      },
+      {
+        "name": "Wichita",
+        "city": "Wichita",
+        "s": 37.3672,
+        "n": 38.0072,
+        "w": -97.7501,
+        "e": -96.9101
+      },
+      {
+        "name": "Madison",
+        "city": "Madison",
+        "s": 42.7531,
+        "n": 43.3931,
+        "w": -89.8212,
+        "e": -88.9812
+      },
+      {
+        "name": "Ann Arbor",
+        "city": "Ann Arbor",
+        "s": 41.9608,
+        "n": 42.6008,
+        "w": -84.163,
+        "e": -83.323
+      },
+      {
+        "name": "Rochester NY",
+        "city": "Rochester NY",
+        "s": 42.8366,
+        "n": 43.4766,
+        "w": -78.0288,
+        "e": -77.1888
+      },
+      {
+        "name": "Syracuse",
+        "city": "Syracuse",
+        "s": 42.7281,
+        "n": 43.3681,
+        "w": -76.5674,
+        "e": -75.7274
+      },
+      {
+        "name": "Albany NY",
+        "city": "Albany NY",
+        "s": 42.3326,
+        "n": 42.9726,
+        "w": -74.1762,
+        "e": -73.3362
+      },
+      {
+        "name": "Providence",
+        "city": "Providence",
+        "s": 41.504,
+        "n": 42.144,
+        "w": -71.8328,
+        "e": -70.9928
+      },
+      {
+        "name": "Portland ME",
+        "city": "Portland ME",
+        "s": 43.3391,
+        "n": 43.9791,
+        "w": -70.6768,
+        "e": -69.8368
+      },
+      {
+        "name": "Burlington VT",
+        "city": "Burlington VT",
+        "s": 44.1559,
+        "n": 44.7959,
+        "w": -73.6321,
+        "e": -72.7921
+      },
+      {
+        "name": "Anchorage",
+        "city": "Anchorage",
+        "s": 60.8981,
+        "n": 61.5381,
+        "w": -150.3203,
+        "e": -149.4803
+      },
+      {
+        "name": "Boulder",
+        "city": "Boulder",
+        "s": 39.695,
+        "n": 40.335,
+        "w": -105.6905,
+        "e": -104.8505
+      },
+      {
+        "name": "Asheville",
+        "city": "Asheville",
+        "s": 35.2751,
+        "n": 35.9151,
+        "w": -82.9715,
+        "e": -82.1315
+      },
+      {
+        "name": "Santa Fe",
+        "city": "Santa Fe",
+        "s": 35.367,
+        "n": 36.007,
+        "w": -106.3578,
+        "e": -105.5178
+      },
+      {
+        "name": "Chattanooga",
+        "city": "Chattanooga",
+        "s": 34.7256,
+        "n": 35.3656,
+        "w": -85.7297,
+        "e": -84.8897
+      },
+      {
+        "name": "London, GB",
+        "city": "London",
+        "s": 51.1874,
+        "n": 51.8274,
+        "w": -0.5478,
+        "e": 0.2922
+      },
+      {
+        "name": "Manchester, GB",
+        "city": "Manchester",
+        "s": 53.1608,
+        "n": 53.8008,
+        "w": -2.6626,
+        "e": -1.8226
+      },
+      {
+        "name": "Birmingham, GB",
+        "city": "Birmingham",
+        "s": 52.1662,
+        "n": 52.8062,
+        "w": -2.3104,
+        "e": -1.4704
+      },
+      {
+        "name": "Glasgow, GB",
+        "city": "Glasgow",
+        "s": 55.5442,
+        "n": 56.1842,
+        "w": -4.6718,
+        "e": -3.8318
+      },
+      {
+        "name": "Bristol, GB",
+        "city": "Bristol",
+        "s": 51.1345,
+        "n": 51.7745,
+        "w": -3.0079,
+        "e": -2.1679
+      },
+      {
+        "name": "Leeds, GB",
+        "city": "Leeds",
+        "s": 53.4808,
+        "n": 54.1208,
+        "w": -1.9691,
+        "e": -1.1291
+      },
+      {
+        "name": "Liverpool, GB",
+        "city": "Liverpool",
+        "s": 53.0884,
+        "n": 53.7284,
+        "w": -3.4116,
+        "e": -2.5716
+      },
+      {
+        "name": "Edinburgh, GB",
+        "city": "Edinburgh",
+        "s": 55.6333,
+        "n": 56.2733,
+        "w": -3.6083,
+        "e": -2.7683
+      },
+      {
+        "name": "Sheffield, GB",
+        "city": "Sheffield",
+        "s": 53.0611,
+        "n": 53.7011,
+        "w": -1.8901,
+        "e": -1.0501
+      },
+      {
+        "name": "Newcastle upon Tyne, GB",
+        "city": "Newcastle upon Tyne",
+        "s": 54.6583,
+        "n": 55.2983,
+        "w": -2.0378,
+        "e": -1.1978
+      },
+      {
+        "name": "Cardiff, GB",
+        "city": "Cardiff",
+        "s": 51.1616,
+        "n": 51.8016,
+        "w": -3.5991,
+        "e": -2.7591
+      },
+      {
+        "name": "Belfast, GB",
+        "city": "Belfast",
+        "s": 54.2773,
+        "n": 54.9173,
+        "w": -6.3501,
+        "e": -5.5101
+      },
+      {
+        "name": "Nottingham, GB",
+        "city": "Nottingham",
+        "s": 52.6348,
+        "n": 53.2748,
+        "w": -1.5781,
+        "e": -0.7381
+      },
+      {
+        "name": "Brighton, GB",
+        "city": "Brighton",
+        "s": 50.5025,
+        "n": 51.1425,
+        "w": -0.5572,
+        "e": 0.2828
+      },
+      {
+        "name": "Toronto, CA",
+        "city": "Toronto",
+        "s": 43.3332,
+        "n": 43.9732,
+        "w": -79.8032,
+        "e": -78.9632
+      },
+      {
+        "name": "Montreal, CA",
+        "city": "Montreal",
+        "s": 45.1819,
+        "n": 45.8219,
+        "w": -73.9874,
+        "e": -73.1474
+      },
+      {
+        "name": "Vancouver, CA",
+        "city": "Vancouver",
+        "s": 48.9627,
+        "n": 49.6027,
+        "w": -123.5407,
+        "e": -122.7007
+      },
+      {
+        "name": "Calgary, CA",
+        "city": "Calgary",
+        "s": 50.7247,
+        "n": 51.3647,
+        "w": -114.4919,
+        "e": -113.6519
+      },
+      {
+        "name": "Ottawa, CA",
+        "city": "Ottawa",
+        "s": 45.1015,
+        "n": 45.7415,
+        "w": -76.1172,
+        "e": -75.2772
+      },
+      {
+        "name": "Edmonton, CA",
+        "city": "Edmonton",
+        "s": 53.2261,
+        "n": 53.8661,
+        "w": -113.9138,
+        "e": -113.0738
+      },
+      {
+        "name": "Winnipeg, CA",
+        "city": "Winnipeg",
+        "s": 49.5751,
+        "n": 50.2151,
+        "w": -97.5584,
+        "e": -96.7184
+      },
+      {
+        "name": "Quebec City, CA",
+        "city": "Quebec City",
+        "s": 46.4939,
+        "n": 47.1339,
+        "w": -71.628,
+        "e": -70.788
+      },
+      {
+        "name": "Hamilton, CA",
+        "city": "Hamilton",
+        "s": 42.9357,
+        "n": 43.5757,
+        "w": -80.2911,
+        "e": -79.4511
+      },
+      {
+        "name": "Halifax, CA",
+        "city": "Halifax",
+        "s": 44.3288,
+        "n": 44.9688,
+        "w": -63.9952,
+        "e": -63.1552
+      },
+      {
+        "name": "Victoria, CA",
+        "city": "Victoria",
+        "s": 48.1084,
+        "n": 48.7484,
+        "w": -123.7856,
+        "e": -122.9456
+      },
+      {
+        "name": "Kitchener, CA",
+        "city": "Kitchener",
+        "s": 43.1316,
+        "n": 43.7716,
+        "w": -80.9125,
+        "e": -80.0725
+      },
+      {
+        "name": "Sydney, AU",
+        "city": "Sydney",
+        "s": -34.1888,
+        "n": -33.5488,
+        "w": 150.7893,
+        "e": 151.6293
+      },
+      {
+        "name": "Melbourne, AU",
+        "city": "Melbourne",
+        "s": -38.1336,
+        "n": -37.4936,
+        "w": 144.5431,
+        "e": 145.3831
+      },
+      {
+        "name": "Brisbane, AU",
+        "city": "Brisbane",
+        "s": -27.7898,
+        "n": -27.1498,
+        "w": 152.6051,
+        "e": 153.4451
+      },
+      {
+        "name": "Perth, AU",
+        "city": "Perth",
+        "s": -32.2723,
+        "n": -31.6323,
+        "w": 115.4413,
+        "e": 116.2813
+      },
+      {
+        "name": "Adelaide, AU",
+        "city": "Adelaide",
+        "s": -35.2485,
+        "n": -34.6085,
+        "w": 138.1807,
+        "e": 139.0207
+      },
+      {
+        "name": "Canberra, AU",
+        "city": "Canberra",
+        "s": -35.6009,
+        "n": -34.9609,
+        "w": 148.71,
+        "e": 149.55
+      },
+      {
+        "name": "Gold Coast, AU",
+        "city": "Gold Coast",
+        "s": -28.3367,
+        "n": -27.6967,
+        "w": 152.98,
+        "e": 153.82
+      },
+      {
+        "name": "Newcastle, AU",
+        "city": "Newcastle",
+        "s": -33.2483,
+        "n": -32.6083,
+        "w": 151.3617,
+        "e": 152.2017
+      },
+      {
+        "name": "Hobart, AU",
+        "city": "Hobart",
+        "s": -43.2021,
+        "n": -42.5621,
+        "w": 146.9072,
+        "e": 147.7472
+      },
+      {
+        "name": "Darwin, AU",
+        "city": "Darwin",
+        "s": -12.7834,
+        "n": -12.1434,
+        "w": 130.4256,
+        "e": 131.2656
+      },
+      {
+        "name": "Wollongong, AU",
+        "city": "Wollongong",
+        "s": -34.7478,
+        "n": -34.1078,
+        "w": 150.4731,
+        "e": 151.3131
+      },
+      {
+        "name": "Dublin, IE",
+        "city": "Dublin",
+        "s": 53.0298,
+        "n": 53.6698,
+        "w": -6.6803,
+        "e": -5.8403
+      },
+      {
+        "name": "Cork, IE",
+        "city": "Cork",
+        "s": 51.5785,
+        "n": 52.2185,
+        "w": -8.8956,
+        "e": -8.0556
+      },
+      {
+        "name": "Galway, IE",
+        "city": "Galway",
+        "s": 52.9507,
+        "n": 53.5907,
+        "w": -9.4768,
+        "e": -8.6368
+      },
+      {
+        "name": "Limerick, IE",
+        "city": "Limerick",
+        "s": 52.3438,
+        "n": 52.9838,
+        "w": -9.0467,
+        "e": -8.2067
+      },
+      {
+        "name": "Waterford, IE",
+        "city": "Waterford",
+        "s": 51.9393,
+        "n": 52.5793,
+        "w": -7.5301,
+        "e": -6.6901
+      },
+      {
+        "name": "Auckland, NZ",
+        "city": "Auckland",
+        "s": -37.1685,
+        "n": -36.5285,
+        "w": 174.3433,
+        "e": 175.1833
+      },
+      {
+        "name": "Wellington, NZ",
+        "city": "Wellington",
+        "s": -41.6065,
+        "n": -40.9665,
+        "w": 174.3562,
+        "e": 175.1962
+      },
+      {
+        "name": "Christchurch, NZ",
+        "city": "Christchurch",
+        "s": -43.8521,
+        "n": -43.2121,
+        "w": 172.2162,
+        "e": 173.0562
+      },
+      {
+        "name": "Hamilton, NZ",
+        "city": "Hamilton",
+        "s": -38.107,
+        "n": -37.467,
+        "w": 174.8593,
+        "e": 175.6993
+      },
+      {
+        "name": "Tauranga, NZ",
+        "city": "Tauranga",
+        "s": -38.0078,
+        "n": -37.3678,
+        "w": 175.7451,
+        "e": 176.5851
+      },
+      {
+        "name": "Dunedin, NZ",
+        "city": "Dunedin",
+        "s": -46.1988,
+        "n": -45.5588,
+        "w": 170.0828,
+        "e": 170.9228
+      },
+      {
+        "name": "Napier, NZ",
+        "city": "Napier",
+        "s": -39.8128,
+        "n": -39.1728,
+        "w": 176.492,
+        "e": 177.332
+      },
+      {
+        "name": "Paris, FR",
+        "city": "Paris",
+        "s": 48.5366,
+        "n": 49.1766,
+        "w": 1.9322,
+        "e": 2.7722
+      },
+      {
+        "name": "Lyon, FR",
+        "city": "Lyon",
+        "s": 45.444,
+        "n": 46.084,
+        "w": 4.4157,
+        "e": 5.2557
+      },
+      {
+        "name": "Marseille, FR",
+        "city": "Marseille",
+        "s": 42.9765,
+        "n": 43.6165,
+        "w": 4.9498,
+        "e": 5.7898
+      },
+      {
+        "name": "Toulouse, FR",
+        "city": "Toulouse",
+        "s": 43.2847,
+        "n": 43.9247,
+        "w": 1.0242,
+        "e": 1.8642
+      },
+      {
+        "name": "Bordeaux, FR",
+        "city": "Bordeaux",
+        "s": 44.5178,
+        "n": 45.1578,
+        "w": -0.9992,
+        "e": -0.1592
+      },
+      {
+        "name": "Nantes, FR",
+        "city": "Nantes",
+        "s": 46.8984,
+        "n": 47.5384,
+        "w": -1.9736,
+        "e": -1.1336
+      },
+      {
+        "name": "Nice, FR",
+        "city": "Nice",
+        "s": 43.3902,
+        "n": 44.0302,
+        "w": 6.842,
+        "e": 7.682
+      },
+      {
+        "name": "Strasbourg, FR",
+        "city": "Strasbourg",
+        "s": 48.2534,
+        "n": 48.8934,
+        "w": 7.3321,
+        "e": 8.1721
+      },
+      {
+        "name": "Lille, FR",
+        "city": "Lille",
+        "s": 50.3092,
+        "n": 50.9492,
+        "w": 2.6373,
+        "e": 3.4773
+      },
+      {
+        "name": "Rennes, FR",
+        "city": "Rennes",
+        "s": 47.7973,
+        "n": 48.4373,
+        "w": -2.0978,
+        "e": -1.2578
+      },
+      {
+        "name": "Montpellier, FR",
+        "city": "Montpellier",
+        "s": 43.2908,
+        "n": 43.9308,
+        "w": 3.4567,
+        "e": 4.2967
+      },
+      {
+        "name": "Grenoble, FR",
+        "city": "Grenoble",
+        "s": 44.8685,
+        "n": 45.5085,
+        "w": 5.3045,
+        "e": 6.1445
+      },
+      {
+        "name": "Nancy, FR",
+        "city": "Nancy",
+        "s": 48.3721,
+        "n": 49.0121,
+        "w": 5.7644,
+        "e": 6.6044
+      },
+      {
+        "name": "Berlin, DE",
+        "city": "Berlin",
+        "s": 52.2,
+        "n": 52.84,
+        "w": 12.985,
+        "e": 13.825
+      },
+      {
+        "name": "Munich, DE",
+        "city": "Munich",
+        "s": 47.8151,
+        "n": 48.4551,
+        "w": 11.162,
+        "e": 12.002
+      },
+      {
+        "name": "Hamburg, DE",
+        "city": "Hamburg",
+        "s": 53.2311,
+        "n": 53.8711,
+        "w": 9.5737,
+        "e": 10.4137
+      },
+      {
+        "name": "Cologne, DE",
+        "city": "Cologne",
+        "s": 50.6175,
+        "n": 51.2575,
+        "w": 6.5403,
+        "e": 7.3803
+      },
+      {
+        "name": "Frankfurt, DE",
+        "city": "Frankfurt",
+        "s": 49.7909,
+        "n": 50.4309,
+        "w": 8.2621,
+        "e": 9.1021
+      },
+      {
+        "name": "Leipzig, DE",
+        "city": "Leipzig",
+        "s": 51.0197,
+        "n": 51.6597,
+        "w": 11.9531,
+        "e": 12.7931
+      },
+      {
+        "name": "Stuttgart, DE",
+        "city": "Stuttgart",
+        "s": 48.4558,
+        "n": 49.0958,
+        "w": 8.7629,
+        "e": 9.6029
+      },
+      {
+        "name": "Dusseldorf, DE",
+        "city": "Dusseldorf",
+        "s": 50.9077,
+        "n": 51.5477,
+        "w": 6.3535,
+        "e": 7.1935
+      },
+      {
+        "name": "Dortmund, DE",
+        "city": "Dortmund",
+        "s": 51.1936,
+        "n": 51.8336,
+        "w": 7.0453,
+        "e": 7.8853
+      },
+      {
+        "name": "Essen, DE",
+        "city": "Essen",
+        "s": 51.1356,
+        "n": 51.7756,
+        "w": 6.5916,
+        "e": 7.4316
+      },
+      {
+        "name": "Bremen, DE",
+        "city": "Bremen",
+        "s": 52.7593,
+        "n": 53.3993,
+        "w": 8.3817,
+        "e": 9.2217
+      },
+      {
+        "name": "Dresden, DE",
+        "city": "Dresden",
+        "s": 50.7304,
+        "n": 51.3704,
+        "w": 13.3173,
+        "e": 14.1573
+      },
+      {
+        "name": "Hannover, DE",
+        "city": "Hannover",
+        "s": 52.0559,
+        "n": 52.6959,
+        "w": 9.312,
+        "e": 10.152
+      },
+      {
+        "name": "Nuremberg, DE",
+        "city": "Nuremberg",
+        "s": 49.1321,
+        "n": 49.7721,
+        "w": 10.6567,
+        "e": 11.4967
+      },
+      {
+        "name": "Amsterdam, NL",
+        "city": "Amsterdam",
+        "s": 52.0476,
+        "n": 52.6876,
+        "w": 4.4841,
+        "e": 5.3241
+      },
+      {
+        "name": "Rotterdam, NL",
+        "city": "Rotterdam",
+        "s": 51.6044,
+        "n": 52.2444,
+        "w": 4.0577,
+        "e": 4.8977
+      },
+      {
+        "name": "Utrecht, NL",
+        "city": "Utrecht",
+        "s": 51.7707,
+        "n": 52.4107,
+        "w": 4.7014,
+        "e": 5.5414
+      },
+      {
+        "name": "The Hague, NL",
+        "city": "The Hague",
+        "s": 51.7505,
+        "n": 52.3905,
+        "w": 3.8807,
+        "e": 4.7207
+      },
+      {
+        "name": "Eindhoven, NL",
+        "city": "Eindhoven",
+        "s": 51.1216,
+        "n": 51.7616,
+        "w": 5.0497,
+        "e": 5.8897
+      },
+      {
+        "name": "Groningen, NL",
+        "city": "Groningen",
+        "s": 52.8994,
+        "n": 53.5394,
+        "w": 6.1465,
+        "e": 6.9865
+      },
+      {
+        "name": "Tilburg, NL",
+        "city": "Tilburg",
+        "s": 51.2355,
+        "n": 51.8755,
+        "w": 4.6713,
+        "e": 5.5113
+      },
+      {
+        "name": "Mexico City, MX",
+        "city": "Mexico City",
+        "s": 19.1126,
+        "n": 19.7526,
+        "w": -99.5532,
+        "e": -98.7132
+      },
+      {
+        "name": "Guadalajara, MX",
+        "city": "Guadalajara",
+        "s": 20.3397,
+        "n": 20.9797,
+        "w": -103.7696,
+        "e": -102.9296
+      },
+      {
+        "name": "Monterrey, MX",
+        "city": "Monterrey",
+        "s": 25.3666,
+        "n": 26.0066,
+        "w": -100.7361,
+        "e": -99.8961
+      },
+      {
+        "name": "Puebla, MX",
+        "city": "Puebla",
+        "s": 18.7214,
+        "n": 19.3614,
+        "w": -98.6263,
+        "e": -97.7863
+      },
+      {
+        "name": "Tijuana, MX",
+        "city": "Tijuana",
+        "s": 32.1949,
+        "n": 32.8349,
+        "w": -117.4582,
+        "e": -116.6182
+      },
+      {
+        "name": "Cancun, MX",
+        "city": "Cancun",
+        "s": 20.8419,
+        "n": 21.4819,
+        "w": -87.2715,
+        "e": -86.4315
+      },
+      {
+        "name": "Merida, MX",
+        "city": "Merida",
+        "s": 20.6474,
+        "n": 21.2874,
+        "w": -90.0126,
+        "e": -89.1726
+      },
+      {
+        "name": "Queretaro, MX",
+        "city": "Queretaro",
+        "s": 20.2688,
+        "n": 20.9088,
+        "w": -100.8099,
+        "e": -99.9699
+      },
+      {
+        "name": "Leon, MX",
+        "city": "Leon",
+        "s": 20.8019,
+        "n": 21.4419,
+        "w": -102.1033,
+        "e": -101.2633
+      },
+      {
+        "name": "Bengaluru, IN",
+        "city": "Bengaluru",
+        "s": 12.6516,
+        "n": 13.2916,
+        "w": 77.1746,
+        "e": 78.0146
+      },
+      {
+        "name": "Mumbai, IN",
+        "city": "Mumbai",
+        "s": 18.756,
+        "n": 19.396,
+        "w": 72.4577,
+        "e": 73.2977
+      },
+      {
+        "name": "Delhi, IN",
+        "city": "Delhi",
+        "s": 28.2939,
+        "n": 28.9339,
+        "w": 76.789,
+        "e": 77.629
+      },
+      {
+        "name": "Hyderabad, IN",
+        "city": "Hyderabad",
+        "s": 17.065,
+        "n": 17.705,
+        "w": 78.0667,
+        "e": 78.9067
+      },
+      {
+        "name": "Pune, IN",
+        "city": "Pune",
+        "s": 18.2004,
+        "n": 18.8404,
+        "w": 73.4367,
+        "e": 74.2767
+      },
+      {
+        "name": "Chennai, IN",
+        "city": "Chennai",
+        "s": 12.7627,
+        "n": 13.4027,
+        "w": 79.8507,
+        "e": 80.6907
+      },
+      {
+        "name": "Kolkata, IN",
+        "city": "Kolkata",
+        "s": 22.2526,
+        "n": 22.8926,
+        "w": 87.9439,
+        "e": 88.7839
+      },
+      {
+        "name": "Ahmedabad, IN",
+        "city": "Ahmedabad",
+        "s": 22.7025,
+        "n": 23.3425,
+        "w": 72.1514,
+        "e": 72.9914
+      },
+      {
+        "name": "Jaipur, IN",
+        "city": "Jaipur",
+        "s": 26.5924,
+        "n": 27.2324,
+        "w": 75.3673,
+        "e": 76.2073
+      },
+      {
+        "name": "Chandigarh, IN",
+        "city": "Chandigarh",
+        "s": 30.4133,
+        "n": 31.0533,
+        "w": 76.3594,
+        "e": 77.1994
+      },
+      {
+        "name": "Kochi, IN",
+        "city": "Kochi",
+        "s": 9.6112,
+        "n": 10.2512,
+        "w": 75.8473,
+        "e": 76.6873
+      },
+      {
+        "name": "Tokyo, JP",
+        "city": "Tokyo",
+        "s": 35.3562,
+        "n": 35.9962,
+        "w": 139.2303,
+        "e": 140.0703
+      },
+      {
+        "name": "Osaka, JP",
+        "city": "Osaka",
+        "s": 34.3737,
+        "n": 35.0137,
+        "w": 135.0823,
+        "e": 135.9223
+      },
+      {
+        "name": "Kyoto, JP",
+        "city": "Kyoto",
+        "s": 34.6916,
+        "n": 35.3316,
+        "w": 135.3481,
+        "e": 136.1881
+      },
+      {
+        "name": "Yokohama, JP",
+        "city": "Yokohama",
+        "s": 35.1237,
+        "n": 35.7637,
+        "w": 139.218,
+        "e": 140.058
+      },
+      {
+        "name": "Nagoya, JP",
+        "city": "Nagoya",
+        "s": 34.8615,
+        "n": 35.5015,
+        "w": 136.4866,
+        "e": 137.3266
+      },
+      {
+        "name": "Fukuoka, JP",
+        "city": "Fukuoka",
+        "s": 33.2704,
+        "n": 33.9104,
+        "w": 129.9817,
+        "e": 130.8217
+      },
+      {
+        "name": "Sapporo, JP",
+        "city": "Sapporo",
+        "s": 42.7418,
+        "n": 43.3818,
+        "w": 140.9345,
+        "e": 141.7745
+      },
+      {
+        "name": "Kobe, JP",
+        "city": "Kobe",
+        "s": 34.3701,
+        "n": 35.0101,
+        "w": 134.7755,
+        "e": 135.6155
+      },
+      {
+        "name": "Sendai, JP",
+        "city": "Sendai",
+        "s": 37.9482,
+        "n": 38.5882,
+        "w": 140.4494,
+        "e": 141.2894
+      },
+      {
+        "name": "Hiroshima, JP",
+        "city": "Hiroshima",
+        "s": 34.0653,
+        "n": 34.7053,
+        "w": 132.0353,
+        "e": 132.8753
+      },
+      {
+        "name": "Naha, JP",
+        "city": "Naha",
+        "s": 25.8924,
+        "n": 26.5324,
+        "w": 127.2609,
+        "e": 128.1009
+      },
+      {
+        "name": "Madrid, ES",
+        "city": "Madrid",
+        "s": 40.0968,
+        "n": 40.7368,
+        "w": -4.1238,
+        "e": -3.2838
+      },
+      {
+        "name": "Barcelona, ES",
+        "city": "Barcelona",
+        "s": 41.0651,
+        "n": 41.7051,
+        "w": 1.7534,
+        "e": 2.5934
+      },
+      {
+        "name": "Valencia, ES",
+        "city": "Valencia",
+        "s": 39.1499,
+        "n": 39.7899,
+        "w": -0.7963,
+        "e": 0.0437
+      },
+      {
+        "name": "Seville, ES",
+        "city": "Seville",
+        "s": 37.0691,
+        "n": 37.7091,
+        "w": -6.4045,
+        "e": -5.5645
+      },
+      {
+        "name": "Bilbao, ES",
+        "city": "Bilbao",
+        "s": 42.943,
+        "n": 43.583,
+        "w": -3.355,
+        "e": -2.515
+      },
+      {
+        "name": "Malaga, ES",
+        "city": "Malaga",
+        "s": 36.4013,
+        "n": 37.0413,
+        "w": -4.8414,
+        "e": -4.0014
+      },
+      {
+        "name": "Rome, IT",
+        "city": "Rome",
+        "s": 41.5828,
+        "n": 42.2228,
+        "w": 12.0764,
+        "e": 12.9164
+      },
+      {
+        "name": "Milan, IT",
+        "city": "Milan",
+        "s": 45.1442,
+        "n": 45.7842,
+        "w": 8.77,
+        "e": 9.61
+      },
+      {
+        "name": "Naples, IT",
+        "city": "Naples",
+        "s": 40.5318,
+        "n": 41.1718,
+        "w": 13.8481,
+        "e": 14.6881
+      },
+      {
+        "name": "Turin, IT",
+        "city": "Turin",
+        "s": 44.7503,
+        "n": 45.3903,
+        "w": 7.2669,
+        "e": 8.1069
+      },
+      {
+        "name": "Bologna, IT",
+        "city": "Bologna",
+        "s": 44.1749,
+        "n": 44.8149,
+        "w": 10.9226,
+        "e": 11.7626
+      },
+      {
+        "name": "Florence, IT",
+        "city": "Florence",
+        "s": 43.4496,
+        "n": 44.0896,
+        "w": 10.8358,
+        "e": 11.6758
+      },
+      {
+        "name": "Zurich, CH",
+        "city": "Zurich",
+        "s": 47.0569,
+        "n": 47.6969,
+        "w": 8.1217,
+        "e": 8.9617
+      },
+      {
+        "name": "Geneva, CH",
+        "city": "Geneva",
+        "s": 45.8844,
+        "n": 46.5244,
+        "w": 5.7232,
+        "e": 6.5632
+      },
+      {
+        "name": "Basel, CH",
+        "city": "Basel",
+        "s": 47.2396,
+        "n": 47.8796,
+        "w": 7.1686,
+        "e": 8.0086
+      },
+      {
+        "name": "Bern, CH",
+        "city": "Bern",
+        "s": 46.628,
+        "n": 47.268,
+        "w": 7.0274,
+        "e": 7.8674
+      },
+      {
+        "name": "Lausanne, CH",
+        "city": "Lausanne",
+        "s": 46.1997,
+        "n": 46.8397,
+        "w": 6.2123,
+        "e": 7.0523
+      },
+      {
+        "name": "Brussels, BE",
+        "city": "Brussels",
+        "s": 50.5303,
+        "n": 51.1703,
+        "w": 3.9317,
+        "e": 4.7717
+      },
+      {
+        "name": "Antwerp, BE",
+        "city": "Antwerp",
+        "s": 50.8994,
+        "n": 51.5394,
+        "w": 3.9825,
+        "e": 4.8225
+      },
+      {
+        "name": "Ghent, BE",
+        "city": "Ghent",
+        "s": 50.7343,
+        "n": 51.3743,
+        "w": 3.2974,
+        "e": 4.1374
+      },
+      {
+        "name": "Liege, BE",
+        "city": "Liege",
+        "s": 50.3126,
+        "n": 50.9526,
+        "w": 5.1597,
+        "e": 5.9997
+      },
+      {
+        "name": "Stockholm, SE",
+        "city": "Stockholm",
+        "s": 59.0093,
+        "n": 59.6493,
+        "w": 17.6486,
+        "e": 18.4886
+      },
+      {
+        "name": "Gothenburg, SE",
+        "city": "Gothenburg",
+        "s": 57.3889,
+        "n": 58.0289,
+        "w": 11.5546,
+        "e": 12.3946
+      },
+      {
+        "name": "Malmo, SE",
+        "city": "Malmo",
+        "s": 55.285,
+        "n": 55.925,
+        "w": 12.5838,
+        "e": 13.4238
+      },
+      {
+        "name": "Oslo, NO",
+        "city": "Oslo",
+        "s": 59.5939,
+        "n": 60.2339,
+        "w": 10.3322,
+        "e": 11.1722
+      },
+      {
+        "name": "Bergen, NO",
+        "city": "Bergen",
+        "s": 60.0713,
+        "n": 60.7113,
+        "w": 4.9021,
+        "e": 5.7421
+      },
+      {
+        "name": "Copenhagen, DK",
+        "city": "Copenhagen",
+        "s": 55.3561,
+        "n": 55.9961,
+        "w": 12.1483,
+        "e": 12.9883
+      },
+      {
+        "name": "Aarhus, DK",
+        "city": "Aarhus",
+        "s": 55.8429,
+        "n": 56.4829,
+        "w": 9.7839,
+        "e": 10.6239
+      },
+      {
+        "name": "Helsinki, FI",
+        "city": "Helsinki",
+        "s": 59.8499,
+        "n": 60.4899,
+        "w": 24.5184,
+        "e": 25.3584
+      },
+      {
+        "name": "Tampere, FI",
+        "city": "Tampere",
+        "s": 61.1778,
+        "n": 61.8178,
+        "w": 23.341,
+        "e": 24.181
+      },
+      {
+        "name": "Vienna, AT",
+        "city": "Vienna",
+        "s": 47.8882,
+        "n": 48.5282,
+        "w": 15.9538,
+        "e": 16.7938
+      },
+      {
+        "name": "Graz, AT",
+        "city": "Graz",
+        "s": 46.7507,
+        "n": 47.3907,
+        "w": 15.0195,
+        "e": 15.8595
+      },
+      {
+        "name": "Salzburg, AT",
+        "city": "Salzburg",
+        "s": 47.4895,
+        "n": 48.1295,
+        "w": 12.635,
+        "e": 13.475
+      },
+      {
+        "name": "Warsaw, PL",
+        "city": "Warsaw",
+        "s": 51.9097,
+        "n": 52.5497,
+        "w": 20.5922,
+        "e": 21.4322
+      },
+      {
+        "name": "Krakow, PL",
+        "city": "Krakow",
+        "s": 49.7447,
+        "n": 50.3847,
+        "w": 19.525,
+        "e": 20.365
+      },
+      {
+        "name": "Gdansk, PL",
+        "city": "Gdansk",
+        "s": 54.032,
+        "n": 54.672,
+        "w": 18.2266,
+        "e": 19.0666
+      },
+      {
+        "name": "Wroclaw, PL",
+        "city": "Wroclaw",
+        "s": 50.7879,
+        "n": 51.4279,
+        "w": 16.6185,
+        "e": 17.4585
+      },
+      {
+        "name": "Lisbon, PT",
+        "city": "Lisbon",
+        "s": 38.4023,
+        "n": 39.0423,
+        "w": -9.5593,
+        "e": -8.7193
+      },
+      {
+        "name": "Porto, PT",
+        "city": "Porto",
+        "s": 40.8379,
+        "n": 41.4779,
+        "w": -9.0491,
+        "e": -8.2091
+      },
+      {
+        "name": "Prague, CZ",
+        "city": "Prague",
+        "s": 49.7555,
+        "n": 50.3955,
+        "w": 14.0178,
+        "e": 14.8578
+      },
+      {
+        "name": "Brno, CZ",
+        "city": "Brno",
+        "s": 48.8751,
+        "n": 49.5151,
+        "w": 16.1868,
+        "e": 17.0268
+      },
+      {
+        "name": "Johannesburg, ZA",
+        "city": "Johannesburg",
+        "s": -26.5241,
+        "n": -25.8841,
+        "w": 27.6273,
+        "e": 28.4673
+      },
+      {
+        "name": "Cape Town, ZA",
+        "city": "Cape Town",
+        "s": -34.2449,
+        "n": -33.6049,
+        "w": 18.0041,
+        "e": 18.8441
+      },
+      {
+        "name": "Durban, ZA",
+        "city": "Durban",
+        "s": -30.1787,
+        "n": -29.5387,
+        "w": 30.6018,
+        "e": 31.4418
+      },
+      {
+        "name": "Pretoria, ZA",
+        "city": "Pretoria",
+        "s": -26.0679,
+        "n": -25.4279,
+        "w": 27.8093,
+        "e": 28.6493
+      },
+      {
+        "name": "Singapore, SG",
+        "city": "Singapore",
+        "s": 1.0321,
+        "n": 1.6721,
+        "w": 103.3998,
+        "e": 104.2398
+      },
+      {
+        "name": "Seoul, KR",
+        "city": "Seoul",
+        "s": 37.2465,
+        "n": 37.8865,
+        "w": 126.558,
+        "e": 127.398
+      },
+      {
+        "name": "Busan, KR",
+        "city": "Busan",
+        "s": 34.8596,
+        "n": 35.4996,
+        "w": 128.6556,
+        "e": 129.4956
+      },
+      {
+        "name": "Dubai, AE",
+        "city": "Dubai",
+        "s": 24.8848,
+        "n": 25.5248,
+        "w": 54.8508,
+        "e": 55.6908
+      },
+      {
+        "name": "Abu Dhabi, AE",
+        "city": "Abu Dhabi",
+        "s": 24.1339,
+        "n": 24.7739,
+        "w": 53.9573,
+        "e": 54.7973
+      },
+      {
+        "name": "Hong Kong, HK",
+        "city": "Hong Kong",
+        "s": 21.9993,
+        "n": 22.6393,
+        "w": 113.7494,
+        "e": 114.5894
+      }
+    ],
+    "run_weekdays": [
+      0
+    ]
+  },
+  {
+    "name": "USDA Local Food Directories",
+    "type": "usda",
+    "horizon_days": 42,
+    "run_weekdays": [
+      2
+    ],
+    "pause_s": 1,
+    "radius": 50,
+    "stale_years": 4,
+    "directories": [
+      "farmersmarket",
+      "onfarmmarket"
+    ],
+    "url_home": "https://www.usdalocalfoodportal.com/",
+    "areas": [
+      {
+        "name": "New York",
+        "lat": 40.7128,
+        "lon": -74.006
+      },
+      {
+        "name": "Los Angeles",
+        "lat": 34.0522,
+        "lon": -118.2437
+      },
+      {
+        "name": "Chicago",
+        "lat": 41.8781,
+        "lon": -87.6298
+      },
+      {
+        "name": "Dallas",
+        "lat": 32.7767,
+        "lon": -96.797
+      },
+      {
+        "name": "Houston",
+        "lat": 29.7604,
+        "lon": -95.3698
+      },
+      {
+        "name": "Washington DC",
+        "lat": 38.9072,
+        "lon": -77.0369
+      },
+      {
+        "name": "Philadelphia",
+        "lat": 39.9526,
+        "lon": -75.1652
+      },
+      {
+        "name": "Atlanta",
+        "lat": 33.749,
+        "lon": -84.388
+      },
+      {
+        "name": "Boston",
+        "lat": 42.3601,
+        "lon": -71.0589
+      },
+      {
+        "name": "San Francisco",
+        "lat": 37.7749,
+        "lon": -122.4194
+      },
+      {
+        "name": "Phoenix",
+        "lat": 33.4484,
+        "lon": -112.074
+      },
+      {
+        "name": "Seattle",
+        "lat": 47.6062,
+        "lon": -122.3321
+      },
+      {
+        "name": "Detroit",
+        "lat": 42.3314,
+        "lon": -83.0458
+      },
+      {
+        "name": "Minneapolis",
+        "lat": 44.9778,
+        "lon": -93.265
+      },
+      {
+        "name": "San Diego",
+        "lat": 32.7157,
+        "lon": -117.1611
+      },
+      {
+        "name": "Denver",
+        "lat": 39.7392,
+        "lon": -104.9903
+      },
+      {
+        "name": "Miami",
+        "lat": 25.7617,
+        "lon": -80.1918
+      },
+      {
+        "name": "Tampa",
+        "lat": 27.9506,
+        "lon": -82.4572
+      },
+      {
+        "name": "Orlando",
+        "lat": 28.5383,
+        "lon": -81.3792
+      },
+      {
+        "name": "St. Louis",
+        "lat": 38.627,
+        "lon": -90.1994
+      },
+      {
+        "name": "Pittsburgh",
+        "lat": 40.4406,
+        "lon": -79.9959
+      },
+      {
+        "name": "Charlotte",
+        "lat": 35.2271,
+        "lon": -80.8431
+      },
+      {
+        "name": "Portland OR",
+        "lat": 45.5152,
+        "lon": -122.6784
+      },
+      {
+        "name": "Sacramento",
+        "lat": 38.5816,
+        "lon": -121.4944
+      },
+      {
+        "name": "Las Vegas",
+        "lat": 36.1699,
+        "lon": -115.1398
+      },
+      {
+        "name": "Cincinnati",
+        "lat": 39.1031,
+        "lon": -84.512
+      },
+      {
+        "name": "Kansas City",
+        "lat": 39.0997,
+        "lon": -94.5786
+      },
+      {
+        "name": "Columbus",
+        "lat": 39.9612,
+        "lon": -82.9988
+      },
+      {
+        "name": "Cleveland",
+        "lat": 41.4993,
+        "lon": -81.6944
+      },
+      {
+        "name": "Indianapolis",
+        "lat": 39.7684,
+        "lon": -86.1581
+      },
+      {
+        "name": "Nashville",
+        "lat": 36.1627,
+        "lon": -86.7816
+      },
+      {
+        "name": "Austin",
+        "lat": 30.2672,
+        "lon": -97.7431
+      },
+      {
+        "name": "San Antonio",
+        "lat": 29.4241,
+        "lon": -98.4936
+      },
+      {
+        "name": "Baltimore",
+        "lat": 39.2904,
+        "lon": -76.6122
+      },
+      {
+        "name": "Milwaukee",
+        "lat": 43.0389,
+        "lon": -87.9065
+      },
+      {
+        "name": "Salt Lake City",
+        "lat": 40.7608,
+        "lon": -111.891
+      },
+      {
+        "name": "New Orleans",
+        "lat": 29.9511,
+        "lon": -90.0715
+      },
+      {
+        "name": "Raleigh",
+        "lat": 35.7796,
+        "lon": -78.6382
+      },
+      {
+        "name": "Buffalo",
+        "lat": 42.8864,
+        "lon": -78.8784
+      },
+      {
+        "name": "Louisville",
+        "lat": 38.2527,
+        "lon": -85.7585
+      },
+      {
+        "name": "Memphis",
+        "lat": 35.1495,
+        "lon": -90.049
+      },
+      {
+        "name": "Oklahoma City",
+        "lat": 35.4676,
+        "lon": -97.5164
+      },
+      {
+        "name": "Jacksonville",
+        "lat": 30.3322,
+        "lon": -81.6557
+      },
+      {
+        "name": "Hartford",
+        "lat": 41.7658,
+        "lon": -72.6734
+      },
+      {
+        "name": "Richmond",
+        "lat": 37.5407,
+        "lon": -77.436
+      },
+      {
+        "name": "Grand Rapids",
+        "lat": 42.9634,
+        "lon": -85.6681
+      },
+      {
+        "name": "Albuquerque",
+        "lat": 35.0844,
+        "lon": -106.6504
+      },
+      {
+        "name": "Omaha",
+        "lat": 41.2565,
+        "lon": -95.9345
+      },
+      {
+        "name": "Honolulu",
+        "lat": 21.3069,
+        "lon": -157.8583
+      },
+      {
+        "name": "Fairbanks",
+        "lat": 64.8378,
+        "lon": -147.7164
+      },
+      {
+        "name": "Tucson",
+        "lat": 32.2226,
+        "lon": -110.9747
+      },
+      {
+        "name": "Fresno",
+        "lat": 36.7378,
+        "lon": -119.7871
+      },
+      {
+        "name": "Boise",
+        "lat": 43.615,
+        "lon": -116.2023
+      },
+      {
+        "name": "Spokane",
+        "lat": 47.6588,
+        "lon": -117.426
+      },
+      {
+        "name": "Des Moines",
+        "lat": 41.5868,
+        "lon": -93.625
+      },
+      {
+        "name": "Little Rock",
+        "lat": 34.7465,
+        "lon": -92.2896
+      },
+      {
+        "name": "Birmingham AL",
+        "lat": 33.5186,
+        "lon": -86.8104
+      },
+      {
+        "name": "Knoxville",
+        "lat": 35.9606,
+        "lon": -83.9207
+      },
+      {
+        "name": "Greenville SC",
+        "lat": 34.8526,
+        "lon": -82.394
+      },
+      {
+        "name": "Charleston SC",
+        "lat": 32.7765,
+        "lon": -79.9311
+      },
+      {
+        "name": "Savannah",
+        "lat": 32.0809,
+        "lon": -81.0912
+      },
+      {
+        "name": "Sarasota",
+        "lat": 27.3364,
+        "lon": -82.5307
+      },
+      {
+        "name": "Reno",
+        "lat": 39.5296,
+        "lon": -119.8138
+      },
+      {
+        "name": "Colorado Springs",
+        "lat": 38.8339,
+        "lon": -104.8214
+      },
+      {
+        "name": "El Paso",
+        "lat": 31.7619,
+        "lon": -106.485
+      },
+      {
+        "name": "Tulsa",
+        "lat": 36.154,
+        "lon": -95.9928
+      },
+      {
+        "name": "Wichita",
+        "lat": 37.6872,
+        "lon": -97.3301
+      },
+      {
+        "name": "Madison",
+        "lat": 43.0731,
+        "lon": -89.4012
+      },
+      {
+        "name": "Ann Arbor",
+        "lat": 42.2808,
+        "lon": -83.743
+      },
+      {
+        "name": "Rochester NY",
+        "lat": 43.1566,
+        "lon": -77.6088
+      },
+      {
+        "name": "Syracuse",
+        "lat": 43.0481,
+        "lon": -76.1474
+      },
+      {
+        "name": "Albany NY",
+        "lat": 42.6526,
+        "lon": -73.7562
+      },
+      {
+        "name": "Providence",
+        "lat": 41.824,
+        "lon": -71.4128
+      },
+      {
+        "name": "Portland ME",
+        "lat": 43.6591,
+        "lon": -70.2568
+      },
+      {
+        "name": "Burlington VT",
+        "lat": 44.4759,
+        "lon": -73.2121
+      },
+      {
+        "name": "Anchorage",
+        "lat": 61.2181,
+        "lon": -149.9003
+      },
+      {
+        "name": "Boulder",
+        "lat": 40.015,
+        "lon": -105.2705
+      },
+      {
+        "name": "Asheville",
+        "lat": 35.5951,
+        "lon": -82.5515
+      },
+      {
+        "name": "Santa Fe",
+        "lat": 35.687,
+        "lon": -105.9378
+      },
+      {
+        "name": "Chattanooga",
+        "lat": 35.0456,
+        "lon": -85.3097
+      }
+    ]
   }
 ]
