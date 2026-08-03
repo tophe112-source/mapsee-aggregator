@@ -58,6 +58,12 @@ check("Localist caps extras", len(lo("Music", "Food", "Market", "Kids")[1]) <= M
 check("Localist falls back to the source default",
       LO._categories({"filters": {"event_types": []}}, "learning") == ("learning", []))
 check("Localist maps campus fitness vocabulary", lo("Fitness")[0] == "fitness", lo("Fitness"))
+# A campus "Theatre" event_type used to land on 'arts', and nothing downstream
+# corrected it — _PROMOTABLE_TO_THEATER is {"music", "other"}, so 'arts' is a
+# terminal answer. Both spellings, because Localist calendars use both.
+check("Localist theatre -> theater", lo("Theatre")[0] == "theater", lo("Theatre"))
+check("Localist theater -> theater", lo("Theater")[0] == "theater", lo("Theater"))
+check("Localist performance stays arts", lo("Performance")[0] == "arts", lo("Performance"))
 
 # --- AXS: was emitting raw genre strings, so everything became 'other' --------
 check("AXS concert -> music", AXS._categories("Concerts", "") == ("music", []), AXS._categories("Concerts", ""))

@@ -8,10 +8,16 @@ by this aggregator. User/community events (external_source IS NULL) are never
 matched, so they can't be deleted. Every request also carries a `starts_at`
 cutoff, so it can never become an unfiltered delete.
 
-Default keeps events for a WEEK after they start, so attendees can keep chatting
-about a show before it disappears. Aggregator events store ends_at = NULL, so a
-start-time cutoff reliably means "over" for single-day events; if it ever removed a
-still-upcoming event, the next ingest run would simply re-add it (90-day window).
+Default keeps events for a WEEK after they END, so attendees can keep chatting
+about a show before it disappears.
+
+It used to be a week after they START, on the stated grounds that "aggregator
+events store ends_at = NULL". They do not: mapsee_supabase_sync.py sets ends_at
+on every row (_compute_end — the source's real end, else start plus a
+category-typical duration). A multi-day event therefore looked over on its second
+day. The next ingest would re-add it — --only-new compares against what is in the
+table, not a ledger — but events cascade to event_messages, event_rsvps, invites
+and cohosts, so it came back stripped of its guest list while it was still on.
 
 WHY THIS DELETES IN BATCHES. It used to issue one DELETE for the whole cutoff
 window and eventually started failing with
@@ -81,7 +87,27 @@ def main() -> int:
     # Carried on the id-batched deletes below too, belt and braces: the primary
     # keys alone would be enough to identify the rows, but then a bug in the id
     # fetch could delete something this job is not allowed to touch.
-    flt = f"external_source=eq.mapsee&starts_at=lt.{cutoff}"
+    #
+    # The `or=` clause is what stops a STILL-RUNNING event being deleted. The
+    # module docstring used to justify a start-time-only cutoff with "aggregator
+    # events store ends_at = NULL" — that stopped being true when
+    # mapsee_supabase_sync.py:640 started setting ends_at on every row
+    # (_compute_end: the source's real end, else start + a category-typical
+    # duration). A ten-day festival therefore has starts_at eight days ago and
+    # ends_at in the future, and matched a filter that means "over".
+    #
+    # Deleting one is not merely cosmetic. The next ingest does re-add it
+    # (--only-new compares against what is currently IN the table, not a ledger),
+    # but events cascade: event_messages, event_rsvps, invites and cohosts go
+    # with it. The event comes back empty, mid-run, with its guest list gone.
+    #
+    # ORDER MATTERS for the query plan: starts_at stays the leading, indexed
+    # predicate (migration 0113, events_aggregator_cleanup_idx) and the ends_at
+    # test filters the far smaller set it returns. Making ends_at the leading
+    # term would drop the index and bring back the statement timeouts this file
+    # was rewritten to survive.
+    flt = (f"external_source=eq.mapsee&starts_at=lt.{cutoff}"
+           f"&or=(ends_at.is.null,ends_at.lt.{cutoff})")
     assert "external_source=eq.mapsee" in flt and "starts_at=lt." in flt, "refusing an unscoped delete"
     base = url.rstrip("/") + "/rest/v1/events?" + flt
     auth = {"apikey": key, "Authorization": f"Bearer {key}"}

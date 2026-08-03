@@ -1,0 +1,71 @@
+name: Tests
+
+# The category classifier is the highest-consequence code in this repo and the
+# hardest to eyeball. It decides which of the seven mapsee front doors an event
+# reaches: a rule that is one word too greedy puts a food-bank repack shift on a
+# nightlife map, and a rule that is one word too narrow starves a whole lens.
+# Nothing about that failure is loud — the sweep still exits 0 and the events
+# still land, just on the wrong door.
+#
+# test_categories.py and test_ingest_categories.py have existed and passed for a
+# while. NOTHING RAN THEM. They were only ever executed by hand, which means the
+# regression they were written to catch could ship on any commit that touched a
+# regex, a promotion set or an adapter's category map.
+#
+# Cheap enough to run on every push: no network, no secrets, no database — the
+# tests import the classifier and call it with literal strings. Under a minute.
+#
+# Deliberately NOT `on: schedule`. These test pure functions; they can only
+# break when the code changes, so a nightly green run would be noise.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.py"
+      - "requirements.txt"
+      - ".github/workflows/tests.yml"
+  pull_request:
+    paths:
+      - "**.py"
+      - "requirements.txt"
+      - ".github/workflows/tests.yml"
+  workflow_dispatch:
+
+# No secrets are read here, so pull_request from a fork is safe — this is the
+# one workflow in the repo for which that is true. Read-only, explicitly.
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  classifier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Both scripts print one line per case and exit non-zero on any failure,
+      # so the job log IS the report — no test runner needed to read it.
+      - name: Category classifier (which lens an event reaches)
+        run: python test_categories.py
+
+      - name: Adapter categories (secondaries survive into the sync)
+        run: python test_ingest_categories.py
+
+      # Every adapter is imported by the sweep at runtime; a syntax error or a
+      # bad top-level import in one of the 25 of them currently surfaces as a
+      # mid-sweep crash on a schedule, hours later. Compiling is not a test, but
+      # it catches that class in seconds.
+      - name: Every module at least compiles
+        run: python -m compileall -q .

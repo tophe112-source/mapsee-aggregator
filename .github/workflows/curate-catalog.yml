@@ -1,0 +1,164 @@
+name: Grow the catalog
+
+# The catalog only grows when somebody runs catalog_curate.py by hand. Every
+# piece of the loop already exists — discover finds candidate datasets, verify
+# proves each one returns real FUTURE events under the production User-Agent,
+# merge writes the survivors into the config files — and nothing has ever
+# scheduled it. source-health.yml runs `audit`, which only re-checks feeds that
+# are already wired in; it can tell you the catalog is shrinking and can do
+# nothing about it growing.
+#
+# WHAT THIS IS FOR. Each mapsee front door opens onto a set of categories
+# (`categories` in mapsee/src/lens.js). A door whose categories have no supply is
+# an empty map with a brand on it — which is not hypothetical: `volunteer` has
+# five curated sources on the planet and awaresie.com opens onto it, and
+# `fitness` was not even a discovery target until this workflow was written, so
+# wegosie.com could not have grown if anyone had run the loop manually.
+#
+# catalog_curate.curated_categories() reads the live roster from
+# https://mapsee.me/api/lenses, so a door committed in the product repo starts
+# being curated for here with no change on this side.
+#
+# WHY IT COMMITS RATHER THAN OPENING A PR. Everything merged has been proven to
+# return future events minutes earlier; a PR would sit unreviewed and the whole
+# point is that the catalog improves without anyone remembering to look. The
+# audit in source-health.yml is the safety net: a source that decays is flagged,
+# and now FEED_DOWN names it.
+#
+# Triggers are schedule + workflow_dispatch ONLY. This job holds no secrets, but
+# it commits to main, so it must never be reachable from fork code.
+
+on:
+  schedule:
+    # Saturdays 03:20 UTC. Off the ingest schedule entirely — the daily sweep is
+    # 06:17, the heavy sweep Mon & Thu 06:40, the audit Sundays 04:10 — so a slow
+    # discovery run cannot eat into an ingest window, and anything merged is in
+    # place before Monday's heavy sweep picks it up.
+    - cron: "20 3 * * 6"
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "How many candidate datasets to probe (each costs a live request)"
+        default: "300"
+      backend:
+        description: "socrata (US/global civic portals) or ckan (data.gov.* portals)"
+        type: choice
+        options: [socrata, ckan]
+        default: socrata
+      dry_run:
+        description: "Verify only — do not merge or commit"
+        type: boolean
+        default: false
+
+concurrency:
+  group: curate-catalog
+  cancel-in-progress: false
+
+permissions:
+  contents: write      # to commit newly verified sources + the refreshed ledger
+
+jobs:
+  curate:
+    runs-on: ubuntu-latest
+    # Verification is one live HTTP request per candidate against servers that
+    # are sometimes slow and sometimes dead; the ceiling is the point, and a run
+    # that hits it still commits everything it proved before stopping.
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Where is the catalog thin RIGHT NOW, measured against the doors that
+      # actually exist? Printed into the job summary so the run is readable
+      # without downloading anything.
+      - name: Coverage before
+        run: |
+          python catalog_curate.py coverage | tee coverage-before.txt
+          {
+            echo '## Coverage before'
+            echo '```'
+            cat coverage-before.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # discover → verify → merge. `set +e` on discovery only: a catalog API
+      # having a bad morning must not cost the rest of the run, and verify
+      # handles an empty candidate list correctly.
+      # The backend is a POSITIONAL argument, and it must come before the flags:
+      # main() reads it as argv[2:3], and --limit/--out are located by index. A
+      # `--backend ckan` would be parsed as socrata and silently sweep the wrong
+      # catalog, so the two forms are spelled out rather than interpolated.
+      - name: Discover candidates
+        run: |
+          set +e
+          if [ "${{ inputs.backend || 'socrata' }}" = "ckan" ]; then
+            python catalog_curate.py discover ckan --limit "${{ inputs.limit || '300' }}" --out candidates.json
+          else
+            python catalog_curate.py discover --limit "${{ inputs.limit || '300' }}" --out candidates.json
+          fi
+          echo "discover exit: $?"
+          [ -f candidates.json ] || echo '[]' > candidates.json
+
+      - name: Verify candidates (live probe, production User-Agent)
+        run: |
+          python catalog_curate.py verify candidates.json | tee verify.txt
+          {
+            echo '## Verification'
+            echo '```'
+            tail -40 verify.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Merge the survivors
+        if: ${{ !inputs.dry_run }}
+        run: |
+          if [ -s candidates.verified.json ]; then
+            python catalog_curate.py merge candidates.verified.json | tee merge.txt
+          else
+            echo "Nothing verified this week — no merge." | tee merge.txt
+          fi
+          {
+            echo '## Merge'
+            echo '```'
+            cat merge.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Coverage after
+        if: ${{ !inputs.dry_run }}
+        run: |
+          python catalog_curate.py coverage | tee coverage-after.txt
+          {
+            echo '## Coverage after'
+            echo '```'
+            cat coverage-after.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The candidate/verify scratch files are run artifacts, not sources — only
+      # the configs and the ledger are committed. `git diff --quiet` keeps a week
+      # with no new feeds from producing an empty commit.
+      - name: Commit new sources
+        if: ${{ !inputs.dry_run }}
+        run: |
+          rm -f candidates.json candidates.verified.json coverage-*.txt verify.txt merge.txt
+          if git diff --quiet -- '*_sources.json' curation_ledger.json; then
+            echo "No config or ledger change — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- '*_sources.json' curation_ledger.json
+          # Two -m flags, not one multi-line string: a bare continuation line
+          # sits at column 0 and terminates the `run: |` block scalar, which
+          # makes the whole workflow file unparseable.
+          git commit \
+            -m "Curate: new verified feeds from the weekly sweep" \
+            -m "Every entry added here returned real future events under the production User-Agent at verification time. Targets come from the live lens roster (mapsee.me/api/lenses), so this tracks whichever doors are committed."
+          git push

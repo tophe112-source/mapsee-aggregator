@@ -1325,98 +1325,98 @@
   {
     "name": "Greater Chicago Food Depository Events",
     "url": "https://www.chicagosfoodbank.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Chicago, IL",
     "limit": 300
   },
   {
     "name": "Feeding America Eastern Wisconsin (Milwaukee)",
     "url": "https://feedingamericawi.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Milwaukee, WI",
     "limit": 300
   },
   {
     "name": "Food Bank For New York City",
     "url": "https://foodbanknyc.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", New York, NY",
     "limit": 300
   },
   {
     "name": "Houston Food Bank",
     "url": "https://houstonfoodbank.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Houston, TX",
     "limit": 300
   },
   {
     "name": "Harvesters Community Food Network (Kansas City)",
     "url": "https://harvesters.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Kansas City, MO",
     "limit": 300
   },
   {
     "name": "Maryland Food Bank (Baltimore)",
     "url": "https://mdfoodbank.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Baltimore, MD",
     "limit": 300
   },
   {
     "name": "Regional Food Bank of Oklahoma (Oklahoma City)",
     "url": "https://rfbo.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Oklahoma City, OK",
     "limit": 300
   },
   {
     "name": "Blue Ridge Area Food Bank (Verona, VA)",
     "url": "https://brafb.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Verona, VA",
     "limit": 300
   },
   {
     "name": "Good Shepherd Food Bank (Auburn, ME)",
     "url": "https://gsfb.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Auburn, ME",
     "limit": 300
   },
   {
     "name": "Idaho Foodbank (Boise)",
     "url": "https://idahofoodbank.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Boise, ID",
     "limit": 300
   },
   {
     "name": "San Antonio Food Bank",
     "url": "https://safoodbank.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", San Antonio, TX",
     "limit": 300
   },
   {
     "name": "Tarrant Area Food Bank (Fort Worth)",
     "url": "https://tafb.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Fort Worth, TX",
     "limit": 300
   },
   {
     "name": "Lowcountry Food Bank (Charleston, SC)",
     "url": "https://lowcountryfoodbank.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Charleston, SC",
     "limit": 300
   },
   {
     "name": "Second Harvest Food Bank of Central Florida (Orlando)",
     "url": "https://feedhopenow.org/events/?ical=1",
-    "category": "food",
+    "category": "community",
     "geocode_suffix": ", Orlando, FL",
     "limit": 300
   },

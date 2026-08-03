@@ -315,7 +315,21 @@ DISCOVER_QUERIES = [
     ("parks events", "outdoors"), ("recreation programs", "outdoors"),
     ("farmers markets", "market"), ("volunteer", "volunteer"),
     ("art events", "arts"), ("youth programs", "kids"),
+    # MOVEMENT. wegosie.com opens onto running/sports/fitness and neither
+    # `fitness` nor `running` had a query here, so no amount of scheduled
+    # curation could ever grow its supply — the one door whose categories the
+    # ticketing APIs do not blanket either. Municipal portals publish these as
+    # parks-and-rec class schedules and permitted road races.
+    ("fitness classes", "fitness"), ("wellness programs", "fitness"),
+    ("recreation classes", "fitness"),
+    ("road races", "running"), ("races permits", "running"),
 ]
+# Discovery must cover every category curation is responsible for, or a door can
+# be committed and then quietly starve. Checked at import so the failure is a
+# loud one line into a run, not a gap nobody notices for a quarter.
+def _assert_queries_cover(cats):
+    missing = sorted(set(cats) - {c for _q, c in DISCOVER_QUERIES})
+    return missing
 # Column-name inference. Datatypes in the catalog are unreliable — NYC ships a
 # real date column typed 'Text' — so names propose and the live probe disposes.
 _COL_RX = {
@@ -688,15 +702,64 @@ _METRO_ALIASES = {
     "SF Bay": "San Francisco", "SF": "San Francisco", "LA": "Los Angeles",
     "Portland OR": "Portland",
 }
-# App category keys that curated feeds are responsible for (ticketing APIs
-# already blanket music/theater/sports/food nationally - see the skill doc).
-# 'party' is NOT here on purpose. It is not a curation target: no feed declares
-# it, because nightlife reaches that layer by keyword promotion at sync time
-# (_PARTY_RX in mapsee_supabase_sync — crawls, happy hours, karaoke arrive tagged
-# music or community and get moved). Listing it meant the report raised a gap in
+# App category keys that curated feeds are responsible for.
+#
+# DERIVED FROM THE PRODUCT, not hand-maintained. Every mapsee front door opens
+# onto a set of categories (`categories` in mapsee/src/lens.js), and a door whose
+# categories have no supply is an empty map with a brand on it. That list used to
+# be copied here by hand, so adding a door silently failed to widen curation:
+# awaresie.com shipped opening onto community/volunteer/learning and wegosie.com
+# onto running/sports/fitness, and `fitness` was never a curation target at all —
+# the coverage report could not raise a gap it did not know existed.
+#
+# mapsee serves the roster at /api/lenses precisely so this repo does not need a
+# copy of lens.js. Two groups are then subtracted, for reasons that have nothing
+# to do with which doors exist:
+_TICKETED = {"music", "theater", "sports", "food"}
+# ...blanketed nationally by the ticketing APIs (Ticketmaster, SeatGeek, DICE,
+# AXS, Moshtix). Curating civic feeds for them is duplicated effort.
+_PROMOTED = {"party"}
+# ...reached by keyword promotion at sync time (_PARTY_RX in
+# mapsee_supabase_sync — crawls, happy hours and karaoke arrive tagged music or
+# community and get moved). No feed declares it, so listing it raised a gap in
 # every country that no source could ever close.
-_CURATED_CATEGORIES = ["community", "learning", "arts", "outdoors", "volunteer",
-                       "kids", "market", "running"]
+MAPSEE_LENSES_URL = os.environ.get("MAPSEE_LENSES_URL", "https://mapsee.me/api/lenses")
+# What the roster resolved to on 2026-08-03, and what is used when the lookup
+# fails. Offline behaviour must stay useful: `coverage` is a reporting command
+# people run on a laptop.
+_CURATED_FALLBACK = ["arts", "community", "fitness", "kids", "learning",
+                     "market", "outdoors", "running", "volunteer"]
+_curated_cache = None
+# Whether the last resolve actually reached the roster. Tracked explicitly
+# rather than inferred by comparing the result to _CURATED_FALLBACK — the two
+# are identical whenever the fallback is up to date, which is exactly when you
+# most want to know the live lookup worked.
+CURATED_FROM_LIVE = False
+
+
+def curated_categories(session=None):
+    """Every category a committed lens opens onto, minus the two groups above."""
+    global _curated_cache, CURATED_FROM_LIVE
+    if _curated_cache is not None:
+        return _curated_cache
+    try:
+        r = (session or requests).get(MAPSEE_LENSES_URL, timeout=15,
+                                      headers={"User-Agent": UA, "Accept": "application/json"})
+        r.raise_for_status()
+        lenses = (r.json() or {}).get("lenses") or {}
+        keys = set()
+        for l in lenses.values():
+            for c in (l.get("categories") or []):
+                keys.add(c)
+        got = sorted(keys - _TICKETED - _PROMOTED)
+        if got:
+            _curated_cache = got
+            CURATED_FROM_LIVE = True
+            return got
+    except Exception:      # noqa: BLE001 - offline, DNS, a 500: fall back, don't fail
+        pass
+    _curated_cache = list(_CURATED_FALLBACK)
+    return _curated_cache
 
 
 def _parse_place(text):
@@ -1061,15 +1124,21 @@ def cmd_coverage():
     for t, _n, _m, country, cat in rows:
         cat_by_country.setdefault(country, {}).setdefault(cat, 0)
         cat_by_country[country][cat] += 1
+    # Resolved once per run: one lookup against /api/lenses, or the committed
+    # fallback when offline. Printed, so the report always says which it used —
+    # a gap list is only meaningful if you know what it was measured against.
+    cats = curated_categories()
+    src = "mapsee.me/api/lenses" if CURATED_FROM_LIVE else "committed fallback (roster unreachable)"
     print("\n-- curated categories per country (every config; '.' = none) --")
-    print(f"{'country':<22}" + "".join(f"{c[:6]:>8}" for c in _CURATED_CATEGORIES))
+    print(f"   lens targets via {src}: {', '.join(cats)}")
+    print(f"{'country':<22}" + "".join(f"{c[:6]:>8}" for c in cats))
     cat_gaps = {}
     for country in sorted(cat_by_country, key=lambda c: -sum(cat_by_country[c].values())):
         cc = cat_by_country[country]
-        cells = "".join(f"{cc.get(c) or '.':>8}" for c in _CURATED_CATEGORIES)
+        cells = "".join(f"{cc.get(c) or '.':>8}" for c in cats)
         print(f"{country:<22}{cells}")
         if country != "?":
-            missing = [c for c in _CURATED_CATEGORIES if not cc.get(c)]
+            missing = [c for c in cats if not cc.get(c)]
             if missing:
                 cat_gaps[country] = missing
     for country, missing in sorted(cat_gaps.items()):

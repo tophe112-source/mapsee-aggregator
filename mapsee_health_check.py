@@ -75,6 +75,20 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BASELINE = os.path.join(HERE, "source_health_baseline.json")
 LEDGER = os.path.join(HERE, "curation_ledger.json")
 
+# Which config file holds which source type, and which key on an entry is the
+# ledger's key for it. IMPORTED rather than re-declared: catalog_curate.py is
+# what WRITES the ledger, so if the two disagreed about where a source's URL
+# lives this check would quietly stop matching and report nothing wrong.
+# ODS entries have no literal url — the records endpoint is derived — so its
+# builder comes across too.
+try:
+    from catalog_curate import CONFIG as CURATE_CONFIG, _ods_url
+except Exception:      # pragma: no cover - curator absent; degrade to ICS only
+    CURATE_CONFIG = {"ics": ("ics_sources.json", "url")}
+
+    def _ods_url(_e):
+        return ""
+
 # Days without a new event before a source is considered silent. 8 rather than
 # 3: the heavy sweep is Mon & Thu, so a healthy SeatGeek can legitimately go
 # ~4 days quiet, and one skipped run must not cry wolf.
@@ -154,6 +168,89 @@ def ledger_summary() -> tuple[int, int]:
     return dead, len(led)
 
 
+def _norm_url(u) -> str:
+    """Ledger keys are bare host+path; config urls carry a scheme and sometimes
+    a www. Normalise both to the same shape so they can be compared.
+
+    NOT str.lstrip("www.") — that strips a CHARACTER SET, so any host beginning
+    with w or . loses letters ("westseattle.org" -> "estseattle.org") and would
+    silently never match its ledger row.
+    """
+    s = str(u or "").strip().lower()
+    for scheme in ("https://", "http://"):
+        if s.startswith(scheme):
+            s = s[len(scheme):]
+            break
+    if s.startswith("www."):
+        s = s[4:]
+    return s
+
+
+def _load_ledger() -> dict:
+    try:
+        with open(LEDGER, encoding="utf-8") as fh:
+            led = json.load(fh)
+        return led if isinstance(led, dict) else {}
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def configured_dead() -> list[dict]:
+    """Feeds that are WIRED IN and that the curator audit has marked dead.
+
+    The bare ledger count conflates two completely different things. Most
+    "fail" rows are candidates that were evaluated and rejected — that is the
+    curation process succeeding, and reporting it as a number that only ever
+    goes up trains you to ignore it. The rows that matter are the ones whose URL
+    is still in a *_sources.json: those were working when they were added, they
+    are being fetched on every run, and they are now returning nothing.
+
+    Measured 2026-08-02: 131 ledger rows were 'fail' and 13 of them were still
+    configured — including three metro library systems (Denver, Fairfax County,
+    Carnegie Pittsburgh), which are among the best 'learning' and 'community'
+    supply the catalog has, and which feed awaresie.com and plansie.com.
+    """
+    led = _load_ledger()
+    if not led:
+        return []
+    wired = {}
+    for kind, (fname, url_key) in CURATE_CONFIG.items():
+        path = os.path.join(HERE, fname)
+        if not os.path.exists(path):
+            continue
+        try:
+            with open(path, encoding="utf-8") as fh:
+                blob = json.load(fh)
+        except (OSError, json.JSONDecodeError):
+            continue
+        # both shapes: a bare list, or {"sources": [...]} — same as _entries()
+        entries = blob.get("sources", []) if isinstance(blob, dict) else blob
+        if not isinstance(entries, list):
+            continue
+        for e in entries:
+            if not isinstance(e, dict):
+                continue
+            u = _ods_url(e) if kind == "ods" else e.get(url_key)
+            if u:
+                wired[_norm_url(u)] = (fname, e)
+    out = []
+    for key, row in led.items():
+        if not isinstance(row, dict) or row.get("status") != "fail":
+            continue
+        hit = wired.get(_norm_url(key))
+        if not hit:
+            continue                      # a rejected candidate, not a regression
+        fname, entry = hit
+        out.append({
+            "url": _norm_url(key),
+            "name": row.get("name") or entry.get("name") or key,
+            "reason": row.get("reason") or "?",
+            "category": entry.get("category") or "-",
+            "config": fname,
+        })
+    return sorted(out, key=lambda d: (d["category"], d["url"]))
+
+
 # --- checks ----------------------------------------------------------------
 
 def evaluate(rows: list[dict], baseline: dict, drop_pct: float, now: datetime):
@@ -206,7 +303,29 @@ def evaluate(rows: list[dict], baseline: dict, drop_pct: float, now: datetime):
         arrow = ""
         if dead > base_dead:
             arrow = f"  ^ up {dead - base_dead} since the baseline"
-        notes.append(f"LEDGER {dead}/{total} curated feeds marked dead{arrow}")
+        notes.append(f"LEDGER {dead}/{total} audited feeds marked dead{arrow} "
+                     f"(most are rejected candidates - see FEED_DOWN for the wired-in ones)")
+
+    # A configured feed going dark is a real regression and gets a problem row,
+    # but only ONCE: the ones already in the baseline stay in the notes, so the
+    # daily issue reports today's news rather than re-litigating the backlog.
+    cd = configured_dead()
+    if cd:
+        known = set(baseline.get("configured_dead") or [])
+        fresh = [d for d in cd if d["url"] not in known]
+        for d in fresh:
+            problems.append({
+                "kind": "FEED_DOWN", "source": d["name"],
+                "detail": f"`{d['url']}` ({d['category']}, {d['config']}) - {d['reason']}",
+            })
+        by_cat: dict[str, int] = {}
+        for d in cd:
+            by_cat[d["category"]] = by_cat.get(d["category"], 0) + 1
+        spread = ", ".join(f"{k} x{v}" for k, v in sorted(by_cat.items(), key=lambda kv: -kv[1]))
+        notes.append(f"FEEDS  {len(cd)} configured feed(s) currently dead: {spread}")
+        for d in cd:
+            if d["url"] not in {f["url"] for f in fresh}:
+                notes.append(f"       (known) [{d['category']}] {d['url']} - {d['reason'][:60]}")
 
     return problems, notes, live
 
@@ -230,7 +349,10 @@ def render(problems, notes, live, baseline) -> str:
         out.append("`SILENT` — the job still exits 0, but nothing new is arriving. "
                    "Usually an expired key or a feed that changed shape.  ")
         out.append("`MISSING` — the source has no rows left at all.  ")
-        out.append("`DRAINED` — still ingesting, but a fraction of what it used to.")
+        out.append("`DRAINED` — still ingesting, but a fraction of what it used to.  ")
+        out.append("`FEED_DOWN` — a feed still listed in a `*_sources.json` that the "
+                   "curator audit now can't read. Fix the URL, or retire it from the "
+                   "config so the run stops paying for it.")
     else:
         out.append("### All baseline sources are healthy ✅")
 
@@ -308,6 +430,10 @@ def main(argv=None):
                         "hand-tuned per source and is preserved on regeneration.",
             "taken_at": now.strftime("%Y-%m-%d %H:%M UTC"),
             "ledger_dead": dead,
+            # Wired-in feeds known to be dead at baseline time. Anything that
+            # goes dark AFTER this becomes a FEED_DOWN problem; these stay in
+            # the notes so the backlog is visible without being re-reported.
+            "configured_dead": [d["url"] for d in configured_dead()],
             "sources": {},
         }
         prev = {}

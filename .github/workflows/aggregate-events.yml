@@ -33,11 +33,16 @@ name: Aggregate public events
 on:
   schedule:
     - cron: "17 6 * * *"           # DAILY: Ticketmaster + feeds
+    #                                WEDNESDAY's daily run is a FULL REFRESH —
+    #                                every sync step drops --only-new on day 3,
+    #                                so changes at the source (cancellations,
+    #                                new times, moved venues) reach the map once
+    #                                a week instead of never. See any sync step.
     - cron: "40 6 * * 1,4"         # Mon & Thu: the heavy SeatGeek/Meetup/Eventbrite sweep (2x/week is plenty)
   workflow_dispatch:                 # manual "Run workflow"
     inputs:
       full_refresh:
-        description: "Re-sync ALL events (update existing), not just new ones"
+        description: "Re-sync ALL events (update existing) — already automatic on Wednesdays"
         type: boolean
         default: false
       extra_only:
@@ -107,6 +112,13 @@ jobs:
       - name: Sync US metros to Supabase (batch-geocoded via US Census)
         run: |
           ONLY_NEW="--only-new"
+          # WEDNESDAY IS REFRESH DAY. --only-new skips every event already in the
+          # table, so a scheduled run can only ever ADD: a cancellation, a
+          # postponement or a venue change at the source never reached the map,
+          # and full_refresh was a workflow_dispatch input nobody remembers to
+          # tick. Wednesday has no heavy sweep (that is Mon & Thu), so the daily
+          # job has the refresh to itself.
+          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
           python mapsee_supabase_sync.py --store mapsee_events.json $ONLY_NEW
@@ -126,6 +138,7 @@ jobs:
       - name: Sync international events to Supabase (events carry coords — no geocoding)
         run: |
           ONLY_NEW="--only-new"
+          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f global_events.json ]; then
             python mapsee_supabase_sync.py --store global_events.json $ONLY_NEW
@@ -177,6 +190,7 @@ jobs:
           # the very end. Checkpoint between legs so the worst a timeout can cost
           # is the leg still in flight.
           ONLY_NEW="--only-new"
+          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f meetup_events.json ]; then
             python mapsee_supabase_sync.py --store meetup_events.json $ONLY_NEW
@@ -192,6 +206,7 @@ jobs:
       - name: Sync Meetup events to Supabase (events carry coords — no geocoding)
         run: |
           ONLY_NEW="--only-new"
+          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f meetup_events.json ]; then
             python mapsee_supabase_sync.py --store meetup_events.json $ONLY_NEW
@@ -326,6 +341,7 @@ jobs:
       - name: Sync feeds to Supabase (batch-geocoded)
         run: |
           ONLY_NEW="--only-new"
+          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
           if [ -f feeds_events.json ]; then
@@ -409,6 +425,7 @@ jobs:
       - name: Sync extra sources + Eventbrite to Supabase
         run: |
           ONLY_NEW="--only-new"
+          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f extra_events.json ]; then
             python mapsee_supabase_sync.py --store extra_events.json $ONLY_NEW

@@ -43,6 +43,16 @@ CASES = [
     ("Kids Karate Storytime",             "community", "", "kids",     True),   # karate is movement
     ("Farmers Market",                    "market",    "", "market",   False),
     ("Taco Crawl & Happy Hour",           "food",      "", "party",    False),
+
+    # --- FOOD BANKS are civic, not hospitality. The 14 food-bank calendars in
+    # ics_sources.json used to carry category "food", and 'food' is deliberately
+    # NOT in _PROMOTABLE_TO_VOLUNTEER (a restaurant listing is not a shift) — so
+    # a repack-room shift stayed 'food', showed up on bar.ventures and
+    # oneday.cafe, and never reached the volunteer layer or awaresie.com. They
+    # are tagged "community" now; these three pin that convention down.
+    ("Volunteer Shift: Repack Room",      "community", "", "volunteer", False),
+    ("Mobile Food Bank Distribution",     "community", "", "volunteer", False),
+    ("Empty Bowls Fundraiser Dinner",     "community", "", "community", False),
 ]
 
 fails = []

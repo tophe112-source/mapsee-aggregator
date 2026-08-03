@@ -29,8 +29,15 @@ from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_ca
 
 # Localist event_type filter name -> Mapsee frontend category KEY.
 _TYPE_MAP = {
-    "concert": "music", "music": "music", "performance": "arts", "theatre": "arts",
-    "theater": "arts", "art": "arts", "exhibit": "arts", "exhibition": "arts",
+    "concert": "music", "music": "music", "performance": "arts",
+    # A campus calendar's own "Theatre" event_type is the least ambiguous signal
+    # any adapter gets, and it used to land on 'arts' — so a production showed a
+    # 🎨 pin labelled Arts, and nothing downstream ever corrected it:
+    # _PROMOTABLE_TO_THEATER in mapsee_supabase_sync.py is {"music", "other"},
+    # which does not include 'arts'. 'performance' stays 'arts' on purpose — a
+    # dance or a recital is tagged that way as often as a play is.
+    "theatre": "theater", "theater": "theater",
+    "art": "arts", "exhibit": "arts", "exhibition": "arts",
     "dance": "arts", "film": "arts", "lecture": "learning", "workshop": "learning",
     "class": "learning", "seminar": "learning", "conference": "learning",
     "athletics": "sports", "sports": "sports", "game": "sports",
