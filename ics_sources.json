@@ -1032,7 +1032,7 @@
     "name": "Eintritt Frei Muenchen (Munich, Germany)",
     "url": "https://www.eintrittfrei-muenchen.de/?ical=1&eventDisplay=list",
     "category": "community",
-    "geocode_suffix": ", München, Germany",
+    "geocode_suffix": ", M\u00fcnchen, Germany",
     "limit": 300
   },
   {
@@ -1053,7 +1053,7 @@
     "name": "Buergerzentrum Ehrenfeld BueZe (Cologne, Germany)",
     "url": "https://www.bueze.de/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
-    "geocode_suffix": ", Köln, Germany",
+    "geocode_suffix": ", K\u00f6ln, Germany",
     "limit": 300
   },
   {
@@ -1810,6 +1810,34 @@
     "url": "https://chattlibrary.org/events/?ical=1",
     "category": "learning",
     "geocode_suffix": ", Chattanooga, TN",
+    "limit": 300
+  },
+  {
+    "name": "Buffalo Niagara Waterkeeper",
+    "url": "https://bnwaterkeeper.org/events/?ical=1",
+    "category": "volunteer",
+    "geocode_suffix": ", Buffalo, NY",
+    "limit": 300
+  },
+  {
+    "name": "Casey Trees (DC)",
+    "url": "https://caseytrees.org/events/?ical=1",
+    "category": "volunteer",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300
+  },
+  {
+    "name": "Audubon Society of Portland",
+    "url": "https://audubonportland.org/events/?ical=1",
+    "category": "volunteer",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300
+  },
+  {
+    "name": "Seattle Parks Foundation",
+    "url": "https://www.seattleparksfoundation.org/events/?ical=1",
+    "category": "volunteer",
+    "geocode_suffix": ", Seattle, WA",
     "limit": 300
   }
 ]

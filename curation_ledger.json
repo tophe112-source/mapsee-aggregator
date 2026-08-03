@@ -69,6 +69,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "allianceforthebay.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Alliance for the Chesapeake Bay",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "altrinchammarket.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Altrincham Market Events (UK)",
@@ -88,6 +95,13 @@
     "name": "American Library in Paris (Paris, France)",
     "reason": "20 vevents / 20 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "anacostiaws.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Anacostia Watershed Society (DC)",
+    "reason": "http 403 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/eventos-de-la-agenda-cultural-categorizados-y-geolocalizados/records": {
@@ -157,6 +171,13 @@
     "checked": 20260727,
     "name": "Attenborough Arts Centre (Leicester, UK)",
     "reason": "30 vevents / 29 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "audubonportland.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Audubon Society of Portland",
+    "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
   },
@@ -269,6 +290,13 @@
     "checked": 20260727,
     "name": "Blackfriars Cookery School (Newcastle upon Tyne)",
     "reason": "30 vevents / 28 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bnwaterkeeper.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Buffalo Niagara Waterkeeper",
+    "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
@@ -475,6 +503,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "canalrivertrust.org.uk/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Canal & River Trust (UK)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "canberra.libcal.com/ical_subscribe.php?cid=10851": {
     "checked": 20260727,
     "name": "University of Canberra Library (Canberra, Australia)",
@@ -517,11 +552,25 @@
     "status": "fail",
     "type": "ics"
   },
+  "caseytrees.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Casey Trees (DC)",
+    "reason": "7 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "castlemainefestival.com.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Castlemaine State Festival (Castlemaine, Australia)",
     "reason": "1 vevents / 1 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "cbf.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Chesapeake Bay Foundation",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "ccls.libcal.com/ical_subscribe.php?cid=12583": {
@@ -573,10 +622,24 @@
     "status": "fail",
     "type": "ics"
   },
+  "chicagocares.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Chicago Cares",
+    "reason": "SSLError: HTTPSConnectionPool(host='www.chicagocares.org', port=443): Max retrie",
+    "status": "fail",
+    "type": "ics"
+  },
   "chicagofoodauthority.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Taste of Chicago / Chicago Food Events",
     "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "chicagoriver.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Friends of the Chicago River",
+    "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
   },
@@ -606,6 +669,20 @@
     "name": "The Civic Theatre (Tallaght, Dublin, Ireland)",
     "reason": "30 vevents / 29 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "cleanoceanaction.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Clean Ocean Action (NJ)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "cleanup.org.au/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Clean Up Australia",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "clitheroefoodfestival.com/events/?ical=1": {
@@ -648,6 +725,13 @@
     "name": "Cromane Seafest (Co. Kerry, Ireland)",
     "reason": "19 vevents / 19 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "crwa.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Charles River Watershed Association (Boston)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "dallasculture.org/events/?ical=1": {
@@ -972,6 +1056,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "earthcorps.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "EarthCorps (Seattle)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "easternmarket-dc.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Eastern Market DC Events",
@@ -1098,6 +1189,13 @@
     "status": "ok",
     "type": "localist"
   },
+  "evergreen.ca/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Evergreen (Toronto, Canada)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "exeter-uk.libcal.com/ical_subscribe.php?cid=8108": {
     "checked": 20260727,
     "name": "University of Exeter Library (Exeter, United Kingdom)",
@@ -1161,6 +1259,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "folar.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Friends of the Los Angeles River",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "foodbanknyc.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Food Bank For New York City",
@@ -1186,6 +1291,13 @@
     "checked": 20260727,
     "name": "Footscray Community Arts (Melbourne, Australia)",
     "reason": "2 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "forestparkconservancy.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Forest Park Conservancy (Portland, OR)",
+    "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
   },
@@ -1217,11 +1329,25 @@
     "status": "ok",
     "type": "ics"
   },
+  "freshwaterfuture.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Great Lakes Commons / Freshwater Future",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "friendsanbg.org.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Friends of the Australian National Botanic Gardens (Canberra, Australia)",
     "reason": "25 vevents / 25 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "friendsoftrees.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Friends of Trees (Portland, OR)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "frostscience.org/events/?ical=1": {
@@ -1308,6 +1434,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "grandcanyontrust.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Grand Canyon Trust",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "grandcentralmarket.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Grand Central Market Events (Los Angeles)",
@@ -1336,6 +1469,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "groundworkhv.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Groundwork Hudson Valley",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "grownyc.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Union Square Greenmarket / GrowNYC Events",
@@ -1350,6 +1490,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "habitatgsf.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Habitat for Humanity Greater San Francisco",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "haleyhouse.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Haley House Community Kitchen (Boston)",
@@ -1362,6 +1509,13 @@
     "name": "Hampshire Farmers Markets (UK)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "handsonatlanta.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Hands On Atlanta",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "harboroughmarket.co.uk/events/?ical=1": {
@@ -1476,6 +1630,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "ipswichriver.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Ipswich River Watershed Association",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "jackdaniels.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Jack Daniel Distillery Events (Lynchburg)",
@@ -1509,6 +1670,13 @@
     "name": "Kamin Science Center (Pittsburgh, PA)",
     "reason": "15 vevents / 15 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "keepbritaintidy.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Keep Britain Tidy",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "kestreltrust.org/events/?ical=1": {
@@ -1560,6 +1728,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "lacorps.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Los Angeles Conservation Corps",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "lacosechadc.com/events/?ical=1": {
     "checked": 20260727,
     "name": "La Cosecha Market (Washington DC)",
@@ -1572,6 +1747,13 @@
     "name": "Lancaster University Library (Lancaster, United Kingdom)",
     "reason": "6 vevents / 1 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "landcareaustralia.org.au/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Landcare Australia",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "law-uk.libcal.com/ical_subscribe.php?cid=7896": {
@@ -1721,6 +1903,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "massaudubon.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Mass Audubon",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "massey.libcal.com/ical_subscribe.php?cid=2383": {
     "checked": 20260727,
     "name": "Massey University Library (Palmerston North, New Zealand)",
@@ -1840,6 +2029,13 @@
     "status": "ok",
     "type": "localist"
   },
+  "mysticriver.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Mystic River Watershed Association (Boston)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "nagpur.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise de Nagpur (Nagpur, India)",
@@ -1866,6 +2062,13 @@
     "name": "Neponset River Watershed Association (Canton, MA)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "newyorkcares.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "New York Cares",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "nlb.libcal.com/ical_subscribe.php?cid=11498": {
@@ -1903,6 +2106,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "nynjtc.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "New York-New Jersey Trail Conference",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "occii.org/agenda/?ical=1": {
     "checked": 20260727,
     "name": "OCCII (Amsterdam)",
@@ -1924,12 +2134,26 @@
     "status": "ok",
     "type": "ics"
   },
+  "ontarionature.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Ontario Nature (Canada)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/eventi-bologna-agenda-cultura/records": {
     "checked": 20260727,
     "name": "Bologna Agenda Cultura (Bologna, Italy)",
     "reason": "30387 records",
     "status": "ok",
     "type": "ods"
+  },
+  "openlands.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Openlands (Chicago)",
+    "reason": "http 403 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
   },
   "orcity.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
     "checked": 20260727,
@@ -1978,6 +2202,13 @@
     "name": "Parker Recreation & Community Events (Denver)",
     "reason": "18 vevents / 18 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "parksconservancy.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Golden Gate National Parks Conservancy",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "permaculturevictoria.org.au/events/?ical=1": {
@@ -2076,6 +2307,13 @@
     "name": "Portland Museum of Art (Portland, ME)",
     "reason": "8 vevents / 8 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "potomac.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Potomac Conservancy",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/active-parks-events/records": {
@@ -2204,6 +2442,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "railstotrails.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Rails-to-Trails Conservancy",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "ramart.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Racine Art Museum (Racine, WI)",
@@ -2216,6 +2461,13 @@
     "name": "Reading Terminal Market Events (Philadelphia)",
     "reason": "10 vevents / 1 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "rebuildingtogether.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Rebuilding Together",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "rfbo.org/events/?ical=1": {
@@ -2236,6 +2488,13 @@
     "checked": 20260727,
     "name": "Riverbank Arts Centre (Newbridge, Ireland)",
     "reason": "ReadTimeout: HTTPSConnectionPool(host='www.riverbank.ie', port=443): Read",
+    "status": "fail",
+    "type": "ics"
+  },
+  "riverkeeper.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Riverkeeper (Hudson River)",
+    "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
   },
@@ -2288,11 +2547,25 @@
     "status": "fail",
     "type": "ics"
   },
+  "sas.org.uk/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Surfers Against Sewage (UK)",
+    "reason": "http 403 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "savesfbay.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Save The Bay (Oakland, CA)",
     "reason": "2 vevents / 2 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "savethesound.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Save the Sound (CT)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "sccf.org/events/?ical=1": {
@@ -2330,11 +2603,25 @@
     "status": "ok",
     "type": "ics"
   },
+  "scvolunteercenter.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Volunteer Center of Santa Cruz County",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "seattlefarmersmarkets.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Ballard Farmers Market / Seattle Neighborhood Farmers Markets",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
+    "type": "ics"
+  },
+  "seattleparksfoundation.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Seattle Parks Foundation",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
     "type": "ics"
   },
   "sfmfoodbank.org/events/?ical=1": {
@@ -2421,6 +2708,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "surfrider.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Surfrider Foundation",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "surlatable.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Sur La Table Culinary (Seattle)",
@@ -2468,6 +2762,13 @@
     "name": "Taubman Museum of Art (Roanoke, VA)",
     "reason": "30 vevents / 21 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "tcv.org.uk/events/?ical=1": {
+    "checked": 20260803,
+    "name": "The Conservation Volunteers (UK)",
+    "reason": "http 404 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "techniquest.org/events/?ical=1": {
@@ -2568,6 +2869,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "treepeople.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "TreePeople (Los Angeles)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "treesatlanta.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Trees Atlanta",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "trivandrum.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise de Trivandrum (Thiruvananthapuram, India)",
@@ -2622,6 +2937,13 @@
     "name": "Seattle City Calendar",
     "reason": "500 vevents / 485 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "tualatinriverkeepers.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Tualatin Riverkeepers (Portland, OR)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "tucsonmuseumofart.org/events/?ical=1": {
@@ -2937,6 +3259,13 @@
     "name": "Winnipeg Public Library (Winnipeg, Canada)",
     "reason": "500 vevents / 223 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "wta.org/events/?ical=1": {
+    "checked": 20260803,
+    "name": "Washington Trails Association (Seattle)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "wutw.co.uk/whats-on/category/markets/?ical=1": {
