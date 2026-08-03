@@ -1,0 +1,205 @@
+name: Source health
+
+# Every ingest job in this repo is deliberately failure-tolerant — `set +e`,
+# bare `exit 0`, `|| true` — so that one dead feed cannot abort a sweep of
+# forty others. That is the right call, and it has one bad consequence:
+# aggregate-events.yml reports GREEN whether or not it ingested anything.
+# A rotated Ticketmaster key or a feed that starts 403ing produces a
+# successful run, zero new events, and no signal to anyone.
+#
+# This workflow is the missing signal. It does not re-run the ingest; it asks
+# the database what actually landed and complains when a source that used to
+# deliver has gone quiet. The sensor (source_stats() + curation_ledger.json)
+# already existed — nothing was ever scheduled to read it.
+#
+# Notification is a GitHub issue rather than Slack or a webhook, deliberately:
+# it needs no secret, no external account and no maintenance, and GitHub
+# already emails the repo owner when an issue is opened or commented. One open
+# issue is reused for as long as the problem persists, so a source that stays
+# broken for a week produces one thread, not seven.
+#
+# Triggers are schedule + workflow_dispatch ONLY. Never add pull_request:
+# this job reads SUPABASE_SERVICE_ROLE_KEY, which must never be exposed to
+# untrusted fork code.
+
+on:
+  schedule:
+    # 08:40 UTC daily — after the 06:17 daily sweep and the 06:40 Mon/Thu heavy
+    # sweep have both had time to finish and sync. Cheap: one RPC call.
+    - cron: "40 8 * * *"
+    # Sundays 04:10 UTC — the deep probe. catalog_curate.py audit re-fetches
+    # every curated feed, so it is slow and network-heavy; weekly, off-peak,
+    # and on a day the heavy sweep does not run.
+    - cron: "10 4 * * 0"
+  workflow_dispatch:
+    inputs:
+      update_baseline:
+        description: "Record the CURRENT state as the healthy baseline (do this only after a run you trust)"
+        type: boolean
+        default: false
+      run_audit:
+        description: "Also run the deep catalog audit (slow — re-probes every curated feed)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: source-health
+  cancel-in-progress: false
+
+permissions:
+  contents: write      # to commit a refreshed baseline
+  issues: write        # to open / comment / close the health issue
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # --- baseline refresh (manual only) ---------------------------------
+      - name: Update baseline
+        if: ${{ inputs.update_baseline }}
+        run: |
+          python mapsee_health_check.py --update-baseline
+          if ! git diff --quiet -- source_health_baseline.json; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add source_health_baseline.json
+            git commit -m "Refresh source health baseline"
+            git push
+          else
+            echo "baseline unchanged"
+          fi
+
+      # --- the check ------------------------------------------------------
+      # continue-on-error so a detected problem does not abort the job before
+      # the issue is filed. The exit code is captured and acted on below.
+      - name: Check ingest health
+        if: ${{ !inputs.update_baseline }}
+        id: health
+        continue-on-error: true
+        run: |
+          set +e
+          python mapsee_health_check.py --markdown health_report.md
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Summary
+        if: ${{ !inputs.update_baseline }}
+        run: cat health_report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      # --- notify ---------------------------------------------------------
+      # `gh` is preinstalled on the runner. Using it directly rather than a
+      # third-party action keeps a job that holds the service-role key free of
+      # any marketplace dependency.
+      - name: Open or update the health issue
+        if: ${{ !inputs.update_baseline && steps.health.outputs.status != '0' }}
+        run: |
+          set -euo pipefail
+          TITLE="Ingest health: one or more sources have gone quiet"
+          {
+            echo "One or more event sources have stopped delivering. The aggregate"
+            echo "workflow will still be reporting success — it is failure-tolerant"
+            echo "by design — so this issue is the only signal."
+            echo
+            cat health_report.md
+            echo
+            echo "---"
+            echo "_Checked by [\`source-health\`](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) on $(date -u '+%Y-%m-%d %H:%M UTC'). This issue closes itself once every baseline source is healthy again._"
+          } > issue_body.md
+
+          EXISTING=$(gh issue list --label ingest-health --state open \
+                       --json number --jq '.[0].number // empty')
+
+          # The label must exist before it can be applied; ignore "already exists".
+          gh label create ingest-health --color B60205 \
+            --description "A source has stopped delivering events" 2>/dev/null || true
+
+          if [ -n "$EXISTING" ]; then
+            echo "Updating existing issue #$EXISTING"
+            gh issue comment "$EXISTING" --body-file issue_body.md
+          else
+            echo "Opening a new issue"
+            gh issue create --title "$TITLE" --label ingest-health --body-file issue_body.md
+          fi
+
+      - name: Close the health issue when everything recovers
+        if: ${{ !inputs.update_baseline && steps.health.outputs.status == '0' }}
+        run: |
+          set -euo pipefail
+          EXISTING=$(gh issue list --label ingest-health --state open \
+                       --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "All baseline sources are delivering again as of $(date -u '+%Y-%m-%d %H:%M UTC'). Closing."
+            gh issue close "$EXISTING"
+          fi
+
+      # Fail the job last, so the issue is always filed first. A red run in the
+      # Actions tab is a second, independent signal alongside the issue email.
+      - name: Fail if unhealthy
+        if: ${{ !inputs.update_baseline && steps.health.outputs.status != '0' }}
+        run: |
+          echo "::error::Ingest health check failed - see the open ingest-health issue."
+          exit 1
+
+  # The deep probe. Where the `check` job asks the database what landed, this
+  # one asks every curated feed whether it is still alive, and records the
+  # answer in curation_ledger.json. That ledger is what lets dead feeds be
+  # skipped until their TTL lapses — it was only ever refreshed by hand, so it
+  # drifted, and the "N feeds marked dead" line in the daily report was stale.
+  audit:
+    # Sunday's cron, or an explicit manual request.
+    if: ${{ github.event.schedule == '10 4 * * 0' || inputs.run_audit }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Never fail the job on a bad feed: a dead source is the expected finding
+      # here, not an error. The ledger diff is the output that matters.
+      - name: Re-probe every curated feed
+        run: |
+          set +e
+          python catalog_curate.py audit | tee audit.log
+          exit 0
+
+      - name: Commit the refreshed ledger
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- curation_ledger.json; then
+            echo "ledger unchanged"; exit 0
+          fi
+          DEAD=$(python -c "import json;d=json.load(open('curation_ledger.json'));print(sum(1 for v in d.values() if v.get('status')=='fail'))")
+          TOTAL=$(python -c "import json;print(len(json.load(open('curation_ledger.json'))))")
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add curation_ledger.json
+          git commit -m "Weekly catalog audit: ${DEAD}/${TOTAL} feeds dead"
+          git push
+          {
+            echo "### Weekly catalog audit"
+            echo
+            echo "**${DEAD} of ${TOTAL}** curated feeds are not returning usable data."
+            echo
+            echo '```'
+            grep -E "^\[XX " audit.log | head -60 || echo "(no failures listed)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

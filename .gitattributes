@@ -1,0 +1,14 @@
+# Auto detect text files and perform LF normalization.
+#
+# This repo was the only one of the four without this file, and it showed:
+# every one of its 64 tracked files reported as modified on a Windows checkout,
+# because the working tree had CRLF endings while git had LF stored. Without
+# normalization the next commit would have rewritten all 64 files and destroyed
+# `git blame` for the whole public repo.
+* text=auto
+
+# Data files the pipeline rewrites. Marking them as generated keeps a 94KB
+# ledger churn out of the diff view on GitHub and out of `git diff` by default;
+# they are still versioned, still reviewable with --text.
+curation_ledger.json    linguist-generated=true
+source_health_baseline.json linguist-generated=true

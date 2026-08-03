@@ -25,7 +25,7 @@ Roughly 200 curated sources across 20+ countries, plus keyed API sweeps:
 | Ticketmaster / SeatGeek / DICE / AXS / Moshtix | `mapsee_ingest*.py` | Keyed APIs, skipped silently when unset |
 | Eventbrite | `mapsee_ingest_eventbrite.py` | Official API, organizer feeds |
 | Parks / recreation | `mapsee_ingest_nps.py`, `_recreation.py` | US National Park Service, Recreation.gov |
-| parkrun | `mapsee_ingest_parkrun.py` | ~2,900 free weekly timed 5k / junior 2k events across 21 countries, from parkrun's own public event list. Start times are not in the feed, so events are all-day and link to the event page unless pinned in the config |
+| ~~parkrun~~ | `mapsee_ingest_parkrun.py` | **Parked — not ingesting.** The adapter works, but parkrun's terms do not permit this use, so its config is held at `parkrun_sources.json.pending-permission` and the workflow skips the step. It stays here, disabled, pending written permission. See [Conduct](#conduct) |
 | Farmers markets | `mapsee_ingest_markets.py` | City open data, OpenStreetMap `amenity=marketplace`, and the **USDA Local Food Directories** (`USDA_LOCALFOOD_API_KEY`, free at [usdalocalfoodportal.com](https://www.usdalocalfoodportal.com/fe/datasharing)). All three publish weekly schedules, which this expands into dated occurrences |
 | Seoul Open Data | `mapsee_ingest_seoul.py` | Korea's own government API standard |
 | Restaurants / takeout | `mapsee_ingest_restaurants.py`, `_affiliates.py`, `_ubereats.py` | Pickup windows from published hours |
@@ -75,6 +75,45 @@ Two rules make this work at scale:
    and why it failed, so dead sources are never re-probed (and get one recheck
    after 90 days, in case they come back).
 
+## Monitoring: how you find out something broke
+
+Every ingest step is deliberately failure-tolerant — `set +e`, bare `exit 0`,
+`|| true` — so one dead feed cannot abort a sweep of forty others. That is the
+right trade, and it has a sharp edge: **the aggregate workflow reports green
+whether or not it ingested anything.** A rotated key or a feed that starts
+403ing produces a successful, silent, empty run.
+
+`mapsee_health_check.py` is the counterweight. It doesn't re-run the ingest; it
+asks the database what actually landed and compares it to a committed baseline:
+
+```bash
+python mapsee_health_check.py --update-baseline   # after a run you trust
+python mapsee_health_check.py                     # exit 1 if a source went quiet
+```
+
+It reports four things, and it is careful about false positives — staleness
+budgets are per-source and default to 8 days, because the heavy sweep only runs
+Mon & Thu and a 72-hour rule would cry wolf every Sunday:
+
+| | Meaning |
+|---|---|
+| `SILENT` | A baseline source's newest event is older than its budget. The job still exits 0; nothing new is arriving. |
+| `MISSING` | The source has no rows left at all. |
+| `DRAINED` | Still ingesting, but upcoming events collapsed >60% against the baseline. |
+| `LEDGER` | How many curated feeds `catalog_curate.py` has marked dead, and whether that's growing. Advisory. |
+
+Two workflows run it (`.github/workflows/source-health.yml`):
+
+- **daily, 08:40 UTC** — one cheap RPC call. If anything is unhealthy it opens a
+  GitHub issue labelled `ingest-health` (which emails you), comments on that same
+  issue on subsequent days rather than opening new ones, and closes it once
+  everything recovers.
+- **Sundays, 04:10 UTC** — the deep probe: `catalog_curate.py audit` re-fetches
+  every curated feed and commits the refreshed ledger.
+
+Notification is a GitHub issue rather than Slack precisely because it needs no
+secret, no external account and no upkeep.
+
 ## Conduct
 
 This project only reads **public, self-published** feeds:
@@ -87,6 +126,15 @@ This project only reads **public, self-published** feeds:
   agreement exists
 
 If you operate a feed here and want it removed, open an issue.
+
+**A worked example.** parkrun publishes an open event list and the adapter for
+it works fine — ~2,900 events across 21 countries, and it would have been the
+whole `running` layer, which no other curated feed covers. On reading their
+terms, that use isn't permitted. So the config was renamed to
+`parkrun_sources.json.pending-permission`, the workflow step now guards on the
+file's absence and skips, and the adapter sits disabled until someone at
+parkrun says yes in writing. The events would have been good; the terms said
+no. That is what the rules above mean in practice.
 
 ## Running it
 
@@ -101,10 +149,52 @@ are optional per adapter; see the workflow header for the list.
 
 ## Adding a source
 
-Most additions are **config, not code** - append an entry to `ics_sources.json`,
+Most additions are **config, not code** — append an entry to `ics_sources.json`,
 `localist_sources.json`, `opendata_sources.json`, or `ods_sources.json`, verify
-it, and open a PR. New *platforms* need a small adapter; the existing ones are
-the template.
+it with `catalog_curate.py verify`, and open a PR.
+
+### Adding a new platform (a new adapter)
+
+New *platforms* need a small adapter. Every adapter in this repo follows the
+same contract, so copy the closest one — `mapsee_ingest_localist.py` is the
+smallest complete example, `mapsee_ingest_ics.py` the most thorough:
+
+- **CLI.** `--config <sources.json> --store <store.json>` — universal across all
+  adapters. The workflow relies on it; nothing else is assumed.
+- **Read the config through `_entries()`**, never a bare `json.load`. Some
+  configs nest their list under a `"sources"` key, and iterating the raw object
+  walks the dict *keys* instead. This has bitten two readers already.
+- **Append to the store, don't overwrite.** Several adapters write to the same
+  `feeds_events.json` in one job; the last one must not erase the others.
+- **No-op silently when the key is unset.** Print a one-line skip and return 0.
+  A fork with no credentials must still run green.
+- **Identify honestly** — reuse the shared `MapseeAggregator/1.0 (+https://mapsee.me)`
+  User-Agent, and respect `robots.txt` and rate limits. See [Conduct](#conduct).
+- **Normalize to the common event shape** so `mapsee_supabase_sync.py` can upsert
+  it: stable `external_id`, `external_source`, title, start/end, lat/lon, a
+  source URL to link back to, and a category.
+- **Add a step to `aggregate-events.yml`** in the job matching your source's
+  cost profile (see the run-order note below), guarded so a missing config file
+  skips rather than fails.
+
+### What runs when
+
+Execution order lives in `.github/workflows/aggregate-events.yml`, whose header
+comment explains the job split in detail. The short version:
+
+| Job | Cadence | What |
+|---|---|---|
+| `ticketmaster` | daily 06:17 UTC | The one Ticketmaster sweep, US then international. Serial by nature — the key is rate-limited to ~2 req/s. |
+| `feeds` | daily 06:17 UTC | ICS, open data, Localist, JSON-LD, markets. Carries no coords, so each venue is geocoded (~1.1s); isolated so a slow feed can't drag the TM sweep. |
+| `meetup` | Mon & Thu 06:40 | One Meetup sweep. Separate key from Ticketmaster, so it runs in parallel. |
+| `extra_sources` | Mon & Thu 06:40 | SeatGeek/DICE/AXS metro sweep, Eventbrite, NPS/Localist/Sports. Skipped wholesale when none of those keys are set. |
+| `source-health` | daily 08:40 | Reads what landed; opens an issue if a source went quiet. See [Monitoring](#monitoring-how-you-find-out-something-broke). |
+| `audit` | Sun 04:10 | Deep re-probe of every curated feed; commits the refreshed ledger. |
+
+Adapters within a job run sequentially and all append to one store, which is
+synced once at the end of the job. That last part matters: a job cancelled at
+its timeout mid-loop throws away everything it had ingested, which has happened
+(~42k events lost). Keep new steps cheap, or give them their own job.
 
 ## Known limit: Trumba .ics caps at 500
 
@@ -136,3 +226,20 @@ source was missed.
 ## License
 
 MIT - see [LICENSE](LICENSE).
+
+---
+
+## Part of the Conbinience suite
+
+This pipeline feeds **Mapsee**, a product of **Conbinience LLC** (Seattle). It is
+the only public repository of the four:
+
+| Repo | Serves |
+| --- | --- |
+| [`conbinience`](https://github.com/conbinience/conbinience) | www.conbinience.com — company site, and the suite map |
+| [`fishsie`](https://github.com/conbinience/fishsie) | www.fishsie.com |
+| [`mapsee`](https://github.com/conbinience/mapsee) | mapsee.me + six front doors — the app this pipeline writes into |
+| **`mapsee-aggregator`** *(this one)* | no site — runs on GitHub Actions |
+
+Events ingested here surface on all seven Mapsee doors; `derive_categories` in
+`mapsee_supabase_sync.py` is what routes an event to the doors it belongs on.

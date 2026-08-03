@@ -1,5 +1,22 @@
-requests
-tzdata
-timezonefinder
-pyjwt
-cryptography
+# Runtime dependencies for the ingest pipeline.
+#
+# Verified complete: an import scan of every .py file in this repo finds only
+# these five third-party packages. Everything else the adapters use (json, csv,
+# hashlib, urllib, datetime, sqlite3, zoneinfo...) is stdlib.
+#
+# The upper bounds are the point of this file. Exact pins would be more
+# reproducible still, but they rot quietly and nobody bumps them; a major-version
+# cap costs nothing and stops the one thing that actually breaks a scheduled
+# pipeline - a dependency shipping a breaking 3.0 at 6am on a Sunday. Raise a cap
+# deliberately, after a manual run.
+#
+# For a true lockfile (worth it if this pipeline becomes business critical):
+#   pip freeze > requirements.lock.txt   and install from that in CI.
+#
+# Python 3.12 - set in .github/workflows/*.yml, not enforceable from here.
+
+requests>=2.31,<3          # every adapter's HTTP client
+tzdata>=2024.1             # IANA tz database (calendar-versioned; no cap)
+timezonefinder>=6.2,<8     # lat/lon -> IANA zone, for events with no tz
+pyjwt>=2.8,<3              # Meetup OAuth: signed JWT assertions
+cryptography>=42,<50       # RSA signing backend for pyjwt
