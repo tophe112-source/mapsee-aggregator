@@ -1,0 +1,52 @@
+{
+  "_comment": "The Rolodex (rolodex.lol) - a community-run directory of improv/sketch shows and open jams, documented at https://rolodex.lol/developers. Public JSON, no key, 60 req/min/IP. Its listings are the long tail no ticketing API indexes: independent troupes in small rooms, most without a Ticketmaster/SeatGeek presence at all. The API returns a venue STRING and no coordinates, so each site supplies a venue book - street+city+region per room - which the sync geocodes (mapsee_supabase_sync._addr_parts needs a street, and drops anything it cannot place). Rows whose venue string already carries a full address are parsed inline and need no entry. Add a room here the first time the adapter logs it as unplaceable.",
+  "sites": [
+    {
+      "name": "The Rolodex (Seattle improv)",
+      "base_url": "https://rolodex.lol",
+      "category": "theater",
+      "within_days": 365,
+      "jams": true,
+      "default_city": "Seattle",
+      "default_region": "WA",
+      "default_country": "US",
+      "venues": {
+        "west of lenin": {
+          "address": "203 N 36th St",
+          "city": "Seattle",
+          "region": "WA"
+        },
+        "shanghai room": {
+          "address": "8580 Greenwood Ave N",
+          "city": "Seattle",
+          "region": "WA"
+        },
+        "north star diner & shanghai room": {
+          "address": "8580 Greenwood Ave N",
+          "city": "Seattle",
+          "region": "WA"
+        },
+        "woodland theater": {
+          "address": "608 NW 65th St",
+          "city": "Seattle",
+          "region": "WA"
+        },
+        "studio east": {
+          "address": "10718 NE 68th St",
+          "city": "Kirkland",
+          "region": "WA"
+        },
+        "jet city improv": {
+          "address": "5510 University Way NE",
+          "city": "Seattle",
+          "region": "WA"
+        },
+        "unexpected productions": {
+          "address": "1428 Post Alley",
+          "city": "Seattle",
+          "region": "WA"
+        }
+      }
+    }
+  ]
+}

@@ -329,6 +329,13 @@ jobs:
           else
             echo "no venuepilot_sources.json — skipping"
           fi
+      - name: Import The Rolodex (independent improv/sketch shows, public JSON)
+        run: |
+          if [ -f rolodex_sources.json ]; then
+            python mapsee_ingest_rolodex.py --config rolodex_sources.json --store feeds_events.json
+          else
+            echo "no rolodex_sources.json — skipping"
+          fi
       - name: Import Moshtix (AU/NZ music + live events, public GraphQL)
         run: python mapsee_ingest_moshtix.py --store feeds_events.json --within-days 120 || true
       - name: Import Opendatasoft civic events (international; OpenAgenda + city portals)
