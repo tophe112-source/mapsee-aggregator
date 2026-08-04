@@ -382,6 +382,14 @@ jobs:
       # rebuilt each run — so the duplicates only ever meet here, in the table.
       - name: Collapse duplicate market events
         run: python mapsee_dedupe_markets.py --max-seconds 300 || true
+      # A weekly market publishes each Saturday as its own listing and nothing tied
+      # them together, so the map drew forty rows as forty separate things and Nearby
+      # listed the same market forty times. Runs AFTER the dedupe, so it never chains
+      # rows that were about to be deleted. Here rather than in the ingest for the same
+      # reason as above, plus one more: --only-new means a sync sees this week's
+      # occurrence and not the thirty already in the table.
+      - name: Chain repeating listings into one series
+        run: python mapsee_link_series.py --max-seconds 300 || true
 
   extra_sources:
     name: SeatGeek + Eventbrite + NPS + Localist + Sports

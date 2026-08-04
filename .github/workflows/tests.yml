@@ -63,6 +63,13 @@ jobs:
       - name: Adapter categories (secondaries survive into the sync)
         run: python test_ingest_categories.py
 
+      # Grouping rules only — no network, no database. Worth a gate because the
+      # script WRITES to a shared column and its failure mode is silent: chain
+      # two unrelated events and one of them vanishes from the map behind the
+      # other, with nothing in any log to say so.
+      - name: Series linking (which repeats are one thing)
+        run: python test_link_series.py
+
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a
       # mid-sweep crash on a schedule, hours later. Compiling is not a test, but
