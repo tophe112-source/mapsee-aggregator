@@ -336,6 +336,27 @@ jobs:
           else
             echo "no rolodex_sources.json — skipping"
           fi
+      - name: Import 'The Events Calendar' sites (WordPress REST — comedy, running clubs, nature orgs)
+        run: |
+          if [ -f tribe_sources.json ]; then
+            python mapsee_ingest_tribe.py --config tribe_sources.json --store feeds_events.json
+          else
+            echo "no tribe_sources.json — skipping"
+          fi
+      - name: Import Gancio instances (DIY/social-centre calendars, mostly EU)
+        run: |
+          if [ -f gancio_sources.json ]; then
+            python mapsee_ingest_gancio.py --config gancio_sources.json --store feeds_events.json
+          else
+            echo "no gancio_sources.json — skipping"
+          fi
+      - name: Import Mobilizon instances (federated event software, FR/CH/IT)
+        run: |
+          if [ -f mobilizon_sources.json ]; then
+            python mapsee_ingest_mobilizon.py --config mobilizon_sources.json --store feeds_events.json
+          else
+            echo "no mobilizon_sources.json — skipping"
+          fi
       - name: Import Moshtix (AU/NZ music + live events, public GraphQL)
         run: python mapsee_ingest_moshtix.py --store feeds_events.json --within-days 120 || true
       - name: Import Opendatasoft civic events (international; OpenAgenda + city portals)

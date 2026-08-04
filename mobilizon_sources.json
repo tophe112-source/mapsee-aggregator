@@ -1,0 +1,33 @@
+{
+  "_comment": "Mobilizon instances (https://joinmobilizon.org) - federated AGPL event software. Public GraphQL at {base}/api, no key. Its EventCategory enum has 30 values that map almost one-to-one onto mapsee's, so these arrive correctly filed rather than keyword-guessed; `category` here is only the fallback for the handful with no honest home. NOTE for anyone extending this list: geom is 'lon;lat', longitude FIRST - read it backwards and every European event lands in the Gulf of Guinea. A keyless directory of live instances is at https://instances.joinmobilizon.org/api/v1/instances?count=200 if you want to widen this.",
+  "sites": [
+    {
+      "name": "Mobilisons (CH)",
+      "base_url": "https://mobilisons.ch",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Switzerland"
+    },
+    {
+      "name": "Mobilizon.fr (FR)",
+      "base_url": "https://mobilizon.fr",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "France"
+    },
+    {
+      "name": "Ticketzon (IT)",
+      "base_url": "https://ticketzon.it",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Italy"
+    }
+  ],
+  "_not_included": {
+    "https://keskonfai.fr": "205k events, but machine-ingested from tourist-office feeds rather than grassroots - a different kind of source with its own licence to check before use.",
+    "https://mobilizon.us": "heavily spammed; scam listings geocoded to France."
+  }
+}

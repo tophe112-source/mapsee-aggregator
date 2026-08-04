@@ -1,0 +1,50 @@
+{
+  "_comment": "WordPress sites running 'The Events Calendar' (Modern Tribe), read through its public REST API at /wp-json/tribe/events/v1/events. No key. Each entry: base_url, a mapsee category, and crawl_delay in SECONDS taken from that site's own robots.txt - these are small nonprofits on shared hosting and the delay is the deal. Before adding a source, read its robots.txt: if the User-agent:* group disallows /wp-json/ or the event path, it does not belong here (WORT-FM 89.9 is the example - 2,355 events, and disallowed). Probing the endpoint also triages a candidate in one request: JSON with an 'events' key means yes, a rest_no_route error means WordPress without the plugin, HTML means not WordPress.",
+  "sites": [
+    {
+      "name": "The Comedy Bureau (Los Angeles + NYC)",
+      "base_url": "https://thecomedybureau.com",
+      "category": "theater",
+      "crawl_delay": 10,
+      "within_days": 120,
+      "max_pages": 40,
+      "_note": "robots.txt: 'User-agent: * / Disallow:' then 'Crawl-Delay: 10'. Independent standup, improv and open mics - the scene the ticketing APIs do not index. ~10,500 future events, so max_pages caps the sweep rather than walking all 5,000 pages."
+    },
+    {
+      "name": "Montgomery County Road Runners (MD)",
+      "base_url": "https://mcrrc.org",
+      "category": "running",
+      "crawl_delay": 2,
+      "within_days": 180,
+      "_note": "robots.txt disallows /wp-admin/ only. Fills a real gap: coverage reports no curated running feeds anywhere in the US."
+    },
+    {
+      "name": "New Jersey Audubon",
+      "base_url": "https://njaudubon.org",
+      "category": "outdoors",
+      "crawl_delay": 10,
+      "within_days": 180,
+      "_note": "robots.txt: Yoast block with an empty Disallow, Crawl-delay: 10. Walks, bird counts, family programs."
+    },
+    {
+      "name": "Georgia Native Plant Society",
+      "base_url": "https://gnps.org",
+      "category": "volunteer",
+      "crawl_delay": 150,
+      "within_days": 180,
+      "max_pages": 4,
+      "_note": "robots.txt asks Crawl-delay: 150, which is honoured - hence the low max_pages, since a full sweep at 150s/page is not worth it. Their rights page requires attribution for re-use: 'Georgia Native Plant Society', with a hyperlink to the original. The event URL we store IS that link."
+    },
+    {
+      "name": "Unexpected Productions (Seattle improv)",
+      "base_url": "https://unexpectedproductions.org",
+      "category": "theater",
+      "crawl_delay": 2,
+      "within_days": 180,
+      "default_city": "Seattle",
+      "default_region": "WA",
+      "default_country": "US",
+      "_note": "robots.txt disallows /wp-admin/ only. Pike Place Market improv, same scene The Rolodex covers and already in that adapter's venue book."
+    }
+  ]
+}

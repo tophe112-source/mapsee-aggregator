@@ -1,0 +1,91 @@
+{
+  "_comment": "Gancio instances (https://gancio.org) - self-hosted AGPL event software used by social centres, DIY venues and neighbourhood collectives. One URL pattern, no key: {base}/api/events?start=<unix>&end=<unix>&max=<n>. Almost every event carries place.latitude/longitude, so these need no geocoding. robots.txt on every instance checked is byte-identical and allows everything, with no crawl-delay; the 2s here is politeness toward volunteer-run servers, several on home connections. default_city/region/country only fill gaps - Gancio's own place.address is used when present. There is no public directory API (gancio.org/instances is HTML), so this list is seeded by hand; add instances as they are verified.",
+  "crawl_delay": 2,
+  "sites": [
+    {
+      "name": "Offbeat Amsterdam",
+      "base_url": "https://offbeat.amsterdam",
+      "category": "community",
+      "within_days": 180,
+      "max": 500,
+      "default_city": "Amsterdam",
+      "default_country": "NL"
+    },
+    {
+      "name": "RheinMain (DE)",
+      "base_url": "https://rheinmain.social",
+      "category": "community",
+      "within_days": 180,
+      "default_country": "DE"
+    },
+    {
+      "name": "Keep Karlsruhe Boring (DE)",
+      "base_url": "https://keepkarlsruheboring.org",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "Karlsruhe",
+      "default_country": "DE"
+    },
+    {
+      "name": "Bonn Jetzt (DE)",
+      "base_url": "https://bonn.jetzt",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "Bonn",
+      "default_country": "DE"
+    },
+    {
+      "name": "AskaPunk Berlin (DE)",
+      "base_url": "https://berlin.askapunk.de",
+      "category": "music",
+      "within_days": 180,
+      "default_city": "Berlin",
+      "default_country": "DE"
+    },
+    {
+      "name": "Devent (CZ)",
+      "base_url": "https://devent.cz",
+      "category": "community",
+      "within_days": 180,
+      "default_country": "CZ"
+    },
+    {
+      "name": "Convoca Barcelona (ES)",
+      "base_url": "https://bcn.convoca.la",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "Barcelona",
+      "default_country": "ES"
+    },
+    {
+      "name": "Convoca Madrid (ES)",
+      "base_url": "https://mad.convoca.la",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "Madrid",
+      "default_country": "ES"
+    },
+    {
+      "name": "AskaPunk Montreal (CA)",
+      "base_url": "https://montreal.askapunk.net",
+      "category": "music",
+      "within_days": 180,
+      "default_city": "Montreal",
+      "default_country": "CA"
+    },
+    {
+      "name": "Carbondale (US, IL)",
+      "base_url": "https://carbondale.info",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "Carbondale",
+      "default_region": "IL",
+      "default_country": "US"
+    }
+  ],
+  "_tried_and_dead": {
+    "https://cisti.org": "/api/events 404 - instance decommissioned",
+    "https://kompot.si": "302 to YunoHost SSO; API behind a login, not public",
+    "https://clonmel.town": "302 to whatson.clonmel.town, which 404s /api/events too - verified directly, not inferred. No Gancio API on either host despite being listed as an instance."
+  }
+}
