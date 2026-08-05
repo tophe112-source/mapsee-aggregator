@@ -26,6 +26,7 @@ front doors it reaches.
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
 | Deleting past events | `mapsee_cleanup.py` |
+| Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | What runs when | `.github/workflows/aggregate-events.yml` header — the best doc in the repo |
 
 Source lists are the `*_sources.json` files; `CONFIG` at the top of
@@ -57,6 +58,15 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   `_not_included()` or it will re-propose them every week.
 - **Never add `pull_request:` to a workflow that reads secrets.** `tests.yml` is
   the one workflow safe on forks, because it reads none.
+- **`series_id` is assigned after the fact, not at ingest.** A repeating listing
+  publishes each occurrence separately and the store is rebuilt every run, so the
+  occurrences never meet in memory — the table is the only place a series is
+  visible whole. `mapsee_link_series.py` runs after the sync and stamps them.
+  Its failure mode is silent and bad: chain two unrelated events and one of them
+  disappears from the map behind the other (`collapseSeries` in
+  `../mapsee/site/js/app.js` folds a series to its next occurrence), with nothing
+  in any log to say so. That is why it has a test, refuses implausibly large
+  groups, and never touches a claimed row.
 
 ## Running things
 
@@ -65,12 +75,13 @@ pip install -r requirements.txt
 
 python test_categories.py           # the classifier: which lens an event reaches
 python test_ingest_categories.py    # adapters + the shared vocabulary
+python test_link_series.py          # which repeats count as one thing
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The two test scripts are the CI gate (`tests.yml`). They print one line per case
-and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
+The three test scripts are the CI gate (`tests.yml`). They print one line per
+case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
 
