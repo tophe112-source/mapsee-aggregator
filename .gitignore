@@ -2,8 +2,14 @@ __pycache__/
 *.pyc
 
 # run artifacts + caches (restored in CI via actions/cache)
-geocode_cache.json
+# NOT geocode_cache.json — it is committed on purpose. mapsee_ingest_markets.py
+# derives a market's fingerprint from a geohash cell of its geocoded position,
+# so a coordinate that moves between runs mints a duplicate row rather than
+# moving a pin. That makes the cache identity-critical, and actions/cache (7-day
+# idle eviction, never saved by a timed-out job) is not a place to keep identity.
+# The warm cache still covers the other adapters — see aggregate-events.yml.
 ics_feed_cache.json
+geocode_cache.warm.json
 geo_budget.json
 feeds_events.json
 *.verified.json

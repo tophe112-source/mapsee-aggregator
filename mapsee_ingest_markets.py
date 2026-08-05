@@ -69,6 +69,21 @@ from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint,
 _IDENT_PRECISION = 5
 
 # ---- persistent geocode cache (shared with the other adapters) --------------
+# COMMITTED TO GIT, unlike the other caches in this repo, and this file is the
+# reason why. Identity here is a geohash cell (see market_events), so the
+# coordinate Photon returns is not merely where the pin lands — it decides
+# whether a row is the SAME market as last run or a brand-new one. That makes a
+# disposable cache load-bearing: `geocode_cache.json` used to live only in
+# actions/cache, which GitHub evicts after 7 days idle and which a timed-out job
+# never saves. The 2026-08-04 run came up cold, re-geocoded all 48 inline
+# markets, got different answers, and filed every one of them a second time —
+# Columbia City twice in Seattle search, 4km apart, on the day of the store
+# screenshots. Photon is not stable across index builds and never promised to be.
+#
+# So: the committed entries are the SOURCE OF TRUTH for `|market` keys. CI still
+# restores a warm cache for the other adapters (whose fingerprints key on venue
+# TEXT, so a drifting coordinate only nudges a pin) but merges it UNDERNEATH
+# this file — see the "Merge the warm geocode cache" step in aggregate-events.yml.
 GEO_CACHE_PATH = os.environ.get("GEOCODE_CACHE", "geocode_cache.json")
 
 
@@ -80,8 +95,12 @@ def _load_cache() -> Dict[str, Any]:
 
 
 def _save_cache(c: Dict[str, Any]) -> None:
+    # sort_keys + indent because this file is committed: json.dumps' default
+    # single-line, insertion-ordered blob rewrites the whole file on every run
+    # and makes the diff unreviewable, which defeats the point of tracking it.
     try:
-        open(GEO_CACHE_PATH, "w", encoding="utf-8").write(json.dumps(c))
+        open(GEO_CACHE_PATH, "w", encoding="utf-8").write(
+            json.dumps(c, ensure_ascii=False, indent=1, sort_keys=True) + "\n")
     except Exception:
         pass
 
@@ -105,7 +124,14 @@ def _geocode(session, query: str) -> Tuple[Optional[float], Optional[float]]:
             out = (c[1], c[0])
     except Exception:
         pass
-    _CACHE[key] = list(out)
+    # Only a HIT is cached. A miss used to be stored as [null, null], which was
+    # survivable while the cache was disposable — the next eviction retried it.
+    # Now that the file is committed, one Photon 500 would be baked into git
+    # permanently, and market_events() drops any row whose coordinates are None:
+    # the market would silently disappear from the map and no later run would
+    # ever look it up again. An uncached miss just retries next run.
+    if out[0] is not None:
+        _CACHE[key] = list(out)
     return out
 
 
@@ -227,6 +253,12 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
     # compared. A market sitting on a cell boundary still slips through, which is
     # what mapsee_dedupe_markets.py sweeps up in the database, the one place where
     # every source's rows do meet. `place` stays the address, for display.
+    #
+    # "Pure function of THIS row" is the load-bearing part, and for the 48 inline
+    # markets that carry an address but no coordinates it is only true because
+    # geocode_cache.json is committed — lat/lon above came from a network call,
+    # so without a stable cache the cell is a function of whatever Photon
+    # happened to answer today. See the cache block at the top of this file.
     ident = "market " + geohash_encode(lat, lon, _IDENT_PRECISION)
     # A nationwide source spans four zones, so the row may carry its own; a
     # city-scoped source declares one for the whole config.

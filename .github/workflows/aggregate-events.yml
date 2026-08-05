@@ -238,14 +238,36 @@ jobs:
           cache-dependency-path: requirements.txt
       - name: Install deps
         run: pip install -r requirements.txt
-      - name: Restore geocode cache (Photon is ~1.1s/venue — persist across runs)
+      # geocode_cache.json is COMMITTED and is the source of truth for `|market`
+      # keys, whose coordinates decide market fingerprints. The warm cache is
+      # restored to a SIDE path so actions/cache can never overwrite it — it is a
+      # speed optimization for the other adapters (which fingerprint on venue
+      # TEXT, so a coordinate that drifts there only nudges a pin), not identity.
+      - name: Restore warm geocode cache (Photon is ~1.1s/venue — persist across runs)
         uses: actions/cache@v4
         with:
           path: |
-            geocode_cache.json
+            geocode_cache.warm.json
             ics_feed_cache.json
           key: geocode-cache-feeds-${{ github.run_id }}
           restore-keys: geocode-cache-
+      - name: Merge the warm geocode cache UNDER the committed one
+        run: |
+          python - <<'PY'
+          import json
+          def load(p):
+              try:
+                  with open(p, encoding="utf-8") as fh:
+                      return json.load(fh)
+              except Exception:
+                  return {}
+          warm, tracked = load("geocode_cache.warm.json"), load("geocode_cache.json")
+          merged = {**warm, **tracked}          # committed entries always win
+          with open("geocode_cache.json", "w", encoding="utf-8") as fh:
+              json.dump(merged, fh, ensure_ascii=False, indent=1, sort_keys=True)
+              fh.write("\n")
+          print(f"warm={len(warm)} committed={len(tracked)} merged={len(merged)}")
+          PY
       - name: Import city open-data events (Socrata)
         run: |
           if [ -f opendata_sources.json ]; then
@@ -390,6 +412,41 @@ jobs:
       # occurrence and not the thirty already in the table.
       - name: Chain repeating listings into one series
         run: python mapsee_link_series.py --max-seconds 300 || true
+      # A market geocode decides that market's FINGERPRINT, so it has to be
+      # committed to be stable — an entry that lives only in the warm cache is one
+      # eviction away from re-geocoding to a different cell and filing the market a
+      # second time. That is what happened to all 48 inline markets on 2026-08-04.
+      # Only entries missing from git are reported; the check is advisory (a new
+      # source should not break the nightly run) and the dedupe sweep above is the
+      # backstop. Commit what it prints.
+      - name: Flag market geocodes that are not committed yet
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          def load(s):
+              try:
+                  return json.loads(s)
+              except Exception:
+                  return {}
+          live = load(open("geocode_cache.json", encoding="utf-8").read())
+          head = load(subprocess.run(["git", "show", "HEAD:geocode_cache.json"],
+                                     capture_output=True, text=True).stdout)
+          new = sorted(k for k in live
+                       if k.endswith("|market") and k not in head)
+          if not new:
+              print(f"All {sum(k.endswith('|market') for k in live)} market geocodes are committed.")
+          else:
+              print(f"::warning::{len(new)} market geocode(s) resolved this run are NOT in git. "
+                    "Until committed their fingerprints can drift and duplicate the market. "
+                    "Commit geocode_cache.json with these entries:")
+              for k in new:
+                  print(f"  {k} -> {live[k]}")
+          PY
+      # Feed the warm cache back to actions/cache from the merged file, so the
+      # other adapters' lookups persist. Identity no longer depends on this.
+      - name: Refresh the warm geocode cache
+        if: always()
+        run: cp geocode_cache.json geocode_cache.warm.json
 
   extra_sources:
     name: SeatGeek + Eventbrite + NPS + Localist + Sports
@@ -410,14 +467,35 @@ jobs:
           cache-dependency-path: requirements.txt
       - name: Install deps
         run: pip install -r requirements.txt
-      - name: Restore geocode cache (TheSportsDB venue lookups)
+      # Side path, then merged under the committed file — same reasoning as the
+      # feeds job. This job runs no market adapter, but it shares the cache file,
+      # and restoring straight onto it would overwrite the committed `|market`
+      # entries with whatever the warm copy happened to hold.
+      - name: Restore warm geocode cache (TheSportsDB venue lookups)
         uses: actions/cache@v4
         with:
           path: |
-            geocode_cache.json
+            geocode_cache.warm.json
             ics_feed_cache.json
           key: geocode-cache-extra-${{ github.run_id }}
           restore-keys: geocode-cache-
+      - name: Merge the warm geocode cache UNDER the committed one
+        run: |
+          python - <<'PY'
+          import json
+          def load(p):
+              try:
+                  with open(p, encoding="utf-8") as fh:
+                      return json.load(fh)
+              except Exception:
+                  return {}
+          warm, tracked = load("geocode_cache.warm.json"), load("geocode_cache.json")
+          merged = {**warm, **tracked}          # committed entries always win
+          with open("geocode_cache.json", "w", encoding="utf-8") as fh:
+              json.dump(merged, fh, ensure_ascii=False, indent=1, sort_keys=True)
+              fh.write("\n")
+          print(f"warm={len(warm)} committed={len(tracked)} merged={len(merged)}")
+          PY
       - name: SeatGeek + DICE + AXS metro sweep (skipped wholesale when no keys are set)
         run: |
           set +e
@@ -473,3 +551,7 @@ jobs:
           else
             echo "no Eventbrite events ingested — nothing to sync"
           fi
+      # Only the warm copy is saved; the committed file stays as git has it.
+      - name: Refresh the warm geocode cache
+        if: always()
+        run: cp geocode_cache.json geocode_cache.warm.json
