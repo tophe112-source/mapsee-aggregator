@@ -8,6 +8,23 @@ name: Grow the catalog
 # are already wired in; it can tell you the catalog is shrinking and can do
 # nothing about it growing.
 #
+# WHY THIS SWEEPS THREE CATALOGS AND KEEPS A CURSOR. Scheduling the loop was not
+# enough: it converged. Discovery read the FIRST PAGE of each catalog query and
+# stopped, so it saw the same rows every week — "events" alone matches 1,390
+# Socrata datasets and only the top 100 were ever probed. Measured on the real
+# catalog, a full 17-query sweep proposed six candidates, and every one of the
+# six was a URL the ledger had already rejected (the ledger filter here read a
+# field the ledger has never had). A weekly job that re-reads page one for ever
+# is not curation, it is a cron entry.
+#
+# So: an offset cursor per query, committed, so each run walks new ground and
+# wraps when it has been all the way round; the ledger filter fixed, so the
+# candidate budget buys new URLs rather than re-buying dead ones; ckan on the
+# SCHEDULE rather than only on a human's dispatch; and mobilizon, which is the
+# only backend whose supply grows on its own — federated instances that did not
+# exist last quarter appear in a public directory, 95 of them today against the
+# three that were configured by hand.
+#
 # WHAT THIS IS FOR. Each mapsee front door opens onto a set of categories
 # (`categories` in mapsee/src/lens.js). A door whose categories have no supply is
 # an empty map with a brand on it — which is not hypothetical: `volunteer` has
@@ -38,13 +55,13 @@ on:
   workflow_dispatch:
     inputs:
       limit:
-        description: "How many candidate datasets to probe (each costs a live request)"
+        description: "How many candidates to probe PER BACKEND (each costs a live request)"
         default: "300"
       backend:
-        description: "socrata (US/global civic portals) or ckan (data.gov.* portals)"
+        description: "Which catalog to sweep. 'all' is what the schedule runs."
         type: choice
-        options: [socrata, ckan]
-        default: socrata
+        options: [all, socrata, ckan, mobilizon]
+        default: all
       dry_run:
         description: "Verify only — do not merge or commit"
         type: boolean
@@ -87,48 +104,56 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # discover → verify → merge. `set +e` on discovery only: a catalog API
-      # having a bad morning must not cost the rest of the run, and verify
-      # handles an empty candidate list correctly.
-      # The backend is a POSITIONAL argument, and it must come before the flags:
-      # main() reads it as argv[2:3], and --limit/--out are located by index. A
-      # `--backend ckan` would be parsed as socrata and silently sweep the wrong
-      # catalog, so the two forms are spelled out rather than interpolated.
-      - name: Discover candidates
+      # discover → verify → merge, ONCE PER BACKEND. The schedule used to sweep
+      # socrata alone, because `inputs` is empty on a `schedule` event and the
+      # fallback was 'socrata' — so ckan (every non-US portal) only ran when a
+      # human remembered to dispatch it, which is to say twice ever: the ledger
+      # holds 2 ckan probes against 431 of everything else.
+      #
+      # Each backend is a separate discover→verify→merge cycle rather than one
+      # concatenated candidate list, so a catalog having a bad morning costs its
+      # own cycle and nothing else. `set +e` for the same reason; verify handles
+      # an empty candidate list correctly and merge is guarded on a non-empty file.
+      #
+      # The backend is a POSITIONAL argument and must come before the flags:
+      # main() reads it as argv[2:3] and locates --limit/--out by index. A
+      # `--backend ckan` parses as socrata and silently sweeps the wrong catalog,
+      # so it is passed as $b in first position and never interpolated into flags.
+      - name: Discover, verify and merge
         run: |
           set +e
-          if [ "${{ inputs.backend || 'socrata' }}" = "ckan" ]; then
-            python catalog_curate.py discover ckan --limit "${{ inputs.limit || '300' }}" --out candidates.json
-          else
-            python catalog_curate.py discover --limit "${{ inputs.limit || '300' }}" --out candidates.json
-          fi
-          echo "discover exit: $?"
-          [ -f candidates.json ] || echo '[]' > candidates.json
-
-      - name: Verify candidates (live probe, production User-Agent)
-        run: |
-          python catalog_curate.py verify candidates.json | tee verify.txt
-          {
-            echo '## Verification'
-            echo '```'
-            tail -40 verify.txt
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Merge the survivors
-        if: ${{ !inputs.dry_run }}
-        run: |
-          if [ -s candidates.verified.json ]; then
-            python catalog_curate.py merge candidates.verified.json | tee merge.txt
-          else
-            echo "Nothing verified this week — no merge." | tee merge.txt
-          fi
-          {
-            echo '## Merge'
-            echo '```'
-            cat merge.txt
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+          case "${{ inputs.backend || 'all' }}" in
+            all) BACKENDS="socrata ckan mobilizon" ;;
+            *)   BACKENDS="${{ inputs.backend }}" ;;
+          esac
+          LIMIT="${{ inputs.limit || '300' }}"
+          for b in $BACKENDS; do
+            echo "::group::$b"
+            # socrata is the default and takes no positional; the others do.
+            if [ "$b" = "socrata" ]; then
+              python catalog_curate.py discover --limit "$LIMIT" --out "cand-$b.json"
+            else
+              python catalog_curate.py discover "$b" --limit "$LIMIT" --out "cand-$b.json"
+            fi
+            [ -f "cand-$b.json" ] || echo '[]' > "cand-$b.json"
+            python catalog_curate.py verify "cand-$b.json" | tee "verify-$b.txt"
+            if [ "${{ inputs.dry_run }}" != "true" ] && [ -s "cand-$b.verified.json" ]; then
+              python catalog_curate.py merge "cand-$b.verified.json" | tee "merge-$b.txt"
+            else
+              echo "no merge for $b" | tee "merge-$b.txt"
+            fi
+            {
+              echo "## $b"
+              echo '```'
+              # The FLAG lines are the ones worth reading at a glance: a category
+              # with no discovery query is a door that cannot grow supply.
+              grep -h '^  FLAG' "verify-$b.txt" "merge-$b.txt" 2>/dev/null
+              tail -25 "verify-$b.txt"
+              cat "merge-$b.txt"
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::endgroup::"
+          done
 
       - name: Coverage after
         if: ${{ !inputs.dry_run }}
@@ -144,17 +169,22 @@ jobs:
       # The candidate/verify scratch files are run artifacts, not sources — only
       # the configs and the ledger are committed. `git diff --quiet` keeps a week
       # with no new feeds from producing an empty commit.
+      # curation_cursor.json is committed with the configs and is NOT scratch: it
+      # is the offset each catalog query reached, and it is the only reason the
+      # next run looks at different rows than this one. Dropped from the commit,
+      # every run would restart at offset 0 and the job would go back to
+      # re-reading the same first page of "events" for ever.
       - name: Commit new sources
         if: ${{ !inputs.dry_run }}
         run: |
-          rm -f candidates.json candidates.verified.json coverage-*.txt verify.txt merge.txt
-          if git diff --quiet -- '*_sources.json' curation_ledger.json; then
-            echo "No config or ledger change — nothing to commit."
+          rm -f cand-*.json coverage-*.txt verify-*.txt merge-*.txt
+          if git diff --quiet -- '*_sources.json' curation_ledger.json curation_cursor.json; then
+            echo "No config, ledger or cursor change — nothing to commit."
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- '*_sources.json' curation_ledger.json
+          git add -- '*_sources.json' curation_ledger.json curation_cursor.json
           # Two -m flags, not one multi-line string: a bare continuation line
           # sits at column 0 and terminates the `run: |` block scalar, which
           # makes the whole workflow file unparseable.
