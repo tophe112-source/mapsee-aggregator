@@ -30,6 +30,13 @@ fingerprints it currently emits, and keeps exactly those:
     python mapsee_migrate_market_ids.py --store canon.json            # dry run
     python mapsee_migrate_market_ids.py --store canon.json --apply
 
+--store MUST cover every configured source, and one run cannot do it: sources
+are weekday-gated, and OpenStreetMap (Mondays) and USDA (Wednesdays) never run
+on the same day. Import into the SAME store on each of those days — EventStore
+merges into what is already there — until the source check below passes. A store
+holding MORE than the table needs is harmless; one holding less deletes rows the
+next import puts straight back.
+
 A row is deleted only when ALL of these hold. Any group failing them is left
 untouched and counted in the summary — this job would rather do nothing than
 guess:
@@ -102,6 +109,27 @@ def canonical_fingerprints(store_path: str) -> Set[str]:
                for s in rec.get("sources", [])):
             out.add(fp)
     return out
+
+
+def store_sources(store_path: str) -> Set[str]:
+    """Which market source labels actually appear in the store."""
+    with open(store_path, encoding="utf-8") as fh:
+        data = json.load(fh)
+    return {s["source"] for rec in data.get("events", [])
+            for s in rec.get("sources", [])
+            if (s.get("source") or "").startswith("market:")}
+
+
+def configured_sources(config_path: str) -> Set[str]:
+    """The label mapsee_ingest_markets.py gives each configured source."""
+    try:
+        with open(config_path, encoding="utf-8") as fh:
+            cfg = json.load(fh)
+    except (OSError, json.JSONDecodeError) as exc:
+        sys.exit(f"Couldn't read --config {config_path}: {exc}")
+    srcs = cfg if isinstance(cfg, list) else cfg.get("sources", [])
+    # Mirrors `label = "market:" + src["name"].lower().replace(" ", "-")`.
+    return {"market:" + s["name"].lower().replace(" ", "-") for s in srcs if s.get("name")}
 
 
 def fetch_markets(base: str, auth: Dict[str, str], since: Optional[str]
@@ -185,6 +213,12 @@ def main() -> int:
     ap.add_argument("--store", required=True,
                     help="Store written by mapsee_ingest_markets.py — the fingerprints "
                          "the importer currently emits.")
+    ap.add_argument("--config", default="market_sources.json",
+                    help="Market source config, to check --store covers every source "
+                         "(default market_sources.json).")
+    ap.add_argument("--allow-missing-sources", action="store_true",
+                    help="Proceed even when --store is missing a configured source. "
+                         "Only safe if that source has no rows in the table.")
     ap.add_argument("--apply", action="store_true",
                     help="Actually delete. Without it this is a DRY RUN (the default).")
     ap.add_argument("--radius-km", type=float, default=25.0,
@@ -222,6 +256,28 @@ def main() -> int:
         sys.exit(f"No market fingerprints in {a.store} — run mapsee_ingest_markets.py "
                  "first. Refusing to treat every row as an orphan.")
     print(f"Fingerprints the importer currently emits: {len(canon)}")
+
+    # A store missing a source is the one way this job destroys good data: every
+    # row from that source looks like an orphan, gets deleted, and is re-inserted
+    # by the next import that does run it. Not hypothetical — sources are
+    # weekday-gated ("run_weekdays"), and OpenStreetMap (Mondays) and USDA
+    # (Wednesdays) can never both appear in a store built on one day. Being
+    # over-inclusive here is harmless (it only means fewer deletions), so build
+    # the store across several days: EventStore loads what is already in the file
+    # and merges, so re-running the importer into the SAME --store accumulates.
+    missing = configured_sources(a.config) - store_sources(a.store)
+    if missing:
+        msg = (f"\n{a.store} is missing {len(missing)} configured source(s):\n"
+               + "".join(f"    {s}\n" for s in sorted(missing))
+               + "Every row from those would look like an orphan and be deleted, then\n"
+                 "re-inserted by the next import that runs them — nightly churn.\n"
+                 "Run the importer into this SAME store on the days those sources run\n"
+                 "(and with any key they need, e.g. USDA_LOCALFOOD_API_KEY); the store\n"
+                 "accumulates. Override with --allow-missing-sources only if you know\n"
+                 "those sources have no rows in the table.")
+        if not a.allow_missing_sources:
+            sys.exit("REFUSING: " + msg)
+        print("WARNING: " + msg)
 
     since = None if a.include_past else datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     rows = fetch_markets(base, auth, since)
