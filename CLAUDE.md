@@ -22,6 +22,7 @@ front doors it reaches.
 | Which category an event ends up in | `map_category` / `derive_categories` in `mapsee_supabase_sync.py` |
 | The promotion rules (`_VOLUNTEER_RX`, `_PARTY_RX`, `_FITNESS_RX`, …) | same file, above `map_category` |
 | Adding/verifying feed sources | `catalog_curate.py` — `discover`, `verify`, `merge`, `audit`, `coverage` |
+| Where new sources come FROM | `discover <socrata\|ckan\|mobilizon>`; `curation_cursor.json` is how far each catalog query has been read |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
 | Deleting past events | `mapsee_cleanup.py` |
@@ -47,7 +48,14 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The curation ledger records candidates too.** Most `"status": "fail"` rows
   are URLs that were probed and rejected — that is the process working. Only the
   ones still present in a `*_sources.json` are regressions; `configured_dead()`
-  in `mapsee_health_check.py` is what separates them.
+  in `mapsee_health_check.py` is what separates them. The schema key is
+  `"status"`, not `"ok"` — discovery filtered on the latter for months and so
+  never filtered at all.
+- **`_not_included` in a sources file is an editorial NO, and discovery reads
+  it.** `mobilizon_sources.json` declines an instance for spam and another for an
+  unclear licence. Both verify fine, because verification proves a feed works,
+  not that we want it. Anything that proposes sources must consult
+  `_not_included()` or it will re-propose them every week.
 - **Never add `pull_request:` to a workflow that reads secrets.** `tests.yml` is
   the one workflow safe on forks, because it reads none.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing

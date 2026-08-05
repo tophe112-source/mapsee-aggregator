@@ -16,10 +16,25 @@ would silently ingest nothing, and feeds full of past events add noise. This
 tool encodes those checks so every run stays honest.
 
 It also keeps a LEDGER (curation_ledger.json) of every URL ever tried, with the
-result and the date. verify() skips anything already in a config and anything
-that failed within the last --ttl days (default 90), so scheduled runs stop
-re-probing known-dead sources and spend their effort on genuinely new ground.
-Dead sources are rechecked once the TTL lapses, in case they came online.
+result and the date. Both discover() and verify() skip anything already in a
+config and anything that failed within the last --ttl days (default 90), so
+scheduled runs stop re-probing known-dead sources and spend their effort on
+genuinely new ground. Dead sources are rechecked once the TTL lapses, in case
+they came online.
+
+And a CURSOR (curation_cursor.json) of how far each catalog query has been read.
+Discovery used to take the first page and stop, which meant a weekly job saw the
+same rows for ever — "events" matches 1,390 Socrata datasets and only the top 100
+were ever probed. The cursor advances a page per run and wraps at the end, so the
+catalog is walked through rather than glanced at. It is committed BY the workflow
+for exactly that reason; throw it away and discovery converges again.
+
+DISCOVERY BACKENDS
+  socrata    the federated US open-data catalog (api.us.socrata.com)
+  ckan       eleven national data.gov.* portals, i.e. everywhere Socrata is not
+  mobilizon  the joinmobilizon.org directory of live federated instances - the
+             one backend whose supply GROWS on its own, because new instances
+             appear without anyone publishing a dataset
 
 Usage:
   # candidates.json is an array; each item is a config entry PLUS a "type":
@@ -31,8 +46,9 @@ Usage:
   #      "order":"start","limit":500,"geocode_venue":true,
   #      "geocode_suffix":", City, ST",
   #      "map":{"id":"...","title":"...","start":"...","venue":"..."}}]
-  # find NEW Socrata event datasets across every Socrata domain, as candidates
-  python catalog_curate.py discover [--limit 400] [--out candidates.json]
+  # propose NEW sources. The backend is POSITIONAL and must come before the
+  # flags (main() reads argv[2:3]); omitted means socrata.
+  python catalog_curate.py discover [socrata|ckan|mobilizon] [--limit 400] [--out candidates.json]
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
@@ -46,6 +62,19 @@ import re
 import sys
 
 import requests
+
+# Every [OK]/[XX] line quotes a REMOTE title back at the console, and remote
+# titles contain whatever the publisher typed. On a cp1252 console one narrow
+# no-break space (U+202F, in a French event title) raised UnicodeEncodeError out
+# of print() itself, which unwound the whole verify loop — and _save_ledger()
+# runs AFTER that loop, so a run that had already probed forty feeds threw away
+# every result it had bought. Nothing else in this pipeline lets one bad row
+# abort a sweep of forty; this is that rule applied to stdout.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:  # noqa: BLE001
+        pass                       # older stream object, or already unicode-safe
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -61,13 +90,28 @@ CONFIG = {
     # CKAN DataStore resources. Entries carry the full datastore_search URL, so
     # the ledger/dedup key needs no special case the way ods does.
     "ckan": ("ckan_sources.json", "url"),
+    # Mobilizon instances (federated AGPL event software). Keyed by base_url, and
+    # the file nests its list under "sites" rather than "sources" - see _entries.
+    "mobilizon": ("mobilizon_sources.json", "base_url"),
 }
 
 def _ods_url(e):
     return f"https://{e.get('domain')}/api/explore/v2.1/catalog/datasets/{e.get('dataset')}/records"
 
+# The nested configs disagree about what to call their list: ods/ckan say
+# "sources", mobilizon/gancio/tribe say "sites". Returning the list OBJECT (not a
+# copy) is load-bearing - cmd_merge appends to what it gets back and then dumps
+# the wrapper, so a fresh [] for an unrecognised key would drop every merge on
+# the floor without erroring.
+_LIST_KEYS = ("sources", "sites")
+
 def _entries(fname, data):
-    return data.get("sources", []) if isinstance(data, dict) else data
+    if not isinstance(data, dict):
+        return data
+    for k in _LIST_KEYS:
+        if isinstance(data.get(k), list):
+            return data[k]
+    return []
 
 
 def _today_int():
@@ -134,6 +178,57 @@ def _save_ledger(led):
     json.dump(led, open(LEDGER_FILE, "w", encoding="utf-8"), indent=2, sort_keys=True)
 
 
+DEAD_TTL = 90
+
+
+def _dead_recently(led, key, ttl=DEAD_TTL):
+    """Has this URL been probed and rejected inside the TTL?
+
+    ONE predicate for discovery and verification, because they disagreed and the
+    disagreement was silent. Both loops meant to ask this; discovery asked
+    `led[key].get("ok") is False`, and no ledger row has ever had an "ok" field —
+    the schema writes "status": "ok"/"fail". So the discovery filter never fired
+    once in 469 recorded probes, `skipped["ledger"]` printed 0 every week, and
+    every known-dead dataset was re-proposed forever, eating the candidate budget
+    that was supposed to buy new ground.
+
+    The TTL is the same 90 days cmd_verify uses, and for the same reason: a feed
+    that was down is worth another look eventually, just not weekly.
+    """
+    rec = led.get(key)
+    if not rec or rec.get("status") != "fail":
+        return False
+    return _days_since(rec.get("checked", 0)) < ttl
+
+
+# --- discovery cursor ------------------------------------------------------
+# Discovery used to read the first page of each catalog query and stop, so it
+# saw the same rows every week: "events" alone matches 1,390 Socrata datasets and
+# only the top 100 were ever probed. A full 17-query sweep proposed SIX
+# candidates, and would have proposed the same six forever.
+#
+# The cursor is what makes the job continual rather than convergent. Each query
+# remembers the offset it reached; the next run starts there and the run after
+# that starts further on, so the catalog is walked a page at a time and the sweep
+# wraps to the beginning once it has been all the way round. Wrapping matters as
+# much as advancing — portals publish new datasets, and a cursor parked at the
+# end would never look at them.
+CURSOR_FILE = os.path.join(HERE, "curation_cursor.json")
+
+
+def _load_cursor():
+    if not os.path.exists(CURSOR_FILE):
+        return {}
+    try:
+        return json.load(open(CURSOR_FILE, encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return {}                      # a corrupt cursor costs a repeat, not a run
+
+
+def _save_cursor(cur):
+    json.dump(cur, open(CURSOR_FILE, "w", encoding="utf-8"), indent=1, sort_keys=True)
+
+
 def _config_keys():
     keys = set()
     for fname, key in CONFIG.values():
@@ -145,7 +240,7 @@ def _config_keys():
 
 
 def _key_of(e):
-    if e.get("type") == "localist":
+    if e.get("type") in ("localist", "mobilizon"):
         return e.get("base_url")
     if e.get("type") == "ods":
         return e.get("url") or _ods_url(e)
@@ -297,8 +392,45 @@ def verify_ckan(s, e):
     return True, f"{len(rows)} rows, sample: {str(rows[0].get(title))[:40]}"
 
 
+# The probe is deliberately the SAME shape mapsee_ingest_mobilizon.py sends —
+# searchEvents(beginsOn:) rather than events(), and every field inside
+# `... on Event` because `elements` is a union and a bare field errors on every
+# instance. A verifier that asks an easier question than the adapter does is a
+# verifier that green-lights feeds the adapter cannot read.
+MOBILIZON_PROBE = """
+query($b:DateTime,$l:Int){
+  searchEvents(beginsOn:$b, limit:$l, page:1){
+    total
+    elements{ ... on Event { uuid title beginsOn } }
+  }
+}"""
+
+
+def verify_mobilizon(s, e):
+    base = (e.get("base_url") or "").rstrip("/")
+    if not base:
+        return False, "no base_url"
+    begins = _as_date(_today_int()).isoformat() + "T00:00:00Z"
+    r = s.post(f"{base}/api", timeout=30,
+               json={"query": MOBILIZON_PROBE, "variables": {"b": begins, "l": 5}},
+               headers={"Content-Type": "application/json", "Accept": "application/json"})
+    if r.status_code != 200:
+        return False, f"http {r.status_code}"
+    try:
+        body = r.json() or {}
+    except Exception:  # noqa: BLE001
+        return False, "not json (is this a Mobilizon instance?)"
+    if body.get("errors"):
+        return False, f"graphql: {str(body['errors'])[:70]}"
+    node = (body.get("data") or {}).get("searchEvents") or {}
+    rows = [x for x in (node.get("elements") or []) if x]
+    if not rows:
+        return False, "0 future events"
+    return True, f"{node.get('total', len(rows))} upcoming, sample: {str(rows[0].get('title'))[:40]}"
+
+
 VERIFIERS = {"localist": verify_localist, "ics": verify_ics, "opendata": verify_opendata,
-             "ods": verify_ods, "ckan": verify_ckan}
+             "ods": verify_ods, "ckan": verify_ckan, "mobilizon": verify_mobilizon}
 
 
 # --- discovery -------------------------------------------------------------
@@ -325,11 +457,42 @@ DISCOVER_QUERIES = [
     ("road races", "running"), ("races permits", "running"),
 ]
 # Discovery must cover every category curation is responsible for, or a door can
-# be committed and then quietly starve. Checked at import so the failure is a
-# loud one line into a run, not a gap nobody notices for a quarter.
-def _assert_queries_cover(cats):
-    missing = sorted(set(cats) - {c for _q, c in DISCOVER_QUERIES})
-    return missing
+# be committed and then quietly starve.
+#
+# This was written to be "checked at import so the failure is a loud one line
+# into a run" and then never called from anywhere, which is how CKAN went five
+# categories short without anyone seeing it. cmd_discover calls it now, for the
+# backend it is about to sweep, and prints FLAG lines the workflow lifts into the
+# job summary.
+def _assert_queries_cover(cats, queries=None):
+    return sorted(set(cats) - {c for _q, c in (queries or DISCOVER_QUERIES)})
+
+
+def _configured_per_category():
+    """How many sources each curated category already has. Used to spend the
+    candidate budget on thin ground first — with a cursor in play the limit now
+    actually binds, so the ORDER queries run in decides what gets curated."""
+    counts = {}
+    for _t, _n, _m, _country, cat in _coverage_rows():
+        counts[cat] = counts.get(cat, 0) + 1
+    return counts
+
+
+def _order_queries(queries, cats):
+    """Thinnest category first, then the original order within a category.
+
+    Categories the live roster does NOT ask for sort last rather than being
+    dropped: they are still worth sweeping with whatever budget is left over, and
+    a door can be added back at any time."""
+    counts = _configured_per_category()
+    wanted = set(cats)
+    order = sorted(
+        enumerate(queries),
+        key=lambda iq: (0 if iq[1][1] in wanted else 1,
+                        counts.get(iq[1][1], 0),
+                        iq[0]),
+    )
+    return [q for _i, q in order]
 # Column-name inference. Datatypes in the catalog are unreliable — NYC ships a
 # real date column typed 'Text' — so names propose and the live probe disposes.
 _COL_RX = {
@@ -349,9 +512,30 @@ _POINT_TYPES = {"point", "location", "multipoint"}
 # table's "title" is the applicant — the Cambridge parking feed proposed
 # "Harvard University Law School move-in" as a community event — and a dataset
 # stamped with a past year is an archive whatever its rows say.
+#
 _DISCOVER_REJECT = re.compile(
     r"permit|parking|licen[cs]e|application|violation|citation|inspection|"
-    r"archive|historical|\b(19|20)([01]\d|2[0-4])\b", re.I)
+    r"archive|historical", re.I)
+
+_YEAR_RX = re.compile(r"\b((?:19|20)\d{2})\b")
+
+
+def _looks_archived(name, today=None):
+    """Is this dataset's NAME stamped with a year that has already gone?
+
+    The year test used to live inside _DISCOVER_REJECT as the literal
+    `(19|20)([01]\\d|2[0-4])`, which had two faults. It rotted — the ceiling was
+    written down, so once the calendar passed 2024 a dataset called "Events 2025"
+    read as current, and a filter that silently loosens every January is worse
+    than none because the rejects it stops making are invisible. And a bare
+    alternation cannot read a RANGE: "2025-2026 Program Schedule" is a live
+    season, and matching \\b2025\\b inside it threw the season away.
+
+    So: collect every year in the name and let the LATEST one decide. No years at
+    all means no opinion, which is the common case and must stay cheap.
+    """
+    years = [int(y) for y in _YEAR_RX.findall(name or "")]
+    return bool(years) and max(years) < _as_date(today or _today_int()).year
 
 
 def _pick(fields, pattern):
@@ -404,9 +588,19 @@ CKAN_PORTALS = [
     ("opendata.swiss", "Switzerland"), ("www.dati.gov.it/opendata", "Italy"),
     ("admin.opendata.dk", "Denmark"),
 ]
+# CKAN is the ONLY discovery path outside the United States — Socrata is a US
+# product — so a category missing from this list is a category no non-US door can
+# ever grow supply for. It covered four of the nine the roster asks for, which
+# meant arts, fitness, kids, running and volunteer were curated in the US and
+# nowhere else. _assert_queries_cover now checks both lists rather than one.
 CKAN_QUERIES = [("events", "community"), ("festival", "community"),
                 ("library events", "learning"), ("markets", "market"),
-                ("parks events", "outdoors")]
+                ("parks events", "outdoors"), ("sport facilities", "fitness"),
+                ("leisure centres", "fitness"), ("parkrun", "running"),
+                ("running events", "running"), ("arts culture", "arts"),
+                ("museums galleries", "arts"), ("youth services", "kids"),
+                ("playgrounds activities", "kids"), ("volunteering", "volunteer"),
+                ("community groups", "volunteer")]
 
 
 def _ckan_text(value):
@@ -420,27 +614,38 @@ def _ckan_text(value):
     return str(value or "")
 
 
-def _discover_ckan(session, seen_keys, led, limit, per_query=20, probe_cap=6):
+def _discover_ckan(session, seen_keys, led, limit, cursor, queries,
+                   per_query=20, probe_cap=6):
     """package_search each portal, then read the DataStore field list of every
     active resource to infer a map. The field list needs its own request per
-    resource, so probe_cap bounds how many a single dataset can cost."""
+    resource, so probe_cap bounds how many a single dataset can cost.
+
+    Paged the same way Socrata is, with the cursor keyed per portal+query — the
+    portals are independent catalogs and a shared offset would skip most of the
+    small ones while barely moving through data.gov.uk."""
     found, skipped = {}, {"configured": 0, "ledger": 0, "no_shape": 0,
                           "not_events": 0, "no_datastore": 0}
     for domain, country in CKAN_PORTALS:
         base = f"https://{domain}/api/3/action"
         hits = 0
-        for q, category in CKAN_QUERIES:
+        for q, category in queries:
+            ckey = f"{domain}|{q}"
+            start = int(cursor.get(ckey, 0))
             try:
                 r = session.get(f"{base}/package_search", timeout=45,
-                                params={"q": q, "rows": per_query})
+                                params={"q": q, "rows": per_query, "start": start})
                 r.raise_for_status()
-                pkgs = ((r.json() or {}).get("result") or {}).get("results") or []
+                result = (r.json() or {}).get("result") or {}
+                pkgs = result.get("results") or []
+                total = int(result.get("count") or 0)
             except Exception as exc:  # noqa: BLE001
                 print(f"  {domain:26} {q:14} unreachable ({str(exc)[:40]})")
                 break
+            nxt = start + per_query
+            cursor[ckey] = 0 if (total and nxt >= total) else nxt
             for pkg in pkgs:
                 title = _ckan_text(pkg.get("title")) or _ckan_text(pkg.get("name"))
-                if _DISCOVER_REJECT.search(title):
+                if _DISCOVER_REJECT.search(title) or _looks_archived(title):
                     skipped["not_events"] += 1
                     continue
                 probed = 0
@@ -458,7 +663,7 @@ def _discover_ckan(session, seen_keys, led, limit, per_query=20, probe_cap=6):
                     if key in seen_keys:
                         skipped["configured"] += 1
                         continue
-                    if key in led and led[key].get("ok") is False:
+                    if _dead_recently(led, key):
                         skipped["ledger"] += 1
                         continue
                     try:
@@ -492,28 +697,42 @@ def _discover_ckan(session, seen_keys, led, limit, per_query=20, probe_cap=6):
     return found, skipped
 
 
-def cmd_discover(limit=400, out="candidates.json", per_query=100, backend="socrata"):
-    seen_keys = _config_keys()
-    led = _load_ledger()
-    session = _session()
-    if backend == "ckan":
-        found, skipped = _discover_ckan(session, seen_keys, led, limit)
-        out_list = list(found.values())[:limit]
-        json.dump(out_list, open(out, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
-        print(f"\n{len(out_list)} candidate(s) -> {out}")
-        print("skipped: " + ", ".join(f"{v} {k}" for k, v in skipped.items()))
-        print(f"Next: python catalog_curate.py verify {out}")
-        return 0
-    found, skipped = {}, {"configured": 0, "no_shape": 0, "ledger": 0, "not_events": 0}
-    for q, category in DISCOVER_QUERIES:
+# How many catalog rows one query may read in a single run. The old code read
+# `per_query` rows and stopped forever; this reads that many STARTING AT the
+# cursor, so the same budget walks new ground every week.
+PAGE = 100
+
+
+def _report_query_gaps(cats, queries, label):
+    missing = _assert_queries_cover(cats, queries)
+    if missing:
+        print(f"  FLAG {label} discovery has no query for: {', '.join(missing)}"
+              f" - a door on those categories cannot grow supply here")
+    return missing
+
+
+def _discover_socrata(session, seen_keys, led, limit, cursor, queries):
+    found = {}
+    skipped = {"configured": 0, "no_shape": 0, "ledger": 0, "not_events": 0}
+    for q, category in queries:
+        start = int(cursor.get(q, 0))
         try:
             r = session.get(SOCRATA_CATALOG, timeout=45,
-                            params={"q": q, "only": "dataset", "limit": per_query})
+                            params={"q": q, "only": "dataset",
+                                    "limit": PAGE, "offset": start})
             r.raise_for_status()
-            results = r.json().get("results", [])
+            body = r.json()
+            results = body.get("results", [])
+            total = int(body.get("resultSetSize") or 0)
         except Exception as exc:  # noqa: BLE001
             print(f"  ({q}: {exc})")
             continue
+        # Advance, and WRAP. A cursor that ran off the end would park there and
+        # the query would return nothing for ever after, which is the convergence
+        # this whole mechanism exists to break. Wrapping also re-reads page 0
+        # eventually, where newly published datasets land.
+        nxt = start + PAGE
+        cursor[q] = 0 if (total and nxt >= total) else nxt
         for item in results:
             res, meta = item.get("resource", {}), item.get("metadata", {})
             domain, ds_id = meta.get("domain"), res.get("id")
@@ -526,10 +745,11 @@ def cmd_discover(limit=400, out="candidates.json", per_query=100, backend="socra
             if key in seen_keys:
                 skipped["configured"] += 1
                 continue
-            if key in led and led[key].get("ok") is False:
+            if _dead_recently(led, key):
                 skipped["ledger"] += 1
                 continue
-            if _DISCOVER_REJECT.search(res.get("name") or ""):
+            nm = res.get("name") or ""
+            if _DISCOVER_REJECT.search(nm) or _looks_archived(nm):
                 skipped["not_events"] += 1
                 continue
             m = _infer_map(res.get("columns_field_name") or [],
@@ -548,15 +768,146 @@ def cmd_discover(limit=400, out="candidates.json", per_query=100, backend="socra
                 "limit": 1000,
                 "map": m,
             }
-        print(f"  {q:22} -> {len(found)} candidate(s) so far")
+        span = f"{start}-{start + len(results)}" + (f"/{total}" if total else "")
+        print(f"  {q:22} [{span:>12}] -> {len(found)} candidate(s) so far")
         if len(found) >= limit:
             break
+    return found, skipped
+
+
+# --- mobilizon: a directory that grows on its own --------------------------
+# The other two backends search CATALOGS OF DATASETS, and the US open-data well
+# is close to dry: a full 17-query Socrata sweep now yields ~0 genuinely new
+# candidates, because 19 are configured, ~30 are known-dead and ~840 of ~1,370
+# carry no location this tool is willing to guess at.
+#
+# Mobilizon is a different shape of supply. It is federated software, so the
+# population of instances GROWS without anyone publishing a dataset, and
+# joinmobilizon.org keeps a keyless directory of them. mobilizon_sources.json's
+# own header has pointed at that endpoint since the adapter was written; nothing
+# ever read it, so the catalog sat at 3 instances out of 95 live ones.
+#
+# This is the one backend where "continually discovers new sources" is literally
+# true: next quarter's directory contains instances that do not exist today.
+BACKENDS = ("socrata", "ckan", "mobilizon")
+MOBILIZON_DIRECTORY = "https://instances.joinmobilizon.org/api/v1/instances"
+# An instance with no local events is somebody's empty test server, and health is
+# the directory's own reachability score. Both are cheap ways to not spend a
+# verification request finding out.
+MOBILIZON_MIN_EVENTS = 5
+MOBILIZON_MIN_HEALTH = 50
+
+
+def _not_included(fname):
+    """URLs a human has looked at and rejected ON THE RECORD.
+
+    mobilizon_sources.json carries a `_not_included` map — one instance is
+    spam-ridden with scam listings geocoded to France, another has a licence that
+    has not been cleared. Both would pass verification easily, which is the
+    point: verification proves a feed WORKS, not that we want it. Automation that
+    cannot read an editorial no would re-propose them every week for ever.
+    """
+    p = os.path.join(HERE, fname)
+    if not os.path.exists(p):
+        return set()
+    try:
+        doc = json.load(open(p, encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return set()
+    if not isinstance(doc, dict):
+        return set()
+    return {_canon(u) for u in (doc.get("_not_included") or {})}
+
+
+def _discover_mobilizon(session, seen_keys, led, limit):
+    found = {}
+    skipped = {"configured": 0, "ledger": 0, "declined": 0, "too_quiet": 0, "unhealthy": 0}
+    declined = _not_included("mobilizon_sources.json")
+    try:
+        r = session.get(MOBILIZON_DIRECTORY, params={"count": 500}, timeout=45)
+        r.raise_for_status()
+        rows = (r.json() or {}).get("data") or []
+    except Exception as exc:  # noqa: BLE001
+        print(f"  (instance directory unreachable: {str(exc)[:60]})")
+        return found, skipped
+    print(f"  directory lists {len(rows)} instance(s)")
+    # Busiest first: an instance with 9,000 local events is worth a probe before
+    # one with 6, and the limit should bite on the tail rather than on the head.
+    for inst in sorted(rows, key=lambda i: -(i.get("totalLocalEvents") or 0)):
+        host = (inst.get("host") or "").strip().lower()
+        if not host:
+            continue
+        base = f"https://{host}"
+        key = _canon(base)
+        if key in found or key in seen_keys:
+            skipped["configured"] += 1
+            continue
+        if key in declined:
+            skipped["declined"] += 1
+            continue
+        if _dead_recently(led, key):
+            skipped["ledger"] += 1
+            continue
+        if (inst.get("totalLocalEvents") or 0) < MOBILIZON_MIN_EVENTS:
+            skipped["too_quiet"] += 1
+            continue
+        if (inst.get("health") or 0) < MOBILIZON_MIN_HEALTH:
+            skipped["unhealthy"] += 1
+            continue
+        # Country from the TLD, NOT from the directory's `country` — that field
+        # is where the server is hosted, and it is wrong in the way that matters:
+        # the directory files ticketzon.it under FI and mobilizon.fr under DE.
+        # The hand-curated entries say Italy and France, and they are right.
+        # It only ever fills a gap anyway (the adapter prefers the event's own
+        # physicalAddress, and coordinates come from geom regardless), so an
+        # unknown TLD is better left blank than filled in from hosting.
+        entry = {
+            "type": "mobilizon",
+            "name": (inst.get("name") or host)[:90],
+            "base_url": base,
+            "category": "community",
+            "limit": 100,
+            "max_pages": 5,
+        }
+        country = _url_country(base)   # already a NAME, not an ISO code
+        if country:
+            entry["default_country"] = country
+        found[key] = entry
+        if len(found) >= limit:
+            break
+    return found, skipped
+
+
+def cmd_discover(limit=400, out="candidates.json", backend="socrata"):
+    seen_keys = _config_keys()
+    led = _load_ledger()
+    session = _session()
+    cats = curated_categories(session)
+    all_cursors = _load_cursor()
+    cursor = all_cursors.setdefault(backend, {})
+    src = "mapsee.me/api/lenses" if CURATED_FROM_LIVE else "committed fallback"
+    print(f"targets via {src}: {', '.join(cats)}")
+
+    if backend == "mobilizon":
+        # No query list and no cursor: the directory is one short document that
+        # is read whole every time, so "what is new" is simply what is not
+        # already configured, declined or known-dead.
+        found, skipped = _discover_mobilizon(session, seen_keys, led, limit)
+    elif backend == "ckan":
+        _report_query_gaps(cats, CKAN_QUERIES, "ckan")
+        queries = _order_queries(CKAN_QUERIES, cats)
+        found, skipped = _discover_ckan(session, seen_keys, led, limit, cursor, queries)
+    else:
+        _report_query_gaps(cats, DISCOVER_QUERIES, "socrata")
+        queries = _order_queries(DISCOVER_QUERIES, cats)
+        found, skipped = _discover_socrata(session, seen_keys, led, limit, cursor, queries)
+
+    all_cursors[backend] = cursor
+    _save_cursor(all_cursors)
     out_list = list(found.values())[:limit]
     json.dump(out_list, open(out, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     print(f"\n{len(out_list)} candidate(s) -> {out}")
-    print(f"skipped: {skipped['configured']} already configured, "
-          f"{skipped['ledger']} known dead, {skipped['not_events']} permit/archive "
-          f"tables, {skipped['no_shape']} without a usable title/date/location shape")
+    print("skipped: " + ", ".join(f"{v} {k}" for k, v in sorted(skipped.items())))
     print(f"Next: python catalog_curate.py verify {out}")
     return 0
 
@@ -822,6 +1173,12 @@ _TZ_COUNTRY = {
     "America/Halifax": "CA", "America/Montreal": "CA",
 }
 _TLD_COUNTRY = {
+    # ccTLDs the Mobilizon instance directory turned up with no mapping. Only
+    # COUNTRY codes are added - .org/.social/.net/.eu and friends say nothing
+    # about where the events are, and a blank default_country is strictly better
+    # than a guessed one (the adapter prefers the event's own address anyway).
+    "gr": "GR", "hu": "HU", "lt": "LT", "si": "SI", "cr": "CR", "br": "BR",
+    "us": "US",
     "uk": "GB", "ie": "IE", "ca": "CA", "au": "AU", "nz": "NZ", "de": "DE",
     "fr": "FR", "nl": "NL", "be": "BE", "ch": "CH", "es": "ES", "it": "IT",
     "se": "SE", "no": "NO", "dk": "DK", "fi": "FI", "at": "AT", "pl": "PL",
@@ -830,6 +1187,7 @@ _TLD_COUNTRY = {
 }
 
 _ISO_COUNTRY = {
+    "CR": "Costa Rica", "GR": "Greece", "HU": "Hungary", "SI": "Slovenia",
     "US": "United States", "GB": "United Kingdom", "CA": "Canada", "AU": "Australia",
     "NZ": "New Zealand", "IE": "Ireland", "FR": "France", "DE": "Germany",
     "NL": "Netherlands", "BE": "Belgium", "CH": "Switzerland", "ES": "Spain",
@@ -1045,6 +1403,14 @@ def _coverage_rows():
                 hit = _scan_name_metro(name)
                 if hit:
                     metro, country = hit, "United States"
+            # _scan_name_metro looks for a US metro NAME anywhere in the source's
+            # name and, on a hit, hardcodes the country to the United States. It
+            # is a decent guess for a hand-written ics label and a bad one for a
+            # Mobilizon instance: "Mobilisons (CH)", "Mobilizon.fr (FR)" and
+            # "Ticketzon (IT)" — Switzerland, France and Italy — all filed as US.
+            # An entry that DECLARES its country is not guessing, so it wins.
+            if e.get("default_country"):
+                country = e["default_country"]
             cat = e.get("category") or ("(per-event)" if t == "localist" else "?")
             # ODS entries carry an ISO `countries` array instead of a
             # geocode_suffix, so _locate() cannot see them and they landed under
@@ -1180,7 +1546,10 @@ def main(argv):
     if cmd == "discover":
         lim = int(argv[argv.index("--limit") + 1]) if "--limit" in argv else 400
         out = argv[argv.index("--out") + 1] if "--out" in argv else "candidates.json"
-        backend = "ckan" if "ckan" in argv[2:3] else "socrata"
+        # POSITIONAL, and it must sit at argv[2] before any flag — the workflow
+        # spells the two forms out rather than interpolating for this reason.
+        want = argv[2:3]
+        backend = want[0] if want and want[0] in BACKENDS else "socrata"
         return cmd_discover(limit=lim, out=out, backend=backend)
     if cmd == "audit":
         return cmd_audit()
