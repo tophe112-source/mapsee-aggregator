@@ -1,0 +1,45 @@
+{
+  "_comment": "Visit Pioneer Square's neighbourhood calendar (pioneersquare.org/events/). HTML only - the site publishes no iCal, no Tribe REST, no event post type and no schema.org Event JSON-LD, all verified - so mapsee_ingest_pioneersquare.py scrapes it. The pages give a venue NAME and no address or coordinates, and the sync drops anything it cannot place, so `venues` is a venue book exactly like rolodex_sources.json: street+city+region per room, which the sync geocodes. A venue missing from the book is skipped LOUDLY - watch the log for '[pioneersquare] unplaceable venue' and add it here. Addresses below were read from the site's own directory (/businesses/<slug>/ carries a 'Contact:' block); they were NOT guessed. Category is the default only - derive_categories in mapsee_supabase_sync promotes the jazz nights to music and the openings to arts from the text.",
+  "sites": [
+    {
+      "name": "Visit Pioneer Square",
+      "listing": "https://pioneersquare.org/events/",
+      "link_pattern": "https://pioneersquare\\.org/our-events/[a-z0-9\\-]+/",
+      "category": "community",
+      "max_events": 200,
+      "within_days": 400,
+      "pause": 0.25,
+      "default_city": "Seattle",
+      "default_region": "WA",
+      "default_country": "US",
+
+      "_venues_comment": "Keyed loosely - the adapter lowercases, strips punctuation and drops a leading 'the', so 'The Shop @ LMN Architects' matches 'shop lmn architects'. STILL MISSING, and each one logs on every run until it is filled in: 'Pioneer Park' (a POI page with no address; 3 events), 'Victory Hall' (no directory page; 1), 'Grand Central Building' (no directory page; 1), and 'B612 Gallery: Pioneer Square' (the directory has Gallery B612 at 1915 1st Ave S, which is SODO - the ':Pioneer Square' suffix suggests a second room, so it is deliberately left out rather than pinned to the wrong neighbourhood; 1).",
+      "venues": {
+        "gallery 110": {
+          "address": "110 3rd Ave S"
+        },
+        "seattle jazz fellowship": {
+          "address": "109 S Main St"
+        },
+        "friend museum": {
+          "address": "83 S King St"
+        },
+        "zeitgeist coffee": {
+          "address": "171 S Jackson St"
+        },
+        "black panther party interpretive center": {
+          "address": "423 2nd Ave Ext S"
+        },
+        "foster/white gallery": {
+          "address": "220 3rd Ave S"
+        },
+        "browne family vineyards": {
+          "address": "413 1st Ave S"
+        },
+        "shop @ lmn architects": {
+          "address": "723 1st Ave"
+        }
+      }
+    }
+  ]
+}

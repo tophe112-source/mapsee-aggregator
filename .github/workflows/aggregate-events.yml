@@ -358,6 +358,19 @@ jobs:
           else
             echo "no rolodex_sources.json — skipping"
           fi
+      # The ONLY scraper in this sweep. pioneersquare.org publishes no feed at
+      # all — no iCal, no Tribe REST, no event post type, no schema.org Event —
+      # so this reads the markup, which is a maintenance cost every other step
+      # here avoids. It earns it: a dense arts neighbourhood whose galleries and
+      # artist talks appear in no ticketing API. If the theme changes it finds
+      # nothing and says so, and source-health.yml turns that into an issue.
+      - name: Import Visit Pioneer Square (Seattle neighbourhood calendar, HTML)
+        run: |
+          if [ -f pioneersquare_sources.json ]; then
+            python mapsee_ingest_pioneersquare.py --config pioneersquare_sources.json --store feeds_events.json
+          else
+            echo "no pioneersquare_sources.json — skipping"
+          fi
       - name: Import 'The Events Calendar' sites (WordPress REST — comedy, running clubs, nature orgs)
         run: |
           if [ -f tribe_sources.json ]; then
