@@ -196,18 +196,30 @@ def learn_more(page: str, base_host: str) -> Optional[str]:
     return url
 
 
-def place(venue: str, site: Dict[str, Any]) -> Optional[Dict[str, str]]:
-    """A geocodable location for a venue name, or None if the book has no entry."""
+def place(venue: str, site: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """A geocodable location for a venue name, or None if the book has no entry.
+
+    An entry needs an address OR a lat/lon pair. Coordinates are there for the
+    places a street address describes badly - a park on a triangle at an
+    intersection is the case in hand - and they skip the geocode entirely, which
+    is also the safer answer: a fuzzy name lookup for "Pioneer Place Park"
+    returns three parks in RENTON before it finds anything in Seattle.
+    """
     book = {_norm_room(k): v for k, v in (site.get("venues") or {}).items()}
     hit = book.get(_norm_room(venue))
-    if not hit or not hit.get("address"):
+    if not hit:
+        return None
+    lat, lon = hit.get("lat"), hit.get("lon")
+    if not hit.get("address") and (lat is None or lon is None):
         return None
     return {
-        "address": hit["address"],
+        "address": hit.get("address"),
         "city": hit.get("city") or site.get("default_city"),
         "region": hit.get("region") or site.get("default_region"),
         "country": hit.get("country") or site.get("default_country"),
         "postal_code": hit.get("postal_code"),
+        "lat": float(lat) if lat is not None else None,
+        "lon": float(lon) if lon is not None else None,
     }
 
 
@@ -271,6 +283,7 @@ def to_event(url: str, page: str, site: Dict[str, Any]) -> Optional[NormalizedEv
         address=loc.get("address"), city=loc.get("city"),
         region=loc.get("region"), country=loc.get("country"),
         postal_code=loc.get("postal_code"),
+        latitude=loc.get("lat"), longitude=loc.get("lon"),
         category=site.get("category", "community"),
         poster_image_url=img,
         # Where you actually book, when the page offers it; the listing page

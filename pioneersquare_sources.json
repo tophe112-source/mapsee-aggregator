@@ -13,8 +13,15 @@
       "default_region": "WA",
       "default_country": "US",
 
-      "_venues_comment": "Keyed loosely - the adapter lowercases, strips punctuation and drops a leading 'the', so 'The Shop @ LMN Architects' matches 'shop lmn architects'. STILL MISSING, and each one logs on every run until it is filled in: 'Pioneer Park' (a POI page with no address; 3 events), 'Victory Hall' (no directory page; 1), 'Grand Central Building' (no directory page; 1), and 'B612 Gallery: Pioneer Square' (the directory has Gallery B612 at 1915 1st Ave S, which is SODO - the ':Pioneer Square' suffix suggests a second room, so it is deliberately left out rather than pinned to the wrong neighbourhood; 1).",
+      "_venues_comment": "Keyed loosely - the adapter lowercases, strips punctuation and drops a leading 'the', so 'The Shop @ LMN Architects' matches 'shop lmn architects'. An entry needs an address OR a lat/lon pair; coordinates win where a street address describes the place badly. STILL MISSING, and each logs on every run until filled in: 'Victory Hall' (no directory page; 1 event), 'Grand Central Building' (no directory page; 1), and 'B612 Gallery: Pioneer Square' (the directory has Gallery B612 at 1915 1st Ave S, which is SODO - the ':Pioneer Square' suffix suggests a second room, so it is deliberately left out rather than pinned to the wrong neighbourhood; 1).",
       "venues": {
+        "pioneer park": {
+          "_comment": "The Pioneer Square totem pole, on the triangle at 1st Ave & Yesler Way. Google resolves it as 'Pioneer Square Totem Pole, Seattle, WA 98104'; OSM has 'Seattle Totem Pole, 100 Yesler Way' at these coordinates. Pinned rather than geocoded because the name is a trap - a fuzzy lookup for 'Pioneer Place Park' returns three parks in Renton first.",
+          "address": "100 Yesler Way",
+          "postal_code": "98104",
+          "lat": 47.6020014,
+          "lon": -122.3340420
+        },
         "gallery 110": {
           "address": "110 3rd Ave S"
         },
