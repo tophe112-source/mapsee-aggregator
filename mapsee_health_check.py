@@ -67,6 +67,7 @@ import argparse
 import json
 import os
 import sys
+import traceback
 from datetime import datetime, timedelta, timezone
 
 import requests
@@ -381,6 +382,26 @@ def render(problems, notes, live, baseline) -> str:
 
 # --- main ------------------------------------------------------------------
 
+def write_markdown(path, text):
+    """Write the report, if one was asked for.
+
+    THE FILE IS THE CONTRACT. source-health.yml treats any non-zero exit as
+    "unhealthy" and then `cat`s this file into a GitHub issue under `set -e`.
+    Two failure paths used to return 1 without writing it -- an unreachable
+    database and an empty source_stats() -- so the notifier died on a missing
+    file and the run failed with `cat: health_report.md: No such file`. The
+    alarm broke in precisely the case it exists to raise. Every path that can
+    exit non-zero writes something now.
+    """
+    if not path:
+        return
+    try:
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write(text.rstrip() + "\n")
+    except OSError as ex:
+        print(f"!! could not write {path}: {ex}", file=sys.stderr)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -394,7 +415,25 @@ def main(argv=None):
     ap.add_argument("--warn-only", action="store_true",
                     help="always exit 0, even when problems are found")
     args = ap.parse_args(argv)
+    try:
+        return _run(args)
+    except Exception:
+        # Same contract as write_markdown's note. A traceback exits non-zero,
+        # the workflow reads that as "unhealthy", and with no report the
+        # notifier dies on a missing file - so a bug in here looked exactly
+        # like a broken notifier rather than like a bug in here.
+        tb = traceback.format_exc()
+        print(tb, file=sys.stderr)
+        write_markdown(args.markdown,
+                       "### The health check crashed\n\n"
+                       "It exited before evaluating any source, so this says "
+                       "nothing about whether the pipeline is healthy - only "
+                       "that the check itself is broken.\n\n"
+                       f"```\n{tb.rstrip()}\n```")
+        return 0 if args.warn_only else 1
 
+
+def _run(args):
     url = os.environ.get("SUPABASE_URL")
     key = (os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
            or os.environ.get("SUPABASE_ANON_KEY"))
@@ -410,12 +449,25 @@ def main(argv=None):
         # Reaching the database is itself the check. If this fails, say so
         # loudly - that is exactly the silent-failure case this script exists
         # to catch.
+        msg = (f"### Could not reach the database\n\n"
+               f"`source_stats()` could not be read, so nothing could be checked.\n\n"
+               f"```\n{ex}\n```\n\n"
+               f"This is not a source going quiet - it is the check itself unable "
+               f"to run. Usual causes: a rotated `SUPABASE_SERVICE_ROLE_KEY`, the "
+               f"project paused, or a transient network failure. If the next "
+               f"scheduled run is green, it was transient.")
         print(f"!! could not read source_stats(): {ex}", file=sys.stderr)
+        write_markdown(args.markdown, msg)
         return 0 if args.warn_only else 1
 
     if not rows:
+        msg = ("### `source_stats()` returned no rows\n\n"
+               "The pipeline has ingested nothing at all, or the RPC is missing "
+               "from the database. Every source is affected, so this is reported "
+               "as one problem rather than forty.")
         print("!! source_stats() returned no rows at all - the pipeline has "
               "ingested nothing, or the RPC is missing.", file=sys.stderr)
+        write_markdown(args.markdown, msg)
         return 0 if args.warn_only else 1
 
     now = datetime.now(timezone.utc)

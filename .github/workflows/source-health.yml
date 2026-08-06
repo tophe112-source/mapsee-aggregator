@@ -113,7 +113,20 @@ jobs:
             echo "workflow will still be reporting success — it is failure-tolerant"
             echo "by design — so this issue is the only signal."
             echo
-            cat health_report.md
+            # NEVER let a missing report kill the notifier. This step runs on any
+            # non-zero exit, and `cat` of an absent file under `set -e` took the
+            # whole job down with "cat: health_report.md: No such file" — so the
+            # one run that most needed to raise an alarm raised nothing but a red
+            # tick. mapsee_health_check.py now writes a report on every failing
+            # path; this is the belt to that pair of braces.
+            if [ -s health_report.md ]; then
+              cat health_report.md
+            else
+              echo "**The check exited non-zero without writing a report.**"
+              echo
+              echo "That is a fault in the check itself, not a finding about any"
+              echo "source — nothing was evaluated. See the run log for the cause."
+            fi
             echo
             echo "---"
             echo "_Checked by [\`source-health\`](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) on $(date -u '+%Y-%m-%d %H:%M UTC'). This issue closes itself once every baseline source is healthy again._"

@@ -14,6 +14,10 @@ geo_budget.json
 feeds_events.json
 *.verified.json
 
+# CI artifact: source-health.yml writes this for the issue body, and running the
+# check locally leaves a copy behind that has no business in the repo.
+health_report.md
+
 # local credentials - never commit
 .env
 .env.local
