@@ -1,0 +1,24 @@
+{
+  "_comment": "Public Luma (luma.com, formerly lu.ma) sources for mapsee_ingest_luma.py. `calendars` are one organiser's calendar (/calendar/get-items); `places` are a whole city's Discover feed (/discover/get-paginated-events). Each entry needs EITHER an explicit calendar_api_id / discover_place_api_id, OR a `url` - any luma.com slug, including a single event page, which resolves to the calendar that owns it. Category is the mapsee frontend key and only a default; derive_categories in mapsee_supabase_sync promotes from the text. READ THE ADAPTER'S DOCSTRING BEFORE ADDING A CITY: Discover takes `discover_place_api_id`, and the plausible-looking `place_api_id` is accepted, ignored, and answered with events for whatever city the RUNNER's IP is in - Seattle asked for from AWS us-east-2 comes back as Columbus, Ohio, with a 200 and no error. `expect_region` makes that fail loudly instead of silently: the adapter checks the first event's region against it and refuses to ingest on a mismatch. Set it on every place.",
+  "calendars": [
+    {
+      "name": "ClawCon",
+      "_comment": "Reached from https://luma.com/clawcon-seattle, which is an EVENT page; the adapter resolves it to the ClawCon calendar (cal-e5mvjF86anukzOt) that owns it, so the whole series is tracked rather than the one listing.",
+      "url": "https://luma.com/clawcon-seattle",
+      "calendar_api_id": "cal-e5mvjF86anukzOt",
+      "category": "learning",
+      "max_events": 200
+    }
+  ],
+  "places": [
+    {
+      "name": "Seattle",
+      "discover_place_api_id": "discplace-FQ4E58PeBMHGTKK",
+      "expect_region": "WA",
+      "category": "community",
+      "max_events": 300,
+      "per_page": 50,
+      "max_pages": 10
+    }
+  ]
+}
