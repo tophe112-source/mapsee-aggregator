@@ -56,6 +56,16 @@ directory page are simply absent, and will log until someone adds them.
 BLOCKS NON-BROWSER CLIENTS. The site 403s a default user agent, so this sends a
 browser one. That is not evasion of a paywall or a login - the pages are public
 and unauthenticated - it is the minimum needed to read what a visitor reads.
+
+AND IT SOFT-BLOCKS, WHICH DOES NOT LOOK LIKE AN ERROR. The edge in front of the
+site answers a request it dislikes with `202 Accepted` and an interstitial body
+rather than a 4xx, so the status code alone cannot tell a challenge from a page.
+This used to require exactly 200, which turned that into one line -
+"listing HTTP 202" - and a silent zero that reads like the site being down. Any
+2xx is now parsed and the LINK MATCH is the verdict, so the three failures stay
+distinguishable in the log: a real transport error, a challenge (we were
+blocked), and a 2xx page with no links (the markup moved). Only the last one
+means the config needs editing, and only the log says which happened.
 """
 from __future__ import annotations
 
@@ -105,6 +115,29 @@ _PARA = re.compile(r"(?is)<p[^>]*>(.*?)</p>")
 # <h1>. Attribute order varies, so the whole tag is captured and href picked out.
 _LEARN = re.compile(r"(?is)<a\s([^>]*\bclass=[\"'][^\"']*btn-large[^\"']*[\"'][^>]*)>")
 _HREF = re.compile(r"(?is)href=[\"']([^\"']+)[\"']")
+
+
+# The interstitial the edge serves instead of the page; see the docstring. The
+# markers are the ones that ship in the challenge HTML itself, plus a size test,
+# because a challenge is a couple of kilobytes and the real listing is tens.
+_CHALLENGE_RX = re.compile(
+    r"(?i)just a moment|checking your browser|enable javascript and cookies"
+    r"|cf-browser-verification|__cf_chl|challenge-platform|cf_chl_opt"
+    r"|captcha-delivery|px-captcha|datadome|_Incapsula_Resource")
+_CHALLENGE_MAX_BYTES = 8000
+
+
+def looks_challenged(text: str, status: int) -> bool:
+    """True when a 2xx body is an interstitial rather than the page asked for."""
+    if _CHALLENGE_RX.search(text or ""):
+        return True
+    # 202 for a GET of an HTML page is not something this site does when it is
+    # actually serving content, so a short one is a challenge even unmarked.
+    return status == 202 and len(text or "") < _CHALLENGE_MAX_BYTES
+
+
+def _ok(status: int) -> bool:
+    return 200 <= status < 300
 
 
 def _clean(s: Optional[str]) -> Optional[str]:
@@ -231,16 +264,22 @@ def event_urls(session, site: Dict[str, Any]) -> List[str]:
     except Exception as exc:
         print(f"[pioneersquare] listing {listing} failed: {exc}")
         return []
-    if r.status_code != 200:
+    if not _ok(r.status_code):
         print(f"[pioneersquare] listing {listing} HTTP {r.status_code}")
         return []
     urls = sorted(set(re.findall(pat, r.text)))
     if not urls:
         # The single most likely breakage, and it must not look like "no events
         # on this week". source-health.yml turns a quiet source into an issue,
-        # but only the log says WHY.
-        print("[pioneersquare] !! listing matched no event links - the markup has "
-              "probably changed. Check the link_pattern in the config.")
+        # but only the log says WHY - and "blocked" and "markup moved" want
+        # different fixes, so they get different lines.
+        if looks_challenged(r.text, r.status_code):
+            print(f"[pioneersquare] !! listing answered HTTP {r.status_code} with a bot "
+                  f"challenge, not the calendar ({len(r.text)} bytes). This is a block, "
+                  f"not a markup change - the link_pattern is fine.")
+        else:
+            print("[pioneersquare] !! listing matched no event links - the markup has "
+                  "probably changed. Check the link_pattern in the config.")
     return urls[: int(site.get("max_events", 200))]
 
 
@@ -305,8 +344,12 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         except Exception as exc:
             print(f"[pioneersquare] {u} failed: {exc}")
             continue
-        if r.status_code != 200:
+        if not _ok(r.status_code):
             print(f"[pioneersquare] {u} HTTP {r.status_code}")
+            continue
+        if looks_challenged(r.text, r.status_code):
+            print(f"[pioneersquare] {u} answered HTTP {r.status_code} with a bot challenge, skipped")
+            skipped += 1
             continue
         nev = to_event(u, r.text, site)
         if not nev:
