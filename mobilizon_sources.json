@@ -24,6 +24,502 @@
       "limit": 100,
       "max_pages": 5,
       "default_country": "Italy"
+    },
+    {
+      "name": "events.graz.social",
+      "base_url": "https://events.graz.social",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "FomoBremen",
+      "base_url": "https://fomobremen.info",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "GameNight.Host",
+      "base_url": "https://gamenight.host",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "MyQueerEvents",
+      "base_url": "https://myqueerevents.de",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Germany"
+    },
+    {
+      "name": "Mobilizon Italia",
+      "base_url": "https://mobilizon.it",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Italy"
+    },
+    {
+      "name": "rotes.potsda.mn",
+      "base_url": "https://rotes.potsda.mn",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Mobilizon Extinction Rebellion France",
+      "base_url": "https://mobilizon.extinctionrebellion.fr",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "France"
+    },
+    {
+      "name": "termine.social",
+      "base_url": "https://termine.social",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Keskonfai Kids",
+      "base_url": "https://kids.keskonfai.com",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "HTU Events",
+      "base_url": "https://events.htu.at",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Austria"
+    },
+    {
+      "name": "agenda.collectifs.net",
+      "base_url": "https://agenda.collectifs.net",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Mobilizon de D\u00e9fis",
+      "base_url": "https://mobilizon.defis.info",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Mobilizon Ouvre-Boites : Actus et \u00c9v\u00e9nements",
+      "base_url": "https://mobilizon.ouvre-boites.coop",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Le Kalepin",
+      "base_url": "https://lekalepin.fr",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "France"
+    },
+    {
+      "name": "rheinneckar.events",
+      "base_url": "https://rheinneckar.events",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Cottbus von Unten",
+      "base_url": "https://cottbus.vonunten.org",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "J\u00e4rkk\u00e4\u00e4.fi",
+      "base_url": "https://jarkkaa.fi",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Finland"
+    },
+    {
+      "name": "ibb.info - Veranstaltungen in Ibbenb\u00fcren und drumzu",
+      "base_url": "https://ibb.info",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Animal Liberation Summit",
+      "base_url": "https://animalliberationsummit.org",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Tue4org",
+      "base_url": "https://tue4.org",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Mobilizon Debian France",
+      "base_url": "https://meet.debian.net",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Communaut\u00e9s techniques rennaises",
+      "base_url": "https://events.rennes.tech",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Wydarzenia Mobilizon",
+      "base_url": "https://wydarzenia.phub.pl",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Poland"
+    },
+    {
+      "name": "mobilizon.nl",
+      "base_url": "https://mobilizon.nl",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Netherlands"
+    },
+    {
+      "name": "Instance Mobilizon de Picasoft",
+      "base_url": "https://mobilizon.picasoft.net",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Mobilizon Infini",
+      "base_url": "https://mobilizon.infini.fr",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "France"
+    },
+    {
+      "name": "Mobilizon Kaz",
+      "base_url": "https://mobilizon.kaz.bzh",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "adminForge.de Veranstaltungen",
+      "base_url": "https://mobilize.adminforge.de",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Germany"
+    },
+    {
+      "name": "Mobilizon IE",
+      "base_url": "https://mobilizon.ie",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Ireland"
+    },
+    {
+      "name": "Mobilizon \ud83c\udde7\ud83c\uddea",
+      "base_url": "https://mobilizon.be",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Belgium"
+    },
+    {
+      "name": "Dogodki kompot.si",
+      "base_url": "https://dogodki.kompot.si",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Slovenia"
+    },
+    {
+      "name": "Mobilizon Linux07",
+      "base_url": "https://mobilizon.linux07.fr",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "France"
+    },
+    {
+      "name": "Bosvreugd Cultuurbos Evenementen",
+      "base_url": "https://bosvreugdevents.nl",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Netherlands"
+    },
+    {
+      "name": "Jura-Biel-Seeland",
+      "base_url": "https://jura-biel-seeland.fedievents.ch",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Switzerland"
+    },
+    {
+      "name": "Litfa\u00dfseite",
+      "base_url": "https://events.gruene.social",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "organisera.org",
+      "base_url": "https://organisera.org",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Animal Rebellion Netherlands",
+      "base_url": "https://groups.animalrebellion.nl",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Netherlands"
+    },
+    {
+      "name": "Koa2neuf",
+      "base_url": "https://koa2neuf.net",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "GjerNo",
+      "base_url": "https://gjer.no",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Norway"
+    },
+    {
+      "name": "\u00c9v\u00e9nement FACiLe",
+      "base_url": "https://evenement.facil.services",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "my-group.events",
+      "base_url": "https://my-group.events",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Mobilizon",
+      "base_url": "https://event.portes-imaginaire.org",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "MobiliZon",
+      "base_url": "https://mobilizon.zaclys.com",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Mobilizon de la Fabrique de la Transition",
+      "base_url": "https://mobilizon.fabriquedelatransition.fr",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "France"
+    },
+    {
+      "name": "Mobilizon CEMEA",
+      "base_url": "https://mobilizon.cemea.org",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Hackeriet",
+      "base_url": "https://events.hackeriet.no",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Norway"
+    },
+    {
+      "name": "floor.tips",
+      "base_url": "https://floor.tips",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "WUElender",
+      "base_url": "https://wuelender.de",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Germany"
+    },
+    {
+      "name": "Akce jinak | Komunita \u22c5 Kultura \u22c5 \u010cinorodost",
+      "base_url": "https://akce-jinak.cz",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Czechia"
+    },
+    {
+      "name": "mobilizon.libretic.fr",
+      "base_url": "https://mobilizon.libretic.fr",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "France"
+    },
+    {
+      "name": "treff.tech \"treff punkt tech\"",
+      "base_url": "https://treff.tech",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Improvizon",
+      "base_url": "https://improvizon.fr",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "France"
+    },
+    {
+      "name": "kreatives Tummeln",
+      "base_url": "https://tummeln.kreatives-leipzig.de",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Germany"
+    },
+    {
+      "name": "Uppsala.Social",
+      "base_url": "https://uppsala.social",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "events.litera.tools",
+      "base_url": "https://events.litera.tools",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Silex events",
+      "base_url": "https://events.silex.me",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "niederlausitz.vonunten.org",
+      "base_url": "https://niederlausitz.vonunten.org",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "L'agenda de la Graine 34",
+      "base_url": "https://agenda.lagraine34.org",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Mobilizon",
+      "base_url": "https://mobilizon.ethibox.fr",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "France"
+    },
+    {
+      "name": "MobilizonPx",
+      "base_url": "https://mobilizon.parinux.org",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Stockholm Events",
+      "base_url": "https://stockholm-events.nu",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "iJUG Events",
+      "base_url": "https://events.ijug.eu",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "tulln.social Veranstaltungen ",
+      "base_url": "https://events.tulln.social",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Eventos Xalapacode",
+      "base_url": "https://eventos.xalapacode.com",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Treffpunkt Ruhr",
+      "base_url": "https://treffpunkt.ruhr",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "Social Org Mx",
+      "base_url": "https://social.org.mx",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5,
+      "default_country": "Mexico"
+    },
+    {
+      "name": "Uckermark Termin",
+      "base_url": "https://termine.uckermark.social",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
     }
   ],
   "_not_included": {

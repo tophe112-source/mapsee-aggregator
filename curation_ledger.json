@@ -6,6 +6,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "48-stunden-spandau.de": {
+    "checked": 20260808,
+    "name": "48 Stunden Spandau",
+    "reason": "0 future events",
+    "status": "fail",
+    "type": "mobilizon"
+  },
   "a2gov.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Ann Arbor Farmers Market Events (Michigan)",
@@ -49,9 +56,30 @@
     "type": "ics"
   },
   "agenda.collectifs.net": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "agenda.collectifs.net",
-    "reason": "457 upcoming, sample: NOUVELLE PSYCHOLOGIE SPIRITUELLE Session",
+    "reason": "484 upcoming, sample: NOUVELLE PSYCHOLOGIE SPIRITUELLE Session",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "agenda.fedi.cr": {
+    "checked": 20260808,
+    "name": "Agenda Eventos Costa Rica Comunidad Fediverso y MastodonCR",
+    "reason": "0 future events",
+    "status": "fail",
+    "type": "mobilizon"
+  },
+  "agenda.group.lt": {
+    "checked": 20260808,
+    "name": "What is going on? ",
+    "reason": "0 future events",
+    "status": "fail",
+    "type": "mobilizon"
+  },
+  "agenda.lagraine34.org": {
+    "checked": 20260808,
+    "name": "L'agenda de la Graine 34",
+    "reason": "11 upcoming, sample: Th\u00e9\u00e2tre des 13 vents : Spectacle musical",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -61,6 +89,13 @@
     "reason": "215 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "akce-jinak.cz": {
+    "checked": 20260808,
+    "name": "Akce jinak | Komunita \u22c5 Kultura \u22c5 \u010cinorodost",
+    "reason": "5 upcoming, sample: P\u0159e\u010dti SI: Sedm man\u017eel\u016f Evelyn Hugo od T",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "aldeburghfoodanddrink.co.uk/events/?ical=1": {
     "checked": 20260727,
@@ -126,9 +161,9 @@
     "type": "ics"
   },
   "animalliberationsummit.org": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Animal Liberation Summit",
-    "reason": "10 upcoming, sample: Boxtel Pig Save",
+    "reason": "26 upcoming, sample: Boxtel Pig Save",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -357,7 +392,7 @@
     "type": "ics"
   },
   "bosvreugdevents.nl": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Bosvreugd Cultuurbos Evenementen",
     "reason": "1 upcoming, sample: De Andere Werelddag 2027",
     "status": "ok",
@@ -735,9 +770,9 @@
     "type": "ics"
   },
   "cottbus.vonunten.org": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Cottbus von Unten",
-    "reason": "27 upcoming, sample: offenes Teamtreffen - B\u00fcndnis \"Schule f\u00fc",
+    "reason": "25 upcoming, sample: offenes Teamtreffen - B\u00fcndnis \"Schule f\u00fc",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -1078,7 +1113,7 @@
     "type": "ods"
   },
   "dogodki.kompot.si": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Dogodki kompot.si",
     "reason": "9 upcoming, sample: Emacs.si meetup #11 2026 (v #\u017eivo)",
     "status": "ok",
@@ -1161,6 +1196,27 @@
     "status": "fail",
     "type": "ics"
   },
+  "evenement.facil.services": {
+    "checked": 20260808,
+    "name": "\u00c9v\u00e9nement FACiLe",
+    "reason": "3 upcoming, sample: Creating a New Plan for the Garden",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "event.portes-imaginaire.org": {
+    "checked": 20260808,
+    "name": "Mobilizon",
+    "reason": "372 upcoming, sample: NOUVELLE PSYCHOLOGIE SPIRITUELLE Session",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "eventos.xalapacode.com": {
+    "checked": 20260808,
+    "name": "Eventos Xalapacode",
+    "reason": "3 upcoming, sample: Cantares de Sayuri Navarro",
+    "status": "ok",
+    "type": "mobilizon"
+  },
   "events.baltimoremagazine.com/calendar.ics": {
     "checked": 20260727,
     "name": "Baltimore Magazine Events Calendar (Baltimore)",
@@ -1182,6 +1238,20 @@
     "status": "ok",
     "type": "localist"
   },
+  "events.fedibikes.social": {
+    "checked": 20260808,
+    "name": "Fedibikes Events (Mobilizon)",
+    "reason": "0 future events",
+    "status": "fail",
+    "type": "mobilizon"
+  },
+  "events.flux-ka.de": {
+    "checked": 20260808,
+    "name": "Flux Events Karlsruhe",
+    "reason": "0 future events",
+    "status": "fail",
+    "type": "mobilizon"
+  },
   "events.goodgames.com.au/events/list/?ical=1": {
     "checked": 20260727,
     "name": "Good Games (Australia)",
@@ -1190,23 +1260,44 @@
     "type": "ics"
   },
   "events.graz.social": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "events.graz.social",
-    "reason": "55 upcoming, sample: Offener GO-Spieleabend",
+    "reason": "53 upcoming, sample: Offener GO-Spieleabend",
     "status": "ok",
     "type": "mobilizon"
   },
   "events.gruene.social": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Litfa\u00dfseite",
-    "reason": "58 upcoming, sample: Abipendence Day 30",
+    "reason": "59 upcoming, sample: Abipendence Day 30",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "events.hackeriet.no": {
+    "checked": 20260808,
+    "name": "Hackeriet",
+    "reason": "27 upcoming, sample: Afterwork chill",
     "status": "ok",
     "type": "mobilizon"
   },
   "events.htu.at": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "HTU Events",
-    "reason": "4 upcoming, sample: Karriere-Webinarreihe f\u00fcr Studierende",
+    "reason": "6 upcoming, sample: Mein Start mit TUWEL (Termin 1, deutsch)",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "events.ijug.eu": {
+    "checked": 20260808,
+    "name": "iJUG Events",
+    "reason": "46 upcoming, sample: SoCraTes Family Switzerland 2027",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "events.litera.tools": {
+    "checked": 20260808,
+    "name": "events.litera.tools",
+    "reason": "1 upcoming, sample: Schreibsprechstunde im August",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -1238,11 +1329,25 @@
     "status": "ok",
     "type": "localist"
   },
+  "events.rebellion.global": {
+    "checked": 20260808,
+    "name": "XR Global Mobilizon",
+    "reason": "0 future events",
+    "status": "fail",
+    "type": "mobilizon"
+  },
   "events.rennes.tech": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Communaut\u00e9s techniques rennaises",
     "reason": "8 upcoming, sample: A vibration plate works by generating ra",
     "status": "ok",
+    "type": "mobilizon"
+  },
+  "events.schuerz.at": {
+    "checked": 20260808,
+    "name": "Sch\u00fcrzevents",
+    "reason": "0 future events",
+    "status": "fail",
     "type": "mobilizon"
   },
   "events.seattleu.edu": {
@@ -1251,6 +1356,13 @@
     "reason": "5 events",
     "status": "ok",
     "type": "localist"
+  },
+  "events.silex.me": {
+    "checked": 20260808,
+    "name": "Silex events",
+    "reason": "5 upcoming, sample: Webdesign libre avec Silex",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "events.stanford.edu": {
     "checked": 20260727,
@@ -1265,6 +1377,13 @@
     "reason": "5 events",
     "status": "ok",
     "type": "localist"
+  },
+  "events.tulln.social": {
+    "checked": 20260808,
+    "name": "tulln.social Veranstaltungen ",
+    "reason": "4 upcoming, sample: WenDo - DIE KRAFT IN MIR Wochenendkurs z",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "evergreen.ca/events/?ical=1": {
     "checked": 20260803,
@@ -1336,6 +1455,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "floor.tips": {
+    "checked": 20260808,
+    "name": "floor.tips",
+    "reason": "8 upcoming, sample: Arcanum Collective - \ud835\ude7f\ud800\udc0f\ud835\ude82\ud835\ude82\ud835\ude74\ud835\ude82\ud835\ude82\ud835\ude74\ud835\ude73",
+    "status": "ok",
+    "type": "mobilizon"
+  },
   "folar.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Friends of the Los Angeles River",
@@ -1344,9 +1470,9 @@
     "type": "ics"
   },
   "fomobremen.info": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "FomoBremen",
-    "reason": "143 upcoming, sample: Rote Hilfe Sprechstunde",
+    "reason": "142 upcoming, sample: Rote Hilfe Sprechstunde",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -1456,9 +1582,9 @@
     "type": "ics"
   },
   "gamenight.host": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "GameNight.Host",
-    "reason": "458 upcoming, sample: Puissant attirance client\u00e8le des foules ",
+    "reason": "464 upcoming, sample: Puissant attirance client\u00e8le des foules ",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -1496,6 +1622,13 @@
     "reason": "7 vevents / 7 future",
     "status": "ok",
     "type": "ics"
+  },
+  "gjer.no": {
+    "checked": 20260808,
+    "name": "GjerNo",
+    "reason": "37 upcoming, sample: USO spiller Brahms!",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "glazermuseum.org/events/?ical=1": {
     "checked": 20260727,
@@ -1568,9 +1701,9 @@
     "type": "ics"
   },
   "groups.animalrebellion.nl": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Animal Rebellion Netherlands",
-    "reason": "31 upcoming, sample: empty the tanks / sluit het dolfinarium",
+    "reason": "29 upcoming, sample: empty the tanks / sluit het dolfinarium",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -1658,6 +1791,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "highways.hidot.hawaii.gov/resource/jzxa-jief.json": {
+    "checked": 20260808,
+    "name": "Repair and Restoration (highways.hidot.hawaii.gov)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
   "hollywoodfarmersmarket.net/events/?ical=1": {
     "checked": 20260727,
     "name": "Hollywood Farmers Market Events (Los Angeles)",
@@ -1694,9 +1834,9 @@
     "type": "ics"
   },
   "ibb.info": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "ibb.info - Veranstaltungen in Ibbenb\u00fcren und drumzu",
-    "reason": "167 upcoming, sample: Johann K\u00f6nig - Heute ein K\u00f6nig",
+    "reason": "163 upcoming, sample: Johann K\u00f6nig - Heute ein K\u00f6nig",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -1713,6 +1853,13 @@
     "reason": "7 vevents / 6 future",
     "status": "ok",
     "type": "ics"
+  },
+  "improvizon.fr": {
+    "checked": 20260808,
+    "name": "Improvizon",
+    "reason": "1 upcoming, sample: Cabaret des 3 ans de l'Impr'Horizon",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "indeedbrewing.com/events/?ical=1": {
     "checked": 20260727,
@@ -1757,7 +1904,7 @@
     "type": "ics"
   },
   "jarkkaa.fi": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "J\u00e4rkk\u00e4\u00e4.fi",
     "reason": "5 upcoming, sample: Encuentro Hola Tampere",
     "status": "ok",
@@ -1778,9 +1925,9 @@
     "type": "ics"
   },
   "jura-biel-seeland.fedievents.ch": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Jura-Biel-Seeland",
-    "reason": "174 upcoming, sample: \u00c9lections f\u00e9d\u00e9rales / Eidg. Wahlen \u2013 M\u00e2c",
+    "reason": "172 upcoming, sample: \u00c9lections f\u00e9d\u00e9rales / Eidg. Wahlen \u2013 M\u00e2c",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -1806,9 +1953,9 @@
     "type": "ics"
   },
   "kids.keskonfai.com": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Keskonfai Kids",
-    "reason": "196 upcoming, sample: Illuminations - Carte blanche aux artist",
+    "reason": "189 upcoming, sample: Illuminations - Carte blanche aux artist",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -1825,6 +1972,13 @@
     "reason": "7 vevents / 7 future",
     "status": "ok",
     "type": "ics"
+  },
+  "koa2neuf.net": {
+    "checked": 20260808,
+    "name": "Koa2neuf",
+    "reason": "12 upcoming, sample: March\u00e9 aux bovins",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "krogstreetmarket.com/events/?ical=1": {
     "checked": 20260727,
@@ -1918,9 +2072,9 @@
     "type": "ics"
   },
   "lekalepin.fr": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Le Kalepin",
-    "reason": "79 upcoming, sample: EXPOSITION \u00ab\u202fPrenez en\u2026 de la Graine\u202f\u00bb",
+    "reason": "104 upcoming, sample: L'atelier vocal de Villechen\u00e8ve",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -2079,9 +2233,9 @@
     "type": "ics"
   },
   "meet.debian.net": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Mobilizon Debian France",
-    "reason": "263 upcoming, sample: christmas sale on movie jackets",
+    "reason": "271 upcoming, sample: christmas sale on movie jackets",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -2156,86 +2310,156 @@
     "type": "ics"
   },
   "mobilize.adminforge.de": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "adminForge.de Veranstaltungen",
-    "reason": "195 upcoming, sample: tanz.nord: RAFU",
+    "reason": "201 upcoming, sample: REFA-Grundausbildung",
     "status": "ok",
+    "type": "mobilizon"
+  },
+  "mobilizemuc.org": {
+    "checked": 20260808,
+    "name": "Mobilizon/Minga",
+    "reason": "0 future events",
+    "status": "fail",
     "type": "mobilizon"
   },
   "mobilizon.be": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Mobilizon \ud83c\udde7\ud83c\uddea",
-    "reason": "93 upcoming, sample: Rendez-Vous Infini - SPIP Ap\u00e9ro",
+    "reason": "101 upcoming, sample: Roda de Choro #10 - Pianofabriek - Caf\u00e9 ",
     "status": "ok",
     "type": "mobilizon"
   },
+  "mobilizon.boc47.org": {
+    "checked": 20260808,
+    "name": "Mobilizon 47",
+    "reason": "0 future events",
+    "status": "fail",
+    "type": "mobilizon"
+  },
+  "mobilizon.cemea.org": {
+    "checked": 20260808,
+    "name": "Mobilizon CEMEA",
+    "reason": "11 upcoming, sample: Assembl\u00e9e Permanente des membres",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "mobilizon.com.br": {
+    "checked": 20260808,
+    "name": "Mobilizon \ud83c\udde7\ud83c\uddf7",
+    "reason": "0 future events",
+    "status": "fail",
+    "type": "mobilizon"
+  },
   "mobilizon.defis.info": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Mobilizon de D\u00e9fis",
     "reason": "11 upcoming, sample: Salon du livre engag\u00e9",
     "status": "ok",
     "type": "mobilizon"
   },
-  "mobilizon.extinctionrebellion.fr": {
-    "checked": 20260805,
-    "name": "Mobilizon Extinction Rebellion France",
-    "reason": "23 upcoming, sample: Go\u00fbter D\u00c9MONTAGE v\u00e9lo",
+  "mobilizon.ethibox.fr": {
+    "checked": 20260808,
+    "name": "Mobilizon",
+    "reason": "22 upcoming, sample: +2290191488564 rituels d'amour \u00e0 distanc",
     "status": "ok",
     "type": "mobilizon"
   },
+  "mobilizon.extinctionrebellion.fr": {
+    "checked": 20260808,
+    "name": "Mobilizon Extinction Rebellion France",
+    "reason": "23 upcoming, sample: R\u00e9union d\u2019accueil pour les nouvelles et ",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "mobilizon.fabriquedelatransition.fr": {
+    "checked": 20260808,
+    "name": "Mobilizon de la Fabrique de la Transition",
+    "reason": "104 upcoming, sample: L'atelier vocal de Villechen\u00e8ve",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "mobilizon.grin.hu": {
+    "checked": 20260808,
+    "name": "gribilizon",
+    "reason": "0 future events",
+    "status": "fail",
+    "type": "mobilizon"
+  },
   "mobilizon.ie": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Mobilizon IE",
-    "reason": "12 upcoming, sample: Foundations of Nonviolent Communication",
+    "reason": "16 upcoming, sample: Foundations of Nonviolent Communication",
     "status": "ok",
     "type": "mobilizon"
   },
   "mobilizon.infini.fr": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Mobilizon Infini",
-    "reason": "60 upcoming, sample: Si c\u2019est s\u00fbr c\u2019est pas peut-\u00eatre par la ",
+    "reason": "66 upcoming, sample: Roda de Choro #10 - Pianofabriek - Caf\u00e9 ",
     "status": "ok",
     "type": "mobilizon"
   },
   "mobilizon.it": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Mobilizon Italia",
-    "reason": "67 upcoming, sample: Something Blue",
+    "reason": "64 upcoming, sample: Something Blue",
     "status": "ok",
     "type": "mobilizon"
   },
   "mobilizon.kaz.bzh": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Mobilizon Kaz",
-    "reason": "13 upcoming, sample: Projet de cr\u00e9ation d'une coop\u00e9rative fun",
+    "reason": "14 upcoming, sample: Projet de cr\u00e9ation d'une coop\u00e9rative fun",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "mobilizon.libretic.fr": {
+    "checked": 20260808,
+    "name": "mobilizon.libretic.fr",
+    "reason": "361 upcoming, sample: Grande Rencontre Citlalmina 2027",
     "status": "ok",
     "type": "mobilizon"
   },
   "mobilizon.linux07.fr": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Mobilizon Linux07",
-    "reason": "21 upcoming, sample: MILONGA \"Joaquina\" Dimanche 22 Nov \u00e0 19h",
+    "reason": "20 upcoming, sample: MILONGA \"Joaquina\" Dimanche 22 Nov \u00e0 19h",
     "status": "ok",
     "type": "mobilizon"
   },
   "mobilizon.nl": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "mobilizon.nl",
     "reason": "8 upcoming, sample: Developers Beer-Chat",
     "status": "ok",
     "type": "mobilizon"
   },
   "mobilizon.ouvre-boites.coop": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Mobilizon Ouvre-Boites : Actus et \u00c9v\u00e9nements",
-    "reason": "110 upcoming, sample: Caf\u00e9 Papote [Nantes)",
+    "reason": "112 upcoming, sample: Caf\u00e9 Papote [Nantes)",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "mobilizon.parinux.org": {
+    "checked": 20260808,
+    "name": "MobilizonPx",
+    "reason": "6 upcoming, sample: MILONGA \"Joaquina\" Samedi 19/09/2026 - 2",
     "status": "ok",
     "type": "mobilizon"
   },
   "mobilizon.picasoft.net": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Instance Mobilizon de Picasoft",
     "reason": "36 upcoming, sample: Rendez-Vous Infini - SPIP Ap\u00e9ro",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "mobilizon.zaclys.com": {
+    "checked": 20260808,
+    "name": "MobiliZon",
+    "reason": "61 upcoming, sample: Roda de Choro #10 - Pianofabriek - Caf\u00e9 ",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -2253,10 +2477,17 @@
     "status": "ok",
     "type": "localist"
   },
+  "my-group.events": {
+    "checked": 20260808,
+    "name": "my-group.events",
+    "reason": "23 upcoming, sample: Document Freedom Day",
+    "status": "ok",
+    "type": "mobilizon"
+  },
   "myqueerevents.de": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "MyQueerEvents",
-    "reason": "105 upcoming, sample: {all} GOOD Afternoon",
+    "reason": "92 upcoming, sample: {all} GOOD Afternoon",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -2301,6 +2532,13 @@
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "niederlausitz.vonunten.org": {
+    "checked": 20260808,
+    "name": "niederlausitz.vonunten.org",
+    "reason": "12 upcoming, sample: offenes Teamtreffen - B\u00fcndnis \"Schule f\u00fc",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "nlb.libcal.com/ical_subscribe.php?cid=11498": {
     "checked": 20260727,
@@ -2415,9 +2653,9 @@
     "type": "ics"
   },
   "organisera.org": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "organisera.org",
-    "reason": "19 upcoming, sample: Join a conflict support group!",
+    "reason": "21 upcoming, sample: Join a conflict support group!",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -2723,9 +2961,9 @@
     "type": "ics"
   },
   "rheinneckar.events": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "rheinneckar.events",
-    "reason": "126 upcoming, sample: OpenStreetMap-Treffen",
+    "reason": "127 upcoming, sample: OpenStreetMap-Treffen",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -2757,10 +2995,17 @@
     "status": "ok",
     "type": "ics"
   },
+  "rollenspiel.events": {
+    "checked": 20260808,
+    "name": "Rollenspiel Events",
+    "reason": "0 future events",
+    "status": "fail",
+    "type": "mobilizon"
+  },
   "rotes.potsda.mn": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "rotes.potsda.mn",
-    "reason": "55 upcoming, sample: rasthausZwei - Vegane Klassiker",
+    "reason": "62 upcoming, sample: rasthausZwei - Vegane Klassiker",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -2932,6 +3177,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "social.org.mx": {
+    "checked": 20260808,
+    "name": "Social Org Mx",
+    "reason": "1 upcoming, sample: Cacerolada diaria",
+    "status": "ok",
+    "type": "mobilizon"
+  },
   "stanleyparkecology.ca/events/?ical=1": {
     "checked": 20260727,
     "name": "Stanley Park Ecology Society (Vancouver, Canada)",
@@ -2945,6 +3197,13 @@
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "stockholm-events.nu": {
+    "checked": 20260808,
+    "name": "Stockholm Events",
+    "reason": "22 upcoming, sample: Disconnected - Vegan Culinary Pop-Up",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "stonebrewing.com/events/?ical=1": {
     "checked": 20260727,
@@ -3038,9 +3297,16 @@
     "type": "ics"
   },
   "termine.social": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "termine.social",
-    "reason": "68 upcoming, sample: Abipendence Day 30",
+    "reason": "72 upcoming, sample: REFA-Grundausbildung",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "termine.uckermark.social": {
+    "checked": 20260808,
+    "name": "Uckermark Termin",
+    "reason": "5 upcoming, sample: Hobbymesse Leipzig 2026",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -3149,6 +3415,20 @@
     "status": "fail",
     "type": "ics"
   },
+  "treff.tech": {
+    "checked": 20260808,
+    "name": "treff.tech \"treff punkt tech\"",
+    "reason": "112 upcoming, sample: Critical Mass L\u00fcbeck",
+    "status": "ok",
+    "type": "mobilizon"
+  },
+  "treffpunkt.ruhr": {
+    "checked": 20260808,
+    "name": "Treffpunkt Ruhr",
+    "reason": "78 upcoming, sample: Critical Mass L\u00fcbeck",
+    "status": "ok",
+    "type": "mobilizon"
+  },
   "trivandrum.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise de Trivandrum (Thiruvananthapuram, India)",
@@ -3220,9 +3500,9 @@
     "type": "ics"
   },
   "tue4.org": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Tue4org",
-    "reason": "60 upcoming, sample: LIN",
+    "reason": "56 upcoming, sample: LIN",
     "status": "ok",
     "type": "mobilizon"
   },
@@ -3232,6 +3512,13 @@
     "reason": "4 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "tummeln.kreatives-leipzig.de": {
+    "checked": 20260808,
+    "name": "kreatives Tummeln",
+    "reason": "31 upcoming, sample: The oil pump is a vital component",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "u-bordeaux.libcal.com/ical_subscribe.php?cid=8971": {
     "checked": 20260727,
@@ -3358,6 +3645,13 @@
     "reason": "6 vevents / 4 future",
     "status": "ok",
     "type": "ics"
+  },
+  "uppsala.social": {
+    "checked": 20260808,
+    "name": "Uppsala.Social",
+    "reason": "98 upcoming, sample: UPPSALA Biotopia - Mend in public + kl\u00e4d",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "usyd.libcal.com/ical_subscribe.php?cid=3560": {
     "checked": 20260727,
@@ -3541,6 +3835,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "wuelender.de": {
+    "checked": 20260808,
+    "name": "WUElender",
+    "reason": "7 upcoming, sample: W\u00fcrzburger Weihnachtsmarkt",
+    "status": "ok",
+    "type": "mobilizon"
+  },
   "wutw.co.uk/whats-on/category/markets/?ical=1": {
     "checked": 20260727,
     "name": "Woodstock Farmers Market (Oxfordshire)",
@@ -3549,9 +3850,9 @@
     "type": "ics"
   },
   "wydarzenia.phub.pl": {
-    "checked": 20260805,
+    "checked": 20260808,
     "name": "Wydarzenia Mobilizon",
-    "reason": "126 upcoming, sample: Zadzwo\u0144cie po milicj\u0119! w Gorzowie Wielko",
+    "reason": "140 upcoming, sample: Hells Bells Festival 2027",
     "status": "ok",
     "type": "mobilizon"
   },
