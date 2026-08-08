@@ -1832,12 +1832,5 @@
     "category": "volunteer",
     "geocode_suffix": ", Portland, OR",
     "limit": 300
-  },
-  {
-    "name": "Seattle Parks Foundation",
-    "url": "https://www.seattleparksfoundation.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", Seattle, WA",
-    "limit": 300
   }
 ]
