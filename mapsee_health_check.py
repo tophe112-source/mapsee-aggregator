@@ -268,8 +268,43 @@ def _normalise(rows) -> list[dict]:
     return [r for r in rows if isinstance(r, dict) and r.get("source")]
 
 
-def fetch_stats(url: str, key: str) -> tuple[list[dict], datetime | None, str]:
-    """(rows, computed_at, which RPC answered). Raises CheckCannotRun."""
+# The Worker records each cron task's last run as a `cron:<task>` row in the
+# same snapshot table (../mapsee `runCronTask`). This check is the only thing
+# that reads them on a schedule: /stats can show them too, but it is
+# STATS_TOKEN-gated and nobody was watching it — which is exactly how
+# refresh_stats stayed dead for six days.
+CRON_PREFIX = "cron:"
+
+
+def cron_report(by_kind: dict) -> list[str]:
+    """One line per cron task: what it did, when, and why if it failed.
+
+    Returns [] when the Worker has recorded nothing — a deployment older than
+    the bookkeeping, or a cron that has never fired. Silence here is genuinely
+    ambiguous, so it is not reported as either good or bad news.
+    """
+    now = datetime.now(timezone.utc)
+    out = []
+    for kind, row in sorted(by_kind.items()):
+        if not str(kind).startswith(CRON_PREFIX):
+            continue
+        task = str(kind)[len(CRON_PREFIX):]
+        payload = row.get("payload")
+        payload = payload if isinstance(payload, dict) else {}
+        at = _parse_ts(row.get("computed_at"))
+        when = f"{(now - at).total_seconds() / 3600:.0f}h ago" if at else "never"
+        if payload.get("ok") is False:
+            state = f"FAILED - {payload.get('error') or 'no reason recorded'}"
+        elif payload.get("skipped"):
+            state = f"skipped - {payload['skipped']}"
+        else:
+            state = "ok"
+        out.append(f"CRON   {task}: {state} ({when})")
+    return out
+
+
+def fetch_stats(url: str, key: str) -> tuple[list[dict], datetime | None, str, list[str]]:
+    """(rows, computed_at, which RPC answered, cron lines). Raises CheckCannotRun."""
     r = _rpc(url, key, SNAPSHOT_RPC)
 
     if r.status_code == 404:
@@ -303,20 +338,30 @@ def fetch_stats(url: str, key: str) -> tuple[list[dict], datetime | None, str]:
 
     computed_at = _parse_ts(snap.get("computed_at"))
     rows = _normalise(snap.get("payload") or [])
+    cron = cron_report(by_kind)
     if computed_at:
         age_h = (datetime.now(timezone.utc) - computed_at).total_seconds() / 3600
         if age_h > SNAPSHOT_MAX_AGE_H:
+            # THE case this was written for. "The snapshot is 142h old" is a
+            # symptom; the Worker knows the cause and records it beside the
+            # snapshot, so quote it here rather than sending someone to
+            # `wrangler tail` for something already in the database.
+            why = ("\n".join(cron) if cron else
+                   "The Worker has recorded no cron status at all — either it "
+                   "predates the bookkeeping in ../mapsee `runCronTask`, or the "
+                   "cron is not firing, which nothing else would show.")
             raise CheckCannotRun(
                 f"The stats snapshot is {age_h:.0f}h old",
                 f"Last computed {computed_at:%Y-%m-%d %H:%M} UTC; the budget is "
-                f"{SNAPSHOT_MAX_AGE_H}h (the Worker recomputes every 6h).",
+                f"{SNAPSHOT_MAX_AGE_H}h (the Worker recomputes every 6h).\n\n"
+                f"{why}",
                 "Every freshness number is frozen at that moment, so evaluating "
                 "them would report sources as silent that are delivering "
                 "normally. Fix the `refresh_stats` cron, not the sources.")
-    return rows, computed_at, SNAPSHOT_RPC
+    return rows, computed_at, SNAPSHOT_RPC, cron
 
 
-def _fetch_legacy(url: str, key: str) -> tuple[list[dict], datetime | None, str]:
+def _fetch_legacy(url: str, key: str) -> tuple[list[dict], datetime | None, str, list[str]]:
     """The pre-0112 path. Live aggregate; times out on any real dataset."""
     r = _rpc(url, key, LEGACY_RPC)
     if not r.ok:
@@ -328,7 +373,9 @@ def _fetch_legacy(url: str, key: str) -> tuple[list[dict], datetime | None, str]
             f"out aggregating public.events — apply 0112 and schedule "
             f"`refresh_stats()`; it cannot be tuned into working.")
     try:
-        return _normalise(r.json() or []), None, LEGACY_RPC
+        # No cron rows on this path: they live in the snapshot table 0112 adds,
+        # and reaching here means 0112 was never applied.
+        return _normalise(r.json() or []), None, LEGACY_RPC, []
     except ValueError:
         raise CheckCannotRun(f"`{LEGACY_RPC}()` returned unparseable JSON",
                              (r.text or "")[:400]) from None
@@ -675,7 +722,7 @@ def _run(args):
         print("SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY unset - skipping health check.")
         return EXIT_OK
 
-    rows, computed_at, via = fetch_stats(url, key)      # raises CheckCannotRun
+    rows, computed_at, via, cron = fetch_stats(url, key)   # raises CheckCannotRun
 
     if not rows:
         raise CheckCannotRun(
@@ -757,6 +804,11 @@ def _run(args):
         baseline = json.load(fh)
 
     problems, notes, live = evaluate(rows, baseline, args.drop_pct, now)
+    # Cron status rides along even on a healthy run. A task that failed once
+    # while the snapshot is still inside its budget is not an outage and must
+    # not fail the check — but it is the early warning for the one that is
+    # coming, and it costs nothing to print since the rows are already in hand.
+    notes.extend(cron)
     report = render(problems, notes, live, baseline, computed_at, via)
     print(report)
     write_markdown(args.markdown, report)
