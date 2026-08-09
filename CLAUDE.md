@@ -25,6 +25,7 @@ front doors it reaches.
 | Where new sources come FROM | `discover <socrata\|ckan\|mobilizon>`; `curation_cursor.json` is how far each catalog query has been read |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
+| Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run |
 | Deleting past events | `mapsee_cleanup.py` |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | What runs when | `.github/workflows/aggregate-events.yml` header — the best doc in the repo |
@@ -45,6 +46,24 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **Every ingest job is deliberately failure-tolerant** (`set +e`, `|| true`,
   bare `exit 0`) so one dead feed cannot abort a sweep of forty. The consequence
   is that a green run proves nothing; `source-health.yml` is the actual signal.
+- **The health check reads `stats_snapshot_all()`, NOT `source_stats()`.** The
+  latter aggregates `public.events` on read and cannot finish inside the API
+  role's ~3s statement timeout — ../mapsee migration 0112 retired it for exactly
+  that and moved the product onto a snapshot a cron computes. The aggregator kept
+  calling it and failed its first eight runs, reporting a Postgres 57014 as
+  "one or more sources have gone quiet". Two rules fell out and both are now
+  tested (`test_health_check.py`): read what the product reads, and put the
+  server's own error body in the report — a status code alone diagnoses nothing.
+- **A source in the health report is `external_source`, which is `'mapsee'` for
+  everything this repo writes.** So it sees the aggregator as ONE bucket: it can
+  tell you the pipeline stopped, never that the Meetup adapter did. No per-
+  adapter provenance is persisted (`external_id` is a bare fingerprint hash).
+  `FEED_DOWN`, from the curator audit, is the per-feed signal.
+- **A green source-health run with no baseline means "no opinion", not
+  "healthy".** SILENT / MISSING / DRAINED all compare against
+  `source_health_baseline.json`; without the file the job passes having evaluated
+  nothing, which is what it did on every run where the RPC answered. CI now
+  passes `--seed-baseline` and commits the result.
 - **The curation ledger records candidates too.** Most `"status": "fail"` rows
   are URLs that were probed and rejected — that is the process working. Only the
   ones still present in a `*_sources.json` are regressions; `configured_dead()`
@@ -76,11 +95,12 @@ pip install -r requirements.txt
 python test_categories.py           # the classifier: which lens an event reaches
 python test_ingest_categories.py    # adapters + the shared vocabulary
 python test_link_series.py          # which repeats count as one thing
+python test_health_check.py         # the alarm itself, against a faked transport
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The three test scripts are the CI gate (`tests.yml`). They print one line per
+The four test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

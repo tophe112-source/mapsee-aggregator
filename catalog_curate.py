@@ -478,6 +478,24 @@ def _configured_per_category():
     return counts
 
 
+def _filter_queries(queries, only):
+    """Keep only the queries for `only`, or everything when `only` is empty.
+
+    Returns the full list rather than nothing when the filter matches no query:
+    a category with no query at all is a real gap, `_report_query_gaps` has
+    already FLAGged it by the time this runs, and silently sweeping zero
+    candidates would look identical to a run that found nothing.
+    """
+    if not only:
+        return queries
+    hit = [q for q in queries if q[1] in set(only)]
+    if not hit:
+        print(f"  FLAG no discovery query targets {', '.join(only)} — "
+              f"sweeping everything instead")
+        return queries
+    return hit
+
+
 def _order_queries(queries, cats):
     """Thinnest category first, then the original order within a category.
 
@@ -878,7 +896,15 @@ def _discover_mobilizon(session, seen_keys, led, limit):
     return found, skipped
 
 
-def cmd_discover(limit=400, out="candidates.json", backend="socrata"):
+def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=()):
+    """`only` pins the sweep to specific lens categories.
+
+    Without it the budget is spent thinnest-category-first across every query,
+    which is the right default and still lets a fat category crowd a starving
+    one out: `market` has 481 sources and `fitness` has none, and one run of 300
+    candidates does not reliably reach the bottom of the list. A gap sweep passes
+    the categories with zero supply here and spends the whole budget on them.
+    """
     seen_keys = _config_keys()
     led = _load_ledger()
     session = _session()
@@ -887,19 +913,35 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata"):
     cursor = all_cursors.setdefault(backend, {})
     src = "mapsee.me/api/lenses" if CURATED_FROM_LIVE else "committed fallback"
     print(f"targets via {src}: {', '.join(cats)}")
+    if only:
+        unknown = [c for c in only if c not in cats]
+        if unknown:
+            # Loud, not fatal: a lens can be retired between the gap being
+            # measured and this run starting, and sweeping for it is harmless.
+            print(f"  FLAG --category names {', '.join(unknown)}, which the live "
+                  f"roster does not ask for")
+        print(f"  pinned to: {', '.join(only)}")
 
     if backend == "mobilizon":
         # No query list and no cursor: the directory is one short document that
         # is read whole every time, so "what is new" is simply what is not
-        # already configured, declined or known-dead.
-        found, skipped = _discover_mobilizon(session, seen_keys, led, limit)
+        # already configured, declined or known-dead. A Mobilizon instance is a
+        # general-purpose community calendar with no category to pin, so --only
+        # does not apply here; skip the backend entirely rather than sweep it
+        # and pretend the result was targeted.
+        if only:
+            print("  (mobilizon carries no per-source category — skipped for a "
+                  "category-pinned run)")
+            found, skipped = {}, {}
+        else:
+            found, skipped = _discover_mobilizon(session, seen_keys, led, limit)
     elif backend == "ckan":
         _report_query_gaps(cats, CKAN_QUERIES, "ckan")
-        queries = _order_queries(CKAN_QUERIES, cats)
+        queries = _order_queries(_filter_queries(CKAN_QUERIES, only), cats)
         found, skipped = _discover_ckan(session, seen_keys, led, limit, cursor, queries)
     else:
         _report_query_gaps(cats, DISCOVER_QUERIES, "socrata")
-        queries = _order_queries(DISCOVER_QUERIES, cats)
+        queries = _order_queries(_filter_queries(DISCOVER_QUERIES, only), cats)
         found, skipped = _discover_socrata(session, seen_keys, led, limit, cursor, queries)
 
     all_cursors[backend] = cursor
@@ -1537,6 +1579,78 @@ def cmd_coverage():
     return 0
 
 
+def coverage_snapshot():
+    """The counts a human reads off cmd_coverage, as data.
+
+    "Are we improving the catalog?" was only answerable by diffing two 500-line
+    terminal dumps from different weeks, which is to say it was not answerable.
+    curate-catalog.yml appends one of these per run to coverage_history.jsonl,
+    so the trend is a file rather than an archaeology exercise — and a category
+    that has been at zero for a month is visible as such.
+    """
+    rows = _coverage_rows()
+    cats = curated_categories()
+    per_cat = {c: 0 for c in cats}
+    for _t, _n, _m, _country, cat in rows:
+        if cat in per_cat:
+            per_cat[cat] += 1
+    per_type = {}
+    countries = set()
+    for t, _n, _m, country, _c in rows:
+        per_type[t] = per_type.get(t, 0) + 1
+        if country and country != "?":
+            countries.add(country)
+    dead, total = 0, 0
+    led = _load_ledger()
+    if led:
+        total = len(led)
+        dead = sum(1 for v in led.values()
+                   if isinstance(v, dict) and v.get("status") == "fail")
+    return {
+        "date": _today_int(),
+        "total_sources": len(rows),
+        "countries": len(countries),
+        "per_category": per_cat,
+        "per_type": per_type,
+        "zero_categories": sorted(c for c, n in per_cat.items() if not n),
+        "ledger": {"dead": dead, "total": total},
+        "roster_live": CURATED_FROM_LIVE,
+    }
+
+
+def cmd_coverage_json():
+    print(json.dumps(coverage_snapshot(), sort_keys=True))
+    return 0
+
+
+def cmd_coverage_delta(before_path, after_path):
+    """What one curation run actually changed, as markdown for the job summary.
+
+    Lives here rather than as a heredoc in the workflow on purpose: a `python -
+    <<'PY'` block inside a `run: |` puts its body at column 0, which terminates
+    the YAML block scalar and makes the whole workflow file unparseable — the
+    same trap the commit-message comment in curate-catalog.yml already records.
+    """
+    before = json.load(open(before_path, encoding="utf-8"))
+    after = json.load(open(after_path, encoding="utf-8"))
+    delta = after["total_sources"] - before["total_sources"]
+    out = ["## Catalog delta", "",
+           f"**{after['total_sources']} sources** ({delta:+d} this run) across "
+           f"{after['countries']} countries.", "",
+           "| category | before | after | delta |", "|---|---:|---:|---:|"]
+    for c in sorted(after["per_category"]):
+        b = before["per_category"].get(c, 0)
+        a = after["per_category"][c]
+        mark = " **(zero)**" if a == 0 else ""
+        out.append(f"| {c}{mark} | {b} | {a} | {a - b:+d} |")
+    if after["zero_categories"]:
+        out += ["", "> Categories with NO curated supply anywhere: "
+                    + ", ".join(f"`{c}`" for c in after["zero_categories"])
+                    + ". A lens opening onto one of these shows an empty map."]
+    print("\n".join(out))
+    return 0
+
+
 def main(argv):
     cmds = {"verify", "merge", "audit", "ledger", "coverage", "discover"}
     if len(argv) < 2 or argv[1] not in cmds:
@@ -1546,17 +1660,27 @@ def main(argv):
     if cmd == "discover":
         lim = int(argv[argv.index("--limit") + 1]) if "--limit" in argv else 400
         out = argv[argv.index("--out") + 1] if "--out" in argv else "candidates.json"
+        only = ()
+        if "--category" in argv:
+            only = tuple(c.strip() for c in argv[argv.index("--category") + 1].split(",")
+                         if c.strip())
         # POSITIONAL, and it must sit at argv[2] before any flag — the workflow
         # spells the two forms out rather than interpolating for this reason.
         want = argv[2:3]
         backend = want[0] if want and want[0] in BACKENDS else "socrata"
-        return cmd_discover(limit=lim, out=out, backend=backend)
+        return cmd_discover(limit=lim, out=out, backend=backend, only=only)
     if cmd == "audit":
         return cmd_audit()
     if cmd == "ledger":
         return cmd_ledger()
     if cmd == "coverage":
-        return cmd_coverage()
+        if "--delta" in argv:
+            i = argv.index("--delta")
+            if len(argv) < i + 3:
+                print("error: --delta needs a BEFORE and an AFTER json path")
+                return 2
+            return cmd_coverage_delta(argv[i + 1], argv[i + 2])
+        return cmd_coverage_json() if "--json" in argv else cmd_coverage()
     if len(argv) < 3:
         print("error: need a candidates file path")
         return 2
