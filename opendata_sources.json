@@ -1,22 +1,5 @@
 [
   {
-    "name": "Seattle Special Events",
-    "url": "https://data.seattle.gov/resource/dm95-f8w5.json",
-    "app_token": null,
-    "category": "community",
-    "where": "event_start_date > '{now}' AND permit_status != 'Cancelled'",
-    "limit": 1000,
-    "geocode_venue": true,
-    "geocode_suffix": ", Seattle, WA",
-    "map": {
-      "id": "year_month_app",
-      "title": "name_of_event",
-      "start": "event_start_date",
-      "end": "event_end_date",
-      "venue": "event_location_neighborhood"
-    }
-  },
-  {
     "name": "NYC Permitted Events",
     "url": "https://data.cityofnewyork.us/resource/tvpp-9vvx.json",
     "app_token": null,

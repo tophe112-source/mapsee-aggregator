@@ -70,6 +70,14 @@ jobs:
       - name: Series linking (which repeats are one thing)
         run: python test_link_series.py
 
+      # The alarm, not the pipeline. source-health.yml failed its first eight
+      # runs against a retired RPC and reported it as sources going quiet; both
+      # halves of that — which endpoint is called, and whether the server's own
+      # error text survives into the report — are asserted here against a faked
+      # transport. No network and no database, same as the rest of this job.
+      - name: Ingest health check (the alarm itself)
+        run: python test_health_check.py
+
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a
       # mid-sweep crash on a schedule, hours later. Compiling is not a test, but

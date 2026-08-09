@@ -273,13 +273,6 @@
     "limit": 300
   },
   {
-    "name": "Carnegie Library of Pittsburgh (Pittsburgh)",
-    "url": "https://www.carnegielibrary.org/events/?ical=1",
-    "category": "learning",
-    "geocode_suffix": ", Pittsburgh, PA",
-    "limit": 300
-  },
-  {
     "name": "University of Pittsburgh Library System Events (Pittsburgh)",
     "url": "https://pitt.libcal.com/ical_subscribe.php?cid=2274",
     "category": "learning",
@@ -490,13 +483,6 @@
     "limit": 300
   },
   {
-    "name": "Queen Street West BIA (Toronto, Canada)",
-    "url": "https://queenstreetwest.ca/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Toronto, Canada",
-    "limit": 300
-  },
-  {
     "name": "Gardiner Museum (Toronto, Canada)",
     "url": "https://gardinermuseum.on.ca/events/?ical=1",
     "category": "arts",
@@ -522,13 +508,6 @@
     "url": "https://castlemainefestival.com.au/events/?ical=1",
     "category": "arts",
     "geocode_suffix": ", Castlemaine, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Central NSW arts & culture (Orange, NSW, Australia)",
-    "url": "https://centralnsw.com/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Orange, NSW, Australia",
     "limit": 300
   },
   {
@@ -1032,7 +1011,7 @@
     "name": "Eintritt Frei Muenchen (Munich, Germany)",
     "url": "https://www.eintrittfrei-muenchen.de/?ical=1&eventDisplay=list",
     "category": "community",
-    "geocode_suffix": ", M\u00fcnchen, Germany",
+    "geocode_suffix": ", München, Germany",
     "limit": 300
   },
   {
@@ -1053,7 +1032,7 @@
     "name": "Buergerzentrum Ehrenfeld BueZe (Cologne, Germany)",
     "url": "https://www.bueze.de/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
-    "geocode_suffix": ", K\u00f6ln, Germany",
+    "geocode_suffix": ", Köln, Germany",
     "limit": 300
   },
   {
@@ -1257,13 +1236,6 @@
     "url": "https://wellplayedasheville.com/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
     "geocode_suffix": ", Asheville, NC",
-    "limit": 300
-  },
-  {
-    "name": "Meta-Games Unlimited (Springfield, MO)",
-    "url": "https://www.mguinc.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Springfield, MO",
     "limit": 300
   },
   {

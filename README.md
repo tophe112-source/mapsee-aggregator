@@ -20,6 +20,8 @@ Roughly 200 curated sources across 20+ countries, plus keyed API sweeps:
 | iCal / `.ics` | `mapsee_ingest_ics.py` | LibCal, Trumba, CivicPlus, WordPress "The Events Calendar". Conditional GETs (ETag/If-Modified-Since) so unchanged feeds cost ~0 bytes |
 | City open data (Socrata) | `mapsee_ingest_opendata.py` | SODA API; ISO **and** free-text date columns |
 | City open data (OpenDataSoft) | `mapsee_ingest_ods.py` | Explore v2.1 records API; the EU civic workhorse |
+| City open data (CKAN) | `mapsee_ingest_ckan.py` | DataStore API. The only discovery path outside the US — data.gov.uk, open.canada.ca, data.gov.ie, govdata.de, data.gov.au, opendata.swiss |
+| Races (RunSignup) | `mapsee_ingest_runsignup.py` | Public keyless race API, partitioned by US state. The whole `running` and `fitness` supply: ~12,500 events, both lenses were at zero curated sources before it |
 | Localist | `mapsee_ingest_localist.py` | University/city calendars (`/api/2/events`) |
 | schema.org JSON-LD | `mapsee_ingest_jsonld.py` | Venue sites that embed `Event` blocks |
 | Ticketmaster / SeatGeek / DICE / AXS / Moshtix | `mapsee_ingest*.py` | Keyed APIs, skipped silently when unset |
@@ -60,6 +62,8 @@ keeps the claimed or oldest row, and is safe to re-run.
 
 ```bash
 python catalog_curate.py coverage             # where the catalog is thin (no network)
+python catalog_curate.py coverage --json      # the same counts as data, for trends
+python catalog_curate.py discover ckan --limit 300 --category fitness,running
 python catalog_curate.py verify cands.json    # probe candidates, record results
 python catalog_curate.py merge  cands.verified.json
 python catalog_curate.py audit                # re-check every configured source
@@ -73,7 +77,35 @@ Two rules make this work at scale:
    hold nothing but past events, are rejected - they would silently ingest zero.
 2. **Every attempt is remembered.** `curation_ledger.json` records each URL tried
    and why it failed, so dead sources are never re-probed (and get one recheck
-   after 90 days, in case they come back).
+   after 90 days, in case they come back). `status` is `ok`, `fail` or `empty` —
+   a feed that parses fine with nothing upcoming is a venue between seasons, not
+   a broken feed, and only `fail` is treated as a regression worth retiring.
+
+### Growing it, on a schedule
+
+`.github/workflows/curate-catalog.yml` runs the discover → verify → merge loop
+**daily at 03:20 UTC**, and a second, category-pinned sweep **Wednesdays at
+03:50**. Daily rather than weekly because `curation_cursor.json` makes repetition
+productive: each run reads the *next* page of each catalog query, so the schedule
+was the binding constraint on how fast the catalog can grow.
+
+The Wednesday sweep passes `--category` with whatever `coverage --json` reports
+at zero and spends the whole budget there. Without it the budget is one pool, and
+the pool is lopsided — `market` has 509 curated sources while `fitness` and
+`running` have none at all, which means a lens opening onto those shows an empty
+map.
+
+Every run appends a line to `coverage_history.jsonl` and prints a per-category
+before/after table into the job summary, so "is the catalog improving" is a file
+you can read rather than two 500-line terminal dumps from different weeks you
+have to diff.
+
+**A caveat worth knowing before you tune the budget.** A pinned Socrata sweep
+across all five fitness/running queries reads 315 datasets and proposes zero:
+174 carry no usable event shape and 140 are not event listings. Municipal open
+data does not publish road races and gym timetables in geocoded, event-shaped
+form. More discovery budget will not grow those two categories from Socrata — a
+different *kind* of source will (run clubs, parkrun, rec-centre calendars).
 
 ## Monitoring: how you find out something broke
 
@@ -84,14 +116,16 @@ whether or not it ingested anything.** A rotated key or a feed that starts
 403ing produces a successful, silent, empty run.
 
 `mapsee_health_check.py` is the counterweight. It doesn't re-run the ingest; it
-asks the database what actually landed and compares it to a committed baseline:
+reads the `/stats` snapshot the product already computes (`stats_snapshot_all()`,
+../mapsee migration 0112, refreshed every 6h by the Worker cron) and compares it
+to a committed baseline:
 
 ```bash
 python mapsee_health_check.py --update-baseline   # after a run you trust
 python mapsee_health_check.py                     # exit 1 if a source went quiet
 ```
 
-It reports four things, and it is careful about false positives — staleness
+It reports five things, and it is careful about false positives — staleness
 budgets are per-source and default to 8 days, because the heavy sweep only runs
 Mon & Thu and a 72-hour rule would cry wolf every Sunday:
 
@@ -100,19 +134,44 @@ Mon & Thu and a 72-hour rule would cry wolf every Sunday:
 | `SILENT` | A baseline source's newest event is older than its budget. The job still exits 0; nothing new is arriving. |
 | `MISSING` | The source has no rows left at all. |
 | `DRAINED` | Still ingesting, but upcoming events collapsed >60% against the baseline. |
+| `FEED_DOWN` | A feed still wired into a `*_sources.json` that the curator audit can no longer read. |
 | `LEDGER` | How many curated feeds `catalog_curate.py` has marked dead, and whether that's growing. Advisory. |
+
+**What a "source" is here.** `external_source`, which the sync sets to the
+literal `mapsee` on every row it writes (community-created events are `NULL` and
+the snapshot calls those `community`). So the per-source numbers see the whole
+aggregator as one bucket: they answer *has the pipeline stopped delivering*, not
+*has the Meetup adapter gone quiet*. Per-adapter provenance is not persisted
+anywhere in `public.events` — `external_id` is a bare fingerprint hash with no
+source prefix — so catching one dead adapter would need a `source` column on the
+event row. Until then `FEED_DOWN` (from `catalog_curate.py audit`) is the
+per-feed signal.
+
+The check exits **1** when a source is unhealthy and **2** when it could not run
+at all — an unreachable database, a missing RPC, or a snapshot too stale to
+trust. Those are different problems with different fixes, so they get different
+issues: `ingest-health` and `ingest-health-check`. Collapsing them is not
+cosmetic. This workflow's first eight runs all failed on a retired RPC and all
+filed under "one or more sources have gone quiet", describing an outage that was
+not happening while the real fault went unnamed for four days.
 
 Two workflows run it (`.github/workflows/source-health.yml`):
 
-- **daily, 08:40 UTC** — one cheap RPC call. If anything is unhealthy it opens a
-  GitHub issue labelled `ingest-health` (which emails you), comments on that same
-  issue on subsequent days rather than opening new ones, and closes it once
-  everything recovers.
+- **daily, 08:40 UTC** — one cheap snapshot read. If anything is unhealthy it
+  opens a GitHub issue (which emails you), comments on that same issue on
+  subsequent days rather than opening new ones, and closes it once everything
+  recovers. It also seeds `source_health_baseline.json` if that file is missing,
+  because every check above compares against it and without it the job passes
+  having evaluated nothing.
 - **Sundays, 04:10 UTC** — the deep probe: `catalog_curate.py audit` re-fetches
   every curated feed and commits the refreshed ledger.
 
 Notification is a GitHub issue rather than Slack precisely because it needs no
 secret, no external account and no upkeep.
+
+`test_health_check.py` covers the alarm itself against a faked transport — which
+RPC is called, and whether the server's own error text survives into the report.
+Both were how the original broke.
 
 ## Conduct
 
@@ -188,9 +247,12 @@ comment explains the job split in detail. The short version:
 | `feeds` | daily 06:17 UTC | ICS, open data, Localist, JSON-LD, markets. Carries no coords, so each venue is geocoded (~1.1s); isolated so a slow feed can't drag the TM sweep. |
 | `meetup` | Mon & Thu 06:40 | One Meetup sweep. Separate key from Ticketmaster, so it runs in parallel. |
 | `extra_sources` | Mon & Thu 06:40 | SeatGeek/DICE/AXS metro sweep, Eventbrite, NPS/Localist/Sports. Skipped wholesale when none of those keys are set. |
+| `races` | daily 06:17 UTC | RunSignup races onto the running + fitness layers. Its own job: more events than every ICS feed combined, behind ~5 minutes of API paging, and `feeds` syncs one shared store at the end — a timeout there would discard the two emptiest lenses along with everything else. |
 | `indexnow` | after every run | Pushes the URLs of events that just landed to IndexNow (Bing/Yandex/Seznam/Naver). `if: always()`, so a run where one leg failed still announces what the others ingested. |
-| `source-health` | daily 08:40 | Reads what landed; opens an issue if a source went quiet. See [Monitoring](#monitoring-how-you-find-out-something-broke). |
+| `source-health` | daily 08:40 | Reads what landed; opens an issue if a source went quiet, and a separate one if the check itself cannot run. See [Monitoring](#monitoring-how-you-find-out-something-broke). |
 | `audit` | Sun 04:10 | Deep re-probe of every curated feed; commits the refreshed ledger. |
+| `curate` | daily 03:20 | discover → verify → merge across Socrata, CKAN and Mobilizon; commits new verified feeds, the cursor and the coverage history. |
+| `curate` (gap sweep) | Wed 03:50 | The same loop, pinned to the lens categories that currently have zero curated sources. |
 
 **Why `indexnow` exists.** An event page's crawlable life runs from the moment it
 is ingested to the moment the event starts — `sitemapEvents()` drops it from the

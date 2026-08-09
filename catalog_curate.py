@@ -60,6 +60,7 @@ import json
 import os
 import re
 import sys
+import time
 
 import requests
 
@@ -139,10 +140,72 @@ def _days_since(yyyymmdd):
         return 10 ** 6
 
 
+# A verifier gets ONE shot at a server on a bad morning, and losing it is
+# expensive: a `fail` row parks the feed for the 90-day ledger TTL, and if the
+# feed is already configured it is reported as a FEED_DOWN regression on top.
+#
+# Measured 2026-08-09 against the 15 feeds the audit had marked dead-while-
+# configured: SIX were answering normally on a plain re-probe. Four of those six
+# had failed on a ReadTimeout and one on a 403 — the transient shapes exactly.
+# A 40% false-dead rate is not a finding about the catalog, it is a finding
+# about probing once.
+VERIFY_RETRIES = 3
+VERIFY_BACKOFF_S = 3
+
+
 def _session():
     s = requests.Session()
     s.headers.update({"User-Agent": UA})
     return s
+
+
+# "The feed parses and has nothing on" is not "the feed is broken", and the
+# ledger recorded both as `fail`. That is why FEED_DOWN reported 15 configured
+# regressions when six were actually broken: the other nine were working
+# calendars for venues with a quiet fortnight, an arts centre between seasons, a
+# library whose export window had drifted. Retiring those loses a live source
+# for ever; reporting them daily as regressions trains you to ignore the report.
+#
+# So there is a third status. `empty` still keeps discovery from PROPOSING the
+# feed (adding a source with nothing upcoming ingests zero), but it is not a
+# regression and configured_dead() does not raise it.
+_EMPTY_RX = re.compile(r"(?:^|\D)([1-9]\d*)\s*(?:vevents|events|rows|records)\b"
+                       r"[^/]*/\s*0\s+future", re.I)
+
+
+def _status_for(ok, note):
+    if ok:
+        return "ok"
+    return "empty" if _EMPTY_RX.search(note or "") else "fail"
+
+
+def _verify_with_retry(fn, s, e):
+    """Run a verifier, retrying the failures that a second look can change.
+
+    A timeout, a connection reset and a 5xx are all "ask again later". A clean
+    verdict — parsed the feed, no future events — is not, and re-fetching it
+    would just triple the cost of every genuinely-dormant calendar. 403 is
+    retried because rate limiters return it and so do bot walls; if it is a real
+    block, three tries cost three requests and the answer is the same.
+    """
+    last = (False, "not attempted")
+    for attempt in range(VERIFY_RETRIES):
+        try:
+            ok, note = fn(s, e)
+            if ok:
+                return True, note
+            last = (ok, note)
+            # A parsed-but-empty feed is a settled answer; only transport-shaped
+            # failures are worth asking again.
+            if not re.search(r"http (?:403|429|5\d\d)", note or ""):
+                return last
+        except (requests.Timeout, requests.ConnectionError) as ex:
+            last = (False, f"{type(ex).__name__}: {str(ex)[:70]}")
+        except Exception as ex:  # noqa: BLE001
+            return False, f"{type(ex).__name__}: {str(ex)[:70]}"
+        if attempt < VERIFY_RETRIES - 1:
+            time.sleep(VERIFY_BACKOFF_S * (attempt + 1))
+    return last
 
 
 def _canon(u):
@@ -196,7 +259,11 @@ def _dead_recently(led, key, ttl=DEAD_TTL):
     that was down is worth another look eventually, just not weekly.
     """
     rec = led.get(key)
-    if not rec or rec.get("status") != "fail":
+    # 'empty' counts here too. It is not a regression when a CONFIGURED feed
+    # reports it (see _status_for), but proposing a NEW source with nothing
+    # upcoming buys a feed that ingests zero — which is the same waste of the
+    # candidate budget, so discovery treats the two alike.
+    if not rec or rec.get("status") not in ("fail", "empty"):
         return False
     return _days_since(rec.get("checked", 0)) < ttl
 
@@ -476,6 +543,24 @@ def _configured_per_category():
     for _t, _n, _m, _country, cat in _coverage_rows():
         counts[cat] = counts.get(cat, 0) + 1
     return counts
+
+
+def _filter_queries(queries, only):
+    """Keep only the queries for `only`, or everything when `only` is empty.
+
+    Returns the full list rather than nothing when the filter matches no query:
+    a category with no query at all is a real gap, `_report_query_gaps` has
+    already FLAGged it by the time this runs, and silently sweeping zero
+    candidates would look identical to a run that found nothing.
+    """
+    if not only:
+        return queries
+    hit = [q for q in queries if q[1] in set(only)]
+    if not hit:
+        print(f"  FLAG no discovery query targets {', '.join(only)} — "
+              f"sweeping everything instead")
+        return queries
+    return hit
 
 
 def _order_queries(queries, cats):
@@ -878,7 +963,15 @@ def _discover_mobilizon(session, seen_keys, led, limit):
     return found, skipped
 
 
-def cmd_discover(limit=400, out="candidates.json", backend="socrata"):
+def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=()):
+    """`only` pins the sweep to specific lens categories.
+
+    Without it the budget is spent thinnest-category-first across every query,
+    which is the right default and still lets a fat category crowd a starving
+    one out: `market` has 481 sources and `fitness` has none, and one run of 300
+    candidates does not reliably reach the bottom of the list. A gap sweep passes
+    the categories with zero supply here and spends the whole budget on them.
+    """
     seen_keys = _config_keys()
     led = _load_ledger()
     session = _session()
@@ -887,19 +980,35 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata"):
     cursor = all_cursors.setdefault(backend, {})
     src = "mapsee.me/api/lenses" if CURATED_FROM_LIVE else "committed fallback"
     print(f"targets via {src}: {', '.join(cats)}")
+    if only:
+        unknown = [c for c in only if c not in cats]
+        if unknown:
+            # Loud, not fatal: a lens can be retired between the gap being
+            # measured and this run starting, and sweeping for it is harmless.
+            print(f"  FLAG --category names {', '.join(unknown)}, which the live "
+                  f"roster does not ask for")
+        print(f"  pinned to: {', '.join(only)}")
 
     if backend == "mobilizon":
         # No query list and no cursor: the directory is one short document that
         # is read whole every time, so "what is new" is simply what is not
-        # already configured, declined or known-dead.
-        found, skipped = _discover_mobilizon(session, seen_keys, led, limit)
+        # already configured, declined or known-dead. A Mobilizon instance is a
+        # general-purpose community calendar with no category to pin, so --only
+        # does not apply here; skip the backend entirely rather than sweep it
+        # and pretend the result was targeted.
+        if only:
+            print("  (mobilizon carries no per-source category — skipped for a "
+                  "category-pinned run)")
+            found, skipped = {}, {}
+        else:
+            found, skipped = _discover_mobilizon(session, seen_keys, led, limit)
     elif backend == "ckan":
         _report_query_gaps(cats, CKAN_QUERIES, "ckan")
-        queries = _order_queries(CKAN_QUERIES, cats)
+        queries = _order_queries(_filter_queries(CKAN_QUERIES, only), cats)
         found, skipped = _discover_ckan(session, seen_keys, led, limit, cursor, queries)
     else:
         _report_query_gaps(cats, DISCOVER_QUERIES, "socrata")
-        queries = _order_queries(DISCOVER_QUERIES, cats)
+        queries = _order_queries(_filter_queries(DISCOVER_QUERIES, only), cats)
         found, skipped = _discover_socrata(session, seen_keys, led, limit, cursor, queries)
 
     all_cursors[backend] = cursor
@@ -930,7 +1039,7 @@ def cmd_verify(path, recheck=False, ttl=90):
             skipped += 1
             continue
         rec = led.get(key)
-        if not recheck and rec and rec.get("status") == "fail":
+        if not recheck and rec and rec.get("status") in ("fail", "empty"):
             age = _days_since(rec.get("checked", 0))
             if age < ttl:
                 print(f"[SKIP] {t:8} known-dead {age}d ago ({rec.get('reason','')[:30]}): "
@@ -941,7 +1050,7 @@ def cmd_verify(path, recheck=False, ttl=90):
             ok, note = VERIFIERS[t](s, e)
         except Exception as ex:  # noqa: BLE001
             ok, note = False, f"{type(ex).__name__}: {str(ex)[:70]}"
-        led[key] = {"type": t, "name": e.get("name"), "status": "ok" if ok else "fail",
+        led[key] = {"type": t, "name": e.get("name"), "status": _status_for(ok, note),
                     "reason": note, "checked": _today_int()}
         print(f"[{'OK ' if ok else 'XX '}] {t:8} {e.get('name','?')[:46]:46} {note}")
         if ok:
@@ -988,7 +1097,7 @@ def cmd_merge(path):
 def cmd_audit():
     s = _session()
     led = _load_ledger()
-    stale = 0
+    stale = quiet = 0
     for t, (fname, key) in CONFIG.items():
         fpath = os.path.join(HERE, fname)
         # _entries(), not a bare json.load: ods_sources.json nests its list under
@@ -999,18 +1108,24 @@ def cmd_audit():
         print(f"\n=== {fname} ({len(cur)}) ===")
         for e in cur:
             e2 = dict(e, type=t)
-            try:
-                ok, note = VERIFIERS[t](s, e2)
-            except Exception as ex:  # noqa: BLE001
-                ok, note = False, f"{type(ex).__name__}: {str(ex)[:60]}"
-            if not ok:
+            # Retried, unlike verification of a fresh candidate: a candidate that
+            # times out costs nothing to skip and can be proposed again next week,
+            # but a CONFIGURED feed marked dead here is parked for 90 days and
+            # reported as a regression. The two are not the same bet.
+            ok, note = _verify_with_retry(VERIFIERS[t], s, e2)
+            status = _status_for(ok, note)
+            if status == "fail":
                 stale += 1
+            elif status == "empty":
+                quiet += 1
             led[_canon(_key_of(e2))] = {"type": t, "name": e.get("name"),
-                                        "status": "ok" if ok else "fail", "reason": note,
+                                        "status": status, "reason": note,
                                         "checked": _today_int()}
-            print(f"[{'OK ' if ok else 'XX '}] {e.get(key,'?')[:60]:60} {note}")
+            mark = {"ok": "OK ", "empty": "-- ", "fail": "XX "}[status]
+            print(f"[{mark}] {e.get(key,'?')[:60]:60} {note}")
     _save_ledger(led)
-    print(f"\n{stale} entries need attention (dead or no future events).")
+    print(f"\n{stale} entries are BROKEN (unreachable, or no longer a feed).")
+    print(f"{quiet} entries parse fine but have nothing upcoming — kept, not a regression.")
     return 0
 
 
@@ -1018,8 +1133,10 @@ def cmd_ledger():
     led = _load_ledger()
     good = {k: v for k, v in led.items() if v.get("status") == "ok"}
     dead = {k: v for k, v in led.items() if v.get("status") == "fail"}
-    print(f"ledger: {len(led)} tried  |  {len(good)} ok  |  {len(dead)} dead\n")
-    print("known-dead (skipped until TTL lapses):")
+    quiet = {k: v for k, v in led.items() if v.get("status") == "empty"}
+    print(f"ledger: {len(led)} tried  |  {len(good)} ok  |  {len(dead)} broken  "
+          f"|  {len(quiet)} parse fine but nothing upcoming\n")
+    print("broken (skipped until TTL lapses):")
     for k, v in sorted(dead.items()):
         print(f"  [{v.get('type','?'):8}] {k}  <- {v.get('reason','')[:40]}  ({v.get('checked')})")
     return 0
@@ -1344,6 +1461,28 @@ def _rows_parkrun(data):
             for c in (data.get("countries") or ["?"])]
 
 
+def _rows_runsignup(data):
+    """One API covering every race it hosts, so there is no per-source list to
+    walk — the config tunes how much of it to read.
+
+    Filed as TWO rows, running and fitness, because the adapter genuinely
+    supplies both: a road race is emitted with `running` primary and `fitness`
+    secondary, and multisport the other way round. Reporting it under one would
+    leave the other reading zero and send the next gap sweep after ground that is
+    already covered — which is the failure the ODS per-country rows were added to
+    fix.
+
+    Partitioned by US state, and RunSignup is a US platform (measured: 247 of 250
+    races on a page), so the country is not a guess.
+    """
+    if not data:
+        return []
+    states = data.get("states")
+    metro = "(50 states)" if states is None else f"({len(states)} states)"
+    return [("runsignup", "RunSignup races", metro, "United States", cat)[1:]
+            for cat in ("running", "fitness")]
+
+
 def _rows_affiliate(data):
     out = []
     for e in data.get("feeds", []):
@@ -1363,6 +1502,7 @@ def _rows_affiliate(data):
 EXTRA_CONFIG = {
     "market": ("market_sources.json", _rows_market),
     "parkrun": ("parkrun_sources.json", _rows_parkrun),
+    "runsignup": ("runsignup_sources.json", _rows_runsignup),
     "jsonld": ("jsonld_sources.json", _rows_jsonld),
     "program": ("program_sources.json", _rows_program),
     "venuepilot": ("venuepilot_sources.json", _rows_venuepilot),
@@ -1537,6 +1677,78 @@ def cmd_coverage():
     return 0
 
 
+def coverage_snapshot():
+    """The counts a human reads off cmd_coverage, as data.
+
+    "Are we improving the catalog?" was only answerable by diffing two 500-line
+    terminal dumps from different weeks, which is to say it was not answerable.
+    curate-catalog.yml appends one of these per run to coverage_history.jsonl,
+    so the trend is a file rather than an archaeology exercise — and a category
+    that has been at zero for a month is visible as such.
+    """
+    rows = _coverage_rows()
+    cats = curated_categories()
+    per_cat = {c: 0 for c in cats}
+    for _t, _n, _m, _country, cat in rows:
+        if cat in per_cat:
+            per_cat[cat] += 1
+    per_type = {}
+    countries = set()
+    for t, _n, _m, country, _c in rows:
+        per_type[t] = per_type.get(t, 0) + 1
+        if country and country != "?":
+            countries.add(country)
+    dead, total = 0, 0
+    led = _load_ledger()
+    if led:
+        total = len(led)
+        dead = sum(1 for v in led.values()
+                   if isinstance(v, dict) and v.get("status") == "fail")
+    return {
+        "date": _today_int(),
+        "total_sources": len(rows),
+        "countries": len(countries),
+        "per_category": per_cat,
+        "per_type": per_type,
+        "zero_categories": sorted(c for c, n in per_cat.items() if not n),
+        "ledger": {"dead": dead, "total": total},
+        "roster_live": CURATED_FROM_LIVE,
+    }
+
+
+def cmd_coverage_json():
+    print(json.dumps(coverage_snapshot(), sort_keys=True))
+    return 0
+
+
+def cmd_coverage_delta(before_path, after_path):
+    """What one curation run actually changed, as markdown for the job summary.
+
+    Lives here rather than as a heredoc in the workflow on purpose: a `python -
+    <<'PY'` block inside a `run: |` puts its body at column 0, which terminates
+    the YAML block scalar and makes the whole workflow file unparseable — the
+    same trap the commit-message comment in curate-catalog.yml already records.
+    """
+    before = json.load(open(before_path, encoding="utf-8"))
+    after = json.load(open(after_path, encoding="utf-8"))
+    delta = after["total_sources"] - before["total_sources"]
+    out = ["## Catalog delta", "",
+           f"**{after['total_sources']} sources** ({delta:+d} this run) across "
+           f"{after['countries']} countries.", "",
+           "| category | before | after | delta |", "|---|---:|---:|---:|"]
+    for c in sorted(after["per_category"]):
+        b = before["per_category"].get(c, 0)
+        a = after["per_category"][c]
+        mark = " **(zero)**" if a == 0 else ""
+        out.append(f"| {c}{mark} | {b} | {a} | {a - b:+d} |")
+    if after["zero_categories"]:
+        out += ["", "> Categories with NO curated supply anywhere: "
+                    + ", ".join(f"`{c}`" for c in after["zero_categories"])
+                    + ". A lens opening onto one of these shows an empty map."]
+    print("\n".join(out))
+    return 0
+
+
 def main(argv):
     cmds = {"verify", "merge", "audit", "ledger", "coverage", "discover"}
     if len(argv) < 2 or argv[1] not in cmds:
@@ -1546,17 +1758,27 @@ def main(argv):
     if cmd == "discover":
         lim = int(argv[argv.index("--limit") + 1]) if "--limit" in argv else 400
         out = argv[argv.index("--out") + 1] if "--out" in argv else "candidates.json"
+        only = ()
+        if "--category" in argv:
+            only = tuple(c.strip() for c in argv[argv.index("--category") + 1].split(",")
+                         if c.strip())
         # POSITIONAL, and it must sit at argv[2] before any flag — the workflow
         # spells the two forms out rather than interpolating for this reason.
         want = argv[2:3]
         backend = want[0] if want and want[0] in BACKENDS else "socrata"
-        return cmd_discover(limit=lim, out=out, backend=backend)
+        return cmd_discover(limit=lim, out=out, backend=backend, only=only)
     if cmd == "audit":
         return cmd_audit()
     if cmd == "ledger":
         return cmd_ledger()
     if cmd == "coverage":
-        return cmd_coverage()
+        if "--delta" in argv:
+            i = argv.index("--delta")
+            if len(argv) < i + 3:
+                print("error: --delta needs a BEFORE and an AFTER json path")
+                return 2
+            return cmd_coverage_delta(argv[i + 1], argv[i + 2])
+        return cmd_coverage_json() if "--json" in argv else cmd_coverage()
     if len(argv) < 3:
         print("error: need a candidates file path")
         return 2

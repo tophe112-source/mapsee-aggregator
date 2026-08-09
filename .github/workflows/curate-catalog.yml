@@ -45,13 +45,44 @@ name: Grow the catalog
 # Triggers are schedule + workflow_dispatch ONLY. This job holds no secrets, but
 # it commits to main, so it must never be reachable from fork code.
 
+#
+# WHY IT RUNS DAILY RATHER THAN WEEKLY. The cursor is what makes repetition
+# worth anything: each run reads the NEXT page of each catalog query, so seven
+# runs cover seven times the ground one run does, at ~4 minutes each. Weekly, the
+# 1,390 Socrata datasets matching "events" alone would take most of a year to
+# walk once. The schedule was the binding constraint on how fast the catalog can
+# grow, and it cost nothing to lift.
+#
+# WHY THERE IS A SECOND, CATEGORY-PINNED SWEEP. Budget spent thinnest-first is
+# still budget spent in one pool, and the pool is lopsided: `market` has 509
+# curated sources and `fitness` and `running` have ZERO — not thin, zero, in
+# every country, which means wegosie.com opens onto an empty map. Wednesday's run
+# passes `--category` with whatever `coverage --json` reports at zero and spends
+# the entire budget there.
+#
+# What that sweep will and will not fix, measured rather than assumed: a pinned
+# socrata run over all five fitness/running queries reads 315 datasets and
+# proposes NONE — 174 carry no usable event shape, 140 are not event listings.
+# Municipal open data does not publish road races and gym timetables in a
+# geocoded, event-shaped form, so no amount of discovery budget will grow those
+# two categories from Socrata. The pinned sweep still earns its place on ckan
+# (which is the only non-US path, and where `sport facilities` / `leisure
+# centres` / `parkrun` do return rows), and it makes the zero visible every week
+# instead of once someone reads a 500-line coverage dump. Closing fitness and
+# running properly needs a different KIND of source — a run-club/parkrun/rec-
+# centre adapter — not another query.
+
 on:
   schedule:
-    # Saturdays 03:20 UTC. Off the ingest schedule entirely — the daily sweep is
+    # Daily 03:20 UTC. Off the ingest schedule entirely — the daily sweep is
     # 06:17, the heavy sweep Mon & Thu 06:40, the audit Sundays 04:10 — so a slow
     # discovery run cannot eat into an ingest window, and anything merged is in
-    # place before Monday's heavy sweep picks it up.
-    - cron: "20 3 * * 6"
+    # place before the next sweep picks it up.
+    - cron: "20 3 * * *"
+    # Wednesdays 03:50 UTC — the gap sweep. Whole budget on the categories that
+    # have no supply at all. Deliberately 30 minutes after the daily run, which
+    # by then has finished and committed.
+    - cron: "50 3 * * 3"
   workflow_dispatch:
     inputs:
       limit:
@@ -62,6 +93,9 @@ on:
         type: choice
         options: [all, socrata, ckan, mobilizon]
         default: all
+      category:
+        description: "Pin the sweep to these lens categories (comma-separated). 'gaps' = whatever has zero sources. Blank = sweep everything."
+        default: ""
       dry_run:
         description: "Verify only — do not merge or commit"
         type: boolean
@@ -97,12 +131,34 @@ jobs:
       - name: Coverage before
         run: |
           python catalog_curate.py coverage | tee coverage-before.txt
+          python catalog_curate.py coverage --json > coverage-before.json
           {
             echo '## Coverage before'
             echo '```'
             cat coverage-before.txt
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+
+      # Which categories is this run pinned to? The Wednesday cron asks for
+      # whatever is at ZERO; a dispatch can name them, or say 'gaps' for the
+      # same thing. Empty means sweep everything, which is the daily default.
+      - name: Resolve the category target
+        id: target
+        env:
+          WANT: ${{ inputs.category || (github.event.schedule == '50 3 * * 3' && 'gaps' || '') }}
+        run: |
+          set -euo pipefail
+          if [ "$WANT" = "gaps" ]; then
+            CATS=$(python -c "import json;print(','.join(json.load(open('coverage-before.json'))['zero_categories']))")
+            if [ -z "$CATS" ]; then
+              echo "No category is at zero — sweeping everything instead."
+            else
+              echo "Categories with NO curated supply: $CATS"
+            fi
+          else
+            CATS="$WANT"
+          fi
+          echo "cats=$CATS" >> "$GITHUB_OUTPUT"
 
       # discover → verify → merge, ONCE PER BACKEND. The schedule used to sweep
       # socrata alone, because `inputs` is empty on a `schedule` event and the
@@ -119,7 +175,14 @@ jobs:
       # main() reads it as argv[2:3] and locates --limit/--out by index. A
       # `--backend ckan` parses as socrata and silently sweeps the wrong catalog,
       # so it is passed as $b in first position and never interpolated into flags.
+      #
+      # --category is passed as a separate argv pair built into $CATFLAG rather
+      # than interpolated into the command, so an empty target contributes no
+      # argument at all instead of an empty string that argv.index() would then
+      # read as a category named "".
       - name: Discover, verify and merge
+        env:
+          CATS: ${{ steps.target.outputs.cats }}
         run: |
           set +e
           case "${{ inputs.backend || 'all' }}" in
@@ -127,13 +190,18 @@ jobs:
             *)   BACKENDS="${{ inputs.backend }}" ;;
           esac
           LIMIT="${{ inputs.limit || '300' }}"
+          CATFLAG=""
+          if [ -n "$CATS" ]; then
+            CATFLAG="--category $CATS"
+            echo "Pinned to: $CATS"
+          fi
           for b in $BACKENDS; do
             echo "::group::$b"
             # socrata is the default and takes no positional; the others do.
             if [ "$b" = "socrata" ]; then
-              python catalog_curate.py discover --limit "$LIMIT" --out "cand-$b.json"
+              python catalog_curate.py discover --limit "$LIMIT" $CATFLAG --out "cand-$b.json"
             else
-              python catalog_curate.py discover "$b" --limit "$LIMIT" --out "cand-$b.json"
+              python catalog_curate.py discover "$b" --limit "$LIMIT" $CATFLAG --out "cand-$b.json"
             fi
             [ -f "cand-$b.json" ] || echo '[]' > "cand-$b.json"
             python catalog_curate.py verify "cand-$b.json" | tee "verify-$b.txt"
@@ -155,10 +223,20 @@ jobs:
             echo "::endgroup::"
           done
 
+      # The trend, not just today's number. One JSON line per run, appended and
+      # committed: "is the catalog improving" was previously answerable only by
+      # diffing two 500-line terminal dumps from different weeks, which meant
+      # nobody answered it, which is how `fitness` and `running` sat at zero
+      # sources through eleven scheduled runs without anyone noticing.
       - name: Coverage after
         if: ${{ !inputs.dry_run }}
         run: |
+          set -euo pipefail
           python catalog_curate.py coverage | tee coverage-after.txt
+          python catalog_curate.py coverage --json > coverage-after.json
+          cat coverage-after.json >> coverage_history.jsonl
+          python catalog_curate.py coverage --delta coverage-before.json coverage-after.json \
+            >> "$GITHUB_STEP_SUMMARY"
           {
             echo '## Coverage after'
             echo '```'
@@ -174,17 +252,20 @@ jobs:
       # next run looks at different rows than this one. Dropped from the commit,
       # every run would restart at offset 0 and the job would go back to
       # re-reading the same first page of "events" for ever.
+      # coverage_history.jsonl is committed for the same reason as the cursor: it
+      # is the only record that survives the runner, and a trend nobody can read
+      # next month is not a trend.
       - name: Commit new sources
         if: ${{ !inputs.dry_run }}
         run: |
-          rm -f cand-*.json coverage-*.txt verify-*.txt merge-*.txt
-          if git diff --quiet -- '*_sources.json' curation_ledger.json curation_cursor.json; then
+          rm -f cand-*.json coverage-*.txt coverage-*.json verify-*.txt merge-*.txt
+          if git diff --quiet -- '*_sources.json' curation_ledger.json curation_cursor.json coverage_history.jsonl; then
             echo "No config, ledger or cursor change — nothing to commit."
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- '*_sources.json' curation_ledger.json curation_cursor.json
+          git add -- '*_sources.json' curation_ledger.json curation_cursor.json coverage_history.jsonl
           # Two -m flags, not one multi-line string: a bare continuation line
           # sits at column 0 and terminates the `run: |` block scalar, which
           # makes the whole workflow file unparseable.

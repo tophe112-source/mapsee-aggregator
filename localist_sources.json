@@ -5,11 +5,6 @@
     "days": 90
   },
   {
-    "name": "The New School (NYC)",
-    "base_url": "https://events.newschool.edu",
-    "days": 90
-  },
-  {
     "name": "George Washington University (DC)",
     "base_url": "https://calendar.gwu.edu",
     "days": 90

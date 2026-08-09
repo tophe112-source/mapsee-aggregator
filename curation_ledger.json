@@ -322,10 +322,10 @@
     "type": "ics"
   },
   "bhopal.afindia.org/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Alliance Francaise de Bhopal (Bhopal, India)",
-    "reason": "134 vevents / 0 future",
-    "status": "fail",
+    "reason": "136 vevents / 0 future",
+    "status": "empty",
     "type": "ics"
   },
   "bhpl.libcal.com/ical_subscribe.php?cid=13598": {
@@ -609,9 +609,9 @@
     "type": "ics"
   },
   "carnegielibrary.org/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Carnegie Library of Pittsburgh (Pittsburgh)",
-    "reason": "http 403 / no VCALENDAR",
+    "reason": "http 403 / no VCALENDAR \u2014 blocks the aggregator UA",
     "status": "fail",
     "type": "ics"
   },
@@ -658,9 +658,9 @@
     "type": "ics"
   },
   "centralnsw.com/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Central NSW arts & culture (Orange, NSW, Australia)",
-    "reason": "30 vevents / 0 future",
+    "reason": "http 202 / no VCALENDAR \u2014 bot wall, not a feed",
     "status": "fail",
     "type": "ics"
   },
@@ -1057,9 +1057,9 @@
     "type": "opendata"
   },
   "data.seattle.gov/resource/dm95-f8w5.json": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Seattle Special Events",
-    "reason": "0 rows",
+    "reason": "0 rows \u2014 dataset retired by the city",
     "status": "fail",
     "type": "opendata"
   },
@@ -1092,10 +1092,10 @@
     "type": "ics"
   },
   "denverlibrary.libcal.com/ical_subscribe.php?cid=20634": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Denver Public Library - Programs & Events (Denver)",
     "reason": "500 vevents / 0 future",
-    "status": "fail",
+    "status": "empty",
     "type": "ics"
   },
   "devourfest.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
@@ -1120,10 +1120,10 @@
     "type": "mobilizon"
   },
   "downtownwinnipegbiz.com/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Downtown Winnipeg BIZ (Winnipeg, Canada)",
-    "reason": "ReadTimeout: HTTPSConnectionPool(host='downtownwinnipegbiz.com', port=443",
-    "status": "fail",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
     "type": "ics"
   },
   "dubaiastronomy.com/events/?ical=1": {
@@ -1169,10 +1169,10 @@
     "type": "ics"
   },
   "eintrittfrei-muenchen.de/?ical=1&eventDisplay=list": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Eintritt Frei Muenchen (Munich, Germany)",
-    "reason": "http 403 / no VCALENDAR",
-    "status": "fail",
+    "reason": "30 vevents / 27 future",
+    "status": "ok",
     "type": "ics"
   },
   "eldoradowines.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
@@ -1309,16 +1309,16 @@
     "type": "localist"
   },
   "events.miamibeachfl.gov/?ical=1": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "City of Miami Beach Events (Miami)",
-    "reason": "ReadTimeout: HTTPSConnectionPool(host='events.miamibeachfl.gov', port=443",
-    "status": "fail",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
     "type": "ics"
   },
   "events.newschool.edu": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "The New School (NYC)",
-    "reason": "http 404",
+    "reason": "http 404 \u2014 the Localist instance is gone",
     "status": "fail",
     "type": "localist"
   },
@@ -1498,10 +1498,10 @@
     "type": "ics"
   },
   "footscrayarts.com/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Footscray Community Arts (Melbourne, Australia)",
-    "reason": "2 vevents / 0 future",
-    "status": "fail",
+    "reason": "1 vevents / 0 future",
+    "status": "empty",
     "type": "ics"
   },
   "forestparkconservancy.org/events/?ical=1": {
@@ -2100,10 +2100,10 @@
     "type": "ics"
   },
   "librarycalendar.fairfaxcounty.gov/ical_subscribe.php?cid=6524": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Fairfax County Public Library (DC metro)",
     "reason": "500 vevents / 0 future",
-    "status": "fail",
+    "status": "empty",
     "type": "ics"
   },
   "lonestar.enterprise.localist.com": {
@@ -2163,10 +2163,10 @@
     "type": "ics"
   },
   "madrid.impacthub.net/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Impact Hub Madrid (Madrid, Spain)",
     "reason": "1 vevents / 0 future",
-    "status": "fail",
+    "status": "empty",
     "type": "ics"
   },
   "margaretriver.wine/events/?ical=1": {
@@ -2268,9 +2268,9 @@
     "type": "ics"
   },
   "mguinc.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Meta-Games Unlimited (Springfield, MO)",
-    "reason": "30 vevents / 0 future",
+    "reason": "http 200 / no VCALENDAR \u2014 the calendar plugin is gone",
     "status": "fail",
     "type": "ics"
   },
@@ -2905,9 +2905,9 @@
     "type": "ics"
   },
   "queenstreetwest.ca/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Queen Street West BIA (Toronto, Canada)",
-    "reason": "http 200 / no VCALENDAR",
+    "reason": "http 200 / no VCALENDAR \u2014 the calendar plugin is gone",
     "status": "fail",
     "type": "ics"
   },
@@ -2975,10 +2975,10 @@
     "type": "ics"
   },
   "riverbank.ie/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20260809,
     "name": "Riverbank Arts Centre (Newbridge, Ireland)",
-    "reason": "ReadTimeout: HTTPSConnectionPool(host='www.riverbank.ie', port=443): Read",
-    "status": "fail",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
     "type": "ics"
   },
   "riverkeeper.org/events/?ical=1": {
