@@ -452,6 +452,68 @@ def _street_address(rec: Dict[str, Any]) -> Optional[str]:
     return ", ".join(p for p in (line1, rec.get("city"), state_zip) if p)
 
 
+# A venue name that means "there is no venue".
+#
+# Matches the WHOLE string, not a prefix. That is the important part, and it was
+# not obvious: an earlier prefix-anchored version correctly ignored "The Online
+# Lounge" and "Remoteness Gallery" (no word boundary) but dropped "Virtual
+# Reality Arcade, 5th Ave" — a real, physical, addressable venue.
+#
+# The asymmetry decides the rule. A false positive silently deletes a real
+# event and nobody finds out; a false negative leaves one online event in the
+# corpus, which is the status quo and visible. So this only fires when the venue
+# field is a bare placeholder and nothing else — "Online event" yes, anything
+# with a street or a proper noun attached to it, no.
+_VIRTUAL_WORDS = r"(online|virtual|remote|livestream|live\s*stream|webinar|zoom|" \
+                 r"google\s*meet|microsoft\s*teams|ms\s*teams|twitch|youtube\s*live|" \
+                 r"web\s*conference|video\s*call|tbd|tba|to\s*be\s*announced|n/?a|none)"
+_VIRTUAL_SUFFIX = r"(event|events|meeting|session|class|classes|only|venue|location|" \
+                  r"gathering|workshop|webinar|stream|call)"
+# Any run of placeholder words and placeholder nouns, and nothing else. The
+# repetition is not decoration: a dry run over 1,000 live venue strings caught
+# "Online event" and "TBA" but left "Virtual/Online", which is the same
+# placeholder written with a slash. Two of these words in a row is still two of
+# these words; one real proper noun anywhere in the string and it is a venue.
+_VIRTUAL_VENUE_RX = re.compile(
+    rf"^{_VIRTUAL_WORDS}([\s\-:/&,]+({_VIRTUAL_WORDS}|{_VIRTUAL_SUFFIX}))*$", re.I)
+
+
+def is_virtual(rec: Dict[str, Any]) -> bool:
+    """Does this event happen at no physical place?
+
+    WHY THIS DROPS THE EVENT
+    ------------------------
+    mapsee.me is a map. An event with no location is not a thing this product
+    can show, and pretending otherwise cost real damage before this existed:
+    the venue string "Online event" was handed to the geocoder, which matched
+    it to an atoll in the Pacific, and roughly 7% of the sitemap ended up as
+    event pages pinned at (-8.521, 179.196) — open water near Tuvalu, ~35km
+    from no metro at all. Those pages could never appear on a /c/ page, and
+    their Event JSON-LD asserted OfflineEventAttendanceMode plus a fabricated
+    GeoCoordinates, which is exactly the kind of invented markup the rest of
+    this pipeline is careful never to emit.
+
+    Meetup's adapter already reached this conclusion independently and returns
+    None for venue-less events (mapsee_ingest_meetup.py). This applies the same
+    rule to every source, in the one place they all funnel through.
+
+    Checked on the SOURCE record rather than the built row so the event is
+    dropped before it is geocoded — the false coordinate is never created, not
+    created and then discarded.
+    """
+    for field in ("venue_name", "venue", "place_name"):
+        v = rec.get(field)
+        if not isinstance(v, str):
+            continue
+        # Collapse whitespace and drop surrounding punctuation before matching,
+        # so "  Online Event. " and "(online)" are the same placeholder as
+        # "Online event" rather than three strings that each need their own rule.
+        norm = re.sub(r"\s+", " ", v).strip().strip(" .,;:!-()[]\"'")
+        if norm and _VIRTUAL_VENUE_RX.match(norm):
+            return True
+    return False
+
+
 def _pick_artist(rec: Dict[str, Any]) -> Optional[str]:
     """Best guess at the performer to build listen links from: the headliner
     (lineup[0]) if present, else the event title. Not the promoter — that's the
@@ -635,6 +697,20 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         "lat": lat,
         "lon": lon,                                  # trigger fills events.location
         "place_name": _clean_text(rec.get("venue_name")),   # venue name -> map-pin label + "where"
+        # The town this event is actually in. Every adapter already carries it —
+        # _street_address() has been folding it into a 📍 line of PROSE since the
+        # beginning, which meant the one machine-readable fact about an event's
+        # location was only ever available as English text inside a paragraph.
+        #
+        # It exists as a column so the Worker can put a real PostalAddress in the
+        # Event JSON-LD on /e/<id>. Search Console reports "Missing field address
+        # (in location)" on those pages, and place_name cannot stand in: it is a
+        # venue name far more often than a street ("THE CLOUD ONE LOUNGE"), so
+        # using it would be a guess published as structured data.
+        "locality": _clean_text(rec.get("city")),
+        "region_name": _clean_text(rec.get("region")),      # state/province, when the source gives one
+        "postal_code": _clean_text(rec.get("postal_code")),
+        "street_address": _clean_text(rec.get("address")),  # line 1 only; may be None
         "host_name": _clean_text(_host_name(rec)),   # actual promoter when available, else "mapsee.me"
         "starts_at": starts_at,
         "ends_at": _compute_end(starts_at, end_src, category_key),
@@ -736,8 +812,15 @@ def _enrich_music_links(recs: List[Dict[str, Any]], session) -> None:
 def build_rows(store_path: str, host_id: str, geo_session=None) -> List[Dict[str, Any]]:
     data = json.loads(open(store_path, encoding="utf-8").read())
     recs = []
+    virtual = 0
     for rec in data.get("events", []):
         if not rec.get("fingerprint") or not (rec.get("start_utc") or rec.get("start_local")):
+            continue
+        # Before the coordinate check below, and before any geocoding: an online
+        # event has no place to be, and asking the geocoder for one invents a
+        # location. See is_virtual().
+        if is_virtual(rec):
+            virtual += 1
             continue
         has_coords = rec.get("latitude") is not None and rec.get("longitude") is not None
         if not has_coords:
@@ -749,6 +832,9 @@ def build_rows(store_path: str, host_id: str, geo_session=None) -> List[Dict[str
             if geo_session is None or _addr_parts(rec) is None:
                 continue
         recs.append(rec)
+
+    if virtual:
+        print(f"Skipped {virtual} online/virtual events (no physical venue - see is_virtual).")
 
     if geo_session is not None:                       # production run (has network)
         _enrich_music_links(recs, geo_session)        # exact Spotify pages when a key is set
