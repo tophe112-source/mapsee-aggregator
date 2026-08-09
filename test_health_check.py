@@ -78,9 +78,13 @@ def fake_post(routes):
     return _post
 
 
-def snapshot_rows(computed_at, sources):
-    return [{"kind": "sources", "payload": sources,
+def snapshot_rows(computed_at, sources, cron=None):
+    rows = [{"kind": "sources", "payload": sources,
              "computed_at": computed_at.strftime("%Y-%m-%dT%H:%M:%S+00:00")}]
+    for task, (payload, at) in (cron or {}).items():
+        rows.append({"kind": f"cron:{task}", "payload": payload,
+                     "computed_at": at.strftime("%Y-%m-%dT%H:%M:%S+00:00")})
+    return rows
 
 
 def run(routes, argv, baseline=None, env=True, dead_feeds=()):
@@ -217,6 +221,55 @@ def t_stale_snapshot_is_not_a_quiet_source():
     check("a stale snapshot exits 2, not 1", code == hc.EXIT_CANNOT_RUN, f"exit {code}")
     check("it blames the cron, not the sources",
           "refresh_stats" in report or "cron" in report.lower(), report[:300])
+    check("with no cron rows it says the Worker recorded nothing",
+          "recorded no cron status" in report, report[:500])
+
+
+def t_stale_snapshot_quotes_the_cron_reason():
+    """The point of the whole exercise: say WHY, not just that it is stale.
+
+    ../mapsee's runCronTask writes the failure beside the snapshot it failed to
+    write. Without this the report says '142h old' and sends someone to
+    `wrangler tail` for something already sitting in the database.
+    """
+    stale_at = NOW - timedelta(hours=hc.SNAPSHOT_MAX_AGE_H + 100)
+    rows = snapshot_rows(stale_at, HEALTHY[0]["payload"], cron={
+        "refreshStats": ({"ok": False, "error": "refresh_stats 504: canceling "
+                                                "statement due to statement timeout"},
+                         NOW - timedelta(hours=2)),
+        "purgeStaleLive": ({"ok": True, "skipped": False}, NOW - timedelta(hours=2)),
+    })
+    code, report = run({hc.SNAPSHOT_RPC: FakeResponse(200, rows)}, [], baseline=BASE)
+    check("still exits 2", code == hc.EXIT_CANNOT_RUN, f"exit {code}")
+    check("the failing task is named", "refreshStats" in report, report[:600])
+    check("the recorded reason is quoted", "504" in report and "statement timeout" in report,
+          report[:600])
+    check("the healthy task is shown as ok", "purgeStaleLive: ok" in report, report[:600])
+
+
+def t_cron_status_rides_along_on_a_healthy_run():
+    """A cron that failed once inside the snapshot budget is not an outage —
+    it is the early warning for the one that is coming."""
+    rows = snapshot_rows(NOW - timedelta(hours=2), HEALTHY[0]["payload"], cron={
+        "refreshStats": ({"ok": False, "error": "refresh_stats 504: timeout"},
+                         NOW - timedelta(hours=2)),
+    })
+    code, report = run({hc.SNAPSHOT_RPC: FakeResponse(200, rows)}, [], baseline=BASE)
+    check("a failing cron alone does NOT fail the check", code == hc.EXIT_OK, f"exit {code}")
+    check("but it is reported", "CRON" in report and "refreshStats" in report, report[:600])
+    check("with its reason", "504" in report, report[:600])
+
+
+def t_skipped_cron_reads_as_skipped():
+    rows = snapshot_rows(NOW - timedelta(hours=2), HEALTHY[0]["payload"], cron={
+        "syncMenus": ({"ok": True, "skipped": "not bound to the Worker: ANTHROPIC_API_KEY"},
+                      NOW - timedelta(hours=1)),
+    })
+    code, report = run({hc.SNAPSHOT_RPC: FakeResponse(200, rows)}, [], baseline=BASE)
+    check("a skipped cron does not fail the check", code == hc.EXIT_OK, f"exit {code}")
+    check("the unbound secret is named", "ANTHROPIC_API_KEY" in report, report[:600])
+    check("and it reads as skipped, not failed",
+          "skipped" in report and "FAILED" not in report, report[:600])
 
 
 def t_silent_source_is_unhealthy():
@@ -290,6 +343,9 @@ def main():
                t_missing_snapshot_function_falls_back,
                t_never_computed_snapshot,
                t_stale_snapshot_is_not_a_quiet_source,
+               t_stale_snapshot_quotes_the_cron_reason,
+               t_cron_status_rides_along_on_a_healthy_run,
+               t_skipped_cron_reads_as_skipped,
                t_silent_source_is_unhealthy,
                t_drained_source_is_unhealthy,
                t_null_last_added_reads_as_a_month_of_silence,
