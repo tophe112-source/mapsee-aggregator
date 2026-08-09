@@ -32,15 +32,34 @@ answer with while it is still in the future.
 
 WHAT IT SUBMITS
 ---------------
+Per host, because IndexNow keys a submission to one `host` and every URL in the
+batch must belong to it.
+
+  mapsee.me — the flagship, and the ONLY door that submits events:
   * Event pages created since --since-hours, filtered by the SAME predicate the
     sitemap uses (public, not hidden, still upcoming). That predicate is the
     definition of "a page a crawler is allowed to see", and it is applied here
-    in the query rather than trusted from anywhere else — submitting a private
+    in the query rather than trusted from anywhere else - submitting a private
     event's URL to a search engine would be a data leak, not a bug.
-  * The /c/ city and region pages, once per run. These are not "new", but their
-    content genuinely changes every run — the listings turn over and the live
-    count in each <title> moves with them — so they are legitimately updated
-    URLs, not spam. 141 of them per day is a rounding error against the events.
+  * Its /c/ city, region and category pages.
+
+  the six niche doors (bar.ventures, oneday.cafe, plansie.com, fleabop.com,
+  wegosie.com, awaresie.com) - their /c/ landing pages only:
+  * Each opens onto its own slice of the catalog, so bar.ventures/c/seattle and
+    mapsee.me/c/seattle list different events. Every one is SELF-canonical and
+    publishes its own sitemap, and each domain is separately verified in Bing
+    and Search Console. There is no duplication to avoid here.
+  * NOT their event pages. An event is one piece of content behind seven doors,
+    and each door canonicals it to itself - announcing it seven times would put
+    seven copies in the index and split its authority. Only mapsee.me lists
+    events in a sitemap, and only mapsee.me pushes them.
+
+The /c/ pages are not "new", but their content genuinely changes every run - the
+listings turn over and the live count in each <title> moves with them - so they
+are legitimately updated URLs, not spam.
+
+The key file needs no per-door deployment: one Worker serves all seven hosts from
+one assets binding, so /<key>.txt already resolves on every domain.
 
 CREDENTIALS
 -----------
@@ -86,13 +105,26 @@ DEFAULT_SUPABASE_ANON = (
     "691iTuB-Egmzj2ZtXCaW5P6Zwc9A0VIRJVnm2HTIanA"
 )
 
-# Only mapsee.me is submitted. The other lens doors (bar.ventures, oneday.cafe,
-# plansie.com, fleabop.com, wegosie.com, awaresie.com) serve a *filtered* view of
-# the same events and their /c/ pages canonicalize back here, so pushing the same
-# event under six hostnames would be asking six engines to index six near-copies
-# of one page — the exact duplication the canonical tags exist to prevent.
+# The flagship door, and the only one that submits EVENTS.
+#
+# An event page is the same content behind whichever door you arrive through,
+# and each door canonicals it to itself — so announcing one event under seven
+# hostnames would put seven copies into the index and split its authority. Only
+# mapsee.me lists events in a sitemap, and only mapsee.me pushes them here.
+#
+# The doors' LANDING pages are a different matter entirely; see lens_hosts().
 HOST = "mapsee.me"
 SITE = f"https://{HOST}"
+
+# Where the roster of doors comes from.
+#
+# Not a hardcoded list. mapsee.me publishes every door and its domain at this
+# endpoint (it is what the app itself themes from, and what the aggregator's
+# catalog curator already reads its target categories from), so asking it means
+# a door added later is picked up with no change here. That matters: awaresie.com
+# was added as a seventh door and went unnoticed in several places that kept
+# their own copy of the list.
+LENS_API = f"{SITE}/api/lenses"
 
 # Must match the filename of the key file deployed at the site root, and that
 # file's contents. See mapsee/site/afea88b0d7114a5188694ff0f3580849.txt — it is a
@@ -159,45 +191,85 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
         offset += PAGE
 
 
-def landing_urls(session: requests.Session) -> List[str]:
-    """The evergreen /c/ city and region pages, read from the live sitemap.
+def lens_hosts(session: requests.Session):
+    """Every OTHER front door's origin, from the live roster.
 
-    Fetched from mapsee.me/sitemap-pages.xml rather than parsed out of the
-    sibling repo's src/cities.js, for two reasons. It needs no checkout of the
-    other repo, so this job stays a one-repo job with no cross-repo token. And
-    the sitemap IS the site's own published list of these pages — the Worker
-    generates it from the same CITIES constant the /c/ route uses, expressly so
-    the two "can never drift". Reading the published answer cannot drift either;
-    a third copy of the slug list in this file could.
+    WHY THESE ARE SUBMITTED TOO
+    ---------------------------
+    The six niche doors are not skins over one page. Each opens onto its own
+    slice of the catalog - bar.ventures is party/music/food, fleabop.com is
+    markets - so bar.ventures/c/seattle and mapsee.me/c/seattle list different
+    events, and every door's /c/ page is SELF-canonical (verified live: each one
+    declares itself). Each publishes its own 141-URL sitemap, and each domain is
+    separately verified in Bing and Search Console.
 
-    A failure here is not fatal. The events are the time-critical half; the
-    landing pages are the same 140 URLs tomorrow.
+    So the duplication argument never applied to these pages, only to their event
+    pages - and this file's first version conflated the two and pushed nothing at
+    all for six domains that had every right to it.
     """
     try:
-        r = session.get(f"{SITE}/sitemap-pages.xml", timeout=30)
+        r = session.get(LENS_API, timeout=30)
+        r.raise_for_status()
+        roster = (r.json() or {}).get("lenses") or {}
+    except (requests.RequestException, ValueError) as e:
+        print(f"... could not read the lens roster ({e}) - submitting {HOST} only")
+        return []
+    sites = []
+    for lens in roster.values():
+        site = (lens or {}).get("site")
+        # A door with no category filter shows what mapsee.me shows, and its
+        # pages canonical back here; only the filtered ones are their own pages.
+        if site and site.rstrip("/") != SITE and (lens.get("categories") or []):
+            sites.append(site.rstrip("/"))
+    return sorted(set(sites))
+
+
+def landing_urls(site: str, session: requests.Session):
+    """The evergreen /c/ city and region pages a given door publishes.
+
+    Read from THAT HOST's own sitemap-pages.xml rather than built here. The
+    sitemap is the site's published list - the Worker generates it from the same
+    CITIES constant the /c/ route uses, expressly so the two "can never drift" -
+    and each door announces only the pages it actually opens onto. Reading the
+    published answer per host keeps the invariant that IndexNow announces a
+    SUBSET of what the sitemap announces, with no second copy of any list here.
+
+    A failure is not fatal. The events are the time-critical half; the landing
+    pages are the same URLs tomorrow.
+    """
+    try:
+        r = session.get(f"{site}/sitemap-pages.xml", timeout=30)
         r.raise_for_status()
     except requests.RequestException as e:
-        print(f"... could not read sitemap-pages.xml ({e}) — skipping landing pages")
+        print(f"... could not read {site}/sitemap-pages.xml ({e}) - skipping it")
         return []
     import re
     # Only the /c/ pages. The homepage is in there too and is crawled constantly
     # on its own; submitting it daily would be noise.
-    return re.findall(rf"<loc>({re.escape(SITE)}/c/[^<]+)</loc>", r.text)
+    return re.findall(rf"<loc>({re.escape(site)}/c/[^<]+)</loc>", r.text)
 
 
 # ---------------------------------------------------------------------------
 # Submission
 # ---------------------------------------------------------------------------
 
-def submit(urls: List[str], session: requests.Session, dry_run: bool) -> bool:
-    """POST the URL list in protocol-sized batches. True if everything landed."""
+def submit(host: str, urls, session: requests.Session, dry_run: bool) -> bool:
+    """POST one host's URL list in protocol-sized batches.
+
+    One call per host: the protocol keys a submission to a single `host`, and
+    every URL in urlList has to belong to it or the whole batch is refused
+    with 422. The key file is the same for all of them - one Worker serves
+    every door from one assets binding, so /<key>.txt already resolves on all
+    seven hostnames (verified). keyLocation therefore points at THIS host's
+    copy, which is what the protocol asks for.
+    """
     ok = True
     for i in range(0, len(urls), MAX_URLS_PER_REQUEST):
         batch = urls[i:i + MAX_URLS_PER_REQUEST]
         payload = {
-            "host": HOST,
+            "host": host,
             "key": INDEXNOW_KEY,
-            "keyLocation": KEY_LOCATION,
+            "keyLocation": f"https://{host}/{INDEXNOW_KEY}.txt",
             "urlList": batch,
         }
         if dry_run:
@@ -219,12 +291,38 @@ def submit(urls: List[str], session: requests.Session, dry_run: bool) -> bool:
         # the normal response for the first submission from a new key.
         if r.status_code in (200, 202):
             print(f"  OK {len(batch)} URLs accepted ({r.status_code})")
-        else:
-            # 403 = key file not found or not matching. 422 = URLs don't belong
-            # to the host. Both are configuration errors worth failing on, not
-            # transient ones worth retrying.
-            print(f"  FAIL {len(batch)} URLs rejected: HTTP {r.status_code} {r.text[:200]}")
-            ok = False
+            continue
+
+        try:
+            code = (r.json() or {}).get("errorCode", "")
+        except Exception:
+            code = ""
+
+        # NOT a failure, despite the 403.
+        #
+        # The first time a domain submits, Bing fetches the key file out of band
+        # and checks it, and answers 403 SiteVerificationNotCompleted until that
+        # finishes. It is asynchronous, it can take hours, and it resolves on its
+        # own with no action from us.
+        #
+        # This is separated out because the daily job would otherwise fail every
+        # morning until verification completed — and a scheduled job that cries
+        # wolf for a week is a scheduled job nobody reads afterwards. That is the
+        # exact failure this repo already has a health checker to prevent.
+        #
+        # Every OTHER 403 stays fatal. KeyNotFound or a key file that does not
+        # match is a real misconfiguration, it will never self-resolve, and it
+        # must be loud.
+        if r.status_code == 403 and code == "SiteVerificationNotCompleted":
+            print(f"  PENDING {len(batch)} URLs held: {host} is still being verified by the "
+                  f"search engine (it fetches the key file on its own schedule).")
+            print("          Nothing to fix. The next run submits them again.")
+            continue
+
+        # 403 (other) = key file missing or mismatched. 422 = the URLs do not
+        # belong to the host. Both are configuration errors, not transient ones.
+        print(f"  FAIL {len(batch)} URLs rejected: HTTP {r.status_code} {r.text[:200]}")
+        ok = False
     return ok
 
 
@@ -237,6 +335,8 @@ def main() -> None:
                          "Re-submitting a URL is harmless; missing one is not.")
     ap.add_argument("--no-pages", action="store_true",
                     help="Skip the /c/ city and region landing pages.")
+    ap.add_argument("--doors-off", action="store_true",
+                    help="Submit mapsee.me only, skipping the six niche front doors.")
     ap.add_argument("--dry-run", action="store_true",
                     help="Print what would be submitted; send nothing.")
     args = ap.parse_args()
@@ -245,7 +345,9 @@ def main() -> None:
     anon_key = os.environ.get("SUPABASE_ANON_KEY") or DEFAULT_SUPABASE_ANON
 
     session = requests.Session()
+    ok = True
 
+    # ---- mapsee.me: the new events, plus its own landing pages ----
     try:
         event_ids = fetch_new_event_ids(base_url, anon_key, args.since_hours, session)
     except requests.RequestException as e:
@@ -253,20 +355,36 @@ def main() -> None:
         sys.exit(1)
 
     urls = [f"{SITE}/e/{eid}" for eid in event_ids]
-    print(f"{len(urls)} new indexable event page(s) in the last {args.since_hours}h")
-
+    print(f"{HOST}: {len(urls)} new indexable event page(s) in the last {args.since_hours}h")
     if not args.no_pages:
-        pages = landing_urls(session)
+        pages = landing_urls(SITE, session)
         if pages:
             urls.extend(pages)
-            print(f"{len(pages)} /c/ landing page(s) whose listings changed this run")
+            print(f"{HOST}: {len(pages)} /c/ landing page(s) whose listings changed this run")
 
-    if not urls:
-        print("nothing to submit")
-        return
+    if urls:
+        print(f"submitting {len(urls)} URL(s) for {HOST}")
+        ok &= submit(HOST, urls, session, args.dry_run)
+    else:
+        print(f"{HOST}: nothing to submit")
 
-    print(f"submitting {len(urls)} URL(s) -> {ENDPOINT}")
-    if not submit(urls, session, args.dry_run):
+    # ---- the other doors: their landing pages only ----
+    #
+    # No events here. An event is one piece of content behind seven doors and
+    # each door canonicals it to itself, so announcing it seven times would
+    # split its authority - that is the duplication this deliberately avoids.
+    # Their /c/ pages are the opposite case: different events, self-canonical,
+    # separately verified domains, and until now getting no push at all.
+    if not args.no_pages and not args.doors_off:
+        for site in lens_hosts(session):
+            host = site.split("://", 1)[-1]
+            pages = landing_urls(site, session)
+            if not pages:
+                continue
+            print(f"submitting {len(pages)} URL(s) for {host}")
+            ok &= submit(host, pages, session, args.dry_run)
+
+    if not ok:
         sys.exit(1)
 
 

@@ -248,7 +248,7 @@ comment explains the job split in detail. The short version:
 | `meetup` | Mon & Thu 06:40 | One Meetup sweep. Separate key from Ticketmaster, so it runs in parallel. |
 | `extra_sources` | Mon & Thu 06:40 | SeatGeek/DICE/AXS metro sweep, Eventbrite, NPS/Localist/Sports. Skipped wholesale when none of those keys are set. |
 | `races` | daily 06:17 UTC | RunSignup races onto the running + fitness layers. Its own job: more events than every ICS feed combined, behind ~5 minutes of API paging, and `feeds` syncs one shared store at the end — a timeout there would discard the two emptiest lenses along with everything else. |
-| `indexnow` | after every run | Pushes the URLs of events that just landed to IndexNow (Bing/Yandex/Seznam/Naver). `if: always()`, so a run where one leg failed still announces what the others ingested. |
+| `indexnow` | after every run | Pushes the URLs of events that just landed to IndexNow (Bing/Yandex/Seznam/Naver), for **all seven front doors**. `if: always()`, so a run where one leg failed still announces what the others ingested. |
 | `source-health` | daily 08:40 | Reads what landed; opens an issue if a source went quiet, and a separate one if the check itself cannot run. See [Monitoring](#monitoring-how-you-find-out-something-broke). |
 | `audit` | Sun 04:10 | Deep re-probe of every curated feed; commits the refreshed ledger. |
 | `curate` | daily 03:20 | discover → verify → merge across Socrata, CKAN and Mobilizon; commits new verified feeds, the cursor and the coverage history. |
@@ -266,6 +266,17 @@ care about Bing is that its index is what backs Copilot and ChatGPT search.
 `mapsee_indexnow.py` reads with the **public anon key**, not the service role —
 so it is structurally incapable of announcing a private or hidden event, whatever
 its query says. It needs no secret.
+
+**All seven doors, but only one submits events.** IndexNow keys a submission to a
+single `host`, so this makes one call per door. mapsee.me sends its new events
+plus its `/c/` pages; the six niche doors send their `/c/` pages only. Their
+landing pages are genuinely different content — bar.ventures/c/seattle lists
+nightlife, fleabop.com/c/seattle lists markets — each is self-canonical with its
+own sitemap and its own Search Console property. Their *event* pages are not:
+one event behind seven doors, each canonicalling to itself, would put seven
+copies in the index and split its authority. The door list is read live from
+`mapsee.me/api/lenses` rather than copied here, so an eighth door needs no change
+in this repo. `--doors-off` submits mapsee.me alone.
 
 > ⚠️ The submission is authenticated by a key file served at
 > `https://mapsee.me/<key>.txt`, which lives in the **sibling repo** at
