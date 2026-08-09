@@ -313,6 +313,28 @@ jobs:
           else
             echo "no jsonld_sources.json — skipping"
           fi
+      # Squarespace is where park conservancies, galleries and small arts
+      # nonprofits actually live. `?format=json` is the site's own collection
+      # view, so one request gets the whole calendar with real coordinates -
+      # but see the adapter docstring for the default-pin trap it defends
+      # against, which would otherwise file Seattle events in Manhattan.
+      - name: Import Squarespace Events collections (?format=json)
+        run: |
+          if [ -f squarespace_sources.json ]; then
+            python mapsee_ingest_squarespace.py --config squarespace_sources.json --store feeds_events.json
+          else
+            echo "no squarespace_sources.json — skipping"
+          fi
+      # Luma carries the tech/AI/startup/creative-meetup layer of a city, almost
+      # none of which reaches Eventbrite or Meetup, and every listing ships real
+      # coordinates so nothing here needs the geocoder.
+      - name: Import Luma calendars and city Discover feeds
+        run: |
+          if [ -f luma_sources.json ]; then
+            python mapsee_ingest_luma.py --config luma_sources.json --store feeds_events.json
+          else
+            echo "no luma_sources.json — skipping"
+          fi
       - name: Import restaurants (pickup windows from open hours + menu preview)
         run: |
           if [ -f restaurant_sources.json ]; then

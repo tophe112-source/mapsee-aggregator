@@ -1,0 +1,22 @@
+{
+  "_comment": "Squarespace Events collections, read through the site's own ?format=json view by mapsee_ingest_squarespace.py. `collection` is the collection page URL (the one whose ?format=json returns {upcoming:[...]}), NOT an individual event. Category is the mapsee frontend key and only a DEFAULT - derive_categories in mapsee_supabase_sync promotes work parties to volunteer, concerts to music and classes to fitness from the text. READ THE ADAPTER'S DOCSTRING BEFORE ADDING A SITE: Squarespace ships a default map pin at 40.7207559,-74.0007613 (lower Manhattan) for every event whose location was never filled in, so the adapter only trusts mapLat/mapLng when the event carries real address text, and falls back to `venue` otherwise. A site whose events mostly have no address NEEDS a `venue` block {name, address, city, region, postal_code, lat, lon} or its events are skipped as unplaceable.",
+  "sites": [
+    {
+      "name": "Volunteer Park Trust",
+      "collection": "https://www.volunteerparktrust.org/events",
+      "category": "community",
+      "max_events": 200,
+      "_venue_comment": "17 of 22 upcoming events ship the Squarespace default pin with an empty address; the 5 that are filled in give 'Volunteer Park, 1247 15th Avenue East, Seattle, WA, 98112' at 47.6303122,-122.31431. Those are the site's OWN values for the park, so the fallback below is the site's data rather than a guess - and it is correct for the whole calendar, because this is a single-park conservancy: the concerts, the fitness classes, the trail runs and the work parties all happen in Volunteer Park.",
+      "venue": {
+        "name": "Volunteer Park",
+        "address": "1247 15th Ave E",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98112",
+        "country": "US",
+        "lat": 47.6303122,
+        "lon": -122.31431
+      }
+    }
+  ]
+}
