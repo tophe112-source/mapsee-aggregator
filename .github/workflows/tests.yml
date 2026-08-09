@@ -77,6 +77,14 @@ jobs:
       # transport. No network and no database, same as the rest of this job.
       - name: Ingest health check (the alarm itself)
         run: python test_health_check.py
+      # Placement, for the two adapters that are HANDED coordinates and so can
+      # put an event confidently in the wrong city. Squarespace ships a default
+      # pin in lower Manhattan for every event with no location set (17 of the
+      # first 22 real events); Luma reports a postal code only inside a full
+      # address line, where a naive search finds the street number. Both produce
+      # well-formed, plausible, wrong rows that nothing downstream can catch.
+      - name: Placement traps (Squarespace default pin, Luma address parsing)
+        run: python test_ingest_places.py
 
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a

@@ -8,7 +8,7 @@ the Worker), `../conbinience`, `../fishsie`. `../SUITE-AUDIT.md` covers all four
 ## The shape of it
 
 ```
-24 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+31 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -87,6 +87,24 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   unclear licence. Both verify fine, because verification proves a feed works,
   not that we want it. Anything that proposes sources must consult
   `_not_included()` or it will re-propose them every week.
+- **A source that HANDS you coordinates can hand you the wrong ones, and nothing
+  downstream will catch it.** Two live examples, both now covered by
+  `test_ingest_places.py`. Squarespace ships a default map pin at
+  `40.7207559,-74.0007613` — lower Manhattan — for every event whose location
+  was never filled in; that was 17 of Volunteer Park Trust's 22 upcoming events,
+  all of them in Seattle. The defence is not a coordinate blocklist but the rule
+  that *a location with no address text is not a location*, falling back to the
+  config's `venue` block. Luma reports a US postal code only inside
+  `full_address`, where a bare five-digit search finds the STREET NUMBER
+  ("15600 NE 8th St, Bellevue, WA 98007" → 15600, a real ZIP in Pennsylvania).
+  Well-formed, plausible, wrong is the worst failure this pipeline produces.
+- **Luma's Discover feed takes `discover_place_api_id`.** The obvious
+  `place_api_id` — which is what the id is called everywhere else in Luma's own
+  payloads — is accepted, ignored, and answered with a 200 and a full page of
+  events for whatever city the RUNNER's IP is in. Asking for Seattle from a
+  GitHub runner returns Columbus, Ohio, silently. `expect_region` in
+  `luma_sources.json` turns that into a refusal instead of wrong data; set it on
+  every place.
 - **Never add `pull_request:` to a workflow that reads secrets.** `tests.yml` is
   the one workflow safe on forks, because it reads none.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
@@ -108,11 +126,12 @@ python test_categories.py           # the classifier: which lens an event reache
 python test_ingest_categories.py    # adapters + the shared vocabulary
 python test_link_series.py          # which repeats count as one thing
 python test_health_check.py         # the alarm itself, against a faked transport
+python test_ingest_places.py        # coordinates: default pins, address parsing
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The four test scripts are the CI gate (`tests.yml`). They print one line per
+The five test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

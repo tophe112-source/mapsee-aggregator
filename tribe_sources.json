@@ -45,6 +45,18 @@
       "default_region": "WA",
       "default_country": "US",
       "_note": "robots.txt disallows /wp-admin/ only. Pike Place Market improv, same scene The Rolodex covers and already in that adapter's venue book."
+    },
+    {
+      "name": "Seattle Parks Foundation",
+      "base_url": "https://www.seattleparksfoundation.org",
+      "category": "volunteer",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 10,
+      "default_city": "Seattle",
+      "default_region": "WA",
+      "default_country": "US",
+      "_note": "robots.txt disallows /wp-admin/ and the /feed/ paths only; /wp-json/ is open and no Crawl-delay is set. MOVED HERE FROM ics_sources.json, where it was read as /events/?ical=1. The plugin's iCal export only serialises the CURRENT VIEW - 30 events - while the REST API paginates all 102, so two thirds of the calendar was never offered to the pipeline at all. Of the 30 it did offer, 20 carried no LOCATION line and mapsee_ingest_ics dropped them for having nowhere to pin. Net effect was ~10 of 102 events reaching the map. NOTE the remaining ceiling is upstream, not ours: only 32 of the 102 events have a venue assigned in WordPress, and none of them carry geo_lat/geo_lng, so the sync's Census pass places the 32 by street address and the other 70 have no location data in the source to place them WITH. The Duwamish River Festival is one of those: its record is venue:[], and its address appears nowhere in the feed."
     }
   ]
 }

@@ -222,6 +222,14 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
     now_key = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     limit = src.get("limit", 500)
     kept = 0
+    # A VEVENT with no LOCATION and no GEO cannot be pinned, so it is dropped -
+    # correctly, but until this counter it was dropped in SILENCE. Seattle Parks
+    # Foundation was publishing 30 events of which 20 had no LOCATION at all,
+    # and the only visible symptom was a feed that looked two thirds empty with
+    # nothing anywhere saying why. A source that is mostly unplaceable is a
+    # source wired up the wrong way (that one wanted the Tribe REST API, which
+    # carries venues the iCal export omits), and the log has to be able to say so.
+    unplaceable = 0
     for ev in events:
         if kept >= limit:
             break
@@ -247,6 +255,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
         if (lat is None or lon is None) and loc:
             lat, lon = geocode(loc)
         if lat is None or lon is None:
+            unplaceable += 1
             continue                                  # nowhere to pin it
         desc = _unescape(ev.get("DESCRIPTION", ("", {}))[0]).strip() or None
         if desc:                                      # ICS descriptions are often HTML-ish — keep them short + plain
@@ -269,7 +278,12 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
         nev.fingerprint = make_fingerprint(title, date_key, loc)
         store.upsert(nev)
         kept += 1
-    print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs" + (f" ({how})" if how != "200" else ""))
+    note = f" ({how})" if how != "200" else ""
+    if unplaceable:
+        note += f" — {unplaceable} unplaceable (no LOCATION/GEO)"
+        if events and unplaceable >= max(3, len(events) // 2):
+            note += "; more than half this feed has no location — check whether the source offers a richer feed"
+    print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}")
     return kept
 
 
