@@ -8,7 +8,7 @@ the Worker), `../conbinience`, `../fishsie`. `../SUITE-AUDIT.md` covers all four
 ## The shape of it
 
 ```
-23 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+24 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -70,6 +70,18 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   in `mapsee_health_check.py` is what separates them. The schema key is
   `"status"`, not `"ok"` — discovery filtered on the latter for months and so
   never filtered at all.
+- **`status` has THREE values, and `empty` is not `fail`.** A feed that parses
+  fine with nothing upcoming is a venue between seasons, not a broken feed;
+  recording both as `fail` is why FEED_DOWN reported 15 configured regressions
+  when six were genuinely broken. `_status_for()` decides. Discovery skips both
+  (proposing a source that ingests zero is the same waste either way); only
+  `fail` is a regression, and only `fail` is worth retiring from a config.
+- **The audit retries; candidate verification does not.** Re-probing the 15
+  feeds the audit had marked dead-while-configured found four answering
+  normally, all four having failed on a ReadTimeout or a 403. A `fail` on a
+  CONFIGURED feed parks it for 90 days and reports it as a regression, so it is
+  worth a second look; a fresh candidate that times out costs nothing to skip
+  and comes round again next week.
 - **`_not_included` in a sources file is an editorial NO, and discovery reads
   it.** `mobilizon_sources.json` declines an instance for spam and another for an
   unclear licence. Both verify fine, because verification proves a feed works,

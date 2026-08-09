@@ -60,6 +60,7 @@ import json
 import os
 import re
 import sys
+import time
 
 import requests
 
@@ -139,10 +140,72 @@ def _days_since(yyyymmdd):
         return 10 ** 6
 
 
+# A verifier gets ONE shot at a server on a bad morning, and losing it is
+# expensive: a `fail` row parks the feed for the 90-day ledger TTL, and if the
+# feed is already configured it is reported as a FEED_DOWN regression on top.
+#
+# Measured 2026-08-09 against the 15 feeds the audit had marked dead-while-
+# configured: SIX were answering normally on a plain re-probe. Four of those six
+# had failed on a ReadTimeout and one on a 403 — the transient shapes exactly.
+# A 40% false-dead rate is not a finding about the catalog, it is a finding
+# about probing once.
+VERIFY_RETRIES = 3
+VERIFY_BACKOFF_S = 3
+
+
 def _session():
     s = requests.Session()
     s.headers.update({"User-Agent": UA})
     return s
+
+
+# "The feed parses and has nothing on" is not "the feed is broken", and the
+# ledger recorded both as `fail`. That is why FEED_DOWN reported 15 configured
+# regressions when six were actually broken: the other nine were working
+# calendars for venues with a quiet fortnight, an arts centre between seasons, a
+# library whose export window had drifted. Retiring those loses a live source
+# for ever; reporting them daily as regressions trains you to ignore the report.
+#
+# So there is a third status. `empty` still keeps discovery from PROPOSING the
+# feed (adding a source with nothing upcoming ingests zero), but it is not a
+# regression and configured_dead() does not raise it.
+_EMPTY_RX = re.compile(r"(?:^|\D)([1-9]\d*)\s*(?:vevents|events|rows|records)\b"
+                       r"[^/]*/\s*0\s+future", re.I)
+
+
+def _status_for(ok, note):
+    if ok:
+        return "ok"
+    return "empty" if _EMPTY_RX.search(note or "") else "fail"
+
+
+def _verify_with_retry(fn, s, e):
+    """Run a verifier, retrying the failures that a second look can change.
+
+    A timeout, a connection reset and a 5xx are all "ask again later". A clean
+    verdict — parsed the feed, no future events — is not, and re-fetching it
+    would just triple the cost of every genuinely-dormant calendar. 403 is
+    retried because rate limiters return it and so do bot walls; if it is a real
+    block, three tries cost three requests and the answer is the same.
+    """
+    last = (False, "not attempted")
+    for attempt in range(VERIFY_RETRIES):
+        try:
+            ok, note = fn(s, e)
+            if ok:
+                return True, note
+            last = (ok, note)
+            # A parsed-but-empty feed is a settled answer; only transport-shaped
+            # failures are worth asking again.
+            if not re.search(r"http (?:403|429|5\d\d)", note or ""):
+                return last
+        except (requests.Timeout, requests.ConnectionError) as ex:
+            last = (False, f"{type(ex).__name__}: {str(ex)[:70]}")
+        except Exception as ex:  # noqa: BLE001
+            return False, f"{type(ex).__name__}: {str(ex)[:70]}"
+        if attempt < VERIFY_RETRIES - 1:
+            time.sleep(VERIFY_BACKOFF_S * (attempt + 1))
+    return last
 
 
 def _canon(u):
@@ -196,7 +259,11 @@ def _dead_recently(led, key, ttl=DEAD_TTL):
     that was down is worth another look eventually, just not weekly.
     """
     rec = led.get(key)
-    if not rec or rec.get("status") != "fail":
+    # 'empty' counts here too. It is not a regression when a CONFIGURED feed
+    # reports it (see _status_for), but proposing a NEW source with nothing
+    # upcoming buys a feed that ingests zero — which is the same waste of the
+    # candidate budget, so discovery treats the two alike.
+    if not rec or rec.get("status") not in ("fail", "empty"):
         return False
     return _days_since(rec.get("checked", 0)) < ttl
 
@@ -972,7 +1039,7 @@ def cmd_verify(path, recheck=False, ttl=90):
             skipped += 1
             continue
         rec = led.get(key)
-        if not recheck and rec and rec.get("status") == "fail":
+        if not recheck and rec and rec.get("status") in ("fail", "empty"):
             age = _days_since(rec.get("checked", 0))
             if age < ttl:
                 print(f"[SKIP] {t:8} known-dead {age}d ago ({rec.get('reason','')[:30]}): "
@@ -983,7 +1050,7 @@ def cmd_verify(path, recheck=False, ttl=90):
             ok, note = VERIFIERS[t](s, e)
         except Exception as ex:  # noqa: BLE001
             ok, note = False, f"{type(ex).__name__}: {str(ex)[:70]}"
-        led[key] = {"type": t, "name": e.get("name"), "status": "ok" if ok else "fail",
+        led[key] = {"type": t, "name": e.get("name"), "status": _status_for(ok, note),
                     "reason": note, "checked": _today_int()}
         print(f"[{'OK ' if ok else 'XX '}] {t:8} {e.get('name','?')[:46]:46} {note}")
         if ok:
@@ -1030,7 +1097,7 @@ def cmd_merge(path):
 def cmd_audit():
     s = _session()
     led = _load_ledger()
-    stale = 0
+    stale = quiet = 0
     for t, (fname, key) in CONFIG.items():
         fpath = os.path.join(HERE, fname)
         # _entries(), not a bare json.load: ods_sources.json nests its list under
@@ -1041,18 +1108,24 @@ def cmd_audit():
         print(f"\n=== {fname} ({len(cur)}) ===")
         for e in cur:
             e2 = dict(e, type=t)
-            try:
-                ok, note = VERIFIERS[t](s, e2)
-            except Exception as ex:  # noqa: BLE001
-                ok, note = False, f"{type(ex).__name__}: {str(ex)[:60]}"
-            if not ok:
+            # Retried, unlike verification of a fresh candidate: a candidate that
+            # times out costs nothing to skip and can be proposed again next week,
+            # but a CONFIGURED feed marked dead here is parked for 90 days and
+            # reported as a regression. The two are not the same bet.
+            ok, note = _verify_with_retry(VERIFIERS[t], s, e2)
+            status = _status_for(ok, note)
+            if status == "fail":
                 stale += 1
+            elif status == "empty":
+                quiet += 1
             led[_canon(_key_of(e2))] = {"type": t, "name": e.get("name"),
-                                        "status": "ok" if ok else "fail", "reason": note,
+                                        "status": status, "reason": note,
                                         "checked": _today_int()}
-            print(f"[{'OK ' if ok else 'XX '}] {e.get(key,'?')[:60]:60} {note}")
+            mark = {"ok": "OK ", "empty": "-- ", "fail": "XX "}[status]
+            print(f"[{mark}] {e.get(key,'?')[:60]:60} {note}")
     _save_ledger(led)
-    print(f"\n{stale} entries need attention (dead or no future events).")
+    print(f"\n{stale} entries are BROKEN (unreachable, or no longer a feed).")
+    print(f"{quiet} entries parse fine but have nothing upcoming — kept, not a regression.")
     return 0
 
 
@@ -1060,8 +1133,10 @@ def cmd_ledger():
     led = _load_ledger()
     good = {k: v for k, v in led.items() if v.get("status") == "ok"}
     dead = {k: v for k, v in led.items() if v.get("status") == "fail"}
-    print(f"ledger: {len(led)} tried  |  {len(good)} ok  |  {len(dead)} dead\n")
-    print("known-dead (skipped until TTL lapses):")
+    quiet = {k: v for k, v in led.items() if v.get("status") == "empty"}
+    print(f"ledger: {len(led)} tried  |  {len(good)} ok  |  {len(dead)} broken  "
+          f"|  {len(quiet)} parse fine but nothing upcoming\n")
+    print("broken (skipped until TTL lapses):")
     for k, v in sorted(dead.items()):
         print(f"  [{v.get('type','?'):8}] {k}  <- {v.get('reason','')[:40]}  ({v.get('checked')})")
     return 0
@@ -1386,6 +1461,28 @@ def _rows_parkrun(data):
             for c in (data.get("countries") or ["?"])]
 
 
+def _rows_runsignup(data):
+    """One API covering every race it hosts, so there is no per-source list to
+    walk — the config tunes how much of it to read.
+
+    Filed as TWO rows, running and fitness, because the adapter genuinely
+    supplies both: a road race is emitted with `running` primary and `fitness`
+    secondary, and multisport the other way round. Reporting it under one would
+    leave the other reading zero and send the next gap sweep after ground that is
+    already covered — which is the failure the ODS per-country rows were added to
+    fix.
+
+    Partitioned by US state, and RunSignup is a US platform (measured: 247 of 250
+    races on a page), so the country is not a guess.
+    """
+    if not data:
+        return []
+    states = data.get("states")
+    metro = "(50 states)" if states is None else f"({len(states)} states)"
+    return [("runsignup", "RunSignup races", metro, "United States", cat)[1:]
+            for cat in ("running", "fitness")]
+
+
 def _rows_affiliate(data):
     out = []
     for e in data.get("feeds", []):
@@ -1405,6 +1502,7 @@ def _rows_affiliate(data):
 EXTRA_CONFIG = {
     "market": ("market_sources.json", _rows_market),
     "parkrun": ("parkrun_sources.json", _rows_parkrun),
+    "runsignup": ("runsignup_sources.json", _rows_runsignup),
     "jsonld": ("jsonld_sources.json", _rows_jsonld),
     "program": ("program_sources.json", _rows_program),
     "venuepilot": ("venuepilot_sources.json", _rows_venuepilot),

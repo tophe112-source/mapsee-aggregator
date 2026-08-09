@@ -20,6 +20,8 @@ Roughly 200 curated sources across 20+ countries, plus keyed API sweeps:
 | iCal / `.ics` | `mapsee_ingest_ics.py` | LibCal, Trumba, CivicPlus, WordPress "The Events Calendar". Conditional GETs (ETag/If-Modified-Since) so unchanged feeds cost ~0 bytes |
 | City open data (Socrata) | `mapsee_ingest_opendata.py` | SODA API; ISO **and** free-text date columns |
 | City open data (OpenDataSoft) | `mapsee_ingest_ods.py` | Explore v2.1 records API; the EU civic workhorse |
+| City open data (CKAN) | `mapsee_ingest_ckan.py` | DataStore API. The only discovery path outside the US — data.gov.uk, open.canada.ca, data.gov.ie, govdata.de, data.gov.au, opendata.swiss |
+| Races (RunSignup) | `mapsee_ingest_runsignup.py` | Public keyless race API, partitioned by US state. The whole `running` and `fitness` supply: ~12,500 events, both lenses were at zero curated sources before it |
 | Localist | `mapsee_ingest_localist.py` | University/city calendars (`/api/2/events`) |
 | schema.org JSON-LD | `mapsee_ingest_jsonld.py` | Venue sites that embed `Event` blocks |
 | Ticketmaster / SeatGeek / DICE / AXS / Moshtix | `mapsee_ingest*.py` | Keyed APIs, skipped silently when unset |
@@ -75,7 +77,9 @@ Two rules make this work at scale:
    hold nothing but past events, are rejected - they would silently ingest zero.
 2. **Every attempt is remembered.** `curation_ledger.json` records each URL tried
    and why it failed, so dead sources are never re-probed (and get one recheck
-   after 90 days, in case they come back).
+   after 90 days, in case they come back). `status` is `ok`, `fail` or `empty` —
+   a feed that parses fine with nothing upcoming is a venue between seasons, not
+   a broken feed, and only `fail` is treated as a regression worth retiring.
 
 ### Growing it, on a schedule
 

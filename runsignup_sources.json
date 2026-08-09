@@ -1,0 +1,20 @@
+{
+  "_comment": "Config for mapsee_ingest_runsignup.py. There is no per-source list here the way there is for ICS or Localist: RunSignup is one API covering every race it hosts, so what this file tunes is how much of it to read. Defaults live in DEFAULTS in the adapter; anything set here overrides them.",
+
+  "_why": "'fitness' and 'running' were the only two lens categories with zero curated sources anywhere. They are not a curation gap — a category-pinned Socrata sweep across all five fitness/running queries reads 315 datasets and proposes none, because municipal open data does not publish road races in geocoded, event-shaped form. This is where the races actually are.",
+
+  "horizon_days": 120,
+  "_horizon_days": "How far ahead to ask the API for. Races publish months out, and a 5k that appears 90 days early is a 5k somebody can still plan around. Raising this costs pages, not requests-per-page.",
+
+  "results_per_page": 250,
+
+  "_states": "THE PARTITION, not a filter — dropping a state does not narrow the catalogue, it blinds the sweep to that state. It exists because the API silently caps any one query at 1000 rows (four pages of 250, then empty pages, with no total in the envelope to say a tail was dropped), so an unpartitioned sweep returns exactly 1000 races whether the window holds 1,000 or 20,000. Narrowing the DATE window does not help: measured, even a seven-day window is over the cap. Per state over 120 days the largest is Texas at 910. Omit this key to use the built-in 50-states-plus-DC list; use country_codes to actually filter.",
+
+  "country_codes": [],
+  "_country_codes": "Empty means every country the API returns. Measured on one 250-race page: 247 US, 1 each India / Italy / Germany. RunSignup is a US platform, which is also why the partition above is by US state.",
+
+  "pause_s": 0.4,
+  "_pause_s": "Between pages. Somebody else's free API; the sweep is not in a hurry.",
+
+  "timeout_s": 60
+}
