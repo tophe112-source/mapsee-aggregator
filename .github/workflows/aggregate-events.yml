@@ -629,3 +629,43 @@ jobs:
       - name: Refresh the warm geocode cache
         if: always()
         run: cp geocode_cache.json geocode_cache.warm.json
+
+  # ---------------------------------------------------------------------------
+  # Tell the search engines what just landed.
+  #
+  # Runs LAST and unconditionally. `needs` here is ordering, not a gate: every
+  # ingest job above is deliberately failure-tolerant and several are
+  # conditional on the cron, so `if: always()` is what makes this submit the
+  # events that DID land on a run where one leg failed, timed out or was skipped
+  # — which is the normal case, not the exceptional one. (extra_sources has been
+  # cancelled mid-loop at its timeout before; the ~42k events it had already
+  # ingested were still in the table and still deserved announcing.)
+  #
+  # No secret is read. mapsee_indexnow.py uses the public anon key on purpose, so
+  # it can only ever see what an anonymous crawler could see. That also means
+  # this job is safe to leave running if the repo's secrets are ever rotated.
+  indexnow:
+    name: Submit new event URLs to IndexNow
+    runs-on: ubuntu-latest
+    # `races` belongs here even though it arrived from a different branch than
+    # this job: it is the single largest contributor of new URLs in a run
+    # (~12,500 events), so an indexnow that does not wait for it announces
+    # everything EXCEPT the biggest batch, and does it while looking healthy.
+    # Anything added to `jobs:` from here on has to be added to this list too.
+    needs: [ticketmaster, meetup, feeds, races, extra_sources]
+    if: always()
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
+      # 26h, not 24: the daily cron is at 06:17 UTC and a run that starts late or
+      # takes an hour must not leave a gap. Re-submitting a URL an engine has
+      # already seen is a no-op; missing one costs it its whole crawlable life.
+      - name: Submit
+        run: python mapsee_indexnow.py --since-hours 26
