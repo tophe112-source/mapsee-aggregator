@@ -9,7 +9,7 @@ name: Source health
 #
 # This workflow is the missing signal. It does not re-run the ingest; it asks
 # the database what actually landed and complains when a source that used to
-# deliver has gone quiet. The sensor (source_stats() + curation_ledger.json)
+# deliver has gone quiet. The sensor (the /stats snapshot + curation_ledger.json)
 # already existed — nothing was ever scheduled to read it.
 #
 # Notification is a GitHub issue rather than Slack or a webhook, deliberately:
@@ -17,6 +17,14 @@ name: Source health
 # already emails the repo owner when an issue is opened or commented. One open
 # issue is reused for as long as the problem persists, so a source that stays
 # broken for a week produces one thread, not seven.
+#
+# TWO THREADS, NOT ONE. The check exits 1 when a SOURCE is unhealthy and 2 when
+# the CHECK ITSELF could not run, and those go to different issues. The first
+# eight runs of this workflow all failed on a dead RPC and all filed under
+# "one or more sources have gone quiet" — four days of a thread whose title
+# contradicted every comment in it, describing an outage that was not happening
+# while the real fault (a statement timeout, named in a response body nobody
+# printed) went unnamed. A check that cannot run has to say so in those words.
 #
 # Triggers are schedule + workflow_dispatch ONLY. Never add pull_request:
 # this job reads SUPABASE_SERVICE_ROLE_KEY, which must never be exposed to
@@ -85,19 +93,52 @@ jobs:
 
       # --- the check ------------------------------------------------------
       # continue-on-error so a detected problem does not abort the job before
-      # the issue is filed. The exit code is captured and acted on below.
+      # the issue is filed. The exit code is captured and acted on below:
+      #   0 healthy · 1 a source is unhealthy · 2 the check could not run.
+      #
+      # --seed-baseline writes source_health_baseline.json only when it is
+      # absent. It was absent for every run this workflow has ever done, and
+      # SILENT / MISSING / DRAINED all compare against it — so on the days the
+      # RPC did answer, this job would have passed having evaluated nothing at
+      # all. A green tick from a check with no baseline means "no opinion", and
+      # it looked exactly like "healthy".
       - name: Check ingest health
         if: ${{ !inputs.update_baseline }}
         id: health
         continue-on-error: true
         run: |
           set +e
-          python mapsee_health_check.py --markdown health_report.md
+          python mapsee_health_check.py --seed-baseline --markdown health_report.md
           echo "status=$?" >> "$GITHUB_OUTPUT"
 
       - name: Summary
         if: ${{ !inputs.update_baseline }}
         run: cat health_report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      # A seeded baseline is worthless uncommitted: the next run would find the
+      # file missing again and re-seed for ever, and the check would never
+      # actually compare anything.
+      #
+      # continue-on-error for the same reason the notifier tolerates a missing
+      # report. This step pushes, and a push can lose a race with the curation
+      # job; under `set -e` that would abort the job BEFORE the issue is filed,
+      # which is precisely the "the alarm died on its way to ringing" failure
+      # this workflow has already been bitten by once. A missed baseline commit
+      # costs one re-seed next run. A missed alarm costs the alarm.
+      - name: Commit a seeded baseline
+        if: ${{ !inputs.update_baseline }}
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          if git diff --quiet --ignore-matching-lines='"taken_at"' -- source_health_baseline.json \
+             && ! git status --porcelain -- source_health_baseline.json | grep -q '^??'; then
+            echo "baseline unchanged"; exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add source_health_baseline.json
+          git commit -m "Seed the source health baseline, so the check has something to compare against"
+          git push
 
       # --- notify ---------------------------------------------------------
       # `gh` is preinstalled on the runner. Using it directly rather than a
@@ -105,13 +146,34 @@ jobs:
       # any marketplace dependency.
       - name: Open or update the health issue
         if: ${{ !inputs.update_baseline && steps.health.outputs.status != '0' }}
+        env:
+          STATUS: ${{ steps.health.outputs.status }}
         run: |
           set -euo pipefail
-          TITLE="Ingest health: one or more sources have gone quiet"
+          # Exit 2 is "nothing was evaluated", which is a different problem with
+          # a different fix and belongs in its own thread under its own label.
+          if [ "$STATUS" = "2" ]; then
+            TITLE="Ingest health: the check itself cannot run"
+            LABEL="ingest-health-check"
+            COLOR="D93F0B"
+            LABEL_DESC="The health check could not evaluate anything"
+          else
+            TITLE="Ingest health: one or more sources have gone quiet"
+            LABEL="ingest-health"
+            COLOR="B60205"
+            LABEL_DESC="A source has stopped delivering events"
+          fi
           {
-            echo "One or more event sources have stopped delivering. The aggregate"
-            echo "workflow will still be reporting success — it is failure-tolerant"
-            echo "by design — so this issue is the only signal."
+            if [ "$STATUS" = "2" ]; then
+              echo "**The health check could not run.** It did not evaluate a single"
+              echo "source, so nothing here says the pipeline is unhealthy — only that"
+              echo "the alarm is off. Fix this first; until it is fixed, a genuinely"
+              echo "dead feed would go unreported."
+            else
+              echo "One or more event sources have stopped delivering. The aggregate"
+              echo "workflow will still be reporting success — it is failure-tolerant"
+              echo "by design — so this issue is the only signal."
+            fi
             echo
             # NEVER let a missing report kill the notifier. This step runs on any
             # non-zero exit, and `cat` of an absent file under `set -e` took the
@@ -129,22 +191,36 @@ jobs:
             fi
             echo
             echo "---"
-            echo "_Checked by [\`source-health\`](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) on $(date -u '+%Y-%m-%d %H:%M UTC'). This issue closes itself once every baseline source is healthy again._"
+            echo "_Checked by [\`source-health\`](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) on $(date -u '+%Y-%m-%d %H:%M UTC'). This issue closes itself once the condition clears._"
           } > issue_body.md
 
-          EXISTING=$(gh issue list --label ingest-health --state open \
+          EXISTING=$(gh issue list --label "$LABEL" --state open \
                        --json number --jq '.[0].number // empty')
 
           # The label must exist before it can be applied; ignore "already exists".
-          gh label create ingest-health --color B60205 \
-            --description "A source has stopped delivering events" 2>/dev/null || true
+          gh label create "$LABEL" --color "$COLOR" \
+            --description "$LABEL_DESC" 2>/dev/null || true
 
           if [ -n "$EXISTING" ]; then
             echo "Updating existing issue #$EXISTING"
             gh issue comment "$EXISTING" --body-file issue_body.md
           else
             echo "Opening a new issue"
-            gh issue create --title "$TITLE" --label ingest-health --body-file issue_body.md
+            gh issue create --title "$TITLE" --label "$LABEL" --body-file issue_body.md
+          fi
+
+      # An exit-1 run proves the check RAN, so the "cannot run" thread is stale
+      # whatever the sources are doing. Closing it only on a fully-green run
+      # would leave it open through every genuine source outage.
+      - name: Close the "cannot run" issue once the check runs again
+        if: ${{ !inputs.update_baseline && steps.health.outputs.status != '2' }}
+        run: |
+          set -euo pipefail
+          EXISTING=$(gh issue list --label ingest-health-check --state open \
+                       --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "The health check ran and evaluated every source as of $(date -u '+%Y-%m-%d %H:%M UTC'). Closing; any finding about the sources themselves is on the \`ingest-health\` thread."
+            gh issue close "$EXISTING"
           fi
 
       - name: Close the health issue when everything recovers
@@ -162,8 +238,17 @@ jobs:
       # Actions tab is a second, independent signal alongside the issue email.
       - name: Fail if unhealthy
         if: ${{ !inputs.update_baseline && steps.health.outputs.status != '0' }}
+        env:
+          STATUS: ${{ steps.health.outputs.status }}
         run: |
-          echo "::error::Ingest health check failed - see the open ingest-health issue."
+          # Say WHICH of the two it is. "Ingest health check failed" was true of
+          # both and useful for neither: it sent everyone looking for a dead feed
+          # when the finding was that no feed had been looked at.
+          if [ "$STATUS" = "2" ]; then
+            echo "::error::The ingest health check could not run - NO source was evaluated. See the open ingest-health-check issue."
+          else
+            echo "::error::A source has stopped delivering - see the open ingest-health issue."
+          fi
           exit 1
 
   # The deep probe. Where the `check` job asks the database what landed, this

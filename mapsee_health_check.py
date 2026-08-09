@@ -19,6 +19,39 @@ turns that into a GitHub issue, which emails you.
 
 It reads. It never writes event data.
 
+WHERE THE NUMBERS COME FROM
+---------------------------
+`stats_snapshot_all()` — the precomputed snapshot from ../mapsee migration 0112,
+refreshed every 6h by the Worker cron (`refreshStats` in ../mapsee/src/index.js,
+`"crons": ["23 */6 * * *"]`).
+
+NOT `source_stats()`, which this script called for its first eight runs and which
+failed all eight. That RPC aggregates `public.events` on read, and 0112 records
+the measurement that killed it: 8,956 events upcoming in a single day, 88,614
+added in a week, and `source_stats(p_days => 1)` timing out at 3.4s against the
+API role's ~3s ceiling. Postgres raises 57014, PostgREST renders that as a bare
+HTTP 500, and this script rendered THAT as "could not reach the database - usual
+causes: a rotated key, the project paused, or a transient network failure." None
+of which it was. The product had already moved to the snapshot; only the
+aggregator was still calling the dead function.
+
+Two lessons are wired in below. Read the RPC the product reads, so there is one
+answer to "what landed" rather than two that can disagree. And carry the server's
+error body VERBATIM into the report — `{"code":"57014"}` names the fault on day
+one, where a status code alone bought four days of identical, unactionable
+alerts.
+
+WHAT A "SOURCE" IS HERE
+-----------------------
+`external_source`, which mapsee_supabase_sync.py sets to the literal 'mapsee' on
+every row it writes; community-created events carry NULL and the snapshot
+coalesces those to 'community'. So this check sees the aggregator as ONE bucket.
+It answers "has the pipeline stopped delivering", not "has the Meetup adapter
+gone quiet" — per-adapter provenance is not persisted anywhere in public.events
+(external_id is a bare SHA-1 fingerprint with no source prefix). Catching a
+single dead adapter needs a `source` column on the event row; until that exists,
+`catalog_curate.py audit` + FEED_DOWN below is the per-feed signal.
+
 WHAT IT CHECKS
 --------------
   1. SILENT  — a baseline source whose newest event is older than its staleness
@@ -28,11 +61,25 @@ WHAT IT CHECKS
   3. DRAINED — a baseline source whose upcoming-event count has collapsed past
                `--drop-pct` versus the baseline. Catches a feed that went from
                2,000 events to 12 without going fully dark.
-  4. LEDGER  — how many entries catalog_curate.py has marked dead, and whether
+  4. FEED_DOWN — a feed still wired into a *_sources.json that the curator audit
+               can no longer read. This is the per-feed granularity the
+               per-source numbers cannot give.
+  5. LEDGER  — how many entries catalog_curate.py has marked dead, and whether
                that number is growing. Advisory only; does not fail the run.
 
 New sources appearing are reported as NEW and never fail the check — growth is
 not a problem.
+
+EXIT CODES
+----------
+  0  healthy (or nothing to check yet, or --warn-only)
+  1  a source is unhealthy — SILENT / MISSING / DRAINED / FEED_DOWN
+  2  the check could not run at all: the database was unreachable, the RPC is
+     missing, or the snapshot is stale. NOTHING was evaluated, so this says
+     nothing about the pipeline. It is a different problem with a different fix
+     and source-health.yml files it as a different issue — reporting it as
+     "one or more sources have gone quiet" is a false statement, and that is
+     exactly what the thread on issue #3 became.
 
 STALENESS BUDGETS
 -----------------
@@ -57,8 +104,12 @@ USAGE
     # look, but never fail the build (useful while tuning)
     python mapsee_health_check.py --warn-only
 
+    # write a baseline ONLY if one does not exist yet (what CI runs, so the
+    # check cannot sit at "no baseline, nothing evaluated" for ever)
+    python mapsee_health_check.py --seed-baseline
+
 Environment: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (the anon key also works —
-source_stats() is granted to anon — but CI already has the service key).
+stats_snapshot_all() is granted to anon — but CI already has the service key).
 """
 
 from __future__ import annotations
@@ -67,6 +118,7 @@ import argparse
 import json
 import os
 import sys
+import time
 import traceback
 from datetime import datetime, timedelta, timezone
 
@@ -109,25 +161,177 @@ STALE_OVERRIDES = {
 
 TIMEOUT = 30
 
+# The snapshot the product reads (../mapsee migration 0112). Cheap: three rows.
+SNAPSHOT_RPC = "stats_snapshot_all"
+# The pre-0112 live aggregate. Kept ONLY as a fallback for a deployment small
+# enough that 0112 was never applied — against production it times out, which is
+# the whole reason this script stopped calling it first.
+LEGACY_RPC = "source_stats"
+
+# The Worker recomputes the snapshot every 6h. Four consecutive misses means the
+# cron is down, and every freshness number below is frozen at whatever it said
+# then — SILENT would start firing about sources that are delivering fine. So a
+# stale snapshot is "the check cannot run", not "a source is quiet".
+SNAPSHOT_MAX_AGE_H = 24
+
+# Transient 5xx and connection resets happen. Four days of the SAME 500 is not
+# transient, and the report has to be able to tell the difference.
+ATTEMPTS = 3
+
+EXIT_OK = 0
+EXIT_UNHEALTHY = 1
+EXIT_CANNOT_RUN = 2
+
+
+class CheckCannotRun(Exception):
+    """Nothing could be evaluated. Carries a report-ready title and detail.
+
+    Deliberately NOT the same outcome as "a source is unhealthy": the two want
+    different fixes, different issue threads and different exit codes.
+    """
+
+    def __init__(self, title: str, detail: str, hint: str = ""):
+        super().__init__(f"{title}: {detail}")
+        self.title = title
+        self.detail = detail
+        self.hint = hint
+
 
 # --- data ------------------------------------------------------------------
 
-def fetch_source_stats(url: str, key: str) -> list[dict]:
-    """Call the source_stats() RPC. Returns [] on a shape we don't recognise."""
-    endpoint = url.rstrip("/") + "/rest/v1/rpc/source_stats"
+def _error_detail(r) -> str:
+    """The server's own explanation, verbatim.
+
+    PostgREST answers a failed RPC with {"code","message","details","hint"} and
+    the code is the diagnosis: 57014 is a statement timeout, PGRST202 is a
+    function that is not there, 42703 is a column the function's body references
+    and the table no longer has. Discarding that body and reporting `500` is how
+    a dead RPC read as "a rotated key, or maybe the network" for four days.
+    """
+    body = (r.text or "").strip()
+    if not body:
+        return "(empty response body)"
+    try:
+        parsed = json.loads(body)
+    except ValueError:
+        return body[:400]
+    if isinstance(parsed, dict):
+        bits = [str(parsed[k]) for k in ("code", "message", "details", "hint")
+                if parsed.get(k)]
+        if bits:
+            return " · ".join(bits)[:400]
+    return body[:400]
+
+
+def _rpc(url: str, key: str, name: str, body: dict | None = None):
+    """POST an RPC, retrying only what is worth retrying.
+
+    5xx and connection failures get ATTEMPTS tries with a widening gap; a 4xx is
+    a settled answer (missing function, bad key) and retrying it just delays the
+    report. Raises CheckCannotRun when the request never completed at all.
+    """
+    endpoint = url.rstrip("/") + f"/rest/v1/rpc/{name}"
     headers = {
         "apikey": key,
         "Authorization": f"Bearer {key}",
         "Content-Type": "application/json",
     }
-    r = requests.post(endpoint, headers=headers, json={}, timeout=TIMEOUT)
-    r.raise_for_status()
-    rows = r.json()
-    if not isinstance(rows, list):
-        print(f"!! source_stats() returned {type(rows).__name__}, expected a list",
-              file=sys.stderr)
-        return []
-    return rows
+    last_network = ""
+    for attempt in range(ATTEMPTS):
+        try:
+            r = requests.post(endpoint, headers=headers, json=body or {},
+                              timeout=TIMEOUT)
+        except requests.RequestException as ex:
+            last_network = f"{type(ex).__name__}: {ex}"
+        else:
+            if r.status_code < 500:
+                return r                       # settled, success or not
+            last_network = ""
+            if attempt == ATTEMPTS - 1:
+                return r                       # let the caller report the body
+        if attempt < ATTEMPTS - 1:
+            time.sleep(2 ** (attempt + 1))     # 2s, then 4s
+    raise CheckCannotRun(
+        f"Could not reach `{name}()`",
+        last_network or "no response after retries",
+        "The database was unreachable on every attempt. If the next scheduled "
+        "run is green, it was transient.")
+
+
+def _normalise(rows) -> list[dict]:
+    """Keep only rows that name a source. Tolerates both RPC shapes.
+
+    0057 returned (source, upcoming, total, last_added, added_72h); 0111 and the
+    0112 snapshot return (source, upcoming, added_24h, added_7d, last_added).
+    Nothing below requires a field that only one of them has.
+    """
+    return [r for r in rows if isinstance(r, dict) and r.get("source")]
+
+
+def fetch_stats(url: str, key: str) -> tuple[list[dict], datetime | None, str]:
+    """(rows, computed_at, which RPC answered). Raises CheckCannotRun."""
+    r = _rpc(url, key, SNAPSHOT_RPC)
+
+    if r.status_code == 404:
+        # 0112 not applied — a small deployment, or a fresh project. Fall back to
+        # computing live, which is correct there and hopeless on production.
+        return _fetch_legacy(url, key)
+
+    if not r.ok:
+        raise CheckCannotRun(
+            f"`{SNAPSHOT_RPC}()` returned HTTP {r.status_code}",
+            _error_detail(r),
+            "401/403 is a rotated or revoked key. Anything else is a fault in "
+            "the RPC itself — the code above names it.")
+
+    try:
+        payload = r.json()
+    except ValueError:
+        raise CheckCannotRun(f"`{SNAPSHOT_RPC}()` returned unparseable JSON",
+                             (r.text or "")[:400]) from None
+
+    by_kind = {row.get("kind"): row for row in (payload or [])
+               if isinstance(row, dict)}
+    snap = by_kind.get("sources")
+    if not snap:
+        raise CheckCannotRun(
+            "The stats snapshot has never been computed",
+            "`stats_snapshot` holds no `sources` row.",
+            "Nothing has run `refresh_stats()`. The Worker cron in ../mapsee "
+            "(`\"crons\": [\"23 */6 * * *\"]`) does it in production; by hand it "
+            "is `select public.refresh_stats(30);` with the service role.")
+
+    computed_at = _parse_ts(snap.get("computed_at"))
+    rows = _normalise(snap.get("payload") or [])
+    if computed_at:
+        age_h = (datetime.now(timezone.utc) - computed_at).total_seconds() / 3600
+        if age_h > SNAPSHOT_MAX_AGE_H:
+            raise CheckCannotRun(
+                f"The stats snapshot is {age_h:.0f}h old",
+                f"Last computed {computed_at:%Y-%m-%d %H:%M} UTC; the budget is "
+                f"{SNAPSHOT_MAX_AGE_H}h (the Worker recomputes every 6h).",
+                "Every freshness number is frozen at that moment, so evaluating "
+                "them would report sources as silent that are delivering "
+                "normally. Fix the `refresh_stats` cron, not the sources.")
+    return rows, computed_at, SNAPSHOT_RPC
+
+
+def _fetch_legacy(url: str, key: str) -> tuple[list[dict], datetime | None, str]:
+    """The pre-0112 path. Live aggregate; times out on any real dataset."""
+    r = _rpc(url, key, LEGACY_RPC)
+    if not r.ok:
+        raise CheckCannotRun(
+            f"`{LEGACY_RPC}()` returned HTTP {r.status_code}",
+            _error_detail(r),
+            f"`{SNAPSHOT_RPC}()` is absent too, so this project is missing "
+            f"../mapsee migration 0112. Code 57014 means {LEGACY_RPC}() timed "
+            f"out aggregating public.events — apply 0112 and schedule "
+            f"`refresh_stats()`; it cannot be tuned into working.")
+    try:
+        return _normalise(r.json() or []), None, LEGACY_RPC
+    except ValueError:
+        raise CheckCannotRun(f"`{LEGACY_RPC}()` returned unparseable JSON",
+                             (r.text or "")[:400]) from None
 
 
 def _parse_ts(v):
@@ -272,9 +476,12 @@ def evaluate(rows: list[dict], baseline: dict, drop_pct: float, now: datetime):
         budget = int(b.get("stale_days") or stale_budget(name))
         last = _parse_ts(row.get("last_added"))
         if last is None:
+            # Not "the column is empty" — the snapshot computes last_added as
+            # `max(created_at) filter (where created_at > now() - 30 days)`, so
+            # NULL is a positive finding: nothing at all has arrived in a month.
             problems.append({
                 "kind": "SILENT", "source": name,
-                "detail": "no last_added timestamp on any row",
+                "detail": "nothing added in the last 30 days (the snapshot's window)",
             })
         else:
             age = (now - last).days
@@ -331,12 +538,18 @@ def evaluate(rows: list[dict], baseline: dict, drop_pct: float, now: datetime):
     return problems, notes, live
 
 
-def render(problems, notes, live, baseline) -> str:
+def render(problems, notes, live, baseline, computed_at=None, via="") -> str:
     """Human-readable report. Also the body of the GitHub issue."""
     out = []
     total_up = sum(int(r.get("upcoming") or 0) for r in live.values())
     out.append(f"**{len(live)} sources reporting · {total_up:,} upcoming events**")
     out.append(f"Baseline taken {baseline.get('taken_at', 'never')}")
+    if computed_at:
+        age_h = (datetime.now(timezone.utc) - computed_at).total_seconds() / 3600
+        out.append(f"Numbers from `{via}`, computed "
+                   f"{computed_at:%Y-%m-%d %H:%M} UTC ({age_h:.0f}h ago)")
+    elif via:
+        out.append(f"Numbers from `{via}` (computed live)")
     out.append("")
 
     if problems:
@@ -367,14 +580,18 @@ def render(problems, notes, live, baseline) -> str:
     out.append("")
     out.append("<details><summary>Full per-source table</summary>")
     out.append("")
-    out.append("| Source | Upcoming | Total | Added 72h | Last added |")
+    # `total` and `added_72h` were 0057's columns and no longer exist: an
+    # all-time count over public.events cannot be computed inside the statement
+    # timeout, which is why 0112 stopped trying. 24h/7d are what the snapshot
+    # carries, and they answer the same question better.
+    out.append("| Source | Upcoming | Added 24h | Added 7d | Last added |")
     out.append("|---|---:|---:|---:|---|")
     for name, r in sorted(live.items(), key=lambda kv: -int(kv[1].get("upcoming") or 0)):
         last = _parse_ts(r.get("last_added"))
         when = f"{last:%Y-%m-%d %H:%M}" if last else "-"
         out.append(f"| {name} | {int(r.get('upcoming') or 0):,} "
-                   f"| {int(r.get('total') or 0):,} "
-                   f"| {int(r.get('added_72h') or 0):,} | {when} |")
+                   f"| {int(r.get('added_24h') or 0):,} "
+                   f"| {int(r.get('added_7d') or 0):,} | {when} |")
     out.append("")
     out.append("</details>")
     return "\n".join(out)
@@ -407,6 +624,9 @@ def main(argv=None):
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--update-baseline", action="store_true",
                     help="record the current state as healthy and exit 0")
+    ap.add_argument("--seed-baseline", action="store_true",
+                    help="write a baseline only if none exists yet, then exit 0 "
+                         "(safe to leave on in CI: it never overwrites)")
     ap.add_argument("--markdown", metavar="PATH",
                     help="also write the report as markdown to PATH")
     ap.add_argument("--drop-pct", type=float, default=0.6,
@@ -417,6 +637,18 @@ def main(argv=None):
     args = ap.parse_args(argv)
     try:
         return _run(args)
+    except CheckCannotRun as ex:
+        # NOT exit 1. Nothing was evaluated, so claiming a source went quiet
+        # would be a fabrication - and for four days on issue #3 it was one.
+        body = [f"### {ex.title}", "", "```", ex.detail, "```"]
+        if ex.hint:
+            body += ["", ex.hint]
+        body += ["", "**Nothing was evaluated**, so this says nothing about "
+                     "whether any source is healthy - only that the check "
+                     "itself could not run."]
+        print(f"!! {ex.title}: {ex.detail}", file=sys.stderr)
+        write_markdown(args.markdown, "\n".join(body))
+        return EXIT_OK if args.warn_only else EXIT_CANNOT_RUN
     except Exception:
         # Same contract as write_markdown's note. A traceback exits non-zero,
         # the workflow reads that as "unhealthy", and with no report the
@@ -430,7 +662,7 @@ def main(argv=None):
                        "nothing about whether the pipeline is healthy - only "
                        "that the check itself is broken.\n\n"
                        f"```\n{tb.rstrip()}\n```")
-        return 0 if args.warn_only else 1
+        return EXIT_OK if args.warn_only else EXIT_CANNOT_RUN
 
 
 def _run(args):
@@ -441,38 +673,21 @@ def _run(args):
         # Consistent with every adapter in this repo: no credentials is a skip,
         # not a failure. Keeps the check harmless in forks and local checkouts.
         print("SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY unset - skipping health check.")
-        return 0
+        return EXIT_OK
 
-    try:
-        rows = fetch_source_stats(url, key)
-    except requests.RequestException as ex:
-        # Reaching the database is itself the check. If this fails, say so
-        # loudly - that is exactly the silent-failure case this script exists
-        # to catch.
-        msg = (f"### Could not reach the database\n\n"
-               f"`source_stats()` could not be read, so nothing could be checked.\n\n"
-               f"```\n{ex}\n```\n\n"
-               f"This is not a source going quiet - it is the check itself unable "
-               f"to run. Usual causes: a rotated `SUPABASE_SERVICE_ROLE_KEY`, the "
-               f"project paused, or a transient network failure. If the next "
-               f"scheduled run is green, it was transient.")
-        print(f"!! could not read source_stats(): {ex}", file=sys.stderr)
-        write_markdown(args.markdown, msg)
-        return 0 if args.warn_only else 1
+    rows, computed_at, via = fetch_stats(url, key)      # raises CheckCannotRun
 
     if not rows:
-        msg = ("### `source_stats()` returned no rows\n\n"
-               "The pipeline has ingested nothing at all, or the RPC is missing "
-               "from the database. Every source is affected, so this is reported "
-               "as one problem rather than forty.")
-        print("!! source_stats() returned no rows at all - the pipeline has "
-              "ingested nothing, or the RPC is missing.", file=sys.stderr)
-        write_markdown(args.markdown, msg)
-        return 0 if args.warn_only else 1
+        raise CheckCannotRun(
+            f"`{via}` reported no sources at all",
+            "The snapshot computed successfully and contains zero rows.",
+            "Either the pipeline has ingested nothing whatsoever, or every row "
+            "in public.events is hidden. Both affect every source at once, so "
+            "this is one problem rather than forty.")
 
     now = datetime.now(timezone.utc)
 
-    if args.update_baseline:
+    if args.update_baseline or (args.seed_baseline and not os.path.exists(BASELINE)):
         dead, _ = ledger_summary()
         snapshot = {
             "_comment": "Written by mapsee_health_check.py --update-baseline. "
@@ -499,7 +714,6 @@ def _run(args):
             name = r.get("source") or "?"
             entry = {
                 "upcoming": int(r.get("upcoming") or 0),
-                "total": int(r.get("total") or 0),
                 "stale_days": stale_budget(name),
             }
             # keep any hand-tuned budget from the previous baseline
@@ -509,31 +723,48 @@ def _run(args):
         with open(BASELINE, "w", encoding="utf-8") as fh:
             json.dump(snapshot, fh, indent=2, sort_keys=True)
             fh.write("\n")
-        print(f"baseline written: {len(snapshot['sources'])} sources, "
+        seeded = "seeded" if args.seed_baseline and not args.update_baseline else "written"
+        print(f"baseline {seeded}: {len(snapshot['sources'])} sources, "
               f"{sum(s['upcoming'] for s in snapshot['sources'].values()):,} upcoming")
         print(f"  -> {BASELINE}")
-        return 0
+        write_markdown(args.markdown,
+                       f"### Baseline {seeded}\n\n"
+                       f"`{len(snapshot['sources'])}` source(s), "
+                       f"{sum(s['upcoming'] for s in snapshot['sources'].values()):,} "
+                       f"upcoming events, from `{via}`.\n\n"
+                       f"This run recorded what healthy looks like; it did not "
+                       f"evaluate anything. The next run is the first real check.")
+        return EXIT_OK
 
     if not os.path.exists(BASELINE):
-        print("No baseline yet. Run:  python mapsee_health_check.py --update-baseline")
-        print("(after a run you are confident was healthy)")
-        return 0
+        # Exit 0 so a fresh checkout is not a red tick, but say it in the REPORT
+        # too. This branch is why source-health could be green and blind at the
+        # same time: SILENT / MISSING / DRAINED all need the baseline, so with no
+        # file the workflow passed every day having checked precisely nothing,
+        # and nobody looked at stdout to find out. `--seed-baseline` in CI means
+        # it now lasts one run instead of for ever.
+        msg = ("### No baseline — nothing was checked\n\n"
+               "`source_health_baseline.json` does not exist, so there is no "
+               "record of what healthy looks like to compare against. This run "
+               "passed without evaluating a single source.\n\n"
+               "Fix: `python mapsee_health_check.py --update-baseline` after a "
+               "run you trust, and commit the file.")
+        print(msg)
+        write_markdown(args.markdown, msg)
+        return EXIT_OK
 
     with open(BASELINE, encoding="utf-8") as fh:
         baseline = json.load(fh)
 
     problems, notes, live = evaluate(rows, baseline, args.drop_pct, now)
-    report = render(problems, notes, live, baseline)
+    report = render(problems, notes, live, baseline, computed_at, via)
     print(report)
-
-    if args.markdown:
-        with open(args.markdown, "w", encoding="utf-8") as fh:
-            fh.write(report + "\n")
+    write_markdown(args.markdown, report)
 
     if problems and not args.warn_only:
         print(f"\n!! {len(problems)} source(s) need attention", file=sys.stderr)
-        return 1
-    return 0
+        return EXIT_UNHEALTHY
+    return EXIT_OK
 
 
 if __name__ == "__main__":
