@@ -188,8 +188,28 @@ comment explains the job split in detail. The short version:
 | `feeds` | daily 06:17 UTC | ICS, open data, Localist, JSON-LD, markets. Carries no coords, so each venue is geocoded (~1.1s); isolated so a slow feed can't drag the TM sweep. |
 | `meetup` | Mon & Thu 06:40 | One Meetup sweep. Separate key from Ticketmaster, so it runs in parallel. |
 | `extra_sources` | Mon & Thu 06:40 | SeatGeek/DICE/AXS metro sweep, Eventbrite, NPS/Localist/Sports. Skipped wholesale when none of those keys are set. |
+| `indexnow` | after every run | Pushes the URLs of events that just landed to IndexNow (Bing/Yandex/Seznam/Naver). `if: always()`, so a run where one leg failed still announces what the others ingested. |
 | `source-health` | daily 08:40 | Reads what landed; opens an issue if a source went quiet. See [Monitoring](#monitoring-how-you-find-out-something-broke). |
 | `audit` | Sun 04:10 | Deep re-probe of every curated feed; commits the refreshed ledger. |
+
+**Why `indexnow` exists.** An event page's crawlable life runs from the moment it
+is ingested to the moment the event starts — `sitemapEvents()` drops it from the
+sitemap the second it is in the past. Ingest adds ~6,500 indexable events a day
+into a sitemap index that already announces 50,000 URLs, so relying on a crawler
+to work down that list means a share of every day's events expire before anyone
+fetches them. IndexNow is the push half: *these specific URLs are new, now.*
+Google doesn't participate and is still served by the sitemaps; the reason to
+care about Bing is that its index is what backs Copilot and ChatGPT search.
+
+`mapsee_indexnow.py` reads with the **public anon key**, not the service role —
+so it is structurally incapable of announcing a private or hidden event, whatever
+its query says. It needs no secret.
+
+> ⚠️ The submission is authenticated by a key file served at
+> `https://mapsee.me/<key>.txt`, which lives in the **sibling repo** at
+> `mapsee/site/afea88b0d7114a5188694ff0f3580849.txt`. Delete that file and every
+> submission starts failing with a 403 — the job says so loudly, but the file
+> looks like junk, so it is worth knowing what it is.
 
 Adapters within a job run sequentially and all append to one store, which is
 synced once at the end of the job. That last part matters: a job cancelled at
