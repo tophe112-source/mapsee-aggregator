@@ -1,0 +1,16 @@
+{
+  "_comment": "Written by mapsee_health_check.py --update-baseline. This is what a healthy pipeline looked like at the time shown. Regenerate after deliberately adding or retiring a source; do not hand-edit counts. `stale_days` may be hand-tuned per source and is preserved on regeneration.",
+  "configured_dead": [],
+  "ledger_dead": 182,
+  "sources": {
+    "community": {
+      "stale_days": 8,
+      "upcoming": 7
+    },
+    "mapsee": {
+      "stale_days": 8,
+      "upcoming": 106594
+    }
+  },
+  "taken_at": "2026-08-10 19:33 UTC"
+}
