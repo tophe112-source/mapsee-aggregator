@@ -21,6 +21,7 @@ Roughly 200 curated sources across 20+ countries, plus keyed API sweeps:
 | City open data (Socrata) | `mapsee_ingest_opendata.py` | SODA API; ISO **and** free-text date columns |
 | City open data (OpenDataSoft) | `mapsee_ingest_ods.py` | Explore v2.1 records API; the EU civic workhorse |
 | City open data (CKAN) | `mapsee_ingest_ckan.py` | DataStore API. The only discovery path outside the US — data.gov.uk, open.canada.ca, data.gov.ie, govdata.de, data.gov.au, opendata.swiss |
+| DICE venue pages | `mapsee_ingest_dice_venue.py` | For venues whose own site is only a DICE widget (The Vera Project). Reads the public venue page, never `api.dice.fm` — the one path DICE's robots.txt disallows. Carries exact venue coordinates, so no geocoding |
 | Races (RunSignup) | `mapsee_ingest_runsignup.py` | Public keyless race API, partitioned by US state. The whole `running` and `fitness` supply: ~12,500 events, both lenses were at zero curated sources before it |
 | Localist | `mapsee_ingest_localist.py` | University/city calendars (`/api/2/events`) |
 | schema.org JSON-LD | `mapsee_ingest_jsonld.py` | Venue sites that embed `Event` blocks |
