@@ -293,13 +293,21 @@ def cron_report(by_kind: dict) -> list[str]:
         payload = payload if isinstance(payload, dict) else {}
         at = _parse_ts(row.get("computed_at"))
         when = f"{(now - at).total_seconds() / 3600:.0f}h ago" if at else "never"
+        # HOW LONG it ran is the diagnosis, not decoration. A 57014 at ~3s means
+        # the statement died on the API role's default ceiling; the same error at
+        # ~240s would mean the raised timeout in ../mapsee 0112 took effect and
+        # the query genuinely needs longer than four minutes. Those are different
+        # bugs with different fixes, and runCronTask has always recorded the
+        # number — this line just stopped throwing it away.
+        ms = payload.get("ms")
+        took = f", {int(ms) / 1000:.1f}s" if isinstance(ms, (int, float)) else ""
         if payload.get("ok") is False:
             state = f"FAILED - {payload.get('error') or 'no reason recorded'}"
         elif payload.get("skipped"):
             state = f"skipped - {payload['skipped']}"
         else:
             state = "ok"
-        out.append(f"CRON   {task}: {state} ({when})")
+        out.append(f"CRON   {task}: {state} ({when}{took})")
     return out
 
 

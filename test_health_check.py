@@ -234,8 +234,9 @@ def t_stale_snapshot_quotes_the_cron_reason():
     """
     stale_at = NOW - timedelta(hours=hc.SNAPSHOT_MAX_AGE_H + 100)
     rows = snapshot_rows(stale_at, HEALTHY[0]["payload"], cron={
-        "refreshStats": ({"ok": False, "error": "refresh_stats 504: canceling "
-                                                "statement due to statement timeout"},
+        "refreshStats": ({"ok": False, "ms": 3040,
+                          "error": "refresh_stats 504: canceling "
+                                   "statement due to statement timeout"},
                          NOW - timedelta(hours=2)),
         "purgeStaleLive": ({"ok": True, "skipped": False}, NOW - timedelta(hours=2)),
     })
@@ -245,6 +246,9 @@ def t_stale_snapshot_quotes_the_cron_reason():
     check("the recorded reason is quoted", "504" in report and "statement timeout" in report,
           report[:600])
     check("the healthy task is shown as ok", "purgeStaleLive: ok" in report, report[:600])
+    # The number that separates "died on the role's 3s ceiling" from "genuinely
+    # needs longer than the raised timeout allows".
+    check("how long it ran is reported", "3.0s" in report, report[:600])
 
 
 def t_cron_status_rides_along_on_a_healthy_run():
