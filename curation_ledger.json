@@ -1056,6 +1056,13 @@
     "status": "fail",
     "type": "opendata"
   },
+  "data.nasa.gov/resource/dd9e-wu2v.json": {
+    "checked": 20260810,
+    "name": "Global Landslide Catalog Export (data.nasa.gov)",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "opendata"
+  },
   "data.seattle.gov/resource/dm95-f8w5.json": {
     "checked": 20260809,
     "name": "Seattle Special Events",
@@ -3295,6 +3302,13 @@
     "reason": "2324 vevents / 234 future",
     "status": "ok",
     "type": "ics"
+  },
+  "termine.luebeck.jetzt": {
+    "checked": 20260810,
+    "name": "L\u00fcbsche Termine",
+    "reason": "88 upcoming, sample: GO.GR\u00d8\u00d8N",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "termine.social": {
     "checked": 20260808,
