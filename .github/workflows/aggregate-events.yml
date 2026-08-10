@@ -219,7 +219,13 @@ jobs:
     runs-on: ubuntu-latest
     # runs on the DAILY cron + manual (unless extra_only); skipped on the Mon/Thu extra-sources cron
     if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
-    timeout-minutes: 120
+    # 120 was the budget when this job took 54-58 minutes. It hit exactly 120 on
+    # 2026-08-10 and lost the run. The catalog has grown under it — daily
+    # curation instead of weekly, +67 Mobilizon instances, and Squarespace, Luma,
+    # Tribe and CKAN all added since — and every new source brings new venues to
+    # geocode at ~1.1s each. Raised to match, with the checkpoint sync below as
+    # the thing that makes a future overrun survivable rather than total.
+    timeout-minutes: 240
     # Cap NEW Photon geocodes per run (~1.1s each) so this job ALWAYS finishes and
     # actions/cache uploads the freshly-warmed geocode cache - a timed-out job
     # never saves it, so the same backlog re-runs forever. 5000 ~= 92 min of
@@ -288,6 +294,37 @@ jobs:
             python mapsee_ingest_markets.py --config market_sources.json --store feeds_events.json
           else
             echo "no market_sources.json — skipping markets"
+          fi
+
+      # CHECKPOINT. Everything above is the bulk of this job's supply — Socrata
+      # open data, 258 ICS feeds and 481 markets — and until this step existed it
+      # was all held in feeds_events.json until the single sync at the very end.
+      #
+      # On 2026-08-10 this job hit its timeout at exactly 120 minutes, ON THE
+      # MARKETS STEP. Every step after it was skipped, INCLUDING the sync, so two
+      # hours of open data and ICS were ingested and thrown away: plansie,
+      # awaresie and fleabop got nothing at all that day. The four runs before it
+      # took 54-58 minutes, so this was not a slow drift anyone could have
+      # watched — it doubled between two consecutive days.
+      #
+      # The timeout below is raised to match the catalog, but that only moves the
+      # cliff. This is the part that removes it: a run cut off after this point
+      # loses its tail instead of losing everything. Exactly the reasoning the
+      # meetup job already uses for its US leg — "a later timeout must not
+      # discard it" — applied to the job that actually needed it.
+      #
+      # Safe to run twice: the sync upserts on (external_source, external_id), so
+      # the final sync re-offering these rows is a no-op, and --only-new skips
+      # them before they are even built.
+      - name: Checkpoint — sync what has landed so far (a later timeout must not discard it)
+        run: |
+          ONLY_NEW="--only-new"
+          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""
+          [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
+          if [ -f feeds_events.json ]; then
+            python mapsee_supabase_sync.py --store feeds_events.json $ONLY_NEW || true
+          else
+            echo "nothing ingested yet — nothing to checkpoint"
           fi
       # ~2,900 free weekly runs in 21 countries — the whole 'running' layer, which
       # had no curated feed in ANY country. One fetch; the config pins it to one
