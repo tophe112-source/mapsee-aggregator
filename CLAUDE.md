@@ -8,7 +8,7 @@ the Worker), `../conbinience`, `../fishsie`. `../SUITE-AUDIT.md` covers all four
 ## The shape of it
 
 ```
-31 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+32 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -105,6 +105,15 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   GitHub runner returns Columbus, Ohio, silently. `expect_region` in
   `luma_sources.json` turns that into a refusal instead of wrong data; set it on
   every place.
+- **A widget key on somebody's page is not a feed you may read.**
+  theveraproject.org embeds a DICE widget whose `partnerId` and `apiKey` are in
+  plain sight, and using them would reach `api.dice.fm` — the ONE path
+  dice.fm/robots.txt disallows, with somebody else's credential. What is allowed
+  is the venue's own DICE PAGE (`Allow: /`, listed in DICE's published sitemap),
+  whose `__NEXT_DATA__` already carries the events server-rendered, so no API
+  call is needed at all. `mapsee_ingest_dice_venue.py` reads that and nothing
+  else. If you ever need more than the page carries, that is the signal to get a
+  real `DICE_API_KEY`, not to borrow one.
 - **Never add `pull_request:` to a workflow that reads secrets.** `tests.yml` is
   the one workflow safe on forks, because it reads none.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing

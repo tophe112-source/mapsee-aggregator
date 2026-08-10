@@ -410,6 +410,19 @@ jobs:
           else
             echo "no venuepilot_sources.json — skipping"
           fi
+      # Venues whose own site publishes nothing readable because the page is a
+      # DICE widget. Reads the venue's PUBLIC DICE PAGE — never api.dice.fm,
+      # which is the one path dice.fm/robots.txt disallows. Costs one request per
+      # venue and NO geocoding: the payload carries the venue's exact
+      # coordinates, which is why this can sit in a job whose time budget is
+      # spent on Photon.
+      - name: Import DICE venue pages (venues whose own site is just the widget)
+        run: |
+          if [ -f dice_venue_sources.json ]; then
+            python mapsee_ingest_dice_venue.py --config dice_venue_sources.json --store feeds_events.json
+          else
+            echo "no dice_venue_sources.json — skipping"
+          fi
       - name: Import The Rolodex (independent improv/sketch shows, public JSON)
         run: |
           if [ -f rolodex_sources.json ]; then
