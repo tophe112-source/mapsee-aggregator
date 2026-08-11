@@ -11,6 +11,34 @@ WEGOSIE = {"running", "sports", "fitness"}   # matches lens.js: outdoors deliber
 
 # (name, source category, description, expect_primary, expect_in_wegosie)
 CASES = [
+    # --- FOOD is a polluted bucket, not a deliberate classification (2026-08-12)
+    # A user screenshot showed "Gentle Morning Hatha Yoga" rendered as Food &
+    # Drink. Of 1,000 upcoming food-classified events only 16% had a food word in
+    # the title; yoga, pilates, tai chi, zumba and karate were all sitting there,
+    # because Meetup tags an event with whichever sweep found it.
+    ("Gentle Morning Hatha Yoga",         "food",      "", "fitness", True),
+    ("Restorative Yoga",                  "food",      "", "fitness", True),
+    ("Aktiv! Pilates",                    "food",      "", "fitness", True),
+    ("Traditional Shorin Ryu Karate",     "food",      "", "fitness", True),
+    ("Zumba Dance Fitness",               "food",      "", "fitness", True),
+    # …but a real food event with no movement word in the TITLE stays food.
+    ("Taco Tuesday at the Brewery",       "food",      "", "food",    False),
+    ("Sunday Farmers Market Brunch",      "food",      "", "food",    False),
+
+    # --- URLs are not evidence. The strong rule may read the description, and
+    # descriptions carry links this pipeline WRITES — the Tickets / info line and
+    # our own "More on this show" Google search. Both put arbitrary words in
+    # front of the classifier. Live examples, both previously misrouted:
+    ("Breathing Ecstasy: Tantric Breathing", "community",
+     "🔎 More on this show: https://www.google.com/search?q=Yoga%20Society%20Of%20San%20Francisco",
+     "community", False),
+    ("Glass Fusing Workshop",             "learning",
+     "Tickets / info: https://www.meetup.com/san-francisco-yoga-karate-writing-meetup-group/events/1",
+     "learning", False),
+    # a REAL yoga description still promotes — the words just have to be prose
+    ("Stretch & Recharge in the Park",    "community",
+     "Refresh your body and mind with a gentle lunchtime yoga session.", "fitness", True),
+
     # --- the whole point: these used to be invisible to a movement lens
     ("Community Yoga in the Park",        "community", "", "fitness", True),
     ("Sunrise Vinyasa Flow",              "other",     "", "fitness", True),

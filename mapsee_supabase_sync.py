@@ -160,7 +160,18 @@ _FITNESS_RX = re.compile(
 # NOT promotable out of 'outdoors': a hike or a ski trip should keep its green
 # pin and stay on the outdoors layer — it reaches wegosie as a SECONDARY instead
 # (see _SECONDARY_RX). Nor out of 'sports': a league fixture is already sport.
-_PROMOTABLE_TO_FITNESS = {"community", "learning", "other"}
+#
+# 'food' IS here, added 2026-08-12 on evidence. A user screenshot showed "Gentle
+# Morning Hatha Yoga" rendered as Food & Drink, and the category turned out to be
+# badly polluted: of 1,000 upcoming food-classified events, only 16% had a food
+# word in the TITLE at all, while yoga, pilates, tai chi, qigong, zumba, karate
+# and climbing nights sat inside it. Meetup tags an event with whichever sweep
+# found it, exactly as the _WEAK_KEY_FOR_FITNESS note describes for 'party' —
+# so a food key from that source is not the deliberate classification it looks
+# like. Measured over those titles this rule moves 24 events, of which one is
+# genuinely both ("BIKE RIDE & AUG BDAYS! LUNCH @ …"); it keeps food as a
+# SECONDARY, which is what that mechanism is for.
+_PROMOTABLE_TO_FITNESS = {"community", "learning", "other", "food"}
 
 # Unambiguous exercise words — ones that cannot plausibly appear in a nightlife,
 # market or concert listing. Because they cannot, this is the ONE fitness rule
@@ -313,7 +324,13 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
         add(str(c).strip().lower())
 
     # 3. Keyword signals, in the fixed priority of _SECONDARY_RX.
-    text = f"{rec.get('name') or ''}  {(rec.get('description') or '')[:_DESC_SCAN_CHARS]}"
+    #    URLs stripped for the same reason map_category strips them: a link in a
+    #    description — including the two this pipeline writes itself — puts
+    #    arbitrary words in front of the classifier. Without this, a karate
+    #    listing whose Meetup slug reads `…-yoga-karate-writing-…` picks up a
+    #    fitness SECONDARY off the slug, and an event whose only mention of yoga
+    #    is inside our own generated Google search URL reaches wegosie on it.
+    text = _strip_urls(f"{rec.get('name') or ''}  {(rec.get('description') or '')[:_DESC_SCAN_CHARS]}")
     for key, rx in _SECONDARY_RX:
         if len(extras) >= MAX_EXTRA_CATEGORIES:
             break
@@ -323,6 +340,29 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
             add(key)
 
     return primary, (extras[:MAX_EXTRA_CATEGORIES] or None)
+
+
+_URL_RX = re.compile(r"https?://\S+", re.I)
+
+
+def _strip_urls(text: str) -> str:
+    """Remove URLs before keyword classification.
+
+    The strong fitness rule is the only one allowed to read the DESCRIPTION, and
+    descriptions carry links — including two this pipeline writes itself, the
+    "Tickets / info:" line and the "🔎 More on this show" Google search. Both put
+    arbitrary words in front of the classifier as URL text.
+
+    Found 2026-08-12 while auditing why yoga was landing in food. Live examples:
+    "Breathing Ecstasy: Tantric Way of Breathing" matched on `yoga` inside OUR
+    OWN generated search URL (…q=Yoga%20Society%20Of%20San%20Francisco…), and a
+    karate listing matched on `yoga` inside the meetup group slug
+    `san-francisco-yoga-karate-writing-meetup-group`. A slug is not a statement
+    about what an event is, and a URL we generated is not evidence at all —
+    letting either decide the category is the pipeline classifying its own
+    output.
+    """
+    return _URL_RX.sub(" ", text or "")
 
 
 def map_category(rec: Dict[str, Any]) -> str:
@@ -351,9 +391,10 @@ def map_category(rec: Dict[str, Any]) -> str:
     if key in _PROMOTABLE_TO_FITNESS and _FITNESS_RX.search(rec.get("name") or ""):
         return "fitness"           # yoga/HIIT/climbing hiding in community/learning
     # …and the strong rule, which may also read the description and may override a
-    # keyword-derived key (see _WEAK_KEY_FOR_FITNESS).
+    # keyword-derived key (see _WEAK_KEY_FOR_FITNESS). URLs are stripped first —
+    # see _strip_urls for why that is not cosmetic.
     if key in _WEAK_KEY_FOR_FITNESS and _FITNESS_STRONG_RX.search(
-            f"{rec.get('name') or ''} {rec.get('description') or ''}"):
+            _strip_urls(f"{rec.get('name') or ''} {rec.get('description') or ''}")):
         return "fitness"
     return key
 
