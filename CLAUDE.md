@@ -27,6 +27,7 @@ front doors it reaches.
 | Whether a source has gone quiet | `mapsee_health_check.py` |
 | Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run |
 | Deleting past events | `mapsee_cleanup.py` |
+| Real "order pickup" links for food venues | `mapsee_menu_links.py` — writes a `🛒 Order:` line the product turns into the button |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | What runs when | `.github/workflows/aggregate-events.yml` header — the best doc in the repo |
 
@@ -114,6 +115,19 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   call is needed at all. `mapsee_ingest_dice_venue.py` reads that and nothing
   else. If you ever need more than the page carries, that is the signal to get a
   real `DICE_API_KEY`, not to borrow one.
+- **"Order pickup" must be earned by the URL, never by the category.** The
+  product used to show that button on any food event with a link; measured, 400
+  of 400 upcoming food events pointed somewhere you could not order (352 at
+  meetup.com), including a yoga class the classifier had filed under food. The
+  second attempt matched a bare `/menu` path, and a dry run over 144 live venues
+  pulled in a town website, an events platform and a tourism board — all of which
+  have a nav item called Menu — plus real restaurant menus you cannot order from.
+  Only known ordering HOSTS and unambiguous `/order*` paths qualify.
+  `looks_like_ordering` here and `looksLikeOrdering` in
+  `../mapsee/site/js/app.js` must agree; they are verified behaviourally, not
+  textually, because a JS regex literal escapes slashes and Python does not. The
+  product re-validates whatever this writes, so a disagreement fails safe as a
+  line that never renders — and `test_menu_links.py` pins both regressions.
 - **Never add `pull_request:` to a workflow that reads secrets.** `tests.yml` is
   the one workflow safe on forks, because it reads none.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
@@ -136,11 +150,12 @@ python test_ingest_categories.py    # adapters + the shared vocabulary
 python test_link_series.py          # which repeats count as one thing
 python test_health_check.py         # the alarm itself, against a faked transport
 python test_ingest_places.py        # coordinates: default pins, address parsing
+python test_menu_links.py           # what may be called an "Order pickup" link
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The five test scripts are the CI gate (`tests.yml`). They print one line per
+The six test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
