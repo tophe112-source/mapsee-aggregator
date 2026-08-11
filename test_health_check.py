@@ -221,8 +221,38 @@ def t_stale_snapshot_is_not_a_quiet_source():
     check("a stale snapshot exits 2, not 1", code == hc.EXIT_CANNOT_RUN, f"exit {code}")
     check("it blames the cron, not the sources",
           "refresh_stats" in report or "cron" in report.lower(), report[:300])
-    check("with no cron rows it says the Worker recorded nothing",
-          "recorded no cron status" in report, report[:500])
+    check("with no cron rows it says so",
+          "No cron rows of any kind" in report, report[:600])
+    check("and still names the scheduler that owns the refresh",
+          hc.REFRESH_JOB in report, report[:600])
+
+
+def t_stale_snapshot_does_not_let_healthy_worker_rows_alibi_it():
+    """The first production firing of this alarm, as a test.
+
+    Since ../mapsee 0141 the Worker does not refresh the snapshot — pg_cron
+    does, and pg_cron writes no `cron:` row. So `syncMenus: ok` and
+    `purgeStaleLive: ok` can sit directly under a 24h-old snapshot. Printed
+    without comment they read as an alibi, and the reader goes and inspects a
+    Worker that is working. The report has to say whose job is missing.
+    """
+    stale_at = NOW - timedelta(hours=hc.SNAPSHOT_MAX_AGE_H + 1)
+    rows = snapshot_rows(stale_at, HEALTHY[0]["payload"], cron={
+        "syncMenus": ({"ok": True, "ms": 400}, NOW - timedelta(minutes=20)),
+        "purgeStaleLive": ({"ok": True, "ms": 200}, NOW - timedelta(minutes=20)),
+    })
+    code, report = run({hc.SNAPSHOT_RPC: FakeResponse(200, rows)}, [], baseline=BASE)
+    check("exits 2", code == hc.EXIT_CANNOT_RUN, f"exit {code}")
+    check("it names the pg_cron job that owns the refresh",
+          hc.REFRESH_JOB in report, report[:800])
+    check("it says the healthy rows do not explain this",
+          "neither explain this nor rule anything out" in report, report[:800])
+    check("it hands over the cron.job query", "from cron.job;" in report, report[:800])
+    check("and the run-history query", "cron.job_run_details" in report, report[:800])
+    # The bug this replaces: the detail line credited the Worker with a refresh
+    # it no longer performs, next to two rows proving the Worker was fine.
+    check("it no longer says the Worker recomputes",
+          "Worker recomputes" not in report, report[:800])
 
 
 def t_stale_snapshot_quotes_the_cron_reason():
@@ -347,6 +377,7 @@ def main():
                t_missing_snapshot_function_falls_back,
                t_never_computed_snapshot,
                t_stale_snapshot_is_not_a_quiet_source,
+               t_stale_snapshot_does_not_let_healthy_worker_rows_alibi_it,
                t_stale_snapshot_quotes_the_cron_reason,
                t_cron_status_rides_along_on_a_healthy_run,
                t_skipped_cron_reads_as_skipped,
