@@ -281,11 +281,40 @@ _DESC_SCAN_CHARS = 600            # enough for the real blurb, short of the boil
                                   # would otherwise tag half a feed 'learning'
 
 
+# "workout" is a live metaphor and the classifier kept believing it. A glass-
+# fusing craft class opens "Your weekly creative workout starts here!" and was
+# promoted to fitness on that phrase alone — the description-reading rule's one
+# remaining false positive after URLs were excluded (measured: 6 description-only
+# matches in a 300-row sample, 2 wrong, both of which this and _strip_urls now
+# catch).
+#
+# Deliberately a short list of MODIFIERS rather than an attempt to understand the
+# sentence. "creative/mental/brain workout" is a figure of speech in every
+# listing that uses it; "morning workout" is not. Extending this list is cheap;
+# guessing at intent is not.
+_FITNESS_METAPHOR_RX = re.compile(
+    r"\b(creative|mental|brain|mind|memory|vocabulary|financial|emotional|"
+    r"spiritual|social|linguistic)\s+work\s?outs?\b|"
+    r"\bwork\s?outs?\s+(?:for|of)\s+(?:the\s+)?(?:mind|brain|soul|imagination)\b",
+    re.I)
+
+
+def _fitness_strong_hit(rec: Dict[str, Any]) -> bool:
+    """Does the STRONG fitness rule fire on this record's title + description?
+
+    One place, so the primary rule and the secondary-override decision can never
+    disagree about what fired. URLs are removed (a slug is not a claim about the
+    event) and figurative uses of "workout" are neutralised before matching.
+    """
+    text = _strip_urls(f"{rec.get('name') or ''} {rec.get('description') or ''}")
+    text = _FITNESS_METAPHOR_RX.sub(" ", text)
+    return bool(_FITNESS_STRONG_RX.search(text))
+
+
 def _strong_fitness_override(rec: Dict[str, Any], base: str) -> bool:
     """Did the strong fitness rule beat a keyword-derived key? Used to decide
     whether that key is worth keeping as a secondary — see derive_categories."""
-    return base in _WEAK_KEY_FOR_FITNESS and bool(_FITNESS_STRONG_RX.search(
-        f"{rec.get('name') or ''} {rec.get('description') or ''}"))
+    return base in _WEAK_KEY_FOR_FITNESS and _fitness_strong_hit(rec)
 
 
 def _base_category(rec: Dict[str, Any]) -> str:
@@ -376,8 +405,10 @@ def map_category(rec: Dict[str, Any]) -> str:
     raw = (rec.get("category") or "").strip().lower()
     key = raw if raw in MAPSEE_CATEGORY_KEYS else CATEGORY_KEYS.get(raw, DEFAULT_CATEGORY_KEY)
     if key in _PROMOTABLE_TO_VOLUNTEER:
-        text = f"{rec.get('name') or ''} {rec.get('description') or ''}"
-        if _VOLUNTEER_RX.search(text):
+        # URL-stripped like every other description read: a Meetup group slug
+        # such as …-volunteer-cleanup-group- is the name of a GROUP, not a
+        # statement that this event is a volunteering shift.
+        if _VOLUNTEER_RX.search(_strip_urls(f"{rec.get('name') or ''} {rec.get('description') or ''}")):
             return "volunteer"
     if key in _PROMOTABLE_TO_THEATER and _THEATER_RX.search(rec.get("name") or ""):
         return "theater"           # comedy/standup/film at a music venue -> stage layer
@@ -393,8 +424,7 @@ def map_category(rec: Dict[str, Any]) -> str:
     # …and the strong rule, which may also read the description and may override a
     # keyword-derived key (see _WEAK_KEY_FOR_FITNESS). URLs are stripped first —
     # see _strip_urls for why that is not cosmetic.
-    if key in _WEAK_KEY_FOR_FITNESS and _FITNESS_STRONG_RX.search(
-            _strip_urls(f"{rec.get('name') or ''} {rec.get('description') or ''}")):
+    if key in _WEAK_KEY_FOR_FITNESS and _fitness_strong_hit(rec):
         return "fitness"
     return key
 

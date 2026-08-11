@@ -11,6 +11,25 @@ WEGOSIE = {"running", "sports", "fitness"}   # matches lens.js: outdoors deliber
 
 # (name, source category, description, expect_primary, expect_in_wegosie)
 CASES = [
+    # --- "workout" is a live metaphor, and the classifier kept believing it.
+    # A glass-fusing craft class opens "Your weekly creative workout starts
+    # here!" and was promoted to fitness on that phrase alone. The guard is a
+    # short list of MODIFIERS, not an attempt to understand the sentence:
+    # "creative/mental workout" is figurative in every listing that uses it,
+    # "morning workout" is not.
+    ("Scrap to Sparkle: Glass Shards",   "learning",
+     "Your weekly creative workout starts here! Turn scraps into fused glass.", "learning", False),
+    ("Book Club",                        "community",
+     "A workout for the mind, every Tuesday.", "community", False),
+    ("Morning Session",                  "community",
+     "Join us for a morning workout in the park.", "fitness", True),
+
+    # A Meetup GROUP slug is the name of a group, not a claim about this event.
+    ("Community Potluck",                "community",
+     "Tickets / info: https://www.meetup.com/seattle-volunteer-crew/events/1", "community", False),
+    ("Beach Cleanup Day",                "community",
+     "Join our volunteer crew for a beach clean.", "volunteer", False),
+
     # --- FOOD is a polluted bucket, not a deliberate classification (2026-08-12)
     # A user screenshot showed "Gentle Morning Hatha Yoga" rendered as Food &
     # Drink. Of 1,000 upcoming food-classified events only 16% had a food word in
