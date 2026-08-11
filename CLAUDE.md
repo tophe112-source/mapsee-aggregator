@@ -28,6 +28,7 @@ front doors it reaches.
 | Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run |
 | Deleting past events | `mapsee_cleanup.py` |
 | Real "order pickup" links for food venues | `mapsee_menu_links.py` — writes a `🛒 Order:` line the product turns into the button |
+| Re-running the classifier over rows already in the table | `mapsee_reclassify.py` — dry run by default; `--apply` refuses without `--allow` |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | What runs when | `.github/workflows/aggregate-events.yml` header — the best doc in the repo |
 
@@ -128,6 +129,17 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   textually, because a JS regex literal escapes slashes and Python does not. The
   product re-validates whatever this writes, so a disagreement fails safe as a
   line that never renders — and `test_menu_links.py` pins both regressions.
+- **A classifier fix reaches the FUTURE only.** `--only-new` means a scheduled
+  run can only add, and Wednesday's full run re-reads the SOURCES — neither
+  re-applies our own rules to rows already stored. `mapsee_reclassify.py` is the
+  backfill, and it carries two guards learned the hard way. It paginates INSIDE
+  each time window: without that a busy window silently sampled its first 500
+  rows, and two dry runs disagreed (92 changes vs 4) purely because of what got
+  cut. And `--apply` refuses to write without `--allow food->fitness`, because
+  re-running the classifier replays EVERY rule ever added against rows that
+  predate all of them — the first full pass wanted to move a block party to
+  fitness and a fitness class to volunteer, on description prose, neither of
+  which had anything to do with the fix being backfilled.
 - **Never add `pull_request:` to a workflow that reads secrets.** `tests.yml` is
   the one workflow safe on forks, because it reads none.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
