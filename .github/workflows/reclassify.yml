@@ -1,0 +1,73 @@
+# Backfill a classifier fix onto rows already in the table.
+#
+# A classifier change only reaches events ingested AFTER it: --only-new means a
+# scheduled run can only ADD, and Wednesday's full refresh re-reads the SOURCES,
+# not our rules. So a fix to map_category corrects the future and leaves the past
+# exactly as it was. This is how the past gets corrected.
+#
+# MANUAL ONLY. No schedule, deliberately. Re-running the classifier over live
+# rows replays every rule ever written against rows that predate all of them, so
+# it is a decision someone takes after reading a transition table — not something
+# that should happen at 4am because a cron said so.
+#
+# Never add pull_request: this reads SUPABASE_SERVICE_ROLE_KEY, which bypasses
+# RLS. Same rule as every other workflow here except tests.yml.
+name: Reclassify existing events
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Only rows currently in this category (blank = all)"
+        required: false
+        default: "food"
+      allow:
+        description: "Transitions to WRITE, comma-separated, e.g. food->fitness. Blank = dry run."
+        required: false
+        default: ""
+      days:
+        description: "How far ahead to sweep"
+        required: false
+        default: "400"
+
+permissions:
+  contents: read
+
+jobs:
+  reclassify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # The classifier's own tests first. This job REWRITES live categories from
+      # the rules in mapsee_supabase_sync.py, so a broken rule here is not a
+      # failed run, it is thousands of wrong rows — and the dry run below would
+      # cheerfully print a tidy transition table for all of them.
+      - name: Classifier tests must pass before touching live rows
+        run: python test_categories.py
+
+      # ALWAYS a dry run first, printed in full, whatever the inputs say. It
+      # costs one pass and it is the only artifact that shows what a write would
+      # have done, in a log that outlives the run.
+      - name: Dry run (what WOULD change)
+        run: |
+          python mapsee_reclassify.py \
+            ${{ github.event.inputs.only && format('--only {0}', github.event.inputs.only) || '' }} \
+            --days ${{ github.event.inputs.days }}
+
+      - name: Apply the named transitions
+        if: ${{ github.event.inputs.allow != '' }}
+        run: |
+          ARGS=""
+          IFS=',' read -ra T <<< "${{ github.event.inputs.allow }}"
+          for t in "${T[@]}"; do ARGS="$ARGS --allow $(echo "$t" | xargs)"; done
+          python mapsee_reclassify.py --apply $ARGS \
+            ${{ github.event.inputs.only && format('--only {0}', github.event.inputs.only) || '' }} \
+            --days ${{ github.event.inputs.days }}
