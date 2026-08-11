@@ -1,0 +1,69 @@
+name: Request an event source
+description: Propose a public calendar, feed, venue, or open-data source for Mapsee.
+title: "Source request: "
+labels:
+  - source-request
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve public event coverage. Please provide public, non-sensitive information only.
+  - type: input
+    id: source_url
+    attributes:
+      label: Public event page or feed URL
+      placeholder: https://example.org/events
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: City, region, and country
+      placeholder: Seattle, Washington, United States
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Best category
+      options:
+        - arts
+        - community
+        - fitness
+        - kids
+        - learning
+        - market
+        - outdoors
+        - running
+        - volunteer
+        - mixed or unsure
+    validations:
+      required: true
+  - type: textarea
+    id: future_events
+    attributes:
+      label: Evidence of future events
+      description: Briefly describe what upcoming events are visible and how often the source updates.
+    validations:
+      required: true
+  - type: textarea
+    id: terms
+    attributes:
+      label: Terms, robots, or permission notes
+      description: Link relevant terms or explain any written permission. Leave unknown if you have not checked.
+  - type: dropdown
+    id: coordinates
+    attributes:
+      label: Does the source provide venue coordinates?
+      options:
+        - Yes
+        - No
+        - Unsure
+    validations:
+      required: true
+  - type: checkboxes
+    id: conduct
+    attributes:
+      label: Source conduct
+      options:
+        - label: This is a publicly advertised source and the request does not ask Mapsee to bypass access controls.
+          required: true
