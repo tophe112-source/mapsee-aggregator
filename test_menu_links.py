@@ -42,6 +42,14 @@ CASES = [
     ("https://www.toasttab.com/the-virginia-inn-1937-1st-avenue/market", False, "Toast retail market"),
     ("https://joule.com/donate", False, "donations"),
     ("https://joule.com/careers", False, "jobs"),
+    # ORDER TRACKING is not ordering. Both of these were live in production,
+    # on domains that are not restaurants, matched purely because /order.
+    ("https://www.trustgso.com/order/status", False, "order status page"),
+    ("https://www.episil.net/order/status", False, "same, another non-restaurant"),
+    ("https://joespizza.com/order/tracking", False, "courier tracking"),
+    ("https://joespizza.com/order/confirmation", False, "post-purchase receipt"),
+    # …but the ordering paths themselves must survive it
+    ("https://joespizza.com/order/", True, "plain /order still orders"),
     # …and the genuine ones from that same run, which must survive it.
     ("https://rojosmexicanfood.square.site", True, "Square Online store"),
     ("https://ordering.chownow.com/order/6656/locations", True, "ChowNow ordering"),

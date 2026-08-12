@@ -76,9 +76,16 @@ NOT_A_VENUE_SITE = re.compile(
 # retail page. Every one is on a genuine ordering host, and none of them feeds
 # anybody tonight. Same lie as the original category-based button, wearing the
 # uniform of the fix.
+#
+# `/order/status` is the other shape: order TRACKING, not ordering. Two of the
+# four genuinely-dead links the first prune run found were this —
+# trustgso.com/order/status and episil.net/order/status — on domains that are
+# not restaurants at all. They matched purely because the path begins /order,
+# and a page that tells you where your courier is has never sold anybody dinner.
 NOT_ORDER_PATH = re.compile(
     r"/(gift|gifts|giftcard|giftcards|gift-card|gift-cards|donate|donation|tip|tips|"
-    r"merch|market|jobs|careers|feedback|survey|waitlist|reservations?)(/|$|\?|#)", re.I)
+    r"merch|market|jobs|careers|feedback|survey|waitlist|reservations?|"
+    r"status|track|tracking|receipt|confirmation)(/|$|\?|#)", re.I)
 
 
 def looks_like_ordering(url: str) -> bool:
