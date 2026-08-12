@@ -1,0 +1,77 @@
+# Take back a promise the destination no longer keeps.
+#
+# The ingest checks every order and booking link before writing it. That does
+# nothing for links already on the map: an upsert cannot delete, so when a
+# destination dies the ingest just SKIPS the place and the row written back when
+# it worked survives, still rendering an "Order pickup" button.
+#
+# MANUAL, AND DRY BY DEFAULT — deliberately not scheduled yet. This pass edits
+# live descriptions, and the destination check it depends on has already been
+# wrong once in exactly the direction that would matter here: it read a 403
+# bot-block as proof a page was dead, which would have stripped most of the
+# map's Toast and Uber Eats links. That is fixed and tested, but "runs itself
+# every week and rewrites rows" is a promotion this should earn by being run by
+# hand a few times first.
+#
+# Never add pull_request: it reads SUPABASE_SERVICE_ROLE_KEY.
+name: Prune dead order links
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "WRITE. Unchecked = dry run, which is what you want first."
+        type: boolean
+        required: false
+        default: false
+      hide_orphans:
+        description: "Also hide rows left with NO transactional link (reversible)"
+        type: boolean
+        required: false
+        default: false
+      days:
+        description: "How far ahead to sweep"
+        required: false
+        default: "120"
+      max_checks:
+        description: "Distinct URLs to probe (we are a guest on these servers)"
+        required: false
+        default: "400"
+
+permissions:
+  contents: read
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      # The rewrite is the risky half. Gate on it before touching live rows,
+      # exactly as the reclassify workflow gates on the classifier tests.
+      - name: Rewrite tests must pass before editing live descriptions
+        run: |
+          python test_prune_links.py
+          python test_menu_links.py
+
+      - name: Dry run (what WOULD be pruned)
+        run: |
+          python mapsee_prune_links.py \
+            --days ${{ github.event.inputs.days }} \
+            --max-checks ${{ github.event.inputs.max_checks }}
+
+      - name: Prune
+        if: ${{ github.event.inputs.apply == 'true' }}
+        run: |
+          python mapsee_prune_links.py --apply \
+            ${{ github.event.inputs.hide_orphans == 'true' && '--hide-orphans' || '' }} \
+            --days ${{ github.event.inputs.days }} \
+            --max-checks ${{ github.event.inputs.max_checks }}

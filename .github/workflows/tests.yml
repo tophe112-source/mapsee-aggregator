@@ -100,6 +100,13 @@ jobs:
       - name: Opening hours we may act on (OSM takeaway)
         run: python test_osm_food.py
 
+      # The pruner EDITS live descriptions, so the rewrite is the risky half, not
+      # the probing. It must never leave the lead sentence advertising a link it
+      # has just removed, and must never touch a row whose destination was merely
+      # unreachable rather than gone.
+      - name: Pruning a dead link leaves an honest description
+        run: python test_prune_links.py
+
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a
       # mid-sweep crash on a schedule, hours later. Compiling is not a test, but
