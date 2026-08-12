@@ -19,7 +19,8 @@ So both failures are pinned here. Run: python test_menu_links.py
 """
 import sys
 
-from mapsee_menu_links import looks_like_ordering, order_link_on
+from mapsee_menu_links import (
+    looks_like_ordering, order_link_on, looks_like_booking, booking_link_on)
 
 CASES = [
     # (url, expected, why)
@@ -97,7 +98,94 @@ def main():
     failed += 0 if ok2 else 1
     print(f"{'ok  ' if ok2 else 'FAIL'}  a page with no order link yields None -> {got2}")
 
-    print(f"\n{len(CASES) + 2} cases, {failed} failed")
+    # ---- booking a table ------------------------------------------------
+    # Same bar as ordering and the same failure mode to avoid. `/menu` pulled in
+    # a town website and a tourism board; the equivalent trap here is `/book`,
+    # which is a bookshop, a book club, a hotel room and a terms page before it
+    # is ever a table. Bare /book and bare /reserve are deliberately unmatched.
+    print("\n-- booking a table --")
+    BOOKING_CASES = [
+        # (url, want, why)
+        ("https://www.opentable.com/r/oddfellows-cafe-seattle", True, "opentable venue page"),
+        ("https://resy.com/cities/sea/venue", True, "resy"),
+        ("https://www.exploretock.com/place", True, "tock"),
+        ("https://www.sevenrooms.com/reservations/place", True, "sevenrooms"),
+        ("https://www.thefork.co.uk/restaurant/x", True, "thefork, non-.com TLD"),
+        ("https://bistro.com/reservations", True, "explicit path on own domain"),
+        ("https://bistro.com/book-a-table", True, "unambiguous phrasing"),
+        ("https://bistro.com/booktable", True, "same, unhyphenated"),
+        ("https://bistro.com/book", False, "bare /book means too many things"),
+        ("https://bistro.com/reserve", False, "bare /reserve likewise"),
+        ("https://bookshop.org/books", False, "a bookshop is not a table"),
+        ("https://hotel.com/book-a-room", False, "a room is not a table"),
+        ("https://bistro.com/private-hire", False, "venue hire is not a table"),
+        ("https://www.opentable.com/gift-cards", False, "gift cards, on a real host"),
+        ("https://bistro.com/booking-terms", False, "terms page"),
+        ("https://bistro.com/menu", False, "a menu is not a booking"),
+        ("ftp://bistro.com/reservations", False, "not http(s)"),
+        ("not a url", False, "garbage"),
+    ]
+    for url, want, why in BOOKING_CASES:
+        got = looks_like_booking(url)
+        ok = got == want
+        failed += 0 if ok else 1
+        print(f"{'ok  ' if ok else 'FAIL'}  {str(want):<5} {why:<46} {url[:52]}")
+
+    # extraction prefers the real booking link over the nav
+    BOOK_HTML = """<a href="/menu">Menu</a>
+      <a href="/book-club">Book club</a>
+      <a href="https://www.opentable.com/r/joes">Reserve</a>"""
+    gotb = booking_link_on("https://joes.com/", BOOK_HTML)
+    okb = gotb == "https://www.opentable.com/r/joes"
+    failed += 0 if okb else 1
+    print(f"{'ok  ' if okb else 'FAIL'}  extracts the booking link, skipping /book-club -> {gotb}")
+
+    gotc = booking_link_on("https://joes.com/", HTML_NO_ORDER)
+    okc = gotc is None
+    failed += 0 if okc else 1
+    print(f"{'ok  ' if okc else 'FAIL'}  a page with no booking link yields None -> {gotc}")
+
+    # ---- two bugs the first live booking run exposed ---------------------
+    print("\n-- extraction hazards, both found against live sites --")
+
+    # 1. A PATH match on SOMEBODY ELSE'S domain books the wrong restaurant.
+    #    WingDome's own page linked elliottsoysterhouse.com/reservations, and
+    #    the matcher took it. A known booking HOST is still trusted anywhere,
+    #    because those URLs name the venue; a bare /reservations is not.
+    CROSS = '<a href="https://elliottsoysterhouse.com/reservations">Reserve</a>'
+    got3 = booking_link_on("https://wingdome.com/", CROSS)
+    ok3 = got3 is None
+    failed += 0 if ok3 else 1
+    print(f"{'ok  ' if ok3 else 'FAIL'}  /reservations on another venue's domain is refused -> {got3}")
+
+    SAME = '<a href="/reservations">Reserve</a>'
+    got4 = booking_link_on("https://cafeturko.com/", SAME)
+    ok4 = got4 == "https://cafeturko.com/reservations"
+    failed += 0 if ok4 else 1
+    print(f"{'ok  ' if ok4 else 'FAIL'}  ...but the venue's OWN /reservations is kept -> {got4}")
+
+    PLATFORM = '<a href="https://www.opentable.com/r/joes">Book</a>'
+    got5 = booking_link_on("https://wingdome.com/", PLATFORM)
+    ok5 = got5 == "https://www.opentable.com/r/joes"
+    failed += 0 if ok5 else 1
+    print(f"{'ok  ' if ok5 else 'FAIL'}  a known booking host is trusted cross-domain -> {got5}")
+
+    # 2. HTML entities in the href corrupt every query param after the first.
+    #    Live: opentable.com/r/neb-reservations-seattle?restref=1278643&amp;lang=en-US
+    ENT = '<a href="https://www.opentable.com/r/neb?restref=127&amp;lang=en-US">Book</a>'
+    got6 = booking_link_on("https://neb.com/", ENT)
+    ok6 = got6 == "https://www.opentable.com/r/neb?restref=127&lang=en-US"
+    failed += 0 if ok6 else 1
+    print(f"{'ok  ' if ok6 else 'FAIL'}  &amp; in an href is decoded -> {got6}")
+
+    # the ordering side shares the code and therefore both fixes
+    got7 = order_link_on("https://joes.com/", '<a href="https://rivals.com/order">Order</a>')
+    ok7 = got7 is None
+    failed += 0 if ok7 else 1
+    print(f"{'ok  ' if ok7 else 'FAIL'}  /order on another venue's domain is refused too -> {got7}")
+
+    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5
+    print(f"\n{total} cases, {failed} failed")
     return 1 if failed else 0
 
 

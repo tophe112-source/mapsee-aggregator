@@ -45,7 +45,11 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 
 from mapsee_ingest import EventStore, NormalizedEvent, make_fingerprint
-from mapsee_menu_links import looks_like_ordering, order_link_on, fetch as fetch_page
+from mapsee_menu_links import (
+    looks_like_ordering, order_link_on,
+    looks_like_booking, booking_link_on,
+    NOT_A_VENUE_SITE, fetch as fetch_page,
+)
 
 UA = "mapsee-aggregator/1.0 (+https://mapsee.me; OSM takeaway discovery)"
 OVERPASS = "https://overpass-api.de/api/interpreter"
@@ -192,26 +196,75 @@ def overpass(area, delay=2.0, tries=4):
     raise last
 
 
-def order_url_for(tags, session_delay=0.5):
-    """The place's own ordering page, or None. Never a guess."""
-    # OSM sometimes carries it outright. Cheapest possible answer.
+def links_for(tags, session_delay=0.5):
+    """(order_url, booking_url, site) for one place, from ONE page fetch.
+
+    All three come out of the same request on purpose. The page fetch is the
+    expensive and impolite half of this job — we are a guest on somebody's
+    server — so asking twice to answer two questions about the same restaurant
+    would double the cost of the thing we should be minimising.
+
+    Never a guess, for either link. See looks_like_ordering / looks_like_booking.
+
+    THE SITE is returned as well, and it is the reason the whole claim story
+    works: it is the venue's OWN domain, the only evidence an independent
+    restaurant has that the place is theirs. It was being fetched and thrown
+    away — measured 2026-08-12, 86% of imported restaurants had no way to claim
+    themselves while we held their website in a local variable. ../mapsee 0153
+    is the other half.
+    """
+    order = None
+    booking = None
+
+    # OSM sometimes carries either outright. Cheapest possible answer, no fetch.
     for k in ("website:menu", "contact:menu", "menu:url", "order:url"):
         v = tags.get(k)
         if v and looks_like_ordering(v):
-            return v
+            order = v
+            break
+    # Measured across 1,086 Seattle places: `website:reservation` appears ONCE
+    # and `reservation` 13 times as a yes/no/required FLAG carrying no link. So
+    # tags are close to useless for booking and the page scan below is where the
+    # yield is — but reading them costs nothing and they are the most reliable
+    # signal when present, because a mapper put them there deliberately.
+    for k in ("website:reservation", "reservation:website", "booking:website",
+              "contact:booking", "reservation:url"):
+        v = tags.get(k)
+        if v and looks_like_booking(v):
+            booking = v
+            break
+
     site = tags.get("website") or tags.get("contact:website")
-    if not site:
-        return None
-    if not site.startswith("http"):
+    if site and not site.startswith("http"):
         site = "https://" + site
-    if looks_like_ordering(site):
-        return site
-    html, final = fetch_page(site)
-    time.sleep(session_delay)
-    return order_link_on(final, html)
+    if not site:
+        return order, booking, None
+
+    # A Facebook page is not a domain a restaurant can prove it owns, and
+    # emitting it as "Website:" would put facebook.com in front of the claim
+    # machinery for no benefit (spread would reject it anyway — but a line that
+    # can only ever be rejected is a line not worth writing).
+    try:
+        host = urllib.parse.urlparse(site).hostname or ""
+    except Exception:
+        host = ""
+    own_site = site if host and not NOT_A_VENUE_SITE.search(host) else None
+
+    if not order and looks_like_ordering(site):
+        order = site
+    if not booking and looks_like_booking(site):
+        booking = site
+    if not (order and booking):
+        html, final = fetch_page(site)
+        time.sleep(session_delay)
+        if not order:
+            order = order_link_on(final, html)
+        if not booking:
+            booking = booking_link_on(final, html)
+    return order, booking, own_site
 
 
-def to_events(el, area, order_url, hours, days_ahead):
+def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=None):
     """One NormalizedEvent per open-day in the window ahead.
 
     Each is a real, bounded slot rather than a permanent pin, because that is
@@ -229,9 +282,31 @@ def to_events(el, area, order_url, hours, days_ahead):
         return []
     addr = " ".join(x for x in [tags.get("addr:housenumber"), tags.get("addr:street")] if x) or None
     kind = tags.get("amenity", "restaurant").replace("_", " ")
-    desc = (f"{name} — {kind} in {area['name']}. Order for pickup on their own site; "
+    # The opening line has to match what the listing can actually DO, because a
+    # place may now arrive with a booking link and no ordering one.
+    if order_url and booking_url:
+        lead = "Order for pickup or book a table on their own site"
+    elif booking_url:
+        lead = "Book a table on their own site"
+    else:
+        lead = "Order for pickup on their own site"
+    lines = []
+    if order_url:
+        lines.append(f"🛒 Order: {order_url}")
+    # The product turns this into a "Reserve a table" button, exactly as it does
+    # the Order line — and re-validates the URL before rendering either.
+    if booking_url:
+        lines.append(f"🍽️ Reserve: {booking_url}")
+    # Not decoration: this is the line ../mapsee 0153's event_link_domain reads,
+    # and it is the ONLY thing that lets the owner of an imported restaurant
+    # claim it. Written last so it never out-ranks a transactional link visually,
+    # and only when it is the venue's own domain (links_for filters socials).
+    if site:
+        lines.append(f"🌐 Website: {site}")
+    body = ("\n".join(lines) + "\n\n") if lines else ""
+    desc = (f"{name} — {kind} in {area['name']}. {lead}; "
             f"mapsee.me is not taking the order.\n\n"
-            f"🛒 Order: {order_url}\n\n"
+            f"{body}"
             f"Listing from OpenStreetMap contributors (ODbL). "
             f"Is this your place? Claim it on mapsee.me to correct it.")
     out = []
@@ -254,7 +329,7 @@ def to_events(el, area, order_url, hours, days_ahead):
             address=addr, city=area.get("city"), region=area.get("region"),
             country=area.get("country"), postal_code=tags.get("addr:postcode"),
             category="food",
-            ticket_url=order_url,
+            ticket_url=order_url or booking_url,
         ))
     return out
 
@@ -275,7 +350,7 @@ def main(argv=None):
              if not a.only or a.only.lower() in str(x.get("name", "")).lower()]
     store = None if a.dry_run else EventStore(a.store)
     cursor = load_cursor()
-    tot_seen = tot_hours = tot_order = tot_events = 0
+    tot_seen = tot_hours = tot_order = tot_booking = tot_events = 0
 
     for area in areas:
         try:
@@ -316,13 +391,23 @@ def main(argv=None):
         made = 0
         for el, hrs in window:
             try:
-                url = order_url_for(el.get("tags", {}))
+                url, booking, site = links_for(el.get("tags", {}))
             except Exception:
-                url = None
-            if not url:
+                url, booking, site = None, None, None
+            # A PUBLISHED WAY TO TRANSACT is still the bar — a restaurant merely
+            # existing is not a listing, which is what lets outreach honestly say
+            # nobody at the venue put this here. Booking a table meets that bar
+            # exactly as ordering does: it is a time, a seat and a commitment,
+            # and it is arguably more of an event than a pickup order. So the
+            # gate widens by one door rather than loosening.
+            if not (url or booking):
                 continue
-            tot_order += 1
-            for nev in to_events(el, area, url, hrs, a.days_ahead):
+            if url:
+                tot_order += 1
+            if booking:
+                tot_booking += 1
+            for nev in to_events(el, area, url, hrs, a.days_ahead,
+                                 booking_url=booking, site=site):
                 nev.fingerprint = make_fingerprint(
                     nev.name, (nev.start_local or "")[:10], nev.venue_name, nev.city)
                 if store:
@@ -342,7 +427,7 @@ def main(argv=None):
     if not a.dry_run:
         save_cursor(cursor)
     print(f"[osm-food] done: {tot_seen} places seen · {tot_hours} readable · "
-          f"{tot_order} with an order link · {tot_events} slots"
+          f"{tot_order} with an order link · {tot_booking} bookable · {tot_events} slots"
           + (" (dry run, nothing written)" if a.dry_run else ""))
     return 0
 

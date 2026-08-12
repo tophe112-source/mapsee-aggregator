@@ -34,6 +34,7 @@ Env:  SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 Run:  python mapsee_menu_links.py [--limit 200] [--dry-run] [--verbose]
 """
 import argparse
+import html as html_mod
 import json
 import os
 import re
@@ -92,6 +93,116 @@ def looks_like_ordering(url: str) -> bool:
         return False
 
 
+# ---------------------------------------------------------------------------
+# Booking a table — the same bar as ordering, held deliberately high
+# ---------------------------------------------------------------------------
+# A reservation platform HOST is unambiguous: opentable.com/r/<venue> is a
+# booking page whoever links it, in any language, with no path guessing. That is
+# where almost all of the real yield is.
+BOOKING_HOSTS = re.compile(
+    r"(^|\.)(opentable\.[a-z.]+|resy\.com|sevenrooms\.com|exploretock\.com|tock\.com|"
+    r"thefork\.[a-z.]+|quandoo\.[a-z.]+|bookatable\.[a-z.]+|tablecheck\.com|"
+    r"chope\.co|eatapp\.co|formitable\.com|superbexperience\.com|libro\.jp|"
+    r"guestplan\.com|dinesuperb\.com)$", re.I)
+
+# PATHS ARE THE DANGEROUS HALF, so this list is shorter than it wants to be.
+# `/menu` taught the lesson on the ordering side: a town website, an events
+# platform and a tourism board all have a nav item called Menu, and matching the
+# obvious word pulled all three in. The equivalent trap here is `/book` — a
+# bookshop, a book club, a "book a room", a "booking terms" page. So only
+# phrasings that cannot mean anything except a table are listed, and bare /book
+# and bare /reserve are deliberately absent.
+BOOKING_PATH = re.compile(
+    r"/(reservations?|book-?(a-?)?table|reserve-?(a-?)?table|table-?booking|"
+    r"book-?your-?table)(/|$|\?|#)", re.I)
+
+# Even on a real booking host or path, these are not a table.
+NOT_BOOKING_PATH = re.compile(
+    r"/(gift|gifts|giftcard|giftcards|gift-card|gift-cards|book-?a-?room|rooms?|"
+    r"hotel|event-?space|private-?hire|venue-?hire|terms|policy|policies|"
+    r"cancel|cancellation|book-?club|bookshop|books)(/|$|\?|#)", re.I)
+
+
+def looks_like_booking(url: str) -> bool:
+    """True only for a link that unambiguously books a TABLE.
+
+    Mirrors looksLikeBooking in ../mapsee/site/js/app.js. As with ordering, the
+    two are verified behaviourally rather than textually — a JS regex literal
+    escapes its slashes and Python's need not — and the client re-validates, so
+    a disagreement fails safe as a line that never renders a button.
+    """
+    try:
+        u = urllib.parse.urlparse(url)
+        if u.scheme not in ("http", "https") or not u.hostname:
+            return False
+        path = u.path or ""
+        if NOT_BOOKING_PATH.search(path):
+            return False
+        return bool(BOOKING_HOSTS.search(u.hostname) or BOOKING_PATH.search(path))
+    except Exception:
+        return False
+
+
+def _same_site(a: str, b: str) -> bool:
+    """Do two URLs belong to the same registrable-ish site?
+
+    Compares the last two labels, so www.joes.com, order.joes.com and joes.com
+    agree while joes.com and elliotts.com do not. Deliberately crude: it is a
+    trust boundary, not a public-suffix implementation, and the cost of being
+    slightly too strict is one missed link.
+    """
+    try:
+        ha = (urllib.parse.urlparse(a).hostname or "").lower()
+        hb = (urllib.parse.urlparse(b).hostname or "").lower()
+    except Exception:
+        return False
+    if not ha or not hb:
+        return False
+    return ha.split(".")[-2:] == hb.split(".")[-2:]
+
+
+def booking_link_on(page_url: str, html: str):
+    """The first link on this page that genuinely books a table AT THIS PLACE.
+
+    A PATH match is only trusted on the venue's OWN site. A known booking host is
+    trusted anywhere — opentable.com/r/joes identifies the restaurant in the URL,
+    so whoever links it, it books Joe's. But `/reservations` on somebody else's
+    domain identifies THEIR restaurant, and following it books the wrong table.
+
+    Not hypothetical: the first run of this matcher gave WingDome the URL
+    elliottsoysterhouse.com/reservations, scraped off a link on WingDome's own
+    page. Well-formed, plausible, and it would have sent a hungry person to a
+    different restaurant's booking form — the exact failure mode this repo
+    already has a note about for coordinates.
+    """
+    return _link_on(page_url, html, looks_like_booking, BOOKING_HOSTS)
+
+
+def _link_on(page_url: str, html: str, predicate, trusted_hosts):
+    if not html:
+        return None
+    seen = set()
+    for m in LINK_RX.finditer(html):
+        # DECODE HTML ENTITIES. An href in real markup is entity-encoded, so a
+        # query string arrives as `?a=1&amp;b=2` and every parameter after the
+        # first is silently corrupted. Live example from the first booking run:
+        # opentable.com/r/neb-reservations-seattle?restref=1278643&amp;lang=en-US.
+        # The old order-link pass had the same hole.
+        href = html_mod.unescape(m.group(1).strip())
+        if href.lower().startswith(("mailto:", "tel:", "javascript:")):
+            continue
+        absolute = urllib.parse.urljoin(page_url, href)
+        if absolute in seen:
+            continue
+        seen.add(absolute)
+        if not predicate(absolute):
+            continue
+        host = urllib.parse.urlparse(absolute).hostname or ""
+        if trusted_hosts.search(host) or _same_site(absolute, page_url):
+            return absolute
+    return None
+
+
 def sb(path: str, method: str = "GET", body=None, prefer: str = ""):
     req = urllib.request.Request(
         f"{SUPABASE_URL}/rest/v1/{path}", method=method,
@@ -123,21 +234,14 @@ LINK_RX = re.compile(r"""<a[^>]+href=["']([^"'#][^"']*)["']""", re.I)
 
 
 def order_link_on(page_url: str, html: str):
-    """The first link on this page that is genuinely an ordering destination."""
-    if not html:
-        return None
-    seen = set()
-    for m in LINK_RX.finditer(html):
-        href = m.group(1).strip()
-        if href.lower().startswith(("mailto:", "tel:", "javascript:")):
-            continue
-        absolute = urllib.parse.urljoin(page_url, href)
-        if absolute in seen:
-            continue
-        seen.add(absolute)
-        if looks_like_ordering(absolute):
-            return absolute
-    return None
+    """The first link on this page that genuinely orders food FROM THIS PLACE.
+
+    Shares _link_on with booking, so it gained two fixes found while adding the
+    booking matcher: HTML entities in the href are decoded, and a PATH-based
+    match (`/order`) is only trusted on the venue's own site. A known ordering
+    host is still trusted anywhere, because those URLs name the venue.
+    """
+    return _link_on(page_url, html, looks_like_ordering, ORDER_HOSTS)
 
 
 def main():
