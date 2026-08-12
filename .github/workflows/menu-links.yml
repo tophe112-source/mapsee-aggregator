@@ -1,0 +1,54 @@
+# Find the real "order pickup" link for food venues.
+#
+# Runs AFTER the daily ingest (06:17) and BEFORE cleanup (08:23), so it sees the
+# food events that landed this morning and does not spend fetches on rows that
+# are about to be deleted.
+#
+# Never add pull_request: this reads SUPABASE_SERVICE_ROLE_KEY, which bypasses
+# RLS. Same rule as every workflow here except tests.yml.
+name: Order links for food venues
+
+on:
+  schedule:
+    - cron: "40 7 * * *"           # daily, after ingest, before cleanup
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Events to examine (venues are deduped from these)"
+        required: false
+        default: "400"
+      dry_run:
+        description: "Report only, write nothing"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  menu-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # What may be called an "Order pickup" link, before anything writes one.
+      # This job puts a BUTTON on the map that promises you can place an order;
+      # it shipped wrong twice already (400 of 400 pointing at Meetup, then a
+      # bare /menu path matching a town website's nav), so the guard runs first.
+      - name: Order-link honesty tests
+        run: python test_menu_links.py
+
+      - name: Find order links
+        run: |
+          python mapsee_menu_links.py \
+            --limit ${{ github.event.inputs.limit || 400 }} \
+            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }} \
+            --verbose
