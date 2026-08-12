@@ -29,6 +29,7 @@ front doors it reaches.
 | Deleting past events | `mapsee_cleanup.py` |
 | Real "order pickup" links for food venues | `mapsee_menu_links.py` — writes a `🛒 Order:` line the product turns into the button |
 | Re-running the classifier over rows already in the table | `mapsee_reclassify.py` — dry run by default; `--apply` refuses without `--allow` |
+| Takeaway places (not events) from OpenStreetMap | `mapsee_ingest_osm_food.py` + `osm_food_sources.json` — only places with a real order link AND readable hours |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | What runs when | `.github/workflows/aggregate-events.yml` header — the best doc in the repo |
 
@@ -140,6 +141,19 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   predate all of them — the first full pass wanted to move a block party to
   fitness and a fitness class to volunteer, on description prose, neither of
   which had anything to do with the fix being backfilled.
+- **One adapter ingests BUSINESSES, not events, and that is a different promise.**
+  `mapsee_ingest_osm_food.py` takes takeaway places from OpenStreetMap. Every
+  other adapter imports something a venue PUBLISHED; a restaurant existing is
+  not a listing, which is why venue outreach can honestly say "nobody at your
+  end put them there". So it is deliberately narrow and the narrowness is the
+  design: no order link, no import; no readable `opening_hours`, no import; and
+  it never creates menu items, because we are not the till (which is also what
+  keeps `has_storefront` false so a claimed restaurant still gets offered 0%
+  pickup). Two live lessons are pinned in `test_osm_food.py`: an unreadable
+  `off` rule crashed the first real run, and refusing it matters most of all
+  rules because ignoring "shut" advertises a place as open. And of the first 13
+  order links found in Seattle, SEVEN were gift-card pages on genuine ordering
+  hosts — `NOT_ORDER_PATH` is why that is now six.
 - **Never add `pull_request:` to a workflow that reads secrets.** `tests.yml` is
   the one workflow safe on forks, because it reads none.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
@@ -163,11 +177,12 @@ python test_link_series.py          # which repeats count as one thing
 python test_health_check.py         # the alarm itself, against a faked transport
 python test_ingest_places.py        # coordinates: default pins, address parsing
 python test_menu_links.py           # what may be called an "Order pickup" link
+python test_osm_food.py             # opening hours we may act on, and the ones we must refuse
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The six test scripts are the CI gate (`tests.yml`). They print one line per
+The seven test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

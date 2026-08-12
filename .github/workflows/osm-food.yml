@@ -1,0 +1,68 @@
+# Takeaway places from OpenStreetMap that can actually take an order.
+#
+# WEEKLY, not daily, and on purpose. A restaurant's existence does not change
+# overnight, Overpass is a free volunteer-run service that 429s if you lean on
+# it, and every candidate costs a page fetch of somebody else's website. The
+# expensive half of this job is being a guest on other people's infrastructure.
+#
+# It writes into the shared store; mapsee_supabase_sync.py (run by
+# aggregate-events.yml) is what puts it on the map.
+#
+# Never add pull_request: reads SUPABASE_SERVICE_ROLE_KEY via the sync step.
+name: OSM takeaway places
+
+on:
+  schedule:
+    - cron: "10 5 * * 2"          # Tuesdays, before the 06:17 ingest
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "One area by name (blank = all)"
+        required: false
+        default: ""
+      max_places:
+        description: "Places examined per area (each costs a page fetch)"
+        required: false
+        default: "60"
+      dry_run:
+        description: "Report only, write nothing"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  osm-food:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      # Hours we may act on, and links we may call "Order pickup". This job puts
+      # a business on the map with a button promising you can buy food from it;
+      # both halves of that promise have already shipped wrong once.
+      - name: Opening-hours and order-link guards
+        run: |
+          python test_osm_food.py
+          python test_menu_links.py
+
+      - name: Pull takeaway places
+        run: |
+          python mapsee_ingest_osm_food.py \
+            --config osm_food_sources.json --store feeds_events.json \
+            --max-places ${{ github.event.inputs.max_places || 60 }} \
+            ${{ github.event.inputs.only && format('--only {0}', github.event.inputs.only) || '' }} \
+            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+
+      - name: Sync to Supabase
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: python mapsee_supabase_sync.py --store feeds_events.json --only-new

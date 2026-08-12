@@ -66,12 +66,28 @@ NOT_A_VENUE_SITE = re.compile(
     r"ticketmaster\.[a-z.]+|seatgeek\.com|linktr\.ee|google\.com|yelp\.com)$", re.I)
 
 
+# A known ordering HOST is not enough — the path has to be about food.
+#
+# Measured on the first live OSM pull: of 13 "order links" found in central
+# Seattle, SEVEN were gift cards. toasttab.com/<venue>/giftcards,
+# squareup.com/gift/<id>/order (which even matches /order), and a Toast /market
+# retail page. Every one is on a genuine ordering host, and none of them feeds
+# anybody tonight. Same lie as the original category-based button, wearing the
+# uniform of the fix.
+NOT_ORDER_PATH = re.compile(
+    r"/(gift|gifts|giftcard|giftcards|gift-card|gift-cards|donate|donation|tip|tips|"
+    r"merch|market|jobs|careers|feedback|survey|waitlist|reservations?)(/|$|\?|#)", re.I)
+
+
 def looks_like_ordering(url: str) -> bool:
     try:
         u = urllib.parse.urlparse(url)
         if u.scheme not in ("http", "https") or not u.hostname:
             return False
-        return bool(ORDER_HOSTS.search(u.hostname) or ORDER_PATH.search(u.path or ""))
+        path = u.path or ""
+        if NOT_ORDER_PATH.search(path):
+            return False
+        return bool(ORDER_HOSTS.search(u.hostname) or ORDER_PATH.search(path))
     except Exception:
         return False
 

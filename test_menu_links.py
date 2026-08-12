@@ -32,6 +32,20 @@ CASES = [
     ("https://joespizza.com/order-online/", True, "explicit ordering path"),
     ("https://joespizza.com/order", True, "explicit ordering path"),
 
+    # GIFT CARDS. A known ordering host is not enough — seven of the first
+    # thirteen "order links" the OSM pull found in central Seattle were these.
+    ("https://www.toasttab.com/taurus-ox-903-19th-ave-e/giftcards", False, "Toast gift cards"),
+    ("https://squareup.com/gift/7VCT1Z6FWEX7B/order", False, "Square gift card — contains /order"),
+    ("https://app.squareup.com/gift/MLWT06JXTR38Y/order", False, "same, on the app host"),
+    ("https://www.toasttab.com/the-virginia-inn-1937-1st-avenue/market", False, "Toast retail market"),
+    ("https://joule.com/donate", False, "donations"),
+    ("https://joule.com/careers", False, "jobs"),
+    # …and the genuine ones from that same run, which must survive it.
+    ("https://rojosmexicanfood.square.site", True, "Square Online store"),
+    ("https://ordering.chownow.com/order/6656/locations", True, "ChowNow ordering"),
+    ("https://order.online/online-ordering/business/top-pot-doughnuts", True, "order.online"),
+    ("http://toasttab.com/plenty-of-clouds", True, "bare Toast venue page"),
+
     # The dry-run false positives. A nav item called Menu is not a shop.
     ("https://mobilizon.fr/menu", False, "events platform nav"),
     ("https://carbondale.info/menu", False, "town website nav"),

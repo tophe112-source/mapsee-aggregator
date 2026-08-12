@@ -1,0 +1,43 @@
+{
+  "_readme": [
+    "Bounding boxes for mapsee_ingest_osm_food.py — takeaway places from OpenStreetMap",
+    "that have a resolvable order link AND readable opening hours. Both filters are",
+    "hard: no order link or unreadable hours means the place is skipped, because a",
+    "pin with nothing behind it, or hours we guessed at, is worse than no pin.",
+    "",
+    "bbox is [south, west, north, east]. Keep them TIGHT. Measured while building",
+    "this: a wide Seattle box answered 504, and a third city queried back-to-back",
+    "answered 429. Overpass is free and volunteer-run and it will say so.",
+    "",
+    "MEASURED YIELD, central Seattle (47.60,-122.35,47.66,-122.29), 2026-08-12:",
+    "  1,086 food places -> 654 with a website -> 446 tag opening_hours",
+    "  -> 317 whose hours we can READ -> 9 of the first 25 examined (36%) had a",
+    "  real order link once gift cards are excluded. Extrapolated: ~110 per box.",
+    "Do not expect thousands. Expect tens, all of which actually work.",
+    "",
+    "_not_included is an editorial NO and anything proposing new areas must read",
+    "it — same convention as mobilizon_sources.json. Put a MEASUREMENT in it, not",
+    "an impression: an earlier draft of this file declined Tokyo and Paris on a",
+    "guess that their opening_hours coverage was thin, and both turned out fine",
+    "(Shibuya 127 readable, Paris 11e 143). The guess would have cost two cities."
+  ],
+  "areas": [
+    { "name": "Seattle",   "city": "Seattle",   "region": "WA",  "country": "US",
+      "bbox": [47.60, -122.35, 47.66, -122.29] },
+    { "name": "Portland",  "city": "Portland",  "region": "OR",  "country": "US",
+      "bbox": [45.50, -122.70, 45.55, -122.62] },
+    { "name": "Chicago",   "city": "Chicago",   "region": "IL",  "country": "US",
+      "bbox": [41.87, -87.68, 41.93, -87.62] },
+    { "name": "New York",  "city": "New York",  "region": "NY",  "country": "US",
+      "bbox": [40.71, -74.01, 40.76, -73.97] },
+    { "name": "London",    "city": "London",    "region": null,  "country": "GB",
+      "bbox": [51.505, -0.15, 51.53, -0.09] },
+    { "name": "Paris",     "city": "Paris",     "region": null,  "country": "FR",
+      "bbox": [48.85, 2.34, 48.88, 2.40] },
+    { "name": "Tokyo",     "city": "Tokyo",     "region": null,  "country": "JP",
+      "bbox": [35.65, 139.68, 35.68, 139.72] },
+    { "name": "Melbourne", "city": "Melbourne", "region": "VIC", "country": "AU",
+      "bbox": [-37.82, 144.95, -37.79, 144.99] }
+  ],
+  "_not_included": {}
+}
