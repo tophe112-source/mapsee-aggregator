@@ -92,6 +92,14 @@ jobs:
       - name: Order-link honesty (what may be called "Order pickup")
         run: python test_menu_links.py
 
+      # Opening hours decide when a takeaway pin is offered to somebody hungry.
+      # Getting this wrong does not make a row look odd — it sends a person to a
+      # locked door, so the REFUSALS matter more than the parses. An unreadable
+      # "off" rule crashed the first live run, and shrugging one off would
+      # advertise a closed shop as open.
+      - name: Opening hours we may act on (OSM takeaway)
+        run: python test_osm_food.py
+
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a
       # mid-sweep crash on a schedule, hours later. Compiling is not a test, but
