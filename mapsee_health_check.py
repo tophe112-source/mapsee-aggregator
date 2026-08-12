@@ -22,8 +22,16 @@ It reads. It never writes event data.
 WHERE THE NUMBERS COME FROM
 ---------------------------
 `stats_snapshot_all()` — the precomputed snapshot from ../mapsee migration 0112,
-refreshed every 6h by the Worker cron (`refreshStats` in ../mapsee/src/index.js,
-`"crons": ["23 */6 * * *"]`).
+refreshed every 6h by the pg_cron job `mapsee-refresh-stats`.
+
+WHICH SCHEDULER OWNS THE REFRESH, because it has changed once and the answer is
+load-bearing here. It was the Worker (`refreshStats` in ../mapsee/src/index.js)
+until migration 0141 took it out: a function cannot raise its own
+`statement_timeout`, so calling `refresh_stats(30)` over PostgREST died on the
+service role's 8s ceiling every time. pg_cron runs as the job owner, which has no
+such ceiling. The Worker still owns `syncMenus` and `purgeStaleLive`, and still
+records those as `cron:` rows — so Worker rows reading `ok` say nothing at all
+about whether the snapshot got refreshed.
 
 NOT `source_stats()`, which this script called for its first eight runs and which
 failed all eight. That RPC aggregates `public.events` on read, and 0112 records
@@ -168,11 +176,15 @@ SNAPSHOT_RPC = "stats_snapshot_all"
 # the whole reason this script stopped calling it first.
 LEGACY_RPC = "source_stats"
 
-# The Worker recomputes the snapshot every 6h. Four consecutive misses means the
+# pg_cron recomputes the snapshot every 6h. Four consecutive misses means the
 # cron is down, and every freshness number below is frozen at whatever it said
 # then — SILENT would start firing about sources that are delivering fine. So a
 # stale snapshot is "the check cannot run", not "a source is quiet".
 SNAPSHOT_MAX_AGE_H = 24
+
+# The pg_cron job migration 0141 scheduled, named here so the report can send
+# someone to the right scheduler instead of to `wrangler tail`.
+REFRESH_JOB = "mapsee-refresh-stats"
 
 # Transient 5xx and connection resets happen. Four days of the SAME 500 is not
 # transient, and the report has to be able to tell the difference.
@@ -311,6 +323,42 @@ def cron_report(by_kind: dict) -> list[str]:
     return out
 
 
+# The two queries that separate "the schedule was never created" from "it is
+# created but never fires" from "it fires and errors". Nothing this script can
+# reach answers that — pg_cron's bookkeeping lives in tables the API role cannot
+# read — so the report's job is to hand over the right query, not to guess.
+PG_CRON_QUERIES = (
+    "    select jobid, jobname, schedule, active, database, username from cron.job;\n"
+    "    select jobid, status, return_message, start_time, end_time\n"
+    "      from cron.job_run_details order by start_time desc limit 5;")
+
+
+def _why_stale(cron: list[str]) -> str:
+    """Explain a stale snapshot without letting healthy Worker rows take the credit.
+
+    A `cron:refreshStats` row means this deployment predates ../mapsee 0141 and
+    the Worker still owns the refresh — then the recorded failure IS the cause
+    and quoting it is the whole point. Without that row the refresh belongs to
+    pg_cron, whose runs are not recorded here at all, and the Worker lines below
+    are bystanders that must be labelled as such.
+    """
+    has_refresh_row = any(line.startswith("CRON   refreshStats:") for line in cron)
+    if has_refresh_row:
+        return "\n".join(cron)
+
+    lead = (f"No `refreshStats` cron row: this deployment refreshes the snapshot "
+            f"from the pg_cron job `{REFRESH_JOB}` (../mapsee migration 0141), "
+            f"whose runs are NOT recorded in `stats_snapshot`.")
+    if cron:
+        lead += ("\n\nThe rows below are the Worker's OTHER tasks. They can all "
+                 "read `ok` while the snapshot goes stale, so they neither "
+                 "explain this nor rule anything out:\n\n" + "\n".join(cron))
+    else:
+        lead += ("\n\nNo cron rows of any kind were recorded, so the Worker's own "
+                 "tasks are unaccounted for too.")
+    return lead + "\n\nAsk the database which it is:\n\n" + PG_CRON_QUERIES
+
+
 def fetch_stats(url: str, key: str) -> tuple[list[dict], datetime | None, str, list[str]]:
     """(rows, computed_at, which RPC answered, cron lines). Raises CheckCannotRun."""
     r = _rpc(url, key, SNAPSHOT_RPC)
@@ -340,9 +388,10 @@ def fetch_stats(url: str, key: str) -> tuple[list[dict], datetime | None, str, l
         raise CheckCannotRun(
             "The stats snapshot has never been computed",
             "`stats_snapshot` holds no `sources` row.",
-            "Nothing has run `refresh_stats()`. The Worker cron in ../mapsee "
-            "(`\"crons\": [\"23 */6 * * *\"]`) does it in production; by hand it "
-            "is `select public.refresh_stats(30);` with the service role.")
+            f"Nothing has run `refresh_stats()`. The pg_cron job `{REFRESH_JOB}` "
+            "(../mapsee migration 0141) does it in production; by hand it is "
+            "`select public.refresh_stats(30);` as the postgres role — over "
+            "PostgREST it dies on the service role's 8s statement timeout.")
 
     computed_at = _parse_ts(snap.get("computed_at"))
     rows = _normalise(snap.get("payload") or [])
@@ -351,18 +400,23 @@ def fetch_stats(url: str, key: str) -> tuple[list[dict], datetime | None, str, l
         age_h = (datetime.now(timezone.utc) - computed_at).total_seconds() / 3600
         if age_h > SNAPSHOT_MAX_AGE_H:
             # THE case this was written for. "The snapshot is 142h old" is a
-            # symptom; the Worker knows the cause and records it beside the
-            # snapshot, so quote it here rather than sending someone to
-            # `wrangler tail` for something already in the database.
-            why = ("\n".join(cron) if cron else
-                   "The Worker has recorded no cron status at all — either it "
-                   "predates the bookkeeping in ../mapsee `runCronTask`, or the "
-                   "cron is not firing, which nothing else would show.")
+            # symptom, and the cause is recorded next to the snapshot — quote it
+            # rather than sending someone off to a log for something already in
+            # the database.
+            #
+            # But quote it for what it is. The `cron:` rows are the WORKER's
+            # tasks, and since 0141 the Worker does not refresh the snapshot, so
+            # every one of them can read `ok` while the snapshot rots. That is
+            # not hypothetical: it is what this alarm's first production firing
+            # looked like — `purgeStaleLive: ok`, `syncMenus: ok`, snapshot 24h
+            # old, pg_cron never having run once. Printed under a sentence about
+            # the Worker, those two green lines read as an alibi. So say which
+            # scheduler is missing, and name the two queries that answer it.
             raise CheckCannotRun(
                 f"The stats snapshot is {age_h:.0f}h old",
                 f"Last computed {computed_at:%Y-%m-%d %H:%M} UTC; the budget is "
-                f"{SNAPSHOT_MAX_AGE_H}h (the Worker recomputes every 6h).\n\n"
-                f"{why}",
+                f"{SNAPSHOT_MAX_AGE_H}h (`refresh_stats` is scheduled every 6h).\n\n"
+                f"{_why_stale(cron)}",
                 "Every freshness number is frozen at that moment, so evaluating "
                 "them would report sources as silent that are delivering "
                 "normally. Fix the `refresh_stats` cron, not the sources.")
