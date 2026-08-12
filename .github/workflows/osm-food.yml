@@ -31,7 +31,7 @@ on:
         default: false
 
 permissions:
-  contents: read
+  contents: write   # commits osm_food_cursor.json; see the step at the end
 
 jobs:
   osm-food:
@@ -66,3 +66,17 @@ jobs:
       - name: Sync to Supabase
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: python mapsee_supabase_sync.py --store feeds_events.json --only-new
+
+      # The cursor is the only state this job keeps, and it is what makes the
+      # NEXT run look at different places. Unpersisted, every run re-examines
+      # the same first --max-places candidates and coverage is capped forever —
+      # silently, because the store dedupes so it just looks like a quiet week.
+      # Same reason curation_cursor.json is committed.
+      - name: Commit the cursor
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add osm_food_cursor.json
+          git diff --staged --quiet || git commit -m "osm-food: advance the cursor [skip ci]"
+          git push

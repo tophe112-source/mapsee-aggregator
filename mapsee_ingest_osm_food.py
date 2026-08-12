@@ -144,6 +144,25 @@ def _days_in(spec: str):
     return days
 
 
+CURSOR_PATH = "osm_food_cursor.json"
+
+
+def load_cursor(path=CURSOR_PATH):
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return json.load(fh)
+    except Exception:
+        return {}
+
+
+def save_cursor(cur, path=CURSOR_PATH):
+    try:
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(cur, fh, indent=1, sort_keys=True)
+    except Exception as exc:
+        print(f"[osm-food] could not write cursor: {exc}", flush=True)
+
+
 def overpass(area, delay=2.0, tries=4):
     """Places of interest in one bounding box, with a website to check.
 
@@ -255,6 +274,7 @@ def main(argv=None):
     areas = [x for x in cfg.get("areas", [])
              if not a.only or a.only.lower() in str(x.get("name", "")).lower()]
     store = None if a.dry_run else EventStore(a.store)
+    cursor = load_cursor()
     tot_seen = tot_hours = tot_order = tot_events = 0
 
     for area in areas:
@@ -275,11 +295,26 @@ def main(argv=None):
             if not hrs:
                 continue
             cands.append((el, hrs))
+        # STABLE ORDER, then a CURSOR. Without both, --max-places made this
+        # feature permanently capped: every run examined cands[:60], the same
+        # sixty, so 480 of 3,134 candidates would have been the entire ceiling
+        # forever and the other 2,654 would never have been looked at once.
+        # Nothing would have reported that — the store dedupes, so a weekly run
+        # re-examining identical places just adds nothing and looks idle.
+        # Same pattern as curation_cursor.json, for the same reason.
+        cands.sort(key=lambda c: (c[0].get("type", ""), c[0].get("id", 0)))
         tot_seen += len(els)
         tot_hours += len(cands)
 
+        start = int(cursor.get(area["name"], 0)) % max(len(cands), 1)
+        window = cands[start : start + a.max_places]
+        if len(window) < a.max_places:                 # wrap around the end
+            window += cands[: a.max_places - len(window)]
+        if not a.dry_run:
+            cursor[area["name"]] = (start + a.max_places) % max(len(cands), 1)
+
         made = 0
-        for el, hrs in cands[: a.max_places]:
+        for el, hrs in window:
             try:
                 url = order_url_for(el.get("tags", {}))
             except Exception:
@@ -300,10 +335,12 @@ def main(argv=None):
         # is the only window into a job whose whole cost is being a polite guest
         # on other people's servers.
         print(f"[osm-food] {area['name']}: {len(els)} places, {len(cands)} with hours+site, "
-              f"{made} slots", flush=True)
+              f"examined {start}-{start + len(window)}, {made} slots", flush=True)
 
     if store:
         store.save()
+    if not a.dry_run:
+        save_cursor(cursor)
     print(f"[osm-food] done: {tot_seen} places seen · {tot_hours} readable · "
           f"{tot_order} with an order link · {tot_events} slots"
           + (" (dry run, nothing written)" if a.dry_run else ""))
