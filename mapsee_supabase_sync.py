@@ -299,6 +299,24 @@ _FITNESS_METAPHOR_RX = re.compile(
     re.I)
 
 
+def _classify_text(rec: Dict[str, Any], limit: int = 0) -> str:
+    """The text a keyword rule is allowed to classify on.
+
+    ONE place, because doing this in some paths and not others is how both of
+    this file's classification bugs happened. URLs went first — a Meetup slug is
+    the name of a group, not a claim about an event — and the metaphor guard had
+    to follow the same route: it was added to the primary fitness rule only, and
+    CI immediately caught "creative workout" still handing a glass-fusing class a
+    fitness SECONDARY, which is what puts it on wegosie. The primary read clean
+    and the event was still in the wrong lens.
+    """
+    desc = rec.get("description") or ""
+    if limit:
+        desc = desc[:limit]
+    text = _strip_urls(f"{rec.get('name') or ''} {desc}")
+    return _FITNESS_METAPHOR_RX.sub(" ", text)
+
+
 def _fitness_strong_hit(rec: Dict[str, Any]) -> bool:
     """Does the STRONG fitness rule fire on this record's title + description?
 
@@ -306,9 +324,7 @@ def _fitness_strong_hit(rec: Dict[str, Any]) -> bool:
     disagree about what fired. URLs are removed (a slug is not a claim about the
     event) and figurative uses of "workout" are neutralised before matching.
     """
-    text = _strip_urls(f"{rec.get('name') or ''} {rec.get('description') or ''}")
-    text = _FITNESS_METAPHOR_RX.sub(" ", text)
-    return bool(_FITNESS_STRONG_RX.search(text))
+    return bool(_FITNESS_STRONG_RX.search(_classify_text(rec)))
 
 
 def _strong_fitness_override(rec: Dict[str, Any], base: str) -> bool:
@@ -359,7 +375,7 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
     #    listing whose Meetup slug reads `…-yoga-karate-writing-…` picks up a
     #    fitness SECONDARY off the slug, and an event whose only mention of yoga
     #    is inside our own generated Google search URL reaches wegosie on it.
-    text = _strip_urls(f"{rec.get('name') or ''}  {(rec.get('description') or '')[:_DESC_SCAN_CHARS]}")
+    text = _classify_text(rec, _DESC_SCAN_CHARS)
     for key, rx in _SECONDARY_RX:
         if len(extras) >= MAX_EXTRA_CATEGORIES:
             break
