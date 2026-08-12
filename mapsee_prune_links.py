@@ -215,7 +215,46 @@ def main():
 
     tally = collections.Counter(verdicts.values())
     print(f"\n  verdicts: " + " · ".join(f"{k}={v}" for k, v in tally.most_common()))
-    dead = {u for u, v in verdicts.items() if v == "dead"}
+
+    # A WHOLE HOST FAILING AT ONCE IS REFUSAL, NOT BEREAVEMENT.
+    #
+    # The first dry run judged 11 of its top 20 dead links ubereats.com, among
+    # them Five Guys St Pauls, Zizzi Bankside, Subway and Arya Bhavan. Chains do
+    # not all delist on the same afternoon. Every one answered a real HTTP 404 on
+    # its full URL — so per-URL the verdict is defensible, and per-HOST it is
+    # obviously wrong, which is the only level at which the pattern is visible.
+    #
+    # We cannot tell "Uber Eats delisted these stores" from "Uber Eats 404s
+    # anything that is not a browser" without pretending to be a browser, which
+    # is not something to do to somebody's bot defences. So when a host's links
+    # are essentially ALL dead, the honest answer is that we do not know, and the
+    # links stay. A host with a genuine mix (some alive, some dead) is telling us
+    # about its restaurants; a host at 100% is telling us about us.
+    by_host = collections.defaultdict(list)
+    for u, v in verdicts.items():
+        try:
+            by_host[(urllib.parse.urlparse(u).hostname or "").lower().lstrip("www.")].append(v)
+        except Exception:
+            pass
+    refusing = set()
+    for host, vs in by_host.items():
+        n_dead = vs.count("dead")
+        if len(vs) >= 3 and n_dead == len(vs):
+            refusing.add(host)
+            print(f"  HOST REFUSING: {host} — all {len(vs)} of its links judged dead. "
+                  f"Treating as unknown, not pruning them.")
+
+    dead = set()
+    for u, v in verdicts.items():
+        if v != "dead":
+            continue
+        try:
+            h = (urllib.parse.urlparse(u).hostname or "").lower().lstrip("www.")
+        except Exception:
+            h = ""
+        if h in refusing:
+            continue
+        dead.add(u)
     if not dead:
         print("  nothing to prune.")
         return 0

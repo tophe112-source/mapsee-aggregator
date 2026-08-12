@@ -201,13 +201,26 @@ def main():
     # of this very file. destination_verdict keeps "unknown" apart from "dead"
     # and only "dead" may drop a link.
     print("\n-- the destination has to actually be there --")
+    # A MISSING TITLE ALONE IS NOT DEATH — the second false positive this check
+    # produced. Square Online stores routinely ship no <title> while being
+    # perfectly alive: basiliskpdx.square.site is 51KB with eight categories
+    # including "Online Menu" and "Salads"; stone-way-cafe.square.site is 43KB
+    # with "Stone Way Cafe - Online Menu". Both would have been stripped.
+    # pelotonseattle.square.site merely happened to say "Store | Peloton Cafe",
+    # and one confirming example is not evidence. So: no title AND too small to
+    # hold a shop.
+    BIG = "<html><head></head><body>" + ("<div>catalog</div>" * 900) + "</body></html>"
     DEST = [
         ("", False, "empty body"),
-        ("<html><head></head><body><div id=root></div></body></html>", False, "app shell, no title"),
-        ("<html><head><title>   </title></head><body>x</body></html>", False, "whitespace title"),
+        ("<html><head></head><body><div id=root></div></body></html>", False,
+         "tiny app shell, no title -> dead"),
+        ("<html><head><title>   </title></head><body>x</body></html>", False,
+         "whitespace title on a tiny body -> dead"),
         ("<html><head><title>Peloton Cafe - Seattle</title></head><body>x</body></html>",
          True, "a real product page"),
+        (BIG, True, "no title but 16KB of catalog -> a live Square store"),
     ]
+    assert len(BIG) >= 10_000, "the live-Square fixture must exceed the shell threshold"
     for h, want, why in DEST:
         got = destination_ok(h)
         ok = got == want

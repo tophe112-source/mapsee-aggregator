@@ -154,24 +154,41 @@ FOODY_RX = re.compile(
     r"(menu|food|order|drink|coffee|kitchen|bakery|deli|dinner|lunch|breakfast)", re.I)
 
 
+# An EMPTY APP SHELL is small. A real page — even one that renders its content in
+# JavaScript — ships a catalog, styles and inline state, and runs to tens of KB.
+EMPTY_SHELL_BYTES = 10_000
+
+
 def destination_ok(html: str) -> bool:
     """Given a page we actually RETRIEVED, does it look like a real one?
 
     A dead ordering link does not 404. Measured 2026-08-12:
     order.chownow.com/order/39625/locations/60228 answers 200 with a 4.1KB React
     shell and NO <title>, while a live ChowNow location answers 200 with 28KB
-    titled "Peloton Cafe - Seattle - …". Status codes cannot separate them; the
-    server-rendered title can, because a real product page needs one for its own
-    SEO and a bare shell has nothing to put there.
+    titled "Peloton Cafe - Seattle - …". Status codes cannot separate them.
+
+    A MISSING TITLE ALONE IS NOT DEATH, and believing it was is the second false
+    positive this check has produced. Square Online stores routinely ship no
+    <title> at all while being perfectly alive: basiliskpdx.square.site is 51KB
+    with eight categories including "Online Menu", "Drinks" and "Salads", and
+    stone-way-cafe.square.site is 43KB with "Stone Way Cafe - Online Menu". Both
+    would have been stripped. pelotonseattle.square.site merely happened to say
+    "Store | Peloton Cafe", and one confirming example is not evidence.
+
+    So the signature is a title AND a body: dead means we got a page with no
+    title that is also too small to contain a shop. That fits the 4.1KB ChowNow
+    shell and excludes every live Square store measured.
 
     ONLY call this with HTML you really got. Passing it a failed fetch is the
-    trap — see destination_verdict, which exists because this function on its own
-    called Toast, Uber Eats and DoorDash dead.
+    other trap — see destination_verdict, which exists because this function on
+    its own called Toast, Uber Eats and DoorDash dead.
     """
     if not html:
         return False
     m = TITLE_RX.search(html)
-    return bool(m and m.group(1).strip())
+    if m and m.group(1).strip():
+        return True
+    return len(html) >= EMPTY_SHELL_BYTES
 
 
 def destination_verdict(url: str, timeout: int = 20) -> str:
