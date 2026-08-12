@@ -48,6 +48,7 @@ from mapsee_ingest import EventStore, NormalizedEvent, make_fingerprint
 from mapsee_menu_links import (
     looks_like_ordering, order_link_on,
     looks_like_booking, booking_link_on,
+    destination_ok, refine_storefront,
     NOT_A_VENUE_SITE, fetch as fetch_page,
 )
 
@@ -261,6 +262,24 @@ def links_for(tags, session_delay=0.5):
             order = order_link_on(final, html)
         if not booking:
             booking = booking_link_on(final, html)
+
+    # VERIFY THE DESTINATION, once, before promising anything about it. Both
+    # failures reported on 2026-08-12 were 200s: a ChowNow location that serves
+    # an empty React shell, and a Square store whose landing block is gift cards
+    # with the menus one level in. Neither a status code nor the URL itself can
+    # see either, so the only honest check is to look at the page.
+    if order:
+        ohtml, ofinal = fetch_page(order)
+        time.sleep(session_delay)
+        if not destination_ok(ohtml):
+            order = None
+        else:
+            order = refine_storefront(ofinal or order, ohtml)
+    if booking:
+        bhtml, _ = fetch_page(booking)
+        time.sleep(session_delay)
+        if not destination_ok(bhtml):
+            booking = None
     return order, booking, own_site
 
 
@@ -341,6 +360,9 @@ def main(argv=None):
     ap.add_argument("--only", help="one area by name (substring)")
     ap.add_argument("--days-ahead", type=int, default=7)
     ap.add_argument("--max-places", type=int, default=60, help="per area, per run")
+    ap.add_argument("--ignore-cursor", action="store_true",
+                    help="start at the first candidate and do not advance the cursor "
+                         "(backfill: re-examine places already imported)")
     ap.add_argument("--delay", type=float, default=2.0)
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args(argv)
@@ -381,11 +403,18 @@ def main(argv=None):
         tot_seen += len(els)
         tot_hours += len(cands)
 
-        start = int(cursor.get(area["name"], 0)) % max(len(cands), 1)
+        # --ignore-cursor starts at the beginning and does not move the cursor,
+        # so a backfill re-examines places already imported instead of marching
+        # past them. Needed because the weekly run can only ever go FORWARD: a
+        # change to what we write (the Website line, a verified order link) never
+        # reaches a row that was imported before it, and --only-new means the
+        # sync would skip it even if it did. It leaves the cursor untouched so a
+        # backfill does not also cost the normal rotation its place.
+        start = 0 if a.ignore_cursor else int(cursor.get(area["name"], 0)) % max(len(cands), 1)
         window = cands[start : start + a.max_places]
         if len(window) < a.max_places:                 # wrap around the end
             window += cands[: a.max_places - len(window)]
-        if not a.dry_run:
+        if not a.dry_run and not a.ignore_cursor:
             cursor[area["name"]] = (start + a.max_places) % max(len(cands), 1)
 
         made = 0

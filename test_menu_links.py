@@ -20,7 +20,8 @@ So both failures are pinned here. Run: python test_menu_links.py
 import sys
 
 from mapsee_menu_links import (
-    looks_like_ordering, order_link_on, looks_like_booking, booking_link_on)
+    looks_like_ordering, order_link_on, looks_like_booking, booking_link_on,
+    destination_ok, refine_storefront)
 
 CASES = [
     # (url, expected, why)
@@ -184,7 +185,51 @@ def main():
     failed += 0 if ok7 else 1
     print(f"{'ok  ' if ok7 else 'FAIL'}  /order on another venue's domain is refused too -> {got7}")
 
-    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5
+    # ---- a 200 is not a working destination ------------------------------
+    # Both links reported broken on 2026-08-12 answered 200. A dead ChowNow
+    # location serves a 4.1KB React shell with no <title>; a live one serves 28KB
+    # titled "Peloton Cafe - Seattle - …". Status codes cannot separate them.
+    print("\n-- the destination has to actually be there --")
+    DEST = [
+        ("", False, "empty body"),
+        ("<html><head></head><body><div id=root></div></body></html>", False, "app shell, no title"),
+        ("<html><head><title>   </title></head><body>x</body></html>", False, "whitespace title"),
+        ("<html><head><title>Peloton Cafe - Seattle</title></head><body>x</body></html>",
+         True, "a real product page"),
+    ]
+    for h, want, why in DEST:
+        got = destination_ok(h)
+        ok = got == want
+        failed += 0 if ok else 1
+        print(f"{'ok  ' if ok else 'FAIL'}  {str(want):<5} {why}")
+
+    # ---- point at the food, not the shop's front door ---------------------
+    # pelotonseattle.square.site is live, on a genuine ordering host, and its
+    # landing block is titled "Gift Cards" — the menus are at /shop/online-menu.
+    SQ = ('{"name":"Online Menu","updated_date":"2026-07-09","permalink":"",'
+          '"site_link":"\\/shop\\/online-menu\\/MY5U"}'
+          '{"name":"Merch","updated_date":"2026-07-09","permalink":"",'
+          '"site_link":"\\/shop\\/merch\\/JRVT"}')
+    got8 = refine_storefront("https://pelotonseattle.square.site/", SQ)
+    ok8 = got8 == "https://pelotonseattle.square.site/shop/online-menu/MY5U"
+    failed += 0 if ok8 else 1
+    print(f"{'ok  ' if ok8 else 'FAIL'}  a storefront root is refined to its menu -> {got8}")
+
+    # a link that already names a path was chosen deliberately: leave it be
+    deep = "https://order.toasttab.com/online/joes"
+    got9 = refine_storefront(deep, SQ)
+    ok9 = got9 == deep
+    failed += 0 if ok9 else 1
+    print(f"{'ok  ' if ok9 else 'FAIL'}  an already-specific link is left alone -> {got9}")
+
+    # nothing food-ish to move to => keep the root rather than invent a page
+    got10 = refine_storefront("https://shop.square.site/",
+                              '{"name":"Merch","updated_date":"x","site_link":"\\/shop\\/merch\\/A"}')
+    ok10 = got10 == "https://shop.square.site/"
+    failed += 0 if ok10 else 1
+    print(f"{'ok  ' if ok10 else 'FAIL'}  no food category => unchanged -> {got10}")
+
+    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5 + len(DEST) + 3
     print(f"\n{total} cases, {failed} failed")
     return 1 if failed else 0
 

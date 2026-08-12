@@ -29,6 +29,11 @@ on:
         type: boolean
         required: false
         default: false
+      full_refresh:
+        description: "BACKFILL: re-examine from the first candidate and REWRITE existing rows"
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write   # commits osm_food_cursor.json; see the step at the end
@@ -36,7 +41,11 @@ permissions:
 jobs:
   osm-food:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # 45 is plenty for the weekly 60-per-area rotation. A full_refresh re-examines
+    # every candidate and now costs TWO fetches each (the venue site, then the
+    # order/booking destination it names), so all eight areas at ~3,100 readable
+    # candidates would run well past it — run a backfill ONE AREA AT A TIME.
+    timeout-minutes: 120
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -66,6 +75,7 @@ jobs:
             --config osm_food_sources.json --store feeds_events.json \
             --max-places ${{ github.event.inputs.max_places || 60 }} \
             ${{ github.event.inputs.only && format('--only {0}', github.event.inputs.only) || '' }} \
+            ${{ github.event.inputs.full_refresh == 'true' && '--ignore-cursor' || '' }} \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       - name: Sync to Supabase
@@ -74,8 +84,20 @@ jobs:
           # Guarded like every other sync step here: a pull that found nothing
           # writes no store, and "file not found" is a confusing way to report
           # a quiet week.
+          # --only-new is right for the WEEKLY run: it skips rows already in the
+          # table, so a scheduled pull can only add and never churns 20k rows.
+          # It is exactly wrong for a backfill, because the rows that need
+          # rewriting are precisely the ones already there. full_refresh drops
+          # it so the new description — the Website line that lets an owner
+          # claim the place, the Reserve link, a re-verified order link —
+          # actually lands on the restaurants already on the map.
+          ONLY_NEW="--only-new"
+          if [ "${{ github.event.inputs.full_refresh }}" = "true" ]; then
+            ONLY_NEW=""
+            echo "FULL REFRESH: syncing without --only-new; existing rows will be rewritten"
+          fi
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json --only-new
+            python mapsee_supabase_sync.py --store feeds_events.json $ONLY_NEW
           else
             echo "no feeds_events.json — nothing was pulled this run"
           fi

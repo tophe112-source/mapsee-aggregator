@@ -143,6 +143,67 @@ def looks_like_booking(url: str) -> bool:
         return False
 
 
+TITLE_RX = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
+
+# Square Online exposes its shop categories as embedded JSON rather than <a>
+# hrefs — the rendered page has literally zero links until its JS runs.
+SQUARE_CATEGORY_RX = re.compile(
+    r'"name"\s*:\s*"([^"]{2,40})"\s*,\s*"updated_date"[^}]*?"site_link"\s*:\s*"([^"]+)"')
+FOODY_RX = re.compile(
+    r"(menu|food|order|drink|coffee|kitchen|bakery|deli|dinner|lunch|breakfast)", re.I)
+
+
+def destination_ok(html: str) -> bool:
+    """Does this page actually exist, or is it an empty app shell?
+
+    A dead ordering link does not 404. Measured against the two URLs reported on
+    2026-08-12: order.chownow.com/order/39625/locations/60228 answers 200 with a
+    4.1KB React shell and NO <title> at all, while a live ChowNow location
+    answers 200 with 28KB and "Peloton Cafe - Seattle - Best American (New)
+    restaurant in Seattle, WA". Status codes cannot tell these apart; the
+    server-rendered title can, because a real product page needs one for its own
+    SEO and a bare shell has nothing to put there.
+    """
+    if not html:
+        return False
+    m = TITLE_RX.search(html)
+    return bool(m and m.group(1).strip())
+
+
+def refine_storefront(url: str, html: str) -> str:
+    """Point at the food, not at the shop's front door.
+
+    pelotonseattle.square.site/ is a real, live Square store on a genuine
+    ordering host — and the featured block on its landing page is titled "Gift
+    Cards", so somebody hungry arrives at gift cards. The menus are one level in,
+    at /shop/online-menu/<id>. The link was not broken; it was pointed at the
+    wrong shelf, which is the same failure as the gift-card paths NOT_ORDER_PATH
+    already refuses, wearing a different disguise.
+
+    Only refines a ROOT url — a link that already names a path was chosen
+    deliberately and is left alone. Falls back to the original on anything
+    unexpected, so Square changing this JSON costs us a refinement, never a link.
+    """
+    try:
+        if (urllib.parse.urlparse(url).path or "/").strip("/"):
+            return url                                    # already specific
+    except Exception:
+        return url
+    if not html:
+        return url
+    cats = [(n, l.replace("\\/", "/")) for n, l in SQUARE_CATEGORY_RX.findall(html)]
+    foody = [(n, l) for n, l in cats if FOODY_RX.search(n) or FOODY_RX.search(l)]
+    if not foody:
+        return url
+    # "Online Menu" is the ordering flow where a store has one; otherwise the
+    # first food-ish category, which still beats the gift-card landing.
+    best = next((c for c in foody if "online" in (c[0] + c[1]).lower()), foody[0])
+    try:
+        return urllib.parse.urljoin(url, best[1])
+    except Exception:
+        return url
+
+
 def _same_site(a: str, b: str) -> bool:
     """Do two URLs belong to the same registrable-ish site?
 
