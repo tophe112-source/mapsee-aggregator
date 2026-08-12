@@ -99,6 +99,14 @@ def main():
     ap.add_argument("--apply", action="store_true", help="write (default is a dry run)")
     ap.add_argument("--only", help="only rows currently in this category")
     ap.add_argument("--days", type=int, default=120, help="how far ahead to sweep")
+    # SWEEP A LITTLE INTO THE PAST TOO. The window used to open at `now`, so an
+    # event that had already STARTED was never examined — and an in-progress
+    # event is the one a person is looking at, because events_near returns it
+    # until it ends. "Gentle Morning Hatha Yoga" survived the first apply run
+    # for exactly this reason: it began at 17:15Z, the sweep ran at 20:00Z, and
+    # it stayed on the food map having never been read.
+    ap.add_argument("--back", type=int, default=2,
+                    help="days BEFORE now to include, so in-progress events are swept")
     ap.add_argument("--max-pages", type=int, default=60)
     # --allow is REQUIRED to write, and it is the whole safety story.
     #
@@ -127,7 +135,8 @@ def main():
         return 2
 
     now = time.time()
-    a = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now))
+    start = now - args.back * 86400          # see --back: in-progress events count
+    a = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(start))
     b = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now + args.days * 86400))
 
     moves = collections.Counter()
@@ -139,7 +148,7 @@ def main():
     # Walk in time windows rather than by OFFSET: deep offsets on this table die
     # under the statement timeout (../mapsee 0147 header has the same note).
     step = 86400 * 2
-    t = now
+    t = start
     pages = 0
     while t < now + args.days * 86400 and pages < args.max_pages:
         w_a = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(t))
