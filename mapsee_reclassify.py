@@ -69,12 +69,28 @@ def recompute(row):
     that is not kept. This is therefore a re-run of the PROMOTION rules over an
     already-classified row, which is precisely what the fix needs: the stored key
     says food, the title says yoga, and the rule that was missing now fires.
+
+    THE STORED SECONDARIES ARE DELIBERATELY NOT PASSED IN, and that is the whole
+    reason this sweep can now remove anything. derive_categories rule 2 —
+    "anything a source already told us explicitly" — re-adds every key it is
+    handed, verbatim and unjudged. Feeding the row's own `categories` back into
+    it made the sweep a FIXED POINT BY CONSTRUCTION: a wrong secondary was read
+    out, handed straight back, and written down again as if a source had asserted
+    it. The sweep could add secondaries and never take one away, and reported
+    zero changes while doing it.
+
+    Which is exactly how "the food category is clean" got verified wrong on
+    2026-08-12. `Gentle Morning Hatha Yoga` (category=fitness, categories=[food])
+    was live on the food map the whole time, and re-running the backfill until it
+    returned 0 was never going to move it — 0 was the laundering, not the answer.
+    On a re-classification pass the "source" making the claim is our own previous
+    output, and rule 2 exists to trust a SOURCE, not to trust ourselves.
     """
     return derive_categories({
         "name": row.get("title") or "",
         "description": row.get("description") or "",
         "category": row.get("category") or "",
-        "categories": row.get("categories") or [],
+        "categories": [],
     })
 
 
@@ -132,7 +148,19 @@ def main():
              "&external_source=eq.mapsee&is_private=eq.false&hidden_at=is.null"
              f"&starts_at=gte.{w_a}&starts_at=lt.{w_b}&order=starts_at.asc&limit={PAGE}")
         if args.only:
-            q += f"&category=eq.{urllib.parse.quote(args.only)}"
+            # PRIMARY *OR* SECONDARY. `category=eq.food` alone selects only rows
+            # whose primary is food — but the map does not filter that way.
+            # events_near (../mapsee 0108) matches
+            #     coalesce(e.category,'other') = any(p_categories)
+            #     OR e.categories && p_categories
+            # so an event carrying food as a SECONDARY is on the food map with
+            # everything else. Selecting on the primary alone meant the sweep
+            # never even looked at those rows: measured 2026-08-12, 163 of the
+            # 246 events the Seattle food filter returned had a non-food primary,
+            # among them a yoga class. A backfill that cannot see the rows the
+            # user is complaining about will always report success.
+            only = urllib.parse.quote(args.only)
+            q += f"&or=(category.eq.{only},categories.cs.%7B{only}%7D)"
         # PAGINATE WITHIN THE WINDOW. Without this the sweep silently SAMPLES: a
         # busy two-day window holds far more than PAGE rows and the rest are
         # never examined. Caught by two dry runs disagreeing — `--only food` over
@@ -179,11 +207,33 @@ def main():
             if row.get("claimed_by"):
                 continue                                  # a venue owns this listing
             old_primary = row.get("category") or ""
+            old_extras = sorted(row.get("categories") or [])
             new_primary, new_extras = recompute(row)
-            if new_primary == old_primary:
+            new_sorted = sorted(new_extras or [])
+            # THE SECONDARIES ARE PART OF THE ANSWER. This used to be
+            # `if new_primary == old_primary: continue`, which skipped every row
+            # whose only fault was a wrong SECONDARY — and a secondary is enough
+            # to put an event on a lens by itself (0108: `e.categories &&
+            # p_categories`). The yoga class on the food map was fitness+[food]
+            # both before and after, so it was skipped here even once the other
+            # two defects were fixed.
+            if new_primary == old_primary and new_sorted == old_extras:
                 continue
             changed += 1
-            key = f"{old_primary} -> {new_primary}"
+            if new_primary != old_primary:
+                key = f"{old_primary} -> {new_primary}"
+            else:
+                # A secondary-only change needs a name an operator can read and
+                # then pass to --allow. `fitness -> fitness` is both meaningless
+                # and dangerous: it would authorise every row whose primary is
+                # already right. Name the actual edit instead — `fitness -food`
+                # is "drop the food secondary from fitness rows", which is a
+                # thing somebody can agree to on purpose.
+                dropped = [c for c in old_extras if c not in new_sorted]
+                added = [c for c in new_sorted if c not in old_extras]
+                key = (old_primary
+                       + "".join(f" -{c}" for c in dropped)
+                       + "".join(f" +{c}" for c in added))
             moves[key] += 1
             if len(examples[key]) < 3:
                 examples[key].append(row.get("title") or "")

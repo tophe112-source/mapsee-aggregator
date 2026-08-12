@@ -162,4 +162,56 @@ for name, cat, desc, want_primary, must_have, must_not in CONTENT_CASES:
 
 print()
 print(f"{len(CONTENT_CASES)-len(cfails)}/{len(CONTENT_CASES)} passed")
-sys.exit(1 if (fails or cfails) else 0)
+
+
+# ---------------------------------------------------------------------------
+# The BACKFILL must be able to take a category away
+# ---------------------------------------------------------------------------
+# mapsee_reclassify.recompute() re-runs the classifier over a row already in the
+# table. It used to hand the row's own stored `categories` back to
+# derive_categories, whose rule 2 ("anything a source already told us
+# explicitly") re-adds every key it is given, unjudged. That made the sweep a
+# fixed point: it could add a secondary and never remove one, and it reported
+# zero changes while doing it.
+#
+# Live consequence, 2026-08-12: "Gentle Morning Hatha Yoga" sat on the food map
+# as fitness+[food] — a secondary is enough to reach a lens (../mapsee 0108
+# matches `e.categories && p_categories`) — and the backfill was re-run "until
+# it returned 0" against it. Zero was the laundering, not the answer.
+print()
+print("-- backfill can remove a wrong secondary --")
+import mapsee_reclassify as _R
+
+YOGA_DESC = ("Wednesday August 12 is the first of a 4-session meet-up to practice "
+             "Gentle Morning Hatha Yoga with your Capitol Hill Community. You can pay "
+             "a drop-in rate ($15.00) or sign-up for all four sessions using this link.")
+BACKFILL_CASES = [
+    # (title, desc, stored primary, stored secondaries, key that must NOT survive)
+    ("Gentle Morning Hatha Yoga", YOGA_DESC, "fitness", ["food"], "food"),
+    # the same shape, the other direction round: a stored secondary that the
+    # rules do not re-derive must go, whatever it is.
+    ("Sunday League Football", "Weekly workout for the squad.", "sports", ["food"], "food"),
+]
+bfails = []
+for title, desc, prim, stored, gone in BACKFILL_CASES:
+    p, e = _R.recompute({"title": title, "description": desc,
+                         "category": prim, "categories": list(stored)})
+    got = set(e or [])
+    ok = p == prim and gone not in got
+    if not ok:
+        bfails.append(title)
+    print(f"{'ok ' if ok else 'FAIL'} {title[:38]:<40} {prim}+{stored} -> {p} + {sorted(got)}"
+          f"{'' if ok else f'   (wanted {gone!r} dropped)'}")
+
+# And the guard against over-correcting: recompute must still KEEP a secondary
+# the text genuinely supports, or the sweep just strips every row bare.
+p, e = _R.recompute({"title": "Taco Crawl & Happy Hour", "description": "Food trucks all evening.",
+                     "category": "party", "categories": []})
+keeps = "food" in set(e or [])
+if not keeps:
+    bfails.append("Taco Crawl & Happy Hour")
+print(f"{'ok ' if keeps else 'FAIL'} {'keeps a secondary the text supports':<40} party+[] -> {p} + {sorted(e or [])}")
+
+print()
+print(f"{len(BACKFILL_CASES)+1-len(bfails)}/{len(BACKFILL_CASES)+1} passed")
+sys.exit(1 if (fails or cfails or bfails) else 0)
