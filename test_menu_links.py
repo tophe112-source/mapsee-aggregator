@@ -189,6 +189,17 @@ def main():
     # Both links reported broken on 2026-08-12 answered 200. A dead ChowNow
     # location serves a 4.1KB React shell with no <title>; a live one serves 28KB
     # titled "Peloton Cafe - Seattle - …". Status codes cannot separate them.
+    # An unpublished Square store is the same shape: 43KB and <title></title>.
+    #
+    # destination_ok JUDGES A PAGE WE RETRIEVED. It is deliberately NOT the whole
+    # check, and the reason is a bug caught before it reached more than one city:
+    # fetch() returns None for every failure — 403, timeout, non-HTML — and the
+    # first version read None as "dead". The big ordering hosts all block
+    # scrapers, so order.toasttab.com, www.toasttab.com and ubereats.com came
+    # back as zero bytes and would every one have been judged dead. That is most
+    # of the map's order links, including the Toast URL asserted valid on line 28
+    # of this very file. destination_verdict keeps "unknown" apart from "dead"
+    # and only "dead" may drop a link.
     print("\n-- the destination has to actually be there --")
     DEST = [
         ("", False, "empty body"),

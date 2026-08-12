@@ -40,6 +40,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -154,20 +155,55 @@ FOODY_RX = re.compile(
 
 
 def destination_ok(html: str) -> bool:
-    """Does this page actually exist, or is it an empty app shell?
+    """Given a page we actually RETRIEVED, does it look like a real one?
 
-    A dead ordering link does not 404. Measured against the two URLs reported on
-    2026-08-12: order.chownow.com/order/39625/locations/60228 answers 200 with a
-    4.1KB React shell and NO <title> at all, while a live ChowNow location
-    answers 200 with 28KB and "Peloton Cafe - Seattle - Best American (New)
-    restaurant in Seattle, WA". Status codes cannot tell these apart; the
+    A dead ordering link does not 404. Measured 2026-08-12:
+    order.chownow.com/order/39625/locations/60228 answers 200 with a 4.1KB React
+    shell and NO <title>, while a live ChowNow location answers 200 with 28KB
+    titled "Peloton Cafe - Seattle - …". Status codes cannot separate them; the
     server-rendered title can, because a real product page needs one for its own
     SEO and a bare shell has nothing to put there.
+
+    ONLY call this with HTML you really got. Passing it a failed fetch is the
+    trap — see destination_verdict, which exists because this function on its own
+    called Toast, Uber Eats and DoorDash dead.
     """
     if not html:
         return False
     m = TITLE_RX.search(html)
     return bool(m and m.group(1).strip())
+
+
+def destination_verdict(url: str, timeout: int = 20) -> str:
+    """"alive" | "dead" | "unknown". Only "dead" is grounds for dropping a link.
+
+    THE BUG THIS EXISTS TO PREVENT, caught before it shipped anywhere but one
+    city: fetch() returns None for every failure — 403, timeout, non-HTML — and
+    the first version of this check read None as "dead". The big ordering hosts
+    all block scrapers, so order.toasttab.com, www.toasttab.com and
+    ubereats.com every one came back as zero bytes and would have been judged
+    dead. That is not a few false positives, it is most of the map's order links,
+    including a Toast URL this repo's own test suite asserts is valid.
+
+    So the three cases are kept apart and the default is to KEEP the link. A
+    destination we were not allowed to look at is not a destination we know is
+    broken, and the prior behaviour — no check at all — was already fail-open.
+    Only a page we genuinely fetched and found empty is called dead.
+    """
+    try:
+        req = urllib.request.Request(url, headers={"user-agent": UA})
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            ct = (r.headers.get("content-type") or "").lower()
+            if "html" not in ct and "text" not in ct:
+                return "unknown"            # a PDF menu is not evidence either way
+            html = r.read(400_000).decode("utf-8", "replace")
+            return "alive" if destination_ok(html) else "dead"
+    except urllib.error.HTTPError as e:
+        # Gone is gone. Everything else — 403 bot-block, 429, 5xx — is us being
+        # refused, not the restaurant being closed.
+        return "dead" if e.code in (404, 410) else "unknown"
+    except Exception:
+        return "unknown"
 
 
 def refine_storefront(url: str, html: str) -> str:

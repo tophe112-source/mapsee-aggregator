@@ -48,7 +48,7 @@ from mapsee_ingest import EventStore, NormalizedEvent, make_fingerprint
 from mapsee_menu_links import (
     looks_like_ordering, order_link_on,
     looks_like_booking, booking_link_on,
-    destination_ok, refine_storefront,
+    destination_verdict, refine_storefront,
     NOT_A_VENUE_SITE, fetch as fetch_page,
 )
 
@@ -268,18 +268,21 @@ def links_for(tags, session_delay=0.5):
     # an empty React shell, and a Square store whose landing block is gift cards
     # with the menus one level in. Neither a status code nor the URL itself can
     # see either, so the only honest check is to look at the page.
-    if order:
+    # Only a destination we genuinely fetched and found EMPTY is dropped.
+    # destination_verdict keeps "unknown" separate from "dead" for a reason worth
+    # restating here: the big ordering hosts block scrapers, so treating an
+    # unfetchable page as dead would delete most of the map's order links.
+    if order and destination_verdict(order) == "dead":
+        order = None
+    elif order:
+        # Refinement needs the page, so it only happens when we could read it —
+        # which is exactly when refine_storefront has anything to work with.
         ohtml, ofinal = fetch_page(order)
         time.sleep(session_delay)
-        if not destination_ok(ohtml):
-            order = None
-        else:
+        if ohtml:
             order = refine_storefront(ofinal or order, ohtml)
-    if booking:
-        bhtml, _ = fetch_page(booking)
-        time.sleep(session_delay)
-        if not destination_ok(bhtml):
-            booking = None
+    if booking and destination_verdict(booking) == "dead":
+        booking = None
     return order, booking, own_site
 
 
