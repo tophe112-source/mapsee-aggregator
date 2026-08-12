@@ -1086,7 +1086,20 @@ def main() -> None:
                     help="Skip events already in Supabase — upsert only new ones (much faster steady-state).")
     a = ap.parse_args()
 
-    host_id = os.environ.get("MAPSEE_HOST_PROFILE_ID", "<MAPSEE_HOST_PROFILE_ID>")
+    # Fail LOUDLY on a missing host profile. The old default was the literal
+    # placeholder "<MAPSEE_HOST_PROFILE_ID>", which is not a UUID, so a workflow
+    # that forgot the secret did all of its fetching and geocoding and then had
+    # every insert rejected by Postgres — the error naming a column, not the
+    # missing variable. That is exactly what happened to the first OSM takeaway
+    # run. --dry-run still works without it, because it never inserts.
+    host_id = os.environ.get("MAPSEE_HOST_PROFILE_ID", "").strip()
+    if not host_id and not a.dry_run:
+        # raise, not return: main() is invoked as a bare `main()` at the bottom
+        # of this file, so a returned exit code is discarded and the job goes
+        # GREEN having printed an error nobody reads. A guard that does not fail
+        # the build is decoration.
+        raise SystemExit("MAPSEE_HOST_PROFILE_ID is not set — it is the profile imported "
+                         "events are created_by, and without it every insert is rejected.")
 
     if a.dry_run:
         rows = build_rows(a.store, host_id)           # preview: skip geocoding (no network)

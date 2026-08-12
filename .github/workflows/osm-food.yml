@@ -40,6 +40,11 @@ jobs:
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      # REQUIRED by the sync: it is the profile imported events are created_by.
+      # Missing it is what failed run #1 — mapsee_supabase_sync.py falls back to
+      # the literal string "<MAPSEE_HOST_PROFILE_ID>", which is not a UUID, so
+      # every insert is rejected after the pull has already done all its work.
+      MAPSEE_HOST_PROFILE_ID: ${{ secrets.MAPSEE_HOST_PROFILE_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -65,7 +70,15 @@ jobs:
 
       - name: Sync to Supabase
         if: ${{ github.event.inputs.dry_run != 'true' }}
-        run: python mapsee_supabase_sync.py --store feeds_events.json --only-new
+        run: |
+          # Guarded like every other sync step here: a pull that found nothing
+          # writes no store, and "file not found" is a confusing way to report
+          # a quiet week.
+          if [ -f feeds_events.json ]; then
+            python mapsee_supabase_sync.py --store feeds_events.json --only-new
+          else
+            echo "no feeds_events.json — nothing was pulled this run"
+          fi
 
       # The cursor is the only state this job keeps, and it is what makes the
       # NEXT run look at different places. Unpersisted, every run re-examines
