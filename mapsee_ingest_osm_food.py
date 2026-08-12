@@ -294,8 +294,13 @@ def main(argv=None):
                     store.upsert(nev)
                 made += 1
         tot_events += made
+        # flush=True because this job runs for tens of minutes and Python buffers
+        # stdout when it is not a TTY: a local run of all eight areas printed
+        # NOTHING for ten minutes and looked hung. In CI that is worse — the log
+        # is the only window into a job whose whole cost is being a polite guest
+        # on other people's servers.
         print(f"[osm-food] {area['name']}: {len(els)} places, {len(cands)} with hours+site, "
-              f"{made} slots")
+              f"{made} slots", flush=True)
 
     if store:
         store.save()
