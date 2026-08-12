@@ -154,6 +154,21 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   rules because ignoring "shut" advertises a place as open. And of the first 13
   order links found in Seattle, SEVEN were gift-card pages on genuine ordering
   hosts — `NOT_ORDER_PATH` is why that is now six.
+- **A minus sign is an option, not a number.** The international sweep spawns
+  each ingester with `--latlong=VALUE`, fused, because argparse exempts only
+  `^-\d+$|^-\d*\.\d+$` from option parsing and a latlong has a comma in it. Sent
+  as two tokens, `--latlong -33.8688,151.2093` died with "expected one argument"
+  for every metro south of the equator — all of Australia, New Zealand and South
+  Africa, 22 of 165 metros, on BOTH sources, twice a week. `run()` prints the
+  non-zero exit and continues by design, so the sweep still closed with "swept
+  165 metros" and a green tick. `test_sweep_global.py` pins the argv form.
+- **A curated city list is only as complete as its last audit, and Seattle has
+  TWO market operators.** Neighborhood Farmers Markets and the Seattle Farmers
+  Market Association both run markets; `market_sources.json` was built from the
+  first and silently missed three of the second's five (Central District, Madison
+  Park, South Lake Union) until 2026-08-12. National coverage does not save you
+  here — the USDA directory carries Central District under its former name,
+  Madrona. Enumerate every operator's own sitemap when auditing a city.
 - **Never add `pull_request:` to a workflow that reads secrets.** `tests.yml` is
   the one workflow safe on forks, because it reads none.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
@@ -178,11 +193,12 @@ python test_health_check.py         # the alarm itself, against a faked transpor
 python test_ingest_places.py        # coordinates: default pins, address parsing
 python test_menu_links.py           # what may be called an "Order pickup" link
 python test_osm_food.py             # opening hours we may act on, and the ones we must refuse
+python test_sweep_global.py         # the international sweep's argv, below the equator
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The seven test scripts are the CI gate (`tests.yml`). They print one line per
+The eight test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

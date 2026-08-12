@@ -63,12 +63,22 @@ def main(argv=None) -> int:
                 continue
             n_metros += 1
             print(f"== {cname} / {mname} ({code}) {ll} ==", flush=True)
+            # `--latlong=VALUE`, never `--latlong VALUE`. A southern-hemisphere
+            # metro starts with a minus, argparse only exempts things matching
+            # ^-\d+$|^-\d*\.\d+$ from being read as an option, and "-33.8688,
+            # 151.2093" has a comma in it — so the child died on "expected one
+            # argument" for every metro below the equator. That was all of
+            # Australia, New Zealand and South Africa: 22 of 165 metros, on both
+            # sources, twice a week, since the sweep was written. It cost nothing
+            # visible because run() only prints the non-zero exit and the job is
+            # failure-tolerant by design, so a sweep missing three countries
+            # still reported "swept 165 metros" and a green tick.
             if "ticketmaster" in srcs:
-                run("mapsee_ingest.py", ["--latlong", ll, "--radius", str(radius), "--unit", "miles",
+                run("mapsee_ingest.py", [f"--latlong={ll}", "--radius", str(radius), "--unit", "miles",
                                          "--country", code, "--within-days", str(a.within_days),
                                          "--store", a.store])
             if "meetup" in srcs:
-                run("mapsee_ingest_meetup.py", ["--latlong", ll, "--radius", str(radius),
+                run("mapsee_ingest_meetup.py", [f"--latlong={ll}", "--radius", str(radius),
                                                 "--within-days", str(a.within_days), "--store", a.store])
             time.sleep(0.5)                                    # gentle between metros
     print(f"[global] swept {n_metros} metros across {len(cfg.get('countries', []))} countries", flush=True)

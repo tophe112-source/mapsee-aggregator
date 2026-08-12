@@ -100,6 +100,14 @@ jobs:
       - name: Opening hours we may act on (OSM takeaway)
         run: python test_osm_food.py
 
+      # The international sweep spawns its ingesters as subprocesses, and a
+      # southern-hemisphere latlong starts with a minus that argparse reads as
+      # an option. Australia, New Zealand and South Africa ingested nothing for
+      # months while the run reported "swept 165 metros" and a green tick. The
+      # argv FORM is what is pinned here, because the outcome was invisible.
+      - name: Sweep argv survives a negative latitude
+        run: python test_sweep_global.py
+
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a
       # mid-sweep crash on a schedule, hours later. Compiling is not a test, but
