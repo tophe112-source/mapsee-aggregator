@@ -1007,6 +1007,13 @@
     "status": "ok",
     "type": "opendata"
   },
+  "data.gov.au/data/api/3/action/datastore_search?resource_id=ad5c6594-571e-4874-994c-a9f964d789df": {
+    "checked": 20260812,
+    "name": "Disaster Events with Category Impact and Location (Australia)",
+    "reason": "'startDate' is not a date column (sample: '9/9/1952 0')",
+    "status": "fail",
+    "type": "ckan"
+  },
   "data.gov.au/data/api/3/action/datastore_search?resource_id=db354a7b-5472-4e07-a6f0-6e4ed650f855": {
     "checked": 20260802,
     "name": "Corangamite Shire Events (Australia)",
@@ -1244,6 +1251,13 @@
     "reason": "5 events",
     "status": "ok",
     "type": "localist"
+  },
+  "events.diday.org": {
+    "checked": 20260812,
+    "name": "di.day",
+    "reason": "1328 upcoming, sample: Offener Techniktreff des Space 47 e.V.",
+    "status": "ok",
+    "type": "mobilizon"
   },
   "events.fedibikes.social": {
     "checked": 20260808,

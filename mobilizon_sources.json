@@ -527,6 +527,13 @@
       "category": "community",
       "limit": 100,
       "max_pages": 5
+    },
+    {
+      "name": "di.day",
+      "base_url": "https://events.diday.org",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
     }
   ],
   "_not_included": {
