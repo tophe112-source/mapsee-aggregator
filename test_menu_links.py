@@ -221,6 +221,19 @@ def main():
         (BIG, True, "no title but 16KB of catalog -> a live Square store"),
     ]
     assert len(BIG) >= 10_000, "the live-Square fixture must exceed the shell threshold"
+
+    # A host proven to refuse us is never judged, whatever it answers.
+    # ubereats.com returns HTTP 404 to this pipeline while the SAME full URL
+    # opens in a real browser as "Order Zizzi (Bankside) … | Uber Eats", and
+    # another redirects to def.uber.com/en/challenge. 15 of the 19 links a prune
+    # run wanted to cut were on that host, across five countries.
+    from mapsee_menu_links import UNVERIFIABLE_HOSTS
+    for host, want in (("www.ubereats.com", True), ("ubereats.com", True),
+                       ("order.toasttab.com", False), ("notubereats.com", False)):
+        got = bool(UNVERIFIABLE_HOSTS.search(host))
+        ok = got == want
+        failed += 0 if ok else 1
+        print(f"{'ok  ' if ok else 'FAIL'}  unverifiable={str(want):<5} {host}")
     for h, want, why in DEST:
         got = destination_ok(h)
         ok = got == want
@@ -253,7 +266,7 @@ def main():
     failed += 0 if ok10 else 1
     print(f"{'ok  ' if ok10 else 'FAIL'}  no food category => unchanged -> {got10}")
 
-    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5 + len(DEST) + 3
+    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5 + len(DEST) + 3 + 4
     print(f"\n{total} cases, {failed} failed")
     return 1 if failed else 0
 

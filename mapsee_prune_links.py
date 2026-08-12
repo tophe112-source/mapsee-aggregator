@@ -236,12 +236,18 @@ def main():
             by_host[(urllib.parse.urlparse(u).hostname or "").lower().lstrip("www.")].append(v)
         except Exception:
             pass
+    # A MAJORITY, not unanimity. The first version demanded 100% and therefore
+    # never fired: ubereats.com had 15 dead links and at least one that was not,
+    # which was enough to disarm the guard on the very host it was written for.
+    # Restaurants close independently, so a high CONCENTRATION on one host is
+    # evidence of a common cause — and the common cause is nearly always us.
+    REFUSAL_SHARE = 0.6
     refusing = set()
     for host, vs in by_host.items():
         n_dead = vs.count("dead")
-        if len(vs) >= 3 and n_dead == len(vs):
+        if len(vs) >= 3 and n_dead >= max(3, int(len(vs) * REFUSAL_SHARE)):
             refusing.add(host)
-            print(f"  HOST REFUSING: {host} — all {len(vs)} of its links judged dead. "
+            print(f"  HOST REFUSING: {host} — {n_dead} of {len(vs)} links judged dead. "
                   f"Treating as unknown, not pruning them.")
 
     dead = set()

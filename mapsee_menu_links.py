@@ -191,6 +191,22 @@ def destination_ok(html: str) -> bool:
     return len(html) >= EMPTY_SHELL_BYTES
 
 
+# HOSTS WE HAVE PROVEN WE CANNOT JUDGE, and the evidence for each.
+#
+# ubereats.com — measured 2026-08-12. Our request gets HTTP 404 for a store page
+# while the SAME full URL opened in a real browser loads
+# "Order Zizzi (Bankside) Menu Delivery | London | Uber Eats", and a second one
+# redirects to def.uber.com/en/challenge, their bot-defence challenge. So the
+# 404 is a refusal wearing a status code, and 15 of the 19 links a prune run
+# wanted to cut were on this host — Five Guys, PizzaExpress, Prezzo, Zizzi,
+# The Real Greek — across five countries. Chains do not delist in unison.
+#
+# The honest resolution is to stop asking, not to dress up as a browser: working
+# around somebody's bot defences to check their pages is not a thing to do
+# because it would be convenient. A link here stays exactly as it is.
+UNVERIFIABLE_HOSTS = re.compile(r"(^|\.)(ubereats\.com|uber\.com)$", re.I)
+
+
 def destination_verdict(url: str, timeout: int = 20) -> str:
     """"alive" | "dead" | "unknown". Only "dead" is grounds for dropping a link.
 
@@ -207,6 +223,12 @@ def destination_verdict(url: str, timeout: int = 20) -> str:
     broken, and the prior behaviour — no check at all — was already fail-open.
     Only a page we genuinely fetched and found empty is called dead.
     """
+    try:
+        host = (urllib.parse.urlparse(url).hostname or "").lower()
+    except Exception:
+        host = ""
+    if host and UNVERIFIABLE_HOSTS.search(host):
+        return "unknown"                    # proven to refuse us; see the note above
     try:
         req = urllib.request.Request(url, headers={"user-agent": UA})
         with urllib.request.urlopen(req, timeout=timeout) as r:
