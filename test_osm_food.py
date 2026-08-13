@@ -138,6 +138,35 @@ def main():
         (bool(rows and rows[0].recurring_days.get("0") == ["11:00", "22:00"]),
          "0=Monday, matching what the roller expects"),
     ]
+    detail_tags = {
+        "phone": "+1 206 555 0123", "cuisine": "ethiopian;coffee_shop",
+        "wheelchair": "limited", "takeaway": "yes", "delivery": "yes",
+        "outdoor_seating": "yes", "internet_access": "wlan",
+        "diet:vegetarian": "yes", "diet:vegan": "only",
+    }
+    details = m.business_detail_lines(detail_tags, "(206) 000-0000")
+    jsonld_phone = m.phone_from_official_html(
+        '<script type="application/ld+json">'
+        '{"@type":"Restaurant","telephone":"(206) 555-0199"}</script>')
+    tel_phone = m.phone_from_official_html('<a href="tel:%2B12065550188">Call</a>')
+    enriched = m.to_events(
+        {**EL, "tags": {**EL["tags"], **detail_tags}}, AREA, "u", daily, 7,
+        website_phone="(206) 000-0000")[0]
+    rowchecks.extend([
+        (details[0] == "☎ Phone: +1 206 555 0123",
+         "OSM phone beats a website fallback and remains human-readable"),
+        (any("Cuisine: ethiopian · coffee shop" in x for x in details),
+         "cuisine values become readable business details"),
+        (any("Limited wheelchair access" in x for x in details),
+         "wheelchair access is explicit, including limited access"),
+        (any("Takeaway" in x and "Delivery" in x and "Wi-Fi" in x for x in details),
+         "positive customer services share one compact marker"),
+        (jsonld_phone == "(206) 555-0199", "official JSON-LD telephone is read"),
+        (tel_phone == "+12065550188", "official tel links are the bounded fallback"),
+        ("Phone: +1 206 555 0123" in enriched.description
+         and "Public business details from OpenStreetMap" in enriched.description,
+         "enriched markers and attribution ride on the stable venue row"),
+    ])
     checks.extend(rowchecks)
 
     for ok, why in checks:

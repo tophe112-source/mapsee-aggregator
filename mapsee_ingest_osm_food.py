@@ -37,6 +37,7 @@ Run:  python mapsee_ingest_osm_food.py --config osm_food_sources.json \
 """
 import argparse
 import hashlib
+import html as html_lib
 import json
 import math
 import os
@@ -326,8 +327,82 @@ def save_places(cache_dir, area, elements, bbox=None):
         print(f"[osm-food] could not cache {area['name']}: {exc}", flush=True)
 
 
+def clean_public_phone(value):
+    """One callable public business number, preserving its published display."""
+    for raw in str(value or "").split(";"):
+        phone = re.sub(r"\s+", " ", raw).strip()
+        digits = re.sub(r"\D", "", phone)
+        if 7 <= len(digits) <= 15 and len(phone) <= 40:
+            return phone
+    return None
+
+
+def phone_from_official_html(page):
+    """A public phone explicitly published by the venue's official website."""
+    if not page:
+        return None
+    for raw in re.findall(
+            r"<script[^>]+type=[\"']application/ld\+json[\"'][^>]*>([\s\S]*?)</script>",
+            page, re.I):
+        try:
+            blob = json.loads(html_lib.unescape(raw.strip()))
+        except Exception:
+            continue
+        stack = list(blob if isinstance(blob, list) else [blob])
+        while stack:
+            node = stack.pop(0)
+            if not isinstance(node, dict):
+                continue
+            raw_type = node.get("@type")
+            types = raw_type if isinstance(raw_type, list) else [raw_type or ""]
+            typ = " ".join(str(x) for x in types).lower()
+            if re.search(r"localbusiness|organization|place|restaurant|cafe|bakery|store", typ):
+                phone = clean_public_phone(node.get("telephone"))
+                if phone:
+                    return phone
+            graph = node.get("@graph")
+            if isinstance(graph, list):
+                stack.extend(graph)
+    for value in re.findall(r"href=[\"']tel:([^\"']+)", page, re.I):
+        phone = clean_public_phone(urllib.parse.unquote(html_lib.unescape(value)))
+        if phone:
+            return phone
+    return None
+
+
+def business_detail_lines(tags, website_phone=None):
+    """Stable marker lines consumed by Mapsee's business details card."""
+    lines = []
+    phone = clean_public_phone(tags.get("phone") or tags.get("contact:phone")) or clean_public_phone(website_phone)
+    if phone:
+        lines.append(f"☎ Phone: {phone}")
+    cuisine = []
+    for value in re.split(r"[;,]", str(tags.get("cuisine") or "")):
+        value = re.sub(r"[_\s]+", " ", value).strip()
+        if value and value.lower() not in {x.lower() for x in cuisine}:
+            cuisine.append(value)
+    if cuisine:
+        lines.append("🍴 Cuisine: " + " · ".join(cuisine[:5]))
+    wheelchair = str(tags.get("wheelchair") or "").lower()
+    accessibility = {"yes": "Wheelchair accessible", "limited": "Limited wheelchair access",
+                     "no": "Not wheelchair accessible"}.get(wheelchair)
+    if accessibility:
+        lines.append(f"♿ Accessibility: {accessibility}")
+    services = []
+    for key, label in [("takeaway", "Takeaway"), ("delivery", "Delivery"),
+                       ("outdoor_seating", "Outdoor seating"), ("internet_access", "Wi-Fi"),
+                       ("diet:vegetarian", "Vegetarian options"), ("diet:vegan", "Vegan options")]:
+        value = str(tags.get(key) or "").lower()
+        if ((key == "internet_access" and value in {"wlan", "yes"}) or
+                (key != "internet_access" and value in {"yes", "only"})):
+            services.append(label)
+    if services:
+        lines.append("✓ Services: " + " · ".join(services))
+    return lines
+
+
 def links_for(tags, session_delay=0.5):
-    """(order_url, booking_url, site) for one place, from ONE page fetch.
+    """(order_url, booking_url, site, website_phone) from one page fetch.
 
     All three come out of the same request on purpose. The page fetch is the
     expensive and impolite half of this job — we are a guest on somebody's
@@ -345,6 +420,7 @@ def links_for(tags, session_delay=0.5):
     """
     order = None
     booking = None
+    website_phone = None
 
     # OSM sometimes carries either outright. Cheapest possible answer, no fetch.
     for k in ("website:menu", "contact:menu", "menu:url", "order:url"):
@@ -368,7 +444,7 @@ def links_for(tags, session_delay=0.5):
     if site and not site.startswith("http"):
         site = "https://" + site
     if not site:
-        return order, booking, None
+        return order, booking, None, None
 
     # A Facebook page is not a domain a restaurant can prove it owns, and
     # emitting it as "Website:" would put facebook.com in front of the claim
@@ -384,14 +460,15 @@ def links_for(tags, session_delay=0.5):
         order = site
     if not booking and looks_like_booking(site):
         booking = site
-    if not (order and booking):
-        html, final = fetch_page(site)
-        time.sleep(session_delay)
-        if not order:
-            order = order_link_on(final, html)
-        if not booking:
-            booking = booking_link_on(final, html)
-
+    # Read the official page once for links AND its explicitly published phone.
+    html, final = fetch_page(site)
+    time.sleep(session_delay)
+    if own_site:
+        website_phone = phone_from_official_html(html)
+    if not order:
+        order = order_link_on(final, html)
+    if not booking:
+        booking = booking_link_on(final, html)
     # VERIFY THE DESTINATION, once, before promising anything about it. Both
     # failures reported on 2026-08-12 were 200s: a ChowNow location that serves
     # an empty React shell, and a Square store whose landing block is gift cards
@@ -426,10 +503,10 @@ def links_for(tags, session_delay=0.5):
                 order = refined
     if booking and destination_verdict(booking) == "dead":
         booking = None
-    return order, booking, own_site
+    return order, booking, own_site, website_phone
 
 
-def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=None):
+def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=None, website_phone=None):
     """One NormalizedEvent per open-day in the window ahead.
 
     Each is a real, bounded slot rather than a permanent pin, because that is
@@ -468,12 +545,13 @@ def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=Non
     # and only when it is the venue's own domain (links_for filters socials).
     if site:
         lines.append(f"🌐 Website: {site}")
+    lines.extend(business_detail_lines(tags, website_phone))
     body = ("\n".join(lines) + "\n\n") if lines else ""
     desc = (f"{name} — {kind} in {area['name']}. {lead}; "
             f"mapsee.me is not taking the order.\n\n"
             f"{body}"
-            f"Listing from OpenStreetMap contributors (ODbL). "
-            f"Is this your place? Claim it on mapsee.me to correct it.")
+            f"Public business details from OpenStreetMap contributors (ODbL). "
+            f"Hours and details can change; the business can claim this listing to correct them.")
     # ONE ROW PER VENUE, not one per open day.
     #
     # A business is open every Tuesday; it is not holding 52 Tuesday events.
@@ -638,9 +716,9 @@ def main(argv=None):
         made = 0
         for el, hrs in window:
             try:
-                url, booking, site = links_for(el.get("tags", {}))
+                url, booking, site, website_phone = links_for(el.get("tags", {}))
             except Exception:
-                url, booking, site = None, None, None
+                url, booking, site, website_phone = None, None, None, None
             # A PUBLISHED WAY TO TRANSACT is still the bar — a restaurant merely
             # existing is not a listing, which is what lets outreach honestly say
             # nobody at the venue put this here. Booking a table meets that bar
@@ -654,7 +732,7 @@ def main(argv=None):
             if booking:
                 tot_booking += 1
             for nev in to_events(el, area, url, hrs, a.days_ahead,
-                                 booking_url=booking, site=site):
+                                 booking_url=booking, site=site, website_phone=website_phone):
                 # to_events sets the fingerprint from the OSM identity, with no
                 # date in it — that is what makes a re-run UPDATE the venue's
                 # row instead of adding another. Overwriting it with
