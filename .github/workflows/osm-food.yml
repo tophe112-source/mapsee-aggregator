@@ -222,15 +222,38 @@ jobs:
           pattern: cursor-*
           path: cursors
         continue-on-error: true
+      # RE-MERGE ONTO THE LATEST main EACH ATTEMPT, and retry.
+      #
+      # The first version committed against the checkout from run start and
+      # pushed once. A sweep takes hours, so any push to main in that window —
+      # a human, another workflow, the aggregate job — rejects it:
+      #
+      #     ! [rejected]  main -> main (fetch first)
+      #
+      # That is what happened on the first matrix run. The merge itself was
+      # perfect (Melbourne correctly 180 -> 205); the push lost it. And it fails
+      # at the very LAST step, after every area has done all of its work, so the
+      # whole sweep's position is thrown away with nothing to show for it.
+      #
+      # Rebasing would work, but re-reading is better: the cursor is a set of
+      # per-area positions, so recomputing the merge against whatever main says
+      # NOW is always correct and can never conflict. Each attempt starts from
+      # the newest base.
       - name: Merge and commit
         run: |
-          python - <<'PY'
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main        # cursors/ is untracked, so it survives
+            python - <<'PY'
           import glob, json, os
           merged = {}
           if os.path.exists("osm_food_cursor.json"):
               merged = json.load(open("osm_food_cursor.json", encoding="utf-8"))
           # Each area's job only ever touched its OWN key, so a plain update per
-          # file is the merge — no area can clobber another's position.
+          # file is the merge — no area can clobber another's position, and
+          # neither can whatever else landed on main meanwhile.
           for p in sorted(glob.glob("cursors/**/osm_food_cursor.json", recursive=True)):
               try:
                   merged.update(json.load(open(p, encoding="utf-8")))
@@ -240,8 +263,18 @@ jobs:
                     indent=1, sort_keys=True)
           print(json.dumps(merged, indent=1, sort_keys=True))
           PY
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add osm_food_cursor.json
-          git diff --staged --quiet || git commit -m "osm-food: advance the cursor [skip ci]"
-          git push
+            git add osm_food_cursor.json
+            if git diff --staged --quiet; then
+              echo "cursor unchanged — nothing to commit"
+              exit 0
+            fi
+            git commit -m "osm-food: advance the cursor [skip ci]"
+            if git push; then
+              echo "cursor pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push rejected (main moved); re-merging onto the new head"
+            sleep $((attempt * 5))
+          done
+          echo "::error::could not push the cursor after 5 attempts"
+          exit 1
