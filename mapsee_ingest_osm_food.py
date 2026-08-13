@@ -543,6 +543,9 @@ def main(argv=None):
                     help="override every area's radius for THIS run (config stays as it is). "
                          "The cache keys on the resulting box, so a narrow run cannot "
                          "poison a wide one.")
+    ap.add_argument("--warm-cache", action="store_true",
+                    help="fetch and cache each area's place list, then stop. Examines no "
+                         "places and fetches no venue websites.")
     ap.add_argument("--delay", type=float, default=2.0)
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args(argv)
@@ -550,7 +553,10 @@ def main(argv=None):
     cfg = json.loads(open(a.config, encoding="utf-8").read())
     areas = [x for x in cfg.get("areas", [])
              if not a.only or a.only.lower() in str(x.get("name", "")).lower()]
-    store = None if a.dry_run else EventStore(a.store)
+    # Warming touches neither the store nor the cursor: it is a fetch, not a run.
+    # Creating an EventStore would rewrite feeds_events.json with nothing in it,
+    # and moving the cursor would skip places nobody examined.
+    store = None if (a.dry_run or a.warm_cache) else EventStore(a.store)
     cursor = load_cursor()
     tot_seen = tot_hours = tot_order = tot_booking = tot_events = 0
 
@@ -570,6 +576,28 @@ def main(argv=None):
             # thirty days would hide the gap behind a run that looks healthy.
             if els and complete and not a.dry_run:
                 save_places(a.places_cache, area, els, bbox)
+
+        # WARM AND STOP.
+        #
+        # Every matrix job needs the same place lists, and when each fetches its
+        # own they all hit Overpass at the same moment — so we rate-limit
+        # OURSELVES and then politely back off against our own traffic (2s, 6s,
+        # 18s per tile). Watched live on the first matrix run: London, the
+        # second-densest hub at 24,970 places, was still pulling tiles long
+        # after every other area had finished its whole job.
+        #
+        # Warming here is one SEQUENTIAL pass before the fan-out, which is both
+        # faster wall-clock and a great deal more considerate to a service that
+        # is free and volunteer-run. It examines no places and fetches nobody's
+        # website — that is the expensive half and it stays in the matrix.
+        if a.warm_cache:
+            # Count before returning, or the summary reports 0 places while the
+            # per-area lines report thousands — a total that contradicts its own
+            # detail is worse than no total.
+            tot_seen += len(els)
+            print(f"[osm-food] {area['name']}: cache warm "
+                  f"({len(els)} places){' [from cache]' if from_cache else ''}", flush=True)
+            continue
         # Only the ones worth a fetch: a website AND hours we can read. Doing the
         # cheap filters first is what keeps this to a few dozen page loads.
         cands = []
@@ -650,8 +678,12 @@ def main(argv=None):
 
     if store:
         store.save()
-    if not a.dry_run:
+    if not a.dry_run and not a.warm_cache:
         save_cursor(cursor)
+    if a.warm_cache:
+        print(f"[osm-food] cache warm for {len(areas)} area(s) · {tot_seen} places · "
+              f"no websites fetched", flush=True)
+        return 0
     print(f"[osm-food] done: {tot_seen} places seen · {tot_hours} readable · "
           f"{tot_order} with an order link · {tot_booking} bookable · {tot_events} slots"
           + (" (dry run, nothing written)" if a.dry_run else ""))

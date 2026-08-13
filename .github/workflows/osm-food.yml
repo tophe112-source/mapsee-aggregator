@@ -55,10 +55,15 @@ jobs:
   # ---------------------------------------------------------------------------
   plan:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     outputs:
       areas: ${{ steps.pick.outputs.areas }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
       - id: pick
         env:
           ONLY: ${{ github.event.inputs.only }}
@@ -72,6 +77,39 @@ jobs:
           print("areas=" + json.dumps(names))
           PY
       - run: echo "Running ${{ steps.pick.outputs.areas }}"
+
+      # ONE shared entry for every area's place list. Saved here at the end of
+      # this job, restored read-only by each matrix job — which is why the key
+      # is not per-area any more: the warm pass fills them all at once.
+      - name: Cache OSM place lists
+        uses: actions/cache@v4
+        with:
+          path: osm_places_cache
+          key: osm-places-all-${{ github.run_id }}
+          restore-keys: |
+            osm-places-all-
+
+      # WARM BEFORE THE FAN-OUT.
+      #
+      # Every matrix job needs the same lists, and when each fetched its own they
+      # all hit Overpass at the same moment — so we rate-limited OURSELVES and
+      # then backed off politely against our own traffic. Watched live on the
+      # first matrix run: London (24,970 places at 20 miles) was still pulling
+      # tiles long after every other area had finished its entire job.
+      #
+      # One sequential pass here is faster wall-clock AND considerably kinder to
+      # a service that is free and volunteer-run. It fetches no venue websites —
+      # that is the expensive half and it stays in the matrix, where the
+      # parallelism actually helps.
+      #
+      # Never fatal: a hub whose list will not come is re-tried by its own job.
+      - name: Warm the place cache
+        continue-on-error: true
+        run: |
+          python mapsee_ingest_osm_food.py \
+            --config osm_food_sources.json --warm-cache \
+            ${{ github.event.inputs.radius_miles && format('--radius-miles {0}', github.event.inputs.radius_miles) || '' }} \
+            ${{ github.event.inputs.only && format('--only {0}', github.event.inputs.only) || '' }}
 
   # ---------------------------------------------------------------------------
   # One area per job.
@@ -104,17 +142,22 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
 
-      # The place list for THIS area. A restaurant's existence does not change
-      # weekly; at 20 miles the eight hubs hold 141,072 places, and re-pulling
-      # those from a volunteer-run service every week would be rude as well as
-      # slow. Keyed per area so the jobs do not fight over one cache entry.
-      - name: Cache OSM place list
-        uses: actions/cache@v4
+      # RESTORE ONLY — `plan` warmed and saved these. A restaurant's existence
+      # does not change weekly; at 20 miles the eight hubs hold 141,072 places,
+      # and re-pulling those from a volunteer-run service every week would be
+      # rude as well as slow.
+      #
+      # cache/restore rather than cache: eight jobs each saving the same
+      # directory would race to write one entry and mostly lose. If a hub's list
+      # is missing anyway (its warm failed), the ingest simply fetches it here —
+      # slower for that hub, correct either way.
+      - name: Restore OSM place lists
+        uses: actions/cache/restore@v4
         with:
           path: osm_places_cache
-          key: osm-places-${{ matrix.area }}-${{ github.run_id }}
+          key: osm-places-all-${{ github.run_id }}
           restore-keys: |
-            osm-places-${{ matrix.area }}-
+            osm-places-all-
 
       # Hours we may act on, and links we may call "Order pickup". This job puts
       # a business on the map with a button promising you can buy food from it;
