@@ -274,7 +274,23 @@ def main():
     failed += 0 if ok10 else 1
     print(f"{'ok  ' if ok10 else 'FAIL'}  no food category => unchanged -> {got10}")
 
-    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5 + len(DEST) + 3 + 4
+    # A REDIRECT MUST NOT DEMOTE A VALIDATED LINK. Chipotle's own location page
+    # links chipotle.com/order#menu — correctly matched — and fetching it
+    # redirects to the bare homepage. Refining from the post-redirect URL made
+    # THAT the stored link, and the client then rightly refused to call a
+    # homepage "Order pickup" and fell through to "Tickets & info" on a burrito
+    # shop. refine_storefront on a root with no food categories must hand the
+    # url back unchanged, and the caller re-validates before accepting it.
+    got11 = refine_storefront("https://www.chipotle.com/", "<html>no square json</html>")
+    ok11 = got11 == "https://www.chipotle.com/"
+    failed += 0 if ok11 else 1
+    print(f"{'ok  ' if ok11 else 'FAIL'}  a redirect target with no menu is not invented -> {got11}")
+    ok12 = looks_like_ordering("https://www.chipotle.com/order#menu") and \
+        not looks_like_ordering("https://www.chipotle.com/")
+    failed += 0 if ok12 else 1
+    print(f"{'ok  ' if ok12 else 'FAIL'}  ...and only the /order form qualifies, which is why it matters")
+
+    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5 + len(DEST) + 5 + 4
     print(f"\n{total} cases, {failed} failed")
     return 1 if failed else 0
 
