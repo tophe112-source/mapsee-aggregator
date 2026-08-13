@@ -1,12 +1,19 @@
 # Takeaway places from OpenStreetMap that can actually take an order.
 #
-# WEEKLY, not daily, and on purpose. A restaurant's existence does not change
-# overnight, Overpass is a free volunteer-run service that 429s if you lean on
-# it, and every candidate costs a page fetch of somebody else's website. The
-# expensive half of this job is being a guest on other people's infrastructure.
+# ONE JOB PER AREA, fanned out from the config. Before this, all areas ran
+# serially in a single job with a 60-place cap each: measured 2026-08-13 at a
+# 20-mile radius, the eight hubs hold 16,550 candidates with readable hours and
+# a website, and 480 examined per week is THIRTY-FOUR WEEKS for a single pass.
+# The pool had grown 6.6x and the throttle had not moved. Per-area jobs each get
+# their own timeout and their own thousands, so a full sweep is an afternoon.
 #
-# It writes into the shared store; mapsee_supabase_sync.py (run by
-# aggregate-events.yml) is what puts it on the map.
+# The matrix is READ FROM osm_food_sources.json, so adding a hub adds a job. It
+# is the whole reason adding hubs is cheap.
+#
+# WEEKLY, and on purpose. A restaurant's existence does not change overnight,
+# Overpass is a free volunteer-run service that 429s if you lean on it, and every
+# candidate costs a page fetch of somebody else's website. The expensive half of
+# this job is being a guest on other people's infrastructure.
 #
 # Never add pull_request: reads SUPABASE_SERVICE_ROLE_KEY via the sync step.
 name: OSM takeaway places
@@ -23,7 +30,7 @@ on:
       max_places:
         description: "Places examined per area (each costs a page fetch)"
         required: false
-        default: "60"
+        default: "2000"
       radius_miles:
         description: "Override every hub's radius for this run (blank = config, 50)"
         required: false
@@ -40,16 +47,48 @@ on:
         default: false
 
 permissions:
-  contents: write   # commits osm_food_cursor.json; see the step at the end
+  contents: write   # the cursor job commits osm_food_cursor.json
 
 jobs:
-  osm-food:
+  # ---------------------------------------------------------------------------
+  # Which areas to run. Read from the config so the fan-out follows it.
+  # ---------------------------------------------------------------------------
+  plan:
     runs-on: ubuntu-latest
-    # 45 is plenty for the weekly 60-per-area rotation. A full_refresh re-examines
-    # every candidate and now costs TWO fetches each (the venue site, then the
-    # order/booking destination it names), so all eight areas at ~3,100 readable
-    # candidates would run well past it — run a backfill ONE AREA AT A TIME.
-    timeout-minutes: 120
+    outputs:
+      areas: ${{ steps.pick.outputs.areas }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: pick
+        env:
+          ONLY: ${{ github.event.inputs.only }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          cfg = json.load(open("osm_food_sources.json", encoding="utf-8"))
+          only = (os.environ.get("ONLY") or "").strip().lower()
+          names = [a["name"] for a in cfg["areas"]
+                   if not only or only in a["name"].lower()]
+          print("areas=" + json.dumps(names))
+          PY
+      - run: echo "Running ${{ steps.pick.outputs.areas }}"
+
+  # ---------------------------------------------------------------------------
+  # One area per job.
+  # ---------------------------------------------------------------------------
+  pull:
+    needs: plan
+    runs-on: ubuntu-latest
+    # New York alone holds 4,735 readable candidates at 20 miles and each costs
+    # ~2.5s (the venue site, then the destination check on whatever it names).
+    # 330 minutes is that with room; a job that runs out simply stops at the
+    # cursor and the next run continues, which is the point of the cursor.
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false            # one metro's bad day is not the sweep's
+      max-parallel: 4             # be a guest: 4 concurrent, not 8
+      matrix:
+        area: ${{ fromJSON(needs.plan.outputs.areas) }}
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -65,23 +104,17 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
 
-      # The place lists, so a weekly run does not re-ask Overpass for every
-      # restaurant in eight metros to examine sixty of them. A restaurant's
-      # EXISTENCE does not change weekly; at a 50-mile radius Seattle alone
-      # holds 9,765 places, and pulling that from a volunteer-run service every
-      # week to look at 60 would be rude as well as slow.
-      #
-      # restore-keys means a run always starts from the newest cache it can
-      # find; the ingest then re-fetches only the areas whose file is older than
-      # --cache-days (30). The key changes weekly so the cache is re-saved with
-      # whatever was refreshed.
-      - name: Cache OSM place lists
+      # The place list for THIS area. A restaurant's existence does not change
+      # weekly; at 20 miles the eight hubs hold 141,072 places, and re-pulling
+      # those from a volunteer-run service every week would be rude as well as
+      # slow. Keyed per area so the jobs do not fight over one cache entry.
+      - name: Cache OSM place list
         uses: actions/cache@v4
         with:
           path: osm_places_cache
-          key: osm-places-${{ github.run_id }}
+          key: osm-places-${{ matrix.area }}-${{ github.run_id }}
           restore-keys: |
-            osm-places-
+            osm-places-${{ matrix.area }}-
 
       # Hours we may act on, and links we may call "Order pickup". This job puts
       # a business on the map with a button promising you can buy food from it;
@@ -91,29 +124,23 @@ jobs:
           python test_osm_food.py
           python test_menu_links.py
 
-      - name: Pull takeaway places
+      - name: Pull ${{ matrix.area }}
         run: |
           python mapsee_ingest_osm_food.py \
             --config osm_food_sources.json --store feeds_events.json \
-            --max-places ${{ github.event.inputs.max_places || 60 }} \
+            --only "${{ matrix.area }}" \
+            --max-places ${{ github.event.inputs.max_places || 2000 }} \
             ${{ github.event.inputs.radius_miles && format('--radius-miles {0}', github.event.inputs.radius_miles) || '' }} \
-            ${{ github.event.inputs.only && format('--only {0}', github.event.inputs.only) || '' }} \
             ${{ github.event.inputs.full_refresh == 'true' && '--ignore-cursor' || '' }} \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       - name: Sync to Supabase
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: |
-          # Guarded like every other sync step here: a pull that found nothing
-          # writes no store, and "file not found" is a confusing way to report
-          # a quiet week.
           # --only-new is right for the WEEKLY run: it skips rows already in the
           # table, so a scheduled pull can only add and never churns 20k rows.
           # It is exactly wrong for a backfill, because the rows that need
-          # rewriting are precisely the ones already there. full_refresh drops
-          # it so the new description — the Website line that lets an owner
-          # claim the place, the Reserve link, a re-verified order link —
-          # actually lands on the restaurants already on the map.
+          # rewriting are precisely the ones already there.
           ONLY_NEW="--only-new"
           if [ "${{ github.event.inputs.full_refresh }}" = "true" ]; then
             ONLY_NEW=""
@@ -125,14 +152,51 @@ jobs:
             echo "no feeds_events.json — nothing was pulled this run"
           fi
 
-      # The cursor is the only state this job keeps, and it is what makes the
-      # NEXT run look at different places. Unpersisted, every run re-examines
-      # the same first --max-places candidates and coverage is capped forever —
-      # silently, because the store dedupes so it just looks like a quiet week.
-      # Same reason curation_cursor.json is committed.
-      - name: Commit the cursor
+      # Each job hands its cursor up as an artifact rather than committing it.
+      # Eight jobs pushing the same file to main is eight racing commits, and the
+      # loser silently loses its place in the rotation — which reads as an area
+      # that mysteriously stopped making progress.
+      - name: Hand up the cursor
         if: ${{ github.event.inputs.dry_run != 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: cursor-${{ strategy.job-index }}
+          path: osm_food_cursor.json
+          if-no-files-found: ignore
+          retention-days: 1
+
+  # ---------------------------------------------------------------------------
+  # Merge every area's cursor and commit ONCE.
+  # ---------------------------------------------------------------------------
+  cursor:
+    needs: pull
+    if: ${{ always() && github.event.inputs.dry_run != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cursor-*
+          path: cursors
+        continue-on-error: true
+      - name: Merge and commit
         run: |
+          python - <<'PY'
+          import glob, json, os
+          merged = {}
+          if os.path.exists("osm_food_cursor.json"):
+              merged = json.load(open("osm_food_cursor.json", encoding="utf-8"))
+          # Each area's job only ever touched its OWN key, so a plain update per
+          # file is the merge — no area can clobber another's position.
+          for p in sorted(glob.glob("cursors/**/osm_food_cursor.json", recursive=True)):
+              try:
+                  merged.update(json.load(open(p, encoding="utf-8")))
+              except Exception as exc:
+                  print(f"skipping {p}: {exc}")
+          json.dump(merged, open("osm_food_cursor.json", "w", encoding="utf-8"),
+                    indent=1, sort_keys=True)
+          print(json.dumps(merged, indent=1, sort_keys=True))
+          PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add osm_food_cursor.json
