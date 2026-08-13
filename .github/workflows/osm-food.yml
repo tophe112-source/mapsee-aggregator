@@ -199,12 +199,38 @@ jobs:
       # Eight jobs pushing the same file to main is eight racing commits, and the
       # loser silently loses its place in the rotation — which reads as an area
       # that mysteriously stopped making progress.
+      #
+      # HAND UP ONLY THIS AREA'S KEY. The whole file would carry STALE copies of
+      # every other area's position too — each job starts from the committed
+      # cursor and edits one key — so merging whole files means the last one
+      # read wins for every key and seven areas' progress is thrown away.
+      # Measured on the first matrix run: Seattle 207, Portland 205, Chicago 205,
+      # New York 205, Paris 205, Tokyo 205 all present in the artifacts, and a
+      # whole-file merge produced 180 for every one of them, keeping only
+      # Melbourne — whichever happened to sort last.
+      - name: Take this area's cursor slice
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          AREA: ${{ matrix.area }}
+        run: |
+          python - <<'PY'
+          import json, os
+          area = os.environ["AREA"]
+          try:
+              cur = json.load(open("osm_food_cursor.json", encoding="utf-8"))
+          except Exception:
+              cur = {}
+          slice_ = {area: cur[area]} if area in cur else {}
+          json.dump(slice_, open("cursor_slice.json", "w", encoding="utf-8"), sort_keys=True)
+          print("handing up", slice_)
+          PY
+
       - name: Hand up the cursor
         if: ${{ github.event.inputs.dry_run != 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: cursor-${{ strategy.job-index }}
-          path: osm_food_cursor.json
+          path: cursor_slice.json
           if-no-files-found: ignore
           retention-days: 1
 
@@ -251,14 +277,21 @@ jobs:
           merged = {}
           if os.path.exists("osm_food_cursor.json"):
               merged = json.load(open("osm_food_cursor.json", encoding="utf-8"))
-          # Each area's job only ever touched its OWN key, so a plain update per
-          # file is the merge — no area can clobber another's position, and
-          # neither can whatever else landed on main meanwhile.
-          for p in sorted(glob.glob("cursors/**/osm_food_cursor.json", recursive=True)):
+          # Each artifact is a SLICE — one area's key and nothing else — so an
+          # update per file genuinely cannot clobber another area's position,
+          # nor whatever else landed on main meanwhile. It used to be the whole
+          # file, which meant the last one read overwrote six areas' progress
+          # with its own stale copies. A slice larger than one key is a bug in
+          # the step that wrote it, so say so rather than trusting it.
+          for p in sorted(glob.glob("cursors/**/cursor_slice.json", recursive=True)):
               try:
-                  merged.update(json.load(open(p, encoding="utf-8")))
+                  d = json.load(open(p, encoding="utf-8"))
               except Exception as exc:
                   print(f"skipping {p}: {exc}")
+                  continue
+              if len(d) > 1:
+                  print(f"::warning::{p} carries {len(d)} areas, expected 1: {sorted(d)}")
+              merged.update(d)
           json.dump(merged, open("osm_food_cursor.json", "w", encoding="utf-8"),
                     indent=1, sort_keys=True)
           print(json.dumps(merged, indent=1, sort_keys=True))
