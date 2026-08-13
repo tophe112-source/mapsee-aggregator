@@ -37,6 +37,8 @@ Run:  python mapsee_ingest_osm_food.py --config osm_food_sources.json \
 """
 import argparse
 import json
+import math
+import os
 import re
 import sys
 import time
@@ -168,25 +170,56 @@ def save_cursor(cur, path=CURSOR_PATH):
         print(f"[osm-food] could not write cursor: {exc}", flush=True)
 
 
-def overpass(area, delay=2.0, tries=4):
-    """Places of interest in one bounding box, with a website to check.
+def area_bbox(area):
+    """(s, w, n, e) for an area, from an explicit bbox or a centre + radius.
+
+    centre+radius is the form worth writing new hubs in: "Seattle, 50 miles" is
+    a thing somebody can check, and a bbox is four numbers nobody can.
+    """
+    if area.get("bbox"):
+        return tuple(area["bbox"])
+    lat, lon = area["center"]
+    mi = float(area.get("radius_miles", 50))
+    dlat = (mi * 1.609) / 111.0
+    dlon = (mi * 1.609) / (111.0 * max(math.cos(math.radians(lat)), 0.01))
+    return (lat - dlat, lon - dlon, lat + dlat, lon + dlon)
+
+
+def tiles(bbox, max_deg=0.35):
+    """Split a bbox into a grid no cell of which is wider than max_deg.
+
+    A 50-mile radius is a 1.45° box, and Overpass will not serve that in one
+    piece for four amenity types: the COUNT alone took 76 seconds, and the same
+    box asking for tags is far heavier. The service already tells us this — a
+    wide box answers 504, which is how Seattle and later New York dropped out of
+    whole runs. Tiling turns one request it will refuse into a handful it will
+    answer, and each one is small enough to retry cheaply.
+    """
+    s, w, n, e = bbox
+    rows = max(1, math.ceil((n - s) / max_deg))
+    cols = max(1, math.ceil((e - w) / max_deg))
+    dh, dw = (n - s) / rows, (e - w) / cols
+    return [(s + r * dh, w + c * dw, s + (r + 1) * dh, w + (c + 1) * dw)
+            for r in range(rows) for c in range(cols)]
+
+
+def _overpass_one(bbox, delay=2.0, tries=4):
+    """One tile. Backs off rather than re-asking harder.
 
     Overpass is a free, shared, volunteer-run service and it says so: measured
     while building this, a third city in quick succession answered 429, and a
-    wide box answers 504. Both are it asking us to slow down, and a scheduled job
-    that treats them as failures just re-asks harder tomorrow. So: exponential
-    backoff, and the delay is between AREAS as well as retries.
+    wide box answers 504. Both are it asking us to slow down.
     """
-    s, w, n, e = area["bbox"]
+    s, w, n, e = bbox
     parts = "".join(
         f'nwr["amenity"="{a}"]["name"]({s},{w},{n},{e});' for a in AMENITIES)
-    q = f"[out:json][timeout:120];({parts});out tags center;"
+    q = f"[out:json][timeout:180];({parts});out tags center;"
     last = None
     for attempt in range(tries):
         try:
             req = urllib.request.Request(OVERPASS, data=urllib.parse.urlencode({"data": q}).encode(),
                                          headers={"User-Agent": UA})
-            with urllib.request.urlopen(req, timeout=180) as r:
+            with urllib.request.urlopen(req, timeout=240) as r:
                 data = json.loads(r.read().decode("utf-8", "replace"))
             time.sleep(delay)
             return data.get("elements", [])
@@ -195,6 +228,78 @@ def overpass(area, delay=2.0, tries=4):
             if attempt < tries - 1:
                 time.sleep(delay * (3 ** attempt))
     raise last
+
+
+def overpass(area, delay=2.0, tries=4):
+    """Every named food place in an area, tile by tile, deduped.
+
+    A tile that will not answer after its retries is REPORTED and skipped rather
+    than failing the area: losing one square of a metro is a smaller loss than
+    losing the metro, and a silent partial would be worse than either.
+    """
+    bbox = area_bbox(area)
+    cells = tiles(bbox)
+    out, seen, failed = [], set(), 0
+    for i, cell in enumerate(cells, 1):
+        try:
+            els = _overpass_one(cell, delay=delay, tries=tries)
+        except Exception as exc:
+            failed += 1
+            print(f"[osm-food]   {area['name']} tile {i}/{len(cells)} failed: {exc}", flush=True)
+            continue
+        for el in els:
+            k = (el.get("type"), el.get("id"))
+            if k not in seen:
+                seen.add(k)
+                out.append(el)
+        if len(cells) > 1:
+            print(f"[osm-food]   {area['name']} tile {i}/{len(cells)}: "
+                  f"+{len(els)} ({len(out)} unique)", flush=True)
+    if failed:
+        print(f"[osm-food]   {area['name']}: {failed} of {len(cells)} tiles did not answer — "
+              f"this area is INCOMPLETE this run", flush=True)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# The places cache
+# ---------------------------------------------------------------------------
+# A restaurant's EXISTENCE does not change weekly, and until this cache the job
+# re-downloaded every place in every area on every run to examine sixty of them:
+# 18,282 places pulled from a volunteer-run service to look at 480. That was
+# tolerable at a 2-mile radius and is not at 50, where Seattle alone holds 9,765.
+#
+# So the expensive half is now monthly and the cheap half stays weekly. The
+# weekly run walks the cursor through a cached list; Overpass is only asked when
+# the cache is older than --cache-days or missing.
+def cache_path(cache_dir, area_name):
+    safe = re.sub(r"[^a-z0-9]+", "-", area_name.lower()).strip("-")
+    return os.path.join(cache_dir, f"{safe}.json")
+
+
+def load_places(cache_dir, area, max_age_days):
+    p = cache_path(cache_dir, area["name"])
+    try:
+        with open(p, encoding="utf-8") as fh:
+            blob = json.load(fh)
+        age = (time.time() - float(blob.get("fetched_at", 0))) / 86400.0
+        if age <= max_age_days and blob.get("elements"):
+            print(f"[osm-food] {area['name']}: {len(blob['elements'])} places from cache "
+                  f"({age:.1f}d old)", flush=True)
+            return blob["elements"], True
+    except Exception:
+        pass
+    return None, False
+
+
+def save_places(cache_dir, area, elements):
+    try:
+        os.makedirs(cache_dir, exist_ok=True)
+        with open(cache_path(cache_dir, area["name"]), "w", encoding="utf-8") as fh:
+            json.dump({"area": area["name"], "fetched_at": time.time(),
+                       "elements": elements}, fh)
+    except Exception as exc:
+        print(f"[osm-food] could not cache {area['name']}: {exc}", flush=True)
 
 
 def links_for(tags, session_delay=0.5):
@@ -380,6 +485,10 @@ def main(argv=None):
     ap.add_argument("--ignore-cursor", action="store_true",
                     help="start at the first candidate and do not advance the cursor "
                          "(backfill: re-examine places already imported)")
+    ap.add_argument("--places-cache", default="osm_places_cache",
+                    help="where the per-area OSM place lists live")
+    ap.add_argument("--cache-days", type=float, default=30.0,
+                    help="re-ask Overpass only when the cached list is older than this")
     ap.add_argument("--delay", type=float, default=2.0)
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args(argv)
@@ -392,11 +501,15 @@ def main(argv=None):
     tot_seen = tot_hours = tot_order = tot_booking = tot_events = 0
 
     for area in areas:
-        try:
-            els = overpass(area, a.delay)
-        except Exception as exc:
-            print(f"[osm-food] {area['name']} overpass FAILED: {exc}")
-            continue
+        els, from_cache = load_places(a.places_cache, area, a.cache_days)
+        if els is None:
+            try:
+                els = overpass(area, a.delay)
+            except Exception as exc:
+                print(f"[osm-food] {area['name']} overpass FAILED: {exc}")
+                continue
+            if els and not a.dry_run:
+                save_places(a.places_cache, area, els)
         # Only the ones worth a fetch: a website AND hours we can read. Doing the
         # cheap filters first is what keeps this to a few dozen page loads.
         cands = []

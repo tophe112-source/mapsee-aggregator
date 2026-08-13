@@ -61,6 +61,24 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
 
+      # The place lists, so a weekly run does not re-ask Overpass for every
+      # restaurant in eight metros to examine sixty of them. A restaurant's
+      # EXISTENCE does not change weekly; at a 50-mile radius Seattle alone
+      # holds 9,765 places, and pulling that from a volunteer-run service every
+      # week to look at 60 would be rude as well as slow.
+      #
+      # restore-keys means a run always starts from the newest cache it can
+      # find; the ingest then re-fetches only the areas whose file is older than
+      # --cache-days (30). The key changes weekly so the cache is re-saved with
+      # whatever was refreshed.
+      - name: Cache OSM place lists
+        uses: actions/cache@v4
+        with:
+          path: osm_places_cache
+          key: osm-places-${{ github.run_id }}
+          restore-keys: |
+            osm-places-
+
       # Hours we may act on, and links we may call "Order pickup". This job puts
       # a business on the map with a button promising you can buy food from it;
       # both halves of that promise have already shipped wrong once.

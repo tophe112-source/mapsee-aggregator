@@ -1,50 +1,119 @@
 {
-  "_readme": [
-    "Bounding boxes for mapsee_ingest_osm_food.py — takeaway places from OpenStreetMap",
-    "that have a resolvable order link AND readable opening hours. Both filters are",
-    "hard: no order link or unreadable hours means the place is skipped, because a",
-    "pin with nothing behind it, or hours we guessed at, is worse than no pin.",
-    "",
-    "bbox is [south, west, north, east]. Keep them TIGHT. Measured while building",
-    "this: a wide Seattle box answered 504, and a third city queried back-to-back",
-    "answered 429. Overpass is free and volunteer-run and it will say so.",
-    "",
-    "MEASURED YIELD, central Seattle (47.60,-122.35,47.66,-122.29), 2026-08-12:",
-    "  1,086 food places -> 654 with a website -> 446 tag opening_hours",
-    "  -> 317 whose hours we can READ -> 9 of the first 25 examined (36%) had a",
-    "  real order link once gift cards are excluded. Extrapolated: ~110 per box.",
-    "Do not expect thousands. Expect tens, all of which actually work.",
-    "",
-    "FULL RUN, all eight areas, 2026-08-12, --max-places 60:",
-    "  18,283 places seen -> 3,134 with a website AND readable hours",
-    "  -> 480 examined (the cap) -> 110 with a real order link -> 723 slots.",
-    "New York has the deepest pool (1,046 readable), Tokyo the thinnest (127).",
-    "At 60/area/week the cursor takes ~5 weeks to walk Seattle and ~17 for",
-    "New York; osm_food_cursor.json is what makes that walk happen at all.",
-    "",
-    "_not_included is an editorial NO and anything proposing new areas must read",
-    "it — same convention as mobilizon_sources.json. Put a MEASUREMENT in it, not",
-    "an impression: an earlier draft of this file declined Tokyo and Paris on a",
-    "guess that their opening_hours coverage was thin, and both turned out fine",
-    "(Shibuya 127 readable, Paris 11e 143). The guess would have cost two cities."
-  ],
-  "areas": [
-    { "name": "Seattle",   "city": "Seattle",   "region": "WA",  "country": "US",
-      "bbox": [47.60, -122.35, 47.66, -122.29] },
-    { "name": "Portland",  "city": "Portland",  "region": "OR",  "country": "US",
-      "bbox": [45.50, -122.70, 45.55, -122.62] },
-    { "name": "Chicago",   "city": "Chicago",   "region": "IL",  "country": "US",
-      "bbox": [41.87, -87.68, 41.93, -87.62] },
-    { "name": "New York",  "city": "New York",  "region": "NY",  "country": "US",
-      "bbox": [40.71, -74.01, 40.76, -73.97] },
-    { "name": "London",    "city": "London",    "region": null,  "country": "GB",
-      "bbox": [51.505, -0.15, 51.53, -0.09] },
-    { "name": "Paris",     "city": "Paris",     "region": null,  "country": "FR",
-      "bbox": [48.85, 2.34, 48.88, 2.40] },
-    { "name": "Tokyo",     "city": "Tokyo",     "region": null,  "country": "JP",
-      "bbox": [35.65, 139.68, 35.68, 139.72] },
-    { "name": "Melbourne", "city": "Melbourne", "region": "VIC", "country": "AU",
-      "bbox": [-37.82, 144.95, -37.79, 144.99] }
-  ],
-  "_not_included": {}
+ "_readme": [
+  "Hubs for the OpenStreetMap takeaway pull. One entry per metro.",
+  "",
+  "centre + radius_miles, NOT a bbox. The first eight areas were hand-drawn",
+  "downtown boxes 1.1-2.1 miles across - 166 km2 in total, across eight",
+  "cities - which was never a decision, just a first sketch that stuck. At",
+  "that size 'Seattle' meant about forty blocks. 50 miles is 156x the area",
+  "per hub and, measured 2026-08-12, takes Seattle from 1,086 named food",
+  "places to 9,765.",
+  "",
+  "A 50-mile box is 1.45 degrees and Overpass will not serve that in one",
+  "piece: the COUNT alone took 76 seconds, and a wide box answers 504 - which",
+  "is how Seattle, and later New York, dropped out of entire runs. So the",
+  "ingest TILES each area into cells and merges them, and a tile that will",
+  "not answer is reported and skipped rather than losing the metro.",
+  "",
+  "The place list is CACHED per area (osm_places_cache/, 30 days). A",
+  "restaurant's existence does not change weekly, and without the cache every",
+  "run re-downloaded every place in every area to examine sixty of them:",
+  "18,282 pulled from a volunteer-run service to look at 480. Adding hubs is",
+  "cheap because of that cache; it is the WEBSITE fetching, throttled by",
+  "--max-places, that costs real time.",
+  "",
+  "Adding a hub is three lines. What stops this being the whole world is not",
+  "the config - see the note in the ingest header."
+ ],
+ "areas": [
+  {
+   "name": "Seattle",
+   "city": "Seattle",
+   "region": "WA",
+   "country": "US",
+   "center": [
+    47.6062,
+    -122.3321
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Portland",
+   "city": "Portland",
+   "region": "OR",
+   "country": "US",
+   "center": [
+    45.5152,
+    -122.6784
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Chicago",
+   "city": "Chicago",
+   "region": "IL",
+   "country": "US",
+   "center": [
+    41.8781,
+    -87.6298
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "New York",
+   "city": "New York",
+   "region": "NY",
+   "country": "US",
+   "center": [
+    40.7128,
+    -74.006
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "London",
+   "city": "London",
+   "region": null,
+   "country": "GB",
+   "center": [
+    51.5074,
+    -0.1278
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Paris",
+   "city": "Paris",
+   "region": null,
+   "country": "FR",
+   "center": [
+    48.8566,
+    2.3522
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Tokyo",
+   "city": "Tokyo",
+   "region": null,
+   "country": "JP",
+   "center": [
+    35.6762,
+    139.6503
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Melbourne",
+   "city": "Melbourne",
+   "region": "VIC",
+   "country": "AU",
+   "center": [
+    -37.8136,
+    144.9631
+   ],
+   "radius_miles": 50
+  }
+ ],
+ "_not_included": {}
 }
