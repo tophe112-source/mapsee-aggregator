@@ -103,7 +103,19 @@ jobs:
       # parallelism actually helps.
       #
       # Never fatal: a hub whose list will not come is re-tried by its own job.
+      #
+      # THE STEP TIMEOUT IS LOAD-BEARING. continue-on-error covers a step that
+      # FAILS; it does nothing for one that runs long, and a JOB timeout kills
+      # the job outright — which `pull` needs, so an over-running warm would take
+      # the entire sweep down rather than degrading to cold caches. Seen on the
+      # first warmed sweep: 48 tiles serially against an Overpass that was by
+      # then rate-limiting us (backoff 2s/6s/18s, up to 240s per tile), and the
+      # plan job sat on this step for over an hour with the job cap at 90.
+      #
+      # 45 minutes is generous for the warm and comfortably inside the job's 90,
+      # so the worst case is what we had before: each area fetches its own list.
       - name: Warm the place cache
+        timeout-minutes: 45
         continue-on-error: true
         run: |
           python mapsee_ingest_osm_food.py \
