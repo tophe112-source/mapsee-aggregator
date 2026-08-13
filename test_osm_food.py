@@ -65,7 +65,56 @@ def main():
         if not ok:
             print(f"        wanted {want}")
             print(f"        got    {got}")
-    print(f"\n{len(CASES)} cases, {failed} failed")
+    # ---- tiling, and never keeping a partial answer ----------------------
+    # A 50-mile radius is a 1.45° box and Overpass answers 504 to that, which is
+    # how Seattle and later New York dropped out of whole runs. Tiling fixed the
+    # coverage; the first live 50-mile pull then showed the second half of the
+    # problem: 2 of Seattle's 35 tiles timed out, the run correctly SAID so, and
+    # cached the partial list for thirty days. Every run after that would have
+    # looked healthy while two squares of the metro quietly went missing.
+    #
+    # A partial answer is fine to USE and never fine to KEEP.
+    print("\n-- tiles, and what may be cached --")
+    import mapsee_ingest_osm_food as m
+
+    box = m.area_bbox({"center": [47.6062, -122.3321], "radius_miles": 50})
+    cells = m.tiles(box)
+    checks = [
+        (len(cells) > 1, f"a 50-mile area is split into tiles ({len(cells)})"),
+        (all(c[2] - c[0] <= 0.36 and c[3] - c[1] <= 0.36 for c in cells),
+         "no tile is wider than the cell limit"),
+        (abs(min(c[0] for c in cells) - box[0]) < 1e-9
+         and abs(max(c[2] for c in cells) - box[2]) < 1e-9,
+         "the tiles cover the whole box, edge to edge"),
+    ]
+
+    real_one, real_sleep = m._overpass_one, m.time.sleep
+    try:
+        m.time.sleep = lambda *_: None
+        n = {"i": 0}
+
+        def flaky(bbox, delay=2.0, tries=4):
+            n["i"] += 1
+            if n["i"] == 2:
+                raise RuntimeError("504")
+            return [{"type": "node", "id": n["i"], "tags": {}}]
+        m._overpass_one = flaky
+        els, complete = m.overpass({"name": "T", "center": [47.6, -122.3], "radius_miles": 50}, delay=0)
+        checks.append((complete is False, "one dead tile marks the area INCOMPLETE"))
+        checks.append((len(els) == len(cells) - 1, "the surviving tiles are still returned and used"))
+
+        m._overpass_one = lambda bbox, delay=2.0, tries=4: [{"type": "node", "id": 7, "tags": {}}]
+        els2, complete2 = m.overpass({"name": "T", "center": [47.6, -122.3], "radius_miles": 50}, delay=0)
+        checks.append((complete2 is True, "all tiles answering marks it complete"))
+        checks.append((len(els2) == 1, "the same place seen in several tiles is deduped"))
+    finally:
+        m._overpass_one, m.time.sleep = real_one, real_sleep
+
+    for ok, why in checks:
+        failed += 0 if ok else 1
+        print(f"{'ok  ' if ok else 'FAIL'}  {why}")
+
+    print(f"\n{len(CASES) + len(checks)} cases, {failed} failed")
     return 1 if failed else 0
 
 

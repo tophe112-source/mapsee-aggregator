@@ -18,6 +18,11 @@ feeds_events.json
 # check locally leaves a copy behind that has no business in the repo.
 health_report.md
 
+# Cached OSM place lists, one file per hub. Derived data, tens of MB, and
+# refetchable — it belongs in the Actions cache, not in history. The CURSOR
+# (osm_food_cursor.json) is committed, because where we got to is not derivable.
+osm_places_cache/
+
 # local credentials - never commit
 .env
 .env.local
