@@ -24,7 +24,7 @@ WHY A SEPARATE PASS, not the ingest. The occurrences never meet in memory: the
 store is rebuilt each run, sources run on different weekdays, and `--only-new`
 (the CI default) means a run sees this week's rows and not the thirty already in
 the table. The database is the one place a series is visible whole — the same
-argument mapsee_dedupe_markets.py makes about duplicates. It also means this
+argument mapsee_dedupe_events.py makes about duplicates. It also means this
 fixes the BACKLOG, which an ingest-time change never could.
 
 WHAT COUNTS AS A SERIES. Same normalized title, within --radius-km of each
@@ -35,7 +35,7 @@ Saturday of one season together; a run that breaks at a longer gap simply
 becomes two series, which is what it is.
 
 Rows sharing a title on the SAME date are duplicates, not a series — that is
-mapsee_dedupe_markets.py's job, and chaining them here would paper over it. They
+mapsee_dedupe_events.py's job, and chaining them here would paper over it. They
 count once toward the date test and are still linked, so a series survives a
 source publishing one occurrence twice.
 
@@ -94,7 +94,7 @@ def _local_date(starts_at: str, lon: Optional[float]) -> str:
     starts_at is UTC, so a 7 p.m. Pacific trivia night is 03:00Z the NEXT day and
     grouping on the UTC date would call Tuesday's and Wednesday's occurrence the
     same evening. The offset only has to be consistent between rows of the same
-    event, which share a longitude — same reasoning as mapsee_dedupe_markets.
+    event, which share a longitude — same reasoning as mapsee_dedupe_events.
     """
     if not starts_at:
         return ""
