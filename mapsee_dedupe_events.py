@@ -83,7 +83,7 @@ PAGE = 1000                    # rows per PostgREST fetch
 BATCH_DEFAULT = 100            # ids per delete statement — see mapsee_cleanup.py
 BATCH_MIN = 10
 TIMEOUT_CODE = "57014"         # postgres: canceling statement due to statement timeout
-COLUMNS = "id,title,category,lat,lon,starts_at,claimed_at,created_at"
+COLUMNS = "id,title,category,lat,lon,starts_at,ends_at,claimed_at,created_at"
 
 # Categories whose identity is a calendar DATE rather than an instant, because
 # the thing happens once on the day it happens and the sources disagree about
@@ -300,8 +300,8 @@ def main() -> int:
     ap.add_argument("--radius-km", type=float, default=1.5,
                     help="Two same-name, same-time rows this close are one event (default 1.5).")
     ap.add_argument("--include-past", action="store_true",
-                    help="Also dedupe events that have already started "
-                         "(default: upcoming only — mapsee_cleanup.py prunes the past).")
+                    help="Also dedupe events that have already ENDED "
+                         "(default: anything still running or still to come).")
     ap.add_argument("--batch", type=int, default=BATCH_DEFAULT,
                     help=f"Ids per delete statement (default {BATCH_DEFAULT}).")
     ap.add_argument("--max-seconds", type=int, default=600,
@@ -348,11 +348,33 @@ def main() -> int:
     base = url.rstrip("/") + "/rest/v1/events?" + flt
     auth = {"apikey": key, "Authorization": f"Bearer {key}"}
 
-    since = None if a.include_past else datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    rows = fetch_rows(base, auth, since)
+    # STILL RUNNING COUNTS AS CURRENT, and this used to be a blind spot big
+    # enough to hold 1,354 duplicate rows.
+    #
+    # The filter was `starts_at >= now`, which reads as "upcoming" and is not the
+    # same thing as "live". A three-month exhibition that opened in July is
+    # showing on the map right now, and it was invisible to this job the day
+    # after it opened. mapsee_cleanup.py could not take it either — that one
+    # deliberately spares a still-running event — so anything multi-day fell
+    # between the two and nothing ever collected it. Which is precisely the
+    # Localist recurring-event shape that produced the duplicates in the first
+    # place: measured 2026-08-12, 1,354 redundant rows across fourteen
+    # categories, market 546 and community 381 of them.
+    #
+    # So fetch without a floor and decide here, on ends_at. The table stays
+    # bounded regardless, because cleanup prunes anything ENDED more than seven
+    # days ago — the extra rows this walks are ~60k, seconds of listing.
+    now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    rows = fetch_rows(base, auth, None)
+    if not a.include_past:
+        def _live(r: Dict[str, Any]) -> bool:
+            # ends_at when we have one, else the start: a row with no end is a
+            # point in time, and once it is past it is past.
+            return str(r.get("ends_at") or r.get("starts_at") or "") >= now_iso
+        rows = [r for r in rows if _live(r)]
     scope = a.category or "all categories"
     print(f"Imported events examined ({scope}): {len(rows)}"
-          f"{'' if a.include_past else ' (upcoming only)'}")
+          f"{'' if a.include_past else ' (running or upcoming)'}")
     if not rows:
         return 0
 
