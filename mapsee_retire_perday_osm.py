@@ -121,8 +121,27 @@ def main():
 
     # The NEW model: one rolling row per venue. These are the replacements, and
     # their existence is what makes retiring an old row safe.
-    new_rows, _ = scan(f"{base}&recurring_hours=not.is.null&hidden_at=is.null",
-                       "standing rows (new model)", args.days, args.back, args.max_pages)
+    #
+    # NOT time-windowed, unlike the old rows. There is one of these per venue
+    # rather than one per open day, so the whole set is small — and windowing it
+    # by starts_at defeats ../mapsee 0156's partial index, which is keyed on
+    # ends_at. Measured against production: the windowed form took 0.77s and
+    # timed out (57014) on the attempt before that; ordered by ends_at to match
+    # the index it takes 0.22s. A safety check that intermittently fails is
+    # worse than no safety check, because it fails by hiding LESS and looking
+    # fine.
+    new_rows, offset = [], 0
+    while True:
+        batch = sb(f"{base}&recurring_hours=not.is.null&hidden_at=is.null"
+                   f"&order=ends_at.asc&limit={PAGE}&offset={offset}") or []
+        new_rows.extend(batch)
+        if len(batch) < PAGE:
+            break
+        offset += PAGE
+        if offset > 100000:
+            print("  standing rows exceeded 100k — refusing to page further", file=sys.stderr)
+            break
+    print(f"  standing rows (new model): {len(new_rows)} rows")
     replaced = {key(r["lat"], r["lon"]) for r in new_rows if r.get("lat") is not None}
 
     if args.unhide:
