@@ -284,12 +284,27 @@ def cache_path(cache_dir, area_name):
     return os.path.join(cache_dir, f"{safe}.json")
 
 
-def load_places(cache_dir, area, max_age_days):
+def load_places(cache_dir, area, max_age_days, bbox=None):
+    """The cached list for this area, but ONLY if it covers the same ground.
+
+    The cache is keyed on the area NAME, and the name is not the query: "Seattle"
+    at 20 miles and "Seattle" at 50 miles are different sets of restaurants. A
+    cache that ignored the box would let a narrow run poison a wide one for
+    thirty days — silently, since a smaller list looks exactly like a quiet week.
+    So the box is stored and compared, and a mismatch is a miss.
+    """
     p = cache_path(cache_dir, area["name"])
+    want = tuple(round(v, 6) for v in (bbox if bbox is not None else area_bbox(area)))
     try:
         with open(p, encoding="utf-8") as fh:
             blob = json.load(fh)
         age = (time.time() - float(blob.get("fetched_at", 0))) / 86400.0
+        got = blob.get("bbox")
+        got = tuple(round(v, 6) for v in got) if got else None
+        if got != want:
+            print(f"[osm-food] {area['name']}: cached list covers a different box "
+                  f"— refetching", flush=True)
+            return None, False
         if age <= max_age_days and blob.get("elements"):
             print(f"[osm-food] {area['name']}: {len(blob['elements'])} places from cache "
                   f"({age:.1f}d old)", flush=True)
@@ -299,12 +314,13 @@ def load_places(cache_dir, area, max_age_days):
     return None, False
 
 
-def save_places(cache_dir, area, elements):
+def save_places(cache_dir, area, elements, bbox=None):
     try:
         os.makedirs(cache_dir, exist_ok=True)
+        bb = list(bbox if bbox is not None else area_bbox(area))
         with open(cache_path(cache_dir, area["name"]), "w", encoding="utf-8") as fh:
             json.dump({"area": area["name"], "fetched_at": time.time(),
-                       "elements": elements}, fh)
+                       "bbox": bb, "elements": elements}, fh)
     except Exception as exc:
         print(f"[osm-food] could not cache {area['name']}: {exc}", flush=True)
 
@@ -496,6 +512,10 @@ def main(argv=None):
                     help="where the per-area OSM place lists live")
     ap.add_argument("--cache-days", type=float, default=30.0,
                     help="re-ask Overpass only when the cached list is older than this")
+    ap.add_argument("--radius-miles", type=float,
+                    help="override every area's radius for THIS run (config stays as it is). "
+                         "The cache keys on the resulting box, so a narrow run cannot "
+                         "poison a wide one.")
     ap.add_argument("--delay", type=float, default=2.0)
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args(argv)
@@ -508,7 +528,11 @@ def main(argv=None):
     tot_seen = tot_hours = tot_order = tot_booking = tot_events = 0
 
     for area in areas:
-        els, from_cache = load_places(a.places_cache, area, a.cache_days)
+        if a.radius_miles:
+            area = {**area, "radius_miles": a.radius_miles}
+            area.pop("bbox", None)          # a radius override beats a stored box
+        bbox = area_bbox(area)
+        els, from_cache = load_places(a.places_cache, area, a.cache_days, bbox)
         if els is None:
             try:
                 els, complete = overpass(area, a.delay)
@@ -518,7 +542,7 @@ def main(argv=None):
             # Use a partial list, never keep one. Caching an incomplete pull for
             # thirty days would hide the gap behind a run that looks healthy.
             if els and complete and not a.dry_run:
-                save_places(a.places_cache, area, els)
+                save_places(a.places_cache, area, els, bbox)
         # Only the ones worth a fetch: a website AND hours we can read. Doing the
         # cheap filters first is what keeps this to a few dozen page loads.
         cands = []

@@ -24,6 +24,10 @@ on:
         description: "Places examined per area (each costs a page fetch)"
         required: false
         default: "60"
+      radius_miles:
+        description: "Override every hub's radius for this run (blank = config, 50)"
+        required: false
+        default: ""
       dry_run:
         description: "Report only, write nothing"
         type: boolean
@@ -92,6 +96,7 @@ jobs:
           python mapsee_ingest_osm_food.py \
             --config osm_food_sources.json --store feeds_events.json \
             --max-places ${{ github.event.inputs.max_places || 60 }} \
+            ${{ github.event.inputs.radius_miles && format('--radius-miles {0}', github.event.inputs.radius_miles) || '' }} \
             ${{ github.event.inputs.only && format('--only {0}', github.event.inputs.only) || '' }} \
             ${{ github.event.inputs.full_refresh == 'true' && '--ignore-cursor' || '' }} \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
