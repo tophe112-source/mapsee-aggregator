@@ -811,7 +811,24 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         "icon": None,                                # let the app render the category's emoji
         "external_source": "mapsee",                 # provenance (migration 0039)
         "external_id": rec["fingerprint"],           # cross-source dedup key -> idempotent
+        # A standing weekly arrangement rather than an occasion (migration 0156).
+        # The TIMEZONE is resolved here and stored with the pattern, because this
+        # is the only place that knows it: the adapter has coordinates, and
+        # turning coordinates into an IANA zone is _tz_for's job. 0149's note
+        # applies — longitude cannot know a DST rule, so the zone is stored, not
+        # re-derived by whoever reads it later.
+        "recurring_hours": _recurring_hours(rec, lat, lon),
     }
+
+
+def _recurring_hours(rec, lat, lon):
+    """{"tz": …, "days": {"0": ["11:00","22:00"], …}} or None."""
+    days = rec.get("recurring_days")
+    if not days:
+        return None
+    tz = _tz_for(lat, lon)
+    return {"tz": getattr(tz, "key", None) or "UTC",
+            "days": {str(k): list(v) for k, v in days.items()}}
 
 
 def _addr_parts(rec: Dict[str, Any]):

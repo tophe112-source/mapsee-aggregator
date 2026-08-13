@@ -36,6 +36,7 @@ Run:  python mapsee_ingest_osm_food.py --config osm_food_sources.json \
           --store feeds_events.json [--dry-run] [--only seattle]
 """
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -473,29 +474,55 @@ def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=Non
             f"{body}"
             f"Listing from OpenStreetMap contributors (ODbL). "
             f"Is this your place? Claim it on mapsee.me to correct it.")
-    out = []
+    # ONE ROW PER VENUE, not one per open day.
+    #
+    # A business is open every Tuesday; it is not holding 52 Tuesday events.
+    # Writing a row per day cost 6.1 rows per venue (measured across Seattle,
+    # Chicago, Portland and London: 1,547 rows for 254 places) and would be
+    # ~30,500 rows at full coverage of eight hubs alone.
+    #
+    # The row carries the WEEKLY PATTERN, and ../mapsee 0156's hourly roller
+    # moves its window forward. Its starts_at/ends_at is only ever the NEXT open
+    # window — so the map answers "can I eat there now, or when next", which is
+    # the question, and the row never expires the way a dated clone does.
+    #
+    # It also gives the venue a STABLE id. Under the per-day model every day was
+    # a different event, so a claim, a share link — or an order, when we are
+    # their till — attached to a row that stopped existing tomorrow.
     today = datetime.now(timezone.utc).date()
-    for i in range(days_ahead):
+    slot = None
+    for i in range(max(days_ahead, 8)):     # 8 guarantees every weekday is seen
         d = today + timedelta(days=i)
         span = hours.get(d.weekday())
-        if not span:
-            continue
-        o, c = span
-        out.append(NormalizedEvent(
-            source="osm-food",
-            source_id=f"{el.get('type','n')}/{el.get('id')}/{d.isoformat()}",
-            name=name,
-            description=desc,
-            start_local=f"{d.isoformat()}T{o}:00",
-            end_local=f"{d.isoformat()}T{c}:00",
-            venue_name=name,
-            latitude=float(lat), longitude=float(lon),
-            address=addr, city=area.get("city"), region=area.get("region"),
-            country=area.get("country"), postal_code=tags.get("addr:postcode"),
-            category="food",
-            ticket_url=order_url or booking_url,
-        ))
-    return out
+        if span:
+            slot = (d, span[0], span[1])
+            break
+    if not slot:
+        return []
+    d, o, c = slot
+
+    # The fingerprint is the OSM identity, with NO date in it — that is what
+    # makes re-running update the same row instead of adding another. It also
+    # sidesteps make_fingerprint's name|date|place basis, which would collapse
+    # two Chipotles in one city into a single row now that the date is gone.
+    osm_ref = f"{el.get('type','n')}/{el.get('id')}"
+    return [NormalizedEvent(
+        source="osm-food",
+        source_id=osm_ref,
+        fingerprint=hashlib.sha1(f"osm-food|{osm_ref}".encode("utf-8")).hexdigest(),
+        name=name,
+        description=desc,
+        start_local=f"{d.isoformat()}T{o}:00",
+        end_local=f"{d.isoformat()}T{c}:00",
+        venue_name=name,
+        latitude=float(lat), longitude=float(lon),
+        address=addr, city=area.get("city"), region=area.get("region"),
+        country=area.get("country"), postal_code=tags.get("addr:postcode"),
+        category="food",
+        ticket_url=order_url or booking_url,
+        # 0=Monday…6=Sunday, exactly as parse_opening_hours produced it.
+        recurring_days={str(k): [v[0], v[1]] for k, v in sorted(hours.items())},
+    )]
 
 
 def main(argv=None):
@@ -600,8 +627,15 @@ def main(argv=None):
                 tot_booking += 1
             for nev in to_events(el, area, url, hrs, a.days_ahead,
                                  booking_url=booking, site=site):
-                nev.fingerprint = make_fingerprint(
-                    nev.name, (nev.start_local or "")[:10], nev.venue_name, nev.city)
+                # to_events sets the fingerprint from the OSM identity, with no
+                # date in it — that is what makes a re-run UPDATE the venue's
+                # row instead of adding another. Overwriting it with
+                # make_fingerprint (name|date|place) would restore the per-day
+                # multiplication AND collapse two Chipotles in one city into one
+                # row, since the date is what used to keep them apart.
+                if not nev.fingerprint:
+                    nev.fingerprint = make_fingerprint(
+                        nev.name, (nev.start_local or "")[:10], nev.venue_name, nev.city)
                 if store:
                     store.upsert(nev)
                 made += 1

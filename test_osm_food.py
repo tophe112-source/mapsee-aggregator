@@ -110,6 +110,36 @@ def main():
     finally:
         m._overpass_one, m.time.sleep = real_one, real_sleep
 
+    # ---- one row per venue, not one per open day -------------------------
+    # A business is open every Tuesday; it is not holding 52 Tuesday events.
+    # Measured across Seattle, Chicago, Portland and London: 1,547 rows for 254
+    # places, 6.1x. The row now carries the weekly pattern and ../mapsee 0156's
+    # roller moves its window forward.
+    print("\n-- one row per venue --")
+    EL = {"type": "node", "id": 123456, "lat": 47.6, "lon": -122.3,
+          "tags": {"name": "Joe's", "amenity": "restaurant"}}
+    AREA = {"name": "Seattle", "city": "Seattle", "region": "WA", "country": "US"}
+    daily = m.parse_opening_hours("Mo-Su 11:00-22:00")
+    rows = m.to_events(EL, AREA, "https://order.toasttab.com/online/joes", daily, 7)
+    sat = m.to_events(EL, AREA, "u", m.parse_opening_hours("Sa 09:00-14:00"), 7)
+    twin = m.to_events({**EL, "id": 999999}, AREA, "u", daily, 7)
+    rowchecks = [
+        (len(rows) == 1, "open seven days a week is ONE row, not seven"),
+        (bool(rows and rows[0].recurring_days and len(rows[0].recurring_days) == 7),
+         "the weekly pattern rides along on that row"),
+        (len(sat) == 1 and sat[0].start_local[:10] > rows[0].start_local[:10],
+         "a Saturday-only place still resolves, to its next Saturday"),
+        (bool(rows and twin and rows[0].fingerprint != twin[0].fingerprint),
+         "two venues with the SAME NAME get different rows"),
+        # The fingerprint must not contain the date, or a re-run adds a row
+        # instead of updating one — the whole point.
+        (m.to_events(EL, AREA, "u", daily, 7)[0].fingerprint == rows[0].fingerprint,
+         "the fingerprint is stable across runs (re-run updates, never adds)"),
+        (bool(rows and rows[0].recurring_days.get("0") == ["11:00", "22:00"]),
+         "0=Monday, matching what the roller expects"),
+    ]
+    checks.extend(rowchecks)
+
     for ok, why in checks:
         failed += 0 if ok else 1
         print(f"{'ok  ' if ok else 'FAIL'}  {why}")

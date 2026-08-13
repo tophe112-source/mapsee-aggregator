@@ -221,6 +221,16 @@ class NormalizedEvent:
     ticket_url: Optional[str] = None
     spotify_url: Optional[str] = None      # artist's Spotify page (exact, when a source provides it)
     youtube_url: Optional[str] = None      # artist's YouTube (exact, when a source provides it)
+    # A WEEKLY PATTERN, for sources that describe a standing arrangement rather
+    # than an occasion: {"0": ["11:00","22:00"], …}, 0=Monday…6=Sunday.
+    #
+    # A business is open every Tuesday; it is not holding 52 Tuesday events. The
+    # OSM adapter used to write one row per open day and measured 6.1 rows per
+    # venue for saying so. The sync writes this to events.recurring_hours and
+    # ../mapsee 0156's roller moves that single row's window forward, which also
+    # gives the venue a STABLE event_id for a claim, a share link or an order to
+    # point at. Empty for every adapter that ingests actual events.
+    recurring_days: Optional[Dict[str, Any]] = None
 
     def source_ref(self) -> Dict[str, Optional[str]]:
         return {"source": self.source, "source_id": self.source_id, "url": self.ticket_url}
