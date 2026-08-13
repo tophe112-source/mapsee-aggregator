@@ -280,7 +280,21 @@ def links_for(tags, session_delay=0.5):
         ohtml, ofinal = fetch_page(order)
         time.sleep(session_delay)
         if ohtml:
-            order = refine_storefront(ofinal or order, ohtml)
+            refined = refine_storefront(ofinal or order, ohtml)
+            # NEVER LET A DERIVED URL REPLACE A VALIDATED ONE UNLESS IT IS ALSO
+            # VALID. `ofinal` is the URL after redirects, and a redirect can land
+            # somewhere that is not an ordering page at all.
+            #
+            # Live example: Chipotle's own location page links
+            # chipotle.com/order#menu — a good link, correctly matched — and
+            # fetching it redirects to chipotle.com/, the bare homepage. Handing
+            # that to refine_storefront made it the stored link, and the client
+            # then rightly refused to call the homepage "Order pickup" and fell
+            # through to a generic "Tickets & info" button on a burrito shop.
+            # The client's re-validation caught my bad write, which is what it is
+            # for; the write should not have happened.
+            if refined and looks_like_ordering(refined):
+                order = refined
     if booking and destination_verdict(booking) == "dead":
         booking = None
     return order, booking, own_site
