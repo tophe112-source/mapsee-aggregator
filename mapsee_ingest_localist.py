@@ -18,7 +18,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 try:
     import requests
@@ -67,13 +67,29 @@ def _categories(event: Dict[str, Any], default: Optional[str]) -> tuple:
     return (hits[0], norm_categories(hits[0], hits[1:]))
 
 
+def _instance(event: Dict[str, Any]) -> Dict[str, Any]:
+    """The single occurrence Localist attached to THIS wrap.
+
+    /api/2/events returns one wrap PER OCCURRENCE, not per event: a three-month
+    exhibition comes back once for every day it is open, same event id each
+    time, each wrap carrying exactly one instance on a different date. Measured
+    on UT Dallas 2026-08-12: 774 wraps for 357 distinct events, one exhibition
+    accounting for 59 of them on its own.
+    """
+    inst = event.get("event_instances") or []
+    return (inst[0].get("event_instance") or {}) if (inst and isinstance(inst[0], dict)) else {}
+
+
+def _instance_start(event: Dict[str, Any]) -> str:
+    return str(_instance(event).get("start") or "")
+
+
 def to_event(wrap: Dict[str, Any], src: Dict[str, Any]) -> Optional[NormalizedEvent]:
     event = wrap.get("event") or {}
     title = (event.get("title") or "").strip()
     if not title:
         return None
-    inst = event.get("event_instances") or []
-    inst0 = (inst[0].get("event_instance") or {}) if (inst and isinstance(inst[0], dict)) else {}
+    inst0 = _instance(event)
     start = inst0.get("start")
     end = inst0.get("end")
     if not start:
@@ -84,7 +100,27 @@ def to_event(wrap: Dict[str, Any], src: Dict[str, Any]) -> Optional[NormalizedEv
         lon = float(geo.get("longitude"))
     except (TypeError, ValueError):
         return None                                        # no coordinates -> can't map it
-    date_key = str(start)[:10]
+    # IDENTITY IS THE EVENT'S OWN FIRST DATE, not the occurrence this wrap
+    # happens to carry. That distinction is the whole bug.
+    #
+    # `days=90` is a ROLLING window, so which occurrences come back depends on
+    # the day the job runs. Every wrap of one event shares a source_id (the
+    # Localist id) but produced a DIFFERENT fingerprint here, so EventStore
+    # re-keyed the record once per wrap and the survivor was whichever occurrence
+    # happened to be processed last. Move the window and that survivor changes,
+    # so the fingerprint changed on nearly every run — a new external_id, a new
+    # database row, and the old one left behind because the sync upserts on
+    # (external_source, external_id). Meanwhile _fill_missing kept the FIRST
+    # start_local it saw, which is why the duplicates all carried an identical
+    # starts_at and different ids: the visible field was stable and the identity
+    # underneath it was not.
+    #
+    # first_date is a property of the event, so it does not move with the window.
+    # Measured on UT Dallas: 311 of 315 single-occurrence events already have
+    # first_date == their instance date, so their identity is UNCHANGED and the
+    # catalog is not mass re-keyed. The 4 that differ are recurring events whose
+    # earlier dates have passed - exactly the unstable ones this is fixing.
+    date_key = str(event.get("first_date") or start)[:10]
     desc = (event.get("description_text") or "").strip() or None
     if desc:
         desc = " ".join(desc.split())
@@ -113,7 +149,18 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
     if not base:
         return 0                                           # allow note-only config entries
     days = src.get("days", 90)
-    kept = 0
+    # One wrap per OCCURRENCE arrives (see _instance), and they span pages, so
+    # collapse by event id across the whole fetch before anything is upserted.
+    # Keeping the EARLIEST occurrence makes start_local the next upcoming date
+    # rather than whichever wrap happened to land first, which is what the
+    # listing should show and what _fill_missing was silently deciding before.
+    #
+    # Upserting each wrap also meant EventStore.upsert ran once per occurrence
+    # for the same (source, source_id), popping and re-adding the record every
+    # time. Sixty writes to arrive where one belongs.
+    best: Dict[Any, Dict[str, Any]] = {}
+    order: List[Any] = []
+    seen_wraps = 0
     for page in range(1, 11):                              # up to ~1000 events/source
         r = session.get(f"{base}/api/2/events",
                         params={"days": days, "pp": 100, "page": page}, timeout=25)
@@ -125,14 +172,31 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
         if not events:
             break
         for wrap in events:
-            nev = to_event(wrap, src)
-            if nev:
-                store.upsert(nev)
-                kept += 1
+            seen_wraps += 1
+            event = wrap.get("event") or {}
+            # No id to group on -> keep the wrap on its own key rather than
+            # letting every id-less event collapse into one.
+            key = event.get("id")
+            if key is None:
+                key = ("_noid", seen_wraps)
+            prev = best.get(key)
+            if prev is None:
+                best[key] = wrap
+                order.append(key)
+            elif _instance_start(event) < _instance_start(prev.get("event") or {}):
+                best[key] = wrap
         pg = data.get("page") or {}
         if int(pg.get("current") or page) >= int(pg.get("total") or page):
             break
-    print(f"[localist] {src.get('name','?')}: kept {kept}")
+    kept = 0
+    for key in order:
+        nev = to_event(best[key], src)
+        if nev:
+            store.upsert(nev)
+            kept += 1
+    collapsed = seen_wraps - len(order)
+    print(f"[localist] {src.get('name','?')}: kept {kept}"
+          + (f" ({collapsed} duplicate occurrence wrap(s) collapsed)" if collapsed else ""))
     return kept
 
 
