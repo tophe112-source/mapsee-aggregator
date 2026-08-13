@@ -231,11 +231,18 @@ def _overpass_one(bbox, delay=2.0, tries=4):
 
 
 def overpass(area, delay=2.0, tries=4):
-    """Every named food place in an area, tile by tile, deduped.
+    """(elements, complete) — every named food place in an area, tile by tile.
 
     A tile that will not answer after its retries is REPORTED and skipped rather
     than failing the area: losing one square of a metro is a smaller loss than
     losing the metro, and a silent partial would be worse than either.
+
+    `complete` exists because of what the first live 50-mile run did: 2 of
+    Seattle's 35 tiles timed out, the run correctly SAID so — and then cached
+    the partial list for thirty days, which would have quietly under-covered two
+    squares of the metro until September while every subsequent run reported
+    itself perfectly healthy. A partial answer is fine to USE and not fine to
+    KEEP.
     """
     bbox = area_bbox(area)
     cells = tiles(bbox)
@@ -257,8 +264,8 @@ def overpass(area, delay=2.0, tries=4):
                   f"+{len(els)} ({len(out)} unique)", flush=True)
     if failed:
         print(f"[osm-food]   {area['name']}: {failed} of {len(cells)} tiles did not answer — "
-              f"this area is INCOMPLETE this run", flush=True)
-    return out
+              f"this area is INCOMPLETE this run and will NOT be cached", flush=True)
+    return out, failed == 0
 
 
 # ---------------------------------------------------------------------------
@@ -504,11 +511,13 @@ def main(argv=None):
         els, from_cache = load_places(a.places_cache, area, a.cache_days)
         if els is None:
             try:
-                els = overpass(area, a.delay)
+                els, complete = overpass(area, a.delay)
             except Exception as exc:
                 print(f"[osm-food] {area['name']} overpass FAILED: {exc}")
                 continue
-            if els and not a.dry_run:
+            # Use a partial list, never keep one. Caching an incomplete pull for
+            # thirty days would hide the gap behind a run that looks healthy.
+            if els and complete and not a.dry_run:
                 save_places(a.places_cache, area, els)
         # Only the ones worth a fetch: a website AND hours we can read. Doing the
         # cheap filters first is what keeps this to a few dozen page loads.
