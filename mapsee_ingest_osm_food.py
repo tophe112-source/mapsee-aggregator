@@ -120,8 +120,24 @@ def parse_opening_hours(spec: str):
         tm = _TIMESPAN.match(span.replace(" ", ""))
         if not tm:
             return None
-        o = f"{int(tm.group(1)):02d}:{tm.group(2)}"
-        c = f"{int(tm.group(3)):02d}:{tm.group(4)}"
+        oh, ch = int(tm.group(1)), int(tm.group(3))
+        # OSM WRITES PAST MIDNIGHT AS HOURS >= 24: "11:00-27:00" is 11am to 3am.
+        # The c <= o test below never catches it, because 27:00 sorts after
+        # 11:00, so the span was accepted and became the literal local timestamp
+        # "2026-08-14T27:00:00" — which Postgres rejects outright:
+        #   400 date/time field value out of range
+        # Measured on the first full refresh: Voodoo Doughnut, Los Tacos
+        # Mexicali, Happy Fortune and Carribean Bokit Factory all dropped this
+        # way, and the failure was reported as a moderation block. Late-night
+        # places are precisely the ones a "hungry right now" map wants, so this
+        # was silently losing the best rows.
+        #
+        # Refused rather than approximated, exactly like the c <= o case: one row
+        # holds one window, and 11:00-27:00 is two days.
+        if oh > 23 or ch > 23:
+            return None
+        o = f"{oh:02d}:{tm.group(2)}"
+        c = f"{ch:02d}:{tm.group(4)}"
         if c <= o:                       # crosses midnight; one row cannot say that
             return None
         ds = _days_in(days)

@@ -38,6 +38,17 @@ CASES = [
     ("Mo-Fr 11:00-14:00,17:00-22:00", None, "split service: one row cannot say 'shut 14:00-17:00'"),
     ("Mo-Su 11:00+", None, "open-ended: no closing time to honour"),
     ("Mo-Fr 22:00-02:00", None, "crosses midnight: one row cannot express it"),
+    # OSM writes past midnight as hours >= 24, and the c <= o test above never
+    # catches it because 27:00 sorts AFTER 11:00. Accepted, it became the literal
+    # local timestamp "2026-08-14T27:00:00", which Postgres rejects with
+    # "date/time field value out of range" — and the sync reported that as a
+    # moderation block. Voodoo Doughnut, Los Tacos Mexicali, Happy Fortune and
+    # Carribean Bokit Factory were all lost this way on the first full refresh:
+    # late-night places, which are the ones a "hungry right now" map most wants.
+    ("Mo-Su 11:00-27:00", None, "past midnight written as hour 27"),
+    ("Mo-Su 11:00-24:00", None, "24:00 is the next day, not this one"),
+    ("Mo-Su 10:00-24:45", None, "24:45"),
+    ("Mo-Fr 09:00-25:00", None, "25:00"),
     ("Mo-Fr 09:00-17:00; PH off", None, "public holidays: we do not know the calendar"),
     ("Apr-Sep Mo-Su 10:00-20:00", None, "seasonal"),
     ("Mo-Fr sunrise-sunset", None, "astronomical"),

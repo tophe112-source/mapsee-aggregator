@@ -1179,7 +1179,13 @@ def main() -> None:
         print(f"Moderation pre-filter: dropped {before - len(rows)} of {before} rows.")
 
     n, skipped = upsert(rows, url, key)
-    tail = f"; skipped {skipped} (blocked by your moderation filter — see log above)" if skipped else ""
+    # NOT NECESSARILY MODERATION. This used to assert the reason regardless of
+    # the status code, and it sent me looking for a content filter that was
+    # never involved: Tokyo's entire batch — all 114 rows — failed with
+    # "503 upstream connect error" and was reported as blocked content, while a
+    # handful elsewhere were 400s for an out-of-range timestamp. The per-row
+    # reasons are printed above; point at those instead of inventing one.
+    tail = f"; skipped {skipped} (see the per-row reasons above)" if skipped else ""
     print(f"Upserted {n} events into Supabase as host {host_id}{tail}. "
           f"They will now appear in events_near / the Nearby map.")
 
