@@ -57,7 +57,10 @@ UA = "mapsee-aggregator/1.0 (+https://mapsee.me; menu-link discovery)"
 ORDER_HOSTS = re.compile(
     r"(^|\.)(toasttab\.com|toast\.site|square\.site|clover\.com|chownow\.com|"
     r"doordash\.com|ubereats\.com|grubhub\.com|slicelife\.com|olo\.com|"
-    r"popmenu\.com|menufy\.com|beyondmenu\.com|spoton\.com|owner\.com)$", re.I)
+    r"popmenu\.com|menufy\.com|beyondmenu\.com|spoton\.com|owner\.com|"
+    # DoorDash's white-label storefront host: every restaurant on it gets
+    # <name>.order.online, which is why the leading (^|\.) matters here.
+    r"order\.online)$", re.I)
 # `/menu` is deliberately absent — see the matching note in ../mapsee/site/js/app.js.
 # A dry run over 144 live venues matched a town website and a tourism board on it.
 ORDER_PATH = re.compile(r"/(order|order-online|online-ordering|order-now|orderonline)(/|$|\?|#)", re.I)

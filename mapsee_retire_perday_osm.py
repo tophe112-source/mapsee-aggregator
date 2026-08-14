@@ -66,6 +66,24 @@ def key(lat, lon):
     return f"{round(float(lat), 4):.4f},{round(float(lon), 4):.4f}"
 
 
+def collapse_orphans(by_venue):
+    """Rows to hide so each venue keeps exactly ONE per-day row: the soonest.
+
+    Pure, and separated from main() for one reason — the property that matters
+    is "this can never hide the last row at a venue", and that is worth a test
+    rather than a careful read. A venue with a single row is returned empty, and
+    a missing starts_at sorts LAST so a row with no time cannot win the keep slot
+    by accident.
+    """
+    out = []
+    for rows in by_venue.values():
+        if len(rows) < 2:
+            continue
+        ordered = sorted(rows, key=lambda r: r.get("starts_at") or "9999")
+        out.extend(ordered[1:])
+    return out
+
+
 def scan(q, label, days, back, max_pages):
     """Walk time windows, as mapsee_reclassify does — deep OFFSET dies here."""
     now = time.time()
@@ -107,6 +125,9 @@ def main():
     ap.add_argument("--apply", action="store_true", help="write (default is a dry run)")
     ap.add_argument("--unhide", action="store_true",
                     help="reverse: un-hide rows this pass hid")
+    ap.add_argument("--collapse", action="store_true",
+                    help="at venues with NO standing replacement, keep only the soonest "
+                         "per-day row and hide the rest (the venue stays on the map once)")
     ap.add_argument("--days", type=int, default=30)
     ap.add_argument("--back", type=int, default=2)
     ap.add_argument("--max-pages", type=int, default=40)
@@ -166,7 +187,22 @@ def main():
                         f"&description=ilike.{mark}",
                         "per-day OSM rows (old model)", args.days, args.back, args.max_pages)
 
+    # ORPHANS: per-day rows at a venue the new model has not reached. The rule
+    # above will not hide them, and it is right not to — a venue with no standing
+    # row would vanish. But leaving them ALL is the bug the user actually sees:
+    # Top Pot Doughnuts, five identical rows one day apart, none of them carrying
+    # recurring_hours and no replacement anywhere in the table. Confirmed live on
+    # 2026-08-14 at (47.6099, -122.3239): rows for the 12th through the 16th, not
+    # one of them standing.
+    #
+    # So --collapse keeps the SOONEST future row at each such venue and hides the
+    # rest. The venue stays on the map exactly once, which is the rule 0156 set
+    # out to enforce; the safety property is untouched, because the thing that
+    # rule protects against is a venue disappearing and this can never remove the
+    # last row. Off by default: hiding a row somebody can still see is a decision,
+    # not a tidy-up.
     hide, orphan, claimed = [], collections.Counter(), 0
+    by_venue = collections.defaultdict(list)
     for r in old:
         if r.get("claimed_by"):
             claimed += 1
@@ -178,11 +214,21 @@ def main():
             hide.append(r)
         else:
             orphan[r.get("title") or "?"] += 1
+            by_venue[k].append(r)
+
+    collapsed = 0
+    if args.collapse:
+        extra = collapse_orphans(by_venue)
+        hide.extend(extra)
+        collapsed = len(extra)
 
     print(f"\n  venues with a standing replacement : {len(replaced)}")
     print(f"  old rows to hide                   : {len(hide)}")
     print(f"  old rows KEPT (no replacement yet)  : {sum(orphan.values())}"
           f"  across {len(orphan)} venues")
+    if args.collapse:
+        print(f"  ...of which collapsed to one each  : {collapsed} hidden, "
+              f"{len(by_venue)} venues keep their soonest row")
     print(f"  skipped, claimed by a venue        : {claimed}")
     if orphan:
         print("  kept, most rows first:")

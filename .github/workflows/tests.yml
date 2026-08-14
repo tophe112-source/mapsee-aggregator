@@ -109,6 +109,13 @@ jobs:
       - name: Cleanup retries (statement timeout vs upstream outage)
         run: python test_cleanup.py
 
+      # --collapse relaxes a safety rule (hide an old row even with no standing
+      # replacement), and the way that goes wrong is a venue quietly vanishing,
+      # which looks exactly like a venue that closed. The invariant is pinned:
+      # at least one row survives at every venue, whatever the input order.
+      - name: Per-day retirement never empties a venue
+        run: python test_retire_perday.py
+
       # Opening hours decide when a takeaway pin is offered to somebody hungry.
       # Getting this wrong does not make a row look odd — it sends a person to a
       # locked door, so the REFUSALS matter more than the parses. An unreadable

@@ -27,6 +27,11 @@ on:
         type: boolean
         required: false
         default: false
+      collapse:
+        description: "Also collapse venues with NO standing replacement to their soonest row"
+        type: boolean
+        required: false
+        default: false
       days:
         description: "How far ahead to sweep"
         required: false
@@ -52,10 +57,12 @@ jobs:
       - name: Dry run (what WOULD be hidden)
         run: |
           python mapsee_retire_perday_osm.py --days ${{ github.event.inputs.days }} \
-            ${{ github.event.inputs.unhide == 'true' && '--unhide' || '' }}
+            ${{ github.event.inputs.unhide == 'true' && '--unhide' || '' }} \
+            ${{ github.event.inputs.collapse == 'true' && '--collapse' || '' }}
 
       - name: Retire
         if: ${{ github.event.inputs.apply == 'true' }}
         run: |
           python mapsee_retire_perday_osm.py --apply --days ${{ github.event.inputs.days }} \
-            ${{ github.event.inputs.unhide == 'true' && '--unhide' || '' }}
+            ${{ github.event.inputs.unhide == 'true' && '--unhide' || '' }} \
+            ${{ github.event.inputs.collapse == 'true' && '--collapse' || '' }}
