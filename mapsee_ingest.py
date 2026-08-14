@@ -221,6 +221,31 @@ class NormalizedEvent:
     ticket_url: Optional[str] = None
     spotify_url: Optional[str] = None      # artist's Spotify page (exact, when a source provides it)
     youtube_url: Optional[str] = None      # artist's YouTube (exact, when a source provides it)
+    # A WEEKLY PATTERN, for sources that describe a standing arrangement rather
+    # than an occasion: {"0": ["11:00","22:00"], …}, 0=Monday…6=Sunday.
+    #
+    # A business is open every Tuesday; it is not holding 52 Tuesday events. The
+    # OSM adapter used to write one row per open day and measured 6.1 rows per
+    # venue for saying so. The sync writes this to events.recurring_hours and
+    # ../mapsee 0156's roller moves that single row's window forward, which also
+    # gives the venue a STABLE event_id for a claim, a share link or an order to
+    # point at. Empty for every adapter that ingests actual events.
+    recurring_days: Optional[Dict[str, Any]] = None
+    # THESE COORDINATES ARE THE TRUTH — do not geocode over them.
+    #
+    # The sync re-geocodes every row with a street address and OVERWRITES the
+    # source coordinates, which is right for the adapters it was written for
+    # (Ticketmaster is often ~0.5mi out). It is wrong for a source that hands
+    # over a surveyed point. OpenStreetMap places ARE the point: the coordinate
+    # is the primary fact and the address text is the derived one, which is the
+    # opposite of a ticketing feed.
+    #
+    # Live consequence before this existed: a Renton restaurant carried its exact
+    # OSM position, the ingest labelled it "Seattle" (the hub's name), and the
+    # geocoder resolved "439 Rainier Avenue South, Seattle, WA" to SEATTLE's
+    # Rainier Ave S — moving the pin eleven miles onto a street of the same name.
+    # A Sequim diner landed sixty miles from itself the same way.
+    coords_exact: bool = False
 
     def source_ref(self) -> Dict[str, Optional[str]]:
         return {"source": self.source, "source_id": self.source_id, "url": self.ticket_url}
@@ -280,7 +305,20 @@ class EventStore:
         self.path = Path(path)
         self.records: Dict[str, Dict[str, Any]] = {}
         self.source_to_fp: Dict[Tuple[str, str], str] = {}
-        self.stats = {"added": 0, "merged": 0, "updated": 0}
+        # "rekeyed" counts the branch in upsert() where one (source, source_id)
+        # turns up carrying a DIFFERENT fingerprint than last time. The store
+        # handles that fine. The DATABASE does not: mapsee_supabase_sync upserts
+        # on (external_source, external_id), so a moved fingerprint writes a NEW
+        # row and orphans the old one permanently, because nothing revisits it.
+        #
+        # That is exactly how Localist accumulated thousands of duplicates
+        # unnoticed — it keyed identity on whichever occurrence the rolling
+        # `days=90` window happened to surface. It stayed silent for weeks
+        # because re-keying is a normal, legitimate operation in here. Counting
+        # it is what makes the NEXT adapter with unstable identity announce
+        # itself in the log, instead of being found by a table scan months later.
+        self.stats = {"added": 0, "merged": 0, "updated": 0, "rekeyed": 0}
+        self.rekeyed_by_source: Dict[str, int] = {}
         self._load()
 
     def _load(self) -> None:
@@ -346,6 +384,10 @@ class EventStore:
             rec = self.records.get(old_fp)
             if rec is not None:
                 if old_fp != ev.fingerprint:
+                    # Unstable identity — see the note on self.stats. Harmless
+                    # here, permanent in the database.
+                    self.stats["rekeyed"] += 1
+                    self.rekeyed_by_source[ev.source] = self.rekeyed_by_source.get(ev.source, 0) + 1
                     self.records.pop(old_fp, None)
                     if ev.fingerprint in self.records:
                         rec = self.records[ev.fingerprint]
@@ -1081,6 +1123,16 @@ def main(argv: Optional[List[str]] = None) -> int:
     log.info("Done. added %d, merged %d (cross-source), updated %d (re-runs). "
              "Store now holds %d unique events at %s.",
              s["added"], s["merged"], s["updated"], len(store.records), args.store)
+    # Loud, and named by source, because the cost lands in the database rather
+    # than here: every re-key is a row the sync will orphan. A steady non-zero
+    # count for one adapter means its identity depends on something that is not
+    # a property of the event.
+    if s.get("rekeyed"):
+        worst = sorted(store.rekeyed_by_source.items(), key=lambda kv: -kv[1])[:5]
+        log.warning("UNSTABLE IDENTITY: %d event(s) changed fingerprint under an "
+                    "unchanged (source, source_id). Each one orphans a database row. "
+                    "Worst: %s", s["rekeyed"],
+                    ", ".join(f"{src} x{n}" for src, n in worst))
     return 0
 
 

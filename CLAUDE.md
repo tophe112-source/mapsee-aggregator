@@ -28,6 +28,7 @@ front doors it reaches.
 | Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run |
 | Deleting past events | `mapsee_cleanup.py` |
 | Real "order pickup" links for food venues | `mapsee_menu_links.py` — writes a `🛒 Order:` line the product turns into the button |
+| Removing an order/booking link whose destination has died | `mapsee_prune_links.py` — dry run by default; only a 404 or an empty page counts, never a 403 |
 | Re-running the classifier over rows already in the table | `mapsee_reclassify.py` — dry run by default; `--apply` refuses without `--allow` |
 | Takeaway places (not events) from OpenStreetMap | `mapsee_ingest_osm_food.py` + `osm_food_sources.json` — only places with a real order link AND readable hours |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
@@ -154,6 +155,42 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   rules because ignoring "shut" advertises a place as open. And of the first 13
   order links found in Seattle, SEVEN were gift-card pages on genuine ordering
   hosts — `NOT_ORDER_PATH` is why that is now six.
+- **A failed fetch is not a dead page, and conflating them is expensive.**
+  `fetch()` returns `None` for every failure — 403, timeout, non-HTML — and the
+  first version of the destination check read that as "gone". The big ordering
+  hosts all block scrapers, so `order.toasttab.com`, `www.toasttab.com` and
+  `ubereats.com` came back as zero bytes and would every one have been discarded,
+  including a Toast URL `test_menu_links.py` itself asserts is valid. Measured:
+  the Seattle backfill found 41 order links across 317 candidates with the bug
+  and 96 without it. `destination_verdict()` keeps `unknown` apart from `dead`
+  and only `dead` — a real 404/410, or HTML we actually retrieved with an empty
+  `<title>` — may drop a link. The default everywhere is to keep, because the
+  behaviour it replaced (no check at all) was already fail-open.
+- **An upsert cannot delete, so a fix to what we WRITE never reaches what is
+  already written.** When a link dies the ingest skips the place, no row is
+  produced, and the row from when it worked survives with its dead button —
+  `--only-new` means the sync would skip it even if one were produced. Two
+  levers: `--ignore-cursor` + `full_refresh` re-examines and rewrites existing
+  rows, and `mapsee_prune_links.py` cuts a line whose destination is provably
+  gone. Neither is automatic; both are dry by default.
+- **Two different 5xx come back from PostgREST and they want opposite things.**
+  A statement timeout (`57014`) means we asked for too much, and the answer is a
+  SMALLER bite — `mapsee_cleanup.py` halves its batch, and retrying the identical
+  request just burns the run's time budget doing what already failed. An upstream
+  503 — `upstream connect error or disconnect/reset before headers`, Envoy unable
+  to reach Postgres — means the request never happened, and the same one works
+  once the edge recovers. Both are `>= 500`, so anything talking to Supabase has
+  to tell them apart; getting it backwards is silent in either direction. On
+  2026-08-14 a roughly hour-long Supabase outage took out three scheduled jobs,
+  and only `mapsee_health_check._rpc` (which has always retried 5xx, and reports
+  "could not run" as distinct from "a source has gone quiet") failed in a way
+  that said what had happened. `mapsee_menu_links.sb` died on a nine-frame urllib
+  traceback ending in `HTTP Error 503`, which reads like a bug in that file;
+  `mapsee_cleanup` gave up on the first one. Both retry now, `test_cleanup.py`
+  and `test_menu_links.py` pin the distinction, and a sustained outage still
+  FAILS — it just fails in one greppable sentence that says the work is safe to
+  retry. Do not convert these to `exit 0`: a provider being down for an hour and
+  a job that has silently stopped must not look the same.
 - **A minus sign is an option, not a number.** The international sweep spawns
   each ingester with `--latlong=VALUE`, fused, because argparse exempts only
   `^-\d+$|^-\d*\.\d+$` from option parsing and a latlong has a comma in it. Sent
@@ -193,12 +230,13 @@ python test_health_check.py         # the alarm itself, against a faked transpor
 python test_ingest_places.py        # coordinates: default pins, address parsing
 python test_menu_links.py           # what may be called an "Order pickup" link
 python test_osm_food.py             # opening hours we may act on, and the ones we must refuse
+python test_prune_links.py          # what a description must look like after a dead link is cut
 python test_sweep_global.py         # the international sweep's argv, below the equator
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The eight test scripts are the CI gate (`tests.yml`). They print one line per
+The 11 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

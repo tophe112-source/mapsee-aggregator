@@ -36,7 +36,11 @@ Run:  python mapsee_ingest_osm_food.py --config osm_food_sources.json \
           --store feeds_events.json [--dry-run] [--only seattle]
 """
 import argparse
+import hashlib
+import html as html_lib
 import json
+import math
+import os
 import re
 import sys
 import time
@@ -45,7 +49,12 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 
 from mapsee_ingest import EventStore, NormalizedEvent, make_fingerprint
-from mapsee_menu_links import looks_like_ordering, order_link_on, fetch as fetch_page
+from mapsee_menu_links import (
+    looks_like_ordering, order_link_on,
+    looks_like_booking, booking_link_on,
+    destination_verdict, refine_storefront,
+    NOT_A_VENUE_SITE, fetch as fetch_page,
+)
 
 UA = "mapsee-aggregator/1.0 (+https://mapsee.me; OSM takeaway discovery)"
 OVERPASS = "https://overpass-api.de/api/interpreter"
@@ -111,8 +120,24 @@ def parse_opening_hours(spec: str):
         tm = _TIMESPAN.match(span.replace(" ", ""))
         if not tm:
             return None
-        o = f"{int(tm.group(1)):02d}:{tm.group(2)}"
-        c = f"{int(tm.group(3)):02d}:{tm.group(4)}"
+        oh, ch = int(tm.group(1)), int(tm.group(3))
+        # OSM WRITES PAST MIDNIGHT AS HOURS >= 24: "11:00-27:00" is 11am to 3am.
+        # The c <= o test below never catches it, because 27:00 sorts after
+        # 11:00, so the span was accepted and became the literal local timestamp
+        # "2026-08-14T27:00:00" — which Postgres rejects outright:
+        #   400 date/time field value out of range
+        # Measured on the first full refresh: Voodoo Doughnut, Los Tacos
+        # Mexicali, Happy Fortune and Carribean Bokit Factory all dropped this
+        # way, and the failure was reported as a moderation block. Late-night
+        # places are precisely the ones a "hungry right now" map wants, so this
+        # was silently losing the best rows.
+        #
+        # Refused rather than approximated, exactly like the c <= o case: one row
+        # holds one window, and 11:00-27:00 is two days.
+        if oh > 23 or ch > 23:
+            return None
+        o = f"{oh:02d}:{tm.group(2)}"
+        c = f"{ch:02d}:{tm.group(4)}"
         if c <= o:                       # crosses midnight; one row cannot say that
             return None
         ds = _days_in(days)
@@ -163,25 +188,56 @@ def save_cursor(cur, path=CURSOR_PATH):
         print(f"[osm-food] could not write cursor: {exc}", flush=True)
 
 
-def overpass(area, delay=2.0, tries=4):
-    """Places of interest in one bounding box, with a website to check.
+def area_bbox(area):
+    """(s, w, n, e) for an area, from an explicit bbox or a centre + radius.
+
+    centre+radius is the form worth writing new hubs in: "Seattle, 50 miles" is
+    a thing somebody can check, and a bbox is four numbers nobody can.
+    """
+    if area.get("bbox"):
+        return tuple(area["bbox"])
+    lat, lon = area["center"]
+    mi = float(area.get("radius_miles", 50))
+    dlat = (mi * 1.609) / 111.0
+    dlon = (mi * 1.609) / (111.0 * max(math.cos(math.radians(lat)), 0.01))
+    return (lat - dlat, lon - dlon, lat + dlat, lon + dlon)
+
+
+def tiles(bbox, max_deg=0.35):
+    """Split a bbox into a grid no cell of which is wider than max_deg.
+
+    A 50-mile radius is a 1.45° box, and Overpass will not serve that in one
+    piece for four amenity types: the COUNT alone took 76 seconds, and the same
+    box asking for tags is far heavier. The service already tells us this — a
+    wide box answers 504, which is how Seattle and later New York dropped out of
+    whole runs. Tiling turns one request it will refuse into a handful it will
+    answer, and each one is small enough to retry cheaply.
+    """
+    s, w, n, e = bbox
+    rows = max(1, math.ceil((n - s) / max_deg))
+    cols = max(1, math.ceil((e - w) / max_deg))
+    dh, dw = (n - s) / rows, (e - w) / cols
+    return [(s + r * dh, w + c * dw, s + (r + 1) * dh, w + (c + 1) * dw)
+            for r in range(rows) for c in range(cols)]
+
+
+def _overpass_one(bbox, delay=2.0, tries=4):
+    """One tile. Backs off rather than re-asking harder.
 
     Overpass is a free, shared, volunteer-run service and it says so: measured
     while building this, a third city in quick succession answered 429, and a
-    wide box answers 504. Both are it asking us to slow down, and a scheduled job
-    that treats them as failures just re-asks harder tomorrow. So: exponential
-    backoff, and the delay is between AREAS as well as retries.
+    wide box answers 504. Both are it asking us to slow down.
     """
-    s, w, n, e = area["bbox"]
+    s, w, n, e = bbox
     parts = "".join(
         f'nwr["amenity"="{a}"]["name"]({s},{w},{n},{e});' for a in AMENITIES)
-    q = f"[out:json][timeout:120];({parts});out tags center;"
+    q = f"[out:json][timeout:180];({parts});out tags center;"
     last = None
     for attempt in range(tries):
         try:
             req = urllib.request.Request(OVERPASS, data=urllib.parse.urlencode({"data": q}).encode(),
                                          headers={"User-Agent": UA})
-            with urllib.request.urlopen(req, timeout=180) as r:
+            with urllib.request.urlopen(req, timeout=240) as r:
                 data = json.loads(r.read().decode("utf-8", "replace"))
             time.sleep(delay)
             return data.get("elements", [])
@@ -192,26 +248,281 @@ def overpass(area, delay=2.0, tries=4):
     raise last
 
 
-def order_url_for(tags, session_delay=0.5):
-    """The place's own ordering page, or None. Never a guess."""
-    # OSM sometimes carries it outright. Cheapest possible answer.
+def overpass(area, delay=2.0, tries=4):
+    """(elements, complete) — every named food place in an area, tile by tile.
+
+    A tile that will not answer after its retries is REPORTED and skipped rather
+    than failing the area: losing one square of a metro is a smaller loss than
+    losing the metro, and a silent partial would be worse than either.
+
+    `complete` exists because of what the first live 50-mile run did: 2 of
+    Seattle's 35 tiles timed out, the run correctly SAID so — and then cached
+    the partial list for thirty days, which would have quietly under-covered two
+    squares of the metro until September while every subsequent run reported
+    itself perfectly healthy. A partial answer is fine to USE and not fine to
+    KEEP.
+    """
+    bbox = area_bbox(area)
+    cells = tiles(bbox)
+    out, seen, failed = [], set(), 0
+    for i, cell in enumerate(cells, 1):
+        try:
+            els = _overpass_one(cell, delay=delay, tries=tries)
+        except Exception as exc:
+            failed += 1
+            print(f"[osm-food]   {area['name']} tile {i}/{len(cells)} failed: {exc}", flush=True)
+            continue
+        for el in els:
+            k = (el.get("type"), el.get("id"))
+            if k not in seen:
+                seen.add(k)
+                out.append(el)
+        if len(cells) > 1:
+            print(f"[osm-food]   {area['name']} tile {i}/{len(cells)}: "
+                  f"+{len(els)} ({len(out)} unique)", flush=True)
+    if failed:
+        print(f"[osm-food]   {area['name']}: {failed} of {len(cells)} tiles did not answer — "
+              f"this area is INCOMPLETE this run and will NOT be cached", flush=True)
+    return out, failed == 0
+
+
+# ---------------------------------------------------------------------------
+# The places cache
+# ---------------------------------------------------------------------------
+# A restaurant's EXISTENCE does not change weekly, and until this cache the job
+# re-downloaded every place in every area on every run to examine sixty of them:
+# 18,282 places pulled from a volunteer-run service to look at 480. That was
+# tolerable at a 2-mile radius and is not at 50, where Seattle alone holds 9,765.
+#
+# So the expensive half is now monthly and the cheap half stays weekly. The
+# weekly run walks the cursor through a cached list; Overpass is only asked when
+# the cache is older than --cache-days or missing.
+def cache_path(cache_dir, area_name):
+    safe = re.sub(r"[^a-z0-9]+", "-", area_name.lower()).strip("-")
+    return os.path.join(cache_dir, f"{safe}.json")
+
+
+def load_places(cache_dir, area, max_age_days, bbox=None):
+    """The cached list for this area, but ONLY if it covers the same ground.
+
+    The cache is keyed on the area NAME, and the name is not the query: "Seattle"
+    at 20 miles and "Seattle" at 50 miles are different sets of restaurants. A
+    cache that ignored the box would let a narrow run poison a wide one for
+    thirty days — silently, since a smaller list looks exactly like a quiet week.
+    So the box is stored and compared, and a mismatch is a miss.
+    """
+    p = cache_path(cache_dir, area["name"])
+    want = tuple(round(v, 6) for v in (bbox if bbox is not None else area_bbox(area)))
+    try:
+        with open(p, encoding="utf-8") as fh:
+            blob = json.load(fh)
+        age = (time.time() - float(blob.get("fetched_at", 0))) / 86400.0
+        got = blob.get("bbox")
+        got = tuple(round(v, 6) for v in got) if got else None
+        if got != want:
+            print(f"[osm-food] {area['name']}: cached list covers a different box "
+                  f"— refetching", flush=True)
+            return None, False
+        if age <= max_age_days and blob.get("elements"):
+            print(f"[osm-food] {area['name']}: {len(blob['elements'])} places from cache "
+                  f"({age:.1f}d old)", flush=True)
+            return blob["elements"], True
+    except Exception:
+        pass
+    return None, False
+
+
+def save_places(cache_dir, area, elements, bbox=None):
+    try:
+        os.makedirs(cache_dir, exist_ok=True)
+        bb = list(bbox if bbox is not None else area_bbox(area))
+        with open(cache_path(cache_dir, area["name"]), "w", encoding="utf-8") as fh:
+            json.dump({"area": area["name"], "fetched_at": time.time(),
+                       "bbox": bb, "elements": elements}, fh)
+    except Exception as exc:
+        print(f"[osm-food] could not cache {area['name']}: {exc}", flush=True)
+
+
+def clean_public_phone(value):
+    """One callable public business number, preserving its published display."""
+    for raw in str(value or "").split(";"):
+        phone = re.sub(r"\s+", " ", raw).strip()
+        digits = re.sub(r"\D", "", phone)
+        if 7 <= len(digits) <= 15 and len(phone) <= 40:
+            return phone
+    return None
+
+
+def phone_from_official_html(page):
+    """A public phone explicitly published by the venue's official website."""
+    if not page:
+        return None
+    for raw in re.findall(
+            r"<script[^>]+type=[\"']application/ld\+json[\"'][^>]*>([\s\S]*?)</script>",
+            page, re.I):
+        try:
+            blob = json.loads(html_lib.unescape(raw.strip()))
+        except Exception:
+            continue
+        stack = list(blob if isinstance(blob, list) else [blob])
+        while stack:
+            node = stack.pop(0)
+            if not isinstance(node, dict):
+                continue
+            raw_type = node.get("@type")
+            types = raw_type if isinstance(raw_type, list) else [raw_type or ""]
+            typ = " ".join(str(x) for x in types).lower()
+            if re.search(r"localbusiness|organization|place|restaurant|cafe|bakery|store", typ):
+                phone = clean_public_phone(node.get("telephone"))
+                if phone:
+                    return phone
+            graph = node.get("@graph")
+            if isinstance(graph, list):
+                stack.extend(graph)
+    for value in re.findall(r"href=[\"']tel:([^\"']+)", page, re.I):
+        phone = clean_public_phone(urllib.parse.unquote(html_lib.unescape(value)))
+        if phone:
+            return phone
+    return None
+
+
+def business_detail_lines(tags, website_phone=None):
+    """Stable marker lines consumed by Mapsee's business details card."""
+    lines = []
+    phone = clean_public_phone(tags.get("phone") or tags.get("contact:phone")) or clean_public_phone(website_phone)
+    if phone:
+        lines.append(f"☎ Phone: {phone}")
+    cuisine = []
+    for value in re.split(r"[;,]", str(tags.get("cuisine") or "")):
+        value = re.sub(r"[_\s]+", " ", value).strip()
+        if value and value.lower() not in {x.lower() for x in cuisine}:
+            cuisine.append(value)
+    if cuisine:
+        lines.append("🍴 Cuisine: " + " · ".join(cuisine[:5]))
+    wheelchair = str(tags.get("wheelchair") or "").lower()
+    accessibility = {"yes": "Wheelchair accessible", "limited": "Limited wheelchair access",
+                     "no": "Not wheelchair accessible"}.get(wheelchair)
+    if accessibility:
+        lines.append(f"♿ Accessibility: {accessibility}")
+    services = []
+    for key, label in [("takeaway", "Takeaway"), ("delivery", "Delivery"),
+                       ("outdoor_seating", "Outdoor seating"), ("internet_access", "Wi-Fi"),
+                       ("diet:vegetarian", "Vegetarian options"), ("diet:vegan", "Vegan options")]:
+        value = str(tags.get(key) or "").lower()
+        if ((key == "internet_access" and value in {"wlan", "yes"}) or
+                (key != "internet_access" and value in {"yes", "only"})):
+            services.append(label)
+    if services:
+        lines.append("✓ Services: " + " · ".join(services))
+    return lines
+
+
+def links_for(tags, session_delay=0.5):
+    """(order_url, booking_url, site, website_phone) from one page fetch.
+
+    All three come out of the same request on purpose. The page fetch is the
+    expensive and impolite half of this job — we are a guest on somebody's
+    server — so asking twice to answer two questions about the same restaurant
+    would double the cost of the thing we should be minimising.
+
+    Never a guess, for either link. See looks_like_ordering / looks_like_booking.
+
+    THE SITE is returned as well, and it is the reason the whole claim story
+    works: it is the venue's OWN domain, the only evidence an independent
+    restaurant has that the place is theirs. It was being fetched and thrown
+    away — measured 2026-08-12, 86% of imported restaurants had no way to claim
+    themselves while we held their website in a local variable. ../mapsee 0153
+    is the other half.
+    """
+    order = None
+    booking = None
+    website_phone = None
+
+    # OSM sometimes carries either outright. Cheapest possible answer, no fetch.
     for k in ("website:menu", "contact:menu", "menu:url", "order:url"):
         v = tags.get(k)
         if v and looks_like_ordering(v):
-            return v
+            order = v
+            break
+    # Measured across 1,086 Seattle places: `website:reservation` appears ONCE
+    # and `reservation` 13 times as a yes/no/required FLAG carrying no link. So
+    # tags are close to useless for booking and the page scan below is where the
+    # yield is — but reading them costs nothing and they are the most reliable
+    # signal when present, because a mapper put them there deliberately.
+    for k in ("website:reservation", "reservation:website", "booking:website",
+              "contact:booking", "reservation:url"):
+        v = tags.get(k)
+        if v and looks_like_booking(v):
+            booking = v
+            break
+
     site = tags.get("website") or tags.get("contact:website")
-    if not site:
-        return None
-    if not site.startswith("http"):
+    if site and not site.startswith("http"):
         site = "https://" + site
-    if looks_like_ordering(site):
-        return site
+    if not site:
+        return order, booking, None, None
+
+    # A Facebook page is not a domain a restaurant can prove it owns, and
+    # emitting it as "Website:" would put facebook.com in front of the claim
+    # machinery for no benefit (spread would reject it anyway — but a line that
+    # can only ever be rejected is a line not worth writing).
+    try:
+        host = urllib.parse.urlparse(site).hostname or ""
+    except Exception:
+        host = ""
+    own_site = site if host and not NOT_A_VENUE_SITE.search(host) else None
+
+    if not order and looks_like_ordering(site):
+        order = site
+    if not booking and looks_like_booking(site):
+        booking = site
+    # Read the official page once for links AND its explicitly published phone.
     html, final = fetch_page(site)
     time.sleep(session_delay)
-    return order_link_on(final, html)
+    if own_site:
+        website_phone = phone_from_official_html(html)
+    if not order:
+        order = order_link_on(final, html)
+    if not booking:
+        booking = booking_link_on(final, html)
+    # VERIFY THE DESTINATION, once, before promising anything about it. Both
+    # failures reported on 2026-08-12 were 200s: a ChowNow location that serves
+    # an empty React shell, and a Square store whose landing block is gift cards
+    # with the menus one level in. Neither a status code nor the URL itself can
+    # see either, so the only honest check is to look at the page.
+    # Only a destination we genuinely fetched and found EMPTY is dropped.
+    # destination_verdict keeps "unknown" separate from "dead" for a reason worth
+    # restating here: the big ordering hosts block scrapers, so treating an
+    # unfetchable page as dead would delete most of the map's order links.
+    if order and destination_verdict(order) == "dead":
+        order = None
+    elif order:
+        # Refinement needs the page, so it only happens when we could read it —
+        # which is exactly when refine_storefront has anything to work with.
+        ohtml, ofinal = fetch_page(order)
+        time.sleep(session_delay)
+        if ohtml:
+            refined = refine_storefront(ofinal or order, ohtml)
+            # NEVER LET A DERIVED URL REPLACE A VALIDATED ONE UNLESS IT IS ALSO
+            # VALID. `ofinal` is the URL after redirects, and a redirect can land
+            # somewhere that is not an ordering page at all.
+            #
+            # Live example: Chipotle's own location page links
+            # chipotle.com/order#menu — a good link, correctly matched — and
+            # fetching it redirects to chipotle.com/, the bare homepage. Handing
+            # that to refine_storefront made it the stored link, and the client
+            # then rightly refused to call the homepage "Order pickup" and fell
+            # through to a generic "Tickets & info" button on a burrito shop.
+            # The client's re-validation caught my bad write, which is what it is
+            # for; the write should not have happened.
+            if refined and looks_like_ordering(refined):
+                order = refined
+    if booking and destination_verdict(booking) == "dead":
+        booking = None
+    return order, booking, own_site, website_phone
 
 
-def to_events(el, area, order_url, hours, days_ahead):
+def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=None, website_phone=None):
     """One NormalizedEvent per open-day in the window ahead.
 
     Each is a real, bounded slot rather than a permanent pin, because that is
@@ -229,34 +540,106 @@ def to_events(el, area, order_url, hours, days_ahead):
         return []
     addr = " ".join(x for x in [tags.get("addr:housenumber"), tags.get("addr:street")] if x) or None
     kind = tags.get("amenity", "restaurant").replace("_", " ")
-    desc = (f"{name} — {kind} in {area['name']}. Order for pickup on their own site; "
+    # The opening line has to match what the listing can actually DO, because a
+    # place may now arrive with a booking link and no ordering one.
+    if order_url and booking_url:
+        lead = "Order for pickup or book a table on their own site"
+    elif booking_url:
+        lead = "Book a table on their own site"
+    else:
+        lead = "Order for pickup on their own site"
+    lines = []
+    if order_url:
+        lines.append(f"🛒 Order: {order_url}")
+    # The product turns this into a "Reserve a table" button, exactly as it does
+    # the Order line — and re-validates the URL before rendering either.
+    if booking_url:
+        lines.append(f"🍽️ Reserve: {booking_url}")
+    # Not decoration: this is the line ../mapsee 0153's event_link_domain reads,
+    # and it is the ONLY thing that lets the owner of an imported restaurant
+    # claim it. Written last so it never out-ranks a transactional link visually,
+    # and only when it is the venue's own domain (links_for filters socials).
+    if site:
+        lines.append(f"🌐 Website: {site}")
+    lines.extend(business_detail_lines(tags, website_phone))
+    body = ("\n".join(lines) + "\n\n") if lines else ""
+    desc = (f"{name} — {kind} in {area['name']}. {lead}; "
             f"mapsee.me is not taking the order.\n\n"
-            f"🛒 Order: {order_url}\n\n"
-            f"Listing from OpenStreetMap contributors (ODbL). "
-            f"Is this your place? Claim it on mapsee.me to correct it.")
-    out = []
+            f"{body}"
+            f"Public business details from OpenStreetMap contributors (ODbL). "
+            f"Hours and details can change; the business can claim this listing to correct them.")
+    # ONE ROW PER VENUE, not one per open day.
+    #
+    # A business is open every Tuesday; it is not holding 52 Tuesday events.
+    # Writing a row per day cost 6.1 rows per venue (measured across Seattle,
+    # Chicago, Portland and London: 1,547 rows for 254 places) and would be
+    # ~30,500 rows at full coverage of eight hubs alone.
+    #
+    # The row carries the WEEKLY PATTERN, and ../mapsee 0156's hourly roller
+    # moves its window forward. Its starts_at/ends_at is only ever the NEXT open
+    # window — so the map answers "can I eat there now, or when next", which is
+    # the question, and the row never expires the way a dated clone does.
+    #
+    # It also gives the venue a STABLE id. Under the per-day model every day was
+    # a different event, so a claim, a share link — or an order, when we are
+    # their till — attached to a row that stopped existing tomorrow.
     today = datetime.now(timezone.utc).date()
-    for i in range(days_ahead):
+    slot = None
+    for i in range(max(days_ahead, 8)):     # 8 guarantees every weekday is seen
         d = today + timedelta(days=i)
         span = hours.get(d.weekday())
-        if not span:
-            continue
-        o, c = span
-        out.append(NormalizedEvent(
-            source="osm-food",
-            source_id=f"{el.get('type','n')}/{el.get('id')}/{d.isoformat()}",
-            name=name,
-            description=desc,
-            start_local=f"{d.isoformat()}T{o}:00",
-            end_local=f"{d.isoformat()}T{c}:00",
-            venue_name=name,
-            latitude=float(lat), longitude=float(lon),
-            address=addr, city=area.get("city"), region=area.get("region"),
-            country=area.get("country"), postal_code=tags.get("addr:postcode"),
-            category="food",
-            ticket_url=order_url,
-        ))
-    return out
+        if span:
+            slot = (d, span[0], span[1])
+            break
+    if not slot:
+        return []
+    d, o, c = slot
+
+    # The fingerprint is the OSM identity, with NO date in it — that is what
+    # makes re-running update the same row instead of adding another. It also
+    # sidesteps make_fingerprint's name|date|place basis, which would collapse
+    # two Chipotles in one city into a single row now that the date is gone.
+    osm_ref = f"{el.get('type','n')}/{el.get('id')}"
+    return [NormalizedEvent(
+        source="osm-food",
+        source_id=osm_ref,
+        fingerprint=hashlib.sha1(f"osm-food|{osm_ref}".encode("utf-8")).hexdigest(),
+        name=name,
+        description=desc,
+        start_local=f"{d.isoformat()}T{o}:00",
+        end_local=f"{d.isoformat()}T{c}:00",
+        venue_name=name,
+        latitude=float(lat), longitude=float(lon),
+        # THE CITY IS THE VENUE'S, NEVER THE HUB'S.
+        #
+        # This used to be area["city"] for every place in the box, which was
+        # roughly true when a box was 2 miles across and is badly false at 20 or
+        # 50: the Seattle hub now covers Renton, Bellevue, Kent and Puyallup, and
+        # every one of them was being labelled "Seattle". Reported live —
+        # a Renton Chipotle and Chick-fil-A on Rainier Ave S shown as Seattle
+        # 98057, a Puyallup bistro as Seattle 98372, a SEQUIM diner (sixty miles
+        # away, across the water) as Seattle 98382. The POSTCODES were right the
+        # whole time, because those come from OSM; only the city was invented.
+        #
+        # Worse than a wrong label: _addr_parts feeds (street, city, region) to
+        # the geocoder, so "439 Rainier Avenue South, Seattle, WA" matched
+        # SEATTLE's Rainier Ave S and the pin moved eleven miles. See
+        # coords_exact below.
+        #
+        # OSM's own addr:city when it has one; otherwise nothing. A missing city
+        # is a gap; a confidently wrong one moves the restaurant.
+        address=addr,
+        city=(tags.get("addr:city") or tags.get("addr:suburb") or "").strip() or None,
+        region=area.get("region"),
+        country=area.get("country"), postal_code=tags.get("addr:postcode"),
+        category="food",
+        ticket_url=order_url or booking_url,
+        # OSM's point is surveyed; the address text is derived from it, not
+        # the other way round. Never geocode over it — see NormalizedEvent.
+        coords_exact=True,
+        # 0=Monday…6=Sunday, exactly as parse_opening_hours produced it.
+        recurring_days={str(k): [v[0], v[1]] for k, v in sorted(hours.items())},
+    )]
 
 
 def main(argv=None):
@@ -266,6 +649,20 @@ def main(argv=None):
     ap.add_argument("--only", help="one area by name (substring)")
     ap.add_argument("--days-ahead", type=int, default=7)
     ap.add_argument("--max-places", type=int, default=60, help="per area, per run")
+    ap.add_argument("--ignore-cursor", action="store_true",
+                    help="start at the first candidate and do not advance the cursor "
+                         "(backfill: re-examine places already imported)")
+    ap.add_argument("--places-cache", default="osm_places_cache",
+                    help="where the per-area OSM place lists live")
+    ap.add_argument("--cache-days", type=float, default=30.0,
+                    help="re-ask Overpass only when the cached list is older than this")
+    ap.add_argument("--radius-miles", type=float,
+                    help="override every area's radius for THIS run (config stays as it is). "
+                         "The cache keys on the resulting box, so a narrow run cannot "
+                         "poison a wide one.")
+    ap.add_argument("--warm-cache", action="store_true",
+                    help="fetch and cache each area's place list, then stop. Examines no "
+                         "places and fetches no venue websites.")
     ap.add_argument("--delay", type=float, default=2.0)
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args(argv)
@@ -273,15 +670,50 @@ def main(argv=None):
     cfg = json.loads(open(a.config, encoding="utf-8").read())
     areas = [x for x in cfg.get("areas", [])
              if not a.only or a.only.lower() in str(x.get("name", "")).lower()]
-    store = None if a.dry_run else EventStore(a.store)
+    # Warming touches neither the store nor the cursor: it is a fetch, not a run.
+    # Creating an EventStore would rewrite feeds_events.json with nothing in it,
+    # and moving the cursor would skip places nobody examined.
+    store = None if (a.dry_run or a.warm_cache) else EventStore(a.store)
     cursor = load_cursor()
-    tot_seen = tot_hours = tot_order = tot_events = 0
+    tot_seen = tot_hours = tot_order = tot_booking = tot_events = 0
 
     for area in areas:
-        try:
-            els = overpass(area, a.delay)
-        except Exception as exc:
-            print(f"[osm-food] {area['name']} overpass FAILED: {exc}")
+        if a.radius_miles:
+            area = {**area, "radius_miles": a.radius_miles}
+            area.pop("bbox", None)          # a radius override beats a stored box
+        bbox = area_bbox(area)
+        els, from_cache = load_places(a.places_cache, area, a.cache_days, bbox)
+        if els is None:
+            try:
+                els, complete = overpass(area, a.delay)
+            except Exception as exc:
+                print(f"[osm-food] {area['name']} overpass FAILED: {exc}")
+                continue
+            # Use a partial list, never keep one. Caching an incomplete pull for
+            # thirty days would hide the gap behind a run that looks healthy.
+            if els and complete and not a.dry_run:
+                save_places(a.places_cache, area, els, bbox)
+
+        # WARM AND STOP.
+        #
+        # Every matrix job needs the same place lists, and when each fetches its
+        # own they all hit Overpass at the same moment — so we rate-limit
+        # OURSELVES and then politely back off against our own traffic (2s, 6s,
+        # 18s per tile). Watched live on the first matrix run: London, the
+        # second-densest hub at 24,970 places, was still pulling tiles long
+        # after every other area had finished its whole job.
+        #
+        # Warming here is one SEQUENTIAL pass before the fan-out, which is both
+        # faster wall-clock and a great deal more considerate to a service that
+        # is free and volunteer-run. It examines no places and fetches nobody's
+        # website — that is the expensive half and it stays in the matrix.
+        if a.warm_cache:
+            # Count before returning, or the summary reports 0 places while the
+            # per-area lines report thousands — a total that contradicts its own
+            # detail is worse than no total.
+            tot_seen += len(els)
+            print(f"[osm-food] {area['name']}: cache warm "
+                  f"({len(els)} places){' [from cache]' if from_cache else ''}", flush=True)
             continue
         # Only the ones worth a fetch: a website AND hours we can read. Doing the
         # cheap filters first is what keeps this to a few dozen page loads.
@@ -306,25 +738,49 @@ def main(argv=None):
         tot_seen += len(els)
         tot_hours += len(cands)
 
-        start = int(cursor.get(area["name"], 0)) % max(len(cands), 1)
+        # --ignore-cursor starts at the beginning and does not move the cursor,
+        # so a backfill re-examines places already imported instead of marching
+        # past them. Needed because the weekly run can only ever go FORWARD: a
+        # change to what we write (the Website line, a verified order link) never
+        # reaches a row that was imported before it, and --only-new means the
+        # sync would skip it even if it did. It leaves the cursor untouched so a
+        # backfill does not also cost the normal rotation its place.
+        start = 0 if a.ignore_cursor else int(cursor.get(area["name"], 0)) % max(len(cands), 1)
         window = cands[start : start + a.max_places]
         if len(window) < a.max_places:                 # wrap around the end
             window += cands[: a.max_places - len(window)]
-        if not a.dry_run:
+        if not a.dry_run and not a.ignore_cursor:
             cursor[area["name"]] = (start + a.max_places) % max(len(cands), 1)
 
         made = 0
         for el, hrs in window:
             try:
-                url = order_url_for(el.get("tags", {}))
+                url, booking, site, website_phone = links_for(el.get("tags", {}))
             except Exception:
-                url = None
-            if not url:
+                url, booking, site, website_phone = None, None, None, None
+            # A PUBLISHED WAY TO TRANSACT is still the bar — a restaurant merely
+            # existing is not a listing, which is what lets outreach honestly say
+            # nobody at the venue put this here. Booking a table meets that bar
+            # exactly as ordering does: it is a time, a seat and a commitment,
+            # and it is arguably more of an event than a pickup order. So the
+            # gate widens by one door rather than loosening.
+            if not (url or booking):
                 continue
-            tot_order += 1
-            for nev in to_events(el, area, url, hrs, a.days_ahead):
-                nev.fingerprint = make_fingerprint(
-                    nev.name, (nev.start_local or "")[:10], nev.venue_name, nev.city)
+            if url:
+                tot_order += 1
+            if booking:
+                tot_booking += 1
+            for nev in to_events(el, area, url, hrs, a.days_ahead,
+                                 booking_url=booking, site=site, website_phone=website_phone):
+                # to_events sets the fingerprint from the OSM identity, with no
+                # date in it — that is what makes a re-run UPDATE the venue's
+                # row instead of adding another. Overwriting it with
+                # make_fingerprint (name|date|place) would restore the per-day
+                # multiplication AND collapse two Chipotles in one city into one
+                # row, since the date is what used to keep them apart.
+                if not nev.fingerprint:
+                    nev.fingerprint = make_fingerprint(
+                        nev.name, (nev.start_local or "")[:10], nev.venue_name, nev.city)
                 if store:
                     store.upsert(nev)
                 made += 1
@@ -339,10 +795,14 @@ def main(argv=None):
 
     if store:
         store.save()
-    if not a.dry_run:
+    if not a.dry_run and not a.warm_cache:
         save_cursor(cursor)
+    if a.warm_cache:
+        print(f"[osm-food] cache warm for {len(areas)} area(s) · {tot_seen} places · "
+              f"no websites fetched", flush=True)
+        return 0
     print(f"[osm-food] done: {tot_seen} places seen · {tot_hours} readable · "
-          f"{tot_order} with an order link · {tot_events} slots"
+          f"{tot_order} with an order link · {tot_booking} bookable · {tot_events} slots"
           + (" (dry run, nothing written)" if a.dry_run else ""))
     return 0
 

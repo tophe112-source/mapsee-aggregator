@@ -811,7 +811,24 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         "icon": None,                                # let the app render the category's emoji
         "external_source": "mapsee",                 # provenance (migration 0039)
         "external_id": rec["fingerprint"],           # cross-source dedup key -> idempotent
+        # A standing weekly arrangement rather than an occasion (migration 0156).
+        # The TIMEZONE is resolved here and stored with the pattern, because this
+        # is the only place that knows it: the adapter has coordinates, and
+        # turning coordinates into an IANA zone is _tz_for's job. 0149's note
+        # applies — longitude cannot know a DST rule, so the zone is stored, not
+        # re-derived by whoever reads it later.
+        "recurring_hours": _recurring_hours(rec, lat, lon),
     }
+
+
+def _recurring_hours(rec, lat, lon):
+    """{"tz": …, "days": {"0": ["11:00","22:00"], …}} or None."""
+    days = rec.get("recurring_days")
+    if not days:
+        return None
+    tz = _tz_for(lat, lon)
+    return {"tz": getattr(tz, "key", None) or "UTC",
+            "days": {str(k): list(v) for k, v in days.items()}}
 
 
 def _addr_parts(rec: Dict[str, Any]):
@@ -931,7 +948,25 @@ def build_rows(store_path: str, host_id: str, geo_session=None) -> List[Dict[str
         # imprecise source coords (Ticketmaster is often ~0.5mi off). Doing it
         # pre-to_row means the map pin AND the naive-local-time→UTC conversion
         # (which needs coords to know the timezone) both use the best coordinates.
-        parts_of = {i: p for i, p in ((i, _addr_parts(r)) for i, r in enumerate(recs)) if p}
+        # …EXCEPT where the source's coordinates ARE the fact. OpenStreetMap
+        # hands over a surveyed point and derives its address text from it;
+        # re-geocoding that text throws away the better number for a worse one.
+        # Measured live: a Renton restaurant labelled with its hub's city
+        # geocoded "Rainier Avenue South, Seattle" onto SEATTLE's street of the
+        # same name, eleven miles off, and a Sequim diner landed sixty miles from
+        # itself. coords_exact opts an adapter out; everything else is unchanged.
+        # `ex` is carried through the generator rather than read from `r` in the
+        # condition: a generator expression's loop variable does NOT leak into
+        # the enclosing comprehension, so `not r.get(...)` there is a NameError.
+        # It cost a whole area's pull — Portland fetched every candidate, then
+        # died at the sync.
+        parts_of = {i: p for i, p, ex in
+                    ((i, _addr_parts(r), bool(r.get("coords_exact")))
+                     for i, r in enumerate(recs))
+                    if p and not ex}
+        exact = sum(1 for r in recs if r.get("coords_exact"))
+        if exact:
+            print(f"Kept {exact} source-exact coordinates (not geocoded).")
         coords = batch_geocode(geo_session, list({p for p in parts_of.values()}))
         applied = 0
         for i, p in parts_of.items():
@@ -1144,7 +1179,13 @@ def main() -> None:
         print(f"Moderation pre-filter: dropped {before - len(rows)} of {before} rows.")
 
     n, skipped = upsert(rows, url, key)
-    tail = f"; skipped {skipped} (blocked by your moderation filter — see log above)" if skipped else ""
+    # NOT NECESSARILY MODERATION. This used to assert the reason regardless of
+    # the status code, and it sent me looking for a content filter that was
+    # never involved: Tokyo's entire batch — all 114 rows — failed with
+    # "503 upstream connect error" and was reported as blocked content, while a
+    # handful elsewhere were 400s for an out-of-range timestamp. The per-row
+    # reasons are printed above; point at those instead of inventing one.
+    tail = f"; skipped {skipped} (see the per-row reasons above)" if skipped else ""
     print(f"Upserted {n} events into Supabase as host {host_id}{tail}. "
           f"They will now appear in events_near / the Nearby map.")
 

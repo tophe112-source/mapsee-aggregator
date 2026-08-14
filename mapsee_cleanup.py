@@ -62,6 +62,46 @@ def _timed_out(resp) -> bool:
     return resp.status_code >= 500 and TIMEOUT_CODE in (resp.text or "")
 
 
+ATTEMPTS = 3
+
+
+def _req(method: str, url: str, **kw):
+    """One PostgREST call, retrying only what is worth retrying.
+
+    TWO DIFFERENT 5xx ARRIVE HERE AND THEY WANT OPPOSITE THINGS. A statement
+    timeout (57014) means we asked for too much and must take a SMALLER bite —
+    the batch halving below owns that, and retrying the same request unchanged
+    would just time out again. An upstream 503 — "upstream connect error or
+    disconnect/reset before headers", Envoy failing to reach Postgres — means we
+    asked for nothing at all, and the identical request will work once the edge
+    recovers. So this retries the second and hands the first straight back.
+
+    Without it, a provider blip ended the run: 2026-08-14's outage produced
+    "Couldn't count matching events [503]" followed by "Couldn't list events to
+    delete [503]" and exit 1, on a job whose work is idempotent and would have
+    succeeded seconds later. mapsee_health_check._rpc has retried 5xx all along;
+    this is the same rule in the one script that still lacked it.
+    """
+    last = None
+    for attempt in range(ATTEMPTS):
+        try:
+            r = requests.request(method, url, **kw)
+        except requests.RequestException as ex:
+            last = f"{type(ex).__name__}: {ex}"
+        else:
+            if r.status_code < 500 or _timed_out(r):
+                return r                          # settled, or the caller's to shrink
+            last = f"HTTP {r.status_code}: {(r.text or '')[:160]}"
+            if attempt == ATTEMPTS - 1:
+                return r                          # let the caller report the body
+        if attempt < ATTEMPTS - 1:
+            print(f"Upstream unavailable ({last}) — retrying")
+            time.sleep(2 ** (attempt + 1))        # 2s, then 4s
+    raise SystemExit(f"Supabase unreachable after {ATTEMPTS} attempts: {last}. "
+                     f"Nothing was deleted. If the next scheduled run is green, "
+                     f"it was a transient upstream outage.")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Delete past aggregator events from Supabase.")
     ap.add_argument("--older-than-days", type=int, default=7,
@@ -116,10 +156,10 @@ def main() -> int:
     # matching row and was itself timing out — and when it did, the old code read
     # the missing Content-Range as "?" and carried on as though it had an answer.
     # This number is only ever printed, so a planner estimate is the right price.
-    cnt = requests.get(base + "&select=id",
-                       headers=dict(auth, **{"Range-Unit": "items", "Range": "0-0",
-                                             "Prefer": "count=estimated"}),
-                       timeout=60)
+    cnt = _req("GET", base + "&select=id",
+               headers=dict(auth, **{"Range-Unit": "items", "Range": "0-0",
+                                     "Prefer": "count=estimated"}),
+               timeout=60)
     if cnt.status_code >= 300:
         print(f"Couldn't count matching events [{cnt.status_code}]: {cnt.text[:200]}")
         total = "unknown"
@@ -142,8 +182,8 @@ def main() -> int:
                   f"where this left off.")
             break
 
-        page = requests.get(f"{base}&select=id&limit={batch}", headers=auth,
-                            timeout=min(120, max(10, int(left))))
+        page = _req("GET", f"{base}&select=id&limit={batch}", headers=auth,
+                    timeout=min(120, max(10, int(left))))
         # No `order`: sorting is work the database does not need to do here.
         # Paging is stable without it because every row this returns is deleted
         # before the next fetch, so the window always moves forward.
@@ -163,9 +203,9 @@ def main() -> int:
             print("Nothing left to delete.")
             break
 
-        resp = requests.delete(f"{base}&id=in.({','.join(ids)})",
-                               headers=dict(auth, Prefer="return=minimal,count=exact"),
-                               timeout=min(300, max(30, int(left))))
+        resp = _req("DELETE", f"{base}&id=in.({','.join(ids)})",
+                    headers=dict(auth, Prefer="return=minimal,count=exact"),
+                    timeout=min(300, max(30, int(left))))
         if _timed_out(resp):
             if batch <= BATCH_MIN:
                 sys.exit(f"Even {batch} events at a time exceed the statement timeout. "

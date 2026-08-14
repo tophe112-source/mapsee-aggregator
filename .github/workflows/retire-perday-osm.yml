@@ -1,0 +1,61 @@
+# Retire the OLD per-day OpenStreetMap restaurant rows.
+#
+# ../mapsee 0156 replaced "one row per open day" (measured at 6.1 rows a venue)
+# with ONE rolling row per venue. The new rows use a new fingerprint, so they are
+# INSERTED alongside the old ones; left alone the old ones age out over about a
+# week, and until they do restaurants keep crowding the Nearby list because 0158
+# cannot demote them — is_standing reads recurring_hours and the old rows have
+# none.
+#
+# ONE-TIME and MANUAL, dry by default. It hides rows in production; it should be
+# read before it is run, and it will have nothing to do once the old rows are
+# gone.
+#
+# Never add pull_request: reads SUPABASE_SERVICE_ROLE_KEY.
+name: Retire per-day OSM rows
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "WRITE. Unchecked = dry run, which is what you want first."
+        type: boolean
+        required: false
+        default: false
+      unhide:
+        description: "Reverse it: un-hide the rows this pass hid"
+        type: boolean
+        required: false
+        default: false
+      days:
+        description: "How far ahead to sweep"
+        required: false
+        default: "30"
+
+permissions:
+  contents: read
+
+jobs:
+  retire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      - name: Dry run (what WOULD be hidden)
+        run: |
+          python mapsee_retire_perday_osm.py --days ${{ github.event.inputs.days }} \
+            ${{ github.event.inputs.unhide == 'true' && '--unhide' || '' }}
+
+      - name: Retire
+        if: ${{ github.event.inputs.apply == 'true' }}
+        run: |
+          python mapsee_retire_perday_osm.py --apply --days ${{ github.event.inputs.days }} \
+            ${{ github.event.inputs.unhide == 'true' && '--unhide' || '' }}

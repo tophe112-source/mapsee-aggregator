@@ -251,7 +251,7 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
     # pure function of THIS row — sources run on different weekdays and the store
     # is rebuilt every run, so the duplicates are never in memory together to be
     # compared. A market sitting on a cell boundary still slips through, which is
-    # what mapsee_dedupe_markets.py sweeps up in the database, the one place where
+    # what mapsee_dedupe_events.py sweeps up in the database, the one place where
     # every source's rows do meet. `place` stays the address, for display.
     #
     # "Pure function of THIS row" is the load-bearing part, and for the 48 inline

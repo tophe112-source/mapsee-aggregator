@@ -443,6 +443,20 @@ jobs:
           else
             echo "no pioneersquare_sources.json — skipping"
           fi
+      # The second Seattle neighbourhood association, and NOT a scraper: the
+      # calendar is a SvelteKit island over a public admin-ajax action that
+      # returns real JSON and answers our own User-Agent. Added because the
+      # neighbourhood's biggest free event — the South Lake Union Block Party —
+      # was missing from a catalogue that held 395 other Seattle events for that
+      # weekend. Free street parties are exactly what the ticketing APIs do not
+      # have, which is the whole argument for hyperlocal sources.
+      - name: Import Discover South Lake Union (Seattle neighbourhood calendar, JSON)
+        run: |
+          if [ -f slu_sources.json ]; then
+            python mapsee_ingest_slu.py --config slu_sources.json --store feeds_events.json
+          else
+            echo "no slu_sources.json — skipping"
+          fi
       - name: Import 'The Events Calendar' sites (WordPress REST — comedy, running clubs, nature orgs)
         run: |
           if [ -f tribe_sources.json ]; then
@@ -500,8 +514,24 @@ jobs:
       # One market reaches the map from a curated list, OpenStreetMap AND the USDA
       # directories, and those sources run on different weekdays into a store that is
       # rebuilt each run — so the duplicates only ever meet here, in the table.
-      - name: Collapse duplicate market events
-        run: python mapsee_dedupe_markets.py --max-seconds 300 || true
+      #
+      # EVERY category now, not just market. Markets were the case somebody
+      # measured, never the only one: on 2026-08-12 the table held 4,871
+      # duplicate rows across fifteen categories, and markets were 2,107. Being
+      # the largest share DESPITE being the only category swept is what a job
+      # falling behind looks like from outside.
+      #
+      # continue-on-error, NOT `|| true`. Both keep the pipeline going; only one
+      # leaves a mark. `|| true` discarded the exit code, so a run that hit its
+      # budget with rows still queued — or refused on --max-cluster — was
+      # indistinguishable from a clean sweep. The step now goes red while the job
+      # carries on to link-series, which still has to run.
+      #
+      # 600s, up from 300, matching the script's own default: the listing pass
+      # alone walks ~193k rows.
+      - name: Collapse duplicate imported events
+        continue-on-error: true
+        run: python mapsee_dedupe_events.py --max-seconds 600
       # A weekly market publishes each Saturday as its own listing and nothing tied
       # them together, so the map drew forty rows as forty separate things and Nearby
       # listed the same market forty times. Runs AFTER the dedupe, so it never chains

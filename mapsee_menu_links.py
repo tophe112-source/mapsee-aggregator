@@ -34,11 +34,13 @@ Env:  SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 Run:  python mapsee_menu_links.py [--limit 200] [--dry-run] [--verbose]
 """
 import argparse
+import html as html_mod
 import json
 import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -74,9 +76,26 @@ NOT_A_VENUE_SITE = re.compile(
 # retail page. Every one is on a genuine ordering host, and none of them feeds
 # anybody tonight. Same lie as the original category-based button, wearing the
 # uniform of the fix.
+#
+# `/order/status` is the other shape: order TRACKING, not ordering. Two of the
+# four genuinely-dead links the first prune run found were this —
+# trustgso.com/order/status and episil.net/order/status — on domains that are
+# not restaurants at all. They matched purely because the path begins /order,
+# and a page that tells you where your courier is has never sold anybody dinner.
 NOT_ORDER_PATH = re.compile(
     r"/(gift|gifts|giftcard|giftcards|gift-card|gift-cards|donate|donation|tip|tips|"
-    r"merch|market|jobs|careers|feedback|survey|waitlist|reservations?)(/|$|\?|#)", re.I)
+    r"merch|market|jobs|careers|feedback|survey|waitlist|reservations?|"
+    r"status|track|tracking|receipt|confirmation)(/|$|\?|#)", re.I)
+
+
+# THE SHOP IS GONE, and the platform says so in the URL it redirects you to.
+# Live: a venue's Slice page redirected to
+#   slicelife.com/?display_disabled_shop_notice=true&disabled_shop_name=Mumbai…
+# which is a real page on a real ordering host with a real title, so neither the
+# host check nor destination_verdict had anything to object to. The URL is
+# telling us in plain words that the shop is disabled; read it.
+NOT_ORDER_QUERY = re.compile(
+    r"(disabled_shop|shop_disabled|store_closed|closed_shop|unavailable|not_found)", re.I)
 
 
 def looks_like_ordering(url: str) -> bool:
@@ -87,23 +106,314 @@ def looks_like_ordering(url: str) -> bool:
         path = u.path or ""
         if NOT_ORDER_PATH.search(path):
             return False
+        if NOT_ORDER_QUERY.search(u.query or ""):
+            return False
+        # A PLATFORM'S FRONT DOOR IS NOT A SHOP. Where the shop lives in the
+        # PATH — slicelife.com/restaurants/…, toasttab.com/<venue> — a bare root
+        # is the marketplace homepage, which is where these links land once the
+        # venue is delisted. Where the shop is the SUBDOMAIN
+        # (joespizza.square.site, order.toasttab.com/…) the root is the shop, so
+        # this only fires when the hostname IS the bare platform domain.
+        host = u.hostname.lower()
+        bare = host[4:] if host.startswith("www.") else host
+        if not path.strip("/") and ORDER_HOSTS.search(bare) and bare.count(".") == 1:
+            return False
         return bool(ORDER_HOSTS.search(u.hostname) or ORDER_PATH.search(path))
     except Exception:
         return False
 
 
+# ---------------------------------------------------------------------------
+# Booking a table — the same bar as ordering, held deliberately high
+# ---------------------------------------------------------------------------
+# A reservation platform HOST is unambiguous: opentable.com/r/<venue> is a
+# booking page whoever links it, in any language, with no path guessing. That is
+# where almost all of the real yield is.
+BOOKING_HOSTS = re.compile(
+    r"(^|\.)(opentable\.[a-z.]+|resy\.com|sevenrooms\.com|exploretock\.com|tock\.com|"
+    r"thefork\.[a-z.]+|quandoo\.[a-z.]+|bookatable\.[a-z.]+|tablecheck\.com|"
+    r"chope\.co|eatapp\.co|formitable\.com|superbexperience\.com|libro\.jp|"
+    r"guestplan\.com|dinesuperb\.com)$", re.I)
+
+# PATHS ARE THE DANGEROUS HALF, so this list is shorter than it wants to be.
+# `/menu` taught the lesson on the ordering side: a town website, an events
+# platform and a tourism board all have a nav item called Menu, and matching the
+# obvious word pulled all three in. The equivalent trap here is `/book` — a
+# bookshop, a book club, a "book a room", a "booking terms" page. So only
+# phrasings that cannot mean anything except a table are listed, and bare /book
+# and bare /reserve are deliberately absent.
+BOOKING_PATH = re.compile(
+    r"/(reservations?|book-?(a-?)?table|reserve-?(a-?)?table|table-?booking|"
+    r"book-?your-?table)(/|$|\?|#)", re.I)
+
+# Even on a real booking host or path, these are not a table.
+NOT_BOOKING_PATH = re.compile(
+    r"/(gift|gifts|giftcard|giftcards|gift-card|gift-cards|book-?a-?room|rooms?|"
+    r"hotel|event-?space|private-?hire|venue-?hire|terms|policy|policies|"
+    r"cancel|cancellation|book-?club|bookshop|books)(/|$|\?|#)", re.I)
+
+
+def looks_like_booking(url: str) -> bool:
+    """True only for a link that unambiguously books a TABLE.
+
+    Mirrors looksLikeBooking in ../mapsee/site/js/app.js. As with ordering, the
+    two are verified behaviourally rather than textually — a JS regex literal
+    escapes its slashes and Python's need not — and the client re-validates, so
+    a disagreement fails safe as a line that never renders a button.
+    """
+    try:
+        u = urllib.parse.urlparse(url)
+        if u.scheme not in ("http", "https") or not u.hostname:
+            return False
+        path = u.path or ""
+        if NOT_BOOKING_PATH.search(path):
+            return False
+        return bool(BOOKING_HOSTS.search(u.hostname) or BOOKING_PATH.search(path))
+    except Exception:
+        return False
+
+
+TITLE_RX = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
+
+# Square Online exposes its shop categories as embedded JSON rather than <a>
+# hrefs — the rendered page has literally zero links until its JS runs.
+SQUARE_CATEGORY_RX = re.compile(
+    r'"name"\s*:\s*"([^"]{2,40})"\s*,\s*"updated_date"[^}]*?"site_link"\s*:\s*"([^"]+)"')
+FOODY_RX = re.compile(
+    r"(menu|food|order|drink|coffee|kitchen|bakery|deli|dinner|lunch|breakfast)", re.I)
+
+
+# An EMPTY APP SHELL is small. A real page — even one that renders its content in
+# JavaScript — ships a catalog, styles and inline state, and runs to tens of KB.
+EMPTY_SHELL_BYTES = 10_000
+
+
+def destination_ok(html: str) -> bool:
+    """Given a page we actually RETRIEVED, does it look like a real one?
+
+    A dead ordering link does not 404. Measured 2026-08-12:
+    order.chownow.com/order/39625/locations/60228 answers 200 with a 4.1KB React
+    shell and NO <title>, while a live ChowNow location answers 200 with 28KB
+    titled "Peloton Cafe - Seattle - …". Status codes cannot separate them.
+
+    A MISSING TITLE ALONE IS NOT DEATH, and believing it was is the second false
+    positive this check has produced. Square Online stores routinely ship no
+    <title> at all while being perfectly alive: basiliskpdx.square.site is 51KB
+    with eight categories including "Online Menu", "Drinks" and "Salads", and
+    stone-way-cafe.square.site is 43KB with "Stone Way Cafe - Online Menu". Both
+    would have been stripped. pelotonseattle.square.site merely happened to say
+    "Store | Peloton Cafe", and one confirming example is not evidence.
+
+    So the signature is a title AND a body: dead means we got a page with no
+    title that is also too small to contain a shop. That fits the 4.1KB ChowNow
+    shell and excludes every live Square store measured.
+
+    ONLY call this with HTML you really got. Passing it a failed fetch is the
+    other trap — see destination_verdict, which exists because this function on
+    its own called Toast, Uber Eats and DoorDash dead.
+    """
+    if not html:
+        return False
+    m = TITLE_RX.search(html)
+    if m and m.group(1).strip():
+        return True
+    return len(html) >= EMPTY_SHELL_BYTES
+
+
+# HOSTS WE HAVE PROVEN WE CANNOT JUDGE, and the evidence for each.
+#
+# ubereats.com — measured 2026-08-12. Our request gets HTTP 404 for a store page
+# while the SAME full URL opened in a real browser loads
+# "Order Zizzi (Bankside) Menu Delivery | London | Uber Eats", and a second one
+# redirects to def.uber.com/en/challenge, their bot-defence challenge. So the
+# 404 is a refusal wearing a status code, and 15 of the 19 links a prune run
+# wanted to cut were on this host — Five Guys, PizzaExpress, Prezzo, Zizzi,
+# The Real Greek — across five countries. Chains do not delist in unison.
+#
+# The honest resolution is to stop asking, not to dress up as a browser: working
+# around somebody's bot defences to check their pages is not a thing to do
+# because it would be convenient. A link here stays exactly as it is.
+UNVERIFIABLE_HOSTS = re.compile(r"(^|\.)(ubereats\.com|uber\.com)$", re.I)
+
+
+def destination_verdict(url: str, timeout: int = 20) -> str:
+    """"alive" | "dead" | "unknown". Only "dead" is grounds for dropping a link.
+
+    THE BUG THIS EXISTS TO PREVENT, caught before it shipped anywhere but one
+    city: fetch() returns None for every failure — 403, timeout, non-HTML — and
+    the first version of this check read None as "dead". The big ordering hosts
+    all block scrapers, so order.toasttab.com, www.toasttab.com and
+    ubereats.com every one came back as zero bytes and would have been judged
+    dead. That is not a few false positives, it is most of the map's order links,
+    including a Toast URL this repo's own test suite asserts is valid.
+
+    So the three cases are kept apart and the default is to KEEP the link. A
+    destination we were not allowed to look at is not a destination we know is
+    broken, and the prior behaviour — no check at all — was already fail-open.
+    Only a page we genuinely fetched and found empty is called dead.
+    """
+    try:
+        host = (urllib.parse.urlparse(url).hostname or "").lower()
+    except Exception:
+        host = ""
+    if host and UNVERIFIABLE_HOSTS.search(host):
+        return "unknown"                    # proven to refuse us; see the note above
+    try:
+        req = urllib.request.Request(url, headers={"user-agent": UA})
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            ct = (r.headers.get("content-type") or "").lower()
+            if "html" not in ct and "text" not in ct:
+                return "unknown"            # a PDF menu is not evidence either way
+            html = r.read(400_000).decode("utf-8", "replace")
+            return "alive" if destination_ok(html) else "dead"
+    except urllib.error.HTTPError as e:
+        # Gone is gone. Everything else — 403 bot-block, 429, 5xx — is us being
+        # refused, not the restaurant being closed.
+        return "dead" if e.code in (404, 410) else "unknown"
+    except Exception:
+        return "unknown"
+
+
+def refine_storefront(url: str, html: str) -> str:
+    """Point at the food, not at the shop's front door.
+
+    pelotonseattle.square.site/ is a real, live Square store on a genuine
+    ordering host — and the featured block on its landing page is titled "Gift
+    Cards", so somebody hungry arrives at gift cards. The menus are one level in,
+    at /shop/online-menu/<id>. The link was not broken; it was pointed at the
+    wrong shelf, which is the same failure as the gift-card paths NOT_ORDER_PATH
+    already refuses, wearing a different disguise.
+
+    Only refines a ROOT url — a link that already names a path was chosen
+    deliberately and is left alone. Falls back to the original on anything
+    unexpected, so Square changing this JSON costs us a refinement, never a link.
+    """
+    try:
+        if (urllib.parse.urlparse(url).path or "/").strip("/"):
+            return url                                    # already specific
+    except Exception:
+        return url
+    if not html:
+        return url
+    cats = [(n, l.replace("\\/", "/")) for n, l in SQUARE_CATEGORY_RX.findall(html)]
+    foody = [(n, l) for n, l in cats if FOODY_RX.search(n) or FOODY_RX.search(l)]
+    if not foody:
+        return url
+    # "Online Menu" is the ordering flow where a store has one; otherwise the
+    # first food-ish category, which still beats the gift-card landing.
+    best = next((c for c in foody if "online" in (c[0] + c[1]).lower()), foody[0])
+    try:
+        return urllib.parse.urljoin(url, best[1])
+    except Exception:
+        return url
+
+
+def _same_site(a: str, b: str) -> bool:
+    """Do two URLs belong to the same registrable-ish site?
+
+    Compares the last two labels, so www.joes.com, order.joes.com and joes.com
+    agree while joes.com and elliotts.com do not. Deliberately crude: it is a
+    trust boundary, not a public-suffix implementation, and the cost of being
+    slightly too strict is one missed link.
+    """
+    try:
+        ha = (urllib.parse.urlparse(a).hostname or "").lower()
+        hb = (urllib.parse.urlparse(b).hostname or "").lower()
+    except Exception:
+        return False
+    if not ha or not hb:
+        return False
+    return ha.split(".")[-2:] == hb.split(".")[-2:]
+
+
+def booking_link_on(page_url: str, html: str):
+    """The first link on this page that genuinely books a table AT THIS PLACE.
+
+    A PATH match is only trusted on the venue's OWN site. A known booking host is
+    trusted anywhere — opentable.com/r/joes identifies the restaurant in the URL,
+    so whoever links it, it books Joe's. But `/reservations` on somebody else's
+    domain identifies THEIR restaurant, and following it books the wrong table.
+
+    Not hypothetical: the first run of this matcher gave WingDome the URL
+    elliottsoysterhouse.com/reservations, scraped off a link on WingDome's own
+    page. Well-formed, plausible, and it would have sent a hungry person to a
+    different restaurant's booking form — the exact failure mode this repo
+    already has a note about for coordinates.
+    """
+    return _link_on(page_url, html, looks_like_booking, BOOKING_HOSTS)
+
+
+def _link_on(page_url: str, html: str, predicate, trusted_hosts):
+    if not html:
+        return None
+    seen = set()
+    for m in LINK_RX.finditer(html):
+        # DECODE HTML ENTITIES. An href in real markup is entity-encoded, so a
+        # query string arrives as `?a=1&amp;b=2` and every parameter after the
+        # first is silently corrupted. Live example from the first booking run:
+        # opentable.com/r/neb-reservations-seattle?restref=1278643&amp;lang=en-US.
+        # The old order-link pass had the same hole.
+        href = html_mod.unescape(m.group(1).strip())
+        if href.lower().startswith(("mailto:", "tel:", "javascript:")):
+            continue
+        absolute = urllib.parse.urljoin(page_url, href)
+        if absolute in seen:
+            continue
+        seen.add(absolute)
+        if not predicate(absolute):
+            continue
+        host = urllib.parse.urlparse(absolute).hostname or ""
+        if trusted_hosts.search(host) or _same_site(absolute, page_url):
+            return absolute
+    return None
+
+
+SB_ATTEMPTS = 3
+
+
 def sb(path: str, method: str = "GET", body=None, prefer: str = ""):
-    req = urllib.request.Request(
-        f"{SUPABASE_URL}/rest/v1/{path}", method=method,
-        data=json.dumps(body).encode() if body is not None else None)
-    req.add_header("apikey", SERVICE_KEY)
-    req.add_header("authorization", f"Bearer {SERVICE_KEY}")
-    req.add_header("content-type", "application/json")
-    if prefer:
-        req.add_header("prefer", prefer)
-    with urllib.request.urlopen(req, timeout=45) as r:
-        raw = r.read().decode("utf-8", "replace")
-        return json.loads(raw) if raw.strip() else None
+    """One Supabase call, retrying only what is worth retrying.
+
+    A 5xx from the REST edge is not an answer, it is the absence of one:
+    "upstream connect error or disconnect/reset before headers" is Envoy saying
+    it could not reach Postgres, and it clears on its own. This used to be a bare
+    urlopen, so the first one ended the job with a urllib traceback — nine frames
+    of stack ending in `HTTPError: HTTP Error 503`, which reads like a bug in
+    this file and is not. mapsee_health_check._rpc has retried 5xx for a while;
+    this is the same rule, and a 4xx still returns immediately because a missing
+    table or a bad key does not improve with waiting.
+
+    On exhaustion it raises with the status and body rather than a stack, so a
+    provider outage is one greppable line. It is still a FAILURE — an hour-long
+    outage is not something to swallow — it is just an honest one.
+    """
+    last = ""
+    for attempt in range(SB_ATTEMPTS):
+        req = urllib.request.Request(
+            f"{SUPABASE_URL}/rest/v1/{path}", method=method,
+            data=json.dumps(body).encode() if body is not None else None)
+        req.add_header("apikey", SERVICE_KEY)
+        req.add_header("authorization", f"Bearer {SERVICE_KEY}")
+        req.add_header("content-type", "application/json")
+        if prefer:
+            req.add_header("prefer", prefer)
+        try:
+            with urllib.request.urlopen(req, timeout=45) as r:
+                raw = r.read().decode("utf-8", "replace")
+                return json.loads(raw) if raw.strip() else None
+        except urllib.error.HTTPError as ex:
+            if ex.code < 500:
+                raise                                   # settled: our request is wrong
+            last = f"HTTP {ex.code}: {ex.read().decode('utf-8', 'replace')[:200]}"
+        except urllib.error.URLError as ex:
+            last = f"{type(ex).__name__}: {ex.reason}"
+        if attempt < SB_ATTEMPTS - 1:
+            print(f"[menu-links] {method} {path.split('?')[0]}: {last} — retrying")
+            time.sleep(2 ** (attempt + 1))              # 2s, then 4s
+    raise RuntimeError(
+        f"Supabase unreachable after {SB_ATTEMPTS} attempts ({method} "
+        f"{path.split('?')[0]}): {last}. Nothing was written. If the next "
+        f"scheduled run is green, it was a transient upstream outage.")
 
 
 def fetch(url: str, timeout: int = 15):
@@ -123,21 +433,14 @@ LINK_RX = re.compile(r"""<a[^>]+href=["']([^"'#][^"']*)["']""", re.I)
 
 
 def order_link_on(page_url: str, html: str):
-    """The first link on this page that is genuinely an ordering destination."""
-    if not html:
-        return None
-    seen = set()
-    for m in LINK_RX.finditer(html):
-        href = m.group(1).strip()
-        if href.lower().startswith(("mailto:", "tel:", "javascript:")):
-            continue
-        absolute = urllib.parse.urljoin(page_url, href)
-        if absolute in seen:
-            continue
-        seen.add(absolute)
-        if looks_like_ordering(absolute):
-            return absolute
-    return None
+    """The first link on this page that genuinely orders food FROM THIS PLACE.
+
+    Shares _link_on with booking, so it gained two fixes found while adding the
+    booking matcher: HTML entities in the href are decoded, and a PATH-based
+    match (`/order`) is only trusted on the venue's own site. A known ordering
+    host is still trusted anywhere, because those URLs name the venue.
+    """
+    return _link_on(page_url, html, looks_like_ordering, ORDER_HOSTS)
 
 
 def main():

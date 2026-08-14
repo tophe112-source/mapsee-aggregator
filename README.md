@@ -57,7 +57,7 @@ One case the fingerprint cannot close on its own is a **market carried by
 several sources at once** — a curated city list, OpenStreetMap and the USDA
 directories agree on the name and the coordinates but not on the address string.
 Market identity is therefore the name plus a ~5km geohash cell rather than the
-address, and `mapsee_dedupe_markets.py` collapses what is left (a market sitting
+address, and `mapsee_dedupe_events.py` collapses what is left (a market sitting
 on a cell boundary, or rows imported before that change) in the database, which
 is the only place every source's rows meet — the sources run on different
 weekdays into a store that is rebuilt each run. It runs after each feeds sync,
