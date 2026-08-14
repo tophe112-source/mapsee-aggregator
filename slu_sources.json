@@ -1,0 +1,56 @@
+{
+  "_readme": [
+    "Discover South Lake Union - the neighbourhood association's own calendar.",
+    "One site, one endpoint; see mapsee_ingest_slu.py for why this is its own",
+    "adapter and not an ics/jsonld/tribe entry."
+  ],
+  "sites": [
+    {
+      "name": "Discover South Lake Union",
+      "endpoint": "https://www.discoverslu.com/wp-admin/admin-ajax.php",
+      "event_url_prefix": "https://www.discoverslu.com/events/",
+      "within_days": 180,
+      "limit": 500,
+      "category": "community",
+      "default_city": "Seattle",
+      "default_region": "WA",
+      "default_country": "US",
+      "geocode_suffix": ", Seattle, WA",
+
+      "_venues": [
+        "The feed carries a street address on all but a handful of rows. These are",
+        "the exceptions, and they are here rather than guessed because",
+        "mapsee_supabase_sync geocodes street+city+region and DROPS anything with",
+        "no street - so a bare venue name silently vanishes. Both addresses were",
+        "read off the site's OWN directory (/location/<slug>/, 'Business Details'),",
+        "not from memory:",
+        "  nitro-plaza                          -> 2250 7th Ave",
+        "  535-terry-parking-garage-2-2-2-2-2-2-2 -> 101 Westlake Ave N",
+        "A venue that is not in this book and has no address in the feed is skipped",
+        "LOUDLY - the log line is how this book grows."
+      ],
+      "venues": {
+        "south lake union discovery center": {
+          "address": "101 Westlake Ave N",
+          "city": "Seattle", "region": "WA", "postal_code": "98109", "country": "US"
+        },
+        "nitro plaza": {
+          "address": "2250 7th Ave",
+          "city": "Seattle", "region": "WA", "postal_code": "98109", "country": "US"
+        },
+        "nitro plaza & path to yes plaza": {
+          "address": "2250 7th Ave",
+          "city": "Seattle", "region": "WA", "postal_code": "98109", "country": "US"
+        }
+      },
+
+      "_skip_venues": [
+        "'Multiple Locations' is the neighbourhood's own label for a programme",
+        "that runs all over SLU (Summer in SLU, the passport programme). It is not",
+        "a place and there is no honest pin for it, so it is skipped QUIETLY -",
+        "unlike an unknown venue, this one is not waiting for anyone to fix it."
+      ],
+      "skip_venues": ["multiple locations", "various locations", "tbd", "tba"]
+    }
+  ]
+}

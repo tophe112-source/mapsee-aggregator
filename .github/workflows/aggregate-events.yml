@@ -443,6 +443,20 @@ jobs:
           else
             echo "no pioneersquare_sources.json — skipping"
           fi
+      # The second Seattle neighbourhood association, and NOT a scraper: the
+      # calendar is a SvelteKit island over a public admin-ajax action that
+      # returns real JSON and answers our own User-Agent. Added because the
+      # neighbourhood's biggest free event — the South Lake Union Block Party —
+      # was missing from a catalogue that held 395 other Seattle events for that
+      # weekend. Free street parties are exactly what the ticketing APIs do not
+      # have, which is the whole argument for hyperlocal sources.
+      - name: Import Discover South Lake Union (Seattle neighbourhood calendar, JSON)
+        run: |
+          if [ -f slu_sources.json ]; then
+            python mapsee_ingest_slu.py --config slu_sources.json --store feeds_events.json
+          else
+            echo "no slu_sources.json — skipping"
+          fi
       - name: Import 'The Events Calendar' sites (WordPress REST — comedy, running clubs, nature orgs)
         run: |
           if [ -f tribe_sources.json ]; then
