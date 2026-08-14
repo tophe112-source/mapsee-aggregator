@@ -19,6 +19,7 @@
  {
   "name": "Seattle Farmers Markets",
   "type": "inline",
+  "_operators": "Two organisations run Seattle's markets and this list spans both. Neighborhood Farmers Markets (seattlefarmersmarkets.org) runs Ballard, U District, Capitol Hill, West Seattle, Columbia City, Lake City, Phinney, Magnolia and Queen Anne. The Seattle Farmers Market Association (sfmamarkets.com) runs five, of which Wallingford was already here under the other operator's name; Central District, Madison Park and South Lake Union were missing entirely until 2026-08-12. A curated city list only stays complete if somebody re-reads the operators' own market lists, so when auditing Seattle, enumerate BOTH sitemaps rather than trusting this array.",
   "city": "Seattle, WA",
   "timezone": "America/Los_Angeles",
   "horizon_days": 42,
@@ -95,6 +96,33 @@
     "hours": "3 p.m. - 7:30 p.m.",
     "season_start": "2026-06-04",
     "season_end": "2026-10-08"
+   },
+   {
+    "_source": "https://www.sfmamarkets.com/central-district-farmers-market",
+    "_note": "Formerly the Madrona Farmers Market, which is the name USDA's directory is most likely to still carry it under — worth remembering before treating a USDA duplicate as a different market. Runs in the Madrona Grocery Outlet lot at MLK Jr Way & E Union St. The page states no season, and SFMA describes it as operating through the year.",
+    "name": "Central District Farmers Market",
+    "address": "Martin Luther King Jr Way S & E Union St, Seattle, WA",
+    "days": "Friday",
+    "hours": "3 p.m. - 7 p.m.",
+    "url": "https://www.sfmamarkets.com/central-district-farmers-market"
+   },
+   {
+    "_source": "https://www.sfmamarkets.com/madison-park-farmers-market",
+    "_note": "SEASON IS NOT PUBLISHED. The page says only 'a great summer outing' and gives no dates, so none are recorded here rather than invented — a guessed season_end is the kind of well-formed, plausible, wrong value this pipeline works hardest to avoid. The consequence is that within the 42-day horizon this can advertise a date past the real close; if SFMA ever publishes the range, pin it here.",
+    "name": "Madison Park Farmers Market",
+    "address": "E Madison St & 42nd Ave E, Seattle, WA",
+    "days": "Saturday",
+    "hours": "10 a.m. - 2 p.m.",
+    "url": "https://www.sfmamarkets.com/madison-park-farmers-market"
+   },
+   {
+    "_source": "https://www.sfmamarkets.com/south-lake-union-farmers-market",
+    "_note": "On 6th Ave between Lenora St and Bell St. A Washington State Certified Farmers Market from June 2026, operating year-round, so no season bounds.",
+    "name": "South Lake Union Farmers Market",
+    "address": "6th Ave & Lenora St, Seattle, WA",
+    "days": "Saturday",
+    "hours": "10 a.m. - 3 p.m.",
+    "url": "https://www.sfmamarkets.com/south-lake-union-farmers-market"
    }
   ]
  },
