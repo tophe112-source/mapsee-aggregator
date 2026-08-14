@@ -246,11 +246,14 @@ python test_menu_links.py           # what may be called an "Order pickup" link
 python test_osm_food.py             # opening hours we may act on, and the ones we must refuse
 python test_prune_links.py          # what a description must look like after a dead link is cut
 python test_sweep_global.py         # the international sweep's argv, below the equator
+python test_ingest_slu.py           # occurrence vs series start; end_time vs end_date
+python test_cleanup.py              # a statement timeout and an outage want opposite things
+python test_retire_perday.py        # collapsing per-day rows never empties a venue
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 11 test scripts are the CI gate (`tests.yml`). They print one line per
+The 12 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
