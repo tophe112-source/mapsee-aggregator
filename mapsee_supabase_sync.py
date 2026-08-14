@@ -948,7 +948,18 @@ def build_rows(store_path: str, host_id: str, geo_session=None) -> List[Dict[str
         # imprecise source coords (Ticketmaster is often ~0.5mi off). Doing it
         # pre-to_row means the map pin AND the naive-local-time→UTC conversion
         # (which needs coords to know the timezone) both use the best coordinates.
-        parts_of = {i: p for i, p in ((i, _addr_parts(r)) for i, r in enumerate(recs)) if p}
+        # …EXCEPT where the source's coordinates ARE the fact. OpenStreetMap
+        # hands over a surveyed point and derives its address text from it;
+        # re-geocoding that text throws away the better number for a worse one.
+        # Measured live: a Renton restaurant labelled with its hub's city
+        # geocoded "Rainier Avenue South, Seattle" onto SEATTLE's street of the
+        # same name, eleven miles off, and a Sequim diner landed sixty miles from
+        # itself. coords_exact opts an adapter out; everything else is unchanged.
+        parts_of = {i: p for i, p in ((i, _addr_parts(r)) for i, r in enumerate(recs))
+                    if p and not r.get("coords_exact")}
+        exact = sum(1 for r in recs if r.get("coords_exact"))
+        if exact:
+            print(f"Kept {exact} source-exact coordinates (not geocoded).")
         coords = batch_geocode(geo_session, list({p for p in parts_of.values()}))
         applied = 0
         for i, p in parts_of.items():

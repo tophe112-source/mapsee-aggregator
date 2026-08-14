@@ -50,6 +50,20 @@ CASES = [
     ("https://joespizza.com/order/confirmation", False, "post-purchase receipt"),
     # …but the ordering paths themselves must survive it
     ("https://joespizza.com/order/", True, "plain /order still orders"),
+
+    # THE SHOP IS GONE and the platform says so in the URL. Live: a venue's Slice
+    # page redirected to the marketplace homepage carrying a disabled-shop
+    # notice — a real page, on a real ordering host, with a real title, so
+    # nothing else had grounds to object.
+    ("https://slicelife.com/?display_disabled_shop_notice=true&disabled_shop_name=Mumbai",
+     False, "Slice disabled-shop notice"),
+    # A PLATFORM'S FRONT DOOR IS NOT A SHOP, where the shop lives in the path.
+    ("https://slicelife.com/", False, "marketplace homepage"),
+    ("https://www.slicelife.com", False, "same, with www and no slash"),
+    ("https://www.toasttab.com/", False, "Toast front door"),
+    ("https://slicelife.com/restaurants/wa/auburn/mumbai-grand", True, "the actual shop page"),
+    # …but where the shop IS the subdomain, the root is the shop.
+    ("https://joespizza.square.site/", True, "Square: subdomain is the shop"),
     # …and the genuine ones from that same run, which must survive it.
     ("https://rojosmexicanfood.square.site", True, "Square Online store"),
     ("https://ordering.chownow.com/order/6656/locations", True, "ChowNow ordering"),

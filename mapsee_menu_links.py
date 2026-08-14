@@ -88,6 +88,16 @@ NOT_ORDER_PATH = re.compile(
     r"status|track|tracking|receipt|confirmation)(/|$|\?|#)", re.I)
 
 
+# THE SHOP IS GONE, and the platform says so in the URL it redirects you to.
+# Live: a venue's Slice page redirected to
+#   slicelife.com/?display_disabled_shop_notice=true&disabled_shop_name=Mumbai…
+# which is a real page on a real ordering host with a real title, so neither the
+# host check nor destination_verdict had anything to object to. The URL is
+# telling us in plain words that the shop is disabled; read it.
+NOT_ORDER_QUERY = re.compile(
+    r"(disabled_shop|shop_disabled|store_closed|closed_shop|unavailable|not_found)", re.I)
+
+
 def looks_like_ordering(url: str) -> bool:
     try:
         u = urllib.parse.urlparse(url)
@@ -95,6 +105,18 @@ def looks_like_ordering(url: str) -> bool:
             return False
         path = u.path or ""
         if NOT_ORDER_PATH.search(path):
+            return False
+        if NOT_ORDER_QUERY.search(u.query or ""):
+            return False
+        # A PLATFORM'S FRONT DOOR IS NOT A SHOP. Where the shop lives in the
+        # PATH — slicelife.com/restaurants/…, toasttab.com/<venue> — a bare root
+        # is the marketplace homepage, which is where these links land once the
+        # venue is delisted. Where the shop is the SUBDOMAIN
+        # (joespizza.square.site, order.toasttab.com/…) the root is the shop, so
+        # this only fires when the hostname IS the bare platform domain.
+        host = u.hostname.lower()
+        bare = host[4:] if host.startswith("www.") else host
+        if not path.strip("/") and ORDER_HOSTS.search(bare) and bare.count(".") == 1:
             return False
         return bool(ORDER_HOSTS.search(u.hostname) or ORDER_PATH.search(path))
     except Exception:

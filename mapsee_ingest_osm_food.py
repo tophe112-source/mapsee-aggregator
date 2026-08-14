@@ -594,10 +594,33 @@ def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=Non
         end_local=f"{d.isoformat()}T{c}:00",
         venue_name=name,
         latitude=float(lat), longitude=float(lon),
-        address=addr, city=area.get("city"), region=area.get("region"),
+        # THE CITY IS THE VENUE'S, NEVER THE HUB'S.
+        #
+        # This used to be area["city"] for every place in the box, which was
+        # roughly true when a box was 2 miles across and is badly false at 20 or
+        # 50: the Seattle hub now covers Renton, Bellevue, Kent and Puyallup, and
+        # every one of them was being labelled "Seattle". Reported live —
+        # a Renton Chipotle and Chick-fil-A on Rainier Ave S shown as Seattle
+        # 98057, a Puyallup bistro as Seattle 98372, a SEQUIM diner (sixty miles
+        # away, across the water) as Seattle 98382. The POSTCODES were right the
+        # whole time, because those come from OSM; only the city was invented.
+        #
+        # Worse than a wrong label: _addr_parts feeds (street, city, region) to
+        # the geocoder, so "439 Rainier Avenue South, Seattle, WA" matched
+        # SEATTLE's Rainier Ave S and the pin moved eleven miles. See
+        # coords_exact below.
+        #
+        # OSM's own addr:city when it has one; otherwise nothing. A missing city
+        # is a gap; a confidently wrong one moves the restaurant.
+        address=addr,
+        city=(tags.get("addr:city") or tags.get("addr:suburb") or "").strip() or None,
+        region=area.get("region"),
         country=area.get("country"), postal_code=tags.get("addr:postcode"),
         category="food",
         ticket_url=order_url or booking_url,
+        # OSM's point is surveyed; the address text is derived from it, not
+        # the other way round. Never geocode over it — see NormalizedEvent.
+        coords_exact=True,
         # 0=Monday…6=Sunday, exactly as parse_opening_hours produced it.
         recurring_days={str(k): [v[0], v[1]] for k, v in sorted(hours.items())},
     )]

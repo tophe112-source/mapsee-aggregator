@@ -231,6 +231,21 @@ class NormalizedEvent:
     # gives the venue a STABLE event_id for a claim, a share link or an order to
     # point at. Empty for every adapter that ingests actual events.
     recurring_days: Optional[Dict[str, Any]] = None
+    # THESE COORDINATES ARE THE TRUTH — do not geocode over them.
+    #
+    # The sync re-geocodes every row with a street address and OVERWRITES the
+    # source coordinates, which is right for the adapters it was written for
+    # (Ticketmaster is often ~0.5mi out). It is wrong for a source that hands
+    # over a surveyed point. OpenStreetMap places ARE the point: the coordinate
+    # is the primary fact and the address text is the derived one, which is the
+    # opposite of a ticketing feed.
+    #
+    # Live consequence before this existed: a Renton restaurant carried its exact
+    # OSM position, the ingest labelled it "Seattle" (the hub's name), and the
+    # geocoder resolved "439 Rainier Avenue South, Seattle, WA" to SEATTLE's
+    # Rainier Ave S — moving the pin eleven miles onto a street of the same name.
+    # A Sequim diner landed sixty miles from itself the same way.
+    coords_exact: bool = False
 
     def source_ref(self) -> Dict[str, Optional[str]]:
         return {"source": self.source, "source_id": self.source_id, "url": self.ticket_url}
