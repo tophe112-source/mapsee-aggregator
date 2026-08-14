@@ -101,6 +101,14 @@ jobs:
       - name: Order-link honesty (what may be called "Order pickup")
         run: python test_menu_links.py
 
+      # Two 5xx reach the janitor and want opposite things: a statement timeout
+      # means take a SMALLER bite (retrying it unchanged stalls the run), an
+      # upstream 503 means the request never happened (not retrying it turns a
+      # provider blip into a red build). Both are >= 500, so telling them apart
+      # is the whole job, and getting it backwards is silent either way.
+      - name: Cleanup retries (statement timeout vs upstream outage)
+        run: python test_cleanup.py
+
       # Opening hours decide when a takeaway pin is offered to somebody hungry.
       # Getting this wrong does not make a row look odd — it sends a person to a
       # locked door, so the REFUSALS matter more than the parses. An unreadable

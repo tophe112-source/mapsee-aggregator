@@ -173,6 +173,24 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   levers: `--ignore-cursor` + `full_refresh` re-examines and rewrites existing
   rows, and `mapsee_prune_links.py` cuts a line whose destination is provably
   gone. Neither is automatic; both are dry by default.
+- **Two different 5xx come back from PostgREST and they want opposite things.**
+  A statement timeout (`57014`) means we asked for too much, and the answer is a
+  SMALLER bite — `mapsee_cleanup.py` halves its batch, and retrying the identical
+  request just burns the run's time budget doing what already failed. An upstream
+  503 — `upstream connect error or disconnect/reset before headers`, Envoy unable
+  to reach Postgres — means the request never happened, and the same one works
+  once the edge recovers. Both are `>= 500`, so anything talking to Supabase has
+  to tell them apart; getting it backwards is silent in either direction. On
+  2026-08-14 a roughly hour-long Supabase outage took out three scheduled jobs,
+  and only `mapsee_health_check._rpc` (which has always retried 5xx, and reports
+  "could not run" as distinct from "a source has gone quiet") failed in a way
+  that said what had happened. `mapsee_menu_links.sb` died on a nine-frame urllib
+  traceback ending in `HTTP Error 503`, which reads like a bug in that file;
+  `mapsee_cleanup` gave up on the first one. Both retry now, `test_cleanup.py`
+  and `test_menu_links.py` pin the distinction, and a sustained outage still
+  FAILS — it just fails in one greppable sentence that says the work is safe to
+  retry. Do not convert these to `exit 0`: a provider being down for an hour and
+  a job that has silently stopped must not look the same.
 - **Never add `pull_request:` to a workflow that reads secrets.** `tests.yml` is
   the one workflow safe on forks, because it reads none.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing

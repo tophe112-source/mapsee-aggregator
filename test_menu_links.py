@@ -304,9 +304,89 @@ def main():
     failed += 0 if ok12 else 1
     print(f"{'ok  ' if ok12 else 'FAIL'}  ...and only the /order form qualifies, which is why it matters")
 
-    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5 + len(DEST) + 5 + 4
+    # ---- a 5xx from Supabase is not an answer ---------------------------- #
+    # The 2026-08-14 scheduled run died on a bare urllib traceback ending in
+    # `HTTPError: HTTP Error 503` — an hour-long provider outage, reported as
+    # nine frames of stack that read like a bug in this file. sb() retries what
+    # is transient and refuses to retry what is settled.
+    failed += _sb_retry_cases()
+
+    total = len(CASES) + 2 + len(BOOKING_CASES) + 2 + 5 + len(DEST) + 5 + 4 + 4
     print(f"\n{total} cases, {failed} failed")
     return 1 if failed else 0
+
+
+def _sb_retry_cases() -> int:
+    import io
+    import types
+    import urllib.error
+    import mapsee_menu_links as M
+
+    def err(code):
+        return urllib.error.HTTPError("http://x", code, "boom", {},
+                                      io.BytesIO(b"upstream connect error"))
+
+    class Body:
+        def __init__(s, t): s._t = t.encode()
+        def read(s): return s._t
+        def __enter__(s): return s
+        def __exit__(s, *a): return False
+
+    url0, key0, urlopen0, time0 = M.SUPABASE_URL, M.SERVICE_KEY, M.urllib.request.urlopen, M.time
+    M.SUPABASE_URL, M.SERVICE_KEY = "https://example.test", "k"
+    M.time = types.SimpleNamespace(sleep=lambda _s: None)      # no real waiting in tests
+    bad = 0
+    try:
+        calls = []
+
+        def flaky(req, timeout=None):
+            calls.append(1)
+            if len(calls) < 3:
+                raise err(503)
+            return Body('[{"id":1}]')
+        M.urllib.request.urlopen = flaky
+        got = M.sb("events?select=id")
+        for label, cond in (
+                ("a transient 503 is retried until it answers", got == [{"id": 1}] and len(calls) == 3),):
+            bad += 0 if cond else 1
+            print(f"{'ok  ' if cond else 'FAIL'}  {label}")
+
+        calls.clear()
+
+        def settled(req, timeout=None):
+            calls.append(1)
+            raise err(404)
+        M.urllib.request.urlopen = settled
+        raised = None
+        try:
+            M.sb("nope")
+        except urllib.error.HTTPError as ex:
+            raised = ex.code
+        c = raised == 404 and len(calls) == 1
+        bad += 0 if c else 1
+        print(f"{'ok  ' if c else 'FAIL'}  a 4xx is a settled answer and is not retried")
+
+        calls.clear()
+
+        def dead(req, timeout=None):
+            calls.append(1)
+            raise err(503)
+        M.urllib.request.urlopen = dead
+        msg = ""
+        try:
+            M.sb("events")
+        except RuntimeError as ex:
+            msg = str(ex)
+        c = len(calls) == M.SB_ATTEMPTS and "Supabase unreachable" in msg
+        bad += 0 if c else 1
+        print(f"{'ok  ' if c else 'FAIL'}  a sustained outage still fails, after {M.SB_ATTEMPTS} tries")
+        c = "transient" in msg and "Nothing was written" in msg
+        bad += 0 if c else 1
+        print(f"{'ok  ' if c else 'FAIL'}  ...and says what happened instead of raising a stack")
+    finally:
+        M.SUPABASE_URL, M.SERVICE_KEY = url0, key0
+        M.urllib.request.urlopen, M.time = urlopen0, time0
+    return bad
 
 
 if __name__ == "__main__":

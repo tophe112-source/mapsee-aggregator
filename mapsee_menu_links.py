@@ -368,18 +368,52 @@ def _link_on(page_url: str, html: str, predicate, trusted_hosts):
     return None
 
 
+SB_ATTEMPTS = 3
+
+
 def sb(path: str, method: str = "GET", body=None, prefer: str = ""):
-    req = urllib.request.Request(
-        f"{SUPABASE_URL}/rest/v1/{path}", method=method,
-        data=json.dumps(body).encode() if body is not None else None)
-    req.add_header("apikey", SERVICE_KEY)
-    req.add_header("authorization", f"Bearer {SERVICE_KEY}")
-    req.add_header("content-type", "application/json")
-    if prefer:
-        req.add_header("prefer", prefer)
-    with urllib.request.urlopen(req, timeout=45) as r:
-        raw = r.read().decode("utf-8", "replace")
-        return json.loads(raw) if raw.strip() else None
+    """One Supabase call, retrying only what is worth retrying.
+
+    A 5xx from the REST edge is not an answer, it is the absence of one:
+    "upstream connect error or disconnect/reset before headers" is Envoy saying
+    it could not reach Postgres, and it clears on its own. This used to be a bare
+    urlopen, so the first one ended the job with a urllib traceback — nine frames
+    of stack ending in `HTTPError: HTTP Error 503`, which reads like a bug in
+    this file and is not. mapsee_health_check._rpc has retried 5xx for a while;
+    this is the same rule, and a 4xx still returns immediately because a missing
+    table or a bad key does not improve with waiting.
+
+    On exhaustion it raises with the status and body rather than a stack, so a
+    provider outage is one greppable line. It is still a FAILURE — an hour-long
+    outage is not something to swallow — it is just an honest one.
+    """
+    last = ""
+    for attempt in range(SB_ATTEMPTS):
+        req = urllib.request.Request(
+            f"{SUPABASE_URL}/rest/v1/{path}", method=method,
+            data=json.dumps(body).encode() if body is not None else None)
+        req.add_header("apikey", SERVICE_KEY)
+        req.add_header("authorization", f"Bearer {SERVICE_KEY}")
+        req.add_header("content-type", "application/json")
+        if prefer:
+            req.add_header("prefer", prefer)
+        try:
+            with urllib.request.urlopen(req, timeout=45) as r:
+                raw = r.read().decode("utf-8", "replace")
+                return json.loads(raw) if raw.strip() else None
+        except urllib.error.HTTPError as ex:
+            if ex.code < 500:
+                raise                                   # settled: our request is wrong
+            last = f"HTTP {ex.code}: {ex.read().decode('utf-8', 'replace')[:200]}"
+        except urllib.error.URLError as ex:
+            last = f"{type(ex).__name__}: {ex.reason}"
+        if attempt < SB_ATTEMPTS - 1:
+            print(f"[menu-links] {method} {path.split('?')[0]}: {last} — retrying")
+            time.sleep(2 ** (attempt + 1))              # 2s, then 4s
+    raise RuntimeError(
+        f"Supabase unreachable after {SB_ATTEMPTS} attempts ({method} "
+        f"{path.split('?')[0]}): {last}. Nothing was written. If the next "
+        f"scheduled run is green, it was a transient upstream outage.")
 
 
 def fetch(url: str, timeout: int = 15):
