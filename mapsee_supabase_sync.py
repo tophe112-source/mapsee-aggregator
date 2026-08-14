@@ -955,8 +955,15 @@ def build_rows(store_path: str, host_id: str, geo_session=None) -> List[Dict[str
         # geocoded "Rainier Avenue South, Seattle" onto SEATTLE's street of the
         # same name, eleven miles off, and a Sequim diner landed sixty miles from
         # itself. coords_exact opts an adapter out; everything else is unchanged.
-        parts_of = {i: p for i, p in ((i, _addr_parts(r)) for i, r in enumerate(recs))
-                    if p and not r.get("coords_exact")}
+        # `ex` is carried through the generator rather than read from `r` in the
+        # condition: a generator expression's loop variable does NOT leak into
+        # the enclosing comprehension, so `not r.get(...)` there is a NameError.
+        # It cost a whole area's pull — Portland fetched every candidate, then
+        # died at the sync.
+        parts_of = {i: p for i, p, ex in
+                    ((i, _addr_parts(r), bool(r.get("coords_exact")))
+                     for i, r in enumerate(recs))
+                    if p and not ex}
         exact = sum(1 for r in recs if r.get("coords_exact"))
         if exact:
             print(f"Kept {exact} source-exact coordinates (not geocoded).")
