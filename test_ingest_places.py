@@ -82,6 +82,76 @@ check("a missing timestamp yields nothing rather than 1970",
 
 
 # --------------------------------------------------------------------------- #
+# Squarespace, off ?format=json: the page glues the street to the city, and a
+# guess at where one ends is a wrong street on a real map. Only the tail is
+# unambiguous, so the split happens ONLY when the config's own city confirms it.
+# --------------------------------------------------------------------------- #
+MAPQ = "1247 15th Avenue East Seattle, WA, 98112 United States"
+
+loc = SQ._split_maplink(MAPQ, VENUE)
+check("the config's city recovers the street from the glued address",
+      loc.get("addressLine1") == "1247 15th Avenue East"
+      and loc.get("addressLine2") == "Seattle, WA, 98112"
+      and loc.get("addressCountry") == "United States", loc)
+
+# The whole point: with no city to confirm the boundary, "1247 15th Avenue East
+# Seattle" could be a street in Seattle or a street in East Seattle. Refusing is
+# the only answer that cannot put a pin on the wrong road.
+loc = SQ._split_maplink(MAPQ, None)
+check("with no config city it emits NO street rather than guessing one",
+      "addressLine1" not in loc, loc)
+check("...and resolve_place then falls back to the venue block",
+      SQ.resolve_place(dict(loc, addressTitle="Volunteer Park"), VENUE)["address"]
+      == "1247 15th Ave E")
+
+loc = SQ._split_maplink("1247 15th Avenue East Seattle, WA, 98112 United States",
+                        {"city": "Tacoma"})
+check("a config city that does not match the address is not forced on",
+      "addressLine1" not in loc, loc)
+
+check("a location field holding prose, not an address, yields nothing",
+      SQ._split_maplink("Meet at the big cedar by the reservoir", VENUE) == {})
+
+# The site's own UTC arithmetic, read out of the calendar-export link it renders
+# for humans — no timezone inference anywhere in the path.
+ART = ('<article class="eventlist-event eventlist-event--upcoming">'
+       '<a href="http://www.google.com/calendar/event?action=TEMPLATE&text=X'
+       '&dates=20260814T133000Z/20260814T143000Z">Google Calendar</a></article>')
+start_ms, end_ms = SQ._gcal_ms(ART)
+check("the export link gives the exact instant, in epoch ms",
+      SQ._times(start_ms, "America/Los_Angeles") == ("2026-08-14T06:30:00", "2026-08-14T13:30:00Z"),
+      SQ._times(start_ms, "America/Los_Angeles"))
+check("and the end instant with it", end_ms == start_ms + 3600 * 1000, (start_ms, end_ms))
+
+check("an all-day event keeps its DAY rather than being dropped",
+      SQ._gcal_ms('<a href="?dates=20260814/20260815">x</a>')[0] is not None)
+check("an article with no export link yields no time, not a wrong one",
+      SQ._gcal_ms("<article>no link here</article>") == (None, None))
+
+# The parser as a whole, against the markup shape the page actually ships.
+PAGE = ('<article class="eventlist-event eventlist-event--upcoming">'
+        '<h1 class="eventlist-title"><a href="/events/work-party" '
+        'class="eventlist-title-link">2nd Saturday Work Party</a></h1>'
+        '<a href="?dates=20260814T170000Z/20260814T190000Z">Google Calendar</a>'
+        '<li class="eventlist-meta-item eventlist-meta-address">Volunteer Park '
+        '<a href="http://maps.google.com?q=1247 15th Avenue East Seattle, WA, 98112 '
+        'United States" class="eventlist-meta-address-maplink">(map)</a></li>'
+        '</article>'
+        '<article class="eventlist-event eventlist-event--past">'
+        '<h1 class="eventlist-title"><a href="/events/old" '
+        'class="eventlist-title-link">Last Year</a></h1>'
+        '<a href="?dates=20250814T170000Z/20250814T190000Z">Google Calendar</a></article>')
+items = SQ.parse_articles(PAGE, VENUE)
+check("past articles are left on the page", len(items) == 1, [i["title"] for i in items])
+check("the title, link and venue all come off the markup",
+      items and items[0]["title"] == "2nd Saturday Work Party"
+      and items[0]["fullUrl"] == "/events/work-party"
+      and items[0]["location"].get("addressTitle") == "Volunteer Park", items)
+check("the (map) link is not mistaken for the venue name",
+      "map" not in (items[0]["location"].get("addressTitle") or "").lower(), items[0]["location"])
+
+
+# --------------------------------------------------------------------------- #
 # Luma: the postal code must not be the street number
 # --------------------------------------------------------------------------- #
 def postal(full):

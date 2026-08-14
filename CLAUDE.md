@@ -98,7 +98,9 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   was never filled in; that was 17 of Volunteer Park Trust's 22 upcoming events,
   all of them in Seattle. The defence is not a coordinate blocklist but the rule
   that *a location with no address text is not a location*, falling back to the
-  config's `venue` block. Luma reports a US postal code only inside
+  config's `venue` block — which is now the ONLY way a Squarespace event gets
+  placed, because the adapter reads the page rather than `?format=json` and the
+  page carries no coordinates at all. Luma reports a US postal code only inside
   `full_address`, where a bare five-digit search finds the STREET NUMBER
   ("15600 NE 8th St, Bellevue, WA 98007" → 15600, a real ZIP in Pennsylvania).
   Well-formed, plausible, wrong is the worst failure this pipeline produces.
@@ -118,6 +120,18 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   call is needed at all. `mapsee_ingest_dice_venue.py` reads that and nothing
   else. If you ever need more than the page carries, that is the signal to get a
   real `DICE_API_KEY`, not to borrow one.
+- **The stock Squarespace robots.txt disallows `?format=json`, on every site on
+  the platform.** It is not a per-site choice a friendly organiser could waive —
+  the same file ships with volunteerparktrust.org and sfmamarkets.com alike, and
+  `User-agent: *` is the group that applies to us. `mapsee_ingest_squarespace.py`
+  read it for months before anyone checked. It now reads the bare collection
+  page, which is allowed, and which turns out to carry the exact UTC instant in
+  the Google Calendar export link the template renders for humans. What the page
+  does NOT carry is any coordinate, so the config's `venue` block went from
+  fallback to requirement. The address it does offer glues street to city
+  ("1247 15th Avenue East Seattle, WA, 98112"), and `_split_maplink` refuses to
+  guess the boundary unless the config's own `city` confirms it — a wrong street
+  is a pin on a real road that nobody is standing in.
 - **"Order pickup" must be earned by the URL, never by the category.** The
   product used to show that button on any food event with a link; measured, 400
   of 400 upcoming food events pointed somewhere you could not order (352 at
