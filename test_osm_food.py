@@ -13,6 +13,7 @@ REFUSES the rest, and the refusals are the important half of these cases.
 Run: python test_osm_food.py
 """
 import sys
+from datetime import date
 
 from mapsee_ingest_osm_food import parse_opening_hours as P
 
@@ -138,7 +139,18 @@ def main():
         (len(rows) == 1, "open seven days a week is ONE row, not seven"),
         (bool(rows and rows[0].recurring_days and len(rows[0].recurring_days) == 7),
          "the weekly pattern rides along on that row"),
-        (len(sat) == 1 and sat[0].start_local[:10] > rows[0].start_local[:10],
+        # Assert the WEEKDAY, not "later than the seven-day place".
+        #
+        # That comparison was a proxy for "not today", and it is false one day
+        # in seven: on a Saturday the Mo-Su venue and the Sa-only venue both
+        # resolve to today, and `>` fails on equal dates. It went red every
+        # Saturday and green again on Sunday, which reads as a flaky test rather
+        # than a dated one. The property actually under test is that a single
+        # open day resolves to the next occurrence OF THAT DAY — true whenever
+        # it is run, including on a Saturday, which is the interesting case.
+        (len(sat) == 1
+         and date.fromisoformat(sat[0].start_local[:10]).weekday() == SA
+         and sat[0].start_local[:10] >= rows[0].start_local[:10],
          "a Saturday-only place still resolves, to its next Saturday"),
         (bool(rows and twin and rows[0].fingerprint != twin[0].fingerprint),
          "two venues with the SAME NAME get different rows"),

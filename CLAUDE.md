@@ -242,6 +242,20 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   Africa, 22 of 165 metros, on BOTH sources, twice a week. `run()` prints the
   non-zero exit and continues by design, so the sweep still closed with "swept
   165 metros" and a green tick. `test_sweep_global.py` pins the argv form.
+  That exemption is the INTERPRETER'S rule and it changed: Python 3.14 made the
+  matcher a prefix match (`-\.?\d`), so the split form parses there and the
+  test's own premise went false — red on a dev box, green on CI, with the code
+  correct. `tests.yml` pins 3.12, where the split form still dies, so the fusing
+  stays load-bearing; the test now REPORTS the running argparse's behaviour and
+  asserts only what holds on every version. A test that hard-codes a standard
+  library behaviour is a test with an expiry date on it.
+- **A date-dependent assertion is not flaky, it is wrong one day in seven.**
+  `test_osm_food.py` checked that a Saturday-only venue resolves LATER than a
+  seven-day-a-week venue — a proxy for "not today" that is false on Saturdays,
+  when both resolve to today and `>` fails on equal dates. It went red every
+  Saturday and green again on Sunday, which reads as flakiness and gets
+  re-run rather than fixed. Assert the property (the row lands on a Saturday),
+  never a comparison that happens to hold on the day you wrote it.
 - **A curated city list is only as complete as its last audit, and Seattle has
   TWO market operators.** Neighborhood Farmers Markets and the Seattle Farmers
   Market Association both run markets; `market_sources.json` was built from the

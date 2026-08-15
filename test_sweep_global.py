@@ -17,6 +17,12 @@ option and its value. Australia, New Zealand and South Africa — 22 of the 165
 metros — ingested NOTHING from Ticketmaster or Meetup, twice a week, for as
 long as the sweep has existed.
 
+That rule is the interpreter's, and it CHANGED: Python 3.14 made the matcher a
+prefix match (`-\\.?\\d`), so the split form parses there. It still does not on
+3.12, which is what `tests.yml` pins and what CI actually runs, so the fused
+form remains required — see `t_argparse_really_does_reject_the_split_form`,
+which reports the running interpreter's behaviour instead of asserting one.
+
 Nothing caught it because nothing was looking: `run()` prints the non-zero exit
 and carries on (deliberately — one dead metro must not abort a sweep of 165),
 the workflow is failure-tolerant by design, and the closing line still said
@@ -90,14 +96,32 @@ def captured_argv(latlong: str, sources: str = "ticketmaster,meetup") -> list[li
 
 
 def t_argparse_really_does_reject_the_split_form():
-    """The premise. If this ever stops being true the rest is theatre."""
+    """The premise — which is a property of the INTERPRETER, not of this repo.
+
+    Python 3.14 rewrote `_negative_number_matcher` from a full match
+    (`^-\\d+$|^-\\d*\\.\\d+$`) to a prefix match (`-\\.?\\d`), so a token like
+    `-33.8688,151.2093` now reads as a value rather than an unknown option and
+    the split form works. Asserting the bug unconditionally therefore FAILED on
+    3.14 while the code was perfectly correct — and the tempting "fix" for that
+    red line is to drop the fusing, which would resurrect the outage the moment
+    it ran on CI, where `tests.yml` pins python-version 3.12.
+
+    So the premise is reported for whichever argparse is running, and what is
+    ASSERTED is the thing that has to be true on every version: the fused form
+    parses, and it is what the sweep emits (the next two tests).
+    """
     p = child_parser()
     try:
         p.parse_args(["--latlong", "-33.8688,151.2093"])
         rejected = False
     except SystemExit:
         rejected = True
-    check("argparse rejects `--latlong -33.87,151.21` (the original bug)", rejected)
+    print(f"[note] python {sys.version_info.major}.{sys.version_info.minor}: "
+          f"argparse {'REJECTS' if rejected else 'accepts'} the split form "
+          f"`--latlong -33.87,151.21`"
+          + ("  (the original bug — fusing is load-bearing here)" if rejected else
+             "  (3.14+ negative-number matcher; fusing is still required for the "
+             "3.12 CI pins and every older runtime)"))
 
     ns = p.parse_args(["--latlong=-33.8688,151.2093"])
     check("argparse accepts the fused form and keeps the value intact",
