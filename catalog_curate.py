@@ -1442,6 +1442,20 @@ def _rows_venuepilot(data):
     return out
 
 
+def _rows_mylisting(data):
+    """MyListing directory sites. One entry is one TOWN's whole calendar, so its
+    metro comes from the config's own default_city/default_region rather than
+    from the site name — "Bainbridge Island (bainbridgeisland.com)" is a domain
+    in parentheses, not a place, and _locate would read it as one."""
+    out = []
+    for e in data.get("sites", []):
+        metro, country = _parse_place(
+            f"{e.get('default_city', '')}, {e.get('default_region', '')}".strip(" ,"))
+        out.append((e.get("name") or "?", metro or "?", country or "?",
+                    e.get("category") or "?"))
+    return out
+
+
 def _rows_restaurant(data):
     out = []
     for e in data.get("restaurants", []):
@@ -1501,6 +1515,7 @@ def _rows_affiliate(data):
 # just covered, and every gap it printed was computed from 4 of the 10 configs.
 EXTRA_CONFIG = {
     "market": ("market_sources.json", _rows_market),
+    "mylisting": ("mylisting_sources.json", _rows_mylisting),
     "parkrun": ("parkrun_sources.json", _rows_parkrun),
     "runsignup": ("runsignup_sources.json", _rows_runsignup),
     "jsonld": ("jsonld_sources.json", _rows_jsonld),

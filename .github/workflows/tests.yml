@@ -95,6 +95,17 @@ jobs:
       - name: Date traps (SLU occurrence vs series start, end_time vs end_date)
         run: python test_ingest_slu.py
 
+      # The same family again, third variant: a MyListing card carries TWO dates
+      # and the obvious one is wrong. The inner span is the listing's NEXT date,
+      # stamped identically into every card the listing produces, so reading it
+      # collapses a fifty-night residency onto the same Friday fifty times; 55 of
+      # 80 live cards disagreed between the two. Also pinned: the horizon, without
+      # which annual events project pins to 2050 that no cleanup job can remove,
+      # and an address with no street line, which the first version read as
+      # city="Washington 98110", region="United States".
+      - name: Date and address traps (MyListing occurrence vs next-date, horizon)
+        run: python test_ingest_mylisting.py
+
       # "Order pickup" is a promise. It shipped once on 400 of 400 food events
       # that pointed at Meetup, and a second time on any /menu path — which
       # matched a town website's nav. Both regressions are pinned here.

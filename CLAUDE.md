@@ -8,7 +8,7 @@ the Worker), `../conbinience`, `../fishsie`. `../SUITE-AUDIT.md` covers all four
 ## The shape of it
 
 ```
-32 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+33 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -132,6 +132,35 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   ("1247 15th Avenue East Seattle, WA, 98112"), and `_split_maplink` refuses to
   guess the boundary unless the config's own `city` confirms it — a wrong street
   is a pin on a real road that nobody is standing in.
+- **When a listing carries two dates, the one the template shows a human is the
+  wrong one.** A MyListing card ships its occurrence on the wrapper and the
+  LISTING'S NEXT DATE on the inner span the visitor actually reads — stamped
+  identically into every card that listing produces, because it is the badge on
+  the tile. 55 of 80 live cards on bainbridgeisland.com disagreed between the
+  two. Take the span and a fifty-night music residency becomes the same Friday,
+  fifty times, each row well-formed and individually plausible. This is the same
+  shape as SLU's `date_time`-on-the-series-start and Squarespace's default pin,
+  and the tell is the same: when a source offers two spellings of one fact, find
+  a record where they DIFFER before choosing, rather than after.
+  `mapsee_ingest_mylisting.py`, pinned in `test_ingest_mylisting.py`.
+- **A recurring event with no end date projects pins forever, and nothing
+  downstream will ever remove them.** `mapsee_cleanup.py` deletes the PAST; a
+  2050 Fourth of July is not past and never will be within anyone's planning
+  horizon. Live on bainbridgeisland.com: 423 occurrences in 2026, 184 in 2027,
+  then a one-or-two-a-year tail — Hometown Halloween, the Polar Bear Plunge —
+  running to 2050. So the horizon belongs at INGEST, where the count that was
+  dropped can still be printed. Any adapter reading an expanded recurrence
+  needs one; `horizon_days` (400) is the MyListing config's.
+- **A comma-counting address parser assumes a street.** Reading Google's
+  "street, city, Region ZIP, Country" right-to-left by POSITION works until an
+  organiser leaves the street blank: "Bainbridge Island, Washington 98110,
+  United States" then lands as `city="Washington 98110"`, `region="United
+  States"` — which is what six live events did on the first run of
+  `mapsee_ingest_mylisting.py`. Anchor on SHAPE instead: locate the part that
+  IS a region-plus-postal, and read outward from it. The residual ambiguity —
+  one part left, street or city? — is resolved toward CITY, because a city name
+  in `address` gets geocoded as a street and pins the event somewhere real and
+  wrong, while a missing street just leaves the coordinates to place it.
 - **"Order pickup" must be earned by the URL, never by the category.** The
   product used to show that button on any food event with a link; measured, 400
   of 400 upcoming food events pointed somewhere you could not order (352 at
@@ -247,13 +276,14 @@ python test_osm_food.py             # opening hours we may act on, and the ones 
 python test_prune_links.py          # what a description must look like after a dead link is cut
 python test_sweep_global.py         # the international sweep's argv, below the equator
 python test_ingest_slu.py           # occurrence vs series start; end_time vs end_date
+python test_ingest_mylisting.py     # which of a card's two dates is the occurrence
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 12 test scripts are the CI gate (`tests.yml`). They print one line per
+The 13 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

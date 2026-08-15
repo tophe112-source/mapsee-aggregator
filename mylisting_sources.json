@@ -1,0 +1,26 @@
+{
+  "_comment": "MyListing (27collective) directory sites, read by mapsee_ingest_mylisting.py through the theme's own explore endpoint. `explore_url` is the PAGE a human opens; the adapter reads the ajax url and nonce out of that page's CASE27 config and never invents one. `category` is the mapsee frontend key and only a DEFAULT — derive_categories in mapsee_supabase_sync promotes concerts to music, classes to fitness and work parties to volunteer from the description text, which is why fetch_details is on.",
+  "_one_result_is_one_occurrence": "Not one listing. On bainbridgeisland.com that is 643 results from 92 listings. Each result carries TWO dates and they usually differ: the wrapper's is THIS occurrence, the inner span's is the listing's next upcoming date repeated into every card it produces. The adapter takes the wrapper. Reading the inner one gives the same Friday eighteen times.",
+  "_horizon_days_is_not_optional": "An annual event with an open-ended recurrence rule projects forever. Live: 423 occurrences in 2026, 184 in 2027, then a one-or-two-a-year tail to 2050 — Grand Old Fourth of July, Hometown Halloween, the Polar Bear Plunge. None of it is past, so no cleanup job would ever remove it. 400 days is the default and the drop count is printed.",
+  "_how_to_spot_a_candidate": "wp-content/themes/my-listing/assets/dist/explore.js in the page markup. It is the theme chambers of commerce, tourism boards and 'what's on in <town>' sites are built on. Check the site's robots.txt against the ajax url the page names before adding it — this adapter uses whichever url the page gives and drops the site if that path is disallowed, rather than reaching for the other one.",
+  "sites": [
+    {
+      "name": "Bainbridge Island (bainbridgeisland.com)",
+      "explore_url": "https://www.bainbridgeisland.com/events/?type=event&sort=date",
+      "listing_type": "event",
+      "sort": "date",
+      "category": "community",
+      "timezone": "America/Los_Angeles",
+      "horizon_days": 400,
+      "max_events": 2000,
+      "max_details": 250,
+      "fetch_details": true,
+      "pause": 1.0,
+      "_robots_checked": "2026-08-15. robots.txt disallows /wp-admin/ (re-Allowing /wp-admin/admin-ajax.php by name), /wp-content/uploads/, /wp-content/plugins/, /readme.html, /refer/ and *.pdf$. The page names /?mylisting-ajax=1, on the site root, which is not in any Disallow group.",
+      "_placement": "Every one of the 643 measured cards shipped a data-locations entry with full address text and Google's coordinates; none carried the theme's default map centre (47.624146,-122.518659), so no default-pin defence is needed here. Addresses arrive as 'Venue, street, City, Washington 98110, United States' — the region is spelled out, and _region_code maps it to WA because the Census geocoder the sync uses wants the code.",
+      "default_city": "Bainbridge Island",
+      "default_region": "WA",
+      "default_country": "United States"
+    }
+  ]
+}

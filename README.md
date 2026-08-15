@@ -31,6 +31,7 @@ a hand-maintained marketing estimate.
 | Races (RunSignup) | `mapsee_ingest_runsignup.py` | Public keyless race API, partitioned by US state. The whole `running` and `fitness` supply: ~12,500 events, both lenses were at zero curated sources before it |
 | Localist | `mapsee_ingest_localist.py` | University/city calendars (`/api/2/events`) |
 | schema.org JSON-LD | `mapsee_ingest_jsonld.py` | Venue sites that embed `Event` blocks |
+| MyListing directories | `mapsee_ingest_mylisting.py` | The WordPress theme behind chambers of commerce, tourism boards and "what's on in &lt;town&gt;" sites — a whole small town's calendar, none of which reaches a ticketing platform. Reads the explore endpoint the page itself names. One result is one *occurrence*, and `horizon_days` is what stops an open-ended annual recurrence from projecting pins to 2050 |
 | Ticketmaster / SeatGeek / DICE / AXS / Moshtix | `mapsee_ingest*.py` | Keyed APIs, skipped silently when unset |
 | Eventbrite | `mapsee_ingest_eventbrite.py` | Official API, organizer feeds |
 | Parks / recreation | `mapsee_ingest_nps.py`, `_recreation.py` | US National Park Service, Recreation.gov |
