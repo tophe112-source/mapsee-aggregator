@@ -385,41 +385,71 @@ def parse_opening_hours(oh: str) -> Optional[Dict[str, Any]]:
             "season_start": s_start, "season_end": s_end}
 
 
+# Backoff base, in seconds: 5s / 15s / 45s across the three retries. A module
+# constant rather than a literal so test_ingest_markets.py can set it to 0 — a
+# stubbed 504 needs the RETRY LOGIC exercised, not the waiting, and at 65s per
+# failing bbox the suite would take minutes and get skipped.
+OVERPASS_BACKOFF_S = 5
+
+
+def _overpass_fetch(session, endpoint, bbox, quiet=False):
+    """Elements for one bbox, or None if the endpoint never answered.
+
+    The public endpoint hands out a couple of slots and answers 429 (or 504)
+    when they are busy — across 245 metros that is normal traffic, not an error,
+    so it is worth waiting out rather than dropping the metro. Honour
+    Retry-After when offered; otherwise back off 5s / 15s / 45s.
+    """
+    area = "{s},{w},{n},{e}".format(**bbox)
+    q = ("[out:json][timeout:90];("
+         'node["amenity"="marketplace"](' + area + ");"
+         'way["amenity"="marketplace"](' + area + ");"
+         ");out center tags;")
+    for attempt in range(4):
+        try:
+            r = session.post(endpoint, data=q.encode("utf-8"), timeout=180)
+            if r.status_code in (429, 504) and attempt < 3:
+                wait = int(r.headers.get("Retry-After") or 0) or (OVERPASS_BACKOFF_S * 3 ** attempt)
+                if not quiet:
+                    print(f"[markets] overpass {bbox.get('name', '?')}: "
+                          f"{r.status_code}, retrying in {wait}s")
+                time.sleep(wait)
+                continue
+            r.raise_for_status()
+            return r.json().get("elements", [])
+        except Exception as exc:                      # noqa: BLE001
+            if attempt == 3:
+                if not quiet:
+                    print(f"[markets] overpass {bbox.get('name', '?')} FAILED: {exc}")
+            else:
+                time.sleep(OVERPASS_BACKOFF_S * 3 ** attempt)
+    return None
+
+
 def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """amenity=marketplace inside each configured bbox, as market dicts."""
+    """amenity=marketplace inside each configured bbox, as market dicts.
+
+    A METRO THAT EXHAUSTS ITS RETRIES USED TO BE GONE FOR THE WEEK. The sweep is
+    245 bboxes against a free endpoint, so a handful lose their slot on any given
+    run — measured on an 8-metro sample, New York and Los Angeles both came back
+    empty while the other six answered. The loop simply moved on, and because
+    this source runs twice a week the two largest markets in the US could be
+    absent for days with one line of log to say so.
+
+    Two things fix that, and they are cheap. Failures are collected and given a
+    SECOND PASS at the end, by which point the sweep has been running for twenty
+    minutes and the endpoint has usually recovered — a retry that costs nothing
+    when there is nothing to retry. And the outcome is COUNTED, so a partial
+    sweep reports as a number rather than looking identical to a complete one.
+    """
     endpoint = src.get("endpoint", "https://overpass-api.de/api/interpreter")
     out: List[Dict[str, Any]] = []
     seen: set = set()
-    for bbox in src.get("bboxes", []):
-        area = "{s},{w},{n},{e}".format(**bbox)
-        q = ("[out:json][timeout:90];("
-             'node["amenity"="marketplace"](' + area + ");"
-             'way["amenity"="marketplace"](' + area + ");"
-             ");out center tags;")
-        # The public endpoint hands out a couple of slots and answers 429 (or 504)
-        # when they are busy — at 80 metros a run that is normal traffic, not an
-        # error, so it is worth waiting out rather than dropping the metro. Honour
-        # Retry-After when offered; otherwise back off 5s / 15s / 45s.
-        els = None
-        for attempt in range(4):
-            try:
-                r = session.post(endpoint, data=q.encode("utf-8"), timeout=180)
-                if r.status_code in (429, 504) and attempt < 3:
-                    wait = int(r.headers.get("Retry-After") or 0) or (5 * 3 ** attempt)
-                    print(f"[markets] overpass {bbox.get('name', '?')}: "
-                          f"{r.status_code}, retrying in {wait}s")
-                    time.sleep(wait)
-                    continue
-                r.raise_for_status()
-                els = r.json().get("elements", [])
-                break
-            except Exception as exc:
-                if attempt == 3:
-                    print(f"[markets] overpass {bbox.get('name', '?')} FAILED: {exc}")
-                else:
-                    time.sleep(5 * 3 ** attempt)
-        if els is None:
-            continue
+    bboxes = list(src.get("bboxes", []))
+    failed: List[Dict[str, Any]] = []
+    pause = src.get("pause_s", 2)
+
+    def absorb(bbox, els):
         hit = 0
         for el in els:
             t = el.get("tags") or {}
@@ -465,7 +495,37 @@ def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
             hit += 1
         print(f"[markets] overpass {bbox.get('name', '?')}: {hit} market(s) "
               f"from {len(els)} marketplaces")
-        time.sleep(src.get("pause_s", 2))         # a free endpoint; do not hammer it
+
+    for bbox in bboxes:
+        els = _overpass_fetch(session, endpoint, bbox)
+        if els is None:
+            failed.append(bbox)
+        else:
+            absorb(bbox, els)
+        time.sleep(pause)                         # a free endpoint; do not hammer it
+
+    # SECOND PASS over whatever lost its slot. By now the sweep has been running
+    # for a while and the endpoint has usually recovered; when nothing failed
+    # this block costs one `if`.
+    recovered = 0
+    if failed:
+        print(f"[markets] overpass: {len(failed)} of {len(bboxes)} metro(s) did not "
+              f"answer — second pass: {', '.join(b.get('name', '?') for b in failed[:8])}"
+              + (" …" if len(failed) > 8 else ""))
+        still: List[Dict[str, Any]] = []
+        for bbox in failed:
+            els = _overpass_fetch(session, endpoint, bbox, quiet=True)
+            if els is None:
+                still.append(bbox)
+            else:
+                absorb(bbox, els)
+                recovered += 1
+            time.sleep(pause * 2)                 # it is already unhappy; go gentler
+        # The number is the point. A sweep that silently covered 243 of 245
+        # metros looks exactly like one that covered all of them, and this
+        # source only runs twice a week — so a miss costs days, not minutes.
+        print(f"[markets] overpass: recovered {recovered}, still missing {len(still)}"
+              + (f" ({', '.join(b.get('name', '?') for b in still)})" if still else ""))
     return out
 
 
