@@ -8,7 +8,7 @@ the Worker), `../conbinience`, `../fishsie`. `../SUITE-AUDIT.md` covers all four
 ## The shape of it
 
 ```
-33 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+34 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -265,6 +265,136 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   Madrona. Enumerate every operator's own sitemap when auditing a city.
 - **Never add `pull_request:` to a workflow that reads secrets.** `tests.yml` is
   the one workflow safe on forks, because it reads none.
+- **A search endpoint that ignores every paging parameter still answers 200.**
+  `bikereg.com/api/search` returns exactly 100 events and ignores `page`,
+  `offset`, `count`, `MaxResults`, `startdate`/`enddate`, `state` and `radius`
+  alike — and reports `ResultCount: 100`, so nothing in the envelope reveals the
+  1,267 events withheld. An adapter built on it would look complete for ever.
+  The GraphQL gateway BikeReg's own docs recommend is cursor-paged with a real
+  `hasNextPage` and a `totalCount`, which is the whole reason
+  `mapsee_ingest_bikereg.py` is on it. Same lesson as RunSignup's silent
+  1,000-row cap, one step worse: there the tail was detectable by counting.
+- **A timestamp's offset can belong to the SERVER, not the event.** BikeReg
+  stamps every `startDate` `00:00:00` with `-04:00` or `-05:00` — including a
+  Kailua-Kona race whose own `eventTimeZone` says "Hawaiian". Read as an instant
+  that race lands at 18:00 the day BEFORE. Only the date is true. The tell was
+  the same as MyListing's two dates and SLU's series start: find the record
+  where the two spellings DISAGREE before choosing.
+- **One source id can mean many events, and EventStore deletes on the
+  collision.** 39 of BikeReg's 1,246 ids come back once per occurrence date.
+  `upsert` keys on `(source, source_id)` and POPS the stored record when the
+  fingerprint moves, so a bare id makes each occurrence delete the one before
+  it: 1,269 ingested, 1,148 surviving, every casualty an earlier date of a
+  series. Put the occurrence date in `source_id`. This is the Localist duplicate
+  bug running backwards, and the `rekeyed` counter is what makes it visible.
+- **One malformed record cost an entire site, and the log said "FAILED".** The
+  Events Calendar returns `venue` as a dict, as `[]`, and as `[{...}]` from the
+  SAME site (105/4 of 109 on bicyclecolorado.org), and `image` as a dict or the
+  bare boolean `false`. `or {}` covers the empty list — which is why it read as
+  correct — and a POPULATED list raises on the first `.get`. There was no
+  per-record try, so the exception unwound to the per-site handler and Bicycle
+  Colorado ingested 0 of 105 placeable events while printing something that
+  looks like a network fault. `_obj()` normalises the shapes;
+  `ingest_site` now skips and COUNTS a bad record. `test_ingest_tribe.py`.
+- **Cloudflare's bot challenge is a NO, and curl getting through is not a
+  second opinion.** sfbike.org's robots.txt allows everything (`User-agent: *`,
+  `Allow: /`, Content-Signal `search=yes`), and the endpoint still answers
+  python-requests with a 403 "Just a moment..." while answering curl with a 200
+  — identical URL, UA, headers and pacing. That is a client-FINGERPRINT block,
+  not a rate limit, and beating it means impersonating a browser to defeat bot
+  management somebody deliberately turned on. Declined in
+  `tribe_sources.json._not_included`, same line as the borrowed DICE key.
+- **A lens can be starved by its CLASSIFIER rather than by its sources.**
+  fleabop is "Flea Markets, Clothing Swaps and Vintage Near You" and held 3,469
+  upcoming events of which 2 named a flea market and 0 named thrift, vintage,
+  swap or antique — 46.6% were farmers markets, and `market_sources.json` is a
+  farmers-market file end to end (85 uses of "farmers", 0 of "flea"). But ~230
+  events DID name second-hand retail; they were sitting on community, music,
+  other and arts because `_SECONDARY_RX["market"]` asked only for English and
+  only for the shopping words. Widening it moved 123 of them onto the lens with
+  no new source at all. Before curating for a thin lens, check whether the
+  supply is missing or merely unlabelled. Non-English matters here more than
+  anywhere: Flohmarkt, brocante and vide-grenier are the bulk of it, and
+  Flohmarkt COMPOUNDS (Garagenflohmarkt, Frauenflohmarkt) so it must match as a
+  suffix, without a leading `\b`.
+- **A venue's event calendar is often not the thing the venue IS.** Traders
+  Village is one of the largest flea markets in the US; all 10 entries on its
+  Events Calendar are a car show, a pet adoption, a corn maze and a Halloween
+  trail. The market itself is never listed because it just happens every
+  weekend. Filing that calendar under `market` would put a corn maze on fleabop
+  and call it a flea market. Declined on the same grounds as Marin's venue-less
+  rides: the feed works, and it is not what it looks like.
+- **A source that runs one day a week has no retry, and nothing notices.** The
+  OSM Overpass sweep is 245 calls, so it carries `run_weekdays` — and with `[0]`
+  that was a single window per week, inside the longest job in the repo. Monday
+  2026-08-10 the `feeds` job hit its 120-minute timeout, and the entire
+  international market catalogue was absent for the week: Berlin's 11 OSM
+  Flohmärkte sat in OSM with parseable `opening_hours` inside a configured
+  bbox and never reached the table. Nothing reported it and nothing could — the
+  health check sees `external_source='mapsee'` as one bucket, so it can say the
+  pipeline stopped but never that ONE source did. Now `[0, 4]`, so a lost run
+  costs three days rather than seven.
+- **A fuzzy search's keyword is not a classification, and `market` is the word
+  that proves it.** Meetup's `eventSearch` is not a phrase match, and the
+  adapter files whatever a keyword returns under that keyword's category. For
+  "farmers market"/"night market" that meant every `market` event in Berlin was
+  a Meetup row and NONE was a market — three stand-up nights, a Magic: the
+  Gathering league, a run club, an e-commerce breakfast, a meditation. "Market"
+  is a business word before it is a shopping one. The demotion in
+  `map_category` is gated on PROVENANCE (`_from_keyword_sweep`), not just text,
+  and that is the load-bearing part: "Randolph Street Market" fails a market
+  regex too, so a text-only rule would have thrown away the real supply to fix
+  the fake. Same shape as `_WEAK_KEY_FOR_FITNESS`, one level up.
+- **The city is not a street, and putting it in `address` invites the geocoder
+  to move the pin.** The Overpass loader glued street and city into one
+  `address` and set no `city` at all, so every OSM market reached the database
+  with `locality` NULL and `street_address` "Berlin" — and most OSM
+  marketplaces have no `addr:street`, so "Berlin" was the whole of it.
+  `_addr_parts` treats `address` as a street and hands it to the US Census batch
+  geocoder, so a SURVEYED OSM point was offered up to be overwritten by a lookup
+  of a bare city name. It survived only because Census returns nothing for
+  "Berlin"/"Paris"/"Hamburg"; a US city of the same name and it would not. The
+  loader now keeps them apart and sets `coords_exact`, which is what
+  `mapsee_ingest_osm_food` had all along.
+- **A config's `category` is a DEFAULT, so the right value depends on whether
+  the calendar is pure or mixed.** Measured over live titles from nine cycling
+  clubs. A PURE ride calendar must state `fitness`, because the classifier
+  cannot recover a ride from its name — with a `community` base, all 50 of
+  Bicycle Colorado's distinct titles stay on community, since `_FITNESS_RX` has
+  never heard of "Velo", "Gear Hub" or "TNT Tuesday Night Thunder". A MIXED
+  advocacy calendar must state `community`, because `fitness` is not in
+  `_PROMOTABLE_TO_VOLUNTEER` and nothing downstream can rescue what lands there:
+  with a `fitness` base, Bike East Bay puts a stadium valet shift and a
+  phone-banking session on wegosie. From `community` the promotion rules sort
+  it — rides to fitness, volunteer shifts to volunteer, the rest honestly
+  community. Fewer events reach the movement lens and none of them is a lie.
+  Read a source's actual titles both ways before choosing.
+- **The `kids` layer is fed by a REGEX, not by sources, and it was missing a
+  third of its supply.** All 58 library feeds in `ics_sources.json` are filed
+  `learning` — correctly, because that is what a library calendar is as a whole
+  — so `_KIDS_RX` is the only thing that gives plansie's kids layer anything at
+  all. Measured over 1,347 distinct live titles from eight public library
+  feeds: 124 promoted and **132 more were plainly children's or teen events
+  that did not**. The gaps were systematic — teen/tween absent altogether,
+  `lego\s+(?:club|build)` missing "LEGO in the Library" (the programme is named
+  for the brick alone), `baby\s+(?:time|rhyme|song)` missing "Baby Lap Sit",
+  and "Read to the Dog" matching nothing despite being a staple. An explicit
+  age range ("ages 4-18", "grades K-2") is now a signal too, because it is how
+  a library says "for children" without using any of the words. Before adding
+  sources for a thin category, check whether the supply is already arriving
+  under another key — the same lesson `market` taught, one layer down.
+- **Widening a kids rule catches the adults' version of the same programme.**
+  "Adult LEGO® Club" is a real listing on a real library calendar: libraries run
+  the identical session for grown-ups and say so in the title. `_NOT_FOR_KIDS_RX`
+  withholds the promotion, never moves anything, and the volunteer rule still
+  runs first so "Teen Volunteer Corps" lands on volunteer rather than kids.
+- **Counting records is not checking dates.** wisconsinbikefed.org's iCal export
+  parses beautifully — 50 VEVENTs, 46 with LOCATION, 41 with a GEO line, real
+  riding in the titles — and every event in it is in the PAST: 2025-11-02 to
+  2026-04-18, read on 2026-08-16. It was configured on the strength of those
+  counts, ingested 0 of 50, and came straight back out. A feed's shape says
+  nothing about its horizon. `empty` is not `fail`, so it is recorded in
+  `_not_included` as a stale export to re-probe in a season, not as a dead feed.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
   publishes each occurrence separately and the store is rebuilt every run, so the
   occurrences never meet in memory — the table is the only place a series is
@@ -291,13 +421,15 @@ python test_prune_links.py          # what a description must look like after a 
 python test_sweep_global.py         # the international sweep's argv, below the equator
 python test_ingest_slu.py           # occurrence vs series start; end_time vs end_date
 python test_ingest_mylisting.py     # which of a card's two dates is the occurrence
+python test_ingest_bikereg.py       # cycling: the server's offset, and one id per occurrence
+python test_ingest_tribe.py         # feed shapes: one bad record must not cost a whole site
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 13 test scripts are the CI gate (`tests.yml`). They print one line per
+The 15 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
