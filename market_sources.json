@@ -2581,8 +2581,10 @@
    }
   ],
   "run_weekdays": [
-   0
-  ]
+   0,
+   4
+  ],
+  "_run_weekdays": "Monday AND Thursday, not Monday alone. This is 245 Overpass calls so it must not run daily - but a source with ONE window a week has no retry, and on Monday 2026-08-10 the feeds job hit its 120-minute timeout and lost the run. That cost the entire international market catalogue for a week: measured 2026-08-16, Berlin's 11 OSM Flohmaerkte were absent from the table while sitting in OSM with parseable opening_hours inside a configured bbox. Nothing reported it, and nothing could - the health check sees external_source='mapsee' as one bucket, so it cannot tell that ONE source stopped. Two days means a lost run costs three days, not seven. The timeout is now 240 and the checkpoint sync below the markets step makes an overrun survivable; this is the belt to that pair of braces."
  },
  {
   "name": "USDA Local Food Directories",

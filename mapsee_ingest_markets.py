@@ -242,7 +242,14 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
     if lat is None or lon is None:
         return []
     label = "market:" + src["name"].lower().replace(" ", "-")
-    place = mk.get("address") or name
+    # The pin's LABEL. Same rule as mapsee_ingest_runsignup: a street beginning
+    # with a house number makes a poor one — "1 Schöneicher Straße" tells a
+    # reader nothing, where "Flohmarkt Friedrichshagen" names the thing they are
+    # going to. A street that does NOT start with a number is usually a real
+    # place ("Ballard Ave NW & Vernon Pl NW") and is kept. The exact address
+    # survives either way in `address`, which the sync appends as "📍 …".
+    addr = (mk.get("address") or "").strip()
+    place = addr if (addr and not addr[0].isdigit()) else name
     # Cross-source identity is the NAME plus a ~5km geohash cell, NOT the address.
     # One market reaches this function as "Ballard Ave NW & Vernon Pl NW" from the
     # curated list, "5345 Ballard Ave NW" from USDA and "5301 Ballard Avenue
@@ -280,6 +287,10 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
             venue_name=place,
             latitude=lat, longitude=lon,
             address=mk.get("address"),
+            # Absent on every loader but Overpass, so this is None and nothing
+            # changes for the inline, Socrata and USDA sources.
+            city=mk.get("city"),
+            coords_exact=bool(mk.get("coords_exact")),
             category="market",
             # A farmers/night market IS a food destination — this is the single
             # richest supply oneday.cafe has, and it was reaching only fleabop.
@@ -428,8 +439,26 @@ def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
             seen.add(key)
             street = " ".join(x for x in (t.get("addr:housenumber"), t.get("addr:street")) if x)
             city = t.get("addr:city") or bbox.get("city") or ""
+            # THE CITY IS NOT A STREET. This used to glue them into one `address`
+            # and set no city at all, so every OSM market reached the database
+            # with locality NULL and street_address "Berlin" — and most OSM
+            # marketplaces have no addr:street, so "Berlin" was the whole of it.
+            #
+            # That is not just an ugly row. mapsee_supabase_sync._addr_parts
+            # treats whatever is in `address` as a street and hands it to the US
+            # Census batch geocoder, so a surveyed OSM point was offered up to be
+            # overwritten by a lookup of a bare city name. It survives today only
+            # because Census returns nothing for "Berlin"/"Paris"/"Hamburg" — a
+            # US city of the same name and it would not. Keeping them apart means
+            # _addr_parts sees no street and declines to geocode at all.
             mk = {"name": name, "lat": lat, "lon": lon,
-                  "address": ", ".join(x for x in (street, city) if x) or None,
+                  "address": street or None,
+                  "city": city or None,
+                  # OSM hands over a SURVEYED point and derives its address text
+                  # from it — the same reason mapsee_ingest_osm_food sets this.
+                  # Without it the Census pass is allowed to move the pin, which
+                  # is how a Renton restaurant ended up eleven miles away.
+                  "coords_exact": True,
                   "url": t.get("website") or t.get("contact:website")}
             mk.update(sched)
             out.append(mk)
