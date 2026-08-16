@@ -61,8 +61,20 @@ def _load_geo_cache():
     except Exception:
         return {}
 GEO_CACHE_MAX = 20000  # cap the shared file; dicts keep insertion order, so trimming the front drops the oldest entries
+# The LAST GATE before a committed file. Every _geocode in this repo now caches
+# only a hit, but this is what makes that true regardless of which call site ran:
+# a null in geocode_cache.json is permanent, and a coordless event is dropped at
+# the sync, so one Photon timeout can retire a venue from the map for ever with
+# nothing in any log to say so. Cheap, and self-healing for anything a previous
+# version already wrote.
+def _drop_nulls(cache):
+    return {k: v for k, v in cache.items()
+            if v is not None and isinstance(v, (list, tuple)) and len(v) >= 2 and v[0] is not None}
+
+
 def _save_geo_cache(cache):
     try:
+        cache = _drop_nulls(cache)
         if len(cache) > GEO_CACHE_MAX:
             cache = dict(list(cache.items())[-GEO_CACHE_MAX:])
         open(GEO_CACHE_PATH, "w", encoding="utf-8").write(json.dumps(cache))
@@ -218,11 +230,17 @@ def make_venue_geocoder(session, src: Dict[str, Any]):
             time.sleep(1.1)
             r = session.get("https://photon.komoot.io/api/",
                             params={"q": venue + suffix, "limit": 1}, timeout=20)
+            r.raise_for_status()                     # a 502 is not an empty result
             f = (r.json().get("features") or [None])[0]
             out = (f["geometry"]["coordinates"][1], f["geometry"]["coordinates"][0]) if f else (None, None)
-        except Exception:
-            out = (None, None)
-        cache[key] = out
+        except Exception:                            # noqa: BLE001
+            return (None, None)                      # NOT cached — retry next run
+        # Only a HIT is cached, on the same reasoning as
+        # mapsee_ingest_markets._geocode and mapsee_ingest_ics: geocode_cache.json
+        # is COMMITTED, so a null written on a transient Photon failure is
+        # permanent, and a coordless event is dropped at the sync.
+        if out[0] is not None:
+            cache[key] = out
         return out
     return geocode
 
