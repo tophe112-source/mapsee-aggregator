@@ -68,20 +68,46 @@ def _f(v) -> Optional[float]:
     return None if f == 0.0 else f
 
 
+def _obj(v) -> Dict[str, Any]:
+    """One of the plugin's object fields, as a dict — whatever shape it arrived in.
+
+    `venue` is a dict on most events, `[]` when unset, and `[{...}]` on some — all
+    three from the SAME site: measured on bicyclecolorado.org, 105 dicts, 4
+    populated lists, out of 109. `image` is a dict or the bare boolean `false`
+    (72 of 109). `or {}` alone covers the empty list, which is why this went
+    unnoticed; a POPULATED list sails through it and raises AttributeError on the
+    first `.get`.
+
+    That exception is not caught per event — `ingest_site` wraps the whole site —
+    so a single malformed record does not lose one event, it loses the ENTIRE
+    SOURCE, and it does it while printing a line that looks like a network fault
+    ("FAILED: 'list' object has no attribute 'get'"). Bicycle Colorado ingested 0
+    of its 105 placeable events that way.
+    """
+    if isinstance(v, dict):
+        return v
+    if isinstance(v, list):
+        return next((x for x in v if isinstance(x, dict)), {})
+    return {}
+
+
 def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEvent]:
     name = _clean(ev.get("title"))
     start = (ev.get("start_date") or "").strip()          # "2026-08-04 10:00:00", site-local
     if not name or len(start) < 10:
         return None
     start_local = start.replace(" ", "T")[:19]
-    v = ev.get("venue") or {}
+    v = _obj(ev.get("venue"))
     lat, lon = _f(v.get("geo_lat")), _f(v.get("geo_lng"))
     # The plugin's own taxonomy, folded in alongside the configured default so a
     # site that files things usefully (a running club tagging "volunteer") lands
     # on more than one lens. norm_categories drops anything outside mapsee's
     # vocabulary, so a source's private labels can never reach the database.
     primary = site.get("category", "community")
-    extras = norm_categories(primary, [c.get("slug") or c.get("name") for c in (ev.get("categories") or [])])
+    cats = ev.get("categories")
+    extras = norm_categories(primary, [c.get("slug") or c.get("name")
+                                       for c in (cats if isinstance(cats, list) else [])
+                                       if isinstance(c, dict)])
     nev = NormalizedEvent(
         source="tribe",
         source_id=str(ev.get("id") or ev.get("global_id") or make_fingerprint(name, start_local[:10], v.get("venue"))),
@@ -99,7 +125,7 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
         postal_code=_clean(v.get("zip")),
         category=primary,
         categories=extras,
-        poster_image_url=((ev.get("image") or {}).get("url") if isinstance(ev.get("image"), dict) else None),
+        poster_image_url=_obj(ev.get("image")).get("url"),
         # `website` is the venue's own ticket link when set; `url` is the event
         # page on the source site, which is always present and always useful.
         ticket_url=ev.get("website") or ev.get("url"),
@@ -123,6 +149,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         "end_date": (now + timedelta(days=int(site.get("within_days", 180)))).strftime("%Y-%m-%d"),
     }
     kept = 0
+    malformed = 0
     for page in range(1, max_pages + 1):
         try:
             r = session.get(api, params=dict(params, page=page), timeout=45)
@@ -141,7 +168,19 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         if not rows:
             break
         for ev in rows:
-            nev = to_event(ev, site)
+            # Per EVENT, not per site. The site-level try in main() means one
+            # unreadable record costs the whole calendar (see _obj), and it
+            # reports as a site failure, which reads like the host was down.
+            # Counted and printed rather than swallowed: a silent skip is how a
+            # shape change eats a source one record at a time.
+            try:
+                nev = to_event(ev, site)
+            except Exception as exc:                       # noqa: BLE001
+                if not malformed:
+                    print(f"[tribe] {site.get('name')}: skipping unreadable record "
+                          f"{ev.get('id')!r} ({type(exc).__name__}: {exc})")
+                malformed += 1
+                continue
             if nev:
                 store.upsert(nev)
                 kept += 1
@@ -149,7 +188,8 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             break
         if delay:
             time.sleep(delay)                              # robots.txt Crawl-delay
-    print(f"[tribe] {site.get('name')}: kept {kept} events")
+    print(f"[tribe] {site.get('name')}: kept {kept} events"
+          + (f" ({malformed} unreadable record(s) skipped)" if malformed else ""))
     return kept
 
 
