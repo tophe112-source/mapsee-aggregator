@@ -1497,6 +1497,25 @@ def _rows_runsignup(data):
             for cat in ("running", "fitness")]
 
 
+def _rows_bikereg(data):
+    """One GraphQL calendar covering every AthleteReg event, so — like RunSignup
+    — there is no per-source list to walk; the config tunes how much to read.
+
+    Filed as ONE row per country the feed actually reaches, and as `fitness`
+    only. Unlike RunSignup this adapter has a single primary: every cycling
+    listing is emitted `fitness`, with sports/outdoors as secondaries. Claiming
+    a `sports` row here would report a door as covered that this source does not
+    supply, which is precisely the over-reporting the per-country ODS rows exist
+    to avoid.
+    """
+    if not data:
+        return []
+    apps = ", ".join(data.get("app_types") or ["BIKEREG"])
+    return [(f"AthleteReg ({apps})", "(national)",
+             _ISO_COUNTRY.get(c.upper(), c.upper()), "fitness")
+            for c in (data.get("countries") or ["US"])]
+
+
 def _rows_affiliate(data):
     out = []
     for e in data.get("feeds", []):
@@ -1518,6 +1537,7 @@ EXTRA_CONFIG = {
     "mylisting": ("mylisting_sources.json", _rows_mylisting),
     "parkrun": ("parkrun_sources.json", _rows_parkrun),
     "runsignup": ("runsignup_sources.json", _rows_runsignup),
+    "bikereg": ("bikereg_sources.json", _rows_bikereg),
     "jsonld": ("jsonld_sources.json", _rows_jsonld),
     "program": ("program_sources.json", _rows_program),
     "venuepilot": ("venuepilot_sources.json", _rows_venuepilot),

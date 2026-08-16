@@ -604,7 +604,7 @@ jobs:
   # they geocode through the US Census BATCH endpoint (up to 9,000 per request),
   # not the 1.1s-per-venue path the `feeds` cap exists for.
   races:
-    name: Races (RunSignup — running + fitness)
+    name: Races (RunSignup + BikeReg — running, cycling, fitness)
     runs-on: ubuntu-latest
     # Daily cron + manual, alongside `feeds`; skipped on the Mon/Thu heavy cron.
     if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
@@ -625,6 +625,21 @@ jobs:
           set +e
           python mapsee_ingest_runsignup.py --config runsignup_sources.json \
                                             --store races_events.json
+          exit 0
+      # Same job and the SAME STORE as RunSignup, deliberately: both are national
+      # registration platforms feeding the same lens, and a rider looking at
+      # wegosie should not be able to tell which one an event came from. Sharing
+      # the store also means the fingerprint dedupe sees both, so a duathlon
+      # listed on each platform merges instead of pinning twice.
+      #
+      # Adds no geocoding load to the sync: every BikeReg row arrives with the
+      # feed's own coordinates and coords_exact set, so it skips the Census pass
+      # that the RunSignup rows above go through.
+      - name: Import BikeReg races and rides (cycling — the empty half of wegosie)
+        run: |
+          set +e
+          python mapsee_ingest_bikereg.py --config bikereg_sources.json \
+                                          --store races_events.json
           exit 0
       - name: Sync races to Supabase (batch-geocoded via US Census)
         run: |

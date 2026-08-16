@@ -1,0 +1,28 @@
+{
+  "_comment": "Config for mapsee_ingest_bikereg.py. Like runsignup_sources.json there is no per-source list here: AthleteReg is one GraphQL calendar covering every event it hosts, so what this file tunes is how much of it to read. Defaults live in DEFAULTS in the adapter; anything set here overrides them.",
+
+  "_why": "wegosie.com's tagline promises 'Group Runs, Rides, Hikes and Classes' and the catalogue had no cycling source at all. Measured 2026-08-16 across 197,967 upcoming events: 259 titles containing 'bike', 59 'cycling', 24 'bicycle', 0 'gran fondo' - 0.17% of the map, spread over five categories so it could not even be filtered as riding. Same gap and same cause as running before RunSignup: municipal open data does not publish bike races, so curation cannot reach them.",
+
+  "_endpoint": "https://outsideapi.com/fed-gw/graphql - BikeReg's own documented public gateway, no key. DO NOT move this to bikereg.com/api/search: that REST endpoint answers 200 with exactly 100 events and ignores page, offset, count, MaxResults, startdate/enddate, state and radius alike, while reporting ResultCount 100. It looks complete and withholds 1,267 events. Measured, both, 2026-08-16.",
+
+  "app_types": ["BIKEREG"],
+  "_app_types": "The AthleteReg family, all on the one endpoint and all readable by this adapter: BIKEREG (1,367 events in the next 12 months), RUNREG (158), SKIREG (43), TRIREG (23). Only BIKEREG is enabled - RunSignup already covers US running far more completely, and turning on RUNREG here would mostly re-ingest it under a second fingerprint. Add SKIREG in autumn if the outdoors layer wants it.",
+
+  "horizon_days": 365,
+  "_horizon_days": "Bike seasons publish a year out and a gravel event that appears nine months early is one somebody can still train for. Costs pages, not requests-per-page.",
+
+  "page_size": 100,
+  "max_pages": 60,
+  "_max_pages": "A runaway guard, not a cap. BikeReg's 12-month window is 14 pages. If the guard ever binds the adapter prints how many listings it left behind rather than stopping quietly - unlike the REST endpoint, this calendar reports totalCount, so a short read is detectable.",
+
+  "min_registrations": 0,
+  "_min_registrations": "Optional engagement floor, read from the calendar's registrationCount. 1,132 of 1,367 listings carry a non-zero count; the busiest are Hotter'N Hell Weekend (4,887, Wichita Falls TX), the Driveway Series (2,921, Austin TX) and PedalPGH (2,171, Pittsburgh PA). 0 keeps everything, which is the right default while the layer is empty - a 12-rider Tuesday night crit is exactly the recurring local content the lens is short of. Raise it only to thin a metro that has too much. The number is never stored on the event: it is true today and stale next week.",
+
+  "pause_s": 0.3,
+  "timeout_s": 90,
+
+  "countries": ["US", "CA", "IS", "JM"],
+  "_countries": "For catalog_curate.py coverage, which must not hit the network. Measured over the 1,367-event window: 1,357 USA, 8 CAN, 1 ISL, 1 JAM. BikeReg is a US platform; this is not a filter.",
+
+  "_conduct": "bikereg.com serves no robots.txt (404). The GraphQL gateway is the one BikeReg's own developer docs (bikereg.com/api/EventSearchDoc.aspx) call 'the recommended way to get event data'. Read under the production User-Agent at the documented page size with a pause between pages. No registration, participant or results data is read - registrationCount is a single integer used as a local filter and never written to the database. This is Outside Inc. infrastructure; if the terms ever require an agreement, park the config the way parkrun_sources.json is parked rather than the adapter."
+}
