@@ -256,6 +256,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
     # source wired up the wrong way (that one wanted the Tribe REST API, which
     # carries venues the iCal export omits), and the log has to be able to say so.
     unplaceable = 0
+    past = 0
     for ev in events:
         if kept >= limit:
             break
@@ -264,6 +265,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
             continue
         start_local, start_utc, date_key = _parse_dt(*ev["DTSTART"])
         if not date_key or date_key < now_key:
+            if date_key:
+                past += 1                             # counted; see the report below
             continue                                  # past (or unparseable) → skip
         end_local = end_utc = None
         if "DTEND" in ev:
@@ -309,6 +312,26 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
         note += f" — {unplaceable} unplaceable (no LOCATION/GEO)"
         if events and unplaceable >= max(3, len(events) // 2):
             note += "; more than half this feed has no location — check whether the source offers a richer feed"
+    # A FEED THAT IS ENTIRELY IN THE PAST IS A CONFIG PROBLEM, NOT A QUIET DAY,
+    # and until this line it looked exactly like a venue between seasons.
+    #
+    # LibCal's ical_subscribe.php serves a FIXED rolling window capped at 500
+    # VEVENTs, and it starts about a month BACK — so for a library busy enough
+    # to fill the cap, history eats the entire future. Measured 2026-08-17:
+    # Fairfax County Public Library returned 500 events ending 2026-07-26 and
+    # Denver Public Library 500 ending 2026-08-15, both wholly past, both
+    # contributing nothing; Arlington VA had 96 future events out of 500. No
+    # parameter shifts the window — start/end, days, limit and num are all
+    # accepted and ignored.
+    #
+    # Nothing else in the pipeline can notice this. `status` empty is not fail,
+    # so the curator audit stays green, and "kept 0 of 500" is one line in a run
+    # that prints 258 of them.
+    if past and not kept:
+        note += (f" — ALL {past} events are in the PAST; this feed is stale or "
+                 f"window-capped and is contributing nothing")
+    elif past and kept and past >= max(10, len(events) // 2):
+        note += f" — {past} of {len(events)} already past (window may be capped)"
     print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}")
     return kept
 
