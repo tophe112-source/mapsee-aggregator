@@ -192,6 +192,44 @@ def main():
     ])
     checks.extend(rowchecks)
 
+    # ---- the hub's name is not the venue's town ---------------------------
+    # Reported live 2026-08-17: Sisters Restaurant, 2804 Grand Avenue, EVERETT,
+    # was on the map as a "restaurant in Seattle", pinned twenty-seven miles
+    # south of itself. The Seattle hub is a 50-mile radius and covers Everett,
+    # Renton, Bellevue and Kent, and the row took its town from the HUB.
+    #
+    # The structured `city` field was fixed in "A restaurant in Renton is not in
+    # Seattle" — and the DESCRIPTION was still built from area["name"], so the
+    # prose went on naming the wrong town three hours after the field stopped.
+    # Both are pinned here, because fixing one and not the other is precisely
+    # what happened. The node id and coordinates below are the real ones.
+    import hashlib as _h
+    HUB = {"name": "Seattle", "city": "Seattle", "region": "WA", "country": "US"}
+    everett = {"type": "node", "id": 13145544801, "lat": 47.9803582, "lon": -122.2130915,
+               "tags": {"name": "Sisters Restaurant", "amenity": "restaurant",
+                        "addr:housenumber": "2804", "addr:street": "Grand Avenue",
+                        "opening_hours": "Mo-Su 07:00-20:00"}}
+    hrs = m.parse_opening_hours("Mo-Su 07:00-20:00")
+    ev = (m.to_events(everett, HUB, "https://order.toasttab.com/online/x", hrs, 7) or [None])[0]
+    with_city = {**everett, "tags": {**everett["tags"], "addr:city": "Everett"}}
+    ev2 = (m.to_events(with_city, HUB, "https://order.toasttab.com/online/x", hrs, 7) or [None])[0]
+    checks.extend([
+        (ev is not None, "the Everett restaurant is still ingested"),
+        (ev is not None and ev.city is None,
+         "no addr:city means NO city, never the hub's"),
+        (ev is not None and "in Seattle" not in (ev.description or ""),
+         "and the DESCRIPTION does not claim the hub's town either"),
+        (ev is not None and abs(ev.latitude - 47.9803582) < 1e-6,
+         "the pin is OSM's surveyed point, in Everett"),
+        (ev is not None and ev.coords_exact is True,
+         "coords_exact keeps the sync's Census pass off that point"),
+        (ev is not None and ev.fingerprint == _h.sha1(b"osm-food|node/13145544801").hexdigest(),
+         "identity is the OSM ref, so a re-ingest UPDATES rather than duplicating"),
+        (ev2 is not None and ev2.city == "Everett", "OSM's own addr:city is used when present"),
+        (ev2 is not None and "in Everett" in (ev2.description or ""),
+         "and then the description names the real town"),
+    ])
+
     for ok, why in checks:
         failed += 0 if ok else 1
         print(f"{'ok  ' if ok else 'FAIL'}  {why}")
