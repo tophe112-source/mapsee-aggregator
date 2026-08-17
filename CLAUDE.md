@@ -388,6 +388,16 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   the identical session for grown-ups and say so in the title. `_NOT_FOR_KIDS_RX`
   withholds the promotion, never moves anything, and the volunteer rule still
   runs first so "Teen Volunteer Corps" lands on volunteer rather than kids.
+- **`brunch` was the commonest food word on the map and the food rule did not
+  have it.** 615 upcoming events with "brunch" in the title, 158 reaching
+  oneday.cafe, 457 sitting on community (235), theater (78) and music (37) —
+  and oneday is the second-thinnest lens with `food` as its ONLY category, so
+  that was a third of its potential supply. A brunch is a meal whatever else is
+  happening at it: "Golden Girls Drag Brunch" stays THEATER and reaches oneday
+  too, which is the case the secondaries column exists for. `taproom` and
+  `distillery` were the same omission one size down — `brewery` was there and
+  its siblings were not. The check that matters when widening a secondary is
+  that no PRIMARY moves: measured over 473 live titles, 0 did.
 - **Counting records is not checking dates.** wisconsinbikefed.org's iCal export
   parses beautifully — 50 VEVENTs, 46 with LOCATION, 41 with a GEO line, real
   riding in the titles — and every event in it is in the PAST: 2025-11-02 to
@@ -423,13 +433,14 @@ python test_ingest_slu.py           # occurrence vs series start; end_time vs en
 python test_ingest_mylisting.py     # which of a card's two dates is the occurrence
 python test_ingest_bikereg.py       # cycling: the server's offset, and one id per occurrence
 python test_ingest_tribe.py         # feed shapes: one bad record must not cost a whole site
+python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 15 test scripts are the CI gate (`tests.yml`). They print one line per
+The 16 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

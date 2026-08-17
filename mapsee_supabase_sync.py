@@ -293,11 +293,24 @@ _SECONDARY_RX = [
         r"flohmarkt|tr[oö]delmarkt|tauschb[oö]rse|"
         r"\b(brocante|vide[\s-]?greniers?|mercadillo|rastro|rommelmarkt|"
         r"loppis|kirpputori|mercatino|feira\s+da\s+ladra|pchli\s+targ)\b)", re.I)),
+    # BRUNCH WAS MISSING, and it is the single commonest food word on the map.
+    # Measured 2026-08-16: 615 upcoming events with "brunch" in the title, of
+    # which only 158 reached oneday.cafe — 457 sat on community (235), theater
+    # (78) and music (37) instead. oneday is the second-thinnest lens and food
+    # is its ONLY category, so that is a third of its potential supply.
+    #
+    # A brunch is a meal whatever else is happening at it. "Burlesque Brunch",
+    # "Golden Girls Drag Brunch" and "Gospel Brunch: The Moriah Sisters" are all
+    # people eating, and because this is a SECONDARY they keep theater or music
+    # as their primary and reach oneday as well — which is exactly the case the
+    # secondaries column was added for. `taproom` and `distillery` are the same
+    # omission one size down: `brewery` was here and its two siblings were not.
     ("food", re.compile(
         r"\b(food\s+trucks?|food\s+hall|food\s+vendors?|supper\s+club|tasting\s+menu|"
         r"pop[\s-]?up\s+(?:dinner|kitchen)|beer\s+garden|brewery|winery|cidery|"
         r"wine\s+tasting|beer\s+(?:tasting|festival)|bbq|barbecue|"
-        r"chili\s+cook[\s-]?off|bake\s+sale|farm\s+dinner|potluck)\b", re.I)),
+        r"chili\s+cook[\s-]?off|bake\s+sale|farm\s+dinner|potluck|"
+        r"brunch|taproom|tap\s+takeover|distillery|bottomless)\b", re.I)),
     ("music", re.compile(
         r"\b(live\s+music|live\s+bands?|dj\s+set|open\s+mic|acoustic\s+set|"
         r"concert\s+series|jazz\s+night|drum\s+circle)\b", re.I)),

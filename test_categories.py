@@ -179,6 +179,23 @@ CONTENT_CASES = [
     # night after a lyric.
     ("Monday Night Trivia: Thrift Shop Bull", "party", "Quiz from 8.",
      "party", set(), {"market"}),
+
+    # --- BRUNCH reaches oneday.cafe. It was the commonest food word on the map
+    # and the food secondary did not have it: 615 upcoming events, 158 reaching
+    # the lens, 457 sitting on community, theater and music. oneday is the
+    # second-thinnest lens and food is its ONLY category.
+    #
+    # The point of these three is that the PRIMARY must not move. A drag brunch
+    # is theatre AND a meal, and the secondaries column exists precisely so it
+    # can be both — a secondary that re-keyed the event would change its pin.
+    ("Golden Girls Drag Brunch", "theater", "", "theater", {"food"}, set()),
+    ("Gospel Brunch: The Moriah Sisters", "music", "", "music", {"food"}, set()),
+    ("SF Brunch Social: Make New Friends", "community", "", "community", {"food"}, set()),
+    # A tap takeover really is nightlife, so _PARTY_RX re-keys it and that is
+    # correct — the food SECONDARY is what carries it to oneday as well, which
+    # is the whole point: one row, bar.ventures and oneday.cafe both.
+    ("Tap Takeover at Mt. Airy Taproom", "community", "", "party", {"food"}, set()),
+    ("Distillery Tour and Tasting", "community", "", "community", {"food"}, set()),
 ]
 
 cfails = []
