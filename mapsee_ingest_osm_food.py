@@ -540,14 +540,14 @@ def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=Non
         return []
     addr = " ".join(x for x in [tags.get("addr:housenumber"), tags.get("addr:street")] if x) or None
     kind = tags.get("amenity", "restaurant").replace("_", " ")
-    # The opening line has to match what the listing can actually DO, because a
-    # place may now arrive with a booking link and no ordering one.
-    if order_url and booking_url:
-        lead = "Order for pickup or book a table on their own site"
-    elif booking_url:
-        lead = "Book a table on their own site"
-    else:
-        lead = "Order for pickup on their own site"
+    # NO LEAD SENTENCE. This used to open with a claim about what the listing can
+    # do and who is not taking the money — "Order for pickup on their own site;
+    # mapsee.me is not taking the order." — which is a paragraph explaining a
+    # button that is sitting right there saying Order, and which goes to a
+    # domain that is plainly not ours. Nobody needs to be told that a link is a
+    # link. It also had to be kept in agreement with the links (three variants,
+    # and mapsee_prune_links rewriting it when one died), so it was a sentence
+    # that could go wrong and never had anything to say.
     lines = []
     if order_url:
         lines.append(f"🛒 Order: {order_url}")
@@ -577,8 +577,7 @@ def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=Non
     # Restaurant — restaurant." A missing town is a gap; a confident wrong one
     # is what somebody drives to.
     town = (tags.get("addr:city") or tags.get("addr:suburb") or "").strip()
-    desc = (f"{name} — {kind}{f' in {town}' if town else ''}. {lead}; "
-            f"mapsee.me is not taking the order.\n\n"
+    desc = (f"{name} — {kind}{f' in {town}' if town else ''}.\n\n"
             f"{body}"
             f"Public business details from OpenStreetMap contributors (ODbL). "
             f"Hours and details can change; the business can claim this listing to correct them.")

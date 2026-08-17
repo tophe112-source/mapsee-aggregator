@@ -66,8 +66,12 @@ ORDER_LINE = re.compile(r"^\s*\U0001F6D2[^:]*:\s*(\S+)\s*$")
 BOOK_LINE = re.compile(r"^\s*\U0001F37D️?[^:]*:\s*(\S+)\s*$")
 TICKETS_LINE = re.compile(r"^\s*Tickets\s*/\s*info:\s*(\S+)\s*$", re.I)
 
-# The generated lead. Rewritten rather than left, because "Order for pickup on
-# their own site" is a claim, and it is false the moment the order line goes.
+# The generated lead, which the ingest no longer writes at all — a sentence
+# explaining that a button labelled Order goes to somebody else's site, which is
+# what a link is. Rows written before that are still carrying it, so this still
+# has to MATCH it; what changed is that there is no longer a corrected version
+# to swap in, so it comes out entirely. That also retires it from any row this
+# script touches ahead of the next full refresh.
 LEAD = re.compile(
     r"^(?P<head>.*?\.)\s*(?P<claim>Order for pickup or book a table|"
     r"Order for pickup|Book a table) on their own site;\s*"
@@ -111,19 +115,14 @@ def rewrite(desc, dead_urls):
         return None, has_order, has_book
 
     out = "\n\n".join(kept)
-    # Fix the lead so it does not keep advertising what we just removed.
+    # Drop the lead outright. It existed to stop the description advertising an
+    # order link that had just been removed, and the ingest has since stopped
+    # writing it in any form — so there is nothing to correct it TO. A row that
+    # still carries it is one written before that change, and this is as good a
+    # moment as any for it to go.
     m = LEAD.match(out)
     if m:
-        if has_order and has_book:
-            claim = "Order for pickup or book a table on their own site; mapsee.me is not taking the order."
-        elif has_order:
-            claim = "Order for pickup on their own site; mapsee.me is not taking the order."
-        elif has_book:
-            claim = "Book a table on their own site; mapsee.me is not taking the order."
-        else:
-            claim = ""      # nothing left to promise: say nothing
-        head = m.group("head")
-        out = (head + (" " + claim if claim else "")) + out[m.end():]
+        out = m.group("head") + out[m.end():]
     return out, has_order, has_book
 
 
