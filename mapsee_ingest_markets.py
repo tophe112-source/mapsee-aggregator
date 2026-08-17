@@ -934,6 +934,30 @@ def main(argv=None) -> int:
     # for a manual backfill or when testing a new source.
     ap.add_argument("--force", action="store_true",
                     help="run every source regardless of its run_weekdays")
+    # SPLITTING THIS FILE ACROSS TWO JOBS IS THE POINT OF THESE.
+    #
+    # Every source here used to run in one step inside the `feeds` job, and the
+    # OSM sweep is 245 Overpass calls against a free endpoint — measured, that
+    # is over three hours on its own. Everything else in the file finishes in
+    # about a minute. Live consequence on Monday 2026-08-17: the feeds job hit
+    # its 240-minute ceiling INSIDE the markets step, and because the checkpoint
+    # sync sits after it, that run delivered nothing at all — not the markets,
+    # not the Socrata and ICS work that had already succeeded, and not the
+    # twenty-odd sources queued behind it (Squarespace, MyListing, Luma, Tribe,
+    # Mobilizon, Moshtix…), every one of them skipped.
+    #
+    # The same job on the Saturday and Sunday either side took 52 and 55
+    # minutes, because run_weekdays keeps the OSM sweep to Mondays. So the sweep
+    # does not merely get LOST to the timeout, it CAUSES it and takes the rest
+    # of the job with it.
+    #
+    # So the slow source now runs as its own workflow job with its own store and
+    # its own sync, exactly like RunSignup does, and these flags are how the two
+    # jobs read one config file.
+    ap.add_argument("--type", dest="only_type",
+                    help="run only sources of this type (e.g. overpass)")
+    ap.add_argument("--skip-type", dest="skip_type",
+                    help="run everything EXCEPT sources of this type")
     a = ap.parse_args(argv)
     sources = json.loads(open(a.config, encoding="utf-8").read())
     session = requests.Session()
@@ -941,6 +965,14 @@ def main(argv=None) -> int:
     store = EventStore(a.store)
     total = 0
     for src in sources:
+        kind = src.get("type")
+        if a.only_type and kind != a.only_type:
+            continue
+        if a.skip_type and kind == a.skip_type:
+            # Named, not silent: a step that quietly ingests nothing looks
+            # exactly like one whose sources have all gone quiet.
+            print(f"[markets] {src.get('name', '?')}: skipped (--skip-type {a.skip_type})")
+            continue
         # A source can pin itself to certain weekdays. Markets are WEEKLY
         # schedules expanded over a 42-day horizon: re-deriving them every day
         # produces byte-identical rows, and the OSM sweep is 245 network calls,
