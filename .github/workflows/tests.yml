@@ -106,6 +106,35 @@ jobs:
       - name: Date and address traps (MyListing occurrence vs next-date, horizon)
         run: python test_ingest_mylisting.py
 
+      # Cycling, and three ways it goes quietly wrong. The offset on BikeReg's
+      # startDate is the SERVER'S — a Kailua-Kona race carries -04:00 while its
+      # own eventTimeZone says Hawaiian — so reading it as an instant moves the
+      # race to the day before. One eventId comes back once per OCCURRENCE (39
+      # of 1,246 ids), and since EventStore pops a record whose fingerprint
+      # moved, a bare eventId makes each date delete the last: 1,269 in, 1,148
+      # out. And the calendar sells club memberships alongside races, which are
+      # pins where nothing is happening.
+      - name: Cycling traps (BikeReg date offset, per-occurrence identity)
+        run: python test_ingest_bikereg.py
+
+      # The Overpass sweep is 245 bboxes against a free endpoint, so a handful
+      # lose their slot every run — measured, New York and Los Angeles both came
+      # back empty while six other metros answered. The loop used to move on,
+      # and since this source runs twice a week that could hide the two largest
+      # US markets for days behind one line of log. The second pass and its
+      # COUNT are pinned here, along with the rule that a city is not a street.
+      - name: Market sweep survives a metro that loses its slot
+        run: python test_ingest_markets.py
+
+      # The Events Calendar returns `venue` as a dict, as [], and as [{...}] from
+      # the SAME site, and `image` as a dict or the bare boolean false. `or {}`
+      # covers the empty list and not the populated one — and the exception
+      # unwound to the per-SITE handler, so one bad record cost the whole
+      # calendar. Bicycle Colorado ingested 0 of 105 events that way, reporting
+      # it in a line that looks like the host was down.
+      - name: Feed shapes (one bad record must not cost a whole site)
+        run: python test_ingest_tribe.py
+
       # "Order pickup" is a promise. It shipped once on 400 of 400 food events
       # that pointed at Meetup, and a second time on any /menu path — which
       # matched a town website's nav. Both regressions are pinned here.

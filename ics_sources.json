@@ -1,1808 +1,1824 @@
 [
-  {
-    "name": "Seattle City Calendar",
-    "url": "https://www.trumba.com/calendars/seattlegov-city-wide.ics",
-    "category": "community",
-    "geocode_suffix": ", Seattle, WA",
-    "limit": 500
-  },
-  {
-    "name": "Seattle Parks and Recreation",
-    "url": "https://www.trumba.com/calendars/parks-recreation.ics",
-    "category": "community",
-    "geocode_suffix": ", Seattle, WA",
-    "limit": 500
-  },
-  {
-    "name": "UW Seattle Campus Events",
-    "url": "https://www.trumba.com/calendars/sea_campus.ics",
-    "category": "learning",
-    "geocode_suffix": ", University of Washington, Seattle, WA",
-    "limit": 1000
-  },
-  {
-    "name": "UW College of Arts and Sciences",
-    "url": "https://www.trumba.com/calendars/sea_artsci.ics",
-    "category": "learning",
-    "geocode_suffix": ", University of Washington, Seattle, WA",
-    "limit": 400
-  },
-  {
-    "name": "UW Libraries, Seattle",
-    "url": "https://www.trumba.com/calendars/sea_lib.ics",
-    "category": "learning",
-    "geocode_suffix": ", University of Washington, Seattle, WA",
-    "limit": 300
-  },
-  {
-    "name": "Town Hall Seattle",
-    "url": "https://townhallseattle.org/events/?ical=1",
-    "category": "learning",
-    "geocode_suffix": ", Seattle, WA",
-    "limit": 200
-  },
-  {
-    "name": "Fairfax County Public Library (DC metro)",
-    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?cid=6524",
-    "category": "learning",
-    "geocode_suffix": ", Fairfax County, VA",
-    "limit": 300
-  },
-  {
-    "name": "Arlington Public Library (DC metro)",
-    "url": "https://arlingtonva.libcal.com/ical_subscribe.php?cid=12881",
-    "category": "learning",
-    "geocode_suffix": ", Arlington, VA",
-    "limit": 300
-  },
-  {
-    "name": "San Antonio City Calendar",
-    "url": "https://www.trumba.com/calendars/sanantonio.ics",
-    "category": "community",
-    "geocode_suffix": ", San Antonio, TX",
-    "limit": 700
-  },
-  {
-    "name": "City of Long Beach Events (Los Angeles)",
-    "url": "https://www.trumba.com/calendars/homepagesidebarevents.ics",
-    "category": "community",
-    "geocode_suffix": ", Los Angeles, CA",
-    "limit": 300
-  },
-  {
-    "name": "Beverly Hills Public Library Events (Los Angeles)",
-    "url": "https://bhpl.libcal.com/ical_subscribe.php?cid=13598",
-    "category": "learning",
-    "geocode_suffix": ", Los Angeles, CA",
-    "limit": 500
-  },
-  {
-    "name": "Hermann Park Conservancy Events (Houston)",
-    "url": "https://hermannpark.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Houston, TX",
-    "limit": 300
-  },
-  {
-    "name": "City of Dallas Parks & Recreation (Dallas)",
-    "url": "https://www.dallasparks.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
-    "category": "community",
-    "geocode_suffix": ", Dallas, TX",
-    "limit": 300
-  },
-  {
-    "name": "Dallas Office of Arts and Culture (Dallas)",
-    "url": "https://dallasculture.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Dallas, TX",
-    "limit": 300
-  },
-  {
-    "name": "Arlington Public Library Events (Dallas)",
-    "url": "https://arlingtontx.libcal.com/ical_subscribe.php?cid=20065",
-    "category": "learning",
-    "geocode_suffix": ", Dallas, TX",
-    "limit": 300
-  },
-  {
-    "name": "Center City District Events (Philadelphia)",
-    "url": "https://centercityphila.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Philadelphia, PA",
-    "limit": 300
-  },
-  {
-    "name": "Reading Terminal Market Events (Philadelphia)",
-    "url": "https://readingterminalmarket.org/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Philadelphia, PA",
-    "limit": 300
-  },
-  {
-    "name": "Chester County Library System Events (Philadelphia)",
-    "url": "https://ccls.libcal.com/ical_subscribe.php?cid=12583",
-    "category": "learning",
-    "geocode_suffix": ", Philadelphia, PA",
-    "limit": 500
-  },
-  {
-    "name": "Montgomery County-Norristown Public Library (Philadelphia)",
-    "url": "https://mnl.libcal.com/ical_subscribe.php?cid=19360",
-    "category": "learning",
-    "geocode_suffix": ", Philadelphia, PA",
-    "limit": 300
-  },
-  {
-    "name": "Phoenix Local Events (Phoenix)",
-    "url": "https://phoenixlocalevents.com/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Phoenix, AZ",
-    "limit": 300
-  },
-  {
-    "name": "Phoenix Public Library - Burton Barr Central (Phoenix)",
-    "url": "https://calendar.phoenixpubliclibrary.org/ical_subscribe.php?cid=15413",
-    "category": "learning",
-    "geocode_suffix": ", Phoenix, AZ",
-    "limit": 300
-  },
-  {
-    "name": "Freedom Trail Foundation Events (Boston)",
-    "url": "https://www.trumba.com/calendars/freedom_trail_foundation_events.ics",
-    "category": "community",
-    "geocode_suffix": ", Boston, MA",
-    "limit": 300
-  },
-  {
-    "name": "Public Library of Brookline Events (Boston)",
-    "url": "https://brooklinelibrary.libcal.com/ical_subscribe.php?cid=20102",
-    "category": "learning",
-    "geocode_suffix": ", Boston, MA",
-    "limit": 600
-  },
-  {
-    "name": "Ponce City Market Events (Atlanta)",
-    "url": "https://poncecitymarket.com/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Atlanta, GA",
-    "limit": 300
-  },
-  {
-    "name": "Georgia Tech Library Programming (Atlanta)",
-    "url": "https://gatech.libcal.com/ical_subscribe.php?cid=19127",
-    "category": "learning",
-    "geocode_suffix": ", Atlanta, GA",
-    "limit": 300
-  },
-  {
-    "name": "City of Miami Beach Events (Miami)",
-    "url": "https://events.miamibeachfl.gov/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Miami, FL",
-    "limit": 300
-  },
-  {
-    "name": "FIU Library Events (Miami)",
-    "url": "https://fiu.libcal.com/ical_subscribe.php?cid=15594",
-    "category": "learning",
-    "geocode_suffix": ", Miami, FL",
-    "limit": 300
-  },
-  {
-    "name": "Denver Public Library - Programs & Events (Denver)",
-    "url": "https://denverlibrary.libcal.com/ical_subscribe.php?cid=20634",
-    "category": "learning",
-    "geocode_suffix": ", Denver, CO",
-    "limit": 300
-  },
-  {
-    "name": "Parker Recreation & Community Events (Denver)",
-    "url": "https://www.parkerrec.com/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar",
-    "category": "community",
-    "geocode_suffix": ", Denver, CO",
-    "limit": 300
-  },
-  {
-    "name": "Beaverton City Library Events (Portland)",
-    "url": "https://www.beavertonlibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
-    "category": "learning",
-    "geocode_suffix": ", Portland, OR",
-    "limit": 300
-  },
-  {
-    "name": "Oregon City Community & Recreation (Portland)",
-    "url": "https://www.orcity.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
-    "category": "community",
-    "geocode_suffix": ", Portland, OR",
-    "limit": 500
-  },
-  {
-    "name": "Austin Community College Library Events (Austin)",
-    "url": "https://austincc.libcal.com/ical_subscribe.php?cid=22696",
-    "category": "learning",
-    "geocode_suffix": ", Austin, TX",
-    "limit": 300
-  },
-  {
-    "name": "Cedar Park City Events (Austin)",
-    "url": "https://www.cedarparktexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
-    "category": "community",
-    "geocode_suffix": ", Austin, TX",
-    "limit": 300
-  },
-  {
-    "name": "Gaston County Public Library Programs (Charlotte)",
-    "url": "https://gastonlibrary.libcal.com/ical_subscribe.php?cid=4371",
-    "category": "learning",
-    "geocode_suffix": ", Charlotte, NC",
-    "limit": 300
-  },
-  {
-    "name": "Union County Public Library Programs (Charlotte)",
-    "url": "https://union-nc.libcal.com/ical_subscribe.php?cid=21886",
-    "category": "learning",
-    "geocode_suffix": ", Charlotte, NC",
-    "limit": 500
-  },
-  {
-    "name": "Town of Huntersville Events (Charlotte)",
-    "url": "https://www.huntersville.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
-    "category": "community",
-    "geocode_suffix": ", Charlotte, NC",
-    "limit": 300
-  },
-  {
-    "name": "Minneapolis Park & Recreation Board (Minneapolis)",
-    "url": "https://www.minneapolisparks.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Minneapolis, MN",
-    "limit": 300
-  },
-  {
-    "name": "UMN Libraries - Innovation & Technology (Minneapolis)",
-    "url": "https://umn.libcal.com/ical_subscribe.php?cid=12437",
-    "category": "learning",
-    "geocode_suffix": ", Minneapolis, MN",
-    "limit": 300
-  },
-  {
-    "name": "UMN Libraries - Workshops (Minneapolis)",
-    "url": "https://umn.libcal.com/ical_subscribe.php?cid=3064",
-    "category": "learning",
-    "geocode_suffix": ", Minneapolis, MN",
-    "limit": 300
-  },
-  {
-    "name": "University of Pittsburgh Library System Events (Pittsburgh)",
-    "url": "https://pitt.libcal.com/ical_subscribe.php?cid=2274",
-    "category": "learning",
-    "geocode_suffix": ", Pittsburgh, PA",
-    "limit": 300
-  },
-  {
-    "name": "Pittsburgh Parks Conservancy (Pittsburgh)",
-    "url": "https://pittsburghparks.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Pittsburgh, PA",
-    "limit": 300
-  },
-  {
-    "name": "Enoch Pratt Free Library (Baltimore)",
-    "url": "https://calendar.prattlibrary.org/calendar.ics",
-    "category": "learning",
-    "geocode_suffix": ", Baltimore, MD",
-    "limit": 2500
-  },
-  {
-    "name": "Baltimore Magazine Events Calendar (Baltimore)",
-    "url": "https://events.baltimoremagazine.com/calendar.ics",
-    "category": "community",
-    "geocode_suffix": ", Baltimore, MD",
-    "limit": 2200
-  },
-  {
-    "name": "University of Exeter Library (Exeter, United Kingdom)",
-    "url": "https://exeter-uk.libcal.com/ical_subscribe.php?cid=8108",
-    "category": "learning",
-    "geocode_suffix": ", Exeter, United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "London South Bank University Library (London, United Kingdom)",
-    "url": "https://lsbu-uk.libcal.com/ical_subscribe.php?cid=6613",
-    "category": "learning",
-    "geocode_suffix": ", London, United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "University of Law Library Events (London, United Kingdom)",
-    "url": "https://law-uk.libcal.com/ical_subscribe.php?cid=7896",
-    "category": "learning",
-    "geocode_suffix": ", London, United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "University of Leeds Skills@Library Workshops (Leeds, United Kingdom)",
-    "url": "https://leeds.libcal.com/ical_subscribe.php?cid=8882",
-    "category": "learning",
-    "geocode_suffix": ", Leeds, United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "LSBU Library Wellbeing (London, United Kingdom)",
-    "url": "https://lsbu-uk.libcal.com/ical_subscribe.php?cid=8278",
-    "category": "learning",
-    "geocode_suffix": ", London, United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "University of Leeds Researcher Skills (Leeds, United Kingdom)",
-    "url": "https://leeds.libcal.com/ical_subscribe.php?cid=8929",
-    "category": "learning",
-    "geocode_suffix": ", Leeds, United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "University of Leeds Public Events (Leeds, United Kingdom)",
-    "url": "https://leeds.libcal.com/ical_subscribe.php?cid=9035",
-    "category": "learning",
-    "geocode_suffix": ", Leeds, United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "Lancaster University Library (Lancaster, United Kingdom)",
-    "url": "https://lancaster-uk.libcal.com/ical_subscribe.php?cid=718",
-    "category": "learning",
-    "geocode_suffix": ", Lancaster, United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "Winnipeg Public Library (Winnipeg, Canada)",
-    "url": "https://wpl.libcal.com/ical_subscribe.php?cid=1677",
-    "category": "learning",
-    "geocode_suffix": ", Winnipeg, Canada",
-    "limit": 300
-  },
-  {
-    "name": "UBC Library (Vancouver, Canada)",
-    "url": "https://libcal.library.ubc.ca/ical_subscribe.php?cid=7544",
-    "category": "learning",
-    "geocode_suffix": ", University of British Columbia, Vancouver, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Western Sydney University Library (Sydney, Australia)",
-    "url": "https://westernsydney.libcal.com/ical_subscribe.php?cid=10895",
-    "category": "learning",
-    "geocode_suffix": ", Western Sydney University, Sydney, Australia",
-    "limit": 300
-  },
-  {
-    "name": "University of Sydney Library (Sydney, Australia)",
-    "url": "https://usyd.libcal.com/ical_subscribe.php?cid=3560",
-    "category": "learning",
-    "geocode_suffix": ", University of Sydney, Sydney, Australia",
-    "limit": 300
-  },
-  {
-    "name": "University of Canberra Library (Canberra, Australia)",
-    "url": "https://canberra.libcal.com/ical_subscribe.php?cid=10851",
-    "category": "learning",
-    "geocode_suffix": ", University of Canberra, Canberra, Australia",
-    "limit": 300
-  },
-  {
-    "name": "University of Tasmania Library (Hobart, Australia)",
-    "url": "https://utas.libcal.com/ical_subscribe.php?cid=7380",
-    "category": "learning",
-    "geocode_suffix": ", University of Tasmania, Hobart, Australia",
-    "limit": 300
-  },
-  {
-    "name": "University of Galway Library (Galway, Ireland)",
-    "url": "https://universityofgalway.libcal.com/ical_subscribe.php?cid=8158",
-    "category": "learning",
-    "geocode_suffix": ", University of Galway, Galway, Ireland",
-    "limit": 300
-  },
-  {
-    "name": "University of Limerick - Glucksman Library (Limerick, Ireland)",
-    "url": "https://ul.libcal.com/ical_subscribe.php?cid=6956",
-    "category": "learning",
-    "geocode_suffix": ", University of Limerick, Limerick, Ireland",
-    "limit": 300
-  },
-  {
-    "name": "Atlantic Technological University Library (Sligo, Ireland)",
-    "url": "https://atlantictu.libcal.com/ical_subscribe.php?cid=6653",
-    "category": "learning",
-    "geocode_suffix": ", Atlantic Technological University, Sligo, Ireland",
-    "limit": 300
-  },
-  {
-    "name": "Love Wimbledon BID (Wimbledon, London, UK)",
-    "url": "https://lovewimbledon.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Wimbledon, London, UK",
-    "limit": 300
-  },
-  {
-    "name": "Godalming Town Council (Godalming, UK)",
-    "url": "https://godalming-tc.gov.uk/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Godalming, UK",
-    "limit": 300
-  },
-  {
-    "name": "Attenborough Arts Centre (Leicester, UK)",
-    "url": "https://attenborougharts.com/whats-on/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Leicester, UK",
-    "limit": 300
-  },
-  {
-    "name": "Visit Wicklow (Wicklow, Ireland)",
-    "url": "https://visitwicklow.ie/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Wicklow, Ireland",
-    "limit": 300
-  },
-  {
-    "name": "The Civic Theatre (Tallaght, Dublin, Ireland)",
-    "url": "https://www.civictheatre.ie/whats-on/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Tallaght, Dublin, Ireland",
-    "limit": 300
-  },
-  {
-    "name": "Riverbank Arts Centre (Newbridge, Ireland)",
-    "url": "https://www.riverbank.ie/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Newbridge, Ireland",
-    "limit": 300
-  },
-  {
-    "name": "Old Strathcona BIA (Edmonton, Canada)",
-    "url": "https://oldstrathcona.ca/events-full/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Edmonton, Canada",
-    "limit": 300
-  },
-  {
-    "name": "West End BIA (Vancouver, Canada)",
-    "url": "https://westendbia.com/events/list/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Vancouver, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Downtown Winnipeg BIZ (Winnipeg, Canada)",
-    "url": "https://downtownwinnipegbiz.com/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Winnipeg, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Gardiner Museum (Toronto, Canada)",
-    "url": "https://gardinermuseum.on.ca/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Toronto, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Textile Museum of Canada (Toronto, Canada)",
-    "url": "https://textilemuseum.ca/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Toronto, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Meat Market (Melbourne, Australia)",
-    "url": "https://meatmarket.org.au/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Melbourne, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Castlemaine State Festival (Castlemaine, Australia)",
-    "url": "https://castlemainefestival.com.au/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Castlemaine, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Prospect Park Alliance (Brooklyn, NY)",
-    "url": "https://www.prospectpark.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Brooklyn, NY",
-    "limit": 300
-  },
-  {
-    "name": "Piedmont Park Conservancy (Atlanta, GA)",
-    "url": "https://www.piedmontpark.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Atlanta, GA",
-    "limit": 300
-  },
-  {
-    "name": "Mill River Park Collaborative (Stamford, CT)",
-    "url": "https://millriverpark.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Stamford, CT",
-    "limit": 300
-  },
-  {
-    "name": "Riverside Park Conservancy (New York, NY)",
-    "url": "https://riversideparknyc.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", New York, NY",
-    "limit": 300
-  },
-  {
-    "name": "Scenic Hudson (Poughkeepsie, NY)",
-    "url": "https://scenichudson.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Poughkeepsie, NY",
-    "limit": 300
-  },
-  {
-    "name": "Kestrel Land Trust (Amherst, MA)",
-    "url": "https://kestreltrust.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Amherst, MA",
-    "limit": 300
-  },
-  {
-    "name": "City Parks Foundation (New York, NY)",
-    "url": "https://www.cityparksfoundation.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", New York, NY",
-    "limit": 300
-  },
-  {
-    "name": "Forterra (Seattle, WA)",
-    "url": "https://forterra.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Seattle, WA",
-    "limit": 300
-  },
-  {
-    "name": "Houston Arboretum & Nature Center (Houston, TX)",
-    "url": "https://www.houstonarboretum.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Houston, TX",
-    "limit": 300
-  },
-  {
-    "name": "Lady Bird Johnson Wildflower Center (Austin, TX)",
-    "url": "https://www.wildflower.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Austin, TX",
-    "limit": 300
-  },
-  {
-    "name": "Saint Paul Audubon Society (St. Paul, MN)",
-    "url": "https://www.saintpaulaudubon.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", St. Paul, MN",
-    "limit": 300
-  },
-  {
-    "name": "Neponset River Watershed Association (Canton, MA)",
-    "url": "https://www.neponset.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Canton, MA",
-    "limit": 300
-  },
-  {
-    "name": "Save The Bay (Oakland, CA)",
-    "url": "https://www.savesfbay.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", Oakland, CA",
-    "limit": 300
-  },
-  {
-    "name": "Heal the Bay (Santa Monica, CA)",
-    "url": "https://healthebay.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", Santa Monica, CA",
-    "limit": 300
-  },
-  {
-    "name": "Johnson Creek Watershed Council (Portland, OR)",
-    "url": "https://jcwc.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", Portland, OR",
-    "limit": 300
-  },
-  {
-    "name": "Sanibel-Captiva Conservation Foundation (Sanibel, FL)",
-    "url": "https://sccf.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", Sanibel, FL",
-    "limit": 300
-  },
-  {
-    "name": "Port Discovery Children's Museum (Baltimore, MD)",
-    "url": "https://www.portdiscovery.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Baltimore, MD",
-    "limit": 300
-  },
-  {
-    "name": "Kamin Science Center (Pittsburgh, PA)",
-    "url": "https://kaminsciencecenter.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Pittsburgh, PA",
-    "limit": 300
-  },
-  {
-    "name": "Science Museum of Minnesota (St. Paul, MN)",
-    "url": "https://smm.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", St. Paul, MN",
-    "limit": 300
-  },
-  {
-    "name": "Orlando Science Center (Orlando, FL)",
-    "url": "https://www.osc.org/visit/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Orlando, FL",
-    "limit": 300
-  },
-  {
-    "name": "Museum of Discovery and Science (Fort Lauderdale, FL)",
-    "url": "https://mods.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Fort Lauderdale, FL",
-    "limit": 300
-  },
-  {
-    "name": "Glazer Children's Museum (Tampa, FL)",
-    "url": "https://glazermuseum.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Tampa, FL",
-    "limit": 300
-  },
-  {
-    "name": "Children's Museum of Phoenix (Phoenix, AZ)",
-    "url": "https://childrensmuseumofphoenix.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Phoenix, AZ",
-    "limit": 300
-  },
-  {
-    "name": "Sciencenter (Ithaca, NY)",
-    "url": "https://sciencenter.org/experiences/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Ithaca, NY",
-    "limit": 300
-  },
-  {
-    "name": "WonderLab Museum (Bloomington, IN)",
-    "url": "https://wonderlab.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Bloomington, IN",
-    "limit": 300
-  },
-  {
-    "name": "Phillip and Patricia Frost Museum of Science (Miami, FL)",
-    "url": "https://www.frostscience.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Miami, FL",
-    "limit": 300
-  },
-  {
-    "name": "Schlitz Audubon Nature Center (Milwaukee, WI)",
-    "url": "https://www.schlitzaudubon.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Milwaukee, WI",
-    "limit": 300
-  },
-  {
-    "name": "Schuylkill Center for Environmental Education (Philadelphia, PA)",
-    "url": "https://schuylkillcenter.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Philadelphia, PA",
-    "limit": 300
-  },
-  {
-    "name": "The Contemporary Austin (Austin, TX)",
-    "url": "https://thecontemporaryaustin.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Austin, TX",
-    "limit": 300
-  },
-  {
-    "name": "Racine Art Museum (Racine, WI)",
-    "url": "https://www.ramart.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Racine, WI",
-    "limit": 300
-  },
-  {
-    "name": "Artpace (San Antonio, TX)",
-    "url": "https://artpace.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", San Antonio, TX",
-    "limit": 300
-  },
-  {
-    "name": "Contemporary Art Museum St. Louis (St. Louis, MO)",
-    "url": "https://camstl.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", St. Louis, MO",
-    "limit": 300
-  },
-  {
-    "name": "Delaware Art Museum (Wilmington, DE)",
-    "url": "https://delart.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Wilmington, DE",
-    "limit": 300
-  },
-  {
-    "name": "Tucson Museum of Art (Tucson, AZ)",
-    "url": "https://www.tucsonmuseumofart.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Tucson, AZ",
-    "limit": 300
-  },
-  {
-    "name": "John Michael Kohler Arts Center (Sheboygan, WI)",
-    "url": "https://www.jmkac.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Sheboygan, WI",
-    "limit": 300
-  },
-  {
-    "name": "Taubman Museum of Art (Roanoke, VA)",
-    "url": "https://www.taubmanmuseum.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Roanoke, VA",
-    "limit": 300
-  },
-  {
-    "name": "Mint Museum (Charlotte, NC)",
-    "url": "https://www.mintmuseum.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Charlotte, NC",
-    "limit": 300
-  },
-  {
-    "name": "Tacoma Art Museum (Tacoma, WA)",
-    "url": "https://www.tacomaartmuseum.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Tacoma, WA",
-    "limit": 300
-  },
-  {
-    "name": "Portland Museum of Art (Portland, ME)",
-    "url": "https://www.portlandmuseum.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Portland, ME",
-    "limit": 300
-  },
-  {
-    "name": "Toronto Botanical Garden (Toronto, Canada)",
-    "url": "https://torontobotanicalgarden.ca/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Toronto, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Stanley Park Ecology Society (Vancouver, Canada)",
-    "url": "https://www.stanleyparkecology.ca/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Vancouver, Canada",
-    "limit": 300
-  },
-  {
-    "name": "FortWhyte Alive (Winnipeg, Canada)",
-    "url": "https://www.fortwhyte.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Winnipeg, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Allan Brooks Nature Centre (Vernon, Canada)",
-    "url": "https://abnc.ca/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Vernon, BC, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Friends of the Australian National Botanic Gardens (Canberra, Australia)",
-    "url": "https://friendsanbg.org.au/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Canberra, Australia",
-    "limit": 300
-  },
-  {
-    "name": "THEMUSEUM (Kitchener, Canada)",
-    "url": "https://themuseum.ca/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Kitchener, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Nutrien Wonderhub (Saskatoon, Canada)",
-    "url": "https://wonderhub.ca/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Saskatoon, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Techniquest (Cardiff, United Kingdom)",
-    "url": "https://www.techniquest.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Cardiff, United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "Wolverhampton Astronomical Society (Wolverhampton, United Kingdom)",
-    "url": "https://wolvas.org.uk/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Wolverhampton, United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "Ballarat Municipal Observatory (Ballarat, Australia)",
-    "url": "https://ballaratobservatory.org.au/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Ballarat, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Mount Burnett Observatory (Mount Burnett, Australia)",
-    "url": "https://mbo.org.au/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Mount Burnett, Victoria, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Auckland Astronomical Society (Auckland, New Zealand)",
-    "url": "https://www.astronomy.org.nz/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Auckland, New Zealand",
-    "limit": 300
-  },
-  {
-    "name": "University of Canterbury Library (Christchurch, New Zealand)",
-    "url": "https://canterbury.libcal.com/ical_subscribe.php?cid=1616",
-    "category": "learning",
-    "geocode_suffix": ", Christchurch, New Zealand",
-    "limit": 300
-  },
-  {
-    "name": "University of Waikato Library (Hamilton, New Zealand)",
-    "url": "https://waikato.libcal.com/ical_subscribe.php?cid=10863",
-    "category": "learning",
-    "geocode_suffix": ", Hamilton, New Zealand",
-    "limit": 300
-  },
-  {
-    "name": "Massey University Library (Palmerston North, New Zealand)",
-    "url": "https://massey.libcal.com/ical_subscribe.php?cid=2383",
-    "category": "learning",
-    "geocode_suffix": ", Palmerston North, New Zealand",
-    "limit": 300
-  },
-  {
-    "name": "National Library Board GoLibrary (Singapore)",
-    "url": "https://nlb.libcal.com/ical_subscribe.php?cid=11498",
-    "category": "community",
-    "geocode_suffix": ", Singapore",
-    "limit": 300
-  },
-  {
-    "name": "NUS Medical & Science Library (Singapore)",
-    "url": "https://nus.libcal.com/ical_subscribe.php?cid=11372",
-    "category": "learning",
-    "geocode_suffix": ", Singapore",
-    "limit": 300
-  },
-  {
-    "name": "NUS Central Library (Singapore)",
-    "url": "https://nus.libcal.com/ical_subscribe.php?cid=11414",
-    "category": "learning",
-    "geocode_suffix": ", Singapore",
-    "limit": 300
-  },
-  {
-    "name": "SMU Libraries (Singapore)",
-    "url": "https://smu-sg.libcal.com/ical_subscribe.php?cid=11382",
-    "category": "learning",
-    "geocode_suffix": ", Singapore",
-    "limit": 300
-  },
-  {
-    "name": "Bangalore International Centre (Bengaluru, India)",
-    "url": "https://bangaloreinternationalcentre.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Bengaluru, India",
-    "limit": 300
-  },
-  {
-    "name": "University of Johannesburg Library - Events (Johannesburg, South Africa)",
-    "url": "https://uj-ac-za.libcal.com/ical_subscribe.php?cid=16683",
-    "category": "learning",
-    "geocode_suffix": ", Johannesburg, South Africa",
-    "limit": 300
-  },
-  {
-    "name": "University of Johannesburg Library - Training (Johannesburg, South Africa)",
-    "url": "https://uj-ac-za.libcal.com/ical_subscribe.php?cid=16682",
-    "category": "learning",
-    "geocode_suffix": ", Johannesburg, South Africa",
-    "limit": 300
-  },
-  {
-    "name": "UCT Libraries (Cape Town, South Africa)",
-    "url": "https://uct.ac.za.libcal.com/ical_subscribe.php?cid=497",
-    "category": "learning",
-    "geocode_suffix": ", Cape Town, South Africa",
-    "limit": 300
-  },
-  {
-    "name": "Stellenbosch University Library (Stellenbosch, South Africa)",
-    "url": "https://sun.ac.za.libcal.com/ical_subscribe.php?cid=21790",
-    "category": "learning",
-    "geocode_suffix": ", Stellenbosch, South Africa",
-    "limit": 300
-  },
-  {
-    "name": "University of Zululand Library (Richards Bay, South Africa)",
-    "url": "https://unizulu.libcal.com/ical_subscribe.php?cid=17483",
-    "category": "learning",
-    "geocode_suffix": ", Richards Bay, South Africa",
-    "limit": 300
-  },
-  {
-    "name": "University of the Free State Library (Bloemfontein, South Africa)",
-    "url": "https://ufs.libcal.com/ical_subscribe.php?cid=20592",
-    "category": "learning",
-    "geocode_suffix": ", Bloemfontein, South Africa",
-    "limit": 300
-  },
-  {
-    "name": "Wits University Library (Johannesburg, South Africa)",
-    "url": "https://wits.ac.za.libcal.com/ical_subscribe.php?cid=16432",
-    "category": "learning",
-    "geocode_suffix": ", Johannesburg, South Africa",
-    "limit": 300
-  },
-  {
-    "name": "Demosphere Toulouse (Toulouse, France)",
-    "url": "https://toulouse.demosphere.net/events.ics",
-    "category": "community",
-    "geocode_suffix": ", Toulouse, France",
-    "limit": 300
-  },
-  {
-    "name": "Demosphere Paris - Ile-de-France (Paris, France)",
-    "url": "https://paris.demosphere.net/events.ics",
-    "category": "community",
-    "geocode_suffix": ", Paris, France",
-    "limit": 300
-  },
-  {
-    "name": "American Library in Paris (Paris, France)",
-    "url": "https://americanlibraryinparis.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "learning",
-    "geocode_suffix": ", Paris, France",
-    "limit": 300
-  },
-  {
-    "name": "Aix-Marseille Universite - Agenda culturel des BU (Marseille, France)",
-    "url": "https://univ-amu.libcal.com/ical_subscribe.php?cid=8791",
-    "category": "arts",
-    "geocode_suffix": ", Marseille, France",
-    "limit": 300
-  },
-  {
-    "name": "Universite de Bordeaux - Agenda des BU (Bordeaux, France)",
-    "url": "https://u-bordeaux.libcal.com/ical_subscribe.php?cid=8971",
-    "category": "learning",
-    "geocode_suffix": ", Bordeaux, France",
-    "limit": 300
-  },
-  {
-    "name": "Eintritt Frei Muenchen (Munich, Germany)",
-    "url": "https://www.eintrittfrei-muenchen.de/?ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", München, Germany",
-    "limit": 300
-  },
-  {
-    "name": "c-base Berlin (Berlin, Germany)",
-    "url": "https://www.c-base.org/calendar/exported/c-base-events.ics",
-    "category": "community",
-    "geocode_suffix": ", Berlin, Germany",
-    "limit": 300
-  },
-  {
-    "name": "Zinnschmelze Kulturzentrum (Hamburg, Germany)",
-    "url": "https://www.zinnschmelze.de/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Hamburg, Germany",
-    "limit": 300
-  },
-  {
-    "name": "Buergerzentrum Ehrenfeld BueZe (Cologne, Germany)",
-    "url": "https://www.bueze.de/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Köln, Germany",
-    "limit": 300
-  },
-  {
-    "name": "Stadtbibliothek Radolfzell (Radolfzell, Germany)",
-    "url": "https://radolfzell-stadtbibliothek.de/veranstaltungen/?ical=1",
-    "category": "learning",
-    "geocode_suffix": ", Radolfzell am Bodensee, Germany",
-    "limit": 300
-  },
-  {
-    "name": "VU Amsterdam University Library (Amsterdam)",
-    "url": "https://libcal.vu.nl/ical_subscribe.php?cid=7052",
-    "category": "learning",
-    "geocode_suffix": ", Vrije Universiteit Amsterdam, Netherlands",
-    "limit": 300
-  },
-  {
-    "name": "Tilburg University Library (Tilburg)",
-    "url": "https://tilburguniversity.libcal.com/ical_subscribe.php?cid=7924",
-    "category": "learning",
-    "geocode_suffix": ", Tilburg University, Netherlands",
-    "limit": 300
-  },
-  {
-    "name": "Mezrab (Amsterdam)",
-    "url": "https://mezrab.nl/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Amsterdam, Netherlands",
-    "limit": 300
-  },
-  {
-    "name": "OCCII (Amsterdam)",
-    "url": "https://occii.org/agenda/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Amsterdam, Netherlands",
-    "limit": 300
-  },
-  {
-    "name": "Universidad de Monterrey Events (Monterrey)",
-    "url": "https://udem.libcal.com/ical_subscribe.php?cid=16310",
-    "category": "learning",
-    "geocode_suffix": ", Universidad de Monterrey, San Pedro Garza Garcia, Mexico",
-    "limit": 300
-  },
-  {
-    "name": "Universidad Panamericana - Intercampus (Mexico City)",
-    "url": "https://up-mx.libcal.com/ical_subscribe.php?cid=18847",
-    "category": "learning",
-    "geocode_suffix": ", Universidad Panamericana, Mexico City, Mexico",
-    "limit": 300
-  },
-  {
-    "name": "Universidad Panamericana - Guadalajara",
-    "url": "https://up-mx.libcal.com/ical_subscribe.php?cid=19179",
-    "category": "learning",
-    "geocode_suffix": ", Universidad Panamericana, Guadalajara, Mexico",
-    "limit": 300
-  },
-  {
-    "name": "BASE Milano (Milan, Italy)",
-    "url": "https://base.milano.it/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Milano, Italy",
-    "limit": 300
-  },
-  {
-    "name": "Impact Hub Madrid (Madrid, Spain)",
-    "url": "https://madrid.impacthub.net/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Madrid, Spain",
-    "limit": 300
-  },
-  {
-    "name": "HKU Event Calendar (Hong Kong)",
-    "url": "https://calendar.hku.hk/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "learning",
-    "geocode_suffix": ", Hong Kong",
-    "limit": 300
-  },
-  {
-    "name": "The Helena May (Hong Kong)",
-    "url": "https://www.helenamay.com/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Hong Kong",
-    "limit": 300
-  },
-  {
-    "name": "Dubai Astronomy Group (Dubai)",
-    "url": "https://dubaiastronomy.com/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Dubai",
-    "limit": 300
-  },
-  {
-    "name": "AUS University Library (Sharjah)",
-    "url": "https://aus.libcal.com/ical_subscribe.php?src=p&cid=21902",
-    "category": "learning",
-    "geocode_suffix": ", Sharjah",
-    "limit": 300
-  },
-  {
-    "name": "University of Oslo (Oslo, Norway)",
-    "url": "https://www.uio.no/om/aktuelt/arrangementer/?vrtx=ical",
-    "category": "learning",
-    "geocode_suffix": ", Oslo, Norway",
-    "limit": 300
-  },
-  {
-    "name": "Goteborgs Ornitologiska Forening (Gothenburg, Sweden)",
-    "url": "https://gof.nu/?post_type=tribe_events&ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Gothenburg, Sweden",
-    "limit": 300
-  },
-  {
-    "name": "Sigtunastiftelsen (Sigtuna, Sweden)",
-    "url": "https://sigtunastiftelsen.se/?post_type=tribe_events&ical=1",
-    "category": "community",
-    "geocode_suffix": ", Sigtuna, Sweden",
-    "limit": 300
-  },
-  {
-    "name": "Merikarvia Municipality (Merikarvia, Finland)",
-    "url": "https://merikarvia.fi/tapahtumat/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Merikarvia, Finland",
-    "limit": 300
-  },
-  {
-    "name": "Kulturstedet Lindegaarden (Kgs. Lyngby, Denmark)",
-    "url": "https://kulturstedetlindegaarden.dk/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Kgs. Lyngby, Denmark",
-    "limit": 300
-  },
-  {
-    "name": "Alliance Francaise de Chandigarh (Chandigarh, India)",
-    "url": "https://chandigarh.afindia.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Chandigarh, India",
-    "limit": 300
-  },
-  {
-    "name": "Alliance Francaise de Bangalore (Bengaluru, India)",
-    "url": "https://bangalore.afindia.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Bengaluru, India",
-    "limit": 300
-  },
-  {
-    "name": "Alliance Francaise de Bhopal (Bhopal, India)",
-    "url": "https://bhopal.afindia.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Bhopal, India",
-    "limit": 300
-  },
-  {
-    "name": "Australian City Farms & Community Gardens Network (Australia)",
-    "url": "https://communitygarden.org.au/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Australia",
-    "limit": 300
-  },
-  {
-    "name": "Permaculture Victoria (Melbourne, Australia)",
-    "url": "https://permaculturevictoria.org.au/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Victoria, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Footscray Community Arts (Melbourne, Australia)",
-    "url": "https://footscrayarts.com/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Footscray, VIC, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Keep New Zealand Beautiful (New Zealand)",
-    "url": "https://www.knzb.org.nz/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", New Zealand",
-    "limit": 300
-  },
-  {
-    "name": "Emerald Tavern Games & Cafe (Austin, TX)",
-    "url": "https://emeraldtaverngames.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Austin, TX",
-    "limit": 300
-  },
-  {
-    "name": "Across the Board Game Cafe (Winnipeg, Canada)",
-    "url": "https://acrosstheboardcafe.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Winnipeg, Manitoba, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Well Played Board Game Cafe (Asheville, NC)",
-    "url": "https://wellplayedasheville.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Asheville, NC",
-    "limit": 300
-  },
-  {
-    "name": "Sword and Board (Ukiah, CA)",
-    "url": "https://swordandboard.net/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Ukiah, CA",
-    "limit": 300
-  },
-  {
-    "name": "Good Games (Australia)",
-    "url": "https://events.goodgames.com.au/events/list/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Australia",
-    "limit": 300
-  },
-  {
-    "name": "Granville Island Events (Vancouver)",
-    "url": "https://granvilleisland.com/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Granville Island, Vancouver, BC, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Eastern Market Events (Detroit)",
-    "url": "https://easternmarket.org/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Eastern Market, Detroit, MI",
-    "limit": 300
-  },
-  {
-    "name": "Adelaide Central Market Events",
-    "url": "https://adelaidecentralmarket.com.au/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Adelaide Central Market, Adelaide, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Dallas Farmers Market Events",
-    "url": "https://dallasfarmersmarket.org/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Dallas Farmers Market, Dallas, TX",
-    "limit": 300
-  },
-  {
-    "name": "Union Market Events (Washington DC)",
-    "url": "https://unionmarketdc.com/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Union Market, Washington, DC",
-    "limit": 300
-  },
-  {
-    "name": "Portland Farmers Market Events",
-    "url": "https://www.portlandfarmersmarket.org/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Portland, OR",
-    "limit": 300
-  },
-  {
-    "name": "Greater Chicago Food Depository Events",
-    "url": "https://www.chicagosfoodbank.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Chicago, IL",
-    "limit": 300
-  },
-  {
-    "name": "Feeding America Eastern Wisconsin (Milwaukee)",
-    "url": "https://feedingamericawi.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Milwaukee, WI",
-    "limit": 300
-  },
-  {
-    "name": "Food Bank For New York City",
-    "url": "https://foodbanknyc.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", New York, NY",
-    "limit": 300
-  },
-  {
-    "name": "Houston Food Bank",
-    "url": "https://houstonfoodbank.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Houston, TX",
-    "limit": 300
-  },
-  {
-    "name": "Harvesters Community Food Network (Kansas City)",
-    "url": "https://harvesters.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Kansas City, MO",
-    "limit": 300
-  },
-  {
-    "name": "Maryland Food Bank (Baltimore)",
-    "url": "https://mdfoodbank.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Baltimore, MD",
-    "limit": 300
-  },
-  {
-    "name": "Regional Food Bank of Oklahoma (Oklahoma City)",
-    "url": "https://rfbo.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Oklahoma City, OK",
-    "limit": 300
-  },
-  {
-    "name": "Blue Ridge Area Food Bank (Verona, VA)",
-    "url": "https://brafb.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Verona, VA",
-    "limit": 300
-  },
-  {
-    "name": "Good Shepherd Food Bank (Auburn, ME)",
-    "url": "https://gsfb.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Auburn, ME",
-    "limit": 300
-  },
-  {
-    "name": "Idaho Foodbank (Boise)",
-    "url": "https://idahofoodbank.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Boise, ID",
-    "limit": 300
-  },
-  {
-    "name": "San Antonio Food Bank",
-    "url": "https://safoodbank.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", San Antonio, TX",
-    "limit": 300
-  },
-  {
-    "name": "Tarrant Area Food Bank (Fort Worth)",
-    "url": "https://tafb.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Fort Worth, TX",
-    "limit": 300
-  },
-  {
-    "name": "Lowcountry Food Bank (Charleston, SC)",
-    "url": "https://lowcountryfoodbank.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Charleston, SC",
-    "limit": 300
-  },
-  {
-    "name": "Second Harvest Food Bank of Central Florida (Orlando)",
-    "url": "https://feedhopenow.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Orlando, FL",
-    "limit": 300
-  },
-  {
-    "name": "Great Lakes Brewing Company (Cleveland)",
-    "url": "https://greatlakesbrewing.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Cleveland, OH",
-    "limit": 300
-  },
-  {
-    "name": "Russian River Brewing (Santa Rosa, CA)",
-    "url": "https://russianriverbrewing.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Santa Rosa, CA",
-    "limit": 300
-  },
-  {
-    "name": "Highland Brewing (Asheville, NC)",
-    "url": "https://highlandbrewing.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Asheville, NC",
-    "limit": 300
-  },
-  {
-    "name": "Creature Comforts Brewing (Athens, GA)",
-    "url": "https://creaturecomfortsbeer.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Athens, GA",
-    "limit": 300
-  },
-  {
-    "name": "Bissell Brothers Brewing (Portland, ME)",
-    "url": "https://bissellbrothers.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Portland, ME",
-    "limit": 300
-  },
-  {
-    "name": "Fiddlehead Brewing (Shelburne, VT)",
-    "url": "https://fiddleheadbrewing.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Shelburne, VT",
-    "limit": 300
-  },
-  {
-    "name": "Surly Brewing (Minneapolis)",
-    "url": "https://surlybrewing.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Minneapolis, MN",
-    "limit": 300
-  },
-  {
-    "name": "Indeed Brewing (Minneapolis)",
-    "url": "https://indeedbrewing.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Minneapolis, MN",
-    "limit": 300
-  },
-  {
-    "name": "Rhinegeist Brewery (Cincinnati)",
-    "url": "https://rhinegeist.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Cincinnati, OH",
-    "limit": 300
-  },
-  {
-    "name": "Perrin Brewing (Comstock Park, MI)",
-    "url": "https://perrinbrewing.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Comstock Park, MI",
-    "limit": 300
-  },
-  {
-    "name": "Budd Dairy Food Hall (Columbus, OH)",
-    "url": "https://budddairyfoodhall.com/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Columbus, OH",
-    "limit": 300
-  },
-  {
-    "name": "Industry City Food Hall (Brooklyn)",
-    "url": "https://industrycity.com/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Brooklyn, NY",
-    "limit": 300
-  },
-  {
-    "name": "Gansevoort Market (New York)",
-    "url": "https://gansmarket.com/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", New York, NY",
-    "limit": 300
-  },
-  {
-    "name": "La Cosecha Market (Washington DC)",
-    "url": "https://lacosechadc.com/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Washington, DC",
-    "limit": 300
-  },
-  {
-    "name": "Eat Street Northshore (Brisbane)",
-    "url": "https://eatstreetnorthshore.com.au/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Brisbane, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Capital Region Farmers Market (Canberra)",
-    "url": "https://capitalregionfarmersmarket.com.au/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Canberra, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Ottawa Farmers Market",
-    "url": "https://ottawafarmersmarket.ca/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Ottawa, ON, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Mathallen Oslo Food Hall",
-    "url": "https://mathallenoslo.no/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Mathallen, Oslo, Norway",
-    "limit": 300
-  },
-  {
-    "name": "Margaret River Wine Region Events (Australia)",
-    "url": "https://margaretriver.wine/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Margaret River, WA, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Aldeburgh Food and Drink Festival (Suffolk)",
-    "url": "https://aldeburghfoodanddrink.co.uk/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Snape, Suffolk, UK",
-    "limit": 300
-  },
-  {
-    "name": "Ginger and Spice Festival (Market Drayton)",
-    "url": "https://gingerandspicefest.co.uk/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Market Drayton, Shropshire, UK",
-    "limit": 300
-  },
-  {
-    "name": "The Farm Cookery School (Wiltshire)",
-    "url": "https://thefarmcookeryschool.co.uk/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Bromham, Wiltshire, UK",
-    "limit": 300
-  },
-  {
-    "name": "Blackfriars Cookery School (Newcastle upon Tyne)",
-    "url": "https://blackfriarsrestaurant.co.uk/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Newcastle upon Tyne, UK",
-    "limit": 300
-  },
-  {
-    "name": "Philleigh Way Cookery School (Cornwall)",
-    "url": "https://philleighway.co.uk/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Philleigh, Truro, Cornwall, UK",
-    "limit": 300
-  },
-  {
-    "name": "Food Museum (Stowmarket, Suffolk)",
-    "url": "https://foodmuseum.org.uk/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Stowmarket, Suffolk, UK",
-    "limit": 300
-  },
-  {
-    "name": "Hampshire Farmers Markets (UK)",
-    "url": "https://hampshirefarmersmarkets.co.uk/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Hampshire, UK",
-    "limit": 300
-  },
-  {
-    "name": "R.S.H Artisan Markets (Yorkshire)",
-    "url": "https://rshartisanmarket.co.uk/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Yorkshire, UK",
-    "limit": 300
-  },
-  {
-    "name": "Harborough Market (Leicestershire)",
-    "url": "https://www.harboroughmarket.co.uk/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Market Harborough, Leicestershire, UK",
-    "limit": 300
-  },
-  {
-    "name": "WGC Market (Welwyn Garden City)",
-    "url": "https://wgcmarket.co.uk/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Welwyn Garden City, Hertfordshire, UK",
-    "limit": 300
-  },
-  {
-    "name": "Woodstock Farmers Market (Oxfordshire)",
-    "url": "https://www.wutw.co.uk/whats-on/category/markets/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Woodstock, Oxfordshire, UK",
-    "limit": 300
-  },
-  {
-    "name": "Nourish Knoxville Farmers Markets (Knoxville, TN)",
-    "url": "https://nourishknoxville.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "market",
-    "geocode_suffix": ", Knoxville, TN",
-    "limit": 300
-  },
-  {
-    "name": "French Market District (New Orleans)",
-    "url": "https://frenchmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "market",
-    "geocode_suffix": ", French Market, New Orleans, LA",
-    "limit": 300
-  },
-  {
-    "name": "ASAP Appalachian Grown Markets (Asheville, NC)",
-    "url": "https://asapconnections.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "market",
-    "geocode_suffix": ", Asheville, NC",
-    "limit": 300
-  },
-  {
-    "name": "Atherton Mill and Market (Charlotte, NC)",
-    "url": "https://athertonmillandmarket.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "market",
-    "geocode_suffix": ", Charlotte, NC",
-    "limit": 300
-  },
-  {
-    "name": "Bristol Brewing (Colorado Springs)",
-    "url": "https://bristolbrewing.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Colorado Springs, CO",
-    "limit": 300
-  },
-  {
-    "name": "Santa Fe Brewing (New Mexico)",
-    "url": "https://santafebrewing.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Santa Fe, NM",
-    "limit": 300
-  },
-  {
-    "name": "Amador Vintners Wine Events (California)",
-    "url": "https://amadorwine.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Amador County, CA",
-    "limit": 300
-  },
-  {
-    "name": "El Dorado Wines Events (California)",
-    "url": "https://eldoradowines.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", El Dorado County, CA",
-    "limit": 300
-  },
-  {
-    "name": "Oregon Wine Board Events",
-    "url": "https://oregonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Oregon",
-    "limit": 300
-  },
-  {
-    "name": "Washington State Wine Events",
-    "url": "https://washingtonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Washington",
-    "limit": 300
-  },
-  {
-    "name": "Adelaide Showground Farmers Market",
-    "url": "https://adelaidefarmersmarket.com.au/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Adelaide, Australia",
-    "limit": 300
-  },
-  {
-    "name": "Vancouver Farmers Markets (BC)",
-    "url": "https://vancouverfarmersmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "market",
-    "geocode_suffix": ", Vancouver, BC, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Lonsdale Quay Market (North Vancouver)",
-    "url": "https://lonsdalequay.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "market",
-    "geocode_suffix": ", North Vancouver, BC, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Devour! The Food Film Fest (Wolfville, NS)",
-    "url": "https://devourfest.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Wolfville, NS, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Wine Growers British Columbia",
-    "url": "https://www.winebc.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Okanagan, BC, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Berlin Food Week (Germany)",
-    "url": "https://www.berlinfoodweek.de/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Berlin, Germany",
-    "limit": 300
-  },
-  {
-    "name": "Pro Loco Faenza sagre e mercati (Italy)",
-    "url": "https://www.prolocofaenza.it/eventi/categoria/sagre-e-mercati/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Faenza, Italy",
-    "limit": 300
-  },
-  {
-    "name": "Alla Massor mat och dryck (Sweden)",
-    "url": "https://www.allamassor.se/events/category/mat-dryck/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Sweden",
-    "limit": 300
-  },
-  {
-    "name": "Voedselbos Lingehout (Gelderland, Netherlands)",
-    "url": "https://voedselboslingehout.nl/agenda/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Gelderland, Netherlands",
-    "limit": 300
-  },
-  {
-    "name": "British Cider Week (Devon, UK)",
-    "url": "https://britishciderweek.org.uk/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", United Kingdom",
-    "limit": 300
-  },
-  {
-    "name": "Cromane Seafest (Co. Kerry, Ireland)",
-    "url": "https://www.cromaneseafest.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Cromane, Co. Kerry, Ireland",
-    "limit": 300
-  },
-  {
-    "name": "Clitheroe Food Festival (Clitheroe, UK)",
-    "url": "https://www.clitheroefoodfestival.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Clitheroe, Lancashire, UK",
-    "limit": 300
-  },
-  {
-    "name": "Santa Fe Public Library",
-    "url": "https://santafelibrary.org/events/feed/ical/",
-    "category": "learning",
-    "geocode_suffix": ", Santa Fe, NM",
-    "limit": 1500
-  },
-  {
-    "name": "Fletcher Free Library (Burlington VT)",
-    "url": "https://fletcherfree.libcal.com/ical_subscribe.php?cid=21587",
-    "category": "learning",
-    "geocode_suffix": ", Burlington, VT",
-    "limit": 400
-  },
-  {
-    "name": "Fresno County Public Library",
-    "url": "https://fresnolibrary.libcal.com/ical_subscribe.php?cid=11003",
-    "category": "learning",
-    "geocode_suffix": ", Fresno, CA",
-    "limit": 300
-  },
-  {
-    "name": "Chattanooga Public Library",
-    "url": "https://chattlibrary.org/events/?ical=1",
-    "category": "learning",
-    "geocode_suffix": ", Chattanooga, TN",
-    "limit": 300
-  },
-  {
-    "name": "Buffalo Niagara Waterkeeper",
-    "url": "https://bnwaterkeeper.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", Buffalo, NY",
-    "limit": 300
-  },
-  {
-    "name": "Casey Trees (DC)",
-    "url": "https://caseytrees.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", Washington, DC",
-    "limit": 300
-  },
-  {
-    "name": "Audubon Society of Portland",
-    "url": "https://audubonportland.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", Portland, OR",
-    "limit": 300
-  }
+ {
+  "name": "Seattle City Calendar",
+  "url": "https://www.trumba.com/calendars/seattlegov-city-wide.ics",
+  "category": "community",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 500
+ },
+ {
+  "name": "Seattle Parks and Recreation",
+  "url": "https://www.trumba.com/calendars/parks-recreation.ics",
+  "category": "community",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 500
+ },
+ {
+  "name": "UW Seattle Campus Events",
+  "url": "https://www.trumba.com/calendars/sea_campus.ics",
+  "category": "learning",
+  "geocode_suffix": ", University of Washington, Seattle, WA",
+  "limit": 1000
+ },
+ {
+  "name": "UW College of Arts and Sciences",
+  "url": "https://www.trumba.com/calendars/sea_artsci.ics",
+  "category": "learning",
+  "geocode_suffix": ", University of Washington, Seattle, WA",
+  "limit": 400
+ },
+ {
+  "name": "UW Libraries, Seattle",
+  "url": "https://www.trumba.com/calendars/sea_lib.ics",
+  "category": "learning",
+  "geocode_suffix": ", University of Washington, Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "Town Hall Seattle",
+  "url": "https://townhallseattle.org/events/?ical=1",
+  "category": "learning",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 200
+ },
+ {
+  "name": "Fairfax County Public Library (DC metro)",
+  "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?cid=6524",
+  "category": "learning",
+  "geocode_suffix": ", Fairfax County, VA",
+  "limit": 300
+ },
+ {
+  "name": "Arlington Public Library (DC metro)",
+  "url": "https://arlingtonva.libcal.com/ical_subscribe.php?cid=12881",
+  "category": "learning",
+  "geocode_suffix": ", Arlington, VA",
+  "limit": 300
+ },
+ {
+  "name": "San Antonio City Calendar",
+  "url": "https://www.trumba.com/calendars/sanantonio.ics",
+  "category": "community",
+  "geocode_suffix": ", San Antonio, TX",
+  "limit": 700
+ },
+ {
+  "name": "City of Long Beach Events (Los Angeles)",
+  "url": "https://www.trumba.com/calendars/homepagesidebarevents.ics",
+  "category": "community",
+  "geocode_suffix": ", Los Angeles, CA",
+  "limit": 300
+ },
+ {
+  "name": "Beverly Hills Public Library Events (Los Angeles)",
+  "url": "https://bhpl.libcal.com/ical_subscribe.php?cid=13598",
+  "category": "learning",
+  "geocode_suffix": ", Los Angeles, CA",
+  "limit": 500
+ },
+ {
+  "name": "Hermann Park Conservancy Events (Houston)",
+  "url": "https://hermannpark.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Houston, TX",
+  "limit": 300
+ },
+ {
+  "name": "City of Dallas Parks & Recreation (Dallas)",
+  "url": "https://www.dallasparks.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "category": "community",
+  "geocode_suffix": ", Dallas, TX",
+  "limit": 300
+ },
+ {
+  "name": "Dallas Office of Arts and Culture (Dallas)",
+  "url": "https://dallasculture.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Dallas, TX",
+  "limit": 300
+ },
+ {
+  "name": "Arlington Public Library Events (Dallas)",
+  "url": "https://arlingtontx.libcal.com/ical_subscribe.php?cid=20065",
+  "category": "learning",
+  "geocode_suffix": ", Dallas, TX",
+  "limit": 300
+ },
+ {
+  "name": "Center City District Events (Philadelphia)",
+  "url": "https://centercityphila.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Philadelphia, PA",
+  "limit": 300
+ },
+ {
+  "name": "Reading Terminal Market Events (Philadelphia)",
+  "url": "https://readingterminalmarket.org/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Philadelphia, PA",
+  "limit": 300
+ },
+ {
+  "name": "Chester County Library System Events (Philadelphia)",
+  "url": "https://ccls.libcal.com/ical_subscribe.php?cid=12583",
+  "category": "learning",
+  "geocode_suffix": ", Philadelphia, PA",
+  "limit": 500
+ },
+ {
+  "name": "Montgomery County-Norristown Public Library (Philadelphia)",
+  "url": "https://mnl.libcal.com/ical_subscribe.php?cid=19360",
+  "category": "learning",
+  "geocode_suffix": ", Philadelphia, PA",
+  "limit": 300
+ },
+ {
+  "name": "Phoenix Local Events (Phoenix)",
+  "url": "https://phoenixlocalevents.com/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Phoenix, AZ",
+  "limit": 300
+ },
+ {
+  "name": "Phoenix Public Library - Burton Barr Central (Phoenix)",
+  "url": "https://calendar.phoenixpubliclibrary.org/ical_subscribe.php?cid=15413",
+  "category": "learning",
+  "geocode_suffix": ", Phoenix, AZ",
+  "limit": 300
+ },
+ {
+  "name": "Freedom Trail Foundation Events (Boston)",
+  "url": "https://www.trumba.com/calendars/freedom_trail_foundation_events.ics",
+  "category": "community",
+  "geocode_suffix": ", Boston, MA",
+  "limit": 300
+ },
+ {
+  "name": "Public Library of Brookline Events (Boston)",
+  "url": "https://brooklinelibrary.libcal.com/ical_subscribe.php?cid=20102",
+  "category": "learning",
+  "geocode_suffix": ", Boston, MA",
+  "limit": 600
+ },
+ {
+  "name": "Ponce City Market Events (Atlanta)",
+  "url": "https://poncecitymarket.com/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Atlanta, GA",
+  "limit": 300
+ },
+ {
+  "name": "Georgia Tech Library Programming (Atlanta)",
+  "url": "https://gatech.libcal.com/ical_subscribe.php?cid=19127",
+  "category": "learning",
+  "geocode_suffix": ", Atlanta, GA",
+  "limit": 300
+ },
+ {
+  "name": "City of Miami Beach Events (Miami)",
+  "url": "https://events.miamibeachfl.gov/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Miami, FL",
+  "limit": 300
+ },
+ {
+  "name": "FIU Library Events (Miami)",
+  "url": "https://fiu.libcal.com/ical_subscribe.php?cid=15594",
+  "category": "learning",
+  "geocode_suffix": ", Miami, FL",
+  "limit": 300
+ },
+ {
+  "name": "Denver Public Library - Programs & Events (Denver)",
+  "url": "https://denverlibrary.libcal.com/ical_subscribe.php?cid=20634",
+  "category": "learning",
+  "geocode_suffix": ", Denver, CO",
+  "limit": 300
+ },
+ {
+  "name": "Parker Recreation & Community Events (Denver)",
+  "url": "https://www.parkerrec.com/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar",
+  "category": "community",
+  "geocode_suffix": ", Denver, CO",
+  "limit": 300
+ },
+ {
+  "name": "Beaverton City Library Events (Portland)",
+  "url": "https://www.beavertonlibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "category": "learning",
+  "geocode_suffix": ", Portland, OR",
+  "limit": 300
+ },
+ {
+  "name": "Oregon City Community & Recreation (Portland)",
+  "url": "https://www.orcity.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "category": "community",
+  "geocode_suffix": ", Portland, OR",
+  "limit": 500
+ },
+ {
+  "name": "Austin Community College Library Events (Austin)",
+  "url": "https://austincc.libcal.com/ical_subscribe.php?cid=22696",
+  "category": "learning",
+  "geocode_suffix": ", Austin, TX",
+  "limit": 300
+ },
+ {
+  "name": "Cedar Park City Events (Austin)",
+  "url": "https://www.cedarparktexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "category": "community",
+  "geocode_suffix": ", Austin, TX",
+  "limit": 300
+ },
+ {
+  "name": "Gaston County Public Library Programs (Charlotte)",
+  "url": "https://gastonlibrary.libcal.com/ical_subscribe.php?cid=4371",
+  "category": "learning",
+  "geocode_suffix": ", Charlotte, NC",
+  "limit": 300
+ },
+ {
+  "name": "Union County Public Library Programs (Charlotte)",
+  "url": "https://union-nc.libcal.com/ical_subscribe.php?cid=21886",
+  "category": "learning",
+  "geocode_suffix": ", Charlotte, NC",
+  "limit": 500
+ },
+ {
+  "name": "Town of Huntersville Events (Charlotte)",
+  "url": "https://www.huntersville.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "category": "community",
+  "geocode_suffix": ", Charlotte, NC",
+  "limit": 300
+ },
+ {
+  "name": "Minneapolis Park & Recreation Board (Minneapolis)",
+  "url": "https://www.minneapolisparks.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Minneapolis, MN",
+  "limit": 300
+ },
+ {
+  "name": "UMN Libraries - Innovation & Technology (Minneapolis)",
+  "url": "https://umn.libcal.com/ical_subscribe.php?cid=12437",
+  "category": "learning",
+  "geocode_suffix": ", Minneapolis, MN",
+  "limit": 300
+ },
+ {
+  "name": "UMN Libraries - Workshops (Minneapolis)",
+  "url": "https://umn.libcal.com/ical_subscribe.php?cid=3064",
+  "category": "learning",
+  "geocode_suffix": ", Minneapolis, MN",
+  "limit": 300
+ },
+ {
+  "name": "University of Pittsburgh Library System Events (Pittsburgh)",
+  "url": "https://pitt.libcal.com/ical_subscribe.php?cid=2274",
+  "category": "learning",
+  "geocode_suffix": ", Pittsburgh, PA",
+  "limit": 300
+ },
+ {
+  "name": "Pittsburgh Parks Conservancy (Pittsburgh)",
+  "url": "https://pittsburghparks.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Pittsburgh, PA",
+  "limit": 300
+ },
+ {
+  "name": "Enoch Pratt Free Library (Baltimore)",
+  "url": "https://calendar.prattlibrary.org/calendar.ics",
+  "category": "learning",
+  "geocode_suffix": ", Baltimore, MD",
+  "limit": 2500
+ },
+ {
+  "name": "Baltimore Magazine Events Calendar (Baltimore)",
+  "url": "https://events.baltimoremagazine.com/calendar.ics",
+  "category": "community",
+  "geocode_suffix": ", Baltimore, MD",
+  "limit": 2200
+ },
+ {
+  "name": "University of Exeter Library (Exeter, United Kingdom)",
+  "url": "https://exeter-uk.libcal.com/ical_subscribe.php?cid=8108",
+  "category": "learning",
+  "geocode_suffix": ", Exeter, United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "London South Bank University Library (London, United Kingdom)",
+  "url": "https://lsbu-uk.libcal.com/ical_subscribe.php?cid=6613",
+  "category": "learning",
+  "geocode_suffix": ", London, United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "University of Law Library Events (London, United Kingdom)",
+  "url": "https://law-uk.libcal.com/ical_subscribe.php?cid=7896",
+  "category": "learning",
+  "geocode_suffix": ", London, United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "University of Leeds Skills@Library Workshops (Leeds, United Kingdom)",
+  "url": "https://leeds.libcal.com/ical_subscribe.php?cid=8882",
+  "category": "learning",
+  "geocode_suffix": ", Leeds, United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "LSBU Library Wellbeing (London, United Kingdom)",
+  "url": "https://lsbu-uk.libcal.com/ical_subscribe.php?cid=8278",
+  "category": "learning",
+  "geocode_suffix": ", London, United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "University of Leeds Researcher Skills (Leeds, United Kingdom)",
+  "url": "https://leeds.libcal.com/ical_subscribe.php?cid=8929",
+  "category": "learning",
+  "geocode_suffix": ", Leeds, United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "University of Leeds Public Events (Leeds, United Kingdom)",
+  "url": "https://leeds.libcal.com/ical_subscribe.php?cid=9035",
+  "category": "learning",
+  "geocode_suffix": ", Leeds, United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "Lancaster University Library (Lancaster, United Kingdom)",
+  "url": "https://lancaster-uk.libcal.com/ical_subscribe.php?cid=718",
+  "category": "learning",
+  "geocode_suffix": ", Lancaster, United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "Winnipeg Public Library (Winnipeg, Canada)",
+  "url": "https://wpl.libcal.com/ical_subscribe.php?cid=1677",
+  "category": "learning",
+  "geocode_suffix": ", Winnipeg, Canada",
+  "limit": 300
+ },
+ {
+  "name": "UBC Library (Vancouver, Canada)",
+  "url": "https://libcal.library.ubc.ca/ical_subscribe.php?cid=7544",
+  "category": "learning",
+  "geocode_suffix": ", University of British Columbia, Vancouver, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Western Sydney University Library (Sydney, Australia)",
+  "url": "https://westernsydney.libcal.com/ical_subscribe.php?cid=10895",
+  "category": "learning",
+  "geocode_suffix": ", Western Sydney University, Sydney, Australia",
+  "limit": 300
+ },
+ {
+  "name": "University of Sydney Library (Sydney, Australia)",
+  "url": "https://usyd.libcal.com/ical_subscribe.php?cid=3560",
+  "category": "learning",
+  "geocode_suffix": ", University of Sydney, Sydney, Australia",
+  "limit": 300
+ },
+ {
+  "name": "University of Canberra Library (Canberra, Australia)",
+  "url": "https://canberra.libcal.com/ical_subscribe.php?cid=10851",
+  "category": "learning",
+  "geocode_suffix": ", University of Canberra, Canberra, Australia",
+  "limit": 300
+ },
+ {
+  "name": "University of Tasmania Library (Hobart, Australia)",
+  "url": "https://utas.libcal.com/ical_subscribe.php?cid=7380",
+  "category": "learning",
+  "geocode_suffix": ", University of Tasmania, Hobart, Australia",
+  "limit": 300
+ },
+ {
+  "name": "University of Galway Library (Galway, Ireland)",
+  "url": "https://universityofgalway.libcal.com/ical_subscribe.php?cid=8158",
+  "category": "learning",
+  "geocode_suffix": ", University of Galway, Galway, Ireland",
+  "limit": 300
+ },
+ {
+  "name": "University of Limerick - Glucksman Library (Limerick, Ireland)",
+  "url": "https://ul.libcal.com/ical_subscribe.php?cid=6956",
+  "category": "learning",
+  "geocode_suffix": ", University of Limerick, Limerick, Ireland",
+  "limit": 300
+ },
+ {
+  "name": "Atlantic Technological University Library (Sligo, Ireland)",
+  "url": "https://atlantictu.libcal.com/ical_subscribe.php?cid=6653",
+  "category": "learning",
+  "geocode_suffix": ", Atlantic Technological University, Sligo, Ireland",
+  "limit": 300
+ },
+ {
+  "name": "Love Wimbledon BID (Wimbledon, London, UK)",
+  "url": "https://lovewimbledon.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Wimbledon, London, UK",
+  "limit": 300
+ },
+ {
+  "name": "Godalming Town Council (Godalming, UK)",
+  "url": "https://godalming-tc.gov.uk/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Godalming, UK",
+  "limit": 300
+ },
+ {
+  "name": "Attenborough Arts Centre (Leicester, UK)",
+  "url": "https://attenborougharts.com/whats-on/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Leicester, UK",
+  "limit": 300
+ },
+ {
+  "name": "Visit Wicklow (Wicklow, Ireland)",
+  "url": "https://visitwicklow.ie/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Wicklow, Ireland",
+  "limit": 300
+ },
+ {
+  "name": "The Civic Theatre (Tallaght, Dublin, Ireland)",
+  "url": "https://www.civictheatre.ie/whats-on/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Tallaght, Dublin, Ireland",
+  "limit": 300
+ },
+ {
+  "name": "Riverbank Arts Centre (Newbridge, Ireland)",
+  "url": "https://www.riverbank.ie/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Newbridge, Ireland",
+  "limit": 300
+ },
+ {
+  "name": "Old Strathcona BIA (Edmonton, Canada)",
+  "url": "https://oldstrathcona.ca/events-full/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Edmonton, Canada",
+  "limit": 300
+ },
+ {
+  "name": "West End BIA (Vancouver, Canada)",
+  "url": "https://westendbia.com/events/list/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Vancouver, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Downtown Winnipeg BIZ (Winnipeg, Canada)",
+  "url": "https://downtownwinnipegbiz.com/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Winnipeg, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Gardiner Museum (Toronto, Canada)",
+  "url": "https://gardinermuseum.on.ca/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Toronto, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Textile Museum of Canada (Toronto, Canada)",
+  "url": "https://textilemuseum.ca/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Toronto, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Meat Market (Melbourne, Australia)",
+  "url": "https://meatmarket.org.au/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Melbourne, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Castlemaine State Festival (Castlemaine, Australia)",
+  "url": "https://castlemainefestival.com.au/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Castlemaine, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Prospect Park Alliance (Brooklyn, NY)",
+  "url": "https://www.prospectpark.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Brooklyn, NY",
+  "limit": 300
+ },
+ {
+  "name": "Piedmont Park Conservancy (Atlanta, GA)",
+  "url": "https://www.piedmontpark.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Atlanta, GA",
+  "limit": 300
+ },
+ {
+  "name": "Mill River Park Collaborative (Stamford, CT)",
+  "url": "https://millriverpark.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Stamford, CT",
+  "limit": 300
+ },
+ {
+  "name": "Riverside Park Conservancy (New York, NY)",
+  "url": "https://riversideparknyc.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", New York, NY",
+  "limit": 300
+ },
+ {
+  "name": "Scenic Hudson (Poughkeepsie, NY)",
+  "url": "https://scenichudson.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Poughkeepsie, NY",
+  "limit": 300
+ },
+ {
+  "name": "Kestrel Land Trust (Amherst, MA)",
+  "url": "https://kestreltrust.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Amherst, MA",
+  "limit": 300
+ },
+ {
+  "name": "City Parks Foundation (New York, NY)",
+  "url": "https://www.cityparksfoundation.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", New York, NY",
+  "limit": 300
+ },
+ {
+  "name": "Forterra (Seattle, WA)",
+  "url": "https://forterra.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "Houston Arboretum & Nature Center (Houston, TX)",
+  "url": "https://www.houstonarboretum.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Houston, TX",
+  "limit": 300
+ },
+ {
+  "name": "Lady Bird Johnson Wildflower Center (Austin, TX)",
+  "url": "https://www.wildflower.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Austin, TX",
+  "limit": 300
+ },
+ {
+  "name": "Saint Paul Audubon Society (St. Paul, MN)",
+  "url": "https://www.saintpaulaudubon.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", St. Paul, MN",
+  "limit": 300
+ },
+ {
+  "name": "Neponset River Watershed Association (Canton, MA)",
+  "url": "https://www.neponset.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Canton, MA",
+  "limit": 300
+ },
+ {
+  "name": "Save The Bay (Oakland, CA)",
+  "url": "https://www.savesfbay.org/events/?ical=1",
+  "category": "volunteer",
+  "geocode_suffix": ", Oakland, CA",
+  "limit": 300
+ },
+ {
+  "name": "Heal the Bay (Santa Monica, CA)",
+  "url": "https://healthebay.org/events/?ical=1",
+  "category": "volunteer",
+  "geocode_suffix": ", Santa Monica, CA",
+  "limit": 300
+ },
+ {
+  "name": "Johnson Creek Watershed Council (Portland, OR)",
+  "url": "https://jcwc.org/events/?ical=1",
+  "category": "volunteer",
+  "geocode_suffix": ", Portland, OR",
+  "limit": 300
+ },
+ {
+  "name": "Sanibel-Captiva Conservation Foundation (Sanibel, FL)",
+  "url": "https://sccf.org/events/?ical=1",
+  "category": "volunteer",
+  "geocode_suffix": ", Sanibel, FL",
+  "limit": 300
+ },
+ {
+  "name": "Port Discovery Children's Museum (Baltimore, MD)",
+  "url": "https://www.portdiscovery.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Baltimore, MD",
+  "limit": 300
+ },
+ {
+  "name": "Kamin Science Center (Pittsburgh, PA)",
+  "url": "https://kaminsciencecenter.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Pittsburgh, PA",
+  "limit": 300
+ },
+ {
+  "name": "Science Museum of Minnesota (St. Paul, MN)",
+  "url": "https://smm.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", St. Paul, MN",
+  "limit": 300
+ },
+ {
+  "name": "Orlando Science Center (Orlando, FL)",
+  "url": "https://www.osc.org/visit/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Orlando, FL",
+  "limit": 300
+ },
+ {
+  "name": "Museum of Discovery and Science (Fort Lauderdale, FL)",
+  "url": "https://mods.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Fort Lauderdale, FL",
+  "limit": 300
+ },
+ {
+  "name": "Glazer Children's Museum (Tampa, FL)",
+  "url": "https://glazermuseum.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Tampa, FL",
+  "limit": 300
+ },
+ {
+  "name": "Children's Museum of Phoenix (Phoenix, AZ)",
+  "url": "https://childrensmuseumofphoenix.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Phoenix, AZ",
+  "limit": 300
+ },
+ {
+  "name": "Sciencenter (Ithaca, NY)",
+  "url": "https://sciencenter.org/experiences/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Ithaca, NY",
+  "limit": 300
+ },
+ {
+  "name": "WonderLab Museum (Bloomington, IN)",
+  "url": "https://wonderlab.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Bloomington, IN",
+  "limit": 300
+ },
+ {
+  "name": "Phillip and Patricia Frost Museum of Science (Miami, FL)",
+  "url": "https://www.frostscience.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Miami, FL",
+  "limit": 300
+ },
+ {
+  "name": "Schlitz Audubon Nature Center (Milwaukee, WI)",
+  "url": "https://www.schlitzaudubon.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Milwaukee, WI",
+  "limit": 300
+ },
+ {
+  "name": "Schuylkill Center for Environmental Education (Philadelphia, PA)",
+  "url": "https://schuylkillcenter.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Philadelphia, PA",
+  "limit": 300
+ },
+ {
+  "name": "The Contemporary Austin (Austin, TX)",
+  "url": "https://thecontemporaryaustin.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Austin, TX",
+  "limit": 300
+ },
+ {
+  "name": "Racine Art Museum (Racine, WI)",
+  "url": "https://www.ramart.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Racine, WI",
+  "limit": 300
+ },
+ {
+  "name": "Artpace (San Antonio, TX)",
+  "url": "https://artpace.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", San Antonio, TX",
+  "limit": 300
+ },
+ {
+  "name": "Contemporary Art Museum St. Louis (St. Louis, MO)",
+  "url": "https://camstl.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", St. Louis, MO",
+  "limit": 300
+ },
+ {
+  "name": "Delaware Art Museum (Wilmington, DE)",
+  "url": "https://delart.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Wilmington, DE",
+  "limit": 300
+ },
+ {
+  "name": "Tucson Museum of Art (Tucson, AZ)",
+  "url": "https://www.tucsonmuseumofart.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Tucson, AZ",
+  "limit": 300
+ },
+ {
+  "name": "John Michael Kohler Arts Center (Sheboygan, WI)",
+  "url": "https://www.jmkac.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Sheboygan, WI",
+  "limit": 300
+ },
+ {
+  "name": "Taubman Museum of Art (Roanoke, VA)",
+  "url": "https://www.taubmanmuseum.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Roanoke, VA",
+  "limit": 300
+ },
+ {
+  "name": "Mint Museum (Charlotte, NC)",
+  "url": "https://www.mintmuseum.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Charlotte, NC",
+  "limit": 300
+ },
+ {
+  "name": "Tacoma Art Museum (Tacoma, WA)",
+  "url": "https://www.tacomaartmuseum.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Tacoma, WA",
+  "limit": 300
+ },
+ {
+  "name": "Portland Museum of Art (Portland, ME)",
+  "url": "https://www.portlandmuseum.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Portland, ME",
+  "limit": 300
+ },
+ {
+  "name": "Toronto Botanical Garden (Toronto, Canada)",
+  "url": "https://torontobotanicalgarden.ca/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Toronto, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Stanley Park Ecology Society (Vancouver, Canada)",
+  "url": "https://www.stanleyparkecology.ca/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Vancouver, Canada",
+  "limit": 300
+ },
+ {
+  "name": "FortWhyte Alive (Winnipeg, Canada)",
+  "url": "https://www.fortwhyte.org/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Winnipeg, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Allan Brooks Nature Centre (Vernon, Canada)",
+  "url": "https://abnc.ca/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Vernon, BC, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Friends of the Australian National Botanic Gardens (Canberra, Australia)",
+  "url": "https://friendsanbg.org.au/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Canberra, Australia",
+  "limit": 300
+ },
+ {
+  "name": "THEMUSEUM (Kitchener, Canada)",
+  "url": "https://themuseum.ca/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Kitchener, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Nutrien Wonderhub (Saskatoon, Canada)",
+  "url": "https://wonderhub.ca/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Saskatoon, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Techniquest (Cardiff, United Kingdom)",
+  "url": "https://www.techniquest.org/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Cardiff, United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "Wolverhampton Astronomical Society (Wolverhampton, United Kingdom)",
+  "url": "https://wolvas.org.uk/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Wolverhampton, United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "Ballarat Municipal Observatory (Ballarat, Australia)",
+  "url": "https://ballaratobservatory.org.au/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Ballarat, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Mount Burnett Observatory (Mount Burnett, Australia)",
+  "url": "https://mbo.org.au/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Mount Burnett, Victoria, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Auckland Astronomical Society (Auckland, New Zealand)",
+  "url": "https://www.astronomy.org.nz/events/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Auckland, New Zealand",
+  "limit": 300
+ },
+ {
+  "name": "University of Canterbury Library (Christchurch, New Zealand)",
+  "url": "https://canterbury.libcal.com/ical_subscribe.php?cid=1616",
+  "category": "learning",
+  "geocode_suffix": ", Christchurch, New Zealand",
+  "limit": 300
+ },
+ {
+  "name": "University of Waikato Library (Hamilton, New Zealand)",
+  "url": "https://waikato.libcal.com/ical_subscribe.php?cid=10863",
+  "category": "learning",
+  "geocode_suffix": ", Hamilton, New Zealand",
+  "limit": 300
+ },
+ {
+  "name": "Massey University Library (Palmerston North, New Zealand)",
+  "url": "https://massey.libcal.com/ical_subscribe.php?cid=2383",
+  "category": "learning",
+  "geocode_suffix": ", Palmerston North, New Zealand",
+  "limit": 300
+ },
+ {
+  "name": "National Library Board GoLibrary (Singapore)",
+  "url": "https://nlb.libcal.com/ical_subscribe.php?cid=11498",
+  "category": "community",
+  "geocode_suffix": ", Singapore",
+  "limit": 300
+ },
+ {
+  "name": "NUS Medical & Science Library (Singapore)",
+  "url": "https://nus.libcal.com/ical_subscribe.php?cid=11372",
+  "category": "learning",
+  "geocode_suffix": ", Singapore",
+  "limit": 300
+ },
+ {
+  "name": "NUS Central Library (Singapore)",
+  "url": "https://nus.libcal.com/ical_subscribe.php?cid=11414",
+  "category": "learning",
+  "geocode_suffix": ", Singapore",
+  "limit": 300
+ },
+ {
+  "name": "SMU Libraries (Singapore)",
+  "url": "https://smu-sg.libcal.com/ical_subscribe.php?cid=11382",
+  "category": "learning",
+  "geocode_suffix": ", Singapore",
+  "limit": 300
+ },
+ {
+  "name": "Bangalore International Centre (Bengaluru, India)",
+  "url": "https://bangaloreinternationalcentre.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Bengaluru, India",
+  "limit": 300
+ },
+ {
+  "name": "University of Johannesburg Library - Events (Johannesburg, South Africa)",
+  "url": "https://uj-ac-za.libcal.com/ical_subscribe.php?cid=16683",
+  "category": "learning",
+  "geocode_suffix": ", Johannesburg, South Africa",
+  "limit": 300
+ },
+ {
+  "name": "University of Johannesburg Library - Training (Johannesburg, South Africa)",
+  "url": "https://uj-ac-za.libcal.com/ical_subscribe.php?cid=16682",
+  "category": "learning",
+  "geocode_suffix": ", Johannesburg, South Africa",
+  "limit": 300
+ },
+ {
+  "name": "UCT Libraries (Cape Town, South Africa)",
+  "url": "https://uct.ac.za.libcal.com/ical_subscribe.php?cid=497",
+  "category": "learning",
+  "geocode_suffix": ", Cape Town, South Africa",
+  "limit": 300
+ },
+ {
+  "name": "Stellenbosch University Library (Stellenbosch, South Africa)",
+  "url": "https://sun.ac.za.libcal.com/ical_subscribe.php?cid=21790",
+  "category": "learning",
+  "geocode_suffix": ", Stellenbosch, South Africa",
+  "limit": 300
+ },
+ {
+  "name": "University of Zululand Library (Richards Bay, South Africa)",
+  "url": "https://unizulu.libcal.com/ical_subscribe.php?cid=17483",
+  "category": "learning",
+  "geocode_suffix": ", Richards Bay, South Africa",
+  "limit": 300
+ },
+ {
+  "name": "University of the Free State Library (Bloemfontein, South Africa)",
+  "url": "https://ufs.libcal.com/ical_subscribe.php?cid=20592",
+  "category": "learning",
+  "geocode_suffix": ", Bloemfontein, South Africa",
+  "limit": 300
+ },
+ {
+  "name": "Wits University Library (Johannesburg, South Africa)",
+  "url": "https://wits.ac.za.libcal.com/ical_subscribe.php?cid=16432",
+  "category": "learning",
+  "geocode_suffix": ", Johannesburg, South Africa",
+  "limit": 300
+ },
+ {
+  "name": "Demosphere Toulouse (Toulouse, France)",
+  "url": "https://toulouse.demosphere.net/events.ics",
+  "category": "community",
+  "geocode_suffix": ", Toulouse, France",
+  "limit": 300
+ },
+ {
+  "name": "Demosphere Paris - Ile-de-France (Paris, France)",
+  "url": "https://paris.demosphere.net/events.ics",
+  "category": "community",
+  "geocode_suffix": ", Paris, France",
+  "limit": 300
+ },
+ {
+  "name": "American Library in Paris (Paris, France)",
+  "url": "https://americanlibraryinparis.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "learning",
+  "geocode_suffix": ", Paris, France",
+  "limit": 300
+ },
+ {
+  "name": "Aix-Marseille Universite - Agenda culturel des BU (Marseille, France)",
+  "url": "https://univ-amu.libcal.com/ical_subscribe.php?cid=8791",
+  "category": "arts",
+  "geocode_suffix": ", Marseille, France",
+  "limit": 300
+ },
+ {
+  "name": "Universite de Bordeaux - Agenda des BU (Bordeaux, France)",
+  "url": "https://u-bordeaux.libcal.com/ical_subscribe.php?cid=8971",
+  "category": "learning",
+  "geocode_suffix": ", Bordeaux, France",
+  "limit": 300
+ },
+ {
+  "name": "Eintritt Frei Muenchen (Munich, Germany)",
+  "url": "https://www.eintrittfrei-muenchen.de/?ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", München, Germany",
+  "limit": 300
+ },
+ {
+  "name": "c-base Berlin (Berlin, Germany)",
+  "url": "https://www.c-base.org/calendar/exported/c-base-events.ics",
+  "category": "community",
+  "geocode_suffix": ", Berlin, Germany",
+  "limit": 300
+ },
+ {
+  "name": "Zinnschmelze Kulturzentrum (Hamburg, Germany)",
+  "url": "https://www.zinnschmelze.de/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Hamburg, Germany",
+  "limit": 300
+ },
+ {
+  "name": "Buergerzentrum Ehrenfeld BueZe (Cologne, Germany)",
+  "url": "https://www.bueze.de/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Köln, Germany",
+  "limit": 300
+ },
+ {
+  "name": "Stadtbibliothek Radolfzell (Radolfzell, Germany)",
+  "url": "https://radolfzell-stadtbibliothek.de/veranstaltungen/?ical=1",
+  "category": "learning",
+  "geocode_suffix": ", Radolfzell am Bodensee, Germany",
+  "limit": 300
+ },
+ {
+  "name": "VU Amsterdam University Library (Amsterdam)",
+  "url": "https://libcal.vu.nl/ical_subscribe.php?cid=7052",
+  "category": "learning",
+  "geocode_suffix": ", Vrije Universiteit Amsterdam, Netherlands",
+  "limit": 300
+ },
+ {
+  "name": "Tilburg University Library (Tilburg)",
+  "url": "https://tilburguniversity.libcal.com/ical_subscribe.php?cid=7924",
+  "category": "learning",
+  "geocode_suffix": ", Tilburg University, Netherlands",
+  "limit": 300
+ },
+ {
+  "name": "Mezrab (Amsterdam)",
+  "url": "https://mezrab.nl/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Amsterdam, Netherlands",
+  "limit": 300
+ },
+ {
+  "name": "OCCII (Amsterdam)",
+  "url": "https://occii.org/agenda/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Amsterdam, Netherlands",
+  "limit": 300
+ },
+ {
+  "name": "Universidad de Monterrey Events (Monterrey)",
+  "url": "https://udem.libcal.com/ical_subscribe.php?cid=16310",
+  "category": "learning",
+  "geocode_suffix": ", Universidad de Monterrey, San Pedro Garza Garcia, Mexico",
+  "limit": 300
+ },
+ {
+  "name": "Universidad Panamericana - Intercampus (Mexico City)",
+  "url": "https://up-mx.libcal.com/ical_subscribe.php?cid=18847",
+  "category": "learning",
+  "geocode_suffix": ", Universidad Panamericana, Mexico City, Mexico",
+  "limit": 300
+ },
+ {
+  "name": "Universidad Panamericana - Guadalajara",
+  "url": "https://up-mx.libcal.com/ical_subscribe.php?cid=19179",
+  "category": "learning",
+  "geocode_suffix": ", Universidad Panamericana, Guadalajara, Mexico",
+  "limit": 300
+ },
+ {
+  "name": "BASE Milano (Milan, Italy)",
+  "url": "https://base.milano.it/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Milano, Italy",
+  "limit": 300
+ },
+ {
+  "name": "Impact Hub Madrid (Madrid, Spain)",
+  "url": "https://madrid.impacthub.net/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Madrid, Spain",
+  "limit": 300
+ },
+ {
+  "name": "HKU Event Calendar (Hong Kong)",
+  "url": "https://calendar.hku.hk/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "learning",
+  "geocode_suffix": ", Hong Kong",
+  "limit": 300
+ },
+ {
+  "name": "The Helena May (Hong Kong)",
+  "url": "https://www.helenamay.com/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Hong Kong",
+  "limit": 300
+ },
+ {
+  "name": "Dubai Astronomy Group (Dubai)",
+  "url": "https://dubaiastronomy.com/events/?ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Dubai",
+  "limit": 300
+ },
+ {
+  "name": "AUS University Library (Sharjah)",
+  "url": "https://aus.libcal.com/ical_subscribe.php?src=p&cid=21902",
+  "category": "learning",
+  "geocode_suffix": ", Sharjah",
+  "limit": 300
+ },
+ {
+  "name": "University of Oslo (Oslo, Norway)",
+  "url": "https://www.uio.no/om/aktuelt/arrangementer/?vrtx=ical",
+  "category": "learning",
+  "geocode_suffix": ", Oslo, Norway",
+  "limit": 300
+ },
+ {
+  "name": "Goteborgs Ornitologiska Forening (Gothenburg, Sweden)",
+  "url": "https://gof.nu/?post_type=tribe_events&ical=1",
+  "category": "outdoors",
+  "geocode_suffix": ", Gothenburg, Sweden",
+  "limit": 300
+ },
+ {
+  "name": "Sigtunastiftelsen (Sigtuna, Sweden)",
+  "url": "https://sigtunastiftelsen.se/?post_type=tribe_events&ical=1",
+  "category": "community",
+  "geocode_suffix": ", Sigtuna, Sweden",
+  "limit": 300
+ },
+ {
+  "name": "Merikarvia Municipality (Merikarvia, Finland)",
+  "url": "https://merikarvia.fi/tapahtumat/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Merikarvia, Finland",
+  "limit": 300
+ },
+ {
+  "name": "Kulturstedet Lindegaarden (Kgs. Lyngby, Denmark)",
+  "url": "https://kulturstedetlindegaarden.dk/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Kgs. Lyngby, Denmark",
+  "limit": 300
+ },
+ {
+  "name": "Alliance Francaise de Chandigarh (Chandigarh, India)",
+  "url": "https://chandigarh.afindia.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Chandigarh, India",
+  "limit": 300
+ },
+ {
+  "name": "Alliance Francaise de Bangalore (Bengaluru, India)",
+  "url": "https://bangalore.afindia.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Bengaluru, India",
+  "limit": 300
+ },
+ {
+  "name": "Alliance Francaise de Bhopal (Bhopal, India)",
+  "url": "https://bhopal.afindia.org/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Bhopal, India",
+  "limit": 300
+ },
+ {
+  "name": "Australian City Farms & Community Gardens Network (Australia)",
+  "url": "https://communitygarden.org.au/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Australia",
+  "limit": 300
+ },
+ {
+  "name": "Permaculture Victoria (Melbourne, Australia)",
+  "url": "https://permaculturevictoria.org.au/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Victoria, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Footscray Community Arts (Melbourne, Australia)",
+  "url": "https://footscrayarts.com/events/?ical=1",
+  "category": "arts",
+  "geocode_suffix": ", Footscray, VIC, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Keep New Zealand Beautiful (New Zealand)",
+  "url": "https://www.knzb.org.nz/events/?ical=1",
+  "category": "volunteer",
+  "geocode_suffix": ", New Zealand",
+  "limit": 300
+ },
+ {
+  "name": "Emerald Tavern Games & Cafe (Austin, TX)",
+  "url": "https://emeraldtaverngames.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Austin, TX",
+  "limit": 300
+ },
+ {
+  "name": "Across the Board Game Cafe (Winnipeg, Canada)",
+  "url": "https://acrosstheboardcafe.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Winnipeg, Manitoba, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Well Played Board Game Cafe (Asheville, NC)",
+  "url": "https://wellplayedasheville.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Asheville, NC",
+  "limit": 300
+ },
+ {
+  "name": "Sword and Board (Ukiah, CA)",
+  "url": "https://swordandboard.net/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Ukiah, CA",
+  "limit": 300
+ },
+ {
+  "name": "Good Games (Australia)",
+  "url": "https://events.goodgames.com.au/events/list/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Australia",
+  "limit": 300
+ },
+ {
+  "name": "Granville Island Events (Vancouver)",
+  "url": "https://granvilleisland.com/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Granville Island, Vancouver, BC, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Eastern Market Events (Detroit)",
+  "url": "https://easternmarket.org/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Eastern Market, Detroit, MI",
+  "limit": 300
+ },
+ {
+  "name": "Adelaide Central Market Events",
+  "url": "https://adelaidecentralmarket.com.au/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Adelaide Central Market, Adelaide, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Dallas Farmers Market Events",
+  "url": "https://dallasfarmersmarket.org/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Dallas Farmers Market, Dallas, TX",
+  "limit": 300
+ },
+ {
+  "name": "Union Market Events (Washington DC)",
+  "url": "https://unionmarketdc.com/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Union Market, Washington, DC",
+  "limit": 300
+ },
+ {
+  "name": "Portland Farmers Market Events",
+  "url": "https://www.portlandfarmersmarket.org/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Portland, OR",
+  "limit": 300
+ },
+ {
+  "name": "Greater Chicago Food Depository Events",
+  "url": "https://www.chicagosfoodbank.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Chicago, IL",
+  "limit": 300
+ },
+ {
+  "name": "Feeding America Eastern Wisconsin (Milwaukee)",
+  "url": "https://feedingamericawi.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Milwaukee, WI",
+  "limit": 300
+ },
+ {
+  "name": "Food Bank For New York City",
+  "url": "https://foodbanknyc.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", New York, NY",
+  "limit": 300
+ },
+ {
+  "name": "Houston Food Bank",
+  "url": "https://houstonfoodbank.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Houston, TX",
+  "limit": 300
+ },
+ {
+  "name": "Harvesters Community Food Network (Kansas City)",
+  "url": "https://harvesters.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Kansas City, MO",
+  "limit": 300
+ },
+ {
+  "name": "Maryland Food Bank (Baltimore)",
+  "url": "https://mdfoodbank.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Baltimore, MD",
+  "limit": 300
+ },
+ {
+  "name": "Regional Food Bank of Oklahoma (Oklahoma City)",
+  "url": "https://rfbo.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Oklahoma City, OK",
+  "limit": 300
+ },
+ {
+  "name": "Blue Ridge Area Food Bank (Verona, VA)",
+  "url": "https://brafb.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Verona, VA",
+  "limit": 300
+ },
+ {
+  "name": "Good Shepherd Food Bank (Auburn, ME)",
+  "url": "https://gsfb.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Auburn, ME",
+  "limit": 300
+ },
+ {
+  "name": "Idaho Foodbank (Boise)",
+  "url": "https://idahofoodbank.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Boise, ID",
+  "limit": 300
+ },
+ {
+  "name": "San Antonio Food Bank",
+  "url": "https://safoodbank.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", San Antonio, TX",
+  "limit": 300
+ },
+ {
+  "name": "Tarrant Area Food Bank (Fort Worth)",
+  "url": "https://tafb.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Fort Worth, TX",
+  "limit": 300
+ },
+ {
+  "name": "Lowcountry Food Bank (Charleston, SC)",
+  "url": "https://lowcountryfoodbank.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Charleston, SC",
+  "limit": 300
+ },
+ {
+  "name": "Second Harvest Food Bank of Central Florida (Orlando)",
+  "url": "https://feedhopenow.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Orlando, FL",
+  "limit": 300
+ },
+ {
+  "name": "Great Lakes Brewing Company (Cleveland)",
+  "url": "https://greatlakesbrewing.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Cleveland, OH",
+  "limit": 300
+ },
+ {
+  "name": "Russian River Brewing (Santa Rosa, CA)",
+  "url": "https://russianriverbrewing.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Santa Rosa, CA",
+  "limit": 300
+ },
+ {
+  "name": "Highland Brewing (Asheville, NC)",
+  "url": "https://highlandbrewing.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Asheville, NC",
+  "limit": 300
+ },
+ {
+  "name": "Creature Comforts Brewing (Athens, GA)",
+  "url": "https://creaturecomfortsbeer.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Athens, GA",
+  "limit": 300
+ },
+ {
+  "name": "Bissell Brothers Brewing (Portland, ME)",
+  "url": "https://bissellbrothers.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Portland, ME",
+  "limit": 300
+ },
+ {
+  "name": "Fiddlehead Brewing (Shelburne, VT)",
+  "url": "https://fiddleheadbrewing.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Shelburne, VT",
+  "limit": 300
+ },
+ {
+  "name": "Surly Brewing (Minneapolis)",
+  "url": "https://surlybrewing.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Minneapolis, MN",
+  "limit": 300
+ },
+ {
+  "name": "Indeed Brewing (Minneapolis)",
+  "url": "https://indeedbrewing.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Minneapolis, MN",
+  "limit": 300
+ },
+ {
+  "name": "Rhinegeist Brewery (Cincinnati)",
+  "url": "https://rhinegeist.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Cincinnati, OH",
+  "limit": 300
+ },
+ {
+  "name": "Perrin Brewing (Comstock Park, MI)",
+  "url": "https://perrinbrewing.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Comstock Park, MI",
+  "limit": 300
+ },
+ {
+  "name": "Budd Dairy Food Hall (Columbus, OH)",
+  "url": "https://budddairyfoodhall.com/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Columbus, OH",
+  "limit": 300
+ },
+ {
+  "name": "Industry City Food Hall (Brooklyn)",
+  "url": "https://industrycity.com/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Brooklyn, NY",
+  "limit": 300
+ },
+ {
+  "name": "Gansevoort Market (New York)",
+  "url": "https://gansmarket.com/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", New York, NY",
+  "limit": 300
+ },
+ {
+  "name": "La Cosecha Market (Washington DC)",
+  "url": "https://lacosechadc.com/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Washington, DC",
+  "limit": 300
+ },
+ {
+  "name": "Eat Street Northshore (Brisbane)",
+  "url": "https://eatstreetnorthshore.com.au/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Brisbane, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Capital Region Farmers Market (Canberra)",
+  "url": "https://capitalregionfarmersmarket.com.au/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Canberra, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Ottawa Farmers Market",
+  "url": "https://ottawafarmersmarket.ca/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Ottawa, ON, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Mathallen Oslo Food Hall",
+  "url": "https://mathallenoslo.no/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Mathallen, Oslo, Norway",
+  "limit": 300
+ },
+ {
+  "name": "Margaret River Wine Region Events (Australia)",
+  "url": "https://margaretriver.wine/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Margaret River, WA, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Aldeburgh Food and Drink Festival (Suffolk)",
+  "url": "https://aldeburghfoodanddrink.co.uk/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Snape, Suffolk, UK",
+  "limit": 300
+ },
+ {
+  "name": "Ginger and Spice Festival (Market Drayton)",
+  "url": "https://gingerandspicefest.co.uk/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Market Drayton, Shropshire, UK",
+  "limit": 300
+ },
+ {
+  "name": "The Farm Cookery School (Wiltshire)",
+  "url": "https://thefarmcookeryschool.co.uk/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Bromham, Wiltshire, UK",
+  "limit": 300
+ },
+ {
+  "name": "Blackfriars Cookery School (Newcastle upon Tyne)",
+  "url": "https://blackfriarsrestaurant.co.uk/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Newcastle upon Tyne, UK",
+  "limit": 300
+ },
+ {
+  "name": "Philleigh Way Cookery School (Cornwall)",
+  "url": "https://philleighway.co.uk/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Philleigh, Truro, Cornwall, UK",
+  "limit": 300
+ },
+ {
+  "name": "Food Museum (Stowmarket, Suffolk)",
+  "url": "https://foodmuseum.org.uk/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Stowmarket, Suffolk, UK",
+  "limit": 300
+ },
+ {
+  "name": "Hampshire Farmers Markets (UK)",
+  "url": "https://hampshirefarmersmarkets.co.uk/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Hampshire, UK",
+  "limit": 300
+ },
+ {
+  "name": "R.S.H Artisan Markets (Yorkshire)",
+  "url": "https://rshartisanmarket.co.uk/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Yorkshire, UK",
+  "limit": 300
+ },
+ {
+  "name": "Harborough Market (Leicestershire)",
+  "url": "https://www.harboroughmarket.co.uk/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Market Harborough, Leicestershire, UK",
+  "limit": 300
+ },
+ {
+  "name": "WGC Market (Welwyn Garden City)",
+  "url": "https://wgcmarket.co.uk/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Welwyn Garden City, Hertfordshire, UK",
+  "limit": 300
+ },
+ {
+  "name": "Woodstock Farmers Market (Oxfordshire)",
+  "url": "https://www.wutw.co.uk/whats-on/category/markets/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Woodstock, Oxfordshire, UK",
+  "limit": 300
+ },
+ {
+  "name": "Nourish Knoxville Farmers Markets (Knoxville, TN)",
+  "url": "https://nourishknoxville.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "market",
+  "geocode_suffix": ", Knoxville, TN",
+  "limit": 300
+ },
+ {
+  "name": "French Market District (New Orleans)",
+  "url": "https://frenchmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "market",
+  "geocode_suffix": ", French Market, New Orleans, LA",
+  "limit": 300
+ },
+ {
+  "name": "ASAP Appalachian Grown Markets (Asheville, NC)",
+  "url": "https://asapconnections.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "market",
+  "geocode_suffix": ", Asheville, NC",
+  "limit": 300
+ },
+ {
+  "name": "Atherton Mill and Market (Charlotte, NC)",
+  "url": "https://athertonmillandmarket.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "market",
+  "geocode_suffix": ", Charlotte, NC",
+  "limit": 300
+ },
+ {
+  "name": "Bristol Brewing (Colorado Springs)",
+  "url": "https://bristolbrewing.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "food",
+  "geocode_suffix": ", Colorado Springs, CO",
+  "limit": 300
+ },
+ {
+  "name": "Santa Fe Brewing (New Mexico)",
+  "url": "https://santafebrewing.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "food",
+  "geocode_suffix": ", Santa Fe, NM",
+  "limit": 300
+ },
+ {
+  "name": "Amador Vintners Wine Events (California)",
+  "url": "https://amadorwine.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "food",
+  "geocode_suffix": ", Amador County, CA",
+  "limit": 300
+ },
+ {
+  "name": "El Dorado Wines Events (California)",
+  "url": "https://eldoradowines.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "food",
+  "geocode_suffix": ", El Dorado County, CA",
+  "limit": 300
+ },
+ {
+  "name": "Oregon Wine Board Events",
+  "url": "https://oregonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "food",
+  "geocode_suffix": ", Oregon",
+  "limit": 300
+ },
+ {
+  "name": "Washington State Wine Events",
+  "url": "https://washingtonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "food",
+  "geocode_suffix": ", Washington",
+  "limit": 300
+ },
+ {
+  "name": "Adelaide Showground Farmers Market",
+  "url": "https://adelaidefarmersmarket.com.au/events/?ical=1",
+  "category": "market",
+  "geocode_suffix": ", Adelaide, Australia",
+  "limit": 300
+ },
+ {
+  "name": "Vancouver Farmers Markets (BC)",
+  "url": "https://vancouverfarmersmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "market",
+  "geocode_suffix": ", Vancouver, BC, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Lonsdale Quay Market (North Vancouver)",
+  "url": "https://lonsdalequay.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "market",
+  "geocode_suffix": ", North Vancouver, BC, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Devour! The Food Film Fest (Wolfville, NS)",
+  "url": "https://devourfest.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "food",
+  "geocode_suffix": ", Wolfville, NS, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Wine Growers British Columbia",
+  "url": "https://www.winebc.com/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "food",
+  "geocode_suffix": ", Okanagan, BC, Canada",
+  "limit": 300
+ },
+ {
+  "name": "Berlin Food Week (Germany)",
+  "url": "https://www.berlinfoodweek.de/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "food",
+  "geocode_suffix": ", Berlin, Germany",
+  "limit": 300
+ },
+ {
+  "name": "Pro Loco Faenza sagre e mercati (Italy)",
+  "url": "https://www.prolocofaenza.it/eventi/categoria/sagre-e-mercati/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Faenza, Italy",
+  "limit": 300
+ },
+ {
+  "name": "Alla Massor mat och dryck (Sweden)",
+  "url": "https://www.allamassor.se/events/category/mat-dryck/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Sweden",
+  "limit": 300
+ },
+ {
+  "name": "Voedselbos Lingehout (Gelderland, Netherlands)",
+  "url": "https://voedselboslingehout.nl/agenda/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Gelderland, Netherlands",
+  "limit": 300
+ },
+ {
+  "name": "British Cider Week (Devon, UK)",
+  "url": "https://britishciderweek.org.uk/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", United Kingdom",
+  "limit": 300
+ },
+ {
+  "name": "Cromane Seafest (Co. Kerry, Ireland)",
+  "url": "https://www.cromaneseafest.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Cromane, Co. Kerry, Ireland",
+  "limit": 300
+ },
+ {
+  "name": "Clitheroe Food Festival (Clitheroe, UK)",
+  "url": "https://www.clitheroefoodfestival.com/events/?ical=1",
+  "category": "food",
+  "geocode_suffix": ", Clitheroe, Lancashire, UK",
+  "limit": 300
+ },
+ {
+  "name": "Santa Fe Public Library",
+  "url": "https://santafelibrary.org/events/feed/ical/",
+  "category": "learning",
+  "geocode_suffix": ", Santa Fe, NM",
+  "limit": 1500
+ },
+ {
+  "name": "Fletcher Free Library (Burlington VT)",
+  "url": "https://fletcherfree.libcal.com/ical_subscribe.php?cid=21587",
+  "category": "learning",
+  "geocode_suffix": ", Burlington, VT",
+  "limit": 400
+ },
+ {
+  "name": "Fresno County Public Library",
+  "url": "https://fresnolibrary.libcal.com/ical_subscribe.php?cid=11003",
+  "category": "learning",
+  "geocode_suffix": ", Fresno, CA",
+  "limit": 300
+ },
+ {
+  "name": "Chattanooga Public Library",
+  "url": "https://chattlibrary.org/events/?ical=1",
+  "category": "learning",
+  "geocode_suffix": ", Chattanooga, TN",
+  "limit": 300
+ },
+ {
+  "name": "Buffalo Niagara Waterkeeper",
+  "url": "https://bnwaterkeeper.org/events/?ical=1",
+  "category": "volunteer",
+  "geocode_suffix": ", Buffalo, NY",
+  "limit": 300
+ },
+ {
+  "name": "Casey Trees (DC)",
+  "url": "https://caseytrees.org/events/?ical=1",
+  "category": "volunteer",
+  "geocode_suffix": ", Washington, DC",
+  "limit": 300
+ },
+ {
+  "name": "Audubon Society of Portland",
+  "url": "https://audubonportland.org/events/?ical=1",
+  "category": "volunteer",
+  "geocode_suffix": ", Portland, OR",
+  "limit": 300
+ },
+ {
+  "name": "Sports Backers (Richmond VA community fitness)",
+  "url": "https://sportsbackers.org/events/?ical=1",
+  "category": "fitness",
+  "geocode_suffix": ", Richmond, VA",
+  "limit": 100,
+  "_note": "Found while looking for Bike Walk RVA, which this org runs - and the calendar carries NO cycling. It is their free community fitness programme: 'Aqua Fitness w/ Pam', 'Cee's Cardio', 'Morning Motivation w/ Pam'. Kept under its own name because Richmond had no fitness source at all, and declined as a BIKE source in tribe_sources.json._not_included so the next cycling sweep does not mistake it for one. MEASURED: 10 VEVENTs, 4 ingested - 6 carry no LOCATION or GEO and the adapter drops them rather than guess. The adapter says so on every run ('more than half this feed has no location'), which is the signal to ask them for a richer export."
+ },
+ {
+  "name": "Bike Auckland (NZ)",
+  "url": "https://www.bikeauckland.org.nz/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Auckland, New Zealand",
+  "limit": 100,
+  "_note": "Mixed calendar - 'Bike Breakfast' monthly, 'Love Your Path' working bees, 'Bike Valet at Lightfields Maungarei', '2026 Auckland Duathlon Championships'. community, so the working bees promote to volunteer and the duathlon to fitness rather than all of it landing on one layer. MEASURED: 9 VEVENTs, 2 ingested - the other 7 carry no LOCATION or GEO. Thin, and kept anyway because coverage reports New Zealand has no curated arts, community, fitness, outdoors or running feed at all. Revisit at the next health audit."
+ }
 ]

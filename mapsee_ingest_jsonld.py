@@ -65,15 +65,33 @@ except Exception:
     _geo_cache = {}
 
 
+# The LAST GATE before a committed file. Every _geocode in this repo now caches
+# only a hit, but this is what makes that true regardless of which call site ran:
+# a null in geocode_cache.json is permanent, and a coordless event is dropped at
+# the sync, so one Photon timeout can retire a venue from the map for ever with
+# nothing in any log to say so. Cheap, and self-healing for anything a previous
+# version already wrote.
+def _drop_nulls(cache):
+    return {k: v for k, v in cache.items()
+            if v is not None and isinstance(v, (list, tuple)) and len(v) >= 2 and v[0] is not None}
+
+
 def _save_geo_cache():
     try:
-        json.dump(_geo_cache, open(GEO_CACHE_PATH, "w", encoding="utf-8"))
+        json.dump(_drop_nulls(_geo_cache), open(GEO_CACHE_PATH, "w", encoding="utf-8"))
     except Exception:
         pass
 
 
 def _geocode(session, query: str) -> Tuple[Optional[float], Optional[float]]:
-    """One polite Photon lookup per unique query, cached forever."""
+    """One polite Photon lookup per unique query. ONLY A HIT IS CACHED.
+
+    geocode_cache.json is shared and COMMITTED, so a null written here on a
+    transient Photon failure is permanent and no later run ever looks that venue
+    up again — and an event with no coordinates is dropped at the sync, so the
+    row vanishes with nothing saying why. Same rule as
+    mapsee_ingest_markets._geocode, which got here first.
+    """
     key = "q:" + query.lower()
     if key in _geo_cache:
         v = _geo_cache[key]
@@ -82,15 +100,15 @@ def _geocode(session, query: str) -> Tuple[Optional[float], Optional[float]]:
         return (None, None)
     try:
         r = session.get("https://photon.komoot.io/api/", params={"q": query, "limit": 1}, timeout=20)
+        r.raise_for_status()                         # a 502 is not an empty result
         feats = (r.json() or {}).get("features") or []
         if feats:
             lon, lat = feats[0]["geometry"]["coordinates"][:2]
             _geo_cache[key] = [lat, lon]
             time.sleep(1.1)
             return lat, lon
-    except Exception:
+    except Exception:                                # noqa: BLE001
         pass
-    _geo_cache[key] = None
     time.sleep(1.1)
     return None, None
 

@@ -57,6 +57,129 @@
       "default_region": "WA",
       "default_country": "US",
       "_note": "robots.txt disallows /wp-admin/ and the /feed/ paths only; /wp-json/ is open and no Crawl-delay is set. MOVED HERE FROM ics_sources.json, where it was read as /events/?ical=1. The plugin's iCal export only serialises the CURRENT VIEW - 30 events - while the REST API paginates all 102, so two thirds of the calendar was never offered to the pipeline at all. Of the 30 it did offer, 20 carried no LOCATION line and mapsee_ingest_ics dropped them for having nowhere to pin. Net effect was ~10 of 102 events reaching the map. NOTE the remaining ceiling is upstream, not ours: only 32 of the 102 events have a venue assigned in WordPress, and none of them carry geo_lat/geo_lng, so the sync's Census pass places the 32 by street address and the other 70 have no location data in the source to place them WITH. The Duwamish River Festival is one of those: its record is venue:[], and its address appears nowhere in the feed."
+    },
+    {
+      "name": "Bicycle Colorado",
+      "base_url": "https://www.bicyclecolorado.org",
+      "category": "fitness",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 10,
+      "default_region": "CO",
+      "default_country": "United States",
+      "_note": "robots.txt is two lines: 'User-agent: *' then 'Allow: /'. 144 upcoming events, and the RECURRING ones are the point - 'Wednesday Morning Velo', 'Rise n Ride Commuter Group Bicycle Rides', 'TNT Tuesday Night Thunder Race Series'. A weekly group ride is the repeat-visit content wegosie's tagline promises and BikeReg's race calendar does not carry. NO geo_lat/geo_lng on any venue, so every row is placed by the sync's geocoder from address+city+zip; default_region is set because the venue records leave `state` null and 'Leadville' alone is ambiguous nationally."
+    },
+    {
+      "name": "London Cycling Campaign",
+      "base_url": "https://www.lcc.org.uk",
+      "category": "fitness",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 10,
+      "default_city": "London",
+      "default_country": "United Kingdom",
+      "_note": "Same Cloudflare Managed Content robots.txt as sfbike.org - '*' is Allow: / with Content-Signal search=yes,ai-train=no,use=reference. 117 upcoming events, EVERY venue carrying geo_lat/geo_lng, so nothing here needs the geocoder. The reason it is worth more than its event count: `catalog_curate.py coverage` reports the United Kingdom has no curated fitness, outdoors, running or volunteer feed at all, and this is monthly recurring content (Kentish Town Bike Workshop, Kentish Town Pedals) rather than a season of one-offs."
+    },
+    {
+      "name": "Bicycle Coalition of Maine",
+      "base_url": "https://www.bikemaine.org",
+      "category": "fitness",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 10,
+      "default_region": "ME",
+      "default_country": "United States",
+      "_note": "94 upcoming, and the calendar is RIDES: 'Free E-Bike Tour for BCM Members' weekly, 'Portland Gear Hub Freeport Summer Ride', 'Fireweed: Women's Mountain Bike Retreat', 'Champion the Cure Challenge'. fitness rather than community because the classifier CANNOT recover a ride from its title - measured over this feed's distinct titles, a community base leaves nearly all of them on community, since _FITNESS_RX does not know 'Velo', 'Gear Hub' or 'Fireweed'. A pure ride calendar has to say so in its config; a mixed one must not (see Bike East Bay). No geo on any venue; placed from venue name + city."
+    },
+    {
+      "name": "Bike East Bay (Oakland / Berkeley)",
+      "base_url": "https://bikeeastbay.org",
+      "category": "community",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 12,
+      "default_region": "CA",
+      "default_country": "United States",
+      "_note": "325 upcoming across 46 distinct titles, and DELIBERATELY community rather than fitness. The calendar is genuinely mixed - '2026 Group Ride: Bikes, Birds, Botanas' next to 'Valet Volunteer at the Oakland Roots', 'Bike Hayward Organizing Meeting' and 'Hopkins Victory Party'. Measured both ways over the live titles: a fitness base puts all 46 on wegosie including the stadium valet shift and the phone-banking, because _PROMOTABLE_TO_VOLUNTEER does not include fitness so nothing can rescue them. A community base lets the promotion rules sort it - rides to fitness, volunteer shifts to volunteer, the rest honestly community. Fewer events reach wegosie and none of them is a lie."
+    },
+    {
+      "name": "Community Cycling Center (Portland OR)",
+      "base_url": "https://www.communitycyclingcenter.org",
+      "category": "community",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 12,
+      "default_city": "Portland",
+      "default_region": "OR",
+      "default_country": "United States",
+      "_note": "284 occurrences from only 11 distinct titles - a recurring VOLUNTEER roster, not a ride calendar: 'The Repair Hub - Volunteer Shift', 'Bike Tear-downs - Volunteer Shift', 'Wrench Nights - Volunteer Shift', 'Volunteer Drop-in Hours'. Worth as much to awaresie as to any cycling door: `catalog_curate.py coverage` counts 8 curated volunteer sources worldwide. community base measured to sort 6 of the 11 onto volunteer by keyword and leave the rest honest; a fitness base would file a wrench night as exercise."
+    },
+    {
+      "name": "BikeWalkKC (Kansas City)",
+      "base_url": "https://bikewalkkc.org",
+      "category": "community",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 6,
+      "default_city": "Kansas City",
+      "default_region": "MO",
+      "default_country": "United States",
+      "_note": "robots.txt allows /wp-json/. Learn-to-ride classes, family bike rides, bike-bus info nights, Free Wheels 4 Kids repair events. Mixed, so community - the family rides promote to fitness on 'bike ride' and the rest stay put. No venue on most records, hence the city defaults; the ones with nothing at all will drop at the sync rather than land on a city centroid."
+    },
+    {
+      "name": "Trailnet (St. Louis)",
+      "base_url": "https://trailnet.org",
+      "category": "community",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 6,
+      "default_region": "MO",
+      "default_country": "United States",
+      "_note": "robots.txt allows /wp-json/. Small but real and the only St. Louis cycling source: 'Moonlight Ramble', 'Giro Della Lou', 'Ride The Rivers', a maintenance class and a fundraising soiree. Mixed, so community."
+    },
+    {
+      "name": "Our Streets Minneapolis",
+      "base_url": "https://ourstreetsmpls.org",
+      "category": "community",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 6,
+      "default_region": "MN",
+      "default_country": "United States",
+      "_note": "robots.txt allows /wp-json/. Thin (3 upcoming) and mostly advocacy - a volunteer doorknock, phone banking, Open Streets MPLS. community, which puts the two volunteer shifts on the volunteer layer by keyword. Kept despite the count because Minneapolis has no other source of this kind and Open Streets is a genuinely large civic event."
+    },
+    {
+      "name": "Boston Cyclists Union",
+      "base_url": "https://bostoncyclistsunion.org",
+      "category": "community",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 4,
+      "default_city": "Boston",
+      "default_region": "MA",
+      "default_country": "United States",
+      "_note": "One upcoming event ('BoP-Town Bikepacking Ride to Provincetown'), which is thin rather than broken - `status` empty is not `status` fail. Kept because Boston is a major metro with no cycling source at all and the count is a snapshot of one week in August. The single event carries a venue but no city, so default_city is load-bearing. Revisit at the next source-health audit: if it is still 1, it is a season, not a calendar."
+    },
+    {
+      "name": "Randolph Street Market (Chicago vintage + antiques)",
+      "base_url": "https://www.randolphstreetmarket.com",
+      "category": "market",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 5,
+      "default_region": "IL",
+      "default_country": "United States",
+      "_note": "robots.txt is 'User-agent: *' with an EMPTY Disallow. Only 3 upcoming dates, and worth the entry anyway: fleabop.com is 'Flea Markets, Clothing Swaps and Vintage Near You' and market_sources.json is a farmers-market file end to end - 85 uses of 'farmers', 0 of 'flea'. Measured 2026-08-16, the market lens held 3,469 upcoming events of which 2 named a flea market and 0 named thrift, vintage, swap or antique. This is a monthly vintage and antiques market that publishes a season at a time. No geo_lat on any venue, but every one carries a real street address ('1341 W Randolph Street') so the sync's Census pass places them; default_region is set because the venue records leave `state` null."
     }
-  ]
+  ],
+  "_not_included": {
+    "https://wisconsinbikefed.org": "An ICS candidate rather than a Tribe one, recorded here because this file is where this sweep's editorial decisions live and ics_sources.json is a bare list with nowhere to put a NO. The feed parses beautifully - 50 VEVENTs, 46 with LOCATION, 41 with a GEO line, real riding ('MKE REC Polar Pedalers Winter Rides', 'Hugh Jass Fat Bike Series', '2026 Bike Swap') - and every single event is in the PAST: the range is 2025-11-02 to 2026-04-18 against a run date of 2026-08-16. It was briefly configured on the strength of the VEVENT and GEO counts, ingested 0 of 50, and came straight back out. Counting records is not checking dates. `empty` is not `fail`, so this is a stale export and not a broken feed - worth re-probing in a season, and worth asking them whether ?ical=1 is meant to be forward-looking.",
+    "https://bikeloudpdx.org": "Portland cycling advocacy. robots.txt is two lines - 'User-agent: *' then 'Disallow: /' - which is a blanket no to everything, feed included. Not probed further.",
+    "https://www.sustaincharlotte.org": "The Events Calendar answers with 8 upcoming and robots.txt allows it, and the calendar is not what the name suggests: 5 of the 8 are 'Public forum and Charlotte City Council meeting'. Filing a council meeting under a cycling or fitness category would be the Traders Village mistake; filing the whole feed under community for the sake of one Biketoberfest is not worth a weekly crawl. Revisit if their ride programming moves onto this calendar.",
+    "https://sportsbackers.org": "Richmond's Sports Backers - reached while looking for Bike Walk RVA, which they run. The /events/?ical=1 feed parses (10 VEVENTs, all with LOCATION) and carries NO cycling: it is their community fitness programme - 'Aqua Fitness w/ Pam', 'Cee's Cardio', 'Move with Milli'. Genuinely useful to wegosie and listed in ics_sources.json as a FITNESS source under its own name, not here and not as a bike feed. Recorded so the next cycling sweep does not re-propose it as one.",
+    "https://tradersvillage.com": "One of the largest flea markets in the US, The Events Calendar answers, robots.txt allows it - and the calendar is not the market. All 10 upcoming entries are special events staged AT the site (Roll Out Volkswagen Car Show, Best Friends Pet Adoption, CORNy Maze, Trick R Treat Trail); the weekly flea market itself is never listed, because it simply happens every weekend and needs no event page. Filing these under `market` would put a pet adoption and a corn maze on fleabop and call them a flea market. The venue is worth revisiting only if they ever publish market days.",
+    "https://sfbike.org": "51 upcoming events, real rides and classes, and robots.txt ALLOWS it (Cloudflare Managed Content: 'User-agent: * / Content-Signal: search=yes,ai-train=no,use=reference / Allow: /'). Declined anyway, because permission is not the binding constraint here - the site sits behind a Cloudflare bot challenge that answers this adapter's requests with a 403 and 'Just a moment...' every time. It is a CLIENT-FINGERPRINT block, not a rate limit and not a User-Agent block: identical URLs answer 200 from curl and 403 from python-requests with the same UA, headers and pacing, and the 403 is instant and repeatable. Getting past it would mean impersonating a browser to defeat bot management somebody deliberately turned on - the same line as borrowing theveraproject.org's DICE key. If we want this feed, ask SFBC to allowlist the aggregator's UA.",
+    "https://www.marinbike.org": "Verifies fine - The Events Calendar answers, robots.txt is an empty Disallow with Crawl-delay: 10 - and is declined on DATA, not conduct: both upcoming events carry venue:null, with no name, address, city or coordinates anywhere in the record. There is nothing to place them by. A default_city would be worse than the gap: the two events are in different towns ('Slow and Say Hello: Mill Valley Multi-Use Path' and 'Kelly Brush Ride: Bay Area'), so any single fallback pins one of them somewhere real and wrong. Revisit if they start assigning venues.",
+    "https://www.cyclingtimetrials.org.uk": "UK time trials, thousands of events, and the event list is at /event-finder/ - which their robots.txt explicitly Disallows for 'User-agent: *' (along with /search/ and /svc/). Reachable is not licensed. Worth an approach to CTT for permission, the way parkrun is parked; not worth taking."
+  }
 }

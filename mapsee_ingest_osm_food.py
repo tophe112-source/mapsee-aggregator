@@ -540,14 +540,14 @@ def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=Non
         return []
     addr = " ".join(x for x in [tags.get("addr:housenumber"), tags.get("addr:street")] if x) or None
     kind = tags.get("amenity", "restaurant").replace("_", " ")
-    # The opening line has to match what the listing can actually DO, because a
-    # place may now arrive with a booking link and no ordering one.
-    if order_url and booking_url:
-        lead = "Order for pickup or book a table on their own site"
-    elif booking_url:
-        lead = "Book a table on their own site"
-    else:
-        lead = "Order for pickup on their own site"
+    # NO LEAD SENTENCE. This used to open with a claim about what the listing can
+    # do and who is not taking the money — "Order for pickup on their own site;
+    # mapsee.me is not taking the order." — which is a paragraph explaining a
+    # button that is sitting right there saying Order, and which goes to a
+    # domain that is plainly not ours. Nobody needs to be told that a link is a
+    # link. It also had to be kept in agreement with the links (three variants,
+    # and mapsee_prune_links rewriting it when one died), so it was a sentence
+    # that could go wrong and never had anything to say.
     lines = []
     if order_url:
         lines.append(f"🛒 Order: {order_url}")
@@ -563,8 +563,21 @@ def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=Non
         lines.append(f"🌐 Website: {site}")
     lines.extend(business_detail_lines(tags, website_phone))
     body = ("\n".join(lines) + "\n\n") if lines else ""
-    desc = (f"{name} — {kind} in {area['name']}. {lead}; "
-            f"mapsee.me is not taking the order.\n\n"
+    # THE HUB'S NAME IS NOT THE VENUE'S TOWN — here too. `city=` below stopped
+    # inventing one, and this sentence went on doing it: the description is
+    # built from area["name"], so every place in the 50-mile Seattle hub said
+    # "in Seattle" no matter where it was. Reported live 2026-08-17 — Sisters
+    # Restaurant, 2804 Grand Avenue, EVERETT, described as a "restaurant in
+    # Seattle" and pinned twenty-seven miles south of itself. The pin came from
+    # the invented city being geocoded; the sentence came from here, and fixing
+    # only the field would have left the prose asserting the wrong town.
+    #
+    # OSM's own city when it has one, and NO phrase when it does not. This
+    # restaurant carries no addr:city at all, so it now reads "Sisters
+    # Restaurant — restaurant." A missing town is a gap; a confident wrong one
+    # is what somebody drives to.
+    town = (tags.get("addr:city") or tags.get("addr:suburb") or "").strip()
+    desc = (f"{name} — {kind}{f' in {town}' if town else ''}.\n\n"
             f"{body}"
             f"Public business details from OpenStreetMap contributors (ODbL). "
             f"Hours and details can change; the business can claim this listing to correct them.")

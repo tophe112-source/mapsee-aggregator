@@ -3,9 +3,12 @@
 test_prune_links.py — what a pruned description must look like afterwards.
 
 This pass EDITS live descriptions, so the transformation is the risky part, not
-the probing. Two things it must never do: leave the lead sentence advertising a
-link it just removed ("Order for pickup on their own site" with no order line),
-and touch a line whose destination was merely unreachable.
+the probing. Two things it must never do: leave the lead sentence behind after
+removing the link it was about ("Order for pickup on their own site" with no
+order line), and touch a line whose destination was merely unreachable.
+
+The lead is now removed rather than rewritten — the ingest stopped writing one,
+so rows still carrying it are simply old, and this is where they lose it.
 
 Run: python test_prune_links.py
 """
@@ -57,9 +60,17 @@ def main():
     check("dead order line is removed", DEAD in (new or ""), False)
     check("the live booking line survives", BOOK in (new or ""), True)
     check("the website line survives", "Website: https://joes.com/" in (new or ""), True)
-    check("lead demoted to booking only",
-          "Book a table on their own site; mapsee.me is not taking the order." in (new or "")
-          and "Order for pickup" not in (new or ""), True)
+    # The lead used to be REWRITTEN here, demoted to whatever links survived.
+    # The ingest no longer writes one in any form — a sentence explaining that a
+    # button marked Order goes to somebody else's site — so there is nothing to
+    # correct it to and it comes out whole, taking its "mapsee.me is not taking
+    # the order" with it. What must survive is the head: the venue's name and
+    # what it is.
+    check("the lead sentence is removed entirely",
+          "on their own site" not in (new or "")
+          and "not taking the order" not in (new or ""), True)
+    check("...but the head of the description stays",
+          "Joe's — restaurant in Seattle." in (new or ""), True)
     check("flags report booking only", (has_o, has_b), (False, True))
 
     # 2. the last transactional link goes => the lead makes NO promise at all,

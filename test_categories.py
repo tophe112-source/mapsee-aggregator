@@ -148,9 +148,162 @@ CONTENT_CASES = [
     # "community" is inclusive LANGUAGE, not a word that appears everywhere
     ("Farmers Market", "market", "Local produce and a coffee cart.", "market", set(), {"community"}),
     ("Jazz Night", "music", "Our house trio plays two sets.", "music", set(), {"community"}),
+
+    # --- SECOND-HAND reaches fleabop. The market secondary asked only for
+    # English and only for the shopping words, so of ~230 upcoming events whose
+    # titles name second-hand retail, 15 reached the lens. The lens is called
+    # "Flea Markets, Clothing Swaps and Vintage Near You" and had 2 flea markets
+    # and 0 thrift, vintage, swap or antique in 3,469 events.
+    #
+    # These are all real live titles. The loanwords matter as much as the
+    # English: Flohmarkt COMPOUNDS, so it has to match as a suffix.
+    ("Flohmarkt am Arkonaplatz", "community", "Jeden Sonntag.", "community", {"market"}, set()),
+    ("Garagenflohmarkt fur den guten Zweck", "volunteer", "", "volunteer", {"market"}, set()),
+    ("Vide-grenier de la Croix-Rousse", "community", "", "community", {"market"}, set()),
+    ("Brocante de Printemps", "community", "", "community", {"market"}, set()),
+    ("Fashion Thrift Society Sydney", "arts", "Pre-loved fashion.", "arts", {"market"}, set()),
+    ("Bermondsey Car Boot Sale", "community", "", "community", {"market"}, set()),
+    ("Repair Cafe Islington", "community", "Bring something broken.", "community", {"market"}, set()),
+    ("Community Clothing Swap", "community", "", "community", {"market"}, set()),
+    ("Dallas Thrift & Vintage Shopping Tour", "outdoors", "", "outdoors", {"market"}, set()),
+
+    # ...and the words it must NOT take. "Vintage" is a band name and a tour
+    # name far more often than it is a market, and "thrifty" is alliteration.
+    ("Vintage Vinyl Live", "music", "A night of soul 45s.", "music", set(), {"market"}),
+    ("The Vintage Explosion", "music", "Glasgow's finest.", "music", set(), {"market"}),
+    ("Postmodern Jukebox: The Future Is Vintage", "music", "World tour.",
+     "music", set(), {"market"}),
+    ("Tuesdays Thrifty Theater Night", "theater", "Cheap seats.", "theater", set(), {"market"}),
+    # A pub quiz named after a song about a thrift shop. The one false positive
+    # in 138 second-hand matches, and the shape recurs whenever a venue names a
+    # night after a lyric.
+    ("Monday Night Trivia: Thrift Shop Bull", "party", "Quiz from 8.",
+     "party", set(), {"market"}),
+
+    # --- BRUNCH reaches oneday.cafe. It was the commonest food word on the map
+    # and the food secondary did not have it: 615 upcoming events, 158 reaching
+    # the lens, 457 sitting on community, theater and music. oneday is the
+    # second-thinnest lens and food is its ONLY category.
+    #
+    # The point of these three is that the PRIMARY must not move. A drag brunch
+    # is theatre AND a meal, and the secondaries column exists precisely so it
+    # can be both — a secondary that re-keyed the event would change its pin.
+    ("Golden Girls Drag Brunch", "theater", "", "theater", {"food"}, set()),
+    ("Gospel Brunch: The Moriah Sisters", "music", "", "music", {"food"}, set()),
+    ("SF Brunch Social: Make New Friends", "community", "", "community", {"food"}, set()),
+    # A tap takeover really is nightlife, so _PARTY_RX re-keys it and that is
+    # correct — the food SECONDARY is what carries it to oneday as well, which
+    # is the whole point: one row, bar.ventures and oneday.cafe both.
+    ("Tap Takeover at Mt. Airy Taproom", "community", "", "party", {"food"}, set()),
+    ("Distillery Tour and Tasting", "community", "", "community", {"food"}, set()),
 ]
 
 cfails = []
+
+
+# ---------------------------------------------------------------------------
+# A fuzzy search's keyword is not a classification
+# ---------------------------------------------------------------------------
+# Meetup's eventSearch is not a phrase match. The adapter sweeps "farmers
+# market" / "night market" and files everything it gets back under `market`,
+# because normally the keyword that found an event is a decent guess at its
+# layer. For `market` it is not: "market" is a business word first. Measured
+# 2026-08-16, every `market` event in Berlin was a Meetup row and NONE was a
+# market — three stand-up nights, a Magic: the Gathering league, a run club, an
+# e-commerce breakfast, a homebuyers' meetup and a meditation. That was
+# fleabop's entire supply in the city.
+#
+# The demotion is gated on PROVENANCE, not just text, and that is the whole
+# design: "Randolph Street Market" does not match a market regex either, so a
+# text-only rule would throw away the real supply to fix the fake.
+from mapsee_supabase_sync import map_category   # noqa: E402
+
+
+def _rec(name, desc="", cat="market", src="meetup"):
+    return {"name": name, "title": name, "description": desc, "category": cat,
+            "sources": [{"source": src, "source_id": "1", "url": "https://example.org/e"}]}
+
+
+# ---------------------------------------------------------------------------
+# The library is where `kids` supply comes from
+# ---------------------------------------------------------------------------
+# All 58 library feeds in ics_sources.json are filed `learning`, correctly — so
+# _KIDS_RX is the only thing that gives the kids layer any supply, and it was
+# missing a third of it. Measured over 1,347 distinct live titles from eight
+# public library feeds: 124 promoted, 132 more were plainly children's or teen
+# events that did not. Every case below is a real title from that set.
+KIDS_CASES = [
+    # (title, want_primary)
+    ("Teen Book Club", "kids"),                 # teen/tween was absent entirely
+    ("Tween Crafternoon", "kids"),
+    ("Dungeons & Dragons for Tweens/Teens", "kids"),
+    ("LEGO in the Library", "kids"),            # the programme is named for the brick
+    ("Lego Free Play", "kids"),
+    ("Baby Lap Sit", "kids"),                   # baby+(time|rhyme|song) was too narrow
+    ("Bouncing Babies", "kids"),
+    ("Read to the Dog", "kids"),                # a staple that matched nothing
+    ("Read to a Therapy Dog", "kids"),
+    ("Pokémon Club", "kids"),
+    ("Homeschool Robotics", "kids"),
+    ("Dino Days- Family STEAM", "kids"),
+    ("LEGO in the Library (ages 4-18)", "kids"),   # an age range IS the signal
+    ("Homeschool Exploratorium K-2", "kids"),
+    # …and what it must NOT take. Libraries run the SAME programme for adults
+    # and say so in the title; "Adult LEGO® Club" is a real listing.
+    ("Adult LEGO® Club", "learning"),
+    ("Adult Craft Hour: Decorate Bags", "learning"),
+    ("Seniors Tech Help", "learning"),
+    # the volunteer rule runs first and must keep winning
+    ("Teen Volunteer Corps at Central Library", "volunteer"),
+]
+
+kfails = []
+for title, want in KIDS_CASES:
+    got = map_category({"name": title, "title": title, "description": "",
+                        "category": "learning",
+                        "sources": [{"source": "ics", "source_id": "1"}]})
+    ok = got == want
+    if not ok:
+        kfails.append(title)
+    print(f"{'ok ' if ok else 'FAIL'} {title[:46]:<48} -> {got}"
+          f"{'' if ok else f'   (wanted {want})'}")
+print()
+print(f"{len(KIDS_CASES)-len(kfails)}/{len(KIDS_CASES)} passed")
+cfails += kfails
+
+
+SWEEP_CASES = [
+    # (name, description, source, want)
+    ("On Fire! Scorching Stand Up Comedy!", "A night of side-splitting comedy.",
+     "meetup", "community"),
+    ("COMMON GROUND - Magic: the Gathering - Pauper Tuesdays", "Come play Magic.",
+     "meetup", "community"),
+    ("E-Commerce over Breakfast Berlin", "A curated meetup for e-commerce operators.",
+     "meetup", "community"),
+    ("Weekly Thursday Meditation", "Every Thursday, donation based.", "meetup", "community"),
+    # a Meetup row that really IS a market keeps the key
+    ("Ballard Farmers Market meetup", "", "meetup", "market"),
+    ("Vintage Flea Market Crawl", "", "meetup", "market"),
+    # and a source that stated `market` DELIBERATELY is never second-guessed,
+    # including the two that would fail a text test
+    ("Randolph Street Market September 26+27", "", "tribe", "market"),
+    ("Wochenmarkt Wutzkyallee", "", "market:osm-berlin-de", "market"),
+    ("Flohmarkt am Arkonaplatz", "", "market:osm-berlin-de", "market"),
+]
+
+sfails = []
+for name, desc, src, want in SWEEP_CASES:
+    got = map_category(_rec(name, desc, src=src))
+    ok = got == want
+    if not ok:
+        sfails.append(name)
+    print(f"{'ok ' if ok else 'FAIL'} [{src[:22]:<22}] {name[:40]:<42} -> {got}"
+          f"{'' if ok else f'   (wanted {want})'}")
+print()
+print(f"{len(SWEEP_CASES)-len(sfails)}/{len(SWEEP_CASES)} passed")
+cfails += sfails
+
+
 for name, cat, desc, want_primary, must_have, must_not in CONTENT_CASES:
     primary, extras = derive_categories({"name": name, "category": cat, "description": desc})
     got = set(extras or [])

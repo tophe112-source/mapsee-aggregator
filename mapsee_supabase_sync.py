@@ -120,13 +120,55 @@ _PROMOTABLE_TO_PARTY = {"community", "food", "other"}
 # storytimes, family days and children's workshops sat in community/learning.
 # Promoted out of generic buckets so the Kids filter reflects what is actually
 # happening for families.
+# The single largest source of children's programming in the catalogue is the
+# public library, and every one of the 58 library feeds in ics_sources.json is
+# filed `learning` — correctly, because that is what the calendar as a whole is.
+# So this rule is what decides whether `kids` gets any supply at all, and it was
+# missing a third of it.
+#
+# Measured 2026-08-16 over 1,347 distinct live titles from eight public library
+# feeds (Fairfax, Arlington VA, Arlington TX, Beverly Hills, Chester County,
+# Montgomery County, Brookline, Denver): 124 promoted, and 132 more were plainly
+# children's or teen events that did not. The gaps were systematic, not random:
+#
+#   • TEEN/TWEEN was absent altogether — the single biggest miss. "Teen Book
+#     Club", "Tween Crafternoon", "Dungeons & Dragons for Tweens/Teens".
+#   • `lego\s+(?:club|build)` missed "LEGO in the Library", "LEGO Fun Time",
+#     "Lego Free Play" — the programme is usually named after the brick alone.
+#   • `baby\s+(?:time|rhyme|song)` missed "Baby Lap Sit", "Baby Steps",
+#     "Bouncing Babies".
+#   • "Read to the Dog" is a staple US library literacy programme and matched
+#     nothing at all.
+#
+# Also here: an explicit AGE RANGE ("ages 4-18", "grades K-2"), which is how a
+# library says "this is for children" without using any of the words above.
 _KIDS_RX = re.compile(
-    r"\b(story\s?time|family\s+(?:day|fun|friendly|workshop|concert)|"
+    r"\b(story\s?time|"
+    r"family\s+(?:day|fun|friendly|workshop|concert|steam|stem|storytime|movie|game|craft|night|hour)|"
     r"kids?\s+(?:club|craft|workshop|class|hour|day|camp|activit)|"
     r"children'?s?\s+(?:workshop|hour|program|craft|story|activit)|"
     r"toddler|preschool|pre[\s-]?k\b|baby\s+(?:time|rhyme|song)|rhyme\s?time|"
     r"puppet\s+show|petting\s+zoo|face\s+painting|egg\s+hunt|"
-    r"lego\s+(?:club|build)|youth\s+(?:program|workshop|club))\b", re.I)
+    r"lego\s+(?:club|build)|youth\s+(?:program|workshop|club)|"
+    r"t(?:w)?eens?|teenager|"
+    r"(?:baby|babies)\s+(?:bounce|lap\s?sit|steps|play|sign|and\s+me)|bouncing\s+babies|"
+    r"lego|duplo|brick\s+(?:club|build|night)|"
+    r"read\s+(?:to|with)\s+(?:a\s+|the\s+)?(?:dog|therapy\s+dog|teen)|"
+    r"minecraft|pok[eé]mon|anime\s+club|"
+    r"homeschool|infants?|newborn|"
+    r"youth\s+(?:crew|group|night|craft|art|writing|hangout)|"
+    r"sensory\s+(?:play|story)|messy\s+play|tummy\s+time|"
+    r"summer\s+reading\s+(?:kick|program|club)|"
+    r"ages?\s+\d{1,2}\s*[-–]\s*\d{1,2}|grades?\s+[kK0-9])\b", re.I)
+
+# The same widening that catches "LEGO in the Library" catches "Adult LEGO®
+# Club", which is a real listing on a real library calendar — libraries run the
+# identical programme for grown-ups and say so in the title. Checked only
+# against the kids promotion, and only ever to WITHHOLD it, so it can move
+# nothing off the layer it is already on.
+_NOT_FOR_KIDS_RX = re.compile(
+    r"\b(adults?|adult[\s-]only|18\+|21\+|grown[\s-]?ups?|seniors?)\b", re.I)
+
 _PROMOTABLE_TO_KIDS = {"community", "learning", "arts", "outdoors", "other"}
 
 
@@ -206,16 +248,69 @@ _WEAK_KEY_FOR_FITNESS = {"party", "community", "learning", "other"}
 # stay multi-word for the same reason a bare "food" would tag every concert
 # whose blurb says "no outside food".
 _SECONDARY_RX = [
-    ("market", re.compile(
-        r"\b(flea\s+market|farmers?\s+market|night\s+market|craft\s+fair|"
-        r"makers?\s+market|artisan\s+market|vintage\s+(?:market|fair|sale|pop[\s-]?up)|"
+    # SECOND-HAND IS THE HALF THIS RULE WAS MISSING. fleabop.com is "Flea
+    # Markets, Clothing Swaps and Vintage Near You" and it was the thinnest lens
+    # on the map: measured 2026-08-16, 3,469 events with `market` as primary, of
+    # which 2 had "flea" in the title and 0 had thrift, vintage, swap or
+    # antique — 46.6% were farmers markets, and market_sources.json is a
+    # farmers-market file end to end (85 uses of "farmers", 0 of "flea").
+    #
+    # The supply was not missing, it was UNLABELLED. ~230 upcoming events name
+    # second-hand retail in their title and sat on community (100), music (44),
+    # other (24) and arts (13) instead. This regex is why: it asked only for
+    # English, and only for the shopping words, so "Flohmarkt am Arkonaplatz"
+    # and "Fashion Thrift Society Sydney" both missed.
+    #
+    # Additive by construction — a secondary never changes a pin, colour or
+    # primary key — so widening it can put a market on fleabop but can never
+    # take a concert off vivosie.
+    #
+    # SCOPED, not bare. "thrift" alone matches "Tuesdays Thrifty Theater Night"
+    # and "Monday Night Trivia: Thrift Shop Bulls**t"; "vintage" alone matches
+    # vintage guitars, vintage wine and vintage baseball. Each English word
+    # carries the noun that makes it retail. The loanwords do NOT need scoping
+    # and deliberately have none: Flohmarkt, brocante and vide-grenier mean
+    # exactly one thing, and Flohmarkt is a COMPOUND — Garagenflohmarkt,
+    # Frauenflohmarkt, Musik-Flohmarkt are all real live titles — so it must
+    # match as a suffix, which is why it carries no leading \b.
+    ("market", _MARKET_RX := re.compile(
+        r"(\b(flea\s+market|farmers?\s+market|night\s+market|craft\s+fair|"
+        r"makers?\s+market|artisan\s+market|vintage\s+(?:market|fair|sale|show|pop[\s-]?up)|"
         r"swap\s+meet|clothing\s+swap|rummage\s+sale|estate\s+sale|holiday\s+market|"
-        r"bazaar|street\s+fair|pop[\s-]?up\s+shop|craft\s+market|record\s+fair)\b", re.I)),
+        r"bazaar|street\s+fair|pop[\s-]?up\s+shop|craft\s+market|record\s+fair|"
+        # second-hand, thrift and reuse
+        r"thrift\s+(?:store|shop|market|sale|fair|society|pop[\s-]?up)|thrifting|"
+        r"thrift\s*(?:&|and)\s*vintage|"
+        r"second[\s-]?hand\s+(?:market|shop|sale|fair)|"
+        r"antiques?\s+(?:market|fair|show|mall|sale)|antiquing|"
+        r"(?:car\s+)?boot\s+sale|jumble\s+sale|garage\s+sale|yard\s+sale|"
+        r"charity\s+shop|op\s+shop|consignment\s+sale|"
+        r"(?:book|toy|plant|seed|clothes|clothing|kit)\s+swap|swap\s+shop|"
+        r"repair\s+caf[eé]|upcycling\s+(?:market|fair)|"
+        r"record\s+swap|vinyl\s+fair|car\s+boot)\b|"
+        # Loanwords: unambiguous in their own language, and Flohmarkt/Trodelmarkt
+        # compound freely, so no leading word boundary on those two.
+        r"flohmarkt|tr[oö]delmarkt|tauschb[oö]rse|"
+        r"\b(brocante|vide[\s-]?greniers?|mercadillo|rastro|rommelmarkt|"
+        r"loppis|kirpputori|mercatino|feira\s+da\s+ladra|pchli\s+targ)\b)", re.I)),
+    # BRUNCH WAS MISSING, and it is the single commonest food word on the map.
+    # Measured 2026-08-16: 615 upcoming events with "brunch" in the title, of
+    # which only 158 reached oneday.cafe — 457 sat on community (235), theater
+    # (78) and music (37) instead. oneday is the second-thinnest lens and food
+    # is its ONLY category, so that is a third of its potential supply.
+    #
+    # A brunch is a meal whatever else is happening at it. "Burlesque Brunch",
+    # "Golden Girls Drag Brunch" and "Gospel Brunch: The Moriah Sisters" are all
+    # people eating, and because this is a SECONDARY they keep theater or music
+    # as their primary and reach oneday as well — which is exactly the case the
+    # secondaries column was added for. `taproom` and `distillery` are the same
+    # omission one size down: `brewery` was here and its two siblings were not.
     ("food", re.compile(
         r"\b(food\s+trucks?|food\s+hall|food\s+vendors?|supper\s+club|tasting\s+menu|"
         r"pop[\s-]?up\s+(?:dinner|kitchen)|beer\s+garden|brewery|winery|cidery|"
         r"wine\s+tasting|beer\s+(?:tasting|festival)|bbq|barbecue|"
-        r"chili\s+cook[\s-]?off|bake\s+sale|farm\s+dinner|potluck)\b", re.I)),
+        r"chili\s+cook[\s-]?off|bake\s+sale|farm\s+dinner|potluck|"
+        r"brunch|taproom|tap\s+takeover|distillery|bottomless)\b", re.I)),
     ("music", re.compile(
         r"\b(live\s+music|live\s+bands?|dj\s+set|open\s+mic|acoustic\s+set|"
         r"concert\s+series|jazz\s+night|drum\s+circle)\b", re.I)),
@@ -381,10 +476,23 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
             break
         if key == "fitness" and primary in _NO_FITNESS_SECONDARY_FROM:
             continue
+        # A pub quiz named after a song about a thrift shop is not a market.
+        # "Monday Night Trivia: Thrift Shop Bulls**t" is the live one, and it was
+        # the single false positive in 138 second-hand matches — cheap to refuse,
+        # and the shape recurs every time a venue names a night after a lyric.
+        if key == "market" and _NOT_A_MARKET_RX.search(text):
+            continue
         if rx.search(text):
             add(key)
 
     return primary, (extras[:MAX_EXTRA_CATEGORIES] or None)
+
+
+# Formats that borrow retail words for a night out. Checked only against the
+# market secondary, and only ever to WITHHOLD a layer — it can never move an
+# event off the lens it is already on.
+_NOT_A_MARKET_RX = re.compile(
+    r"\b(trivia|quiz\s+night|pub\s+quiz|bingo|karaoke|open\s+mic)\b", re.I)
 
 
 _URL_RX = re.compile(r"https?://\S+", re.I)
@@ -410,6 +518,19 @@ def _strip_urls(text: str) -> str:
     return _URL_RX.sub(" ", text or "")
 
 
+# Adapters whose category is the SEARCH TERM that found the event rather than
+# anything the source said about it. Matched against the `source` on each stored
+# source ref, which the markets adapter namespaces ("market:osm-berlin-de"), so
+# the comparison is on the part before the colon.
+_KEYWORD_SWEEP_SOURCES = {"meetup"}
+
+
+def _from_keyword_sweep(rec: Dict[str, Any]) -> bool:
+    return any(str(s.get("source") or "").split(":", 1)[0].strip().lower()
+               in _KEYWORD_SWEEP_SOURCES
+               for s in (rec.get("sources") or []))
+
+
 def map_category(rec: Dict[str, Any]) -> str:
     """Map the captured category to a Mapsee frontend category KEY (site/js/app.js).
     Accepts a Ticketmaster segment / schema.org @type, OR an already-valid Mapsee
@@ -420,6 +541,27 @@ def map_category(rec: Dict[str, Any]) -> str:
     need exactly one key. derive_categories() wraps this for the full set."""
     raw = (rec.get("category") or "").strip().lower()
     key = raw if raw in MAPSEE_CATEGORY_KEYS else CATEGORY_KEYS.get(raw, DEFAULT_CATEGORY_KEY)
+    # A FUZZY SEARCH'S KEYWORD IS NOT A CLASSIFICATION. Meetup's eventSearch is
+    # not a phrase match: the adapter sweeps "farmers market" and "night market"
+    # and files whatever comes back under `market`, because the keyword that
+    # found an event is normally a decent guess at its layer. For `market` it is
+    # not, because "market" is a business word before it is a shopping one.
+    # Measured 2026-08-16, every `market` event in Berlin was a Meetup row and
+    # none was a market: stand-up comedy (x3), a Magic: the Gathering night, a
+    # run club, an e-commerce breakfast, a homebuyers' meetup and a meditation.
+    # fleabop's whole supply in that city was wrong.
+    #
+    # Demoted only when the text does not back the claim, and only for a source
+    # that GUESSED. Provenance is what makes that safe: market_sources.json and
+    # tribe_sources.json state `market` deliberately, and "Randolph Street
+    # Market" would not survive a title test — so a text-only rule would throw
+    # away the real supply to fix the fake.
+    #
+    # 'community' rather than 'other', because these are Meetup socials and the
+    # promotion rules below can still move them onto a better layer from there.
+    if key == "market" and _from_keyword_sweep(rec) \
+            and not _MARKET_RX.search(_classify_text(rec, _DESC_SCAN_CHARS)):
+        key = "community"
     if key in _PROMOTABLE_TO_VOLUNTEER:
         # URL-stripped like every other description read: a Meetup group slug
         # such as …-volunteer-cleanup-group- is the name of a GROUP, not a
@@ -428,7 +570,8 @@ def map_category(rec: Dict[str, Any]) -> str:
             return "volunteer"
     if key in _PROMOTABLE_TO_THEATER and _THEATER_RX.search(rec.get("name") or ""):
         return "theater"           # comedy/standup/film at a music venue -> stage layer
-    if key in _PROMOTABLE_TO_KIDS and _KIDS_RX.search(rec.get("name") or ""):
+    if key in _PROMOTABLE_TO_KIDS and _KIDS_RX.search(rec.get("name") or "") \
+            and not _NOT_FOR_KIDS_RX.search(rec.get("name") or ""):
         return "kids"              # storytime/family day hiding in community/learning
     if key in _PROMOTABLE_TO_PARTY and _PARTY_RX.search(rec.get("name") or ""):
         return "party"             # crawls/happy hours/karaoke -> the nightlife layer

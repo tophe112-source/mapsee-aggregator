@@ -288,10 +288,20 @@ jobs:
           else
             echo "no ics_sources.json — skipping ICS feeds"
           fi
+      # --skip-type overpass is LOAD-BEARING, not tidiness. The OSM sweep is 245
+      # Overpass calls and takes over three hours; everything else in this file
+      # finishes in about a minute. On Monday 2026-08-17 it ran here and the job
+      # hit its 240-minute ceiling INSIDE this step — so the checkpoint below
+      # never ran and the whole day was lost, including the Socrata and ICS work
+      # that had already succeeded and the twenty sources queued behind it. The
+      # Saturday and Sunday either side took 52 and 55 minutes, because
+      # run_weekdays keeps the sweep to Mondays. It now has its own job.
       - name: Import recurring community markets (farmers markets, expanded to dated occurrences)
         run: |
           if [ -f market_sources.json ]; then
-            python mapsee_ingest_markets.py --config market_sources.json --store feeds_events.json
+            python mapsee_ingest_markets.py --config market_sources.json \
+                                            --skip-type overpass \
+                                            --store feeds_events.json
           else
             echo "no market_sources.json — skipping markets"
           fi
@@ -604,7 +614,7 @@ jobs:
   # they geocode through the US Census BATCH endpoint (up to 9,000 per request),
   # not the 1.1s-per-venue path the `feeds` cap exists for.
   races:
-    name: Races (RunSignup — running + fitness)
+    name: Races (RunSignup + BikeReg — running, cycling, fitness)
     runs-on: ubuntu-latest
     # Daily cron + manual, alongside `feeds`; skipped on the Mon/Thu heavy cron.
     if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
@@ -626,6 +636,21 @@ jobs:
           python mapsee_ingest_runsignup.py --config runsignup_sources.json \
                                             --store races_events.json
           exit 0
+      # Same job and the SAME STORE as RunSignup, deliberately: both are national
+      # registration platforms feeding the same lens, and a rider looking at
+      # wegosie should not be able to tell which one an event came from. Sharing
+      # the store also means the fingerprint dedupe sees both, so a duathlon
+      # listed on each platform merges instead of pinning twice.
+      #
+      # Adds no geocoding load to the sync: every BikeReg row arrives with the
+      # feed's own coordinates and coords_exact set, so it skips the Census pass
+      # that the RunSignup rows above go through.
+      - name: Import BikeReg races and rides (cycling — the empty half of wegosie)
+        run: |
+          set +e
+          python mapsee_ingest_bikereg.py --config bikereg_sources.json \
+                                          --store races_events.json
+          exit 0
       - name: Sync races to Supabase (batch-geocoded via US Census)
         run: |
           ONLY_NEW="--only-new"
@@ -636,6 +661,64 @@ jobs:
             python mapsee_supabase_sync.py --store races_events.json $ONLY_NEW
           else
             echo "no races ingested — nothing to sync"
+          fi
+
+  # OpenStreetMap marketplaces, on their own, for the same reason `races` is on
+  # its own: this one source costs more than every other feed in the repo put
+  # together. 245 Overpass bboxes at roughly 45s each — query, the endpoint's
+  # 429/504 backoff, and a deliberate pause so a free service is not hammered —
+  # is over three hours, against about a minute for the rest of
+  # market_sources.json.
+  #
+  # It lived inside `feeds` until 2026-08-17, when that job hit its 240-minute
+  # ceiling in the middle of the markets step. The checkpoint sync sits AFTER
+  # that step, so the run delivered nothing at all: not the markets, not the
+  # Socrata and ICS work that had already finished, and not the twenty-odd
+  # sources queued behind it. A source that cannot finish must not be able to
+  # take the others down with it.
+  #
+  # Worth the runner time: measured over six metros the sweep yields 352 markets
+  # and 3,684 occurrences, and the whole `market` category currently holds 3,469
+  # upcoming events — fleabop is the thinnest lens on the map.
+  markets_osm:
+    name: OSM marketplaces (fleabop — its own job; the sweep is 3h+)
+    runs-on: ubuntu-latest
+    # Daily cron + manual. market_sources.json's own run_weekdays pins the sweep
+    # to Mon+Thu, so on the other five days this job starts, prints one skip
+    # line and exits in seconds.
+    if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+    # Comfortably over the measured 3h, and under the 6h hosted-runner ceiling.
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
+      # Failure-tolerant like every other ingest: a bad day at Overpass is a
+      # quiet day for one lens, not a red workflow.
+      - name: Sweep OpenStreetMap marketplaces
+        run: |
+          set +e
+          python mapsee_ingest_markets.py --config market_sources.json \
+                                          --type overpass \
+                                          --store osm_market_events.json
+          exit 0
+      # No geocoding: every OSM row arrives with the feed's own surveyed
+      # coordinates and coords_exact set, so the sync's Census pass skips them.
+      - name: Sync OSM markets to Supabase
+        run: |
+          ONLY_NEW="--only-new"
+          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
+          [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
+          echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
+          if [ -f osm_market_events.json ]; then
+            python mapsee_supabase_sync.py --store osm_market_events.json $ONLY_NEW
+          else
+            echo "no OSM markets ingested — nothing to sync"
           fi
 
   extra_sources:
@@ -768,7 +851,14 @@ jobs:
     # (~12,500 events), so an indexnow that does not wait for it announces
     # everything EXCEPT the biggest batch, and does it while looking healthy.
     # Anything added to `jobs:` from here on has to be added to this list too.
-    needs: [ticketmaster, meetup, feeds, races, extra_sources]
+    #
+    # markets_osm is here on the same reasoning and with one caveat: on the two
+    # days its sweep actually runs it can take three hours, so this job waits
+    # that long before announcing anything. That is the right trade — an
+    # IndexNow ping is not time-critical, and the alternative is announcing
+    # everything EXCEPT a sweep that yields thousands of URLs. On the other five
+    # days markets_osm exits in seconds and costs this job nothing.
+    needs: [ticketmaster, meetup, feeds, races, markets_osm, extra_sources]
     if: always()
     timeout-minutes: 10
     steps:

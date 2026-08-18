@@ -242,7 +242,14 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
     if lat is None or lon is None:
         return []
     label = "market:" + src["name"].lower().replace(" ", "-")
-    place = mk.get("address") or name
+    # The pin's LABEL. Same rule as mapsee_ingest_runsignup: a street beginning
+    # with a house number makes a poor one — "1 Schöneicher Straße" tells a
+    # reader nothing, where "Flohmarkt Friedrichshagen" names the thing they are
+    # going to. A street that does NOT start with a number is usually a real
+    # place ("Ballard Ave NW & Vernon Pl NW") and is kept. The exact address
+    # survives either way in `address`, which the sync appends as "📍 …".
+    addr = (mk.get("address") or "").strip()
+    place = addr if (addr and not addr[0].isdigit()) else name
     # Cross-source identity is the NAME plus a ~5km geohash cell, NOT the address.
     # One market reaches this function as "Ballard Ave NW & Vernon Pl NW" from the
     # curated list, "5345 Ballard Ave NW" from USDA and "5301 Ballard Avenue
@@ -280,6 +287,10 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
             venue_name=place,
             latitude=lat, longitude=lon,
             address=mk.get("address"),
+            # Absent on every loader but Overpass, so this is None and nothing
+            # changes for the inline, Socrata and USDA sources.
+            city=mk.get("city"),
+            coords_exact=bool(mk.get("coords_exact")),
             category="market",
             # A farmers/night market IS a food destination — this is the single
             # richest supply oneday.cafe has, and it was reaching only fleabop.
@@ -374,41 +385,71 @@ def parse_opening_hours(oh: str) -> Optional[Dict[str, Any]]:
             "season_start": s_start, "season_end": s_end}
 
 
+# Backoff base, in seconds: 5s / 15s / 45s across the three retries. A module
+# constant rather than a literal so test_ingest_markets.py can set it to 0 — a
+# stubbed 504 needs the RETRY LOGIC exercised, not the waiting, and at 65s per
+# failing bbox the suite would take minutes and get skipped.
+OVERPASS_BACKOFF_S = 5
+
+
+def _overpass_fetch(session, endpoint, bbox, quiet=False):
+    """Elements for one bbox, or None if the endpoint never answered.
+
+    The public endpoint hands out a couple of slots and answers 429 (or 504)
+    when they are busy — across 245 metros that is normal traffic, not an error,
+    so it is worth waiting out rather than dropping the metro. Honour
+    Retry-After when offered; otherwise back off 5s / 15s / 45s.
+    """
+    area = "{s},{w},{n},{e}".format(**bbox)
+    q = ("[out:json][timeout:90];("
+         'node["amenity"="marketplace"](' + area + ");"
+         'way["amenity"="marketplace"](' + area + ");"
+         ");out center tags;")
+    for attempt in range(4):
+        try:
+            r = session.post(endpoint, data=q.encode("utf-8"), timeout=180)
+            if r.status_code in (429, 504) and attempt < 3:
+                wait = int(r.headers.get("Retry-After") or 0) or (OVERPASS_BACKOFF_S * 3 ** attempt)
+                if not quiet:
+                    print(f"[markets] overpass {bbox.get('name', '?')}: "
+                          f"{r.status_code}, retrying in {wait}s")
+                time.sleep(wait)
+                continue
+            r.raise_for_status()
+            return r.json().get("elements", [])
+        except Exception as exc:                      # noqa: BLE001
+            if attempt == 3:
+                if not quiet:
+                    print(f"[markets] overpass {bbox.get('name', '?')} FAILED: {exc}")
+            else:
+                time.sleep(OVERPASS_BACKOFF_S * 3 ** attempt)
+    return None
+
+
 def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """amenity=marketplace inside each configured bbox, as market dicts."""
+    """amenity=marketplace inside each configured bbox, as market dicts.
+
+    A METRO THAT EXHAUSTS ITS RETRIES USED TO BE GONE FOR THE WEEK. The sweep is
+    245 bboxes against a free endpoint, so a handful lose their slot on any given
+    run — measured on an 8-metro sample, New York and Los Angeles both came back
+    empty while the other six answered. The loop simply moved on, and because
+    this source runs twice a week the two largest markets in the US could be
+    absent for days with one line of log to say so.
+
+    Two things fix that, and they are cheap. Failures are collected and given a
+    SECOND PASS at the end, by which point the sweep has been running for twenty
+    minutes and the endpoint has usually recovered — a retry that costs nothing
+    when there is nothing to retry. And the outcome is COUNTED, so a partial
+    sweep reports as a number rather than looking identical to a complete one.
+    """
     endpoint = src.get("endpoint", "https://overpass-api.de/api/interpreter")
     out: List[Dict[str, Any]] = []
     seen: set = set()
-    for bbox in src.get("bboxes", []):
-        area = "{s},{w},{n},{e}".format(**bbox)
-        q = ("[out:json][timeout:90];("
-             'node["amenity"="marketplace"](' + area + ");"
-             'way["amenity"="marketplace"](' + area + ");"
-             ");out center tags;")
-        # The public endpoint hands out a couple of slots and answers 429 (or 504)
-        # when they are busy — at 80 metros a run that is normal traffic, not an
-        # error, so it is worth waiting out rather than dropping the metro. Honour
-        # Retry-After when offered; otherwise back off 5s / 15s / 45s.
-        els = None
-        for attempt in range(4):
-            try:
-                r = session.post(endpoint, data=q.encode("utf-8"), timeout=180)
-                if r.status_code in (429, 504) and attempt < 3:
-                    wait = int(r.headers.get("Retry-After") or 0) or (5 * 3 ** attempt)
-                    print(f"[markets] overpass {bbox.get('name', '?')}: "
-                          f"{r.status_code}, retrying in {wait}s")
-                    time.sleep(wait)
-                    continue
-                r.raise_for_status()
-                els = r.json().get("elements", [])
-                break
-            except Exception as exc:
-                if attempt == 3:
-                    print(f"[markets] overpass {bbox.get('name', '?')} FAILED: {exc}")
-                else:
-                    time.sleep(5 * 3 ** attempt)
-        if els is None:
-            continue
+    bboxes = list(src.get("bboxes", []))
+    failed: List[Dict[str, Any]] = []
+    pause = src.get("pause_s", 2)
+
+    def absorb(bbox, els):
         hit = 0
         for el in els:
             t = el.get("tags") or {}
@@ -428,15 +469,63 @@ def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
             seen.add(key)
             street = " ".join(x for x in (t.get("addr:housenumber"), t.get("addr:street")) if x)
             city = t.get("addr:city") or bbox.get("city") or ""
+            # THE CITY IS NOT A STREET. This used to glue them into one `address`
+            # and set no city at all, so every OSM market reached the database
+            # with locality NULL and street_address "Berlin" — and most OSM
+            # marketplaces have no addr:street, so "Berlin" was the whole of it.
+            #
+            # That is not just an ugly row. mapsee_supabase_sync._addr_parts
+            # treats whatever is in `address` as a street and hands it to the US
+            # Census batch geocoder, so a surveyed OSM point was offered up to be
+            # overwritten by a lookup of a bare city name. It survives today only
+            # because Census returns nothing for "Berlin"/"Paris"/"Hamburg" — a
+            # US city of the same name and it would not. Keeping them apart means
+            # _addr_parts sees no street and declines to geocode at all.
             mk = {"name": name, "lat": lat, "lon": lon,
-                  "address": ", ".join(x for x in (street, city) if x) or None,
+                  "address": street or None,
+                  "city": city or None,
+                  # OSM hands over a SURVEYED point and derives its address text
+                  # from it — the same reason mapsee_ingest_osm_food sets this.
+                  # Without it the Census pass is allowed to move the pin, which
+                  # is how a Renton restaurant ended up eleven miles away.
+                  "coords_exact": True,
                   "url": t.get("website") or t.get("contact:website")}
             mk.update(sched)
             out.append(mk)
             hit += 1
         print(f"[markets] overpass {bbox.get('name', '?')}: {hit} market(s) "
               f"from {len(els)} marketplaces")
-        time.sleep(src.get("pause_s", 2))         # a free endpoint; do not hammer it
+
+    for bbox in bboxes:
+        els = _overpass_fetch(session, endpoint, bbox)
+        if els is None:
+            failed.append(bbox)
+        else:
+            absorb(bbox, els)
+        time.sleep(pause)                         # a free endpoint; do not hammer it
+
+    # SECOND PASS over whatever lost its slot. By now the sweep has been running
+    # for a while and the endpoint has usually recovered; when nothing failed
+    # this block costs one `if`.
+    recovered = 0
+    if failed:
+        print(f"[markets] overpass: {len(failed)} of {len(bboxes)} metro(s) did not "
+              f"answer — second pass: {', '.join(b.get('name', '?') for b in failed[:8])}"
+              + (" …" if len(failed) > 8 else ""))
+        still: List[Dict[str, Any]] = []
+        for bbox in failed:
+            els = _overpass_fetch(session, endpoint, bbox, quiet=True)
+            if els is None:
+                still.append(bbox)
+            else:
+                absorb(bbox, els)
+                recovered += 1
+            time.sleep(pause * 2)                 # it is already unhappy; go gentler
+        # The number is the point. A sweep that silently covered 243 of 245
+        # metros looks exactly like one that covered all of them, and this
+        # source only runs twice a week — so a miss costs days, not minutes.
+        print(f"[markets] overpass: recovered {recovered}, still missing {len(still)}"
+              + (f" ({', '.join(b.get('name', '?') for b in still)})" if still else ""))
     return out
 
 
@@ -845,6 +934,30 @@ def main(argv=None) -> int:
     # for a manual backfill or when testing a new source.
     ap.add_argument("--force", action="store_true",
                     help="run every source regardless of its run_weekdays")
+    # SPLITTING THIS FILE ACROSS TWO JOBS IS THE POINT OF THESE.
+    #
+    # Every source here used to run in one step inside the `feeds` job, and the
+    # OSM sweep is 245 Overpass calls against a free endpoint — measured, that
+    # is over three hours on its own. Everything else in the file finishes in
+    # about a minute. Live consequence on Monday 2026-08-17: the feeds job hit
+    # its 240-minute ceiling INSIDE the markets step, and because the checkpoint
+    # sync sits after it, that run delivered nothing at all — not the markets,
+    # not the Socrata and ICS work that had already succeeded, and not the
+    # twenty-odd sources queued behind it (Squarespace, MyListing, Luma, Tribe,
+    # Mobilizon, Moshtix…), every one of them skipped.
+    #
+    # The same job on the Saturday and Sunday either side took 52 and 55
+    # minutes, because run_weekdays keeps the OSM sweep to Mondays. So the sweep
+    # does not merely get LOST to the timeout, it CAUSES it and takes the rest
+    # of the job with it.
+    #
+    # So the slow source now runs as its own workflow job with its own store and
+    # its own sync, exactly like RunSignup does, and these flags are how the two
+    # jobs read one config file.
+    ap.add_argument("--type", dest="only_type",
+                    help="run only sources of this type (e.g. overpass)")
+    ap.add_argument("--skip-type", dest="skip_type",
+                    help="run everything EXCEPT sources of this type")
     a = ap.parse_args(argv)
     sources = json.loads(open(a.config, encoding="utf-8").read())
     session = requests.Session()
@@ -852,6 +965,14 @@ def main(argv=None) -> int:
     store = EventStore(a.store)
     total = 0
     for src in sources:
+        kind = src.get("type")
+        if a.only_type and kind != a.only_type:
+            continue
+        if a.skip_type and kind == a.skip_type:
+            # Named, not silent: a step that quietly ingests nothing looks
+            # exactly like one whose sources have all gone quiet.
+            print(f"[markets] {src.get('name', '?')}: skipped (--skip-type {a.skip_type})")
+            continue
         # A source can pin itself to certain weekdays. Markets are WEEKLY
         # schedules expanded over a 42-day horizon: re-deriving them every day
         # produces byte-identical rows, and the OSM sweep is 245 network calls,
