@@ -46,6 +46,25 @@ on:
         required: false
         default: false
 
+# ONE RUN AT A TIME. Two runs of this workflow write the same Supabase rows and
+# both try to commit osm_food_cursor.json — and the `cursor` job carries
+# `if: always()`, so it commits even when the `pull` jobs it needs were
+# cancelled.
+#
+# Not hypothetical. On 2026-08-17 a full_refresh dispatch was retried through a
+# GitHub 503 and started TWO runs 26 seconds apart (32052219380, 32052252115).
+# The duplicate was cancelled by hand while it was still warming the place
+# cache, which is the only reason it cost nothing: nothing here would have
+# stopped it ingesting and syncing over the top of its twin.
+#
+# cancel-in-progress is FALSE deliberately. A full refresh is a three-hour write
+# across ~7,000 rows, and killing one midway leaves the table half rewritten
+# with no record of where it stopped. A second run waits instead — same choice,
+# for the same reason, as aggregate-events.yml.
+concurrency:
+  group: osm-food
+  cancel-in-progress: false
+
 permissions:
   contents: write   # the cursor job commits osm_food_cursor.json
 
