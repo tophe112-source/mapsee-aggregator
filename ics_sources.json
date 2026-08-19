@@ -1829,5 +1829,50 @@
   "geocode_suffix": ", London, GB",
   "limit": 300,
   "_metro": "London, GB"
+ },
+ {
+  "name": "The Royal Scots Club",
+  "category": "community",
+  "_found": "osm:social_centre -> ics",
+  "url": "https://calendar.google.com/calendar/ical/727997dbc670bcd3a1bbc0804f7a3fb93dc04b76e42894fe13423eb0255152ee%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Edinburgh",
+  "limit": 300,
+  "_metro": "Edinburgh, GB"
+ },
+ {
+  "name": "Lasswade Archery Club",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://calendar.google.com/calendar/ical/webmaster.lasswadeac%40gmail.com/public/basic.ics",
+  "geocode_suffix": ", Bonnyrigg",
+  "limit": 300,
+  "_metro": "Edinburgh, GB"
+ },
+ {
+  "name": "Canongate Kirk",
+  "category": "community",
+  "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+  "url": "https://www.canongatekirk.org.uk/?feed=my-calendar-ics",
+  "geocode_suffix": ", Edinburgh",
+  "limit": 300,
+  "_metro": "Edinburgh, GB"
+ },
+ {
+  "name": "Metropolitan Cathedral of Christ the King",
+  "category": "community",
+  "_found": "osm: -> events-manager",
+  "url": "https://liverpoolmetrocathedral.org.uk/events/?ical=1",
+  "geocode_suffix": ", Liverpool",
+  "limit": 300,
+  "_metro": "Liverpool, GB"
+ },
+ {
+  "name": "The Bongo Club",
+  "category": "music",
+  "_found": "osm: -> events-manager",
+  "url": "https://www.thebongoclub.co.uk/events-main/?ical=1",
+  "geocode_suffix": ", Edinburgh",
+  "limit": 300,
+  "_metro": "Edinburgh, GB"
  }
 ]

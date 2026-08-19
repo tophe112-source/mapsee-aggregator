@@ -162,7 +162,11 @@ PLATFORM_SIGNS = [
     ("libcal",           re.compile(r"libcal\.com", re.I), "ics"),
     ("gancio",           re.compile(r"gancio", re.I), "gancio"),
     ("venuepilot",       re.compile(r"venuepilot", re.I), "venuepilot"),
-    ("events-manager",   re.compile(r"/wp-content/plugins/events-manager", re.I), "jsonld"),
+    # Events Manager does NOT emit schema.org Event blocks — the Bongo Club's
+    # page carries WebPage and WebSite and nothing else — so routing it to the
+    # JSON-LD adapter proposed a source that could never read it. What it does
+    # have is an iCal export on any calendar page.
+    ("events-manager",   re.compile(r"/wp-content/plugins/events-manager", re.I), "ics"),
     ("modern-events",    re.compile(r"modern-events-calendar|mec-event", re.I), "jsonld"),
     # My Calendar (100k+ WordPress installs, and the plugin small arts orgs and
     # congregations actually reach for). It publishes iCal at a FIXED path and
@@ -194,8 +198,12 @@ BUILDER_EVIDENCE = {
 # Feeds that live at a known path rather than in a link. Probed only when the
 # platform was actually detected, and only believed when the fetch comes back a
 # calendar: a constructed URL that is merged unproven is a source ingesting zero.
+# {origin} is the site root, {cal} the calendar page we landed on. Prefer {cal}
+# where the plugin scopes its export to the page: the Bongo Club's site root
+# gives 27KB of iCal and its /events-main/ page gives 3.1MB of the same feed.
 FEED_TEMPLATES = {
     "my-calendar": "{origin}/?feed=my-calendar-ics",
+    "events-manager": "{cal}?ical=1",
 }
 _LD_EVENT_RX = re.compile(
     r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', re.S | re.I)
@@ -204,7 +212,7 @@ _ICS_RX = re.compile(r'href="([^"]*\.ics(?:\?[^"]*)?)"|href="(webcal://[^"]+)"',
 
 
 def constructed_feed(session, origin: str, labels: Iterable[str],
-                     timeout: int = 15) -> Optional[str]:
+                     timeout: int = 15, cal: Optional[str] = None) -> Optional[str]:
     """A feed URL implied by the PLATFORM, proved by fetching it.
 
     Constructing a URL is a guess; a guess that is merged into a config becomes a
@@ -216,7 +224,9 @@ def constructed_feed(session, origin: str, labels: Iterable[str],
         tmpl = FEED_TEMPLATES.get(label)
         if not tmpl:
             continue
-        url = tmpl.format(origin=origin.rstrip("/"))
+        base = (cal or origin).split("?")[0]
+        url = tmpl.format(origin=origin.rstrip("/"),
+                          cal=base if base.endswith("/") else base + "/")
         try:
             r = session.get(url, timeout=timeout)
         except Exception:                                         # noqa: BLE001
@@ -226,6 +236,19 @@ def constructed_feed(session, origin: str, labels: Iterable[str],
         if "BEGIN:VCALENDAR" in r.text[:4000]:
             return url
     return None
+
+
+def _has_event_block(body: str) -> bool:
+    """True when the adapter that would ingest this page can find an Event on it."""
+    import mapsee_ingest_jsonld as jl
+    for blk in jl._LD_RX.findall(body):
+        doc = jl._parse_ld(blk)
+        if doc is None:
+            continue
+        for item in jl._iter_items(doc):
+            if jl._is_event(item):
+                return True
+    return False
 
 
 def fingerprint(body: str) -> Tuple[List[str], Optional[str]]:
@@ -240,10 +263,14 @@ def fingerprint(body: str) -> Tuple[List[str], Optional[str]]:
         if ev and not ev.search(body):
             continue
         labels.append(name)
-    for blk in _LD_EVENT_RX.findall(body):
-        if _LD_IS_EVENT.search(blk):
-            labels.append("jsonld-event")
-            break
+    # READ IT THE WAY THE INGESTER WILL. This used to be a regex over the raw
+    # block, which said yes to 40 Event blocks on the Royal Lyceum's programme
+    # that mapsee_ingest_jsonld could not parse at all — so discovery proposed
+    # the page, verification found "no Event blocks", and the disagreement was
+    # invisible from either end. Parse with the adapter's own parser and the two
+    # cannot drift: whatever it can read is what gets proposed.
+    if _has_event_block(body):
+        labels.append("jsonld-event")
     m = _ICS_RX.search(body)
     ics = (m.group(1) or m.group(2)) if m else None
     if ics:
@@ -353,6 +380,38 @@ def _rank(u: str) -> Tuple[int, int]:
     return (exact, len(p))
 
 
+def _prefer_listing(session, deep_url: str, timeout: int = 18) -> Optional[str]:
+    """Walk up from a single event's page to the calendar it sits in.
+
+    A JSON-LD site usually carries its Event blocks on the EVENT pages and
+    nothing on the index — the Royal Lyceum's /events/ has three blocks and not
+    one Event, while /events/guys-dolls has forty. So the fingerprint lands
+    deep, and a config listing one show is a source that dies the day that show
+    closes, silently, having only ever imported one production.
+
+    The adapter is built to crawl: give it the index as `listing` and a
+    link_pattern for the show pages and it reads the whole programme. So walk up
+    one segment and take the parent INSTEAD — but only once it has been fetched
+    and actually links to sibling event pages, because a parent that does not is
+    a listing of nothing.
+    """
+    o = urlparse(deep_url)
+    parts = [p for p in o.path.split("/") if p]
+    if len(parts) < 2:
+        return None
+    parent = f"{o.scheme}://{o.netloc}/" + "/".join(parts[:-1]) + "/"
+    try:
+        r = session.get(parent, timeout=timeout, allow_redirects=True)
+    except Exception:                                             # noqa: BLE001
+        return None
+    if r.status_code >= 400 or CHALLENGE_RX.search(r.text[:6000]):
+        return None
+    sibling = re.compile(re.escape("/" + "/".join(parts[:-1]) + "/") + r"[A-Za-z0-9\-]+")
+    if len(set(sibling.findall(r.text))) < 2:
+        return None                       # not an index of anything
+    return str(r.url)
+
+
 def find_calendar(session, home_url: str, timeout: int = 18,
                   max_follow: int = 2) -> Dict[str, Any]:
     """Locate the calendar on a venue site and say what runs it.
@@ -404,9 +463,13 @@ def find_calendar(session, home_url: str, timeout: int = 18,
             continue
         labels, ics = fingerprint(r2.text)
         if labels:
-            ics = ics or constructed_feed(session, base, labels)
-            out.update(cal_url=str(r2.url), labels=labels, ics=ics,
-                       adapter=adapter_for(labels), status="ok")
+            ics = ics or constructed_feed(session, base, labels, cal=str(r2.url))
+            adapter = adapter_for(labels)
+            cal_url = str(r2.url)
+            if adapter == "jsonld":
+                cal_url = _prefer_listing(session, cal_url, timeout) or cal_url
+            out.update(cal_url=cal_url, labels=labels, ics=ics,
+                       adapter=adapter, status="ok")
             return out
         out["cal_url"] = out["cal_url"] or str(r2.url)
 

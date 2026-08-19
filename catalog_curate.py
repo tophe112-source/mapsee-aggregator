@@ -616,10 +616,18 @@ def verify_jsonld(s, e):
 
     _count(r.text)
     pat = e.get("link_pattern")
+    tmpl = e.get("url_template")
     if pat and not future:
         urls = list(dict.fromkeys(re.findall(pat, r.text)))[:6]
         for u in urls:
             u = u if isinstance(u, str) else u[0]
+            # url_template is not decoration: a Wix site's link_pattern captures a
+            # SLUG, and the page URL is /event-info/<slug>. Ignoring the template
+            # fetched the bare slug against the listing's directory and found
+            # nothing, so every Wix candidate failed verification for a reason
+            # that had nothing to do with the site. ingest_site applies it; so
+            # must whatever decides whether ingest_site would work.
+            u = tmpl.format(u) if tmpl else u
             try:
                 rr = s.get(urljoin(listing[0], u), timeout=25)
             except Exception:                                     # noqa: BLE001

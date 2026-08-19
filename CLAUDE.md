@@ -369,6 +369,33 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   one request. Parking those would retire a working calendar over a bad moment —
   and with the metro cursor, nobody would look again for months. They cost one
   request to re-probe, so `_discover_osm` simply does not record them.
+- **A regex that FINDS a JSON-LD block is not a parser that can READ it, and
+  discovery must use the parser.** The Royal Lyceum's programme is 40 well-formed
+  `Event` blocks, and `json.loads` refused every one of them: a raw control
+  character in a description, which strict JSON rejects and `strict=False`
+  accepts. The fingerprint asked by regex and said yes; `mapsee_ingest_jsonld`
+  asked by parsing and got nothing — so discovery proposed the page, verification
+  reported "no schema.org Event blocks found", and neither end could see the
+  other was right. `_parse_ld` now retries non-strict (worth it on its own: 40
+  events on one page), and `_has_event_block` parses with the adapter's own
+  helpers so the two cannot drift again. Same family as `looks_like_ordering`
+  having to agree with `looksLikeOrdering`.
+- **Detecting a calendar plugin tells you it HAS events, not what it will hand
+  you.** Events Manager was routed to the JSON-LD adapter because it is a
+  WordPress events plugin; the Bongo Club's page carries `WebPage` and `WebSite`
+  and no `Event` at all, so every candidate found through it failed for a reason
+  that had nothing to do with the site. What it does have is an iCal export on
+  any calendar page — `/events-main/?ical=1` is 3.1MB where the site root's is
+  27KB, which is why `FEED_TEMPLATES` interpolates `{cal}` and not just
+  `{origin}`. Check what a platform EXPORTS before assigning it an adapter.
+- **A deep event page can be a better crawl seed than the index, and only
+  measurement says which.** Landing the fingerprint on `/events/guys-dolls`
+  makes a config that dies silently the day that show closes, so `_prefer_listing`
+  walks up to `/events/`. But the Lyceum's index is JS-rendered: it yields **0**
+  links matching the crawl pattern where the single show's page yields 4. The
+  guard only takes the parent once it has been fetched and shown to link at least
+  two siblings — a parent that is not an index is a source that ingests nothing,
+  which is the same rule as never merging a constructed feed URL unproven.
 - **A platform can imply a feed URL the page never links.** My Calendar (100k+
   WordPress installs, and what small arts orgs and congregations actually reach
   for) publishes iCal at `/?feed=my-calendar-ics` and links it from nowhere, so

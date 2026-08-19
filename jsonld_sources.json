@@ -113,6 +113,170 @@
     "lon": -0.2585917
    },
    "_metro": "London, GB"
+  },
+  {
+   "name": "Glasgow Club",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> jsonld-event",
+   "listing": [
+    "https://glasgowclub.org/venues/kelvin-hall/"
+   ],
+   "link_pattern": "https://glasgowclub\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Glasgow Club",
+    "address": "1445 Argyle Street",
+    "city": "Glasgow",
+    "postal_code": "G3 8AW",
+    "lat": 55.8687625,
+    "lon": -4.2949457
+   },
+   "_metro": "Glasgow, GB"
+  },
+  {
+   "name": "French Street Studios",
+   "category": "arts",
+   "_found": "osm:arts_centre -> wix+jsonld-event",
+   "listing": [
+    "https://www.strangefield.org/event-details/bleaks-cassette-launch-with-votiv-rank-moss-nurse"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "French Street Studios",
+    "lat": 55.8417353,
+    "lon": -4.2224582
+   },
+   "_metro": "Glasgow, GB"
+  },
+  {
+   "name": "FACT",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://www.fact.co.uk/event/brb"
+   ],
+   "link_pattern": "https://www\\.fact\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "FACT",
+    "address": "88 Wood Street",
+    "city": "Liverpool",
+    "postal_code": "L1 4DQ",
+    "lat": 53.4022136,
+    "lon": -2.9778561
+   },
+   "_metro": "Liverpool, GB"
+  },
+  {
+   "name": "Hope Church",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://hopechurchashton.org/events-calendar/"
+   ],
+   "link_pattern": "https://hopechurchashton\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Hope Church",
+    "address": "24 Heath Road",
+    "city": "Wigan",
+    "postal_code": "WN4 9DY",
+    "lat": 53.4853432,
+    "lon": -2.637166
+   },
+   "_metro": "Liverpool, GB"
+  },
+  {
+   "name": "Aintree Racecourse",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> jsonld-event",
+   "listing": [
+    "https://www.thejockeyclub.co.uk/aintree/events-tickets/"
+   ],
+   "link_pattern": "https://www\\.thejockeyclub\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Aintree Racecourse",
+    "lat": 53.476389,
+    "lon": -2.9403521
+   },
+   "_metro": "Liverpool, GB"
+  },
+  {
+   "name": "Haydock Park Racecourse",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> jsonld-event",
+   "listing": [
+    "https://www.thejockeyclub.co.uk/haydock/events-tickets/"
+   ],
+   "link_pattern": "https://www\\.thejockeyclub\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Haydock Park Racecourse",
+    "lat": 53.4779652,
+    "lon": -2.6232008
+   },
+   "_metro": "Liverpool, GB"
+  },
+  {
+   "name": "Topping & Company Booksellers",
+   "category": "learning",
+   "_found": "osm:books -> jsonld-event",
+   "listing": [
+    "https://www.toppingbooks.co.uk/events/york/carlo-rovelli-equality-of-all-things/"
+   ],
+   "link_pattern": "https://www\\.toppingbooks\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Topping & Company Booksellers",
+    "address": "2 Blenheim Place",
+    "city": "Edinburgh",
+    "postal_code": "EH7 5JH",
+    "lat": 55.9576475,
+    "lon": -3.1842848
+   },
+   "_metro": "Edinburgh, GB"
+  },
+  {
+   "name": "City of Edinburgh Methodist Church",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://edinburghmethodist.com/whats-on/"
+   ],
+   "link_pattern": "https://edinburghmethodist\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "City of Edinburgh Methodist Church",
+    "address": "25 Nicolson Square",
+    "city": "Edinburgh",
+    "postal_code": "EH8 9BX",
+    "lat": 55.9454192,
+    "lon": -3.1860553
+   },
+   "_metro": "Edinburgh, GB"
+  },
+  {
+   "name": "Royal Lyceum Theatre",
+   "category": "theater",
+   "_found": "osm: -> jsonld-event",
+   "listing": [
+    "https://lyceum.org.uk/events/guys-dolls"
+   ],
+   "link_pattern": "https://lyceum\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Royal Lyceum Theatre",
+    "address": "30b Grindlay Street",
+    "city": "Edinburgh",
+    "postal_code": "EH3 9AX",
+    "country": "GB",
+    "lat": 55.9470175,
+    "lon": -3.2043154
+   },
+   "_metro": "Edinburgh, GB"
   }
  ],
  "_not_included": {

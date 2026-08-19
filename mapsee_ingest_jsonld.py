@@ -127,12 +127,24 @@ _LD_RX = re.compile(r"<script[^>]*application/ld\+json[^>]*>(.*?)</script>", re.
 
 
 def _parse_ld(block: str) -> Optional[Any]:
+    """Parse one JSON-LD block, repairing the two ways real CMSes break it.
+
+    A RAW CONTROL CHARACTER inside a string is the common one and it is
+    expensive: a CMS drops the description straight into the block with its
+    literal newlines, and strict JSON refuses the whole document. The Royal
+    Lyceum's programme is 40 well-formed Event blocks behind exactly that, and
+    every one was being discarded — while a REGEX looking for the same blocks
+    saw them fine, which is how discovery came to propose pages the ingester
+    could not read. `strict=False` accepts them; nothing else about the parse
+    changes.
+    """
     s = block.strip()
     for attempt in (s, re.sub(r"\\'", "'", s)):          # repair the invalid \' escape
-        try:
-            return json.loads(attempt)
-        except Exception:
-            continue
+        for strict in (True, False):                      # ...and raw control chars
+            try:
+                return json.loads(attempt, strict=strict)
+            except Exception:
+                continue
     return None
 
 
