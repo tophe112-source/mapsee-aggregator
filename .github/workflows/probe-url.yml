@@ -1,0 +1,67 @@
+name: Probe a URL
+
+# WHAT THIS IS FOR. Curation keeps hitting sites it cannot read, and "cannot
+# read" hides two opposite findings. A publisher who turned bot management on is
+# a NO we honour and write into a config's `_not_included`. A WAF scoring the
+# CALLER'S IP is not a decision anybody made about mapsee — and this repo's own
+# pipeline runs from GitHub's addresses, not from wherever a person happened to
+# be sitting when they probed.
+#
+# Getting that backwards is expensive in both directions: record an IP block as
+# an editorial no and a working calendar is retired for the 90-day TTL with
+# nobody looking again; ignore a real refusal and we keep hammering somebody who
+# asked us not to. One sweep from a sandbox address logged 158 bot-challenges,
+# so the difference is not a rounding error.
+#
+# So: run catalog_probe.py from a RUNNER and compare it with the same command
+# run anywhere else. Same answer both places = the site is closed to us. A
+# different answer = the block is about the address and production can read it.
+#
+# NO SECRETS, and workflow_dispatch only. It reads public pages with the
+# production User-Agent and writes nothing — no commit, no config change. It
+# does not negotiate with a challenge: no browser impersonation and no UA
+# shopping, which is the same line tribe_sources.json._not_included draws for
+# sfbike.org.
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: "URL(s) to probe, space-separated"
+        required: true
+      json:
+        description: "Machine-readable output"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: probe-url
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -q requests
+      - name: Probe
+        run: |
+          python catalog_probe.py ${{ inputs.json && '--json' || '' }} ${{ inputs.urls }} \
+            | tee probe.txt
+      - name: Report
+        if: always()
+        run: |
+          {
+            echo "## Probe from a GitHub runner"
+            echo '```'
+            cat probe.txt 2>/dev/null || echo "(no output)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
