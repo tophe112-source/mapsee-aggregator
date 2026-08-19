@@ -979,6 +979,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "arrcs.org.au/locate-us/juninga-centre-aged-care-facility": {
+    "checked": 20260819,
+    "name": "Juninga Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "arsenal.com/history/the-arsenal-museum": {
     "checked": 20260819,
     "name": "Arsenal Museum",
@@ -2183,6 +2190,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bookshopdarwin.com.au": {
+    "checked": 20260819,
+    "name": "The Bookshop",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bookspeed.com": {
     "checked": 20260819,
     "name": "Bookspeed Wholesalers",
@@ -2407,6 +2421,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bridgewebs.com/darwin": {
+    "checked": 20260819,
+    "name": "Bridge Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bringonthesunshine.ca": {
     "checked": 20260819,
     "name": "Bring on the Sunshine",
@@ -2490,6 +2511,13 @@
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "brownsmart.com.au": {
+    "checked": 20260819,
+    "name": "Brownsmart",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "broxburnparishchurch.org.uk": {
     "checked": 20260819,
@@ -4934,6 +4962,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "crocodyluspark.com.au": {
+    "checked": 20260819,
+    "name": "Crocodylus Park",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "croftfootuf.org/whatson": {
     "checked": 20260819,
     "name": "Croftfoot United Free Church",
@@ -5354,6 +5389,55 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "darwin.nt.gov.au/community/community-facilities/casuarina-aquatic-leisure-centre": {
+    "checked": 20260819,
+    "name": "Casuarina Aquatic & Leisure Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "darwin.nt.gov.au/community/community-facilities/malak-community-centre": {
+    "checked": 20260819,
+    "name": "Malak Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "darwin.nt.gov.au/libraries": {
+    "checked": 20260819,
+    "name": "Darwin Public Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "darwinclaytarget.com": {
+    "checked": 20260819,
+    "name": "Darwin Clay Target Shooting Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "darwinconvention.com.au": {
+    "checked": 20260819,
+    "name": "Darwin Convention Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "darwinmilitarymuseum.au": {
+    "checked": 20260819,
+    "name": "Darwin Military Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "darwinrifleclub.org.au": {
+    "checked": 20260819,
+    "name": "Darwin Rifle Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dashmesh.ca": {
     "checked": 20260819,
     "name": "Dashmesh Culture Centre",
@@ -5634,6 +5718,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dbc.org.au": {
+    "checked": 20260819,
+    "name": "Darwin Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dbsc.com.au": {
     "checked": 20260819,
     "name": "Double Bay Sailing Club",
@@ -5644,6 +5735,13 @@
   "dcb-kessington.co.uk": {
     "checked": 20260819,
     "name": "Kessington Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dccchurch.org.au": {
+    "checked": 20260819,
+    "name": "Darwin Chinese Christian Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7069,6 +7167,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/FannieBayEquestrianClub": {
+    "checked": 20260819,
+    "name": "Fannie Bay Equestrian Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/KaramaCommunityGarden": {
+    "checked": 20260819,
+    "name": "Karama Community Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/MillStreetBarracks": {
     "checked": 20260819,
     "name": "Mill Street Barracks",
@@ -7114,6 +7226,13 @@
   "facebook.com/events/895713377823829/895713411157159/?active_tab=about": {
     "checked": 20260819,
     "name": "Gordon Street Community Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/groups/501208636594518": {
+    "checked": 20260819,
+    "name": "East Point Aeromodellers Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7422,6 +7541,13 @@
   "flaresbars.co.uk/liverpool": {
     "checked": 20260819,
     "name": "Flares",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "flightpathgolf.com.au": {
+    "checked": 20260819,
+    "name": "Flight Path Golf & Outdoor Recreation",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9939,6 +10065,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "isp.org.au": {
+    "checked": 20260819,
+    "name": "Islamic Society of Palmerston",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jackdaniels.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Jack Daniel Distillery Events (Lynchburg)",
@@ -11843,6 +11976,13 @@
     "status": "empty",
     "type": "ics"
   },
+  "magnt.net.au/whatson": {
+    "checked": 20260819,
+    "name": "Museum and Art Gallery of the Northern Territory",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "mahaganapathytemple.com": {
     "checked": 20260819,
     "name": "Maha Ganapathy Temple",
@@ -12809,6 +12949,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "motorsportsnt.com.au": {
+    "checked": 20260819,
+    "name": "Hidden Valley Motorsports Complex",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mountainoffire.org": {
     "checked": 20260819,
     "name": "Mountain of Fire and Miracles Ministries",
@@ -13333,6 +13480,13 @@
     "reason": "12 upcoming, sample: offenes Teamtreffen - B\u00fcndnis \"Schule f\u00fc",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "nightcliffsportsclub.com.au": {
+    "checked": 20260819,
+    "name": "Nightcliff Sports Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "nirankari.org": {
     "checked": 20260819,
@@ -15497,6 +15651,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "rfdsdarwin.com.au": {
+    "checked": 20260819,
+    "name": "RFDS Darwin Tourist Facility",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rheinneckar.events": {
     "checked": 20260808,
     "name": "rheinneckar.events",
@@ -17569,6 +17730,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ssaadarwin.com.au": {
+    "checked": 20260819,
+    "name": "SSAA Darwin",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ssgac.com.au": {
     "checked": 20260819,
     "name": "South Sydney Graphic Arts Club Mascot",
@@ -19161,6 +19329,13 @@
   "teensplus.org.uk": {
     "checked": 20260819,
     "name": "Teens+ Liberton",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tefc.com.au": {
+    "checked": 20260819,
+    "name": "Top End Flying Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -22314,6 +22489,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "yourcentre.com.au": {
+    "checked": 20260819,
+    "name": "AANT Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "yourgaybar.com": {
     "checked": 20260819,
