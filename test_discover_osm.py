@@ -152,6 +152,41 @@ def main():
                                "cal_url": "https://x.org/events/", "ics": None}), None)
 
     print()
+    print("a probe that succeeds and yields nothing must SAY what it yielded nothing for")
+    check("an unshapeable adapter is named, not counted as a success",
+          osm.why_no_candidate({"adapter": "mylisting", "labels": ["mylisting"], "cal_url": "u"}),
+          "no-config-shape(mylisting)")
+    check("an ics find with no feed is named",
+          osm.why_no_candidate({"adapter": "ics", "labels": ["trumba"], "cal_url": "u", "ics": None}),
+          "ics-without-feed(trumba)")
+    check("a detected platform with no adapter is named",
+          osm.why_no_candidate({"adapter": None, "labels": ["wix"], "cal_url": "u"}),
+          "no-adapter(wix)")
+    check("venuepilot without ids says so — the ids are the whole config",
+          osm.why_no_candidate({"adapter": "venuepilot", "labels": ["venuepilot"],
+                                "cal_url": "u", "extra": {}}),
+          "venuepilot-without-accountIds")
+    check("every adapter adapter_for can NAME, to_candidate can now SHAPE",
+          sorted({a for _, _, a in osm.PLATFORM_SIGNS} | {"jsonld", "ics"}) ,
+          sorted(osm.SHAPEABLE | {"mylisting"}))
+
+    print()
+    print("gancio and venuepilot are ordinary config entries now")
+    gv = {"name": "Klub", "url": "https://k.org", "kind": "nightclub", "lat": 52.4, "lon": 4.9,
+          "city": "Amsterdam", "country": "NL"}
+    g = osm.to_candidate(gv, {"adapter": "gancio", "labels": ["gancio"],
+                              "cal_url": "https://k.org/events"}, "Amsterdam, NL")
+    check("gancio is keyed on its origin", g["base_url"], "https://k.org")
+    check("and carries the metro as a default city", g["default_city"], "Amsterdam")
+    vp = osm.to_candidate(gv, {"adapter": "venuepilot", "labels": ["venuepilot"],
+                               "cal_url": "https://k.org/shows",
+                               "extra": {"account_ids": [2906, 11]}}, "Portland, US")
+    check("venuepilot carries the ids lifted off the page", vp["account_ids"], [2906, 11])
+    check("no ids, no candidate — the API has nothing to be asked",
+          osm.to_candidate(gv, {"adapter": "venuepilot", "labels": ["venuepilot"],
+                                "cal_url": "u", "extra": {}}, "x"), None)
+
+    print()
     print("webcal:// is https:// wearing a hat")
     check("a webcal feed is normalised", osm._https("webcal://x.org/cal.ics"),
           "https://x.org/cal.ics")

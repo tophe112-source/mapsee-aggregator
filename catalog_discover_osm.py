@@ -435,7 +435,7 @@ def find_calendar(session, home_url: str, timeout: int = 18,
     unreachable | http<code>.
     """
     out = {"cal_url": None, "labels": [], "adapter": None, "ics": None,
-           "status": None, "offsite": None}
+           "status": None, "offsite": None, "extra": {}}
     try:
         r = session.get(home_url, timeout=timeout, allow_redirects=True)
     except Exception as exc:                                      # noqa: BLE001
@@ -479,6 +479,9 @@ def find_calendar(session, home_url: str, timeout: int = 18,
         labels, ics = fingerprint(r2.text)
         if labels:
             ics = ics or constructed_feed(session, base, labels, cal=str(r2.url))
+            m = _VP_IDS_RX.search(r2.text) or _VP_IDS_RX.search(body)
+            if m:
+                out["extra"]["account_ids"] = [int(x) for x in m.group(1).replace(" ", "").split(",") if x]
             adapter = adapter_for(labels)
             cal_url = str(r2.url)
             if adapter == "jsonld":
@@ -488,6 +491,9 @@ def find_calendar(session, home_url: str, timeout: int = 18,
             return out
         out["cal_url"] = out["cal_url"] or str(r2.url)
 
+    m = _VP_IDS_RX.search(body)
+    if m:
+        out["extra"]["account_ids"] = [int(x) for x in m.group(1).replace(" ", "").split(",") if x]
     if home_labels:
         # The platform is visible but no page announced itself as the calendar.
         # Still worth proposing — verification is what decides — but the URL is
@@ -517,6 +523,42 @@ def _venue_block(v: Dict[str, Any]) -> Dict[str, Any]:
     return b
 
 
+# The adapters to_candidate knows how to write a config entry for. Anything
+# adapter_for can NAME but this cannot SHAPE is a find that reaches the end of
+# the pipeline and evaporates, so the two lists have to be compared out loud.
+SHAPEABLE = {"ics", "tribe", "squarespace", "localist", "jsonld", "gancio",
+             "venuepilot"}
+
+# VenuePilot's public GraphQL wants ACCOUNT IDS, and a venue's own embedded
+# widget carries them in plain sight — window.venuepilotSettings.general
+# .accountIds. Without them the find is unusable, which is why every venuepilot
+# detection used to evaporate; with them it is an ordinary config entry.
+_VP_IDS_RX = re.compile(r"accountIds\s*:\s*\[([\d,\s]+)\]", re.I)
+
+
+def why_no_candidate(found: Dict[str, Any]) -> str:
+    """Why a successful probe still produced nothing to verify.
+
+    These used to be counted as "ok", which is how 25 finds in one sweep came to
+    be reported under the same word as a success. A skip counter that cannot say
+    what it skipped is a measurement that reads as coverage.
+    """
+    adapter, cal = found.get("adapter"), found.get("cal_url")
+    if not adapter:
+        return "no-adapter(" + ("+".join(found.get("labels") or []) or "nothing") + ")"
+    if not cal:
+        return "no-listing-url"
+    if adapter == "ics" and not found.get("ics"):
+        # A platform that HAS a calendar and did not hand over a feed URL: the
+        # page linked no .ics and no FEED_TEMPLATE matched or fetched.
+        return "ics-without-feed(" + ("+".join(found.get("labels") or []) or "?") + ")"
+    if adapter == "venuepilot" and not (found.get("extra") or {}).get("account_ids"):
+        return "venuepilot-without-accountIds"
+    if adapter not in SHAPEABLE:
+        return "no-config-shape(" + adapter + ")"
+    return "unknown"
+
+
 def to_candidate(v: Dict[str, Any], found: Dict[str, Any],
                  metro: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """A verify-able candidate in the shape its adapter's config file wants."""
@@ -540,6 +582,18 @@ def to_candidate(v: Dict[str, Any], found: Dict[str, Any],
     if adapter == "squarespace":
         return dict(common, type="squarespace", collection=cal,
                     max_events=200, venue=_venue_block(v))
+    if adapter == "gancio":
+        o = urlparse(cal)
+        return dict(common, type="gancio", base_url=f"{o.scheme}://{o.netloc}",
+                    within_days=180, max=500,
+                    default_city=v.get("city") or (metro or "").split(",")[0].strip() or None,
+                    default_country=v.get("country"))
+    if adapter == "venuepilot":
+        ids = (found.get("extra") or {}).get("account_ids")
+        if not ids:
+            return None                       # no ids = nothing to ask the API for
+        return dict(common, type="venuepilot", account_ids=ids,
+                    within_days=120, venue=_venue_block(v))
     if adapter == "localist":
         o = urlparse(cal)
         return dict(common, type="localist", base_url=f"{o.scheme}://{o.netloc}", days=90)

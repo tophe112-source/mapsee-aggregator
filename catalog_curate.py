@@ -108,6 +108,9 @@ CONFIG = {
     "jsonld": ("jsonld_sources.json", "listing"),
     "mylisting": ("mylisting_sources.json", "explore_url"),
     "gancio": ("gancio_sources.json", "base_url"),
+    # VenuePilot is keyed on its ACCOUNT IDS, not a URL — the venue's own domain
+    # never appears in the config, so a URL key would dedup nothing.
+    "venuepilot": ("venuepilot_sources.json", "account_ids"),
 }
 
 def _ods_url(e):
@@ -318,13 +321,22 @@ def _config_keys():
     gets re-proposed through whichever page was not indexed.
     """
     keys = set()
-    for fname, key in CONFIG.values():
+    for t, (fname, key) in CONFIG.items():
         p = os.path.join(HERE, fname)
         if os.path.exists(p):
             for e in _entries(fname, json.load(open(p, encoding="utf-8"))):
                 v = e.get(key) or (_ods_url(e) if fname.startswith("ods") else None)
+                # jsonld's key is a list of listing URLS, all of which must be
+                # indexed. venuepilot's is a list of ACCOUNT IDS — ints, which
+                # _canon cannot take and which mean nothing individually; _key_of
+                # folds them into one "venuepilot:<ids>" string. Telling the two
+                # lists apart by their CONTENTS is what keeps both correct.
+                if isinstance(v, list) and not all(isinstance(x, str) for x in v):
+                    v = _key_of(dict(e, type=t))
+                elif not isinstance(v, (str, list)):
+                    v = _key_of(dict(e, type=t))
                 for one in (v if isinstance(v, list) else [v]):
-                    if one:
+                    if isinstance(one, str) and one:
                         keys.add(_canon(one))
     return keys
 
@@ -341,6 +353,9 @@ def _key_of(e):
         return listing[0] if isinstance(listing, list) else listing
     if e.get("type") == "mylisting":
         return e.get("explore_url")
+    if e.get("type") == "venuepilot":
+        ids = e.get("account_ids") or []
+        return "venuepilot:" + ",".join(str(i) for i in sorted(ids)) if ids else None
     return e.get("url")
 
 
@@ -563,6 +578,67 @@ def verify_tribe(s, e):
     return True, f"{total} events, {len(fut)}/{len(evs)} on page 1 future"
 
 
+def verify_gancio(s, e):
+    """Every Gancio instance serves the same public /api/events."""
+    base = (e.get("base_url") or "").rstrip("/")
+    if not base:
+        return False, "no base_url"
+    import calendar as _cal
+    start = _as_date(_today_int())
+    end = start + datetime.timedelta(days=int(e.get("within_days", 180)))
+    r = s.get(f"{base}/api/events",
+              params={"start": _cal.timegm(start.timetuple()),
+                      "end": _cal.timegm(end.timetuple()), "max": 20}, timeout=30)
+    if r.status_code != 200:
+        return False, f"http {r.status_code}"
+    try:
+        evs = r.json()
+    except Exception:                                             # noqa: BLE001
+        return False, "not json"
+    if not isinstance(evs, list) or not evs:
+        return False, _future_note(0, 0)
+    # Gancio's start_datetime is UNIX SECONDS, which is the one thing about this
+    # API that catches people out (the adapter's own docstring says so).
+    now = _cal.timegm(start.timetuple())
+    fut = [x for x in evs if int(x.get("start_datetime") or 0) >= now]
+    if not fut:
+        return False, _future_note(len(evs), 0)
+    return True, f"{len(fut)}/{len(evs)} future"
+
+
+def verify_venuepilot(s, e):
+    """VenuePilot's public GraphQL, asked exactly as the adapter asks it."""
+    ids = e.get("account_ids") or []
+    if not ids:
+        return False, "no account_ids"
+    import mapsee_ingest_venuepilot as vp
+    today = _as_date(_today_int())
+    end = today + datetime.timedelta(days=int(e.get("within_days", 120)))
+    try:
+        r = s.post(vp.API, json={"query": vp.QUERY,
+                                 "variables": {"ids": ids, "sd": today.isoformat(),
+                                               "ed": end.isoformat(), "limit": 20, "page": 1}},
+                   timeout=30)
+    except Exception as exc:                                      # noqa: BLE001
+        return False, f"{type(exc).__name__}"
+    if r.status_code != 200:
+        return False, f"http {r.status_code}"
+    try:
+        body = r.json()
+    except Exception:                                             # noqa: BLE001
+        return False, "not json"
+    if body.get("errors"):
+        return False, f"graphql: {str(body['errors'][:1])[:60]}"
+    data = (body.get("data") or {}).get("paginatedEvents") or {}
+    # `collection`, not `results` — read what the adapter reads or the verifier
+    # answers a question about a key nobody serves.
+    evs = data.get("collection") or []
+    total = ((data.get("metadata") or {}).get("totalCount")) or len(evs)
+    if not evs:
+        return False, _future_note(0, 0)
+    return True, f"{len(evs)} on page 1 of {total} future"
+
+
 def verify_squarespace(s, e):
     """The BARE collection page — ?format=json is disallowed platform-wide."""
     url = e.get("collection")
@@ -646,7 +722,8 @@ def verify_jsonld(s, e):
 VERIFIERS = {"localist": verify_localist, "ics": verify_ics, "opendata": verify_opendata,
              "ods": verify_ods, "ckan": verify_ckan, "mobilizon": verify_mobilizon,
              "tribe": verify_tribe, "squarespace": verify_squarespace,
-             "jsonld": verify_jsonld}
+             "jsonld": verify_jsonld, "gancio": verify_gancio,
+             "venuepilot": verify_venuepilot}
 
 
 # --- discovery -------------------------------------------------------------
@@ -1113,7 +1190,13 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None):
                 led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
                              "reason": f"osm probe: {status}", "status": "fail",
                              "type": "osm-venue"}
-            bump(status.split(":")[0])
+            # A probe that SUCCEEDED and still yielded nothing is not the same
+            # event as a probe that failed, and lumping them under the status
+            # word reported 25 of them as "ok" in one sweep. Name the gap.
+            if status.startswith("ok"):
+                bump("found-but-unusable: " + osm.why_no_candidate(f))
+            else:
+                bump(status.split(":")[0])
         if len(found) >= limit:
             break
 
