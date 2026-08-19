@@ -398,6 +398,44 @@
     "lon": 151.1465657
    },
    "_metro": "Sydney, AU"
+  },
+  {
+   "name": "Coolangatta Surf Life Saving Club",
+   "category": "community",
+   "_found": "osm:club -> modern-events+jsonld-event",
+   "listing": [
+    "https://coolangattasurfclub.com/whats-on/"
+   ],
+   "link_pattern": "https://coolangattasurfclub\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Coolangatta Surf Life Saving Club",
+    "address": "Marine Parade",
+    "region": "QLD",
+    "postal_code": "4225",
+    "lat": -28.1668563,
+    "lon": 153.5369294
+   },
+   "_metro": "Gold Coast, AU"
+  },
+  {
+   "name": "Greenmount Beach Surf Club",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://www.greenmountsurfclub.com.au/event/"
+   ],
+   "link_pattern": "https://www\\.greenmountsurfclub\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Greenmount Beach Surf Club",
+    "address": "Marine Parade",
+    "region": "QLD",
+    "postal_code": "4225",
+    "lat": -28.1667547,
+    "lon": 153.5444136
+   },
+   "_metro": "Gold Coast, AU"
   }
  ],
  "_not_included": {

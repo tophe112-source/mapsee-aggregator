@@ -1324,6 +1324,203 @@
         "lon": 151.0784173
       },
       "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Adelaide Zoo",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event",
+      "base_url": "https://www.adelaidezoo.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adelaide Zoo",
+        "address": "Frome Road",
+        "lat": -34.9133996,
+        "lon": 138.6073551
+      },
+      "_metro": "Adelaide, AU"
+    },
+    {
+      "name": "Capri Cinema",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://capri.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Capri Cinema",
+        "address": "141 Goodwood Road",
+        "postal_code": "5034",
+        "lat": -34.9528745,
+        "lon": 138.590118
+      },
+      "_metro": "Adelaide, AU"
+    },
+    {
+      "name": "Trinity Lutheran Church Pasadena",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://pasadena.lutheran.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Trinity Lutheran Church Pasadena",
+        "address": "2 Grandview Drive",
+        "lat": -35.0007421,
+        "lon": 138.5926203
+      },
+      "_metro": "Adelaide, AU"
+    },
+    {
+      "name": "Pilgrim Lutheran Church - Magill",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://pilgrimlutheran.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pilgrim Lutheran Church - Magill",
+        "address": "21 Edward Street",
+        "lat": -34.9088579,
+        "lon": 138.6789629
+      },
+      "_metro": "Adelaide, AU"
+    },
+    {
+      "name": "Clutterbuck Lodge",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ech.asn.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Clutterbuck Lodge",
+        "address": "378 Henley Beach Road",
+        "region": "SA",
+        "postal_code": "5032",
+        "lat": -34.9269721,
+        "lon": 138.5371338
+      },
+      "_metro": "Adelaide, AU"
+    },
+    {
+      "name": "Gungahlin Uniting Church and Community Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.gungahlinuniting.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gungahlin Uniting Church and Community Centre",
+        "address": "108 The Valley Avenue",
+        "lat": -35.1880484,
+        "lon": 149.1336809
+      },
+      "_metro": "Canberra, AU"
+    },
+    {
+      "name": "RSL LifeCare Bill McKenzie Gardens",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://rsllifecare.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "RSL LifeCare Bill McKenzie Gardens",
+        "address": "23 Burkitt Street",
+        "lat": -35.2345368,
+        "lon": 149.0513155
+      },
+      "_metro": "Canberra, AU"
+    },
+    {
+      "name": "All Saints Anglican",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.allsaintsainslie.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "All Saints Anglican",
+        "address": "9 Cowper Street",
+        "region": "ACT",
+        "postal_code": "2602",
+        "lat": -35.2647198,
+        "lon": 149.1394817
+      },
+      "_metro": "Canberra, AU"
+    },
+    {
+      "name": "Mudgeeraba - Robina RSL",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mrrsl.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mudgeeraba - Robina RSL",
+        "address": "62 Railway Street",
+        "postal_code": "4213",
+        "lat": -28.0792465,
+        "lon": 153.3654519
+      },
+      "_metro": "Gold Coast, AU"
+    },
+    {
+      "name": "Tweed Valley Sailing Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+ics",
+      "base_url": "https://www.tvsc.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tweed Valley Sailing Club",
+        "lat": -28.2000803,
+        "lon": 153.5646578
+      },
+      "_metro": "Gold Coast, AU"
+    },
+    {
+      "name": "Reading Room",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.binnaburralodge.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Reading Room",
+        "lat": -28.1978763,
+        "lon": 153.1870735
+      },
+      "_metro": "Gold Coast, AU"
+    },
+    {
+      "name": "Broadbeach Bowls Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.clubbroadbeach.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Broadbeach Bowls Club",
+        "lat": -28.0211044,
+        "lon": 153.4318308
+      },
+      "_metro": "Gold Coast, AU"
+    },
+    {
+      "name": "Mike Hatcher Junior Motor Cycle Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mikehatcherjmcc.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mike Hatcher Junior Motor Cycle Club",
+        "lat": -27.9344051,
+        "lon": 153.3723406
+      },
+      "_metro": "Gold Coast, AU"
     }
   ],
   "_not_included": {

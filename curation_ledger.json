@@ -160,6 +160,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "aacc.com.au": {
+    "checked": 20260819,
+    "name": "Austral-Asian Community Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "abbeys.com.au": {
     "checked": 20260819,
     "name": "Abbey's Bookshop",
@@ -307,9 +314,30 @@
     "status": "ok",
     "type": "ics"
   },
+  "actionkambah.com.au": {
+    "checked": 20260819,
+    "name": "Action Indoor Sports Kambah",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "activecommunities.co.uk/station-seven": {
     "checked": 20260819,
     "name": "Station Seven",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "actjc.org.au": {
+    "checked": 20260819,
+    "name": "ACT Jewish Community",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "actnowtheatre.org.au": {
+    "checked": 20260819,
+    "name": "ActNow Theatre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -328,6 +356,34 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "adelaideaquaticcentre.com.au": {
+    "checked": 20260819,
+    "name": "Adelaide Aquatic Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaideatleticofc.com": {
+    "checked": 20260819,
+    "name": "Adelaide Atletico FC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaidebadmintoncentre.com": {
+    "checked": 20260819,
+    "name": "Adelaide Badminton Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaidecc.com.au": {
+    "checked": 20260819,
+    "name": "Adelaide Convention Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "adelaidecentralmarket.com.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Adelaide Central Market Events",
@@ -341,6 +397,76 @@
     "reason": "30 vevents / 29 future",
     "status": "ok",
     "type": "ics"
+  },
+  "adelaidefestivalcentre.com.au": {
+    "checked": 20260819,
+    "name": "Space Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaidefestivalcentre.com.au/;https://www.adelaidefestivalcentre.com.au/your-visit/her-majestys-theatre": {
+    "checked": 20260819,
+    "name": "Her Majesty's Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaidegrace.com.au": {
+    "checked": 20260819,
+    "name": "Glenunga Uniting Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaidehillschurch.com.au": {
+    "checked": 20260819,
+    "name": "Mount Barker Presbyterian Church",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "adelaidepc.org.au": {
+    "checked": 20260819,
+    "name": "Adelaide Presbyterian Church Norwood",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaidepetanque.com": {
+    "checked": 20260819,
+    "name": "Club de P\u00e9tanque d'Adelaide",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaiderevival.com": {
+    "checked": 20260819,
+    "name": "Vogue Revival Fellowship",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaidesailingclub.com.au": {
+    "checked": 20260819,
+    "name": "Adelaide Sailing Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaidetownhall.com.au/room/meeting-hall": {
+    "checked": 20260819,
+    "name": "Meeting Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adelaidezoo.com.au": {
+    "checked": 20260819,
+    "name": "Adelaide Zoo",
+    "reason": "4 events, 4/4 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "advantagedcare.com.au/locations/georges-manor": {
     "checked": 20260819,
@@ -433,6 +559,20 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "agsa.sa.gov.au": {
+    "checked": 20260819,
+    "name": "Art Gallery of South Australia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ahc.sa.gov.au/services/libraries/library-locations-and-hours/coventry-library": {
+    "checked": 20260819,
+    "name": "Coventry Memorial Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ahmadiyya.ca": {
     "checked": 20260819,
     "name": "Bait-ul-Hadi",
@@ -471,6 +611,13 @@
   "aim.org.au": {
     "checked": 20260819,
     "name": "Punchbowl Mosque",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ainslieandgorman.com.au": {
+    "checked": 20260819,
+    "name": "Gorman Arts Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -566,6 +713,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aldgatevillagewell.org": {
+    "checked": 20260819,
+    "name": "The Village Well - Aldgate Church of Christ",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aldousbooks.co.uk": {
     "checked": 20260819,
     "name": "Aldous Books",
@@ -622,12 +776,26 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "alliancechurch.com.au": {
+    "checked": 20260819,
+    "name": "Woden Valley Alliance Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "allianceforthebay.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Alliance for the Chesapeake Bay",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "allsaintsainslie.org.au": {
+    "checked": 20260819,
+    "name": "All Saints Anglican",
+    "reason": "99 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "allsaintsnorthepping.org.au": {
     "checked": 20260819,
@@ -677,6 +845,13 @@
     "reason": "15 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "alpineindoorclimbing.com": {
+    "checked": 20260819,
+    "name": "Alpine Indoor Climbing",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "alrashidmosque.ca": {
     "checked": 20260819,
@@ -769,6 +944,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "anbg.gov.au/gardens": {
+    "checked": 20260819,
+    "name": "Australian National Botanic Gardens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "anchor.org.uk/our-properties/hurst-park-court-liverpool?utm_source=gmb+care+home&utm_medium=organic": {
     "checked": 20260819,
     "name": "Hurst Park Court Care Home",
@@ -782,6 +964,13 @@
     "reason": "ConnectionError: HTTPSConnectionPool(host='www.anchoragemarkets.com', port=443): Max re",
     "status": "fail",
     "type": "ics"
+  },
+  "anchorchurchpa.org.au": {
+    "checked": 20260819,
+    "name": "Anchor Church  Port Adelaide",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "angelsonwheels.com.au": {
     "checked": 20260819,
@@ -916,6 +1105,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "araluenlifestyle.com.au": {
+    "checked": 20260819,
+    "name": "Araluen Lifestyle Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "arbourlake.com/event-list": {
     "checked": 20260819,
     "name": "Arbour Lake Residents Hall",
@@ -971,6 +1167,27 @@
     "reason": "500 vevents / 100 future",
     "status": "ok",
     "type": "ics"
+  },
+  "armycadets.gov.au/unit-finder?UAbbr=10ACU": {
+    "checked": 20260819,
+    "name": "AAC - 10 ACU Southport",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "armycadets.gov.au/unit-finder?UAbbr=133ACU": {
+    "checked": 20260819,
+    "name": "AAC - 133 ACU Palm Beach",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "armycadets.gov.au/unit-finder?UAbbr=TSSACU": {
+    "checked": 20260819,
+    "name": "AAC - The Southport School ACU",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "arparish.ca": {
     "checked": 20260819,
@@ -1231,6 +1448,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "athletics-oceania.com": {
+    "checked": 20260819,
+    "name": "Oceania Athletics Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "atholhallvenue.com.au": {
     "checked": 20260819,
     "name": "Athol Hall",
@@ -1301,6 +1525,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "austinvilla.com.au": {
+    "checked": 20260819,
+    "name": "Austinvilla Estate",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "australian.museum": {
     "checked": 20260819,
     "name": "Australian Museum",
@@ -1329,6 +1560,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "australianunity.com.au/assisted-living/aboriginal-home-care": {
+    "checked": 20260819,
+    "name": "Australian Unity Aboriginal Services South Tweed",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "autismcalgary.com": {
     "checked": 20260819,
     "name": "Autism Calgary",
@@ -1353,6 +1591,13 @@
   "awesomewalls.co.uk/liverpool": {
     "checked": 20260819,
     "name": "Awesome Walls Liverpool",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "awm.gov.au": {
+    "checked": 20260819,
+    "name": "Australian War Memorial",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1490,6 +1735,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "baptistcare.org.au/centre/baptistcare-carey-gardens": {
+    "checked": 20260819,
+    "name": "Baptist Care Carey Gardens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "baptistcare.org.au/centre/baptistcare-griffith-centre": {
+    "checked": 20260819,
+    "name": "Baptist Care",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "baptistcare.org.au/hopestreet": {
     "checked": 20260819,
     "name": "BaptistCare HopeStreet",
@@ -1602,6 +1861,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "bcc.org.au": {
+    "checked": 20260819,
+    "name": "Burleigh Church of Christ",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bcfm.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Boulder County Farmers Markets Events",
@@ -1619,6 +1885,13 @@
   "beachandsurf.com": {
     "checked": 20260819,
     "name": "Beach & Surf Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "beardeddragongallery.com.au": {
+    "checked": 20260819,
+    "name": "Bearded Dragon Gallery",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1686,6 +1959,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "belconnenshed.com.au": {
+    "checked": 20260819,
+    "name": "Belconnen Community Men's Shed",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bellshakespeare.com.au": {
     "checked": 20260819,
     "name": "Bell Shakespeare",
@@ -1713,6 +1993,13 @@
     "reason": "749 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "benowabowlsclub.com.au": {
+    "checked": 20260819,
+    "name": "Benowa Bowls Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "bentonstreetbaptist.org": {
     "checked": 20260819,
@@ -1882,6 +2169,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "beyondbouldering.com.au": {
+    "checked": 20260819,
+    "name": "Beyond Bouldering",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bgcbigs.ca": {
     "checked": 20260819,
     "name": "Tweddle Club",
@@ -1952,6 +2246,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "binnaburralodge.com.au": {
+    "checked": 20260819,
+    "name": "Reading Room",
+    "reason": "1 events, 1/1 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "bisericapetrusipavel.ca": {
     "checked": 20260819,
     "name": "Saints Peter and Paul Romanian Orthodox",
@@ -1987,6 +2288,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "blackforestps.sa.edu.au/library": {
+    "checked": 20260819,
+    "name": "BFPS Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "blackfriarsrestaurant.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Blackfriars Cookery School (Newcastle upon Tyne)",
@@ -2004,6 +2312,13 @@
   "blackhallstcolumba.org.uk": {
     "checked": 20260819,
     "name": "Blackhall St. Columba's Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "blackhops.com.au": {
+    "checked": 20260819,
+    "name": "Black Hops II",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2056,6 +2371,20 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "bmdnorthcliffe.com.au": {
+    "checked": 20260819,
+    "name": "BMD Northcliffe Surf Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bmdnorthcliffe.com.au/life-saving": {
+    "checked": 20260819,
+    "name": "BMD Northcliffe SLSC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "bnwaterkeeper.org/events/?ical=1": {
     "checked": 20260803,
@@ -2159,6 +2488,13 @@
     "checked": 20260819,
     "name": "Book-Cycle Beech Hill",
     "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bookcow.com.au": {
+    "checked": 20260819,
+    "name": "The Book Cow",
+    "reason": "osm probe: offsite:humanitix.com",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -2302,6 +2638,48 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "botanicgardens.sa.gov.au": {
+    "checked": 20260819,
+    "name": "Adelaide Botanic Gardens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "botanicgardens.sa.gov.au/visit/adelaide-botanic-garden/botanical-collections/garden-of-health": {
+    "checked": 20260819,
+    "name": "Garden of Health",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "botanicgardens.sa.gov.au/visit/adelaide-botanic-garden/botanical-collections/international-rose-garden": {
+    "checked": 20260819,
+    "name": "International Rose Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "botanicgardens.sa.gov.au/visit/adelaide-botanic-garden/botanical-collections/mediterranean-garden": {
+    "checked": 20260819,
+    "name": "Mediterranean Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "botanicgardens.sa.gov.au/visit/mount-lofty-botanic-garden": {
+    "checked": 20260819,
+    "name": "Mount Lofty Botanic Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "botanicgardens.sa.gov.au/visit/wittunga-botanic-garden": {
+    "checked": 20260819,
+    "name": "Wittunga Botanic Gardens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bourkevale.com": {
     "checked": 20260819,
     "name": "Bourkevale Community Centre",
@@ -2347,6 +2725,13 @@
   "bpha.ca": {
     "checked": 20260819,
     "name": "Beechwood Park Recreation Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bpuc.org": {
+    "checked": 20260819,
+    "name": "Brougham Place Uniting Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2428,6 +2813,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "brightonsurfclub.com": {
+    "checked": 20260819,
+    "name": "Brighton Surf Life Saving Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bringonthesunshine.ca": {
     "checked": 20260819,
     "name": "Bring on the Sunshine",
@@ -2473,6 +2865,13 @@
   "britishlegion.org.uk": {
     "checked": 20260819,
     "name": "The Royal British Legion",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "broadbeachslsc.com": {
+    "checked": 20260819,
+    "name": "Broadbeach SLSC",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2554,6 +2953,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bsyc.com.au": {
+    "checked": 20260819,
+    "name": "Brighton and Seacliff Yacht Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "buchananhousecare.co.uk": {
     "checked": 20260819,
     "name": "Buchanan House Care Home",
@@ -2596,9 +3002,44 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "burleighbowls.org.au/functions": {
+    "checked": 20260819,
+    "name": "Burleigh Heads Bowls Club",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "burleighcricket.com.au": {
+    "checked": 20260819,
+    "name": "Burleigh Bullsharks Cricket Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "burleighslsc.com.au/supporters-club": {
+    "checked": 20260819,
+    "name": "Burleigh Heads Mowbray Park Surf Life Saving Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "burleighslsc.com.au/surf-club": {
+    "checked": 20260819,
+    "name": "Burleigh Heads Surf Life Saving Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "burnbankbowlingclub.wordpress.com": {
     "checked": 20260819,
     "name": "Burnbank Bowling Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "burnside.sa.gov.au/Community-Recreation/Community-Venues/Burnside-Library": {
+    "checked": 20260819,
+    "name": "Burnside Library",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2679,6 +3120,20 @@
     "reason": "1768 vevents / 19 future",
     "status": "ok",
     "type": "ics"
+  },
+  "c3churchwatson.com.au": {
+    "checked": 20260819,
+    "name": "C3 Church Watson",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "c3robina.org.au": {
+    "checked": 20260819,
+    "name": "C3 Church Robina",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "cabinbrewing.ca": {
     "checked": 20260819,
@@ -3128,6 +3583,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "calvarycare.org.au/ourservices/residentialagedcare/the-homestead-walkley-heights-sa": {
+    "checked": 20260819,
+    "name": "Calvary The Homestead",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calvarycare.org.au/ourservices/retirement-villages/walkley-heights": {
+    "checked": 20260819,
+    "name": "Calvary The Homestead Retirement Living",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "calvarygrace.ca": {
     "checked": 20260819,
     "name": "Calvary Grace Church",
@@ -3233,9 +3702,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "campbellgc.com": {
+    "checked": 20260819,
+    "name": "Campbell Gospel Chapel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "campbellstreetchurch.com.au": {
     "checked": 20260819,
     "name": "Campbell Street Presbyterian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "campbelltowncsc.org.au": {
+    "checked": 20260819,
+    "name": "Campbelltown City Soccer Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3296,12 +3779,61 @@
     "status": "fail",
     "type": "ics"
   },
+  "canberra-aeroclub.com.au": {
+    "checked": 20260819,
+    "name": "Canberra Aeroclub",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "canberra.libcal.com/ical_subscribe.php?cid=10851": {
     "checked": 20260727,
     "name": "University of Canberra Library (Canberra, Australia)",
     "reason": "35 vevents / 14 future",
     "status": "ok",
     "type": "ics"
+  },
+  "canberraarchery.club": {
+    "checked": 20260819,
+    "name": "Canberra Archery Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "canberrabmxclub.com": {
+    "checked": 20260819,
+    "name": "Canberra BMX Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "canberraglassworks.com": {
+    "checked": 20260819,
+    "name": "The Canberra Glassworks",
+    "reason": "osm probe: offsite:instagram.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "canberraolympicpool.com.au": {
+    "checked": 20260819,
+    "name": "Canberra Olympic Pool",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "canberrarail.org.au": {
+    "checked": 20260819,
+    "name": "Canberra Railway Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "canberrayouththeatre.com.au": {
+    "checked": 20260819,
+    "name": "Canberra Youth Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "canlansports.com/locations/ca/mb/winnipeg": {
     "checked": 20260819,
@@ -3323,6 +3855,13 @@
     "reason": "88 vevents / 71 future",
     "status": "ok",
     "type": "ics"
+  },
+  "cantysbookshopfyshwick.com": {
+    "checked": 20260819,
+    "name": "Canty's Bookshop",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "canyonmeadowscinemas.ca": {
     "checked": 20260819,
@@ -3386,6 +3925,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "capri.org.au": {
+    "checked": 20260819,
+    "name": "Capri Cinema",
+    "reason": "24 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "cardelrec.com/events": {
     "checked": 20260819,
@@ -3520,6 +4066,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "carrickhill.sa.gov.au": {
+    "checked": 20260819,
+    "name": "Carrick Hill",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "carrubbers.org/events": {
     "checked": 20260819,
     "name": "Carrubbers Christian Centre",
@@ -3611,6 +4164,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "cbr.blochaus.com.au": {
+    "checked": 20260819,
+    "name": "BlocHaus Bouldering Fyshwick",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cccad.co.uk": {
     "checked": 20260819,
     "name": "Hilton Street Childcare and Community Centre",
@@ -3674,9 +4234,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ccparish.org.au": {
+    "checked": 20260819,
+    "name": "Holy Family Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ccsl.org.au": {
     "checked": 20260819,
     "name": "Christ Church St Laurence",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cdscc.nasa.gov/Pages/opening_hours.html": {
+    "checked": 20260819,
+    "name": "Canberra Space Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3827,6 +4401,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "charlessturtmuseum.org.au": {
+    "checked": 20260819,
+    "name": "Charles Sturt Museum",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "charlestonwineandfood.com/events/?ical=1": {
     "checked": 20260727,
@@ -4073,9 +4654,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "christiansciencegoldcoast.com.au": {
+    "checked": 20260819,
+    "name": "First Church of Christ, Scientist",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chrysalideshouse.blogspot.com": {
     "checked": 20260819,
     "name": "Chrysalides House, School of Fine Art and Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "church.nu": {
+    "checked": 20260819,
+    "name": "Newlife Uniting Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "churchact.org.au": {
+    "checked": 20260819,
+    "name": "The Canberra Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4097,6 +4699,13 @@
   "churchofchristbankstown.org": {
     "checked": 20260819,
     "name": "Bankstown church of Christ",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "churchofjesuschrist.org/temples/details/adelaide-australia-temple": {
+    "checked": 20260819,
+    "name": "Adelaide Australia Temple",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4493,6 +5102,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "clelandwildlifepark.sa.gov.au": {
+    "checked": 20260819,
+    "name": "Cleland Wildlife Park",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cliffbungalowmission.com/events": {
     "checked": 20260819,
     "name": "Cliff Bungalow-Mission Community Association",
@@ -4535,6 +5151,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "clubbroadbeach.com.au": {
+    "checked": 20260819,
+    "name": "Broadbeach Bowls Club",
+    "reason": "245 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "clubgrandviews.com.au": {
     "checked": 20260819,
     "name": "Club Grandviews",
@@ -4555,6 +5178,20 @@
     "reason": "124 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "clublime.com.au/ourclubs/?id=19410fcc-e7c1-9e02-cd05-40fc830c5987": {
+    "checked": 20260819,
+    "name": "Club Lime",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "clubmarion.org.au": {
+    "checked": 20260819,
+    "name": "Club Marion",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "cluboops.co.uk": {
     "checked": 20260819,
@@ -4577,12 +5214,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cmag.com.au": {
+    "checked": 20260819,
+    "name": "Canberra Museum and Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cmca.ca/memberships": {
     "checked": 20260819,
     "name": "Canyon Meadows Community Centre",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "cmfc.asn.au/club-events/?ical=1": {
+    "checked": 20260819,
+    "name": "Constellation Model Flying Club",
+    "reason": "57 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
   },
   "cmha.ca": {
     "checked": 20260819,
@@ -4598,6 +5249,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cocktailsnightclub.com.au": {
+    "checked": 20260819,
+    "name": "Cocktails Nightclub",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cocoprivatehire.com": {
     "checked": 20260819,
     "name": "Co.Co.",
@@ -4608,6 +5266,20 @@
   "coderedlaser.com.au": {
     "checked": 20260819,
     "name": "Codered Laser Skirmish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cofc.com.au/residentialagedcare/locations/residential-aged-care?locid=86": {
+    "checked": 20260819,
+    "name": "Lady Small Haven Aged Care",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cogs.asn.au": {
+    "checked": 20260819,
+    "name": "O\u2019Connor Community Garden",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4689,6 +5361,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "commongroundcanberra.org.au": {
+    "checked": 20260819,
+    "name": "Common Ground",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "commonwealth.com.au": {
+    "checked": 20260819,
+    "name": "The Commonwealth Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "commonwealthbar.ca/events": {
     "checked": 20260819,
     "name": "Commonwealth Bar & Stage",
@@ -4709,6 +5395,13 @@
     "reason": "4 vevents / 4 future",
     "status": "ok",
     "type": "ics"
+  },
+  "communityservices1.org": {
+    "checked": 20260819,
+    "name": "Griffith Neighbourhood Centre",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
   },
   "compassrefugee.ca": {
     "checked": 20260819,
@@ -4794,9 +5487,65 @@
     "status": "fail",
     "type": "ics"
   },
+  "coolangatta-tugunparish.org.au": {
+    "checked": 20260819,
+    "name": "St Monica's Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "coolangattasurfclub.com/whats-on": {
+    "checked": 20260819,
+    "name": "Coolangatta Surf Life Saving Club",
+    "reason": "78/176 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
+  "coomeracrushers.com.au": {
+    "checked": 20260819,
+    "name": "Coomera Crushers Rugby Union Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "coomeracutters.com/events": {
+    "checked": 20260819,
+    "name": "Coomera Cutters Junior Rugby League Club",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "coomerasoccer.com": {
+    "checked": 20260819,
+    "name": "Coomera Colts Soccer Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "coreclimbing.com.au": {
+    "checked": 20260819,
+    "name": "Core Climbing - Carrara",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "corkandchroma.com.au/product-category/public-art-sessions/paint-and-sip-surry-hills": {
     "checked": 20260819,
     "name": "Cork & Chroma",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cormcc.org/calendar": {
+    "checked": 20260819,
+    "name": "Canberra Off Road Model Car Club",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "cornerstonehousing.com.au": {
+    "checked": 20260819,
+    "name": "Cornerstone Housing",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4878,6 +5627,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cowbellcreek.com.au": {
+    "checked": 20260819,
+    "name": "Cowbell Creek",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cpbc.org.au": {
     "checked": 20260819,
     "name": "Condell Park Bible Church",
@@ -4899,9 +5655,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cplvenues.org.au": {
+    "checked": 20260819,
+    "name": "The Well",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cqc.org.uk/location/1-121860148": {
     "checked": 20260819,
     "name": "Brothers of Charity Services",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "craftyrobot.beer": {
+    "checked": 20260819,
+    "name": "Crafty Robot Brewing",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5238,6 +6008,27 @@
   "curriestarfc.co.uk": {
     "checked": 20260819,
     "name": "Currie Star FC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "currumbinalleysurfschool.com.au": {
+    "checked": 20260819,
+    "name": "Currumbin Alley Surf School",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "currumbinsanctuary.com.au": {
+    "checked": 20260819,
+    "name": "Currumbin Wildlife Sanctuary",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cutlooseindoorclimbing.com.au": {
+    "checked": 20260819,
+    "name": "Cutloose Indoor Climbing",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5830,6 +6621,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dendy.com.au": {
+    "checked": 20260819,
+    "name": "Dendy Cinema",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dendy.com.au/cinemas/newtown": {
     "checked": 20260819,
     "name": "Dendy Newtown",
@@ -6131,6 +6929,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "eastavenuebooks.com.au": {
+    "checked": 20260819,
+    "name": "East Avenue Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "eastcircusplacegardens.co.uk": {
     "checked": 20260819,
     "name": "East Circus Place Gardens",
@@ -6152,6 +6957,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "easternmavericks.com.au": {
+    "checked": 20260819,
+    "name": "Eastern Mavericks Basketball Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "eatstreetnorthshore.com.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Eat Street Northshore (Brisbane)",
@@ -6172,6 +6984,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ech.asn.au": {
+    "checked": 20260819,
+    "name": "Clutterbuck Lodge",
+    "reason": "17 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "ecole.com.au": {
     "checked": 20260819,
@@ -6691,6 +7510,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "edwardstownparish.org.au": {
+    "checked": 20260819,
+    "name": "St. Anthony of Padua Edwardstown Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ehcong.com": {
     "checked": 20260819,
     "name": "The Edinburgh Hebrew Congregation",
@@ -6803,6 +7629,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eparish.org.au": {
+    "checked": 20260819,
+    "name": "Holy Cross Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "episcopalnewlands.org.uk": {
     "checked": 20260819,
     "name": "St. Margaret's Scottish Episcopal Church",
@@ -6838,6 +7671,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "espritdevie.com.au": {
+    "checked": 20260819,
+    "name": "Esprit de Vie Mermaid Waters",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "estiahealth.com.au/locations/merrylands": {
     "checked": 20260819,
     "name": "Estia Health Merrylands",
@@ -6855,6 +7695,20 @@
   "estiahealth.com.au/our-homes/nsw-sydney/manly-vale": {
     "checked": 20260819,
     "name": "Estia Health Manly Vale",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "estiahealth.com.au/our-homes/qld-brisbane/southport": {
+    "checked": 20260819,
+    "name": "Estia Health - Southport",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "estiahealth.com.au/our-homes/sa-adelaide/aberfoyle-park": {
+    "checked": 20260819,
+    "name": "Aged Care Complex",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7146,6 +8000,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "explore.history.sa.gov.au/organisation/lobethal-archives-historical-museum": {
+    "checked": 20260819,
+    "name": "Lobethal Archives & Historical Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "extendicarecedarsvilla.com": {
     "checked": 20260819,
     "name": "Extendicare Cedar Villa",
@@ -7167,6 +8028,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/Burleigh-Community-Mens-Shed-306132529400192": {
+    "checked": 20260819,
+    "name": "Burleigh Community Men's Shed",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/Diverse-CityAdelaide": {
+    "checked": 20260819,
+    "name": "Diverse-City",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/FannieBayEquestrianClub": {
     "checked": 20260819,
     "name": "Fannie Bay Equestrian Club",
@@ -7174,9 +8049,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/Gold-Coast-Lapidary-Club-Inc-262657877224310": {
+    "checked": 20260819,
+    "name": "Gold Coast Lapidary Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/KaramaCommunityGarden": {
     "checked": 20260819,
     "name": "Karama Community Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/Mermaid-Waters-Multicultural-Garden-1517002301881479": {
+    "checked": 20260819,
+    "name": "Mermaid Waters Multicultural Garden",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7202,6 +8091,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/Tweed-Heads-Amatuer-Fishing-Club-Inc-256998557716363": {
+    "checked": 20260819,
+    "name": "Tweed Heads Amatuer Fishing Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/WhitesCreekCommunity": {
     "checked": 20260819,
     "name": "Whites Creek Community Garden",
@@ -7212,6 +8108,13 @@
   "facebook.com/ashburybowling": {
     "checked": 20260819,
     "name": "Ashbury Bowling and Panarcadian Federation Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/ashmorebmx": {
+    "checked": 20260819,
+    "name": "Ashmore BMX Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7447,6 +8350,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "feroscare.com.au": {
+    "checked": 20260819,
+    "name": "Feros Care Residential Village Wommin Bay",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ferrybuildingmarketplace.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Ferry Building Marketplace Events (San Francisco)",
@@ -7457,6 +8367,13 @@
   "festivalplace.ca": {
     "checked": 20260819,
     "name": "Festival Place",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fhc.com.au": {
+    "checked": 20260819,
+    "name": "Forestville Hockey Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7481,6 +8398,20 @@
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "fineprintco.com/pages/ferry-road-store-southport": {
+    "checked": 20260819,
+    "name": "Fineprintco Southport",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fingalroversslsc.com.au": {
+    "checked": 20260819,
+    "name": "Fingal Rovers Surf Life Saving Club",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
   },
   "fingerlakeswinecountry.com/events/?ical=1": {
     "checked": 20260727,
@@ -7628,6 +8559,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "forestvilleeagles.asn.au": {
+    "checked": 20260819,
+    "name": "Forestville Eagles",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "forgegamesandhobbies.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260723,
@@ -7825,6 +8763,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fsbc.asn.au": {
+    "checked": 20260819,
+    "name": "Flinders Street Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ftc.enterprise.localist.com": {
     "checked": 20260727,
     "name": "Florida Technical College (Orlando)",
@@ -7881,6 +8826,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gallerym.com.au": {
+    "checked": 20260819,
+    "name": "Gallery M",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "gallerysallydancuthbert.com": {
     "checked": 20260819,
     "name": "Sally Dan Cuthbert Gallery",
@@ -7916,6 +8868,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "gardensrc.com.au": {
+    "checked": 20260819,
+    "name": "The Gardens Recreation Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gardinerchess.com.au": {
+    "checked": 20260819,
+    "name": "Gardiner's Chess Place",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "gardinermuseum.on.ca/events/?ical=1": {
     "checked": 20260727,
     "name": "Gardiner Museum (Toronto, Canada)",
@@ -7926,6 +8892,13 @@
   "garneau-tennis.com": {
     "checked": 20260819,
     "name": "Garneau Tennis and Beach Volleyball Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "garrisonwc.wordpress.com": {
+    "checked": 20260819,
+    "name": "Garrison Wargaming Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7951,9 +8924,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gaval.com.au": {
+    "checked": 20260819,
+    "name": "Gaval Community Services",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gaza.com.au": {
+    "checked": 20260819,
+    "name": "Gaza Sports & Community Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "gc50plus.org": {
     "checked": 20260819,
     "name": "Good Companions 50 Plus Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gcdr.org.au": {
+    "checked": 20260819,
+    "name": "Gold Coast Dharma Realm",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8448,6 +9442,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "glowchurch.com": {
+    "checked": 20260819,
+    "name": "Glow Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "goa.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise de Goa (Panaji, India)",
@@ -8489,6 +9490,76 @@
     "reason": "4 events, 4/4 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "gokartinggoldcoast.com.au": {
+    "checked": 20260819,
+    "name": "Slideways Go Karting Gold Coast",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goldcoast.qld.gov.au/Services/Venues-facilities/Community-centres/Broadbeach-Cultural-Precinct": {
+    "checked": 20260819,
+    "name": "Broadbeach Community Space",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goldcoast.qld.gov.au/Services/Venues-facilities/Community-centres/Mermaid-Beach-Community-Centre": {
+    "checked": 20260819,
+    "name": "Mermaid Beach Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goldcoast.qld.gov.au/Services/Venues-facilities/Community-centres/Pacific-Pines-Community-Centre": {
+    "checked": 20260819,
+    "name": "Pacific Pines Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goldcoast.qld.gov.au/Services/Venues-facilities/Community-centres/Springbrook-Community-Hall": {
+    "checked": 20260819,
+    "name": "Springbrook Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goldcoast.qld.gov.au/Things-to-do/Parks-gardens-reserves/Community-gardens": {
+    "checked": 20260819,
+    "name": "Varsity Vegies Community Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goldcoast.qld.gov.au/libraries/Our-libraries/Helensvale-Library": {
+    "checked": 20260819,
+    "name": "Helensvale Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goldcoastbaptistchurch.com.au": {
+    "checked": 20260819,
+    "name": "Gold Coast Baptist Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "goldcoastpotters.com": {
+    "checked": 20260819,
+    "name": "Gold Coast Potters & Sculptors Corner",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goldcoastwarmuseum.com.au/movies-and-theatrical": {
+    "checked": 20260819,
+    "name": "Gold Coast War Museum",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "goldenharebooks.com": {
     "checked": 20260819,
@@ -8535,6 +9606,34 @@
   "goodtogrowuk.org/map/?o=12914": {
     "checked": 20260819,
     "name": "Mount Florida Community Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goodwin.org.au/retirement-living/farrer": {
+    "checked": 20260819,
+    "name": "Goodwin Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goodwoodbooks.com.au": {
+    "checked": 20260819,
+    "name": "Goodwood Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goodwoodcc.com": {
+    "checked": 20260819,
+    "name": "Goodwood Cricket Club",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "goodwoodsaints.com.au": {
+    "checked": 20260819,
+    "name": "Goodwood Saints Football Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8658,6 +9757,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "graingergallery.com.au": {
+    "checked": 20260819,
+    "name": "Grainger Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "grandcanyontrust.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Grand Canyon Trust",
@@ -8699,6 +9805,20 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "grangebaptist.church": {
+    "checked": 20260819,
+    "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "grangeslsc.asn.au": {
+    "checked": 20260819,
+    "name": "Grange Surf Life Saving",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "grantonhub.org/events": {
     "checked": 20260819,
@@ -8755,6 +9875,13 @@
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "greenmountsurfclub.com.au/event": {
+    "checked": 20260819,
+    "name": "Greenmount Beach Surf Club",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "gretabar.com": {
     "checked": 20260819,
@@ -8938,6 +10065,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gungahlinmosque.org.au": {
+    "checked": 20260819,
+    "name": "Gungahlin Mosque",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gungahlinuniting.org": {
+    "checked": 20260819,
+    "name": "Gungahlin Uniting Church and Community Centre",
+    "reason": "54 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "gunyamapark.com.au": {
     "checked": 20260819,
     "name": "Gunyama Park Aquatic and Recreation Centre",
@@ -9004,6 +10145,13 @@
   "halfpintsbrewing.com": {
     "checked": 20260819,
     "name": "Half Pints Brewing",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hallprior.com.au/nursing-homes/australian-capital-territory/canberra": {
+    "checked": 20260819,
+    "name": "Canberra Aged Care Facility",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9267,6 +10415,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "henleycommunitygarden.wordpress.com": {
+    "checked": 20260819,
+    "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "henrypordesbooks.com": {
     "checked": 20260819,
     "name": "Henry Pordes Books",
@@ -9337,6 +10492,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "highway.com.au": {
+    "checked": 20260819,
+    "name": "Highway Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "highways.hidot.hawaii.gov/resource/jzxa-jief.json": {
     "checked": 20260808,
     "name": "Repair and Restoration (highways.hidot.hawaii.gov)",
@@ -9372,12 +10534,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hillsmusical.org.au": {
+    "checked": 20260819,
+    "name": "Hills Musical Company",
+    "reason": "osm probe: offsite:trybooking.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hillsong.com": {
     "checked": 20260819,
     "name": "Hillsong Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hillsyouththeatre.com": {
+    "checked": 20260819,
+    "name": "Hills Youth Theatre",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "hillviewchurch.ca": {
     "checked": 20260819,
@@ -9386,9 +10562,37 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hindleymusichall.com.au": {
+    "checked": 20260819,
+    "name": "Hindley Street Music Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "historicalsociety.unitingchurch.org.au/about/the-history-centre": {
+    "checked": 20260819,
+    "name": "Uniting Church in Australia History Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "historicplaces.com.au/mugga-mugga-cottage": {
+    "checked": 20260819,
+    "name": "?",
+    "reason": "osm probe: offsite:humanitix.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "historicstpauls.ca": {
     "checked": 20260819,
     "name": "Historic Saint Paul's Lutheran Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hnc.org.au": {
+    "checked": 20260819,
+    "name": "Healthy North Coast",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9400,12 +10604,47 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "holdfast.sa.gov.au/BDC": {
+    "checked": 20260819,
+    "name": "Bay Discovery Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "holdfast.sa.gov.au/discover-our-place/parks-and-reserves/partridge-house-gardens": {
+    "checked": 20260819,
+    "name": "Partridge House Gardens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "holdfastbaptist.com.au": {
+    "checked": 20260819,
+    "name": "Holdfast Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hollywoodfarmersmarket.net/events/?ical=1": {
     "checked": 20260727,
     "name": "Hollywood Farmers Market Events (Los Angeles)",
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "hollywoodshowgirls.com.au": {
+    "checked": 20260819,
+    "name": "Hollywood Showgirls",
+    "reason": "osm probe: offsite:instagram.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "holycovenant.org.au": {
+    "checked": 20260819,
+    "name": "Holy Covenant Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "holycrosskitchener.org": {
     "checked": 20260819,
@@ -9505,6 +10744,13 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "hopechurchaustralia.com": {
+    "checked": 20260819,
+    "name": "Hope Church Australia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hopecity.ca/kingsway": {
     "checked": 20260819,
     "name": "Hope City Church - Kingsway Campus",
@@ -9571,6 +10817,13 @@
   "hornsbyodeoncinema.com.au/Page/Home": {
     "checked": 20260819,
     "name": "Hornsby Odeon Cinamas",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hotelkurrajong.com.au": {
+    "checked": 20260819,
+    "name": "Kurrajong Hotel",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9673,6 +10926,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hoyts.com.au/cinemas/belconnen": {
+    "checked": 20260819,
+    "name": "Hoyts",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hrp.ca": {
     "checked": 20260819,
     "name": "Holy Rosary Catholic Church (Polish)",
@@ -9708,12 +10968,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hungarianclub.com.au/all-events": {
+    "checked": 20260819,
+    "name": "Hungarian Club of South Australia",
+    "reason": "4 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
+  },
   "huntersville.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20260727,
     "name": "Town of Huntersville Events (Charlotte)",
     "reason": "47 vevents / 47 future",
     "status": "ok",
     "type": "ics"
+  },
+  "huntingtonssant.org.au": {
+    "checked": 20260819,
+    "name": "Huntington's SA & NT",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "hurstville.church": {
     "checked": 20260819,
@@ -9883,6 +11157,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "indoorsport.com.au": {
+    "checked": 20260819,
+    "name": "Gold Coast Indoor Sport",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "indoorsports.net.au": {
     "checked": 20260819,
     "name": "Northern Beaches Indoor Sports Centre",
@@ -9900,6 +11181,13 @@
   "inglebygallery.com": {
     "checked": 20260819,
     "name": "Ingleby Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "inglefarmrc.com.au": {
+    "checked": 20260819,
+    "name": "Ingle Farm Recreational Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10016,6 +11304,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "irt.org.au/retirement-villages/location/irt-kangara-waters": {
+    "checked": 20260819,
+    "name": "Kangara Waters",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "irt.org.au/retirement-villages/location/irt-thomas-holt-kilpatrick-court": {
     "checked": 20260819,
     "name": "IRT Thomas Holt Kilpatrick Court",
@@ -10037,9 +11332,23 @@
     "status": "ok",
     "type": "tribe"
   },
+  "iskconcanberra.com": {
+    "checked": 20260819,
+    "name": "Hare Krishna Temple Iskcon Canberra",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "islamicsocietynsw.org.au": {
     "checked": 20260819,
     "name": "King Faisal Mosque",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "islamicsocietysa.org.au/mosque/wandana-mosque": {
+    "checked": 20260819,
+    "name": "Wandana Mosque",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10093,6 +11402,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "jamfactory.com.au": {
+    "checked": 20260819,
+    "name": "JamFactory",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jamiaislamiaglasgow.org.uk": {
     "checked": 20260819,
     "name": "Tantallon Road Mosque",
@@ -10134,6 +11450,13 @@
     "reason": "14 vevents / 14 future",
     "status": "ok",
     "type": "ics"
+  },
+  "jellurgal.com.au": {
+    "checked": 20260819,
+    "name": "Jellurgal Aboriginal Cultural Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "jewishwinnipeg.org/directory/chavurat-tefilah-fellowship-of-prayer": {
     "checked": 20260819,
@@ -10187,6 +11510,13 @@
   "jubileegardensblog.wordpress.com": {
     "checked": 20260819,
     "name": "Jubilee Park Community Kitchen Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "jumpswimschools.com.au/bundall": {
+    "checked": 20260819,
+    "name": "JUMP! Swim School",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10331,6 +11661,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "keyton.com.au/home/our-villages/act/isabella-gardens": {
+    "checked": 20260819,
+    "name": "Isabella Gardens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "keyton.com.au/home/our-villages/act/narrabundah": {
+    "checked": 20260819,
+    "name": "The Aerie at Narrabundah",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "keyton.com.au/home/our-villages/nsw/glenaeon": {
     "checked": 20260819,
     "name": "Glenaeon",
@@ -10401,6 +11745,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kingscliffchurch.com": {
+    "checked": 20260819,
+    "name": "Kingscliff Seventh-Day Adventist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kingscross.org.au/weekly-events": {
     "checked": 20260819,
     "name": "Kings Cross Community Centre",
@@ -10439,6 +11790,20 @@
   "kingstonheritage.org.uk/visit": {
     "checked": 20260819,
     "name": "Kingston Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kingswim.com.au/centre/macgregor": {
+    "checked": 20260819,
+    "name": "Kingswim",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kingswim.com.au/locations/canberra/swimming-lessons-majura-park": {
+    "checked": 20260819,
+    "name": "King Swim",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10646,6 +12011,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "knightsbridgebaptist.org.au": {
+    "checked": 20260819,
+    "name": "Knightsbridge Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "knightswoodcentre.co.uk": {
     "checked": 20260819,
     "name": "Knightswood Community Centre",
@@ -10744,6 +12116,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "koorong.com/pages/store-adelaide": {
+    "checked": 20260819,
+    "name": "Koorong",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kooroora.asn.au": {
     "checked": 20260819,
     "name": "Kooroora Tennis Club",
@@ -10824,6 +12203,20 @@
   "kurnellrecclub.com.au/whats-on-8": {
     "checked": 20260819,
     "name": "Kurnell Recreational Club",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "kurrawasurf.com.au/surf-lifesaving-home": {
+    "checked": 20260819,
+    "name": "Kurrawa SLSC",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "kurrawasurf.com.au/whats-on": {
+    "checked": 20260819,
+    "name": "Kurrawa Surf Club",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
@@ -11066,6 +12459,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "laurielawrenceswimschool.com.au": {
+    "checked": 20260819,
+    "name": "Laurie Lawrence Swim School Banora",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "law-uk.libcal.com/ical_subscribe.php?cid=7896": {
     "checked": 20260727,
     "name": "University of Law Library Events (London, United Kingdom)",
@@ -11076,6 +12476,13 @@
   "lcgstranscona.org": {
     "checked": 20260819,
     "name": "Lutheran Church of the Good Shepherd",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ldk.com.au/our-villages/act/amberfield": {
+    "checked": 20260819,
+    "name": "LDK Amberfield",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11121,6 +12528,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "legacy.com.au": {
+    "checked": 20260819,
+    "name": "Gold Coast Legacy Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "leichhardtbowlingclub.com.au": {
     "checked": 20260819,
@@ -11174,6 +12588,13 @@
   "lemondgallery.com": {
     "checked": 20260819,
     "name": "The Lemond Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "levande.com.au/community/ridgecrest": {
+    "checked": 20260819,
+    "name": "Levande Ridgecrest",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11304,6 +12725,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "library.gov.au": {
+    "checked": 20260819,
+    "name": "National Library of Australia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "library.merseywestlancs.nhs.uk": {
     "checked": 20260819,
     "name": "Whiston Hospital Library",
@@ -11345,6 +12773,13 @@
     "reason": "500 vevents / 0 future",
     "status": "empty",
     "type": "ics"
+  },
+  "lifeadelaide.org": {
+    "checked": 20260819,
+    "name": "LIFE Adelaide",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "lifecare-edinburgh.org.uk": {
     "checked": 20260819,
@@ -11391,6 +12826,13 @@
   "lighthousebookshop.com": {
     "checked": 20260819,
     "name": "Lighthouse Bookshop - Edinburgh's Radical Bookshop",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "limelightcinemas.com.au": {
+    "checked": 20260819,
+    "name": "Limelight Cinemas",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11661,6 +13103,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "livin.org/aboutus": {
+    "checked": 20260819,
+    "name": "Livin",
+    "reason": "osm probe: offsite:humanitix.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "livingmemory.org.uk": {
     "checked": 20260819,
     "name": "The Wee Museum of Memory",
@@ -11713,6 +13162,13 @@
   "lmhealthcare.co.uk/our-homes/whittle-hall": {
     "checked": 20260819,
     "name": "Whittle Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lobethallutheranchurch.org.au": {
+    "checked": 20260819,
+    "name": "Lobethal Lutheran Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11913,6 +13369,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lutheranhomes.com.au/residential-care/hope-valley": {
+    "checked": 20260819,
+    "name": "Lutheran Homes Group Hope Valley",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lyceum.org.uk/events/guys-dolls": {
     "checked": 20260819,
     "name": "Royal Lyceum Theatre",
@@ -11930,6 +13393,13 @@
   "lysecki.com": {
     "checked": 20260819,
     "name": "Burton Lysecki Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "m16artspace.com.au": {
+    "checked": 20260819,
+    "name": "M16 Artspace",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11975,6 +13445,13 @@
     "reason": "1 vevents / 0 future",
     "status": "empty",
     "type": "ics"
+  },
+  "magillcoc.org.au": {
+    "checked": 20260819,
+    "name": "Magill Church of Christ",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "magnt.net.au/whatson": {
     "checked": 20260819,
@@ -12088,6 +13565,34 @@
     "status": "fail",
     "type": "ics"
   },
+  "marion.sa.gov.au/marion-cultural-centre": {
+    "checked": 20260819,
+    "name": "Marion Cultural Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "marion.sa.gov.au/venues-and-facilities/glandore-community-centre": {
+    "checked": 20260819,
+    "name": "Glandore Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "marion.sa.gov.au/venues-and-facilities/marion-historic-village": {
+    "checked": 20260819,
+    "name": "Marion Historic Village Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "marion.sa.gov.au/venues-and-facilities/marion-outdoor-pool": {
+    "checked": 20260819,
+    "name": "Marion Outdoor Pool",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "markaz.ca": {
     "checked": 20260819,
     "name": "Markaz-Ul-Islam",
@@ -12151,6 +13656,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "maryammasjid.org.au": {
+    "checked": 20260819,
+    "name": "Maryam Masjid",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "marymackillopplace.org.au/visit/memorial-chapel": {
     "checked": 20260819,
     "name": "Mary MacKillop Memorial Chapel",
@@ -12162,6 +13674,13 @@
     "checked": 20260819,
     "name": "Mary MacKillop Place Museum",
     "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "maryspoppin.com": {
+    "checked": 20260819,
+    "name": "Mary's Poppin",
+    "reason": "osm probe: offsite:humanitix.com",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -12270,6 +13789,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "maylands.cofc.org.au/?feed=my-calendar-ics": {
+    "checked": 20260819,
+    "name": "Maylands Church of Christ",
+    "reason": "5 vevents / 0 future",
+    "status": "empty",
+    "type": "ics"
+  },
   "mb.211.ca/detail/44795114": {
     "checked": 20260819,
     "name": "Andrews Street Family Centre",
@@ -12318,6 +13844,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "mckenzieacg.com/locations/sandbrook": {
+    "checked": 20260819,
+    "name": "Sandbrook Aged Care",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "mckernancommunity.org/hall-bookings": {
     "checked": 20260819,
@@ -12445,6 +13978,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "metrostars.com.au": {
+    "checked": 20260819,
+    "name": "?",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "metrotheatre.com.au": {
     "checked": 20260819,
     "name": "Metro Theatre",
@@ -12529,6 +14069,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "miamibeachslsc.com.au/supporters": {
+    "checked": 20260819,
+    "name": "Miami Surf Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "miamibeachslsc.com.au/surf-club": {
+    "checked": 20260819,
+    "name": "Miami Beach SLSC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "michaelreid.com.au": {
     "checked": 20260819,
     "name": "Michael Reid",
@@ -12543,11 +14097,32 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "migration.history.sa.gov.au": {
+    "checked": 20260819,
+    "name": "Migration Museum South Australia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mikehatcherjmcc.com.au": {
+    "checked": 20260819,
+    "name": "Mike Hatcher Junior Motor Cycle Club",
+    "reason": "5 events, 5/5 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "milezerodance.com": {
     "checked": 20260819,
     "name": "Mile Zero Dance",
     "reason": "4 events, 4/4 on page 1 future",
     "status": "ok",
+    "type": "tribe"
+  },
+  "military-vehicle-museum.org.au": {
+    "checked": 20260819,
+    "name": "National Military Vehicle Museum",
+    "reason": "0 events / 0 future",
+    "status": "fail",
     "type": "tribe"
   },
   "millbournelife.ca": {
@@ -12634,6 +14209,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mitchamanglican.org.au": {
+    "checked": 20260819,
+    "name": "The Anglican Church of St Michael",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mizrachi.org.au": {
     "checked": 20260819,
     "name": "Bondi Mizrachi Synagogue",
@@ -12661,6 +14243,13 @@
     "reason": "345 vevents / 217 future",
     "status": "ok",
     "type": "ics"
+  },
+  "moadoph.gov.au": {
+    "checked": 20260819,
+    "name": "Museum of Australian Democracy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "mobilize.adminforge.de": {
     "checked": 20260808,
@@ -12837,6 +14426,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mod.org.au": {
+    "checked": 20260819,
+    "name": "MOD.",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mods.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Museum of Discovery and Science (Fort Lauderdale, FL)",
@@ -12963,6 +14559,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mountainstrongcbr.com": {
+    "checked": 20260819,
+    "name": "Mountain Strong",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mountroyalstation.ca/facilities.html": {
     "checked": 20260819,
     "name": "Mount Royal Station",
@@ -12998,6 +14601,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mrrsl.org.au": {
+    "checked": 20260819,
+    "name": "Mudgeeraba - Robina RSL",
+    "reason": "21 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "msbm.mb.ca": {
     "checked": 20260819,
     "name": "Saint Boniface Museum",
@@ -13029,6 +14639,13 @@
   "mtyp.ca": {
     "checked": 20260819,
     "name": "Manitoba Theatre for Young People",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "murray.anglican.org/parishes/onkaparinga-valley": {
+    "checked": 20260819,
+    "name": "St. Thomas' Anglican Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -13110,9 +14727,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mvccc.org.au": {
+    "checked": 20260819,
+    "name": "Morphett Vale Christian Community Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mvch.co.uk": {
     "checked": 20260819,
     "name": "Mount Vernon Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "my-church.me": {
+    "checked": 20260819,
+    "name": "My Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -13264,6 +14895,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "narrabundah.org.au": {
+    "checked": 20260819,
+    "name": "Narrabundah Community Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nas.edu.au/library": {
     "checked": 20260819,
     "name": "NAS Library",
@@ -13299,10 +14937,38 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nationalrockgarden.com.au": {
+    "checked": 20260819,
+    "name": "Federation Rocks - National Rock Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nationaltrust.org.au/places/beaumont-house": {
+    "checked": 20260819,
+    "name": "Beaumont House - National Trust",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nationaltrust.org.au/places/calthorpes-house": {
+    "checked": 20260819,
+    "name": "Calthorpes House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nationaltrust.org.au/places/experiment-farm-cottage": {
     "checked": 20260819,
     "name": "Experiment Farm Cottage",
     "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nationaltrust.org.au/places/gamble-cottage": {
+    "checked": 20260819,
+    "name": "Gamble Cottage-National Trust",
+    "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -13313,6 +14979,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nationaltrust.org.au/places/stangate-house-and-garden": {
+    "checked": 20260819,
+    "name": "Stangate House and Garden - National Trust",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nationaltrust.org.au/places/tea-tree-gully-heritage-museum": {
+    "checked": 20260819,
+    "name": "Old Highercombe Hotel And Folk Museum National Trust",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nationaltrust.org.au/places/winns-bakehouse": {
+    "checked": 20260819,
+    "name": "Winns Bakehouse - National Trust",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nationaltrust.org.uk/visit/whats-on": {
     "checked": 20260819,
     "name": "The Hardmans' House",
@@ -13320,9 +15007,30 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "nationalzoo.com.au": {
+    "checked": 20260819,
+    "name": "National Zoo and Aquarium",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "navarravenues.com.au/venues/montage": {
     "checked": 20260819,
     "name": "Montage",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "navycadets.gov.au/unit-finder?UAbbr=TSSouthport": {
+    "checked": 20260819,
+    "name": "ANC - Training Ship Southport",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "navycadets.gov.au/unit-finder?UAbbr=TSTyalgum": {
+    "checked": 20260819,
+    "name": "ANC - Training Ship Tyalgum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -13340,6 +15048,13 @@
     "reason": "3/33 upcoming",
     "status": "ok",
     "type": "squarespace"
+  },
+  "ncacl.org.au": {
+    "checked": 20260819,
+    "name": "National Centre for Australian Children's Literature",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ndrc.ca": {
     "checked": 20260819,
@@ -13376,6 +15091,27 @@
     "status": "ok",
     "type": "ics"
   },
+  "nerangaquaticcentre.com.au": {
+    "checked": 20260819,
+    "name": "Nerang Aquatic Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nerangrotary.org.au": {
+    "checked": 20260819,
+    "name": "Rotary Club - Nerang",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nerangrsl.com.au": {
+    "checked": 20260819,
+    "name": "Nerang RSL & Memorial Club",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "nesportsplex.com": {
     "checked": 20260819,
     "name": "Don Hartman North East Sportsplex",
@@ -13400,6 +15136,20 @@
   "newbarnsbrewery.com": {
     "checked": 20260819,
     "name": "Newbarns Brewery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "newcommunitychurch.org.au": {
+    "checked": 20260819,
+    "name": "New Community Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "newlifeworshipcentre-gc.org": {
+    "checked": 20260819,
+    "name": "New Life Worship Centre - G.C",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -13452,6 +15202,13 @@
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "nextgenclubs.com.au/location/memorial-drive": {
+    "checked": 20260819,
+    "name": "Next Gen Memorial Drive",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "nextpageyyc.ca": {
     "checked": 20260819,
@@ -13537,6 +15294,20 @@
     "status": "ok",
     "type": "tribe"
   },
+  "nobbysbeachslsc.com": {
+    "checked": 20260819,
+    "name": "Nobby's Beach SLSC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nobbyssurfclub.com.au": {
+    "checked": 20260819,
+    "name": "Nobby Beach Surf Club",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "nocturnebooks.ca": {
     "checked": 20260819,
     "name": "Nocturne Books",
@@ -13578,6 +15349,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "northbrightoncg.com/events": {
+    "checked": 20260819,
+    "name": "North Brighton Community Garden",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
   },
   "northcare.co.uk/northcare-suites-edinburgh": {
     "checked": 20260819,
@@ -13698,6 +15476,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "northkirra.com.au/supporters": {
+    "checked": 20260819,
+    "name": "North Kirra Surf Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "northlanculture.co.uk/museums/visiting-us/colzium-house-and-estate": {
     "checked": 20260819,
     "name": "Colzium Museum",
@@ -13732,6 +15517,20 @@
     "reason": "0 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "northside.asn.au/venue-hire/corroboree-park-hall": {
+    "checked": 20260819,
+    "name": "Corroboree Park Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "northside.asn.au/venue-hire/salthouse-community-centre": {
+    "checked": 20260819,
+    "name": "Salthouse Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "northsidechurch.org.au/whats-on": {
     "checked": 20260819,
@@ -13845,6 +15644,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "nrm.org.au": {
+    "checked": 20260819,
+    "name": "National Rail Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nslpc.co.uk": {
     "checked": 20260819,
     "name": "North & South Leith Parish Church",
@@ -13925,6 +15731,13 @@
   "oakridgecommunity.ca": {
     "checked": 20260819,
     "name": "Oakridge Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "oaksswimcentre.au": {
+    "checked": 20260819,
+    "name": "Oaks Swim Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -14048,6 +15861,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "onbelayclimbing.com.au": {
+    "checked": 20260819,
+    "name": "On Belay Climbing",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "onedalkeith.info": {
     "checked": 20260819,
     "name": "One Dalkeith",
@@ -14083,6 +15903,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "onkaparingacity.com/Arts-events-tourism/Arts/Sauerbier-House/About-Sauerbier-House": {
+    "checked": 20260819,
+    "name": "Sauerbier House",
+    "reason": "osm probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "onstatenborough.com.au": {
+    "checked": 20260819,
+    "name": "On Statenborough",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ontarionature.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Ontario Nature (Canada)",
@@ -14100,6 +15934,20 @@
   "opalagedcare.com.au/our-homes/chiswick-nsw": {
     "checked": 20260819,
     "name": "Windward Manor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "opalhealthcare.com.au/residential-aged-care/glen-osmond-grove": {
+    "checked": 20260819,
+    "name": "Glen Osmond Grove",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "opalhealthcare.com.au/residential-aged-care/varsity-views": {
+    "checked": 20260819,
+    "name": "Varsity Views Care Community",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -14131,6 +15979,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "orchardbookshop.com.au": {
+    "checked": 20260819,
+    "name": "Orchard Bookshop",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "orchardcarehomes.com/carehomes/green-park-great-sankey-warrington": {
     "checked": 20260819,
@@ -14229,6 +16084,13 @@
     "reason": "2 vevents / 1 future",
     "status": "ok",
     "type": "ics"
+  },
+  "ourchurch.org.au": {
+    "checked": 20260819,
+    "name": "Our Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ourgoldenage.com.au": {
     "checked": 20260819,
@@ -14342,6 +16204,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ozcare.org.au/aged-care/aged-care-facilities/facilities/ozanam-villa-burleigh-heads": {
+    "checked": 20260819,
+    "name": "Ozanam Villa Aged Care Facility",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pacificpinesnetball.com": {
+    "checked": 20260819,
+    "name": "Pacific Pines Netball Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pacificslsc.com.au": {
+    "checked": 20260819,
+    "name": "Pacific SLSC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "pact.net.au/whatson": {
     "checked": 20260819,
     "name": "PACT Centre for Emerging Artists",
@@ -14412,6 +16295,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "palacenova.com.au": {
+    "checked": 20260819,
+    "name": "Palace Nova Cinema",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "palmbeachnc.org.au": {
+    "checked": 20260819,
+    "name": "Palm Beach Neighbourhood Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "palmerstonplacechurch.com": {
     "checked": 20260819,
     "name": "Palmerston Place Church",
@@ -14429,6 +16326,20 @@
   "paradisoreceptions.com.au": {
     "checked": 20260819,
     "name": "Imperial Paradiso",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "parafieldgardensswimschool.com.au": {
+    "checked": 20260819,
+    "name": "Parafield Gardens Swim School",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paragonswim.com.au": {
+    "checked": 20260819,
+    "name": "Paragon Swim Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -14545,6 +16456,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pasadena.lutheran.org.au": {
+    "checked": 20260819,
+    "name": "Trinity Lutheran Church Pasadena",
+    "reason": "15 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "passada.com.au": {
+    "checked": 20260819,
+    "name": "Passada - School Of Afro Latin Dance",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
   "passagegallery.com/events-1": {
     "checked": 20260819,
     "name": "Passage",
@@ -14566,6 +16491,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pathway.clovie.com.au": {
+    "checked": 20260819,
+    "name": "Pathway Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "patriothallgallery.co.uk": {
     "checked": 20260819,
     "name": "Patriothall Studios and Gallery",
@@ -14583,6 +16515,20 @@
   "paviliontheatre.co.uk": {
     "checked": 20260819,
     "name": "Pavilion Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pccs.org.au/qld": {
+    "checked": 20260819,
+    "name": "PCCS Hub1",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pcyc.org.au/clubs/pcyc-gold-coast": {
+    "checked": 20260819,
+    "name": "Gold Coast Police Citizens Youth Club PCYC",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -14614,6 +16560,13 @@
     "reason": "2 vevents / 0 future",
     "status": "empty",
     "type": "ics"
+  },
+  "peoplechurch.com.au": {
+    "checked": 20260819,
+    "name": "People Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "peoplefirstscotland.org": {
     "checked": 20260819,
@@ -14748,6 +16701,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pilgrimlutheran.com.au": {
+    "checked": 20260819,
+    "name": "Pilgrim Lutheran Church - Magill",
+    "reason": "41 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "pilmenydevelopmentproject.co.uk": {
     "checked": 20260819,
     "name": "Pilmeny Development Project",
@@ -14765,6 +16725,20 @@
   "pingponghq.com.au": {
     "checked": 20260819,
     "name": "Ping Pong HQ",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pinkshortspress.com.au": {
+    "checked": 20260819,
+    "name": "Pink Shorts Press",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "piratelife.com.au/breweries/port": {
+    "checked": 20260819,
+    "name": "Pirate Life",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -14818,6 +16792,41 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "play.tennis.com.au/KaleenTennisClub": {
+    "checked": 20260819,
+    "name": "Kaleen Tennis Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "play.tennis.com.au/goldengrovetennisclub": {
+    "checked": 20260819,
+    "name": "Golden Grove Tennis Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "play.tennis.com.au/kippaxtennisclub": {
+    "checked": 20260819,
+    "name": "Kippax Tennis Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "playersnitelife.com.au": {
+    "checked": 20260819,
+    "name": "Players Showgirls",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "playford.sa.gov.au/aboutthelibrary": {
+    "checked": 20260819,
+    "name": "Playford Civic Centre Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "plcwigan.org": {
     "checked": 20260819,
     "name": "Purposed Life Church",
@@ -14852,6 +16861,13 @@
     "reason": "19/49 upcoming",
     "status": "ok",
     "type": "squarespace"
+  },
+  "polecatz.com.au": {
+    "checked": 20260819,
+    "name": "Pole Catz",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "policemuseum.org.uk": {
     "checked": 20260819,
@@ -14909,6 +16925,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "pontianeagles.com": {
+    "checked": 20260819,
+    "name": "Pontian Eagles Soccer Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "popworldparty.co.uk/liverpool": {
     "checked": 20260819,
     "name": "Popworld",
@@ -14957,6 +16980,13 @@
     "reason": "8 vevents / 8 future",
     "status": "ok",
     "type": "ics"
+  },
+  "portrait.gov.au": {
+    "checked": 20260819,
+    "name": "National Portrait Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "portsunlightvillage.com": {
     "checked": 20260819,
@@ -15014,6 +17044,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "powerkarts.com.au/index.html": {
+    "checked": 20260819,
+    "name": "Power Kart Raceway",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "prairieskygeneralstore.com": {
     "checked": 20260819,
     "name": "Prairie Sky",
@@ -15055,6 +17092,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "presence.org.au": {
+    "checked": 20260819,
+    "name": "Presence Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "prestonbowls.org": {
     "checked": 20260819,
@@ -15266,9 +17310,37 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "qbd.com.au/locations/elanora": {
+    "checked": 20260819,
+    "name": "QBD Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "qbynsustainabilitygroup.wordpress.com": {
+    "checked": 20260819,
+    "name": "Railway Park Organic Community Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "qld.gov.au/recreation/activities/areas-facilities/centres/tallebudgera-leisure-centre": {
+    "checked": 20260819,
+    "name": "Tallebudgera Leisure Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "qpgpc.com": {
     "checked": 20260819,
     "name": "Queen's Park Govanhill Parish Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "qprc.nsw.gov.au/Facilities-Recreation/Venues-and-Open-Spaces-for-Hire/Henderson-Road-train-carriage": {
+    "checked": 20260819,
+    "name": "Henderson Road Train Carriage",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15350,6 +17422,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "quihn.org/where-we-are/gold-coast-burleigh-heads/?ical=1": {
+    "checked": 20260819,
+    "name": "QuIHN",
+    "reason": "11 vevents / 0 future",
+    "status": "empty",
+    "type": "ics"
+  },
   "quintobookshop.co.uk": {
     "checked": 20260819,
     "name": "Quinto Bookshop",
@@ -15367,6 +17446,13 @@
   "raca.com.au": {
     "checked": 20260819,
     "name": "Royal Automobile Club of Australia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "racq.com.au": {
+    "checked": 20260819,
+    "name": "RACQ Southport",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15392,12 +17478,33 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rahshistory.com.au": {
+    "checked": 20260819,
+    "name": "RA&HS Museum & Archives",
+    "reason": "osm probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "raidersbelconnen.com.au": {
+    "checked": 20260819,
+    "name": "Raiders Belconnen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "railstotrails.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Rails-to-Trails Conservancy",
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "rainbowbayslsc.com.au/about": {
+    "checked": 20260819,
+    "name": "Rainbow Bay Surf Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "rainbowchurch.ca": {
     "checked": 20260819,
@@ -15469,6 +17576,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rbc.org.au": {
+    "checked": 20260819,
+    "name": "Rostrevor Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rbge.org.uk": {
     "checked": 20260819,
     "name": "Royal Botanic Garden Edinburgh",
@@ -15493,6 +17607,13 @@
   "readingcinemas.com.au": {
     "checked": 20260819,
     "name": "Reading Cinemas",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "readingcinemas.com.au/locations/theatre/west-lakes": {
+    "checked": 20260819,
+    "name": "Reading Cinema West Lakes",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15560,6 +17681,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "redshed.org.au": {
+    "checked": 20260819,
+    "name": "Red Shed Rowing Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "reedycreek.adventist.org.au": {
+    "checked": 20260819,
+    "name": "Reedy Creek Seventh-day Adventist Church",
+    "reason": "osm probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "refinerylife.org": {
+    "checked": 20260819,
+    "name": "Refinery Life Australia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "reformedbookservices.com": {
     "checked": 20260819,
     "name": "Reformed Book Services | Calgary",
@@ -15584,6 +17726,13 @@
   "regionofwaterloo.ca/en/health-and-wellness/sunnyside-home-long-term-care.aspx": {
     "checked": 20260819,
     "name": "Sunnyside Home Long-Term Care",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "regis.com.au/residence/regis-burnside": {
+    "checked": 20260819,
+    "name": "Regis Burnside",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15623,6 +17772,20 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "resthaven.asn.au/retirement-living-units/fulham": {
+    "checked": 20260819,
+    "name": "Resthaven Fulham 'The Oaks' Retirement Living",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "resthaven.asn.au/retirement-living-units/paradise-retirement-living": {
+    "checked": 20260819,
+    "name": "Resthaven Paradise",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "retireaustralia.com.au/communities/queens-park": {
     "checked": 20260819,
     "name": "Queens Park Retirement Village",
@@ -15637,9 +17800,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "revolutionise.com.au/thcrc/home": {
+    "checked": 20260819,
+    "name": "Tweed Heads & Coolangatta Rowing Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "revolve.gallery": {
     "checked": 20260819,
     "name": "Revolve Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rewind.org.au": {
+    "checked": 20260819,
+    "name": "Rewind Sound and Studios",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rfact.org.au": {
+    "checked": 20260819,
+    "name": "Richmond Fellowship of the ACT",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15685,6 +17869,13 @@
     "reason": "18 vevents / 18 future",
     "status": "ok",
     "type": "ics"
+  },
+  "rhinoroom.com.au": {
+    "checked": 20260819,
+    "name": "Rhino Room",
+    "reason": "osm probe: offsite:humanitix.com",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "rhodescommunitygarden.org": {
     "checked": 20260819,
@@ -15833,10 +18024,38 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "robinabraves.wordpress.com": {
+    "checked": 20260819,
+    "name": "Robina Braves Baseball Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "robinaroos.com.au": {
+    "checked": 20260819,
+    "name": "Robina Roos Football Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "robinasoccer.com": {
+    "checked": 20260819,
+    "name": "Robina City Soccer Club",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
   "robingibson.net": {
     "checked": 20260819,
     "name": "Robin Gibson Gallery",
     "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rochefoundation.com.au": {
+    "checked": 20260819,
+    "name": "The David Roche Foundation",
+    "reason": "osm probe: offsite:humanitix.com",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -16057,6 +18276,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rqasgoldcoast.com": {
+    "checked": 20260819,
+    "name": "Royal Queensland Art Society Gold Coast",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rrcsa.org.au": {
+    "checked": 20260819,
+    "name": "Radio racing cars SA INC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rrrha.ca": {
     "checked": 20260819,
     "name": "Ranch Center",
@@ -16070,6 +18303,13 @@
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "rsllifecare.org.au": {
+    "checked": 20260819,
+    "name": "RSL LifeCare Bill McKenzie Gardens",
+    "reason": "11 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "ruharuh.ca": {
     "checked": 20260819,
@@ -16144,6 +18384,48 @@
   "ryde.nsw.gov.au/library/visit-us/eastwood-library": {
     "checked": 20260819,
     "name": "Eastwood Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sa.scouts.com.au": {
+    "checked": 20260819,
+    "name": "Scouts SA Heritage Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sa.scouts.com.au/hawthorn": {
+    "checked": 20260819,
+    "name": "Hawthorn Scout Group",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sa.uca.org.au/find-a-church/by-list/ironbank-uniting-church": {
+    "checked": 20260819,
+    "name": "Ironbank Faith Community",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saam.org.au": {
+    "checked": 20260819,
+    "name": "South Australian Aviation Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saaquatic.ymca.org.au": {
+    "checked": 20260819,
+    "name": "SA Aquatic & Leisure Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sacroquet.com.au/home/play-the-game/where-to-play-2/south-terrace-adelaide": {
+    "checked": 20260819,
+    "name": "South Terrace Croquet Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16267,6 +18549,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "salisbury.sa.gov.au/community/libraries/branches-hours-locations/ingle-farm-library-2": {
+    "checked": 20260819,
+    "name": "Ingle Farm Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "salisburyunited.ca": {
     "checked": 20260819,
     "name": "Salisbury United Church",
@@ -16277,6 +18566,20 @@
   "salp.org.uk": {
     "checked": 20260819,
     "name": "Scottish Adult Learning",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "salt.church": {
+    "checked": 20260819,
+    "name": "Salt Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "salvationarmy.org.au/goldengrove": {
+    "checked": 20260819,
+    "name": "The Salvation Army",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16526,6 +18829,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "samuseum.sa.gov.au": {
+    "checked": 20260819,
+    "name": "South Australian Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sanctuary-care.co.uk/care-homes-north/upton-dene-residential-nursing-cheshire": {
     "checked": 20260819,
     "name": "Upton Dene Residential & Nursing Home",
@@ -16652,6 +18962,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sccliving.org.au/our-services/retirement-communities/find-a-community/W-E-O-Brien-Court": {
+    "checked": 20260819,
+    "name": "W.E. O'Brien Court",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "scenicacresca.ca": {
     "checked": 20260819,
     "name": "Scenic Acres Community Centre",
@@ -16694,6 +19011,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "scna.org.au": {
+    "checked": 20260819,
+    "name": "Southport Carrara Netball Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "scootersaus.com.au": {
+    "checked": 20260819,
+    "name": "The Wheelchair Factory",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "scot-art.co.uk/whatson": {
     "checked": 20260819,
     "name": "Edinburgh Palette",
@@ -16704,6 +19035,13 @@
   "scotland.shelter.org.uk/shops/edinburgh_stockbridge_books_community_shop": {
     "checked": 20260819,
     "name": "Shelter Scotland Bookshop",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "scotschurch.org.au": {
+    "checked": 20260819,
+    "name": "Scots Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16781,6 +19119,20 @@
   "scottlawrie.com": {
     "checked": 20260819,
     "name": "Scott Lawrie Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "scoutsact.com.au": {
+    "checked": 20260819,
+    "name": "Mount Taylor Scout Group",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sct.org.au": {
+    "checked": 20260819,
+    "name": "Stirling Community Theatre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16865,6 +19217,20 @@
   "secc.sydney/our-services/seniors/dementia-support": {
     "checked": 20260819,
     "name": "The Cottage Dementia Day Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "seedschurch.org/hallett-cove": {
+    "checked": 20260819,
+    "name": "Seeds Uniting Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "seedschurch.org/kurralta-park": {
+    "checked": 20260819,
+    "name": "Seeds Uniting Church Kurralta Park",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16960,6 +19326,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sferas.com": {
+    "checked": 20260819,
+    "name": "The Tea Tree Suites & Convention Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sfmfoodbank.org/events/?ical=1": {
     "checked": 20260727,
     "name": "SF-Marin Food Bank Events",
@@ -17008,6 +19381,13 @@
     "reason": "55 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "share.google/1BAmP9RjPZmOTETZS": {
+    "checked": 20260819,
+    "name": "Next Gen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "sharkislandbrewing.com.au": {
     "checked": 20260819,
@@ -17184,6 +19564,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "signaturedance.com.au": {
+    "checked": 20260819,
+    "name": "Signature Dance",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sigtunastiftelsen.se/?post_type=tribe_events&ical=1": {
     "checked": 20260727,
     "name": "Sigtunastiftelsen (Sigtuna, Sweden)",
@@ -17226,6 +19613,13 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "simplyballet.com.au": {
+    "checked": 20260819,
+    "name": "Simply Ballet",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "simplychurch.ca": {
     "checked": 20260819,
     "name": "Simply Church at Saint Paul's",
@@ -17236,6 +19630,13 @@
   "sipc.org.au": {
     "checked": 20260819,
     "name": "St Ives Pistol Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sites.google.com/a/scoutsact.com.au/mulgascouts": {
+    "checked": 20260819,
+    "name": "Mulga Scout Hall",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -17267,6 +19668,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "sjcartstudios.com": {
+    "checked": 20260819,
+    "name": "SJC Art Studios",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "sjks.org.au": {
     "checked": 20260819,
@@ -17359,6 +19767,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "slsa.sa.gov.au": {
+    "checked": 20260819,
+    "name": "State Library of South Australia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "smaawpg.ca": {
     "checked": 20260819,
     "name": "Saint Michael and All Angels' Anglican Church",
@@ -17386,6 +19801,13 @@
     "reason": "151 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "smithsalternative.com/infomaxim/api/v1/events/search.ics": {
+    "checked": 20260819,
+    "name": "Smith\u2019s Alternative",
+    "reason": "16 vevents / 16 future",
+    "status": "ok",
+    "type": "ics"
   },
   "smithyheritagecentre.org.uk": {
     "checked": 20260819,
@@ -17429,6 +19851,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "snookerworld.com.au/index.php/contact": {
+    "checked": 20260819,
+    "name": "Snooker World",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "snslsc.org.au": {
     "checked": 20260819,
     "name": "South Narrabeen Surf Life Saving Club",
@@ -17453,6 +19882,13 @@
   "sobhd.net": {
     "checked": 20260819,
     "name": "Scottish Official Board of Highland Dancing",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "soc.org.au/en": {
+    "checked": 20260819,
+    "name": "Serbian Othodox Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -17562,6 +19998,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "southportlabradortigers.com": {
+    "checked": 20260819,
+    "name": "Southport Labrador Cricket Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "southportrfc.com": {
     "checked": 20260819,
     "name": "Southport Rugby Football Club",
@@ -17596,6 +20039,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "southtweedsports.com.au": {
+    "checked": 20260819,
+    "name": "South Tweed Sports Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "southviewyyc.com": {
     "checked": 20260819,
@@ -17659,6 +20109,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "spinweavesa.org": {
+    "checked": 20260819,
+    "name": "Little Glory Gallery",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "spiritwoodretreat.com": {
     "checked": 20260819,
@@ -17968,6 +20425,20 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "stbasils.com.au/our-homes/st-peters": {
+    "checked": 20260819,
+    "name": "St Basil's Homes St Peters",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stbedessemaphore.org.au/community-garden": {
+    "checked": 20260819,
+    "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stbernardsparish.ca": {
     "checked": 20260819,
     "name": "St. Bernard's Church",
@@ -18016,6 +20487,13 @@
     "reason": "14 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "stclair.ymca.org.au": {
+    "checked": 20260819,
+    "name": "St Clair Recreation Centre  (YMCA)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "stcolumbas.freechurch.org": {
     "checked": 20260819,
@@ -18073,6 +20551,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "stgeorgegoodwood.com": {
+    "checked": 20260819,
+    "name": "The Church of St George the Martyr",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stgeorgehuyton.com": {
     "checked": 20260819,
     "name": "St George's Church",
@@ -18094,6 +20579,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stgeorgesmagill.org/events.ics": {
+    "checked": 20260819,
+    "name": "St George\u2019s",
+    "reason": "72 vevents / 72 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "stgeorgeswigan.co.uk": {
     "checked": 20260819,
     "name": "Saint George's Nursing Home",
@@ -18107,6 +20599,13 @@
     "reason": "44/74 upcoming",
     "status": "ok",
     "type": "squarespace"
+  },
+  "stgregsqueanbeyan.com": {
+    "checked": 20260819,
+    "name": "St Gregory's Parish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "sthelens.gov.uk/article/3992/Central-Link-Family-Hub": {
     "checked": 20260819,
@@ -18276,6 +20775,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stjohnthebaptist.org.au": {
+    "checked": 20260819,
+    "name": "St. John the Baptist Cathedral",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stjosephbasilica.com": {
     "checked": 20260819,
     "name": "Saint Joseph's Basilica",
@@ -18346,6 +20852,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stlukesmodbury.com": {
+    "checked": 20260819,
+    "name": "St Luke's Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stmadeleine.org.au": {
     "checked": 20260819,
     "name": "St Madeleine Sophie Barat",
@@ -18356,6 +20869,13 @@
   "stmargaretmarys.org.uk": {
     "checked": 20260819,
     "name": "St Margaret Mary's Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stmargaretsunitingchurch.wordpress.com": {
+    "checked": 20260819,
+    "name": "St Margaret's Uniting Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -18612,9 +21132,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stpaulshahndorf.org": {
+    "checked": 20260819,
+    "name": "St Paul's Lutheran Church, Hahndorf",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stpaulsunited.org": {
     "checked": 20260819,
     "name": "St. Paul's United Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stpeters-cathedral.org.au": {
+    "checked": 20260819,
+    "name": "St Peter\u2019s Cathedral",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -18716,6 +21250,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "strathnairn.com.au": {
+    "checked": 20260819,
+    "name": "Strathnairn Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "strawberryfieldliverpool.com": {
     "checked": 20260819,
@@ -18871,6 +21412,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sublimecatering.com.au/sublimesocial": {
+    "checked": 20260819,
+    "name": "Sublime Social",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "subrosayyc.com": {
     "checked": 20260819,
     "name": "Sub Rosa",
@@ -18906,12 +21454,47 @@
     "status": "ok",
     "type": "ics"
   },
+  "surfclubaustralia.com": {
+    "checked": 20260819,
+    "name": "North Burleigh Surf Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "surfersparadiseafc.com.au": {
+    "checked": 20260819,
+    "name": "Surfers Paradise Australian Football Club",
+    "reason": "osm probe: offsite:trybooking.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "surfersparadiseslsc.com.au": {
+    "checked": 20260819,
+    "name": "Surfers Paradise Surf Life Saving club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "surfersparadiseslsc.com.au/surf-life-saving-club": {
+    "checked": 20260819,
+    "name": "Surfers Paradise SLSC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "surfrider.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Surfrider Foundation",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "surfworldgoldcoast.com.au": {
+    "checked": 20260819,
+    "name": "Surf World",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "surlatable.com/events/?ical=1": {
     "checked": 20260727,
@@ -18944,6 +21527,13 @@
   "sutherlandshirecyclingclub.org.au": {
     "checked": 20260819,
     "name": "Sutherland Shire Cycling Club (SSCC)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "svcs.org.au/home-care/locations/qld/gold-coast": {
+    "checked": 20260819,
+    "name": "St Vincent's Home Care Gold Coast",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -18986,6 +21576,20 @@
   "svcs.org.au/residential-aged-care/locations/nsw/sydney/yennora": {
     "checked": 20260819,
     "name": "St Vincent's Care Yennora",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "svcs.org.au/residential-aged-care/locations/qld/gold-coast/arundel": {
+    "checked": 20260819,
+    "name": "St Vincent's Care Arundel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "svcs.org.au/residential-aged-care/locations/qld/gold-coast/southport": {
+    "checked": 20260819,
+    "name": "St Vincent's Care Southport",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -19193,6 +21797,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tabi.gallery": {
+    "checked": 20260819,
+    "name": "Tabi Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tabletennisact.org.au": {
+    "checked": 20260819,
+    "name": "Table Tennis ACT",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tabletopevents.co.uk/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260723,
     "name": "Table Top Events (Belper, UK)",
@@ -19221,9 +21839,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tallesurfclub.com": {
+    "checked": 20260819,
+    "name": "Tallebudgera Surf Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tallesurfclub.com/life-saving": {
+    "checked": 20260819,
+    "name": "Tallebudgera SLSC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tangledroots.ca": {
     "checked": 20260819,
     "name": "Tangled Roots Event Venue",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tangonetballclub.com.au": {
+    "checked": 20260819,
+    "name": "Tango Netball Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -19242,9 +21881,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "targetriflesa.com": {
+    "checked": 20260819,
+    "name": "Wingfield Rifle Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "taronga.org.au/taronga-zoo": {
     "checked": 20260819,
     "name": "Taronga Zoo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tartscollective.com.au": {
+    "checked": 20260819,
+    "name": "T'Arts",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -19319,6 +21972,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "teamfitnesscentre.com.au": {
+    "checked": 20260819,
+    "name": "Northside Fitness",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "teatreegullyanglican.org.au": {
+    "checked": 20260819,
+    "name": "Tea Tree Gully Anglican",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "teatreeplayers.com": {
+    "checked": 20260819,
+    "name": "Tea Tree Players Theatre",
+    "reason": "osm probe: offsite:trybooking.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "techniquest.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Techniquest (Cardiff, United Kingdom)",
@@ -19357,6 +22031,20 @@
   "templeshalom.ca": {
     "checked": 20260819,
     "name": "Temple Shalom",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "templeshalomgoldcoast.org": {
+    "checked": 20260819,
+    "name": "Temple Shalom Gold Coast",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tennisworld.net.au/tennis-world-adelaide": {
+    "checked": 20260819,
+    "name": "Tennis World",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -19494,6 +22182,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thebartonaquatic.com": {
+    "checked": 20260819,
+    "name": "Thebarton Aquatic Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "thebeacons.org.uk/camglen": {
     "checked": 20260819,
     "name": "The Beacons",
@@ -19515,6 +22210,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theboatworks.com.au": {
+    "checked": 20260819,
+    "name": "Garage 25",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "thebongoclub.co.uk/events-main": {
     "checked": 20260819,
     "name": "The Bongo Club",
@@ -19532,6 +22234,13 @@
   "thebookshop.com.au": {
     "checked": 20260819,
     "name": "Bookshop Darlinghurst",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "thebrassroom.com.au": {
+    "checked": 20260819,
+    "name": "The Brass Room",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -19634,6 +22343,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thecrag.com/climbing/australia/norton-summit": {
+    "checked": 20260819,
+    "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "thecreek.ca": {
     "checked": 20260819,
     "name": "Cedar Creek Community Church",
@@ -19732,6 +22448,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thegoodypatch.wordpress.com": {
+    "checked": 20260819,
+    "name": "Goody Patch Community Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "thegrandyyc.ca": {
     "checked": 20260819,
     "name": "The Grand",
@@ -19749,6 +22472,13 @@
   "thehangarmuseum.ca": {
     "checked": 20260819,
     "name": "The Hangar Flight Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "thehenry.com.au": {
+    "checked": 20260819,
+    "name": "The Henry",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -19787,6 +22517,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "thehut.org.au": {
+    "checked": 20260819,
+    "name": "The Hut Community Centre",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "thejockeyclub.co.uk/aintree/events-tickets": {
     "checked": 20260819,
@@ -19998,12 +22735,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thevault.place/events": {
+    "checked": 20260819,
+    "name": "The Vault",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
   "thevenuealexandria.com.au": {
     "checked": 20260819,
     "name": "The Venue Alexandria",
     "reason": "http 404",
     "status": "fail",
     "type": "tribe"
+  },
+  "thewalls.org.au/home": {
+    "checked": 20260819,
+    "name": "The Walls Art Space",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "thewaysideclubcentre.co.uk": {
     "checked": 20260819,
@@ -20271,6 +23022,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "toorakburnsidebowls.com.au": {
+    "checked": 20260819,
+    "name": "Toorak Burnside Bowling Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "topgolf.com/uk/glasgow": {
     "checked": 20260819,
     "name": "Topgolf",
@@ -20418,9 +23176,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tributaryprojects.xyz": {
+    "checked": 20260819,
+    "name": "Tributary Projects",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tricare.com.au/aged-care/mermaid-beach": {
+    "checked": 20260819,
+    "name": "Tricare Mermaid Beach",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "trinity-church.org.uk": {
     "checked": 20260819,
     "name": "Trinity Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "trinity.church": {
+    "checked": 20260819,
+    "name": "Holy Trinity",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -20551,6 +23330,20 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "tugunleaguesclub.com.au": {
+    "checked": 20260819,
+    "name": "Tugun Seahawks Leagues Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tugunslsc.com.au": {
+    "checked": 20260819,
+    "name": "Tugun Surf Club",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "tuj.libcal.com/ical_subscribe.php?cid=11359": {
     "checked": 20260721,
     "name": "Temple University Japan - ICAS Events (Tokyo)",
@@ -20579,6 +23372,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tvsc.com.au": {
+    "checked": 20260819,
+    "name": "Tweed Valley Sailing Club",
+    "reason": "8 events, 8/8 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "twasnowbrewing.ca": {
     "checked": 20260819,
     "name": "Twas Now Brewing Inc.",
@@ -20592,6 +23392,27 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "tweed.nsw.gov.au/community/events-venues/community-centres-venue-hire": {
+    "checked": 20260819,
+    "name": "Banora Point Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tweedpc.org.au": {
+    "checked": 20260819,
+    "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tweedtenpin.com.au": {
+    "checked": 20260819,
+    "name": "Coolangatta Tweed Tenpin",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "twenty10.org.au/about/iwpc": {
     "checked": 20260819,
@@ -20641,6 +23462,13 @@
     "reason": "9 vevents / 9 future",
     "status": "ok",
     "type": "ics"
+  },
+  "uaoc-diaspora.com": {
+    "checked": 20260819,
+    "name": "Ukrainian Orthodox Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ucdenver.enterprise.localist.com": {
     "checked": 20260727,
@@ -20712,6 +23540,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "umc.org.au": {
+    "checked": 20260819,
+    "name": "United Muslims of Canberra (UMC)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "umn.libcal.com/ical_subscribe.php?cid=12437": {
     "checked": 20260727,
     "name": "UMN Libraries - Innovation & Technology (Minneapolis)",
@@ -20775,6 +23610,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "unitingsa.com.au/aged-care/retirement-living/westminster-village-retirement-living": {
+    "checked": 20260819,
+    "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "unitingsa.com.au/property/westminster-village-aged-care": {
+    "checked": 20260819,
+    "name": "Westminster Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "unitybooks.co.uk": {
     "checked": 20260819,
     "name": "Unity Books",
@@ -20802,6 +23651,48 @@
     "reason": "37 vevents / 14 future",
     "status": "ok",
     "type": "ics"
+  },
+  "unley.sa.gov.au/Events-facilities/Facilities-venues/Community-Centres/Fullarton-Park": {
+    "checked": 20260819,
+    "name": "Fullarton Park Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "unley.sa.gov.au/Events-programs-facilities/Facilities-venues/Community-Centres/Clarence-Park": {
+    "checked": 20260819,
+    "name": "Clarence Park Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "unley.sa.gov.au/Events-programs-facilities/Facilities-venues/Community-Centres/Clarence-Park/CPCC-The-shed": {
+    "checked": 20260819,
+    "name": "The Shed",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "unley.sa.gov.au/Events-programs-facilities/Facilities-venues/Community-Centres/Goodwood-Community-Centre": {
+    "checked": 20260819,
+    "name": "Goodwood Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "unley.sa.gov.au/Events-programs-facilities/Facilities-venues/Unley-Museum": {
+    "checked": 20260819,
+    "name": "Unley Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "unley.sa.gov.au/Events-programs-facilities/Facilities-venues/Unley-Swimming-Centre": {
+    "checked": 20260819,
+    "name": "Unley Swimming Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "unlimitedcorporation.org": {
     "checked": 20260819,
@@ -20844,6 +23735,20 @@
     "reason": "98 upcoming, sample: UPPSALA Biotopia - Mend in public + kl\u00e4d",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "uraidlacc.sa.cricket.com.au": {
+    "checked": 20260819,
+    "name": "Uraidla Cricket Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "urbanclimb.com.au/locations/adelaide": {
+    "checked": 20260819,
+    "name": "Urban Climb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "urbnsurf.com": {
     "checked": 20260819,
@@ -20950,6 +23855,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "varsitylakes.org.au": {
+    "checked": 20260819,
+    "name": "Varsity Lakes Community Resource Centre",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "vaucluseyachtclub.com.au": {
     "checked": 20260819,
     "name": "Vaucluse Yacht Club",
@@ -20992,6 +23904,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "verticalrealityclimbing.com": {
+    "checked": 20260819,
+    "name": "Vertical Reality Climbing",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "vertigotheatre.com": {
     "checked": 20260819,
     "name": "Vertigo Theatre",
@@ -21002,6 +23921,13 @@
   "verveseniorliving.com/trinity-lodge": {
     "checked": 20260819,
     "name": "Trinity Lodge",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "vibecarepantry.com.au": {
+    "checked": 20260819,
+    "name": "Vibe Care Pantry",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21020,9 +23946,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "vikingsrugby.com.au": {
+    "checked": 20260819,
+    "name": "Town Centre Vikings Rugby Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "villagechurch.sydney": {
     "checked": 20260819,
     "name": "Village Church Annandale",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "villagehub.com.au": {
+    "checked": 20260819,
+    "name": "Old Dairy Community Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21034,6 +23974,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "vinnies.org.au/act-surrounds/find-help/food-housing-clothing-act-surrounds/night-patrol": {
+    "checked": 20260819,
+    "name": "Vinnies Night Patrol Kitchen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "virginiawine.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Virginia Wine Events",
@@ -21041,9 +23988,23 @@
     "status": "fail",
     "type": "ics"
   },
+  "vishnushivamandir.org.au/new": {
+    "checked": 20260819,
+    "name": "Vishu Shiva Mandir",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "visionaustralia.org": {
     "checked": 20260819,
     "name": "Vision Australia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "visionchurch.org.au": {
+    "checked": 20260819,
+    "name": "Vision Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21093,6 +24054,13 @@
   "vqartstudio.com": {
     "checked": 20260819,
     "name": "VQ Art Studio",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "vscact.org.au": {
+    "checked": 20260819,
+    "name": "Veterans Support Centre Belconnen",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21153,6 +24121,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "wallis.com.au/cinemas/piccadilly": {
+    "checked": 20260819,
+    "name": "Picadilly",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "wandasurfclub.com": {
     "checked": 20260819,
     "name": "Wanda Surf Life Saving Club",
@@ -21184,6 +24159,13 @@
   "warmemorialsregister.nsw.gov.au/memorials/st-thomas-war-memorial-anglican-church-kingsgrove": {
     "checked": 20260819,
     "name": "St Thomas War Memorial Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "warrawongws.com.au": {
+    "checked": 20260819,
+    "name": "Warrawong Wildlife Sanctuary",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21324,6 +24306,13 @@
   "wcra.ca": {
     "checked": 20260819,
     "name": "Waterloo County Revolver Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "wcs.org.au": {
+    "checked": 20260819,
+    "name": "Woden Community Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21699,6 +24688,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "westoncccentre.org.au": {
+    "checked": 20260819,
+    "name": "Weston Creek Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "westonmolonglo.church/events": {
+    "checked": 20260819,
+    "name": "St Peters",
+    "reason": "5/35 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "westpacopenair.com.au": {
     "checked": 20260819,
     "name": "Westpac OpenAir",
@@ -21726,6 +24729,20 @@
     "reason": "2/32 upcoming",
     "status": "ok",
     "type": "squarespace"
+  },
+  "westtorrens.sa.gov.au/Community/Community-centres/Apex-Park-Community-Facility": {
+    "checked": 20260819,
+    "name": "Apex Park Community Facility",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "westtorrens.sa.gov.au/Library": {
+    "checked": 20260819,
+    "name": "West Torrens Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "westvillagetheatre.com": {
     "checked": 20260819,
@@ -22140,6 +25157,13 @@
     "status": "empty",
     "type": "jsonld"
   },
+  "woden-valley.uca.org.au": {
+    "checked": 20260819,
+    "name": "Woden Valley Uniting Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "wolvas.org.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Wolverhampton Astronomical Society (Wolverhampton, United Kingdom)",
@@ -22202,6 +25226,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "woodvillerugby.com.au": {
+    "checked": 20260819,
+    "name": "Woodville Rugby Union Football Club",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "woollahra.nsw.gov.au/Services/Venues/The-Drill-Hall": {
     "checked": 20260819,
@@ -22290,6 +25321,20 @@
   "worldofglass.com": {
     "checked": 20260819,
     "name": "World of Glass",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "wp.ucasa.org.au": {
+    "checked": 20260819,
+    "name": "Westbourne Park Uniting Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "wpcb.org.au": {
+    "checked": 20260819,
+    "name": "Westminster Presbyterian Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -22406,6 +25451,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "xtremekarting.com": {
+    "checked": 20260819,
+    "name": "Xtreme Karting",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "yanastudio.com.au": {
     "checked": 20260819,
     "name": "Yana Art Studio & Gallery",
@@ -22448,6 +25500,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ymcacanberra.org.au": {
+    "checked": 20260819,
+    "name": "YMCA Health and Fitness Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ymcanab.ca/locations/don-wheaton-family-ymca": {
     "checked": 20260819,
     "name": "Don Wheaton Family YMCA",
@@ -22465,6 +25524,13 @@
   "yogadotcalm.com": {
     "checked": 20260819,
     "name": "yogadotcalm",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "yogafusion.com.au": {
+    "checked": 20260819,
+    "name": "yogafusion",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -22552,6 +25618,13 @@
     "reason": "30 vevents / 28 future",
     "status": "ok",
     "type": "ics"
+  },
+  "zonebowling.com": {
+    "checked": 20260819,
+    "name": "Zone Bowling",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "zurch.ca": {
     "checked": 20260819,

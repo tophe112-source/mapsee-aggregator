@@ -2026,5 +2026,32 @@
   "geocode_suffix": ", Sydney, AU",
   "limit": 300,
   "_metro": "Sydney, AU"
+ },
+ {
+  "name": "Constellation Model Flying Club",
+  "category": "community",
+  "_found": "osm:club -> events-manager",
+  "url": "https://cmfc.asn.au/club-events/?ical=1",
+  "geocode_suffix": ", SA",
+  "limit": 300,
+  "_metro": "Adelaide, AU"
+ },
+ {
+  "name": "St George’s",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://stgeorgesmagill.org/events.ics",
+  "geocode_suffix": ", Adelaide, AU",
+  "limit": 300,
+  "_metro": "Adelaide, AU"
+ },
+ {
+  "name": "Smith’s Alternative",
+  "category": "music",
+  "_found": "osm:music_venue -> ics",
+  "url": "https://www.smithsalternative.com/infomaxim/api/v1/events/search.ics",
+  "geocode_suffix": ", Canberra, AU",
+  "limit": 300,
+  "_metro": "Canberra, AU"
  }
 ]
