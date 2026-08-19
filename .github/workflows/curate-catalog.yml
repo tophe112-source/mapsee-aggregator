@@ -203,10 +203,16 @@ jobs:
           for b in $BACKENDS; do
             echo "::group::$b"
             # socrata is the default and takes no positional; the others do.
+            # tee'd because DISCOVER's own output is where the skip breakdown
+            # lives, and it was the one stage nobody could read afterwards.
+            # `osm` reports why each successful probe still produced nothing
+            # ("ics-without-feed", "no-config-shape(mylisting)") and which metros
+            # went UNREAD because Overpass never answered — both invisible in a
+            # log nobody scrolls, and both the numbers that say where to work next.
             if [ "$b" = "socrata" ]; then
-              python catalog_curate.py discover --limit "$LIMIT" $CATFLAG --out "cand-$b.json"
+              python catalog_curate.py discover --limit "$LIMIT" $CATFLAG --out "cand-$b.json" | tee "discover-$b.txt"
             else
-              python catalog_curate.py discover "$b" --limit "$LIMIT" $CATFLAG --out "cand-$b.json"
+              python catalog_curate.py discover "$b" --limit "$LIMIT" $CATFLAG --out "cand-$b.json" | tee "discover-$b.txt"
             fi
             [ -f "cand-$b.json" ] || echo '[]' > "cand-$b.json"
             python catalog_curate.py verify "cand-$b.json" | tee "verify-$b.txt"
@@ -221,6 +227,7 @@ jobs:
               # The FLAG lines are the ones worth reading at a glance: a category
               # with no discovery query is a door that cannot grow supply.
               grep -h '^  FLAG' "verify-$b.txt" "merge-$b.txt" 2>/dev/null
+              grep -hE '^(skipped:|  advanced |  .*UNREAD|  .*SKIPPING)' "discover-$b.txt" 2>/dev/null
               tail -25 "verify-$b.txt"
               cat "merge-$b.txt"
               echo '```'
@@ -263,7 +270,7 @@ jobs:
       - name: Commit new sources
         if: ${{ !inputs.dry_run }}
         run: |
-          rm -f cand-*.json coverage-*.txt coverage-*.json verify-*.txt merge-*.txt
+          rm -f cand-*.json coverage-*.txt coverage-*.json verify-*.txt merge-*.txt discover-*.txt
           if git diff --quiet -- '*_sources.json' curation_ledger.json curation_cursor.json coverage_history.jsonl; then
             echo "No config, ledger or cursor change — nothing to commit."
             exit 0
