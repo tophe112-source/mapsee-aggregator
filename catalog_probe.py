@@ -110,6 +110,15 @@ def probe(session, url: str) -> dict:
         if m:
             rep["fetch"]["challenge_hint"] = m.group(1)[:160]
         return rep
+    # The URL may BE the calendar rather than a page linking to one. fingerprint
+    # looks for an .ics href in HTML and finds nothing in an iCal body, so a feed
+    # probed directly reported "no feed found" — which reads as a broken source
+    # and is the opposite of the truth.
+    if ("text/calendar" in r.headers.get("content-type", "").lower()
+            or r.text.lstrip().startswith("BEGIN:VCALENDAR")):
+        rep["platform"] = {"labels": ["ics-feed"], "adapter": "ics",
+                           "feed": str(r.url)}
+        return rep
     labels, ics = osm.fingerprint(r.text)
     o = urlparse(str(r.url))
     rep["platform"] = {
@@ -156,8 +165,54 @@ def verify(session, rep: dict) -> Optional[dict]:
         ok, note = fn(session, cand)
     except Exception as exc:                                      # noqa: BLE001
         ok, note = False, f"{type(exc).__name__}: {exc}"[:90]
-    return {"type": cand["type"], "ok": bool(ok), "note": str(note),
-            "status": cc._status_for(ok, note), "candidate": cand}
+    out = {"type": cand["type"], "ok": bool(ok), "note": str(note),
+           "status": cc._status_for(ok, note), "candidate": cand}
+    if ok and cand["type"] == "ics":
+        out["placeable"] = _ics_placeable(session, cand["url"])
+    return out
+
+
+def _ics_placeable(session, url: str) -> str:
+    """Of the future VEVENTs, how many could actually be PINNED?
+
+    "Returns future events" and "puts anything on the map" are different
+    questions and the verifier only answers the first. mapsee_ingest_ics drops a
+    VEVENT carrying neither GEO nor LOCATION — correctly, and it counts them, but
+    that count only appears once the source is configured and running. Seattle
+    Parks Foundation was 20 of 30 unplaceable and the only symptom was a feed
+    that looked two thirds empty. Worth answering BEFORE the merge, and doubly so
+    for a feed nobody can open locally.
+
+    parse_ics keys events by UPPERCASE property name and stores (value, params),
+    so this reads DTSTART through the adapter's own _parse_dt rather than
+    guessing at an iCal date format.
+    """
+    try:
+        import mapsee_ingest_ics as ics
+        r = session.get(url, timeout=25)
+        evs = ics.parse_ics(r.text)
+    except Exception as exc:                                      # noqa: BLE001
+        return f"unknown ({type(exc).__name__})"
+    from datetime import datetime, timezone
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    future, pinnable = 0, 0
+    for ev in evs:
+        if "DTSTART" not in ev:
+            continue
+        try:
+            _, _, date_key = ics._parse_dt(*ev["DTSTART"])
+        except Exception:                                         # noqa: BLE001
+            continue
+        if not date_key or date_key < today:
+            continue
+        future += 1
+        geo = (ev.get("GEO") or ("", {}))[0].strip()
+        loc = (ev.get("LOCATION") or ("", {}))[0].strip()
+        if geo or loc:
+            pinnable += 1
+    if not future:
+        return "0 future events"
+    return f"{pinnable}/{future} future events carry GEO or LOCATION"
 
 
 def main(argv=None) -> int:
@@ -204,6 +259,8 @@ def main(argv=None) -> int:
         v = rep.get("verify")
         if v:
             print(f"  verify     : {'PASS' if v['ok'] else 'fail'} ({v.get('status','?')}) — {v['note']}")
+            if v.get("placeable"):
+                print(f"  placeable  : {v['placeable']}")
             if v.get("ok"):
                 print("  candidate  : " + json.dumps(v["candidate"]))
         print()
