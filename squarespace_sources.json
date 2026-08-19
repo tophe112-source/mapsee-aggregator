@@ -116,6 +116,225 @@
         "lon": -3.1908597
       },
       "_metro": "Edinburgh, GB"
+    },
+    {
+      "name": "Sparrow Artspace",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.sparrowartspace.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Sparrow Artspace",
+        "address": "36 4 Street NE",
+        "city": "Calgary",
+        "region": "AB",
+        "postal_code": "T2E 3R7",
+        "lat": 51.0522323,
+        "lon": -114.0515272
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "The Polaris Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.polariscentre.ca/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Polaris Theatre",
+        "lat": 51.2006528,
+        "lon": -113.9574811
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Commonwealth Bar & Stage",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.commonwealthbar.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Commonwealth Bar & Stage",
+        "address": "731 10 Avenue SW",
+        "lat": 51.0435264,
+        "lon": -114.0782837
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Deer Run Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.deerruncalgary.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Deer Run Community Centre",
+        "address": "2223 146 Avenue SE",
+        "city": "Calgary",
+        "postal_code": "T2J 6P8",
+        "lat": 50.9217177,
+        "lon": -114.0079887
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Scarboro United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.scarborounited.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Scarboro United Church",
+        "address": "134 Scarboro Avenue SW",
+        "city": "Calgary",
+        "region": "Alberta",
+        "postal_code": "T3C 2H1",
+        "lat": 51.0390477,
+        "lon": -114.1005722
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Grace Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.gracechurchcalgary.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Grace Presbyterian Church",
+        "address": "1009 15 Avenue SW",
+        "city": "Calgary",
+        "region": "AB",
+        "postal_code": "T2R 0S5",
+        "lat": 51.0389098,
+        "lon": -114.0848763
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "SCA Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://scacalgary.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "SCA Community Centre",
+        "address": "277 Strathcona Drive SW",
+        "lat": 51.0472731,
+        "lon": -114.180049
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "South Calgary Chinese Evangelical Free Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.sccefc.ca/en/events",
+      "max_events": 200,
+      "venue": {
+        "name": "South Calgary Chinese Evangelical Free Church",
+        "address": "340 39 Avenue SE",
+        "city": "Calgary",
+        "region": "AB",
+        "postal_code": "T2G 1X6",
+        "lat": 51.0183787,
+        "lon": -114.0602639
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Robert McClure United Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://robertmcclurechurch.org/event-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Robert McClure United Church",
+        "address": "5510 26 Avenue NE",
+        "city": "Calgary",
+        "postal_code": "T1Y 6S1",
+        "lat": 51.0774941,
+        "lon": -113.9547888
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Calgary Church of Christ",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.calgarychurchofchrist.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Calgary Church of Christ",
+        "address": "4030 Maryvale Drive NE",
+        "city": "Calgary",
+        "region": "AB",
+        "postal_code": "T2A 2S8",
+        "lat": 51.0565287,
+        "lon": -113.9763546
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Capitol Hill Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.capitolhillcommunity.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Capitol Hill Community Centre",
+        "address": "1531 21 Avenue NW",
+        "lat": 51.0712346,
+        "lon": -114.0964368
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Silver Springs Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://silverspringscommunity.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Silver Springs Community Centre",
+        "address": "5720 Silver Ridge Drive NW",
+        "city": "Calgary",
+        "lat": 51.1046439,
+        "lon": -114.1925548
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "West Springs Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://westsprings.church/events",
+      "max_events": 200,
+      "venue": {
+        "name": "West Springs Church",
+        "address": "816 78 Street SW",
+        "city": "Calgary",
+        "postal_code": "T3H 6B1",
+        "lat": 51.0630948,
+        "lon": -114.2000696
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Northgate Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.northgatebaptist.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Northgate Baptist Church",
+        "address": "13208 95 Street NW",
+        "city": "Edmonton",
+        "postal_code": "T5E 3Y4",
+        "lat": 53.5924204,
+        "lon": -113.4882695
+      },
+      "_metro": "Edmonton, CA"
     }
   ]
 }

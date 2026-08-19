@@ -1874,5 +1874,59 @@
   "geocode_suffix": ", Edinburgh",
   "limit": 300,
   "_metro": "Edinburgh, GB"
+ },
+ {
+  "name": "Al-Hedaya Islamic Centre",
+  "category": "community",
+  "_found": "osm:place_of_worship -> events-manager",
+  "url": "https://alhedayacentre.ca/outdoors/?ical=1",
+  "geocode_suffix": ", Calgary, Alberta",
+  "limit": 300,
+  "_metro": "Calgary, CA"
+ },
+ {
+  "name": "Fung Loy Kok Institute of Taoism",
+  "category": "community",
+  "_found": "osm:place_of_worship -> events-manager",
+  "url": "https://www.taoist.org/locations/calgary/?ical=1",
+  "geocode_suffix": ", Calgary, CA",
+  "limit": 300,
+  "_metro": "Calgary, CA"
+ },
+ {
+  "name": "Winston Heights - Mountainview Community Centre",
+  "category": "community",
+  "_found": "osm:community_centre -> events-manager",
+  "url": "https://winstonheights.ca/events-3/?ical=1",
+  "geocode_suffix": ", Calgary, CA",
+  "limit": 300,
+  "_metro": "Calgary, CA"
+ },
+ {
+  "name": "St. Albert United Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://calendar.google.com/calendar/ical/c_356eeb5533e4f5e614c817d85ac886e1a10c52627065ad5a0b2dafcaf71fcb7d%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Edmonton, CA",
+  "limit": 300,
+  "_metro": "Edmonton, CA"
+ },
+ {
+  "name": "Garneau Theatre",
+  "category": "theater",
+  "_found": "osm:cinema -> ics",
+  "url": "https://calendar.google.com/calendar/ical/c_59ffb1be71dda30af2e7a3734bba7f5dae219a8d8ff9f4908dc9973baeefc23a%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Edmonton",
+  "limit": 300,
+  "_metro": "Edmonton, CA"
+ },
+ {
+  "name": "St. Herman's Orthodox Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://calendar.google.com/calendar/ical/b6e0e71b8b20079c84be2622226fa873a895fadc6892f7b37df2af857414984a%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Edmonton",
+  "limit": 300,
+  "_metro": "Edmonton, CA"
  }
 ]

@@ -277,6 +277,42 @@
     "lon": -3.2043154
    },
    "_metro": "Edinburgh, GB"
+  },
+  {
+   "name": "Aforza",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.aforza.ca/events/"
+   ],
+   "link_pattern": "https://www\\.aforza\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Aforza",
+    "address": "5600 19 Street SW",
+    "postal_code": "T3E 8G5",
+    "lat": 51.0035204,
+    "lon": -114.1045642
+   },
+   "_metro": "Calgary, CA"
+  },
+  {
+   "name": "The Aviary",
+   "category": "community",
+   "_found": "osm:events_venue -> modern-events+jsonld-event+ics",
+   "listing": [
+    "https://the-aviary.net/events/"
+   ],
+   "link_pattern": "https://the\\-aviary\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "The Aviary",
+    "address": "9314 111 Avenue NW",
+    "postal_code": "T5G0A3",
+    "lat": 53.5605206,
+    "lon": -113.4847927
+   },
+   "_metro": "Edmonton, CA"
   }
  ],
  "_not_included": {

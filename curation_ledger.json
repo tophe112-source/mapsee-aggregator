@@ -1,4 +1,11 @@
 {
+  "1010centre.ca": {
+    "checked": 20260819,
+    "name": "The 1010 Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "104thedinburghne.co.uk": {
     "checked": 20260819,
     "name": "104th Edinburgh North East Scouts Hall",
@@ -16,6 +23,13 @@
   "150thcraigalmond.org.uk": {
     "checked": 20260819,
     "name": "150th Craigalmond Scout Group",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "15degreesne.com": {
+    "checked": 20260819,
+    "name": "15 Degrees NE",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -48,6 +62,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "33acresbrewing.com": {
+    "checked": 20260819,
+    "name": "33 Acres Brewing",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "48-stunden-spandau.de": {
     "checked": 20260808,
     "name": "48 Stunden Spandau",
@@ -65,6 +86,20 @@
   "56a.org.uk": {
     "checked": 20260819,
     "name": "56a Infoshop",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "7thstep.ca": {
+    "checked": 20260819,
+    "name": "7th Step Society",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "9round.com": {
+    "checked": 20260819,
+    "name": "9 Round",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -97,6 +132,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "abshriners.com": {
+    "checked": 20260819,
+    "name": "Al Azhar Shrine Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "abvmcalgary.com": {
+    "checked": 20260819,
+    "name": "Assumption of the Blessed Virgin Mary Ukrainian Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "academymusicgroup.com/o2academyglasgow": {
     "checked": 20260819,
     "name": "O2 Academy",
@@ -117,6 +166,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "accessarts.ca": {
+    "checked": 20260819,
+    "name": "In-Definite Arts",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "achurchnearyou.com/church/11498/service-and-events/events-all": {
     "checked": 20260819,
@@ -216,6 +272,41 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aforza.ca/events": {
+    "checked": 20260819,
+    "name": "Aforza",
+    "reason": "4/4 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
+  "agecare.ca/communities/bow-crest": {
+    "checked": 20260819,
+    "name": "AgeCare Bow Crest",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "agecare.ca/communities/dawson": {
+    "checked": 20260819,
+    "name": "AgeCare Dawson",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "agecare.ca/community/agecare-midnapore/care": {
+    "checked": 20260819,
+    "name": "AgeCare Midnapore",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "agecare.ca/community/agecare-walden-heights/care": {
+    "checked": 20260819,
+    "name": "Walden Heights Seniors' Community",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "agenda.collectifs.net": {
     "checked": 20260808,
     "name": "agenda.collectifs.net",
@@ -243,6 +334,13 @@
     "reason": "11 upcoming, sample: Th\u00e9\u00e2tre des 13 vents : Spectacle musical",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "ahmadiyya.ca": {
+    "checked": 20260819,
+    "name": "Bait-ul-Hadi",
+    "reason": "17 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "ahmedabad.afindia.org/events/?ical=1": {
     "checked": 20260722,
@@ -286,12 +384,61 @@
     "status": "fail",
     "type": "tribe"
   },
+  "airdrieflyingclub.ca": {
+    "checked": 20260819,
+    "name": "Airdrie Flying Club",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "akce-jinak.cz": {
     "checked": 20260808,
     "name": "Akce jinak | Komunita \u22c5 Kultura \u22c5 \u010cinorodost",
     "reason": "5 upcoming, sample: P\u0159e\u010dti SI: Sedm man\u017eel\u016f Evelyn Hugo od T",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "alameenmasjid.ca": {
+    "checked": 20260819,
+    "name": "Al Ameen Masjid",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "albertaballetschool.com": {
+    "checked": 20260819,
+    "name": "Ruth Carse Centre for Dance",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "albertacraft.ab.ca/acc-events": {
+    "checked": 20260819,
+    "name": "Alberta Craft Gallery & Shop",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
+  "albertahealthservices.ca/cc/ccfd/FacilityInfo.aspx?id=1059556": {
+    "checked": 20260819,
+    "name": "Providence Care Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "albertahealthservices.ca/info/facility.aspx?id=1002414": {
+    "checked": 20260819,
+    "name": "Carewest Signal Pointe",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "albertatenniscentre.ca": {
+    "checked": 20260819,
+    "name": "Osten & Victor Alberta Tennis Centre",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "aldeburghfoodanddrink.co.uk/events/?ical=1": {
     "checked": 20260727,
@@ -314,6 +461,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "alearchitect.com": {
+    "checked": 20260819,
+    "name": "Ale Architect Brewery & Taproom",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "alfalahcenter.ca": {
+    "checked": 20260819,
+    "name": "Alfalah Center (Masjid)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "alhedayacentre.ca/outdoors/?ical=1": {
+    "checked": 20260819,
+    "name": "Al-Hedaya Islamic Centre",
+    "reason": "29 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "alienrock.co.uk": {
     "checked": 20260819,
     "name": "Alien Rock",
@@ -335,12 +503,54 @@
     "status": "ok",
     "type": "ics"
   },
+  "alleykatbeer.com/event-list": {
+    "checked": 20260819,
+    "name": "Alley Kat Brewing Company",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "allianceforthebay.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Alliance for the Chesapeake Bay",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "allseniorscare.com/residence/laurel-heights-retirement-residence": {
+    "checked": 20260819,
+    "name": "Laurel Heights Retirement Residences",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "alomarimasjid.ca": {
+    "checked": 20260819,
+    "name": "Masjid Al Omari",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "alphahousecalgary.com": {
+    "checked": 20260819,
+    "name": "Calgary Alpha House",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "alrashidmosque.ca": {
+    "checked": 20260819,
+    "name": "Al Rashid Mosque",
+    "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "altadorebaptistchurch.com/events": {
+    "checked": 20260819,
+    "name": "Altadore Baptist Church",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
   },
   "altrinchammarket.co.uk/events/?ical=1": {
     "checked": 20260727,
@@ -419,6 +629,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "annexales.com/events": {
+    "checked": 20260819,
+    "name": "Annex Ale Project",
+    "reason": "30 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
+  },
   "anyamountofbooks.com": {
     "checked": 20260819,
     "name": "Any Amount of Books",
@@ -440,9 +657,23 @@
     "status": "fail",
     "type": "mobilizon"
   },
+  "arbourlake.com/event-list": {
+    "checked": 20260819,
+    "name": "Arbour Lake Residents Hall",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "architecture.com/contact-and-visit/riba-north": {
     "checked": 20260819,
     "name": "RIBA North",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "archivesmuseum.epsb.ca": {
+    "checked": 20260819,
+    "name": "Archives and Museum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -468,6 +699,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "arparish.ca": {
+    "checked": 20260819,
+    "name": "Resurrection Catholic Parish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "arsenal.com/history/the-arsenal-museum": {
     "checked": 20260819,
     "name": "Arsenal Museum",
@@ -488,6 +726,34 @@
     "reason": "2 vevents / 1 future",
     "status": "ok",
     "type": "ics"
+  },
+  "arts.ucalgary.ca/creative-performing-arts/theatre-services/rental-facilities/eckhardt-gramatte-hall": {
+    "checked": 20260819,
+    "name": "Eckhardt-Gramatt\u00e9 Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "arts.ucalgary.ca/creative-performing-arts/theatre-services/rental-facilities/university-theatre": {
+    "checked": 20260819,
+    "name": "University Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "artsandheritage.ca/pages/little-white-school": {
+    "checked": 20260819,
+    "name": "Little White Schoolhouse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "artscommons.ca": {
+    "checked": 20260819,
+    "name": "Arts Commons",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "artzcentre.co.uk": {
     "checked": 20260819,
@@ -517,9 +783,37 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aspiralife.ca/our-locations/alberta/calgary/aspira-britannia-retirement-living": {
+    "checked": 20260819,
+    "name": "Amica Britannia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "assembly.ab.ca/visit/plan-your-visit#grounds": {
+    "checked": 20260819,
+    "name": "Legislative Assembly Interpretive Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "assembly.ab.ca/visit/visitor-centre/borealis-gallery": {
+    "checked": 20260819,
+    "name": "Borealis Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "assemblyroxy.com": {
     "checked": 20260819,
     "name": "Assembly Roxy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "astoriabanquethall.com": {
+    "checked": 20260819,
+    "name": "Astoria Banquet Hall",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -559,6 +853,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "atriaretirement.ca/retirement-communities/atria-canada-canyon-meadows-calgary-ab": {
+    "checked": 20260819,
+    "name": "Canyon Meadows",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "attenborougharts.com/whats-on/?ical=1": {
     "checked": 20260727,
     "name": "Attenborough Arts Centre (Leicester, UK)",
@@ -569,6 +870,13 @@
   "audaciouschurch.com/chester": {
     "checked": 20260819,
     "name": "Audacious Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "audreys.ca": {
+    "checked": 20260819,
+    "name": "Audrey's Books",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -601,6 +909,27 @@
     "status": "ok",
     "type": "ics"
   },
+  "autismcalgary.com": {
+    "checked": 20260819,
+    "name": "Autism Calgary",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "avatamsaka.ca": {
+    "checked": 20260819,
+    "name": "Avatamsaka Monastery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "aventa.org": {
+    "checked": 20260819,
+    "name": "Aventa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "awesomewalls.co.uk/liverpool": {
     "checked": 20260819,
     "name": "Awesome Walls Liverpool",
@@ -615,12 +944,33 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "babasarthaus.com": {
+    "checked": 20260819,
+    "name": "BABA'S ART Haus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "babulhawaijcalgary.com": {
+    "checked": 20260819,
+    "name": "Bab UL Hawaij Islamic Centre of Calgary",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "badmooncafe.co.uk/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260723,
     "name": "Bad Moon Cafe (London, UK)",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "baitunnur.org": {
+    "checked": 20260819,
+    "name": "Baitun Nur Mosque",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "ballaratobservatory.org.au/events/?ical=1": {
     "checked": 20260727,
@@ -642,6 +992,20 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "balzacunitedchurch.com": {
+    "checked": 20260819,
+    "name": "Balzac United Church",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "banfftrailcommunity.ca/events": {
+    "checked": 20260819,
+    "name": "Banff Trail Community Centre",
+    "reason": "30 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
   },
   "bangalore.afindia.org/events/?ical=1": {
     "checked": 20260727,
@@ -713,9 +1077,23 @@
     "status": "fail",
     "type": "ics"
   },
+  "bearspawlc.org": {
+    "checked": 20260819,
+    "name": "Bearspaw Lifestyle Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "beatlesstory.com": {
     "checked": 20260819,
     "name": "The Beatles Story",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "beaumontheritage.com/index.php/la-maison-historique-st-jacques-heritage-house": {
+    "checked": 20260819,
+    "name": "St. Jacques Heritage House",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -726,6 +1104,13 @@
     "reason": "43 vevents / 43 future",
     "status": "ok",
     "type": "ics"
+  },
+  "beddingtontheatre.ca": {
+    "checked": 20260819,
+    "name": "Beddington Theatre Arts Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "beirasplace.org.uk": {
     "checked": 20260819,
@@ -755,6 +1140,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "bestofkin.ca": {
+    "checked": 20260819,
+    "name": "Best of Kin",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bethanychapel.com": {
+    "checked": 20260819,
+    "name": "Bethany Chapel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bethanychristiantrust.com": {
     "checked": 20260819,
     "name": "The Bethany Bookshop",
@@ -768,6 +1167,41 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "bethanyseniors.com/communities/bethany-village": {
+    "checked": 20260819,
+    "name": "Bethany Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bethanyseniors.com/communities/lions-village": {
+    "checked": 20260819,
+    "name": "Lions Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bethanyseniors.com/communities/sharon-manor": {
+    "checked": 20260819,
+    "name": "Sharon Manor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bethanyseniors.com/communities/sundance-on-the-green": {
+    "checked": 20260819,
+    "name": "Sundance on the Green",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bethanyseniors.com/community/bethany-harvest-hills": {
+    "checked": 20260819,
+    "name": "Bethany Harvest Hills",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "bethanywarrington.com": {
     "checked": 20260819,
@@ -783,6 +1217,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bethelurc.com": {
+    "checked": 20260819,
+    "name": "Bethel United Reformed Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "better.org.uk/library/london/bromley/bromley-central-library": {
     "checked": 20260819,
     "name": "Bromley Central Library",
@@ -793,6 +1234,13 @@
   "better.org.uk/library/london/bromley/st-paul-s-cray-library-community-support-centre": {
     "checked": 20260819,
     "name": "St Paul's Cray Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bgcbigs.ca": {
+    "checked": 20260819,
+    "name": "Tweddle Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -839,6 +1287,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "bkstr.com/saitstore/home": {
+    "checked": 20260819,
+    "name": "SAIT Bookstore",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "blackfriarsrestaurant.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Blackfriars Cookery School (Newcastle upon Tyne)",
@@ -856,6 +1311,20 @@
   "blackhallstcolumba.org.uk": {
     "checked": 20260819,
     "name": "Blackhall St. Columba's Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "blocsclimbing.com": {
+    "checked": 20260819,
+    "name": "Blocs",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bloxartscentre.ca": {
+    "checked": 20260819,
+    "name": "Blox Arts Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -923,9 +1392,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bolderclimbing.com": {
+    "checked": 20260819,
+    "name": "Bolder Climbing Community",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bonavistadowns.com": {
+    "checked": 20260819,
+    "name": "Bonavista Downs Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bonessmotormuseum.co.uk": {
     "checked": 20260819,
     "name": "Bo'ness Motor Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bonniedoon.ca": {
+    "checked": 20260819,
+    "name": "Bonnie Doon Community Hall",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -944,6 +1434,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "booksbetweenfriends.com": {
+    "checked": 20260819,
+    "name": "Books Between Friends",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bookshop.rias.org.uk": {
     "checked": 20260819,
     "name": "RIAS Bookshop",
@@ -954,6 +1451,13 @@
   "bookspeed.com": {
     "checked": 20260819,
     "name": "Bookspeed Wholesalers",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bornbrewing.co": {
+    "checked": 20260819,
+    "name": "Born Brewing Co.",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -978,6 +1482,27 @@
     "reason": "1 upcoming, sample: De Andere Werelddag 2027",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "bowcliffseniors.wildapricot.org": {
+    "checked": 20260819,
+    "name": "Bow Cliff Seniors",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bownessseniorscentre.com": {
+    "checked": 20260819,
+    "name": "Bowness Seniors' Centre",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "bowvalleylawnbowling.com": {
+    "checked": 20260819,
+    "name": "Bow Valley Lawn Bowling Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "boxhub.uk/bridge-gardens": {
     "checked": 20260819,
@@ -1203,6 +1728,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "butterfieldacres.com": {
+    "checked": 20260819,
+    "name": "Butterfield Acres",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bwsw.org.uk/clubs/three-sisters-water-ski-club": {
     "checked": 20260819,
     "name": "?",
@@ -1216,6 +1748,13 @@
     "reason": "1768 vevents / 19 future",
     "status": "ok",
     "type": "ics"
+  },
+  "cabinbrewing.ca": {
+    "checked": 20260819,
+    "name": "Cabin Brewing Company",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "cachouseofprayer.org": {
     "checked": 20260819,
@@ -1256,6 +1795,27 @@
     "checked": 20260819,
     "name": "The Royal Scots Club",
     "reason": "97 vevents / 32 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/b6e0e71b8b20079c84be2622226fa873a895fadc6892f7b37df2af857414984a%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20260819,
+    "name": "St. Herman's Orthodox Church",
+    "reason": "158 vevents / 17 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/c_356eeb5533e4f5e614c817d85ac886e1a10c52627065ad5a0b2dafcaf71fcb7d%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20260819,
+    "name": "St. Albert United Church",
+    "reason": "210 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/c_59ffb1be71dda30af2e7a3734bba7f5dae219a8d8ff9f4908dc9973baeefc23a%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20260819,
+    "name": "Garneau Theatre",
+    "reason": "3535 vevents / 63 future",
     "status": "ok",
     "type": "ics"
   },
@@ -1350,9 +1910,296 @@
     "status": "ok",
     "type": "localist"
   },
+  "calgary-buddhist.ab.ca": {
+    "checked": 20260819,
+    "name": "Calgary Buddhist Temple",
+    "reason": "43 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "calgary-convention.com": {
+    "checked": 20260819,
+    "name": "Calgary TELUS Convention Centre South Building",
+    "reason": "osm probe: offsite:instagram.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarycanoeclub.com": {
+    "checked": 20260819,
+    "name": "Calgary Canoe Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarychinesebaptist.ca/fellowship-special-events": {
+    "checked": 20260819,
+    "name": "Calgary Chinese Baptist Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "calgarychurch.com": {
+    "checked": 20260819,
+    "name": "Christian City Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarychurchofchrist.ca/events": {
+    "checked": 20260819,
+    "name": "Calgary Church of Christ",
+    "reason": "48/78 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
+  "calgaryclimbing.com": {
+    "checked": 20260819,
+    "name": "Calgary Climbing Centre \u2013 Rocky Mountain",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryclimbing.com/locations/chinook": {
+    "checked": 20260819,
+    "name": "Calgary Climbing Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryclimbing.com/stronghold": {
+    "checked": 20260819,
+    "name": "The Stronghold, Calgary Climbing Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarycommunities.com/communities/spruce-cliff-community-association": {
+    "checked": 20260819,
+    "name": "Spruce Cliff Community Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarydreamcentre.com": {
+    "checked": 20260819,
+    "name": "Calgary Dream Centre",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "calgarydropin.ca": {
+    "checked": 20260819,
+    "name": "Calgary Drop-In & Rehab Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryfirstmennonite.ca": {
+    "checked": 20260819,
+    "name": "First Mennonite Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryfrc.com": {
+    "checked": 20260819,
+    "name": "Free Reformed Church of Calgary",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "calgarygracelutheran.com": {
+    "checked": 20260819,
+    "name": "Grace Lutheran Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryhellenic.com": {
+    "checked": 20260819,
+    "name": "St. Demetrios Greek Orthodox Church & Calgary Hellenic Community",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryhorseshoeclub.ca": {
+    "checked": 20260819,
+    "name": "Calgary Horseshoe Club",
+    "reason": "16 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "calgaryics.org": {
+    "checked": 20260819,
+    "name": "Irish Cultural Centre",
+    "reason": "25 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "calgarylawnbowlingclub.ca/calendar": {
+    "checked": 20260819,
+    "name": "Calgary Lawn Bowling Club",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "calgarylibrary.ca": {
+    "checked": 20260819,
+    "name": "Calgary Public Library - Giuffre Family",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarylibrary.ca/locations/MPARK": {
+    "checked": 20260819,
+    "name": "Calgary Public Library - Memorial Park",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarylibrary.ca/locations/NOSE": {
+    "checked": 20260819,
+    "name": "Calgary Public Library - Nose Hill",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarylibrary.ca/locations/SADDLE": {
+    "checked": 20260819,
+    "name": "Calgary Public Library - Saddletowne",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarylibrary.ca/locations/SIG": {
+    "checked": 20260819,
+    "name": "Calgary Public Library - Signal Hill",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarylibrary.ca/locations/SOUTH": {
+    "checked": 20260819,
+    "name": "Calgary Public Library - Southwood",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarylibrary.ca/locations/UMBACH": {
+    "checked": 20260819,
+    "name": "Calgary Public Library - Judith Ubach branch (Thorncliffe)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarylibrary.ca/locations/bow": {
+    "checked": 20260819,
+    "name": "Calgary Public Library - Bowness",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarylibrary.ca/your-library/locations/crow": {
+    "checked": 20260819,
+    "name": "Calgary Public Library - Crowfoot",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarylibrary.ca/your-library/locations/riley": {
+    "checked": 20260819,
+    "name": "Calgary Public Library - Louise Riley Branch",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarypolicediscoverycentre.com": {
+    "checked": 20260819,
+    "name": "Calgary Police Discovery Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryprayertimes.ca/faizan-e-makkah-calgary-locations": {
+    "checked": 20260819,
+    "name": "Faizan-E-Makkah Masjid (Mosque)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryrowing.com": {
+    "checked": 20260819,
+    "name": "Calgary Rowing Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryselfiemuseum.ca": {
+    "checked": 20260819,
+    "name": "Calgary Selfie Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryseniors.org": {
+    "checked": 20260819,
+    "name": "Calgary Seniors Resource Society",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarystampede.com/coca-cola-stage": {
+    "checked": 20260819,
+    "name": "Coca-Cola Stage",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarystampede.com/the-big-four-roadhouse": {
+    "checked": 20260819,
+    "name": "The Big Four Roadhouse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgarytennisclub.com": {
+    "checked": 20260819,
+    "name": "Calgary Tennis Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calgaryzoo.com": {
+    "checked": 20260819,
+    "name": "Calgary Zoo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "calton-books.co.uk": {
     "checked": 20260819,
     "name": "Calton Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "calvarygrace.ca": {
+    "checked": 20260819,
+    "name": "Calvary Grace Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cambrianheightscommunity.com/events": {
+    "checked": 20260819,
+    "name": "Cambrian Heights Community Centre",
+    "reason": "24 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
+  },
+  "cambridgemanor.ca": {
+    "checked": 20260819,
+    "name": "Cambridge Manor",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1385,6 +2232,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "canadianenergymuseum.ca/general-4": {
+    "checked": 20260819,
+    "name": "Canadian Energy Museum",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "canalrivertrust.org.uk/events/?ical=1": {
     "checked": 20260803,
     "name": "Canal & River Trust (UK)",
@@ -1412,6 +2266,20 @@
     "reason": "88 vevents / 71 future",
     "status": "ok",
     "type": "ics"
+  },
+  "canyonmeadowscinemas.ca": {
+    "checked": 20260819,
+    "name": "Canyon Meadows Cinemas",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "capilano.org": {
+    "checked": 20260819,
+    "name": "Capilano Christian Assembly",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "capitalareafoodbank.org/events/?ical=1": {
     "checked": 20260727,
@@ -1448,12 +2316,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "capitolhillcommunity.ca/events": {
+    "checked": 20260819,
+    "name": "Capitol Hill Community Centre",
+    "reason": "2/5 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "capitolsquash.co.uk": {
     "checked": 20260819,
     "name": "Capitol Squash Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cardelrec.com/events": {
+    "checked": 20260819,
+    "name": "South Fish Creek Recreation Association",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "cardiffmarket.co.uk/events/?ical=1": {
     "checked": 20260727,
@@ -1472,6 +2354,41 @@
   "careuk.com/care-homes/pinetum-chester": {
     "checked": 20260819,
     "name": "Pinetum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "carewest.ca": {
+    "checked": 20260819,
+    "name": "Carewest Sarcee",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "carewest.ca/carewest-rouleau-manor": {
+    "checked": 20260819,
+    "name": "Rouleau Manor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "carewest.ca/carewest-royal-park": {
+    "checked": 20260819,
+    "name": "Carewest Royal Park",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "carewest.ca/dir/carewest-colonel-belcher": {
+    "checked": 20260819,
+    "name": "Carewest Colonel Belcher",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "carewest.ca/dir/carewest-garrison-green": {
+    "checked": 20260819,
+    "name": "Carewest Garrison Green",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1553,6 +2470,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "catholicsturgeon.caedm.ca": {
+    "checked": 20260819,
+    "name": "St. Peter Parish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cbf.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Chesapeake Bay Foundation",
@@ -1573,6 +2497,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cceca.ca": {
+    "checked": 20260819,
+    "name": "The Calgary Chinatown Seniors' Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ccisab.ca": {
+    "checked": 20260819,
+    "name": "Calgary Catholic Immigration Society (CCIS)",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "ccls.libcal.com/ical_subscribe.php?cid=12583": {
     "checked": 20260727,
@@ -1609,6 +2547,41 @@
     "status": "fail",
     "type": "ics"
   },
+  "centrefornewcomers.ca": {
+    "checked": 20260819,
+    "name": "Centre for Newcomers",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "centres.macnet.ca": {
+    "checked": 20260819,
+    "name": "Al-Salam Centre",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "cfmws.ca": {
+    "checked": 20260819,
+    "name": "Garrison Twin Rinks Arena",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cfmws.ca/edmonton": {
+    "checked": 20260819,
+    "name": "Edmonton Garrison Fitness Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cgoart.com": {
+    "checked": 20260819,
+    "name": "Collectors' Gallery of Art",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chandigarh.afindia.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Alliance Francaise de Chandigarh (Chandigarh, India)",
@@ -1640,6 +2613,20 @@
   "charteriscentre.com": {
     "checked": 20260819,
     "name": "Greyfriars Charteris Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "chartwell.com/en/retirement-residences/chartwell-colonel-belcher-retirement-residence/overview": {
+    "checked": 20260819,
+    "name": "Chartwell Colonel Belcher Retirement Residence",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "chartwell.com/en/retirement-residences/chartwell-fountains-of-mission-retirement-residence/overview": {
+    "checked": 20260819,
+    "name": "Fountains of Mission",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1693,6 +2680,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "chestermerepubliclibrary.com": {
+    "checked": 20260819,
+    "name": "Chestermere Public Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chesterstpeter.org.uk/events": {
     "checked": 20260819,
     "name": "Guild Church of St. Peter",
@@ -1742,11 +2736,25 @@
     "status": "ok",
     "type": "ics"
   },
+  "chillbilliards.ca": {
+    "checked": 20260819,
+    "name": "Chill Billiards",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chiswickhouseandgardens.org.uk/whats-on": {
     "checked": 20260819,
     "name": "Chiswick House",
     "reason": "1/3 sampled events future",
     "status": "ok",
+    "type": "jsonld"
+  },
+  "christchurchcalgary.org/events": {
+    "checked": 20260819,
+    "name": "Anglican Parish of Christ Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
     "type": "jsonld"
   },
   "christchurchedinburgh.org": {
@@ -1770,9 +2778,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "christianscience.ab.ca": {
+    "checked": 20260819,
+    "name": "First Church of Christ, Scientist",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "churches-housing.org": {
     "checked": 20260819,
     "name": "Scottish Church Housing Action",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "churchincalgary.org/contact.html": {
+    "checked": 20260819,
+    "name": "A Meeting Place of the Church in Calgary",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "churchofjesuschrist.org/temples/details/edmonton-alberta-temple": {
+    "checked": 20260819,
+    "name": "Edmonton Alberta Temple",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1784,9 +2813,100 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cimchurch.org": {
+    "checked": 20260819,
+    "name": "Calgary Inter-Mennonite Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineplex.com": {
+    "checked": 20260819,
+    "name": "Cineplex Odeon Sunridge Spectrum Cinemas",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineplex.com/Theatre/cineplex-cinemas-manning-town-centre": {
+    "checked": 20260819,
+    "name": "Cineplex",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineplex.com/Theatre/cineplex-cinemas-sherwood-park": {
+    "checked": 20260819,
+    "name": "Cineplex",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineplex.com/Theatre/cineplex-odeon-crowfoot-crossing-cinemas": {
+    "checked": 20260819,
+    "name": "Cineplex Odeon",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineplex.com/Theatre/cineplex-odeon-south-edmonton-cinemas": {
+    "checked": 20260819,
+    "name": "Cineplex Odeon South Edmonton Cinemas",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineplex.com/Theatre/cineplex-odeon-westhills-cinemas": {
+    "checked": 20260819,
+    "name": "Cineplex Odeon Westhills Cinemas",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineplex.com/Theatre/cineplex-odeon-windermere-cinemas-and-vip": {
+    "checked": 20260819,
+    "name": "Cineplex Odeon Windermere Cinemas and VIP",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineplex.com/Theatre/cineplex-vip-cinemas-university-district-age-restricted-18": {
+    "checked": 20260819,
+    "name": "Cineplex VIP Cinemas University District",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineplex.com/Theatre/scotiabank-theatre-chinook": {
+    "checked": 20260819,
+    "name": "Scotiabank Theatre Chinook",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineplex.com/Theatre/scotiabank-theatre-edmonton": {
+    "checked": 20260819,
+    "name": "Scotiabank Theatre Edmonton",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "citadeltheatre.com": {
+    "checked": 20260819,
+    "name": "Citadel Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "citadelyouthcentre.org.uk": {
     "checked": 20260819,
     "name": "Citadel Youth Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "citizenbrewingcompany.com": {
+    "checked": 20260819,
+    "name": "Citizen Brewing Company",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1826,6 +2946,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cjhs.ca": {
+    "checked": 20260819,
+    "name": "Calgary John Howard Society",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "claremontparishchurch.co.uk": {
     "checked": 20260819,
     "name": "Claremont Parish Church",
@@ -1847,6 +2974,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "cliffbungalowmission.com/events": {
+    "checked": 20260819,
+    "name": "Cliff Bungalow-Mission Community Association",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "clitheroefoodfestival.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Clitheroe Food Festival (Clitheroe, UK)",
@@ -1857,6 +2991,13 @@
   "clmchurch.org.uk": {
     "checked": 20260819,
     "name": "CLM Church Ormskirk",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cloverliving.ca": {
+    "checked": 20260819,
+    "name": "Clover Living",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1875,9 +3016,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cmca.ca/memberships": {
+    "checked": 20260819,
+    "name": "Canyon Meadows Community Centre",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "cocoprivatehire.com": {
     "checked": 20260819,
     "name": "Co.Co.",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "colabyeg.ca": {
+    "checked": 20260819,
+    "name": "Co-Lab",
+    "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "coldgarden.ca": {
+    "checked": 20260819,
+    "name": "Cold Garden Beverage Company",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1910,6 +3072,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "commonwealthbar.ca/events": {
+    "checked": 20260819,
+    "name": "Commonwealth Bar & Stage",
+    "reason": "38/68 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
+  "communities.silvera.ca/calgary/gilchrist-phase-2": {
+    "checked": 20260819,
+    "name": "Gilchrist Commons",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "communitygarden.org.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Australian City Farms & Community Gardens Network (Australia)",
@@ -1917,12 +3093,26 @@
     "status": "ok",
     "type": "ics"
   },
+  "concordialutheran.ca/events": {
+    "checked": 20260819,
+    "name": "Concordia Lutheran Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "conservation-studio.co.uk": {
     "checked": 20260819,
     "name": "The Conservation Studio",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "contemporarycalgary.com/whatson": {
+    "checked": 20260819,
+    "name": "Contemporary Calgary",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
   },
   "contentliverpool.co.uk": {
     "checked": 20260819,
@@ -1937,6 +3127,13 @@
     "reason": "ConnectionError: HTTPSConnectionPool(host='cookingschool.centralmarket.com', port=443):",
     "status": "fail",
     "type": "ics"
+  },
+  "corpuschristi-edm.ca": {
+    "checked": 20260819,
+    "name": "The Catholic Parish of Corpus Christi",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "corstorphinecommunitycentre.org.uk": {
     "checked": 20260819,
@@ -1973,6 +3170,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "covenantcare.ca/communities/calgary/st-marguerite-manor": {
+    "checked": 20260819,
+    "name": "St. Marguerite Manor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "covenantcare.ca/communities/calgary/st-teresa-place": {
+    "checked": 20260819,
+    "name": "St. Teresa Place",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "covenantcare.ca/communities/holy-cross-manor": {
+    "checked": 20260819,
+    "name": "Holy Cross Manor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cpfchurch.com": {
+    "checked": 20260819,
+    "name": "CrossPointe Fellowship",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cqc.org.uk/location/1-121860148": {
     "checked": 20260819,
     "name": "Brothers of Charity Services",
@@ -1983,6 +3208,13 @@
   "cramondboatclub.org.uk": {
     "checked": 20260819,
     "name": "Cramond Boat Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "creatinghopesociety.ca/contact": {
+    "checked": 20260819,
+    "name": "Creating Hope Society Alberta",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2000,6 +3232,20 @@
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "crescentheightsyyc.ca": {
+    "checked": 20260819,
+    "name": "Crescent Heights Community Hall",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "crestmonthall.com": {
+    "checked": 20260819,
+    "name": "Crestmont Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "crisis.org.uk/get-help/edinburgh": {
     "checked": 20260819,
@@ -2029,6 +3275,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "crossingsdance.com": {
+    "checked": 20260819,
+    "name": "Crossings Dance Ministries",
+    "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "crossreach.org.uk/morlich-house": {
     "checked": 20260819,
     "name": "Morlich House",
@@ -2046,6 +3299,20 @@
   "crossreach.org.uk/threshold-edinburgh": {
     "checked": 20260819,
     "name": "The Hub Threshold",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "crossroads-communitychurch.org/events": {
+    "checked": 20260819,
+    "name": "Crossroads Community Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "crowchildtwinarena.net": {
+    "checked": 20260819,
+    "name": "Crowchild Twin Arena",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2088,6 +3355,41 @@
   "crystalcarecollection.co.uk/care-homes/arplemere": {
     "checked": 20260819,
     "name": "Arplemere Care Home",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cscc.ab.ca": {
+    "checked": 20260819,
+    "name": "Calgary Sports Car Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cschurch.ca": {
+    "checked": 20260819,
+    "name": "Centre Street Church - Central Campus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cschurch.ca/bearspaw/about/new-here": {
+    "checked": 20260819,
+    "name": "Centre Street Church Bearspaw Campus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "csedmonton.org": {
+    "checked": 20260819,
+    "name": "Christian Science Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "csiabcn.org": {
+    "checked": 20260819,
+    "name": "CSI Ascension Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2218,6 +3520,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "daralsunnah.com": {
+    "checked": 20260819,
+    "name": "Dar Al Sunnah",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dare2dream.ca": {
+    "checked": 20260819,
+    "name": "Dare 2 Dream",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "daresburycofe.org.uk": {
     "checked": 20260819,
     "name": "All Saints",
@@ -2231,6 +3547,20 @@
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "darulummaet.ca": {
+    "checked": 20260819,
+    "name": "Alberta Uyghur Society \u0626\u0627\u0644\u0628\u06d0\u0631\u062a\u0627 \u0626\u06c7\u064a\u063a\u06c7\u0631 \u062c\u06d5\u0645\u0626\u0649\u064a\u0649\u062a\u0649",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dashmesh.ca": {
+    "checked": 20260819,
+    "name": "Dashmesh Culture Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "data.act.gov.au/resource/j746-krni.json": {
     "checked": 20260802,
@@ -2512,12 +3842,47 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dccnet.org": {
+    "checked": 20260819,
+    "name": "Dalhousie community church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ddrc.ca": {
+    "checked": 20260819,
+    "name": "Developmental Disabilities Resources Centre of Calgary (DDRC)",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "deafandhearalberta.ca": {
+    "checked": 20260819,
+    "name": "Deaf & Hear Alberta",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
   "deangardens.org": {
     "checked": 20260819,
     "name": "Dean Gardens",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "decidedlyjazz.com/dance-centre/overview": {
+    "checked": 20260819,
+    "name": "DJD Dance Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "deerruncalgary.com/events": {
+    "checked": 20260819,
+    "name": "Deer Run Community Centre",
+    "reason": "3/17 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "delart.org/events/?ical=1": {
     "checked": 20260727,
@@ -2550,6 +3915,13 @@
   "destiny-church.com": {
     "checked": 20260819,
     "name": "Destiny Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "devon.ca/Community/Facilities-Recreation/Devon-Community-Centre": {
+    "checked": 20260819,
+    "name": "Devon Community Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2623,6 +3995,20 @@
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "dpuc.ca": {
+    "checked": 20260819,
+    "name": "Deer Park United Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "drealee.com": {
+    "checked": 20260819,
+    "name": "Drealee | Fitness + Dance",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "drillgrangeroadwest.com": {
     "checked": 20260819,
@@ -2701,6 +4087,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eaglequestgolf.com/locations/the-dome": {
+    "checked": 20260819,
+    "name": "Eagle Quest Golf Dome",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "eagleshamparishchurch.co.uk": {
     "checked": 20260819,
     "name": "Eaglesham Parish Church",
@@ -2742,6 +4135,13 @@
     "reason": "9 vevents / 9 future",
     "status": "ok",
     "type": "ics"
+  },
+  "ecathleticclub.ca": {
+    "checked": 20260819,
+    "name": "Eau Claire Athletic Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ecclestonteam.org": {
     "checked": 20260819,
@@ -2819,6 +4219,20 @@
     "reason": "71 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "edgemont.ab.ca/news": {
+    "checked": 20260819,
+    "name": "Edgemont Community Centre",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "edgemontathletic.com": {
+    "checked": 20260819,
+    "name": "Edgemont Athletic",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ediblecommunities.com/events/?ical=1": {
     "checked": 20260727,
@@ -3086,6 +4500,167 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "edleun.com/locations-details.asp?ID=23": {
+    "checked": 20260819,
+    "name": "Whitehorn Learning Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton-radial-railway.ab.ca": {
+    "checked": 20260819,
+    "name": "Edmonton Radial Railway Society",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/act": {
+    "checked": 20260819,
+    "name": "ACT Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/city-arts-centre.aspx": {
+    "checked": 20260819,
+    "name": "City Arts Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/clareview": {
+    "checked": 20260819,
+    "name": "Clareview Community Recreation Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/commonwealth": {
+    "checked": 20260819,
+    "name": "Commonwealth Community Recreation Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/hardisty": {
+    "checked": 20260819,
+    "name": "Hardisty Fitness and Leisure Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/jasper-place-bowl-artificial-turf": {
+    "checked": 20260819,
+    "name": "Jasper Place Bowl",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/kinsmen.aspx": {
+    "checked": 20260819,
+    "name": "Kinsmen Sports Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/meadows": {
+    "checked": 20260819,
+    "name": "Meadows Community Recreation Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/mill-creek-outdoor-pool": {
+    "checked": 20260819,
+    "name": "Mill Creek Outdoor Pool",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/mill-woods.aspx": {
+    "checked": 20260819,
+    "name": "Mill Woods Recreation Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/queen-elizabeth-outdoor-pool": {
+    "checked": 20260819,
+    "name": "Queen Elizabeth Pool",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/activities_parks_recreation/terwillegar": {
+    "checked": 20260819,
+    "name": "Terwillegar Community Recreation Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/attractions_events/edmonton-valley-zoo": {
+    "checked": 20260819,
+    "name": "Edmonton Valley Zoo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/attractions_events/john-janzen-nature-centre": {
+    "checked": 20260819,
+    "name": "John Janzen Nature Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/attractions_events/john-walter-museum.aspx": {
+    "checked": 20260819,
+    "name": "John Walter Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/attractions_events/muttart-conservatory": {
+    "checked": 20260819,
+    "name": "Muttart Conservatory",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmonton.ca/attractions_events/prince-of-wales-armouries": {
+    "checked": 20260819,
+    "name": "Prince of Wales Armouries",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmontonconventioncentre.com": {
+    "checked": 20260819,
+    "name": "Edmonton Convention Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmontonfirst.mcab.ca": {
+    "checked": 20260819,
+    "name": "First Mennonite Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmontonsfoodbank.com": {
+    "checked": 20260819,
+    "name": "NISO",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "edmontontemple.com/events": {
+    "checked": 20260819,
+    "name": "Salvation Army Edmonton Temple",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "ehcong.com": {
     "checked": 20260819,
     "name": "The Edinburgh Hebrew Congregation",
@@ -3114,12 +4689,33 @@
     "status": "ok",
     "type": "ics"
   },
+  "elevateindoorgolf.com": {
+    "checked": 20260819,
+    "name": "Elevate Golf",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "emeraldtaverngames.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Emerald Tavern Games & Cafe (Austin, TX)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "emmanuelcrc.org": {
+    "checked": 20260819,
+    "name": "Emmanuel Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "emra.club": {
+    "checked": 20260819,
+    "name": "Edmonton Model Railroad Association (EMRA)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "en.wikipedia.org/wiki/Melwood": {
     "checked": 20260819,
@@ -3131,6 +4727,13 @@
   "episcopalnewlands.org.uk": {
     "checked": 20260819,
     "name": "St. Margaret's Scottish Episcopal Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ericshouse.ca": {
+    "checked": 20260819,
+    "name": "Eric's House",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3401,9 +5004,30 @@
     "status": "ok",
     "type": "ics"
   },
+  "extendicarecedarsvilla.com": {
+    "checked": 20260819,
+    "name": "Extendicare Cedar Villa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "extendicareholyrood.com": {
+    "checked": 20260819,
+    "name": "Holyrood Extendicare",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/MillStreetBarracks": {
     "checked": 20260819,
     "name": "Mill Street Barracks",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/Penbrooke-Meadows-Community-Association-180665769956": {
+    "checked": 20260819,
+    "name": "Penbrooke Meadows Community Association",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3464,6 +5088,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/philadelphiachurchincalgary": {
+    "checked": 20260819,
+    "name": "Philadelphia Church in Calgary",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/stubshawcrossclub/?locale=en_GB": {
     "checked": 20260819,
     "name": "Stubshaw Cross Community and Sports Club",
@@ -3485,12 +5116,40 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "fairsfair.com": {
+    "checked": 20260819,
+    "name": "Fair's Fair (For Book Lovers)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fairviewcommunity.ca": {
+    "checked": 20260819,
+    "name": "Fairview Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "farmersmarketcoalition.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Farmers Market Coalition Events",
     "reason": "5 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "fbcedmonton.ca": {
+    "checked": 20260819,
+    "name": "First Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fcjcentre.ca/events": {
+    "checked": 20260819,
+    "name": "FCJ Retreat & Conference Centre",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "feedhopenow.org/events/?ical=1": {
     "checked": 20260727,
@@ -3506,12 +5165,26 @@
     "status": "ok",
     "type": "ics"
   },
+  "fellowshipedmonton.com": {
+    "checked": 20260819,
+    "name": "Fellowship Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ferrybuildingmarketplace.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Ferry Building Marketplace Events (San Francisco)",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "festivalplace.ca": {
+    "checked": 20260819,
+    "name": "Festival Place",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "fhpc.org.uk/what-s-on": {
     "checked": 20260819,
@@ -3540,6 +5213,13 @@
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "firstnaz.ca": {
+    "checked": 20260819,
+    "name": "First Church of the Nazarene",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "fiu.libcal.com/ical_subscribe.php?cid=15594": {
     "checked": 20260727,
@@ -3611,6 +5291,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "foot-notes.ca": {
+    "checked": 20260819,
+    "name": "Foot Notes Dance Studio",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "footscrayarts.com/events/?ical=1": {
     "checked": 20260809,
     "name": "Footscray Community Arts (Melbourne, Australia)",
@@ -3624,6 +5311,13 @@
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "forestterrace.org/upcoming-events": {
+    "checked": 20260819,
+    "name": "Forest Terrace Heights Community League",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "forgegamesandhobbies.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260723,
@@ -3660,9 +5354,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fortheritageprecinct.ca": {
+    "checked": 20260819,
+    "name": "Fort Heritage Precinct",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "fortperchrock.org.uk": {
     "checked": 20260819,
     "name": "Fort Perch Rock",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fortsask.ca/en/things-to-do/recreation-centre.aspx": {
+    "checked": 20260819,
+    "name": "Dow Centennial Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fortsaskatchewanfoodbank.com": {
+    "checked": 20260819,
+    "name": "Fort Saskatchewan Food Bank",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3681,6 +5396,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fourdogs.ca": {
+    "checked": 20260819,
+    "name": "Four Dogs Brewing",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "fpchurch.org.uk": {
     "checked": 20260819,
     "name": "Gilmore Place Free Presbyterian Church of Scotland",
@@ -3688,12 +5410,33 @@
     "status": "ok",
     "type": "tribe"
   },
+  "franzdopfgallery.com": {
+    "checked": 20260819,
+    "name": "Franz Dopf Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "freedomcentre.org": {
+    "checked": 20260819,
+    "name": "The Freedom Centre Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "frenchmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "French Market District (New Orleans)",
     "reason": "6 vevents / 6 future",
     "status": "ok",
     "type": "ics"
+  },
+  "freshstartrecovery.ca": {
+    "checked": 20260819,
+    "name": "Fresh Start Recovery Centre",
+    "reason": "1 events, 1/1 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "freshwaterfuture.org/events/?ical=1": {
     "checked": 20260803,
@@ -3800,6 +5543,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "garneau-tennis.com": {
+    "checked": 20260819,
+    "name": "Garneau Tennis and Beach Volleyball Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "gastonlibrary.libcal.com/ical_subscribe.php?cid=4371": {
     "checked": 20260727,
     "name": "Gaston County Public Library Programs (Charlotte)",
@@ -3813,6 +5563,13 @@
     "reason": "20 vevents / 17 future",
     "status": "ok",
     "type": "ics"
+  },
+  "gc50plus.org": {
+    "checked": 20260819,
+    "name": "Good Companions 50 Plus Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "george-heriots.com/games-fixtures-and-cancellations/rowing": {
     "checked": 20260819,
@@ -3873,6 +5630,13 @@
   "gladstonetheatre.org.uk": {
     "checked": 20260819,
     "name": "Gladstone Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "glamorganchurch.com": {
+    "checked": 20260819,
+    "name": "Glamorgan Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4164,6 +5928,41 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "glenbow.org": {
+    "checked": 20260819,
+    "name": "Glenbow Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "glenbrook.community": {
+    "checked": 20260819,
+    "name": "Glenbrook Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "glenmoretemple.com": {
+    "checked": 20260819,
+    "name": "Glenmore Temple",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "globecinema.ca": {
+    "checked": 20260819,
+    "name": "Globe Cinema",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "glorylutheran.ca": {
+    "checked": 20260819,
+    "name": "Glory Lutheran Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "goa.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise de Goa (Panaji, India)",
@@ -4199,6 +5998,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "gofoothills.ca": {
+    "checked": 20260819,
+    "name": "Macron Performance Centre",
+    "reason": "4 events, 4/4 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "goldenharebooks.com": {
     "checked": 20260819,
     "name": "Golden Hare Books",
@@ -4209,6 +6015,13 @@
   "golf-it.com": {
     "checked": 20260819,
     "name": "Golf It!",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goodcheer.beer": {
+    "checked": 20260819,
+    "name": "Good Cheer Brewing",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4234,6 +6047,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "google.ca/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjFk_fatJXTAhUJ3mMKHdgNAiwQFggbMAA&url=http%3A%2F%2Fwestgatecommunity.ca%2F&usg=AFQjCNETbU2pZtPibO7P13KhuANp54JFdQ&bvm=bv.152174688,d.cGc": {
+    "checked": 20260819,
+    "name": "Westgate Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "gorbalslive.org.uk/data/community/cgroups/gorbalslibrary.htm": {
     "checked": 20260819,
     "name": "Gorbals Library and Real Learning Centre",
@@ -4244,6 +6064,13 @@
   "gordonwilsonart.co.uk": {
     "checked": 20260819,
     "name": "Gordon Wilson Art",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gospelcentre.com": {
+    "checked": 20260819,
+    "name": "Gospel Centre Pentecostal Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4262,9 +6089,44 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "gracechurchcalgary.com/events": {
+    "checked": 20260819,
+    "name": "Grace Presbyterian Church",
+    "reason": "5/35 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "gracechurchleith.org": {
     "checked": 20260819,
     "name": "Grace Church Leith",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gracemanorghg.blogspot.ca": {
+    "checked": 20260819,
+    "name": "Grace Manor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gracepointchurch.ca": {
+    "checked": 20260819,
+    "name": "Grace Point Church of God",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "graceuc.com": {
+    "checked": 20260819,
+    "name": "Grace United Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "graceuc.com/rental": {
+    "checked": 20260819,
+    "name": "Grace United Church Annex",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4332,6 +6194,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "gretabar.com": {
+    "checked": 20260819,
+    "name": "Greta",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "greyfriarsgardenglasgow.co.uk": {
     "checked": 20260819,
     "name": "Greyfriars Garden",
@@ -4360,6 +6229,20 @@
     "status": "fail",
     "type": "ics"
   },
+  "growwithtrellis.ca": {
+    "checked": 20260819,
+    "name": "Trellis Society, Bowness Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "growwithtrellis.ca/locations-and-contact/renfrew-club": {
+    "checked": 20260819,
+    "name": "Trellis Society \u2013 Renfrew Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "grpahicdeisgn.com": {
     "checked": 20260819,
     "name": "Grpahic Deisgn Gallery",
@@ -4380,6 +6263,13 @@
     "reason": "9 vevents / 7 future",
     "status": "ok",
     "type": "ics"
+  },
+  "gurdwaramillwoods.com": {
+    "checked": 20260819,
+    "name": "Gurdwara Millwoods",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "guwillowbankgarden.blogspot.co.uk": {
     "checked": 20260819,
@@ -4458,6 +6348,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "happybeerstreet.com": {
+    "checked": 20260819,
+    "name": "Happy Beer Street",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "harboroughmarket.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Harborough Market (Leicestershire)",
@@ -4485,6 +6382,27 @@
     "reason": "6 vevents / 1 future",
     "status": "ok",
     "type": "ics"
+  },
+  "hawkwood.ca": {
+    "checked": 20260819,
+    "name": "Hawkwood Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "haysboro.org": {
+    "checked": 20260819,
+    "name": "Haysboro Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hbic.ca": {
+    "checked": 20260819,
+    "name": "Hazrat Bilal Islamic Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "hc-one.co.uk": {
     "checked": 20260819,
@@ -4528,6 +6446,27 @@
     "status": "ok",
     "type": "ics"
   },
+  "heartlandhousing.ca/housing-directory/seniors-lodges/clover-bar-lodge": {
+    "checked": 20260819,
+    "name": "Clover Bar Lodge",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "heartlandhousing.ca/housing-directory/seniors-lodges/silver-birch-haven": {
+    "checked": 20260819,
+    "name": "Silver Birch Haven",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "heartlandhousing.ca/housing-directory/seniors-lodges/silver-birch-lodge": {
+    "checked": 20260819,
+    "name": "Silver Birch Lodge",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "heartsfc.co.uk/tickets-and-hospitality/tours/hearts-museum": {
     "checked": 20260819,
     "name": "Heart of Midlothian Museum",
@@ -4570,6 +6509,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "heritagepark.ca": {
+    "checked": 20260819,
+    "name": "Gasoline Alley",
+    "reason": "54 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "hermannpark.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Hermann Park Conservancy Events (Houston)",
@@ -4598,6 +6544,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "highlandparkcommunity.ca/events": {
+    "checked": 20260819,
+    "name": "Highland Park Community Centre",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
   "highways.hidot.hawaii.gov/resource/jzxa-jief.json": {
     "checked": 20260808,
     "name": "Repair and Restoration (highways.hidot.hawaii.gov)",
@@ -4605,9 +6558,44 @@
     "status": "fail",
     "type": "opendata"
   },
+  "highwoodcommunity.com": {
+    "checked": 20260819,
+    "name": "Highwood Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "highwoodoutdoorpool.com": {
+    "checked": 20260819,
+    "name": "Highwood Outdoor Pool",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hillhurstunited.com": {
+    "checked": 20260819,
+    "name": "Hillhurst United Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hillingdon.gov.uk/manor-farm": {
     "checked": 20260819,
     "name": "Manor Farm Complex",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hillviewchurch.ca": {
+    "checked": 20260819,
+    "name": "Hillview Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hojmi.org": {
+    "checked": 20260819,
+    "name": "House of Jacob Mikveh Israel",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4619,9 +6607,44 @@
     "status": "fail",
     "type": "ics"
   },
+  "holyfamilyparish.ca": {
+    "checked": 20260819,
+    "name": "Holy Family Parish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "holynamecalgary.ca": {
+    "checked": 20260819,
+    "name": "Holy Name Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "holyroodcommunity.org": {
+    "checked": 20260819,
+    "name": "Holyrood Community League",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "holyroodevangelical.org": {
     "checked": 20260819,
     "name": "Holyrood Evangelical Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "holyroodmennonitechurch.ca/?feed=my-calendar-ics": {
+    "checked": 20260819,
+    "name": "Holyrood Mennonite Church",
+    "reason": "0 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "holytrinityorthodox.ca": {
+    "checked": 20260819,
+    "name": "Holy Trinity Orthodox Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4647,6 +6670,13 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "hopecity.ca/kingsway": {
+    "checked": 20260819,
+    "name": "Hope City Church - Kingsway Campus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hopecityedinburgh.org": {
     "checked": 20260819,
     "name": "Hope City Church",
@@ -4657,6 +6687,13 @@
   "hopetouncrescentgarden.org.uk": {
     "checked": 20260819,
     "name": "Hopetoun Crescent Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "house831.com": {
+    "checked": 20260819,
+    "name": "House 831",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4738,6 +6775,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hrp.ca": {
+    "checked": 20260819,
+    "name": "Holy Rosary Catholic Church (Polish)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "htacc.org": {
+    "checked": 20260819,
+    "name": "Holy Trinity Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hullservices.ca": {
+    "checked": 20260819,
+    "name": "Hull Transalta Community Connections",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "huntersville.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20260727,
     "name": "Town of Huntersville Events (Charlotte)",
@@ -4759,6 +6817,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "ianwc.ca": {
+    "checked": 20260819,
+    "name": "Northwest Islamic Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ibb.info": {
     "checked": 20260808,
     "name": "ibb.info - Veranstaltungen in Ibbenb\u00fcren und drumzu",
@@ -4773,6 +6838,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "icacalgary.com/events": {
+    "checked": 20260819,
+    "name": "Inglewood Community Hall",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "ice.edu/events/?ical=1": {
     "checked": 20260727,
     "name": "Cozymeal / Institute of Culinary Education (New York)",
@@ -4786,6 +6858,20 @@
     "reason": "7 vevents / 6 future",
     "status": "ok",
     "type": "ics"
+  },
+  "idylwylde.org": {
+    "checked": 20260819,
+    "name": "Idylwylde Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "iglededios.org": {
+    "checked": 20260819,
+    "name": "Church of God",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "imchurches.co.uk/locations": {
     "checked": 20260819,
@@ -4815,6 +6901,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "indigo.ca/en-ca/store-locator-store-details?storeId=0906": {
+    "checked": 20260819,
+    "name": "Indigo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "industrycity.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Industry City Food Hall (Brooklyn)",
@@ -4829,12 +6922,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "innfromthecold.org": {
+    "checked": 20260819,
+    "name": "Inn from the Cold",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "insidethecask.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Inside the Cask (London, UK)",
     "reason": "6 vevents / 5 future",
     "status": "ok",
     "type": "ics"
+  },
+  "intercarealberta.com/brentwood-care-centre": {
+    "checked": 20260819,
+    "name": "Brentwood Care Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "internal.open.piercecountywa.gov/resource/rgru-37yt.json": {
     "checked": 20260819,
@@ -4856,6 +6963,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ironwoodstage.ca": {
+    "checked": 20260819,
+    "name": "Ironwood Stage and Grill",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "islamictrust.org": {
     "checked": 20260819,
@@ -4892,6 +7006,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jammat.org": {
+    "checked": 20260819,
+    "name": "Islamic Shia Ithna-Asheri Centre",
+    "reason": "3 events, 2/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "jarkkaa.fi": {
     "checked": 20260808,
     "name": "J\u00e4rkk\u00e4\u00e4.fi",
@@ -4920,12 +7041,26 @@
     "status": "ok",
     "type": "ics"
   },
+  "jubileeauditorium.com": {
+    "checked": 20260819,
+    "name": "Northern Alberta Jubilee Auditorium",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "junction12.org.uk": {
     "checked": 20260819,
     "name": "Junction 12 Youth Project",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "junohouse.ca": {
+    "checked": 20260819,
+    "name": "Juno House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "jura-biel-seeland.fedievents.ch": {
     "checked": 20260808,
@@ -4954,6 +7089,13 @@
     "reason": "15 vevents / 15 future",
     "status": "ok",
     "type": "ics"
+  },
+  "kchockey.ca": {
+    "checked": 20260819,
+    "name": "KC Twin Arenas",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "kdc.org.uk": {
     "checked": 20260819,
@@ -4990,6 +7132,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kenilworthcommunity.com": {
+    "checked": 20260819,
+    "name": "Kenilworth Community League",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "kestreltrust.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Kestrel Land Trust (Amherst, MA)",
@@ -5011,6 +7160,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kilkenny.ab.ca": {
+    "checked": 20260819,
+    "name": "Kilkenny Community League",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "killarneyglengarry.com": {
+    "checked": 20260819,
+    "name": "Killarney Glengarry Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kilriegranary.co.uk": {
     "checked": 20260819,
     "name": "Kilrie Granary",
@@ -5024,6 +7187,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "kingslandcommunity.ca/whats-going-on/events": {
+    "checked": 20260819,
+    "name": "Kingsland Community Centre",
+    "reason": "30 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
   },
   "kingstonheritage.org.uk/visit": {
     "checked": 20260819,
@@ -5046,9 +7216,23 @@
     "status": "fail",
     "type": "ics"
   },
+  "kmre.ca": {
+    "checked": 20260819,
+    "name": "Calvin Hungarian Presbyterian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "knightswoodcentre.co.uk": {
     "checked": 20260819,
     "name": "Knightswood Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "knownchurch.ca": {
+    "checked": 20260819,
+    "name": "Known Victory Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5073,6 +7257,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "knoxcalgary.ca": {
+    "checked": 20260819,
+    "name": "Knox Presbyterian Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "knzb.org.nz/events/?ical=1": {
     "checked": 20260727,
@@ -5116,6 +7307,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "lacitefranco.ca/corporate-events": {
+    "checked": 20260819,
+    "name": "La Cite Francophone",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "lacorps.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Los Angeles Conservation Corps",
@@ -5136,6 +7334,48 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "lakechap.ca": {
+    "checked": 20260819,
+    "name": "Lake Chaparral Residents Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lakeshoremanor.ca": {
+    "checked": 20260819,
+    "name": "Lakeshore Manor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lakesundance.org": {
+    "checked": 20260819,
+    "name": "Sundance Lodge",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lakeviewbc.ca": {
+    "checked": 20260819,
+    "name": "Lakeview Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lakeviewcommunity.org": {
+    "checked": 20260819,
+    "name": "Lakeview Community Association - Main Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lakeviewunitedchurch.com": {
+    "checked": 20260819,
+    "name": "Lakeview United Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "lancaster-uk.libcal.com/ical_subscribe.php?cid=718": {
     "checked": 20260727,
@@ -5179,12 +7419,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "launchpadgolf.com": {
+    "checked": 20260819,
+    "name": "LaunchPad Golf",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "law-uk.libcal.com/ical_subscribe.php?cid=7896": {
     "checked": 20260727,
     "name": "University of Law Library Events (London, United Kingdom)",
     "reason": "23 vevents / 13 future",
     "status": "ok",
     "type": "ics"
+  },
+  "lds.org": {
+    "checked": 20260819,
+    "name": "The Church of Jesus Christ of Latter-day Saints",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "leeds.libcal.com/ical_subscribe.php?cid=8882": {
     "checked": 20260727,
@@ -5213,6 +7467,13 @@
     "reason": "ConnectTimeout: HTTPSConnectionPool(host='leedsmarkets.co.uk', port=443): Max retries ",
     "status": "fail",
     "type": "ics"
+  },
+  "leefield.ca/event-list": {
+    "checked": 20260819,
+    "name": "Leefield Community League",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "leithchurchestogether.org.uk/member-churches/duke-street-united-reformed": {
     "checked": 20260819,
@@ -5347,6 +7608,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "library.ucalgary.ca/branches/gallagher-library": {
+    "checked": 20260819,
+    "name": "Gallagher Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "library.ucalgary.ca/hours": {
+    "checked": 20260819,
+    "name": "Health Sciences Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "librarycalendar.fairfaxcounty.gov/ical_subscribe.php?cid=6524": {
     "checked": 20260809,
     "name": "Fairfax County Public Library (DC metro)",
@@ -5364,6 +7639,13 @@
   "lifechurchedinburgh.co.uk": {
     "checked": 20260819,
     "name": "Life Church Edinburgh",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lifeconnection.ca": {
+    "checked": 20260819,
+    "name": "Lifeconnection Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5395,6 +7677,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "linktr.ee/ComoSeDiceCollective": {
+    "checked": 20260819,
+    "name": "Como se Dice Collective",
+    "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "liquidroom.com": {
     "checked": 20260819,
@@ -5606,6 +7895,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "livingspirit.life": {
+    "checked": 20260819,
+    "name": "Living Spirit Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "livingstonold.org": {
     "checked": 20260819,
     "name": "Livingston Village Kirk",
@@ -5641,6 +7937,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "local.churchofjesuschrist.org/en/ca/ab/calgary/6560-silver-springs-crescent-nw?y_source=1_NjcwOTM4NjAtNzE1LWxvY2F0aW9uLndlYnNpdGU%3D": {
+    "checked": 20260819,
+    "name": "The Church of Jesus Christ of Latter-day Saints",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "local.churchofjesuschrist.org/en/gb/scotland/east-kilbride/1-vancouver-dr": {
     "checked": 20260819,
     "name": "The Church of Jesus Christ of Latter-day Saints",
@@ -5651,6 +7954,13 @@
   "localsolutions.org.uk": {
     "checked": 20260819,
     "name": "Local Solutions",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lochgallery.com": {
+    "checked": 20260819,
+    "name": "Loch Gallery",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5689,6 +7999,20 @@
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "loomahall.com": {
+    "checked": 20260819,
+    "name": "Looma Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lordoflifemillwoods.com": {
+    "checked": 20260819,
+    "name": "Lord Of Life Lutheran Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "lostgarden.co.uk": {
     "checked": 20260819,
@@ -5732,6 +8056,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "ltrugby.com": {
+    "checked": 20260819,
+    "name": "Leprechaun Tiger Rugby Football Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lucemhouse.co.uk": {
     "checked": 20260819,
     "name": "Lucem House Community Cinema Plus+",
@@ -5745,6 +8076,13 @@
     "reason": "9 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "lunchboxtheatre.com": {
+    "checked": 20260819,
+    "name": "Lunchbox Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "lyceum.org.uk/events/guys-dolls": {
     "checked": 20260819,
@@ -5774,12 +8112,26 @@
     "status": "empty",
     "type": "ics"
   },
+  "mahaganapathytemple.com": {
+    "checked": 20260819,
+    "name": "Maha Ganapathy Temple",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "makecic.org": {
     "checked": 20260819,
     "name": "Make Huyton Village",
     "reason": "1 events, 1/1 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "malmoplains.com/calendar": {
+    "checked": 20260819,
+    "name": "Malmo Community League",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
   },
   "mansfieldcare.co.uk/mansfield-care-homes/eildon-house-edinburgh": {
     "checked": 20260819,
@@ -5791,6 +8143,13 @@
   "manystudios.co.uk": {
     "checked": 20260819,
     "name": "MANY Studios",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "maptown.com": {
+    "checked": 20260819,
+    "name": "Map Town",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5809,6 +8168,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mardaloopchurch.ca": {
+    "checked": 20260819,
+    "name": "Marda Loop Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "margaretriver.wine/events/?ical=1": {
     "checked": 20260727,
     "name": "Margaret River Wine Region Events (Australia)",
@@ -5816,12 +8182,33 @@
     "status": "ok",
     "type": "ics"
   },
+  "mariancentreedmonton.ca": {
+    "checked": 20260819,
+    "name": "Marian Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mariettasquaremarket.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Historic Roswell / Marietta Square Market Events",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "markaz.ca": {
+    "checked": 20260819,
+    "name": "Markaz-Ul-Islam",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "markazalimammalik.com": {
+    "checked": 20260819,
+    "name": "Markaz Al Imam Malik",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "marketgallery.org": {
     "checked": 20260819,
@@ -5834,6 +8221,41 @@
     "checked": 20260727,
     "name": "Markthal Rotterdam Events",
     "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
+  "marlpark.ca/programs": {
+    "checked": 20260819,
+    "name": "Marlborough Park Community Centre",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
+  "masjidalsalaam.ca": {
+    "checked": 20260819,
+    "name": "Al-Salaam Islamic Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "masjidinthepark.org": {
+    "checked": 20260819,
+    "name": "Masjid in The Park",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "masjidquba.ca": {
+    "checked": 20260819,
+    "name": "Masjid Quba",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "masjidtaqwa.ca/?ical=1": {
+    "checked": 20260819,
+    "name": "Masjid At-Taqwa",
+    "reason": "0 vevents / 0 future",
     "status": "fail",
     "type": "ics"
   },
@@ -5865,6 +8287,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "mastersgalleryltd.com": {
+    "checked": 20260819,
+    "name": "Masters Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mathallenoslo.no/events/?ical=1": {
     "checked": 20260727,
     "name": "Mathallen Oslo Food Hall",
@@ -5872,12 +8301,40 @@
     "status": "ok",
     "type": "ics"
   },
+  "mathesonhousing.ca": {
+    "checked": 20260819,
+    "name": "Matheson",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mbo.org.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Mount Burnett Observatory (Mount Burnett, Australia)",
     "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
+  },
+  "mcapeople.com": {
+    "checked": 20260819,
+    "name": "Montgomery Community Association Hall",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "mcdougallunited.com": {
+    "checked": 20260819,
+    "name": "McDougall United Church",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "mckernancommunity.org/hall-bookings": {
+    "checked": 20260819,
+    "name": "McKernan Community Centre",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "mcnaughtansbookshop.com": {
     "checked": 20260819,
@@ -5893,12 +8350,33 @@
     "status": "ok",
     "type": "ics"
   },
+  "meadowlarkpark.org": {
+    "checked": 20260819,
+    "name": "Meadowlark Park Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "meadowschristian.ca/calendar-grades": {
+    "checked": 20260819,
+    "name": "Meadowlands Baptist Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "meatmarket.org.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Meat Market (Melbourne, Australia)",
     "reason": "8 vevents / 8 future",
     "status": "ok",
     "type": "ics"
+  },
+  "medinamosque.ca": {
+    "checked": 20260819,
+    "name": "Medina Mosque",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "meet.debian.net": {
     "checked": 20260808,
@@ -5935,6 +8413,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "metcentre.com": {
+    "checked": 20260819,
+    "name": "The Metropolitan Conference Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "methodist.org.uk/findachurch/queens-road-ashton": {
     "checked": 20260819,
     "name": "Methodist Church",
@@ -5956,6 +8441,27 @@
     "status": "fail",
     "type": "ics"
   },
+  "midsun.org": {
+    "checked": 20260819,
+    "name": "Mid-Sun Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "milezerodance.com": {
+    "checked": 20260819,
+    "name": "Mile Zero Dance",
+    "reason": "4 events, 4/4 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "millbournelife.ca": {
+    "checked": 20260819,
+    "name": "Millbourne Community Life Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "millennium-care.co.uk/care-homes/lakeside": {
     "checked": 20260819,
     "name": "Lakeside Nursing & Residential Home",
@@ -5969,6 +8475,13 @@
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "millwoodsunited.org/events": {
+    "checked": 20260819,
+    "name": "Mill Woods United Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "milwaukeepublicmarket.org/events/?ical=1": {
     "checked": 20260727,
@@ -6012,12 +8525,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "miskanawah.ca": {
+    "checked": 20260819,
+    "name": "Miskanawah East",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mmccbonnyriggmosque.co.uk": {
     "checked": 20260819,
     "name": "Madinah Masjid & Community Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mmredeemer.ca/general-8": {
+    "checked": 20260819,
+    "name": "Mary Mother of the Redeemer",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "mnl.libcal.com/ical_subscribe.php?cid=19360": {
     "checked": 20260727,
@@ -6222,6 +8749,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "moonstonecreation.ca": {
+    "checked": 20260819,
+    "name": "Moonstone Creation Native Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "moravian.org.uk": {
     "checked": 20260819,
     "name": "Hornsey Moravian Church",
@@ -6271,6 +8805,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mountroyalstation.ca/facilities.html": {
+    "checked": 20260819,
+    "name": "Mount Royal Station",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "movim.ca": {
+    "checked": 20260819,
+    "name": "Movim Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mpca.ca/community-hall": {
+    "checked": 20260819,
+    "name": "Mount Pleasant Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mpca.ca/outdoor-pool": {
+    "checked": 20260819,
+    "name": "Mount Pleasant Outdoor Pool",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "msmissmrs.co.uk/getsetprogramme": {
     "checked": 20260819,
     "name": "MsMissMrs",
@@ -6285,9 +8847,23 @@
     "status": "ok",
     "type": "localist"
   },
+  "mtroyal.ca/mrevents/Find-a-Venue/bella-concert-hall.htm": {
+    "checked": 20260819,
+    "name": "Bella Concert Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "murrayfieldindoorsportsclub.co.uk": {
     "checked": 20260819,
     "name": "Murrayfield Indoor Sports Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "museeheritage.ca": {
+    "checked": 20260819,
+    "name": "Mus\u00e9e H\u00e9ritage Museum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6355,6 +8931,27 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "mycedarbrae.ca": {
+    "checked": 20260819,
+    "name": "Cedarbrae Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "myglamorgan.ca": {
+    "checked": 20260819,
+    "name": "Glamorgan Community Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "myglendale.ca": {
+    "checked": 20260819,
+    "name": "Glendale & Glendale Meadows Community Centre",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "mylifechurch.co.uk": {
     "checked": 20260819,
     "name": "Life Church",
@@ -6368,6 +8965,13 @@
     "reason": "92 upcoming, sample: {all} GOOD Afternoon",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "myrosedale.info/?feed=my-calendar-ics": {
+    "checked": 20260819,
+    "name": "Rosedale Community Centre",
+    "reason": "0 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
   },
   "mysticriver.org/events/?ical=1": {
     "checked": 20260803,
@@ -6386,6 +8990,13 @@
   "nahmadprojects.com": {
     "checked": 20260819,
     "name": "Helly Nahmad Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nanaksargurdwara.ca": {
+    "checked": 20260819,
+    "name": "Nanaksar Gurudwara Gursikh Temple",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6425,12 +9036,33 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "nefcs.ca": {
+    "checked": 20260819,
+    "name": "North East Family Connections",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nekotobooks.com": {
+    "checked": 20260819,
+    "name": "Nekoto Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "neponset.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Neponset River Watershed Association (Canton, MA)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "nesportsplex.com": {
+    "checked": 20260819,
+    "name": "Don Hartman North East Sportsplex",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "nestonmethodist.org.uk/church.html": {
     "checked": 20260819,
@@ -6481,6 +9113,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "nextpageyyc.ca": {
+    "checked": 20260819,
+    "name": "The Next Page",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nhcfonline.org.uk": {
     "checked": 20260819,
     "name": "North Huyton Community Centre",
@@ -6502,6 +9141,13 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "nirankari.org": {
+    "checked": 20260819,
+    "name": "The Sant Nirankari Mission Canada Inc.",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
   "nlb.libcal.com/ical_subscribe.php?cid=11498": {
     "checked": 20260727,
     "name": "National Library Board GoLibrary (Singapore)",
@@ -6519,6 +9165,34 @@
   "nlssmc.org.uk/churches/st-marks": {
     "checked": 20260819,
     "name": "Saint Mark's Church Netherton",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nmc.ca": {
+    "checked": 20260819,
+    "name": "National Music Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nmclinfo.com": {
+    "checked": 20260819,
+    "name": "North Millbourne Community League",
+    "reason": "8 events, 8/8 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "nocturnebooks.ca": {
+    "checked": 20260819,
+    "name": "Nocturne Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "norberghall.com": {
+    "checked": 20260819,
+    "name": "Norberg Hall",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6551,6 +9225,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "northgatebaptist.ca/events": {
+    "checked": 20260819,
+    "name": "Northgate Baptist Church",
+    "reason": "3/33 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
+  "northglenora.org": {
+    "checked": 20260819,
+    "name": "North Glenora Community League",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "northlanculture.co.uk/museums/visiting-us/colzium-house-and-estate": {
     "checked": 20260819,
     "name": "Colzium Museum",
@@ -6561,6 +9249,13 @@
   "northlanculture.co.uk/museums/visiting-us/kilsyth-museum": {
     "checked": 20260819,
     "name": "Kilsyth Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "northsidesoccer.ca/fields.php#Indoor_Facilities": {
+    "checked": 20260819,
+    "name": "Calgary West Soccer Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6614,6 +9309,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "nvrlnd.ca": {
+    "checked": 20260819,
+    "name": "nvrlnd.",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nvrlnd.ca/the-boutique": {
+    "checked": 20260819,
+    "name": "nvrlnd. Boutique",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nwcfl.com/clubpage.php?id=4": {
     "checked": 20260819,
     "name": "Ashton Athletic Football Club",
@@ -6635,6 +9344,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "oakridgecommunity.ca": {
+    "checked": 20260819,
+    "name": "Oakridge Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "oberlausitz.vonunten.org": {
     "checked": 20260805,
     "name": "oberlausitz.vonunten.org",
@@ -6649,12 +9365,26 @@
     "status": "ok",
     "type": "ics"
   },
+  "ogden50plus.org": {
+    "checked": 20260819,
+    "name": "Ogden 50+ Activity Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ohiocitymarket.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Cleveland Public Market District Events",
     "reason": "ConnectionError: HTTPSConnectionPool(host='ohiocitymarket.org', port=443): Max retries ",
     "status": "fail",
     "type": "ics"
+  },
+  "olbeautiful.com/events": {
+    "checked": 20260819,
+    "name": "Ol' Beautiful Brewing Company",
+    "reason": "30 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
   },
   "oldstrathcona.ca/events-full/?ical=1": {
     "checked": 20260727,
@@ -6726,6 +9456,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "onwardhomes.ca/apartments/francis-klein-centre": {
+    "checked": 20260819,
+    "name": "Francis Klein Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "opendata.comune.bologna.it/api/explore/v2.1/catalog/datasets/eventi-bologna-agenda-cultura/records": {
     "checked": 20260727,
     "name": "Bologna Agenda Cultura (Bologna, Italy)",
@@ -6796,6 +9533,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "orthodoxcalgary.org": {
+    "checked": 20260819,
+    "name": "Antiochian Orthodox Church of the Annunciation",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ortonagymnastics.com": {
+    "checked": 20260819,
+    "name": "Ortona Gymnastics",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "osc.org/visit/events/?ical=1": {
     "checked": 20260727,
     "name": "Orlando Science Center (Orlando, FL)",
@@ -6859,6 +9610,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "owlsnestbooks.com": {
+    "checked": 20260819,
+    "name": "Owl's Nest Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "oxfam.org.uk/shops/oxfam-books-music-crouch-end": {
     "checked": 20260819,
     "name": "Oxfam Bookshop",
@@ -6908,6 +9666,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "pageskensington.com": {
+    "checked": 20260819,
+    "name": "Pages",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paisleystgeorges.org.uk": {
     "checked": 20260819,
     "name": "Paisley St George's Causeyside",
@@ -6936,6 +9701,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "parkallen.ca": {
+    "checked": 20260819,
+    "name": "Parkallen Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "parkcentre.scot": {
     "checked": 20260819,
     "name": "Park Centre",
@@ -6943,12 +9715,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "parkdalecromdale.org/calendar": {
+    "checked": 20260819,
+    "name": "Parkdale Cromdale Community League",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
   "parkerrec.com/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar": {
     "checked": 20260727,
     "name": "Parker Recreation & Community Events (Denver)",
     "reason": "18 vevents / 18 future",
     "status": "ok",
     "type": "ics"
+  },
+  "parkhillstanleypark.ca": {
+    "checked": 20260819,
+    "name": "Parkhill Stanley Park Community Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "parklanechapel.org": {
     "checked": 20260819,
@@ -6999,9 +9785,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "peacelc.ca": {
+    "checked": 20260819,
+    "name": "Peace Lutheran Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "peoplefirstscotland.org": {
     "checked": 20260819,
     "name": "People First (Scotland)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "peopleschurchedmonton.com": {
+    "checked": 20260819,
+    "name": "People's Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7072,6 +9872,13 @@
   "picturehouses.com/cinema/clapham-picturehouse": {
     "checked": 20260819,
     "name": "Clapham Picturehouse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "picturethisgallery.com": {
+    "checked": 20260819,
+    "name": "Picture This! framing & gallery",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7159,6 +9966,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "polariscentre.ca/upcoming-events": {
+    "checked": 20260819,
+    "name": "The Polaris Theatre",
+    "reason": "19/49 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "policemuseum.org.uk": {
     "checked": 20260819,
@@ -7328,6 +10142,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "pridecentreofedmonton.ca/events": {
+    "checked": 20260819,
+    "name": "Pride Centre of Edmonton",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "princes-trust.org.uk/about-the-trust/where-we-work/scotland/edinburgh-centre": {
     "checked": 20260819,
     "name": "1st Leith Company The Boys Brigade Bank Villa",
@@ -7419,12 +10240,26 @@
     "status": "ok",
     "type": "ics"
   },
+  "prominencewayretirement.com": {
+    "checked": 20260819,
+    "name": "Prominence Way Retirement Community",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "prospectpark.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Prospect Park Alliance (Brooklyn, NY)",
     "reason": "30 vevents / 29 future",
     "status": "ok",
     "type": "ics"
+  },
+  "providencechildren.com": {
+    "checked": 20260819,
+    "name": "Providence Beddington School",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "pskc.org.uk": {
     "checked": 20260819,
@@ -7440,12 +10275,26 @@
     "status": "ok",
     "type": "ods"
   },
+  "pumphousetheatre.ca": {
+    "checked": 20260819,
+    "name": "Pumphouse Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "pune.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise de Pune (Pune, India)",
     "reason": "44 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "puremotiondance.ca": {
+    "checked": 20260819,
+    "name": "Pure Motion Dance Company",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "pycp.co.uk": {
     "checked": 20260819,
@@ -7482,6 +10331,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "queenpol.org": {
+    "checked": 20260819,
+    "name": "Our Lady Queen of Peace Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "queens.london": {
     "checked": 20260819,
     "name": "Queens Skate Dine Bowl",
@@ -7495,6 +10351,13 @@
     "reason": "http 200 / no VCALENDAR \u2014 the calendar plugin is gone",
     "status": "fail",
     "type": "ics"
+  },
+  "quickdrawanimation.ca": {
+    "checked": 20260819,
+    "name": "Quickdraw Animation Society",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "quintobookshop.co.uk": {
     "checked": 20260819,
@@ -7517,6 +10380,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "radraceway.com": {
+    "checked": 20260819,
+    "name": "RAD Torque Raceway",
+    "reason": "39 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "rafburtonwoodheritagecentre.co.uk": {
     "checked": 20260819,
     "name": "RAF Burtonwood Heritage Centre",
@@ -7530,6 +10400,13 @@
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "rainbowchurch.ca": {
+    "checked": 20260819,
+    "name": "Rainbow Christian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "rainhilltrials.co.uk": {
     "checked": 20260819,
@@ -7552,9 +10429,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ratedultralounge.com": {
+    "checked": 20260819,
+    "name": "Rated Ultra Lounge",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rbge.org.uk": {
     "checked": 20260819,
     "name": "Royal Botanic Garden Edinburgh",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rccgcla.ca": {
+    "checked": 20260819,
+    "name": "Christ Love Assembly",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "rcl285.ca": {
+    "checked": 20260819,
+    "name": "Royal Canadian Legion - Centennial Calgary Branch 285",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7573,9 +10471,30 @@
     "status": "fail",
     "type": "ics"
   },
+  "recoveryacres.org": {
+    "checked": 20260819,
+    "name": "1835 House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "reddeerlakeuc.com": {
+    "checked": 20260819,
+    "name": "Red Deer Lake United Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "redeemeredinburgh.org": {
     "checked": 20260819,
     "name": "Redeemer Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "reformedbookservices.com": {
+    "checked": 20260819,
+    "name": "Reformed Book Services | Calgary",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7650,12 +10569,47 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "richfieldchurch.ca/summer-events": {
+    "checked": 20260819,
+    "name": "Richfield Christian Fellowship",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "ridgewoodcl.org": {
+    "checked": 20260819,
+    "name": "Ridgewood Community League",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "risecalgary.ca": {
+    "checked": 20260819,
+    "name": "Rise Calgary - Forest Lawn",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "riverbank.ie/events/?ical=1": {
     "checked": 20260809,
     "name": "Riverbank Arts Centre (Newbridge, Ireland)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "riverbendunited.org/life-events": {
+    "checked": 20260819,
+    "name": "Riverbend United Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "rivercrestcarecentre.com": {
+    "checked": 20260819,
+    "name": "Rivercrest Care Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "riverkeeper.org/events/?ical=1": {
     "checked": 20260803,
@@ -7664,12 +10618,33 @@
     "status": "fail",
     "type": "ics"
   },
+  "riverofhope.ca": {
+    "checked": 20260819,
+    "name": "River of Hope Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "riverparkchurch.com": {
+    "checked": 20260819,
+    "name": "River Park Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "riversideparknyc.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Riverside Park Conservancy (New York, NY)",
     "reason": "24 vevents / 24 future",
     "status": "ok",
     "type": "ics"
+  },
+  "rlac.ca": {
+    "checked": 20260819,
+    "name": "River of Life Alliance",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "rlbc.org.uk": {
     "checked": 20260819,
@@ -7678,10 +10653,45 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "robertmcclurechurch.org/event-calendar": {
+    "checked": 20260819,
+    "name": "Robert McClure United Church",
+    "reason": "5/35 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
+  "rockinthunderfest.com": {
+    "checked": 20260819,
+    "name": "Rockin' Thunder Fest",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rockpointe.ca": {
+    "checked": 20260819,
+    "name": "RockPointe Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rockyviewalliance.com/events": {
+    "checked": 20260819,
+    "name": "?",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "roebankwedding.co.uk": {
     "checked": 20260819,
     "name": "Roebank Hotel",
     "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rogersplace.com": {
+    "checked": 20260819,
+    "name": "Rogers Place",
+    "reason": "osm probe: offsite:ticketmaster",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -7699,6 +10709,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rosscarrock.org": {
+    "checked": 20260819,
+    "name": "Rosscarrock Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rosslynchapel.com": {
     "checked": 20260819,
     "name": "Rosslyn Chapel",
@@ -7712,6 +10729,13 @@
     "reason": "62 upcoming, sample: rasthausZwei - Vegane Klassiker",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "royalalbertamuseum.ca": {
+    "checked": 20260819,
+    "name": "Royal Alberta Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "royalscottishacademy.org": {
     "checked": 20260819,
@@ -7734,12 +10758,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rrrha.ca": {
+    "checked": 20260819,
+    "name": "Ranch Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rshartisanmarket.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "R.S.H Artisan Markets (Yorkshire)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "ruharuh.ca": {
+    "checked": 20260819,
+    "name": "R\u00fch a R\u00fch Mosque",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "runcornlinnetsfc.co.uk/fundraisingevents": {
     "checked": 20260819,
@@ -7748,12 +10786,26 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "russian-orthodox.ca": {
+    "checked": 20260819,
+    "name": "St. John of Shanghai and San Francisco Russian Orthodox Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "russianriverbrewing.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Russian River Brewing (Santa Rosa, CA)",
     "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
+  },
+  "rutlandparkcommunity.com": {
+    "checked": 20260819,
+    "name": "Rutland Park Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "safoodbank.org/events/?ical=1": {
     "checked": 20260727,
@@ -7762,6 +10814,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "sahabamosque.ca": {
+    "checked": 20260819,
+    "name": "Sahaba Mosque",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "saintbrides.com": {
     "checked": 20260819,
     "name": "St Brides RC Church",
@@ -7769,12 +10828,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "saintefamille.ca": {
+    "checked": 20260819,
+    "name": "\u00c9glise Sainte-Famille",
+    "reason": "8 events, 8/8 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "saintignatiuswishaw.org.uk": {
     "checked": 20260819,
     "name": "St Ignatius",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "saintmichael.ca": {
+    "checked": 20260819,
+    "name": "St. Michael Catholic Community",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "saintpatrickskilsyth.com": {
     "checked": 20260819,
@@ -7790,9 +10863,37 @@
     "status": "ok",
     "type": "ics"
   },
+  "saintpeterlutheran.com": {
+    "checked": 20260819,
+    "name": "St. Peter Evangelical Lutheran Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintschurch.ca": {
+    "checked": 20260819,
+    "name": "West Edmonton Christian Assembly",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintstephencalgary.ca": {
+    "checked": 20260819,
+    "name": "St Stephen Protomartyr Ukrainian Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "saintthomas.org.uk": {
     "checked": 20260819,
     "name": "St Thomas' Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "salisburyunited.ca": {
+    "checked": 20260819,
+    "name": "Salisbury United Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8035,6 +11136,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "salvationarmycalgary.org/wp": {
+    "checked": 20260819,
+    "name": "Salvation Army Centre of Hope",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "samaritans.org/branches/samaritans-edinburgh-and-lothians": {
     "checked": 20260819,
     "name": "The Samaritans",
@@ -8105,12 +11213,54 @@
     "status": "fail",
     "type": "ics"
   },
+  "scacalgary.ca/events": {
+    "checked": 20260819,
+    "name": "SCA Community Centre",
+    "reason": "2/32 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
+  "scancentre.ca": {
+    "checked": 20260819,
+    "name": "Scandinavian Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "scarborocommunity.com": {
+    "checked": 20260819,
+    "name": "Scarboro Community Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "scarborounited.org/events": {
+    "checked": 20260819,
+    "name": "Scarboro United Church",
+    "reason": "8/38 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
+  "sccefc.ca/en/events": {
+    "checked": 20260819,
+    "name": "South Calgary Chinese Evangelical Free Church",
+    "reason": "10/40 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "sccf.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Sanibel-Captiva Conservation Foundation (Sanibel, FL)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "scenicacresca.ca": {
+    "checked": 20260819,
+    "name": "Scenic Acres Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "scenichudson.org/events/?ical=1": {
     "checked": 20260727,
@@ -8245,6 +11395,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "seachangebeer.com": {
+    "checked": 20260819,
+    "name": "Sea Change Brewing Co.",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "seachangebeer.com/skelly-club": {
+    "checked": 20260819,
+    "name": "Sea Change Brewing Co's Skelly Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "seachurch.ca/event-cm": {
+    "checked": 20260819,
+    "name": "South Edmonton Alliance Church",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
   "seagrovecentre.wordpress.com": {
     "checked": 20260819,
     "name": "NEDC Seagrove Centre",
@@ -8266,6 +11437,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "seesa.ca": {
+    "checked": 20260819,
+    "name": "South East Edmonton Seniors Association Activity Centre",
+    "reason": "6 events, 6/6 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "seezencanada.wixsite.com/home": {
+    "checked": 20260819,
+    "name": "See Zen Benevolent Society",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "selkirkstreet.org/events": {
     "checked": 20260819,
     "name": "Evangelical Church",
@@ -8280,12 +11465,33 @@
     "status": "empty",
     "type": "ics"
   },
+  "servusplace.ca": {
+    "checked": 20260819,
+    "name": "Servus Place",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sfandrei.org": {
+    "checked": 20260819,
+    "name": "Saint Andrew Romanian Orthodox Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sfmfoodbank.org/events/?ical=1": {
     "checked": 20260727,
     "name": "SF-Marin Food Bank Events",
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "sgicanada.org": {
+    "checked": 20260819,
+    "name": "SGI Calgary Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "shakespearenorthplayhouse.co.uk": {
     "checked": 20260819,
@@ -8315,9 +11521,51 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "shelflifebooks.ca": {
+    "checked": 20260819,
+    "name": "Shelf Life Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "shepardcommunityhall.ca": {
+    "checked": 20260819,
+    "name": "Shepard Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "shepherdsgate.ca": {
+    "checked": 20260819,
+    "name": "Shepherd's Gate Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sherwoodparkunitedchurch.ca": {
+    "checked": 20260819,
+    "name": "Sherwood Park United Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "shillingbrewingcompany.co.uk": {
     "checked": 20260819,
     "name": "Shilling Brewing Company",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "shirdisaibabaedmonton.ca/new-events": {
+    "checked": 20260819,
+    "name": "Shirdi Sai Baba Mandir",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
+  "shop.ucalgary.ca": {
+    "checked": 20260819,
+    "name": "University of Calgary Bookstore",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8385,6 +11633,34 @@
     "status": "ok",
     "type": "ics"
   },
+  "sikhsocietyofcalgary.org": {
+    "checked": 20260819,
+    "name": "Sikh Society of Calgary",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "silvera.ca/living-here/supportive-living/community-locations-sl": {
+    "checked": 20260819,
+    "name": "Valleyview Community (Silvera for Seniors)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "silvera.ca/living-here/westview": {
+    "checked": 20260819,
+    "name": "Westview Retirement Living",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "silverspringscommunity.ca/events": {
+    "checked": 20260819,
+    "name": "Silver Springs Community Centre",
+    "reason": "8/8 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "sites.google.com/site/gidlowmethodists": {
     "checked": 20260819,
     "name": "Gidlow Methodist Church",
@@ -8406,9 +11682,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "skatecentennial.com": {
+    "checked": 20260819,
+    "name": "Centennial Figure Skating Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "skibearsden.co.uk": {
     "checked": 20260819,
     "name": "Bearsden Snowsports Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "skippingstone.ca": {
+    "checked": 20260819,
+    "name": "Skipping Stone",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8423,6 +11713,13 @@
   "slfchurch.org/frodsham-parish-hall": {
     "checked": 20260819,
     "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "slowburnbooks.ca": {
+    "checked": 20260819,
+    "name": "Slow Burn Books",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8518,6 +11815,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "soulfoodcrystals.com": {
+    "checked": 20260819,
+    "name": "Soul Food Books Etc.",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sourceforsports.ca/pages/adrenalin-source-for-sports-northland-calgary?srsltid=AfmBOopxDJtvAVHWXLLndo8t2-nTUmInZmhZ0W901e8KmgO4zWDTUp6o": {
+    "checked": 20260819,
+    "name": "Adrenalin",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "southboundbrewing.ca": {
+    "checked": 20260819,
+    "name": "Southbound Brewing",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "southgatealliance.net": {
+    "checked": 20260819,
+    "name": "South Gate Alliance",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "southportrfc.com": {
     "checked": 20260819,
     "name": "Southport Rugby Football Club",
@@ -8532,6 +11857,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "southsidevictory.com": {
+    "checked": 20260819,
+    "name": "Southside Victory Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "southviewyyc.com": {
+    "checked": 20260819,
+    "name": "Southview Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "southwark.gov.uk/culture-and-sport/libraries/find-library/dulwich-library": {
     "checked": 20260819,
     "name": "Dulwich Library",
@@ -8539,9 +11878,79 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "southwoodcl.ca": {
+    "checked": 20260819,
+    "name": "Southwood Community League",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sparkscience.ca": {
+    "checked": 20260819,
+    "name": "TELUS Spark Science Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sparrowartspace.com/events": {
+    "checked": 20260819,
+    "name": "Sparrow Artspace",
+    "reason": "6/36 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
+  "speeders.ca/chinook": {
+    "checked": 20260819,
+    "name": "Speeders",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "spiritwoodretreat.com": {
+    "checked": 20260819,
+    "name": "SpiritWood Retreat",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sportball.com": {
+    "checked": 20260819,
+    "name": "Sportball",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sportshall.ca": {
+    "checked": 20260819,
+    "name": "Canada's Sports Hall Of Fame",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "springschurch.com": {
+    "checked": 20260819,
+    "name": "Springs Church",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "srisambuddhaviharaya.com": {
     "checked": 20260819,
     "name": "Sri Sambuddha Viharaya (Buddhist Temple)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "srobar.com": {
+    "checked": 20260819,
+    "name": "Standing Room Only Bar",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "st-albert-parish.com": {
+    "checked": 20260819,
+    "name": "St Albert the Great Parish",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8581,9 +11990,37 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "st-peters.ca": {
+    "checked": 20260819,
+    "name": "St. Peter's Roman Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stadiumtours.liverpoolfc.com/tours": {
     "checked": 20260819,
     "name": "LFC Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stalbert.ca/exp/arden": {
+    "checked": 20260819,
+    "name": "Arden Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stalbertparish.ca": {
+    "checked": 20260819,
+    "name": "St. Albert Catholic Parish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stalbertseniors.ca": {
+    "checked": 20260819,
+    "name": "Red Willow Place",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8623,6 +12060,27 @@
     "status": "ok",
     "type": "ics"
   },
+  "stanleyparklawnbowling.com/calendar": {
+    "checked": 20260819,
+    "name": "Stanley Park Lawn Bowling Club",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "starliteroom.ca": {
+    "checked": 20260819,
+    "name": "The Starlite Room",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stars.ca": {
+    "checked": 20260819,
+    "name": "STARS Calgary Base",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "staugustinesdumbarton.co.uk": {
     "checked": 20260819,
     "name": "St Augustine's Scottish Episcopal Church",
@@ -8637,9 +12095,23 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "stbernardsparish.ca": {
+    "checked": 20260819,
+    "name": "St. Bernard's Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stbrigid.org.uk": {
     "checked": 20260819,
     "name": "St. Brigid's Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stceciliacalgary.com": {
+    "checked": 20260819,
+    "name": "St. Cecilia Roman Catholic Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8685,6 +12157,13 @@
     "reason": "70 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "stfranciscalgary.com/community-event": {
+    "checked": 20260819,
+    "name": "St. Francis of Assisi Catholic Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "stgeorgehuyton.com": {
     "checked": 20260819,
@@ -8770,6 +12249,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stjacobschurchedmonton.ca": {
+    "checked": 20260819,
+    "name": "St. Jacob's Syriac Orthodox Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stjamesbishopbriggs.org.uk": {
     "checked": 20260819,
     "name": "Saint James",
@@ -8794,6 +12280,13 @@
   "stjohnsravenhead.org.uk": {
     "checked": 20260819,
     "name": "St John's Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stjosephbasilica.com": {
+    "checked": 20260819,
+    "name": "Saint Joseph's Basilica",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8840,12 +12333,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stmarkrcchurch.ca": {
+    "checked": 20260819,
+    "name": "St. Mark Roman Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stmartinsedinburgh.org.uk": {
     "checked": 20260819,
     "name": "Saint Martin of Tours Episcopal Church",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "stmaryscalgary.ca": {
+    "checked": 20260819,
+    "name": "Saint Mary's Cathedral",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "stmaryscoulsdon.co.uk": {
     "checked": 20260819,
@@ -8868,6 +12375,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stmatt.ca": {
+    "checked": 20260819,
+    "name": "St. Matthew's Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stmparish.com": {
+    "checked": 20260819,
+    "name": "St. Thomas More Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stmungos.freeuk.com": {
     "checked": 20260819,
     "name": "St Mungo's Parish Church",
@@ -8881,6 +12402,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "stnicholasucp.ca": {
+    "checked": 20260819,
+    "name": "St. Nicholas Ukrainian Catholic Parish",
+    "reason": "54 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "stockbridgechurch.org.uk": {
     "checked": 20260819,
@@ -8924,6 +12452,34 @@
     "status": "fail",
     "type": "ics"
   },
+  "stonyslope.com": {
+    "checked": 20260819,
+    "name": "Stonyslope Brewing Company",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stpatrickcalgary.com": {
+    "checked": 20260819,
+    "name": "St. Patrick's Roman Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stpaulsellerslie.ca": {
+    "checked": 20260819,
+    "name": "Saint Paul's Evangelical Lutheran Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stpaulsunited.org": {
+    "checked": 20260819,
+    "name": "St. Paul's United Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "strangefield.org/event-details/bleaks-cassette-launch-with-votiv-rank-moss-nurse": {
     "checked": 20260819,
     "name": "French Street Studios",
@@ -8934,6 +12490,41 @@
   "strath.ac.uk/strathclydesport": {
     "checked": 20260819,
     "name": "Strathclyde Sport",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "strathcona.ab.ca/departments/Recreation_Parks_and_Culture/Recreation_Centres/millennium-place.aspx": {
+    "checked": 20260819,
+    "name": "Millennium Place",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "strathcona.ca/community-families/community-facilities/community-halls-and-senior-centres/aj-ottewell-community-centre": {
+    "checked": 20260819,
+    "name": "A.J. Ottewell Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "strathcona.ca/council-county/administration/departments/family-and-community-services": {
+    "checked": 20260819,
+    "name": "Strathcona County Family and Community Services",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "strathcona.ca/departments/Recreation_Parks_and_Culture/Recreation_Centres/strathcona-olympiette-centre.aspx": {
+    "checked": 20260819,
+    "name": "Strathcona Olympiette Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "strathcona.ca/recreation-events/arts-and-culture/art-gallery-501": {
+    "checked": 20260819,
+    "name": "Gallery@501",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8951,6 +12542,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "strathma.ca/eventsandprograms": {
+    "checked": 20260819,
+    "name": "Strathcona County Museum and Archives",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "strawberryfieldliverpool.com": {
     "checked": 20260819,
@@ -8987,9 +12585,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ststephenscalgary.org": {
+    "checked": 20260819,
+    "name": "St. Stephen's Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stteresaoflisieux.org.uk": {
     "checked": 20260819,
     "name": "Church of St. Teresa of Lisieux",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sttheresa.caedm.ca": {
+    "checked": 20260819,
+    "name": "St. Theresa's Catholic Parish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stthomasmore.ca": {
+    "checked": 20260819,
+    "name": "St. Thomas More Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9008,10 +12627,31 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stvlads.com": {
+    "checked": 20260819,
+    "name": "Saint Vladimir\u2019s Ukrainian Orthodox Sobor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stvlads.com/culturalcentre2": {
+    "checked": 20260819,
+    "name": "Saint Vladimir\u2019s Ukrainian Orthodox Cultural Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "subclub.co.uk": {
     "checked": 20260819,
     "name": "Sub Club",
     "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "subrosayyc.com": {
+    "checked": 20260819,
+    "name": "Sub Rosa",
+    "reason": "osm probe: offsite:facebook.com",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -9056,6 +12696,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "svetisimeon.org/en/?feed=my-calendar-ics": {
+    "checked": 20260819,
+    "name": "St. Simeon Mirotocivi Serbian Orthodox Church",
+    "reason": "0 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
   },
   "swg3.tv": {
     "checked": 20260819,
@@ -9113,6 +12760,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tangledroots.ca": {
+    "checked": 20260819,
+    "name": "Tangled Roots Event Venue",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "taoist.org/locations/calgary/?ical=1": {
+    "checked": 20260819,
+    "name": "Fung Loy Kok Institute of Taoism",
+    "reason": "308 vevents / 149 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "tate.org.uk/visit/tate-liverpool": {
     "checked": 20260819,
     "name": "Tate Liverpool",
@@ -9126,6 +12787,20 @@
     "reason": "30 vevents / 21 future",
     "status": "ok",
     "type": "ics"
+  },
+  "taylorcentre.ca": {
+    "checked": 20260819,
+    "name": "Taylor Centre for the Performing Arts",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "taytayski.com/general-7": {
+    "checked": 20260819,
+    "name": "Taytayski Gallery & Studio",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "tcv.org.uk/events/?ical=1": {
     "checked": 20260803,
@@ -9169,6 +12844,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "telusworldofscienceedmonton.ca": {
+    "checked": 20260819,
+    "name": "Telus World of Science",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "templecalgary.ca": {
+    "checked": 20260819,
+    "name": "Temple Community Centre and Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "termine.luebeck.jetzt": {
     "checked": 20260810,
     "name": "L\u00fcbsche Termine",
@@ -9203,6 +12892,20 @@
     "reason": "4 vevents / 1 future",
     "status": "ok",
     "type": "ics"
+  },
+  "tgcacalgary.com": {
+    "checked": 20260819,
+    "name": "Thorncliffe Greenview Community Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "the-aviary.net/events": {
+    "checked": 20260819,
+    "name": "The Aviary",
+    "reason": "25/25 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "the-junction.org": {
     "checked": 20260819,
@@ -9365,6 +13068,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "theconfluence.ca/visit": {
+    "checked": 20260819,
+    "name": "The Confluence Historic Site & Parkland",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
   "thecontemporaryaustin.org/events/?ical=1": {
     "checked": 20260727,
     "name": "The Contemporary Austin (Austin, TX)",
@@ -9375,6 +13085,13 @@
   "thecourtyard.org.uk": {
     "checked": 20260819,
     "name": "The Courtyard",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "thedandybrewingcompany.com": {
+    "checked": 20260819,
+    "name": "The Dandy Brewing Company and DandyPizza",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9463,9 +13180,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thegrandyyc.ca": {
+    "checked": 20260819,
+    "name": "The Grand",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "thegrangeclub.com": {
     "checked": 20260819,
     "name": "The Grange Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "thehangarmuseum.ca": {
+    "checked": 20260819,
+    "name": "The Hangar Flight Museum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9505,9 +13236,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "themanorvillage.com/locations/garrison-woods-retirement-homes-sw-calgary": {
+    "checked": 20260819,
+    "name": "The Manor Village at Garrison Woods",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "themgaacademy.com": {
     "checked": 20260819,
     "name": "Nardones Academy of the Performing Arts",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "themilitarymuseums.ca": {
+    "checked": 20260819,
+    "name": "The Military Museums",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9540,6 +13285,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theplaza.ca": {
+    "checked": 20260819,
+    "name": "Plaza Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "theplymouthbrethren.org.uk": {
     "checked": 20260819,
     "name": "Plymouth Brethren Christian Church",
@@ -9564,6 +13316,20 @@
   "thesavingsbank.inhouse.scot": {
     "checked": 20260819,
     "name": "The Savings Bank",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theseed.ca/prairie-manor": {
+    "checked": 20260819,
+    "name": "The Mustard Seed Prairie Manor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theshootingcentre.com": {
+    "checked": 20260819,
+    "name": "Calgary Shooting Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9774,6 +13540,20 @@
   "theworks.co.uk/Store?storeId=1241": {
     "checked": 20260819,
     "name": "The Works",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theyogastudiocalgary.com": {
+    "checked": 20260819,
+    "name": "The Yoga Studio of Calgary",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "thistlecurling.ab.ca": {
+    "checked": 20260819,
+    "name": "Thistle Curling Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10023,6 +13803,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "tsuutinamuseum.com": {
+    "checked": 20260819,
+    "name": "Tsuut'ina Culture Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tualatinriverkeepers.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Tualatin Riverkeepers (Portland, OR)",
@@ -10058,9 +13845,30 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "tuxedoparkcommunity.ca": {
+    "checked": 20260819,
+    "name": "Tuxedo Park Community Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "twinparishes.caedm.ca": {
+    "checked": 20260819,
+    "name": "Saint Anthony",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "twitter.com/newhamboysabc?lang=en": {
     "checked": 20260819,
     "name": "Newham Boys Amateur Boxing Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "twopillars.ca/menu": {
+    "checked": 20260819,
+    "name": "Two Pillars Brewery",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10135,6 +13943,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "ultimatedanceco.com": {
+    "checked": 20260819,
+    "name": "Ultimate Dance Company",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "umn.libcal.com/ical_subscribe.php?cid=12437": {
     "checked": 20260727,
     "name": "UMN Libraries - Innovation & Technology (Minneapolis)",
@@ -10156,12 +13971,33 @@
     "status": "ok",
     "type": "ics"
   },
+  "unionhall.ca": {
+    "checked": 20260819,
+    "name": "Union Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "unionmarketdc.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Union Market Events (Washington DC)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "unitedactiveliving.com/communities/fish-creek-north": {
+    "checked": 20260819,
+    "name": "United Active Living",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "unitedactiveliving.com/communities/garrison-green/life-garrison-green": {
+    "checked": 20260819,
+    "name": "Garrison Green Seniors Community",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "unitybooks.co.uk": {
     "checked": 20260819,
@@ -10275,6 +14111,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "valourplace.ca": {
+    "checked": 20260819,
+    "name": "Valour Place",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "vancouverfarmersmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Vancouver Farmers Markets (BC)",
@@ -10282,9 +14125,44 @@
     "status": "ok",
     "type": "ics"
   },
+  "variantedmonton.com": {
+    "checked": 20260819,
+    "name": "Variant Edition Graphic Novels & Comics",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "vbchurch.ca/events-list-1": {
+    "checked": 20260819,
+    "name": "Varsity Bible Church3",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "vecova.ca": {
+    "checked": 20260819,
+    "name": "Vecova",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "veesplaceprescot.co.uk": {
     "checked": 20260819,
     "name": "Vee's Place",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "vertigotheatre.com": {
+    "checked": 20260819,
+    "name": "Vertigo Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "verveseniorliving.com/trinity-lodge": {
+    "checked": 20260819,
+    "name": "Trinity Lodge",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10415,6 +14293,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "watv.org": {
+    "checked": 20260819,
+    "name": "World Mission Society Church of God",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "weatherstoneshouse.co.uk": {
     "checked": 20260819,
     "name": "Hinderton Mount Residential Home",
@@ -10422,10 +14307,136 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "web.archive.org/web/20100924042932/http://ucama.ca:80/english/ucama_home.html": {
+    "checked": 20260819,
+    "name": "Ukrainian Canadian Archive and Museum of Alberta",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "webcal://gbccalgary.com/events.ics": {
+    "checked": 20260819,
+    "name": "Grace Baptist Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://gbccalgary.com/events.",
+    "status": "fail",
+    "type": "ics"
+  },
   "webcal://harvestglasgow.church/calendar/ics": {
     "checked": 20260819,
     "name": "Harvest Glasgow",
     "reason": "InvalidSchema: No connection adapters were found for 'webcal://harvestglasgow.church/",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://winnerschapelcalgary.org/events.ics": {
+    "checked": 20260819,
+    "name": "Winners Chapel International Calgary",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://winnerschapelcalgary.o",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.amazingchurch.ca/gencal.cfm?event_category=All&target=apple": {
+    "checked": 20260819,
+    "name": "Immanuel Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.amazingchurch.ca/g",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.fortedmontonpark.ca//public/ics/8082": {
+    "checked": 20260819,
+    "name": "Rutherford House",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.fortedmontonpark.c",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.hopelutheran.ca/events.ics": {
+    "checked": 20260819,
+    "name": "Hope Lutheran Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.hopelutheran.ca/ev",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.riverwestchurch.org/events.ics": {
+    "checked": 20260819,
+    "name": "River West Christian Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.riverwestchurch.or",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.standrewscalgary.ca/events.ics": {
+    "checked": 20260819,
+    "name": "St. Andrew's Presbyterian Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.standrewscalgary.c",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.staugustinesedmonton.com/events.ics": {
+    "checked": 20260819,
+    "name": "St. Augustine's Anglican Church Annex",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.staugustinesedmont",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.stbarnabas.ca/events.ics": {
+    "checked": 20260819,
+    "name": "St. Barnabas Anglican Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.stbarnabas.ca/even",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.stjamescalgary.com/events.ics": {
+    "checked": 20260819,
+    "name": "St. James Anglican Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.stjamescalgary.com",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.stpaulscalgary.ca/events.ics": {
+    "checked": 20260819,
+    "name": "St Paul's Anglican Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.stpaulscalgary.ca/",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.sunrisecommunitychurch.ca/events.ics": {
+    "checked": 20260819,
+    "name": "Sunrise Community Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.sunrisecommunitych",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.svbc.ab.ca/events.ics": {
+    "checked": 20260819,
+    "name": "Sturgeon Valley Baptish Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.svbc.ab.ca/events.",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.tbcsherwoodpark.ca/events.ics": {
+    "checked": 20260819,
+    "name": "Trinity Baptist Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.tbcsherwoodpark.ca",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.vapc.ca/events.ics": {
+    "checked": 20260819,
+    "name": "Varsity Acres Presbyterian Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.vapc.ca/events.ics",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.westviewchurch.ca/events.ics": {
+    "checked": 20260819,
+    "name": "Westview Baptist Church",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.westviewchurch.ca/",
+    "status": "fail",
+    "type": "ics"
+  },
+  "webcal://www.youraga.ca//public/ics/8567": {
+    "checked": 20260819,
+    "name": "Art Gallery of Alberta",
+    "reason": "InvalidSchema: No connection adapters were found for 'webcal://www.youraga.ca//public",
     "status": "fail",
     "type": "ics"
   },
@@ -10464,6 +14475,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "wem.thecomicstrip.ca": {
+    "checked": 20260819,
+    "name": "Rick Bronson's - The Comic Strip",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "wemysscaves.org/visitor-centre-and-museum": {
     "checked": 20260819,
     "name": "Wemyss Cave Museum & Visitor Centre",
@@ -10481,6 +14499,13 @@
   "west-dunbarton.gov.uk/leisure-parks-events/museums-and-galleries/clydebank-museum": {
     "checked": 20260819,
     "name": "Clydebank Museum and Art Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "westcountryhearth.ca": {
+    "checked": 20260819,
+    "name": "West Country Hearth",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10527,6 +14552,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "westmeadows.org": {
+    "checked": 20260819,
+    "name": "West Meadows Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "westminster.gov.uk/leisure-libraries-and-community/libraries/paddington-library": {
     "checked": 20260819,
     "name": "Paddington Children\u2019s Library",
@@ -10554,6 +14586,20 @@
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "westsprings.church/events": {
+    "checked": 20260819,
+    "name": "West Springs Church",
+    "reason": "2/32 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
+  "westvillagetheatre.com": {
+    "checked": 20260819,
+    "name": "West Village Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "wgcmarket.co.uk/events/?ical=1": {
     "checked": 20260727,
@@ -10744,12 +14790,40 @@
     "status": "fail",
     "type": "ics"
   },
+  "wingkeicarecentre.org": {
+    "checked": 20260819,
+    "name": "Wing Kei Greenview",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "wingkeicarecentre.org/contact": {
+    "checked": 20260819,
+    "name": "Wing Kei Crescent Heights",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "winspearcentre.com": {
+    "checked": 20260819,
+    "name": "Francis Winspear Centre for Music",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "winstanleytennisclub.co.uk": {
     "checked": 20260819,
     "name": "Winstanley Tennis Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "winstonheights.ca/events-3/?ical=1": {
+    "checked": 20260819,
+    "name": "Winston Heights - Mountainview Community Centre",
+    "reason": "1567 vevents / 910 future",
+    "status": "ok",
+    "type": "ics"
   },
   "wirral.gov.uk/libraries-and-archives/find-library/wallasey-central-library": {
     "checked": 20260819,
@@ -10807,6 +14881,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "woodcreekcommunity.ca": {
+    "checked": 20260819,
+    "name": "Woodcreek Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "woodlands-rest-home.co.uk": {
     "checked": 20260819,
     "name": "Woodlands Rest Home",
@@ -10820,6 +14901,27 @@
     "reason": "33/63 upcoming",
     "status": "ok",
     "type": "squarespace"
+  },
+  "woodshomes.ca": {
+    "checked": 20260819,
+    "name": "Wood's Homes Parkdale Campus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "woodshomes.ca/inglewood-opportunity-hub": {
+    "checked": 20260819,
+    "name": "Inglewood Opportunity Hub",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "workshopstudios.ca": {
+    "checked": 20260819,
+    "name": "Workshop Studios",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "worldofglass.com": {
     "checked": 20260819,
@@ -10884,12 +14986,61 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ymcacalgary.org/events": {
+    "checked": 20260819,
+    "name": "Melcor YMCA at Crowfoot",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "ymcacalgary.org/locations/brookfield-residential-ymca-seton": {
+    "checked": 20260819,
+    "name": "Brookfield Residential YMCA at Seton",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ymcacalgary.org/program-descriptions/locations/quarry-park": {
+    "checked": 20260819,
+    "name": "Remington YMCA",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ymcanab.ca/locations/don-wheaton-family-ymca": {
+    "checked": 20260819,
+    "name": "Don Wheaton Family YMCA",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ymcasthelens.org.uk": {
     "checked": 20260819,
     "name": "YMCA",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "yogadotcalm.com": {
+    "checked": 20260819,
+    "name": "yogadotcalm",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "yogawithin.ca": {
+    "checked": 20260819,
+    "name": "Yoga Within",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "yourgaybar.com": {
+    "checked": 20260819,
+    "name": "Evolution Wonderlounge",
+    "reason": "30 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "yourlibrary.knowsley.gov.uk": {
     "checked": 20260819,
@@ -10901,6 +15052,34 @@
   "yourlibrary.knowsley.gov.uk/branches/huyton": {
     "checked": 20260819,
     "name": "Huyton Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "youthrise.ca/eventcalendar": {
+    "checked": 20260819,
+    "name": "Youth Rise",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
+  },
+  "ywcalgary.ca": {
+    "checked": 20260819,
+    "name": "YWCA Calgary",
+    "reason": "54 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "yycevna.org/Garden": {
+    "checked": 20260819,
+    "name": "Crossroads Community Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "zeroissuebeer.com": {
+    "checked": 20260819,
+    "name": "Zero Issue Brewing",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"

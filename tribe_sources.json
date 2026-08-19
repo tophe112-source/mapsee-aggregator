@@ -410,6 +410,333 @@
         "lon": -3.1685905
       },
       "_metro": "Edinburgh, GB"
+    },
+    {
+      "name": "In-Definite Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://accessarts.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "In-Definite Arts",
+        "address": "8038 Fairmount Drive SE",
+        "lat": 50.9824662,
+        "lon": -114.0592866
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Gasoline Alley",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://heritagepark.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gasoline Alley",
+        "address": "1900 Heritage Drive SW",
+        "postal_code": "T2V 2X3",
+        "country": "CA",
+        "lat": 50.9829103,
+        "lon": -114.1020254
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Calgary Buddhist Temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://calgary-buddhist.ab.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Calgary Buddhist Temple",
+        "address": "658 1 Avenue NE",
+        "city": "Calgary",
+        "region": "AB",
+        "postal_code": "T2E 0B6",
+        "lat": 51.0535059,
+        "lon": -114.0486315
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Developmental Disabilities Resources Centre of Calgary (DDRC)",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://ddrc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Developmental Disabilities Resources Centre of Calgary (DDRC)",
+        "address": "4631 Richardson Way SW",
+        "lat": 51.0129578,
+        "lon": -114.1381242
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Glendale & Glendale Meadows Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+ics",
+      "base_url": "https://myglendale.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Glendale & Glendale Meadows Community Centre",
+        "address": "2405 Glenmount Drive SW",
+        "lat": 51.0329979,
+        "lon": -114.1498321
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Fresh Start Recovery Centre",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://freshstartrecovery.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fresh Start Recovery Centre",
+        "address": "411 41 Avenue NE",
+        "lat": 51.0896281,
+        "lon": -114.0543201
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Église Sainte-Famille",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "http://www.saintefamille.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église Sainte-Famille",
+        "address": "1719 5 Street SW",
+        "city": "Calgary",
+        "postal_code": "T2S 2A8",
+        "lat": 51.0369152,
+        "lon": -114.0745884
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "YWCA Calgary",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ywcalgary.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "YWCA Calgary",
+        "address": "1715 17 Avenue SE",
+        "postal_code": "T2G 5J1",
+        "lat": 51.037433,
+        "lon": -114.0235694
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Macron Performance Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://gofoothills.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Macron Performance Centre",
+        "address": "111 Exploration Avenue SE",
+        "postal_code": "T3S 0B6",
+        "lat": 50.9616573,
+        "lon": -113.909533
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Bowness Seniors' Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://bownessseniorscentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bowness Seniors' Centre",
+        "address": "6522 35 Avenue NW",
+        "lat": 51.0844757,
+        "lon": -114.1819819
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Irish Cultural Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.calgaryics.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Irish Cultural Centre",
+        "address": "6452 35 Avenue NW",
+        "lat": 51.0845491,
+        "lon": -114.182741
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Calgary Horseshoe Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+ics",
+      "base_url": "https://calgaryhorseshoeclub.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Calgary Horseshoe Club",
+        "address": "4310 78 Avenue SE",
+        "city": "Calgary",
+        "region": "AB",
+        "postal_code": "T2C 2ZM",
+        "lat": 50.9829559,
+        "lon": -113.9739139
+      },
+      "_metro": "Calgary, CA"
+    },
+    {
+      "name": "Evolution Wonderlounge",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://yourgaybar.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evolution Wonderlounge",
+        "address": "11508 Jasper Avenue NW",
+        "city": "Edmonton",
+        "region": "AB",
+        "postal_code": "T5K 0M8",
+        "lat": 53.5411823,
+        "lon": -113.5197848
+      },
+      "_metro": "Edmonton, CA"
+    },
+    {
+      "name": "RAD Torque Raceway",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://radraceway.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "RAD Torque Raceway",
+        "address": "50342 Range Road 253",
+        "city": "Leduc County",
+        "region": "AB",
+        "postal_code": "T9E 0V6",
+        "lat": 53.3339158,
+        "lon": -113.5987815
+      },
+      "_metro": "Edmonton, CA"
+    },
+    {
+      "name": "Islamic Shia Ithna-Asheri Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://jammat.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Islamic Shia Ithna-Asheri Centre",
+        "lat": 53.4621345,
+        "lon": -113.4058892
+      },
+      "_metro": "Edmonton, CA"
+    },
+    {
+      "name": "North Millbourne Community League",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://nmclinfo.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Millbourne Community League",
+        "address": "980 Millbourne Road East NW",
+        "lat": 53.4796121,
+        "lon": -113.4474247
+      },
+      "_metro": "Edmonton, CA"
+    },
+    {
+      "name": "South East Edmonton Seniors Association Activity Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://seesa.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South East Edmonton Seniors Association Activity Centre",
+        "address": "9350 82 Street NW",
+        "city": "Edmonton",
+        "postal_code": "T6C 2X8",
+        "lat": 53.5302069,
+        "lon": -113.4517996
+      },
+      "_metro": "Edmonton, CA"
+    },
+    {
+      "name": "Bait-ul-Hadi",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ahmadiyya.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bait-ul-Hadi",
+        "address": "7005 98 Avenue NW",
+        "city": "Edmonton",
+        "region": "Alberta",
+        "postal_code": "T6A 0A6",
+        "lat": 53.5370962,
+        "lon": -113.4364849
+      },
+      "_metro": "Edmonton, CA"
+    },
+    {
+      "name": "St. Nicholas Ukrainian Catholic Parish",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stnicholasucp.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Nicholas Ukrainian Catholic Parish",
+        "address": "9507 Austin O'Brien Road NW",
+        "city": "Edmonton",
+        "postal_code": "T6B 1A6",
+        "lat": 53.5350386,
+        "lon": -113.4281641
+      },
+      "_metro": "Edmonton, CA"
+    },
+    {
+      "name": "Mile Zero Dance",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://milezerodance.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mile Zero Dance",
+        "address": "9931 78 Avenue NW",
+        "city": "Edmonton",
+        "region": "AB",
+        "postal_code": "T6E 1N6",
+        "lat": 53.5139742,
+        "lon": -113.4874717
+      },
+      "_metro": "Edmonton, CA"
     }
   ],
   "_not_included": {
