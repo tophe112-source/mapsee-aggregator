@@ -152,6 +152,43 @@ def main():
                                "cal_url": "https://x.org/events/", "ics": None}), None)
 
     print()
+    print("an unanswered Overpass call is an UNREAD metro, not an empty one")
+
+    class _Resp:
+        def __init__(self, code=200, payload=None):
+            self.status_code, self._p, self.headers = code, payload or {}, {}
+        def json(self):
+            return self._p
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                raise RuntimeError(f"http {self.status_code}")
+
+    class _Dead:
+        def post(self, *a, **k):
+            raise ConnectionError("Connection aborted")
+
+    class _Empty:
+        def post(self, *a, **k):
+            return _Resp(200, {"elements": []})
+
+    class _One:
+        def post(self, *a, **k):
+            return _Resp(200, {"elements": [
+                {"lat": 1.0, "lon": 2.0,
+                 "tags": {"name": "Hall", "amenity": "theatre",
+                          "website": "https://hall.example"}}]})
+
+    osm.OVERPASS_BACKOFF_S = 0          # exercise the retry, not the waiting
+    check("a refused endpoint returns None — nobody asked this bbox",
+          osm.overpass_venues(_Dead(), "0,0,1,1", "X", quiet=True), None)
+    check("an answered-but-empty bbox returns [] — asked, nothing there",
+          osm.overpass_venues(_Empty(), "0,0,1,1", "X", quiet=True), [])
+    got = osm.overpass_venues(_One(), "0,0,1,1", "X", quiet=True)
+    check("a venue with a website comes back with its surveyed point",
+          (got[0]["name"], got[0]["url"], got[0]["lat"]),
+          ("Hall", "https://hall.example", 1.0))
+
+    print()
     print("a probe that succeeds and yields nothing must SAY what it yielded nothing for")
     check("an unshapeable adapter is named, not counted as a success",
           osm.why_no_candidate({"adapter": "mylisting", "labels": ["mylisting"], "cal_url": "u"}),

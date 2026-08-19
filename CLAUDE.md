@@ -374,6 +374,18 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   theblackaltar.org answers this sandbox with a spinner and a runner with a real
   200 — a working calendar that would have been retired as dead. Do not record
   either verdict from one vantage point.
+- **A metro Overpass never answered for is UNREAD, and the cursor must not move
+  past it.** `overpass_venues` returned `[]` for "the endpoint refused" and for
+  "this bbox genuinely has nothing", which is the same conflation as `fetch()`
+  returning None for every failure. On 2026-08-19 nine of ten metros hit
+  connection resets after the day's earlier sweeps had used the public
+  endpoint's patience; every one printed "0 venue(s) publish a website" and the
+  cursor advanced past all nine — losing Adelaide, Canberra, Dublin and six more
+  for **78 runs**, about eleven weeks at three a day. It returns None now, the
+  cursor advances only past metros actually READ, and a metro refused three runs
+  running is skipped LOUDLY rather than wedging the sweep on one bbox for ever.
+  Rate-limiting is the normal failure here: back off between big sweeps rather
+  than assuming a quiet endpoint.
 - **`webcal://` is `https://` wearing a hat, and `requests` has never heard of
   it.** It is the standard "subscribe to this calendar" scheme and what parish
   and club sites publish, so discovery proposes it verbatim — and then

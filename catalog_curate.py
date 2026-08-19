@@ -1137,10 +1137,36 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None):
     def bump(k):
         skipped[k] = skipped.get(k, 0) + 1
 
+    # A metro Overpass never answered for is UNREAD, not swept. Advancing the
+    # cursor past it costs the whole metro until the cursor wraps — 78 runs, or
+    # about eleven weeks at three a day — and that is exactly what happened on
+    # 2026-08-19: nine of ten metros hit connection resets and every one was
+    # reported as "0 venues publish a website" before the cursor moved on.
+    read = 0
+    stuck = cursor.setdefault("stuck", {})
     for step in range(per_run):
-        m = all_metros[(start + step) % len(all_metros)]
+        idx = (start + step) % len(all_metros)
+        m = all_metros[idx]
         label = f"{m['name']}, {m['country']}"
         venues = osm.overpass_venues(session, m["bbox"], label)
+        if venues is None:
+            n = int(stuck.get(str(idx), 0)) + 1
+            stuck[str(idx)] = n
+            if n >= 3:
+                # Never asked three times running is no longer a bad afternoon.
+                # Move past it rather than wedge the sweep on one bbox for ever,
+                # and say so, because a silently skipped metro is what this whole
+                # block exists to prevent.
+                print(f"  {label}: overpass has refused {n} runs running — SKIPPING "
+                      f"this metro and advancing past it")
+                stuck.pop(str(idx), None)
+                read += 1
+            else:
+                print(f"  {label}: overpass did not answer — metro UNREAD, the "
+                      f"cursor stays here (attempt {n}/3)")
+            break
+        stuck.pop(str(idx), None)
+        read += 1
         print(f"  {label}: {len(venues)} venue(s) publish a website")
         for v in venues:
             if len(found) >= limit:
@@ -1200,7 +1226,11 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None):
         if len(found) >= limit:
             break
 
-    cursor["metro"] = (start + per_run) % len(all_metros)
+    # Only past what was actually READ.
+    cursor["metro"] = (start + read) % len(all_metros)
+    if read < per_run:
+        print(f"  advanced {read}/{per_run} metros; the rest are unread and come "
+              f"round again next run")
     _save_ledger(led)
     return found, skipped
 

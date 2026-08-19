@@ -307,10 +307,17 @@ def _overpass_query(bbox: str) -> str:
 
 def overpass_venues(session, bbox: str, name: str = "?",
                     endpoint: str = OVERPASS_ENDPOINT, quiet: bool = False):
-    """Venues in the bbox that publish a website, or [] if Overpass never
-    answered. The public endpoint hands out a couple of slots and answers 429 or
-    504 when they are busy — across a sweep that is normal traffic, not an
-    error, so it is waited out rather than dropped."""
+    """Venues in the bbox that publish a website.
+
+    Returns None if OVERPASS NEVER ANSWERED, and [] if it answered with nothing.
+    Those are not the same fact and returning [] for both is what let a sweep
+    report "Adelaide: 0 venues publish a website" for nine metros in a row that
+    had simply never been asked — while the cursor advanced past all nine. The
+    endpoint hands out a couple of slots and answers 429 or 504 when they are
+    busy, which is normal traffic across a sweep and worth waiting out; a
+    connection reset after four tries is the endpoint declining, and the metro is
+    unread.
+    """
     q = _overpass_query(bbox)
     for attempt in range(4):
         try:
@@ -328,10 +335,10 @@ def overpass_venues(session, bbox: str, name: str = "?",
             if attempt == 3:
                 if not quiet:
                     print(f"  overpass {name} FAILED: {type(exc).__name__}: {exc}")
-                return []
+                return None
             time.sleep(OVERPASS_BACKOFF_S * 3 ** attempt)
     else:
-        return []
+        return None
     out = []
     for e in elements:
         t = e.get("tags") or {}
