@@ -194,5 +194,20 @@
       "geo": "location",
       "url": "registration_url"
     }
+  },
+  {
+    "name": "HS Outreach (internal.open.piercecountywa.gov)",
+    "url": "https://internal.open.piercecountywa.gov/resource/rgru-37yt.json",
+    "app_token": null,
+    "category": "community",
+    "where": "date > '{now}'",
+    "order": "date",
+    "limit": 1000,
+    "map": {
+      "start": "date",
+      "title": "name_of_group",
+      "venue": "event_location_facility",
+      "geo": "location"
+    }
   }
 ]

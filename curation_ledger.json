@@ -1910,6 +1910,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "internal.open.piercecountywa.gov/resource/rgru-37yt.json": {
+    "checked": 20260819,
+    "name": "HS Outreach (internal.open.piercecountywa.gov)",
+    "reason": "1 rows, sample: Bi-monthly outreach",
+    "status": "ok",
+    "type": "opendata"
+  },
   "ipswichriver.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Ipswich River Watershed Association",
