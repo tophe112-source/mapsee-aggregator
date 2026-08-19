@@ -1035,6 +1035,13 @@
     "status": "fail",
     "type": "opendata"
   },
+  "data.kingcounty.gov/resource/yhm4-4y8s.json": {
+    "checked": 20260819,
+    "name": "King County Elections Vietnamese Master Calendar (data.kingcounty.gov)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  },
   "data.lacity.org/resource/8spw-3fhx.json": {
     "checked": 20260802,
     "name": "Building and Safety Temporary Special Event (TSE) Permits (data.lacity.org)",
