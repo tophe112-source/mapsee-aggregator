@@ -48,7 +48,8 @@ Usage:
   #      "map":{"id":"...","title":"...","start":"...","venue":"..."}}]
   # propose NEW sources. The backend is POSITIONAL and must come before the
   # flags (main() reads argv[2:3]); omitted means socrata.
-  python catalog_curate.py discover [socrata|ckan|mobilizon] [--limit 400] [--out candidates.json]
+  python catalog_curate.py discover [socrata|ckan|mobilizon|osm] [--limit 400]
+         [--out candidates.json] [--metros N]      # --metros: osm only
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
@@ -1200,7 +1201,8 @@ def _discover_mobilizon(session, seen_keys, led, limit):
     return found, skipped
 
 
-def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=()):
+def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
+                 metros=None):
     """`only` pins the sweep to specific lens categories.
 
     Without it the budget is spent thinnest-category-first across every query,
@@ -1249,7 +1251,8 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=()):
                   "category-pinned run)")
             found, skipped = {}, {}
         else:
-            found, skipped = _discover_osm(session, seen_keys, led, limit, cursor)
+            found, skipped = _discover_osm(session, seen_keys, led, limit, cursor,
+                                           metros_per_run=metros)
     elif backend == "ckan":
         _report_query_gaps(cats, CKAN_QUERIES, "ckan")
         queries = _order_queries(_filter_queries(CKAN_QUERIES, only), cats)
@@ -2068,7 +2071,12 @@ def main(argv):
         # spells the two forms out rather than interpolating for this reason.
         want = argv[2:3]
         backend = want[0] if want and want[0] in BACKENDS else "socrata"
-        return cmd_discover(limit=lim, out=out, backend=backend, only=only)
+        # osm only: how many metros this run walks. The cursor makes the metros
+        # it does not reach simply where the next run starts, so this is a budget
+        # knob and never a coverage decision.
+        metros = int(argv[argv.index("--metros") + 1]) if "--metros" in argv else None
+        return cmd_discover(limit=lim, out=out, backend=backend, only=only,
+                            metros=metros)
     if cmd == "audit":
         return cmd_audit()
     if cmd == "ledger":

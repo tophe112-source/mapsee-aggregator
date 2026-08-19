@@ -116,6 +116,6 @@
   }
  ],
  "_not_included": {
-  "https://dmhsus.org/events/": "SiteGround bot challenge (sgcaptcha) on EVERY path including /robots.txt, answering 202 with a captcha redirect. We cannot even read the robots file to establish permission, and getting past it means impersonating a browser to defeat bot management somebody turned on deliberately - the same line as sfbike.org and the borrowed DICE key. Re-probe if the challenge is ever lifted; the site itself looks like a calendar worth having."
+  "https://dmhsus.org/events/": "Deconstructing the Mental Health System (Seattle 501c3; dmhsus.org/community-events is a free BIPOC event listing worth having). NOT an editorial no and NOT the site's own policy: SiteGround's WAF answers 202 with an sgcaptcha redirect on EVERY path including /robots.txt, and the challenge URL names the reason - 'y=ipr:<our IP>', i.e. IP REPUTATION. It is the datacenter address we call from that is flagged, not our UA and not anything the org decided, which is why another aggregator reads this site fine. We cannot read robots.txt to establish permission and we will not impersonate a browser to get round bot management, so it stays out - but the way to settle it is to re-probe from somewhere else (a CI runner has different IPs), or to ask the org for an iCal feed. Do not treat this as 'the feed is dead'."
  }
 }
