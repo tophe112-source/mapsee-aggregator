@@ -41,6 +41,8 @@ import re
 import sys
 from urllib.parse import urljoin, urlparse
 
+from typing import Optional
+
 import requests
 
 import catalog_discover_osm as osm
@@ -119,16 +121,64 @@ def probe(session, url: str) -> dict:
     return rep
 
 
+def verify(session, rep: dict) -> Optional[dict]:
+    """Run the adapter's own verifier against this find.
+
+    The point is the split the probe exists to expose: a site the production
+    pipeline can read but a laptop cannot is exactly the case where "prove it
+    returns future events" has to happen WHERE THE PIPELINE RUNS, or the rule
+    gets quietly skipped for the sources that most need it.
+    """
+    p = rep.get("platform") or {}
+    adapter, feed, url = p.get("adapter"), p.get("feed"), rep["url"]
+    if not adapter:
+        return None
+    import catalog_curate as cc
+    o = urlparse(url)
+    cand = {"name": o.netloc, "category": "community"}
+    if adapter == "ics":
+        if not feed:
+            return {"type": "ics", "ok": False, "note": "no feed found"}
+        cand.update(type="ics", url=feed, geocode_suffix="", limit=300)
+    elif adapter == "tribe":
+        cand.update(type="tribe", base_url=f"{o.scheme}://{o.netloc}")
+    elif adapter == "squarespace":
+        cand.update(type="squarespace", collection=url)
+    elif adapter == "jsonld":
+        cand.update(type="jsonld", listing=[url],
+                    link_pattern=rf"https://{re.escape(o.netloc)}/(?:event|events)/[a-z0-9\-]+/?")
+    else:
+        return {"type": adapter, "ok": False, "note": "no verifier for this adapter"}
+    fn = cc.VERIFIERS.get(cand["type"])
+    if not fn:
+        return {"type": cand["type"], "ok": False, "note": "no verifier registered"}
+    try:
+        ok, note = fn(session, cand)
+    except Exception as exc:                                      # noqa: BLE001
+        ok, note = False, f"{type(exc).__name__}: {exc}"[:90]
+    return {"type": cand["type"], "ok": bool(ok), "note": str(note),
+            "status": cc._status_for(ok, note), "candidate": cand}
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[1])
     ap.add_argument("urls", nargs="+")
     ap.add_argument("--json", action="store_true", help="machine-readable report")
+    ap.add_argument("--verify", action="store_true",
+                    help="also run the real verifier for the detected adapter, so a "
+                         "site only readable FROM HERE can still be proven to return "
+                         "future events before anybody merges it")
     a = ap.parse_args(argv)
 
     s = requests.Session()
     s.headers.update({"User-Agent": UA, "Accept-Language": "en;q=0.9"})
     where = _egress_ip(s)
-    reports = [probe(s, u) for u in a.urls]
+    reports = []
+    for u in a.urls:
+        rep = probe(s, u)
+        if a.verify:
+            rep["verify"] = verify(s, rep)
+        reports.append(rep)
     if a.json:
         print(json.dumps({"egress_ip": where, "reports": reports}, indent=1))
         return 0
@@ -151,6 +201,11 @@ def main(argv=None) -> int:
         if p:
             print(f"  platform   : {'+'.join(p['labels'])}  -> adapter {p['adapter']}")
             print(f"  feed       : {p['feed'] or '(none constructed)'}")
+        v = rep.get("verify")
+        if v:
+            print(f"  verify     : {'PASS' if v['ok'] else 'fail'} ({v.get('status','?')}) — {v['note']}")
+            if v.get("ok"):
+                print("  candidate  : " + json.dumps(v["candidate"]))
         print()
     return 0
 
