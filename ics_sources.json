@@ -1928,5 +1928,13 @@
   "geocode_suffix": ", Edmonton",
   "limit": 300,
   "_metro": "Edmonton, CA"
+ },
+ {
+  "name": "The Black Altar Project (Seattle)",
+  "url": "https://theblackaltar.org/?feed=my-calendar-ics",
+  "category": "community",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300,
+  "_note": "WordPress + My Calendar, whose iCal lives at a fixed path the site links from nowhere. VERIFIED FROM A RUNNER, not from a laptop: the site's WAF answers some networks with a 200 and a 'One moment, please...' spinner while serving others normally, so catalog_probe.py + probe-url.yml is what proved it (2 vevents / 2 future, 2/2 carrying GEO or LOCATION). If a local probe ever says this feed is dead, re-probe from CI before believing it."
  }
 ]

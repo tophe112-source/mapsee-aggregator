@@ -361,6 +361,26 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   "calendar with nothing on", neither of which happened. Match the words, not
   the status. Same policy as sfbike.org: a challenge is a NO, and we do not
   impersonate a browser to get round one.
+- **"We cannot read it" is two findings, and only a SECOND NETWORK tells them
+  apart.** A publisher who turned bot management on is a NO to honour; a WAF
+  scoring the caller's address is not a decision anybody made about mapsee, and
+  this pipeline runs from GitHub's addresses rather than from wherever somebody
+  happened to probe. `catalog_probe.py` reports what a URL serves AND the egress
+  IP it was seen from; `probe-url.yml` runs it from a runner. Both sites that
+  prompted it came out differently: dmhsus.org answers 202+sgcaptcha here and
+  **403 from GitHub**, on every path including /robots.txt — closed, and an
+  earlier note in `jsonld_sources.json` guessing "IP reputation" from the
+  caller's IP appearing in the challenge URL was WRONG and is corrected.
+  theblackaltar.org answers this sandbox with a spinner and a runner with a real
+  200 — a working calendar that would have been retired as dead. Do not record
+  either verdict from one vantage point.
+- **A feed can pass verification and still put nothing on the map.** "Returns
+  future events" is what `verify` asks; `mapsee_ingest_ics` separately DROPS a
+  VEVENT carrying neither GEO nor LOCATION, and that count only appears once the
+  source is configured and running — Seattle Parks Foundation was 20 of 30
+  unplaceable and merely looked two-thirds empty. `catalog_probe.py --verify`
+  reports the placeable fraction before the merge, which matters most for a feed
+  nobody can open locally.
 - **A refusal is not a fact about the site, so it must not be written down as
   one.** theblackaltar.org served one probe and challenged the next, seconds
   apart from the same IP, then blocked steadily once probed repeatedly. "This
