@@ -335,6 +335,148 @@
         "lon": -113.4882695
       },
       "_metro": "Edmonton, CA"
+    },
+    {
+      "name": "Faith Covenant Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "http://faithcovenant.ca/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Faith Covenant Church",
+        "address": "1229 Windermere Avenue",
+        "lat": 49.8462954,
+        "lon": -97.1590901
+      },
+      "_metro": "Winnipeg, CA"
+    },
+    {
+      "name": "St. Norbert Arts Centre",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.snac.mb.ca/happenings",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Norbert Arts Centre",
+        "address": "100 Ruines Du Monastere",
+        "city": "Winnipeg",
+        "lat": 49.7577645,
+        "lon": -97.1528287
+      },
+      "_metro": "Winnipeg, CA"
+    },
+    {
+      "name": "Bethel Evangelical Missionary Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.bethelnewdundee.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bethel Evangelical Missionary Church",
+        "address": "1531 Bridge Street",
+        "city": "New Dundee",
+        "lat": 43.3483593,
+        "lon": -80.5381005
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Wallenstein Bible Chapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.wbconline.ca/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Wallenstein Bible Chapel",
+        "address": "4522 Hergott Road",
+        "city": "Wallenstein",
+        "lat": 43.5948089,
+        "lon": -80.6398247
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Carisbrook House",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.carisbrookhouse.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Carisbrook House",
+        "lat": -33.8231073,
+        "lon": 151.1500703
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Kings Cross Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.kingscross.org.au/weekly-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Kings Cross Community Centre",
+        "lat": -33.8723161,
+        "lon": 151.2256576
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.ncachurch.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "?",
+        "address": "205 Willoughby Road",
+        "lat": -33.8184873,
+        "lon": 151.2013398
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "St John's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://stjohnsmaroubra.com/special-events",
+      "max_events": 200,
+      "venue": {
+        "name": "St John's",
+        "lat": -33.9431876,
+        "lon": 151.2490987
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Harbourside Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.harbourside.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Harbourside Church",
+        "address": "Melrose Street",
+        "lat": -33.8259451,
+        "lon": 151.2340261
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "St Johns Asquith",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stjohnsasquith.org.au/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Johns Asquith",
+        "address": "6 Royston Parade",
+        "region": "NSW",
+        "postal_code": "2077",
+        "lat": -33.6874466,
+        "lon": 151.1107626
+      },
+      "_metro": "Sydney, AU"
     }
   ]
 }

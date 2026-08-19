@@ -272,7 +272,7 @@ def fingerprint(body: str) -> Tuple[List[str], Optional[str]]:
     if _has_event_block(body):
         labels.append("jsonld-event")
     m = _ICS_RX.search(body)
-    ics = (m.group(1) or m.group(2)) if m else None
+    ics = _https((m.group(1) or m.group(2)) if m else None)
     if ics:
         labels.append("ics")
     return labels, ics
@@ -359,6 +359,21 @@ def overpass_venues(session, bbox: str, name: str = "?",
 
 
 # ---- finding the calendar on a venue's own site ------------------------------
+def _https(u: Optional[str]) -> Optional[str]:
+    """webcal:// is https:// wearing a hat.
+
+    It is the standard scheme for "subscribe to this calendar", and plenty of
+    parish and club sites publish their .ics that way. requests has no adapter
+    for it, so a candidate carrying one does not fail verification for a reason
+    about the FEED — it raises InvalidSchema and reads as a broken source. Two
+    Sydney candidates were lost to that before this existed, and the ics adapter
+    would have raised the same way on the merged config.
+    """
+    if u and u.lower().startswith("webcal://"):
+        return "https://" + u[9:]
+    return u
+
+
 def _same_host(a: str, b: str) -> bool:
     return urlparse(a).netloc.lower().lstrip("www.") == urlparse(b).netloc.lower().lstrip("www.")
 
@@ -516,7 +531,7 @@ def to_candidate(v: Dict[str, Any], found: Dict[str, Any],
         ics = found.get("ics")
         if not ics:
             return None                       # the platform said ics, the site did not serve one
-        return dict(common, type="ics", url=urljoin(cal, ics),
+        return dict(common, type="ics", url=_https(urljoin(cal, ics)),
                     geocode_suffix=_suffix(v, metro), limit=300)
     if adapter == "tribe":
         o = urlparse(cal)

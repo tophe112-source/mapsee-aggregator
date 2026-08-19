@@ -313,6 +313,91 @@
     "lon": -113.4847927
    },
    "_metro": "Edmonton, CA"
+  },
+  {
+   "name": "Kitchener Waterloo Oktoberfest",
+   "category": "community",
+   "_found": "osm:ngo -> jsonld-event",
+   "listing": [
+    "https://www.oktoberfest.ca/events/"
+   ],
+   "link_pattern": "https://www\\.oktoberfest\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Kitchener Waterloo Oktoberfest",
+    "lat": 43.4502285,
+    "lon": -80.4891157
+   },
+   "_metro": "Kitchener, CA"
+  },
+  {
+   "name": "Roslyn Oxley9 Gallery",
+   "category": "arts",
+   "_found": "osm:gallery -> jsonld-event",
+   "listing": [
+    "https://www.roslynoxley9.com.au/"
+   ],
+   "link_pattern": "https://www\\.roslynoxley9\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Roslyn Oxley9 Gallery",
+    "lat": -33.8826261,
+    "lon": 151.2340556
+   },
+   "_metro": "Sydney, AU"
+  },
+  {
+   "name": "Bondi Presbyterian Church",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://bondipresbyterian.org.au/events/"
+   ],
+   "link_pattern": "https://bondipresbyterian\\.org\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Bondi Presbyterian Church",
+    "address": "6 Castlefield Street",
+    "lat": -33.8934801,
+    "lon": 151.2674407
+   },
+   "_metro": "Sydney, AU"
+  },
+  {
+   "name": "Polish Club Bankstown",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://polishclub.com.au/whats-on/"
+   ],
+   "link_pattern": "https://polishclub\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Polish Club Bankstown",
+    "address": "11 East Terrace",
+    "region": "NSW",
+    "postal_code": "2200",
+    "country": "AU",
+    "lat": -33.9192518,
+    "lon": 151.0379548
+   },
+   "_metro": "Sydney, AU"
+  },
+  {
+   "name": "Northside Church",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://northsidechurch.org.au/whats-on"
+   ],
+   "link_pattern": "https://northsidechurch\\.org\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Northside Church",
+    "lat": -33.7162189,
+    "lon": 151.1465657
+   },
+   "_metro": "Sydney, AU"
   }
  ],
  "_not_included": {

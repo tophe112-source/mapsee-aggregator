@@ -1936,5 +1936,95 @@
   "geocode_suffix": ", Seattle, WA",
   "limit": 300,
   "_note": "WordPress + My Calendar, whose iCal lives at a fixed path the site links from nowhere. VERIFIED FROM A RUNNER, not from a laptop: the site's WAF answers some networks with a 200 and a 'One moment, please...' spinner while serving others normally, so catalog_probe.py + probe-url.yml is what proved it (2 vevents / 2 future, 2/2 carrying GEO or LOCATION). If a local probe ever says this feed is dead, re-probe from CI before believing it."
+ },
+ {
+  "name": "Winnipeg Chinese Cultural and Community Centre",
+  "category": "community",
+  "_found": "osm:community_centre -> my-calendar+jsonld-event",
+  "url": "https://wcccc.ca/?feed=my-calendar-ics",
+  "geocode_suffix": ", Winnipeg, MB",
+  "limit": 300,
+  "_metro": "Winnipeg, CA"
+ },
+ {
+  "name": "Hurstville Presbyterian Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://calendar.google.com/calendar/ical/church%40hurstvillepresbyterian.org/public/basic.ics",
+  "geocode_suffix": ", Sydney, AU",
+  "limit": 300,
+  "_metro": "Sydney, AU"
+ },
+ {
+  "name": "St. George's Anglican Transcona",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.stgeorgesanglicantranscona.ca/events.ics",
+  "geocode_suffix": ", Winnipeg, CA",
+  "limit": 300,
+  "_metro": "Winnipeg, CA"
+ },
+ {
+  "name": "All Saints' Anglican Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://allsaintswaterloo.ca/events.ics",
+  "geocode_suffix": ", Waterloo",
+  "limit": 300,
+  "_metro": "Kitchener, CA"
+ },
+ {
+  "name": "Trillium United Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.trilliumchurch.ca/events.ics",
+  "geocode_suffix": ", Cambridge, Ontario",
+  "limit": 300,
+  "_metro": "Kitchener, CA"
+ },
+ {
+  "name": "Saint Andrew's Memorial Anglican Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://standrewsmemorial.ca/events.ics",
+  "geocode_suffix": ", Kitchener",
+  "limit": 300,
+  "_metro": "Kitchener, CA"
+ },
+ {
+  "name": "Saint George's Anglican Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.stgeorgesnewhamburg.com/events.ics",
+  "geocode_suffix": ", New Hamburg",
+  "limit": 300,
+  "_metro": "Kitchener, CA"
+ },
+ {
+  "name": "Gymea Baptist",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.gymeabaptist.org.au/events.ics",
+  "geocode_suffix": ", Sydney, AU",
+  "limit": 300,
+  "_metro": "Sydney, AU"
+ },
+ {
+  "name": "St Michael's Catholic Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.stbrendan.org.au/events.ics",
+  "geocode_suffix": ", Sydney, AU",
+  "limit": 300,
+  "_metro": "Sydney, AU"
+ },
+ {
+  "name": "St Declan's Catholic Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.stdeclansparish.org/events.ics",
+  "geocode_suffix": ", Sydney, AU",
+  "limit": 300,
+  "_metro": "Sydney, AU"
  }
 ]

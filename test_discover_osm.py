@@ -152,6 +152,20 @@ def main():
                                "cal_url": "https://x.org/events/", "ics": None}), None)
 
     print()
+    print("webcal:// is https:// wearing a hat")
+    check("a webcal feed is normalised", osm._https("webcal://x.org/cal.ics"),
+          "https://x.org/cal.ics")
+    check("case does not matter", osm._https("WEBCAL://x.org/c.ics"), "https://x.org/c.ics")
+    check("https is left alone", osm._https("https://x.org/c.ics"), "https://x.org/c.ics")
+    check("None stays None", osm._https(None), None)
+    wc = osm.to_candidate({"name": "St Declan's", "url": "https://x.org", "kind": "place_of_worship",
+                           "lat": -33.9, "lon": 151.1},
+                          {"adapter": "ics", "labels": ["ics"], "cal_url": "https://x.org/events",
+                           "ics": "webcal://x.org/events/?ical=1"}, "Sydney, AU")
+    check_true("and the candidate never carries the webcal scheme",
+               wc["url"].startswith("https://"))
+
+    print()
     print("the metro walk is global, and international first")
     ms = osm.metros()
     check_true("there are metros to walk", len(ms) > 200)

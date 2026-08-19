@@ -374,6 +374,15 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   theblackaltar.org answers this sandbox with a spinner and a runner with a real
   200 — a working calendar that would have been retired as dead. Do not record
   either verdict from one vantage point.
+- **`webcal://` is `https://` wearing a hat, and `requests` has never heard of
+  it.** It is the standard "subscribe to this calendar" scheme and what parish
+  and club sites publish, so discovery proposes it verbatim — and then
+  verification dies on `InvalidSchema: No connection adapters were found`, which
+  reads as a broken feed rather than as a URL nobody normalised. Eight of one
+  sweep's candidates were lost that way and all eight passed once the scheme was
+  swapped: **833 future events**. Normalised in `catalog_discover_osm._https` and
+  again in `mapsee_ingest_ics._fetch_ics`, because a config edited by hand can
+  carry one too.
 - **A feed can pass verification and still put nothing on the map.** "Returns
   future events" is what `verify` asks; `mapsee_ingest_ics` separately DROPS a
   VEVENT carrying neither GEO nor LOCATION, and that count only appears once the

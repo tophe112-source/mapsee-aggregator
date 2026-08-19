@@ -737,6 +737,593 @@
         "lon": -113.4874717
       },
       "_metro": "Edmonton, CA"
+    },
+    {
+      "name": "Plug In Institute of Contemporary Art",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://plugin.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Plug In Institute of Contemporary Art",
+        "address": "460 Portage Avenue",
+        "postal_code": "R3C 0E8",
+        "lat": 49.8904395,
+        "lon": -97.1512172
+      },
+      "_metro": "Winnipeg, CA"
+    },
+    {
+      "name": "Devil May Care Brew Co.",
+      "category": "food",
+      "_found": "osm:brewery -> tribe+jsonld-event",
+      "base_url": "https://devilmaycarebrewing.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Devil May Care Brew Co.",
+        "address": "155 Fort Street",
+        "postal_code": "R3C 1C8",
+        "lat": 49.8902293,
+        "lon": -97.1370047
+      },
+      "_metro": "Winnipeg, CA"
+    },
+    {
+      "name": "Children's Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://childrensmuseum.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Children's Museum",
+        "address": "45 Forks Market Road",
+        "city": "Winnipeg",
+        "region": "Manitoba",
+        "lat": 49.8875802,
+        "lon": -97.1282921
+      },
+      "_metro": "Winnipeg, CA"
+    },
+    {
+      "name": "Holy Family Ukrainian Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://holyfamilyparishmb.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Holy Family Ukrainian Catholic Church",
+        "address": "1001 Grant Avenue",
+        "lat": 49.8615637,
+        "lon": -97.1597248
+      },
+      "_metro": "Winnipeg, CA"
+    },
+    {
+      "name": "Bourkevale Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://bourkevale.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bourkevale Community Centre",
+        "address": "100 Ferry Road",
+        "lat": 49.8747386,
+        "lon": -97.2196847
+      },
+      "_metro": "Winnipeg, CA"
+    },
+    {
+      "name": "Winnipeg Harvest",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.harvestmanitoba.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Winnipeg Harvest",
+        "address": "1085 Winnipeg Avenue",
+        "city": "Winnipeg",
+        "postal_code": "R3E 0S2",
+        "lat": 49.9073476,
+        "lon": -97.1740554
+      },
+      "_metro": "Winnipeg, CA"
+    },
+    {
+      "name": "Saint Boniface Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://msbm.mb.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Boniface Museum",
+        "address": "494 Taché Avenue",
+        "city": "Winnipeg",
+        "region": "MB",
+        "postal_code": "R2H 2B2",
+        "lat": 49.8878041,
+        "lon": -97.1230963
+      },
+      "_metro": "Winnipeg, CA"
+    },
+    {
+      "name": "Royal Aviation Museum of Western Canada",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.royalaviationmuseum.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal Aviation Museum of Western Canada",
+        "address": "2088 Wellington Avenue",
+        "postal_code": "R3H 1C5",
+        "lat": 49.9013092,
+        "lon": -97.2243974
+      },
+      "_metro": "Winnipeg, CA"
+    },
+    {
+      "name": "Registry Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://registrytheatre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Registry Theatre",
+        "address": "122 Frederick Street",
+        "city": "Kitchener",
+        "postal_code": "N2H 2L9",
+        "lat": 43.4519348,
+        "lon": -80.485633
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Immigrant Services Guelph-Wellington",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://is-gw.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Immigrant Services Guelph-Wellington",
+        "address": "104 Dawson Road",
+        "city": "Guelph",
+        "region": "ON",
+        "postal_code": "N1H1A6",
+        "lat": 43.5496886,
+        "lon": -80.2810634
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Eastwood Christian Fellowship",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://nabconference.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eastwood Christian Fellowship",
+        "address": "56 Ross Avenue",
+        "city": "Kitchener",
+        "lat": 43.4375284,
+        "lon": -80.4552104
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Central Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://centralchurchcambridge.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Central Presbyterian Church",
+        "address": "7 Queens Square",
+        "city": "Cambridge",
+        "lat": 43.3594701,
+        "lon": -80.3165745
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Shantz Mennonite Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://shantzmc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shantz Mennonite Church",
+        "address": "2473 Erb's Road",
+        "city": "Baden",
+        "lat": 43.4277134,
+        "lon": -80.6733141
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Holy Rosary Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://holyrosaryguelph.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Holy Rosary Catholic Church",
+        "address": "175 Emma Street",
+        "city": "Guelph",
+        "lat": 43.564928,
+        "lon": -80.2527854
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Al Zahra Shia Association of Waterloo Region",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.alzahra.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Al Zahra Shia Association of Waterloo Region",
+        "address": "204 Madison Avenue South",
+        "lat": 43.441332,
+        "lon": -80.4873513
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Alpine Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://alpineclub.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alpine Club",
+        "lat": 43.4728636,
+        "lon": -80.4819361
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Guelph Civic Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://guelphmuseums.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Guelph Civic Museum",
+        "address": "52 Norfolk Street",
+        "city": "Guelph",
+        "region": "Ontario",
+        "lat": 43.5434769,
+        "lon": -80.2514874
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Silence Sounds",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://silencesounds.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Silence Sounds",
+        "address": "46 Essex Street",
+        "city": "Guelph",
+        "region": "ON",
+        "postal_code": "N1H3K8",
+        "lat": 43.5406648,
+        "lon": -80.2491108
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Schwaben Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://kitchenerschwabenclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schwaben Club",
+        "address": "50 Scheifele Place",
+        "city": "Breslau",
+        "postal_code": "N0B 1M0",
+        "lat": 43.4796228,
+        "lon": -80.4190095
+      },
+      "_metro": "Kitchener, CA"
+    },
+    {
+      "name": "Gladesville RSL",
+      "category": "community",
+      "_found": "osm:licensed_club -> tribe+ics",
+      "base_url": "https://gladesvillersl.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gladesville RSL",
+        "lat": -33.8315714,
+        "lon": 151.1262674
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "St Joseph's Como-Oyster Bay",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stjosephscomo.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Joseph's Como-Oyster Bay",
+        "address": "210 Oyster Bay Road",
+        "lat": -34.0094317,
+        "lon": 151.0727695
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "St James Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://bbjcatholic.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St James Catholic Church",
+        "address": "2 Woolley Street",
+        "lat": -33.8798688,
+        "lon": 151.1851982
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Evolve Housing",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://evolvehousing.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evolve Housing",
+        "address": "9-13 Argyle Street",
+        "lat": -33.8160297,
+        "lon": 150.9983887
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Bankstown Men's Shed",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://mensshed.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bankstown Men's Shed",
+        "lat": -33.8914622,
+        "lon": 151.0165015
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Little Big House",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://littlebigfoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Little Big House",
+        "address": "16",
+        "lat": -33.8936869,
+        "lon": 151.1422595
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Dancers’ Alley",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://www.dancersalleysydney.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dancers’ Alley",
+        "lat": -33.8764089,
+        "lon": 151.2002119
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Angels on Wheels",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.angelsonwheels.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Angels on Wheels",
+        "address": "552 Princes Highway",
+        "postal_code": "2216",
+        "lat": -33.9539282,
+        "lon": 151.1377405
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "QStation Visitor Centre Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://qstation.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "QStation Visitor Centre Museum",
+        "lat": -33.8156422,
+        "lon": 151.2858876
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Wanda Surf Life Saving Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://www.wandasurfclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wanda Surf Life Saving Club",
+        "lat": -34.0433643,
+        "lon": 151.1611854
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Club Kirrawee",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://clubkirrawee.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Club Kirrawee",
+        "address": "101 Oak Road",
+        "region": "NSW",
+        "postal_code": "2232",
+        "lat": -34.0298745,
+        "lon": 151.0713573
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Manly Warringah Rugby League Club",
+      "category": "community",
+      "_found": "osm:licensed_club -> tribe",
+      "base_url": "https://www.manlyleagues.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Manly Warringah Rugby League Club",
+        "lat": -33.7601539,
+        "lon": 151.2777952
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "St Thomas' Anglican Church North Sydney",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://st-thomas.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Thomas' Anglican Church North Sydney",
+        "lat": -33.8337257,
+        "lon": 151.2058416
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Collaroy Surf Life Saving Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://collaroysurfclub.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Collaroy Surf Life Saving Club",
+        "lat": -33.733081,
+        "lon": 151.3024137
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Wenty Leagues Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://wentyleagues.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wenty Leagues Club",
+        "lat": -33.8124727,
+        "lon": 150.9621423
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Sydney Game Fishing Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://sgfc.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sydney Game Fishing Club",
+        "lat": -33.8434194,
+        "lon": 151.2810448
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Smithfield RSL Club",
+      "category": "community",
+      "_found": "osm:restaurant -> tribe",
+      "base_url": "https://smithfieldrsl.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Smithfield RSL Club",
+        "lat": -33.8557698,
+        "lon": 150.9373505
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Kingsgrove RSL Club",
+      "category": "community",
+      "_found": "osm:pub -> tribe",
+      "base_url": "https://kingsgroversl.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kingsgrove RSL Club",
+        "address": "8 Brocklehurst Lane",
+        "lat": -33.9416255,
+        "lon": 151.1022896
+      },
+      "_metro": "Sydney, AU"
+    },
+    {
+      "name": "Mortdale RSL Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://mortdalersl.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mortdale RSL Club",
+        "address": "25 Macquarie Place",
+        "lat": -33.9718124,
+        "lon": 151.0784173
+      },
+      "_metro": "Sydney, AU"
     }
   ],
   "_not_included": {

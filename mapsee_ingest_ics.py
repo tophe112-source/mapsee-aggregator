@@ -110,6 +110,12 @@ _FEED_CACHE = _load_feed_cache()
 
 def _fetch_ics(session, url):
     """GET with revalidation. Returns (text, how) where how is 200/304/reuse."""
+    # webcal:// is https:// wearing a hat — the standard "subscribe to this
+    # calendar" scheme, and what parish and club sites publish. requests has no
+    # adapter for it and raises InvalidSchema, which reads as a broken feed
+    # rather than as a URL nobody normalised.
+    if url.lower().startswith("webcal://"):
+        url = "https://" + url[9:]
     ent = _FEED_CACHE.get(url)
     headers = {}
     if ent:
