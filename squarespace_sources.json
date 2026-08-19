@@ -19,6 +19,103 @@
         "lat": 47.6303122,
         "lon": -122.31431
       }
+    },
+    {
+      "name": "Woodlands Community Meeting Room",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.woodlandscommunity.org.uk/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "Woodlands Community Meeting Room",
+        "address": "66 Ashley Street",
+        "city": "Glasgow",
+        "postal_code": "G3 6HW",
+        "lat": 55.8705712,
+        "lon": -4.2720133
+      },
+      "_metro": "Glasgow, GB"
+    },
+    {
+      "name": "Glasgow Zine Library",
+      "category": "learning",
+      "_found": "osm:library -> squarespace",
+      "collection": "https://www.glasgowzinelibrary.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Glasgow Zine Library",
+        "address": "32-34 Albert Road",
+        "city": "Glasgow",
+        "postal_code": "G42 8DN",
+        "lat": 55.834331,
+        "lon": -4.2645104
+      },
+      "_metro": "Glasgow, GB"
+    },
+    {
+      "name": "Maryhill Gospel Hall",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.gospelhallmaryhill.co.uk/events4month",
+      "max_events": 200,
+      "venue": {
+        "name": "Maryhill Gospel Hall",
+        "address": "26 Avenuepark Street",
+        "city": "Glasgow",
+        "postal_code": "G20 8TS",
+        "lat": 55.8850099,
+        "lon": -4.2837062
+      },
+      "_metro": "Glasgow, GB"
+    },
+    {
+      "name": "Leith Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.leiththeatre.co.uk/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Leith Theatre",
+        "address": "28-30 Ferry Road",
+        "city": "Edinburgh",
+        "postal_code": "EH6 4AE",
+        "lat": 55.9757238,
+        "lon": -3.180472
+      },
+      "_metro": "Edinburgh, GB"
+    },
+    {
+      "name": "Bridgend Farmhouse",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.bridgendfarmhouse.org.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Bridgend Farmhouse",
+        "address": "41 Old Dalkeith Road",
+        "city": "Edinburgh",
+        "postal_code": "EH16 4TE",
+        "country": "GB",
+        "lat": 55.9267606,
+        "lon": -3.1537887
+      },
+      "_metro": "Edinburgh, GB"
+    },
+    {
+      "name": "St Giles' Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.stgilescathedral.org.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Giles' Cathedral",
+        "address": "Royal Mile",
+        "city": "Edinburgh",
+        "postal_code": "EH1 1RE",
+        "lat": 55.9494682,
+        "lon": -3.1908597
+      },
+      "_metro": "Edinburgh, GB"
     }
   ]
 }

@@ -135,6 +135,27 @@ jobs:
       - name: Feed shapes (one bad record must not cost a whole site)
         run: python test_ingest_tribe.py
 
+      # The generic JSON-LD importer read WP Event Manager sites correctly by
+      # ACCIDENT: schema.org says `location`, that plugin writes `Location`, so
+      # the key was missed and the config's venue block filled the gap. Read the
+      # key and its content bites — every one of The Royal Room's 95 pages says
+      # {"name": "-", "address": "-"}, and "-" is truthy, so it survives the
+      # gap-fill test and reaches the geocoder as a street. Also pinned: the
+      # naive local startDate that is only an instant once the venue's
+      # coordinates supply a timezone, and the closure notices a venue posts to
+      # its own calendar, which are well-formed events that must not be on a map.
+      - name: JSON-LD venue sites (placeholder locations, naive times, non-events)
+        run: python test_ingest_jsonld.py
+
+      # Discovery from the map. The trap it exists for: Squarespace and Wix match
+      # on every page of every site built with them, so "detected Squarespace" is
+      # not "found a calendar" — 4 of 5 failed candidates in the first London
+      # sweep were Wix sites, one of which does not use Wix Events at all. Also
+      # pins that a bot challenge answering 200 is still a refusal, and that a
+      # refusal is not written into the ledger as a fact about the site.
+      - name: OSM calendar discovery (builders vs plugins, challenges, candidate shape)
+        run: python test_discover_osm.py
+
       # "Order pickup" is a promise. It shipped once on 400 of 400 food events
       # that pointed at Meetup, and a second time on any /menu path — which
       # matched a town website's nav. Both regressions are pinned here.

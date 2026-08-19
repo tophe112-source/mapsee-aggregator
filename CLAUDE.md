@@ -22,7 +22,8 @@ front doors it reaches.
 | Which category an event ends up in | `map_category` / `derive_categories` in `mapsee_supabase_sync.py` |
 | The promotion rules (`_VOLUNTEER_RX`, `_PARTY_RX`, `_FITNESS_RX`, …) | same file, above `map_category` |
 | Adding/verifying feed sources | `catalog_curate.py` — `discover`, `verify`, `merge`, `audit`, `coverage` |
-| Where new sources come FROM | `discover <socrata\|ckan\|mobilizon>`; `curation_cursor.json` is how far each catalog query has been read |
+| Where new sources come FROM | `discover <socrata\|ckan\|mobilizon\|osm>`; `curation_cursor.json` is how far each catalog query has been read |
+| Finding a VENUE's own calendar, anywhere on earth | `catalog_discover_osm.py` — OSM venues with a `website`, probed for a calendar and fingerprinted to an adapter |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
 | Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run |
@@ -296,6 +297,124 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   Colorado ingested 0 of 105 placeable events while printing something that
   looks like a network fault. `_obj()` normalises the shapes;
   `ingest_site` now skips and COUNTS a bad record. `test_ingest_tribe.py`.
+- **Reading a source correctly BY ACCIDENT is not reading it.** schema.org spells
+  it `location`; WP Event Manager writes `Location`, on every page it renders.
+  `mapsee_ingest_jsonld.py` asked for the lowercase key, got None, and fell back
+  to the config's `venue` block — which produced the right pin, so nothing looked
+  wrong. What was actually there is `{"name": "-", "address": "-"}`, the
+  placeholder that CMS renders for a location nobody filled in, on all 95 of The
+  Royal Room's event pages. Read the key without the second rule and it gets
+  worse, not better: `"-"` is TRUTHY, so it survives the `if not parts.get(k)`
+  gap-fill test, the venue block stops filling, and `"-"` reaches the geocoder as
+  a street. The rule is the Squarespace one — a location with no address TEXT is
+  not a location — and the fix is the config's venue, never a coordinate
+  blocklist. `_ld_get` and `_meaningful`, pinned in `test_ingest_jsonld.py`.
+- **A single-venue calendar's `startDate` may carry no offset at all, and that is
+  the venue block's real job.** WP Event Manager emits `2026-08-19 19:30:00` —
+  naive local, space-separated, no zone, on every event. It becomes an instant
+  only because `venue` supplies coordinates the sync turns into a timezone; read
+  as UTC, a 7:30pm show is served at 12:30pm. So on a site like this the venue
+  block is not a fallback for a missing pin, it is what makes the TIME true, and
+  the two halves live in different files with no single place either can be seen
+  to be wrong. The round trip is asserted end to end.
+- **A venue calendar carries entries that are not events, and they are the
+  best-formed rows in the feed.** The Royal Room posts "CLOSED FOR MAINTENANCE"
+  and "Closed for Private Event" as event_listing posts with real dates, because
+  a notice is the only thing that CMS can put on a calendar — 5 of its 95. They
+  classify as music and pin at the venue like everything else, so they would tell
+  somebody a shut venue is open. `skip_title` is matched on the NAME and anchored:
+  the other available tell, a 00:00 start, is shared by every one of them and
+  would also throw away a New Year's Eve show. Same family as Traders Village's
+  car show — the feed works, and it is not what it looks like.
+- **The catalogs cannot see the long tail, and the map can.** Socrata, CKAN and
+  joinmobilizon list DATASETS and INSTANCES, so discovery could only ever find
+  what somebody had published to a data portal — never a gallery, a zendo or a
+  brewery with a Tuesday quiz. Measured against the 1,181 hand-curated Seattle
+  sources uncouchme.com publishes: 745 distinct hosts, **648 appearing exactly
+  once**. That tail is the bulk of a city and no query would have reached it.
+  It is, however, ON THE MAP — OSM tags what programmes things and a third of
+  them carry a `website`. 1,656 programme-venues in the Seattle bbox, 599 with a
+  site; 98 of those hosts were on the hand-built list too (so the method finds
+  the same real places a human found) and 387 were not, of which 114 had a
+  calendar on a platform this repo already reads. `discover osm`. What it
+  CANNOT find is a Meetup group, an Eventbrite organiser, a blog or a listings
+  column — 638 of that 745. It complements hand curation; it does not replace
+  it, and a metro it has swept is not a metro finished.
+- **Detecting a site BUILDER is not detecting a calendar.** `tribe`,
+  `wp-event-manager` and `my-calendar` are calendar PLUGINS: finding one means
+  the site has an events system and a feed follows. Squarespace and Wix are how
+  the whole site is BUILT, so they match on every page of every site using them,
+  including a hand-written "What's On" with nothing behind it. On the first
+  London sweep 4 of the 5 candidates that failed verification were Wix sites
+  found that way, and White Bear Theatre's turned out not to run Wix Events at
+  all. A builder now has to show its events app — Squarespace names the
+  collection in the body class, Wix routes through `/event-info/` — and the two
+  need different config shapes, because a WordPress `/event/<slug>/` pattern
+  matches nothing on Wix.
+- **A bot challenge does not answer 403, and the 200 is the dangerous one.**
+  dmhsus.org (SiteGround) answers **202** with an `sgcaptcha` body on every path
+  including `/robots.txt`, so permission cannot even be established.
+  theblackaltar.org's WAF answers a clean **200** with a spinner saying "One
+  moment, please…" — on `/wp-json/…/events?from=…`, while the SAME endpoint
+  without a query string returns real JSON. A 200 is worst because HTML arrives
+  where JSON was expected, and the honest readings of that are "broken feed" and
+  "calendar with nothing on", neither of which happened. Match the words, not
+  the status. Same policy as sfbike.org: a challenge is a NO, and we do not
+  impersonate a browser to get round one.
+- **A refusal is not a fact about the site, so it must not be written down as
+  one.** theblackaltar.org served one probe and challenged the next, seconds
+  apart from the same IP, then blocked steadily once probed repeatedly. "This
+  site has no events page" is stable and worth parking in the ledger for the
+  90-day TTL; a challenge, a timeout or a 5xx is how the site felt about us for
+  one request. Parking those would retire a working calendar over a bad moment —
+  and with the metro cursor, nobody would look again for months. They cost one
+  request to re-probe, so `_discover_osm` simply does not record them.
+- **A regex that FINDS a JSON-LD block is not a parser that can READ it, and
+  discovery must use the parser.** The Royal Lyceum's programme is 40 well-formed
+  `Event` blocks, and `json.loads` refused every one of them: a raw control
+  character in a description, which strict JSON rejects and `strict=False`
+  accepts. The fingerprint asked by regex and said yes; `mapsee_ingest_jsonld`
+  asked by parsing and got nothing — so discovery proposed the page, verification
+  reported "no schema.org Event blocks found", and neither end could see the
+  other was right. `_parse_ld` now retries non-strict (worth it on its own: 40
+  events on one page), and `_has_event_block` parses with the adapter's own
+  helpers so the two cannot drift again. Same family as `looks_like_ordering`
+  having to agree with `looksLikeOrdering`.
+- **Detecting a calendar plugin tells you it HAS events, not what it will hand
+  you.** Events Manager was routed to the JSON-LD adapter because it is a
+  WordPress events plugin; the Bongo Club's page carries `WebPage` and `WebSite`
+  and no `Event` at all, so every candidate found through it failed for a reason
+  that had nothing to do with the site. What it does have is an iCal export on
+  any calendar page — `/events-main/?ical=1` is 3.1MB where the site root's is
+  27KB, which is why `FEED_TEMPLATES` interpolates `{cal}` and not just
+  `{origin}`. Check what a platform EXPORTS before assigning it an adapter.
+- **A deep event page can be a better crawl seed than the index, and only
+  measurement says which.** Landing the fingerprint on `/events/guys-dolls`
+  makes a config that dies silently the day that show closes, so `_prefer_listing`
+  walks up to `/events/`. But the Lyceum's index is JS-rendered: it yields **0**
+  links matching the crawl pattern where the single show's page yields 4. The
+  guard only takes the parent once it has been fetched and shown to link at least
+  two siblings — a parent that is not an index is a source that ingests nothing,
+  which is the same rule as never merging a constructed feed URL unproven.
+- **A platform can imply a feed URL the page never links.** My Calendar (100k+
+  WordPress installs, and what small arts orgs and congregations actually reach
+  for) publishes iCal at `/?feed=my-calendar-ics` and links it from nowhere, so
+  scraping for an `.ics` href finds nothing and a perfectly readable site looks
+  unreadable. `FEED_TEMPLATES` constructs it — and then FETCHES it, because a
+  constructed URL merged unproven is a source that ingests zero.
+- **`cmd_merge` rewrote whole files to add one line.** It dumped at `indent=2`
+  into files stored at `indent=1`, so adding a single source to
+  `ics_sources.json` produced a 3,653-line diff — every line of a 260-entry file
+  re-indented around it. A merge nobody can read is a merge nobody checks, which
+  is the opposite of what the ledger and the verify step are for. `_file_indent`
+  reads the file's own shape and writes it back that way.
+- **A calendar PAGE is often not the whole calendar; the sitemap is.** The Royal
+  Room's `/events/` renders 12 cards and loads the rest over admin-ajax, so an
+  adapter pointed at it imports 12 of 95 and looks complete. The site's own
+  event-post sitemap — declared in its robots.txt — is all 95 with no paging at
+  all. `link_pattern` is a regex over whatever the listing URL returns, so a
+  sitemap is a valid `listing`, and usually the better one. Same shape as
+  BikeReg's search endpoint that answers 200 with a silent hundred-row ceiling.
 - **Cloudflare's bot challenge is a NO, and curl getting through is not a
   second opinion.** sfbike.org's robots.txt allows everything (`User-agent: *`,
   `Allow: /`, Content-Signal `search=yes`), and the endpoint still answers
@@ -433,6 +552,8 @@ python test_ingest_slu.py           # occurrence vs series start; end_time vs en
 python test_ingest_mylisting.py     # which of a card's two dates is the occurrence
 python test_ingest_bikereg.py       # cycling: the server's offset, and one id per occurrence
 python test_ingest_tribe.py         # feed shapes: one bad record must not cost a whole site
+python test_ingest_jsonld.py        # placeholder locations, naive times, and calendar entries that are not events
+python test_discover_osm.py         # discovery: a site builder is not a calendar, and a 200 can be a refusal
 python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
@@ -440,7 +561,7 @@ python catalog_curate.py coverage   # where the catalog is thin, per lens catego
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 16 test scripts are the CI gate (`tests.yml`). They print one line per
+The 18 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

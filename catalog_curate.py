@@ -48,7 +48,8 @@ Usage:
   #      "map":{"id":"...","title":"...","start":"...","venue":"..."}}]
   # propose NEW sources. The backend is POSITIONAL and must come before the
   # flags (main() reads argv[2:3]); omitted means socrata.
-  python catalog_curate.py discover [socrata|ckan|mobilizon] [--limit 400] [--out candidates.json]
+  python catalog_curate.py discover [socrata|ckan|mobilizon|osm] [--limit 400]
+         [--out candidates.json] [--metros N]      # --metros: osm only
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
@@ -61,6 +62,8 @@ import os
 import re
 import sys
 import time
+
+from urllib.parse import urljoin
 
 import requests
 
@@ -94,6 +97,17 @@ CONFIG = {
     # Mobilizon instances (federated AGPL event software). Keyed by base_url, and
     # the file nests its list under "sites" rather than "sources" - see _entries.
     "mobilizon": ("mobilizon_sources.json", "base_url"),
+    # VENUE-SITE configs. These predate curation and were invisible to it, which
+    # meant _config_keys() did not know they existed: discovery could propose a
+    # venue that has been configured for months, verification would pass it (it
+    # works — that is why it was added), and merge would write a duplicate.
+    # Volunteer Park Trust is the live example. Listing them here is what makes
+    # "already in config" true for the long tail as well as for the catalogs.
+    "squarespace": ("squarespace_sources.json", "collection"),
+    "tribe": ("tribe_sources.json", "base_url"),
+    "jsonld": ("jsonld_sources.json", "listing"),
+    "mylisting": ("mylisting_sources.json", "explore_url"),
+    "gancio": ("gancio_sources.json", "base_url"),
 }
 
 def _ods_url(e):
@@ -297,20 +311,36 @@ def _save_cursor(cur):
 
 
 def _config_keys():
+    """Every URL already configured, canonicalised.
+
+    jsonld's key is `listing`, which is a LIST — a site can be crawled from more
+    than one page. Every one of them has to land in the set or the same venue
+    gets re-proposed through whichever page was not indexed.
+    """
     keys = set()
     for fname, key in CONFIG.values():
         p = os.path.join(HERE, fname)
         if os.path.exists(p):
             for e in _entries(fname, json.load(open(p, encoding="utf-8"))):
-                keys.add(_canon(e.get(key) or (_ods_url(e) if fname.startswith("ods") else None)))
+                v = e.get(key) or (_ods_url(e) if fname.startswith("ods") else None)
+                for one in (v if isinstance(v, list) else [v]):
+                    if one:
+                        keys.add(_canon(one))
     return keys
 
 
 def _key_of(e):
-    if e.get("type") in ("localist", "mobilizon"):
+    if e.get("type") in ("localist", "mobilizon", "tribe", "gancio"):
         return e.get("base_url")
     if e.get("type") == "ods":
         return e.get("url") or _ods_url(e)
+    if e.get("type") == "squarespace":
+        return e.get("collection")
+    if e.get("type") == "jsonld":
+        listing = e.get("listing") or []
+        return listing[0] if isinstance(listing, list) else listing
+    if e.get("type") == "mylisting":
+        return e.get("explore_url")
     return e.get("url")
 
 
@@ -496,8 +526,127 @@ def verify_mobilizon(s, e):
     return True, f"{node.get('total', len(rows))} upcoming, sample: {str(rows[0].get('title'))[:40]}"
 
 
+# --- venue-site verifiers ---------------------------------------------------
+# These prove the same thing the others do — the feed answers, and what it
+# answers with is in the FUTURE — but they do it by asking the page the way its
+# own adapter will. A candidate that parses beautifully and is all last season
+# is `empty`, not `fail`: wisconsinbikefed's iCal was configured on the strength
+# of 50 well-formed VEVENTs and ingested 0, every one of them past.
+def _future_note(total, future, unit="events"):
+    """The note shape _EMPTY_RX reads, so a dormant calendar is not a dead one."""
+    return f"{total} {unit} / {future} future"
+
+
+def verify_tribe(s, e):
+    """The Events Calendar's own REST route, with the adapter's date window."""
+    base = (e.get("base_url") or "").rstrip("/")
+    if not base:
+        return False, "no base_url"
+    today = _as_date(_today_int())
+    end = today + datetime.timedelta(days=int(e.get("within_days", 120)))
+    r = s.get(f"{base}/wp-json/tribe/events/v1/events",
+              params={"per_page": 10, "start_date": today.isoformat(),
+                      "end_date": end.isoformat()}, timeout=30)
+    if r.status_code != 200:
+        return False, f"http {r.status_code}"
+    try:
+        body = r.json()
+    except Exception:                                             # noqa: BLE001
+        return False, "not json"
+    evs = body.get("events") or []
+    total = int(body.get("total") or len(evs))
+    if not evs:
+        return False, _future_note(total, 0)
+    fut = [x for x in evs if str(x.get("start_date") or "")[:10] >= today.isoformat()]
+    if not fut:
+        return False, _future_note(len(evs), 0)
+    return True, f"{total} events, {len(fut)}/{len(evs)} on page 1 future"
+
+
+def verify_squarespace(s, e):
+    """The BARE collection page — ?format=json is disallowed platform-wide."""
+    url = e.get("collection")
+    if not url:
+        return False, "no collection"
+    if "?" in url:
+        return False, "collection carries a query string"
+    r = s.get(url, timeout=30)
+    if r.status_code != 200:
+        return False, f"http {r.status_code}"
+    import mapsee_ingest_squarespace as sq
+    every = sq.parse_articles(r.text, e.get("venue"), upcoming_only=False)
+    fut = sq.parse_articles(r.text, e.get("venue"), upcoming_only=True)
+    if not every:
+        return False, "no event articles on the collection page"
+    if not fut:
+        return False, _future_note(len(every), 0)
+    return True, f"{len(fut)}/{len(every)} upcoming"
+
+
+def verify_jsonld(s, e):
+    """Follow a few of the listing's event links and read their Event blocks.
+
+    Capped hard: verification must not cost the 150-page crawl the real run is
+    allowed. Finding future events on the first handful is enough to prove the
+    shape; whether the tail is worth having is what max_events decides later.
+    """
+    listing = e.get("listing") or []
+    listing = listing if isinstance(listing, list) else [listing]
+    if not listing:
+        return False, "no listing"
+    import mapsee_ingest_jsonld as jl
+    r = s.get(listing[0], timeout=30)
+    if r.status_code != 200:
+        return False, f"http {r.status_code}"
+    today = _as_date(_today_int()).isoformat()
+    seen_events = future = 0
+
+    def _count(text):
+        nonlocal seen_events, future
+        for block in jl._LD_RX.findall(text):
+            doc = jl._parse_ld(block)
+            if doc is None:
+                continue
+            for item in jl._iter_items(doc):
+                if not jl._is_event(item):
+                    continue
+                seen_events += 1
+                if str(item.get("startDate") or "")[:10] >= today:
+                    future += 1
+
+    _count(r.text)
+    pat = e.get("link_pattern")
+    tmpl = e.get("url_template")
+    if pat and not future:
+        urls = list(dict.fromkeys(re.findall(pat, r.text)))[:6]
+        for u in urls:
+            u = u if isinstance(u, str) else u[0]
+            # url_template is not decoration: a Wix site's link_pattern captures a
+            # SLUG, and the page URL is /event-info/<slug>. Ignoring the template
+            # fetched the bare slug against the listing's directory and found
+            # nothing, so every Wix candidate failed verification for a reason
+            # that had nothing to do with the site. ingest_site applies it; so
+            # must whatever decides whether ingest_site would work.
+            u = tmpl.format(u) if tmpl else u
+            try:
+                rr = s.get(urljoin(listing[0], u), timeout=25)
+            except Exception:                                     # noqa: BLE001
+                continue
+            if rr.status_code == 200:
+                _count(rr.text)
+            if future:
+                break
+    if not seen_events:
+        return False, "no schema.org Event blocks found"
+    if not future:
+        return False, _future_note(seen_events, 0)
+    return True, f"{future}/{seen_events} sampled events future"
+
+
 VERIFIERS = {"localist": verify_localist, "ics": verify_ics, "opendata": verify_opendata,
-             "ods": verify_ods, "ckan": verify_ckan, "mobilizon": verify_mobilizon}
+             "ods": verify_ods, "ckan": verify_ckan, "mobilizon": verify_mobilizon,
+             "tribe": verify_tribe, "squarespace": verify_squarespace,
+             "jsonld": verify_jsonld}
 
 
 # --- discovery -------------------------------------------------------------
@@ -874,7 +1023,104 @@ def _discover_socrata(session, seen_keys, led, limit, cursor, queries):
 #
 # This is the one backend where "continually discovers new sources" is literally
 # true: next quarter's directory contains instances that do not exist today.
-BACKENDS = ("socrata", "ckan", "mobilizon")
+BACKENDS = ("socrata", "ckan", "mobilizon", "osm")
+
+# How many metros one `discover osm` run walks. Each is an Overpass call plus a
+# site probe per venue with a website (~600 in a big city, most of them one
+# request), so this is the knob that decides what a scheduled run costs. The
+# cursor advances by exactly this many, so the globe is walked through rather
+# than glanced at — the same reason the Socrata cursor exists.
+OSM_METROS_PER_RUN = 3
+
+
+def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None):
+    """Propose venue calendars found on the map. See catalog_discover_osm.py.
+
+    The ledger does more work here than in the other backends. A metro has
+    hundreds of venues with a website and most of them have no calendar we can
+    read — so the OUTCOME OF THE PROBE is recorded against the venue's homepage,
+    not just the successes. Without that, every run re-fetches every dead end in
+    the city it lands on, and the cost of a sweep never falls.
+    """
+    import catalog_discover_osm as osm
+
+    per_run = int(metros_per_run or OSM_METROS_PER_RUN)
+    all_metros = osm.metros()
+    if not all_metros:
+        print("  no metro list — metros_global.json / metros_us.txt missing")
+        return {}, {}
+    start = int(cursor.get("metro") or 0) % len(all_metros)
+    declined = set()
+    for fname in ("squarespace_sources.json", "tribe_sources.json",
+                  "jsonld_sources.json", "ics_sources.json"):
+        declined |= _not_included(fname)   # already canonicalised
+
+    found, skipped = {}, {}
+
+    def bump(k):
+        skipped[k] = skipped.get(k, 0) + 1
+
+    for step in range(per_run):
+        m = all_metros[(start + step) % len(all_metros)]
+        label = f"{m['name']}, {m['country']}"
+        venues = osm.overpass_venues(session, m["bbox"], label)
+        print(f"  {label}: {len(venues)} venue(s) publish a website")
+        for v in venues:
+            if len(found) >= limit:
+                break
+            home = _canon(v["url"])
+            if not home:
+                continue
+            if home in seen_keys:
+                bump("configured")
+                continue
+            if home in declined:
+                bump("declined")
+                continue
+            if _dead_recently(led, home):
+                bump("known-dead")
+                continue
+            f = osm.find_calendar(session, v["url"])
+            status = f.get("status") or "?"
+            cand = osm.to_candidate(v, f, label) if status in ("ok", "ok-homepage") else None
+            if cand:
+                key = _canon(_key_of(cand))
+                if key in seen_keys or key in declined:
+                    bump("configured")
+                    continue
+                if _dead_recently(led, key):
+                    bump("known-dead")
+                    continue
+                cand["_metro"] = label
+                found[key] = cand
+                print(f"    + {cand['type']:11} {cand['name'][:36]:36} {str(f.get('cal_url'))[:52]}")
+                continue
+            # A probe that found nothing is a RESULT, and recording it is what
+            # keeps the next sweep of this metro cheap — 3,748 London venues
+            # publish a website and most have no calendar we can read.
+            #
+            # But only the STABLE findings are parked. "This site has no events
+            # page" and "its events live on Eventbrite" are facts about the site
+            # that will still be true in a month. A bot challenge, a timeout or a
+            # 5xx is not a fact about the site at all, it is how the site felt
+            # about us for one request — theblackaltar.org served this probe and
+            # challenged the very next one, from the same IP, seconds apart.
+            # Parking those for the 90-day TTL would retire a working calendar on
+            # the strength of a bad moment, and the metro cursor means nobody
+            # would look again for months. They cost one request to re-probe next
+            # sweep, so they are simply not written down.
+            if status in ("no-calendar",) or status.startswith("offsite"):
+                led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
+                             "reason": f"osm probe: {status}", "status": "fail",
+                             "type": "osm-venue"}
+            bump(status.split(":")[0])
+        if len(found) >= limit:
+            break
+
+    cursor["metro"] = (start + per_run) % len(all_metros)
+    _save_ledger(led)
+    return found, skipped
+
 MOBILIZON_DIRECTORY = "https://instances.joinmobilizon.org/api/v1/instances"
 # An instance with no local events is somebody's empty test server, and health is
 # the directory's own reachability score. Both are cheap ways to not spend a
@@ -963,7 +1209,8 @@ def _discover_mobilizon(session, seen_keys, led, limit):
     return found, skipped
 
 
-def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=()):
+def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
+                 metros=None):
     """`only` pins the sweep to specific lens categories.
 
     Without it the budget is spent thinnest-category-first across every query,
@@ -1002,6 +1249,18 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=()):
             found, skipped = {}, {}
         else:
             found, skipped = _discover_mobilizon(session, seen_keys, led, limit)
+    elif backend == "osm":
+        # Geographic, not textual: there is no query list to gap-report and no
+        # category to pin, because what a venue programmes is not knowable from
+        # its OSM tags alone — the config category is a default the classifier
+        # then refines.
+        if only:
+            print("  (osm proposes by PLACE, not by category — skipped for a "
+                  "category-pinned run)")
+            found, skipped = {}, {}
+        else:
+            found, skipped = _discover_osm(session, seen_keys, led, limit, cursor,
+                                           metros_per_run=metros)
     elif backend == "ckan":
         _report_query_gaps(cats, CKAN_QUERIES, "ckan")
         queries = _order_queries(_filter_queries(CKAN_QUERIES, only), cats)
@@ -1062,6 +1321,12 @@ def cmd_verify(path, recheck=False, ttl=90):
     return 0
 
 
+def _file_indent(text, default=1):
+    """The indent width a JSON file is already stored with."""
+    m = re.search(r"^\{?\n( +)\S", text) or re.search(r"^\[\n( +)\S", text)
+    return len(m.group(1)) if m else default
+
+
 def cmd_merge(path):
     verified = json.load(open(path, encoding="utf-8"))
     by_type = {}
@@ -1073,22 +1338,35 @@ def cmd_merge(path):
             continue
         fname, key = CONFIG[t]
         fpath = os.path.join(HERE, fname)
-        doc = json.load(open(fpath, encoding="utf-8"))
+        fpath_text = open(fpath, encoding="utf-8").read()
+        doc = json.loads(fpath_text)
         cur = _entries(fname, doc)
-        seen = {_canon(c.get(key) or (_ods_url(c) if t == "ods" else None)) for c in cur}
+        seen = set()
+        for c in cur:
+            v = c.get(key) or (_ods_url(c) if t == "ods" else None)
+            for one in (v if isinstance(v, list) else [v]):   # jsonld's `listing`
+                if one:
+                    seen.add(_canon(one))
         added = 0
         for e in adds:
             entry = {k: v for k, v in e.items() if k != "type"}
             if t == "ods":
                 entry["url"] = _ods_url(entry)     # derived key, kept for dedup
-            ck = _canon(entry.get(key))
-            if ck in seen:
+            kv = entry.get(key)
+            ck = _canon(kv[0] if isinstance(kv, list) and kv else kv)
+            if not ck or ck in seen:
                 continue
             cur.append(entry)
             seen.add(ck)
             added += 1
         out_doc = doc if isinstance(doc, dict) else cur   # nested files keep their wrapper
-        json.dump(out_doc, open(fpath, "w", encoding="utf-8"), indent=2)
+        # Write it back the way it was written. These files are stored at
+        # indent=1 and this dumped them at 2, so adding ONE source to
+        # ics_sources.json produced a 3,653-line diff — every line of a 260-entry
+        # file re-indented around it. A merge nobody can read is a merge nobody
+        # checks, and the point of this tool is that each addition is inspectable.
+        json.dump(out_doc, open(fpath, "w", encoding="utf-8"),
+                  indent=_file_indent(fpath_text), ensure_ascii=False)
         json.load(open(fpath, encoding="utf-8"))  # validate it still parses
         print(f"{fname}: +{added} -> {len(cur)} total")
     return 0
@@ -1801,7 +2079,12 @@ def main(argv):
         # spells the two forms out rather than interpolating for this reason.
         want = argv[2:3]
         backend = want[0] if want and want[0] in BACKENDS else "socrata"
-        return cmd_discover(limit=lim, out=out, backend=backend, only=only)
+        # osm only: how many metros this run walks. The cursor makes the metros
+        # it does not reach simply where the next run starts, so this is a budget
+        # knob and never a coverage decision.
+        metros = int(argv[argv.index("--metros") + 1]) if "--metros" in argv else None
+        return cmd_discover(limit=lim, out=out, backend=backend, only=only,
+                            metros=metros)
     if cmd == "audit":
         return cmd_audit()
     if cmd == "ledger":

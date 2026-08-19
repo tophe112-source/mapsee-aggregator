@@ -1,5 +1,5 @@
 {
- "_comment": "Venue / local-ticketing sites whose event pages embed schema.org Event JSON-LD. Each entry: listing page(s) crawled for links matching link_pattern; every matched page's Event block imports. url_template turns a captured fragment (e.g. a Wix {\"slug\":...}) into the page URL. Category = mapsee frontend key. Optional \"venue\" {name, address, city, region, postal_code, lat, lon} FILLS a missing/partial event location for single-venue sites (every show is at the same place) - supply address+city+region and the sync geocodes it, or lat+lon to skip geocoding.",
+ "_comment": "Venue / local-ticketing sites whose event pages embed schema.org Event JSON-LD. Each entry: listing page(s) crawled for links matching link_pattern; every matched page's Event block imports. url_template turns a captured fragment (e.g. a Wix {\"slug\":...}) into the page URL. Category = mapsee frontend key. Optional \"venue\" {name, address, city, region, postal_code, lat, lon} FILLS a missing/partial event location for single-venue sites (every show is at the same place) - supply address+city+region and the sync geocodes it, or lat+lon to skip geocoding. Optional \"skip_title\" is a case-insensitive regex matched against the event NAME, for the non-events a venue posts to its own calendar (closure and private-hire notices). A \"listing\" need not be an HTML page: link_pattern is a regex over whatever the URL returns, so a site's own event sitemap is often the complete source where a calendar page renders only its first screenful.",
  "sites": [
   {
    "name": "Ticket Tomato",
@@ -76,6 +76,210 @@
    "link_pattern": "/event/[a-z0-9%\\-&.]+/\\d+/",
    "category": "community",
    "max_events": 80
+  },
+  {
+   "name": "The Royal Room",
+   "_note": "Live-music club, restaurant and lounge in Columbia City, Seattle. WordPress + WP Event Manager: /events/ renders only 12 cards and loads the rest over admin-ajax, so the listing here is the site's own event sitemap (declared in its robots.txt) - all 95 posts, no paging. Each event page carries a schema.org Event block whose startDate is NAIVE local time (no offset) and whose Location is the placeholder '-', so the venue block supplies the pin and, through it, the timezone the sync converts that naive time with.",
+   "listing": [
+    "https://theroyalroomseattle.com/wp-sitemap-posts-event_listing-1.xml"
+   ],
+   "link_pattern": "https://theroyalroomseattle\\.com/event/[a-z0-9\\-]+/",
+   "category": "music",
+   "max_events": 150,
+   "skip_title": "^\\s*closed\\b",
+   "venue": {
+    "name": "The Royal Room",
+    "address": "5000 Rainier Ave S",
+    "city": "Seattle",
+    "region": "WA",
+    "postal_code": "98118",
+    "country": "US",
+    "lat": 47.5569023,
+    "lon": -122.2842722
+   }
+  },
+  {
+   "name": "Chiswick House",
+   "category": "arts",
+   "_found": "osm:museum -> wp-event-manager",
+   "listing": [
+    "https://chiswickhouseandgardens.org.uk/whats-on/"
+   ],
+   "link_pattern": "https://chiswickhouseandgardens\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Chiswick House",
+    "lat": 51.4837475,
+    "lon": -0.2585917
+   },
+   "_metro": "London, GB"
+  },
+  {
+   "name": "Glasgow Club",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> jsonld-event",
+   "listing": [
+    "https://glasgowclub.org/venues/kelvin-hall/"
+   ],
+   "link_pattern": "https://glasgowclub\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Glasgow Club",
+    "address": "1445 Argyle Street",
+    "city": "Glasgow",
+    "postal_code": "G3 8AW",
+    "lat": 55.8687625,
+    "lon": -4.2949457
+   },
+   "_metro": "Glasgow, GB"
+  },
+  {
+   "name": "French Street Studios",
+   "category": "arts",
+   "_found": "osm:arts_centre -> wix+jsonld-event",
+   "listing": [
+    "https://www.strangefield.org/event-details/bleaks-cassette-launch-with-votiv-rank-moss-nurse"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "French Street Studios",
+    "lat": 55.8417353,
+    "lon": -4.2224582
+   },
+   "_metro": "Glasgow, GB"
+  },
+  {
+   "name": "FACT",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://www.fact.co.uk/event/brb"
+   ],
+   "link_pattern": "https://www\\.fact\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "FACT",
+    "address": "88 Wood Street",
+    "city": "Liverpool",
+    "postal_code": "L1 4DQ",
+    "lat": 53.4022136,
+    "lon": -2.9778561
+   },
+   "_metro": "Liverpool, GB"
+  },
+  {
+   "name": "Hope Church",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://hopechurchashton.org/events-calendar/"
+   ],
+   "link_pattern": "https://hopechurchashton\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Hope Church",
+    "address": "24 Heath Road",
+    "city": "Wigan",
+    "postal_code": "WN4 9DY",
+    "lat": 53.4853432,
+    "lon": -2.637166
+   },
+   "_metro": "Liverpool, GB"
+  },
+  {
+   "name": "Aintree Racecourse",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> jsonld-event",
+   "listing": [
+    "https://www.thejockeyclub.co.uk/aintree/events-tickets/"
+   ],
+   "link_pattern": "https://www\\.thejockeyclub\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Aintree Racecourse",
+    "lat": 53.476389,
+    "lon": -2.9403521
+   },
+   "_metro": "Liverpool, GB"
+  },
+  {
+   "name": "Haydock Park Racecourse",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> jsonld-event",
+   "listing": [
+    "https://www.thejockeyclub.co.uk/haydock/events-tickets/"
+   ],
+   "link_pattern": "https://www\\.thejockeyclub\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Haydock Park Racecourse",
+    "lat": 53.4779652,
+    "lon": -2.6232008
+   },
+   "_metro": "Liverpool, GB"
+  },
+  {
+   "name": "Topping & Company Booksellers",
+   "category": "learning",
+   "_found": "osm:books -> jsonld-event",
+   "listing": [
+    "https://www.toppingbooks.co.uk/events/york/carlo-rovelli-equality-of-all-things/"
+   ],
+   "link_pattern": "https://www\\.toppingbooks\\.co\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Topping & Company Booksellers",
+    "address": "2 Blenheim Place",
+    "city": "Edinburgh",
+    "postal_code": "EH7 5JH",
+    "lat": 55.9576475,
+    "lon": -3.1842848
+   },
+   "_metro": "Edinburgh, GB"
+  },
+  {
+   "name": "City of Edinburgh Methodist Church",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://edinburghmethodist.com/whats-on/"
+   ],
+   "link_pattern": "https://edinburghmethodist\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "City of Edinburgh Methodist Church",
+    "address": "25 Nicolson Square",
+    "city": "Edinburgh",
+    "postal_code": "EH8 9BX",
+    "lat": 55.9454192,
+    "lon": -3.1860553
+   },
+   "_metro": "Edinburgh, GB"
+  },
+  {
+   "name": "Royal Lyceum Theatre",
+   "category": "theater",
+   "_found": "osm: -> jsonld-event",
+   "listing": [
+    "https://lyceum.org.uk/events/guys-dolls"
+   ],
+   "link_pattern": "https://lyceum\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Royal Lyceum Theatre",
+    "address": "30b Grindlay Street",
+    "city": "Edinburgh",
+    "postal_code": "EH3 9AX",
+    "country": "GB",
+    "lat": 55.9470175,
+    "lon": -3.2043154
+   },
+   "_metro": "Edinburgh, GB"
   }
- ]
+ ],
+ "_not_included": {
+  "https://dmhsus.org/events/": "Deconstructing the Mental Health System (Seattle 501c3; dmhsus.org/community-events is a free BIPOC event listing worth having). NOT an editorial no and NOT the site's own policy: SiteGround's WAF answers 202 with an sgcaptcha redirect on EVERY path including /robots.txt, and the challenge URL names the reason - 'y=ipr:<our IP>', i.e. IP REPUTATION. It is the datacenter address we call from that is flagged, not our UA and not anything the org decided, which is why another aggregator reads this site fine. We cannot read robots.txt to establish permission and we will not impersonate a browser to get round bot management, so it stays out - but the way to settle it is to re-probe from somewhere else (a CI runner has different IPs), or to ask the org for an iCal feed. Do not treat this as 'the feed is dead'."
+ }
 }

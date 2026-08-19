@@ -170,6 +170,246 @@
       "default_region": "IL",
       "default_country": "United States",
       "_note": "robots.txt is 'User-agent: *' with an EMPTY Disallow. Only 3 upcoming dates, and worth the entry anyway: fleabop.com is 'Flea Markets, Clothing Swaps and Vintage Near You' and market_sources.json is a farmers-market file end to end - 85 uses of 'farmers', 0 of 'flea'. Measured 2026-08-16, the market lens held 3,469 upcoming events of which 2 named a flea market and 0 named thrift, vintage, swap or antique. This is a monthly vintage and antiques market that publishes a season at a time. No geo_lat on any venue, but every one carries a real street address ('1341 W Randolph Street') so the sync's Census pass places them; default_region is set because the venue records leave `state` null."
+    },
+    {
+      "name": "West Ealing Community Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://wecl.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "West Ealing Community Library",
+        "address": "Melbourne Avenue",
+        "city": "London",
+        "postal_code": "W13 9BA",
+        "lat": 51.5093573,
+        "lon": -0.3245923
+      },
+      "_metro": "London, GB"
+    },
+    {
+      "name": "LGBT Health & Wellbeing Community Space",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://lgbthealth.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "LGBT Health & Wellbeing Community Space",
+        "address": "16 North Claremont Street",
+        "city": "Glasgow",
+        "postal_code": "G3 7LE",
+        "lat": 55.8662516,
+        "lon": -4.280204
+      },
+      "_metro": "Glasgow, GB"
+    },
+    {
+      "name": "House for an Art Lover",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.houseforanartlover.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "House for an Art Lover",
+        "address": "10 Dumbreck Road",
+        "city": "Glasgow",
+        "postal_code": "G41 5BW",
+        "lat": 55.8473667,
+        "lon": -4.3138573
+      },
+      "_metro": "Glasgow, GB"
+    },
+    {
+      "name": "Saint Columbas Parish Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stewartonstcolumbas.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Columbas Parish Church",
+        "address": "Lainshaw Street",
+        "city": "Kilmarnock",
+        "postal_code": "KA3 5BU",
+        "lat": 55.6788124,
+        "lon": -4.5161231
+      },
+      "_metro": "Glasgow, GB"
+    },
+    {
+      "name": "Paisley St George's Causeyside",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "http://paisleystgeorges.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Paisley St George's Causeyside",
+        "address": "82 Causeyside Street",
+        "city": "Paisley",
+        "postal_code": "PA1 1YP",
+        "lat": 55.8405307,
+        "lon": -4.4247936
+      },
+      "_metro": "Glasgow, GB"
+    },
+    {
+      "name": "Aigburth Community Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://aigburth.church",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aigburth Community Church",
+        "lat": 53.3713354,
+        "lon": -2.9279181
+      },
+      "_metro": "Liverpool, GB"
+    },
+    {
+      "name": "Make Huyton Village",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://makecic.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Make Huyton Village",
+        "address": "47-49 Derby Road",
+        "postal_code": "L36 9UQ",
+        "lat": 53.411551,
+        "lon": -2.8389009
+      },
+      "_metro": "Liverpool, GB"
+    },
+    {
+      "name": "Liverpool Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://liverpoolcathedral.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Liverpool Cathedral",
+        "address": "St James Road",
+        "city": "Liverpool",
+        "country": "GB",
+        "lat": 53.3973823,
+        "lon": -2.9732617
+      },
+      "_metro": "Liverpool, GB"
+    },
+    {
+      "name": "Eden",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe",
+      "base_url": "https://edentearoom.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eden",
+        "address": "Course Lane",
+        "city": "Wigan",
+        "postal_code": "WN8 7UB",
+        "lat": 53.5876501,
+        "lon": -2.7899601
+      },
+      "_metro": "Liverpool, GB"
+    },
+    {
+      "name": "Williamson Art Gallery & Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://williamsonartgallery.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Williamson Art Gallery & Museum",
+        "lat": 53.3848954,
+        "lon": -3.0400162
+      },
+      "_metro": "Liverpool, GB"
+    },
+    {
+      "name": "Blackhall Bowling Club Pavilion",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://blackhallbc.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blackhall Bowling Club Pavilion",
+        "address": "21 Keith Row",
+        "city": "Edinburgh",
+        "postal_code": "EH4 3NL",
+        "lat": 55.9564243,
+        "lon": -3.2501542
+      },
+      "_metro": "Edinburgh, GB"
+    },
+    {
+      "name": "St Cecilia's Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.stcecilias.ed.ac.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Cecilia's Hall",
+        "lat": 55.9489892,
+        "lon": -3.1863974
+      },
+      "_metro": "Edinburgh, GB"
+    },
+    {
+      "name": "Gilmore Place Free Presbyterian Church of Scotland",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fpchurch.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gilmore Place Free Presbyterian Church of Scotland",
+        "lat": 55.9409854,
+        "lon": -3.2083704
+      },
+      "_metro": "Edinburgh, GB"
+    },
+    {
+      "name": "North Edinburgh Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://northedinburgharts.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Edinburgh Arts",
+        "address": "15A Pennywell Court",
+        "city": "Edinburgh",
+        "postal_code": "EH4 4TZ",
+        "lat": 55.9711922,
+        "lon": -3.2539339
+      },
+      "_metro": "Edinburgh, GB"
+    },
+    {
+      "name": "Duncan Place",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://duncanplace.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Duncan Place",
+        "address": "4 Duncan Place",
+        "lat": 55.9700602,
+        "lon": -3.1685905
+      },
+      "_metro": "Edinburgh, GB"
     }
   ],
   "_not_included": {

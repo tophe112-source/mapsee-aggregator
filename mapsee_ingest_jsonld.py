@@ -20,6 +20,15 @@ Config (jsonld_sources.json):
           "category": "music",
           "max_events": 100 },
         ... ] }
+    Optional per site:
+      venue       fixed name/address/city/region/postal_code/country/lat/lon for a
+                  single-venue calendar. FILLS gaps, never overrides real data —
+                  and on a site whose Event blocks carry only a placeholder
+                  location it is the only thing that places the event at all.
+      skip_title  regex (case-insensitive) matched against the event NAME, for the
+                  non-events a venue posts to its own calendar: "CLOSED FOR
+                  MAINTENANCE", "Closed for Private Event". Without it those reach
+                  the map as ordinary listings.
     link_pattern matches either literal hrefs (no url_template) or captures a
     fragment that url_template turns into a page URL — Wix pages, for example,
     embed the FULL event list as {"slug": ...} JSON while only rendering the
@@ -118,12 +127,24 @@ _LD_RX = re.compile(r"<script[^>]*application/ld\+json[^>]*>(.*?)</script>", re.
 
 
 def _parse_ld(block: str) -> Optional[Any]:
+    """Parse one JSON-LD block, repairing the two ways real CMSes break it.
+
+    A RAW CONTROL CHARACTER inside a string is the common one and it is
+    expensive: a CMS drops the description straight into the block with its
+    literal newlines, and strict JSON refuses the whole document. The Royal
+    Lyceum's programme is 40 well-formed Event blocks behind exactly that, and
+    every one was being discarded — while a REGEX looking for the same blocks
+    saw them fine, which is how discovery came to propose pages the ingester
+    could not read. `strict=False` accepts them; nothing else about the parse
+    changes.
+    """
     s = block.strip()
     for attempt in (s, re.sub(r"\\'", "'", s)):          # repair the invalid \' escape
-        try:
-            return json.loads(attempt)
-        except Exception:
-            continue
+        for strict in (True, False):                      # ...and raw control chars
+            try:
+                return json.loads(attempt, strict=strict)
+            except Exception:
+                continue
     return None
 
 
@@ -171,12 +192,49 @@ def _image_url(img: Any) -> Optional[str]:
     return img if isinstance(img, str) else None
 
 
+def _ld_get(item: Dict[str, Any], name: str) -> Any:
+    """schema.org property names are lower-camelCase, and real emitters capitalise
+    them anyway: WP Event Manager ships `Location` and `Organizer` on every event
+    page it renders. `.get("location")` then quietly returns None, and the event is
+    placed by the config's `venue` block INSTEAD of by what the page actually said.
+    That happens to be the right pin — for exactly as long as the page keeps saying
+    nothing. Read the key case-insensitively so we see what is there, and let the
+    placeholder rule below decide whether it was worth anything."""
+    if name in item:
+        return item[name]
+    want = name.lower()
+    for k, v in item.items():
+        if isinstance(k, str) and k.lower() == want:
+            return v
+    return None
+
+
+# A CMS with an unfilled location does not omit it — it renders the placeholder its
+# template uses. WP Event Manager writes {"name": "-", "address": "-"} into the
+# JSON-LD of every event on a single-venue site, and "-" is TRUTHY: it survives
+# `if not parts.get(k)` below, so the config's venue block never fills the gap, and
+# "-" goes to the geocoder as a street. Same rule as the Squarespace default pin —
+# a location with no address TEXT is not a location — and the same defence: fall
+# back to the venue block rather than believe the field.
+# "na" is deliberately NOT in this set: it is Namibia's ISO country code, and
+# these values are matched against `country` as well as against street text.
+_PLACEHOLDER = {"-", "--", "---", "n/a", "none", "null", "tba", "tbd",
+                "to be announced", "to be determined", "unknown"}
+
+
+def _meaningful(s: Optional[str]) -> Optional[str]:
+    """A location string that carries no information, normalised to None."""
+    if s is None:
+        return None
+    return None if str(s).strip().strip(".").lower() in _PLACEHOLDER else s
+
+
 # "2202 N 45th St, Seattle, WA 98103, USA" -> (street, city, region, zip)
 _ADDR_RX = re.compile(r"^(.*?),\s*([^,]+?),\s*([A-Z]{2})\s*(\d{5})?(?:,\s*[^,]+)?$")
 
 
 def _address_parts(loc: Dict[str, Any]) -> Dict[str, Optional[str]]:
-    addr = loc.get("address")
+    addr = _ld_get(loc, "address")
     out = {"address": None, "city": None, "region": None, "postal_code": None, "country": None}
     if isinstance(addr, dict):
         out["address"] = _clean(addr.get("streetAddress"))
@@ -192,26 +250,35 @@ def _address_parts(loc: Dict[str, Any]) -> Dict[str, Optional[str]]:
                 _clean(m.group(1)), _clean(m.group(2)), m.group(3), m.group(4)
         else:
             out["address"] = _clean(addr)
-    return out
+    return {k: _meaningful(v) for k, v in out.items()}
 
 
 def to_event(item: Dict[str, Any], page_url: str, category: str, session,
-             venue_default: Optional[Dict[str, Any]] = None) -> Optional[NormalizedEvent]:
+             venue_default: Optional[Dict[str, Any]] = None,
+             skip_rx: Optional[re.Pattern] = None) -> Optional[NormalizedEvent]:
     if "OnlineEventAttendanceMode" in str(item.get("eventAttendanceMode") or ""):
         return None
     name = _clean(item.get("name"))
     start = (item.get("startDate") or "").strip()
     if not name or len(start) < 10:
         return None
+    # A venue calendar carries entries that are not events: The Royal Room posts
+    # "CLOSED FOR MAINTENANCE" and "Closed for Private Event" as event_listing
+    # posts, because that is the only way its CMS can put a notice on the calendar.
+    # They are well-formed Events with real dates — nothing downstream can tell
+    # them from a gig — so they would reach the map as music, telling somebody a
+    # shut venue is open. Checked here, before the geocode that would pay for one.
+    if skip_rx and skip_rx.search(name):
+        return None
     date_key = start[:10]
     if date_key < datetime.now(timezone.utc).strftime("%Y-%m-%d"):
         return None                                        # past — the sync would drop it anyway
-    loc = item.get("location") or {}
+    loc = _ld_get(item, "location") or {}
     if isinstance(loc, list):
         loc = next((l for l in loc if isinstance(l, dict) and l.get("@type") != "VirtualLocation"), {})
-    venue = _clean(loc.get("name"))
+    venue = _meaningful(_clean(_ld_get(loc, "name")))
     parts = _address_parts(loc)
-    geo = loc.get("geo") or {}
+    geo = _ld_get(loc, "geo") or {}
     lat = geo.get("latitude")
     lon = geo.get("longitude")
     # Single-venue sites (a music club's own calendar) routinely ship Events with
@@ -219,7 +286,9 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
     # location key we can't read — every show is at the same address anyway. The
     # config's "venue" block FILLS those gaps (never overrides real data), so the
     # sync's Census pass can place them and the naive-time→UTC conversion knows
-    # the timezone. Provide lat/lon there to skip geocoding entirely.
+    # the timezone. lat/lon there skips THIS adapter's Photon lookup; the sync's
+    # Census pass still refines the pin from the address, as it does for every
+    # event feed, so they are a good starting point and not the last word.
     if venue_default:
         venue = venue or _clean(venue_default.get("name"))
         for k in ("address", "city", "region", "postal_code", "country"):
@@ -273,6 +342,10 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     cap = int(site.get("max_events", 60))
     category = site.get("category", "community")
     venue_default = site.get("venue")   # fixed venue name/address/coords for single-venue sites
+    # Non-events a venue posts to its own calendar (closure and private-hire
+    # notices). Matched against the event NAME, which is what they actually mean;
+    # the alternative tell — a 00:00 start — would also throw away a New Year show.
+    skip_rx = re.compile(site["skip_title"], re.I) if site.get("skip_title") else None
     urls: List[str] = []
     seen = set()
     kept = 0
@@ -291,7 +364,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             for item in _iter_items(doc):
                 if not _is_event(item):
                     continue
-                ev = to_event(item, listing, category, session, venue_default)
+                ev = to_event(item, listing, category, session, venue_default, skip_rx)
                 if ev:
                     store.upsert(ev)
                     kept += 1
@@ -302,6 +375,9 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
                 seen.add(u)
                 urls.append(u)
         time.sleep(1.0)
+    if len(urls) > cap:
+        print(f"[jsonld] {name}: {len(urls)} event links found but max_events={cap} "
+              f"— NOT reading {len(urls) - cap}; raise max_events to cover the calendar")
     for u in urls[:cap]:
         try:
             r = session.get(u, timeout=20)
@@ -316,7 +392,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             for item in _iter_items(doc):
                 if not _is_event(item):
                     continue
-                ev = to_event(item, u, category, session, venue_default)
+                ev = to_event(item, u, category, session, venue_default, skip_rx)
                 if ev:
                     store.upsert(ev)
                     kept += 1

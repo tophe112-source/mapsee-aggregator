@@ -91,7 +91,7 @@ on:
       backend:
         description: "Which catalog to sweep. 'all' is what the schedule runs."
         type: choice
-        options: [all, socrata, ckan, mobilizon]
+        options: [all, socrata, ckan, mobilizon, osm]
         default: all
       category:
         description: "Pin the sweep to these lens categories (comma-separated). 'gaps' = whatever has zero sources. Blank = sweep everything."
@@ -186,7 +186,12 @@ jobs:
         run: |
           set +e
           case "${{ inputs.backend || 'all' }}" in
-            all) BACKENDS="socrata ckan mobilizon" ;;
+            # osm is last on purpose: it is the only backend whose cost is a
+            # crawl rather than a catalog read (an Overpass call per metro, then
+            # a fetch per venue with a website), so if the run is going to be cut
+            # short it should be cut short there. Its cursor means the metros it
+            # did not reach are simply the ones the next run starts from.
+            all) BACKENDS="socrata ckan mobilizon osm" ;;
             *)   BACKENDS="${{ inputs.backend }}" ;;
           esac
           LIMIT="${{ inputs.limit || '300' }}"
