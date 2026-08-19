@@ -22,7 +22,8 @@ front doors it reaches.
 | Which category an event ends up in | `map_category` / `derive_categories` in `mapsee_supabase_sync.py` |
 | The promotion rules (`_VOLUNTEER_RX`, `_PARTY_RX`, `_FITNESS_RX`, …) | same file, above `map_category` |
 | Adding/verifying feed sources | `catalog_curate.py` — `discover`, `verify`, `merge`, `audit`, `coverage` |
-| Where new sources come FROM | `discover <socrata\|ckan\|mobilizon>`; `curation_cursor.json` is how far each catalog query has been read |
+| Where new sources come FROM | `discover <socrata\|ckan\|mobilizon\|osm>`; `curation_cursor.json` is how far each catalog query has been read |
+| Finding a VENUE's own calendar, anywhere on earth | `catalog_discover_osm.py` — OSM venues with a `website`, probed for a calendar and fingerprinted to an adapter |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
 | Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run |
@@ -325,6 +326,61 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   the other available tell, a 00:00 start, is shared by every one of them and
   would also throw away a New Year's Eve show. Same family as Traders Village's
   car show — the feed works, and it is not what it looks like.
+- **The catalogs cannot see the long tail, and the map can.** Socrata, CKAN and
+  joinmobilizon list DATASETS and INSTANCES, so discovery could only ever find
+  what somebody had published to a data portal — never a gallery, a zendo or a
+  brewery with a Tuesday quiz. Measured against the 1,181 hand-curated Seattle
+  sources uncouchme.com publishes: 745 distinct hosts, **648 appearing exactly
+  once**. That tail is the bulk of a city and no query would have reached it.
+  It is, however, ON THE MAP — OSM tags what programmes things and a third of
+  them carry a `website`. 1,656 programme-venues in the Seattle bbox, 599 with a
+  site; 98 of those hosts were on the hand-built list too (so the method finds
+  the same real places a human found) and 387 were not, of which 114 had a
+  calendar on a platform this repo already reads. `discover osm`. What it
+  CANNOT find is a Meetup group, an Eventbrite organiser, a blog or a listings
+  column — 638 of that 745. It complements hand curation; it does not replace
+  it, and a metro it has swept is not a metro finished.
+- **Detecting a site BUILDER is not detecting a calendar.** `tribe`,
+  `wp-event-manager` and `my-calendar` are calendar PLUGINS: finding one means
+  the site has an events system and a feed follows. Squarespace and Wix are how
+  the whole site is BUILT, so they match on every page of every site using them,
+  including a hand-written "What's On" with nothing behind it. On the first
+  London sweep 4 of the 5 candidates that failed verification were Wix sites
+  found that way, and White Bear Theatre's turned out not to run Wix Events at
+  all. A builder now has to show its events app — Squarespace names the
+  collection in the body class, Wix routes through `/event-info/` — and the two
+  need different config shapes, because a WordPress `/event/<slug>/` pattern
+  matches nothing on Wix.
+- **A bot challenge does not answer 403, and the 200 is the dangerous one.**
+  dmhsus.org (SiteGround) answers **202** with an `sgcaptcha` body on every path
+  including `/robots.txt`, so permission cannot even be established.
+  theblackaltar.org's WAF answers a clean **200** with a spinner saying "One
+  moment, please…" — on `/wp-json/…/events?from=…`, while the SAME endpoint
+  without a query string returns real JSON. A 200 is worst because HTML arrives
+  where JSON was expected, and the honest readings of that are "broken feed" and
+  "calendar with nothing on", neither of which happened. Match the words, not
+  the status. Same policy as sfbike.org: a challenge is a NO, and we do not
+  impersonate a browser to get round one.
+- **A refusal is not a fact about the site, so it must not be written down as
+  one.** theblackaltar.org served one probe and challenged the next, seconds
+  apart from the same IP, then blocked steadily once probed repeatedly. "This
+  site has no events page" is stable and worth parking in the ledger for the
+  90-day TTL; a challenge, a timeout or a 5xx is how the site felt about us for
+  one request. Parking those would retire a working calendar over a bad moment —
+  and with the metro cursor, nobody would look again for months. They cost one
+  request to re-probe, so `_discover_osm` simply does not record them.
+- **A platform can imply a feed URL the page never links.** My Calendar (100k+
+  WordPress installs, and what small arts orgs and congregations actually reach
+  for) publishes iCal at `/?feed=my-calendar-ics` and links it from nowhere, so
+  scraping for an `.ics` href finds nothing and a perfectly readable site looks
+  unreadable. `FEED_TEMPLATES` constructs it — and then FETCHES it, because a
+  constructed URL merged unproven is a source that ingests zero.
+- **`cmd_merge` rewrote whole files to add one line.** It dumped at `indent=2`
+  into files stored at `indent=1`, so adding a single source to
+  `ics_sources.json` produced a 3,653-line diff — every line of a 260-entry file
+  re-indented around it. A merge nobody can read is a merge nobody checks, which
+  is the opposite of what the ledger and the verify step are for. `_file_indent`
+  reads the file's own shape and writes it back that way.
 - **A calendar PAGE is often not the whole calendar; the sitemap is.** The Royal
   Room's `/events/` renders 12 cards and loads the rest over admin-ajax, so an
   adapter pointed at it imports 12 of 95 and looks complete. The site's own
@@ -470,6 +526,7 @@ python test_ingest_mylisting.py     # which of a card's two dates is the occurre
 python test_ingest_bikereg.py       # cycling: the server's offset, and one id per occurrence
 python test_ingest_tribe.py         # feed shapes: one bad record must not cost a whole site
 python test_ingest_jsonld.py        # placeholder locations, naive times, and calendar entries that are not events
+python test_discover_osm.py         # discovery: a site builder is not a calendar, and a 200 can be a refusal
 python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
@@ -477,7 +534,7 @@ python catalog_curate.py coverage   # where the catalog is thin, per lens catego
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 17 test scripts are the CI gate (`tests.yml`). They print one line per
+The 18 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

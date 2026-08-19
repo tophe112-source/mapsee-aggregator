@@ -1820,5 +1820,14 @@
   "geocode_suffix": ", Auckland, New Zealand",
   "limit": 100,
   "_note": "Mixed calendar - 'Bike Breakfast' monthly, 'Love Your Path' working bees, 'Bike Valet at Lightfields Maungarei', '2026 Auckland Duathlon Championships'. community, so the working bees promote to volunteer and the duathlon to fitness rather than all of it landing on one layer. MEASURED: 9 VEVENTs, 2 ingested - the other 7 carry no LOCATION or GEO. Thin, and kept anyway because coverage reports New Zealand has no curated arts, community, fitness, outdoors or running feed at all. Revisit at the next health audit."
+ },
+ {
+  "name": "Erith Yacht Club",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://calendar.google.com/calendar/ical/calendar%40erithyachtclub.org.uk/public/basic.ics",
+  "geocode_suffix": ", London, GB",
+  "limit": 300,
+  "_metro": "London, GB"
  }
 ]

@@ -147,6 +147,15 @@ jobs:
       - name: JSON-LD venue sites (placeholder locations, naive times, non-events)
         run: python test_ingest_jsonld.py
 
+      # Discovery from the map. The trap it exists for: Squarespace and Wix match
+      # on every page of every site built with them, so "detected Squarespace" is
+      # not "found a calendar" — 4 of 5 failed candidates in the first London
+      # sweep were Wix sites, one of which does not use Wix Events at all. Also
+      # pins that a bot challenge answering 200 is still a refusal, and that a
+      # refusal is not written into the ledger as a fact about the site.
+      - name: OSM calendar discovery (builders vs plugins, challenges, candidate shape)
+        run: python test_discover_osm.py
+
       # "Order pickup" is a promise. It shipped once on 400 of 400 food events
       # that pointed at Meetup, and a second time on any /menu path — which
       # matched a town website's nav. Both regressions are pinned here.

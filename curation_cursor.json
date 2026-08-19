@@ -137,6 +137,9 @@
   "www.govdata.de/ckan|youth services": 220
  },
  "mobilizon": {},
+ "osm": {
+  "metro": 3
+ },
  "socrata": {
   "art events": 0,
   "community events": 200,

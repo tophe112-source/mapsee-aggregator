@@ -170,6 +170,23 @@
       "default_region": "IL",
       "default_country": "United States",
       "_note": "robots.txt is 'User-agent: *' with an EMPTY Disallow. Only 3 upcoming dates, and worth the entry anyway: fleabop.com is 'Flea Markets, Clothing Swaps and Vintage Near You' and market_sources.json is a farmers-market file end to end - 85 uses of 'farmers', 0 of 'flea'. Measured 2026-08-16, the market lens held 3,469 upcoming events of which 2 named a flea market and 0 named thrift, vintage, swap or antique. This is a monthly vintage and antiques market that publishes a season at a time. No geo_lat on any venue, but every one carries a real street address ('1341 W Randolph Street') so the sync's Census pass places them; default_region is set because the venue records leave `state` null."
+    },
+    {
+      "name": "West Ealing Community Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://wecl.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "West Ealing Community Library",
+        "address": "Melbourne Avenue",
+        "city": "London",
+        "postal_code": "W13 9BA",
+        "lat": 51.5093573,
+        "lon": -0.3245923
+      },
+      "_metro": "London, GB"
     }
   ],
   "_not_included": {

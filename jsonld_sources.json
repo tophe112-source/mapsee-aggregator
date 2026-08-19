@@ -97,6 +97,25 @@
     "lat": 47.5569023,
     "lon": -122.2842722
    }
+  },
+  {
+   "name": "Chiswick House",
+   "category": "arts",
+   "_found": "osm:museum -> wp-event-manager",
+   "listing": [
+    "https://chiswickhouseandgardens.org.uk/whats-on/"
+   ],
+   "link_pattern": "https://chiswickhouseandgardens\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Chiswick House",
+    "lat": 51.4837475,
+    "lon": -0.2585917
+   },
+   "_metro": "London, GB"
   }
- ]
+ ],
+ "_not_included": {
+  "https://dmhsus.org/events/": "SiteGround bot challenge (sgcaptcha) on EVERY path including /robots.txt, answering 202 with a captcha redirect. We cannot even read the robots file to establish permission, and getting past it means impersonating a browser to defeat bot management somebody turned on deliberately - the same line as sfbike.org and the borrowed DICE key. Re-probe if the challenge is ever lifted; the site itself looks like a calendar worth having."
+ }
 }
