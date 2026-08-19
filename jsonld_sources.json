@@ -1,5 +1,5 @@
 {
- "_comment": "Venue / local-ticketing sites whose event pages embed schema.org Event JSON-LD. Each entry: listing page(s) crawled for links matching link_pattern; every matched page's Event block imports. url_template turns a captured fragment (e.g. a Wix {\"slug\":...}) into the page URL. Category = mapsee frontend key. Optional \"venue\" {name, address, city, region, postal_code, lat, lon} FILLS a missing/partial event location for single-venue sites (every show is at the same place) - supply address+city+region and the sync geocodes it, or lat+lon to skip geocoding.",
+ "_comment": "Venue / local-ticketing sites whose event pages embed schema.org Event JSON-LD. Each entry: listing page(s) crawled for links matching link_pattern; every matched page's Event block imports. url_template turns a captured fragment (e.g. a Wix {\"slug\":...}) into the page URL. Category = mapsee frontend key. Optional \"venue\" {name, address, city, region, postal_code, lat, lon} FILLS a missing/partial event location for single-venue sites (every show is at the same place) - supply address+city+region and the sync geocodes it, or lat+lon to skip geocoding. Optional \"skip_title\" is a case-insensitive regex matched against the event NAME, for the non-events a venue posts to its own calendar (closure and private-hire notices). A \"listing\" need not be an HTML page: link_pattern is a regex over whatever the URL returns, so a site's own event sitemap is often the complete source where a calendar page renders only its first screenful.",
  "sites": [
   {
    "name": "Ticket Tomato",
@@ -76,6 +76,27 @@
    "link_pattern": "/event/[a-z0-9%\\-&.]+/\\d+/",
    "category": "community",
    "max_events": 80
+  },
+  {
+   "name": "The Royal Room",
+   "_note": "Live-music club, restaurant and lounge in Columbia City, Seattle. WordPress + WP Event Manager: /events/ renders only 12 cards and loads the rest over admin-ajax, so the listing here is the site's own event sitemap (declared in its robots.txt) - all 95 posts, no paging. Each event page carries a schema.org Event block whose startDate is NAIVE local time (no offset) and whose Location is the placeholder '-', so the venue block supplies the pin and, through it, the timezone the sync converts that naive time with.",
+   "listing": [
+    "https://theroyalroomseattle.com/wp-sitemap-posts-event_listing-1.xml"
+   ],
+   "link_pattern": "https://theroyalroomseattle\\.com/event/[a-z0-9\\-]+/",
+   "category": "music",
+   "max_events": 150,
+   "skip_title": "^\\s*closed\\b",
+   "venue": {
+    "name": "The Royal Room",
+    "address": "5000 Rainier Ave S",
+    "city": "Seattle",
+    "region": "WA",
+    "postal_code": "98118",
+    "country": "US",
+    "lat": 47.5569023,
+    "lon": -122.2842722
+   }
   }
  ]
 }

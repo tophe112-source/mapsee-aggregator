@@ -296,6 +296,42 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   Colorado ingested 0 of 105 placeable events while printing something that
   looks like a network fault. `_obj()` normalises the shapes;
   `ingest_site` now skips and COUNTS a bad record. `test_ingest_tribe.py`.
+- **Reading a source correctly BY ACCIDENT is not reading it.** schema.org spells
+  it `location`; WP Event Manager writes `Location`, on every page it renders.
+  `mapsee_ingest_jsonld.py` asked for the lowercase key, got None, and fell back
+  to the config's `venue` block — which produced the right pin, so nothing looked
+  wrong. What was actually there is `{"name": "-", "address": "-"}`, the
+  placeholder that CMS renders for a location nobody filled in, on all 95 of The
+  Royal Room's event pages. Read the key without the second rule and it gets
+  worse, not better: `"-"` is TRUTHY, so it survives the `if not parts.get(k)`
+  gap-fill test, the venue block stops filling, and `"-"` reaches the geocoder as
+  a street. The rule is the Squarespace one — a location with no address TEXT is
+  not a location — and the fix is the config's venue, never a coordinate
+  blocklist. `_ld_get` and `_meaningful`, pinned in `test_ingest_jsonld.py`.
+- **A single-venue calendar's `startDate` may carry no offset at all, and that is
+  the venue block's real job.** WP Event Manager emits `2026-08-19 19:30:00` —
+  naive local, space-separated, no zone, on every event. It becomes an instant
+  only because `venue` supplies coordinates the sync turns into a timezone; read
+  as UTC, a 7:30pm show is served at 12:30pm. So on a site like this the venue
+  block is not a fallback for a missing pin, it is what makes the TIME true, and
+  the two halves live in different files with no single place either can be seen
+  to be wrong. The round trip is asserted end to end.
+- **A venue calendar carries entries that are not events, and they are the
+  best-formed rows in the feed.** The Royal Room posts "CLOSED FOR MAINTENANCE"
+  and "Closed for Private Event" as event_listing posts with real dates, because
+  a notice is the only thing that CMS can put on a calendar — 5 of its 95. They
+  classify as music and pin at the venue like everything else, so they would tell
+  somebody a shut venue is open. `skip_title` is matched on the NAME and anchored:
+  the other available tell, a 00:00 start, is shared by every one of them and
+  would also throw away a New Year's Eve show. Same family as Traders Village's
+  car show — the feed works, and it is not what it looks like.
+- **A calendar PAGE is often not the whole calendar; the sitemap is.** The Royal
+  Room's `/events/` renders 12 cards and loads the rest over admin-ajax, so an
+  adapter pointed at it imports 12 of 95 and looks complete. The site's own
+  event-post sitemap — declared in its robots.txt — is all 95 with no paging at
+  all. `link_pattern` is a regex over whatever the listing URL returns, so a
+  sitemap is a valid `listing`, and usually the better one. Same shape as
+  BikeReg's search endpoint that answers 200 with a silent hundred-row ceiling.
 - **Cloudflare's bot challenge is a NO, and curl getting through is not a
   second opinion.** sfbike.org's robots.txt allows everything (`User-agent: *`,
   `Allow: /`, Content-Signal `search=yes`), and the endpoint still answers
@@ -433,6 +469,7 @@ python test_ingest_slu.py           # occurrence vs series start; end_time vs en
 python test_ingest_mylisting.py     # which of a card's two dates is the occurrence
 python test_ingest_bikereg.py       # cycling: the server's offset, and one id per occurrence
 python test_ingest_tribe.py         # feed shapes: one bad record must not cost a whole site
+python test_ingest_jsonld.py        # placeholder locations, naive times, and calendar entries that are not events
 python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
@@ -440,7 +477,7 @@ python catalog_curate.py coverage   # where the catalog is thin, per lens catego
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 16 test scripts are the CI gate (`tests.yml`). They print one line per
+The 17 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
