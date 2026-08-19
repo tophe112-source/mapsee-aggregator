@@ -172,6 +172,38 @@ check("a poison record does not take the other events with it", kept == 2, kept)
 check("the surviving events are the good ones", len(store.seen) == 2, len(store.seen))
 check("the skip is REPORTED, not swallowed", "unreadable" in out, out.strip()[:120])
 
+# --- the config's venue block, which is what places a non-US calendar ---------
+# The sync's only geocoder is the US Census batch service and a coordless row is
+# DROPPED there, so a site outside the US whose organiser never filled in the
+# venue map fields cannot reach the map at all — "kept 43 events" and "put 0 on
+# the map" read identically from the adapter. Calgary Buddhist Temple is the live
+# case. catalog_discover_osm proposes every candidate with the surveyed point OSM
+# holds, so the answer is already in the config.
+VENUE = {"name": "Calgary Buddhist Temple", "address": "38 Ave SW",
+         "city": "Calgary", "region": "AB", "country": "CA",
+         "lat": 51.0535059, "lon": -114.0876}
+SITE_CA = dict(SITE, venue=VENUE)
+
+bare = {"id": 9, "title": "Seated Meditation", "start_date": "2026-09-06 09:00:00",
+        "venue": {}}
+ev = T.to_event(bare, SITE_CA)
+check("a coordless event is placed from the config's venue block",
+      (ev.latitude, ev.longitude) == (VENUE["lat"], VENUE["lon"]), (ev.latitude, ev.longitude))
+check("and picks up the address the API left blank",
+      (ev.city, ev.region, ev.country) == ("Calgary", "AB", "CA"), (ev.city, ev.region, ev.country))
+check("without a venue block it is still coordless — nothing is invented",
+      T.to_event(bare, SITE).latitude is None, T.to_event(bare, SITE).latitude)
+
+real = {"id": 10, "title": "Golf Tournament", "start_date": "2026-08-29 14:00:00",
+        "venue": {"venue": "Elbow Springs", "geo_lat": 51.02, "geo_lng": -114.28,
+                  "city": "Calgary", "address": "100 Elbow Dr"}}
+rev = T.to_event(real, SITE_CA)
+check("the SITE's own coordinates still win — the block fills, it never overrides",
+      (rev.latitude, rev.longitude) == (51.02, -114.28), (rev.latitude, rev.longitude))
+check("and so does its own venue name and street",
+      (rev.venue_name, rev.address) == ("Elbow Springs", "100 Elbow Dr"),
+      (rev.venue_name, rev.address))
+
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
 sys.exit(1 if fails else 0)

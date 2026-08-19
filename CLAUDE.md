@@ -369,6 +369,17 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   one request. Parking those would retire a working calendar over a bad moment —
   and with the metro cursor, nobody would look again for months. They cost one
   request to re-probe, so `_discover_osm` simply does not record them.
+- **The only geocoder is US Census, so OUTSIDE the US a source must bring its
+  own coordinates.** A row with no lat/lon is dropped at the sync, and nothing
+  upstream says so: `mapsee_ingest_tribe` reported "kept 43 events" for Calgary
+  Buddhist Temple and every one of them was coordless, so "ingested" and "put
+  zero on the map" read identically. The Events Calendar only carries
+  `venue.geo_lat` when the organiser filled the map fields in, which outside the
+  US is often never. The config's `venue` block is the fix — FILLING gaps, never
+  overriding a real value — and `discover osm` already ships one on every
+  candidate, because the surveyed point is what OSM was queried for in the first
+  place. 35 of 51 tribe sources now carry one; the 20 Canadian ones merged on
+  2026-08-19 would otherwise all have ingested into nothing.
 - **A regex that FINDS a JSON-LD block is not a parser that can READ it, and
   discovery must use the parser.** The Royal Lyceum's programme is 40 well-formed
   `Event` blocks, and `json.loads` refused every one of them: a raw control

@@ -99,6 +99,20 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
     start_local = start.replace(" ", "T")[:19]
     v = _obj(ev.get("venue"))
     lat, lon = _f(v.get("geo_lat")), _f(v.get("geo_lng"))
+    # A SITE OUTSIDE THE US THAT LEAVES geo_lat BLANK CANNOT BE PLACED AT ALL.
+    # The sync's only geocoder is the US Census batch service, and a row with no
+    # coordinates is dropped there — so for a Canadian or European calendar whose
+    # organiser never filled in the venue's map fields, "ingested 43 events" and
+    # "put 0 events on the map" look identical from here. Calgary Buddhist Temple
+    # is the live example: 43 future events, every one of them coordless.
+    #
+    # The config's `venue` block FILLS those gaps and never overrides real data,
+    # which is the same contract the Squarespace and JSON-LD adapters already
+    # have. Discovery supplies it for free: catalog_discover_osm proposes every
+    # candidate with the surveyed point OSM holds for that venue.
+    vd = site.get("venue") or {}
+    if lat is None or lon is None:
+        lat, lon = _f(vd.get("lat")), _f(vd.get("lon"))
     # The plugin's own taxonomy, folded in alongside the configured default so a
     # site that files things usefully (a running club tagging "volunteer") lands
     # on more than one lens. norm_categories drops anything outside mapsee's
@@ -116,13 +130,14 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
         start_local=start_local,
         end_local=((ev.get("end_date") or "").strip().replace(" ", "T")[:19] or None),
         timezone=ev.get("timezone") or None,
-        venue_name=_clean(v.get("venue")) or site.get("venue_name"),
+        venue_name=_clean(v.get("venue")) or site.get("venue_name") or vd.get("name"),
         latitude=lat, longitude=lon,
-        address=_clean(v.get("address")),
-        city=_clean(v.get("city")) or site.get("default_city"),
-        region=_clean(v.get("state") or v.get("stateprovince") or v.get("province")) or site.get("default_region"),
-        country=_clean(v.get("country")) or site.get("default_country"),
-        postal_code=_clean(v.get("zip")),
+        address=_clean(v.get("address")) or vd.get("address"),
+        city=_clean(v.get("city")) or site.get("default_city") or vd.get("city"),
+        region=(_clean(v.get("state") or v.get("stateprovince") or v.get("province"))
+                or site.get("default_region") or vd.get("region")),
+        country=_clean(v.get("country")) or site.get("default_country") or vd.get("country"),
+        postal_code=_clean(v.get("zip")) or vd.get("postal_code"),
         category=primary,
         categories=extras,
         poster_image_url=_obj(ev.get("image")).get("url"),
