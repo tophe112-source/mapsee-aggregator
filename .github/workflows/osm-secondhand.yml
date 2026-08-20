@@ -1,0 +1,300 @@
+# Second-hand, charity and vintage shops from OpenStreetMap, for fleabop.
+#
+# The sibling of osm-food.yml. Read that one first: the matrix-from-config, the
+# warm-before-fan-out, and the cursor slice/merge/commit dance are all its
+# design, and each part of it was bought with a live failure documented there.
+# What follows is only what DIFFERS, and why.
+#
+# THIS JOB IS CHEAP, and that is the whole difference. osm-food's expensive half
+# is fetching a page from every candidate's own website to find an order link —
+# ~2.5s of somebody else's server per place, which is what forces its 330-minute
+# jobs and its 4-hub-at-a-time politeness. This adapter fetches NOBODY'S
+# website: the `website` tag goes straight onto the row for ../mapsee 0153 to
+# read, and there is nothing to discover. So the only service we are a guest on
+# is Overpass, the per-area jobs are minutes rather than hours, and --max-places
+# is set high enough to do a full pass every week instead of walking a cursor
+# through it over months.
+#
+# SATURDAYS, deliberately clear of everything else. osm-food takes Overpass on
+# Tuesday, aggregate-events runs its heavy sweep Mon/Thu and its full refresh
+# Wednesday. Two of our own workflows tiling Overpass at once would mean backing
+# off politely against our own traffic, which is the exact failure osm-food's
+# warm pass exists to prevent.
+#
+# Never add pull_request: reads SUPABASE_SERVICE_ROLE_KEY via the sync step.
+name: OSM second-hand shops
+
+on:
+  schedule:
+    - cron: "10 5 * * 6"          # Saturdays, clear of osm-food (Tue) and the daily ingest
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "One area by name (blank = all)"
+        required: false
+        default: ""
+      max_places:
+        description: "Shops examined per area (no page fetch; this bounds run time only)"
+        required: false
+        default: "5000"
+      radius_miles:
+        description: "Override every hub's radius for this run (blank = config, 50)"
+        required: false
+        default: ""
+      require_website:
+        description: "Stricter bar: only shops that published a website (~1/3 of the supply)"
+        type: boolean
+        required: false
+        default: false
+      dry_run:
+        description: "Report only, write nothing"
+        type: boolean
+        required: false
+        default: false
+      full_refresh:
+        description: "BACKFILL: re-examine from the first candidate and REWRITE existing rows"
+        type: boolean
+        required: false
+        default: false
+
+# ONE RUN AT A TIME, for osm-food.yml's reason: two runs write the same Supabase
+# rows and both try to commit the cursor, and the `cursor` job is `if: always()`
+# so it commits even when the `pull` jobs were cancelled. cancel-in-progress is
+# FALSE so a second run waits rather than leaving a half-rewritten table.
+concurrency:
+  group: osm-secondhand
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # the cursor job commits osm_secondhand_cursor.json
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Which areas to run. Read from the config so the fan-out follows it.
+  # ---------------------------------------------------------------------------
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    outputs:
+      areas: ${{ steps.pick.outputs.areas }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - id: pick
+        env:
+          ONLY: ${{ github.event.inputs.only }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          cfg = json.load(open("osm_secondhand_sources.json", encoding="utf-8"))
+          only = (os.environ.get("ONLY") or "").strip().lower()
+          names = [a["name"] for a in cfg["areas"]
+                   if not only or only in a["name"].lower()]
+          print("areas=" + json.dumps(names))
+          PY
+      - run: echo "Running ${{ steps.pick.outputs.areas }}"
+
+      # ONE shared entry for every area's shop list, saved here and restored
+      # read-only by each matrix job. Not per-area: the warm pass fills them all.
+      - name: Cache OSM shop lists
+        uses: actions/cache@v4
+        with:
+          path: osm_secondhand_cache
+          key: osm-2nd-all-${{ github.run_id }}
+          restore-keys: |
+            osm-2nd-all-
+
+      # WARM BEFORE THE FAN-OUT. One sequential pass, so thirteen matrix jobs do
+      # not all hit Overpass at the same moment and then back off against our
+      # own traffic. Never fatal: a hub whose list will not come re-fetches it
+      # in its own job.
+      #
+      # THE STEP TIMEOUT IS LOAD-BEARING — continue-on-error covers a step that
+      # FAILS and does nothing for one that runs long, while a JOB timeout would
+      # take the whole sweep down rather than degrading to cold caches. osm-food
+      # sat on this step for over an hour with its job cap at 90.
+      - name: Warm the shop cache
+        timeout-minutes: 45
+        continue-on-error: true
+        run: |
+          python mapsee_ingest_osm_secondhand.py \
+            --config osm_secondhand_sources.json --warm-cache \
+            ${{ github.event.inputs.radius_miles && format('--radius-miles {0}', github.event.inputs.radius_miles) || '' }} \
+            ${{ github.event.inputs.only && format('--only {0}', github.event.inputs.only) || '' }}
+
+  # ---------------------------------------------------------------------------
+  # One area per job.
+  # ---------------------------------------------------------------------------
+  pull:
+    needs: plan
+    runs-on: ubuntu-latest
+    # Minutes, not hours: no third-party page fetches, and coords_exact=True on
+    # every row means the sync does not geocode them either. 60 is generous
+    # cover for a cold cache having to pull its own tiles.
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false            # one metro's bad day is not the sweep's
+      max-parallel: 4             # be a guest, and do not stampede the sync
+      matrix:
+        area: ${{ fromJSON(needs.plan.outputs.areas) }}
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      # REQUIRED by the sync: the profile imported events are created_by. Without
+      # it the sync falls back to the literal "<MAPSEE_HOST_PROFILE_ID>", which is
+      # not a UUID, so every insert is rejected after all the work is done.
+      MAPSEE_HOST_PROFILE_ID: ${{ secrets.MAPSEE_HOST_PROFILE_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      # RESTORE ONLY — `plan` warmed and saved these. cache/restore rather than
+      # cache, because thirteen jobs each saving the same directory would race to
+      # write one entry and mostly lose.
+      - name: Restore OSM shop lists
+        uses: actions/cache/restore@v4
+        with:
+          path: osm_secondhand_cache
+          key: osm-2nd-all-${{ github.run_id }}
+          restore-keys: |
+            osm-2nd-all-
+
+      # The selector and the hours parser. The selector is the risk in this
+      # adapter: second_hand=only is 29,256 elements of which 15,853 are used
+      # CAR LOTS, and a widened allow-list would put a Ford dealership on a map
+      # about clothing swaps with nothing downstream able to notice. The hours
+      # test is osm-food's, because that is whose parser this imports.
+      - name: Selector and opening-hours guards
+        run: |
+          python test_osm_secondhand.py
+          python test_osm_food.py
+
+      - name: Pull ${{ matrix.area }}
+        run: |
+          python mapsee_ingest_osm_secondhand.py \
+            --config osm_secondhand_sources.json --store feeds_events.json \
+            --only "${{ matrix.area }}" \
+            --max-places ${{ github.event.inputs.max_places || 5000 }} \
+            ${{ github.event.inputs.radius_miles && format('--radius-miles {0}', github.event.inputs.radius_miles) || '' }} \
+            ${{ github.event.inputs.require_website == 'true' && '--require-website' || '' }} \
+            ${{ github.event.inputs.full_refresh == 'true' && '--ignore-cursor' || '' }} \
+            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+
+      - name: Sync to Supabase
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          # --only-new is right for the WEEKLY run: it skips rows already in the
+          # table, so a scheduled pull can only add. It is exactly wrong for a
+          # backfill, where the rows needing a rewrite are the ones already there.
+          ONLY_NEW="--only-new"
+          if [ "${{ github.event.inputs.full_refresh }}" = "true" ]; then
+            ONLY_NEW=""
+            echo "FULL REFRESH: syncing without --only-new; existing rows will be rewritten"
+          fi
+          if [ -f feeds_events.json ]; then
+            python mapsee_supabase_sync.py --store feeds_events.json $ONLY_NEW
+          else
+            echo "no feeds_events.json — nothing was pulled this run"
+          fi
+
+      # HAND UP ONLY THIS AREA'S KEY, as an artifact rather than a commit.
+      # Thirteen jobs pushing the same file to main is thirteen racing commits;
+      # and a whole-file merge would carry each job's STALE copy of every other
+      # area's position, so the last one read wins for every key and twelve
+      # areas' progress is thrown away. osm-food measured exactly that.
+      - name: Take this area's cursor slice
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          AREA: ${{ matrix.area }}
+        run: |
+          python - <<'PY'
+          import json, os
+          area = os.environ["AREA"]
+          try:
+              cur = json.load(open("osm_secondhand_cursor.json", encoding="utf-8"))
+          except Exception:
+              cur = {}
+          slice_ = {area: cur[area]} if area in cur else {}
+          json.dump(slice_, open("cursor_slice.json", "w", encoding="utf-8"), sort_keys=True)
+          print("handing up", slice_)
+          PY
+
+      - name: Hand up the cursor
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: cursor-${{ strategy.job-index }}
+          path: cursor_slice.json
+          if-no-files-found: ignore
+          retention-days: 1
+
+  # ---------------------------------------------------------------------------
+  # Merge every area's cursor and commit ONCE.
+  # ---------------------------------------------------------------------------
+  cursor:
+    needs: pull
+    if: ${{ always() && github.event.inputs.dry_run != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cursor-*
+          path: cursors
+        continue-on-error: true
+      # RE-MERGE ONTO THE LATEST main EACH ATTEMPT, and retry. A sweep takes a
+      # while, and any push to main in that window rejects a commit built against
+      # the checkout from run start — which fails at the very LAST step, after
+      # every area has done all of its work. Re-reading beats rebasing: the
+      # cursor is a set of per-area positions, so recomputing against whatever
+      # main says NOW is always correct and can never conflict.
+      - name: Merge and commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main        # cursors/ is untracked, so it survives
+            python - <<'PY'
+          import glob, json, os
+          merged = {}
+          if os.path.exists("osm_secondhand_cursor.json"):
+              merged = json.load(open("osm_secondhand_cursor.json", encoding="utf-8"))
+          # Each artifact is a SLICE — one area's key and nothing else — so an
+          # update per file cannot clobber another area's position, nor whatever
+          # else landed on main meanwhile. A slice larger than one key is a bug
+          # in the step that wrote it, so say so rather than trusting it.
+          for p in sorted(glob.glob("cursors/**/cursor_slice.json", recursive=True)):
+              try:
+                  d = json.load(open(p, encoding="utf-8"))
+              except Exception as exc:
+                  print(f"skipping {p}: {exc}")
+                  continue
+              if len(d) > 1:
+                  print(f"::warning::{p} carries {len(d)} areas, expected 1: {sorted(d)}")
+              merged.update(d)
+          json.dump(merged, open("osm_secondhand_cursor.json", "w", encoding="utf-8"),
+                    indent=1, sort_keys=True)
+          print(json.dumps(merged, indent=1, sort_keys=True))
+          PY
+            git add osm_secondhand_cursor.json
+            if git diff --staged --quiet; then
+              echo "cursor unchanged — nothing to commit"
+              exit 0
+            fi
+            git commit -m "osm-secondhand: advance the cursor [skip ci]"
+            if git push; then
+              echo "cursor pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push rejected (main moved); re-merging onto the new head"
+            sleep $((attempt * 5))
+          done
+          echo "::error::could not push the cursor after 5 attempts"
+          exit 1
