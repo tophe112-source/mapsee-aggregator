@@ -87,7 +87,7 @@ from mapsee_menu_links import NOT_A_VENUE_SITE
 # would fork those bugs back in, and test_osm_food.py only guards the original.
 from mapsee_ingest_osm_food import (
     parse_opening_hours, area_bbox, tiles, cache_path,
-    load_cursor, save_cursor, clean_public_phone,
+    load_cursor, save_cursor, clean_public_phone, window_at,
 )
 
 UA = "mapsee-aggregator/1.0 (+https://mapsee.me; OSM second-hand discovery)"
@@ -489,31 +489,25 @@ def main(argv=None):
         tot_seen += len(els)
         tot_ok += len(cands)
 
-        # THE WINDOW CAN NEVER BE LONGER THAN THE CANDIDATE LIST.
+        # THE WINDOW CAN NEVER BE LONGER THAN THE CANDIDATE LIST — window_at is
+        # osm-food's, and this is the bug it was extracted for. Slice-then-top-up
+        # examines every shop TWICE when there are fewer candidates than
+        # --max-places; caught on this adapter's first live run, where Edinburgh
+        # at 4 miles reported 104 rows over 52 shops. Latent in osm-food (cap 60,
+        # Seattle 3,134) and active here, because this cap is 400.
         #
-        # The obvious wrap — slice, then top up from the front with whatever is
-        # missing — quietly examines every shop TWICE when there are fewer
-        # candidates than --max-places. Caught on the first live run: Edinburgh
-        # at a 4-mile radius has 52 readable shops and the job reported 104
-        # rows. The store dedupes on fingerprint so nothing wrong would have
-        # reached Supabase, which is precisely why this could have run for
-        # months — the only visible symptom is a total that contradicts its own
-        # detail line, and this adapter's default is 400, so it would have
-        # triggered on nearly every hub rather than never.
-        #
-        # NOTE: the same slice-and-top-up lives in mapsee_ingest_osm_food.py.
-        # It is latent there because --max-places is 60 and Seattle has 3,134
-        # candidates, but a small --radius-miles run would hit it.
+        # Shared rather than copied so there is ONE implementation under
+        # test_osm_food.py's eight cases, three of which fail against the old
+        # version. Two correct copies drift; one tested copy does not.
         n = len(cands)
         if not n:
             print(f"[osm-2nd] {area['name']}: {len(els)} shops, none with readable hours",
                   flush=True)
             continue
         start = 0 if a.ignore_cursor else int(cursor.get(area["name"], 0)) % n
-        take = min(a.max_places, n)
-        window = [cands[(start + i) % n] for i in range(take)]
+        window = window_at(cands, start, a.max_places)
         if not a.dry_run and not a.ignore_cursor:
-            cursor[area["name"]] = (start + take) % n
+            cursor[area["name"]] = (start + len(window)) % n
 
         made = 0
         for el, hrs in window:
