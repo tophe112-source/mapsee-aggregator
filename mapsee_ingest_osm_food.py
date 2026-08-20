@@ -188,6 +188,37 @@ def save_cursor(cur, path=CURSOR_PATH):
         print(f"[osm-food] could not write cursor: {exc}", flush=True)
 
 
+def window_at(cands, start, max_places):
+    """`max_places` candidates from `start`, wrapping — and NEVER more than exist.
+
+    THE WRAP MUST NOT DUPLICATE. The obvious version — slice, then top up from
+    the front with however many are missing — examines every candidate TWICE
+    whenever there are fewer of them than --max-places:
+
+        cands=52, max_places=60 -> cands[0:60] is 52, then + cands[:8] = 60
+
+    which is 60 places examined at 52 shops, the first eight of them done twice.
+    Nothing downstream says so: EventStore keys on the fingerprint, so the
+    duplicates collapse and the only visible symptom is a summary line that
+    contradicts its own detail ("52 with hours ... 60 slots").
+
+    Latent in this adapter rather than active — --max-places defaults to 60 and
+    Seattle holds 3,134 candidates — but any small --radius-miles run reaches
+    it, and it was ACTIVE in mapsee_ingest_osm_secondhand.py, whose default is
+    400. Caught there on its first live run: Edinburgh at a 4-mile radius
+    reported 104 rows over 52 shops.
+
+    A modular walk cannot express the bug: `take` is capped at n, so an index
+    can only be visited once per call.
+    """
+    n = len(cands)
+    if not n:
+        return []
+    start %= n
+    take = min(max_places, n)
+    return [cands[(start + i) % n] for i in range(take)]
+
+
 def area_bbox(area):
     """(s, w, n, e) for an area, from an explicit bbox or a centre + radius.
 
@@ -759,11 +790,13 @@ def main(argv=None):
         # sync would skip it even if it did. It leaves the cursor untouched so a
         # backfill does not also cost the normal rotation its place.
         start = 0 if a.ignore_cursor else int(cursor.get(area["name"], 0)) % max(len(cands), 1)
-        window = cands[start : start + a.max_places]
-        if len(window) < a.max_places:                 # wrap around the end
-            window += cands[: a.max_places - len(window)]
+        window = window_at(cands, start, a.max_places)
+        # ADVANCE BY WHAT WAS ACTUALLY EXAMINED, not by --max-places. They differ
+        # exactly when the area has fewer candidates than the cap, and asking for
+        # 60 of 52 used to leave the cursor at 8 — so the next run re-walked the
+        # first eight it had just finished instead of starting cleanly again.
         if not a.dry_run and not a.ignore_cursor:
-            cursor[area["name"]] = (start + a.max_places) % max(len(cands), 1)
+            cursor[area["name"]] = (start + len(window)) % max(len(cands), 1)
 
         made = 0
         for el, hrs in window:
