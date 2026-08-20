@@ -94,6 +94,28 @@ UA = "mapsee-aggregator/1.0 (+https://mapsee.me; OSM second-hand discovery)"
 OVERPASS = "https://overpass-api.de/api/interpreter"
 CURSOR_PATH = "osm_secondhand_cursor.json"
 
+# BIGGER TILES THAN osm-food, because this selector is an order of magnitude
+# sparser. osm-food's 0.35 degrees is sized for restaurants — Seattle holds
+# 9,765 of them — and inheriting it here cut a 50-mile hub into ~35 cells that
+# each came back nearly empty.
+#
+# That is not merely wasteful, it is the whole cost of the job: measured on the
+# first production sweep (run 32335784569), London ran 24 tiles in 217s, ~9s
+# each, so a hub cost ~5 minutes and thirteen of them ran the warm step past its
+# 45-minute cap. Per-request overhead dominates when the answer is small, so the
+# fix is fewer and larger, not a longer timeout.
+#
+# Measured directly against Overpass on 2026-08-20, same selector:
+#   0.80 x 1.20 deg  ->  1,600 elements, 0.6 MB, 14s
+#   1.45 x 2.33 deg  ->  2,774 elements, 1.0 MB, 111s   (a WHOLE London hub)
+#
+# So one request per hub is possible and is NOT taken: 111s is a long time to
+# hold a free volunteer-run service on one query, and a 504 on it would lose the
+# entire metro instead of a corner. 1.2 degrees puts a 50-mile hub at ~4 cells —
+# roughly a ninth of the requests, each still answering in well under a minute,
+# and a failure still costs a quarter of a city rather than all of it.
+TILE_DEG = 1.2
+
 # Shops that ARE the category, whatever else they are tagged.
 #   shop=second_hand 19,954   shop=charity 18,264   shop=antiques 14,816
 # antiques is in because fleabop's own copy sells "vintage fairs" — a vintage
@@ -194,7 +216,7 @@ def overpass(area, delay=2.0, tries=4):
     reports itself healthy. That lesson is the food adapter's, paid for by two
     Seattle tiles that would have under-covered the metro until September.
     """
-    cells = tiles(area_bbox(area))
+    cells = tiles(area_bbox(area), max_deg=TILE_DEG)
     out, seen, failed = [], set(), 0
     for i, cell in enumerate(cells, 1):
         try:

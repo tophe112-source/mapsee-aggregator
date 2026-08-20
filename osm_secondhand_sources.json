@@ -2,97 +2,287 @@
  "_readme": [
   "Hubs for the OpenStreetMap second-hand pull (mapsee_ingest_osm_secondhand.py).",
   "Same shape as osm_food_sources.json: centre + radius_miles, one entry per",
-  "metro, tiled by the ingest because Overpass will not serve a 1.45 degree box",
-  "in one piece.",
+  "metro, tiled by the ingest.",
   "",
-  "THE HUB LIST IS NOT THE FOOD LIST, and that is the point. Measured 2026-08-19",
-  "against OSM, the second-hand pool skews UK/EU hard while BUSINESS.md records",
-  "fleabop as 'US 140, almost nothing elsewhere'. This supply lands precisely",
-  "where that door is currently empty. City-tagged venues with readable hours,",
-  "shop=second_hand + shop=charity only:",
+  "TILES ARE 1.2 DEGREES HERE, NOT osm-food's 0.35 - see TILE_DEG in the ingest.",
+  "This selector is an order of magnitude sparser than restaurants, so inheriting",
+  "the food tile size cut every hub into ~35 near-empty cells. Measured on the",
+  "first production sweep (run 32335784569): ~9s per tile, ~5 minutes per hub,",
+  "and thirteen hubs ran the warm step past its 45-minute cap. At 1.2 a hub is",
+  "~4 cells, so 32 hubs cost ~148 tiles where 13 used to cost ~455.",
+  "",
+  "ORDERED BY MEASURED DENSITY, not by size of city. Second-hand supply skews",
+  "UK/EU hard and the US is the weak market - the reverse of every other lens -",
+  "so the US hubs are last. Measured 2026-08-19, city-tagged venues with readable",
+  "hours (shop=second_hand + shop=charity only):",
   "",
   "  London 150   Berlin 56   Helsinki 40   Edinburgh 35   Wien 29",
   "  's-Gravenhage 29   Cambridge 28   Norwich 28   Bristol 25   Budapest 25",
   "",
-  "Those counts are a FLOOR. addr:city is present on only 35-39% of the pool and",
-  "that is a limit of the counting instrument, not of the data - every element",
-  "carries a coordinate, so a 50-mile box picks up the untagged ones too. Expect",
-  "a live run to find materially more than the numbers above.",
+  "Those are a FLOOR: addr:city is present on only 35-39% of the pool, which",
+  "limits the counting instrument and not the data. The live sweep bore that out",
+  "- Edinburgh was forecast at 35 and returned 167 rows at a 50-mile radius.",
   "",
-  "A 50-mile radius around London also swallows most of the south-east, which is",
-  "correct for this category: charity shops are a high-street institution and",
-  "the interesting density is in the towns, not the centre.",
+  "A 50-mile radius is deliberate for this category. Charity shops are a HIGH",
+  "STREET institution, so the interesting density is in the towns around a city",
+  "rather than its centre: the London hub swallows most of the south-east, and",
+  "Leeds covers Sheffield, Bradford and York.",
   "",
-  "Adding a hub is three lines, and it is cheaper here than for food: this",
-  "adapter fetches nobody's website, so a new hub costs Overpass tiles once a",
-  "month and nothing else.",
-  "",
-  "The four US hubs are last on purpose. They are the weakest markets for this",
-  "category and they are where fleabop already has what little it has, so they",
-  "are the least informative place to prove the adapter works."
+  "Adding a hub is cheap - this adapter fetches nobody's website, so a hub costs",
+  "a handful of Overpass tiles once a month and nothing else. What it is NOT free",
+  "of: a city only gets a crawlable /c/<slug> landing page if it is also in",
+  "../mapsee/src/cities.js. Edinburgh, Helsinki and Vienna were all synced and",
+  "invisible to search for exactly that reason."
  ],
  "areas": [
   {
    "name": "London",
    "city": "London",
    "country": "GB",
-   "center": [51.5074, -0.1278],
+   "center": [
+    51.5074,
+    -0.1278
+   ],
    "radius_miles": 50
   },
   {
    "name": "Manchester",
    "city": "Manchester",
    "country": "GB",
-   "center": [53.4808, -2.2426],
+   "center": [
+    53.4808,
+    -2.2426
+   ],
    "radius_miles": 50
   },
   {
-   "name": "Edinburgh",
-   "city": "Edinburgh",
+   "name": "Birmingham",
+   "city": "Birmingham",
    "country": "GB",
-   "center": [55.9533, -3.1883],
+   "center": [
+    52.4862,
+    -1.8904
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Leeds",
+   "city": "Leeds",
+   "country": "GB",
+   "center": [
+    53.8008,
+    -1.5491
+   ],
    "radius_miles": 50
   },
   {
    "name": "Bristol",
    "city": "Bristol",
    "country": "GB",
-   "center": [51.4545, -2.5879],
+   "center": [
+    51.4545,
+    -2.5879
+   ],
    "radius_miles": 50
   },
   {
-   "name": "Berlin",
-   "city": "Berlin",
-   "country": "DE",
-   "center": [52.52, 13.405],
+   "name": "Edinburgh",
+   "city": "Edinburgh",
+   "country": "GB",
+   "center": [
+    55.9533,
+    -3.1883
+   ],
    "radius_miles": 50
   },
   {
-   "name": "Amsterdam",
-   "city": "Amsterdam",
-   "country": "NL",
-   "center": [52.3676, 4.9041],
+   "name": "Glasgow",
+   "city": "Glasgow",
+   "country": "GB",
+   "center": [
+    55.8642,
+    -4.2518
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Brighton",
+   "city": "Brighton",
+   "country": "GB",
+   "center": [
+    50.8225,
+    -0.1372
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Dublin",
+   "city": "Dublin",
+   "country": "IE",
+   "center": [
+    53.3498,
+    -6.2603
+   ],
    "radius_miles": 50
   },
   {
    "name": "Helsinki",
    "city": "Helsinki",
    "country": "FI",
-   "center": [60.1699, 24.9384],
+   "center": [
+    60.1699,
+    24.9384
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Stockholm",
+   "city": "Stockholm",
+   "country": "SE",
+   "center": [
+    59.3293,
+    18.0686
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Copenhagen",
+   "city": "Copenhagen",
+   "country": "DK",
+   "center": [
+    55.6761,
+    12.5683
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Oslo",
+   "city": "Oslo",
+   "country": "NO",
+   "center": [
+    59.9139,
+    10.7522
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Amsterdam",
+   "city": "Amsterdam",
+   "country": "NL",
+   "center": [
+    52.3676,
+    4.9041
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Brussels",
+   "city": "Brussels",
+   "country": "BE",
+   "center": [
+    50.8503,
+    4.3517
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Berlin",
+   "city": "Berlin",
+   "country": "DE",
+   "center": [
+    52.52,
+    13.405
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Hamburg",
+   "city": "Hamburg",
+   "country": "DE",
+   "center": [
+    53.5511,
+    9.9937
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Munich",
+   "city": "Munich",
+   "country": "DE",
+   "center": [
+    48.1351,
+    11.582
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Cologne",
+   "city": "Cologne",
+   "country": "DE",
+   "center": [
+    50.9375,
+    6.9603
+   ],
    "radius_miles": 50
   },
   {
    "name": "Vienna",
    "city": "Wien",
    "country": "AT",
-   "center": [48.2082, 16.3738],
+   "center": [
+    48.2082,
+    16.3738
+   ],
    "radius_miles": 50
   },
   {
    "name": "Paris",
    "city": "Paris",
    "country": "FR",
-   "center": [48.8566, 2.3522],
+   "center": [
+    48.8566,
+    2.3522
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Barcelona",
+   "city": "Barcelona",
+   "country": "ES",
+   "center": [
+    41.3874,
+    2.1686
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Madrid",
+   "city": "Madrid",
+   "country": "ES",
+   "center": [
+    40.4168,
+    -3.7038
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Budapest",
+   "city": "Budapest",
+   "country": "HU",
+   "center": [
+    47.4979,
+    19.0402
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Prague",
+   "city": "Prague",
+   "country": "CZ",
+   "center": [
+    50.0755,
+    14.4378
+   ],
    "radius_miles": 50
   },
   {
@@ -100,7 +290,10 @@
    "city": "New York",
    "region": "NY",
    "country": "US",
-   "center": [40.7128, -74.006],
+   "center": [
+    40.7128,
+    -74.006
+   ],
    "radius_miles": 50
   },
   {
@@ -108,7 +301,32 @@
    "city": "Chicago",
    "region": "IL",
    "country": "US",
-   "center": [41.8781, -87.6298],
+   "center": [
+    41.8781,
+    -87.6298
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Boston",
+   "city": "Boston",
+   "region": "MA",
+   "country": "US",
+   "center": [
+    42.3601,
+    -71.0589
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "San Francisco",
+   "city": "San Francisco",
+   "region": "CA",
+   "country": "US",
+   "center": [
+    37.7749,
+    -122.4194
+   ],
    "radius_miles": 50
   },
   {
@@ -116,7 +334,10 @@
    "city": "Portland",
    "region": "OR",
    "country": "US",
-   "center": [45.5152, -122.6784],
+   "center": [
+    45.5152,
+    -122.6784
+   ],
    "radius_miles": 50
   },
   {
@@ -124,7 +345,21 @@
    "city": "Seattle",
    "region": "WA",
    "country": "US",
-   "center": [47.6062, -122.3321],
+   "center": [
+    47.6062,
+    -122.3321
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Toronto",
+   "city": "Toronto",
+   "region": "ON",
+   "country": "CA",
+   "center": [
+    43.6532,
+    -79.3832
+   ],
    "radius_miles": 50
   }
  ]
