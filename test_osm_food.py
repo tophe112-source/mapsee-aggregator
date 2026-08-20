@@ -230,6 +230,34 @@ def main():
          "and then the description names the real town"),
     ])
 
+    # THE ROTATION WINDOW. --max-places walks a cursor through the candidates,
+    # and the wrap is the part that goes wrong: slicing then topping up from the
+    # front examines everything TWICE whenever there are fewer candidates than
+    # the cap. EventStore dedupes on fingerprint, so the duplicates collapse and
+    # the only symptom is a summary that contradicts its own detail — which is
+    # why this ran unnoticed until osm-secondhand, whose cap is 400, reported
+    # 104 rows over 52 Edinburgh shops on its first live run.
+    pool = list(range(52))
+    checks.extend([
+        (len(m.window_at(pool, 0, 60)) == 52,
+         "fewer candidates than the cap: the window is the POOL, not the cap"),
+        (len(set(map(id, m.window_at(pool, 0, 60)))) == 52,
+         "and every one of them appears exactly once"),
+        (m.window_at(pool, 0, 20) == list(range(20)), "a full window starts at the cursor"),
+        (m.window_at(pool, 45, 10) == [45, 46, 47, 48, 49, 50, 51, 0, 1, 2],
+         "a window that runs off the end wraps to the front"),
+        (len(set(m.window_at(pool, 45, 52))) == 52,
+         "a full-length wrapped window still visits each candidate once"),
+        (m.window_at([], 0, 60) == [], "an area with no candidates yields no window"),
+        (m.window_at(pool, 99, 3) == [47, 48, 49],
+         "a cursor past the end is taken modulo the pool, not clamped"),
+        # The cursor must advance by what was EXAMINED. Asking for 60 of 52 and
+        # advancing by 60 left it at 8, so the next run re-walked the first eight
+        # it had just finished rather than starting cleanly again.
+        ((0 + len(m.window_at(pool, 0, 60))) % 52 == 0,
+         "after a short area the cursor lands back at 0, not at cap-minus-pool"),
+    ])
+
     for ok, why in checks:
         failed += 0 if ok else 1
         print(f"{'ok  ' if ok else 'FAIL'}  {why}")
