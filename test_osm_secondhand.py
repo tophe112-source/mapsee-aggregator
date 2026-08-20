@@ -18,6 +18,7 @@ Run: python test_osm_secondhand.py
 import re
 import sys
 
+from mapsee_ingest_osm_food import parse_opening_hours
 from mapsee_ingest_osm_secondhand import (
     wanted, selector, shop_kind, own_website, secondhand_detail_lines,
     to_events, DIRECT_SHOPS, SECOND_HAND_ONLY_SHOPS,
@@ -104,7 +105,8 @@ EL = {"type": "node", "id": 42, "lat": 51.5, "lon": -0.12,
                "addr:housenumber": "91", "addr:street": "Marylebone High St",
                "addr:city": "London", "addr:postcode": "W1U 4RB",
                "opening_hours": "Mo-Sa 09:00-17:30"}}
-rows = to_events(EL, {"name": "London", "country": "GB"}, {d: ("09:00", "17:30") for d in range(6)}, 7)
+HRS = {d: [("09:00", "17:30")] for d in range(6)}      # a day is a LIST of windows (0188)
+rows = to_events(EL, {"name": "London", "country": "GB"}, HRS, 7)
 check(len(rows) == 1, "ONE row, not one per open day (../mapsee 0156)")
 r = rows[0]
 check(r.category == "market", "category is market, the key fleabop already opens onto")
@@ -118,18 +120,26 @@ check(r.source == "osm-secondhand" and "42" in r.source_id, "identity is the OSM
 
 # The fingerprint carries NO date, which is what makes a re-run update this
 # shop's row instead of adding a second one every week.
-again = to_events(EL, {"name": "London", "country": "GB"},
-                  {d: ("09:00", "17:30") for d in range(6)}, 7)[0]
+again = to_events(EL, {"name": "London", "country": "GB"}, HRS, 7)[0]
 check(again.fingerprint == r.fingerprint, "the fingerprint is stable across runs")
 check(len(r.fingerprint) == 40 and all(c in "0123456789abcdef" for c in r.fingerprint),
       "fingerprint is a sha1 hex digest")
 check(r.start_local[:10] not in r.fingerprint,
       "and carries NO date — a dated one would add a row per week per shop")
 
+print("")
+print("a shop that shuts for lunch (0188) - the shape that was costing us Spain")
+SIESTA = parse_opening_hours("Mo-Sa 10:00-14:00,17:00-20:00")
+check(SIESTA is not None, "the siesta parses at all - it used to be refused outright")
+srow = to_events(EL, {"name": "London", "country": "GB"}, SIESTA, 7)[0]
+check(srow.recurring_days.get("0") == [["10:00", "14:00"], ["17:00", "20:00"]],
+      "both windows ride on the row for the roller to choose between")
+check(srow.start_local.endswith("T10:00:00") and srow.end_local.endswith("T14:00:00"),
+      "and the row opens on the MORNING window, not the afternoon one")
+
 print("\nthe hub's name is never the shop's town")
 noc = dict(EL["tags"]); noc.pop("addr:city")
-row = to_events({**EL, "tags": noc}, {"name": "London", "country": "GB"},
-                {d: ("09:00", "17:30") for d in range(6)}, 7)[0]
+row = to_events({**EL, "tags": noc}, {"name": "London", "country": "GB"}, HRS, 7)[0]
 check(row.city is None, "no addr:city means NO city — never the hub's")
 check(" in London" not in (row.description or ""),
       "and the prose does not invent one either (the Everett/Seattle bug)")

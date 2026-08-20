@@ -382,9 +382,16 @@ def to_events(el, area, hours, days_ahead):
     slot = None
     for i in range(max(days_ahead, 8)):        # 8 guarantees every weekday is seen
         d = today + timedelta(days=i)
-        span = hours.get(d.weekday())
-        if span:
-            slot = (d, span[0], span[1])
+        # THE FIRST WINDOW OF THE FIRST OPEN DAY. A day is a list now, and this
+        # deliberately does not try to pick the window that is CURRENT: the
+        # adapter holds naive local strings with no timezone (the sync attaches
+        # one), so "has this window already ended?" is a question it cannot
+        # answer correctly. ../mapsee 0188's roller runs hourly, knows the tz,
+        # and moves the row onto the right window — which is 0156's design and
+        # the reason starts_at/ends_at is only ever "the next window".
+        spans = hours.get(d.weekday())
+        if spans:
+            slot = (d, spans[0][0], spans[0][1])
             break
     if not slot:
         return []
@@ -419,7 +426,10 @@ def to_events(el, area, hours, days_ahead):
         # other way round. Never geocode over it.
         coords_exact=True,
         # 0=Monday…6=Sunday, exactly as parse_opening_hours produced it.
-        recurring_days={str(k): [v[0], v[1]] for k, v in sorted(hours.items())},
+        # A LIST OF WINDOWS PER DAY: {"0": [["11:00","14:00"],["17:00","22:00"]]}.
+        # ../mapsee 0188 reads both this and 0156's flat ["11:00","22:00"], so
+        # rows written before this change keep rolling until they are rewritten.
+        recurring_days={str(k): [[o, c] for o, c in v] for k, v in sorted(hours.items())},
     )]
 
 

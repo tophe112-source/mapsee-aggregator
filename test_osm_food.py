@@ -20,32 +20,56 @@ from mapsee_ingest_osm_food import parse_opening_hours as P
 MO, TU, WE, TH, FR, SA, SU = range(7)
 
 CASES = [
-    # --- readable, and what they must mean
-    ("Mo-Fr 11:00-22:00", {MO: ("11:00", "22:00"), TU: ("11:00", "22:00"), WE: ("11:00", "22:00"),
-                           TH: ("11:00", "22:00"), FR: ("11:00", "22:00")}, "weekdays"),
-    ("Mo-Su 10:00-20:00", {d: ("10:00", "20:00") for d in range(7)}, "every day"),
-    ("24/7", {d: ("00:00", "23:59") for d in range(7)}, "always open"),
-    ("Mo,We,Fr 09:00-17:00", {MO: ("09:00", "17:00"), WE: ("09:00", "17:00"), FR: ("09:00", "17:00")},
-     "a day list, not a range"),
-    ("Mo-Su 10:00-20:00; Su off", {d: ("10:00", "20:00") for d in range(6)},
+    # --- readable, and what they must mean. A day is a LIST of windows (0188).
+    ("Mo-Fr 11:00-22:00", {d: [("11:00", "22:00")] for d in range(5)}, "weekdays"),
+    ("Mo-Su 10:00-20:00", {d: [("10:00", "20:00")] for d in range(7)}, "every day"),
+    ("24/7", {d: [("00:00", "23:59")] for d in range(7)}, "always open"),
+    ("Mo,We,Fr 09:00-17:00", {MO: [("09:00", "17:00")], WE: [("09:00", "17:00")],
+                              FR: [("09:00", "17:00")]}, "a day list, not a range"),
+    ("Mo-Su 10:00-20:00; Su off", {d: [("10:00", "20:00")] for d in range(6)},
      "a later rule can close a day the earlier one opened"),
-    ("Tu-Sa 17:00-23:00", {TU: ("17:00", "23:00"), WE: ("17:00", "23:00"), TH: ("17:00", "23:00"),
-                           FR: ("17:00", "23:00"), SA: ("17:00", "23:00")}, "dinner only"),
-    ("Sa-Su 09:00-14:00", {SA: ("09:00", "14:00"), SU: ("09:00", "14:00")},
+    ("Tu-Sa 17:00-23:00", {d: [("17:00", "23:00")] for d in (TU, WE, TH, FR, SA)}, "dinner only"),
+    ("Sa-Su 09:00-14:00", {SA: [("09:00", "14:00")], SU: [("09:00", "14:00")]},
      "a range that wraps the end of the week"),
-    ("Mo-Fr 7:00-15:00", {d: ("07:00", "15:00") for d in range(5)}, "single-digit hour normalises"),
+    ("Mo-Fr 7:00-15:00", {d: [("07:00", "15:00")] for d in range(5)}, "single-digit hour normalises"),
+
+    # --- SPLIT SERVICE, which this used to refuse. 0188 made a day a list of
+    # windows, so lunch-and-dinner and the Spanish siesta are now representable
+    # instead of being thrown away. Measured 2026-08-20, the refusal was costing
+    # Madrid 117 of 126 shops and Barcelona 117 of 125.
+    ("Mo-Fr 11:00-14:00,17:00-22:00",
+     {d: [("11:00", "14:00"), ("17:00", "22:00")] for d in range(5)},
+     "lunch service and dinner service, with the kitchen shut between"),
+    ("Mo-Sa 10:00-14:00,17:00-20:00",
+     {d: [("10:00", "14:00"), ("17:00", "20:00")] for d in range(6)},
+     "the siesta — the shape that was costing us Spain"),
+    ("Mo-Su 09:00-12:00,14:00-17:00,19:00-22:00",
+     {d: [("09:00", "12:00"), ("14:00", "17:00"), ("19:00", "22:00")] for d in range(7)},
+     "three windows in a day"),
+    ("Mo,We 10:00-12:00,14:00-16:00",
+     {MO: [("10:00", "12:00"), ("14:00", "16:00")], WE: [("10:00", "12:00"), ("14:00", "16:00")]},
+     "a comma in the DAYS and a comma in the TIMES, in one rule"),
+    ("Mo-Fr 17:00-22:00,11:00-14:00",
+     {d: [("11:00", "14:00"), ("17:00", "22:00")] for d in range(5)},
+     "written out of order — sorted, because the roller takes the FIRST window"),
+    ("Mo-Fr 10:00-14:00,14:00-20:00", {d: [("10:00", "20:00")] for d in range(5)},
+     "windows that merely touch are one window written as two, and merge"),
 
     # --- MUST refuse. Each of these is a way to be confidently wrong.
-    ("Mo-Fr 11:00-14:00,17:00-22:00", None, "split service: one row cannot say 'shut 14:00-17:00'"),
+    ("Mo-Fr 10:00-14:00,12:00-18:00", None,
+     "windows that genuinely OVERLAP: a malformed rule, and which one the mapper "
+     "meant is exactly the guess this parser does not make"),
+    ("Mo-Fr 11:00-14:00,22:00-02:00", None,
+     "one good window and one crossing midnight still fails the whole listing"),
     ("Mo-Su 11:00+", None, "open-ended: no closing time to honour"),
-    ("Mo-Fr 22:00-02:00", None, "crosses midnight: one row cannot express it"),
-    # OSM writes past midnight as hours >= 24, and the c <= o test above never
-    # catches it because 27:00 sorts AFTER 11:00. Accepted, it became the literal
-    # local timestamp "2026-08-14T27:00:00", which Postgres rejects with
-    # "date/time field value out of range" — and the sync reported that as a
-    # moderation block. Voodoo Doughnut, Los Tacos Mexicali, Happy Fortune and
-    # Carribean Bokit Factory were all lost this way on the first full refresh:
-    # late-night places, which are the ones a "hungry right now" map most wants.
+    ("Mo-Fr 22:00-02:00", None, "crosses midnight: one window cannot express it"),
+    # OSM writes past midnight as hours >= 24, and the c <= o test never catches
+    # it because 27:00 sorts AFTER 11:00. Accepted, it became the literal local
+    # timestamp "2026-08-14T27:00:00", which Postgres rejects with "date/time
+    # field value out of range" — and the sync reported that as a moderation
+    # block. Voodoo Doughnut, Los Tacos Mexicali, Happy Fortune and Carribean
+    # Bokit Factory were all lost this way on the first full refresh: late-night
+    # places, which are the ones a "hungry right now" map most wants.
     ("Mo-Su 11:00-27:00", None, "past midnight written as hour 27"),
     ("Mo-Su 11:00-24:00", None, "24:00 is the next day, not this one"),
     ("Mo-Su 10:00-24:45", None, "24:45"),
@@ -158,9 +182,25 @@ def main():
         # instead of updating one — the whole point.
         (m.to_events(EL, AREA, "u", daily, 7)[0].fingerprint == rows[0].fingerprint,
          "the fingerprint is stable across runs (re-run updates, never adds)"),
-        (bool(rows and rows[0].recurring_days.get("0") == ["11:00", "22:00"]),
-         "0=Monday, matching what the roller expects"),
+        (bool(rows and rows[0].recurring_days.get("0") == [["11:00", "22:00"]]),
+         "0=Monday, and a day is a LIST of windows even when there is one (0188)"),
     ]
+    # A SPLIT-SERVICE ROW, end to end. This is the shape the old parser refused
+    # outright, so nothing downstream had ever seen it: the row must carry BOTH
+    # windows for the roller to choose between, and its own starts_at/ends_at
+    # must be the FIRST of them — a row that opened at the dinner sitting would
+    # advertise a restaurant as shut through lunch.
+    split = m.parse_opening_hours("Mo-Su 11:00-14:00,17:00-22:00")
+    srows = m.to_events(EL, AREA, "u", split, 7)
+    rec = srows[0].recurring_days if srows else {}
+    checks.extend([
+        (len(srows) == 1, "a split-service place is ONE row, not one per sitting"),
+        (rec.get("0") == [["11:00", "14:00"], ["17:00", "22:00"]],
+         "both windows reach recurring_days, in order"),
+        (bool(srows) and srows[0].start_local.endswith("T11:00:00")
+         and srows[0].end_local.endswith("T14:00:00"),
+         "and the row opens on the FIRST window, not the last"),
+    ])
     detail_tags = {
         "phone": "+1 206 555 0123", "cuisine": "ethiopian;coffee_shop",
         "wheelchair": "limited", "takeaway": "yes", "delivery": "yes",
