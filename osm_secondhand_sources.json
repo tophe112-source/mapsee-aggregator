@@ -1,0 +1,131 @@
+{
+ "_readme": [
+  "Hubs for the OpenStreetMap second-hand pull (mapsee_ingest_osm_secondhand.py).",
+  "Same shape as osm_food_sources.json: centre + radius_miles, one entry per",
+  "metro, tiled by the ingest because Overpass will not serve a 1.45 degree box",
+  "in one piece.",
+  "",
+  "THE HUB LIST IS NOT THE FOOD LIST, and that is the point. Measured 2026-08-19",
+  "against OSM, the second-hand pool skews UK/EU hard while BUSINESS.md records",
+  "fleabop as 'US 140, almost nothing elsewhere'. This supply lands precisely",
+  "where that door is currently empty. City-tagged venues with readable hours,",
+  "shop=second_hand + shop=charity only:",
+  "",
+  "  London 150   Berlin 56   Helsinki 40   Edinburgh 35   Wien 29",
+  "  's-Gravenhage 29   Cambridge 28   Norwich 28   Bristol 25   Budapest 25",
+  "",
+  "Those counts are a FLOOR. addr:city is present on only 35-39% of the pool and",
+  "that is a limit of the counting instrument, not of the data - every element",
+  "carries a coordinate, so a 50-mile box picks up the untagged ones too. Expect",
+  "a live run to find materially more than the numbers above.",
+  "",
+  "A 50-mile radius around London also swallows most of the south-east, which is",
+  "correct for this category: charity shops are a high-street institution and",
+  "the interesting density is in the towns, not the centre.",
+  "",
+  "Adding a hub is three lines, and it is cheaper here than for food: this",
+  "adapter fetches nobody's website, so a new hub costs Overpass tiles once a",
+  "month and nothing else.",
+  "",
+  "The four US hubs are last on purpose. They are the weakest markets for this",
+  "category and they are where fleabop already has what little it has, so they",
+  "are the least informative place to prove the adapter works."
+ ],
+ "areas": [
+  {
+   "name": "London",
+   "city": "London",
+   "country": "GB",
+   "center": [51.5074, -0.1278],
+   "radius_miles": 50
+  },
+  {
+   "name": "Manchester",
+   "city": "Manchester",
+   "country": "GB",
+   "center": [53.4808, -2.2426],
+   "radius_miles": 50
+  },
+  {
+   "name": "Edinburgh",
+   "city": "Edinburgh",
+   "country": "GB",
+   "center": [55.9533, -3.1883],
+   "radius_miles": 50
+  },
+  {
+   "name": "Bristol",
+   "city": "Bristol",
+   "country": "GB",
+   "center": [51.4545, -2.5879],
+   "radius_miles": 50
+  },
+  {
+   "name": "Berlin",
+   "city": "Berlin",
+   "country": "DE",
+   "center": [52.52, 13.405],
+   "radius_miles": 50
+  },
+  {
+   "name": "Amsterdam",
+   "city": "Amsterdam",
+   "country": "NL",
+   "center": [52.3676, 4.9041],
+   "radius_miles": 50
+  },
+  {
+   "name": "Helsinki",
+   "city": "Helsinki",
+   "country": "FI",
+   "center": [60.1699, 24.9384],
+   "radius_miles": 50
+  },
+  {
+   "name": "Vienna",
+   "city": "Wien",
+   "country": "AT",
+   "center": [48.2082, 16.3738],
+   "radius_miles": 50
+  },
+  {
+   "name": "Paris",
+   "city": "Paris",
+   "country": "FR",
+   "center": [48.8566, 2.3522],
+   "radius_miles": 50
+  },
+  {
+   "name": "New York",
+   "city": "New York",
+   "region": "NY",
+   "country": "US",
+   "center": [40.7128, -74.006],
+   "radius_miles": 50
+  },
+  {
+   "name": "Chicago",
+   "city": "Chicago",
+   "region": "IL",
+   "country": "US",
+   "center": [41.8781, -87.6298],
+   "radius_miles": 50
+  },
+  {
+   "name": "Portland",
+   "city": "Portland",
+   "region": "OR",
+   "country": "US",
+   "center": [45.5152, -122.6784],
+   "radius_miles": 50
+  },
+  {
+   "name": "Seattle",
+   "city": "Seattle",
+   "region": "WA",
+   "country": "US",
+   "center": [47.6062, -122.3321],
+   "radius_miles": 50
+  }
+ ]
+}

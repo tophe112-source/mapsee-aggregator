@@ -164,6 +164,15 @@ jobs:
       - name: Opening hours we may act on (OSM takeaway)
         run: python test_osm_food.py
 
+      # The second-hand SELECTOR, which is that adapter's whole risk.
+      # `second_hand=only` is 29,256 elements and 15,853 of them (55%) are
+      # shop=car. Widen the allow-list by accident and a used-car dealership
+      # lands on fleabop, whose first line of copy is about a jacket that fit
+      # somebody else — and nothing downstream would catch it, because the row
+      # would have a name, a coordinate, readable hours and a valid category.
+      - name: Only second-hand shops reach fleabop (OSM second-hand)
+        run: python test_osm_secondhand.py
+
       # The pruner EDITS live descriptions, so the rewrite is the risky half, not
       # the probing. It must never leave the lead sentence advertising a link it
       # has just removed, and must never touch a row whose destination was merely
