@@ -66,21 +66,44 @@ AMENITIES = ("restaurant", "fast_food", "cafe", "bakery")
 DOW = {"mo": 0, "tu": 1, "we": 2, "th": 3, "fr": 4, "sa": 5, "su": 6}
 _DAYSPEC = re.compile(r"^(mo|tu|we|th|fr|sa|su)(?:\s*-\s*(mo|tu|we|th|fr|sa|su))?$", re.I)
 _TIMESPAN = re.compile(r"^(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})$")
+# A whole rule: a day spec, then one or more comma-separated spans. The span
+# group is anchored to the end and the day group is non-greedy, which is what
+# lets "mo,we,fr 09:00-17:00" (a day list) and "mo-fr 11:00-14:00,17:00-22:00"
+# (two windows) both split in the right place.
+_SPAN_RX = r"\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}"
+_RULE = re.compile(rf"^(.*?)\s+({_SPAN_RX}(?:\s*,\s*{_SPAN_RX})*)$")
 
 
 def parse_opening_hours(spec: str):
-    """OSM opening_hours -> {weekday: (open, close)} or None if not confidently readable.
+    """OSM opening_hours -> {weekday: [(open, close), …]} or None if unreadable.
 
-    Supports the shapes that cover most food listings — "Mo-Fr 11:00-22:00",
-    "Mo-Su 10:00-20:00; Su off", "24/7", day lists, and several rules separated
-    by ';'. Anything else returns None and the place is SKIPPED.
+    A day maps to a LIST OF WINDOWS, because a great many places shut in the
+    middle of it — lunch service and dinner service, or a Spanish siesta.
 
-    Deliberately refuses rather than approximates:
-      * split service ("11:00-14:00,17:00-22:00") — one schedule row holds one
-        span, and collapsing lunch and dinner into one claims they are open
-        through the break
+    THIS USED TO REFUSE SPLIT SERVICE, and the refusal was right for as long as
+    storage could not express it: one span per day meant collapsing
+    "11:00-14:00,17:00-22:00" into 11:00-22:00, which advertises a restaurant
+    through the three hours its kitchen is shut. ../mapsee 0188 makes a day a
+    list of windows, so the honest answer is now representable and the listing
+    no longer has to be thrown away.
+
+    What that refusal cost, measured 2026-08-20 on the second-hand sweep: Madrid
+    yielded 9 usable rows from 126 shops and Barcelona 8 from 125, against
+    Brussels 315 from 794. Spain publishes the siesta; we were discarding the
+    country for saying so.
+
+    Still supported and unchanged — "Mo-Fr 11:00-22:00", "Mo-Su 10:00-20:00; Su
+    off", "24/7", day lists, several rules separated by ';'.
+
+    Still refused, because these remain ways to be confidently wrong:
       * PH / SH / seasonal / week-number / month rules
       * "sunrise", "sunset", open-ended "11:00+"
+      * a span crossing midnight, either written plainly ("22:00-02:00") or as
+        an hour >= 24 ("11:00-27:00"). One window is one day; two days is two
+        windows and OSM is not saying which
+      * windows within a day that OVERLAP. Sorted and merged when they merely
+        touch, refused when they genuinely overlap — that is a malformed rule
+        and guessing at the intent is the thing this function does not do
     A place we cannot read stays off the map, which is the right way round: the
     cost of skipping it is one missing pin, and the cost of guessing is telling
     somebody hungry to walk to a locked door.
@@ -89,13 +112,9 @@ def parse_opening_hours(spec: str):
         return None
     s = spec.strip().lower()
     if s in ("24/7", "24x7"):
-        return {d: ("00:00", "23:59") for d in range(7)}
+        return {d: [("00:00", "23:59")] for d in range(7)}
     if re.search(r"\b(ph|sh|easter|sunrise|sunset|week\s|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\b", s):
         return None
-    if "+" in s or "," in s.split(";")[0] and re.search(r"\d,\d|\d\s*,\s*\d{1,2}:", s):
-        # a comma between TIME spans is split service; a comma between DAYS is fine
-        if re.search(r"\d{2}\s*,\s*\d{1,2}:", s):
-            return None
     out = {}
     for rule in s.split(";"):
         rule = rule.strip()
@@ -113,14 +132,48 @@ def parse_opening_hours(spec: str):
             for d in ds:
                 out.pop(d, None)
             continue
-        m = re.match(r"^(.*?)\s+(\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2})$", rule)
+        # ONE RULE IS A DAY SPEC AND ONE OR MORE TIME SPANS, and the only thing
+        # separating them is which side of the space the comma falls on:
+        #
+        #   "mo,we,fr 09:00-17:00"            -> a DAY list, one window
+        #   "mo-fr 11:00-14:00,17:00-22:00"   -> one day range, TWO windows
+        #
+        # The old expression allowed exactly one span, so the second line did
+        # not match and the listing was refused. `.*?` is non-greedy and the
+        # span group is anchored to the end, so the split lands in the right
+        # place for both.
+        m = _RULE.match(rule)
         if not m:
             return None
-        days, span = m.group(1), m.group(2)
-        tm = _TIMESPAN.match(span.replace(" ", ""))
-        if not tm:
+        days, span_text = m.group(1), m.group(2)
+        windows = []
+        for span in span_text.split(","):
+            got = _one_span(span)
+            if got is None:
+                return None
+            windows.append(got)
+        windows = _tidy_windows(windows)
+        if windows is None:
             return None
-        oh, ch = int(tm.group(1)), int(tm.group(3))
+        ds = _days_in(days)
+        if ds is None:
+            return None
+        for d in ds:
+            # REPLACE, not extend — a later rule for the same day overrides an
+            # earlier one, which is OSM's own precedence and is what makes
+            # "Mo-Su 10:00-20:00; Su off" mean what it says. Split service is
+            # written with a comma inside ONE rule, which is handled above.
+            out[d] = windows
+    return out or None
+
+
+# A single "HH:MM-HH:MM", validated. Split out of the rule loop when a rule
+# gained the ability to carry several, so every window is checked the same way.
+def _one_span(span: str):
+    tm = _TIMESPAN.match(span.strip().replace(" ", ""))
+    if not tm:
+        return None
+    oh, ch = int(tm.group(1)), int(tm.group(3))
         # OSM WRITES PAST MIDNIGHT AS HOURS >= 24: "11:00-27:00" is 11am to 3am.
         # The c <= o test below never catches it, because 27:00 sorts after
         # 11:00, so the span was accepted and became the literal local timestamp
@@ -134,18 +187,41 @@ def parse_opening_hours(spec: str):
         #
         # Refused rather than approximated, exactly like the c <= o case: one row
         # holds one window, and 11:00-27:00 is two days.
-        if oh > 23 or ch > 23:
-            return None
-        o = f"{oh:02d}:{tm.group(2)}"
-        c = f"{ch:02d}:{tm.group(4)}"
-        if c <= o:                       # crosses midnight; one row cannot say that
-            return None
-        ds = _days_in(days)
-        if ds is None:
-            return None
-        for d in ds:
-            out[d] = (o, c)
-    return out or None
+    if oh > 23 or ch > 23:
+        return None
+    o = f"{oh:02d}:{tm.group(2)}"
+    c = f"{ch:02d}:{tm.group(4)}"
+    if c <= o:                       # crosses midnight; one window cannot say that
+        return None
+    return (o, c)
+
+
+def _tidy_windows(windows):
+    """Sort a day's windows, merge ones that touch, refuse ones that overlap.
+
+    ORDER MATTERS DOWNSTREAM. ../mapsee 0188's roller takes the FIRST window of
+    the day that has not finished yet, so out-of-order windows would advertise
+    the evening sitting while the lunch one was still running.
+
+    A genuine overlap ("10:00-14:00,12:00-18:00") is a malformed rule, and
+    working out which of the two the mapper meant is exactly the guessing this
+    function exists not to do. Touching windows ("10:00-14:00,14:00-20:00") are
+    not malformed, they are just one window written as two, so they merge —
+    otherwise the row would claim a zero-length closure.
+    """
+    if not windows:
+        return None
+    windows = sorted(windows)
+    out = [windows[0]]
+    for o, c in windows[1:]:
+        po, pc = out[-1]
+        if o < pc:
+            return None                  # genuine overlap: refuse the listing
+        if o == pc:
+            out[-1] = (po, c)            # touching: one window written as two
+        else:
+            out.append((o, c))
+    return out
 
 
 def _days_in(spec: str):
@@ -631,9 +707,16 @@ def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=Non
     slot = None
     for i in range(max(days_ahead, 8)):     # 8 guarantees every weekday is seen
         d = today + timedelta(days=i)
-        span = hours.get(d.weekday())
-        if span:
-            slot = (d, span[0], span[1])
+        # THE FIRST WINDOW OF THE FIRST OPEN DAY. A day is a list now, and this
+        # deliberately does not try to pick the window that is CURRENT: the
+        # adapter holds naive local strings with no timezone (the sync attaches
+        # one), so "has this window already ended?" is a question it cannot
+        # answer correctly. ../mapsee 0188's roller runs hourly, knows the tz,
+        # and moves the row onto the right window — which is 0156's design and
+        # the reason starts_at/ends_at is only ever "the next window".
+        spans = hours.get(d.weekday())
+        if spans:
+            slot = (d, spans[0][0], spans[0][1])
             break
     if not slot:
         return []
@@ -682,7 +765,10 @@ def to_events(el, area, order_url, hours, days_ahead, booking_url=None, site=Non
         # the other way round. Never geocode over it — see NormalizedEvent.
         coords_exact=True,
         # 0=Monday…6=Sunday, exactly as parse_opening_hours produced it.
-        recurring_days={str(k): [v[0], v[1]] for k, v in sorted(hours.items())},
+        # A LIST OF WINDOWS PER DAY: {"0": [["11:00","14:00"],["17:00","22:00"]]}.
+        # ../mapsee 0188 reads both this and 0156's flat ["11:00","22:00"], so
+        # rows written before this change keep rolling until they are rewritten.
+        recurring_days={str(k): [[o, c] for o, c in v] for k, v in sorted(hours.items())},
     )]
 
 
