@@ -74,7 +74,10 @@ jobs:
   # ---------------------------------------------------------------------------
   plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    # Must exceed the warm step's own cap (80) with room for checkout and pip,
+    # or the JOB dies first and takes the fan-out down with it — the exact
+    # failure the step timeout exists to prevent.
+    timeout-minutes: 100
     outputs:
       areas: ${{ steps.pick.outputs.areas }}
     steps:
@@ -114,10 +117,21 @@ jobs:
       #
       # THE STEP TIMEOUT IS LOAD-BEARING — continue-on-error covers a step that
       # FAILS and does nothing for one that runs long, while a JOB timeout would
-      # take the whole sweep down rather than degrading to cold caches. osm-food
-      # sat on this step for over an hour with its job cap at 90.
+      # take the whole sweep down rather than degrading to cold caches.
+      #
+      # 45 was inherited from osm-food and it was not enough: the first
+      # production sweep (run 32335784569) timed out here at 45 minutes with 13
+      # hubs, because osm-food's 0.35-degree tiles cut each hub into ~35 cells
+      # at ~9s apiece — five minutes a hub. The sweep still completed, because
+      # continue-on-error let the un-warmed hubs pull their own tiles inside the
+      # matrix, which is the designed fallback and not the designed path.
+      #
+      # The real fix is TILE_DEG=1.2 in the ingest, which takes 32 hubs to ~148
+      # tiles where 13 used to cost ~455. 80 minutes is roughly 1.5x the ~54
+      # that budget estimates, so a slow week degrades rather than truncates —
+      # and the job cap below leaves room for it.
       - name: Warm the shop cache
-        timeout-minutes: 45
+        timeout-minutes: 80
         continue-on-error: true
         run: |
           python mapsee_ingest_osm_secondhand.py \
