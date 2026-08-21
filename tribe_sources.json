@@ -1521,6 +1521,94 @@
         "lon": 153.3723406
       },
       "_metro": "Gold Coast, AU"
+    },
+    {
+      "name": "Maxi Jazz Dance Studio",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://www.maxijazzdancestudio.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maxi Jazz Dance Studio",
+        "lat": -32.8947762,
+        "lon": 151.6028568
+      },
+      "_metro": "Newcastle, AU"
+    },
+    {
+      "name": "Hunter Region Botanic Gardens",
+      "category": "community",
+      "_found": "osm:attraction -> tribe+jsonld-event+ics",
+      "base_url": "https://www.huntergardens.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hunter Region Botanic Gardens",
+        "address": "2100 Pacific Highway",
+        "lat": -32.8015381,
+        "lon": 151.7211324
+      },
+      "_metro": "Newcastle, AU"
+    },
+    {
+      "name": "Young People’s Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://ypt.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Young People’s Theatre",
+        "lat": -32.9220435,
+        "lon": 151.7494642
+      },
+      "_metro": "Newcastle, AU"
+    },
+    {
+      "name": "Newcastle Bridge Club",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://newcastlebridge.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Newcastle Bridge Club",
+        "lat": -32.9234785,
+        "lon": 151.7353792
+      },
+      "_metro": "Newcastle, AU"
+    },
+    {
+      "name": "Radio and Electronics Association of Southern Tasmania",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.reast.asn.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Radio and Electronics Association of Southern Tasmania",
+        "lat": -42.8623391,
+        "lon": 147.319772
+      },
+      "_metro": "Hobart, AU"
+    },
+    {
+      "name": "Derwent Sailing Squadron",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://dssinc.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Derwent Sailing Squadron",
+        "address": "23 Marieville Esplanade",
+        "region": "TAS",
+        "postal_code": "7005",
+        "lat": -42.899002,
+        "lon": 147.3318622
+      },
+      "_metro": "Hobart, AU"
     }
   ],
   "_not_included": {

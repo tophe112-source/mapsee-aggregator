@@ -436,6 +436,25 @@
     "lon": 153.5444136
    },
    "_metro": "Gold Coast, AU"
+  },
+  {
+   "name": "Moonah Arts Centre",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://www.moonahartscentre.org.au/calendar/"
+   ],
+   "link_pattern": "https://www\\.moonahartscentre\\.org\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Moonah Arts Centre",
+    "address": "23-27 Albert Road",
+    "region": "TAS",
+    "postal_code": "7009",
+    "lat": -42.848254,
+    "lon": 147.295269
+   },
+   "_metro": "Hobart, AU"
   }
  ],
  "_not_included": {

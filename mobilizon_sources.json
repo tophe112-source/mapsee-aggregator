@@ -107,14 +107,14 @@
       "max_pages": 5
     },
     {
-      "name": "Mobilizon de D\u00e9fis",
+      "name": "Mobilizon de Défis",
       "base_url": "https://mobilizon.defis.info",
       "category": "community",
       "limit": 100,
       "max_pages": 5
     },
     {
-      "name": "Mobilizon Ouvre-Boites : Actus et \u00c9v\u00e9nements",
+      "name": "Mobilizon Ouvre-Boites : Actus et Événements",
       "base_url": "https://mobilizon.ouvre-boites.coop",
       "category": "community",
       "limit": 100,
@@ -143,7 +143,7 @@
       "max_pages": 5
     },
     {
-      "name": "J\u00e4rkk\u00e4\u00e4.fi",
+      "name": "Järkkää.fi",
       "base_url": "https://jarkkaa.fi",
       "category": "community",
       "limit": 100,
@@ -151,7 +151,7 @@
       "default_country": "Finland"
     },
     {
-      "name": "ibb.info - Veranstaltungen in Ibbenb\u00fcren und drumzu",
+      "name": "ibb.info - Veranstaltungen in Ibbenbüren und drumzu",
       "base_url": "https://ibb.info",
       "category": "community",
       "limit": 100,
@@ -179,7 +179,7 @@
       "max_pages": 5
     },
     {
-      "name": "Communaut\u00e9s techniques rennaises",
+      "name": "Communautés techniques rennaises",
       "base_url": "https://events.rennes.tech",
       "category": "community",
       "limit": 100,
@@ -240,7 +240,7 @@
       "default_country": "Ireland"
     },
     {
-      "name": "Mobilizon \ud83c\udde7\ud83c\uddea",
+      "name": "Mobilizon 🇧🇪",
       "base_url": "https://mobilizon.be",
       "category": "community",
       "limit": 100,
@@ -280,7 +280,7 @@
       "default_country": "Switzerland"
     },
     {
-      "name": "Litfa\u00dfseite",
+      "name": "Litfaßseite",
       "base_url": "https://events.gruene.social",
       "category": "community",
       "limit": 100,
@@ -317,7 +317,7 @@
       "default_country": "Norway"
     },
     {
-      "name": "\u00c9v\u00e9nement FACiLe",
+      "name": "Événement FACiLe",
       "base_url": "https://evenement.facil.services",
       "category": "community",
       "limit": 100,
@@ -383,7 +383,7 @@
       "default_country": "Germany"
     },
     {
-      "name": "Akce jinak | Komunita \u22c5 Kultura \u22c5 \u010cinorodost",
+      "name": "Akce jinak | Komunita ⋅ Kultura ⋅ Činorodost",
       "base_url": "https://akce-jinak.cz",
       "category": "community",
       "limit": 100,
@@ -522,7 +522,7 @@
       "max_pages": 5
     },
     {
-      "name": "L\u00fcbsche Termine",
+      "name": "Lübsche Termine",
       "base_url": "https://termine.luebeck.jetzt",
       "category": "community",
       "limit": 100,
@@ -538,6 +538,13 @@
     {
       "name": "Mobilizon Yvan Godard",
       "base_url": "https://mobilizon.yvangodard.me",
+      "category": "community",
+      "limit": 100,
+      "max_pages": 5
+    },
+    {
+      "name": "SIEDA Mobilizon",
+      "base_url": "https://meet.sieda.com",
       "category": "community",
       "limit": 100,
       "max_pages": 5
