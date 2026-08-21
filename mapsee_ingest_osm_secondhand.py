@@ -87,7 +87,7 @@ from mapsee_menu_links import NOT_A_VENUE_SITE
 # would fork those bugs back in, and test_osm_food.py only guards the original.
 from mapsee_ingest_osm_food import (
     parse_opening_hours, area_bbox, tiles, cache_path,
-    load_cursor, save_cursor, clean_public_phone, window_at,
+    load_cursor, save_cursor, clean_public_phone, window_at, sweep_tiles,
 )
 
 UA = "mapsee-aggregator/1.0 (+https://mapsee.me; OSM second-hand discovery)"
@@ -217,26 +217,8 @@ def overpass(area, delay=2.0, tries=4):
     Seattle tiles that would have under-covered the metro until September.
     """
     cells = tiles(area_bbox(area), max_deg=TILE_DEG)
-    out, seen, failed = [], set(), 0
-    for i, cell in enumerate(cells, 1):
-        try:
-            els = _overpass_one(cell, delay=delay, tries=tries)
-        except Exception as exc:
-            failed += 1
-            print(f"[osm-2nd]   {area['name']} tile {i}/{len(cells)} failed: {exc}", flush=True)
-            continue
-        for el in els:
-            k = (el.get("type"), el.get("id"))
-            if k not in seen:
-                seen.add(k)
-                out.append(el)
-        if len(cells) > 1:
-            print(f"[osm-2nd]   {area['name']} tile {i}/{len(cells)}: "
-                  f"+{len(els)} ({len(out)} unique)", flush=True)
-    if failed:
-        print(f"[osm-2nd]   {area['name']}: {failed} of {len(cells)} tiles did not answer — "
-              f"this area is INCOMPLETE this run and will NOT be cached", flush=True)
-    return out, failed == 0
+    return sweep_tiles(cells, lambda c: _overpass_one(c, delay=delay, tries=tries),
+                       f"[osm-2nd]   {area['name']}", delay=delay)
 
 
 # The place cache, same contract as the food adapter's: keyed on area name AND

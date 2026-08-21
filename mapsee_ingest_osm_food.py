@@ -355,6 +355,65 @@ def _overpass_one(bbox, delay=2.0, tries=4):
     raise last
 
 
+def sweep_tiles(cells, fetch_one, label, delay=2.0, sleep=time.sleep):
+    """(elements, complete) — every tile, then a SECOND PASS over the ones that lost.
+
+    WHY A SECOND PASS IS NOT THE SAME AS MORE RETRIES. _overpass_one already
+    tries a tile four times, backing off 2s, 6s, 18s — and that is the right
+    shape for a tile that is momentarily rate-limited. It is the wrong shape for
+    Overpass being busy, because eighteen seconds later it is still busy. The
+    second pass happens AFTER the rest of the area, which is minutes rather than
+    seconds, and minutes is the timescale on which load actually moves.
+
+    Worth doing because the losses are not rare and they are not small. Measured
+    across two production reparses on 2026-08-20: seven of thirty-two hubs lost
+    a tile in the second-hand sweep (run 32385196784) and six of eight in the
+    food sweep (run 32406174018) — New York lost NINE of thirty, which is 30% of
+    the metro and made its numbers unusable. Nothing was corrupted, because an
+    incomplete area is never cached and an upsert never deletes; it simply meant
+    every sweep quietly under-covered a few cities.
+
+    `sleep` is injectable so the retry can be tested without waiting, which is
+    the other half of why this is a function rather than a loop inside
+    overpass(): a fetcher passed in can be made to fail on demand, and the
+    inline version could only be exercised against the live service.
+    """
+    out, seen = [], set()
+
+    def pass_over(cell_list, tag):
+        lost = []
+        for i, cell in enumerate(cell_list, 1):
+            try:
+                els = fetch_one(cell)
+            except Exception as exc:
+                lost.append(cell)
+                print(f"{label} tile {i}/{len(cell_list)}{tag} failed: {exc}", flush=True)
+                continue
+            for el in els:
+                k = (el.get("type"), el.get("id"))
+                if k not in seen:
+                    seen.add(k)
+                    out.append(el)
+            if len(cell_list) > 1:
+                print(f"{label} tile {i}/{len(cell_list)}{tag}: "
+                      f"+{len(els)} ({len(out)} unique)", flush=True)
+        return lost
+
+    lost = pass_over(cells, "")
+    if lost:
+        print(f"{label} {len(lost)} of {len(cells)} tiles did not answer — "
+              f"second pass in a moment", flush=True)
+        sleep(delay * 5)
+        lost = pass_over(lost, " [retry]")
+    if lost:
+        # STILL the old rule, and it is the important one: a partial answer is
+        # fine to USE and never fine to KEEP. Caching one for thirty days hides
+        # the gap behind a run that reports itself healthy.
+        print(f"{label} {len(lost)} of {len(cells)} tiles did not answer TWICE — "
+              f"this area is INCOMPLETE this run and will NOT be cached", flush=True)
+    return out, not lost
+
+
 def overpass(area, delay=2.0, tries=4):
     """(elements, complete) — every named food place in an area, tile by tile.
 
@@ -369,28 +428,9 @@ def overpass(area, delay=2.0, tries=4):
     itself perfectly healthy. A partial answer is fine to USE and not fine to
     KEEP.
     """
-    bbox = area_bbox(area)
-    cells = tiles(bbox)
-    out, seen, failed = [], set(), 0
-    for i, cell in enumerate(cells, 1):
-        try:
-            els = _overpass_one(cell, delay=delay, tries=tries)
-        except Exception as exc:
-            failed += 1
-            print(f"[osm-food]   {area['name']} tile {i}/{len(cells)} failed: {exc}", flush=True)
-            continue
-        for el in els:
-            k = (el.get("type"), el.get("id"))
-            if k not in seen:
-                seen.add(k)
-                out.append(el)
-        if len(cells) > 1:
-            print(f"[osm-food]   {area['name']} tile {i}/{len(cells)}: "
-                  f"+{len(els)} ({len(out)} unique)", flush=True)
-    if failed:
-        print(f"[osm-food]   {area['name']}: {failed} of {len(cells)} tiles did not answer — "
-              f"this area is INCOMPLETE this run and will NOT be cached", flush=True)
-    return out, failed == 0
+    cells = tiles(area_bbox(area))
+    return sweep_tiles(cells, lambda c: _overpass_one(c, delay=delay, tries=tries),
+                       f"[osm-food]   {area['name']}", delay=delay)
 
 
 # ---------------------------------------------------------------------------
