@@ -33,10 +33,8 @@ CASES = [
      "a range that wraps the end of the week"),
     ("Mo-Fr 7:00-15:00", {d: [("07:00", "15:00")] for d in range(5)}, "single-digit hour normalises"),
 
-    # --- SPLIT SERVICE, which this used to refuse. 0188 made a day a list of
-    # windows, so lunch-and-dinner and the Spanish siesta are now representable
-    # instead of being thrown away. Measured 2026-08-20, the refusal was costing
-    # Madrid 117 of 126 shops and Barcelona 117 of 125.
+    # --- SPLIT SERVICE. Refused until 0188 made a day a list of windows.
+    # Measured 2026-08-20, that refusal cost Madrid 117 of 126 shops.
     ("Mo-Fr 11:00-14:00,17:00-22:00",
      {d: [("11:00", "14:00"), ("17:00", "22:00")] for d in range(5)},
      "lunch service and dinner service, with the kitchen shut between"),
@@ -55,25 +53,50 @@ CASES = [
     ("Mo-Fr 10:00-14:00,14:00-20:00", {d: [("10:00", "20:00")] for d in range(5)},
      "windows that merely touch are one window written as two, and merge"),
 
+    # --- PAST MIDNIGHT, which used to be refused for the same reason split
+    # service was: one window could not say "two days". It can now — the second
+    # half is written onto the day it lands on.
+    #
+    # This is not hypothetical tidying. 251 rows in ../mapsee still hold
+    # "24:00".."27:00" in recurring_hours, written before the refusal existed
+    # and never overwritten since, because the parser declines those venues.
+    # Postgres rejects '2026-08-21 27:00'::timestamp, so under 0156's unguarded
+    # roller ONE of those rows aborted the entire hourly roll for every venue.
+    ("Mo-Su 11:00-27:00",
+     {d: [("00:00", "03:00"), ("11:00", "23:59")] for d in range(7)},
+     "11am to 3am, every day — so every day also carries YESTERDAY's tail"),
+    ("Mo-Fr 22:00-02:00",
+     {MO: [("22:00", "23:59")],
+      **{d: [("00:00", "02:00"), ("22:00", "23:59")] for d in (TU, WE, TH, FR)},
+      SA: [("00:00", "02:00")]},
+     "the other way OSM writes it. Monday has no tail (Sunday is shut) and "
+     "Saturday is ONLY a tail"),
+    ("Sa 18:00-26:00; Su off",
+     {SA: [("18:00", "23:59")], SU: [("00:00", "02:00")]},
+     "Sunday is closed AND has a window — no service starts, the Saturday "
+     "night session finishes. That is what the sign on the door says"),
+    ("Mo-Fr 11:00-14:00,17:00-26:00",
+     {MO: [("11:00", "14:00"), ("17:00", "23:59")],
+      **{d: [("00:00", "02:00"), ("11:00", "14:00"), ("17:00", "23:59")]
+         for d in (TU, WE, TH, FR)},
+      SA: [("00:00", "02:00")]},
+     "a siesta AND a late finish in one rule"),
+    ("Mo-Su 11:00-24:00", {d: [("11:00", "23:59")] for d in range(7)},
+     "24:00 is midnight exactly — the end of today, and NOT a zero-length "
+     "window on tomorrow"),
+    ("Mo-Su 22:00-00:00", {d: [("22:00", "23:59")] for d in range(7)},
+     "same, written as 00:00"),
+    ("Mo-Su 10:00-24:45", {d: [("00:00", "00:45"), ("10:00", "23:59")] for d in range(7)},
+     "a quarter to one in the morning"),
+
     # --- MUST refuse. Each of these is a way to be confidently wrong.
     ("Mo-Fr 10:00-14:00,12:00-18:00", None,
      "windows that genuinely OVERLAP: a malformed rule, and which one the mapper "
      "meant is exactly the guess this parser does not make"),
-    ("Mo-Fr 11:00-14:00,22:00-02:00", None,
-     "one good window and one crossing midnight still fails the whole listing"),
+    ("Mo-Su 25:00-27:00", None, "an OPENING past midnight is meaningless"),
+    ("Mo-Su 11:00-49:00", None, "a close more than a full day out"),
+    ("Mo 11:00-11:00", None, "a zero-length window"),
     ("Mo-Su 11:00+", None, "open-ended: no closing time to honour"),
-    ("Mo-Fr 22:00-02:00", None, "crosses midnight: one window cannot express it"),
-    # OSM writes past midnight as hours >= 24, and the c <= o test never catches
-    # it because 27:00 sorts AFTER 11:00. Accepted, it became the literal local
-    # timestamp "2026-08-14T27:00:00", which Postgres rejects with "date/time
-    # field value out of range" — and the sync reported that as a moderation
-    # block. Voodoo Doughnut, Los Tacos Mexicali, Happy Fortune and Carribean
-    # Bokit Factory were all lost this way on the first full refresh: late-night
-    # places, which are the ones a "hungry right now" map most wants.
-    ("Mo-Su 11:00-27:00", None, "past midnight written as hour 27"),
-    ("Mo-Su 11:00-24:00", None, "24:00 is the next day, not this one"),
-    ("Mo-Su 10:00-24:45", None, "24:45"),
-    ("Mo-Fr 09:00-25:00", None, "25:00"),
     ("Mo-Fr 09:00-17:00; PH off", None, "public holidays: we do not know the calendar"),
     ("Apr-Sep Mo-Su 10:00-20:00", None, "seasonal"),
     ("Mo-Fr sunrise-sunset", None, "astronomical"),
