@@ -5193,6 +5193,13 @@
     "status": "empty",
     "type": "squarespace"
   },
+  "classics.washington.edu/calendar.ics": {
+    "checked": 20260821,
+    "name": "Classics Washington (Seattle)",
+    "reason": "72 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cleanoceanaction.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Clean Ocean Action (NJ)",
@@ -6838,6 +6845,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "discovermagnolia.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260821,
+    "name": "Discovermagnolia (Seattle)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "diyode.com": {
     "checked": 20260819,
     "name": "DIYode Workshop",
@@ -7692,6 +7706,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "elcentrodelaraza.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260821,
+    "name": "Elcentrodelaraza (Seattle)",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "elder.org/care-homes/england/north-west/liverpool/redcourt-care-home": {
     "checked": 20260819,
     "name": "Redcourt House Nursing Home",
@@ -7747,6 +7768,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "emeraldcitysoftball.org/events/?ical=1": {
+    "checked": 20260821,
+    "name": "Emeraldcitysoftball (Seattle)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
   },
   "emeraldtaverngames.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
@@ -8671,6 +8699,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "flsseattle.org/events/?ical=1": {
+    "checked": 20260821,
+    "name": "Flsseattle (Seattle)",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
   },
   "folar.org/events/?ical=1": {
     "checked": 20260803,
@@ -9827,6 +9862,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "goodsociety.beer/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260821,
+    "name": "Goodsociety (Seattle)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "goodtogrowuk.org/map/?o=12914": {
     "checked": 20260819,
     "name": "Mount Florida Community Garden",
@@ -10821,6 +10863,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "historicseattle.org/events-calendar/?ical=1": {
+    "checked": 20260821,
+    "name": "Historicseattle (Seattle)",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "historicstpauls.ca": {
     "checked": 20260819,
     "name": "Historic Saint Paul's Lutheran Church",
@@ -11205,6 +11254,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hugohouse.org/programs-events/?ical=1": {
+    "checked": 20260821,
+    "name": "Hugohouse (Seattle)",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
   },
   "hullservices.ca": {
     "checked": 20260819,
@@ -11745,6 +11801,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jewishinseattle.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260821,
+    "name": "Jewishinseattle (Seattle)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "jewishwinnipeg.org/directory/chavurat-tefilah-fellowship-of-prayer": {
     "checked": 20260819,
     "name": "Fellowship of Prayer Synagogue",
@@ -12003,6 +12066,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "kidsquestmuseum.org/calendar/?ical=1": {
+    "checked": 20260821,
+    "name": "Kidsquestmuseum (Seattle)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
   },
   "kilbarchankirk.org": {
     "checked": 20260819,
@@ -17191,6 +17261,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "phinneycenter.org/calendar/?ical=1": {
+    "checked": 20260821,
+    "name": "Phinneycenter (Seattle)",
+    "reason": "30 vevents / 26 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "phlc.org.au": {
     "checked": 20260819,
     "name": "Parramatta-Holroyd Lapidary Club",
@@ -17209,6 +17286,13 @@
     "checked": 20260727,
     "name": "Phoenix Local Events (Phoenix)",
     "reason": "22 vevents / 22 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "phys.washington.edu/calendar.ics": {
+    "checked": 20260821,
+    "name": "Phys Washington (Seattle)",
+    "reason": "592 vevents / 4 future",
     "status": "ok",
     "type": "ics"
   },
@@ -19823,11 +19907,32 @@
     "status": "fail",
     "type": "ics"
   },
+  "seattlegymnastics.com/play-events/indoor-playground/schedule/?ical=1": {
+    "checked": 20260821,
+    "name": "Seattlegymnastics (Seattle)",
+    "reason": "27 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "seattleparksfoundation.org/?post_type=tribe_events&tribe_events_cat=volunteer-opportunities&ical=1&eventDisplay=list": {
+    "checked": 20260821,
+    "name": "Seattleparksfoundation (Seattle)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "seattleparksfoundation.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Seattle Parks Foundation",
     "reason": "30 vevents / 30 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "seattleyoganews.com/calendar/?ical=1": {
+    "checked": 20260821,
+    "name": "Seattleyoganews (Seattle)",
+    "reason": "http 200 / no VCALENDAR",
+    "status": "fail",
     "type": "ics"
   },
   "secc.sydney/our-services/seniors/dementia-support": {
@@ -19850,6 +19955,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "seedseattle.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
+    "checked": 20260821,
+    "name": "Seedseattle (Seattle)",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
   },
   "seesa.ca": {
     "checked": 20260819,
@@ -20298,6 +20410,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "sjcc.org/?post_type=tribe_events&tribe_events_cat=family-programs&ical=1&eventDisplay=list": {
+    "checked": 20260821,
+    "name": "Sjcc (Seattle)",
+    "reason": "16 vevents / 16 future",
+    "status": "ok",
+    "type": "ics"
   },
   "sjks.org.au": {
     "checked": 20260819,
@@ -23267,6 +23386,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theoctopusbar.com/?ical=1&eventDisplay=list": {
+    "checked": 20260821,
+    "name": "Theoctopusbar (Seattle)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "theoldgardencare.com": {
     "checked": 20260819,
     "name": "The Old Garden",
@@ -24456,6 +24582,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "urbanleague.org/?ical=1&eventDisplay=list": {
+    "checked": 20260821,
+    "name": "Urbanleague (Seattle)",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
   },
   "urbnsurf.com": {
     "checked": 20260819,

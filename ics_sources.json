@@ -2053,5 +2053,124 @@
   "geocode_suffix": ", Canberra, AU",
   "limit": 300,
   "_metro": "Canberra, AU"
+ },
+ {
+  "name": "UW Department of Classics Events Calendar (Seattle)",
+  "url": "https://classics.washington.edu/calendar.ics",
+  "category": "learning",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "Discover Magnolia - Seattle Parks Events (Seattle)",
+  "url": "https://discovermagnolia.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "Friends of Little Sài Gòn (Seattle)",
+  "url": "https://flsseattle.org/events/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "The Good Society - West Seattle Events (Seattle)",
+  "url": "https://goodsociety.beer/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "Historic Seattle - CID History Collective (Seattle)",
+  "url": "https://historicseattle.org/events-calendar/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "Hugo House - Writing Classes & Events (Seattle)",
+  "url": "https://hugohouse.org/programs-events/?ical=1",
+  "category": "learning",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "UW Department of Physics Events Calendar (Seattle)",
+  "url": "https://phys.washington.edu/calendar.ics",
+  "category": "learning",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "Seattle Gymnastics - Indoor Playground (Seattle)",
+  "url": "https://seattlegymnastics.com/play-events/indoor-playground/schedule/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "Stroum Jewish Community Center - Family Programs (Mercer Island)",
+  "url": "https://sjcc.org/?post_type=tribe_events&tribe_events_cat=family-programs&ical=1&eventDisplay=list",
+  "category": "kids",
+  "geocode_suffix": ", Mercer Island, WA",
+  "limit": 300
+ },
+ {
+  "name": "The Octopus Bar (Seattle)",
+  "url": "https://theoctopusbar.com/?ical=1&eventDisplay=list",
+  "category": "party",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "Rainier Beach Community Center (Seattle)",
+  "url": "https://urbanleague.org/?ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "El Centro de la Raza (Seattle)",
+  "url": "https://www.elcentrodelaraza.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "Jewish in Seattle – Community Calendar (Bellevue)",
+  "url": "https://www.jewishinseattle.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "community",
+  "geocode_suffix": ", Bellevue, WA",
+  "limit": 300
+ },
+ {
+  "name": "KidsQuest Children's Museum (Bellevue)",
+  "url": "https://www.kidsquestmuseum.org/calendar/?ical=1",
+  "category": "kids",
+  "geocode_suffix": ", Bellevue, WA",
+  "limit": 300
+ },
+ {
+  "name": "Phinney Center / Greenwood Senior Center Programs (Seattle)",
+  "url": "https://www.phinneycenter.org/calendar/?ical=1",
+  "category": "community",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "A Cleaner Alki - Seattle Parks Foundation (Seattle)",
+  "url": "https://www.seattleparksfoundation.org/?post_type=tribe_events&tribe_events_cat=volunteer-opportunities&ical=1&eventDisplay=list",
+  "category": "volunteer",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
+ },
+ {
+  "name": "SEEDArts (SouthEast Effective Development) (Seattle)",
+  "url": "https://www.seedseattle.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+  "category": "arts",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300
  }
 ]
