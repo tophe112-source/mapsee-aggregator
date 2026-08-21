@@ -70,6 +70,9 @@ _TIMESPAN = re.compile(r"^(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})$")
 # group is anchored to the end and the day group is non-greedy, which is what
 # lets "mo,we,fr 09:00-17:00" (a day list) and "mo-fr 11:00-14:00,17:00-22:00"
 # (two windows) both split in the right place.
+# 0156 already used 23:59 as "the end of today" for 24/7, so a spill closes
+# the first day the same way rather than inventing a second marker.
+END_OF_DAY = "23:59"
 _SPAN_RX = r"\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}"
 _RULE = re.compile(rf"^(.*?)\s+({_SPAN_RX}(?:\s*,\s*{_SPAN_RX})*)$")
 
@@ -115,7 +118,7 @@ def parse_opening_hours(spec: str):
         return {d: [("00:00", "23:59")] for d in range(7)}
     if re.search(r"\b(ph|sh|easter|sunrise|sunset|week\s|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\b", s):
         return None
-    out = {}
+    out, spilled = {}, {}
     for rule in s.split(";"):
         rule = rule.strip()
         if not rule:
@@ -146,12 +149,15 @@ def parse_opening_hours(spec: str):
         if not m:
             return None
         days, span_text = m.group(1), m.group(2)
-        windows = []
+        windows, spills = [], []
         for span in span_text.split(","):
             got = _one_span(span)
             if got is None:
                 return None
-            windows.append(got)
+            o, c, spill = got
+            windows.append((o, c))
+            if spill:
+                spills.append(spill)
         windows = _tidy_windows(windows)
         if windows is None:
             return None
@@ -164,36 +170,82 @@ def parse_opening_hours(spec: str):
             # "Mo-Su 10:00-20:00; Su off" mean what it says. Split service is
             # written with a comma inside ONE rule, which is handled above.
             out[d] = windows
+            for spill in spills:
+                spilled.setdefault((d + 1) % 7, []).append(("00:00", spill))
+
+    # SPILLS LAND LAST, and that ordering is the whole reason they are collected
+    # rather than written as we go.
+    #
+    # Days are REPLACED by later rules, so a spill written during rule 1 would be
+    # wiped by any rule 2 that mentions the same day — and the day a late-night
+    # session spills onto is almost always a day with its own rule. Applying them
+    # after every rule has been read is the only order that survives that.
+    #
+    # It also puts them on the right side of `off`. "Mo-Sa 18:00-26:00; Su off"
+    # means no Sunday SERVICE, and the Saturday night session still runs until
+    # 02:00 on Sunday morning. Sunday is closed and has a window, which sounds
+    # contradictory and is exactly what the sign on the door says.
+    for d, extra in spilled.items():
+        merged = _union_windows(out.get(d, []) + extra)
+        if merged is None:
+            return None
+        out[d] = merged
     return out or None
 
 
 # A single "HH:MM-HH:MM", validated. Split out of the rule loop when a rule
 # gained the ability to carry several, so every window is checked the same way.
 def _one_span(span: str):
+    """"HH:MM-HH:MM" -> (open, close, spill) or None.
+
+    `spill` is the part of the window that lands on the NEXT day, or None. A
+    kitchen open 11:00-27:00 is open until 03:00 tomorrow, and OSM writes that
+    two ways — an hour >= 24, or a close that sorts before the open ("22:00-
+    02:00"). Both mean the same thing and both spill.
+
+    THIS USED TO REFUSE BOTH, and the refusal is why ../mapsee is holding 251
+    rows whose recurring_hours contain "24:00", "25:00", "26:00" or "27:00":
+    they were written before the refusal existed and nothing has overwritten
+    them since, because the parser now declines those venues outright. Postgres
+    rejects '2026-08-21 27:00'::timestamp, so under 0156's unguarded roller one
+    of those rows aborted the entire hourly roll — for every venue — and only
+    0188's per-row handler made that survivable.
+
+    The refusal was correct while a day held ONE window: 11:00-27:00 is two
+    days and one span could not say so. A day is a list now, so it can:
+    11:00-23:59 today and 00:00-03:00 tomorrow. Nothing about the storage
+    changes; the second half is simply written onto the day it belongs to.
+
+    Still refused: an OPENING past midnight (meaningless), a close more than a
+    full day out, and a zero-length window.
+    """
     tm = _TIMESPAN.match(span.strip().replace(" ", ""))
     if not tm:
         return None
     oh, ch = int(tm.group(1)), int(tm.group(3))
-        # OSM WRITES PAST MIDNIGHT AS HOURS >= 24: "11:00-27:00" is 11am to 3am.
-        # The c <= o test below never catches it, because 27:00 sorts after
-        # 11:00, so the span was accepted and became the literal local timestamp
-        # "2026-08-14T27:00:00" — which Postgres rejects outright:
-        #   400 date/time field value out of range
-        # Measured on the first full refresh: Voodoo Doughnut, Los Tacos
-        # Mexicali, Happy Fortune and Carribean Bokit Factory all dropped this
-        # way, and the failure was reported as a moderation block. Late-night
-        # places are precisely the ones a "hungry right now" map wants, so this
-        # was silently losing the best rows.
-        #
-        # Refused rather than approximated, exactly like the c <= o case: one row
-        # holds one window, and 11:00-27:00 is two days.
-    if oh > 23 or ch > 23:
-        return None
-    o = f"{oh:02d}:{tm.group(2)}"
-    c = f"{ch:02d}:{tm.group(4)}"
-    if c <= o:                       # crosses midnight; one window cannot say that
-        return None
-    return (o, c)
+    om, cm = tm.group(2), tm.group(4)
+    if oh > 23:
+        return None                  # an opening time past midnight is nonsense
+    o = f"{oh:02d}:{om}"
+
+    if ch > 23:
+        # 24:00 is midnight EXACTLY — the end of today, not a minute of
+        # tomorrow. Spilling it would write a zero-length 00:00-00:00 window.
+        if ch == 24 and cm == "00":
+            return (o, END_OF_DAY, None)
+        if ch > 47:
+            return None              # more than a day out; we are not guessing
+        return (o, END_OF_DAY, f"{ch - 24:02d}:{cm}")
+
+    c = f"{ch:02d}:{cm}"
+    if c == o:
+        return None                  # zero length
+    if c < o:
+        # "22:00-02:00". Same meaning as 22:00-26:00, written the other way.
+        if c == "00:00":
+            return (o, END_OF_DAY, None)      # open until midnight, no spill
+        return (o, END_OF_DAY, c)
+    return (o, c, None)
 
 
 def _tidy_windows(windows):
@@ -219,6 +271,29 @@ def _tidy_windows(windows):
             return None                  # genuine overlap: refuse the listing
         if o == pc:
             out[-1] = (po, c)            # touching: one window written as two
+        else:
+            out.append((o, c))
+    return out
+
+
+def _union_windows(windows):
+    """Sort and MERGE, including genuine overlaps. For spills only.
+
+    _tidy_windows refuses an overlap because two authored spans that overlap are
+    a malformed rule and picking one would be a guess. A spill is not authored —
+    it is derived from the previous day's closing time — so an overlap there is
+    just the same late session described twice ("Fr 18:00-26:00; Sa 00:00-03:00"
+    on a bar that says both). Refusing would throw away a listing over an
+    agreement, so these union instead.
+    """
+    if not windows:
+        return None
+    windows = sorted(windows)
+    out = [windows[0]]
+    for o, c in windows[1:]:
+        po, pc = out[-1]
+        if o <= pc:
+            out[-1] = (po, max(pc, c))
         else:
             out.append((o, c))
     return out
