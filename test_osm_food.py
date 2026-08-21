@@ -129,18 +129,40 @@ def main():
         m.time.sleep = lambda *_: None
         n = {"i": 0}
 
+        # ONE DEAD TILE USED TO MEAN INCOMPLETE. It no longer does, because a
+        # tile that lost is asked once more after the rest of the area — so the
+        # tile here has to be dead for good, keyed on its box rather than on a
+        # call count. A count-based failure would now recover on the retry,
+        # which is exactly the behaviour that made this assertion stale.
+        dead = cells[1]
+
         def flaky(bbox, delay=2.0, tries=4):
             n["i"] += 1
-            if n["i"] == 2:
+            if tuple(bbox) == tuple(dead):
                 raise RuntimeError("504")
             return [{"type": "node", "id": n["i"], "tags": {}}]
         m._overpass_one = flaky
-        els, complete = m.overpass({"name": "T", "center": [47.6, -122.3], "radius_miles": 50}, delay=0)
-        checks.append((complete is False, "one dead tile marks the area INCOMPLETE"))
+        els, complete = m.overpass({"name": "T", "center": [47.6062, -122.3321], "radius_miles": 50}, delay=0)
+        checks.append((complete is False, "a tile dead on BOTH passes marks the area INCOMPLETE"))
         checks.append((len(els) == len(cells) - 1, "the surviving tiles are still returned and used"))
 
+        # And the case that changed: dead once, alive on the second pass.
+        seen_once = {"hit": False}
+
+        def recovers(bbox, delay=2.0, tries=4):
+            if tuple(bbox) == tuple(dead) and not seen_once["hit"]:
+                seen_once["hit"] = True
+                raise RuntimeError("504")
+            return [{"type": "node", "id": str(bbox), "tags": {}}]
+        m._overpass_one = recovers
+        els3, complete3 = m.overpass({"name": "T", "center": [47.6062, -122.3321], "radius_miles": 50}, delay=0)
+        checks.append((complete3 is True,
+                       "a tile that answers on the retry makes the area COMPLETE — so it caches"))
+        checks.append((len(els3) == len(cells),
+                       "and every tile's elements are present, including the one that lost"))
+
         m._overpass_one = lambda bbox, delay=2.0, tries=4: [{"type": "node", "id": 7, "tags": {}}]
-        els2, complete2 = m.overpass({"name": "T", "center": [47.6, -122.3], "radius_miles": 50}, delay=0)
+        els2, complete2 = m.overpass({"name": "T", "center": [47.6062, -122.3321], "radius_miles": 50}, delay=0)
         checks.append((complete2 is True, "all tiles answering marks it complete"))
         checks.append((len(els2) == 1, "the same place seen in several tiles is deduped"))
     finally:
@@ -297,6 +319,53 @@ def main():
         ((0 + len(m.window_at(pool, 0, 60))) % 52 == 0,
          "after a short area the cursor lands back at 0, not at cap-minus-pool"),
     ])
+
+    # ---- the tile sweep, and the second pass ----------------------------
+    # Two production reparses on 2026-08-20 lost tiles on most hubs — seven of
+    # thirty-two second-hand, six of eight food, New York alone losing NINE of
+    # thirty. _overpass_one already retries a tile four times over ~26 seconds,
+    # which is right for a rate-limit and useless for a busy service. The second
+    # pass runs after the rest of the area, minutes later.
+    #
+    # None of this was testable while the fetch was inline in overpass(); it is
+    # now a function taking a fetcher and a sleep, so failure is scriptable.
+    calls = []
+
+    def flaky(cell):
+        """Tile 'b' fails the first time it is asked and works the second."""
+        calls.append(cell)
+        if cell == "b" and calls.count("b") == 1:
+            raise RuntimeError("504")
+        return [{"type": "node", "id": f"{cell}1"}, {"type": "node", "id": f"{cell}2"}]
+
+    els, complete = m.sweep_tiles(["a", "b", "c"], flaky, "[t]", sleep=lambda _: None)
+    checks.extend([
+        (complete is True, "a tile that answers on the SECOND pass makes the area complete"),
+        (len(els) == 6, "and its elements are in the result (3 tiles x 2)"),
+        (calls.count("b") == 2 and calls.count("a") == 1,
+         "only the tile that LOST is re-asked, not the whole area"),
+    ])
+
+    def always(cell):
+        raise RuntimeError("504")
+
+    els2, complete2 = m.sweep_tiles(["a"], always, "[t]", sleep=lambda _: None)
+    checks.extend([
+        (complete2 is False, "a tile that loses twice leaves the area INCOMPLETE"),
+        (els2 == [], "and yields nothing rather than a partial pretending to be whole"),
+    ])
+
+    def dupes(cell):
+        return [{"type": "node", "id": 1}, {"type": "node", "id": 2}]
+
+    els3, _ = m.sweep_tiles(["a", "b"], dupes, "[t]", sleep=lambda _: None)
+    checks.append((len(els3) == 2,
+                   "overlapping tiles still de-duplicate on (type, id)"))
+
+    slept = []
+    m.sweep_tiles(["a"], lambda c: [], "[t]", sleep=lambda s: slept.append(s))
+    checks.append((slept == [], "no failures means no waiting"))
+
 
     for ok, why in checks:
         failed += 0 if ok else 1
