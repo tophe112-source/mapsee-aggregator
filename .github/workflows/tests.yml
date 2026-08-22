@@ -156,6 +156,15 @@ jobs:
       - name: OSM calendar discovery (builders vs plugins, challenges, candidate shape)
         run: python test_discover_osm.py
 
+      # OFFSET paging gets dearer every page: offset=6000 makes Postgres produce
+      # and discard six thousand rows to return the next thousand. It held while
+      # the catalog was small and died the day a 26-hour window held more than
+      # 6,000 new events. Also pins that the server's own error body reaches the
+      # report — "500 Server Error" alone cannot say whether to take a smaller
+      # bite or wait for the edge, and those are opposite responses.
+      - name: IndexNow paging (keyset not offset, and a 5xx that says which)
+        run: python test_indexnow.py
+
       # "Order pickup" is a promise. It shipped once on 400 of 400 food events
       # that pointed at Meetup, and a second time on any /menu path — which
       # matched a town website's nav. Both regressions are pinned here.

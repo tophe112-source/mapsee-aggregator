@@ -84,6 +84,7 @@ import argparse
 import json
 import os
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from typing import List
 
@@ -152,6 +153,48 @@ PAGE = 1000
 # Reading what is newly crawlable
 # ---------------------------------------------------------------------------
 
+TIMEOUT_CODE = "57014"         # postgres: canceling statement due to statement timeout
+PAGE_MIN = 125                 # below this, a timeout is not about page size
+ATTEMPTS = 3
+
+
+def _postgrest(session, url, params, headers, timeout=45):
+    """One read, retrying only what a second attempt can change.
+
+    TWO DIFFERENT 5xx ARRIVE HERE AND THEY WANT OPPOSITE THINGS — the same
+    distinction mapsee_cleanup and mapsee_menu_links already draw. A statement
+    timeout (57014) means we asked for too much and the answer is a SMALLER
+    bite; re-issuing the identical request just spends the run's budget doing
+    what already failed. An upstream 503 means the request never happened and
+    the same one works once the edge recovers.
+
+    Returns (response, timed_out). The caller decides what "smaller" means.
+    """
+    last = None
+    for attempt in range(ATTEMPTS):
+        r = session.get(url, params=params, headers=headers, timeout=timeout)
+        if r.status_code < 500:
+            return r, False
+        last = r
+        if r.status_code >= 500 and TIMEOUT_CODE in (r.text or ""):
+            return r, True                      # not retryable; shrink instead
+        time.sleep(2 ** attempt)                 # transient: the edge, not the query
+    return last, False
+
+
+def _explain(r) -> str:
+    """A status code alone diagnoses nothing.
+
+    This job reported `500 Server Error: Internal Server Error for url: ...` and
+    nothing else, because requests' raise_for_status() never looks at the body —
+    so the one thing that says WHICH 5xx it is, and therefore what to do about
+    it, was thrown away. mapsee_health_check learned this against a 57014 it
+    reported as "a source has gone quiet". Quote the server back.
+    """
+    body = (r.text or "").strip().replace("\n", " ")[:300]
+    return f"HTTP {r.status_code} from PostgREST: {body or '(empty body)'}"
+
+
 def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
                         session: requests.Session) -> List[str]:
     """Event ids created in the window that a crawler is allowed to index.
@@ -160,35 +203,73 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
     sitemapEvents() in mapsee/src/index.js. If that ever changes, this must
     change with it — the invariant is "IndexNow announces a subset of what the
     sitemap announces", never a superset.
+
+    PAGED BY KEYSET, NOT BY OFFSET. `offset=6000` asks Postgres to produce and
+    throw away six thousand rows before returning the next thousand, so every
+    page re-does all the work of the pages before it and the cost of a full walk
+    is quadratic in the number of pages. It held while the catalog was small and
+    stopped holding on 2026-08-22, at exactly `offset=6000`, with a 500 — a
+    26-hour window had grown past 6,000 new events after the sweeps of the last
+    few days. Asking `created_at > <last seen>` instead costs the same on page
+    seven as on page one.
+
+    The cursor is (created_at, id) and not created_at alone: created_at is not
+    unique — a merge lands hundreds of rows on the same timestamp — and a keyset
+    on a non-unique column either repeats that timestamp's rows for ever or
+    skips the tail of it.
     """
     since = (datetime.now(timezone.utc) - timedelta(hours=since_hours)).isoformat()
     now = datetime.now(timezone.utc).isoformat()
+    url = f"{base_url.rstrip('/')}/rest/v1/events"
+    headers = {"apikey": anon_key, "authorization": f"Bearer {anon_key}"}
 
     ids: List[str] = []
-    offset = 0
+    seen: set = set()
+    cursor = None
+    page = PAGE
     while True:
         params = {
-            "select": "id",
+            "select": "id,created_at",    # created_at IS the cursor, so it must come back
             "created_at": f"gte.{since}",
             "is_private": "eq.false",     # private events must never be announced
             "hidden_at": "is.null",       # moderated-away events must never be announced
             "starts_at": f"gte.{now}",    # a past event's page is not worth a crawl
-            "order": "created_at.asc",
-            "limit": str(PAGE),
-            "offset": str(offset),
+            "order": "created_at.asc,id.asc",
+            "limit": str(page),
         }
-        r = session.get(
-            f"{base_url.rstrip('/')}/rest/v1/events",
-            params=params,
-            headers={"apikey": anon_key, "authorization": f"Bearer {anon_key}"},
-            timeout=30,
-        )
-        r.raise_for_status()
+        if cursor:
+            ct, cid = cursor
+            # Values are double-quoted because a timestamp carries ':', '.' and
+            # '+', all of which are reserved inside a PostgREST or= expression.
+            params["or"] = (f'(created_at.gt."{ct}",'
+                            f'and(created_at.eq."{ct}",id.gt."{cid}"))')
+        r, timed_out = _postgrest(session, url, params, headers)
+        if timed_out and page > PAGE_MIN:
+            # Report the size that ACTUALLY failed. Printing page*2 after the
+            # reassignment named 250 when the failing request asked for 200,
+            # because the floor had clamped the halving — a number nobody sent.
+            failed, page = page, max(PAGE_MIN, page // 2)
+            print(f"  statement timeout at page size {failed}; retrying with {page}")
+            continue
+        if r is None or r.status_code >= 400:
+            raise RuntimeError(_explain(r) if r is not None else "no response")
         rows = r.json() or []
-        ids.extend(row["id"] for row in rows if row.get("id"))
-        if len(rows) < PAGE:
+        for row in rows:
+            rid = row.get("id")
+            if rid and rid not in seen:
+                seen.add(rid)
+                ids.append(rid)
+        if len(rows) < page:
             return ids
-        offset += PAGE
+        last = rows[-1]
+        nxt = (last.get("created_at"), last.get("id"))
+        if not all(nxt) or nxt == cursor:
+            # The cursor did not move, so another request would ask the same
+            # question for ever. Stop and SAY the walk was cut short rather than
+            # return a silently partial list that reads like a complete one.
+            print(f"  WARNING: cursor stalled at {nxt}; stopping after {len(ids)} id(s)")
+            return ids
+        cursor = nxt
 
 
 def lens_hosts(session: requests.Session):
@@ -350,7 +431,11 @@ def main() -> None:
     # ---- mapsee.me: the new events, plus its own landing pages ----
     try:
         event_ids = fetch_new_event_ids(base_url, anon_key, args.since_hours, session)
-    except requests.RequestException as e:
+    except (requests.RequestException, RuntimeError) as e:
+        # RuntimeError carries the server's own words; RequestException is the
+        # transport giving up. Both are quoted rather than summarised, because
+        # "500 Server Error" told nobody whether to shrink the query or wait for
+        # the edge — and those are opposite responses.
         print(f"FAIL could not read new events from Supabase: {e}")
         sys.exit(1)
 

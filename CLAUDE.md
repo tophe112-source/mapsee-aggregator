@@ -219,6 +219,26 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   levers: `--ignore-cursor` + `full_refresh` re-examines and rewrites existing
   rows, and `mapsee_prune_links.py` cuts a line whose destination is provably
   gone. Neither is automatic; both are dry by default.
+- **OFFSET paging against our own database gets dearer every page, and it fails
+  the day the catalog outgrows it.** `mapsee_indexnow` walked new events with
+  `limit=1000&offset=N`, which asks Postgres to produce and DISCARD N rows before
+  returning the next thousand — so a full walk costs quadratically in pages. It
+  worked for months and died on 2026-08-22 at exactly `offset=6000`, once a
+  26-hour window held more than 6,000 new events (the sweeps of the previous days
+  are what put it over). The fix is a KEYSET: ask `created_at > the last one I
+  saw`, which costs the same on page seven as on page one. The cursor must be
+  `(created_at, id)` and not `created_at` alone — a merge lands hundreds of rows
+  on one timestamp, and a keyset on a non-unique column either serves that
+  timestamp for ever or skips its tail. `test_indexnow.py`. The other `offset=`
+  callers in this repo are third-party APIs (Socrata, ODS, Recreation.gov) and
+  bounded, so they are not the same bug.
+- **`raise_for_status()` throws the diagnosis away.** That failure reported
+  `500 Server Error: Internal Server Error for url: ...` and nothing else,
+  because requests never looks at the body — so the one thing that says WHICH
+  5xx it is, and therefore whether to take a smaller bite or wait for the edge,
+  was discarded at the moment it mattered. Exactly what `mapsee_health_check`
+  learned when it reported a 57014 as "one or more sources have gone quiet".
+  Quote the server back: `_explain()` here, and the same rule everywhere.
 - **Two different 5xx come back from PostgREST and they want opposite things.**
   A statement timeout (`57014`) means we asked for too much, and the answer is a
   SMALLER bite — `mapsee_cleanup.py` halves its batch, and retrying the identical
@@ -608,6 +628,7 @@ python test_ingest_bikereg.py       # cycling: the server's offset, and one id p
 python test_ingest_tribe.py         # feed shapes: one bad record must not cost a whole site
 python test_ingest_jsonld.py        # placeholder locations, naive times, and calendar entries that are not events
 python test_discover_osm.py         # discovery: a site builder is not a calendar, and a 200 can be a refusal
+python test_indexnow.py             # paging our own database: keyset, not offset
 python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
@@ -615,7 +636,7 @@ python catalog_curate.py coverage   # where the catalog is thin, per lens catego
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 18 test scripts are the CI gate (`tests.yml`). They print one line per
+The 19 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
