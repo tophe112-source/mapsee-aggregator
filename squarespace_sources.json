@@ -490,6 +490,51 @@
         "lon": 149.0538689
       },
       "_metro": "Canberra, AU"
+    },
+    {
+      "name": "Index Dublin",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.indexdublin.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Index Dublin",
+        "address": "57 Middle Abbey Street",
+        "lat": 53.3479863,
+        "lon": -6.2618522
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "The Button Factory",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://buttonfactory.ie/shows",
+      "max_events": 200,
+      "venue": {
+        "name": "The Button Factory",
+        "address": "Curved Street",
+        "city": "Dublin",
+        "lat": 53.3449518,
+        "lon": -6.2645387
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "St. Laurence Cheshire Home",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.cheshire.ie/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "St. Laurence Cheshire Home",
+        "address": "Lower Glanmire Road",
+        "city": "Glanmire",
+        "postal_code": "T23YF40",
+        "lat": 51.9066807,
+        "lon": -8.4044631
+      },
+      "_metro": "Cork, IE"
     }
   ]
 }

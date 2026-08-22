@@ -2172,5 +2172,23 @@
   "category": "arts",
   "geocode_suffix": ", Seattle, WA",
   "limit": 300
+ },
+ {
+  "name": "UniMovies",
+  "category": "theater",
+  "_found": "osm:cinema -> ics",
+  "url": "http://unimovies.org/aug2.ics",
+  "geocode_suffix": ", Wollongong, AU",
+  "limit": 300,
+  "_metro": "Wollongong, AU"
+ },
+ {
+  "name": "Kenilworth Bowling Club",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> my-calendar",
+  "url": "https://kenilworthbc.ie/?feed=my-calendar-ics",
+  "geocode_suffix": ", Dublin, IE",
+  "limit": 300,
+  "_metro": "Dublin, IE"
  }
 ]

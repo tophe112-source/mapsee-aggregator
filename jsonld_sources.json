@@ -455,6 +455,41 @@
     "lon": 147.295269
    },
    "_metro": "Hobart, AU"
+  },
+  {
+   "name": "DublinTown",
+   "category": "community",
+   "_found": "osm:ngo -> jsonld-event",
+   "listing": [
+    "https://www.dublintown.ie/whats-on-events/the-weeknd-croke-park/"
+   ],
+   "link_pattern": "https://www\\.dublintown\\.ie/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "DublinTown",
+    "address": "43-45 Middle Abbey Street",
+    "city": "Dublin",
+    "postal_code": "D01 X8R2",
+    "lat": 53.3478712,
+    "lon": -6.2632052
+   },
+   "_metro": "Dublin, IE"
+  },
+  {
+   "name": "Cuala",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://cualagaa.ie/events-calendar/"
+   ],
+   "link_pattern": "https://cualagaa\\.ie/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Cuala",
+    "lat": 53.2722935,
+    "lon": -6.1353572
+   },
+   "_metro": "Dublin, IE"
   }
  ],
  "_not_included": {

@@ -1609,6 +1609,347 @@
         "lon": 147.3318622
       },
       "_metro": "Hobart, AU"
+    },
+    {
+      "name": "Illawarra Yacht Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://ofbrciyc.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Illawarra Yacht Club",
+        "address": "1 Northcliffe Drive",
+        "lat": -34.4923902,
+        "lon": 150.8750141
+      },
+      "_metro": "Wollongong, AU"
+    },
+    {
+      "name": "Warilla Sports Club",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://thesporties.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Warilla Sports Club",
+        "address": "McGregor Avenue",
+        "lat": -34.5586459,
+        "lon": 150.8622122
+      },
+      "_metro": "Wollongong, AU"
+    },
+    {
+      "name": "Shellharbour Club",
+      "category": "community",
+      "_found": "osm:licensed_club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.theshellharbourclub.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Shellharbour Club",
+        "lat": -34.5816481,
+        "lon": 150.8586085
+      },
+      "_metro": "Wollongong, AU"
+    },
+    {
+      "name": "Dublin Buddhist Centre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://dublinbuddhistcentre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dublin Buddhist Centre",
+        "address": "James Joyce Street",
+        "city": "Dublin",
+        "postal_code": "D01 N5H6",
+        "lat": 53.3519499,
+        "lon": -6.2535303
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "Forbidden Planet",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://forbiddenplanet.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Forbidden Planet",
+        "address": "5-6 Crampton Quay",
+        "city": "Dublin",
+        "lat": 53.3461424,
+        "lon": -6.2620739
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "Irish Haemophilia Society",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://haemophilia.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Irish Haemophilia Society",
+        "address": "New Street South",
+        "city": "Dublin",
+        "lat": 53.3376118,
+        "lon": -6.2728002
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "Construction Industry Federation",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://cif.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Construction Industry Federation",
+        "address": "Canal Road",
+        "lat": 53.3298595,
+        "lon": -6.2608032
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "Christ Church Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://christchurchcathedral.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christ Church Cathedral",
+        "address": "6 Christchurch Place",
+        "city": "Dublin",
+        "lat": 53.3434134,
+        "lon": -6.2711999
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "Lansdowne Football Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://lansdownerugby.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lansdowne Football Club",
+        "address": "Ballycorus Road",
+        "city": "Kilternan",
+        "lat": 53.2343663,
+        "lon": -6.1812581
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://spinalinjuries.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "lat": 53.2751279,
+        "lon": -6.1511594
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "Dundrum Football Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dundrumfc.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dundrum Football Club",
+        "address": "Acorn Road",
+        "city": "Dublin",
+        "postal_code": "D16 W5X9",
+        "lat": 53.2819866,
+        "lon": -6.2557751
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "Belvedere Swimming Pool",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+ics",
+      "base_url": "https://belvederecollege.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Belvedere Swimming Pool",
+        "lat": 53.3560732,
+        "lon": -6.262403
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "St. Brigid's Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dublindiocese.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Brigid's Church",
+        "address": "Church Road",
+        "lat": 53.4899747,
+        "lon": -6.3005401
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "Dun Laoghaire Motor Yacht Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dmyc.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dun Laoghaire Motor Yacht Club",
+        "lat": 53.2964442,
+        "lon": -6.1468618
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "St Paul's",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://glenageary.dublin.anglican.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Paul's",
+        "address": "Silchester Road",
+        "city": "Glenageary",
+        "lat": 53.2815995,
+        "lon": -6.1259299
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "St. Joseph's Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://blessingtonparish.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St. Joseph's Hall",
+        "address": "Main Street",
+        "lat": 53.1689116,
+        "lon": -6.5342288
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "Mud Island Community Garden",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mudisland.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mud Island Community Garden",
+        "lat": 53.3577242,
+        "lon": -6.2440699
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "The Margaret Aylward Centre for Faith and Dialogue",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event",
+      "base_url": "https://www.margaretaylwardcentre.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Margaret Aylward Centre for Faith and Dialogue",
+        "address": "Old Finglas Road",
+        "city": "Dublin",
+        "postal_code": "D11TC21",
+        "lat": 53.3752752,
+        "lon": -6.272071
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "Sandycove Tennis and Squash Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://sandycovetsc.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sandycove Tennis and Squash Club",
+        "address": "Elton Park",
+        "city": "Sandycove",
+        "country": "IE",
+        "lat": 53.2852983,
+        "lon": -6.1168158
+      },
+      "_metro": "Dublin, IE"
+    },
+    {
+      "name": "The Cork Arts Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://corkartstheatre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Cork Arts Theatre",
+        "address": "Knapp's Square",
+        "city": "Cork",
+        "postal_code": "T23 X72D",
+        "country": "IE",
+        "lat": 51.9014931,
+        "lon": -8.4728875
+      },
+      "_metro": "Cork, IE"
+    },
+    {
+      "name": "Grace Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://graceireland.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grace Church",
+        "lat": 51.9015156,
+        "lon": -8.4675225
+      },
+      "_metro": "Cork, IE"
+    },
+    {
+      "name": "Church of the Resurrection",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cupcork.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of the Resurrection",
+        "address": "The Square",
+        "city": "Blarney",
+        "lat": 51.9336073,
+        "lon": -8.5685151
+      },
+      "_metro": "Cork, IE"
     }
   ],
   "_not_included": {
