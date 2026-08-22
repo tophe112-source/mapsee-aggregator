@@ -219,6 +219,19 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   levers: `--ignore-cursor` + `full_refresh` re-examines and rewrites existing
   rows, and `mapsee_prune_links.py` cuts a line whose destination is provably
   gone. Neither is automatic; both are dry by default.
+- **National CKAN portals publish SPREADSHEETS ABOUT events, not event feeds.**
+  Measured 2026-08-22 over all 14 portals: 4,781 datasets examined, 4,332 skipped
+  `no_datastore`, **0 candidates**. Sampling the resources says why — 1,634 of
+  1,653 are plain files against 19 datastore_active, and the formats run 1,335
+  XLSX to 42 CSV. What matches "events" is a register, an attendance count or a
+  funding line; `mapsee_ingest_ckan` reads the DataStore API, and teaching it CSV
+  would not rescue much because the bulk is spreadsheets. Keep the backend, the
+  cursor is cheap and the 19 are real — but do not spend a curation run there
+  expecting a country to be filled. Three portals were ADDED that day after
+  probing (Slovenia, Latvia, Greece answer `/api/3/action` 200/success); Czechia,
+  Spain, Norway, Estonia, Poland and Slovakia were probed and rejected, and that
+  is recorded in `CKAN_PORTALS` so nobody repeats it. Unaddressed and known:
+  `CKAN_QUERIES` is English only, so a Greek portal is searched for "events".
 - **A CONFIG FILE A GUARDED JOB NEEDS IS PART OF THE JOB.** Every ingest step is
   written `if [ -f x_sources.json ]; then ... else echo "no x_sources.json —
   skipping"; fi`, which is right for a source deliberately not configured and

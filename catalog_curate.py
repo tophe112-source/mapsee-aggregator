@@ -898,7 +898,35 @@ CKAN_PORTALS = [
     ("www.govdata.de/ckan", "Germany"), ("data.gov.au/data", "Australia"),
     ("opendata.swiss", "Switzerland"), ("www.dati.gov.it/opendata", "Italy"),
     ("admin.opendata.dk", "Denmark"),
+    # Added 2026-08-22 after probing /api/3/action/package_search on each: these
+    # three answered 200 with success:true. Slovenia and Greece were both on
+    # coverage's thin-ground list. Probed and REJECTED at the same time, so the
+    # next person does not repeat it: data.gov.cz 404 (DCAT/SPARQL, not CKAN),
+    # datos.gob.es 403, data.norge.no 404, avaandmed.eesti.ee 404, and
+    # dane.gov.pl / data.gov.sk answer non-JSON. data.gov.se, opendata.gov.hk
+    # and data.gov.ro could not be reached from the probing host at all, which
+    # is a fact about that host and not about them — re-probe from CI before
+    # concluding anything (see catalog_probe.py).
+    ("podatki.gov.si", "Slovenia"), ("data.gov.lv", "Latvia"),
+    ("data.gov.gr", "Greece"),
 ]
+# WHAT A CKAN SWEEP ACTUALLY COSTS AND RETURNS, measured 2026-08-22 across all
+# 14 portals: 4,781 datasets examined, 4,332 skipped `no_datastore`, 411
+# `not_events`, and ZERO candidates. Sampling the resources behind them says why
+# — 1,634 of 1,653 are plain FILES and only 19 are datastore_active, and the
+# formats are 1,335 XLSX against 42 CSV. These portals publish statistical
+# downloads whose titles mention events (registers, attendance counts, funding
+# lines), not live event calendars, and mapsee_ingest_ckan can only read the
+# DataStore API. Teaching it to read CSV would not rescue much either: the bulk
+# is spreadsheets, and a spreadsheet of last year's festival attendance is not a
+# feed. Keep the backend — the 19 are real and the cursor is cheap — but do not
+# expect it to carry a country, and do not spend a curation run here hoping.
+#
+# The other known limitation, unaddressed: CKAN_QUERIES is ENGLISH ONLY, so a
+# Greek or Slovenian portal is searched for "events" and "festival" rather than
+# for what its datasets are actually called. Same shape as _SECONDARY_RX asking
+# only for English and missing Flohmarkt, brocante and vide-grenier.
+#
 # CKAN is the ONLY discovery path outside the United States — Socrata is a US
 # product — so a category missing from this list is a category no non-US door can
 # ever grow supply for. It covered four of the nine the roster asks for, which
