@@ -165,6 +165,14 @@ jobs:
       - name: IndexNow paging (keyset not offset, and a 5xx that says which)
         run: python test_indexnow.py
 
+      # ~2,965 free weekly volunteer-run events in 20 countries — the entire
+      # 'running' layer. The adapter was written and wired in; its config file
+      # was never committed, and the step is guarded `if [ -f ... ]`, so every
+      # run since printed a friendly skip and nobody saw a red tick. This also
+      # asserts no OTHER guarded source config is missing.
+      - name: parkrun (a config a guarded job needs is part of the job)
+        run: python test_ingest_parkrun.py
+
       # "Order pickup" is a promise. It shipped once on 400 of 400 food events
       # that pointed at Meetup, and a second time on any /menu path — which
       # matched a town website's nav. Both regressions are pinned here.

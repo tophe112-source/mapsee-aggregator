@@ -219,6 +219,28 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   levers: `--ignore-cursor` + `full_refresh` re-examines and rewrites existing
   rows, and `mapsee_prune_links.py` cuts a line whose destination is provably
   gone. Neither is automatic; both are dry by default.
+- **A CONFIG FILE A GUARDED JOB NEEDS IS PART OF THE JOB.** Every ingest step is
+  written `if [ -f x_sources.json ]; then ... else echo "no x_sources.json —
+  skipping"; fi`, which is right for a source deliberately not configured and
+  indistinguishable from one nobody committed. `mapsee_ingest_parkrun.py` was
+  written, wired into `aggregate-events.yml`, and `parkrun_sources.json` never
+  landed — so every scheduled run printed a friendly skip and the entire
+  `running` layer stayed empty in all 20 countries, with no red tick anywhere.
+  That is ~2,965 free, weekly, volunteer-run events, 17,790 dated occurrences
+  over the 42-day horizon, every one with surveyed coordinates. Audited the rest
+  when it was found: the other absent files are runtime STORES (`feeds_events`
+  and friends, produced mid-run) and `ckan_sources.json`, which `merge` creates
+  when something finally verifies — so parkrun was the only real one, and
+  `test_ingest_parkrun.py` now asserts every guarded source config is present.
+- **parkrun start times are NOT in the feed, and they must not be guessed.** They
+  vary by country and by SEASON — a UK 9am is an Australian 7am in summer, and
+  some UK events start at 09:30. The adapter emits an all-day event and says
+  "Start time on the event page." rather than inventing one; `start_times` in the
+  config is per-country and deliberately empty until somebody checks a country.
+  Its `countries` map is the same discipline one step over: parkrun's country
+  codes are opaque integers and the feed carries only a domain, so `97 -> GB`
+  is written down as data instead of parsed out of `parkrun.org.uk` by a regex
+  that would have to know org.uk is not UK.
 - **OFFSET paging against our own database gets dearer every page, and it fails
   the day the catalog outgrows it.** `mapsee_indexnow` walked new events with
   `limit=1000&offset=N`, which asks Postgres to produce and DISCARD N rows before
@@ -629,6 +651,7 @@ python test_ingest_tribe.py         # feed shapes: one bad record must not cost 
 python test_ingest_jsonld.py        # placeholder locations, naive times, and calendar entries that are not events
 python test_discover_osm.py         # discovery: a site builder is not a calendar, and a 200 can be a refusal
 python test_indexnow.py             # paging our own database: keyset, not offset
+python test_ingest_parkrun.py       # the free weekly runs, and configs a guarded job needs
 python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
@@ -636,7 +659,7 @@ python catalog_curate.py coverage   # where the catalog is thin, per lens catego
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 19 test scripts are the CI gate (`tests.yml`). They print one line per
+The 20 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

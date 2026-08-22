@@ -89,6 +89,10 @@ def parkrun_events(feature: Dict[str, Any], countries: Dict[str, Any],
     # Naive local "HH:MM:SS"; the sync turns it into a real instant from the
     # coordinates. Absent -> an all-day event, which is honest rather than wrong.
     start_t = (cfg.get("start_times") or {}).get(str(code))
+    # parkrun's country codes are opaque integers and the feed carries no country
+    # name — only a domain. The config maps them, as data rather than as a TLD
+    # parse, so `org.uk -> GB` is visible instead of hiding in a regex.
+    country = (cfg.get("countries") or {}).get(str(code))
     place = props.get("EventLocation") or name
     blurb = series["blurb"]
     if not start_t and url:
@@ -112,6 +116,7 @@ def parkrun_events(feature: Dict[str, Any], countries: Dict[str, Any],
             venue_name=place,
             latitude=lat, longitude=lon,
             address=props.get("EventLocation"),
+            country=country,
             category="running",
             categories=[series["secondary"]],
             ticket_url=url,

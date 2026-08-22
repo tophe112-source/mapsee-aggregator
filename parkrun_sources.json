@@ -1,0 +1,19 @@
+{
+ "_comment": "parkrun: ~2,965 free, weekly, volunteer-run events across 20 countries, expanded into dated occurrences over a rolling horizon. The adapter has always been wired into aggregate-events.yml and this file did not exist, so the step printed 'no parkrun_sources.json - skipping parkrun' on every run since it was written and the whole 'running' layer stayed empty.",
+ "url": "https://images.parkrun.com/events.json",
+ "horizon_days": 42,
+
+ "_run_weekdays": "TWO days, not one. A weekly schedule re-expands to byte-identical rows so a daily run is wasted work, but a source that runs one day a week has no retry and nothing notices - the OSM Overpass sweep lost a whole week's international market catalogue to exactly that. Monday and Thursday means a lost run costs three days rather than seven.",
+ "run_weekdays": [0, 4],
+
+ "_start_times": "DELIBERATELY EMPTY. Start times are not in the feed and they vary by country and by season - a UK 9am is an Australian 7am in summer, and within the UK some events start at 9:30. The adapter emits an all-day event when a country has no entry here and puts 'Start time on the event page.' in the description, which is honest; a plausible country-wide guess would be the well-formed-and-wrong failure this repo keeps paying for. Fill a code in only after checking that country's events, and the sync will convert the naive local time using the coordinates.",
+ "start_times": {},
+
+ "_countries": "parkrun's own country codes are opaque integers and the feed carries no country NAME, only a domain. This map is derived from those domains and written down as DATA rather than parsed from the TLD at runtime, because org.uk -> GB is the sort of special case that hides in a regex. Counts are live events at the time of writing.",
+ "countries": {
+  "97": "GB", "3": "AU", "85": "ZA", "42": "IE", "74": "PL",
+  "98": "US", "32": "DE", "65": "NZ", "14": "CA", "46": "JP",
+  "64": "NL", "44": "IT", "88": "SE", "23": "DK", "67": "NO",
+  "30": "FI", "4": "AT", "54": "LT", "82": "SG", "57": "MY"
+ }
+}
