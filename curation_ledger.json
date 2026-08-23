@@ -13,6 +13,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "126gallery.com": {
+    "checked": 20260823,
+    "name": "126 Artist-Run Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "12thglasgow.org.uk": {
     "checked": 20260819,
     "name": "12th Glasgow (1st Lenzie) Scout Group",
@@ -230,6 +237,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "abilitywest.ie": {
+    "checked": 20260823,
+    "name": "Ability West",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "abnc.ca/events/?ical=1": {
     "checked": 20260727,
     "name": "Allan Brooks Nature Centre (Vernon, Canada)",
@@ -418,6 +432,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "adareparish.ie": {
+    "checked": 20260823,
+    "name": "Trinitarian Abbey",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "adelaide.place/calendar": {
     "checked": 20260819,
@@ -1035,6 +1056,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "alzheimer.ie": {
+    "checked": 20260823,
+    "name": "Waterman's Lodge Day Care Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "amadorwine.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Amador Vintners Wine Events (California)",
@@ -1133,6 +1161,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "angellanenightclub.ie": {
+    "checked": 20260823,
+    "name": "Angel Lane Night Club",
+    "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "angelsonwheels.com.au": {
     "checked": 20260819,
     "name": "Angels on Wheels",
@@ -1195,6 +1230,13 @@
     "reason": "30 events / 0 future",
     "status": "empty",
     "type": "squarespace"
+  },
+  "antaibhdhearc.com": {
+    "checked": 20260823,
+    "name": "An Taibhdhearc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "antiquebookshop.com.au": {
     "checked": 20260819,
@@ -1623,6 +1665,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "askeaton.coralleisure.ie": {
+    "checked": 20260823,
+    "name": "Askeaton Pool and Gym",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aspiralife.ca/our-locations/alberta/calgary/aspira-britannia-retirement-living": {
     "checked": 20260819,
     "name": "Amica Britannia",
@@ -1689,6 +1738,20 @@
   "atgtickets.com/venues/liverpool-empire": {
     "checked": 20260819,
     "name": "Liverpool Empire Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "athenryfootballclub.com": {
+    "checked": 20260823,
+    "name": "Athenry Football Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "athenrygaa.ie": {
+    "checked": 20260823,
+    "name": "St Mary's Athenry - Kenny Park",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2785,6 +2848,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bish.ie/pages/sports/rowing.php": {
+    "checked": 20260823,
+    "name": "St Joseph's College (The Bish) Rowing Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bishopeton.org.uk": {
     "checked": 20260819,
     "name": "Our Lady of the Annunciation Bishop Eton Church",
@@ -2833,6 +2903,13 @@
     "reason": "30 vevents / 28 future",
     "status": "ok",
     "type": "ics"
+  },
+  "blackgate.ie": {
+    "checked": 20260823,
+    "name": "The Black Gate",
+    "reason": "osm probe: offsite:tickettailor.com",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "blackhallbc.com": {
     "checked": 20260819,
@@ -2887,6 +2964,13 @@
     "checked": 20260819,
     "name": "Blackwattle Bay Dragon Boat Club",
     "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "blakemanor.ie": {
+    "checked": 20260823,
+    "name": "Blake Manor Nursing Home",
+    "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -2953,6 +3037,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bluebirdcare.ie": {
+    "checked": 20260823,
+    "name": "Bluebird Care",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "blueheath.com.au": {
     "checked": 20260821,
     "name": "Blueheath Retirement Village",
@@ -2963,6 +3054,13 @@
   "blueplanetaquarium.com": {
     "checked": 20260819,
     "name": "Blue Planet Aquarium",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "blueteapot.ie": {
+    "checked": 20260823,
+    "name": "Blue Teapot Theatre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3835,6 +3933,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bushfieldcarecentre.com": {
+    "checked": 20260823,
+    "name": "Bushfield Care Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "butterfieldacres.com": {
     "checked": 20260819,
     "name": "Butterfield Acres",
@@ -3957,6 +4062,13 @@
   "caerwys-town.wales/town-hall": {
     "checked": 20260819,
     "name": "Caerwys Town Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "caherdavinscouts.ie": {
+    "checked": 20260823,
+    "name": "Caherdavin Scouts",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4962,6 +5074,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "cashel-emly.ie": {
+    "checked": 20260823,
+    "name": "Saint Mary's Church",
+    "reason": "1 events, 1/1 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "castleknock.net": {
     "checked": 20260822,
     "name": "Somerton Park",
@@ -5305,6 +5424,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cftchurches.org": {
+    "checked": 20260823,
+    "name": "Christ Faith Tabernacle Ennis",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cgoart.com": {
     "checked": 20260819,
     "name": "Collectors' Gallery of Art",
@@ -5378,6 +5504,13 @@
   "charlevilleltc.net": {
     "checked": 20260822,
     "name": "Charleville Lawn Tennis Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "charliebyrne.com": {
+    "checked": 20260823,
+    "name": "Charlie Byrne's Bookshop",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5543,6 +5676,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "childrensgrouplink.ie": {
+    "checked": 20260823,
+    "name": "Children's Group Link",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "childrensmuseum.com": {
     "checked": 20260819,
     "name": "Children's Museum",
@@ -5658,6 +5798,13 @@
   "chrysalideshouse.blogspot.com": {
     "checked": 20260819,
     "name": "Chrysalides House, School of Fine Art and Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "chubbrenvillegaelicgrounds.ie": {
+    "checked": 20260823,
+    "name": "Chubb Renville Gaelic Grounds",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6103,6 +6250,55 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "clarebible.ie": {
+    "checked": 20260823,
+    "name": "Clare Bible Study",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "clarecare.ie": {
+    "checked": 20260823,
+    "name": "Clarecare",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "clarecastlegaa.ie": {
+    "checked": 20260823,
+    "name": "Clarecastle GAA",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "claregalwaygaa.net": {
+    "checked": 20260823,
+    "name": "Claregalway GAA",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "clarelibrary.ie": {
+    "checked": 20260823,
+    "name": "Killaloe Public Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "clarelibrary.ie/eolas/library/branches/devlib3.htm": {
+    "checked": 20260823,
+    "name": "De Valera Public Library and Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "clarelibrary.ie/eolas/library/local-studies/locstudi1.htm": {
+    "checked": 20260823,
+    "name": "Clare County Library Local Studies Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "claremontparishchurch.co.uk": {
     "checked": 20260819,
     "name": "Claremont Parish Church",
@@ -6123,6 +6319,13 @@
     "reason": "16 events / 0 future",
     "status": "empty",
     "type": "squarespace"
+  },
+  "clarinbridgeparish.ie": {
+    "checked": 20260823,
+    "name": "Church of St. Colman",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "classics.washington.edu/calendar.ics": {
     "checked": 20260821,
@@ -6313,6 +6516,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cnocnagaoithe.com/news": {
+    "checked": 20260823,
+    "name": "Cnoc na Gaoithe",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "cobhcommunitycentre.ie": {
     "checked": 20260822,
     "name": "Great Island Community Centre",
@@ -6393,6 +6603,13 @@
   "coledalebeach.com.au": {
     "checked": 20260822,
     "name": "Coledale Surf Lifesaving Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "colgafc.ie": {
+    "checked": 20260823,
+    "name": "Colga Football Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6565,6 +6782,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "connectchurchgalway.wordpress.com": {
+    "checked": 20260823,
+    "name": "Connect Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "connectionsdancecollective.com": {
     "checked": 20260819,
     "name": "Connections Dance Collective",
@@ -6659,6 +6883,20 @@
   "cope-foundation.ie/Le-Cheile": {
     "checked": 20260822,
     "name": "Le Cheile",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "copegalway.ie": {
+    "checked": 20260823,
+    "name": "Cope Galway",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "copegalway.ie/homeless-services/fairgreen-hostel": {
+    "checked": 20260823,
+    "name": "Fairgreen Homeless Men's Hostel",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7027,6 +7265,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "cregmoreclaregalwayfc.net": {
+    "checked": 20260823,
+    "name": "Cregmore Claregalway FC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "crescentcityfarmersmarket.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Crescent City Farmers Market Events (New Orleans)",
@@ -7286,6 +7531,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "csmt.ie": {
+    "checked": 20260823,
+    "name": "Community Substance Misuse Team",
+    "reason": "osm probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ctfsydney.com/foundation": {
     "checked": 20260819,
     "name": "Catch The Fire Sydney",
@@ -7502,6 +7754,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "dancelimerick.ie": {
+    "checked": 20260823,
+    "name": "Dance Limerick",
+    "reason": "15 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "dancenikkiwebster.com.au": {
     "checked": 20260819,
@@ -8224,6 +8483,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "discoverychurch.ie": {
+    "checked": 20260823,
+    "name": "Discovery Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "diyode.com": {
     "checked": 20260819,
     "name": "DIYode Workshop",
@@ -8336,6 +8602,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "doorabarefieldgaa.com": {
+    "checked": 20260823,
+    "name": "St. Joseph's Doora-Barefield GAA Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "doorabarefieldparish.ie": {
+    "checked": 20260823,
+    "name": "St. Brecans Church",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "dotdotdot.club/events-one": {
     "checked": 20260819,
     "name": "Ellipsis Gallery",
@@ -8440,6 +8720,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "druid.ie": {
+    "checked": 20260823,
+    "name": "Druid",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "drummoyne.org.au": {
     "checked": 20260819,
@@ -8843,6 +9130,13 @@
   "ecclestonteam.org": {
     "checked": 20260819,
     "name": "St Matthew's Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecclimerick.com": {
+    "checked": 20260823,
+    "name": "Elevate Community Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9568,6 +9862,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ennisevangelicalchurch.org": {
+    "checked": 20260823,
+    "name": "Ennis Evangelical Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "eoinoconnor.com": {
     "checked": 20260822,
     "name": "Eoin O Connor",
@@ -9627,6 +9928,13 @@
   "erinsowngaa.ie": {
     "checked": 20260822,
     "name": "Erin's Own GAA",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "erinsownsacredheartgaa.ie": {
+    "checked": 20260823,
+    "name": "Erin's Own GAA Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10030,6 +10338,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eyecinema.ie": {
+    "checked": 20260823,
+    "name": "Eye Cinema",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fablab.saulstudio.ie": {
+    "checked": 20260823,
+    "name": "Fab Lab Limerick",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/Burleigh-Community-Mens-Shed-306132529400192": {
     "checked": 20260819,
     "name": "Burleigh Community Men's Shed",
@@ -10047,6 +10369,13 @@
   "facebook.com/Diverse-CityAdelaide": {
     "checked": 20260819,
     "name": "Diverse-City",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/FactoryWaterford": {
+    "checked": 20260823,
+    "name": "The Factory Nightclub",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10103,6 +10432,13 @@
   "facebook.com/RockBc00": {
     "checked": 20260819,
     "name": "Rock Bowling Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/StSavioursChurchLimerick": {
+    "checked": 20260823,
+    "name": "Saint Saviour's Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10215,6 +10551,13 @@
   "facebook.com/pages/Premier-Fitness/107295319350520": {
     "checked": 20260822,
     "name": "Premier Fitness",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/pages/category/Art-Gallery/The-Waterford-Gallery-of-Art-566122043881362": {
+    "checked": 20260823,
+    "name": "Waterford Gallery of Art",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10345,6 +10688,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "familes.ie": {
+    "checked": 20260823,
+    "name": "Family Law Information And Support Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "familyresource.ie": {
     "checked": 20260822,
     "name": "Ballyogan Family Resource Centre",
@@ -10393,6 +10743,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "fdys.ie": {
+    "checked": 20260823,
+    "name": "New Ross Youth Caf\u00e9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "feedhopenow.org/events/?ical=1": {
     "checked": 20260727,
@@ -11073,6 +11430,13 @@
     "status": "empty",
     "type": "squarespace"
   },
+  "gallery.limerick.ie": {
+    "checked": 20260823,
+    "name": "Limerick City Gallery of Art",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "gallery9.com.au": {
     "checked": 20260819,
     "name": "Gallery 9",
@@ -11100,6 +11464,62 @@
     "reason": "osm probe: offsite:tickettailor.com",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "galway-mosque.ie": {
+    "checked": 20260823,
+    "name": "Mary Mosque",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galway.ie/en/libraries-archives/find-my-library/ballybane-library": {
+    "checked": 20260823,
+    "name": "Ballybane Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galwayartscentre.ie": {
+    "checked": 20260823,
+    "name": "Galway Arts Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galwaybaybrewery.com": {
+    "checked": 20260823,
+    "name": "Galway Bay Brewery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galwaycathedral.ie": {
+    "checked": 20260823,
+    "name": "Galway Cathedral",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galwaycorinthians.com": {
+    "checked": 20260823,
+    "name": "Galway Corinthians RFC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galwayhooker.ie": {
+    "checked": 20260823,
+    "name": "Galway Hooker Brewery",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "galwayrcc.ie/event-calendar/?ical=1": {
+    "checked": 20260823,
+    "name": "Galway Rape Crisis Centre",
+    "reason": "3 vevents / 0 future",
+    "status": "empty",
+    "type": "ics"
   },
   "game4padel.com": {
     "checked": 20260819,
@@ -11185,6 +11605,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "garryowencdp.com": {
+    "checked": 20260823,
+    "name": "Garryowen Community Development Project",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "garterlane.ie": {
+    "checked": 20260823,
+    "name": "Garter Lane Arts Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "gastonlibrary.libcal.com/ical_subscribe.php?cid=4371": {
     "checked": 20260727,
     "name": "Gaston County Public Library Programs (Charlotte)",
@@ -11230,6 +11664,13 @@
   "gcdr.org.au": {
     "checked": 20260819,
     "name": "Gold Coast Dharma Realm",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gcil.ie": {
+    "checked": 20260823,
+    "name": "Galway Centre for Independant Living",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11287,6 +11728,13 @@
     "checked": 20260819,
     "name": "Clive James Library and Service Centre",
     "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "geraldineorourke.com": {
+    "checked": 20260823,
+    "name": "Geraldine O\u2019Rourke",
+    "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -11759,6 +12207,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "glenstal.com/abbey": {
+    "checked": 20260823,
+    "name": "Glenstal Abbey Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "glenstreet.com.au": {
     "checked": 20260819,
     "name": "Glen Street Theatre",
@@ -11807,6 +12262,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "gltc.ie": {
+    "checked": 20260823,
+    "name": "Galway Lawn Tennis Club",
+    "reason": "69 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "glucksman.org": {
     "checked": 20260822,
@@ -12049,6 +12511,13 @@
   "gordonwilsonart.co.uk": {
     "checked": 20260819,
     "name": "Gordon Wilson Art",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "goshh.ie": {
+    "checked": 20260823,
+    "name": "GOSHH",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -13012,6 +13481,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "heritageireland.ie/visit/places-to-visit/ennis-friary": {
+    "checked": 20260823,
+    "name": "Ennis Abbey",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "heritageireland.ie/visit/places-to-visit/st-audoens-church": {
     "checked": 20260822,
     "name": "St Audoen\u2019s Church",
@@ -13610,6 +14086,13 @@
   "hrp.ca": {
     "checked": 20260819,
     "name": "Holy Rosary Catholic Church (Polish)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hse.ie": {
+    "checked": 20260823,
+    "name": "Waterford Community Services",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -14321,6 +14804,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ispcc.ie": {
+    "checked": 20260823,
+    "name": "ISPCC Galway",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "itma.ie": {
     "checked": 20260822,
     "name": "Irish Traditional Music Archive",
@@ -14811,6 +15301,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kilkennygaa.ie": {
+    "checked": 20260823,
+    "name": "Tullogher Rosbercon GAA Club",
+    "reason": "1 events, 1/1 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "kilkennylibrary.ie": {
+    "checked": 20260823,
+    "name": "Ferrybank Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "killarabowlingclub.com.au": {
     "checked": 20260819,
     "name": "Killara Bowling Club",
@@ -14842,6 +15346,13 @@
   "kilmainhamgaolmuseum.ie": {
     "checked": 20260822,
     "name": "Kilmainham Jail Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kilmokea.com": {
+    "checked": 20260823,
+    "name": "Kilmokea Gardens",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15196,6 +15707,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "knocknacarraparish.ie": {
+    "checked": 20260823,
+    "name": "Saint John the Apostle",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "knownchurch.ca": {
     "checked": 20260819,
     "name": "Known Victory Church",
@@ -15497,6 +16015,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "lackaghmuseum.ie/lackagh-digital-hub.html": {
+    "checked": 20260823,
+    "name": "Lackagh Digital Hub",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lacorps.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Los Angeles Conservation Corps",
@@ -15517,6 +16042,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "lafcadiohearngardens.com": {
+    "checked": 20260823,
+    "name": "Lafacadio Hearn Gardens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "lakechap.ca": {
     "checked": 20260819,
@@ -15647,6 +16179,13 @@
   "lapazdecristo.ca": {
     "checked": 20260819,
     "name": "La Paz De Cristo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "larcheireland.org": {
+    "checked": 20260823,
+    "name": "L'Arche",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15797,6 +16336,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "leisureland.ie": {
+    "checked": 20260823,
+    "name": "Leisureland",
+    "reason": "10 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "leisureworldcork.com/locations/leisureworld-bishopstown": {
     "checked": 20260822,
@@ -16225,6 +16771,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "limerick.ie/limerick-museum": {
+    "checked": 20260823,
+    "name": "Limerick Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "limerickcivictrust.ie/georgian/index.html": {
+    "checked": 20260823,
+    "name": "Culture House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "limerickdioceseheritage.org/Bruff/chMeanus.htm": {
+    "checked": 20260823,
+    "name": "Meanus Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "limetreetheatre.ie": {
+    "checked": 20260823,
+    "name": "Lime Tree Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lindfieldlearningvillage.schools.nsw.gov.au": {
     "checked": 20260819,
     "name": "Greenhalgh Theatre",
@@ -16322,6 +16896,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "littlesistersofthepoor.co.uk/our-homes/abbey-road-waterford": {
+    "checked": 20260823,
+    "name": "St Joseph's Care Home",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "littlesistersofthepoor.ie": {
     "checked": 20260822,
@@ -17012,6 +17593,13 @@
   "maptown.com": {
     "checked": 20260819,
     "name": "Map Town",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "maranatha.ie": {
+    "checked": 20260823,
+    "name": "Maranatha Community Church - Waterford",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -18416,6 +19004,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mowlamhealthcare.com/homes/kilcolgan-nursing-home": {
+    "checked": 20260823,
+    "name": "Kilcolgan Nursing Home",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mpca.ca/community-hall": {
     "checked": 20260819,
     "name": "Mount Pleasant Community Hall",
@@ -18506,6 +19101,20 @@
     "reason": "8 events, 8/8 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "munstermusicacademy.com": {
+    "checked": 20260823,
+    "name": "Munster Music Academy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "munsterrugby.ie": {
+    "checked": 20260823,
+    "name": "Thomond Park",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "murray.anglican.org/parishes/onkaparinga-valley": {
     "checked": 20260819,
@@ -18836,9 +19445,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nationalaquarium.ie": {
+    "checked": 20260823,
+    "name": "Galway Atlantaquaria",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nationalaquaticcentre.ie": {
     "checked": 20260822,
     "name": "National Aquatic Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nationalkartcentre.ie": {
+    "checked": 20260823,
+    "name": "National Kart Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -19199,6 +19822,20 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "newrossceltic.com": {
+    "checked": 20260823,
+    "name": "New Ross Celtic AFC Grounds",
+    "reason": "osm probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "newrossparish.ie": {
+    "checked": 20260823,
+    "name": "Church of St. Mary and St. Michael",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
   },
   "newsfromnowhere.org.uk": {
     "checked": 20260819,
@@ -19921,6 +20558,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ogonnelloegaa.com": {
+    "checked": 20260823,
+    "name": "Ogonnelloe GAA Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ohiocitymarket.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Cleveland Public Market District Events",
@@ -19998,6 +20642,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "omahonys.ie": {
+    "checked": 20260823,
+    "name": "O' Mahonys",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "omniplex.ie/cinemas/cinema/cork-mahon-point": {
     "checked": 20260822,
     "name": "Omniplex",
@@ -20008,6 +20659,20 @@
   "omniplex.ie/cinemas/cinema/dublin-rathmines": {
     "checked": 20260822,
     "name": "Rathmines Omniplex",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "omniplex.ie/cinemas/cinema/limerick": {
+    "checked": 20260823,
+    "name": "Omniplex",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "omniplex.ie/cinemas/cinema/waterford": {
+    "checked": 20260823,
+    "name": "Omniplex",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -20291,6 +20956,13 @@
     "reason": "2 vevents / 1 future",
     "status": "ok",
     "type": "ics"
+  },
+  "oughterardafc.com": {
+    "checked": 20260823,
+    "name": "Oughterard AFC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ourchurch.org.au": {
     "checked": 20260819,
@@ -21692,6 +22364,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pureskill.ie": {
+    "checked": 20260823,
+    "name": "Pure Skill",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "puzzlegallery.online/portfolio-collections/my-portfolio": {
     "checked": 20260819,
     "name": "Puzzle Gallery",
@@ -21894,6 +22573,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "rahoonnewcastle.ie": {
+    "checked": 20260823,
+    "name": "Rahoon / Newcastle GAA",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "rahshistory.com.au": {
     "checked": 20260819,
@@ -22812,6 +23498,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "rostapestry.ie": {
+    "checked": 20260823,
+    "name": "Ros Tapestry Exhibition",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rotes.potsda.mn": {
     "checked": 20260808,
     "name": "rotes.potsda.mn",
@@ -22973,9 +23666,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rusheenbay.com": {
+    "checked": 20260823,
+    "name": "Rusheen Bay Windsurfing School",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rushparish.ie": {
     "checked": 20260822,
     "name": "Saint Maur's Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "russellgallery.net": {
+    "checked": 20260823,
+    "name": "The Russell Gallery",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -23175,6 +23882,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "saintmaryscathedral.ie": {
+    "checked": 20260823,
+    "name": "St Michael's (Limerick City Parish)",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "saintmichael.ca": {
     "checked": 20260819,
@@ -24142,6 +24856,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "setuarena.ie/events": {
+    "checked": 20260823,
+    "name": "SETU Arena",
+    "reason": "3/3 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "sevenoakshouse.ca/ross-house-museum.html": {
     "checked": 20260819,
     "name": "Ross House Museum",
@@ -24464,6 +25185,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "silentcinema.ie": {
+    "checked": 20260823,
+    "name": "Silent Cinema",
+    "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "silvera.ca/living-here/supportive-living/community-locations-sl": {
     "checked": 20260819,
     "name": "Valleyview Community (Silvera for Seniors)",
@@ -24611,6 +25339,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "skgaa.clubforce.com": {
+    "checked": 20260823,
+    "name": "CLG B\u00f3thar na Tr\u00e1 Cnoc na Cathrach",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "skibearsden.co.uk": {
     "checked": 20260819,
     "name": "Bearsden Snowsports Club",
@@ -24754,6 +25489,13 @@
   "smockalley.com": {
     "checked": 20260822,
     "name": "Smock Alley Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "smrc.ie": {
+    "checked": 20260823,
+    "name": "St. Michaels Rowing Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -25416,6 +26158,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stannestennis.com": {
+    "checked": 20260823,
+    "name": "St. Anne's Waterford Tennis Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stanthony.org.au": {
     "checked": 20260819,
     "name": "St. Anthony and St. Paul\u2019s Coptic Orthodox Church",
@@ -25885,6 +26634,13 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "stjohnschurchknockainey.wordpress.com": {
+    "checked": 20260823,
+    "name": "Saint John's Church (deconsecrated)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stjohnshobart.com": {
     "checked": 20260821,
     "name": "St John's Presbyterian Church",
@@ -26221,6 +26977,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stmichaelsnewross.com": {
+    "checked": 20260823,
+    "name": "St. Michael's Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stmichaelstennisclub.ie/upcoming-events": {
     "checked": 20260822,
     "name": "St. Michael's Lawn Tennis Club",
@@ -26255,6 +27018,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "stnicholas.ie": {
+    "checked": 20260823,
+    "name": "Church of Saint Nicholas",
+    "reason": "13 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "stnicholaschurch.ca": {
     "checked": 20260819,
@@ -26781,6 +27551,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "surftbay.com": {
+    "checked": 20260823,
+    "name": "T-Bay Surf & Eco Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "surfworldgoldcoast.com.au": {
     "checked": 20260819,
     "name": "Surf World",
@@ -26974,6 +27751,13 @@
     "checked": 20260819,
     "name": "SWG3",
     "reason": "osm probe: offsite:ticketmaster",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "swimmax.ie": {
+    "checked": 20260823,
+    "name": "Swim Max The Academy",
+    "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -27621,6 +28405,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theapex.ie": {
+    "checked": 20260823,
+    "name": "The Apex",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "thearzner.com": {
     "checked": 20260819,
     "name": "The Arzner",
@@ -27704,6 +28495,13 @@
     "reason": "2652 vevents / 22 future",
     "status": "ok",
     "type": "ics"
+  },
+  "thebookcentre.ie/the-book-centre-waterford.aspx": {
+    "checked": 20260823,
+    "name": "The Book Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "thebookshop.com.au": {
     "checked": 20260819,
@@ -28643,6 +29441,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tht.ie": {
+    "checked": 20260823,
+    "name": "The Black Box",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tigersoccer-playerpro.co.uk": {
     "checked": 20260819,
     "name": "Tiger Soccer",
@@ -28797,6 +29602,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tramoresurfshop.com": {
+    "checked": 20260823,
+    "name": "Tramore Surf Shop And School",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tramshed.org/whatson": {
     "checked": 20260819,
     "name": "Tramshed Theatre",
@@ -28828,6 +29640,13 @@
   "trchobart.com.au": {
     "checked": 20260821,
     "name": "Elwick Racecourse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "treatycitybrewery.ie": {
+    "checked": 20260823,
+    "name": "Treaty City Brewery",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -28870,6 +29689,13 @@
   "trevorjonesart.com": {
     "checked": 20260819,
     "name": "Trevor Jones Art",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tribesrowing.ie": {
+    "checked": 20260823,
+    "name": "Tribesmen Rowing Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -29147,6 +29973,20 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "turloughmoregaa.ie": {
+    "checked": 20260823,
+    "name": "Turloughmore GAA",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tusla.ie": {
+    "checked": 20260823,
+    "name": "TUSLA",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tuxedoparkcommunity.ca": {
     "checked": 20260819,
     "name": "Tuxedo Park Community Hall",
@@ -29423,6 +30263,13 @@
   "unitedactiveliving.com/communities/garrison-green/life-garrison-green": {
     "checked": 20260819,
     "name": "Garrison Green Seniors Community",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "unitedchurchgalway.ie": {
+    "checked": 20260823,
+    "name": "United Methodist Presbyterian Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -30190,6 +31037,55 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "waterford-cathedral.com": {
+    "checked": 20260823,
+    "name": "Cathedral of the Most Holy Trinity",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "waterfordboatclub.ie": {
+    "checked": 20260823,
+    "name": "Waterford Boat Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "waterfordlibraries.ie": {
+    "checked": 20260823,
+    "name": "Central Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "waterfordtreasures.com": {
+    "checked": 20260823,
+    "name": "Medieval Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "waterfordtreasures.com/irish-museum-of-time": {
+    "checked": 20260823,
+    "name": "Irish Museum of Time",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "waterfordtreasures.com/museum/irish-wake-museum": {
+    "checked": 20260823,
+    "name": "Irish Wake Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "waterfordtreasures.com/museum/the-bishops-palace": {
+    "checked": 20260823,
+    "name": "Bishop's Palace Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "watergrasshillgaa.ie": {
     "checked": 20260822,
     "name": "Watergrasshill GAA",
@@ -30876,6 +31772,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "whsc.ie/events": {
+    "checked": 20260823,
+    "name": "Waterford Harbour Sailing Club Store",
+    "reason": "ReadTimeout: HTTPSConnectionPool(host='whsc.ie', port=443): Read timed out. (read t",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "whyteridge.ca": {
     "checked": 20260819,
     "name": "Whyte Ridge Community Centre",
@@ -30977,6 +31880,13 @@
   "wildfungarium.com": {
     "checked": 20260819,
     "name": "Wild Fungarium",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "wildlands.ie": {
+    "checked": 20260823,
+    "name": "Wildlands",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -31408,6 +32318,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "wordaliveministries.org": {
+    "checked": 20260823,
+    "name": "Word Alive Bible Ministry",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "wordsworthbooks.com/events": {
     "checked": 20260819,
     "name": "Words Worth Books",
@@ -31523,6 +32440,13 @@
   "wsccc.org.au/contact-us": {
     "checked": 20260819,
     "name": "West Sydney Chinese Christian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "wstcys.ie/services/manor-street-community-youth-project-inner-city-citywide": {
+    "checked": 20260823,
+    "name": "Manor Street Youth & Community Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -31743,6 +32667,13 @@
     "reason": "no event articles on the collection page",
     "status": "fail",
     "type": "squarespace"
+  },
+  "youtube.com/@MikeKellyAmazingModelPlaneColl": {
+    "checked": 20260823,
+    "name": "Shannon Airport Aviation Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ypt.org.au": {
     "checked": 20260821,

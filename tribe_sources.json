@@ -1950,6 +1950,113 @@
         "lon": -8.5685151
       },
       "_metro": "Cork, IE"
+    },
+    {
+      "name": "ISPCC Galway",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ispcc.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ISPCC Galway",
+        "address": "Headford Road",
+        "city": "Galway",
+        "lat": 53.2803166,
+        "lon": -9.0512473
+      },
+      "_metro": "Galway, IE"
+    },
+    {
+      "name": "Church of Saint Nicholas",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stnicholas.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of Saint Nicholas",
+        "address": "Lombard Street",
+        "lat": 53.2727093,
+        "lon": -9.0536896
+      },
+      "_metro": "Galway, IE"
+    },
+    {
+      "name": "Galway Lawn Tennis Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://gltc.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Galway Lawn Tennis Club",
+        "address": "Threadneedle Road",
+        "city": "Galway",
+        "postal_code": "H91 E622",
+        "lat": 53.262985,
+        "lon": -9.0899478
+      },
+      "_metro": "Galway, IE"
+    },
+    {
+      "name": "Leisureland",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.leisureland.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Leisureland",
+        "address": "Rockbarton Road",
+        "city": "Galway",
+        "lat": 53.2588969,
+        "lon": -9.0825283
+      },
+      "_metro": "Galway, IE"
+    },
+    {
+      "name": "Saint Mary's Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cashel-emly.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Mary's Church",
+        "lat": 52.4722783,
+        "lon": -8.4707799
+      },
+      "_metro": "Limerick, IE"
+    },
+    {
+      "name": "Dance Limerick",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://dancelimerick.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dance Limerick",
+        "address": "1-2 John's Square",
+        "lat": 52.6634215,
+        "lon": -8.6182452
+      },
+      "_metro": "Limerick, IE"
+    },
+    {
+      "name": "Tullogher Rosbercon GAA Club",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kilkennygaa.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tullogher Rosbercon GAA Club",
+        "lat": 52.4138665,
+        "lon": -7.0198142
+      },
+      "_metro": "Waterford, IE"
     }
   ],
   "_not_included": {

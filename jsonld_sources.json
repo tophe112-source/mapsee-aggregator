@@ -490,6 +490,25 @@
     "lon": -6.1353572
    },
    "_metro": "Dublin, IE"
+  },
+  {
+   "name": "SETU Arena",
+   "category": "community",
+   "_found": "osm:events_venue -> modern-events+jsonld-event",
+   "listing": [
+    "https://setuarena.ie/events/"
+   ],
+   "link_pattern": "https://setuarena\\.ie/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "SETU Arena",
+    "address": "Western Link Road",
+    "city": "Carriganore, Waterford",
+    "postal_code": "X91 XD96",
+    "lat": 52.2514054,
+    "lon": -7.1795481
+   },
+   "_metro": "Waterford, IE"
   }
  ],
  "_not_included": {
