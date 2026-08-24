@@ -2190,5 +2190,59 @@
   "geocode_suffix": ", Dublin, IE",
   "limit": 300,
   "_metro": "Dublin, IE"
+ },
+ {
+  "name": "Long Bay Baptist Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.longbaybaptist.co.nz/events.ics",
+  "geocode_suffix": ", Auckland",
+  "limit": 300,
+  "_metro": "Auckland, NZ"
+ },
+ {
+  "name": "Richmond Yacht Club",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://calendar.google.com/calendar/ical/c_3s0a13m0mthbr4hsd3p6ogm748%40group.calendar.google.com/private-2857337a6bfb041386cfa07f66d326f7/basic.ics",
+  "geocode_suffix": ", Auckland, NZ",
+  "limit": 300,
+  "_metro": "Auckland, NZ"
+ },
+ {
+  "name": "Titirangi Baptist Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.tbc.org.nz/events.ics",
+  "geocode_suffix": ", Auckland",
+  "limit": 300,
+  "_metro": "Auckland, NZ"
+ },
+ {
+  "name": "Royal Port Nicholson Yacht Club",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://calendar.google.com/calendar/ical/rpnyccalendar%40gmail.com/public/basic.ics",
+  "geocode_suffix": ", Wellington",
+  "limit": 300,
+  "_metro": "Wellington, NZ"
+ },
+ {
+  "name": "The Piano",
+  "category": "arts",
+  "_found": "osm:arts_centre -> ics",
+  "url": "https://thepiano.nz/media/calendar-events/3371.ics",
+  "geocode_suffix": ", Christchurch",
+  "limit": 300,
+  "_metro": "Christchurch, NZ"
+ },
+ {
+  "name": "The Philip Carter Family Concert Hall",
+  "category": "community",
+  "_found": "osm:events_venue -> ics",
+  "url": "https://thepiano.nz/media/calendar-events/3330.ics",
+  "geocode_suffix": ", Christchurch, NZ",
+  "limit": 300,
+  "_metro": "Christchurch, NZ"
  }
 ]

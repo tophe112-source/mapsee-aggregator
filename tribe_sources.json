@@ -2057,6 +2057,344 @@
         "lon": -7.0198142
       },
       "_metro": "Waterford, IE"
+    },
+    {
+      "name": "ME Family Services",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+modern-events+jsonld-event+ics",
+      "base_url": "https://mefsc.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ME Family Services",
+        "address": "18 Ferguson Street",
+        "city": "Auckland",
+        "postal_code": "2024",
+        "lat": -36.9633139,
+        "lon": 174.825666
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Vertical Adventures",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://verticaladventures.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vertical Adventures",
+        "lat": -36.9080008,
+        "lon": 174.6376345
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Wellesley Studios",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://wellesleystudios.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wellesley Studios",
+        "address": "113 Wellesley Street West",
+        "city": "Auckland",
+        "postal_code": "1010",
+        "lat": -36.8487677,
+        "lon": 174.75858
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Saint Mary's Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://northcotecatholic.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Mary's Catholic Church",
+        "address": "117 Onewa Road",
+        "city": "Auckland",
+        "postal_code": "0627",
+        "lat": -36.8102131,
+        "lon": 174.738517
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Ponsonby Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ponsonbycommunity.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ponsonby Community Centre",
+        "lat": -36.8501898,
+        "lon": 174.7421659
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Saint Marys Catholic Church / Saint Marys Papakura Parish",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://papakuracatholic.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Marys Catholic Church / Saint Marys Papakura Parish",
+        "address": "52 East Street",
+        "city": "Papakura",
+        "postal_code": "2110",
+        "lat": -37.0661123,
+        "lon": 174.9426974
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Saint Joseph's Parish",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stjoseph.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Joseph's Parish",
+        "address": "10 Dominion Street",
+        "city": "Auckland",
+        "postal_code": "0622",
+        "lat": -36.7903292,
+        "lon": 174.761462
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Saint Martin Presbyterian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "http://stmartins.net.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Martin Presbyterian Church",
+        "address": "22 Wyllie Road",
+        "city": "Auckland",
+        "postal_code": "2022",
+        "lat": -36.9803738,
+        "lon": 174.8504391
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "East Tāmaki Samoan Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://adventist.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "East Tāmaki Samoan Seventh-Day Adventist Church",
+        "address": "44 Lovegrove Crescent",
+        "city": "Auckland",
+        "postal_code": "2023",
+        "lat": -36.960519,
+        "lon": 174.87796
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "The River Christian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://theriver.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The River Christian Church",
+        "address": "69 Ben Lomond Crescent",
+        "city": "Auckland",
+        "postal_code": "2010",
+        "lat": -36.9157332,
+        "lon": 174.902058
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Snowplanet",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://snowplanet.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Snowplanet",
+        "address": "91 Small Road",
+        "lat": -36.6353199,
+        "lon": 174.6665304
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Royal New Zealand Yacht Squadron",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://rnzys.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal New Zealand Yacht Squadron",
+        "lat": -36.8355925,
+        "lon": 174.7456355
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Whare Toi",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://depot.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Whare Toi",
+        "lat": -36.828319,
+        "lon": 174.798101
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Hyundai Marine Sports Centre",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://akarana.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hyundai Marine Sports Centre",
+        "address": "8-10 Tāmaki Drive",
+        "lat": -36.849796,
+        "lon": 174.8103976
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Deaf Aotearoa",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.deaf.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Deaf Aotearoa",
+        "lat": -36.8936769,
+        "lon": 174.6968051
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Saint Pius X Catholic Church Titahi Bay",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://cadw.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Saint Pius X Catholic Church Titahi Bay",
+        "address": "60 Te Pene Avenue",
+        "lat": -41.1114503,
+        "lon": 174.83752
+      },
+      "_metro": "Wellington, NZ"
+    },
+    {
+      "name": "St Andrew's on the Terrace",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.standrews.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Andrew's on the Terrace",
+        "address": "30 The Terrace",
+        "city": "Wellington",
+        "postal_code": "6011",
+        "lat": -41.2799299,
+        "lon": 174.7749956
+      },
+      "_metro": "Wellington, NZ"
+    },
+    {
+      "name": "Kaiapoi Golf Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kaiapoigolf.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kaiapoi Golf Club",
+        "address": "373 Williams Street",
+        "city": "Kaiapoi",
+        "postal_code": "7630",
+        "lat": -43.3714216,
+        "lon": 172.6624413
+      },
+      "_metro": "Christchurch, NZ"
+    },
+    {
+      "name": "New Brighton Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.nbmuseum.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New Brighton Museum",
+        "address": "8 Hardy Street",
+        "city": "Christchurch",
+        "postal_code": "8061",
+        "lat": -43.5089313,
+        "lon": 172.724547
+      },
+      "_metro": "Christchurch, NZ"
+    },
+    {
+      "name": "Bishopdale Seventh-Day Adventist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.ourchurch.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bishopdale Seventh-Day Adventist Church",
+        "address": "Bonita Place",
+        "city": "Christchurch",
+        "postal_code": "8051",
+        "country": "NZ",
+        "lat": -43.4880689,
+        "lon": 172.5777801
+      },
+      "_metro": "Christchurch, NZ"
+    },
+    {
+      "name": "St Albans Uniting Parish - Mairehau",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stalbansuniting.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Albans Uniting Parish - Mairehau",
+        "address": "Corner Nancy Avenue & Knowles Street",
+        "city": "Christchurch",
+        "postal_code": "8052",
+        "country": "NZ",
+        "lat": -43.4991407,
+        "lon": 172.6379165
+      },
+      "_metro": "Christchurch, NZ"
     }
   ],
   "_not_included": {

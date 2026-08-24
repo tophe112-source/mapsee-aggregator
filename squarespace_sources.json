@@ -535,6 +535,150 @@
         "lon": -8.4044631
       },
       "_metro": "Cork, IE"
+    },
+    {
+      "name": "The Arts House Trust",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.artshousetrust.co.nz/all-events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Arts House Trust",
+        "lat": -36.9145105,
+        "lon": 174.7631078
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Neck of the Woods",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.neckofthewoods.co.nz/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Neck of the Woods",
+        "lat": -36.8577838,
+        "lon": 174.7606449
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Kāhui St David's",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.kahuistdavids.nz/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Kāhui St David's",
+        "address": "68-70 Khyber Pass Road",
+        "city": "Auckland",
+        "lat": -36.8641413,
+        "lon": 174.7634521
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "Coast Vineyard Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.coast.org.nz/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Coast Vineyard Church",
+        "address": "30 Waiora Road",
+        "city": "Whangaparāoa",
+        "postal_code": "0932",
+        "lat": -36.6235568,
+        "lon": 174.7272494
+      },
+      "_metro": "Auckland, NZ"
+    },
+    {
+      "name": "New Zealand Portrait Gallery",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.nzportraitgallery.org.nz/exhibitions",
+      "max_events": 200,
+      "venue": {
+        "name": "New Zealand Portrait Gallery",
+        "lat": -41.2835817,
+        "lon": 174.7782021
+      },
+      "_metro": "Wellington, NZ"
+    },
+    {
+      "name": "Hannah Playhouse",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.hannahplayhouse.org.nz/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Hannah Playhouse",
+        "address": "12 Cambridge Terrace",
+        "city": "Wellington",
+        "postal_code": "6011",
+        "lat": -41.2937025,
+        "lon": 174.7836193
+      },
+      "_metro": "Wellington, NZ"
+    },
+    {
+      "name": "St John's Anglican Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.johnsonvilleanglicans.org.nz/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "St John's Anglican Church",
+        "address": "18 Bassett Road",
+        "city": "Wellington",
+        "postal_code": "6037",
+        "lat": -41.2196795,
+        "lon": 174.8076208
+      },
+      "_metro": "Wellington, NZ"
+    },
+    {
+      "name": "Kaicycle",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://kaicycle.org.nz/new-events-and-workshops",
+      "max_events": 200,
+      "venue": {
+        "name": "Kaicycle",
+        "lat": -41.3061039,
+        "lon": 174.7795062
+      },
+      "_metro": "Wellington, NZ"
+    },
+    {
+      "name": "Chans Martial Arts",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.chansmartialarts.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Chans Martial Arts",
+        "address": "23 Compton Street",
+        "city": "Christchurch",
+        "country": "NZ",
+        "lat": -43.5434345,
+        "lon": 172.6801545
+      },
+      "_metro": "Christchurch, NZ"
+    },
+    {
+      "name": "Korowai Centre - Every Nation Christchurch",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://everynation.org.nz/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Korowai Centre - Every Nation Christchurch",
+        "lat": -43.5348565,
+        "lon": 172.584495
+      },
+      "_metro": "Christchurch, NZ"
     }
   ]
 }

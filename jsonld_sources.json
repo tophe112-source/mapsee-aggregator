@@ -509,6 +509,60 @@
     "lon": -7.1795481
    },
    "_metro": "Waterford, IE"
+  },
+  {
+   "name": "Shri Shirdi Saibaba Mandir",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.shirdisaibaba.org.nz/upcoming-events/"
+   ],
+   "link_pattern": "https://www\\.shirdisaibaba\\.org\\.nz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Shri Shirdi Saibaba Mandir",
+    "address": "14 Princes Street",
+    "lat": -36.9252138,
+    "lon": 174.7802911
+   },
+   "_metro": "Auckland, NZ"
+  },
+  {
+   "name": "Churchill Club",
+   "category": "community",
+   "_found": "osm:club -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.churchillclub.co.nz/events/"
+   ],
+   "link_pattern": "https://www\\.churchillclub\\.co\\.nz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Churchill Club",
+    "address": "259 Riddell Road",
+    "city": "Auckland",
+    "postal_code": "1071",
+    "lat": -36.8618718,
+    "lon": 174.8804417
+   },
+   "_metro": "Auckland, NZ"
+  },
+  {
+   "name": "Browns Bay Brewing",
+   "category": "community",
+   "_found": "osm:restaurant -> jsonld-event",
+   "listing": [
+    "https://brownsbaybrewing.co.nz/event-directory/"
+   ],
+   "link_pattern": "https://brownsbaybrewing\\.co\\.nz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Browns Bay Brewing",
+    "address": "111 Clyde Road",
+    "postal_code": "0630",
+    "lat": -36.7136711,
+    "lon": 174.7486889
+   },
+   "_metro": "Auckland, NZ"
   }
  ],
  "_not_included": {
