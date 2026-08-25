@@ -679,6 +679,35 @@
         "lon": 172.584495
       },
       "_metro": "Christchurch, NZ"
+    },
+    {
+      "name": "The Sculpture Park at Waitakaruru Arboretum",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.sculpturepark.co.nz/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Sculpture Park at Waitakaruru Arboretum",
+        "lat": -37.7756172,
+        "lon": 175.469511
+      },
+      "_metro": "Hamilton, NZ"
+    },
+    {
+      "name": "St Paul's Cathedral",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://stpaulsnz.net/events",
+      "max_events": 200,
+      "venue": {
+        "name": "St Paul's Cathedral",
+        "address": "228 Stuart Street",
+        "city": "Dunedin",
+        "postal_code": "9016",
+        "lat": -45.8735642,
+        "lon": 170.5024651
+      },
+      "_metro": "Dunedin, NZ"
     }
   ]
 }

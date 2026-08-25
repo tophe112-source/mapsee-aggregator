@@ -55,6 +55,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "16avetheatre.co.nz": {
+    "checked": 20260825,
+    "name": "Sixteenth Avenue Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "1722waggonway.co.uk": {
     "checked": 20260819,
     "name": "1722 Waggonway Heritage Centre",
@@ -362,6 +369,13 @@
     "reason": "2 events, 2/2 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "acelearntoswim.co.nz": {
+    "checked": 20260825,
+    "name": "Ace Learn to Swim",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "achurchnearyou.com/church/11498/service-and-events/events-all": {
     "checked": 20260819,
@@ -1056,6 +1070,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "albioncc.hitscricket.com/location/default.aspx": {
+    "checked": 20260825,
+    "name": "ALBION CRICKET CLUB",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "alc.org.nz": {
     "checked": 20260824,
     "name": "Abundant Life Centre / Abundant Life Church Wellington",
@@ -1224,6 +1245,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "allsaintsdn.org.nz": {
+    "checked": 20260825,
+    "name": "All Saints Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "allsaintshowick.org.nz": {
     "checked": 20260824,
     "name": "All Saints Anglican Church",
@@ -1314,6 +1342,13 @@
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "alrasool.org.nz/blank-1": {
+    "checked": 20260825,
+    "name": "Al Rasool Foundation (ARFW) - Waikato",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "alsaa.ie": {
     "checked": 20260822,
@@ -1416,6 +1451,13 @@
   "amnesty.ie": {
     "checked": 20260822,
     "name": "Amnesty Ireland",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "amoreroses.co.nz": {
+    "checked": 20260825,
+    "name": "Amore Roses",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1703,6 +1745,13 @@
   "architecture.com/contact-and-visit/riba-north": {
     "checked": 20260819,
     "name": "RIBA North",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "archives.govt.nz": {
+    "checked": 20260825,
+    "name": "Archives New Zealand",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2053,6 +2102,13 @@
   "aruma.com.au": {
     "checked": 20260821,
     "name": "Aruma Maitland Hub",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "arvida.co.nz/living-with-arvida/communities/bethlehem-views": {
+    "checked": 20260825,
+    "name": "Arvida Bethlehem Views",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3023,6 +3079,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bayactive.co.nz": {
+    "checked": 20260825,
+    "name": "BayActive",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "baybaptist.org.nz": {
     "checked": 20260824,
     "name": "Blockhouse Bay Baptist Church",
@@ -3033,6 +3096,13 @@
   "baybowler.co.nz": {
     "checked": 20260824,
     "name": "Titahi Bay Bowling Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "baycourt.co.nz": {
+    "checked": 20260825,
+    "name": "Baycourt Community & Arts Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3068,6 +3138,27 @@
   "bayspresbyterian.org.nz": {
     "checked": 20260824,
     "name": "Mairangi & Castor Bays Presbyterian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bayvenues.co.nz/find-a-venue/matua-hall": {
+    "checked": 20260825,
+    "name": "Matua Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bayvenues.co.nz/find-a-venue/mount-sports-centre": {
+    "checked": 20260825,
+    "name": "Mount Maunganui Sports Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bayvenues.co.nz/find-a-venue/queen-elizabeth-youth-centre": {
+    "checked": 20260825,
+    "name": "Queen Elizabeth II Youth Center and Memorial Hall",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3835,6 +3926,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "blastacarshamilton.co.nz": {
+    "checked": 20260825,
+    "name": "Blastacars Hamilton",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "blessedsacramentuki.org": {
     "checked": 20260822,
     "name": "Blessed Sacrament Chapel",
@@ -4023,6 +4121,13 @@
     "reason": "94 vevents / 0 future",
     "status": "empty",
     "type": "ics"
+  },
+  "bodyworksmen.com": {
+    "checked": 20260825,
+    "name": "Bodyworks Space 4 You",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "bolcc.org.nz": {
     "checked": 20260824,
@@ -4738,6 +4843,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "browsersbooks.co.nz": {
+    "checked": 20260825,
+    "name": "Browsers",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "broxburnparishchurch.org.uk": {
     "checked": 20260819,
     "name": "Broxburn Parish Church",
@@ -4839,6 +4951,13 @@
   "bulldogs.com.au": {
     "checked": 20260819,
     "name": "Canterbury Bankstown Bulldogs Rugby League",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bupa.co.nz": {
+    "checked": 20260825,
+    "name": "St Andrews Retirement Village",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5662,9 +5781,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cambridgemuseum.org.nz": {
+    "checked": 20260825,
+    "name": "Cambridge Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cambridgemuslimsociety.org": {
     "checked": 20260819,
     "name": "Cambridge Muslim Society",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cambridgeoaks.co.nz": {
+    "checked": 20260825,
+    "name": "Cambridge Oaks",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6075,6 +6208,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cargocollective.com/Zinefest": {
+    "checked": 20260825,
+    "name": "Black Star Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "caringbahchurch.org.au": {
     "checked": 20260819,
     "name": "Caringbah Presbyterian Church",
@@ -6106,6 +6246,13 @@
   "carlile.com.au/sydney/killarney-heights": {
     "checked": 20260819,
     "name": "Killarney Heights Carlisle Swimming",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "carmel.co.nz": {
+    "checked": 20260825,
+    "name": "Carmel Country Estate",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6312,6 +6459,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cavershambaptist.wixsite.com/main": {
+    "checked": 20260825,
+    "name": "Caversham Baptist Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "cbf.org/events/?ical=1": {
     "checked": 20260803,
@@ -6691,6 +6845,13 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "chapelhill.org.nz": {
+    "checked": 20260825,
+    "name": "Chapel Hill Community Church / The Vine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chapters.indigo.ca/en-ca/home/storelocator/storedetails/910": {
     "checked": 20260819,
     "name": "Chapters",
@@ -6747,6 +6908,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "charthouse.co.nz": {
+    "checked": 20260825,
+    "name": "Charthouse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chartwell.com/en/retirement-residences/chartwell-colonel-belcher-retirement-residence/overview": {
     "checked": 20260819,
     "name": "Chartwell Colonel Belcher Retirement Residence",
@@ -6764,6 +6932,20 @@
   "chartwell.com/en/retirement-residences/chartwell-terrace-on-the-square-retirement-residence/overview": {
     "checked": 20260819,
     "name": "Chartwell Terrace on the Square Retirement Residence",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "chartwellscouts.org.nz": {
+    "checked": 20260825,
+    "name": "Chartwell Scout Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "chatsford.co.nz": {
+    "checked": 20260825,
+    "name": "Chatsford Village",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7174,6 +7356,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "churchatflagstaff.co.nz": {
+    "checked": 20260825,
+    "name": "Flagstaff Community Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "churches-housing.org": {
     "checked": 20260819,
     "name": "Scottish Church Housing Action",
@@ -7219,6 +7408,13 @@
   "churchofjesuschrist.org/temples/details/edmonton-alberta-temple": {
     "checked": 20260819,
     "name": "Edmonton Alberta Temple",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "churchofjesuschrist.org/temples/details/hamilton-new-zealand-temple": {
+    "checked": 20260825,
+    "name": "Hamilton New Zealand Temple",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7734,12 +7930,33 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "classicflyersnz.com": {
+    "checked": 20260825,
+    "name": "Classic Flyers Aviation Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "classics.washington.edu/calendar.ics": {
     "checked": 20260821,
     "name": "Classics Washington (Seattle)",
     "reason": "72 vevents / 6 future",
     "status": "ok",
     "type": "ics"
+  },
+  "classicsmuseum.co.nz/event-list": {
+    "checked": 20260825,
+    "name": "Classics Museum",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "claudelands.co.nz": {
+    "checked": 20260825,
+    "name": "The Barn",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "clayyouthproject.ie": {
     "checked": 20260822,
@@ -8241,6 +8458,13 @@
   "communities.silvera.ca/calgary/gilchrist-phase-2": {
     "checked": 20260819,
     "name": "Gilchrist Commons",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "communitybaptist-nz.com": {
+    "checked": 20260825,
+    "name": "Green Island Baptist Church / Community Baptist Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8773,6 +8997,13 @@
   "cowpercare.ie/Glebe_House/134": {
     "checked": 20260822,
     "name": "Glebe House Nursing Home",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "coyotesbar.co.nz": {
+    "checked": 20260825,
+    "name": "Coyotes",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9932,6 +10163,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "dcpc.org.nz": {
+    "checked": 20260825,
+    "name": "Dunedin Chinese Presbyterian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ddhs1995.wordpress.com": {
     "checked": 20260819,
     "name": "Drumbo and District Museum",
@@ -9945,6 +10183,13 @@
     "reason": "2 events, 2/2 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "deadsouls.co.nz": {
+    "checked": 20260825,
+    "name": "Dead Souls Bookshop",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "deaf.org.nz": {
     "checked": 20260824,
@@ -10029,6 +10274,13 @@
     "reason": "3/17 upcoming",
     "status": "ok",
     "type": "squarespace"
+  },
+  "deerstalkers.org.nz": {
+    "checked": 20260825,
+    "name": "New Zealand Deerstalkers' Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "deewhyrsl.com.au": {
     "checked": 20260819,
@@ -10194,6 +10446,13 @@
   "dingwall.co.nz": {
     "checked": 20260824,
     "name": "Dingwall Trust",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "directionsdance.co.nz": {
+    "checked": 20260825,
+    "name": "Directions School of Dance",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10757,6 +11016,41 @@
     "reason": "2 events, 2/2 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "dunedin.adventist.org.nz/events/feed": {
+    "checked": 20260825,
+    "name": "Dunedin Seventh-Day Adventist Church",
+    "reason": "0 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
+  "dunedincitynewlife.org.nz": {
+    "checked": 20260825,
+    "name": "Dunedin City New Life Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dunedincofc.com": {
+    "checked": 20260825,
+    "name": "Dunedin Church of Christ",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dunedinmethodist.org.nz": {
+    "checked": 20260825,
+    "name": "Mornington Methodist Church",
+    "reason": "osm probe: offsite:humanitix.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dunedinnorthpastoralarea.com/news-and-events": {
+    "checked": 20260825,
+    "name": "Holy Name Catholic Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "dunfermlineabbey.com/wwp/?page_id=16677": {
     "checked": 20260819,
@@ -11556,6 +11850,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eldernet.co.nz": {
+    "checked": 20260825,
+    "name": "Selwyn Wilson Carlile Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "eldernet.co.nz/Facilities/Hospital_Care/Lynton_Lodge_Hospital/Service/DisplayService/FaStID/1952": {
     "checked": 20260824,
     "name": "Lynton Lodge",
@@ -11597,6 +11898,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "elimdunedin.com/events": {
+    "checked": 20260825,
+    "name": "Elim Church Dunedin",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "elizabethsbookshop.com.au": {
     "checked": 20260819,
@@ -11885,6 +12193,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ernestnz.com": {
+    "checked": 20260825,
+    "name": "Ernest",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "es-es.facebook.com/KitchenerElim": {
     "checked": 20260819,
     "name": "ELIM Internacional Kitchener",
@@ -11940,6 +12255,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "etchurch.co.nz": {
+    "checked": 20260825,
+    "name": "?",
+    "reason": "37 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "eur-nl.libcal.com/ical_subscribe.php?cid=7009": {
     "checked": 20260721,
@@ -12347,6 +12669,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "extremeedgehamilton.co.nz": {
+    "checked": 20260825,
+    "name": "Extreme Edge Hamilton",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "extremegokartingsydney.com.au": {
     "checked": 20260819,
     "name": "Extreme Indoor Go Karting Sydney",
@@ -12414,6 +12743,13 @@
     "checked": 20260819,
     "name": "Fannie Bay Equestrian Club",
     "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/Full-of-Grace-1127646430597701/timeline": {
+    "checked": 20260825,
+    "name": "Catholic Book Shop",
+    "reason": "osm probe: offsite:facebook.com",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -12539,6 +12875,13 @@
   "facebook.com/groups/501208636594518": {
     "checked": 20260819,
     "name": "East Point Aeromodellers Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/groups/TheKukutaaruheCommunityGarden": {
+    "checked": 20260825,
+    "name": "The Kukut\u0101ruhe Community Garden",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -13039,6 +13382,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "firstchurchotago.org/event-directory": {
+    "checked": 20260825,
+    "name": "First Church of Otago",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "firstdraft.org.au": {
     "checked": 20260819,
@@ -14594,10 +14944,24 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "glidingtauranga.co.nz": {
+    "checked": 20260825,
+    "name": "Tauranga Gliding Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "globecinema.ca": {
     "checked": 20260819,
     "name": "Globe Cinema",
     "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "globetheatre.org.nz": {
+    "checked": 20260825,
+    "name": "Globe Theatre",
+    "reason": "osm probe: offsite:humanitix.com",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -14944,6 +15308,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gowaipa.com": {
+    "checked": 20260825,
+    "name": "ASB Stadium",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "gowaipa.com/perry-aquatic-centre-cambridge": {
+    "checked": 20260825,
+    "name": "Perry Aquatic Centre",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "gowlangsfordgallery.co.nz": {
     "checked": 20260824,
     "name": "Gow Langsford Gallery",
@@ -15031,6 +15409,13 @@
   "gracecity.com.au": {
     "checked": 20260819,
     "name": "Grace City Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gracedunedin.org.nz": {
+    "checked": 20260825,
+    "name": "Grace Bible Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15665,6 +16050,41 @@
     "status": "fail",
     "type": "ics"
   },
+  "hamilton.govt.nz/our-city/parks/parksandgardens/Pages/Taitua-Arboretum.aspx": {
+    "checked": 20260825,
+    "name": "Taitua Arboretum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hamiltongardens.co.nz": {
+    "checked": 20260825,
+    "name": "Hamilton Gardens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hamiltonlibraries.co.nz/location-and-hours/te-kete-aronui": {
+    "checked": 20260825,
+    "name": "Te Kete Aronui - Rototuna Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hamiltonmosque.com": {
+    "checked": 20260825,
+    "name": "Jamia Masjid",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hamiltonzoo.co.nz": {
+    "checked": 20260825,
+    "name": "Hamilton Zoo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hampshirefarmersmarkets.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Hampshire Farmers Markets (UK)",
@@ -16155,6 +16575,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "heritagelifecare.co.nz/find-a-location/te-puke/carter-house-lifecare-village": {
+    "checked": 20260825,
+    "name": "Carter House Lifecare & Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "heritagelifecare.co.nz/listing/hodgson-house-lifecare-village": {
+    "checked": 20260825,
+    "name": "Hodgson House Lifecare",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "heritagepark.ca": {
     "checked": 20260819,
     "name": "Gasoline Alley",
@@ -16207,6 +16641,13 @@
   "highfieldhealthcare.ie": {
     "checked": 20260822,
     "name": "Elmhurst Nursing Home",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "highgatechurch.org.nz": {
+    "checked": 20260825,
+    "name": "Highgate Presbyterian Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16267,6 +16708,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hillcity.org.nz": {
+    "checked": 20260825,
+    "name": "Hill City-University Clubrooms",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hillhurstunited.com": {
     "checked": 20260819,
     "name": "Hillhurst United Church",
@@ -16298,6 +16746,13 @@
   "hillsong.com": {
     "checked": 20260819,
     "name": "Hillsong Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hillspa.org.nz/index.html": {
+    "checked": 20260825,
+    "name": "St Mary of the Immaculate Conception / The Hill Suburb Pastoral Area",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16368,6 +16823,13 @@
   "historicstpauls.ca": {
     "checked": 20260819,
     "name": "Historic Saint Paul's Lutheran Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "historicvillage.co.nz": {
+    "checked": 20260825,
+    "name": "The Historic Village",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16498,6 +16960,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "holycrossstkilda.weebly.com": {
+    "checked": 20260825,
+    "name": "Holy Cross - St Kilda",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "holyfamilyparish.ca": {
     "checked": 20260819,
     "name": "Holy Family Parish",
@@ -16589,6 +17058,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "holytrinityportchalmers.wordpress.com": {
+    "checked": 20260825,
+    "name": "Holy Trinity - Port Chalmers",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "holywellcc.ie": {
     "checked": 20260822,
     "name": "Holywell Community Centre",
@@ -16627,6 +17103,13 @@
   "hopebeer.ie": {
     "checked": 20260822,
     "name": "Hope Beer",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hopechapel.nz": {
+    "checked": 20260825,
+    "name": "Hope Chapel / C3 Hamilton",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16725,6 +17208,13 @@
   "hornsbyodeoncinema.com.au/Page/Home": {
     "checked": 20260819,
     "name": "Hornsby Odeon Cinamas",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "horses.net.nz": {
+    "checked": 20260825,
+    "name": "Waikato Equestrian Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -17086,6 +17576,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hutchgallery.co.nz": {
+    "checked": 20260825,
+    "name": "Hutch Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "huttbaptist.org.nz": {
     "checked": 20260824,
     "name": "Hutt City Baptist",
@@ -17117,6 +17614,13 @@
   "hyc.ie": {
     "checked": 20260822,
     "name": "Howth Yacht Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hyc.org.nz": {
+    "checked": 20260825,
+    "name": "Hamilton Yacht Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -17596,6 +18100,13 @@
     "reason": "6 vevents / 5 future",
     "status": "ok",
     "type": "ics"
+  },
+  "inspirit.co.nz": {
+    "checked": 20260825,
+    "name": "Inspirit Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "instagram.com/brazilianculturalcentre": {
     "checked": 20260819,
@@ -18205,6 +18716,20 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "kartsporthamilton.nz": {
+    "checked": 20260825,
+    "name": "Kartsport Hamilton",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kautepasifika.co.nz": {
+    "checked": 20260825,
+    "name": "K\u2019aute Pasifika Trust",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "kbc.org.nz": {
     "checked": 20260824,
@@ -18885,6 +19410,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "knoxchurch.net": {
+    "checked": 20260825,
+    "name": "Knox Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "knoxpreston.ca": {
     "checked": 20260819,
     "name": "Knox Preston Church",
@@ -19417,6 +19949,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lauristonpark.co.nz": {
+    "checked": 20260825,
+    "name": "Lauriston Park Retirement Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "law-uk.libcal.com/ical_subscribe.php?cid=7896": {
     "checked": 20260727,
     "name": "University of Law Library Events (London, United Kingdom)",
@@ -19889,6 +20428,13 @@
   "library.sydney.edu.au/visit/scitech-library": {
     "checked": 20260819,
     "name": "SciTech Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "library.tauranga.govt.nz": {
+    "checked": 20260825,
+    "name": "Greerton library",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -20558,6 +21104,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lockerbievillage.co.nz": {
+    "checked": 20260825,
+    "name": "Lockerbie Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "loddance.co.nz": {
     "checked": 20260824,
     "name": "L.O.D Dance Studio",
@@ -20985,6 +21538,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "makoha.nz": {
+    "checked": 20260825,
+    "name": "Makoha Rest Home",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "malmoplains.com/calendar": {
     "checked": 20260819,
     "name": "Malmo Community League",
@@ -21272,6 +21832,13 @@
     "status": "fail",
     "type": "squarespace"
   },
+  "marnestreet.co.nz": {
+    "checked": 20260825,
+    "name": "Marne Street Hospital",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "maroubraslsc.com.au": {
     "checked": 20260819,
     "name": "Maroubra Beach Surf Life Saving Club",
@@ -21296,6 +21863,13 @@
   "marsdenbooks.co.nz": {
     "checked": 20260824,
     "name": "Marsden Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "marshallsanimalpark.co.nz": {
+    "checked": 20260825,
+    "name": "Marshalls Animal Park",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21471,6 +22045,13 @@
   "mathesonhousing.ca": {
     "checked": 20260819,
     "name": "Matheson",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "matuavillage.co.nz": {
+    "checked": 20260825,
+    "name": "Matua Lifecare Village",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21755,6 +22336,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mercyparish.weebly.com": {
+    "checked": 20260825,
+    "name": "St Patrick Parish - Dunedin South / Mercy Parish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "merewetherslsc.com.au": {
     "checked": 20260821,
     "name": "Mereweather Surf Life Saving Club",
@@ -21828,6 +22416,13 @@
   "methodist.org.nz/find_us/manukau/parish_information/mangere_otahuhu": {
     "checked": 20260824,
     "name": "Lotofale'ia Mangere Tongan Methodist Parish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "methodist.org.nz/find_us/waikato___waiariki/tauranga/wesley_/home_2": {
+    "checked": 20260825,
+    "name": "Wesley Methodist Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -22210,6 +22805,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "mk1.co.nz": {
+    "checked": 20260825,
+    "name": "MK1 Mark One Comics",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mltcc.com": {
     "checked": 20260822,
     "name": "Malahide Lawn Tennis & Croquet Club",
@@ -22567,12 +23169,40 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "morrinsvilleagnz.com": {
+    "checked": 20260825,
+    "name": "Morrinsville Assembly of God",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "morrinsvillecommunityhouse.org": {
+    "checked": 20260825,
+    "name": "Whare H\u0101pori o Morenawhira / Morrinsville Community House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "morrinsvillemuseum.org.nz": {
+    "checked": 20260825,
+    "name": "Morrinsville Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mortdalersl.com.au": {
     "checked": 20260819,
     "name": "Mortdale RSL Club",
     "reason": "116 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "mosgielchurch.org.nz": {
+    "checked": 20260825,
+    "name": "Mosgiel Presbyterian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "mosman.nsw.gov.au/council/venues/drill-hall": {
     "checked": 20260819,
@@ -22682,6 +23312,20 @@
   "mountainstrongcbr.com": {
     "checked": 20260819,
     "name": "Mountain Strong",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mountanglican.org.nz": {
+    "checked": 20260825,
+    "name": "Saint Marys Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mountchurch.org.nz": {
+    "checked": 20260825,
+    "name": "Saint Andrews Presbyterian Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -24604,6 +25248,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nzhalloffame.co.nz": {
+    "checked": 20260825,
+    "name": "New Zealand Sports Hall of Fame",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nzicc.co.nz": {
     "checked": 20260824,
     "name": "Theatre A & B",
@@ -24631,6 +25282,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nzmuslimleague.org/?ical=1": {
+    "checked": 20260825,
+    "name": "Hamilton West Islamic Centre - Masjid",
+    "reason": "0 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
   },
   "nzone.ie": {
     "checked": 20260822,
@@ -24800,6 +25458,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "oha.org.nz": {
+    "checked": 20260825,
+    "name": "Alexander McMillan Hockey Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ohariufarm.co.nz": {
     "checked": 20260824,
     "name": "Ohariu Farm Weddings & Events",
@@ -24859,6 +25524,13 @@
   "oldwesley.ie": {
     "checked": 20260822,
     "name": "Old Wesley Rugby Football Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "olgaolgaolga.co.nz": {
+    "checked": 20260825,
+    "name": "OLGA",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -25115,6 +25787,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "opohochurch.org": {
+    "checked": 20260825,
+    "name": "Opoho Presbyterian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "optometrists.ie": {
     "checked": 20260822,
     "name": "Association of Optimetrists Ireland",
@@ -25227,6 +25906,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "oropihall.co.nz/calendar-list": {
+    "checked": 20260825,
+    "name": "Oropi Memorial Hall and Community Centre",
+    "reason": "30 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
+  },
   "orthodox.net.nz": {
     "checked": 20260824,
     "name": "Resurrection of Christ Russian Orthodox Church",
@@ -25276,6 +25962,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "otagoyachtclub.org.nz": {
+    "checked": 20260825,
+    "name": "Otago Yacht Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "otara.adventist.org.nz/events/feed": {
     "checked": 20260824,
     "name": "Otara Seventh-Day Adventist Church",
@@ -25310,6 +26003,13 @@
     "reason": "2 vevents / 1 future",
     "status": "ok",
     "type": "ics"
+  },
+  "otumoetaichurch.org": {
+    "checked": 20260825,
+    "name": "Otumoetai Church of Christ",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "oughterardafc.com": {
     "checked": 20260823,
@@ -25479,6 +26179,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pacificcoastvillage.co.nz": {
+    "checked": 20260825,
+    "name": "Pacific Coast Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "pacificpinesnetball.com": {
     "checked": 20260819,
     "name": "Pacific Pines Netball Club",
@@ -25639,6 +26346,13 @@
     "reason": "1 events, 1/1 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "papamoasands.co.nz": {
+    "checked": 20260825,
+    "name": "Papamoa Sands Lifestyle Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "papanuiclub.co.nz": {
     "checked": 20260824,
@@ -26928,6 +27642,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "priorityone.co.nz": {
+    "checked": 20260825,
+    "name": "Priority 1",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "priorswoodparish.ie": {
     "checked": 20260822,
     "name": "Saint Francis of Assisi Church",
@@ -26945,6 +27666,13 @@
   "prioryparkchurch.com": {
     "checked": 20260819,
     "name": "Priory Park Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prisoncare.org.nz": {
+    "checked": 20260825,
+    "name": "Prison Care Ministries",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -27635,6 +28363,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rdsgallery.co.nz": {
+    "checked": 20260825,
+    "name": "RDS Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "readingcinemas.com.au": {
     "checked": 20260819,
     "name": "Reading Cinemas",
@@ -27820,6 +28555,13 @@
   "regencyhomeandhospital.co.nz": {
     "checked": 20260824,
     "name": "Regency",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "regenttheatre.co.nz": {
+    "checked": 20260825,
+    "name": "Clarkson Studio",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -28377,6 +29119,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rocktopia.co.nz": {
+    "checked": 20260825,
+    "name": "Rocktopia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rockyviewalliance.com/events": {
     "checked": 20260819,
     "name": "?",
@@ -28446,6 +29195,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "roselandpark.co.nz": {
+    "checked": 20260825,
+    "name": "Roseland Park Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "rosenalee.com": {
     "checked": 20260822,
@@ -28867,6 +29623,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rymanhealthcare.co.nz/retirement-villages/waikato/patrick-hogan": {
+    "checked": 20260825,
+    "name": "Patrick Hogan Retirement Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rymanhealthcare.co.nz/retirement-villages/wellington/rita-angus": {
     "checked": 20260824,
     "name": "Rita Angus Retirement Village",
@@ -29055,6 +29818,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "saintmatthews.co.nz": {
+    "checked": 20260825,
+    "name": "Saint Matthew's Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "saintmichael.ca": {
     "checked": 20260819,
@@ -29896,12 +30666,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sculpturepark.co.nz/events": {
+    "checked": 20260825,
+    "name": "The Sculpture Park at Waitakaruru Arboretum",
+    "reason": "3/33 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "scvolunteercenter.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Volunteer Center of Santa Cruz County",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "scw.org.nz": {
+    "checked": 20260825,
+    "name": "Settlement Centre Waikato",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "sdcc.ie/en/services/sport-and-recreation/libraries": {
     "checked": 20260822,
@@ -30694,6 +31478,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "skatescooltauranga.co.nz": {
+    "checked": 20260825,
+    "name": "Skatescool Tauranga",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "skerriesmills.ie": {
     "checked": 20260822,
     "name": "Skerries Mills",
@@ -31107,9 +31898,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "southdunedinbaptist.org": {
+    "checked": 20260825,
+    "name": "South Dunedin Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "southerndistricts.com.au": {
     "checked": 20260819,
     "name": "Southern Districts Rugby Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "southernpresbyterians.nz": {
+    "checked": 20260825,
+    "name": "Dunedin South Presbyterian Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -31345,9 +32150,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sportwaikato.org.nz": {
+    "checked": 20260825,
+    "name": "Brian Perry Sports House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sporty.co.nz/beachlandsmaraetai": {
     "checked": 20260824,
     "name": "Beachlands Maraetai Rugby Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sporty.co.nz/northendrowing": {
+    "checked": 20260825,
+    "name": "North End Rowing Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -31631,6 +32450,20 @@
     "reason": "20 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "standrewscambridge.org.nz": {
+    "checked": 20260825,
+    "name": "St Andrew's Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "standrewshamilton.org.nz": {
+    "checked": 20260825,
+    "name": "Saint Andrews",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "standrewsinthesquare.com": {
     "checked": 20260819,
@@ -31933,6 +32766,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stcolumba.co.nz": {
+    "checked": 20260825,
+    "name": "Saint Columba Presbyterian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stcolumba.org.nz": {
     "checked": 20260824,
     "name": "Saint Columba Presbyterian Church",
@@ -31996,6 +32836,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stenochs.org.nz": {
+    "checked": 20260825,
+    "name": "Saint Enochs Presbyterian Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "steppingstonegw.com": {
     "checked": 20260819,
     "name": "Stepping Stone",
@@ -32030,6 +32877,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "stfrancis.co.nz": {
+    "checked": 20260825,
+    "name": "St Francis Community Church / St Francis Cooperating Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "stfranciscalgary.com/community-event": {
     "checked": 20260819,
@@ -32262,6 +33116,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stjohns-tga.org.nz": {
+    "checked": 20260825,
+    "name": "Saint Johns Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stjohns.net.nz": {
     "checked": 20260824,
     "name": "Saint John's Anglican Church",
@@ -32353,6 +33214,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stjohnsroslyn.org.nz": {
+    "checked": 20260825,
+    "name": "St John's Roslyn / St John - Highgate",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stjohnstrentham.org.nz": {
     "checked": 20260824,
     "name": "St John's Anglican Church",
@@ -32416,12 +33284,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stkildabrass.org.nz": {
+    "checked": 20260825,
+    "name": "St. Kilda Brass Band",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "stlawrencemarket.com/events/?ical=1": {
     "checked": 20260727,
     "name": "St Lawrence Market Events (Toronto)",
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "stlukes.net.nz": {
+    "checked": 20260825,
+    "name": "St Luke's on the Taieri",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "stlukes.org.nz": {
     "checked": 20260824,
@@ -32563,6 +33445,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stmarks.scd.org.nz": {
+    "checked": 20260825,
+    "name": "St Margaret's - Brighton",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stmarkscity.ie/events": {
     "checked": 20260822,
     "name": "St Mark's",
@@ -32654,6 +33543,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "stmarys.scd.org.nz": {
+    "checked": 20260825,
+    "name": "St Mary's in Mornington",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stmarysafc.com": {
     "checked": 20260822,
     "name": "Saint Mary's AFC",
@@ -32727,6 +33623,13 @@
   "stmatt.ca": {
     "checked": 20260819,
     "name": "St. Matthew's Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stmatthews.co.nz": {
+    "checked": 20260825,
+    "name": "St Matthew's, Dunedin",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -32997,12 +33900,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stpaulskatikati.org.nz": {
+    "checked": 20260825,
+    "name": "Saint Pauls Presbyterian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stpaulsmilford.co.nz/upcoming-events": {
     "checked": 20260824,
     "name": "Saint Pauls, The Parish of Milford",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "stpaulsnz.net/events": {
+    "checked": 20260825,
+    "name": "St Paul's Cathedral",
+    "reason": "5/35 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "stpaulspapanui.org.nz": {
     "checked": 20260824,
@@ -33028,6 +33945,20 @@
   "stpeters-cathedral.org.au": {
     "checked": 20260819,
     "name": "St Peter\u2019s Cathedral",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stpeterscatholic.school.nz/2648/pages/785-welcome": {
+    "checked": 20260825,
+    "name": "Saint Peter's Parish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stpeterscaversham.org.nz/index.html": {
+    "checked": 20260825,
+    "name": "St Peter's - Caversham",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -33242,6 +34173,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ststephenstamahere.org.nz": {
+    "checked": 20260825,
+    "name": "St Stephen's Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ststephenswgp.org.nz": {
     "checked": 20260824,
     "name": "Saint Stephen's Anglican Church",
@@ -33280,6 +34218,13 @@
   "stthomasmore.ca": {
     "checked": 20260819,
     "name": "St. Thomas More Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "studentsoul.org.nz": {
+    "checked": 20260825,
+    "name": "Student Soul",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -33406,6 +34351,13 @@
   "summerset.co.nz/find-a-village/summerset-on-cavendish": {
     "checked": 20260824,
     "name": "Summerset on Cavendish",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "summerset.co.nz/find-a-village/waikato": {
+    "checked": 20260825,
+    "name": "Summerset at Cambridge",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -34061,6 +35013,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tamahere.co.nz": {
+    "checked": 20260825,
+    "name": "Tamahere Eventide Home and Retirement Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tamaherecommunitycentre.co.nz": {
+    "checked": 20260825,
+    "name": "Tamahere Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tamaherecountryclub.co.nz": {
+    "checked": 20260825,
+    "name": "Tamahere Country Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tamuseum.org.nz": {
+    "checked": 20260825,
+    "name": "Te Awamutu Museum",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "tandem.org.nz": {
     "checked": 20260824,
     "name": "Tandem Ministries",
@@ -34159,6 +35139,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "taurangabridge.co.nz": {
+    "checked": 20260825,
+    "name": "Tauranga Bridge Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "taurangamusicaltheatre.co.nz": {
+    "checked": 20260825,
+    "name": "Tauranga Musical Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tautai.org": {
     "checked": 20260824,
     "name": "Tautai Pacific Arts Trust",
@@ -34183,6 +35177,13 @@
   "taylorcentre.ca": {
     "checked": 20260819,
     "name": "Taylor Centre for the Performing Arts",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "taylormadespace.co.nz": {
+    "checked": 20260825,
+    "name": "Taylor Made Community Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -34221,6 +35222,13 @@
     "reason": "no event articles on the collection page",
     "status": "fail",
     "type": "squarespace"
+  },
+  "tcbc.org.nz": {
+    "checked": 20260825,
+    "name": "Tauranga Central Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "tcd.ie/Sport/facilities/sports-centre": {
     "checked": 20260822,
@@ -34351,6 +35359,13 @@
   "teawakairangi.nz/stmartindeporres": {
     "checked": 20260824,
     "name": "St Martin de Porres Avalon",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "teawalifecare.nz": {
+    "checked": 20260825,
+    "name": "Te Awa Lifecare Village",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -34964,6 +35979,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theelms.org.nz": {
+    "checked": 20260825,
+    "name": "The Elms - Te Papa Tauranga",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "theengine.works": {
     "checked": 20260819,
     "name": "The Engine Works",
@@ -35072,6 +36094,13 @@
   "thegrangeclub.com": {
     "checked": 20260819,
     "name": "The Grange Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "thegrangelifecare.nz": {
+    "checked": 20260825,
+    "name": "The Grange Lifecare Village",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -35195,6 +36224,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thekollective.org.nz": {
+    "checked": 20260825,
+    "name": "The Kollective",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "thelink.nz/events.ics": {
     "checked": 20260824,
     "name": "Lincoln Baptist Church",
@@ -35243,6 +36279,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "themeteor.co.nz": {
+    "checked": 20260825,
+    "name": "Meteor Theatre",
+    "reason": "13 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "themgaacademy.com": {
     "checked": 20260819,
@@ -35327,6 +36370,20 @@
     "reason": "30 events / 0 future",
     "status": "empty",
     "type": "squarespace"
+  },
+  "theorchardchurch.co.nz": {
+    "checked": 20260825,
+    "name": "The Orchard Church",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "thepadelclub.co.nz": {
+    "checked": 20260825,
+    "name": "The Padel Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "theparc.com.au": {
     "checked": 20260821,
@@ -35972,6 +37029,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tmmec.org.nz": {
+    "checked": 20260825,
+    "name": "Marine and Model Engineering Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "toiora.org.nz": {
     "checked": 20260824,
     "name": "Toi Ora",
@@ -36053,6 +37117,13 @@
     "checked": 20260819,
     "name": "Townline Muslim Centre",
     "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "toylibrary.co.nz": {
+    "checked": 20260825,
+    "name": "Cambridge Toy Library",
+    "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -36363,6 +37434,13 @@
     "reason": "500 vevents / 485 future",
     "status": "ok",
     "type": "ics"
+  },
+  "trustpowerbaypark.co.nz/find-a-venue/lion-foundation-centre": {
+    "checked": 20260825,
+    "name": "Lion Foundation Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "tsdance.com.au": {
     "checked": 20260819,
@@ -37155,6 +38233,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "valerielissettedance.co.nz": {
+    "checked": 20260825,
+    "name": "Valerie Lissette School of Dance",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "valeriewalshjolley.com": {
     "checked": 20260822,
     "name": "Grey Gallery",
@@ -37242,6 +38327,13 @@
   "veesplaceprescot.co.uk": {
     "checked": 20260819,
     "name": "Vee's Place",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "velodrome.nz": {
+    "checked": 20260825,
+    "name": "Grassroots Trust Velodrome",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -37624,6 +38716,20 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "waikato.ac.nz/academy": {
+    "checked": 20260825,
+    "name": "Gallagher Academy of Performing Arts",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "waikato.ac.nz/academy/venues/playhouse": {
+    "checked": 20260825,
+    "name": "Playhouse Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "waikato.libcal.com/ical_subscribe.php?cid=10863": {
     "checked": 20260727,
     "name": "University of Waikato Library (Hamilton, New Zealand)",
@@ -37631,12 +38737,33 @@
     "status": "ok",
     "type": "ics"
   },
+  "waikatomuseum.co.nz": {
+    "checked": 20260825,
+    "name": "Waikato Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "waikatomuslims.org.nz": {
+    "checked": 20260825,
+    "name": "Waikato Muslim Association (WMA)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "waimakariricatholic.org.nz": {
     "checked": 20260824,
     "name": "St. Mary and St. Francis de Sales Church",
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "waimarie.house": {
+    "checked": 20260825,
+    "name": "Waimarie Hamilton East Community House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "wainsworld.co.uk": {
     "checked": 20260819,
@@ -37651,6 +38778,13 @@
     "reason": "0 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "waipalibraries.org.nz": {
+    "checked": 20260825,
+    "name": "New Te Awamutu Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "waipunahotel.co.nz": {
     "checked": 20260824,
@@ -38281,6 +39415,13 @@
     "reason": "211 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "welcomebaybc.org.nz": {
+    "checked": 20260825,
+    "name": "Welcome Bay Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "wellesleystudios.co.nz": {
     "checked": 20260824,
@@ -39024,6 +40165,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "willowbrookpark.co.nz/celebrations": {
+    "checked": 20260825,
+    "name": "Willowbrook Park",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "wilmot.ca/en/Castle-Kilbride-Museum.aspx": {
     "checked": 20260819,
     "name": "Castle Kilbride",
@@ -39675,6 +40823,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ymcanorth.org.nz": {
+    "checked": 20260825,
+    "name": "YMCA",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ymcanorth.org.nz/find-your-local/onehunga-war-memorial-pool": {
     "checked": 20260824,
     "name": "Onehunga War Memorial Pool",
@@ -39825,6 +40980,13 @@
   "zen.org.nz/wellington.html": {
     "checked": 20260824,
     "name": "Mountains and Rivers Order Zen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "zenders.nz": {
+    "checked": 20260825,
+    "name": "The Zaal",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"

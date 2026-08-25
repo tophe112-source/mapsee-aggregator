@@ -2395,6 +2395,73 @@
         "lon": 172.6379165
       },
       "_metro": "Christchurch, NZ"
+    },
+    {
+      "name": "Meteor Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://themeteor.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Meteor Theatre",
+        "lat": -37.7923093,
+        "lon": 175.2873921
+      },
+      "_metro": "Hamilton, NZ"
+    },
+    {
+      "name": "Priority 1",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event",
+      "base_url": "https://www.priorityone.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Priority 1",
+        "address": "29 Grey Street",
+        "city": "Tauranga",
+        "region": "Bay of Plenty",
+        "postal_code": "3110",
+        "country": "NZ",
+        "lat": -37.6850414,
+        "lon": 176.168223
+      },
+      "_metro": "Tauranga, NZ"
+    },
+    {
+      "name": "The Orchard Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://theorchardchurch.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Orchard Church",
+        "address": "20 Macloughlin Drive",
+        "city": "Te Puke",
+        "postal_code": "3119",
+        "lat": -37.7840887,
+        "lon": 176.3045196
+      },
+      "_metro": "Tauranga, NZ"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://etchurch.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "address": "12A Cemetery Road",
+        "city": "East Taieri",
+        "postal_code": "9024",
+        "lat": -45.8900383,
+        "lon": 170.3450259
+      },
+      "_metro": "Dunedin, NZ"
     }
   ],
   "_not_included": {
