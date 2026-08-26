@@ -669,8 +669,12 @@ def main(argv=None):
         candidates = [el for el in elements
                       if kind_of(el.get("tags") or {})
                       and (not wanted_kinds or kind_of(el["tags"]).slug in wanted_kinds)]
-        window, next_start = window_at(candidates, int(cursor.get(area["name"], 0)),
-                                       a.max_places)
+        # window_at returns a LIST, and the caller owns the next cursor —
+        # osm_secondhand's `(start + len(window)) % n`. Unpacking it as a pair
+        # is a ValueError at runtime and nothing static catches it.
+        start = int(cursor.get(area["name"], 0))
+        window = window_at(candidates, start, a.max_places)
+        next_start = ((start + len(window)) % len(candidates)) if candidates else 0
         area_listings = area_furniture = 0
         for el in window:
             event = to_event(el, area, a.days_ahead)

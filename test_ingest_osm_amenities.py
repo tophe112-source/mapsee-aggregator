@@ -230,6 +230,74 @@ def main():
     checks.append((all(a.get("country") for a in areas),
                    "every area names its country — the sync has no other source for it"))
 
+    # ---------------------------- MAIN() ITSELF, RUN END TO END
+    #
+    # BOTH production failures of this adapter were in main(), and NEITHER was
+    # reachable from any case above, because every one of them calls to_event
+    # or a pure helper directly:
+    #
+    #   KeyError: 'center'                  the config's own shape
+    #   ValueError: too many values         window_at returns a LIST, and the
+    #                                       caller owns the next cursor
+    #
+    # Both are contracts of code IMPORTED from mapsee_ingest_osm_food, guessed
+    # rather than read, and both cost a runner and a full Overpass fetch to
+    # discover — the second after pulling 7,210 elements for Seattle.
+    #
+    # So this runs the real main() with Overpass stubbed and the store in a
+    # temp dir: the config is loaded by the code that loads it, every imported
+    # helper is called with the arguments it will really get, and the cursor
+    # arithmetic actually executes.
+    import os as _os, tempfile as _tempfile, json as _json2
+    _fake = [
+        {"type": "node", "id": 1, "lat": 47.61, "lon": -122.33,
+         "tags": {"amenity": "drinking_water"}},                       # furniture
+        {"type": "node", "id": 2, "lat": 47.62, "lon": -122.34,
+         "tags": {"amenity": "drinking_water", "fee": "no"}},          # listing
+        {"type": "node", "id": 3, "lat": 47.63, "lon": -122.35,
+         "tags": {"leisure": "playground", "name": "Cal Anderson"}},   # furniture
+        {"type": "node", "id": 4, "lat": 47.64, "lon": -122.36,
+         "tags": {"tourism": "artwork", "name": "The Wall",
+                  "artist_name": "Ellen Sollod"}},                     # listing
+        {"type": "node", "id": 5, "lat": 47.65, "lon": -122.37,
+         "tags": {"amenity": "bench"}},                                # not ours
+    ]
+    _real_sweep = A.sweep_tiles
+    A.sweep_tiles = lambda cells, fetch_one, label, delay=2.0, sleep=None: (_fake, True)
+    # CAUGHT, NOT RAISED. Both real failures were exceptions, and letting one
+    # abort the run buries the sixty-two cases that come before it under a
+    # traceback. The exception IS the failure message.
+    try:
+        with _tempfile.TemporaryDirectory() as tmp:
+            store = _os.path.join(tmp, "feeds.json")
+            rc = A.main(["--config", "osm_amenity_sources.json", "--store", store,
+                         "--only", "Seattle", "--max-places", "50",
+                         "--places-cache", _os.path.join(tmp, "cache"),
+                         "--ignore-cursor"])
+            checks.append((rc == 0, "main() runs to completion against a stubbed Overpass"))
+            rows = _json2.load(open(store, encoding="utf-8")).get("events", [])
+            checks.append((len(rows) == 4,
+                           f"...and writes one row per SELECTED element, skipping the bench "
+                           f"({len(rows)})"))
+            pin_only = [r for r in rows if r.get("pin_only")]
+            checks.append((len(pin_only) == 2 and len(rows) - len(pin_only) == 2,
+                           f"...with the split intact through the whole path "
+                           f"({len(pin_only)} furniture, {len(rows)-len(pin_only)} listing)"))
+            # The cursor arithmetic is what the ValueError was hiding in.
+            A.main(["--config", "osm_amenity_sources.json", "--store", store,
+                    "--only", "Seattle", "--max-places", "2",
+                    "--places-cache", _os.path.join(tmp, "cache2")])
+            cur = A.load_cursor(A.CURSOR_PATH) if _os.path.exists(A.CURSOR_PATH) else {}
+            checks.append((cur.get("Seattle") == 2,
+                           f"...and a bounded window advances the cursor by what it examined "
+                           f"({cur.get('Seattle')})"))
+    except Exception as exc:                                    # noqa: BLE001
+        checks.append((False, f"main() raised {type(exc).__name__}: {exc}"))
+    finally:
+        A.sweep_tiles = _real_sweep
+        if _os.path.exists(A.CURSOR_PATH):
+            _os.remove(A.CURSOR_PATH)
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1

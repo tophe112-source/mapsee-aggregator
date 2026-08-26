@@ -731,6 +731,23 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   `osm-amenities.yml`, which refuses to start without the column: there
   `pin_only` is not a nice-to-have but the entire point, and importing furniture
   without it puts every drinking fountain in the metro into the Nearby list.
+- **A HELPER IMPORTED IS A CONTRACT INHERITED, AND BOTH OF THIS ADAPTER'S
+  PRODUCTION FAILURES WERE ONE GUESSED RATHER THAN READ.**
+  `mapsee_ingest_osm_amenities` imports nine helpers from
+  `mapsee_ingest_osm_food`, which is exactly right — `parse_opening_hours` is
+  eighty lines of refusals each bought with a live failure. What it also
+  inherits is nine signatures, and two were assumed:
+  `area_bbox` reads `area["center"]` as a PAIR (not `lat`/`lon` keys), and
+  `window_at` returns a LIST, with the CALLER owning the next cursor
+  (`(start + len(window)) % n`, as `osm_secondhand` does). Unpacking it as a
+  pair is a `ValueError` nothing static catches.
+  Each cost a runner to find, the second after pulling 7,210 Seattle elements
+  from Overpass. Neither was reachable from any of the 41 unit cases, because
+  every one of them called `to_event` or a pure helper directly — **the bugs
+  were both in `main()`, and nothing ran `main()`**. It now does, against a
+  stubbed `sweep_tiles`, and that is the case that would have caught both.
+  Read the source of anything you import from a sibling adapter; the docstrings
+  are there and both of these were one `inspect.signature` away.
 - **A CONFIG THAT PARSES AS JSON IS NOT A CONFIG THAT LOADS.**
   `osm_amenity_sources.json` shipped with `"lat"` and `"lon"` as separate keys
   where `area_bbox` reads a `"center"` PAIR. Valid JSON, reviewed, and all 41
