@@ -1,1 +1,23 @@
-{}
+{
+  "data.act.gov.au/resource/j746-krni.json": {
+    "checked": 20260826,
+    "name": "ACT Public Art List (www.data.act.gov.au)",
+    "reason": "http 400",
+    "status": "fail",
+    "type": "opendata"
+  },
+  "data.gov.ie/api/3/action/datastore_search?resource_id=61b9eab1-45a6-41be-9c4b-80496b544de0": {
+    "checked": 20260826,
+    "name": "Events (Ireland)",
+    "reason": "no future rows (latest sampled 2025-01-18)",
+    "status": "fail",
+    "type": "ckan"
+  },
+  "data.weho.org/resource/p6yp-4ai9.json": {
+    "checked": 20260826,
+    "name": "Art Events (data.weho.org)",
+    "reason": "0 rows",
+    "status": "fail",
+    "type": "opendata"
+  }
+}
