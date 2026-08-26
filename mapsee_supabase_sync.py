@@ -1148,7 +1148,42 @@ def build_rows(store_path: str, host_id: str, geo_session=None) -> List[Dict[str
     return rows
 
 
+# PostgREST's answer when a row names a column the schema cache has never heard
+# of: {"code":"PGRST204","message":"Could not find the 'x' column of 'events' …"}
+_PGRST_UNKNOWN_COLUMN = re.compile(
+    r"Could not find the '([A-Za-z_][A-Za-z0-9_]*)' column", re.I)
+
+
+def _unknown_column(resp) -> Optional[str]:
+    """The column name PostgREST says does not exist, or None."""
+    try:
+        message = str((resp.json() or {}).get("message") or "")
+    except Exception:                                       # noqa: BLE001
+        message = ""
+    found = _PGRST_UNKNOWN_COLUMN.search(message)
+    return found.group(1) if found else None
+
+
 def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> int:
+    """Write rows, and SURVIVE A COLUMN THE DATABASE HAS NOT GOT YET.
+
+    THE BLAST RADIUS IS WHY THIS EXISTS. to_row writes every column for every
+    adapter, so a repo that has merged a migration's CODE before the migration
+    itself has run against Supabase does not lose one feature — it loses the
+    whole night. A 400 is not retryable, so each batch of 50 falls straight
+    through to the row-by-row isolation below, every one of those rows fails the
+    same way, and all thirty-seven adapters write ZERO rows having made fifty
+    times the requests to do it. That is a deploy-ordering mistake with a
+    catastrophic, silent-looking failure, and the ordering is between two
+    different systems (a git merge and a hand-run `supabase db push`) that
+    nothing coordinates.
+
+    So an unknown column is dropped ONCE, loudly, and the run continues without
+    it. The feature that needed it is simply absent until the migration lands,
+    which is what "not deployed yet" ought to look like. Same discipline as
+    _explain(): read what the server actually said instead of treating every
+    4xx as one thing.
+    """
     import requests, time
     endpoint = url.rstrip("/") + "/rest/v1/events?on_conflict=external_source,external_id"
     headers = {
@@ -1157,8 +1192,27 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> int:
         "Content-Type": "application/json",
         "Prefer": "resolution=merge-duplicates,return=minimal",
     }
+    absent: set = set()          # columns this database has not got yet
+
+    def _strip(batch):
+        return ([{k: v for k, v in row.items() if k not in absent} for row in batch]
+                if absent else batch)
+
     def _post(batch):
-        return requests.post(endpoint, headers=headers, data=json.dumps(batch), timeout=30)
+        return requests.post(endpoint, headers=headers,
+                             data=json.dumps(_strip(batch)), timeout=30)
+
+    def _drop_unknown(resp) -> bool:
+        """True when a column was newly dropped and the caller should retry."""
+        column = _unknown_column(resp)
+        if not column or column in absent:
+            return False
+        absent.add(column)
+        print(f"::warning::events.{column} does not exist in this database — "
+              f"writing rows WITHOUT it for the rest of this run. The migration "
+              f"that adds it has not been applied yet; apply it and re-run to "
+              f"populate the column.", flush=True)
+        return True
 
     def _post_retry(batch, tries=3):
         # A batch can fail transiently on a statement timeout (57014) or lock wait,
@@ -1176,6 +1230,11 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> int:
     for i in range(0, len(rows), 50):               # fast path: batch upserts
         chunk = rows[i:i + 50]
         resp = _post_retry(chunk)
+        # Before falling through to the expensive row-by-row isolation, ask
+        # whether the whole batch failed for a reason that is true of EVERY row
+        # and cheap to fix. A missing column is exactly that.
+        if resp.status_code >= 300 and _drop_unknown(resp):
+            resp = _post_retry(chunk)
         if resp.status_code < 300:
             sent += len(chunk)
             continue
@@ -1184,6 +1243,8 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> int:
         # clean events still land and only the offending ones are skipped + logged.
         for row in chunk:
             r = _post([row])
+            if r.status_code >= 300 and _drop_unknown(r):
+                r = _post([row])
             if r.status_code < 300:
                 sent += 1
             else:

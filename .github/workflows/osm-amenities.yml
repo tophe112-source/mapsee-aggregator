@@ -141,6 +141,34 @@ jobs:
           python test_ingest_osm_amenities.py
           python test_osm_food.py
 
+      # THE ONE ORDERING THIS JOB CANNOT SURVIVE. ../mapsee 0194 adds
+      # events.pin_only, and it is what keeps furniture OUT of events_near and
+      # out of the Nearby list. Run this against a database that has not had
+      # the migration applied and every drinking fountain in the metro lands as
+      # an ordinary event — millions of them, crowding the list the product
+      # exists to show, and an upsert cannot take them back out.
+      #
+      # The sync itself now survives the missing column (it drops it and says
+      # so, so one late migration cannot cost all thirty-seven adapters their
+      # night). That is the right behaviour THERE and the wrong one here, where
+      # the column is not a nice-to-have but the entire point of the adapter.
+      # So this job refuses to start instead.
+      - name: Refuse to run before ../mapsee 0194 is applied
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          code=$(curl -s -o /tmp/probe.json -w "%{http_code}" \
+            "$SUPABASE_URL/rest/v1/events?select=pin_only&limit=1" \
+            -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
+            -H "authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY")
+          if [ "$code" != "200" ]; then
+            echo "::error::events.pin_only is not in this database (HTTP $code)."
+            echo "::error::$(head -c 300 /tmp/probe.json)"
+            echo "::error::Apply ../mapsee migrations 0194, 0195 and 0196 first —"
+            echo "::error::without pin_only every amenity lands as an ordinary event."
+            exit 1
+          fi
+          echo "events.pin_only present — safe to import furniture."
+
       - name: Pull ${{ matrix.area }}
         run: |
           python mapsee_ingest_osm_amenities.py \

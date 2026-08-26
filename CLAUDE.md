@@ -716,6 +716,21 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   generating the REAL stored description for a bare fountain and reading it,
   which is the only way it could have been: the adapter's own output was
   correct, and the line was added two files later.
+- **A MIGRATION'S CODE MERGES BEFORE THE MIGRATION RUNS, and nothing sequences
+  the two.** `to_row` writes every column for every adapter, so a `pin_only`
+  that ../mapsee has merged but not yet applied used to cost not one feature but
+  the WHOLE NIGHT: PostgREST answers `PGRST204 Could not find the 'pin_only'
+  column`, a 400 is not retryable, so every batch of 50 fell straight through to
+  the row-by-row isolation, every one of those rows failed identically, and all
+  thirty-seven adapters wrote ZERO having made fifty times the requests to do
+  it. `upsert` now reads the column name out of PostgREST's own message, drops
+  it once with a `::warning::`, and carries on — 4 requests and 120 rows where
+  it used to be 123 requests and nothing. `test_sync_unknown_column.py` pins
+  both halves, including that a genuinely poisoned row is still isolated and not
+  mistaken for a missing column. The ONE place this tolerance is wrong is
+  `osm-amenities.yml`, which refuses to start without the column: there
+  `pin_only` is not a nice-to-have but the entire point, and importing furniture
+  without it puts every drinking fountain in the metro into the Nearby list.
 - **`social_facility=food_bank` is 4,938 uses; `amenity=food_bank` is 16.**
   Reaching for the obvious key produces an adapter that runs clean, reports
   success and imports essentially nothing — the same silence as the parkrun
@@ -763,13 +778,14 @@ python test_ingest_parkrun.py       # the free weekly runs, and configs a guarde
 python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
 python test_ingest_openactive.py    # an RPDE feed's first page is its oldest, and it lies both ways
 python test_ingest_osm_amenities.py # which civic pins earn a sheet, and which are just the map
+python test_sync_unknown_column.py  # a column the database has not got YET must cost one feature, not the night
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 23 test scripts are the CI gate (`tests.yml`). They print one line per
+The 24 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
