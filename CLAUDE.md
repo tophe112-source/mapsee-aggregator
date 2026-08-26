@@ -269,6 +269,58 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   timestamp for ever or skips its tail. `test_indexnow.py`. The other `offset=`
   callers in this repo are third-party APIs (Socrata, ODS, Recreation.gov) and
   bounded, so they are not the same bug.
+- **A KEYSET FIXED THE COST PER PAGE AND LEFT THE NUMBER OF PAGES UNBOUNDED,
+  which is the half that broke next.** `mapsee_indexnow` walks every indexable
+  event created in the last 26 hours; measured 2026-08-26 that window held
+  ~261,600 rows, so the walk was ~262 requests against the ANON role's ~3s
+  ceiling and one slow page ended it. Three rules fell out. **The walk is
+  CAPPED and runs NEWEST-FIRST** — IndexNow is a freshness hint with a 10,000
+  URL protocol ceiling and everything in the window is in the sitemap anyway,
+  so announcing the newest ten thousand is the honest submission; ascending, a
+  capped walk would have kept the STALEST rows and dropped everything that had
+  just landed. **A timeout re-asks the SAME page before shrinking one** —
+  halving is the right answer for OFFSET paging, where the cost IS the
+  discarded prefix, and with a keyset (measured flat at 0.4s from page 1 to
+  page 60) going 1000 to 125 only buys eight times the requests and eight times
+  the exposure; `PAGE_MIN`'s own comment already said this and had no other
+  lever. **And out of levers, it announces what it has** rather than raising.
+- **A FAILED READ IS NOT A FAILED RUN, and `sys.exit(1)` cost seven domains
+  their daily push.** That same job reads the events for mapsee.me and then
+  submits /c/ landing pages for mapsee.me and the six other doors — which do
+  not need that query at all. One 57014 deep in the walk exited the process
+  before a single landing page went out. The events are the time-critical half
+  and the landing pages are the independent half; losing one must not lose the
+  other. It still exits non-zero, because a job that has silently stopped and a
+  job that reported what it could must not look the same.
+- **A STEP CANCELLED BY `timeout-minutes` SKIPS EVERY STEP AFTER IT, INCLUDING
+  THE ONE THAT SAVES THE WORK.** Three live instances, all found together on
+  2026-08-26 and all reading as "cancelled" rather than "failed":
+  `feeds` at exactly 4h00m lost `mapsee_link_series` nightly (above);
+  `curate-catalog`'s discover step ran 05:36:58 to 07:07:00 — its ninety-minute
+  cap to the second — and skipped **Coverage after** and **Commit new
+  sources**, so every source it had verified went in the bin, under a comment
+  on that very cap claiming "a run that hits it still commits everything it
+  proved before stopping"; and `osm-food`'s Paris job ran 5h30m against a
+  330-minute cap and skipped its sync, its cursor slice and its hand-up, so the
+  sweep was discarded AND the cursor never moved — next week it would start in
+  the same place and do it again, while the other seven metros finished in one
+  to three hours. **The job cap is a CEILING, not a plan**: end the work
+  yourself with time left to save it (`--max-minutes` on the ingest, a shell
+  `DEADLINE` between backends in curate), and put `always()` on the steps that
+  save. A wall-clock budget is needed where a per-item cap is not enough,
+  because the cost is one fetch per venue against servers we do not control and
+  is not predictable from the candidate count.
+- **A CURSOR MUST ADVANCE BY WHAT WAS EXAMINED, and "the window's length" stops
+  being that the moment anything can stop early.** `osm-food` set
+  `cursor = start + len(window)` BEFORE the loop, which was right while the only
+  exit was finishing it. With a budget it would march past venues nobody looked
+  at, so it moves after the loop and counts. Pinned in `test_osm_food.py`
+  through the REAL `main()`, because that is where it lives — the same gap that
+  cost `mapsee_ingest_osm_amenities` two production runs this month. Writing
+  that case found one more of the family: `m.CURSOR_PATH = <tmp>` does NOT
+  redirect `load_cursor`, whose signature is `path=CURSOR_PATH` — a DEFAULT
+  ARGUMENT bound once at def time — so the test read the repo's committed
+  cursor and reported Paris=178 for a run that examined nothing.
 - **`raise_for_status()` throws the diagnosis away.** That failure reported
   `500 Server Error: Internal Server Error for url: ...` and nothing else,
   because requests never looks at the body — so the one thing that says WHICH

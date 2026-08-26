@@ -152,6 +152,14 @@ jobs:
     # ~2.5s (the venue site, then the destination check on whatever it names).
     # 330 minutes is that with room; a job that runs out simply stops at the
     # cursor and the next run continues, which is the point of the cursor.
+    # 330 is the CEILING, not the plan. --max-minutes 290 on the ingest below
+    # is what actually ends the sweep, forty minutes early, because a step
+    # CANCELLED by this number skips every step after it: on 2026-08-25 Paris
+    # ran 07:33 -> 13:03 and lost its sync, its cursor slice and its hand-up,
+    # so a five-and-a-half-hour sweep was discarded AND the cursor never moved
+    # — next week it would start in the same place and do it again. Seven other
+    # metros finished in 1-3 hours, so the cost is not predictable from the
+    # candidate count and the budget has to be wall-clock.
     timeout-minutes: 330
     strategy:
       fail-fast: false            # one metro's bad day is not the sweep's
@@ -204,6 +212,7 @@ jobs:
             --config osm_food_sources.json --store feeds_events.json \
             --only "${{ matrix.area }}" \
             --max-places ${{ github.event.inputs.max_places || 2000 }} \
+            --max-minutes 290 \
             ${{ github.event.inputs.radius_miles && format('--radius-miles {0}', github.event.inputs.radius_miles) || '' }} \
             ${{ github.event.inputs.full_refresh == 'true' && '--ignore-cursor' || '' }} \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}

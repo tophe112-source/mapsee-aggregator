@@ -894,6 +894,14 @@ def main(argv=None):
     ap.add_argument("--only", help="one area by name (substring)")
     ap.add_argument("--days-ahead", type=int, default=7)
     ap.add_argument("--max-places", type=int, default=60, help="per area, per run")
+    ap.add_argument("--max-minutes", type=float, default=0.0,
+                    help="Wall-clock budget for the venue fetches. 0 = no limit. "
+                         "The SAME discipline as --max-places in the other unit: "
+                         "stop, save the store, and advance the cursor by what "
+                         "was actually examined. A job killed by GitHub's "
+                         "timeout-minutes skips every step after it, so Paris's "
+                         "5h30m sweep on 2026-08-25 lost its sync AND its cursor "
+                         "and would have re-walked the same venues every week.")
     ap.add_argument("--ignore-cursor", action="store_true",
                     help="start at the first candidate and do not advance the cursor "
                          "(backfill: re-examine places already imported)")
@@ -921,6 +929,11 @@ def main(argv=None):
     store = None if (a.dry_run or a.warm_cache) else EventStore(a.store)
     cursor = load_cursor()
     tot_seen = tot_hours = tot_order = tot_booking = tot_events = 0
+    # One clock for the whole run, not one per area: the budget being spent is
+    # the JOB's, and an area that starts late is exactly the one that must not
+    # overrun. Set from --max-minutes; 0 means no limit, which is what a local
+    # run and a --warm-cache pass both want.
+    deadline = (time.time() + a.max_minutes * 60) if a.max_minutes > 0 else 0
 
     for area in areas:
         if a.radius_miles:
@@ -992,15 +1005,33 @@ def main(argv=None):
         # backfill does not also cost the normal rotation its place.
         start = 0 if a.ignore_cursor else int(cursor.get(area["name"], 0)) % max(len(cands), 1)
         window = window_at(cands, start, a.max_places)
-        # ADVANCE BY WHAT WAS ACTUALLY EXAMINED, not by --max-places. They differ
-        # exactly when the area has fewer candidates than the cap, and asking for
-        # 60 of 52 used to leave the cursor at 8 — so the next run re-walked the
-        # first eight it had just finished instead of starting cleanly again.
-        if not a.dry_run and not a.ignore_cursor:
-            cursor[area["name"]] = (start + len(window)) % max(len(cands), 1)
 
         made = 0
+        examined = 0
+        if deadline and time.time() >= deadline and window:
+            # A metro not started is cleaner than one half-done: its cursor has
+            # not moved, so the next run begins exactly here.
+            print(f"[osm-food] {area['name']}: out of time before it started — "
+                  f"skipped, cursor untouched", flush=True)
+            print(f"[osm-food] {area['name']}: {len(els)} places, {len(cands)} "
+                  f"with hours+site, examined none", flush=True)
+            continue
         for el, hrs in window:
+            # OUT OF TIME IS A REASON TO STOP, NOT A REASON TO LOSE THE RUN.
+            # The cost here is one website fetch per venue against servers we do
+            # not control, so a metro's wall clock is not predictable from its
+            # candidate count: on 2026-08-25 seven metros finished in 1-3 hours
+            # and Paris was still going at 5h30m when timeout-minutes cancelled
+            # the step — which SKIPPED the sync, the cursor slice and the
+            # hand-up, so the whole sweep was discarded and the cursor never
+            # moved. Next week it would have started in the same place and done
+            # the same thing.
+            if deadline and time.time() >= deadline:
+                print(f"[osm-food] {area['name']}: out of time after {examined} "
+                      f"of {len(window)} candidate(s) — saving what is done and "
+                      f"leaving the cursor there", flush=True)
+                break
+            examined += 1
             try:
                 url, booking, site, website_phone = links_for(el.get("tags", {}))
             except Exception:
@@ -1031,6 +1062,15 @@ def main(argv=None):
                 if store:
                     store.upsert(nev)
                 made += 1
+        # ADVANCE BY WHAT WAS ACTUALLY EXAMINED, not by --max-places and not by
+        # the window's length. Those three differ in two places: when the area
+        # has fewer candidates than the cap (asking for 60 of 52 used to leave
+        # the cursor at 8, so the next run re-walked the first eight it had just
+        # finished), and now when the clock ran out mid-window — where claiming
+        # the whole window would march the cursor past venues nobody looked at.
+        if not a.dry_run and not a.ignore_cursor:
+            cursor[area["name"]] = (start + examined) % max(len(cands), 1)
+
         tot_events += made
         # flush=True because this job runs for tens of minutes and Python buffers
         # stdout when it is not a TTY: a local run of all eight areas printed

@@ -200,7 +200,27 @@ jobs:
             CATFLAG="--category $CATS"
             echo "Pinned to: $CATS"
           fi
+          # STOP BEFORE THE JOB CAP, NOT ON IT.
+          #
+          # timeout-minutes: 90 CANCELS the step, and a cancelled step SKIPS
+          # every step after it — including "Commit new sources". So a run that
+          # hit the ceiling threw away every source it had verified, and the
+          # comment on that ceiling says the opposite ("a run that hits it still
+          # commits everything it proved before stopping"). Live on 2026-08-26:
+          # this step ran 05:36:58 -> 07:07:00, exactly ninety minutes, and both
+          # the coverage step and the commit were skipped.
+          #
+          # Same shape as OpenActive tipping `feeds` to 4h00m and silently
+          # costing link_series its nightly run. The fix is the same: end the
+          # work ourselves, with time left to save it.
+          DEADLINE=$(( $(date +%s) + 75 * 60 ))
           for b in $BACKENDS; do
+            if [ "$(date +%s)" -ge "$DEADLINE" ]; then
+              echo "::warning::curate: out of time before $b — the backends after it were" \
+                   "not swept this run. Their cursors have not moved, so the next run" \
+                   "starts where this one stopped."
+              break
+            fi
             echo "::group::$b"
             # socrata is the default and takes no positional; the others do.
             # tee'd because DISCOVER's own output is where the skip breakdown
@@ -240,8 +260,13 @@ jobs:
       # diffing two 500-line terminal dumps from different weeks, which meant
       # nobody answered it, which is how `fitness` and `running` sat at zero
       # sources through eleven scheduled runs without anyone noticing.
+      # `always()` rather than success(): a step CANCELLED by the job's own
+      # timeout-minutes skips everything after it, which is how ninety minutes
+      # of verified sources went in the bin. The internal deadline above should
+      # mean this never fires on a cancel — this is the belt to its braces, and
+      # the thing that makes the timeout comment above the job true.
       - name: Coverage after
-        if: ${{ !inputs.dry_run }}
+        if: ${{ always() && !inputs.dry_run }}
         run: |
           set -euo pipefail
           python catalog_curate.py coverage | tee coverage-after.txt
@@ -268,7 +293,7 @@ jobs:
       # is the only record that survives the runner, and a trend nobody can read
       # next month is not a trend.
       - name: Commit new sources
-        if: ${{ !inputs.dry_run }}
+        if: ${{ always() && !inputs.dry_run }}
         run: |
           rm -f cand-*.json coverage-*.txt coverage-*.json verify-*.txt merge-*.txt discover-*.txt
           if git diff --quiet -- '*_sources.json' curation_ledger.json curation_cursor.json coverage_history.jsonl; then

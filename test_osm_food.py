@@ -389,6 +389,118 @@ def main():
     m.sweep_tiles(["a"], lambda c: [], "[t]", sleep=lambda s: slept.append(s))
     checks.append((slept == [], "no failures means no waiting"))
 
+    # ------------------------------------------------------------------
+    # THE WALL-CLOCK BUDGET, AND IT IS TESTED THROUGH main() ON PURPOSE.
+    #
+    # On 2026-08-25 the Paris job ran 07:33 -> 13:03 and GitHub's
+    # timeout-minutes CANCELLED it, which skips every step after — so the sync,
+    # the cursor slice and the hand-up were all skipped, the whole sweep was
+    # discarded, and the cursor never moved. Next week it would start in the
+    # same place and do it again. Seven other metros finished in 1-3 hours, so
+    # the cost is not predictable from the candidate count.
+    #
+    # `--max-minutes` ends the sweep ourselves with time left to save it, and
+    # the load-bearing half is that the cursor then advances by what was
+    # ACTUALLY examined rather than by the window's length — otherwise a run
+    # that stopped early would march past venues nobody looked at.
+    #
+    # This runs the REAL main() against a stubbed Overpass because that is where
+    # the change lives, and because the amenities adapter shipped two production
+    # failures this month that no unit case could reach: both were in main(),
+    # and nothing ran main().
+    import json as _json, os as _os, shutil as _shutil, tempfile as _tmp
+    _real_load, _real_links = m.load_places, m.links_for
+    _real_save, _real_loadcur, _real_time = m.save_cursor, m.load_cursor, m.time.time
+    _tags = {"amenity": "fast_food", "name": "X", "opening_hours": "Mo-Su 10:00-20:00",
+             "website": "https://example.org", "addr:city": "Paris"}
+    _els = [{"type": "node", "id": i, "lat": 48.85, "lon": 2.35, "tags": dict(_tags, name=f"X{i}")}
+            for i in range(20)]
+    _tmpdir = _tmp.mkdtemp()
+    try:
+        # links_for is the expensive call this budget exists to bound, so it is
+        # also the honest counter for "how many did we actually examine" — far
+        # steadier than a faked clock, which has to guess how many other things
+        # read time.time() between two candidates.
+        # ...and it doubles as the CLOCK. Advancing time only here — once per
+        # candidate actually looked at — makes "stops after N" exact, where a
+        # free-running clock has to guess how many other things read time.time()
+        # between two candidates (an earlier draft of this case guessed wrong).
+        _looked, _now = [], [1000.0]
+        m.load_places = lambda *a, **k: (_els, True)
+        m.time.time = lambda: _now[0]
+        def _links(tags, *a, **k):
+            _looked.append(tags.get("name"))
+            _now[0] += 1.0
+            return ("https://order.example/order", None, None, None)
+        m.links_for = _links
+        # BOTH halves, and patching m.CURSOR_PATH is NOT one of them: load_cursor
+        # takes `path=CURSOR_PATH` as a DEFAULT ARGUMENT, bound once at def time,
+        # so reassigning the module global does nothing and the run reads the
+        # repo's real osm_food_cursor.json. Caught by this very case, which
+        # reported Paris=178 — the committed value — for a run that examined
+        # nothing. Same family as the signatures osm_amenities guessed rather
+        # than read.
+        _curfile = _os.path.join(_tmpdir, "cur.json")
+        m.save_cursor = lambda cur, path=None: _json.dump(cur, open(_curfile, "w"))
+        m.load_cursor = lambda path=None: (
+            _json.load(open(_curfile)) if _os.path.exists(_curfile) else {})
+        cfg = _os.path.join(_tmpdir, "cfg.json")
+        _json.dump({"areas": [{"name": "Paris", "center": [48.85, 2.35], "radius_miles": 5,
+                               "city": "Paris", "country": "FR"}]}, open(cfg, "w"))
+        store = _os.path.join(_tmpdir, "store.json")
+
+        # STOPPING MID-WINDOW is the case that matters: 5 seconds of budget,
+        # one second per candidate, twenty candidates.
+        rc = m.main(["--config", cfg, "--store", store, "--max-places", "20",
+                     "--max-minutes", str(5 / 60)])
+        checks.append((rc == 0,
+                       "out of time is a clean exit, not a crash — the steps after "
+                       "it are what save the run"))
+        checks.append((len(_looked) == 5,
+                       f"...having stopped on the budget, not on the window "
+                       f"({len(_looked)} of 20 examined)"))
+        cur = _json.load(open(_curfile))
+        checks.append((cur.get("Paris") == 5,
+                       f"...with the cursor on what was EXAMINED, never on the "
+                       f"window's length — or the next run marches past venues "
+                       f"nobody looked at (Paris={cur.get('Paris')})"))
+
+        # And with no budget: the next run resumes THERE and walks the rest.
+        before = len(_looked)
+        rc2 = m.main(["--config", cfg, "--store", store, "--max-places", "20"])
+        cur2 = _json.load(open(_curfile))
+        checks.append((rc2 == 0 and len(_looked) - before == 20,
+                       f"with no budget it examines the whole window "
+                       f"({len(_looked) - before} of 20)"))
+        checks.append((cur2.get("Paris") == 5,
+                       f"...advancing from where it resumed and wrapping, not "
+                       f"restarting at zero (Paris={cur2.get('Paris')})"))
+
+        # AND THE AREA NOT REACHED AT ALL leaves its cursor alone, so the next
+        # run begins exactly here rather than skipping a window nobody read.
+        # The REAL clock for this one: the fake advances only inside links_for,
+        # so it cannot express "time passed before the first candidate" — which
+        # is the whole of this case. A budget of 60 microseconds is gone by the
+        # time the config is read.
+        _looked.clear()
+        m.time.time = _real_time
+        rc3 = m.main(["--config", cfg, "--store", store, "--max-places", "20",
+                      "--max-minutes", "0.000001"])
+        cur3 = _json.load(open(_curfile))
+        checks.append((rc3 == 0 and not _looked and cur3.get("Paris") == 5,
+                       f"an area the budget never reached is skipped with its "
+                       f"cursor untouched (Paris={cur3.get('Paris')}, "
+                       f"{len(_looked)} looked at)"))
+        checks.append((_os.path.exists(store) and _json.load(open(store)),
+                       "...having actually written the store, which is the whole "
+                       "point of stopping ourselves instead of being cancelled"))
+    except Exception as exc:                                    # noqa: BLE001
+        checks.append((False, f"main() raised {type(exc).__name__}: {exc}"))
+    finally:
+        m.load_places, m.links_for = _real_load, _real_links
+        m.save_cursor, m.load_cursor, m.time.time = _real_save, _real_loadcur, _real_time
+        _shutil.rmtree(_tmpdir, ignore_errors=True)
+
 
     for ok, why in checks:
         failed += 0 if ok else 1

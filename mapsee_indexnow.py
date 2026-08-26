@@ -86,7 +86,7 @@ import os
 import sys
 import time
 from datetime import datetime, timedelta, timezone
-from typing import List
+from typing import List, Tuple
 
 import requests
 
@@ -156,6 +156,21 @@ PAGE = 1000
 TIMEOUT_CODE = "57014"         # postgres: canceling statement due to statement timeout
 PAGE_MIN = 125                 # below this, a timeout is not about page size
 ATTEMPTS = 3
+TIMEOUT_RETRIES = 2            # re-ask the SAME page before shrinking it
+# HOW MANY EVENT URLS ONE RUN MAY ANNOUNCE.
+#
+# Measured 2026-08-26: the 26-hour window held ~261,600 indexable new events.
+# Walking that is ~262 requests against the ANON role's ~3s ceiling, and the
+# run that found this failed on exactly that — one slow page in a walk that
+# long, and (before this change) the whole job with it.
+#
+# The cap is not a workaround for the timeout; it is what this job is FOR.
+# IndexNow is a freshness HINT, capped by its own protocol at 10,000 URLs per
+# request, and everything in the window is in the sitemap regardless — so the
+# honest submission is "here are the newest ten thousand", not a quarter of a
+# million URLs a search engine will not act on anyway. What it must never be
+# is a SILENT cap: the run says what it dropped.
+MAX_EVENT_URLS = MAX_URLS_PER_REQUEST
 
 
 def _postgrest(session, url, params, headers, timeout=45):
@@ -196,13 +211,18 @@ def _explain(r) -> str:
 
 
 def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
-                        session: requests.Session) -> List[str]:
+                        session: requests.Session,
+                        max_urls: int = MAX_EVENT_URLS) -> Tuple[List[str], bool]:
     """Event ids created in the window that a crawler is allowed to index.
 
     The three predicates after created_at are lifted verbatim from
     sitemapEvents() in mapsee/src/index.js. If that ever changes, this must
     change with it — the invariant is "IndexNow announces a subset of what the
     sitemap announces", never a superset.
+
+    Returns (ids, complete). `complete` is False when the walk was cut short,
+    by the cap or by a page that would not come back — see below; the caller
+    reports it rather than treating a partial list as the whole answer.
 
     PAGED BY KEYSET, NOT BY OFFSET. `offset=6000` asks Postgres to produce and
     throw away six thousand rows before returning the next thousand, so every
@@ -211,12 +231,28 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
     stopped holding on 2026-08-22, at exactly `offset=6000`, with a 500 — a
     26-hour window had grown past 6,000 new events after the sweeps of the last
     few days. Asking `created_at > <last seen>` instead costs the same on page
-    seven as on page one.
+    seven as on page one, and measured over 60 pages it does: 0.4s flat.
 
     The cursor is (created_at, id) and not created_at alone: created_at is not
     unique — a merge lands hundreds of rows on the same timestamp — and a keyset
     on a non-unique column either repeats that timestamp's rows for ever or
     skips the tail of it.
+
+    NEWEST FIRST, AND CAPPED. The keyset fixed the cost per page and left the
+    number of PAGES unbounded, which is the half that broke next: on 2026-08-26
+    the window held ~261,600 rows, the walk was ~262 requests against the anon
+    role's ~3s ceiling, and one slow page killed the job. Ordering `desc` makes
+    the cap mean "the newest N" — ascending, a capped walk would have submitted
+    the STALEST rows in the window and dropped everything that had just landed,
+    which is precisely backwards for a freshness ping.
+
+    A TIMEOUT RETRIES THE SAME PAGE BEFORE IT SHRINKS ONE. Halving is the right
+    answer for OFFSET paging, where the cost IS the discarded prefix; with a
+    keyset the page size is not what made it slow, and going 1000 -> 125 turns
+    one walk into eight times the requests and eight times the exposure. The
+    cursor is stable, so re-asking is safe and is usually all that is needed.
+    PAGE_MIN's own comment already said this ("below this, a timeout is not
+    about page size") — it just had no other lever to reach for.
     """
     since = (datetime.now(timezone.utc) - timedelta(hours=since_hours)).isoformat()
     now = datetime.now(timezone.utc).isoformat()
@@ -226,7 +262,8 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
     ids: List[str] = []
     seen: set = set()
     cursor = None
-    page = PAGE
+    page = min(PAGE, max_urls)
+    stale = 0                    # consecutive timeouts on the SAME page
     while True:
         params = {
             "select": "id,created_at",    # created_at IS the cursor, so it must come back
@@ -234,23 +271,46 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
             "is_private": "eq.false",     # private events must never be announced
             "hidden_at": "is.null",       # moderated-away events must never be announced
             "starts_at": f"gte.{now}",    # a past event's page is not worth a crawl
-            "order": "created_at.asc,id.asc",
+            "order": "created_at.desc,id.desc",
             "limit": str(page),
         }
         if cursor:
             ct, cid = cursor
             # Values are double-quoted because a timestamp carries ':', '.' and
             # '+', all of which are reserved inside a PostgREST or= expression.
-            params["or"] = (f'(created_at.gt."{ct}",'
-                            f'and(created_at.eq."{ct}",id.gt."{cid}"))')
+            # `lt` rather than `gt`: the walk runs newest-first (see the
+            # docstring), so the cursor is a descending ceiling.
+            params["or"] = (f'(created_at.lt."{ct}",'
+                            f'and(created_at.eq."{ct}",id.lt."{cid}"))')
         r, timed_out = _postgrest(session, url, params, headers)
-        if timed_out and page > PAGE_MIN:
-            # Report the size that ACTUALLY failed. Printing page*2 after the
-            # reassignment named 250 when the failing request asked for 200,
-            # because the floor had clamped the halving — a number nobody sent.
-            failed, page = page, max(PAGE_MIN, page // 2)
-            print(f"  statement timeout at page size {failed}; retrying with {page}")
-            continue
+        if timed_out:
+            stale += 1
+            if stale <= TIMEOUT_RETRIES:
+                # Same page, same cursor. Nothing about this request was too
+                # big — a walk of this length simply crosses a busy moment.
+                print(f"  statement timeout at page size {page}; "
+                      f"re-asking the same page ({stale}/{TIMEOUT_RETRIES})", flush=True)
+                time.sleep(2 ** stale)
+                continue
+            if page > PAGE_MIN:
+                # Report the size that ACTUALLY failed. Printing page*2 after the
+                # reassignment named 250 when the failing request asked for 200,
+                # because the floor had clamped the halving — a number nobody sent.
+                failed, page, stale = page, max(PAGE_MIN, page // 2), 0
+                print(f"  still timing out at page size {failed}; "
+                      f"retrying with {page}", flush=True)
+                continue
+            # OUT OF LEVERS, AND THE IDS WE HAVE ARE STILL WORTH ANNOUNCING.
+            # Raising here used to end the process before the /c/ landing pages
+            # of SEVEN domains were submitted, so one slow page cost the whole
+            # day's push rather than its tail. The window overlaps 26 hours
+            # against a 24-hour cron precisely so a short run is covered by the
+            # next one.
+            print(f"::warning::IndexNow: the walk was cut short by a statement "
+                  f"timeout at page size {page}; announcing the {len(ids)} "
+                  f"newest id(s) found so far", flush=True)
+            return ids, False
+        stale = 0
         if r is None or r.status_code >= 400:
             raise RuntimeError(_explain(r) if r is not None else "no response")
         rows = r.json() or []
@@ -259,8 +319,15 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
             if rid and rid not in seen:
                 seen.add(rid)
                 ids.append(rid)
+        if len(ids) >= max_urls:
+            # NO SILENT CAPS. A run that announces its ceiling and says nothing
+            # reads as complete coverage for ever.
+            del ids[max_urls:]
+            print(f"  reached the {max_urls}-URL ceiling; the older half of the "
+                  f"window is left to the sitemap", flush=True)
+            return ids, False
         if len(rows) < page:
-            return ids
+            return ids, True
         last = rows[-1]
         nxt = (last.get("created_at"), last.get("id"))
         if not all(nxt) or nxt == cursor:
@@ -268,7 +335,7 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
             # question for ever. Stop and SAY the walk was cut short rather than
             # return a silently partial list that reads like a complete one.
             print(f"  WARNING: cursor stalled at {nxt}; stopping after {len(ids)} id(s)")
-            return ids
+            return ids, False
         cursor = nxt
 
 
@@ -418,6 +485,11 @@ def main() -> None:
                     help="Skip the /c/ city and region landing pages.")
     ap.add_argument("--doors-off", action="store_true",
                     help="Submit mapsee.me only, skipping the six niche front doors.")
+    ap.add_argument("--max-urls", type=int, default=MAX_EVENT_URLS,
+                    help=f"Most event URLs one run may announce, newest first. "
+                         f"Default {MAX_EVENT_URLS} — IndexNow's own per-request "
+                         f"ceiling. The window held ~261,600 on 2026-08-26, and "
+                         f"every one of them is in the sitemap regardless.")
     ap.add_argument("--dry-run", action="store_true",
                     help="Print what would be submitted; send nothing.")
     args = ap.parse_args()
@@ -429,18 +501,30 @@ def main() -> None:
     ok = True
 
     # ---- mapsee.me: the new events, plus its own landing pages ----
+    #
+    # A FAILED READ IS NOT A FAILED RUN. This used to sys.exit(1) here, which
+    # ended the process before a single /c/ landing page was submitted — for
+    # mapsee.me and for all six other doors, none of which needs this query at
+    # all. One slow page in a 262-request walk therefore cost seven domains
+    # their entire daily push. The events are the time-critical half and the
+    # landing pages are the independent half; losing one must not lose the
+    # other. The run still exits non-zero, because a job that has silently
+    # stopped and a job that reported what it could must not look the same.
+    complete = True
     try:
-        event_ids = fetch_new_event_ids(base_url, anon_key, args.since_hours, session)
+        event_ids, complete = fetch_new_event_ids(
+            base_url, anon_key, args.since_hours, session, args.max_urls)
     except (requests.RequestException, RuntimeError) as e:
         # RuntimeError carries the server's own words; RequestException is the
         # transport giving up. Both are quoted rather than summarised, because
         # "500 Server Error" told nobody whether to shrink the query or wait for
         # the edge — and those are opposite responses.
         print(f"FAIL could not read new events from Supabase: {e}")
-        sys.exit(1)
+        event_ids, complete, ok = [], False, False
 
     urls = [f"{SITE}/e/{eid}" for eid in event_ids]
-    print(f"{HOST}: {len(urls)} new indexable event page(s) in the last {args.since_hours}h")
+    print(f"{HOST}: {len(urls)} new indexable event page(s) in the last "
+          f"{args.since_hours}h{'' if complete else ' (walk cut short — see above)'}")
     if not args.no_pages:
         pages = landing_urls(SITE, session)
         if pages:
