@@ -248,7 +248,7 @@ def main():
     # temp dir: the config is loaded by the code that loads it, every imported
     # helper is called with the arguments it will really get, and the cursor
     # arithmetic actually executes.
-    import os as _os, tempfile as _tempfile, json as _json2
+    import os as _os, shutil as _shutil, tempfile as _tempfile, json as _json2
     _fake = [
         {"type": "node", "id": 1, "lat": 47.61, "lon": -122.33,
          "tags": {"amenity": "drinking_water"}},                       # furniture
@@ -262,8 +262,16 @@ def main():
         {"type": "node", "id": 5, "lat": 47.65, "lon": -122.37,
          "tags": {"amenity": "bench"}},                                # not ours
     ]
-    _real_sweep = A.sweep_tiles
+    _real_sweep, _real_cursor = A.sweep_tiles, A.CURSOR_PATH
     A.sweep_tiles = lambda cells, fetch_one, label, delay=2.0, sleep=None: (_fake, True)
+    # THE CURSOR FILE IN THE REPO IS PRODUCTION STATE — it holds every metro's
+    # position in its candidate list, committed by the workflow's cursor job.
+    # An earlier version of this test removed it in its `finally`, which was
+    # invisible while the file held `{}` and would have silently reset every
+    # metro to zero the moment the sweep was actually running. A test does not
+    # get to write there at all.
+    _cursor_dir = _tempfile.mkdtemp()
+    A.CURSOR_PATH = _os.path.join(_cursor_dir, "cursor.json")
     # CAUGHT, NOT RAISED. Both real failures were exceptions, and letting one
     # abort the run buries the sixty-two cases that come before it under a
     # traceback. The exception IS the failure message.
@@ -287,16 +295,15 @@ def main():
             A.main(["--config", "osm_amenity_sources.json", "--store", store,
                     "--only", "Seattle", "--max-places", "2",
                     "--places-cache", _os.path.join(tmp, "cache2")])
-            cur = A.load_cursor(A.CURSOR_PATH) if _os.path.exists(A.CURSOR_PATH) else {}
+            cur = A.load_cursor(A.CURSOR_PATH)
             checks.append((cur.get("Seattle") == 2,
                            f"...and a bounded window advances the cursor by what it examined "
                            f"({cur.get('Seattle')})"))
     except Exception as exc:                                    # noqa: BLE001
         checks.append((False, f"main() raised {type(exc).__name__}: {exc}"))
     finally:
-        A.sweep_tiles = _real_sweep
-        if _os.path.exists(A.CURSOR_PATH):
-            _os.remove(A.CURSOR_PATH)
+        A.sweep_tiles, A.CURSOR_PATH = _real_sweep, _real_cursor
+        _shutil.rmtree(_cursor_dir, ignore_errors=True)
 
     failed = 0
     for ok, why in checks:
