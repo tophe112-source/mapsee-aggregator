@@ -55,8 +55,8 @@ def main():
     for tags, why in [
         ({"amenity": "public_bookcase", "operator": "Little Free Library"},
          "an OPERATOR is a fact — who to thank, and who to ask"),
-        ({"amenity": "drinking_water", "fee": "no"},
-         "a FEE rule is a fact"),
+        ({"amenity": "drinking_water", "fee": "yes", "charge": "50c"},
+         "a CHARGE is a fact"),
         ({"amenity": "drinking_water", "wheelchair": "yes"},
          "an ACCESSIBILITY note is a fact — it decides whether to go at all"),
         ({"leisure": "playground", "opening_hours": "Mo-Fr 09:00-17:00"},
@@ -67,8 +67,8 @@ def main():
          "a bike stand that HAS a pump is a different errand from one that does not"),
         ({"leisure": "playground", "description": "Fully fenced, shaded, with a splash pad."},
          "a real DESCRIPTION is a fact"),
-        ({"amenity": "give_box", "access": "yes"},
-         "an ACCESS rule is a fact"),
+        ({"amenity": "give_box", "access": "private"},
+         "a RESTRICTIVE access rule is a fact — it saves a wasted walk"),
     ]:
         row = ev(tags)
         checks.append((row is not None and row.pin_only is False, why))
@@ -95,6 +95,37 @@ def main():
     bare_art = ev({"tourism": "artwork", "name": "Untitled"})
     checks.append((bare_art.pin_only is True and bare_art.poster_image_url is None,
                    "a named sculpture with no artist and no photo is still furniture"))
+
+    # ------------------- A VALUE THAT MATCHES THE ASSUMPTION IS NOT A FACT
+    #
+    # "a name is not a fact", one level down, and missed on the first pass.
+    # `access=yes` is the commonest tag on a playground and `fee=no` on a
+    # drinking fountain, so together they were promoting a large share of the
+    # two densest selectors — to sheets whose entire content was
+    # "🚪 Access: Open to everyone". That is precisely the tap-for-nothing this
+    # whole split exists to prevent. Free and public is what a civic amenity
+    # IS; only the deviation is worth a sheet.
+    for tags, why in [
+        ({"leisure": "playground", "name": "Cal Anderson", "access": "yes"},
+         "access=yes says nothing a public playground did not already say"),
+        ({"leisure": "playground", "access": "public"}, "...nor does access=public"),
+        ({"leisure": "playground", "access": "permissive"}, "...nor permissive"),
+        ({"amenity": "drinking_water", "fee": "no"},
+         "fee=no says nothing a public fountain did not already say"),
+    ]:
+        row = ev(tags)
+        checks.append((row.pin_only is True, why))
+        checks.append(("🚪" not in row.description and "🎟" not in row.description,
+                       f"...and the line is not printed at all ({why[:28]}…)"))
+    # ...but the deviation still counts, and accessibility is never assumed.
+    for tags, why in [
+        ({"leisure": "playground", "access": "private"}, "access=private IS a fact"),
+        ({"amenity": "drinking_water", "fee": "yes"}, "a charge IS a fact"),
+        ({"leisure": "playground", "wheelchair": "no"},
+         "wheelchair is a fact in EVERY value — nobody may assume it either way"),
+        ({"leisure": "playground", "wheelchair": "yes"}, "...including yes"),
+    ]:
+        checks.append((ev(tags).pin_only is False, why))
 
     # ------------------------------------------------------------ the hours rule
     #
@@ -253,7 +284,7 @@ def main():
         {"type": "node", "id": 1, "lat": 47.61, "lon": -122.33,
          "tags": {"amenity": "drinking_water"}},                       # furniture
         {"type": "node", "id": 2, "lat": 47.62, "lon": -122.34,
-         "tags": {"amenity": "drinking_water", "fee": "no"}},          # listing
+         "tags": {"amenity": "drinking_water", "bottle": "yes"}},      # listing
         {"type": "node", "id": 3, "lat": 47.63, "lon": -122.35,
          "tags": {"leisure": "playground", "name": "Cal Anderson"}},   # furniture
         {"type": "node", "id": 4, "lat": 47.64, "lon": -122.36,

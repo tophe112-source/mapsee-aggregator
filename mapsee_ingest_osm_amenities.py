@@ -195,9 +195,26 @@ def selector(s, w, n, e) -> str:
 # ---------------------------------------------------------------------------
 _YES = ("yes", "true", "1")
 
+# A VALUE THAT MATCHES THE ASSUMPTION IS NOT A FACT.
+#
+# This is the same rule as "a name is not a fact", one level down, and it was
+# missed on the first pass. `access=yes` is the commonest tag on a playground
+# and `fee=no` on a drinking fountain — and a sheet whose entire content is
+#
+#     Cal Anderson — playground.
+#     🚪 Access: Open to everyone
+#
+# has charged somebody a tap to be told what the pin already implied. Free and
+# public is what a civic amenity IS; only the DEVIATION is worth a sheet.
+# "This playground is private" and "there is a charge" change whether you walk
+# over, so those still count and still print.
+#
+# Deliberately NOT extended to `wheelchair`. Accessibility is not something
+# anybody may assume either way, so all three of its values are real facts.
+_ACCESS_ASSUMED = {"yes", "public", "permissive"}
+_FEE_ASSUMED = {"no", "free"}
+
 _ACCESS = {
-    "yes": "Open to everyone", "public": "Open to everyone",
-    "permissive": "Open to the public by the owner's permission",
     "customers": "Customers only", "private": "Private",
     "permit": "Permit holders only", "no": "No public access",
 }
@@ -282,11 +299,10 @@ def useful_lines(tags: Dict[str, str], kind: Kind,
 
     fee = str(tags.get("fee") or "").strip().lower()
     charge = _clean(tags.get("charge"), 80)
-    if fee in ("no", "free"):
-        lines.append("🎟 Free to use.")
-    elif fee in _YES:
+    if fee in _YES:                       # only a CHARGE is news; free is assumed
         lines.append(f"🎟 Charge: {charge}" if charge else "🎟 There is a charge.")
 
+    # _ACCESS holds only the restrictive values now — see _ACCESS_ASSUMED.
     access = _ACCESS.get(str(tags.get("access") or "").strip().lower())
     if access:
         lines.append(f"🚪 Access: {access}")

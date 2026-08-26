@@ -769,6 +769,19 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   and nothing that tests only the pure functions can see it.
   `test_ingest_osm_amenities.py` now runs EVERY area through `area_bbox` and
   `tiles`, so the file has to be loadable by the code that will load it.
+- **A VALUE THAT MATCHES THE ASSUMPTION IS NOT A FACT — "a name is not a fact",
+  one level down, and missed on the first pass.** `access=yes` is the commonest
+  tag on a playground and `fee=no` on a drinking fountain, so between them they
+  were promoting a large share of the two densest selectors out of furniture —
+  into sheets whose ENTIRE content was `🚪 Access: Open to everyone`. That is
+  precisely the tap-for-nothing the split exists to prevent, and it survived
+  review because "an access rule" and "a fee rule" read like facts in the
+  abstract. Free and public is what a civic amenity IS; only the DEVIATION is
+  worth a sheet, so `access=private` and a real charge still count and still
+  print, and the assumed values are not printed at all. Deliberately NOT
+  extended to `wheelchair`: nobody may assume accessibility either way, so all
+  three of its values are real facts. Found by rendering the sheet a
+  `access=yes`-only playground would actually produce and reading it.
 - **`social_facility=food_bank` is 4,938 uses; `amenity=food_bank` is 16.**
   Reaching for the obvious key produces an adapter that runs clean, reports
   success and imports essentially nothing — the same silence as the parkrun
