@@ -173,6 +173,33 @@ jobs:
       - name: parkrun (a config a guarded job needs is part of the job)
         run: python test_ingest_parkrun.py
 
+      # OpenActive: four ways a feed lies to a reader, and three of them look
+      # exactly like a healthy read. RPDE pages from the OLDEST end, so page one
+      # said "0 future sessions" for a live feed with 854 of them AND for one
+      # dead since 2019; a ScheduledSession carries a date and no name; and one
+      # publisher ships rides dated the year 2500, which cleanup can never
+      # delete because 2500 is not past.
+      - name: OpenActive (a feed's first page is its oldest, and it lies both ways)
+        run: python test_ingest_openactive.py
+
+      # The listing/furniture split. A civic amenity with nothing worth reading
+      # is DRAWN and nothing else; one that carries a fact opens like any pin.
+      # Both errors are silent: mark a listing as furniture and its hours become
+      # unreachable, mark furniture as a listing and every bench in the metro
+      # takes a turn in somebody's Nearby list.
+      - name: Civic amenities (which pins earn a sheet)
+        run: python test_ingest_osm_amenities.py
+
+      # A migration's CODE can merge before the migration has been RUN, and
+      # nothing sequences a git merge against a hand-run `supabase db push`.
+      # to_row writes every column for every adapter, so an unknown column used
+      # to cost not one feature but the whole night: a 400 is not retryable, so
+      # every batch fell through to row-by-row, every row failed identically,
+      # and all thirty-seven adapters wrote zero having made fifty times the
+      # requests to do it.
+      - name: A column the database has not got yet costs one feature, not the night
+        run: python test_sync_unknown_column.py
+
       # "Order pickup" is a promise. It shipped once on 400 of 400 food events
       # that pointed at Meetup, and a second time on any /menu path — which
       # matched a town website's nav. Both regressions are pinned here.

@@ -33,6 +33,8 @@ front doors it reaches.
 | Re-running the classifier over rows already in the table | `mapsee_reclassify.py` — dry run by default; `--apply` refuses without `--allow` |
 | Takeaway places (not events) from OpenStreetMap | `mapsee_ingest_osm_food.py` + `osm_food_sources.json` — only places with a real order link AND readable hours |
 | Second-hand / charity / vintage shops (not events) from OpenStreetMap | `mapsee_ingest_osm_secondhand.py` + `osm_secondhand_sources.json` — the food adapter's sibling, feeding `market` (fleabop). Bar is readable hours, not an order link; read its header for why that differs. Fetches no third-party websites |
+| UK leisure-centre, community-sport and volunteering sessions | `mapsee_ingest_openactive.py` + `openactive_sources.json` — RPDE feeds, all CC-BY 4.0, all carrying their own coordinates |
+| Playgrounds, drinking fountains, outdoor gyms, little free libraries, food banks, public art | `mapsee_ingest_osm_amenities.py` + `osm_amenity_sources.json` — the third OSM PLACES adapter. Most of what it writes is `pin_only` FURNITURE: drawn on the map and nothing else |
 | Public transit bundles (bus/metro suggestions on a walk) | **not here** — `../mapsee/tools/transit_build.py` + `transit_sources.json`. It is Python and it is a scheduled pipeline, so this is where you would look; it lives in the product repo because its output is a static site asset and mapsee deploys on push, which a cross-repo push would only complicate |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | What runs when | `.github/workflows/aggregate-events.yml` header — the best doc in the repo |
@@ -633,6 +635,114 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   counts, ingested 0 of 50, and came straight back out. A feed's shape says
   nothing about its horizon. `empty` is not `fail`, so it is recorded in
   `_not_included` as a stale export to re-probe in a season, not as a dead feed.
+- **AN RPDE FEED PAGES FROM THE OLDEST END, so reading page one tells you
+  nothing — and it lies in BOTH directions.** OpenActive publishes over RPDE:
+  items ordered by modification time ASCENDING, followed via `next` until the
+  page repeats. Measured 2026-08-26: Our Parks reports **0 future sessions on
+  page one and 854 when walked to the end**; England Netball reports 0 either
+  way and has been dead since **2019** — 14,798 records, still answering 200,
+  still listed in the official catalog seven years later. A verifier that stops
+  at page one retires a working feed and configures a dead one. Same family as
+  BikeReg's search endpoint answering 200 with a silent hundred-row ceiling, and
+  as "counting records is not checking dates". `walk()` in
+  `mapsee_ingest_openactive.py`; `test_ingest_openactive.py` pins it, along with
+  the `state: "deleted"` tombstone that must REMOVE a cancelled session rather
+  than be dropped on the floor.
+- **A whole national catalogue can sit on one licence, and it is worth
+  checking.** All 127 OpenActive dataset pages that parse — across five
+  independent catalogs and 175 landing pages — are CC-BY 4.0. The attribution
+  that licence requires is written into every row's description by the adapter;
+  it is the term we hold the data on, not a footer. What it also bought: these
+  feeds carry their own coordinates (499/500 with `geo`, 500/500 with a
+  structured `PostalAddress` on one publisher; 91% across sixteen), and outside
+  the US that is the difference between a source and nothing at all — the only
+  geocoder here is US Census, so `mapsee_ingest_tribe` reported "kept 43 events"
+  for Calgary and placed zero of them.
+- **A `ScheduledSession` does not know its own name, and 93 of 127 publishers
+  are not publishing events at all.** An OpenActive occurrence carries a date
+  and a `superEvent` pointer; the title, place, price and activity live on the
+  `SessionSeries` it names, so that shape needs both feeds read and joined —
+  and the occurrence must win on the DATE, or every week of a fifty-week block
+  inherits the series' own `startDate` and lands on one Monday (MyListing,
+  exactly). Of the 127, only 34 publish dated sessions; the other 93 publish
+  `FacilityUse` and `Slot` — bookable courts and halls. A bookable badminton
+  court at 19:00 is an empty room somebody may or may not take, and mapping it
+  is the Traders Village mistake. Also unread and worth ~30,000 records: ~13
+  Legend-platform publishers ship a `SessionSeries` feed and NO occurrence feed,
+  so their sessions exist only as an `eventSchedule` PATTERN. Expanding that is
+  the same job `mapsee_ingest_markets` and `mapsee_ingest_parkrun` already do,
+  and it is the highest-value thing to add here next; `_not_included` in
+  `openactive_sources.json` has the measurements.
+- **A source can hand you a SENTINEL date, and `mapsee_cleanup.py` can never
+  remove it.** British Cycling's Let's Ride returns 172 rides dated in the
+  **year 2500**. Cleanup deletes the PAST; 2500 is not past and will not be
+  within anyone's planning horizon. It is the "recurring event with no end date
+  pins forever" trap arriving pre-made from the publisher rather than built by
+  us, and the defence is the same one MyListing needed: a horizon at INGEST,
+  where the count that was dropped can still be printed.
+- **MOST CIVIC PLACES HAVE NOTHING WORTH READING, and pretending otherwise is
+  how you ruin a map.** `mapsee_ingest_osm_amenities.py` imports eight OSM
+  selectors — playgrounds (1,006,477 worldwide), public artwork (366,557),
+  drinking water (365,393), outdoor gyms (100,841), little free libraries
+  (46,908), bike repair stands (23,216), food banks (4,938), give boxes (1,478).
+  A drinking fountain is a drinking fountain: its pin already carries the whole
+  of what the row knows, so a sheet costs a tap, the bottom of the screen and a
+  history entry to answer a question nobody asked. So the adapter sorts its own
+  output. A row carrying a fact somebody could ACT on — hours, an operator, a
+  fee or access rule, an accessibility note, a website, a real description, or
+  for a sculpture its artist — is an ordinary standing row. Everything else is
+  `pin_only`: ../mapsee 0194 draws it and does nothing else. **A NAME IS NOT A
+  FACT** — "Sarah's Book Box" tells you nothing a book icon on that corner did
+  not. At OSM density any rule that merely DEMOTES these is not enough:
+  `events_near`'s pool is capped at 800, so four hundred playgrounds would bury
+  the gig three streets away. They are not in that pool at all. The verdict is
+  a PREFILTER rather than the last word: ../mapsee 0195 hands the client the
+  description and the image and it decides again, the way the product
+  re-validates every order link this repo writes. An OSM `image` or
+  `wikimedia_commons` file is content on its own — for a sculpture it is the
+  best content there is — and promotes a row out of furniture with no other
+  fact required.
+- **A DENY-LIST WHOSE COMMENT DESCRIBES AN ALLOW-LIST WILL BE WRONG FOR EVERY
+  ADAPTER ADDED AFTER IT.** `to_row` appends "🔎 More on this show: <google
+  search>" and says in its own comment that this is for the big-venue
+  aggregators — but the test is `not _src.startswith(("opendata:", "venue:",
+  "ics:", "program:"))`, so all three OpenStreetMap PLACE adapters inherited it
+  by default. A charity shop and a drinking fountain do not have support acts.
+  On food and second-hand that was merely odd; on civic amenities it was
+  load-bearing, because ../mapsee 0195 decides whether a pin OPENS by asking
+  whether anything survives stripping the row's boilerplate — and a Google
+  search link is not a fact about a fountain, so every furniture pin on earth
+  would have become clickable. `osm-` is excluded now. It was found by
+  generating the REAL stored description for a bare fountain and reading it,
+  which is the only way it could have been: the adapter's own output was
+  correct, and the line was added two files later.
+- **A MIGRATION'S CODE MERGES BEFORE THE MIGRATION RUNS, and nothing sequences
+  the two.** `to_row` writes every column for every adapter, so a `pin_only`
+  that ../mapsee has merged but not yet applied used to cost not one feature but
+  the WHOLE NIGHT: PostgREST answers `PGRST204 Could not find the 'pin_only'
+  column`, a 400 is not retryable, so every batch of 50 fell straight through to
+  the row-by-row isolation, every one of those rows failed identically, and all
+  thirty-seven adapters wrote ZERO having made fifty times the requests to do
+  it. `upsert` now reads the column name out of PostgREST's own message, drops
+  it once with a `::warning::`, and carries on — 4 requests and 120 rows where
+  it used to be 123 requests and nothing. `test_sync_unknown_column.py` pins
+  both halves, including that a genuinely poisoned row is still isolated and not
+  mistaken for a missing column. The ONE place this tolerance is wrong is
+  `osm-amenities.yml`, which refuses to start without the column: there
+  `pin_only` is not a nice-to-have but the entire point, and importing furniture
+  without it puts every drinking fountain in the metro into the Nearby list.
+- **`social_facility=food_bank` is 4,938 uses; `amenity=food_bank` is 16.**
+  Reaching for the obvious key produces an adapter that runs clean, reports
+  success and imports essentially nothing — the same silence as the parkrun
+  config that was never committed while the job printed a friendly skip nightly.
+- **"No hours tagged" means opposite things for a playground and for a food
+  bank.** A playground is untagged because it never closes; writing it open all
+  week is true. A food bank written the same way sends somebody with an empty
+  bag to a locked door — the food adapter's worst failure wearing a different
+  hat. `Kind.always_open` is the flag, and a food bank with no readable hours is
+  still DRAWN (knowing one is there matters) while making no claim whatsoever
+  about being open. An UNREADABLE hours string is treated as absent everywhere,
+  never as an open sign.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
   publishes each occurrence separately and the store is rebuilt every run, so the
   occurrences never meet in memory — the table is the only place a series is
@@ -666,13 +776,16 @@ python test_discover_osm.py         # discovery: a site builder is not a calenda
 python test_indexnow.py             # paging our own database: keyset, not offset
 python test_ingest_parkrun.py       # the free weekly runs, and configs a guarded job needs
 python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
+python test_ingest_openactive.py    # an RPDE feed's first page is its oldest, and it lies both ways
+python test_ingest_osm_amenities.py # which civic pins earn a sheet, and which are just the map
+python test_sync_unknown_column.py  # a column the database has not got YET must cost one feature, not the night
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 20 test scripts are the CI gate (`tests.yml`). They print one line per
+The 24 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
