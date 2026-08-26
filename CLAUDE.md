@@ -301,7 +301,12 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   ninety — and skipped **Coverage after** and **Commit new sources**, so every
   source it had verified went in the bin, under a comment on that very cap
   claiming "a run that hits it still commits everything it proved before
-  stopping"; and `osm-food`'s Paris job ran 5h30m against a
+  stopping". (That job's runtime is WILDLY variable rather than uniformly
+  over: 2, 13, 41, 12, 52 minutes on the five days before, then two 90s. So
+  the cap is not hit every run — it is hit whenever the `osm` cursor lands on
+  dense metros or Overpass is slow, which no amount of tuning predicts. That
+  is the argument for a budget rather than a bigger number.) And
+  `osm-food`'s Paris job ran 5h30m against a
   330-minute cap and skipped its sync, its cursor slice and its hand-up, so the
   sweep was discarded AND the cursor never moved — next week it would start in
   the same place and do it again, while the other seven metros finished in one
@@ -311,16 +316,29 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   save. A wall-clock budget is needed where a per-item cap is not enough,
   because the cost is one fetch per venue against servers we do not control and
   is not predictable from the candidate count.
-- **AND THE BUDGET GOES WHERE THE TIME GOES, WHICH IS NOT WHERE THE LOOP IS.**
-  The first attempt at the curate fix put a deadline between backends in the
-  shell loop, which reads as obviously right and would never once have fired:
-  from that run's own log, socrata took 6 SECONDS, ckan 2 minutes, mobilizon 3
-  seconds, and `osm` the remaining 88 — and osm is deliberately LAST, so
-  nothing follows it to check anything. The budget belongs inside
-  `_discover_osm`'s metro loop, which already counts what it `read` and already
-  advances the cursor by that, so an unreached metro is simply where the next
-  run starts — the same contract an Overpass refusal already had. Before
-  bounding a loop, measure which iteration spends the time.
+- **AND THE BUDGET GOES WHERE THE TIME GOES, WHICH IS NOT WHERE THE LOOP IS.
+  Twice, in the same fix.** The first attempt at the curate budget put a
+  deadline between BACKENDS in the shell loop, which reads as obviously right
+  and would never once have fired: from that run's own log, socrata took 6
+  SECONDS, ckan 101, mobilizon 3, and `osm` the remaining 88 — and osm is
+  deliberately LAST, so nothing follows it to check anything. Moved inside
+  `_discover_osm`'s METRO loop it still did not fire: the next run printed
+  nothing whatsoever from that backend before its 90-minute cancellation,
+  because one metro is an Overpass call plus a LIVE FETCH PER VENUE and a dense
+  metro is hundreds of them — a single iteration of the loop you can see
+  outlasts the whole budget. It is checked in the per-VENUE loop now.
+  **Bounding the loop is not the same as bounding the work**: find the
+  iteration that spends the time, and if that iteration is itself a loop, keep
+  going down. Its cursor half matches: a metro abandoned part-way is UNREAD and
+  the cursor stays before it, exactly as for one Overpass never answered for,
+  and re-probing is cheap because the ledger already holds the dead ends that
+  pass found. `test_discover_osm.py` pins both.
+- **`always()` IS THE HALF THAT ACTUALLY SAVES THE WORK, and it is worth having
+  even when the budget is right.** Proved in production the same day: run
+  33012688812 was cancelled at its 90-minute cap with the budget still
+  mis-sized — and committed `70501d9`, 266 lines of advanced cursors plus 24 of
+  fresh ledger, where the two runs before it had committed nothing at all. A
+  budget reduces how often you rely on that; it is not a substitute for it.
 - **A CURSOR MUST ADVANCE BY WHAT WAS EXAMINED, and "the window's length" stops
   being that the moment anything can stop early.** `osm-food` set
   `cursor = start + len(window)` BEFORE the loop, which was right while the only
@@ -899,6 +917,21 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   `../mapsee/site/js/app.js` folds a series to its next occurrence), with nothing
   in any log to say so. That is why it has a test, refuses implausibly large
   groups, and never touches a claimed row.
+
+- **A HELPER THAT WRITES A REPO FILE AS A SIDE EFFECT WILL EVENTUALLY BE
+  CALLED BY A TEST.** `_discover_osm` ends with `_save_ledger(led)`, so calling
+  it from a throwaway verification with `{}` REPLACED `curation_ledger.json` —
+  5,861 entries, 41,030 lines — with an empty file, and `git add -A` then
+  committed and pushed it. Both halves are already written down as things not
+  to do (../mapsee: "stage your own paths explicitly, never `-A`"), and both
+  were done anyway inside one command. Recovered from `29fe5de`; the next
+  scheduled run had already rebuilt it to 3 rows and would have re-probed
+  thousands of known-dead hosts for weeks, slowly and silently, because the
+  ledger is the only thing that makes a sweep get cheaper. `test_discover_osm`
+  stubs `_save_ledger` AND hashes the file either side, because the stub is the
+  kind of line a later edit removes without noticing. A test that drives real
+  machinery has to intercept every write that machinery does, not only the ones
+  it asserts on.
 
 ## Running things
 

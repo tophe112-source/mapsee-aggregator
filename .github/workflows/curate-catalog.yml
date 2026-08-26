@@ -217,7 +217,15 @@ jobs:
           # nothing follows it — so it is passed INTO the sweep, which already
           # counts the metros it read and advances its cursor by that, and
           # already treats an unreached metro as where the next run starts.
-          OSM_BUDGET_MIN=70
+          # 55, not 70, and the number comes from a measured run rather than
+          # from the cap minus a guess. 2026-08-26 20:53: socrata 6s, ckan 101s,
+          # mobilizon 3s, "Coverage after" + "Commit new sources" 2s together —
+          # so essentially the whole 90 belongs to osm, and it has to cover
+          # DISCOVER *and* VERIFY, which probes every candidate discover found
+          # with one more live request. 70 left too little for the second half
+          # and the step was cancelled again (harmlessly this time: always()
+          # meant it still committed its cursors and ledger).
+          OSM_BUDGET_MIN=55
           for b in $BACKENDS; do
             echo "::group::$b"
             # socrata is the default and takes no positional; the others do.

@@ -1212,10 +1212,30 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
                       f"cursor stays here (attempt {n}/3)")
             break
         stuck.pop(str(idx), None)
-        read += 1
         print(f"  {label}: {len(venues)} venue(s) publish a website")
+        # A METRO IS ONLY `read` IF IT WAS READ TO THE END. Both ways out of the
+        # venue loop below leave it half-probed, and the cursor must not march
+        # past what nobody looked at — the same contract an Overpass refusal has
+        # had since the nine-metros-for-78-runs bug. Re-probing costs little,
+        # because the ledger already records every dead end found here and
+        # `_dead_recently` skips them next time; that is what the ledger is for.
+        whole = True
         for v in venues:
+            # THE BUDGET HAS TO BE CHECKED HERE, NOT ONLY BETWEEN METROS.
+            #
+            # Live on 2026-08-26: a --max-minutes 70 budget checked only at the
+            # top of the metro loop never fired, and the step was cancelled at
+            # its 90-minute cap having printed NOTHING from this backend — no
+            # "out of time", no per-metro summary. One metro is an Overpass call
+            # plus a LIVE FETCH PER VENUE (find_calendar, below), and a dense
+            # metro is hundreds of them, so a single iteration of the outer loop
+            # can outlast the whole budget. Bounding the loop you can see is not
+            # the same as bounding the work.
+            if deadline and time.time() >= deadline:
+                whole = False
+                break
             if len(found) >= limit:
+                whole = False
                 break
             home = _canon(v["url"])
             if not home:
@@ -1269,6 +1289,12 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
                 bump("found-but-unusable: " + osm.why_no_candidate(f))
             else:
                 bump(status.split(":")[0])
+        read += 1 if whole else 0
+        if not whole and deadline and time.time() >= deadline:
+            print(f"  out of time inside {label} — stopping so the candidates "
+                  f"found so far can be verified and committed; this metro is "
+                  f"UNREAD and the cursor stays before it")
+            break
         if len(found) >= limit:
             break
 

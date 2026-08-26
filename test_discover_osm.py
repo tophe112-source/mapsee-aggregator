@@ -250,6 +250,79 @@ def main():
     check_true("a southern-hemisphere bbox is ordered s,w,n,e",
                float(south.split(",")[0]) < float(south.split(",")[2]))
 
+    # ------------------------------------------------------------------
+    # THE WALL-CLOCK BUDGET, AND WHERE IT HAS TO BE CHECKED.
+    #
+    # This sweep is the whole of `curate-catalog`'s runtime: measured
+    # 2026-08-26, socrata took 6 seconds, ckan 101, mobilizon 3, and osm the
+    # remaining 88 — into the job's 90-minute timeout-minutes, which CANCELS
+    # the step and skips every step after it.
+    #
+    # The first budget was checked only at the top of the METRO loop and never
+    # fired once: that run printed nothing at all from this backend before it
+    # was killed. One metro is an Overpass call plus a LIVE FETCH PER VENUE,
+    # and a dense metro is hundreds of them, so a single iteration of the loop
+    # you can see outlasts the whole budget. Bounding the loop is not the same
+    # as bounding the work.
+    #
+    # The other half is the cursor: a metro abandoned part-way through is
+    # UNREAD, exactly as one Overpass never answered for is, and the cursor
+    # must stay before it. Re-probing costs little because the ledger already
+    # holds every dead end this pass found.
+    import catalog_curate as C
+    import hashlib as _hl0, os as _os0
+    _ledger_before = (_hl0.sha256(open(C.LEDGER_FILE, "rb").read()).hexdigest()
+                      if _os0.path.exists(C.LEDGER_FILE) else None)
+    probed, now = [], [1000.0]
+    # _save_ledger IS STUBBED, AND THAT IS NOT OPTIONAL. `_discover_osm` writes
+    # curation_ledger.json as a side effect at the end of every call, with
+    # whatever dict it was handed — so calling it from a test with `{}` REPLACES
+    # the repo's 5,861-row ledger with an empty one, and a `git add -A` then
+    # commits that. Which is exactly what happened on 2026-08-26 (recovered from
+    # 29fe5de). A test that drives real machinery has to intercept every write
+    # that machinery does, not only the ones it is asserting on.
+    _ledger_writes = []
+    real = (C.time.time, osm.overpass_venues, osm.find_calendar, osm.metros,
+            C._save_ledger)
+    C._save_ledger = lambda led: _ledger_writes.append(len(led))
+    C.time.time = lambda: now[0]
+    osm.metros = lambda: [{"name": f"M{i}", "country": "GB", "bbox": (0, 0, 1, 1)}
+                          for i in range(3)]
+    osm.overpass_venues = lambda sess, bbox, lab: [
+        {"url": f"https://{lab}-{j}.example", "name": f"v{j}"} for j in range(50)]
+    def _fc(sess, url):                      # the live fetch, so also the clock
+        probed.append(url); now[0] += 1.0
+        return {"status": "no-calendar"}
+    osm.find_calendar = _fc
+    try:
+        cur = {"metro": 0}
+        C._discover_osm(C._session(), set(), {}, 500, cur, metros_per_run=3,
+                        deadline=1000.0 + 20)              # 20 venues of budget
+        check_true("the budget stops the sweep INSIDE a metro, not only between "
+                   f"metros ({len(probed)} venues probed of 150)",
+                   20 <= len(probed) <= 21)
+        check("...and a part-read metro leaves the cursor before it",
+              cur["metro"], 0)
+        probed.clear(); now[0] = 1000.0
+        cur2 = {"metro": 0}
+        C._discover_osm(C._session(), set(), {}, 500, cur2, metros_per_run=3,
+                        deadline=1000.0 + 10_000)
+        check("with budget to spare it reads every metro", len(probed), 150)
+        check("...and the cursor wraps cleanly", cur2["metro"], 0)
+    finally:
+        (C.time.time, osm.overpass_venues, osm.find_calendar, osm.metros,
+         C._save_ledger) = real
+    check_true("the sweep wrote its ledger (to the stub, not to the repo)",
+               len(_ledger_writes) == 2)
+
+    # THE GUARD ITSELF. If a future edit drops that stub, this is what says so
+    # before the commit rather than after the push.
+    import hashlib as _hl, os as _os
+    _lp = C.LEDGER_FILE
+    check_true("...and the real curation_ledger.json is untouched on disk",
+               (not _os.path.exists(_lp)) or _ledger_before == _hl.sha256(
+                   open(_lp, "rb").read()).hexdigest())
+
     print()
     if FAILURES:
         print(f"{len(FAILURES)} FAILED: " + "; ".join(FAILURES))
