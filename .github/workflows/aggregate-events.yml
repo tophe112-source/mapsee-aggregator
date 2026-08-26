@@ -346,24 +346,6 @@ jobs:
           else
             echo "no parkrun_sources.json — skipping parkrun"
           fi
-      # ~35,500 upcoming UK physical-activity sessions from 12 publishers, all
-      # CC-BY 4.0 and all carrying their own coordinates — which is what makes
-      # them cheap: outside the US the sync cannot geocode, so a source that
-      # brings no lat/lon places nothing. Straight into `fitness`, `sports` and
-      # (GoodGym) `volunteer`, the three thinnest columns coverage reports.
-      #
-      # RPDE PAGES FROM THE OLDEST END, so the adapter walks each feed to its
-      # end; that is why this step costs minutes rather than seconds and why it
-      # is not worth splitting per publisher. --horizon-days guards against
-      # Let's Ride's year-2500 sentinel dates.
-      - name: Import OpenActive (UK leisure, community sport and volunteering sessions)
-        run: |
-          if [ -f openactive_sources.json ]; then
-            python mapsee_ingest_openactive.py \
-              --config openactive_sources.json --store feeds_events.json
-          else
-            echo "no openactive_sources.json — skipping OpenActive"
-          fi
       - name: Import curated recurring community programs (e.g. free summer meals, expanded to dated occurrences)
         run: |
           if [ -f program_sources.json ]; then
@@ -698,6 +680,64 @@ jobs:
   # Worth the runner time: measured over six metros the sweep yields 352 markets
   # and 3,684 occurrences, and the whole `market` category currently holds 3,469
   # upcoming events — fleabop is the thinnest lens on the map.
+  # ITS OWN JOB, and this one is measured rather than assumed. Put inside
+  # `feeds` it ran 31 minutes — which is honest work (RPDE pages from the
+  # OLDEST end, so every one of the 12 publishers is walked to its end) and it
+  # was 31 minutes added to the critical path of a job that already took 3h29m
+  # against a 240-minute cap. On its first real run that tipped `feeds` to
+  # EXACTLY 4h00m and the runner cancelled it mid-step, losing
+  # mapsee_link_series for the day. Everything before it had already synced, so
+  # the damage was small and it would have recurred every single night.
+  #
+  # Nothing about it wants to be in `feeds`: no shared cursor, no shared
+  # geocode cache (every row carries coords_exact, so the Census pass skips
+  # them), and its own store means the fingerprint dedupe has nothing to gain
+  # from sharing one. Same reasoning as `markets_osm` — a long sweep belongs
+  # beside the others, not inside one.
+  openactive:
+    name: OpenActive (UK leisure, community sport and volunteering sessions)
+    runs-on: ubuntu-latest
+    # Daily cron + manual, alongside `feeds`; skipped on the Mon/Thu heavy cron.
+    if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
+      # ~35,500 upcoming sessions from 12 publishers, all CC-BY 4.0 and all
+      # carrying their own coordinates — which is what makes them cheap:
+      # outside the US the sync cannot geocode, so a source that brings no
+      # lat/lon places nothing. Into `fitness`, `sports` and (GoodGym)
+      # `volunteer`, the three thinnest columns coverage reports.
+      #
+      # --horizon-days guards against Let's Ride's year-2500 sentinel dates.
+      - name: Import OpenActive sessions
+        run: |
+          set +e
+          if [ -f openactive_sources.json ]; then
+            python mapsee_ingest_openactive.py \
+              --config openactive_sources.json --store openactive_events.json
+          else
+            echo "no openactive_sources.json — skipping OpenActive"
+          fi
+          exit 0
+      - name: Sync OpenActive to Supabase (rows carry coords — no geocoding)
+        run: |
+          ONLY_NEW="--only-new"
+          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh
+          [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
+          echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
+          if [ -f openactive_events.json ]; then
+            python mapsee_supabase_sync.py --store openactive_events.json $ONLY_NEW
+          else
+            echo "no openactive_events.json — nothing was pulled this run"
+          fi
+
   markets_osm:
     name: OSM marketplaces (fleabop — its own job; the sweep is 3h+)
     runs-on: ubuntu-latest

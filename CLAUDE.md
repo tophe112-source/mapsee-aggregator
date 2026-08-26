@@ -731,6 +731,16 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   `osm-amenities.yml`, which refuses to start without the column: there
   `pin_only` is not a nice-to-have but the entire point, and importing furniture
   without it puts every drinking fountain in the metro into the Nearby list.
+- **A STEP ADDED TO A LONG JOB IS ADDED TO ITS CRITICAL PATH, and `feeds` was
+  already at 3h29m against a 240-minute cap.** OpenActive walks twelve RPDE
+  feeds to their end, which is honest work and costs 31 minutes. Dropped into
+  `feeds` it tipped that job to EXACTLY 4h00m on its first real run, and the
+  runner cancelled it mid-step — losing `mapsee_link_series` for the day, every
+  day, silently, because everything before it had already synced and the run
+  reports "cancelled" rather than "failed". It has its own job now, beside
+  `races` and `markets_osm`, which is what those two are for. Before adding a
+  step to `feeds`, look at what that job's last run actually took: the cap is
+  four hours and the headroom is not what it looks like.
 - **A HELPER IMPORTED IS A CONTRACT INHERITED, AND BOTH OF THIS ADAPTER'S
   PRODUCTION FAILURES WERE ONE GUESSED RATHER THAN READ.**
   `mapsee_ingest_osm_amenities` imports nine helpers from
