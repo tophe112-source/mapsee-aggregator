@@ -200,6 +200,36 @@ def main():
     dash = ev({"amenity": "give_box", "operator": "-"})
     checks.append((dash.pin_only is True, "'-' is a placeholder, not an operator"))
 
+    # ------------------------------- THE CONFIG IS PART OF THE ADAPTER
+    #
+    # Every case above builds a NormalizedEvent directly, so all of them passed
+    # while osm_amenity_sources.json was unloadable: it wrote lat/lon as
+    # separate keys where area_bbox reads a `center` PAIR. Valid JSON, every
+    # test green, and `KeyError: 'center'` on the first line of the first real
+    # run — after the Overpass fetch had been queued and a runner spent.
+    #
+    # Same family as the parkrun config that was never committed while the job
+    # printed a friendly skip: a config a job needs is part of the job, and
+    # nothing that only tests the pure functions can see it.
+    import json as _json
+    from mapsee_ingest_osm_food import area_bbox as _bbox, tiles as _tiles
+    cfg = _json.load(open("osm_amenity_sources.json", encoding="utf-8"))
+    areas = cfg.get("areas") or []
+    checks.append((len(areas) > 0, "osm_amenity_sources.json declares areas"))
+    for area in areas:
+        name = area.get("name", "?")
+        try:
+            south, west, north, east = _bbox(area)
+            ok = south < north and west < east
+            cells = len(_tiles((south, west, north, east), max_deg=A.TILE_DEG))
+        except Exception as exc:                            # noqa: BLE001
+            ok, cells, south = False, 0, f"{type(exc).__name__}: {exc}"
+        checks.append((ok, f"{name}: area_bbox reads it, and the box is the right way up"))
+        # A hub that tiles into nothing would fetch nothing and report success.
+        checks.append((cells >= 1, f"{name}: covers at least one Overpass tile"))
+    checks.append((all(a.get("country") for a in areas),
+                   "every area names its country — the sync has no other source for it"))
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1

@@ -731,6 +731,17 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   `osm-amenities.yml`, which refuses to start without the column: there
   `pin_only` is not a nice-to-have but the entire point, and importing furniture
   without it puts every drinking fountain in the metro into the Nearby list.
+- **A CONFIG THAT PARSES AS JSON IS NOT A CONFIG THAT LOADS.**
+  `osm_amenity_sources.json` shipped with `"lat"` and `"lon"` as separate keys
+  where `area_bbox` reads a `"center"` PAIR. Valid JSON, reviewed, and all 41
+  cases green — because every one of them built a `NormalizedEvent` directly and
+  none went near the config. The first real run died on
+  `KeyError: 'center'` at the first line of `main()`, after a runner had been
+  spent and an Overpass fetch queued. This is the parkrun config that was never
+  committed wearing a different hat: a config a job needs is part of the job,
+  and nothing that tests only the pure functions can see it.
+  `test_ingest_osm_amenities.py` now runs EVERY area through `area_bbox` and
+  `tiles`, so the file has to be loadable by the code that will load it.
 - **`social_facility=food_bank` is 4,938 uses; `amenity=food_bank` is 16.**
   Reaching for the obvious key produces an adapter that runs clean, reports
   success and imports essentially nothing — the same silence as the parkrun
