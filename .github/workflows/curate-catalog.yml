@@ -204,23 +204,21 @@ jobs:
           #
           # timeout-minutes: 90 CANCELS the step, and a cancelled step SKIPS
           # every step after it — including "Commit new sources". So a run that
-          # hit the ceiling threw away every source it had verified, and the
-          # comment on that ceiling says the opposite ("a run that hits it still
-          # commits everything it proved before stopping"). Live on 2026-08-26:
-          # this step ran 05:36:58 -> 07:07:00, exactly ninety minutes, and both
-          # the coverage step and the commit were skipped.
+          # hit the ceiling threw away every source it had verified, under a
+          # comment on that ceiling claiming the opposite ("a run that hits it
+          # still commits everything it proved before stopping"). Both of
+          # 2026-08-26's scheduled runs did exactly that, 04:06:37 -> 05:36:41
+          # and 05:36:58 -> 07:07:00: ninety minutes to the second, twice.
           #
-          # Same shape as OpenActive tipping `feeds` to 4h00m and silently
-          # costing link_series its nightly run. The fix is the same: end the
-          # work ourselves, with time left to save it.
-          DEADLINE=$(( $(date +%s) + 75 * 60 ))
+          # AND THE BUDGET BELONGS TO `osm`, not to the loop. Measured from that
+          # run's own log: socrata 6 seconds, ckan 2 minutes, mobilizon 3
+          # seconds, osm the remaining 88. A deadline checked BETWEEN backends
+          # would never once have fired, because the expensive one is last and
+          # nothing follows it — so it is passed INTO the sweep, which already
+          # counts the metros it read and advances its cursor by that, and
+          # already treats an unreached metro as where the next run starts.
+          OSM_BUDGET_MIN=70
           for b in $BACKENDS; do
-            if [ "$(date +%s)" -ge "$DEADLINE" ]; then
-              echo "::warning::curate: out of time before $b — the backends after it were" \
-                   "not swept this run. Their cursors have not moved, so the next run" \
-                   "starts where this one stopped."
-              break
-            fi
             echo "::group::$b"
             # socrata is the default and takes no positional; the others do.
             # tee'd because DISCOVER's own output is where the skip breakdown
@@ -229,10 +227,12 @@ jobs:
             # ("ics-without-feed", "no-config-shape(mylisting)") and which metros
             # went UNREAD because Overpass never answered — both invisible in a
             # log nobody scrolls, and both the numbers that say where to work next.
+            BUDGET=""
+            [ "$b" = "osm" ] && BUDGET="--max-minutes $OSM_BUDGET_MIN"
             if [ "$b" = "socrata" ]; then
               python catalog_curate.py discover --limit "$LIMIT" $CATFLAG --out "cand-$b.json" | tee "discover-$b.txt"
             else
-              python catalog_curate.py discover "$b" --limit "$LIMIT" $CATFLAG --out "cand-$b.json" | tee "discover-$b.txt"
+              python catalog_curate.py discover "$b" --limit "$LIMIT" $CATFLAG $BUDGET --out "cand-$b.json" | tee "discover-$b.txt"
             fi
             [ -f "cand-$b.json" ] || echo '[]' > "cand-$b.json"
             python catalog_curate.py verify "cand-$b.json" | tee "verify-$b.txt"

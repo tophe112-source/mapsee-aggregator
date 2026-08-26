@@ -1138,7 +1138,8 @@ BACKENDS = ("socrata", "ckan", "mobilizon", "osm")
 OSM_METROS_PER_RUN = 3
 
 
-def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None):
+def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
+                  deadline=0.0):
     """Propose venue calendars found on the map. See catalog_discover_osm.py.
 
     The ledger does more work here than in the other backends. A metro has
@@ -1173,6 +1174,23 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None):
     read = 0
     stuck = cursor.setdefault("stuck", {})
     for step in range(per_run):
+        # OUT OF TIME IS A REASON TO STOP, NOT A REASON TO LOSE THE RUN.
+        #
+        # This backend is the whole budget: measured 2026-08-26, socrata took 6
+        # seconds, ckan two minutes and mobilizon three seconds, and osm then ran
+        # 88 minutes into the job's 90-minute timeout-minutes and was CANCELLED
+        # — which skips every step after it, so "Commit new sources" never ran
+        # and every source the run had verified went in the bin. That happened on
+        # both of the day's two scheduled runs, and on the ones before them: it
+        # is what this job does every time, not a bad day.
+        #
+        # Breaking BETWEEN metros is the honest place, because `read` is what the
+        # cursor advances by — so an unreached metro is simply where the next run
+        # starts, which is the same contract an Overpass refusal already has.
+        if deadline and time.time() >= deadline:
+            print(f"  out of time after {read}/{per_run} metros — stopping here so "
+                  f"the candidates found so far can be verified and committed")
+            break
         idx = (start + step) % len(all_metros)
         m = all_metros[idx]
         label = f"{m['name']}, {m['country']}"
@@ -1351,7 +1369,7 @@ def _discover_mobilizon(session, seen_keys, led, limit):
 
 
 def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
-                 metros=None):
+                 metros=None, max_minutes=0.0):
     """`only` pins the sweep to specific lens categories.
 
     Without it the budget is spent thinnest-category-first across every query,
@@ -1400,8 +1418,9 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
                   "category-pinned run)")
             found, skipped = {}, {}
         else:
-            found, skipped = _discover_osm(session, seen_keys, led, limit, cursor,
-                                           metros_per_run=metros)
+            found, skipped = _discover_osm(
+                session, seen_keys, led, limit, cursor, metros_per_run=metros,
+                deadline=(time.time() + max_minutes * 60) if max_minutes > 0 else 0.0)
     elif backend == "ckan":
         _report_query_gaps(cats, CKAN_QUERIES, "ckan")
         queries = _order_queries(_filter_queries(CKAN_QUERIES, only), cats)
@@ -2224,8 +2243,13 @@ def main(argv):
         # it does not reach simply where the next run starts, so this is a budget
         # knob and never a coverage decision.
         metros = int(argv[argv.index("--metros") + 1]) if "--metros" in argv else None
+        # osm only: a WALL-CLOCK budget, because the metro count does not predict
+        # the time — the cost is an Overpass call plus a fetch per venue with a
+        # website, against servers we do not control. 0 = no limit.
+        mm = (float(argv[argv.index("--max-minutes") + 1])
+              if "--max-minutes" in argv else 0.0)
         return cmd_discover(limit=lim, out=out, backend=backend, only=only,
-                            metros=metros)
+                            metros=metros, max_minutes=mm)
     if cmd == "audit":
         return cmd_audit()
     if cmd == "ledger":

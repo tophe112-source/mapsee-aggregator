@@ -297,10 +297,11 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   2026-08-26 and all reading as "cancelled" rather than "failed":
   `feeds` at exactly 4h00m lost `mapsee_link_series` nightly (above);
   `curate-catalog`'s discover step ran 05:36:58 to 07:07:00 — its ninety-minute
-  cap to the second — and skipped **Coverage after** and **Commit new
-  sources**, so every source it had verified went in the bin, under a comment
-  on that very cap claiming "a run that hits it still commits everything it
-  proved before stopping"; and `osm-food`'s Paris job ran 5h30m against a
+  cap to the second, and the run before it 04:06:37 to 05:36:41, the same
+  ninety — and skipped **Coverage after** and **Commit new sources**, so every
+  source it had verified went in the bin, under a comment on that very cap
+  claiming "a run that hits it still commits everything it proved before
+  stopping"; and `osm-food`'s Paris job ran 5h30m against a
   330-minute cap and skipped its sync, its cursor slice and its hand-up, so the
   sweep was discarded AND the cursor never moved — next week it would start in
   the same place and do it again, while the other seven metros finished in one
@@ -310,6 +311,16 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   save. A wall-clock budget is needed where a per-item cap is not enough,
   because the cost is one fetch per venue against servers we do not control and
   is not predictable from the candidate count.
+- **AND THE BUDGET GOES WHERE THE TIME GOES, WHICH IS NOT WHERE THE LOOP IS.**
+  The first attempt at the curate fix put a deadline between backends in the
+  shell loop, which reads as obviously right and would never once have fired:
+  from that run's own log, socrata took 6 SECONDS, ckan 2 minutes, mobilizon 3
+  seconds, and `osm` the remaining 88 — and osm is deliberately LAST, so
+  nothing follows it to check anything. The budget belongs inside
+  `_discover_osm`'s metro loop, which already counts what it `read` and already
+  advances the cursor by that, so an unreached metro is simply where the next
+  run starts — the same contract an Overpass refusal already had. Before
+  bounding a loop, measure which iteration spends the time.
 - **A CURSOR MUST ADVANCE BY WHAT WAS EXAMINED, and "the window's length" stops
   being that the moment anything can stop early.** `osm-food` set
   `cursor = start + len(window)` BEFORE the loop, which was right while the only
