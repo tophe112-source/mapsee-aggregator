@@ -152,19 +152,68 @@ def main():
     checks.append((junk.pin_only is True,
                    "...and an unreadable string does not promote furniture to a listing"))
 
-    # A FOOD BANK IS THE EXCEPTION, and it is the whole reason `always_open`
-    # exists. No hours on a playground is true. No hours on a food bank is a
-    # person at a locked door.
-    fb_bare = ev({"social_facility": "food_bank"})
-    checks.append((fb_bare is not None and fb_bare.pin_only is True,
-                   "a food bank with no readable hours is still DRAWN — knowing it is there matters"))
-    checks.append(("🕑" not in fb_bare.description,
-                   "...and makes no claim whatsoever about being open"))
+    # A FOOD BANK IS THE EXCEPTION TWICE OVER, and the two exceptions are
+    # different rules that happen to live on the same selector.
+    #
+    # `always_open` is about the HOURS: no hours on a playground is true, and
+    # no hours on a food bank is a person at a locked door holding an empty
+    # bag, so it never gets the open-all-week window the other kinds get.
+    #
+    # `always_list` is about the SHEET: every other selector has to earn its
+    # tap, because a fountain's pin already carries the whole of what its row
+    # knows. WHERE A FOOD BANK IS does not work like that — the location is
+    # itself the thing somebody came looking for, and whether they can open it,
+    # read its name, route to it or send it to someone must not depend on
+    # whether a mapper filled in a phone number.
+    fb_bare = ev({"social_facility": "food_bank", "name": "ACRS Food Bank"})
+    checks.append((fb_bare is not None and fb_bare.pin_only is False,
+                   "a food bank with nothing else tagged is still a LISTING — where it "
+                   "is, is the fact"))
+    checks.append(("not listed" in fb_bare.description,
+                   "...and says out loud that the hours are unknown, rather than "
+                   "leaving a silence a reader fills in with \"open, presumably\""))
+    checks.append((fb_bare.recurring_days == A.ALWAYS,
+                   "...while the all-week window it carries is the roller's, not a "
+                   "claim: parkrun's all-day event, not an invented time"))
+    checks.append((ev({"leisure": "playground"}).pin_only is True,
+                   "and the exemption is ONE selector — a bare playground is still "
+                   "furniture, or 0194 unravels by degrees"))
+
     fb = ev({"social_facility": "food_bank", "name": "Rainier Food Bank",
              "opening_hours": "Tu,Th 10:00-14:00", "operator": "Northwest Harvest"})
     checks.append((fb.pin_only is False and "Tue 10:00-14:00" in fb.description,
                    "a food bank that publishes its hours is a listing that states them"))
     checks.append((fb.category == "volunteer", "and lands on the volunteer layer"))
+
+    # AN UNREADABLE STRING IS NOT AN OPEN SIGN — AND IT IS NOT AN ABSENT ONE
+    # EITHER. Our parser refuses "Mo-Fr 09:00-17:00; PH off" because it cannot
+    # be ACTED on; the person standing outside reads it fine. Quote it,
+    # attribute it, claim nothing.
+    fb_junk = ev({"social_facility": "food_bank", "name": "St Mary's Pantry",
+                  "opening_hours": "Mo-Fr 09:00-17:00; PH off"})
+    checks.append((fb_junk.recurring_days == A.ALWAYS,
+                   "an unreadable food-bank string still produces NO weekly pattern"))
+    checks.append(("as tagged in OpenStreetMap: Mo-Fr 09:00-17:00; PH off" in fb_junk.description,
+                   "...and is quoted verbatim and attributed, because unparseable "
+                   "is not unreadable"))
+    checks.append(("Open:" not in fb_junk.description,
+                   "...and never as our own \"Open:\" claim"))
+
+    # 24/7 IS DELIBERATELY SILENT ON A FOUNTAIN AND IS THE BEST NEWS ON A FOOD
+    # BANK. "Never closes" is what a fountain's pin already implies.
+    fb_247 = ev({"social_facility": "food_bank", "name": "Little Free Pantry",
+                 "opening_hours": "24/7"})
+    checks.append(("Open at all hours" in fb_247.description,
+                   "a 24/7 food bank says so"))
+    checks.append(("🕑" not in ev({"amenity": "drinking_water",
+                                           "opening_hours": "24/7"}).description,
+                   "...where a 24/7 fountain still says nothing: the pin already did"))
+
+    # NAMING A THING AFTER ITS OWN KIND. Unnamed rows were all furniture until
+    # food banks started listing, so "Food bank — food bank." was never read.
+    unnamed = ev({"social_facility": "food_bank", "addr:city": "Seattle"})
+    checks.append((unnamed.description.startswith("Food bank in Seattle."),
+                   "an unnamed row does not introduce itself twice"))
 
     # ------------------------------------------------------------- placement
     row = ev({"leisure": "playground", "name": "Cal Anderson Play Area",

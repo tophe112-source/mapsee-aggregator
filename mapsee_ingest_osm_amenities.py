@@ -24,6 +24,15 @@ asked. So this adapter sorts its own output into two kinds:
                 the Nearby list, and not in a sitemap. `pin_only` on the row
                 says so, and ../mapsee 0194 is the other half.
 
+ONE SELECTOR IS EXEMPT, AND THE EXEMPTION IS THE STAKES. A food bank is always
+a listing, tagged or bare, because WHERE ONE IS is itself the actionable fact —
+it is the thing somebody came to the map looking for, and whether it can be
+opened, named, routed to and shared must not depend on whether a mapper filled
+in a phone number. That is not true of a fountain, whose pin already carries
+the whole of what its row knows. See `Kind.always_list`, and note it is
+deliberately one selector: widening it to give boxes and bike stands would undo
+the split above by degrees, and the argument does not carry to them.
+
 That split is the whole design. The alternative — put every playground in the
 events table as a listing — makes the map louder and the product worse: it
 buries the concert three streets away under four hundred benches, and it fills
@@ -66,8 +75,18 @@ refusals; where they are absent the row is written open-all-week, which is what
 
 Refusing an UNREADABLE hours string still matters most of all rules, for the
 food adapter's reason: ignoring "shut" advertises a place as open. An amenity
-whose hours we cannot parse is written as FURNITURE with no hours claim rather
-than as an open listing.
+whose hours we cannot parse carries NO hours claim — no weekly pattern, and
+nothing in the body that reads as one.
+
+For a food bank, which is a listing either way, that leaves three different
+silences and they want three different sentences: `24/7` (which the other kinds
+deliberately do not print, because "never closes" is what a fountain's pin
+already implies, and which for a food bank is the best news on the row); a
+string tagged that our parser refused, quoted verbatim and attributed, because
+"we cannot ACT on this" is not "a person cannot READ it"; and nothing tagged at
+all, said out loud rather than left as a silence a reader fills in with "open,
+presumably". `hours_unknown_line`. Never a guessed time — parkrun's rule, and
+for the same reason.
 
 ATTRIBUTION. ODbL, on every row, in the same words the other two use, because
 mapsee_retire_perday_osm.py keys on that line.
@@ -117,7 +136,7 @@ class Kind:
     """One selector, and everything that follows from it."""
 
     def __init__(self, key, value, category, noun, glyph, secondary=(),
-                 always_open=True):
+                 always_open=True, always_list=False):
         self.key, self.value = key, value
         self.category, self.noun, self.glyph = category, noun, glyph
         self.secondary = list(secondary)
@@ -130,10 +149,27 @@ class Kind:
         # For a food bank: emphatically no, and getting it wrong is the food
         # adapter's worst failure wearing a different hat — ignoring "shut"
         # advertises a place as open, and here the person turned away at a
-        # locked door came for food. A food bank with no readable hours is
-        # still worth a pin (knowing one is there is worth knowing) and it
-        # makes NO claim about being open, so it stays furniture.
+        # locked door came for food. So a food bank with no readable hours
+        # gets NO weekly pattern and makes no claim about being open.
         self.always_open = always_open
+        # IS "NOTHING TAGGED" THE SAME AS "NOTHING WORTH OPENING"?
+        #
+        # For every other selector here: yes, and that is the whole of 0194. A
+        # drinking fountain's pin already carries everything the row knows, so
+        # a sheet costs a tap to be told what the icon said.
+        #
+        # For a food bank: no. WHERE ONE IS is itself the actionable fact —
+        # it is the thing somebody is looking for, it is worth a name, a
+        # walking route and a share link, and the answer to "can I click it"
+        # must not depend on whether a mapper happened to fill in a phone
+        # number. Whether it is OPEN is a second question, answered honestly
+        # below (parkrun's rule: an all-day window and a sentence saying the
+        # real time is not in the feed, never a guess).
+        #
+        # Deliberately ONE selector. Widening this to give boxes and bike
+        # stands would undo 0194 by degrees; the argument here is the stakes,
+        # and they are not the same stakes.
+        self.always_list = always_list
 
     @property
     def slug(self):
@@ -148,7 +184,7 @@ KINDS = [
     Kind("amenity", "public_bookcase", "learning", "little free library", "📚", ["community"]),
     Kind("amenity", "bicycle_repair_station", "outdoors", "bike repair stand", "🔧"),
     Kind("social_facility", "food_bank", "volunteer", "food bank", "🥫", ["community"],
-         always_open=False),
+         always_open=False, always_list=True),
     Kind("amenity", "give_box", "community", "give box", "🎁", ["market"]),
 ]
 BY_SLUG = {k.slug: k for k in KINDS}
@@ -280,6 +316,37 @@ def own_image(tags: Dict[str, str]) -> Optional[str]:
     return None
 
 
+def hours_unknown_line(tags: Dict[str, str]) -> str:
+    """What to say to somebody who may travel to this on an empty stomach.
+
+    Only reached for an `always_list` kind, i.e. a food bank, and only when
+    `read_hours` produced no summary — which is three different situations
+    that want three different sentences:
+
+    * `24/7` parses, and `read_hours` deliberately prints nothing for it
+      because "never closes" is what a fountain's pin already implies. For a
+      food bank it is not implied and it is the best news on the row.
+    * A string is tagged and our parser refused it. The refusals are the
+      valuable part of that parser — an unreadable rule must never become an
+      open-all-week claim — but "we cannot ACT on this" is not "a person
+      cannot READ it", and `Mo-Fr 09:00-17:00; PH off` is perfectly plain to
+      the person standing outside. Quote it, say where it came from, and make
+      no claim of our own.
+    * Nothing is tagged at all. Say that, rather than leaving a silence a
+      reader would fill in with "open, presumably".
+
+    Never a guessed time. parkrun's rule, and for the same reason: the number
+    varies, nobody downstream can tell an invented one from a surveyed one,
+    and being wrong sends somebody to a locked door.
+    """
+    raw = (tags.get("opening_hours") or "").strip()
+    if raw in ("24/7", "24 hours", "24hrs"):
+        return "🕑 Open at all hours."
+    if raw:
+        return "🕑 Hours, as tagged in OpenStreetMap: " + _clean(raw, 120)
+    return "🕑 Opening times are not listed — check before travelling."
+
+
 def useful_lines(tags: Dict[str, str], kind: Kind,
                  hours_text: Optional[str] = None) -> List[str]:
     """Every actionable fact, as the product's emoji-marker detail lines.
@@ -296,6 +363,8 @@ def useful_lines(tags: Dict[str, str], kind: Kind,
 
     if hours_text:
         lines.append(f"🕑 Open: {hours_text}")
+    elif kind.always_list:
+        lines.append(hours_unknown_line(tags))
 
     fee = str(tags.get("fee") or "").strip().lower()
     charge = _clean(tags.get("charge"), 80)
@@ -474,10 +543,12 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
 
     days, hours_text, verdict = read_hours(tags, kind)
     if days is None:
-        # A food bank we cannot read: still worth a pin, and it must not carry
-        # an hours claim. It becomes furniture with an always-window purely so
-        # ../mapsee 0156's roller keeps the row alive; nothing renders it as
-        # "open now" because a pin_only row never reaches the event pin path.
+        # A food bank whose hours we cannot read. The all-week window here is
+        # NOT a claim — it exists so ../mapsee 0156's roller keeps the single
+        # row alive and dated, the way parkrun emits an all-day event rather
+        # than inventing a start time. What tells the reader the truth is the
+        # line `hours_unknown_line` puts in the body, and that line is why
+        # this row is worth opening at all.
         days, hours_text = dict(ALWAYS), None
 
     facts = useful_lines(tags, kind, hours_text)
@@ -489,9 +560,14 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
     street = " ".join(x for x in [tags.get("addr:housenumber"),
                                   tags.get("addr:street")] if x).strip() or None
 
+    # "Food bank — food bank." is what naming a thing after its own kind
+    # produces, and it only started showing when food banks became listings:
+    # every unnamed row before this was furniture, so nobody ever read one.
+    where = f" in {town}" if town else ""
+    head = (f"{title} — {kind.noun}{where}." if name else f"{title}{where}.")
+
     if facts or image:
         # A LISTING. Same description shape the other two OSM adapters write.
-        head = f"{title} — {kind.noun}{f' in {town}' if town else ''}."
         body = ("\n".join(facts) + "\n\n") if facts else ""
         description = (head + "\n\n" + body +
                        "Public details from OpenStreetMap contributors (ODbL). "
@@ -500,7 +576,7 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
         # FURNITURE. The description is still written — a claimed or promoted
         # row could one day need it, and ../mapsee 0194 hides the row rather
         # than relying on it being empty — but nothing will render it.
-        description = (f"{title} — {kind.noun}{f' in {town}' if town else ''}.\n\n"
+        description = (head + "\n\n"
                        "Public details from OpenStreetMap contributors (ODbL).")
 
     osm_ref = f"{el.get('type', 'n')}/{el.get('id')}"
@@ -542,7 +618,12 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
         recurring_days=days,
         # THE WHOLE POINT OF THIS ADAPTER. No fact worth reading -> draw it,
         # do not list it, do not index it, do not open it. ../mapsee 0194.
-        pin_only=not (facts or image),
+        #
+        # `kind.always_list` is redundant with `facts` — a food bank always
+        # gets an hours line, so `facts` is never empty for one — and it is
+        # stated anyway, because the alternative is a load-bearing rule that
+        # holds only as long as nobody edits a sentence two functions away.
+        pin_only=not (facts or image or kind.always_list),
     )
 
 

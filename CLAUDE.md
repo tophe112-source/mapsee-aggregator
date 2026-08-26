@@ -790,10 +790,43 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   bank.** A playground is untagged because it never closes; writing it open all
   week is true. A food bank written the same way sends somebody with an empty
   bag to a locked door — the food adapter's worst failure wearing a different
-  hat. `Kind.always_open` is the flag, and a food bank with no readable hours is
-  still DRAWN (knowing one is there matters) while making no claim whatsoever
-  about being open. An UNREADABLE hours string is treated as absent everywhere,
-  never as an open sign.
+  hat. `Kind.always_open` is the flag, and a food bank with no readable hours
+  gets NO weekly pattern and makes no claim whatsoever about being open. An
+  UNREADABLE hours string is treated as absent everywhere, never as an open
+  sign.
+- **A FOOD BANK IS THE ONE PIN WHERE "YOU CANNOT CLICK IT" IS THE WRONG
+  ANSWER, and getting there took making it furniture first.** The bar for a
+  sheet is "a fact you cannot already see from the map", which is right for the
+  other seven selectors and backwards for this one: WHERE A FOOD BANK IS *is*
+  the fact somebody came looking for, and whether they can open it, read its
+  name, route to it or send it to somebody must not depend on whether a mapper
+  filled in a phone number. Measured in Seattle: 24 food banks, and only 6 were
+  openable — Ballard and Wallingford had hours, the other 18 (ACRS, St Mary's,
+  Salvation Army Renton, the Little Free Pantries) were silently inert.
+  `Kind.always_list`, and it is deliberately ONE selector: the argument is the
+  stakes, and widening it to give boxes and bike stands would undo the
+  furniture split by degrees. What it must never do is invent a time —
+  `hours_unknown_line` says which of the three silences it is (`24/7`, a string
+  our parser refused, quoted verbatim and attributed because unparseable is not
+  unreadable, or nothing at all), which is parkrun's all-day event and its
+  "Start time on the event page." one selector over.
+- **A ROW NOBODY COULD OPEN WAS A ROW NOBODY HAD READ.** "Food bank — food
+  bank." is what naming a thing after its own kind produces, and it sat in
+  every unnamed row's description for as long as the adapter existed without
+  anyone noticing, because every unnamed row was furniture and furniture's
+  description is never rendered. It only became copy the moment food banks
+  started listing. Whenever a rule stops hiding a class of row, READ what that
+  class has been writing.
+- **A HAND-WRITTEN FIXTURE CANNOT SEE A BUG THAT LIVES BETWEEN TWO FILES, so
+  `gen_amenity_fixtures.py` generates them.** ../mapsee's `amenityHasContent`
+  is a second opinion on `pin_only`, and what it actually reads is a string
+  this repo assembles in two places — the adapter writes the description, the
+  sync appends to it. That is how the 🔎 Google link reached every drinking
+  fountain past a check that passed. Run it after touching `to_event` or
+  `to_row` and commit what changes; build the rec with
+  `NormalizedEvent.as_record` and never `vars()`, because `primary_url` reads
+  `rec["sources"]`, which is not a dataclass field, so a hand-shaped rec
+  silently drops the "Tickets / info:" line the client also has to strip.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
   publishes each occurrence separately and the store is rebuilt every run, so the
   occurrences never meet in memory — the table is the only place a series is
@@ -829,6 +862,7 @@ python test_ingest_parkrun.py       # the free weekly runs, and configs a guarde
 python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
 python test_ingest_openactive.py    # an RPDE feed's first page is its oldest, and it lies both ways
 python test_ingest_osm_amenities.py # which civic pins earn a sheet, and which are just the map
+python gen_amenity_fixtures.py      # regenerate ../mapsee's amenity fixtures from to_event + to_row
 python test_sync_unknown_column.py  # a column the database has not got YET must cost one feature, not the night
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
