@@ -1,0 +1,253 @@
+# The civic things a neighbourhood already has, from OpenStreetMap.
+#
+# The third sibling of osm-food.yml and osm-secondhand.yml. Read osm-food's
+# header for the matrix-from-config and the cursor slice/merge/commit dance,
+# and osm-secondhand's for why there is no sequential warm pass. What follows
+# is only what DIFFERS.
+#
+# MOST OF WHAT THIS WRITES IS FURNITURE, and that is the design. A drinking
+# fountain has nothing to say beyond being a drinking fountain, so its row is
+# marked pin_only and ../mapsee 0194 draws it and does nothing else — no sheet,
+# no Nearby row, no sitemap entry. The ingest prints the listing/furniture split
+# per area on every run, because a sweep that adds only furniture has still made
+# the map more useful and being able to SEE that is the point.
+#
+# LIKE ITS SIBLINGS, THIS FETCHES NOBODY'S WEBSITE. Overpass is the only service
+# we are a guest on, so --max-places bounds run time rather than politeness.
+#
+# SUNDAYS. osm-food takes Overpass on Tuesday and osm-secondhand on Saturday;
+# aggregate-events runs its heavy sweep Mon/Thu and its full refresh Wednesday.
+# Two of our own workflows tiling Overpass at once means backing off politely
+# against our own traffic.
+#
+# Never add pull_request: reads SUPABASE_SERVICE_ROLE_KEY via the sync step.
+name: OSM civic amenities
+
+on:
+  schedule:
+    - cron: "40 5 * * 0"          # Sundays, clear of osm-food (Tue) and osm-secondhand (Sat)
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "One area by name (blank = all)"
+        required: false
+        default: ""
+      kinds:
+        description: "Restrict to these selectors, e.g. leisure=playground,social_facility=food_bank"
+        required: false
+        default: ""
+      max_places:
+        description: "Elements examined per area (no page fetch; bounds run time only)"
+        required: false
+        default: "4000"
+      radius_miles:
+        description: "Override every hub's radius for this run (blank = config)"
+        required: false
+        default: ""
+      listings_only:
+        description: "Skip furniture — only elements carrying a fact worth reading"
+        type: boolean
+        required: false
+        default: false
+      dry_run:
+        description: "Report only, write nothing"
+        type: boolean
+        required: false
+        default: false
+      full_refresh:
+        description: "BACKFILL: re-examine from the first candidate and REWRITE existing rows"
+        type: boolean
+        required: false
+        default: false
+
+# ONE RUN AT A TIME, for osm-food.yml's reason: two runs write the same Supabase
+# rows and both try to commit the cursor, and the `cursor` job is `if: always()`.
+concurrency:
+  group: osm-amenities
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # the cursor job commits osm_amenity_cursor.json
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      areas: ${{ steps.pick.outputs.areas }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - id: pick
+        env:
+          ONLY: ${{ github.event.inputs.only }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          cfg = json.load(open("osm_amenity_sources.json", encoding="utf-8"))
+          only = (os.environ.get("ONLY") or "").strip().lower()
+          names = [a["name"] for a in cfg["areas"]
+                   if not only or only in a["name"].lower()]
+          print("areas=" + json.dumps(names))
+          PY
+      - run: echo "Running ${{ steps.pick.outputs.areas }}"
+
+  pull:
+    needs: plan
+    runs-on: ubuntu-latest
+    # Minutes, not hours: no third-party page fetches, and coords_exact=True on
+    # every row means the sync does not geocode them either.
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false            # one metro's bad day is not the sweep's
+      max-parallel: 4             # be a guest, and do not stampede the sync
+      matrix:
+        area: ${{ fromJSON(needs.plan.outputs.areas) }}
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      # REQUIRED by the sync: the profile imported events are created_by.
+      MAPSEE_HOST_PROFILE_ID: ${{ secrets.MAPSEE_HOST_PROFILE_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      # ONE CACHE ENTRY PER AREA, rolling on run_id and restoring by prefix —
+      # osm-secondhand's design and its reasons. The `-v1` is the manual bust:
+      # the ingest self-heals a changed bbox but cannot see a changed SELECTOR,
+      # so bump it whenever KINDS gains or loses an entry.
+      - name: Cache ${{ matrix.area }}'s amenity list
+        uses: actions/cache@v4
+        with:
+          path: osm_amenity_cache
+          key: osm-amenity-v1-${{ matrix.area }}-${{ github.run_id }}
+          restore-keys: |
+            osm-amenity-v1-${{ matrix.area }}-
+
+      # THE SPLIT IS THE RISK IN THIS ADAPTER. Marking a real listing as
+      # furniture makes its opening hours unreachable; marking furniture as a
+      # listing puts every bench in the metro in somebody's Nearby list. Both
+      # are silent. The hours test is osm-food's, because that is whose parser
+      # this imports — and refusing an unreadable string matters most of all
+      # rules, because ignoring "shut" advertises a place as open.
+      - name: The listing/furniture split, and the hours we may act on
+        run: |
+          python test_ingest_osm_amenities.py
+          python test_osm_food.py
+
+      - name: Pull ${{ matrix.area }}
+        run: |
+          python mapsee_ingest_osm_amenities.py \
+            --config osm_amenity_sources.json --store feeds_events.json \
+            --only "${{ matrix.area }}" \
+            --max-places ${{ github.event.inputs.max_places || 4000 }} \
+            ${{ github.event.inputs.kinds && format('--kinds {0}', github.event.inputs.kinds) || '' }} \
+            ${{ github.event.inputs.radius_miles && format('--radius-miles {0}', github.event.inputs.radius_miles) || '' }} \
+            ${{ github.event.inputs.listings_only == 'true' && '--listings-only' || '' }} \
+            ${{ github.event.inputs.full_refresh == 'true' && '--ignore-cursor' || '' }} \
+            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+
+      - name: Sync to Supabase
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          # --only-new is right for the WEEKLY run and exactly wrong for a
+          # backfill. It matters more here than in the siblings: pin_only is
+          # written on EVERY row, so an OSM mapper adding opening hours to a
+          # playground only takes that pin out of furniture on a full refresh.
+          ONLY_NEW="--only-new"
+          if [ "${{ github.event.inputs.full_refresh }}" = "true" ]; then
+            ONLY_NEW=""
+            echo "FULL REFRESH: syncing without --only-new; existing rows will be rewritten"
+          fi
+          if [ -f feeds_events.json ]; then
+            python mapsee_supabase_sync.py --store feeds_events.json $ONLY_NEW
+          else
+            echo "no feeds_events.json — nothing was pulled this run"
+          fi
+
+      - name: Take this area's cursor slice
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          AREA: ${{ matrix.area }}
+        run: |
+          python - <<'PY'
+          import json, os
+          area = os.environ["AREA"]
+          try:
+              cur = json.load(open("osm_amenity_cursor.json", encoding="utf-8"))
+          except Exception:
+              cur = {}
+          slice_ = {area: cur[area]} if area in cur else {}
+          json.dump(slice_, open("cursor_slice.json", "w", encoding="utf-8"), sort_keys=True)
+          print("handing up", slice_)
+          PY
+
+      - name: Hand up the cursor
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: cursor-${{ strategy.job-index }}
+          path: cursor_slice.json
+          if-no-files-found: ignore
+          retention-days: 1
+
+  cursor:
+    needs: pull
+    if: ${{ always() && github.event.inputs.dry_run != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cursor-*
+          path: cursors
+        continue-on-error: true
+      # RE-MERGE ONTO THE LATEST main EACH ATTEMPT, and retry — osm-food's
+      # lesson: a sweep takes a while, and any push to main in that window
+      # rejects a commit built against the checkout from run start.
+      - name: Merge and commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main        # cursors/ is untracked, so it survives
+            python - <<'PY'
+          import glob, json, os
+          merged = {}
+          if os.path.exists("osm_amenity_cursor.json"):
+              merged = json.load(open("osm_amenity_cursor.json", encoding="utf-8"))
+          for p in sorted(glob.glob("cursors/**/cursor_slice.json", recursive=True)):
+              try:
+                  d = json.load(open(p, encoding="utf-8"))
+              except Exception as exc:
+                  print(f"skipping {p}: {exc}")
+                  continue
+              if len(d) > 1:
+                  print(f"::warning::{p} carries {len(d)} areas, expected 1: {sorted(d)}")
+              merged.update(d)
+          json.dump(merged, open("osm_amenity_cursor.json", "w", encoding="utf-8"),
+                    indent=1, sort_keys=True)
+          print(json.dumps(merged, indent=1, sort_keys=True))
+          PY
+            git add osm_amenity_cursor.json
+            if git diff --staged --quiet; then
+              echo "cursor unchanged — nothing to commit"
+              exit 0
+            fi
+            git commit -m "osm-amenities: advance the cursor [skip ci]"
+            if git push; then
+              echo "cursor pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push rejected (main moved); re-merging onto the new head"
+            sleep $((attempt * 5))
+          done
+          echo "::error::could not push the cursor after 5 attempts"
+          exit 1

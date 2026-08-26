@@ -961,6 +961,13 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         # applies — longitude cannot know a DST rule, so the zone is stored, not
         # re-derived by whoever reads it later.
         "recurring_hours": _recurring_hours(rec, lat, lon),
+        # A pin with nothing worth reading (migration 0194). See
+        # mapsee_ingest.NormalizedEvent.pin_only — the map DRAWS these, and the
+        # list, the sitemap and the sheet all skip them. Written for every row
+        # so a re-sync can take a pin back OUT of furniture once an OSM mapper
+        # adds the opening hours: an upsert cannot delete, and a flag that is
+        # only ever written when true can only ever be turned on.
+        "pin_only": bool(rec.get("pin_only")),
     }
 
 

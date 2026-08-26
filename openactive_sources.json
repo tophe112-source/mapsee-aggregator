@@ -1,0 +1,268 @@
+{
+ "_readme": [
+  "OpenActive publishers, for mapsee_ingest_openactive.py. Read that file's",
+  "header first - the four traps it documents are the whole reason this config",
+  "is short when the published catalogue is 175 entries long.",
+  "",
+  "EVERY FEED HERE IS CC-BY 4.0, and so is every one that was rejected: all 127",
+  "dataset pages that parse across the five catalogs carry the same licence.",
+  "That is unusual enough to say out loud - a whole national catalogue on one",
+  "term. The attribution it requires is written into every row's description by",
+  "the adapter; it is a condition, not a footer.",
+  "",
+  "VERIFIED 2026-08-26 by running the adapter itself against each candidate and",
+  "counting rows that are FUTURE, PLACEABLE and inside the horizon. Nothing is",
+  "configured on the strength of a feed answering 200 - wisconsinbikefed parsed",
+  "beautifully into 50 VEVENTs and every one of them was in the past.",
+  "",
+  "  Better (GLL)            11,287    Places Leisure          10,757",
+  "  Everyone Active          7,502    Pembrokeshire Leisure    2,612",
+  "  Castlepoint              1,307    GoodGym                    724",
+  "  Exercise Anywhere          595    Our Parks                  584",
+  "  Open Sessions               73    SportSuite                  55",
+  "  Playwaze                    19    Oxford University Sport     16",
+  "",
+  "~35,500 upcoming sessions, and the three largest were still PAGE-CAPPED at",
+  "40 pages, so that is a floor rather than a total.",
+  "",
+  "WHY THESE CATEGORIES. `fitness` for a leisure-centre timetable, because the",
+  "classifier cannot recover a swim or an aqua-aerobics class from its name -",
+  "the same measurement that put `fitness` on a pure cycling calendar and",
+  "`community` on a mixed advocacy one. `sports` for the club platforms, whose",
+  "listings are named games. GoodGym is the exception and is `volunteer` with",
+  "running and community secondaries: its sessions are people running to do a",
+  "physical task for an older neighbour, which is genuinely both."
+ ],
+ "sources": [
+  {
+   "name": "Castlepoint Leisure",
+   "category": "fitness",
+   "country": "GB",
+   "page": "https://castlepoint.gs-signature.cloud/OpenActive/",
+   "feeds": [
+    {
+     "kind": "CourseInstance",
+     "url": "https://opendata.leisurecloud.live/api/feeds/Castlepoint-live-course-instance"
+    },
+    {
+     "kind": "SessionSeries",
+     "url": "https://opendata.leisurecloud.live/api/feeds/Castlepoint-live-session-series"
+    },
+    {
+     "kind": "ScheduledSession",
+     "url": "https://opendata.leisurecloud.live/api/feeds/Castlepoint-live-scheduled-sessions"
+    }
+   ]
+  },
+  {
+   "name": "Pembrokeshire Leisure",
+   "category": "fitness",
+   "country": "GB",
+   "page": "https://connect.pembrokeshire.gov.uk/OpenActive/",
+   "feeds": [
+    {
+     "kind": "CourseInstance",
+     "url": "https://opendata.leisurecloud.live/api/feeds/Pembrokeshire-live-course-instance"
+    },
+    {
+     "kind": "SessionSeries",
+     "url": "https://opendata.leisurecloud.live/api/feeds/Pembrokeshire-live-session-series"
+    },
+    {
+     "kind": "ScheduledSession",
+     "url": "https://opendata.leisurecloud.live/api/feeds/Pembrokeshire-live-scheduled-sessions"
+    }
+   ]
+  },
+  {
+   "name": "Everyone Active",
+   "category": "fitness",
+   "country": "GB",
+   "page": "https://data.everyoneactive.com/OpenActive/",
+   "feeds": [
+    {
+     "kind": "CourseInstance",
+     "url": "https://opendata.leisurecloud.live/api/feeds/EveryoneActive-live-course-instance"
+    },
+    {
+     "kind": "SessionSeries",
+     "url": "https://opendata.leisurecloud.live/api/feeds/EveryoneActive-live-session-series"
+    },
+    {
+     "kind": "ScheduledSession",
+     "url": "https://opendata.leisurecloud.live/api/feeds/EveryoneActive-live-scheduled-sessions"
+    }
+   ]
+  },
+  {
+   "name": "Oxford University Sport",
+   "category": "fitness",
+   "country": "GB",
+   "page": "https://oxforduniversity.leisurecloud.net/OpenActive/",
+   "feeds": [
+    {
+     "kind": "CourseInstance",
+     "url": "https://opendata.leisurecloud.live/api/feeds/OxfordUniversity-live-course-instance"
+    },
+    {
+     "kind": "SessionSeries",
+     "url": "https://opendata.leisurecloud.live/api/feeds/OxfordUniversity-live-session-series"
+    },
+    {
+     "kind": "ScheduledSession",
+     "url": "https://opendata.leisurecloud.live/api/feeds/OxfordUniversity-live-scheduled-sessions"
+    }
+   ]
+  },
+  {
+   "name": "Places Leisure",
+   "category": "fitness",
+   "country": "GB",
+   "page": "https://placesleisure.gs-signature.cloud/OpenActive/",
+   "feeds": [
+    {
+     "kind": "CourseInstance",
+     "url": "https://opendata.leisurecloud.live/api/feeds/PlacesLeisure-live-course-instance"
+    },
+    {
+     "kind": "SessionSeries",
+     "url": "https://opendata.leisurecloud.live/api/feeds/PlacesLeisure-live-session-series"
+    },
+    {
+     "kind": "ScheduledSession",
+     "url": "https://opendata.leisurecloud.live/api/feeds/PlacesLeisure-live-scheduled-sessions"
+    }
+   ]
+  },
+  {
+   "name": "Better (GLL)",
+   "category": "fitness",
+   "country": "GB",
+   "page": "https://better-admin.org.uk/api/openactive/better",
+   "feeds": [
+    {
+     "kind": "SessionSeries",
+     "url": "https://better-admin.org.uk/api/openactive/better/session-series"
+    },
+    {
+     "kind": "ScheduledSession",
+     "url": "https://better-admin.org.uk/api/openactive/better/scheduled-sessions"
+    }
+   ]
+  },
+  {
+   "name": "GoodGym",
+   "category": "volunteer",
+   "country": "GB",
+   "page": "https://www.goodgym.org/api/openactive/",
+   "feeds": [
+    {
+     "kind": "Event",
+     "url": "https://www.goodgym.org/api/openactive/events"
+    }
+   ],
+   "secondary": [
+    "running",
+    "community"
+   ]
+  },
+  {
+   "name": "Open Sessions",
+   "category": "fitness",
+   "country": "GB",
+   "page": "https://openactive.opensessions.io/",
+   "feeds": [
+    {
+     "kind": "SessionSeries",
+     "url": "https://opensessions.io/api/rpde/session-series"
+    },
+    {
+     "kind": "Event",
+     "url": "https://opensessions.io/api/rpde/events"
+    }
+   ]
+  },
+  {
+   "name": "Our Parks",
+   "category": "fitness",
+   "country": "GB",
+   "page": "https://ourparks.org.uk/openactive",
+   "feeds": [
+    {
+     "kind": "Event",
+     "url": "https://ourparks.org.uk/api/events"
+    }
+   ],
+   "secondary": [
+    "outdoors"
+   ]
+  },
+  {
+   "name": "Playwaze",
+   "category": "sports",
+   "country": "GB",
+   "page": "https://playwaze.com/opendata/openactive",
+   "feeds": [
+    {
+     "kind": "ScheduledSession",
+     "url": "https://playwaze.com/feeds/scheduled-sessions"
+    },
+    {
+     "kind": "SessionSeries",
+     "url": "https://playwaze.com/feeds/session-series"
+    },
+    {
+     "kind": "Event",
+     "url": "https://playwaze.com/feeds/events"
+    },
+    {
+     "kind": "OnDemandEvent",
+     "url": "https://playwaze.com/feeds/on-demand-event"
+    }
+   ]
+  },
+  {
+   "name": "Exercise Anywhere",
+   "category": "fitness",
+   "country": "GB",
+   "page": "https://opendata.exercise-anywhere.com/",
+   "feeds": [
+    {
+     "kind": "Event",
+     "url": "https://opendata.exercise-anywhere.com/api/rpde/events"
+    },
+    {
+     "kind": "SessionSeries",
+     "url": "https://opendata.exercise-anywhere.com/api/rpde/session-series"
+    },
+    {
+     "kind": "ScheduledSessions",
+     "url": "https://opendata.exercise-anywhere.com/api/rpde/scheduled-sessions"
+    }
+   ]
+  },
+  {
+   "name": "SportSuite",
+   "category": "sports",
+   "country": "GB",
+   "page": "https://www.sportsuite.co.uk/odapikey/datasite",
+   "feeds": [
+    {
+     "kind": "SessionSeries",
+     "url": "https://www.sportsuite.co.uk/api/cs-api/openactive"
+    }
+   ]
+  }
+ ],
+ "_not_included": {
+  "_why": [
+   "Probed 2026-08-26 and NOT configured. Recorded so nobody spends another",
+   "curation run re-discovering them - `_not_included` is an editorial no, and",
+   "anything proposing sources must consult it (mobilizon_sources.json's rule)."
+  ],
+  "https://data.englandnetball.co.uk/": "DEAD, and it answers 200 while being so. Walked 40 pages: 14,798 records, latest start date 2019, ZERO in the future. Seven years stale and still listed in the official OpenActive catalog. This is the source that proves the walk-to-the-end rule matters in both directions - Our Parks looks equally dead on page one and has 854 future sessions.",
+  "http://data.letsride.co.uk/": "British Cycling's ride feed. 172 rides dated in the YEAR 2500 (a sentinel), and the rest 2010-2012. The horizon guard would refuse the 2500s correctly and there is nothing real behind them. Worth re-probing in a season - British Cycling runs a great many free rides and this feed used to carry them, so this is an `empty` rather than a `fail`.",
+  "_legend_platform_sessionseries_only": "ABOUT THIRTEEN PUBLISHERS on legendonlineservices.co.uk (BwD Leisure, Serco Leisure, Lancaster, Active Nottingham, Alive Leisure, Leisure Focus, Horizon, SLL and InspireAll, Loughborough University and more) publish a SessionSeries feed and NO occurrence feed. Measured: ~30,000 records between them, many with perfect coordinates (SLL and InspireAll: 3,302 records, 0 missing a coordinate) and ZERO with a startDate, because a series describes a PATTERN in `eventSchedule` rather than an occurrence. The adapter counts them as 'no start date' rather than guessing, which is the right refusal and leaves real supply on the table. Reading them means expanding a PartialSchedule over a rolling horizon - exactly what mapsee_ingest_markets and mapsee_ingest_parkrun already do for weekly schedules - and it is the single highest-value thing to add here next. It was not done in the same pass because the MyListing lesson applies: when a source offers two spellings of one date, find a record where they DISAGREE before choosing, and doing that politely needs a feed that is not currently rate-limiting us.",
+  "_facility_slots": "93 of the 127 parseable publishers offer ONLY FacilityUse and Slot feeds - bookable courts, pitches and halls. A bookable badminton court at 19:00 is an empty room somebody may or may not take, not an occasion, and putting one on a map of what is happening is the Traders Village mistake: the feed works and it is not what it looks like."
+ }
+}

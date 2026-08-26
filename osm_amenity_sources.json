@@ -1,0 +1,24 @@
+{
+  "_readme": [
+    "Hubs for the OpenStreetMap civic-amenity pull (mapsee_ingest_osm_amenities.py).",
+    "Same shape as osm_food_sources.json and osm_secondhand_sources.json: a centre",
+    "and a radius in miles, one entry per metro, tiled by the ingest at TILE_DEG.",
+    "",
+    "MOST OF WHAT THIS RETURNS IS FURNITURE, and that is the design rather than a",
+    "shortfall. A drinking fountain has nothing to say beyond being a drinking",
+    "fountain; the pin says it and the row is marked pin_only, so it is drawn and",
+    "never listed, indexed or opened. The listing/furniture split is printed per",
+    "area on every run - a run that adds only furniture has still made the map",
+    "more useful, and being able to SEE that is the point of printing both."
+  ],
+  "areas": [
+    {"name": "Seattle",  "lat": 47.6062, "lon": -122.3321, "radius_miles": 25, "region": "WA", "country": "US"},
+    {"name": "London",   "lat": 51.5074, "lon":   -0.1278, "radius_miles": 25, "country": "GB"},
+    {"name": "New York", "lat": 40.7128, "lon":  -74.0060, "radius_miles": 25, "region": "NY", "country": "US"},
+    {"name": "Berlin",   "lat": 52.5200, "lon":   13.4050, "radius_miles": 25, "country": "DE"},
+    {"name": "Chicago",  "lat": 41.8781, "lon":  -87.6298, "radius_miles": 25, "region": "IL", "country": "US"},
+    {"name": "Paris",    "lat": 48.8566, "lon":    2.3522, "radius_miles": 25, "country": "FR"},
+    {"name": "Portland", "lat": 45.5152, "lon": -122.6784, "radius_miles": 25, "region": "OR", "country": "US"},
+    {"name": "Edinburgh","lat": 55.9533, "lon":   -3.1883, "radius_miles": 25, "country": "GB"}
+  ]
+}

@@ -346,6 +346,24 @@ jobs:
           else
             echo "no parkrun_sources.json — skipping parkrun"
           fi
+      # ~35,500 upcoming UK physical-activity sessions from 12 publishers, all
+      # CC-BY 4.0 and all carrying their own coordinates — which is what makes
+      # them cheap: outside the US the sync cannot geocode, so a source that
+      # brings no lat/lon places nothing. Straight into `fitness`, `sports` and
+      # (GoodGym) `volunteer`, the three thinnest columns coverage reports.
+      #
+      # RPDE PAGES FROM THE OLDEST END, so the adapter walks each feed to its
+      # end; that is why this step costs minutes rather than seconds and why it
+      # is not worth splitting per publisher. --horizon-days guards against
+      # Let's Ride's year-2500 sentinel dates.
+      - name: Import OpenActive (UK leisure, community sport and volunteering sessions)
+        run: |
+          if [ -f openactive_sources.json ]; then
+            python mapsee_ingest_openactive.py \
+              --config openactive_sources.json --store feeds_events.json
+          else
+            echo "no openactive_sources.json — skipping OpenActive"
+          fi
       - name: Import curated recurring community programs (e.g. free summer meals, expanded to dated occurrences)
         run: |
           if [ -f program_sources.json ]; then

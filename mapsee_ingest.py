@@ -246,6 +246,23 @@ class NormalizedEvent:
     # Rainier Ave S — moving the pin eleven miles onto a street of the same name.
     # A Sequim diner landed sixty miles from itself the same way.
     coords_exact: bool = False
+    # DRAW IT, DO NOT LIST IT, DO NOT INDEX IT, DO NOT OPEN IT.
+    #
+    # A row that is true and worth SEEING on a map, and that has nothing worth
+    # READING. A drinking fountain is a drinking fountain: its pin already says
+    # everything the row knows, so a sheet would cost a tap, take the bottom of
+    # the screen, push a history entry and answer a question nobody asked.
+    #
+    # Set by mapsee_ingest_osm_amenities when an element carries no fact a
+    # person could act on. ../mapsee 0194 stores it and is the half that makes
+    # it mean anything: the client draws these as quiet, non-interactive dots
+    # and keeps them out of the Nearby list, and the Worker keeps them out of
+    # the sitemaps and the /c/ landing pages.
+    #
+    # It is NOT "hide this". A hidden row is invisible; this one is the map
+    # telling you there is a playground on that corner, which is most of what
+    # anybody wanted to know.
+    pin_only: bool = False
 
     def source_ref(self) -> Dict[str, Optional[str]]:
         return {"source": self.source, "source_id": self.source_id, "url": self.ticket_url}
