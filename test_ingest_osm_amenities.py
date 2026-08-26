@@ -73,6 +73,29 @@ def main():
         row = ev(tags)
         checks.append((row is not None and row.pin_only is False, why))
 
+    # ---------------------------------------------- A PICTURE IS CONTENT TOO
+    #
+    # For artwork and playgrounds the photograph is the best content there is:
+    # a sculpture you can see before walking to it. So an image ALONE promotes
+    # a row out of furniture, with no other fact required.
+    art = ev({"tourism": "artwork", "name": "The Wall",
+              "wikimedia_commons": "File:Seattle Wall.jpg"})
+    checks.append((art.pin_only is False, "an image alone earns a sheet"))
+    checks.append((art.poster_image_url ==
+                   "https://commons.wikimedia.org/wiki/Special:FilePath/Seattle_Wall.jpg",
+                   "...and a Commons FILE NAME is turned into its documented redirect"))
+    checks.append((A.own_image({"image": "https://example.org/a.jpg"}) is not None,
+                   "a plain https image tag is taken as-is"))
+    # http would be blocked as mixed content on the way into the app, which
+    # renders as a BROKEN image rather than as no image.
+    checks.append((A.own_image({"image": "http://example.org/a.jpg"}) is None,
+                   "...and an http one is refused, because it would render broken"))
+    checks.append((A.own_image({"wikimedia_commons": "Category:Statues"}) is None,
+                   "a Commons CATEGORY is not a file and does not become an image URL"))
+    bare_art = ev({"tourism": "artwork", "name": "Untitled"})
+    checks.append((bare_art.pin_only is True and bare_art.poster_image_url is None,
+                   "a named sculpture with no artist and no photo is still furniture"))
+
     # ------------------------------------------------------------ the hours rule
     #
     # PARSEABLE hours become both a claim and a rolling window.
@@ -138,6 +161,35 @@ def main():
                    "Python filter are built from one table"))
     checks.append(('["name"]' not in sel,
                    "and nothing requires a name: that would delete the fountains"))
+
+    # ---------------------------------------- A PLACE IS NOT A "SHOW"
+    #
+    # The sync appends "🔎 More on this show: <google search>" as a web-search
+    # fallback. Its own comment says that is for the big-venue aggregators, but
+    # the implementation is a DENY-list, so every adapter added since inherited
+    # it — including all three OpenStreetMap PLACE adapters. A drinking
+    # fountain has no support acts.
+    #
+    # It matters more than it reads, and this is how it was found: ../mapsee
+    # 0195 decides whether a pin opens by asking whether anything survives
+    # stripping the row's boilerplate, and a Google link is not a fact about a
+    # fountain — so every furniture pin on earth would have become clickable.
+    # Caught only by generating the REAL stored description and reading it.
+    from mapsee_supabase_sync import to_row as _to_row
+    import json as _json
+    def _stored(tags):
+        row = ev(tags)
+        rec = _json.loads(_json.dumps(row.as_record("2026-08-26T00:00:00Z")))
+        rec["fingerprint"], rec["source"] = row.fingerprint, row.source
+        return _to_row(rec, "00000000-0000-0000-0000-000000000001")["description"]
+    checks.append(("More on this show" not in _stored({"amenity": "drinking_water"}),
+                   "a stored furniture row carries NO 'more on this show' search link"))
+    checks.append(("More on this show" not in _stored(
+                       {"social_facility": "food_bank", "name": "Rainier Food Bank",
+                        "opening_hours": "Tu,Th 10:00-14:00"}),
+                   "...and neither does a listing"))
+    checks.append(("OpenStreetMap contributors (ODbL)" in _stored({"amenity": "give_box"}),
+                   "...while the ODbL line the client strips is still there"))
 
     # ------------------------------------------------------------ attribution
     checks.append(("OpenStreetMap contributors (ODbL)" in bare.description,

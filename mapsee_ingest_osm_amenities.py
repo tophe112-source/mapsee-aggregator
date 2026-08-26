@@ -237,6 +237,32 @@ def own_website(tags: Dict[str, str]) -> Optional[str]:
     return site if host and not NOT_A_VENUE_SITE.search(host) else None
 
 
+def own_image(tags: Dict[str, str]) -> Optional[str]:
+    """A photograph of this thing, or None.
+
+    A PICTURE IS CONTENT ON ITS OWN, and for the two kinds where OSM actually
+    carries one it is the best content there is: a sculpture you can see before
+    you walk to it, a playground a parent can size up. So an image alone
+    promotes a row out of furniture.
+
+    Two sources, and Commons is the one that matters. `wikimedia_commons` names
+    a file rather than a URL, and Special:FilePath is the documented redirect to
+    the image itself — building it is not a guess. A bare `image` tag may point
+    anywhere, so only plain https is accepted: an http URL would be blocked as
+    mixed content on the way into the app, which renders as a broken image
+    rather than as no image.
+    """
+    commons = _clean(tags.get("wikimedia_commons"), 200)
+    if commons and commons.lower().startswith("file:"):
+        name = urllib.parse.quote(commons[5:].strip().replace(" ", "_"), safe="")
+        if name:
+            return f"https://commons.wikimedia.org/wiki/Special:FilePath/{name}"
+    raw = _clean(tags.get("image"), 400)
+    if raw and raw.startswith("https://"):
+        return raw
+    return None
+
+
 def useful_lines(tags: Dict[str, str], kind: Kind,
                  hours_text: Optional[str] = None) -> List[str]:
     """Every actionable fact, as the product's emoji-marker detail lines.
@@ -347,6 +373,18 @@ def useful_lines(tags: Dict[str, str], kind: Kind,
     return lines
 
 
+def has_content(tags: Dict[str, str], kind: Kind,
+                hours_text: Optional[str] = None) -> bool:
+    """Does this element earn a sheet? A FACT or a PICTURE, never a name.
+
+    The client re-applies its own version of this test against what actually
+    reaches it (see ../mapsee's amenityHasContent), the way the product
+    re-validates every order link this repo writes. A disagreement therefore
+    fails safe as a pin that draws and does not open.
+    """
+    return bool(useful_lines(tags, kind, hours_text)) or bool(own_image(tags))
+
+
 # ---------------------------------------------------------------------------
 # Hours
 # ---------------------------------------------------------------------------
@@ -427,6 +465,7 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
         days, hours_text = dict(ALWAYS), None
 
     facts = useful_lines(tags, kind, hours_text)
+    image = own_image(tags)
     name = _clean(tags.get("name"), 120)
     title = name or kind.noun.capitalize()
 
@@ -434,10 +473,11 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
     street = " ".join(x for x in [tags.get("addr:housenumber"),
                                   tags.get("addr:street")] if x).strip() or None
 
-    if facts:
+    if facts or image:
         # A LISTING. Same description shape the other two OSM adapters write.
         head = f"{title} — {kind.noun}{f' in {town}' if town else ''}."
-        description = (head + "\n\n" + "\n".join(facts) + "\n\n" +
+        body = ("\n".join(facts) + "\n\n") if facts else ""
+        description = (head + "\n\n" + body +
                        "Public details from OpenStreetMap contributors (ODbL). "
                        "Details can change; anyone can correct them on OpenStreetMap.")
     else:
@@ -481,11 +521,12 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
         category=kind.category,
         categories=list(kind.secondary),
         ticket_url=own_website(tags),
+        poster_image_url=image,
         coords_exact=True,
         recurring_days=days,
         # THE WHOLE POINT OF THIS ADAPTER. No fact worth reading -> draw it,
         # do not list it, do not index it, do not open it. ../mapsee 0194.
-        pin_only=not facts,
+        pin_only=not (facts or image),
     )
 
 

@@ -890,7 +890,18 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     # Venue-fed / open-data events already point at the source's own page via
     # Tickets / info, so only the big-venue aggregators (Ticketmaster, SeatGeek)
     # get this web-search fallback.
-    if not str(_src).startswith(("opendata:", "venue:", "ics:", "program:")):
+    #
+    # `osm-` IS NOT A SHOW. The three OpenStreetMap adapters import PLACES —
+    # a takeaway, a charity shop, a drinking fountain — and none of them has
+    # support acts or a set time. The line was reaching all of them because
+    # this is a DENY-list while the sentence above describes an allow-list, so
+    # every adapter added since inherited it by default. On a restaurant it was
+    # merely odd; on a civic amenity it is load-bearing, because ../mapsee 0195
+    # decides whether a pin opens by asking whether anything survives stripping
+    # this row's boilerplate, and a Google search link is not a fact about a
+    # drinking fountain. Found by generating the real stored description for a
+    # bare fountain and reading it.
+    if not str(_src).startswith(("opendata:", "venue:", "ics:", "program:", "osm-")):
         show = venue_show_search_url(rec)
         if show:
             parts.append(f"🔎 More on this show: {show}")

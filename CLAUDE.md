@@ -695,7 +695,27 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   FACT** — "Sarah's Book Box" tells you nothing a book icon on that corner did
   not. At OSM density any rule that merely DEMOTES these is not enough:
   `events_near`'s pool is capped at 800, so four hundred playgrounds would bury
-  the gig three streets away. They are not in that pool at all.
+  the gig three streets away. They are not in that pool at all. The verdict is
+  a PREFILTER rather than the last word: ../mapsee 0195 hands the client the
+  description and the image and it decides again, the way the product
+  re-validates every order link this repo writes. An OSM `image` or
+  `wikimedia_commons` file is content on its own — for a sculpture it is the
+  best content there is — and promotes a row out of furniture with no other
+  fact required.
+- **A DENY-LIST WHOSE COMMENT DESCRIBES AN ALLOW-LIST WILL BE WRONG FOR EVERY
+  ADAPTER ADDED AFTER IT.** `to_row` appends "🔎 More on this show: <google
+  search>" and says in its own comment that this is for the big-venue
+  aggregators — but the test is `not _src.startswith(("opendata:", "venue:",
+  "ics:", "program:"))`, so all three OpenStreetMap PLACE adapters inherited it
+  by default. A charity shop and a drinking fountain do not have support acts.
+  On food and second-hand that was merely odd; on civic amenities it was
+  load-bearing, because ../mapsee 0195 decides whether a pin OPENS by asking
+  whether anything survives stripping the row's boilerplate — and a Google
+  search link is not a fact about a fountain, so every furniture pin on earth
+  would have become clickable. `osm-` is excluded now. It was found by
+  generating the REAL stored description for a bare fountain and reading it,
+  which is the only way it could have been: the adapter's own output was
+  correct, and the line was added two files later.
 - **`social_facility=food_bank` is 4,938 uses; `amenity=food_bank` is 16.**
   Reaching for the obvious key produces an adapter that runs clean, reports
   success and imports essentially nothing — the same silence as the parkrun
