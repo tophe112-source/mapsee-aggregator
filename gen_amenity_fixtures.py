@@ -56,16 +56,26 @@ CASES = {
   # highest-stakes pin on the map stops opening.
   "listing_food_bank_no_hours": {"social_facility": "food_bank",
                                  "name": "ACRS Food Bank", "addr:city": "Seattle"},
-  "listing_artist":       {"tourism": "artwork", "name": "The Wall",
+  "pin_open_artist":       {"tourism": "artwork", "name": "The Wall",
                            "artist_name": "Ellen Sollod"},
-  "listing_image_only":   {"tourism": "artwork", "name": "Untitled",
+  # THE CASE THE 24/7 RULE IS FOR. A playground with an operator, a surface
+  # and "lit after dark" is well described and is open at 3am — so it is a
+  # PIN that hovers and opens, never a row in the list of what is on. The
+  # client has to find real prose here or the pin goes inert.
+  "pin_open_always":      {"leisure": "playground", "name": "Cal Anderson Play Area",
+                           "operator": "Seattle Parks", "lit": "yes",
+                           "surface": "sand", "addr:city": "Seattle"},
+  # ...and the one shape that IS a listing: it can be shut.
+  "listing_bounded_hours": {"leisure": "playground", "name": "Gated Play Area",
+                            "opening_hours": "Mo-Su 08:00-20:00"},
+  "pin_open_image_only":   {"tourism": "artwork", "name": "Untitled",
                            "wikimedia_commons": "File:Seattle Art.jpg"},
-  "listing_freetext":     {"leisure": "playground", "name": "Kerry Park",
+  "pin_open_freetext":     {"leisure": "playground", "name": "Kerry Park",
                            "description": "Fully fenced, shaded, with a splash pad."},
   # Kept as a GIVE BOX with a real-shaped website, because this row is the one
   # that also carries the sync's "Tickets / info:" line — another piece of
   # boilerplate the client has to strip before deciding the pin opens.
-  "listing_website":      {"amenity": "give_box", "name": "Fremont Give Box",
+  "pin_open_website":      {"amenity": "give_box", "name": "Fremont Give Box",
                            "website": "https://fremontgivebox.org"},
 }
 

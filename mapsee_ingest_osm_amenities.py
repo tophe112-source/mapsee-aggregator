@@ -551,6 +551,14 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
         # this row is worth opening at all.
         days, hours_text = dict(ALWAYS), None
 
+    # IS THERE A TIME THIS IS SHUT? `read_hours` hands back the all-week window
+    # for three different silences — 24/7, nothing tagged on an always-open
+    # kind, and a food bank whose hours we refused to guess — and none of them
+    # is a schedule anybody could miss. Compared against ALWAYS rather than
+    # against the verdict, because a rule that parses cleanly to
+    # "Mo-Su 00:00-24:00" is 24/7 written the long way.
+    shuts = days != ALWAYS
+
     facts = useful_lines(tags, kind, hours_text)
     image = own_image(tags)
     name = _clean(tags.get("name"), 120)
@@ -616,14 +624,31 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
         poster_image_url=image,
         coords_exact=True,
         recurring_days=days,
-        # THE WHOLE POINT OF THIS ADAPTER. No fact worth reading -> draw it,
-        # do not list it, do not index it, do not open it. ../mapsee 0194.
+        # THE WHOLE POINT OF THIS ADAPTER, AND THE QUESTION IS "CAN IT BE
+        # SHUT?" — not "does it carry a fact".
         #
-        # `kind.always_list` is redundant with `facts` — a food bank always
-        # gets an hours line, so `facts` is never empty for one — and it is
-        # stated anyway, because the alternative is a load-bearing rule that
-        # holds only as long as nobody edits a sentence two functions away.
-        pin_only=not (facts or image or kind.always_list),
+        # Nearby is a list of WHAT IS ON. A thing that is always there is not
+        # on, however much is written about it: a playground tagged with its
+        # operator, its surface and "lit after dark" is a well-described
+        # playground, and it is open at 3am tomorrow exactly as it is now.
+        # Measured 2026-08-26 in one Seattle box: 752 rows from this adapter
+        # were in the Nearby list and 745 of them were open 24/7 — 58% of
+        # everything under `kids` and 67% under `arts`, several of them titled
+        # simply "Playground". That is the list the product exists for, filled
+        # with things that never change.
+        #
+        # So a row earns a Nearby listing only if there is a time it is SHUT,
+        # or if it is a food bank — the one selector where WHERE IT IS is the
+        # fact somebody came for, and the stakes are the argument.
+        #
+        # Everything else is a PIN, and what it carries decides what the pin
+        # DOES rather than whether the row is a listing: ../mapsee's
+        # amenityHasContent reads the description this function wrote and gives
+        # a pin with something to say a hover label and a tap that opens its
+        # sheet. The two judgements are no longer the same question asked
+        # twice — this one is "listing or scenery", that one is "is this
+        # scenery worth opening".
+        pin_only=not (shuts or kind.always_list),
     )
 
 

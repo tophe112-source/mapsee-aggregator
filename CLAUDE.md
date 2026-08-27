@@ -850,6 +850,20 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   and nothing that tests only the pure functions can see it.
   `test_ingest_osm_amenities.py` now runs EVERY area through `area_bbox` and
   `tiles`, so the file has to be loadable by the code that will load it.
+- **A FACT BUYS A SHEET, NOT A LISTING — "can it be SHUT" is the Nearby test.**
+  `pin_only` began as "carries nothing worth reading", so one operator tag or
+  one surface promoted a playground into `events_near`. Measured 2026-08-26 in
+  one Seattle box: **752 rows from this adapter were in the Nearby list and 745
+  were open 24 hours a day** — 58% of everything under `kids`, 67% under
+  `arts`, several titled simply "Playground". Nearby is a list of what is ON,
+  and a thing that is always there is not on however much is written about it.
+  So `to_event` asks whether there is a time it is SHUT (`days != ALWAYS`,
+  compared against the window rather than the verdict, because a rule parsing
+  cleanly to `Mo-Su 00:00-24:00` is 24/7 written the long way), plus the food
+  bank exemption. Everything else is a pin, and what it carries decides what
+  the pin DOES — ../mapsee's `amenityHasContent` reads the description written
+  here and gives a pin with something to say a hover and a tap. The two
+  judgements are no longer one question asked twice.
 - **A VALUE THAT MATCHES THE ASSUMPTION IS NOT A FACT — "a name is not a fact",
   one level down, and missed on the first pass.** `access=yes` is the commonest
   tag on a playground and `fee=no` on a drinking fountain, so between them they

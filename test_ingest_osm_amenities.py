@@ -51,7 +51,19 @@ def main():
     checks.append((named.pin_only is True, "a NAME alone does not earn a sheet"))
     checks.append((named.name == "Sarah's Book Box", "...though the row still carries it"))
 
-    # ------------------------------------------------- LISTINGS: one fact is enough
+    # ------------------------------------- A FACT BUYS A SHEET, NOT A LISTING
+    #
+    # These used to assert `pin_only is False` — that one fact promoted a row
+    # into the Nearby list. That was wrong, and measurably: 752 rows from this
+    # adapter were in one Seattle box's Nearby list and 745 of them were open
+    # 24 hours a day, which is 58% of everything under `kids` and 67% under
+    # `arts`. Nearby is a list of WHAT IS ON, and a well-described playground
+    # is not on — it is there, at 3am, exactly as it is now.
+    #
+    # So what a fact buys is what the PIN does: ../mapsee's amenityHasContent
+    # reads the description written here and gives a pin with something to say
+    # a hover label and a tap that opens its sheet. `has_content` is this
+    # repo's half of that, and it is what these cases assert now.
     for tags, why in [
         ({"amenity": "public_bookcase", "operator": "Little Free Library"},
          "an OPERATOR is a fact — who to thank, and who to ask"),
@@ -71,7 +83,15 @@ def main():
          "a RESTRICTIVE access rule is a fact — it saves a wasted walk"),
     ]:
         row = ev(tags)
-        checks.append((row is not None and row.pin_only is False, why))
+        kind = A.kind_of(tags)
+        checks.append((row is not None and A.has_content(
+            tags, kind, A.read_hours(tags, kind)[1]), why))
+        # ...and unless it can be SHUT, it is still scenery rather than a row
+        # in the list of what is on.
+        if not tags.get("opening_hours"):
+            checks.append((row.pin_only is True,
+                           f"...and stays off the Nearby list, being always open "
+                           f"({why.split(' — ')[0].split(' is ')[0]})"))
 
     # ---------------------------------------------- A PICTURE IS CONTENT TOO
     #
@@ -80,7 +100,12 @@ def main():
     # a row out of furniture, with no other fact required.
     art = ev({"tourism": "artwork", "name": "The Wall",
               "wikimedia_commons": "File:Seattle Wall.jpg"})
-    checks.append((art.pin_only is False, "an image alone earns a sheet"))
+    checks.append((A.has_content({"tourism": "artwork", "name": "Untitled",
+                                  "wikimedia_commons": "File:Seattle Art.jpg"},
+                                 A.BY_SLUG["tourism=artwork"], None),
+                   "an image alone earns a sheet"))
+    checks.append((art.pin_only is True,
+                   "...on a pin, not a Nearby row — a sculpture is always there"))
     checks.append((art.poster_image_url ==
                    "https://commons.wikimedia.org/wiki/Special:FilePath/Seattle_Wall.jpg",
                    "...and a Commons FILE NAME is turned into its documented redirect"))
@@ -114,10 +139,13 @@ def main():
          "fee=no says nothing a public fountain did not already say"),
     ]:
         row = ev(tags)
-        checks.append((row.pin_only is True, why))
+        kind = A.kind_of(tags)
+        checks.append((not A.has_content(tags, kind, None), why))
         checks.append(("🚪" not in row.description and "🎟" not in row.description,
                        f"...and the line is not printed at all ({why[:28]}…)"))
     # ...but the deviation still counts, and accessibility is never assumed.
+    # It buys a hover and a sheet on the PIN; it does not buy a Nearby row,
+    # because none of these things ever shuts.
     for tags, why in [
         ({"leisure": "playground", "access": "private"}, "access=private IS a fact"),
         ({"amenity": "drinking_water", "fee": "yes"}, "a charge IS a fact"),
@@ -125,7 +153,9 @@ def main():
          "wheelchair is a fact in EVERY value — nobody may assume it either way"),
         ({"leisure": "playground", "wheelchair": "yes"}, "...including yes"),
     ]:
-        checks.append((ev(tags).pin_only is False, why))
+        checks.append((A.has_content(tags, A.kind_of(tags), None), why))
+        checks.append((ev(tags).pin_only is True,
+                       f"...and it is still a pin, not a listing ({why[:26]}…)"))
 
     # ------------------------------------------------------------ the hours rule
     #
@@ -333,12 +363,16 @@ def main():
         {"type": "node", "id": 1, "lat": 47.61, "lon": -122.33,
          "tags": {"amenity": "drinking_water"}},                       # furniture
         {"type": "node", "id": 2, "lat": 47.62, "lon": -122.34,
-         "tags": {"amenity": "drinking_water", "bottle": "yes"}},      # listing
+         "tags": {"amenity": "drinking_water", "bottle": "yes"}},      # pin, opens
         {"type": "node", "id": 3, "lat": 47.63, "lon": -122.35,
-         "tags": {"leisure": "playground", "name": "Cal Anderson"}},   # furniture
+         "tags": {"leisure": "playground", "name": "Cal Anderson"}},   # pin, inert
         {"type": "node", "id": 4, "lat": 47.64, "lon": -122.36,
          "tags": {"tourism": "artwork", "name": "The Wall",
-                  "artist_name": "Ellen Sollod"}},                     # listing
+                  "artist_name": "Ellen Sollod"}},                     # pin, opens
+        # THE ONLY LISTING IN THE SET, and the only one that can be SHUT.
+        {"type": "node", "id": 6, "lat": 47.66, "lon": -122.38,
+         "tags": {"leisure": "playground", "name": "Gated Play Area",
+                  "opening_hours": "Mo-Su 08:00-20:00"}},              # LISTING
         {"type": "node", "id": 5, "lat": 47.65, "lon": -122.37,
          "tags": {"amenity": "bench"}},                                # not ours
     ]
@@ -364,13 +398,14 @@ def main():
                          "--ignore-cursor"])
             checks.append((rc == 0, "main() runs to completion against a stubbed Overpass"))
             rows = _json2.load(open(store, encoding="utf-8")).get("events", [])
-            checks.append((len(rows) == 4,
+            checks.append((len(rows) == 5,
                            f"...and writes one row per SELECTED element, skipping the bench "
                            f"({len(rows)})"))
             pin_only = [r for r in rows if r.get("pin_only")]
-            checks.append((len(pin_only) == 2 and len(rows) - len(pin_only) == 2,
+            checks.append((len(pin_only) == 4 and len(rows) - len(pin_only) == 1,
                            f"...with the split intact through the whole path "
-                           f"({len(pin_only)} furniture, {len(rows)-len(pin_only)} listing)"))
+                           f"({len(pin_only)} pins, {len(rows)-len(pin_only)} listing — only "
+                           f"the one that shuts is a listing)"))
             # The cursor arithmetic is what the ValueError was hiding in.
             A.main(["--config", "osm_amenity_sources.json", "--store", store,
                     "--only", "Seattle", "--max-places", "2",
