@@ -78,6 +78,7 @@ NOUN = "public artwork"
 # what you would guess.
 PAGE = 1000
 PAGE_MIN = 100
+PATCH_IDS = 100          # ids per PATCH — see flush(): the filter travels in the URL
 TIMEOUT_CODE = "57014"
 # The generated opener and the lines the sync appends. Anything left after these
 # is the row saying something of its own.
@@ -111,12 +112,37 @@ def _req(path, method="GET", body=None, extra=None):
                 print(f"  {e.code} from PostgREST, retrying: {detail}", flush=True)
                 time.sleep(2 ** attempt)
                 continue
-            raise RuntimeError(f"HTTP {e.code} from PostgREST: {detail}") from None
+            # A 400 from the EDGE carries no body at all, so the status alone
+            # says nothing — and the commonest cause here is a request line too
+            # long. Name the method and the URL length: that is the fact that
+            # separates "the filter is wrong" from "the filter is too big".
+            raise RuntimeError(
+                f"HTTP {e.code} from PostgREST: {detail or '(empty body)'} "
+                f"[{method} {len(url)}-char url]") from None
     raise RuntimeError("unreachable")
 
 
 class Timeout(RuntimeError):
     """A 57014. The caller shrinks rather than re-asking."""
+
+
+# The edge refuses a request line past ~8 KB with a bare 400 and no body, so
+# this is the ceiling that matters and it is asserted rather than assumed.
+MAX_URL = 6000
+
+
+def patch_paths(ids):
+    """`events?id=in.(...)` paths, each short enough for the edge to accept.
+
+    Module-level and pure so a test can drive it: this script has failed three
+    times on its own query rather than on its judgement, and a constant nobody
+    can check is how the third one happened.
+    """
+    for i in range(0, len(ids), PATCH_IDS):
+        path = "events?id=in.(" + ",".join(ids[i:i + PATCH_IDS]) + ")"
+        if len(path) > MAX_URL:                    # a UUID is 36; this cannot fire
+            raise RuntimeError(f"PATCH url is {len(path)} chars — lower PATCH_IDS")
+        yield path
 
 
 def is_thin(row) -> bool:
@@ -167,9 +193,19 @@ def main() -> int:
         """
         if not batch or not a.apply:
             return 0
-        _req("events?id=in.(" + ",".join(r["id"] for r in batch) + ")", method="PATCH",
-             body={"hidden_at": stamp}, extra={"prefer": "return=minimal"})
-        return len(batch)
+        # CHUNKED, BECAUSE `id=in.(...)` IS A URL AND A URL HAS A LENGTH.
+        # A page of 1,000 yields ~285 thin rows, and 285 UUIDs is a ~10 KB
+        # request line — past the edge's ~8 KB ceiling, which answers a bare
+        # `400 Bad Request` with no body to explain itself. 100 ids is ~3.7 KB
+        # and comfortable. The version before the walk was rewritten chunked at
+        # 100 and the rewrite dropped it: the read got faster and the write got
+        # too big in the same edit.
+        done = 0
+        for path in patch_paths([r["id"] for r in batch]):
+            _req(path, method="PATCH", body={"hidden_at": stamp},
+                 extra={"prefer": "return=minimal"})
+            done += path.count(",") + 1
+        return done
 
     hidden, seen_ids = 0, set()
     page, pending, cut_short = PAGE, [], False

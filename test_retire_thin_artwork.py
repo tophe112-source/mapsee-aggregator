@@ -88,6 +88,23 @@ def main():
                                  opener="Fremont Troll — public artwork in Seattle.")) is False,
                    "...and the dashed one is still recognised, and still kept"))
 
+    # ---- the WRITE, which is where this script has actually failed ---------
+    #
+    # Twice on its query and once on its write, none of them on its judgement.
+    # `id=in.(...)` travels in the URL: a page of 1,000 yields ~285 thin rows,
+    # and 285 UUIDs is a ~10 KB request line, past the edge's ceiling — which
+    # answers a bare 400 with no body to explain itself.
+    uuids = [f"{i:08x}-1111-2222-3333-444444444444" for i in range(250)]
+    paths = list(R.patch_paths(uuids))
+    checks.append((len(paths) == 3, f"250 ids go out in 3 requests, not 1 ({len(paths)})"))
+    checks.append((all(len(p) <= R.MAX_URL for p in paths),
+                   f"...none of them past the edge's ceiling "
+                   f"(longest {max(len(p) for p in paths)} of {R.MAX_URL})"))
+    checks.append((sum(p.count(",") + 1 for p in paths) == 250,
+                   "...and every id is in exactly one of them"))
+    checks.append((list(R.patch_paths([])) == [], "an empty batch sends nothing"))
+    checks.append((len(list(R.patch_paths(uuids[:1]))) == 1, "a single id still goes"))
+
     failed = sum(0 if ok else 1 for ok, _ in checks)
     for ok, why in checks:
         print(f"{'ok  ' if ok else 'FAIL'}  {why}")
