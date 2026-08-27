@@ -59,7 +59,26 @@ ODBL = "OpenStreetMap contributors (ODbL)"
 # thing named after its own kind does not introduce itself twice. Matching on
 # the dash found only the rows this was never going to hide.
 NOUN = "public artwork"
-PAGE = 500
+# NO `order` CLAUSE, AND THAT IS THE WHOLE OF THE TUNING. Measured against
+# 2,037 live rows: `order=id.asc` at a page of 100 took 2.35s and raised 57014
+# at 500, and `order=created_at.asc` timed out at 1,000 — there is no index
+# serving this filter AND that sort, so Postgres collects every matching row
+# and sorts it before returning any. Unordered it streams and stops at the
+# limit: 1,000 rows in 1.3s.
+#
+# Which leaves nothing to keyset on, and nothing that needs it. HIDING IS THE
+# CURSOR — `hidden_at=is.null` is in the filter, so every row this run hides
+# drops out of the next page by itself. The `seen` set is what makes a DRY run,
+# which hides nothing, terminate as well.
+#
+# That asymmetry is worth knowing before you time one: `--apply` makes real
+# progress every page, while a DRY run keeps being handed an arbitrary
+# thousand of the same rows and grinds out the last few dozen a handful at a
+# time. Both finish; the dry one is the slow case, which is the opposite of
+# what you would guess.
+PAGE = 1000
+PAGE_MIN = 100
+TIMEOUT_CODE = "57014"
 # The generated opener and the lines the sync appends. Anything left after these
 # is the row saying something of its own.
 BOILERPLATE_PREFIXES = ("\U0001f4cd", "Tickets / info:", "\U0001f50e")
@@ -79,15 +98,25 @@ def _req(path, method="GET", body=None, extra=None):
                 return json.loads(raw) if raw.strip() else []
         except urllib.error.HTTPError as e:
             detail = e.read().decode()[:300]
-            # A statement timeout wants a SMALLER bite; an upstream 5xx wants the
-            # same request once the edge recovers. Quote the server either way —
-            # a status code alone diagnoses nothing.
+            # TWO DIFFERENT 5xx ARRIVE HERE AND THEY WANT OPPOSITE THINGS. A
+            # statement timeout (57014) means we asked for too much, and the
+            # answer is a SMALLER bite — re-issuing the identical request just
+            # spends the run doing what already failed. An upstream 5xx means
+            # the request never happened and the same one works once the edge
+            # recovers. Quote the server either way: a status code alone
+            # diagnoses nothing.
+            if TIMEOUT_CODE in detail:
+                raise Timeout(detail) from None
             if e.code >= 500 and attempt < 3:
                 print(f"  {e.code} from PostgREST, retrying: {detail}", flush=True)
                 time.sleep(2 ** attempt)
                 continue
             raise RuntimeError(f"HTTP {e.code} from PostgREST: {detail}") from None
     raise RuntimeError("unreachable")
+
+
+class Timeout(RuntimeError):
+    """A 57014. The caller shrinks rather than re-asking."""
 
 
 def is_thin(row) -> bool:
@@ -122,51 +151,75 @@ def main() -> int:
         return 2
 
     want_hidden = "not.is.null" if a.unhide else "is.null"
-    sel = "id,title,description,poster_path,claimed_at,hidden_at"
-    seen, thin, kept, cursor = 0, [], 0, None
+    verb = "un-hide" if a.unhide else "hide"
+    sel = "id,title,description,poster_path"
+    stamp = None if a.unhide else time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
+    def flush(batch):
+        """Write one batch NOW rather than at the end.
+
+        A FAILED READ IS NOT A FAILED RUN. The walk can be cut short by a
+        statement timeout, and collecting the whole table before writing
+        anything would throw away everything found so far. Hiding is idempotent
+        and the next page's filter excludes what is already hidden, so a short
+        run simply leaves less for the next one — which is why this reports and
+        exits 0 rather than failing a workflow that made real progress.
+        """
+        if not batch or not a.apply:
+            return 0
+        _req("events?id=in.(" + ",".join(r["id"] for r in batch) + ")", method="PATCH",
+             body={"hidden_at": stamp}, extra={"prefer": "return=minimal"})
+        return len(batch)
+
+    hidden, seen_ids = 0, set()
+    page, pending, cut_short = PAGE, [], False
     while True:
         q = {"select": sel, "external_source": "eq.mapsee", "hidden_at": want_hidden,
-             "claimed_at": "is.null", "category": "eq.arts",
-             "description": f"ilike.*{NOUN}*", "order": "id.asc", "limit": str(PAGE)}
-        if cursor:
-            q["id"] = f"gt.{cursor}"
-        rows = _req("events?" + urllib.parse.urlencode(q))
-        if not rows:
+             "claimed_at": "is.null", "category": "eq.arts", "pin_only": "is.true",
+             "limit": str(page)}
+        # NO `description=ilike.*public artwork*`. It reads as the obvious filter
+        # and it is a wildcard scan of 622,291 rows with no index to serve it —
+        # it is what raised 57014 on the first real run. `is_thin` re-reads the
+        # description in Python anyway, so the server was doing the work twice
+        # and the expensive copy was the one that could not be indexed.
+        try:
+            rows = _req("events?" + urllib.parse.urlencode(q))
+        except Timeout as e:
+            if page > PAGE_MIN:
+                page = max(PAGE_MIN, page // 2)
+                print(f"  statement timeout; retrying with a page of {page}", flush=True)
+                continue
+            print(f"::warning::walk cut short by a statement timeout at page {page}: {e}",
+                  flush=True)
+            cut_short = True
             break
-        for r in rows:
-            seen += 1
+        fresh = [r for r in rows if r["id"] not in seen_ids]
+        if not fresh:
+            break                    # nothing new came back — the walk is done
+        seen_ids.update(r["id"] for r in fresh)
+        for r in fresh:
             if is_thin(r):
-                thin.append(r)
-        kept = seen - len(thin)
-        cursor = rows[-1]["id"]
-        print(f"  walked {seen} artwork row(s); {len(thin)} thin so far", flush=True)
-        if len(rows) < PAGE:
+                pending.append(r)
+        if a.apply and pending:
+            hidden += flush(pending)
+            pending = []
+        print(f"  walked {len(seen_ids)} artwork pin(s); "
+              f"{hidden + len(pending)} thin so far", flush=True)
+        if len(rows) < page:
             break
+    hidden += flush(pending)
 
-    verb = "un-hide" if a.unhide else "hide"
-    print(f"\n{seen} unclaimed public-artwork row(s) examined")
-    print(f"  {len(thin)} carry no name, artist, inscription, prose or photograph")
-    print(f"  {kept} say something and are kept")
-    for r in thin[:8]:
-        print(f"    would {verb}: {r['id']}  {(r.get('title') or '')[:40]}")
-    if len(thin) > 8:
-        print(f"    ... and {len(thin) - 8} more")
-    if not thin:
-        print("nothing to do")
-        return 0
-    if not a.apply:
-        print(f"\nDRY RUN — pass --apply to {verb} these {len(thin)} row(s)")
-        return 0
-
-    stamp = None if a.unhide else time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    done = 0
-    for i in range(0, len(thin), 100):
-        ids = [r["id"] for r in thin[i:i + 100]]
-        _req("events?id=in.(" + ",".join(ids) + ")", method="PATCH",
-             body={"hidden_at": stamp}, extra={"prefer": "return=minimal"})
-        done += len(ids)
-        print(f"  {verb}d {done}/{len(thin)}", flush=True)
-    print(f"\n{verb}d {done} row(s)")
+    print(f"\n{len(seen_ids)} unclaimed public-artwork pin(s) examined"
+          f"{' (walk cut short — the next run continues)' if cut_short else ''}")
+    if a.apply:
+        print(f"  {verb}d {hidden}")
+    else:
+        n = hidden + len(pending)
+        print(f"  {n} carry no name, artist, inscription, prose or photograph")
+        for r in pending[:8]:
+            print(f"    would {verb}: {r['id']}  {(r.get('title') or '')[:40]}")
+        if n:
+            print(f"\nDRY RUN — pass --apply to {verb} these {n} row(s)")
     return 0
 
 
