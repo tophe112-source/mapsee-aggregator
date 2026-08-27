@@ -59,6 +59,11 @@ on:
         type: boolean
         required: false
         default: false
+      retire_thin_artwork:
+        description: "CLEANUP: hide anonymous artwork rows already written (an upsert cannot delete)"
+        type: boolean
+        required: false
+        default: false
 
 # ONE RUN AT A TIME, for osm-food.yml's reason: two runs write the same Supabase
 # rows and both try to commit the cursor, and the `cursor` job is `if: always()`.
@@ -198,6 +203,21 @@ jobs:
           else
             echo "no feeds_events.json — nothing was pulled this run"
           fi
+
+      # AN UPSERT CANNOT DELETE, so refusing anonymous wall tags at ingest does
+      # nothing about the ones already written — the sweep simply stops
+      # re-writing them and they sit there for ever. hidden_at rather than
+      # DELETE, so it is reversible (`--unhide`); dry by default in the script,
+      # so `--apply` is what this passes.
+      #
+      # On the `plan` job's first matrix entry only: it walks the whole table
+      # rather than one metro, so running it eight times in parallel would be
+      # eight identical passes racing each other.
+      - name: Retire anonymous artwork rows already in the table
+        if: ${{ github.event.inputs.retire_thin_artwork == 'true'
+                && strategy.job-index == 0
+                && github.event.inputs.dry_run != 'true' }}
+        run: python mapsee_retire_thin_artwork.py --apply
 
       - name: Take this area's cursor slice
         if: ${{ github.event.inputs.dry_run != 'true' }}

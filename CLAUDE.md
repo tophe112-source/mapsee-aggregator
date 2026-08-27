@@ -882,6 +882,15 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   the information, real hours make a listing that can be shut — plus the three
   facts that decide whether to walk over: a baby changing table, drinking water,
   showers.
+- **AND AN UPSERT CANNOT DELETE, so refusing them at ingest left 120 already on
+  the map.** `mapsee_retire_thin_artwork.py` is the other half — `hidden_at`
+  rather than DELETE, dry by default, `--unhide` to reverse, never touching a
+  claimed row. It judges from the row's STORED DESCRIPTION, which is the same
+  evidence `to_event` used to write it, so there is no OSM round trip and no
+  second opinion to drift. Its own first version found ZERO against live data
+  where 120 were sitting, because it matched the opener on `— public artwork`
+  and an UNNAMED row has no dash in it — which is precisely the shape it exists
+  to find. `test_retire_thin_artwork.py` pins both openers.
 - **A FACT BUYS A SHEET, NOT A LISTING — "can it be SHUT" is the Nearby test.**
   `pin_only` began as "carries nothing worth reading", so one operator tag or
   one surface promoted a playground into `events_near`. Measured 2026-08-26 in
@@ -1023,6 +1032,7 @@ python test_ingest_parkrun.py       # the free weekly runs, and configs a guarde
 python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
 python test_ingest_openactive.py    # an RPDE feed's first page is its oldest, and it lies both ways
 python test_ingest_osm_amenities.py # which civic pins earn a sheet, and which are just the map
+python test_retire_thin_artwork.py  # which already-written artwork rows may be hidden
 python gen_amenity_fixtures.py      # regenerate ../mapsee's amenity fixtures from to_event + to_row
 python test_sync_unknown_column.py  # a column the database has not got YET must cost one feature, not the night
 python test_cleanup.py              # a statement timeout and an outage want opposite things
