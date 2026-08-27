@@ -861,6 +861,27 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   and nothing that tests only the pure functions can see it.
   `test_ingest_osm_amenities.py` now runs EVERY area through `area_bbox` and
   `tiles`, so the file has to be loadable by the code that will load it.
+- **A BARE ONE OF THESE IS NOT ALWAYS WORTH A DOT, and `tourism=artwork` is
+  the selector that proves it.** Seven of the nine are here BECAUSE existence is
+  the answer — "there is a drinking fountain on that corner" needs no words.
+  OSM's artwork tag takes in every tagged wall, and "there is art here" tells
+  nobody anything. Measured in one Seattle box: **404 artworks, 146 unnamed, and
+  55 tagged `artwork_type=graffiti` of which ZERO carried a name** — along
+  Eastlake they draw a solid line of 🎨 down the side of I-5, burying ten
+  drinking fountains and nine playgrounds in the same view. `Kind.bare_is_enough`
+  is false for artwork alone: it has to arrive with a name, an artist, a
+  description, an inscription or a photograph. The TYPE does not count and that
+  is the load-bearing half — `🗿 Type: graffiti` is a restatement of the
+  category, the same nothing as "a name is not a fact", and it was the entire
+  content of the row that prompted this. Refused at INGEST rather than hidden at
+  render, because a row that will never be drawn and can never be opened is one
+  more row for every `events_near` scan to walk past.
+- **`amenity=toilets` is 519,045 uses and was the obvious omission.** Denser
+  than drinking water (365,559) and the thing people actually expect a map of
+  civic amenities to know. Same shape as a fountain — untagged means the pin is
+  the information, real hours make a listing that can be shut — plus the three
+  facts that decide whether to walk over: a baby changing table, drinking water,
+  showers.
 - **A FACT BUYS A SHEET, NOT A LISTING — "can it be SHUT" is the Nearby test.**
   `pin_only` began as "carries nothing worth reading", so one operator tag or
   one surface promoted a playground into `events_near`. Measured 2026-08-26 in

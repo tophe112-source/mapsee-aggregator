@@ -306,6 +306,72 @@ def main():
                                          A.BY_SLUG["tourism=artwork"], None),
                    "a sculpture described as \"'\" does not become openable on it"))
 
+    # --------------------------- A BARE ONE OF THESE IS NOT WORTH A DOT
+    #
+    # Seven of the nine selectors are here BECAUSE their bare existence is the
+    # answer: "there is a drinking fountain on that corner" needs no words.
+    # `tourism=artwork` is not like that — OSM's definition takes in every
+    # tagged wall, and "there is art here" tells nobody anything.
+    #
+    # Measured in one Seattle box: 404 artworks, 146 unnamed, and 55 tagged
+    # `artwork_type=graffiti` of which ZERO carried a name. Along Eastlake they
+    # draw a solid line of 🎨 down the side of I-5, burying ten drinking
+    # fountains and nine playgrounds in the same view.
+    #
+    # The type is NOT what earns it. `🗿 Type: graffiti` is a restatement of the
+    # category — "a name is not a fact", one tag over — and it was the entire
+    # content of the row in the screenshot that prompted this.
+    for tags, want, why in [
+        ({"tourism": "artwork", "artwork_type": "graffiti"}, None,
+         "an unnamed wall tag is not imported at all"),
+        ({"tourism": "artwork"}, None, "nor is an artwork with nothing on it"),
+        ({"tourism": "artwork", "artwork_type": "graffiti", "access": "yes"}, None,
+         "...and an assumed access value does not rescue it"),
+        ({"tourism": "artwork", "name": "The Wall"}, "The Wall",
+         "a NAME makes it findable, so it is worth a dot"),
+        ({"tourism": "artwork", "artist_name": "D. Crabtree"}, "Public artwork",
+         "so does an artist, on an untitled piece"),
+        ({"tourism": "artwork", "description": "A ceramic catfish."}, "Public artwork",
+         "so does a real description"),
+        ({"tourism": "artwork", "inscription": "1898-1902"}, "Public artwork",
+         "so does an inscription — it is what you would go to read"),
+        ({"tourism": "artwork", "wikimedia_commons": "File:X.jpg"}, "Public artwork",
+         "and a photograph is the best reason of all"),
+        ({"tourism": "artwork", "artwork_type": "graffiti", "name": "Wall of Fame"},
+         "Wall of Fame", "a NAMED mural is a destination, whatever its type"),
+    ]:
+        row = ev(tags)
+        checks.append(((row.name if row else None) == want, why))
+    keep = ev({"tourism": "artwork", "name": "Catfish", "artwork_type": "sculpture"})
+    checks.append(("Type: sculpture" in keep.description,
+                   "...and a kept piece still PRINTS its type — worth reading, "
+                   "just not worth a pin on its own"))
+    # Every other selector is unchanged: a bare one is still drawn.
+    for tags, why in [({"amenity": "drinking_water"}, "a bare fountain"),
+                      ({"amenity": "toilets"}, "a bare public toilet"),
+                      ({"leisure": "playground"}, "a bare playground")]:
+        checks.append((ev(tags) is not None, f"{why} is still imported — the pin IS the answer"))
+
+    # ------------------------------------- PUBLIC TOILETS, the one people ask for
+    #
+    # 519,045 worldwide (taginfo 2026-08-27) — denser than drinking water, and
+    # the thing a map of "what this neighbourhood already has" is expected to
+    # know. Same shape as a fountain: untagged means the pin is the information,
+    # real hours make it a listing that can be shut.
+    loo = ev({"amenity": "toilets", "changing_table": "yes", "wheelchair": "yes",
+              "fee": "yes", "charge": "50p"})
+    checks.append((loo.category == "outdoors" and loo.pin_only is True,
+                   "a public toilet lands on outdoors, as a pin"))
+    for want, why in [("🚼 Baby changing table.", "a baby changing table is a fact worth the walk"),
+                      ("🎟 Charge: 50p", "and so is a charge"),
+                      ("♿ Accessibility", "and accessibility, as everywhere")]:
+        checks.append((want in loo.description, why))
+    shuts = ev({"amenity": "toilets", "name": "Pier 62 Restroom",
+                "opening_hours": "Mo-Su 06:00-22:00"})
+    checks.append((shuts.pin_only is False,
+                   "a toilet block that LOCKS at night is a listing, like anything "
+                   "else that can be shut"))
+
     # ------------------------------------------------------------- placement
     row = ev({"leisure": "playground", "name": "Cal Anderson Play Area",
               "operator": "Seattle Parks", "addr:city": "Seattle",

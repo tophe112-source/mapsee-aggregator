@@ -136,7 +136,7 @@ class Kind:
     """One selector, and everything that follows from it."""
 
     def __init__(self, key, value, category, noun, glyph, secondary=(),
-                 always_open=True, always_list=False):
+                 always_open=True, always_list=False, bare_is_enough=True):
         self.key, self.value = key, value
         self.category, self.noun, self.glyph = category, noun, glyph
         self.secondary = list(secondary)
@@ -170,6 +170,24 @@ class Kind:
         # stands would undo 0194 by degrees; the argument here is the stakes,
         # and they are not the same stakes.
         self.always_list = always_list
+        # IS THE MERE EXISTENCE OF THIS THING WORTH A DOT?
+        #
+        # For seven of the nine selectors: yes, and that is why they are here.
+        # "There is a drinking fountain on that corner" is the whole of what
+        # somebody wanted; the pin IS the information and needs no words.
+        #
+        # For public artwork it is not. "There is art here" is not actionable
+        # unless you can tell WHAT — and OSM's `tourism=artwork` includes every
+        # tagged wall. Measured in one Seattle box: 404 artworks, 146 of them
+        # unnamed, and 55 tagged `artwork_type=graffiti` of which ZERO carried a
+        # name. Along Eastlake they draw a solid line of 🎨 down the side of
+        # I-5, burying ten drinking fountains and nine playgrounds in the same
+        # view. That is map litter, not coverage.
+        #
+        # So artwork has to arrive with a name, an artist, a description or a
+        # photograph. Measured, that keeps all 258 named pieces plus 23
+        # unnamed-but-described, and drops 123 anonymous tags.
+        self.bare_is_enough = bare_is_enough
 
     @property
     def slug(self):
@@ -178,8 +196,15 @@ class Kind:
 
 KINDS = [
     Kind("leisure", "playground", "kids", "playground", "🛝", ["outdoors"]),
-    Kind("tourism", "artwork", "arts", "public artwork", "🎨"),
+    Kind("tourism", "artwork", "arts", "public artwork", "🎨",
+         bare_is_enough=False),
     Kind("amenity", "drinking_water", "outdoors", "drinking water point", "🚰"),
+    # 519,045 worldwide (taginfo, 2026-08-27) — denser than drinking water, and
+    # the single most-asked-for thing on a map of what a neighbourhood already
+    # has. Untagged hours means "the pin is the information", exactly as for a
+    # fountain; a toilet block that publishes real hours becomes a listing like
+    # anything else that can be shut.
+    Kind("amenity", "toilets", "outdoors", "public toilet", "🚻"),
     Kind("leisure", "fitness_station", "fitness", "outdoor gym", "🏋", ["outdoors"]),
     Kind("amenity", "public_bookcase", "learning", "little free library", "📚", ["community"]),
     Kind("amenity", "bicycle_repair_station", "outdoors", "bike repair stand", "🔧"),
@@ -457,6 +482,16 @@ def useful_lines(tags: Dict[str, str], kind: Kind,
             # says "open" about a thing that is off is worse than no pin.
             lines.append("❄️ Seasonal — may be turned off out of season.")
 
+    elif kind.slug == "amenity=toilets":
+        # Only the things that decide whether to walk over. "toilets:disposal"
+        # and the rest are for mappers, not for somebody who needs one.
+        if str(tags.get("changing_table") or "").lower() in _YES:
+            lines.append("🚼 Baby changing table.")
+        if str(tags.get("drinking_water") or "").lower() in _YES:
+            lines.append("🚰 Drinking water here too.")
+        if str(tags.get("shower") or "").lower() in _YES:
+            lines.append("🚿 Showers.")
+
     elif kind.slug == "leisure=fitness_station":
         equipment = _clean(tags.get("fitness_station"), 120)
         if equipment and equipment.lower() not in _YES:
@@ -492,6 +527,27 @@ def useful_lines(tags: Dict[str, str], kind: Kind,
     if body:
         lines.insert(0, body)
     return lines
+
+
+def _worth_finding(tags: Dict[str, str], kind: Kind) -> bool:
+    """For a kind where existence alone is not enough: is this one a DESTINATION?
+
+    Deliberately NOT "does useful_lines return anything", because for artwork
+    the commonest line is `🗿 Type: graffiti` — and an artwork's TYPE is a
+    restatement of the category, the same nothing as "A NAME IS NOT A FACT" one
+    tag over. It is worth PRINTING on a piece somebody is going to look at and
+    it is not a reason to walk there, so it earns no pin of its own. That is
+    the exact row in the screenshot that started this: title "Public artwork",
+    body "Public artwork.", one line, `Type: graffiti`, fifty of them down the
+    side of I-5.
+
+    What does count is anything that tells you what you would be going to see.
+    """
+    if _clean(tags.get("artist_name") or tags.get("artist"), 120):
+        return True
+    if _clean(tags.get("description"), 400) or _clean(tags.get("inscription"), 300):
+        return True
+    return bool(own_website(tags))
 
 
 def has_content(tags: Dict[str, str], kind: Kind,
@@ -599,6 +655,15 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
     image = own_image(tags)
     name = _clean(tags.get("name"), 120)
     title = name or kind.noun.capitalize()
+
+    # A BARE ONE OF THESE IS NOT WORTH A DOT. See Kind.bare_is_enough — it is
+    # false for `tourism=artwork` alone, where "there is art here" tells nobody
+    # anything and OSM's definition takes in every tagged wall. Refused at
+    # INGEST rather than hidden at render, because a row that will never be
+    # drawn and can never be opened is one more row for every events_near scan
+    # to walk past.
+    if not (kind.bare_is_enough or name or image or _worth_finding(tags, kind)):
+        return None
 
     town = _clean(tags.get("addr:city") or tags.get("addr:suburb"), 80)
     street = " ".join(x for x in [tags.get("addr:housenumber"),
