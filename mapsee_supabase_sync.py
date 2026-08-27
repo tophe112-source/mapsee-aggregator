@@ -972,12 +972,16 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         # applies — longitude cannot know a DST rule, so the zone is stored, not
         # re-derived by whoever reads it later.
         "recurring_hours": _recurring_hours(rec, lat, lon),
-        # A pin with nothing worth reading (migration 0194). See
-        # mapsee_ingest.NormalizedEvent.pin_only — the map DRAWS these, and the
-        # list, the sitemap and the sheet all skip them. Written for every row
-        # so a re-sync can take a pin back OUT of furniture once an OSM mapper
-        # adds the opening hours: an upsert cannot delete, and a flag that is
-        # only ever written when true can only ever be turned on.
+        # NOT A LISTING (migration 0194). The map DRAWS these; the Nearby list
+        # and the sitemaps skip them. It does NOT mean "nothing worth reading"
+        # — that was the original reading and it filled the Nearby list with
+        # playgrounds, 745 always-open rows in one Seattle box. The question is
+        # whether the thing can be SHUT; what it CARRIES decides whether its pin
+        # hovers and opens, which ../mapsee's amenityHasContent works out from
+        # the description. See mapsee_ingest.NormalizedEvent.pin_only.
+        # Written for every row so a re-sync can move one either way once a
+        # mapper adds real opening hours: an upsert cannot delete, and a flag
+        # only ever written when true could only ever be turned on.
         "pin_only": bool(rec.get("pin_only")),
     }
 
