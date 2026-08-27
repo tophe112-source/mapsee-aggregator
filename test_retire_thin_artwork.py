@@ -13,6 +13,8 @@ doubt, KEEP.
 
 Run: python test_retire_thin_artwork.py
 """
+import contextlib
+import io
 import sys
 
 import mapsee_retire_thin_artwork as R
@@ -104,6 +106,74 @@ def main():
                    "...and every id is in exactly one of them"))
     checks.append((list(R.patch_paths([])) == [], "an empty batch sends nothing"))
     checks.append((len(list(R.patch_paths(uuids[:1]))) == 1, "a single id still goes"))
+
+    # ---- and the THIRD failure was on the report line ----------------------
+    #
+    # `print(f"  {past} {hidden}")` over a `past` nobody had defined. It is
+    # unreachable from every case above, because all of them call is_thin() or
+    # patch_paths() DIRECTLY — the bug was in main(), and nothing ran main().
+    # Live cost: 9,781 pins walked, 54 correctly hidden and WRITTEN, then a
+    # NameError on the summary and a red job over work that had succeeded.
+    # Exactly the family already written down for mapsee_ingest_osm_amenities.
+    #
+    # So this drives the real main() against a stubbed transport, on all three
+    # argv shapes, and asserts what each one is FOR: the dry run writes
+    # nothing, --apply writes, --unhide clears the stamp rather than setting
+    # one. The stub also proves the walk terminates — `seen_ids` is what stops
+    # a dry run being handed the same thousand rows for ever.
+    thin = [{"id": f"{i:08x}-1111-2222-3333-444444444444",
+             "title": "Public artwork",
+             "description": f"Public artwork.\n\n\U0001f5ff Type: graffiti\n\n{ODBL}",
+             "poster_path": None} for i in range(3)]
+    keep = [{"id": "ffffffff-1111-2222-3333-444444444444",
+             "title": "The Wall",
+             "description": f"The Wall — public artwork.\n\n\U0001f3a8 Artist: A Person\n\n{ODBL}",
+             "poster_path": None}]
+
+    def run(argv):
+        """Drive the REAL main() and report (exit code, PATCH bodies, output)."""
+        patched, pages = [], []
+
+        def fake_req(path, method="GET", body=None, extra=None):
+            if method == "PATCH":
+                patched.append((path, body))
+                return []
+            pages.append(path)
+            return (thin + keep) if len(pages) == 1 else []
+
+        real_req, real_argv = R._req, sys.argv
+        real_url, real_key = R.SUPABASE_URL, R.SERVICE_KEY
+        out = io.StringIO()
+        try:
+            R._req, sys.argv = fake_req, ["x"] + argv
+            R.SUPABASE_URL, R.SERVICE_KEY = "https://example.invalid", "k"
+            with contextlib.redirect_stdout(out):
+                code = R.main()
+        finally:
+            R._req, sys.argv = real_req, real_argv
+            R.SUPABASE_URL, R.SERVICE_KEY = real_url, real_key
+        return code, patched, out.getvalue()
+
+    for argv, writes, why in [
+        ([], 0, "a DRY run finishes and writes nothing"),
+        (["--apply"], 1, "--apply finishes and writes"),
+        (["--apply", "--unhide"], 1, "--apply --unhide finishes and writes"),
+    ]:
+        try:
+            code, patched, text = run(argv)
+        except Exception as e:                       # NameError lands here
+            checks.append((False, f"main() {' '.join(argv) or '(dry)'} raised {e!r}"))
+            continue
+        checks.append((code == 0, f"{why} (exit {code})"))
+        checks.append((len(patched) == writes,
+                       f"...{len(patched)} PATCH(es), expected {writes}"))
+        if writes and patched:
+            sets = patched[0][1]["hidden_at"]
+            want_null = "--unhide" in argv
+            checks.append(((sets is None) == want_null,
+                           f"...hidden_at is {'cleared' if want_null else 'stamped'}"))
+            checks.append((patched[0][0].count(",") + 1 == len(thin),
+                           f"...and only the {len(thin)} thin rows, not the named one"))
 
     failed = sum(0 if ok else 1 for ok, _ in checks)
     for ok, why in checks:

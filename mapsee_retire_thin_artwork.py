@@ -178,6 +178,13 @@ def main() -> int:
 
     want_hidden = "not.is.null" if a.unhide else "is.null"
     verb = "un-hide" if a.unhide else "hide"
+    # Spelled out rather than derived. `f"{verb}d"` produced "hided", and the
+    # replacement for it referenced a `past` nobody had defined — which the
+    # 41 unit cases could not see, because it is on the --apply REPORT line
+    # and every one of them drives is_thin() or patch_paths() directly. It
+    # cost a live run: 9,781 pins walked, 54 hidden and written, then
+    # NameError on the summary and a red job over work that had succeeded.
+    past = "un-hid" if a.unhide else "hid"
     sel = "id,title,description,poster_path"
     stamp = None if a.unhide else time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
@@ -248,7 +255,7 @@ def main() -> int:
     print(f"\n{len(seen_ids)} unclaimed public-artwork pin(s) examined"
           f"{' (walk cut short — the next run continues)' if cut_short else ''}")
     if a.apply:
-        print(f"  {past} {hidden}")
+        print(f"  {past} {hidden} row(s) (--unhide reverses it)")
     else:
         n = hidden + len(pending)
         print(f"  {n} carry no name, artist, inscription, prose or photograph")
