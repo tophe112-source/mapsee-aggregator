@@ -248,7 +248,7 @@ def main() -> int:
     print(f"\n{len(seen_ids)} unclaimed public-artwork pin(s) examined"
           f"{' (walk cut short — the next run continues)' if cut_short else ''}")
     if a.apply:
-        print(f"  {verb}d {hidden}")
+        print(f"  {past} {hidden}")
     else:
         n = hidden + len(pending)
         print(f"  {n} carry no name, artist, inscription, prose or photograph")

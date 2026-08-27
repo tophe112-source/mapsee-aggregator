@@ -876,6 +876,16 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   content of the row that prompted this. Refused at INGEST rather than hidden at
   render, because a row that will never be drawn and can never be opened is one
   more row for every `events_near` scan to walk past.
+- **A CACHED ELEMENT LIST CANNOT SEE A NEW SELECTOR, and the workflow comment
+  that says so is not a mechanism.** `osm-amenities.yml` caches each area's
+  Overpass result under `osm-amenity-vN-<area>-`, with its own note: "the
+  ingest self-heals a changed bbox but cannot see a changed SELECTOR, so bump
+  it whenever KINDS gains or loses an entry." `amenity=toilets` was added and
+  the key was not bumped, so the next run restored a one-day-old list fetched
+  by the OLD query, printed "7211 element(s) from cache", and imported not one
+  toilet. A silent no-op that reads exactly like a successful sweep — the same
+  shape as the parkrun config that was never committed while the job printed a
+  friendly skip every night.
 - **`amenity=toilets` is 519,045 uses and was the obvious omission.** Denser
   than drinking water (365,559) and the thing people actually expect a map of
   civic amenities to know. Same shape as a fountain — untagged means the pin is

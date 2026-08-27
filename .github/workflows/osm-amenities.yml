@@ -124,16 +124,22 @@ jobs:
       - run: pip install -r requirements.txt
 
       # ONE CACHE ENTRY PER AREA, rolling on run_id and restoring by prefix —
-      # osm-secondhand's design and its reasons. The `-v1` is the manual bust:
+      # osm-secondhand's design and its reasons. The `-vN` is the manual bust:
       # the ingest self-heals a changed bbox but cannot see a changed SELECTOR,
       # so bump it whenever KINDS gains or loses an entry.
+      #
+      # v2: `amenity=toilets` joined KINDS. The first run after that change
+      # restored a one-day-old element list fetched by the OLD query, reported
+      # "7211 element(s) from cache", and imported not one toilet — a silent
+      # no-op that looks exactly like a successful sweep. This comment said to
+      # bump it and I did not.
       - name: Cache ${{ matrix.area }}'s amenity list
         uses: actions/cache@v4
         with:
           path: osm_amenity_cache
-          key: osm-amenity-v1-${{ matrix.area }}-${{ github.run_id }}
+          key: osm-amenity-v2-${{ matrix.area }}-${{ github.run_id }}
           restore-keys: |
-            osm-amenity-v1-${{ matrix.area }}-
+            osm-amenity-v2-${{ matrix.area }}-
 
       # THE SPLIT IS THE RISK IN THIS ADAPTER. Marking a real listing as
       # furniture makes its opening hours unreachable; marking furniture as a
