@@ -962,7 +962,13 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         "categories": extra_categories,              # up to 2 secondaries (migration 0108), or None
         "color_hex": color,                          # provenance pin color (see above)
         "poster_path": rec.get("poster_image_url") or None,   # external URL → banner + og:image (client/worker pass http(s) through)
-        "icon": None,                                # let the app render the category's emoji
+        # The ADAPTER's glyph when it has one, else None and the app renders the
+        # CATEGORY's emoji — which is what every adapter but the civic-amenity
+        # one wants, since a music event should look like a music event. Only
+        # set where the row's KIND is more specific than its category: three
+        # OSM selectors live under `outdoors` and all three drew 🚰.
+        # Bounded at 8 to match the client's own icon input (geIcon maxlength).
+        "icon": (rec.get("icon") or "").strip()[:8] or None,
         "external_source": "mapsee",                 # provenance (migration 0039)
         "external_id": rec["fingerprint"],           # cross-source dedup key -> idempotent
         # A standing weekly arrangement rather than an occasion (migration 0156).

@@ -547,6 +547,41 @@ def main():
         A.sweep_tiles, A.CURSOR_PATH = _real_sweep, _real_cursor
         _shutil.rmtree(_cursor_dir, ignore_errors=True)
 
+    # ---- the glyph must actually REACH the row ----------------------------
+    #
+    # Kind.glyph was assigned when this adapter was written and read by nothing
+    # for its whole life: NormalizedEvent had no icon field, and the sync
+    # hard-coded `"icon": None` with the note "let the app render the
+    # CATEGORY's emoji". That is right for every other adapter — one music
+    # event should look like another — and wrong for this one, because three
+    # selectors share `outdoors`. Reported from the map: drinking fountains,
+    # public toilets and bike repair stands were all 🚰, so nothing could tell
+    # you which corner had a lavatory on it.
+    #
+    # Nothing could have caught it here either. Every case above reads a
+    # description or a pin_only; none had ever looked at what the pin is DRAWN
+    # with.
+    glyphs = {}
+    for k in A.KINDS:
+        e = ev({k.key: k.value, "name": f"probe {k.value}"})
+        got = getattr(e, "icon", None) if e is not None else None
+        checks.append((got == k.glyph,
+                       f"{k.key}={k.value} is drawn with {k.glyph} (icon={got!r})"))
+        glyphs.setdefault(k.glyph, []).append(f"{k.key}={k.value}")
+    clashes = {g: ks for g, ks in glyphs.items() if len(ks) > 1}
+    checks.append((not clashes,
+                   f"no two kinds share a glyph{'' if not clashes else f' — {clashes}'}"))
+
+    # THE REPORTED BUG, named. These three are one CATEGORY and three THINGS,
+    # which is the whole reason a category emoji is not enough here.
+    outdoors = [k for k in A.KINDS if k.category == "outdoors"]
+    checks.append((len(outdoors) >= 3,
+                   f"`outdoors` still holds several kinds ({len(outdoors)}) — "
+                   "the condition that made a category glyph ambiguous"))
+    seen = [getattr(ev({k.key: k.value}), "icon", None) for k in outdoors]
+    checks.append((len(set(seen)) == len(seen),
+                   f"...and each draws its own glyph: {' '.join(str(x) for x in seen)}"))
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1

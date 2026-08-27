@@ -263,6 +263,18 @@ class NormalizedEvent:
     # telling you there is a playground on that corner, which is most of what
     # anybody wanted to know.
     pin_only: bool = False
+    # THE GLYPH THIS ROW IS DRAWN WITH, when the row's own kind is more specific
+    # than its category. Left None by every other adapter, which is right for
+    # them: the product falls back to the CATEGORY's emoji (eventGlyph in
+    # ../mapsee/site/js/app.js is `ev.icon || catEmoji(ev.category)`), and one
+    # music event looks like another on purpose.
+    #
+    # It stops being right the moment one category holds several KINDS of thing.
+    # mapsee_ingest_osm_amenities puts drinking fountains, public toilets and
+    # bike repair stands all under `outdoors`, so all three drew the same 🚰 and
+    # the map could not tell you which corner had a lavatory on it. The Kind
+    # already carried the right glyph and nothing had ever read it.
+    icon: Optional[str] = None
 
     def source_ref(self) -> Dict[str, Optional[str]]:
         return {"source": self.source, "source_id": self.source_id, "url": self.ticket_url}

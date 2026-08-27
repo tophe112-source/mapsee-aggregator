@@ -750,6 +750,16 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
         # twice — this one is "listing or scenery", that one is "is this
         # scenery worth opening".
         pin_only=not (shuts or kind.always_list),
+        # THE KIND'S OWN GLYPH, because the CATEGORY's is not specific enough
+        # here. Three selectors share `outdoors` — drinking water, public
+        # toilets and bike repair stands — so the map drew 🚰 on all three and
+        # could not tell you which corner had a lavatory on it. Kind.glyph has
+        # carried the right emoji since this adapter was written and nothing
+        # had ever read it: the sync hard-coded `"icon": None` with the note
+        # "let the app render the category's emoji", which is correct for every
+        # other adapter and wrong for the one that puts several KINDS of thing
+        # under one lens.
+        icon=kind.glyph,
     )
 
 

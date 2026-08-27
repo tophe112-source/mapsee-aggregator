@@ -1004,6 +1004,28 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   `NormalizedEvent.as_record` and never `vars()`, because `primary_url` reads
   `rec["sources"]`, which is not a dataclass field, so a hand-shaped rec
   silently drops the "Tickets / info:" line the client also has to strip.
+- **A CATEGORY IS NOT A KIND, AND THE MAP DREW THREE THINGS AS ONE DOT.**
+  Reported: drinking fountains, public toilets and bike repair stands were all
+  🚰. All three are category `outdoors`, and ../mapsee looked the pin's glyph up
+  BY CATEGORY — so the layer could say there was something civic on a corner and
+  never which. `Kind.glyph` had carried 🚰/🚻/🔧 since this adapter was written
+  and NOTHING HAD EVER READ IT: `NormalizedEvent` had no icon field, so the value
+  was assigned and dropped on the floor for the file's whole life, and the sync
+  hard-coded `"icon": None` under the note "let the app render the category's
+  emoji". That note was right when it was written and stops being right the
+  moment one category holds several KINDS of thing. `NormalizedEvent.icon` is
+  the fix, ../mapsee 0205 returns the column and the client prefers it — which
+  is the rule `eventGlyph` (`ev.icon || catEmoji(ev.category)`) had followed for
+  ordinary events all along. Two things the 127 existing cases could not see,
+  because every one of them read a description or a `pin_only` and none had ever
+  asked what the pin is DRAWN with: the glyph reaching the row at all, and no
+  two kinds sharing one. Both are asserted now, per kind.
+- **AND A GLYPH FIX REACHES THE FUTURE ONLY.** `--only-new` means a scheduled
+  run cannot rewrite a row it already wrote, and 1,000 of 1,000 sampled
+  furniture rows had `icon` NULL. So every pin already on the map keeps drawing
+  its category's emoji until `osm-amenities.yml` runs with `full_refresh`. The
+  client's fallback to the category glyph is therefore load-bearing rather than
+  defensive — it IS the map until that backfill lands — and it is checked.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
   publishes each occurrence separately and the store is rebuilt every run, so the
   occurrences never meet in memory — the table is the only place a series is
