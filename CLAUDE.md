@@ -876,6 +876,20 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   content of the row that prompted this. Refused at INGEST rather than hidden at
   render, because a row that will never be drawn and can never be opened is one
   more row for every `events_near` scan to walk past.
+- **`--ignore-cursor` MAKES A RUN UN-REPEATABLE, so fusing it with "rewrite
+  existing rows" made a backfill impossible to finish.** The ingest reads
+  `cursor = {} if a.ignore_cursor else load_cursor(...)` and then refuses to
+  SAVE one — every such run starts at candidate 0 and leaves the cursor where it
+  was. `osm-amenities.yml` had ONE input, `full_refresh`, passing both
+  `--ignore-cursor` AND dropping `--only-new`, so dispatching it ten times
+  re-swept the same first window ten times. Measured after the run that was
+  meant to backfill 0205's `icon`: **278 of 1,000 sampled Seattle furniture rows
+  still NULL, London 689, Paris 618** — and no number of repeats would have
+  moved them. A backfill wants ADVANCE + REWRITE, which is precisely the
+  combination the fused input could not express. They are two inputs now
+  (`full_refresh` rewrites, `restart_cursor` restarts), and the general shape is
+  worth the name: when one flag sets two independent knobs, the combination it
+  cannot reach is the one somebody will eventually need.
 - **A CACHED ELEMENT LIST CANNOT SEE A NEW SELECTOR, and the workflow comment
   that says so is not a mechanism.** `osm-amenities.yml` caches each area's
   Overpass result under `osm-amenity-vN-<area>-`, with its own note: "the

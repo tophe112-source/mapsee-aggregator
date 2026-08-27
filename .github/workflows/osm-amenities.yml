@@ -54,8 +54,16 @@ on:
         type: boolean
         required: false
         default: false
+      # TWO INDEPENDENT THINGS, and they were one input until a backfill needed
+      # the combination that input could not express. See the note on the Pull
+      # step below.
       full_refresh:
-        description: "BACKFILL: re-examine from the first candidate and REWRITE existing rows"
+        description: "BACKFILL: REWRITE existing rows as the sweep advances (repeat until done)"
+        type: boolean
+        required: false
+        default: false
+      restart_cursor:
+        description: "start this area from its FIRST candidate again (does not save the cursor)"
         type: boolean
         required: false
         default: false
@@ -180,6 +188,21 @@ jobs:
           fi
           echo "events.pin_only present — safe to import furniture."
 
+      # `--ignore-cursor` BELONGS TO restart_cursor, NOT TO full_refresh, and
+      # fusing them made a backfill impossible to finish. The ingest reads
+      # `cursor = {} if a.ignore_cursor else load_cursor(...)` and then refuses
+      # to SAVE one — so every run with it starts at candidate 0 and leaves the
+      # cursor where it was. Dispatching "full refresh" ten times therefore
+      # re-swept the same first window ten times and never reached the rest.
+      #
+      # Measured after one such run, on the icon backfill 0205 needed: Seattle
+      # 278 of 1,000 sampled furniture rows still had a NULL icon, London 689,
+      # Paris 618. A backfill wants ADVANCE + REWRITE, which is exactly the
+      # combination the fused input could not express.
+      #
+      # So they are orthogonal now: full_refresh drops --only-new (rewrite what
+      # this run touches), restart_cursor passes --ignore-cursor (go back to the
+      # beginning). Repeating full_refresh now walks the whole catalogue.
       - name: Pull ${{ matrix.area }}
         run: |
           python mapsee_ingest_osm_amenities.py \
@@ -189,7 +212,7 @@ jobs:
             ${{ github.event.inputs.kinds && format('--kinds {0}', github.event.inputs.kinds) || '' }} \
             ${{ github.event.inputs.radius_miles && format('--radius-miles {0}', github.event.inputs.radius_miles) || '' }} \
             ${{ github.event.inputs.listings_only == 'true' && '--listings-only' || '' }} \
-            ${{ github.event.inputs.full_refresh == 'true' && '--ignore-cursor' || '' }} \
+            ${{ github.event.inputs.restart_cursor == 'true' && '--ignore-cursor' || '' }} \
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       - name: Sync to Supabase
