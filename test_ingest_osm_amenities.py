@@ -65,7 +65,7 @@ def main():
     # a hover label and a tap that opens its sheet. `has_content` is this
     # repo's half of that, and it is what these cases assert now.
     for tags, why in [
-        ({"amenity": "public_bookcase", "operator": "Little Free Library"},
+        ({"amenity": "public_bookcase", "operator": "Ballard Rotary Club"},
          "an OPERATOR is a fact — who to thank, and who to ask"),
         ({"amenity": "drinking_water", "fee": "yes", "charge": "50c"},
          "a CHARGE is a fact"),
@@ -244,6 +244,34 @@ def main():
     unnamed = ev({"social_facility": "food_bank", "addr:city": "Seattle"})
     checks.append((unnamed.description.startswith("Food bank in Seattle."),
                    "an unnamed row does not introduce itself twice"))
+
+    # ------------------------------- AN OPERATOR THAT RESTATES THE THING
+    #
+    # "A NAME IS NOT A FACT", one tag over. `operator=Little Free Library` on a
+    # little free library says exactly what the title and the book glyph
+    # already said — and it was PROMOTING rows: live in Seattle, 47 openable
+    # pins carried that line and 35 of them had nothing else, so the whole
+    # content of their sheet was the row's own kind read back at them.
+    for tags, want, why in [
+        ({"amenity": "public_bookcase", "name": "Little Free Library",
+          "operator": "Little Free Library"}, False,
+         "an operator that repeats the row's NAME prints nothing"),
+        ({"amenity": "public_bookcase", "operator": "Little Free Library"}, False,
+         "...nor one that is just the kind's own noun, on an unnamed row"),
+        ({"leisure": "playground", "name": "Cal Anderson Play Area",
+          "operator": "Seattle Parks"}, True,
+         "a REAL operator still prints — who to thank, and who to ask"),
+        ({"amenity": "public_bookcase", "name": "LFL #123",
+          "operator": "Little Free Library Ltd"}, True,
+         "...and a superstring is a different name, so it prints too"),
+    ]:
+        kind = A.kind_of(tags)
+        got = any(l.startswith("🏛") for l in A.useful_lines(tags, kind, None))
+        checks.append((got is want, why))
+    tauto = ev({"amenity": "public_bookcase", "name": "Little Free Library",
+                "operator": "Little Free Library"})
+    checks.append((tauto.pin_only is True and "🏛" not in tauto.description,
+                   "...so a row whose ONLY fact was that tautology is scenery again"))
 
     # ------------------------------------------- QUOTES, AND PUNCTUATION-ONLY
     #

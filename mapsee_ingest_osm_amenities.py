@@ -381,8 +381,20 @@ def useful_lines(tags: Dict[str, str], kind: Kind,
     """
     lines: List[str] = []
 
+    # AN OPERATOR THAT RESTATES THE THING IS NOT A FACT — "A NAME IS NOT A
+    # FACT", one tag over, and it was promoting rows on a tautology.
+    #
+    # `operator=Little Free Library` on a little free library says exactly what
+    # the title and the book glyph already said. Live in Seattle: 45 of 571
+    # openable pins carried that line and 33 of them had NOTHING ELSE, so the
+    # whole content of their sheet was the row's own kind read back — a tap
+    # spent to be told what the map already showed. `operator=Seattle Parks`
+    # on a named playground is the real case and is untouched; the test is an
+    # exact match against the row's own name or its kind's noun, so a
+    # superstring or a different operator still prints.
     operator = _clean(tags.get("operator") or tags.get("brand"), 120)
-    if operator:
+    if operator and operator.strip().lower() not in {
+            str(tags.get("name") or "").strip().lower(), kind.noun.lower()}:
         lines.append(f"🏛 Run by: {operator}")
 
     if hours_text:

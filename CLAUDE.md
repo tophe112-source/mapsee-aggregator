@@ -875,6 +875,15 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   the pin DOES — ../mapsee's `amenityHasContent` reads the description written
   here and gives a pin with something to say a hover and a tap. The two
   judgements are no longer one question asked twice.
+- **AN OPERATOR THAT RESTATES THE THING IS NOT A FACT — "a name is not a fact",
+  one tag over.** `operator=Little Free Library` on a little free library says
+  exactly what the title and the book glyph already said. Live in Seattle: 47
+  of 571 openable pins carried that line and **35 had nothing else**, so the
+  entire content of their sheet was the row's own kind read back at them — a
+  tap spent to be told what the map already showed. Suppressed on an EXACT
+  match against the row's name or its kind's noun, so `Seattle Parks` on a
+  playground and a superstring like `Little Free Library Ltd` both still print.
+  Found by reading the hover labels the 24/7 rule had just made visible.
 - **OSM WRAPS SOME DESCRIPTIONS IN QUOTES, AND THE HOVER LABEL IS WHERE IT
   SHOWS.** 34 of 1,000 live Seattle pins read "Catfish — 'The ceramic tiles…"
   or "…band type head saw.'" the moment a description reached a tooltip —
