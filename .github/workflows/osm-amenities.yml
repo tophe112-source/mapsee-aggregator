@@ -193,6 +193,7 @@ jobs:
             ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       - name: Sync to Supabase
+        id: sync
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: |
           # --only-new is right for the WEEKLY run and exactly wrong for a
@@ -210,23 +211,21 @@ jobs:
             echo "no feeds_events.json — nothing was pulled this run"
           fi
 
-      # AN UPSERT CANNOT DELETE, so refusing anonymous wall tags at ingest does
-      # nothing about the ones already written — the sweep simply stops
-      # re-writing them and they sit there for ever. hidden_at rather than
-      # DELETE, so it is reversible (`--unhide`); dry by default in the script,
-      # so `--apply` is what this passes.
+      # A FAILED STEP SKIPS EVERY STEP AFTER IT, INCLUDING THE ONE THAT SAVES
+      # THE WORK — the same shape as a `timeout-minutes` cancellation, and it
+      # happened here: run 12 swept Seattle, synced it, and then died on a
+      # NameError in the artwork cleanup, which has nothing to do with this
+      # metro. Seattle's cursor slice was never produced and never handed up,
+      # so the sweep it had just paid for would be repeated next week while
+      # the other seven metros moved on.
       #
-      # On the `plan` job's first matrix entry only: it walks the whole table
-      # rather than one metro, so running it eight times in parallel would be
-      # eight identical passes racing each other.
-      - name: Retire anonymous artwork rows already in the table
-        if: ${{ github.event.inputs.retire_thin_artwork == 'true'
-                && strategy.job-index == 0
-                && github.event.inputs.dry_run != 'true' }}
-        run: python mapsee_retire_thin_artwork.py --apply
-
+      # Two fixes and both are worth having. The cleanup now runs at the END
+      # of the job, so nothing unrelated sits between the sweep and its
+      # bookkeeping; and these gate on the SYNC's own outcome rather than on
+      # "did everything before me pass". Not a bare always(): a cursor must
+      # advance only over work that actually reached the table.
       - name: Take this area's cursor slice
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ always() && steps.sync.outcome == 'success' }}
         env:
           AREA: ${{ matrix.area }}
         run: |
@@ -243,13 +242,28 @@ jobs:
           PY
 
       - name: Hand up the cursor
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ always() && steps.sync.outcome == 'success' }}
         uses: actions/upload-artifact@v4
         with:
           name: cursor-${{ strategy.job-index }}
           path: cursor_slice.json
           if-no-files-found: ignore
           retention-days: 1
+
+      # AN UPSERT CANNOT DELETE, so refusing anonymous wall tags at ingest does
+      # nothing about the ones already written — the sweep simply stops
+      # re-writing them and they sit there for ever. hidden_at rather than
+      # DELETE, so it is reversible (`--unhide`); dry by default in the script,
+      # so `--apply` is what this passes.
+      #
+      # On the `plan` job's first matrix entry only: it walks the whole table
+      # rather than one metro, so running it eight times in parallel would be
+      # eight identical passes racing each other.
+      - name: Retire anonymous artwork rows already in the table
+        if: ${{ github.event.inputs.retire_thin_artwork == 'true'
+                && strategy.job-index == 0
+                && github.event.inputs.dry_run != 'true' }}
+        run: python mapsee_retire_thin_artwork.py --apply
 
   cursor:
     needs: pull
