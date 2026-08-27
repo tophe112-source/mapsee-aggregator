@@ -245,6 +245,39 @@ def main():
     checks.append((unnamed.description.startswith("Food bank in Seattle."),
                    "an unnamed row does not introduce itself twice"))
 
+    # ------------------------------------------- QUOTES, AND PUNCTUATION-ONLY
+    #
+    # OSM wraps some description values in quotes, and the hover label is where
+    # that shows: live in Seattle, 34 of 1,000 civic pins read "Catfish — 'The
+    # ceramic tiles…" or "…band type head saw.'" once the description reached a
+    # tooltip. And one sculpture's ENTIRE description is a single apostrophe —
+    # the WP Event Manager "-" trap in another costume, because punctuation is
+    # truthy and would make a pin openable on nothing.
+    for raw, want, why in [
+        ("'The ceramic tiles in place of pavers.'", "The ceramic tiles in place of pavers.",
+         "a matching pair of quotes is OSM's, not the author's"),
+        ("Cast iron abstraction of band type head saw.'", "Cast iron abstraction of band type head saw.",
+         "...and so is an unbalanced straggler, when it is the only quote there"),
+        ('He said "hello" loudly', 'He said "hello" loudly',
+         "a quote WITH a partner is somebody's punctuation — left alone"),
+        ("It's a mural", "It's a mural", "an apostrophe inside a word is not a wrapper"),
+        ("'", None, "a lone apostrophe is not a description"),
+        ("...", None, "nor is punctuation on its own"),
+        ("-", None, "the original placeholder still goes"),
+    ]:
+        checks.append((A._clean(raw) == want, f"{why} ({A._clean(raw)!r})"))
+    quoted = ev({"tourism": "artwork", "name": "Catfish",
+                 "description": "'The ceramic tiles create an illusion.'"})
+    checks.append(("'The ceramic" not in quoted.description
+                   and "The ceramic tiles create an illusion." in quoted.description,
+                   "...and the stored description carries neither wrapper"))
+    bare_quote = ev({"tourism": "artwork", "name": "Coelacanths", "description": "'"})
+    checks.append((bare_quote.pin_only is True
+                   and not A.has_content({"tourism": "artwork", "name": "Coelacanths",
+                                          "description": "'"},
+                                         A.BY_SLUG["tourism=artwork"], None),
+                   "a sculpture described as \"'\" does not become openable on it"))
+
     # ------------------------------------------------------------- placement
     row = ev({"leisure": "playground", "name": "Cal Anderson Play Area",
               "operator": "Seattle Parks", "addr:city": "Seattle",

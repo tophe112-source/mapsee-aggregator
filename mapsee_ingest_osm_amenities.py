@@ -266,13 +266,37 @@ _BIKE_SERVICE = [
 ]
 
 
+# At least one letter or digit, in any script — punctuation alone is not text.
+_HAS_WORD = re.compile(r"\w", re.UNICODE)
+
+
 def _clean(value: Any, limit: int = 300) -> Optional[str]:
     if value is None:
         return None
     text = re.sub(r"\s+", " ", str(value)).strip()
-    if not text or text in {"-", "--", "n/a", "N/A", "?"}:
+    # OSM WRAPS SOME VALUES IN QUOTES, and the hover label is where it shows.
+    # Live in Seattle: 34 of 1,000 civic pins, reading "Catfish — 'The ceramic
+    # tiles…" and "…head saw.'" once the description reached a tooltip. Only a
+    # MATCHING pair is stripped, and only from the outside, so an apostrophe
+    # inside a real sentence is untouched.
+    for q in ("'", '"', "\u2018\u2019", "\u201c\u201d"):
+        a, b = (q, q) if len(q) == 1 else (q[0], q[1])
+        if len(text) >= 2 and text[0] == a and text[-1] == b:
+            text = text[1:-1].strip()
+            break
+        # An UNBALANCED straggler, and only when it is the sole quote in the
+        # string: "…band type head saw.'" is live OSM data and is noise, while
+        # anything with a partner ('He said "hello"') is somebody's punctuation
+        # and is left exactly alone.
+        if a == b and text.count(a) == 1 and (text[0] == a or text[-1] == a):
+            text = text.strip(a).strip()
+            break
+    if not text or text.lower() in {"-", "--", "n/a", "?"} or not _HAS_WORD.search(text):
         # The WP Event Manager lesson: a placeholder is TRUTHY and survives every
-        # `if not x` gate, then reaches the reader as if it were content.
+        # `if not x` gate, then reaches the reader as if it were content. The
+        # `_HAS_WORD` half is the same rule one step wider, and it was bought by
+        # a sculpture whose entire OSM description is a single apostrophe —
+        # punctuation is not text, and a pin must not become openable on it.
         return None
     return text[:limit]
 

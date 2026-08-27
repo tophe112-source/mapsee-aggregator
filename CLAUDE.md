@@ -875,6 +875,16 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   the pin DOES — ../mapsee's `amenityHasContent` reads the description written
   here and gives a pin with something to say a hover and a tap. The two
   judgements are no longer one question asked twice.
+- **OSM WRAPS SOME DESCRIPTIONS IN QUOTES, AND THE HOVER LABEL IS WHERE IT
+  SHOWS.** 34 of 1,000 live Seattle pins read "Catfish — 'The ceramic tiles…"
+  or "…band type head saw.'" the moment a description reached a tooltip —
+  invisible for as long as those rows were unopenable. A MATCHING pair is
+  stripped, and so is an unbalanced straggler when it is the only quote in the
+  string; anything with a partner is somebody's punctuation and is left alone.
+  Underneath it was the older trap: one sculpture's entire description is a
+  single apostrophe, and punctuation is TRUTHY, so it would have made a pin
+  openable on nothing — the WP Event Manager `"-"` lesson in another costume.
+  `_clean` now needs at least one letter or digit.
 - **A VALUE THAT MATCHES THE ASSUMPTION IS NOT A FACT — "a name is not a fact",
   one level down, and missed on the first pass.** `access=yes` is the commonest
   tag on a playground and `fee=no` on a drinking fountain, so between them they
