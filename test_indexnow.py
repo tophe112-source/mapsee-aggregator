@@ -185,6 +185,37 @@ def main():
                any(int(c["limit"]) == ix.PAGE_MIN for c in pg6.calls))
 
     print()
+    print("IndexNow announces a SUBSET of the sitemap, never a superset")
+    # sitemapEvents() gained `pin_only: is.false` when ../mapsee 0194 landed and
+    # this walk did not, so it spent months announcing /e/ pages for drinking
+    # fountains that the sitemap deliberately withholds. Nothing could report
+    # that: both ends answer 200 and the URLs are real.
+    pg8 = _PG(_rows(10))
+    walk(pg8, max_urls=BIG)
+    check_true("every page filters furniture out",
+               all(c.get("pin_only") == "is.false" for c in pg8.calls))
+    check_true("...and it is the same three other predicates the sitemap uses",
+               all(c.get("is_private") == "eq.false" and c.get("hidden_at") == "is.null"
+                   and str(c.get("starts_at", "")).startswith("gte.")
+                   for c in pg8.calls))
+
+    # ../mapsee's migrations are applied by hand, so a database can be missing
+    # the column. A 400 is not retryable and would cost the whole walk.
+    class _NoColumn:
+        def __init__(self, rows): self.rows, self.calls, self.n = rows, [], 0
+        def get(self, url, params=None, headers=None, timeout=None):
+            p = dict(params or {}); self.calls.append(p)
+            if "pin_only" in p:
+                return _Resp(400, text='{"code":"PGRST204","message":'
+                                       '"column events.pin_only does not exist"}')
+            return _Resp(200, self.rows[:int(p["limit"])])
+    pg9 = _NoColumn(_rows(5))
+    got9, complete9 = walk(pg9, max_urls=BIG)
+    check("a database without the column still gets its URLs announced", len(got9), 5)
+    check_true("...having dropped the predicate once rather than every page",
+               len([c for c in pg9.calls if "pin_only" in c]) == 1)
+
+    print()
     print("the server's own words reach the report")
     msg = ix._explain(_Resp(500, text=_TIMEOUT))
     check_true("the status is in it", "500" in msg)

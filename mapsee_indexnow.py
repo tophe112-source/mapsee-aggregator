@@ -261,6 +261,11 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
 
     ids: List[str] = []
     seen: set = set()
+    # ../mapsee's migrations are applied by hand, so this repo can reach a
+    # database that has not got the column yet — the same gap `upsert` and the
+    # Worker's own sitemap queries both carry. A 400 is not retryable and would
+    # otherwise cost the whole walk, so it is dropped once and said out loud.
+    skip_pin_only = False
     cursor = None
     page = min(PAGE, max_urls)
     stale = 0                    # consecutive timeouts on the SAME page
@@ -271,6 +276,15 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
             "is_private": "eq.false",     # private events must never be announced
             "hidden_at": "is.null",       # moderated-away events must never be announced
             "starts_at": f"gte.{now}",    # a past event's page is not worth a crawl
+            # FURNITURE IS NOT A PAGE, and this is the predicate that drifted.
+            # sitemapEvents() gained `pin_only: is.false` when ../mapsee 0194
+            # landed and this did not, so IndexNow has been announcing /e/ pages
+            # for drinking fountains and playgrounds that the sitemap
+            # deliberately withholds — a SUPERSET of the sitemap, which the
+            # docstring above says must never happen. Cheap to miss and it got
+            # much worse the day "a thing that never shuts is not a listing"
+            # moved several hundred rows per metro into furniture.
+            **({"pin_only": "is.false"} if not skip_pin_only else {}),
             "order": "created_at.desc,id.desc",
             "limit": str(page),
         }
@@ -311,6 +325,13 @@ def fetch_new_event_ids(base_url: str, anon_key: str, since_hours: int,
                   f"newest id(s) found so far", flush=True)
             return ids, False
         stale = 0
+        if (r is not None and r.status_code == 400 and not skip_pin_only
+                and "pin_only" in (r.text or "")):
+            skip_pin_only = True
+            print("::warning::events.pin_only is not in this database yet — "
+                  "announcing without it; furniture may reach IndexNow until "
+                  "../mapsee 0194 is applied", flush=True)
+            continue
         if r is None or r.status_code >= 400:
             raise RuntimeError(_explain(r) if r is not None else "no response")
         rows = r.json() or []

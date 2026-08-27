@@ -284,6 +284,17 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   page 60) going 1000 to 125 only buys eight times the requests and eight times
   the exposure; `PAGE_MIN`'s own comment already said this and had no other
   lever. **And out of levers, it announces what it has** rather than raising.
+- **"A SUBSET OF THE SITEMAP" IS AN INVARIANT TWO FILES HAVE TO KEEP, AND ONE
+  OF THEM MOVED.** `fetch_new_event_ids`' own docstring says its predicates are
+  "lifted verbatim from sitemapEvents()" and that IndexNow must announce a
+  subset, "never a superset". Then ../mapsee 0194 added `pin_only: is.false` to
+  both sitemap queries and nothing added it here, so this job spent months
+  announcing `/e/` pages for drinking fountains and playgrounds that the
+  sitemap deliberately withholds. Nothing could report it: both ends answer
+  200 and every URL is real. It got materially worse the day "a thing that
+  never shuts is not a listing" moved several hundred rows per metro into
+  furniture. A comment saying two things must agree is not a mechanism;
+  `test_indexnow.py` now asserts the predicate set.
 - **A FAILED READ IS NOT A FAILED RUN, and `sys.exit(1)` cost seven domains
   their daily push.** That same job reads the events for mapsee.me and then
   submits /c/ landing pages for mapsee.me and the six other doors — which do
