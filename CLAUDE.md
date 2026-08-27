@@ -887,9 +887,24 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   still NULL, London 689, Paris 618** — and no number of repeats would have
   moved them. A backfill wants ADVANCE + REWRITE, which is precisely the
   combination the fused input could not express. They are two inputs now
-  (`full_refresh` rewrites, `restart_cursor` restarts), and the general shape is
-  worth the name: when one flag sets two independent knobs, the combination it
-  cannot reach is the one somebody will eventually need.
+  (rewriting is now what every run does; `restart_cursor` restarts), and the
+  general shape is worth the name: when one flag sets two independent knobs, the
+  combination it cannot reach is the one somebody will eventually need.
+- **AND `--only-new` WAS NEVER RIGHT FOR THIS ADAPTER, only unexamined.** Its
+  own comment had the reason and drew the wrong conclusion — "pin_only is
+  written on EVERY row, so an OSM mapper adding opening hours to a playground
+  only takes that pin out of furniture on a full refresh" — treating as a
+  backfill footnote what is a permanent staleness bug. EVERY column this
+  adapter writes is derived from OpenStreetMap, so with `--only-new` a row is
+  frozen as of the day it was first seen and no edit anybody makes upstream ever
+  reaches it. The playground that gained hours stays furniture for ever; 0205's
+  `icon` is the same shape and is what made it visible. `osm-amenities.yml` now
+  rewrites on every run including the scheduled one, which is safe and bounded
+  for three specific reasons — the sync's Claimed-guard drops a claimed row
+  before writing, `--max-places` bounds the window however often it runs, and
+  the cursor advances so successive runs walk the catalogue instead of redoing
+  one window. The cost taken deliberately is blast radius: a regression in
+  `to_row` now reaches rows that already exist.
 - **A CACHED ELEMENT LIST CANNOT SEE A NEW SELECTOR, and the workflow comment
   that says so is not a mechanism.** `osm-amenities.yml` caches each area's
   Overpass result under `osm-amenity-vN-<area>-`, with its own note: "the

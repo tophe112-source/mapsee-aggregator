@@ -54,14 +54,12 @@ on:
         type: boolean
         required: false
         default: false
-      # TWO INDEPENDENT THINGS, and they were one input until a backfill needed
-      # the combination that input could not express. See the note on the Pull
-      # step below.
-      full_refresh:
-        description: "BACKFILL: REWRITE existing rows as the sweep advances (repeat until done)"
-        type: boolean
-        required: false
-        default: false
+      # `full_refresh` USED TO LIVE HERE and is gone: rewriting existing rows
+      # is now what every run of this workflow does, scheduled or dispatched,
+      # for the reason spelled out on the Sync step. What it also used to do —
+      # restart the sweep at candidate 0 — was a SEPARATE knob wearing the same
+      # switch, and fusing them made a backfill impossible to finish. See the
+      # note on the Pull step.
       restart_cursor:
         description: "start this area from its FIRST candidate again (does not save the cursor)"
         type: boolean
@@ -219,15 +217,35 @@ jobs:
         id: sync
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: |
-          # --only-new is right for the WEEKLY run and exactly wrong for a
-          # backfill. It matters more here than in the siblings: pin_only is
-          # written on EVERY row, so an OSM mapper adding opening hours to a
-          # playground only takes that pin out of furniture on a full refresh.
-          ONLY_NEW="--only-new"
-          if [ "${{ github.event.inputs.full_refresh }}" = "true" ]; then
-            ONLY_NEW=""
-            echo "FULL REFRESH: syncing without --only-new; existing rows will be rewritten"
-          fi
+          # THIS ADAPTER ALWAYS REWRITES, and the old comment here had the
+          # reason while drawing the wrong conclusion from it: "--only-new is
+          # right for the WEEKLY run and exactly wrong for a backfill... pin_only
+          # is written on EVERY row, so an OSM mapper adding opening hours to a
+          # playground only takes that pin out of furniture on a full refresh."
+          #
+          # That is not a backfill footnote, it is a permanent staleness bug.
+          # Every column this adapter writes is DERIVED FROM OSM — pin_only,
+          # icon, the hours, the description — so with --only-new a row is
+          # frozen as of the day it was first seen and no edit anybody makes to
+          # OpenStreetMap ever reaches it. The playground that gained opening
+          # hours stays furniture for ever. 0205's icon backfill is the same
+          # shape and is what made it visible.
+          #
+          # Three things make rewriting safe and bounded rather than reckless:
+          #   * the sync's own Claimed-guard drops any row a venue has claimed
+          #     before writing, so an owned listing is never overwritten;
+          #   * --max-places bounds the WINDOW, so a run rewrites at most that
+          #     many places per area however often it runs;
+          #   * the cursor advances, so successive runs walk the catalogue
+          #     rather than re-writing the same window (which is precisely what
+          #     --ignore-cursor used to prevent — see the Pull step).
+          #
+          # The cost is blast radius: a regression in to_row now reaches rows
+          # that already exist, not only new ones. That is the trade, taken
+          # deliberately, because the alternative is a map that can never
+          # correct itself.
+          ONLY_NEW=""
+          echo "syncing WITHOUT --only-new: existing rows are rewritten from current OSM"
           if [ -f feeds_events.json ]; then
             python mapsee_supabase_sync.py --store feeds_events.json $ONLY_NEW
           else
