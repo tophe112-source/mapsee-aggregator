@@ -901,6 +901,18 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   where 120 were sitting, because it matched the opener on `— public artwork`
   and an UNNAMED row has no dash in it — which is precisely the shape it exists
   to find. `test_retire_thin_artwork.py` pins both openers.
+- **AND THE THIRD FAILURE WAS ON THE LINE THAT PRINTS THE RESULT.** That script
+  has now failed live three times — twice on its own query, once on its report
+  — and not once on its judgement, which is the only part 20 unit cases were
+  covering. The third was `print(f"  {past} {hidden}")` over a `past` nobody had
+  defined, left behind by the edit that removed an `f"{verb}d"` producing
+  "hided". It ran the whole sweep first: 9,781 pins walked, 54 correctly hidden
+  and WRITTEN, then a NameError on the summary, exit 1 and a red job over work
+  that had entirely succeeded. Unreachable from every case in the file, because
+  all of them call `is_thin()` or `patch_paths()` directly — **the bug was in
+  `main()`, and nothing ran `main()`**, the same gap that cost
+  `mapsee_ingest_osm_amenities` two production runs. The test drives the real
+  `main()` against a stubbed transport on all three argv shapes now.
 - **A FACT BUYS A SHEET, NOT A LISTING — "can it be SHUT" is the Nearby test.**
   `pin_only` began as "carries nothing worth reading", so one operator tag or
   one surface promoted a playground into `events_near`. Measured 2026-08-26 in
