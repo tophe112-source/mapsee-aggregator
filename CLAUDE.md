@@ -1152,6 +1152,44 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   needs a key. None of these is a bug to fix; all three cost a probe to
   re-check, which is why the numbers are in the configs.
 
+- **A SESSION PUBLISHED EVERY TEN MINUTES IS A BOOKING GRID, and it walks past
+  the refusal written for exactly that.** This repo already declines OpenActive's
+  `FacilityUse` and `Slot` — "a bookable badminton court at 19:00 is an empty
+  room somebody may or may not take" — and the same thing arrives through the
+  front door as a `ScheduledSession`, which that rule never sees. Measured
+  2026-08-28 in a ±0.03 box on central London: one pool published **"Swim For
+  Fitness" 255 times in a week, 110 of them on a single day** at ten-minute
+  spacing from 05:40, and three title/venue pairs like it were about **half of
+  the 800 rows `events_near` will return for that viewport**. Since that RPC
+  sorts every candidate in the box to take its top N, the grid is most of why
+  central London exceeds the API role's ~3s statement timeout while Seattle and
+  New York do not. `collapse_booking_grids` keeps ONE row per venue per day,
+  opening when the first slot opens and closing when the last one closes, saying
+  in its own description how many slots it stands for — which is a truer listing
+  than any ten-minute slice of it. The threshold is per DAY at ONE venue for ONE
+  title because that is the shape a grid has and a programme does not: 308 of
+  321 distinct title/venue pairs in that box occurred exactly once, and the
+  busiest genuine one ran four times in a WEEK.
+- **AND THE HORIZON WAS THE OBVIOUS LEVER AND THE WRONG ONE.** `OpenActive`'s
+  `DEFAULT_HORIZON_DAYS` is 120 where every sibling adapter uses 42, which reads
+  like the cause of a bloated pool and is not: measured in the same box, every
+  WEEK inside 42 days fills the 800-row cap, while 42-120 days holds 82, 87 and
+  80 rows and beyond 120 holds one. Cutting it to 42 would have dropped ~250
+  rows out of thousands, changed nothing, and lost four months of real
+  programming. The density is near-term and genuine. Check which end of the
+  distribution the volume is actually at before trimming the tail.
+- **A PERFORMANCE MEASUREMENT ON THIS DATABASE IS A MEASUREMENT OF THE CACHE,
+  and it will invert under you mid-session.** ../mapsee 0207 baked
+  `enable_indexscan = off` into `events_near` on a forced-plan comparison
+  showing 17,870ms -> 5,320ms, and 0208 reverted it after measuring 3.2s
+  medians warm through the anon key. The same thing happened again while
+  verifying the client-side retry for it: London ±0.08 measured 3.28s median
+  with 4/6 raising 57014, then six runs later answered on the FIRST try in
+  0.67-0.96s, because the earlier attempts had warmed shared_buffers. Both
+  readings are true and neither is the answer on its own. Interleave the targets,
+  say which cache state a number came from, and treat a single cold sample as
+  evidence of nothing.
+
 ## Running things
 
 ```bash

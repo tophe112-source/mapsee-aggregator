@@ -113,7 +113,22 @@ MAX_PAGES = 250
 
 # How far ahead a session may start before we treat the date as furniture rather
 # than a plan. See lesson 3 — Let's Ride ships the year 2500.
+#
+# Measured before changing it, because it looked like the obvious lever for the
+# London pool and it is NOT: in a ±0.03 central-London box, every WEEK inside 42
+# days fills the 800-row cap, while 42-120 days holds 82, 87 and 80 rows and
+# beyond 120 holds one. Cutting this to 42 like its sibling adapters would drop
+# ~250 rows out of thousands and fix nothing. The density is near-term and real;
+# what is not real is the booking grid — see collapse_booking_grids.
 DEFAULT_HORIZON_DAYS = 120
+
+# How many rows one title at one venue may have in ONE day before the publisher
+# is describing a booking grid rather than a schedule. Six is comfortably above
+# a real programme — the measurement that prompted this found 308 of 321
+# title/venue pairs occurring exactly once in a week, and the busiest genuine
+# one four times — and far below a grid, which ran 110 in a day at ten-minute
+# spacing. Per-source override: `grid_min_per_day`.
+GRID_MIN_PER_DAY = 6
 
 
 # ---------------------------------------------------------------------------
@@ -416,6 +431,85 @@ def to_event(record: dict, source: dict, now: datetime,
     ), None
 
 
+def _grid_key(ev: NormalizedEvent) -> Tuple[str, float, float, str]:
+    """What makes two rows the same thing on the same day.
+
+    The title, the point, and the LOCAL date. `start_utc` holds the offset the
+    publisher sent, so its first ten characters are already the local day —
+    which is the day a person would be looking at, and not the UTC one that
+    puts a 00:30 session on the previous date.
+    """
+    return ((ev.name or "").strip().lower(),
+            round(ev.latitude or 0.0, 5), round(ev.longitude or 0.0, 5),
+            (ev.start_utc or "")[:10])
+
+
+def collapse_booking_grids(events: List[NormalizedEvent], min_per_day: int
+                           ) -> Tuple[List[NormalizedEvent], int, List[str]]:
+    """A session published every ten minutes is a BOOKING GRID, not a schedule.
+
+    This repo already refuses `FacilityUse` and `Slot`, on the grounds that a
+    bookable badminton court at 19:00 is an empty room somebody may or may not
+    take. The same thing arrives through the front door as `ScheduledSession`
+    and passes that refusal: measured 2026-08-28 in a ±0.03 box on central
+    London, ONE pool published "Swim For Fitness" 255 times in a week — 110 of
+    them on a single day, at ten-minute spacing, from 05:40. Three title/venue
+    pairs like it were about half of the 800 rows events_near will return for
+    that viewport, and events_near sorts every candidate in the box to take its
+    top N, so that grid is most of why central London exceeds the API role's ~3s
+    statement timeout while Seattle and New York do not.
+
+    Nothing here is a tidy-up and nothing is thrown away silently. A grid still
+    reaches the map — as ONE row for the day, opening when the first slot opens
+    and closing when the last one closes, saying in its own description how many
+    bookable slots it stands for. That is a truer listing than any single
+    ten-minute slice of it: "the pool is open 05:40–21:00 and you book a lane"
+    is the fact, and 110 rows saying so is the map shouting.
+
+    The threshold is per DAY at ONE venue for ONE title, because that is the
+    shape a grid has and a real programme does not: the same measurement found
+    "PT Taster Session" four times in a WEEK, and 308 of 321 distinct
+    title/venue pairs occurred exactly once. A publisher whose classes really do
+    run six times a day can raise `grid_min_per_day` in its config entry.
+    """
+    if min_per_day <= 1:
+        return events, 0, []
+    groups: Dict[Tuple[str, float, float, str], List[NormalizedEvent]] = {}
+    for ev in events:
+        groups.setdefault(_grid_key(ev), []).append(ev)
+    out: List[NormalizedEvent] = []
+    dropped = 0
+    notes: List[str] = []
+    for key, rows in groups.items():
+        if len(rows) < min_per_day:
+            out.extend(rows)
+            continue
+        rows.sort(key=lambda e: e.start_utc or "")
+        first = rows[0]
+        # The day's real window: the first slot's start to the LAST slot's end,
+        # falling back to the last start when a slot carries no end.
+        last_end = max((e.end_utc or e.start_utc or "") for e in rows)
+        first.end_utc = last_end if last_end > (first.start_utc or "") else first.end_utc
+        # Say what it stands for, in the row itself — the count that was dropped
+        # has to survive somewhere a reader can see it.
+        first.description = (
+            f"🎟 {len(rows)} bookable slots on this day, from "
+            f"{(first.start_utc or '')[11:16]} to {last_end[11:16]}.\n\n"
+            + (first.description or "")).strip()
+        # IDENTITY IS THE DAY NOW, not the slot that happened to be first. Keyed
+        # on the slot's own id, a pool opening at 05:50 instead of 05:40
+        # tomorrow would write a second row and orphan today's.
+        name, lat, lon, day = key
+        ref = f"grid|{first.source}|{name}|{lat},{lon}|{day}"
+        first.source_id = ref[:200]
+        first.fingerprint = hashlib.sha1(ref.encode("utf-8")).hexdigest()
+        out.append(first)
+        dropped += len(rows) - 1
+        notes.append(f"{first.name} @ {first.venue_name or f'{lat},{lon}'} {day}: "
+                     f"{len(rows)} slots -> 1")
+    return out, dropped, notes
+
+
 def read_source(source: dict, horizon_days: int, max_pages: int,
                 delay: float, now: Optional[datetime] = None) -> Tuple[List[NormalizedEvent], Dict[str, Any]]:
     """Every dated row one publisher has, plus a report of what was refused."""
@@ -475,7 +569,16 @@ def read_source(source: dict, horizon_days: int, max_pages: int,
             kept.append(event)
         else:
             refused[why or "?"] = refused.get(why or "?", 0) + 1
-    return kept, {"notes": notes, "refused": refused, "records": len(records)}
+    kept, gridded, grid_notes = collapse_booking_grids(
+        kept, int(source.get("grid_min_per_day", GRID_MIN_PER_DAY)))
+    if gridded:
+        notes.append(f"booking grids: {gridded} slot row(s) collapsed into "
+                     f"{len(grid_notes)} day row(s)")
+        notes.extend("  " + n for n in grid_notes[:8])
+        if len(grid_notes) > 8:
+            notes.append(f"  ...and {len(grid_notes) - 8} more")
+    return kept, {"notes": notes, "refused": refused, "records": len(records),
+                  "gridded": gridded}
 
 
 # ---------------------------------------------------------------------------
