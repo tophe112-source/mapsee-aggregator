@@ -361,6 +361,27 @@
     -79.3832
    ],
    "radius_miles": 50
+  },
+  {
+   "name": "São Paulo",
+   "city": "São Paulo",
+   "country": "BR",
+   "center": [
+    -23.5505,
+    -46.6333
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Rio de Janeiro",
+   "city": "Rio de Janeiro",
+   "country": "BR",
+   "center": [
+    -22.9068,
+    -43.1729
+   ],
+   "radius_miles": 50
   }
- ]
+ ],
+ "_brazil": "Added 2026-08-28. Brechós are a large and well-mapped part of Brazilian retail; the Rio box alone carries 12 shop=second_hand and 1 shop=charity. The bar here is readable opening hours, not an order link."
 }

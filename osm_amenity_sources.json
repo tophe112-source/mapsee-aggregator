@@ -97,6 +97,27 @@
     -3.1883
    ],
    "radius_miles": 25
+  },
+  {
+   "name": "São Paulo",
+   "city": "São Paulo",
+   "country": "BR",
+   "center": [
+    -23.5505,
+    -46.6333
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Rio de Janeiro",
+   "city": "Rio de Janeiro",
+   "country": "BR",
+   "center": [
+    -22.9068,
+    -43.1729
+   ],
+   "radius_miles": 25
   }
- ]
+ ],
+ "_brazil": "Added 2026-08-28. Measured in the Rio box: 615 playgrounds, 355 public artworks, 268 toilets, 241 outdoor gyms, 32 drinking fountains; Brasília's 529/35/166/293/34. Most of that lands as pin_only furniture, which is the point — it draws the city without burying the gig three streets away. The cache key carries the area name, so new areas need no version bump; only a changed SELECTOR does."
 }

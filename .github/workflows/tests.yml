@@ -182,6 +182,16 @@ jobs:
       - name: OpenActive (a feed's first page is its oldest, and it lies both ways)
         run: python test_ingest_openactive.py
 
+      # Mapas Culturais, Brazil's state and municipal cultural registers. Three
+      # of these lies are indistinguishable from a healthy read: a date filter
+      # the server ACCEPTS and ignores (one instance answered a future-filtered
+      # query with its whole archive, back to 1911), a coordinate that is
+      # present and "0", and an address placeholder that is the literal word
+      # "undefined". The first two decide whether a row is real and whether it
+      # can be drawn at all.
+      - name: Mapas Culturais (an accepted filter that never ran, and 0,0)
+        run: python test_ingest_mapasculturais.py
+
       # The listing/furniture split. A civic amenity with nothing worth reading
       # is DRAWN and nothing else; one that carries a fact opens like any pin.
       # Both errors are silent: mark a listing as furniture and its hours become
