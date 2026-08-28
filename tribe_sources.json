@@ -2462,6 +2462,207 @@
         "lon": 170.3450259
       },
       "_metro": "Dunedin, NZ"
+    },
+    {
+      "name": "Village Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.villagebaptist.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Village Baptist Church",
+        "address": "147 Te Aute Road",
+        "city": "Havelock North",
+        "postal_code": "4130",
+        "lat": -39.6764632,
+        "lon": 176.8634939
+      },
+      "_metro": "Napier, NZ"
+    },
+    {
+      "name": "Les yeux d'Elsa",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event",
+      "base_url": "https://www.saintcyr78.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Les yeux d'Elsa",
+        "address": "11 Bis Avenue Jean Jaurès",
+        "city": "Saint-Cyr-l'École",
+        "postal_code": "78210",
+        "lat": 48.7999519,
+        "lon": 2.0653518
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Centre d'animation Reuilly",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://claje.asso.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre d'animation Reuilly",
+        "address": "19 Rue Antoine-Julien Hénard",
+        "city": "Paris",
+        "postal_code": "75012",
+        "lat": 48.8425167,
+        "lon": 2.3895544
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Sunset sunside",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.sunset-sunside.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sunset sunside",
+        "address": "60 Rue des Lombards",
+        "city": "Paris",
+        "country": "FR",
+        "lat": 48.8598645,
+        "lon": 2.3477284
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "L'Européen",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://welcome.leuropeen.paris",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "L'Européen",
+        "address": "5 Rue Biot",
+        "lat": 48.8837701,
+        "lon": 2.3265034
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Le Passage vers les Etoiles",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.lepassageverslesetoiles.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Passage vers les Etoiles",
+        "address": "17 Cité Joly",
+        "postal_code": "75011",
+        "lat": 48.8628826,
+        "lon": 2.3824894
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Le Regard du Cygne",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+ics",
+      "base_url": "https://leregarducygne.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Regard du Cygne",
+        "lat": 48.8751345,
+        "lon": 2.3951275
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Théâtre de la Terre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://theatredelaterre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre de la Terre",
+        "lat": 48.87216,
+        "lon": 2.3725531
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Accro des arbres",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://portauxcerises.iledeloisirs.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Accro des arbres",
+        "lat": 48.6936388,
+        "lon": 2.4081282
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Centre régional des oeuvres universitaires et scolaires de Paris",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.crous-paris.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre régional des oeuvres universitaires et scolaires de Paris",
+        "address": "39 Avenue Georges Bernanos",
+        "city": "Paris",
+        "postal_code": "75005",
+        "lat": 48.8402234,
+        "lon": 2.3376518
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "ACBB Canoë Kayak",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.acbb-canoe-kayak.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ACBB Canoë Kayak",
+        "lat": 48.8308427,
+        "lon": 2.224098
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Théâtre du Coin des Mondes",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.compagnie-eygurande.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre du Coin des Mondes",
+        "lat": 48.6352728,
+        "lon": 2.4381691
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "L'Idée Halle",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://lattribut.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "L'Idée Halle",
+        "address": "6 Rue Eugène Freyssinet",
+        "lat": 48.6574534,
+        "lon": 2.4187732
+      },
+      "_metro": "Paris, FR"
     }
   ],
   "_not_included": {

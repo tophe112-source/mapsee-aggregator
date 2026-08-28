@@ -563,6 +563,122 @@
     "lon": 174.7486889
    },
    "_metro": "Auckland, NZ"
+  },
+  {
+   "name": "Théâtre des Amandiers",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://nanterre-amandiers.com/"
+   ],
+   "link_pattern": "https://nanterre\\-amandiers\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Théâtre des Amandiers",
+    "address": "7 Avenue Pablo Picasso",
+    "postal_code": "92270",
+    "lat": 48.8931704,
+    "lon": 2.214017
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "L'Olympia",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.olympiahall.com/agenda/izia/"
+   ],
+   "link_pattern": "https://www\\.olympiahall\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "L'Olympia",
+    "lat": 48.8702443,
+    "lon": 2.3283595
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "Théâtre de Belleville",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.theatredebelleville.com/programmation/a-venir/yoni"
+   ],
+   "link_pattern": "https://www\\.theatredebelleville\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Théâtre de Belleville",
+    "lat": 48.8709045,
+    "lon": 2.3742891
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "Théâtre des Abbesses",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.theatredelaville-paris.com/fr/spectacles/saison-26-27"
+   ],
+   "link_pattern": "https://www\\.theatredelaville\\-paris\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Théâtre des Abbesses",
+    "lat": 48.8845934,
+    "lon": 2.3372352
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "Max Linder Panorama",
+   "category": "theater",
+   "_found": "osm:cinema -> jsonld-event",
+   "listing": [
+    "https://www.maxlinder.com/events/76408-festival-play-it-again/"
+   ],
+   "link_pattern": "https://www\\.maxlinder\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Max Linder Panorama",
+    "lat": 48.8713796,
+    "lon": 2.3448127
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "La Péniche cinéma",
+   "category": "arts",
+   "_found": "osm:arts_centre -> wix+jsonld-event",
+   "listing": [
+    "https://www.penichecinema.com/events/panchama-fight-klub"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "La Péniche cinéma",
+    "address": "59 Boulevard Macdonald",
+    "lat": 48.8955745,
+    "lon": 2.3934188
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "Maison des liens familiaux",
+   "category": "community",
+   "_found": "osm:social_facility -> modern-events+jsonld-event",
+   "listing": [
+    "https://maisondesliensfamiliaux.fr/agenda-paris/"
+   ],
+   "link_pattern": "https://maisondesliensfamiliaux\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Maison des liens familiaux",
+    "lat": 48.9000369,
+    "lon": 2.3360224
+   },
+   "_metro": "Paris, FR"
   }
  ],
  "_not_included": {

@@ -2244,5 +2244,32 @@
   "geocode_suffix": ", Christchurch, NZ",
   "limit": 300,
   "_metro": "Christchurch, NZ"
+ },
+ {
+  "name": "Théâtre André Malraux",
+  "category": "theater",
+  "_found": "osm:theatre -> events-manager",
+  "url": "https://www.tam.fr/spectacles/musique/?ical=1",
+  "geocode_suffix": ", Paris, FR",
+  "limit": 300,
+  "_metro": "Paris, FR"
+ },
+ {
+  "name": "Musée Boleslas Biegas",
+  "category": "arts",
+  "_found": "osm:museum -> events-manager",
+  "url": "https://ibpp.eu/?ical=1",
+  "geocode_suffix": ", Paris, FR",
+  "limit": 300,
+  "_metro": "Paris, FR"
+ },
+ {
+  "name": "Maison Populaire",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://www.maisonpop.fr/spip.php?page=ical",
+  "geocode_suffix": ", Paris, FR",
+  "limit": 300,
+  "_metro": "Paris, FR"
  }
 ]
