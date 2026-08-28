@@ -2578,13 +2578,126 @@
     "n": 22.6393,
     "w": 113.7494,
     "e": 114.5894
+   },
+   {
+    "name": "São Paulo, BR",
+    "city": "São Paulo",
+    "s": -23.8705,
+    "n": -23.2305,
+    "w": -47.0533,
+    "e": -46.2133
+   },
+   {
+    "name": "Rio de Janeiro, BR",
+    "city": "Rio de Janeiro",
+    "s": -23.2268,
+    "n": -22.5868,
+    "w": -43.5929,
+    "e": -42.7529
+   },
+   {
+    "name": "Brasília, BR",
+    "city": "Brasília",
+    "s": -16.1139,
+    "n": -15.4739,
+    "w": -48.3028,
+    "e": -47.4628
+   },
+   {
+    "name": "Belo Horizonte, BR",
+    "city": "Belo Horizonte",
+    "s": -20.2367,
+    "n": -19.5967,
+    "w": -44.3545,
+    "e": -43.5145
+   },
+   {
+    "name": "Salvador, BR",
+    "city": "Salvador",
+    "s": -13.2977,
+    "n": -12.6577,
+    "w": -38.9216,
+    "e": -38.0816
+   },
+   {
+    "name": "Fortaleza, BR",
+    "city": "Fortaleza",
+    "s": -4.0519,
+    "n": -3.4119,
+    "w": -38.9467,
+    "e": -38.1067
+   },
+   {
+    "name": "Curitiba, BR",
+    "city": "Curitiba",
+    "s": -25.7484,
+    "n": -25.1084,
+    "w": -49.6933,
+    "e": -48.8533
+   },
+   {
+    "name": "Recife, BR",
+    "city": "Recife",
+    "s": -8.3676,
+    "n": -7.7276,
+    "w": -35.297,
+    "e": -34.457
+   },
+   {
+    "name": "Porto Alegre, BR",
+    "city": "Porto Alegre",
+    "s": -30.3546,
+    "n": -29.7146,
+    "w": -51.6377,
+    "e": -50.7977
+   },
+   {
+    "name": "Manaus, BR",
+    "city": "Manaus",
+    "s": -3.439,
+    "n": -2.799,
+    "w": -60.4417,
+    "e": -59.6017
+   },
+   {
+    "name": "Belém, BR",
+    "city": "Belém",
+    "s": -1.7758,
+    "n": -1.1358,
+    "w": -48.9102,
+    "e": -48.0702
+   },
+   {
+    "name": "Goiânia, BR",
+    "city": "Goiânia",
+    "s": -17.0069,
+    "n": -16.3669,
+    "w": -49.6848,
+    "e": -48.8448
+   },
+   {
+    "name": "Campinas, BR",
+    "city": "Campinas",
+    "s": -23.2299,
+    "n": -22.5899,
+    "w": -47.4826,
+    "e": -46.6426
+   },
+   {
+    "name": "Florianópolis, BR",
+    "city": "Florianópolis",
+    "s": -27.9154,
+    "n": -27.2754,
+    "w": -48.968,
+    "e": -48.128
    }
   ],
   "run_weekdays": [
    0,
    4
   ],
-  "_run_weekdays": "Monday AND Thursday. This is 245 Overpass calls at roughly 45s each - over three hours - so it must not run daily, and it now runs as its OWN workflow job (markets_osm) with its own store, its own sync and a 330-minute budget. That isolation is the load-bearing part: until 2026-08-17 the sweep ran inside the `feeds` job, and on Monday 2026-08-17 it hit that job's 240-minute ceiling MID-STEP - so the checkpoint sync never ran and the day delivered nothing at all, including the Socrata and ICS work that had already succeeded and the twenty sources queued behind it. The Saturday and Sunday either side took 52 and 55 minutes, because run_weekdays keeps this sweep to Mondays: it does not merely get LOST to the timeout, it CAUSES it. Two days rather than one because a source with a single weekly window has no retry - the 2026-08-10 run was lost the same way - and now that a failure here costs only this job, the second day is cheap."
+  "_run_weekdays": "Monday AND Thursday. This is 245 Overpass calls at roughly 45s each - over three hours - so it must not run daily, and it now runs as its OWN workflow job (markets_osm) with its own store, its own sync and a 330-minute budget. That isolation is the load-bearing part: until 2026-08-17 the sweep ran inside the `feeds` job, and on Monday 2026-08-17 it hit that job's 240-minute ceiling MID-STEP - so the checkpoint sync never ran and the day delivered nothing at all, including the Socrata and ICS work that had already succeeded and the twenty sources queued behind it. The Saturday and Sunday either side took 52 and 55 minutes, because run_weekdays keeps this sweep to Mondays: it does not merely get LOST to the timeout, it CAUSES it. Two days rather than one because a source with a single weekly window has no retry - the 2026-08-10 run was lost the same way - and now that a failure here costs only this job, the second day is cheap.",
+  "_brazil": "Added 2026-08-28. A feira livre is a weekly street market and Brazil maps them: 90 amenity=marketplace elements in the Rio box and 94 in Brasília's, comparable with the densest European cities already here. They arrive with surveyed coordinates, which is what makes them usable at all — the only geocoder in this pipeline is US Census."
  },
  {
   "name": "USDA Local Food Directories",

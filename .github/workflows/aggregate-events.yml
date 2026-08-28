@@ -502,6 +502,20 @@ jobs:
           else
             echo "no mobilizon_sources.json — skipping"
           fi
+      # Brazil's only working national events commons, and the only source in
+      # this repo that puts anything on the map there. Two instances, ~1,900
+      # occurrences read, under a minute — small enough to belong in `feeds`
+      # rather than needing its own job the way OpenActive did. Read the
+      # adapter's header before adding an instance: more than half of them
+      # accept the date filter and ignore it, and the count that comes back is
+      # then the whole archive.
+      - name: Import Mapas Culturais (BR state/municipal cultural registers)
+        run: |
+          if [ -f mapasculturais_sources.json ]; then
+            python mapsee_ingest_mapasculturais.py --config mapasculturais_sources.json --store feeds_events.json || true
+          else
+            echo "no mapasculturais_sources.json — skipping"
+          fi
       - name: Import Moshtix (AU/NZ music + live events, public GraphQL)
         run: python mapsee_ingest_moshtix.py --store feeds_events.json --within-days 120 || true
       - name: Import Opendatasoft civic events (international; OpenAgenda + city portals)

@@ -113,7 +113,28 @@
     144.9631
    ],
    "radius_miles": 50
+  },
+  {
+   "name": "São Paulo",
+   "city": "São Paulo",
+   "country": "BR",
+   "center": [
+    -23.5505,
+    -46.6333
+   ],
+   "radius_miles": 50
+  },
+  {
+   "name": "Rio de Janeiro",
+   "city": "Rio de Janeiro",
+   "country": "BR",
+   "center": [
+    -22.9068,
+    -43.1729
+   ],
+   "radius_miles": 50
   }
  ],
- "_not_included": {}
+ "_not_included": {},
+ "_brazil": "Added 2026-08-28. The matrix is read from this file, so each is its own job bounded by --max-places; adding an area costs parallel runner time, not critical path. Brazil's takeaway coverage in OSM is dense and iFood links are common, but note that looks_like_ordering only knows Western hosts, so the first sweep is the measurement of how much actually qualifies."
 }

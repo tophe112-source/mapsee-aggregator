@@ -1,0 +1,51 @@
+{
+ "_comment": "Mapas Culturais (https://github.com/mapasculturais/mapasculturais) — GPLv3 software built for Brazil's culture ministry and run by states and municipalities as their official cultural register. Public REST at {base}/api/eventOccurrence/find, no key. Every entry here was probed on 2026-08-28 and the counts below are what it actually returned; read mapsee_ingest_mapasculturais.py's header before adding one, because the obvious count is the wrong one on more than half of these instances.",
+
+ "_the_count_that_lies": "An instance answers `_startsOn=GTE(today)` in one of two ways and BOTH return 200. Ceará applies it (16,587 occurrences total, 329 returned). Espírito Santo IGNORES it and returns the whole archive — 1,575 rows, of which 11 were future and the oldest was dated 1911. Ask for @count=1 with the filter and again without: equal counts mean the filter did nothing. The adapter does this per instance and prints which it got, and re-checks every row against rule.startsOn regardless. Never configure one of these on the strength of a filtered count alone.",
+
+ "_horizon_days": "42, and it is load-bearing rather than a tuning knob. A recurring occurrence frequently carries no `until` — 145 of Espírito Santo's live rows — and an unbounded weekly projects pins for ever, which mapsee_cleanup.py can never remove because it deletes the PAST and a 2050 Tuesday is not past.",
+
+ "sites": [
+  {
+   "name": "Mapa Cultural do Ceará",
+   "slug": "ce",
+   "base_url": "https://mapacultural.secult.ce.gov.br",
+   "_measured": "2026-08-28: 16,587 occurrences total, 329 genuinely future, 281 of those PLACEABLE, 320 with an event name. Honours the date filter. By a distance the most active instance found, and essentially all of this source's supply.",
+   "category": "community",
+   "default_region": "CE",
+   "default_country": "Brazil",
+   "horizon_days": 42,
+   "limit": 100,
+   "max_pages": 40
+  },
+  {
+   "name": "Mapa Cultural do Espírito Santo",
+   "slug": "es",
+   "base_url": "https://mapa.cultura.es.gov.br",
+   "_measured": "2026-08-28: 1,575 occurrences total and the SAME 1,575 returned for a future-filtered query, so the filter is ignored here — 11 are genuinely future and 5 of those placeable. 145 recurring rows carry no `until`. The archive is small enough to walk in full, which is why it is configured rather than declined.",
+   "category": "community",
+   "default_region": "ES",
+   "default_country": "Brazil",
+   "horizon_days": 42,
+   "limit": 100,
+   "max_pages": 25
+  }
+ ],
+
+ "_null_island": "0,0 IS THE COMMONEST COORDINATE IN THIS SOURCE and it is a string, so it passes a presence check. 55 of the 345 genuinely-future occurrences carry {\"latitude\": \"0\", \"longitude\": \"0\"} — a space whose registrant never dragged the map pin. \"0\" is truthy, so an audit that asks `if loc.get('latitude')` counts every one of them as placed; the first pass of this very audit reported Ceará at 328/329 when the real figure is 281. parse_location rejects them, which is why two instances that look live are in _not_included below: they answer, they have future events, and not one of those events can be drawn.",
+
+ "_not_included": {
+  "https://mapacultural.se.gov.br": "Sergipe. Live and answering, 34 occurrences, 4 genuinely future — and ALL FOUR sit at 0,0, so the instance puts nothing on the map. Not a broken feed and not an editorial no: a register whose spaces were entered without a location. Re-probe, because one mapper fixes this.",
+  "https://mapacultural.pa.gov.br": "Pará. Live, 348 occurrences, 1 genuinely future, and that one is at 0,0. Same shape as Sergipe — declined on the PLACEABLE count, not the event count, which is the only number that decides whether a source reaches the map.",
+  "https://mapadacultura.ac.gov.br": "Acre. Live and answering, 1 occurrence in the entire instance and it is past. EMPTY, not broken — re-probe in a season rather than treating it as dead.",
+  "https://jpcultura.joaopessoa.pb.gov.br": "João Pessoa (PB). Live, 34 occurrences, ZERO of them future — the newest is 2026 and most are 2025. Its `_startsOn` column is NULL on every row, which is why the server's future filter returned all 34: it was testing an empty column. A working instance that nobody is posting to; re-probe, do not retire.",
+  "https://mapacultural.pelotas.rs.gov.br": "Pelotas (RS). Live, 29 occurrences, 0 future. Honours the filter, so this count is trustworthy. Lei Aldir Blanc-era register that has gone quiet.",
+  "https://mapasculturais.campos.rj.gov.br": "Campos dos Goytacazes (RJ). Live, 31 occurrences, 0 future. Honours the filter. Same shape as Pelotas.",
+  "https://mapas.cultura.gov.br": "The FEDERAL instance (Ministério da Cultura) and the biggest prize here. DECLINED on a two-network result, which is the only way this question can be answered: Cloudflare answers 403 with a challenge body on every path INCLUDING /robots.txt, both from this sandbox and from a GitHub runner (egress 68.154.54.97, probe-url.yml run 33173132333). Same answer from both vantage points means the site is closed to automated clients rather than scoring one address. Permission cannot even be established, because robots.txt is behind the same challenge — and the answer is the one tribe_sources.json gives sfbike.org: we do not impersonate a browser to get past bot management somebody deliberately turned on. Worth re-probing if it changes; the route that does not depend on their WAF is to ask MinC for a feed.",
+  "https://mapassaas.cultura.gov.br": "THE BEST REMAINING LEAD, and the one worth picking up first. It is the federal SaaS that hosts municipal registers, and a GitHub runner reads it perfectly: /api/eventOccurrence/find answers 200 with 70KB, /api/event/describe 200 with 7KB, and robots.txt is a 404 so nothing is disallowed. This sandbox cannot reach it at all — the theblackaltar.org case exactly, a site the pipeline can read and a laptop cannot, which is what probe-url.yml exists to catch. NOT configured, because the count that decides it cannot be taken from here and this repo does not add a source that has not been proven to return FUTURE events: on more than half the instances in this file the obvious count is the whole archive. To finish it, run the adapter's own filter_honoured() and a walk from a runner and read the placeable total, then move this entry into `sites`.",
+  "https://spcultura.prefeitura.sp.gov.br": "SP Cultura, the city of São Paulo's instance and the largest municipal register in the country — the single most valuable source in this file if it can be reached. ConnectTimeout from this sandbox AND from a GitHub runner, on every attempt. Two networks agreeing on a timeout is not a refusal and not a robots decision; it reads as a host that does not answer from outside Brazil. Nothing to honour and nothing to ingest, so it is parked rather than declined. Re-probe.",
+  "_unreachable_from_both_networks": "mapacultural.pe.gov.br, mapacultural.sc.gov.br, mapacultural.pb.gov.br, mapadacultura.ma.gov.br, mapadacultura.pi.gov.br and mapasculturais.rn.gov.br resolve in DNS and time out from this sandbox AND from a GitHub runner. Same shape as spcultura: parked, not declined. mapanasnuvens.df.gov.br and mapa.cultura.df.gov.br are the same, and .df.gov.br appears to answer DNS for anything, so treat a resolving DF hostname as unproven."
+ },
+
+ "_licence": "Mapas Culturais instances publish as open government data and the API is public and keyless by design — it exists so third parties can build on the register. Each row links back to its own page on the instance via singleUrl, which the adapter writes as the ticket/info link."
+}

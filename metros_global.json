@@ -993,6 +993,83 @@
           "radius": 25
         }
       ]
+    },
+    {
+      "code": "BR",
+      "name": "Brazil",
+      "_comment": "South America's first entry. The sweep covered 28 countries and none of them were in this hemisphere, which is most of why the map was empty here. Meetup's eventSearch is global and its venues carry lat/lon, so these return placeable rows whether or not Ticketmaster serves the country.",
+      "metros": [
+        {
+          "name": "São Paulo",
+          "latlong": "-23.5505,-46.6333",
+          "radius": 25
+        },
+        {
+          "name": "Rio de Janeiro",
+          "latlong": "-22.9068,-43.1729",
+          "radius": 25
+        },
+        {
+          "name": "Brasília",
+          "latlong": "-15.7939,-47.8828",
+          "radius": 25
+        },
+        {
+          "name": "Belo Horizonte",
+          "latlong": "-19.9167,-43.9345",
+          "radius": 25
+        },
+        {
+          "name": "Salvador",
+          "latlong": "-12.9777,-38.5016",
+          "radius": 25
+        },
+        {
+          "name": "Fortaleza",
+          "latlong": "-3.7319,-38.5267",
+          "radius": 25
+        },
+        {
+          "name": "Curitiba",
+          "latlong": "-25.4284,-49.2733",
+          "radius": 25
+        },
+        {
+          "name": "Recife",
+          "latlong": "-8.0476,-34.877",
+          "radius": 25
+        },
+        {
+          "name": "Porto Alegre",
+          "latlong": "-30.0346,-51.2177",
+          "radius": 25
+        },
+        {
+          "name": "Manaus",
+          "latlong": "-3.119,-60.0217",
+          "radius": 25
+        },
+        {
+          "name": "Belém",
+          "latlong": "-1.4558,-48.4902",
+          "radius": 25
+        },
+        {
+          "name": "Goiânia",
+          "latlong": "-16.6869,-49.2648",
+          "radius": 25
+        },
+        {
+          "name": "Campinas",
+          "latlong": "-22.9099,-47.0626",
+          "radius": 25
+        },
+        {
+          "name": "Florianópolis",
+          "latlong": "-27.5954,-48.548",
+          "radius": 25
+        }
+      ]
     }
   ]
 }
