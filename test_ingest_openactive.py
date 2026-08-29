@@ -163,6 +163,74 @@ def main():
     checks.append((OA.address_parts({"address": {"addressLocality": "London"}})["address"] is None,
                    "a city never gets promoted into the street field — that moves the pin"))
 
+    # ------------------------------------------------- 5. the booking grid
+    #
+    # A session published every ten minutes is a bookable slot wearing a
+    # ScheduledSession's clothes, and it passes the FacilityUse/Slot refusal.
+    # Measured in a ±0.03 central-London box: ONE pool published "Swim For
+    # Fitness" 255 times in a week, 110 of them on one day from 05:40 at
+    # ten-minute spacing, and three pairs like it were about half of everything
+    # events_near returns for that viewport.
+    from mapsee_ingest import NormalizedEvent
+
+    def _slot(day, minutes, name="Swim For Fitness", lat=51.5, lon=-0.12, dur=10):
+        """`minutes` is minutes past midnight — the arithmetic has to carry into
+        the hour, which the first version of this fixture did not, and it built
+        an 05:00 row in a run that was meant to start at 05:40."""
+        def hhmm(m):
+            return f"{m // 60:02d}:{m % 60:02d}"
+        return NormalizedEvent(
+            source="openactive:Pool", source_id=f"{name}-{day}-{minutes}", name=name,
+            start_utc=f"2026-09-{day:02d}T{hhmm(minutes)}:00+01:00",
+            end_utc=f"2026-09-{day:02d}T{hhmm(minutes + dur)}:00+01:00",
+            venue_name="The Pool", latitude=lat, longitude=lon, category="fitness")
+
+    OPEN = 5 * 60 + 40                                  # 05:40, as the live pool does
+    grid = [_slot(7, OPEN + i * 10) for i in range(11)]
+    out, dropped, notes = OA.collapse_booking_grids(list(grid), OA.GRID_MIN_PER_DAY)
+    checks.append((len(out) == 1 and dropped == 10,
+                   "eleven ten-minute slots in one day collapse to ONE row"))
+    checks.append((out[0].start_utc == grid[0].start_utc,
+                   "the day's row opens when the FIRST slot opens"))
+    checks.append((out[0].end_utc == max(g.end_utc for g in grid),
+                   "and closes when the LAST one closes — not ten minutes later"))
+    checks.append(("11 bookable slots" in (out[0].description or ""),
+                   "the row says how many slots it stands for; nothing is dropped silently"))
+
+    # Below the threshold is a real programme and must be left alone.
+    few = [_slot(7, 9 * 60), _slot(7, 12 * 60), _slot(7, 18 * 60)]
+    out2, dropped2, _ = OA.collapse_booking_grids(list(few), OA.GRID_MIN_PER_DAY)
+    checks.append((len(out2) == 3 and dropped2 == 0,
+                   "three sessions in a day are a schedule, not a grid"))
+
+    # A grid running on two days is two rows: the collapse is per DAY.
+    twodays = [_slot(7, OPEN + i * 10) for i in range(7)] + \
+              [_slot(8, OPEN + i * 10) for i in range(7)]
+    out3, _, _ = OA.collapse_booking_grids(list(twodays), OA.GRID_MIN_PER_DAY)
+    checks.append((len(out3) == 2, "a grid on two days collapses to two rows, one each"))
+
+    # Same title at a different pool is a different thing.
+    twopools = [_slot(7, OPEN + i * 10) for i in range(7)] + \
+               [_slot(7, OPEN + i * 10, lat=51.6, lon=-0.2) for i in range(7)]
+    out4, _, _ = OA.collapse_booking_grids(list(twopools), OA.GRID_MIN_PER_DAY)
+    checks.append((len(out4) == 2, "the same title at two venues stays two rows"))
+
+    # IDENTITY IS THE DAY. Keyed on whichever slot happened to be first, a pool
+    # opening ten minutes later tomorrow would write a second row and orphan
+    # today's — which is the BikeReg collision running backwards.
+    later = [_slot(7, OPEN + 10 + i * 10) for i in range(11)]
+    out5, _, _ = OA.collapse_booking_grids(list(later), OA.GRID_MIN_PER_DAY)
+    checks.append((out5[0].fingerprint == out[0].fingerprint
+                   and out5[0].source_id == out[0].source_id,
+                   "the day's identity does not move when the first slot does"))
+    checks.append((out3[0].fingerprint != out3[1].fingerprint,
+                   "but two days of the same grid get different identities"))
+
+    # A publisher whose classes really do run often can say so.
+    out6, dropped6, _ = OA.collapse_booking_grids(list(grid), 99)
+    checks.append((len(out6) == 11 and dropped6 == 0,
+                   "grid_min_per_day is an override, not a fixed rule"))
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1
