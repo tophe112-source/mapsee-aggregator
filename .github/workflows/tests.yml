@@ -192,6 +192,13 @@ jobs:
       - name: Mapas Culturais (an accepted filter that never ran, and 0,0)
         run: python test_ingest_mapasculturais.py
 
+      # An upsert cannot delete, so a collapse in the adapter leaves the rows it
+      # replaced behind. This hides them — and the property that matters is that
+      # it can never empty a venue-day: a slot row goes only where the collapsed
+      # day row for that title, venue and date is already present.
+      - name: OpenActive slot retirement (never empties a venue-day)
+        run: python test_retire_openactive_slots.py
+
       # The listing/furniture split. A civic amenity with nothing worth reading
       # is DRAWN and nothing else; one that carries a fact opens like any pin.
       # Both errors are silent: mark a listing as furniture and its hours become

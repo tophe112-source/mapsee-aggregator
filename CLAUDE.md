@@ -1217,6 +1217,48 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   unnoticed; below it both rows survive and the list stutters. Same title, same
   point, same INSTANT is one listing, and a minute apart is two.
 
+- **AN UPSERT CANNOT DELETE, so the run that landed the collapse made the map
+  WORSE before it made it better.** `collapse_booking_grids` worked exactly as
+  designed on 2026-08-29 — Better (GLL) 51,922 slot rows into 2,512 day rows —
+  and central London went from 4/6 to **6/6** raising 57014, because the
+  collapsed rows carry NEW fingerprints and were INSERTED beside the ~50k they
+  replace. 112,408 rows added, none removed. The companion retirement script is
+  not a footnote to a collapse, it is half of it:
+  `mapsee_retire_openactive_slots.py`, `hidden_at` and dry by default, hiding a
+  slot row ONLY where the collapsed day row for that title, venue and date is
+  already in the table — because a publisher whose feed died mid-import must not
+  have its sessions vanish on the strength of the run that failed.
+- **THE GRID WAS THE VISIBLE TENTH, AND THE OTHER 88% WAS ONE PUBLISHER
+  PUBLISHING HONESTLY.** Everyone Active wrote **98,871** of that run's 112,408
+  rows and is not a grid at all: its per-day collapse found 714 rows in 94
+  groups. It runs ~200 leisure centres and publishes ~56,000 distinct classes,
+  one occurrence at a time. Sampling what `events_near` RETURNS (its top 800,
+  distance-ranked, from a central-London box where Better's pools dominate) and
+  inferring what is in the POOL is how that was missed for a whole cycle. The
+  returned rows and the scanned rows are different populations; measure the one
+  you are trying to shrink.
+- **AND "THREE POINTS MAKE A PATTERN" FOLDED NOTHING.** `collapse_weekly_series`
+  turns a class that recurs on the same weekday at the same hour into ONE
+  standing row with a weekly `recurring_days` — the model 0156 already gives an
+  imported restaurant. At a threshold of three it folded ZERO of Everyone
+  Active's rows, because that publisher lists only a FORTNIGHT ahead: 38,562 of
+  its 55,771 title/venue groups hold exactly two occurrences, 16,990 hold one,
+  and no slot repeats three times. At two it takes it to 56,153. Two points is
+  thin, so the pair must be CONSECUTIVE weeks — a standing row is rolled forward
+  for ever by `roll_recurring_windows` and cleanup only deletes the past, so a
+  two-part workshop read as an arrangement is a finished course pinned to the
+  map permanently. The threshold that works is a fact about the publisher, not
+  about patterns.
+- **A TOGGLE'S MEANING CAN BE OVERTAKEN BY A NEW KIND OF ROW.** ../mapsee's
+  "Hide open shops" sent `p_hide_standing`, which drops every row with
+  `recurring_hours` — the same set as "shops" for exactly as long as imported
+  restaurants and second-hand shops were the only standing rows there were.
+  Folding leisure timetables into standing rows would have made one toggle
+  labelled for shops hide every pool and gym in the country. The category
+  decides now (`food`, `market`), client-side, because teaching `events_near`
+  about shop-ish categories is a migration and 0204-0208 is a recent enough
+  lesson in what an unverifiable change to that function costs.
+
 ## Running things
 
 ```bash
@@ -1244,6 +1286,7 @@ python test_ingest_openactive.py    # an RPDE feed's first page is its oldest, a
 python test_ingest_osm_amenities.py # which civic pins earn a sheet, and which are just the map
 python test_retire_thin_artwork.py  # which already-written artwork rows may be hidden
 python test_ingest_mapasculturais.py # an accepted filter that never ran, and a coordinate of "0"
+python test_retire_openactive_slots.py # which superseded slot rows may be hidden
 python gen_amenity_fixtures.py      # regenerate ../mapsee's amenity fixtures from to_event + to_row
 python test_sync_unknown_column.py  # a column the database has not got YET must cost one feature, not the night
 python test_cleanup.py              # a statement timeout and an outage want opposite things
@@ -1252,7 +1295,7 @@ python catalog_curate.py coverage   # where the catalog is thin, per lens catego
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 25 test scripts are the CI gate (`tests.yml`). They print one line per
+The 26 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

@@ -1,0 +1,70 @@
+name: Retire OpenActive slot rows
+
+# WHAT THIS IS FOR. mapsee_ingest_openactive now keeps ONE row per title per
+# venue per day where a publisher emits a booking grid — one London pool
+# published "Swim For Fitness" 110 times in a single day at ten-minute spacing.
+# But an upsert cannot delete, and the collapsed row carries a NEW fingerprint,
+# so it is INSERTED alongside the fifty it replaces. Left alone the old slot
+# rows age out only as their windows pass, which for a 120-day horizon is months
+# of both models on the map and months of the events_near timeout the collapse
+# was meant to fix.
+#
+# DRY BY DEFAULT, and the dry run always runs first so the number is on the
+# screen before anything is written. hidden_at, never DELETE, and --unhide puts
+# them back.
+#
+# The safety rule is in the script and is the whole design: a slot row is hidden
+# ONLY when the collapsed day row for that same title, venue and date is already
+# in the table. A publisher whose feed died mid-import — which is exactly what
+# Better's SessionSeries feed did — must not have its sessions vanish because
+# the run that should have replaced them is the thing that failed.
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "WRITE. Unchecked = dry run, which is what you want first."
+        type: boolean
+        required: false
+        default: false
+      unhide:
+        description: "Reverse it: un-hide the rows this pass hid"
+        type: boolean
+        required: false
+        default: false
+      days:
+        description: "How far ahead to sweep (the adapter's horizon is 120)"
+        required: false
+        default: "130"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: retire-openactive-slots
+  cancel-in-progress: false
+
+jobs:
+  retire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      - name: Dry run (what WOULD be hidden)
+        run: |
+          python mapsee_retire_openactive_slots.py --days ${{ github.event.inputs.days }} \
+            ${{ github.event.inputs.unhide == 'true' && '--unhide' || '' }}
+
+      - name: Retire
+        if: ${{ github.event.inputs.apply == 'true' }}
+        run: |
+          python mapsee_retire_openactive_slots.py --apply --days ${{ github.event.inputs.days }} \
+            ${{ github.event.inputs.unhide == 'true' && '--unhide' || '' }}

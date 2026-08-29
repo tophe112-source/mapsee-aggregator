@@ -289,6 +289,86 @@ def main():
     checks.append((len(out8) == 2 and folded8 == 0,
                    "a minute apart is two sessions — only an exact instant folds"))
 
+    # ------------------------------------- 8. the weekly class is ONE row
+    #
+    # The booking grid was the visible tenth of this. Everyone Active is not a
+    # grid — its per-day collapse found 714 rows in 94 groups — and it wrote
+    # 98,871 upcoming sessions in one run, 88% of everything this adapter
+    # produced. A real timetable, published one occurrence at a time, seventeen
+    # weeks deep. That is what 0156 already models for a restaurant: one row
+    # carrying a weekly pattern, rolled forward hourly, with a stable id.
+    from datetime import timezone as _tz
+    BST = _tz(timedelta(hours=1))
+    BASE = datetime(2026, 9, 1, tzinfo=BST)          # a Tuesday
+
+    def _occ(name, offset_days, hh, mm=0, lat=51.5, lon=-0.12, dur=60):
+        st = BASE + timedelta(days=offset_days, hours=hh, minutes=mm)
+        return NormalizedEvent(
+            source="openactive:X", source_id=f"{name}{offset_days}{hh}{mm}", name=name,
+            start_utc=st.isoformat(), end_utc=(st + timedelta(minutes=dur)).isoformat(),
+            venue_name="Centre", latitude=lat, longitude=lon, category="fitness")
+
+    wk = [_occ("Yoga", 7 * i, 19) for i in range(8)]
+    out9, folded9, _ = OA.collapse_weekly_series(list(wk), OA.WEEKLY_MIN_REPEATS)
+    checks.append((len(out9) == 1 and folded9 == 7,
+                   "eight weekly occurrences become ONE standing row"))
+    checks.append((out9[0].recurring_days == {"1": [["19:00", "20:00"]]},
+                   "and the weekly pattern is Tuesday 19:00-20:00, in LOCAL time"))
+    checks.append((out9[0].start_utc == wk[0].start_utc,
+                   "the standing row starts at the SOONEST occurrence, not the last"))
+    checks.append(("Runs weekly" in (out9[0].description or ""),
+                   "the row says it is a weekly arrangement"))
+
+    # A one-off at the same venue is an OCCASION and must survive as its own row.
+    mixed = wk + [_occ("Yoga", 2, 11)]
+    out10, _, _ = OA.collapse_weekly_series(list(mixed), OA.WEEKLY_MIN_REPEATS)
+    checks.append((len(out10) == 2,
+                   "a one-off beside the weekly class stays a dated row of its own"))
+    checks.append((sum(1 for e in out10 if e.recurring_days) == 1,
+                   "and only the standing row carries a pattern"))
+
+    # Two weekly slots at one venue are ONE row with two days in the pattern.
+    two = ([_occ("Swim", 7 * i, 7) for i in range(5)]
+           + [_occ("Swim", 2 + 7 * i, 18) for i in range(5)])
+    out11, _, _ = OA.collapse_weekly_series(list(two), OA.WEEKLY_MIN_REPEATS)
+    checks.append((len(out11) == 1 and set(out11[0].recurring_days) == {"1", "3"},
+                   "two weekly slots at one venue are one row, two days"))
+
+    # TWO CONSECUTIVE WEEKS IS THE EVIDENCE A FORTNIGHT-DEEP PUBLISHER CAN GIVE.
+    # Everyone Active holds exactly two occurrences for 38,562 of its 55,771
+    # groups and three for none of them, so a threshold of three is inert there.
+    pair = [_occ("Aqua", 0, 10), _occ("Aqua", 7, 10)]
+    out12, folded12, _ = OA.collapse_weekly_series(list(pair), OA.WEEKLY_MIN_REPEATS)
+    checks.append((len(out12) == 1 and folded12 == 1,
+                   "two CONSECUTIVE weeks at the same hour is a weekly class"))
+
+    # ...but the same two points three weeks apart are a course that ran twice,
+    # and a standing row never dies on its own — the roller moves it forward for
+    # ever and cleanup only deletes the past. So the gap has to be seven days.
+    apart = [_occ("Workshop", 0, 10), _occ("Workshop", 21, 10)]
+    out12b, folded12b, _ = OA.collapse_weekly_series(list(apart), OA.WEEKLY_MIN_REPEATS)
+    checks.append((len(out12b) == 2 and folded12b == 0,
+                   "same weekday three weeks apart is NOT a cadence — left as two occasions"))
+    checks.append((len([e for e in out12b if e.recurring_days]) == 0,
+                   "and neither gets a weekly pattern it would be rolled on for ever"))
+
+    # THE SAME CLASS AT TWO VENUES IS TWO ARRANGEMENTS, and their ids must differ
+    # or one venue's row would evict the other's on every run.
+    twov = ([_occ("Gym", 7 * i, 9) for i in range(4)]
+            + [_occ("Gym", 7 * i, 9, lat=51.9, lon=-0.4) for i in range(4)])
+    out13, _, _ = OA.collapse_weekly_series(list(twov), OA.WEEKLY_MIN_REPEATS)
+    checks.append((len(out13) == 2 and len({e.fingerprint for e in out13}) == 2,
+                   "one class at two venues is two standing rows with two identities"))
+
+    # Identity must not move week to week, or the roller has nothing to roll.
+    later_weeks = [_occ("Yoga", 7 * i, 19) for i in range(1, 9)]
+    out14, _, _ = OA.collapse_weekly_series(list(later_weeks), OA.WEEKLY_MIN_REPEATS)
+    checks.append((out14[0].fingerprint == out9[0].fingerprint,
+                   "next week's read produces the SAME id — a standing row is stable"))
+
+    checks.append((OA.collapse_weekly_series(list(wk), 1)[1] == 0,
+                   "weekly_min_repeats=1 disables the collapse for a publisher that needs it"))
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1

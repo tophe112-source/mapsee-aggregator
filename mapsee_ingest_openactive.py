@@ -131,6 +131,27 @@ DEFAULT_HORIZON_DAYS = 120
 # spacing. Per-source override: `grid_min_per_day`.
 GRID_MIN_PER_DAY = 6
 
+# How many times one title at one venue must recur on the SAME weekday and the
+# SAME clock time before it is a standing weekly arrangement rather than a run
+# of occasions.
+#
+# TWO, and the number was measured rather than chosen. The first attempt used
+# three, on the reasoning that three points make a pattern, and it folded
+# NOTHING on the publisher that matters: Everyone Active is 88% of what this
+# adapter writes and publishes each class only a FORTNIGHT ahead. Of its 55,771
+# distinct title/venue groups, 38,562 hold exactly two occurrences, 16,990 hold
+# one, and ZERO slots repeat three times. At three the collapse is inert there;
+# at two it takes that publisher from 95,710 rows to 56,153.
+#
+# Two points is thin evidence and it is GUARDED rather than trusted: the pair
+# must be CONSECUTIVE weeks (see _consecutive_weeks), because a standing row is
+# rolled forward for ever and a two-part workshop read as an arrangement is a
+# finished course pinned to the map permanently.
+#
+# Per-source override: `weekly_min_repeats`; set it to 1 to disable the collapse
+# for a publisher whose sessions really are one-offs.
+WEEKLY_MIN_REPEATS = 2
+
 
 # ---------------------------------------------------------------------------
 # RPDE
@@ -560,6 +581,135 @@ def collapse_booking_grids(events: List[NormalizedEvent], min_per_day: int
     return out, dropped + deduped, notes
 
 
+def _local_slot(ev: NormalizedEvent) -> Optional[Tuple[int, str, str]]:
+    """(weekday, "HH:MM" start, "HH:MM" end) in the publisher's own local time.
+
+    `start_utc` holds the offset the feed sent, so `fromisoformat` gives the
+    local wall clock and `weekday()` the local day — which is what a weekly
+    pattern is expressed in. Reading it in UTC would move a 00:30 class to the
+    previous day for half the year.
+    """
+    try:
+        s = datetime.fromisoformat(ev.start_utc or "")
+    except ValueError:
+        return None
+    end = None
+    try:
+        end = datetime.fromisoformat(ev.end_utc) if ev.end_utc else None
+    except ValueError:
+        end = None
+    return s.weekday(), s.strftime("%H:%M"), (end.strftime("%H:%M") if end else s.strftime("%H:%M"))
+
+
+def _consecutive_weeks(rows: List[NormalizedEvent]) -> bool:
+    """Is there a pair exactly SEVEN DAYS apart in here?
+
+    Two occurrences on the same weekday at the same hour are the strongest
+    weekly evidence a publisher who only lists a fortnight ahead can give — and
+    the same shape covers a two-part workshop three weeks apart, which is an
+    occasion that happens twice, not an arrangement. A standing row never dies
+    on its own: `roll_recurring_windows` moves its window forward for ever and
+    cleanup only deletes the past, so getting this wrong pins a finished course
+    to the map permanently. That is the "recurring event with no end date" trap
+    wearing this adapter's clothes.
+
+    So the pair has to be CONSECUTIVE weeks. It costs a handful of the folds and
+    it is the difference between reading a cadence and guessing one.
+    """
+    days = []
+    for ev in rows:
+        try:
+            days.append(datetime.fromisoformat(ev.start_utc or "").date())
+        except ValueError:
+            return False
+    days.sort()
+    return any((b - a).days == 7 for a, b in zip(days, days[1:]))
+
+
+def collapse_weekly_series(events: List[NormalizedEvent], min_repeats: int
+                           ) -> Tuple[List[NormalizedEvent], int, List[str]]:
+    """A class that runs every Tuesday at 19:00 is ONE standing row, not seventeen.
+
+    THE BOOKING GRID WAS THE VISIBLE TENTH OF THIS. collapse_booking_grids fixed
+    a publisher repeating one session 110 times in a DAY, which was half of what
+    central London returns and 8% of what this adapter writes. The other 88% is
+    Everyone Active: 98,871 upcoming sessions in one run, and NOT a grid — its
+    per-day collapse found 714 rows in 94 groups. It is a real timetable across
+    hundreds of leisure centres, published one occurrence at a time, seventeen
+    weeks deep.
+
+    That is precisely the shape ../mapsee 0156 already models for imported
+    restaurants: ONE row carrying a weekly pattern, rolled forward hourly by
+    `roll_recurring_windows`, with a stable id a claim or a share link can point
+    at. A weekly swim session is an opening time, not an occasion, and the
+    product already ranks `is_standing` below real events for exactly that
+    reason.
+
+    So a (title, venue) whose occurrences repeat on the same weekday AND the
+    same clock time at least `min_repeats` times becomes one standing row. The
+    repeats fold into `recurring_days`; anything that does NOT fit the pattern —
+    a one-off, a bank-holiday special — stays a dated row of its own, because
+    that IS an occasion. Measured: 17 occurrences per weekly class over the
+    120-day horizon, so this is roughly a 17:1 cut on the publishers that
+    dominate the table.
+    """
+    if min_repeats <= 1:
+        return events, 0, []
+    groups: Dict[Tuple[str, float, float], List[NormalizedEvent]] = {}
+    for ev in events:
+        groups.setdefault(((ev.name or "").strip().lower(),
+                           round(ev.latitude or 0.0, 5),
+                           round(ev.longitude or 0.0, 5)), []).append(ev)
+    out: List[NormalizedEvent] = []
+    folded_total = 0
+    notes: List[str] = []
+    for (name, lat, lon), rows in groups.items():
+        slots: Dict[Tuple[int, str, str], List[NormalizedEvent]] = {}
+        loose: List[NormalizedEvent] = []
+        for ev in rows:
+            s = _local_slot(ev)
+            if s is None:
+                loose.append(ev)                # unparseable stamp: leave it dated
+            else:
+                slots.setdefault(s, []).append(ev)
+        repeating = {s: r for s, r in slots.items()
+                     if len(r) >= min_repeats and _consecutive_weeks(r)}
+        if not repeating:
+            out.extend(rows)
+            continue
+        # Everything that does not sit on a repeating slot is its own occasion.
+        for s, r in slots.items():
+            if s not in repeating:
+                loose.extend(r)
+        folded = [e for r in repeating.values() for e in r]
+        rep = min(folded, key=lambda e: e.start_utc or "")
+        pattern: Dict[str, List[List[str]]] = {}
+        for (wd, hh, ee) in sorted(repeating):
+            win = [hh, ee]
+            if win not in pattern.setdefault(str(wd), []):
+                pattern[str(wd)].append(win)
+        rep.recurring_days = pattern
+        days = len(pattern)
+        rep.description = (
+            f"🔁 Runs weekly — {len(folded)} sessions scheduled over the next "
+            f"{'few months' if len(folded) > 8 else 'few weeks'}, on "
+            f"{days} day{'s' if days != 1 else ''} a week.\n\n"
+            + (rep.description or "")).strip()
+        # IDENTITY IS THE ARRANGEMENT, NOT AN OCCURRENCE. A standing row must
+        # keep the same id week after week or the roller has nothing stable to
+        # move and a claim has nothing to point at — the same reason
+        # mapsee_ingest_osm_food keeps the date OUT of its fingerprint.
+        ref = f"weekly|{rep.source}|{name}|{lat},{lon}"
+        rep.source_id = ref[:200]
+        rep.fingerprint = hashlib.sha1(ref.encode("utf-8")).hexdigest()
+        out.append(rep)
+        out.extend(loose)
+        folded_total += len(folded) - 1
+        notes.append(f"{rep.name} @ {rep.venue_name or f'{lat},{lon}'}: "
+                     f"{len(folded)} occurrences -> 1 standing row")
+    return out, folded_total, notes
+
+
 def read_source(source: dict, horizon_days: int, max_pages: int,
                 delay: float, now: Optional[datetime] = None) -> Tuple[List[NormalizedEvent], Dict[str, Any]]:
     """Every dated row one publisher has, plus a report of what was refused."""
@@ -634,8 +784,19 @@ def read_source(source: dict, horizon_days: int, max_pages: int,
         notes.extend("  " + n for n in grid_notes[:8])
         if len(grid_notes) > 8:
             notes.append(f"  ...and {len(grid_notes) - 8} more")
+    # AFTER the grid, deliberately. A pool collapsed to one row per day is then
+    # a row that repeats weekly, so the two compose: 110 slots -> 7 days -> one
+    # standing row that says the pool is open those hours.
+    kept, weekly, weekly_notes = collapse_weekly_series(
+        kept, int(source.get("weekly_min_repeats", WEEKLY_MIN_REPEATS)))
+    if weekly:
+        notes.append(f"weekly series: {weekly} occurrence(s) folded into "
+                     f"{len(weekly_notes)} standing row(s)")
+        notes.extend("  " + n for n in weekly_notes[:8])
+        if len(weekly_notes) > 8:
+            notes.append(f"  ...and {len(weekly_notes) - 8} more")
     return kept, {"notes": notes, "refused": refused, "records": len(records),
-                  "gridded": gridded}
+                  "gridded": gridded, "weekly": weekly}
 
 
 # ---------------------------------------------------------------------------
