@@ -2663,6 +2663,161 @@
         "lon": 2.4187732
       },
       "_metro": "Paris, FR"
+    },
+    {
+      "name": "Jamel Comedy Club",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://lecomedyclub.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jamel Comedy Club",
+        "address": "42 Boulevard de Bonne Nouvelle",
+        "postal_code": "75010",
+        "lat": 48.870786,
+        "lon": 2.3485094
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Centre de quartier du Port-à-l'Anglais",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://portalanglais.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre de quartier du Port-à-l'Anglais",
+        "address": "Rue Pasteur",
+        "lat": 48.8022912,
+        "lon": 2.4054971
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "L’Ébullition",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lebullition.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "L’Ébullition",
+        "lat": 48.7126286,
+        "lon": 2.2423968
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "La maison du citoyen",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lesmolieres.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La maison du citoyen",
+        "lat": 48.673736,
+        "lon": 2.0699032
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Société astronomique de France",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://saf-astronomie.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Société astronomique de France",
+        "lat": 48.8580971,
+        "lon": 2.2874724
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "librairie Utopia",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://librairie-utopia.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "librairie Utopia",
+        "address": "1",
+        "city": "Paris",
+        "postal_code": "75005",
+        "lat": 48.8512497,
+        "lon": 2.3493442
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Grimpe 13",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://grimpe13.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grimpe 13",
+        "address": "Avenue de Choisy",
+        "city": "Paris",
+        "postal_code": "75013",
+        "lat": 48.8208557,
+        "lon": 2.3649359
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Belleville Citoyenne",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://bellevillecitoyenne.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Belleville Citoyenne",
+        "lat": 48.8734604,
+        "lon": 2.3908567
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://bagneuxenvironnement.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "address": "4 Sentier des Brugnauts",
+        "city": "Bagneux",
+        "postal_code": "92220",
+        "lat": 48.7918548,
+        "lon": 2.3022226
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Association Culture Numérique",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://culture-numerique.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Association Culture Numérique",
+        "address": "32 Rue Gaston Grinbaum",
+        "city": "Vigneux-sur-Seine",
+        "postal_code": "91270",
+        "lat": 48.6924296,
+        "lon": 2.4329022
+      },
+      "_metro": "Paris, FR"
     }
   ],
   "_not_included": {

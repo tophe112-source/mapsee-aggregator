@@ -679,6 +679,105 @@
     "lon": 2.3360224
    },
    "_metro": "Paris, FR"
+  },
+  {
+   "name": "Complexe boulevard du Nord",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://villeduraincy.fr/events/"
+   ],
+   "link_pattern": "https://villeduraincy\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Complexe boulevard du Nord",
+    "lat": 48.902453,
+    "lon": 2.5157572
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "Yoga vision",
+   "category": "community",
+   "_found": "osm:club -> wix+jsonld-event",
+   "listing": [
+    "https://www.yoga-vision.org/event-details/atelier-yoga-incarne"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "Yoga vision",
+    "lat": 48.8682797,
+    "lon": 2.3745858
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "La Librairie Perse En Poche",
+   "category": "learning",
+   "_found": "osm:books -> wix+jsonld-event",
+   "listing": [
+    "https://en.utopiran.com/event-details/rencontre-et-seance-de-dedicace-avec-poupeh-missaghi-autour-de-louvrage-inventaire-des-disparus"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "La Librairie Perse En Poche",
+    "lat": 48.8451946,
+    "lon": 2.2897565
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "My Ciné",
+   "category": "theater",
+   "_found": "osm:cinema -> jsonld-event",
+   "listing": [
+    "https://www.my-cine.com/events/68101-artus-le-show-xxl/"
+   ],
+   "link_pattern": "https://www\\.my\\-cine\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "My Ciné",
+    "lat": 48.943739,
+    "lon": 2.6530024
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "Studios 27",
+   "category": "theater",
+   "_found": "osm:theatre -> wix+jsonld-event",
+   "listing": [
+    "https://www.studios27.fr/event-details/sortir-des-cliches"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "Studios 27",
+    "lat": 48.8766896,
+    "lon": 2.3537954
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "Centre de loisirs de Vigneux - Le Château",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.vigneux91.fr/agenda/"
+   ],
+   "link_pattern": "https://www\\.vigneux91\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Centre de loisirs de Vigneux - Le Château",
+    "lat": 48.7109362,
+    "lon": 2.4069678
+   },
+   "_metro": "Paris, FR"
   }
  ],
  "_not_included": {

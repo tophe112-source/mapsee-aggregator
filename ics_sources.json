@@ -2271,5 +2271,59 @@
   "geocode_suffix": ", Paris, FR",
   "limit": 300,
   "_metro": "Paris, FR"
+ },
+ {
+  "name": "Petit Théâtre de l’Arche",
+  "category": "theater",
+  "_found": "osm:theatre -> events-manager",
+  "url": "https://www.ville-torcy.fr/culture/salles-de-spectacles/petit-theatre-de-larche/?ical=1",
+  "geocode_suffix": ", Torcy",
+  "limit": 300,
+  "_metro": "Paris, FR"
+ },
+ {
+  "name": "Office Municipal d’Animation de la Cité",
+  "category": "community",
+  "_found": "osm:community_centre -> events-manager",
+  "url": "https://www.ville-torcy.fr/jeunesse/office-municipal-danimation-de-la-cite/?ical=1",
+  "geocode_suffix": ", Torcy",
+  "limit": 300,
+  "_metro": "Paris, FR"
+ },
+ {
+  "name": "Les grimpeurs de Meudon",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://www.asm-escalade.com/evenements.ics",
+  "geocode_suffix": ", Paris, FR",
+  "limit": 300,
+  "_metro": "Paris, FR"
+ },
+ {
+  "name": "Cimes 19",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://www.cimes19.fr/eventpost/14303.ics",
+  "geocode_suffix": ", Paris",
+  "limit": 300,
+  "_metro": "Paris, FR"
+ },
+ {
+  "name": "Groupe Escalade Saint-Thibault",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://calendar.google.com/calendar/ical/vafgdqs2lm07ni2m85iqc0qunk%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Paris, FR",
+  "limit": 300,
+  "_metro": "Paris, FR"
+ },
+ {
+  "name": "Villette Makerz",
+  "category": "arts",
+  "_found": "osm:arts_centre -> events-manager",
+  "url": "https://villettemakerz.com/agenda/?ical=1",
+  "geocode_suffix": ", Paris, FR",
+  "limit": 300,
+  "_metro": "Paris, FR"
  }
 ]

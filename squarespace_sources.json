@@ -708,6 +708,33 @@
         "lon": 170.5024651
       },
       "_metro": "Dunedin, NZ"
+    },
+    {
+      "name": "Centre Franco-Iranien (CFI)",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.france-iran.org/evenements",
+      "max_events": 200,
+      "venue": {
+        "name": "Centre Franco-Iranien (CFI)",
+        "address": "102 Avenue des Champs-Élysées",
+        "lat": 48.8719325,
+        "lon": 2.3023975
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Les Chandelles",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.leschandelles.com/evenements",
+      "max_events": 200,
+      "venue": {
+        "name": "Les Chandelles",
+        "lat": 48.8656864,
+        "lon": 2.3363979
+      },
+      "_metro": "Paris, FR"
     }
   ]
 }
