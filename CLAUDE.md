@@ -1249,6 +1249,24 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   two-part workshop read as an arrangement is a finished course pinned to the
   map permanently. The threshold that works is a fact about the publisher, not
   about patterns.
+- **A STANDING ROW NEVER DIES, AND RUN #55 CREATED FORTY THOUSAND OF THEM.**
+  `roll_recurring_windows` moves a row with `recurring_hours` forward for ever
+  and `mapsee_cleanup` only deletes the PAST, so a standing row's window is
+  always in the future and nothing can ever remove it. That is the intended
+  model for a shop (0156) and a much weaker claim for a leisure class, which is
+  seasonal: when a term ends the class simply stops appearing in the feed, and
+  the row keeps advertising it. The scale changed the day `collapse_weekly_series`
+  turned 77,346 of Everyone Active's occurrences into 38,227 standing rows —
+  built, for that publisher, on a FORTNIGHT of evidence, because it lists two
+  weeks ahead. It is the "recurring event with no end date projects pins
+  forever" trap arriving through our own collapse rather than from a publisher.
+  **The mechanism to fix it does not exist yet**: `events.updated_at` is on the
+  table with `default now()`, no trigger bumps it, and `to_row` never writes it,
+  so it means FIRST seen, not last. Wednesday's full refresh rewrites every row
+  the feed still carries, so a last-seen stamp would make "gone from the feed"
+  exactly detectable and a retirement sweep trivial — but writing the column with
+  nothing reading it is one more value written and never read, so it is a
+  decision, not a tidy-up. Nothing in the roller or in cleanup is a substitute.
 - **A SECOND COLLAPSE NEEDS A SECOND RETIREMENT RULE, and the first one cannot
   see the second's orphans.** `mapsee_retire_openactive_slots.py` groups by
   title, venue and DAY and needs six rows in a group, which is the shape a
