@@ -658,17 +658,53 @@ def _clean_text(s: Optional[str]) -> Optional[str]:
 DESCRIPTION_MAX = 800
 
 
+# The longest final paragraph this will protect from the cut. An attribution is
+# one short line; a genuine closing paragraph of prose is usually longer than
+# this, and keeping IT would move the ellipsis somewhere it reads oddly.
+TAIL_KEEP_MAX = 200
+
+
 def _cap_prose(text: Optional[str]) -> Optional[str]:
-    """Trim over-long SOURCE prose to DESCRIPTION_MAX, on a natural boundary."""
+    """Trim over-long SOURCE prose to DESCRIPTION_MAX, on a natural boundary.
+
+    THE LAST LINE IS LOAD-BEARING AND THIS USED TO CUT IT OFF. Four adapters end
+    their description with a LICENCE ATTRIBUTION — OpenActive's "via OpenActive,
+    licensed CC-BY 4.0.", and the "OpenStreetMap contributors (ODbL)." line the
+    three OSM adapters carry — and every one of them is the term the data is held
+    on rather than a footer. Cutting from the END therefore deleted the licence
+    from exactly the richest rows: mapsee_ingest_openactive lets a body run to
+    900 characters on its own, so anything near that overflowed 800 and lost the
+    line, silently, on a row that otherwise looked perfect.
+
+    It cost more than the licence. mapsee_retire_openactive_slots,
+    mapsee_retire_perday_osm and mapsee_retire_thin_artwork all identify their
+    own rows BY that mark — "a row without it is not ours to judge" — so a
+    truncated row could never be retired, audited or corrected by any of them.
+
+    So a SHORT final paragraph survives and the head is trimmed to make room.
+    """
     if not text or len(text) <= DESCRIPTION_MAX:
         return text
-    head = text[:DESCRIPTION_MAX]
+
+    head, sep, tail = text.rpartition("\n\n")
+    if sep and 0 < len(tail) <= TAIL_KEEP_MAX:
+        room = DESCRIPTION_MAX - len(tail) - len(sep) - 1      # -1 for the ellipsis
+        if room > 0:
+            return _cut(head, room) + "…" + sep + tail
+    return _cut(text, DESCRIPTION_MAX - 1) + "…"
+
+
+def _cut(text: str, limit: int) -> str:
+    """`text` shortened to at most `limit`, on the nearest natural boundary."""
+    if len(text) <= limit:
+        return text
+    head = text[:limit]
     cut = max(head.rfind(". "), head.rfind("! "), head.rfind("? "))
-    if cut < DESCRIPTION_MAX * 0.6:          # no sentence break near the end
+    if cut < limit * 0.6:                    # no sentence break near the end
         cut = head.rfind(" ")
     if cut <= 0:                             # one enormous unbroken token
-        cut = DESCRIPTION_MAX
-    return head[:cut].rstrip(" ,;:.!?-—") + "…"
+        cut = limit
+    return head[:cut].rstrip(" ,;:.!?-—")
 
 
 def _street_address(rec: Dict[str, Any]) -> Optional[str]:

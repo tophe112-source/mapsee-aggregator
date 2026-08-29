@@ -1,23 +1,30 @@
 name: Retire OpenActive slot rows
 
-# WHAT THIS IS FOR. mapsee_ingest_openactive now keeps ONE row per title per
-# venue per day where a publisher emits a booking grid — one London pool
-# published "Swim For Fitness" 110 times in a single day at ten-minute spacing.
-# But an upsert cannot delete, and the collapsed row carries a NEW fingerprint,
-# so it is INSERTED alongside the fifty it replaces. Left alone the old slot
-# rows age out only as their windows pass, which for a 120-day horizon is months
-# of both models on the map and months of the events_near timeout the collapse
-# was meant to fix.
+# WHAT THIS IS FOR. mapsee_ingest_openactive collapses twice. It keeps ONE row
+# per title per venue per day where a publisher emits a booking grid — one
+# London pool published "Swim For Fitness" 110 times in a single day at
+# ten-minute spacing — and then folds a class that recurs on the same weekday at
+# the same hour into ONE standing row: 77,346 of Everyone Active's occurrences
+# became 38,227 standing rows on the first production run.
+#
+# But an upsert cannot delete, and each collapsed row carries a NEW fingerprint,
+# so it is INSERTED alongside the rows it replaces. Left alone the old rows age
+# out only as their windows pass, which for a 120-day horizon is months of both
+# models on the map and months of the events_near timeout the collapse was meant
+# to fix. This job hides both kinds of orphan; --no-grid / --no-weekly on the
+# script turn either rule off on its own.
 #
 # DRY BY DEFAULT, and the dry run always runs first so the number is on the
 # screen before anything is written. hidden_at, never DELETE, and --unhide puts
 # them back.
 #
-# The safety rule is in the script and is the whole design: a slot row is hidden
-# ONLY when the collapsed day row for that same title, venue and date is already
-# in the table. A publisher whose feed died mid-import — which is exactly what
-# Better's SessionSeries feed did — must not have its sessions vanish because
-# the run that should have replaced them is the thing that failed.
+# The safety rule is in the script and is the whole design: a row is hidden ONLY
+# when the thing that replaced it is already in the table — the collapsed day row
+# for that title, venue and date, or the standing row for that title and venue
+# whose weekly pattern this row's local weekday and start time sit on. A
+# publisher whose feed died mid-import — which is exactly what Better's
+# SessionSeries feed did — must not have its sessions vanish because the run that
+# should have replaced them is the thing that failed.
 
 on:
   workflow_dispatch:
