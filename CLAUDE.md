@@ -1190,6 +1190,33 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   say which cache state a number came from, and treat a single cold sample as
   evidence of nothing.
 
+- **THE OCCURRENCE FEED IS USELESS WITHOUT THE SERIES FEED, so one transient
+  500 cost 63,141 sessions.** An OpenActive `ScheduledSession` carries a date
+  and a `superEvent` pointer and nothing else — the title, the place and the
+  price live on the `SessionSeries` it names. `walk()` gave up on the FIRST
+  exception, so when Better (GLL)'s series feed answered HTTP 500 on page four
+  only 1,500 of its series were read, and **63,141 occurrences were then
+  discarded for naming a series nobody had**. The log said so plainly and it
+  reads like the publisher's fault; it was one retry. `_get_retrying` retries
+  the transient statuses (408/425/429/5xx, timeouts, resets) and re-raises the
+  permanent ones immediately — a 404 is the feed's answer, not a blip, and
+  asking again is noise. Same distinction `mapsee_cleanup` draws between a
+  statement timeout and an Envoy 503, one layer out.
+- **AND THE PAGE CAP IS A CEILING, NOT A PLAN — the same lesson as the job
+  timeout, one file over.** `MAX_PAGES = 250` stopped Better at 125,000
+  ScheduledSession records and reported, correctly and loudly, that the feed
+  was NOT read to the end and its newest sessions were missing. Reporting it is
+  not reading it. `max_pages` is per-source now and Better has 700; the walk is
+  affordable precisely because `collapse_booking_grids` takes what it returns
+  from ~59,700 rows to ~9,200, so the expensive half is the HTTP and the cheap
+  half is what survives.
+- **EVERY SLOT IN THAT GRID WAS PUBLISHED TWICE, and only counting distinct
+  start times showed it.** 255 live "Swim For Fitness" rows held 217 distinct
+  instants — two lanes, or one series carried in two feeds. Above the grid
+  threshold the collapse absorbs that either way, which is exactly why it went
+  unnoticed; below it both rows survive and the list stutters. Same title, same
+  point, same INSTANT is one listing, and a minute apart is two.
+
 ## Running things
 
 ```bash

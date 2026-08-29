@@ -231,6 +231,64 @@ def main():
     checks.append((len(out6) == 11 and dropped6 == 0,
                    "grid_min_per_day is an override, not a fixed rule"))
 
+    # -------------------------------- 6. a transient 500 is not a dead feed
+    #
+    # A ScheduledSession carries neither title nor place — it names the series
+    # it belongs to. So when the SessionSeries feed dies, the occurrences are
+    # unreadable rather than absent. Live on Better (GLL): its series feed
+    # returned HTTP 500 on page four, 1,500 series were read, and 63,141
+    # occurrences were then dropped for naming a series nobody had. One retry
+    # was worth all of them.
+    import urllib.error
+
+    calls = {"n": 0}
+
+    def _flaky(url, timeout=30.0):
+        calls["n"] += 1
+        if calls["n"] < 3:
+            raise urllib.error.HTTPError(url, 500, "Server Error", None, None)
+        return {"items": [_item("a", soon)], "next": None}
+    OA._get = _flaky
+    data, why = OA.walk("u0", delay=0, sleep=lambda _: None)
+    checks.append((len(data) == 1 and calls["n"] == 3,
+                   "a 500 is retried, and the third attempt reads the page"))
+
+    calls["n"] = 0
+
+    def _gone(url, timeout=30.0):
+        calls["n"] += 1
+        raise urllib.error.HTTPError(url, 404, "Not Found", None, None)
+    OA._get = _gone
+    data, why = OA.walk("u0", delay=0, sleep=lambda _: None)
+    checks.append((calls["n"] == 1 and "404" in why,
+                   "a 404 is the feed's answer, not a blip — asked once, reported"))
+
+    calls["n"] = 0
+
+    def _dead(url, timeout=30.0):
+        calls["n"] += 1
+        raise urllib.error.HTTPError(url, 503, "Unavailable", None, None)
+    OA._get = _dead
+    data, why = OA.walk("u0", delay=0, sleep=lambda _: None)
+    checks.append((calls["n"] == 3 and "stopped after 0 page" in why,
+                   "a feed that is really down is given up on, and SAID to be partial"))
+
+    # ------------------------------------------- 7. the duplicate underneath
+    #
+    # 255 live rows across 217 distinct start times: every slot published twice.
+    # Above the grid threshold the collapse absorbs that either way; below it
+    # both would survive and the list would stutter.
+    twice = [_slot(7, 9 * 60), _slot(7, 9 * 60), _slot(7, 12 * 60)]
+    out7, folded, notes7 = OA.collapse_booking_grids(list(twice), OA.GRID_MIN_PER_DAY)
+    checks.append((len(out7) == 2 and folded == 1,
+                   "the same title at the same venue at the same INSTANT is one row"))
+    checks.append((any("duplicate" in n for n in notes7),
+                   "and the fold is reported, not silent"))
+    near = [_slot(7, 9 * 60), _slot(7, 9 * 60 + 1)]
+    out8, folded8, _ = OA.collapse_booking_grids(list(near), OA.GRID_MIN_PER_DAY)
+    checks.append((len(out8) == 2 and folded8 == 0,
+                   "a minute apart is two sessions — only an exact instant folds"))
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1
