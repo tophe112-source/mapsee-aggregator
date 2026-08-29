@@ -144,6 +144,56 @@ def main():
                                                        recurring_hours=None)]) == [],
                    "a row with the weekly text but no pattern is not a keeper"))
 
+    # ------------------------- THE ROUND TRIP, THROUGH THE REAL SYNC
+    #
+    # The pattern is built by the ADAPTER out of the feed's own offset; the tz
+    # it is read back in is written by the SYNC out of the venue's coordinates.
+    # The two halves live in different files and neither can be seen to be wrong
+    # on its own — get them out of step and this rule matches NOTHING, silently,
+    # which is indistinguishable from "there was nothing to retire".
+    from datetime import datetime, timezone as _tz
+    import mapsee_ingest_openactive as _OA
+    import mapsee_supabase_sync as _S
+
+    _now = datetime(2026, 8, 26, tzinfo=_tz.utc)
+    def _rec(day):
+        return {"name": "Aqua Aerobics", "description": "Pool session.",
+                "startDate": f"{day}T19:40:00+01:00",
+                "endDate": f"{day}T20:40:00+01:00",
+                "location": {"geo": {"latitude": 51.5074, "longitude": -0.1278},
+                             "name": "Test Leisure Centre"}}
+    _evs = []
+    for _d in ("2026-08-31", "2026-09-07"):          # two consecutive Mondays
+        _o = _OA.to_event(_rec(_d), {"name": "Everyone Active", "slug": "ea"}, _now, 120)
+        _evs.append(_o[0] if isinstance(_o, tuple) else _o)
+    _stamp = "2026-08-29T00:00:00Z"
+    _before = [_S.to_row(e.as_record(_stamp), "host") for e in _evs]
+    _kept, _n, _ = _OA.collapse_weekly_series(list(_evs), 2)
+    _srow = _S.to_row([k for k in _kept if k.recurring_days][0].as_record(_stamp), "host")
+
+    def _pair(tzname, starts):
+        # tz forced: timezonefinder has no wheel everywhere and its absence
+        # makes _tz_for fall back to a US longitude guess, which would make this
+        # case about the sandbox rather than about the rule.
+        _rh = dict(_srow["recurring_hours"] or {}); _rh["tz"] = tzname
+        keeper = {"id": "keep", "title": _srow["title"], "lat": _srow["lat"],
+                  "lon": _srow["lon"], "description": _srow["description"],
+                  "recurring_hours": _rh, "hidden_at": None}
+        orphans = [{"id": f"orph{i}", "title": b["title"], "lat": b["lat"],
+                    "lon": b["lon"], "starts_at": st, "description": b["description"],
+                    "recurring_hours": None, "hidden_at": None}
+                   for i, (b, st) in enumerate(zip(_before, starts))]
+        return R.weekly_superseded(orphans + [keeper])
+
+    _pub = [b["starts_at"] for b in _before]
+    checks.append((len(_pair("Europe/London", _pub)) == 2,
+                   "an occurrence the fold replaced matches its standing row end to end"))
+    _utc = [st.replace("T19:40:00+01:00", "T18:40:00+00:00") for st in _pub]
+    checks.append((len(_pair("Europe/London", _utc)) == 2,
+                   "and still matches when PostgREST renders the instant in UTC"))
+    checks.append((_pair("America/New_York", _pub) == [],
+                   "a WRONG tz matches nothing — the failure is silent, so it is asserted"))
+
     # --------------------------------------------------------- main(), stubbed
     #
     # Both of mapsee_ingest_osm_amenities' production failures were in main(),
