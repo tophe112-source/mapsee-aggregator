@@ -254,7 +254,7 @@ def scan(days, back, max_pages, include_hidden=False):
     now = time.time()
     t = now - back * 86400
     step = 86400 * 2
-    out, pages, skipped = [], 0, 0
+    out, pages, skipped, unmarked = [], 0, 0, 0
     while t < now + days * 86400 and pages < max_pages:
         w_a = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(t))
         w_b = time.strftime("%Y-%m-%dT%H:%M:%SZ",
@@ -275,7 +275,11 @@ def scan(days, back, max_pages, include_hidden=False):
                         time.sleep(1.5 * (attempt + 1))
             if not batch:
                 break
-            out.extend(r for r in batch if OA_MARK in (r.get("description") or ""))
+            for r in batch:
+                if OA_MARK in (r.get("description") or ""):
+                    out.append(r)
+                else:
+                    unmarked += 1
             if len(batch) < PAGE:
                 break
             offset += PAGE
@@ -283,6 +287,14 @@ def scan(days, back, max_pages, include_hidden=False):
         t += step
     print(f"  scanned to +{days}d: {len(out)} OpenActive row(s)"
           + (f"  ({skipped} windows errored)" if skipped else ""))
+    # WHY THIS IS COUNTED. Every rule here is gated on OA_MARK, the attribution
+    # line — "a row without it is not ours to judge". Until 2026-08-29 the sync
+    # trimmed a long description from the END and cut that line off, and the
+    # rows it hit hardest were the COLLAPSED ones, which carry an extra
+    # prepended line and are therefore the longest. A keeper missing its mark is
+    # invisible here, and the safety rule then refuses to retire its orphans —
+    # so this number is the difference between "nothing to do" and "cannot see".
+    print(f"  ({unmarked} row(s) in those windows carried no attribution line)")
     return out, skipped
 
 
@@ -312,6 +324,9 @@ def main(argv=None):
         # an incomplete read must not read like a complete one.
         print(f"::warning::{skipped} window(s) could not be read — this pass is partial")
 
+    standing = [r for r in rows if isinstance(r.get("recurring_hours"), dict)
+                and WEEKLY_MARK in (r.get("description") or "")]
+    print(f"  {len(standing)} standing row(s) available as weekly keepers")
     grid = [] if a.no_grid else superseded(rows, a.min_per_day)
     weekly = [] if a.no_weekly else weekly_superseded(rows)
     seen, doomed = set(), []
