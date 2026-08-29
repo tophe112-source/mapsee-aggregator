@@ -1249,6 +1249,39 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   two-part workshop read as an arrangement is a finished course pinned to the
   map permanently. The threshold that works is a fact about the publisher, not
   about patterns.
+- **A SECOND COLLAPSE NEEDS A SECOND RETIREMENT RULE, and the first one cannot
+  see the second's orphans.** `mapsee_retire_openactive_slots.py` groups by
+  title, venue and DAY and needs six rows in a group, which is the shape a
+  booking grid has. A weekly fold's orphans are one occurrence per week, each
+  alone in its own day — so every one of them fails that test and is never even
+  considered. Run #55 folded 77,346 of Everyone Active's occurrences into 38,227
+  standing rows and INSERTED them beside the originals, exactly as the grid
+  collapse had a cycle earlier, and the retirement reported nothing to do.
+  `weekly_superseded` is the second rule: same safety rule (hide only where the
+  replacement is already in the table), keyed on title and venue with no day in
+  it, and matched on the row's LOCAL weekday and start time against the standing
+  row's own `recurring_hours` — because the fold deliberately leaves the
+  bank-holiday special dated and still writes it every run. The two compose: a
+  grid day row folded into a standing row is superseded in turn.
+- **AND THE ESCAPE HATCH HAD NEVER WORKED.** That script's whole licence to
+  write `hidden_at` rather than DELETE is "hiding is reversible", and its scan
+  hard-coded `hidden_at=is.null` — so after a successful `--apply` the reverse
+  pass could not see a single row it had hidden, reported zero and wrote
+  nothing. The test agreed with it, because the stub answered every URL with the
+  same fixture and never looked at the query it was asked; a test that drives a
+  real query has to ANSWER the query, not the call. The reverse direction needs
+  no hidden filter at all rather than the opposite one, because the keepers stay
+  VISIBLE while the rows they replaced are hidden and the judgement needs both
+  halves; the direction of the write is then decided per row on its own
+  `hidden_at`, which is also what stops a second `--apply` restamping.
+- **`starts_at`'s FIRST TEN CHARACTERS ARE NOT RELIABLY THE LOCAL DATE.** A
+  `timestamptz` normalises to UTC in the column and PostgREST renders it in the
+  connection's zone, so a 00:30 class in British Summer Time reads as the
+  previous day — and a 19:40 one reads as 18:40, which is a weekly pattern that
+  matches nothing. Convert into the zone the sync derived from the venue's own
+  coordinates instead. Both retirement rules now do; only the grid rule's
+  per-day grouping still reads the string, where an hour's error costs at worst
+  one group boundary.
 - **A TOGGLE'S MEANING CAN BE OVERTAKEN BY A NEW KIND OF ROW.** ../mapsee's
   "Hide open shops" sent `p_hide_standing`, which drops every row with
   `recurring_hours` — the same set as "shops" for exactly as long as imported
