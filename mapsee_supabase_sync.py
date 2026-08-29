@@ -43,6 +43,12 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from mapsee_music_links import spotify_search_url, youtube_search_url, bandcamp_search_url, SpotifyResolver
 
+try:                                  # resolved against the REAL requests, once
+    from requests.exceptions import RequestException as _TransportError
+except Exception:                     # requests absent (import-only use): match nothing
+    class _TransportError(Exception):
+        """Placeholder so the except clauses below stay valid without requests."""
+
 # Map an event's category (from Ticketmaster's segment, when carried) to a
 # Mapsee FRONTEND category KEY — must match the keys in site/js/app.js CATEGORIES.
 # The UI looks events up by key (catLabel/catEmoji), so a label like "Music"
@@ -1210,7 +1216,7 @@ def _unknown_column(resp) -> Optional[str]:
     return found.group(1) if found else None
 
 
-def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> int:
+def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, int]:
     """Write rows, and SURVIVE A COLUMN THE DATABASE HAS NOT GOT YET.
 
     THE BLAST RADIUS IS WHY THIS EXISTS. to_row writes every column for every
@@ -1260,47 +1266,111 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> int:
               f"populate the column.", flush=True)
         return True
 
-    def _post_retry(batch, tries=3):
+    TRIES = 3                        # named, so the log cannot drift from the loop
+    def _post_retry(batch, tries=TRIES):
         # A batch can fail transiently on a statement timeout (57014) or lock wait,
         # esp. if a moderation trigger is slow. Back off and retry the whole batch
         # before falling back to costly row-by-row isolation.
+        #
+        # A TIMEOUT IS NOT A STATUS CODE, AND THAT IS THE WHOLE BUG. This loop
+        # only ever looked at resp.status_code, so it retried the case where the
+        # server said "503" and let the case where the server said NOTHING blow
+        # straight out of upsert() and kill the process. They are the same
+        # transient condition — Postgres busy — differing only in whether the
+        # answer arrived inside our 30s read timeout. On 2026-08-29 that cost a
+        # 4h50m Meetup sweep its entire international leg and took the OSM
+        # second-hand run with it, both on `ReadTimeout ... (read timeout=30)`
+        # raised from this very line.
+        #
+        # Re-POSTing is safe: the endpoint carries
+        # on_conflict=external_source,external_id with merge-duplicates, so a
+        # batch that DID land before we gave up reading merges onto itself
+        # rather than duplicating.
         retryable = {408, 429, 500, 502, 503, 504}   # 57014 surfaces as HTTP 500
+        resp = None
         for n in range(tries):
-            resp = _post(batch)
+            try:
+                resp = _post(batch)
+            except _TransportError:
+                if n == tries - 1:
+                    raise                            # caller decides; see below
+                time.sleep(0.5 * (n + 1))
+                continue
             if resp.status_code < 300 or resp.status_code not in retryable:
                 return resp
             time.sleep(0.5 * (n + 1))
         return resp
 
-    sent = skipped = 0
+    # ONE UNREACHABLE BATCH MUST NOT DISCARD THE OTHER NINE HUNDRED. The batches
+    # are independent writes, so a batch the transport could not deliver is a
+    # hole, not a reason to throw away the batches that would have landed after
+    # it. aggregate-events.yml already had to learn this the expensive way — the
+    # Meetup job syncs its US leg before sweeping internationally precisely so
+    # "a later timeout must not discard it" — but the protection stopped at the
+    # job boundary and left every batch inside one sync sharing a single fate.
+    #
+    # `lost` is counted apart from `skipped` because they mean opposite things:
+    # skipped is Postgres refusing a row (a data problem, the row is the
+    # suspect), lost is never having got an answer (an infrastructure problem,
+    # the row is fine and should be retried next run). Reporting both as
+    # "skipped" would send someone reading per-row reasons that do not exist.
+    sent = skipped = lost = 0
+    misses = 0                       # CONSECUTIVE batches the transport ate
+    GIVE_UP_AFTER = 5                # ...before we call it an outage, not a blip
     for i in range(0, len(rows), 50):               # fast path: batch upserts
         chunk = rows[i:i + 50]
-        resp = _post_retry(chunk)
-        # Before falling through to the expensive row-by-row isolation, ask
-        # whether the whole batch failed for a reason that is true of EVERY row
-        # and cheap to fix. A missing column is exactly that.
-        if resp.status_code >= 300 and _drop_unknown(resp):
+        settled = 0                  # rows of THIS chunk already counted sent/skipped
+        try:
             resp = _post_retry(chunk)
-        if resp.status_code < 300:
-            sent += len(chunk)
-            continue
-        # A whole-batch rejection is usually one bad row (e.g. the moderation
-        # trigger raising 'content_blocked'). Re-send the batch row-by-row so the
-        # clean events still land and only the offending ones are skipped + logged.
-        for row in chunk:
-            r = _post([row])
-            if r.status_code >= 300 and _drop_unknown(r):
-                r = _post([row])
-            if r.status_code < 300:
-                sent += 1
-            else:
-                skipped += 1
-                try:
-                    reason = r.json().get("message", "")
-                except Exception:
-                    reason = r.text[:80]
-                print(f"  skipped [{r.status_code} {reason}] {row.get('title')!r}")
-    return sent, skipped
+            # Before falling through to the expensive row-by-row isolation, ask
+            # whether the whole batch failed for a reason that is true of EVERY row
+            # and cheap to fix. A missing column is exactly that.
+            if resp.status_code >= 300 and _drop_unknown(resp):
+                resp = _post_retry(chunk)
+            if resp.status_code < 300:
+                sent += len(chunk)
+                misses = 0
+                continue
+            # A whole-batch rejection is usually one bad row (e.g. the moderation
+            # trigger raising 'content_blocked'). Re-send the batch row-by-row so the
+            # clean events still land and only the offending ones are skipped + logged.
+            for row in chunk:
+                r = _post_retry([row])
+                if r.status_code >= 300 and _drop_unknown(r):
+                    r = _post_retry([row])
+                if r.status_code < 300:
+                    sent += 1
+                else:
+                    skipped += 1
+                    try:
+                        reason = r.json().get("message", "")
+                    except Exception:
+                        reason = r.text[:80]
+                    print(f"  skipped [{r.status_code} {reason}] {row.get('title')!r}")
+                settled += 1          # counted above; must not be counted again below
+            misses = 0
+        except _TransportError as e:
+            # Only the rows NOT already counted. The row-by-row pass can time out
+            # halfway, and blaming the whole chunk would report more rows than the
+            # chunk holds — sent + skipped + lost must equal len(rows).
+            unwritten = len(chunk) - settled
+            lost += unwritten
+            misses += 1
+            print(f"  ::warning::lost {unwritten} row(s): no answer from Supabase "
+                  f"after {TRIES} attempts ({type(e).__name__}). They are unwritten, "
+                  f"not rejected; the next run will re-send them.", flush=True)
+            # A blip costs one batch. An outage would otherwise cost 3 attempts
+            # x 30s on every remaining batch — hours of a job that cannot write
+            # a single row — so stop asking once it is clearly not a blip.
+            if misses >= GIVE_UP_AFTER:
+                remaining = max(0, len(rows) - (i + len(chunk)))
+                lost += remaining
+                print(f"  ::error::giving up: {misses} consecutive batches went "
+                      f"unanswered. Abandoning {remaining} further row(s) rather "
+                      f"than spending the job's clock on a database that is not "
+                      f"answering.", flush=True)
+                break
+    return sent, skipped, lost
 
 
 _LEET = str.maketrans("@0135$!7", "aoiessit")
@@ -1446,7 +1516,7 @@ def main() -> None:
                                        for f in ("title", "description", "place_name", "host_name"))]
         print(f"Moderation pre-filter: dropped {before - len(rows)} of {before} rows.")
 
-    n, skipped = upsert(rows, url, key)
+    n, skipped, lost = upsert(rows, url, key)
     # NOT NECESSARILY MODERATION. This used to assert the reason regardless of
     # the status code, and it sent me looking for a content filter that was
     # never involved: Tokyo's entire batch — all 114 rows — failed with
@@ -1454,8 +1524,17 @@ def main() -> None:
     # handful elsewhere were 400s for an out-of-range timestamp. The per-row
     # reasons are printed above; point at those instead of inventing one.
     tail = f"; skipped {skipped} (see the per-row reasons above)" if skipped else ""
+    tail += f"; LOST {lost} to an unanswering database" if lost else ""
     print(f"Upserted {n} events into Supabase as host {host_id}{tail}. "
           f"They will now appear in events_near / the Nearby map.")
+    # Same contract mapsee_indexnow settled on: a run that reported what it
+    # could and a run that quietly wrote everything must not look the same. The
+    # rows that DID land are already committed above — this only sets the exit
+    # code, so the red tick means "some rows are still owed", not "nothing
+    # happened". Skipped rows do NOT fail the run: Postgres rejecting a row is a
+    # verdict, and re-running will not change it.
+    if lost:
+        sys.exit(f"{lost} row(s) never reached Supabase — unwritten, not rejected.")
 
 
 if __name__ == "__main__":

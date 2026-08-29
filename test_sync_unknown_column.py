@@ -67,7 +67,7 @@ def main():
     known = {"title", "lat", "lon"}
     fake, calls = fake_requests(known)
     sys.modules["requests"] = fake
-    sent, skipped = S.upsert([dict(r) for r in rows], "https://x.test", "k")
+    sent, skipped, _lost = S.upsert([dict(r) for r in rows], "https://x.test", "k")
     checks.append((sent == 120 and skipped == 0,
                    "every row still lands when a column is missing "
                    f"(sent={sent}, skipped={skipped})"))
@@ -81,7 +81,7 @@ def main():
     # ---- 2. THE MIGRATED DATABASE. Nothing is dropped, nothing is wasted.
     fake, calls = fake_requests(known | {"pin_only"})
     sys.modules["requests"] = fake
-    sent, skipped = S.upsert([dict(r) for r in rows], "https://x.test", "k")
+    sent, skipped, _lost = S.upsert([dict(r) for r in rows], "https://x.test", "k")
     checks.append((sent == 120 and skipped == 0 and calls["posts"] == 3,
                    f"a database that HAS the column pays nothing for this "
                    f"({calls['posts']} posts)"))
@@ -98,7 +98,7 @@ def main():
         return Resp(201)
     sys.modules["requests"] = types.SimpleNamespace(post=post_blocked)
     mixed = [{"title": "ok"}, {"title": "BLOCKED"}, {"title": "fine"}]
-    sent, skipped = S.upsert(mixed, "https://x.test", "k")
+    sent, skipped, _lost = S.upsert(mixed, "https://x.test", "k")
     checks.append((sent == 2 and skipped == 1,
                    f"a genuinely bad row is still isolated and skipped "
                    f"(sent={sent}, skipped={skipped})"))
