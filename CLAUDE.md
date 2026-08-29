@@ -1249,6 +1249,26 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   two-part workshop read as an arrangement is a finished course pinned to the
   map permanently. The threshold that works is a fact about the publisher, not
   about patterns.
+- **THE LICENCE LINE IS THE LAST LINE, AND THE SYNC CUT FROM THE END.**
+  `_cap_prose` trims a description over `DESCRIPTION_MAX` (800) by taking the
+  head — and four adapters close with a licence ATTRIBUTION: OpenActive's "via
+  OpenActive, licensed CC-BY 4.0." and the "OpenStreetMap contributors (ODbL)."
+  line the three OSM adapters carry. `mapsee_ingest_openactive._text` allows a
+  900-character body ON ITS OWN, so any session near that overflowed 800 and
+  lost the licence, silently, on a row that otherwise looked perfect — and
+  `collapse_weekly_series` prepending "🔁 Runs weekly …" makes it likelier, not
+  less. The adapter's own comment says "THE LICENCE CONDITION, not a footer",
+  which was true when written and could not survive a cut it never saw. It cost
+  more than the licence: `mapsee_retire_openactive_slots`,
+  `mapsee_retire_perday_osm` and `mapsee_retire_thin_artwork` all identify their
+  own rows BY that mark — "a row without it is not ours to judge" — so a
+  truncated row could never be retired, audited or corrected by any of them. A
+  SHORT (<=200 char) final paragraph now survives and the head is trimmed to make
+  room; fixed in the sync rather than in four adapters, because the cut is what
+  is wrong and there is one of it. Pinned end to end in
+  `test_ingest_openactive.py`, through the real `to_event` and the real
+  `_cap_prose` — the two halves live in different files and neither can be seen
+  to be wrong on its own.
 - **A STANDING ROW NEVER DIES, AND RUN #55 CREATED FORTY THOUSAND OF THEM.**
   `roll_recurring_windows` moves a row with `recurring_hours` forward for ever
   and `mapsee_cleanup` only deletes the PAST, so a standing row's window is

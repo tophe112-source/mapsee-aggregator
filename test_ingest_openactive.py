@@ -369,6 +369,37 @@ def main():
     checks.append((OA.collapse_weekly_series(list(wk), 1)[1] == 0,
                    "weekly_min_repeats=1 disables the collapse for a publisher that needs it"))
 
+    # ------------------------------- THE LICENCE LINE MUST SURVIVE THE SYNC
+    #
+    # All 127 OpenActive dataset pages are CC-BY 4.0 and the attribution is the
+    # term the data is held on, not a footer — so it is the LAST line of every
+    # description this adapter writes. mapsee_supabase_sync trims an over-long
+    # description to DESCRIPTION_MAX from the END, and _text here allows a
+    # 900-character body on its own, so anything near that overflowed 800 and
+    # lost the licence silently, on a row that otherwise looked perfect. It cost
+    # the retirement scripts too: all three identify their own rows BY that mark.
+    import mapsee_supabase_sync as _S
+    _long = {"name": "Aqua Aerobics",
+             "description": "A friendly session for all abilities. " * 24,
+             "startDate": "2026-09-07T19:40:00+01:00",
+             "location": {"geo": {"latitude": 51.5, "longitude": -0.12},
+                          "name": "Test Pool"}}
+    _out = OA.to_event(_long, {"name": "Everyone Active", "slug": "ea"}, NOW, 120)
+    _ev = _out[0] if isinstance(_out, tuple) else _out
+    checks.append((len(_ev.description) > _S.DESCRIPTION_MAX,
+                   "a long session description does overflow the sync's cap"))
+    _stored = _S._cap_prose(_S._clean_text(_ev.description))
+    checks.append((len(_stored) <= _S.DESCRIPTION_MAX,
+                   "and the stored description still respects that cap"))
+    checks.append(("via OpenActive" in _stored,
+                   "but the CC-BY attribution survives the trim, every time"))
+
+    _weekly = "\U0001F501 Runs weekly — 17 sessions.\n\n" + _ev.description
+    _sw = _S._cap_prose(_S._clean_text(_weekly))
+    checks.append(("via OpenActive" in _sw and "Runs weekly" in _sw,
+                   "the collapse's own opener does not push the licence off the end"))
+
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1
