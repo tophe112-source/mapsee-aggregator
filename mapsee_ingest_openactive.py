@@ -90,6 +90,7 @@ import json
 import re
 import sys
 import time
+import urllib.error          # explicit: urllib.request only exposes it by accident
 import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
@@ -140,6 +141,40 @@ def _get(url: str, timeout: float = 30.0) -> Any:
         return json.loads(r.read().decode("utf-8", "replace"))
 
 
+# A 5xx or a dropped socket means the request did not happen and the same one
+# works when the far end recovers; a 404/410 means the feed is not there and
+# asking again is just noise. Telling them apart is the same distinction
+# mapsee_cleanup draws between a Postgres statement timeout and an Envoy 503.
+_RETRYABLE_STATUS = {408, 425, 429, 500, 502, 503, 504}
+
+
+def _get_retrying(url: str, tries: int = 3, timeout: float = 30.0,
+                  sleep=time.sleep) -> Any:
+    """`_get`, but a transient failure costs a pause rather than the feed.
+
+    THIS IS THE WHOLE JOIN, NOT ONE PAGE. A ScheduledSession names the series it
+    belongs to and carries neither title nor place itself, so when the
+    SessionSeries feed dies the occurrences are unreadable — not missing, but
+    dropped for naming a series nobody read. Live on Better (GLL), the largest
+    publisher configured: its series feed returned HTTP 500 on page four, 1,500
+    of its series were read, and **63,141 occurrences** were then discarded for
+    exactly that reason. One retry would have been worth all of them.
+    """
+    last: Exception = RuntimeError("no attempt made")
+    for attempt in range(tries):
+        try:
+            return _get(url, timeout=timeout)
+        except urllib.error.HTTPError as exc:
+            last = exc
+            if exc.code not in _RETRYABLE_STATUS:
+                raise
+        except Exception as exc:            # noqa: BLE001 - timeouts, resets, bad JSON
+            last = exc
+        if attempt + 1 < tries:
+            sleep(2 * (attempt + 1))
+    raise last
+
+
 def walk(url: str, max_pages: int = MAX_PAGES, delay: float = 0.3,
          sleep=time.sleep) -> Tuple[Dict[str, dict], str]:
     """Read an RPDE feed to its end and return {id: data} plus why we stopped.
@@ -160,7 +195,7 @@ def walk(url: str, max_pages: int = MAX_PAGES, delay: float = 0.3,
     pages = 0
     while url and pages < max_pages:
         try:
-            payload = _get(url)
+            payload = _get_retrying(url, sleep=sleep)
         except Exception as exc:            # noqa: BLE001 - reported, not raised
             # Partial is honest: return what we read and SAY it was partial. A
             # feed that dies on page nine has still told us about eight pages.
@@ -472,8 +507,20 @@ def collapse_booking_grids(events: List[NormalizedEvent], min_per_day: int
     title/venue pairs occurred exactly once. A publisher whose classes really do
     run six times a day can raise `grid_min_per_day` in its config entry.
     """
+    # EXACT DUPLICATES FIRST, and they are not hypothetical: of 255 live "Swim
+    # For Fitness" rows in one week, 217 had distinct start times, so every slot
+    # was published TWICE — two lanes, or one series carried in two feeds. Above
+    # the threshold the collapse absorbs them either way; below it they would
+    # both survive and the list would stutter. Same title, same point, same
+    # instant is one listing to anybody reading it.
+    by_instant: Dict[Tuple[str, float, float, str], NormalizedEvent] = {}
+    for ev in events:
+        name, lat, lon, _ = _grid_key(ev)
+        by_instant.setdefault((name, lat, lon, ev.start_utc or ""), ev)
+    deduped = len(events) - len(by_instant)
+    events = list(by_instant.values())
     if min_per_day <= 1:
-        return events, 0, []
+        return events, deduped, ([f"{deduped} exact duplicate row(s) folded"] if deduped else [])
     groups: Dict[Tuple[str, float, float, str], List[NormalizedEvent]] = {}
     for ev in events:
         groups.setdefault(_grid_key(ev), []).append(ev)
@@ -507,13 +554,23 @@ def collapse_booking_grids(events: List[NormalizedEvent], min_per_day: int
         dropped += len(rows) - 1
         notes.append(f"{first.name} @ {first.venue_name or f'{lat},{lon}'} {day}: "
                      f"{len(rows)} slots -> 1")
-    return out, dropped, notes
+    if deduped:
+        notes.insert(0, f"{deduped} exact duplicate row(s) folded "
+                        f"(same title, venue and instant)")
+    return out, dropped + deduped, notes
 
 
 def read_source(source: dict, horizon_days: int, max_pages: int,
                 delay: float, now: Optional[datetime] = None) -> Tuple[List[NormalizedEvent], Dict[str, Any]]:
     """Every dated row one publisher has, plus a report of what was refused."""
     now = now or datetime.now(timezone.utc)
+    # A BIG PUBLISHER NEEDS MORE PAGES THAN A SMALL ONE, and the cap is a
+    # ceiling rather than a plan. Better (GLL) hit 250 pages at 125,000 records
+    # and said so — correctly, since a silent cap reads as "we read the whole
+    # feed" — but saying so is not reading it. Per-source `max_pages` lets the
+    # one publisher that needs 600 have them without making every other feed pay
+    # for the walk.
+    max_pages = int(source.get("max_pages") or max_pages)
     feeds = {str(f.get("kind")): f.get("url") for f in (source.get("feeds") or []) if f.get("url")}
     notes: List[str] = []
     records: List[dict] = []

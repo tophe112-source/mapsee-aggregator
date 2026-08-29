@@ -148,7 +148,9 @@
      "kind": "ScheduledSession",
      "url": "https://better-admin.org.uk/api/openactive/better/scheduled-sessions"
     }
-   ]
+   ],
+   "max_pages": 700,
+   "_max_pages": "Better is the largest publisher configured and 250 pages was not the end of it: 125,000 ScheduledSession records read and the cap reported, correctly, that its NEWEST sessions were missing. 700 covers the feed with room; the walk is affordable because collapse_booking_grids takes what it returns from ~59,700 rows to ~9,200."
   },
   {
    "name": "GoodGym",
