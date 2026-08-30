@@ -2818,6 +2818,196 @@
         "lon": 2.4329022
       },
       "_metro": "Paris, FR"
+    },
+    {
+      "name": "Musée de la Toile de Jouy",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.museedelatoiledejouy.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée de la Toile de Jouy",
+        "lat": 48.7690979,
+        "lon": 2.1518503
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Église Sainte-Jeanne-d'Arc",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://jeannedarc-versailles.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église Sainte-Jeanne-d'Arc",
+        "address": "Place Elisabeth Brasseur",
+        "lat": 48.8109788,
+        "lon": 2.1375228
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Basilique du Sacré-Cœur",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.sacre-coeur-montmartre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Basilique du Sacré-Cœur",
+        "lat": 48.8867961,
+        "lon": 2.3430272
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Église Saint-Laurent",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.asaintlaurent.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église Saint-Laurent",
+        "lat": 48.874774,
+        "lon": 2.3583086
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Musée d'art et d'histoire de Saint-Denis",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://musee-saint-denis.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée d'art et d'histoire de Saint-Denis",
+        "lat": 48.9324651,
+        "lon": 2.356482
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Église du Cœur Eucharistique de Jésus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://coeur-eucharistique.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église du Cœur Eucharistique de Jésus",
+        "lat": 48.8677441,
+        "lon": 2.406442
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Église Saint-Pierre et Saint-Paul",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rueil.diocese92.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église Saint-Pierre et Saint-Paul",
+        "address": "4 Place de l'Église",
+        "lat": 48.8764517,
+        "lon": 2.1813395
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Théâtre Montansier",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.theatremontansier.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre Montansier",
+        "lat": 48.8081378,
+        "lon": 2.1240974
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Hôtel de la Grande Loge de France",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.gldf.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hôtel de la Grande Loge de France",
+        "lat": 48.8831719,
+        "lon": 2.3221549
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Théâtre Simone Signoret",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.theatre-simone-signoret.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Théâtre Simone Signoret",
+        "lat": 48.9980875,
+        "lon": 2.0988942
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Église Saint-Pierre - Saint-Paul",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://ivry-eglise.catholique.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église Saint-Pierre - Saint-Paul",
+        "address": "3 Place de l'Église",
+        "city": "Ivry-sur-Seine",
+        "postal_code": "94200",
+        "lat": 48.8109596,
+        "lon": 2.3828632
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Église Notre-Dame-du-Rosaire",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://notredamedurosaire.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Église Notre-Dame-du-Rosaire",
+        "lat": 48.8292677,
+        "lon": 2.3078658
+      },
+      "_metro": "Paris, FR"
+    },
+    {
+      "name": "Musée Horticole des Murs à Pêches",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://jardin-ecole.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée Horticole des Murs à Pêches",
+        "address": "4 Rue du Jardin École",
+        "city": "Montreuil",
+        "postal_code": "93100",
+        "lat": 48.8579879,
+        "lon": 2.4580181
+      },
+      "_metro": "Paris, FR"
     }
   ],
   "_not_included": {

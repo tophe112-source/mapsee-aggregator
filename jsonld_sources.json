@@ -778,6 +778,40 @@
     "lon": 2.4069678
    },
    "_metro": "Paris, FR"
+  },
+  {
+   "name": "Le Zénith",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://le-zenith.com/shows/MPL-20922"
+   ],
+   "link_pattern": "https://le\\-zenith\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Le Zénith",
+    "address": "211 Avenue Jean Jaurès",
+    "postal_code": "75019",
+    "lat": 48.8941804,
+    "lon": 2.3931712
+   },
+   "_metro": "Paris, FR"
+  },
+  {
+   "name": "Médiathèque Maupassant",
+   "category": "learning",
+   "_found": "osm:library -> jsonld-event",
+   "listing": [
+    "https://mediatheque.ville-bezons.fr/agenda/a-venir"
+   ],
+   "link_pattern": "https://mediatheque\\.ville\\-bezons\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Médiathèque Maupassant",
+    "lat": 48.9272081,
+    "lon": 2.2146849
+   },
+   "_metro": "Paris, FR"
   }
  ],
  "_not_included": {

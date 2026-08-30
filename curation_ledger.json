@@ -181,6 +181,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "2v2padel.com": {
+    "checked": 20260830,
+    "name": "2V2 Padel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "33acresbrewing.com": {
     "checked": 20260819,
     "name": "33 Acres Brewing",
@@ -299,6 +306,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "94.vincennes.unpi.org": {
+    "checked": 20260830,
+    "name": "Chambre des Propri\u00e9taires et des Copropri\u00e9taires UNPI 94 Vincennes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "9apic.org": {
     "checked": 20260829,
@@ -475,6 +489,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ac-courbevoie.com": {
+    "checked": 20260830,
+    "name": "A\u00e9roclub de Courbevoie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ac94.fr": {
     "checked": 20260828,
     "name": "Aviron Club 94",
@@ -537,6 +558,13 @@
     "reason": "13 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "acbb.org": {
+    "checked": 20260830,
+    "name": "AC BB",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "acbparis.org": {
     "checked": 20260829,
@@ -664,6 +692,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "acparis.org": {
+    "checked": 20260830,
+    "name": "\u00c9glise Am\u00e9ricaine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "acrosstheboardcafe.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Across the Board Game Cafe (Winnipeg, Canada)",
@@ -681,6 +716,13 @@
   "actiomservice.com": {
     "checked": 20260829,
     "name": "Actiomservice",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "action-education.org": {
+    "checked": 20260830,
+    "name": "Action Education",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -748,6 +790,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ad78.restosducoeur.org/centres-departementaux/ad78-centre-dactivites-saint-cyr-lecole": {
+    "checked": 20260830,
+    "name": "Les Restos du C\u0153ur",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "adamartgallery.org.nz": {
     "checked": 20260824,
     "name": "Adam Art Gallery",
@@ -775,6 +824,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "adef-logement.fr/residence/residence-reginaldo": {
+    "checked": 20260830,
+    "name": "R\u00e9sidence R\u00e9ginaldo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "adef-residences.com/etablissement/ehpad-maisons-de-retraite/la-maison-du-parc": {
     "checked": 20260829,
@@ -944,9 +1000,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aeri.ovh": {
+    "checked": 20260830,
+    "name": "AERI",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aeromodelisme-vemars.com": {
     "checked": 20260828,
     "name": "Club d'a\u00e9romod\u00e9lisme V\u00e9mars Saint-Witz",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "aerotesson.org": {
+    "checked": 20260830,
+    "name": "A\u00e9roclub Andr\u00e9 Tesson",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -975,6 +1045,13 @@
   "agac.org.nz": {
     "checked": 20260824,
     "name": "Holy Cross Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "agaescc.fr/csc-la-plaine": {
+    "checked": 20260830,
+    "name": "Centre socioculturel La Plaine",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1129,6 +1206,13 @@
   "agsa.sa.gov.au": {
     "checked": 20260819,
     "name": "Art Gallery of South Australia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "agsd.fr": {
+    "checked": 20260830,
+    "name": "Avant Garde Saint-Denis",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1434,6 +1518,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "alcyons.com": {
+    "checked": 20260830,
+    "name": "A\u00e9roclub Les Alcyons",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aldeburghfoodanddrink.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Aldeburgh Food and Drink Festival (Suffolk)",
@@ -1507,6 +1598,20 @@
   "alfortville.fr/-association-republicaine-des-anciens-combattants-arac-": {
     "checked": 20260829,
     "name": "Maison du combattant",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "alfortville.fr/espace-culturel-le-marche-du-dahomey": {
+    "checked": 20260830,
+    "name": "Espace culturel \"Le march\u00e9 du Dahomey\"",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "alfortville.fr/index.php?option=com_zoo&task=item&item_id=85&Itemid=466": {
+    "checked": 20260830,
+    "name": "Complexe sportif Leo Lagrange",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -1601,6 +1706,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "alliance-vie.com": {
+    "checked": 20260830,
+    "name": "Alliance Vie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "alliancechurch.com.au": {
     "checked": 20260819,
@@ -1812,6 +1924,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "alterite.eu": {
+    "checked": 20260830,
+    "name": "Centre d'H\u00e9bergement Chavy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "altrinchammarket.co.uk/events/?ical=1": {
     "checked": 20260727,
     "name": "Altrincham Market Events (UK)",
@@ -1871,6 +1990,13 @@
   "ambassadordublin.com": {
     "checked": 20260822,
     "name": "Ambassador Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ambroisepare.aphp.fr/cegidd": {
+    "checked": 20260830,
+    "name": "CeGIDD - H\u00f4pital Ambroise Par\u00e9 - Boulogne Billancourt",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2071,6 +2197,13 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "annelaurebuffard.com": {
+    "checked": 20260830,
+    "name": "Galerie Anne-Laure Buffard",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "annes.org.au": {
     "checked": 20260819,
     "name": "St. Anne's Anglican Church",
@@ -2102,6 +2235,13 @@
   "annuaire.action-sociale.org/?p=ehpad-pole-raymonde-olivier-valibouse-940020779&details=caracteristiques": {
     "checked": 20260829,
     "name": "Ehpad Raymonde Olivier Valibouse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "annuaire.action-sociale.org/?p=residence-sociale-sonia-delaunay-750050007&details=caracteristiques": {
+    "checked": 20260830,
+    "name": "R\u00e9sidence Sonia Delaunay",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2183,6 +2323,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aphp.fr/hotel-dieu/service-de-centre-de-sante-sexuelle-frederic-edelmann-ap-hp-ville-de-paris": {
+    "checked": 20260830,
+    "name": "Centre de sant\u00e9 sexuelle Fr\u00e9d\u00e9ric Edelmann - CeGIDD - Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aphp.fr/musee": {
     "checked": 20260828,
     "name": "Mus\u00e9e de l'Assistance Publique H\u00f4pitaux de Paris",
@@ -2199,6 +2346,13 @@
   },
   "apollosportingclub.com": {
     "checked": 20260829,
+    "name": "Apollo Sporting Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "apollosportingclub.com/details-salle+apollo+courbevoie+92+-+becon+la+defense-272": {
+    "checked": 20260830,
     "name": "Apollo Sporting Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
@@ -2224,6 +2378,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "apprentis-auteuil.org/etablissements/maison-denfants-caractere-social-lannonciation": {
+    "checked": 20260830,
+    "name": "Les Apprentis d'Auteuil",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "aptaliko.gr": {
     "checked": 20260805,
@@ -2330,6 +2491,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "arcclubparis12.com": {
+    "checked": 20260830,
+    "name": "Arc Club Paris 12",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "arcdeseinekayak.fr": {
     "checked": 20260828,
     "name": "Arc de Seine Kayak",
@@ -2421,6 +2589,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "arcueil.fr/demarches-et-services/culture/galerie-gonzalez-arts-plastiques": {
+    "checked": 20260830,
+    "name": "Galerie Municipale Julio Gonz\u00e1lez",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "arcueil.megarama.fr": {
     "checked": 20260828,
     "name": "M\u00e9garama",
@@ -2452,6 +2627,13 @@
   "argosybooks.ie": {
     "checked": 20260822,
     "name": "Argosy Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "arianecy.com": {
+    "checked": 20260830,
+    "name": "Galerie Ariane C-Y",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2547,6 +2729,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "armeedusalut.fr/etablissements/centre-espoir-cite-de-refuge": {
+    "checked": 20260830,
+    "name": "Cit\u00e9-refuge de l'Arm\u00e9e du Salut",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "armeedusalut.fr/etablissements/pdf": {
+    "checked": 20260830,
+    "name": "Palais de la Femme",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "armycadets.gov.au/unit-finder?UAbbr=10ACU": {
     "checked": 20260819,
     "name": "AAC - 10 ACU Southport",
@@ -2589,9 +2785,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "arpavie.fr/residence/residence-la-vanne": {
+    "checked": 20260830,
+    "name": "R\u00e9sidence La Vanne",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "arpavie.fr/residence/residence-les-solanacees": {
+    "checked": 20260830,
+    "name": "R\u00e9sidence Les Solanac\u00e9es",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "arpavie.fr/residence/residence-marcel-bou": {
     "checked": 20260828,
     "name": "R\u00e9sidence Marcel Bou",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "arpavie.fr/residence/residence-theophile-gautier": {
+    "checked": 20260830,
+    "name": "R\u00e9sidence Th\u00e9ophile Gautier",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2806,6 +3023,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "arts-et-metiers.net/musee/les-reserves": {
+    "checked": 20260830,
+    "name": "Les R\u00e9serves du Mus\u00e9e des Arts et M\u00e9tiers",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "arts-forains.com": {
     "checked": 20260828,
     "name": "Pavillons de Bercy",
@@ -2851,6 +3075,13 @@
   "artscommons.ca": {
     "checked": 20260819,
     "name": "Arts Commons",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "artsdaustralie.com": {
+    "checked": 20260830,
+    "name": "Arts d'Australie - St\u00e9phane Jacob",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2931,6 +3162,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "asaintlaurent.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Laurent",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "asaintnicolas.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Nicolas-des-Champs",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "asapconnections.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
@@ -3107,6 +3352,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "associations.aubervilliers.fr/contact": {
+    "checked": 20260830,
+    "name": "Bureau des associations d'Aubervilliers",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "associations.aubervilliers.fr/solidarite-et-lien-social-2/epiceas-epicerie-aubervilliers-solidarite": {
     "checked": 20260829,
     "name": "Epicerie Aubervilliers Solidarit\u00e9",
@@ -3124,6 +3376,13 @@
   "assonenuphar.fr": {
     "checked": 20260828,
     "name": "Association N\u00e9nuphar",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "assoparcgbrassens.com": {
+    "checked": 20260830,
+    "name": "Association du Parc Georges Brassens",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3355,6 +3614,20 @@
   "aubervilliers.climb-up.fr": {
     "checked": 20260828,
     "name": "Climb Up Aubervilliers",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "aubervilliers.fr/Espace-Renaudie": {
+    "checked": 20260830,
+    "name": "Espace Renaudie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "aubervilliers.fr/Le-Bureau-d-Information-Jeunesse": {
+    "checked": 20260830,
+    "name": "Point information jeunesse - Aubervilliers",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -3674,6 +3947,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "auteuil.epudf.org/evenements": {
+    "checked": 20260830,
+    "name": "\u00c9glise r\u00e9form\u00e9e",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "autismcalgary.com": {
     "checked": 20260819,
     "name": "Autism Calgary",
@@ -3940,6 +4220,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bagneux92.fr/167/solidarites-sante/ma-sante/centre-municipal-de-sante.htm": {
+    "checked": 20260830,
+    "name": "CeGIDD - Centre Municipal de Sant\u00e9 Louis Pasteur - Bagneux",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bagneuxenvironnement.org": {
     "checked": 20260829,
     "name": "?",
@@ -3964,6 +4251,13 @@
   "bai.asso.fr": {
     "checked": 20260829,
     "name": "Biblioth\u00e8que des Amis de l'Instruction",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "baignade.larivedeneuilly.fr": {
+    "checked": 20260830,
+    "name": "Piscine flottante de Neuilly-sur-Marne",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4009,6 +4303,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "balchavaux.fr/agenda": {
+    "checked": 20260830,
+    "name": "Bal Chavaux",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "ballaratobservatory.org.au/events/?ical=1": {
     "checked": 20260727,
@@ -4311,6 +4612,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "basiliade.org/maisons/maison-des-fes": {
+    "checked": 20260830,
+    "name": "Maison des F&es",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "basilique-ndps.fr/infos-pratiques": {
+    "checked": 20260830,
+    "name": "Basilique Notre-Dame du Perp\u00e9tuel Secours",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "basseseine.net": {
+    "checked": 20260830,
+    "name": "Soci\u00e9t\u00e9 Nautique de la Basse Seine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bastille-design-center.com": {
     "checked": 20260828,
     "name": "Bastille Design Center",
@@ -4521,6 +4843,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "bclevallois.fr": {
+    "checked": 20260830,
+    "name": "Bridge club Levallois",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bcyc.ie": {
     "checked": 20260822,
     "name": "Ballyroan Community and Youth Centre",
@@ -4668,6 +4997,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "beffroidemontrouge.com": {
+    "checked": 20260830,
+    "name": "Beffroi",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "beframed.ie": {
     "checked": 20260822,
     "name": "Be Framed Fine Art Gallery",
@@ -4702,6 +5038,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "belleville.church": {
+    "checked": 20260830,
+    "name": "\u00c9glise protestante unie de Paris-Belleville",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "bellevillecitoyenne.fr": {
     "checked": 20260829,
@@ -4997,6 +5340,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bgp.paris": {
+    "checked": 20260830,
+    "name": "Brasserie du Grand Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bhaktilounge.org.nz": {
     "checked": 20260824,
     "name": "Bhakti Lounge",
@@ -5102,6 +5452,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bibliotheque-bievres.fr": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bibliotheque-centre-medem.org": {
     "checked": 20260828,
     "name": "Biblioth\u00e8que Medem",
@@ -5112,6 +5469,13 @@
   "bibliotheque-mazarine.fr": {
     "checked": 20260829,
     "name": "Biblioth\u00e8que Mazarine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bibliotheque.clichysousbois.fr": {
+    "checked": 20260830,
+    "name": "Biblioth\u00e8que Cyrano-de-Bergerac",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5140,6 +5504,27 @@
   "bibliotheque.u-pec.fr/bibliotheques/campus-centre": {
     "checked": 20260829,
     "name": "Biblioth\u00e8que du Campus Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bibliotheque.u-pec.fr/bibliotheques/droit": {
+    "checked": 20260830,
+    "name": "Biblioth\u00e8que de droit",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bibliotheque.u-pec.fr/bibliotheques/eco-gestion-urba": {
+    "checked": 20260830,
+    "name": "Biblioth\u00e8que d\u2019\u00e9conomie, gestion et urbanisme",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bibliotheque.u-pec.fr/bibliotheques/inspe/bonneuil-sur-marne": {
+    "checked": 20260830,
+    "name": "Biblioth\u00e8que de l\u2019INSP\u00c9",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5360,6 +5745,13 @@
     "reason": "8 vevents / 8 future",
     "status": "ok",
     "type": "ics"
+  },
+  "biu-cujas.univ-paris1.fr": {
+    "checked": 20260830,
+    "name": "Biblioth\u00e8que Cujas - Universit\u00e9 Paris 1 Panth\u00e9on-Sorbonne",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "biusante.parisdescartes.fr": {
     "checked": 20260828,
@@ -5641,6 +6033,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bnf.fr/fr/francois-mitterrand": {
+    "checked": 20260830,
+    "name": "Biblioth\u00e8que nationale de France - Fran\u00e7ois Mitterrand",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bnf.fr/fr/la_bnf/sites/a.site_bibliotheque_arsenal.html": {
+    "checked": 20260830,
+    "name": "Biblioth\u00e8que de l'Arsenal",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bnh.org.nz": {
     "checked": 20260824,
     "name": "Active Badminton Centre",
@@ -5742,6 +6148,20 @@
   "bois-colombes.fr/fiche-annuaire/chateau-des-tourelles": {
     "checked": 20260829,
     "name": "Ch\u00e2teau des Tourelles",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bois-colombes.fr/fiche-annuaire/espace-duflos": {
+    "checked": 20260830,
+    "name": "Espace Duflos",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "boiscolombes.croix-rouge.fr": {
+    "checked": 20260830,
+    "name": "Croix-Rouge fran\u00e7aise - Unit\u00e9 locale de Bois-Colombes",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6110,6 +6530,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bouffesparisiens.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre des Bouffes Parisiens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bouffontheatre.fr": {
     "checked": 20260828,
     "name": "Bouffon Th\u00e9\u00e2tre",
@@ -6152,6 +6579,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "boulognebillancourt.com/loisirs/culture/musees/musee-paul-belmondo": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Paul-Belmondo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bourg-la-reine.fr/annuaire/24828/10612-complexe-sportif-des-bas-coquarts.htm": {
     "checked": 20260829,
     "name": "Complexe sportif des Bas-Coquarts",
@@ -6165,6 +6599,13 @@
     "reason": "51 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "boursedecommerce.fr": {
+    "checked": 20260830,
+    "name": "Bourse de Commerce",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "bowcliffseniors.wildapricot.org": {
     "checked": 20260819,
@@ -6285,9 +6726,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "brancion-paris15.asso.fr/theatre": {
+    "checked": 20260830,
+    "name": "Espace Paris Plaine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "brasserie-parisis.com": {
     "checked": 20260828,
     "name": "Parisis",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "brasserie925.com": {
+    "checked": 20260830,
+    "name": "Brasserie 925 - Goub'z",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6607,6 +7062,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "brunoy.fr/vos-demarches-services/vie-culturelle-et-animations/maison-des-arts": {
+    "checked": 20260830,
+    "name": "Maison des arts - le R\u00e9veillon",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "brunoy.fr/vos-demarches-services/vie-culturelle-et-animations/musee": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Robert Dubois-Corneau",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "brunoy.fr/vos-demarches-services/vie-culturelle-et-animations/trait-dunion": {
     "checked": 20260829,
     "name": "Le Trait d'Union - Espace socio-culturel",
@@ -6645,6 +7114,20 @@
   "bryndwrchapel.org.nz": {
     "checked": 20260824,
     "name": "Bryndwr Gospel Chapel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bsb.univ-paris3.fr/accueil-bsb": {
+    "checked": 20260830,
+    "name": "Biblioth\u00e8que Sainte-Barbe - Universit\u00e9 Sorbonne-Nouvelle",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bsg.univ-paris3.fr": {
+    "checked": 20260830,
+    "name": "Biblioth\u00e8que Sainte-Genevi\u00e8ve",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6697,6 +7180,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "budo11.club": {
+    "checked": 20260830,
+    "name": "Budo 11",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "bueze.de/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
@@ -6978,6 +7468,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "ca-olympique-laure-florent-manaudou.com": {
+    "checked": 20260830,
+    "name": "Centre Aquatique Laure et Florent Manaudou",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cab.org.nz/location/cab-avondale": {
     "checked": 20260824,
     "name": "Avondale Citizens Advice Bureau",
@@ -6988,6 +7485,13 @@
   "cab.org.nz/location/cab-waiheke-island": {
     "checked": 20260824,
     "name": "Waiheke Citizens Advice Bureau",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cabaretsauvage.com": {
+    "checked": 20260830,
+    "name": "Le Cabaret Sauvage",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7079,6 +7583,13 @@
   "caerwys-town.wales/town-hall": {
     "checked": 20260819,
     "name": "Caerwys Town Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cafedeladanse.com": {
+    "checked": 20260830,
+    "name": "Caf\u00e9 de la Danse",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -7797,6 +8308,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "canalbd.net/bulle-de-jeux-colombes": {
+    "checked": 20260830,
+    "name": "Bulle de Jeux",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "canalbd.net/bulles-en-tete-le-peletier": {
     "checked": 20260828,
     "name": "Bulles en t\u00eate Le Peletier",
@@ -8252,6 +8770,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "carreaudutemple.eu": {
+    "checked": 20260830,
+    "name": "Carreau du Temple",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "carriageworks.com.au": {
     "checked": 20260819,
     "name": "Carriageworks",
@@ -8301,6 +8826,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cartilage.paris": {
+    "checked": 20260830,
+    "name": "Cartilage",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "cartizanstudio.ca": {
     "checked": 20260819,
     "name": "Cartizan Studio",
@@ -8322,6 +8854,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "casgac.com": {
+    "checked": 20260830,
+    "name": "A\u00e9roclub CA SGAC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cashel-emly.ie": {
     "checked": 20260823,
     "name": "Saint Mary's Church",
@@ -8332,6 +8871,13 @@
   "cashmerechurch.org.nz": {
     "checked": 20260824,
     "name": "Cashmere Presbyterian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "casinodeparis.fr": {
+    "checked": 20260830,
+    "name": "Casino de Paris",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8420,6 +8966,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "cathedrale-versailles.org": {
+    "checked": 20260830,
+    "name": "Cath\u00e9drale Saint-Louis",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "catherinemcauleyhousebeaumont.com": {
     "checked": 20260822,
     "name": "Catherine McAuley House",
@@ -8448,9 +9001,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cathovillejuif.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame-des-Ap\u00f4tres",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "caveabulles.fr": {
     "checked": 20260828,
     "name": "Semiose",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "caveau.fr": {
+    "checked": 20260830,
+    "name": "Le R\u00e9publique",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8539,6 +9106,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ccfd-terresolidaire.org": {
+    "checked": 20260830,
+    "name": "CCFD-Terre Solidaire",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ccfm.mb.ca/events/elroy-blue/?ical=1": {
     "checked": 20260819,
     "name": "Centre culturel franco-manitobain",
@@ -8605,6 +9179,13 @@
   "ccpg.eu": {
     "checked": 20260828,
     "name": "Centre Culture et Patrimoine Gennevillois (CCPG)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ccserbie.com": {
+    "checked": 20260830,
+    "name": "Centre culturel de Serbie",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8763,6 +9344,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cemc.fr": {
+    "checked": 20260830,
+    "name": "Centre d'expression musicale & corporelle",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cemea-idf.org": {
     "checked": 20260829,
     "name": "CEMEA - \u00cele-de-France",
@@ -8882,9 +9470,37 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "centregeorgesbrassens.fr": {
+    "checked": 20260830,
+    "name": "Centre Georges Brassens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "centreinthesquare.com": {
     "checked": 20260819,
     "name": "Centre in the Square",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "centrenautique-saintdenis.fr": {
+    "checked": 20260830,
+    "name": "Centre Nautique La Baleine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "centrepompidou.fr": {
+    "checked": 20260830,
+    "name": "Centre Georges Pompidou",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "centrepompidou.fr/fr/le-centre-pompidou/action-territoriale/un-nouveau-pole-de-conservation-et-de-creation": {
+    "checked": 20260830,
+    "name": "Centre Pompidou - La Fabrique de l'Art",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8917,6 +9533,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "centretignousdartcontemporain.fr": {
+    "checked": 20260830,
+    "name": "Centre Tignous d'Art Contemporain",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ceramm.fr": {
     "checked": 20260829,
     "name": "CERAMM",
@@ -8945,9 +9568,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cergypontoise.fr/piscine-de-lhautil": {
+    "checked": 20260830,
+    "name": "Piscine de L'Hautil",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cernuschi.paris.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Cernuschi",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cession.org.nz": {
     "checked": 20260824,
     "name": "Cession Community Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cesure.paris": {
+    "checked": 20260830,
+    "name": "C\u00e9sure",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9008,6 +9652,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cgrcinemas.fr/epinay": {
+    "checked": 20260830,
+    "name": "M\u00e9ga CGR",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cgrcinemas.fr/torcy": {
+    "checked": 20260830,
+    "name": "M\u00e9ga CGR Torcy Bay 1",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ch-nanterre.fr/ODS/Service.aspx?ModuleID=31&ServiceID=28": {
+    "checked": 20260830,
+    "name": "CeGIDD - Centre d'Accueil et de Soins Hospitaliers - Nanterre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ch-versailles.fr/CeGGID/5/5/47": {
+    "checked": 20260830,
+    "name": "CeGIDD Yvelines Sud - H\u00f4pital Andr\u00e9 Mignot - Versailles",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chabad.nz": {
     "checked": 20260824,
     "name": "Chabad House",
@@ -9050,6 +9722,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "chana-orloff.org": {
+    "checked": 20260830,
+    "name": "Maison Chana Orloff",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chandigarh.afindia.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Alliance Francaise de Chandigarh (Chandigarh, India)",
@@ -9088,6 +9767,13 @@
   "chapelhill.org.nz": {
     "checked": 20260825,
     "name": "Chapel Hill Community Church / The Vine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "chapelle-expiatoire-paris.fr": {
+    "checked": 20260830,
+    "name": "Chapelle expiatoire",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9211,6 +9897,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "chateaudranem.com": {
+    "checked": 20260830,
+    "name": "Fondation Dranem",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chateauversailles.fr/decouvrir/domaine/chateau": {
     "checked": 20260828,
     "name": "Ch\u00e2teau de Versailles",
@@ -9235,6 +9928,13 @@
   "chateauversailles.fr/decouvrir/domaine/petite-ecurie/galerie-sculptures-moulages": {
     "checked": 20260829,
     "name": "Galerie des Sculptures et des Moulages",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "chatelet.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre du Ch\u00e2telet",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9330,6 +10030,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cheminsdememoire.gouv.fr/fr/revue/le-musee-de-la-colombophilie-militaire": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e de la colombophilie militaire",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cheshire.ie/upcoming-events": {
     "checked": 20260822,
     "name": "St. Laurence Cheshire Home",
@@ -9407,6 +10114,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "chezjeannette.fr": {
+    "checked": 20260830,
+    "name": "Chez Jeanette",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "chezleslibrairesassocies.blogspot.com": {
+    "checked": 20260830,
+    "name": "Librairie Jacques Desse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chicagocares.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Chicago Cares",
@@ -9434,6 +10155,13 @@
     "reason": "11 vevents / 10 future",
     "status": "ok",
     "type": "ics"
+  },
+  "chicreteil.fr/offre-de-soin/prevention-et-sante-communautaire": {
+    "checked": 20260830,
+    "name": "CeGIDD - CH Intercommunal - Cr\u00e9teil",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "childrensgrouplink.ie": {
     "checked": 20260823,
@@ -9834,6 +10562,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cie-joliemome.org": {
+    "checked": 20260830,
+    "name": "La Belle \u00c9toile - Compagnie Jolie M\u00f4me",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cif.ie": {
     "checked": 20260822,
     "name": "Construction Industry Federation",
@@ -9883,6 +10618,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cine104.com": {
+    "checked": 20260830,
+    "name": "Cin\u00e9 104",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cine13-theatre.com": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre Lepic",
@@ -9904,6 +10646,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cinema-calypso.fr": {
+    "checked": 20260830,
+    "name": "Le Calypso",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cinema-cosmos-chelles.fr": {
     "checked": 20260828,
     "name": "\u00c9toile Cosmos",
@@ -9914,6 +10663,13 @@
   "cinema-des-cineastes.fr": {
     "checked": 20260828,
     "name": "Cin\u00e9ma des Cin\u00e9astes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cinema-lapleiade.fr": {
+    "checked": 20260830,
+    "name": "Cin\u00e9ma La Pl\u00e9iade",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9995,6 +10751,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cinemalouxor.fr": {
+    "checked": 20260830,
+    "name": "Le Louxor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cinemalraux.fr": {
     "checked": 20260828,
     "name": "Cin\u00e9ma Andr\u00e9 Malraux",
@@ -10037,9 +10800,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cinematheque.fr": {
+    "checked": 20260830,
+    "name": "Cin\u00e9math\u00e8que Fran\u00e7aise",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cinematheque.fr/musee-melies-la-magie-du-cinema.html": {
     "checked": 20260829,
     "name": "Mus\u00e9e M\u00e9li\u00e8s",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cinematrianon.fr": {
+    "checked": 20260830,
+    "name": "Le Trianon",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10212,6 +10989,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cirquedhiver.com": {
+    "checked": 20260830,
+    "name": "Cirque d'Hiver",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "citadeltheatre.com": {
     "checked": 20260819,
     "name": "Citadel Theatre",
@@ -10240,6 +11024,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cite-sciences.fr/fr/argonaute": {
+    "checked": 20260830,
+    "name": "Argonaute",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cite-sciences.fr/fr/au-programme/animations-spectacles/conferences": {
     "checked": 20260828,
     "name": "Auditorium",
@@ -10257,6 +11048,13 @@
   "cite-sciences.fr/fr/au-programme/lieux-ressources/bibliotheque": {
     "checked": 20260828,
     "name": "Biblioth\u00e8que des Sciences et de l'Industrie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "citeaudacieuse.fr": {
+    "checked": 20260830,
+    "name": "La Cit\u00e9 Audacieuse",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -10523,6 +11321,13 @@
   "cjhs.ca": {
     "checked": 20260819,
     "name": "Calgary John Howard Society",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "clairiere.ordredesaintjean.fr": {
+    "checked": 20260830,
+    "name": "Maison des familles Saint-Jean la Clairi\u00e8re",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11059,6 +11864,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "coallia.org": {
+    "checked": 20260830,
+    "name": "Foyer Bellot",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "coast.org.nz/whats-on": {
     "checked": 20260824,
     "name": "Coast Vineyard Church",
@@ -11128,6 +11940,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "coeur-eucharistique.net": {
+    "checked": 20260830,
+    "name": "\u00c9glise du C\u0153ur Eucharistique de J\u00e9sus",
+    "reason": "70 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "cofc.com.au/residentialagedcare/locations/residential-aged-care?locid=86": {
     "checked": 20260819,
@@ -11220,6 +12039,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "collegedesbernardins.fr": {
+    "checked": 20260830,
+    "name": "Coll\u00e8ge des Bernardins",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "colline.fr": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre de la Colline",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "colombbus.org": {
     "checked": 20260828,
     "name": "Colombbus",
@@ -11244,6 +12077,20 @@
   "comagallery.com": {
     "checked": 20260819,
     "name": "Coma Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "combs-la-ville.fr/annuaires/equipements/detail/maison-de-quartier-le-soleil": {
+    "checked": 20260830,
+    "name": "Maison de Quartier du Soleil",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "comedie-francaise.fr": {
+    "checked": 20260830,
+    "name": "Salle Richelieu",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11479,6 +12326,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "confederationpaysanne.fr": {
+    "checked": 20260830,
+    "name": "Conf\u00e9d\u00e9ration Paysanne",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "conferencecentre.nswtf.org.au": {
     "checked": 20260819,
     "name": "NSW Teachers Federation Conference Centre",
@@ -11524,6 +12378,13 @@
   "conservation-studio.co.uk": {
     "checked": 20260819,
     "name": "The Conservation Studio",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "consistoire.org/chasseloup": {
+    "checked": 20260830,
+    "name": "Synagogue Chasseloup-Laubat",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11622,6 +12483,13 @@
   "copegalway.ie/homeless-services/fairgreen-hostel": {
     "checked": 20260823,
     "name": "Fairgreen Homeless Men's Hostel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "copte.fr/paroisses/paroisse-notre-dame-des-coptes": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame-des-Coptes",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11878,6 +12746,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cosy-diem.fr/residences/franconville/residence-la-station": {
+    "checked": 20260830,
+    "name": "Cosy Diem",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cots.org.nz": {
     "checked": 20260824,
     "name": "Church of the Saviour",
@@ -11916,6 +12791,20 @@
   "countryhillschurch.ca": {
     "checked": 20260819,
     "name": "Country Hills Evangelical Missionary Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "courbevoie.croix-rouge.fr": {
+    "checked": 20260830,
+    "name": "Croix-Rouge fran\u00e7aise - Unit\u00e9 locale de Courbevoie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "coursflorent.fr": {
+    "checked": 20260830,
+    "name": "Cours Florent",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -12000,6 +12889,13 @@
   "cpa-victorgelez.ifac.asso.fr": {
     "checked": 20260829,
     "name": "Centre Paris Anim' Victor Gelez",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cpa-wangari.ifac.asso.fr": {
+    "checked": 20260830,
+    "name": "Centre d\u2019animation Wangari Muta Maathai",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -12235,6 +13131,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "croix-rouge.fr/institut-medico-educatif-le-rondo": {
+    "checked": 20260830,
+    "name": "Institut Medico Educatif Le Rondo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "croix-rouge.fr/multi-accueil-therese-papillon": {
     "checked": 20260829,
     "name": "Multi-accueil Th\u00e9r\u00e8se Papillon",
@@ -12266,6 +13169,13 @@
   "croix-rouge.fr/unite-locale-de-clamart": {
     "checked": 20260828,
     "name": "Croix-Rouge fran\u00e7aise - Unit\u00e9 locale de Clamart",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "croix-rouge.fr/unite-locale-de-fontenay-aux-roses": {
+    "checked": 20260830,
+    "name": "Croix-Rouge fran\u00e7aise - Unit\u00e9 locale de Fontenay-aux-Roses",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -12336,6 +13246,13 @@
   "croix-rouge.fr/unite-locale-de-sevres-ville-d-avray": {
     "checked": 20260828,
     "name": "Croix-Rouge fran\u00e7aise - Unit\u00e9 locale de S\u00e8vres- Ville d'Avray",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "croix-rouge.fr/unite-locale-de-vanves-malakoff": {
+    "checked": 20260830,
+    "name": "Croix-Rouge fran\u00e7aise - Unit\u00e9 locale de Vanves-Malakoff",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -12858,6 +13775,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cwb.fr": {
+    "checked": 20260830,
+    "name": "Centre Wallonie Bruxelles",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cwcommunitygarden.org.au/guidehall": {
     "checked": 20260819,
     "name": "Como West Community Garden Inc",
@@ -12868,6 +13792,13 @@
   "cwu.ie": {
     "checked": 20260822,
     "name": "Communications Workers Union",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cyclonelesite.com": {
+    "checked": 20260830,
+    "name": "Cyclone le studio",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -13481,6 +14412,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dbu.univ-paris3.fr/bibliotheques/bibliotheque-gaston-miron-etudes-quebecoises-bgm": {
+    "checked": 20260830,
+    "name": "Biblioth\u00e8que Gaston Miron",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dcb-kessington.co.uk": {
     "checked": 20260819,
     "name": "Kessington Hall",
@@ -14020,9 +14958,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dome-78.fr": {
+    "checked": 20260830,
+    "name": "Le D\u00f4me",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dominioncinema.co.uk": {
     "checked": 20260819,
     "name": "Dominion Cinema",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "domontcinema.com": {
+    "checked": 20260830,
+    "name": "Domont Cin\u00e9ma",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -14601,6 +15553,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "e.leclerc/mag/e-leclerc-moisselles": {
+    "checked": 20260830,
+    "name": "E.Leclerc Espace Culturel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "each.com.au": {
     "checked": 20260821,
     "name": "each",
@@ -14737,6 +15696,13 @@
   "ebbp.info": {
     "checked": 20260829,
     "name": "\u00c9glise Biblique Baptiste de Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ebcparis.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Baptiste du Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15434,6 +16400,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eeba.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Baptiste d\u2019Antony",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "eedc.fr": {
     "checked": 20260829,
     "name": "\u00c9glise \u00e9vang\u00e9lique de Clamart",
@@ -15455,9 +16428,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eglise-catholique-aubervilliers.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame-des-Vertus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "eglise-eau-vive.fr": {
     "checked": 20260828,
     "name": "Association cultuelle de l'\u00c9glise Evang\u00e9lique Eau Vive",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "eglise-saintgermaindespres.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Germain des Pr\u00e9s",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15476,12 +16463,40 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eglisepassagenational.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Passage National",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "egliseroumaine.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise orthodoxe roumaine des saints archanges",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "eglisesaintchristophe.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Christophe",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "eglisesaintmaur.com": {
     "checked": 20260829,
     "name": "\u00c9glise chr\u00e9tienne \u00e9vang\u00e9lique de Saint-Maur",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "eglisesaintthomasdaquin.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Thomas d'Aquin",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
   },
   "ehcong.com": {
     "checked": 20260819,
@@ -15658,6 +16673,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "elyseemontmartre.com": {
+    "checked": 20260830,
+    "name": "\u00c9lys\u00e9e Montmartre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "embc.com.au": {
     "checked": 20260821,
     "name": "East Maitland Bowling Club",
@@ -15731,6 +16753,13 @@
   "emmanueluc.ca": {
     "checked": 20260819,
     "name": "Emmanuel United Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "emmaus-connect.org": {
+    "checked": 20260830,
+    "name": "Association EMMA\u00dcS CONNECT",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15829,6 +16858,13 @@
   "ennisevangelicalchurch.org": {
     "checked": 20260823,
     "name": "Ennis Evangelical Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "enpjj.justice.fr/CEH": {
+    "checked": 20260830,
+    "name": "Centre d\u2019exposition historique de Savigny-sur-Orge",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -15973,9 +17009,23 @@
     "status": "fail",
     "type": "tribe"
   },
+  "eqinvest.fr/chatou": {
+    "checked": 20260830,
+    "name": "Man\u00e8ge",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "equipperschurch.com/napier": {
     "checked": 20260828,
     "name": "Equippers Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "erfportroyal.free.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise r\u00e9form\u00e9e Port-Royal Quartier Latin",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16113,6 +17163,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "espace-1789.com": {
+    "checked": 20260830,
+    "name": "Espace 1789",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "espace-batignolles.com": {
+    "checked": 20260830,
+    "name": "Espace Batignolles",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "espace-bernanos.com": {
     "checked": 20260828,
     "name": "Espace Bernanos",
@@ -16148,6 +17212,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "espace-sportif-pontoise-paris.fr": {
+    "checked": 20260830,
+    "name": "Piscine Pontoise",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "espace-zafra.com": {
     "checked": 20260829,
     "name": "Espace Meyer Zafra",
@@ -16162,12 +17233,33 @@
     "status": "fail",
     "type": "tribe"
   },
+  "espacealbatros.fr": {
+    "checked": 20260830,
+    "name": "Espace Albatros",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "espacebsa.fr": {
     "checked": 20260829,
     "name": "Espace BSA",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "espacecolucci.net": {
+    "checked": 20260830,
+    "name": "Espace Michel Colucci",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "espacecolucci.net/spip.php?rubrique2": {
+    "checked": 20260830,
+    "name": "Cin\u00e9 Montrouge",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "espacejapon.com": {
     "checked": 20260828,
@@ -16207,6 +17299,13 @@
   "espacereinedesaba.org": {
     "checked": 20260828,
     "name": "Espace Reine de Saba",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "espacesaintantoine.com": {
+    "checked": 20260830,
+    "name": "Espace Saint-Antoine",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16263,6 +17362,41 @@
   "essonnedanse.com": {
     "checked": 20260828,
     "name": "Essonne Danse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "est-ensemble.fr/centre-nautique-jacques-brel-bobigny": {
+    "checked": 20260830,
+    "name": "Centre nautique Jacques Brel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "est-ensemble.fr/piscine-des-malassis-bagnolet": {
+    "checked": 20260830,
+    "name": "Piscine des Malassis",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "est-ensemble.fr/piscine-fernand-blanluet-au-pre-saint-gervais": {
+    "checked": 20260830,
+    "name": "Piscine Fernand-Blanluet",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "est-ensemble.fr/piscine-pantin": {
+    "checked": 20260830,
+    "name": "Piscine Municipale Alice Milliat",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "est-ensemble.fr/stade-nautique-maurice-thorez-montreuil": {
+    "checked": 20260830,
+    "name": "Piscine Maurice Thorez",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16351,6 +17485,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eu-asso.fr/ime-de-chevreuse_eta_11": {
+    "checked": 20260830,
+    "name": "I.M.E. Entraide Union",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "eugenecarriere.com": {
     "checked": 20260828,
     "name": "Mus\u00e9e Eug\u00e8ne-Carri\u00e8re",
@@ -16396,6 +17537,13 @@
   "evangelicalbooks.com": {
     "checked": 20260819,
     "name": "Evangelical Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "evangelischekircheparis.org": {
+    "checked": 20260830,
+    "name": "\u00c9glise \u00e9vang\u00e9lique allemande de Paris \u00ab Christuskirche \u00bb",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16736,6 +17884,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "exoexo.paris": {
+    "checked": 20260830,
+    "name": "exo exo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "explore.history.sa.gov.au/organisation/lobethal-archives-historical-museum": {
     "checked": 20260819,
     "name": "Lobethal Archives & Historical Museum",
@@ -16820,6 +17975,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fabrique-evenementielle.fr": {
+    "checked": 20260830,
+    "name": "La Fabrique Ev\u00e9nementielle",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/@covenantstorenz": {
     "checked": 20260824,
     "name": "Covenant",
@@ -16893,6 +18055,13 @@
   "facebook.com/Les-Pipelettes-497821833577287": {
     "checked": 20260829,
     "name": "Librairie Les Pipelettes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/Maison-Revel-P%C3%B4le-des-M%C3%A9tiers-dArt-Est-Ensemble-142945842421014": {
+    "checked": 20260830,
+    "name": "Maison Revel",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -17219,6 +18388,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fafa-bouquinerie-cafe.com/event-list": {
+    "checked": 20260830,
+    "name": "Fafa",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "fage.org": {
     "checked": 20260828,
     "name": "F\u00e9d\u00e9ration des associations g\u00e9n\u00e9rales \u00e9tudiantes",
@@ -17393,6 +18569,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "faun-arts.com/?ical=1": {
+    "checked": 20260830,
+    "name": "Faun Arts",
+    "reason": "0 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
   },
   "fb.me/rsakaiwaka": {
     "checked": 20260824,
@@ -17572,6 +18755,13 @@
   "fianz.com": {
     "checked": 20260824,
     "name": "Federation of Islamic Associations of NZ Inc (FI\u00c0NZ)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fiap.paris": {
+    "checked": 20260830,
+    "name": "FIAP Jean Monnet",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -17814,6 +19004,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "fltmstpc.com": {
+    "checked": 20260830,
+    "name": "Fais-le toi-m\u00eame si t'es pas content",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "flushgolf.co.nz": {
     "checked": 20260824,
     "name": "Flush",
@@ -17834,6 +19031,13 @@
     "reason": "3 vevents / 0 future",
     "status": "empty",
     "type": "ics"
+  },
+  "fnh.org": {
+    "checked": 20260830,
+    "name": "Fondation pour la Nature et l'Homme",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "fnlp.fr": {
     "checked": 20260828,
@@ -17891,9 +19095,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fondation-anais.org/etablissement/esat-anais-de-pierrelaye": {
+    "checked": 20260830,
+    "name": "ESAT Ana\u00efs Pierrelaye",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "fondation-de-rothschild.fr/etablissements/la-residence-saint-jean-eudes-ehpad": {
     "checked": 20260828,
     "name": "EHPAD Saint Jean Eudes - Fondation de Rothschild",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fondation-jeromeseydoux-pathe.com": {
+    "checked": 20260830,
+    "name": "Fondation J\u00e9r\u00f4me Seydoux-Path\u00e9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fondationarp.org": {
+    "checked": 20260830,
+    "name": "Fondation Jean Arp",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -17968,6 +19193,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fonds-enki-bilal.com": {
+    "checked": 20260830,
+    "name": "Fonds Enki Bilal",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "fontenay-aux-roses.fr/demarches-services-en-ligne/autres-demarches/louer-un-espace-municipal": {
     "checked": 20260829,
     "name": "Salle Sainte-Barbe",
@@ -18031,6 +19263,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "forest-hill.fr/club/la-defense": {
+    "checked": 20260830,
+    "name": "Club Forest Hill La D\u00e9fense",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "forestparkconservancy.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Forest Park Conservancy (Portland, OR)",
@@ -18079,6 +19318,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "forma.paris/fr": {
+    "checked": 20260830,
+    "name": "Forma",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "formationsyndicale.cgt.fr": {
     "checked": 20260829,
@@ -18255,6 +19501,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "foyerdelame.fr": {
+    "checked": 20260830,
+    "name": "Temple protestant du Foyer de l'\u00c2me",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "fpchurch.org.uk": {
     "checked": 20260819,
     "name": "Gilmore Place Free Presbyterian Church of Scotland",
@@ -18409,6 +19662,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "freres-poussiere.com": {
+    "checked": 20260830,
+    "name": "Association Fr\u00e8res Poussiere",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "freshfaith.net": {
     "checked": 20260819,
     "name": "Faith Church",
@@ -18528,6 +19788,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fsspx.org/fr": {
+    "checked": 20260830,
+    "name": "Maison Saint-Pie X",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ftc.enterprise.localist.com": {
     "checked": 20260727,
     "name": "Florida Technical College (Orlando)",
@@ -18598,6 +19865,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gabriel-molitor.com": {
+    "checked": 20260830,
+    "name": "Villa Gabriel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "gael-linn.ie": {
     "checked": 20260822,
     "name": "Gael Linn",
@@ -18640,9 +19914,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "galeriamayoral.com": {
+    "checked": 20260830,
+    "name": "Galerie Mayoral",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "galerie-boketto.com": {
     "checked": 20260828,
     "name": "Boketto",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galerie-david-guiraud.com": {
+    "checked": 20260830,
+    "name": "Galerie David Guiraud",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -18675,9 +19963,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "galerie-la-lison.com": {
+    "checked": 20260830,
+    "name": "Galerie La Lison",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "galerie-lelong.com": {
     "checked": 20260828,
     "name": "Lelong & Co.",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galerie.marie-robin.com": {
+    "checked": 20260830,
+    "name": "Galerie marie-robin",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -18720,6 +20022,20 @@
   "galeriebert.com": {
     "checked": 20260829,
     "name": "Galerie Bert",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galeriebertheas.fr": {
+    "checked": 20260830,
+    "name": "Galerie Berth\u00e9as",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galeriec.ch/infos-paris": {
+    "checked": 20260830,
+    "name": "Galerie C",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -18794,6 +20110,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "galeriejoseph.com/espace-atypique-paris-20-chapon-marais": {
+    "checked": 20260830,
+    "name": "Galerie Joseph",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galeriekugel.com": {
+    "checked": 20260830,
+    "name": "Galerie J. Kugel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "galerielj.com": {
     "checked": 20260828,
     "name": "galerie L.J.",
@@ -18818,6 +20148,13 @@
   "galeriemessine.com": {
     "checked": 20260829,
     "name": "Galerie Messine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galeriemiranda.com": {
+    "checked": 20260830,
+    "name": "Galrie Miranda",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -18874,6 +20211,13 @@
   "galeriethomasbernard.com": {
     "checked": 20260829,
     "name": "Galerie Thomas Bernard | Cortex Athletico",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "galeriewaltman.com": {
+    "checked": 20260830,
+    "name": "Galerie Olivier Waltman",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -19095,6 +20439,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "garef.com": {
+    "checked": 20260830,
+    "name": "GAREF A\u00e9rospatial",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "garexp.org": {
+    "checked": 20260830,
+    "name": "La Gare XP",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "garneau-tennis.com": {
     "checked": 20260819,
     "name": "Garneau Tennis and Beach Volleyball Club",
@@ -19308,6 +20666,13 @@
   "gerardbyrneartist.com": {
     "checked": 20260822,
     "name": "The Gerard Byrne Studio",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ght-gpne.fr/service/cegidd-et-prep": {
+    "checked": 20260830,
+    "name": "CeGIDD - CH Intercommunal Andr\u00e9 Gr\u00e9goire - Montreuil",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -19704,6 +21069,13 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "glazart.com": {
+    "checked": 20260830,
+    "name": "Glazart",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "glazermuseum.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Glazer Children's Museum (Tampa, FL)",
@@ -19717,6 +21089,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "gldf.org": {
+    "checked": 20260830,
+    "name": "H\u00f4tel de la Grande Loge de France",
+    "reason": "19 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "glebehockey.org.au": {
     "checked": 20260819,
@@ -20004,6 +21383,13 @@
     "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
+  },
+  "godf.org": {
+    "checked": 20260830,
+    "name": "H\u00f4tel du Grand Orient de France",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "gof.nu/?post_type=tribe_events&ical=1": {
     "checked": 20260727,
@@ -20537,6 +21923,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "grandorlyseinebievre.fr/centre-aquatique-athis-mons": {
+    "checked": 20260830,
+    "name": "Centre aquatique d'Athis-Mons",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "grandorlyseinebievre.fr/piscine-suzanne-berlioux-juvisy-sur-orge": {
     "checked": 20260828,
     "name": "Piscine Suzanne Berlioux",
@@ -20547,6 +21940,13 @@
   "grandpalais-immersif.fr": {
     "checked": 20260829,
     "name": "Grand Palais immersif",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "grandpalais.fr": {
+    "checked": 20260830,
+    "name": "Grand Palais",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -20978,9 +22378,37 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "guignol-butteschaumont.com": {
+    "checked": 20260830,
+    "name": "Le Guignol de Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "guignolchanteraines.fr": {
     "checked": 20260829,
     "name": "Le Th\u00e9\u00e2tre de Marionnettes des Chanteraines",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "guignolrank.com": {
+    "checked": 20260830,
+    "name": "Guignol - Th\u00e9atre de marionnettes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "guimet.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Guimet",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "guimet.fr/pantheon-bouddhique/le-jardin-de-l-hotel-d-heidelbach": {
+    "checked": 20260830,
+    "name": "H\u00f4tel d'Heidelbach",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21076,9 +22504,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "h24plongeon-natation.fr": {
+    "checked": 20260830,
+    "name": "H\u00e9ritage 2024 Plongeon & Natation CAO MGP SD",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "h2oacademy.ca": {
     "checked": 20260819,
     "name": "H20 Academy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "habadcreteil.fr": {
+    "checked": 20260830,
+    "name": "Beth Habad Cr\u00e9teil",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21142,6 +22584,13 @@
   "hallertau.co.nz": {
     "checked": 20260824,
     "name": "Hallertau Brewery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hallesaintpierre.org": {
+    "checked": 20260830,
+    "name": "Halle Saint-Pierre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21436,6 +22885,13 @@
   "haurakisocialclub.co.nz": {
     "checked": 20260824,
     "name": "Hauraki Social Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hautsdeseine.croix-rouge.fr": {
+    "checked": 20260830,
+    "name": "Croix-Rouge fran\u00e7aise - D\u00e9l\u00e9gation territoriale des Hauts-de-Seine",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -22035,6 +23491,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hippodrome-enghien.com": {
+    "checked": 20260830,
+    "name": "Hippodrome d'Enghien-Soisy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hissez.haut.free.fr": {
+    "checked": 20260830,
+    "name": "Centre Social et Culturel Hissez Haut",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "histoire-immigration.fr": {
     "checked": 20260828,
     "name": "Mus\u00e9e National de l'Histoire de l'Immigration",
@@ -22430,6 +23900,27 @@
   "hopital-antoine-beclere.aphp.fr/loffre-de-soins-dantoine-beclere/adultes/specialites-medicales/depistage-sida": {
     "checked": 20260829,
     "name": "CeGIDD - H\u00f4pital Antoine B\u00e9cl\u00e8re - Clamart",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hopital-bichat.aphp.fr/cegidd-bichat": {
+    "checked": 20260830,
+    "name": "CeGIDD - H\u00f4pital Bichat-Claude Bernard - Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hopital-de-gonesse.fr/service-de-soins/medico-technique/laboratoire-de-biologie-medicale": {
+    "checked": 20260830,
+    "name": "CeGIDD - CH - Gonesse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hopital-lariboisiere.aphp.fr/cegidd-fernand-widal": {
+    "checked": 20260830,
+    "name": "CeGIDD - H\u00f4pital Fernand Widal - Paris",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -23162,6 +24653,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "iglesianicristo.net/directory/locales/saint-denis-france": {
+    "checked": 20260830,
+    "name": "Iglesia ni Cristo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ignitefitness.ie": {
     "checked": 20260822,
     "name": "Ignite Fitness",
@@ -23242,6 +24740,13 @@
   "iman.org.nz": {
     "checked": 20260824,
     "name": "IMAN - The International Muslim Association of New Zealand",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "imarabe.org": {
+    "checked": 20260830,
+    "name": "Institut du Monde arabe",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -23550,6 +25055,13 @@
   "instantanee.com": {
     "checked": 20260829,
     "name": "Galerie Umcebo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "instantschavires.com": {
+    "checked": 20260830,
+    "name": "Instants Chavir\u00e9s",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -23869,6 +25381,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ivry-eglise.catholique.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Pierre - Saint-Paul",
+    "reason": "9 events, 9/9 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "ivry94.fr/107/les-salles-de-l-espace-robespierre.htm": {
+    "checked": 20260830,
+    "name": "Espace Robespierre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ivry94.fr/520/depistage-et-prevention.htm": {
+    "checked": 20260830,
+    "name": "CeGIDD - Centre Municipal de Sant\u00e9 Fanny Dewerpe - Ivry sur Seine",
+    "reason": "osm probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ivt.fr": {
     "checked": 20260828,
     "name": "International Visual Theatre",
@@ -23960,6 +25493,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jardin-ecole.com": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Horticole des Murs \u00e0 P\u00eaches",
+    "reason": "1 events, 1/1 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "jardin-saintserge.fr": {
     "checked": 20260829,
     "name": "Jardin Saint-Serge",
@@ -23967,9 +25507,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jardindesplantesdeparis.fr/fr/galerie-de-geologie-et-de-mineralogie": {
+    "checked": 20260830,
+    "name": "Galerie de Min\u00e9ralogie et de G\u00e9ologie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jardindestraverses.org": {
     "checked": 20260829,
     "name": "Le Jardin des Traverses JDT",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "jardins-arcadie.fr": {
+    "checked": 20260830,
+    "name": "Les Jardins d'Arcadie",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -23987,6 +25541,13 @@
     "reason": "5 upcoming, sample: Encuentro Hola Tampere",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "jassclub.paris": {
+    "checked": 20260830,
+    "name": "JASS CLUB Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "jcwc.org/events/?ical=1": {
     "checked": 20260727,
@@ -24009,6 +25570,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jeandebonnot.fr": {
+    "checked": 20260830,
+    "name": "Jean de Bonnot",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jeaniejohnston.ie": {
     "checked": 20260822,
     "name": "Jeanie Johnston",
@@ -24022,6 +25590,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "jeannedarc-versailles.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Sainte-Jeanne-d'Arc",
+    "reason": "50 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "jellurgal.com.au": {
     "checked": 20260819,
@@ -24040,6 +25615,13 @@
   "jeudeboulesduboisdeboulogne.fr": {
     "checked": 20260829,
     "name": "Jeu de Boules du Bois de Boulogne",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "jeudepaume.org": {
+    "checked": 20260830,
+    "name": "Jeu de Paume",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -24166,6 +25748,13 @@
   "joseflebovicgallery.com": {
     "checked": 20260819,
     "name": "Josef Lebovic Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "journee-au-cirque.com": {
+    "checked": 20260830,
+    "name": "Une Journ\u00e9e au Cirque",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -25472,6 +27061,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "la-solitude.com/fr/origine.htm": {
+    "checked": 20260830,
+    "name": "Couvent de la solitude des s\u0153urs de Notre-Dame de Sion",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "la-tempete.fr": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre de la Temp\u00eate",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "la20emechaise.org": {
     "checked": 20260829,
     "name": "La 20e chaise",
@@ -25482,6 +27085,13 @@
   "labeerfabrique.com": {
     "checked": 20260828,
     "name": "La Beer Fabrique",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "labellevilloise.com": {
+    "checked": 20260830,
+    "name": "La Bellevilloise",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -25598,6 +27208,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lacomedieparisienne.fr": {
+    "checked": 20260830,
+    "name": "La com\u00e9die parisienne",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lacommune-aubervilliers.fr": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre de la Commune",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lacontemporaine.fr": {
     "checked": 20260829,
     "name": "L\u2019Atelier de l'histoire",
@@ -25654,6 +27278,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lafayetteanticipations.com": {
+    "checked": 20260830,
+    "name": "Lafayette Anticipations",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lafcadiohearngardens.com": {
     "checked": 20260823,
     "name": "Lafacadio Hearn Gardens",
@@ -25678,6 +27309,13 @@
   "lafontaineauxlivres.fr": {
     "checked": 20260828,
     "name": "La Fontaine aux Livres",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "laforge-theatre.com": {
+    "checked": 20260830,
+    "name": "La Forge",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -25720,6 +27358,13 @@
   "lagarennecolombes.croix-rouge.fr": {
     "checked": 20260829,
     "name": "Croix-Rouge fran\u00e7aise - Unit\u00e9 locale de La Garenne-Colombes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lagenerale.fr": {
+    "checked": 20260830,
+    "name": "La G\u00e9n\u00e9rale",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -25857,6 +27502,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lamaisondesartistes.fr": {
+    "checked": 20260830,
+    "name": "Maison Nationale des Artistes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lamaisondeshistoires.com/bastille": {
     "checked": 20260829,
     "name": "La maison des histoires",
@@ -25864,9 +27516,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lamaisondeshistoires.com/chantelivre": {
+    "checked": 20260830,
+    "name": "La Maison des histoires",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lamaisonducanal.fr": {
     "checked": 20260828,
     "name": "Librairie Solidaire",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lamaisonmaternelle.com/nos-maisons/la-maison-manin": {
+    "checked": 20260830,
+    "name": "La Maison Maternelle",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -25895,6 +27561,13 @@
   "lamaroquinerie.fr": {
     "checked": 20260828,
     "name": "La Maroquinerie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lamediatheque.neuillysurseine.fr": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que Jean d\u2019Ormesson",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -26067,6 +27740,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lapetitebibliothequeronde.com": {
+    "checked": 20260830,
+    "name": "La Petite Biblioth\u00e8que ronde",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lapetitehalle.com/programmation": {
     "checked": 20260829,
     "name": "La Petite Halle",
@@ -26102,9 +27782,30 @@
     "status": "fail",
     "type": "tribe"
   },
+  "lapop.fr": {
+    "checked": 20260830,
+    "name": "P\u00e9niche La Pop",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "laportelatine.org/lieux/chapelle-notre-dame-de-consolation-paris": {
+    "checked": 20260830,
+    "name": "Chapelle Notre-Dame-de-Consolation",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "laportelatine.org/lieux/oratoire-saint-dominique-mjcf-gentilly": {
     "checked": 20260829,
     "name": "Oratoire Saint-Dominique",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "laportelatine.org/lieux/prieure-saint-jean-mantes-la-jolie/chapelle-saint-mathias-pontoise": {
+    "checked": 20260830,
+    "name": "Chapelle Saint-Mathias",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -26242,6 +27943,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lastation.paris": {
+    "checked": 20260830,
+    "name": "La Station \u2014 Gare des Mines",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lasuite34paris.fr": {
     "checked": 20260829,
     "name": "La Suite 34",
@@ -26297,6 +28005,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "latriniteparis.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise de la Sainte-Trinit\u00e9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "lattribut.org": {
     "checked": 20260828,
@@ -26364,6 +28079,27 @@
   "lavachebleue.fr": {
     "checked": 20260829,
     "name": "La Vache Bleue",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lavant-seine.com/evenement": {
+    "checked": 20260830,
+    "name": "L'Avant-Seine - Th\u00e9\u00e2tre de Colombes",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "lavillette.com": {
+    "checked": 20260830,
+    "name": "Grande Halle de la Villette",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lavillette.com/freestyle-villette": {
+    "checked": 20260830,
+    "name": "Freestyle Villette (ex. Pavillon Villette)",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -26452,6 +28188,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "le-bal.fr": {
+    "checked": 20260830,
+    "name": "Le BAL",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "le-paris-clandestin.fr": {
     "checked": 20260829,
     "name": "Le Paris Clandestin",
@@ -26473,6 +28216,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "le-zenith.com/shows/MPL-20922": {
+    "checked": 20260830,
+    "name": "Le Z\u00e9nith",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "le16artgallery.com": {
     "checked": 20260828,
     "name": "Le XVI",
@@ -26487,12 +28237,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "le360paris.com": {
+    "checked": 20260830,
+    "name": "Le 360 Music Factory",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "leadouzegallery.com": {
     "checked": 20260829,
     "name": "Galerie L\u00e9adouze",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "lebiscornu.fr": {
+    "checked": 20260830,
+    "name": "Le Biscornu",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "lebouquinvolant.com": {
     "checked": 20260828,
@@ -26522,6 +28286,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "lecab-viroflay.fr": {
+    "checked": 20260830,
+    "name": "Le CAB - Centre Aquatique des Bertisettes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lecentredesarts.com": {
     "checked": 20260828,
     "name": "Centre des Arts Vivants",
@@ -26546,6 +28317,13 @@
   "lechesnay-rocquencourt.fr/409-68/annuaires/annuaire-des-lieux-et-equipements/ficheAnnu/salle-d-exposition-maurice-cointe.htm": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre (ancien) et salle d'exposition Maurice Cointe",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lechesnay-rocquencourt.fr/559/sports/la-piscine/horaires-et-informations-pratiques.htm": {
+    "checked": 20260830,
+    "name": "Piscine municipale",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -26578,12 +28356,26 @@
     "status": "ok",
     "type": "tribe"
   },
+  "lecompagnonnage.com": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e de la M\u00e9moire et de la Tradition des Compagnons",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lecomptoirdesmonasteres.fr": {
     "checked": 20260829,
     "name": "Comptoir des monast\u00e8res",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "leconsulat.org/agenda": {
+    "checked": 20260830,
+    "name": "Le consulat",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "lecorpsenmouvements.com": {
     "checked": 20260828,
@@ -26602,6 +28394,13 @@
   "ledernieretage.paris": {
     "checked": 20260828,
     "name": "Le Dernier \u00c9tage",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ledomedeparis.com": {
+    "checked": 20260830,
+    "name": "D\u00f4me de Paris - Palais des Sports",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -26651,6 +28450,13 @@
   "lefive.fr/nos-centres/69/paris_18": {
     "checked": 20260829,
     "name": "Le Five Paris 18",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lefive.fr/nos-centres/73/montreuil": {
+    "checked": 20260830,
+    "name": "LE FIVE Montreuil",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -26753,6 +28559,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lehalldelachanson.com": {
+    "checked": 20260830,
+    "name": "Le Hall de la Chanson",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lehasardludique.paris": {
+    "checked": 20260830,
+    "name": "Le Hasard Ludique",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "leichhardtbowlingclub.com.au": {
     "checked": 20260819,
     "name": "The Bowlo Leichhardt",
@@ -26830,9 +28650,23 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "lelavoirceramique.com": {
+    "checked": 20260830,
+    "name": "Le Lavoir",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lelieubleu.com": {
     "checked": 20260829,
     "name": "Le bibliovore",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lelieudelautre.com": {
+    "checked": 20260830,
+    "name": "Anis Gras",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -26854,6 +28688,13 @@
   "lelocaldesautrices.fr": {
     "checked": 20260828,
     "name": "Le Local des Autrices",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lemeetingplace.fr/espaces/le-58-meeting-place": {
+    "checked": 20260830,
+    "name": "Le 58 Meeting Place",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -27152,6 +28993,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "leselect.ville-antony.fr": {
+    "checked": 20260830,
+    "name": "Le S\u00e9lect",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lesesselieres.fr": {
+    "checked": 20260830,
+    "name": "Espace de Congr\u00e8s les Esseli\u00e8res",
+    "reason": "osm probe: offsite:instagram.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lesfeuillesbleues.fr": {
+    "checked": 20260830,
+    "name": "Les Feuilles Bleues",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lesfleursarctiques.noblogs.org": {
     "checked": 20260829,
     "name": "Les Fleurs Arctiques",
@@ -27170,6 +29032,13 @@
     "checked": 20260829,
     "name": "Galerie Philippe Lawson",
     "reason": "osm probe: offsite:instagram.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "leslaboratoires.org": {
+    "checked": 20260830,
+    "name": "Les Laboratoires d\u2019Aubervilliers",
+    "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -27299,9 +29168,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "letrabendo.net": {
+    "checked": 20260830,
+    "name": "Trabendo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "letriangle.net": {
     "checked": 20260829,
     "name": "Le Triangle",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "letrianon.fr": {
+    "checked": 20260830,
+    "name": "Le Trianon",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -27628,6 +29511,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "librairie.philharmoniedeparis.fr": {
+    "checked": 20260830,
+    "name": "Librairie de la Cit\u00e9 de la Musique \u2014 Philharmonie de Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "librairie7l.com": {
     "checked": 20260829,
     "name": "7L",
@@ -27750,6 +29640,13 @@
   "librairiegaylussac.fr": {
     "checked": 20260829,
     "name": "Gay-Lussac",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "librairiegrandscaracteres.fr": {
+    "checked": 20260830,
+    "name": "Librairie des Grands Caract\u00e8res",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -28391,6 +30288,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ligueparis.org/informer/evenements/?ical=1": {
+    "checked": 20260830,
+    "name": "Maison des ensembles",
+    "reason": "8 vevents / 0 future",
+    "status": "empty",
+    "type": "ics"
+  },
   "lilliputpress.ie": {
     "checked": 20260822,
     "name": "The Liliput Press",
@@ -28993,6 +30897,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lodyssee-aulnaysousbois.fr": {
+    "checked": 20260830,
+    "name": "L'Odyss\u00e9e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "loftlechapelais.com": {
     "checked": 20260828,
     "name": "Loft Lechapelais",
@@ -29476,6 +31387,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mahj.org": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e d'Art et d'Histoire du Juda\u00efsme",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "maifsocialclub.fr": {
     "checked": 20260828,
     "name": "MAIF Social Club",
@@ -29553,9 +31471,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mairie11.paris.fr/pages/logements-seniors-9750": {
+    "checked": 20260830,
+    "name": "R\u00e9sidence-appartements La Pr\u00e9sentation",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mairie12.paris.fr/pages/le-kiosque-citoyen-10563": {
+    "checked": 20260830,
+    "name": "Kiosque Citoyen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mairie19.paris.fr/pages/la-maison-du-combattant-et-des-associations-du-19e-12895": {
     "checked": 20260829,
     "name": "Maison du Combattant et du Citoyen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "maison-eymard.fr": {
+    "checked": 20260830,
+    "name": "Chapelle du Corpus-Christi",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -29594,6 +31533,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "maisondelamusique.eu": {
+    "checked": 20260830,
+    "name": "Maison de la Musique",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "maisondelaphilo-romainville.org": {
     "checked": 20260829,
@@ -29679,6 +31625,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "maisondudanemark.dk": {
+    "checked": 20260830,
+    "name": "Maison du Danemark",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "maisondupatrimoine-chatillon92.fr": {
     "checked": 20260828,
     "name": "Maison du Patrimoine",
@@ -29706,6 +31659,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "maisonlitterairedevictorhugo.net": {
+    "checked": 20260830,
+    "name": "Maison litt\u00e9raire de Victor Hugo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "maisonozanam.com": {
     "checked": 20260829,
@@ -29811,6 +31771,13 @@
     "reason": "no event articles on the collection page",
     "status": "fail",
     "type": "squarespace"
+  },
+  "mam.paris.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e d'Art Moderne de Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "mamayoga.fr": {
     "checked": 20260828,
@@ -29962,6 +31929,13 @@
   "maptown.com": {
     "checked": 20260819,
     "name": "Map Town",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "maraischapon75003.com": {
+    "checked": 20260830,
+    "name": "Espace Marais-Chapon",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -30519,6 +32493,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "mc93.com": {
+    "checked": 20260830,
+    "name": "MC 93",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mca.com.au": {
     "checked": 20260819,
     "name": "Museum of Contemporary Art",
@@ -30610,6 +32591,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mdjboiscolombes.fr": {
+    "checked": 20260830,
+    "name": "La Maison des Jeunes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "meadowlarkpark.org": {
     "checked": 20260819,
     "name": "Meadowlark Park Community Hall",
@@ -30631,6 +32619,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "medecinsdumonde.org": {
+    "checked": 20260830,
+    "name": "M\u00e9decins du monde",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "media.mairie-meudon.fr/le-reseau.aspx#MeudonLaForet": {
     "checked": 20260828,
     "name": "M\u00e9diath\u00e8que de Meudon-La-For\u00eat",
@@ -30641,6 +32636,13 @@
   "mediatheque-chatillon.fr": {
     "checked": 20260828,
     "name": "M\u00e9diath\u00e8que Max-Pol Fouchet",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mediatheque-conflans.fr": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que Blaise-Cendrars",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -30658,6 +32660,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mediatheque.ville-bezons.fr/agenda/a-venir": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que Maupassant",
+    "reason": "6/6 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "mediatheque.ville-levallois.fr": {
     "checked": 20260829,
@@ -30694,6 +32703,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mediathequechevreuse.opac-x.com": {
+    "checked": 20260830,
+    "name": "Mairie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mediatheques-plainecommune.fr/aime-cesaire": {
     "checked": 20260828,
     "name": "M\u00e9diath\u00e8que Aim\u00e9 C\u00e9saire",
@@ -30711,6 +32727,13 @@
   "mediatheques-plainecommune.fr/mediatheques": {
     "checked": 20260828,
     "name": "M\u00e9diath\u00e8que Centre-Ville",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mediatheques-plainecommune.fr/persepolis": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que Pers\u00e9polis",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -30746,6 +32769,27 @@
   "mediatheques.sudestavenir.fr/index/index/id_profil/197": {
     "checked": 20260829,
     "name": "M\u00e9dia-ludoth\u00e8que du Palais",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mediatheques.sudestavenir.fr/index/index/id_profil/211": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que de la Croix des M\u00e8ches",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mediatheques.sudestavenir.fr/index/index/id_profil/218": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que des Bleuets",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mediatheques.sudestavenir.fr/relais-village-agenda": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que Relais Village",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -30802,6 +32846,13 @@
   "mendicity.org": {
     "checked": 20260822,
     "name": "Mendicity Institution",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mennour.com": {
+    "checked": 20260830,
+    "name": "Galerie Mennour",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -30914,6 +32965,13 @@
   "merseysidebmx.co.uk": {
     "checked": 20260819,
     "name": "Merseyside BMX Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mescartesmentales.fr": {
+    "checked": 20260830,
+    "name": "Le Labo",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -31387,6 +33445,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "missionlocale.paris": {
+    "checked": 20260830,
+    "name": "Mission Locale de Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "missionlocalestgermain.org": {
     "checked": 20260829,
     "name": "Mission locale",
@@ -31464,6 +33529,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mjcpalaiseau.com": {
+    "checked": 20260830,
+    "name": "MJC - Th\u00e9\u00e2tre des 3 Vall\u00e9es Palaiseau",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mjcsartrouville.asso.fr/?feed=my-calendar-ics": {
     "checked": 20260829,
     "name": "MJC-MPT Alexandre-Dumas",
@@ -31506,9 +33578,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mk2.com/salle/mk2-bibliotheque": {
+    "checked": 20260830,
+    "name": "MK2 Biblioth\u00e8que",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mk2.com/salle/mk2-gambetta": {
+    "checked": 20260830,
+    "name": "MK2 Gambetta",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mk2.com/salle/mk2-nation": {
     "checked": 20260828,
     "name": "MK2 Nation",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mk2.com/salle/mk2-odeon-st-germain-st-michel": {
+    "checked": 20260830,
+    "name": "MK2 Od\u00e9on (c\u00f4t\u00e9 Saint-Michel)",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -31520,9 +33613,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mk2.com/salle/mk2-quai-seine-quai-loire": {
+    "checked": 20260830,
+    "name": "MK2 Quai de Loire",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mltcc.com": {
     "checked": 20260822,
     "name": "Malahide Lawn Tennis & Croquet Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mlyerresseine-mlidf.org": {
+    "checked": 20260830,
+    "name": "Mission locale",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -31565,6 +33672,13 @@
   "moanafresh.com": {
     "checked": 20260824,
     "name": "Moana Fresh",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mobiliernational.culture.gouv.fr": {
+    "checked": 20260830,
+    "name": "Galerie des Gobelins",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -31772,6 +33886,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "moissonsnouvelles.fr": {
+    "checked": 20260830,
+    "name": "Moissons Nouvelles",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "moli.ie": {
     "checked": 20260822,
     "name": "Museum of Literature Ireland",
@@ -31863,6 +33984,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "montgeron-equitation.fr": {
+    "checked": 20260830,
+    "name": "Montgeron equitation",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "montigny95.fr/centre-culturel-picasso": {
     "checked": 20260828,
     "name": "Centre culturel Picasso",
@@ -31873,6 +34001,13 @@
   "montigny95.fr/cinema": {
     "checked": 20260828,
     "name": "Mon P'ti Cin\u00e9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "montreuil.fr/sortir-et-bouger/culture/le-conservatoire-pina-bausch-0": {
+    "checked": 20260830,
+    "name": "Conservatoire Pina Bausch",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -31981,6 +34116,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mosquee-sahaba.fr": {
+    "checked": 20260830,
+    "name": "Mosqu\u00e9e Sahaba",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "mosquee-villeneuve92.com": {
     "checked": 20260829,
@@ -32227,6 +34369,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mpaa.fr": {
+    "checked": 20260830,
+    "name": "MPAA/Br\u00e9guet",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mpaa.fr/mpaa-saint-germain": {
     "checked": 20260828,
     "name": "MPAA/Saint-Germain",
@@ -32279,6 +34428,13 @@
   "mprc.co.nz": {
     "checked": 20260824,
     "name": "Manukau Racing Pigeon Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mptnanterre.fr": {
+    "checked": 20260830,
+    "name": "Maison pour Tous",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -32451,6 +34607,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mus.suresnes.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e d'Histoire Urbaine et Sociale",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "musee-absinthe.com": {
     "checked": 20260828,
     "name": "Mus\u00e9e de l\u2019Absinthe",
@@ -32514,6 +34677,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "musee-jacquemart-andre.com": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Jacquemart-Andr\u00e9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "musee-marine.fr": {
     "checked": 20260828,
     "name": "Mus\u00e9e de la Marine",
@@ -32524,6 +34694,27 @@
   "musee-moreau.fr": {
     "checked": 20260828,
     "name": "Mus\u00e9e national Gustave Moreau",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "musee-moyenage.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e de Cluny",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "musee-orangerie.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e de l'Orangerie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "musee-palaisien-du-hurepoix.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e du Hurepoix",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -32541,6 +34732,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "musee-saint-denis.com": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e d'art et d'histoire de Saint-Denis",
+    "reason": "8 events, 8/8 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "musee-saintcloud.fr": {
     "checked": 20260828,
@@ -32570,9 +34768,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museebanksy.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Banksy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museecarteajouer.com": {
     "checked": 20260828,
     "name": "Mus\u00e9e de la Carte \u00e0 Jouer et Galerie d'Histoire de la Ville",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "museecognacqjay.paris.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Cognacq-Jay",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -32597,6 +34809,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "museedelatoiledejouy.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e de la Toile de Jouy",
+    "reason": "14 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "museedelhomme.fr": {
     "checked": 20260828,
@@ -32668,6 +34887,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museeliberation-leclerc-moulin.paris.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e de la Lib\u00e9ration de Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museelongjumeau.fr": {
     "checked": 20260829,
     "name": "Mus\u00e9e municipal d\u2019Histoire et d\u2019Arch\u00e9ologie de Longjumeau",
@@ -32678,6 +34904,27 @@
   "museemaillol.com": {
     "checked": 20260828,
     "name": "Mus\u00e9e Maillol",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "museepicassoparis.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e national Picasso-Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "museesauvage.com": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Sauvage",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "museeyslparis.com": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Yves Saint Laurent",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -33137,6 +35384,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nathalieobadia.com": {
+    "checked": 20260830,
+    "name": "Galerie Nathalie Obadia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nationalaquarium.ie": {
     "checked": 20260823,
     "name": "Galway Atlantaquaria",
@@ -33375,12 +35629,33 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ndaa.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame de l'Arche d'Alliance",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ndcenacle.org": {
+    "checked": 20260830,
+    "name": "Centre spirituel des s\u0153urs du C\u00e9nacle",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ndconfiance.free.fr": {
     "checked": 20260828,
     "name": "Chapelle Notre-Dame de la Confiance",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ndl95.fr": {
+    "checked": 20260830,
+    "name": "Chapelle Sainte-Bernadette",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "ndmt.co.nz/retirement-villages/elbourne-street-villas": {
     "checked": 20260828,
@@ -33434,6 +35709,13 @@
   "ndrc.ca": {
     "checked": 20260819,
     "name": "Notre Dame Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ndsouveraine.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Orthodoxe Russe Notre-Dame Souveraine",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -34355,6 +36637,76 @@
     "status": "fail",
     "type": "ics"
   },
+  "notredamedebercy.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame de Bercy",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "notredamedelacroix.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame-de-la-Croix",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "notredamedelorette.org": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame-de-Lorette",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "notredamedesarmees.com": {
+    "checked": 20260830,
+    "name": "Chapelle Notre-Dame des Arm\u00e9es",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "notredamedesotages.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame-des-Otages",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "notredamedesvictoires.com": {
+    "checked": 20260830,
+    "name": "Basilique Notre-Dame-des-Victoires",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "notredamedubonconseil.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame du Bon Conseil",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "notredameduchene.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame du Ch\u00eane",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "notredamedurosaire.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame-du-Rosaire",
+    "reason": "20 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "notredameesperance.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame d'Esp\u00e9rance",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nourishedfornil.org": {
     "checked": 20260828,
     "name": "Nourished for Nil",
@@ -35181,6 +37533,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "opera-comique.com/fr": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre national de l'Op\u00e9ra Comique",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "opera-massy.com": {
     "checked": 20260829,
     "name": "Op\u00e9ra de Massy",
@@ -35198,6 +37557,13 @@
   "operabd.com": {
     "checked": 20260828,
     "name": "Op\u00e9ra BD",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "operadeparis.fr": {
+    "checked": 20260830,
+    "name": "Op\u00e9ra Bastille",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -35240,6 +37606,13 @@
   "oranawildlifepark.co.nz": {
     "checked": 20260824,
     "name": "Orana Wildlife Park",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "oratoiredulouvre.fr": {
+    "checked": 20260830,
+    "name": "Temple de l'Oratoire du Louvre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -35818,6 +38191,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "palaisdesglaces.com": {
+    "checked": 20260830,
+    "name": "Palais des glaces",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "palaisdessports-robertcharpentier.com": {
+    "checked": 20260830,
+    "name": "Palais des Sports Robert Charpentier",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "palaisdetokyo.com": {
+    "checked": 20260830,
+    "name": "Palais de Tokyo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "pallasprojects.org": {
     "checked": 20260822,
     "name": "Pallas Studios",
@@ -35835,6 +38229,13 @@
   "palmerstonplacechurch.com": {
     "checked": 20260819,
     "name": "Palmerston Place Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pan-piper.com": {
+    "checked": 20260830,
+    "name": "Pan Piper",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -35958,6 +38359,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "parczoologiquedeparis.fr/fr/evenement/nocturnes": {
+    "checked": 20260830,
+    "name": "Parc zoologique de Paris",
+    "reason": "1 events / 0 future",
+    "status": "empty",
+    "type": "jsonld"
+  },
   "paris-arc-de-triomphe.fr": {
     "checked": 20260829,
     "name": "Mus\u00e9e de l'Arc de Triomphe",
@@ -35982,6 +38390,27 @@
   "paris-conciergerie.fr": {
     "checked": 20260828,
     "name": "Conciergerie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris-story.com": {
+    "checked": 20260830,
+    "name": "Paris Story",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.catholique.fr/-Notre-Dame-des-Blancs-Manteaux,1290-.html": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame-des-Blancs-Manteaux",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.croix-rouge.fr": {
+    "checked": 20260830,
+    "name": "Croix-Rouge fran\u00e7aise",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -36017,6 +38446,20 @@
   "paris.fr/equipements/centre-de-pmi-vaucouleurs-1986": {
     "checked": 20260828,
     "name": "Centre de Protection Maternelle et Infantile",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/equipements/centre-de-pmi-villette-18947": {
+    "checked": 20260830,
+    "name": "Centre de PMI Villette",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/equipements/centre-paris-anim-curial-1125": {
+    "checked": 20260830,
+    "name": "Centre Paris Anim' Curial",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -36077,6 +38520,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paris.fr/equipements/jardin-naturel-pierre-emmanuel-2703": {
+    "checked": 20260830,
+    "name": "Jardin naturel Pierre Emmanuel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/equipements/jardin-tino-rossi-1786": {
+    "checked": 20260830,
+    "name": "Jardin Tino Rossi - Mus\u00e9e de la Sculpture en Plein Air",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paris.fr/equipements/maison-de-la-vie-associative-et-citoyenne-du-12e-arrondissement-3280": {
     "checked": 20260829,
     "name": "Maison des Associations du XIIe",
@@ -36098,9 +38555,37 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paris.fr/equipements/piscine-alfred-nakache-4012": {
+    "checked": 20260830,
+    "name": "Centre sportif Alfred Nakache",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/equipements/piscine-aspirant-dunand-2931": {
+    "checked": 20260830,
+    "name": "Piscine Aspirant Dunand",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/equipements/piscine-bernard-lafay-2940": {
+    "checked": 20260830,
+    "name": "Centre sportif Bernard Lafay",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paris.fr/equipements/piscine-de-la-cour-des-lions-2925": {
     "checked": 20260828,
     "name": "Piscine Cour des lions",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/equipements/piscine-des-amiraux-2944": {
+    "checked": 20260830,
+    "name": "Piscine des Amiraux",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -36168,6 +38653,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paris.fr/lieux/centre-paris-anim-antenne-hautefeuille-20210": {
+    "checked": 20260830,
+    "name": "Centre Paris Anim' - Antenne Hautefeuille",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/lieux/centre-paris-anim-antenne-la-bourdonnais-20211": {
+    "checked": 20260830,
+    "name": "Centre Paris Anim' - Antenne La Bourdonnais",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/lieux/centre-paris-anim-antenne-loucheur-20215": {
+    "checked": 20260830,
+    "name": "Centre Paris Anim' - Antenne Loucheur",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paris.fr/lieux/centre-paris-anim-antenne-louise-jacobson-20185": {
     "checked": 20260829,
     "name": "Paris Anim' Louise Jacobson",
@@ -36182,6 +38688,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paris.fr/lieux/centre-paris-anim-freres-voisin-1137": {
+    "checked": 20260830,
+    "name": "Centre Paris Anim'",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paris.fr/lieux/centre-paris-anim-jacques-bravo-17585": {
     "checked": 20260828,
     "name": "Centre Paris Anim' Jacques Bravo",
@@ -36189,9 +38702,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paris.fr/lieux/centre-paris-anim-ken-saro-wiwa-17914": {
+    "checked": 20260830,
+    "name": "Centre d'animation Ken Saro-Wiwa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paris.fr/lieux/centre-paris-anim-musidora-ex-bercy-3310": {
     "checked": 20260829,
     "name": "Centre Paris Anim\u2019 Musidora",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/lieux/centre-paris-anim-pole-simon-lefranc-3268": {
+    "checked": 20260830,
+    "name": "Centre Paris Anim' P\u00f4le Simon Lefranc",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -36224,6 +38751,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paris.fr/lieux/piscine-chateau-des-rentiers-2928": {
+    "checked": 20260830,
+    "name": "Piscine Ch\u00e2teau des Rentiers",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paris.fr/lieux/piscine-didot-2932": {
     "checked": 20260828,
     "name": "Piscine Didot",
@@ -36234,6 +38768,20 @@
   "paris.fr/lieux/piscine-georges-drigny-2920": {
     "checked": 20260828,
     "name": "Piscine Georges Drigny",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/lieux/piscine-jean-boiteux-2926": {
+    "checked": 20260830,
+    "name": "Piscine Jean Boiteux",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/lieux/piscine-la-plaine-2937": {
+    "checked": 20260830,
+    "name": "Piscine de la Plaine",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -36252,9 +38800,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paris.fr/lieux/stade-leo-lagrange-3040": {
+    "checked": 20260830,
+    "name": "Centre Sportif L\u00e9o Lagrange",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paris.fr/pages/les-collections-de-la-ville-de-paris-2027#l-atelier-de-restauration-et-de-conservation-des-photographies": {
     "checked": 20260829,
     "name": "Atelier de restauration et de conservation des photographies de la Ville de Pari",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.fr/pages/une-halte-humanitaire-pour-les-exiles-au-coeur-de-paris-16027": {
+    "checked": 20260830,
+    "name": "La halte",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -36269,6 +38831,13 @@
   "paris.intersquat.org/les-lieux/le-satellite": {
     "checked": 20260828,
     "name": "Le Satellite",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paris.kajyn.com": {
+    "checked": 20260830,
+    "name": "Kajyn Paris K11",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -36328,6 +38897,13 @@
     "reason": "18 vevents / 18 future",
     "status": "ok",
     "type": "ics"
+  },
+  "parkfutbol.fr": {
+    "checked": 20260830,
+    "name": "Park Futbol",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "parkhillstanleypark.ca": {
     "checked": 20260819,
@@ -36419,6 +38995,69 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "paroisse-saint-symphorien.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Symphorien",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paroisse-sceaux.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Jean-Baptiste",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "paroisse-suresnes.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Notre-Dame de la Paix",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paroisses-marnes-vaucresson.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise paroissiale Sainte-Eug\u00e9nie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paroisses-plessis-clamart.fr/agenda": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Fran\u00e7ois de Sales",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "paroissesaintephrem.blogspot.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-\u00c9phrem-le-Syriaque",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paroissesaintmerry.fr/concerts": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Merri",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "paroissesaintsulpice.paris": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Sulpice",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paroissesvp.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Vincent-de-Paul",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
   },
   "parramattafemalefactoryfriends.com.au": {
     "checked": 20260819,
@@ -36525,6 +39164,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paul-b.fr": {
+    "checked": 20260830,
+    "name": "Centre Culturel Paul Baillart",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paulineuk.org": {
     "checked": 20260819,
     "name": "Pauline Books & Media",
@@ -36549,6 +39195,27 @@
   "paviliontheatre.ie": {
     "checked": 20260822,
     "name": "Pavilion Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pavillon-arsenal.com": {
+    "checked": 20260830,
+    "name": "Pavillon de l'Arsenal",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pavilloncarredebaudouin.fr": {
+    "checked": 20260830,
+    "name": "Pavillon Carr\u00e9 de Baudouin",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pavillonsdesetangs.fr": {
+    "checked": 20260830,
+    "name": "Les Pavillons des \u00c9tangs",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -36640,6 +39307,13 @@
   "penichealternat.org": {
     "checked": 20260829,
     "name": "P\u00e9niches Alternat et Bali",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "penichealternat.org/fete.html": {
+    "checked": 20260830,
+    "name": "La Hall Terre-Native",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -36832,6 +39506,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "philharmoniedeparis.fr": {
+    "checked": 20260830,
+    "name": "Philharmonie de Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "philharmoniedeparis.fr/fr/musee-de-la-musique": {
     "checked": 20260828,
@@ -37088,6 +39769,13 @@
   "piratelife.com.au/breweries/port": {
     "checked": 20260819,
     "name": "Pirate Life",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "piscinedescloseaux.fr": {
+    "checked": 20260830,
+    "name": "Piscine des Closeaux",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -37547,6 +40235,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "portestmartin.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre de la Porte-Saint-Martin",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "porthunter.skiffclub.net": {
     "checked": 20260821,
     "name": "Port Hunter 16ft Sailing Skiff Club",
@@ -37638,6 +40333,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "poteletchabot.com/lieux/pavillon-gabriel": {
+    "checked": 20260830,
+    "name": "Pavillon Gabriel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "potomac.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Potomac Conservancy",
@@ -37648,6 +40350,13 @@
   "pottershouse.com.au": {
     "checked": 20260819,
     "name": "Potters House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "poush.fr": {
+    "checked": 20260830,
+    "name": "POUSH",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -37981,6 +40690,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pse-adventiste.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Adventiste du Septi\u00e8me Jour",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "pskc.org.uk": {
     "checked": 20260819,
     "name": "Portobello Sailing and Kayaking Club",
@@ -38100,6 +40816,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "puteaux.fr/gymnase-des-pavillons-2": {
+    "checked": 20260830,
+    "name": "Gymnase des Pavillons",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "puzzlegallery.online/portfolio-collections/my-portfolio": {
     "checked": 20260819,
     "name": "Puzzle Gallery",
@@ -38212,6 +40935,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "quaibranly.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e du quai Branly",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "quakecity.co.nz": {
     "checked": 20260824,
     "name": "Quake City",
@@ -38226,6 +40956,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "quakers-paris.fr": {
+    "checked": 20260830,
+    "name": "Centre Quaker International",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "qualiacare.co.uk/our-homes/hillside": {
     "checked": 20260819,
     "name": "Hillside Care Home in Merseyside - Qualia Care",
@@ -38236,6 +40973,13 @@
   "quartier-general.com": {
     "checked": 20260829,
     "name": "Quartier G\u00e9n\u00e9ral",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "quartierdelagare.fr": {
+    "checked": 20260830,
+    "name": "Quartier de la Gare",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -38316,6 +41060,13 @@
     "reason": "11 vevents / 0 future",
     "status": "empty",
     "type": "ics"
+  },
+  "quintalatelier.com": {
+    "checked": 20260830,
+    "name": "Quintal Librairie Galerie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "quintobookshop.co.uk": {
     "checked": 20260819,
@@ -38646,6 +41397,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rcvincennes.fr": {
+    "checked": 20260830,
+    "name": "rugby club vincennes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rdq-fontaine-au-roi.fr": {
     "checked": 20260828,
     "name": "R\u00e9gie de Quartier Fontaine au Roi",
@@ -38954,6 +41712,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rem-gym.com": {
+    "checked": 20260830,
+    "name": "Rem-Gym",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "remuerabaptistchurch.org.nz": {
     "checked": 20260824,
     "name": "Remuera Baptist Church",
@@ -38971,6 +41736,13 @@
   "renfrewnorth.org.uk": {
     "checked": 20260819,
     "name": "Renfrew North Parish Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "repaircafe-saintleu.fr": {
+    "checked": 20260830,
+    "name": "Repair Caf\u00e9 Saint-Leu",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -38996,9 +41768,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "reseaumediatheques.grandparissud.fr/iguana/www.main.cls?surl=mediatheque-queneau": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que Raymond Queneau",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "reservation.lecrazy.com": {
     "checked": 20260828,
     "name": "Le Crazy horse de Paris",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "residence-madeleine-verdier.fr": {
+    "checked": 20260830,
+    "name": "R\u00e9sidence Madeleine Verdier",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -39254,6 +42040,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "rigpa.fr/evenements-paris": {
+    "checked": 20260830,
+    "name": "Rigpa",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
   },
   "ringcommons.ie": {
     "checked": 20260822,
@@ -39962,6 +42755,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rueil.diocese92.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Pierre et Saint-Paul",
+    "reason": "1 events, 1/1 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "rueilmalmaison.croix-rouge.fr": {
+    "checked": 20260830,
+    "name": "Croix-Rouge fran\u00e7aise - Unit\u00e9 locale de Rueil-Malmaison",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ruharuh.ca": {
     "checked": 20260819,
     "name": "R\u00fch a R\u00fch Mosque",
@@ -40193,6 +43000,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sacre-coeur-montmartre.com": {
+    "checked": 20260830,
+    "name": "Basilique du Sacr\u00e9-C\u0153ur",
+    "reason": "1465 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "sacredblessingsanctuary.co.nz": {
     "checked": 20260824,
     "name": "Sacred Blessing Sanctuary Gardens",
@@ -40249,6 +43063,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "saint-ambroise.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Ambroise",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "saint-eugene.net": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Eug\u00e8ne Sainte-C\u00e9cile",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saint-eustache.org": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Eustache",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saint-hippolyte.net": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Hippolyte",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "saint-maur.com/ma-ville/education-enfance/0-a-3-ans/les-centres-de-protection-maternelle-et-infantile-334.html": {
     "checked": 20260829,
     "name": "Centre de PMI et CPEF",
@@ -40263,9 +43105,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "saint-quentin-en-yvelines.iledeloisirs.fr/ferme-pedagogique": {
+    "checked": 20260830,
+    "name": "Ferme p\u00e9dagogique",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "saintanthony.ca": {
     "checked": 20260819,
     "name": "Saint Anthony of Padua Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintantoine.aphp.fr/mediatheque-boutique-maeh": {
+    "checked": 20260830,
+    "name": "?",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -40305,6 +43161,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "saintcyr78.fr/familles/ados/cyrado": {
+    "checked": 20260830,
+    "name": "Cyr'Ado",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "saintcyr78.fr/loisirs/case": {
     "checked": 20260829,
     "name": "Case \u00f4 Arts",
@@ -40326,12 +43189,61 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "saintdenis.fr/maison-de-quartier-la-plaine": {
+    "checked": 20260830,
+    "name": "Maison de quartier de la Plaine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sainte-clotilde.com": {
+    "checked": 20260830,
+    "name": "Basilique Sainte-Clotilde",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "saintefamille.ca": {
     "checked": 20260819,
     "name": "\u00c9glise Sainte-Famille",
     "reason": "8 events, 8/8 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "saintetiennedumont.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-\u00c9tienne-du-Mont",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintgab.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Gabriel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintgeorgesdelavillette.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Georges de la Villette",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintgermainauxerrois.cef.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Germain l'Auxerrois",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintgermaindecharonne.fr/agenda": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Germain-de-Charonne",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "saintgregoryparish.com": {
     "checked": 20260819,
@@ -40347,6 +43259,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "saintjeanbosco.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Jean-Bosco",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintjeandemontmartre.com/blog": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Jean de Montmartre",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "saintjohnsguelph.ca": {
     "checked": 20260819,
     "name": "Saint John the Baptist Catholic Church",
@@ -40354,9 +43280,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "saintjosephartisan.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Joseph-Artisan",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintjosephdesepinettes.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Joseph des \u00c9pinettes",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "saintleonards.co.nz": {
     "checked": 20260824,
     "name": "St Leonards Brewing",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintleuparis.catholique.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Leu - Saint-Gilles",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -40389,12 +43336,40 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "saintmaximeantony.org": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Maxime",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "saintmichael.ca": {
     "checked": 20260819,
     "name": "St. Michael Catholic Community",
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "saintmichaelsparis.org": {
+    "checked": 20260830,
+    "name": "\u00c9glise anglicane Saint-Michael",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintmichel-paris.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Michel des Batignolles",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintnicolasduchardonnet.org": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Nicolas du Chardonnet",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "saintpatrickskilsyth.com": {
     "checked": 20260819,
@@ -40413,6 +43388,27 @@
   "saintpeterlutheran.com": {
     "checked": 20260819,
     "name": "St. Peter Evangelical Lutheran Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintpierredemontrouge.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Pierre de Montrouge",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "saintprix.fr/vos-services-et-demarches/culture/mediatheque": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que Alexandra David-N\u00e9el",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saintsaturnin.org": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Saturnin",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -40476,6 +43472,13 @@
   "salisburyunited.ca": {
     "checked": 20260819,
     "name": "Salisbury United Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sallecolonne.fr": {
+    "checked": 20260830,
+    "name": "Salle Colonne",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -40938,6 +43941,13 @@
   "sankalpa.ie": {
     "checked": 20260822,
     "name": "Sankalpa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sanstitre.gallery": {
+    "checked": 20260830,
+    "name": "(sans titre)",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -41509,6 +44519,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "secourspopulaire.fr/95-auvers-sur-oise": {
+    "checked": 20260830,
+    "name": "Secours Populaire - Comit\u00e9 d'Auvers-sur-Oise",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "seedschurch.org/hallett-cove": {
     "checked": 20260819,
     "name": "Seeds Uniting Church",
@@ -41572,9 +44589,44 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "seinesaintdenis.fr/CDPS-Montreuil": {
+    "checked": 20260830,
+    "name": "Centre D\u00e9partemental de Pr\u00e9vention Sant\u00e9 - Montreuil",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "seinesaintdenis.fr/CDPS-Saint-Denis-Pleyel": {
+    "checked": 20260830,
+    "name": "Centre D\u00e9partemental de Pr\u00e9vention Sant\u00e9 - Saint Denis",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "seinesaintdenis.fr/CeGIDD-Bobigny": {
+    "checked": 20260830,
+    "name": "CeGIDD - Bobigny",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "seinesaintdenis.fr/PMI-Bernard-et-Mazoyer": {
+    "checked": 20260830,
+    "name": "Centre PMI - Mazoyer",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "seinesaintdenis.fr/microfolie": {
     "checked": 20260829,
     "name": "Micro-Folie",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "seinesaintdenis.fr/solidarite/prevention/les-centres-departementaux-de-prevention-sante-cdps-et-cegidd/article/antenne-cegidd-chi-le-raincy-montfermeil": {
+    "checked": 20260830,
+    "name": "CeGIDD - CH Intercommunal - Montfermeil",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -41603,6 +44655,13 @@
   "selwynvillage.co.nz": {
     "checked": 20260824,
     "name": "Selwyn Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "semna.fr/services/chevreul/#": {
+    "checked": 20260830,
+    "name": "Espace Chevreul",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -41677,9 +44736,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sevran-fc.com": {
+    "checked": 20260830,
+    "name": "Sevran FC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sevres.fr/equipements-sportifs": {
     "checked": 20260828,
     "name": "Gymnase des Cent-Gardes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sevres72.org": {
+    "checked": 20260830,
+    "name": "\u00c9glise \u00c9vang\u00e9lique Baptiste de Paris-Centre",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "sevresciteceramique.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e National de C\u00e9ramique",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -41711,6 +44791,13 @@
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "sfx-paris.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Fran\u00e7ois-Xavier",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "sgdb91.com/annuaires/centre-protestant-la-balise": {
     "checked": 20260829,
@@ -41914,6 +45001,13 @@
     "reason": "no event articles on the collection page",
     "status": "fail",
     "type": "squarespace"
+  },
+  "shootagain.fr": {
+    "checked": 20260830,
+    "name": "Billard Nation",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "shop.sl.nsw.gov.au": {
     "checked": 20260819,
@@ -42160,12 +45254,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sitdown.fr": {
+    "checked": 20260830,
+    "name": "Sit Down",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sitecacvigneux.wixsite.com/cacvigneux": {
     "checked": 20260829,
     "name": "Club des Amis du Chien de Vigneux-sur-Seine",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "sites.google.com/a/adelepicot.com/a-picot-asso-bis/home": {
+    "checked": 20260830,
+    "name": "Maison d'accueil Ad\u00e8le PICOT",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "sites.google.com/a/scoutsact.com.au/mulgascouts": {
     "checked": 20260819,
@@ -42223,6 +45331,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "sjbb.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Jean-Baptiste de Belleville",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sjcartstudios.com": {
     "checked": 20260819,
     "name": "SJC Art Studios",
@@ -42240,6 +45355,13 @@
   "sjks.org.au": {
     "checked": 20260819,
     "name": "St James Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sjlp-paris.org": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Julien-le-Pauvre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -42685,6 +45807,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sopregim.fr/residence-avec-services-les-hesperides-victor-hugo-a-montrouge-_r_9_i_20.html": {
+    "checked": 20260830,
+    "name": "Les Hesp\u00e9rides Victor Hugo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "soqueebrewing.fr": {
+    "checked": 20260830,
+    "name": "Soquee Brewing",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sorbonne-universite.fr/bu/decouvrir-nos-bibliotheques/la-bibliotheque-charcot": {
     "checked": 20260829,
     "name": "Biblioth\u00e8que Charcot",
@@ -42720,9 +45856,30 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "sortir.grandorlyseinebievre.fr/sport-et-loisirs/piscines/stade-nautique-youri-gagarine-villejuif": {
+    "checked": 20260830,
+    "name": "Stade Nautique Youri Gagarine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sotres.org": {
+    "checked": 20260830,
+    "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "soughtonhall.co.uk/the-coach-house": {
     "checked": 20260819,
     "name": "The Coach House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "soukmachines.com": {
+    "checked": 20260830,
+    "name": "Soukmachine",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -43000,6 +46157,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sportipolis.fr/lieux/cite-des-sports": {
+    "checked": 20260830,
+    "name": "Cit\u00e9 des Sports",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sportirelandcampus.ie": {
     "checked": 20260822,
     "name": "Sport Ireland Campus",
@@ -43147,6 +46311,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "spsp-courbevoie.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saints-Pierre-et-Paul",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "squash-vincennes.fr": {
     "checked": 20260829,
     "name": "Squash Center",
@@ -43248,6 +46419,13 @@
   "st-helens-spiritualist-church.co.uk": {
     "checked": 20260819,
     "name": "St Helens Spiritualist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "st-lambert.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Lambert de Vaugirard",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -43735,6 +46913,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ste-marie-batignolles.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Sainte-Marie-des-Batignolles",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "steam-museum.com": {
     "checked": 20260822,
     "name": "The Steam Musem",
@@ -43861,6 +47046,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "stgeorgesparis.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Anglicane Saint-Georges",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stgeorgeswigan.co.uk": {
     "checked": 20260819,
     "name": "Saint George's Nursing Home",
@@ -43958,6 +47150,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "stignace.net": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Ignace",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "stignatius.ca": {
     "checked": 20260819,
@@ -44946,6 +48145,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stpierredugroscaillou.com": {
+    "checked": 20260830,
+    "name": "\u00c9glise Saint-Pierre du Gros Caillou",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "strangefield.org/event-details/bleaks-cassette-launch-with-votiv-rank-moss-nurse": {
     "checked": 20260819,
     "name": "French Street Studios",
@@ -45180,6 +48386,13 @@
   "studio-asnieres.com/studio": {
     "checked": 20260829,
     "name": "Le Studio",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "studio-ermitage.com": {
+    "checked": 20260830,
+    "name": "Studio de l'Ermitage",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -45450,9 +48663,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "suresnes-tourisme.com/8rt-mont-valerien-forteresse.html": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e des Transmissions",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "suresnes.croix-rouge.fr": {
     "checked": 20260829,
     "name": "Croix-Rouge fran\u00e7aise",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "suresnes.fr/mes-loisirs/sport/piscine-des-raguidelles": {
+    "checked": 20260830,
+    "name": "Piscine des Raguidelles",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -45898,6 +49125,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "synagoguecourbevoie.fr": {
+    "checked": 20260830,
+    "name": "Centre culturel David Hadida",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "synchronique-editions.com": {
     "checked": 20260828,
     "name": "Librairie Le R\u00eave du Papillon",
@@ -45964,6 +49198,13 @@
   "taborgroup.ie": {
     "checked": 20260822,
     "name": "Tabor Lodge Addiction Treatment Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tac92.com": {
+    "checked": 20260830,
+    "name": "Territoire Art & Cr\u00e9ation",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -46101,6 +49342,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tamenaga.com": {
+    "checked": 20260830,
+    "name": "Galerie Tam\u00e9naga",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tamuseum.org.nz": {
     "checked": 20260825,
     "name": "Te Awamutu Museum",
@@ -46125,6 +49373,13 @@
   "tangledroots.ca": {
     "checked": 20260819,
     "name": "Tangled Roots Event Venue",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tangoarno.com/cours-tango-paris.html": {
+    "checked": 20260830,
+    "name": "La Parisiana (Tango Milonga)",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -46493,12 +49748,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "telegraphe.fr": {
+    "checked": 20260830,
+    "name": "\u00c9glise protestante \u00e9vang\u00e9lique de T\u00e9l\u00e9graphe",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "telusworldofscienceedmonton.ca": {
     "checked": 20260819,
     "name": "Telus World of Science",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "temple.dumarais.fr/event": {
+    "checked": 20260830,
+    "name": "Temple du Marais",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "templebargallery.com": {
     "checked": 20260822,
@@ -46587,6 +49856,13 @@
   "tenri-paris.com/ecbp/tendances": {
     "checked": 20260829,
     "name": "Tendances",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tenup.fft.fr/club/57920030": {
+    "checked": 20260830,
+    "name": "Tennis Club du Mont-Val\u00e9rien",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -46836,6 +50112,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theatre-atelier.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre de l'Atelier",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "theatre-aux-mains-nues.fr": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre aux Mains Nues",
@@ -46906,9 +50189,30 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "theatre-madeleine.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre de la Madeleine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "theatre-michel.com": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre Michel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theatre-odeon.eu": {
+    "checked": 20260830,
+    "name": "Od\u00e9on The\u00e2tre de l'Europe - Ateliers Berthier",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theatre-paris-villette.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre Paris-Villette",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -46919,6 +50223,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "theatre-saint-georges.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre Saint-Georges",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theatre-simone-signoret.fr": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre Simone Signoret",
+    "reason": "16 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "theatre-studio.com": {
     "checked": 20260828,
@@ -47004,6 +50322,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theatrecinemachoisy.fr": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre-Cin\u00e9ma Paul \u00c9luard",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "theatredariusmilhaud.fr": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre Darius Milhaud",
@@ -47028,6 +50353,13 @@
   "theatredelacite.com": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre de la Cit\u00e9 Internationale",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theatredelarenaissance.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre de la Renaissance",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -47059,6 +50391,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "theatredemaisons-alfort.org": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre & cin\u00e9ma Claude Debussy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "theatredenesle.com": {
     "checked": 20260828,
@@ -47095,6 +50434,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theatredesgemeauxparisiens.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre des G\u00e9meaux Parisiens",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "theatredesmathurins.com": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre des Mathurins",
@@ -47109,9 +50455,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theatredessablons.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre des Sablons",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "theatredessources.fr": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre des Sources",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theatredivinecomedie.fr": {
+    "checked": 20260830,
+    "name": "La Divine Com\u00e9die",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -47150,6 +50510,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "theatredugymnase.com/event-pro": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre du Gymnase Marie Bell",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "theatredumarais.fr": {
     "checked": 20260828,
@@ -47207,6 +50574,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "theatrejacquescarat.fr": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre Jacques Carat",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "theatrejeanarp.com": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre Jean Arp",
@@ -47224,6 +50598,13 @@
   "theatrelaboussole.com": {
     "checked": 20260828,
     "name": "La Boussole",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theatrelabruyere.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre La Bruy\u00e8re",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -47270,6 +50651,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theatremarigny.fr": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre Marigny",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theatremontansier.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre Montansier",
+    "reason": "22 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "theatremontorgueil.com": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre Montorgueil",
@@ -47284,12 +50679,33 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theatremouffetard.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre Mouffetard",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theatrepalaisroyal.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre du Palais Royal",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "theatrepixel.org/about-1": {
     "checked": 20260828,
     "name": "Th\u00e9\u00e2tre Pixel",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "theatrepublicmontreuil.com": {
+    "checked": 20260830,
+    "name": "Th\u00e9\u00e2tre Public de Montreuil",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "theatreroyalsydney.com": {
     "checked": 20260819,
@@ -48859,6 +52275,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tr.ee/R7oHAWdNBy": {
+    "checked": 20260830,
+    "name": "\u00c9cole de cirque des fr\u00e8res Kazamaroffs",
+    "reason": "osm probe: offsite:linktr.ee",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tradeshallglasgow.co.uk": {
     "checked": 20260819,
     "name": "Trades Hall of Glasgow",
@@ -48932,6 +52355,13 @@
   "treatycitybrewery.ie": {
     "checked": 20260823,
     "name": "Treaty City Brewery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "trebod.fr": {
+    "checked": 20260830,
+    "name": "A\u00e9roclub Pierre Tr\u00e9bod",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -49559,6 +52989,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ugc.fr/cinema.html?id=12": {
+    "checked": 20260830,
+    "name": "UGC Cin\u00e9 Cit\u00e9 Bercy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ugc.fr/cinema.html?id=13": {
     "checked": 20260829,
     "name": "UGC Od\u00e9on",
@@ -49601,6 +53038,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ugc.fr/cinema.html?id=21": {
+    "checked": 20260830,
+    "name": "UGC Cin\u00e9 Cit\u00e9 Cr\u00e9teil",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ugc.fr/cinema.html?id=38": {
     "checked": 20260829,
     "name": "UGC Cin\u00e9 Cit\u00e9 O'Parinor",
@@ -49615,9 +53059,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ugc.fr/cinema.html?id=40": {
+    "checked": 20260830,
+    "name": "UGC Roxane",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ugc.fr/cinema.html?id=41": {
     "checked": 20260829,
     "name": "UGC Cyrano",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ugc.fr/cinema.html?id=44": {
+    "checked": 20260830,
+    "name": "UGC Cin\u00e9 Cit\u00e9 Parly",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ugc.fr/cinema.html?id=47": {
+    "checked": 20260830,
+    "name": "Le Central",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50133,6 +53598,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "urbansoccer.fr/centres/meudon/?utm_source=openstreetmap&utm_medium=Organic&utm_campaign=meudon": {
+    "checked": 20260830,
+    "name": "UrbanSoccer Meudon",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "urbansoccer.fr/centres/porte-divry": {
     "checked": 20260829,
     "name": "UrbanSoccer",
@@ -50164,6 +53636,13 @@
   "uscreteilcanoekayak.fr": {
     "checked": 20260829,
     "name": "US Cr\u00e9teil Cano\u00eb-Kayak",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "usenneryjudo.ffjudo.com": {
+    "checked": 20260830,
+    "name": "Union SP Ennery",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50287,6 +53766,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "valdoise.fr/73-depistage.htm#par553": {
+    "checked": 20260830,
+    "name": "Centre D\u00e9partemental de D\u00e9pistage et de Soins - Garges l\u00e8s Gonesse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "valdoise.fr/annuaire/147/294-libelle.htm": {
     "checked": 20260828,
     "name": "Mus\u00e9e Naval",
@@ -50318,6 +53804,13 @@
   "valeriewalshjolley.com": {
     "checked": 20260822,
     "name": "Grey Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "vallee-aux-loups.hauts-de-seine.fr": {
+    "checked": 20260830,
+    "name": "Arboretum du Parc de la Vall\u00e9e-aux-Loups",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50371,6 +53864,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "vattkhemararam.wordpress.com": {
+    "checked": 20260830,
+    "name": "Vatt Khemararam",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "vaucluseyachtclub.com.au": {
     "checked": 20260819,
     "name": "Vaucluse Yacht Club",
@@ -50409,6 +53909,13 @@
   "veesplaceprescot.co.uk": {
     "checked": 20260819,
     "name": "Vee's Place",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "velizy-villacoublay.horanet.com": {
+    "checked": 20260830,
+    "name": "Piscine Municipale",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50490,9 +53997,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "versaillespalaisdescongres.com": {
+    "checked": 20260830,
+    "name": "Palais des Congr\u00e8s",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "vert-marine.com/canyon": {
     "checked": 20260828,
     "name": "Canyon",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "vert-marine.info/conflans": {
+    "checked": 20260830,
+    "name": "Centre Aquatique Otonic Eden",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50623,6 +54144,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "villa-savoye.fr": {
+    "checked": 20260830,
+    "name": "Villa Savoye",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "villabeausoleil.com/villa/ehpad/montrouge": {
+    "checked": 20260830,
+    "name": "EHPAD Villa Beausoleil",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "villabelleville.org": {
+    "checked": 20260830,
+    "name": "Villa Belleville",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "villagebaptist.org.nz": {
     "checked": 20260828,
     "name": "Village Baptist Church",
@@ -50700,6 +54242,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ville-antony.fr/horaires-centre-aquatique-pajeaud": {
+    "checked": 20260830,
+    "name": "Centre Aquatique Pajeaud",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ville-antony.fr/maison-des-arts": {
     "checked": 20260828,
     "name": "Maison des Arts",
@@ -50714,9 +54263,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ville-bagnolet.fr/des-services-a-votre-service/culture/les-centres-de-quartier/centre-socioculture-la-fosse-aux-fraises": {
+    "checked": 20260830,
+    "name": "Centre social et culturel La Fosse Aux Fraises",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ville-boissy.fr/vivre-a-boissy/culture-evenements/cinema-le-forum": {
     "checked": 20260828,
     "name": "Le Forum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-cachan.fr/orangerie-de-cachan-et-galerie-du-theatre": {
+    "checked": 20260830,
+    "name": "L'Orangerie",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50742,9 +54305,37 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ville-clichy.fr/382-le-pavillon-vendome-centre-d-art-contemporain.htm": {
+    "checked": 20260830,
+    "name": "Pavillon de Vend\u00f4me",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-creteil.fr/centre-marie-therese-eyquem-cmte": {
+    "checked": 20260830,
+    "name": "Centre Sportif Marie-Th\u00e9r\u00e8se Eyquem",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-creteil.fr/centres-socioculturels-municipaux": {
+    "checked": 20260830,
+    "name": "Centre Socio-Culturel Madeleine Reb\u00e9rioux",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ville-gennevilliers.fr/189/demarches-et-services/sante/centres-municipaux-de-sante-cms.htm#c14441": {
     "checked": 20260829,
     "name": "CeGIDD - Centre Municipal de Sant\u00e9 Etienne Gatineau-Sailliant - Gennevilliers",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-gif.fr/annuaires/annuaire-des-equipements/ficheAnnu/complexe-sportif-des-goussons": {
+    "checked": 20260830,
+    "name": "Complexe sportif des Goussons",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50756,9 +54347,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ville-leslilas.fr/annu/2-27-23/club-des-hortensias": {
+    "checked": 20260830,
+    "name": "Club des Hortensias",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ville-leslilas.fr/centreculturel/23/le-centre-culturel": {
     "checked": 20260829,
     "name": "Centre culturel Jean-Cocteau",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-levallois.fr/location-de-salles": {
+    "checked": 20260830,
+    "name": "Pavillon des F\u00eates",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-massy.fr/decouvrir/sport/#les-piscines": {
+    "checked": 20260830,
+    "name": "Piscine du Centre Omnisports",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50805,9 +54417,65 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ville-pontoise.fr": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e Tavet Delacour",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-pontoise.fr/la-maison-des-associations": {
+    "checked": 20260830,
+    "name": "Maison des Associations",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-pontoise.fr/le-carre-patrimoine-ciap": {
+    "checked": 20260830,
+    "name": "Le Carr\u00e9 Patrimoine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-pontoise.fr/le-musee-dart-et-dhistoire-pissarro-pontoise-mahpp": {
+    "checked": 20260830,
+    "name": "Mus\u00e9e d'Art et d'Histoire Pissarro-Pontoise",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ville-pontoise.fr/le-patrimoine-souterrain-de-pontoise": {
     "checked": 20260828,
     "name": "Anciennes Carri\u00e8res",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-romainville.fr/1051-mediatheque.htm": {
+    "checked": 20260830,
+    "name": "M\u00e9diath\u00e8que Romain Rolland",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-romainville.fr/3655-le-pavillon.htm": {
+    "checked": 20260830,
+    "name": "Le Pavillon",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-saintgratien.fr/centre-culturels": {
+    "checked": 20260830,
+    "name": "Centre Culturel Camille Claudel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ville-sannois.fr/mes-loisirs/vie-culturelle/maison-des-loisirs-et-des-arts": {
+    "checked": 20260830,
+    "name": "MLA Maison des Loisirs et des Arts",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50882,6 +54550,20 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "villeneuve.megarama.fr": {
+    "checked": 20260830,
+    "name": "M\u00e9garama Villeneuve",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "villeneuve92.com/temps-libre/espace-nelly-roussel": {
+    "checked": 20260830,
+    "name": "Espace Nelly Roussel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "villettemakerz.com/agenda/?ical=1": {
     "checked": 20260829,
     "name": "Villette Makerz",
@@ -50935,6 +54617,13 @@
     "checked": 20260828,
     "name": "Violette and Co",
     "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "viparis.com/nos-lieux/espace-champerret": {
+    "checked": 20260830,
+    "name": "Espace Champerret",
+    "reason": "osm probe: offsite:facebook.com",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -51046,6 +54735,13 @@
   "vivianstgospelhall.org.nz": {
     "checked": 20260824,
     "name": "Vivian Street Gospel Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "vivre-asso.com/residence_stephane_hessel.aspx": {
+    "checked": 20260830,
+    "name": "R\u00e9sidence d'Accueil Sp\u00e9cialis\u00e9e St\u00e9phane Hessel",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -51347,6 +55043,13 @@
   "walkinstownparish.ie": {
     "checked": 20260822,
     "name": "Church of the Assumption of the Blessed Virgin Mary",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "walledoffhotel.paris": {
+    "checked": 20260830,
+    "name": "The Walled Off Hotel",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -52457,6 +56160,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "whynotproductions.fr/pantheon": {
+    "checked": 20260830,
+    "name": "Cin\u00e9ma du Panth\u00e9on",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "whyteridge.ca": {
     "checked": 20260819,
     "name": "Whyte Ridge Community Centre",
@@ -53244,6 +56954,13 @@
   "x-pressperformers.com": {
     "checked": 20260819,
     "name": "X-Press Performers (Branch 2)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "xippas.com": {
+    "checked": 20260830,
+    "name": "Galerie Xippas",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
