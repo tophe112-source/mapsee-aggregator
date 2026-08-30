@@ -1056,6 +1056,39 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   its category's emoji until `osm-amenities.yml` runs with `full_refresh`. The
   client's fallback to the category glyph is therefore load-bearing rather than
   defensive — it IS the map until that backfill lands — and it is checked.
+- **A REWRITE-EVERY-RUN ADAPTER IS RIGHT AND "REWRITE EVERYTHING" IS NOT, and
+  the second half was found on the READ side of another repo.** `--only-new`
+  froze every row on the day it first landed, which for the three OSM adapters
+  is a permanent staleness bug — every column they write is derived from an
+  upstream people edit, so a playground that gained opening hours stays
+  furniture for ever. Dropping the flag was correct. What went with it was not:
+  an UPDATE that writes identical bytes still costs a dead tuple, a WAL record,
+  an index entry and a RELOCATED LIVE ROW, and almost every row is identical,
+  because nobody edits a given drinking fountain twice in a month. ../mapsee had
+  just measured what that does — `events` is 993 MB of heap against a 256 MB
+  shared_buffers, London reads 30,279 rows off 20,597 heap pages (1.47 rows per
+  page) and query time is `reads x ~0.9 ms`. Rows arrive in INGEST order, so
+  rewriting one moves it to the end of the table and smears a city's set
+  further apart; a nightly sweep of tens of thousands is the one thing here that
+  makes that worse on purpose. `--skip-unchanged` reads each row back and sends
+  only the ones that DIFFER.
+  **IT FAILS TOWARD WRITING IN EVERY DIRECTION AND THAT IS THE ENTIRE DESIGN.**
+  A refusal, a 5xx, a body that is not a list, a column the server does not
+  return, a value it cannot normalise — all read as CHANGED. Being wrong that
+  way costs one wasted UPDATE, which is what the code did before it existed;
+  being wrong the other way is an OSM edit that silently never lands, which is
+  indistinguishable from the `--only-new` staleness the flag was dropped to
+  escape. Two consequences worth keeping: the comparison is driven by OUR row's
+  own keys, so a column added to `to_row` is compared from that moment rather
+  than from whenever somebody remembers a list (the `🔎` link reaching every
+  drinking fountain past a passing check is what a hand-kept list produces); and
+  the sentinel for "cannot compare" is a class whose `__eq__` returns False,
+  never `object()`, because the same instance compares equal to ITSELF and one
+  unparseable value on both sides would then read as no change. It is a NO-OP
+  under `--only-new`, where every row is new by construction, which is why every
+  sync invocation can pass it — and `test_skip_unchanged.py` asserts all
+  fourteen do, because one that quietly does not looks exactly like one that
+  does.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
   publishes each occurrence separately and the store is rebuilt every run, so the
   occurrences never meet in memory — the table is the only place a series is
@@ -1360,13 +1393,14 @@ python test_ingest_mapasculturais.py # an accepted filter that never ran, and a 
 python test_retire_openactive_slots.py # which superseded slot rows may be hidden
 python gen_amenity_fixtures.py      # regenerate ../mapsee's amenity fixtures from to_event + to_row
 python test_sync_unknown_column.py  # a column the database has not got YET must cost one feature, not the night
+python test_skip_unchanged.py       # which rows a rewrite-every-run adapter may leave alone
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 26 test scripts are the CI gate (`tests.yml`). They print one line per
+The 27 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

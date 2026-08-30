@@ -121,7 +121,7 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
-          python mapsee_supabase_sync.py --store mapsee_events.json $ONLY_NEW
+          python mapsee_supabase_sync.py --store mapsee_events.json --skip-unchanged $ONLY_NEW
       - name: Sweep Ticketmaster across the international metros (ex-US)
         run: |
           set +e
@@ -141,7 +141,7 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f global_events.json ]; then
-            python mapsee_supabase_sync.py --store global_events.json $ONLY_NEW
+            python mapsee_supabase_sync.py --store global_events.json --skip-unchanged $ONLY_NEW
           else
             echo "no international events ingested — nothing to sync"
           fi
@@ -193,7 +193,7 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f meetup_events.json ]; then
-            python mapsee_supabase_sync.py --store meetup_events.json $ONLY_NEW
+            python mapsee_supabase_sync.py --store meetup_events.json --skip-unchanged $ONLY_NEW
           else
             echo "no US Meetup events yet - nothing to sync"
           fi
@@ -209,7 +209,7 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f meetup_events.json ]; then
-            python mapsee_supabase_sync.py --store meetup_events.json $ONLY_NEW
+            python mapsee_supabase_sync.py --store meetup_events.json --skip-unchanged $ONLY_NEW
           else
             echo "no Meetup events ingested — nothing to sync"
           fi
@@ -332,7 +332,7 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json $ONLY_NEW || true
+            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW || true
           else
             echo "nothing ingested yet — nothing to checkpoint"
           fi
@@ -545,7 +545,7 @@ jobs:
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json $ONLY_NEW
+            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW
           else
             echo "no feeds ingested — nothing to sync"
           fi
@@ -672,7 +672,7 @@ jobs:
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
           if [ -f races_events.json ]; then
-            python mapsee_supabase_sync.py --store races_events.json $ONLY_NEW
+            python mapsee_supabase_sync.py --store races_events.json --skip-unchanged $ONLY_NEW
           else
             echo "no races ingested — nothing to sync"
           fi
@@ -747,7 +747,7 @@ jobs:
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
           if [ -f openactive_events.json ]; then
-            python mapsee_supabase_sync.py --store openactive_events.json $ONLY_NEW
+            python mapsee_supabase_sync.py --store openactive_events.json --skip-unchanged $ONLY_NEW
           else
             echo "no openactive_events.json — nothing was pulled this run"
           fi
@@ -788,7 +788,7 @@ jobs:
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
           if [ -f osm_market_events.json ]; then
-            python mapsee_supabase_sync.py --store osm_market_events.json $ONLY_NEW
+            python mapsee_supabase_sync.py --store osm_market_events.json --skip-unchanged $ONLY_NEW
           else
             echo "no OSM markets ingested — nothing to sync"
           fi
@@ -887,12 +887,12 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f extra_events.json ]; then
-            python mapsee_supabase_sync.py --store extra_events.json $ONLY_NEW
+            python mapsee_supabase_sync.py --store extra_events.json --skip-unchanged $ONLY_NEW
           else
             echo "no extra sources ingested — nothing to sync"
           fi
           if [ -f eventbrite_events.json ]; then
-            python mapsee_supabase_sync.py --store eventbrite_events.json $ONLY_NEW || true
+            python mapsee_supabase_sync.py --store eventbrite_events.json --skip-unchanged $ONLY_NEW || true
           else
             echo "no Eventbrite events ingested — nothing to sync"
           fi

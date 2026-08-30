@@ -1430,6 +1430,119 @@ def fetch_claimed_ids(session, url: str, key: str):
     return ids
 
 
+# --------------------------------------------------------------------------- #
+# "REWRITE WHAT CHANGED", WHICH IS NOT THE SAME AS "REWRITE EVERYTHING"
+# --------------------------------------------------------------------------- #
+# --only-new froze every row on the day it first landed, which is a permanent
+# staleness bug for any adapter whose columns are all DERIVED from an upstream
+# that people edit — the OSM three above all. Dropping the flag fixed that and
+# bought a second problem in the same move: an UPDATE that writes the identical
+# bytes still costs a dead tuple, a WAL record, an index entry and a relocated
+# live row, and almost every row IS identical, because nobody edits a given
+# drinking fountain twice in a month.
+#
+# ../mapsee measured what that costs on the read side: `events` is 993 MB of
+# heap against a 256 MB shared_buffers, London's events_near reads 30,279 rows
+# off 20,597 heap pages — 1.47 rows per page — and query time is simply
+# `reads x ~0.9 ms`. Rows arrive in ingest order, so rewriting one relocates it
+# to the end of the table and smears a city's set further apart. Bloat alone
+# was cleared as the cause (1.3x, autovacuum keeping up), but a rewrite-
+# everything sweep is the one thing here that makes the smear worse on purpose.
+#
+# So: compare before writing, and send only the rows that differ.
+#
+# IT FAILS TOWARD WRITING, EVERYWHERE. A fetch that errors, a column the server
+# does not return, a value in a shape this cannot normalise — all of them mean
+# "changed", so the cost of being wrong is one wasted UPDATE, which is exactly
+# what the code did before. The opposite default would be an OSM edit that
+# silently never lands, indistinguishable from --only-new, and the entire
+# reason --only-new was dropped.
+class _Unknown:
+    """Never equal to anything, including itself — so a value that could not be
+    normalised can only ever compare as CHANGED. `object()` will not do: the
+    same instance compares equal to itself, which is the fail-open direction."""
+    __slots__ = ()
+    def __eq__(self, other): return False
+    def __ne__(self, other): return True
+    __hash__ = None
+
+
+_TS_COLS = ("starts_at", "ends_at")
+
+
+def _norm_cmp(col: str, v: Any) -> Any:
+    """One column's value, in a form the two sides can be compared in."""
+    if col in _TS_COLS:
+        if v is None:
+            return None
+        try:
+            s = str(v).strip()
+            if s.endswith("Z"):
+                s = s[:-1] + "+00:00"
+            d = datetime.fromisoformat(s)
+        except Exception:
+            return _Unknown()
+        # A NAIVE STAMP IS NOT AN INSTANT, so it cannot be compared to one.
+        # Postgres always answers with an offset; if our side has none, the two
+        # are not the same kind of thing and the honest answer is "write it".
+        return d.astimezone(timezone.utc) if d.tzinfo else _Unknown()
+    if isinstance(v, bool) or v is None:
+        return v
+    if isinstance(v, (int, float)):
+        return float(v)                      # 47.6 and 47.60000 arrive both ways
+    if isinstance(v, (list, dict, str)):
+        return v                             # jsonb/text[]/text compare structurally
+    return _Unknown()
+
+
+def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
+    """external_ids whose stored row already equals what we are about to write.
+
+    The comparison is driven by OUR row's own keys, never by a hand-kept list:
+    add a column to to_row and it is compared from that moment, and a column the
+    server does not return reads as changed. A list would be one more pair of
+    things that must agree, which is how the 🔎 Google link reached every
+    drinking fountain past a check that passed."""
+    if not rows:
+        return set()
+    cols = sorted({c for r in rows for c in r})
+    mine = {r["external_id"]: r for r in rows if r.get("external_id")}
+    select = ",".join(cols)
+    base = url.rstrip("/") + "/rest/v1/events"
+    hdr = {"apikey": key, "Authorization": f"Bearer {key}"}
+    same = set()
+    ids = list(mine)
+    i = 0
+    while i < len(ids):
+        # CHUNKED BY THE LENGTH OF THE URL IT BUILDS, not by a row count. These
+        # are sha1 hexdigests today and something else tomorrow; a fixed 100
+        # would silently start producing a 414 the day an adapter's fingerprint
+        # got longer, and PostgREST answers that with an HTML error page.
+        chunk, size = [], 0
+        while i < len(ids) and size < 4000:
+            chunk.append(ids[i]); size += len(ids[i]) + 4; i += 1
+        q = ",".join('"' + c.replace('"', '""') + '"' for c in chunk)
+        endpoint = (f"{base}?external_source=eq.mapsee&select={urllib.parse.quote(select)}"
+                    f"&external_id=in.({urllib.parse.quote(q)})")
+        try:
+            r = session.get(endpoint, headers=hdr, timeout=60)
+            if r.status_code not in (200, 206):
+                continue                     # a refusal means write, not skip
+            stored = r.json()
+        except Exception:
+            continue
+        if not isinstance(stored, list):
+            continue
+        for row in stored:
+            eid = row.get("external_id")
+            want = mine.get(eid)
+            if not want:
+                continue
+            if all(c in row and _norm_cmp(c, want[c]) == _norm_cmp(c, row[c]) for c in want):
+                same.add(eid)
+    return same
+
+
 def load_blocklist(session, url: str, key: str):
     """The moderation terms, so we can drop blocked content BEFORE sending it — mirrors
     public.is_clean so those events never hit the slow per-row 'content_blocked' retry."""
@@ -1457,6 +1570,11 @@ def main() -> None:
     ap.add_argument("--dry-run", action="store_true", help="Print rows that WOULD be upserted; send nothing.")
     ap.add_argument("--only-new", action="store_true",
                     help="Skip events already in Supabase — upsert only new ones (much faster steady-state).")
+    ap.add_argument("--skip-unchanged", action="store_true",
+                    help="Read each row back first and send only the ones that DIFFER. For an "
+                         "adapter that must rewrite (every column derived from an upstream people "
+                         "edit) but whose rows rarely change. No-op under --only-new, where every "
+                         "row is new by construction.")
     a = ap.parse_args()
 
     # Fail LOUDLY on a missing host profile. The old default was the literal
@@ -1515,6 +1633,18 @@ def main() -> None:
         rows = [r for r in rows if all(is_clean(r.get(f) or "", terms)
                                        for f in ("title", "description", "place_name", "host_name"))]
         print(f"Moderation pre-filter: dropped {before - len(rows)} of {before} rows.")
+
+    # LAST, so nothing is read back for a row the filters above already dropped.
+    if a.skip_unchanged and not a.only_new and rows:
+        same = unchanged_ids(geo, url, key, rows)
+        if same:
+            before = len(rows)
+            rows = [r for r in rows if r["external_id"] not in same]
+            print(f"Skip-unchanged: {len(rows)} of {before} differ from what is stored "
+                  f"({len(same)} identical, not rewritten).")
+        else:
+            print(f"Skip-unchanged: all {len(rows)} rows differ from what is stored "
+                  f"(or could not be read back — a refusal means write).")
 
     n, skipped, lost = upsert(rows, url, key)
     # NOT NECESSARILY MODERATION. This used to assert the reason regardless of

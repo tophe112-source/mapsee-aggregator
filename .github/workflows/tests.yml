@@ -228,6 +228,18 @@ jobs:
       - name: An unanswered batch is a hole, not the end of the run
         run: python test_sync_transport_loss.py
 
+      # An adapter whose every column is DERIVED from an upstream people edit
+      # cannot use --only-new: the row freezes on the day it landed and no OSM
+      # edit ever reaches it. Dropping the flag fixed that and made every run
+      # rewrite tens of thousands of identical rows, each costing a dead tuple
+      # and a relocated live row in a 993 MB table that already reads 1.47 rows
+      # per heap page. Reading back first is the middle: what is asserted here
+      # is the DIRECTION it fails in, because skipping a row that really changed
+      # is invisible and permanent while writing one that did not is what the
+      # code already did.
+      - name: A rewrite writes what changed, and fails toward writing
+        run: python test_skip_unchanged.py
+
       # "Order pickup" is a promise. It shipped once on 400 of 400 food events
       # that pointed at Meetup, and a second time on any /menu path — which
       # matched a town website's nav. Both regressions are pinned here.

@@ -244,10 +244,32 @@ jobs:
           # that already exist, not only new ones. That is the trade, taken
           # deliberately, because the alternative is a map that can never
           # correct itself.
+          #
+          # ...AND "REWRITE" IS NOT "REWRITE EVERYTHING", which the first
+          # version of this step got wrong and paid for on the READ side. An
+          # UPDATE that writes identical bytes still costs a dead tuple, a WAL
+          # record, an index entry and a relocated live row — and almost every
+          # row here IS identical, because nobody edits a given drinking
+          # fountain twice in a month. ../mapsee measured what that does:
+          # `events` is 993 MB of heap against a 256 MB shared_buffers, London's
+          # events_near reads 30,279 rows off 20,597 heap pages (1.47 rows per
+          # page), and query time is simply `reads x ~0.9 ms`. Rows arrive in
+          # INGEST order, so rewriting one moves it to the end of the table and
+          # smears a city's set further apart — a sweep that rewrites tens of
+          # thousands of rows a night is the one thing here that makes that
+          # worse on purpose.
+          #
+          # --skip-unchanged reads each row back and sends only the ones that
+          # DIFFER. It fails toward writing in every direction (a refusal, a
+          # column the server does not return, a value it cannot normalise all
+          # read as changed), so being wrong costs one wasted UPDATE rather than
+          # an OSM edit that silently never lands — which is the --only-new
+          # staleness this whole step exists to escape. test_skip_unchanged.py.
           ONLY_NEW=""
-          echo "syncing WITHOUT --only-new: existing rows are rewritten from current OSM"
+          echo "syncing WITHOUT --only-new: existing rows are rewritten from current OSM,"
+          echo "but --skip-unchanged means only the ones that actually differ are written"
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json $ONLY_NEW
+            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW
           else
             echo "no feeds_events.json — nothing was pulled this run"
           fi

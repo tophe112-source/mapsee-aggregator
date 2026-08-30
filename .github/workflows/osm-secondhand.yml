@@ -221,7 +221,7 @@ jobs:
             echo "FULL REFRESH: syncing without --only-new; existing rows will be rewritten"
           fi
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json $ONLY_NEW
+            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW
           else
             echo "no feeds_events.json — nothing was pulled this run"
           fi
