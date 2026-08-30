@@ -79,6 +79,21 @@ def main():
     checks.append((MC.filter_honoured(SBad(), "b", TODAY) is None,
                    "a count that cannot be read is 'unknown', which is not 'ignored'"))
 
+    # ZERO IS NOT EVIDENCE. `filtered=0, total=N` comes back from two instances
+    # that want opposite things, and the difference is invisible from here:
+    # mapassaas.cultura.gov.br has a populated `_startsOn` and really is empty
+    # ahead (measured 2026-08-30 — 5,986 occurrences, newest 2025-08-30, zero
+    # at or after today), while an instance whose `_startsOn` is NULL on every
+    # row answers 0 to the same question with live dates sitting in `rule`.
+    # Believed, the walk asks the server for the filtered set, receives nothing
+    # and reports "kept 0 events" — the same line an empty instance prints, and
+    # wrong on the second. `None` walks unfiltered and judges every row on
+    # rule.startsOn, which is the only reading that cannot be silently wrong.
+    checks.append((MC.filter_honoured(S(5986, 0), "b", TODAY) is None,
+                   "a filtered count of ZERO is 'unknown', never 'the filter worked'"))
+    checks.append((MC.filter_honoured(S(0, 0), "b", TODAY) is None,
+                   "...and an instance with no rows at all is unknown too, not honoured"))
+
     # ------------------------------------------- 2. rule.startsOn is the date
     #
     # The structured column is NULL on whole instances (all 1,575 of Espírito

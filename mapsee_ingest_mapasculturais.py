@@ -444,6 +444,23 @@ def filter_honoured(session, base: str, today: str) -> Optional[bool]:
     filtered = count(f"&_startsOn=GTE({today})")
     if total is None or filtered is None:
         return None
+    # A FILTERED COUNT OF ZERO PROVES NOTHING, and believing it is the one way
+    # this check can cost a whole instance in silence. Two instances answer
+    # `filtered=0, total=N` and they want opposite things: mapassaas has a
+    # populated `_startsOn` and genuinely holds nothing future (measured
+    # 2026-08-30: 5,986 occurrences, newest 2025-08-30, zero at-or-after today),
+    # while an instance with `_startsOn` NULL on every row — Espírito Santo's
+    # 1,575 and João Pessoa's 34, per header note 2 — answers 0 to the same
+    # question while carrying live dates in `rule`. Read as "honoured" the walk
+    # then asks the server for the filtered set, gets nothing, and prints
+    # "kept 0 events": identical to an empty instance and wrong on the second.
+    # Zero is not evidence, so say so — None already means "walk it
+    # conservatively and judge every row on rule.startsOn", which costs one
+    # unfiltered walk and cannot be silently wrong. The rule is flat rather
+    # than conditional on `total`: equal ZEROS are the same non-evidence, and
+    # reading them as "ignored" would be a verdict drawn from an empty answer.
+    if filtered == 0:
+        return None
     return filtered != total
 
 
