@@ -1089,6 +1089,33 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   sync invocation can pass it — and `test_skip_unchanged.py` asserts all
   fourteen do, because one that quietly does not looks exactly like one that
   does.
+- **AND THE WINDOW ON A STANDING ROW IS NOT OURS, WHICH WOULD HAVE MADE THAT
+  FILTER A NO-OP ON EXACTLY THE ROWS IT WAS WRITTEN FOR.** ../mapsee 0156's
+  `roll_recurring_windows` rewrites `starts_at`/`ends_at` on any row carrying
+  `recurring_hours` whose window has passed — hourly, at :35 — so what is STORED
+  on a standing row is the ROLLED window while `to_row` computes today's. They
+  differ almost always, and every OSM amenity, every imported shop and every
+  collapsed OpenActive weekly series is a standing row. Comparing that column
+  asks what TIME it is, not whether OpenStreetMap changed, and every one of the
+  33 cases written before this was noticed still passed. Nothing is lost by
+  looking away: a changed PATTERN is a changed `recurring_hours`, which is
+  compared, and a row starting or stopping being standing moves that column
+  null-to-set — which is why the exemption needs a pattern on BOTH sides.
+  Two files, one invariant, neither wrong on its own: the same shape as
+  `looks_like_ordering` having to agree with `looksLikeOrdering`, and as the
+  attribution line two repos spell differently.
+- **A COLUMN FED BY THE CLOCK WOULD UNDO IT ALL WITH ONE LINE IN ANOTHER FILE,
+  AND THE LOG WOULD READ AS A BUSY WEEK.** "A standing row never dies" (above)
+  already names `last_seen_at` on `to_row` as the way to make "gone from the
+  feed" detectable. Add it and every row differs from what is stored on every
+  run, for ever: the filter skips nothing and prints "all N rows differ", which
+  is indistinguishable from a genuine refresh of a changed catalogue. So a
+  column that differs on essentially EVERY row is not an edit anybody made, it
+  is a clock, and `unchanged_ids` NAMES it with a `::warning::` rather than
+  obeying it — the same rule as reading PostgREST's own message out of a
+  `PGRST204` instead of guessing which column is missing. Whoever adds that
+  column has to decide what the comparison does with it, in the run that adds
+  it, rather than discovering a year later that a lever stopped pulling.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
   publishes each occurrence separately and the store is rebuilt every run, so the
   occurrences never meet in memory — the table is the only place a series is

@@ -160,6 +160,68 @@ check("null and empty string are not the same value",
       m.unchanged_ids(Stub([row(street_address=None)]), "https://x", "k",
                       [row(street_address="")]) == set())
 
+# --- 4b. THE ROLLED WINDOW, which would have made this a no-op --------------
+# 0156's roll_recurring_windows rewrites starts_at/ends_at on any row with
+# recurring_hours whose window has passed — hourly — so the STORED window on a
+# standing row is the rolled one and to_row's is today's. Every OSM amenity,
+# every imported shop and every collapsed OpenActive weekly series is a standing
+# row, so comparing that column would have skipped nothing at all on precisely
+# the population this exists to stop rewriting, while every case above still
+# passed.
+WEEKLY = {"tz": "Europe/London", "days": {"2": ["19:00", "20:00"]}}
+check("a standing row whose window the roller moved is still unchanged",
+      m.unchanged_ids(Stub([row(recurring_hours=WEEKLY, starts_at="2026-09-08T18:00:00+00:00",
+                                ends_at="2026-09-08T19:00:00+00:00")]), "https://x", "k",
+                      [row(recurring_hours=WEEKLY, starts_at="2026-09-01T18:00:00+00:00",
+                           ends_at="2026-09-01T19:00:00+00:00")]) == {"a" * 40})
+# ...and nothing is lost by looking away, because a change to the PATTERN is a
+# change to recurring_hours, which is compared.
+check("a changed weekly pattern is still written",
+      m.unchanged_ids(Stub([row(recurring_hours=WEEKLY, starts_at="2026-09-08T18:00:00+00:00")]),
+                      "https://x", "k",
+                      [row(recurring_hours={"tz": "Europe/London", "days": {"3": ["19:00", "20:00"]}},
+                           starts_at="2026-09-01T18:00:00+00:00")]) == set())
+# A row CHANGING SHAPE must be written whichever way it goes, so the exemption
+# needs a pattern on BOTH sides: a class that stopped recurring keeps a rolled
+# window that nothing will ever move again.
+check("a row that stops being standing is written",
+      m.unchanged_ids(Stub([row(recurring_hours=WEEKLY, starts_at="2026-09-08T18:00:00+00:00")]),
+                      "https://x", "k",
+                      [row(recurring_hours=None, starts_at="2026-09-01T18:00:00+00:00")]) == set())
+check("a row that becomes standing is written",
+      m.unchanged_ids(Stub([row(recurring_hours=None, starts_at="2026-09-08T18:00:00+00:00")]),
+                      "https://x", "k",
+                      [row(recurring_hours=WEEKLY, starts_at="2026-09-01T18:00:00+00:00")]) == set())
+# An ORDINARY occasion keeps its clock compared — a gig moved by an hour is the
+# single most important edit this must not sleep through.
+check("an occasion moved by an hour is written",
+      m.unchanged_ids(Stub([row(starts_at="2026-09-01T19:00:00+00:00")]), "https://x", "k",
+                      [row(starts_at="2026-09-01T20:00:00+00:00")]) == set())
+
+# --- 4c. a column fed by the CLOCK is named, not obeyed ---------------------
+# Adding `"last_seen_at": now()` to to_row is the obvious way to make "gone from
+# the feed" detectable, and this repo has already written down that it wants it.
+# It would also make every row differ on every run for ever, so the filter skips
+# nothing and reports "all N rows differ" — which is exactly what a genuine
+# refresh of a changed catalogue looks like.
+import io, contextlib
+stamped_mine = [row(external_id=f"{i:040d}", last_seen_at="2026-09-02T00:00:00+00:00")
+                for i in range(60)]
+stamped_theirs = [dict(r, last_seen_at="2026-09-01T00:00:00+00:00") for r in stamped_mine]
+buf = io.StringIO()
+with contextlib.redirect_stdout(buf):
+    got = m.unchanged_ids(Stub(stamped_theirs), "https://x", "k", stamped_mine)
+out = buf.getvalue()
+check("a clock column still writes every row (behaviour unchanged)", got == set(), len(got))
+check("...but it is NAMED rather than silently obeyed",
+      "::warning::" in out and "last_seen_at" in out, out.strip()[:160])
+# The warning must not fire on the ordinary case, or it is noise and gets muted.
+buf = io.StringIO()
+with contextlib.redirect_stdout(buf):
+    m.unchanged_ids(Stub([dict(r) for r in stamped_mine]), "https://x", "k", stamped_mine)
+check("...and stays quiet when rows genuinely match", "::warning::" not in buf.getvalue(),
+      buf.getvalue().strip()[:160])
+
 # --- 5. the sentinel cannot be equal to itself ------------------------------
 # object() will not do here: the same instance compares equal to itself, which
 # is the fail-open direction, so a single unparseable value on BOTH sides would

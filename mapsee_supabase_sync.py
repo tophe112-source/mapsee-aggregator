@@ -1470,6 +1470,25 @@ class _Unknown:
 _TS_COLS = ("starts_at", "ends_at")
 
 
+def skip_cols(mine: Dict[str, Any], theirs: Dict[str, Any]):
+    """Columns this comparison must NOT look at for this pair of rows.
+
+    THE WINDOW ON A STANDING ROW IS NOT OURS, AND COMPARING IT WOULD HAVE MADE
+    THIS WHOLE FILTER A NO-OP ON EXACTLY THE ROWS IT WAS WRITTEN FOR.
+    0156's `roll_recurring_windows` rewrites starts_at/ends_at on any row with
+    `recurring_hours` whose window has passed — hourly, at :35 — so what is
+    STORED is the rolled window and what to_row computes is today's. They differ
+    almost always, and every OSM amenity, every imported shop and every
+    collapsed OpenActive weekly series is a standing row. Comparing them asks
+    "what time is it", not "did OpenStreetMap change".
+    Nothing is lost by looking away: if the PATTERN changes, `recurring_hours`
+    itself differs and the row is written, window and all; if a row starts or
+    stops being standing, that column goes null-to-set or set-to-null and does
+    the same. Which is why this is gated on BOTH sides carrying one — a row
+    changing shape is a row we must write."""
+    return _TS_COLS if (mine.get("recurring_hours") and theirs.get("recurring_hours")) else ()
+
+
 def _norm_cmp(col: str, v: Any) -> Any:
     """One column's value, in a form the two sides can be compared in."""
     if col in _TS_COLS:
@@ -1510,6 +1529,10 @@ def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
     select = ",".join(cols)
     base = url.rstrip("/") + "/rest/v1/events"
     hdr = {"apikey": key, "Authorization": f"Bearer {key}"}
+    # WHICH column made each row differ, so a column that differs on EVERY row
+    # can be named rather than merely obeyed. See the warning below.
+    blamed: Dict[str, int] = {}
+    compared = 0
     same = set()
     ids = list(mine)
     i = 0
@@ -1538,8 +1561,31 @@ def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
             want = mine.get(eid)
             if not want:
                 continue
-            if all(c in row and _norm_cmp(c, want[c]) == _norm_cmp(c, row[c]) for c in want):
+            compared += 1
+            diff = [c for c in want if c not in skip_cols(want, row)
+                    and (c not in row or _norm_cmp(c, want[c]) != _norm_cmp(c, row[c]))]
+            if not diff:
                 same.add(eid)
+            for c in diff:
+                blamed[c] = blamed.get(c, 0) + 1
+    # A COLUMN DERIVED FROM THE CLOCK RATHER THAN FROM THE SOURCE UNDOES ALL OF
+    # THIS WITH ONE LINE IN ANOTHER FILE, AND THE LOG WOULD READ AS A BUSY WEEK.
+    # Add `"last_seen_at": now()` to to_row — the obvious way to make "gone from
+    # the feed" detectable, and a thing this repo has already written down as
+    # wanting — and every row differs from what is stored on every run, for ever.
+    # The filter then skips nothing and reports "all N rows differ", which is
+    # exactly what a genuine refresh of a changed catalogue looks like.
+    # So: a column that differs on essentially EVERY row is not an edit anybody
+    # made, it is a clock, and it is named. Same rule as reading PostgREST's own
+    # message out of a PGRST204 instead of guessing which column is missing.
+    if compared >= 50:
+        for col, n in sorted(blamed.items(), key=lambda kv: -kv[1]):
+            if n >= compared * 0.99 and col not in _TS_COLS:
+                print(f"::warning::skip-unchanged: `{col}` differs on {n} of {compared} rows, "
+                      f"so nothing can ever be skipped. A column whose value comes from the "
+                      f"CLOCK rather than from the source must not be compared — see "
+                      f"unchanged_ids in mapsee_supabase_sync.py.")
+                break
     return same
 
 
