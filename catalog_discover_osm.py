@@ -136,6 +136,40 @@ CHALLENGE_RX = re.compile(
     re.I)
 
 # Hosts whose events belong to a DIFFERENT adapter that needs its own id.
+#
+# `offsite:<host>` is not a failure, it is a ROUTING SIGNAL: the venue has a
+# calendar and it is somebody else's. Counted over the ledger on 2026-08-30, 121
+# of 6,624 probes ended here — eventbrite 33, facebook 27, humanitix 20,
+# instagram 20, tickettailor 6, trybooking 6, universe 3 — which is the only
+# measurement this repo has of what venues WORLDWIDE actually use, so it is the
+# ranked list of adapters worth writing. Two of them are structural dead ends
+# (facebook and instagram: no API we may read), and one was assessed properly:
+#
+# HUMANITIX — ASSESSED 2026-08-30 AND NOT INGESTABLE FROM THE PUBLIC SURFACE,
+# which is worth writing down because everything ABOUT it says it should be.
+# It is the not-for-profit ticketer, its licence is a clean yes where most are
+# not (robots.txt gives `User-agent: * / Allow: /` with Content-Signal
+# `search=yes, ai-train=no, use=reference` — indexing and referencing permitted,
+# training refused, which is not what we do; the named AI crawlers are
+# Disallowed and we are not one), and both its listing and its event pages carry
+# well-formed schema.org Event with real offset-bearing instants, a structured
+# PostalAddress and an offers block that says which events are FREE.
+# Three things stop it, and only together:
+#   * NO COORDINATES ANYWHERE. Not in the JSON-LD, not in `__NEXT_DATA__` — the
+#     only `latLng` on a place page is the CITY being browsed, which is a
+#     centroid and precisely the pin `_addr_parts` refuses to make. The only
+#     geocoder here is US Census, so every AU/NZ/GB row would ingest and place
+#     nothing: "kept 43 events" for Calgary Buddhist Temple, at platform scale.
+#   * THE LISTING IS FOUR EVENTS. A place page server-renders its featured
+#     carousel only and loads the rest client-side, so the crawl is one request
+#     per place for four events, heavily duplicated across neighbouring places,
+#     over a sitemap of 35,035 place pages in its first shard alone.
+#   * THE API IS ORGANISER-SCOPED. api.humanitix.com answers 403 without a key,
+#     and the key an organiser holds covers that organiser's own events.
+# So the blocker is OURS as much as theirs, and it is the honest half to state:
+# a non-US geocoder would make the address they already publish enough. Until
+# there is one, or a feed we can ask them for, this is a decline and not a
+# to-do. Re-check if either changes.
 OFFSITE_HOSTS = (
     "eventbrite.", "meetup.com", "facebook.com", "fb.me", "instagram.com",
     "linktr.ee", "ticketmaster.", "axs.com", "seatgeek.com", "dice.fm",

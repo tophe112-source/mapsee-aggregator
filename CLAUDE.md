@@ -1154,6 +1154,24 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   Playhouse) keep a room-level key, because the classifier genuinely cannot
   recover a play from its title. Everything else states `community` and lets
   the promotions run.
+- **A LICENCE THAT SAYS YES IS THE EASY HALF, AND THE GEOCODER IS THE HARD
+  ONE.** Humanitix is the platform 20 of the 121 `offsite:` venues in the
+  ledger use — the largest gap with no adapter — and it says yes in writing:
+  `Allow: /` with Content-Signal `search=yes, ai-train=no, use=reference`, which
+  is exactly what this repo does and exactly what it does not. Its pages carry
+  well-formed schema.org `Event` with offset-bearing instants, a structured
+  `PostalAddress` and an `offers` block naming the free ones. It is still a
+  decline, on three things that only matter together: there are NO coordinates
+  anywhere in the public surface (the one `latLng` on a place page is the city
+  centroid, the pin `_addr_parts` exists to refuse), a place page
+  server-renders four featured events and loads the rest client-side, and the
+  API is organiser-scoped. The first is OURS — US Census is the only geocoder
+  here, so a well-addressed Australian event ingests and places nothing, which
+  is Calgary Buddhist Temple at platform scale. Recorded in `OFFSITE_HOSTS`
+  rather than as a config, because there is nothing to configure: a non-US
+  geocoder is the unlock, and until there is one this is not a to-do.
+  **`offsite:<host>` is a routing signal, not a failure** — that counter is the
+  only measurement this repo has of what venues worldwide actually use.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
   publishes each occurrence separately and the store is rebuilt every run, so the
   occurrences never meet in memory — the table is the only place a series is
