@@ -19,6 +19,10 @@ Config (market_sources.json): a list of sources, each either
       { "name": "Seattle Farmers Markets", "type": "inline", "city": "Seattle, WA",
         "markets": [ {"name":"Ballard Farmers Market","address":"Ballard Ave NW ...",
                       "days":"Sunday","hours":"9 a.m. - 2 p.m."}, ... ] }
+    An inline market may add "nth" to make the schedule MONTHLY rather than
+    weekly — "second", "last", or a list like ["first","third"]:
+      {"name":"Magnolia Flea Market","days":"Saturday","nth":"second", ...}
+    "last" is not "fifth"; see _nth_set.
   • OpenStreetMap, via Overpass — amenity=marketplace inside each bbox:
       { "name": "OpenStreetMap Marketplaces", "type": "overpass",
         "run_weekdays": [0], "pause_s": 4,
@@ -46,6 +50,7 @@ identical rows; --force ignores it.
 from __future__ import annotations
 
 import argparse
+import calendar
 import json
 import math
 import os
@@ -213,13 +218,53 @@ def _localize(ds: str, t: Optional[str], tz) -> Tuple[str, Optional[str]]:
     return f"{ds}T{t}", None
 
 
+_ORDINALS = {"first": 1, "1st": 1, "1": 1, "second": 2, "2nd": 2, "2": 2,
+             "third": 3, "3rd": 3, "3": 3, "fourth": 4, "4th": 4, "4": 4,
+             "fifth": 5, "5th": 5, "5": 5, "last": -1, "final": -1}
+
+
+def _nth_set(spec: Any) -> set:
+    """'last' / 'second' / 2 / ['first','third'] / 'first, third' -> {-1} / {2} / {1,3}.
+
+    -1 means LAST-of-month, which is NOT the same as fifth: a month with four
+    Thursdays has no fifth one. The Fremont Evening Market's own published dates
+    alternate between the fourth Thursday and the fifth — April 30, May 28,
+    June 25, July 30 — precisely because the rule is "last". Measured against
+    its seven published 2026 dates, nth=5 keeps only the three months that have
+    a fifth Thursday (April, July, October) and nth=4 moves those same three a
+    week early. Both failures look exactly like a market that changed its date.
+    """
+    if spec is None or spec == "":
+        return set()
+    items = spec if isinstance(spec, (list, tuple)) else re.split(r"[,\s]+", str(spec))
+    out = set()
+    for it in items:
+        key = str(it).strip().lower()
+        if key in _ORDINALS:
+            out.add(_ORDINALS[key])
+        elif key:
+            raise ValueError(f"unrecognised nth spec: {it!r}")
+    return out
+
+
+def _matches_nth(d: date, nths: set) -> bool:
+    if not nths:
+        return True
+    if -1 in nths and d.day + 7 > calendar.monthrange(d.year, d.month)[1]:
+        return True
+    return ((d.day - 1) // 7 + 1) in nths
+
+
 def _occurrences(weekdays: List[int], horizon_days: int,
-                 s_start: Optional[date], s_end: Optional[date]) -> List[date]:
+                 s_start: Optional[date], s_end: Optional[date],
+                 nths: Optional[set] = None) -> List[date]:
     today = datetime.now().date()
     out: List[date] = []
     for i in range(horizon_days):
         d = today + timedelta(days=i)
         if d.weekday() not in weekdays:
+            continue
+        if not _matches_nth(d, nths or set()):
             continue
         if s_start and d < s_start:
             continue
@@ -234,6 +279,12 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
     weekdays = _weekdays(mk.get("days"))
     if not name or not weekdays:
         return []
+    # "Second Saturdays", "last Thursdays" — a monthly market, which is what most
+    # flea and night markets are. Without this they can only be described as
+    # weekly, and a weekly expansion of a monthly market invents four pins for
+    # every real one: measured on Seattle Local Markets' own published 2026
+    # dates, 7 real Fremont evenings would have shipped as 27.
+    nths = _nth_set(mk.get("nth"))
     start_t, end_t = _parse_hours(mk.get("hours") or "")
     lat, lon = _to_float(mk.get("lat")), _to_float(mk.get("lon"))
     if lat is None or lon is None:
@@ -270,9 +321,13 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
     # A nationwide source spans four zones, so the row may carry its own; a
     # city-scoped source declares one for the whole config.
     tz = _tz(mk.get("timezone") or src.get("timezone"))
+    # The description is the only place a reader learns the cadence, and calling a
+    # second-Saturday flea market "Weekly" is a promise it does not keep.
+    cadence = "Monthly" if len(nths) == 1 else ("Weekly" if not nths else "Recurring")
     out: List[NormalizedEvent] = []
     for d in _occurrences(weekdays, src.get("horizon_days", 42),
-                          _as_date(mk.get("season_start")), _as_date(mk.get("season_end"))):
+                          _as_date(mk.get("season_start")), _as_date(mk.get("season_end")),
+                          nths):
         ds = d.isoformat()
         fp = make_fingerprint(name, ds, ident)
         sl, su = _localize(ds, start_t, tz)
@@ -281,7 +336,8 @@ def market_events(mk: Dict[str, Any], src: Dict[str, Any], session) -> List[Norm
             source=label,
             source_id=fp,
             name=name,
-            description=(f"Weekly market · {mk.get('hours')}" if mk.get("hours") else "Weekly community market"),
+            description=(f"{cadence} market · {mk.get('hours')}" if mk.get("hours")
+                         else f"{cadence} community market"),
             start_local=sl, start_utc=su,
             end_local=el, end_utc=eu,
             venue_name=place,

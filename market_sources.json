@@ -127,6 +127,56 @@
   ]
  },
  {
+  "name": "Seattle Local Markets",
+  "type": "inline",
+  "_source": "https://www.seattlelocalmarkets.com/calendar, read 2026-08-24. The page is Squarespace but NOT a Squarespace Events collection - collection type 10, a plain page whose calendar is hand-typed HTML text blocks with no <article>, no dates= export link and no coordinate anywhere. mapsee_ingest_squarespace.py reads 0 events from it, which is why this is a curated inline source rather than a line in squarespace_sources.json.",
+  "_cadence": "Two of the three are MONTHLY, which is what the `nth` field was added for. The operator publishes both the rule and the enumerated dates, and the two agree exactly: Fremont's seven 2026 dates are every last Thursday (April 30, May 28, June 25, July 30, August 27, September 24, October 29 - note the alternation between the fourth Thursday and the fifth, which is why the rule is 'last' and not 'fifth'), and Magnolia Flea's are every second Saturday (April 11 through October 10). The RULE is recorded here rather than the date list because a rule survives into 2027 and a frozen list does not. test_ingest_markets.py pins both against the operator's own published dates.",
+  "_seasons_end_where_the_page_does": "The page says 'November & December 2026 Dates TBD!' for both dated markets, and footnotes that dates get altered to accommodate the holiday season. So season_end is the last date the operator has actually published, not the end of the year: projecting the rule to November 26 - last Thursday, US Thanksgiving - is exactly the well-formed, plausible, wrong pin that footnote is warning about. Re-read the page in the autumn and extend.",
+  "city": "Seattle, WA",
+  "timezone": "America/Los_Angeles",
+  "horizon_days": 42,
+  "url_home": "https://www.seattlelocalmarkets.com/calendar",
+  "markets": [
+   {
+    "name": "Fremont Evening Market",
+    "address": "N 35th St, Seattle, WA",
+    "days": "Thursday",
+    "nth": "last",
+    "hours": "5 p.m. - 9 p.m.",
+    "season_start": "2026-04-30",
+    "season_end": "2026-10-29",
+    "lat": 47.6506723,
+    "lon": -122.3508714,
+    "_hours_are_seasonal": "The page gives two sets: 4-8 in the WINTER season and 5-9 in spring, summer and fall. Every published 2026 date falls in April-October, so 5-9 is the only one of the two that can ever apply to a date this entry emits. If November/December dates are published, they need their own entry at 4-8 rather than an edit to this one.",
+    "_placement": "The page locates it as 'N 35th St between Triangle & El Camino in Fremont' - a street market with no house number and no coordinate published. Pinned at the midpoint of the two named businesses, both of which are in OSM: Triangle Spirits (3507 Fremont Pl N, 47.6508151,-122.3508326) and El Camino (607 N 35th St, 47.6505296,-122.3509101). They are ~35m apart, so the block is short and the midpoint is honest to it. coords_exact is deliberately NOT set: this is a block, not a door."
+   },
+   {
+    "name": "Magnolia Flea Market",
+    "address": "4257 24th Ave W, Seattle, WA 98199",
+    "days": "Saturday",
+    "nth": "second",
+    "hours": "10 a.m. - 4 p.m.",
+    "season_start": "2026-04-11",
+    "season_end": "2026-10-10",
+    "lat": 47.6592646,
+    "lon": -122.3879604,
+    "coords_exact": true,
+    "_placement": "OSM carries the building as shop=antiques 'Magnolia Vintage Warehouse & Flea Market' at this exact point, so this is a surveyed door rather than a geocode - hence coords_exact, which opts the row out of the Census re-lookup in mapsee_supabase_sync. It also costs nothing from the geocode budget."
+   },
+   {
+    "name": "Magnolia Vintage Warehouse",
+    "address": "4257 24th Ave W, Seattle, WA 98199",
+    "days": "Saturday Sunday",
+    "hours": "10 a.m. - 4 p.m.",
+    "lat": 47.6592646,
+    "lon": -122.3879604,
+    "coords_exact": true,
+    "_is_this_a_market_or_a_shop": "OSM tags it shop=antiques, and this adapter's own Overpass loader drops any marketplace open more than _OSM_MAX_DAYS (3) days a week as a shop rather than a market day. 'Open each and every weekend' is two days, inside that line, and the operator lists it on its own market calendar alongside the other two - so it is kept, by the same rule the OSM loader applies. It shares an address with Magnolia Flea Market and both emit on second Saturdays; that is the source's own claim rather than a duplicate - the flea market is the event, this is the venue's ordinary weekend opening - and they stay distinct through mapsee_dedupe_events.py because the names differ.",
+    "_no_season": "The page gives none: 'Open Each and Every Weekend' with no range. So none is recorded here. See the SFMA note in the source above for why a guessed season_end is worse than no season_end."
+   }
+  ]
+ },
+ {
   "name": "DC Farmers Markets",
   "type": "inline",
   "city": "Washington, DC",
