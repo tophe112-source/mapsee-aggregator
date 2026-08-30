@@ -2160,13 +2160,6 @@
   "limit": 300
  },
  {
-  "name": "A Cleaner Alki - Seattle Parks Foundation (Seattle)",
-  "url": "https://www.seattleparksfoundation.org/?post_type=tribe_events&tribe_events_cat=volunteer-opportunities&ical=1&eventDisplay=list",
-  "category": "volunteer",
-  "geocode_suffix": ", Seattle, WA",
-  "limit": 300
- },
- {
   "name": "SEEDArts (SouthEast Effective Development) (Seattle)",
   "url": "https://www.seedseattle.org/?post_type=tribe_events&ical=1&eventDisplay=list",
   "category": "arts",
