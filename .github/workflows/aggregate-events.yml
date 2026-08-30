@@ -454,18 +454,41 @@ jobs:
           else
             echo "no rolodex_sources.json — skipping"
           fi
-      # The ONLY scraper in this sweep. pioneersquare.org publishes no feed at
-      # all — no iCal, no Tribe REST, no event post type, no schema.org Event —
-      # so this reads the markup, which is a maintenance cost every other step
-      # here avoids. It earns it: a dense arts neighbourhood whose galleries and
-      # artist talks appear in no ticketing API. If the theme changes it finds
-      # nothing and says so, and source-health.yml turns that into an issue.
+      # One of the two scrapers in this sweep. pioneersquare.org publishes no
+      # feed at all — no iCal, no Tribe REST, no event post type, no schema.org
+      # Event — so this reads the markup, which is a maintenance cost every
+      # other step here avoids. It earns it: a dense arts neighbourhood whose
+      # galleries and artist talks appear in no ticketing API. If the theme
+      # changes it finds nothing and says so, and source-health.yml turns that
+      # into an issue.
       - name: Import Visit Pioneer Square (Seattle neighbourhood calendar, HTML)
         run: |
           if [ -f pioneersquare_sources.json ]; then
             python mapsee_ingest_pioneersquare.py --config pioneersquare_sources.json --store feeds_events.json
           else
             echo "no pioneersquare_sources.json — skipping"
+          fi
+      # The other scraper, and the same bargain: seattlecenter.com has no feed
+      # either (robots.txt is a 404, there is no JSON-LD on any page, and no
+      # iCal export exists), so this reads HTML too.
+      #
+      # It costs MORE than Pioneer Square does, because the date, the venue and
+      # the booking link are only on the individual event pages — one request
+      # per event, so `within_days` in the config is what keeps a run to a
+      # couple of minutes rather than the ~630 rows the calendar publishes.
+      #
+      # What it buys is the one campus holding McCaw Hall, the Bagley Wright,
+      # Cornish Playhouse, Fisher Pavilion, the Armory and the open grounds —
+      # and roughly HALF of what it lists is free. Free courtyard concerts,
+      # community commemorations and public art walks are precisely the supply
+      # the ticketing APIs do not carry. Climate Pledge Arena is deliberately
+      # skipped, because Ticketmaster already has it; the config says why.
+      - name: Import Seattle Center (campus calendar, HTML)
+        run: |
+          if [ -f seattlecenter_sources.json ]; then
+            python mapsee_ingest_seattlecenter.py --config seattlecenter_sources.json --store feeds_events.json
+          else
+            echo "no seattlecenter_sources.json — skipping"
           fi
       # The second Seattle neighbourhood association, and NOT a scraper: the
       # calendar is a SvelteKit island over a public admin-ajax action that

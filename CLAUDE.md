@@ -8,7 +8,7 @@ the Worker), `../conbinience`, `../fishsie`. `../SUITE-AUDIT.md` covers all four
 ## The shape of it
 
 ```
-34 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+41 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -38,6 +38,7 @@ front doors it reaches.
 | Public transit bundles (bus/metro suggestions on a walk) | **not here** — `../mapsee/tools/transit_build.py` + `transit_sources.json`. It is Python and it is a scheduled pipeline, so this is where you would look; it lives in the product repo because its output is a static site asset and mapsee deploys on push, which a cross-repo push would only complicate |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | Brazilian cultural events (state/municipal registers) | `mapsee_ingest_mapasculturais.py` + `mapasculturais_sources.json` — the only source that puts anything on the map in Brazil |
+| The two HTML scrapers (no feed exists at either source) | `mapsee_ingest_pioneersquare.py`, `mapsee_ingest_seattlecenter.py` — both place events from a venue book in their config, never from the page |
 | What runs when | `.github/workflows/aggregate-events.yml` header — the best doc in the repo |
 
 Source lists are the `*_sources.json` files; `CONFIG` at the top of
@@ -1116,6 +1117,43 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   `PGRST204` instead of guessing which column is missing. Whoever adds that
   column has to decide what the comparison does with it, in the run that adds
   it, rather than discovering a year later that a lever stopped pulling.
+- **The obvious copy of a fact is the wrong one, and seattlecenter.com offers
+  three at once.** Its listing groups cards under a date heading with NO YEAR on
+  a calendar that runs seven months ahead, so inheriting it stamps every January
+  show eleven months in the past, where the horizon filter drops it in silence —
+  the date is only stated in full on the individual event page, which is why
+  that adapter pays one request per event. Its locations are Google Maps links
+  carrying TWO coordinate pairs, and the first one a regex finds (`@lat,lon`,
+  the viewport centre) is a constant 165m west of the place (`!3d!4d`) on every
+  link; worse, on a DETAIL page that link usually belongs to a different event,
+  because of the related-events rail. Same tell as MyListing's two dates, SLU's
+  series start and BikeReg's server offset: when a source spells one fact twice,
+  find a record where the two DISAGREE before choosing.
+  `mapsee_ingest_seattlecenter.py`, pinned in `test_ingest_seattlecenter.py`.
+- **`make_fingerprint` is date-keyed on purpose, and a matinee is not the
+  evening show.** It truncates its date argument to `YYYY-MM-DD` because it is
+  the CROSS-SOURCE key and two feeds describing one gig disagree about the
+  minute — right for all 34 adapters that came before, because their sources do
+  not run the same event twice in a day. Seattle Rep does: Freak the Mighty
+  plays 2:00 p.m. and 7:30 p.m. on the same Saturday, filed as separate
+  listings because they are separate performances people hold separate tickets
+  to. `name|date|place` is byte-identical for the pair and `EventStore` dedupes
+  on the fingerprint PRIMARY, so one simply vanished — 59 events in, 57
+  fingerprints out, both casualties a matinee. `mapsee_dedupe_events.py` already
+  draws this line the same way and says why; if you add a source with same-day
+  repeats, widen the key by the clock as `occurrence_fingerprint` does, and
+  leave all-day rows hashing to exactly what the shared helper returns.
+- **A specific-but-wrong category DEFAULT is worse than a vague right one.**
+  The rule below about pure vs mixed calendars has a second edge: on Seattle
+  Center's campus, giving each ROOM its own key looked more precise and made
+  the classifier worse. "Summer Fitness: Workout Wednesdays: Yoga" on the
+  Exhibition Hall lawn stopped reaching fitness once the lawn declared
+  `outdoors`, because `outdoors` is not promotable and `community` is; the
+  Armory declaring `food` filed two cultural festivals as food. Only the three
+  dedicated performing-arts houses (McCaw Hall, the Bagley Wright, Cornish
+  Playhouse) keep a room-level key, because the classifier genuinely cannot
+  recover a play from its title. Everything else states `community` and lets
+  the promotions run.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
   publishes each occurrence separately and the store is rebuilt every run, so the
   occurrences never meet in memory — the table is the only place a series is
@@ -1412,7 +1450,8 @@ python test_ingest_jsonld.py        # placeholder locations, naive times, and ca
 python test_discover_osm.py         # discovery: a site builder is not a calendar, and a 200 can be a refusal
 python test_indexnow.py             # paging our own database: keyset, not offset
 python test_ingest_parkrun.py       # the free weekly runs, and configs a guarded job needs
-python test_ingest_markets.py       # a metro that loses its Overpass slot, and city-vs-street
+python test_ingest_markets.py       # a metro that loses its Overpass slot, city-vs-street, and monthly markets
+python test_ingest_seattlecenter.py # yearless dates, another event's coordinates, and matinees
 python test_ingest_openactive.py    # an RPDE feed's first page is its oldest, and it lies both ways
 python test_ingest_osm_amenities.py # which civic pins earn a sheet, and which are just the map
 python test_retire_thin_artwork.py  # which already-written artwork rows may be hidden
@@ -1427,7 +1466,7 @@ python catalog_curate.py coverage   # where the catalog is thin, per lens catego
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 27 test scripts are the CI gate (`tests.yml`). They print one line per
+The 29 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

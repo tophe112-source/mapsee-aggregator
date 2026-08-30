@@ -123,6 +123,13 @@ jobs:
       # and since this source runs twice a week that could hide the two largest
       # US markets for days behind one line of log. The second pass and its
       # COUNT are pinned here, along with the rule that a city is not a street.
+      #
+      # Plus the monthly schedules — "second Saturdays", "last Thursdays" — that
+      # most flea and night markets actually run on. Every schedule this adapter
+      # understood was weekly, and expanding a monthly market weekly invents four
+      # pins for every real one, each on the right street at the right time. The
+      # rule is pinned against Seattle Local Markets' own published date list,
+      # including the edge that makes it worth pinning: "last" is not "fifth".
       - name: Market sweep survives a metro that loses its slot
         run: python test_ingest_markets.py
 
@@ -292,6 +299,19 @@ jobs:
       # argv FORM is what is pinned here, because the outcome was invisible.
       - name: Sweep argv survives a negative latitude
         run: python test_sweep_global.py
+
+      # The repo's second HTML scraper, and every fact it needs is offered
+      # twice with the obvious copy wrong. The listing groups cards under a
+      # date heading carrying NO YEAR, on a calendar that runs seven months
+      # ahead and so crosses New Year. Locations are Google Maps links whose
+      # FIRST coordinate is the viewport centre, a constant 165m west of the
+      # place — and on a detail page that link usually belongs to a different
+      # event entirely. And a Saturday matinee shares a title, a venue and a
+      # date with the evening show, which the shared date-keyed fingerprint
+      # cannot separate: 59 events came out as 57 before that was fixed, both
+      # casualties a real performance somebody holds a ticket to.
+      - name: Seattle Center (yearless dates, borrowed coordinates, matinees)
+        run: python test_ingest_seattlecenter.py
 
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a

@@ -1,0 +1,116 @@
+{
+  "_comment": "Seattle Center's campus calendar, read by mapsee_ingest_seattlecenter.py. `places` is a VENUE BOOK keyed on the detail page's own `Place` string - see the adapter docstring for why coordinates cannot be scraped from the pages themselves. Keys are matched loosely: the adapter lowercases, strips punctuation, drops a leading 'the' and removes any ' at Seattle Center' suffix, so 'Climate Pledge Arena at Seattle Center' and 'The Climate Pledge Arena' both find 'climate pledge arena'.",
+  "_coordinates_provenance": "Every lat/lon below is the site's OWN per-card `!3d!4d` value - the place pin inside its Google Maps link, taken from the listing card the event actually sits in, NOT from a detail page where the related-events rail mixes in other events' links. Each was then cross-checked against OpenStreetMap and every building agreed to within ~35m: Climate Pledge Arena 7m, Fisher Pavilion 3m, Mural Amphitheatre 6m, Exhibition Hall 8m, McCaw Hall 12m, the Armory 13m, Cornish Playhouse 23m, Bagley Wright 32m. `coords_exact` is set only on the buildings; the campus-level pins below say so and are left inexact.",
+  "_how_the_book_grows": "A Place with no entry here is skipped and NAMED on every run - 'unplaceable place, skipped'. That log line is the maintenance signal: read it, find the room, add it. Nothing is guessed into place.",
+  "sites": [
+    {
+      "name": "Seattle Center",
+      "listing": "https://seattlecenter.com/events/event-calendar",
+      "category": "community",
+      "within_days": 60,
+      "max_pages": 40,
+      "max_events": 400,
+      "pause": 0.4,
+      "_horizon_comment": "The calendar publishes about seven months ahead, roughly 90 pages of 7 - some 630 rows, one detail-page request each. within_days keeps the run to the near horizon: 60 days is about 25 pages and ~170 events, a couple of minutes. Raising it costs one request per extra event, linearly, and buys dates almost nobody is looking at yet.",
+      "default_city": "Seattle",
+      "default_region": "WA",
+      "default_country": "US",
+      "default_postal_code": "98109",
+      "_skip_places_comment": "CLIMATE PLEDGE ARENA IS DELIBERATELY NOT INGESTED, and this is the one judgement call in the file worth re-reading before changing. It is the most thoroughly Ticketmaster-covered room in Seattle - J. Cole, Andrea Bocelli, Weezer, The Strokes, Tame Impala, the Kraken and the Storm were 11 of the first 70 rows here, and every one of them is already in this repo's Ticketmaster feed with better metadata (exact doors, lineup, a real ticket link). The problem is that they would NOT collapse into one pin: mapsee_dedupe_events.py groups on the NORMALIZED TITLE, and this site says 'J. Cole' where Ticketmaster says 'J. Cole: The Fall-Off Tour'. Two pins on the arena for every show, and the sweep that exists to catch exactly that cannot see it. Delete this line to ingest the arena anyway; the adapter prints what it skipped on every run either way.",
+      "skip_places": [
+        "Climate Pledge Arena at Seattle Center"
+      ],
+      "places": {
+        "grounds public space": {
+          "_comment": "The campus itself, and the single most common Place - 29 of the first 70 rows, 27 of them the daily Seattle Center Sculpture Walk. Not a building, so not coords_exact: this is the park centroid, which OSM's 'Seattle Center' park node agrees with to 25m. Events here are genuinely spread across four blocks and no pin can be better than the campus.",
+          "address": "305 Harrison St",
+          "lat": 47.6219473,
+          "lon": -122.3517443
+        },
+        "bagley wright theatre": {
+          "_comment": "Seattle Repertory Theatre's main house. OSM has no node for the theatre itself, only 'Neon For The Bagley Wright Theatre' 32m away, which is the artwork on its facade - so the agreement is as close as OSM can confirm.",
+          "address": "155 Mercer St",
+          "lat": 47.6239152,
+          "lon": -122.3536861,
+          "coords_exact": true,
+          "category": "theater"
+        },
+        "marion oliver mccaw hall auditorium": {
+          "_comment": "Seattle Opera and Pacific Northwest Ballet. OSM 'McCaw Hall' at 47.6239567,-122.3504085, 12m away.",
+          "address": "321 Mercer St",
+          "lat": 47.6239994,
+          "lon": -122.3502714,
+          "coords_exact": true,
+          "category": "theater"
+        },
+        "cornish playhouse": {
+          "_comment": "OSM 'Cornish Playhouse' at 47.6239122,-122.3524178, 23m away.",
+          "address": "201 Mercer St",
+          "lat": 47.6241187,
+          "lon": -122.3524483,
+          "coords_exact": true,
+          "category": "theater"
+        },
+        "exhibition hall": {
+          "_comment": "OSM 'Seattle Center Exhibition Hall' at 47.6239561,-122.3516797, 8m away.",
+          "address": "301 Mercer St",
+          "lat": 47.6240056,
+          "lon": -122.351606,
+          "coords_exact": true
+        },
+        "south exhibition hall lawn": {
+          "_comment": "The lawn on the south side of Exhibition Hall. No location link appears on any card for it, so this is the hall's own pin - honest about the building, deliberately not exact about which patch of grass.",
+          "address": "301 Mercer St",
+          "lat": 47.6240056,
+          "lon": -122.351606
+        },
+        "fisher pavilion block": {
+          "_comment": "OSM 'Fisher Pavilion' at 47.6211469,-122.3521882, 3m away - the closest agreement in the book.",
+          "address": "305 Harrison St",
+          "lat": 47.6211235,
+          "lon": -122.352168,
+          "coords_exact": true
+        },
+        "armory food event hall": {
+          "_comment": "The Armory food court and event floor. OSM 'Seattle Center Armory' at 47.6214886,-122.3508021, 13m away. Category food because the room IS the campus food hall; derive_categories promotes anything more specific from the title.",
+          "address": "305 Harrison St",
+          "lat": 47.6215514,
+          "lon": -122.3509426,
+          "coords_exact": true
+        },
+        "armory loft combined 2 3": {
+          "_comment": "A rentable room upstairs in the Armory - conventions, card tournaments, community meetings. No card for it carries a location link, so it takes the Armory's own pin, which is the building it is in.",
+          "address": "305 Harrison St",
+          "lat": 47.6215514,
+          "lon": -122.3509426,
+          "coords_exact": true
+        },
+        "mural amphitheatre": {
+          "_comment": "The outdoor amphitheatre below the Space Needle - free summer concerts and community commemorations. OSM 'Mural Amphitheatre' at 47.6204674,-122.3507709, 6m away.",
+          "address": "305 Harrison St",
+          "lat": 47.6204689,
+          "lon": -122.3508473,
+          "coords_exact": true
+        },
+        "north international fountain mall": {
+          "_comment": "The open mall north of the International Fountain. Its cards carry the generic campus pin rather than one of its own, so that is what this is - campus-level, not exact. OSM's 'International Fountain' is 47.6225030,-122.3520250, about 62m north.",
+          "address": "305 Harrison St",
+          "lat": 47.6219473,
+          "lon": -122.3517443
+        },
+        "northwest courtyard upper nw courtyard": {
+          "_comment": "Same as the fountain mall: the site gives it the campus pin, so this is campus-level and says so.",
+          "address": "305 Harrison St",
+          "lat": 47.6219473,
+          "lon": -122.3517443
+        },
+        "artists at play plaza": {
+          "_comment": "The plaza beside the Artists at Play playground, at the north-east of the campus. No card carries a location link for it; OSM 'Artists at Play Playground' is 47.6218308,-122.3492232 and that is what this uses - a surveyed point, but for the playground rather than the plaza, so not marked exact.",
+          "address": "305 Harrison St",
+          "lat": 47.6218308,
+          "lon": -122.3492232
+        }
+      }
+    }
+  ]
+}
