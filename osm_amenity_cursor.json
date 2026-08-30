@@ -1,10 +1,12 @@
 {
- "Berlin": 1899,
- "Chicago": 1953,
+ "Berlin": 5899,
+ "Chicago": 5953,
  "Edinburgh": 0,
- "London": 4083,
- "New York": 6540,
- "Paris": 16000,
- "Portland": 3418,
- "Seattle": 3478
+ "London": 8083,
+ "New York": 1080,
+ "Paris": 20000,
+ "Portland": 2836,
+ "Rio de Janeiro": 0,
+ "Seattle": 7478,
+ "S\u00e3o Paulo": 0
 }
