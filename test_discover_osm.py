@@ -323,6 +323,75 @@ def main():
                (not _os.path.exists(_lp)) or _ledger_before == _hl.sha256(
                    open(_lp, "rb").read()).hexdigest())
 
+    # ------------------------------------------------------------------
+    # THE SWEEP ORDER, AND THE CURSOR THAT HAS TO SURVIVE AN EDIT TO IT.
+    # ------------------------------------------------------------------
+    # metros() promises the budget goes "where the catalog is thinnest" and for
+    # its whole life delivered very nearly the opposite: metros_global.json is
+    # in the order the countries were ADDED, which starts GB (48 sources), CA
+    # (36), AU (46), FR (33). Measured from the live cursor at three metros a
+    # run, Brazil — the one country with a purpose-built adapter — was 39 days
+    # out, immediately before 80 US metros took the next 27.
+    real_sources = dict(osm.CATALOG_SOURCES)
+    try:
+        osm.CATALOG_SOURCES = {"US": 576, "GB": 48, "BR": 14, "HK": 1}
+        ms = osm.metros(path_global="does-not-exist.json", path_us="nope.txt")
+        check("no config, no metros", ms, [])
+    finally:
+        osm.CATALOG_SOURCES = real_sources
+
+    ms = osm.metros()
+    order = [m["country"] for m in ms]
+    def _first(cc):
+        return order.index(cc) if cc in order else 10**6
+    check_true("the thinnest catalog is swept FIRST, not the richest "
+               f"({order[0]} before {order[-1]})",
+               _first("HK") < _first("GB") < _first("US"))
+    check_true("...and Brazil, which has its own adapter, comes before the US",
+               _first("BR") < _first("US"))
+    check_true("...and the US is last, on the same rule and not a special case",
+               order[-1] == "US")
+    # A country nobody has measured has no sources, so it sorts first — the same
+    # rule said the other way round. Without this a metro added for a country the
+    # catalog has never reached would sweep in a year rather than next.
+    unknown = [m for m in ms if m["country"] not in osm.CATALOG_SOURCES]
+    check_true("an unmeasured country is treated as empty, so it sweeps first",
+               not unknown or order.index(unknown[0]["country"]) == 0)
+    gb = [m["name"] for m in ms if m["country"] == "GB"]
+    check("a tie inside one country keeps the config's own order", gb[0], "London")
+
+    # THE CURSOR NAMES A METRO; IT DOES NOT COUNT TO ONE. This is the live bug:
+    # the cursor said 49 — Paris — on a ledger already holding 1,041 probes of
+    # .fr hosts, because metros_global.json was broadened underneath it and an
+    # insertion re-aimed a POSITION at a country already read.
+    real = (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger)
+    C._save_ledger = lambda led: None
+    osm.overpass_venues = lambda sess, bbox, lab: []
+    osm.find_calendar = lambda sess, url: {"status": "no-calendar"}
+    try:
+        before = [{"name": n, "country": "GB", "bbox": (0, 0, 1, 1)}
+                  for n in ("Alpha", "Beta", "Gamma")]
+        osm.metros = lambda: before
+        cur = {}
+        C._discover_osm(C._session(), set(), {}, 500, cur, metros_per_run=1)
+        check("one metro read leaves the cursor NAMING the next", 
+              cur["metro_key"], "GB:Beta")
+        # Somebody adds a metro at the top. A position would now mean Alpha.
+        after = [{"name": "Inserted", "country": "GB", "bbox": (0, 0, 1, 1)}] + before
+        osm.metros = lambda: after
+        C._discover_osm(C._session(), set(), {}, 500, cur, metros_per_run=1)
+        check("...and after the list is edited it resumes where it SAID, "
+              "not where it counted", cur["metro_key"], "GB:Gamma")
+        # An unknown name is a fresh start at the top, which under the order
+        # above is the country the catalog has least of.
+        cur2 = {"metro_key": "GB:Deleted"}
+        C._discover_osm(C._session(), set(), {}, 500, cur2, metros_per_run=1)
+        check("a cursor naming a metro that is gone restarts at the thinnest",
+              cur2["metro_key"], "GB:Alpha")
+    finally:
+        (osm.overpass_venues, osm.find_calendar, osm.metros,
+         C._save_ledger) = real
+
     print()
     if FAILURES:
         print(f"{len(FAILURES)} FAILED: " + "; ".join(FAILURES))

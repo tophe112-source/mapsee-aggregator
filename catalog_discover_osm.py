@@ -647,13 +647,48 @@ def _bbox_from(latlong: str, radius_km: float) -> str:
     return f"{lat - dlat:.4f},{lon - dlon:.4f},{lat + dlat:.4f},{lon + dlon:.4f}"
 
 
+# Catalog sources per country, measured 2026-08-30 with `catalog_curate.py
+# coverage`. Nothing else reads this: it is the SWEEP ORDER, thinnest first.
+#
+# metros() has always promised the budget goes "where the catalog is thinnest",
+# and until this existed it did not. metros_global.json is ordered by the order
+# the countries were ADDED — GB, CA, AU, IE, NZ, FR — which is very nearly
+# richest-first: GB has 48 sources and Hong Kong has 1. Measured from the live
+# cursor at three metros a run, the walk reached Germany on day 4 and Brazil —
+# the one country here with a purpose-built adapter, mapsee_ingest_mapasculturais
+# — on day 39, immediately before 80 US metros with 576 sources between them
+# took the next 27 days. The thinnest countries in the file (HK 1, KR 2, AE 2,
+# PT 2, DK 2) waited longest, which is the rule exactly backwards.
+#
+# A country absent from this table has no sources at all, so it sorts FIRST.
+# That is the same rule said the other way round, and it means a metro added for
+# a country the catalog has never reached is swept next rather than in a year.
+# Re-measure by re-running coverage and editing this dict.
+CATALOG_SOURCES = {
+    "US": 576, "GB": 48, "AU": 46, "CA": 36, "FR": 33, "DE": 25, "IE": 17,
+    "NZ": 16, "NL": 16, "IN": 15, "BR": 14, "MX": 13, "ZA": 11, "JP": 11,
+    "IT": 10, "CH": 9, "ES": 8, "BE": 7, "SG": 5, "PL": 5, "AT": 4, "NO": 4,
+    "SE": 4, "FI": 3, "CZ": 3, "DK": 2, "PT": 2, "KR": 2, "AE": 2, "HK": 1,
+}
+
+
+def metro_key(m: Dict[str, Any]) -> str:
+    """The cursor's name for a metro. NOT its position — see _discover_osm."""
+    return f"{m.get('country', '??')}:{m.get('name', '?')}"
+
+
 def metros(path_global: str = "metros_global.json",
            path_us: str = "metros_us.txt") -> List[Dict[str, Any]]:
     """Every metro this repo already sweeps, as (name, country, bbox).
 
-    Ordered international-first so a cursor that has only ever run a few times
-    has spent its budget where the catalog is thinnest — the US is the part
-    already covered by the ticketing APIs.
+    Ordered THINNEST CATALOG FIRST, by CATALOG_SOURCES above, so a cursor that
+    has only ever run a few times has spent its budget where the catalog is
+    thinnest. The US sorts last on the same rule that orders everything else —
+    576 sources — rather than by a special case, because it is the part already
+    covered by the ticketing APIs.
+
+    Ties keep the order the config file gives them, so the walk inside one
+    country stays the order somebody wrote down.
     """
     out: List[Dict[str, Any]] = []
     p = os.path.join(HERE, path_global)
@@ -676,4 +711,6 @@ def metros(path_global: str = "metros_global.json",
                 continue
             out.append({"name": (name.strip() or latlong), "country": "US",
                         "bbox": _bbox_from(latlong, 25.0)})
+    # Stable, so a tie inside one country keeps the order the config wrote down.
+    out.sort(key=lambda m: CATALOG_SOURCES.get(m.get("country"), 0))
     return out

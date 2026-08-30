@@ -1155,7 +1155,23 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
     if not all_metros:
         print("  no metro list — metros_global.json / metros_us.txt missing")
         return {}, {}
-    start = int(cursor.get("metro") or 0) % len(all_metros)
+    # THE CURSOR NAMES A METRO. IT DOES NOT COUNT TO ONE.
+    #
+    # It used to store a position, and a position means nothing the moment the
+    # list is edited: metros_global.json has been broadened twice, and inserting
+    # 14 German metros ahead of the walk silently re-aims the cursor at a country
+    # it already read while the ones after it are never reached. The live cursor
+    # is the evidence — it said 49, which is Paris, on a ledger holding 1,041
+    # probes of .fr hosts. Those French metros were swept and the cursor was
+    # pointed back at them by an edit, not by a wrap.
+    #
+    # Keyed by name, an edit costs nothing: unknown key -> start at the top,
+    # which under the thinnest-first order in osm.metros() is the country the
+    # catalog has least of, and re-probing is already cheap (see the ledger
+    # note below). `metro` is still written, for a human reading the file.
+    keys = [osm.metro_key(m) for m in all_metros]
+    prev = cursor.get("metro_key")
+    start = keys.index(prev) if prev in keys else 0
     declined = set()
     for fname in ("squarespace_sources.json", "tribe_sources.json",
                   "jsonld_sources.json", "ics_sources.json"):
@@ -1193,11 +1209,12 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
             break
         idx = (start + step) % len(all_metros)
         m = all_metros[idx]
+        key = keys[idx]                       # position moves; the name does not
         label = f"{m['name']}, {m['country']}"
         venues = osm.overpass_venues(session, m["bbox"], label)
         if venues is None:
-            n = int(stuck.get(str(idx), 0)) + 1
-            stuck[str(idx)] = n
+            n = int(stuck.get(key, 0)) + 1
+            stuck[key] = n
             if n >= 3:
                 # Never asked three times running is no longer a bad afternoon.
                 # Move past it rather than wedge the sweep on one bbox for ever,
@@ -1205,13 +1222,13 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
                 # block exists to prevent.
                 print(f"  {label}: overpass has refused {n} runs running — SKIPPING "
                       f"this metro and advancing past it")
-                stuck.pop(str(idx), None)
+                stuck.pop(key, None)
                 read += 1
             else:
                 print(f"  {label}: overpass did not answer — metro UNREAD, the "
                       f"cursor stays here (attempt {n}/3)")
             break
-        stuck.pop(str(idx), None)
+        stuck.pop(key, None)
         print(f"  {label}: {len(venues)} venue(s) publish a website")
         # A METRO IS ONLY `read` IF IT WAS READ TO THE END. Both ways out of the
         # venue loop below leave it half-probed, and the cursor must not march
@@ -1299,7 +1316,9 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
             break
 
     # Only past what was actually READ.
-    cursor["metro"] = (start + read) % len(all_metros)
+    nxt = (start + read) % len(all_metros)
+    cursor["metro_key"] = keys[nxt]
+    cursor["metro"] = nxt                     # informational: what the name is now at
     if read < per_run:
         print(f"  advanced {read}/{per_run} metros; the rest are unread and come "
               f"round again next run")
