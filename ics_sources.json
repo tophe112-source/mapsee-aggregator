@@ -2318,5 +2318,14 @@
   "geocode_suffix": ", Paris, FR",
   "limit": 300,
   "_metro": "Paris, FR"
+ },
+ {
+  "name": "Ballerup Museum",
+  "category": "arts",
+  "_found": "osm:museum -> events-manager+my-calendar",
+  "url": "https://www.ballerupmuseum.dk/?ical=1",
+  "geocode_suffix": ", Copenhagen, DK",
+  "limit": 300,
+  "_metro": "Copenhagen, DK"
  }
 ]

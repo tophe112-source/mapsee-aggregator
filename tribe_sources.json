@@ -3008,6 +3008,273 @@
         "lon": 2.4580181
       },
       "_metro": "Paris, FR"
+    },
+    {
+      "name": "香港新聞博覽館 Hong Kong News-Expo",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://hkne.org.hk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "香港新聞博覽館 Hong Kong News-Expo",
+        "lat": 22.283365,
+        "lon": 114.1510359
+      },
+      "_metro": "Hong Kong, HK"
+    },
+    {
+      "name": "觀塘海濱活動空間01",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.aquabeat.hk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "觀塘海濱活動空間01",
+        "address": "126 海濱道 Hoi Bun Road",
+        "lat": 22.3112234,
+        "lon": 114.2182889
+      },
+      "_metro": "Hong Kong, HK"
+    },
+    {
+      "name": "AL-DANS",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://www.al-dans.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "AL-DANS",
+        "lat": 55.741516,
+        "lon": 12.4803629
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Warehouse9",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://warehouse9.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Warehouse9",
+        "lat": 55.6693866,
+        "lon": 12.561163
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Mamma Mia",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://mmnv.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mamma Mia",
+        "lat": 55.7109032,
+        "lon": 12.5160078
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Det Gamle hundebad",
+      "category": "community",
+      "_found": "osm:bar -> tribe+jsonld-event+ics",
+      "base_url": "https://detgamlehundebad.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Det Gamle hundebad",
+        "lat": 55.677866,
+        "lon": 12.4637122
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Lindegaarden",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kulturstedetlindegaarden.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lindegaarden",
+        "lat": 55.7762328,
+        "lon": 12.5051169
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Demokrati Garage",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.demokratigarage.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Demokrati Garage",
+        "lat": 55.7075025,
+        "lon": 12.5247288
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Byhaven",
+      "category": "music",
+      "_found": "osm:music_venue -> tribe+jsonld-event",
+      "base_url": "https://byhavenkbh.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Byhaven",
+        "lat": 55.6771862,
+        "lon": 12.5650775
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Kinbaku Lounge",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kinbakulounge.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kinbaku Lounge",
+        "lat": 55.6520905,
+        "lon": 12.5208569
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "De Anbragtes Vilkår",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://deanbragtesvilkar.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Anbragtes Vilkår",
+        "lat": 55.6783174,
+        "lon": 12.5685098
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Vor Frelsers Kirke",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.vorfrelserskirke.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vor Frelsers Kirke",
+        "lat": 55.6729081,
+        "lon": 12.5942516
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "uKirke",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.folkekirken-vesterbro.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "uKirke",
+        "lat": 55.6676898,
+        "lon": 12.5535448
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "LiteraturHaus",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://www.literaturhaus.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "LiteraturHaus",
+        "lat": 55.6908006,
+        "lon": 12.5556601
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Cirkel Ordenen",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "http://cirkelordenen.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cirkel Ordenen",
+        "lat": 55.685862,
+        "lon": 12.540348
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Bådteatret",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://baadteatret.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bådteatret",
+        "lat": 55.679772,
+        "lon": 12.5903491
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Øresunds Sejlklub Frem",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://oesf.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Øresunds Sejlklub Frem",
+        "lat": 55.7140489,
+        "lon": 12.5875929
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Baghuset",
+      "category": "music",
+      "_found": "osm:music_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://baghusetballerup.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Baghuset",
+        "lat": 55.7322317,
+        "lon": 12.3621478
+      },
+      "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Egå Sejlklub",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.egaasejlklub.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Egå Sejlklub",
+        "lat": 56.209763,
+        "lon": 10.2879369
+      },
+      "_metro": "Aarhus, DK"
     }
   ],
   "_not_included": {

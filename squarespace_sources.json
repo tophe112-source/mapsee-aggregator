@@ -735,6 +735,34 @@
         "lon": 2.3363979
       },
       "_metro": "Paris, FR"
+    },
+    {
+      "name": "Blue Lotus Gallery",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://bluelotus-gallery.com/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Blue Lotus Gallery",
+        "address": "28 磅巷 Pound Lane",
+        "city": "Hong Kong",
+        "lat": 22.2843197,
+        "lon": 114.1472903
+      },
+      "_metro": "Hong Kong, HK"
+    },
+    {
+      "name": "Herlev Teaterbio",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.teaterbio.dk/forestillinger",
+      "max_events": 200,
+      "venue": {
+        "name": "Herlev Teaterbio",
+        "lat": 55.7253935,
+        "lon": 12.439358
+      },
+      "_metro": "Copenhagen, DK"
     }
   ]
 }

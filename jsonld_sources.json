@@ -812,6 +812,230 @@
     "lon": 2.2146849
    },
    "_metro": "Paris, FR"
+  },
+  {
+   "name": "Det Færøske Hus",
+   "category": "community",
+   "_found": "osm:community_centre -> jsonld-event",
+   "listing": [
+    "https://fohus.dk/event-directory/"
+   ],
+   "link_pattern": "https://fohus\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Det Færøske Hus",
+    "lat": 55.6727687,
+    "lon": 12.5601261
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "ASPA Centret",
+   "category": "community",
+   "_found": "osm:social_facility -> modern-events+jsonld-event",
+   "listing": [
+    "https://askovfondenssocialpsykiatri.dk/kalender/"
+   ],
+   "link_pattern": "https://askovfondenssocialpsykiatri\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "ASPA Centret",
+    "lat": 55.685293,
+    "lon": 12.552593
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "4. Hvidovre Søspejdergruppe",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://sospejder.com/begivenhed/ulvedoegn-september-2026"
+   ],
+   "link_pattern": "https://sospejder\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "4. Hvidovre Søspejdergruppe",
+    "lat": 55.6260147,
+    "lon": 12.4999827
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "Havarthigaarden",
+   "category": "community",
+   "_found": "osm:events_venue -> modern-events+jsonld-event",
+   "listing": [
+    "https://havarthigaarden.dk/events/"
+   ],
+   "link_pattern": "https://havarthigaarden\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Havarthigaarden",
+    "lat": 55.819514,
+    "lon": 12.496935
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "Mjølner Gruppe",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://www.mjoelnerspejder.dk/begivenhed/mini-tur-kurreholm"
+   ],
+   "link_pattern": "https://www\\.mjoelnerspejder\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Mjølner Gruppe",
+    "lat": 55.7814024,
+    "lon": 12.3722161
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "Søspejdergruppen Fribytterne",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://fribytterne.dk/begivenhed/bestyrelsesmoede-1"
+   ],
+   "link_pattern": "https://fribytterne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Søspejdergruppen Fribytterne",
+    "lat": 55.6633635,
+    "lon": 12.6354002
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "Thorolf - spejderne på Islands Brygge, Det Danske Spejderkorps",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://www.thorolf.dk/begivenhed/indmeldelsesgebyr-ny-spejder"
+   ],
+   "link_pattern": "https://www\\.thorolf\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Thorolf - spejderne på Islands Brygge, Det Danske Spejderkorps",
+    "lat": 55.6623213,
+    "lon": 12.5801436
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "Jacala-Stammen",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://www.jacala.dk/begivenhed/superhelte-traef-mikro-og-minispejdere-mission-stjerneskjold"
+   ],
+   "link_pattern": "https://www\\.jacala\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Jacala-Stammen",
+    "lat": 55.6425308,
+    "lon": 12.2902291
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "Wagandoo Gruppe",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://www.wagandoo.dk/begivenhed/sheltertur"
+   ],
+   "link_pattern": "https://www\\.wagandoo\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Wagandoo Gruppe",
+    "lat": 55.6554664,
+    "lon": 12.3098442
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "Portalen, Greve Teater- & Musikhus",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://portalen.dk/kalender/"
+   ],
+   "link_pattern": "https://portalen\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Portalen, Greve Teater- & Musikhus",
+    "lat": 55.5982457,
+    "lon": 12.3323627
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "Buddhistisk Center København",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://buddha.dk/"
+   ],
+   "link_pattern": "https://buddha\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Buddhistisk Center København",
+    "lat": 55.7224963,
+    "lon": 12.5749769
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "Greve Museum",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://grevemuseum.dk/det-sker/event-mappe/pilates-i-det-fri"
+   ],
+   "link_pattern": "https://grevemuseum\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Greve Museum",
+    "lat": 55.5908664,
+    "lon": 12.2521363
+   },
+   "_metro": "Copenhagen, DK"
+  },
+  {
+   "name": "Restaurant Møllebæk",
+   "category": "community",
+   "_found": "osm:events_venue -> jsonld-event",
+   "listing": [
+    "https://www.mollebaek.dk/arrangementer"
+   ],
+   "link_pattern": "https://www\\.mollebaek\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Restaurant Møllebæk",
+    "lat": 55.945365,
+    "lon": 9.855321
+   },
+   "_metro": "Aarhus, DK"
+  },
+  {
+   "name": "12. Århus Gruppe, Det Danske Spejderkorps",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://12aarhus.dk/begivenhed/adventure-race-hos-tranbjergspejderne"
+   ],
+   "link_pattern": "https://12aarhus\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "12. Århus Gruppe, Det Danske Spejderkorps",
+    "lat": 56.1762134,
+    "lon": 10.2077485
+   },
+   "_metro": "Aarhus, DK"
   }
  ],
  "_not_included": {
