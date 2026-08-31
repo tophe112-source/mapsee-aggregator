@@ -1041,8 +1041,38 @@ def fetch_bandsintown_events(*_a, **_k) -> List[NormalizedEvent]:
 
 
 def geocode_venue(address: Optional[str]):
-    """TODO: geocode a venue once and cache the lat/lon (Nominatim self-hosted, or Google/Mapbox
-    free tier). Venues repeat across events, so cache by normalized address."""
+    """NOT IMPLEMENTED, and THIS SIGNATURE IS THE WRONG ONE — do not fill it in.
+
+    A shared geocoder is the obvious way to unblock every non-US source (the
+    sync's only geocoder is US Census, so outside the US a source that brings no
+    coordinates is dropped there in silence). `make_location_geocoder` in
+    mapsee_ingest_ics.py is the working one: Photon, ~1.1s fair-use pacing, a
+    committed cache, a per-run budget, and it caches hits only. Lifting it here
+    is a small job. Taking an ADDRESS ALONE, as this stub does, is the trap.
+
+    Measured 2026-08-30 against 43 Mapas Culturais venues in Ceará, each of
+    which publishes a surveyed point AND a street address, so the true answer is
+    known. Photon on the full address is good — median error 64m, 24 of 43
+    inside 100m. What it never does is say "I don't know": every query is
+    answered, and when the address is thin it silently degrades to a same-named
+    street in another state or a centroid. SEVEN of 43 landed over 10km out,
+    the worst 603km away in Maranhão, and one query that reduced to "Brazil"
+    was answered with the country's centroid, 1,779km from the venue.
+
+    Validating the ANSWER does not rescue it. Rejecting vague result types
+    (place/city, place/country) caught 1 of 43. Cross-checking the returned
+    city and state against the requested ones threw away 30 of 43 — 70% of the
+    supply — and STILL kept a 240km error, because the addresses that produce
+    bad answers are exactly the ones with no city in them to check against.
+
+    So the defence cannot live in the geocoder, and in this repo it never has:
+    it lives in the CONFIG, which supplies the locality the address is missing.
+    All 319 ics_sources.json entries carry a `geocode_suffix` (", Seattle, WA")
+    — 100%, not by luck — and luma_sources.json carries `expect_region` for the
+    same reason one file over. Whatever replaces this must take the expected
+    area as a REQUIRED argument and refuse a result outside it. A geocoder that
+    answers every question is not a geocoder that knows every answer.
+    """
     return (None, None)
 
 

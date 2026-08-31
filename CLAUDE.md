@@ -1154,6 +1154,29 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   Playhouse) keep a room-level key, because the classifier genuinely cannot
   recover a play from its title. Everything else states `community` and lets
   the promotions run.
+- **A GEOCODER THAT ANSWERS EVERY QUESTION IS NOT ONE THAT KNOWS EVERY ANSWER,
+  and the defence is the CONFIG rather than the geocoder.** The obvious unblock
+  for every non-US source is to lift `make_location_geocoder` out of
+  `mapsee_ingest_ics.py` into the shared `geocode_venue()` stub — Photon, OSM,
+  global, already paced, cached and budgeted here. Measured 2026-08-30 against
+  43 Mapas Culturais venues in Ceará that publish a surveyed point AND a street
+  address, so the true answer is known: on the full address Photon is good,
+  **median error 64m, 24 of 43 inside 100m**. What it never does is say "I do
+  not know". Every query is answered, so a thin address degrades silently to a
+  same-named street in another state or to a centroid — **7 of 43 over 10km
+  out, the worst 603km away in Maranhão**, and one query that reduced to
+  "Brazil" was answered with the country centroid 1,779km from the venue.
+  Validating the ANSWER does not rescue it: rejecting vague result types
+  (`place/city`, `place/country`) caught 1 of 43, and cross-checking the
+  returned city and state against the asked-for ones threw away 30 of 43 — 70%
+  of the supply — while STILL keeping a 240km error, because the addresses that
+  produce bad answers are precisely the ones with no city in them to check
+  against. This repo already solves it from the other end and always has: all
+  **319** `ics_sources.json` entries carry a `geocode_suffix` (", Seattle, WA")
+  — 100%, which is a requirement and not a coincidence — and `expect_region`
+  does the same job for Luma. So a shared geocoder must take the expected area
+  as a REQUIRED argument and refuse a result outside it; `geocode_venue`'s
+  address-only signature is the trap and its docstring now says so.
 - **A LICENCE THAT SAYS YES IS THE EASY HALF, AND THE GEOCODER IS THE HARD
   ONE.** Humanitix is the platform 20 of the 121 `offsite:` venues in the
   ledger use — the largest gap with no adapter — and it says yes in writing:
