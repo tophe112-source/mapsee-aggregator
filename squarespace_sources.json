@@ -763,6 +763,32 @@
         "lon": 12.439358
       },
       "_metro": "Copenhagen, DK"
+    },
+    {
+      "name": "Mikrolit",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.forlagetsilkefyret.dk/arrangementer",
+      "max_events": 200,
+      "venue": {
+        "name": "Mikrolit",
+        "lat": 56.1725717,
+        "lon": 10.2167523
+      },
+      "_metro": "Aarhus, DK"
+    },
+    {
+      "name": "BOTA - Base Organizada da Toca das Artes",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.botaanjos.com/programacao",
+      "max_events": 200,
+      "venue": {
+        "name": "BOTA - Base Organizada da Toca das Artes",
+        "lat": 38.7265366,
+        "lon": -9.1368419
+      },
+      "_metro": "Lisbon, PT"
     }
   ]
 }

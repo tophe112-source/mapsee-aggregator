@@ -2327,5 +2327,41 @@
   "geocode_suffix": ", Copenhagen, DK",
   "limit": 300,
   "_metro": "Copenhagen, DK"
+ },
+ {
+  "name": "Slagtehal3",
+  "category": "theater",
+  "_found": "osm:cinema -> ics",
+  "url": "https://slagtehal3.dk/slagtehal3.ics",
+  "geocode_suffix": ", Aarhus, DK",
+  "limit": 300,
+  "_metro": "Aarhus, DK"
+ },
+ {
+  "name": "AMOK",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://amok.today/events/calender.ics",
+  "geocode_suffix": ", Aarhus, DK",
+  "limit": 300,
+  "_metro": "Aarhus, DK"
+ },
+ {
+  "name": "Saralystkirken",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://api.chmeetings.com/client/saralystkirken/6E61EBF72AE47D6B/Calendar/ICal/",
+  "geocode_suffix": ", Aarhus, DK",
+  "limit": 300,
+  "_metro": "Aarhus, DK"
+ },
+ {
+  "name": "Grønfeld Forsamlingshus",
+  "category": "community",
+  "_found": "osm:community_centre -> events-manager",
+  "url": "https://xn--grnfeld-r1a.dk/?ical=1",
+  "geocode_suffix": ", Aarhus, DK",
+  "limit": 300,
+  "_metro": "Aarhus, DK"
  }
 ]

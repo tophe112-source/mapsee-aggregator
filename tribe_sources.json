@@ -3275,6 +3275,223 @@
         "lon": 10.2879369
       },
       "_metro": "Aarhus, DK"
+    },
+    {
+      "name": "Firgårde Forsamlingshus",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+events-manager+jsonld-event+ics",
+      "base_url": "https://firgaardeforsamlingshus.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Firgårde Forsamlingshus",
+        "lat": 56.0886943,
+        "lon": 9.8068428
+      },
+      "_metro": "Aarhus, DK"
+    },
+    {
+      "name": "Skafferiet",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://skafferiet.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Skafferiet",
+        "lat": 56.3257863,
+        "lon": 10.0448711
+      },
+      "_metro": "Aarhus, DK"
+    },
+    {
+      "name": "Hasle Tennisklub",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://hasletennis.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hasle Tennisklub",
+        "lat": 56.1628322,
+        "lon": 10.1684031
+      },
+      "_metro": "Aarhus, DK"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.xn--lsbyforsamlingshus-4tb.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "lat": 56.1566597,
+        "lon": 9.8147815
+      },
+      "_metro": "Aarhus, DK"
+    },
+    {
+      "name": "Norsminde Sejlklub",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.norsminde-sejlklub.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Norsminde Sejlklub",
+        "lat": 56.0227177,
+        "lon": 10.2628061
+      },
+      "_metro": "Aarhus, DK"
+    },
+    {
+      "name": "Byens Hus Mørke",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://8544moerke.dk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Byens Hus Mørke",
+        "lat": 56.3384407,
+        "lon": 10.3756605
+      },
+      "_metro": "Aarhus, DK"
+    },
+    {
+      "name": "Museu de Arte Contemporânea MAC/CCB",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.ccb.pt",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museu de Arte Contemporânea MAC/CCB",
+        "address": "Praça do Império",
+        "city": "Lisboa",
+        "postal_code": "1449-003",
+        "lat": 38.6956474,
+        "lon": -9.20931
+      },
+      "_metro": "Lisbon, PT"
+    },
+    {
+      "name": "Museu da Marioneta",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.museudamarioneta.pt",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museu da Marioneta",
+        "address": "146 Rua da Esperança",
+        "city": "Lisboa",
+        "postal_code": "1200-660",
+        "lat": 38.7080039,
+        "lon": -9.1557935
+      },
+      "_metro": "Lisbon, PT"
+    },
+    {
+      "name": "Museu da Sociedade de Geografia de Lisboa",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://socgeografialisboa.pt",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museu da Sociedade de Geografia de Lisboa",
+        "address": "100 Rua das Portas de Santo Antão",
+        "city": "Lisboa",
+        "postal_code": "1150-269",
+        "lat": 38.7166264,
+        "lon": -9.1407551
+      },
+      "_metro": "Lisbon, PT"
+    },
+    {
+      "name": "Museu das Comunicações",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.fpc.pt",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museu das Comunicações",
+        "address": "16 Rua do Instituto Industrial",
+        "city": "Lisboa",
+        "postal_code": "1200-225",
+        "lat": 38.7078251,
+        "lon": -9.1503654
+      },
+      "_metro": "Lisbon, PT"
+    },
+    {
+      "name": "CETO - Clube Escola Ténis de Oeiras",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://ceto.com.pt",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "CETO - Clube Escola Ténis de Oeiras",
+        "lat": 38.6921531,
+        "lon": -9.3226355
+      },
+      "_metro": "Lisbon, PT"
+    },
+    {
+      "name": "CPBC(Companhia Portuguesa de Bailado contemporaneo",
+      "category": "community",
+      "_found": "osm:club -> tribe+ics",
+      "base_url": "https://cpbcontemporaneo.pt",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "CPBC(Companhia Portuguesa de Bailado contemporaneo",
+        "address": "31-35 Rua do Açucar",
+        "city": "Lisboa",
+        "postal_code": "1950-006",
+        "lat": 38.7411957,
+        "lon": -9.1025306
+      },
+      "_metro": "Lisbon, PT"
+    },
+    {
+      "name": "Fórum Municipal Luísa Todi",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.forumluisatodi.pt",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fórum Municipal Luísa Todi",
+        "address": "61-67 Avenida Luísa Todi",
+        "city": "Setúbal",
+        "postal_code": "2900-459",
+        "lat": 38.5224884,
+        "lon": -8.890323
+      },
+      "_metro": "Lisbon, PT"
+    },
+    {
+      "name": "Teatro Sá da Bandeira",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://teatrosadabandeira.pt",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro Sá da Bandeira",
+        "address": "Rua de Sá da Bandeira",
+        "city": "Porto",
+        "postal_code": "4000-427",
+        "lat": 41.146646,
+        "lon": -8.6087342
+      },
+      "_metro": "Porto, PT"
     }
   ],
   "_not_included": {

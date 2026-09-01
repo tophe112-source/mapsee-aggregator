@@ -1036,6 +1036,188 @@
     "lon": 10.2077485
    },
    "_metro": "Aarhus, DK"
+  },
+  {
+   "name": "Hinnerup Gruppen, Det Danske Spejderkorps",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://hinnerupspejdere.dk/begivenhed/gruppe-weekend-2026"
+   ],
+   "link_pattern": "https://hinnerupspejdere\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Hinnerup Gruppen, Det Danske Spejderkorps",
+    "lat": 56.2680483,
+    "lon": 10.0501996
+   },
+   "_metro": "Aarhus, DK"
+  },
+  {
+   "name": "Hørning Gruppe, Det Danske Spejderkorps",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://ddshorning.dk/begivenhed/minilejr-1"
+   ],
+   "link_pattern": "https://ddshorning\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Hørning Gruppe, Det Danske Spejderkorps",
+    "lat": 56.0779028,
+    "lon": 10.0301559
+   },
+   "_metro": "Aarhus, DK"
+  },
+  {
+   "name": "Gallerne, Det Danske Spejderkorps",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://gallerne.dk/begivenhed/plan-2026"
+   ],
+   "link_pattern": "https://gallerne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Gallerne, Det Danske Spejderkorps",
+    "lat": 56.154444,
+    "lon": 10.1657293
+   },
+   "_metro": "Aarhus, DK"
+  },
+  {
+   "name": "Delfinerne, De blå spejdere i Skæring og Egå, Det Danske Spejderkorps",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://www.delfinerne.dk/begivenhed/oprykningstur-troppen-0"
+   ],
+   "link_pattern": "https://www\\.delfinerne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Delfinerne, De blå spejdere i Skæring og Egå, Det Danske Spejderkorps",
+    "lat": 56.2291082,
+    "lon": 10.2940727
+   },
+   "_metro": "Aarhus, DK"
+  },
+  {
+   "name": "Skovspejderne, Det Danske Spejderkorps",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://www.skovspejderne.dk/begivenhed/arbejdsdag-i-skovspejderne-2"
+   ],
+   "link_pattern": "https://www\\.skovspejderne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Skovspejderne, Det Danske Spejderkorps",
+    "lat": 56.2306442,
+    "lon": 10.1877799
+   },
+   "_metro": "Aarhus, DK"
+  },
+  {
+   "name": "1. Ryom Gruppe, Det Danske Spejderkorps",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://1ryom.dk/begivenhed/flid-moede-0"
+   ],
+   "link_pattern": "https://1ryom\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "1. Ryom Gruppe, Det Danske Spejderkorps",
+    "lat": 56.3799288,
+    "lon": 10.5087532
+   },
+   "_metro": "Aarhus, DK"
+  },
+  {
+   "name": "Holmespejderne",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://www.holmespejderne.dk/begivenhed/weekendtur-efteraar"
+   ],
+   "link_pattern": "https://www\\.holmespejderne\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Holmespejderne",
+    "lat": 56.1046412,
+    "lon": 10.1734725
+   },
+   "_metro": "Aarhus, DK"
+  },
+  {
+   "name": "Hot Club Portugal",
+   "category": "music",
+   "_found": "osm:nightclub -> jsonld-event",
+   "listing": [
+    "https://hcp.pt/"
+   ],
+   "link_pattern": "https://hcp\\.pt/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Hot Club Portugal",
+    "lat": 38.7181486,
+    "lon": -9.1456468
+   },
+   "_metro": "Lisbon, PT"
+  },
+  {
+   "name": "Galeria Municipal",
+   "category": "arts",
+   "_found": "osm:museum -> modern-events+jsonld-event",
+   "listing": [
+    "https://visitsetubal.com/eventos/"
+   ],
+   "link_pattern": "https://visitsetubal\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Galeria Municipal",
+    "address": "5 Avenida Luísa Todi",
+    "city": "Setúbal",
+    "postal_code": "2900-461",
+    "lat": 38.5226714,
+    "lon": -8.8921893
+   },
+   "_metro": "Lisbon, PT"
+  },
+  {
+   "name": "Casa do Cinema Manoel de Oliveira",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://www.serralves.pt/agenda-serralves/"
+   ],
+   "link_pattern": "https://www\\.serralves\\.pt/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Casa do Cinema Manoel de Oliveira",
+    "address": "Rua de Serralves",
+    "city": "Porto",
+    "lat": 41.1589949,
+    "lon": -8.6552518
+   },
+   "_metro": "Porto, PT"
+  },
+  {
+   "name": "Associação Quebra-Dados",
+   "category": "community",
+   "_found": "osm:club -> modern-events+jsonld-event",
+   "listing": [
+    "https://quebradados.com/eventos/"
+   ],
+   "link_pattern": "https://quebradados\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Associação Quebra-Dados",
+    "address": "82 Rua de Brito Capelo",
+    "lat": 41.1621578,
+    "lon": -8.6194995
+   },
+   "_metro": "Porto, PT"
   }
  ],
  "_not_included": {
