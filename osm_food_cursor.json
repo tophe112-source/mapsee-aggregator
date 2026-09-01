@@ -1,10 +1,12 @@
 {
- "Chicago": 977,
- "London": 4180,
+ "Chicago": 2977,
+ "London": 6180,
  "Melbourne": 232,
- "New York": 4180,
- "Paris": 178,
+ "New York": 6180,
+ "Paris": 2178,
  "Portland": 790,
- "Seattle": 2154,
- "Tokyo": 69
+ "Rio de Janeiro": 0,
+ "Seattle": 1646,
+ "S\u00e3o Paulo": 0,
+ "Tokyo": 2069
 }
