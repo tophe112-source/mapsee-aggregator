@@ -55,6 +55,9 @@ Usage:
   python catalog_curate.py audit                     # re-check EXISTING configs
   python catalog_curate.py ledger                     # summarize what's been tried
   python catalog_curate.py coverage                   # where the catalog is thin (no network)
+  # after `git reset --hard origin/main`: put this run's ledger, cursor and
+  # coverage line back on top of whatever main says NOW. No network.
+  python catalog_curate.py reapply .curate-snapshot
 """
 import datetime
 import json
@@ -1577,6 +1580,177 @@ def cmd_merge(path):
     return 0
 
 
+# --- re-applying a finished run onto a main that moved ---------------------
+# A curation run holds its checkout for 30-90 minutes and then pushes four
+# files, so ANYTHING that lands on main in that window makes the push a
+# non-fast-forward and the run dies at its very last step with every source it
+# verified in the bin. Three runs have died that way (2026-08-20, 2026-08-27,
+# 2026-09-02) and the two causes are both structural rather than unlucky:
+#
+#   * source-health.yml's audit writes curation_ledger.json, and the three
+#     osm-*.yml cursor jobs write to main all day.
+#   * a run QUEUED behind another one of these (Wednesday's gap sweep behind
+#     the daily sweep) is stale before it starts. `concurrency` serialises the
+#     two runs but actions/checkout still checks out github.sha — the tip as it
+#     was when the run was CREATED — so on 2026-09-02 the second run checked
+#     out at 08:40:14 a commit that the first had superseded at 08:40:05.
+#
+# osm-food.yml already solved this shape and its comment says why re-reading
+# beats rebasing: "recomputing the merge against whatever main says NOW is
+# always correct and can never conflict. Each attempt starts from the newest
+# base." Same argument here; the arithmetic is per FILE rather than per area.
+#
+#   curation_ledger.json   url -> probe record. Union, and the more recent
+#                          `checked` wins a shared URL. Not hypothetical: the
+#                          weekly audit writes this file too.
+#   curation_cursor.json   {backend: {query: offset}}. OURS wins per key —
+#                          only a curation run writes it and `concurrency`
+#                          means no other one can be in flight, so whatever is
+#                          on main is the base this run advanced from.
+#   coverage_history.jsonl one line per run, append-only. Append ours.
+#   *_sources.json         NOT here. `merge` already dedups by canonical URL
+#                          against whatever the config holds now, so it is
+#                          idempotent and the workflow just re-runs it.
+#
+# This lives here rather than as a heredoc in the workflow for the reason
+# cmd_coverage_delta already records — a `python - <<'PY'` body sits at column
+# 0 and terminates the YAML block scalar — and for a second one: a merge rule
+# that silently drops half a ledger is exactly the kind of thing that needs a
+# test, and test_curate_reapply.py can only import what is in a module.
+COVERAGE_HISTORY_FILE = os.path.join(HERE, "coverage_history.jsonl")
+
+
+def _read_json(path):
+    with open(path, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def _load_ledger_at(path):
+    """A ledger from somewhere other than the repo, through the SAME loader.
+
+    _load_ledger re-keys every row through _canon; a second reader that did not
+    would merge a raw-URL key beside its canonical twin and quietly double the
+    file. One canonicaliser, borrowed by pointing the module global at the
+    snapshot for the length of the call.
+    """
+    global LEDGER_FILE
+    keep, LEDGER_FILE = LEDGER_FILE, path
+    try:
+        return _load_ledger()
+    finally:
+        LEDGER_FILE = keep
+
+
+def _merge_ledgers(base, ours):
+    """Union of two ledgers; the more recent probe wins a shared URL.
+
+    `>=` rather than `>` on the date: two probes of one URL on the same day are
+    this run and something that landed while it ran, and this run finished
+    later, so its answer is the newer observation. A missing `checked` reads as
+    0 — the same default _dead_recently uses — so a malformed row can never
+    outrank a dated one.
+    """
+    out = dict(base)
+    for k, v in ours.items():
+        cur = out.get(k)
+        if cur is None or int(v.get("checked", 0) or 0) >= int(cur.get("checked", 0) or 0):
+            out[k] = v
+    return out
+
+
+def _merge_cursors(base, ours):
+    """{backend: {query: offset}} merged ONE level down, ours winning.
+
+    A top-level update would replace a whole backend's dict, so a run that swept
+    socrata alone would drop every ckan and osm position on main. The nesting is
+    the whole point of the merge.
+    """
+    out = {b: (dict(q) if isinstance(q, dict) else q) for b, q in base.items()}
+    for b, q in ours.items():
+        if isinstance(q, dict) and isinstance(out.get(b), dict):
+            out[b].update(q)
+        else:
+            out[b] = q
+    return out
+
+
+def cmd_reapply(outdir):
+    """Re-apply this run's ledger, cursor and coverage line onto the tree as it is.
+
+    Called after `git reset --hard origin/main`, so the three files on disk are
+    whatever main holds now and the snapshot in `outdir` is what this run
+    computed. Every part is optional: a run that swept nothing still has a
+    coverage line worth appending, and a step that died before writing a
+    snapshot must not take the rest of the commit with it.
+    """
+    if not os.path.isdir(outdir):
+        # LOUD, and not fatal. This runs inside the commit loop under `bash -e`,
+        # so returning non-zero here would abandon the verified sources too —
+        # which is the exact failure the loop exists to stop. A sweep cancelled
+        # before it wrote a snapshot has nothing to re-apply and everything to
+        # merge.
+        print(f"::warning::no snapshot directory {outdir!r} - "
+              "nothing to re-apply; merging verified sources only")
+        return 0
+
+    led_p = os.path.join(outdir, "curation_ledger.json")
+    if os.path.exists(led_p):
+        # A snapshot taken while the sweep was being CANCELLED can be a
+        # half-written file; _save_ledger truncates before it dumps. Losing this
+        # run's probes then costs a repeat, where raising costs the cursor, the
+        # coverage line and every verified source in the same step.
+        try:
+            base, ours = _load_ledger(), _load_ledger_at(led_p)
+        except Exception as exc:  # noqa: BLE001
+            print(f"ledger:  {led_p} unreadable ({exc}) - left as main has it")
+        else:
+            merged = _merge_ledgers(base, ours)
+            _save_ledger(merged)
+            print(f"ledger:  {len(base)} on main + {len(ours)} ours "
+                  f"-> {len(merged)} (+{len(merged) - len(base)} new)")
+    else:
+        print(f"ledger:  no {led_p} - left as main has it")
+
+    cur_p = os.path.join(outdir, "curation_cursor.json")
+    if os.path.exists(cur_p):
+        base = _load_cursor()
+        try:
+            ours = _read_json(cur_p)
+        except Exception as exc:  # noqa: BLE001
+            print(f"cursor:  {cur_p} unreadable ({exc}) - left as main has it")
+        else:
+            merged = _merge_cursors(base, ours)
+            _save_cursor(merged)
+            moved = sum(1 for b, q in ours.items() if isinstance(q, dict)
+                        for k, v in q.items() if base.get(b, {}).get(k) != v)
+            print(f"cursor:  {len(merged)} backend(s), {moved} position(s) advanced")
+    else:
+        print(f"cursor:  no {cur_p} - left as main has it")
+
+    cov_p = os.path.join(outdir, "coverage-after.json")
+    if os.path.exists(cov_p):
+        # Re-serialised the way cmd_coverage_json prints it, so the appended
+        # line is byte-identical to the one `cat coverage-after.json >>` wrote
+        # before this and the file stays one snapshot per line.
+        line = json.dumps(_read_json(cov_p), sort_keys=True)
+        raw = ""
+        if os.path.exists(COVERAGE_HISTORY_FILE):
+            raw = open(COVERAGE_HISTORY_FILE, encoding="utf-8").read()
+        if raw.splitlines()[-1:] == [line]:
+            # Only reachable if a push half-succeeded; cheaper to check than to
+            # explain a duplicated snapshot to whoever reads the trend later.
+            print("history: this run's line is already the last one")
+        else:
+            with open(COVERAGE_HISTORY_FILE, "a", encoding="utf-8") as fh:
+                if raw and not raw.endswith("\n"):
+                    fh.write("\n")
+                fh.write(line + "\n")
+            print(f"history: appended 1 line -> {len(raw.splitlines()) + 1} total")
+    else:
+        print(f"history: no {cov_p} - nothing to append")
+    return 0
+
+
 def cmd_audit():
     s = _session()
     led = _load_ledger()
@@ -2268,11 +2442,16 @@ def cmd_coverage_delta(before_path, after_path):
 
 
 def main(argv):
-    cmds = {"verify", "merge", "audit", "ledger", "coverage", "discover"}
+    cmds = {"verify", "merge", "audit", "ledger", "coverage", "discover", "reapply"}
     if len(argv) < 2 or argv[1] not in cmds:
         print(__doc__)
         return 2
     cmd = argv[1]
+    if cmd == "reapply":
+        if len(argv) < 3:
+            print("error: reapply needs the snapshot directory")
+            return 2
+        return cmd_reapply(argv[2])
     if cmd == "discover":
         lim = int(argv[argv.index("--limit") + 1]) if "--limit" in argv else 400
         out = argv[argv.index("--out") + 1] if "--out" in argv else "candidates.json"

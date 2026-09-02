@@ -13,6 +13,8 @@ Run: python test_ingest_mapasculturais.py
 import json
 import sys
 
+from datetime import date, timedelta
+
 import mapsee_ingest_mapasculturais as MC
 
 TODAY = "2026-08-28"
@@ -240,9 +242,19 @@ def main():
     #
     # BOTH of mapsee_ingest_osm_amenities' production failures were in main(),
     # and nothing ran main(). So this drives the real one end to end.
-    pages = {1: [_occ(20, "2026-09-01"), _occ(21, "1911-06-01"),
-                 _occ(22, "2026-09-02", lat="0", lon="0"),
-                 _occ(23, "2026-09-03", name=None)]}
+    #
+    # RELATIVE DATES, and this is the one section that needs them. Every case
+    # above passes the pinned TODAY straight into the function under test;
+    # main() reads `date.today()` itself and has no injection point, so the
+    # fixture was written 2026-09-01/02/03 — future on 2026-08-28, and PAST
+    # from 2026-09-02, when the horizon filter started dropping the row this
+    # case exists to keep and the file went red every run. That is this repo's
+    # own rule one file over: assert the property (a future placeable row
+    # survives), never a date that happened to be future the day it was typed.
+    _soon = [(date.today() + timedelta(days=n)).isoformat() for n in (1, 2, 3)]
+    pages = {1: [_occ(20, _soon[0]), _occ(21, "1911-06-01"),
+                 _occ(22, _soon[1], lat="0", lon="0"),
+                 _occ(23, _soon[2], name=None)]}
 
     class Sess:
         headers = {}
@@ -262,7 +274,7 @@ def main():
         rc = MC.main(["--config", cpath, "--store", spath])
         stored = json.load(open(spath))["events"]
     checks.append((rc == 0, "main() returns 0 on a clean run"))
-    checks.append((len(stored) == 1 and stored[0]["start_local"].startswith("2026-09-01"),
+    checks.append((len(stored) == 1 and stored[0]["start_local"].startswith(_soon[0]),
                    "main() keeps the future placeable row and drops the 1911, the 0,0 and the orphan"))
 
     # ------------------------------------- 12. the config is loadable, not just valid JSON

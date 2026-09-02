@@ -80,8 +80,18 @@ on:
     # place before the next sweep picks it up.
     - cron: "20 3 * * *"
     # Wednesdays 03:50 UTC — the gap sweep. Whole budget on the categories that
-    # have no supply at all. Deliberately 30 minutes after the daily run, which
-    # by then has finished and committed.
+    # have no supply at all.
+    #
+    # THIRTY MINUTES IS NOT A GAP, and this line used to claim it was ("30
+    # minutes after the daily run, which by then has finished and committed").
+    # The job takes 40-90 minutes, so the gap sweep has ALWAYS started while the
+    # daily one was still going; and GitHub delivers a late schedule as a batch,
+    # so on 2026-09-02 the two arrived at 07:59 and 08:08 — nine minutes apart,
+    # which no cron spacing can prevent. What makes the overlap safe is the
+    # `concurrency` group (one run at a time), `ref:` on checkout (the queued
+    # run starts from what the first one committed) and the re-applying push
+    # loop — not this number. Moving it buys nothing; the number is here so the
+    # two runs land on the same day, which is all it was ever doing.
     - cron: "50 3 * * 3"
   workflow_dispatch:
     inputs:
@@ -111,12 +121,42 @@ permissions:
 jobs:
   curate:
     runs-on: ubuntu-latest
+    env:
+      # The branch this run curates. One name for checkout, for the fetch and
+      # for the reset, so a workflow_dispatch from a branch cannot check out one
+      # ref and reset onto another — which would silently replace that branch's
+      # tree with main's and then commit the result.
+      BRANCH: ${{ github.ref_name }}
+      # Untracked, so it survives `git reset --hard`. It is the only channel
+      # between the sweep and the commit step once that step re-reads main.
+      SNAPSHOT: .curate-snapshot
     # Verification is one live HTTP request per candidate against servers that
     # are sometimes slow and sometimes dead; the ceiling is the point, and a run
     # that hits it still commits everything it proved before stopping.
     timeout-minutes: 90
     steps:
+      # `ref:` MATTERS HERE, and its absence is what killed 2026-09-02's second
+      # run. actions/checkout defaults to github.sha — the tip as it was when
+      # the run was CREATED — and this workflow's two crons put a second run in
+      # the concurrency queue behind the first. `concurrency` serialises the
+      # two, correctly, but it cannot un-stale a SHA: the Wednesday run was
+      # created at 08:08 against ab5ee01, waited, started at 08:40:12, and
+      # checked out ab5ee01 seven seconds after the daily run had superseded it
+      # with 7f421c0. Thirty-one minutes of discovery later its push was
+      # rejected and all of it was thrown away.
+      #
+      # Naming the BRANCH resolves the ref when checkout runs, so a queued run
+      # starts from the newest base. That is not only about the push: the
+      # cursor is the whole reason this job is continual rather than
+      # convergent, so a run computing from a superseded cursor re-walks ground
+      # the run ahead of it just covered.
+      #
+      # github.ref_name rather than a literal 'main': on a schedule it IS the
+      # default branch, and a workflow_dispatch from a branch then checks out
+      # and pushes that branch instead of silently curating main.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
 
       - uses: actions/setup-python@v5
         with:
@@ -279,7 +319,16 @@ jobs:
           set -euo pipefail
           python catalog_curate.py coverage | tee coverage-after.txt
           python catalog_curate.py coverage --json > coverage-after.json
-          cat coverage-after.json >> coverage_history.jsonl
+          # THE APPEND MOVED INTO THE COMMIT STEP. It used to happen here, and
+          # the commit step now resets to origin/main and re-applies, which
+          # would have discarded this line on the first attempt and appended a
+          # second copy on a retry. The snapshot directory is untracked, so it
+          # survives `git reset --hard` — same trick osm-food.yml's `cursors/`
+          # uses — and is the only channel between the two steps.
+          mkdir -p "$SNAPSHOT"
+          cp coverage-after.json "$SNAPSHOT/coverage-after.json"
+          cp curation_ledger.json "$SNAPSHOT/curation_ledger.json"
+          cp curation_cursor.json "$SNAPSHOT/curation_cursor.json"
           python catalog_curate.py coverage --delta coverage-before.json coverage-after.json \
             >> "$GITHUB_STEP_SUMMARY"
           {
@@ -290,8 +339,11 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       # The candidate/verify scratch files are run artifacts, not sources — only
-      # the configs and the ledger are committed. `git diff --quiet` keeps a week
-      # with no new feeds from producing an empty commit.
+      # the configs and the ledger are committed, and the `git add` names them,
+      # so nothing scratch can reach a commit whatever is lying around the
+      # runner. `git diff --staged --quiet` keeps a week with no new feeds from
+      # producing an empty commit; it reads the INDEX rather than the worktree
+      # because the loop below stages before it asks.
       # curation_cursor.json is committed with the configs and is NOT scratch: it
       # is the offset each catalog query reached, and it is the only reason the
       # next run looks at different rows than this one. Dropped from the commit,
@@ -300,21 +352,80 @@ jobs:
       # coverage_history.jsonl is committed for the same reason as the cursor: it
       # is the only record that survives the runner, and a trend nobody can read
       # next month is not a trend.
+      # A PUSH THAT LOSES IS NOT A RUN THAT FAILED — RE-APPLY AND TRY AGAIN.
+      #
+      # This step used to build one commit on the checkout and push it once, so
+      # anything landing on main during the 30-90 minutes above made it a
+      # non-fast-forward and the run died HERE, at its last step, with every
+      # source it had verified thrown away. Three runs died that way — 2026-08-20,
+      # 2026-08-27 (six commits landed inside its hour, one of them
+      # osm-amenities' cursor) and 2026-09-02 (the Wednesday gap sweep, queued
+      # behind the daily one, checked out the SHA the daily one had just
+      # superseded — see the `ref:` note on checkout, which is the other half of
+      # this fix).
+      #
+      # The loop is osm-food.yml's, and so is the reasoning: rebasing would
+      # work, but RE-READING is better, because recomputing against whatever
+      # main says NOW cannot conflict. Each attempt resets to the fresh tip and
+      # re-applies, so attempt 1 and attempt 5 run identical code and the first
+      # attempt is not a special case that only gets exercised on a good day.
+      #
+      # Re-reading is only correct because every part of what this run produced
+      # is re-appliable, which is a property of these four files and not a
+      # general one:
+      #   *_sources.json         `merge` dedups by canonical URL against the
+      #                          config as it stands, so re-running it adds our
+      #                          entries and re-adds nothing.
+      #   ledger/cursor/history  `reapply` unions them onto the fresh base;
+      #                          catalog_curate.py carries the merge rules and
+      #                          test_curate_reapply.py grades them.
+      # The verified-candidate files are the INPUT to that, so they must outlive
+      # the reset: they are untracked, which is what makes them survive
+      # `git reset --hard` (the same trick osm-food's `cursors/` relies on).
+      # The scratch `rm` that used to open this step is gone rather than moved —
+      # it ran BEFORE the merge that now needs those files, and with the `git
+      # add` naming its four paths there was never anything for it to protect.
       - name: Commit new sources
         if: ${{ always() && !inputs.dry_run }}
         run: |
-          rm -f cand-*.json coverage-*.txt coverage-*.json verify-*.txt merge-*.txt discover-*.txt
-          if git diff --quiet -- '*_sources.json' curation_ledger.json curation_cursor.json coverage_history.jsonl; then
-            echo "No config, ledger or cursor change — nothing to commit."
-            exit 0
-          fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- '*_sources.json' curation_ledger.json curation_cursor.json coverage_history.jsonl
-          # Two -m flags, not one multi-line string: a bare continuation line
-          # sits at column 0 and terminates the `run: |` block scalar, which
-          # makes the whole workflow file unparseable.
-          git commit \
-            -m "Curate: new verified feeds from the weekly sweep" \
-            -m "Every entry added here returned real future events under the production User-Agent at verification time. Targets come from the live lens roster (mapsee.me/api/lenses), so this tracks whichever doors are committed."
-          git push
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "$BRANCH"
+            git reset --hard "origin/$BRANCH"
+            python catalog_curate.py reapply "$SNAPSHOT"
+            # An `if`, not `[ -s "$v" ] && ...`: the default shell is `bash -e`,
+            # and a trailing && whose left side is false makes the loop body
+            # return non-zero, which would end the step the moment a backend
+            # verified nothing.
+            for v in cand-*.verified.json; do
+              if [ -s "$v" ]; then python catalog_curate.py merge "$v"; fi
+            done
+            git add -- '*_sources.json' curation_ledger.json curation_cursor.json coverage_history.jsonl
+            if git diff --staged --quiet; then
+              echo "No config, ledger or cursor change — nothing to commit."
+              exit 0
+            fi
+            # Two -m flags, not one multi-line string: a bare continuation line
+            # sits at column 0 and terminates the `run: |` block scalar, which
+            # makes the whole workflow file unparseable.
+            git commit \
+              -m "Curate: new verified feeds from the weekly sweep" \
+              -m "Every entry added here returned real future events under the production User-Agent at verification time. Targets come from the live lens roster (mapsee.me/api/lenses), so this tracks whichever doors are committed."
+            # `HEAD:$BRANCH`, not a bare `git push`. `reset --hard` moves HEAD
+            # and says nothing about which ref a bare push would pick, so the
+            # branch name that drove the fetch and the reset drives the push
+            # too — one name, three uses. Caught in a simulation where the
+            # local branch was not the one being curated: the bare form
+            # cheerfully created a NEW branch on the remote, reported success
+            # and left the curated branch untouched, which is a lost run
+            # wearing a green tick.
+            if git push origin "HEAD:$BRANCH"; then
+              echo "pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push rejected ($BRANCH moved); re-applying onto the new head"
+            sleep $((attempt * 5))
+          done
+          echo "::error::could not push the curated sources after 5 attempts"
+          exit 1

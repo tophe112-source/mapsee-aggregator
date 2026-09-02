@@ -313,6 +313,17 @@ jobs:
       - name: Seattle Center (yearless dates, borrowed coordinates, matinees)
         run: python test_ingest_seattlecenter.py
 
+      # curate-catalog.yml holds a checkout for 30-90 minutes and then pushes,
+      # so anything landing on main in that window used to kill the run at its
+      # LAST step with every verified source in the bin — three times. The
+      # commit step re-reads main and re-applies instead, and each of the four
+      # files has its own merge rule; every way one of those can be wrong is
+      # silent, from a cursor merged a level too high (months of walking reset,
+      # file still valid) to an append that runs twice (one run counted twice in
+      # the only trend anybody reads).
+      - name: Re-applying a curation run onto a main that moved
+        run: python test_curate_reapply.py
+
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a
       # mid-sweep crash on a schedule, hours later. Compiling is not a test, but

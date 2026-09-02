@@ -352,6 +352,50 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   mis-sized — and committed `70501d9`, 266 lines of advanced cursors plus 24 of
   fresh ledger, where the two runs before it had committed nothing at all. A
   budget reduces how often you rely on that; it is not a substitute for it.
+- **A JOB THAT WORKS FOR AN HOUR AND PUSHES ONCE IS A JOB THAT LOSES A RACE IT
+  NEVER KNEW IT WAS IN.** `curate-catalog` verified its sources, wrote its
+  ledger, advanced its cursor, appended its coverage line — and died on
+  `git push` with `! [rejected] main -> main (fetch first)`, at the last step,
+  throwing all of it away. **Three times: 2026-08-20, 2026-08-27, 2026-09-02.**
+  Nothing about it reads as a race, because the log above the error is a
+  perfect run.
+  **The two causes are both structural.** On 2026-08-27 the job checked out
+  `1ad207e` at 14:19 and pushed at 15:19; SIX commits had landed inside that
+  hour, one of them `osm-amenities: advance the cursor`. Four workflows here
+  write to main (the three osm cursor jobs and `source-health`, which writes
+  `curation_ledger.json` — the same file), plus whatever a person pushes, so an
+  hour-long checkout losing the race is the expected case and not bad luck.
+  On 2026-09-02 it was this workflow racing ITSELF, which reads as impossible
+  because `concurrency: curate-catalog` is right there. Concurrency serialises
+  the two RUNS and cannot un-stale a SHA: **`actions/checkout` defaults to
+  `github.sha`, the tip as it was when the run was CREATED.** Both crons were
+  delivered ~4.5h late and 9 minutes apart (03:20 and 03:50 arriving at 07:59
+  and 08:08, which is also why the "deliberately 30 minutes after the daily run,
+  which by then has finished" comment was never true — the job takes 40-90
+  minutes), so the gap sweep was created against `ab5ee01`, waited in the queue,
+  started at 08:40:12, and checked out `ab5ee01` **seven seconds after** the
+  daily run superseded it with `7f421c0`. Thirty-one minutes of discovery,
+  rejected.
+  **Both halves are fixed and they are different fixes.** `ref:
+  ${{ github.ref_name }}` on checkout resolves the ref when checkout RUNS, so a
+  queued run computes from the newest base — which matters beyond the push,
+  because the cursor is the whole reason this job is continual rather than
+  convergent and a run starting from a superseded one re-walks ground. And the
+  commit step is now osm-food's loop: fetch, `reset --hard`, RE-APPLY, push,
+  five times. Re-reading beats rebasing for the reason that file already
+  records — recomputing against whatever main says NOW cannot conflict — and it
+  needs no history, so the shallow clone is fine where a rebase would not be.
+  **Re-applying is only correct because each of the four files has a merge rule,
+  and each rule is wrong in a silent way.** `merge` already dedups by canonical
+  URL so re-running it is idempotent; `catalog_curate.py reapply` unions the
+  ledger (newer `checked` wins, because the audit writes it too), merges the
+  cursor ONE LEVEL DOWN (a top-level `update` replaces a whole backend and
+  resets every other one to whenever main last wrote it — valid file, months of
+  walking gone) and appends the coverage line once. `test_curate_reapply.py`
+  grades all of it, and its own harness had to learn the `check-ssr-rpc` lesson
+  first: the first regression planted raised a `KeyError` and ended the file in
+  a traceback with every later rule ungraded, so anything that dereferences a
+  result is passed as a lambda and a throw is reported as the assertion it is.
 - **A CURSOR MUST ADVANCE BY WHAT WAS EXAMINED, and "the window's length" stops
   being that the moment anything can stop early.** `osm-food` set
   `cursor = start + len(window)` BEFORE the loop, which was right while the only
@@ -1503,11 +1547,12 @@ python test_sync_unknown_column.py  # a column the database has not got YET must
 python test_skip_unchanged.py       # which rows a rewrite-every-run adapter may leave alone
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
+python test_curate_reapply.py       # putting a finished curation run back on a main that moved
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 29 test scripts are the CI gate (`tests.yml`). They print one line per
+The 30 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
