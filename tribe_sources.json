@@ -3492,6 +3492,20 @@
         "lon": -8.6087342
       },
       "_metro": "Porto, PT"
+    },
+    {
+      "name": "프랑스문화원",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://kr.ambafrance-culture.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "프랑스문화원",
+        "lat": 37.5592456,
+        "lon": 126.9719384
+      },
+      "_metro": "Seoul, KR"
     }
   ],
   "_not_included": {
