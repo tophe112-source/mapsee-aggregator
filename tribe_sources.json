@@ -3506,6 +3506,205 @@
         "lon": 126.9719384
       },
       "_metro": "Seoul, KR"
+    },
+    {
+      "name": "Trollbergan traktori- ja maatalousmuseo",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.museoraitti.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Trollbergan traktori- ja maatalousmuseo",
+        "address": "21 Nybyggetintie",
+        "lat": 60.2821534,
+        "lon": 25.1581152
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Seikkailupuisto Huippu",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://seikkailupuisto.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Seikkailupuisto Huippu",
+        "lat": 60.2278922,
+        "lon": 24.7963977
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Nukketeatteri Sampo",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://nukketeatterisampo.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nukketeatteri Sampo",
+        "address": "7 B, sisäpiha Erottajankatu",
+        "city": "Helsinki",
+        "postal_code": "00130",
+        "lat": 60.1649263,
+        "lon": 24.9443153
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Asukastila Orpaantupa",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://kaupunginosat.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Asukastila Orpaantupa",
+        "address": "22 Myllypurontie",
+        "city": "Helsinki",
+        "postal_code": "00920",
+        "lat": 60.2235544,
+        "lon": 25.0593423
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Kalasatama Vapaakaupunki Olohuone",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.vapaakaupunki.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kalasatama Vapaakaupunki Olohuone",
+        "address": "5 Hermannin rantatie",
+        "city": "Helsinki",
+        "postal_code": "00580",
+        "lat": 60.1875447,
+        "lon": 24.9781901
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Adoptioperheet ry - Adoptivfamiljer rf",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event",
+      "base_url": "https://www.adoptioperheet.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Adoptioperheet ry - Adoptivfamiljer rf",
+        "address": "10 Lintulahdenkatu",
+        "city": "Helsinki",
+        "postal_code": "00500",
+        "lat": 60.184162,
+        "lon": 24.9624933
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Maxine",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://maxine.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maxine",
+        "address": "1 Urho Kekkosen katu",
+        "city": "Helsinki",
+        "postal_code": "00100",
+        "lat": 60.1694236,
+        "lon": 24.9340685
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Tanssiteatteri Raatikko",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.raatikko.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tanssiteatteri Raatikko",
+        "address": "5 Silkkitehtaantie",
+        "city": "Vantaa",
+        "postal_code": "01300",
+        "lat": 60.2887583,
+        "lon": 25.0371228
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Suomen Kotiseutuliitto",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://kotiseutuliitto.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Suomen Kotiseutuliitto",
+        "address": "13 Kalevankatu",
+        "city": "Helsinki",
+        "postal_code": "00100",
+        "lat": 60.1671178,
+        "lon": 24.9370015
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Suomen Radioamatööriliitto",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sral.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Suomen Radioamatööriliitto",
+        "address": "9 Kaupinmäenpolku",
+        "city": "Helsinki",
+        "postal_code": "00441",
+        "lat": 60.2304536,
+        "lon": 24.8790226
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Gallen-Kallelan Museo",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://gallen-kallela.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gallen-Kallelan Museo",
+        "address": "27 Gallen-Kallelan tie",
+        "city": "Espoo",
+        "postal_code": "02600",
+        "lat": 60.2064559,
+        "lon": 24.8389303
+      },
+      "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Tuomarinkartanon vinttikoirakeskus",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.vinttikoira.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tuomarinkartanon vinttikoirakeskus",
+        "address": "1 Tuomarinkyläntie",
+        "city": "Helsinki",
+        "postal_code": "00690",
+        "lat": 60.2550933,
+        "lon": 24.9598679
+      },
+      "_metro": "Helsinki, FI"
     }
   ],
   "_not_included": {

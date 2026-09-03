@@ -2363,5 +2363,23 @@
   "geocode_suffix": ", Aarhus, DK",
   "limit": 300,
   "_metro": "Aarhus, DK"
+ },
+ {
+  "name": "Mankkaan makasiini",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://calendar.google.com/calendar/ical/erasudet.fi_5lfve34rlbpp90ndgda4r3o34s%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Espoo",
+  "limit": 300,
+  "_metro": "Helsinki, FI"
+ },
+ {
+  "name": "Pitkäjärven Vaeltajat ry",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://calendar.google.com/calendar/ical/c_6309bb08d9ccf8c3437272d5447594464f86c1e53d92d5b35d7d06c2c4d414cf%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Espoo",
+  "limit": 300,
+  "_metro": "Helsinki, FI"
  }
 ]

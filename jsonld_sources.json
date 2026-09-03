@@ -1218,6 +1218,161 @@
     "lon": -8.6194995
    },
    "_metro": "Porto, PT"
+  },
+  {
+   "name": "Fila Church Helsinki",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://filahelsinki.fi/event-directory/"
+   ],
+   "link_pattern": "https://filahelsinki\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Fila Church Helsinki",
+    "address": "31 Albertinkatu",
+    "city": "Helsinki",
+    "postal_code": "00180",
+    "country": "FI",
+    "lat": 60.165002,
+    "lon": 24.93255
+   },
+   "_metro": "Helsinki, FI"
+  },
+  {
+   "name": "Espoon kulttuurikeskus",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://www.espoo.fi/fi/tapahtumat/espooevents:agpifm6gm4"
+   ],
+   "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Espoon kulttuurikeskus",
+    "address": "2 Kulttuuriaukio",
+    "city": "Espoo",
+    "postal_code": "02100",
+    "country": "FI",
+    "lat": 60.1778999,
+    "lon": 24.804333
+   },
+   "_metro": "Helsinki, FI"
+  },
+  {
+   "name": "KokoTeatteri",
+   "category": "theater",
+   "_found": "osm:theatre -> wix+jsonld-event",
+   "listing": [
+    "https://www.kokoteatteri.fi/event-details/anna-politkovskaja-putinin-venaja"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "KokoTeatteri",
+    "address": "3 Hämeentie",
+    "city": "Helsinki",
+    "postal_code": "00530",
+    "lat": 60.1807591,
+    "lon": 24.9532954
+   },
+   "_metro": "Helsinki, FI"
+  },
+  {
+   "name": "Lamerfest",
+   "category": "community",
+   "_found": "osm:events_venue -> jsonld-event",
+   "listing": [
+    "https://lamerfest.fi/"
+   ],
+   "link_pattern": "https://lamerfest\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Lamerfest",
+    "address": "4 Virtatie",
+    "city": "Vantaa",
+    "postal_code": "01600",
+    "lat": 60.266444,
+    "lon": 24.8512441
+   },
+   "_metro": "Helsinki, FI"
+  },
+  {
+   "name": "Koulumuseo Lagstad",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://www.espoo.fi/fi/tapahtumat/espooevents:agpbwzmb7a"
+   ],
+   "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Koulumuseo Lagstad",
+    "address": "4 Vanha Lagstadintie",
+    "city": "Espoo",
+    "postal_code": "02770",
+    "lat": 60.2079916,
+    "lon": 24.6521621
+   },
+   "_metro": "Helsinki, FI"
+  },
+  {
+   "name": "Risteyspaikka",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://risteyspaikka.fi/mec-category/nostetut-tilaisuudet-tapahtumat/"
+   ],
+   "link_pattern": "https://risteyspaikka\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Risteyspaikka",
+    "address": "9 Paloheinäntie",
+    "city": "Helsinki",
+    "postal_code": "00670",
+    "lat": 60.2498861,
+    "lon": 24.9413423
+   },
+   "_metro": "Helsinki, FI"
+  },
+  {
+   "name": "Näyttelykeskus WeeGee",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://www.espoo.fi/fi/tapahtumat/espooevents:agpspmdevu"
+   ],
+   "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Näyttelykeskus WeeGee",
+    "address": "5 Ahertajantie",
+    "city": "Espoo",
+    "postal_code": "02100",
+    "lat": 60.1788086,
+    "lon": 24.7943382
+   },
+   "_metro": "Helsinki, FI"
+  },
+  {
+   "name": "Matinkylän uimahalli",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> jsonld-event",
+   "listing": [
+    "https://www.espoo.fi/fi/tapahtumat/espooevents:agqb6rikee"
+   ],
+   "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Matinkylän uimahalli",
+    "address": "6 Tynnyritie",
+    "city": "Espoo",
+    "postal_code": "02230",
+    "lat": 60.160113,
+    "lon": 24.7356696
+   },
+   "_metro": "Helsinki, FI"
   }
  ],
  "_not_included": {
