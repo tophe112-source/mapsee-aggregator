@@ -3705,6 +3705,18 @@
         "lon": 24.9598679
       },
       "_metro": "Helsinki, FI"
+    },
+    {
+      "name": "Visit Issaquah (WA)",
+      "base_url": "https://www.visitissaquahwa.com",
+      "category": "community",
+      "crawl_delay": 2,
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Issaquah",
+      "default_region": "WA",
+      "default_country": "United States",
+      "_note": "Issaquah's destination-marketing calendar, The Events Calendar on WordPress. robots.txt is a Yoast block: named Disallow: / for MJ12bot, AhrefsBot, ClaudeBot, SemrushBot, Barkrowler and Amazonbot, then 'User-agent: * / Disallow:' - an empty Disallow, so the group MapseeAggregator falls under permits everything, and no Crawl-delay is set (2s by convention, not by instruction). 510 future events out to 2027-07, 495 of them (97%) carrying geo_lat/geo_lng from the venue record, so almost nothing here needs the geocoder; 505 of 510 place in Issaquah and one in Renton. It is a CITY-WIDE calendar rather than a venue's, which is why it carries no `venue` block and defaults instead - the events supply their own venues (Village Theatre 134, Issaquah Salmon Hatchery 68, Vino Bella 41, Cougar Mountain Zoo 33, Historic Shell Station 30, Pickering Barn, the Train Depot). community as the base because the mix is civic; the site's own taxonomy carries 'arts' on 256 of them and norm_categories keeps it, so the theatre and gallery half lands on a second lens without a per-event classifier. within_days 365 rather than 180 because 68 events fall past the 180-day line, and max_pages 15 covers the 11 pages a 365-day window returns at per_page 50."
     }
   ],
   "_not_included": {

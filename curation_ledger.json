@@ -77454,6 +77454,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "visitissaquahwa.com": {
+    "checked": 20260903,
+    "name": "Visit Issaquah (WA)",
+    "reason": "510 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "visitlisboa.com/en/events": {
     "checked": 20260901,
     "name": "?",
