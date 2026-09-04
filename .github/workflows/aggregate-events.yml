@@ -225,7 +225,16 @@ jobs:
     # Tribe and CKAN all added since — and every new source brings new venues to
     # geocode at ~1.1s each. Raised to match, with the checkpoint sync below as
     # the thing that makes a future overrun survivable rather than total.
-    timeout-minutes: 240
+    #
+    # 240 -> 300, and the number comes from the runs rather than from a guess.
+    # This job finished in 3h58m on 2026-09-03 and 3h59m on 2026-09-01 — two
+    # minutes and one minute under a four-hour cap — and on 2026-09-04 it went
+    # two minutes over and was CANCELLED with The Events Calendar still to run,
+    # so Visit Issaquah and every other Tribe source missed that day entirely.
+    # A budget that three consecutive runs land within two minutes of is not a
+    # budget, it is a coin toss. The checkpoint sync above is what stops an
+    # overrun costing the whole run; this is what stops it happening weekly.
+    timeout-minutes: 300
     # Cap NEW Photon geocodes per run (~1.1s each) so this job ALWAYS finishes and
     # actions/cache uploads the freshly-warmed geocode cache - a timed-out job
     # never saves it, so the same backlog re-runs forever. 5000 ~= 92 min of

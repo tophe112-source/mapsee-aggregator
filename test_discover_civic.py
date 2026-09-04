@@ -188,6 +188,46 @@ check(icsad.location_attempts("") == [] and icsad.location_attempts(None) == [],
 # \s+-\s+ needs whitespace on BOTH sides, so a trailing dash never splits and
 # the location is tried exactly as its publisher wrote it — one attempt, not two
 # with an empty half.
+# AND THE ANSWER IS CACHED AGAINST WHAT THE FEED SAID. Only hits are cached, so
+# caching under the attempt that worked leaves the FAILED first attempt to be
+# paid again every run — one wasted 1.1s Photon call per event per day, on an
+# adapter where every CivicPlus location needs the split. Live consequence: the
+# feeds job's ICS step went 2h08 -> 3h06 in a day and the job was cancelled on
+# its 240-minute cap with The Events Calendar still to run, which is why Visit
+# Issaquah did not appear.
+def _fake_geocoder(hit_prefix):
+    calls = []
+
+    class _Sess:
+        def get(self, url, params=None, timeout=None):
+            calls.append(params["q"])
+
+            class _R:
+                status_code = 200
+
+                def raise_for_status(self):
+                    pass
+
+                def json(self):
+                    ok = params["q"].startswith(hit_prefix)
+                    return {"features": [{"geometry": {"coordinates": [-97.11, 32.60]}}]
+                            if ok else []}
+            return _R()
+
+    icsad._GEO_CACHE.clear()
+    icsad.time.sleep = lambda *a, **k: None
+    icsad.geocode_allowed = lambda: True
+    return icsad.make_location_geocoder(_Sess(), ", Mansfield, TX"), calls
+
+
+_g, _calls = _fake_geocoder("1650 Matlock Road")
+_loc = "Elmer W. Oliver Nature Park - 1650 Matlock Road  Mansfield TX 76063"
+check(_g(_loc) == (32.60, -97.11), "the split finds the address half")
+check(len(_calls) == 2, "...at a cost of two lookups the first time")
+_before = len(_calls)
+check(_g(_loc) == (32.60, -97.11) and len(_calls) == _before,
+      "...and none at all the second, because the FEED's string is the cache key")
+
 check(icsad.location_attempts("Somewhere -  ") == ["Somewhere -"],
       "a dash with nothing after it does not split into an empty attempt")
 # Two separators split once and leave the second dash leading the remainder.

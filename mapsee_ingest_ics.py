@@ -262,15 +262,30 @@ def location_attempts(loc: str) -> List[str]:
 def make_location_geocoder(session, suffix: str):
     cache = _GEO_CACHE
 
+    def _key(loc: str) -> str:
+        return (loc + "|" + suffix).strip().lower()
+
     def geocode(loc: str):
+        # THE ANSWER IS CACHED AGAINST WHAT THE FEED SAID, not against the
+        # attempt that happened to work. Only hits are cached (see below), so
+        # without this a location that needs the split pays its FAILED first
+        # attempt again on every run, for ever: one wasted 1.1s Photon call per
+        # CivicPlus event per day, and CivicPlus writes every location this way.
+        # That is how this adapter's step went from 2h08 to 3h06 in one day and
+        # took the job past its cap with The Events Calendar still to run.
+        first = _key(loc)
+        if first in cache:
+            return cache[first]
         for attempt in location_attempts(loc):
             lat, lon = _geocode_one(attempt)
             if lat is not None:
+                if attempt != loc:
+                    cache[first] = (lat, lon)
                 return (lat, lon)
         return (None, None)
 
     def _geocode_one(loc: str):
-        key = (loc + "|" + suffix).strip().lower()
+        key = _key(loc)
         if key in cache:
             return cache[key]
         if not geocode_allowed():                    # over this run's budget → retry next run
