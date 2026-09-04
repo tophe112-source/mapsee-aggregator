@@ -2381,5 +2381,302 @@
   "geocode_suffix": ", Espoo",
   "limit": 300,
   "_metro": "Helsinki, FI"
+ },
+ {
+  "name": "Woodbury — Central Park",
+  "category": "community",
+  "url": "https://www.woodburymn.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Woodbury, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Central Park]",
+  "_metro": "Woodbury, Minnesota"
+ },
+ {
+  "name": "Redmond — Community Events",
+  "category": "community",
+  "url": "https://www.redmond.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Redmond, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Redmond, Washington"
+ },
+ {
+  "name": "Redmond — Environmental Sustainability",
+  "category": "community",
+  "url": "https://www.redmond.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Redmond, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Environmental Sustainability]",
+  "_metro": "Redmond, Washington"
+ },
+ {
+  "name": "Redmond — Volunteer Opportunities",
+  "category": "community",
+  "url": "https://www.redmond.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+  "geocode_suffix": ", Redmond, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Volunteer Opportunities]",
+  "_metro": "Redmond, Washington"
+ },
+ {
+  "name": "Jacksonville",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://www.jacksonvillenc.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Jacksonville, North Carolina",
+  "limit": 300,
+  "_metro": "Jacksonville, North Carolina"
+ },
+ {
+  "name": "Mansfield — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Mansfield, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Mansfield, Texas"
+ },
+ {
+  "name": "Mansfield — Library",
+  "category": "community",
+  "url": "https://www.mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Mansfield, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Mansfield, Texas"
+ },
+ {
+  "name": "Mansfield — Nature Education",
+  "category": "community",
+  "url": "https://www.mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Mansfield, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Nature Education]",
+  "_metro": "Mansfield, Texas"
+ },
+ {
+  "name": "Mansfield — Environmental Services",
+  "category": "community",
+  "url": "https://www.mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Mansfield, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Environmental Services]",
+  "_metro": "Mansfield, Texas"
+ },
+ {
+  "name": "Mansfield — Animal Control",
+  "category": "community",
+  "url": "https://www.mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Mansfield, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Animal Control]",
+  "_metro": "Mansfield, Texas"
+ },
+ {
+  "name": "Mansfield — Special Events",
+  "category": "community",
+  "url": "https://www.mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Mansfield, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Mansfield, Texas"
+ },
+ {
+  "name": "St. Joseph — Missouri Theater",
+  "category": "community",
+  "url": "https://www.stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", St. Joseph, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Missouri Theater]",
+  "_metro": "St. Joseph, Missouri"
+ },
+ {
+  "name": "St. Joseph — City of St. Joseph Events Calendar",
+  "category": "community",
+  "url": "https://www.stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", St. Joseph, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City of St. Joseph Events Calendar]",
+  "_metro": "St. Joseph, Missouri"
+ },
+ {
+  "name": "St. Joseph — Bode Sports Complex",
+  "category": "community",
+  "url": "https://www.stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", St. Joseph, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Bode Sports Complex]",
+  "_metro": "St. Joseph, Missouri"
+ },
+ {
+  "name": "St. Joseph — Civic Arena",
+  "category": "community",
+  "url": "https://www.stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", St. Joseph, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Civic Arena]",
+  "_metro": "St. Joseph, Missouri"
+ },
+ {
+  "name": "St. Joseph — Remington Nature Center",
+  "category": "community",
+  "url": "https://www.stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", St. Joseph, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Remington Nature Center]",
+  "_metro": "St. Joseph, Missouri"
+ },
+ {
+  "name": "Baldwin Park — Main Calendar",
+  "category": "community",
+  "url": "https://www.baldwinpark.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Baldwin Park, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Baldwin Park, California"
+ },
+ {
+  "name": "Baldwin Park — Recreation",
+  "category": "community",
+  "url": "https://www.baldwinpark.com/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Baldwin Park, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation]",
+  "_metro": "Baldwin Park, California"
+ },
+ {
+  "name": "Dothan — Leisure Services Calendar",
+  "category": "community",
+  "url": "https://www.dothan.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Dothan, Alabama",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Leisure Services Calendar]",
+  "_metro": "Dothan, Alabama"
+ },
+ {
+  "name": "Dothan — Porter Park & Events Plaza",
+  "category": "community",
+  "url": "https://www.dothan.org/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Dothan, Alabama",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Porter Park & Events Plaza]",
+  "_metro": "Dothan, Alabama"
+ },
+ {
+  "name": "Dothan — Special Events Calendar",
+  "category": "community",
+  "url": "https://www.dothan.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Dothan, Alabama",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events Calendar]",
+  "_metro": "Dothan, Alabama"
+ },
+ {
+  "name": "Canton — Centennial Plaza",
+  "category": "community",
+  "url": "https://www.cantonohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Canton, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Centennial Plaza]",
+  "_metro": "Canton, Ohio"
+ },
+ {
+  "name": "Canton — Civic Center",
+  "category": "community",
+  "url": "https://www.cantonohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Canton, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Civic Center]",
+  "_metro": "Canton, Ohio"
+ },
+ {
+  "name": "Canton — Public Events",
+  "category": "community",
+  "url": "https://www.cantonohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Canton, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Public Events]",
+  "_metro": "Canton, Ohio"
+ },
+ {
+  "name": "Marysville — City Events",
+  "category": "community",
+  "url": "https://www.marysvillewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Marysville, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Marysville, Washington"
+ },
+ {
+  "name": "Lake Elsinore — Main Calendar",
+  "category": "community",
+  "url": "https://www.lake-elsinore.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Lake Elsinore, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Lake Elsinore, California"
+ },
+ {
+  "name": "Lake Elsinore — Public Events",
+  "category": "community",
+  "url": "https://www.lake-elsinore.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Lake Elsinore, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Public Events]",
+  "_metro": "Lake Elsinore, California"
+ },
+ {
+  "name": "Lake Elsinore — Clean LE",
+  "category": "community",
+  "url": "https://www.lake-elsinore.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Lake Elsinore, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Clean LE]",
+  "_metro": "Lake Elsinore, California"
+ },
+ {
+  "name": "Lake Elsinore — Community Calendar",
+  "category": "community",
+  "url": "https://www.lake-elsinore.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Lake Elsinore, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Calendar]",
+  "_metro": "Lake Elsinore, California"
+ },
+ {
+  "name": "Blaine — Community Calendar",
+  "category": "community",
+  "url": "https://www.blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=46&feed=calendar",
+  "geocode_suffix": ", Blaine, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Calendar]",
+  "_metro": "Blaine, Minnesota"
+ },
+ {
+  "name": "Blaine — Events: All Calendar",
+  "category": "community",
+  "url": "https://www.blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=113&feed=calendar",
+  "geocode_suffix": ", Blaine, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events: All Calendar]",
+  "_metro": "Blaine, Minnesota"
+ },
+ {
+  "name": "Blaine — Events: Fall Calendar",
+  "category": "community",
+  "url": "https://www.blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=108&feed=calendar",
+  "geocode_suffix": ", Blaine, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events: Fall Calendar]",
+  "_metro": "Blaine, Minnesota"
+ },
+ {
+  "name": "Blaine — Events: Winter/Spring Calendar",
+  "category": "community",
+  "url": "https://www.blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=107&feed=calendar",
+  "geocode_suffix": ", Blaine, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events: Winter/Spring Calendar]",
+  "_metro": "Blaine, Minnesota"
  }
 ]

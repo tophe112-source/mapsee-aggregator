@@ -163,6 +163,16 @@ jobs:
       - name: OSM calendar discovery (builders vs plugins, challenges, candidate shape)
         run: python test_discover_osm.py
 
+      # The CIVIC backend, and every rule in it is one a live sweep got wrong
+      # first: a keep list that threw away "4th of July" and kept "Waste
+      # Collection Events", closure calendars that pass a name test because
+      # their entries are just "Christmas Day", a cursor advanced by
+      # deduplicated cities when Wikidata's OFFSET counts rows, and four feeds
+      # that verified perfectly and ingested nothing because Photon cannot read
+      # "Venue - Street City ST ZIP". None of them is guessable from the code.
+      - name: Civic calendar discovery (deny list, closure feeds, city-wide shape)
+        run: python test_discover_civic.py
+
       # OFFSET paging gets dearer every page: offset=6000 makes Postgres produce
       # and discard six thousand rows to return the next thousand. It held while
       # the catalog was small and died the day a 26-hour window held more than

@@ -210,10 +210,66 @@ def parse_ics(text: str) -> List[Dict[str, Any]]:
     return events
 
 
+# "Venue Name - 123 Street  City ST 12345", which is how CivicPlus writes every
+# LOCATION on every municipal calendar it hosts. Photon reads it as ONE place
+# name and finds nothing at all:
+#
+#   Elmer W. Oliver Nature Park - 1650 Matlock Road  Mansfield TX 76063  -> None
+#   1650 Matlock Road, Mansfield TX 76063                -> 32.6057, -97.1148
+#   Elmer W. Oliver Nature Park, Mansfield TX            -> 32.5859, -97.1025
+#
+# Both halves geocode; the two of them joined by a dash do not. That is the
+# whole reason four newly-found city feeds ingested 0 of 34, 0 of 6, 0 of 3 and
+# 1 of 16 events while carrying a full street address on every single one — and
+# the log said "no LOCATION/GEO", which is the one thing that was not wrong with
+# them. It is not one bad feed: it is the default output of the CMS a large share
+# of US municipalities run, so it is worth a rule.
+#
+# ADDRESS FIRST, THEN THE VENUE. The address is the more precise answer when it
+# resolves; the venue name is the better fallback than nothing, and for a park
+# or a trailhead it is often the ONLY thing with a real position (407 Industrial
+# Blvd. does not resolve; Animal Care and Control Facility might).
+_CIVIC_DASH = re.compile(r"\s+-\s+")
+
+
+def location_attempts(loc: str) -> List[str]:
+    """The strings to try for one LOCATION, best first, never more than three.
+
+    Bounded deliberately: every attempt is a second of Photon's fair-use budget
+    and that budget is shared across every ics source in the run.
+    """
+    loc = (loc or "").strip()
+    if not loc:
+        return []
+    out = [loc]
+    # Stripped of dashes as well as spaces and commas: a LOCATION with two
+    # separators ("City Hall - Council Chamber - 1200 E. Broad St") splits once
+    # and leaves the second dash leading the remainder, and "- 1200 E. Broad St"
+    # is a query we should not be sending anybody.
+    parts = [p.strip(" ,-") for p in _CIVIC_DASH.split(loc, 1)]
+    if len(parts) == 2 and all(parts):
+        venue, rest = parts
+        # The address half is the one with a house number in it. Checked rather
+        # than assumed positional, because a few sites write it the other way
+        # round ("1650 Matlock Road - Oliver Nature Park").
+        if re.match(r"\d", rest):
+            out += [rest, venue]
+        else:
+            out += [venue, rest]
+    return out
+
+
 def make_location_geocoder(session, suffix: str):
     cache = _GEO_CACHE
 
     def geocode(loc: str):
+        for attempt in location_attempts(loc):
+            lat, lon = _geocode_one(attempt)
+            if lat is not None:
+                return (lat, lon)
+        return (None, None)
+
+    def _geocode_one(loc: str):
         key = (loc + "|" + suffix).strip().lower()
         if key in cache:
             return cache[key]

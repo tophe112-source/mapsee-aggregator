@@ -66,9 +66,11 @@ from __future__ import annotations
 
 import json
 import os
+import datetime as _dt
 import re
 import time
 from typing import Any, Dict, Iterable, List, Optional, Tuple
+from html import unescape
 from urllib.parse import urljoin, urlparse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -208,6 +210,14 @@ PLATFORM_SIGNS = [
     # finds nothing and a perfectly readable site looks unreadable. A platform
     # can imply a feed URL — see FEED_TEMPLATES.
     ("my-calendar",      re.compile(r"/wp-content/plugins/my-calendar|mc-navigation-button|mc-events-link", re.I), "ics"),
+    # CivicPlus, which is how a large share of US municipalities publish anything
+    # at all. Measured on issaquahwa.gov: find_calendar landed on /calendar.aspx
+    # and returned `no-calendar`, because the page links no .ics and matched no
+    # sign here — a city hall with eleven readable iCal feeds read as a city hall
+    # with none. The signs are the vendor's own footer credit and its module
+    # paths; `iCalendar.aspx` alone would be too thin, since the string is a
+    # generic enough filename to appear elsewhere.
+    ("civicplus",        re.compile(r"civicplus|/[Cc]ommon/[Mm]odules/Calendar|/iCalendar\.aspx", re.I), "ics"),
 ]
 
 # DETECTING A SITE BUILDER IS NOT DETECTING A CALENDAR, and conflating the two
@@ -239,10 +249,281 @@ FEED_TEMPLATES = {
     "my-calendar": "{origin}/?feed=my-calendar-ics",
     "events-manager": "{cal}?ical=1",
 }
+
+# ---- platforms whose feed cannot be written down as one URL -------------------
+# CivicPlus has NO whole-calendar export. Checked on issaquahwa.gov: `catID=all`
+# is a 404, `catID=` with no value is an empty 200, and `catID=0` and an
+# unused id both return a 486-byte VCALENDAR with zero VEVENTs — a valid,
+# permanently empty feed, which is the worst possible answer because it verifies.
+# The feeds are per CATEGORY, and the list of them lives on /iCalendar.aspx.
+#
+# WHICH CATEGORIES, THOUGH. The twenty-four on that one site are half a city's
+# programme and half its governance: Community Events, Concerts on the Green,
+# Farmers Market, Pickering Barn and 4th of July next to City Council, Boards &
+# Commissions, Public Hearings and City Hall Closures. A planning-commission
+# agenda is not an event anybody opens a map to find.
+#
+# WRITTEN AS A KEEP LIST FIRST, AND THAT WAS THE WRONG WAY ROUND. The reasoning
+# was that a keep list fails CLOSED, and failing closed is the safe direction for
+# content quality. Run against those twenty-four real names it got five wrong,
+# and the five say why the reasoning was bad: it threw away "4th of July",
+# "Juneteenth", "Halloween" and "Pickering Barn" — a festival, two holidays and a
+# venue — while keeping "Waste Collection Events" on the word `event` and
+# "Transportation" because `sport` is a substring of `tran-sport-ation`.
+#
+# The asymmetry is the point. GOVERNANCE vocabulary is small, stable and
+# near-universal: council, commission, hearing, agenda. PROGRAMME vocabulary is
+# unbounded and local — "Concerts on the Green", "Salmon Days", "Pickering Barn"
+# — and no word list will ever hold it. So the list names what we are sure we do
+# NOT want and keeps the rest, and the rejects are reported rather than silently
+# dropped. Word boundaries throughout, because that substring accident is the
+# failure mode of every list like this.
+CIVICPLUS_ICAL_RX = re.compile(
+    r'href="([^"]*iCalendar\.aspx\?catID=(\d+)[^"]*)"[^>]*>\s*([^<]{0,80})', re.I)
+CIVIC_DENY_RX = re.compile(
+    r"\b(councils?|committees?|commissions?|boards?|hearings?|meetings?|agendas?|"
+    r"closures?|elections?|budget(?:ing|s)?|permits?|courts?|deadlines?|zoning|"
+    r"planning|public works|notices?|city hall|town hall|bids?|rfps?|"
+    r"waste|recycling|garbage|refuse|collection|transportation|roadwork|"
+    r"construction|detours?|utilit(?:y|ies)|development|"
+    # ...and the second half of this list is what a live sweep taught it. New
+    # Rochelle's 26 categories included Finance (65 future entries), Tax (65),
+    # City Clerk (31), Civil Service, Assessor, Paving Schedule and Down Payment
+    # Assistance; Baytown's included Warrant Resolution, Docket Calendar,
+    # Mosquito Control, Police Academy Trainings and Fire Training Facility.
+    # Every one of them is a real, populated, forward-looking calendar, which is
+    # exactly why proving the feed cannot replace reading the name: a tax
+    # deadline schedule verifies perfectly and belongs on nobody's map.
+    r"finance|tax(?:es)?|assessor|clerks?|civil service|dockets?|warrants?|payroll|"
+    r"billing|payments?|parking|paving|snow|plow|mosquito|inspections?|"
+    r"licens(?:e|es|ing)|pre-?application|code enforcement|"
+    r"fire training|police academy|assistance program)\b", re.I)
+
 _LD_EVENT_RX = re.compile(
     r'<script[^>]*application/ld\+json[^>]*>(.*?)</script>', re.S | re.I)
 _LD_IS_EVENT = re.compile(r'"@type"\s*:\s*(?:"[A-Za-z]*Event"|\[[^\]]*Event)', re.I)
 _ICS_RX = re.compile(r'href="([^"]*\.ics(?:\?[^"]*)?)"|href="(webcal://[^"]+)"', re.I)
+
+
+def future_vevents(body: str, today: Optional[str] = None) -> int:
+    """How many events this calendar still has to come, read the way the ics
+    adapter will.
+
+    Not `BEGIN:VEVENT`. Measured across two cities' 47 categories, 30 of them
+    parse as perfectly valid iCalendar and contain nothing at all, and several
+    more contain only past dates — Baytown publishes five separate 75th-birthday
+    calendars, all empty, and its Senior Center feed is three events that already
+    happened. Proposing those is proposing sources that ingest zero, and every
+    one costs a ledger row, a verify request and a config line to find that out.
+
+    A COUNT rather than a yes/no, because the count is also the only ranking
+    available when a city publishes more categories than it should be allowed to
+    contribute — see the cap in civicplus_feeds.
+    """
+    if today is None:
+        today = _dt.date.today().strftime("%Y%m%d")
+    return sum(1 for d in re.findall(r"DTSTART[^:]*:(\d{8})", body) if d >= today)
+
+
+# What a governance calendar's entries are CALLED. Used on the feed's own
+# SUMMARY lines, not on the category name — see governance_heavy.
+CIVIC_SUMMARY_RX = re.compile(
+    r"\b(meetings?|boards?|committees?|commissions?|councils?|hearings?|"
+    r"agendas?|caucus|executive session|offices? (?:will be )?closed|"
+    r"closed\s*[-–]|holiday observ)", re.I)
+
+# ...AND THE OTHER WAY A CALENDAR SAYS "WE ARE SHUT", which is to say nothing at
+# all beyond the name of the day. Mansfield's City Holidays is 70 entries of
+# "Christmas Day" / "Independence Day" / "New Year's Day"; Dothan's and St
+# Joseph's are the same list under different names ("City Holiday Calendar",
+# "Facility Closings"). Not one of them carries a governance word, so the rule
+# above passes all three.
+#
+# MATCHED WHOLE, NEVER AS A SUBSTRING, and that is the entire difference between
+# this and a word list that would do real damage. A city that programmes its
+# holidays has entries like "Down Home 4th of July Parade" and "Halloween
+# Spooktacular at Pickering Barn" — Visit Issaquah and Issaquah's own CivicPlus
+# both carry exactly those. The bare day is a closure; the day with an event
+# attached to it is an event.
+_HOLIDAY = (r"new year'?s?(?: day| eve)?|christmas(?: day| eve)?|thanksgiving|"
+            r"independence day|4th of july|fourth of july|labou?r day|"
+            r"memorial day|veterans?'? day|juneteenth|presidents'? day|"
+            r"martin luther king,? jr\.?,? day|mlk day|columbus day|"
+            r"indigenous peoples'? day|easter|good friday|new year")
+CIVIC_HOLIDAY_RX = re.compile(
+    # ...and the wrapper words a city puts around the day, because Blaine's
+    # closure list is 95 entries of "Juneteenth Day Holiday" and the bare
+    # anchored name misses every one of them. Optional on both sides, still
+    # anchored: "Juneteenth Day Holiday" matches, "Juneteenth Jubilee in the
+    # Park" does not.
+    rf"^\s*(?:holiday\s*[-–:]?\s*)?(?:{_HOLIDAY})"
+    rf"(?:\s+(?:day|holiday|observed|obs\.?))*"
+    rf"\s*(?:\((?:observed|obs\.?)\))?\s*$", re.I)
+
+
+def placeable_share(body: str, today: Optional[str] = None) -> Tuple[int, int]:
+    """(with a place, upcoming) — how much of this feed can be put on a map.
+
+    VERIFYING IS NOT INGESTING. A feed proved to hold future events contributes
+    nothing if those events carry no LOCATION and no GEO: the ics adapter drops
+    them, and until it grew a counter the only symptom was a source that looked
+    two thirds empty. Seattle Parks Foundation is that adapter's own worked
+    example — 30 events, 20 with no LOCATION at all — and it wanted a different
+    adapter entirely.
+
+    THIS IS PRESENCE, NOT GEOCODABILITY, and the difference cost a wrong
+    diagnosis worth recording. Four newly-found city feeds ingested 0 of 34, 0
+    of 6, 0 of 3 and 1 of 16, the log said "no LOCATION/GEO", and this filter
+    was written to catch them. It does not, because all four carry a full street
+    address on every single event. What they carry it in is CivicPlus's "Venue
+    Name - 123 Street  City ST ZIP", which Photon cannot read at all; the fix
+    was in the geocoder, not here — see location_attempts in mapsee_ingest_ics,
+    after which those same four ingest 34/34, 6/6, 3/3 and 16/16. This still
+    refuses the feed that genuinely says nothing about where, which is a real
+    class, but it was never the one it was written for and it must not be
+    trusted to stand in for the geocoder.
+
+    Per VEVENT rather than by counting lines, because a feed with ten events and
+    one heavily-wrapped LOCATION would otherwise read as fully placeable.
+    """
+    if today is None:
+        today = _dt.date.today().strftime("%Y%m%d")
+    placed = upcoming = 0
+    for block in body.split("BEGIN:VEVENT")[1:]:
+        block = block.split("END:VEVENT")[0]
+        m = re.search(r"DTSTART[^:]*:(\d{8})", block)
+        if not m or m.group(1) < today:
+            continue
+        upcoming += 1
+        if re.search(r"(?m)^(?:LOCATION|GEO)[;:]\s*\S", block):
+            placed += 1
+    return placed, upcoming
+
+
+def governance_heavy(body: str, floor: float = 0.66) -> bool:
+    """True when this calendar is a meeting schedule or a list of days the
+    office is shut, wearing an events hat.
+
+    THE NAME TEST CANNOT REACH THIS AND THE CONTENT TEST DOES IT FOR FREE. A
+    first sweep proposed all of these, every one past a deny list built from
+    category names and every one proved to hold future events:
+
+        Woodbury — Holidays          4x "City Offices Closed - Christmas"
+        Missoula — Holidays          8x "City Offices will be Closed"
+        Mount Vernon — IDA Calendar  4x "IDA Meeting"
+        Missoula — Redevelopment     4x "MRA Board Meeting"
+        4 Missoula neighborhoods     1x "…Council General Meeting" each
+        Mansfield — City Holidays    70x "Christmas Day", "Independence Day"
+        Dothan, St Joseph            the same list, named differently
+
+    Extending the name list would have meant guessing at `holidays`, `IDA`,
+    `redevelopment` and `neighborhood` — and `neighborhood` is exactly the word
+    a block-party calendar uses, so the guess costs real content. The ENTRIES
+    say it plainly instead, and they say it the same way in every city.
+
+    Two-thirds rather than any, because a parks calendar legitimately carries
+    the odd "Parks Board Meeting" and that is not what this is for. Measured
+    against those seven: every one is 100%, and the ones kept alongside them —
+    Redmond's Environmental Sustainability (Youth Climate Action Fund office
+    hours, a Community Preparedness Fair), its Volunteer Opportunities, and
+    Mansfield's Household Hazardous Waste Drop-Off — are all 0%.
+    """
+    sums = re.findall(r"(?m)^SUMMARY:(.+)$", body)
+    if not sums:
+        return False
+    hits = sum(1 for x in sums
+               if CIVIC_SUMMARY_RX.search(x) or CIVIC_HOLIDAY_RX.match(x.strip()))
+    return hits / len(sums) >= floor
+
+
+def civicplus_feeds(session, origin: str, timeout: int = 15, prove: bool = True,
+                    cap: int = 6) -> Tuple[List[Tuple[str, str]], List[str]]:
+    """(kept, dropped) per-category iCal feeds on a CivicPlus site.
+
+    Returns every category except the ones whose NAME is governance and — when
+    `prove` — the ones whose feed has nothing still to come. `dropped` carries
+    both, each tagged with which test it failed, so a sweep reports what it
+    walked past rather than quietly halving a city.
+
+    The list is read off /iCalendar.aspx, which is the page the site's own
+    "subscribe" link points at, not a path this guesses: it is where CivicPlus
+    puts one href per category with the category's name as the link text.
+
+    THE NAME TEST RUNS FIRST AND IT IS FREE. Proving costs one fetch per
+    surviving category, which is this backend's whole budget — Gloucester
+    publishes 60 — so the categories that can be refused on their name are
+    refused before anything is fetched.
+
+    AND THEN A CAP, because a city is not supposed to be twenty sources. One
+    config line per category per city puts 5,770 US cities somewhere north of
+    20,000 entries in ics_sources.json, which is a file a person has to be able
+    to read. Ranked by how many future events the category actually holds —
+    which proving has already counted, so the ranking is free — and the tail is
+    reported as dropped rather than lost silently. `cap=0` lifts it.
+    """
+    o = urlparse(origin)
+    page = f"{o.scheme}://{o.netloc}/iCalendar.aspx"
+    try:
+        r = session.get(page, timeout=timeout, allow_redirects=True)
+    except Exception:                                             # noqa: BLE001
+        return [], []
+    if r.status_code >= 400 or CHALLENGE_RX.search(r.text[:6000]):
+        return [], []
+    kept, dropped, seen = [], [], set()
+    for href, cat_id, label in CIVICPLUS_ICAL_RX.findall(r.text):
+        name = re.sub(r"\s+", " ", unescape(label)).strip()
+        if cat_id in seen:
+            continue
+        seen.add(cat_id)
+        if not name:
+            dropped.append(f"catID={cat_id} (unnamed)")
+            continue
+        if CIVIC_DENY_RX.search(name):
+            dropped.append(f"{name} (governance)")
+            continue
+        url = urljoin(str(r.url), unescape(href))
+        if not prove:
+            kept.append((url, name, 0))
+            continue
+        try:
+            f = session.get(url, timeout=timeout)
+        except Exception:                                         # noqa: BLE001
+            dropped.append(f"{name} (unreachable)")
+            continue
+        n = future_vevents(f.text) if f.status_code == 200 else 0
+        if not n:
+            dropped.append(f"{name} (nothing upcoming)")
+            continue
+        if governance_heavy(f.text):
+            dropped.append(f"{name} (meeting schedule)")
+            continue
+        placed, upcoming = placeable_share(f.text)
+        # Half, which is the same line the ics adapter's own warning draws. A
+        # source that hands over fewer than half its events is not worth a daily
+        # fetch, and one that hands over none is worse than nothing.
+        if upcoming and placed * 2 < upcoming:
+            dropped.append(f"{name} ({placed}/{upcoming} placeable)")
+            continue
+        kept.append((url, name, n))
+    kept.sort(key=lambda k: -k[2])
+    if cap and len(kept) > cap:
+        for _u, name, n in kept[cap:]:
+            dropped.append(f"{name} ({n} upcoming, past the cap of {cap})")
+        kept = kept[:cap]
+    return [(u, name) for u, name, _n in kept], dropped
+
+
+def _civicplus_one(session, origin: str, timeout: int = 15) -> Optional[str]:
+    """The single feed constructed_feed's contract can return.
+
+    A city is many calendars and this is one of them, which is why the civic
+    backend calls civicplus_feeds directly and proposes each. This exists so the
+    OSM backend — which finds the odd library or community centre running
+    CivicPlus — stops reporting them as `ics-without-feed`. First kept category
+    wins; there is no ranking to be had from a name.
+    """
+    kept, _ = civicplus_feeds(session, origin, timeout)
+    return kept[0][0] if kept else None
 
 
 def constructed_feed(session, origin: str, labels: Iterable[str],
@@ -255,6 +536,12 @@ def constructed_feed(session, origin: str, labels: Iterable[str],
     front of these sites answers the guess with 200 and a spinner.
     """
     for label in labels:
+        # CivicPlus has no single-URL form — see the note above CIVICPLUS_ICAL_RX.
+        if label == "civicplus":
+            one = _civicplus_one(session, origin, timeout)
+            if one:
+                return one
+            continue
         tmpl = FEED_TEMPLATES.get(label)
         if not tmpl:
             continue
@@ -319,10 +606,14 @@ def adapter_for(labels: Iterable[str]) -> Optional[str]:
     # my-calendar outranks the page's own Event block deliberately: its iCal
     # export is the WHOLE calendar, where the JSON-LD on the page is whatever
     # that one view happened to render.
+    # civicplus sits ABOVE the bare `ics` label and below every plugin: a city
+    # site that also runs The Events Calendar is a tribe source, but one whose
+    # page happens to link a stray .ics is not — CivicPlus's own per-category
+    # feeds are the whole calendar and the stray link is one slice of it.
     order = ["tribe", "mylisting", "localist", "gancio", "venuepilot",
              "squarespace", "my-calendar", "trumba", "libcal",
              "wp-event-manager", "events-manager", "modern-events", "wix",
-             "jsonld-event", "ics"]
+             "civicplus", "jsonld-event", "ics"]
     labs = set(labels)
     by_label = {name: adapter for name, _, adapter in PLATFORM_SIGNS}
     by_label["jsonld-event"] = "jsonld"
@@ -469,11 +760,19 @@ def _prefer_listing(session, deep_url: str, timeout: int = 18) -> Optional[str]:
 
 
 def find_calendar(session, home_url: str, timeout: int = 18,
-                  max_follow: int = 2) -> Dict[str, Any]:
+                  max_follow: int = 2, on_home=None) -> Dict[str, Any]:
     """Locate the calendar on a venue site and say what runs it.
 
     status is one of: ok | no-calendar | offsite:<host> | bot-challenge |
     unreachable | http<code>.
+
+    `on_home(url, body)` is handed the HOMEPAGE the moment it is fetched, and
+    exists so a caller can ask that page a second question without paying for a
+    second request. catalog_discover_civic reads the city's outbound links for
+    its tourism board that way. It is deliberately a callback rather than a
+    returned body: this function is called once per venue across a whole metro,
+    and handing every caller a megabyte of HTML it did not ask for is how a
+    sweep starts running out of memory instead of time.
     """
     out = {"cal_url": None, "labels": [], "adapter": None, "ics": None,
            "status": None, "offsite": None, "extra": {}}
@@ -491,6 +790,11 @@ def find_calendar(session, home_url: str, timeout: int = 18,
         return out
 
     base, body = str(r.url), r.text
+    if on_home:
+        try:
+            on_home(base, body)
+        except Exception:                                         # noqa: BLE001
+            pass                    # a caller's extra question must not cost the find
     home_labels, home_ics = fingerprint(body)
 
     onsite, offsite_hit = [], None

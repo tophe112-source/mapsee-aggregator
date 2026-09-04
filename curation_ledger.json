@@ -3702,6 +3702,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "appleton.org": {
+    "checked": 20260903,
+    "name": "Appleton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "apprentis-auteuil.org/etablissements/maison-denfants-caractere-social-lannonciation": {
     "checked": 20260830,
     "name": "Les Apprentis d'Auteuil",
@@ -6152,6 +6159,20 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "baldwinpark.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260903,
+    "name": "Baldwin Park \u2014 Main Calendar",
+    "reason": "89 vevents / 80 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "baldwinpark.com/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260903,
+    "name": "Baldwin Park \u2014 Recreation",
+    "reason": "16 vevents / 16 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "balettikoulupirjokuha.fi": {
     "checked": 20260903,
     "name": "Balettikoulu Pirjo Kuha",
@@ -8293,6 +8314,48 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=107&feed=calendar": {
+    "checked": 20260903,
+    "name": "Blaine \u2014 Events: Winter/Spring Calendar",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=108&feed=calendar": {
+    "checked": 20260903,
+    "name": "Blaine \u2014 Events: Fall Calendar",
+    "reason": "13 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=113&feed=calendar": {
+    "checked": 20260903,
+    "name": "Blaine \u2014 Events: All Calendar",
+    "reason": "13 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260903,
+    "name": "Blaine \u2014 Holiday Calendar",
+    "reason": "95 vevents / 95 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260903,
+    "name": "Blaine \u2014 MAYC: Events Calendar",
+    "reason": "43 vevents / 43 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=46&feed=calendar": {
+    "checked": 20260903,
+    "name": "Blaine \u2014 Community Calendar",
+    "reason": "24 vevents / 24 future",
+    "status": "ok",
+    "type": "ics"
   },
   "blakemanor.ie": {
     "checked": 20260823,
@@ -11759,6 +11822,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cantonohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
+    "checked": 20260903,
+    "name": "Canton \u2014 Civic Center",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cantonohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260903,
+    "name": "Canton \u2014 Centennial Plaza",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cantonohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
+    "checked": 20260903,
+    "name": "Canton \u2014 Public Events",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cantysbookshopfyshwick.com": {
     "checked": 20260819,
     "name": "Canty's Bookshop",
@@ -14328,6 +14412,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ci.camarillo.ca.us": {
+    "checked": 20260903,
+    "name": "Camarillo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "ci.waukesha.wi.us": {
+    "checked": 20260903,
+    "name": "Waukesha",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cianoconnor.com/about-karlswood": {
     "checked": 20260822,
     "name": "Karlswood Horse Riding Centre",
@@ -15077,6 +15175,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cityofdoral.com": {
+    "checked": 20260903,
+    "name": "Doral",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cityofparramatta.nsw.gov.au/community/libraries-and-community-hubs/library-locations-and-opening-hours/epping-branch-library": {
     "checked": 20260819,
     "name": "Epping Branch Library",
@@ -15104,6 +15209,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cityofsouthfield.com": {
+    "checked": 20260903,
+    "name": "Southfield",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cityofsydney.nsw.gov.au/community-centres/juanita-nielsen-community-centre": {
     "checked": 20260819,
@@ -15202,6 +15314,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cityofturlock.org": {
+    "checked": 20260903,
+    "name": "Turlock",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cityparksfoundation.org/events/?ical=1": {
     "checked": 20260727,
@@ -20438,6 +20557,27 @@
     "reason": "2 events / 0 future",
     "status": "empty",
     "type": "squarespace"
+  },
+  "dothan.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260903,
+    "name": "Dothan \u2014 Leisure Services Calendar",
+    "reason": "49 vevents / 48 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dothan.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
+    "checked": 20260903,
+    "name": "Dothan \u2014 Special Events Calendar",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "dothan.org/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
+    "checked": 20260903,
+    "name": "Dothan \u2014 Porter Park & Events Plaza",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
   },
   "dotmuseum.co.kr": {
     "checked": 20260902,
@@ -29784,6 +29924,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "google.com/calendar/render?cid=webcal://outlook.office365.com/owa/calendar/05a0132bc4a5461e9f8a52efce2d64e7@auburnalabama.org/866125d851144d6e9a81cd6437bebf1c18312857512378258103/calendar.ics": {
+    "checked": 20260903,
+    "name": "Auburn",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='www.google.com', port=443): Max retries exce",
+    "status": "fail",
+    "type": "ics"
+  },
   "gopa.fi": {
     "checked": 20260903,
     "name": "GOPA - Golf & Padel Center Sipoonlahti",
@@ -30903,6 +31050,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "gulfport-ms.gov": {
+    "checked": 20260903,
+    "name": "Gulfport",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "gumbontalo.fi": {
     "checked": 20260903,
@@ -36483,6 +36637,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "jacksonvillenc.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
+    "checked": 20260903,
+    "name": "Jacksonville",
+    "reason": "179 vevents / 158 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "jacobbjorngallery.com": {
     "checked": 20260901,
     "name": "Jacob Bjorn Gallery",
@@ -37001,6 +37162,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "johnsoncitytn.org": {
+    "checked": 20260903,
+    "name": "Johnson City",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "johnsonvilleanglicans.org.nz/upcoming-events": {
     "checked": 20260824,
     "name": "St John's Anglican Church",
@@ -37413,6 +37581,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kalamazoocity.org": {
+    "checked": 20260903,
+    "name": "Kalamazoo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kalari7.com": {
     "checked": 20260828,
@@ -40284,6 +40459,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lake-elsinore.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260903,
+    "name": "Lake Elsinore \u2014 Main Calendar",
+    "reason": "17 vevents / 17 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lake-elsinore.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260903,
+    "name": "Lake Elsinore \u2014 Public Events",
+    "reason": "8 vevents / 8 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lake-elsinore.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260903,
+    "name": "Lake Elsinore \u2014 Clean LE",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lake-elsinore.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
+    "checked": 20260903,
+    "name": "Lake Elsinore \u2014 Community Calendar",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "lakechap.ca": {
     "checked": 20260819,
     "name": "Lake Chaparral Residents Association",
@@ -41711,6 +41914,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lehi-ut.gov": {
+    "checked": 20260903,
+    "name": "Lehi",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "lehmannsilva.com": {
     "checked": 20260901,
@@ -46129,6 +46339,48 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260903,
+    "name": "Mansfield \u2014 Library",
+    "reason": "73 vevents / 73 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
+    "checked": 20260903,
+    "name": "Mansfield \u2014 Animal Control",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260903,
+    "name": "Mansfield \u2014 Parks & Recreation",
+    "reason": "107 vevents / 107 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
+    "checked": 20260903,
+    "name": "Mansfield \u2014 Environmental Services",
+    "reason": "16 vevents / 16 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
+    "checked": 20260903,
+    "name": "Mansfield \u2014 Nature Education",
+    "reason": "34 vevents / 34 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
+    "checked": 20260903,
+    "name": "Mansfield \u2014 Special Events",
+    "reason": "4 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "mantzius.rudersdal.dk": {
     "checked": 20260831,
     "name": "MantziusLive",
@@ -46625,6 +46877,20 @@
     "reason": "osm probe: offsite:humanitix.com",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "marysvillewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260903,
+    "name": "Marysville \u2014 City Events",
+    "reason": "7 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "marysvillewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar": {
+    "checked": 20260903,
+    "name": "Marysville \u2014 Parks and Recreation",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='www.marysvillewa.gov', port=443): Max retrie",
+    "status": "fail",
+    "type": "ics"
   },
   "mas-paris.fr": {
     "checked": 20260828,
@@ -50679,6 +50945,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "myharlingen.us": {
+    "checked": 20260903,
+    "name": "Harlingen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "myhillsong.com/services/city": {
     "checked": 20260819,
     "name": "Hillsong Church City Campus",
@@ -51490,6 +51763,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "newbritainct.gov": {
+    "checked": 20260903,
+    "name": "New Britain",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "newcastle.nsw.gov.au/Library/Home": {
     "checked": 20260821,
@@ -56188,6 +56468,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pawtucketri.com": {
+    "checked": 20260903,
+    "name": "Pawtucket",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "pcc.org.nz": {
     "checked": 20260824,
     "name": "Ponsonby Cruising Club",
@@ -59093,6 +59380,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rcgov.org": {
+    "checked": 20260903,
+    "name": "Rapid City",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "rcl285.ca": {
     "checked": 20260819,
     "name": "Royal Canadian Legion - Centennial Calgary Branch 285",
@@ -59498,6 +59792,34 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "redmond.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260903,
+    "name": "Redmond \u2014 Community Events",
+    "reason": "11 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "redmond.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
+    "checked": 20260903,
+    "name": "Redmond \u2014 Environmental Sustainability",
+    "reason": "4 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "redmond.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar": {
+    "checked": 20260903,
+    "name": "Redmond \u2014 Volunteer Opportunities",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "redondo.org": {
+    "checked": 20260903,
+    "name": "Redondo Beach",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "redrat.co.nz": {
     "checked": 20260824,
@@ -60443,6 +60765,13 @@
     "reason": "osm probe: offsite:humanitix.com",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "rochesterhills.org": {
+    "checked": 20260903,
+    "name": "Rochester Hills",
+    "reason": "civic probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "civic-city"
   },
   "rock4you.dance/soirees-rock": {
     "checked": 20260828,
@@ -66870,6 +67199,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "stcharlescity.com": {
+    "checked": 20260903,
+    "name": "St. Charles",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "stchristophers.org.nz/events": {
     "checked": 20260824,
     "name": "Saint Christopher's",
@@ -67471,6 +67807,41 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260903,
+    "name": "St. Joseph \u2014 City of St. Joseph Events Calendar",
+    "reason": "9 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20260903,
+    "name": "St. Joseph \u2014 Civic Arena",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260903,
+    "name": "St. Joseph \u2014 Remington Nature Center",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
+    "checked": 20260903,
+    "name": "St. Joseph \u2014 Missouri Theater",
+    "reason": "11 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "stjosephmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260903,
+    "name": "St. Joseph \u2014 Bode Sports Complex",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
   },
   "stjosephscamperdown.org.au": {
     "checked": 20260819,
@@ -77524,6 +77895,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "visitrapidcity.com": {
+    "checked": 20260903,
+    "name": "Rapid City",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "visitsamsoe.dk/en/inspiration/father-thousands-colourful-landscapes": {
     "checked": 20260901,
     "name": "Jeppe's Atelier",
@@ -79694,6 +80072,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "woodburymn.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
+    "checked": 20260903,
+    "name": "Woodbury \u2014 Central Park",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "woodcreekcommunity.ca": {
     "checked": 20260819,
     "name": "Woodcreek Community Centre",
@@ -80009,6 +80394,20 @@
     "status": "fail",
     "type": "tribe"
   },
+  "www.blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260903,
+    "name": "Blaine \u2014 Holiday Calendar",
+    "reason": "civic probe: holiday closure list",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "www.blainemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260903,
+    "name": "Blaine \u2014 MAYC: Events Calendar",
+    "reason": "civic probe: holiday closure list",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "www2.isep.ipp.pt/museu/index.php?page=inicio": {
     "checked": 20260901,
     "name": "Museu do Instituto Superior de Engenharia do Porto",
@@ -80029,6 +80428,13 @@
     "reason": "140 upcoming, sample: Hells Bells Festival 2027",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "wyomingmi.gov": {
+    "checked": 20260903,
+    "name": "Wyoming",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "x-pressperformers.com": {
     "checked": 20260819,
@@ -80477,6 +80883,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "yubacity.net": {
+    "checked": 20260903,
+    "name": "Yuba City",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "yuenyuen.org.hk": {
     "checked": 20260831,

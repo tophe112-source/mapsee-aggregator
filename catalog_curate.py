@@ -35,6 +35,9 @@ DISCOVERY BACKENDS
   mobilizon  the joinmobilizon.org directory of live federated instances - the
              one backend whose supply GROWS on its own, because new instances
              appear without anyone publishing a dataset
+  osm        venue calendars, from the map. See catalog_discover_osm.py
+  civic      a whole TOWN's calendar - the city's own and its tourism board's -
+             from Wikidata. See catalog_discover_civic.py
 
 Usage:
   # candidates.json is an array; each item is a config entry PLUS a "type":
@@ -48,7 +51,7 @@ Usage:
   #      "map":{"id":"...","title":"...","start":"...","venue":"..."}}]
   # propose NEW sources. The backend is POSITIONAL and must come before the
   # flags (main() reads argv[2:3]); omitted means socrata.
-  python catalog_curate.py discover [socrata|ckan|mobilizon|osm] [--limit 400]
+  python catalog_curate.py discover [socrata|ckan|mobilizon|osm|civic] [--limit 400]
          [--out candidates.json] [--metros N]      # --metros: osm only
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
@@ -1131,7 +1134,7 @@ def _discover_socrata(session, seen_keys, led, limit, cursor, queries):
 #
 # This is the one backend where "continually discovers new sources" is literally
 # true: next quarter's directory contains instances that do not exist today.
-BACKENDS = ("socrata", "ckan", "mobilizon", "osm")
+BACKENDS = ("socrata", "ckan", "mobilizon", "osm", "civic")
 
 # How many metros one `discover osm` run walks. Each is an Overpass call plus a
 # site probe per venue with a website (~600 in a big city, most of them one
@@ -1139,6 +1142,128 @@ BACKENDS = ("socrata", "ckan", "mobilizon", "osm")
 # cursor advances by exactly this many, so the globe is walked through rather
 # than glanced at — the same reason the Socrata cursor exists.
 OSM_METROS_PER_RUN = 3
+
+
+# How many cities one `discover civic` run walks. A CivicPlus city costs one
+# fetch for the homepage, one for /iCalendar.aspx and one PER SURVIVING CATEGORY
+# to prove it — Gloucester publishes 60 — so this is the knob that decides what a
+# scheduled run costs, exactly as OSM_METROS_PER_RUN is for the other one.
+# Measured on the first sweep: about 7 seconds and 12 requests a city.
+CIVIC_CITIES_PER_RUN = 40
+
+
+def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
+                    deadline=0.0):
+    """Propose whole-town calendars. See catalog_discover_civic.py.
+
+    THE CURSOR IS AN OFFSET INTO A STABLE ORDER, which is the one thing that
+    makes this walkable. Wikidata is asked for cities BY POPULATION DESCENDING,
+    so position 400 means the same city next week as it does today unless a
+    census lands — unlike the OSM backend, whose list is a hand-edited file and
+    whose cursor therefore has to name a metro rather than count to one. The
+    order also means the sweep spends its early runs where the people are.
+
+    It walks past the end rather than stopping: `discover civic` on a wrapped
+    cursor starts again at the top, where the ledger's 90-day TTL means the
+    biggest cities get re-probed roughly quarterly. A city that installed a
+    calendar since we last looked is the whole reason to come back.
+    """
+    import catalog_discover_civic as civic
+
+    country = (cursor.get("country") or "US").upper()
+    per_run = int(cities_per_run or CIVIC_CITIES_PER_RUN)
+    offset = int(cursor.get("offset") or 0)
+    found, skipped = {}, {}
+
+    def bump(k):
+        skipped[k] = skipped.get(k, 0) + 1
+
+    try:
+        places, rows = civic.cities(session, country, limit=per_run, offset=offset)
+    except Exception as exc:                                      # noqa: BLE001
+        # UNREAD, NOT EMPTY. Wikidata answers 504 on a query it decides is too
+        # expensive, and advancing the cursor past a batch we never saw would
+        # skip those cities until the walk wraps.
+        print(f"  wikidata {country} offset {offset}: {type(exc).__name__} — "
+              f"batch UNREAD, cursor stays")
+        return found, skipped
+    if not places:
+        print(f"  {country}: offset {offset} is past the end — wrapping to the top")
+        cursor["offset"] = 0
+        return found, skipped
+    print(f"  {country}: {len(places)} cities from offset {offset} "
+          f"(pop {places[0]['population']} -> {places[-1]['population']})")
+
+    # The DMO stream, batched before the walk: one request per fifty cities, so
+    # asking is cheaper than deciding whether to ask.
+    try:
+        noms = civic.dmo_nominations(session, places)
+    except Exception:                                             # noqa: BLE001
+        noms = {}
+    if noms:
+        print(f"  {len(noms)} of them name a tourism board on Wikipedia")
+
+    read = 0
+    for place in places:
+        if deadline and time.time() >= deadline:
+            print(f"  out of time after {read} cities — the rest are UNREAD and "
+                  f"the cursor stays before them")
+            break
+        if len(found) >= limit:
+            break
+        # A city and its board are two sites, probed the same way. The city's own
+        # is first because it is the one Wikidata actually promised us.
+        targets = [(place, place["url"], "city")]
+        targets += [(place, home, "dmo") for home in noms.get(place["qid"], [])]
+        for who, home, kind in targets:
+            key = _canon(home)
+            if not key:
+                continue
+            if key in seen_keys:
+                bump("configured"); continue
+            if _dead_recently(led, key):
+                bump("known-dead"); continue
+            try:
+                cands, f = (civic.probe(session, who)
+                            if kind == "city" else civic.probe_dmo(session, who, home))
+            except Exception as exc:                              # noqa: BLE001
+                bump("exception:" + type(exc).__name__); continue
+            status = f.get("status") or "?"
+            new = 0
+            for cand in cands:
+                ckey = _canon(_key_of(cand))
+                if ckey in seen_keys or _dead_recently(led, ckey):
+                    bump("configured"); continue
+                cand["_metro"] = f"{place.get('city')}, {place.get('region') or country}"
+                found[ckey] = cand
+                new += 1
+                print(f"    + {cand['type']:5} {cand['name'][:46]:46} "
+                      f"{str(cand.get('url') or cand.get('base_url'))[:44]}")
+            if new:
+                continue
+            # Same rule the venue backend follows: park the STABLE findings only.
+            # A bot challenge or a timeout is how the site felt about us for one
+            # request, not a fact about the site, and parking it for 90 days
+            # would retire a working calendar on the strength of a bad moment.
+            if status == "no-calendar" or status.startswith("offsite"):
+                led[key] = {"checked": _today_int(), "name": place["name"][:80],
+                            "reason": f"civic probe: {status}", "status": "fail",
+                            "type": f"civic-{kind}"}
+            if status.startswith("ok"):
+                bump("found-but-unusable: " + civic.why_no_candidate(f))
+            else:
+                bump(status.split(":")[0])
+        read += 1
+
+    cursor["country"] = country
+    # BY ROWS, NOT BY CITIES — see catalog_civic.cities. And only past the ones
+    # actually read: a batch cut short by the deadline leaves the cursor before
+    # its tail, exactly as the metro walk does.
+    cursor["offset"] = offset + (rows if read >= len(places) else read)
+    if read < len(places):
+        print(f"  advanced {read}/{len(places)} cities; the rest come round again")
+    _save_ledger(led)
+    return found, skipped
 
 
 def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
@@ -1468,6 +1593,17 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
         else:
             found, skipped = _discover_osm(
                 session, seen_keys, led, limit, cursor, metros_per_run=metros,
+                deadline=(time.time() + max_minutes * 60) if max_minutes > 0 else 0.0)
+    elif backend == "civic":
+        # Geographic like osm, and for the same reason category-pinning does not
+        # apply: what a town programmes is not knowable from its population.
+        if only:
+            print("  (civic proposes by TOWN, not by category — skipped for a "
+                  "category-pinned run)")
+            found, skipped = {}, {}
+        else:
+            found, skipped = _discover_civic(
+                session, seen_keys, led, limit, cursor, cities_per_run=metros,
                 deadline=(time.time() + max_minutes * 60) if max_minutes > 0 else 0.0)
     elif backend == "ckan":
         _report_query_gaps(cats, CKAN_QUERIES, "ckan")

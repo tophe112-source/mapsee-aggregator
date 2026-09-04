@@ -1,4 +1,8 @@
 {
+ "civic": {
+  "country": "US",
+  "offset": 460
+ },
  "ckan": {
   "admin.opendata.dk|arts culture": 0,
   "admin.opendata.dk|community groups": 560,

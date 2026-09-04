@@ -24,6 +24,7 @@ front doors it reaches.
 | Adding/verifying feed sources | `catalog_curate.py` — `discover`, `verify`, `merge`, `audit`, `coverage` |
 | Where new sources come FROM | `discover <socrata\|ckan\|mobilizon\|osm>`; `curation_cursor.json` is how far each catalog query has been read |
 | Finding a VENUE's own calendar, anywhere on earth | `catalog_discover_osm.py` — OSM venues with a `website`, probed for a calendar and fingerprinted to an adapter |
+| Finding a whole TOWN's calendar | `catalog_discover_civic.py` — Wikidata cities with an official website (5,770 in the US), probed the same way. The city's own calendar, plus its tourism board where Wikipedia names one |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
 | Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run |
@@ -861,6 +862,41 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   2026-09-03: 26 public pools in a 25-mile Seattle box and 30 in London, ONE of
   which publishes readable hours - which is the argument for `always_list`, not
   against the Kind.
+- **A TOWN IS NOT A VENUE, AND THE DIFFERENCE IS A `venue` BLOCK.** Every
+  candidate `catalog_discover_osm` emits carries the surveyed point of the one
+  place whose calendar it is. On a town-wide calendar that block is a lie with
+  coordinates on it: it would pin every event that arrived without an address
+  onto the town hall. `catalog_discover_civic` emits city-wide DEFAULTS instead
+  (`geocode_suffix` for ics, `default_city/region/country` for tribe and
+  mylisting) and proposes NOTHING for the adapters that have no such mechanism —
+  `why_no_candidate` returns `no-citywide-shape(jsonld)` and the gap is a
+  counted to-do rather than a silent wrong pin. Visit Issaquah is the shape:
+  510 events across a zoo, a wine bar, a hatchery and a theatre, none of them
+  separately configured, and no single point anywhere in it.
+- **PHOTON CANNOT READ "VENUE - STREET CITY ST ZIP", WHICH IS HOW EVERY
+  CIVICPLUS SITE WRITES EVERY LOCATION.** Measured:
+  `Elmer W. Oliver Nature Park - 1650 Matlock Road  Mansfield TX 76063` returns
+  **None**; `1650 Matlock Road, Mansfield TX 76063` and
+  `Elmer W. Oliver Nature Park, Mansfield TX` both resolve. Four newly found
+  city feeds ingested 0 of 34, 0 of 6, 0 of 3 and 1 of 16 events while carrying
+  a full street address on every one — and the adapter's log said "no
+  LOCATION/GEO", which was the one thing not wrong with them. `location_attempts`
+  in `mapsee_ingest_ics.py` tries the whole string, then the address half (found
+  by its house number, not by position), then the venue. Those four now ingest
+  100%, and the batch of fourteen went 194 -> 328 events. Any adapter geocoding
+  a string somebody else composed needs this shape of retry, not a better query.
+- **VERIFYING IS NOT INGESTING, AND A CITY PUBLISHES ITS SHUT DAYS.** A
+  CivicPlus city is many calendars — Gloucester publishes 60 — and there is no
+  whole-calendar export, so each is proposed separately and each has to earn it.
+  Three tests, cheapest first: the category NAME (free, a DENY list because
+  governance vocabulary is small and stable while "Concerts on the Green" is
+  not — written as a keep list first, it threw away 4th of July, Juneteenth,
+  Halloween and Pickering Barn while keeping "Waste Collection Events"); then
+  the feed's own ENTRIES, because 30 of two cities' 47 categories are valid
+  iCalendar holding nothing, and several more are meeting schedules or 95
+  repetitions of "Juneteenth Day Holiday" that pass any name test; then a cap of
+  six per city, ranked by upcoming volume, because 5,770 cities times twenty
+  categories is not a file anybody can read.
 - **A FEED THAT WORKS PERFECTLY CAN STILL BE FULL OF ADVERTISEMENTS, and
   verification will never say so.** The row that started this was
   "Shatru Nashak Sudarshan Chakra Maran Mantra ☎ +91 9965500027", a black-magic

@@ -101,7 +101,7 @@ on:
       backend:
         description: "Which catalog to sweep. 'all' is what the schedule runs."
         type: choice
-        options: [all, socrata, ckan, mobilizon, osm]
+        options: [all, socrata, ckan, mobilizon, civic, osm]
         default: all
       category:
         description: "Pin the sweep to these lens categories (comma-separated). 'gaps' = whatever has zero sources. Blank = sweep everything."
@@ -226,12 +226,19 @@ jobs:
         run: |
           set +e
           case "${{ inputs.backend || 'all' }}" in
-            # osm is last on purpose: it is the only backend whose cost is a
-            # crawl rather than a catalog read (an Overpass call per metro, then
-            # a fetch per venue with a website), so if the run is going to be cut
-            # short it should be cut short there. Its cursor means the metros it
-            # did not reach are simply the ones the next run starts from.
-            all) BACKENDS="socrata ckan mobilizon osm" ;;
+            # THE TWO CRAWLERS GO LAST, cheapest catalog reads first. osm and
+            # civic are the only backends whose cost is a crawl rather than a
+            # catalog read, so if the run is going to be cut short it should be
+            # cut short in one of them — and both carry a cursor, so the ground
+            # they did not reach is simply where the next run starts.
+            #
+            # civic BEFORE osm, and the order is the budget. Measured: civic is
+            # about 7 seconds and a dozen requests per city, and 40 cities is a
+            # bounded ~5 minutes, where osm's cost per metro is unbounded (a
+            # dense metro is hundreds of venue fetches) and it holds the
+            # --max-minutes deadline for exactly that reason. Putting the
+            # bounded crawl first means a bad Overpass day cannot starve it.
+            all) BACKENDS="socrata ckan mobilizon civic osm" ;;
             *)   BACKENDS="${{ inputs.backend }}" ;;
           esac
           LIMIT="${{ inputs.limit || '300' }}"
@@ -277,6 +284,11 @@ jobs:
             # log nobody scrolls, and both the numbers that say where to work next.
             BUDGET=""
             [ "$b" = "osm" ] && BUDGET="--max-minutes $OSM_BUDGET_MIN"
+            # civic gets a deadline too, and a smaller one. It is bounded by its
+            # city count where osm is not, so this is a backstop against a slow
+            # host rather than the knob that sizes the run — CIVIC_CITIES_PER_RUN
+            # is that. Ten leaves osm the budget it was measured to need.
+            [ "$b" = "civic" ] && BUDGET="--max-minutes 10"
             if [ "$b" = "socrata" ]; then
               python catalog_curate.py discover --limit "$LIMIT" $CATFLAG --out "cand-$b.json" | tee "discover-$b.txt"
             else
