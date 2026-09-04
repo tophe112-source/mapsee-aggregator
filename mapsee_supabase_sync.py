@@ -876,6 +876,56 @@ def _to_utc_if_naive(s: Optional[str], lat, lon) -> Optional[str]:
     return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+# ---- AN ALL-DAY EVENT HAPPENS ON A DAY, AND A DAY HAS A PLACE ---------------
+#
+# Half a dozen adapters deliberately emit a bare `YYYY-MM-DD` when the source
+# publishes no clock — Ticketmaster's `timeTBA` tours, parkrun, BikeReg,
+# RunSignup, Seattle Center's "All Day", every civic feed whose exact-midnight
+# stamp is a date in a timestamp column. Their comments all say the same true
+# thing: the row claims a DAY, not a minute.
+#
+# Nothing downstream honoured that. A bare date handed to a `timestamptz` column
+# is read at the SERVER's clock, which is UTC, and `_compute_end` pinned the
+# other end at a naive `T23:59:59` that landed the same way. So the day the
+# adapter meant arrived in the browser shifted by the venue's offset, and every
+# all-day event in the Pacific rendered as
+#
+#     Today, 5:00 PM  →  Tomorrow, 4:59 PM
+#
+# — a nineteen-hour window on the wrong two days, and hours nobody published.
+# East of Greenwich it fails the other way (02:00 → 01:59 the day after). It is
+# the same class of mistake `_to_utc_if_naive` already fixes for TIMED rows;
+# date-only was simply the branch that returned early.
+#
+# The day the source names is the day where the EVENT is, so the bracket comes
+# from the event's own coordinates. Both edges are converted, because a day is
+# 23 or 25 hours long twice a year and only the tz database knows which.
+def _day_bounds(day: str, lat, lon) -> tuple[str, str]:
+    """The two UTC instants that bracket ONE LOCAL DAY at these coordinates."""
+    tz = _tz_for(lat, lon) or timezone.utc
+    midnight = datetime.fromisoformat(day).replace(tzinfo=tz)
+    end = (midnight + timedelta(days=1)) - timedelta(seconds=1)
+    fmt = "%Y-%m-%dT%H:%M:%SZ"
+    return (midnight.astimezone(timezone.utc).strftime(fmt),
+            end.astimezone(timezone.utc).strftime(fmt))
+
+
+def _anchor_all_day(starts_at, end_src, lat, lon):
+    """(starts_at, ends_at) with any date-only edge widened to the local day it
+    names. A timed row passes through untouched, and so does a row we cannot
+    place — coordinates are required for every event this sync writes, but a
+    missing one must degrade to the old behaviour rather than raise."""
+    try:
+        if end_src and len(str(end_src).strip()) == 10:            # multi-day all-day
+            end_src = _day_bounds(str(end_src).strip(), lat, lon)[1]
+        if starts_at and len(str(starts_at).strip()) == 10:
+            lo, hi = _day_bounds(str(starts_at).strip(), lat, lon)
+            starts_at, end_src = lo, (end_src or hi)
+    except (TypeError, ValueError):
+        pass
+    return starts_at, end_src
+
+
 # Typical event length by category (hours) — used to synthesize an end time when
 # the source doesn't provide one, so every event gets a sensible ends_at instead
 # of the app falling back to a flat +6h.
@@ -974,6 +1024,8 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     # the event's coordinates, so no source is stored offset by its UTC offset.
     starts_at = _to_utc_if_naive(rec.get("start_utc") or rec.get("start_local"), lat, lon)
     end_src = _to_utc_if_naive(rec.get("end_utc") or rec.get("end_local"), lat, lon)
+    # A bare date means "all day HERE", not "midnight in London" — see _day_bounds.
+    starts_at, end_src = _anchor_all_day(starts_at, end_src, lat, lon)
     return {
         "title": _clean_text(rec.get("name")),
         "description": description,
