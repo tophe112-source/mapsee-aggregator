@@ -789,6 +789,22 @@
         "lon": -9.1368419
       },
       "_metro": "Lisbon, PT"
+    },
+    {
+      "name": "Tampereen metodistiseurakunta",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.tampereenmetodistisrk.fi/tapahtumat",
+      "max_events": 200,
+      "venue": {
+        "name": "Tampereen metodistiseurakunta",
+        "address": "4 Lapintie",
+        "city": "Tampere",
+        "postal_code": "33100",
+        "lat": 61.5022091,
+        "lon": 23.7651847
+      },
+      "_metro": "Tampere, FI"
     }
   ]
 }

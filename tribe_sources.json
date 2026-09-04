@@ -3717,6 +3717,225 @@
       "default_region": "WA",
       "default_country": "United States",
       "_note": "Issaquah's destination-marketing calendar, The Events Calendar on WordPress. robots.txt is a Yoast block: named Disallow: / for MJ12bot, AhrefsBot, ClaudeBot, SemrushBot, Barkrowler and Amazonbot, then 'User-agent: * / Disallow:' - an empty Disallow, so the group MapseeAggregator falls under permits everything, and no Crawl-delay is set (2s by convention, not by instruction). 510 future events out to 2027-07, 495 of them (97%) carrying geo_lat/geo_lng from the venue record, so almost nothing here needs the geocoder; 505 of 510 place in Issaquah and one in Renton. It is a CITY-WIDE calendar rather than a venue's, which is why it carries no `venue` block and defaults instead - the events supply their own venues (Village Theatre 134, Issaquah Salmon Hatchery 68, Vino Bella 41, Cougar Mountain Zoo 33, Historic Shell Station 30, Pickering Barn, the Train Depot). community as the base because the mix is civic; the site's own taxonomy carries 'arts' on 256 of them and norm_categories keeps it, so the theatre and gallery half lands on a second lens without a per-event classifier. within_days 365 rather than 180 because 68 events fall past the 180-day line, and max_pages 15 covers the 11 pages a 365-day window returns at per_page 50."
+    },
+    {
+      "name": "Rockville",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event",
+      "base_url": "https://www.rockvillemd.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Rockville",
+      "default_region": "Maryland",
+      "default_country": "US",
+      "_metro": "Rockville, Maryland"
+    },
+    {
+      "name": "Lastenkirjainstituutin kirjasto",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://lastenkirjainstituutti.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lastenkirjainstituutin kirjasto",
+        "address": "11 Puutarhakatu",
+        "city": "Tampere",
+        "postal_code": "33210",
+        "lat": 61.4990939,
+        "lon": 23.7578205
+      },
+      "_metro": "Tampere, FI"
+    },
+    {
+      "name": "Ylöjärven pääkirjasto Leija",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ylojarvi.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ylöjärven pääkirjasto Leija",
+        "address": "2 Koivumäentie",
+        "city": "Ylöjärvi",
+        "postal_code": "33470",
+        "lat": 61.5606253,
+        "lon": 23.5941547
+      },
+      "_metro": "Tampere, FI"
+    },
+    {
+      "name": "Tampereen helluntaiseurakunta",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tamperehelluntai.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tampereen helluntaiseurakunta",
+        "address": "18 Aleksanterinkatu",
+        "city": "Tampere",
+        "postal_code": "33100",
+        "lat": 61.499562,
+        "lon": 23.7677001
+      },
+      "_metro": "Tampere, FI"
+    },
+    {
+      "name": "Toimintakeskus Pajasaari",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://tans.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Toimintakeskus Pajasaari",
+        "address": "6 Näsikallionrinne",
+        "city": "Tampere",
+        "postal_code": "33210",
+        "lat": 61.5055,
+        "lon": 23.7543605
+      },
+      "_metro": "Tampere, FI"
+    },
+    {
+      "name": "Kuurosokeiden toimintakeskus",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://kuurosokeat.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kuurosokeiden toimintakeskus",
+        "address": "10 Insinöörinkatu",
+        "city": "Tampere",
+        "postal_code": "33720",
+        "lat": 61.456456,
+        "lon": 23.844546
+      },
+      "_metro": "Tampere, FI"
+    },
+    {
+      "name": "Galerie Rudolfinum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://www.galerierudolfinum.cz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Galerie Rudolfinum",
+        "lat": 50.0901629,
+        "lon": 14.4152797
+      },
+      "_metro": "Prague, CZ"
+    },
+    {
+      "name": "Knihovna Jiřiny Šiklové",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.genderstudies.cz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Knihovna Jiřiny Šiklové",
+        "address": "2017/8 Masarykovo nábřeží",
+        "city": "Praha 2",
+        "postal_code": "120 00",
+        "lat": 50.0769699,
+        "lon": 14.4144481
+      },
+      "_metro": "Prague, CZ"
+    },
+    {
+      "name": "RC klub Kyje",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://rcklubkyje.cz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "RC klub Kyje",
+        "lat": 50.0974979,
+        "lon": 14.5394366
+      },
+      "_metro": "Prague, CZ"
+    },
+    {
+      "name": "Koncertní sál Pražské konzervatoře",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://prazskakonzervator.cz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Koncertní sál Pražské konzervatoře",
+        "lat": 50.0906598,
+        "lon": 14.4158579
+      },
+      "_metro": "Prague, CZ"
+    },
+    {
+      "name": "ZUŠ Jižní Město",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.zusjm.cz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ZUŠ Jižní Město",
+        "lat": 50.0288139,
+        "lon": 14.5341616
+      },
+      "_metro": "Prague, CZ"
+    },
+    {
+      "name": "Divadlo Radost",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://divadlo-radost.cz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Divadlo Radost",
+        "address": "216/32 Bratislavská",
+        "city": "Brno",
+        "postal_code": "60200",
+        "lat": 49.19891,
+        "lon": 16.6177972
+      },
+      "_metro": "Brno, CZ"
+    },
+    {
+      "name": "7. nebe",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://7nebe.cz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "7. nebe",
+        "address": "453/9 Jánská",
+        "city": "Brno",
+        "postal_code": "60200",
+        "lat": 49.194357,
+        "lon": 16.6099774
+      },
+      "_metro": "Brno, CZ"
+    },
+    {
+      "name": "Kulturní centrum BABYLON",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://babylonbrno.cz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturní centrum BABYLON",
+        "postal_code": "60200",
+        "lat": 49.2031816,
+        "lon": 16.6004507
+      },
+      "_metro": "Brno, CZ"
     }
   ],
   "_not_included": {

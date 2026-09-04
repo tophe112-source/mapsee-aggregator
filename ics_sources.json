@@ -2678,5 +2678,383 @@
   "limit": 300,
   "_found": "civic:city -> civicplus[Events: Winter/Spring Calendar]",
   "_metro": "Blaine, Minnesota"
+ },
+ {
+  "name": "Lakeville — Lakeville Heritage Center",
+  "category": "community",
+  "url": "https://www.lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Lakeville, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Lakeville Heritage Center]",
+  "_metro": "Lakeville, Minnesota"
+ },
+ {
+  "name": "Lakeville — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Lakeville, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Lakeville, Minnesota"
+ },
+ {
+  "name": "Lakeville — Main Calendar",
+  "category": "community",
+  "url": "https://www.lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Lakeville, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Lakeville, Minnesota"
+ },
+ {
+  "name": "Lakeville — Lakeville Area Arts Center",
+  "category": "community",
+  "url": "https://www.lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Lakeville, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Lakeville Area Arts Center]",
+  "_metro": "Lakeville, Minnesota"
+ },
+ {
+  "name": "Lakeville — Antlers Park | Shelter A Monthly Schedule",
+  "category": "community",
+  "url": "https://www.lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Lakeville, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Antlers Park | Shelter A Monthly Schedule]",
+  "_metro": "Lakeville, Minnesota"
+ },
+ {
+  "name": "Lakeville — Antlers Park | Shelter B Monthly Schedule",
+  "category": "community",
+  "url": "https://www.lakevillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Lakeville, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Antlers Park | Shelter B Monthly Schedule]",
+  "_metro": "Lakeville, Minnesota"
+ },
+ {
+  "name": "Eau Claire — Special Events Calendar",
+  "category": "community",
+  "url": "https://www.eauclairewi.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Eau Claire, Wisconsin",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events Calendar]",
+  "_metro": "Eau Claire, Wisconsin"
+ },
+ {
+  "name": "Eau Claire — Redevelopment Authority (RDA)",
+  "category": "community",
+  "url": "https://www.eauclairewi.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Eau Claire, Wisconsin",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Redevelopment Authority (RDA)]",
+  "_metro": "Eau Claire, Wisconsin"
+ },
+ {
+  "name": "Eau Claire — Recreation Division - City of Eau Claire",
+  "category": "community",
+  "url": "https://www.eauclairewi.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Eau Claire, Wisconsin",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation Division - City of Eau Claire]",
+  "_metro": "Eau Claire, Wisconsin"
+ },
+ {
+  "name": "St. Cloud — Main Calendar",
+  "category": "community",
+  "url": "https://www.ci.stcloud.mn.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", St. Cloud, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "St. Cloud, Minnesota"
+ },
+ {
+  "name": "St. Cloud — Police",
+  "category": "community",
+  "url": "https://www.ci.stcloud.mn.us/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", St. Cloud, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police]",
+  "_metro": "St. Cloud, Minnesota"
+ },
+ {
+  "name": "St. Cloud — Whitney Senior Center",
+  "category": "community",
+  "url": "https://www.ci.stcloud.mn.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", St. Cloud, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Whitney Senior Center]",
+  "_metro": "St. Cloud, Minnesota"
+ },
+ {
+  "name": "Yorba Linda — Parks & Recreation Events",
+  "category": "community",
+  "url": "https://www.yorbalindaca.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Yorba Linda, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation Events]",
+  "_metro": "Yorba Linda, California"
+ },
+ {
+  "name": "Yorba Linda — Library Events",
+  "category": "community",
+  "url": "https://www.yorbalindaca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Yorba Linda, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Events]",
+  "_metro": "Yorba Linda, California"
+ },
+ {
+  "name": "Ankeny — Albaugh Family Senior Community Center",
+  "category": "community",
+  "url": "https://www.ankenyiowa.gov/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar",
+  "geocode_suffix": ", Ankeny, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Albaugh Family Senior Community Center]",
+  "_metro": "Ankeny, Iowa"
+ },
+ {
+  "name": "Ankeny — City of Ankeny special events",
+  "category": "community",
+  "url": "https://www.ankenyiowa.gov/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar",
+  "geocode_suffix": ", Ankeny, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City of Ankeny special events]",
+  "_metro": "Ankeny, Iowa"
+ },
+ {
+  "name": "Ankeny — Ankeny Parks & Recreation Calendar",
+  "category": "community",
+  "url": "https://www.ankenyiowa.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar",
+  "geocode_suffix": ", Ankeny, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Ankeny Parks & Recreation Calendar]",
+  "_metro": "Ankeny, Iowa"
+ },
+ {
+  "name": "San Marcos — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.sanmarcostx.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
+  "geocode_suffix": ", San Marcos, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "San Marcos, Texas"
+ },
+ {
+  "name": "San Marcos — Parks and Recreation 60+ Events",
+  "category": "community",
+  "url": "https://www.sanmarcostx.gov/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
+  "geocode_suffix": ", San Marcos, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation 60+ Events]",
+  "_metro": "San Marcos, Texas"
+ },
+ {
+  "name": "San Marcos — Parks and Recreation Discovery Center",
+  "category": "community",
+  "url": "https://www.sanmarcostx.gov/common/modules/iCalendar/iCalendar.aspx?catID=51&feed=calendar",
+  "geocode_suffix": ", San Marcos, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation Discovery Center]",
+  "_metro": "San Marcos, Texas"
+ },
+ {
+  "name": "San Marcos — Parks and Recreation Veteran's Events",
+  "category": "community",
+  "url": "https://www.sanmarcostx.gov/common/modules/iCalendar/iCalendar.aspx?catID=52&feed=calendar",
+  "geocode_suffix": ", San Marcos, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation Veteran's Events]",
+  "_metro": "San Marcos, Texas"
+ },
+ {
+  "name": "Shawnee — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.cityofshawnee.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Shawnee, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Shawnee, Kansas"
+ },
+ {
+  "name": "Shawnee — Drop In Programs",
+  "category": "community",
+  "url": "https://www.cityofshawnee.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Shawnee, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Drop In Programs]",
+  "_metro": "Shawnee, Kansas"
+ },
+ {
+  "name": "Shawnee — City Events",
+  "category": "community",
+  "url": "https://www.cityofshawnee.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Shawnee, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Shawnee, Kansas"
+ },
+ {
+  "name": "Shawnee — Shawnee Town 1929",
+  "category": "community",
+  "url": "https://www.cityofshawnee.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Shawnee, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Shawnee Town 1929]",
+  "_metro": "Shawnee, Kansas"
+ },
+ {
+  "name": "Shawnee — Aquatics",
+  "category": "community",
+  "url": "https://www.cityofshawnee.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Shawnee, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Aquatics]",
+  "_metro": "Shawnee, Kansas"
+ },
+ {
+  "name": "Shawnee — Fire",
+  "category": "community",
+  "url": "https://www.cityofshawnee.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Shawnee, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Fire]",
+  "_metro": "Shawnee, Kansas"
+ },
+ {
+  "name": "Kenner — Kenner Senior Center",
+  "category": "community",
+  "url": "https://www.kenner.la.us/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Kenner, Louisiana",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Kenner Senior Center]",
+  "_metro": "Kenner, Louisiana"
+ },
+ {
+  "name": "Kenner — Visit Kenner",
+  "category": "community",
+  "url": "https://www.kenner.la.us/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Kenner, Louisiana",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Visit Kenner]",
+  "_metro": "Kenner, Louisiana"
+ },
+ {
+  "name": "Kenner — Main Calendar",
+  "category": "community",
+  "url": "https://www.kenner.la.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Kenner, Louisiana",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Kenner, Louisiana"
+ },
+ {
+  "name": "Kenner — Martin Luther King Jr Resource Center",
+  "category": "community",
+  "url": "https://www.kenner.la.us/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Kenner, Louisiana",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Martin Luther King Jr Resource Center]",
+  "_metro": "Kenner, Louisiana"
+ },
+ {
+  "name": "Lodi — Library",
+  "category": "community",
+  "url": "https://www.lodi.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Lodi, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Lodi, California"
+ },
+ {
+  "name": "Lodi — Transit",
+  "category": "community",
+  "url": "https://www.lodi.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Lodi, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Transit]",
+  "_metro": "Lodi, California"
+ },
+ {
+  "name": "Lodi — Community Events",
+  "category": "community",
+  "url": "https://www.lodi.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Lodi, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Lodi, California"
+ },
+ {
+  "name": "Lodi — Parks, Recreation & Cultural Services Department",
+  "category": "community",
+  "url": "https://www.lodi.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Lodi, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks, Recreation & Cultural Services Department]",
+  "_metro": "Lodi, California"
+ },
+ {
+  "name": "Lodi — Hutchins Street Square",
+  "category": "community",
+  "url": "https://www.lodi.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Lodi, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Hutchins Street Square]",
+  "_metro": "Lodi, California"
+ },
+ {
+  "name": "Victoria — Library Events",
+  "category": "community",
+  "url": "https://www.brownsvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Victoria, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Events]",
+  "_metro": "Victoria, Texas"
+ },
+ {
+  "name": "Victoria — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.brownsvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Victoria, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Victoria, Texas"
+ },
+ {
+  "name": "Victoria — Department of Health, Wellness and Animal Services",
+  "category": "community",
+  "url": "https://www.brownsvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=64&feed=calendar",
+  "geocode_suffix": ", Victoria, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Department of Health, Wellness and Animal Services]",
+  "_metro": "Victoria, Texas"
+ },
+ {
+  "name": "International Teekkari Guild INTO Tampere",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://calendar.google.com/calendar/ical/c_648eead81b2cadd6030db2ac69bb11afc08c8f864064cb55b363c608e80effda%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Tampere",
+  "limit": 300,
+  "_metro": "Tampere, FI"
+ },
+ {
+  "name": "TJ Sokol Vršovice",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> my-calendar",
+  "url": "https://www.sokolprahavrsovice.cz/?feed=my-calendar-ics",
+  "geocode_suffix": ", Praha 10",
+  "limit": 300,
+  "_metro": "Prague, CZ"
+ },
+ {
+  "name": "Bike Kitchen Brno",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://calendar.google.com/calendar/ical/bikekitchenbrno%40gmail.com/public/basic.ics",
+  "geocode_suffix": ", Brno, CZ",
+  "limit": 300,
+  "_metro": "Brno, CZ"
  }
 ]

@@ -1373,6 +1373,215 @@
     "lon": 24.7356696
    },
    "_metro": "Helsinki, FI"
+  },
+  {
+   "name": "Toivon Portti-seurakunta",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://toivonportti.fi/tapahtumat/"
+   ],
+   "link_pattern": "https://toivonportti\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Toivon Portti-seurakunta",
+    "address": "4 Siltakatu",
+    "city": "Tampere",
+    "postal_code": "33100",
+    "lat": 61.5058709,
+    "lon": 23.7705576
+   },
+   "_metro": "Tampere, FI"
+  },
+  {
+   "name": "Lempäälän helluntaiseurakunta",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://lempaalanhelluntaisrk.fi/events/"
+   ],
+   "link_pattern": "https://lempaalanhelluntaisrk\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Lempäälän helluntaiseurakunta",
+    "address": "8 Rypyntie",
+    "city": "Lempäälä",
+    "postal_code": "37500",
+    "lat": 61.3193856,
+    "lon": 23.750797
+   },
+   "_metro": "Tampere, FI"
+  },
+  {
+   "name": "Bio Oko",
+   "category": "theater",
+   "_found": "osm:cinema -> jsonld-event",
+   "listing": [
+    "https://www.biooko.net/"
+   ],
+   "link_pattern": "https://www\\.biooko\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Bio Oko",
+    "address": "460/15 Františka Křížka",
+    "city": "Praha",
+    "postal_code": "17000",
+    "country": "CZ",
+    "lat": 50.0999576,
+    "lon": 14.4299522
+   },
+   "_metro": "Prague, CZ"
+  },
+  {
+   "name": "Lucerna",
+   "category": "theater",
+   "_found": "osm:cinema -> jsonld-event",
+   "listing": [
+    "https://www.kinolucerna.cz/"
+   ],
+   "link_pattern": "https://www\\.kinolucerna\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Lucerna",
+    "address": "704/36 Vodičkova",
+    "city": "Praha",
+    "postal_code": "11000",
+    "country": "CZ",
+    "lat": 50.0810699,
+    "lon": 14.4257487
+   },
+   "_metro": "Prague, CZ"
+  },
+  {
+   "name": "Kino Světozor",
+   "category": "theater",
+   "_found": "osm:cinema -> jsonld-event",
+   "listing": [
+    "https://www.kinosvetozor.cz/"
+   ],
+   "link_pattern": "https://www\\.kinosvetozor\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Kino Světozor",
+    "address": "41 Vodičkova",
+    "city": "Praha",
+    "postal_code": "11000",
+    "lat": 50.0818199,
+    "lon": 14.4247184
+   },
+   "_metro": "Prague, CZ"
+  },
+  {
+   "name": "Klub 007 Strahov",
+   "category": "music",
+   "_found": "osm:nightclub -> jsonld-event",
+   "listing": [
+    "https://klub007strahov.cz/"
+   ],
+   "link_pattern": "https://klub007strahov\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Klub 007 Strahov",
+    "address": "Chaloupeckého",
+    "city": "Praha 6",
+    "postal_code": "16900",
+    "lat": 50.0809467,
+    "lon": 14.392565
+   },
+   "_metro": "Prague, CZ"
+  },
+  {
+   "name": "Modrá Vopice",
+   "category": "music",
+   "_found": "osm:nightclub -> jsonld-event",
+   "listing": [
+    "https://www.modravopice.cz/"
+   ],
+   "link_pattern": "https://www\\.modravopice\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Modrá Vopice",
+    "address": "K Žižkovu",
+    "city": "Praha 9",
+    "postal_code": "190 00",
+    "lat": 50.099467,
+    "lon": 14.4938795
+   },
+   "_metro": "Prague, CZ"
+  },
+  {
+   "name": "Studio Dva",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.studiodva.cz/"
+   ],
+   "link_pattern": "https://www\\.studiodva\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Studio Dva",
+    "address": "56 Václavské náměstí",
+    "city": "Praha",
+    "postal_code": "11000",
+    "lat": 50.0800574,
+    "lon": 14.42844
+   },
+   "_metro": "Prague, CZ"
+  },
+  {
+   "name": "Kino Aero",
+   "category": "theater",
+   "_found": "osm:cinema -> jsonld-event",
+   "listing": [
+    "https://www.kinoaero.cz/"
+   ],
+   "link_pattern": "https://www\\.kinoaero\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Kino Aero",
+    "address": "87/31a Biskupcova",
+    "city": "Praha",
+    "postal_code": "13000",
+    "country": "CZ",
+    "lat": 50.090396,
+    "lon": 14.4718914
+   },
+   "_metro": "Prague, CZ"
+  },
+  {
+   "name": "MeetFactory",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://meetfactory.cz/cs/program/detail/rfp-concerts-black-stone-cherry-10-years"
+   ],
+   "link_pattern": "https://meetfactory\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "MeetFactory",
+    "lat": 50.0532389,
+    "lon": 14.4081974
+   },
+   "_metro": "Prague, CZ"
+  },
+  {
+   "name": "Scala",
+   "category": "theater",
+   "_found": "osm:cinema -> jsonld-event",
+   "listing": [
+    "https://www.kinoscala.cz/"
+   ],
+   "link_pattern": "https://www\\.kinoscala\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Scala",
+    "address": "127/3 Moravské náměstí",
+    "city": "Brno",
+    "postal_code": "60200",
+    "lat": 49.1973409,
+    "lon": 16.608146
+   },
+   "_metro": "Brno, CZ"
   }
  ],
  "_not_included": {
