@@ -400,6 +400,35 @@ def placeable_share(body: str, today: Optional[str] = None) -> Tuple[int, int]:
     return placed, upcoming
 
 
+# THE SAME JUDGEMENT, ONE EVENT AT A TIME. governance_heavy condemns a whole
+# FEED at two thirds, which is right for a calendar that is nothing but meetings
+# and wrong for the mixed ones: Baldwin Park's Main Calendar and Mansfield's
+# carry real programmes AND their committee minutes, so they pass the feed test
+# and bring 24 and 25 governance rows onto the map with them. Measured across
+# eight civic towns live: 64 of 1,150 events, 5%.
+#
+# IT CANNOT BE THE SAME VOCABULARY, and the reason is the whole difficulty. The
+# feed-level rule leans on `\bboards?\b`, which per event would delete "board
+# game girlies!", "Board games and pizza at Zaucer Pizza" and "Board Games @
+# Servaes Brewing Co." — three real, live, exactly-the-kind-of-thing-we-want
+# events found in the same sample. So this is PHRASES, never single words: a
+# board that meets is named as one.
+CIVIC_TITLE_RX = re.compile(
+    r"\b(?:city|town|village|county|borough)\s+(?:council|commission|board)\b|"
+    # A THEMED BODY IS STILL A BODY, with or without the word "meeting" after
+    # it. Baldwin Park publishes "Recreation and Community Services Commission"
+    # bare, and the phrase above misses it by one word.
+    r"\b(?:advisory|oversight|planning|zoning|review|development|appeals?|"
+    r"services|library|parks?|recreation|arts?|housing|ethics|personnel|traffic|"
+    r"utility|water|police|fire|historic|preservation|landmarks?)\s+"
+    r"(?:board|committee|commission)\b|"
+    r"\b(?:board|committee|commission|council|subcommittee)\s+meeting\b|"
+    r"\bpublic hearing\b|\bexecutive session\b|\bcaucus\b|"
+    r"\boffices?\s+(?:are\s+)?closed\b|\bcity hall closed\b|"
+    r"\bno street sweeping\b|\bwork session\b|\bcanvass\b",
+    re.I)
+
+
 def governance_heavy(body: str, floor: float = 0.66) -> bool:
     """True when this calendar is a meeting schedule or a list of days the
     office is shut, wearing an events hat.

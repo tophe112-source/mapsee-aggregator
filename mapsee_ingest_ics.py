@@ -44,6 +44,7 @@ except ImportError:  # pragma: no cover
     ZoneInfo = None
 
 from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from catalog_discover_osm import CIVIC_TITLE_RX, CIVIC_HOLIDAY_RX
 
 # ---- persistent geocode cache -----------------------------------------------
 # Photon lookups sleep ~1.1s each for fair use; without persistence every
@@ -334,11 +335,27 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
     # carries venues the iCal export omits), and the log has to be able to say so.
     unplaceable = 0
     past = 0
+    governance = 0
+    is_civic = str(src.get("_found", "")).startswith("civic:")
     for ev in events:
         if kept >= limit:
             break
         title = _unescape(ev.get("SUMMARY", ("", {}))[0]).strip()
         if not title or "DTSTART" not in ev:
+            continue
+        # A CITY CALENDAR IS TWO CALENDARS SHARING A FEED. The discovery side
+        # refuses a feed that is NOTHING but meetings (governance_heavy, at two
+        # thirds), which leaves the mixed ones: Baldwin Park's Main Calendar and
+        # Mansfield's carry a real programme AND their committee minutes, and
+        # brought 24 and 25 governance rows onto the map. Only for sources
+        # discovery proposed as civic, because the phrases are about a town hall
+        # and nothing else in this config is one.
+        # ...and the bare holiday, which is how a city says "we are shut" without
+        # using a single governance word. Same anchored match the feed-level rule
+        # uses, so "Christmas Day" goes and "Christmas Tree Lighting" stays.
+        if is_civic and (CIVIC_TITLE_RX.search(title)
+                         or CIVIC_HOLIDAY_RX.match(title.strip())):
+            governance += 1
             continue
         start_local, start_utc, date_key = _parse_dt(*ev["DTSTART"])
         if not date_key or date_key < now_key:
@@ -409,6 +426,11 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
                  f"window-capped and is contributing nothing")
     elif past and kept and past >= max(10, len(events) // 2):
         note += f" — {past} of {len(events)} already past (window may be capped)"
+    # COUNTED AND PRINTED, never a silent skip. A source whose events are mostly
+    # its town hall's diary is a source worth reconsidering, and that is only
+    # visible if the number is on the line.
+    if governance:
+        note += f"; {governance} town-hall row(s) refused"
     print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}")
     return kept
 

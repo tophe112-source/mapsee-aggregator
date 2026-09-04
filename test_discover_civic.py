@@ -18,6 +18,8 @@ for _s in (sys.stdout, sys.stderr):
     except Exception:                                             # noqa: BLE001
         pass
 
+import io as _io
+
 import catalog_discover_osm as osm
 import catalog_discover_civic as civ
 
@@ -235,6 +237,53 @@ check(icsad.location_attempts("City Hall -  - 1200 E. Broad St. Mansfield TX")[1
       == "1200 E. Broad St. Mansfield TX",
       "...and a second dash is not carried into the query")
 
+# ------------------- 3d. a city calendar is TWO calendars sharing a feed
+# governance_heavy condemns a feed that is NOTHING but meetings, at two thirds.
+# That leaves the MIXED ones, and they were measured live: of 1,150 events
+# across eight civic towns, 64 were town-hall business — Baldwin Park's Main
+# Calendar alone carried 45 of them onto the map beside "Art in the Park" and
+# "Movies under the Stars".
+#
+# IT CANNOT BE THE SAME VOCABULARY AS THE FEED TEST, and that is the whole
+# difficulty. The feed rule leans on a bare `board`, which per event deletes
+# three real live events found in the same sample. So this is PHRASES: a board
+# that meets is named as one.
+def refused(t):
+    return bool(osm.CIVIC_TITLE_RX.search(t) or osm.CIVIC_HOLIDAY_RX.match(t.strip()))
+
+
+for t in ("City Council Regular Meeting", "Planning Commission Meeting",
+          "Stakeholders Oversight Committee (SOC) Meeting",
+          "Recreation and Community Services Commission",
+          "Parks and Recreation Board", "Library Advisory Board",
+          "Historic Preservation Commission", "Zoning Board of Appeals",
+          "Public Hearing: Budget", "No Street Sweeping | Labor Day",
+          "Labor Day: City Offices Closed", "City offices closed for Labor Day",
+          "Christmas Day", "New Year's Day", "Independence Day"):
+    check(refused(t), f"per-event: refuses {t!r}")
+
+# THE THREE THAT PROVE THE PHRASES ARE NECESSARY. All live, all real, all
+# deleted by a bare `board`.
+for t in ("board game girlies! [20s&30s] - [Eastside Saturday]",
+          "Board games and pizza at Zaucer Pizza in Redmond",
+          "Board Games @ Servaes Brewing Co.",
+          "Art in the Park", "El Grito de Dolores", "Movies under the Stars",
+          "Kids Club", "Christmas Tree Lighting", "Independence Day Parade",
+          "Fire Station Open House", "Police Department Coffee with a Cop",
+          "Recreation Center Open House", "Summer Recreation Program",
+          "Water Safety Class", "Library Story Time"):
+    check(not refused(t), f"per-event: keeps {t!r}")
+
+# ...and it is applied ONLY to sources discovery proposed as civic, because
+# these phrases are about a town hall and nothing else in ics_sources.json is.
+_ics_src = _io.open("mapsee_ingest_ics.py", encoding="utf-8").read()
+check('is_civic = str(src.get("_found", "")).startswith("civic:")' in _ics_src,
+      "the town-hall filter is gated on a civic source")
+check("if is_civic and (CIVIC_TITLE_RX.search(title)" in _ics_src,
+      "...and nothing else in the config is touched by it")
+check("town-hall row(s) refused" in _ics_src,
+      "...and what it refused is counted on the source's own line")
+
 # ---------------------------------------------- 4. a town is not a venue
 # The refusal the header is about: a city-wide calendar has no single point, and
 # a `venue` block on one would pin every unaddressed event on the town hall.
@@ -302,7 +351,6 @@ import inspect
 src = inspect.getsource(civ.cities)
 check("rows += 1" in src and "return list(out.values()), rows" in src,
       "cities() counts the rows it read, not the cities it kept")
-import io as _io
 curate = _io.open("catalog_curate.py", encoding="utf-8").read()
 check("places, rows = civic.cities(" in curate,
       "...and the driver takes both numbers")
