@@ -173,6 +173,15 @@ jobs:
       - name: Civic calendar discovery (deny list, closure feeds, city-wide shape)
         run: python test_discover_civic.py
 
+      # A state fair's website is marketing copy, so its dates are the headline
+      # and so is everything that looks like them: a ticket sale window, a horse
+      # show, and iowastatefair.org's table of every year since 1966 with the
+      # YEAR LEADING each row, which reads left to right as the 2027 fair
+      # labelled 2028. Every case in this file is an answer a live sweep got
+      # wrong before the rule existed.
+      - name: State fairs (sale windows, other events, the year in the wrong place)
+        run: python test_ingest_fairs.py
+
       # OFFSET paging gets dearer every page: offset=6000 makes Postgres produce
       # and discard six thousand rows to return the next thousand. It held while
       # the catalog was small and died the day a 26-hour window held more than

@@ -24,6 +24,7 @@ front doors it reaches.
 | Adding/verifying feed sources | `catalog_curate.py` — `discover`, `verify`, `merge`, `audit`, `coverage` |
 | Where new sources come FROM | `discover <socrata\|ckan\|mobilizon\|osm>`; `curation_cursor.json` is how far each catalog query has been read |
 | Finding a VENUE's own calendar, anywhere on earth | `catalog_discover_osm.py` — OSM venues with a `website`, probed for a calendar and fingerprinted to an adapter |
+| US state fairs, as the fair itself | `mapsee_ingest_fairs.py` + `fair_sources.json` — 48 fairs, one multi-day event each. Identity and coordinates are curated; the DATES are scraped every run and never stored |
 | Finding a whole TOWN's calendar | `catalog_discover_civic.py` — Wikidata cities with an official website (5,770 in the US), probed the same way. The city's own calendar, plus its tourism board where Wikipedia names one |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
@@ -862,6 +863,37 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   2026-09-03: 26 public pools in a 25-mile Seattle box and 30 in London, ONE of
   which publishes readable hours - which is the argument for `always_list`, not
   against the Kind.
+- **A STATE FAIR'S WEBSITE IS MARKETING COPY, SO ITS DATES ARE THE HEADLINE AND
+  SO IS EVERYTHING THAT LOOKS LIKE THEM.** Measured 2026-09-04: of 47 reachable
+  US state fair sites, SIX have a machine-readable calendar and those calendars
+  are the fairgrounds' year-round bookings — a circus, a gun show — not the fair.
+  34 fingerprint as nothing. Meanwhile 969 future events in the catalog carry
+  "fair" in the title and nearly all are career fairs, Fairleigh Dickinson and
+  the Fairfield Stags; the real ones arrive through Ticketmaster as per-DAY
+  admission rows, never as "the Iowa State Fair runs 13–23 August". So the fair
+  itself is scraped, and four rules decide whether a date range on a fair's page
+  IS the fair — every one of them a false positive it produced first:
+  a sale window (`Advance Tickets on Sale Now from September 1 – 22, 2026`), a
+  different event with real dates (`World's Championship Horse Show August
+  22-29`), anything over 21 days (the longest real one is The Big E at 17), and
+  anything already over. The disqualifying words are checked within 45
+  characters, not 90: at 90 a fair's own hero sits within reach of its
+  navigation, and Colorado's correct dates were thrown away for a "Deals" menu
+  item and Kansas's for a "Commercial Vendor application".
+- **THE DATES ARE NEVER WRITTEN DOWN, AND THAT IS THE POINT.** A fair moves by
+  up to a fortnight year to year, so a curated date list across 48 rows is
+  accurate for one season and then wrong in a way nothing can see. Scraping every
+  run means a fair that has not announced next year contributes nothing and
+  starts contributing the day it does. 27 of 48 publish a usable future date
+  today; most of the rest closed last week.
+- **A YEAR CAN SIT ON THE WRONG SIDE OF ITS DATES.** iowastatefair.org publishes
+  a table of future dates with the year LEADING each row — `YEAR FAIR DATES 2027
+  Aug 12-22 2028 Aug 10-20` — which reads left to right as the 2027 fair wearing
+  2028's label, parses perfectly, and put the Iowa State Fair a year late. The
+  guard is NOT to prefer the leading year (a page can say "Thank you for 2026!
+  August 5-15, 2027" and mean the trailing one); it is to notice two years are in
+  play and refuse. One fair contributing nothing beats one contributing a wrong
+  date. Any adapter reading dates out of prose needs this shape of refusal.
 - **A TOWN IS NOT A VENUE, AND THE DIFFERENCE IS A `venue` BLOCK.** Every
   candidate `catalog_discover_osm` emits carries the surveyed point of the one
   place whose calendar it is. On a town-wide calendar that block is a lie with

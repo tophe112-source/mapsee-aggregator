@@ -346,6 +346,19 @@ jobs:
           else
             echo "no parkrun_sources.json — skipping parkrun"
           fi
+      # US state fairs, as the FAIR rather than as the concerts inside it. 48
+      # sites, one multi-day event each, and the dates are scraped every run
+      # rather than stored: a fair moves by up to a fortnight year to year, so a
+      # hand-edited date list is quietly wrong by March. A fair that has not
+      # announced next year yet contributes nothing and starts contributing the
+      # day it does.
+      - name: Import US state fairs (the fair itself, dates scraped per run)
+        run: |
+          if [ -f fair_sources.json ]; then
+            python mapsee_ingest_fairs.py --config fair_sources.json --store feeds_events.json
+          else
+            echo "no fair_sources.json — skipping state fairs"
+          fi
       - name: Import curated recurring community programs (e.g. free summer meals, expanded to dated occurrences)
         run: |
           if [ -f program_sources.json ]; then
