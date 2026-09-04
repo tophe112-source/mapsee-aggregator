@@ -28,6 +28,12 @@ front doors it reaches.
 | Whether a source has gone quiet | `mapsee_health_check.py` |
 | Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run |
 | Deleting past events | `mapsee_cleanup.py` |
+| North American public library programmes | `mapsee_ingest_bibliocommons.py` + `bibliocommons_sources.json` - six systems, 28,314 upcoming measured 2026-09-03, every row carrying its branch's surveyed coordinate |
+| Public swimming pools | the `leisure=swimming_pool` Kind in `mapsee_ingest_osm_amenities.py`. The only Kind with an extra Overpass filter, and the reason is that most pools on earth are in back gardens |
+| Whether a platform has already been probed and refused | `curation_ledger.json` - `verify` skips a `fail` for 90 days without a network call. The table under "Platforms probed" below is the durable half |
+| Whether a row is an advertisement rather than an event | `mapsee_spam.py` — one predicate, wired into `EventStore.upsert` so all 41 adapters get it; `test_spam.py` is mostly about what it must NOT refuse |
+| How much of a source is advertising | `mapsee_spam_audit.py` — measures the rate per instance, so `_not_included` is a number and not an impression |
+| Removing spam that got in before the gate did | `mapsee_spam_purge.py` — reports by default, `--apply` to write; runs daily from `spam-purge.yml` at 07:40, BETWEEN the import and the janitor |
 | Real "order pickup" links for food venues | `mapsee_menu_links.py` — writes a `🛒 Order:` line the product turns into the button |
 | Removing an order/booking link whose destination has died | `mapsee_prune_links.py` — dry run by default; only a 404 or an empty page counts, never a 403 |
 | Re-running the classifier over rows already in the table | `mapsee_reclassify.py` — dry run by default; `--apply` refuses without `--allow` |
@@ -818,6 +824,132 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   pins forever" trap arriving pre-made from the publisher rather than built by
   us, and the defence is the same one MyListing needed: a horizon at INGEST,
   where the count that was dropped can still be printed.
+- **THE EXPENSIVE HALF OF A CIVIC FEED IS THE GEOCODING, AND BIBLIOCOMMONS
+  HANDS IT OVER.** Every `ics_sources.json` entry carries a `geocode_suffix` and
+  pays ~1.1s of Photon per venue; a library system is 40-80 branches. The
+  BiblioCommons gateway ships `mapLocation.centrePoint` with every event, so the
+  adapter sets `coords_exact` and nothing is geocoded. Spot-checked over 47
+  Chicago branches the points sit on the buildings, and re-geocoding
+  "S. Hoyne Avenue, Chicago" would be the Renton restaurant again.
+- **ITS DATE FILTER IS ACCEPTED AND IGNORED.** `?startDate=&endDate=` over a
+  three-day window returns the same 4,584 rows as no filter at all. Same trap as
+  Mapas Culturais, and the same tell: a 200, a plausible response, and the whole
+  archive. The horizon is applied client-side and the page loop stops once a page
+  is entirely past it.
+- **THE SHARED FINGERPRINT IS DATE-GRANULAR, AND A LIBRARY RUNS THE SAME
+  PROGRAMME TWICE IN A DAY.** `make_fingerprint` is a CROSS-SOURCE key
+  (name | YYYY-MM-DD | venue) - exactly right for "is this the same gig in two
+  ticketing feeds", and wrong for a branch running Family Storytime at 10:15 and
+  again at 11:15. Measured on one page of Vancouver: 9 rows of 197 merged into
+  another and were never written. The clock time now joins the BASIS, never the
+  stored name, the way `mapsee_ingest_affiliates` folds its own discriminator in.
+  Any adapter whose source runs one thing several times a day needs this.
+- **MOST OF A LIBRARY'S EVENT IMAGES ARE ONE STOCK TILE.** `featuredImageId`
+  usually resolves to an image tagged `EventType` - a single "Author Event"
+  graphic shared by every author event in the system. Importing it gives four
+  hundred rows the same picture, which is what `mapsee_retire_thin_artwork.py`
+  exists to undo. Only an image tagged to the event itself is taken.
+- **ONE SELECTOR IS NOT ALWAYS A CATEGORY.** Every OSM amenity Kind except one
+  describes something civic by definition - there is no private drinking
+  fountain. `leisure=swimming_pool` is the opposite: most pools on earth are
+  behind a house or a hotel. So `Kind` grew `extra` (an Overpass filter on
+  `access`) AND `public_only` (the same test again in Python), because a query
+  filter is a request and the answer is somebody else's, and the cost of being
+  wrong is a walking route to a stranger's garden. It carries `always_open=False`
+  and `always_list=True` for the food bank's reasons: an untagged pool is not
+  open, and WHERE ONE IS is the actionable fact even with no hours. Measured
+  2026-09-03: 26 public pools in a 25-mile Seattle box and 30 in London, ONE of
+  which publishes readable hours - which is the argument for `always_list`, not
+  against the Kind.
+- **A FEED THAT WORKS PERFECTLY CAN STILL BE FULL OF ADVERTISEMENTS, and
+  verification will never say so.** The row that started this was
+  "Shatru Nashak Sudarshan Chakra Maran Mantra ☎ +91 9965500027", a black-magic
+  service running from 2026 to 2036 and pinned to a street in Kirkland. It came
+  through `gamenight.host`, an ordinary Mobilizon instance that answers every
+  probe. Verification proves a feed WORKS; it has nothing to say about what a
+  stranger posted to it, and every open-registration platform we read — 71
+  Mobilizon instances, Gancio, Mobilizon's peers — is one spam account away from
+  the same thing. Measured across all of them on 2026-09-03: **956 of 8,113
+  upcoming listings, 11.8%, are not events as published.**
+  So the defence is TWO layers and they do different jobs.
+  `mapsee_spam.py` in `EventStore.upsert` stops the ROW (it is the only place all
+  41 adapters pass through, and it runs BEFORE the dedupe — a scam listing pinned
+  to a real venue on a real night shares three of the fingerprint's four parts,
+  so judging it later would fold an advert INTO somebody's actual event).
+  `mapsee_spam_audit.py` scores the SOURCE, because a calendar somebody spammed
+  and a spam host with a calendar attached want opposite decisions.
+- **A HIGH SPAM RATE IS NOT ENOUGH TO RETIRE A SOURCE; ZERO UNIQUE SUPPLY IS.**
+  Four instances went into `_not_included` on 2026-09-03 and the two borderline
+  calls are the instructive ones. `mobilize.adminforge.de` is 51% advertising and
+  STAYED, because the other half is 92 real listings from Bad Oldesloe that
+  arrive nowhere else — the per-row gate is exactly the tool for that.
+  `meet.debian.net` is 80% advertising and looked like the same case, with 58
+  real Brussels and French cultural listings behind the spam. They are real, and
+  they are FEDERATED: of its 273 distinct titles, the 55 that are not spam
+  already come in from other instances in the same file, and all 218 unique to it
+  are the spam. So the question to ask is not "how much of this is spam" but
+  "what would we lose", and on a federated network those are very different
+  numbers. `mobilizon.us` was retired years earlier on the first question alone.
+- **THE HALF OF A CONTENT FILTER THAT FAILS SILENTLY IS THE HALF THAT REFUSES
+  SOMETHING REAL.** Spam getting through is reported by a user; a real listing
+  refused is invisible, and the symptom is a source quietly getting thinner. Two
+  false positives were found before this shipped and both are pinned in
+  `test_spam.py`. The naive phone-number regex — `\d[\d\s.()-]{7,}\d` — reads
+  "Summer Season 2026-05-16 - 2026-05-18" as a sixteen-digit number, because a
+  space and a hyphen are both plausible separators; the rule wants an explicit
+  dialling prefix or an unbroken ten-digit run, and the text is read AS WRITTEN
+  because normalising the separators out is what creates the bug. And the
+  keyword list is deliberately tiny and deliberately specific: "marabout" and
+  "vashikaran" are on it, "astrologer", "psychic", "tarot", "healing" and
+  "spiritual" are NOT, because a tarot night at a bar is an ordinary listing and
+  this must not become a filter with opinions about what people are into.
+- **AN IMPLAUSIBLE END DATE IS A FACT WE CANNOT USE, NOT A VERDICT ON THE ROW —
+  and the audit is what proved it.** The first version rejected any span over
+  400 days as spam. Run across 74 instances it immediately found Extinction
+  Rebellion France publishing "Organiser un évènement à La Perm" over 487 days —
+  real, one instance away from a 447-day advert for Roman blinds. No threshold
+  separates those, because the span is not what makes one an advert. So
+  `implausible_end()` drops the END and keeps the EVENT, and the good part
+  follows for free: the sync fills a default duration for a row with no end
+  (`_compute_end`), which is what lets `mapsee_cleanup.py` reach it at all — its
+  filter is `starts_at < cutoff AND (ends_at IS NULL OR ends_at < cutoff)`, so an
+  end in 2036 was a pin NOTHING in this pipeline could ever remove. The limousine
+  and printer-driver adverts on that instance all start in 2021-2024, so removing
+  an end nobody could have meant makes the EXISTING cleanup delete them.
+  Same family as the British Cycling year-2500 sentinel below and the MyListing
+  unbounded recurrence above; this is the third door into that one room.
+- **A GATE FIXES THE FUTURE ONLY** — `--only-new` is the default in CI and
+  Wednesday's full run re-reads the SOURCES, so neither re-applies our own rules
+  to rows already stored. That is the same trap `mapsee_reclassify.py` exists
+  for, and `mapsee_spam_purge.py` is its equivalent here: it imports the SAME
+  predicate rather than restating it, walks the `(external_source, starts_at)`
+  index a window at a time (a `description=ilike` over the table is a sequential
+  scan and comes back 57014 every time), and needs `--apply` before it writes,
+  because it deletes on a content judgement. **Its window starts FIVE YEARS
+  back, not thirty days**, and that is not a rounding-up: the rows it most needs
+  are the ones with a PAST start that cleanup could not touch, so a window
+  beginning near today misses exactly the population it was written for.
+- **WHAT MAKES A CONTENT-BASED DELETE SAFE TO SCHEDULE IS NOT THE SCOPE FILTER,
+  IT IS THE SHARE CEILING.** `spam-purge.yml` runs `--apply` nightly with nobody
+  watching, and the failure to fear is not a spam wave — it is a rule in
+  `mapsee_spam.py` widened until it matches ordinary listings, which from the
+  outside looks exactly like a very effective run. `--max-share` (5% of rows
+  read, ignored below a 200-row sample) refuses to write when the matched
+  fraction stops being plausible, and exits non-zero so the job goes red. It is
+  a SHARE and not a count because a count has to be re-tuned as the catalogue
+  grows and is wrong in both directions while you guess; the invariant being
+  expressed is "spam is a minority of what we import". `too_many()` is a free
+  function precisely so `test_spam.py` can grade it without a database — a
+  tripwire reachable only through a live PostgREST call is one nobody tests.
+  The workflow also RUNS `test_spam.py` on the runner before the purge step, so
+  a red rule stops the delete rather than merely being noticed somewhere else.
+- **THE ORDER OF THE THREE DAILY JOBS IS LOAD-BEARING.** 06:17 aggregate (the
+  gate refuses new spam at the door) → 07:40 purge (deletes old spam, and clears
+  the ends that make a past row permanent) → 08:23 cleanup (deletes what has
+  finished, which now includes everything the purge un-dated an hour earlier).
+  Most of what the purge touches is therefore removed by the EXISTING janitor
+  rather than by a delete of its own. Move the purge after cleanup and every
+  un-dated row waits a full extra day.
 - **MOST CIVIC PLACES HAVE NOTHING WORTH READING, and pretending otherwise is
   how you ruin a map.** `mapsee_ingest_osm_amenities.py` imports eight OSM
   selectors — playgrounds (1,006,477 worldwide), public artwork (366,557),
@@ -1239,6 +1371,34 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   geocoder is the unlock, and until there is one this is not a to-do.
   **`offsite:<host>` is a routing signal, not a failure** — that counter is the
   only measurement this repo has of what venues worldwide actually use.
+- **A BARE DATE NAMES A DAY *SOMEWHERE*, AND FOR MONTHS THAT SOMEWHERE WAS
+  GREENWICH.** Six adapters deliberately emit `YYYY-MM-DD` when the source
+  publishes no clock — Ticketmaster's `timeTBA` listings, parkrun (whose note on
+  why guessing a start time is worse than saying nothing is the clearest
+  statement of the rule), BikeReg, RunSignup, Seattle Center's "All Day", every
+  civic feed whose exact-midnight stamp is a date in a timestamp column — and
+  each one's comment says the same true thing: the row claims a DAY, not a
+  minute. `_to_utc_if_naive` returned date-only untouched, which reads as
+  honouring that and is the opposite: a bare date handed to a `timestamptz` is
+  read at the SERVER's clock, and `_compute_end`'s naive `T23:59:59` landed the
+  same way. So the Mariners' ballpark tour reached a phone in Seattle as
+  **"Today, 5:00 PM → Tomorrow, 4:59 PM"** — the wrong two days, a nineteen-hour
+  window, and precise hours nobody had published. East of Greenwich it fails the
+  other way (02:00 → 01:59 the day after). It was every all-day row on earth,
+  shifted by its own venue's offset, and nothing could report it because every
+  value involved is well-formed.
+  `_anchor_all_day` brackets the day using the EVENT's coordinates, which is the
+  same fix `_to_utc_if_naive` already made for TIMED rows — date-only was simply
+  the branch that returned early. Both edges are converted rather than one plus
+  24 hours, because a day is 23 or 25 hours long twice a year and only the tz
+  database knows which. A free consequence: `_norm_cmp` could never parse a
+  date-only value, so `--skip-unchanged` read every all-day row as `_Unknown`
+  and rewrote it on every run.
+  ../mapsee holds the other half — `fmtRange` renders a whole-day window as a
+  date, because "12:00 AM → 11:59 PM" is still a claim about hours — and
+  `tools/check-venue-order.mjs` there grades it. Two repos, one invariant,
+  neither wrong on its own; the same shape as `looks_like_ordering` having to
+  agree with `looksLikeOrdering`.
 - **`series_id` is assigned after the fact, not at ingest.** A repeating listing
   publishes each occurrence separately and the store is rebuilt every run, so the
   occurrences never meet in memory — the table is the only place a series is
@@ -1544,6 +1704,7 @@ python test_ingest_mapasculturais.py # an accepted filter that never ran, and a 
 python test_retire_openactive_slots.py # which superseded slot rows may be hidden
 python gen_amenity_fixtures.py      # regenerate ../mapsee's amenity fixtures from to_event + to_row
 python test_sync_unknown_column.py  # a column the database has not got YET must cost one feature, not the night
+python test_sync_all_day.py         # a bare date names a day SOMEWHERE, and the day belongs to the venue
 python test_skip_unchanged.py       # which rows a rewrite-every-run adapter may leave alone
 python test_cleanup.py              # a statement timeout and an outage want opposite things
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
@@ -1564,3 +1725,36 @@ run without it.
 `.env.example` lists all 36 variables. Nothing in this repo should ever hold a
 real key; CI supplies them as secrets. `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS —
 treat any workflow that reads it as privileged.
+
+## Platforms probed, and what they cost
+
+Read this before spending a curation run on any of them. `curation_ledger.json`
+enforces it - `verify` skips a `fail` without a network call - but the ledger's
+TTL is 90 days and several of these are permanent, so the reasoning lives here.
+All probed 2026-09-03 with the production User-Agent.
+
+| Platform | Result | What it means |
+|---|---|---|
+| **BiblioCommons** events gateway | **WORKS, adapter built** | `gateway.bibliocommons.com/v2/libraries/<slug>/events`, no key. Six systems configured; several others return 403 (see the config's `_not_included`) |
+| **Trumba** | **WORKS, already configured** | `seattlegov-city-wide.ics` and `parks-recreation.ics` are live in `ics_sources.json`. The failure mode is GUESSING the slug: invented ones 410, and `.xml`/`.json` 404. Read the slug off the target site's own subscribe link |
+| **Socrata** civic datasets | **WORKS, already configured** | `discover socrata` walks these. Note what it hunts is EVENTS - a facility-hours dataset (see Austin below) is invisible to it |
+| LibCal (Springshare) | per-tenant only | `ical_subscribe.php` needs a numeric `cid` looked up by hand; the v1.1 API is per-institution OAuth. One `ics_sources.json` entry at a time, never a platform sweep |
+| Communico | 401 | Per-customer API key. No public feed |
+| LibraryMarket / Library Calendar | 403 Cloudflare | An interstitial is a refusal. Do not work around it |
+| CivicPlus iCalendar | **supported, per category** | `civicplus_feeds()` in `catalog_discover_osm.py` reads the category list off `/iCalendar.aspx` - there is no whole-calendar export, and `catID=0` returns a valid VCALENDAR with zero events, which is the worst answer because it verifies. Separately: carync.gov 403s the production UA (a WAF), so a site-level refusal is still possible and the ledger records that one |
+| **Austin Pool Schedule** (Socrata) | good data, wrong shape | 46 city pools, coordinates, status, website, and weekday/weekend hours as text. It is `recurring_hours`, and the opendata adapter needs start/end EVENT columns. Wants a small civic-facility-hours adapter reading a column map into `recurring_days`, the way `mapsee_ingest_osm_food` does from `opening_hours`. Deferred until a second city's dataset exists to shape it against: one dataset is not a schema |
+| Delaware State Park Programs (Socrata) | dead archive | 4,077 rows and ONE in the future |
+
+Two things that table is really saying:
+
+- **A 403 IS A REFUSAL AND NOT AN OBSTACLE.** Four of the rows above are
+  somebody declining. None was retried with a browser User-Agent and none should
+  be - the DICE note above is the same rule, and the way into a 403 is to ASK the
+  operator, which is what venue outreach is for.
+- **`max(start_date)` IS NOT A LIVENESS TEST.** Delaware's dataset looked live
+  because its furthest date was 2028; it has one row after today and 4,076
+  before. The question is always the count AFTER now. Worth knowing:
+  `catalog_curate verify` PASSED it, because its gate is "at least one future
+  row" - which is the right gate for a small venue calendar and too weak for a
+  4,000-row municipal archive. Not changed here, because re-cutting a shared
+  threshold on one example is how you break the sources it was right for.
