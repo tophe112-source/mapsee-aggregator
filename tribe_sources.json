@@ -3936,6 +3936,653 @@
         "lon": 16.6004507
       },
       "_metro": "Brno, CZ"
+    },
+    {
+      "name": "North Little Rock",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://nlr.ar.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "North Little Rock",
+      "default_region": "Arkansas",
+      "default_country": "US",
+      "_metro": "North Little Rock, Arkansas"
+    },
+    {
+      "name": "Woodland (visitwoodland.com)",
+      "category": "community",
+      "_found": "civic:dmo -> tribe+jsonld-event+ics",
+      "base_url": "https://visitwoodland.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Woodland",
+      "default_region": "California",
+      "default_country": "US",
+      "_metro": "Woodland, California"
+    },
+    {
+      "name": "Carl Eldhs Ateljémuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://eldhsatelje.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Carl Eldhs Ateljémuseum",
+        "lat": 59.3528674,
+        "lon": 18.0516224
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Dansmuseet",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://dansmuseet.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dansmuseet",
+        "lat": 59.3297418,
+        "lon": 18.0653366
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Tellus",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://tellusbio.nu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tellus",
+        "lat": 59.3019888,
+        "lon": 18.0075991
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Turteatern",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://turteatern.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Turteatern",
+        "lat": 59.2844932,
+        "lon": 18.1135391
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Runsten Equestrian",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://runsten.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Runsten Equestrian",
+        "lat": 59.1203152,
+        "lon": 17.9321753
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Konsthantverkarna",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://konsthantverkarna.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Konsthantverkarna",
+        "lat": 59.3203071,
+        "lon": 18.0701231
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Finska Filadelfia",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+ics",
+      "base_url": "https://finskafiladelfia.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Finska Filadelfia",
+        "address": "341 Skebokvarnsvägen",
+        "city": "Bandhagen",
+        "postal_code": "124 54",
+        "country": "SE",
+        "lat": 59.263369,
+        "lon": 18.0415916
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Huddinge AIS Friidrott",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://huddingeais.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Huddinge AIS Friidrott",
+        "address": "87 Gamla Stockholmsvägen",
+        "city": "Huddinge",
+        "postal_code": "141 32",
+        "country": "SE",
+        "lat": 59.2501041,
+        "lon": 17.9503877
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Örnsbergs Scoutkår",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://www.ornsberg.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Örnsbergs Scoutkår",
+        "address": "24 Hövdingagatan",
+        "city": "Hägersten",
+        "country": "SE",
+        "lat": 59.3075222,
+        "lon": 17.9934892
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Scoutkansliet",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://scoutkansliet.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scoutkansliet",
+        "lat": 59.3303254,
+        "lon": 18.0273534
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Kväkargården",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kvakare.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kväkargården",
+        "lat": 59.3180514,
+        "lon": 18.0411366
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Lidingö Tennisklubb",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lidingotk.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lidingö Tennisklubb",
+        "address": "4 Kyrkviksstigen",
+        "city": "Lidingö",
+        "postal_code": "18146",
+        "country": "SE",
+        "lat": 59.3708975,
+        "lon": 18.1589614
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Arken",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.arken.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Arken",
+        "address": "12 Kraftvägen",
+        "city": "Kungsängen",
+        "country": "SE",
+        "lat": 59.5082256,
+        "lon": 17.7411219
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Ekensbergskyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://ekensbergskyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ekensbergskyrkan",
+        "address": "1 Parkvägen",
+        "city": "Solna",
+        "country": "SE",
+        "lat": 59.3619249,
+        "lon": 17.9947795
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Jakobsbergskyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://jakobsbergskyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jakobsbergskyrkan",
+        "address": "20 Kvarnplan",
+        "city": "Järfälla",
+        "postal_code": "177 64",
+        "country": "SE",
+        "lat": 59.4238039,
+        "lon": 17.8296368
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Ansgarskyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://ansgarskyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ansgarskyrkan",
+        "address": "3 Odenvägen",
+        "city": "Lidingö",
+        "postal_code": "181 32",
+        "country": "SE",
+        "lat": 59.3656572,
+        "lon": 18.132435
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Liljevalchs konsthall",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event",
+      "base_url": "https://liljevalchs.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Liljevalchs konsthall",
+        "lat": 59.3255204,
+        "lon": 18.0960836
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Nyboda hembygds- och skolmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://www.hembygdhuddinge.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nyboda hembygds- och skolmuseum",
+        "address": "26A Kommunalvägen",
+        "city": "Huddinge",
+        "postal_code": "141 61",
+        "country": "SE",
+        "lat": 59.2387644,
+        "lon": 17.9853623
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Rotebrokyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://rotebrokyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rotebrokyrkan",
+        "address": "4E Ytterbyvägen",
+        "city": "Sollentuna",
+        "postal_code": "192 76",
+        "country": "SE",
+        "lat": 59.4759696,
+        "lon": 17.9081812
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Triangelkyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://triangelkyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Triangelkyrkan",
+        "address": "18 Stockholmsvägen",
+        "city": "Enskede",
+        "postal_code": "122 62",
+        "country": "SE",
+        "lat": 59.284943,
+        "lon": 18.0865839
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Equmeniakyrkan Styrsö",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://equmeniakyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Equmeniakyrkan Styrsö",
+        "address": "71 Styrsö Tångenväg",
+        "city": "Styrsö",
+        "postal_code": "43084",
+        "country": "SE",
+        "lat": 57.6172907,
+        "lon": 11.7802263
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Abrahamsbergskyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://abrahamsbergskyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Abrahamsbergskyrkan",
+        "address": "45 Bävervägen",
+        "city": "Bromma",
+        "postal_code": "168 30",
+        "country": "SE",
+        "lat": 59.3346803,
+        "lon": 17.9531467
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Älvsjökyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://alvsjokyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Älvsjökyrkan",
+        "address": "46 Långbrodalsvägen",
+        "city": "Älvsjö",
+        "postal_code": "125 34",
+        "country": "SE",
+        "lat": 59.2765164,
+        "lon": 17.9937692
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Betelkyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://betelkyrkan.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Betelkyrkan",
+        "address": "30 Storsvängen",
+        "city": "Hägersten",
+        "postal_code": "129 41",
+        "country": "SE",
+        "lat": 59.3000727,
+        "lon": 17.9639264
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Equmeniakyrkan Hässelby",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://hasselby.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Equmeniakyrkan Hässelby",
+        "address": "47 Åbroddsvägen",
+        "city": "Hässelby",
+        "postal_code": "165 70",
+        "country": "SE",
+        "lat": 59.3772872,
+        "lon": 17.821238
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Skogakyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.skogakyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Skogakyrkan",
+        "address": "6 Gamla Landsvägen",
+        "postal_code": "196 30",
+        "country": "SE",
+        "lat": 59.4803462,
+        "lon": 17.7518792
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Edsvikskyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://edsvikskyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Edsvikskyrkan",
+        "address": "2 Kapellvägen",
+        "city": "Sollentuna",
+        "postal_code": "19135",
+        "country": "SE",
+        "lat": 59.4271303,
+        "lon": 17.9563736
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Immanuelskyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.immanuel.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Immanuelskyrkan",
+        "lat": 59.3424176,
+        "lon": 18.0632007
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Hönö Missionskyrka",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.honomissionskyrka.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hönö Missionskyrka",
+        "address": "1 Östra hamnen",
+        "city": "Hönö",
+        "postal_code": "47542",
+        "country": "SE",
+        "lat": 57.6839929,
+        "lon": 11.6521045
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Monument 031",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.monument031.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Monument 031",
+        "address": "6 Stålverksgatan",
+        "lat": 57.7217152,
+        "lon": 11.9768154
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Galleri Insikten, Röda Stugan",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://astol.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Galleri Insikten, Röda Stugan",
+        "address": "10",
+        "city": "Åstol",
+        "postal_code": "47144",
+        "country": "SE",
+        "lat": 57.9212951,
+        "lon": 11.5821877
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Redbergskyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://redbergskyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Redbergskyrkan",
+        "lat": 57.7182426,
+        "lon": 12.0138682
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Kåsjögården",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kasjogarden.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kåsjögården",
+        "address": "9C Norra Örjansvägen",
+        "country": "SE",
+        "lat": 57.7083693,
+        "lon": 12.1436959
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Equmeniakyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://equmeniakyrkanbjorko.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Equmeniakyrkan",
+        "address": "31 Bäckevägen",
+        "city": "Bohus-Björkö",
+        "postal_code": "475 37",
+        "country": "SE",
+        "lat": 57.7342723,
+        "lon": 11.6823207
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Nimbuskyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://nimbuskyrkan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nimbuskyrkan",
+        "lat": 57.7094793,
+        "lon": 11.6615114
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "EFS kyrka",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.efs.nu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "EFS kyrka",
+        "address": "27 Hamnvägen",
+        "city": "Dyrön",
+        "postal_code": "47143",
+        "country": "SE",
+        "lat": 57.92882,
+        "lon": 11.6105165
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Aftonstjärnan",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://aftonstjarnan.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aftonstjärnan",
+        "address": "2 Plåtslagaregatan",
+        "lat": 57.7069492,
+        "lon": 11.9328012
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "FAIK-stugan",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fjarasaik.se",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FAIK-stugan",
+        "address": "1 Stamvägen",
+        "city": "Kungsbacka",
+        "postal_code": "43497",
+        "lat": 57.4954855,
+        "lon": 12.225594
+      },
+      "_metro": "Gothenburg, SE"
     }
   ],
   "_not_included": {

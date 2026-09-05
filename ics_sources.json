@@ -3056,5 +3056,401 @@
   "geocode_suffix": ", Brno, CZ",
   "limit": 300,
   "_metro": "Brno, CZ"
+ },
+ {
+  "name": "Waltham — Main Calendar",
+  "category": "community",
+  "url": "https://www.city.waltham.ma.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Waltham, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Waltham, Massachusetts"
+ },
+ {
+  "name": "Waltham — Veterans Services",
+  "category": "community",
+  "url": "https://www.city.waltham.ma.us/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Waltham, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Veterans Services]",
+  "_metro": "Waltham, Massachusetts"
+ },
+ {
+  "name": "Idaho Falls — Aquatic Center",
+  "category": "community",
+  "url": "https://www.idahofallsidaho.gov/common/modules/iCalendar/iCalendar.aspx?catID=50&feed=calendar",
+  "geocode_suffix": ", Idaho Falls, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Aquatic Center]",
+  "_metro": "Idaho Falls, Idaho"
+ },
+ {
+  "name": "Idaho Falls — Aquatic Fitness",
+  "category": "community",
+  "url": "https://www.idahofallsidaho.gov/common/modules/iCalendar/iCalendar.aspx?catID=52&feed=calendar",
+  "geocode_suffix": ", Idaho Falls, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Aquatic Fitness]",
+  "_metro": "Idaho Falls, Idaho"
+ },
+ {
+  "name": "Idaho Falls — Aquatics Special Events",
+  "category": "community",
+  "url": "https://www.idahofallsidaho.gov/common/modules/iCalendar/iCalendar.aspx?catID=53&feed=calendar",
+  "geocode_suffix": ", Idaho Falls, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Aquatics Special Events]",
+  "_metro": "Idaho Falls, Idaho"
+ },
+ {
+  "name": "Idaho Falls — Aquatics Jr High Swim Team",
+  "category": "community",
+  "url": "https://www.idahofallsidaho.gov/common/modules/iCalendar/iCalendar.aspx?catID=70&feed=calendar",
+  "geocode_suffix": ", Idaho Falls, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Aquatics Jr High Swim Team]",
+  "_metro": "Idaho Falls, Idaho"
+ },
+ {
+  "name": "Idaho Falls — Aquatics Public Swim",
+  "category": "community",
+  "url": "https://www.idahofallsidaho.gov/common/modules/iCalendar/iCalendar.aspx?catID=57&feed=calendar",
+  "geocode_suffix": ", Idaho Falls, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Aquatics Public Swim]",
+  "_metro": "Idaho Falls, Idaho"
+ },
+ {
+  "name": "Idaho Falls — Aquatics Surfer Swim Team",
+  "category": "community",
+  "url": "https://www.idahofallsidaho.gov/common/modules/iCalendar/iCalendar.aspx?catID=55&feed=calendar",
+  "geocode_suffix": ", Idaho Falls, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Aquatics Surfer Swim Team]",
+  "_metro": "Idaho Falls, Idaho"
+ },
+ {
+  "name": "Burnsville — Burnsville Ice Center",
+  "category": "community",
+  "url": "https://burnsvillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=99&feed=calendar",
+  "geocode_suffix": ", Burnsville, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Burnsville Ice Center]",
+  "_metro": "Burnsville, Minnesota"
+ },
+ {
+  "name": "Burnsville — Burnsville City News and Events Calendar",
+  "category": "community",
+  "url": "https://burnsvillemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=19&feed=calendar",
+  "geocode_suffix": ", Burnsville, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Burnsville City News and Events Calendar]",
+  "_metro": "Burnsville, Minnesota"
+ },
+ {
+  "name": "Port Orange — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.port-orange.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Port Orange, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Port Orange, Florida"
+ },
+ {
+  "name": "Rowlett — Library",
+  "category": "community",
+  "url": "https://www.rowletttx.gov/common/modules/iCalendar/iCalendar.aspx?catID=19&feed=calendar",
+  "geocode_suffix": ", Rowlett, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Rowlett, Texas"
+ },
+ {
+  "name": "Rowlett — City of Rowlett Special Events",
+  "category": "community",
+  "url": "https://www.rowletttx.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Rowlett, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City of Rowlett Special Events]",
+  "_metro": "Rowlett, Texas"
+ },
+ {
+  "name": "Hendersonville — Parks",
+  "category": "community",
+  "url": "https://www.hvilletn.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Hendersonville, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks]",
+  "_metro": "Hendersonville, Tennessee"
+ },
+ {
+  "name": "Hendersonville — Community Events",
+  "category": "community",
+  "url": "https://www.hvilletn.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Hendersonville, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Hendersonville, Tennessee"
+ },
+ {
+  "name": "Wellington — Wellington Amphitheater",
+  "category": "community",
+  "url": "https://www.wellingtonfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Wellington, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Wellington Amphitheater]",
+  "_metro": "Wellington, Florida"
+ },
+ {
+  "name": "Wellington — Senior Services",
+  "category": "community",
+  "url": "https://www.wellingtonfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Wellington, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Services]",
+  "_metro": "Wellington, Florida"
+ },
+ {
+  "name": "Wellington — Special Events",
+  "category": "community",
+  "url": "https://www.wellingtonfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Wellington, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Wellington, Florida"
+ },
+ {
+  "name": "Wellington — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.wellingtonfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Wellington, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Wellington, Florida"
+ },
+ {
+  "name": "La Mesa — La Mesa Park and Recreation Foundation",
+  "category": "community",
+  "url": "https://www.cityoflamesa.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", La Mesa, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[La Mesa Park and Recreation Foundation]",
+  "_metro": "La Mesa, California"
+ },
+ {
+  "name": "Monterey Park — Library Calendar",
+  "category": "community",
+  "url": "https://www.montereypark.ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Monterey Park, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Calendar]",
+  "_metro": "Monterey Park, California"
+ },
+ {
+  "name": "Monterey Park — Main Calendar",
+  "category": "community",
+  "url": "https://www.montereypark.ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Monterey Park, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Monterey Park, California"
+ },
+ {
+  "name": "Running zone",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> events-manager",
+  "url": "https://runningzone.cz/?ical=1",
+  "geocode_suffix": ", Brno, CZ",
+  "limit": 300,
+  "_metro": "Brno, CZ"
+ },
+ {
+  "name": "Orel jednota Telnice",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> events-manager",
+  "url": "https://www.oreltelnice.cz/?ical=1",
+  "geocode_suffix": ", Brno, CZ",
+  "limit": 300,
+  "_metro": "Brno, CZ"
+ },
+ {
+  "name": "Stockholms Roddförening",
+  "category": "community",
+  "_found": "osm:events_venue -> ics",
+  "url": "https://cal.laget.se/StockholmsRoddforening.ics",
+  "geocode_suffix": ", Stockholm",
+  "limit": 300,
+  "_metro": "Stockholm, SE"
+ },
+ {
+  "name": "En Garde Fäktförening",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://cal.svenskalag.se/45747",
+  "geocode_suffix": ", Stockholm, SE",
+  "limit": 300,
+  "_metro": "Stockholm, SE"
+ },
+ {
+  "name": "Lidingö Roddklubb",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://www.lidingoroddklubb.se/api2/bokning-vcalendar",
+  "geocode_suffix": ", Lidingö",
+  "limit": 300,
+  "_metro": "Stockholm, SE"
+ },
+ {
+  "name": "Centrumkyrkan",
+  "category": "community",
+  "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+  "url": "https://www.centrumkyrkanfarsta.se/?feed=my-calendar-ics",
+  "geocode_suffix": ", Farsta",
+  "limit": 300,
+  "_metro": "Stockholm, SE"
+ },
+ {
+  "name": "Skogsängskyrkan",
+  "category": "community",
+  "_found": "osm:place_of_worship -> events-manager",
+  "url": "https://skogsangskyrkan.nu/kalender/?ical=1",
+  "geocode_suffix": ", Rönninge",
+  "limit": 300,
+  "_metro": "Stockholm, SE"
+ },
+ {
+  "name": "Haninge SOK klubbstuga",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://cal.svenskalag.se/82477",
+  "geocode_suffix": ", Stockholm, SE",
+  "limit": 300,
+  "_metro": "Stockholm, SE"
+ },
+ {
+  "name": "OK Älvsjö Örby",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://cal.svenskalag.se/40616",
+  "geocode_suffix": ", Stockholm, SE",
+  "limit": 300,
+  "_metro": "Stockholm, SE"
+ },
+ {
+  "name": "Edsvikens Tennisklubb",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> ics",
+  "url": "https://calendar.google.com/calendar/ical/edsvikenstennis%40gmail.com/private-001e9d4a2c3efd8b39d9c504cd5b3b3b/basic.ics",
+  "geocode_suffix": ", Stockholm, SE",
+  "limit": 300,
+  "_metro": "Stockholm, SE"
+ },
+ {
+  "name": "Betlehemskyrkan",
+  "category": "community",
+  "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+  "url": "https://betlehemskyrkan.se/?feed=my-calendar-ics",
+  "geocode_suffix": ", Göteborg",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Gasquen",
+  "category": "music",
+  "_found": "osm:nightclub -> ics",
+  "url": "https://admin.gasquen.se/api/calendar.ics",
+  "geocode_suffix": ", Gothenburg, SE",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Kungälv Kyokushin Karate",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://cal.svenskalag.se/22417",
+  "geocode_suffix": ", Kungälv",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Schacksällskapet Manhem",
+  "category": "community",
+  "_found": "osm:club -> my-calendar+jsonld-event",
+  "url": "https://www.ssmanhem.se/?feed=my-calendar-ics",
+  "geocode_suffix": ", Göteborg",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Högsbo skjutbana",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> ics",
+  "url": "https://cal.svenskalag.se/68450",
+  "geocode_suffix": ", Göteborg",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Frölunda OL klubbstuga",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://calendar.google.com/calendar/ical/frolundaol%40gmail.com/public/basic.ics",
+  "geocode_suffix": ", Gothenburg, SE",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "SAIK-stugan Skatås",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://cal.svenskalag.se/93556",
+  "geocode_suffix": ", Gothenburg, SE",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Gunnilse IS klubbhus",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://cal.svenskalag.se/9013",
+  "geocode_suffix": ", Angered",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Finlandia Pallo AIF",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://cal.laget.se/FinlandiaPalloAIF.ics",
+  "geocode_suffix": ", Göteborg",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Solvikingarna",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://cal.svenskalag.se/93373",
+  "geocode_suffix": ", Gothenburg, SE",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Chalmers Bibliotek Huvudbibliotek",
+  "category": "learning",
+  "_found": "osm:library -> ics",
+  "url": "https://www.lib.chalmers.se/api/v1/calendar/events?lang=sv",
+  "geocode_suffix": ", Gothenburg, SE",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Klubbstuga BK Häcken",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://calendar.google.com/calendar/ical/8516c9f341e6ae8dd8e54c0f872f8a42907911cecb863410423fb07c6e171fd0%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Göteborg",
+  "limit": 300,
+  "_metro": "Gothenburg, SE"
  }
 ]

@@ -805,6 +805,96 @@
         "lon": 23.7651847
       },
       "_metro": "Tampere, FI"
+    },
+    {
+      "name": "Drottningholms Slottsteater",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.dtm.se/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Drottningholms Slottsteater",
+        "lat": 59.3230723,
+        "lon": 17.8850832
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "HIV Sverige",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.hiv-sverige.se/kalender",
+      "max_events": 200,
+      "venue": {
+        "name": "HIV Sverige",
+        "lat": 59.3367954,
+        "lon": 18.0305084
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Södertörnkyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.sodertornkyrkan.se/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Södertörnkyrkan",
+        "address": "3 Patron Pehrs väg",
+        "city": "Huddinge",
+        "postal_code": "141 35",
+        "country": "SE",
+        "lat": 59.236207,
+        "lon": 17.9764635
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Söderhöjdskyrkan",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.soderhojdskyrkan.se/kalender",
+      "max_events": 200,
+      "venue": {
+        "name": "Söderhöjdskyrkan",
+        "lat": 59.3194685,
+        "lon": 18.0632164
+      },
+      "_metro": "Stockholm, SE"
+    },
+    {
+      "name": "Kristus Konungens katolska kyrka",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.kristuskonungen.se/kalender",
+      "max_events": 200,
+      "venue": {
+        "name": "Kristus Konungens katolska kyrka",
+        "address": "14 Parkgatan",
+        "city": "Göteborg",
+        "postal_code": "41138",
+        "country": "SE",
+        "lat": 57.7042933,
+        "lon": 11.9778419
+      },
+      "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Oceanbryggeriet",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.oceanbryggeriet.se/event",
+      "max_events": 200,
+      "venue": {
+        "name": "Oceanbryggeriet",
+        "address": "12 Ragnar Thorngrens gata",
+        "city": "Mölndal",
+        "postal_code": "43162",
+        "country": "SE",
+        "lat": 57.6488289,
+        "lon": 11.9941618
+      },
+      "_metro": "Gothenburg, SE"
     }
   ]
 }

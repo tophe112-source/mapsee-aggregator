@@ -1582,6 +1582,215 @@
     "lon": 16.608146
    },
    "_metro": "Brno, CZ"
+  },
+  {
+   "name": "Betlémský kostel",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://cervenykostel.cz/"
+   ],
+   "link_pattern": "https://cervenykostel\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Betlémský kostel",
+    "lat": 49.1929536,
+    "lon": 16.6023001
+   },
+   "_metro": "Brno, CZ"
+  },
+  {
+   "name": "Teaterverket",
+   "category": "theater",
+   "_found": "osm:theatre -> modern-events+jsonld-event",
+   "listing": [
+    "https://teaterverket.se/evenemang-och-aktiviteter/"
+   ],
+   "link_pattern": "https://teaterverket\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Teaterverket",
+    "lat": 59.3416743,
+    "lon": 18.0479291
+   },
+   "_metro": "Stockholm, SE"
+  },
+  {
+   "name": "Citykyrkan",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://cks.se/kalender/"
+   ],
+   "link_pattern": "https://cks\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Citykyrkan",
+    "lat": 59.3371518,
+    "lon": 18.059156
+   },
+   "_metro": "Stockholm, SE"
+  },
+  {
+   "name": "Bagarmossen Folkets hus",
+   "category": "community",
+   "_found": "osm:community_centre -> wp-event-manager",
+   "listing": [
+    "https://bagisfh.se/kalender/"
+   ],
+   "link_pattern": "https://bagisfh\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Bagarmossen Folkets hus",
+    "address": "44 Lillåvägen",
+    "postal_code": "128 45",
+    "lat": 59.2768735,
+    "lon": 18.1326665
+   },
+   "_metro": "Stockholm, SE"
+  },
+  {
+   "name": "Nexus STHLM",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> jsonld-event",
+   "listing": [
+    "https://www.nexusstockholm.se/kalender/"
+   ],
+   "link_pattern": "https://www\\.nexusstockholm\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Nexus STHLM",
+    "address": "185 Drottningholmsvägen",
+    "city": "Bromma",
+    "postal_code": "167 53",
+    "lat": 59.333457,
+    "lon": 17.9732775
+   },
+   "_metro": "Stockholm, SE"
+  },
+  {
+   "name": "Institut Français",
+   "category": "arts",
+   "_found": "osm:arts_centre -> modern-events",
+   "listing": [
+    "https://ifsuede.com/evenements/"
+   ],
+   "link_pattern": "https://ifsuede\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Institut Français",
+    "lat": 59.3388958,
+    "lon": 18.0791249
+   },
+   "_metro": "Stockholm, SE"
+  },
+  {
+   "name": "Stockholms Schacksalonger",
+   "category": "community",
+   "_found": "osm:club -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.stockholmsschack.se/kalender/"
+   ],
+   "link_pattern": "https://www\\.stockholmsschack\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Stockholms Schacksalonger",
+    "lat": 59.3185309,
+    "lon": 18.0512594
+   },
+   "_metro": "Stockholm, SE"
+  },
+  {
+   "name": "Mångkulturellt centrum",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://mkcentrum.se/event/somayas-mammalunch-48/"
+   ],
+   "link_pattern": "https://mkcentrum\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Mångkulturellt centrum",
+    "address": "7 Värdshusvägen",
+    "postal_code": "14550",
+    "lat": 59.246689,
+    "lon": 17.86496
+   },
+   "_metro": "Stockholm, SE"
+  },
+  {
+   "name": "Confidencen",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.confidencen.se/event/"
+   ],
+   "link_pattern": "https://www\\.confidencen\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Confidencen",
+    "city": "Solna",
+    "postal_code": "170 79",
+    "lat": 59.3862669,
+    "lon": 18.0173347
+   },
+   "_metro": "Stockholm, SE"
+  },
+  {
+   "name": "Baptistkyrkan Tabernaklet",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.tabernaklet.se/?page_id=997"
+   ],
+   "link_pattern": "https://www\\.tabernaklet\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Baptistkyrkan Tabernaklet",
+    "address": "4 Götabergsgatan",
+    "city": "Göteborg",
+    "postal_code": "411 34",
+    "country": "SE",
+    "lat": 57.7004655,
+    "lon": 11.9706585
+   },
+   "_metro": "Gothenburg, SE"
+  },
+  {
+   "name": "Göteborgs Kanotförening",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://gkf.se/kalender/"
+   ],
+   "link_pattern": "https://gkf\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Göteborgs Kanotförening",
+    "address": "42 Saltholmsgatan",
+    "city": "Västra Frölunda",
+    "postal_code": "42676",
+    "country": "SE",
+    "lat": 57.6607966,
+    "lon": 11.8471783
+   },
+   "_metro": "Gothenburg, SE"
+  },
+  {
+   "name": "Åbymässan",
+   "category": "community",
+   "_found": "osm:conference_centre -> jsonld-event",
+   "listing": [
+    "https://abymassan.se/"
+   ],
+   "link_pattern": "https://abymassan\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Åbymässan",
+    "lat": 57.649858,
+    "lon": 12.0042038
+   },
+   "_metro": "Gothenburg, SE"
   }
  ],
  "_not_included": {
