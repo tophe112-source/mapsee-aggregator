@@ -1,5 +1,8 @@
 # mapsee-aggregator — the map for agents
 
+For bounded delegation and review, read [team-work.md](docs/agents/team-work.md).
+Use `node tools/agent-context.mjs --file <source>` for a capped source map.
+
 The event-ingest pipeline behind mapsee.me. Public repo (MIT). It has no server:
 GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.

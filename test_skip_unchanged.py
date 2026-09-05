@@ -270,6 +270,9 @@ for wf in sorted(glob.glob(".github/workflows/*.yml")):
             missing.append(f"{wf}:{ln}")
 check("every sync invocation passes --skip-unchanged", not missing, missing)
 
+from test_sync_lookup import run as run_lookup_checks
+FAILS += run_lookup_checks()
+
 print()
 print(f"{FAILS} FAILED" if FAILS else "a rewrite writes what changed")
 sys.exit(1 if FAILS else 0)

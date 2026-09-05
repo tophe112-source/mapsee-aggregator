@@ -1,0 +1,30 @@
+name: Agent context
+on:
+  push:
+    paths: ['AGENTS.md', 'CLAUDE.md', 'docs/agents/**', 'tools/agent-context.mjs', 'tools/check-agent-context.mjs', 'tools/agent-notes.mjs', 'agent_notes.py', '.github/workflows/agent-context.yml']
+  pull_request:
+    paths: ['AGENTS.md', 'CLAUDE.md', 'docs/agents/**', 'tools/agent-context.mjs', 'tools/check-agent-context.mjs', 'tools/agent-notes.mjs', 'agent_notes.py', '.github/workflows/agent-context.yml']
+concurrency:
+  group: agent-context-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # No npm install, browsers, database or production credentials.
+      - run: node tools/check-agent-context.mjs
+      - name: Check the repository map
+        shell: bash
+        run: |
+          if [ -f tools/agent-notes.mjs ]; then
+            node tools/agent-notes.mjs
+          elif [ -f agent_notes.py ]; then
+            python agent_notes.py
+          fi
