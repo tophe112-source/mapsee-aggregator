@@ -3,6 +3,19 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: an upsert that cannot delete, OFFSET vs keyset, PostgREST 5xx, `series_id`, `make_fingerprint`, `--ignore-cursor`, a toggle overtaken by a new kind of row.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A feed's ownership guard must read that feed's IDs, not the global catalog.**
+  `fetch_import_state` combines existence and claimed-state reads in batches
+  of at most 100 IDs / 6 KB URL, before any writes. In `test_sync_lookup.py`,
+  three incoming IDs require one request and return two rows at both 1,000 and
+  1,000,000 synthetic catalog rows. A server cap of two still finds a claimed
+  row on page four. Thirteen checks cover bounded URLs, both sync modes,
+  duplicate IDs, missing ownership, incomplete/changed Content-Range and
+  no writes after failure. A successful HTTP response alone is insufficient:
+  verify exact count and every page before treating a missing ID as new.
+  Lookup failure stops the import; unchanged-content comparison may still
+  fail toward writing only AFTER ownership is verified. This is a request
+  cost model, not a live query benchmark or an atomic claim/write lock.
+
 - **An upsert cannot delete, so a fix to what we WRITE never reaches what is
   already written.** When a link dies the ingest skips the place, no row is
   produced, and the row from when it worked survives with its dead button —

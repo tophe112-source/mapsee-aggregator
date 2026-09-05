@@ -1428,58 +1428,88 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
 _LEET = str.maketrans("@0135$!7", "aoiessit")
 
 
-def fetch_existing_ids(session, url: str, key: str):
-    """Set of external_ids already in Supabase (external_source='mapsee'), paged."""
-    ids = set()
-    endpoint = url.rstrip("/") + "/rest/v1/events?external_source=eq.mapsee&select=external_id"
-    base = {"apikey": key, "Authorization": f"Bearer {key}", "Range-Unit": "items"}
-    start, size = 0, 10000
-    while True:
-        try:
-            r = session.get(endpoint, headers=dict(base, Range=f"{start}-{start + size - 1}"), timeout=60)
-        except Exception:
-            break
-        if r.status_code not in (200, 206):
-            break
-        rows = r.json()
-        if not rows:
-            break
-        for row in rows:
-            if row.get("external_id"):
-                ids.add(row["external_id"])
-        if len(rows) < size:
-            break
-        start += size
-    return ids
+def fetch_import_state(session, url: str, key: str, candidates):
+    """Read existence AND ownership only for the imports this run may write.
 
+    A small feed must not scan the global catalog. Each indexed IN query holds
+    at most 100 IDs and 6 KB of URL. Paging is confined to that bounded set and
+    follows returned rows, not an assumed server page size. Fail CLOSED: an
+    unavailable ownership check must never become permission to overwrite.
+    """
+    candidates = list(candidates)
+    if any(not isinstance(eid, str) or not eid for eid in candidates):
+        raise RuntimeError("Invalid import identity; no events were written.")
+    ids = sorted(set(candidates))
+    base = url.rstrip("/") + "/rest/v1/events"
+    headers = {"apikey": key, "Authorization": f"Bearer {key}", "Prefer": "count=exact"}
 
-def fetch_claimed_ids(session, url: str, key: str):
-    """external_ids of imported events a real user has CLAIMED (0043). We must
-    never touch those on sync — the claimer owns the row now, and re-upserting
-    would clobber their edits. Excluding them (not re-inserting) is safe: the row
-    already exists, so no duplicate appears."""
-    ids = set()
-    endpoint = (url.rstrip("/")
-                + "/rest/v1/events?external_source=eq.mapsee&claimed_at=not.is.null&select=external_id")
-    base = {"apikey": key, "Authorization": f"Bearer {key}", "Range-Unit": "items"}
-    start, size = 0, 10000
-    while True:
-        try:
-            r = session.get(endpoint, headers=dict(base, Range=f"{start}-{start + size - 1}"), timeout=60)
-        except Exception:
-            break
-        if r.status_code not in (200, 206):
-            break                                        # column missing (pre-0043) → nothing to skip
-        rows = r.json()
-        if not rows:
-            break
-        for row in rows:
-            if row.get("external_id"):
-                ids.add(row["external_id"])
-        if len(rows) < size:
-            break
-        start += size
-    return ids
+    def endpoint(chunk, offset=0):
+        # JSON quoting also escapes quotes/backslashes in PostgREST IN values.
+        values = ",".join(json.dumps(eid, ensure_ascii=False) for eid in chunk)
+        params = {"external_source": "eq.mapsee", "select": "external_id,claimed_at",
+                  "external_id": f"in.({values})", "order": "external_id.asc",
+                  "limit": str(len(chunk)), "offset": str(offset)}
+        return base + "?" + urllib.parse.urlencode(params)
+
+    chunks, chunk = [], []
+    for eid in ids:
+        if chunk and (len(chunk) >= 100 or len(endpoint(chunk + [eid], 99)) > 6000):
+            chunks.append(chunk)
+            chunk = []
+        chunk.append(eid)
+        if len(endpoint(chunk, 99)) > 6000:
+            raise RuntimeError("Import identity exceeds lookup URL budget; no events were written.")
+    if chunk:
+        chunks.append(chunk)
+    state = {}
+    for chunk in chunks:
+        wanted, seen, offset, expected_count = set(chunk), set(), 0, None
+        while expected_count is None or offset < expected_count:
+            try:
+                response = session.get(endpoint(chunk, offset), headers=headers, timeout=30)
+                if response.status_code not in (200, 206):
+                    raise ValueError(f"HTTP {response.status_code}")
+                rows = response.json()
+                if not isinstance(rows, list):
+                    raise ValueError("invalid response")
+                cr = getattr(response, "headers", {}).get("Content-Range", "")
+                match = re.fullmatch(r"(\d+)-(\d+)/(\d+)", cr)
+                empty_match = re.fullmatch(r"\*/(\d+)", cr)
+                if empty_match:
+                    if rows:
+                        raise ValueError("non-empty response has empty range")
+                    count = int(empty_match.group(1))
+                    if count > len(chunk) or offset != count:
+                        raise ValueError("premature empty response")
+                elif match:
+                    start, end, count = map(int, match.groups())
+                    if not rows or start != offset or end != start + len(rows) - 1:
+                        raise ValueError("inconsistent response range")
+                    if len(rows) > len(chunk) or count > len(chunk) or not end < count:
+                        raise ValueError("inconsistent response count")
+                else:
+                    raise ValueError("missing or malformed response range")
+                if expected_count is None:
+                    expected_count = count
+                elif count != expected_count:
+                    raise ValueError("response count changed during lookup")
+                if not rows:
+                    break
+                for row in rows:
+                    if not isinstance(row, dict) or "claimed_at" not in row:
+                        raise ValueError("ownership field missing")
+                    eid = row.get("external_id")
+                    if eid not in wanted or eid in seen:
+                        raise ValueError("unexpected or repeated identity")
+                    seen.add(eid)
+                    state[eid] = row["claimed_at"] is not None
+                offset += len(rows)
+            except Exception:
+                # Do not echo request exceptions: their URL/headers can carry
+                # credentials. A retry of this feed is safe; a partial guard is not.
+                raise RuntimeError("Could not verify imported event ownership; no events were written. "
+                                   "Retry this sync when the database is available.") from None
+    return state
 
 
 # --------------------------------------------------------------------------- #
@@ -1713,19 +1743,23 @@ def main() -> None:
 
     # Never touch CLAIMED imports (a real user owns them now) — in EITHER mode,
     # so a full refresh can't clobber a claimer's edits and only-new stays correct.
-    claimed = fetch_claimed_ids(geo, url, key)
+    try:
+        state = fetch_import_state(geo, url, key, [r["external_id"] for r in rows])
+    except RuntimeError as error:
+        raise SystemExit(str(error)) from None
+    claimed = {eid for eid, is_claimed in state.items() if is_claimed}
     if claimed:
         before = len(rows)
         rows = [r for r in rows if r["external_id"] not in claimed]
         print(f"Claimed-guard: skipped {before - len(rows)} claimed events.")
 
     if a.only_new:                                    # skip events already in the DB
-        existing = fetch_existing_ids(geo, url, key)
+        existing = set(state)
         before = len(rows)
         rows = [r for r in rows if r["external_id"] not in existing]
-        print(f"Only-new: {len(rows)} of {before} are new ({len(existing)} already in Supabase).")
+        print(f"Only-new: {len(rows)} of {before} are new ({len(existing)} from this batch already in Supabase).")
 
-    terms = load_blocklist(geo, url, key)             # drop blocked content before the slow retry
+    terms = load_blocklist(geo, url, key) if rows else []  # no DB read for an empty write set
     if terms:
         before = len(rows)
         rows = [r for r in rows if all(is_clean(r.get(f) or "", terms)
