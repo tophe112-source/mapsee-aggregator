@@ -3452,5 +3452,419 @@
   "geocode_suffix": ", Göteborg",
   "limit": 300,
   "_metro": "Gothenburg, SE"
+ },
+ {
+  "name": "Marietta — Municipal Calendar",
+  "category": "community",
+  "url": "https://www.mariettaga.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Marietta, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Municipal Calendar]",
+  "_metro": "Marietta, Georgia"
+ },
+ {
+  "name": "Marietta — Parks, Recreation & Facilities",
+  "category": "community",
+  "url": "https://www.mariettaga.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Marietta, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks, Recreation & Facilities]",
+  "_metro": "Marietta, Georgia"
+ },
+ {
+  "name": "Great Falls — Aquatic and Recreation Center Events",
+  "category": "community",
+  "url": "https://www.greatfallsmt.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Great Falls, Montana",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Aquatic and Recreation Center Events]",
+  "_metro": "Great Falls, Montana"
+ },
+ {
+  "name": "Great Falls — General Events",
+  "category": "community",
+  "url": "https://www.greatfallsmt.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Great Falls, Montana",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[General Events]",
+  "_metro": "Great Falls, Montana"
+ },
+ {
+  "name": "Great Falls — Mansfield Center Events",
+  "category": "community",
+  "url": "https://www.greatfallsmt.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Great Falls, Montana",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Mansfield Center Events]",
+  "_metro": "Great Falls, Montana"
+ },
+ {
+  "name": "North Miami — City Events",
+  "category": "community",
+  "url": "https://www.northmiamifl.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", North Miami, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "North Miami, Florida"
+ },
+ {
+  "name": "North Miami — Library",
+  "category": "community",
+  "url": "https://www.northmiamifl.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", North Miami, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "North Miami, Florida"
+ },
+ {
+  "name": "North Miami — D4 - Calendar",
+  "category": "community",
+  "url": "https://www.northmiamifl.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
+  "geocode_suffix": ", North Miami, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[D4 - Calendar]",
+  "_metro": "North Miami, Florida"
+ },
+ {
+  "name": "North Miami — Library - Adults",
+  "category": "community",
+  "url": "https://www.northmiamifl.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar",
+  "geocode_suffix": ", North Miami, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Adults]",
+  "_metro": "North Miami, Florida"
+ },
+ {
+  "name": "North Miami — Police Department Events",
+  "category": "community",
+  "url": "https://www.northmiamifl.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", North Miami, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Department Events]",
+  "_metro": "North Miami, Florida"
+ },
+ {
+  "name": "Taunton — Community Events",
+  "category": "community",
+  "url": "https://www.taunton-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Taunton, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Taunton, Massachusetts"
+ },
+ {
+  "name": "Leander — Library",
+  "category": "community",
+  "url": "https://www.leandertx.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Leander, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Leander, Texas"
+ },
+ {
+  "name": "Leander — Events",
+  "category": "community",
+  "url": "https://www.leandertx.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Leander, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Leander, Texas"
+ },
+ {
+  "name": "Leander — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.leandertx.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Leander, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Leander, Texas"
+ },
+ {
+  "name": "Leander — Police",
+  "category": "community",
+  "url": "https://www.leandertx.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Leander, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police]",
+  "_metro": "Leander, Texas"
+ },
+ {
+  "name": "רמת השופט — Golf",
+  "category": "community",
+  "url": "https://www.pbgfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", רמת השופט, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Golf]",
+  "_metro": "רמת השופט, Florida"
+ },
+ {
+  "name": "רמת השופט — Golf Course Events",
+  "category": "community",
+  "url": "https://www.pbgfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=59&feed=calendar",
+  "geocode_suffix": ", רמת השופט, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Golf Course Events]",
+  "_metro": "רמת השופט, Florida"
+ },
+ {
+  "name": "רמת השופט — Special Events",
+  "category": "community",
+  "url": "https://www.pbgfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", רמת השופט, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "רמת השופט, Florida"
+ },
+ {
+  "name": "St. Cloud — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.stcloudfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=17&feed=calendar",
+  "geocode_suffix": ", St. Cloud, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "St. Cloud, Florida"
+ },
+ {
+  "name": "St. Clair Shores — Main Calendar",
+  "category": "community",
+  "url": "https://www.scsmi.net/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", St. Clair Shores, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "St. Clair Shores, Michigan"
+ },
+ {
+  "name": "St. Clair Shores — Events & Programs",
+  "category": "community",
+  "url": "https://www.scsmi.net/common/modules/iCalendar/iCalendar.aspx?catID=63&feed=calendar",
+  "geocode_suffix": ", St. Clair Shores, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events & Programs]",
+  "_metro": "St. Clair Shores, Michigan"
+ },
+ {
+  "name": "St. Clair Shores — General Information",
+  "category": "community",
+  "url": "https://www.scsmi.net/common/modules/iCalendar/iCalendar.aspx?catID=71&feed=calendar",
+  "geocode_suffix": ", St. Clair Shores, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[General Information]",
+  "_metro": "St. Clair Shores, Michigan"
+ },
+ {
+  "name": "St. Clair Shores — Farmers Market",
+  "category": "community",
+  "url": "https://www.scsmi.net/common/modules/iCalendar/iCalendar.aspx?catID=72&feed=calendar",
+  "geocode_suffix": ", St. Clair Shores, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Farmers Market]",
+  "_metro": "St. Clair Shores, Michigan"
+ },
+ {
+  "name": "Midwest City — Main Calendar",
+  "category": "community",
+  "url": "https://www.midwestcityok.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Midwest City, Oklahoma",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Midwest City, Oklahoma"
+ },
+ {
+  "name": "Bowie — Events",
+  "category": "community",
+  "url": "https://www.cityofbowie.org/common/modules/iCalendar/iCalendar.aspx?catID=56&feed=calendar",
+  "geocode_suffix": ", Bowie, Maryland",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Bowie, Maryland"
+ },
+ {
+  "name": "Royal Oak — Community Events",
+  "category": "community",
+  "url": "https://www.romi.gov/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar",
+  "geocode_suffix": ", Royal Oak, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Royal Oak, Michigan"
+ },
+ {
+  "name": "Royal Oak — Farmers Market",
+  "category": "community",
+  "url": "https://www.romi.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Royal Oak, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Farmers Market]",
+  "_metro": "Royal Oak, Michigan"
+ },
+ {
+  "name": "Royal Oak — Public Service",
+  "category": "community",
+  "url": "https://www.romi.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Royal Oak, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Public Service]",
+  "_metro": "Royal Oak, Michigan"
+ },
+ {
+  "name": "Royal Oak — Recreation Calendar",
+  "category": "community",
+  "url": "https://www.romi.gov/common/modules/iCalendar/iCalendar.aspx?catID=111&feed=calendar",
+  "geocode_suffix": ", Royal Oak, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation Calendar]",
+  "_metro": "Royal Oak, Michigan"
+ },
+ {
+  "name": "Royal Oak — Senior Center",
+  "category": "community",
+  "url": "https://www.romi.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+  "geocode_suffix": ", Royal Oak, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Center]",
+  "_metro": "Royal Oak, Michigan"
+ },
+ {
+  "name": "Royal Oak — Nature Society",
+  "category": "community",
+  "url": "https://www.romi.gov/common/modules/iCalendar/iCalendar.aspx?catID=62&feed=calendar",
+  "geocode_suffix": ", Royal Oak, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Nature Society]",
+  "_metro": "Royal Oak, Michigan"
+ },
+ {
+  "name": "Kettering",
+  "category": "community",
+  "_found": "civic:city -> events-manager",
+  "url": "https://www.ketteringoh.org/events/?ical=1",
+  "geocode_suffix": ", Kettering, Ohio",
+  "limit": 300,
+  "_metro": "Kettering, Ohio"
+ },
+ {
+  "name": "Bartlett — Bartlett Library",
+  "category": "community",
+  "url": "https://www.cityofbartlett.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Bartlett, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Bartlett Library]",
+  "_metro": "Bartlett, Tennessee"
+ },
+ {
+  "name": "Bartlett — Special Events",
+  "category": "community",
+  "url": "https://www.cityofbartlett.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Bartlett, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Bartlett, Tennessee"
+ },
+ {
+  "name": "Bartlett — Performing Arts Center",
+  "category": "community",
+  "url": "https://www.cityofbartlett.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Bartlett, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Performing Arts Center]",
+  "_metro": "Bartlett, Tennessee"
+ },
+ {
+  "name": "Bartlett — Senior Center",
+  "category": "community",
+  "url": "https://www.cityofbartlett.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Bartlett, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Center]",
+  "_metro": "Bartlett, Tennessee"
+ },
+ {
+  "name": "St. Peters — City Events",
+  "category": "community",
+  "url": "https://www.stpetersmo.net/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", St. Peters, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "St. Peters, Missouri"
+ },
+ {
+  "name": "St. Peters — Rec-Plex",
+  "category": "community",
+  "url": "https://www.stpetersmo.net/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", St. Peters, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Rec-Plex]",
+  "_metro": "St. Peters, Missouri"
+ },
+ {
+  "name": "Malmö Klätterklubb",
+  "category": "community",
+  "_found": "osm:club -> events-manager",
+  "url": "https://malmoklatterklubb.se/?ical=1",
+  "geocode_suffix": ", Malmö",
+  "limit": 300,
+  "_metro": "Malmo, SE"
+ },
+ {
+  "name": "Barnens Scen",
+  "category": "theater",
+  "_found": "osm:theatre -> ics",
+  "url": "https://www.barnensscen.se/barnensscen.ics",
+  "geocode_suffix": ", Malmo, SE",
+  "limit": 300,
+  "_metro": "Malmo, SE"
+ },
+ {
+  "name": "Cinemateket",
+  "category": "theater",
+  "_found": "osm:cinema -> ics",
+  "url": "https://www.cinemateket.no/cinemateket-webcal.ics",
+  "geocode_suffix": ", Oslo, NO",
+  "limit": 300,
+  "_metro": "Oslo, NO"
+ },
+ {
+  "name": "Salen - Institutt for musikkvitenskap",
+  "category": "theater",
+  "_found": "osm:theatre -> ics",
+  "url": "https://www.hf.uio.no/imv/om/aktuelt/arrangementer/?vrtx=ical",
+  "geocode_suffix": ", Oslo, NO",
+  "limit": 300,
+  "_metro": "Oslo, NO"
+ },
+ {
+  "name": "Hulias",
+  "category": "arts",
+  "_found": "osm:gallery -> ics",
+  "url": "https://huli.as/cal/events",
+  "geocode_suffix": ", Oslo, NO",
+  "limit": 300,
+  "_metro": "Oslo, NO"
+ },
+ {
+  "name": "Botanisk hage",
+  "category": "arts",
+  "_found": "osm:museum -> ics",
+  "url": "https://www.nhm.uio.no/hva-skjer/botaniskhage/?vrtx=ical",
+  "geocode_suffix": ", Oslo, NO",
+  "limit": 300,
+  "_metro": "Oslo, NO"
+ },
+ {
+  "name": "Kulturhistorisk museum",
+  "category": "arts",
+  "_found": "osm:museum -> ics",
+  "url": "https://www.khm.uio.no/forskning/arrangementer/?vrtx=ical",
+  "geocode_suffix": ", Oslo, NO",
+  "limit": 300,
+  "_metro": "Oslo, NO"
+ },
+ {
+  "name": "Betlehem - Bergens Indremisjon",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://calendar.google.com/calendar/ical/post%40betlehem.no/public/basic.ics",
+  "geocode_suffix": ", Bergen, NO",
+  "limit": 300,
+  "_metro": "Bergen, NO"
  }
 ]

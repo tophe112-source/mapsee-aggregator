@@ -1791,6 +1791,118 @@
     "lon": 12.0042038
    },
    "_metro": "Gothenburg, SE"
+  },
+  {
+   "name": "Science Village Hall",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://sciencevillagehall.se/event/sjunggung/?cd=20261017"
+   ],
+   "link_pattern": "https://sciencevillagehall\\.se/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Science Village Hall",
+    "lat": 55.7301081,
+    "lon": 13.2433663
+   },
+   "_metro": "Malmo, SE"
+  },
+  {
+   "name": "Bærum bibliotek, Bekkestua",
+   "category": "learning",
+   "_found": "osm:library -> modern-events+jsonld-event",
+   "listing": [
+    "https://barum.folkebibl.no/hva-skjer/"
+   ],
+   "link_pattern": "https://barum\\.folkebibl\\.no/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Bærum bibliotek, Bekkestua",
+    "lat": 59.9179022,
+    "lon": 10.5846279
+   },
+   "_metro": "Oslo, NO"
+  },
+  {
+   "name": "Rådhusteatret",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.nordrefolloscener.no/program/8367-janneloven-et-one-woman-show/"
+   ],
+   "link_pattern": "https://www\\.nordrefolloscener\\.no/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Rådhusteatret",
+    "lat": 59.7203205,
+    "lon": 10.8380073
+   },
+   "_metro": "Oslo, NO"
+  },
+  {
+   "name": "Nobels Fredssenter",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://www.nobelpeacecenter.org/arrangementer/kulturnatt-2026"
+   ],
+   "link_pattern": "https://www\\.nobelpeacecenter\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Nobels Fredssenter",
+    "lat": 59.911612,
+    "lon": 10.7304
+   },
+   "_metro": "Oslo, NO"
+  },
+  {
+   "name": "Samisk Hus Oslo",
+   "category": "community",
+   "_found": "osm:community_centre -> jsonld-event",
+   "listing": [
+    "https://samiskhus.no/events/"
+   ],
+   "link_pattern": "https://samiskhus\\.no/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Samisk Hus Oslo",
+    "lat": 59.9085604,
+    "lon": 10.7447635
+   },
+   "_metro": "Oslo, NO"
+  },
+  {
+   "name": "Bærum Bibliotek Fornebu",
+   "category": "learning",
+   "_found": "osm:library -> modern-events+jsonld-event",
+   "listing": [
+    "https://barum.folkebibl.no/events/"
+   ],
+   "link_pattern": "https://barum\\.folkebibl\\.no/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Bærum Bibliotek Fornebu",
+    "lat": 59.9006036,
+    "lon": 10.6225498
+   },
+   "_metro": "Oslo, NO"
+  },
+  {
+   "name": "Bergens Tekniske Museum",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://bergenstekniskemuseum.no/arrangement/"
+   ],
+   "link_pattern": "https://bergenstekniskemuseum\\.no/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Bergens Tekniske Museum",
+    "lat": 60.383841,
+    "lon": 5.320933
+   },
+   "_metro": "Bergen, NO"
   }
  ],
  "_not_included": {

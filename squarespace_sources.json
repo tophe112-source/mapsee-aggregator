@@ -895,6 +895,60 @@
         "lon": 11.9941618
       },
       "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Malmö Chán Buddhist Temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.taozen.se/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Malmö Chán Buddhist Temple",
+        "address": "20A Ahlmansgatan",
+        "postal_code": "21427",
+        "lat": 55.5887262,
+        "lon": 13.0103727
+      },
+      "_metro": "Malmo, SE"
+    },
+    {
+      "name": "Rebel",
+      "category": "community",
+      "_found": "osm:conference_centre -> squarespace",
+      "collection": "https://www.rebel.no/arrangementer",
+      "max_events": 200,
+      "venue": {
+        "name": "Rebel",
+        "lat": 59.917384,
+        "lon": 10.740199
+      },
+      "_metro": "Oslo, NO"
+    },
+    {
+      "name": "American Lutheran Church, Oslo",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.alcoslo.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "American Lutheran Church, Oslo",
+        "lat": 59.9168315,
+        "lon": 10.7055751
+      },
+      "_metro": "Oslo, NO"
+    },
+    {
+      "name": "Cornerteateret",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.cornerteateret.no/program",
+      "max_events": 200,
+      "venue": {
+        "name": "Cornerteateret",
+        "lat": 60.38267,
+        "lon": 5.3255685
+      },
+      "_metro": "Bergen, NO"
     }
   ]
 }

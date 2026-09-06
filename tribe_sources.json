@@ -4583,6 +4583,76 @@
         "lon": 12.225594
       },
       "_metro": "Gothenburg, SE"
+    },
+    {
+      "name": "Teater Sagohuset",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://sagohuset.nu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teater Sagohuset",
+        "lat": 55.6974411,
+        "lon": 13.1999807
+      },
+      "_metro": "Malmo, SE"
+    },
+    {
+      "name": "Nordisk bibelmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://nobimu.no",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nordisk bibelmuseum",
+        "lat": 59.910326,
+        "lon": 10.740945
+      },
+      "_metro": "Oslo, NO"
+    },
+    {
+      "name": "Den lutherske kirke i Norge, Messiaskirken",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "http://lkn.no",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Den lutherske kirke i Norge, Messiaskirken",
+        "lat": 59.8902119,
+        "lon": 10.851891
+      },
+      "_metro": "Oslo, NO"
+    },
+    {
+      "name": "Slettebakken menighets eldresenter",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.haraldsplass.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Slettebakken menighets eldresenter",
+        "lat": 60.354155,
+        "lon": 5.357305
+      },
+      "_metro": "Bergen, NO"
+    },
+    {
+      "name": "Knarvik misjonshus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.knarvikmisjonshus.no",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Knarvik misjonshus",
+        "lat": 60.5483796,
+        "lon": 5.2865026
+      },
+      "_metro": "Bergen, NO"
     }
   ],
   "_not_included": {
