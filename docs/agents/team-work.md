@@ -15,7 +15,9 @@ another task's working directory: set workdir explicitly on EVERY command and us
 git -C for the intended checkout. Sibling paths in AGENTS.md describe the normal
 layout, not necessarily an isolated worktree.
 
-Read AGENTS.md, search the topic index, then read one relevant note. Use
+Read AGENTS.md, then use `node tools/agent-context.mjs --notes <symptom>`
+to find relevant note headlines, excerpts and source ranges. Open the matching
+note with `--file docs/agents/<topic>.md --around <line>`. Use
 `node tools/agent-context.mjs --file <source>` to map declarations,
 `--file <source> --around <line> --lines 40` for code, or
 `--find <literal> --path <directory>` to locate callers. Default output is
@@ -23,6 +25,14 @@ Read AGENTS.md, search the topic index, then read one relevant note. Use
 locator, not a parser or a substitute for inspecting the full affected function.
 Use rg for exact imports, references and invariants that a partial map misses.
 Never send entire large files or a whole migration directory to an implementer.
+
+Add `--summary` to a literal search for one locator per matching file; this
+keeps repeated comments in one migration from crowding out the other migrations.
+Use the reported `Next offset` with the same options to retrieve subsequent
+pages. Offsets count output entries, not source lines, and require unchanged
+source files; restart after edits. `raise-budget` means no entry fitted.
+An excerpt is a locator, not a replacement for the source. Do not squash SQL
+history or replace measured notes with generated summaries to save context.
 
 Give each agent this capsule (usually under 500 words):
 
@@ -41,6 +51,15 @@ contract change; do not silently widen ownership. On a failed approach, return
 the failing evidence before spending another broad investigation.
 
 ## Review and integration
+
+- **A capped search must offer a next page, not hide the rest of the history.**
+  At Mapsee commit `08adc2b2`, `events_near` appears 182 times in 46 of 226
+  migration files. Default raw output fits 106 matches; `--summary` fits all
+  46 file locators. Both expose a next offset when capped. `--notes` finds
+  measured invariants by headline or body and links to numbered source slices;
+  it omits the generated INDEX duplicate. The portable check walks capped
+  pages to exhaustion and verifies that no result disappears or repeats.
+  This reduces retrieval volume without changing, executing or squashing SQL.
 
 The lead reads the actual diff against the stated base and checks the caller,
 data contract, error path and tests. Green tests alone are insufficient: verify
