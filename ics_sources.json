@@ -3866,5 +3866,293 @@
   "geocode_suffix": ", Bergen, NO",
   "limit": 300,
   "_metro": "Bergen, NO"
+ },
+ {
+  "name": "Weymouth — Main Calendar",
+  "category": "community",
+  "url": "https://www.weymouth.ma.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Weymouth, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Weymouth, Massachusetts"
+ },
+ {
+  "name": "Weymouth — Community Events Calendar",
+  "category": "community",
+  "url": "https://www.weymouth.ma.us/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+  "geocode_suffix": ", Weymouth, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events Calendar]",
+  "_metro": "Weymouth, Massachusetts"
+ },
+ {
+  "name": "Burlington — Burlington Animal Services",
+  "category": "community",
+  "url": "https://www.burlingtonnc.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Burlington, North Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Burlington Animal Services]",
+  "_metro": "Burlington, North Carolina"
+ },
+ {
+  "name": "Burlington — Recreation & Parks Calendar",
+  "category": "community",
+  "url": "https://www.burlingtonnc.gov/common/modules/iCalendar/iCalendar.aspx?catID=16&feed=calendar",
+  "geocode_suffix": ", Burlington, North Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation & Parks Calendar]",
+  "_metro": "Burlington, North Carolina"
+ },
+ {
+  "name": "Burlington — Special Events",
+  "category": "community",
+  "url": "https://www.burlingtonnc.gov/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar",
+  "geocode_suffix": ", Burlington, North Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Burlington, North Carolina"
+ },
+ {
+  "name": "Madison — Community Events Calendar",
+  "category": "community",
+  "url": "https://www.madisonal.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Madison, Alabama",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events Calendar]",
+  "_metro": "Madison, Alabama"
+ },
+ {
+  "name": "Apple Valley — City Events",
+  "category": "community",
+  "url": "https://www.applevalleymn.gov/common/modules/iCalendar/iCalendar.aspx?catID=50&feed=calendar",
+  "geocode_suffix": ", Apple Valley, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Apple Valley, Minnesota"
+ },
+ {
+  "name": "Pocatello — Main Calendar",
+  "category": "community",
+  "url": "https://pocatello.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Pocatello, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Pocatello, Idaho"
+ },
+ {
+  "name": "Pocatello — Outdoor Recreation",
+  "category": "community",
+  "url": "https://pocatello.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Pocatello, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Outdoor Recreation]",
+  "_metro": "Pocatello, Idaho"
+ },
+ {
+  "name": "Pocatello — Zoo Idaho",
+  "category": "community",
+  "url": "https://pocatello.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Pocatello, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Zoo Idaho]",
+  "_metro": "Pocatello, Idaho"
+ },
+ {
+  "name": "Pocatello — Community Recreation Center",
+  "category": "community",
+  "url": "https://pocatello.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Pocatello, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Recreation Center]",
+  "_metro": "Pocatello, Idaho"
+ },
+ {
+  "name": "Pocatello — Team Sports",
+  "category": "community",
+  "url": "https://pocatello.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Pocatello, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Team Sports]",
+  "_metro": "Pocatello, Idaho"
+ },
+ {
+  "name": "Port Arthur — The Giving Tree",
+  "category": "community",
+  "url": "https://www.portarthurtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+  "geocode_suffix": ", Port Arthur, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[The Giving Tree]",
+  "_metro": "Port Arthur, Texas"
+ },
+ {
+  "name": "Port Arthur — Health Department",
+  "category": "community",
+  "url": "https://www.portarthurtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=43&feed=calendar",
+  "geocode_suffix": ", Port Arthur, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Health Department]",
+  "_metro": "Port Arthur, Texas"
+ },
+ {
+  "name": "West Haven — Special Events",
+  "category": "community",
+  "url": "https://www.cityofwesthaven.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", West Haven, Connecticut",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "West Haven, Connecticut"
+ },
+ {
+  "name": "Chicopee — City Events Calendar",
+  "category": "community",
+  "url": "https://www.chicopeema.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar",
+  "geocode_suffix": ", Chicopee, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events Calendar]",
+  "_metro": "Chicopee, Massachusetts"
+ },
+ {
+  "name": "Chicopee — The Hub At Market Square",
+  "category": "community",
+  "url": "https://www.chicopeema.gov/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar",
+  "geocode_suffix": ", Chicopee, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[The Hub At Market Square]",
+  "_metro": "Chicopee, Massachusetts"
+ },
+ {
+  "name": "Chicopee — Veterans Services",
+  "category": "community",
+  "url": "https://www.chicopeema.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Chicopee, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Veterans Services]",
+  "_metro": "Chicopee, Massachusetts"
+ },
+ {
+  "name": "Brookhaven — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.brookhavenga.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Brookhaven, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Brookhaven, Georgia"
+ },
+ {
+  "name": "Brookhaven — Community",
+  "category": "community",
+  "url": "https://www.brookhavenga.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Brookhaven, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community]",
+  "_metro": "Brookhaven, Georgia"
+ },
+ {
+  "name": "Huntington Park",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://hpca.gov/common/modules/iCalendar/iCalendar.aspx?catID=16&feed=calendar",
+  "geocode_suffix": ", Huntington Park, California",
+  "limit": 300,
+  "_metro": "Huntington Park, California"
+ },
+ {
+  "name": "Apopka",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://apopka.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Apopka, Florida",
+  "limit": 300,
+  "_metro": "Apopka, Florida"
+ },
+ {
+  "name": "Rocky Mount — Events",
+  "category": "community",
+  "url": "https://www.rockymountnc.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Rocky Mount, North Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Rocky Mount, North Carolina"
+ },
+ {
+  "name": "Viper Room Vienna",
+  "category": "music",
+  "_found": "osm:nightclub -> events-manager",
+  "url": "https://www.viper-room.at/veranstaltungen/?ical=1",
+  "geocode_suffix": ", Wien",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Porgy & Bess",
+  "category": "theater",
+  "_found": "osm:theatre -> ics",
+  "url": "https://www.porgy.at/events/export/calendar/13151.ics",
+  "geocode_suffix": ", Wien",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Raiffeisen Halle im Gasometer",
+  "category": "theater",
+  "_found": "osm:theatre -> events-manager",
+  "url": "https://planet.tt/kalender/?ical=1",
+  "geocode_suffix": ", Wien",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Buddhistisches Zentrum Wien KKD",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://ical.dwbn.org/public/lectures/center/wien.ics?_locale=de",
+  "geocode_suffix": ", Wien",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Bücherei und Spielothek Deutsch-Wagram",
+  "category": "learning",
+  "_found": "osm:library -> my-calendar",
+  "url": "https://www.buecherei-dt-wagram.at/?feed=my-calendar-ics",
+  "geocode_suffix": ", Vienna, AT",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Verein Rettet den jüdischen Friedhof Währing",
+  "category": "community",
+  "_found": "osm:club -> events-manager",
+  "url": "https://jued-friedhof18.at/?ical=1",
+  "geocode_suffix": ", Wien",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Pfarre Gersthof - St. Leopold",
+  "category": "community",
+  "_found": "osm:place_of_worship -> events-manager",
+  "url": "https://www.pfarregersthof.at/komm/?ical=1",
+  "geocode_suffix": ", Wien",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Kirche Namen Jesu",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.namenjesu.com/NJ.ics",
+  "geocode_suffix": ", Wien",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Pfadfinderheim Klosterneuburg 1",
+  "category": "community",
+  "_found": "osm:community_centre -> events-manager",
+  "url": "https://www.klosterneuburg1.net/events/?ical=1",
+  "geocode_suffix": ", Vienna, AT",
+  "limit": 300,
+  "_metro": "Vienna, AT"
  }
 ]

@@ -949,6 +949,54 @@
         "lon": 5.3255685
       },
       "_metro": "Bergen, NO"
+    },
+    {
+      "name": "Galerie Lik",
+      "category": "arts",
+      "_found": "osm:gallery -> squarespace",
+      "collection": "https://www.galerie-lik.com/new-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Galerie Lik",
+        "address": "9 Spittelberggasse",
+        "city": "Wien",
+        "postal_code": "1070",
+        "country": "AT",
+        "lat": 48.2034135,
+        "lon": 16.3550967
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Theater Experiment",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.theater-experiment.com/eigenproduktionen",
+      "max_events": 200,
+      "venue": {
+        "name": "Theater Experiment",
+        "address": "132 Liechtensteinstraße",
+        "lat": 48.2323034,
+        "lon": 16.3562791
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Vienna Institute for International Dialogue and Cooperation (VIDC)",
+      "category": "community",
+      "_found": "osm:ngo -> squarespace",
+      "collection": "https://www.iipvienna.com/event-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Vienna Institute for International Dialogue and Cooperation (VIDC)",
+        "address": "5 Möllwaldplatz",
+        "city": "Wien",
+        "postal_code": "1040",
+        "country": "AT",
+        "lat": 48.1924782,
+        "lon": 16.3704997
+      },
+      "_metro": "Vienna, AT"
     }
   ]
 }

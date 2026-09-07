@@ -1903,6 +1903,213 @@
     "lon": 5.320933
    },
    "_metro": "Bergen, NO"
+  },
+  {
+   "name": "Ateliertheater",
+   "category": "theater",
+   "_found": "osm:theatre -> modern-events+jsonld-event",
+   "listing": [
+    "https://ateliertheater.wien/programm/"
+   ],
+   "link_pattern": "https://ateliertheater\\.wien/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Ateliertheater",
+    "address": "71 Burggasse",
+    "city": "Wien",
+    "postal_code": "1070",
+    "country": "AT",
+    "lat": 48.2041987,
+    "lon": 16.3470737
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "U4 Discothek",
+   "category": "music",
+   "_found": "osm:nightclub -> jsonld-event",
+   "listing": [
+    "https://www.u4.at/events-veranstaltungen/"
+   ],
+   "link_pattern": "https://www\\.u4\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "U4 Discothek",
+    "address": "222-228 Schönbrunner Straße",
+    "city": "Wien",
+    "postal_code": "1120",
+    "country": "AT",
+    "lat": 48.1833039,
+    "lon": 16.3281646
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "YogaKula",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> jsonld-event",
+   "listing": [
+    "https://yogakula.at/events/"
+   ],
+   "link_pattern": "https://yogakula\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "YogaKula",
+    "address": "9 Bösendorferstraße",
+    "city": "Wien",
+    "postal_code": "1010",
+    "country": "AT",
+    "lat": 48.2012121,
+    "lon": 16.3715634
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Akademie für Kunsttherapie",
+   "category": "arts",
+   "_found": "osm:arts_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.akt-kunsttherapie.ac.at/kalender/"
+   ],
+   "link_pattern": "https://www\\.akt\\-kunsttherapie\\.ac\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Akademie für Kunsttherapie",
+    "lat": 48.2528885,
+    "lon": 16.406825
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Congress Center Baden",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://ccb.at/eventkalender/"
+   ],
+   "link_pattern": "https://ccb\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Congress Center Baden",
+    "lat": 48.0100767,
+    "lon": 16.2320369
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Aisha As Siddiqa Moschee",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://masjidbox.com/gebetszeiten/al-mohajerin-atk-oesterreich"
+   ],
+   "link_pattern": "https://masjidbox\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Aisha As Siddiqa Moschee",
+    "address": "5 Stöbergasse",
+    "city": "Wien",
+    "postal_code": "1050",
+    "lat": 48.1848462,
+    "lon": 16.355735
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Stadtlicht - Freikirche Wien Margareten",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://stadtlicht.wien/veranstaltungen/"
+   ],
+   "link_pattern": "https://stadtlicht\\.wien/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Stadtlicht - Freikirche Wien Margareten",
+    "lat": 48.1826825,
+    "lon": 16.3593802
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Lento Dance Studio",
+   "category": "fitness",
+   "_found": "osm:dance -> wix+jsonld-event",
+   "listing": [
+    "https://www.lentodance.at/events/classes-online-payment-2026-09-07-18-00"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "Lento Dance Studio",
+    "address": "14 Traungasse",
+    "city": "Wien",
+    "postal_code": "1030",
+    "lat": 48.1986452,
+    "lon": 16.3781475
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Wiener Konzerthaus",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://konzerthaus.at/de/programm-und-karten/piotr-beczala/63757"
+   ],
+   "link_pattern": "https://konzerthaus\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Wiener Konzerthaus",
+    "address": "20 Lothringerstraße",
+    "city": "Wien",
+    "postal_code": "1030",
+    "country": "AT",
+    "lat": 48.2006286,
+    "lon": 16.3776425
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Pfarre Maria Lourdes",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://maria-lourdes.at/"
+   ],
+   "link_pattern": "https://maria\\-lourdes\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Pfarre Maria Lourdes",
+    "address": "5 Haschkagasse",
+    "city": "Wien",
+    "postal_code": "1120",
+    "country": "AT",
+    "lat": 48.1807394,
+    "lon": 16.3262713
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Klimt-Villa",
+   "category": "arts",
+   "_found": "osm:museum -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.klimtvilla.at/veranstaltungen/"
+   ],
+   "link_pattern": "https://www\\.klimtvilla\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Klimt-Villa",
+    "address": "11 Feldmühlgasse",
+    "city": "Wien",
+    "postal_code": "1130",
+    "country": "AT",
+    "lat": 48.1885507,
+    "lon": 16.2830322
+   },
+   "_metro": "Vienna, AT"
   }
  ],
  "_not_included": {

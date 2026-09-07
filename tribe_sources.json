@@ -4653,6 +4653,305 @@
         "lon": 5.2865026
       },
       "_metro": "Bergen, NO"
+    },
+    {
+      "name": "Yucaipa",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://yucaipa.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Yucaipa",
+      "default_region": "California",
+      "default_country": "US",
+      "_metro": "Yucaipa, California"
+    },
+    {
+      "name": "open dance & sport",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe",
+      "base_url": "https://opendance.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "open dance & sport",
+        "address": "27a Favoritenstraße",
+        "city": "Wien",
+        "postal_code": "1040",
+        "country": "AT",
+        "lat": 48.1891249,
+        "lon": 16.3727581
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Eisenbahnmuseum Deutsch-Wagram",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.museumdw.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Eisenbahnmuseum Deutsch-Wagram",
+        "address": "Am Bahnhof",
+        "lat": 48.3028458,
+        "lon": 16.5642082
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Tanzschule Svabek",
+      "category": "fitness",
+      "_found": "osm:dance -> tribe+jsonld-event+ics",
+      "base_url": "https://www.svabek.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tanzschule Svabek",
+        "address": "5 Judenplatz",
+        "city": "Wien",
+        "postal_code": "1010",
+        "country": "AT",
+        "lat": 48.2113588,
+        "lon": 16.3695585
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Go-Klub Go7",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://go7.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Go-Klub Go7",
+        "lat": 48.1981178,
+        "lon": 16.3479325
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Buchhandlung Sterzinger",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bookseller.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buchhandlung Sterzinger",
+        "address": "29 Hauptstraße",
+        "city": "Wolkersdorf im Weinviertel",
+        "postal_code": "2120",
+        "country": "AT",
+        "lat": 48.3835943,
+        "lon": 16.5175169
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "WITAF - Seit 1865 im Dienste der Gehörlosen",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.witaf.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "WITAF - Seit 1865 im Dienste der Gehörlosen",
+        "address": "33 Kleine Pfarrgasse",
+        "city": "Wien",
+        "postal_code": "1020",
+        "country": "AT",
+        "lat": 48.219463,
+        "lon": 16.379312
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Figurentheater Lilarum",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://lilarum.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Figurentheater Lilarum",
+        "address": "8 Göllnergasse",
+        "city": "Wien",
+        "postal_code": "1030",
+        "country": "AT",
+        "lat": 48.2007328,
+        "lon": 16.3991944
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Beatboxx - Verein zur Förderung von Musik",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.beatboxx.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Beatboxx - Verein zur Förderung von Musik",
+        "address": "4 Tempelgasse",
+        "city": "Wien",
+        "postal_code": "1020",
+        "country": "AT",
+        "lat": 48.2139689,
+        "lon": 16.3848268
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Wikimedia Österreich",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://wikimedia.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wikimedia Österreich",
+        "address": "7/1 Stolzenthalergasse",
+        "city": "Wien",
+        "postal_code": "1080",
+        "country": "AT",
+        "lat": 48.2088201,
+        "lon": 16.3417422
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Theater am Werk am Petersplatz",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://theater-am-werk.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theater am Werk am Petersplatz",
+        "address": "1 Petersplatz",
+        "city": "Wien",
+        "postal_code": "1010",
+        "lat": 48.20912,
+        "lon": 16.3701095
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "BuchQuartier",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://buchquartier.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BuchQuartier",
+        "address": "150 Hütteldorfer Straße",
+        "city": "Wien",
+        "postal_code": "1140",
+        "lat": 48.1972066,
+        "lon": 16.2927741
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Frauen* beraten Frauen*",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://frauenberatenfrauen.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Frauen* beraten Frauen*",
+        "address": "5/7 Seitenstettengasse",
+        "city": "Wien",
+        "postal_code": "1010",
+        "lat": 48.2117836,
+        "lon": 16.3748709
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Vienna Country & Western Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.vcwc.club",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vienna Country & Western Club",
+        "lat": 48.1689573,
+        "lon": 16.364056
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Altkalksburger Vereinigung",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.altkalksburger.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Altkalksburger Vereinigung",
+        "address": "1/7 Ballhausplatz",
+        "city": "Wien",
+        "postal_code": "1010",
+        "lat": 48.207963,
+        "lon": 16.3645546
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Vitalfabrik",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://www.vital-fabrik.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vitalfabrik",
+        "lat": 48.146772,
+        "lon": 16.3571157
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Flex",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://flex.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Flex",
+        "address": "1 Augartenbrücke",
+        "city": "Wien",
+        "postal_code": "1010",
+        "country": "AT",
+        "lat": 48.2177723,
+        "lon": 16.370884
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Evangelische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://evang-klosterneuburg.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evangelische Kirche",
+        "address": "14 Franz-Rumpler-Straße",
+        "city": "Klosterneuburg",
+        "postal_code": "3400",
+        "country": "AT",
+        "lat": 48.3017842,
+        "lon": 16.3239615
+      },
+      "_metro": "Vienna, AT"
     }
   ],
   "_not_included": {
