@@ -2110,6 +2110,144 @@
     "lon": 16.2830322
    },
    "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Buchhandlung Korneuburg",
+   "category": "learning",
+   "_found": "osm:books -> jsonld-event",
+   "listing": [
+    "https://buchhandlungkorneuburg.buchkatalog.at/Veranstaltungen"
+   ],
+   "link_pattern": "https://buchhandlungkorneuburg\\.buchkatalog\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Buchhandlung Korneuburg",
+    "address": "20 Hauptplatz",
+    "city": "Korneuburg",
+    "postal_code": "2100",
+    "country": "AT",
+    "lat": 48.3433956,
+    "lon": 16.3331595
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Lento Dance Studio",
+   "category": "fitness",
+   "_found": "osm:dance -> wix+jsonld-event",
+   "listing": [
+    "https://www.lentodance.at/events/classes-online-payment-2026-09-08-18-00"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "Lento Dance Studio",
+    "address": "14 Traungasse",
+    "city": "Wien",
+    "postal_code": "1030",
+    "lat": 48.1986452,
+    "lon": 16.3781475
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "82er Haus",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.theater82erhaus.at/veranstaltung/cmsenmqg90001amxhxoaxu44b"
+   ],
+   "link_pattern": "https://www\\.theater82erhaus\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "82er Haus",
+    "address": "82 Linzer Straße",
+    "city": "Gablitz",
+    "postal_code": "3003",
+    "lat": 48.2296681,
+    "lon": 16.1532669
+   },
+   "_metro": "Vienna, AT"
+  },
+  {
+   "name": "Ludovico",
+   "category": "learning",
+   "_found": "osm:library -> jsonld-event",
+   "listing": [
+    "https://www.ludovico.at/veranstaltungen/"
+   ],
+   "link_pattern": "https://www\\.ludovico\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Ludovico",
+    "address": "2 Karmeliterplatz",
+    "city": "Graz",
+    "postal_code": "8010",
+    "country": "AT",
+    "lat": 47.0743764,
+    "lon": 15.4406932
+   },
+   "_metro": "Graz, AT"
+  },
+  {
+   "name": "DruckZeug",
+   "category": "arts",
+   "_found": "osm:museum -> modern-events+jsonld-event",
+   "listing": [
+    "https://druckzeug.at/veranstaltungen/"
+   ],
+   "link_pattern": "https://druckzeug\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "DruckZeug",
+    "address": "19 Annenstraße",
+    "city": "Graz",
+    "postal_code": "8020",
+    "country": "AT",
+    "lat": 47.0707074,
+    "lon": 15.4293805
+   },
+   "_metro": "Graz, AT"
+  },
+  {
+   "name": "atico Graz",
+   "category": "community",
+   "_found": "osm:events_venue -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.aticograz.at/events/"
+   ],
+   "link_pattern": "https://www\\.aticograz\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "atico Graz",
+    "address": "25 Bierbaumstraße",
+    "city": "Hart bei Graz",
+    "postal_code": "8075",
+    "lat": 47.0434677,
+    "lon": 15.5043922
+   },
+   "_metro": "Graz, AT"
+  },
+  {
+   "name": "Volksmission Graz",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://www.volksmission-graz.at/"
+   ],
+   "link_pattern": "https://www\\.volksmission\\-graz\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Volksmission Graz",
+    "address": "16 Rosengasse",
+    "city": "Graz",
+    "postal_code": "8042",
+    "country": "AT",
+    "lat": 47.0557014,
+    "lon": 15.4692894
+   },
+   "_metro": "Graz, AT"
   }
  ],
  "_not_included": {

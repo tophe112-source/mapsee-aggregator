@@ -4154,5 +4154,275 @@
   "geocode_suffix": ", Vienna, AT",
   "limit": 300,
   "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Bentonville — Holidays and Community Events",
+  "category": "community",
+  "url": "https://www.bentonville.ar.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Bentonville, Arkansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Holidays and Community Events]",
+  "_metro": "Bentonville, Arkansas"
+ },
+ {
+  "name": "Manhattan — Flint Hills Discovery Center",
+  "category": "community",
+  "url": "https://www.manhattanks.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Manhattan, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Flint Hills Discovery Center]",
+  "_metro": "Manhattan, Kansas"
+ },
+ {
+  "name": "Manhattan — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.manhattanks.gov/common/modules/iCalendar/iCalendar.aspx?catID=18&feed=calendar",
+  "geocode_suffix": ", Manhattan, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Manhattan, Kansas"
+ },
+ {
+  "name": "Manhattan — Events",
+  "category": "community",
+  "url": "https://www.manhattanks.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Manhattan, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Manhattan, Kansas"
+ },
+ {
+  "name": "Manhattan — Sunset Zoo",
+  "category": "community",
+  "url": "https://www.manhattanks.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Manhattan, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Sunset Zoo]",
+  "_metro": "Manhattan, Kansas"
+ },
+ {
+  "name": "Casa Grande — City Events",
+  "category": "community",
+  "url": "https://casagrandeaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Casa Grande, Arizona",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Casa Grande, Arizona"
+ },
+ {
+  "name": "Casa Grande — Hispanic Heritage Month",
+  "category": "community",
+  "url": "https://casagrandeaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Casa Grande, Arizona",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Hispanic Heritage Month]",
+  "_metro": "Casa Grande, Arizona"
+ },
+ {
+  "name": "Edina — Braemar Arena",
+  "category": "community",
+  "url": "https://www.edinamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Edina, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Braemar Arena]",
+  "_metro": "Edina, Minnesota"
+ },
+ {
+  "name": "Edina — Centennial Lakes Park",
+  "category": "community",
+  "url": "https://www.edinamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=43&feed=calendar",
+  "geocode_suffix": ", Edina, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Centennial Lakes Park]",
+  "_metro": "Edina, Minnesota"
+ },
+ {
+  "name": "Edina — City Events",
+  "category": "community",
+  "url": "https://www.edinamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Edina, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Edina, Minnesota"
+ },
+ {
+  "name": "Edina — France Avenue Median Lighting",
+  "category": "community",
+  "url": "https://www.edinamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=80&feed=calendar",
+  "geocode_suffix": ", Edina, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[France Avenue Median Lighting]",
+  "_metro": "Edina, Minnesota"
+ },
+ {
+  "name": "Edina — South Metro Public Safety Training Facility",
+  "category": "community",
+  "url": "https://www.edinamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=76&feed=calendar",
+  "geocode_suffix": ", Edina, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[South Metro Public Safety Training Facility]",
+  "_metro": "Edina, Minnesota"
+ },
+ {
+  "name": "Edina — Art Center",
+  "category": "community",
+  "url": "https://www.edinamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
+  "geocode_suffix": ", Edina, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Art Center]",
+  "_metro": "Edina, Minnesota"
+ },
+ {
+  "name": "Pinellas Park — 2026 Main Calendar",
+  "category": "community",
+  "url": "https://www.pinellaspark.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Pinellas Park, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[2026 Main Calendar]",
+  "_metro": "Pinellas Park, Florida"
+ },
+ {
+  "name": "Pinellas Park — England Brothers Park",
+  "category": "community",
+  "url": "https://www.pinellaspark.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Pinellas Park, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[England Brothers Park]",
+  "_metro": "Pinellas Park, Florida"
+ },
+ {
+  "name": "Pinellas Park — Performing Arts Center",
+  "category": "community",
+  "url": "https://www.pinellaspark.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Pinellas Park, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Performing Arts Center]",
+  "_metro": "Pinellas Park, Florida"
+ },
+ {
+  "name": "Methuen — Community Events",
+  "category": "community",
+  "url": "https://www.methuen.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Methuen, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Methuen, Massachusetts"
+ },
+ {
+  "name": "Battle Creek — Special Events",
+  "category": "community",
+  "url": "https://www.battlecreekmi.gov/common/modules/iCalendar/iCalendar.aspx?catID=48&feed=calendar",
+  "geocode_suffix": ", Battle Creek, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Battle Creek, Michigan"
+ },
+ {
+  "name": "Battle Creek — Community Events",
+  "category": "community",
+  "url": "https://www.battlecreekmi.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Battle Creek, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Battle Creek, Michigan"
+ },
+ {
+  "name": "Battle Creek — City Service Changes",
+  "category": "community",
+  "url": "https://www.battlecreekmi.gov/common/modules/iCalendar/iCalendar.aspx?catID=86&feed=calendar",
+  "geocode_suffix": ", Battle Creek, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Service Changes]",
+  "_metro": "Battle Creek, Michigan"
+ },
+ {
+  "name": "Florissant — Parks and Rec",
+  "category": "community",
+  "url": "https://www.florissantmo.com/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Florissant, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Rec]",
+  "_metro": "Florissant, Missouri"
+ },
+ {
+  "name": "Florissant — Theatre",
+  "category": "community",
+  "url": "https://www.florissantmo.com/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Florissant, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Theatre]",
+  "_metro": "Florissant, Missouri"
+ },
+ {
+  "name": "Placentia — Senior Center",
+  "category": "community",
+  "url": "https://www.placentia.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Placentia, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Center]",
+  "_metro": "Placentia, California"
+ },
+ {
+  "name": "Placentia — Community Events",
+  "category": "community",
+  "url": "https://www.placentia.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Placentia, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Placentia, California"
+ },
+ {
+  "name": "Placentia — Special Events Calendar",
+  "category": "community",
+  "url": "https://www.placentia.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Placentia, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events Calendar]",
+  "_metro": "Placentia, California"
+ },
+ {
+  "name": "Porgy & Bess",
+  "category": "theater",
+  "_found": "osm:theatre -> ics",
+  "url": "https://www.porgy.at/events/export/calendar/12868.ics",
+  "geocode_suffix": ", Wien",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Alte Werkstatt",
+  "category": "community",
+  "_found": "osm:community_centre -> events-manager",
+  "url": "http://www.alte-werkstatt.org/kalender/?ical=1",
+  "geocode_suffix": ", St. Andrä-Wördern",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "UTC Hetzendorf",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> ics",
+  "url": "https://calendar.google.com/calendar/ical/d210c31f0858adc44d3f95c4b103e8689117f0933ddb3536fb63af3b40447f1b%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Wien",
+  "limit": 300,
+  "_metro": "Vienna, AT"
+ },
+ {
+  "name": "Postgarage",
+  "category": "music",
+  "_found": "osm:nightclub -> ics",
+  "url": "https://www.postgarage.at/events.ics",
+  "geocode_suffix": ", Graz",
+  "limit": 300,
+  "_metro": "Graz, AT"
+ },
+ {
+  "name": "Akrosphäre Zirkuszentrum",
+  "category": "arts",
+  "_found": "osm:arts_centre -> ics",
+  "url": "https://outlook.office365.com/owa/calendar/553305c232a64fbeab19e1a6a16128fe@akrosphaere.onmicrosoft.com/4b4596f04db046718cb81b3c698e10636445367431375806367/calendar.ics",
+  "geocode_suffix": ", Graz",
+  "limit": 300,
+  "_metro": "Graz, AT"
  }
 ]

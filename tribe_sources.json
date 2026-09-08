@@ -4952,6 +4952,235 @@
         "lon": 16.3239615
       },
       "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Rollettmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://rollettmuseum.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rollettmuseum",
+        "address": "1 Weikersdorfer Platz",
+        "city": "Baden",
+        "postal_code": "2500",
+        "country": "AT",
+        "lat": 48.0029885,
+        "lon": 16.2255086
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Pfarrkirche Marienpfarre",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.marienpfarre.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pfarrkirche Marienpfarre",
+        "address": "74 Wichtelgasse",
+        "city": "Wien",
+        "postal_code": "1170",
+        "country": "AT",
+        "lat": 48.2192765,
+        "lon": 16.3222612
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Garage Grande",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://garagegrande.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Garage Grande",
+        "address": "12-14 Deinhardsteingasse",
+        "lat": 48.2113989,
+        "lon": 16.328999
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Europahalle",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.europahalle.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Europahalle",
+        "address": "2A An den Steinfeldern",
+        "city": "Wien",
+        "postal_code": "1230",
+        "country": "AT",
+        "lat": 48.1367097,
+        "lon": 16.2953481
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Lichtblickhof Wien",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://lichtblickhof.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lichtblickhof Wien",
+        "address": "1A Reizenpfenninggasse",
+        "city": "Wien",
+        "postal_code": "1140",
+        "country": "AT",
+        "lat": 48.2134916,
+        "lon": 16.2842713
+      },
+      "_metro": "Vienna, AT"
+    },
+    {
+      "name": "Schaumbad - Freies Atelierhaus Graz",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://schaumbad.mur.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schaumbad - Freies Atelierhaus Graz",
+        "address": "41 Puchstraße",
+        "city": "Graz",
+        "postal_code": "8020",
+        "country": "AT",
+        "lat": 47.049356,
+        "lon": 15.4363436
+      },
+      "_metro": "Graz, AT"
+    },
+    {
+      "name": "Das Schaukelstuhl",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dasschaukelstuhl.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Das Schaukelstuhl",
+        "address": "101 Peter-Rosegger-Straße",
+        "city": "Graz",
+        "postal_code": "8052",
+        "country": "AT",
+        "lat": 47.050598,
+        "lon": 15.398022
+      },
+      "_metro": "Graz, AT"
+    },
+    {
+      "name": "Die Kometin (Kulturverein)",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kometin.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Die Kometin (Kulturverein)",
+        "address": "19a Rechbauerstraße",
+        "city": "Graz",
+        "postal_code": "8010",
+        "country": "AT",
+        "lat": 47.0698939,
+        "lon": 15.4507356
+      },
+      "_metro": "Graz, AT"
+    },
+    {
+      "name": "Helmut-List-Halle - Detroithalle",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.helmut-list-halle.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Helmut-List-Halle - Detroithalle",
+        "address": "98b Waagner-Biro-Straße",
+        "city": "Graz",
+        "postal_code": "8020",
+        "country": "AT",
+        "lat": 47.0800376,
+        "lon": 15.4129034
+      },
+      "_metro": "Graz, AT"
+    },
+    {
+      "name": "Herz-Jesu-Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.graz-herz-jesu.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Herz-Jesu-Kirche",
+        "city": "Graz",
+        "postal_code": "8010",
+        "lat": 47.0696256,
+        "lon": 15.4557365
+      },
+      "_metro": "Graz, AT"
+    },
+    {
+      "name": "Veranstaltungszentrum Seifenfabrik",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://www.seifenfabrik.info",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Veranstaltungszentrum Seifenfabrik",
+        "address": "43 Angergasse",
+        "city": "Graz",
+        "postal_code": "8010",
+        "country": "AT",
+        "lat": 47.0477899,
+        "lon": 15.4420643
+      },
+      "_metro": "Graz, AT"
+    },
+    {
+      "name": "Evangelische Kirche A.B. \"Friedenskirche\"",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stainz-dl.evang.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evangelische Kirche A.B. \"Friedenskirche\"",
+        "address": "3 Fabrikstraße",
+        "city": "Stainz",
+        "postal_code": "8510",
+        "country": "AT",
+        "lat": 46.8919736,
+        "lon": 15.2690523
+      },
+      "_metro": "Graz, AT"
+    },
+    {
+      "name": "Haus der Stille",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.haus-der-stille.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Haus der Stille",
+        "address": "1 Friedensplatz",
+        "city": "Heiligenkreuz am Waasen",
+        "postal_code": "8081",
+        "country": "AT",
+        "lat": 46.974969,
+        "lon": 15.5458892
+      },
+      "_metro": "Graz, AT"
     }
   ],
   "_not_included": {
