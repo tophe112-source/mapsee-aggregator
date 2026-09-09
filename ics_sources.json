@@ -4424,5 +4424,275 @@
   "geocode_suffix": ", Graz",
   "limit": 300,
   "_metro": "Graz, AT"
+ },
+ {
+  "name": "Murray — Main City Calendar",
+  "category": "community",
+  "url": "https://www.murray.utah.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Murray, Utah",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main City Calendar]",
+  "_metro": "Murray, Utah"
+ },
+ {
+  "name": "Murray — Cultural Arts / History",
+  "category": "community",
+  "url": "https://www.murray.utah.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Murray, Utah",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Cultural Arts / History]",
+  "_metro": "Murray, Utah"
+ },
+ {
+  "name": "Grapevine — Library - Children's Programs",
+  "category": "community",
+  "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Grapevine, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Children's Programs]",
+  "_metro": "Grapevine, Texas"
+ },
+ {
+  "name": "Grapevine — Library - Makerspace Programs",
+  "category": "community",
+  "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+  "geocode_suffix": ", Grapevine, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Makerspace Programs]",
+  "_metro": "Grapevine, Texas"
+ },
+ {
+  "name": "Grapevine — Library - Adult Programs",
+  "category": "community",
+  "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Grapevine, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Adult Programs]",
+  "_metro": "Grapevine, Texas"
+ },
+ {
+  "name": "Grapevine — Library - Teen Programs",
+  "category": "community",
+  "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar",
+  "geocode_suffix": ", Grapevine, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Teen Programs]",
+  "_metro": "Grapevine, Texas"
+ },
+ {
+  "name": "Grapevine — Library - Esports Academy",
+  "category": "community",
+  "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar",
+  "geocode_suffix": ", Grapevine, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Esports Academy]",
+  "_metro": "Grapevine, Texas"
+ },
+ {
+  "name": "Grapevine — Library - Genealogy",
+  "category": "community",
+  "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
+  "geocode_suffix": ", Grapevine, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Genealogy]",
+  "_metro": "Grapevine, Texas"
+ },
+ {
+  "name": "Milford — Health Department Events",
+  "category": "community",
+  "url": "https://www.milfordct.us/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Milford, Connecticut",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Health Department Events]",
+  "_metro": "Milford, Connecticut"
+ },
+ {
+  "name": "Milford — Health Department- Clinics",
+  "category": "community",
+  "url": "https://www.milfordct.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Milford, Connecticut",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Health Department- Clinics]",
+  "_metro": "Milford, Connecticut"
+ },
+ {
+  "name": "Spring Hill — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.springhilltn.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Spring Hill, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Spring Hill, Tennessee"
+ },
+ {
+  "name": "Bedford — Senior Programs and Events",
+  "category": "community",
+  "url": "https://bedfordtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Bedford, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Programs and Events]",
+  "_metro": "Bedford, Texas"
+ },
+ {
+  "name": "Bedford — Community-Wide Special Events",
+  "category": "community",
+  "url": "https://bedfordtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Bedford, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community-Wide Special Events]",
+  "_metro": "Bedford, Texas"
+ },
+ {
+  "name": "Winter Haven — Library Programs",
+  "category": "community",
+  "url": "https://www.mywinterhaven.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Winter Haven, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Programs]",
+  "_metro": "Winter Haven, Florida"
+ },
+ {
+  "name": "Poway — Events: Older Adult Programs",
+  "category": "community",
+  "url": "https://www.poway.org/common/modules/iCalendar/iCalendar.aspx?catID=79&feed=calendar",
+  "geocode_suffix": ", Poway, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events: Older Adult Programs]",
+  "_metro": "Poway, California"
+ },
+ {
+  "name": "Poway — Events: Community Park",
+  "category": "community",
+  "url": "https://www.poway.org/common/modules/iCalendar/iCalendar.aspx?catID=74&feed=calendar",
+  "geocode_suffix": ", Poway, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events: Community Park]",
+  "_metro": "Poway, California"
+ },
+ {
+  "name": "Poway — Community Events",
+  "category": "community",
+  "url": "https://www.poway.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Poway, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Poway, California"
+ },
+ {
+  "name": "Poway — Events: Lake Poway",
+  "category": "community",
+  "url": "https://www.poway.org/common/modules/iCalendar/iCalendar.aspx?catID=72&feed=calendar",
+  "geocode_suffix": ", Poway, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events: Lake Poway]",
+  "_metro": "Poway, California"
+ },
+ {
+  "name": "Poway — Events: Swim Center",
+  "category": "community",
+  "url": "https://www.poway.org/common/modules/iCalendar/iCalendar.aspx?catID=81&feed=calendar",
+  "geocode_suffix": ", Poway, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events: Swim Center]",
+  "_metro": "Poway, California"
+ },
+ {
+  "name": "Poway — Events: Old Poway Park",
+  "category": "community",
+  "url": "https://www.poway.org/common/modules/iCalendar/iCalendar.aspx?catID=75&feed=calendar",
+  "geocode_suffix": ", Poway, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events: Old Poway Park]",
+  "_metro": "Poway, California"
+ },
+ {
+  "name": "Titusville — Sustainability",
+  "category": "community",
+  "url": "https://www.titusville.com/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+  "geocode_suffix": ", Titusville, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Sustainability]",
+  "_metro": "Titusville, Florida"
+ },
+ {
+  "name": "Roswell — Roswell Community Calendar",
+  "category": "community",
+  "url": "https://roswell-nm.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Roswell, New Mexico",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Roswell Community Calendar]",
+  "_metro": "Roswell, New Mexico"
+ },
+ {
+  "name": "Roswell — Special Events",
+  "category": "community",
+  "url": "https://roswell-nm.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Roswell, New Mexico",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Roswell, New Mexico"
+ },
+ {
+  "name": "Stillwater",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://stillwaterok.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Stillwater, Oklahoma",
+  "limit": 300,
+  "_metro": "Stillwater, Oklahoma"
+ },
+ {
+  "name": "Księgarnia Muzeum Warszawy",
+  "category": "learning",
+  "_found": "osm:books -> events-manager",
+  "url": "https://muzeumwarszawy.pl/?ical=1",
+  "geocode_suffix": ", Warsaw, PL",
+  "limit": 300,
+  "_metro": "Warsaw, PL"
+ },
+ {
+  "name": "Muzeum Farmacji",
+  "category": "arts",
+  "_found": "osm:museum -> events-manager",
+  "url": "https://muzeumfarmacji.muzeumwarszawy.pl/?ical=1",
+  "geocode_suffix": ", Warsaw, PL",
+  "limit": 300,
+  "_metro": "Warsaw, PL"
+ },
+ {
+  "name": "Muzeum – Miejsce Pamięci Palmiry",
+  "category": "arts",
+  "_found": "osm:museum -> events-manager",
+  "url": "https://palmiry.muzeumwarszawy.pl/?ical=1",
+  "geocode_suffix": ", Warsaw, PL",
+  "limit": 300,
+  "_metro": "Warsaw, PL"
+ },
+ {
+  "name": "Muzeum Woli",
+  "category": "arts",
+  "_found": "osm:museum -> events-manager",
+  "url": "https://muzeumwoli.muzeumwarszawy.pl/?ical=1",
+  "geocode_suffix": ", Warszawa",
+  "limit": 300,
+  "_metro": "Warsaw, PL"
+ },
+ {
+  "name": "Muzeum Odbudowy Starówki",
+  "category": "arts",
+  "_found": "osm:museum -> events-manager",
+  "url": "https://ciz.muzeumwarszawy.pl/?ical=1",
+  "geocode_suffix": ", Warszawa",
+  "limit": 300,
+  "_metro": "Warsaw, PL"
+ },
+ {
+  "name": "Muzeum Drukarstwa Warszawskiego",
+  "category": "arts",
+  "_found": "osm:museum -> events-manager",
+  "url": "https://muzeumdrukarstwa.muzeumwarszawy.pl/?ical=1",
+  "geocode_suffix": ", Warszawa",
+  "limit": 300,
+  "_metro": "Warsaw, PL"
  }
 ]

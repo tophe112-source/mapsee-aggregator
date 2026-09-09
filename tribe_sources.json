@@ -5181,6 +5181,326 @@
         "lon": 15.5458892
       },
       "_metro": "Graz, AT"
+    },
+    {
+      "name": "Jeffersonville",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://cityofjeff.net",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Jeffersonville",
+      "default_region": "Indiana",
+      "default_country": "US",
+      "_metro": "Jeffersonville, Indiana"
+    },
+    {
+      "name": "Everett",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://cityofeverett.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Everett",
+      "default_region": "Massachusetts",
+      "default_country": "US",
+      "_metro": "Everett, Massachusetts"
+    },
+    {
+      "name": "Hattiesburg",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event",
+      "base_url": "https://www.hattiesburgms.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Hattiesburg",
+      "default_region": "Mississippi",
+      "default_country": "US",
+      "_metro": "Hattiesburg, Mississippi"
+    },
+    {
+      "name": "HOME Mission Base Salzburg",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://homechurch.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "HOME Mission Base Salzburg",
+        "address": "8 Bärengässchen",
+        "city": "Salzburg",
+        "postal_code": "5020",
+        "country": "AT",
+        "lat": 47.8065064,
+        "lon": 13.0359527
+      },
+      "_metro": "Salzburg, AT"
+    },
+    {
+      "name": "Hans-Peter Porsche TraumWerk",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.traumwerk.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hans-Peter Porsche TraumWerk",
+        "address": "1 Zum Traumwerk",
+        "city": "Anger",
+        "postal_code": "83454",
+        "country": "DE",
+        "lat": 47.7917944,
+        "lon": 12.870235
+      },
+      "_metro": "Salzburg, AT"
+    },
+    {
+      "name": "Pfarrkirche Gnigl",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "http://pfarre-gnigl.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pfarrkirche Gnigl",
+        "address": "43A Eichstraße",
+        "city": "Salzburg",
+        "postal_code": "5023",
+        "country": "AT",
+        "lat": 47.8120708,
+        "lon": 13.0741865
+      },
+      "_metro": "Salzburg, AT"
+    },
+    {
+      "name": "Stiegl-Brauwelt",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brauwelt.at",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stiegl-Brauwelt",
+        "address": "9 Bräuhausstraße",
+        "city": "Salzburg",
+        "postal_code": "5020",
+        "country": "AT",
+        "lat": 47.7938736,
+        "lon": 13.0209322
+      },
+      "_metro": "Salzburg, AT"
+    },
+    {
+      "name": "DJK Weildorf 1962 e. V.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://djk-weildorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "DJK Weildorf 1962 e. V.",
+        "lat": 47.8644884,
+        "lon": 12.8657396
+      },
+      "_metro": "Salzburg, AT"
+    },
+    {
+      "name": "Filia nr 1 Miejskiej Biblioteki Publicznej",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://bibliotekapiastow.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Filia nr 1 Miejskiej Biblioteki Publicznej",
+        "lat": 52.1837177,
+        "lon": 20.8357166
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Muzeum Żaby",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+wp-event-manager",
+      "base_url": "https://dkzabiawola.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Muzeum Żaby",
+        "address": "17/19 Warszawska",
+        "postal_code": "96-321",
+        "lat": 52.0321291,
+        "lon": 20.6902387
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Filia nr 2 Miejskiej Biblioteki Publicznej w Legionowie",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event",
+      "base_url": "https://bibliotekalegionowo.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Filia nr 2 Miejskiej Biblioteki Publicznej w Legionowie",
+        "lat": 52.412008,
+        "lon": 20.9157614
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Biblioteka Publiczna Gminy Nadarzyn – Filia Młochów",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.biblioteka.nadarzyn.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Biblioteka Publiczna Gminy Nadarzyn – Filia Młochów",
+        "lat": 52.0481181,
+        "lon": 20.7799176
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Wojewódzki Związek Hodowców Koni w Warszawie",
+      "category": "community",
+      "_found": "osm:ngo -> tribe",
+      "base_url": "https://wzhkwarszawa.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wojewódzki Związek Hodowców Koni w Warszawie",
+        "address": "49 Onufrego Zagłoby",
+        "city": "Marki",
+        "postal_code": "05-270",
+        "lat": 52.3208846,
+        "lon": 21.0834981
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "QueerMuzeum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://queermuzeum.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "QueerMuzeum",
+        "address": "83 Marszałkowska",
+        "city": "Warszawa",
+        "lat": 52.2256881,
+        "lon": 21.0136893
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Punkt biblioteczny w Jazgarzewie",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://biblioteka-piaseczno.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Punkt biblioteczny w Jazgarzewie",
+        "address": "31 Główna",
+        "city": "Jazgarzew",
+        "postal_code": "05-502",
+        "lat": 52.0405366,
+        "lon": 20.9956622
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Wypożyczalnia Nr 17",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event",
+      "base_url": "https://bpwlochy.waw.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wypożyczalnia Nr 17",
+        "lat": 52.19454,
+        "lon": 20.92542
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Wypożyczalnia dla Dorosłych i Młodzieży Nr 133 \"Radosna\"",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event",
+      "base_url": "https://www.bibliotekawilanowska.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wypożyczalnia dla Dorosłych i Młodzieży Nr 133 \"Radosna\"",
+        "lat": 52.1736349,
+        "lon": 21.0676636
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Klub Kultury w Józefosławiu",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://kulturalni.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Klub Kultury w Józefosławiu",
+        "address": "67A Julianowska",
+        "city": "Józefosław",
+        "lat": 52.0993722,
+        "lon": 21.0526766
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Wypożyczalnia Książek Naukowych",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "http://bpochota.waw.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wypożyczalnia Książek Naukowych",
+        "address": "26 Częstochowska",
+        "city": "Warszawa",
+        "postal_code": "02-344",
+        "lat": 52.2157891,
+        "lon": 20.9748872
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Wu Bong Sah",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://zen.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wu Bong Sah",
+        "lat": 52.1621046,
+        "lon": 21.1974455
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Tor Modlin",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.tormodlin.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tor Modlin",
+        "address": "Generała Wiktora Thommée",
+        "lat": 52.444138,
+        "lon": 20.6457888
+      },
+      "_metro": "Warsaw, PL"
     }
   ],
   "_not_included": {

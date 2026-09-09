@@ -2248,6 +2248,137 @@
     "lon": 15.4692894
    },
    "_metro": "Graz, AT"
+  },
+  {
+   "name": "Magazin4",
+   "category": "arts",
+   "_found": "osm:arts_centre -> modern-events",
+   "listing": [
+    "https://magazin3-kultur.de/veranstaltungen/"
+   ],
+   "link_pattern": "https://magazin3\\-kultur\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Magazin4",
+    "lat": 47.7201795,
+    "lon": 12.8763256
+   },
+   "_metro": "Salzburg, AT"
+  },
+  {
+   "name": "Salzburg Arena",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event+ics",
+   "listing": [
+    "https://www.salzburgarena.at/de/events-tickets/edmund-457/"
+   ],
+   "link_pattern": "https://www\\.salzburgarena\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Salzburg Arena",
+    "address": "1 Am Messezentrum",
+    "city": "Salzburg",
+    "postal_code": "5020",
+    "country": "AT",
+    "lat": 47.8253096,
+    "lon": 13.0279441
+   },
+   "_metro": "Salzburg, AT"
+  },
+  {
+   "name": "Die Bachschmiede - Kultur Museum Kunst",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://www.diebachschmiede.at/veranstaltung/pirnis-plattenkiste-3"
+   ],
+   "link_pattern": "https://www\\.diebachschmiede\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Die Bachschmiede - Kultur Museum Kunst",
+    "address": "2 Jakob-Lechnerweg",
+    "city": "Wals-Siezenheim",
+    "postal_code": "5071",
+    "country": "AT",
+    "lat": 47.7907577,
+    "lon": 12.9643034
+   },
+   "_metro": "Salzburg, AT"
+  },
+  {
+   "name": "Matthäuskirche Salzburg",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.matthaeuskirche.at/"
+   ],
+   "link_pattern": "https://www\\.matthaeuskirche\\.at/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Matthäuskirche Salzburg",
+    "address": "1A Martin-Luther-Platz",
+    "city": "Salzburg",
+    "postal_code": "5020",
+    "country": "AT",
+    "lat": 47.8124887,
+    "lon": 13.0034294
+   },
+   "_metro": "Salzburg, AT"
+  },
+  {
+   "name": "Park-Kino",
+   "category": "theater",
+   "_found": "osm:cinema -> jsonld-event",
+   "listing": [
+    "https://www.park-kino.de/programm?filter=today"
+   ],
+   "link_pattern": "https://www\\.park\\-kino\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Park-Kino",
+    "address": "1a Salzburger Straße",
+    "city": "Bad Reichenhall",
+    "postal_code": "83435",
+    "country": "DE",
+    "lat": 47.7254894,
+    "lon": 12.8813223
+   },
+   "_metro": "Salzburg, AT"
+  },
+  {
+   "name": "Mediateka \"Start-Meta\"",
+   "category": "learning",
+   "_found": "osm:library -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.bibliotekabielany.waw.pl/events/"
+   ],
+   "link_pattern": "https://www\\.bibliotekabielany\\.waw\\.pl/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Mediateka \"Start-Meta\"",
+    "address": "13A Szegedyńska",
+    "city": "Warszawa",
+    "postal_code": "01-957",
+    "lat": 52.2914978,
+    "lon": 20.9415641
+   },
+   "_metro": "Warsaw, PL"
+  },
+  {
+   "name": "Filia Nr 3 - Wola Grzybowska",
+   "category": "learning",
+   "_found": "osm:library -> modern-events+jsonld-event",
+   "listing": [
+    "https://bibliotekawesola.pl/events/"
+   ],
+   "link_pattern": "https://bibliotekawesola\\.pl/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Filia Nr 3 - Wola Grzybowska",
+    "lat": 52.2506122,
+    "lon": 21.243629
+   },
+   "_metro": "Warsaw, PL"
   }
  ],
  "_not_included": {
