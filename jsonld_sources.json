@@ -2379,6 +2379,60 @@
     "lon": 21.243629
    },
    "_metro": "Warsaw, PL"
+  },
+  {
+   "name": "Centrum Kultury i Sportu w Pruszkowie",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://ckis.pruszkow.pl/"
+   ],
+   "link_pattern": "https://ckis\\.pruszkow\\.pl/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Centrum Kultury i Sportu w Pruszkowie",
+    "address": "4 Bohaterów Warszawy",
+    "city": "Pruszków",
+    "lat": 52.1699431,
+    "lon": 20.8126044
+   },
+   "_metro": "Warsaw, PL"
+  },
+  {
+   "name": "Klub Studio",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://www.klubstudio.pl/koncert/BGVE2e/2026-10-06/SCHILLER-CLUB-CONCERT-VOYAGE"
+   ],
+   "link_pattern": "https://www\\.klubstudio\\.pl/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Klub Studio",
+    "address": "4 Witolda Budryka",
+    "city": "Kraków",
+    "postal_code": "30-072",
+    "country": "PL",
+    "lat": 50.068076,
+    "lon": 19.9082429
+   },
+   "_metro": "Krakow, PL"
+  },
+  {
+   "name": "Galeria ruchu",
+   "category": "arts",
+   "_found": "osm:museum -> modern-events+jsonld-event",
+   "listing": [
+    "https://hevelianum.pl/"
+   ],
+   "link_pattern": "https://hevelianum\\.pl/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Galeria ruchu",
+    "lat": 54.3547529,
+    "lon": 18.6381966
+   },
+   "_metro": "Gdansk, PL"
   }
  ],
  "_not_included": {

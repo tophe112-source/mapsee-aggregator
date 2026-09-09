@@ -4694,5 +4694,32 @@
   "geocode_suffix": ", Warszawa",
   "limit": 300,
   "_metro": "Warsaw, PL"
+ },
+ {
+  "name": "Muzeum Warszawskiej Pragi",
+  "category": "arts",
+  "_found": "osm:museum -> events-manager",
+  "url": "https://muzeumpragi.pl/?ical=1",
+  "geocode_suffix": ", Warsaw, PL",
+  "limit": 300,
+  "_metro": "Warsaw, PL"
+ },
+ {
+  "name": "Izba Pamięci przy Cmentarzu Powstańców Warszawy",
+  "category": "arts",
+  "_found": "osm:museum -> events-manager",
+  "url": "https://izbapamieci.muzeumwarszawy.pl/?ical=1",
+  "geocode_suffix": ", Warszawa",
+  "limit": 300,
+  "_metro": "Warsaw, PL"
+ },
+ {
+  "name": "?",
+  "category": "learning",
+  "_found": "osm:library -> events-manager",
+  "url": "https://pbp.gda.pl/?ical=1",
+  "geocode_suffix": ", Gdansk, PL",
+  "limit": 300,
+  "_metro": "Gdansk, PL"
  }
 ]

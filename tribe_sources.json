@@ -5501,6 +5501,279 @@
         "lon": 20.6457888
       },
       "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "Strzelnica ZKS",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://zks.waw.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Strzelnica ZKS",
+        "address": "42 Marymoncka",
+        "city": "Warszawa",
+        "postal_code": "01-977",
+        "lat": 52.300283,
+        "lon": 20.9421405
+      },
+      "_metro": "Warsaw, PL"
+    },
+    {
+      "name": "AVATAR Centrala Ruchu",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://myavatar.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "AVATAR Centrala Ruchu",
+        "address": "21A Sikorki",
+        "city": "Kraków",
+        "postal_code": "31-589",
+        "lat": 50.0613107,
+        "lon": 20.0172824
+      },
+      "_metro": "Krakow, PL"
+    },
+    {
+      "name": "Dom Kultury Spółdzielni Mieszkaniowej Nowy Bieżanów",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dknowybiezanow.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dom Kultury Spółdzielni Mieszkaniowej Nowy Bieżanów",
+        "lat": 50.0127525,
+        "lon": 20.0194187
+      },
+      "_metro": "Krakow, PL"
+    },
+    {
+      "name": "Muzeum Archeologiczne",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://ma.krakow.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Muzeum Archeologiczne",
+        "lat": 50.0575557,
+        "lon": 19.9362547
+      },
+      "_metro": "Krakow, PL"
+    },
+    {
+      "name": "Scena Berlin",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://scenaberlin.com.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scena Berlin",
+        "address": "2 Skawińska",
+        "city": "Kraków",
+        "region": "Lesser Poland",
+        "postal_code": "31-066",
+        "country": "PL",
+        "lat": 50.0476633,
+        "lon": 19.9432155
+      },
+      "_metro": "Krakow, PL"
+    },
+    {
+      "name": "Kościół pw. Świętego Tomasza Apostoła",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://kanoniczki.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kościół pw. Świętego Tomasza Apostoła",
+        "address": "Szpitalna",
+        "lat": 50.0624738,
+        "lon": 19.9407524
+      },
+      "_metro": "Krakow, PL"
+    },
+    {
+      "name": "Centrum Kultury i Promocji w Kocmyrzowie i Luborzycy",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://ckip.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centrum Kultury i Promocji w Kocmyrzowie i Luborzycy",
+        "address": "2 Chlebowa",
+        "city": "Baranówka",
+        "postal_code": "32-010",
+        "lat": 50.1437685,
+        "lon": 20.104856
+      },
+      "_metro": "Krakow, PL"
+    },
+    {
+      "name": "Kościół pw. Świętego Szczepana",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://swszczepan.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kościół pw. Świętego Szczepana",
+        "address": "17 Henryka Sienkiewicza",
+        "city": "Kraków",
+        "postal_code": "30-033",
+        "country": "PL",
+        "lat": 50.0716297,
+        "lon": 19.927118
+      },
+      "_metro": "Krakow, PL"
+    },
+    {
+      "name": "Folwark Kultura",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://zielonki.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Folwark Kultura",
+        "lat": 50.1725984,
+        "lon": 19.9152505
+      },
+      "_metro": "Krakow, PL"
+    },
+    {
+      "name": "Mostownia",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://teatrmostownia.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mostownia",
+        "address": "16 Księdza Leona Miszewskiego",
+        "city": "Gdańsk",
+        "postal_code": "80-233",
+        "country": "PL",
+        "lat": 54.376235,
+        "lon": 18.614084
+      },
+      "_metro": "Gdansk, PL"
+    },
+    {
+      "name": "Bilbioteka Publiczna im. Alojzego Nagla w Szemudzie Filia w Kielnie",
+      "category": "learning",
+      "_found": "osm:library -> tribe+my-calendar+jsonld-event+ics",
+      "base_url": "https://biblioteka.szemud.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bilbioteka Publiczna im. Alojzego Nagla w Szemudzie Filia w Kielnie",
+        "lat": 54.4525101,
+        "lon": 18.3333155
+      },
+      "_metro": "Gdansk, PL"
+    },
+    {
+      "name": "Biblioteka Sopocka - Broadway",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.mbp.sopot.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Biblioteka Sopocka - Broadway",
+        "address": "9 Oskara Kolberga",
+        "city": "Sopot",
+        "postal_code": "81-881",
+        "lat": 54.457458,
+        "lon": 18.535796
+      },
+      "_metro": "Gdansk, PL"
+    },
+    {
+      "name": "PIK w Gdańsku",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://wsparciewgdansku.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "PIK w Gdańsku",
+        "lat": 54.3860799,
+        "lon": 18.5814019
+      },
+      "_metro": "Gdansk, PL"
+    },
+    {
+      "name": "Ośrodek Buddyjski Karma Kagyu",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://gdansk.buddyzm.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ośrodek Buddyjski Karma Kagyu",
+        "lat": 54.4213208,
+        "lon": 18.5869635
+      },
+      "_metro": "Gdansk, PL"
+    },
+    {
+      "name": "Stowarzyszenie Przyjaciół Piecek-Migowa w Gdańsku Dom Sąsiedzki",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://piecki-migowo-ds.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stowarzyszenie Przyjaciół Piecek-Migowa w Gdańsku Dom Sąsiedzki",
+        "address": "105/11 Jaśkowa Dolina",
+        "city": "Gdańsk",
+        "postal_code": "80-286",
+        "lat": 54.3584745,
+        "lon": 18.5859159
+      },
+      "_metro": "Gdansk, PL"
+    },
+    {
+      "name": "Strzelnica Klubu Strzelających Inaczej",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.strzelamyinaczej.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Strzelnica Klubu Strzelających Inaczej",
+        "address": "1 Zawodników",
+        "city": "Gdańsk",
+        "postal_code": "80-729",
+        "lat": 54.3470185,
+        "lon": 18.6734945
+      },
+      "_metro": "Gdansk, PL"
+    },
+    {
+      "name": "Strzelnica Playground",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://strzelnica-playground.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Strzelnica Playground",
+        "address": "24 Bernadowska",
+        "city": "Gdynia",
+        "postal_code": "81-553",
+        "lat": 54.4660847,
+        "lon": 18.53611
+      },
+      "_metro": "Gdansk, PL"
     }
   ],
   "_not_included": {
