@@ -3,6 +3,26 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: the health check and `stats_snapshot_all`, `external_source`, a green run with no baseline, a source with no retry.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **An active pg_cron job can still inherit the wrong timeout.** On 2026-09-09,
+  `mapsee-refresh-stats` (job 4) was active at `23 */6 * * *`, but its last three
+  runs each failed after 120s inside the category aggregate. The source snapshot
+  was 313h old, and the latest 15 health runs could not evaluate ingestion.
+  `ops/repair_stats_cron.sql` records the inspected command and guarded repair:
+  set a bounded 10m statement timeout BEFORE calling `refresh_stats(30)` in the
+  cron command, preserving schedule/owner. The one-time catch-up's SQL-editor
+  request eventually showed a gateway error, but the public snapshot RPC proved
+  all three core rows advanced to `2026-09-09T13:35:31Z`. Check database state
+  before retrying an ambiguous UI response. The next health run evaluated
+  sources instead of failing on stale statistics.
+
+- **Community posting activity is not an ingest schedule.** After the snapshot
+  repair, run `34358782959` had one finding: `community` had no new event for
+  11 days against an 8-day ingest budget. SQL defines that bucket as NULL
+  `external_source`, so it measures people posting, not a scheduled importer.
+  The exact bucket stays visible in totals/the full table but is excluded from
+  baseline SILENT/MISSING/DRAINED alarms. Imported sources still fail those
+  checks. The 57 health assertions cover both cases without resetting baseline.
+
 - **The health check reads `stats_snapshot_all()`, NOT `source_stats()`.** The
   latter aggregates `public.events` on read and cannot finish inside the API
   role's ~3s statement timeout — ../mapsee migration 0112 retired it for exactly

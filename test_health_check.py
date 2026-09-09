@@ -316,6 +316,33 @@ def t_silent_source_is_unhealthy():
     check("it is reported as SILENT", "SILENT" in report, report[:300])
 
 
+def t_community_is_visible_but_not_health_checked():
+    """NULL external_source means user-created, not an ingest we can repair."""
+    stale_community = snapshot_rows(NOW - timedelta(hours=1), [
+        {"source": "mapsee", "upcoming": 9000, "added_24h": 400,
+         "added_7d": 2000, "last_added": (NOW - timedelta(hours=3)).isoformat()},
+        {"source": "community", "upcoming": 1, "added_24h": 0,
+         "added_7d": 0, "last_added": (NOW - timedelta(days=11)).isoformat()},
+    ])
+    code, report = run({hc.SNAPSHOT_RPC: FakeResponse(200, stale_community)},
+                       [], baseline=BASE)
+    check("stale community does not fail ingest health", code == hc.EXIT_OK,
+          f"exit {code}")
+    check("community remains visible in the full table",
+          "| community | 1 | 0 | 0 |" in report, report[-500:])
+
+    no_community = snapshot_rows(NOW - timedelta(hours=1), [
+        {"source": "mapsee", "upcoming": 9000, "added_24h": 400,
+         "added_7d": 2000, "last_added": (NOW - timedelta(hours=3)).isoformat()},
+    ])
+    code, report = run({hc.SNAPSHOT_RPC: FakeResponse(200, no_community)},
+                       [], baseline=BASE)
+    check("missing community does not fail ingest health", code == hc.EXIT_OK,
+          f"exit {code}")
+    check("missing community is not reported as MISSING",
+          "**community**" not in report, report[:400])
+
+
 def t_drained_source_is_unhealthy():
     drained = snapshot_rows(NOW - timedelta(hours=1), [
         {"source": "mapsee", "upcoming": 100, "added_24h": 5, "added_7d": 30,
@@ -382,6 +409,7 @@ def main():
                t_cron_status_rides_along_on_a_healthy_run,
                t_skipped_cron_reads_as_skipped,
                t_silent_source_is_unhealthy,
+               t_community_is_visible_but_not_health_checked,
                t_drained_source_is_unhealthy,
                t_null_last_added_reads_as_a_month_of_silence,
                t_missing_baseline_says_it_checked_nothing,

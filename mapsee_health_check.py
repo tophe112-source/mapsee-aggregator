@@ -60,6 +60,11 @@ gone quiet" — per-adapter provenance is not persisted anywhere in public.event
 single dead adapter needs a `source` column on the event row; until that exists,
 `catalog_curate.py audit` + FEED_DOWN below is the per-feed signal.
 
+`community` is shown in totals and the full table, but is not health-checked.
+It is the SQL snapshot's name for NULL `external_source`: user-created events,
+not a scheduled import this repository can keep alive. Treating that bucket as
+SILENT would page the ingest operator when no user happened to submit an event.
+
 WHAT IT CHECKS
 --------------
   1. SILENT  — a baseline source whose newest event is older than its staleness
@@ -193,6 +198,11 @@ ATTEMPTS = 3
 EXIT_OK = 0
 EXIT_UNHEALTHY = 1
 EXIT_CANNOT_RUN = 2
+
+# Exact snapshot source names that are useful operational context but are not
+# scheduled imports. Keep their rows in `live` so totals and the full table stay
+# honest; skip only the baseline regression comparisons below.
+NON_INGEST_SOURCES = {"community"}
 
 
 class CheckCannotRun(Exception):
@@ -574,6 +584,8 @@ def evaluate(rows: list[dict], baseline: dict, drop_pct: float, now: datetime):
     problems, notes = [], []
 
     for name, b in sorted(base_sources.items()):
+        if name in NON_INGEST_SOURCES:
+            continue
         row = live.get(name)
         if row is None:
             problems.append({
