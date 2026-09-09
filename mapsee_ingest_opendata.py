@@ -36,6 +36,7 @@ import argparse
 import json
 import re
 import sys
+import time
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
@@ -257,6 +258,11 @@ def row_to_event(row: Dict[str, Any], src: Dict[str, Any], geocoder=None) -> Opt
     # datasets that split the clock time into a separate 12-hour column (NYC Parks:
     # startdate=midnight + starttime="7:00 am") — fold that time onto the date.
     tz = _src_tz(src.get("timezone"))
+    # Floating Socrata timestamps use the publisher's timezone, not UTC.
+    if tz and start_local and "T" in start_local and not start_utc:
+        start_local, start_utc = _localize_dt(start_local[:10], start_local[11:], tz)
+    if tz and end_local and "T" in end_local and not end_utc:
+        end_local, end_utc = _localize_dt(end_local[:10], end_local[11:], tz)
     st = _parse_ampm(_get(row, m.get("start_time")))
     if st:
         start_local, start_utc = _localize_dt(date_key, st, tz)
@@ -316,11 +322,23 @@ def ingest_socrata(store: EventStore, session, src: Dict[str, Any]) -> int:
     params: Dict[str, Any] = {"$limit": src.get("limit", 1000), "$order": src.get("order", ":id")}
     where = src.get("where")
     if where:
-        params["$where"] = where.replace("{now}", datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"))
+        # Floating timestamp columns are compared in the configured local zone.
+        now = datetime.now(_src_tz(src.get("timezone")) or timezone.utc)
+        params["$where"] = where.replace("{now}", now.strftime("%Y-%m-%dT%H:%M:%S"))
     headers = {}
     if src.get("app_token"):
         headers["X-App-Token"] = src["app_token"]
-    resp = session.get(src["url"], params=params, headers=headers, timeout=25)  # fail fast
+    # Retry transient transport/service failures, never schema errors or refusals.
+    for attempt in range(3):
+        try:
+            resp = session.get(src["url"], params=params, headers=headers, timeout=25)
+            if resp.status_code not in (429, 500, 502, 503, 504) or attempt == 2:
+                break
+            resp.close()
+        except (requests.Timeout, requests.ConnectionError):
+            if attempt == 2:
+                raise
+        time.sleep(2 * (attempt + 1))
     resp.raise_for_status()
     rows = resp.json()
     rows = rows if isinstance(rows, list) else []
@@ -346,16 +364,17 @@ def main(argv=None) -> int:
     session.headers.update({"User-Agent": "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"})
     store = EventStore(a.store)
 
-    total = 0
+    total = failures = 0
     for src in sources:
         try:
             total += ingest_socrata(store, session, src)
         except Exception as exc:
+            failures += 1
             print(f"[opendata] {src.get('name', '?')} FAILED: {exc}")
     store.save()
     _save_geo_cache(_GEO_CACHE)
     print(f"[opendata] done: +{total} events processed; store now holds {len(store.records)} unique events.")
-    return 0
+    return 1 if failures else 0
 
 
 if __name__ == "__main__":

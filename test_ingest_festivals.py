@@ -2,6 +2,7 @@
 """Offline tests through production festival parser, network gate and read-back."""
 import copy
 import json
+import requests
 from datetime import date
 from unittest.mock import patch
 from mapsee_ingest_festivals import Page, Fetcher, instant, jackson_pdf_url, structured_events, identity
@@ -61,6 +62,8 @@ def main():
             return ('PagesStructures["page"] = ' + json.dumps({'items': [{'fileType': 'pdf',
                     'title': '2027 Schedule.pdf', 'storageServer': 6, 'ownerID': 1,
                     'fileName': 'new-id/2027 Schedule.pdf'}]}) + ';').encode()
+        def get_text(self, url):
+            return self.get(url).decode('utf-8')
     url = jackson_pdf_url('<script src="https://storage.googleapis.com/wzukusers/user-1/current.js"></script>', Assets())
     assert url.endswith('new-id/2027%20Schedule.pdf')
     assert jackson_pdf_url('<a href="/files/schedule.pdf">Schedule</a>', Assets()) == 'https://jacksonstreetjazz.org/files/schedule.pdf'
@@ -82,6 +85,99 @@ def main():
     f = Fetcher()
     f._raw = lambda url: (403, b'', None)
     refuses(lambda: f.get('https://festival.example/schedule'))
+
+    # A robots policy may move (commonly HTTP -> HTTPS), but every hop remains
+    # bounded and the final policy still decides whether the page is fetched.
+    f = Fetcher()
+    calls = []
+    def redirected_robots(url):
+        calls.append(url)
+        if url == 'http://festival.example/robots.txt':
+            return 301, b'', 'https://festival.example/robots.txt'
+        if url == 'https://festival.example/robots.txt':
+            return 200, b'User-agent: *\nAllow: /schedule', None
+        if url == 'http://festival.example/schedule':
+            f.last_encoding = ('windows-1252',)
+            return 200, b'<title>Emmabodafestivalen \xf6</title>', None
+        raise AssertionError(url)
+    f._raw = redirected_robots
+    assert f.get_text('http://festival.example/schedule') == '<title>Emmabodafestivalen ö</title>'
+    assert calls == ['http://festival.example/robots.txt', 'https://festival.example/robots.txt',
+                     'http://festival.example/schedule']
+
+    f = Fetcher()
+    hops = {'n': 0}
+    def endless_robots(url):
+        hops['n'] += 1
+        return 301, b'', f'https://festival.example/robots-{hops["n"]}.txt'
+    f._raw = endless_robots
+    refuses(lambda: f.get('https://festival.example/schedule'))
+    assert hops['n'] == 6              # five redirects, then refuse the sixth
+
+    # A source redirect gets the destination origin's policy. A permissive
+    # original host cannot authorize a disallowing target host.
+    f = Fetcher()
+    calls = []
+    def cross_origin(url):
+        calls.append(url)
+        if url == 'https://one.example/robots.txt':
+            return 404, b'', None
+        if url == 'https://one.example/schedule':
+            return 301, b'', 'https://two.example/schedule'
+        if url == 'https://two.example/robots.txt':
+            return 200, b'User-agent: *\nDisallow: /schedule', None
+        raise AssertionError('disallowed target page fetched')
+    f._raw = cross_origin
+    refuses(lambda: f.get('https://one.example/schedule'))
+    assert calls[-1] == 'https://two.example/robots.txt'
+
+    # Exercise the production streamed-response path: the HTTP charset is
+    # retained without consulting Response.content/apparent_encoding after the
+    # iterator has been consumed.
+    class EncodedResponse:
+        def __init__(self, body, content_type='text/html; charset=iso-8859-1',
+                     status=200, location=None):
+            self.body, self.status_code = body, status
+            values = {'Content-Type': content_type}
+            if location:
+                values['Location'] = location
+            self.headers = requests.structures.CaseInsensitiveDict(values)
+        def __enter__(self): return self
+        def __exit__(self, *_): pass
+        def iter_content(self, _size): yield self.body
+    f = Fetcher()
+    f.session.get = lambda *args, **kwargs: EncodedResponse(b'<title>Emmabodafestivalen \xf6</title>')
+    with patch('mapsee_ingest_festivals.public_url', side_effect=lambda url: url), \
+         patch('mapsee_ingest_festivals.time.sleep'):
+        assert f.get_text('https://festival.example/schedule', check_robots=False).endswith('ö</title>')
+
+    # Bare text/html is not a charset declaration. UTF-8 remains UTF-8 with or
+    # without a redundant meta tag, while a legacy meta declaration is honored.
+    for body in (b'<meta charset="utf-8"><title>Festival \xc3\xb6</title>',
+                 b'<title>Festival \xc3\xb6</title>'):
+        f = Fetcher()
+        f.session.get = lambda *args, _body=body, **kwargs: EncodedResponse(_body, 'text/html')
+        with patch('mapsee_ingest_festivals.public_url', side_effect=lambda url: url), \
+             patch('mapsee_ingest_festivals.time.sleep'):
+            assert 'Festival ö' in f.get_text('https://festival.example/schedule', check_robots=False)
+    f = Fetcher()
+    legacy = b'<meta charset="windows-1252"><title>Festival \xf6</title>'
+    f.session.get = lambda *args, **kwargs: EncodedResponse(legacy, 'text/html')
+    with patch('mapsee_ingest_festivals.public_url', side_effect=lambda url: url), \
+         patch('mapsee_ingest_festivals.time.sleep'):
+        assert 'Festival ö' in f.get_text('https://festival.example/schedule', check_robots=False)
+
+    # Redirect destinations pass public_url independently before any request.
+    f = Fetcher()
+    f.session.get = lambda *args, **kwargs: EncodedResponse(
+        b'', status=301, location='http://127.0.0.1/private')
+    def public_only(url):
+        if '127.0.0.1' in url:
+            raise ValueError('non-public destination')
+        return url
+    with patch('mapsee_ingest_festivals.public_url', side_effect=public_only), \
+         patch('mapsee_ingest_festivals.time.sleep'):
+        refuses(lambda: f.get('https://festival.example/schedule', check_robots=False))
 
     # Missing/stripped agendas cannot masquerade as successful writes.
     from mapsee_supabase_sync import to_row

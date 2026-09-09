@@ -159,3 +159,16 @@
   series start and BikeReg's server offset: when a source spells one fact twice,
   find a record where the two DISAGREE before choosing.
   `mapsee_ingest_seattlecenter.py`, pinned in `test_ingest_seattlecenter.py`.
+
+- **A green sweep can hide a changed Socrata schema.** On 2026-09-09,
+  civic run 34358778922 succeeded while NYC Parks returned HTTP 400 because
+  `startdate`/`enddate` had become combined floating `starttime`/`endtime`
+  timestamps. Ordering/filtering the current fields recovered 1,142 placeable
+  rows from 1,153; Chicago Park District supplied another 498 of 500 rows.
+  Their configured New York/Chicago timezones apply to naive timestamps and
+  query clocks. The targeted sync upserted 1,549 changed events, skipped 29
+  unchanged rows and 12 virtual events; public readback matched six sampled
+  titles and start instants. Socrata now retries transient failures at most
+  three times, leaves 400/403 alone, saves other successful sources and exits
+  nonzero after a source failure. Five tests in `test_ingest_opendata.py` pin
+  these contracts; changes to its source config also trigger CI.

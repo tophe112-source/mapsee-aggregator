@@ -8,6 +8,8 @@ An unread or unsupported source is reported, not replaced with an empty agenda.
 from __future__ import annotations
 
 import argparse
+import codecs
+from email.message import Message
 import hashlib
 import html
 import ipaddress
@@ -48,6 +50,7 @@ class Fetcher:
         self.deadline = time.monotonic() + max_seconds
         self.requests = 0
         self.last_fetch = {}
+        self.last_encoding = ()
 
     def _raw(self, url):
         if time.monotonic() >= self.deadline:
@@ -69,34 +72,81 @@ class Fetcher:
                 data.extend(chunk)
                 if len(data) > MAX_BYTES or time.monotonic() >= self.deadline:
                     raise ValueError('response exceeds festival byte/time budget')
+            # Keep the server declaration; get_text also sniffs HTML's own
+            # ASCII-compatible <meta charset>.  Do not use apparent_encoding
+            # here: requests cannot calculate it after a streamed body has
+            # already been consumed.
+            # Several European festival sites serve ISO-8859-1/Windows-1252;
+            # forcing their HTML through UTF-8 drops the whole source.
+            content_type = Message()
+            content_type['content-type'] = response.headers.get('Content-Type', '')
+            declared = content_type.get_content_charset()
+            self.last_encoding = (declared,) if declared else ()
             return 200, bytes(data), None
 
+    def _robots_for(self, origin):
+        if origin in self.robots:
+            return self.robots[origin]
+        url = origin + '/robots.txt'
+        redirects = 0
+        while True:
+            code, body, redirect = self._raw(url)
+            if redirect:
+                if redirects >= 5:                 # RFC 9309 section 2.3.1.2
+                    raise ValueError('robots unavailable: too many redirects')
+                url = redirect
+                redirects += 1
+                continue
+            if code not in (200, 404):
+                raise ValueError(f'robots unavailable: HTTP {code}')
+            robot = RobotFileParser()
+            robot.parse(body.decode('utf-8', 'replace').splitlines() if code == 200 else [])
+            if code == 404:
+                robot.allow_all = True
+            self.robots[origin] = robot
+            return robot
+
     def get(self, url, check_robots=True):
-        for _ in range(5):
+        self.last_encoding = ()
+        redirects = 0
+        while True:
             p = urlsplit(url)
             origin = f'{p.scheme}://{p.netloc}'
             if check_robots:
-                if origin not in self.robots:
-                    # No recursive redirect following for robots. An unavailable
-                    # policy defers this candidate, never grants crawl permission.
-                    code, body, _ = self._raw(origin + '/robots.txt')
-                    if code not in (200, 404):
-                        raise ValueError(f'robots unavailable: HTTP {code}')
-                    robot = RobotFileParser()
-                    robot.parse(body.decode('utf-8', 'replace').splitlines() if code == 200 else [])
-                    if code == 404:
-                        robot.allow_all = True
-                    self.robots[origin] = robot
-                if not self.robots[origin].can_fetch(UA, url):
+                if not self._robots_for(origin).can_fetch(UA, url):
                     raise ValueError('robots disallows this URL')
             code, body, redirect = self._raw(url)
             if redirect:
+                if redirects >= 5:
+                    raise ValueError('too many redirects')
                 url = redirect
+                redirects += 1
                 continue
             if code != 200:
                 raise ValueError(f'source HTTP {code}')
             return body
-        raise ValueError('too many redirects')
+
+    def get_text(self, url, check_robots=True):
+        body = self.get(url, check_robots=check_robots)
+        head = body[:4096]
+        meta = re.search(br'<meta\b[^>]*\bcharset\s*=\s*["\']?\s*([^\s"\'/>;]+)',
+                         head, re.I)
+        meta_encoding = meta.group(1).decode('ascii', 'ignore') if meta else None
+        tried = set()
+        for encoding in (*self.last_encoding, meta_encoding, 'utf-8'):
+            try:
+                canonical = codecs.lookup(encoding).name
+            except (LookupError, TypeError):
+                continue
+            if canonical in tried:
+                continue
+            tried.add(canonical)
+            try:
+                return body.decode(canonical)
+            except UnicodeDecodeError:
+                continue
+        raise UnicodeDecodeError('utf-8', body, 0, min(1, len(body)),
+                                 'HTML does not match its declared or detected encoding')
 
 
 class Page(HTMLParser):
@@ -184,7 +234,7 @@ def jackson_pdf_url(page_body, fetcher, page_url='https://jacksonstreetjazz.org/
         urls.append(asset)
     matches = set()
     for asset in urls:
-        body = fetcher.get(asset).decode('utf-8')
+        body = fetcher.get_text(asset)
         if not body.startswith('PagesStructures['):
             continue
         payload, _ = json.JSONDecoder().raw_decode(body[body.index('=') + 1:].lstrip())
@@ -203,10 +253,10 @@ def jackson_pdf_url(page_body, fetcher, page_url='https://jacksonstreetjazz.org/
 
 def jackson_event(source, fetcher, today):
     from festival_pdf import parse_jackson_pdf
-    schedule_html = fetcher.get(source['schedule_url']).decode('utf-8')
+    schedule_html = fetcher.get_text(source['schedule_url'])
     pdf_url = jackson_pdf_url(schedule_html, fetcher)
     parsed = parse_jackson_pdf(fetcher.get(pdf_url), timezone=source['timezone'])
-    buttons = Page(fetcher.get(source['ticket_url']).decode('utf-8')).calendars
+    buttons = Page(fetcher.get_text(source['ticket_url'])).calendars
     buttons = [b for b in buttons if 'jackson street jazz' in b.get('name', '').lower()]
     if len(buttons) != 1:
         raise ValueError('ticket page calendar is missing or ambiguous')
@@ -350,7 +400,7 @@ def run(config, candidates, state_path, store_path, report_path, max_candidates=
                 events = [event] if event else []
             else:
                 url = source.get('schedule_url') or source['official_url']
-                events = structured_events(fetcher.get(url).decode('utf-8'), source, today)
+                events = structured_events(fetcher.get_text(url), source, today)
             for event in events:
                 store.upsert(event)
             result.update(status='verified' if events else 'pending', events=len(events),

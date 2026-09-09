@@ -27,6 +27,7 @@ on:
       - "requirements-*.txt"
       - ".github/workflows/*.yml"
       - "festival_sources.json"
+      - "opendata_sources.json"
       - ".github/workflows/tests.yml"
   pull_request:
     paths:
@@ -35,6 +36,7 @@ on:
       - "requirements-*.txt"
       - ".github/workflows/*.yml"
       - "festival_sources.json"
+      - "opendata_sources.json"
       - ".github/workflows/tests.yml"
   workflow_dispatch:
 
@@ -65,6 +67,7 @@ jobs:
         run: |
           python test_workflow_contracts.py
           python test_ingest_ics.py
+          python test_ingest_opendata.py
 
       - name: Festival schedules and agenda sync
         run: |

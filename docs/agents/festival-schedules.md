@@ -77,3 +77,13 @@ stages, unexpected PDF layouts and more than 60 agenda items all defer the
 source. A failed fetch never publishes an empty agenda. Schedule cancellation
 status outside supported structured data requires review; this importer does
 not infer cancellation from a disappeared page or erase production events.
+
+On 2026-09-09, scheduled run 34397782370 preserved all 24 Jackson agenda
+items and tracked 72 discovery candidates, but two candidates exposed fetch
+bugs. Explicit HTTP/HTML charsets now decode legacy festival pages without
+assuming ISO-8859-1 for bare `text/html`; robots policies follow at most five
+redirects with the existing public-address and resource-budget checks.
+Live rechecks decoded Emmabodafestivalen (5,876 characters, two requests) and
+Blame My Roots Festival (107,779 characters, five requests). Fetch success
+does not imply a supported upcoming schedule. Tests cover UTF-8 and legacy
+charsets, private-address redirects and destination robots refusals.
