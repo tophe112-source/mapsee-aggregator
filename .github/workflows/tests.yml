@@ -24,16 +24,16 @@ on:
     paths:
       - "**.py"
       - "requirements.txt"
-      - "requirements-festivals.txt"
-      - ".github/workflows/festival-schedules.yml"
+      - "requirements-*.txt"
+      - ".github/workflows/*.yml"
       - "festival_sources.json"
       - ".github/workflows/tests.yml"
   pull_request:
     paths:
       - "**.py"
       - "requirements.txt"
-      - "requirements-festivals.txt"
-      - ".github/workflows/festival-schedules.yml"
+      - "requirements-*.txt"
+      - ".github/workflows/*.yml"
       - "festival_sources.json"
       - ".github/workflows/tests.yml"
   workflow_dispatch:
@@ -59,7 +59,12 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install -r requirements-festivals.txt
+        run: pip install -r requirements-tests.txt
+
+      - name: Automation contracts and interrupted ICS recovery
+        run: |
+          python test_workflow_contracts.py
+          python test_ingest_ics.py
 
       - name: Festival schedules and agenda sync
         run: |

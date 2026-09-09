@@ -403,7 +403,8 @@ def tiles(bbox, max_deg=0.35):
             for r in range(rows) for c in range(cols)]
 
 
-def _overpass_one(bbox, delay=2.0, tries=4):
+def _overpass_one(bbox, delay=2.0, tries=4, deadline=0,
+                  clock=time.time, sleep=time.sleep):
     """One tile. Backs off rather than re-asking harder.
 
     Overpass is a free, shared, volunteer-run service and it says so: measured
@@ -416,21 +417,33 @@ def _overpass_one(bbox, delay=2.0, tries=4):
     q = f"[out:json][timeout:180];({parts});out tags center;"
     last = None
     for attempt in range(tries):
+        remaining = (deadline - clock()) if deadline else 240.0
+        if deadline and remaining <= 0:
+            raise TimeoutError("wall-clock budget exhausted")
         try:
             req = urllib.request.Request(OVERPASS, data=urllib.parse.urlencode({"data": q}).encode(),
                                          headers={"User-Agent": UA})
-            with urllib.request.urlopen(req, timeout=240) as r:
+            # A nominal 40-minute sweep budget is not a bound if one request may
+            # still use its old 240-second timeout after the clock expires.
+            with urllib.request.urlopen(req, timeout=min(240.0, max(0.1, remaining))) as r:
                 data = json.loads(r.read().decode("utf-8", "replace"))
-            time.sleep(delay)
+            pause = min(delay, max(0.0, deadline - clock())) if deadline else delay
+            if pause:
+                sleep(pause)
             return data.get("elements", [])
         except Exception as exc:
             last = exc
             if attempt < tries - 1:
-                time.sleep(delay * (3 ** attempt))
+                pause = delay * (3 ** attempt)
+                if deadline:
+                    pause = min(pause, max(0.0, deadline - clock()))
+                if pause:
+                    sleep(pause)
     raise last
 
 
-def sweep_tiles(cells, fetch_one, label, delay=2.0, sleep=time.sleep):
+def sweep_tiles(cells, fetch_one, label, delay=2.0, sleep=time.sleep,
+                deadline=0, clock=time.time):
     """(elements, complete) — every tile, then a SECOND PASS over the ones that lost.
 
     WHY A SECOND PASS IS NOT THE SAME AS MORE RETRIES. _overpass_one already
@@ -458,6 +471,11 @@ def sweep_tiles(cells, fetch_one, label, delay=2.0, sleep=time.sleep):
     def pass_over(cell_list, tag):
         lost = []
         for i, cell in enumerate(cell_list, 1):
+            if deadline and clock() >= deadline:
+                lost.extend(cell_list[i - 1:])
+                print(f"{label} out of time before tile {i}/{len(cell_list)}{tag} — "
+                      f"{len(lost)} tile(s) left unread", flush=True)
+                break
             try:
                 els = fetch_one(cell)
             except Exception as exc:
@@ -478,8 +496,9 @@ def sweep_tiles(cells, fetch_one, label, delay=2.0, sleep=time.sleep):
     if lost:
         print(f"{label} {len(lost)} of {len(cells)} tiles did not answer — "
               f"second pass in a moment", flush=True)
-        sleep(delay * 5)
-        lost = pass_over(lost, " [retry]")
+        if not deadline or clock() < deadline:
+            sleep(delay * 5)
+            lost = pass_over(lost, " [retry]")
     if lost:
         # STILL the old rule, and it is the important one: a partial answer is
         # fine to USE and never fine to KEEP. Caching one for thirty days hides
@@ -489,7 +508,7 @@ def sweep_tiles(cells, fetch_one, label, delay=2.0, sleep=time.sleep):
     return out, not lost
 
 
-def overpass(area, delay=2.0, tries=4):
+def overpass(area, delay=2.0, tries=4, deadline=0):
     """(elements, complete) — every named food place in an area, tile by tile.
 
     A tile that will not answer after its retries is REPORTED and skipped rather
@@ -504,8 +523,10 @@ def overpass(area, delay=2.0, tries=4):
     KEEP.
     """
     cells = tiles(area_bbox(area))
-    return sweep_tiles(cells, lambda c: _overpass_one(c, delay=delay, tries=tries),
-                       f"[osm-food]   {area['name']}", delay=delay)
+    return sweep_tiles(cells, lambda c: _overpass_one(
+                           c, delay=delay, tries=tries, deadline=deadline),
+                       f"[osm-food]   {area['name']}", delay=delay,
+                       deadline=deadline)
 
 
 # ---------------------------------------------------------------------------
@@ -943,7 +964,7 @@ def main(argv=None):
         els, from_cache = load_places(a.places_cache, area, a.cache_days, bbox)
         if els is None:
             try:
-                els, complete = overpass(area, a.delay)
+                els, complete = overpass(area, a.delay, deadline=deadline)
             except Exception as exc:
                 print(f"[osm-food] {area['name']} overpass FAILED: {exc}")
                 continue

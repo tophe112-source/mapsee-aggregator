@@ -159,7 +159,7 @@ def main():
         # which is exactly the behaviour that made this assertion stale.
         dead = cells[1]
 
-        def flaky(bbox, delay=2.0, tries=4):
+        def flaky(bbox, delay=2.0, tries=4, deadline=0):
             n["i"] += 1
             if tuple(bbox) == tuple(dead):
                 raise RuntimeError("504")
@@ -172,7 +172,7 @@ def main():
         # And the case that changed: dead once, alive on the second pass.
         seen_once = {"hit": False}
 
-        def recovers(bbox, delay=2.0, tries=4):
+        def recovers(bbox, delay=2.0, tries=4, deadline=0):
             if tuple(bbox) == tuple(dead) and not seen_once["hit"]:
                 seen_once["hit"] = True
                 raise RuntimeError("504")
@@ -184,7 +184,8 @@ def main():
         checks.append((len(els3) == len(cells),
                        "and every tile's elements are present, including the one that lost"))
 
-        m._overpass_one = lambda bbox, delay=2.0, tries=4: [{"type": "node", "id": 7, "tags": {}}]
+        m._overpass_one = lambda bbox, delay=2.0, tries=4, deadline=0: [
+            {"type": "node", "id": 7, "tags": {}}]
         els2, complete2 = m.overpass({"name": "T", "center": [47.6062, -122.3321], "radius_miles": 50}, delay=0)
         checks.append((complete2 is True, "all tiles answering marks it complete"))
         checks.append((len(els2) == 1, "the same place seen in several tiles is deduped"))
@@ -389,6 +390,57 @@ def main():
     m.sweep_tiles(["a"], lambda c: [], "[t]", sleep=lambda s: slept.append(s))
     checks.append((slept == [], "no failures means no waiting"))
 
+    # A warm-cache action used to spend its entire 45-minute timeout inside one
+    # tile sweep. The main-loop deadline existed, but overpass() ran before any
+    # code checked it, so Actions killed the process mid-area and no fresh cache
+    # could be saved. Check between network calls; a call already in flight is
+    # allowed to finish, and every unread tile keeps the result incomplete.
+    budget_calls, budget_sleeps = [], []
+    budget_now = [10.0]
+
+    def budget_fetch(cell):
+        budget_calls.append(cell)
+        budget_now[0] += 2.0
+        return [{"type": "node", "id": cell}]
+
+    budget_els, budget_complete = m.sweep_tiles(
+        ["a", "b", "c"], budget_fetch, "[budget]",
+        sleep=lambda s: budget_sleeps.append(s), deadline=13.0,
+        clock=lambda: budget_now[0])
+    checks.extend([
+        (budget_calls == ["a", "b"],
+         f"tile fetching stops at the wall-clock budget ({budget_calls})"),
+        ([el["id"] for el in budget_els] == ["a", "b"],
+         "completed tiles remain available for this run"),
+        (budget_complete is False,
+         "a budget-truncated list is incomplete and therefore cannot be cached"),
+        (budget_sleeps == [],
+         "an exhausted budget does not start the second-pass wait"),
+    ])
+
+    # The checkpoint between tiles is only useful if one tile cannot keep its
+    # old four-minute request timeout after less than four minutes remain.
+    _real_urlopen = m.urllib.request.urlopen
+    request_timeouts = []
+
+    class _Reply:
+        def __enter__(self): return self
+        def __exit__(self, *args): return False
+        def read(self): return b'{"elements": []}'
+
+    try:
+        def _urlopen(req, timeout):
+            request_timeouts.append(timeout)
+            return _Reply()
+        m.urllib.request.urlopen = _urlopen
+        m._overpass_one((0, 0, 1, 1), delay=0, tries=1, deadline=103.0,
+                        clock=lambda: 100.0, sleep=lambda _: None)
+        checks.append((request_timeouts == [3.0],
+                       f"one in-flight tile is capped by remaining budget "
+                       f"({request_timeouts})"))
+    finally:
+        m.urllib.request.urlopen = _real_urlopen
+
     # ------------------------------------------------------------------
     # THE WALL-CLOCK BUDGET, AND IT IS TESTED THROUGH main() ON PURPOSE.
     #
@@ -478,14 +530,13 @@ def main():
 
         # AND THE AREA NOT REACHED AT ALL leaves its cursor alone, so the next
         # run begins exactly here rather than skipping a window nobody read.
-        # The REAL clock for this one: the fake advances only inside links_for,
-        # so it cannot express "time passed before the first candidate" — which
-        # is the whole of this case. A budget of 60 microseconds is gone by the
-        # time the config is read.
+        # A clock that expires between deadline creation and the first candidate
+        # makes this deterministic even on a very fast machine.
         _looked.clear()
-        m.time.time = _real_time
+        _expired_reads = [1000.0, 1001.0]
+        m.time.time = lambda: (_expired_reads.pop(0) if _expired_reads else 1001.0)
         rc3 = m.main(["--config", cfg, "--store", store, "--max-places", "20",
-                      "--max-minutes", "0.000001"])
+                      "--max-minutes", str(0.5 / 60)])
         cur3 = _json.load(open(_curfile))
         checks.append((rc3 == 0 and not _looked and cur3.get("Paris") == 5,
                        f"an area the budget never reached is skipped with its "

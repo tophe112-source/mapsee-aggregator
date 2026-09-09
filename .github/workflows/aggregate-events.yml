@@ -5,16 +5,15 @@ name: Aggregate public events
 # ONLY - never add pull_request triggers, which would expose the repo secrets
 # (including SUPABASE_SERVICE_ROLE_KEY) to untrusted fork code.
 
-# THREE jobs, once daily — tuned to minimize GitHub Actions minutes without
+# Independent source jobs, once daily — tuned to minimize Actions minutes without
 # dropping any source:
 #
 #   • ticketmaster — the ONE Ticketmaster sweep (US metros THEN international).
 #     TM's key is rate-limited to ~2 req/s, so this is serial by nature; running
 #     US + global in a single job avoids two runners fighting the same key
 #     (429-backoff waste) and pays the runner/pip overhead once.
-#   • feeds — ICS + open-data + venue/GraphQL calendars. These carry no coords,
-#     so each venue is geocoded via Photon (~1.1s); isolated with its own cache
-#     so a slow feed can't drag the TM sweep and the cache actually persists.
+#   • feeds — independent ICS, local and civic groups, each with its own cache,
+#     sync and recovery artifacts. A failed adapter cannot block its neighbors.
 #   • meetup — ONE Meetup sweep (US then international). Meetup shares no key
 #     with Ticketmaster, so it runs parallel; it used to run in TWO places
 #     (here for the US, a separate job for international), which was both
@@ -41,6 +40,11 @@ on:
     - cron: "40 6 * * 1,4"         # Mon & Thu: the heavy SeatGeek/Meetup/Eventbrite sweep (2x/week is plenty)
   workflow_dispatch:                 # manual "Run workflow"
     inputs:
+      feed_group:
+        description: "Run a single feed group for recovery; all preserves the normal full run"
+        type: choice
+        options: [all, ics, local, civic]
+        default: all
       full_refresh:
         description: "Re-sync ALL events (update existing) — already automatic on Wednesdays"
         type: boolean
@@ -50,8 +54,11 @@ on:
         type: boolean
         default: false
 
+permissions:
+  contents: read
+
 concurrency:
-  group: aggregate-events
+  group: ${{ inputs.feed_group != '' && inputs.feed_group != 'all' && format('aggregate-events-{0}', inputs.feed_group) || 'aggregate-events' }}
   cancel-in-progress: false
 
 env:
@@ -83,10 +90,12 @@ jobs:
     name: Ticketmaster (US metros + international)
     runs-on: ubuntu-latest
     # runs on the DAILY cron + manual (unless extra_only); skipped on the Mon/Thu extra-sources cron
-    if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+    if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *')) }}
     timeout-minutes: 300             # US + international TM are SERIAL on the shared ~2 req/s key
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -152,10 +161,12 @@ jobs:
     # Separate job on purpose: Meetup does not share Ticketmaster's rate-limited
     # key, so sweeping it in parallel roughly halves international wall clock and
     # lets metros_global.json keep growing.
-    if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+    if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *')) }}
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -215,37 +226,23 @@ jobs:
           fi
 
   feeds:
-    name: ICS + open-data + venue feeds
+    name: Feed imports (${{ matrix.group }})
     runs-on: ubuntu-latest
     # runs on the DAILY cron + manual (unless extra_only); skipped on the Mon/Thu extra-sources cron
     if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
-    # 120 was the budget when this job took 54-58 minutes. It hit exactly 120 on
-    # 2026-08-10 and lost the run. The catalog has grown under it — daily
-    # curation instead of weekly, +67 Mobilizon instances, and Squarespace, Luma,
-    # Tribe and CKAN all added since — and every new source brings new venues to
-    # geocode at ~1.1s each. Raised to match, with the checkpoint sync below as
-    # the thing that makes a future overrun survivable rather than total.
-    #
-    # 240 -> 300, and the number comes from the runs rather than from a guess.
-    # This job finished in 3h58m on 2026-09-03 and 3h59m on 2026-09-01 — two
-    # minutes and one minute under a four-hour cap — and on 2026-09-04 it went
-    # two minutes over and was CANCELLED with The Events Calendar still to run,
-    # so Visit Issaquah and every other Tribe source missed that day entirely.
-    # A budget that three consecutive runs land within two minutes of is not a
-    # budget, it is a coin toss. The checkpoint sync above is what stops an
-    # overrun costing the whole run; this is what stops it happening weekly.
+    # ICS alone took 223m on 2026-09-08; the combined job timed out at 300m.
+    # Independent groups retain every adapter and cannot cancel one another.
+    strategy:
+      fail-fast: false
+      matrix:
+        group: ${{ fromJSON(inputs.feed_group != '' && inputs.feed_group != 'all' && format('["{0}"]', inputs.feed_group) || '["ics","local","civic"]') }}
     timeout-minutes: 300
-    # Cap NEW Photon geocodes per run (~1.1s each) so this job ALWAYS finishes and
-    # actions/cache uploads the freshly-warmed geocode cache - a timed-out job
-    # never saves it, so the same backlog re-runs forever. 5000 ~= 92 min of
-    # geocoding, which fits the 2h window and drains a cold-cache backlog in far
-    # fewer runs while still finishing (so the cache persists). Once warm, most
-    # runs are cache hits and finish fast. Lower this (or 0 to uncap) after it's
-    # caught up, to cut GitHub Actions minutes.
     env:
       GEOCODE_MAX_NEW: "5000"
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -259,13 +256,15 @@ jobs:
       # speed optimization for the other adapters (which fingerprint on venue
       # TEXT, so a coordinate that drifts there only nudges a pin), not identity.
       - name: Restore warm geocode cache (Photon is ~1.1s/venue — persist across runs)
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: |
             geocode_cache.warm.json
             ics_feed_cache.json
-          key: geocode-cache-feeds-${{ github.run_id }}
-          restore-keys: geocode-cache-
+          key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            geocode-cache-feeds-${{ matrix.group }}-
+            geocode-cache-feeds-
       - name: Merge the warm geocode cache UNDER the committed one
         run: |
           python - <<'PY'
@@ -284,6 +283,10 @@ jobs:
           print(f"warm={len(warm)} committed={len(tracked)} merged={len(merged)}")
           PY
       - name: Import city open-data events (Socrata)
+        id: ingest_opendata
+        if: matrix.group == 'civic'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f opendata_sources.json ]; then
             python mapsee_ingest_opendata.py --config opendata_sources.json --store feeds_events.json
@@ -291,6 +294,10 @@ jobs:
             echo "no opendata_sources.json — skipping city open-data"
           fi
       - name: Import ICS calendar feeds
+        id: ingest_ics
+        if: matrix.group == 'ics'
+        continue-on-error: true
+        timeout-minutes: 250
         run: |
           if [ -f ics_sources.json ]; then
             python mapsee_ingest_ics.py --config ics_sources.json --store feeds_events.json
@@ -306,6 +313,10 @@ jobs:
       # Saturday and Sunday either side took 52 and 55 minutes, because
       # run_weekdays keeps the sweep to Mondays. It now has its own job.
       - name: Import recurring community markets (farmers markets, expanded to dated occurrences)
+        id: ingest_markets
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f market_sources.json ]; then
             python mapsee_ingest_markets.py --config market_sources.json \
@@ -336,12 +347,15 @@ jobs:
       # the final sync re-offering these rows is a no-op, and --only-new skips
       # them before they are even built.
       - name: Checkpoint — sync what has landed so far (a later timeout must not discard it)
+        id: checkpoint
+        continue-on-error: true
+        timeout-minutes: 20
         run: |
           ONLY_NEW="--only-new"
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW || true
+            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW
           else
             echo "nothing ingested yet — nothing to checkpoint"
           fi
@@ -349,6 +363,10 @@ jobs:
       # had no curated feed in ANY country. One fetch; the config pins it to one
       # weekday because a weekly schedule re-expands to identical rows.
       - name: Import parkrun (weekly 5k + junior 2k, expanded to dated occurrences)
+        id: ingest_parkrun
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f parkrun_sources.json ]; then
             python mapsee_ingest_parkrun.py --config parkrun_sources.json --store feeds_events.json
@@ -362,6 +380,10 @@ jobs:
       # announced next year yet contributes nothing and starts contributing the
       # day it does.
       - name: Import US state fairs (the fair itself, dates scraped per run)
+        id: ingest_fairs
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f fair_sources.json ]; then
             python mapsee_ingest_fairs.py --config fair_sources.json --store feeds_events.json
@@ -369,6 +391,10 @@ jobs:
             echo "no fair_sources.json — skipping state fairs"
           fi
       - name: Import curated recurring community programs (e.g. free summer meals, expanded to dated occurrences)
+        id: ingest_programs
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f program_sources.json ]; then
             python mapsee_ingest_programs.py --config program_sources.json --store feeds_events.json
@@ -376,6 +402,10 @@ jobs:
             echo "no program_sources.json — skipping programs"
           fi
       - name: Import venue / local-ticketing sites (schema.org Event JSON-LD)
+        id: ingest_jsonld
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f jsonld_sources.json ]; then
             python mapsee_ingest_jsonld.py --config jsonld_sources.json --store feeds_events.json
@@ -388,6 +418,10 @@ jobs:
       # and see the adapter docstring for the default-pin trap it defends
       # against, which would otherwise file Seattle events in Manhattan.
       - name: Import Squarespace Events collections (bare collection page)
+        id: ingest_squarespace
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f squarespace_sources.json ]; then
             python mapsee_ingest_squarespace.py --config squarespace_sources.json --store feeds_events.json
@@ -402,6 +436,10 @@ jobs:
       # distinct listing once for the description, because the results carry none
       # and derive_categories has nothing to read without it.
       - name: Import MyListing directory events (chambers, tourism boards)
+        id: ingest_mylisting
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f mylisting_sources.json ]; then
             python mapsee_ingest_mylisting.py --config mylisting_sources.json --store feeds_events.json
@@ -412,6 +450,10 @@ jobs:
       # none of which reaches Eventbrite or Meetup, and every listing ships real
       # coordinates so nothing here needs the geocoder.
       - name: Import Luma calendars and city Discover feeds
+        id: ingest_luma
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f luma_sources.json ]; then
             python mapsee_ingest_luma.py --config luma_sources.json --store feeds_events.json
@@ -419,6 +461,10 @@ jobs:
             echo "no luma_sources.json — skipping"
           fi
       - name: Import restaurants (pickup windows from open hours + menu preview)
+        id: ingest_restaurants
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f restaurant_sources.json ]; then
             python mapsee_ingest_restaurants.py --config restaurant_sources.json --store feeds_events.json
@@ -426,19 +472,29 @@ jobs:
             echo "no restaurant_sources.json — skipping"
           fi
       - name: Import Seoul cultural events (data.seoul.go.kr, gated on secret)
+        id: ingest_seoul
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         env:
           SEOUL_OPEN_API_KEY: ${{ secrets.SEOUL_OPEN_API_KEY }}
         run: |
           python mapsee_ingest_seoul.py --store feeds_events.json
-          exit 0
       - name: Import affiliate takeout catalogs (DoorDash / Uber Eats, gated on secrets)
+        id: ingest_affiliates
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         env:
           DOORDASH_FEED_URL: ${{ secrets.DOORDASH_FEED_URL }}
           UBEREATS_FEED_URL: ${{ secrets.UBEREATS_FEED_URL }}
         run: |
           python mapsee_ingest_affiliates.py --config affiliate_sources.json --store feeds_events.json
-          exit 0
       - name: Import authorized Uber Eats stores (Marketplace API, gated on secrets)
+        id: ingest_ubereats
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         env:
           UBER_CLIENT_ID: ${{ secrets.UBER_CLIENT_ID }}
           UBER_CLIENT_SECRET: ${{ secrets.UBER_CLIENT_SECRET }}
@@ -448,8 +504,11 @@ jobs:
           UBER_API_BASE: ${{ secrets.UBER_API_BASE }}
         run: |
           python mapsee_ingest_ubereats.py --store feeds_events.json
-          exit 0
       - name: Import VenuePilot venues (public GraphQL — Baba Yaga, etc.)
+        id: ingest_venuepilot
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f venuepilot_sources.json ]; then
             python mapsee_ingest_venuepilot.py --config venuepilot_sources.json --store feeds_events.json
@@ -463,6 +522,10 @@ jobs:
       # coordinates, which is why this can sit in a job whose time budget is
       # spent on Photon.
       - name: Import DICE venue pages (venues whose own site is just the widget)
+        id: ingest_dice_venue
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f dice_venue_sources.json ]; then
             python mapsee_ingest_dice_venue.py --config dice_venue_sources.json --store feeds_events.json
@@ -470,6 +533,10 @@ jobs:
             echo "no dice_venue_sources.json — skipping"
           fi
       - name: Import The Rolodex (independent improv/sketch shows, public JSON)
+        id: ingest_rolodex
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f rolodex_sources.json ]; then
             python mapsee_ingest_rolodex.py --config rolodex_sources.json --store feeds_events.json
@@ -484,6 +551,10 @@ jobs:
       # changes it finds nothing and says so, and source-health.yml turns that
       # into an issue.
       - name: Import Visit Pioneer Square (Seattle neighbourhood calendar, HTML)
+        id: ingest_pioneersquare
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f pioneersquare_sources.json ]; then
             python mapsee_ingest_pioneersquare.py --config pioneersquare_sources.json --store feeds_events.json
@@ -506,6 +577,10 @@ jobs:
       # the ticketing APIs do not carry. Climate Pledge Arena is deliberately
       # skipped, because Ticketmaster already has it; the config says why.
       - name: Import Seattle Center (campus calendar, HTML)
+        id: ingest_seattlecenter
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f seattlecenter_sources.json ]; then
             python mapsee_ingest_seattlecenter.py --config seattlecenter_sources.json --store feeds_events.json
@@ -520,6 +595,10 @@ jobs:
       # weekend. Free street parties are exactly what the ticketing APIs do not
       # have, which is the whole argument for hyperlocal sources.
       - name: Import Discover South Lake Union (Seattle neighbourhood calendar, JSON)
+        id: ingest_slu
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f slu_sources.json ]; then
             python mapsee_ingest_slu.py --config slu_sources.json --store feeds_events.json
@@ -527,6 +606,10 @@ jobs:
             echo "no slu_sources.json — skipping"
           fi
       - name: Import 'The Events Calendar' sites (WordPress REST — comedy, running clubs, nature orgs)
+        id: ingest_tribe
+        if: matrix.group == 'civic'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f tribe_sources.json ]; then
             python mapsee_ingest_tribe.py --config tribe_sources.json --store feeds_events.json
@@ -534,6 +617,10 @@ jobs:
             echo "no tribe_sources.json — skipping"
           fi
       - name: Import Gancio instances (DIY/social-centre calendars, mostly EU)
+        id: ingest_gancio
+        if: matrix.group == 'civic'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f gancio_sources.json ]; then
             python mapsee_ingest_gancio.py --config gancio_sources.json --store feeds_events.json
@@ -541,6 +628,10 @@ jobs:
             echo "no gancio_sources.json — skipping"
           fi
       - name: Import Mobilizon instances (federated event software, FR/CH/IT)
+        id: ingest_mobilizon
+        if: matrix.group == 'civic'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f mobilizon_sources.json ]; then
             python mapsee_ingest_mobilizon.py --config mobilizon_sources.json --store feeds_events.json
@@ -555,18 +646,30 @@ jobs:
       # accept the date filter and ignore it, and the count that comes back is
       # then the whole archive.
       - name: Import Mapas Culturais (BR state/municipal cultural registers)
+        id: ingest_mapasculturais
+        if: matrix.group == 'civic'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f mapasculturais_sources.json ]; then
-            python mapsee_ingest_mapasculturais.py --config mapasculturais_sources.json --store feeds_events.json || true
+            python mapsee_ingest_mapasculturais.py --config mapasculturais_sources.json --store feeds_events.json
           else
             echo "no mapasculturais_sources.json — skipping"
           fi
       - name: Import Moshtix (AU/NZ music + live events, public GraphQL)
-        run: python mapsee_ingest_moshtix.py --store feeds_events.json --within-days 120 || true
+        id: ingest_moshtix
+        if: matrix.group == 'civic'
+        continue-on-error: true
+        timeout-minutes: 60
+        run: python mapsee_ingest_moshtix.py --store feeds_events.json --within-days 120
       - name: Import Opendatasoft civic events (international; OpenAgenda + city portals)
+        id: ingest_ods
+        if: matrix.group == 'civic'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f ods_sources.json ]; then
-            python mapsee_ingest_ods.py --config ods_sources.json --store feeds_events.json || true
+            python mapsee_ingest_ods.py --config ods_sources.json --store feeds_events.json
           else
             echo "no ods_sources.json — skipping"
           fi
@@ -577,13 +680,20 @@ jobs:
       # catalog would grow a country's supply on paper and ingest none of it.
       # The file does not exist until the first merge writes it, hence the guard.
       - name: Import CKAN civic events (data.gov.uk, open.canada.ca, data.gov.ie, ...)
+        id: ingest_ckan
+        if: matrix.group == 'civic'
+        continue-on-error: true
+        timeout-minutes: 60
         run: |
           if [ -f ckan_sources.json ]; then
-            python mapsee_ingest_ckan.py --config ckan_sources.json --store feeds_events.json || true
+            python mapsee_ingest_ckan.py --config ckan_sources.json --store feeds_events.json
           else
             echo "no ckan_sources.json yet — nothing merged from the CKAN sweep"
           fi
       - name: Sync feeds to Supabase (batch-geocoded)
+        id: sync
+        continue-on-error: true
+        timeout-minutes: 20
         run: |
           ONLY_NEW="--only-new"
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
@@ -594,35 +704,6 @@ jobs:
           else
             echo "no feeds ingested — nothing to sync"
           fi
-      # One market reaches the map from a curated list, OpenStreetMap AND the USDA
-      # directories, and those sources run on different weekdays into a store that is
-      # rebuilt each run — so the duplicates only ever meet here, in the table.
-      #
-      # EVERY category now, not just market. Markets were the case somebody
-      # measured, never the only one: on 2026-08-12 the table held 4,871
-      # duplicate rows across fifteen categories, and markets were 2,107. Being
-      # the largest share DESPITE being the only category swept is what a job
-      # falling behind looks like from outside.
-      #
-      # continue-on-error, NOT `|| true`. Both keep the pipeline going; only one
-      # leaves a mark. `|| true` discarded the exit code, so a run that hit its
-      # budget with rows still queued — or refused on --max-cluster — was
-      # indistinguishable from a clean sweep. The step now goes red while the job
-      # carries on to link-series, which still has to run.
-      #
-      # 600s, up from 300, matching the script's own default: the listing pass
-      # alone walks ~193k rows.
-      - name: Collapse duplicate imported events
-        continue-on-error: true
-        run: python mapsee_dedupe_events.py --max-seconds 600
-      # A weekly market publishes each Saturday as its own listing and nothing tied
-      # them together, so the map drew forty rows as forty separate things and Nearby
-      # listed the same market forty times. Runs AFTER the dedupe, so it never chains
-      # rows that were about to be deleted. Here rather than in the ingest for the same
-      # reason as above, plus one more: --only-new means a sync sees this week's
-      # occurrence and not the thirty already in the table.
-      - name: Chain repeating listings into one series
-        run: python mapsee_link_series.py --max-seconds 300 || true
       # A market geocode decides that market's FINGERPRINT, so it has to be
       # committed to be stable — an entry that lives only in the warm cache is one
       # eviction away from re-geocoding to a different cell and filing the market a
@@ -659,6 +740,34 @@ jobs:
         if: always()
         run: cp geocode_cache.json geocode_cache.warm.json
 
+      - name: Save feed caches even after an adapter failure
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            geocode_cache.warm.json
+            ics_feed_cache.json
+          key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Retain the feed store and step outcomes
+        if: always()
+        env:
+          STEP_RESULTS: ${{ toJSON(steps) }}
+        run: |
+          printf '%s' "$STEP_RESULTS" > feed-steps.json
+          python workflow_report.py feed-steps.json --group '${{ matrix.group }}'
+      - name: Upload recovery data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 7
+          path: |
+            feeds_events.json
+            feed-steps.json
+      - name: Fail when an import or sync failed
+        if: ${{ always() && contains(steps.*.outcome, 'failure') }}
+        run: exit 1
+
   # RunSignup: the whole 'running' and 'fitness' supply.
   #
   # WHY ITS OWN JOB rather than another step in `feeds`. It ingests ~12,500
@@ -676,10 +785,12 @@ jobs:
     name: Races (RunSignup + BikeReg — running, cycling, fitness)
     runs-on: ubuntu-latest
     # Daily cron + manual, alongside `feeds`; skipped on the Mon/Thu heavy cron.
-    if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+    if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *')) }}
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -757,10 +868,12 @@ jobs:
     name: OpenActive (UK leisure, community sport and volunteering sessions)
     runs-on: ubuntu-latest
     # Daily cron + manual, alongside `feeds`; skipped on the Mon/Thu heavy cron.
-    if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+    if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *')) }}
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -803,11 +916,13 @@ jobs:
     # Daily cron + manual. market_sources.json's own run_weekdays pins the sweep
     # to Mon+Thu, so on the other five days this job starts, prints one skip
     # line and exits in seconds.
-    if: ${{ github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+    if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *')) }}
     # Comfortably over the measured 3h, and under the 6h hosted-runner ceiling.
     timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -842,7 +957,7 @@ jobs:
     name: SeatGeek + Eventbrite + NPS + Localist + Sports
     runs-on: ubuntu-latest
     # only on the Mon/Thu cron + manual dispatch — NOT the daily cron (this is the heavy job)
-    if: ${{ github.event_name != 'schedule' || github.event.schedule == '40 6 * * 1,4' }}
+    if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event_name != 'schedule' || github.event.schedule == '40 6 * * 1,4') }}
     timeout-minutes: 120
     # same per-run geocode cap (TheSportsDB venue lookups) so this job also finishes
     # and persists its cache instead of timing out mid-backlog
@@ -850,6 +965,8 @@ jobs:
       GEOCODE_MAX_NEW: "1200"
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -975,11 +1092,13 @@ jobs:
     # IndexNow ping is not time-critical, and the alternative is announcing
     # everything EXCEPT a sweep that yields thousands of URLs. On the other five
     # days markets_osm exits in seconds and costs this job nothing.
-    needs: [ticketmaster, meetup, feeds, races, markets_osm, extra_sources]
+    needs: [ticketmaster, meetup, feeds, races, openactive, markets_osm, extra_sources]
     if: always()
-    timeout-minutes: 10
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -990,5 +1109,39 @@ jobs:
       # 26h, not 24: the daily cron is at 06:17 UTC and a run that starts late or
       # takes an hour must not leave a gap. Re-submitting a URL an engine has
       # already seen is a no-op; missing one costs it its whole crawlable life.
+      # One market reaches the map from a curated list, OpenStreetMap AND the USDA
+      # directories, and those sources run on different weekdays into a store that is
+      # rebuilt each run — so the duplicates only ever meet here, in the table.
+      #
+      # EVERY category now, not just market. Markets were the case somebody
+      # measured, never the only one: on 2026-08-12 the table held 4,871
+      # duplicate rows across fifteen categories, and markets were 2,107. Being
+      # the largest share DESPITE being the only category swept is what a job
+      # falling behind looks like from outside.
+      #
+      # continue-on-error, NOT `|| true`. Both keep the pipeline going; only one
+      # leaves a mark. `|| true` discarded the exit code, so a run that hit its
+      # budget with rows still queued — or refused on --max-cluster — was
+      # indistinguishable from a clean sweep. The step now goes red while the job
+      # carries on to link-series, which still has to run.
+      #
+      # 600s, up from 300, matching the script's own default: the listing pass
+      # alone walks ~193k rows.
+      - name: Collapse duplicate imported events
+        timeout-minutes: 12
+        if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+        continue-on-error: true
+        run: python mapsee_dedupe_events.py --max-seconds 600
+      # A weekly market publishes each Saturday as its own listing and nothing tied
+      # them together, so the map drew forty rows as forty separate things and Nearby
+      # listed the same market forty times. Runs AFTER the dedupe, so it never chains
+      # rows that were about to be deleted. Here rather than in the ingest for the same
+      # reason as above, plus one more: --only-new means a sync sees this week's
+      # occurrence and not the thirty already in the table.
+      - name: Chain repeating listings into one series
+        if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+        continue-on-error: true
+        timeout-minutes: 7
+        run: python mapsee_link_series.py --max-seconds 300
       - name: Submit
         run: python mapsee_indexnow.py --since-hours 26

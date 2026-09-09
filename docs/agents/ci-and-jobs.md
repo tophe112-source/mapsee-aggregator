@@ -3,6 +3,28 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: a job that worked for an hour and lost its work, `timeout-minutes`, `always()`, `--only-new` in CI, the order of the daily jobs, secrets, a config file a job needs.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A five-hour feed job still dropped seven imports.** Run `34220367595`
+  (2026-09-08) spent 223m34s in ICS, then hit its 300m limit in Tribe. Six later
+  adapters and the final sync were skipped. `feeds` now has three independent
+  groups: 1 ICS adapter, 18 local adapters, 8 civic adapters. Each has its own
+  cache, sync, retained store and step-outcome report. Failed adapter processes
+  continue to the sync but fail the job at the end. `feed_group` dispatches a
+  single group for recovery without rerunning the global sweeps. ICS checkpoints
+  its store and both caches after each attempted source; explicit cache/save
+  runs even after failures. IndexNow and database-wide maintenance wait for all
+  groups, including the formerly omitted OpenActive job.
+
+- **A cache warmer can delay every job without warming one area.** Food run
+  `34210805826` spent its entire 45m warm step on 29 of Portland's 30 tiles.
+  Area runners then cold-fetched again. Food now uses independent area caches,
+  retaining the four-runner concurrency limit. Its existing wall-clock budget
+  also bounds Overpass requests/retries. Incomplete area lists remain uncached.
+  Rio completed in 104m48s and synced; only artifact finalization failed (403).
+  Its cursor wrapped to 0, so no progress was lost that time. All three OSM
+  workflows now retry failed cursor uploads under a distinct artifact name and
+  fail if the retry fails. Weekly health audits also reapply their ledger onto
+  the current branch tip, retrying competing pushes five times like curation.
+
 - **`--only-new` is the default in CI.** It skips events already in the table, so
   a scheduled run can only ADD. Wednesday's daily run drops the flag and does a
   real refresh — that is the only time changes at the source reach the map.

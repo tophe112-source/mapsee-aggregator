@@ -452,9 +452,17 @@ def main(argv=None) -> int:
             total += ingest_ics(store, session, src)
         except Exception as exc:
             print(f"[ics] {src.get('name', '?')} FAILED: {exc}")
-    store.save()
-    _save_geo_cache(_GEO_CACHE)
-    _save_feed_cache(_FEED_CACHE)
+        finally:
+            # One source is the unit of recoverable work.  The Actions cache is
+            # uploaded only after the process exits, but its files used to be
+            # written only after every source: cancelling a long run discarded
+            # every Photon result learned so far and made the next run repay the
+            # same 1.1s lookups.  Keep the event store beside those caches at the
+            # same boundary so a caller can safely sync a deliberately bounded
+            # or interrupted run.
+            store.save()
+            _save_geo_cache(_GEO_CACHE)
+            _save_feed_cache(_FEED_CACHE)
     print(f"[ics] done: +{total} events processed; store now holds {len(store.records)} unique events.")
     return 0
 

@@ -305,10 +305,20 @@ jobs:
           PY
 
       - name: Hand up the cursor
+        id: cursor_upload
+        continue-on-error: true
         if: ${{ always() && steps.sync.outcome == 'success' }}
         uses: actions/upload-artifact@v4
         with:
           name: cursor-${{ strategy.job-index }}
+          path: cursor_slice.json
+          if-no-files-found: ignore
+          retention-days: 1
+      - name: Retry cursor handoff after an upload failure
+        if: ${{ always() && steps.cursor_upload.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: cursor-${{ strategy.job-index }}-retry
           path: cursor_slice.json
           if-no-files-found: ignore
           retention-days: 1
