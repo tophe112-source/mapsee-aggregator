@@ -27,3 +27,11 @@ osm_places_cache/
 .env
 .env.local
 eventbrite_local.json
+
+# Festival run products; persistent discovery is stored by its dedicated job.
+.venv/
+tmp/
+festival_events.json
+festival_report.json
+festival_discovery_state.json
+festival_schedule_state.json

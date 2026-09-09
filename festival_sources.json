@@ -1,0 +1,23 @@
+{
+  "festivals": [
+    {
+      "id": "jackson-street-jazz",
+      "name": "Jackson Street Jazz Festival",
+      "parser": "jackson-pdf",
+      "official_url": "https://jacksonstreetjazz.org/",
+      "schedule_url": "https://jacksonstreetjazz.org/schedule",
+      "ticket_url": "https://givebutter.com/jackson-street-jazz-festival",
+      "timezone": "America/Los_Angeles",
+      "venue": {
+        "name": "Jackson Street venues — Pratt Fine Arts Center",
+        "address": "1902 S Main St",
+        "city": "Seattle",
+        "region": "Washington",
+        "country": "US",
+        "lat": 47.6003107,
+        "lon": -122.307402,
+        "coordinate_source": "OpenStreetMap way 228732858 via Photon, verified 2026-09-09; festival welcome stage at Pratt per official schedule"
+      }
+    }
+  ]
+}

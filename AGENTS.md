@@ -38,6 +38,7 @@ front doors it reaches.
 | Where new sources come FROM | `discover <socrata\|ckan\|mobilizon\|osm>`; `curation_cursor.json` is how far each catalog query has been read |
 | Finding a VENUE's own calendar, anywhere on earth | `catalog_discover_osm.py` — OSM venues with a `website`, probed for a calendar and fingerprinted to an adapter |
 | US state fairs, as the fair itself | `mapsee_ingest_fairs.py` + `fair_sources.json` — 48 fairs, one multi-day event each. Identity and coordinates are curated; the DATES are scraped every run and never stored |
+| Music festivals with internal schedules | `mapsee_ingest_festivals.py`, `festival_pdf.py`, `catalog_discover_festivals.py`; `docs/agents/festival-schedules.md` — 24 agenda items across 12 Jackson Street stages verified 2026-09-09 |
 | Finding a whole TOWN's calendar | `catalog_discover_civic.py` — Wikidata cities with an official website (5,770 in the US), probed the same way. The city's own calendar, plus its tourism board where Wikipedia names one |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |

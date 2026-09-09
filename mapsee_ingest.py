@@ -184,6 +184,114 @@ def make_fingerprint(name: str, local_date: Optional[str], venue_name: Optional[
     return hashlib.sha1(basis.encode("utf-8")).hexdigest()
 
 
+_AGENDA_MAX = 60
+_AGENDA_LENGTHS = {"id": 40, "title": 120, "place": 80, "emoji": 24, "url": 300}
+
+
+def _validate_agenda_tz(value: str) -> str:
+    tz = str(value).strip()
+    if not tz or ZoneInfo is None:
+        raise ValueError("agenda_tz must be a valid IANA timezone")
+    try:
+        ZoneInfo(tz)
+    except Exception as exc:
+        raise ValueError(f"invalid agenda_tz: {tz!r}") from exc
+    return tz
+
+
+def _agenda_stamp(value: Any, field: str, tz_name: Optional[str]) -> datetime:
+    if not isinstance(value, str) or not value.strip() or "T" not in value.strip():
+        raise ValueError(f"agenda {field} must be an ISO timestamp")
+    raw = value.strip()
+    try:
+        dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"invalid agenda {field}: {value!r}") from exc
+    if dt.tzinfo is None:
+        if not tz_name:
+            raise ValueError(f"agenda {field} is naive and agenda_tz is missing")
+        zone = ZoneInfo(tz_name)
+        a, b = dt.replace(tzinfo=zone, fold=0), dt.replace(tzinfo=zone, fold=1)
+        if (a.utcoffset() != b.utcoffset() or
+                a.astimezone(timezone.utc).astimezone(zone).replace(tzinfo=None) != dt):
+            raise ValueError(f"agenda {field} is ambiguous or nonexistent in {tz_name}")
+        dt = a
+    return dt.astimezone(timezone.utc)
+
+
+def _parent_stamp(value: Optional[str], tz_name: Optional[str]) -> Optional[datetime]:
+    if not value:
+        return None
+    try:
+        return _agenda_stamp(str(value), "parent timestamp", tz_name)
+    except ValueError:
+        # Parent timestamps are legacy adapter data. If they cannot be parsed,
+        # leave bounds unenforced rather than rejecting an otherwise valid event.
+        return None
+
+
+def normalize_agenda(items: Any, agenda_tz: Optional[str], start_utc: Optional[str],
+                     end_utc: Optional[str], start_local: Optional[str],
+                     end_local: Optional[str]) -> List[Dict[str, Any]]:
+    """Validate and canonicalize the bounded agenda contract for one source."""
+    if not isinstance(items, list) or len(items) > _AGENDA_MAX:
+        raise ValueError(f"agenda must be a list of at most {_AGENDA_MAX} items")
+    tz_name = _validate_agenda_tz(agenda_tz) if agenda_tz is not None else None
+    lo = _parent_stamp(start_utc or start_local, tz_name)
+    hi = _parent_stamp(end_utc or end_local, tz_name)
+    out, seen = [], set()
+    for item in items:
+        if not isinstance(item, dict):
+            raise ValueError("each agenda item must be an object")
+        if not str(item.get("title") or "").strip():
+            raise ValueError("agenda title is required")
+        if "at" not in item:
+            raise ValueError("agenda at is required")
+        # Keep the canonical JSON shape identical to jsonb rows returned by
+        # PostgREST: nullable contract fields are present as null.
+        row = {key: None for key in ("id", "title", "place", "emoji", "url", "until")}
+        for key in ("id", "title", "place", "emoji", "url"):
+            if key in item and item[key] is not None:
+                val = str(item[key]).strip()
+                if not val:
+                    continue
+                if len(val) > _AGENDA_LENGTHS[key]:
+                    raise ValueError(f"agenda {key} exceeds {_AGENDA_LENGTHS[key]} characters")
+                if key == "url":
+                    parsed = urllib.parse.urlparse(val)
+                    if (parsed.scheme not in ("http", "https") or not parsed.netloc
+                            or any(ch.isspace() for ch in val)):
+                        raise ValueError("agenda url must be an absolute http(s) URL")
+                row[key] = val
+        at = _agenda_stamp(item.get("at"), "at", tz_name)
+        until = _agenda_stamp(item.get("until"), "until", tz_name) if item.get("until") else None
+        if until is not None and until <= at:
+            if until == at:
+                until = None
+                row["until"] = None
+            else:
+                raise ValueError("agenda until must be at or after at")
+        if lo is not None and at < lo or hi is not None and at > hi:
+            raise ValueError("agenda at is outside parent event bounds")
+        if until is not None and (lo is not None and until < lo or hi is not None and until > hi):
+            raise ValueError("agenda until is outside parent event bounds")
+        if not row.get("id"):
+            # Time corrections are common in festival feeds. The fallback ID
+            # must remain stable when only at/until changes.
+            basis = json.dumps({"title": row.get("title", ""), "place": row.get("place", ""),
+                                "emoji": row.get("emoji", "")},
+                               sort_keys=True, ensure_ascii=False)
+            row["id"] = hashlib.sha1(basis.encode("utf-8")).hexdigest()[:40]
+        if row["id"] in seen:
+            raise ValueError(f"duplicate agenda id: {row['id']!r}")
+        seen.add(row["id"])
+        row["at"] = at.strftime("%Y-%m-%dT%H:%M:%SZ")
+        if until is not None:
+            row["until"] = until.strftime("%Y-%m-%dT%H:%M:%SZ")
+        out.append(row)
+    return sorted(out, key=lambda x: (x["at"], x["id"]))
+
+
 # --------------------------------------------------------------------------- #
 # Normalized event model + deduplicating store
 # --------------------------------------------------------------------------- #
@@ -275,6 +383,17 @@ class NormalizedEvent:
     # the map could not tell you which corner had a lavatory on it. The Kind
     # already carried the right glyph and nothing had ever read it.
     icon: Optional[str] = None
+    # A source-owned programme embedded in this event.  None means the source
+    # did not publish an agenda; [] is an intentional refresh that clears it.
+    agenda: Optional[List[Dict[str, Any]]] = None
+    agenda_tz: Optional[str] = None
+
+    def __post_init__(self) -> None:
+        if self.agenda is not None:
+            self.agenda = normalize_agenda(self.agenda, self.agenda_tz, self.start_utc,
+                                           self.end_utc, self.start_local, self.end_local)
+        elif self.agenda_tz is not None:
+            self.agenda_tz = _validate_agenda_tz(self.agenda_tz)
 
     def source_ref(self) -> Dict[str, Optional[str]]:
         return {"source": self.source, "source_id": self.source_id, "url": self.ticket_url}
@@ -286,6 +405,12 @@ class NormalizedEvent:
         rec["sources"] = [self.source_ref()]
         rec["first_seen"] = now
         rec["last_seen"] = now
+        # Key absence is meaningful to sync: an adapter that does not know
+        # about agendas must not erase one supplied by another source.
+        if self.agenda is None:
+            rec.pop("agenda", None)
+        if self.agenda_tz is None:
+            rec.pop("agenda_tz", None)
         return rec
 
 
@@ -403,6 +528,16 @@ class EventStore:
                 return
         rec["sources"].append(ref)
 
+    def _refresh_agenda(self, rec: Dict[str, Any], ev: NormalizedEvent) -> None:
+        # Presence, rather than truthiness, is the contract: [] removes an
+        # agenda published by this source; None leaves another source's value.
+        if ev.agenda is not None:
+            rec["agenda"] = ev.agenda
+            if ev.agenda_tz is not None:
+                rec["agenda_tz"] = ev.agenda_tz
+        elif ev.agenda_tz is not None:
+            rec["agenda_tz"] = ev.agenda_tz
+
     def upsert(self, ev: NormalizedEvent) -> str:
         now = iso_now()
         key = (ev.source, ev.source_id)
@@ -426,6 +561,7 @@ class EventStore:
                     self.source_to_fp[key] = ev.fingerprint
                 self._add_source_ref(rec, ev)
                 self._fill_missing(rec, ev)
+                self._refresh_agenda(rec, ev)
                 rec["last_seen"] = now
                 self.stats["updated"] += 1
                 return "updated"
@@ -435,6 +571,7 @@ class EventStore:
             rec = self.records[ev.fingerprint]
             self._add_source_ref(rec, ev)
             self._fill_missing(rec, ev)
+            self._refresh_agenda(rec, ev)
             rec["last_seen"] = now
             self.source_to_fp[key] = ev.fingerprint
             self.stats["merged"] += 1
@@ -1197,5 +1334,3 @@ def main(argv: Optional[List[str]] = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
- 

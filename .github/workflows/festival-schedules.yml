@@ -1,0 +1,109 @@
+name: Festival schedules
+
+# Separate from the long global sweep: refresh edited agendas every 12 hours.
+# No PR trigger: only trusted code receives the database service role.
+on:
+  schedule:
+    - cron: '23 5,17 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: festival-schedules
+  cancel-in-progress: false
+
+jobs:
+  festivals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-festivals.txt
+      - name: Install dependencies
+        run: pip install -r requirements-festivals.txt
+      - name: Test schedule contracts before writing
+        run: |
+          python test_sync_agenda.py
+          python test_festival_pdf.py
+          python test_ingest_festivals.py
+          python test_discover_festivals.py
+      - uses: actions/cache/restore@v4
+        with:
+          path: |
+            festival_discovery_state.json
+            festival_schedule_state.json
+          key: festival-state-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: festival-state-v1-
+      - name: Discover worldwide festival candidates
+        id: discovery
+        continue-on-error: true
+        timeout-minutes: 6
+        run: python catalog_discover_festivals.py --limit 20
+      - name: Extract and validate official schedules
+        id: extract
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        timeout-minutes: 6
+        run: python mapsee_ingest_festivals.py --max-candidates 8 --max-seconds 240
+      - name: Sync successful extractions including schedule corrections
+        if: ${{ !cancelled() && hashFiles('festival_events.json') != '' }}
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          MAPSEE_HOST_PROFILE_ID: ${{ secrets.MAPSEE_HOST_PROFILE_ID }}
+        run: |
+          # Never --only-new: existing festival agendas must receive corrections.
+          python mapsee_supabase_sync.py --store festival_events.json --skip-unchanged
+          python verify_festival_sync.py
+      - name: Save discovery progress even when a source failed
+        if: ${{ always() && hashFiles('festival_discovery_state.json', 'festival_schedule_state.json') != '' }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            festival_discovery_state.json
+            festival_schedule_state.json
+          key: festival-state-v1-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Publish extraction evidence and review queue
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: festival-schedules-${{ github.run_id }}
+          path: |
+            festival_report.json
+            festival_events.json
+            festival_discovery_state.json
+            festival_schedule_state.json
+            tmp/festival-readback.json
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Summarize coverage and sources needing parser work
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path('festival_report.json')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              if not path.exists():
+                  out.write('No extraction report was produced. Inspect failed steps.\n')
+              else:
+                  r = json.loads(path.read_text())
+                  out.write(f"Imported store: {r['events']} festivals, {r['agenda_items']} agenda items; {r['requests']} HTTP requests.\n\n")
+                  out.write(f"Discovery candidates: {r['candidates_total']}; examined this run: {r['candidates_examined']}.\n\n")
+                  for s in r['results']:
+                      # Escape HTML from public titles in the rendered summary.
+                      import html
+                      out.write('- ' + html.escape(s.get('name', s.get('id', '?'))) + ': ' + html.escape(s['status']) +
+                                (' — ' + html.escape(s['reason']) if s.get('reason') else '') + '\n')
+          PY
+      - name: Fail visibly when discovery or configured extraction failed
+        if: ${{ always() && (steps.discovery.outcome == 'failure' || steps.extract.outcome == 'failure') }}
+        run: |
+          echo '::error::Festival discovery or a configured schedule failed; successful imports were retained. See artifacts.'
+          exit 1

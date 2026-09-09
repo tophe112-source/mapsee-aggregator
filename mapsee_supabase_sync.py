@@ -42,6 +42,7 @@ from zoneinfo import ZoneInfo
 from typing import Any, Dict, List, Optional, Tuple
 
 from mapsee_music_links import spotify_search_url, youtube_search_url, bandcamp_search_url, SpotifyResolver
+from mapsee_ingest import normalize_agenda
 
 try:                                  # resolved against the REAL requests, once
     from requests.exceptions import RequestException as _TransportError
@@ -959,6 +960,11 @@ def _compute_end(starts_at: Optional[str], real_end: Optional[str], category: st
 
 def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     """Map one normalized event -> a public.events row for PostgREST upsert."""
+    if "agenda" in rec and rec.get("agenda") is not None:
+        rec = dict(rec)
+        rec["agenda"] = normalize_agenda(rec["agenda"], rec.get("agenda_tz"),
+                                          rec.get("start_utc"), rec.get("end_utc"),
+                                          rec.get("start_local"), rec.get("end_local"))
     # Pin color by provenance, so imported listings read differently on the
     # map: TEAL = city open data, VIOLET = big-venue feeds (Ticketmaster).
     # Community-created events keep the app default blue (#2563eb).
@@ -1026,7 +1032,7 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     end_src = _to_utc_if_naive(rec.get("end_utc") or rec.get("end_local"), lat, lon)
     # A bare date means "all day HERE", not "midnight in London" — see _day_bounds.
     starts_at, end_src = _anchor_all_day(starts_at, end_src, lat, lon)
-    return {
+    row = {
         "title": _clean_text(rec.get("name")),
         "description": description,
         "lat": lat,
@@ -1084,6 +1090,18 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         # only ever written when true could only ever be turned on.
         "pin_only": bool(rec.get("pin_only")),
     }
+    # Optional agenda columns are presence-sensitive. Omitting them lets a
+    # source that does not publish a programme preserve one already in DB;
+    # [] is retained and intentionally clears it.
+    if "agenda" in rec:
+        # NULL is the database representation of an explicit empty refresh;
+        # omitting the key means preserve the existing source-owned agenda.
+        row["agenda"] = rec["agenda"] if rec["agenda"] else None
+    if "agenda_tz" in rec:
+        # A timezone supplied without an agenda is still source data and must
+        # be written; an explicit empty agenda clears both columns.
+        row["agenda_tz"] = None if ("agenda" in rec and not rec.get("agenda")) else rec["agenda_tz"]
+    return row
 
 
 def _recurring_hours(rec, lat, lon):
@@ -1369,8 +1387,14 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
     sent = skipped = lost = 0
     misses = 0                       # CONSECUTIVE batches the transport ate
     GIVE_UP_AFTER = 5                # ...before we call it an outage, not a blip
-    for i in range(0, len(rows), 50):               # fast path: batch upserts
-        chunk = rows[i:i + 50]
+    # PostgREST's bulk merge treats omitted keys inconsistently when objects in
+    # one JSON array have different shapes. Partition first so an agenda-less
+    # adapter row can never turn into an explicit null during a mixed batch.
+    groups = {}
+    for row in rows:
+        groups.setdefault(frozenset(row), []).append(row)
+    chunks = [group[i:i + 50] for group in groups.values() for i in range(0, len(group), 50)]
+    for chunk_index, chunk in enumerate(chunks):
         settled = 0                  # rows of THIS chunk already counted sent/skipped
         try:
             resp = _post_retry(chunk)
@@ -1415,7 +1439,7 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
             # x 30s on every remaining batch — hours of a job that cannot write
             # a single row — so stop asking once it is clearly not a blip.
             if misses >= GIVE_UP_AFTER:
-                remaining = max(0, len(rows) - (i + len(chunk)))
+                remaining = sum(len(c) for c in chunks[chunk_index + 1:])
                 lost += remaining
                 print(f"  ::error::giving up: {misses} consecutive batches went "
                       f"unanswered. Abandoning {remaining} further row(s) rather "
@@ -1589,6 +1613,26 @@ def _norm_cmp(col: str, v: Any) -> Any:
         return d.astimezone(timezone.utc) if d.tzinfo else _Unknown()
     if isinstance(v, bool) or v is None:
         return v
+    if col == "agenda" and isinstance(v, list):
+        # Supabase may return equivalent instants with an offset while our
+        # canonical writer uses UTC Z. Compare agenda JSON semantically.
+        normalized = []
+        for item in v:
+            if not isinstance(item, dict):
+                return _Unknown()
+            copy = dict(item)
+            for key in ("at", "until"):
+                if copy.get(key):
+                    try:
+                        stamp = str(copy[key]).replace("Z", "+00:00")
+                        dt = datetime.fromisoformat(stamp)
+                        if dt.tzinfo is None:
+                            return _Unknown()
+                        copy[key] = dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+                    except Exception:
+                        return _Unknown()
+            normalized.append(copy)
+        return sorted(normalized, key=lambda item: (item.get("at", ""), item.get("id", "")))
     if isinstance(v, (int, float)):
         return float(v)                      # 47.6 and 47.60000 arrive both ways
     if isinstance(v, (list, dict, str)):
