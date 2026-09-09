@@ -5,8 +5,11 @@
 - **One festival, 24 agenda items, 12 stages, 9 HTTP requests.** Measured on
   2026-09-09 against the Jackson Street organizer's current schedule PDF and
   Givebutter's public calendar button. Both specify 2026-09-12, 16:30–22:30 in
-  America/Los_Angeles. The timetable includes 2 start-only activities (welcome
-  and Pivot Dance); no end time is invented for them. The pin is the festival's
+  America/Los_Angeles. Two cells print start times only (welcome and Pivot Dance);
+  their grid end boundary is the next published slot on the same stage: 17:10
+  and 18:30 respectively. Explicit boundaries prevent the existing calendar
+  fallback from extending the 18:00 dance to 22:30 because another stage has a
+  simultaneous start. The pin is the festival's
   Pratt welcome-stage anchor, OpenStreetMap way 228732858, not an assertion
   that all performances happen at that coordinate. Each agenda item names its
   actual stage. Festival/year IDs and per-item IDs survive time corrections.

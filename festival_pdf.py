@@ -228,6 +228,18 @@ def parse_jackson_pdf(pdf_bytes: bytes, timezone: str = "America/Los_Angeles") -
             item["until"] = _iso(date, _clock(end_raw, start_clock[0]), timezone)
         items.append(item)
 
+    # Two cells print only a start, but their grid cells end at the next slot
+    # on the SAME stage. Preserve that boundary explicitly: Mapsee's generic
+    # calendar fallback sees simultaneous other stages and can otherwise extend
+    # the 6pm dance all the way to the festival's 10:30pm closing time.
+    for item in items:
+        if 'until' not in item:
+            following = [other['at'] for other in items
+                         if other['place'] == item['place'] and other['at'] > item['at']]
+            if not following:
+                raise FestivalPdfError('start-only grid cell has no following stage boundary')
+            item['until'] = min(following)
+
     counts = {}
     for item in sorted(items, key=lambda item: (item["at"], item["place"], item["title"])):
         key = (item["title"].casefold(), item["place"].casefold())

@@ -70,6 +70,8 @@ check(any(i["title"] == "Welcome: Eugenie Jones" and "T17:00" in i["at"] for i i
 check(any("PIVOT DANCE EMPORIUM" in i["title"] and "T18:00" in i["at"] for i in result["agenda"]), "Pivot Dance")
 check(any(i["title"] == "A Perfect Circle" for i in result["agenda"]), "single-letter artist words remain separate")
 check(len({i["id"] for i in result["agenda"]}) == 24, "stable IDs are unique")
+check(next(i for i in result['agenda'] if i['title'].startswith('PIVOT'))['until'].startswith('2026-09-12T18:30'), 'dance ends at the next grid slot on its stage, not festival closing')
+check(next(i for i in result['agenda'] if i['title'].startswith('Welcome:'))['until'].startswith('2026-09-12T17:10'), 'welcome ends at the next grid slot on its stage')
 check(all(set(i) >= {"id", "at", "title", "place"} for i in result["agenda"]), "agenda schema")
 
 try:
