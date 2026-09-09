@@ -71,7 +71,16 @@ def _clean(value: str) -> str:
     value = unicodedata.normalize("NFKC", value)
     value = re.sub(r"\s+", " ", value).strip(" ,")
     value = re.sub(r"(?<=\d) (?=\d)", "", value)
-    value = re.sub(r"\b([A-Z]) ([A-Za-z]{2,})\b", r"\1\2", value)
+    # The source font splits these words into two positioned glyph runs. Keep
+    # this repair deliberately narrow so a real artist such as "A Perfect
+    # Circle" is not silently rewritten as "APerfect Circle".
+    for broken, repaired in {
+        "Q uartet": "Quartet", "G uest": "Guest", "T rio": "Trio",
+        "B and": "Band", "B lues": "Blues", "F unk": "Funk",
+        "S oul": "Soul", "writ er": "writer", "S tage": "Stage",
+        "T HE": "THE", "L ISTENING": "LISTENING", "R OOM": "ROOM",
+    }.items():
+        value = value.replace(broken, repaired)
     value = re.sub(r"\s*:\s*", ":", value)
     return re.sub(r"\s*([–—-])\s*", r"\1", value)
 
@@ -183,7 +192,7 @@ def parse_jackson_pdf(pdf_bytes: bytes, timezone: str = "America/Los_Angeles") -
                                  if bounds[column] < s["x"] < bounds[column + 1] and s["y"] > 475))
         header_words = set(re.findall(r"[a-z0-9]+", header.casefold().replace("é", "e")))
         marker_words = set(re.findall(r"[a-z0-9]+", marker))
-        if rectangles and not marker_words <= header_words:
+        if not marker_words <= header_words:
             raise FestivalPdfError(f"layout changed: venue column {column + 1} does not match {marker!r}")
         body = _clean(" ".join(s["text"] for s in sorted(spans, key=lambda s: (-s["y"], s["x"]))
                                if bounds[column] < s["x"] < bounds[column + 1] and 35 < s["y"] < 470))

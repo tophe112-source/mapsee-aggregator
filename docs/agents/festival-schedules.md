@@ -34,7 +34,7 @@ actual stored agenda, timezone and parent window, not just a successful POST.
 
 `.github/workflows/festival-schedules.yml` runs at 05:23 and 17:23 UTC and can
 be dispatched manually. The extraction phase has a 240-second budget; discovery
-has a 300-second budget and processes at most 20 details, spaced 1.1 seconds
+has a 240-second MusicBrainz budget and processes at most 20 details, spaced 1.1 seconds
 apart. Known verified candidates receive a separate allowance of 8 refreshes
 before the rotating 8-candidate verification window. Registered sources run
 first. The overall job has a 20-minute ceiling including setup and sync.
@@ -49,7 +49,11 @@ summary and state artifact as pending; they are not silently marked imported.
 ## Coverage and improvement
 
 MusicBrainz's worldwide Festival event search supplies nominations and official
-homepage/schedule links. It is not an exhaustive directory of neighborhood
+homepage/schedule links. When that service is unavailable, an independent
+Wikidata music-festival query supplies up to 20 official websites under a
+45-second timeout, preserving both discovery cursors. The first production
+MusicBrainz search timed out after 10 seconds; the independent Wikidata probe
+returned 5 festival sites in 4 seconds on 2026-09-09. Neither is an exhaustive directory of neighborhood
 festivals. Search date windows stay fixed while paging; current organizer
 pages are the authority for schedules. No private API or paid search is needed.
 

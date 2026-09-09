@@ -1,5 +1,6 @@
 import os, tempfile, json
 import requests
+from unittest.mock import patch
 from urllib.parse import parse_qs, urlparse
 import catalog_discover_festivals as festivals
 
@@ -9,7 +10,7 @@ class Response:
         if self.status_code >= 400: raise requests.HTTPError(str(self.status_code))
     def json(self): return self.payload
 class Session:
-    def __init__(self, responses): self.responses, self.calls = list(responses), []
+    def __init__(self, responses): self.responses, self.calls, self.headers = list(responses), [], {}
     def get(self, url, **kwargs): self.calls.append((url, kwargs)); return self.responses.pop(0)
 def event(i="abc", cancelled=False):
     return {"id": i, "name": "World Music Fest", "cancelled": cancelled, "life-span": {"begin": "2027-07-01", "end": "2027-07-03"}, "area": {"name": "Canada", "iso-3166-1-codes": ["CA"]}, "relations": [{"type": "official homepage", "url": {"resource": "https://fest.example"}}, {"type": "schedule", "url": {"resource": "https://fest.example/schedule"}}, {"type": "held at", "place": {"coordinates": {"latitude": "45.5", "longitude": "-73.6"}}}]}
@@ -48,5 +49,13 @@ def run():
         except ValueError: pass
         else: raise AssertionError('malformed response accepted')
         assert open(path).read() == before
+        bindings = [{'festival':{'value':'http://www.wikidata.org/entity/Q12'},
+                     'festivalLabel':{'value':'Jazz Festival'},'site':{'value':'https://festival.example'}}] * 2
+        with patch('catalog_discover_civic._sparql', return_value=bindings):
+            r = festivals.discover_wikidata(path, limit=2, session=Session([]))
+        assert r['wikidata_cursor'] == 2  # raw rows, not unique festival count
+        assert len([c for c in r['candidates'] if c['source']=='wikidata']) == 1
+        assert r['cursor']['offset'] == 2  # primary cursor survives fallback
+        assert r['stats']['backend'] == 'wikidata'
     print("ok discover festivals")
 if __name__ == "__main__": run()

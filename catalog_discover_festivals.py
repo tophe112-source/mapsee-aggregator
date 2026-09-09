@@ -11,7 +11,7 @@ ENDPOINT = "https://musicbrainz.org/ws/2"
 DEFAULT_STATE = os.path.join(HERE, "festival_discovery_state.json")
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 PAGE_SIZE, MAX_PAGE_SIZE = 20, 20
-DETAIL_DELAY, BUDGET_SECONDS, DEFAULT_TIMEOUT = 1.1, 300, 10
+DETAIL_DELAY, BUDGET_SECONDS, DEFAULT_TIMEOUT = 1.1, 240, 20
 
 def _date(value: Optional[str]):
     try: return dt.date.fromisoformat(value[:10]) if value else None
@@ -104,13 +104,61 @@ def discover(session=None, limit=PAGE_SIZE, timeout=DEFAULT_TIMEOUT, state_path=
         processed += 1
     complete = processed >= len(events); total = payload.get("count")
     next_offset = offset + processed if not complete else (0 if total is None or offset + len(events) >= total else offset + processed)
-    result = {"candidates": list(by_id.values()), "cursor": {"offset": next_offset, "begin": window_begin.isoformat() if next_offset else None, "examined": int(cursor.get("examined", 0) or 0) + processed}, "stats": {"examined": processed, "total": total, "failure": failure}}
+    result = {**state, "candidates": list(by_id.values()), "cursor": {"offset": next_offset, "begin": window_begin.isoformat() if next_offset else None, "examined": int(cursor.get("examined", 0) or 0) + processed}, "stats": {"examined": processed, "total": total, "failure": failure, "backend": "musicbrainz"}}
     if state_path: _save(state_path, result)
     return result
 
+def discover_wikidata(state_path=DEFAULT_STATE, limit=20, session=None):
+    """Independent directory of festival identities, never inferred editions.
+
+    The official-site verifier must still prove a complete upcoming timetable.
+    Raw SPARQL rows drive the cursor because one festival can have two websites.
+    """
+    from catalog_discover_civic import _sparql
+    state = _load(state_path)
+    offset = max(0, int(state.get('wikidata_cursor', 0)))
+    limit = max(1, min(int(limit), 20))
+    query = f'''
+SELECT ?festival ?festivalLabel ?site WHERE {{
+  ?festival wdt:P31/wdt:P279* wd:Q868557 ; wdt:P856 ?site .
+  SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
+}}
+ORDER BY ?festival ?site LIMIT {limit} OFFSET {offset}
+'''
+    session = session or requests.Session()
+    session.headers.update({'User-Agent': UA, 'Accept': 'application/sparql-results+json'})
+    rows = _sparql(session, query, timeout=45)
+    if not isinstance(rows, list):
+        raise ValueError('malformed Wikidata result')
+    by_id = {c['source_id']: c for c in state.get('candidates', [])}
+    for row in rows:
+        qid = row['festival']['value'].rsplit('/', 1)[-1]
+        if not re.fullmatch(r'Q\d+', qid):
+            raise ValueError('invalid Wikidata festival identity')
+        sid = 'wikidata:' + qid
+        prior = by_id.get(sid, {})
+        by_id[sid] = {**prior, 'source': 'wikidata', 'source_id': sid,
+                     'name': row.get('festivalLabel', {}).get('value', qid),
+                     'official_url': row['site']['value'], 'schedule_url': None,
+                     'dates': {}, 'country': None, 'status': prior.get('status', 'pending')}
+    state.update(candidates=list(by_id.values()),
+                 wikidata_cursor=offset + len(rows) if len(rows) == limit else 0,
+                 stats={'backend': 'wikidata', 'examined': len(rows), 'failure': None,
+                        'fallback_reason': 'MusicBrainz unavailable; cursor preserved for next run'})
+    _save(state_path, state)
+    return state
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__); p.add_argument("--limit", type=int, default=PAGE_SIZE); p.add_argument("--timeout", type=float, default=DEFAULT_TIMEOUT); p.add_argument("--state", default=DEFAULT_STATE); p.add_argument("--out")
-    a = p.parse_args(argv); result = discover(limit=a.limit, timeout=a.timeout, state_path=a.state)
+    a = p.parse_args(argv)
+    try:
+        result = discover(limit=a.limit, timeout=a.timeout, state_path=a.state)
+        if result['stats'].get('failure'):
+            raise RuntimeError(result['stats']['failure'])
+    except (requests.RequestException, ValueError, RuntimeError):
+        print('::warning::MusicBrainz unavailable; trying independent Wikidata festival discovery.')
+        result = discover_wikidata(state_path=a.state, limit=a.limit)
     if a.out: _save(a.out, result)
     else: json.dump(result, sys.stdout, indent=2, ensure_ascii=False); print()
     return 1 if result['stats'].get('failure') else 0
