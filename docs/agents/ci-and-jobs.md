@@ -25,6 +25,15 @@
   fail if the retry fails. Weekly health audits also reapply their ledger onto
   the current branch tip, retrying competing pushes five times like curation.
 
+- **Refresh day must be a day the job actually runs.** The extra-source job has
+  two weekly slots (Monday/Thursday) but checked Wednesday before dropping
+  `--only-new`: zero scheduled refreshes per week. It now refreshes Thursday.
+  OSM food and second-hand now match amenities: `--skip-unchanged` refreshes
+  existing rows during ordinary cursor rotation, while the sync's claimed-owner
+  guard preserves owner edits. `full_refresh` still restarts the cursor; normal
+  runs keep their progress. OSM's 30-day place-cache TTL still bounds how soon
+  changes at OpenStreetMap itself can be observed.
+
 - **`--only-new` is the default in CI.** It skips events already in the table, so
   a scheduled run can only ADD. Wednesday's daily run drops the flag and does a
   real refresh — that is the only time changes at the source reach the map.

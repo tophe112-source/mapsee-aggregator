@@ -1046,7 +1046,8 @@ jobs:
       - name: Sync extra sources + Eventbrite to Supabase
         run: |
           ONLY_NEW="--only-new"
-          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
+          # This job is scheduled Mon/Thu, so Wednesday refresh never ran.
+          [ "$(date -u +%u)" = "4" ] && ONLY_NEW=""   # Thursday refresh for extra sources
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           if [ -f extra_events.json ]; then
             python mapsee_supabase_sync.py --store extra_events.json --skip-unchanged $ONLY_NEW

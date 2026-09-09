@@ -48,6 +48,9 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('matrix.group', save['with']['key'])
         self.assertIn("contains(steps.*.outcome, 'failure')", steps[-1]['if'])
         self.assertIn('openactive', workflow['jobs']['indexnow']['needs'])
+        extra = next(s for s in workflow['jobs']['extra_sources']['steps']
+                     if s.get('name') == 'Sync extra sources + Eventbrite to Supabase')
+        self.assertIn('"$(date -u +%u)" = "4"', extra['run'])
 
     def test_report_uses_failure_outcome_not_tolerated_conclusion(self):
         text = report({'ingest_ics': {'outcome': 'failure', 'conclusion': 'success'},
@@ -72,6 +75,19 @@ class WorkflowContracts(unittest.TestCase):
         save = next(s for s in food['jobs']['pull']['steps'] if s.get('uses') == 'actions/cache/save@v4')
         self.assertEqual(save['if'], 'always()')
         self.assertIn('matrix.area', save['with']['key'])
+
+    def test_osm_place_windows_refresh_changed_rows(self):
+        for name in ('osm-food', 'osm-secondhand'):
+            workflow = yaml.safe_load(
+                (ROOT / f'.github/workflows/{name}.yml').read_text(encoding='utf-8'))
+            steps = workflow['jobs']['pull']['steps']
+            pull = next(s for s in steps if s.get('name', '').startswith('Pull '))['run']
+            sync = next(s for s in steps if s.get('name') == 'Sync to Supabase')['run']
+            command = next(line.strip() for line in sync.splitlines()
+                           if line.strip().startswith('python mapsee_supabase_sync.py'))
+            self.assertIn("full_refresh == 'true' && '--ignore-cursor'", pull, name)
+            self.assertIn('--skip-unchanged', command, name)
+            self.assertNotIn('--only-new', command, name)
 
 
 if __name__ == '__main__':

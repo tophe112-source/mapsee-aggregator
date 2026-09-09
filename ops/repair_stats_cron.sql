@@ -30,3 +30,17 @@ select jobid, jobname, schedule, active, command
 from cron.job where jobname = 'mapsee-refresh-stats';
 select kind, computed_at from public.stats_snapshot
 where kind in ('overview', 'sources', 'categories');
+
+-- The related venue sitemap job also failed at 120s on 2026-09-09. Inspect it
+-- before applying the same bounded fix; preserve its daily 04:41 schedule.
+select jobid, jobname, schedule, active, command from cron.job
+where jobname = 'mapsee-refresh-venue-sitemap';
+select cron.alter_job(jobid, command := $cmd$
+set statement_timeout = '10min'; select public.refresh_venue_sitemap();
+$cmd$)
+from cron.job
+where jobname = 'mapsee-refresh-venue-sitemap' and active
+  and regexp_replace(command, '\s+', '', 'g') = 'selectpublic.refresh_venue_sitemap();';
+-- Optional catch-up, followed by readback:
+-- set statement_timeout = '10min'; select public.refresh_venue_sitemap();
+select kind, computed_at from public.stats_snapshot where kind = 'cron:venue_sitemap';
