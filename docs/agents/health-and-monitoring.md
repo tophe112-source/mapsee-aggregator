@@ -14,6 +14,9 @@
   all three core rows advanced to `2026-09-09T13:35:31Z`. Check database state
   before retrying an ambiguous UI response. The next health run evaluated
   sources instead of failing on stale statistics.
+  The venue sitemap's daily job 2 had the same 120s failure; its guarded command
+  repair and catch-up advanced `cron:venue_sitemap` from August 30 to September 9
+  at `13:48:28Z`, also verified through the public snapshot RPC.
 
 - **Community posting activity is not an ingest schedule.** After the snapshot
   repair, run `34358782959` had one finding: `community` had no new event for
