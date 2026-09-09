@@ -167,12 +167,12 @@ def identity(source_id, edition):
     return hashlib.sha1(f'festival:{source_id}:{edition}'.encode()).hexdigest()
 
 
-def jackson_pdf_url(page_body, fetcher):
+def jackson_pdf_url(page_body, fetcher, page_url='https://jacksonstreetjazz.org/schedule'):
     """Follow public Homestead page assets, never execute their JavaScript."""
     page = Page(page_body)
     direct = [u for u in page.links if urlsplit(u).path.lower().endswith('.pdf') and 'schedule' in u.lower()]
     if len(set(direct)) == 1:
-        return direct[0]
+        return urljoin(page_url, direct[0])
     urls = []
     for asset in page.scripts:
         # Site content explicitly referenced by the page; do not fetch analytics,

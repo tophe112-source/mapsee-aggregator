@@ -63,6 +63,7 @@ def main():
                     'fileName': 'new-id/2027 Schedule.pdf'}]}) + ';').encode()
     url = jackson_pdf_url('<script src="https://storage.googleapis.com/wzukusers/user-1/current.js"></script>', Assets())
     assert url.endswith('new-id/2027%20Schedule.pdf')
+    assert jackson_pdf_url('<a href="/files/schedule.pdf">Schedule</a>', Assets()) == 'https://jacksonstreetjazz.org/files/schedule.pdf'
     calendar = Page('<add-to-calendar-button startDate="2026-09-12" timeZone="America/Los_Angeles">').calendars[0]
     assert calendar['startdate'] == '2026-09-12' and calendar['timezone'] == 'America/Los_Angeles'
 
