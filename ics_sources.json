@@ -4721,5 +4721,14 @@
   "geocode_suffix": ", Gdansk, PL",
   "limit": 300,
   "_metro": "Gdansk, PL"
+ },
+ {
+  "name": "Sri Layan Sithi Vinayagar Temple",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://sttemple.com/wp-content/uploads/2026/04/All_Events_English-2026_2027.ics",
+  "geocode_suffix": ", Singapore",
+  "limit": 300,
+  "_metro": "Singapore, SG"
  }
 ]

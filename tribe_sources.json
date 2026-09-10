@@ -5774,6 +5774,75 @@
         "lon": 18.53611
       },
       "_metro": "Gdansk, PL"
+    },
+    {
+      "name": "SIMP Wrocław",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://wroclaw.simp.pl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SIMP Wrocław",
+        "address": "74 Marszałka Józefa Piłsudskiego",
+        "city": "Wrocław",
+        "postal_code": "50-020",
+        "lat": 51.1015477,
+        "lon": 17.0322617
+      },
+      "_metro": "Wroclaw, PL"
+    },
+    {
+      "name": "Church of St. Michael",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://stmichael.catholic.sg",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Church of St. Michael",
+        "address": "17 Saint Michael's Road",
+        "city": "Singapore",
+        "postal_code": "327976",
+        "country": "SG",
+        "lat": 1.3261476,
+        "lon": 103.8628743
+      },
+      "_metro": "Singapore, SG"
+    },
+    {
+      "name": "Burmese Buddhist Temple",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.bbt.org.sg",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Burmese Buddhist Temple",
+        "address": "14 Tai Gin Road",
+        "city": "Singapore",
+        "postal_code": "327873",
+        "lat": 1.3284306,
+        "lon": 103.8469406
+      },
+      "_metro": "Singapore, SG"
+    },
+    {
+      "name": "Christ Methodist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cmc.org.sg",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christ Methodist Church",
+        "address": "597 East Coast Road",
+        "city": "Singapore",
+        "postal_code": "429082",
+        "lat": 1.3103357,
+        "lon": 103.9161747
+      },
+      "_metro": "Singapore, SG"
     }
   ],
   "_not_included": {
