@@ -4730,5 +4730,446 @@
   "geocode_suffix": ", Singapore",
   "limit": 300,
   "_metro": "Singapore, SG"
+ },
+ {
+  "name": "Minot — City Events",
+  "category": "community",
+  "url": "https://www.minotnd.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Minot, North Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Minot, North Dakota"
+ },
+ {
+  "name": "Bothell — City of Bothell Events",
+  "category": "community",
+  "url": "https://bothellwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Bothell, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City of Bothell Events]",
+  "_metro": "Bothell, Washington"
+ },
+ {
+  "name": "Rancho Santa Margarita — Main Calendar",
+  "category": "community",
+  "url": "https://www.cityofrsm.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Rancho Santa Margarita, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Rancho Santa Margarita, California"
+ },
+ {
+  "name": "Rancho Santa Margarita — Community Calendar",
+  "category": "community",
+  "url": "https://www.cityofrsm.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Rancho Santa Margarita, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Calendar]",
+  "_metro": "Rancho Santa Margarita, California"
+ },
+ {
+  "name": "Rancho Santa Margarita — Senior Services",
+  "category": "community",
+  "url": "https://www.cityofrsm.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Rancho Santa Margarita, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Services]",
+  "_metro": "Rancho Santa Margarita, California"
+ },
+ {
+  "name": "East Lansing — Events",
+  "category": "community",
+  "url": "https://www.cityofeastlansing.com/common/modules/iCalendar/iCalendar.aspx?catID=48&feed=calendar",
+  "geocode_suffix": ", East Lansing, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "East Lansing, Michigan"
+ },
+ {
+  "name": "Middletown — Community Calendar",
+  "category": "community",
+  "url": "https://www.middletownct.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Middletown, Connecticut",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Calendar]",
+  "_metro": "Middletown, Connecticut"
+ },
+ {
+  "name": "Middletown — Clean Energy Task Force",
+  "category": "community",
+  "url": "https://www.middletownct.gov/common/modules/iCalendar/iCalendar.aspx?catID=50&feed=calendar",
+  "geocode_suffix": ", Middletown, Connecticut",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Clean Energy Task Force]",
+  "_metro": "Middletown, Connecticut"
+ },
+ {
+  "name": "Middletown — Harbor Improvement Agency",
+  "category": "community",
+  "url": "https://www.middletownct.gov/common/modules/iCalendar/iCalendar.aspx?catID=66&feed=calendar",
+  "geocode_suffix": ", Middletown, Connecticut",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Harbor Improvement Agency]",
+  "_metro": "Middletown, Connecticut"
+ },
+ {
+  "name": "Middletown — Inland/Wetlands and Water Courses Agency",
+  "category": "community",
+  "url": "https://www.middletownct.gov/common/modules/iCalendar/iCalendar.aspx?catID=69&feed=calendar",
+  "geocode_suffix": ", Middletown, Connecticut",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Inland/Wetlands and Water Courses Agency]",
+  "_metro": "Middletown, Connecticut"
+ },
+ {
+  "name": "Middletown — American Rescue Plan Task Force",
+  "category": "community",
+  "url": "https://www.middletownct.gov/common/modules/iCalendar/iCalendar.aspx?catID=130&feed=calendar",
+  "geocode_suffix": ", Middletown, Connecticut",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[American Rescue Plan Task Force]",
+  "_metro": "Middletown, Connecticut"
+ },
+ {
+  "name": "Middletown — Anti-Racism Task Force",
+  "category": "community",
+  "url": "https://www.middletownct.gov/common/modules/iCalendar/iCalendar.aspx?catID=124&feed=calendar",
+  "geocode_suffix": ", Middletown, Connecticut",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Anti-Racism Task Force]",
+  "_metro": "Middletown, Connecticut"
+ },
+ {
+  "name": "Burleson — City of Burleson Events Calendar",
+  "category": "community",
+  "url": "https://www.burlesontx.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Burleson, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City of Burleson Events Calendar]",
+  "_metro": "Burleson, Texas"
+ },
+ {
+  "name": "Burleson — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.burlesontx.com/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Burleson, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Burleson, Texas"
+ },
+ {
+  "name": "Burleson — Library Programs",
+  "category": "community",
+  "url": "https://www.burlesontx.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Burleson, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Programs]",
+  "_metro": "Burleson, Texas"
+ },
+ {
+  "name": "Burleson — Russell Farm Art Center",
+  "category": "community",
+  "url": "https://www.burlesontx.com/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar",
+  "geocode_suffix": ", Burleson, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Russell Farm Art Center]",
+  "_metro": "Burleson, Texas"
+ },
+ {
+  "name": "Burleson — Senior Activity Center",
+  "category": "community",
+  "url": "https://www.burlesontx.com/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Burleson, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Activity Center]",
+  "_metro": "Burleson, Texas"
+ },
+ {
+  "name": "Burleson — Library Outreach",
+  "category": "community",
+  "url": "https://www.burlesontx.com/common/modules/iCalendar/iCalendar.aspx?catID=52&feed=calendar",
+  "geocode_suffix": ", Burleson, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Outreach]",
+  "_metro": "Burleson, Texas"
+ },
+ {
+  "name": "Brea — Special Events",
+  "category": "community",
+  "url": "https://www.cityofbrea.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Brea, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Brea, California"
+ },
+ {
+  "name": "Fort Pierce — Community Calendar",
+  "category": "community",
+  "url": "https://www.cityoffortpierce.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Fort Pierce, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Calendar]",
+  "_metro": "Fort Pierce, Florida"
+ },
+ {
+  "name": "Ocoee — City of Ocoee Calendar of Events",
+  "category": "community",
+  "url": "https://www.ocoee.org/common/modules/iCalendar/iCalendar.aspx?catID=66&feed=calendar",
+  "geocode_suffix": ", Ocoee, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City of Ocoee Calendar of Events]",
+  "_metro": "Ocoee, Florida"
+ },
+ {
+  "name": "Winter Garden — City Events",
+  "category": "community",
+  "url": "https://www.cwgdn.com/common/modules/iCalendar/iCalendar.aspx?catID=54&feed=calendar",
+  "geocode_suffix": ", Winter Garden, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Winter Garden, Florida"
+ },
+ {
+  "name": "Attleboro — Main Calendar",
+  "category": "community",
+  "url": "https://www.cityofattleboro.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Attleboro, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Attleboro, Massachusetts"
+ },
+ {
+  "name": "Attleboro — Community Events",
+  "category": "community",
+  "url": "https://www.cityofattleboro.us/common/modules/iCalendar/iCalendar.aspx?catID=48&feed=calendar",
+  "geocode_suffix": ", Attleboro, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Attleboro, Massachusetts"
+ },
+ {
+  "name": "Little Elm — Main Town Calendar",
+  "category": "community",
+  "url": "https://www.littleelm.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Little Elm, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Town Calendar]",
+  "_metro": "Little Elm, Texas"
+ },
+ {
+  "name": "Little Elm — Garage Sales",
+  "category": "community",
+  "url": "https://www.littleelm.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Little Elm, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Garage Sales]",
+  "_metro": "Little Elm, Texas"
+ },
+ {
+  "name": "Little Elm — Police Department Training Calendar",
+  "category": "community",
+  "url": "https://www.littleelm.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
+  "geocode_suffix": ", Little Elm, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Department Training Calendar]",
+  "_metro": "Little Elm, Texas"
+ },
+ {
+  "name": "Little Elm — Fire Department",
+  "category": "community",
+  "url": "https://www.littleelm.gov/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar",
+  "geocode_suffix": ", Little Elm, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Fire Department]",
+  "_metro": "Little Elm, Texas"
+ },
+ {
+  "name": "Little Elm — Police Department",
+  "category": "community",
+  "url": "https://www.littleelm.gov/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar",
+  "geocode_suffix": ", Little Elm, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Department]",
+  "_metro": "Little Elm, Texas"
+ },
+ {
+  "name": "Westfield — Main Calendar",
+  "category": "community",
+  "url": "https://www.westfieldin.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Westfield, Indiana",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Westfield, Indiana"
+ },
+ {
+  "name": "Westfield — Events Calendar",
+  "category": "community",
+  "url": "https://www.westfieldin.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Westfield, Indiana",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events Calendar]",
+  "_metro": "Westfield, Indiana"
+ },
+ {
+  "name": "Altamonte Springs — ASREC - Seniors",
+  "category": "community",
+  "url": "https://www.altamonte.org/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Altamonte Springs, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[ASREC - Seniors]",
+  "_metro": "Altamonte Springs, Florida"
+ },
+ {
+  "name": "Altamonte Springs — City Calendar",
+  "category": "community",
+  "url": "https://www.altamonte.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Altamonte Springs, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Calendar]",
+  "_metro": "Altamonte Springs, Florida"
+ },
+ {
+  "name": "Altamonte Springs — ASREC - Special Needs",
+  "category": "community",
+  "url": "https://www.altamonte.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Altamonte Springs, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[ASREC - Special Needs]",
+  "_metro": "Altamonte Springs, Florida"
+ },
+ {
+  "name": "Altamonte Springs — City Library",
+  "category": "community",
+  "url": "https://www.altamonte.org/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Altamonte Springs, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Library]",
+  "_metro": "Altamonte Springs, Florida"
+ },
+ {
+  "name": "Altamonte Springs — ASREC - Recreation",
+  "category": "community",
+  "url": "https://www.altamonte.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Altamonte Springs, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[ASREC - Recreation]",
+  "_metro": "Altamonte Springs, Florida"
+ },
+ {
+  "name": "Altamonte Springs — Uptown Altamonte",
+  "category": "community",
+  "url": "https://www.altamonte.org/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Altamonte Springs, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Uptown Altamonte]",
+  "_metro": "Altamonte Springs, Florida"
+ },
+ {
+  "name": "Huntsville — Library",
+  "category": "community",
+  "url": "https://www.huntsvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Huntsville, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Huntsville, Texas"
+ },
+ {
+  "name": "Huntsville — Wynne Home Events",
+  "category": "community",
+  "url": "https://www.huntsvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Huntsville, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Wynne Home Events]",
+  "_metro": "Huntsville, Texas"
+ },
+ {
+  "name": "Urbandale — Community Events",
+  "category": "community",
+  "url": "https://www.urbandale.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Urbandale, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Urbandale, Iowa"
+ },
+ {
+  "name": "Urbandale — Concerts",
+  "category": "community",
+  "url": "https://www.urbandale.org/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar",
+  "geocode_suffix": ", Urbandale, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Concerts]",
+  "_metro": "Urbandale, Iowa"
+ },
+ {
+  "name": "Urbandale — Library Events",
+  "category": "community",
+  "url": "https://www.urbandale.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Urbandale, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Events]",
+  "_metro": "Urbandale, Iowa"
+ },
+ {
+  "name": "Urbandale — Mobile Recreation",
+  "category": "community",
+  "url": "https://www.urbandale.org/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar",
+  "geocode_suffix": ", Urbandale, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Mobile Recreation]",
+  "_metro": "Urbandale, Iowa"
+ },
+ {
+  "name": "Urbandale — Sports & Recreation",
+  "category": "community",
+  "url": "https://www.urbandale.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Urbandale, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Sports & Recreation]",
+  "_metro": "Urbandale, Iowa"
+ },
+ {
+  "name": "Librairie le Baobab",
+  "category": "learning",
+  "_found": "osm:books -> ics",
+  "url": "https://www.librairielebaobab.com/events/ical/",
+  "geocode_suffix": ", Brussels, BE",
+  "limit": 300,
+  "_metro": "Brussels, BE"
+ },
+ {
+  "name": "Artincelle",
+  "category": "community",
+  "_found": "osm:community_centre -> my-calendar+jsonld-event",
+  "url": "https://www.artincelle.be/?feed=my-calendar-ics",
+  "geocode_suffix": ", Brussels, BE",
+  "limit": 300,
+  "_metro": "Brussels, BE"
+ },
+ {
+  "name": "ZSenne ArtLab",
+  "category": "arts",
+  "_found": "osm:gallery -> my-calendar+jsonld-event",
+  "url": "https://www.zsenne.be/?feed=my-calendar-ics",
+  "geocode_suffix": ", Brussels, BE",
+  "limit": 300,
+  "_metro": "Brussels, BE"
+ },
+ {
+  "name": "Église Saint-Joseph",
+  "category": "community",
+  "_found": "osm:place_of_worship -> my-calendar",
+  "url": "https://sjoseph.be/?feed=my-calendar-ics",
+  "geocode_suffix": ", Brussels, BE",
+  "limit": 300,
+  "_metro": "Brussels, BE"
+ },
+ {
+  "name": "Beth Hillel",
+  "category": "community",
+  "_found": "osm:place_of_worship -> events-manager",
+  "url": "https://www.beth-hillel.org/evenements/?ical=1",
+  "geocode_suffix": ", Brussels, BE",
+  "limit": 300,
+  "_metro": "Brussels, BE"
  }
 ]

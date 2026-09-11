@@ -5843,6 +5843,358 @@
         "lon": 103.9161747
       },
       "_metro": "Singapore, SG"
+    },
+    {
+      "name": "W:Halll",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://whalll.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "W:Halll",
+        "lat": 50.8374107,
+        "lon": 4.4277342
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "La Page d'Après",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lapagedapres.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Page d'Après",
+        "address": "3 Rue des Wallons",
+        "city": "Ottignies-Louvain-La-Neuve",
+        "postal_code": "1348",
+        "lat": 50.6696129,
+        "lon": 4.6155722
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Centre culturel Bruegel",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://ccbruegel.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre culturel Bruegel",
+        "lat": 50.8369148,
+        "lon": 4.3471409
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Kings of Comedy Club",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lekings.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kings of Comedy Club",
+        "lat": 50.8151875,
+        "lon": 4.3900051
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "KSA Walfergem",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "http://www.ksawalfergem.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "KSA Walfergem",
+        "address": "8 Stevensveld",
+        "lat": 50.9011036,
+        "lon": 4.2197036
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Koninklijk Verbond der Jaartallen",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://jaartallen1890.wpcomstaging.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Koninklijk Verbond der Jaartallen",
+        "address": "8A Grote Markt",
+        "city": "Leuven",
+        "postal_code": "3000",
+        "lat": 50.8789404,
+        "lon": 4.7013914
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Zik-Zak",
+      "category": "music",
+      "_found": "osm:music_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://zik-zak.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Zik-Zak",
+        "address": "28 Rue de Tubize",
+        "city": "Ittre",
+        "postal_code": "1460",
+        "country": "BE",
+        "lat": 50.6572191,
+        "lon": 4.2190284
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Brasserie iLLeGaaL",
+      "category": "community",
+      "_found": "osm:venue_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://brasserie-illegaal.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brasserie iLLeGaaL",
+        "lat": 50.8111831,
+        "lon": 4.3064801
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Entr’Aide des Marolles",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://entraide-marolles.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Entr’Aide des Marolles",
+        "lat": 50.8377979,
+        "lon": 4.3437204
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "huisvandeMens Halle",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://demens.nu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "huisvandeMens Halle",
+        "address": "28 Molenborre",
+        "city": "Halle",
+        "postal_code": "1500",
+        "lat": 50.7334988,
+        "lon": 4.2337905
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "ReMuA",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://remua.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ReMuA",
+        "lat": 50.8273294,
+        "lon": 4.3743053
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Novum",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.novum.brussels",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Novum",
+        "lat": 50.8338391,
+        "lon": 4.4074541
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "La Ferme Rose",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://lafermerose-uccle.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Ferme Rose",
+        "lat": 50.8038572,
+        "lon": 4.3477992
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Amazone",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://www.amazone.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Amazone",
+        "lat": 50.8533506,
+        "lon": 4.3691696
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "L'Autre Lieu – R.A.P.A. (Recherche-Action sur la Psychiatrie et les Alternatives)",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.autrelieu.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "L'Autre Lieu – R.A.P.A. (Recherche-Action sur la Psychiatrie et les Alternatives)",
+        "lat": 50.8528556,
+        "lon": 4.3432755
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Les Voyageurs Sans Bagage",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.voyageurssansbagage.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Les Voyageurs Sans Bagage",
+        "lat": 50.8546711,
+        "lon": 4.3501496
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Atelier Graphoui",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://graphoui.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Atelier Graphoui",
+        "lat": 50.8729991,
+        "lon": 4.3444881
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Chambéry",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chambery.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chambéry",
+        "lat": 50.8312041,
+        "lon": 4.3874551
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Comedy Ket",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.comedyket.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Comedy Ket",
+        "lat": 50.8471433,
+        "lon": 4.3471005
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Dendermonde Rugby Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://dendermonderugbyclub.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dendermonde Rugby Club",
+        "address": "203B Van Langenhovestraat",
+        "lat": 51.0150995,
+        "lon": 4.1006214
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Chapelle de la Résurrection - Verrijzeniskapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://chapelforeurope.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chapelle de la Résurrection - Verrijzeniskapel",
+        "lat": 50.8414246,
+        "lon": 4.3785137
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "SKA",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://ska1030.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SKA",
+        "lat": 50.8647245,
+        "lon": 4.3741797
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Paroisse des Saints Silouane l’Athonite et Martin des Tours - Parochie van de Heiligen Silouan en Martinus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.silouanemartin.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Paroisse des Saints Silouane l’Athonite et Martin des Tours - Parochie van de Heiligen Silouan en Martinus",
+        "lat": 50.8274182,
+        "lon": 4.3370071
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Sollembeemd Tennis Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tcsollenbeemd.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sollembeemd Tennis Club",
+        "address": "14 Eugène Ysayestraat",
+        "lat": 50.7254782,
+        "lon": 4.2538243
+      },
+      "_metro": "Brussels, BE"
     }
   ],
   "_not_included": {

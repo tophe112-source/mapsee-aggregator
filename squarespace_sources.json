@@ -1014,6 +1014,45 @@
         "lon": 103.8519105
       },
       "_metro": "Singapore, SG"
+    },
+    {
+      "name": "Le Jardin de ma Sœur",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.lejardindemasoeur.be/jardinevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Le Jardin de ma Sœur",
+        "lat": 50.853532,
+        "lon": 4.3473851
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Unity Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.unitybookshop.be/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Unity Bookshop",
+        "lat": 50.8363893,
+        "lon": 4.380296
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Madame Moustache",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.madamemoustache.be/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Madame Moustache",
+        "lat": 50.8514909,
+        "lon": 4.3489671
+      },
+      "_metro": "Brussels, BE"
     }
   ]
 }

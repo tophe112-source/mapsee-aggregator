@@ -2433,6 +2433,182 @@
     "lon": 18.6381966
    },
    "_metro": "Gdansk, PL"
+  },
+  {
+   "name": "POP — Centre culturel de Braine-l'Alleud",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://lepop.be/evenement/cacao-quest/"
+   ],
+   "link_pattern": "https://lepop\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "POP — Centre culturel de Braine-l'Alleud",
+    "lat": 50.6838231,
+    "lon": 4.372365
+   },
+   "_metro": "Brussels, BE"
+  },
+  {
+   "name": "Amnesty International Belgique francophone",
+   "category": "community",
+   "_found": "osm:ngo -> jsonld-event",
+   "listing": [
+    "https://www.amnesty.be/evenement/cetri-turns"
+   ],
+   "link_pattern": "https://www\\.amnesty\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Amnesty International Belgique francophone",
+    "lat": 50.8356108,
+    "lon": 4.3707515
+   },
+   "_metro": "Brussels, BE"
+  },
+  {
+   "name": "Maison poème",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://maisonpoeme.be/"
+   ],
+   "link_pattern": "https://maisonpoeme\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Maison poème",
+    "lat": 50.8325147,
+    "lon": 4.3523724
+   },
+   "_metro": "Brussels, BE"
+  },
+  {
+   "name": "Regionale Atletiekverenigingen Mechelen",
+   "category": "community",
+   "_found": "osm:club -> modern-events+jsonld-event",
+   "listing": [
+    "https://ram-atletiek.be/clubkalender/"
+   ],
+   "link_pattern": "https://ram\\-atletiek\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Regionale Atletiekverenigingen Mechelen",
+    "lat": 51.022176,
+    "lon": 4.4999814
+   },
+   "_metro": "Brussels, BE"
+  },
+  {
+   "name": "House of Compassion",
+   "category": "community",
+   "_found": "osm:social_facility -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.houseofcompassion.be/agenda/"
+   ],
+   "link_pattern": "https://www\\.houseofcompassion\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "House of Compassion",
+    "lat": 50.8526028,
+    "lon": 4.3502237
+   },
+   "_metro": "Brussels, BE"
+  },
+  {
+   "name": "Tree of Life",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.treeoflifeyoga.be/events/workshops-and-retreats/"
+   ],
+   "link_pattern": "https://www\\.treeoflifeyoga\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Tree of Life",
+    "lat": 50.8241167,
+    "lon": 4.5115363
+   },
+   "_metro": "Brussels, BE"
+  },
+  {
+   "name": "TTC Smash Overijse",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://smashoverijse.be/matches/"
+   ],
+   "link_pattern": "https://smashoverijse\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "TTC Smash Overijse",
+    "lat": 50.7707004,
+    "lon": 4.5423042
+   },
+   "_metro": "Brussels, BE"
+  },
+  {
+   "name": "Casal Català de Brussel·les",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.casal-catala.be/agenda/"
+   ],
+   "link_pattern": "https://www\\.casal\\-catala\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Casal Català de Brussel·les",
+    "lat": 50.836913,
+    "lon": 4.3917161
+   },
+   "_metro": "Brussels, BE"
+  },
+  {
+   "name": "Cathédrale Saints-Michel-et-Gudule - Sint-Michiels-en-Goedelekathedraal",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events",
+   "listing": [
+    "https://cathedralisbruxellensis.be/evenements/"
+   ],
+   "link_pattern": "https://cathedralisbruxellensis\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Cathédrale Saints-Michel-et-Gudule - Sint-Michiels-en-Goedelekathedraal",
+    "lat": 50.8478441,
+    "lon": 4.3600518
+   },
+   "_metro": "Brussels, BE"
+  },
+  {
+   "name": "BRONKS",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.bronks.be/nl/event/grip?type=VRIJE%20VOORSTELLING"
+   ],
+   "link_pattern": "https://www\\.bronks\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "BRONKS",
+    "lat": 50.8530688,
+    "lon": 4.3463334
+   },
+   "_metro": "Brussels, BE"
+  },
+  {
+   "name": "New Rock",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://newrockescalade.be/"
+   ],
+   "link_pattern": "https://newrockescalade\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "New Rock",
+    "lat": 50.8142793,
+    "lon": 4.4173152
+   },
+   "_metro": "Brussels, BE"
   }
  ],
  "_not_included": {
