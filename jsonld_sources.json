@@ -2609,6 +2609,23 @@
     "lon": 4.4173152
    },
    "_metro": "Brussels, BE"
+  },
+  {
+   "name": "Arenbergschouwburg",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.arenberg.be/nl/programma/meau/a0NP500000HuTInMAN"
+   ],
+   "link_pattern": "https://www\\.arenberg\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Arenbergschouwburg",
+    "address": "28 Arenbergstraat",
+    "lat": 51.2152454,
+    "lon": 4.4079628
+   },
+   "_metro": "Antwerp, BE"
   }
  ],
  "_not_included": {

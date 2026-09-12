@@ -6195,6 +6195,72 @@
         "lon": 4.2538243
       },
       "_metro": "Brussels, BE"
+    },
+    {
+      "name": "Mankato (visitgreatermankato.com)",
+      "category": "community",
+      "_found": "civic:dmo -> tribe+jsonld-event+ics",
+      "base_url": "https://greatermankato.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Mankato",
+      "default_region": "Minnesota",
+      "default_country": "US",
+      "_metro": "Mankato, Minnesota"
+    },
+    {
+      "name": "Lompoc (explorelompoc.com)",
+      "category": "community",
+      "_found": "civic:dmo -> tribe+jsonld-event+ics",
+      "base_url": "https://explorelompoc.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Lompoc",
+      "default_region": "California",
+      "default_country": "US",
+      "_metro": "Lompoc, California"
+    },
+    {
+      "name": "Librairie de l'Europe",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://wavre.shop",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Librairie de l'Europe",
+        "lat": 50.6847248,
+        "lon": 4.5711245
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "ISELP",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://iselp.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ISELP",
+        "lat": 50.837776,
+        "lon": 4.3579435
+      },
+      "_metro": "Brussels, BE"
+    },
+    {
+      "name": "De Klappei",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+modern-events+jsonld-event+ics",
+      "base_url": "https://klappei.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Klappei",
+        "lat": 51.2211541,
+        "lon": 4.4290692
+      },
+      "_metro": "Antwerp, BE"
     }
   ],
   "_not_included": {

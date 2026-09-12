@@ -1053,6 +1053,21 @@
         "lon": 4.3489671
       },
       "_metro": "Brussels, BE"
+    },
+    {
+      "name": "De Oude Brouwerij",
+      "category": "community",
+      "_found": "osm:events_venue -> squarespace",
+      "collection": "https://www.deoudebrouwerij.be/evenementen",
+      "max_events": 200,
+      "venue": {
+        "name": "De Oude Brouwerij",
+        "address": "18 Kerkstraat",
+        "postal_code": "2940",
+        "lat": 51.3059735,
+        "lon": 4.4036203
+      },
+      "_metro": "Antwerp, BE"
     }
   ]
 }

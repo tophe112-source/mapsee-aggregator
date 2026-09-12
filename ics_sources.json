@@ -5171,5 +5171,428 @@
   "geocode_suffix": ", Brussels, BE",
   "limit": 300,
   "_metro": "Brussels, BE"
+ },
+ {
+  "name": "Cleveland Heights — Police Department",
+  "category": "community",
+  "url": "https://www.clevelandheights.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Cleveland Heights, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Department]",
+  "_metro": "Cleveland Heights, Ohio"
+ },
+ {
+  "name": "Fairfield — Community Arts Center",
+  "category": "community",
+  "url": "https://www.fairfield-city.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Fairfield, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Arts Center]",
+  "_metro": "Fairfield, Ohio"
+ },
+ {
+  "name": "Fairfield — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.fairfield-city.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Fairfield, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Fairfield, Ohio"
+ },
+ {
+  "name": "Burlington — Events",
+  "category": "community",
+  "url": "https://www.burlingtonvt.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Burlington, Vermont",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Burlington, Vermont"
+ },
+ {
+  "name": "Burlington — Recreation Drop-in Programs",
+  "category": "community",
+  "url": "https://www.burlingtonvt.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Burlington, Vermont",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation Drop-in Programs]",
+  "_metro": "Burlington, Vermont"
+ },
+ {
+  "name": "Burlington — Office of the Mayor",
+  "category": "community",
+  "url": "https://www.burlingtonvt.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Burlington, Vermont",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Office of the Mayor]",
+  "_metro": "Burlington, Vermont"
+ },
+ {
+  "name": "Burlington — Parks Events",
+  "category": "community",
+  "url": "https://www.burlingtonvt.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Burlington, Vermont",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks Events]",
+  "_metro": "Burlington, Vermont"
+ },
+ {
+  "name": "The Colony — Library",
+  "category": "community",
+  "url": "https://www.thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", The Colony, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "The Colony, Texas"
+ },
+ {
+  "name": "The Colony — Library - Adults",
+  "category": "community",
+  "url": "https://www.thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", The Colony, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Adults]",
+  "_metro": "The Colony, Texas"
+ },
+ {
+  "name": "The Colony — Library - Kids",
+  "category": "community",
+  "url": "https://www.thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", The Colony, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Kids]",
+  "_metro": "The Colony, Texas"
+ },
+ {
+  "name": "The Colony — Main Calendar",
+  "category": "community",
+  "url": "https://www.thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", The Colony, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "The Colony, Texas"
+ },
+ {
+  "name": "The Colony — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", The Colony, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "The Colony, Texas"
+ },
+ {
+  "name": "The Colony — Animal Services",
+  "category": "community",
+  "url": "https://www.thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", The Colony, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Animal Services]",
+  "_metro": "The Colony, Texas"
+ },
+ {
+  "name": "Salem — Public Services",
+  "category": "community",
+  "url": "https://www.salemma.gov/common/modules/iCalendar/iCalendar.aspx?catID=92&feed=calendar",
+  "geocode_suffix": ", Salem, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Public Services]",
+  "_metro": "Salem, Massachusetts"
+ },
+ {
+  "name": "Salem — Sustainability and Resiliency",
+  "category": "community",
+  "url": "https://www.salemma.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Salem, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Sustainability and Resiliency]",
+  "_metro": "Salem, Massachusetts"
+ },
+ {
+  "name": "Salem — Health Events",
+  "category": "community",
+  "url": "https://www.salemma.gov/common/modules/iCalendar/iCalendar.aspx?catID=108&feed=calendar",
+  "geocode_suffix": ", Salem, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Health Events]",
+  "_metro": "Salem, Massachusetts"
+ },
+ {
+  "name": "Gallatin — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.gallatintn.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Gallatin, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Gallatin, Tennessee"
+ },
+ {
+  "name": "El Centro — Parks and Rec - Special Events",
+  "category": "community",
+  "url": "https://www.cityofelcentro.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", El Centro, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Rec - Special Events]",
+  "_metro": "El Centro, California"
+ },
+ {
+  "name": "Greenacres — Main Calendar",
+  "category": "community",
+  "url": "https://www.greenacresfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Greenacres, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Greenacres, Florida"
+ },
+ {
+  "name": "Greenacres — Events",
+  "category": "community",
+  "url": "https://www.greenacresfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Greenacres, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Greenacres, Florida"
+ },
+ {
+  "name": "Concord — Douglas N. Everett Arena",
+  "category": "community",
+  "url": "https://concordnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
+  "geocode_suffix": ", Concord, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Douglas N. Everett Arena]",
+  "_metro": "Concord, New Hampshire"
+ },
+ {
+  "name": "Concord — Parks & Recreation",
+  "category": "community",
+  "url": "https://concordnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Concord, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Concord, New Hampshire"
+ },
+ {
+  "name": "Concord — Library - General",
+  "category": "community",
+  "url": "https://concordnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=54&feed=calendar",
+  "geocode_suffix": ", Concord, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - General]",
+  "_metro": "Concord, New Hampshire"
+ },
+ {
+  "name": "Concord — City of Concord Community Events",
+  "category": "community",
+  "url": "https://concordnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=95&feed=calendar",
+  "geocode_suffix": ", Concord, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City of Concord Community Events]",
+  "_metro": "Concord, New Hampshire"
+ },
+ {
+  "name": "Concord — General Services",
+  "category": "community",
+  "url": "https://concordnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Concord, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[General Services]",
+  "_metro": "Concord, New Hampshire"
+ },
+ {
+  "name": "Leominster — City Events",
+  "category": "community",
+  "url": "https://www.leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Leominster, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Leominster, Massachusetts"
+ },
+ {
+  "name": "Leominster — Health Department Events",
+  "category": "community",
+  "url": "https://www.leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Leominster, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Health Department Events]",
+  "_metro": "Leominster, Massachusetts"
+ },
+ {
+  "name": "Leominster — Community Events",
+  "category": "community",
+  "url": "https://www.leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Leominster, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Leominster, Massachusetts"
+ },
+ {
+  "name": "Leominster — Holiday Events",
+  "category": "community",
+  "url": "https://www.leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar",
+  "geocode_suffix": ", Leominster, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Holiday Events]",
+  "_metro": "Leominster, Massachusetts"
+ },
+ {
+  "name": "Leominster — Ribbon Cuttings",
+  "category": "community",
+  "url": "https://www.leominster-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Leominster, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Ribbon Cuttings]",
+  "_metro": "Leominster, Massachusetts"
+ },
+ {
+  "name": "Sherman — Library",
+  "category": "community",
+  "url": "https://www.ci.sherman.tx.us/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar",
+  "geocode_suffix": ", Sherman, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Sherman, Texas"
+ },
+ {
+  "name": "Hagerstown — City Services",
+  "category": "community",
+  "url": "https://www.hagerstownmd.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Hagerstown, Maryland",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Services]",
+  "_metro": "Hagerstown, Maryland"
+ },
+ {
+  "name": "Bremerton — Community Events",
+  "category": "community",
+  "url": "https://bremertonwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Bremerton, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Bremerton, Washington"
+ },
+ {
+  "name": "Huber Heights — Events",
+  "category": "community",
+  "url": "https://www.hhoh.org/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Huber Heights, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Huber Heights, Ohio"
+ },
+ {
+  "name": "Huber Heights — Fire",
+  "category": "community",
+  "url": "https://www.hhoh.org/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Huber Heights, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Fire]",
+  "_metro": "Huber Heights, Ohio"
+ },
+ {
+  "name": "Huber Heights — Police",
+  "category": "community",
+  "url": "https://www.hhoh.org/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Huber Heights, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police]",
+  "_metro": "Huber Heights, Ohio"
+ },
+ {
+  "name": "Ormond Beach — Parks & Recreation Calendar",
+  "category": "community",
+  "url": "https://www.ormondbeach.org/common/modules/iCalendar/iCalendar.aspx?catID=102&feed=calendar",
+  "geocode_suffix": ", Ormond Beach, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation Calendar]",
+  "_metro": "Ormond Beach, Florida"
+ },
+ {
+  "name": "Ormond Beach — Performing Arts Center",
+  "category": "community",
+  "url": "https://www.ormondbeach.org/common/modules/iCalendar/iCalendar.aspx?catID=89&feed=calendar",
+  "geocode_suffix": ", Ormond Beach, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Performing Arts Center]",
+  "_metro": "Ormond Beach, Florida"
+ },
+ {
+  "name": "Ormond Beach — Holidays",
+  "category": "community",
+  "url": "https://www.ormondbeach.org/common/modules/iCalendar/iCalendar.aspx?catID=111&feed=calendar",
+  "geocode_suffix": ", Ormond Beach, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Holidays]",
+  "_metro": "Ormond Beach, Florida"
+ },
+ {
+  "name": "Clermont",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://www.clermontfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Clermont, Florida",
+  "limit": 300,
+  "_metro": "Clermont, Florida"
+ },
+ {
+  "name": "Moline — Moline Parks and Recreation",
+  "category": "community",
+  "url": "https://www.moline.il.us/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Moline, Illinois",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Moline Parks and Recreation]",
+  "_metro": "Moline, Illinois"
+ },
+ {
+  "name": "Coppell — Community Experiences",
+  "category": "community",
+  "url": "https://www.coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Coppell, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Experiences]",
+  "_metro": "Coppell, Texas"
+ },
+ {
+  "name": "Coppell — City Calendar",
+  "category": "community",
+  "url": "https://www.coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Coppell, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Calendar]",
+  "_metro": "Coppell, Texas"
+ },
+ {
+  "name": "Coppell — Library",
+  "category": "community",
+  "url": "https://www.coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Coppell, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Coppell, Texas"
+ },
+ {
+  "name": "Coppell — Coppell Arts Center",
+  "category": "community",
+  "url": "https://www.coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Coppell, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Coppell Arts Center]",
+  "_metro": "Coppell, Texas"
+ },
+ {
+  "name": "Coppell — Block'n Roll Reservation Schedule",
+  "category": "community",
+  "url": "https://www.coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Coppell, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Block'n Roll Reservation Schedule]",
+  "_metro": "Coppell, Texas"
+ },
+ {
+  "name": "Coppell — Fire Department",
+  "category": "community",
+  "url": "https://www.coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Coppell, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Fire Department]",
+  "_metro": "Coppell, Texas"
  }
 ]
