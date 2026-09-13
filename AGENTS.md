@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 154 of them — live in
+session.** The measured notes about what bites — 165 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -59,7 +59,7 @@ front doors it reaches.
 | Playgrounds, drinking fountains, outdoor gyms, little free libraries, food banks, public art | `mapsee_ingest_osm_amenities.py` + `osm_amenity_sources.json` — the third OSM PLACES adapter. Most of what it writes is `pin_only` FURNITURE: drawn on the map and nothing else |
 | Public transit bundles (bus/metro suggestions on a walk) | **not here** — `../mapsee/tools/transit_build.py` + `transit_sources.json`. It is Python and it is a scheduled pipeline, so this is where you would look; it lives in the product repo because its output is a static site asset and mapsee deploys on push, which a cross-repo push would only complicate |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
-| The planned kids door (unsie.com) and what it wants from this repo | **not here** — `../mapsee/docs/plans/unsie-and-the-lend-layer.md`. A PLAN, nothing shipped. Its §4 and §7 are this repo's half: new kid Kinds in `mapsee_ingest_osm_amenities.py` (counts unmeasured — measure before shipping one) and swap language in `_KIDS_RX`/`derive_categories`. Read it before widening either |
+| The planned kids door (unsie.com) and what it wants from this repo | **not here** — `../mapsee/docs/plans/unsie-and-the-lend-layer.md`. A PLAN, nothing shipped. Its §4 and §7 are this repo's half: new kid Kinds in `mapsee_ingest_osm_amenities.py` and swap language in `_KIDS_RX`/`derive_categories`. Toy libraries and little free libraries are MEASURED — the two notes in `docs/agents/osm-amenities.md` say why one is not worth a Kind without French hubs and why the other cannot be split by audience. Read those before widening either |
 | Brazilian cultural events (state/municipal registers) | `mapsee_ingest_mapasculturais.py` + `mapasculturais_sources.json` — the only source that puts anything on the map in Brazil |
 | The two HTML scrapers (no feed exists at either source) | `mapsee_ingest_pioneersquare.py`, `mapsee_ingest_seattlecenter.py` — both place events from a venue book in their config, never from the page |
 | What runs when | `.github/workflows/aggregate-events.yml` header — the best doc in the repo |
@@ -112,7 +112,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | File | Notes | Covers |
 |---|---|---|
 | `docs/agents/curation-and-discovery.md` | 24 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences |
-| `docs/agents/osm-amenities.md` | 23 | which civic places earn a pin or a sheet, deny-lists, facts vs names, the cached element list |
+| `docs/agents/osm-amenities.md` | 25 | which civic places earn a pin or a sheet, deny-lists, facts vs names, the cached element list |
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 14 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |
 | `docs/agents/adapters-and-sources.md` | 13 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter |
