@@ -168,6 +168,27 @@ _FEED_CATEGORY = [
         r"\b(kids?|childrens?|children'?s|teens?|tweens?|youth|preschool|"
         r"toddlers?|story\s?times?|ready\s+to\s+read)\b", re.I)),
     ("learning", re.compile(r"\blibrar(?:y|ies)\b", re.I)),
+    # OUTDOORS and FITNESS, added 2026-09-13 once the park-agency seed list made
+    # them worth having. Measured over all 587 civic+parks ics sources:
+    #   • outdoors  6 sub-calendars ("Open Space", "Open Space Master Calendar",
+    #     "Remington Nature Center") — small, but `outdoors` is the thinnest
+    #     curated category on the map and every one of the six is unambiguous.
+    #   • fitness  16, and they are nearly all AQUATICS: "Aquatic Center",
+    #     "Aquatic Fitness", "Aquatics Public Swim", "Aquatics Jr High Swim
+    #     Team", "Fitness Center", "Masters Swimming". A town's pool timetable
+    #     is the one part of a parks department that is purely movement.
+    #
+    # `wellness` was written here and REMOVED: its only two hits are
+    # "Department of Health, Wellness and Animal Services" and "Community -
+    # Wellness and Recovery", neither of which is exercise. `parks & rec` is
+    # still absent for the reason the note above this list records — 81
+    # sub-calendars carry it and they are mixed by construction.
+    ("outdoors", re.compile(
+        r"\b(open\s+space|outdoor\s+adventures?|nature\s+cent(?:er|re)|"
+        r"naturalist|trails?)\b", re.I)),
+    ("fitness", re.compile(
+        r"\b(aquatics?|fitness|masters?\s+swim(?:ming)?|"
+        r"swim\s+(?:teams?|lessons?)|yoga)\b", re.I)),
     ("market", re.compile(r"\bfarmers?'?\s+markets?\b", re.I)),
     ("volunteer", re.compile(r"\bvolunteers?\b", re.I)),
 ]

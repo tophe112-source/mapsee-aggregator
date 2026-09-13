@@ -250,3 +250,21 @@
   written and then removed: 3 of the 6 `swim …` hits are CLOSURE notices ("Swim
   Meet - Swim Center Closed"), and a closed pool on a movement lens is worse
   than missing the one real meet.
+
+- **`category_for_feed` grew `outdoors` and `fitness` once the park agencies made
+  them worth having.** Measured over all 587 civic+parks ics sources: 6
+  sub-calendars state outdoors ("Open Space", "Open Space Master Calendar",
+  "Remington Nature Center") and 16 state fitness — and the fitness ones are
+  nearly all AQUATICS: "Aquatic Center", "Aquatic Fitness", "Aquatics Public
+  Swim", "Aquatics Jr High Swim Team", "Fitness Center", "Masters Swimming",
+  "Doling Fitness Schedule", "Senior Fitness", "Yoga". A town's pool timetable
+  is the one part of a parks department that is purely movement, and it is
+  exactly what wegosie opens onto. Six is a small number and `outdoors` is the
+  thinnest curated category on the map, so it still earns the rule.
+
+- **`wellness` was written into that rule and taken straight back out.** Its only
+  two hits in the corpus are "Department of Health, Wellness and Animal
+  Services" and "Community - Wellness and Recovery" — a county department and a
+  recovery support group, neither of them exercise. `parks & rec` stays absent
+  for the reason recorded above: 81 sub-calendars carry it and every one is
+  mixed by construction.

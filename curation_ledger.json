@@ -1301,6 +1301,48 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aberdeen.sd.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Aberdeen \u2014 City of Aberdeen Calendar",
+    "reason": "45 vevents / 45 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "aberdeen.sd.us/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar": {
+    "checked": 20260913,
+    "name": "Aberdeen \u2014 Parks, Recreation & Forestry Calendar",
+    "reason": "52 vevents / 52 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "aberdeen.sd.us/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar": {
+    "checked": 20260913,
+    "name": "Aberdeen \u2014 Aberdeen Area Senior Center",
+    "reason": "524 vevents / 524 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "aberdeen.sd.us/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Aberdeen \u2014 K.O. Lee Aberdeen Public Library",
+    "reason": "153 vevents / 153 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "aberdeen.sd.us/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Aberdeen \u2014 Aberdeen Recreation and Cultural Center",
+    "reason": "27 vevents / 26 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "aberdeen.sd.us/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
+    "checked": 20260913,
+    "name": "Aberdeen \u2014 The YAPAtorium",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "abergavennyfoodfestival.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Abergavenny Food Festival (Wales)",
@@ -8357,6 +8399,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "atascadero.org": {
+    "checked": 20260913,
+    "name": "Atascadero",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "atchacademy.com": {
     "checked": 20260829,
     "name": "Atch Academy",
@@ -8629,6 +8678,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "athensalabama.us/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Athens \u2014 Events & Happenings",
+    "reason": "26 vevents / 26 future",
+    "status": "ok",
+    "type": "ics"
   },
   "athertonmillandmarket.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
@@ -9666,6 +9722,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "avonlake.org": {
+    "checked": 20260913,
+    "name": "Avon Lake",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "avouerie.be": {
     "checked": 20260913,
     "name": "Mus\u00e9e de la Bi\u00e8re et du Peket",
@@ -10204,6 +10267,20 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "balchspringstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20260913,
+    "name": "Balch Springs \u2014 Library",
+    "reason": "69 vevents / 69 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "balchspringstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
+    "checked": 20260913,
+    "name": "Balch Springs \u2014 Parks & Recreation Center",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
   },
   "baldwinpark.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20260903,
@@ -12542,6 +12619,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bessemeral.org": {
+    "checked": 20260913,
+    "name": "Bessemer",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "best-padel.se": {
     "checked": 20260905,
@@ -15168,6 +15252,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bigspringtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260913,
+    "name": "Big Spring \u2014 Observed Holidays",
+    "reason": "106 vevents / 106 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "bigwallfranconville.fr": {
     "checked": 20260829,
     "name": "Big Wall Franconville",
@@ -15594,6 +15685,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bixby.com": {
+    "checked": 20260913,
+    "name": "Bixby",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "bizeps.at": {
     "checked": 20260907,
@@ -18458,6 +18556,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "brawley-ca.gov": {
+    "checked": 20260913,
+    "name": "Brawley",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "braybowl.ie": {
     "checked": 20260822,
     "name": "Bray Bowl",
@@ -20194,6 +20299,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "buffaloaudubon.org/?feed=my-calendar-ics": {
+    "checked": 20260913,
+    "name": "Buffalo Audubon, NY",
+    "reason": "8 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "buggittre.be": {
     "checked": 20260911,
     "name": "Bugg'Ittre Racing",
@@ -20340,6 +20452,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "burbankil.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Burbank \u2014 Federal Holidays",
+    "reason": "128 vevents / 128 future",
+    "status": "ok",
+    "type": "ics"
   },
   "burg-golling.at": {
     "checked": 20260909,
@@ -23463,6 +23582,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "casselberry.org/common/modules/iCalendar/iCalendar.aspx?catID=15&feed=calendar": {
+    "checked": 20260913,
+    "name": "Casselberry \u2014 Recreation Division",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "castel.paris": {
     "checked": 20260828,
     "name": "Castel",
@@ -24597,6 +24723,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "centralgov.com": {
+    "checked": 20260913,
+    "name": "Central",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "centralkirken.no": {
     "checked": 20260906,
     "name": "Centralkirken Bergen",
@@ -25395,6 +25528,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "chambleega.com": {
+    "checked": 20260913,
+    "name": "Chamblee",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "champignysurmarne.fr/sortir-et-decouvrir-champigny/culture/equipements-culturels/mediatheques": {
     "checked": 20260828,
     "name": "M\u00e9diath\u00e8que G\u00e9rard Philipe",
@@ -25660,6 +25800,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "chaskamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Chaska \u2014 Main Calendar",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chaskamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar": {
+    "checked": 20260913,
+    "name": "Chaska \u2014 Community Events",
+    "reason": "11 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
   },
   "chata.numinosum.pl": {
     "checked": 20260909,
@@ -25933,6 +26087,27 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "chesterfield.gov/common/modules/iCalendar/iCalendar.aspx?catID=112&feed=calendar": {
+    "checked": 20260913,
+    "name": "Chesterfield County Parks, VA \u2014 Health and Well-being",
+    "reason": "23 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.gov/common/modules/iCalendar/iCalendar.aspx?catID=115&feed=calendar": {
+    "checked": 20260913,
+    "name": "Chesterfield County Parks, VA \u2014 Community Activities",
+    "reason": "27 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar": {
+    "checked": 20260913,
+    "name": "Chesterfield County Parks, VA \u2014 Parks and Recreation",
+    "reason": "13 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
   },
   "chesterlittletheatre.co.uk": {
     "checked": 20260819,
@@ -27096,6 +27271,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "ci.asheboro.nc.us": {
+    "checked": 20260913,
+    "name": "Asheboro",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "ci.austin.mn.us": {
+    "checked": 20260913,
+    "name": "Austin",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ci.camarillo.ca.us": {
     "checked": 20260903,
     "name": "Camarillo",
@@ -27113,6 +27302,13 @@
   "ci.commerce-city.co.us": {
     "checked": 20260905,
     "name": "Commerce City",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "ci.corsicana.tx.us": {
+    "checked": 20260913,
+    "name": "Corsicana",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -27138,6 +27334,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "ci.fridley.mn.us": {
+    "checked": 20260913,
+    "name": "Fridley",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ci.friendswood.tx.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20260913,
     "name": "Friendswood \u2014 Main Calendar",
@@ -27151,6 +27354,13 @@
     "reason": "5 vevents / 5 future",
     "status": "ok",
     "type": "ics"
+  },
+  "ci.galesburg.il.us": {
+    "checked": 20260913,
+    "name": "Galesburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "ci.glendora.ca.us": {
     "checked": 20260908,
@@ -27180,6 +27390,20 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "ci.mchenry.il.us": {
+    "checked": 20260913,
+    "name": "McHenry",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "ci.neenah.wi.us": {
+    "checked": 20260913,
+    "name": "Neenah",
+    "reason": "51 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "ci.porterville.ca.us": {
     "checked": 20260905,
     "name": "Porterville",
@@ -27197,6 +27421,13 @@
   "ci.sammamish.wa.us": {
     "checked": 20260904,
     "name": "Sammamish",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "ci.sandusky.oh.us": {
+    "checked": 20260913,
+    "name": "Sandusky",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -27302,6 +27533,13 @@
   "ci.wylie.tx.us": {
     "checked": 20260906,
     "name": "Wylie",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "ci.xenia.oh.us": {
+    "checked": 20260913,
+    "name": "Xenia",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -28461,6 +28699,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cityhpil.com": {
+    "checked": 20260913,
+    "name": "Highland Park",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cityimpactchurch.com": {
     "checked": 20260824,
     "name": "City Impact Church",
@@ -28510,12 +28755,33 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofallenpark.org": {
+    "checked": 20260913,
+    "name": "Allen Park",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "cityofaltonil.gov": {
+    "checked": 20260913,
+    "name": "Alton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cityofames.org": {
     "checked": 20260904,
     "name": "Ames",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "cityofandersonsc.com": {
+    "checked": 20260913,
+    "name": "Anderson",
+    "reason": "58 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "cityofattleboro.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20260911,
@@ -28566,9 +28832,23 @@
     "status": "ok",
     "type": "ics"
   },
+  "cityofbatavia.net": {
+    "checked": 20260913,
+    "name": "Batavia",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cityofbell.org": {
     "checked": 20260913,
     "name": "Bell",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "cityofbellavista.com": {
+    "checked": 20260913,
+    "name": "Bella Vista",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -28601,6 +28881,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "cityofcamas.us/calendar/ical/%2A/calendar.ics": {
+    "checked": 20260913,
+    "name": "Camas",
+    "reason": "47 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cityofcarlsbadnm.com": {
     "checked": 20260913,
     "name": "Carlsbad",
@@ -28614,6 +28901,27 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "cityofcrestview.org/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar": {
+    "checked": 20260913,
+    "name": "Crestview \u2014 Community Outreach",
+    "reason": "7 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofcrestview.org/common/modules/iCalendar/iCalendar.aspx?catID=56&feed=calendar": {
+    "checked": 20260913,
+    "name": "Crestview \u2014 Events",
+    "reason": "11 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofdanville.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260913,
+    "name": "Danville \u2014 Event Calendar",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
   },
   "cityofdecatural.com": {
     "checked": 20260906,
@@ -28657,12 +28965,47 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofedwardsville.com/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Edwardsville \u2014 Parks & Recreation Events",
+    "reason": "15 vevents / 15 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofedwardsville.com/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Edwardsville \u2014 Community Events",
+    "reason": "31 vevents / 31 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofedwardsville.com/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
+    "checked": 20260913,
+    "name": "Edwardsville \u2014 West End Service Station",
+    "reason": "45 vevents / 45 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofedwardsville.com/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
+    "checked": 20260913,
+    "name": "Edwardsville \u2014 Sports Special Events & Tournaments",
+    "reason": "7 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cityofelcentro.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
     "checked": 20260912,
     "name": "El Centro \u2014 Parks and Rec - Special Events",
     "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
+  },
+  "cityofenterprise.net": {
+    "checked": 20260913,
+    "name": "Enterprise",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cityofeverett.com": {
     "checked": 20260909,
@@ -28692,9 +29035,44 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofgreen.org/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20260913,
+    "name": "Green \u2014 Community",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofgreen.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Green \u2014 Parks & Recreation",
+    "reason": "12 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofgreen.org/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
+    "checked": 20260913,
+    "name": "Green \u2014 Great Eight Race Series",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofgreen.org/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
+    "checked": 20260913,
+    "name": "Green \u2014 The CORE",
+    "reason": "223 vevents / 223 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cityofgreer.org": {
     "checked": 20260913,
     "name": "Greer",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "cityofhastings.org": {
+    "checked": 20260913,
+    "name": "Hastings",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -28727,6 +29105,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofinkstermi.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
+    "checked": 20260913,
+    "name": "Inkster \u2014 Events Calendar",
+    "reason": "44 vevents / 44 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cityofjeff.net": {
     "checked": 20260909,
     "name": "Jeffersonville",
@@ -28740,6 +29125,13 @@
     "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
+  },
+  "cityofkingsville.com": {
+    "checked": 20260913,
+    "name": "Kingsville",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cityofkokomo.org": {
     "checked": 20260906,
@@ -28769,6 +29161,48 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityoflaurel.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260913,
+    "name": "Laurel \u2014 Trash and Recycle Collections",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityoflaurel.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260913,
+    "name": "Laurel \u2014 City Events",
+    "reason": "13 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityoflaurel.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
+    "checked": 20260913,
+    "name": "Laurel \u2014 Parks and Recreation Events",
+    "reason": "7 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityoflaurel.org/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Laurel \u2014 Senior Services Events",
+    "reason": "15 vevents / 15 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityoflaurel.org/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
+    "checked": 20260913,
+    "name": "Laurel \u2014 Community Events",
+    "reason": "5 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityoflaurel.org/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
+    "checked": 20260913,
+    "name": "Laurel \u2014 Laurel Police Events",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cityoflawrence.org": {
     "checked": 20260909,
     "name": "Lawrence",
@@ -28789,6 +29223,55 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "cityofmarion.in.gov": {
+    "checked": 20260913,
+    "name": "Marion",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "cityofmaywood.com/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260913,
+    "name": "Maywood \u2014 Activities",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofmelrose.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Melrose \u2014 City Events",
+    "reason": "8 vevents / 8 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofmelrose.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Melrose \u2014 Memorial Hall Events",
+    "reason": "282 vevents / 282 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofmelrose.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
+    "checked": 20260913,
+    "name": "Melrose \u2014 Health and Human Services Events",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofmelrose.org/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Melrose \u2014 Veterans' Services",
+    "reason": "12 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofmelrose.org/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
+    "checked": 20260913,
+    "name": "Melrose \u2014 Melrose Energy Advocate",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
   },
   "cityofmentor.com": {
     "checked": 20260911,
@@ -28815,6 +29298,13 @@
     "checked": 20260913,
     "name": "Midland \u2014 Landfill",
     "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofml.com/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
+    "checked": 20260913,
+    "name": "Moses Lake \u2014 Museum and Art Center",
+    "reason": "98 vevents / 98 future",
     "status": "ok",
     "type": "ics"
   },
@@ -28846,6 +29336,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofmuskego.org": {
+    "checked": 20260913,
+    "name": "Muskego",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cityofnewalbany.com/book-a-venue-for-events/?ical=1": {
     "checked": 20260913,
     "name": "New Albany",
@@ -28853,9 +29350,30 @@
     "status": "fail",
     "type": "ics"
   },
+  "cityofnewport.com": {
+    "checked": 20260913,
+    "name": "Newport",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cityofnovi.org": {
     "checked": 20260904,
     "name": "Novi",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "cityofnsb.com/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar": {
+    "checked": 20260913,
+    "name": "New Smyrna Beach \u2014 Special Events",
+    "reason": "204 vevents / 204 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofottumwa.org": {
+    "checked": 20260913,
+    "name": "Ottumwa",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -28930,6 +29448,20 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofrockledge.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260913,
+    "name": "Rockledge \u2014 Events",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofrockledge.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Rockledge \u2014 Facility Rental",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cityofrosemead.org": {
     "checked": 20260908,
     "name": "Rosemead",
@@ -28958,6 +29490,20 @@
     "status": "ok",
     "type": "ics"
   },
+  "cityofsachse.com/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar": {
+    "checked": 20260913,
+    "name": "Sachse \u2014 Parks & Recreation",
+    "reason": "16 vevents / 16 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofsachse.com/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Sachse \u2014 Police Department",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cityofsandimas.com": {
     "checked": 20260913,
     "name": "San Dimas",
@@ -28971,6 +29517,34 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "cityofsebastian.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Sebastian \u2014 Main Calendar",
+    "reason": "13 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofsebastian.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Sebastian \u2014 Events Calendar",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofsebastian.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Sebastian \u2014 Police Calendar",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofsebastian.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260913,
+    "name": "Sebastian \u2014 Garage Sales",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
   },
   "cityofshawnee.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20260904,
@@ -29034,6 +29608,13 @@
     "reason": "4 vevents / 4 future",
     "status": "ok",
     "type": "ics"
+  },
+  "cityofsugarhill.com": {
+    "checked": 20260913,
+    "name": "Sugar Hill",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cityofsydney.nsw.gov.au/community-centres/juanita-nielsen-community-centre": {
     "checked": 20260819,
@@ -29154,6 +29735,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "cityofwalnut.org": {
+    "checked": 20260913,
+    "name": "Walnut",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cityofwestfield.org/common/modules/iCalendar/iCalendar.aspx?catID=80&feed=calendar": {
     "checked": 20260913,
     "name": "Westfield \u2014 Community Calendar",
@@ -29195,6 +29783,27 @@
     "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
+  },
+  "cityofwilliston.com": {
+    "checked": 20260913,
+    "name": "Williston",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "cityofwinona-mn.com": {
+    "checked": 20260913,
+    "name": "Winona",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "cityofwinterpark.org": {
+    "checked": 20260913,
+    "name": "Winter Park",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cityparksfoundation.org/events/?ical=1": {
     "checked": 20260727,
@@ -29734,6 +30343,13 @@
     "reason": "12/12 sampled events future",
     "status": "ok",
     "type": "jsonld"
+  },
+  "clintonms.org": {
+    "checked": 20260913,
+    "name": "Clinton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "clipnclimbnorthshore.co.nz": {
     "checked": 20260824,
@@ -31659,6 +32275,13 @@
     "reason": "1 events / 0 future",
     "status": "empty",
     "type": "jsonld"
+  },
+  "conversetx.net": {
+    "checked": 20260913,
+    "name": "Converse",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "convivium.dk": {
     "checked": 20260831,
@@ -33613,6 +34236,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ctsfl.us/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Tarpon Springs \u2014 Events Calendar",
+    "reason": "41 vevents / 41 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "ctt-braine-lalleud.be": {
     "checked": 20260911,
     "name": "CTT Braine-l'Alleud",
@@ -35545,6 +36175,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "de-pere.org": {
+    "checked": 20260913,
+    "name": "De Pere",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "de-pijl.be": {
     "checked": 20260911,
     "name": "MSC De Pijl",
@@ -36245,6 +36882,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "delawarenaturesociety.org": {
+    "checked": 20260913,
+    "name": "Delaware Nature Society",
+    "reason": "355 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "delevensbronrilland.nl": {
     "checked": 20260913,
     "name": "De Levensbron",
@@ -36748,6 +37392,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "derbyks.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Derby \u2014 Derby Main Calendar",
+    "reason": "23 vevents / 23 future",
+    "status": "ok",
+    "type": "ics"
   },
   "derederij.be": {
     "checked": 20260913,
@@ -38758,6 +39409,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "douglasco.gov": {
+    "checked": 20260913,
+    "name": "Douglas County Open Space, CO",
+    "reason": "41 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "douglasgaa.com": {
     "checked": 20260822,
     "name": "Douglas GAA",
@@ -40038,6 +40696,48 @@
     "reason": "not json",
     "status": "fail",
     "type": "tribe"
+  },
+  "eaglepasstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20260913,
+    "name": "Eagle Pass \u2014 Parks & Recreation Events",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "eaglepasstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
+    "checked": 20260913,
+    "name": "Eagle Pass \u2014 City Events",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "eaglepasstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
+    "checked": 20260913,
+    "name": "Eagle Pass \u2014 Bridge Department",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "eaglepasstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar": {
+    "checked": 20260913,
+    "name": "Eagle Pass \u2014 Library",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "eaglepasstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Eagle Pass \u2014 MPO",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "eaglepasstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
+    "checked": 20260913,
+    "name": "Eagle Pass \u2014 Police Department",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
   },
   "eaglequestgolf.com/locations/the-dome": {
     "checked": 20260819,
@@ -41823,6 +42523,34 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "elkrivermn.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260913,
+    "name": "Elk River \u2014 Parks and Recreation",
+    "reason": "7 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "elkrivermn.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
+    "checked": 20260913,
+    "name": "Elk River \u2014 Senior Activity Center (55+)",
+    "reason": "1096 vevents / 1096 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "elkrivermn.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
+    "checked": 20260913,
+    "name": "Elk River \u2014 Furniture and Things Community Event Center",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "elkrivermn.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
+    "checked": 20260913,
+    "name": "Elk River \u2014 Community Calendar",
+    "reason": "14 vevents / 14 future",
+    "status": "ok",
+    "type": "ics"
   },
   "ellerslieanglican.org.nz": {
     "checked": 20260824,
@@ -49993,6 +50721,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "frankfort.ky.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260913,
+    "name": "Frankfort \u2014 Parks - Events",
+    "reason": "19 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "frankfort.ky.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
+    "checked": 20260913,
+    "name": "Frankfort \u2014 Parks - General",
+    "reason": "19 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "frankfort.ky.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Frankfort \u2014 Events Calendar",
+    "reason": "86 vevents / 86 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "frankfort.ky.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
+    "checked": 20260913,
+    "name": "Frankfort \u2014 Parks - Athletics",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "franklinwi.gov": {
     "checked": 20260913,
     "name": "Franklin",
@@ -50118,6 +50874,34 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "frederickcountymd.gov/common/modules/iCalendar/iCalendar.aspx?catID=50&feed=calendar": {
+    "checked": 20260913,
+    "name": "Frederick County Parks, MD \u2014 Energy and Environment",
+    "reason": "47 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "frederickcountymd.gov/common/modules/iCalendar/iCalendar.aspx?catID=96&feed=calendar": {
+    "checked": 20260913,
+    "name": "Frederick County Parks, MD \u2014 50+ Community Centers",
+    "reason": "261 vevents / 261 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "frederickcountymd.gov/common/modules/iCalendar/iCalendar.aspx?catID=97&feed=calendar": {
+    "checked": 20260913,
+    "name": "Frederick County Parks, MD \u2014 50+ Community Centers: Fitness Classes",
+    "reason": "167 vevents / 167 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Fredericksburg",
+    "reason": "13 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
   },
   "frederiksberg-boldklub.dk": {
     "checked": 20260831,
@@ -53906,6 +54690,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gladstone.mo.us": {
+    "checked": 20260913,
+    "name": "Gladstone",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "gladstonetennis.co.nz/our-events": {
     "checked": 20260824,
     "name": "Gladstone Tennis Club",
@@ -54619,6 +55410,27 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "gloucester-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=104&feed=calendar": {
+    "checked": 20260913,
+    "name": "Gloucester \u2014 Fire Department",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "gloucester-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=105&feed=calendar": {
+    "checked": 20260913,
+    "name": "Gloucester \u2014 Police Department",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "gloucester-ma.gov/common/modules/iCalendar/iCalendar.aspx?catID=106&feed=calendar": {
+    "checked": 20260913,
+    "name": "Gloucester \u2014 Special City Events",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
   },
   "glowchurch.com": {
     "checked": 20260819,
@@ -56139,6 +56951,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "granitecity.illinois.gov": {
+    "checked": 20260913,
+    "name": "Granite City",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "grankulla.metodistkyrkan.fi/suomeksi": {
     "checked": 20260903,
     "name": "Betlehemskyrkan",
@@ -57133,6 +57952,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "gsmit.org": {
+    "checked": 20260913,
+    "name": "Great Smoky Mountains Institute, TN",
+    "reason": "27 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "gso.se": {
     "checked": 20260905,
     "name": "G\u00f6teborgs Konserthus",
@@ -57889,6 +58715,27 @@
     "status": "ok",
     "type": "ics"
   },
+  "hainescity.com/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260913,
+    "name": "Haines City \u2014 Library",
+    "reason": "30 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hainescity.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Haines City \u2014 Parks & Recreation",
+    "reason": "7 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hainescity.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260913,
+    "name": "Haines City \u2014 Special Events",
+    "reason": "7 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "hakasalmivilla.fi": {
     "checked": 20260903,
     "name": "Hakasalmen huvila",
@@ -58106,6 +58953,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hamiltoncounty.in.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260913,
+    "name": "Hamilton County Parks, IN \u2014 Parks & Recreation Programs",
+    "reason": "95 vevents / 95 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "hamiltongardens.co.nz": {
     "checked": 20260825,
     "name": "Hamilton Gardens",
@@ -58167,6 +59021,13 @@
     "name": "Hampshire Farmers Markets (UK)",
     "reason": "30 vevents / 30 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "hamtramckcity.gov/?feed=my-calendar-ics": {
+    "checked": 20260913,
+    "name": "Hamtramck",
+    "reason": "0 vevents / 0 future",
+    "status": "fail",
     "type": "ics"
   },
   "hanart.com": {
@@ -58875,6 +59736,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hazelwoodmo.org/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar": {
+    "checked": 20260913,
+    "name": "Hazelwood \u2014 Parks & Recreation",
+    "reason": "231 vevents / 231 future",
+    "status": "ok",
+    "type": "ics"
   },
   "hb-wiensued.at": {
     "checked": 20260907,
@@ -60464,6 +61332,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "henrico.gov": {
+    "checked": 20260913,
+    "name": "Henrico County Rec & Parks, VA",
+    "reason": "89 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "henrik.katolinen.fi": {
     "checked": 20260903,
@@ -62537,6 +63412,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "homewoodal.net": {
+    "checked": 20260913,
+    "name": "Homewood",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "homewoodcare.com.au/nursing-home/gardens-facility": {
     "checked": 20260819,
     "name": "Homewood Gardens",
@@ -62760,6 +63642,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hornlake.org": {
+    "checked": 20260913,
+    "name": "Horn Lake",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "hornsby.nsw.gov.au/library/branches/libraries/Pennant-Hills-Library": {
     "checked": 20260819,
@@ -65036,6 +65925,48 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "imperialbeachca.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Imperial Beach \u2014 Events Calendar",
+    "reason": "50 vevents / 50 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "imperialbeachca.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260913,
+    "name": "Imperial Beach \u2014 Fire Calendar",
+    "reason": "20 vevents / 20 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "imperialbeachca.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
+    "checked": 20260913,
+    "name": "Imperial Beach \u2014 Housing Calendar",
+    "reason": "20 vevents / 20 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "imperialbeachca.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar": {
+    "checked": 20260913,
+    "name": "Imperial Beach \u2014 Events in Our Parks",
+    "reason": "20 vevents / 20 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "imperialbeachca.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Imperial Beach \u2014 Age Friendly Community",
+    "reason": "20 vevents / 20 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "imperialbeachca.gov/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar": {
+    "checked": 20260913,
+    "name": "Imperial Beach \u2014 Climate Action Plan Update",
+    "reason": "20 vevents / 20 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "impossibleforms.org": {
     "checked": 20260903,
     "name": "Museum of Impossible Forms",
@@ -66646,6 +67577,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jamestownny.net": {
+    "checked": 20260913,
+    "name": "Jamestown",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "jamfactory.com.au": {
     "checked": 20260819,
     "name": "JamFactory",
@@ -67177,6 +68115,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "jenks.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Jenks \u2014 Main Calendar",
+    "reason": "27 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
   },
   "jeongdong.or.kr": {
     "checked": 20260902,
@@ -70425,6 +71370,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "keywestcity.com": {
+    "checked": 20260913,
+    "name": "Key West",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kfbg.org/chi/default.aspx": {
     "checked": 20260831,
@@ -75613,6 +76565,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ky-independence.civicplus.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Independence \u2014 Main Calendar",
+    "reason": "22 vevents / 22 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "kybourbontrail.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Kentucky Bourbon Trail Events",
@@ -76201,6 +77160,48 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lafayetteco.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Lafayette \u2014 City Calendar",
+    "reason": "54 vevents / 54 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lafayetteco.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260913,
+    "name": "Lafayette \u2014 Arts and Cultural Resources",
+    "reason": "47 vevents / 45 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lafayetteco.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
+    "checked": 20260913,
+    "name": "Lafayette \u2014 Open Space",
+    "reason": "29 vevents / 29 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lafayetteco.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
+    "checked": 20260913,
+    "name": "Lafayette \u2014 Police Department",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lafayetteco.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar": {
+    "checked": 20260913,
+    "name": "Lafayette \u2014 Library",
+    "reason": "9 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lafayetteco.gov/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar": {
+    "checked": 20260913,
+    "name": "Lafayette \u2014 Collective Community Art Center",
+    "reason": "35 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "lafcadiohearngardens.com": {
     "checked": 20260823,
     "name": "Lafacadio Hearn Gardens",
@@ -76536,6 +77537,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lakejackson-tx.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Lake Jackson \u2014 Main Calendar",
+    "reason": "256 vevents / 256 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lakejackson-tx.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
+    "checked": 20260913,
+    "name": "Lake Jackson \u2014 Community",
+    "reason": "246 vevents / 246 future",
+    "status": "ok",
+    "type": "ics"
   },
   "lakeshoremanor.ca": {
     "checked": 20260819,
@@ -78056,6 +79071,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lawrenceks.gov": {
+    "checked": 20260913,
+    "name": "Douglas County / Lawrence Parks, KS",
+    "reason": "178 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "lawrencevillega.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
     "checked": 20260913,
     "name": "Lawrenceville \u2014 Event Calendar",
@@ -78777,6 +79799,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "leesburgflorida.gov": {
+    "checked": 20260913,
+    "name": "Leesburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "lefive.fr/nos-centres/69/paris_18": {
     "checked": 20260829,
     "name": "Le Five Paris 18",
@@ -79259,6 +80288,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lemongrove.ca.gov": {
+    "checked": 20260913,
+    "name": "Lemon Grove",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "lemoore.com": {
+    "checked": 20260913,
+    "name": "Lemoore",
+    "reason": "60 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "lemoulindevauboyen.fr": {
     "checked": 20260829,
@@ -80575,6 +81618,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "libertymissouri.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Liberty \u2014 Community Events",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "libertymissouri.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar": {
+    "checked": 20260913,
+    "name": "Liberty \u2014 Parks & Recreation",
+    "reason": "7 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
   },
   "libertysaints.ie": {
     "checked": 20260822,
@@ -83460,6 +84517,27 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "loudoun.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20260913,
+    "name": "Loudoun County Parks, VA \u2014 Parks, Recreation and Community Services",
+    "reason": "47 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "loudoun.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
+    "checked": 20260913,
+    "name": "Loudoun County Parks, VA \u2014 County Events",
+    "reason": "4 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "loudoun.gov/common/modules/iCalendar/iCalendar.aspx?catID=46&feed=calendar": {
+    "checked": 20260913,
+    "name": "Loudoun County Parks, VA \u2014 Virginia Cooperative Extension - Loudoun County",
+    "reason": "34 vevents / 34 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "loulou.no/bergen": {
     "checked": 20260906,
     "name": "Lou Lou",
@@ -84640,6 +85718,13 @@
     "checked": 20260907,
     "name": "Madison \u2014 Community Events Calendar",
     "reason": "24 vevents / 24 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "madisonheightsmi.gov/common/modules/iCalendar/iCalendar.aspx?catID=43&feed=calendar": {
+    "checked": 20260913,
+    "name": "Madison Heights \u2014 Events",
+    "reason": "29 vevents / 29 future",
     "status": "ok",
     "type": "ics"
   },
@@ -86106,6 +87191,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "maplevalleywa.gov": {
+    "checked": 20260913,
+    "name": "Maple Valley",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "mapsint-niklaas.be/mercator": {
     "checked": 20260913,
     "name": "MAP - Mercator",
@@ -86778,6 +87870,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "marylandheights.com": {
+    "checked": 20260913,
+    "name": "Maryland Heights",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "marymackillopplace.org.au/visit/memorial-chapel": {
     "checked": 20260819,
     "name": "Mary MacKillop Memorial Chapel",
@@ -86812,6 +87911,13 @@
     "reason": "osm probe: offsite:humanitix.com",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "marysvilleohio.org/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar": {
+    "checked": 20260913,
+    "name": "Marysville \u2014 Recreation & Events",
+    "reason": "8 vevents / 8 future",
+    "status": "ok",
+    "type": "ics"
   },
   "marysvillewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20260903,
@@ -87407,6 +88513,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mcdonoughga.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "McDonough \u2014 Homepage Calendar",
+    "reason": "31 vevents / 30 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mcdonoughga.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "McDonough \u2014 Main Street Calendar",
+    "reason": "21 vevents / 20 future",
+    "status": "ok",
+    "type": "ics"
   },
   "mcdougallunited.com": {
     "checked": 20260819,
@@ -88339,6 +89459,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "mercerisland.gov/calendar/ical/%2A/calendar.ics": {
+    "checked": 20260913,
+    "name": "Mercer Island",
+    "reason": "96 vevents / 64 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "merchtem.be/sporthalmerchtem": {
     "checked": 20260911,
     "name": "Sporthal Merchtem",
@@ -88913,6 +90040,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mianus.org/calendar/?ical=1": {
+    "checked": 20260913,
+    "name": "Mianus River Gorge, NY",
+    "reason": "50 vevents / 0 future",
+    "status": "empty",
+    "type": "ics"
+  },
   "micadanses.fr": {
     "checked": 20260828,
     "name": "Micadanses",
@@ -89003,6 +90137,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "middletown-ny.com/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Middletown \u2014 Community Events",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "middletown-ny.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Middletown \u2014 Business Improvement District",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
   },
   "middletownct.gov/common/modules/iCalendar/iCalendar.aspx?catID=124&feed=calendar": {
     "checked": 20260911,
@@ -95353,6 +96501,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "mymorristown.com": {
+    "checked": 20260913,
+    "name": "Morristown",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "myqueerevents.de": {
     "checked": 20260808,
     "name": "MyQueerEvents",
@@ -95394,6 +96549,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "myslidell.com": {
+    "checked": 20260913,
+    "name": "Slidell",
+    "reason": "42 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "mysterebouffe.com": {
     "checked": 20260828,
@@ -97068,6 +98230,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "newlondonct.gov": {
+    "checked": 20260913,
+    "name": "New London",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "newlynnbowls.co.nz": {
     "checked": 20260824,
     "name": "New Lynn Bowls",
@@ -97368,6 +98537,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nhaudubon.org": {
+    "checked": 20260913,
+    "name": "New Hampshire Audubon",
+    "reason": "105 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "nhb.gov.sg/bukitchandu": {
     "checked": 20260910,
@@ -98433,6 +99609,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "northamptonma.gov/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar": {
+    "checked": 20260913,
+    "name": "Northampton \u2014 Senior Services",
+    "reason": "993 vevents / 993 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "northbrightoncg.com/events": {
     "checked": 20260819,
     "name": "North Brighton Community Garden",
@@ -98852,6 +100035,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nortonshores.org": {
+    "checked": 20260913,
+    "name": "Norton Shores",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "norwichct.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar": {
     "checked": 20260913,
@@ -99756,6 +100946,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "oakdalemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Oakdale",
+    "reason": "33 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "oaklandparkfl.org": {
     "checked": 20260912,
     "name": "Oakland Park",
@@ -99769,6 +100966,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "oakparkmi.gov": {
+    "checked": 20260913,
+    "name": "Oak Park",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "oakridgecommunity.ca": {
     "checked": 20260819,
@@ -103137,6 +104341,41 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "owatonna.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Owatonna \u2014 Owatonna Public Library",
+    "reason": "60 vevents / 60 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "owatonna.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
+    "checked": 20260913,
+    "name": "Owatonna \u2014 Parks & Recreation",
+    "reason": "29 vevents / 29 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "owatonna.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260913,
+    "name": "Owatonna \u2014 Stormwater Management",
+    "reason": "2 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "owatonna.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
+    "checked": 20260913,
+    "name": "Owatonna \u2014 Tennis & Pickleball Center",
+    "reason": "18 vevents / 18 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "owatonna.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
+    "checked": 20260913,
+    "name": "Owatonna \u2014 Blooming Prairie Branch",
+    "reason": "32 vevents / 31 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "owensboro.org": {
     "checked": 20260906,
     "name": "Owensboro",
@@ -103262,6 +104501,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "oxfordms.net": {
+    "checked": 20260913,
+    "name": "Oxford",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "oxusbrewing.com": {
     "checked": 20260819,
@@ -105111,6 +106357,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paragouldarkansas.com": {
+    "checked": 20260913,
+    "name": "Paragould",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "paraplyen-taastrup.dk": {
     "checked": 20260831,
     "name": "V\u00e6restedet Caf\u00e9 Paraplyen H\u00f8je Taastrup",
@@ -105726,6 +106979,48 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "parkboard.org/common/modules/iCalendar/iCalendar.aspx?catID=102&feed=calendar": {
+    "checked": 20260913,
+    "name": "Springfield-Greene County Parks, MO \u2014 Senior Fitness",
+    "reason": "417 vevents / 417 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "parkboard.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Springfield-Greene County Parks, MO \u2014 Main Calendar",
+    "reason": "44 vevents / 44 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "parkboard.org/common/modules/iCalendar/iCalendar.aspx?catID=52&feed=calendar": {
+    "checked": 20260913,
+    "name": "Springfield-Greene County Parks, MO \u2014 Youth Programs",
+    "reason": "38 vevents / 38 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "parkboard.org/common/modules/iCalendar/iCalendar.aspx?catID=58&feed=calendar": {
+    "checked": 20260913,
+    "name": "Springfield-Greene County Parks, MO \u2014 Accessible Recreation",
+    "reason": "63 vevents / 63 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "parkboard.org/common/modules/iCalendar/iCalendar.aspx?catID=89&feed=calendar": {
+    "checked": 20260913,
+    "name": "Springfield-Greene County Parks, MO \u2014 Doling Fitness Schedule",
+    "reason": "770 vevents / 770 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "parkboard.org/common/modules/iCalendar/iCalendar.aspx?catID=99&feed=calendar": {
+    "checked": 20260913,
+    "name": "Springfield-Greene County Parks, MO \u2014 Yoga",
+    "reason": "42 vevents / 42 future",
+    "status": "ok",
+    "type": "ics"
   },
   "parkcentre.scot": {
     "checked": 20260819,
@@ -106930,6 +108225,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "peoriaparks.org": {
+    "checked": 20260913,
+    "name": "Peoria Park District, IL",
+    "reason": "34 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "pep.fi/ponnen_maja": {
     "checked": 20260903,
@@ -109584,6 +110886,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pooler-ga.gov": {
+    "checked": 20260913,
+    "name": "Pooler",
+    "reason": "4 events, 4/4 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "pop-padel.com": {
     "checked": 20260910,
     "name": "Pop Padel",
@@ -109877,6 +111186,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "porthuron.org": {
+    "checked": 20260913,
+    "name": "Port Huron",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "porticoarlfc.com/whatson": {
     "checked": 20260819,
@@ -112888,6 +114204,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "raytown.mo.us": {
+    "checked": 20260913,
+    "name": "Raytown",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "razzmatazz.fi": {
     "checked": 20260904,
     "name": "Tanssistudio Razzmatazz",
@@ -114589,6 +115912,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ridgecrest-ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Ridgecrest \u2014 Parks and Recreation Calendar",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ridgecrest-ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260913,
+    "name": "Ridgecrest \u2014 Community Events",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "ridgewoodcl.org": {
     "checked": 20260819,
     "name": "Ridgewood Community League",
@@ -114952,6 +116289,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "riveredgenaturecenter.org": {
+    "checked": 20260913,
+    "name": "Riveredge Nature Center, WI",
+    "reason": "63 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "riverkeeper.org/events/?ical=1": {
     "checked": 20260803,
@@ -118621,6 +119965,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sanfordnc.net/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Sanford \u2014 Events",
+    "reason": "23 vevents / 23 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "sanfordnc.net/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260913,
+    "name": "Sanford \u2014 Sanford Parks",
+    "reason": "11 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "sangabrielcity.com/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar": {
     "checked": 20260913,
     "name": "San Gabriel \u2014 Events",
@@ -119608,6 +120966,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "schuylkillcenter.org": {
+    "checked": 20260913,
+    "name": "Schuylkill Center, PA",
+    "reason": "76 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "schuylkillcenter.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Schuylkill Center for Environmental Education (Philadelphia, PA)",
@@ -120427,6 +121792,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sealbeachca.gov": {
+    "checked": 20260913,
+    "name": "Seal Beach",
+    "reason": "111 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "sealife.fi": {
     "checked": 20260903,
     "name": "Sea Life Helsinki",
@@ -120643,6 +122015,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "seguintexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20260913,
+    "name": "Seguin \u2014 Community Events",
+    "reason": "41 vevents / 41 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "seguintexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Seguin \u2014 Parks & Recreation Calendar",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
   },
   "sehsaal.at": {
     "checked": 20260907,
@@ -121554,6 +122940,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "shakerheightsoh.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
+    "checked": 20260913,
+    "name": "Shaker Heights \u2014 Community Events",
+    "reason": "36 vevents / 36 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "shakerheightsoh.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Shaker Heights \u2014 Holiday Trash Delays",
+    "reason": "14 vevents / 14 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "shakerlakes.org": {
+    "checked": 20260913,
+    "name": "Nature Center at Shaker Lakes, OH",
+    "reason": "37 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "shakes.cz": {
     "checked": 20260904,
     "name": "Shakespeare & Synov\u00e9",
@@ -121973,6 +123380,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "shoreviewmn.gov": {
+    "checked": 20260913,
+    "name": "Shoreview",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "shorinji.se": {
     "checked": 20260905,
@@ -125369,6 +126783,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "southgate-mi.org": {
+    "checked": 20260913,
+    "name": "Southgate",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "southgatealliance.net": {
     "checked": 20260819,
     "name": "South Gate Alliance",
@@ -125376,12 +126797,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "southpasadenaca.gov": {
+    "checked": 20260913,
+    "name": "South Pasadena",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "southportlabradortigers.com": {
     "checked": 20260819,
     "name": "Southport Labrador Cricket Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "southportland.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "South Portland \u2014 Event Calendar",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
   },
   "southportrfc.com": {
     "checked": 20260819,
@@ -128589,6 +130024,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stevenspoint.com/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar": {
+    "checked": 20260913,
+    "name": "Stevens Point \u2014 Willett Arena",
+    "reason": "9 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "stevensveld.be": {
     "checked": 20260912,
     "name": "Residentie Stevensveld",
@@ -129764,6 +131206,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "stockbridgega.org": {
+    "checked": 20260913,
+    "name": "Stockbridge",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "stockerau.at/Leben_in_Stockerau/Kunst_Kultur/Belvedereschloessl": {
     "checked": 20260907,
@@ -136457,6 +137906,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "templeterrace.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
+    "checked": 20260913,
+    "name": "Temple Terrace \u2014 Leisure Services/Library",
+    "reason": "44 vevents / 44 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "templeterrace.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
+    "checked": 20260913,
+    "name": "Temple Terrace \u2014 City Events",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "templeterrace.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
+    "checked": 20260913,
+    "name": "Temple Terrace \u2014 Police",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "temppeliaukionkirkko.fi": {
     "checked": 20260903,
     "name": "Temppeliaukion kirkko",
@@ -141609,6 +143079,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "trussville.org": {
+    "checked": 20260913,
+    "name": "Trussville",
+    "reason": "63 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "trustpowerbaypark.co.nz/find-a-venue/lion-foundation-centre": {
     "checked": 20260825,
     "name": "Lion Foundation Centre",
@@ -143366,6 +144843,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "unioncityga.org": {
+    "checked": 20260913,
+    "name": "Union City",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "unionhall.ca": {
     "checked": 20260819,
     "name": "Union Hall",
@@ -143820,6 +145304,20 @@
     "reason": "98 upcoming, sample: UPPSALA Biotopia - Mend in public + kl\u00e4d",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "uptexas.org/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20260913,
+    "name": "University Park \u2014 City Events",
+    "reason": "367 vevents / 367 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "uptexas.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "University Park \u2014 Community Events",
+    "reason": "9 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
   },
   "upupup.be": {
     "checked": 20260911,
@@ -147356,6 +148854,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitowatonna.org": {
+    "checked": 20260913,
+    "name": "Owatonna",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "visitpensacola.com": {
     "checked": 20260907,
     "name": "Pensacola",
@@ -148924,6 +150429,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "washingtoncity.org": {
+    "checked": 20260913,
+    "name": "Washington",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "washingtonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Washington State Wine Events",
@@ -150226,6 +151738,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "westmelbourne.org/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar": {
+    "checked": 20260913,
+    "name": "West Melbourne \u2014 Recreation Calendar",
+    "reason": "214 vevents / 214 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "westminster.gov.uk/leisure-libraries-and-community/libraries/paddington-library": {
     "checked": 20260819,
     "name": "Paddington Children\u2019s Library",
@@ -150456,6 +151975,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "wheelingwv.gov": {
+    "checked": 20260913,
+    "name": "Wheeling",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "wheelsandheels.pl": {
     "checked": 20260909,
@@ -152200,6 +153726,41 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "woodstockil.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Woodstock \u2014 Main Calendar",
+    "reason": "21 vevents / 21 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "woodstockil.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Woodstock \u2014 Recreation",
+    "reason": "114 vevents / 114 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "woodstockil.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260913,
+    "name": "Woodstock \u2014 Opera House",
+    "reason": "87 vevents / 87 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "woodstockil.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar": {
+    "checked": 20260913,
+    "name": "Woodstock \u2014 Stage Left",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "woodstockil.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Woodstock \u2014 Park in the Square",
+    "reason": "12 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "woodturner-malabar.com": {
     "checked": 20260819,
     "name": "Eastern Region Woodturners Inc",
@@ -152297,6 +153858,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "woosteroh.com": {
+    "checked": 20260913,
+    "name": "Wooster",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "wordaliveministries.org": {
     "checked": 20260823,

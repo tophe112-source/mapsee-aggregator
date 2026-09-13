@@ -304,7 +304,13 @@
   "Wedding Site Tours", "Open for Visitors" and "Closed for Private Event" — an
   ANTI-event; and a "City Park" feed whose 365 vevents are 365 copies of "Public
   Historical Tour", one standing row per day. Every one of those feeds parses
-  perfectly and returns future events.
+  perfectly and returns future events. The second batch added two more of the
+  same family, and they are the ones to watch for: "Douglas County Open Space"
+  and "Frederick County — Energy and Environment" turn out to be a Planning
+  Commission, a Land Use Public Hearing, a Historic Preservation Board and a
+  Sustainability Commission Meeting. A governance calendar wearing an
+  open-space name gets past `CIVIC_DENY_RX` because the denied word is in the
+  DEPARTMENT, not in the calendar's own label.
 
 - **The big free-walk organisations are closed to us, and that is their
   decision.** Probed 2026-09-13 with the production User-Agent: ramblers.org.uk
