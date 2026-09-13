@@ -106,6 +106,7 @@ query($query: String!, $lat: Float!, $lon: Float!, $radius: Float,
       eventUrl
       dateTime
       endTime
+      status
       description
       venue { name lat lon address city state postalCode country }
       group { name urlname }
@@ -116,11 +117,31 @@ query($query: String!, $lat: Float!, $lon: Float!, $radius: Float,
 """
 
 
+# Event.status is a NON_NULL EventStatus enum — verified by live introspection
+# 2026-09-13, values: ACTIVE, AUTOSCHED, AUTOSCHED_CANCELLED, AUTOSCHED_DRAFT,
+# AUTOSCHED_FINISHED, BLOCKED, CANCELLED, CANCELLED_PERM, DRAFT, PAST, PENDING,
+# PROPOSED, TEMPLATE. Meetup was answering eventSearch with cancelled events and
+# we were importing every one: measured the same day over 502 Meetup-sourced
+# rows sampled from mapsee.me's live sitemaps and re-probed at their own source
+# URLs, 47 said EventCancelled and 18 more had been deleted outright (HTTP 404)
+# — 12.9% of the Meetup events on the map were not happening.
+#
+# A DENYLIST, not an allowlist, matching mapsee_ingest_dice_venue's DEAD_STATUSES.
+# Meetup has renamed fields on us twice already; if it adds a new LIVE state an
+# allowlist would silently drop the whole feed, while a denylist lets it in and
+# costs nothing. Everything listed here is a state in which the event is not a
+# thing the public can turn up to.
+DEAD_STATUSES = {"cancelled", "canceled", "cancelled_perm", "autosched_cancelled",
+                 "draft", "autosched_draft", "template", "proposed", "blocked", "past"}
+
+
 def to_event(ev: Dict[str, Any], category: str = "community") -> Optional[NormalizedEvent]:
     title = (ev.get("title") or "").strip()
     start = ev.get("dateTime")
     if not title or not start:
         return None
+    if str(ev.get("status") or "").strip().lower() in DEAD_STATUSES:
+        return None                                        # cancelled/draft/blocked — not on
     v = ev.get("venue") or {}
     lat, lon = v.get("lat"), v.get("lon")
     if lat is None or lon is None:

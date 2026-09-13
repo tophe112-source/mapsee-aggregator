@@ -258,6 +258,17 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
              skip_rx: Optional[re.Pattern] = None) -> Optional[NormalizedEvent]:
     if "OnlineEventAttendanceMode" in str(item.get("eventAttendanceMode") or ""):
         return None
+    # schema.org/eventStatus is the publisher saying the show is off, in the same
+    # markup we are already reading for the date and the venue — free to honour,
+    # and mapsee_ingest_festivals.py has honoured it since it was written. This
+    # adapter did not, so a venue that correctly flipped its own page to
+    # EventCancelled still had the gig re-imported on the next run.
+    # Postponed counts too: the date in this markup is the one that is NOT
+    # happening, so importing it puts a wrong date on the map rather than a
+    # missing one.
+    if any(s in str(item.get("eventStatus") or "")
+           for s in ("EventCancelled", "EventPostponed")):
+        return None
     name = _clean(item.get("name"))
     start = (item.get("startDate") or "").strip()
     if not name or len(start) < 10:

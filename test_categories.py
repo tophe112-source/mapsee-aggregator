@@ -255,6 +255,18 @@ KIDS_CASES = [
     ("Seniors Tech Help", "learning"),
     # the volunteer rule runs first and must keep winning
     ("Teen Volunteer Corps at Central Library", "volunteer"),
+    # THE TWO AGE GATES IN THE GUARD COULD NEVER FIRE. `18\+` and `21\+` sat
+    # inside a trailing `\b`, and `+` is not a word character — so the boundary
+    # demanded a letter or digit straight after the plus sign, which an age gate
+    # never has. Every one of these returned no match before 2026-09-13.
+    ("Teen Night 18+", "learning"),
+    ("Anime Club 21+", "learning"),
+    ("Pokémon Tournament (18+)", "learning"),
+    # Dating is the adults' version of a listing whose vocabulary reads young.
+    ("Speed Dating for Anime Fans", "learning"),
+    ("Singles Night: Board Games", "learning"),
+    # …but SCOPED, because "dating" alone is a real teen-services topic.
+    ("Teen Dating Violence Awareness Workshop", "kids"),
 ]
 
 kfails = []
@@ -270,6 +282,81 @@ for title, want in KIDS_CASES:
 print()
 print(f"{len(KIDS_CASES)-len(kfails)}/{len(KIDS_CASES)} passed")
 cfails += kfails
+
+
+# ---------------------------------------------------------------------------
+# An adult age bracket is not a children's age range
+# ---------------------------------------------------------------------------
+# Reported from production: "Seattle Gay Online Speed Dating" was on plansie's
+# kids layer. Nothing in its TITLE goes near _KIDS_RX — it arrived as a
+# SECONDARY, off the age brackets its blurb enumerates ("Ages 18-32", "Ages
+# 30-46"), because the age-range alternative was written for a library title
+# ("ages 4-18", "grades K-2") and the secondary path also reads descriptions.
+#
+# Measured 2026-09-13 over 2,000 live event pages sampled from mapsee.me's own
+# sitemaps: _KIDS_RX fired on 42, the age range was what fired on 18, and 18 of
+# those 18 had a low end of 18 or more — every one a dating listing, none a
+# children's programme. Bounding the low end below 18 removed all 18 and cost
+# nothing, because a library writes "ages 4-18" and never "ages 30-46".
+#
+# The guard is the backstop for the next one, and it is DELIBERATELY not the
+# title guard. Applying that to descriptions would have withheld the layer from
+# "Homeschool Days", whose blurb prices "Students (4 – 18): $15" beside "Adults
+# (19 & older): $22.50" — a price table is not an age policy.
+from mapsee_supabase_sync import derive_categories as _derive   # noqa: E402
+
+SPEED_DATING = ("**💕 Seattle Gay Virtual Speed Dating on Zoom** Join from home and meet real "
+                "Seattle gay singles in guided one-on-one Zoom rounds. Matched by age and "
+                "personality. **Register below for your age group:** - **Ages 18-32** - "
+                "**Ages 30-46** - **Ages 40-58** - **Ages 55+**")
+
+AGE_CASES = [
+    # (title, description, base, must_NOT_be_kids)
+    ("Seattle Gay Online Speed Dating", SPEED_DATING, "community", True),
+    ("San Gabriel Valley Speed Dating (Ages 28-40)", "", "community", True),
+    ("Houston Fun and Casual Character Matched Dating", "Ages 18-32 · Ages 30-46", "community", True),
+    ("Trivia Night", "Open to everyone, ages 21-65.", "community", True),
+    # …and the ranges a library actually writes must still reach the layer.
+    ("Craft Hour", "A drop-in session for ages 4-18.", "learning", False),
+    ("Robotics Drop-In", "Open to ages 10-14.", "learning", False),
+    ("Story Explorers", "For ages 0-5 and their grown-ups.", "learning", False),
+    ("After School Club", "Grades K-5 welcome.", "learning", False),
+    ("Teen Zone", "Ages 12-18.", "learning", False),
+    # The age range is not the only way in, so the guard has to hold on its own.
+    ("Pokémon TCG League", "Adults only — 21+. Bring your deck.", "community", True),
+    ("LEGO Night", "An 18+ evening of building and beer.", "community", True),
+    # …and must NOT fire on a kids' event that merely mentions adults.
+    ("Homeschool Days", "Special Homeschool Days Cave Walk Pricing Students (4 – 18): $15 "
+                        "Adults (19 & older): $22.50", "community", False),
+    ("Family Fun Swim", "Children under 8 must be accompanied by an adult.", "community", False),
+    # "infant" is a word people use ABOUT a person, not a statement about who an
+    # event is for. Bare, it matched 3 times across the same 2,000 live pages
+    # and all 3 were wrong; both survivors are real rows from that sample.
+    ("Red Cross CPR and First Aid (Blended Learning)",
+     "Learn to recognize and respond to adult, infant and child victims in various "
+     "emergency situations.", "community", True),
+    ("Beloved by Toni Morrison (1987)",
+     "The true story of an enslaved woman who killed her infant daughter to spare her "
+     "a future of enslavement.", "community", True),
+    # …while the sessions a library actually runs for babies still reach kids.
+    ("Infant Massage", "", "learning", False),
+    ("Newborn Group", "", "learning", False),
+    ("Infants & Toddlers Drop-In", "", "learning", False),
+]
+
+afails = []
+for title, desc, base, must_not in AGE_CASES:
+    p, e = _derive({"name": title, "title": title, "description": desc, "category": base,
+                    "sources": [{"source": "meetup", "source_id": "1"}]})
+    cats = {p} | set(e or [])
+    ok = ("kids" not in cats) if must_not else ("kids" in cats)
+    if not ok:
+        afails.append(title)
+    print(f"{'ok ' if ok else 'FAIL'} {title[:44]:<46} -> {p} + {sorted(e or [])}"
+          f"{'' if ok else ('   (kids must NOT be here)' if must_not else '   (kids is missing)')}")
+print()
+print(f"{len(AGE_CASES)-len(afails)}/{len(AGE_CASES)} passed")
+cfails += afails
 
 
 SWEEP_CASES = [

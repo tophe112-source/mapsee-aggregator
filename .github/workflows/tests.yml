@@ -349,6 +349,17 @@ jobs:
       - name: Pruning a dead link leaves an honest description
         run: python test_prune_links.py
 
+      # Its sibling, one step further: this one HIDES rows rather than editing
+      # text, so the risky half is everything it must REFUSE to act on. "Free
+      # cancellation up to 24 hours", "cancellation policy" and "cancelled
+      # orders are refunded" are all on live, healthy ticket pages, and a text
+      # rule over them would empty the map — so only schema.org eventStatus and
+      # a 404 count, and those five sentences are pinned as things that must not.
+      # Also the three adapters that could see a cancellation and were not
+      # looking: RFC 5545 STATUS, schema.org eventStatus, Meetup's Event.status.
+      - name: A cancelled event must not arrive, and must leave once called off
+        run: python test_cancelled_events.py
+
       # The international sweep spawns its ingesters as subprocesses, and a
       # southern-hemisphere latlong starts with a minus that argparse reads as
       # an option. Australia, New Zealand and South Africa ingested nothing for

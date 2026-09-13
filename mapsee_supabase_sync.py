@@ -149,6 +149,18 @@ _PROMOTABLE_TO_PARTY = {"community", "food", "other"}
 #
 # Also here: an explicit AGE RANGE ("ages 4-18", "grades K-2"), which is how a
 # library says "this is for children" without using any of the words above.
+#
+# THE RANGE MUST START BELOW 18, and that bound is the whole rule. Written for a
+# library title it read as "an age bracket is a children's signal"; used as a
+# SECONDARY it also reads DESCRIPTIONS, and an adult listing states its bracket
+# there far more often than a library states one anywhere. Measured 2026-09-13
+# over 2,000 live event pages sampled from mapsee.me's own sitemaps: _KIDS_RX
+# fired on 42, the age range was what fired on 18, and **18 of those 18 had a
+# low end of 18 or more** — every one a speed-dating listing enumerating its
+# brackets ("Ages 18-32", "Ages 28-40"), none of them a children's programme.
+# Zero real children's ranges were lost to the bound, because a library writes
+# "ages 4-18" and "grades K-2" and never "ages 30-46". The reported one was
+# "Seattle Gay Online Speed Dating", on plansie's kids layer.
 _KIDS_RX = re.compile(
     r"\b(story\s?time|"
     r"family\s+(?:day|fun|friendly|workshop|concert|steam|stem|storytime|movie|game|craft|night|hour)|"
@@ -162,19 +174,66 @@ _KIDS_RX = re.compile(
     r"lego|duplo|brick\s+(?:club|build|night)|"
     r"read\s+(?:to|with)\s+(?:a\s+|the\s+)?(?:dog|therapy\s+dog|teen)|"
     r"minecraft|pok[eé]mon|anime\s+club|"
-    r"homeschool|infants?|newborn|"
+    r"homeschool|"
+    # SCOPED, like every other ambiguous word in this rule, and for the same
+    # reason: "infant" is a word people use ABOUT a person, not a statement
+    # about who an event is for. Bare, it produced 3 matches across the same
+    # 2,000 live pages and all 3 were wrong — a Red Cross certification class
+    # ("respond to adult, infant and child victims") and a book group on
+    # Beloved ("an enslaved woman who killed her infant daughter"). Zero were
+    # real. A library names the session, the way it does for baby and toddler
+    # ones a line above: Infant Massage, Newborn Group, Infants & Toddlers.
+    r"(?:infants?|newborns?)\s*(?:&|and|/|\+)\s*(?:toddlers?|parents?|caregivers?|carers?)|"
+    r"(?:infant|newborn)s?\s+(?:time|stor(?:y|ies)|story\s?time|massage|care|class|group|"
+    r"playgroup|play|music|swim|sensory|support|feeding|rhyme|sign)|"
     r"youth\s+(?:crew|group|night|craft|art|writing|hangout)|"
     r"sensory\s+(?:play|story)|messy\s+play|tummy\s+time|"
     r"summer\s+reading\s+(?:kick|program|club)|"
-    r"ages?\s+\d{1,2}\s*[-–]\s*\d{1,2}|grades?\s+[kK0-9])\b", re.I)
+    r"ages?\s+(?:1[0-7]|\d)\s*[-–]\s*\d{1,2}|grades?\s+[kK0-9])\b", re.I)
 
 # The same widening that catches "LEGO in the Library" catches "Adult LEGO®
 # Club", which is a real listing on a real library calendar — libraries run the
 # identical programme for grown-ups and say so in the title. Checked only
 # against the kids promotion, and only ever to WITHHOLD it, so it can move
 # nothing off the layer it is already on.
+#
+# THE TWO AGE GATES IN IT COULD NEVER FIRE. `18\+` and `21\+` sat inside a
+# trailing `\b`, and `+` is not a word character — so the boundary demanded a
+# letter or digit immediately after the plus sign, which is exactly what an age
+# gate never has. Measured 2026-09-13: "Ages 18+", "21+ only" and "18+ event"
+# all returned no match, i.e. both alternatives were dead text from the day
+# they were written. They are out of the `\b(...)\b` group now. A senior
+# bracket like "Ages 55+" is still not matched HERE, deliberately — that is
+# a description shape, and _ADULTS_ONLY_RX below is what reads it.
+#
+# Dating is here for the same reason "Adult LEGO Club" is: a speed-dating night
+# is the adults' version of a listing whose vocabulary otherwise reads young.
+# Scoped, not bare — "dating" alone matches "Teen Dating Violence Awareness",
+# which is a real library programme and genuinely for teenagers.
 _NOT_FOR_KIDS_RX = re.compile(
-    r"\b(adults?|adult[\s-]only|18\+|21\+|grown[\s-]?ups?|seniors?)\b", re.I)
+    r"\b(?:adults?|adult[\s-]only|grown[\s-]?ups?|seniors?|"
+    r"speed\s+dating|singles?\s+(?:night|mixer|event|party|social|meetup))\b"
+    r"|(?:18|19|20|21)\+", re.I)
+
+# The guard the SECONDARY may use, which is a different question. The rule above
+# reads a TITLE, where a bare "adult" is a statement about who the event is for.
+# The kids secondary reads the description, where it is usually a statement about
+# who else is in the room — and over the same 2,000 live pages, applying the
+# title guard to descriptions would have withheld the layer from three rows of
+# which one, "Homeschool Days", is unambiguously a children's event: its blurb
+# prices "Students (4 – 18): $15" beside "Adults (19 & older): $22.50". A price
+# table is not an age policy.
+#
+# So this is only the phrases that can mean nothing except "this event is for
+# adults", each one carrying its own age or its own format. Same shape as
+# _NOT_A_MARKET_RX and _FITNESS_METAPHOR_RX: narrow, listed, and only ever
+# withholding.
+_ADULTS_ONLY_RX = re.compile(
+    r"\badults?[\s-]only\b|\b(?:18|19|20|21)\+|"
+    r"\bages?\s+(?:1[89]|[2-9]\d)\+|"
+    r"\b(?:must\s+be|aged?)\s+(?:at\s+least\s+)?(?:18|19|20|21)\s*(?:\+|or\s+(?:over|older|above)|and\s+(?:over|older|above)|years?)|"
+    r"\bover[\s-](?:18|21)s?\b|\bno\s+(?:one\s+)?under\s+(?:18|21)\b|\bno\s+minors\b|"
+    r"\bspeed\s+dating\b|\bsingles?\s+(?:night|mixer|event|party|social|meetup)\b", re.I)
 
 _PROMOTABLE_TO_KIDS = {"community", "learning", "arts", "outdoors", "other"}
 
@@ -489,6 +548,17 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
         # and the shape recurs every time a venue names a night after a lyric.
         if key == "market" and _NOT_A_MARKET_RX.search(text):
             continue
+        # THE KIDS GUARD WAS ONLY EVER ASKED ABOUT THE PRIMARY, and the primary
+        # is the path that reads titles. This one reads descriptions, so it is
+        # the path an adults' listing actually arrives down: "Seattle Gay Online
+        # Speed Dating" reached plansie's kids layer as a SECONDARY, off the age
+        # brackets in its blurb, with _NOT_FOR_KIDS_RX never consulted. Bounding
+        # the age range fixes that listing; this is the backstop for the next
+        # one, because "Pokémon", "LEGO", "teens" and "anime club" all have a
+        # grown-ups' night somewhere. Withholds only — it can never move an
+        # event off a layer it already has.
+        if key == "kids" and _ADULTS_ONLY_RX.search(text):
+            continue
         if rx.search(text):
             add(key)
 
@@ -577,8 +647,16 @@ def map_category(rec: Dict[str, Any]) -> str:
             return "volunteer"
     if key in _PROMOTABLE_TO_THEATER and _THEATER_RX.search(rec.get("name") or ""):
         return "theater"           # comedy/standup/film at a music venue -> stage layer
+    # The kids RULE reads the title only, like every other primary rule. The
+    # GUARD reads both, because a guard can only ever withhold: "Pokémon TCG
+    # League" and "LEGO Night" are kids words in a title with "Adults only —
+    # 21+" and "An 18+ evening" in the blurb, and the title-only guard could not
+    # see either. _ADULTS_ONLY_RX rather than _NOT_FOR_KIDS_RX for the
+    # description half — see its note for the price table that proves the
+    # difference.
     if key in _PROMOTABLE_TO_KIDS and _KIDS_RX.search(rec.get("name") or "") \
-            and not _NOT_FOR_KIDS_RX.search(rec.get("name") or ""):
+            and not _NOT_FOR_KIDS_RX.search(rec.get("name") or "") \
+            and not _ADULTS_ONLY_RX.search(_classify_text(rec, _DESC_SCAN_CHARS)):
         return "kids"              # storytime/family day hiding in community/learning
     if key in _PROMOTABLE_TO_PARTY and _PARTY_RX.search(rec.get("name") or ""):
         return "party"             # crawls/happy hours/karaoke -> the nightlife layer

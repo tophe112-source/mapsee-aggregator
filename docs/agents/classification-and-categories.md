@@ -126,3 +126,54 @@
   Playhouse) keep a room-level key, because the classifier genuinely cannot
   recover a play from its title. Everything else states `community` and lets
   the promotions run.
+
+- **AN ADULT AGE BRACKET IS NOT A CHILDREN'S AGE RANGE, and the rule that could
+  not tell them apart put speed dating on the kids layer.** `_KIDS_RX` accepts
+  an explicit age range because that is how a library says "for children"
+  without using any of the words — "ages 4-18", "grades K-2". Written for a
+  TITLE that is true; used as a SECONDARY it also reads DESCRIPTIONS, and an
+  adults' listing states its brackets there far more often than a library states
+  one anywhere. Measured 2026-09-13 over 2,000 live event pages sampled from
+  mapsee.me's own sitemaps: `_KIDS_RX` fired on 42, the age range was what fired
+  on 18, and **18 of those 18 had a low end of 18 or more** — every one a
+  speed-dating listing enumerating "Ages 18-32", "Ages 28-40", none of them a
+  children's programme. Bounding the low end below 18 removed all 18 and cost
+  **zero** real children's ranges, because a library writes "ages 4-18" and
+  never "ages 30-46". The reported row was "Seattle Gay Online Speed Dating", on
+  plansie's kids layer, from a title with nothing childlike in it at all.
+
+- **THE KIDS GUARD WAS ONLY EVER ASKED ABOUT THE PRIMARY, and the primary is the
+  path that reads titles.** `_NOT_FOR_KIDS_RX` exists so "Adult LEGO® Club" does
+  not reach the kids layer, and the SECONDARY — the path that reads
+  descriptions, and therefore the path an adults' listing actually arrives
+  down — never consulted it. A guard that only covers the safer of two paths is
+  the same shape of bug as the metaphor guard being wired into the primary
+  fitness rule only. Both paths check now, but NOT with the same regex, because
+  a bare "adult" means different things in the two places: in a title it says
+  who the event is for, in a description it usually says who else is in the
+  room. Applying the title guard to descriptions would have withheld the layer
+  from three of the 42 live hits, one of which — "Homeschool Days" — is
+  unambiguously a children's event whose blurb prices "Students (4 – 18): $15"
+  beside "Adults (19 & older): $22.50". A price table is not an age policy. So
+  the description half is `_ADULTS_ONLY_RX`: only phrases that can mean nothing
+  except an adults' event, each carrying its own age or its own format. It fired
+  0 times across those 42.
+
+- **`18\+` AND `21\+` IN THE GUARD COULD NEVER FIRE, from the day they were
+  written.** Both sat inside a trailing `\b`, and `+` is not a word character,
+  so the boundary demanded a letter or digit immediately after the plus sign —
+  which is exactly what an age gate never has. Measured 2026-09-13: "Ages 18+",
+  "21+ only" and "18+ event" all returned no match. A `\b` after a punctuation
+  character is almost always a bug; check any alternative in this file that
+  ends in one.
+
+- **A WORD PEOPLE USE *ABOUT* SOMEBODY IS NOT A STATEMENT ABOUT WHO AN EVENT IS
+  FOR, and `infant` is the proof.** Bare `infants?|newborn` matched 3 times
+  across the same 2,000 live pages and **all 3 were wrong**: a Red Cross
+  certification class ("recognize and respond to adult, infant and child
+  victims") and a book group on *Beloved* ("an enslaved woman who killed her
+  infant daughter"), both landing on the kids layer. Zero were real. Scoped to
+  the way a library actually names the session — Infant Massage, Newborn Group,
+  Infants & Toddlers — exactly as `baby` was already scoped one line above.
+  Every ambiguous single word in `_KIDS_RX` and `_FITNESS_RX` is qualified for
+  this reason; an unqualified one is a bug waiting for a big enough sample.

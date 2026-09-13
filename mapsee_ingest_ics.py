@@ -184,7 +184,7 @@ def _parse_dt(value: str, params: Dict[str, str]) -> Tuple[Optional[str], Option
 
 
 def parse_ics(text: str) -> List[Dict[str, Any]]:
-    """Minimal VEVENT extractor: SUMMARY/DTSTART/DTEND/LOCATION/DESCRIPTION/URL/UID/GEO."""
+    """Minimal VEVENT extractor: SUMMARY/DTSTART/DTEND/LOCATION/DESCRIPTION/URL/UID/GEO/STATUS."""
     events: List[Dict[str, Any]] = []
     cur: Optional[Dict[str, Any]] = None
     for line in _unfold(text):
@@ -206,7 +206,14 @@ def parse_ics(text: str) -> List[Dict[str, Any]]:
             if "=" in p:
                 k, v = p.split("=", 1)
                 params[k.upper()] = v
-        if prop in ("SUMMARY", "LOCATION", "DESCRIPTION", "URL", "UID", "GEO", "DTSTART", "DTEND"):
+        # STATUS is how RFC 5545 says an event is off (CANCELLED) or not yet
+        # real (TENTATIVE). It is the ONE cancellation signal a calendar feed
+        # can send us — a library or a town hall cannot delete a VEVENT it has
+        # already published, so it flips STATUS instead — and this parser was
+        # dropping the property on the floor, which made every cancellation
+        # invisible to the whole pipeline.
+        if prop in ("SUMMARY", "LOCATION", "DESCRIPTION", "URL", "UID", "GEO", "DTSTART", "DTEND",
+                    "STATUS"):
             cur[prop] = (value, params)
     return events
 
@@ -336,12 +343,23 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
     unplaceable = 0
     past = 0
     governance = 0
+    cancelled = 0
     is_civic = str(src.get("_found", "")).startswith("civic:")
     for ev in events:
         if kept >= limit:
             break
         title = _unescape(ev.get("SUMMARY", ("", {}))[0]).strip()
         if not title or "DTSTART" not in ev:
+            continue
+        # STATUS:CANCELLED, and the publisher has told us in the only way a
+        # subscribed calendar can. Refusing it here is the cheap half of the
+        # problem — it stops a cancellation reaching the map at all — and it is
+        # only the half that works for rows we have not written YET, because an
+        # upsert cannot delete (mapsee_prune_cancelled.py is the other half).
+        # TENTATIVE is left alone: "not confirmed" is how a lot of municipal
+        # software publishes everything, and it is not a cancellation.
+        if (ev.get("STATUS", ("", {}))[0] or "").strip().upper() == "CANCELLED":
+            cancelled += 1
             continue
         # A CITY CALENDAR IS TWO CALENDARS SHARING A FEED. The discovery side
         # refuses a feed that is NOTHING but meetings (governance_heavy, at two
@@ -431,6 +449,10 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
     # visible if the number is on the line.
     if governance:
         note += f"; {governance} town-hall row(s) refused"
+    # Same rule as governance: counted and printed, never a silent skip. A feed
+    # whose cancellations suddenly jump is telling us something about the venue.
+    if cancelled:
+        note += f"; {cancelled} cancelled (STATUS:CANCELLED)"
     print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}")
     return kept
 

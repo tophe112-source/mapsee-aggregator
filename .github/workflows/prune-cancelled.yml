@@ -1,0 +1,62 @@
+name: Prune cancelled events
+
+# Re-probes UPCOMING aggregator rows at their own source URL and hides the ones
+# the source has since called off — schema.org EventCancelled/EventPostponed, or
+# a 404/410 on the listing. Every other cancellation check in this repo runs at
+# ingest and so protects only rows not written yet; an upsert cannot delete, and
+# --only-new means a scheduled run can only ADD. This is the other half.
+#
+# Measured 2026-09-13 over 502 Meetup-sourced rows sampled from the live
+# sitemaps: 47 cancelled, 18 deleted — 12.9% of the Meetup events on the map.
+#
+# WHERE IT SITS IN THE DAY, and the order is load-bearing:
+#   06:17  aggregate-events      the import
+#   07:40  menu-links            order links, after the import
+#   07:55  THIS                  hide what the source has called off
+#   08:23  cleanup-events        the janitor deletes what is past
+# After the import, so a row written this morning is checked this morning.
+# Before the janitor, so a cancelled event that is also past is deleted outright
+# rather than left hidden for a week.
+#
+# It HIDES (hidden_at), it does not delete: reversible, no cascade through
+# event_messages / event_rsvps / invites / cohosts — which matters most here,
+# because somebody may have RSVP'd to the thing that got cancelled — and
+# cleanup-events reaps it a week after it would have ended, like every other
+# imported row.
+#
+# Required repo secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+
+on:
+  schedule:
+    - cron: "55 7 * * *"        # daily, ~07:55 UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Report only, write nothing"
+        type: boolean
+        default: false
+
+concurrency:
+  group: prune-cancelled
+  cancel-in-progress: false
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # --max-seconds is PAIRED with timeout-minutes above: the script stops
+      # probing inside its own budget, acts on what it has and leaves the rest
+      # for tomorrow, rather than being killed mid-sweep by the job timeout. The
+      # gap covers checkout, setup-python and the writes. Move one, move the other.
+      - name: Hide events the source has cancelled
+        run: |
+          python mapsee_prune_cancelled.py --max-seconds 2100 \
+            ${{ inputs.dry_run && ' ' || '--apply' }}
