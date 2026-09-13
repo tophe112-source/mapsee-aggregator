@@ -1487,11 +1487,40 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
               f"populate the column.", flush=True)
         return True
 
+    import random
+    from collections import deque
     TRIES = 3                        # named, so the log cannot drift from the loop
+    RETRYABLE = {408, 429, 500, 502, 503, 504}   # 57014 surfaces as HTTP 500
+    # Once the retries are spent, a final answer in here means the request never
+    # happened — the database or its edge did not take it — so nothing about the
+    # ROWS is learned and sending them one by one only multiplies the load.
+    OUTAGE = {408, 429, 502, 503, 504}
+    HALVE_FLOOR = 12                 # a 500 retries 50 -> 25 -> 12, then row by row
+
+    def _backoff(n):
+        """2s, 4s, 8s for n = 0, 1, 2, plus up to a quarter again of jitter, so
+        the parallel sync jobs of one run do not all come back on the same beat."""
+        base = 2.0 ** (n + 1)
+        return base + random.uniform(0, base / 4)
+
+    def _answer(resp):
+        """'HTTP 503 PGRST002 (Could not query ...)': the server's own words."""
+        try:
+            body = resp.json()
+        except Exception:                                   # noqa: BLE001
+            body = None
+        body = body if isinstance(body, dict) else {}
+        code, message = body.get("code"), body.get("message")
+        return (f"HTTP {resp.status_code}" + (f" {code}" if code else "")
+                + (f" ({str(message)[:80]})" if message else ""))
+
+    class _Unanswered(Exception):
+        """A final 502/503/504/408/429: counted like a transport loss."""
+
     def _post_retry(batch, tries=TRIES):
         # A batch can fail transiently on a statement timeout (57014) or lock wait,
-        # esp. if a moderation trigger is slow. Back off and retry the whole batch
-        # before falling back to costly row-by-row isolation.
+        # esp. if a moderation trigger is slow. Back off and retry the whole batch;
+        # what the FINAL answer means is decided in the loop below.
         #
         # A TIMEOUT IS NOT A STATUS CODE, AND THAT IS THE WHOLE BUG. This loop
         # only ever looked at resp.status_code, so it retried the case where the
@@ -1507,7 +1536,6 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
         # on_conflict=external_source,external_id with merge-duplicates, so a
         # batch that DID land before we gave up reading merges onto itself
         # rather than duplicating.
-        retryable = {408, 429, 500, 502, 503, 504}   # 57014 surfaces as HTTP 500
         resp = None
         for n in range(tries):
             try:
@@ -1515,11 +1543,12 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
             except _TransportError:
                 if n == tries - 1:
                     raise                            # caller decides; see below
-                time.sleep(0.5 * (n + 1))
+                time.sleep(_backoff(n))
                 continue
-            if resp.status_code < 300 or resp.status_code not in retryable:
+            if resp.status_code < 300 or resp.status_code not in RETRYABLE:
                 return resp
-            time.sleep(0.5 * (n + 1))
+            if n < tries - 1:
+                time.sleep(_backoff(n))
         return resp
 
     # ONE UNREACHABLE BATCH MUST NOT DISCARD THE OTHER NINE HUNDRED. The batches
@@ -1545,7 +1574,22 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
     for row in rows:
         groups.setdefault(frozenset(row), []).append(row)
     chunks = [group[i:i + 50] for group in groups.values() for i in range(0, len(group), 50)]
-    for chunk_index, chunk in enumerate(chunks):
+    # WHAT THE FINAL ANSWER MEANS DECIDES WHAT HAPPENS NEXT, because two 5xx
+    # want opposite things (docs/agents/sync-eventstore-and-paging.md). Every
+    # failed batch used to go row by row: 3 tries on the batch, then 3 on each
+    # of its 50 rows, 153 POSTs per batch against a database already failing
+    # (2026-08-29 13:36:49, OpenActive: 503 "Could not query the database for
+    # the schema cache").
+    #   * a 4xx (not 408/429): the ROWS are the suspect, so isolate row by row;
+    #   * a 500: a statement timeout (57014) wants a SMALLER bite, and a trigger
+    #     raising anything but P0001 is also a 500 about the rows, so halve
+    #     50 -> 25 -> 12 and isolate only what still fails at 12;
+    #   * a 502/503/504 (PGRST002 is a 503), or a 408/429: the request never
+    #     happened, so do NOT isolate. The batch is lost, it is a miss toward
+    #     GIVE_UP_AFTER, and the next batch waits ~8s.
+    queue = deque(chunks)
+    while queue:
+        chunk = queue.popleft()
         settled = 0                  # rows of THIS chunk already counted sent/skipped
         try:
             resp = _post_retry(chunk)
@@ -1558,6 +1602,15 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
                 sent += len(chunk)
                 misses = 0
                 continue
+            if resp.status_code in OUTAGE:
+                raise _Unanswered(_answer(resp))
+            if resp.status_code >= 500 and len(chunk) >= 2 * HALVE_FLOOR:
+                half = len(chunk) // 2
+                queue.appendleft(chunk[half:])
+                queue.appendleft(chunk[:half])
+                print(f"  {_answer(resp)} on a {len(chunk)}-row batch: re-sending it "
+                      f"as {half} + {len(chunk) - half}", flush=True)
+                continue
             # A whole-batch rejection is usually one bad row (e.g. the moderation
             # trigger raising 'content_blocked'). Re-send the batch row-by-row so the
             # clean events still land and only the offending ones are skipped + logged.
@@ -1567,6 +1620,10 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
                     r = _post_retry([row])
                 if r.status_code < 300:
                     sent += 1
+                elif r.status_code in OUTAGE:
+                    # The database stopped answering mid-isolation: that is not
+                    # this row's fault, and the next 40 rows would say the same.
+                    raise _Unanswered(_answer(r))
                 else:
                     skipped += 1
                     try:
@@ -1576,27 +1633,36 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
                     print(f"  skipped [{r.status_code} {reason}] {row.get('title')!r}")
                 settled += 1          # counted above; must not be counted again below
             misses = 0
-        except _TransportError as e:
+        except (_TransportError, _Unanswered) as e:
             # Only the rows NOT already counted. The row-by-row pass can time out
             # halfway, and blaming the whole chunk would report more rows than the
             # chunk holds — sent + skipped + lost must equal len(rows).
             unwritten = len(chunk) - settled
             lost += unwritten
             misses += 1
-            print(f"  ::warning::lost {unwritten} row(s): no answer from Supabase "
-                  f"after {TRIES} attempts ({type(e).__name__}). They are unwritten, "
-                  f"not rejected; the next run will re-send them.", flush=True)
+            why = (f"Supabase answered {e}" if isinstance(e, _Unanswered)
+                   else f"no answer from Supabase ({type(e).__name__})")
+            # "The next run will re-send them" was only half true. A NEW row is
+            # re-sent by the next run. An UPDATE lost on a refresh day is not:
+            # every run in between is --only-new and skips ids already in the
+            # table, so the stale row stays until the next refresh day.
+            print(f"  ::warning::lost {unwritten} row(s): {why} after {TRIES} attempts. "
+                  f"They are unwritten, not rejected: a NEW row is re-sent by the next "
+                  f"run, but an UPDATE waits for the next refresh day, because the "
+                  f"--only-new runs in between skip ids already in the table.", flush=True)
             # A blip costs one batch. An outage would otherwise cost 3 attempts
             # x 30s on every remaining batch — hours of a job that cannot write
             # a single row — so stop asking once it is clearly not a blip.
             if misses >= GIVE_UP_AFTER:
-                remaining = sum(len(c) for c in chunks[chunk_index + 1:])
+                remaining = sum(len(c) for c in queue)
                 lost += remaining
                 print(f"  ::error::giving up: {misses} consecutive batches went "
                       f"unanswered. Abandoning {remaining} further row(s) rather "
                       f"than spending the job's clock on a database that is not "
                       f"answering.", flush=True)
                 break
+            if queue:
+                time.sleep(_backoff(2))      # ~8s before the next batch asks again
     return sent, skipped, lost
 
 

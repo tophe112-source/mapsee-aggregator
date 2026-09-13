@@ -96,6 +96,10 @@ def recovering(fail_first_n):
 
 def main():
     checks = []
+    # The backoff is 2/4/8s: recorded, not waited, or case 3 alone takes a minute.
+    import time
+    slept = []
+    time.sleep = lambda s: slept.append(s)
     rows = [{"title": f"row {i}", "lat": 1.0, "lon": 2.0} for i in range(500)]   # 10 batches
 
     # ---- 1. THE REGRESSION. One unreachable batch must not kill the other nine.
@@ -176,6 +180,95 @@ def main():
     checks.append((sent == 2 and skipped == 1 and lost == 0,
                    f"a rejected row is skipped, never lost (sent={sent}, "
                    f"skipped={skipped}, lost={lost})"))
+
+    # ---- 7. TWO 5xx WANT OPPOSITE THINGS, AND A 4xx IS THE ONLY ANSWER THAT
+    # BLAMES THE ROWS. A final 503 used to fall through to row-by-row isolation:
+    # 3 + 50x3 = 153 POSTs per batch against a database that was already failing
+    # (2026-08-29 13:36:49, OpenActive, 503 PGRST002).
+    import contextlib
+    import io
+    PGRST002 = {"code": "PGRST002",
+                "message": "Could not query the database for the schema cache. Retrying."}
+    STMT_TIMEOUT = {"code": "57014", "message": "canceling statement due to statement timeout"}
+    sizes = []
+
+    def answering(fn):
+        def post(url, headers=None, data=None, timeout=None):
+            batch = json.loads(data)
+            sizes.append(len(batch))
+            return fn(batch)
+        return types.SimpleNamespace(post=post)
+
+    def run(rows_in):
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            out = S.upsert(rows_in, "https://x.test", "k")
+        return out, buf.getvalue()
+
+    fifty = lambda: [{"title": f"row {i}"} for i in range(50)]
+
+    sizes.clear(); slept.clear()
+    sys.modules["requests"] = answering(lambda b: Resp(503, PGRST002))
+    (sent, skipped, lost), log = run(fifty())
+    checks.append((sent == 0 and skipped == 0 and lost == 50,
+                   f"a batch answered 503 PGRST002 every time is LOST, not skipped "
+                   f"(sent={sent}, skipped={skipped}, lost={lost})"))
+    checks.append((sizes == [50, 50, 50],
+                   f"...in 3 POSTs of the whole batch, never row by row (was 153): {sizes}"))
+    checks.append((len(slept) == 2 and 2 <= slept[0] <= 2.5 and 4 <= slept[1] <= 5,
+                   f"...retrying after ~2s then ~4s, jittered, and not waiting after the "
+                   f"last batch ({[round(s, 2) for s in slept]})"))
+    checks.append(("PGRST002" in log and "UPDATE waits for the next refresh day" in log,
+                   "...and the warning quotes the server and says a lost UPDATE is not "
+                   "re-sent by the --only-new runs"))
+
+    sizes.clear(); slept.clear()
+    (sent, skipped, lost), _log = run([dict(r) for r in rows])
+    checks.append((lost == 500 and len(sizes) == 15,
+                   f"...a sustained 503 is a miss toward GIVE_UP_AFTER, like a timeout "
+                   f"(posts={len(sizes)}, lost={lost})"))
+    checks.append((sum(1 for s in slept if 8 <= s <= 10) == 4,
+                   f"...and each lost batch waits ~8s before the next one asks, until it "
+                   f"gives up ({[round(s, 1) for s in slept]})"))
+
+    sizes.clear()
+    sys.modules["requests"] = answering(lambda b: Resp(429, {"message": "rate limited"}))
+    (sent, skipped, lost), _log = run(fifty())
+    checks.append((lost == 50 and sizes == [50, 50, 50],
+                   f"a 429 is not the rows' fault either: lost, not isolated ({sizes})"))
+
+    # A statement timeout wants a SMALLER bite: 50 -> 25 -> 12/13, which lands.
+    sizes.clear()
+    sys.modules["requests"] = answering(
+        lambda b: Resp(500, STMT_TIMEOUT) if len(b) > 13 else Resp(201))
+    (sent, skipped, lost), _log = run(fifty())
+    checks.append((sent == 50 and skipped == 0 and lost == 0,
+                   f"a 500 57014 batch lands by halving (sent={sent}, lost={lost})"))
+    checks.append((sizes == [50] * 3 + [25] * 3 + [12, 13] + [25] * 3 + [12, 13],
+                   f"...50 -> 25 -> 12, and never row by row: {sizes}"))
+
+    # ...and only what still times out at 12 is isolated.
+    sizes.clear()
+    sys.modules["requests"] = answering(
+        lambda b: Resp(500, STMT_TIMEOUT) if len(b) > 1 else Resp(201))
+    (sent, skipped, lost), _log = run(fifty())
+    checks.append((sent == 50 and sizes.count(1) == 50
+                   and min(s for s in sizes if s > 1) == 12,
+                   f"a 500 that persists at 12 rows is isolated row by row (sent={sent}, "
+                   f"single-row posts={sizes.count(1)})"))
+
+    # A 503 mid-isolation stops the isolation instead of asking 45 more times.
+    sizes.clear()
+
+    def blocked_then_down(b):
+        if len(b) > 1:
+            return Resp(400, {"code": "P0001", "message": "content_blocked"})
+        return Resp(201) if int(b[0]["title"].split()[1]) < 5 else Resp(503, PGRST002)
+    sys.modules["requests"] = answering(blocked_then_down)
+    (sent, skipped, lost), _log = run(fifty())
+    checks.append((sent == 5 and skipped == 0 and lost == 45 and len(sizes) == 1 + 5 + 3,
+                   f"a 503 during row-by-row isolation stops it: the rest are lost, not "
+                   f"asked for (sent={sent}, lost={lost}, posts={len(sizes)})"))
 
     failed = 0
     for ok, why in checks:

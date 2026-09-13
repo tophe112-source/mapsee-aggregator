@@ -93,6 +93,21 @@
   retry. Do not convert these to `exit 0`: a provider being down for an hour and
   a job that has silently stopped must not look the same.
 
+- **`upsert` WAS THE ONE PLACE THAT STILL TREATED EVERY FAILED BATCH ALIKE,
+  and it multiplied an outage by fifty.** A batch whose retries ended on any
+  status fell through to row-by-row isolation, so a final 503 cost 3 + 50x3 =
+  153 POSTs per 50-row batch against a database already failing (2026-08-29
+  13:36:49, OpenActive, `503 PGRST002 Could not query the database for the
+  schema cache`). The final answer now decides: a 4xx (not 408/429) isolates;
+  a 500 (57014, or a trigger's non-P0001 raise) halves 50 -> 25 -> 12 and
+  isolates only what still fails at 12; a 502/503/504/408/429 is the request
+  never happening, so the batch is LOST in 3 POSTs, counts toward
+  `GIVE_UP_AFTER`, and the next batch waits ~8s (retries back off ~2s/~4s,
+  jittered). A 503 mid-isolation stops the isolation. And "the next run will
+  re-send them" was half true: a lost UPDATE on a refresh day is not re-sent
+  until the next one, because the `--only-new` runs between skip existing ids.
+  `test_sync_transport_loss.py` pins all three paths.
+
 - **One source id can mean many events, and EventStore deletes on the
   collision.** 39 of BikeReg's 1,246 ids come back once per occurrence date.
   `upsert` keys on `(source, source_id)` and POPS the stored record when the
