@@ -120,7 +120,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/ci-and-jobs.md` | 14 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |
 | `docs/agents/adapters-and-sources.md` | 19 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes |
 | `docs/agents/classification-and-categories.md` | 15 | lens keys, promotion regexes, kids/food/market, category defaults, order pickup |
-| `docs/agents/cancelled-events.md` | 12 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete |
+| `docs/agents/cancelled-events.md` | 15 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete |
 | `docs/agents/sync-eventstore-and-paging.md` | 11 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors |
 | `docs/agents/dates-and-timezones.md` | 9 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |

@@ -68,6 +68,14 @@ hiding is durable against re-import: fetch_import_state does not filter on
 hidden_at, so a hidden row still counts as existing and `--only-new` will not
 put it back.
 
+HOW BIG THE SWEEP ACTUALLY IS, measured on the first live run 2026-09-13:
+**88,128 rows and 25,311 distinct source URLs inside a three-day window.** At
+roughly one probe a second that is seven hours of work, so every run is capped
+and every run leaves most of the map unexamined. Which part it examines is
+therefore the whole design, and it is decided by two things: `--days`/`--back`
+choose the slice, and the soonest-first ordering decides what inside that slice
+gets the budget. `--back` defaults to 0 for exactly this reason — see its note.
+
 Env:  SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 Run:  python mapsee_prune_cancelled.py                    # dry run, the default
       python mapsee_prune_cancelled.py --apply
@@ -260,10 +268,25 @@ def main():
         description="Hide aggregator events the source has since cancelled or deleted.")
     ap.add_argument("--apply", action="store_true", help="write (default is a dry run)")
     ap.add_argument("--days", type=int, default=120, help="how far ahead to sweep")
-    ap.add_argument("--back", type=int, default=1,
-                    help="days BEFORE now to include, so in-progress events are swept")
+    # ZERO, AND THE FIRST LIVE RUN IS WHY. It was 1, on the reasoning that a
+    # multi-day event cancelled mid-run is worth catching. True, and irrelevant
+    # next to what it costs: the queue is sorted soonest-first, so a day of
+    # ALREADY-STARTED events sits at the front of it, and a capped run spends
+    # its entire budget there. Measured 2026-09-13 on the first production dry
+    # run — 88,128 rows and 25,311 distinct URLs inside a three-day window, of
+    # which the run reached 894, and every single one of the 47 rows it found
+    # had started YESTERDAY. It never got as far as today. An event that has
+    # already begun is the least useful thing this can hide; cleanup deletes it
+    # a week later regardless. Pass --back 1 deliberately when that is the job.
+    ap.add_argument("--back", type=int, default=0,
+                    help="days BEFORE now to include (default 0: only what has not started)")
     ap.add_argument("--max-pages", type=int, default=90)
-    ap.add_argument("--max-checks", type=int, default=1200,
+    # THE BUDGET IS THE REAL LIMITER, and this is only politeness. It was 1200,
+    # chosen against an estimate of "a few hundred URLs in a two-day window"
+    # that turned out to be off by a factor of twenty — so the cap bit long
+    # before --max-seconds did and the run stopped early for no good reason.
+    # Sized now so that --max-seconds is what ends a sweep.
+    ap.add_argument("--max-checks", type=int, default=4000,
                     help="distinct source URLs to probe per run; we are a guest on these servers")
     ap.add_argument("--max-seconds", type=int, default=0,
                     help="stop probing after this long and act on what we have (0 = no budget)")

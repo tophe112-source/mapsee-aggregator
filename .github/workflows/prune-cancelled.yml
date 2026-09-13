@@ -100,8 +100,13 @@ jobs:
           DAYS_IN: ${{ inputs.days }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
+          # A manual narrow run gets the FULL budget, not the short one. The
+          # point of --days is to aim the sweep, not to cut it off: the first
+          # live run showed 25,311 distinct URLs inside a three-day window, so
+          # even two days is more than 900s of probing can finish, and stopping
+          # early is how that run missed the event it was dispatched for.
           if [ -n "$DAYS_IN" ]; then
-            SCOPE="--days $DAYS_IN"; BUDGET=900
+            SCOPE="--days $DAYS_IN"; BUDGET=2100
           elif [ "$FIRED_BY" = "55 16 * * *" ]; then
             SCOPE="--days 2"; BUDGET=900          # the near-horizon pass
           else

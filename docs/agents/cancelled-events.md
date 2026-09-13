@@ -125,3 +125,31 @@
   `--apply`. Note that `mapsee_prune_cancelled` has no `--unhide` (its sibling
   `mapsee_retire_online_events` does), so a bounded first run is the whole of the
   safety net.
+
+- **THE SWEEP IS TWENTY TIMES BIGGER THAN THE SITEMAPS SUGGEST, and the first
+  live run is what said so.** Sizing `--max-checks` off a sitemap sample gave
+  "a few hundred URLs in a two-day window". The real number, measured
+  2026-09-13 on the first production dry run, is **88,128 rows and 25,311
+  distinct source URLs inside a THREE-DAY window** — the sitemaps index event
+  pages, not the OpenActive standing rows and OSM places that make up most of
+  the table. At roughly one probe a second that is seven hours of work, so
+  every run is capped and every run leaves most of the map unexamined. Which
+  part it examines is therefore the entire design, not a detail.
+
+- **A CAPPED SOONEST-FIRST SWEEP MUST NOT INCLUDE THE PAST, and `--back 1` cost
+  the first run everything.** It was there so a multi-day event cancelled
+  mid-run could still be caught — true, and irrelevant next to what it costs:
+  already-started events sort to the FRONT of a soonest-first queue, so the run
+  spent its whole 900-second budget on them. It examined 894 of 25,311 URLs,
+  found 44 listings called off, and **every one of the 47 rows had started the
+  previous day**. It never reached the current day at all, let alone the event
+  it had been dispatched to remove. `--back` is 0 now. An event that has already
+  begun is the least useful thing this can hide, and `mapsee_cleanup` deletes it
+  a week later regardless.
+
+- **THE HIT RATE IS REAL, THOUGH, AND IT IS HIGH.** That same run: 894 URLs
+  probed, `live=677 · unknown=173 · cancelled=27 · gone=17` — **44 of 894, 4.9%,
+  called off at the source** in a single day's slice, across Meetup and
+  Eventbrite. The 173 unknowns are hosts that refuse a plain client, and they
+  keep their rows, as designed. The tool works; what was wrong was where it was
+  pointed.
