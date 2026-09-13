@@ -108,6 +108,16 @@
   until the next one, because the `--only-new` runs between skip existing ids.
   `test_sync_transport_loss.py` pins all three paths.
 
+- **A read-back that only warns at 99% says nothing on the day it matters.**
+  The 2026-09-09 Wednesday refresh compared 221,000 stored rows and rewrote
+  76,946 of them, 95% from two adapters: OpenActive 46,798 of 63,228 and
+  Meetup 16,258 + 10,075. `unchanged_ids` names a column only when it differs
+  on 99% of a sync's rows, which none did, so the log never said which columns
+  made those rows differ. It now prints `Skip-unchanged: N of M stored rows
+  differ; most-blamed columns: a n, b n, c n` on every read-back, so the next
+  refresh day names the cause. Diagnostics only — the comparison is unchanged.
+  `test_skip_unchanged.py` pins the line.
+
 - **One source id can mean many events, and EventStore deletes on the
   collision.** 39 of BikeReg's 1,246 ids come back once per occurrence date.
   `upsert` keys on `(source, source_id)` and POPS the stored record when the

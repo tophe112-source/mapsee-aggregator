@@ -242,6 +242,26 @@ check("...over more than one request", len(s.calls) > 1, len(s.calls))
 check("...none of which builds an over-long URL",
       all(len(u) < 8000 for u in s.calls), max((len(u) for u in s.calls), default=0))
 
+# --- 6b. the columns to blame are always named, not only past 99% ----------
+# The 2026-09-09 refresh rewrote 76,946 of 221,000 compared rows and said
+# nothing about why, because the only diagnostic fired at 99% of one column.
+# The top three are printed on every read-back now; what is compared is not.
+import contextlib
+import io
+four = [row(external_id=f"{i:040d}", title=f"F {i}", description="new", lat=1.0) for i in range(4)]
+stored = [dict(r) for r in four]
+for r in stored[:3]:
+    r["description"] = "old"               # differs on 3 rows
+stored[0]["title"] = stored[1]["title"] = "renamed"   # on 2
+stored[0]["lat"] = 2.0                     # on 1; stored[3] is identical
+buf = io.StringIO()
+with contextlib.redirect_stdout(buf):
+    got = m.unchanged_ids(Stub(stored), "https://x", "k", four)
+check("the identical row is still the only one skipped", got == {four[3]["external_id"]}, got)
+check("...and the three most-blamed columns are printed with counts, most first",
+      "3 of 4 stored rows differ; most-blamed columns: description 3, title 2, lat 1"
+      in buf.getvalue(), buf.getvalue())
+
 # --- 7. --only-new makes it a no-op, and main() must not pay for it ---------
 src = open("mapsee_supabase_sync.py", encoding="utf-8").read()
 check("the filter is skipped under --only-new (every row is new by construction)",

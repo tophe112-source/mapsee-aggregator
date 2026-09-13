@@ -1921,6 +1921,16 @@ def unchanged_ids(session, url: str, key: str, rows: List[Dict[str, Any]]):
     # So: a column that differs on essentially EVERY row is not an edit anybody
     # made, it is a clock, and it is named. Same rule as reading PostgREST's own
     # message out of a PGRST204 instead of guessing which column is missing.
+    # ALWAYS NAME THE TOP THREE, not only past 99%. The 2026-09-09 Wednesday
+    # refresh rewrote 76,946 of the 221,000 rows it compared, 95% of them from
+    # two adapters (OpenActive 46,798 of 63,228; Meetup 16,258 + 10,075), and
+    # the warning below stayed silent because no single column reached 99% of
+    # a sync — so nothing said WHICH columns made those rows differ.
+    # Diagnostics only: what is compared is unchanged.
+    if blamed:
+        top = sorted(blamed.items(), key=lambda kv: (-kv[1], kv[0]))[:3]
+        print(f"Skip-unchanged: {compared - len(same)} of {compared} stored rows differ; "
+              f"most-blamed columns: " + ", ".join(f"{c} {n}" for c, n in top), flush=True)
     if compared >= 50:
         for col, n in sorted(blamed.items(), key=lambda kv: -kv[1]):
             if n >= compared * 0.99 and col not in _TS_COLS:
