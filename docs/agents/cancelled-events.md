@@ -153,3 +153,23 @@
   Eventbrite. The 173 unknowns are hosts that refuse a plain client, and they
   keep their rows, as designed. The tool works; what was wrong was where it was
   pointed.
+
+- **THE HOST-REFUSAL GUARD FIRED ON ITS FIRST REAL RUN, and it was right.**
+  First `--apply` pass, 2026-09-13: `live=1025 · unknown=406 · cancelled=116 ·
+  gone=60`, and then `HOST REFUSING: ubereats.com — 43 of 44 listings read as
+  off`. Forty-three rows that a per-URL reading would have hidden, on a host
+  that simply does not answer a plain client — the exact failure
+  `mapsee_prune_links` was nearly destroyed by, reproduced on a different tool
+  within an hour of shipping. **161 rows hidden, 43 correctly refused.** Do not
+  soften this rule; it is the difference between a sweep and a vandal.
+
+- **PROBING ORDER AND BOOKING LINKS IS MOST OF THE COST AND NONE OF THE YIELD.**
+  That run spent 2,100 seconds on 1,607 URLs and stopped with 2,393 still
+  unprobed, and the `unknown=406` is nearly all hosts that can never answer the
+  question: Uber Eats storefronts, leisure-centre booking grids, restaurant
+  order pages. A "Tickets / info" line is written for every row this pipeline
+  stores, not just for events with a listing page, so the sweep asks thousands
+  of hosts a question only a handful can answer. The next real gain here is a
+  host-level skip — a host that has never once returned an `eventStatus` is not
+  worth a daily probe — which would roughly double useful throughput without
+  touching the evidence rules. Not yet done; measure per-host yield first.
