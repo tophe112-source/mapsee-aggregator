@@ -14,6 +14,24 @@
   runs even after failures. IndexNow and database-wide maintenance wait for all
   groups, including the formerly omitted OpenActive job.
 
+- **A SWEEP THAT SAVES ONCE, AT THE END, SAVES NOTHING THE DAY THE CAP ENDS
+  IT — and `markets_osm` was ended on 8 of its 9 sweep days.** From 2026-08-21
+  to 2026-09-11 every Monday and Friday sweep was cancelled at the job's
+  330-minute cap (08-21, 08-24, 08-31, 09-04 twice, 09-07, 09-11) with its sync
+  skipped; the only finish, 08-28, spent 312 minutes on 259 bboxes (~73s each,
+  47 retries) and synced 22,780 rows in 2.0 minutes. `store.save()` runs once,
+  after the loop, so each cancellation wrote zero rows while the layer's 42-day
+  horizon ran down. The bboxes are now split across the two run days by index
+  (`shard_by_weekday`: even Monday, odd Friday, ~157 min each), `--max-minutes
+  285` is checked before every bbox and every second-pass retry and returns
+  what it has, and the sync is `if: always()` on the store file existing. The
+  same sync waited for Wednesday to drop `--only-new`, a day this sweep never
+  runs, so no market row was ever refreshed: it now refreshes on both days
+  (`--skip-unchanged` kept), because a shard is only in the store on its own
+  day. The config's note said Mon+Thu for `[0, 4]`, which is Mon+Fri. Stdout
+  was block-buffered too — the 08-28 step began 18:45 and printed its first
+  bbox line at 20:24. `test_markets_shard_budget.py` pins shards and budget.
+
 - **A cache warmer can delay every job without warming one area.** Food run
   `34210805826` spent its entire 45m warm step on 29 of Portland's 30 tiles.
   Area runners then cold-fetched again. Food now uses independent area caches,

@@ -76,6 +76,24 @@ class WorkflowContracts(unittest.TestCase):
         self.assertEqual(save['if'], 'always()')
         self.assertIn('matrix.area', save['with']['key'])
 
+    def test_markets_osm_ends_its_own_sweep_and_always_syncs(self):
+        # 8 of 9 sweep days (08-21..09-11) were cancelled at the 330-minute cap
+        # with the sync skipped. The budget plus the worst single bbox
+        # (4 x 180s + 65s backoff, ~14 min) must leave 30 minutes for the sync.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        job = workflow['jobs']['markets_osm']
+        sweep = next(s for s in job['steps'] if s.get('name') == 'Sweep OpenStreetMap marketplaces')
+        sync = next(s for s in job['steps'] if s.get('name') == 'Sync OSM markets to Supabase')
+        budget = re.search(r'--max-minutes (\d+)', sweep['run'])
+        self.assertIsNotNone(budget)
+        self.assertLessEqual(int(budget[1]) + 14 + 30, job['timeout-minutes'])
+        self.assertEqual(sync['if'], 'always()')
+        self.assertIn('[ -f osm_market_events.json ]', sync['run'])
+        # Sharded Mon/Fri: each half is only in the store on its own day, so
+        # neither day may skip existing rows or that half never refreshes.
+        self.assertIn('--skip-unchanged', sync['run'])
+        self.assertNotIn('--only-new', sync['run'])
+
     def test_osm_place_windows_refresh_changed_rows(self):
         for name in ('osm-food', 'osm-secondhand'):
             workflow = yaml.safe_load(

@@ -154,6 +154,15 @@ jobs:
       - name: Market sweep survives a metro that loses its slot
         run: python test_ingest_markets.py
 
+      # The whole OSM sweep took 314 minutes on its one finish (2026-08-28) and
+      # was cancelled at its 330-minute cap on the other 8 sweep days, saving
+      # nothing because the store is written once at the end. The bboxes are
+      # now split across the two run weekdays and a wall-clock budget ends a
+      # slow sweep between bboxes; pinned here is that the two days still cover
+      # every bbox once and that a budget stop still SAVES the store.
+      - name: Market sweep fits its job (weekday shards, a budget that still saves)
+        run: python test_markets_shard_budget.py
+
       # The Events Calendar returns `venue` as a dict, as [], and as [{...}] from
       # the SAME site, and `image` as a dict or the bare boolean false. `or {}`
       # covers the empty list and not the populated one — and the exception

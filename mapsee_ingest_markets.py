@@ -448,6 +448,28 @@ def parse_opening_hours(oh: str) -> Optional[Dict[str, Any]]:
 OVERPASS_BACKOFF_S = 5
 
 
+def shard_bboxes(bboxes: List[Dict[str, Any]], run_weekdays: Optional[List[int]],
+                 weekday: int) -> List[Dict[str, Any]]:
+    """The slice of `bboxes` that today's sweep owns.
+
+    THE WHOLE SWEEP NO LONGER FITS IN ONE JOB. 259 bboxes at ~73s each is 314
+    minutes (2026-08-28, the one run between 08-14 and 09-11 that finished);
+    the other eight hit the job's 330-minute cap mid-sweep and saved nothing.
+    So a source that sets "shard_by_weekday" and runs on N weekdays splits its
+    bboxes N ways by index, and each run day sweeps its own share: with
+    run_weekdays [0, 4] (datetime.weekday(), so Mon+Fri) Monday takes the
+    even indices and Friday the odd ones, ~157 minutes apiece. The split is a
+    pure function of the index and the weekday, so no cursor file is needed and
+    every bbox is still swept once a week.
+
+    A day that is not a run day (a --force backfill) takes everything.
+    """
+    days = list(run_weekdays or [])
+    if len(days) < 2 or weekday not in days:
+        return list(bboxes)
+    return list(bboxes)[days.index(weekday)::len(days)]
+
+
 def _overpass_fetch(session, endpoint, bbox, quiet=False):
     """Elements for one bbox, or None if the endpoint never answered.
 
@@ -482,8 +504,13 @@ def _overpass_fetch(session, endpoint, bbox, quiet=False):
     return None
 
 
-def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
+def load_overpass(session, src: Dict[str, Any], deadline: float = 0.0,
+                  weekday: Optional[int] = None) -> List[Dict[str, Any]]:
     """amenity=marketplace inside each configured bbox, as market dicts.
+
+    `deadline` (epoch seconds, 0 = none) is checked before every bbox and every
+    second-pass retry, and ends the sweep with what it has: see main()'s
+    --max-minutes for why returning early is the only way the work is saved.
 
     A METRO THAT EXHAUSTS ITS RETRIES USED TO BE GONE FOR THE WEEK. The sweep is
     245 bboxes against a free endpoint, so a handful lose their slot on any given
@@ -502,8 +529,17 @@ def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
     out: List[Dict[str, Any]] = []
     seen: set = set()
     bboxes = list(src.get("bboxes", []))
+    if src.get("shard_by_weekday"):
+        today = datetime.now().weekday() if weekday is None else weekday
+        total = len(bboxes)
+        bboxes = shard_bboxes(bboxes, src.get("run_weekdays"), today)
+        print(f"[markets] overpass: weekday {today} sweeps {len(bboxes)} of {total} bbox(es) "
+              f"(shard_by_weekday over run_weekdays {src.get('run_weekdays')})", flush=True)
     failed: List[Dict[str, Any]] = []
     pause = src.get("pause_s", 2)
+
+    def out_of_time() -> bool:
+        return bool(deadline) and time.time() >= deadline
 
     def absorb(bbox, els):
         hit = 0
@@ -549,10 +585,21 @@ def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
             mk.update(sched)
             out.append(mk)
             hit += 1
+        # flush: CI pipes stdout block-buffered, so on 2026-08-28 a step that
+        # started at 18:45 printed its first bbox line at 20:24, 134 lines under
+        # one timestamp — and a run the cap cancels loses its unflushed tail,
+        # which is the only record of how far it got.
         print(f"[markets] overpass {bbox.get('name', '?')}: {hit} market(s) "
-              f"from {len(els)} marketplaces")
+              f"from {len(els)} marketplaces", flush=True)
 
-    for bbox in bboxes:
+    unswept: List[Dict[str, Any]] = []
+    for i, bbox in enumerate(bboxes):
+        # THE BUDGET IS CHECKED WHERE THE TIME GOES: one bbox is one Overpass
+        # call plus up to three backoffs, ~73s on average, so this is the
+        # smallest unit the sweep can stop between.
+        if out_of_time():
+            unswept = bboxes[i:]
+            break
         els = _overpass_fetch(session, endpoint, bbox)
         if els is None:
             failed.append(bbox)
@@ -570,6 +617,9 @@ def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
               + (" …" if len(failed) > 8 else ""))
         still: List[Dict[str, Any]] = []
         for bbox in failed:
+            if out_of_time():
+                still.append(bbox)                # never retried is still missing
+                continue
             els = _overpass_fetch(session, endpoint, bbox, quiet=True)
             if els is None:
                 still.append(bbox)
@@ -582,6 +632,13 @@ def load_overpass(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
         # source only runs twice a week — so a miss costs days, not minutes.
         print(f"[markets] overpass: recovered {recovered}, still missing {len(still)}"
               + (f" ({', '.join(b.get('name', '?') for b in still)})" if still else ""))
+    if unswept:
+        # Counted and named like a miss, because it is one: these metros keep
+        # last week's rows (42-day horizon) and are swept next week.
+        print(f"[markets] overpass: ::warning::time budget reached — {len(unswept)} of "
+              f"{len(bboxes)} bbox(es) not swept this run: "
+              f"{', '.join(b.get('name', '?') for b in unswept[:8])}"
+              + (" …" if len(unswept) > 8 else ""), flush=True)
     return out
 
 
@@ -963,12 +1020,12 @@ def load_usda(session, src: Dict[str, Any]) -> List[Dict[str, Any]]:
     return out
 
 
-def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
+def ingest(store: EventStore, session, src: Dict[str, Any], deadline: float = 0.0) -> int:
     kind = src.get("type")
     if kind == "socrata":
         markets = load_socrata(session, src)
     elif kind == "overpass":
-        markets = load_overpass(session, src)
+        markets = load_overpass(session, src, deadline=deadline)
     elif kind == "usda":
         markets = load_usda(session, src)
     else:
@@ -1014,7 +1071,18 @@ def main(argv=None) -> int:
                     help="run only sources of this type (e.g. overpass)")
     ap.add_argument("--skip-type", dest="skip_type",
                     help="run everything EXCEPT sources of this type")
+    # THE STORE IS SAVED ONCE, AT THE END OF THIS FUNCTION, so a process the
+    # runner kills saves nothing. markets_osm hit its 330-minute job cap on 8 of
+    # the 9 sweep days between 2026-08-21 and 2026-09-11 and every one of those
+    # runs synced ZERO rows; the only finish (08-28) took 314 minutes for 259
+    # bboxes. The budget is checked before each Overpass bbox and before each
+    # second-pass retry, and a sweep that runs out RETURNS what it has, so the
+    # save below and the workflow's sync still happen.
+    ap.add_argument("--max-minutes", type=float, default=0.0,
+                    help="wall-clock budget for the Overpass sweep; 0 = no limit. Stops "
+                         "between bboxes and still saves the store.")
     a = ap.parse_args(argv)
+    deadline = (time.time() + a.max_minutes * 60) if a.max_minutes > 0 else 0.0
     sources = json.loads(open(a.config, encoding="utf-8").read())
     session = requests.Session()
     session.headers.update({"User-Agent": "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"})
@@ -1038,7 +1106,7 @@ def main(argv=None) -> int:
             print(f"[markets] {src.get('name', '?')}: skipped (runs on weekdays {wd})")
             continue
         try:
-            total += ingest(store, session, src)
+            total += ingest(store, session, src, deadline=deadline)
         except Exception as exc:
             print(f"[markets] {src.get('name', '?')} FAILED: {exc}")
     store.save()

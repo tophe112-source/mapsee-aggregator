@@ -914,10 +914,17 @@ jobs:
     name: OSM marketplaces (fleabop — its own job; the sweep is 3h+)
     runs-on: ubuntu-latest
     # Daily cron + manual. market_sources.json's own run_weekdays pins the sweep
-    # to Mon+Thu, so on the other five days this job starts, prints one skip
-    # line and exits in seconds.
+    # to Mon+Fri (datetime.weekday() 0 and 4), so on the other five days this
+    # job starts, prints one skip line and exits in seconds. shard_by_weekday
+    # splits the 259 bboxes between those two days: even indices Monday, odd
+    # Friday, each ~157 minutes.
     if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *')) }}
-    # Comfortably over the measured 3h, and under the 6h hosted-runner ceiling.
+    # The CEILING, not the plan. The whole sweep took 314 minutes on 2026-08-28
+    # and was cancelled at exactly this cap on 8 of the 9 sweep days from 08-21
+    # to 09-11, syncing nothing each time. --max-minutes 285 below is what ends
+    # a slow sweep: the worst single bbox is 4 x 180s + 65s of backoff (~13
+    # min), so the sweep is over by ~298 and the sync (2.0 min on 08-28) has
+    # 30+ minutes of the cap left.
     timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
@@ -937,18 +944,28 @@ jobs:
           set +e
           python mapsee_ingest_markets.py --config market_sources.json \
                                           --type overpass \
+                                          --max-minutes 285 \
                                           --store osm_market_events.json
           exit 0
       # No geocoding: every OSM row arrives with the feed's own surveyed
       # coordinates and coords_exact set, so the sync's Census pass skips them.
+      #
+      # always(): a sweep the cap cancels anyway must not also skip this step.
+      # The store only exists once the ingest has saved it, hence the guard.
+      #
+      # NO --only-new, ON BOTH SWEEP DAYS. The Wednesday refresh this step used
+      # to wait for never happened here: the sweep runs Mon+Fri, so Wednesday's
+      # store is empty and every existing market row stayed as first written.
+      # "Refresh day must be a day the job actually runs" (docs/agents/
+      # ci-and-jobs.md) — and with the bboxes sharded, each half is only in the
+      # store on its own day, so both days must refresh or half never does.
+      # --skip-unchanged keeps it to the rows that differ; the claimed-row guard
+      # still runs.
       - name: Sync OSM markets to Supabase
+        if: always()
         run: |
-          ONLY_NEW="--only-new"
-          [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
-          [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
-          echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
           if [ -f osm_market_events.json ]; then
-            python mapsee_supabase_sync.py --store osm_market_events.json --skip-unchanged $ONLY_NEW
+            python mapsee_supabase_sync.py --store osm_market_events.json --skip-unchanged
           else
             echo "no OSM markets ingested — nothing to sync"
           fi
