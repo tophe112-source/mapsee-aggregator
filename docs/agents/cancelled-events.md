@@ -99,3 +99,29 @@
   place for a stale row and the part that gets probed anyway as it comes closer:
   a cancelled gig tomorrow is a wasted evening, a cancelled gig in November has
   four months of runs to be caught in.
+
+- **A ONCE-DAILY SWEEP CANNOT CATCH A SAME-DAY CANCELLATION, and that is the case
+  that actually costs somebody an evening.** The first version of
+  `prune-cancelled.yml` ran only at 07:55, straight after the import — which is
+  the right slot for the standing STOCK of cancelled rows and useless for the
+  FLOW. Measured on the reported row the day it shipped: "Seattle Gay Online
+  Speed Dating" started at 22:00 UTC that night, its Meetup listing already said
+  `EventCancelled`, and the next sweep was not until 07:55 the following
+  morning — **six hours after the event was due to END**. Hiding it then is
+  bookkeeping, not a fix. A second cron at 16:55 passes `--days 2`, so it probes
+  only what happens inside 48 hours: a few hundred URLs instead of several
+  thousand, minutes instead of half an hour. 16:55 UTC is 09:55 Pacific / 12:55
+  Eastern / 17:55 UK — hours of warning for a US evening event and still ahead of
+  most UK ones. `github.event.schedule` (the cron that fired) is the only thing
+  that tells two scheduled runs of one workflow apart; it is EMPTY on a dispatch,
+  which is what makes a manual run default to the full sweep.
+
+- **WHEN SOMETHING IS WRONG TONIGHT, NARROW THE SWEEP RATHER THAN WAITING OUT THE
+  BUDGET.** A full pass spends its whole `--max-seconds` probing events four
+  months away before it can report. The `days` dispatch input exists so a first
+  production run, or an urgent one, can answer in minutes over a two-day window —
+  which is also the safest way to make the FIRST write of a delete-shaped tool:
+  a bounded dry run you can read in full, then the same bounded scope with
+  `--apply`. Note that `mapsee_prune_cancelled` has no `--unhide` (its sibling
+  `mapsee_retire_online_events` does), so a bounded first run is the whole of the
+  safety net.

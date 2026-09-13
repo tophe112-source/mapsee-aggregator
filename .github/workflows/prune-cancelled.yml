@@ -12,11 +12,27 @@ name: Prune cancelled events
 # WHERE IT SITS IN THE DAY, and the order is load-bearing:
 #   06:17  aggregate-events      the import
 #   07:40  menu-links            order links, after the import
-#   07:55  THIS                  hide what the source has called off
+#   07:55  THIS (full sweep)     hide what the source has called off
 #   08:23  cleanup-events        the janitor deletes what is past
+#   16:55  THIS (near horizon)   catch TODAY's cancellations before tonight
 # After the import, so a row written this morning is checked this morning.
 # Before the janitor, so a cancelled event that is also past is deleted outright
 # rather than left hidden for a week.
+#
+# WHY THERE ARE TWO RUNS. A once-daily sweep cannot catch a SAME-DAY
+# cancellation, and that is the case that actually costs somebody an evening.
+# Found the hard way on 2026-09-13: the reported row ("Seattle Gay Online Speed
+# Dating") started at 22:00 UTC that night, its Meetup listing already said
+# EventCancelled, and the next sweep was not until 07:55 the following
+# morning — six hours after the event was due to END. Hiding it then is
+# bookkeeping, not a fix. The 12.9% measured above is the standing STOCK; this
+# second run is about the FLOW, where a cancelled row does its damage.
+#
+# The near-horizon run passes --days 2, so it probes only what is happening
+# inside 48 hours — a few hundred URLs rather than several thousand, minutes
+# rather than half an hour. 16:55 UTC is 09:55 Pacific / 12:55 Eastern / 17:55
+# UK: hours of warning for a US evening event, and still ahead of most UK ones.
+# It is deliberately clear of festival-schedules at 17:23.
 #
 # It HIDES (hidden_at), it does not delete: reversible, no cascade through
 # event_messages / event_rsvps / invites / cohosts — which matters most here,
@@ -28,13 +44,22 @@ name: Prune cancelled events
 
 on:
   schedule:
-    - cron: "55 7 * * *"        # daily, ~07:55 UTC
+    - cron: "55 7 * * *"        # daily ~07:55 UTC — the FULL sweep
+    - cron: "55 16 * * *"       # daily ~16:55 UTC — the NEAR HORIZON (--days 2)
   workflow_dispatch:
     inputs:
       dry_run:
         description: "Report only, write nothing"
         type: boolean
         default: false
+      # Narrow a manual run to the next N days. Blank is the full sweep. Worth
+      # having for the same reason the 16:55 cron exists: when something is
+      # wrong TONIGHT, a two-day pass answers in minutes instead of spending the
+      # whole probe budget on events four months out.
+      days:
+        description: "How far ahead to sweep, in days (blank = the full 120)"
+        type: string
+        default: ""
       # A BACKFILL, not a schedule — same shape as retire_thin_artwork riding on
       # osm-amenities.yml. mapsee_ingest now refuses an online-only listing at
       # the boundary, but an upsert cannot delete, so the ones already written
@@ -65,10 +90,26 @@ jobs:
       # probing inside its own budget, acts on what it has and leaves the rest
       # for tomorrow, rather than being killed mid-sweep by the job timeout. The
       # gap covers checkout, setup-python and the writes. Move one, move the other.
+      #
+      # github.event.schedule is the cron that FIRED, and it is the only thing
+      # that tells the two scheduled runs apart. It is empty on a dispatch, so a
+      # manual run is a full sweep unless it asks for a narrower one.
       - name: Hide events the source has cancelled
+        env:
+          FIRED_BY: ${{ github.event.schedule }}
+          DAYS_IN: ${{ inputs.days }}
+          DRY_RUN: ${{ inputs.dry_run }}
         run: |
-          python mapsee_prune_cancelled.py --max-seconds 2100 \
-            ${{ inputs.dry_run && ' ' || '--apply' }}
+          if [ -n "$DAYS_IN" ]; then
+            SCOPE="--days $DAYS_IN"; BUDGET=900
+          elif [ "$FIRED_BY" = "55 16 * * *" ]; then
+            SCOPE="--days 2"; BUDGET=900          # the near-horizon pass
+          else
+            SCOPE=""; BUDGET=2100                 # the full sweep
+          fi
+          if [ "$DRY_RUN" = "true" ]; then APPLY=""; else APPLY="--apply"; fi
+          echo "scope: ${SCOPE:-full} · budget: ${BUDGET}s · ${APPLY:-DRY RUN}"
+          python mapsee_prune_cancelled.py --max-seconds "$BUDGET" $SCOPE $APPLY
 
       # always(): the step above spends its whole budget probing other people's
       # servers and can be cut short by the job timeout. This one reads only our
@@ -76,6 +117,8 @@ jobs:
       # that risk.
       - name: Backfill — hide already-imported online-only events
         if: ${{ always() && inputs.retire_online_events == true }}
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
         run: |
-          python mapsee_retire_online_events.py \
-            ${{ inputs.dry_run && ' ' || '--apply' }}
+          if [ "$DRY_RUN" = "true" ]; then APPLY=""; else APPLY="--apply"; fi
+          python mapsee_retire_online_events.py $APPLY
