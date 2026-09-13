@@ -2411,7 +2411,7 @@
  },
  {
   "name": "Redmond — Volunteer Opportunities",
-  "category": "community",
+  "category": "volunteer",
   "url": "https://www.redmond.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
   "geocode_suffix": ", Redmond, Washington",
   "limit": 300,
@@ -2438,7 +2438,7 @@
  },
  {
   "name": "Mansfield — Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.mansfieldtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
   "geocode_suffix": ", Mansfield, Texas",
   "limit": 300,
@@ -2798,7 +2798,7 @@
  },
  {
   "name": "Yorba Linda — Library Events",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.yorbalindaca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
   "geocode_suffix": ", Yorba Linda, California",
   "limit": 300,
@@ -2960,7 +2960,7 @@
  },
  {
   "name": "Lodi — Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.lodi.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
   "geocode_suffix": ", Lodi, California",
   "limit": 300,
@@ -3005,7 +3005,7 @@
  },
  {
   "name": "Victoria — Library Events",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.brownsvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
   "geocode_suffix": ", Victoria, Texas",
   "limit": 300,
@@ -3158,7 +3158,7 @@
  },
  {
   "name": "Rowlett — Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.rowletttx.gov/common/modules/iCalendar/iCalendar.aspx?catID=19&feed=calendar",
   "geocode_suffix": ", Rowlett, Texas",
   "limit": 300,
@@ -3239,7 +3239,7 @@
  },
  {
   "name": "Monterey Park — Library Calendar",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.montereypark.ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
   "geocode_suffix": ", Monterey Park, California",
   "limit": 300,
@@ -3509,7 +3509,7 @@
  },
  {
   "name": "North Miami — Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.northmiamifl.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
   "geocode_suffix": ", North Miami, Florida",
   "limit": 300,
@@ -3527,7 +3527,7 @@
  },
  {
   "name": "North Miami — Library - Adults",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.northmiamifl.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar",
   "geocode_suffix": ", North Miami, Florida",
   "limit": 300,
@@ -3554,7 +3554,7 @@
  },
  {
   "name": "Leander — Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.leandertx.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
   "geocode_suffix": ", Leander, Texas",
   "limit": 300,
@@ -3653,7 +3653,7 @@
  },
  {
   "name": "St. Clair Shores — Farmers Market",
-  "category": "community",
+  "category": "market",
   "url": "https://www.scsmi.net/common/modules/iCalendar/iCalendar.aspx?catID=72&feed=calendar",
   "geocode_suffix": ", St. Clair Shores, Michigan",
   "limit": 300,
@@ -3689,7 +3689,7 @@
  },
  {
   "name": "Royal Oak — Farmers Market",
-  "category": "community",
+  "category": "market",
   "url": "https://www.romi.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
   "geocode_suffix": ", Royal Oak, Michigan",
   "limit": 300,
@@ -3743,7 +3743,7 @@
  },
  {
   "name": "Bartlett — Bartlett Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.cityofbartlett.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
   "geocode_suffix": ", Bartlett, Tennessee",
   "limit": 300,
@@ -4445,7 +4445,7 @@
  },
  {
   "name": "Grapevine — Library - Children's Programs",
-  "category": "community",
+  "category": "kids",
   "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
   "geocode_suffix": ", Grapevine, Texas",
   "limit": 300,
@@ -4454,7 +4454,7 @@
  },
  {
   "name": "Grapevine — Library - Makerspace Programs",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
   "geocode_suffix": ", Grapevine, Texas",
   "limit": 300,
@@ -4463,7 +4463,7 @@
  },
  {
   "name": "Grapevine — Library - Adult Programs",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
   "geocode_suffix": ", Grapevine, Texas",
   "limit": 300,
@@ -4472,7 +4472,7 @@
  },
  {
   "name": "Grapevine — Library - Teen Programs",
-  "category": "community",
+  "category": "kids",
   "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar",
   "geocode_suffix": ", Grapevine, Texas",
   "limit": 300,
@@ -4481,7 +4481,7 @@
  },
  {
   "name": "Grapevine — Library - Esports Academy",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar",
   "geocode_suffix": ", Grapevine, Texas",
   "limit": 300,
@@ -4490,7 +4490,7 @@
  },
  {
   "name": "Grapevine — Library - Genealogy",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.grapevinetexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
   "geocode_suffix": ", Grapevine, Texas",
   "limit": 300,
@@ -4544,7 +4544,7 @@
  },
  {
   "name": "Winter Haven — Library Programs",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.mywinterhaven.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
   "geocode_suffix": ", Winter Haven, Florida",
   "limit": 300,
@@ -4859,7 +4859,7 @@
  },
  {
   "name": "Burleson — Library Programs",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.burlesontx.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
   "geocode_suffix": ", Burleson, Texas",
   "limit": 300,
@@ -4886,7 +4886,7 @@
  },
  {
   "name": "Burleson — Library Outreach",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.burlesontx.com/common/modules/iCalendar/iCalendar.aspx?catID=52&feed=calendar",
   "geocode_suffix": ", Burleson, Texas",
   "limit": 300,
@@ -5039,7 +5039,7 @@
  },
  {
   "name": "Altamonte Springs — City Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.altamonte.org/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
   "geocode_suffix": ", Altamonte Springs, Florida",
   "limit": 300,
@@ -5066,7 +5066,7 @@
  },
  {
   "name": "Huntsville — Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.huntsvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
   "geocode_suffix": ", Huntsville, Texas",
   "limit": 300,
@@ -5102,7 +5102,7 @@
  },
  {
   "name": "Urbandale — Library Events",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.urbandale.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
   "geocode_suffix": ", Urbandale, Iowa",
   "limit": 300,
@@ -5237,7 +5237,7 @@
  },
  {
   "name": "The Colony — Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
   "geocode_suffix": ", The Colony, Texas",
   "limit": 300,
@@ -5246,7 +5246,7 @@
  },
  {
   "name": "The Colony — Library - Adults",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
   "geocode_suffix": ", The Colony, Texas",
   "limit": 300,
@@ -5255,7 +5255,7 @@
  },
  {
   "name": "The Colony — Library - Kids",
-  "category": "community",
+  "category": "kids",
   "url": "https://www.thecolonytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
   "geocode_suffix": ", The Colony, Texas",
   "limit": 300,
@@ -5372,7 +5372,7 @@
  },
  {
   "name": "Concord — Library - General",
-  "category": "community",
+  "category": "learning",
   "url": "https://concordnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=54&feed=calendar",
   "geocode_suffix": ", Concord, New Hampshire",
   "limit": 300,
@@ -5444,7 +5444,7 @@
  },
  {
   "name": "Sherman — Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.ci.sherman.tx.us/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar",
   "geocode_suffix": ", Sherman, Texas",
   "limit": 300,
@@ -5561,7 +5561,7 @@
  },
  {
   "name": "Coppell — Library",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.coppelltx.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
   "geocode_suffix": ", Coppell, Texas",
   "limit": 300,
@@ -5714,7 +5714,7 @@
  },
  {
   "name": "Schertz — Library - Adults",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.schertz.com/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
   "geocode_suffix": ", Schertz, Texas",
   "limit": 300,
@@ -5723,7 +5723,7 @@
  },
  {
   "name": "Schertz — Library - Kids & Teens",
-  "category": "community",
+  "category": "kids",
   "url": "https://www.schertz.com/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
   "geocode_suffix": ", Schertz, Texas",
   "limit": 300,
@@ -5759,7 +5759,7 @@
  },
  {
   "name": "Lancaster — Library Calendar",
-  "category": "community",
+  "category": "learning",
   "url": "https://www.lancaster-tx.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
   "geocode_suffix": ", Lancaster, Texas",
   "limit": 300,
@@ -5909,5 +5909,356 @@
   "geocode_suffix": ", Gent",
   "limit": 300,
   "_metro": "Ghent, BE"
+ },
+ {
+  "name": "New Berlin — Fire - Burn Days",
+  "category": "community",
+  "url": "https://www.newberlinwi.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", New Berlin, Wisconsin",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Fire - Burn Days]",
+  "_metro": "New Berlin, Wisconsin"
+ },
+ {
+  "name": "New Berlin — City Calendar",
+  "category": "community",
+  "url": "https://www.newberlinwi.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", New Berlin, Wisconsin",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Calendar]",
+  "_metro": "New Berlin, Wisconsin"
+ },
+ {
+  "name": "New Berlin — Fire - Events",
+  "category": "community",
+  "url": "https://www.newberlinwi.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", New Berlin, Wisconsin",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Fire - Events]",
+  "_metro": "New Berlin, Wisconsin"
+ },
+ {
+  "name": "DeKalb — Community Events",
+  "category": "community",
+  "url": "https://www.cityofdekalb.com/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", DeKalb, Illinois",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "DeKalb, Illinois"
+ },
+ {
+  "name": "Norwich — Cultural Calendar",
+  "category": "community",
+  "url": "https://www.norwichct.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
+  "geocode_suffix": ", Norwich, Connecticut",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Cultural Calendar]",
+  "_metro": "Norwich, Connecticut"
+ },
+ {
+  "name": "Brighton — Recreation Center",
+  "category": "community",
+  "url": "https://www.brightonco.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Brighton, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation Center]",
+  "_metro": "Brighton, Colorado"
+ },
+ {
+  "name": "Brighton — City Events",
+  "category": "community",
+  "url": "https://www.brightonco.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Brighton, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Brighton, Colorado"
+ },
+ {
+  "name": "Brighton — Brighton EDC Events",
+  "category": "community",
+  "url": "https://www.brightonco.gov/common/modules/iCalendar/iCalendar.aspx?catID=62&feed=calendar",
+  "geocode_suffix": ", Brighton, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Brighton EDC Events]",
+  "_metro": "Brighton, Colorado"
+ },
+ {
+  "name": "Brighton — Oasis Calendar",
+  "category": "community",
+  "url": "https://www.brightonco.gov/common/modules/iCalendar/iCalendar.aspx?catID=51&feed=calendar",
+  "geocode_suffix": ", Brighton, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Oasis Calendar]",
+  "_metro": "Brighton, Colorado"
+ },
+ {
+  "name": "Oviedo — City Special Events and Programming",
+  "category": "community",
+  "url": "https://www.cityofoviedo.net/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Oviedo, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Special Events and Programming]",
+  "_metro": "Oviedo, Florida"
+ },
+ {
+  "name": "Oviedo — Community Event Calendar",
+  "category": "community",
+  "url": "https://www.cityofoviedo.net/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Oviedo, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Event Calendar]",
+  "_metro": "Oviedo, Florida"
+ },
+ {
+  "name": "Oviedo — Senior Special Events at Riverside Recreation",
+  "category": "community",
+  "url": "https://www.cityofoviedo.net/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar",
+  "geocode_suffix": ", Oviedo, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Special Events at Riverside Recreation]",
+  "_metro": "Oviedo, Florida"
+ },
+ {
+  "name": "Issaquah",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://www.issaquahwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
+  "geocode_suffix": ", Issaquah, Washington",
+  "limit": 300,
+  "_metro": "Issaquah, Washington"
+ },
+ {
+  "name": "Olive Branch — Senior Center",
+  "category": "community",
+  "url": "https://www.obms.us/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Olive Branch, Mississippi",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Center]",
+  "_metro": "Olive Branch, Mississippi"
+ },
+ {
+  "name": "Olive Branch — Official City Events",
+  "category": "community",
+  "url": "https://www.obms.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Olive Branch, Mississippi",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Official City Events]",
+  "_metro": "Olive Branch, Mississippi"
+ },
+ {
+  "name": "Olive Branch — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.obms.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Olive Branch, Mississippi",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Olive Branch, Mississippi"
+ },
+ {
+  "name": "San Gabriel — Events",
+  "category": "community",
+  "url": "https://www.sangabrielcity.com/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar",
+  "geocode_suffix": ", San Gabriel, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "San Gabriel, California"
+ },
+ {
+  "name": "Mt. Juliet — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.mtjuliet-tn.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Mt. Juliet, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Mt. Juliet, Tennessee"
+ },
+ {
+  "name": "Braintree — Public Holidays",
+  "category": "community",
+  "url": "https://braintreema.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Braintree, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Public Holidays]",
+  "_metro": "Braintree, Massachusetts"
+ },
+ {
+  "name": "Braintree — MA 250",
+  "category": "community",
+  "url": "https://braintreema.gov/common/modules/iCalendar/iCalendar.aspx?catID=66&feed=calendar",
+  "geocode_suffix": ", Braintree, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[MA 250]",
+  "_metro": "Braintree, Massachusetts"
+ },
+ {
+  "name": "Spartanburg — Events Calendar",
+  "category": "community",
+  "url": "https://www.cityofspartanburg.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Spartanburg, South Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events Calendar]",
+  "_metro": "Spartanburg, South Carolina"
+ },
+ {
+  "name": "La Vergne — Senior Center",
+  "category": "community",
+  "url": "https://www.lavergnetn.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", La Vergne, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Center]",
+  "_metro": "La Vergne, Tennessee"
+ },
+ {
+  "name": "La Vergne — Library",
+  "category": "learning",
+  "url": "https://www.lavergnetn.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", La Vergne, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "La Vergne, Tennessee"
+ },
+ {
+  "name": "La Vergne — Community Events",
+  "category": "community",
+  "url": "https://www.lavergnetn.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
+  "geocode_suffix": ", La Vergne, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "La Vergne, Tennessee"
+ },
+ {
+  "name": "La Vergne — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.lavergnetn.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", La Vergne, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "La Vergne, Tennessee"
+ },
+ {
+  "name": "La Vergne — Library Teen Space",
+  "category": "kids",
+  "url": "https://www.lavergnetn.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", La Vergne, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Teen Space]",
+  "_metro": "La Vergne, Tennessee"
+ },
+ {
+  "name": "West Fargo — West Fargo Library",
+  "category": "learning",
+  "url": "https://www.westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", West Fargo, North Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[West Fargo Library]",
+  "_metro": "West Fargo, North Dakota"
+ },
+ {
+  "name": "West Fargo — West Fargo Library - Adult Programs",
+  "category": "learning",
+  "url": "https://www.westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", West Fargo, North Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[West Fargo Library - Adult Programs]",
+  "_metro": "West Fargo, North Dakota"
+ },
+ {
+  "name": "West Fargo — West Fargo Library - Senior Programs",
+  "category": "learning",
+  "url": "https://www.westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar",
+  "geocode_suffix": ", West Fargo, North Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[West Fargo Library - Senior Programs]",
+  "_metro": "West Fargo, North Dakota"
+ },
+ {
+  "name": "West Fargo — West Fargo Library - Ready to Read (Ages 0 - 5)",
+  "category": "kids",
+  "url": "https://www.westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
+  "geocode_suffix": ", West Fargo, North Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[West Fargo Library - Ready to Read (Ages 0 - 5)]",
+  "_metro": "West Fargo, North Dakota"
+ },
+ {
+  "name": "West Fargo — Community Events",
+  "category": "community",
+  "url": "https://www.westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", West Fargo, North Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "West Fargo, North Dakota"
+ },
+ {
+  "name": "West Fargo — West Fargo Library - Kids & Family Programs",
+  "category": "kids",
+  "url": "https://www.westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", West Fargo, North Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[West Fargo Library - Kids & Family Programs]",
+  "_metro": "West Fargo, North Dakota"
+ },
+ {
+  "name": "Clovis — Library Calendar",
+  "category": "learning",
+  "url": "https://www.clovisnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Clovis, New Mexico",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Calendar]",
+  "_metro": "Clovis, New Mexico"
+ },
+ {
+  "name": "Clovis — Library - Kids & Teens Services",
+  "category": "kids",
+  "url": "https://www.clovisnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Clovis, New Mexico",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Kids & Teens Services]",
+  "_metro": "Clovis, New Mexico"
+ },
+ {
+  "name": "Clovis — Library - Adult Services",
+  "category": "learning",
+  "url": "https://www.clovisnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Clovis, New Mexico",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Adult Services]",
+  "_metro": "Clovis, New Mexico"
+ },
+ {
+  "name": "Clovis — City Events",
+  "category": "community",
+  "url": "https://www.clovisnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Clovis, New Mexico",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Clovis, New Mexico"
+ },
+ {
+  "name": "Clovis — Police Calendar",
+  "category": "community",
+  "url": "https://www.clovisnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Clovis, New Mexico",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Calendar]",
+  "_metro": "Clovis, New Mexico"
+ },
+ {
+  "name": "Menomonee Falls — Menomonee Falls Events Calendar",
+  "category": "community",
+  "url": "https://www.menomoneefalls.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Menomonee Falls, Wisconsin",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Menomonee Falls Events Calendar]",
+  "_metro": "Menomonee Falls, Wisconsin"
+ },
+ {
+  "name": "Menomonee Falls — Library Calendar",
+  "category": "learning",
+  "url": "https://www.menomoneefalls.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Menomonee Falls, Wisconsin",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Calendar]",
+  "_metro": "Menomonee Falls, Wisconsin"
  }
 ]

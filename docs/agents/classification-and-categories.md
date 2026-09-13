@@ -177,3 +177,20 @@
   Infants & Toddlers — exactly as `baby` was already scoped one line above.
   Every ambiguous single word in `_KIDS_RX` and `_FITNESS_RX` is qualified for
   this reason; an unqualified one is a bug waiting for a big enough sample.
+
+- **`_PARTY_RX` owns "block party", and one title is not a reason to take it
+  back.** mapsee.me's own create placeholder is "Block Party Potluck" and
+  awaresie is the neighbourhood door, so a family block party landing on
+  bar.ventures ("Nights Out, Nightlife and People to Meet") reads like a
+  miscast — `_PROMOTABLE_TO_PARTY` includes `community`, so a town calendar's
+  block party is promoted straight out of it. Measured before touching it, and
+  the measurement says leave it alone: across 280 live event pages sampled from
+  mapsee.me's own sitemaps, **zero** mention a block party anywhere in title or
+  description, and `_PARTY_RX` fires on three — a speed-dating night, a second
+  speed-dating night and a happy hour, all correctly nightlife. The one real
+  instance found all day ("NIU Homecoming Block Party", from DeKalb's new civic
+  feed) is a university homecoming, which is a party; and it keeps `community`
+  as a SECONDARY, so it still reaches plansie and awaresie either way. The
+  primary only decides the pin's colour and glyph. Retuning a deliberate,
+  documented rule on a sample of one is how the kids regex acquired its
+  unqualified words.

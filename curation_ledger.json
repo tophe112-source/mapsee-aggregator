@@ -12718,6 +12718,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bettendorf.org": {
+    "checked": 20260913,
+    "name": "Bettendorf",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "better-tennis.at": {
     "checked": 20260908,
     "name": "Better Tennis",
@@ -18080,6 +18087,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "braintreema.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Braintree \u2014 Public Holidays",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "braintreema.gov/common/modules/iCalendar/iCalendar.aspx?catID=66&feed=calendar": {
+    "checked": 20260913,
+    "name": "Braintree \u2014 MA 250",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "brakbuldring.no": {
     "checked": 20260906,
     "name": "Brak Buldring",
@@ -18534,6 +18555,34 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "brightonco.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Brighton \u2014 City Events",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "brightonco.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20260913,
+    "name": "Brighton \u2014 Recreation Center",
+    "reason": "114 vevents / 114 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "brightonco.gov/common/modules/iCalendar/iCalendar.aspx?catID=51&feed=calendar": {
+    "checked": 20260913,
+    "name": "Brighton \u2014 Oasis Calendar",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "brightonco.gov/common/modules/iCalendar/iCalendar.aspx?catID=62&feed=calendar": {
+    "checked": 20260913,
+    "name": "Brighton \u2014 Brighton EDC Events",
+    "reason": "4 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
   },
   "brightonsurfclub.com": {
     "checked": 20260819,
@@ -21453,6 +21502,13 @@
     "reason": "5 events",
     "status": "ok",
     "type": "localist"
+  },
+  "calexico.ca.gov": {
+    "checked": 20260913,
+    "name": "Calexico",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "calgary-buddhist.ab.ca": {
     "checked": 20260819,
@@ -28230,9 +28286,23 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofdekalb.com/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
+    "checked": 20260913,
+    "name": "DeKalb \u2014 Community Events",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cityofdoral.com": {
     "checked": 20260903,
     "name": "Doral",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "cityofdover.com": {
+    "checked": 20260913,
+    "name": "Dover",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -28257,6 +28327,13 @@
     "reason": "93 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "cityofflorence.com": {
+    "checked": 20260913,
+    "name": "Florence",
+    "reason": "civic probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cityoffortpierce.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
     "checked": 20260911,
@@ -28377,6 +28454,27 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofoviedo.net/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Oviedo \u2014 City Special Events and Programming",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofoviedo.net/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
+    "checked": 20260913,
+    "name": "Oviedo \u2014 Community Event Calendar",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cityofoviedo.net/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar": {
+    "checked": 20260913,
+    "name": "Oviedo \u2014 Senior Special Events at Riverside Recreation",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cityofparramatta.nsw.gov.au/community/libraries-and-community-hubs/library-locations-and-opening-hours/epping-branch-library": {
     "checked": 20260819,
     "name": "Epping Branch Library",
@@ -28495,6 +28593,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "cityofspartanburg.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Spartanburg \u2014 Events Calendar",
+    "reason": "4 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
   },
   "cityofsydney.nsw.gov.au/community-centres/juanita-nielsen-community-centre": {
     "checked": 20260819,
@@ -29202,6 +29307,41 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "clovisnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Clovis \u2014 City Events",
+    "reason": "13 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "clovisnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260913,
+    "name": "Clovis \u2014 Police Calendar",
+    "reason": "4 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "clovisnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
+    "checked": 20260913,
+    "name": "Clovis \u2014 Library Calendar",
+    "reason": "211 vevents / 211 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "clovisnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
+    "checked": 20260913,
+    "name": "Clovis \u2014 Library - Adult Services",
+    "reason": "147 vevents / 147 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "clovisnm.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
+    "checked": 20260913,
+    "name": "Clovis \u2014 Library - Kids & Teens Services",
+    "reason": "160 vevents / 160 future",
+    "status": "ok",
+    "type": "ics"
   },
   "cloynediocese.ie/parish-conna": {
     "checked": 20260822,
@@ -31561,6 +31701,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cottage-grove.org": {
+    "checked": 20260913,
+    "name": "Cottage Grove",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cottbus.vonunten.org": {
     "checked": 20260808,
@@ -65421,6 +65568,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "issaquahwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar": {
+    "checked": 20260913,
+    "name": "Issaquah",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "isshk.org": {
     "checked": 20260831,
     "name": "\u9999\u6e2f\u570b\u969b\u793e\u6703\u670d\u52d9\u793e International Social Service Hong Kong Branch",
@@ -76901,6 +77055,41 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "lavergnetn.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar": {
+    "checked": 20260913,
+    "name": "La Vergne \u2014 Parks & Recreation",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lavergnetn.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260913,
+    "name": "La Vergne \u2014 Library",
+    "reason": "33 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lavergnetn.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260913,
+    "name": "La Vergne \u2014 Library Teen Space",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lavergnetn.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar": {
+    "checked": 20260913,
+    "name": "La Vergne \u2014 Senior Center",
+    "reason": "79 vevents / 79 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lavergnetn.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar": {
+    "checked": 20260913,
+    "name": "La Vergne \u2014 Community Events",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "laverna.at": {
     "checked": 20260907,
     "name": "Franziskaner- und Wallfahrtskirche Maria Enzersdorf",
@@ -81017,6 +81206,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lincolnpark.govoffice.com": {
+    "checked": 20260913,
+    "name": "Lincoln Park",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "lincolnroad.org.nz": {
     "checked": 20260824,
     "name": "Lincoln Road Bible Chapel",
@@ -83130,6 +83326,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lynnwoodwa.gov": {
+    "checked": 20260913,
+    "name": "Lynnwood",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "lysakerfjorden.no": {
     "checked": 20260906,
@@ -87149,6 +87352,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "menomoneefalls.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Menomonee Falls \u2014 Menomonee Falls Events Calendar",
+    "reason": "55 vevents / 55 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "menomoneefalls.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar": {
+    "checked": 20260913,
+    "name": "Menomonee Falls \u2014 Library Calendar",
+    "reason": "4 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "mensenrechten.be": {
     "checked": 20260911,
     "name": "Liga voor Mensenrechten",
@@ -91124,6 +91341,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mtjuliet-tn.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Mt. Juliet \u2014 Parks & Recreation",
+    "reason": "12 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
   },
   "mtmoperetka.pl": {
     "checked": 20260909,
@@ -95612,6 +95836,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "newberlinwi.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "New Berlin \u2014 City Calendar",
+    "reason": "149 vevents / 140 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "newberlinwi.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "New Berlin \u2014 Fire - Burn Days",
+    "reason": "857 vevents / 857 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "newberlinwi.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "New Berlin \u2014 Fire - Events",
+    "reason": "8 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "newbritainct.gov": {
     "checked": 20260903,
     "name": "New Britain",
@@ -97502,6 +97747,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "norwichct.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar": {
+    "checked": 20260913,
+    "name": "Norwich \u2014 Cultural Calendar",
+    "reason": "14 vevents / 14 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "norwichmarket.net/events/?ical=1": {
     "checked": 20260727,
     "name": "Kingsland Market / Norwich Market Events",
@@ -98621,6 +98873,27 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "obms.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Olive Branch \u2014 Official City Events",
+    "reason": "15 vevents / 15 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "obms.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260913,
+    "name": "Olive Branch \u2014 Parks and Recreation",
+    "reason": "10 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "obms.us/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260913,
+    "name": "Olive Branch \u2014 Senior Center",
+    "reason": "26 vevents / 26 future",
+    "status": "ok",
+    "type": "ics"
   },
   "obozowa.waw.pl": {
     "checked": 20260909,
@@ -107281,6 +107554,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "plantcitygov.com": {
+    "checked": 20260913,
+    "name": "Plant City",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "plantentuinmeise.be": {
     "checked": 20260911,
     "name": "Plantentuin Meise",
@@ -110592,6 +110872,13 @@
     "status": "empty",
     "type": "ics"
   },
+  "quincyil.gov": {
+    "checked": 20260913,
+    "name": "Quincy",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "quintadadevesa.com": {
     "checked": 20260901,
     "name": "Quinta da Devesa",
@@ -112874,6 +113161,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rexburg.org": {
+    "checked": 20260913,
+    "name": "Rexburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "rexclub.com": {
     "checked": 20260828,
     "name": "Rex Club",
@@ -114854,6 +115148,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "royutah.org": {
+    "checked": 20260913,
+    "name": "Roy",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "rpc.ie": {
     "checked": 20260822,
@@ -117115,6 +117416,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "sangabrielcity.com/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar": {
+    "checked": 20260913,
+    "name": "San Gabriel \u2014 Events",
+    "reason": "7 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
   },
   "sangdo.or.kr": {
     "checked": 20260902,
@@ -145795,6 +146103,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "visitspartanburg.com": {
+    "checked": 20260913,
+    "name": "Spartanburg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "visitstillwater.org": {
     "checked": 20260909,
     "name": "Stillwater",
@@ -147230,6 +147545,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "warren.org": {
+    "checked": 20260913,
+    "name": "Warren",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "warsaw.teatrocubano.com/company-parties-and-private-events": {
     "checked": 20260909,
     "name": "Teatro Cubano",
@@ -148329,6 +148651,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "weslacotx.gov": {
+    "checked": 20260913,
+    "name": "Weslaco",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "wesleyca.org.nz": {
     "checked": 20260824,
     "name": "Wesley R\u0101t\u0101 Village",
@@ -148431,6 +148760,48 @@
     "checked": 20260727,
     "name": "Western Sydney University Library (Sydney, Australia)",
     "reason": "103 vevents / 89 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20260913,
+    "name": "West Fargo \u2014 Community Events",
+    "reason": "38 vevents / 38 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "West Fargo \u2014 West Fargo Library",
+    "reason": "156 vevents / 156 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260913,
+    "name": "West Fargo \u2014 West Fargo Library - Kids & Family Programs",
+    "reason": "35 vevents / 35 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar": {
+    "checked": 20260913,
+    "name": "West Fargo \u2014 West Fargo Library - Adult Programs",
+    "reason": "76 vevents / 76 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar": {
+    "checked": 20260913,
+    "name": "West Fargo \u2014 West Fargo Library - Ready to Read (Ages 0 - 5)",
+    "reason": "39 vevents / 39 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "westfargond.gov/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar": {
+    "checked": 20260913,
+    "name": "West Fargo \u2014 West Fargo Library - Senior Programs",
+    "reason": "63 vevents / 63 future",
     "status": "ok",
     "type": "ics"
   },

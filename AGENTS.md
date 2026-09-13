@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 154 of them — live in
+session.** The measured notes about what bites — 187 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -79,7 +79,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 43 `test_*.py` scripts are the CI gate.** They print one line per case
+- **The 44 `test_*.py` scripts are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -114,20 +114,20 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 | File | Notes | Covers |
 |---|---|---|
-| `docs/agents/curation-and-discovery.md` | 24 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences |
+| `docs/agents/curation-and-discovery.md` | 27 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences |
 | `docs/agents/osm-amenities.md` | 23 | which civic places earn a pin or a sheet, deny-lists, facts vs names, the cached element list |
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
-| `docs/agents/ci-and-jobs.md` | 14 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |
+| `docs/agents/ci-and-jobs.md` | 17 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |
 | `docs/agents/adapters-and-sources.md` | 19 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes |
-| `docs/agents/classification-and-categories.md` | 15 | lens keys, promotion regexes, kids/food/market, category defaults, order pickup |
+| `docs/agents/classification-and-categories.md` | 16 | lens keys, promotion regexes, kids/food/market, category defaults, order pickup |
 | `docs/agents/cancelled-events.md` | 10 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete |
-| `docs/agents/sync-eventstore-and-paging.md` | 11 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors |
-| `docs/agents/dates-and-timezones.md` | 9 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side |
+| `docs/agents/sync-eventstore-and-paging.md` | 12 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors |
+| `docs/agents/dates-and-timezones.md` | 10 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |
 | `docs/agents/geocoding-and-addresses.md` | 6 | Census, Photon, wrong coordinates, the city in the address |
 | `docs/agents/spam-and-content.md` | 6 | the predicate, the purge, implausible end dates, safe scheduled deletes |
 | `docs/agents/state-fairs.md` | 5 | marketing-copy dates, towns vs venues |
-| `docs/agents/health-and-monitoring.md` | 4 | `stats_snapshot_all`, baselines, a source with no retry |
+| `docs/agents/health-and-monitoring.md` | 6 | `stats_snapshot_all`, baselines, a source with no retry |
 | `docs/agents/libraries-bibliocommons.md` | 4 | geocoding cost, ignored date filters, stock tiles |
 | `docs/agents/running.md`, `credentials.md`, `platforms-probed.md` | — | the operational sections, verbatim |
 | `docs/agents/INDEX.md` | all | every headline, generated — grep it first |

@@ -237,3 +237,42 @@
   the US that is the difference between a source and nothing at all — the only
   geocoder here is US Census, so `mapsee_ingest_tribe` reported "kept 43 events"
   for Calgary and placed zero of them.
+
+- **A CivicPlus city's calendar names its own category, and every one of them
+  was filed `community` anyway.** The platform has no whole-calendar export, so
+  a town is one source per PROGRAMME, and the link that carries each feed URL
+  carries the programme's name beside it. `CIVIC_DENY_RX` already reads that
+  name to refuse a tax or a zoning calendar — and then `civicplus_candidates`
+  threw it away and stamped `DEFAULT_CATEGORY` on the survivors. Measured
+  2026-09-13 over all 363 civic-discovered ics sources: 363 of 363 `community`,
+  including 34 named "Library", 8 named for a library's children's or teen
+  programme, 2 "Farmers Market" and one "Volunteer Opportunities". The fattest
+  category in the catalog (`community`, 1,010) was being fed by the calendars of
+  the thinnest (`kids` 25, `volunteer` 10). `category_for_feed` reads the name;
+  re-filing the 45 that state one moved `kids` 25 -> 33 and `learning` 123 -> 157
+  with no new source at all — the same "check whether the supply is missing or
+  merely unlabelled" that fleabop's classifier note records.
+
+- **"Parks & Recreation" is the one that must STAY `community`, and it is the
+  biggest thing the rule leaves out.** 51 of the 52 civic sources whose name
+  matches anything outdoorsy are a parks DEPARTMENT's whole calendar, which is
+  mixed by construction: it is where a town puts its summer concert series, its
+  movies in the park and its block party alongside the trail walks. Filing them
+  `outdoors` would have moved 51 sources of exactly that supply off awaresie,
+  the neighbourhood door, to win the one genuinely-pure nature centre in the
+  set. AGENTS.md's pure-vs-mixed rule, applied to the category that would most
+  have flattered the coverage report.
+
+- **Municipal open data does not publish local music, festivals or block
+  parties, and the Socrata catalog says so plainly.** Measured 2026-09-13
+  against the live federated catalog, page 1 of each: "block party" matches 87
+  datasets, "street fair" 44, "community festivals" 49, "concerts" 15, "live
+  music" 16, "parades" 18 — and every one of those six yields **zero** datasets
+  that are both event-shaped (`_infer_map`) and not already configured or
+  known-dead. "concerts in the park" and "summer concert series" match 6 and 0
+  datasets in total. What the words do match is permit tables, which
+  `_DISCOVER_REJECT` refuses for good reason. Do not add these queries; the same
+  shape as the fitness/running measurement in curate-catalog.yml's header. The
+  supply for this kind of event is the `civic` backend — a town's OWN calendar —
+  and one 40-city batch of it returned 18 festivals and parades, 9 farmers
+  markets and 3 block-party-shaped events across 28 town calendars.

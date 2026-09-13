@@ -126,6 +126,60 @@ CITYWIDE_SHAPEABLE = {"ics", "tribe", "mylisting"}
 
 DEFAULT_CATEGORY = "community"
 
+# A CivicPlus city is not one calendar, it is one per PROGRAMME — and the
+# platform hands the programme's name over in the same link that carries the
+# feed URL. CIVIC_DENY_RX already reads that name to refuse a tax calendar, and
+# then every survivor was filed under DEFAULT_CATEGORY regardless of what it
+# said. Measured 2026-09-13 over all 363 civic-discovered ics sources (324
+# shipped plus 39 verified that day): every one of them `community`, including
+# 34 named "Library", 8 named for a library's kids or teen programme, 2 named
+# "Farmers Market" and one "Volunteer Opportunities". The fattest category in
+# the catalog was being fed by calendars belonging to the thinnest — `kids` has
+# 25 sources on the planet and `volunteer` 10, against `community`'s 1,010.
+#
+# WHAT IS AND IS NOT HERE IS THE WHOLE RULE, and it is AGENTS.md's own: "a
+# config's category is a DEFAULT, so the right value depends on whether the
+# calendar is pure or mixed."
+#
+#   • A library sub-calendar named for children ("Library - Kids & Teens",
+#     "Ready to Read (Ages 0 - 5)") is PURE: 39 of 39 upcoming entries on West
+#     Fargo's are storytimes. It states `kids`.
+#   • A library's whole calendar is `learning`, which is what all 58 of the
+#     hand-curated library feeds in ics_sources.json already say. This only
+#     makes the discovered ones agree with them.
+#   • "Parks & Recreation" is NOT here, and it is the biggest thing left out: 51
+#     of the 52 name-matches for anything outdoorsy are a parks DEPARTMENT's
+#     whole calendar, which is mixed by construction — it is where a town puts
+#     its summer concert series, its movies in the park and its block party
+#     alongside the trail walks. Filing those `outdoors` would have moved 51
+#     sources of exactly that supply off awaresie, the neighbourhood door, to
+#     win one genuinely-pure nature centre. The promotions in
+#     mapsee_supabase_sync handle the individual trail walk far better than a
+#     config default can.
+#   • Nothing matches on a bare word that a PROPER NAME can carry. The first
+#     pass used `\bmarkets?\b` and `\bservice\b` and duly proposed "The Hub At
+#     Market Square" as a farmers market and "City Service Changes" as
+#     volunteering — the same trap as `market` in map_category, one level up.
+#
+# Order matters: kids before learning, so a library's children's programme is
+# read as children's rather than as a library.
+_FEED_CATEGORY = [
+    ("kids", re.compile(
+        r"\b(kids?|childrens?|children'?s|teens?|tweens?|youth|preschool|"
+        r"toddlers?|story\s?times?|ready\s+to\s+read)\b", re.I)),
+    ("learning", re.compile(r"\blibrar(?:y|ies)\b", re.I)),
+    ("market", re.compile(r"\bfarmers?'?\s+markets?\b", re.I)),
+    ("volunteer", re.compile(r"\bvolunteers?\b", re.I)),
+]
+
+
+def category_for_feed(name: str) -> str:
+    """The category a CivicPlus programme's own NAME states, or the default."""
+    for key, rx in _FEED_CATEGORY:
+        if rx.search(name or ""):
+            return key
+    return DEFAULT_CATEGORY
+
 
 # ---- the candidate generator -------------------------------------------------
 def _sparql(session, query: str, timeout: int = 120) -> List[Dict[str, Any]]:
@@ -364,7 +418,10 @@ def civicplus_candidates(session, place: Dict[str, Any], origin: str,
         out.append({
             "type": "ics",
             "name": f"{place.get('name')} — {cat}",
-            "category": DEFAULT_CATEGORY,
+            # `cat` is the programme's own name, which is the only thing that
+            # knows this feed is a library's or a farmers market's. See
+            # category_for_feed.
+            "category": category_for_feed(cat),
             "url": url,
             "geocode_suffix": _suffix(place),
             "limit": 300,
