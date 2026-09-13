@@ -38,11 +38,12 @@ python test_cleanup.py              # a statement timeout and an outage want opp
 python test_retire_perday.py        # collapsing per-day rows never empties a venue
 python test_curate_reapply.py       # putting a finished curation run back on a main that moved
 python test_cancelled_events.py     # a cancelled event must not arrive, and must leave once it is called off
+python test_ingest_meetup.py        # a Zoom call is not a place, and a hybrid service still is
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 42 test scripts are the CI gate (`tests.yml`). They print one line per
+The 43 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

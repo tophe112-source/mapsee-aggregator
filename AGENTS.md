@@ -49,6 +49,7 @@ front doors it reaches.
 | Whether a platform has already been probed and refused | `curation_ledger.json` - `verify` skips a `fail` for 90 days without a network call. The table under "Platforms probed" below is the durable half |
 | Whether a row is an advertisement rather than an event | `mapsee_spam.py` — one predicate, wired into `EventStore.upsert` so all 41 adapters get it; `test_spam.py` is mostly about what it must NOT refuse |
 | How much of a source is advertising | `mapsee_spam_audit.py` — measures the rate per instance, so `_not_included` is a number and not an impression |
+| Removing an event that was never ANYWHERE (a Zoom call with a street pin) | `mapsee_retire_online_events.py` — the backfill half of `looks_online_only`/`venue_is_only_a_plus_code` in `mapsee_ingest.py`. Report by default, `--apply` to write, `--unhide` to take it back; opt-in input on `prune-cancelled.yml` |
 | Removing an event the source has since CANCELLED | `mapsee_prune_cancelled.py` — re-probes upcoming rows at their own source URL; hides on schema.org `EventCancelled` or a 404, never on prose or a 403. Report by default, `--apply` to write; daily at 07:55 from `prune-cancelled.yml`, BETWEEN the import and the janitor |
 | Removing spam that got in before the gate did | `mapsee_spam_purge.py` — reports by default, `--apply` to write; runs daily from `spam-purge.yml` at 07:40, BETWEEN the import and the janitor |
 | Real "order pickup" links for food venues | `mapsee_menu_links.py` — writes a `🛒 Order:` line the product turns into the button |
@@ -78,7 +79,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 42 `test_*.py` scripts are the CI gate.** They print one line per case
+- **The 43 `test_*.py` scripts are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -98,6 +99,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | Adding or verifying a source, a refusal, a calendar plugin, a licence | `docs/agents/curation-and-discovery.md`, `docs/agents/platforms-probed.md` | `python catalog_curate.py verify`, `python test_discover_osm.py` |
 | Duplicates, rows that never die, paging, a cursor, a fingerprint, `series_id` | `docs/agents/sync-eventstore-and-paging.md` | `python test_indexnow.py`, `python test_skip_unchanged.py`, `python test_link_series.py` |
 | A job timed out, lost an hour's work, ran in the wrong order | `docs/agents/ci-and-jobs.md` | read `.github/workflows/aggregate-events.yml`'s header |
+| An event that should never have been imported at all — a Zoom call on a street corner, a Plus Code for a venue | `docs/agents/adapters-and-sources.md` | `python test_ingest_meetup.py`, `python mapsee_retire_online_events.py` (report first) |
 | An event on the map that is not happening; a source says cancelled and the row does not | `docs/agents/cancelled-events.md` | `python mapsee_prune_cancelled.py` (report first), `python test_cancelled_events.py` |
 | Advertisements on the map | `docs/agents/spam-and-content.md` | `python mapsee_spam_audit.py`, `python mapsee_spam_purge.py` (report first) |
 | A civic place (toilets, food banks, artwork) drawn wrong or unopenable | `docs/agents/osm-amenities.md` | `python test_ingest_osm_amenities.py` |
@@ -116,7 +118,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/osm-amenities.md` | 23 | which civic places earn a pin or a sheet, deny-lists, facts vs names, the cached element list |
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 14 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |
-| `docs/agents/adapters-and-sources.md` | 13 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter |
+| `docs/agents/adapters-and-sources.md` | 19 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes |
 | `docs/agents/classification-and-categories.md` | 15 | lens keys, promotion regexes, kids/food/market, category defaults, order pickup |
 | `docs/agents/cancelled-events.md` | 10 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete |
 | `docs/agents/sync-eventstore-and-paging.md` | 11 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors |

@@ -35,6 +35,15 @@ on:
         description: "Report only, write nothing"
         type: boolean
         default: false
+      # A BACKFILL, not a schedule — same shape as retire_thin_artwork riding on
+      # osm-amenities.yml. mapsee_ingest now refuses an online-only listing at
+      # the boundary, but an upsert cannot delete, so the ones already written
+      # need one pass. Opt-in because it is a one-off: once it has run, the
+      # ingest side keeps the map clean and running it again finds nothing.
+      retire_online_events:
+        description: "Also hide already-imported events whose listing says they are online only"
+        type: boolean
+        default: false
 
 concurrency:
   group: prune-cancelled
@@ -59,4 +68,14 @@ jobs:
       - name: Hide events the source has cancelled
         run: |
           python mapsee_prune_cancelled.py --max-seconds 2100 \
+            ${{ inputs.dry_run && ' ' || '--apply' }}
+
+      # always(): the step above spends its whole budget probing other people's
+      # servers and can be cut short by the job timeout. This one reads only our
+      # own table and takes seconds, so there is no reason for it to inherit
+      # that risk.
+      - name: Backfill — hide already-imported online-only events
+        if: ${{ always() && inputs.retire_online_events == true }}
+        run: |
+          python mapsee_retire_online_events.py \
             ${{ inputs.dry_run && ' ' || '--apply' }}

@@ -360,6 +360,16 @@ jobs:
       - name: A cancelled event must not arrive, and must leave once called off
         run: python test_cancelled_events.py
 
+      # "Has coordinates" was the whole online test, and an organiser can walk
+      # through it: file a Zoom event as PHYSICAL, type anything into the venue
+      # box, and it arrives with a latitude. The expensive direction to get
+      # wrong is the other one — a sangha or a church that runs a room AND a
+      # stream must stay on the map, and so must a Les Mills VIRTUAL class,
+      # which is held in a real studio with the instructor on a screen. Most of
+      # what is pinned here is those.
+      - name: A Zoom call is not a place (Meetup online-only and Plus Codes)
+        run: python test_ingest_meetup.py
+
       # The international sweep spawns its ingesters as subprocesses, and a
       # southern-hemisphere latlong starts with a minus that argparse reads as
       # an option. Australia, New Zealand and South Africa ingested nothing for

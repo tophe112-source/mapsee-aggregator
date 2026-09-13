@@ -184,6 +184,96 @@ def make_fingerprint(name: str, local_date: Optional[str], venue_name: Optional[
     return hashlib.sha1(basis.encode("utf-8")).hexdigest()
 
 
+# --------------------------------------------------------------------------- #
+# "Is this a place at all?" — shared refusals for rows that have COORDINATES and
+# still do not belong on a map. Both were written 2026-09-13 for one reported
+# row, and both are here rather than in the adapter that hit them so the next
+# adapter to need one does not re-derive it slightly differently.
+# --------------------------------------------------------------------------- #
+
+# mapsee is a map, and a Zoom call is not somewhere you can go. Adapters already
+# refuse an event with no coordinates for exactly this reason
+# (mapsee_ingest_meetup: "online / no venue -> can't map it"; the JSON-LD adapter
+# refuses OnlineEventAttendanceMode outright) — but that check has a hole an
+# organiser can walk through, by marking a virtual event PHYSICAL and typing
+# something into the venue box. Then it has coordinates, it passes, and it goes
+# on the map at an address nobody will ever stand at.
+#
+# Measured over 2,000 live event pages sampled from mapsee.me's own sitemaps: 40
+# rows say in their own words that they happen on Zoom, and every one of them is
+# pinned to a street. 35 of the 40 are online-only, all 35 arrived through
+# Meetup, and all 35 are one commercial speed-dating network reposting the same
+# template city by city ("Seattle Gay Virtual Speed Dating on Zoom — join from
+# home", pinned to a Plus Code on Mercer Island).
+#
+# TWO PHRASES ARE DELIBERATELY NOT IN HERE, and both were in the first draft.
+#   * "virtual class" and "virtual session". A Les Mills VIRTUAL class is held in
+#     a real studio with the instructor on a screen, and OpenActive leisure
+#     centres are the single biggest block of rows on the map (393 of the 2,000
+#     sampled are book.everyoneactive.com alone, with titles like "R P M
+#     Virtual"). Refusing those would quietly delete real bookable sessions to
+#     remove a dating network. The other `virtual …` nouns fired 0 times across
+#     the whole sample, so nothing is lost by leaving the ambiguous two out.
+#   * "Zoom link". Measured 0 for 2: BOTH rows carrying it are hybrid — a sangha
+#     and a meditation group that meet in a room and also stream. A listing that
+#     publishes a dial-in is usually one that has somewhere to dial in FROM.
+_ONLINE_ONLY_RX = re.compile(
+    r"\b(on\s+zoom|via\s+zoom|over\s+zoom|zoom\s+(?:call|room|rounds?|meeting)|"
+    r"join\s+(?:us\s+)?from\s+home|from\s+your\s+couch|"
+    r"virtual(?:ly)?\s+(?:event|speed|meetup|gathering)|"
+    r"online\s+(?:speed\s+dating|event|only)|"
+    r"google\s+meet|microsoft\s+teams)\b", re.I)
+
+# The other 5 of those 40, and they must stay: a sangha, a church service and a
+# meditation group that genuinely run a room AND a stream. The phrase is the
+# whole difference — "Online and In-Person" is a real event at a real address
+# that also has a dial-in, and refusing it would take a working congregation off
+# the map to remove a spam network. Checked against the TITLE as well as the
+# blurb, because one of the five says it only in its title.
+_HYBRID_RX = re.compile(
+    r"\b(in[\s-]person|hybrid|on[\s-]?site|at\s+the\s+venue|in\s+the\s+room|"
+    r"both\s+online\s+and|online\s*(?:&|and|/)\s*in)\b", re.I)
+
+
+def looks_online_only(name: Optional[str], description: Optional[str]) -> bool:
+    """Does this listing say, in its own words, that there is nowhere to turn up?
+
+    Positive evidence only, and one clear hybrid phrase overrides it. Silence is
+    NOT evidence: the overwhelming majority of event listings never mention how
+    you attend, and reading that as "online" would empty the map.
+    """
+    text = f"{name or ''} {description or ''}"
+    return bool(_ONLINE_ONLY_RX.search(text)) and not _HYBRID_RX.search(text)
+
+
+# An Open Location Code ("JP7Q+33 Mercer Island"). Google Maps offers one when
+# you drop a pin somewhere with no address, so it is what lands in a venue box
+# that was filled in by a machine or by somebody with nothing to put there.
+# Base-20 alphabet, deliberately: it excludes the vowels, so this cannot match
+# an ordinary word with a plus in it.
+_PLUS_CODE_RX = re.compile(r"^\s*[23456789CFGHJMPQRVWX]{4,8}\+[23456789CFGHJMPQRVWX]{2,3}\b", re.I)
+
+
+def looks_like_plus_code(value: Optional[str]) -> bool:
+    """Is this string a Plus Code rather than the name of a place?"""
+    return bool(_PLUS_CODE_RX.match(value or ""))
+
+
+def venue_is_only_a_plus_code(name: Optional[str], address: Optional[str]) -> bool:
+    """The source gave a location box and put nothing human in it.
+
+    BOTH halves must be a Plus Code, and that is the load-bearing part. Large
+    parts of the world have no street addressing and a Plus Code is the honest
+    ADDRESS there — but the venue is still called something. A row where the
+    name and the address are the same machine string carries no venue at all,
+    and would render a Plus Code to the reader as the name of a place.
+    Measured over the same 2,000 pages: 6 rows carry a Plus Code anywhere, 5 of
+    them in both boxes and all 5 from the speed-dating network; the sixth is a
+    real hike whose venue is "2800 Torrey Pines Scenic Dr" and is untouched.
+    """
+    return looks_like_plus_code(name) and looks_like_plus_code(address)
+
+
 _AGENDA_MAX = 60
 _AGENDA_LENGTHS = {"id": 40, "title": 120, "place": 80, "emoji": 24, "url": 300}
 

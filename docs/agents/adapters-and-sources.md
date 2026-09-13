@@ -172,3 +172,63 @@
   three times, leaves 400/403 alone, saves other successful sources and exits
   nonzero after a source failure. Five tests in `test_ingest_opendata.py` pin
   these contracts; changes to its source config also trigger CI.
+
+- **"HAS COORDINATES" WAS THE WHOLE ONLINE TEST, AND AN ORGANISER CAN WALK
+  THROUGH IT.** Every adapter that refuses a virtual event refuses it by asking
+  whether it has a latitude — `mapsee_ingest_meetup` says so in as many words
+  ("online / no venue -> can't map it"). That holds only while the venue box is
+  empty. Meetup lets a Zoom event be filed as `eventType: PHYSICAL` with
+  anything at all typed into the venue, and then it has coordinates and sails
+  past. The reported row did exactly that: "Seattle Gay Virtual Speed Dating on
+  Zoom … Join from home", status ACTIVE, venue AND address both the Plus Code
+  "JP7Q+33 Mercer Island", city "Seattle" — a street corner on the map for a
+  video call, and the sync's Census pass then moved the pin several km by
+  geocoding the fabricated address. Measured 2026-09-13 over 2,000 live event
+  pages from mapsee.me's own sitemaps: **40 rows say in their own words that
+  they are on Zoom and every one is pinned to a street; 35 are online-only and
+  ALL 35 came through Meetup** — one commercial speed-dating network reposting
+  the same template city by city, into groups that have nothing to do with it (a
+  taekwondo group, a calligraphy club, a vegan cookery crew). `looks_online_only`
+  in `mapsee_ingest.py` is the predicate; the adapter refuses on it, and
+  `mapsee_retire_online_events.py` is the other half for rows already written.
+
+- **THE EXPENSIVE DIRECTION IS THE HYBRID ONE.** The other 5 of those 40 are a
+  sangha, a church and a meditation group that genuinely run a room as well as a
+  stream, and "Online and In-Person" is a real event at a real address. Refusing
+  those would take working congregations off the map to remove a spam network,
+  and nothing downstream would ever say so. `_HYBRID_RX` withholds on one clear
+  phrase and reads the TITLE as well as the blurb, because one of the five says
+  it only in its title.
+
+- **TWO PHRASES WERE DELIBERATELY TAKEN BACK OUT of the online rule, and both
+  were in the first draft.** `virtual class`/`virtual session`: a Les Mills
+  VIRTUAL class is held in a real studio with the instructor on a screen, and
+  OpenActive leisure centres are the biggest single block of rows on the map
+  (393 of the 2,000 sampled are `book.everyoneactive.com` alone, with titles
+  like "R P M Virtual"). Every other `virtual …` noun fired 0 times across the
+  sample, so nothing was lost by dropping the ambiguous two. And `Zoom link`,
+  which measured **0 for 2** — both rows carrying it are hybrid. A listing that
+  publishes a dial-in usually has somewhere to dial in FROM.
+
+- **A PLUS CODE IS A DROPPED PIN, NOT THE NAME OF A PLACE.** Google Maps offers
+  an Open Location Code when you pin somewhere with no address, so it is what
+  lands in a venue box filled in by a machine or by somebody with nothing to put
+  there — and it renders to the reader as the name of the venue. 6 rows in the
+  sample carry one; 5 have it in BOTH the name and the address and all 5 are the
+  speed-dating network, and the sixth is a real hike whose venue is "2800 Torrey
+  Pines Scenic Dr". `venue_is_only_a_plus_code` therefore demands BOTH halves,
+  and that is load-bearing: large parts of the world have no street addressing
+  and a Plus Code is the honest ADDRESS there — but the venue is still called
+  something. The base-20 alphabet excludes vowels, so the pattern cannot match
+  an ordinary word with a plus in it ("Cafe 8+8", "Studio A+").
+
+- **A REFUSAL AT THE BOUNDARY LEAVES EVERYTHING ALREADY WRITTEN EXACTLY WHERE IT
+  IS**, and this repo now has three scripts that exist only to say so —
+  `mapsee_retire_thin_artwork`, `mapsee_retire_perday_osm` and
+  `mapsee_retire_online_events`. Ship the retire pass WITH the ingest rule, share
+  one predicate between them so they cannot drift, and hide rather than delete so
+  `--unhide` can take it back. The one wrinkle: `hidden_at` is a single column
+  several tools set, so `--unhide` here can restore a row that
+  `mapsee_prune_cancelled` hid for being cancelled — most of these listings are
+  both. It is self-healing (the pruner re-hides within the day), but run
+  `--unhide` because you think THIS rule was wrong, not as a general undo.

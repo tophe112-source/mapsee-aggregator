@@ -39,7 +39,8 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint,
+                           looks_online_only, venue_is_only_a_plus_code)
 
 GQL = "https://api.meetup.com/gql-ext"
 
@@ -150,6 +151,26 @@ def to_event(ev: Dict[str, Any], category: str = "community") -> Optional[Normal
     desc = (ev.get("description") or "").strip() or None
     if desc:
         desc = " ".join(desc.split())
+    # THE LINE ABOVE HAS A HOLE AN ORGANISER CAN WALK THROUGH. "no coordinates =
+    # online" is only true while the venue box is empty; Meetup lets a Zoom event
+    # be filed as eventType PHYSICAL with anything at all typed into it, and then
+    # it has coordinates and sails past. The reported row did exactly that —
+    # "Seattle Gay Virtual Speed Dating on Zoom … Join from home", venue and
+    # address both the Plus Code "JP7Q+33 Mercer Island", city "Seattle" — so the
+    # map showed a street corner for a video call, and the sync's Census pass
+    # then moved the pin several km by geocoding the fake address.
+    #
+    # Measured 2026-09-13 over 2,000 live event pages from mapsee.me's sitemaps:
+    # 40 rows say in their own words that they are on Zoom, 35 of them online
+    # only, and ALL 35 came through this adapter — one commercial speed-dating
+    # network reposting the same template city by city, into unrelated groups
+    # (a taekwondo group, a calligraphy club, a vegan cookery crew). The other 5
+    # are a sangha, a church and a meditation group that really do run a room as
+    # well as a stream, and looks_online_only leaves every one of them alone.
+    if looks_online_only(title, desc):
+        return None                                        # a Zoom call is not somewhere to go
+    if venue_is_only_a_plus_code(v.get("name"), v.get("address")):
+        return None                                        # a dropped pin is not a venue
     nev = NormalizedEvent(
         source="meetup",
         source_id=str(ev.get("id")),
