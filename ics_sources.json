@@ -5594,5 +5594,320 @@
   "limit": 300,
   "_found": "civic:city -> civicplus[Fire Department]",
   "_metro": "Coppell, Texas"
+ },
+ {
+  "name": "Puyallup — City Calendar",
+  "category": "community",
+  "url": "https://www.puyallupwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Puyallup, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Calendar]",
+  "_metro": "Puyallup, Washington"
+ },
+ {
+  "name": "Puyallup — Events & Happenings",
+  "category": "community",
+  "url": "https://www.puyallupwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Puyallup, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events & Happenings]",
+  "_metro": "Puyallup, Washington"
+ },
+ {
+  "name": "Puyallup — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.puyallupwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Puyallup, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Puyallup, Washington"
+ },
+ {
+  "name": "Puyallup — Puyallup Activity Center",
+  "category": "community",
+  "url": "https://www.puyallupwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
+  "geocode_suffix": ", Puyallup, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Puyallup Activity Center]",
+  "_metro": "Puyallup, Washington"
+ },
+ {
+  "name": "Puyallup — Puyallup U Classes",
+  "category": "community",
+  "url": "https://www.puyallupwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=46&feed=calendar",
+  "geocode_suffix": ", Puyallup, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Puyallup U Classes]",
+  "_metro": "Puyallup, Washington"
+ },
+ {
+  "name": "Newnan — Main Calendar Events and Programs",
+  "category": "community",
+  "url": "https://www.newnanga.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Newnan, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar Events and Programs]",
+  "_metro": "Newnan, Georgia"
+ },
+ {
+  "name": "Newnan — Leisure Services Events",
+  "category": "community",
+  "url": "https://www.newnanga.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Newnan, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Leisure Services Events]",
+  "_metro": "Newnan, Georgia"
+ },
+ {
+  "name": "Midland — Parks and Recreation",
+  "category": "community",
+  "url": "https://cityofmidlandmi.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Midland, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Midland, Michigan"
+ },
+ {
+  "name": "Midland — Landfill",
+  "category": "community",
+  "url": "https://cityofmidlandmi.gov/common/modules/iCalendar/iCalendar.aspx?catID=54&feed=calendar",
+  "geocode_suffix": ", Midland, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Landfill]",
+  "_metro": "Midland, Michigan"
+ },
+ {
+  "name": "Midland — Water Department",
+  "category": "community",
+  "url": "https://cityofmidlandmi.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Midland, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Water Department]",
+  "_metro": "Midland, Michigan"
+ },
+ {
+  "name": "Belleville — Events",
+  "category": "community",
+  "url": "https://www.belleville.net/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Belleville, Illinois",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Belleville, Illinois"
+ },
+ {
+  "name": "Belleville — City Offices Closed",
+  "category": "community",
+  "url": "https://www.belleville.net/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Belleville, Illinois",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Offices Closed]",
+  "_metro": "Belleville, Illinois"
+ },
+ {
+  "name": "Rancho Palos Verdes — Recreation & Parks",
+  "category": "community",
+  "url": "https://www.rpvca.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Rancho Palos Verdes, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation & Parks]",
+  "_metro": "Rancho Palos Verdes, California"
+ },
+ {
+  "name": "Schertz — Library - Adults",
+  "category": "community",
+  "url": "https://www.schertz.com/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Schertz, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Adults]",
+  "_metro": "Schertz, Texas"
+ },
+ {
+  "name": "Schertz — Library - Kids & Teens",
+  "category": "community",
+  "url": "https://www.schertz.com/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Schertz, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Kids & Teens]",
+  "_metro": "Schertz, Texas"
+ },
+ {
+  "name": "Schertz — Parks & Recreation Programs",
+  "category": "community",
+  "url": "https://www.schertz.com/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Schertz, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation Programs]",
+  "_metro": "Schertz, Texas"
+ },
+ {
+  "name": "Schertz — Events",
+  "category": "community",
+  "url": "https://www.schertz.com/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Schertz, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Schertz, Texas"
+ },
+ {
+  "name": "Lancaster — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.lancaster-tx.com/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Lancaster, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Lancaster, Texas"
+ },
+ {
+  "name": "Lancaster — Library Calendar",
+  "category": "community",
+  "url": "https://www.lancaster-tx.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Lancaster, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Calendar]",
+  "_metro": "Lancaster, Texas"
+ },
+ {
+  "name": "Lancaster — Senior Life Center",
+  "category": "community",
+  "url": "https://www.lancaster-tx.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Lancaster, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Life Center]",
+  "_metro": "Lancaster, Texas"
+ },
+ {
+  "name": "Lancaster — State Auxiliary Museum",
+  "category": "community",
+  "url": "https://www.lancaster-tx.com/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar",
+  "geocode_suffix": ", Lancaster, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[State Auxiliary Museum]",
+  "_metro": "Lancaster, Texas"
+ },
+ {
+  "name": "Grove City — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.grovecityohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Grove City, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Grove City, Ohio"
+ },
+ {
+  "name": "Grove City — Events",
+  "category": "community",
+  "url": "https://www.grovecityohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Grove City, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Grove City, Ohio"
+ },
+ {
+  "name": "Grove City — Police",
+  "category": "community",
+  "url": "https://www.grovecityohio.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Grove City, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police]",
+  "_metro": "Grove City, Ohio"
+ },
+ {
+  "name": "Friendswood — City Holidays",
+  "category": "community",
+  "url": "https://www.ci.friendswood.tx.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Friendswood, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Holidays]",
+  "_metro": "Friendswood, Texas"
+ },
+ {
+  "name": "Friendswood — Main Calendar",
+  "category": "community",
+  "url": "https://www.ci.friendswood.tx.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Friendswood, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Friendswood, Texas"
+ },
+ {
+  "name": "Waxahachie",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://www.waxahachietx.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Waxahachie, Texas",
+  "limit": 300,
+  "_metro": "Waxahachie, Texas"
+ },
+ {
+  "name": "Westfield — Community Calendar",
+  "category": "community",
+  "url": "https://www.cityofwestfield.org/common/modules/iCalendar/iCalendar.aspx?catID=80&feed=calendar",
+  "geocode_suffix": ", Westfield, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Calendar]",
+  "_metro": "Westfield, Massachusetts"
+ },
+ {
+  "name": "Cedar Falls — Main City Calendar",
+  "category": "community",
+  "url": "https://www.cedarfalls.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Cedar Falls, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main City Calendar]",
+  "_metro": "Cedar Falls, Iowa"
+ },
+ {
+  "name": "Hoekjes en Boekjes",
+  "category": "learning",
+  "_found": "osm:books -> events-manager",
+  "url": "https://hoekjesenboekjes.be/evenementen/zuiderzinnen-2026-kinderprogramma/?ical=1",
+  "geocode_suffix": ", Antwerp, BE",
+  "limit": 300,
+  "_metro": "Antwerp, BE"
+ },
+ {
+  "name": "Chiro JEZ",
+  "category": "community",
+  "_found": "osm:scout_camp -> ics",
+  "url": "https://calendar.google.com/calendar/ical/1d40ac096b17c056aa341240c473e570ebdc8ec7e8b3e5cffe3a9f9c9710cb59%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Antwerp, BE",
+  "limit": 300,
+  "_metro": "Antwerp, BE"
+ },
+ {
+  "name": "Kunstfabriek Kaleidoscoop",
+  "category": "arts",
+  "_found": "osm:arts_centre -> events-manager",
+  "url": "https://kaleidoscoop.be/events/?ical=1",
+  "geocode_suffix": ", Antwerp, BE",
+  "limit": 300,
+  "_metro": "Antwerp, BE"
+ },
+ {
+  "name": "Kaagent Foundation",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://www.kaagent.be/team/games/calendar.ics",
+  "geocode_suffix": ", Ghent, BE",
+  "limit": 300,
+  "_metro": "Ghent, BE"
+ },
+ {
+  "name": "WiNA Gent",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://wina-gent.be/events.ics",
+  "geocode_suffix": ", Gent",
+  "limit": 300,
+  "_metro": "Ghent, BE"
+ },
+ {
+  "name": "post:pace",
+  "category": "arts",
+  "_found": "osm:gallery -> ics",
+  "url": "https://postspace.be/guest/herbarium-algae/event.ics",
+  "geocode_suffix": ", Gent",
+  "limit": 300,
+  "_metro": "Ghent, BE"
  }
 ]

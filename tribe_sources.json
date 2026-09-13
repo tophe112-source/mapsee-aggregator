@@ -6261,6 +6261,277 @@
         "lon": 4.4290692
       },
       "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "KSA Westmalle",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://ksawestmalle.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "KSA Westmalle",
+        "address": "23 Berckhovenstraat",
+        "lat": 51.2986726,
+        "lon": 4.6949384
+      },
+      "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "Buurthuis Gasthuis 28",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://gasthuis28.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buurthuis Gasthuis 28",
+        "lat": 51.2025272,
+        "lon": 4.4248599
+      },
+      "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "Royal Antwerp Aviation Club",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "http://www.raac.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal Antwerp Aviation Club",
+        "address": "1 Luchthavenlei",
+        "city": "Antwerpen",
+        "postal_code": "2100",
+        "lat": 51.1894295,
+        "lon": 4.4515067
+      },
+      "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "Walpurgis",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rif.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Walpurgis",
+        "address": "6 Deurneleitje",
+        "lat": 51.1751758,
+        "lon": 4.4446106
+      },
+      "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "Het Raster",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event",
+      "base_url": "https://www.hetraster.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Het Raster",
+        "lat": 51.1827433,
+        "lon": 4.3895945
+      },
+      "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "De Levensbron",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.delevensbronrilland.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Levensbron",
+        "lat": 51.4179176,
+        "lon": 4.1842674
+      },
+      "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "Blikfabriek",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://blikfabriek.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Blikfabriek",
+        "address": "232 Lageweg",
+        "lat": 51.1869974,
+        "lon": 4.3660306
+      },
+      "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "Gemeenschapscentrum De Vlaschaard",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://vlaschaard.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gemeenschapscentrum De Vlaschaard",
+        "address": "98 Nieuwstraat",
+        "city": "Koewacht",
+        "postal_code": "4576AM",
+        "lat": 51.2287038,
+        "lon": 3.9710973
+      },
+      "_metro": "Ghent, BE"
+    },
+    {
+      "name": "Scouting Axel",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.scoutingaxel.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scouting Axel",
+        "address": "13 Sportlaan",
+        "city": "Axel",
+        "postal_code": "4571CA",
+        "lat": 51.2610314,
+        "lon": 3.9177376
+      },
+      "_metro": "Ghent, BE"
+    },
+    {
+      "name": "HDB Scouts Gentbrugge",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hdb-scouts.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "HDB Scouts Gentbrugge",
+        "lat": 51.0424448,
+        "lon": 3.7660057
+      },
+      "_metro": "Ghent, BE"
+    },
+    {
+      "name": "Scouts Graalridders-Gudrun Merelbeke",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.graalridders-gudrun.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scouts Graalridders-Gudrun Merelbeke",
+        "lat": 50.9897054,
+        "lon": 3.7388545
+      },
+      "_metro": "Ghent, BE"
+    },
+    {
+      "name": "Radar Event Hall",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe",
+      "base_url": "https://radareventhall.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Radar Event Hall",
+        "address": "144 Gentse Steenweg",
+        "postal_code": "9160",
+        "lat": 51.1143547,
+        "lon": 3.9512656
+      },
+      "_metro": "Ghent, BE"
+    },
+    {
+      "name": "Scouting Margraten",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://scoutingmargraten.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scouting Margraten",
+        "address": "2B Hoenderstraat",
+        "city": "Margraten",
+        "postal_code": "6269BS",
+        "lat": 50.8201007,
+        "lon": 5.8196962
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "Centre Culturel de Liège - Les Chiroux",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://chiroux.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre Culturel de Liège - Les Chiroux",
+        "address": "8 Place des Carmes",
+        "city": "Liège",
+        "postal_code": "4000",
+        "country": "BE",
+        "lat": 50.6390604,
+        "lon": 5.5739008
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "Toutes directions",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://toutesdirections.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Toutes directions",
+        "address": "3 Rue de la Violette",
+        "city": "Liège",
+        "postal_code": "4000",
+        "country": "BE",
+        "lat": 50.6454052,
+        "lon": 5.5760301
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "OYOU",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://www.oyou.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "OYOU",
+        "address": "4 Grand-Marchin",
+        "city": "Marchin",
+        "postal_code": "4570",
+        "country": "BE",
+        "lat": 50.4654569,
+        "lon": 5.2371514
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "Centre culturel d'Ans",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.centreculturelans.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre culturel d'Ans",
+        "address": "1 Place des Anciens Combattants",
+        "city": "Ans",
+        "postal_code": "4432",
+        "country": "BE",
+        "lat": 50.6744351,
+        "lon": 5.512348
+      },
+      "_metro": "Liege, BE"
     }
   ],
   "_not_included": {

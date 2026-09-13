@@ -2626,6 +2626,226 @@
     "lon": 4.4079628
    },
    "_metro": "Antwerp, BE"
+  },
+  {
+   "name": "Madame Fortuna",
+   "category": "theater",
+   "_found": "osm:theatre -> modern-events+jsonld-event",
+   "listing": [
+    "https://madamfortuna.be/agenda"
+   ],
+   "link_pattern": "https://madamfortuna\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Madame Fortuna",
+    "lat": 51.2128421,
+    "lon": 4.4330485
+   },
+   "_metro": "Antwerp, BE"
+  },
+  {
+   "name": "AFAS Dome",
+   "category": "community",
+   "_found": "osm:events_venue -> jsonld-event",
+   "listing": [
+    "https://www.afas-dome.be/evenement/sombr-172d0c97"
+   ],
+   "link_pattern": "https://www\\.afas\\-dome\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "AFAS Dome",
+    "address": "119 Schijnpoortweg",
+    "city": "Antwerpen",
+    "postal_code": "2170",
+    "lat": 51.2311032,
+    "lon": 4.4410804
+   },
+   "_metro": "Antwerp, BE"
+  },
+  {
+   "name": "Lotto Arena",
+   "category": "community",
+   "_found": "osm:events_venue -> jsonld-event",
+   "listing": [
+    "https://www.lotto-arena.be/evenement/glory-110-a200be7a"
+   ],
+   "link_pattern": "https://www\\.lotto\\-arena\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Lotto Arena",
+    "address": "119 Schijnpoortweg",
+    "city": "Merksem",
+    "postal_code": "2170",
+    "lat": 51.2301229,
+    "lon": 4.4415337
+   },
+   "_metro": "Antwerp, BE"
+  },
+  {
+   "name": "Schouwburg Noord",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://www.schouwburgnoord.be/nl/event/alex-h-smith"
+   ],
+   "link_pattern": "https://www\\.schouwburgnoord\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Schouwburg Noord",
+    "address": "135;137 Nieuwdreef",
+    "city": "Merksem",
+    "postal_code": "2170",
+    "country": "BE",
+    "lat": 51.2504473,
+    "lon": 4.4379039
+   },
+   "_metro": "Antwerp, BE"
+  },
+  {
+   "name": "Hnita Jazz Club",
+   "category": "music",
+   "_found": "osm:music_venue -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.hnitajazzclub.be/programma/"
+   ],
+   "link_pattern": "https://www\\.hnitajazzclub\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Hnita Jazz Club",
+    "address": "106 Lostraat",
+    "city": "Heist op den Berg",
+    "lat": 51.0613836,
+    "lon": 4.7348665
+   },
+   "_metro": "Antwerp, BE"
+  },
+  {
+   "name": "OLT Rivierenhof",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.oltrivierenhof.be/nl/programma/yong-yello/a0NP500000OhCEgMAN"
+   ],
+   "link_pattern": "https://www\\.oltrivierenhof\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "OLT Rivierenhof",
+    "address": "246 Turnhoutsebaan",
+    "city": "Deurne",
+    "postal_code": "2100",
+    "lat": 51.2150963,
+    "lon": 4.4707324
+   },
+   "_metro": "Antwerp, BE"
+  },
+  {
+   "name": "Academie Buggenhout",
+   "category": "arts",
+   "_found": "osm:arts_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://academiebuggenhout.be/events/"
+   ],
+   "link_pattern": "https://academiebuggenhout\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Academie Buggenhout",
+    "lat": 51.0042926,
+    "lon": 4.2075907
+   },
+   "_metro": "Antwerp, BE"
+  },
+  {
+   "name": "Scouting In Kriko",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://www.sikgent.be/"
+   ],
+   "link_pattern": "https://www\\.sikgent\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Scouting In Kriko",
+    "address": "383 Ottergemsesteenweg",
+    "city": "Gent",
+    "postal_code": "9000",
+    "lat": 51.027395,
+    "lon": 3.7332688
+   },
+   "_metro": "Ghent, BE"
+  },
+  {
+   "name": "l’Aquilone",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://aquilone.be/agenda/"
+   ],
+   "link_pattern": "https://aquilone\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "l’Aquilone",
+    "address": "25 Boulevard Saucy",
+    "city": "Liège - Outremeuse",
+    "postal_code": "4020",
+    "country": "BE",
+    "lat": 50.641398,
+    "lon": 5.580627
+   },
+   "_metro": "Liege, BE"
+  },
+  {
+   "name": "Da Capo 2000",
+   "category": "community",
+   "_found": "osm:community_centre -> jsonld-event",
+   "listing": [
+    "https://www.dacapo2000.nl/agenda/"
+   ],
+   "link_pattern": "https://www\\.dacapo2000\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Da Capo 2000",
+    "address": "7 Burgemeester Wolfsstraat",
+    "city": "Sint Geertruid",
+    "postal_code": "6265AA",
+    "lat": 50.7962485,
+    "lon": 5.7652262
+   },
+   "_metro": "Liege, BE"
+  },
+  {
+   "name": "Café Cliniq",
+   "category": "music",
+   "_found": "osm:nightclub -> jsonld-event",
+   "listing": [
+    "https://www.cliniqmaastricht.nl/uitgaan"
+   ],
+   "link_pattern": "https://www\\.cliniqmaastricht\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Café Cliniq",
+    "address": "9A Platielstraat",
+    "city": "Maastricht",
+    "postal_code": "6211GV",
+    "lat": 50.8487067,
+    "lon": 5.6899329
+   },
+   "_metro": "Liege, BE"
+  },
+  {
+   "name": "De Muziekgieterij",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://muziekgieterij.nl/event/"
+   ],
+   "link_pattern": "https://muziekgieterij\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "De Muziekgieterij",
+    "lat": 50.8570178,
+    "lon": 5.6907465
+   },
+   "_metro": "Liege, BE"
   }
  ],
  "_not_included": {

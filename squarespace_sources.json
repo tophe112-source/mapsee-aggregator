@@ -1068,6 +1068,48 @@
         "lon": 4.4036203
       },
       "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "CASA SAGA",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.casasaga.be/events-1",
+      "max_events": 200,
+      "venue": {
+        "name": "CASA SAGA",
+        "address": "40-42 Van Leentstraat",
+        "lat": 51.2159416,
+        "lon": 4.4284489
+      },
+      "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "Christelijke Gereformeerde Kerk - Evangelisch Centrum",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.ecdeurne.be/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Christelijke Gereformeerde Kerk - Evangelisch Centrum",
+        "address": "19 Boterlaarbaan",
+        "lat": 51.210032,
+        "lon": 4.4609789
+      },
+      "_metro": "Antwerp, BE"
+    },
+    {
+      "name": "De Witte Kaproenen",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.dewittekaproenen.com/evenementen-de-witte-kaproenen",
+      "max_events": 200,
+      "venue": {
+        "name": "De Witte Kaproenen",
+        "address": "36A Berkenlaan",
+        "lat": 50.9681516,
+        "lon": 3.5289922
+      },
+      "_metro": "Ghent, BE"
     }
   ]
 }
