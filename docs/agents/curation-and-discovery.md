@@ -273,6 +273,10 @@
   datasets in total. What the words do match is permit tables, which
   `_DISCOVER_REJECT` refuses for good reason. Do not add these queries; the same
   shape as the fitness/running measurement in curate-catalog.yml's header. The
-  supply for this kind of event is the `civic` backend — a town's OWN calendar —
-  and one 40-city batch of it returned 18 festivals and parades, 9 farmers
-  markets and 3 block-party-shaped events across 28 town calendars.
+  supply for this kind of event is the `civic` backend — a town's OWN calendar.
+  Two 40-city batches run the same day returned 64 verified sources, and across
+  the 45 that stayed `community`: 44 local-music events (Apache Junction alone
+  runs a "Concert in the Park" series), 57 festivals and parades, 40
+  block-party-shaped events (movies in the park, food-truck nights) and 58
+  market days. The second batch was far richer than the first, so do not read
+  one batch as the rate.

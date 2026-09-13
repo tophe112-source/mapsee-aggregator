@@ -5858,6 +5858,48 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=19&feed=calendar": {
+    "checked": 20260913,
+    "name": "Apache Junction \u2014 Main City Calendar",
+    "reason": "78 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Apache Junction \u2014 Police Dept",
+    "reason": "2 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260913,
+    "name": "Apache Junction \u2014 Parks & Recreation Events",
+    "reason": "100 vevents / 19 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
+    "checked": 20260913,
+    "name": "Apache Junction \u2014 Library",
+    "reason": "45 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20260913,
+    "name": "Apache Junction \u2014 Apache Junction Police Department",
+    "reason": "4 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar": {
+    "checked": 20260913,
+    "name": "Apache Junction \u2014 Sponsorship Events",
+    "reason": "5 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "apadariadopovo.weebly.com": {
     "checked": 20260901,
     "name": "Padaria do Povo",
@@ -26893,9 +26935,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ci.adelanto.ca.us": {
+    "checked": 20260913,
+    "name": "Adelanto",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ci.camarillo.ca.us": {
     "checked": 20260903,
     "name": "Camarillo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "ci.claremont.ca.us": {
+    "checked": 20260913,
+    "name": "Claremont",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -26935,6 +26991,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "ci.greenfield.wi.us/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
+    "checked": 20260913,
+    "name": "Greenfield \u2014 Events",
+    "reason": "21 vevents / 21 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "ci.kentwood.mi.us": {
     "checked": 20260907,
     "name": "Kentwood",
@@ -26956,6 +27019,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "ci.rosenberg.tx.us": {
+    "checked": 20260913,
+    "name": "Rosenberg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ci.sammamish.wa.us": {
     "checked": 20260904,
     "name": "Sammamish",
@@ -26969,6 +27039,13 @@
     "reason": "17 vevents / 17 future",
     "status": "ok",
     "type": "ics"
+  },
+  "ci.stanton.ca.us": {
+    "checked": 20260913,
+    "name": "Stanton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "ci.stcloud.mn.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20260904,
@@ -28216,6 +28293,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "cityofbartlesville.org": {
+    "checked": 20260913,
+    "name": "Bartlesville",
+    "reason": "10 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "cityofbartlett.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
     "checked": 20260906,
     "name": "Bartlett \u2014 Senior Center",
@@ -28426,6 +28510,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "cityofmontclair.org/events/?ical=1": {
+    "checked": 20260913,
+    "name": "Montclair",
+    "reason": "708 vevents / 50 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "cityofmontebello.com": {
     "checked": 20260905,
     "name": "Montebello",
@@ -28446,6 +28537,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "cityofnewalbany.com/book-a-venue-for-events/?ical=1": {
+    "checked": 20260913,
+    "name": "New Albany",
+    "reason": "0 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
   },
   "cityofnovi.org": {
     "checked": 20260904,
@@ -28506,6 +28604,13 @@
   "cityofpflugerville.com": {
     "checked": 20260905,
     "name": "Pflugerville",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "cityofrichfield.org": {
+    "checked": 20260913,
+    "name": "Richfield",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -39506,6 +39611,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "eastpointga.gov": {
+    "checked": 20260913,
+    "name": "East Point",
+    "reason": "30 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "eastviewbaptist.org.nz": {
     "checked": 20260824,
@@ -61648,6 +61760,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "holyoke.org/calendar/?ical=1": {
+    "checked": 20260913,
+    "name": "Holyoke",
+    "reason": "http 500 / no VCALENDAR",
+    "status": "fail",
+    "type": "ics"
+  },
   "holyquran.shj.ae": {
     "checked": 20260902,
     "name": "Holy Quran Academy",
@@ -76544,6 +76663,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lapuente.org": {
+    "checked": 20260913,
+    "name": "La Puente",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "laradieuseseniorresort.be": {
     "checked": 20260911,
     "name": "La Radieuse Senior Resort",
@@ -77538,6 +77664,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "leavenworthks.org": {
+    "checked": 20260913,
+    "name": "Leavenworth",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "lebabibar.be": {
     "checked": 20260913,
     "name": "Babibar",
@@ -77558,6 +77691,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lebanontn.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
+    "checked": 20260913,
+    "name": "Lebanon \u2014 Chipper Service",
+    "reason": "439 vevents / 439 future",
+    "status": "ok",
+    "type": "ics"
   },
   "lebateau.be": {
     "checked": 20260913,
@@ -79441,6 +79581,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lewistonmaine.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Lewiston \u2014 Main City Calendar",
+    "reason": "39 vevents / 39 future",
+    "status": "ok",
+    "type": "ics"
   },
   "lewolf.be": {
     "checked": 20260911,
@@ -93127,6 +93274,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "muskegon-mi.gov": {
+    "checked": 20260913,
+    "name": "Muskegon",
+    "reason": "148 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "muslimyouth.nz": {
     "checked": 20260824,
     "name": "Aotearoa Muslim Youth - Masjid",
@@ -94302,6 +94456,34 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mylongview.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20260913,
+    "name": "Longview \u2014 Main Calendar",
+    "reason": "151 vevents / 149 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mylongview.com/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar": {
+    "checked": 20260913,
+    "name": "Longview \u2014 Recreation",
+    "reason": "6 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mylongview.com/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar": {
+    "checked": 20260913,
+    "name": "Longview \u2014 Library",
+    "reason": "185 vevents / 185 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mylongview.com/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar": {
+    "checked": 20260913,
+    "name": "Longview \u2014 Mobile Library",
+    "reason": "18 vevents / 18 future",
+    "status": "ok",
+    "type": "ics"
   },
   "myqueerevents.de": {
     "checked": 20260808,
@@ -97515,6 +97697,13 @@
     "reason": "3/33 upcoming",
     "status": "ok",
     "type": "squarespace"
+  },
+  "northglenn.org": {
+    "checked": 20260913,
+    "name": "Northglenn",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "northglenora.org": {
     "checked": 20260819,
@@ -107792,6 +107981,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "plgrove.org": {
+    "checked": 20260913,
+    "name": "Pleasant Grove",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "plimmertoncatholic.org.nz": {
     "checked": 20260824,
     "name": "St Theresa's Catholic Church / St Theresa's Parish - Plimmerton",
@@ -109282,6 +109478,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "prattvilleal.gov": {
+    "checked": 20260913,
+    "name": "Prattville",
+    "reason": "76 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "pravmonastyr.cz": {
     "checked": 20260904,
@@ -113468,6 +113671,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "rigov.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
+    "checked": 20260913,
+    "name": "Rock Island \u2014 Parks & Recreation",
+    "reason": "8 vevents / 8 future",
+    "status": "ok",
+    "type": "ics"
   },
   "rigpa.fr/evenements-paris": {
     "checked": 20260830,
@@ -117689,6 +117899,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "saratogasprings-ut.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Saratoga Springs \u2014 Community Events",
+    "reason": "11 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "saratogasprings-ut.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar": {
+    "checked": 20260913,
+    "name": "Saratoga Springs \u2014 Recreation",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
   },
   "sarfvikbeachclub.fi": {
     "checked": 20260903,
@@ -140524,6 +140748,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tuckerga.gov": {
+    "checked": 20260913,
+    "name": "Tucker",
+    "reason": "53 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "tucsonmuseumofart.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Tucson Museum of Art (Tucson, AZ)",
@@ -140754,6 +140985,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "tupeloms.gov": {
+    "checked": 20260913,
+    "name": "Tupelo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "tupomi.pt": {
     "checked": 20260901,
@@ -150393,6 +150631,27 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "winterspringsfl.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20260913,
+    "name": "Winter Springs \u2014 Community Events",
+    "reason": "50 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "winterspringsfl.org/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
+    "checked": 20260913,
+    "name": "Winter Springs \u2014 Police Department",
+    "reason": "22 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "winterspringsfl.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar": {
+    "checked": 20260913,
+    "name": "Winter Springs \u2014 Parks & Recreation",
+    "reason": "13 vevents / 13 future",
+    "status": "ok",
+    "type": "ics"
   },
   "wipplinger23.org": {
     "checked": 20260907,

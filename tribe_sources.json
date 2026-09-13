@@ -6532,6 +6532,66 @@
         "lon": 5.512348
       },
       "_metro": "Liege, BE"
+    },
+    {
+      "name": "East Point",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://eastpointga.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "East Point",
+      "default_region": "Georgia",
+      "default_country": "US",
+      "_metro": "East Point, Georgia"
+    },
+    {
+      "name": "Muskegon",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://muskegon-mi.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Muskegon",
+      "default_region": "Michigan",
+      "default_country": "US",
+      "_metro": "Muskegon, Michigan"
+    },
+    {
+      "name": "Prattville",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://prattvilleal.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Prattville",
+      "default_region": "Alabama",
+      "default_country": "US",
+      "_metro": "Prattville, Alabama"
+    },
+    {
+      "name": "Bartlesville",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cityofbartlesville.org",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Bartlesville",
+      "default_region": "Oklahoma",
+      "default_country": "US",
+      "_metro": "Bartlesville, Oklahoma"
+    },
+    {
+      "name": "Tucker",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event",
+      "base_url": "https://www.tuckerga.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Tucker",
+      "default_region": "Georgia",
+      "default_country": "US",
+      "_metro": "Tucker, Georgia"
     }
   ],
   "_not_included": {

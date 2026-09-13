@@ -359,6 +359,65 @@ print(f"{len(AGE_CASES)-len(afails)}/{len(AGE_CASES)} passed")
 cfails += afails
 
 
+# ---------------------------------------------------------------------------
+# Local live music reaches vivosie
+# ---------------------------------------------------------------------------
+# vivosie is "Live Music Near You Tonight" and the free outdoor town concert is
+# the most characteristic thing it could open onto. The music SECONDARY wanted
+# the exact phrase "concert series", so "Concert in the Park - Radio Replay"
+# reached no music layer and "Summer Concert Series" did. Measured 2026-09-13
+# over 3,160 DISTINCT live titles from 335 civic community calendars: 63 titles
+# are about music and the rule caught 12; after widening, 105 match and every
+# title below is a real one from that corpus.
+#
+# The NEGATIVES are the reason the rule is qualified rather than a list of bare
+# words: "Jr. Jazz" is youth BASKETBALL (6 of the 10 bare `jazz` hits), "Trolls
+# Band Together" is a film, and "Music Together" is a toddler class.
+MUSIC_CASES = [
+    # (title, base category, must music be among the categories?)
+    ("Concert in the Park - Radio Replay", "community", True),
+    ("Concerts in The Park", "community", True),
+    ("Concert in the Park: MARIACHI COACHELLA", "community", True),
+    ("Oktoberfest Concert: GB Leighton", "community", True),
+    ("Bartlett Community Concert Band @ BPACC", "community", True),
+    ("Performance in the Park - Capri Big Band", "community", True),
+    ("Rumours: The Ultimate Fleetwood Mac Tribute Band", "community", True),
+    ("St. Joseph Symphony \"Remembering Beethoven\"", "community", True),
+    ("Symphonic Sinatra", "community", True),
+    ("Orlando Jazz Orchestra", "community", True),
+    ("Live Jazz Series with the Jesse Taitt Trio", "community", True),
+    ("Jazz at MOCA", "community", True),
+    ("Levitt AMP Dothan Music Series - Johnny Mullenax", "community", True),
+    ("Music on the Trail", "community", True),
+    ("ARRIVAL From Sweden: The Music of ABBA", "community", True),
+    # ...and what it must NOT take.
+    ("Girls Jr. Jazz Basketball Registration", "community", False),
+    ("Jr. Jazz High School Basketball Registration Ends", "community", False),
+    ("Hip Hop Jazz Camp Begins", "community", False),
+    ("Movie in the Park: TROLLS BAND TOGETHER (PG)", "community", False),
+    ("Music Together | Fall", "community", False),
+    ("Music and Movement", "community", False),
+    ("Family Music Bingo", "community", False),
+    ("1 p.m. Monday Matinee \"Bill & Ted Face the Music\" PG-13", "community", False),
+    ("Choir Practice", "community", False),
+    ("USSSA Music City Fall Nationals - Softball", "community", False),
+]
+
+mfails = []
+for title, base, want in MUSIC_CASES:
+    pr, ex = _derive({"name": title, "title": title, "description": "", "category": base,
+                      "sources": [{"source": "ics", "source_id": "1"}]})
+    cats = {pr} | set(ex or [])
+    ok = ("music" in cats) == want
+    if not ok:
+        mfails.append(title)
+    print(f"{'ok ' if ok else 'FAIL'} {title[:46]:<48} -> {pr} + {sorted(ex or [])}"
+          f"{'' if ok else ('   (music must NOT be here)' if not want else '   (music is missing)')}")
+print()
+print(f"{len(MUSIC_CASES)-len(mfails)}/{len(MUSIC_CASES)} passed")
+cfails += mfails
+
+
 SWEEP_CASES = [
     # (name, description, source, want)
     ("On Fire! Scorching Stand Up Comedy!", "A night of side-splitting comedy.",

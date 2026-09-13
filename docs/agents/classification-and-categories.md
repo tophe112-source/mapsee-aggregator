@@ -194,3 +194,27 @@
   primary only decides the pin's colour and glyph. Retuning a deliberate,
   documented rule on a sample of one is how the kids regex acquired its
   unqualified words.
+
+- **vivosie was starved by the word "series".** `_SECONDARY_RX["music"]` asked
+  for the exact phrase `concert series`, so "Summer Concert Series" reached the
+  live-music lens and "Concert in the Park - Radio Replay" reached nothing.
+  Measured 2026-09-13 over 3,160 DISTINCT live titles from 335 civic community
+  calendars: 63 are about music and the rule caught **12**. The other 51 were
+  symphonies, community concert bands, mariachi in the park, Oktoberfest
+  concerts and tribute acts — the free outdoor town concert, which is the most
+  characteristic thing "Live Music Near You Tonight" could open onto. Widening
+  it takes 105. Same shape as fleabop: the supply was not missing, it was
+  unlabelled, and no amount of curation would have found it.
+
+- **Every word in that rule was counted before it went in, and two had to be
+  qualified.** Bare `concerts?` scored 69 hits and all 69 were genuine — worth
+  reading every one rather than assuming, because the neighbouring words were
+  not so clean. Bare `jazz` scored 10 and **6 were Jr. Jazz youth BASKETBALL**,
+  so it is scoped to `live jazz`, `jazz night/series/band/trio/orchestra`, `jazz
+  at`. Bare `music` took "Bill & Ted Face the Music", "Music Together" (a
+  toddler class), "Music and Movement" and "USSSA Music City Fall Nationals -
+  Softball", so it is scoped to `music series/festival/night/of` and `music
+  in/on the`. `bands?` scored 25 with one miss, the FILM "Trolls Band Together",
+  hence the `(?!\s+together)` lookahead. `choir` is deliberately absent —
+  half its hits are "Choir Practice", and a rehearsal is not a gig — and
+  `bandshell` is absent because it scored zero, not because it is wrong.

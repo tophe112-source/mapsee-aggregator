@@ -377,9 +377,37 @@ _SECONDARY_RX = [
         r"wine\s+tasting|beer\s+(?:tasting|festival)|bbq|barbecue|"
         r"chili\s+cook[\s-]?off|bake\s+sale|farm\s+dinner|potluck|"
         r"brunch|taproom|tap\s+takeover|distillery|bottomless)\b", re.I)),
+    # LOCAL LIVE MUSIC, which this asked for in almost none of the ways a town
+    # names it. vivosie is "Live Music Near You Tonight" and the free outdoor
+    # summer concert is the most characteristic thing it could open onto, and
+    # the rule wanted the exact phrase "concert series" — so "Concert in the
+    # Park - Radio Replay" reached no music layer at all while "Summer Concert
+    # Series" did. Measured 2026-09-13 over 3,160 DISTINCT live titles from 335
+    # civic community calendars: 63 titles are about music and this caught 12.
+    # The other 51 were symphonies, community concert bands, mariachi in the
+    # park, Oktoberfest concerts and tribute acts.
+    #
+    # Each addition was counted over that corpus before it went in, because the
+    # ambiguous ones are ambiguous in a way only a real sample shows:
+    #   • `concerts?`  69 hits, 69 of them genuine live music. Read every one.
+    #   • symphony/philharmonic/orchestra  11 hits, all genuine (a ballet with a
+    #     live orchestra is live music too).
+    #   • `bands?`  25 hits, 24 genuine — the one miss is the FILM "Trolls Band
+    #     Together", hence the lookahead, which also covers the idiom.
+    #   • `jazz` had to be QUALIFIED: 6 of its 10 bare hits are Jr. Jazz youth
+    #     BASKETBALL. Same trap as `market` being a business word first.
+    #   • `music` had to be qualified too: bare, it takes "Bill & Ted Face the
+    #     Music", "Music Together" (a toddler class) and "Family Music Bingo".
+    #   • `choir` is deliberately absent: half its hits are "Choir Practice",
+    #     and a rehearsal is not a gig.
+    #   • `bandshell` is absent because it scored ZERO, not because it is wrong.
     ("music", re.compile(
         r"\b(live\s+music|live\s+bands?|dj\s+set|open\s+mic|acoustic\s+set|"
-        r"concert\s+series|jazz\s+night|drum\s+circle)\b", re.I)),
+        r"concerts?|symphon(?:y|ic)|philharmonic|orchestras?|"
+        r"music\s+(?:series|festival|night|of)\b|music\s+(?:in|on)\s+the\b|"
+        r"live\s+jazz|jazz\s+(?:night|series|band|brunch|concert|ensemble|trio|"
+        r"quartet|orchestra|jam)|jazz\s+at\b|"
+        r"drum\s+circle)\b|\bbands?\b(?!\s+together)", re.I)),
     ("outdoors", re.compile(
         r"\b(hik(?:e|ing)|trail\s+(?:run|walk|day)|nature\s+walk|guided\s+walk|"
         r"bird\s?watching|kayak|canoe|paddle\s?board|camp(?:ing|out)|"

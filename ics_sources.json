@@ -6260,5 +6260,185 @@
   "limit": 300,
   "_found": "civic:city -> civicplus[Library Calendar]",
   "_metro": "Menomonee Falls, Wisconsin"
+ },
+ {
+  "name": "Apache Junction — Parks & Recreation Events",
+  "category": "community",
+  "url": "https://www.apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Apache Junction, Arizona",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation Events]",
+  "_metro": "Apache Junction, Arizona"
+ },
+ {
+  "name": "Apache Junction — Main City Calendar",
+  "category": "community",
+  "url": "https://www.apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=19&feed=calendar",
+  "geocode_suffix": ", Apache Junction, Arizona",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main City Calendar]",
+  "_metro": "Apache Junction, Arizona"
+ },
+ {
+  "name": "Apache Junction — Sponsorship Events",
+  "category": "community",
+  "url": "https://www.apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Apache Junction, Arizona",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Sponsorship Events]",
+  "_metro": "Apache Junction, Arizona"
+ },
+ {
+  "name": "Apache Junction — Library",
+  "category": "learning",
+  "url": "https://www.apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Apache Junction, Arizona",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Apache Junction, Arizona"
+ },
+ {
+  "name": "Apache Junction — Apache Junction Police Department",
+  "category": "community",
+  "url": "https://www.apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Apache Junction, Arizona",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Apache Junction Police Department]",
+  "_metro": "Apache Junction, Arizona"
+ },
+ {
+  "name": "Apache Junction — Police Dept",
+  "category": "community",
+  "url": "https://www.apachejunctionaz.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Apache Junction, Arizona",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Dept]",
+  "_metro": "Apache Junction, Arizona"
+ },
+ {
+  "name": "Lebanon — Chipper Service",
+  "category": "community",
+  "url": "https://www.lebanontn.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Lebanon, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Chipper Service]",
+  "_metro": "Lebanon, Tennessee"
+ },
+ {
+  "name": "Winter Springs — Community Events",
+  "category": "community",
+  "url": "https://www.winterspringsfl.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Winter Springs, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Winter Springs, Florida"
+ },
+ {
+  "name": "Winter Springs — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.winterspringsfl.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Winter Springs, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Winter Springs, Florida"
+ },
+ {
+  "name": "Winter Springs — Police Department",
+  "category": "community",
+  "url": "https://www.winterspringsfl.org/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Winter Springs, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Department]",
+  "_metro": "Winter Springs, Florida"
+ },
+ {
+  "name": "Montclair",
+  "category": "community",
+  "_found": "civic:city -> events-manager",
+  "url": "https://www.cityofmontclair.org/events/?ical=1",
+  "geocode_suffix": ", Montclair, California",
+  "limit": 300,
+  "_metro": "Montclair, California"
+ },
+ {
+  "name": "Longview — Library",
+  "category": "learning",
+  "url": "https://www.mylongview.com/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
+  "geocode_suffix": ", Longview, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Longview, Washington"
+ },
+ {
+  "name": "Longview — Main Calendar",
+  "category": "community",
+  "url": "https://www.mylongview.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Longview, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Longview, Washington"
+ },
+ {
+  "name": "Longview — Mobile Library",
+  "category": "learning",
+  "url": "https://www.mylongview.com/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+  "geocode_suffix": ", Longview, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Mobile Library]",
+  "_metro": "Longview, Washington"
+ },
+ {
+  "name": "Longview — Recreation",
+  "category": "community",
+  "url": "https://www.mylongview.com/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
+  "geocode_suffix": ", Longview, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation]",
+  "_metro": "Longview, Washington"
+ },
+ {
+  "name": "Greenfield — Events",
+  "category": "community",
+  "url": "https://www.ci.greenfield.wi.us/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Greenfield, Wisconsin",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Greenfield, Wisconsin"
+ },
+ {
+  "name": "Saratoga Springs — Community Events",
+  "category": "community",
+  "url": "https://www.saratogasprings-ut.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Saratoga Springs, Utah",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Saratoga Springs, Utah"
+ },
+ {
+  "name": "Saratoga Springs — Recreation",
+  "category": "community",
+  "url": "https://www.saratogasprings-ut.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Saratoga Springs, Utah",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation]",
+  "_metro": "Saratoga Springs, Utah"
+ },
+ {
+  "name": "Lewiston — Main City Calendar",
+  "category": "community",
+  "url": "https://www.lewistonmaine.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Lewiston, Maine",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main City Calendar]",
+  "_metro": "Lewiston, Maine"
+ },
+ {
+  "name": "Rock Island — Parks & Recreation",
+  "category": "community",
+  "url": "https://rigov.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Rock Island, Illinois",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Rock Island, Illinois"
  }
 ]
