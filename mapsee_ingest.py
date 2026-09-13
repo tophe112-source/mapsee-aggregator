@@ -789,6 +789,25 @@ def parse_ticketmaster_event(raw: Dict[str, Any]) -> NormalizedEvent:
     return ev
 
 
+def tm_has_clock(raw: Dict[str, Any]) -> bool:
+    """True only when Ticketmaster published the minute a listing starts at.
+
+    A listing with no `localTime`, or flagged `timeTBA` / `noSpecificTime` /
+    `dateTBA` / `dateTBD`, names a DAY. The sync anchors a bare day to the venue's
+    local midnight for the whole day (`_anchor_all_day`), which is honest about the
+    day and still read on a phone as "Today, 12:00 AM", sorted above every real
+    event. Measured in Seattle's Next-24h window on 2026-09-13: Huskies Women's
+    Volleyball was listed twice, SeatGeek at 2:00 PM and Ticketmaster with no
+    time, and the Lumen Field and Mariners ballpark tours arrive the same way.
+    The owner's call was to drop these rather than show an hour nobody published;
+    a timed copy of the same event from another source is unaffected.
+    """
+    start = (raw.get("dates") or {}).get("start") or {}
+    if not start.get("localTime"):
+        return False
+    return not any(start.get(k) for k in ("timeTBA", "noSpecificTime", "dateTBA", "dateTBD"))
+
+
 def build_tm_params(args: argparse.Namespace, api_key: str) -> Dict[str, Any]:
     params: Dict[str, Any] = {
         "apikey": api_key,
@@ -828,6 +847,7 @@ def ingest_ticketmaster(store: EventStore, session: requests.Session, limiter: R
         return 0
     page_size = max(1, min(args.size, 199))
     processed = 0
+    no_clock = 0
     page = 0
     while True:
         data = http_get(session, DISCOVERY_URL, limiter, dict(base, size=page_size, page=page)).json()
@@ -835,6 +855,9 @@ def ingest_ticketmaster(store: EventStore, session: requests.Session, limiter: R
         if not events:
             break
         for raw in events:
+            if not tm_has_clock(raw):
+                no_clock += 1            # a day with no published minute: see tm_has_clock
+                continue
             ev = parse_ticketmaster_event(raw)
             if not ev.source_id or ev.source_id == "None":
                 continue
@@ -843,7 +866,8 @@ def ingest_ticketmaster(store: EventStore, session: requests.Session, limiter: R
         info = data.get("page", {}) or {}
         total_pages = int(info.get("totalPages", 0) or 0)
         current = int(info.get("number", page) or 0)
-        log.info("[ticketmaster] page %d/%s (%d processed)", current + 1, total_pages or "?", processed)
+        log.info("[ticketmaster] page %d/%s (%d processed, %d skipped with no start time)",
+                 current + 1, total_pages or "?", processed, no_clock)
         if current + 1 >= total_pages:
             break
         if (page + 1) * page_size >= MAX_RESULT_WINDOW:

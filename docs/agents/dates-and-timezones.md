@@ -101,3 +101,20 @@
   coordinates instead. Both retirement rules now do; only the grid rule's
   per-day grouping still reads the string, where an hour's error costs at worst
   one group boundary.
+
+- **A TICKETMASTER LISTING WITH NO START TIME IS NOT INGESTED.** Anchoring a
+  bare day honestly (`_anchor_all_day`, above) still left a row that a phone
+  read as "Today, 12:00 AM", and Nearby sorted it above every real event. In
+  Seattle's Next-24h window on 2026-09-13, 49 of 800 rows started at local
+  midnight; three were Ticketmaster, and one of those was Huskies Women's
+  Volleyball, which was ALSO in the table from SeatGeek at 2:00 PM. The owner's
+  call was to drop Ticketmaster rows with no clock rather than show them as all
+  day. `tm_has_clock` refuses a listing with no `localTime` or with `timeTBA`,
+  `noSpecificTime`, `dateTBA` or `dateTBD` set (`timeTBA` wins over a placeholder
+  `00:00:00`), and the page log counts the skips; `test_ingest_tm_no_time.py`
+  drives both the predicate and the fetch loop. An upsert cannot delete, so
+  ../mapsee's migration 0220 hides the rows already written: Ticketmaster URL in
+  the description, and a window of exactly a day less one second, which is the
+  anchored shape at any UTC offset and never a timed row's. The other 46 (food
+  banks, a sculpture walk, multi-day food drives) are genuinely all day and stay;
+  ../mapsee now labels them "all day" and sorts them after timed events.
