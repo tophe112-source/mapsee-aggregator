@@ -218,6 +218,15 @@
   rather than by a delete of its own. Move the purge after cleanup and every
   un-dated row waits a full extra day.
 
+- **A JOB WITH NO MEMORY THAT RUNS DAILY ASKS THE SAME QUESTION DAILY.**
+  `menu-links.yml` examined the websites behind the 400 soonest food events
+  every morning and kept nothing from the day before: 11 consecutive runs
+  (2026-09-03..09-13) examined 34-78 venues, fetched 54-104 third-party pages
+  each, and found 0 order links; 09-01 and 09-02 found 1 each. It runs weekly
+  now, Wednesday 07:40 — after osm-food's Tuesday 05:10 sweep and the 06:17
+  ingest, still before cleanup at 08:23, so the ordering above holds.
+  `workflow_dispatch` stays for a run on demand.
+
 - **A MIGRATION'S CODE MERGES BEFORE THE MIGRATION RUNS, and nothing sequences
   the two.** `to_row` writes every column for every adapter, so a `pin_only`
   that ../mapsee has merged but not yet applied used to cost not one feature but

@@ -1,8 +1,15 @@
 # Find the real "order pickup" link for food venues.
 #
-# Runs AFTER the daily ingest (06:17) and BEFORE cleanup (08:23), so it sees the
-# food events that landed this morning and does not spend fetches on rows that
-# are about to be deleted.
+# Runs AFTER the ingest (06:17) and BEFORE cleanup (08:23), so it sees the food
+# events that landed this morning and does not spend fetches on rows that are
+# about to be deleted.
+#
+# WEEKLY, on Wednesday, after osm-food's Tuesday 05:10 sweep. It ran daily and
+# re-fetched the sites of the same 400 soonest food events with no memory of
+# the day before: 11 consecutive runs (2026-09-03..09-13) examined 34-78 venues,
+# fetched 54-104 third-party pages each, and found 0 order links; the two runs
+# before them found 1 each. A restaurant's ordering page does not change
+# overnight, and every one of those fetches is a visit to somebody else's site.
 #
 # Never add pull_request: this reads SUPABASE_SERVICE_ROLE_KEY, which bypasses
 # RLS. Same rule as every workflow here except tests.yml.
@@ -10,7 +17,7 @@ name: Order links for food venues
 
 on:
   schedule:
-    - cron: "40 7 * * *"           # daily, after ingest, before cleanup
+    - cron: "40 7 * * 3"           # Wednesdays: after osm-food (Tue 05:10) and the 06:17 ingest, before cleanup (08:23)
   workflow_dispatch:
     inputs:
       limit:
