@@ -238,6 +238,15 @@
   kayaking/canoeing 2**. pickleball is the single biggest miss in the corpus and
   the word is unambiguous — there is no other pickleball. Net effect: 181 of the
   6,000 reached wegosie from a `community` base before, 239 after.
+  END TO END, against the 3,657 live events the 42 newly-merged park and
+  conservation sources actually carry: **1,573 reached wegosie before the fix
+  and 1,792 after** — +219 events over 18 distinct titles, among them four
+  Seacoast Chapter beginner bird walks, "Family Canoeing", "Intro to Archery",
+  "Adult Skate Camp" and every drop-in "Pickleball". The rest of that 1,792 is
+  worth knowing too: 1,471 arrive because the SOURCE states `fitness` (a town's
+  pool and fitness timetable) and only 321 because the classifier found them.
+  The config category does the heavy lifting; the regex reaches the free
+  outdoor sessions a config default cannot know about.
 
 - **A bare `walks?` is the obvious win and the wrong call.** It scores 77 hits in
   that corpus and **74 of them correctly reach neither layer** — "Art & Wine
