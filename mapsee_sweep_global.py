@@ -31,12 +31,19 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 
+# Per metro, per source. Measured 2026-09-04 and 09-13 across all 179
+# international metros: Meetup's slowest took 88s (p50 65s) and Ticketmaster's
+# 7s, and the US Meetup leg's slowest 80s. 1800 let one hung child eat half an
+# hour of a job that already ran 326 of its 360 minutes; 600 is still ~7x the
+# slowest metro seen.
+METRO_TIMEOUT_S = 600
+
 
 def run(script: str, args: list) -> None:
     """Run a sibling ingester; never let one metro/source abort the sweep."""
     cmd = [sys.executable, str(HERE / script), *args]
     try:
-        r = subprocess.run(cmd, cwd=HERE, timeout=1800)
+        r = subprocess.run(cmd, cwd=HERE, timeout=METRO_TIMEOUT_S)
         if r.returncode != 0:
             print(f"[global] {script} exited {r.returncode} for {args}", flush=True)
     except Exception as exc:                                   # timeout / spawn failure
@@ -50,17 +57,34 @@ def main(argv=None) -> int:
     ap.add_argument("--within-days", type=int, default=90)
     ap.add_argument("--sources", default="ticketmaster,meetup",
                     help="comma list: ticketmaster,meetup")
+    # THE JOB'S CLOCK, NOT THIS PROCESS'S. The Meetup job ran p50 292 / max 326
+    # minutes against a 360-minute timeout that equals GitHub's own 6-hour job
+    # limit — where the runner is terminated and no `always()` sync runs — and
+    # grew ~22 minutes in three weeks. The workflow stamps an epoch deadline at
+    # job start; this stops spawning metros once it has passed, so the final
+    # sync still has time. 0 = no deadline (local runs, the Ticketmaster job).
+    ap.add_argument("--deadline", type=float, default=0.0,
+                    help="epoch seconds; start no metro at or after this (0 = none)")
     a = ap.parse_args(argv)
 
     cfg = json.loads((HERE / a.config).read_text(encoding="utf-8"))
     srcs = {s.strip() for s in a.sources.split(",") if s.strip()}
+    total = sum(1 for c in cfg.get("countries", []) for m in c.get("metros", []) if m.get("latlong"))
     n_metros = 0
+    stopped = False
     for country in cfg.get("countries", []):
         code, cname = country.get("code"), country.get("name", "?")
         for m in country.get("metros", []):
             ll, radius, mname = m.get("latlong"), int(m.get("radius", 25)), m.get("name", "?")
             if not ll:
                 continue
+            # Checked BEFORE the metro is counted: a metro never started must
+            # not appear in "swept N metros", which is the only line anyone reads.
+            if a.deadline and time.time() >= a.deadline:
+                print(f"[global] ::warning::deadline reached before {cname} / {mname}: "
+                      f"{total - n_metros} of {total} metros not started this run", flush=True)
+                stopped = True
+                break
             n_metros += 1
             print(f"== {cname} / {mname} ({code}) {ll} ==", flush=True)
             # `--latlong=VALUE`, never `--latlong VALUE`. A southern-hemisphere
@@ -81,7 +105,11 @@ def main(argv=None) -> int:
                 run("mapsee_ingest_meetup.py", [f"--latlong={ll}", "--radius", str(radius),
                                                 "--within-days", str(a.within_days), "--store", a.store])
             time.sleep(0.5)                                    # gentle between metros
-    print(f"[global] swept {n_metros} metros across {len(cfg.get('countries', []))} countries", flush=True)
+        if stopped:
+            break
+    print(f"[global] swept {n_metros}{f' of {total}' if stopped else ''} metros across "
+          f"{len(cfg.get('countries', []))} countries"
+          + (" (stopped at the job deadline)" if stopped else ""), flush=True)
     return 0
 
 

@@ -178,6 +178,19 @@
   a traceback with every later rule ungraded, so anything that dereferences a
   result is passed as a lambda and a throw is reported as the assertion it is.
 
+- **A `timeout-minutes` EQUAL TO GITHUB'S 6-HOUR LIMIT IS NOT A TIMEOUT.** At
+  360 the Meetup job is terminated by GitHub, not cancelled by its own cap, so
+  no `always()` step can run. It ran 269-293 minutes 08-14..08-21 and 288-326
+  minutes 09-04..09-13; on 09-04 that was US sweep 93.2, US sync 18.8,
+  international sweep 191.0, final sync 22.6 (which had no `always()`). Each
+  metro had a 1800s subprocess timeout and the sweep no overall budget, yet
+  log timestamps on 09-04 and 09-13 put the slowest metro at 88s international
+  (p50 65s), 80s US and 7s for Ticketmaster. Now: the job's first step writes
+  `MEETUP_DEADLINE` (start + 320 min) to `GITHUB_ENV`, `mapsee_sweep_global.py
+  --deadline` starts no metro after it and counts only metros it started, the
+  per-metro timeout is 600s, the cap 350 and the final sync `always()`. Do not
+  parallelise the legs: one token, no 429 backoff. `test_sweep_global.py`.
+
 - **A minus sign is an option, not a number.** The international sweep spawns
   each ingester with `--latlong=VALUE`, fused, because argparse exempts only
   `^-\d+$|^-\d*\.\d+$` from option parsing and a latlong has a comma in it. Sent

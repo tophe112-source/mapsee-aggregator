@@ -177,10 +177,65 @@ def t_every_configured_metro_survives_the_round_trip():
     check("every metro is a valid lat,lon that survives argv", not bad, "; ".join(bad[:4]))
 
 
+def t_deadline_stops_before_spawning_and_is_not_reported_as_swept():
+    """The Meetup job ran to 326 of its 360 minutes (2026-09-04), and 360 is
+    GitHub's own hard job limit, where no `always()` sync can run. The sweep now
+    stops spawning metros at the job's deadline; a metro not started must not be
+    counted in "swept N metros", and the per-metro timeout is 600s, not 1800."""
+    import contextlib
+    import io
+
+    cfg = {"countries": [{"code": "GB", "name": "Test", "metros": [
+        {"name": f"M{i}", "latlong": f"5{i}.0,-1.0", "radius": 25} for i in range(3)]}]}
+    tmp = HERE / "_sweep_deadline_config.json"
+    tmp.write_text(json.dumps(cfg), encoding="utf-8")
+    clock = {"now": 1_000_000.0}
+    calls: list = []
+
+    def fake_run(cmd, **kw):
+        calls.append((Path(cmd[1]).name, next(c for c in cmd if c.startswith("--latlong=")),
+                      kw.get("timeout")))
+        clock["now"] += 100                       # each metro costs 100 fake seconds
+        class R:  # noqa: D401
+            returncode = 0
+        return R()
+
+    real = (sweep.subprocess.run, sweep.time.sleep, sweep.time.time)
+    sweep.subprocess.run, sweep.time.sleep = fake_run, (lambda *_a, **_k: None)
+    sweep.time.time = lambda: clock["now"]
+    try:
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            # Metros start at t=0 and t=100; the one at t=200 is past t=150.
+            sweep.main(["--config", tmp.name, "--store", "x.json", "--sources", "meetup",
+                        "--deadline", str(clock["now"] + 150)])
+        log = buf.getvalue()
+        check("the deadline is checked before spawning: 2 of 3 metros started",
+              [c[1] for c in calls] == ["--latlong=50.0,-1.0", "--latlong=51.0,-1.0"], str(calls))
+        check("a metro not started is not reported as swept",
+              "swept 2 of 3 metros" in log and "swept 3" not in log, log.strip()[-160:])
+        check("the stop is named, with the count of metros not started",
+              "deadline reached before Test / M2" in log and "1 of 3 metros not started" in log,
+              log.strip()[-200:])
+        check("each metro's subprocess timeout is 600s, not 1800",
+              all(c[2] == 600 for c in calls), str(calls))
+
+        calls.clear()
+        with contextlib.redirect_stdout(io.StringIO()) as buf:
+            sweep.main(["--config", tmp.name, "--store", "x.json", "--sources", "meetup"])
+        check("no deadline sweeps every metro and reports it the way it always has",
+              len(calls) == 3 and "swept 3 metros across 1 countries" in buf.getvalue(),
+              buf.getvalue().strip()[-120:])
+    finally:
+        sweep.subprocess.run, sweep.time.sleep, sweep.time.time = real
+        tmp.unlink(missing_ok=True)
+
+
 def main() -> int:
     for t in (t_argparse_really_does_reject_the_split_form,
               t_sweep_emits_the_fused_form,
-              t_every_configured_metro_survives_the_round_trip):
+              t_every_configured_metro_survives_the_round_trip,
+              t_deadline_stops_before_spawning_and_is_not_reported_as_swept):
         print(f"\n--- {t.__name__} ---")
         t()
     print()

@@ -162,8 +162,18 @@ jobs:
     # key, so sweeping it in parallel roughly halves international wall clock and
     # lets metros_global.json keep growing.
     if: ${{ (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event.inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *')) }}
-    timeout-minutes: 360
+    # UNDER GITHUB'S OWN 6-HOUR LIMIT, ON PURPOSE. This was 360, which IS that
+    # limit: there the runner is terminated rather than cancelled and no
+    # `always()` step runs. The job ran 269-293 minutes 08-14..08-21 and
+    # 288-326 minutes 09-04..09-13 (09-04: US sweep 93.2, US sync 18.8,
+    # international sweep 191.0, final sync 22.6). The sweep stops starting
+    # metros at MEETUP_DEADLINE (320 min, first step below); the slowest metro
+    # measured is 88s, and the final sync has the rest of 350.
+    # Do NOT parallelise the two legs: one token, and no 429 backoff.
+    timeout-minutes: 350
     steps:
+      - name: Start the job clock (the international sweep starts no metro after 320 minutes)
+        run: echo "MEETUP_DEADLINE=$(( $(date +%s) + 320*60 ))" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref_name }}
@@ -212,9 +222,13 @@ jobs:
         run: |
           set +e
           [ -f metros_global.json ] || { echo "no metros_global.json — skipping"; exit 0; }
-          python mapsee_sweep_global.py --config metros_global.json --store meetup_events.json --within-days 90 --sources meetup
+          python mapsee_sweep_global.py --config metros_global.json --store meetup_events.json --within-days 90 --sources meetup \
+            --deadline "${MEETUP_DEADLINE:-0}"
           exit 0
+      # always(): the store holds both legs, and a cap that cancels the sweep
+      # must not also skip the one step that writes the international half.
       - name: Sync Meetup events to Supabase (events carry coords — no geocoding)
+        if: always()
         run: |
           ONLY_NEW="--only-new"
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step

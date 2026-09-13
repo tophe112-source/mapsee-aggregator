@@ -94,6 +94,25 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('--skip-unchanged', sync['run'])
         self.assertNotIn('--only-new', sync['run'])
 
+    def test_meetup_stops_at_its_own_deadline_before_githubs(self):
+        # timeout-minutes 360 IS GitHub's hard job limit, where no always() step
+        # runs; the job reached 326 minutes on 2026-09-04. The deadline is
+        # stamped first, passed to the international sweep, and leaves at least
+        # 30 minutes of the job cap for the final sync, which runs always().
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        job = workflow['jobs']['meetup']
+        steps = job['steps']
+        clock = re.search(r'MEETUP_DEADLINE=\$\(\( \$\(date \+%s\) \+ (\d+)\*60 \)\)" >> "\$GITHUB_ENV"',
+                          steps[0].get('run', ''))
+        self.assertIsNotNone(clock, 'the first step must stamp MEETUP_DEADLINE')
+        self.assertLess(job['timeout-minutes'], 360)
+        self.assertLessEqual(int(clock[1]) + 30, job['timeout-minutes'])
+        intl = next(s for s in steps if s.get('name') == 'Sweep Meetup across the international metros')
+        self.assertIn('--deadline "${MEETUP_DEADLINE:-0}"', intl['run'])
+        final = next(s for s in steps if s.get('name', '').startswith('Sync Meetup events to Supabase'))
+        self.assertEqual(final['if'], 'always()')
+        self.assertIn('[ -f meetup_events.json ]', final['run'])
+
     def test_osm_place_windows_refresh_changed_rows(self):
         for name in ('osm-food', 'osm-secondhand'):
             workflow = yaml.safe_load(
