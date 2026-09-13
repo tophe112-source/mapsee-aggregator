@@ -120,5 +120,14 @@ jobs:
         env:
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
+          # The install lives HERE rather than in a step of its own, because the
+          # scheduled path does not need it: mapsee_prune_cancelled is pure
+          # stdlib on purpose, so the twice-daily run has no dependency to break.
+          # This one shares looks_online_only with the adapter, so it imports
+          # mapsee_ingest — which sys.exit()s without requests rather than
+          # raising, so the failure reads as "This script needs 'requests'" and
+          # not as a traceback. Caught before its first run; nothing else in the
+          # job would have told us.
+          pip install --quiet requests
           if [ "$DRY_RUN" = "true" ]; then APPLY=""; else APPLY="--apply"; fi
           python mapsee_retire_online_events.py $APPLY
