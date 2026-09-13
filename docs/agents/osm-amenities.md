@@ -313,3 +313,36 @@
   `PGRST204` instead of guessing which column is missing. Whoever adds that
   column has to decide what the comparison does with it, in the run that adds
   it, rather than discovering a year later that a lever stopped pulling.
+
+- **`amenity=toy_library` MEASURES FRENCH MAPPING CULTURE, NOT THE WORLD'S TOY
+  LIBRARIES.** 953 worldwide (Overpass, OSM base 2026-09-13T09:33Z; taginfo said
+  951 the same day) — below `amenity=give_box`'s 1,503, which is the smallest
+  selector that already ships. The geography is the real reason not to reach for
+  it: **602 of 953 (63.2%) are in France**, 102 in Italy, and the **USA has 15**,
+  against a national association with hundreds of member libraries. The names say
+  what the tag is actually recording — ludothèque 293, Ludothek 68, ludoteca 55,
+  and the English "toy library" only 33, of 702 named rows. Against the ten hubs
+  in `osm_amenity_sources.json` it is worse than the global count suggests: **69
+  of 953 (7.2%) fall inside them and 57 of those are Paris**, with Seattle, New
+  York, Chicago, Portland and Rio at **zero**. So adding the Kind on its own
+  imports 69 rows, 57 in one city — `amenity=food_bank`'s 16 uses wearing a
+  different hat, and the same lesson: the selector ran clean and imported
+  essentially nothing. It earns its place only shipped WITH French and Italian
+  hubs. When it is, it wants `always_open=False, always_list=True` — the
+  food_bank pattern, not the playground one: only 299 of 953 carry
+  `opening_hours`, a ludothèque that opens Wednesday afternoons is not 24/7, and
+  a lending institution is something you open and read rather than furniture.
+
+- **THERE IS NO WAY TO TELL A CHILDREN'S BOOK BOX FROM AN ADULT'S.**
+  `amenity=public_bookcase` is 47,530 worldwide (taginfo 2026-09-13, up from the
+  46,908 in this file's header on 2026-08-26) and it is dense exactly where the
+  hubs already are: Paris 1,728, Seattle 965, New York 295, Berlin 252, London
+  184 inside the configured boxes. The obvious next move — file the children's
+  ones under `kids` so a kids door opens onto them — has no instrument behind it.
+  `public_bookcase:type` describes the CABINET, not the audience (wooden_cabinet
+  5,886, phone_box 4,425, reading_box 4,208, shelf 1,034), and `books=children`,
+  the only audience key that exists, is **341 uses worldwide across every object
+  type — 0.7%** of the bookcases. A "children's little free library" layer would
+  therefore be an invention rather than a filter, and the honest options are all
+  of them or none. Reproduce with
+  `curl -s 'https://taginfo.openstreetmap.org/api/4/key/values?key=books'`.
