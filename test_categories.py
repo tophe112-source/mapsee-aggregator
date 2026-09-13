@@ -418,6 +418,77 @@ print(f"{len(MUSIC_CASES)-len(mfails)}/{len(MUSIC_CASES)} passed")
 cfails += mfails
 
 
+# ---------------------------------------------------------------------------
+# Free outdoor activity reaches wegosie
+# ---------------------------------------------------------------------------
+# wegosie is running+sports+fitness and `outdoors` is deliberately NOT one of
+# its keys — a hike keeps its outdoors PIN and reaches the movement lens through
+# the fitness SECONDARY. That path had two holes.
+#
+# `kayak` and `canoe` sat inside the secondary group's trailing \b, so the
+# boundary demanded a non-word character straight after "canoe" and neither
+# could ever match "Canoeing" or "Kayaking" — the only spelling a real listing
+# uses. `hik(?:e|ing)` one line above shows the suffix was meant to be there.
+# Same family as the `18+` age gate whose `+` could never end a \b, and the
+# first patch for this reintroduced it (`swim\s+lesson` cannot match "Swim
+# Lessons"), which is why the plurals are spelled out.
+#
+# And a parks department runs racquet, ice and target sports constantly, none of
+# which the rule had heard of. Counted over 6,000 DISTINCT live titles from 490
+# civic and park feeds, 2026-09-13, each count being titles that reached NEITHER
+# layer: pickleball 25, skating 17, birding/bird walk 16, swim lessons 3,
+# archery 3, disc golf 2, kayaking/canoeing 2. Net: 181 of the 6,000 reached
+# wegosie from a `community` base before, 239 after.
+WEGOSIE_CASES = [
+    # (title, base category, must it reach wegosie?)
+    ("Drop In Pickleball", "community", True),
+    ("Fall 2026 Beginners Pickleball Clinics", "community", True),
+    ("Developmental Figure Skating", "community", True),
+    ("Family Canoeing", "outdoors", True),
+    ("Kayaking 101 (7Y+)", "outdoors", True),
+    ("Adaptive Swim Lessons Session Begins", "community", True),
+    ("Intro to Archery", "community", True),
+    ("Intro to Disc Golf", "community", True),
+    ("Backyard Birding Series: Bird Walk at Brust Park", "community", True),
+    # ...the ones that already worked, so a rewrite cannot quietly drop them
+    ("Guided Bird Hike: Fall Migration", "outdoors", True),
+    ("Full Moon Night Hike", "outdoors", True),
+    ("Back to Basics: Cold Weather Hiking", "outdoors", True),
+    # --- and what must NOT reach it.
+    # A bare `walks?` scores 77 hits in the corpus and 74 correctly reach
+    # neither layer: on a town calendar a "walk" is an art crawl or a fundraiser
+    # far more often than it is exercise.
+    ("Art & Wine Walk", "community", False),
+    ("13th Annual Historic Cemetery Walk", "community", False),
+    ("A Walk in Their Shoes - Dementia Simulation Workshop", "community", False),
+    # Bare `paddle` is the same trap: 5 hits and 4 are not paddling at all.
+    ("2026 Paddle Battle", "community", False),
+    ("Doggie Paddle Day at Oasis", "community", False),
+    ("Winter Springs Police Foundation Battle of the Paddle", "community", False),
+    # CLOSURE NOTICES. `swim meet` would have taken both; a closed pool on a
+    # movement lens is worse than missing the one real meet in the corpus.
+    ("Swim Meet - Swim Center Closed", "community", False),
+    ("Pool Closed on Saturday, October 31 for Halloween & Swim Meets", "community", False),
+    # A birding LECTURE is not a walk — outdoors yes, movement no.
+    ("Birding Day: A Day in Tillamook County", "community", False),
+]
+
+wfails = []
+for title, base, want in WEGOSIE_CASES:
+    pr, ex = _derive({"name": title, "title": title, "description": "", "category": base,
+                      "sources": [{"source": "ics", "source_id": "1"}]})
+    cats = {pr} | set(ex or [])
+    got = bool(cats & WEGOSIE)
+    ok = got == want
+    if not ok:
+        wfails.append(title)
+    print(f"{'ok ' if ok else 'FAIL'} {title[:46]:<48} {base:<9} -> {pr} + {sorted(ex or [])}"
+          f"{'' if ok else ('   (must NOT reach wegosie)' if not want else '   (wegosie is missing)')}")
+print()
+print(f"{len(WEGOSIE_CASES)-len(wfails)}/{len(WEGOSIE_CASES)} passed")
+cfails += wfails
+
+
 SWEEP_CASES = [
     # (name, description, source, want)
     ("On Fire! Scorching Stand Up Comedy!", "A night of side-splitting comedy.",

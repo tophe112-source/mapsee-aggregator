@@ -280,3 +280,39 @@
   block-party-shaped events (movies in the park, food-truck nights) and 58
   market days. The second batch was far richer than the first, so do not read
   one batch as the rate.
+
+- **A PARK DISTRICT IS NOT A CITY, so `civic` discovery can never propose it.**
+  `catalog_discover_civic` generates candidates from Wikidata's "city in the
+  United States" class, and the agencies that run free naturalist-led hikes —
+  county forest preserves, regional open-space districts, Audubon chapters,
+  nature centres — are not in it. Probed 64 of them by hand 2026-09-13 with the
+  same `find_calendar` the other backends use: **18 carry a machine-readable
+  calendar** (tribe, CivicPlus, Trumba, LibCal, Squarespace), 5 are behind a bot
+  challenge, 2 unreachable, the rest publish a calendar no fingerprint matches.
+  17 verified and merged, and they took `outdoors` from 26 sources to 33 — the
+  one starved category that no amount of civic or Socrata discovery had moved.
+  A hand-curated seed list is the right shape here, the same as
+  `fair_sources.json`: there is no catalog to walk.
+
+- **Verification proves the feed, and the NAMES still have to be read.** Six of
+  the 28 park candidates were dropped before verifying and two more after, all
+  on what their titles turned out to be: a county's Public Health, Workforce
+  and Emergency Management calendars riding along on the same CivicPlus site as
+  its open space; a "Calendar of Observances" that is a list of dates rather
+  than events at a place; an "SMSD Aquatic Center - Lap Lane Availability" feed,
+  which is the bookable-badminton-court mistake exactly; a mansion publishing
+  "Wedding Site Tours", "Open for Visitors" and "Closed for Private Event" — an
+  ANTI-event; and a "City Park" feed whose 365 vevents are 365 copies of "Public
+  Historical Tour", one standing row per day. Every one of those feeds parses
+  perfectly and returns future events.
+
+- **The big free-walk organisations are closed to us, and that is their
+  decision.** Probed 2026-09-13 with the production User-Agent: ramblers.org.uk
+  answers **403** on /robots.txt itself, sierraclub.org returns a bot-management
+  interstitial, wildlifetrusts.org a Cloudflare challenge, and Milwaukee County,
+  St. Louis County, Marin County, Santa Clara County and Riverside County Parks
+  the same. Do not retry with a browser UA. mountaineers.org is the one that
+  says yes in writing — `User-agent: * / Allow: /` with
+  `Content-Signal: search=yes,ai-train=no,use=reference` — and it names
+  ClaudeBot, GPTBot and CCBot in individual Disallow groups, so anything reading
+  it must be honest about which UA it sends.

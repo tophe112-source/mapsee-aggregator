@@ -218,3 +218,35 @@
   hence the `(?!\s+together)` lookahead. `choir` is deliberately absent —
   half its hits are "Choir Practice", and a rehearsal is not a gig — and
   `bandshell` is absent because it scored zero, not because it is wrong.
+
+- **`kayak` and `canoe` could never match the word anybody writes.** Both sat
+  inside the secondary group's trailing `\b`, so the boundary demanded a
+  non-word character straight after "canoe" — and a listing says "Canoeing" or
+  "Kayaking", never the bare stem. `hik(?:e|ing)` one line above shows the
+  suffix was meant to be there; these two and `snowshoe` were simply missed.
+  Same family as the `18+` age gate whose `+` could never end a `\b`. The first
+  patch for it REINTRODUCED the bug one line down — `swim\s+lesson` cannot match
+  "Swim Lessons" either — which is why every plural in there is now spelled out.
+  If you add a word to one of these groups, test it against the plural.
+
+- **wegosie was missing the sports a parks department actually runs.** `outdoors`
+  is deliberately not one of wegosie's keys: a hike keeps its outdoors PIN and
+  reaches the movement lens through the fitness SECONDARY. Measured 2026-09-13
+  over 6,000 DISTINCT live titles from 490 civic and park feeds, counting only
+  titles that reached NEITHER the outdoors nor the fitness layer: **pickleball
+  25, skating 17, birding/bird walk 16, swim lessons 3, archery 3, disc golf 2,
+  kayaking/canoeing 2**. pickleball is the single biggest miss in the corpus and
+  the word is unambiguous — there is no other pickleball. Net effect: 181 of the
+  6,000 reached wegosie from a `community` base before, 239 after.
+
+- **A bare `walks?` is the obvious win and the wrong call.** It scores 77 hits in
+  that corpus and **74 of them correctly reach neither layer** — "Art & Wine
+  Walk", "13th Annual Historic Cemetery Walk", "Luminary Walk", "A Walk in Their
+  Shoes - Dementia Simulation Workshop". On a town calendar a "walk" is an art
+  crawl or a fundraiser far more often than it is exercise, so it stays
+  qualified (`nature walk`, `guided walk`, `trail walk`, `bird walk`). Bare
+  `paddle` is the same trap one size down: 5 hits, of which "Paddle Battle",
+  "Battle of the Paddle" and "Doggie Paddle Day" are 4. And `swim\s+meet` was
+  written and then removed: 3 of the 6 `swim …` hits are CLOSURE notices ("Swim
+  Meet - Swim Center Closed"), and a closed pool on a movement lens is worse
+  than missing the one real meet.

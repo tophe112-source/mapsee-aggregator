@@ -6592,6 +6592,119 @@
       "default_region": "Georgia",
       "default_country": "US",
       "_metro": "Tucker, Georgia"
+    },
+    {
+      "name": "Calumet City",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://calumetcity.org",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Calumet City",
+      "default_region": "Illinois",
+      "default_country": "US",
+      "_metro": "Calumet City, Illinois"
+    },
+    {
+      "name": "Brunswick",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brunswick.oh.us",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Brunswick",
+      "default_region": "Ohio",
+      "default_country": "US",
+      "_metro": "Brunswick, Ohio"
+    },
+    {
+      "name": "Michigan City",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://michigancityin.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Michigan City",
+      "default_region": "Indiana",
+      "default_country": "US",
+      "_metro": "Michigan City, Indiana"
+    },
+    {
+      "name": "Cuyahoga Valley / Conservancy, OH",
+      "category": "outdoors",
+      "_found": "parks:agency -> tribe+jsonld-event+ics",
+      "base_url": "https://www.conservancyforcvnp.org",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Peninsula",
+      "default_region": "Ohio",
+      "default_country": "United States"
+    },
+    {
+      "name": "Columbus Metro Parks, OH",
+      "category": "outdoors",
+      "_found": "parks:agency -> tribe+jsonld-event+ics",
+      "base_url": "https://www.metroparks.net",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Columbus",
+      "default_region": "Ohio",
+      "default_country": "United States"
+    },
+    {
+      "name": "Akron Summit Metro Parks, OH",
+      "category": "outdoors",
+      "_found": "parks:agency -> tribe+jsonld-event+ics",
+      "base_url": "https://www.summitmetroparks.org",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Akron",
+      "default_region": "Ohio",
+      "default_country": "United States"
+    },
+    {
+      "name": "Boulder County Open Space, CO",
+      "category": "community",
+      "_found": "parks:agency -> tribe+jsonld-event",
+      "base_url": "https://bouldercounty.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Boulder",
+      "default_region": "Colorado",
+      "default_country": "United States"
+    },
+    {
+      "name": "M-NCPPC Prince George's, MD",
+      "category": "community",
+      "_found": "parks:agency -> tribe+jsonld-event+ics",
+      "base_url": "https://www.pgparks.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Riverdale Park",
+      "default_region": "Maryland",
+      "default_country": "United States"
+    },
+    {
+      "name": "Audubon Society of Portland",
+      "category": "outdoors",
+      "_found": "parks:agency -> tribe+jsonld-event+ics",
+      "base_url": "https://birdallianceoregon.org",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Portland",
+      "default_region": "Oregon",
+      "default_country": "United States"
+    },
+    {
+      "name": "Schlitz Audubon Nature Center",
+      "category": "outdoors",
+      "_found": "parks:agency -> tribe+jsonld-event+ics",
+      "base_url": "https://www.schlitzaudubon.org",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Bayside",
+      "default_region": "Wisconsin",
+      "default_country": "United States"
     }
   ],
   "_not_included": {

@@ -408,9 +408,32 @@ _SECONDARY_RX = [
         r"live\s+jazz|jazz\s+(?:night|series|band|brunch|concert|ensemble|trio|"
         r"quartet|orchestra|jam)|jazz\s+at\b|"
         r"drum\s+circle)\b|\bbands?\b(?!\s+together)", re.I)),
+    # `kayak` and `canoe` COULD NOT MATCH THE WORD PEOPLE ACTUALLY WRITE. Both sit
+    # inside the group's trailing `\b`, so the boundary demanded a non-word
+    # character straight after "canoe" — and every real listing says "Canoeing"
+    # or "Kayaking". `hik(?:e|ing)` one line above shows the suffix was meant to
+    # be there; these two and `snowshoe` were simply missed. Exactly the family
+    # of the `18+` age gate whose `+` could never end a `\b`.
+    #
+    # Also added, each counted over 6,000 DISTINCT live titles from 490 civic and
+    # park feeds (2026-09-13) before it went in:
+    #   • `birding` / bird walk  17 hits, 16 of which reached NEITHER layer.
+    #     `bird watching` was already here; nobody writes that on a calendar —
+    #     they write "Bird Walk at Brust Park" and "Beginning Birding".
+    #   • kayaking/canoeing      2 hits, both missed, both unambiguous.
+    #
+    # AND THE ONE THAT LOOKS OBVIOUS AND IS WRONG: a bare `walks?` scores 77 hits
+    # and 74 of them reach neither layer CORRECTLY — "Art & Wine Walk", "Historic
+    # Cemetery Walk", "Luminary Walk", "A Walk in Their Shoes - Dementia
+    # Simulation Workshop". On a town calendar a "walk" is an art crawl or a
+    # fundraiser far more often than it is exercise, so it stays qualified.
+    # Bare `paddle` is the same trap one size down: 5 hits, and 4 are "Paddle
+    # Battle", "Battle of the Paddle" and "Doggie Paddle Day".
     ("outdoors", re.compile(
         r"\b(hik(?:e|ing)|trail\s+(?:run|walk|day)|nature\s+walk|guided\s+walk|"
-        r"bird\s?watching|kayak|canoe|paddle\s?board|camp(?:ing|out)|"
+        r"bird\s?watching|birding|bird\s+(?:walk|hike)|"
+        r"kayak(?:ing)?|canoe(?:ing)?|snowshoe(?:ing)?|paddling|paddle\s?board|"
+        r"camp(?:ing|out)|"
         r"beach\s+clean|garden\s+tour|stargazing|tide\s?pool)\b", re.I)),
     # Placed directly after 'outdoors' and BEFORE 'learning' on purpose. Only two
     # slots exist, and this is what fills wegosie.com: a hike or a ski trip keeps
@@ -429,7 +452,29 @@ _SECONDARY_RX = [
         r"boxing(?!\s+day)|rock\s+climbing|bouldering|climbing\s+(?:gym|night|session)|"
         r"hik(?:e|ing)|trail\s+run|snowshoe|cross[\s-]?country\s+ski|ski\s+(?:trip|tour|day)|"
         r"snowboard|group\s+(?:ride|run|walk)|bike\s+ride|cycling\s+club|gran\s+fondo|"
-        r"kayak|canoe|paddle\s?board|paddling|"
+        # The -ing forms, for the reason the outdoors rule above records: the
+        # trailing \b meant "Kayaking" and "Canoeing" — the only spelling a real
+        # listing uses — could never match.
+        r"kayak(?:ing)?|canoe(?:ing)?|paddle\s?board|paddling|"
+        # RACQUET, ICE AND TARGET SPORTS, which a parks department runs constantly
+        # and this had never heard of. Counted over 6,000 distinct live titles
+        # from 490 civic and park feeds, 2026-09-13, every count being titles that
+        # reached NEITHER the outdoors nor the fitness layer before:
+        #   pickleball 25, skating 17, swim lessons 3, archery 3, disc golf 2.
+        # pickleball alone is the single biggest miss in the corpus and the word
+        # is unambiguous — there is no other pickleball.
+        # `bird\s+(?:walk|hike)` and not bare `birding`, on the same line the
+        # outdoors rule draws: a bird WALK is a walk, a "Birding Day" lecture is
+        # not. `nature walk` and `guided walk` are already here for that reason.
+        r"pickleball|skat(?:e|ing)|disc\s+golf|archery|bird\s+(?:walk|hike)|"
+        # `meet` is deliberately NOT in that list: 3 of the 6 `swim …` hits in the
+        # corpus are CLOSURE notices ("Swim Meet - Swim Center Closed", "Pool
+        # Closed … for Halloween & Swim Meets"), and putting a closed pool on a
+        # movement lens is worse than missing the one real meet.
+        # PLURALS SPELLED OUT, because the group's trailing \b is the whole bug
+        # being fixed here and it bites a new word just as fast: `swim\s+lesson`
+        # cannot match "Swim Lessons", which is how every listing writes it.
+        r"swim\s+(?:lessons?|class(?:es)?|practices?|teams?)|"
         r"lap\s+swim|open\s+water\s+swim|masters\s+swim|"
         r"triathlon|duathlon|obstacle\s+race|tough\s+mudder|spartan\s+race|"
         r"rowing\s+club|learn\s+to\s+row|walking\s+(?:club|group))\b", re.I)),
