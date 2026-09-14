@@ -233,6 +233,18 @@ check("...not the first URL somebody typed into the body",
 check("a row with no link says so rather than guessing",
       source_host("no link here") == "(no link)" and source_host(None) == "(no link)")
 
+print()
+print("the walk survives its own cursor")
+# PostgREST returns starts_at as "...+00:00" and a bare "+" in a query string
+# is a space: the first live run read 500 rows and died on window two with a 400.
+from mapsee_spam_purge import window_query
+
+_q = window_query("https://example.supabase.co/rest/v1/events", "external_source=eq.mapsee",
+                  "2026-08-21T08:00:00+00:00", 500)
+check("a '+00:00' cursor is sent as %2B, not read as a space",
+      "starts_at=gte.2026-08-21T08%3A00%3A00%2B00%3A00&" in _q, _q)
+check("...and every window still carries the scope", "?external_source=eq.mapsee&" in _q, _q)
+
 # --- the cap is a value, not a magic number ----------------------------------
 print()
 print("the cap itself")

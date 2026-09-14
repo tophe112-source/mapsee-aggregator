@@ -115,6 +115,22 @@ def source_host(description) -> str:
     return host or "(no link)"
 
 
+def window_query(root: str, scope: str, cursor: str, page: int) -> str:
+    """The URL for one window of the walk, with the cursor QUOTED.
+
+    PostgREST hands starts_at back as "2026-08-21T08:00:00+00:00", and in a query
+    string a bare "+" is a space. The first run of this script against the live
+    table (report only, 2026-09-14) read one page of 500 rows and died on the
+    second request: 400, 22007, invalid input syntax for "2026-08-21T08:00:00
+    00:00". The first cursor is built here with a "Z" and passes, which is why
+    only the SECOND window fails - and why a table smaller than one page never
+    shows it.
+    """
+    return (f"{root}?{scope}&starts_at=gte.{urllib.parse.quote(cursor, safe='')}"
+            f"&select=id,title,description,starts_at,ends_at"
+            f"&order=starts_at.asc&limit={page}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Remove advertisements already in the events table.")
     ap.add_argument("--apply", action="store_true",
@@ -186,9 +202,7 @@ def main() -> int:
 
     print(f"Walking aggregator events from {cursor} forward…")
     while time.monotonic() - started < a.max_seconds:
-        q = (f"{root}?{SCOPE}&starts_at=gte.{cursor}"
-             f"&select=id,title,description,starts_at,ends_at"
-             f"&order=starts_at.asc&limit={PAGE}")
+        q = window_query(root, SCOPE, cursor, PAGE)
         r = requests.get(q, headers=auth, timeout=120)
         if _timed_out(r):
             sys.exit("The windowed read timed out. Check migration 0113 "
