@@ -91,3 +91,24 @@
   tripwire reachable only through a live PostgREST call is one nobody tests.
   The workflow also RUNS `test_spam.py` on the runner before the purge step, so
   a red rule stops the delete rather than merely being noticed somewhere else.
+
+- **THE PURGE IS OFF UNTIL SOMEBODY HAS READ ITS REPORT, AND ITS SCHEDULE IS OFF
+  WITH IT.** `spam-purge.yml` deletes only when the repository variable
+  `SPAM_PURGE_APPLY` is exactly `true`; while it is anything else the 07:40
+  schedule does not run at all and a manual run reports. A report is not free:
+  the full read-only walk on 2026-09-14 (05:48-06:09Z) read **744,093**
+  aggregator rows in **1,261 s**, so a daily report nobody reads would be a daily
+  table scan in the ingest window, and the rescued `--max-seconds 1000` stopped
+  short of the end every time (it is 1800 against `timeout-minutes: 35`). What
+  that walk would have done: delete **256** rows, **0.03%** of rows read and far
+  under the ceiling — gamenight.host 115, meetup.com 26, mobilizon.fr 20,
+  mobilizon.ethibox.fr 15, papafagla.com 11, then single-digit marabout pages on
+  wordpress, simdif and blogspot — and clear **48** end dates. Read the clears
+  before switching it on: they include real listings (openagenda exhibitions of
+  401-487 days, Repair Lab, a library's opening hours, weekly football and
+  basketball sessions), and a cleared end on a row whose start has passed is
+  deleted by the 08:23 cleanup, which the share ceiling does not bound. A second
+  full walk started at 06:12Z beside another died on `Read timed out` from the
+  database: run one at a time, and not in the ingest window. An earlier "9.89%,
+  over the ceiling" was the walk as rescued, which read only 2,285 rows — a
+  `+00:00` cursor sent unquoted, then a 500-row instant it could not page past.
