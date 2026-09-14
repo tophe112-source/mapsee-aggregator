@@ -245,6 +245,49 @@ check("a '+00:00' cursor is sent as %2B, not read as a space",
       "starts_at=gte.2026-08-21T08%3A00%3A00%2B00%3A00&" in _q, _q)
 check("...and every window still carries the scope", "?external_source=eq.mapsee&" in _q, _q)
 
+print()
+print("the walk reaches every row, including an instant bigger than a page")
+# The first live report read 2,285 rows and stopped for good at an instant 500+
+# rows share (2026-09-05T23:00:00+00:00), so nothing after it - every upcoming
+# row - was ever judged. This drives walk() over a fake table ordered the way
+# PostgREST orders it: a 1,203-row instant, with ordinary rows either side.
+from mapsee_spam_purge import walk
+
+_rows = [{"id": f"a{_i:05d}", "starts_at": f"2026-09-01T{_i % 24:02d}:00:00+00:00"}
+         for _i in range(1300)]
+_rows += [{"id": f"c{_i:05d}", "starts_at": "2026-09-05T23:00:00+00:00"} for _i in range(1203)]
+_rows += [{"id": f"d{_i:05d}", "starts_at": "2026-09-06T08:00:00+00:00"} for _i in range(499)]
+_rows += [{"id": f"e{_i:05d}", "starts_at": f"2026-10-{1 + _i % 28:02d}T12:00:00+00:00"}
+          for _i in range(777)]
+_table = sorted(_rows, key=lambda r: (r["starts_at"], r["id"]))
+
+
+def _window(op, at, page=500):
+    return [r for r in _table if (r["starts_at"] >= at if op == "gte" else r["starts_at"] > at)][:page]
+
+
+def _instant(at, after, page=500):
+    return [r for r in _table if r["starts_at"] == at and r["id"] > after][:page]
+
+
+_seen = set()
+_ended, _ = walk(_window, _instant, "2021-09-15T05:41:32Z", 500, lambda: False,
+                 lambda r: _seen.add(r["id"]))
+check("every row is reached, across a 1,203-row instant", len(_seen) == len(_table),
+      f"{len(_seen)} of {len(_table)}")
+check("...and the walk says it reached the end", _ended == "end of the table", _ended)
+_ticks = {"n": 0}
+
+
+def _budget():
+    _ticks["n"] += 1
+    return _ticks["n"] > 3
+
+
+_ended2, _at2 = walk(_window, _instant, "2021-09-15T05:41:32Z", 500, _budget, lambda r: None)
+check("a walk stopped by its budget says so, and where",
+      "NOT examined" in _ended2 and _at2 in _ended2, _ended2)
+
 # --- the cap is a value, not a magic number ----------------------------------
 print()
 print("the cap itself")

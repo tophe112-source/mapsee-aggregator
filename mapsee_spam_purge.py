@@ -115,7 +115,7 @@ def source_host(description) -> str:
     return host or "(no link)"
 
 
-def window_query(root: str, scope: str, cursor: str, page: int) -> str:
+def window_query(root: str, scope: str, cursor: str, page: int, op: str = "gte") -> str:
     """The URL for one window of the walk, with the cursor QUOTED.
 
     PostgREST hands starts_at back as "2026-08-21T08:00:00+00:00", and in a query
@@ -125,10 +125,73 @@ def window_query(root: str, scope: str, cursor: str, page: int) -> str:
     00:00". The first cursor is built here with a "Z" and passes, which is why
     only the SECOND window fails - and why a table smaller than one page never
     shows it.
+
+    Ordered by id as well as starts_at, so the rows a window holds at an instant
+    are that instant's LOWEST ids - which is what lets walk() read the rest of
+    an instant by id when it holds more than a page.
     """
-    return (f"{root}?{scope}&starts_at=gte.{urllib.parse.quote(cursor, safe='')}"
+    return (f"{root}?{scope}&starts_at={op}.{urllib.parse.quote(cursor, safe='')}"
             f"&select=id,title,description,starts_at,ends_at"
-            f"&order=starts_at.asc&limit={page}")
+            f"&order=starts_at.asc,id.asc&limit={page}")
+
+
+def instant_query(root: str, scope: str, at: str, after_id: str, page: int) -> str:
+    """The rest of ONE instant, by id, for an instant that holds more than a page."""
+    return (f"{root}?{scope}&starts_at=eq.{urllib.parse.quote(at, safe='')}"
+            f"&id=gt.{urllib.parse.quote(after_id, safe='')}"
+            f"&select=id,title,description,starts_at,ends_at"
+            f"&order=id.asc&limit={page}")
+
+
+def walk(fetch_window, fetch_instant, cursor: str, page: int, out_of_time, visit):
+    """Visit every row from `cursor` forward in starts_at order; say how it ended.
+
+    fetch_window(op, at) returns up to `page` rows with starts_at `op` ("gte" or
+    "gt") `at`, ordered by (starts_at, id). fetch_instant(at, after_id) returns
+    up to `page` rows AT `at` with a larger id, ordered by id. visit(row) may
+    see a row more than once and must skip repeats: a "gte" window re-reads
+    the instant it starts on, which is what stops an instant that straddles
+    two windows losing its tail.
+
+    AN INSTANT CAN HOLD MORE THAN A PAGE, and the first version of this walk
+    stopped there for good. Measured 2026-09-14: 2,285 rows in, 500+ rows
+    shared starts_at 2026-09-05T23:00:00+00:00, a "gte" window on that instant
+    returns the same page for ever, and every row after it - every upcoming
+    event in the table - was never judged. So a window that is ONE instant
+    from end to end has that instant read to its end by id, and the walk then
+    steps strictly past it.
+
+    A free function so test_spam.py can drive it over a fake table: logic
+    reachable only through a live PostgREST call is logic nobody tests.
+    Returns (how the walk ended, the starts_at it ended at).
+    """
+    op = "gte"
+    while not out_of_time():
+        rows = fetch_window(op, cursor)
+        for row in rows:
+            visit(row)
+        if len(rows) < page:
+            return "end of the table", cursor
+        last = rows[-1]["starts_at"]
+        if rows[0]["starts_at"] != last:
+            # A WINDOW, NOT AN OFFSET. offset= re-walks everything before it on
+            # each step, which is what turns a long table into a timeout.
+            op, cursor = "gte", last
+            continue
+        after = rows[-1]["id"]
+        while True:
+            if out_of_time():
+                return (f"the time budget ran out inside starts_at {last}; "
+                        "rows after it were NOT examined"), last
+            more = fetch_instant(last, after)
+            for row in more:
+                visit(row)
+            if len(more) < page:
+                break
+            after = more[-1]["id"]
+        op, cursor = "gt", last
+    return (f"the time budget ran out at starts_at {cursor}; "
+            "rows after it were NOT examined"), cursor
 
 
 def main() -> int:
@@ -195,14 +258,9 @@ def main() -> int:
     seen_ids: set[str] = set()
     doomed: list[tuple[str, str, str, str]] = []     # (id, reason, title, host)
     unbounded: list[tuple[str, int, str, str]] = []  # (id, span, title, host)
-    # SAID OUT LOUD, because a walk that runs out of budget used to end exactly
-    # like one that reached the end of the table - and it starts five years back
-    # every day, so an unfinished walk never reaches the NEWEST rows at all.
-    ended = None
+    drained: dict[str, int] = {}                     # instant -> rows read past its first page
 
-    print(f"Walking aggregator events from {cursor} forward…")
-    while time.monotonic() - started < a.max_seconds:
-        q = window_query(root, SCOPE, cursor, PAGE)
+    def fetch(q: str) -> list:
         r = requests.get(q, headers=auth, timeout=120)
         if _timed_out(r):
             sys.exit("The windowed read timed out. Check migration 0113 "
@@ -210,46 +268,42 @@ def main() -> int:
                      "this walk index-backed.")
         if r.status_code >= 300:
             sys.exit(f"Read failed [{r.status_code}]: {r.text[:300]}")
-        rows = r.json() or []
-        if not rows:
-            ended = "end of the table"
-            break
-        for row in rows:
-            # gte, NOT gt, so a run of events sharing one exact starts_at cannot
-            # straddle the window boundary and lose its tail — which means the
-            # row the cursor sits on is re-read on the next step, hence the set.
-            # Judging it twice would be harmless; COUNTING it twice would quietly
-            # make the report wrong, and the report is the thing a person reads
-            # before allowing a content-based delete.
-            if row["id"] in seen_ids:
-                continue
-            seen_ids.add(row["id"])
-            seen += 1
-            why = spam_reason(row.get("title"), row.get("description"),
-                              row.get("starts_at"), row.get("ends_at"))
-            if why:
-                doomed.append((row["id"], why, (row.get("title") or "")[:70],
-                               source_host(row.get("description"))))
-                continue
-            span = implausible_end(row.get("starts_at"), row.get("ends_at"))
-            if span is not None:
-                unbounded.append((row["id"], span, (row.get("title") or "")[:70],
-                                  source_host(row.get("description"))))
-        # A WINDOW, NOT AN OFFSET. offset= re-walks everything before it on each
-        # step, which is what turns a long table into a timeout halfway through.
-        last = rows[-1]["starts_at"]
-        if len(rows) < PAGE:
-            ended = "end of the table"
-            break
-        if last == cursor:
-            ended = (f"a whole page of {PAGE} rows shares starts_at {cursor}; "
-                     "rows after it were NOT examined")
-            break
-        cursor = last
+        return r.json() or []
 
-    if ended is None:
-        ended = (f"the --max-seconds {a.max_seconds} budget ran out at starts_at {cursor}; "
-                 "rows after it were NOT examined")
+    def fetch_instant(at: str, after: str) -> list:
+        rows = fetch(instant_query(root, SCOPE, at, after, PAGE))
+        drained[at] = drained.get(at, 0) + len(rows)
+        return rows
+
+    def visit(row) -> None:
+        # A "gte" window re-reads the instant it starts on, hence the set.
+        # Judging a row twice would be harmless; COUNTING it twice would quietly
+        # make the report wrong, and the report is the thing a person reads
+        # before allowing a content-based delete.
+        nonlocal seen
+        if row["id"] in seen_ids:
+            return
+        seen_ids.add(row["id"])
+        seen += 1
+        why = spam_reason(row.get("title"), row.get("description"),
+                          row.get("starts_at"), row.get("ends_at"))
+        if why:
+            doomed.append((row["id"], why, (row.get("title") or "")[:70],
+                           source_host(row.get("description"))))
+            return
+        span = implausible_end(row.get("starts_at"), row.get("ends_at"))
+        if span is not None:
+            unbounded.append((row["id"], span, (row.get("title") or "")[:70],
+                              source_host(row.get("description"))))
+
+    print(f"Walking aggregator events from {cursor} forward…")
+    # SAID OUT LOUD, because a walk that runs out of budget used to end exactly
+    # like one that reached the end of the table - and it starts five years back
+    # every day, so an unfinished walk never reaches the NEWEST rows at all.
+    ended, cursor = walk(lambda op, at: fetch(window_query(root, SCOPE, at, PAGE, op)),
+                         fetch_instant, cursor, PAGE,
+                         lambda: time.monotonic() - started >= a.max_seconds, visit)
+    ended = ended.replace("the time budget", f"the --max-seconds {a.max_seconds} budget")
     # Checked on DELETIONS only. Clearing an end date is reversible in the sense
     # that matters — the row stays, the sync refills it from the source on the
     # next full refresh — so it does not deserve a tripwire that stops the run.
@@ -259,6 +313,10 @@ def main() -> int:
     refuse = too_many(len(doomed), seen, a.max_share, a.min_sample)
 
     print(f"read {seen} row(s); walk ended: {ended}")
+    if drained:
+        big = sorted(drained.items(), key=lambda kv: -kv[1])[:5]
+        print(f"  {len(drained)} instant(s) held a full page or more; largest: "
+              + ", ".join(f"{at} ({PAGE + n}+ rows)" for at, n in big))
     print(f"  {len(doomed)} advertisement(s) to delete: {share:.2%} of rows read, "
           f"against the {a.max_share:.0%} ceiling"
           + (" - OVER IT, so --apply would refuse" if refuse else ""))
