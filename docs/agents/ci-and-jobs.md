@@ -213,7 +213,7 @@
 - **THE ORDER OF THE THREE DAILY JOBS IS LOAD-BEARING.** 06:17 aggregate (the
   gate refuses new spam at the door) → 07:40 purge (deletes old spam, and clears
   the ends that make a past row permanent — once the repository variable
-  `SPAM_PURGE_APPLY` is `true`; until then it only reports) → 08:23 cleanup
+  `SPAM_PURGE_APPLY` is `true`; until then its schedule is skipped) → 08:23 cleanup
   (deletes what has finished, which then includes everything the purge un-dated
   an hour earlier). Most of what the purge touches is therefore removed by the
   EXISTING janitor rather than by a delete of its own. Move the purge after

@@ -8,12 +8,13 @@ name: Purge spam events
 # is public and that would expose SUPABASE_SERVICE_ROLE_KEY to fork code.
 #
 # IT WRITES NOTHING UNTIL THE OWNER TURNS IT ON, AND THE SWITCH IS NOT IN THIS
-# FILE. Every run, scheduled or manual, REPORTS what it would delete and changes
-# nothing unless the repository variable SPAM_PURGE_APPLY is exactly 'true'
-# (Settings -> Secrets and variables -> Actions -> Variables). With it set, the
-# 07:40 schedule deletes, and a manual run deletes only if its report_only box
-# is unticked. Delete the variable, or set it to anything else, and the next run
-# is a report again. No code change and no push, either way.
+# FILE. The switch is the repository variable SPAM_PURGE_APPLY (Settings ->
+# Secrets and variables -> Actions -> Variables). While it is anything but
+# exactly 'true', the 07:40 schedule does not run at all (see the job's `if`),
+# and a manual run REPORTS what it would delete and changes nothing. With it set
+# to 'true', the schedule deletes, and a manual run deletes only if its
+# report_only box is unticked. Delete the variable, or set it to anything else,
+# and it is off again. No code change and no push, either way.
 #
 # Why a switch as well as the share ceiling: this deletes production rows on a
 # CONTENT judgement, and no destructive run had been approved when it merged. The
@@ -68,8 +69,14 @@ permissions:
 
 jobs:
   purge:
+    # The SCHEDULE does not run at all while the switch is off. A report-only
+    # walk is not free: on 2026-09-14 it read all 744,093 aggregator rows in
+    # 1,261 s (05:48-06:09Z), and a daily table scan whose report nobody reads
+    # is load on the database during the ingest window for nothing. Manual runs
+    # always work, and report unless the switch is on and report_only is unticked.
+    if: ${{ github.event_name == 'workflow_dispatch' || vars.SPAM_PURGE_APPLY == 'true' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -129,6 +136,10 @@ jobs:
       # mid-batch by the job timeout. The gap covers checkout, setup-python, pip
       # and the test step. Move one, move the other.
       #
+      # 1800 s against 35 minutes, not the 1000 s against 25 it started with: a
+      # full walk read 744,093 rows in 1,261 s on 2026-09-14, so 1000 s stopped
+      # before the end of the table every time.
+      #
       # --apply is passed ONLY when the mode step said exactly "apply". Inputs
       # reach the shell through env, never pasted into the script.
       #
@@ -155,7 +166,7 @@ jobs:
             echo "MODE: REPORT ONLY (no --apply)"
           fi
           python mapsee_spam_purge.py \
-            --max-seconds 1000 \
+            --max-seconds 1800 \
             --max-share "$MAX_SHARE" \
             $APPLY_FLAG \
             | tee purge.log
