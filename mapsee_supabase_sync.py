@@ -1347,7 +1347,11 @@ def _enrich_music_links(recs: List[Dict[str, Any]], session) -> None:
     print(f"Spotify: resolved {resolved} exact artist pages ({len(cache)} names cached).")
 
 
-def build_rows(store_path: str, host_id: str, geo_session=None) -> List[Dict[str, Any]]:
+def build_rows(store_path: str, host_id: str, geo_session=None, keep=None) -> List[Dict[str, Any]]:
+    """Store -> event rows. `keep`, when given, filters the placeable records
+    BEFORE the Spotify lookups, the Census batch and to_row, which is where
+    --only-new's existence check belongs: see main()."""
+    import time
     data = json.loads(open(store_path, encoding="utf-8").read())
     recs = []
     virtual = 0
@@ -1373,6 +1377,15 @@ def build_rows(store_path: str, host_id: str, geo_session=None) -> List[Dict[str
 
     if virtual:
         print(f"Skipped {virtual} online/virtual events (no physical venue - see is_virtual).")
+
+    # DROP WHAT WILL NOT BE WRITTEN BEFORE PAYING TO PREPARE IT. --only-new used
+    # to filter in main(), after this function had resolved Spotify pages,
+    # batch-geocoded and built a row for every record in the store: on
+    # 2026-09-12 Meetup's final sync geocoded 22,276 of 53,871 rows (12,832
+    # unique addresses matched) to write 2,480, and that day's 13 syncs checked
+    # 280,223 ids to upsert 15,549 rows.
+    if keep is not None:
+        recs = keep(recs)
 
     if geo_session is not None:                       # production run (has network)
         _enrich_music_links(recs, geo_session)        # exact Spotify pages when a key is set
@@ -1401,14 +1414,17 @@ def build_rows(store_path: str, host_id: str, geo_session=None) -> List[Dict[str
         exact = sum(1 for r in recs if r.get("coords_exact"))
         if exact:
             print(f"Kept {exact} source-exact coordinates (not geocoded).")
-        coords = batch_geocode(geo_session, list({p for p in parts_of.values()}))
+        unique = list({p for p in parts_of.values()})
+        t0 = time.monotonic()
+        coords = batch_geocode(geo_session, unique)
         applied = 0
         for i, p in parts_of.items():
             c = coords.get(p)
             if c:
                 recs[i]["latitude"], recs[i]["longitude"] = c[0], c[1]
                 applied += 1
-        print(f"Geocoded {applied}/{len(recs)} rows ({len(coords)} unique addresses matched).")
+        print(f"Geocoded {applied}/{len(recs)} rows ({len(coords)} unique addresses matched "
+              f"of {len(unique)} sent) in {time.monotonic() - t0:.1f}s.", flush=True)
 
     rows, dropped = [], 0
     for rec in recs:
@@ -2006,29 +2022,56 @@ def main() -> None:
     if host_id == "<MAPSEE_HOST_PROFILE_ID>":
         sys.exit("Set MAPSEE_HOST_PROFILE_ID to the aggregator's profiles.id (used as created_by).")
 
-    import requests                                   # batch-geocode venue addresses (TM coords imprecise)
+    import requests, time                             # batch-geocode venue addresses (TM coords imprecise)
     geo = requests.Session()
     geo.headers.update({"User-Agent": "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"})
-    rows = build_rows(a.store, host_id, geo)
-    print(f"Prepared {len(rows)} event rows from {a.store}.")
 
     # Never touch CLAIMED imports (a real user owns them now) — in EITHER mode,
     # so a full refresh can't clobber a claimer's edits and only-new stays correct.
-    try:
-        state = fetch_import_state(geo, url, key, [r["external_id"] for r in rows])
-    except RuntimeError as error:
-        raise SystemExit(str(error)) from None
+    # ONE read supplies both guards, and it FAILS CLOSED: no write follows it.
+    state = None
+
+    def read_state(ids):
+        t0 = time.monotonic()
+        try:
+            got = fetch_import_state(geo, url, key, ids)
+        except RuntimeError as error:
+            raise SystemExit(str(error)) from None
+        print(f"Import state: {len(got)} of {len(set(ids))} id(s) already in Supabase, "
+              f"read in {time.monotonic() - t0:.1f}s.", flush=True)
+        return got
+
+    def keep_new(recs):
+        # --only-new: read the state on the STORE's fingerprints (to_row's
+        # external_id) and drop what exists BEFORE build_rows enriches,
+        # geocodes and builds it. See build_rows for the 2026-09-12 numbers.
+        nonlocal state
+        state = read_state([r["fingerprint"] for r in recs])
+        fresh = [r for r in recs if r["fingerprint"] not in state]
+        n_claimed = sum(1 for is_claimed in state.values() if is_claimed)
+        print(f"Only-new: {len(fresh)} of {len(recs)} are new ({len(state)} from this batch "
+              f"already in Supabase, {n_claimed} of them claimed), dropped before geocoding.",
+              flush=True)
+        return fresh
+
+    rows = build_rows(a.store, host_id, geo, keep=keep_new if a.only_new else None)
+    print(f"Prepared {len(rows)} event rows from {a.store}.")
+    if state is None:                                 # refresh day: build first, then read, as before
+        state = read_state([r["external_id"] for r in rows])
+
     claimed = {eid for eid, is_claimed in state.items() if is_claimed}
     if claimed:
         before = len(rows)
         rows = [r for r in rows if r["external_id"] not in claimed]
-        print(f"Claimed-guard: skipped {before - len(rows)} claimed events.")
+        if before != len(rows):
+            print(f"Claimed-guard: skipped {before - len(rows)} claimed events.")
 
     if a.only_new:                                    # skip events already in the DB
         existing = set(state)
         before = len(rows)
         rows = [r for r in rows if r["external_id"] not in existing]
-        print(f"Only-new: {len(rows)} of {before} are new ({len(existing)} from this batch already in Supabase).")
+        if before != len(rows):                       # already done in keep_new, normally
+            print(f"Only-new: {len(rows)} of {before} are new ({len(existing)} from this batch already in Supabase).")
 
     terms = load_blocklist(geo, url, key) if rows else []  # no DB read for an empty write set
     if terms:
@@ -2049,7 +2092,9 @@ def main() -> None:
             print(f"Skip-unchanged: all {len(rows)} rows differ from what is stored "
                   f"(or could not be read back — a refusal means write).")
 
+    t0 = time.monotonic()
     n, skipped, lost = upsert(rows, url, key)
+    print(f"Upsert phase: {len(rows)} row(s) in {time.monotonic() - t0:.1f}s.", flush=True)
     # NOT NECESSARILY MODERATION. This used to assert the reason regardless of
     # the status code, and it sent me looking for a content filter that was
     # never involved: Tokyo's entire batch — all 114 rows — failed with

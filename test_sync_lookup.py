@@ -175,6 +175,85 @@ class LookupTests(unittest.TestCase):
                 self.assertEqual([row["external_id"] for row in write.call_args.args[0]], expected)
                 self.assertEqual(len(store.calls), 1, "one read supplies both guards")
 
+    def test_only_new_reads_state_before_geocoding_and_refresh_is_unchanged(self):
+        # 2026-09-12: Meetup's final sync geocoded 22,276 of 53,871 rows to write
+        # 2,480, because --only-new filtered AFTER build_rows. Under --only-new
+        # the one state read now happens first and only the new record reaches
+        # the geocoder; a refresh day still geocodes everything, then reads.
+        import re
+        import tempfile
+        ids = ("claimed", "existing", "new")
+        recs = [dict(fingerprint=eid, name=f"Event {eid}", source="test",
+                     start_utc="2026-10-01T18:00:00Z", start_local="2026-10-01T11:00:00",
+                     address=f"{i} Main St", city="Seattle", region="WA")
+                for i, eid in enumerate(ids, 1)]
+        path = os.path.join(tempfile.mkdtemp(), "store.json")
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump({"events": recs}, fh)
+        every = [(f"{i} Main St", "Seattle", "WA") for i in (1, 2, 3)]
+        for flags, geocoded, written, order_wanted in (
+                (["--only-new"], every[2:], ["new"], ["state", "geocode"]),
+                ([], every, ["existing", "new"], ["geocode", "state"])):
+            store = Store({"claimed": "2026-09-05", "existing": None})
+            order, sent = [], []
+            real_get = store.get
+
+            def get(url, _real=real_get, _order=order, **kwargs):
+                _order.append("state")
+                return _real(url, **kwargs)
+            store.get = get
+
+            def geocode(_session, addrs, _order=order, _sent=sent):
+                _order.append("geocode")
+                _sent.extend(addrs)
+                return {a: (47.6, -122.3) for a in addrs}
+            out = io.StringIO()
+            with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID": "host", "SUPABASE_URL": "https://db.example",
+                                        "SUPABASE_SERVICE_ROLE_KEY": "unused-test-key",
+                                        "SPOTIFY_CLIENT_ID": "", "SPOTIFY_CLIENT_SECRET": ""}), \
+                 patch("sys.argv", ["sync", "--store", path] + flags), \
+                 patch("requests.Session", return_value=store), \
+                 patch.object(sync, "batch_geocode", side_effect=geocode), \
+                 patch.object(sync, "load_blocklist", return_value=[]), \
+                 patch.object(sync, "upsert", return_value=(len(written), 0, 0)) as write, \
+                 redirect_stdout(out):
+                sync.main()
+            label = " ".join(flags) or "refresh"
+            self.assertEqual(sorted(sent), geocoded, label)
+            self.assertEqual([row["external_id"] for row in write.call_args.args[0]], written, label)
+            self.assertEqual(order, order_wanted, label)
+            self.assertEqual(len(store.calls), 1, "one read supplies both guards")
+            log = out.getvalue()
+            for phase in ("Geocoded", "Import state", "Upsert phase"):
+                self.assertRegex(log, re.escape(phase) + r".*\d+\.\ds", f"{label}: {phase} timing")
+
+    def test_only_new_failed_read_stops_before_enriching_geocoding_or_writing(self):
+        # Moving the read AHEAD of build_rows must keep it fail-closed: a failed
+        # ownership read under --only-new stops the sync before the Spotify
+        # pass, the geocoder and the write, not after them.
+        import tempfile
+        rec = dict(fingerprint="new", name="Event new", source="test",
+                   start_utc="2026-10-01T18:00:00Z", start_local="2026-10-01T11:00:00",
+                   address="1 Main St", city="Seattle", region="WA")
+        with tempfile.TemporaryDirectory() as folder:
+            path = os.path.join(folder, "store.json")
+            with open(path, "w", encoding="utf-8") as fh:
+                json.dump({"events": [rec]}, fh)
+            store = Store({"new": None}, fail_page=1)
+            with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID": "host", "SUPABASE_URL": "https://db.example",
+                                        "SUPABASE_SERVICE_ROLE_KEY": "unused-test-key"}), \
+                 patch("sys.argv", ["sync", "--store", path, "--only-new"]), \
+                 patch("requests.Session", return_value=store), \
+                 patch.object(sync, "_enrich_music_links") as enrich, \
+                 patch.object(sync, "batch_geocode") as geocode, \
+                 patch.object(sync, "upsert") as write, redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(SystemExit, "no events were written"):
+                    sync.main()
+            self.assertEqual(len(store.calls), 1)
+            enrich.assert_not_called()
+            geocode.assert_not_called()
+            write.assert_not_called()
+
     def test_main_cannot_write_after_a_failed_ownership_read(self):
         store = Store({"claimed":"2026-09-05"}, fail_page=1)
         with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID":"host", "SUPABASE_URL":"https://db.example",

@@ -284,6 +284,14 @@ jobs:
       - name: An unanswered batch is a hole, not the end of the run
         run: python test_sync_transport_loss.py
 
+      # The ownership guard reads only this feed's ids, fails closed before any
+      # write, and under --only-new runs BEFORE the geocoder: on 2026-09-12
+      # Meetup's final sync geocoded 22,276 of 53,871 rows to write 2,480
+      # because the existence filter came after build_rows. This file existed
+      # and passed; nothing here ran it.
+      - name: Ownership read is bounded, fails closed, and precedes the geocoder under --only-new
+        run: python test_sync_lookup.py
+
       # An adapter whose every column is DERIVED from an upstream people edit
       # cannot use --only-new: the row freezes on the day it landed and no OSM
       # edit ever reaches it. Dropping the flag fixed that and made every run

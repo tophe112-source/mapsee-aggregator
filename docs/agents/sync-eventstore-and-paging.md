@@ -8,13 +8,30 @@
   of at most 100 IDs / 6 KB URL, before any writes. In `test_sync_lookup.py`,
   three incoming IDs require one request and return two rows at both 1,000 and
   1,000,000 synthetic catalog rows. A server cap of two still finds a claimed
-  row on page four. Thirteen checks cover bounded URLs, both sync modes,
+  row on page four. Fifteen checks cover bounded URLs, both sync modes,
   duplicate IDs, missing ownership, incomplete/changed Content-Range and
   no writes after failure. A successful HTTP response alone is insufficient:
   verify exact count and every page before treating a missing ID as new.
   Lookup failure stops the import; unchanged-content comparison may still
   fail toward writing only AFTER ownership is verified. This is a request
   cost model, not a live query benchmark or an atomic claim/write lock.
+
+- **`--only-new` PAID TO PREPARE EVERY ROW IT THEN DROPPED.** `main()` ran
+  `build_rows` — Spotify lookups, the Census batch, `to_row` — on the whole
+  store, and only then read the import state and dropped existing ids. On
+  2026-09-12 the 13 syncs checked 280,223 ids to upsert 15,549 rows; Meetup's
+  final sync alone geocoded 22,276 of 53,871 rows (12,832 unique addresses
+  matched) to write 2,480. Under `--only-new` the same single
+  `fetch_import_state` read now runs first, on the store's fingerprints
+  (`to_row`'s `external_id`), via `build_rows(keep=...)`, so only new records
+  are enriched, geocoded and built. The read now covers placeable RECORDS, not
+  built rows, so it also checks the coordless ones the geocoder would have
+  dropped: 286,641 ids instead of 280,223 on that day's stores (+2.3%; Races
+  alone 14,131 against 8,209). Refresh days are unchanged (build, then read),
+  and a failed read still stops the sync before any write — and now before any
+  geocoding. Geocode, import-state and upsert phases print their seconds.
+  `test_sync_lookup.py` pins both orders and the failed read, and is now in
+  `tests.yml`, which never ran it.
 
 - **An upsert cannot delete, so a fix to what we WRITE never reaches what is
   already written.** When a link dies the ingest skips the place, no row is
