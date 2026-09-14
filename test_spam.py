@@ -215,6 +215,24 @@ check("...and the sample floor is what decides that, not the share",
       too_many(199, 199, 0.05, 200) is False and too_many(199, 200, 0.05, 200) is True)
 check("nothing read, nothing blocked", too_many(0, 0, 0.05, 200) is False)
 
+print()
+print("the report names where a match came from")
+# The events table has no source column, so the purge reads the host of the
+# "Tickets / info:" line the sync writes into every imported description. It
+# is the thing to read before allowing deletes: forty rows from one spammed
+# instance is the purge catching up, forty spread across ticketing sites is a
+# rule that has started matching ordinary listings.
+from mapsee_spam_purge import source_host
+
+_body = "A night out.\n\nTickets / info: https://www.gamenight.host/events/abc"
+check("the host of the sync's own link line", source_host(_body) == "gamenight.host",
+      source_host(_body))
+check("...not the first URL somebody typed into the body",
+      source_host("Call https://scam.example/now\n\nTickets / info: https://mobilizon.fr/events/1")
+      == "mobilizon.fr")
+check("a row with no link says so rather than guessing",
+      source_host("no link here") == "(no link)" and source_host(None) == "(no link)")
+
 # --- the cap is a value, not a magic number ----------------------------------
 print()
 print("the cap itself")

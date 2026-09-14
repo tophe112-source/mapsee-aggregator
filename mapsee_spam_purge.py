@@ -51,9 +51,12 @@ Env:  SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 from __future__ import annotations
 
 import argparse
+import collections
 import os
+import re
 import sys
 import time
+import urllib.parse
 from datetime import datetime, timedelta, timezone
 
 try:
@@ -90,6 +93,26 @@ def too_many(matched: int, seen: int, max_share: float, min_sample: int) -> bool
     if seen < min_sample:
         return False           # a share off a handful of rows is noise
     return (matched / seen) > max_share if seen else False
+
+
+# THE EVENTS TABLE HAS NO SOURCE COLUMN: external_source is 'mapsee' for every
+# adapter. What every imported row does carry is the line
+# mapsee_supabase_sync.to_row writes into its description, "Tickets / info:
+# <url>", and that URL's host is the nearest thing to a source there is - the
+# Mobilizon instance, the ticketing site, the library gateway. It is what a
+# person needs to see before allowing a delete: forty rows from one spammed
+# instance is the purge catching up; forty spread across ticketing sites is a
+# rule that has started matching ordinary listings.
+_INFO_URL = re.compile(r"Tickets / info: (https?://\S+)")
+
+
+def source_host(description) -> str:
+    """The host of a row's own "Tickets / info:" link, or "(no link)"."""
+    m = _INFO_URL.search(str(description or ""))
+    host = urllib.parse.urlsplit(m.group(1)).netloc.lower() if m else ""
+    if host.startswith("www."):
+        host = host[4:]
+    return host or "(no link)"
 
 
 def main() -> int:
@@ -154,8 +177,12 @@ def main() -> int:
     started = time.monotonic()
     seen = 0
     seen_ids: set[str] = set()
-    doomed: list[tuple[str, str, str]] = []       # (id, reason, title)
-    unbounded: list[tuple[str, int, str]] = []    # (id, span, title)
+    doomed: list[tuple[str, str, str, str]] = []     # (id, reason, title, host)
+    unbounded: list[tuple[str, int, str, str]] = []  # (id, span, title, host)
+    # SAID OUT LOUD, because a walk that runs out of budget used to end exactly
+    # like one that reached the end of the table - and it starts five years back
+    # every day, so an unfinished walk never reaches the NEWEST rows at all.
+    ended = None
 
     print(f"Walking aggregator events from {cursor} forward…")
     while time.monotonic() - started < a.max_seconds:
@@ -171,6 +198,7 @@ def main() -> int:
             sys.exit(f"Read failed [{r.status_code}]: {r.text[:300]}")
         rows = r.json() or []
         if not rows:
+            ended = "end of the table"
             break
         for row in rows:
             # gte, NOT gt, so a run of events sharing one exact starts_at cannot
@@ -186,27 +214,52 @@ def main() -> int:
             why = spam_reason(row.get("title"), row.get("description"),
                               row.get("starts_at"), row.get("ends_at"))
             if why:
-                doomed.append((row["id"], why, (row.get("title") or "")[:70]))
+                doomed.append((row["id"], why, (row.get("title") or "")[:70],
+                               source_host(row.get("description"))))
                 continue
             span = implausible_end(row.get("starts_at"), row.get("ends_at"))
             if span is not None:
-                unbounded.append((row["id"], span, (row.get("title") or "")[:70]))
+                unbounded.append((row["id"], span, (row.get("title") or "")[:70],
+                                  source_host(row.get("description"))))
         # A WINDOW, NOT AN OFFSET. offset= re-walks everything before it on each
         # step, which is what turns a long table into a timeout halfway through.
         last = rows[-1]["starts_at"]
-        if len(rows) < PAGE or last == cursor:
-            break                     # short page, or a whole page at one instant
+        if len(rows) < PAGE:
+            ended = "end of the table"
+            break
+        if last == cursor:
+            ended = (f"a whole page of {PAGE} rows shares starts_at {cursor}; "
+                     "rows after it were NOT examined")
+            break
         cursor = last
 
-    print(f"read {seen} row(s)")
-    print(f"  {len(doomed)} advertisement(s) to delete")
+    if ended is None:
+        ended = (f"the --max-seconds {a.max_seconds} budget ran out at starts_at {cursor}; "
+                 "rows after it were NOT examined")
+    # Checked on DELETIONS only. Clearing an end date is reversible in the sense
+    # that matters — the row stays, the sync refills it from the source on the
+    # next full refresh — so it does not deserve a tripwire that stops the run.
+    # Printed in a REPORT as well: the report is what somebody reads before
+    # allowing deletes, and "would --apply have refused?" is its first question.
+    share = (len(doomed) / seen) if seen else 0.0
+    refuse = too_many(len(doomed), seen, a.max_share, a.min_sample)
+
+    print(f"read {seen} row(s); walk ended: {ended}")
+    print(f"  {len(doomed)} advertisement(s) to delete: {share:.2%} of rows read, "
+          f"against the {a.max_share:.0%} ceiling"
+          + (" - OVER IT, so --apply would refuse" if refuse else ""))
     print(f"  {len(unbounded)} row(s) whose end date is not a fact")
-    for _id, why, title in doomed[:a.show]:
-        print(f"    DELETE [{why}] {title}")
+    for label, items in (("advertisements", doomed), ("end dates to clear", unbounded)):
+        if items:
+            print(f"  {label} by source (host of each row's Tickets / info link):")
+            for host, n in collections.Counter(x[3] for x in items).most_common(15):
+                print(f"    {n:>6}  {host}")
+    for _id, why, title, host in doomed[:a.show]:
+        print(f"    DELETE [{why}] {title}  ({host})")
     if len(doomed) > a.show:
         print(f"    … and {len(doomed) - a.show} more")
-    for _id, span, title in unbounded[:a.show]:
-        print(f"    CLEAR END [{span} days] {title}")
+    for _id, span, title, host in unbounded[:a.show]:
+        print(f"    CLEAR END [{span} days] {title}  ({host})")
     if len(unbounded) > a.show:
         print(f"    … and {len(unbounded) - a.show} more")
 
@@ -215,11 +268,7 @@ def main() -> int:
         print("Report only. Re-run with --apply to delete and clear.")
         return 0
 
-    # Checked on DELETIONS only. Clearing an end date is reversible in the sense
-    # that matters — the row stays, the sync refills it from the source on the
-    # next full refresh — so it does not deserve a tripwire that stops the run.
-    share = (len(doomed) / seen) if seen else 0.0
-    if too_many(len(doomed), seen, a.max_share, a.min_sample):
+    if refuse:
         print()
         print(f"REFUSING TO WRITE: {len(doomed)} of {seen} rows ({share:.1%}) matched, "
               f"over the {a.max_share:.0%} ceiling.")
