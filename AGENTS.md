@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 215 of them — live in
+session.** The measured notes about what bites — 217 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -21,7 +21,7 @@ the Worker this pipeline feeds), `../Fish/fishsie-repo` (the game),
 ## The shape of it
 
 ```
-41 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+44 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -47,7 +47,7 @@ front doors it reaches.
 | North American public library programmes | `mapsee_ingest_bibliocommons.py` + `bibliocommons_sources.json` - six systems, 28,314 upcoming measured 2026-09-03, every row carrying its branch's surveyed coordinate |
 | Public swimming pools | the `leisure=swimming_pool` Kind in `mapsee_ingest_osm_amenities.py`. The only Kind with an extra Overpass filter, and the reason is that most pools on earth are in back gardens |
 | Whether a platform has already been probed and refused | `curation_ledger.json` - `verify` skips a `fail` for 90 days without a network call. The table under "Platforms probed" below is the durable half |
-| Whether a row is an advertisement rather than an event | `mapsee_spam.py` — one predicate, wired into `EventStore.upsert` so all 41 adapters get it; `test_spam.py` is mostly about what it must NOT refuse |
+| Whether a row is an advertisement rather than an event | `mapsee_spam.py` — one predicate, wired into `EventStore.upsert` so all 44 adapters get it; a phone number in the title counts only from Mobilizon, Gancio or an unknown source; `test_spam.py` is mostly about what it must NOT refuse |
 | How much of a source is advertising | `mapsee_spam_audit.py` — measures the rate per instance, so `_not_included` is a number and not an impression |
 | Removing an event that was never ANYWHERE (a Zoom call with a street pin) | `mapsee_retire_online_events.py` — the backfill half of `looks_online_only`/`venue_is_only_a_plus_code` in `mapsee_ingest.py`. Report by default, `--apply` to write, `--unhide` to take it back; opt-in input on `prune-cancelled.yml` |
 | Removing an event the source has since CANCELLED | `mapsee_prune_cancelled.py` — re-probes upcoming rows at their own source URL; hides on schema.org `EventCancelled` or a 404, never on prose or a 403. Report by default, `--apply` to write; twice daily from `prune-cancelled.yml` — 07:55 full sweep (between the import and the janitor) and 16:55 near horizon (`--days 2`), because a once-daily run cannot catch a same-day cancellation |
@@ -110,7 +110,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | A state fair's dates | `docs/agents/state-fairs.md` | `python test_ingest_seattlecenter.py` (yearless dates share the lesson) |
 | Brazil is empty, or a Mapas Culturais row is odd | `docs/agents/brazil-mapasculturais.md` | `python test_ingest_mapasculturais.py` |
 | One specific adapter or source misbehaves | `docs/agents/adapters-and-sources.md` | its `test_ingest_<name>.py` |
-| A secret is missing | `docs/agents/credentials.md` | `.env.example` lists all 36 |
+| A secret is missing | `docs/agents/credentials.md` | `.env.example` lists all 37 |
 
 ## The notes
 
@@ -127,7 +127,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/dates-and-timezones.md` | 10 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |
 | `docs/agents/geocoding-and-addresses.md` | 6 | Census, Photon, wrong coordinates, the city in the address |
-| `docs/agents/spam-and-content.md` | 6 | the predicate, the purge, implausible end dates, safe scheduled deletes |
+| `docs/agents/spam-and-content.md` | 8 | the predicate, the purge, implausible end dates, safe scheduled deletes |
 | `docs/agents/state-fairs.md` | 5 | marketing-copy dates, towns vs venues |
 | `docs/agents/health-and-monitoring.md` | 6 | `stats_snapshot_all`, baselines, a source with no retry |
 | `docs/agents/libraries-bibliocommons.md` | 4 | geocoding cost, ignored date filters, stock tiles |

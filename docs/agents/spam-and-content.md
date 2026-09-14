@@ -15,7 +15,7 @@
   upcoming listings, 11.8%, are not events as published.**
   So the defence is TWO layers and they do different jobs.
   `mapsee_spam.py` in `EventStore.upsert` stops the ROW (it is the only place all
-  41 adapters pass through, and it runs BEFORE the dedupe — a scam listing pinned
+  44 adapters pass through, and it runs BEFORE the dedupe — a scam listing pinned
   to a real venue on a real night shares three of the fingerprint's four parts,
   so judging it later would fold an advert INTO somebody's actual event).
   `mapsee_spam_audit.py` scores the SOURCE, because a calendar somebody spammed
@@ -101,9 +101,15 @@
   table scan in the ingest window, and the rescued `--max-seconds 1000` stopped
   short of the end every time (it is 1800 against `timeout-minutes: 35`). What
   that walk would have done: delete **256** rows, **0.03%** of rows read and far
-  under the ceiling — gamenight.host 115, meetup.com 26, mobilizon.fr 20,
-  mobilizon.ethibox.fr 15, papafagla.com 11, then single-digit marabout pages on
-  wordpress, simdif and blogspot — and clear **48** end dates. Read the clears
+  under the ceiling — and **29 of the 256 were real events**, not adverts: 26 on
+  Meetup (beach-volleyball sessions with a WhatsApp number, a storytelling
+  slam's "Contact no", two real-estate investor meetings) and 3 on OpenAgenda
+  (apprenticeship days with a booking line). The rules were at fault, not the
+  sources, and the next note narrows them: replayed through the narrowed rules,
+  the same walk gives **227** deletes, 0.031% — gamenight.host 115, mobilizon.fr
+  20, mobilizon.ethibox.fr 15, papafagla.com 11, then single-digit marabout
+  pages on wordpress, simdif and blogspot — and still clears **48** end dates.
+  Read the clears
   before switching it on: they include real listings (openagenda exhibitions of
   401-487 days, Repair Lab, a library's opening hours, weekly football and
   basketball sessions), and a cleared end on a row whose start has passed is
@@ -112,3 +118,29 @@
   database: run one at a time, and not in the ingest window. An earlier "9.89%,
   over the ceiling" was the walk as rescued, which read only 2,285 rows — a
   `+00:00` cursor sent unquoted, then a 500-row instant it could not page past.
+
+- **A NUMBER IN THE TITLE IS THE ADVERT ON MOBILIZON AND AN RSVP LINE ON MEETUP,
+  so the rule asks where the row came from.** On the full walk (744,093 rows,
+  2026-09-14) the phone-in-title rule matched **232** rows: **205** adverts and
+  **27** real events, 24 on Meetup and 3 on OpenAgenda, each with an
+  organiser's contact number. The table stores no adapter, so where the 227
+  adverts came from had to be shown: **153** link to a Mobilizon instance
+  (gamenight.host 115, mobilizon.fr 20, mobilizon.ethibox.fr 15, mobilizon.us
+  3), and no config of any other adapter names any of the 86 Mobilizon and
+  Gancio hosts. The other **74** link to the advertiser's own page or to
+  nothing; asking the instances' public API (200 read-only searches) found
+  **56** of them (26 of 32 link groups) on gamenight.host, mobilizon.ethibox.fr
+  or mobilizon.us — 53 publishing that page as the `onlineAddress` the Mobilizon
+  adapter turns into the link, and the 3 with no link matched by title. None of
+  the remaining 6 hosts is named by any config, and only 6 of their 18 rows
+  depend on the number rule; the rest carry a listed phrase.
+  So a number now counts only from Mobilizon and Gancio — and from an UNKNOWN
+  source, because the purge infers the source from the link and 55
+  number-caught adverts link nowhere else. The bulk-account trade is read from
+  titles only: its description scan matched 2 rows on the whole table, both
+  real investor meetings about retirement accounts, and no advert. Replayed
+  offline over that walk's 256 flags (the next walk could not start before the
+  ingest window): **227** remain, **0** of the 29 real events and **all 227**
+  adverts. The price is at the door: a number-only advert arriving through
+  Meetup, an ICS feed or any other named non-open source now passes the gate;
+  none of the 205 linked to one. `test_spam.py` carries the 29 real titles.
