@@ -1110,6 +1110,22 @@
         "lon": 3.5289922
       },
       "_metro": "Ghent, BE"
+    },
+    {
+      "name": "In-Verso Libros",
+      "category": "learning",
+      "_found": "osm:books -> squarespace",
+      "collection": "https://www.in-verso.es/eventos",
+      "max_events": 200,
+      "venue": {
+        "name": "In-Verso Libros",
+        "address": "21 Calle de Augusto Figueroa",
+        "city": "Madrid",
+        "postal_code": "28004",
+        "lat": 40.422673,
+        "lon": -3.6990565
+      },
+      "_metro": "Madrid, ES"
     }
   ]
 }

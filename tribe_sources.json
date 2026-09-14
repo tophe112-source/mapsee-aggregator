@@ -7200,6 +7200,426 @@
       "default_region": "Minnesota",
       "default_country": "US",
       "_metro": "Bemidji, Minnesota"
+    },
+    {
+      "name": "La Maison Arc-en-ciel",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.macliege.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Maison Arc-en-ciel",
+        "address": "7 Rue Hors-Château",
+        "lat": 50.6470122,
+        "lon": 5.5776079
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "COC Limburg",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://coclimburg.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "COC Limburg",
+        "address": "43 Bogaardenstraat",
+        "city": "Maastricht",
+        "postal_code": "6211SN",
+        "lat": 50.8515348,
+        "lon": 5.6882915
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "la fabrik",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "http://lafabrik.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "la fabrik",
+        "lat": 50.6789129,
+        "lon": 5.639179
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "Centre Sportif d'Outremeuse",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.liegesport.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre Sportif d'Outremeuse",
+        "address": "1 Rue de l'Ourthe",
+        "city": "Liège",
+        "postal_code": "4020",
+        "country": "BE",
+        "lat": 50.6387663,
+        "lon": 5.583089
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "Centre culturel de Chênée",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://cheneeculture.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre culturel de Chênée",
+        "address": "1 Rue de l'Église",
+        "city": "Liège",
+        "postal_code": "4032",
+        "country": "BE",
+        "lat": 50.6119858,
+        "lon": 5.6164476
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "Musée de la Ville d'Eaux",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.spamuseum.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée de la Ville d'Eaux",
+        "address": "77B Avenue Reine Astrid",
+        "lat": 50.4920503,
+        "lon": 5.8574108
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "Centre Culturel d'Engis",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://www.ccengis.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre Culturel d'Engis",
+        "address": "7 Rue du Pont",
+        "city": "Engis",
+        "postal_code": "4480",
+        "country": "BE",
+        "lat": 50.5591624,
+        "lon": 5.3621717
+      },
+      "_metro": "Liege, BE"
+    },
+    {
+      "name": "Casa de León",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://leonesesenmadrid.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Casa de León",
+        "address": "6 Calle del Pez",
+        "city": "Madrid",
+        "postal_code": "28004",
+        "lat": 40.4229307,
+        "lon": -3.7040239
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Centro diocesano de Pastoral Social Santa María de Fontarrón",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.pastoralsocialmadrid.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centro diocesano de Pastoral Social Santa María de Fontarrón",
+        "address": "32 posterior Calle de Ramón Pérez de Ayala",
+        "postal_code": "28038",
+        "lat": 40.3989068,
+        "lon": -3.6530773
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Librería Paulinas",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://librerias.paulinas.es",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Librería Paulinas",
+        "address": "114 Calle de San Bernardo",
+        "city": "Madrid",
+        "postal_code": "28015",
+        "lat": 40.4313237,
+        "lon": -3.7049782
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Comisión Española de Ayuda al Refugiado",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cear.es",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Comisión Española de Ayuda al Refugiado",
+        "address": "6,7 Glorieta de Cuatro Caminos",
+        "lat": 40.4473663,
+        "lon": -3.7035574
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Teatro Asura",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://teatroasura.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro Asura",
+        "address": "1 Calle de Abel",
+        "city": "Madrid",
+        "postal_code": "28039",
+        "lat": 40.449795,
+        "lon": -3.7072163
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Sin Tarima Libros",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://sintarimalibros.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sin Tarima Libros",
+        "address": "32 Calle de la Magdalena",
+        "city": "Madrid",
+        "postal_code": "28012",
+        "lat": 40.4123077,
+        "lon": -3.7003326
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Fundación Budista Jardín de la Compasión",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://jardindelacompasion.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fundación Budista Jardín de la Compasión",
+        "address": "27 Calle de Vicenta Villegas",
+        "city": "Madrid",
+        "postal_code": "28047",
+        "lat": 40.4021492,
+        "lon": -3.7467556
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Librería La Fabulosa",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://lafabulosalibreria.es",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Librería La Fabulosa",
+        "address": "40 Calle del Barco",
+        "city": "Madrid",
+        "postal_code": "28004",
+        "lat": 40.4235137,
+        "lon": -3.7021691
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Indoorwall",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.indoorwall.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Indoorwall",
+        "address": "27 Calle Fundidores",
+        "postal_code": "28906",
+        "lat": 40.311873,
+        "lon": -3.7030909
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Espacio Mujer Madrid",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.espaciomujermadrid.es",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Espacio Mujer Madrid",
+        "lat": 40.3755238,
+        "lon": -3.661769
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Centro del Títere",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://centrodeltitere.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centro del Títere",
+        "address": "Calle de los Siete Ojos",
+        "postal_code": "28922",
+        "lat": 40.3465625,
+        "lon": -3.8346875
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Teatro Pavón",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://teatrokamikaze.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro Pavón",
+        "address": "9 Calle de Embajadores",
+        "city": "Madrid",
+        "postal_code": "28012",
+        "lat": 40.4100898,
+        "lon": -3.706104
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "IE Business School Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://library.ie.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "IE Business School Library",
+        "address": "8 Calle Castellón de la Plana",
+        "city": "Madrid",
+        "postal_code": "28006",
+        "lat": 40.4399954,
+        "lon": -3.6840397
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Ateneo Científico, Literario y Artístico de Madrid",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ateneodemadrid.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ateneo Científico, Literario y Artístico de Madrid",
+        "address": "19 Calle del Prado",
+        "city": "Madrid",
+        "postal_code": "28014",
+        "lat": 40.4151747,
+        "lon": -3.6983059
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Teatro Nuevo Apolo",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://summummusic.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro Nuevo Apolo",
+        "address": "1 Plaza de Tirso de Molina",
+        "city": "Madrid",
+        "postal_code": "28012",
+        "lat": 40.4121214,
+        "lon": -3.7033178
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Teatros del Canal",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.teatroscanal.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatros del Canal",
+        "lat": 40.4382403,
+        "lon": -3.7051722
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "?",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://colegioparaiso.es",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "lat": 40.4567267,
+        "lon": -3.6845157
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Teatro de Títeres de El Retiro",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://teatrotiteresretiro.es",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro de Títeres de El Retiro",
+        "lat": 40.4187135,
+        "lon": -3.6867038
+      },
+      "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Centro de Meditación Kadampa, Majadahonda",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://meditaenmadrid.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centro de Meditación Kadampa, Majadahonda",
+        "address": "8 Calle de la Fábrica",
+        "postal_code": "28221",
+        "lat": 40.4766055,
+        "lon": -3.8585163
+      },
+      "_metro": "Madrid, ES"
     }
   ],
   "_not_included": {

@@ -12021,5 +12021,167 @@
   "limit": 300,
   "_found": "civic:city -> civicplus[Events]",
   "_metro": "Monticello, Minnesota"
+ },
+ {
+  "name": "Lockhart — Main Calendar",
+  "category": "community",
+  "url": "https://www.cityoflockhart.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Lockhart, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Lockhart, Texas"
+ },
+ {
+  "name": "St. Augustine — Public Events",
+  "category": "community",
+  "url": "https://www.citystaug.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", St. Augustine, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Public Events]",
+  "_metro": "St. Augustine, Florida"
+ },
+ {
+  "name": "Lebanon — Colburn Park and City Events",
+  "category": "community",
+  "url": "https://lebanonnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Lebanon, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Colburn Park and City Events]",
+  "_metro": "Lebanon, New Hampshire"
+ },
+ {
+  "name": "Lebanon — Lebanon Farmers' Market",
+  "category": "market",
+  "url": "https://lebanonnh.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Lebanon, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Lebanon Farmers' Market]",
+  "_metro": "Lebanon, New Hampshire"
+ },
+ {
+  "name": "Red Oak — Library Events Calendar",
+  "category": "learning",
+  "url": "https://www.redoaktx.org/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Red Oak, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Events Calendar]",
+  "_metro": "Red Oak, Texas"
+ },
+ {
+  "name": "Red Oak — City Holidays Calendar",
+  "category": "community",
+  "url": "https://www.redoaktx.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Red Oak, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Holidays Calendar]",
+  "_metro": "Red Oak, Texas"
+ },
+ {
+  "name": "Willowick",
+  "category": "community",
+  "_found": "civic:city -> civicplus+ics",
+  "url": "https://www.cityofwillowick.com/calendar/ical/%2A/calendar.ics",
+  "geocode_suffix": ", Willowick, Ohio",
+  "limit": 300,
+  "_metro": "Willowick, Ohio"
+ },
+ {
+  "name": "Snoqualmie — Bloodworks Pop-Up Blood Drive",
+  "category": "community",
+  "url": "https://www.snoqualmiewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=58&feed=calendar",
+  "geocode_suffix": ", Snoqualmie, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Bloodworks Pop-Up Blood Drive]",
+  "_metro": "Snoqualmie, Washington"
+ },
+ {
+  "name": "Snoqualmie — Green Snoqualmie",
+  "category": "community",
+  "url": "https://www.snoqualmiewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=64&feed=calendar",
+  "geocode_suffix": ", Snoqualmie, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Green Snoqualmie]",
+  "_metro": "Snoqualmie, Washington"
+ },
+ {
+  "name": "Snoqualmie — Sustainability Events",
+  "category": "community",
+  "url": "https://www.snoqualmiewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Snoqualmie, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Sustainability Events]",
+  "_metro": "Snoqualmie, Washington"
+ },
+ {
+  "name": "Snoqualmie — Special Events",
+  "category": "community",
+  "url": "https://www.snoqualmiewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Snoqualmie, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Snoqualmie, Washington"
+ },
+ {
+  "name": "Snoqualmie — City Sponsored Community Events",
+  "category": "community",
+  "url": "https://www.snoqualmiewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=52&feed=calendar",
+  "geocode_suffix": ", Snoqualmie, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Sponsored Community Events]",
+  "_metro": "Snoqualmie, Washington"
+ },
+ {
+  "name": "New Ulm — Library Events",
+  "category": "learning",
+  "url": "https://www.newulmmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", New Ulm, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Events]",
+  "_metro": "New Ulm, Minnesota"
+ },
+ {
+  "name": "Pierre — Library",
+  "category": "learning",
+  "url": "https://www.cityofpierre.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Pierre, South Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Pierre, South Dakota"
+ },
+ {
+  "name": "Pierre — Golf",
+  "category": "community",
+  "url": "https://www.cityofpierre.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Pierre, South Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Golf]",
+  "_metro": "Pierre, South Dakota"
+ },
+ {
+  "name": "Jacksonville",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://www.jacksonvilletx.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Jacksonville, Texas",
+  "limit": 300,
+  "_metro": "Jacksonville, Texas"
+ },
+ {
+  "name": "Centre Culturel - Salle de Soumagne-Bas",
+  "category": "community",
+  "_found": "osm:community_centre -> events-manager",
+  "url": "http://www.ccsoumagne.be/evenements/?ical=1",
+  "geocode_suffix": ", Liege, BE",
+  "limit": 300,
+  "_metro": "Liege, BE"
+ },
+ {
+  "name": "Parroquia de Santa Catalina Mártir",
+  "category": "community",
+  "_found": "osm:place_of_worship -> my-calendar",
+  "url": "https://www.conferenciaepiscopal.es/?feed=my-calendar-ics",
+  "geocode_suffix": ", Madrid, ES",
+  "limit": 300,
+  "_metro": "Madrid, ES"
  }
 ]

@@ -2846,6 +2846,187 @@
     "lon": 5.6907465
    },
    "_metro": "Liege, BE"
+  },
+  {
+   "name": "Centre Culturel",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://centreculturelremicourt.be/agenda/"
+   ],
+   "link_pattern": "https://centreculturelremicourt\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Centre Culturel",
+    "address": "25 Rue Haute",
+    "city": "Remicourt",
+    "postal_code": "4350",
+    "lat": 50.6805554,
+    "lon": 5.3313481
+   },
+   "_metro": "Liege, BE"
+  },
+  {
+   "name": "Teatro Arlequín Gran Vía",
+   "category": "theater",
+   "_found": "osm:theatre -> modern-events+jsonld-event",
+   "listing": [
+    "https://teatroarlequingranvia.com/eventos/"
+   ],
+   "link_pattern": "https://teatroarlequingranvia\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Teatro Arlequín Gran Vía",
+    "address": "5 Calle de San Bernardo",
+    "city": "Madrid",
+    "postal_code": "28013",
+    "lat": 40.4211706,
+    "lon": -3.7082023
+   },
+   "_metro": "Madrid, ES"
+  },
+  {
+   "name": "Sala Cuarta Pared",
+   "category": "theater",
+   "_found": "osm:theatre -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.cuartapared.es/calendario/"
+   ],
+   "link_pattern": "https://www\\.cuartapared\\.es/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Sala Cuarta Pared",
+    "lat": 40.402729,
+    "lon": -3.7026399
+   },
+   "_metro": "Madrid, ES"
+  },
+  {
+   "name": "Off de La Latina",
+   "category": "theater",
+   "_found": "osm:theatre -> modern-events+jsonld-event",
+   "listing": [
+    "https://offlatina.com/calendario/"
+   ],
+   "link_pattern": "https://offlatina\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Off de La Latina",
+    "address": "4 Calle de los Mancebos",
+    "city": "Madrid",
+    "postal_code": "28005",
+    "lat": 40.4120565,
+    "lon": -3.71201
+   },
+   "_metro": "Madrid, ES"
+  },
+  {
+   "name": "Teatro Flamenco Madrid",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://teatroflamencomadrid.com/"
+   ],
+   "link_pattern": "https://teatroflamencomadrid\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Teatro Flamenco Madrid",
+    "address": "10 Calle del Pez",
+    "postal_code": "28004",
+    "lat": 40.4231556,
+    "lon": -3.7044582
+   },
+   "_metro": "Madrid, ES"
+  },
+  {
+   "name": "Real Cocina de Palacio",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://tickets.patrimonionacional.es/es/tickets/cocinas-palacio-real-de-madrid"
+   ],
+   "link_pattern": "https://tickets\\.patrimonionacional\\.es/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Real Cocina de Palacio",
+    "lat": 40.4186054,
+    "lon": -3.7137367
+   },
+   "_metro": "Madrid, ES"
+  },
+  {
+   "name": "Teatro rey de pikas",
+   "category": "theater",
+   "_found": "osm:theatre -> modern-events+jsonld-event",
+   "listing": [
+    "https://teatroreydepikas.com/eventos/"
+   ],
+   "link_pattern": "https://teatroreydepikas\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Teatro rey de pikas",
+    "address": "4 Tirso de Molina",
+    "city": "Leganes",
+    "postal_code": "28912",
+    "lat": 40.3254847,
+    "lon": -3.7624681
+   },
+   "_metro": "Madrid, ES"
+  },
+  {
+   "name": "ajedrezblancoynegro.com",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://ajedrezblancoynegro.com/event/"
+   ],
+   "link_pattern": "https://ajedrezblancoynegro\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "ajedrezblancoynegro.com",
+    "address": "2 Calle del Conde de la Cimera",
+    "city": "Madrid",
+    "postal_code": "28040",
+    "lat": 40.4467782,
+    "lon": -3.714568
+   },
+   "_metro": "Madrid, ES"
+  },
+  {
+   "name": "Librería Taiga",
+   "category": "learning",
+   "_found": "osm:books -> modern-events+jsonld-event",
+   "listing": [
+    "https://libreriataigamadrid.es/otros-eventos/"
+   ],
+   "link_pattern": "https://libreriataigamadrid\\.es/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Librería Taiga",
+    "address": "54 Calle Arturo Soria",
+    "city": "Madrid",
+    "postal_code": "28027",
+    "lat": 40.4430881,
+    "lon": -3.6415694
+   },
+   "_metro": "Madrid, ES"
+  },
+  {
+   "name": "WIT Impro",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://vivirsinguion.com/shows-de-improvisacion-de-este-mes/"
+   ],
+   "link_pattern": "https://vivirsinguion\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "WIT Impro",
+    "address": "70 Calle Navas del Rey",
+    "lat": 40.407141,
+    "lon": -3.7362591
+   },
+   "_metro": "Madrid, ES"
   }
  ],
  "_not_included": {
