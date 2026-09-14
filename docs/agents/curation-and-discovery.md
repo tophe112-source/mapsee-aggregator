@@ -322,3 +322,18 @@
   `Content-Signal: search=yes,ai-train=no,use=reference` — and it names
   ClaudeBot, GPTBot and CCBot in individual Disallow groups, so anything reading
   it must be honest about which UA it sends.
+
+- **Open data has trail INVENTORIES, not led walks, and the catalog says so as
+  plainly as it did for block parties.** Measured 2026-09-13 against the live
+  Socrata federated catalog, page 1 of each: "guided hikes" matches 5 datasets
+  in total, "ranger programs" 5, "naturalist programs" 3, "hiking trails
+  events" 1, "bird walks" 11. The big ones are big and empty — "nature
+  programs" 600, "park programs" 514, "recreation programs" 476 — and across
+  all eleven new terms, plus the two `parks events` / `recreation programs`
+  queries already in DISCOVER_QUERIES, **zero** datasets are both event-shaped
+  (`_infer_map`) and not already configured or known-dead. A city publishes the
+  GEOMETRY of its trails and the boundary of its parks; the Tuesday morning
+  bird walk along that trail is on the nature centre's own calendar. So do not
+  add these queries — the same answer as for local music and festivals, and the
+  reason the park-agency seed list above is a hand-curated file rather than a
+  discovery backend.

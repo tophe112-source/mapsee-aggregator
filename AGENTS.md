@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 197 of them — live in
+session.** The measured notes about what bites — 198 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -114,7 +114,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 | File | Notes | Covers |
 |---|---|---|
-| `docs/agents/curation-and-discovery.md` | 30 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences |
+| `docs/agents/curation-and-discovery.md` | 31 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences |
 | `docs/agents/osm-amenities.md` | 23 | which civic places earn a pin or a sheet, deny-lists, facts vs names, the cached element list |
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 17 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |

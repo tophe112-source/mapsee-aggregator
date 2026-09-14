@@ -10032,5 +10032,1994 @@
   "limit": 300,
   "_found": "civic:city -> civicplus[Tourism]",
   "_metro": "Maumelle, Arkansas"
+ },
+ {
+  "name": "Twinsburg — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.mytwinsburg.com/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Twinsburg, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Twinsburg, Ohio"
+ },
+ {
+  "name": "Twinsburg — Around Town",
+  "category": "community",
+  "url": "https://www.mytwinsburg.com/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Twinsburg, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Around Town]",
+  "_metro": "Twinsburg, Ohio"
+ },
+ {
+  "name": "Twinsburg — Community Events",
+  "category": "community",
+  "url": "https://www.mytwinsburg.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Twinsburg, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Twinsburg, Ohio"
+ },
+ {
+  "name": "Twinsburg — Fitness Center",
+  "category": "fitness",
+  "url": "https://www.mytwinsburg.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Twinsburg, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Fitness Center]",
+  "_metro": "Twinsburg, Ohio"
+ },
+ {
+  "name": "Lakeway — Swim Center",
+  "category": "community",
+  "url": "https://www.lakeway-tx.gov/common/modules/iCalendar/iCalendar.aspx?catID=46&feed=calendar",
+  "geocode_suffix": ", Lakeway, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Swim Center]",
+  "_metro": "Lakeway, Texas"
+ },
+ {
+  "name": "Lakeway — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.lakeway-tx.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
+  "geocode_suffix": ", Lakeway, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Lakeway, Texas"
+ },
+ {
+  "name": "Lakeway — City Wide Calendar",
+  "category": "community",
+  "url": "https://www.lakeway-tx.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Lakeway, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Wide Calendar]",
+  "_metro": "Lakeway, Texas"
+ },
+ {
+  "name": "Lakeway — Police Department",
+  "category": "community",
+  "url": "https://www.lakeway-tx.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+  "geocode_suffix": ", Lakeway, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Department]",
+  "_metro": "Lakeway, Texas"
+ },
+ {
+  "name": "Weirton — City of Weirton",
+  "category": "community",
+  "url": "https://www.cityofweirton.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Weirton, West Virginia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City of Weirton]",
+  "_metro": "Weirton, West Virginia"
+ },
+ {
+  "name": "Cumberland — City Observed Holidays",
+  "category": "community",
+  "url": "https://www.cumberlandmd.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Cumberland, Maryland",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Observed Holidays]",
+  "_metro": "Cumberland, Maryland"
+ },
+ {
+  "name": "Durango — Library Calendar",
+  "category": "learning",
+  "url": "https://www.durangoco.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Durango, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Calendar]",
+  "_metro": "Durango, Colorado"
+ },
+ {
+  "name": "Durango — Event Calendar",
+  "category": "community",
+  "url": "https://www.durangoco.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Durango, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Event Calendar]",
+  "_metro": "Durango, Colorado"
+ },
+ {
+  "name": "Durango — Parks & Rec Calendar",
+  "category": "community",
+  "url": "https://www.durangoco.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Durango, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Rec Calendar]",
+  "_metro": "Durango, Colorado"
+ },
+ {
+  "name": "Cocoa — Leisure Services (Special Events)",
+  "category": "community",
+  "url": "https://www.cocoafl.gov/common/modules/iCalendar/iCalendar.aspx?catID=15&feed=calendar",
+  "geocode_suffix": ", Cocoa, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Leisure Services (Special Events)]",
+  "_metro": "Cocoa, Florida"
+ },
+ {
+  "name": "Cocoa — City-Wide Events",
+  "category": "community",
+  "url": "https://www.cocoafl.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Cocoa, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City-Wide Events]",
+  "_metro": "Cocoa, Florida"
+ },
+ {
+  "name": "Cocoa — Police",
+  "category": "community",
+  "url": "https://www.cocoafl.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Cocoa, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police]",
+  "_metro": "Cocoa, Florida"
+ },
+ {
+  "name": "Tavares — Event Calendar",
+  "category": "community",
+  "url": "https://www.tavaresfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=52&feed=calendar",
+  "geocode_suffix": ", Tavares, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Event Calendar]",
+  "_metro": "Tavares, Florida"
+ },
+ {
+  "name": "Greenfield — Groudwater Sustainability Agency",
+  "category": "community",
+  "url": "https://www.greenfieldca.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Greenfield, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Groudwater Sustainability Agency]",
+  "_metro": "Greenfield, California"
+ },
+ {
+  "name": "Ottawa — Port District Calendar",
+  "category": "community",
+  "url": "https://cityofottawa.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Ottawa, Illinois",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Port District Calendar]",
+  "_metro": "Ottawa, Illinois"
+ },
+ {
+  "name": "North Myrtle Beach — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.nmb.us/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", North Myrtle Beach, South Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "North Myrtle Beach, South Carolina"
+ },
+ {
+  "name": "North Myrtle Beach — Aquatic & Fitness Center Birthdays",
+  "category": "fitness",
+  "url": "https://www.nmb.us/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", North Myrtle Beach, South Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Aquatic & Fitness Center Birthdays]",
+  "_metro": "North Myrtle Beach, South Carolina"
+ },
+ {
+  "name": "North Myrtle Beach — Sports Complex",
+  "category": "community",
+  "url": "https://www.nmb.us/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", North Myrtle Beach, South Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Sports Complex]",
+  "_metro": "North Myrtle Beach, South Carolina"
+ },
+ {
+  "name": "North Myrtle Beach — Aquatic & Fitness Center",
+  "category": "fitness",
+  "url": "https://www.nmb.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", North Myrtle Beach, South Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Aquatic & Fitness Center]",
+  "_metro": "North Myrtle Beach, South Carolina"
+ },
+ {
+  "name": "North Myrtle Beach — Holidays & Offices Closed",
+  "category": "community",
+  "url": "https://www.nmb.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", North Myrtle Beach, South Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Holidays & Offices Closed]",
+  "_metro": "North Myrtle Beach, South Carolina"
+ },
+ {
+  "name": "Springfield — City Calendar",
+  "category": "community",
+  "url": "https://springfieldtn.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Springfield, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Calendar]",
+  "_metro": "Springfield, Tennessee"
+ },
+ {
+  "name": "Lynn Haven — Fire Department",
+  "category": "community",
+  "url": "https://www.cityoflynnhaven.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Lynn Haven, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Fire Department]",
+  "_metro": "Lynn Haven, Florida"
+ },
+ {
+  "name": "Ellensburg — B. Adult Activity Center",
+  "category": "community",
+  "url": "https://ci.ellensburg.wa.us/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
+  "geocode_suffix": ", Ellensburg, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[B. Adult Activity Center]",
+  "_metro": "Ellensburg, Washington"
+ },
+ {
+  "name": "Ellensburg — Library",
+  "category": "learning",
+  "url": "https://ci.ellensburg.wa.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Ellensburg, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Ellensburg, Washington"
+ },
+ {
+  "name": "Ellensburg — A. Events",
+  "category": "community",
+  "url": "https://ci.ellensburg.wa.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Ellensburg, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[A. Events]",
+  "_metro": "Ellensburg, Washington"
+ },
+ {
+  "name": "Berea — Parks and Rec - Recreation Center",
+  "category": "community",
+  "url": "https://www.cityofberea.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Berea, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Rec - Recreation Center]",
+  "_metro": "Berea, Ohio"
+ },
+ {
+  "name": "Berea — Parks and Rec - Indoor Pool",
+  "category": "community",
+  "url": "https://www.cityofberea.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Berea, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Rec - Indoor Pool]",
+  "_metro": "Berea, Ohio"
+ },
+ {
+  "name": "Berea — Festivals and Events",
+  "category": "community",
+  "url": "https://www.cityofberea.org/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Berea, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Festivals and Events]",
+  "_metro": "Berea, Ohio"
+ },
+ {
+  "name": "Berea — Veterans Outreach",
+  "category": "community",
+  "url": "https://www.cityofberea.org/common/modules/iCalendar/iCalendar.aspx?catID=43&feed=calendar",
+  "geocode_suffix": ", Berea, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Veterans Outreach]",
+  "_metro": "Berea, Ohio"
+ },
+ {
+  "name": "Trenton — DDA",
+  "category": "community",
+  "url": "https://www.trentonmi.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Trenton, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[DDA]",
+  "_metro": "Trenton, Michigan"
+ },
+ {
+  "name": "Ferguson — Main City Calendar",
+  "category": "community",
+  "url": "https://www.fergusoncity.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Ferguson, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main City Calendar]",
+  "_metro": "Ferguson, Missouri"
+ },
+ {
+  "name": "Ferguson — Special Events",
+  "category": "community",
+  "url": "https://www.fergusoncity.com/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Ferguson, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Ferguson, Missouri"
+ },
+ {
+  "name": "Groveland — City Events",
+  "category": "community",
+  "url": "https://groveland-fl.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Groveland, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Groveland, Florida"
+ },
+ {
+  "name": "Seagoville — Main City Calendar",
+  "category": "community",
+  "url": "https://www.seagoville.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Seagoville, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main City Calendar]",
+  "_metro": "Seagoville, Texas"
+ },
+ {
+  "name": "Tallmadge — Recreation Department Programs",
+  "category": "community",
+  "url": "https://www.tallmadgeoh.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Tallmadge, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation Department Programs]",
+  "_metro": "Tallmadge, Ohio"
+ },
+ {
+  "name": "Tallmadge — Recreation Events",
+  "category": "community",
+  "url": "https://www.tallmadgeoh.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Tallmadge, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation Events]",
+  "_metro": "Tallmadge, Ohio"
+ },
+ {
+  "name": "Lenoir — Events",
+  "category": "community",
+  "url": "https://www.cityoflenoir.com/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Lenoir, North Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Lenoir, North Carolina"
+ },
+ {
+  "name": "Manchester — Main Calendar",
+  "category": "community",
+  "url": "https://www.manchestermo.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Manchester, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Manchester, Missouri"
+ },
+ {
+  "name": "Manchester — Sustainability",
+  "category": "community",
+  "url": "https://www.manchestermo.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Manchester, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Sustainability]",
+  "_metro": "Manchester, Missouri"
+ },
+ {
+  "name": "Manchester — Community Events",
+  "category": "community",
+  "url": "https://www.manchestermo.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Manchester, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Manchester, Missouri"
+ },
+ {
+  "name": "Blythe — Blythe City Calendar",
+  "category": "community",
+  "url": "https://www.cityofblythe.ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar",
+  "geocode_suffix": ", Blythe, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Blythe City Calendar]",
+  "_metro": "Blythe, California"
+ },
+ {
+  "name": "White Settlement — Library",
+  "category": "learning",
+  "url": "https://www.wstx.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", White Settlement, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "White Settlement, Texas"
+ },
+ {
+  "name": "White Settlement — 1 Main Calendar",
+  "category": "community",
+  "url": "https://www.wstx.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", White Settlement, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[1 Main Calendar]",
+  "_metro": "White Settlement, Texas"
+ },
+ {
+  "name": "White Settlement — Parks and Rec",
+  "category": "community",
+  "url": "https://www.wstx.us/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", White Settlement, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Rec]",
+  "_metro": "White Settlement, Texas"
+ },
+ {
+  "name": "White Settlement — Senior Center",
+  "category": "community",
+  "url": "https://www.wstx.us/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", White Settlement, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Center]",
+  "_metro": "White Settlement, Texas"
+ },
+ {
+  "name": "Bay City — Library Events Calendar",
+  "category": "learning",
+  "url": "https://www.baycitytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Bay City, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Events Calendar]",
+  "_metro": "Bay City, Texas"
+ },
+ {
+  "name": "Bay City — Parks & Recreation Event Calendar",
+  "category": "community",
+  "url": "https://www.baycitytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Bay City, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation Event Calendar]",
+  "_metro": "Bay City, Texas"
+ },
+ {
+  "name": "Bay City — Special Events",
+  "category": "community",
+  "url": "https://www.baycitytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Bay City, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Bay City, Texas"
+ },
+ {
+  "name": "Anoka — Community Events",
+  "category": "community",
+  "url": "https://www.anokamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Anoka, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Anoka, Minnesota"
+ },
+ {
+  "name": "Anoka — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.anokamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Anoka, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Anoka, Minnesota"
+ },
+ {
+  "name": "Anoka — Better Values Liquor",
+  "category": "community",
+  "url": "https://www.anokamn.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Anoka, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Better Values Liquor]",
+  "_metro": "Anoka, Minnesota"
+ },
+ {
+  "name": "Sevierville — Police",
+  "category": "community",
+  "url": "https://www.seviervilletn.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Sevierville, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police]",
+  "_metro": "Sevierville, Tennessee"
+ },
+ {
+  "name": "Sevierville — Golf",
+  "category": "community",
+  "url": "https://www.seviervilletn.org/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Sevierville, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Golf]",
+  "_metro": "Sevierville, Tennessee"
+ },
+ {
+  "name": "Mebane",
+  "category": "community",
+  "_found": "civic:city -> events-manager",
+  "url": "https://cityofmebanenc.gov/events/?ical=1",
+  "geocode_suffix": ", Mebane, North Carolina",
+  "limit": 300,
+  "_metro": "Mebane, North Carolina"
+ },
+ {
+  "name": "Goodlettsville — Parks & Rec",
+  "category": "community",
+  "url": "https://www.goodlettsville.gov/common/modules/iCalendar/iCalendar.aspx?catID=19&feed=calendar",
+  "geocode_suffix": ", Goodlettsville, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Rec]",
+  "_metro": "Goodlettsville, Tennessee"
+ },
+ {
+  "name": "Goodlettsville — Delmas Long Community Center Gym Schedule",
+  "category": "community",
+  "url": "https://www.goodlettsville.gov/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar",
+  "geocode_suffix": ", Goodlettsville, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Delmas Long Community Center Gym Schedule]",
+  "_metro": "Goodlettsville, Tennessee"
+ },
+ {
+  "name": "Goodlettsville — Events, Programs & Holidays",
+  "category": "community",
+  "url": "https://www.goodlettsville.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Goodlettsville, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events, Programs & Holidays]",
+  "_metro": "Goodlettsville, Tennessee"
+ },
+ {
+  "name": "Goodlettsville — Senior Adult Programs",
+  "category": "community",
+  "url": "https://www.goodlettsville.gov/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
+  "geocode_suffix": ", Goodlettsville, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Adult Programs]",
+  "_metro": "Goodlettsville, Tennessee"
+ },
+ {
+  "name": "Goodlettsville — Fitness Calendar",
+  "category": "fitness",
+  "url": "https://www.goodlettsville.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
+  "geocode_suffix": ", Goodlettsville, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Fitness Calendar]",
+  "_metro": "Goodlettsville, Tennessee"
+ },
+ {
+  "name": "Goodlettsville — Parks and Recreation Events",
+  "category": "community",
+  "url": "https://www.goodlettsville.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
+  "geocode_suffix": ", Goodlettsville, Tennessee",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation Events]",
+  "_metro": "Goodlettsville, Tennessee"
+ },
+ {
+  "name": "Southbridge — Event Calender",
+  "category": "community",
+  "url": "https://www.ci.southbridge.ma.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Southbridge, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Event Calender]",
+  "_metro": "Southbridge, Massachusetts"
+ },
+ {
+  "name": "Anacortes — Anacortes History",
+  "category": "community",
+  "url": "https://www.anacorteswa.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar",
+  "geocode_suffix": ", Anacortes, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Anacortes History]",
+  "_metro": "Anacortes, Washington"
+ },
+ {
+  "name": "Anacortes — Library",
+  "category": "learning",
+  "url": "https://www.anacorteswa.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Anacortes, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Anacortes, Washington"
+ },
+ {
+  "name": "Anacortes — Main Calendar",
+  "category": "community",
+  "url": "https://www.anacorteswa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Anacortes, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Anacortes, Washington"
+ },
+ {
+  "name": "Anacortes — Featured Community Events",
+  "category": "community",
+  "url": "https://www.anacorteswa.gov/common/modules/iCalendar/iCalendar.aspx?catID=43&feed=calendar",
+  "geocode_suffix": ", Anacortes, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Featured Community Events]",
+  "_metro": "Anacortes, Washington"
+ },
+ {
+  "name": "Anacortes — Mayor",
+  "category": "community",
+  "url": "https://www.anacorteswa.gov/common/modules/iCalendar/iCalendar.aspx?catID=55&feed=calendar",
+  "geocode_suffix": ", Anacortes, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Mayor]",
+  "_metro": "Anacortes, Washington"
+ },
+ {
+  "name": "Takoma Park — Community Events",
+  "category": "community",
+  "url": "https://takomaparkmd.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Takoma Park, Maryland",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Takoma Park, Maryland"
+ },
+ {
+  "name": "Coalinga — Events",
+  "category": "community",
+  "url": "https://www.coalinga.com/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Coalinga, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Coalinga, California"
+ },
+ {
+  "name": "Stuart — Recreation Activities",
+  "category": "community",
+  "url": "https://www.stuartfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Stuart, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation Activities]",
+  "_metro": "Stuart, Florida"
+ },
+ {
+  "name": "Stuart — City Events Calendar",
+  "category": "community",
+  "url": "https://www.stuartfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Stuart, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events Calendar]",
+  "_metro": "Stuart, Florida"
+ },
+ {
+  "name": "Gainesville — Community Events",
+  "category": "community",
+  "url": "https://www.gainesville.tx.us/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Gainesville, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Gainesville, Texas"
+ },
+ {
+  "name": "Gainesville — Farmers Market",
+  "category": "market",
+  "url": "https://www.gainesville.tx.us/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Gainesville, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Farmers Market]",
+  "_metro": "Gainesville, Texas"
+ },
+ {
+  "name": "Gainesville — Airport",
+  "category": "community",
+  "url": "https://www.gainesville.tx.us/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Gainesville, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Airport]",
+  "_metro": "Gainesville, Texas"
+ },
+ {
+  "name": "Amesbury — Events",
+  "category": "community",
+  "url": "https://www.amesburyma.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Amesbury, Massachusetts",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Amesbury, Massachusetts"
+ },
+ {
+  "name": "Siloam Springs — Library",
+  "category": "learning",
+  "url": "https://www.siloamsprings.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Siloam Springs, Arkansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Siloam Springs, Arkansas"
+ },
+ {
+  "name": "Shelbyville — Events",
+  "category": "community",
+  "url": "https://shelbyvillekentucky.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Shelbyville, Kentucky",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Shelbyville, Kentucky"
+ },
+ {
+  "name": "Streetsboro",
+  "category": "community",
+  "_found": "civic:city -> events-manager",
+  "url": "https://www.cityofstreetsboro.com/events/?ical=1",
+  "geocode_suffix": ", Streetsboro, Ohio",
+  "limit": 300,
+  "_metro": "Streetsboro, Ohio"
+ },
+ {
+  "name": "Danville — Community Calendar",
+  "category": "community",
+  "url": "https://www.danvilleky.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Danville, Kentucky",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Calendar]",
+  "_metro": "Danville, Kentucky"
+ },
+ {
+  "name": "Danville — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.danvilleky.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Danville, Kentucky",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Danville, Kentucky"
+ },
+ {
+  "name": "Danville — Jennie Rogers Community Center",
+  "category": "community",
+  "url": "https://www.danvilleky.org/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Danville, Kentucky",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Jennie Rogers Community Center]",
+  "_metro": "Danville, Kentucky"
+ },
+ {
+  "name": "Norcross — Events",
+  "category": "community",
+  "url": "https://www.norcrossga.net/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Norcross, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Norcross, Georgia"
+ },
+ {
+  "name": "Bellaire — Community and Special Events Calendar",
+  "category": "community",
+  "url": "https://www.bellairetx.gov/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
+  "geocode_suffix": ", Bellaire, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community and Special Events Calendar]",
+  "_metro": "Bellaire, Texas"
+ },
+ {
+  "name": "Bellaire — Employee Calendar",
+  "category": "community",
+  "url": "https://www.bellairetx.gov/common/modules/iCalendar/iCalendar.aspx?catID=48&feed=calendar",
+  "geocode_suffix": ", Bellaire, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Employee Calendar]",
+  "_metro": "Bellaire, Texas"
+ },
+ {
+  "name": "Zephyrhills — Main Calendar",
+  "category": "community",
+  "url": "https://www.zephyrhills.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Zephyrhills, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Zephyrhills, Florida"
+ },
+ {
+  "name": "Cañon City — Library",
+  "category": "learning",
+  "url": "https://www.canoncity.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Cañon City, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Cañon City, Colorado"
+ },
+ {
+  "name": "Cañon City — Events",
+  "category": "community",
+  "url": "https://www.canoncity.org/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Cañon City, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Cañon City, Colorado"
+ },
+ {
+  "name": "Cañon City — Urban Renewal Authority",
+  "category": "community",
+  "url": "https://www.canoncity.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Cañon City, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Urban Renewal Authority]",
+  "_metro": "Cañon City, Colorado"
+ },
+ {
+  "name": "Safety Harbor — Library",
+  "category": "learning",
+  "url": "https://www.cityofsafetyharbor.com/common/modules/iCalendar/iCalendar.aspx?catID=19&feed=calendar",
+  "geocode_suffix": ", Safety Harbor, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Safety Harbor, Florida"
+ },
+ {
+  "name": "Safety Harbor — Special Events",
+  "category": "community",
+  "url": "https://www.cityofsafetyharbor.com/common/modules/iCalendar/iCalendar.aspx?catID=18&feed=calendar",
+  "geocode_suffix": ", Safety Harbor, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Safety Harbor, Florida"
+ },
+ {
+  "name": "Safety Harbor — Recreation",
+  "category": "community",
+  "url": "https://www.cityofsafetyharbor.com/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar",
+  "geocode_suffix": ", Safety Harbor, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation]",
+  "_metro": "Safety Harbor, Florida"
+ },
+ {
+  "name": "Safety Harbor — Main",
+  "category": "community",
+  "url": "https://www.cityofsafetyharbor.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Safety Harbor, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main]",
+  "_metro": "Safety Harbor, Florida"
+ },
+ {
+  "name": "Tifton — Tift Theatre",
+  "category": "community",
+  "url": "https://www.tiftonga.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Tifton, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Tift Theatre]",
+  "_metro": "Tifton, Georgia"
+ },
+ {
+  "name": "Tifton — Downtown Tifton Events",
+  "category": "community",
+  "url": "https://www.tiftonga.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Tifton, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Downtown Tifton Events]",
+  "_metro": "Tifton, Georgia"
+ },
+ {
+  "name": "Tifton — Financial Literacy Initiative",
+  "category": "community",
+  "url": "https://www.tiftonga.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Tifton, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Financial Literacy Initiative]",
+  "_metro": "Tifton, Georgia"
+ },
+ {
+  "name": "Tifton — Senior Center",
+  "category": "community",
+  "url": "https://www.tiftonga.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Tifton, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Center]",
+  "_metro": "Tifton, Georgia"
+ },
+ {
+  "name": "Tifton — Fire Department",
+  "category": "community",
+  "url": "https://www.tiftonga.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Tifton, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Fire Department]",
+  "_metro": "Tifton, Georgia"
+ },
+ {
+  "name": "Washougal — Main Calendar",
+  "category": "community",
+  "url": "https://www.cityofwashougal.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Washougal, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Washougal, Washington"
+ },
+ {
+  "name": "Washougal — Community Events",
+  "category": "community",
+  "url": "https://www.cityofwashougal.us/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Washougal, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Washougal, Washington"
+ },
+ {
+  "name": "Washougal — Special Events",
+  "category": "community",
+  "url": "https://www.cityofwashougal.us/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Washougal, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Washougal, Washington"
+ },
+ {
+  "name": "Washougal — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.cityofwashougal.us/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Washougal, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Washougal, Washington"
+ },
+ {
+  "name": "Princeton — Main Calendar",
+  "category": "community",
+  "url": "https://www.princetontx.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Princeton, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Princeton, Texas"
+ },
+ {
+  "name": "Bluffdale — City Events",
+  "category": "community",
+  "url": "https://www.bluffdale.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Bluffdale, Utah",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Bluffdale, Utah"
+ },
+ {
+  "name": "Anna — City Events Calendar",
+  "category": "community",
+  "url": "https://www.annatexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Anna, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events Calendar]",
+  "_metro": "Anna, Texas"
+ },
+ {
+  "name": "Powder Springs — Senior Center Calendar",
+  "category": "community",
+  "url": "https://www.powderspringsga.gov/common/modules/iCalendar/iCalendar.aspx?catID=16&feed=calendar",
+  "geocode_suffix": ", Powder Springs, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Center Calendar]",
+  "_metro": "Powder Springs, Georgia"
+ },
+ {
+  "name": "Powder Springs — Special Events",
+  "category": "community",
+  "url": "https://www.powderspringsga.gov/common/modules/iCalendar/iCalendar.aspx?catID=18&feed=calendar",
+  "geocode_suffix": ", Powder Springs, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Powder Springs, Georgia"
+ },
+ {
+  "name": "Powder Springs — Ford Center Calendar",
+  "category": "community",
+  "url": "https://www.powderspringsga.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Powder Springs, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Ford Center Calendar]",
+  "_metro": "Powder Springs, Georgia"
+ },
+ {
+  "name": "Laconia — Community Center - Gym",
+  "category": "community",
+  "url": "https://www.laconianh.gov/common/modules/iCalendar/iCalendar.aspx?catID=81&feed=calendar",
+  "geocode_suffix": ", Laconia, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Center - Gym]",
+  "_metro": "Laconia, New Hampshire"
+ },
+ {
+  "name": "Laconia — Community Center / Parks & Rec",
+  "category": "community",
+  "url": "https://www.laconianh.gov/common/modules/iCalendar/iCalendar.aspx?catID=63&feed=calendar",
+  "geocode_suffix": ", Laconia, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Center / Parks & Rec]",
+  "_metro": "Laconia, New Hampshire"
+ },
+ {
+  "name": "Laconia — Parks & Rec Programs",
+  "category": "community",
+  "url": "https://www.laconianh.gov/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar",
+  "geocode_suffix": ", Laconia, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Rec Programs]",
+  "_metro": "Laconia, New Hampshire"
+ },
+ {
+  "name": "Laconia — Library",
+  "category": "learning",
+  "url": "https://www.laconianh.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Laconia, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Laconia, New Hampshire"
+ },
+ {
+  "name": "Laconia — Library Adult",
+  "category": "learning",
+  "url": "https://www.laconianh.gov/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
+  "geocode_suffix": ", Laconia, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Adult]",
+  "_metro": "Laconia, New Hampshire"
+ },
+ {
+  "name": "Laconia — Library Children",
+  "category": "kids",
+  "url": "https://www.laconianh.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
+  "geocode_suffix": ", Laconia, New Hampshire",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Children]",
+  "_metro": "Laconia, New Hampshire"
+ },
+ {
+  "name": "Lake St. Louis — Community Events",
+  "category": "community",
+  "url": "https://www.lakesaintlouis.com/common/modules/iCalendar/iCalendar.aspx?catID=1030&feed=calendar",
+  "geocode_suffix": ", Lake St. Louis, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Lake St. Louis, Missouri"
+ },
+ {
+  "name": "Lake St. Louis — Police Department",
+  "category": "community",
+  "url": "https://www.lakesaintlouis.com/common/modules/iCalendar/iCalendar.aspx?catID=1035&feed=calendar",
+  "geocode_suffix": ", Lake St. Louis, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Department]",
+  "_metro": "Lake St. Louis, Missouri"
+ },
+ {
+  "name": "Clearlake — Recreation & Events",
+  "category": "community",
+  "url": "https://clearlake.ca.us/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Clearlake, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation & Events]",
+  "_metro": "Clearlake, California"
+ },
+ {
+  "name": "Richmond Hill — Main Calendar",
+  "category": "community",
+  "url": "https://www.richmondhill-ga.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Richmond Hill, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Richmond Hill, Georgia"
+ },
+ {
+  "name": "Red Wing — Red Wing Public Library Calendar",
+  "category": "learning",
+  "url": "https://www.redwingmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Red Wing, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Red Wing Public Library Calendar]",
+  "_metro": "Red Wing, Minnesota"
+ },
+ {
+  "name": "Red Wing — Ole Miss Marina",
+  "category": "community",
+  "url": "https://www.redwingmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Red Wing, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Ole Miss Marina]",
+  "_metro": "Red Wing, Minnesota"
+ },
+ {
+  "name": "Red Wing — City Events",
+  "category": "community",
+  "url": "https://www.redwingmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Red Wing, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Red Wing, Minnesota"
+ },
+ {
+  "name": "Grosse Pointe Woods",
+  "category": "community",
+  "_found": "civic:city -> ics",
+  "url": "https://www.gpwmi.us/calendar/ical/%2A/calendar.ics",
+  "geocode_suffix": ", Grosse Pointe Woods, Michigan",
+  "limit": 300,
+  "_metro": "Grosse Pointe Woods, Michigan"
+ },
+ {
+  "name": "Fairburn — Events",
+  "category": "community",
+  "url": "https://www.fairburn.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Fairburn, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Fairburn, Georgia"
+ },
+ {
+  "name": "Fairburn — Parks & Recreation Programming",
+  "category": "community",
+  "url": "https://www.fairburn.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Fairburn, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation Programming]",
+  "_metro": "Fairburn, Georgia"
+ },
+ {
+  "name": "Ada — Irving Community Center",
+  "category": "community",
+  "url": "https://www.adaok.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Ada, Oklahoma",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Irving Community Center]",
+  "_metro": "Ada, Oklahoma"
+ },
+ {
+  "name": "Ada — Main Calendar",
+  "category": "community",
+  "url": "https://www.adaok.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Ada, Oklahoma",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Ada, Oklahoma"
+ },
+ {
+  "name": "Ada — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.adaok.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Ada, Oklahoma",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Ada, Oklahoma"
+ },
+ {
+  "name": "Opa-locka — City Events",
+  "category": "community",
+  "url": "https://www.opalockafl.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Opa-locka, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Opa-locka, Florida"
+ },
+ {
+  "name": "Fillmore — Main Calendar",
+  "category": "community",
+  "url": "https://www.fillmoreca.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Fillmore, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Fillmore, California"
+ },
+ {
+  "name": "Fillmore — Community Events",
+  "category": "community",
+  "url": "https://www.fillmoreca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Fillmore, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Fillmore, California"
+ },
+ {
+  "name": "Artesia — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.cityofartesia.us/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Artesia, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Artesia, California"
+ },
+ {
+  "name": "Artesia — Home Calendar",
+  "category": "community",
+  "url": "https://www.cityofartesia.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Artesia, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Home Calendar]",
+  "_metro": "Artesia, California"
+ },
+ {
+  "name": "Lake Wales — Library Events",
+  "category": "learning",
+  "url": "https://www.lakewalesfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Lake Wales, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Events]",
+  "_metro": "Lake Wales, Florida"
+ },
+ {
+  "name": "Lake Wales — Main Calendar",
+  "category": "community",
+  "url": "https://www.lakewalesfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Lake Wales, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Lake Wales, Florida"
+ },
+ {
+  "name": "Lake Wales — Special Events",
+  "category": "community",
+  "url": "https://www.lakewalesfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar",
+  "geocode_suffix": ", Lake Wales, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Lake Wales, Florida"
+ },
+ {
+  "name": "Lake Wales — Library Youth Events",
+  "category": "kids",
+  "url": "https://www.lakewalesfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Lake Wales, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Youth Events]",
+  "_metro": "Lake Wales, Florida"
+ },
+ {
+  "name": "Mount Dora — Library - Adult Calendar",
+  "category": "learning",
+  "url": "https://www.mountdora.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Mount Dora, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Adult Calendar]",
+  "_metro": "Mount Dora, Florida"
+ },
+ {
+  "name": "Mount Dora — Community Events Calendar",
+  "category": "community",
+  "url": "https://www.mountdora.gov/common/modules/iCalendar/iCalendar.aspx?catID=46&feed=calendar",
+  "geocode_suffix": ", Mount Dora, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events Calendar]",
+  "_metro": "Mount Dora, Florida"
+ },
+ {
+  "name": "Mount Dora — Library - Youth Calendar",
+  "category": "kids",
+  "url": "https://www.mountdora.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Mount Dora, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Youth Calendar]",
+  "_metro": "Mount Dora, Florida"
+ },
+ {
+  "name": "Mount Dora — City Events Calendar",
+  "category": "community",
+  "url": "https://www.mountdora.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Mount Dora, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events Calendar]",
+  "_metro": "Mount Dora, Florida"
+ },
+ {
+  "name": "Mount Dora — Community Building Calendar",
+  "category": "community",
+  "url": "https://www.mountdora.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Mount Dora, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Building Calendar]",
+  "_metro": "Mount Dora, Florida"
+ },
+ {
+  "name": "Hibbing — Main Calendar",
+  "category": "community",
+  "url": "https://www.hibbingmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Hibbing, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Hibbing, Minnesota"
+ },
+ {
+  "name": "Hibbing — Library",
+  "category": "learning",
+  "url": "https://www.hibbingmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Hibbing, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Hibbing, Minnesota"
+ },
+ {
+  "name": "Hibbing — Library Programs and Events",
+  "category": "learning",
+  "url": "https://www.hibbingmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Hibbing, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Programs and Events]",
+  "_metro": "Hibbing, Minnesota"
+ },
+ {
+  "name": "Buffalo — Buffalo Area Community Center Weekly Events",
+  "category": "community",
+  "url": "https://www.ci.buffalo.mn.us/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Buffalo, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Buffalo Area Community Center Weekly Events]",
+  "_metro": "Buffalo, Minnesota"
+ },
+ {
+  "name": "Chickasha — Chickasha Public Library",
+  "category": "learning",
+  "url": "https://www.chickasha.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Chickasha, Oklahoma",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Chickasha Public Library]",
+  "_metro": "Chickasha, Oklahoma"
+ },
+ {
+  "name": "Chickasha — Chickasha Sports Complex",
+  "category": "community",
+  "url": "https://www.chickasha.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Chickasha, Oklahoma",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Chickasha Sports Complex]",
+  "_metro": "Chickasha, Oklahoma"
+ },
+ {
+  "name": "Chickasha — Chickasha Community Calendar",
+  "category": "community",
+  "url": "https://www.chickasha.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Chickasha, Oklahoma",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Chickasha Community Calendar]",
+  "_metro": "Chickasha, Oklahoma"
+ },
+ {
+  "name": "Kerman — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.cityofkerman.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Kerman, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Kerman, California"
+ },
+ {
+  "name": "Mountain Home — Streets Calendar",
+  "category": "community",
+  "url": "https://www.mountain-home.us/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Mountain Home, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Streets Calendar]",
+  "_metro": "Mountain Home, Idaho"
+ },
+ {
+  "name": "Mountain Home — Golf Tournament Calendar",
+  "category": "community",
+  "url": "https://www.mountain-home.us/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Mountain Home, Idaho",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Golf Tournament Calendar]",
+  "_metro": "Mountain Home, Idaho"
+ },
+ {
+  "name": "Overland — City Holidays",
+  "category": "community",
+  "url": "https://www.overlandmo.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Overland, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Holidays]",
+  "_metro": "Overland, Missouri"
+ },
+ {
+  "name": "Overland — Special Events and Other Holidays",
+  "category": "community",
+  "url": "https://www.overlandmo.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Overland, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events and Other Holidays]",
+  "_metro": "Overland, Missouri"
+ },
+ {
+  "name": "Highland Village — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.highlandvillage.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Highland Village, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Highland Village, Texas"
+ },
+ {
+  "name": "Jamestown — Civic Center Calendar",
+  "category": "community",
+  "url": "https://jamestownnd.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Jamestown, North Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Civic Center Calendar]",
+  "_metro": "Jamestown, North Dakota"
+ },
+ {
+  "name": "Indianola — Activity Center",
+  "category": "community",
+  "url": "https://www.indianolaiowa.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Indianola, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Activity Center]",
+  "_metro": "Indianola, Iowa"
+ },
+ {
+  "name": "Indianola — Indianola Wellness Campus",
+  "category": "community",
+  "url": "https://www.indianolaiowa.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Indianola, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Indianola Wellness Campus]",
+  "_metro": "Indianola, Iowa"
+ },
+ {
+  "name": "Indianola — Parks & Rec",
+  "category": "community",
+  "url": "https://www.indianolaiowa.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Indianola, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Rec]",
+  "_metro": "Indianola, Iowa"
+ },
+ {
+  "name": "Indianola — Community Calendar",
+  "category": "community",
+  "url": "https://www.indianolaiowa.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Indianola, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Calendar]",
+  "_metro": "Indianola, Iowa"
+ },
+ {
+  "name": "Niceville — Senior Center",
+  "category": "community",
+  "url": "https://cityofniceville.org/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Niceville, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Center]",
+  "_metro": "Niceville, Florida"
+ },
+ {
+  "name": "Niceville — Main Calendar",
+  "category": "community",
+  "url": "https://cityofniceville.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Niceville, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Niceville, Florida"
+ },
+ {
+  "name": "Niceville — Library",
+  "category": "learning",
+  "url": "https://cityofniceville.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Niceville, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Niceville, Florida"
+ },
+ {
+  "name": "Niceville — Library Youth Services",
+  "category": "kids",
+  "url": "https://cityofniceville.org/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Niceville, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Youth Services]",
+  "_metro": "Niceville, Florida"
+ },
+ {
+  "name": "Niceville — Library Teen Space",
+  "category": "kids",
+  "url": "https://cityofniceville.org/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Niceville, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Teen Space]",
+  "_metro": "Niceville, Florida"
+ },
+ {
+  "name": "Newton — Library Calendar",
+  "category": "learning",
+  "url": "https://www.newtongov.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Newton, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Calendar]",
+  "_metro": "Newton, Iowa"
+ },
+ {
+  "name": "Newton — Community Calendar",
+  "category": "community",
+  "url": "https://www.newtongov.org/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Newton, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Calendar]",
+  "_metro": "Newton, Iowa"
+ },
+ {
+  "name": "Newton — Parks & Recreation Calendar",
+  "category": "community",
+  "url": "https://www.newtongov.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Newton, Iowa",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation Calendar]",
+  "_metro": "Newton, Iowa"
+ },
+ {
+  "name": "Wildwood — Events",
+  "category": "community",
+  "url": "https://www.wildwood-fl.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Wildwood, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Wildwood, Florida"
+ },
+ {
+  "name": "Wildwood — Main Calendar",
+  "category": "community",
+  "url": "https://www.wildwood-fl.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Wildwood, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Wildwood, Florida"
+ },
+ {
+  "name": "Wildwood — Police",
+  "category": "community",
+  "url": "https://www.wildwood-fl.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Wildwood, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police]",
+  "_metro": "Wildwood, Florida"
+ },
+ {
+  "name": "Greenwood Village — Events Calendar",
+  "category": "community",
+  "url": "https://www.greenwoodvillage.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Greenwood Village, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events Calendar]",
+  "_metro": "Greenwood Village, Colorado"
+ },
+ {
+  "name": "Mitchell — Sports & Events Authority",
+  "category": "community",
+  "url": "https://www.cityofmitchellsd.gov/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
+  "geocode_suffix": ", Mitchell, South Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Sports & Events Authority]",
+  "_metro": "Mitchell, South Dakota"
+ },
+ {
+  "name": "Mitchell — All Library Events",
+  "category": "learning",
+  "url": "https://www.cityofmitchellsd.gov/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar",
+  "geocode_suffix": ", Mitchell, South Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[All Library Events]",
+  "_metro": "Mitchell, South Dakota"
+ },
+ {
+  "name": "Mitchell — Adult Library Events",
+  "category": "learning",
+  "url": "https://www.cityofmitchellsd.gov/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar",
+  "geocode_suffix": ", Mitchell, South Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Adult Library Events]",
+  "_metro": "Mitchell, South Dakota"
+ },
+ {
+  "name": "Mitchell — Teen Library Events",
+  "category": "kids",
+  "url": "https://www.cityofmitchellsd.gov/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar",
+  "geocode_suffix": ", Mitchell, South Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Teen Library Events]",
+  "_metro": "Mitchell, South Dakota"
+ },
+ {
+  "name": "Grovetown — Events Calendar",
+  "category": "community",
+  "url": "https://www.cityofgrovetown.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Grovetown, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events Calendar]",
+  "_metro": "Grovetown, Georgia"
+ },
+ {
+  "name": "Jackson — Main Calendar",
+  "category": "community",
+  "url": "https://www.cityofjacksonmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Jackson, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Jackson, Missouri"
+ },
+ {
+  "name": "Jackson — Police Department",
+  "category": "community",
+  "url": "https://www.cityofjacksonmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Jackson, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Department]",
+  "_metro": "Jackson, Missouri"
+ },
+ {
+  "name": "Monroe — Community Room",
+  "category": "community",
+  "url": "https://www.monroeohio.org/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Monroe, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Room]",
+  "_metro": "Monroe, Ohio"
+ },
+ {
+  "name": "Vandalia — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.vandaliaohio.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Vandalia, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Vandalia, Ohio"
+ },
+ {
+  "name": "Vandalia — Block Party Trailer",
+  "category": "community",
+  "url": "https://www.vandaliaohio.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Vandalia, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Block Party Trailer]",
+  "_metro": "Vandalia, Ohio"
+ },
+ {
+  "name": "Asbury Park — Main Calendar",
+  "category": "community",
+  "url": "https://www.cityofasburypark.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Asbury Park, New Jersey",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Asbury Park, New Jersey"
+ },
+ {
+  "name": "Asbury Park — Community & Cultural Affairs / CDBG",
+  "category": "community",
+  "url": "https://www.cityofasburypark.com/common/modules/iCalendar/iCalendar.aspx?catID=54&feed=calendar",
+  "geocode_suffix": ", Asbury Park, New Jersey",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community & Cultural Affairs / CDBG]",
+  "_metro": "Asbury Park, New Jersey"
+ },
+ {
+  "name": "Asbury Park — Housing Authority",
+  "category": "community",
+  "url": "https://www.cityofasburypark.com/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Asbury Park, New Jersey",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Housing Authority]",
+  "_metro": "Asbury Park, New Jersey"
+ },
+ {
+  "name": "Asbury Park — APFD",
+  "category": "community",
+  "url": "https://www.cityofasburypark.com/common/modules/iCalendar/iCalendar.aspx?catID=51&feed=calendar",
+  "geocode_suffix": ", Asbury Park, New Jersey",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[APFD]",
+  "_metro": "Asbury Park, New Jersey"
+ },
+ {
+  "name": "Asbury Park — APPD Community Relations",
+  "category": "community",
+  "url": "https://www.cityofasburypark.com/common/modules/iCalendar/iCalendar.aspx?catID=50&feed=calendar",
+  "geocode_suffix": ", Asbury Park, New Jersey",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[APPD Community Relations]",
+  "_metro": "Asbury Park, New Jersey"
+ },
+ {
+  "name": "Riverdale — City Calendar",
+  "category": "community",
+  "url": "https://www.riverdalega.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Riverdale, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Calendar]",
+  "_metro": "Riverdale, Georgia"
+ },
+ {
+  "name": "Riverdale — Main City Calendar",
+  "category": "community",
+  "url": "https://www.riverdalega.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Riverdale, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main City Calendar]",
+  "_metro": "Riverdale, Georgia"
+ },
+ {
+  "name": "Buda — Buda Events Calendar",
+  "category": "community",
+  "url": "https://www.budatx.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Buda, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Buda Events Calendar]",
+  "_metro": "Buda, Texas"
+ },
+ {
+  "name": "Longwood — Events / Things to Do",
+  "category": "community",
+  "url": "https://www.longwoodfl.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Longwood, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events / Things to Do]",
+  "_metro": "Longwood, Florida"
+ },
+ {
+  "name": "Longwood — Longwood Community Building",
+  "category": "community",
+  "url": "https://www.longwoodfl.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Longwood, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Longwood Community Building]",
+  "_metro": "Longwood, Florida"
+ },
+ {
+  "name": "Ferndale — Park Facility Rentals",
+  "category": "community",
+  "url": "https://www.cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar",
+  "geocode_suffix": ", Ferndale, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Park Facility Rentals]",
+  "_metro": "Ferndale, Washington"
+ },
+ {
+  "name": "Ferndale — Pioneer Pavilion",
+  "category": "community",
+  "url": "https://www.cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=48&feed=calendar",
+  "geocode_suffix": ", Ferndale, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Pioneer Pavilion]",
+  "_metro": "Ferndale, Washington"
+ },
+ {
+  "name": "Ferndale — Athletic Fields",
+  "category": "community",
+  "url": "https://www.cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=50&feed=calendar",
+  "geocode_suffix": ", Ferndale, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Athletic Fields]",
+  "_metro": "Ferndale, Washington"
+ },
+ {
+  "name": "Ferndale — Phillips 66 C1 - C4",
+  "category": "community",
+  "url": "https://www.cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=54&feed=calendar",
+  "geocode_suffix": ", Ferndale, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Phillips 66 C1 - C4]",
+  "_metro": "Ferndale, Washington"
+ },
+ {
+  "name": "Ferndale — All Other Park Facility Rentals",
+  "category": "community",
+  "url": "https://www.cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=52&feed=calendar",
+  "geocode_suffix": ", Ferndale, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[All Other Park Facility Rentals]",
+  "_metro": "Ferndale, Washington"
+ },
+ {
+  "name": "Ferndale — Star Park Picnic Shelter",
+  "category": "community",
+  "url": "https://www.cityofferndale.org/common/modules/iCalendar/iCalendar.aspx?catID=49&feed=calendar",
+  "geocode_suffix": ", Ferndale, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Star Park Picnic Shelter]",
+  "_metro": "Ferndale, Washington"
+ },
+ {
+  "name": "Lebanon — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.lebanonmissouri.org/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar",
+  "geocode_suffix": ", Lebanon, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Lebanon, Missouri"
+ },
+ {
+  "name": "Chelsea — Library",
+  "category": "learning",
+  "url": "https://www.cityofchelsea.com/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Chelsea, Alabama",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Chelsea, Alabama"
+ },
+ {
+  "name": "Chelsea — Events",
+  "category": "community",
+  "url": "https://www.cityofchelsea.com/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Chelsea, Alabama",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Chelsea, Alabama"
+ },
+ {
+  "name": "Chelsea — Historical Museum",
+  "category": "community",
+  "url": "https://www.cityofchelsea.com/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Chelsea, Alabama",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Historical Museum]",
+  "_metro": "Chelsea, Alabama"
+ },
+ {
+  "name": "Hereford",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://www.herefordtexas.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Hereford, Texas",
+  "limit": 300,
+  "_metro": "Hereford, Texas"
+ },
+ {
+  "name": "West University Place — Senior Services Programs",
+  "category": "community",
+  "url": "https://westutx.gov/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar",
+  "geocode_suffix": ", West University Place, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Services Programs]",
+  "_metro": "West University Place, Texas"
+ },
+ {
+  "name": "West University Place — Parks & Recreation Events",
+  "category": "community",
+  "url": "https://westutx.gov/common/modules/iCalendar/iCalendar.aspx?catID=37&feed=calendar",
+  "geocode_suffix": ", West University Place, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation Events]",
+  "_metro": "West University Place, Texas"
+ },
+ {
+  "name": "West University Place — Main Calendar",
+  "category": "community",
+  "url": "https://westutx.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", West University Place, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "West University Place, Texas"
+ },
+ {
+  "name": "West University Place — Senior Services Events",
+  "category": "community",
+  "url": "https://westutx.gov/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+  "geocode_suffix": ", West University Place, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Senior Services Events]",
+  "_metro": "West University Place, Texas"
+ },
+ {
+  "name": "Oldsmar — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.myoldsmar.com/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Oldsmar, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Oldsmar, Florida"
+ },
+ {
+  "name": "Oldsmar — Library",
+  "category": "learning",
+  "url": "https://www.myoldsmar.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Oldsmar, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Oldsmar, Florida"
+ },
+ {
+  "name": "Oldsmar — Main Calendar",
+  "category": "community",
+  "url": "https://www.myoldsmar.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Oldsmar, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Oldsmar, Florida"
+ },
+ {
+  "name": "Andover — Community Events",
+  "category": "community",
+  "url": "https://www.andoverks.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+  "geocode_suffix": ", Andover, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Andover, Kansas"
+ },
+ {
+  "name": "Robbinsdale — City, Recreation, and Partner Events",
+  "category": "community",
+  "url": "https://www.robbinsdalemn.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Robbinsdale, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City, Recreation, and Partner Events]",
+  "_metro": "Robbinsdale, Minnesota"
+ },
+ {
+  "name": "Parlier — Main Calendar",
+  "category": "community",
+  "url": "https://www.parlier.ca.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Parlier, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Parlier, California"
+ },
+ {
+  "name": "Natchez — Main Calendar",
+  "category": "community",
+  "url": "https://www.natchez.ms.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Natchez, Mississippi",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Natchez, Mississippi"
+ },
+ {
+  "name": "Natchez — Holiday",
+  "category": "community",
+  "url": "https://www.natchez.ms.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Natchez, Mississippi",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Holiday]",
+  "_metro": "Natchez, Mississippi"
+ },
+ {
+  "name": "Natchez — Cemetery",
+  "category": "community",
+  "url": "https://www.natchez.ms.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Natchez, Mississippi",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Cemetery]",
+  "_metro": "Natchez, Mississippi"
+ },
+ {
+  "name": "Lilburn — Lilburn Events",
+  "category": "community",
+  "url": "https://www.cityoflilburn.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Lilburn, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Lilburn Events]",
+  "_metro": "Lilburn, Georgia"
+ },
+ {
+  "name": "Monticello — Main Calendar",
+  "category": "community",
+  "url": "https://www.monticellomn.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Monticello, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Monticello, Minnesota"
+ },
+ {
+  "name": "Monticello — Monticello Community Center",
+  "category": "community",
+  "url": "https://www.monticellomn.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Monticello, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Monticello Community Center]",
+  "_metro": "Monticello, Minnesota"
+ },
+ {
+  "name": "Monticello — Events",
+  "category": "community",
+  "url": "https://www.monticellomn.gov/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+  "geocode_suffix": ", Monticello, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Monticello, Minnesota"
  }
 ]
