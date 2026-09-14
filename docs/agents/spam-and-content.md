@@ -77,8 +77,9 @@
   beginning near today misses exactly the population it was written for.
 
 - **WHAT MAKES A CONTENT-BASED DELETE SAFE TO SCHEDULE IS NOT THE SCOPE FILTER,
-  IT IS THE SHARE CEILING.** `spam-purge.yml` runs `--apply` nightly with nobody
-  watching, and the failure to fear is not a spam wave — it is a rule in
+  IT IS THE SHARE CEILING.** Once its switch is on (next note), `spam-purge.yml`
+  runs `--apply` nightly with nobody watching, and the failure to fear is not a
+  spam wave — it is a rule in
   `mapsee_spam.py` widened until it matches ordinary listings, which from the
   outside looks exactly like a very effective run. `--max-share` (5% of rows
   read, ignored below a 200-row sample) refuses to write when the matched

@@ -7,6 +7,21 @@ name: Purge spam events
 # schedule + workflow_dispatch ONLY. Never add a pull_request trigger: this repo
 # is public and that would expose SUPABASE_SERVICE_ROLE_KEY to fork code.
 #
+# IT WRITES NOTHING UNTIL THE OWNER TURNS IT ON, AND THE SWITCH IS NOT IN THIS
+# FILE. Every run, scheduled or manual, REPORTS what it would delete and changes
+# nothing unless the repository variable SPAM_PURGE_APPLY is exactly 'true'
+# (Settings -> Secrets and variables -> Actions -> Variables). With it set, the
+# 07:40 schedule deletes, and a manual run deletes only if its report_only box
+# is unticked. Delete the variable, or set it to anything else, and the next run
+# is a report again. No code change and no push, either way.
+#
+# Why a switch as well as the share ceiling: this deletes production rows on a
+# CONTENT judgement, and no destructive run had been approved when it merged. The
+# ceiling is what makes a delete safe to leave running; the switch is what makes
+# the first one a decision rather than a side effect of a push to main. The
+# first step says which mode it chose and why — as an annotation on the run
+# page, in the log, and at the top of the job summary.
+#
 # WHY THIS IS STILL NEEDED NOW THE GATE EXISTS. mapsee_spam.py stops new rows at
 # ingest, and it reaches nothing already stored — `--only-new` is the default in
 # CI, so a scheduled run can only ADD, and Wednesday's full run re-reads the
@@ -19,7 +34,7 @@ name: Purge spam events
 #
 #   06:17  aggregate-events    imports; the gate refuses new spam at the door
 #   07:40  THIS                deletes old spam, and clears the ends that make a
-#                              past row permanent
+#                              past row permanent (a report until switched on)
 #   08:23  cleanup-events      deletes what has finished — which now includes
 #                              everything this un-dated an hour earlier
 #
@@ -28,6 +43,7 @@ name: Purge spam events
 # waits a full day for its own removal.
 #
 # Required repo secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+# Optional repo variable: SPAM_PURGE_APPLY ('true' allows writes; anything else reports)
 
 on:
   schedule:
@@ -35,9 +51,9 @@ on:
   workflow_dispatch:
     inputs:
       report_only:
-        description: "Report what would change and write nothing"
+        description: "Report only. Unticked, this deletes ONLY if the repository variable SPAM_PURGE_APPLY is 'true'"
         type: boolean
-        default: false
+        default: true
       max_share:
         description: "Ceiling on the share of rows read that may be deleted (default 0.05)"
         type: string
@@ -47,6 +63,9 @@ concurrency:
   group: spam-purge
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
 jobs:
   purge:
     runs-on: ubuntu-latest
@@ -55,6 +74,41 @@ jobs:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
     steps:
+      # FIRST, so the mode is on the run page before anything else happens.
+      # APPLY needs the variable to be exactly 'true' AND, on a manual run, an
+      # unticked report_only. Everything else — the variable unset, 'TRUE',
+      # 'yes', a typo, a step output that never arrived — is a report, because
+      # the default has to be the one that cannot delete.
+      - name: Decide the mode (report unless SPAM_PURGE_APPLY is 'true')
+        id: mode
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          APPLY_SWITCH: ${{ vars.SPAM_PURGE_APPLY }}
+          REPORT_ONLY_INPUT: ${{ inputs.report_only }}
+        run: |
+          if [ "$APPLY_SWITCH" != "true" ]; then
+            MODE=report
+            WHY="the repository variable SPAM_PURGE_APPLY is '${APPLY_SWITCH:-unset}', not 'true'"
+          elif [ "$EVENT_NAME" = "workflow_dispatch" ] && [ "$REPORT_ONLY_INPUT" != "false" ]; then
+            MODE=report
+            WHY="a manual run with report_only ticked"
+          else
+            MODE=apply
+            WHY="SPAM_PURGE_APPLY is 'true' and this $EVENT_NAME run did not ask for a report"
+          fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "why=$WHY" >> "$GITHUB_OUTPUT"
+          echo "=================================================================="
+          if [ "$MODE" = "apply" ]; then
+            echo "SPAM PURGE MODE: APPLY. This run DELETES rows in production: $WHY."
+            echo "::warning title=Spam purge: APPLY::This run deletes advertisements and clears implausible end dates in production: $WHY."
+          else
+            echo "SPAM PURGE MODE: REPORT ONLY. Nothing will be written: $WHY."
+            echo "::notice title=Spam purge: REPORT ONLY::Nothing will be written: $WHY. Deletes need the repository variable SPAM_PURGE_APPLY set to 'true'."
+          fi
+          echo "=================================================================="
+
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -75,6 +129,9 @@ jobs:
       # mid-batch by the job timeout. The gap covers checkout, setup-python, pip
       # and the test step. Move one, move the other.
       #
+      # --apply is passed ONLY when the mode step said exactly "apply". Inputs
+      # reach the shell through env, never pasted into the script.
+      #
       # `tee` rather than a redirect: the log is the thing somebody reads when
       # this goes wrong, and a summary that exists only in the job summary tab is
       # one more place to look. Both, from one run.
@@ -85,12 +142,22 @@ jobs:
       - name: Purge
         id: purge
         shell: bash
+        env:
+          MODE: ${{ steps.mode.outputs.mode }}
+          MAX_SHARE: ${{ inputs.max_share || '0.05' }}
         run: |
           set -o pipefail
+          APPLY_FLAG=""
+          if [ "$MODE" = "apply" ]; then
+            APPLY_FLAG="--apply"
+            echo "MODE: APPLY (--apply passed)"
+          else
+            echo "MODE: REPORT ONLY (no --apply)"
+          fi
           python mapsee_spam_purge.py \
             --max-seconds 1000 \
-            --max-share "${{ inputs.max_share || '0.05' }}" \
-            ${{ inputs.report_only && ' ' || '--apply' }} \
+            --max-share "$MAX_SHARE" \
+            $APPLY_FLAG \
             | tee purge.log
 
       # always(), because the run worth reading is the one that REFUSED. A
@@ -100,14 +167,21 @@ jobs:
       - name: Summary
         if: always()
         shell: bash
+        env:
+          MODE: ${{ steps.mode.outputs.mode }}
+          WHY: ${{ steps.mode.outputs.why }}
         run: |
           {
             echo "### Spam purge"
             echo ""
-            if [ "${{ inputs.report_only }}" = "true" ]; then
-              echo "_Report only — nothing was written._"
+            if [ "$MODE" = "apply" ]; then
+              echo "**Mode: APPLY.** This run was allowed to delete: $WHY. The log below says what it did, including a refusal at the share ceiling."
+            else
+              echo "**Mode: REPORT ONLY.** Nothing was written: ${WHY:-the mode step did not run}."
               echo ""
+              echo "Deletes need the repository variable \`SPAM_PURGE_APPLY\` set to \`true\`."
             fi
+            echo ""
             echo '```'
             tail -c 60000 purge.log 2>/dev/null || echo "(no output — the run failed before the purge step)"
             echo '```'
