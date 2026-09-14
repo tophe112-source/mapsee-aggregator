@@ -18,6 +18,14 @@ Run: python test_ingest_osm_amenities.py
 """
 import sys
 
+# This suite prints the Kind glyphs it is asserting on — 🚰, 🚻, 🛝 — and a glyph
+# is the thing under test, so it cannot simply not print them. On the Windows
+# dev machine `sys.stdout` opens as cp1252, which has no mapping for U+1F6DD,
+# and the whole script died with a UnicodeEncodeError on a case that had
+# already PASSED. It is green in CI (Linux, UTF-8), so the gate looked fine
+# while being unrunnable locally on exactly the file whose subject is emoji.
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 import mapsee_ingest_osm_amenities as A
 
 AREA = {"name": "Seattle", "region": "WA", "country": "US"}
@@ -547,6 +555,38 @@ def main():
         A.sweep_tiles, A.CURSOR_PATH = _real_sweep, _real_cursor
         _shutil.rmtree(_cursor_dir, ignore_errors=True)
 
+    # ---- a private pool is somebody's garden ------------------------------
+    #
+    # `leisure=swimming_pool` is the only selector here that is not civic by
+    # definition: most pools on earth are behind a house or a hotel. The
+    # Overpass query narrows on `access`, and these check the SECOND guard, the
+    # one in Python, because a query filter is a request and the answer is
+    # somebody else's. Getting it wrong puts a walking route to a stranger's
+    # garden on a public map.
+    pool = [k for k in A.KINDS if k.value == "swimming_pool"][0]
+    checks.append((bool(pool.extra) and "access" in pool.extra,
+                   "the pool query narrows on access before Overpass answers"))
+    for acc in ("yes", "public", "permissive"):
+        checks.append((ev({"leisure": "swimming_pool", "access": acc, "name": "Lido"}) is not None,
+                       f"a pool with access={acc} is a public pool"))
+    for acc in ("private", "customers", "permit", "no"):
+        checks.append((ev({"leisure": "swimming_pool", "access": acc, "name": "Lido"}) is None,
+                       f"a pool with access={acc} is refused"))
+    checks.append((ev({"leisure": "swimming_pool", "name": "Lido"}) is None,
+                   "...and a pool with NO access tag is refused rather than assumed public"))
+
+    # The two properties the Kind exists for, restated where they can regress.
+    open_pool = ev({"leisure": "swimming_pool", "access": "yes", "name": "Ballard Pool"})
+    checks.append((open_pool is not None and open_pool.pin_only is False,
+                   "a public pool is a LISTING even with no hours - where one is IS the fact"))
+    checks.append((open_pool is not None and open_pool.recurring_days == A.ALWAYS,
+                   "an untagged pool claims no hours of its own; the all-week window is the "
+                   "roller's and the body says the hours are unknown"))
+    timed = ev({"leisure": "swimming_pool", "access": "yes", "name": "Ballard Pool",
+                "opening_hours": "Mo-Fr 06:00-21:00"})
+    checks.append((timed is not None and timed.recurring_days not in (None, A.ALWAYS),
+                   "...and real hours become a real weekly pattern"))
+
     # ---- the glyph must actually REACH the row ----------------------------
     #
     # Kind.glyph was assigned when this adapter was written and read by nothing
@@ -563,7 +603,13 @@ def main():
     # with.
     glyphs = {}
     for k in A.KINDS:
-        e = ev({k.key: k.value, "name": f"probe {k.value}"})
+        # A Kind with `public_only` needs the tag that makes it eligible, or the
+        # probe builds the very row the guard exists to refuse and this loop
+        # reports a missing glyph for a row that correctly does not exist.
+        probe = {k.key: k.value, "name": f"probe {k.value}"}
+        if getattr(k, "public_only", False):
+            probe["access"] = "yes"
+        e = ev(probe)
         got = getattr(e, "icon", None) if e is not None else None
         checks.append((got == k.glyph,
                        f"{k.key}={k.value} is drawn with {k.glyph} (icon={got!r})"))

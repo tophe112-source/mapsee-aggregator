@@ -327,6 +327,26 @@ jobs:
       - name: Order-link honesty (what may be called "Order pickup")
         run: python test_menu_links.py
 
+      # A library gateway that answers 200 to everything, including a date
+      # filter it does not apply. The cases worth guarding are the two that look
+      # perfectly healthy: startDate/endDate accepted and ignored (so a naive
+      # reader ingests the archive), and a featuredImageId that resolves to one
+      # stock tile shared by four hundred rows. Also pins the dedupe key, where
+      # the shared date-granular fingerprint quietly ate one of every pair of
+      # same-day storytimes.
+      - name: BiblioCommons library programmes
+        run: python test_ingest_bibliocommons.py
+
+      # The gate that keeps advertisements out of the catalogue, and the ONE
+      # place it must be graded is the half nobody would notice failing. Letting
+      # a marabout listing through gets reported by a user; refusing a real
+      # tarot night, a prayer meeting or a title with a date range in it is
+      # silent, and the symptom is a source getting quietly thinner. So the
+      # must-NOT-fire block is the long one, and it is built from real titles off
+      # the same instance the spam came from.
+      - name: Spam gate (and, mostly, what it must never refuse)
+        run: python test_spam.py
+
       # Two 5xx reach the janitor and want opposite things: a statement timeout
       # means take a SMALLER bite (retrying it unchanged stalls the run), an
       # upstream 503 means the request never happened (not retrying it turns a
@@ -427,6 +447,21 @@ jobs:
       # under two names, and a starved CATEGORY could not be named at all.
       - name: The coverage report's targets are real ground
         run: python test_curate_coverage.py
+
+      # ...and the arithmetic under those targets, which is also every number in
+      # coverage_history.jsonl. The two defects the step above does not grade:
+      # jsonld, mylisting and venuepilot are declared in both config tables and
+      # were walked twice (107 sources on 2026-09-06), and nothing asked
+      # _url_country, so a .co.nz calendar sat under "?" (539 of 1702 rows).
+      # Pinned as invariants rather than totals: no type counted twice, no
+      # country that is a number or a bare ISO code, every declared code named.
+      - name: Coverage arithmetic (no source counted twice, no ccTLD left under "?")
+        run: python test_coverage_rows.py
+
+      # Written, committed, and never run by anything: the hazard this file's
+      # own header describes. No network, secrets or database.
+      - name: Thin-artwork retirement (which OSM art rows are not worth a pin)
+        run: python test_retire_thin_artwork.py
 
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a

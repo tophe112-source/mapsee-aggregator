@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 205 of them — live in
+session.** The measured notes about what bites — 213 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -42,7 +42,7 @@ front doors it reaches.
 | Finding a whole TOWN's calendar | `catalog_discover_civic.py` — Wikidata cities with an official website (5,770 in the US), probed the same way. The city's own calendar, plus its tourism board where Wikipedia names one |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
-| Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run |
+| Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run — until 2026-09-14 every line counted jsonld, mylisting and venuepilot twice (166 of 2,975 rows); a line whose `per_type.jsonld` is double the entries in `jsonld_sources.json` predates the fix |
 | Deleting past events | `mapsee_cleanup.py` |
 | North American public library programmes | `mapsee_ingest_bibliocommons.py` + `bibliocommons_sources.json` - six systems, 28,314 upcoming measured 2026-09-03, every row carrying its branch's surveyed coordinate |
 | Public swimming pools | the `leisure=swimming_pool` Kind in `mapsee_ingest_osm_amenities.py`. The only Kind with an extra Overpass filter, and the reason is that most pools on earth are in back gardens |
@@ -79,7 +79,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 46 `test_*.py` scripts are the CI gate.** They print one line per case
+- **The 50 `test_*.py` scripts are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -93,6 +93,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | Symptom | Open | Run |
 |---|---|---|
 | An event reaches the wrong front door, or none; a lens is thin | `docs/agents/classification-and-categories.md` | `python test_categories.py`, `python catalog_curate.py coverage` |
+| A country looks thin, or empty, or is not a country (`?`, `CA`, `97`) | `docs/agents/curation-and-discovery.md` | `python test_coverage_rows.py` — the report's arithmetic, not the catalog |
 | A date, time, offset or all-day event is wrong | `docs/agents/dates-and-timezones.md` | `python test_sync_all_day.py`, `python test_ingest_bikereg.py` |
 | A pin lands in the wrong place, or on `0,0` | `docs/agents/geocoding-and-addresses.md` | `python test_ingest_places.py` |
 | A source went quiet; the health report | `docs/agents/health-and-monitoring.md` | `python mapsee_health_check.py` (needs the service key) |
@@ -114,14 +115,14 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 | File | Notes | Covers |
 |---|---|---|
-| `docs/agents/curation-and-discovery.md` | 31 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences |
+| `docs/agents/curation-and-discovery.md` | 33 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic |
 | `docs/agents/osm-amenities.md` | 23 | which civic places earn a pin or a sheet, deny-lists, facts vs names, the cached element list |
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
-| `docs/agents/ci-and-jobs.md` | 17 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |
+| `docs/agents/ci-and-jobs.md` | 20 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |
 | `docs/agents/adapters-and-sources.md` | 19 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes |
 | `docs/agents/classification-and-categories.md` | 23 | lens keys, promotion regexes, kids/food/market/music, category defaults, order pickup |
 | `docs/agents/cancelled-events.md` | 17 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete |
-| `docs/agents/sync-eventstore-and-paging.md` | 12 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors |
+| `docs/agents/sync-eventstore-and-paging.md` | 15 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors |
 | `docs/agents/dates-and-timezones.md` | 10 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |
 | `docs/agents/geocoding-and-addresses.md` | 6 | Census, Photon, wrong coordinates, the city in the address |
@@ -136,7 +137,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 ```bash
 pip install -r requirements.txt
-python test_categories.py            # one of the 46 gate scripts; the full list is in docs/agents/running.md
+python test_categories.py            # one of the 50 gate scripts; the full list is in docs/agents/running.md
 python catalog_curate.py coverage    # where the catalog is thin, per lens category
 python agent_notes.py                # the notes map is under budget and the index is fresh
 ```

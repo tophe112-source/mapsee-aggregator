@@ -136,8 +136,23 @@ class Kind:
     """One selector, and everything that follows from it."""
 
     def __init__(self, key, value, category, noun, glyph, secondary=(),
-                 always_open=True, always_list=False, bare_is_enough=True):
+                 always_open=True, always_list=False, bare_is_enough=True,
+                 extra="", public_only=False):
         self.key, self.value = key, value
+        # AN EXTRA OVERPASS FILTER, because one selector is not always a
+        # category. Every other Kind here describes a thing that is civic by
+        # definition - there is no private drinking fountain worth the word -
+        # and `leisure=swimming_pool` is not like that at all: most of them on
+        # earth are in back gardens and hotels. Narrowing has to happen in the
+        # QUERY as well, or a 25-mile box round any suburb returns thousands of
+        # somebody's garden.
+        self.extra = extra
+        # ...AND AGAIN IN PYTHON, because a query filter is a request and the
+        # answer is somebody else's. This is the file's own rule about a source
+        # that hands you coordinates handing you the wrong ones, applied to
+        # access: if the tag that made a row eligible is not on the row that
+        # came back, the row is dropped rather than trusted.
+        self.public_only = public_only
         self.category, self.noun, self.glyph = category, noun, glyph
         self.secondary = list(secondary)
         # IS "NO HOURS TAGGED" THE SAME AS "NEVER CLOSES"?
@@ -211,6 +226,27 @@ KINDS = [
     Kind("social_facility", "food_bank", "volunteer", "food bank", "🥫", ["community"],
          always_open=False, always_list=True),
     Kind("amenity", "give_box", "community", "give box", "🎁", ["market"]),
+    # A PLACE TO SWIM THAT ANYONE MAY WALK INTO. The one civic amenity people
+    # ask about by its HOURS rather than its position, which is why it is the
+    # only Kind here besides the food bank carrying always_open=False AND
+    # always_list=True:
+    #
+    #   * always_open=False - an untagged pool is NOT open. Claiming otherwise
+    #     is the food-bank failure in a swimsuit: somebody walks to a locked
+    #     door because a map said it was open. A pool genuinely shuts, and it
+    #     shuts differently in term time.
+    #   * always_list=True - WHERE ONE IS is the actionable fact even with no
+    #     hours at all, exactly as for a food bank. "There is a public pool
+    #     eight minutes from here" is most of what anybody wanted, and a
+    #     pin_only dot could never carry the rest of it.
+    #
+    # Measured 2026-09-03 before adding: 43 named public pools in a 25-mile
+    # Seattle box, 5 carrying readable `opening_hours`; London 74 and 15. So it
+    # is a modest addition and the hours are the minority - which is the
+    # argument FOR always_list, not against the Kind.
+    Kind("leisure", "swimming_pool", "fitness", "public swimming pool", "🏊",
+         ["outdoors"], always_open=False, always_list=True,
+         extra='["access"~"^(yes|public|permissive)$"]', public_only=True),
 ]
 BY_SLUG = {k.slug: k for k in KINDS}
 
@@ -236,7 +272,7 @@ def selector(s, w, n, e) -> str:
     not have a name and requiring one would delete the category — which is the
     same reasoning that put `pin_only` in this file rather than a name test.
     """
-    return "".join(f'nwr["{k.key}"="{k.value}"]({s},{w},{n},{e});' for k in KINDS)
+    return "".join(f'nwr["{k.key}"="{k.value}"]{k.extra}({s},{w},{n},{e});' for k in KINDS)
 
 
 # ---------------------------------------------------------------------------
@@ -663,6 +699,13 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
     # drawn and can never be opened is one more row for every events_near scan
     # to walk past.
     if not (kind.bare_is_enough or name or image or _worth_finding(tags, kind)):
+        return None
+
+    # THE QUERY ASKED; THIS CHECKS. Overpass returns what it was asked for right
+    # up until a cached tile or a later edit means it does not, and the cost of
+    # being wrong here is a private pool on a public map with a walking route to
+    # somebody's garden. Cheap, and it fails closed.
+    if kind.public_only and str(tags.get("access") or "").strip().lower() not in _ACCESS_ASSUMED:
         return None
 
     town = _clean(tags.get("addr:city") or tags.get("addr:suburb"), 80)

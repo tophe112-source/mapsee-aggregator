@@ -1,0 +1,114 @@
+name: Purge spam events
+
+# Deletes aggregator-imported rows that are advertisements rather than events,
+# and clears end dates so far out that mapsee_cleanup.py could never reach the
+# row. Scoped to external_source='mapsee' — community events are never matched.
+#
+# schedule + workflow_dispatch ONLY. Never add a pull_request trigger: this repo
+# is public and that would expose SUPABASE_SERVICE_ROLE_KEY to fork code.
+#
+# WHY THIS IS STILL NEEDED NOW THE GATE EXISTS. mapsee_spam.py stops new rows at
+# ingest, and it reaches nothing already stored — `--only-new` is the default in
+# CI, so a scheduled run can only ADD, and Wednesday's full run re-reads the
+# SOURCES rather than re-applying our rules to rows we already hold. There is
+# also a steady inflow: curate-catalog.yml discovers and adds new instances every
+# week, and an open-registration instance can be spammed the day after it is
+# added. So this is not a one-off backfill with an expiry date.
+#
+# WHERE IT SITS IN THE DAY, and the order is the point:
+#
+#   06:17  aggregate-events    imports; the gate refuses new spam at the door
+#   07:40  THIS                deletes old spam, and clears the ends that make a
+#                              past row permanent
+#   08:23  cleanup-events      deletes what has finished — which now includes
+#                              everything this un-dated an hour earlier
+#
+# Most of what this touches is therefore removed by the EXISTING janitor rather
+# than by a delete here. Run it after cleanup instead and every un-dated row
+# waits a full day for its own removal.
+#
+# Required repo secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+
+on:
+  schedule:
+    - cron: "40 7 * * *"        # daily, between the import and the janitor
+  workflow_dispatch:
+    inputs:
+      report_only:
+        description: "Report what would change and write nothing"
+        type: boolean
+        default: false
+      max_share:
+        description: "Ceiling on the share of rows read that may be deleted (default 0.05)"
+        type: string
+        default: "0.05"
+
+concurrency:
+  group: spam-purge
+  cancel-in-progress: false
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: pip install requests
+
+      # The predicate is graded here too, on the runner that is about to use it.
+      # It costs two seconds and it is the difference between "the tests passed
+      # on the commit" and "the rules that are about to delete rows are the ones
+      # that passed". A red test must stop the delete, not merely be noticed.
+      - name: The rules about to be applied still pass their own tests
+        run: python test_spam.py
+
+      # --max-seconds is PAIRED with timeout-minutes above, the same pairing
+      # cleanup-events.yml documents: the script stops cleanly inside its own
+      # budget and leaves the rest for tomorrow, rather than being killed
+      # mid-batch by the job timeout. The gap covers checkout, setup-python, pip
+      # and the test step. Move one, move the other.
+      #
+      # `tee` rather than a redirect: the log is the thing somebody reads when
+      # this goes wrong, and a summary that exists only in the job summary tab is
+      # one more place to look. Both, from one run.
+      #
+      # set -o pipefail, or the exit code of the script is thrown away by tee and
+      # the tripwire below can never fail the job — which is the entire point of
+      # having a tripwire.
+      - name: Purge
+        id: purge
+        shell: bash
+        run: |
+          set -o pipefail
+          python mapsee_spam_purge.py \
+            --max-seconds 1000 \
+            --max-share "${{ inputs.max_share || '0.05' }}" \
+            ${{ inputs.report_only && ' ' || '--apply' }} \
+            | tee purge.log
+
+      # always(), because the run worth reading is the one that REFUSED. A
+      # tripwire that trips and leaves nothing on screen has told nobody
+      # anything; the titles it printed are the evidence for whether the rules
+      # or the sources changed.
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "### Spam purge"
+            echo ""
+            if [ "${{ inputs.report_only }}" = "true" ]; then
+              echo "_Report only — nothing was written._"
+              echo ""
+            fi
+            echo '```'
+            tail -c 60000 purge.log 2>/dev/null || echo "(no output — the run failed before the purge step)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

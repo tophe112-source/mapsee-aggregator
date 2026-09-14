@@ -26,7 +26,8 @@ class WorkflowContracts(unittest.TestCase):
         self.assertFalse(job['strategy']['fail-fast'])
         expected = {
             'ics': {'ics'},
-            'civic': {'opendata', 'tribe', 'gancio', 'mobilizon', 'mapasculturais', 'moshtix', 'ods', 'ckan'},
+            'civic': {'opendata', 'tribe', 'gancio', 'mobilizon', 'bibliocommons', 'mapasculturais',
+                      'moshtix', 'ods', 'ckan'},
             'local': {'markets', 'parkrun', 'fairs', 'programs', 'jsonld', 'squarespace',
                       'mylisting', 'luma', 'restaurants', 'seoul', 'affiliates', 'ubereats',
                       'venuepilot', 'dice_venue', 'rolodex', 'pioneersquare', 'seattlecenter', 'slu'},

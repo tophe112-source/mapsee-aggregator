@@ -652,6 +652,34 @@ jobs:
           else
             echo "no mobilizon_sources.json — skipping"
           fi
+      # SIX NORTH AMERICAN LIBRARY SYSTEMS, 28,314 upcoming programmes measured
+      # 2026-09-03 - storytimes, ESL and citizenship classes, job-search help,
+      # computer basics, teen makerspace, tax help. The civic long tail no
+      # ticketing API indexes, and nearly all of it free to attend.
+      #
+      # In the CIVIC group, and it costs that group almost nothing, which is the
+      # point: every event arrives with its BRANCH's surveyed coordinate, so
+      # unlike every ics_sources.json entry there is no Photon geocode to pay -
+      # and a library system is 40-80 branches. The group has the room: on
+      # 2026-09-12 civic finished in 70.8 of its 300 minutes, 49.7 of them
+      # Tribe. The adapter reads at most max_pages (default 40) pages of 200
+      # per system and stops at its 180-day horizon.
+      #
+      # Read the adapter header before adding a library: startDate/endDate are
+      # accepted and IGNORED, so the horizon is applied client-side, and several
+      # systems answer this gateway with a 403 (recorded in the config's
+      # _not_included, and not to be worked around).
+      - name: Import BiblioCommons (US/CA public library programmes)
+        id: ingest_bibliocommons
+        if: matrix.group == 'civic'
+        continue-on-error: true
+        timeout-minutes: 60
+        run: |
+          if [ -f bibliocommons_sources.json ]; then
+            python mapsee_ingest_bibliocommons.py --config bibliocommons_sources.json --store feeds_events.json
+          else
+            echo "no bibliocommons_sources.json — skipping"
+          fi
       # Brazil's only working national events commons, and the only source in
       # this repo that puts anything on the map there. Two instances, ~1,900
       # occurrences read, under a minute — small enough to belong in `feeds`

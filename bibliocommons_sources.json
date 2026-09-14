@@ -1,0 +1,79 @@
+{
+  "_comment": "BiblioCommons library systems (mapsee_ingest_bibliocommons.py). One entry per library; `slug` is the tenant name in both gateway.bibliocommons.com/v2/libraries/<slug>/events and <slug>.bibliocommons.com. No key and no account. `category` is only the fallback for a programme whose type and audience say nothing - most rows classify themselves, and library programming is overwhelmingly learning and kids. Every row arrives with a surveyed branch coordinate, so nothing here is geocoded; see the adapter header. Counts below were read live on 2026-09-03 and are recorded so a later run can tell a quiet library from a broken one.",
+  "sites": [
+    {
+      "name": "Charlotte Mecklenburg Library",
+      "slug": "cmlibrary",
+      "category": "learning",
+      "measured_2026_09_03": 8197,
+      "horizon_days": 180,
+      "max_pages": 40
+    },
+    {
+      "name": "Edmonton Public Library",
+      "slug": "epl",
+      "category": "learning",
+      "measured_2026_09_03": 4893,
+      "horizon_days": 180,
+      "max_pages": 40
+    },
+    {
+      "name": "Chicago Public Library",
+      "slug": "chipublib",
+      "category": "learning",
+      "measured_2026_09_03": 4539,
+      "horizon_days": 180,
+      "max_pages": 40
+    },
+    {
+      "name": "Harris County Public Library (Houston)",
+      "slug": "hcpl",
+      "category": "learning",
+      "measured_2026_09_03": 4530,
+      "horizon_days": 180,
+      "max_pages": 40
+    },
+    {
+      "name": "Boston Public Library",
+      "slug": "bpl",
+      "category": "learning",
+      "measured_2026_09_03": 4051,
+      "horizon_days": 180,
+      "max_pages": 40
+    },
+    {
+      "name": "Vancouver Public Library",
+      "slug": "vpl",
+      "category": "learning",
+      "measured_2026_09_03": 2104,
+      "horizon_days": 180,
+      "max_pages": 40
+    }
+  ],
+  "_not_included": {
+    "_why": [
+      "Probed 2026-09-03 with the production User-Agent and NOT configured.",
+      "Recorded so nobody spends another curation run rediscovering them -",
+      "`_not_included` is an editorial no, and anything proposing sources must",
+      "consult it (mobilizon_sources.json's rule).",
+      "",
+      "THE 403s BELOW ARE A REFUSAL AND ARE TREATED AS ONE. The library is on",
+      "BiblioCommons and its catalogue answers; the events gateway specifically",
+      "returns 403 to this User-Agent. That is a `no`, not an obstacle: it was",
+      "not retried with a browser User-Agent and it must not be. The DICE note",
+      "in ../mapsee-aggregator/CLAUDE.md is the same rule - a door somebody has",
+      "closed is closed even when you can see the handle.",
+      "",
+      "If any of these are wanted, the way in is to ASK the library, which is",
+      "what venue outreach is for. Several of them publish an events iCal on",
+      "their own site as well; that belongs in ics_sources.json, not here."
+    ],
+    "https://gateway.bibliocommons.com/v2/libraries/spl/events": "Seattle Public Library: HTTP 403 to the production UA. Painful, because Seattle is the home metro - but a 403 is a refusal.",
+    "https://gateway.bibliocommons.com/v2/libraries/multcolib/events": "Multnomah County (Portland OR): HTTP 403 to the production UA.",
+    "https://gateway.bibliocommons.com/v2/libraries/sfpl/events": "San Francisco Public Library: HTTP 403 to the production UA.",
+    "https://gateway.bibliocommons.com/v2/libraries/kclibrary/events": "Kansas City Public Library: HTTP 403 to the production UA.",
+    "https://gateway.bibliocommons.com/v2/libraries/slcpl/events": "Salt Lake City: HTTP 410 Gone - the tenant no longer serves events here.",
+    "https://gateway.bibliocommons.com/v2/libraries/sandiego/events": "San Diego: HTTP 410 Gone.",
+    "_slugs_that_are_not_on_the_platform": "404 to this slug, meaning either a different tenant name or a different vendor entirely; not evidence the library is unreachable, only that the guess was wrong. Tried and missed: torontopubliclibrary, houstonlibrary, denverlibrary, bibliottawalibrary, calgarylibrary, saclibrary, nashville, austinlibrary, ocls, phoenixpubliclibrary, lapl."
+  }
+}

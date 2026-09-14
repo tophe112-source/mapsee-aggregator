@@ -1,0 +1,228 @@
+"""The gate that keeps advertisements out of the catalogue, pinned both ways.
+
+A filter has two ways to fail and only one of them is visible. Letting spam
+through is the bug that gets reported; refusing something real is the bug that
+never does, because the symptom is a source quietly getting thinner and nobody
+knows what they did not see. So the "must not fire" half of this file is longer
+than the "must fire" half on purpose, and every entry in it is a shape that
+actually occurs in the catalogue: date ranges, years, times, postcodes, room
+numbers, and the whole subject matter — psychics, tarot, prayer, healing — that
+a lazier version of this filter would have taken out along with the scams.
+
+The live sample is real. Every REJECT title below was read off gamenight.host's
+public feed on 2026-09-03, and every KEEP title in the first block was read off
+the SAME feed on the same day — which is the point: the instance carries genuine
+listings and scam listings side by side, so a source-level ban would have thrown
+away a police commission meeting and a mahjong night to catch a marabout.
+
+    python test_spam.py
+"""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from mapsee_ingest import EventStore, NormalizedEvent
+from mapsee_spam import MAX_SPAN_DAYS, implausible_end, spam_reason, span_days
+
+fails = []
+
+
+def check(label, cond, detail=""):
+    print(f"{'ok  ' if cond else 'FAIL'} {label}{'' if cond else '   ' + str(detail)}")
+    if not cond:
+        fails.append(label)
+
+
+def rejects(label, **kw):
+    r = spam_reason(**kw)
+    check(label, r is not None, "was allowed through")
+    return r
+
+
+def keeps(label, **kw):
+    r = spam_reason(**kw)
+    check(label, r is None, f"refused as: {r}")
+
+
+# --- MUST FIRE: read off the live feed, 2026-09-03 ---------------------------
+print("advertisements, from gamenight.host's live feed")
+rejects("the reported Kirkland listing",
+        name="Shatru Nashak Sudarshan Chakra Maran Mantra ॐ ☎ +91 9965500027")
+rejects("a French dialling code",
+        name="VRAI PORTEFEUILLE MAGIQUE +229 01 56 42 27 95")
+rejects("a 00-prefixed number and a second one after it",
+        name="0022991113322 ou +22953077815:VOICI UN DES PLUS PUISSANT MARABOUT DU BENIN")
+rejects("a number with no separators at all",
+        name="Marabout consultation gratuite, Voyance gratuite +2290160492000")
+rejects("bulk accounts", name="Buy Gmail Accounts SEO")
+rejects("a scam phrase with no number anywhere",
+        name="Retour d'Affection Rapide en 24h, expert medium sonagnon")
+rejects("...and one in French with an apostrophe we do not control",
+        name="Comment faire un retour d’affection rapide et immediat avec le puissant medium")
+rejects("a clean title with the pitch in the body",
+        name="Free consultation this Saturday",
+        description="Pandit Rahul Sharma, Black Magic Specialist. Love problem solution.")
+
+print()
+print("an end nobody could have meant is a missing fact, NOT a verdict")
+# The rule that first read this as spam had to be split, and the audit is what
+# forced it: Extinction Rebellion France publish "Organiser un evenement a La
+# Perm" over 487 days, one instance away from a 447-day advert for Roman blinds.
+# No threshold separates those, because the span is not what makes one an advert.
+keeps("a ten-year span is not, by itself, spam", name="Community gathering",
+      start="2026-04-11T17:30:00Z", end="2036-04-23T20:30:00Z")
+check("...but the end is refused as a fact",
+      implausible_end("2026-04-11T17:30:00Z", "2036-04-23T20:30:00Z") == 3665,
+      implausible_end("2026-04-11T17:30:00Z", "2036-04-23T20:30:00Z"))
+check("a real 16-month listing keeps its event, loses only its end",
+      implausible_end("2025-08-30", "2026-12-30") == 487
+      and spam_reason("Organiser un evenement a La Perm",
+                      start="2025-08-30", end="2026-12-30") is None)
+check("a year-long exhibition keeps BOTH",
+      implausible_end("2026-01-01", "2026-11-30") is None)
+check("the span is measured in whole days",
+      span_days("2026-01-01", "2027-01-01") == 365, span_days("2026-01-01", "2027-01-01"))
+check("a missing end is not a long event (it is an unknown one)",
+      span_days("2026-01-01", None) is None)
+check("an unparseable date is not a long event either",
+      span_days("2026-01-01", "next Tuesday") is None)
+check("...and an unreadable end is left alone rather than dropped",
+      implausible_end("2026-01-01", "next Tuesday") is None)
+
+# --- MUST NOT FIRE: the same feed, the same day ------------------------------
+print()
+print("real listings from the SAME instance, which a source ban would have taken")
+keeps("a games night", name="Mahjong at Encorepreneur Cafe")
+keeps("a public meeting with a date in the title",
+      name="Board of Police Commissioners Meeting 9/14/2026")
+keeps("a craft guild", name="Suminigashi September with the Mixed-Media Collage Artists Guild")
+keeps("a naloxone training",
+      name="Community Narcan (Naloxone) Training with McLean County Recovery Oriented Systems of Care")
+keeps("a political meeting", name="ANTIFA 101 - *Part 3* & Getting Active In Nashville In 2026")
+
+print()
+print("numbers that are not phone numbers")
+# The naive phone regex reads every one of these as a phone number, because a
+# space and a hyphen are both plausible separators. Each of these is a real
+# title shape and each one used to be a false positive waiting to happen.
+keeps("an ISO date range", name="Summer Season 2026-05-16 - 2026-05-18")
+keeps("door times", name="Doors 19:00 - 23:00")
+keeps("a year", name="New Year's Eve 2026")
+keeps("a UK postcode", name="Car boot sale, BS1 5TR")
+keeps("a US ZIP+4", name="Block party 98034-1234")
+keeps("a room and a date", name="Room 204, 2026-05-16")
+keeps("a race distance and a year", name="Bathinda 10K 2026")
+keeps("a long numeric run split by slashes", name="Bus 8/12/2026 to 9/14/2026")
+
+print()
+print("subject matter is not spam")
+# The version of this filter that greps for "spiritual" takes all of these, and
+# every one of them is a gathering somebody is trying to find.
+keeps("a tarot night", name="Tarot & Psychic Night at the Anchor")
+keeps("an astronomy talk", name="Talk: astrologer, astronomer, and the road between them")
+keeps("a prayer meeting", name="Wednesday Evening Prayer Meeting")
+keeps("a reiki workshop", name="Introduction to Reiki and Energy Healing")
+keeps("a fortune-telling stall at a fete", name="Summer Fete: cakes, tombola, fortune teller")
+keeps("a magic show", name="Close-up Magic with the Magic Circle")
+
+print()
+print("an organiser's own contact details are not an advertisement")
+keeps("a number in the BODY, where it belongs",
+      name="Yoga in the Park",
+      description="Bring a mat. Questions? Call the studio on +1 206 555 0134.")
+
+# --- the gate is wired to the choke point ------------------------------------
+print()
+print("EventStore refuses, counts, and does not merge")
+import tempfile
+
+with tempfile.TemporaryDirectory() as d:
+    store = EventStore(os.path.join(d, "s.json"))
+    real = NormalizedEvent(source="mobilizon", source_id="a", name="Mahjong at Encorepreneur Cafe",
+                           start_utc="2026-09-22T18:00:00Z", venue_name="Encorepreneur Cafe",
+                           city="Portland", category="party")
+    real.fingerprint = "fp-real"
+    check("a real event is added", store.upsert(real) == "added")
+
+    ad = NormalizedEvent(source="mobilizon", source_id="b",
+                         name="RETOUR AFFECTIF +229 01 56 42 27 95",
+                         start_utc="2026-09-22T18:00:00Z", venue_name="Encorepreneur Cafe",
+                         city="Portland", category="community")
+    # THE SAME FINGERPRINT the real event has. A scam listing pinned to a real
+    # venue on a real night shares (name-ish, date, venue, city) often enough
+    # that this is not a contrived case — and if the gate ran after the dedupe,
+    # branch 2 of upsert would fold the advertisement's description and link
+    # INTO the mahjong night rather than rejecting it.
+    ad.fingerprint = "fp-real"
+    check("an advertisement is refused", store.upsert(ad) == "rejected")
+    check("...and did not merge into the real event",
+          store.records["fp-real"]["name"] == "Mahjong at Encorepreneur Cafe",
+          store.records["fp-real"]["name"])
+    check("...and did not leave a source ref behind",
+          len(store.records["fp-real"].get("sources", [])) == 1,
+          store.records["fp-real"].get("sources"))
+    check("the store holds exactly one row so far", len(store.records) == 1, len(store.records))
+
+    check("the refusal is counted", store.stats["rejected"] == 1, store.stats)
+    check("...against the source that sent it",
+          store.rejected_by_source.get("mobilizon") == 1, store.rejected_by_source)
+    check("...with a reason worth reading", bool(store.reject_reasons), store.reject_reasons)
+    check("...and a sample naming the title",
+          any("RETOUR AFFECTIF" in s for s in store.reject_samples), store.reject_samples)
+
+    # An implausible end costs the END, not the row.
+    long_ev = NormalizedEvent(source="mobilizon", source_id="c", name="Ten-year listing",
+                              start_utc="2026-04-11T17:30:00Z", end_utc="2036-04-23T20:30:00Z",
+                              city="Kirkland", category="community")
+    long_ev.fingerprint = "fp-long"
+    check("a ten-year listing is still stored", store.upsert(long_ev) == "added")
+    check("...with its end dropped, so cleanup can reach it",
+          store.records["fp-long"]["end_utc"] is None, store.records["fp-long"]["end_utc"])
+    check("...in BOTH spellings, or the sync reads the surviving one",
+          store.records["fp-long"]["end_local"] is None, store.records["fp-long"]["end_local"])
+    check("...and it is counted against its source",
+          store.stats["unbounded"] == 1 and store.unbounded_by_source.get("mobilizon") == 1,
+          (store.stats, store.unbounded_by_source))
+    check("...and NOT counted as a refusal, which is a different conversation",
+          store.stats["rejected"] == 1, store.stats)
+
+    # A refused row must not be remembered as seen: the next run has to be free
+    # to accept it if the rule changes, and source_to_fp is what would otherwise
+    # quietly re-point (mobilizon, b) at the real event's fingerprint for ever.
+    check("a refused row leaves no identity behind",
+          ("mobilizon", "b") not in store.source_to_fp, store.source_to_fp)
+
+# --- the purge will not run away with itself ---------------------------------
+print()
+print("the backfill's tripwire")
+# mapsee_spam_purge.py deletes on a content judgement, on a schedule, with
+# nobody watching. The failure that needs catching is NOT a spam wave — it is a
+# rule in mapsee_spam.py widened until it matches ordinary listings, which looks
+# from the outside exactly like a very effective run. This is graded here rather
+# than in the purge because the tripwire has to work on the day something else
+# has already gone wrong.
+from mapsee_spam_purge import too_many
+
+check("an ordinary run writes", too_many(120, 8000, 0.05, 200) is False)
+check("a run matching half the catalogue does not",
+      too_many(4000, 8000, 0.05, 200) is True)
+check("exactly at the ceiling is still allowed (it is a > , not a >=)",
+      too_many(400, 8000, 0.05, 200) is False)
+check("a tiny sample is never judged — 3 of 5 is noise, not a signal",
+      too_many(3, 5, 0.05, 200) is False)
+check("...and the sample floor is what decides that, not the share",
+      too_many(199, 199, 0.05, 200) is False and too_many(199, 200, 0.05, 200) is True)
+check("nothing read, nothing blocked", too_many(0, 0, 0.05, 200) is False)
+
+# --- the cap is a value, not a magic number ----------------------------------
+print()
+print("the cap itself")
+check("a year-long exhibition keeps its end", MAX_SPAN_DAYS >= 366, MAX_SPAN_DAYS)
+check("...and nothing survives long enough to outlive mapsee_cleanup",
+      MAX_SPAN_DAYS <= 800, MAX_SPAN_DAYS)
+check("exactly at the cap is still a fact", implausible_end("2026-01-01", None) is None)
+
+print()
+print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
+sys.exit(1 if fails else 0)

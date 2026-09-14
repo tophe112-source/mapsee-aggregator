@@ -6,7 +6,7 @@
 - **A five-hour feed job still dropped seven imports.** Run `34220367595`
   (2026-09-08) spent 223m34s in ICS, then hit its 300m limit in Tribe. Six later
   adapters and the final sync were skipped. `feeds` now has three independent
-  groups: 1 ICS adapter, 18 local adapters, 8 civic adapters. Each has its own
+  groups: 1 ICS adapter, 18 local adapters, 9 civic adapters. Each has its own
   cache, sync, retained store and step-outcome report. Failed adapter processes
   continue to the sync but fail the job at the end. `feed_group` dispatches a
   single group for recovery without rerunning the global sweeps. ICS checkpoints

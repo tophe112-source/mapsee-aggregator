@@ -2367,7 +2367,22 @@ EXTRA_CONFIG = {
     "restaurant": ("restaurant_sources.json", _rows_restaurant),
     "affiliate": ("affiliate_sources.json", _rows_affiliate),
 }
-ALL_TYPES = sorted(CONFIG) + sorted(EXTRA_CONFIG)
+# jsonld, mylisting and venuepilot are declared in BOTH tables, over the SAME
+# file: CONFIG so verify/merge can probe them, EXTRA_CONFIG for an expander that
+# reads the file's real shape. Concatenating the two key sets listed each of them
+# TWICE — a duplicate column in the report, and, because _coverage_rows walked
+# both paths, 107 sources (jsonld 105, mylisting 1, venuepilot 1) counted twice
+# in `total`. Every `total_sources` in coverage_history.jsonl is inflated 6.7%
+# by it (1702 reported, 1595 real, measured 2026-09-06), which is the number the
+# curation run reports as its growth.
+ALL_TYPES = sorted(set(CONFIG) | set(EXTRA_CONFIG))
+
+# ...and the expander is the one that wins. It knows the file: _rows_jsonld
+# reads the country off `listing[0]`'s ccTLD and _rows_venuepilot/_rows_mylisting
+# off the config's declared city/region, where the generic path sees only a name
+# and files all 105 jsonld sites under "?".
+EXPANDER_OWNED = {t for t in CONFIG if t in EXTRA_CONFIG
+                  and CONFIG[t][0] == EXTRA_CONFIG[t][0]}
 
 
 def _extra_coverage_rows():
@@ -2386,10 +2401,31 @@ def _extra_coverage_rows():
     return rows
 
 
+def _first_url(e, key):
+    """The first http(s) URL an entry carries, under its own key or a common one.
+
+    Half the configs spell the key differently and jsonld's `listing` is a LIST
+    of them, so a naive e.get(key) hands _url_country a list and gets None back
+    for all 105 sites.
+    """
+    for k in (key, "url", "base_url", "listing", "explore_url", "collection", "home"):
+        v = e.get(k)
+        if isinstance(v, str) and v.startswith("http"):
+            return v
+        if isinstance(v, (list, tuple)):
+            for x in v:
+                if isinstance(x, str) and x.startswith("http"):
+                    return x
+    return ""
+
+
 def _coverage_rows():
     """One row per configured source: (type, name, metro, country, category)."""
     rows = []
-    for t, (fname, _key) in sorted(CONFIG.items()):
+    for t, (fname, key) in sorted(CONFIG.items()):
+        # A type with its own expander over the same file is counted THERE, once.
+        if t in EXPANDER_OWNED:
+            continue
         p = os.path.join(HERE, fname)
         if not os.path.exists(p):
             continue
@@ -2430,6 +2466,15 @@ def _coverage_rows():
                 for code in iso:
                     rows.append((t, name, metro, _ISO_COUNTRY.get(code, code), cat))
                 continue
+            # Last resort before "?": the source's own ccTLD. A .co.nz venue
+            # calendar is not in Ohio, and _url_country has been in this file
+            # all along — the coverage report just never asked it. 32% of the
+            # catalog (539 of 1702 rows) sat under "?", which reads to the
+            # thin-ground ranker exactly like a country with no feeds. Recovers
+            # 226 of them, measured 2026-09-06: Sweden 14 -> 50, Denmark 22 ->
+            # 47, New Zealand 16 -> 52, Australia 46 -> 83.
+            if country == "?":
+                country = _url_country(_first_url(e, key)) or "?"
             rows.append((t, name, metro, country, cat))
     return rows + _extra_coverage_rows()
 

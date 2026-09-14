@@ -93,6 +93,10 @@ try:
 except ImportError:                        # pragma: no cover
     ZoneInfo = None  # type: ignore
 
+# Not optional and deliberately not guarded: EventStore refuses rows with it, so
+# an ImportError here must stop the run rather than silently reopen the door.
+from mapsee_spam import implausible_end, spam_reason
+
 
 # --------------------------------------------------------------------------- #
 # Configuration
@@ -543,7 +547,13 @@ def norm_categories(primary: Optional[str], *extras: Any) -> List[str]:
 
 
 class EventStore:
-    """JSON-file store that dedupes on fingerprint (primary) and (source, source_id) (guard)."""
+    """JSON-file store that dedupes on fingerprint (primary) and (source, source_id) (guard).
+
+    It also REFUSES rows — see the note on `rejected` in __init__ and
+    mapsee_spam.py. This is the only place in the pipeline every one of the 41
+    adapters passes through, which is why the refusal lives here rather than in
+    the adapter that happened to notice the problem first.
+    """
 
     def __init__(self, path: str) -> None:
         self.path = Path(path)
@@ -561,8 +571,28 @@ class EventStore:
         # because re-keying is a normal, legitimate operation in here. Counting
         # it is what makes the NEXT adapter with unstable identity announce
         # itself in the log, instead of being found by a table scan months later.
-        self.stats = {"added": 0, "merged": 0, "updated": 0, "rekeyed": 0}
+        # "rejected" counts rows that are advertisements rather than events, and
+        # it is deliberately a COUNTER PER SOURCE rather than a silent drop.
+        #
+        # A gate nobody can see is the same shape of bug as the rekeying above:
+        # it works perfectly, and the day it starts refusing something real, the
+        # only symptom is a source quietly getting thinner. So every refusal
+        # prints its reason at save() and the per-source tally is what tells the
+        # difference between "one spam account got in" (a handful) and "this
+        # instance is a spam host" (most of the feed) — which is the editorial
+        # call `_not_included` in the sources files exists to record.
+        # "unbounded" counts rows whose END was dropped for being years out. Not
+        # a refusal and not a judgement — see implausible_end — but counted, and
+        # counted SEPARATELY, because a source that produces a lot of them is
+        # publishing something that is not events, and that is a different
+        # conversation from a source that is being spammed.
+        self.stats = {"added": 0, "merged": 0, "updated": 0, "rekeyed": 0,
+                      "rejected": 0, "unbounded": 0}
         self.rekeyed_by_source: Dict[str, int] = {}
+        self.rejected_by_source: Dict[str, int] = {}
+        self.reject_reasons: Dict[str, int] = {}
+        self.reject_samples: List[str] = []
+        self.unbounded_by_source: Dict[str, int] = {}
         self._load()
 
     def _load(self) -> None:
@@ -592,6 +622,18 @@ class EventStore:
         }
         self.path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
         log.info("Saved %d events to %s", len(self.records), self.path)
+        if self.stats["rejected"]:
+            log.info("Refused %d row(s) as advertisements: %s", self.stats["rejected"],
+                     ", ".join(f"{k} x{v}" for k, v in sorted(
+                         self.reject_reasons.items(), key=lambda kv: -kv[1])))
+            for line in self.reject_samples:
+                log.info("  %s", line)
+            for src, n in sorted(self.rejected_by_source.items(), key=lambda kv: -kv[1]):
+                log.info("  %s: %d refused", src, n)
+        if self.stats["unbounded"]:
+            log.info("Dropped an implausible end date on %d row(s): %s", self.stats["unbounded"],
+                     ", ".join(f"{k} x{v}" for k, v in sorted(
+                         self.unbounded_by_source.items(), key=lambda kv: -kv[1])))
 
     def _fill_missing(self, rec: Dict[str, Any], ev: NormalizedEvent) -> None:
         for f in _FILLABLE:
@@ -631,6 +673,40 @@ class EventStore:
     def upsert(self, ev: NormalizedEvent) -> str:
         now = iso_now()
         key = (ev.source, ev.source_id)
+
+        # BEFORE ANY OF THE DEDUPE, because a rejected row must not be able to
+        # merge into a real one. The fingerprint is (name, date, venue, city) and
+        # a spam listing pinned to a real venue on a real night shares three of
+        # the four — so reaching branch 2 below would fold an advertisement's
+        # description and ticket_url INTO somebody's actual event, which is worse
+        # than letting it in as its own row.
+        reason = spam_reason(ev.name, ev.description,
+                             ev.start_utc or ev.start_local, ev.end_utc or ev.end_local)
+        if reason:
+            self.stats["rejected"] += 1
+            self.rejected_by_source[ev.source] = self.rejected_by_source.get(ev.source, 0) + 1
+            self.reject_reasons[reason] = self.reject_reasons.get(reason, 0) + 1
+            if len(self.reject_samples) < 10:
+                self.reject_samples.append(f"[{ev.source}] {reason}: {(ev.name or '')[:70]}")
+            return "rejected"
+
+        # AN END NOBODY COULD HAVE MEANT IS NOT AN END. Dropped rather than
+        # clamped: a clamped date is a new claim we invented, and this is the
+        # opposite — we are saying the source did not tell us when this finishes.
+        # mapsee_supabase_sync then applies its default duration, which is what
+        # lets mapsee_cleanup reach the row at all (its filter is `starts_at <
+        # cutoff AND (ends_at IS NULL OR ends_at < cutoff)`, so an end in 2036 is
+        # a permanent pin).
+        #
+        # BOTH SPELLINGS, because adapters differ on which they fill and a row
+        # left with one of them set would keep the claim through whichever the
+        # sync happens to read.
+        span = implausible_end(ev.start_utc or ev.start_local, ev.end_utc or ev.end_local)
+        if span is not None:
+            ev.end_utc = None
+            ev.end_local = None
+            self.stats["unbounded"] += 1
+            self.unbounded_by_source[ev.source] = self.unbounded_by_source.get(ev.source, 0) + 1
 
         # 1) exact source event seen before -> update in place
         if key in self.source_to_fp:

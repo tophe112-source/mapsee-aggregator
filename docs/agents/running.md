@@ -40,11 +40,14 @@ python test_curate_reapply.py       # putting a finished curation run back on a 
 python test_curate_coverage.py      # the report that AIMS the loop: real countries, real targets
 python test_cancelled_events.py     # a cancelled event must not arrive, and must leave once it is called off
 python test_ingest_meetup.py        # a Zoom call is not a place, and a hybrid service still is
+python test_ingest_bibliocommons.py # a date filter the gateway ignores, stock image tiles, two storytimes in one day
+python test_spam.py                 # the advertisement gate, and mostly what it must never refuse
+python test_coverage_rows.py        # the coverage report's arithmetic: no source counted twice, no ccTLD left under "?"
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 46 test scripts are the CI gate (`tests.yml`). They print one line per
+The 50 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

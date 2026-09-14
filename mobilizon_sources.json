@@ -40,13 +40,6 @@
       "max_pages": 5
     },
     {
-      "name": "GameNight.Host",
-      "base_url": "https://gamenight.host",
-      "category": "community",
-      "limit": 100,
-      "max_pages": 5
-    },
-    {
       "name": "MyQueerEvents",
       "base_url": "https://myqueerevents.de",
       "category": "community",
@@ -167,13 +160,6 @@
     {
       "name": "Tue4org",
       "base_url": "https://tue4.org",
-      "category": "community",
-      "limit": 100,
-      "max_pages": 5
-    },
-    {
-      "name": "Mobilizon Debian France",
-      "base_url": "https://meet.debian.net",
       "category": "community",
       "limit": 100,
       "max_pages": 5
@@ -414,14 +400,6 @@
       "default_country": "France"
     },
     {
-      "name": "kreatives Tummeln",
-      "base_url": "https://tummeln.kreatives-leipzig.de",
-      "category": "community",
-      "limit": 100,
-      "max_pages": 5,
-      "default_country": "Germany"
-    },
-    {
       "name": "Uppsala.Social",
       "base_url": "https://uppsala.social",
       "category": "community",
@@ -455,14 +433,6 @@
       "category": "community",
       "limit": 100,
       "max_pages": 5
-    },
-    {
-      "name": "Mobilizon",
-      "base_url": "https://mobilizon.ethibox.fr",
-      "category": "community",
-      "limit": 100,
-      "max_pages": 5,
-      "default_country": "France"
     },
     {
       "name": "MobilizonPx",
@@ -551,7 +521,11 @@
     }
   ],
   "_not_included": {
+    "https://gamenight.host": "measured 2026-09-03: 384 of 404 upcoming listings are advertising, not events - marabout/retour-affectif services with a phone number where the title goes, bulk-account sales, and a ten-year 'event' that reached a Kirkland street. Open registration and nobody moderating it. The 20 real listings (a Portland mahjong night, a police commission meeting) are a genuine loss and still not worth five pages of requests a day to a host the spammers have won, or the standing bet that mapsee_spam.py recognises whatever they sell next.",
     "https://keskonfai.fr": "205k events, but machine-ingested from tourist-office feeds rather than grassroots - a different kind of source with its own licence to check before use.",
-    "https://mobilizon.us": "heavily spammed; scam listings geocoded to France."
+    "https://meet.debian.net": "measured 2026-09-03: 262 of 291 upcoming listings are advertising - a marabout/retour-affectif campaign and a casino one, the latter dated 457 days long so it could never be cleaned up. Kept at first because 58 rows looked like real Brussels and French cultural events; they are, and they are FEDERATED - of 273 distinct titles, the 55 that are not spam already arrive from other instances in this file, and all 218 unique to it are the spam. Zero unique supply, which is what settled it.",
+    "https://mobilizon.ethibox.fr": "measured 2026-09-03: 22 of 22 upcoming listings are marabout/voodoo services carrying their own dialling code. Nothing on this instance is an event.",
+    "https://mobilizon.us": "heavily spammed; scam listings geocoded to France.",
+    "https://tummeln.kreatives-leipzig.de": "measured 2026-09-03: 25 of 34 refused, and the nine that got through are SEO product spam the gate does not recognise (dumbbells, LED fixtures, IPTV resellers, Roman blinds). Zero real events, which is the whole case: a source the per-row gate cannot protect us from because there is nothing behind it."
   }
 }

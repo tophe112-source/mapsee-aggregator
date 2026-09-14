@@ -3,6 +3,44 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: `catalog_curate`, the ledger and its statuses, `_not_included`, sitemaps and robots, bot challenges, site builders vs calendars, calendar plugins, licences.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **The coverage report invented 26 of the 60 countries it claimed.** It is not
+  a status page: its thin-ground ranker decides where the next curation run
+  spends its budget, and `coverage --json` is the only record of whether the
+  catalog grows. Four defects fed it at once, found 2026-09-06 by reading one
+  report. (1) `ALL_TYPES = sorted(CONFIG) + sorted(EXTRA_CONFIG)` listed jsonld,
+  mylisting and venuepilot twice — they are declared in BOTH tables over the
+  same file — and `_coverage_rows` walked both paths: 107 sources counted twice,
+  1702 reported against 1595 real, a 6.7% inflation carried by every
+  `total_sources` in `coverage_history.jsonl`. (2) `_rows_parkrun` iterated
+  `countries`, a MAP of parkrun's numeric country id to an ISO code, as a list —
+  all 20 countries filed under names like "97", "3", "85", each tripping the
+  "0-2 sources" FLAG, while the 20 real ones read as having no running supply at
+  all against ~2,965 weekly events. (3) `default_country` was used raw and the
+  configs use two conventions (gancio writes "DE", mobilizon writes "Germany"):
+  15 sources split into six phantom rows, and "CA" with 1 source was FLAGged as
+  needing feeds three lines under "Canada" with 36. (4) Nothing consulted
+  `_url_country`, which has been in the file since the ccTLD work, so 539 of
+  1702 rows (32%) sat under "?" — indistinguishable to the ranker from a country
+  with no feeds. Fixing all four: `?` 539 -> 178, countries 60 -> 37, Sweden 14
+  -> 51, Denmark 22 -> 48, New Zealand 16 -> 53, Australia 46 -> 84. That fix
+  then sat uncommitted until 2026-09-14, and main fixed (2) and (3) on its own
+  meanwhile (`_iso_countries`), so (1) and (4) were still live when it landed:
+  on a4bb0cf's configs the report counted 2,975 rows where one walk gives
+  2,809 (jsonld 328 for 164 entries) and filed 734 of them (24.7%) under `?`.
+  After, with four spam hosts also retired from `mobilizon_sources.json`: 2,805
+  rows, 200 under `?` (7.1%), Belgium 28 -> 66, Sweden 16 -> 53, New Zealand 17
+  -> 53, Canada 38 -> 73. None of it ever failed a run; the arithmetic of a
+  growth metric is exactly what a green run cannot check, which is why
+  `test_coverage_rows.py` pins the invariants (no type counted twice, no country
+  that is a number or a bare ISO code) rather than today's totals.
+
+- **An ISO code with no name in `_ISO_COUNTRY` becomes a country.** `IS` and
+  `JM` reached the report as two countries called "IS" and "JM", each with one
+  source and each FLAGged as needing feeds — a gap invented by a lookup miss.
+  They are the only two codes any config declares that the table lacked;
+  `test_coverage_rows.py` now walks every `*_sources.json` and fails on the next
+  one.
+
 - **The curation ledger records candidates too.** Most `"status": "fail"` rows
   are URLs that were probed and rejected — that is the process working. Only the
   ones still present in a `*_sources.json` are regressions; `configured_dead()`

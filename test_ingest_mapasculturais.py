@@ -17,6 +17,14 @@ from datetime import date, timedelta
 
 import mapsee_ingest_mapasculturais as MC
 
+# FROZEN, AND IT MUST STAY FROZEN. Every function checked against it —
+# occurrence_dates, filter_honoured — takes `today` as an ARGUMENT, which is what
+# makes a fixed date the right choice: the cases below are about a 1911 row and a
+# six-week horizon, and those facts do not change when the calendar does.
+#
+# main() is the exception and section 11 is where that bit. It reads
+# date.today() itself, so its fixture has to be built from the real clock; see
+# the note there.
 TODAY = "2026-08-28"
 SITE = {"name": "Test", "slug": "ce", "category": "community",
         "default_region": "CE", "default_country": "Brazil"}
@@ -276,6 +284,11 @@ def main():
     checks.append((rc == 0, "main() returns 0 on a clean run"))
     checks.append((len(stored) == 1 and stored[0]["start_local"].startswith(_soon[0]),
                    "main() keeps the future placeable row and drops the 1911, the 0,0 and the orphan"))
+    # The three rejects must fail for their OWN reason. With dates computed, a
+    # fixture that drifted out of the horizon would drop all four and still
+    # satisfy "len == 1" the moment somebody loosened it — so name what survived.
+    checks.append((stored[0]["name"] == "Show" and stored[0]["latitude"] == -3.72,
+                   "...and the survivor is the placeable one, not whichever came first"))
 
     # ------------------------------------- 12. the config is loadable, not just valid JSON
     #
