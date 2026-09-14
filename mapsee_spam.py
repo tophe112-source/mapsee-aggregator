@@ -13,16 +13,19 @@ So the defence has to sit BELOW the source list, because the source list can onl
 ever be a list of instances somebody has already been burned by. Any federated,
 open-registration platform — Mobilizon, Gancio, Mobilizon's fediverse peers, a
 self-hosted Tribe calendar with public submissions — is one spam account away
-from the same thing, and there are 74 Mobilizon instances configured. One of them
+from the same thing, and there are 70 Mobilizon instances configured. One of them
 having been noticed is not a system.
 
 WHAT IT REFUSES, AND WHY EACH ONE IS SAFE
 
-  * A DIALLING CODE IN THE TITLE. Every scam listing in the sample carried its
-    own phone number where the event name goes, because the phone number IS the
-    product: "+229 01 99 13 18 40", "0022991113322 ou +22953077815", "+91
-    9965500027". Real event titles do not, and the shape is unambiguous — an
-    explicit international prefix, or ten-plus digits with no separators at all.
+  * A DIALLING CODE IN THE TITLE, FROM A SOURCE ANYBODY CAN PUBLISH TO. Every
+    scam listing in the sample carried its own phone number where the event
+    name goes, because the phone number IS the product: "+229 01 99 13 18 40",
+    "0022991113322 ou +22953077815", "+91 9965500027". The shape is
+    unambiguous — an explicit international prefix, or ten-plus digits with no
+    separators at all — but "real event titles do not carry one" was wrong: on
+    Meetup and OpenAgenda they do, so the rule is scoped by source (see
+    OPEN_REGISTRATION_SOURCES).
 
     The naive version of this check is the dangerous one. "\\d[\\d\\s.()-]{7,}\\d"
     reads a date range — "2026-05-16 - 2026-05-18" — as a sixteen-digit phone
@@ -31,7 +34,8 @@ WHAT IT REFUSES, AND WHY EACH ONE IS SAFE
     pin dates, years, times and postcodes as the things it must not touch.
 
   * A HANDFUL OF PHRASES THAT ARE NEVER AN EVENT. "marabout", "vashikaran",
-    "retour affectif", "portefeuille magique", "kala jadu", "buy … accounts".
+    "retour affectif", "portefeuille magique", "kala jadu", "buy … accounts" (that
+    last one in a title only).
     Deliberately tiny and deliberately specific: a keyword list is the part of
     this that rots, and every entry has to be a phrase that cannot plausibly
     name a gathering somebody would go to. "astrologer" is NOT on it — an
@@ -67,7 +71,7 @@ WHAT IT DELIBERATELY DOES NOT DO. It does not judge topic, language, taste or
 belief. A prayer meeting, a psychic fair and a Reiki workshop are events, and
 somebody wants to find them. The three signals above are about the SHAPE of an
 advertisement, not its subject, which is the only version of this that can be
-run over 41 adapters without quietly deciding what belongs on the map.
+run over 44 adapters without quietly deciding what belongs on the map.
 
 Used by EventStore.upsert in mapsee_ingest.py — the single choke point every
 adapter passes through — and by mapsee_spam_audit.py, which measures a source's
@@ -146,6 +150,39 @@ _ACCOUNT_TRADE_RX = re.compile(
 MAX_SPAN_DAYS = 400
 
 
+# WHERE A NUMBER IN THE TITLE IS THE ADVERT, AND WHERE IT IS AN RSVP LINE.
+# Measured over the whole table on 2026-09-14 (744,093 aggregator rows, read
+# only): the title rule matched 232 rows. 205 were advertisements — 150 linked
+# to a Mobilizon instance, 55 to the advertiser's own page or to nothing. 27
+# were real events from sources where nobody publishes anonymously: 24 Meetup
+# rows (beach-volleyball sessions saying "WhatsApp me <number> to confirm", a
+# storytelling slam's "Contact no") and 3 OpenAgenda rows (apprenticeship and
+# training information sessions with a booking line). So the number counts
+# only from a source where anybody can open an account and publish at once.
+# Gancio is listed for the same reason as Mobilizon; no flagged row linked to
+# a Gancio instance either way.
+OPEN_REGISTRATION_SOURCES = frozenset({"mobilizon", "gancio"})
+
+
+def source_family(source: Optional[str]) -> str:
+    """The adapter part of a NormalizedEvent.source: 'ods:OpenAgenda France' -> 'ods'."""
+    return str(source or "").split(":", 1)[0].strip().lower()
+
+
+def phone_counts(source: Optional[str]) -> bool:
+    """Does a phone number in the title count against a row from `source`?
+
+    Yes from an open-registration source, no from any other NAMED source, and
+    YES when the source is UNKNOWN (None or empty). Unknown is not a corner
+    case: the events table stores no adapter, so the purge can only infer one
+    from a row's link, and 55 of the 205 advertisements above link to nothing
+    but the advertiser's own page. Failing open there keeps all 55 on the map.
+    Every adapter names itself, so the ingest gate never passes unknown.
+    """
+    family = source_family(source)
+    return family in OPEN_REGISTRATION_SOURCES or not family
+
+
 def _phone_in(text: str) -> bool:
     # Both patterns read the text AS WRITTEN. Nothing is stripped first, which is
     # the whole defence: normalise separators out and "2026-05-16 - 2026-05-18"
@@ -156,30 +193,35 @@ def _phone_in(text: str) -> bool:
 def spam_reason(name: Optional[str],
                 description: Optional[str] = None,
                 start: Optional[str] = None,
-                end: Optional[str] = None) -> Optional[str]:
+                end: Optional[str] = None,
+                source: Optional[str] = None) -> Optional[str]:
     """Why this row is an advertisement, or None if it is an event.
 
     The string is for logs and audits: it names the signal that fired so a false
     positive can be argued with, rather than "rejected" with nothing to inspect.
+
+    `source` is the adapter's NormalizedEvent.source ("mobilizon", "meetup",
+    "ods:OpenAgenda France"). It decides one rule only, the phone number in the
+    title (see phone_counts), and leaving it out means UNKNOWN.
     """
     title = _flatten(name).strip()
     body = _flatten(description)
 
-    if title and _phone_in(title):
+    if title and phone_counts(source) and _phone_in(title):
         return "phone number in title"
     if _SCAM_RX.search(title):
         return "scam phrase in title"
     if _ACCOUNT_TRADE_RX.search(title):
         return "bulk-account trade in title"
 
-    # The description is scanned for the phrases but NOT for a phone number: an
-    # organiser putting a contact number in the blurb is ordinary and correct,
-    # and it is only in the TITLE that a number is the product being sold.
-    if body:
-        if _SCAM_RX.search(body):
-            return "scam phrase in description"
-        if _ACCOUNT_TRADE_RX.search(body):
-            return "bulk-account trade in description"
+    # The description is scanned for the scam phrases and for nothing else. Not
+    # for a phone number: an organiser putting a contact number in the blurb is
+    # ordinary and correct. And not for the bulk-account trade: over the whole
+    # table (744,093 rows, 2026-09-14) that scan matched 2 descriptions, both of
+    # them real real-estate investor meetings on Meetup talking about retirement
+    # accounts, and not one advertisement.
+    if body and _SCAM_RX.search(body):
+        return "scam phrase in description"
 
     return None
 
@@ -228,5 +270,5 @@ def _ymd(s: Optional[str]):
     return y, mo, d
 
 
-def is_spam(name, description=None, start=None, end=None) -> bool:
-    return spam_reason(name, description, start, end) is not None
+def is_spam(name, description=None, start=None, end=None, source=None) -> bool:
+    return spam_reason(name, description, start, end, source) is not None

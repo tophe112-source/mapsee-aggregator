@@ -550,7 +550,7 @@ class EventStore:
     """JSON-file store that dedupes on fingerprint (primary) and (source, source_id) (guard).
 
     It also REFUSES rows — see the note on `rejected` in __init__ and
-    mapsee_spam.py. This is the only place in the pipeline every one of the 41
+    mapsee_spam.py. This is the only place in the pipeline every one of the 44
     adapters passes through, which is why the refusal lives here rather than in
     the adapter that happened to notice the problem first.
     """
@@ -680,8 +680,13 @@ class EventStore:
         # the four — so reaching branch 2 below would fold an advertisement's
         # description and ticket_url INTO somebody's actual event, which is worse
         # than letting it in as its own row.
+        # With the adapter's own source name, which decides one rule: a phone
+        # number in the title counts from Mobilizon and Gancio, where anybody can
+        # publish, and not from Meetup or OpenAgenda, where real sessions carry
+        # an organiser's number (mapsee_spam.OPEN_REGISTRATION_SOURCES).
         reason = spam_reason(ev.name, ev.description,
-                             ev.start_utc or ev.start_local, ev.end_utc or ev.end_local)
+                             ev.start_utc or ev.start_local, ev.end_utc or ev.end_local,
+                             source=ev.source)
         if reason:
             self.stats["rejected"] += 1
             self.rejected_by_source[ev.source] = self.rejected_by_source.get(ev.source, 0) + 1

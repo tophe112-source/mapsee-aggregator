@@ -52,6 +52,7 @@ from __future__ import annotations
 
 import argparse
 import collections
+import json
 import os
 import re
 import sys
@@ -113,6 +114,55 @@ def source_host(description) -> str:
     if host.startswith("www."):
         host = host[4:]
     return host or "(no link)"
+
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+
+# THE TABLE STORES NO ADAPTER, so the purge infers the source spam_reason asks
+# for from the row's link, and says so in its report. Three answers:
+#   * a host from mobilizon_sources.json or gancio_sources.json, _not_included
+#     entries too (the retired spam hosts are recorded there) -> that source;
+#   * meetup.com or openagenda.com -> "meetup" / "ods", the two platforms where
+#     a number in the title was MEASURED to be an organiser's contact line on
+#     real events (24 and 3 rows, 2026-09-14);
+#   * anything else, or no link at all -> None, UNKNOWN, which spam_reason
+#     treats like an open-registration source: 55 of the 205 advertisements
+#     that rule caught link only to the advertiser's own page or to nothing.
+# The ingest gate needs none of this: every adapter names itself.
+_MEASURED_CLOSED_HOSTS = {"meetup.com": "meetup", "openagenda.com": "ods"}
+
+
+def instance_hosts(here: str = HERE) -> dict:
+    """host -> "mobilizon" | "gancio", from the two open-registration configs."""
+    out = {}
+    for family, fname in (("mobilizon", "mobilizon_sources.json"),
+                          ("gancio", "gancio_sources.json")):
+        try:
+            with open(os.path.join(here, fname), encoding="utf-8") as fh:
+                cfg = json.load(fh)
+        except (OSError, ValueError):
+            continue
+        urls = [s.get("base_url") or s.get("url") or "" for s in cfg.get("sites") or []]
+        urls += [k for k in (cfg.get("_not_included") or {}) if str(k).startswith("http")]
+        for u in urls:
+            host = urllib.parse.urlsplit(str(u)).netloc.lower()
+            host = host[4:] if host.startswith("www.") else host
+            if host:
+                out[host] = family
+    return out
+
+
+def row_source(description, instances: dict):
+    """The source a stored row came through, as far as its link can tell; None = unknown."""
+    host = source_host(description)
+    if host == "(no link)":
+        return None
+    if host in instances:
+        return instances[host]
+    for known, family in _MEASURED_CLOSED_HOSTS.items():
+        if host == known or host.endswith("." + known):
+            return family
+    return None
 
 
 def window_query(root: str, scope: str, cursor: str, page: int, op: str = "gte") -> str:
@@ -259,6 +309,7 @@ def main() -> int:
     doomed: list[tuple[str, str, str, str]] = []     # (id, reason, title, host)
     unbounded: list[tuple[str, int, str, str]] = []  # (id, span, title, host)
     drained: dict[str, int] = {}                     # instant -> rows read past its first page
+    instances = instance_hosts()                     # host -> "mobilizon" | "gancio"
 
     def fetch(q: str) -> list:
         r = requests.get(q, headers=auth, timeout=120)
@@ -285,16 +336,16 @@ def main() -> int:
             return
         seen_ids.add(row["id"])
         seen += 1
+        source = row_source(row.get("description"), instances)
+        label = f"{source_host(row.get('description'))} [{source or 'unknown source'}]"
         why = spam_reason(row.get("title"), row.get("description"),
-                          row.get("starts_at"), row.get("ends_at"))
+                          row.get("starts_at"), row.get("ends_at"), source=source)
         if why:
-            doomed.append((row["id"], why, (row.get("title") or "")[:70],
-                           source_host(row.get("description"))))
+            doomed.append((row["id"], why, (row.get("title") or "")[:70], label))
             return
         span = implausible_end(row.get("starts_at"), row.get("ends_at"))
         if span is not None:
-            unbounded.append((row["id"], span, (row.get("title") or "")[:70],
-                              source_host(row.get("description"))))
+            unbounded.append((row["id"], span, (row.get("title") or "")[:70], label))
 
     print(f"Walking aggregator events from {cursor} forward…")
     # SAID OUT LOUD, because a walk that runs out of budget used to end exactly
@@ -323,7 +374,7 @@ def main() -> int:
     print(f"  {len(unbounded)} row(s) whose end date is not a fact")
     for label, items in (("advertisements", doomed), ("end dates to clear", unbounded)):
         if items:
-            print(f"  {label} by source (host of each row's Tickets / info link):")
+            print(f"  {label} by source (host of each row's Tickets / info link [source inferred from it]):")
             for host, n in collections.Counter(x[3] for x in items).most_common(15):
                 print(f"    {n:>6}  {host}")
     for _id, why, title, host in doomed[:a.show]:

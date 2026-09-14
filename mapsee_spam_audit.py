@@ -115,7 +115,11 @@ def audit_site(session, site: Dict[str, Any], pages: int) -> Dict[str, Any]:
             if not nev:
                 continue
             out["read"] += 1
-            reason = spam_reason(nev.name, nev.description, nev.start_utc, nev.end_utc)
+            # nev.source is what the ingest gate will see for this row, so the
+            # rate is scored by the same scoped rules ("mobilizon" counts a
+            # number in the title).
+            reason = spam_reason(nev.name, nev.description, nev.start_utc, nev.end_utc,
+                                 source=nev.source)
             if not reason:
                 span = implausible_end(nev.start_utc or nev.start_local,
                                        nev.end_utc or nev.end_local)

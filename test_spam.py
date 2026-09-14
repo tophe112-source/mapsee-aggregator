@@ -132,6 +132,70 @@ keeps("a number in the BODY, where it belongs",
       name="Yoga in the Park",
       description="Bring a mat. Questions? Call the studio on +1 206 555 0134.")
 
+# --- MUST NOT FIRE: the 29 real events in the whole-table report -----------
+print()
+print("the real events the first full report flagged, with the source each came through")
+# The first full read-only walk (744,093 rows, 2026-09-14) matched 256 rows and 29
+# of them were real events. Every digit below is a 0, so this public file does
+# not republish anybody's number: the rules read the SHAPE, and the check after
+# this block proves every one still reaches the phone rule. Where the report cut
+# a title at 70 characters inside the number, the number is completed in the
+# same shape ("completed"). The two REIA descriptions matched "buy ... accounts";
+# the report kept no description text, so those two are written to that shape.
+REAL_WITH_NUMBERS = [
+    # (rows, source, title)
+    (8, "meetup", "Beach volleyball para begginers . Write me a WhatsApp +00000000000"),
+    (9, "meetup", "Training Intermediate Level. WhatsApp me +00000000000 to confirm your"),
+    (4, "meetup", "Training BEGGINER Level. WhatsApp me +00000000000 to confirm your assi"),
+    (1, "meetup", 'The "Awkward Social" Simulator | Enroll applicable | Contact no +00 0000000000'),  # completed
+    (1, "meetup", 'The "Awkward Social" Simulator | Entry fee applicable | Contact no 0000000000'),  # completed
+    (1, "meetup", "The Storytelling Slam | Entry fee applicable | Contact no +00 00000000"),
+    (2, "ods:OpenAgenda France",
+     "L'industrie recrute en apprentissage dès septembre ! Prenez RDV au 0000000000"),  # completed
+    (1, "ods:OpenAgenda France", "INFORMATION COLLECTIVE : DESSINATEUR CAO-DAO_ SE0000000000"),
+]
+REAL_ACCOUNT_TALK = [
+    # (rows, source, title, description)
+    (1, "meetup", "Alamo REIA Monthly Main Meeting: All About IRAs & Retirement Accounts",
+     "Learn how to buy property with your retirement accounts."),
+    (1, "meetup", "Greater Houston REIA Monthly Main Meeting",
+     "Members buy homes using retirement accounts."),
+]
+for _rows, _src, _title in REAL_WITH_NUMBERS:
+    keeps(f"{_src}, x{_rows}: {_title[:52]}", name=_title, source=_src)
+for _rows, _src, _title, _body in REAL_ACCOUNT_TALK:
+    keeps(f"{_src}, x{_rows}: {_title[:52]}", name=_title, description=_body, source=_src)
+check("...which is all 29 of the real rows",
+      sum(r[0] for r in REAL_WITH_NUMBERS) + sum(r[0] for r in REAL_ACCOUNT_TALK) == 29)
+
+print()
+print("the SOURCE is what keeps them: the same titles from Mobilizon are refused")
+for _rows, _src, _title in REAL_WITH_NUMBERS:
+    check(f"from mobilizon: {_title[:52]}",
+          spam_reason(_title, source="mobilizon") == "phone number in title",
+          spam_reason(_title, source="mobilizon"))
+for _rows, _src, _title, _body in REAL_ACCOUNT_TALK:
+    check(f"the account talk is in the description, where it no longer counts: {_title[:30]}",
+          spam_reason(_title, _body, source="mobilizon") is None)
+rejects("...while the same trade in a TITLE is refused from any source",
+        name="Buy verified PayPal accounts", source="meetup")
+
+print()
+print("which sources a number in the title counts against, and what unknown means")
+_AD = "Consultation gratuite +229 01 56 42 27 95"     # a number and no listed phrase
+check("a number-only advert is refused from Mobilizon",
+      spam_reason(_AD, source="mobilizon") == "phone number in title")
+check("...and from Gancio", spam_reason(_AD, source="gancio") == "phone number in title")
+check("...however the source is spelt", spam_reason(_AD, source=" Mobilizon ") == "phone number in title")
+check("from Meetup a number alone is not enough", spam_reason(_AD, source="meetup") is None)
+check("...nor from an OpenAgenda feed", spam_reason(_AD, source="ods:OpenAgenda France") is None)
+check("...nor from an ICS calendar", spam_reason(_AD, source="ics:Visit Somewhere") is None)
+check("UNKNOWN counts like open registration: no source at all is refused",
+      spam_reason(_AD) == "phone number in title")
+check("...and so is an empty source", spam_reason(_AD, source="") == "phone number in title")
+check("a listed phrase is refused from EVERY source, Meetup included",
+      spam_reason("Marabout retour affectif rapide", source="meetup") == "scam phrase in title")
+
 # --- the gate is wired to the choke point ------------------------------------
 print()
 print("EventStore refuses, counts, and does not merge")
@@ -192,6 +256,19 @@ with tempfile.TemporaryDirectory() as d:
     # quietly re-point (mobilizon, b) at the real event's fingerprint for ever.
     check("a refused row leaves no identity behind",
           ("mobilizon", "b") not in store.source_to_fp, store.source_to_fp)
+
+    # upsert passes the adapter's source: a Meetup session with a WhatsApp number
+    # is stored, and the same title through Mobilizon is refused.
+    volley = NormalizedEvent(source="meetup", source_id="v1", name=REAL_WITH_NUMBERS[0][2],
+                             start_utc="2026-09-20T09:00:00Z", venue_name="Beach",
+                             city="Barcelona", category="fitness")
+    volley.fingerprint = "fp-volley"
+    check("a Meetup session with a WhatsApp number is stored", store.upsert(volley) == "added")
+    same = NormalizedEvent(source="mobilizon", source_id="v2", name=REAL_WITH_NUMBERS[0][2],
+                           start_utc="2026-09-21T09:00:00Z", venue_name="Beach",
+                           city="Barcelona", category="fitness")
+    same.fingerprint = "fp-same"
+    check("...and the same title through Mobilizon is refused", store.upsert(same) == "rejected")
 
 # --- the purge will not run away with itself ---------------------------------
 print()
@@ -287,6 +364,27 @@ def _budget():
 _ended2, _at2 = walk(_window, _instant, "2021-09-15T05:41:32Z", 500, _budget, lambda r: None)
 check("a walk stopped by its budget says so, and where",
       "NOT examined" in _ended2 and _at2 in _ended2, _ended2)
+
+print()
+print("the purge infers a row's source from its link, because the table stores none")
+from mapsee_spam_purge import instance_hosts, row_source
+
+_inst = instance_hosts()
+check("a retired spam host is known as a Mobilizon instance (from _not_included)",
+      _inst.get("gamenight.host") == "mobilizon", len(_inst))
+check("...and so is a configured one", _inst.get("mobilizon.fr") == "mobilizon")
+check("a Meetup link reads as meetup",
+      row_source("x\n\nTickets / info: https://www.meetup.com/g/events/1/", _inst) == "meetup")
+check("an OpenAgenda link reads as ods",
+      row_source("Tickets / info: https://openagenda.com/fr/a/events/b", _inst) == "ods")
+check("an advertiser's own page is unknown",
+      row_source("Tickets / info: https://papafagla.com/x", _inst) is None)
+check("...and so is a row with no link left", row_source("no link here", _inst) is None)
+check("so the purge keeps a Meetup session and refuses a number-only advert on a spam page",
+      spam_reason(REAL_WITH_NUMBERS[0][2],
+                  source=row_source("Tickets / info: https://www.meetup.com/x", _inst)) is None
+      and spam_reason(_AD, source=row_source("Tickets / info: https://papafagla.com/x", _inst))
+      == "phone number in title")
 
 # --- the cap is a value, not a magic number ----------------------------------
 print()
