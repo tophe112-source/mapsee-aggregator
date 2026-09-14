@@ -44,7 +44,7 @@ python catalog_curate.py coverage   # where the catalog is thin, per lens catego
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 44 test scripts are the CI gate (`tests.yml`). They print one line per
+The 46 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

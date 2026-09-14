@@ -11,7 +11,7 @@ name: Prune cancelled events
 #
 # WHERE IT SITS IN THE DAY, and the order is load-bearing:
 #   06:17  aggregate-events      the import
-#   07:40  menu-links            order links, after the import
+#   07:40  menu-links (Wed)      order links, after the import
 #   07:55  THIS (full sweep)     hide what the source has called off
 #   08:23  cleanup-events        the janitor deletes what is past
 #   16:55  THIS (near horizon)   catch TODAY's cancellations before tonight
