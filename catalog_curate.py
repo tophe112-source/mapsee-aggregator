@@ -66,6 +66,7 @@ import datetime
 import json
 import os
 import re
+import statistics
 import sys
 import time
 
@@ -2107,7 +2108,34 @@ _ISO_COUNTRY = {
     "LT": "Lithuania", "MY": "Malaysia",
     "SG": "Singapore", "HK": "Hong Kong", "AE": "United Arab Emirates",
     "ZA": "South Africa",
+    # Declared by bikereg_sources.json's `countries` and by nothing else. Absent
+    # from this table they stayed as "IS" and "JM", which is not a country name
+    # a gap report can act on.
+    "IS": "Iceland", "JM": "Jamaica",
 }
+
+
+def _iso_countries(value):
+    """The ISO codes a config's `countries` declares, whatever shape it is in.
+
+    Every config but one states `countries` as a LIST of codes. parkrun's states
+    a MAP — parkrun's own numeric country id to the ISO code — because the
+    adapter looks a feed row's `countrycode` up in it (`(cfg.get("countries") or
+    {}).get(str(code))`). Iterating a dict yields its KEYS, so the coverage
+    report read parkrun's ids as country names and filed 20 sources under "97",
+    "3", "85" and friends. That is not a cosmetic misprint: those 20 fakes each
+    held exactly one source, `thin_countries` is "<= 2 sources", and the ranked
+    thin-ground list is capped at 20 — so they filled **all twenty slots**, and
+    the report an autonomous curation run reads to pick its targets contained
+    nothing but parse artefacts. The real thin ground (volunteer at 10 sources,
+    running at 22, kids at 25) never appeared at all.
+
+    The same shape would bite the generic `countries` branch in _coverage_rows,
+    so both go through here rather than one being taught about the other.
+    """
+    if isinstance(value, dict):
+        value = list(value.values())
+    return [str(c).upper() for c in (value or []) if c]
 
 
 try:
@@ -2264,8 +2292,10 @@ def _rows_parkrun(data):
     if not data.get("url"):
         return []
     cat = data.get("category") or "running"
-    return [("parkrun", "(worldwide)", _ISO_COUNTRY.get(c.upper(), c.upper()), cat)
-            for c in (data.get("countries") or ["?"])]
+    # _iso_countries, not a bare iteration: this config states `countries` as a
+    # {parkrun id: ISO} MAP, and the keys are the ids. See its docstring.
+    codes = _iso_countries(data.get("countries")) or ["?"]
+    return [("parkrun", "(worldwide)", _ISO_COUNTRY.get(c, c), cat) for c in codes]
 
 
 def _rows_runsignup(data):
@@ -2378,7 +2408,16 @@ def _coverage_rows():
             # "Ticketzon (IT)" — Switzerland, France and Italy — all filed as US.
             # An entry that DECLARES its country is not guessing, so it wins.
             if e.get("default_country"):
-                country = e["default_country"]
+                # It is an ISO CODE — the adapters read it as one — so it is
+                # expanded here or the country is counted twice under two names.
+                # Measured: gancio declares DE, ES, NL, CZ, CA and US, and the
+                # report showed "Germany 27" beside "DE 4", "Spain 8" beside
+                # "ES 2", and "CA 1" as a country with one source while Canada
+                # had 36. Every one of those halves then read as thin ground.
+                # No US-state ambiguity to worry about here ("CA" is California
+                # in a geocode suffix): this field names a COUNTRY.
+                iso = str(e["default_country"]).upper()
+                country = _ISO_COUNTRY.get(iso, e["default_country"])
             cat = e.get("category") or ("(per-event)" if t == "localist" else "?")
             # ODS entries carry an ISO `countries` array instead of a
             # geocode_suffix, so _locate() cannot see them and they landed under
@@ -2386,10 +2425,10 @@ def _coverage_rows():
             # next curation run back over ground it had already won (Belgium
             # showed 0 with 1363 events configured; Brisbane 11 datasets showed
             # as nothing). Emit one row per declared country instead.
-            iso = [c for c in (e.get("countries") or []) if c]
+            iso = _iso_countries(e.get("countries"))
             if iso:
                 for code in iso:
-                    rows.append((t, name, metro, _ISO_COUNTRY.get(code.upper(), code.upper()), cat))
+                    rows.append((t, name, metro, _ISO_COUNTRY.get(code, code), cat))
                 continue
             rows.append((t, name, metro, country, cat))
     return rows + _extra_coverage_rows()
@@ -2448,7 +2487,16 @@ def cmd_coverage():
                                        key=lambda kv: (-sum(kv[1].values()), kv[0])):
         tot = sum(tc.values())
         star = "*" if len(tc) == 1 else " "
-        if len(tc) == 1:
+        # A NATIONAL ADAPTER'S PLACEHOLDER IS NOT A METRO, so "only one source
+        # type here" says nothing about it. parkrun files itself under
+        # "(worldwide)", bikereg under "(national)" and a market grid under
+        # "(national grid: conus)" — labels that exist BECAUSE the source has no
+        # metro to name, and which are therefore single-type by construction and
+        # for ever. They were 11 of the 20 ranked targets, recommending "add
+        # another feed type" for Germany-the-parkrun-row while Germany itself had
+        # 32 sources across six types. Measured: 7 such labels over 250 rows, and
+        # no real metro name in the catalog's 421 begins with "(".
+        if len(tc) == 1 and not str(metro).startswith("("):
             single_type.append((tot, metro, country, next(iter(tc))))
         print(f"{star}{str(metro)[:24]:<25}{str(country)[:15]:<16}"
               + "".join(f"{tc.get(t, 0):>{W}}" for t in types) + f"{tot:>8}")
@@ -2481,28 +2529,83 @@ def cmd_coverage():
     # -- ranked thin ground --
     print("\n-- thin ground (ranked targets for the next curation run) --")
     targets = []
+    per_cat = {c: 0 for c in cats}
+    for _t, _n, _m, _country, cat in rows:
+        if cat in per_cat:
+            per_cat[cat] += 1
     for country in uncovered:
         metros = ", ".join(sweep[country][:5])
         targets.append((0, 0, f"{country}: 0 curated feeds; API sweep already covers "
                               f"{metros} - seed community/learning feeds there"))
+    # CATEGORIES, second only to a country with nothing at all — a lens opens
+    # onto categories, so a starved one is a door onto an empty map. They used to
+    # score behind the three geographic tiers, which between them always filled
+    # the 20-line cap, so no category has ever been printed here. `--category`
+    # is the flag that acts on this, hence naming it in the line.
+    for cat in thin_categories(per_cat):
+        targets.append((1, per_cat[cat],
+                        f"{cat}: only {per_cat[cat]} curated source(s) catalog-wide "
+                        f"- run `discover --category {cat}`"))
     for country in sorted(thin_countries):
         n = sum(by_country[country].values())
-        targets.append((1, n, f"{country}: only {n} curated source(s) - broaden "
+        targets.append((2, n, f"{country}: only {n} curated source(s) - broaden "
                               f"metros and categories"))
-    for tot, metro, country, only in sorted(single_type)[:12]:
-        targets.append((2, tot, f"{metro} ({country}): {tot} source(s), all "
+    # Capped at 5, not 12: every entry here scores tot=1, so `sorted()` ranks
+    # them ALPHABETICALLY by metro and a wider slice just prints more of the
+    # letter A (Aarhus, Abu Dhabi, Ahmedabad, Albany, Alberta...). Five is enough
+    # to show the shape without crowding out the tiers below, which is what the
+    # old twelve did to every category gap.
+    for tot, metro, country, only in sorted(single_type)[:5]:
+        targets.append((3, tot, f"{metro} ({country}): {tot} source(s), all "
                                 f"'{only}' - add another feed type"))
     for country, missing in sorted(cat_gaps.items(),
                                    key=lambda kv: -len(kv[1])):
         if country in thin_countries:
             continue                       # already listed above with more urgency
-        targets.append((3, -len(missing),
+        targets.append((4, -len(missing),
                         f"{country}: no {', '.join(missing[:5])} feeds yet"))
     for i, (_p, _s, msg) in enumerate(sorted(targets)[:20], 1):
         print(f"{i:>3}. {msg}")
     if not targets:
         print("  (no gaps detected)")
     return 0
+
+
+def thin_categories(per_cat):
+    """The curated categories that are STARVED relative to the rest, thinnest first.
+
+    The loop has always been able to see a thin COUNTRY and a thin METRO and has
+    never once been able to see a thin CATEGORY, which is the axis the front
+    doors are actually built on — a lens opens onto categories, not onto
+    countries. Two things hid it:
+
+      • `cmd_coverage`'s ranked list scores category gaps at priority 3, behind
+        uncovered countries, thin countries and single-type metros. Those three
+        produced 9 + 12 = 21 entries against a 20-line cap, so a category has
+        never appeared in the ranked targets at all.
+      • `curate-catalog.yml`'s Wednesday gap sweep pins to `zero_categories`,
+        and nothing has been at zero since fitness and running were seeded. An
+        empty pin means "sweep everything", so the category-pinned run has been
+        a second copy of the daily run for weeks.
+
+    Meanwhile the spread is 100:1 — measured 2026-09-13: community 1010, market
+    525, arts 170, learning 123, fitness 81, outdoors 26, kids 25, running 22,
+    volunteer 10.
+
+    BELOW HALF THE MEDIAN, rather than "the bottom four" or a hardcoded ceiling.
+    A fixed count would always name four categories even once they had evened
+    out, and a hardcoded number would rot the way `_looks_archived`'s year
+    ceiling did. Half the median is scale-free: it flags a genuinely lopsided
+    catalog (today: volunteer, running, kids, outdoors, against a median of 81)
+    and goes quiet on an even one, with no constant to maintain.
+    """
+    counts = {c: n for c, n in (per_cat or {}).items()}
+    if not counts:
+        return []
+    median = statistics.median(counts.values())
+    floor = median / 2.0
+    return [c for c, n in sorted(counts.items(), key=lambda kv: (kv[1], kv[0]))
+            if n < floor]
 
 
 def coverage_snapshot():
@@ -2539,6 +2642,10 @@ def coverage_snapshot():
         "per_category": per_cat,
         "per_type": per_type,
         "zero_categories": sorted(c for c, n in per_cat.items() if not n),
+        # What the gap sweep should pin to once nothing is at zero. See
+        # thin_categories(): without this the Wednesday run silently became a
+        # duplicate of the daily one.
+        "thin_categories": thin_categories(per_cat),
         "ledger": {"dead": dead, "total": total},
         "roster_live": CURATED_FROM_LIVE,
     }

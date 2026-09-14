@@ -177,3 +177,103 @@
   Infants & Toddlers — exactly as `baby` was already scoped one line above.
   Every ambiguous single word in `_KIDS_RX` and `_FITNESS_RX` is qualified for
   this reason; an unqualified one is a bug waiting for a big enough sample.
+
+- **`_PARTY_RX` owns "block party", and one title is not a reason to take it
+  back.** mapsee.me's own create placeholder is "Block Party Potluck" and
+  awaresie is the neighbourhood door, so a family block party landing on
+  bar.ventures ("Nights Out, Nightlife and People to Meet") reads like a
+  miscast — `_PROMOTABLE_TO_PARTY` includes `community`, so a town calendar's
+  block party is promoted straight out of it. Measured before touching it, and
+  the measurement says leave it alone: across 280 live event pages sampled from
+  mapsee.me's own sitemaps, **zero** mention a block party anywhere in title or
+  description, and `_PARTY_RX` fires on three — a speed-dating night, a second
+  speed-dating night and a happy hour, all correctly nightlife. The one real
+  instance found all day ("NIU Homecoming Block Party", from DeKalb's new civic
+  feed) is a university homecoming, which is a party; and it keeps `community`
+  as a SECONDARY, so it still reaches plansie and awaresie either way. The
+  primary only decides the pin's colour and glyph. Retuning a deliberate,
+  documented rule on a sample of one is how the kids regex acquired its
+  unqualified words.
+
+- **vivosie was starved by the word "series".** `_SECONDARY_RX["music"]` asked
+  for the exact phrase `concert series`, so "Summer Concert Series" reached the
+  live-music lens and "Concert in the Park - Radio Replay" reached nothing.
+  Measured 2026-09-13 over 3,160 DISTINCT live titles from 335 civic community
+  calendars: 63 are about music and the rule caught **12**. The other 51 were
+  symphonies, community concert bands, mariachi in the park, Oktoberfest
+  concerts and tribute acts — the free outdoor town concert, which is the most
+  characteristic thing "Live Music Near You Tonight" could open onto. Widening
+  it takes 105. Same shape as fleabop: the supply was not missing, it was
+  unlabelled, and no amount of curation would have found it.
+
+- **Every word in that rule was counted before it went in, and two had to be
+  qualified.** Bare `concerts?` scored 69 hits and all 69 were genuine — worth
+  reading every one rather than assuming, because the neighbouring words were
+  not so clean. Bare `jazz` scored 10 and **6 were Jr. Jazz youth BASKETBALL**,
+  so it is scoped to `live jazz`, `jazz night/series/band/trio/orchestra`, `jazz
+  at`. Bare `music` took "Bill & Ted Face the Music", "Music Together" (a
+  toddler class), "Music and Movement" and "USSSA Music City Fall Nationals -
+  Softball", so it is scoped to `music series/festival/night/of` and `music
+  in/on the`. `bands?` scored 25 with one miss, the FILM "Trolls Band Together",
+  hence the `(?!\s+together)` lookahead. `choir` is deliberately absent —
+  half its hits are "Choir Practice", and a rehearsal is not a gig — and
+  `bandshell` is absent because it scored zero, not because it is wrong.
+
+- **`kayak` and `canoe` could never match the word anybody writes.** Both sat
+  inside the secondary group's trailing `\b`, so the boundary demanded a
+  non-word character straight after "canoe" — and a listing says "Canoeing" or
+  "Kayaking", never the bare stem. `hik(?:e|ing)` one line above shows the
+  suffix was meant to be there; these two and `snowshoe` were simply missed.
+  Same family as the `18+` age gate whose `+` could never end a `\b`. The first
+  patch for it REINTRODUCED the bug one line down — `swim\s+lesson` cannot match
+  "Swim Lessons" either — which is why every plural in there is now spelled out.
+  If you add a word to one of these groups, test it against the plural.
+
+- **wegosie was missing the sports a parks department actually runs.** `outdoors`
+  is deliberately not one of wegosie's keys: a hike keeps its outdoors PIN and
+  reaches the movement lens through the fitness SECONDARY. Measured 2026-09-13
+  over 6,000 DISTINCT live titles from 490 civic and park feeds, counting only
+  titles that reached NEITHER the outdoors nor the fitness layer: **pickleball
+  25, skating 17, birding/bird walk 16, swim lessons 3, archery 3, disc golf 2,
+  kayaking/canoeing 2**. pickleball is the single biggest miss in the corpus and
+  the word is unambiguous — there is no other pickleball. Net effect: 181 of the
+  6,000 reached wegosie from a `community` base before, 239 after.
+  END TO END, against the 3,657 live events the 42 newly-merged park and
+  conservation sources actually carry: **1,573 reached wegosie before the fix
+  and 1,792 after** — +219 events over 18 distinct titles, among them four
+  Seacoast Chapter beginner bird walks, "Family Canoeing", "Intro to Archery",
+  "Adult Skate Camp" and every drop-in "Pickleball". The rest of that 1,792 is
+  worth knowing too: 1,471 arrive because the SOURCE states `fitness` (a town's
+  pool and fitness timetable) and only 321 because the classifier found them.
+  The config category does the heavy lifting; the regex reaches the free
+  outdoor sessions a config default cannot know about.
+
+- **A bare `walks?` is the obvious win and the wrong call.** It scores 77 hits in
+  that corpus and **74 of them correctly reach neither layer** — "Art & Wine
+  Walk", "13th Annual Historic Cemetery Walk", "Luminary Walk", "A Walk in Their
+  Shoes - Dementia Simulation Workshop". On a town calendar a "walk" is an art
+  crawl or a fundraiser far more often than it is exercise, so it stays
+  qualified (`nature walk`, `guided walk`, `trail walk`, `bird walk`). Bare
+  `paddle` is the same trap one size down: 5 hits, of which "Paddle Battle",
+  "Battle of the Paddle" and "Doggie Paddle Day" are 4. And `swim\s+meet` was
+  written and then removed: 3 of the 6 `swim …` hits are CLOSURE notices ("Swim
+  Meet - Swim Center Closed"), and a closed pool on a movement lens is worse
+  than missing the one real meet.
+
+- **`category_for_feed` grew `outdoors` and `fitness` once the park agencies made
+  them worth having.** Measured over all 587 civic+parks ics sources: 6
+  sub-calendars state outdoors ("Open Space", "Open Space Master Calendar",
+  "Remington Nature Center") and 16 state fitness — and the fitness ones are
+  nearly all AQUATICS: "Aquatic Center", "Aquatic Fitness", "Aquatics Public
+  Swim", "Aquatics Jr High Swim Team", "Fitness Center", "Masters Swimming",
+  "Doling Fitness Schedule", "Senior Fitness", "Yoga". A town's pool timetable
+  is the one part of a parks department that is purely movement, and it is
+  exactly what wegosie opens onto. Six is a small number and `outdoors` is the
+  thinnest curated category on the map, so it still earns the rule.
+
+- **`wellness` was written into that rule and taken straight back out.** Its only
+  two hits in the corpus are "Department of Health, Wellness and Animal
+  Services" and "Community - Wellness and Recovery" — a county department and a
+  recovery support group, neither of them exercise. `parks & rec` stays absent
+  for the reason recorded above: 81 sub-calendars carry it and every one is
+  mixed by construction.

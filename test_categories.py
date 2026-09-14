@@ -359,6 +359,136 @@ print(f"{len(AGE_CASES)-len(afails)}/{len(AGE_CASES)} passed")
 cfails += afails
 
 
+# ---------------------------------------------------------------------------
+# Local live music reaches vivosie
+# ---------------------------------------------------------------------------
+# vivosie is "Live Music Near You Tonight" and the free outdoor town concert is
+# the most characteristic thing it could open onto. The music SECONDARY wanted
+# the exact phrase "concert series", so "Concert in the Park - Radio Replay"
+# reached no music layer and "Summer Concert Series" did. Measured 2026-09-13
+# over 3,160 DISTINCT live titles from 335 civic community calendars: 63 titles
+# are about music and the rule caught 12; after widening, 105 match and every
+# title below is a real one from that corpus.
+#
+# The NEGATIVES are the reason the rule is qualified rather than a list of bare
+# words: "Jr. Jazz" is youth BASKETBALL (6 of the 10 bare `jazz` hits), "Trolls
+# Band Together" is a film, and "Music Together" is a toddler class.
+MUSIC_CASES = [
+    # (title, base category, must music be among the categories?)
+    ("Concert in the Park - Radio Replay", "community", True),
+    ("Concerts in The Park", "community", True),
+    ("Concert in the Park: MARIACHI COACHELLA", "community", True),
+    ("Oktoberfest Concert: GB Leighton", "community", True),
+    ("Bartlett Community Concert Band @ BPACC", "community", True),
+    ("Performance in the Park - Capri Big Band", "community", True),
+    ("Rumours: The Ultimate Fleetwood Mac Tribute Band", "community", True),
+    ("St. Joseph Symphony \"Remembering Beethoven\"", "community", True),
+    ("Symphonic Sinatra", "community", True),
+    ("Orlando Jazz Orchestra", "community", True),
+    ("Live Jazz Series with the Jesse Taitt Trio", "community", True),
+    ("Jazz at MOCA", "community", True),
+    ("Levitt AMP Dothan Music Series - Johnny Mullenax", "community", True),
+    ("Music on the Trail", "community", True),
+    ("ARRIVAL From Sweden: The Music of ABBA", "community", True),
+    # ...and what it must NOT take.
+    ("Girls Jr. Jazz Basketball Registration", "community", False),
+    ("Jr. Jazz High School Basketball Registration Ends", "community", False),
+    ("Hip Hop Jazz Camp Begins", "community", False),
+    ("Movie in the Park: TROLLS BAND TOGETHER (PG)", "community", False),
+    ("Music Together | Fall", "community", False),
+    ("Music and Movement", "community", False),
+    ("Family Music Bingo", "community", False),
+    ("1 p.m. Monday Matinee \"Bill & Ted Face the Music\" PG-13", "community", False),
+    ("Choir Practice", "community", False),
+    ("USSSA Music City Fall Nationals - Softball", "community", False),
+]
+
+mfails = []
+for title, base, want in MUSIC_CASES:
+    pr, ex = _derive({"name": title, "title": title, "description": "", "category": base,
+                      "sources": [{"source": "ics", "source_id": "1"}]})
+    cats = {pr} | set(ex or [])
+    ok = ("music" in cats) == want
+    if not ok:
+        mfails.append(title)
+    print(f"{'ok ' if ok else 'FAIL'} {title[:46]:<48} -> {pr} + {sorted(ex or [])}"
+          f"{'' if ok else ('   (music must NOT be here)' if not want else '   (music is missing)')}")
+print()
+print(f"{len(MUSIC_CASES)-len(mfails)}/{len(MUSIC_CASES)} passed")
+cfails += mfails
+
+
+# ---------------------------------------------------------------------------
+# Free outdoor activity reaches wegosie
+# ---------------------------------------------------------------------------
+# wegosie is running+sports+fitness and `outdoors` is deliberately NOT one of
+# its keys — a hike keeps its outdoors PIN and reaches the movement lens through
+# the fitness SECONDARY. That path had two holes.
+#
+# `kayak` and `canoe` sat inside the secondary group's trailing \b, so the
+# boundary demanded a non-word character straight after "canoe" and neither
+# could ever match "Canoeing" or "Kayaking" — the only spelling a real listing
+# uses. `hik(?:e|ing)` one line above shows the suffix was meant to be there.
+# Same family as the `18+` age gate whose `+` could never end a \b, and the
+# first patch for this reintroduced it (`swim\s+lesson` cannot match "Swim
+# Lessons"), which is why the plurals are spelled out.
+#
+# And a parks department runs racquet, ice and target sports constantly, none of
+# which the rule had heard of. Counted over 6,000 DISTINCT live titles from 490
+# civic and park feeds, 2026-09-13, each count being titles that reached NEITHER
+# layer: pickleball 25, skating 17, birding/bird walk 16, swim lessons 3,
+# archery 3, disc golf 2, kayaking/canoeing 2. Net: 181 of the 6,000 reached
+# wegosie from a `community` base before, 239 after.
+WEGOSIE_CASES = [
+    # (title, base category, must it reach wegosie?)
+    ("Drop In Pickleball", "community", True),
+    ("Fall 2026 Beginners Pickleball Clinics", "community", True),
+    ("Developmental Figure Skating", "community", True),
+    ("Family Canoeing", "outdoors", True),
+    ("Kayaking 101 (7Y+)", "outdoors", True),
+    ("Adaptive Swim Lessons Session Begins", "community", True),
+    ("Intro to Archery", "community", True),
+    ("Intro to Disc Golf", "community", True),
+    ("Backyard Birding Series: Bird Walk at Brust Park", "community", True),
+    # ...the ones that already worked, so a rewrite cannot quietly drop them
+    ("Guided Bird Hike: Fall Migration", "outdoors", True),
+    ("Full Moon Night Hike", "outdoors", True),
+    ("Back to Basics: Cold Weather Hiking", "outdoors", True),
+    # --- and what must NOT reach it.
+    # A bare `walks?` scores 77 hits in the corpus and 74 correctly reach
+    # neither layer: on a town calendar a "walk" is an art crawl or a fundraiser
+    # far more often than it is exercise.
+    ("Art & Wine Walk", "community", False),
+    ("13th Annual Historic Cemetery Walk", "community", False),
+    ("A Walk in Their Shoes - Dementia Simulation Workshop", "community", False),
+    # Bare `paddle` is the same trap: 5 hits and 4 are not paddling at all.
+    ("2026 Paddle Battle", "community", False),
+    ("Doggie Paddle Day at Oasis", "community", False),
+    ("Winter Springs Police Foundation Battle of the Paddle", "community", False),
+    # CLOSURE NOTICES. `swim meet` would have taken both; a closed pool on a
+    # movement lens is worse than missing the one real meet in the corpus.
+    ("Swim Meet - Swim Center Closed", "community", False),
+    ("Pool Closed on Saturday, October 31 for Halloween & Swim Meets", "community", False),
+    # A birding LECTURE is not a walk — outdoors yes, movement no.
+    ("Birding Day: A Day in Tillamook County", "community", False),
+]
+
+wfails = []
+for title, base, want in WEGOSIE_CASES:
+    pr, ex = _derive({"name": title, "title": title, "description": "", "category": base,
+                      "sources": [{"source": "ics", "source_id": "1"}]})
+    cats = {pr} | set(ex or [])
+    got = bool(cats & WEGOSIE)
+    ok = got == want
+    if not ok:
+        wfails.append(title)
+    print(f"{'ok ' if ok else 'FAIL'} {title[:46]:<48} {base:<9} -> {pr} + {sorted(ex or [])}"
+          f"{'' if ok else ('   (must NOT reach wegosie)' if not want else '   (wegosie is missing)')}")
+print()
+print(f"{len(WEGOSIE_CASES)-len(wfails)}/{len(WEGOSIE_CASES)} passed")
+cfails += wfails
+
+
 SWEEP_CASES = [
     # (name, description, source, want)
     ("On Fire! Scorching Stand Up Comedy!", "A night of side-splitting comedy.",

@@ -402,6 +402,15 @@ jobs:
       - name: Re-applying a curation run onto a main that moved
         run: python test_curate_reapply.py
 
+      # The report that AIMS the loop. Its bottom twenty lines are what an
+      # autonomous run picks targets from and what the gap sweep pins
+      # `--category` to, and every bug this grades was invisible in a report
+      # that otherwise looked complete: parkrun's {id: ISO} map read as twenty
+      # countries called "97" and "3", a `default_country` counted Germany twice
+      # under two names, and a starved CATEGORY could not be named at all.
+      - name: The coverage report's targets are real ground
+        run: python test_curate_coverage.py
+
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a
       # mid-sweep crash on a schedule, hours later. Compiling is not a test, but

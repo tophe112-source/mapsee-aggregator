@@ -182,6 +182,17 @@ jobs:
       # Which categories is this run pinned to? The Wednesday cron asks for
       # whatever is at ZERO; a dispatch can name them, or say 'gaps' for the
       # same thing. Empty means sweep everything, which is the daily default.
+      # ZERO IS NOT THE ONLY WAY A DOOR STARVES, and reading only `zero_categories`
+      # meant this step quietly stopped doing anything. Nothing has been at zero
+      # since fitness and running were seeded, so `gaps` resolved to the empty
+      # string, an empty pin means "sweep everything", and the Wednesday gap
+      # sweep has been a second copy of the daily run — while the spread across
+      # the nine curated categories stayed at 100:1 (2026-09-13: community 1010,
+      # market 525 ... running 22, volunteer 10).
+      #
+      # So it falls back to `thin_categories`: below half the median, scale-free,
+      # and it reports nothing once the catalog evens out. See
+      # catalog_curate.thin_categories() for why that rule and not a fixed count.
       - name: Resolve the category target
         id: target
         env:
@@ -189,11 +200,11 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$WANT" = "gaps" ]; then
-            CATS=$(python -c "import json;print(','.join(json.load(open('coverage-before.json'))['zero_categories']))")
+            CATS=$(python -c "import json;d=json.load(open('coverage-before.json'));print(','.join(d['zero_categories'] or d.get('thin_categories') or []))")
             if [ -z "$CATS" ]; then
-              echo "No category is at zero — sweeping everything instead."
+              echo "No category is at zero and none is starved — sweeping everything instead."
             else
-              echo "Categories with NO curated supply: $CATS"
+              echo "Categories the sweep is pinned to: $CATS"
             fi
           else
             CATS="$WANT"

@@ -237,3 +237,103 @@
   the US that is the difference between a source and nothing at all — the only
   geocoder here is US Census, so `mapsee_ingest_tribe` reported "kept 43 events"
   for Calgary and placed zero of them.
+
+- **A CivicPlus city's calendar names its own category, and every one of them
+  was filed `community` anyway.** The platform has no whole-calendar export, so
+  a town is one source per PROGRAMME, and the link that carries each feed URL
+  carries the programme's name beside it. `CIVIC_DENY_RX` already reads that
+  name to refuse a tax or a zoning calendar — and then `civicplus_candidates`
+  threw it away and stamped `DEFAULT_CATEGORY` on the survivors. Measured
+  2026-09-13 over all 363 civic-discovered ics sources: 363 of 363 `community`,
+  including 34 named "Library", 8 named for a library's children's or teen
+  programme, 2 "Farmers Market" and one "Volunteer Opportunities". The fattest
+  category in the catalog (`community`, 1,010) was being fed by the calendars of
+  the thinnest (`kids` 25, `volunteer` 10). `category_for_feed` reads the name;
+  re-filing the 45 that state one moved `kids` 25 -> 33 and `learning` 123 -> 157
+  with no new source at all — the same "check whether the supply is missing or
+  merely unlabelled" that fleabop's classifier note records.
+
+- **"Parks & Recreation" is the one that must STAY `community`, and it is the
+  biggest thing the rule leaves out.** 51 of the 52 civic sources whose name
+  matches anything outdoorsy are a parks DEPARTMENT's whole calendar, which is
+  mixed by construction: it is where a town puts its summer concert series, its
+  movies in the park and its block party alongside the trail walks. Filing them
+  `outdoors` would have moved 51 sources of exactly that supply off awaresie,
+  the neighbourhood door, to win the one genuinely-pure nature centre in the
+  set. AGENTS.md's pure-vs-mixed rule, applied to the category that would most
+  have flattered the coverage report.
+
+- **Municipal open data does not publish local music, festivals or block
+  parties, and the Socrata catalog says so plainly.** Measured 2026-09-13
+  against the live federated catalog, page 1 of each: "block party" matches 87
+  datasets, "street fair" 44, "community festivals" 49, "concerts" 15, "live
+  music" 16, "parades" 18 — and every one of those six yields **zero** datasets
+  that are both event-shaped (`_infer_map`) and not already configured or
+  known-dead. "concerts in the park" and "summer concert series" match 6 and 0
+  datasets in total. What the words do match is permit tables, which
+  `_DISCOVER_REJECT` refuses for good reason. Do not add these queries; the same
+  shape as the fitness/running measurement in curate-catalog.yml's header. The
+  supply for this kind of event is the `civic` backend — a town's OWN calendar.
+  Two 40-city batches run the same day returned 64 verified sources, and across
+  the 45 that stayed `community`: 44 local-music events (Apache Junction alone
+  runs a "Concert in the Park" series), 57 festivals and parades, 40
+  block-party-shaped events (movies in the park, food-truck nights) and 58
+  market days. The second batch was far richer than the first, so do not read
+  one batch as the rate.
+
+- **A PARK DISTRICT IS NOT A CITY, so `civic` discovery can never propose it.**
+  `catalog_discover_civic` generates candidates from Wikidata's "city in the
+  United States" class, and the agencies that run free naturalist-led hikes —
+  county forest preserves, regional open-space districts, Audubon chapters,
+  nature centres — are not in it. Probed 64 of them by hand 2026-09-13 with the
+  same `find_calendar` the other backends use: **18 carry a machine-readable
+  calendar** (tribe, CivicPlus, Trumba, LibCal, Squarespace), 5 are behind a bot
+  challenge, 2 unreachable, the rest publish a calendar no fingerprint matches.
+  17 verified and merged, and they took `outdoors` from 26 sources to 33 — the
+  one starved category that no amount of civic or Socrata discovery had moved.
+  A hand-curated seed list is the right shape here, the same as
+  `fair_sources.json`: there is no catalog to walk.
+
+- **Verification proves the feed, and the NAMES still have to be read.** Six of
+  the 28 park candidates were dropped before verifying and two more after, all
+  on what their titles turned out to be: a county's Public Health, Workforce
+  and Emergency Management calendars riding along on the same CivicPlus site as
+  its open space; a "Calendar of Observances" that is a list of dates rather
+  than events at a place; an "SMSD Aquatic Center - Lap Lane Availability" feed,
+  which is the bookable-badminton-court mistake exactly; a mansion publishing
+  "Wedding Site Tours", "Open for Visitors" and "Closed for Private Event" — an
+  ANTI-event; and a "City Park" feed whose 365 vevents are 365 copies of "Public
+  Historical Tour", one standing row per day. Every one of those feeds parses
+  perfectly and returns future events. The second batch added two more of the
+  same family, and they are the ones to watch for: "Douglas County Open Space"
+  and "Frederick County — Energy and Environment" turn out to be a Planning
+  Commission, a Land Use Public Hearing, a Historic Preservation Board and a
+  Sustainability Commission Meeting. A governance calendar wearing an
+  open-space name gets past `CIVIC_DENY_RX` because the denied word is in the
+  DEPARTMENT, not in the calendar's own label.
+
+- **The big free-walk organisations are closed to us, and that is their
+  decision.** Probed 2026-09-13 with the production User-Agent: ramblers.org.uk
+  answers **403** on /robots.txt itself, sierraclub.org returns a bot-management
+  interstitial, wildlifetrusts.org a Cloudflare challenge, and Milwaukee County,
+  St. Louis County, Marin County, Santa Clara County and Riverside County Parks
+  the same. Do not retry with a browser UA. mountaineers.org is the one that
+  says yes in writing — `User-agent: * / Allow: /` with
+  `Content-Signal: search=yes,ai-train=no,use=reference` — and it names
+  ClaudeBot, GPTBot and CCBot in individual Disallow groups, so anything reading
+  it must be honest about which UA it sends.
+
+- **Open data has trail INVENTORIES, not led walks, and the catalog says so as
+  plainly as it did for block parties.** Measured 2026-09-13 against the live
+  Socrata federated catalog, page 1 of each: "guided hikes" matches 5 datasets
+  in total, "ranger programs" 5, "naturalist programs" 3, "hiking trails
+  events" 1, "bird walks" 11. The big ones are big and empty — "nature
+  programs" 600, "park programs" 514, "recreation programs" 476 — and across
+  all eleven new terms, plus the two `parks events` / `recreation programs`
+  queries already in DISCOVER_QUERIES, **zero** datasets are both event-shaped
+  (`_infer_map`) and not already configured or known-dead. A city publishes the
+  GEOMETRY of its trails and the boundary of its parks; the Tuesday morning
+  bird walk along that trail is on the nature centre's own calendar. So do not
+  add these queries — the same answer as for local music and festivals, and the
+  reason the park-agency seed list above is a hand-curated file rather than a
+  discovery backend.
