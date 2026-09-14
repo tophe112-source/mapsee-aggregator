@@ -187,7 +187,12 @@ def t_deadline_stops_before_spawning_and_is_not_reported_as_swept():
 
     cfg = {"countries": [{"code": "GB", "name": "Test", "metros": [
         {"name": f"M{i}", "latlong": f"5{i}.0,-1.0", "radius": 25} for i in range(3)]}]}
-    tmp = HERE / "_sweep_deadline_config.json"
+    import tempfile
+
+    # A temp dir, not the repo root: a killed run must not leave a stray config.
+    # The sweep reads HERE / --config, and an absolute path replaces HERE.
+    folder = tempfile.TemporaryDirectory()
+    tmp = Path(folder.name) / "sweep_deadline_config.json"
     tmp.write_text(json.dumps(cfg), encoding="utf-8")
     clock = {"now": 1_000_000.0}
     calls: list = []
@@ -207,7 +212,7 @@ def t_deadline_stops_before_spawning_and_is_not_reported_as_swept():
         buf = io.StringIO()
         with contextlib.redirect_stdout(buf):
             # Metros start at t=0 and t=100; the one at t=200 is past t=150.
-            sweep.main(["--config", tmp.name, "--store", "x.json", "--sources", "meetup",
+            sweep.main(["--config", str(tmp), "--store", "x.json", "--sources", "meetup",
                         "--deadline", str(clock["now"] + 150)])
         log = buf.getvalue()
         check("the deadline is checked before spawning: 2 of 3 metros started",
@@ -217,18 +222,21 @@ def t_deadline_stops_before_spawning_and_is_not_reported_as_swept():
         check("the stop is named, with the count of metros not started",
               "deadline reached before Test / M2" in log and "1 of 3 metros not started" in log,
               log.strip()[-200:])
+        check("...as a GitHub annotation: the line opens with ::warning::",
+              any(l.startswith("::warning::") and "deadline reached" in l for l in log.splitlines()),
+              log.strip()[-200:])
         check("each metro's subprocess timeout is 600s, not 1800",
               all(c[2] == 600 for c in calls), str(calls))
 
         calls.clear()
         with contextlib.redirect_stdout(io.StringIO()) as buf:
-            sweep.main(["--config", tmp.name, "--store", "x.json", "--sources", "meetup"])
+            sweep.main(["--config", str(tmp), "--store", "x.json", "--sources", "meetup"])
         check("no deadline sweeps every metro and reports it the way it always has",
               len(calls) == 3 and "swept 3 metros across 1 countries" in buf.getvalue(),
               buf.getvalue().strip()[-120:])
     finally:
         sweep.subprocess.run, sweep.time.sleep, sweep.time.time = real
-        tmp.unlink(missing_ok=True)
+        folder.cleanup()
 
 
 def main() -> int:

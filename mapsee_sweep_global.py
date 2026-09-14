@@ -81,7 +81,8 @@ def main(argv=None) -> int:
             # Checked BEFORE the metro is counted: a metro never started must
             # not appear in "swept N metros", which is the only line anyone reads.
             if a.deadline and time.time() >= a.deadline:
-                print(f"[global] ::warning::deadline reached before {cname} / {mname}: "
+                # `::warning::` first, or the runner never annotates it.
+                print(f"::warning::[global] deadline reached before {cname} / {mname}: "
                       f"{total - n_metros} of {total} metros not started this run", flush=True)
                 stopped = True
                 break

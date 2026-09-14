@@ -635,7 +635,9 @@ def load_overpass(session, src: Dict[str, Any], deadline: float = 0.0,
     if unswept:
         # Counted and named like a miss, because it is one: these metros keep
         # last week's rows (42-day horizon) and are swept next week.
-        print(f"[markets] overpass: ::warning::time budget reached — {len(unswept)} of "
+        # `::warning::` must open the line: the runner only turns a workflow
+        # command into an annotation when it starts the line.
+        print(f"::warning::[markets] overpass: time budget reached — {len(unswept)} of "
               f"{len(bboxes)} bbox(es) not swept this run: "
               f"{', '.join(b.get('name', '?') for b in unswept[:8])}"
               + (" …" if len(unswept) > 8 else ""), flush=True)

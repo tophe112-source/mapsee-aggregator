@@ -173,6 +173,11 @@ check("...and RETURNS what it swept rather than raising or discarding it",
       [m["name"] for m in out] == ["Market 0", "Market 1", "Market 2"], [m["name"] for m in out])
 check("...and says how many bboxes it did not reach, by count and by name",
       "7 of 10 bbox(es) not swept" in log and "B3" in log, log.strip()[-200:])
+# GitHub only annotates a workflow command that STARTS the line; mid-line it is
+# plain text nobody sees in the run summary.
+check("...as a GitHub annotation: the line opens with ::warning::",
+      any(l.startswith("::warning::") and "not swept" in l for l in log.splitlines()),
+      log.strip()[-200:])
 
 # No budget = the old behaviour, every bbox.
 buf = io.StringIO()

@@ -187,7 +187,9 @@ class LookupTests(unittest.TestCase):
                      start_utc="2026-10-01T18:00:00Z", start_local="2026-10-01T11:00:00",
                      address=f"{i} Main St", city="Seattle", region="WA")
                 for i, eid in enumerate(ids, 1)]
-        path = os.path.join(tempfile.mkdtemp(), "store.json")
+        folder = tempfile.TemporaryDirectory()
+        self.addCleanup(folder.cleanup)
+        path = os.path.join(folder.name, "store.json")
         with open(path, "w", encoding="utf-8") as fh:
             json.dump({"events": recs}, fh)
         every = [(f"{i} Main St", "Seattle", "WA") for i in (1, 2, 3)]
