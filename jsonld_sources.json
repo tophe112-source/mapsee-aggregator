@@ -3027,6 +3027,264 @@
     "lon": -3.7362591
    },
    "_metro": "Madrid, ES"
+  },
+  {
+   "name": "Teatreneu",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.teatreneu.com/ca/cartellera/c/3-impro-show.html"
+   ],
+   "link_pattern": "https://www\\.teatreneu\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Teatreneu",
+    "address": "26 Carrer de Terol",
+    "city": "Barcelona",
+    "postal_code": "08012",
+    "lat": 41.4032396,
+    "lon": 2.1585587
+   },
+   "_metro": "Barcelona, ES"
+  },
+  {
+   "name": "Castellers de Badalona",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> jsonld-event",
+   "listing": [
+    "https://castellersdebadalona.cat/calendari/calendari/"
+   ],
+   "link_pattern": "https://castellersdebadalona\\.cat/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Castellers de Badalona",
+    "address": "42 Carrer Font i Escolà",
+    "city": "Badalona",
+    "lat": 41.4473577,
+    "lon": 2.2382966
+   },
+   "_metro": "Barcelona, ES"
+  },
+  {
+   "name": "Ca la Dona",
+   "category": "community",
+   "_found": "osm:social_facility -> modern-events+jsonld-event",
+   "listing": [
+    "https://caladona.org/agenda-caladona/"
+   ],
+   "link_pattern": "https://caladona\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Ca la Dona",
+    "address": "25 Carrer de Ripoll",
+    "city": "Barcelona",
+    "lat": 41.3855359,
+    "lon": 2.1749421
+   },
+   "_metro": "Barcelona, ES"
+  },
+  {
+   "name": "Berlin Dark",
+   "category": "music",
+   "_found": "osm:nightclub -> modern-events+jsonld-event",
+   "listing": [
+    "https://berlindark.com/eventos/"
+   ],
+   "link_pattern": "https://berlindark\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Berlin Dark",
+    "address": "18 Passatge de Prunera",
+    "city": "Barcelona",
+    "postal_code": "08004",
+    "lat": 41.3743162,
+    "lon": 2.1561764
+   },
+   "_metro": "Barcelona, ES"
+  },
+  {
+   "name": "El Pumarejo",
+   "category": "community",
+   "_found": "osm:community_centre -> jsonld-event",
+   "listing": [
+    "https://elpumarejo.org/events/oval-deer-park/"
+   ],
+   "link_pattern": "https://elpumarejo\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "El Pumarejo",
+    "address": "187, Nau 4 Avinguda del Carrilet",
+    "postal_code": "08907",
+    "lat": 41.3614829,
+    "lon": 2.1133007
+   },
+   "_metro": "Barcelona, ES"
+  },
+  {
+   "name": "Monestir de Sant Jeroni de la Murtra",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://lamurtra.cat/agenda/"
+   ],
+   "link_pattern": "https://lamurtra\\.cat/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Monestir de Sant Jeroni de la Murtra",
+    "lat": 41.4699322,
+    "lon": 2.2207299
+   },
+   "_metro": "Barcelona, ES"
+  },
+  {
+   "name": "Biblioteca Infantil i Juvenil Can Butjosa",
+   "category": "learning",
+   "_found": "osm:library -> jsonld-event",
+   "listing": [
+    "http://noubibut.parets.cat/calendari/"
+   ],
+   "link_pattern": "https://noubibut\\.parets\\.cat/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Biblioteca Infantil i Juvenil Can Butjosa",
+    "address": "52 Carrer de la Salut",
+    "city": "Parets del Vallès",
+    "region": "Barcelona",
+    "postal_code": "08150",
+    "country": "ES",
+    "lat": 41.5609348,
+    "lon": 2.2192181
+   },
+   "_metro": "Barcelona, ES"
+  },
+  {
+   "name": "Castellers de Terrassa",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://castellersdeterrassa.cat/calendari/"
+   ],
+   "link_pattern": "https://castellersdeterrassa\\.cat/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Castellers de Terrassa",
+    "address": "46,48 Carrer de Pasteur",
+    "city": "Terrassa",
+    "postal_code": "08225",
+    "lat": 41.5669515,
+    "lon": 2.0023132
+   },
+   "_metro": "Barcelona, ES"
+  },
+  {
+   "name": "Centre Cívic Casa Orlandai",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://casaorlandai.cat/agenda/"
+   ],
+   "link_pattern": "https://casaorlandai\\.cat/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Centre Cívic Casa Orlandai",
+    "address": "23 Carrer de Jaume Piquet",
+    "lat": 41.3984385,
+    "lon": 2.1245996
+   },
+   "_metro": "Barcelona, ES"
+  },
+  {
+   "name": "Espai Jove La Fontana",
+   "category": "community",
+   "_found": "osm:community_centre -> jsonld-event",
+   "listing": [
+    "https://lafontana.org/events/"
+   ],
+   "link_pattern": "https://lafontana\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Espai Jove La Fontana",
+    "address": "190-192 Gran de Gràcia",
+    "city": "Barcelona",
+    "postal_code": "08012",
+    "lat": 41.4032429,
+    "lon": 2.1524501
+   },
+   "_metro": "Barcelona, ES"
+  },
+  {
+   "name": "Centro Arrupe - Jesuitas",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://centroarrupevalencia.org/agenda/"
+   ],
+   "link_pattern": "https://centroarrupevalencia\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Centro Arrupe - Jesuitas",
+    "address": "78 Gran Via de Ferran el Catòlic",
+    "city": "València",
+    "postal_code": "46008",
+    "lat": 39.4765403,
+    "lon": -0.3883233
+   },
+   "_metro": "Valencia, ES"
+  },
+  {
+   "name": "Lambda",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://lambdavalencia.org/agenda/"
+   ],
+   "link_pattern": "https://lambdavalencia\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Lambda",
+    "address": "22 Carrer de la República Argentina",
+    "city": "València",
+    "postal_code": "46021",
+    "lat": 39.4732479,
+    "lon": -0.3511243
+   },
+   "_metro": "Valencia, ES"
+  },
+  {
+   "name": "Casa de la Música",
+   "category": "arts",
+   "_found": "osm:arts_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://fsmcv.org/agenda/"
+   ],
+   "link_pattern": "https://fsmcv\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Casa de la Música",
+    "address": "62 Carrer de la Democràcia",
+    "city": "València",
+    "postal_code": "46018",
+    "lat": 39.4730531,
+    "lon": -0.4013028
+   },
+   "_metro": "Valencia, ES"
+  },
+  {
+   "name": "Roto Club",
+   "category": "music",
+   "_found": "osm:nightclub -> jsonld-event",
+   "listing": [
+    "https://xceed.me/es/valencia/event/24-10-tba/244755/channel/redes-sociales-roto"
+   ],
+   "link_pattern": "https://xceed\\.me/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Roto Club",
+    "address": "18 Av. d'Ausiàs March",
+    "lat": 39.4549799,
+    "lon": -0.3748692
+   },
+   "_metro": "Valencia, ES"
   }
  ],
  "_not_included": {

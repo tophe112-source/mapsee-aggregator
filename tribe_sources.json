@@ -7620,6 +7620,408 @@
         "lon": -3.8585163
       },
       "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Circleville",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://circlevilleoh.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Circleville",
+      "default_region": "Ohio",
+      "default_country": "US",
+      "_metro": "Circleville, Ohio"
+    },
+    {
+      "name": "University Heights",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://universityheightsoh.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "University Heights",
+      "default_region": "Ohio",
+      "default_country": "US",
+      "_metro": "University Heights, Ohio"
+    },
+    {
+      "name": "Marshall (visitmarshallmn.com)",
+      "category": "community",
+      "_found": "civic:dmo -> tribe+jsonld-event+ics",
+      "base_url": "https://visitmarshallmn.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Marshall",
+      "default_region": "Minnesota",
+      "default_country": "US",
+      "_metro": "Marshall, Minnesota"
+    },
+    {
+      "name": "Museu Tàpies",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://museutapies.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museu Tàpies",
+        "address": "255 Carrer d'Aragó",
+        "city": "Barcelona",
+        "postal_code": "08007",
+        "lat": 41.3916216,
+        "lon": 2.1636636
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Fundació Casa del Tíbet",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://casadeltibetbcn.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fundació Casa del Tíbet",
+        "address": "181 Rosselló",
+        "city": "Barcelona",
+        "lat": 41.3913323,
+        "lon": 2.1544652
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Almodobar",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://grupalmodobar.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Almodobar",
+        "address": "36 Carrer d'en Grassot",
+        "lat": 41.4036783,
+        "lon": 2.1675289
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Sostre Cívic",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://sostrecivic.coop",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sostre Cívic",
+        "address": "43 Carrer de Casp",
+        "city": "Barcelona",
+        "postal_code": "08010",
+        "lat": 41.3920028,
+        "lon": 2.1739948
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Ateneu la Bòbila de Porta",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ateneulabobila.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ateneu la Bòbila de Porta",
+        "address": "1 Plaça de Sóller",
+        "lat": 41.4336791,
+        "lon": 2.1770862
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Llibreria Rocaguinarda. Cooperativa Cultural",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://rocaguinarda.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Llibreria Rocaguinarda. Cooperativa Cultural",
+        "address": "13 Carrer del Xiprer",
+        "city": "Barcelona",
+        "postal_code": "08041",
+        "lat": 41.4171308,
+        "lon": 2.1783215
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Càritas Badalona",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://caritas.barcelona",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Càritas Badalona",
+        "address": "4 Carrer de Sant Marc",
+        "city": "Badalona",
+        "postal_code": "08918",
+        "lat": 41.4389243,
+        "lon": 2.2308865
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Ateneu Enciclopèdic Popular (Centre de documentació)",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://ateneuenciclopedicpopular.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ateneu Enciclopèdic Popular (Centre de documentació)",
+        "address": "26 Passeig de Sant Joan",
+        "city": "Barcelona",
+        "postal_code": "08010",
+        "lat": 41.3929374,
+        "lon": 2.1785643
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Federación Catalana de Actividades Subacuáticas",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://fecdas.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Federación Catalana de Actividades Subacuáticas",
+        "lat": 41.4106509,
+        "lon": 2.2272617
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Museu de Badalona",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://museudebadalona.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museu de Badalona",
+        "address": "1 Plaça de l'Assemblea de Catalunya",
+        "city": "Badalona",
+        "lat": 41.4521555,
+        "lon": 2.2476506
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Agrupació Foto-Cine Cerdanyola-Ripollet",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://afocer.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Agrupació Foto-Cine Cerdanyola-Ripollet",
+        "address": "38 Carrer de la Indústria",
+        "city": "Cerdanyola del Vallès",
+        "postal_code": "08290",
+        "lat": 41.4884622,
+        "lon": 2.1412745
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Llibreria Terranova",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://terrranova.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Llibreria Terranova",
+        "address": "99 Carrer del Comte Borrell",
+        "city": "Barcelona",
+        "postal_code": "08015",
+        "lat": 41.3795135,
+        "lon": 2.1595454
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Club Arc Montjuïc",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://www.arcmontjuic.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Club Arc Montjuïc",
+        "lat": 41.3637856,
+        "lon": 2.1651288
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Biblioteca Central de Cerdanyola",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bibliotecacerdanyola.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Biblioteca Central de Cerdanyola",
+        "address": "1 Plaça d'Enric Granados",
+        "city": "Cerdanyola del Vallès",
+        "postal_code": "08290",
+        "lat": 41.4926747,
+        "lon": 2.1421128
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Conservatori Profesional de Musica",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.conservatoribdn.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Conservatori Profesional de Musica",
+        "address": "2 Carrer del Pare Claret",
+        "postal_code": "08911",
+        "lat": 41.4515334,
+        "lon": 2.2487413
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Ateneu L'Harmonia",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ateneuharmonia.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ateneu L'Harmonia",
+        "lat": 41.4334745,
+        "lon": 2.1913212
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Minyons de Terrassa",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://minyons.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Minyons de Terrassa",
+        "address": "21-31 Carrer de la Mare de Déu dels Àngels",
+        "city": "Terrassa",
+        "postal_code": "08221",
+        "lat": 41.5660468,
+        "lon": 2.0084631
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Indoor Karting Barcelona",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://indoorkartingbarcelona.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Indoor Karting Barcelona",
+        "address": "430 Carretera de Laureà Miró",
+        "postal_code": "08980",
+        "lat": 41.3948441,
+        "lon": 2.034236
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Nau Bostik",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://naubostik.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nau Bostik",
+        "address": "1-11 Carrer de Ferran Turné",
+        "lat": 41.4243773,
+        "lon": 2.1929457
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Complex Esportiu Municipal La Mar Bella",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://cemmarbella.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Complex Esportiu Municipal La Mar Bella",
+        "lat": 41.3995353,
+        "lon": 2.2113368
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Monestir de Sant Cugat",
+      "category": "community",
+      "_found": "osm:monastery -> tribe+jsonld-event+ics",
+      "base_url": "https://museu.santcugat.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Monestir de Sant Cugat",
+        "lat": 41.4738773,
+        "lon": 2.0851767
+      },
+      "_metro": "Barcelona, ES"
+    },
+    {
+      "name": "Llibreria Ramon Llull",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://www.llibreriaramonllull.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Llibreria Ramon Llull",
+        "address": "5 Carrer de la Corona",
+        "city": "València",
+        "postal_code": "46003",
+        "lat": 39.477735,
+        "lon": -0.3811198
+      },
+      "_metro": "Valencia, ES"
+    },
+    {
+      "name": "Cines Lys",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://cineslys.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cines Lys",
+        "address": "3 Passeig de Russafa",
+        "city": "València",
+        "postal_code": "46002",
+        "lat": 39.468629,
+        "lon": -0.3748995
+      },
+      "_metro": "Valencia, ES"
     }
   ],
   "_not_included": {

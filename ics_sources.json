@@ -12183,5 +12183,149 @@
   "geocode_suffix": ", Madrid, ES",
   "limit": 300,
   "_metro": "Madrid, ES"
+ },
+ {
+  "name": "Destin — Parks & Recreation",
+  "category": "community",
+  "url": "https://www.cityofdestin.com/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Destin, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks & Recreation]",
+  "_metro": "Destin, Florida"
+ },
+ {
+  "name": "New Franklin — Community Events",
+  "category": "community",
+  "url": "https://www.newfranklin.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", New Franklin, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "New Franklin, Ohio"
+ },
+ {
+  "name": "Warrensville Heights — Observed Holidays",
+  "category": "community",
+  "url": "https://cityofwarrensville.com/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Warrensville Heights, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Observed Holidays]",
+  "_metro": "Warrensville Heights, Ohio"
+ },
+ {
+  "name": "Auburn — Community Events",
+  "category": "community",
+  "url": "https://www.auburn.ca.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Auburn, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Auburn, California"
+ },
+ {
+  "name": "Glenpool — Glenpool Conference Center Events",
+  "category": "community",
+  "url": "https://www.glenpoolonline.com/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Glenpool, Oklahoma",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Glenpool Conference Center Events]",
+  "_metro": "Glenpool, Oklahoma"
+ },
+ {
+  "name": "Glenpool — City Holidays",
+  "category": "community",
+  "url": "https://www.glenpoolonline.com/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Glenpool, Oklahoma",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Holidays]",
+  "_metro": "Glenpool, Oklahoma"
+ },
+ {
+  "name": "Manor",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://www.manortx.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Manor, Texas",
+  "limit": 300,
+  "_metro": "Manor, Texas"
+ },
+ {
+  "name": "Brecksville — Service",
+  "category": "community",
+  "url": "https://www.brecksville.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Brecksville, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Service]",
+  "_metro": "Brecksville, Ohio"
+ },
+ {
+  "name": "Brecksville — Special Events",
+  "category": "community",
+  "url": "https://www.brecksville.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Brecksville, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Special Events]",
+  "_metro": "Brecksville, Ohio"
+ },
+ {
+  "name": "Brecksville — Human Services",
+  "category": "community",
+  "url": "https://www.brecksville.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Brecksville, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Human Services]",
+  "_metro": "Brecksville, Ohio"
+ },
+ {
+  "name": "Brecksville — Recreation",
+  "category": "community",
+  "url": "https://www.brecksville.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Brecksville, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation]",
+  "_metro": "Brecksville, Ohio"
+ },
+ {
+  "name": "Lake Forest Park — Events Calendar",
+  "category": "community",
+  "url": "https://cityoflfp.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Lake Forest Park, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events Calendar]",
+  "_metro": "Lake Forest Park, Washington"
+ },
+ {
+  "name": "Seabrook",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://www.seabrooktx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Seabrook, Texas",
+  "limit": 300,
+  "_metro": "Seabrook, Texas"
+ },
+ {
+  "name": "Smithfield — Library",
+  "category": "learning",
+  "url": "https://smithfieldutah.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Smithfield, Utah",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Smithfield, Utah"
+ },
+ {
+  "name": "Sala Fènix",
+  "category": "arts",
+  "_found": "osm:arts_centre -> events-manager",
+  "url": "https://salafenix.com/teatro/?ical=1",
+  "geocode_suffix": ", Barcelona, ES",
+  "limit": 300,
+  "_metro": "Barcelona, ES"
+ },
+ {
+  "name": "Museu de Ciències Naturals de Barcelona",
+  "category": "arts",
+  "_found": "osm:museum -> events-manager",
+  "url": "https://museuciencies.cat/?ical=1",
+  "geocode_suffix": ", Barcelona, ES",
+  "limit": 300,
+  "_metro": "Barcelona, ES"
  }
 ]
