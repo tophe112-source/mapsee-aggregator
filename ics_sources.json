@@ -12327,5 +12327,185 @@
   "geocode_suffix": ", Barcelona, ES",
   "limit": 300,
   "_metro": "Barcelona, ES"
+ },
+ {
+  "name": "Warrenville — Community Events",
+  "category": "community",
+  "url": "https://www.warrenville.il.us/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Warrenville, Illinois",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Warrenville, Illinois"
+ },
+ {
+  "name": "Atlantic Beach — Recreation and Special Events",
+  "category": "community",
+  "url": "https://www.coab.us/common/modules/iCalendar/iCalendar.aspx?catID=17&feed=calendar",
+  "geocode_suffix": ", Atlantic Beach, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Recreation and Special Events]",
+  "_metro": "Atlantic Beach, Florida"
+ },
+ {
+  "name": "Royse City — Main Street",
+  "category": "community",
+  "url": "https://www.roysecity.com/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Royse City, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Street]",
+  "_metro": "Royse City, Texas"
+ },
+ {
+  "name": "Royse City — Parks",
+  "category": "community",
+  "url": "https://www.roysecity.com/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Royse City, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks]",
+  "_metro": "Royse City, Texas"
+ },
+ {
+  "name": "Kilgore — Library",
+  "category": "learning",
+  "url": "https://cityofkilgore.com/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Kilgore, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Kilgore, Texas"
+ },
+ {
+  "name": "Englewood — Earl Heck Center Calendar",
+  "category": "community",
+  "url": "https://www.englewood.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Englewood, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Earl Heck Center Calendar]",
+  "_metro": "Englewood, Ohio"
+ },
+ {
+  "name": "Englewood — CPR Classes",
+  "category": "community",
+  "url": "https://www.englewood.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Englewood, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[CPR Classes]",
+  "_metro": "Englewood, Ohio"
+ },
+ {
+  "name": "Englewood — Events Calendar",
+  "category": "community",
+  "url": "https://www.englewood.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Englewood, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events Calendar]",
+  "_metro": "Englewood, Ohio"
+ },
+ {
+  "name": "Fruita — Community Engagement Events",
+  "category": "community",
+  "url": "https://www.fruita.org/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Fruita, Colorado",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Engagement Events]",
+  "_metro": "Fruita, Colorado"
+ },
+ {
+  "name": "Ionia — Community Events and Reminders",
+  "category": "community",
+  "url": "https://www.cityofionia.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Ionia, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events and Reminders]",
+  "_metro": "Ionia, Michigan"
+ },
+ {
+  "name": "Azle — Main City Calendar",
+  "category": "community",
+  "url": "https://www.cityofazle.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Azle, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main City Calendar]",
+  "_metro": "Azle, Texas"
+ },
+ {
+  "name": "Azle — Library",
+  "category": "learning",
+  "url": "https://www.cityofazle.org/common/modules/iCalendar/iCalendar.aspx?catID=21&feed=calendar",
+  "geocode_suffix": ", Azle, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Azle, Texas"
+ },
+ {
+  "name": "Azle — Community Events",
+  "category": "community",
+  "url": "https://www.cityofazle.org/common/modules/iCalendar/iCalendar.aspx?catID=18&feed=calendar",
+  "geocode_suffix": ", Azle, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Azle, Texas"
+ },
+ {
+  "name": "Azle — Holidays",
+  "category": "community",
+  "url": "https://www.cityofazle.org/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Azle, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Holidays]",
+  "_metro": "Azle, Texas"
+ },
+ {
+  "name": "Azle — Police Department",
+  "category": "community",
+  "url": "https://www.cityofazle.org/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Azle, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Department]",
+  "_metro": "Azle, Texas"
+ },
+ {
+  "name": "Clayton — Community Events",
+  "category": "community",
+  "url": "https://www.clayton.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Clayton, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Clayton, Ohio"
+ },
+ {
+  "name": "Jefferson — Community Events",
+  "category": "community",
+  "url": "https://www.jeffersonga.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Jefferson, Georgia",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Jefferson, Georgia"
+ },
+ {
+  "name": "Mandeville",
+  "category": "community",
+  "_found": "civic:city -> ics",
+  "url": "https://www.cityofmandeville.com/calendar/ical/%2A/calendar.ics",
+  "geocode_suffix": ", Mandeville, Louisiana",
+  "limit": 300,
+  "_metro": "Mandeville, Louisiana"
+ },
+ {
+  "name": "Auditorio Cartuja",
+  "category": "community",
+  "_found": "osm:conference_centre -> events-manager",
+  "url": "https://auditoriocartuja.com/programacion-completa/?ical=1",
+  "geocode_suffix": ", Seville, ES",
+  "limit": 300,
+  "_metro": "Seville, ES"
+ },
+ {
+  "name": "Mercedarias de la Caridad",
+  "category": "community",
+  "_found": "osm:social_facility -> ics",
+  "url": "https://calendar.google.com/calendar/ical/diocesisdemalaga.es_3r1vo9biq68pb1rnrrr2q7jdl8%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Malaga, ES",
+  "limit": 300,
+  "_metro": "Malaga, ES"
  }
 ]

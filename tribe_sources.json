@@ -8022,6 +8022,195 @@
         "lon": -0.3748995
       },
       "_metro": "Valencia, ES"
+    },
+    {
+      "name": "Irondale",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://cityofirondaleal.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Irondale",
+      "default_region": "Alabama",
+      "default_country": "US",
+      "_metro": "Irondale, Alabama"
+    },
+    {
+      "name": "Teatro Campos Elíseos antzokia",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.teatrocampos.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro Campos Elíseos antzokia",
+        "address": "3 Bertendona kalea",
+        "city": "Bilbao",
+        "postal_code": "48008",
+        "lat": 43.2596047,
+        "lon": -2.9315162
+      },
+      "_metro": "Bilbao, ES"
+    },
+    {
+      "name": "La Sinsorga",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://lasinsorga.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Sinsorga",
+        "address": "9 Askao kalea",
+        "city": "Bilbao",
+        "postal_code": "48005",
+        "lat": 43.2596021,
+        "lon": -2.9219563
+      },
+      "_metro": "Bilbao, ES"
+    },
+    {
+      "name": "La Polivalente",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.lapolivalente.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Polivalente",
+        "address": "53 Calle Lagunillas",
+        "city": "Málaga",
+        "postal_code": "29012",
+        "lat": 36.7260261,
+        "lon": -4.4155328
+      },
+      "_metro": "Malaga, ES"
+    },
+    {
+      "name": "Club Málaga de Tiro con Arco",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://arcoclubmalaka.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Club Málaga de Tiro con Arco",
+        "address": "Avenida Jenofonte",
+        "postal_code": "29010",
+        "lat": 36.7167855,
+        "lon": -4.4860435
+      },
+      "_metro": "Malaga, ES"
+    },
+    {
+      "name": "Andalucía Diversidad LGBT",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://andalucialgbt.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Andalucía Diversidad LGBT",
+        "address": "8 Calle Victoria",
+        "postal_code": "29012",
+        "lat": 36.7232268,
+        "lon": -4.4165436
+      },
+      "_metro": "Malaga, ES"
+    },
+    {
+      "name": "Colección del Museo Ruso",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.coleccionmuseoruso.es",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Colección del Museo Ruso",
+        "address": "15 Avenida Sor Teresa Prat",
+        "postal_code": "29003",
+        "lat": 36.699184,
+        "lon": -4.4383741
+      },
+      "_metro": "Malaga, ES"
+    },
+    {
+      "name": "Málaga Espacio Expositivo Tabacalera",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.meet-malaga.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Málaga Espacio Expositivo Tabacalera",
+        "address": "15 Avenida Sor Teresa Prat",
+        "postal_code": "29003",
+        "lat": 36.6990359,
+        "lon": -4.4384876
+      },
+      "_metro": "Malaga, ES"
+    },
+    {
+      "name": "Centro Pompidou Málaga",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://centrepompidou-malaga.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centro Pompidou Málaga",
+        "address": "Pasaje Doctor Carrillo Casaux",
+        "lat": 36.7190429,
+        "lon": -4.4132463
+      },
+      "_metro": "Malaga, ES"
+    },
+    {
+      "name": "Museo Interactivo de la Música",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://www.musicaenaccion.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museo Interactivo de la Música",
+        "address": "15 Calle Beatas",
+        "postal_code": "29008",
+        "lat": 36.7233685,
+        "lon": -4.4196844
+      },
+      "_metro": "Malaga, ES"
+    },
+    {
+      "name": "Jardín del Recuerdo",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://parcema.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jardín del Recuerdo",
+        "lat": 36.7208868,
+        "lon": -4.5148785
+      },
+      "_metro": "Malaga, ES"
+    },
+    {
+      "name": "Palacio de La Paz",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.fuengirola.es",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Palacio de La Paz",
+        "address": "0 Recinto Feria",
+        "city": "Fuengirola",
+        "postal_code": "29640",
+        "lat": 36.5512864,
+        "lon": -4.6256275
+      },
+      "_metro": "Malaga, ES"
     }
   ],
   "_not_included": {

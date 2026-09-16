@@ -3285,6 +3285,76 @@
     "lon": -0.3748692
    },
    "_metro": "Valencia, ES"
+  },
+  {
+   "name": "Expogela - BilbaoHistoriko",
+   "category": "arts",
+   "_found": "osm:arts_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.bilbaohistoriko.org/agenda/"
+   ],
+   "link_pattern": "https://www\\.bilbaohistoriko\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Expogela - BilbaoHistoriko",
+    "lat": 43.2565748,
+    "lon": -2.9301923
+   },
+   "_metro": "Bilbao, ES"
+  },
+  {
+   "name": "Teatro del Soho",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://teatrodelsoho.com/evento/misery/"
+   ],
+   "link_pattern": "https://teatrodelsoho\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Teatro del Soho",
+    "address": "13 Calle Córdoba",
+    "postal_code": "29001",
+    "lat": 36.7162369,
+    "lon": -4.4218448
+   },
+   "_metro": "Malaga, ES"
+  },
+  {
+   "name": "Museo Jorge Rando",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://museojorgerando.org/es/eventos/details/concierto---chapi-pineda:5502"
+   ],
+   "link_pattern": "https://museojorgerando\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Museo Jorge Rando",
+    "address": "12 Calle Cruz del Molinillo",
+    "postal_code": "29013",
+    "lat": 36.7266666,
+    "lon": -4.4237116
+   },
+   "_metro": "Malaga, ES"
+  },
+  {
+   "name": "Museo de Artes y Costumbres Populares",
+   "category": "arts",
+   "_found": "osm:museum -> wp-event-manager",
+   "listing": [
+    "https://www.fundacionunicaja.com/"
+   ],
+   "link_pattern": "https://www\\.fundacionunicaja\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Museo de Artes y Costumbres Populares",
+    "address": "1",
+    "postal_code": "29005",
+    "lat": 36.720039,
+    "lon": -4.4247966
+   },
+   "_metro": "Malaga, ES"
   }
  ],
  "_not_included": {
