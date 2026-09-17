@@ -3355,6 +3355,271 @@
     "lon": -4.4247966
    },
    "_metro": "Malaga, ES"
+  },
+  {
+   "name": "Theater Winkelwiese",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://winkelwiese.ch/kalender"
+   ],
+   "link_pattern": "https://winkelwiese\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Theater Winkelwiese",
+    "lat": 47.3701605,
+    "lon": 8.5467318
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Naturzentrum Thurauen",
+   "category": "arts",
+   "_found": "osm:museum -> modern-events+jsonld-event",
+   "listing": [
+    "https://naturzentrum-thurauen.ch/veranstaltungen/"
+   ],
+   "link_pattern": "https://naturzentrum\\-thurauen\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Naturzentrum Thurauen",
+    "address": "3",
+    "city": "Flaach",
+    "postal_code": "8416",
+    "country": "CH",
+    "lat": 47.5789571,
+    "lon": 8.5816947
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "i45 (industrie 45)",
+   "category": "music",
+   "_found": "osm:nightclub -> jsonld-event",
+   "listing": [
+    "https://i45.ch/events/"
+   ],
+   "link_pattern": "https://i45\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "i45 (industrie 45)",
+    "address": "45 Industriestrasse",
+    "city": "Zug",
+    "postal_code": "6300",
+    "lat": 47.182206,
+    "lon": 8.5208997
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Bier Factory",
+   "category": "community",
+   "_found": "osm:bar -> jsonld-event",
+   "listing": [
+    "https://bierfactory.ch/events/"
+   ],
+   "link_pattern": "https://bierfactory\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Bier Factory",
+    "address": "6 Eichwiesstrasse",
+    "city": "Jona",
+    "postal_code": "8645",
+    "lat": 47.224718,
+    "lon": 8.8334553
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Papiersaal",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.papiersaal.ch/"
+   ],
+   "link_pattern": "https://www\\.papiersaal\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Papiersaal",
+    "lat": 47.3581447,
+    "lon": 8.5223929
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Christlicher Treffpunkt Zug",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://www.ctz.ch/kalender/"
+   ],
+   "link_pattern": "https://www\\.ctz\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Christlicher Treffpunkt Zug",
+    "address": "64A Zugerstrasse",
+    "postal_code": "6340",
+    "lat": 47.18498,
+    "lon": 8.5194725
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Brausyndikat GmbH",
+   "category": "food",
+   "_found": "osm:brewery -> wix+jsonld-event",
+   "listing": [
+    "https://www.brausyndikat.ch/event-details/oranje-feest"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "Brausyndikat GmbH",
+    "address": "21 Grünaustrasse",
+    "city": "Dietikon",
+    "postal_code": "8953",
+    "lat": 47.4116057,
+    "lon": 8.4022383
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Kulturhaus Gleis 21",
+   "category": "community",
+   "_found": "osm:events_venue -> jsonld-event",
+   "listing": [
+    "https://gleis21.ch/"
+   ],
+   "link_pattern": "https://gleis21\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Kulturhaus Gleis 21",
+    "address": "21 Buchsackerstrasse",
+    "lat": 47.405636,
+    "lon": 8.4058309
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Albis Foxes Handball",
+   "category": "community",
+   "_found": "osm:club -> jsonld-event",
+   "listing": [
+    "https://albisfoxes.ch/"
+   ],
+   "link_pattern": "https://albisfoxes\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Albis Foxes Handball",
+    "lat": 47.3186077,
+    "lon": 8.5374092
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Millers",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.millers.ch/spielplan?facette=mixed-show"
+   ],
+   "link_pattern": "https://www\\.millers\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Millers",
+    "address": "225 Seefeldstrasse",
+    "city": "Zürich",
+    "postal_code": "8008",
+    "country": "CH",
+    "lat": 47.3515781,
+    "lon": 8.5613547
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Oxyd Kunsträume",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://www.oxydart.ch/de/ausstellungen/1183/REBECCA-SOLARI.html"
+   ],
+   "link_pattern": "https://www\\.oxydart\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Oxyd Kunsträume",
+    "address": "4 Untere Vogelsangstrasse",
+    "city": "Winterthur",
+    "postal_code": "8400",
+    "lat": 47.4979497,
+    "lon": 8.7226729
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Jungwacht Baden",
+   "category": "community",
+   "_found": "osm:club -> modern-events+jsonld-event",
+   "listing": [
+    "https://jungwacht.org/agenda/"
+   ],
+   "link_pattern": "https://jungwacht\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Jungwacht Baden",
+    "lat": 47.4720655,
+    "lon": 8.2989718
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Bruder Klaus Kapelle",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://www.kath-zollikon-zumikon.ch/veranstaltung/8950"
+   ],
+   "link_pattern": "https://www\\.kath\\-zollikon\\-zumikon\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Bruder Klaus Kapelle",
+    "lat": 47.331846,
+    "lon": 8.6230147
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Kadampa Meditationszentrum",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.kadampa.ch/kalender/"
+   ],
+   "link_pattern": "https://www\\.kadampa\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Kadampa Meditationszentrum",
+    "address": "1 Mirabellenstrasse",
+    "lat": 47.3896688,
+    "lon": 8.477587
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Innovationslabor Winterthur",
+   "category": "community",
+   "_found": "osm:events_venue -> jsonld-event",
+   "listing": [
+    "https://stadt.winterthur.ch/veranstaltung/erlebnistag60plus"
+   ],
+   "link_pattern": "https://stadt\\.winterthur\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Innovationslabor Winterthur",
+    "lat": 47.498477,
+    "lon": 8.7491764
+   },
+   "_metro": "Zurich, CH"
   }
  ],
  "_not_included": {

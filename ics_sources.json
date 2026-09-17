@@ -12507,5 +12507,221 @@
   "geocode_suffix": ", Malaga, ES",
   "limit": 300,
   "_metro": "Malaga, ES"
+ },
+ {
+  "name": "Bedford",
+  "category": "community",
+  "_found": "civic:city -> events-manager",
+  "url": "https://bedfordoh.gov/events/?ical=1",
+  "geocode_suffix": ", Bedford, Ohio",
+  "limit": 300,
+  "_metro": "Bedford, Ohio"
+ },
+ {
+  "name": "Cambridge — Community Events",
+  "category": "community",
+  "url": "https://www.choosecambridge.com/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Cambridge, Maryland",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Cambridge, Maryland"
+ },
+ {
+  "name": "Fernandina Beach — Events",
+  "category": "community",
+  "url": "https://www.fbfl.us/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Fernandina Beach, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Fernandina Beach, Florida"
+ },
+ {
+  "name": "Fernandina Beach — Parks and Recreation",
+  "category": "community",
+  "url": "https://www.fbfl.us/common/modules/iCalendar/iCalendar.aspx?catID=70&feed=calendar",
+  "geocode_suffix": ", Fernandina Beach, Florida",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks and Recreation]",
+  "_metro": "Fernandina Beach, Florida"
+ },
+ {
+  "name": "Rochester — Lion's Shelter Reservations",
+  "category": "community",
+  "url": "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
+  "geocode_suffix": ", Rochester, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Lion's Shelter Reservations]",
+  "_metro": "Rochester, Michigan"
+ },
+ {
+  "name": "Rochester — Rochester Park Kiwanis Pavilion Reservations",
+  "category": "community",
+  "url": "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar",
+  "geocode_suffix": ", Rochester, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Rochester Park Kiwanis Pavilion Reservations]",
+  "_metro": "Rochester, Michigan"
+ },
+ {
+  "name": "Rochester — Events",
+  "category": "community",
+  "url": "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=42&feed=calendar",
+  "geocode_suffix": ", Rochester, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Rochester, Michigan"
+ },
+ {
+  "name": "Rochester — Gazebo at Lion's Park - Reservations",
+  "category": "community",
+  "url": "https://www.ci.rochester.mi.us/common/modules/iCalendar/iCalendar.aspx?catID=45&feed=calendar",
+  "geocode_suffix": ", Rochester, Michigan",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Gazebo at Lion's Park - Reservations]",
+  "_metro": "Rochester, Michigan"
+ },
+ {
+  "name": "Trenton — Shelter Reservation",
+  "category": "community",
+  "url": "https://www.ci.trenton.oh.us/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Trenton, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Shelter Reservation]",
+  "_metro": "Trenton, Ohio"
+ },
+ {
+  "name": "Tehachapi — Main City Calendar",
+  "category": "community",
+  "url": "https://www.liveuptehachapi.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Tehachapi, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main City Calendar]",
+  "_metro": "Tehachapi, California"
+ },
+ {
+  "name": "Tehachapi — Community Events",
+  "category": "community",
+  "url": "https://www.liveuptehachapi.com/common/modules/iCalendar/iCalendar.aspx?catID=18&feed=calendar",
+  "geocode_suffix": ", Tehachapi, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Tehachapi, California"
+ },
+ {
+  "name": "Vadnais Heights — Community Calendar",
+  "category": "community",
+  "url": "https://www.cityvadnaisheights.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Vadnais Heights, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Calendar]",
+  "_metro": "Vadnais Heights, Minnesota"
+ },
+ {
+  "name": "Vadnais Heights — Vadnais Heights Lions Food Shelf",
+  "category": "community",
+  "url": "https://www.cityvadnaisheights.com/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Vadnais Heights, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Vadnais Heights Lions Food Shelf]",
+  "_metro": "Vadnais Heights, Minnesota"
+ },
+ {
+  "name": "Vadnais Heights — Meet the Mayor Events",
+  "category": "community",
+  "url": "https://www.cityvadnaisheights.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Vadnais Heights, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Meet the Mayor Events]",
+  "_metro": "Vadnais Heights, Minnesota"
+ },
+ {
+  "name": "Vadnais Heights — Annual City Events",
+  "category": "community",
+  "url": "https://www.cityvadnaisheights.com/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Vadnais Heights, Minnesota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Annual City Events]",
+  "_metro": "Vadnais Heights, Minnesota"
+ },
+ {
+  "name": "Artesia — Library",
+  "category": "learning",
+  "url": "https://www.artesianm.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Artesia, New Mexico",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Artesia, New Mexico"
+ },
+ {
+  "name": "Artesia — Public Events",
+  "category": "community",
+  "url": "https://www.artesianm.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Artesia, New Mexico",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Public Events]",
+  "_metro": "Artesia, New Mexico"
+ },
+ {
+  "name": "Internationalhof Seebach",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://calendar.clubdesk.com/clubdesk/ical/icsfile/15472/1002821/djEtaSkpV1acfWsVcG5ItVLlQL0dDCJ-3qFp5vwJZ4Q-xKY=/basic.ics",
+  "geocode_suffix": ", Zurich, CH",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Exil",
+  "category": "music",
+  "_found": "osm:nightclub -> ics",
+  "url": "https://exil.club/events/jas.ics",
+  "geocode_suffix": ", Zürich",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Segel Club Cham",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://kalender.scc.ch/2026.ics",
+  "geocode_suffix": ", Zurich, CH",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Ruderclub Rapperswil-Jona",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://calendar.google.com/calendar/ical/c_e388d2d0ca304f7cf215ca1df7aa1c787c1686c8f82bb07cc9be7363b492ccca%40group.calendar.google.com/public/basic.ics",
+  "geocode_suffix": ", Zurich, CH",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Wassersportvertein Richterswil",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://www.wvr.ch/wp/ics/01-wvr/wpbm.ics",
+  "geocode_suffix": ", Richterswil",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Familenzentrum Bezirk Affoltern",
+  "category": "community",
+  "_found": "osm:community_centre -> events-manager",
+  "url": "https://familienzentrum-bezirk-affoltern.ch/?ical=1",
+  "geocode_suffix": ", Affoltern am Albis",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Scala Wetzikon",
+  "category": "theater",
+  "_found": "osm:theatre -> ics",
+  "url": "https://www.scala-wetzikon.ch/news/scala-programm.ics",
+  "geocode_suffix": ", Zurich, CH",
+  "limit": 300,
+  "_metro": "Zurich, CH"
  }
 ]

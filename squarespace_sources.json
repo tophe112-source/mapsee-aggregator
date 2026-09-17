@@ -1126,6 +1126,51 @@
         "lon": -3.6990565
       },
       "_metro": "Madrid, ES"
+    },
+    {
+      "name": "Seedamm Vögele Kulturzentrum",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.voegelekultur.ch/veranstaltungen",
+      "max_events": 200,
+      "venue": {
+        "name": "Seedamm Vögele Kulturzentrum",
+        "address": "14 Gwattstrasse",
+        "city": "Pfäffikon SZ",
+        "postal_code": "8808",
+        "lat": 47.1991961,
+        "lon": 8.7918997
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Strohmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.schweizer-strohmuseum.ch/kalender",
+      "max_events": 200,
+      "venue": {
+        "name": "Strohmuseum",
+        "lat": 47.350788,
+        "lon": 8.274812
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Freiruum Parkour & Trampoline",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> squarespace",
+      "collection": "https://www.freiruum.ch/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Freiruum Parkour & Trampoline",
+        "address": "5 Zählerweg",
+        "city": "Zug",
+        "postal_code": "6300",
+        "lat": 47.1771856,
+        "lon": 8.5125237
+      },
+      "_metro": "Zurich, CH"
     }
   ]
 }

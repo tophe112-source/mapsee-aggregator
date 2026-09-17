@@ -8211,6 +8211,246 @@
         "lon": -4.6256275
       },
       "_metro": "Malaga, ES"
+    },
+    {
+      "name": "Newcastle",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://newcastlewa.gov",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Newcastle",
+      "default_region": "Washington",
+      "default_country": "US",
+      "_metro": "Newcastle, Washington"
+    },
+    {
+      "name": "Kleinkaliberschützen Hünenberg",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kks-huenenberg.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kleinkaliberschützen Hünenberg",
+        "address": "31 Drälikon",
+        "city": "Hünenberg",
+        "postal_code": "6331",
+        "lat": 47.1839079,
+        "lon": 8.4139171
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Dorfbibliothek Wernetshausen",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event",
+      "base_url": "https://www.wernetshausen.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dorfbibliothek Wernetshausen",
+        "address": "2 Schulweg",
+        "city": "Wernetshausen",
+        "postal_code": "8342",
+        "country": "CH",
+        "lat": 47.298016,
+        "lon": 8.8656894
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Gemeindebibliothek",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.pfaeffikon.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gemeindebibliothek",
+        "address": "1 Im Platz",
+        "lat": 47.3659761,
+        "lon": 8.7811519
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Gebetsraum",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://flughafenkirche.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gebetsraum",
+        "lat": 47.4505365,
+        "lon": 8.560413
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Tauchgruppe Biber",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://tauchgruppe-biber.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tauchgruppe Biber",
+        "lat": 47.2115023,
+        "lon": 8.7046376
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Spitex",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://spitex-am-rhein.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Spitex",
+        "address": "1 Obergass",
+        "city": "Eglisau",
+        "postal_code": "8193",
+        "country": "CH",
+        "lat": 47.5764577,
+        "lon": 8.5220159
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "el LIESyum",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://elliesyum.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "el LIESyum",
+        "address": "2 Schwandelstrasse",
+        "city": "Thalwil",
+        "postal_code": "8800",
+        "lat": 47.294722,
+        "lon": 8.5640567
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Genossenschaft Zeitgut Zürich Höngg-Wipkingen",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://zeitgut-zuerich.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Genossenschaft Zeitgut Zürich Höngg-Wipkingen",
+        "address": "2 Meierhofplatz",
+        "city": "Zürich",
+        "postal_code": "8049",
+        "lat": 47.4015315,
+        "lon": 8.5000123
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Pro Velo",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.provelozuerich.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pro Velo",
+        "address": "20 Kornhausstrasse",
+        "city": "Zürich",
+        "postal_code": "8006",
+        "lat": 47.3877356,
+        "lon": 8.5361678
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Stadtkeller Dietikon",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://kulturdietikon.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadtkeller Dietikon",
+        "address": "20 Bremgartnerstrasse",
+        "city": "Dietikon",
+        "postal_code": "8953",
+        "lat": 47.4031291,
+        "lon": 8.4012185
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "turbine theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.turbinetheater.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "turbine theater",
+        "address": "19 Spinnereistrasse",
+        "postal_code": "8135",
+        "lat": 47.2878854,
+        "lon": 8.5446429
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Schulbibliothek Hägglingen",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.puksam.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schulbibliothek Hägglingen",
+        "lat": 47.387071,
+        "lon": 8.2549315
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Theater Ida",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.theaterida.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theater Ida",
+        "address": "80 Aargauerstrasse",
+        "city": "Zürich",
+        "postal_code": "8048",
+        "lat": 47.3928387,
+        "lon": 8.4964634
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Cevi Steinmaur-Neerach-Stadel",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://cevi-sns.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cevi Steinmaur-Neerach-Stadel",
+        "address": "7 Schulwiesstrasse",
+        "city": "Steinmaur",
+        "postal_code": "8162",
+        "lat": 47.4996408,
+        "lon": 8.4539083
+      },
+      "_metro": "Zurich, CH"
     }
   ],
   "_not_included": {
