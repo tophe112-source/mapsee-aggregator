@@ -12723,5 +12723,311 @@
   "geocode_suffix": ", Zurich, CH",
   "limit": 300,
   "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Athens",
+  "category": "community",
+  "_found": "civic:city -> civicplus",
+  "url": "https://www.athenstx.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Athens, Texas",
+  "limit": 300,
+  "_metro": "Athens, Texas"
+ },
+ {
+  "name": "Tega Cay — City Calendar",
+  "category": "community",
+  "url": "https://www.tegacaysc.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Tega Cay, South Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Calendar]",
+  "_metro": "Tega Cay, South Carolina"
+ },
+ {
+  "name": "Tega Cay — Beach & Swim Center Calendar",
+  "category": "community",
+  "url": "https://www.tegacaysc.org/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+  "geocode_suffix": ", Tega Cay, South Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Beach & Swim Center Calendar]",
+  "_metro": "Tega Cay, South Carolina"
+ },
+ {
+  "name": "Tega Cay — Clubs & Organizations",
+  "category": "community",
+  "url": "https://www.tegacaysc.org/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Tega Cay, South Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Clubs & Organizations]",
+  "_metro": "Tega Cay, South Carolina"
+ },
+ {
+  "name": "Gaffney — Main Calendar",
+  "category": "community",
+  "url": "https://www.cityofgaffney-sc.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Gaffney, South Carolina",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Gaffney, South Carolina"
+ },
+ {
+  "name": "Kelso — Library",
+  "category": "learning",
+  "url": "https://www.kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Kelso, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Kelso, Washington"
+ },
+ {
+  "name": "Kelso — Library - Children's Program",
+  "category": "kids",
+  "url": "https://www.kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Kelso, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Children's Program]",
+  "_metro": "Kelso, Washington"
+ },
+ {
+  "name": "Kelso — Library - Teen Program",
+  "category": "kids",
+  "url": "https://www.kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+  "geocode_suffix": ", Kelso, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Teen Program]",
+  "_metro": "Kelso, Washington"
+ },
+ {
+  "name": "Kelso — Library - All Ages Program",
+  "category": "learning",
+  "url": "https://www.kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Kelso, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - All Ages Program]",
+  "_metro": "Kelso, Washington"
+ },
+ {
+  "name": "Kelso — Library - Adult Program",
+  "category": "learning",
+  "url": "https://www.kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+  "geocode_suffix": ", Kelso, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library - Adult Program]",
+  "_metro": "Kelso, Washington"
+ },
+ {
+  "name": "Kelso — Parks Reservations",
+  "category": "community",
+  "url": "https://www.kelso.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Kelso, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Parks Reservations]",
+  "_metro": "Kelso, Washington"
+ },
+ {
+  "name": "Festus — Library",
+  "category": "learning",
+  "url": "https://www.festusmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Festus, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library]",
+  "_metro": "Festus, Missouri"
+ },
+ {
+  "name": "Grover Beach — City Calendar",
+  "category": "community",
+  "url": "https://www.grover.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Grover Beach, California",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Calendar]",
+  "_metro": "Grover Beach, California"
+ },
+ {
+  "name": "Lindsay",
+  "category": "community",
+  "_found": "civic:city -> ics",
+  "url": "https://legacylindsayca.teammunicode.com/calendar/ical/%2A/calendar.ics",
+  "geocode_suffix": ", Lindsay, California",
+  "limit": 300,
+  "_metro": "Lindsay, California"
+ },
+ {
+  "name": "Wickliffe — Community Center Room Rentals",
+  "category": "community",
+  "url": "https://www.cityofwickliffe.com/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Wickliffe, Ohio",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Center Room Rentals]",
+  "_metro": "Wickliffe, Ohio"
+ },
+ {
+  "name": "Levelland — Main Street Calendar",
+  "category": "community",
+  "url": "https://www.levellandtexas.org/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Levelland, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Street Calendar]",
+  "_metro": "Levelland, Texas"
+ },
+ {
+  "name": "Branson — RecPlex Open Gym",
+  "category": "community",
+  "url": "https://www.bransonmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Branson, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[RecPlex Open Gym]",
+  "_metro": "Branson, Missouri"
+ },
+ {
+  "name": "Branson — Pickleball Calendar",
+  "category": "community",
+  "url": "https://www.bransonmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Branson, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Pickleball Calendar]",
+  "_metro": "Branson, Missouri"
+ },
+ {
+  "name": "Branson — Campground",
+  "category": "community",
+  "url": "https://www.bransonmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+  "geocode_suffix": ", Branson, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Campground]",
+  "_metro": "Branson, Missouri"
+ },
+ {
+  "name": "Branson — Park Programs/Events",
+  "category": "community",
+  "url": "https://www.bransonmo.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+  "geocode_suffix": ", Branson, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Park Programs/Events]",
+  "_metro": "Branson, Missouri"
+ },
+ {
+  "name": "Ottawa — Ottawa Memorial Auditorium",
+  "category": "community",
+  "url": "https://www.ottawaks.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+  "geocode_suffix": ", Ottawa, Kansas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Ottawa Memorial Auditorium]",
+  "_metro": "Ottawa, Kansas"
+ },
+ {
+  "name": "Neosho — City Holidays",
+  "category": "community",
+  "url": "https://www.neoshomo.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+  "geocode_suffix": ", Neosho, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Holidays]",
+  "_metro": "Neosho, Missouri"
+ },
+ {
+  "name": "Neosho — Events",
+  "category": "community",
+  "url": "https://www.neoshomo.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Neosho, Missouri",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events]",
+  "_metro": "Neosho, Missouri"
+ },
+ {
+  "name": "Enumclaw — Community Events",
+  "category": "community",
+  "url": "https://www.cityofenumclaw.net/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Enumclaw, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Enumclaw, Washington"
+ },
+ {
+  "name": "Enumclaw — BESS Subcommittee",
+  "category": "community",
+  "url": "https://www.cityofenumclaw.net/common/modules/iCalendar/iCalendar.aspx?catID=53&feed=calendar",
+  "geocode_suffix": ", Enumclaw, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[BESS Subcommittee]",
+  "_metro": "Enumclaw, Washington"
+ },
+ {
+  "name": "Webster — City Government Calendar",
+  "category": "community",
+  "url": "https://www.webstertx.gov/common/modules/iCalendar/iCalendar.aspx?catID=15&feed=calendar",
+  "geocode_suffix": ", Webster, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Government Calendar]",
+  "_metro": "Webster, Texas"
+ },
+ {
+  "name": "Webster — Police Training Calender",
+  "category": "community",
+  "url": "https://www.webstertx.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Webster, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Police Training Calender]",
+  "_metro": "Webster, Texas"
+ },
+ {
+  "name": "Klairs Vereinslokal",
+  "category": "community",
+  "_found": "osm:community_centre -> my-calendar+jsonld-event",
+  "url": "https://klairs.ch/?feed=my-calendar-ics",
+  "geocode_suffix": ", Nänikon",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Freikirche der Siebenten-Tags-Adventisten Gemeinde Wolfswinkel",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://termine.adventisten.ch/tm/50,1/69,1/405,1/70,1/-,73,1_0-2,24/-/Col0=.ics",
+  "geocode_suffix": ", Zürich",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Pistolenschützen Niederwil",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://sm.psniederwil.ch/api/calendar.php?public=1",
+  "geocode_suffix": ", Zurich, CH",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "UOV Limmattal",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> ics",
+  "url": "https://www.uov-limmattal.ch/02_Agenda/ical.asp",
+  "geocode_suffix": ", Zurich, CH",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Villa Wellentanz",
+  "category": "community",
+  "_found": "osm:events_venue -> ics",
+  "url": "https://www.villa-wellentanz.ch/events/ical/",
+  "geocode_suffix": ", Zurich, CH",
+  "limit": 300,
+  "_metro": "Zurich, CH"
+ },
+ {
+  "name": "Cave 12",
+  "category": "community",
+  "_found": "osm:events_venue -> ics",
+  "url": "https://cave12.org/cave12.ics",
+  "geocode_suffix": ", Geneva, CH",
+  "limit": 300,
+  "_metro": "Geneva, CH"
+ },
+ {
+  "name": "Bibliothèque et archives de l'UIT",
+  "category": "learning",
+  "_found": "osm:library -> ics",
+  "url": "https://www.itu.int/dms_pages/itu-s/events.ics",
+  "geocode_suffix": ", Genève",
+  "limit": 300,
+  "_metro": "Geneva, CH"
  }
 ]

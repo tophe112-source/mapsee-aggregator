@@ -8451,6 +8451,239 @@
         "lon": 8.4539083
       },
       "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Cevihaus Harass",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cevi-uster.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cevihaus Harass",
+        "address": "11 Struussenweidweg",
+        "city": "Uster",
+        "postal_code": "8610",
+        "lat": 47.358918,
+        "lon": 8.7349309
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Motorworld",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://motorworld.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Motorworld",
+        "lat": 47.4520667,
+        "lon": 8.7050766
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Clubhaus des FC Effretikon",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://fceffretikon.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Clubhaus des FC Effretikon",
+        "address": "99 Kirchweg",
+        "city": "Effretikon",
+        "postal_code": "8307",
+        "country": "CH",
+        "lat": 47.4185545,
+        "lon": 8.7007453
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Ruderclub Thalwil",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://rcthalwil.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ruderclub Thalwil",
+        "address": "178 Seestrasse",
+        "lat": 47.3009672,
+        "lon": 8.562788
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Widmerheim Pflege und Betreuung",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://sawh.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Widmerheim Pflege und Betreuung",
+        "address": "11 Amalie-Widmer-Strasse",
+        "city": "Horgen",
+        "postal_code": "8810",
+        "lat": 47.2680497,
+        "lon": 8.5843319
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Viva Kirche Grüningen",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.vivakirche-grueningen.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Viva Kirche Grüningen",
+        "address": "6 Brunnenwisstrasse",
+        "city": "Grüningen",
+        "postal_code": "8627",
+        "country": "CH",
+        "lat": 47.2843401,
+        "lon": 8.7574206
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Freie Evangelische Gemeinde Seuzach",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.feg-seuzach.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Freie Evangelische Gemeinde Seuzach",
+        "address": "52 Forrenbergstrasse",
+        "city": "Seuzach",
+        "postal_code": "8472",
+        "lat": 47.5269653,
+        "lon": 8.7302378
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Katholische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kath-kuesnacht-erlenbach.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Katholische Kirche",
+        "address": "81 Seestrasse",
+        "city": "Erlenbach ZH",
+        "postal_code": "8703",
+        "lat": 47.3024606,
+        "lon": 8.5925713
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "ETG Rümlang",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://etg-ruemlang.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ETG Rümlang",
+        "address": "6 Steinfeldstrasse",
+        "city": "Rümlang",
+        "postal_code": "8153",
+        "lat": 47.453906,
+        "lon": 8.5264294
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Sportclub Steinhausen",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://sportclubsteinhausen.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sportclub Steinhausen",
+        "address": "17 Eschfeldstrasse",
+        "city": "Steinhausen",
+        "postal_code": "6312",
+        "lat": 47.1984865,
+        "lon": 8.4891838
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Musée Départemental des Sapeurs Pompiers",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.gex.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée Départemental des Sapeurs Pompiers",
+        "lat": 46.3345768,
+        "lon": 6.0655512
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Bibliothèque de Chancy",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chancy.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bibliothèque de Chancy",
+        "address": "81 Route de Bellegarde",
+        "city": "Chancy",
+        "postal_code": "1284",
+        "country": "CH",
+        "lat": 46.1501763,
+        "lon": 5.9701812
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Undertown",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://undertown.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Undertown",
+        "address": "1 Place des Cinq-Continents",
+        "city": "Meyrin",
+        "postal_code": "1217",
+        "lat": 46.2323407,
+        "lon": 6.0812943
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Maison des habitants",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.maisondeshabitants.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison des habitants",
+        "address": "3 Rue du Jura",
+        "city": "Saint-Julien-en-Genevois",
+        "postal_code": "74160",
+        "lat": 46.1457369,
+        "lon": 6.0818617
+      },
+      "_metro": "Geneva, CH"
     }
   ],
   "_not_included": {

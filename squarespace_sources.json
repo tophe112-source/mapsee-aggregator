@@ -1171,6 +1171,19 @@
         "lon": 8.5125237
       },
       "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Amphitheater",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://www.amphitheater-huentwangen.ch/jahresprogramm",
+      "max_events": 200,
+      "venue": {
+        "name": "Amphitheater",
+        "lat": 47.5885608,
+        "lon": 8.4995814
+      },
+      "_metro": "Zurich, CH"
     }
   ]
 }

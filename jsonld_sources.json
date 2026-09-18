@@ -3620,6 +3620,193 @@
     "lon": 8.7491764
    },
    "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Opernhaus",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.opernhaus.ch/spielplan/kalendarium/"
+   ],
+   "link_pattern": "https://www\\.opernhaus\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Opernhaus",
+    "address": "1 Sechseläutenplatz",
+    "city": "Zürich",
+    "postal_code": "8001",
+    "country": "CH",
+    "lat": 47.3649547,
+    "lon": 8.5468539
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Bernhard Theater",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://www.bernhardtheater.ch/spielplan/"
+   ],
+   "link_pattern": "https://www\\.bernhardtheater\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Bernhard Theater",
+    "address": "1 Sechseläutenplatz",
+    "city": "Zürich",
+    "postal_code": "8001",
+    "country": "CH",
+    "lat": 47.3647959,
+    "lon": 8.5463507
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Kirche St. Peter",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://www.kath-ruemlang.ch/veranstaltung/3797"
+   ],
+   "link_pattern": "https://www\\.kath\\-ruemlang\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Kirche St. Peter",
+    "address": "40 Rümelbachstrasse",
+    "city": "Rümlang",
+    "postal_code": "8153",
+    "lat": 47.4469352,
+    "lon": 8.5363424
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Pfarreizentrum Zollikon",
+   "category": "community",
+   "_found": "osm:community_centre -> jsonld-event",
+   "listing": [
+    "https://www.kath-zollikon-zumikon.ch/veranstaltung/8629"
+   ],
+   "link_pattern": "https://www\\.kath\\-zollikon\\-zumikon\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Pfarreizentrum Zollikon",
+    "address": "13 Gustav-Maurer-Strasse",
+    "city": "Zollikon",
+    "postal_code": "8702",
+    "country": "CH",
+    "lat": 47.3426619,
+    "lon": 8.5742861
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Kirche Oberstrass",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://reformiert-zuerich.ch/event/gottesdienst-10199/"
+   ],
+   "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Kirche Oberstrass",
+    "address": "58 Stapferstrasse",
+    "city": "Zürich",
+    "postal_code": "8006",
+    "country": "CH",
+    "lat": 47.3839096,
+    "lon": 8.5468111
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Strebergärtli",
+   "category": "outdoors",
+   "_found": "osm:garden -> modern-events+jsonld-event",
+   "listing": [
+    "https://strebergaertli.ch/events/"
+   ],
+   "link_pattern": "https://strebergaertli\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Strebergärtli",
+    "lat": 47.3960038,
+    "lon": 8.5516192
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Kirchliches Zentrum Neuaffoltern Glaubten",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://reformiert-zuerich.ch/event/aussendungsgottesdienst-13726/"
+   ],
+   "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Kirchliches Zentrum Neuaffoltern Glaubten",
+    "address": "1 Riedenhaldenstrasse",
+    "city": "Zürich",
+    "postal_code": "8046",
+    "country": "CH",
+    "lat": 47.414576,
+    "lon": 8.518637
+   },
+   "_metro": "Zurich, CH"
+  },
+  {
+   "name": "Le Patio",
+   "category": "theater",
+   "_found": "osm:cinema -> jsonld-event",
+   "listing": [
+    "https://www.cinegex.fr/events/80716-festival-de-cinema-des-5-continents/"
+   ],
+   "link_pattern": "https://www\\.cinegex\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Le Patio",
+    "city": "Gex",
+    "lat": 46.3320243,
+    "lon": 6.058686
+   },
+   "_metro": "Geneva, CH"
+  },
+  {
+   "name": "Église adventiste du Septième Jour",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.adventistes-geneve.ch/"
+   ],
+   "link_pattern": "https://www\\.adventistes\\-geneve\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Église adventiste du Septième Jour",
+    "lat": 46.1959048,
+    "lon": 6.1491364
+   },
+   "_metro": "Geneva, CH"
+  },
+  {
+   "name": "Maison de quartier des Pâquis",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://mqpaquis.ch/activites/"
+   ],
+   "link_pattern": "https://mqpaquis\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Maison de quartier des Pâquis",
+    "address": "50 Rue de Berne",
+    "city": "Genève",
+    "postal_code": "1201",
+    "lat": 46.2126469,
+    "lon": 6.1479677
+   },
+   "_metro": "Geneva, CH"
   }
  ],
  "_not_included": {
