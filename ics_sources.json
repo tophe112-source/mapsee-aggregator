@@ -13029,5 +13029,320 @@
   "geocode_suffix": ", Genève",
   "limit": 300,
   "_metro": "Geneva, CH"
+ },
+ {
+  "name": "Madison — City Events",
+  "category": "community",
+  "url": "https://www.madison-in.gov/common/modules/iCalendar/iCalendar.aspx?catID=38&feed=calendar",
+  "geocode_suffix": ", Madison, Indiana",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Madison, Indiana"
+ },
+ {
+  "name": "Tomball — Community Center",
+  "category": "community",
+  "url": "https://tomballtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+  "geocode_suffix": ", Tomball, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Center]",
+  "_metro": "Tomball, Texas"
+ },
+ {
+  "name": "Tomball — Community Events",
+  "category": "community",
+  "url": "https://tomballtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+  "geocode_suffix": ", Tomball, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Community Events]",
+  "_metro": "Tomball, Texas"
+ },
+ {
+  "name": "Tomball — Events Calendar",
+  "category": "community",
+  "url": "https://tomballtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Tomball, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Events Calendar]",
+  "_metro": "Tomball, Texas"
+ },
+ {
+  "name": "Tomball — City of Tomball Calendar",
+  "category": "community",
+  "url": "https://tomballtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Tomball, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City of Tomball Calendar]",
+  "_metro": "Tomball, Texas"
+ },
+ {
+  "name": "Tomball — PD Community Events",
+  "category": "community",
+  "url": "https://tomballtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+  "geocode_suffix": ", Tomball, Texas",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[PD Community Events]",
+  "_metro": "Tomball, Texas"
+ },
+ {
+  "name": "Edgewood — Holidays & Offices Closed",
+  "category": "community",
+  "url": "https://www.edgewoodwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Edgewood, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Holidays & Offices Closed]",
+  "_metro": "Edgewood, Washington"
+ },
+ {
+  "name": "Edgewood — Mobile Vendors / Food Trucks",
+  "category": "community",
+  "url": "https://www.edgewoodwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+  "geocode_suffix": ", Edgewood, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Mobile Vendors / Food Trucks]",
+  "_metro": "Edgewood, Washington"
+ },
+ {
+  "name": "Edgewood — City Events",
+  "category": "community",
+  "url": "https://www.edgewoodwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+  "geocode_suffix": ", Edgewood, Washington",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[City Events]",
+  "_metro": "Edgewood, Washington"
+ },
+ {
+  "name": "Effingham",
+  "category": "community",
+  "_found": "civic:city -> events-manager",
+  "url": "https://www.effinghamil.com/event/city-council-meeting-2026-10-06/?ical=1",
+  "geocode_suffix": ", Effingham, Illinois",
+  "limit": 300,
+  "_metro": "Effingham, Illinois"
+ },
+ {
+  "name": "Spearfish — Main Calendar",
+  "category": "community",
+  "url": "https://www.spearfish.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+  "geocode_suffix": ", Spearfish, South Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Main Calendar]",
+  "_metro": "Spearfish, South Dakota"
+ },
+ {
+  "name": "Spearfish — Library Calendar",
+  "category": "learning",
+  "url": "https://www.spearfish.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+  "geocode_suffix": ", Spearfish, South Dakota",
+  "limit": 300,
+  "_found": "civic:city -> civicplus[Library Calendar]",
+  "_metro": "Spearfish, South Dakota"
+ },
+ {
+  "name": "MJC Centre Social La Roche Sur Foron et Pays Rochois",
+  "category": "community",
+  "_found": "osm:social_facility -> my-calendar",
+  "url": "https://www.mjc-cs-larochesurforon.fr/?feed=my-calendar-ics",
+  "geocode_suffix": ", La Roche-sur-Foron",
+  "limit": 300,
+  "_metro": "Geneva, CH"
+ },
+ {
+  "name": "Église évangélique mennonite",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.menno-stgenis.fr/index.php?option=com_dpcalendar&task=ical.download&id=g-14",
+  "geocode_suffix": ", Saint-Genis-Pouilly",
+  "limit": 300,
+  "_metro": "Geneva, CH"
+ },
+ {
+  "name": "Stand de tir de l'Arquebuse de Douvaine",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> ics",
+  "url": "https://www.arquebuse74.com/evenements.ics",
+  "geocode_suffix": ", Geneva, CH",
+  "limit": 300,
+  "_metro": "Geneva, CH"
+ },
+ {
+  "name": "Jussy Modele Club",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> events-manager",
+  "url": "https://jussymodeleclub.ch/evenements/?ical=1",
+  "geocode_suffix": ", Geneva, CH",
+  "limit": 300,
+  "_metro": "Geneva, CH"
+ },
+ {
+  "name": "Universitätsbibliothek Rosental",
+  "category": "learning",
+  "_found": "osm:library -> ics",
+  "url": "https://ub.unibas.ch/de/veranstaltungen/24015.ics",
+  "geocode_suffix": ", Basel",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "SC Brombach",
+  "category": "community",
+  "_found": "osm:club -> events-manager",
+  "url": "https://schachclub-brombach.de/veranstaltungen/?ical=1",
+  "geocode_suffix": ", Basel, CH",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Begegnungszentrum CULTIBO",
+  "category": "community",
+  "_found": "osm:community_centre -> ics",
+  "url": "https://www.cultibo.ch/index.php?option=com_dpcalendar&task=ical.download&id=89",
+  "geocode_suffix": ", Olten",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Universitätsbibliothek Basel",
+  "category": "learning",
+  "_found": "osm:library -> ics",
+  "url": "https://ub.unibas.ch/de/kulturprogramm/15838.ics",
+  "geocode_suffix": ", Basel",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Bibliothek Altertumswissenschaften",
+  "category": "learning",
+  "_found": "osm:library -> ics",
+  "url": "https://daw.philhist.unibas.ch/de/aktuelles/veranstaltungen/8184.ics",
+  "geocode_suffix": ", Basel",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Universitätsbibliothek Religion",
+  "category": "learning",
+  "_found": "osm:library -> ics",
+  "url": "https://theologie.unibas.ch/de/shared-elements/infoblock-3spaltig-fakultaetdekanat/1186.ics",
+  "geocode_suffix": ", Basel",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Fachbereichsbibliothek Kulturwissenschaft und Europäische Ethnologie",
+  "category": "learning",
+  "_found": "osm:library -> ics",
+  "url": "https://kulturwissenschaft.philhist.unibas.ch/de/aktuelles/veranstaltungen/250.ics",
+  "geocode_suffix": ", Basel, CH",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Bibliothek des Departements Geschichte",
+  "category": "learning",
+  "_found": "osm:library -> ics",
+  "url": "https://dg.philhist.unibas.ch/de/aktuelles/2225.ics",
+  "geocode_suffix": ", Basel, CH",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Sprachmobil",
+  "category": "community",
+  "_found": "osm:club -> events-manager+ics",
+  "url": "https://sprachmobil.ch/events/das-sprachmobil-nach-riehen-bs-2026-09-21/ical/",
+  "geocode_suffix": ", Basel, CH",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Parc Zoologique et Botanique de Mulhouse",
+  "category": "outdoors",
+  "_found": "osm:zoo -> events-manager",
+  "url": "https://www.zoo-mulhouse.com/evenements/?ical=1",
+  "geocode_suffix": ", Basel, CH",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Jahnhalle",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> events-manager",
+  "url": "https://tvweil1884.de/termine/?ical=1",
+  "geocode_suffix": ", Weil am Rhein",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Botanischer Garten der Universität",
+  "category": "outdoors",
+  "_found": "osm:garden -> ics",
+  "url": "https://botgarten.unibas.ch/de/news-veranstaltungen/2514.ics",
+  "geocode_suffix": ", Basel, CH",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Bruder-Klaus-Kirche",
+  "category": "community",
+  "_found": "osm:place_of_worship -> events-manager",
+  "url": "https://kathki-birsfelden.ch/agenda/?ical=1",
+  "geocode_suffix": ", Basel, CH",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Freibad am Rhein",
+  "category": "fitness",
+  "_found": "osm:sports_centre -> ics",
+  "url": "https://schwoerstadt.de/site/Schwoerstadt_Internet/zmservice/1566946/ical/vevent.ics?zm.sid=zmp8s4wxwch1",
+  "geocode_suffix": ", Basel, CH",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Pfadiareal Vier Linden",
+  "category": "community",
+  "_found": "osm:club -> my-calendar+jsonld-event",
+  "url": "https://pfadimoehlin.ch/?feed=my-calendar-ics",
+  "geocode_suffix": ", Möhlin",
+  "limit": 300,
+  "_metro": "Basel, CH"
+ },
+ {
+  "name": "Dachstock",
+  "category": "music",
+  "_found": "osm:nightclub -> ics",
+  "url": "https://dachstock.ch/events.ics",
+  "geocode_suffix": ", Bern",
+  "limit": 300,
+  "_metro": "Bern, CH"
+ },
+ {
+  "name": "BeJazz",
+  "category": "music",
+  "_found": "osm:nightclub -> ics",
+  "url": "https://www.bejazz.ch/bejazz.ics",
+  "geocode_suffix": ", Bern, CH",
+  "limit": 300,
+  "_metro": "Bern, CH"
+ },
+ {
+  "name": "PhotoClub Fribourg",
+  "category": "community",
+  "_found": "osm:community_centre -> my-calendar+jsonld-event",
+  "url": "https://photofri.ch/pcfwp/?feed=my-calendar-ics",
+  "geocode_suffix": ", Bern, CH",
+  "limit": 300,
+  "_metro": "Bern, CH"
+ },
+ {
+  "name": "Musikgesellschaft Mühlethurnen",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://mgmuehlethurnen.ch/feed/bc-ical/",
+  "geocode_suffix": ", Mühlethurnen",
+  "limit": 300,
+  "_metro": "Bern, CH"
  }
 ]

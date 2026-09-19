@@ -8684,6 +8684,225 @@
         "lon": 6.0818617
       },
       "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Palais des sports",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.saint-claude.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Palais des sports",
+        "lat": 46.3897735,
+        "lon": 5.863213
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Le Groove",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://legroove.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Groove",
+        "address": "9 Rue des Gazomètres",
+        "city": "Genève",
+        "postal_code": "1205",
+        "lat": 46.2015686,
+        "lon": 6.1339126
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Lichtspiele",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://kino-lichtspiele.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lichtspiele",
+        "lat": 47.3504333,
+        "lon": 7.9034386
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Buchhandlung Merkel",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://buchhandlung-merkel.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buchhandlung Merkel",
+        "address": "2 Basler Straße",
+        "city": "Grenzach-Wyhlen",
+        "postal_code": "79639",
+        "lat": 47.5528462,
+        "lon": 7.6612057
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "GGG Migration",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ggg-migration.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "GGG Migration",
+        "address": "26 Eulerstrasse",
+        "city": "Basel",
+        "postal_code": "4051",
+        "lat": 47.5551401,
+        "lon": 7.5811188
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Stadtteilsekretariat Basel-West",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://stsbw.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadtteilsekretariat Basel-West",
+        "lat": 47.5561383,
+        "lon": 7.5737322
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Hochrheinsegler Schwörstadt",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://hochrheinsegler.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hochrheinsegler Schwörstadt",
+        "address": "18 Rheinbadstraße",
+        "city": "Schwörstadt",
+        "postal_code": "79739",
+        "lat": 47.590004,
+        "lon": 7.8799557
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Musée de l'Impression sur Étoffes",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.musee-impression.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée de l'Impression sur Étoffes",
+        "address": "14 Rue Jean-Jacques Henner",
+        "city": "Mulhouse",
+        "postal_code": "68100",
+        "lat": 47.7447926,
+        "lon": 7.3447787
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Musikverein Märkt",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.musikverein-maerkt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musikverein Märkt",
+        "address": "2 Am Altrhein",
+        "city": "Weil am Rhein",
+        "postal_code": "79576",
+        "country": "DE",
+        "lat": 47.6252392,
+        "lon": 7.58005
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "La Passerelle",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.la-passerelle.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Passerelle",
+        "lat": 47.7492295,
+        "lon": 7.4125375
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Maison",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://maisonbern.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison",
+        "address": "7 Theaterplatz",
+        "lat": 46.9475438,
+        "lon": 7.4478006
+      },
+      "_metro": "Bern, CH"
+    },
+    {
+      "name": "UIAA",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.theuiaa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "UIAA",
+        "lat": 46.9415245,
+        "lon": 7.4365431
+      },
+      "_metro": "Bern, CH"
+    },
+    {
+      "name": "Kulturspinnerei",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event",
+      "base_url": "https://kulturspinnerei.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturspinnerei",
+        "address": "17 Spinnereiweg",
+        "city": "Bern",
+        "postal_code": "3004",
+        "lat": 46.9687782,
+        "lon": 7.4415006
+      },
+      "_metro": "Bern, CH"
+    },
+    {
+      "name": "Berchtoldiakeller",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.berchtoldia.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Berchtoldiakeller",
+        "lat": 46.9488307,
+        "lon": 7.453745
+      },
+      "_metro": "Bern, CH"
     }
   ],
   "_not_included": {

@@ -1184,6 +1184,63 @@
         "lon": 8.4995814
       },
       "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Kaschemme",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.kaschemme.ch/programm",
+      "max_events": 200,
+      "venue": {
+        "name": "Kaschemme",
+        "address": "Lehenmattstrasse",
+        "city": "Basel",
+        "postal_code": "4052",
+        "country": "CH",
+        "lat": 47.5435177,
+        "lon": 7.6205119
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Christliches Begegnungszentrum",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.cbz.ch/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Christliches Begegnungszentrum",
+        "lat": 47.4797826,
+        "lon": 7.5910507
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Männerbüro Region Basel",
+      "category": "community",
+      "_found": "osm:social_facility -> squarespace",
+      "collection": "https://www.mbrb.ch/kurse-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Männerbüro Region Basel",
+        "lat": 47.5654985,
+        "lon": 7.5770515
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Station Circus",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.stationcircus.ch/",
+      "max_events": 200,
+      "venue": {
+        "name": "Station Circus",
+        "address": "103 Münchensteinerstrasse",
+        "lat": 47.538746,
+        "lon": 7.6081649
+      },
+      "_metro": "Basel, CH"
     }
   ]
 }

@@ -3807,6 +3807,189 @@
     "lon": 6.1479677
    },
    "_metro": "Geneva, CH"
+  },
+  {
+   "name": "Centre sportif En Bord",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://bouge.gland.ch/lagenda/"
+   ],
+   "link_pattern": "https://bouge\\.gland\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Centre sportif En Bord",
+    "lat": 46.4279501,
+    "lon": 6.2751427
+   },
+   "_metro": "Geneva, CH"
+  },
+  {
+   "name": "MJC Chablais",
+   "category": "arts",
+   "_found": "osm:arts_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.mjc-chablais.com/agenda/"
+   ],
+   "link_pattern": "https://www\\.mjc\\-chablais\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "MJC Chablais",
+    "address": "2 Avenue du Stade",
+    "city": "Douvaine",
+    "postal_code": "74140",
+    "lat": 46.302789,
+    "lon": 6.3033663
+   },
+   "_metro": "Geneva, CH"
+  },
+  {
+   "name": "Offline, Oekumenisches Zentrum für Meditation und Seelsorge",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://www.offline-basel.ch/veranstaltung/216623"
+   ],
+   "link_pattern": "https://www\\.offline\\-basel\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Offline, Oekumenisches Zentrum für Meditation und Seelsorge",
+    "address": "75 Im tiefen Boden",
+    "postal_code": "4059",
+    "lat": 47.5299579,
+    "lon": 7.5928613
+   },
+   "_metro": "Basel, CH"
+  },
+  {
+   "name": "Alters- und Pflegeheim Frenkenbündten",
+   "category": "community",
+   "_found": "osm:social_facility -> jsonld-event",
+   "listing": [
+    "https://www.frenkenbuendten.ch/agenda/lotto-1"
+   ],
+   "link_pattern": "https://www\\.frenkenbuendten\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Alters- und Pflegeheim Frenkenbündten",
+    "address": "10 Gitterlistrasse",
+    "city": "Liestal",
+    "postal_code": "4410",
+    "country": "CH",
+    "lat": 47.4789904,
+    "lon": 7.7395657
+   },
+   "_metro": "Basel, CH"
+  },
+  {
+   "name": "Bibliothek Frauenverein Muttenz",
+   "category": "learning",
+   "_found": "osm:library -> jsonld-event",
+   "listing": [
+    "https://www.frauenverein-muttenz.ch/eventleser/358.html"
+   ],
+   "link_pattern": "https://www\\.frauenverein\\-muttenz\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Bibliothek Frauenverein Muttenz",
+    "address": "3 Brühlweg",
+    "city": "Muttenz",
+    "postal_code": "4132",
+    "country": "CH",
+    "lat": 47.5271481,
+    "lon": 7.6464047
+   },
+   "_metro": "Basel, CH"
+  },
+  {
+   "name": "Basler Papiermühle Museum",
+   "category": "arts",
+   "_found": "osm:museum -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.baslerpapiermuehle.ch/kalender/"
+   ],
+   "link_pattern": "https://www\\.baslerpapiermuehle\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Basler Papiermühle Museum",
+    "address": "37 St. Alban-Tal",
+    "postal_code": "4052",
+    "lat": 47.5546662,
+    "lon": 7.6034758
+   },
+   "_metro": "Basel, CH"
+  },
+  {
+   "name": "St. Jakobshalle",
+   "category": "community",
+   "_found": "osm:events_venue -> jsonld-event",
+   "listing": [
+    "https://stjakobshalle.ch/events/"
+   ],
+   "link_pattern": "https://stjakobshalle\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "St. Jakobshalle",
+    "lat": 47.5399193,
+    "lon": 7.6185341
+   },
+   "_metro": "Basel, CH"
+  },
+  {
+   "name": "Museum Tinguely",
+   "category": "arts",
+   "_found": "osm:arts_centre -> jsonld-event",
+   "listing": [
+    "https://www.tinguely.ch/de/"
+   ],
+   "link_pattern": "https://www\\.tinguely\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Museum Tinguely",
+    "address": "1 Paul Sacher-Anlage",
+    "city": "Basel",
+    "postal_code": "4058",
+    "lat": 47.5591721,
+    "lon": 7.6123359
+   },
+   "_metro": "Basel, CH"
+  },
+  {
+   "name": "Gestüt Waidhof",
+   "category": "fitness",
+   "_found": "osm:sports_centre -> wix+jsonld-event",
+   "listing": [
+    "https://www.waidhof.net/event-details/reitabzeichen-2026"
+   ],
+   "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+   "url_template": "/event-info/{}",
+   "max_events": 100,
+   "venue": {
+    "name": "Gestüt Waidhof",
+    "address": "5 Waidhof",
+    "lat": 47.6002999,
+    "lon": 7.7043057
+   },
+   "_metro": "Basel, CH"
+  },
+  {
+   "name": "Yehudi Menuhin Forum",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://menuhinforum.ch/konzertkalender/"
+   ],
+   "link_pattern": "https://menuhinforum\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Yehudi Menuhin Forum",
+    "address": "6 Helvetiaplatz",
+    "city": "Bern",
+    "postal_code": "3005",
+    "lat": 46.9437615,
+    "lon": 7.4477992
+   },
+   "_metro": "Bern, CH"
   }
  ],
  "_not_included": {
