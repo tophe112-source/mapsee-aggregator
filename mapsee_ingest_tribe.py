@@ -213,6 +213,17 @@ def main(argv=None) -> int:
     ap.add_argument("--config", required=True)
     ap.add_argument("--store", default="mapsee_events.json")
     ap.add_argument("--only", help="ingest just this site name (substring match)")
+    # THE STEP'S CLOCK, NOT THIS PROCESS'S — the same deadline `mapsee_sweep_global`
+    # takes, and for the reason in docs/agents/ci-and-jobs.md: `store.save()` below
+    # runs ONCE, after the loop, so a step cancelled by `timeout-minutes` kills this
+    # process before it and the whole run goes in the bin. It did: 532 sites at ~6.8 s
+    # is ~60 min against a 60-minute cap, and run 35339055917 was cancelled at exactly
+    # 60m00s having reported "kept" for 495 of them — an hour of runner time that
+    # wrote nothing, and a red workflow. The workflow stamps an epoch deadline at step
+    # start; this starts no further site once it has passed, so the save still happens
+    # and the sites that did run are kept. 0 = no deadline (local runs).
+    ap.add_argument("--deadline", type=float, default=0.0,
+                    help="epoch seconds; start no site at or after this (0 = none)")
     a = ap.parse_args(argv)
 
     cfg = json.loads(open(a.config, encoding="utf-8").read())
@@ -220,15 +231,28 @@ def main(argv=None) -> int:
     session.headers.update({"User-Agent": UA, "Accept": "application/json"})
     store = EventStore(a.store)
     total = 0
-    for site in cfg.get("sites", []):
-        if a.only and a.only.lower() not in str(site.get("name", "")).lower():
-            continue
+    sites = [s for s in cfg.get("sites", [])
+             if not (a.only and a.only.lower() not in str(s.get("name", "")).lower())]
+    done = 0
+    stopped = False
+    for site in sites:
+        # Checked BEFORE the site is counted: a site never started must not appear
+        # in the "done" line, which is the only line anyone reads.
+        if a.deadline and time.time() >= a.deadline:
+            # `::warning::` first, or the runner never annotates it.
+            print(f"::warning::[tribe] deadline reached before {site.get('name','?')}: "
+                  f"{len(sites) - done} of {len(sites)} sites not started this run", flush=True)
+            stopped = True
+            break
+        done += 1
         try:
             total += ingest_site(store, session, site)
         except Exception as exc:
             print(f"[tribe] {site.get('name','?')} FAILED: {exc}")
     store.save()
-    print(f"[tribe] done: +{total} events; store now holds {len(store.records)} unique events.")
+    print(f"[tribe] done: +{total} events from {done} of {len(sites)} sites; "
+          f"store now holds {len(store.records)} unique events."
+          + (" (stopped at the step deadline)" if stopped else ""))
     return 0
 
 
