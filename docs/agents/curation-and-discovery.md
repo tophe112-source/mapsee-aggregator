@@ -644,6 +644,35 @@
   A hand-curated seed list is the right shape here, the same as
   `fair_sources.json`: there is no catalog to walk.
 
+- **Verification proves a feed PARSES; only an ingest proves it DELIVERS.** Two
+  of four Bend sources passed `verify` and were merged, and a full run through
+  their own adapters kept almost nothing. Measured 2026-09-20.
+  VOLCANIC THEATRE PUB: `verify` said 25/25 sampled events future; the ingest
+  kept ONE. The listing's 25 schema.org Event blocks carry no `url`, so every
+  one takes the listing page as its `source_id` and `EventStore`'s
+  `(source, source_id)` guard keeps a single row. The real links are tixr.com,
+  which answers 403 to the production UA, so following them is a refusal too.
+  Not an adapter bug: 239 of the 240 jsonld sites carry a `link_pattern` that
+  matches real event pages, and the one that does not — Nectar Lounge — ingests
+  all 10 because its Event blocks each carry a `url`.
+  FIRST UNITED METHODIST: `verify` said 27 vevents / 27 future, and it is 27
+  copies of ONE title, "In-Person Worship Service". A weekly service schedule,
+  the same shape as the City Park feed whose 365 vevents were 365 copies of
+  "Public Historical Tour". Both are now in `_not_included` with their numbers.
+  The general lesson is the cheap one: after `merge`, run the adapter over just
+  the new entries and count DISTINCT titles and placed rows, not the verifier's
+  "future events".
+
+- **An ics feed with an empty LOCATION is placeable after all, and the option
+  already exists.** The church's 27 VEVENTs each carry `LOCATION:` with nothing
+  after it, and the adapter kept 0 with "27 unplaceable — more than half this
+  feed has no location". `ics_sources.json` takes a `venue` block "used ONLY for
+  a VEVENT that carries neither LOCATION nor GEO", added for a neighbourhood
+  yard sale that is a few hundred porches; with the church's surveyed OSM point
+  it kept 27 of 27, pinned correctly. It came out anyway, for being standing
+  rows — but a single-venue calendar with no LOCATION is a `venue` block away
+  from working, not a dead end.
+
 - **Verification proves the feed, and the NAMES still have to be read.** Six of
   the 28 park candidates were dropped before verifying and two more after, all
   on what their titles turned out to be: a county's Public Health, Workforce
