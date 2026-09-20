@@ -425,6 +425,16 @@ check(len(civ.CITY_CLASSES) > 1,
 # and must name its scope, since all of these carry general classes.
 check(all(v[1] for code, v in civ.CITY_CLASSES.items() if code != "US"),
       "every country but the US scopes its classes with wdt:P17")
+# The two tables drift the moment a country is added to one and not the other,
+# and the symptom ships: the suffix falls back to the ISO code and writes
+# ", Kingston, JM" into a config — the shape that filed twenty Swiss venue
+# calendars under the United States.
+_nameless = sorted(set(civ.CITY_CLASSES) - set(civ.COUNTRY_NAMES) - {"US"})
+check(not _nameless,
+      f"every country the walk reaches can be SPELLED in a suffix ({_nameless})")
+check(civ._suffix({"city": "Kingston", "region": None, "country": "JM"})
+      == ", Kingston, Jamaica",
+      "...proved on the one that caught it")
 check("_civic_next_country" in curate and "visited" in curate,
       "the driver rotates countries rather than reading `country` from the cursor")
 

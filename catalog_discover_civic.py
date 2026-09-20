@@ -203,7 +203,36 @@ CITY_CLASSES = {
            "municipality of South Africa, city, local municipality, town"),
     "IN": (("Q112684326", "Q58339518", "Q56436498", "Q1549591", "Q515"),
            "Q668", "municipality, town and village in India, big city, city"),
+    # ---- the six the coverage report FLAGged that NO backend could reach ----
+    # Measured 2026-09-20. Each had exactly one source in the whole catalog, and
+    # that one came from a global feed (parkrun, bikereg, a Mobilizon instance),
+    # not from anything that went looking: neither metros_global.json nor
+    # CITY_CLASSES named them, so "broaden metros and categories" was advice
+    # with nothing to broaden. Now five of the six have a walk.
+    "IS": (("Q955655", "Q515", "Q3957"), "Q189",
+           "municipality of Iceland, city, town"),
+    "LT": (("Q17301072", "Q1363145", "Q17166803", "Q515", "Q1549591"), "Q37",
+           "district/municipality/city municipality of Lithuania, city, big city"),
+    "SI": (("Q328584", "Q6960199", "Q515", "Q1549591"), "Q215",
+           "municipality and city municipality of Slovenia, city, big city"),
+    "MY": (("Q34986717", "Q67927652", "Q1994931", "Q515", "Q1549591"), "Q833",
+           "city and village of Malaysia, district, city, big city"),
+    # Eight cities, not forty, and that is Jamaica's whole supply of settlements
+    # carrying a website AND coordinates AND a population — not a broken query.
+    "JM": (("Q515", "Q1549591"), "Q766", "city, big city"),
+    # ---- swept by the OSM venue walk, but never by the town walk ----
+    "KR": (("Q29045252", "Q482821", "Q515", "Q1549591"), "Q884",
+           "city and metropolitan city of South Korea, city, big city"),
+    "AE": (("Q515", "Q1549591", "Q902814"), "Q878", "city, big city, border city"),
 }
+# PUERTO RICO, HONG KONG AND ITALY ARE NOT ABOVE, each for its own measured
+# reason. Puerto Rico's `municipality of Puerto Rico` class answers in 43s with
+# ZERO rows: its 78 municipios are in Wikidata, but not with an official website
+# and coordinates and a population together, which is what this walk needs. Hong
+# Kong has no settlement class at all to name — it is one city whose subdivisions
+# are districts — and the OSM venue walk already sweeps it. Italy answered 504 to
+# four attempts across two days, like the other countries of tens of thousands of
+# comuni; see the note above.
 
 # The DMO hop. A host is nominated only if the city's own site links to it AND
 # its domain carries both a tourism word and the city's name — either half alone
@@ -570,8 +599,18 @@ COUNTRY_NAMES = {
     "DK": "Denmark", "FI": "Finland", "ES": "Spain", "IT": "Italy",
     "PT": "Portugal", "PL": "Poland", "CZ": "Czechia", "BR": "Brazil",
     "MX": "Mexico", "JP": "Japan", "ZA": "South Africa", "IN": "India",
-    "SG": "Singapore",
+    "SG": "Singapore", "IS": "Iceland", "LT": "Lithuania", "SI": "Slovenia",
+    "MY": "Malaysia", "JM": "Jamaica", "KR": "South Korea",
+    "AE": "United Arab Emirates", "HK": "Hong Kong", "IT": "Italy",
+    "PR": "Puerto Rico",
 }
+# EVERY COUNTRY THE WALK CAN REACH NEEDS A NAME HERE, and the two tables drift
+# the moment somebody adds the first without the second: the suffix falls back
+# to the ISO code and ships ", Kingston, JM" into ics_sources.json — the exact
+# shape that filed twenty Swiss venue calendars under the United States. Caught
+# by `cityclass` printing the suffix, which is why it prints the suffix.
+_MISSING_NAMES = sorted(set(CITY_CLASSES) - set(COUNTRY_NAMES) - {"US"})
+assert not _MISSING_NAMES, f"CITY_CLASSES countries with no name: {_MISSING_NAMES}"
 
 
 def _suffix(place: Dict[str, Any]) -> str:

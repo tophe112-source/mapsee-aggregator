@@ -34,6 +34,84 @@
   `test_coverage_rows.py` pins the invariants (no type counted twice, no country
   that is a number or a bare ISO code) rather than today's totals.
 
+- **Six countries the report FLAGged as thin were reachable by no backend at
+  all, so the flag could never be closed.** Measured 2026-09-20 by crossing the
+  coverage rows against `metros_global.json` and `CITY_CLASSES`: Iceland,
+  Jamaica, Lithuania, Malaysia, Puerto Rico and Slovenia each had exactly ONE
+  source, and in every case it came from a global feed (parkrun, bikereg, a
+  Mobilizon instance) rather than from anything that went looking. The ranker's
+  advice for them is "broaden metros and categories", and there was no metro
+  list and no city class to broaden. Five now have a civic walk — Iceland 77
+  cities (reykjavik.is), Lithuania 112 (vilnius.lt), Slovenia 40 (Ljubljana),
+  Malaysia 40 (Kuala Lumpur), Jamaica 2 from 8 rows (ksac.gov.jm) — plus South
+  Korea (Seoul) and the UAE (Dubai, dm.gov.ae), which the OSM venue walk swept
+  but the town walk never did. All seven sort to the FRONT of the thinnest-first
+  rotation, so they are the next seven civic runs.
+
+- **Puerto Rico is not missing, it is absent from the data.** Its
+  `municipality of Puerto Rico` class answers in 43 seconds with ZERO rows: the
+  78 municipios are in Wikidata, but not carrying an official website and
+  coordinates and a population together, which is what the walk needs. Hong Kong
+  has no settlement class to name at all — it is one city whose subdivisions are
+  districts, and the OSM venue walk already sweeps it. Neither is worth another
+  attempt without new evidence.
+
+- **Adding a country to CITY_CLASSES and not to COUNTRY_NAMES ships the bug the
+  suffix work existed to fix.** Caught on the first live verification of the new
+  batch: Jamaica's geocode suffix came out `, Kingston, JM` — an ISO code, the
+  exact shape that filed twenty Swiss venue calendars under the United States.
+  `cityclass` prints the suffix for this reason, which is how it was seen before
+  anything shipped. The two tables are asserted in step at import and pinned by
+  a test.
+
+- **The thin-ground ranker counts LABELS, not supply, and the label is
+  `community` by construction — so the four starved categories cannot be fed by
+  the backends that are actually growing.** Measured 2026-09-20 over all 51 runs
+  in `coverage_history.jsonl` (20260810 -> 20260920, 901 -> 3,164 sources).
+  Of the +2,263 grown: **community +1,579, seventy per cent of everything**,
+  then learning +176, arts +144, fitness +104 — against kids +24, outdoors +26,
+  running +21 and **volunteer +4**. The four the ranker points every gap sweep
+  at took 3.3% of six weeks of growth, and `running`'s +21 is one jump on
+  20260825 that is the parkrun expansion, not a sweep. The cause is structural,
+  not a bad query list: 993 of the 1,139 civic-discovered sources (87%) are
+  `community`, because `to_candidate` files ics/tribe/mylisting under
+  DEFAULT_CATEGORY and the ONLY path that reads a programme's own name —
+  `civicplus_candidates` -> `category_for_feed` — exists on CivicPlus, which is
+  a US platform. So the twenty countries added to CITY_CLASSES will deliver
+  essentially 100% `community`, and `volunteer` will still read as starved.
+  **A whole town's calendar IS mixed, so `community` is the honest label** — the
+  events inside it reach the right door through the promotion regexes in
+  mapsee_supabase_sync, not through the config. Which means the ranker is
+  measuring the wrong thing, and no amount of curation will move its numbers.
+  The obvious cheap fix DOES NOT WORK, and it was measured rather than assumed.
+  The Events Calendar exposes its category list — 18 of 24 civic-discovered town
+  calendars answered `/wp-json/tribe/events/v1/categories` — so giving Tribe the
+  treatment CivicPlus gets looks like the same trick played worldwide. It is
+  not: of 142 distinct category names across those 18, **96 (68%) are local
+  vocabulary no word list can hold** ("Route 66", "CAC", "Band Comp", "Healthy
+  Point", "Attractions", "Awareness"), 34 are governance the deny list already
+  refuses, 7 happen to BE a lens key, and `category_for_feed` recovers exactly
+  5 — two learning, two kids, one volunteer. That is the same wall the note
+  above `CIVIC_DENY_RX` describes from the other side: governance vocabulary is
+  small and stable, programme vocabulary is unbounded and local. A few names are
+  worth having anyway ("Arts & Culture" and "Arts/Culture" are arts, "Athletics"
+  is fitness, and the ampersand is the only reason the first is dropped today),
+  but that is a handful, not a fix. The real one is to rank by what the
+  CLASSIFIER produced per category rather than by what the configs declare —
+  which needs a per-category count the DB does not currently expose, since
+  `stats_snapshot_all` is per SOURCE. Until then, read `volunteer: 13` as "13
+  feeds SAY volunteer", never as "the volunteer door is empty".
+
+- **Where the events actually go is not where the config says.** The tribe
+  adapter already reads each event's own categories and passes them through
+  `norm_categories`, which keeps only names that are ALREADY a lens key and
+  drops the rest — so the platform's own labels are lost at ingest and the sync
+  never sees them. That is why the 7 of 142 that survive are the ones spelled
+  exactly "Arts", "Community", "Food", "Outdoors". Anything richer has to come
+  from the promotion regexes reading the event's TITLE, which is what
+  `mapsee_supabase_sync` does and is the reason a mixed town calendar still
+  fills the right doors.
+
 - **A whole-file ledger write silently loses a concurrent writer.**
   `_save_ledger` dumped the in-memory copy over the file, and every sweep loads
   the ledger once at the start and saves it minutes or hours later — so
