@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 248 of them — live in
+session.** The measured notes about what bites — 252 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -58,7 +58,7 @@ front doors it reaches.
 | Takeaway places (not events) from OpenStreetMap | `mapsee_ingest_osm_food.py` + `osm_food_sources.json` — only places with a real order link AND readable hours |
 | Second-hand / charity / vintage shops (not events) from OpenStreetMap | `mapsee_ingest_osm_secondhand.py` + `osm_secondhand_sources.json` — the food adapter's sibling, feeding `market` (fleabop). Bar is readable hours, not an order link; read its header for why that differs. Fetches no third-party websites |
 | UK leisure-centre, community-sport and volunteering sessions | `mapsee_ingest_openactive.py` + `openactive_sources.json` — RPDE feeds, all CC-BY 4.0, all carrying their own coordinates |
-| Playgrounds, drinking fountains, outdoor gyms, little free libraries, food banks, public art | `mapsee_ingest_osm_amenities.py` + `osm_amenity_sources.json` — the third OSM PLACES adapter. Most of what it writes is `pin_only` FURNITURE: drawn on the map and nothing else |
+| Playgrounds, toilets, drinking fountains, outdoor gyms, little free libraries, food banks, public art | `mapsee_ingest_osm_amenities.py` + `osm_amenity_sources.json` — 260 areas, the same metros the event sweeps use, matrix-sharded five ways because GitHub caps a matrix at 256 — the third OSM PLACES adapter. Most of what it writes is `pin_only` FURNITURE: drawn on the map and nothing else |
 | Public transit bundles (bus/metro suggestions on a walk) | **not here** — `../mapsee/tools/transit_build.py` + `transit_sources.json`. It is Python and it is a scheduled pipeline, so this is where you would look; it lives in the product repo because its output is a static site asset and mapsee deploys on push, which a cross-repo push would only complicate |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | The planned kids door (unsie.com) and what it wants from this repo | **not here** — `../mapsee/docs/plans/unsie-and-the-lend-layer.md`. A PLAN, nothing shipped. Its §4 and §7 are this repo's half: new kid Kinds in `mapsee_ingest_osm_amenities.py` and swap language in `_KIDS_RX`/`derive_categories`. Toy libraries and little free libraries are MEASURED — the two notes in `docs/agents/osm-amenities.md` say why one is not worth a Kind without French hubs and why the other cannot be split by audience. Read those before widening either |
@@ -117,7 +117,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | File | Notes | Covers |
 |---|---|---|
 | `docs/agents/curation-and-discovery.md` | 63 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic |
-| `docs/agents/osm-amenities.md` | 25 | which civic places earn a pin or a sheet, deny-lists, facts vs names, the cached element list |
+| `docs/agents/osm-amenities.md` | 29 | which civic places earn a pin or a sheet, deny-lists, facts vs names, the cached element list |
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 21 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |
 | `docs/agents/adapters-and-sources.md` | 19 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes |

@@ -3,6 +3,50 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: toilets, food banks, artwork, deny-lists, facts vs names, the cached element list, `--only-new` on a rewrite-every-run adapter.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **The amenity hubs are the EVENT metros now: 10 -> 260, sharded five ways.**
+  Measured 2026-09-20 before committing to it. Density per 25-mile metro varies
+  by a factor of fifty — Tokyo 20,004 elements against Johannesburg 365, Bend
+  482, Chattanooga 562, with a sample **median of 1,259 and a mean of 4,500** —
+  so scaling from the ten densest cities would have over-estimated badly. The
+  ten already configured hold ~82,000 elements between them (Paris 20,517,
+  Berlin 14,142, London 11,965, down to Rio 1,494); the 250 added are mostly the
+  smaller end, so expect the full fill to land in the low hundreds of thousands
+  rather than the million a naive scale-up predicts.
+  COST PER RUN IS BOUNDED BY TWO THINGS ALREADY IN THE DESIGN: `--max-places
+  4000` per area per visit, and a shard of 52 areas, so a run examines at most
+  ~208,000 elements and a dense metro takes several visits to cover — Paris has
+  been at it for weeks. Overpass is ~12.9s per 1-degree tile (measured on
+  Edinburgh's two tiles, 3,283 elements) and a 25-mile metro is one or two
+  tiles, so a shard costs roughly 17 minutes of Overpass spread over four
+  parallel jobs.
+
+- **A GitHub matrix is capped at 256 jobs, and the config now holds 260.** Not a
+  slow run — a run that does not start. `osm-amenities.yml` picks `names[shard::
+  shards]` where the shard is the ISO week modulo five, which is deterministic,
+  auditable, covers every area exactly once per turn and is STRIDED rather than
+  sliced: the config is grouped by country, so contiguous blocks would send one
+  run at 64 Brazilian metros and leave a four-area runt. Each shard is 52 areas
+  across ~23 countries. Verified over 53 simulated weeks: every area visited 10
+  or 11 times, none missed.
+
+- **The 30-day element cache will now usually MISS, and that is the trade.**
+  GitHub evicts a cache untouched for seven days and a full turn takes five
+  weeks, so each visit refetches from Overpass rather than restoring the
+  near-free hit the ten-area weekly sweep enjoyed. For a standing dataset that
+  is the right way round — the data is five weeks old at worst instead of
+  thirty — but it means the run cost is now an Overpass fetch per area per
+  visit, and the cache earns its keep only within a run and on `only` reruns.
+
+- **Parks were considered and REFUSED, 2026-09-20.** `leisure=park` is 1,301,184
+  uses worldwide and 293 in central Edinburgh against 390 playgrounds, so it
+  would have been the single largest selector. It is not here because the
+  BASEMAP ALREADY DRAWS PARKS as green space: a centroid pin on a polygon the
+  map is already showing repeats what the reader can see, which is the same
+  argument `pin_only` furniture makes one level down. `leisure=garden`
+  (1,569,704) and `leisure=nature_reserve` (150,181) are out for the same
+  reason. Art, toilets and drinking water were already selectors when this was
+  asked.
+
 - **ONE SELECTOR IS NOT ALWAYS A CATEGORY.** Every OSM amenity Kind except one
   describes something civic by definition - there is no private drinking
   fountain. `leisure=swimming_pool` is the opposite: most pools on earth are
