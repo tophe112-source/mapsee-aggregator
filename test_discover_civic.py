@@ -101,6 +101,44 @@ check(not osm.governance_heavy(ics("Juneteenth Jubilee in the Park",
                                    "Memorial Day Parade")),
       "and a town that PROGRAMMES its holidays keeps its calendar")
 
+# ...AND THE SAME TEST IN THE LANGUAGES THE WALK NOW REACHES. The civic
+# rotation leaves the US, and a town hall in Bern publishes its
+# Gemeinderatssitzungen in German — an English-only matcher would not fail
+# loudly, it would pass the calendar and put twenty council meetings on the map
+# as `community` events. Only unambiguous COMPOUNDS are refused: governance_heavy
+# needs two thirds of a feed before it refuses anything, but a bare "Sitzung" or
+# "réunion" is the word "meeting" and would have taken a reading group with it.
+check(osm.governance_heavy(ics("Gemeinderatssitzung", "Gemeinderatssitzung",
+                               "Sitzung des Bauausschusses")),
+      "a German council's meeting schedule is a meeting schedule")
+check(osm.governance_heavy(ics("Conseil municipal du 12 mars",
+                               "Conseil municipal du 9 avril")),
+      "...and a French one")
+check(osm.governance_heavy(ics("Gemeenteraad vergadering", "Raadsvergadering",
+                               "Raadscommissie Ruimte")),
+      "...and a Dutch one")
+check(osm.governance_heavy(ics("Consiglio comunale", "Giunta comunale")),
+      "...and an Italian one")
+check(osm.governance_heavy(ics("Kommunfullmäktige", "Kommunstyrelsen")),
+      "...and a Swedish one")
+check(osm.governance_heavy(ics("Reunião de Câmara", "Assembleia Municipal")),
+      "...and a Portuguese one, which is also Brazil's")
+check(osm.governance_heavy(ics("Sesja Rady Miasta", "Sesja Rady Miasta")),
+      "...and a Polish one")
+check(osm.governance_heavy(ics("Zasedání zastupitelstva", "Rada města")),
+      "...and a Czech one")
+
+# The words that are ONLY the word "meeting", and the programmes they belong to.
+check(not osm.governance_heavy(ics("Treffen der Lesegruppe", "Märchenstunde",
+                                   "Yoga im Park")),
+      "a German library's programme is not a council")
+check(not osm.governance_heavy(ics("Reunião do clube de leitura",
+                                   "Feira do Livro", "Oficina de dança")),
+      "...nor is a Brazilian one, though `reunião` is the word they share")
+check(not osm.governance_heavy(ics("Concert au parc", "Marché de Noël",
+                                   "Atelier cuisine")),
+      "...nor a French market and concert calendar")
+
 # THE ONES THAT MUST SURVIVE IT. A holiday with an event attached is an event,
 # and this is the whole reason the holiday match is anchored rather than loose.
 check(not osm.governance_heavy(ics("Down Home 4th of July Parade",

@@ -34,6 +34,27 @@
   `test_coverage_rows.py` pins the invariants (no type counted twice, no country
   that is a number or a bare ISO code) rather than today's totals.
 
+- **The governance filter was English-only, and the civic walk now leaves the
+  US.** `CIVIC_SUMMARY_RX` is what `governance_heavy` reads a feed's SUMMARY
+  lines with, and it is the ONLY thing standing between a town hall's meeting
+  schedule and the map — a council calendar passes the name test, verifies
+  perfectly, and lands as twenty `community` events. Its English half was built
+  from what live sweeps proposed (Woodbury's Holidays, Mount Vernon's IDA
+  Calendar, Mansfield's 70 bare holiday names). The rest is VOCABULARY and is
+  labelled as such in the file: nothing has swept a German town yet. What makes
+  writing it down safe rather than a guess is `governance_heavy`'s own floor —
+  two thirds of a feed's SUMMARY lines must match before anything is refused —
+  so only unambiguous COMPOUNDS are listed. `Gemeinderat`, `conseil municipal`,
+  `gemeenteraad`, `consiglio comunale`, `kommunfullmäktige`, `reunião de
+  câmara`, `sesja rady`, `zastupitelstvo` each name one thing; a bare `Sitzung`,
+  `réunion` or `möte` is the word "meeting" and would refuse a reading group.
+  `test_discover_civic.py` pins both directions, including the Brazilian book
+  club whose entries say `Reunião`. Replace this with a measurement the first
+  time a non-US sweep produces one. The same asymmetry the English list
+  documents applies: governance vocabulary is small and stable, programme
+  vocabulary is unbounded and local, so the list names what we are sure we do
+  NOT want.
+
 - **Three curated files were in neither config table, so the report read them
   as empty ground — and each one was a country it was FLAGging.** `coverage`
   walks `CONFIG` and `EXTRA_CONFIG` and nothing else. Measured 2026-09-19:

@@ -327,10 +327,52 @@ def future_vevents(body: str, today: Optional[str] = None) -> int:
 
 # What a governance calendar's entries are CALLED. Used on the feed's own
 # SUMMARY lines, not on the category name — see governance_heavy.
-CIVIC_SUMMARY_RX = re.compile(
-    r"\b(meetings?|boards?|committees?|commissions?|councils?|hearings?|"
+#
+# MULTILINGUAL, for the same reason CAL_LINK_RX is: the civic walk rotates
+# countries now, and a town hall in Bern publishes its Gemeinderatssitzungen in
+# German. An English-only matcher does not fail loudly here — it passes the
+# calendar, and a council meeting schedule verifies perfectly and lands on the
+# map as twenty `community` events.
+#
+# Unlike the English half, which was built from what a live sweep proposed, this
+# half is VOCABULARY: nothing has swept a German town yet. What makes that safe
+# to write down is governance_heavy's floor — two thirds of a feed's SUMMARY
+# lines have to match before anything is refused — so a book club whose entries
+# say "Reunião" or "Treffen" is in no danger. Only unambiguous COMPOUNDS are
+# here for that reason: `Gemeinderat` and `conseil municipal` name one thing,
+# where a bare `Sitzung`, `réunion` or `möte` is just the word "meeting" and
+# would refuse a reading group. Replace a guess here with a measurement the
+# first time a non-US sweep produces one.
+_CIVIC_SUMMARY_EN = (
+    r"meetings?|boards?|committees?|commissions?|councils?|hearings?|"
     r"agendas?|caucus|executive session|offices? (?:will be )?closed|"
-    r"closed\s*[-–]|holiday observ)", re.I)
+    r"closed\s*[-–]|holiday observ")
+_CIVIC_SUMMARY_INTL = (
+    # de
+    r"gemeinderat\w*|stadtrat\w*|kreistag\w*|ratssitzung\w*|gemeindevertretung|"
+    r"ausschuss\w*|ausschüsse|amtsblatt|"
+    # fr
+    r"conseil municipal|conseil communautaire|conseil départemental|"
+    r"commission municipale|séance du conseil|enquête publique|"
+    # nl
+    r"gemeenteraad\w*|raadsvergadering\w*|raadscommissie\w*|collegevergadering\w*|"
+    # es
+    r"pleno municipal|pleno del ayuntamiento|junta de gobierno|comisión informativa|"
+    # it
+    r"consiglio comunale|giunta comunale|seduta del consiglio|"
+    # pt (and br)
+    r"câmara municipal|assembleia municipal|reunião de câmara|"
+    # sv / no / da
+    r"kommunfullmäktige|kommunstyrelse\w*|kommunestyre\w*|byrådsmøde\w*|"
+    r"byrådsmøte\w*|sammanträde\w*|"
+    # fi
+    r"kaupunginvaltuusto\w*|kunnanvaltuusto\w*|kaupunginhallitus\w*|lautakunn\w*|"
+    # pl
+    r"sesja rady|rada miasta|rada gminy|"
+    # cs
+    r"zastupitelstv\w*|rada města")
+CIVIC_SUMMARY_RX = re.compile(
+    r"\b(" + _CIVIC_SUMMARY_EN + r"|" + _CIVIC_SUMMARY_INTL + r")", re.I)
 
 # ...AND THE OTHER WAY A CALENDAR SAYS "WE ARE SHUT", which is to say nothing at
 # all beyond the name of the day. Mansfield's City Holidays is 70 entries of

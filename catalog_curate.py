@@ -1322,7 +1322,14 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                 ckey = _canon(_key_of(cand))
                 if ckey in seen_keys or _dead_recently(led, ckey):
                     bump("configured"); continue
-                cand["_metro"] = f"{place.get('city')}, {place.get('region') or country}"
+                # The country SPELLED OUT, like the venue backend's label.
+                # `_metro` is written into the shipped config (1,247 ics entries
+                # carry one), so "Bern, CH" is a line a curator reads and a
+                # future parser has to guess at — the same trap the geocode
+                # suffix was in.
+                cand["_metro"] = (
+                    f"{place.get('city')}, "
+                    f"{place.get('region') or _ISO_COUNTRY.get(country, country)}")
                 found[ckey] = cand
                 new += 1
                 print(f"    + {cand['type']:5} {cand['name'][:46]:46} "
