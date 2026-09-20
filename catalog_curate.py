@@ -58,6 +58,8 @@ Usage:
   python catalog_curate.py audit                     # re-check EXISTING configs
   python catalog_curate.py ledger                     # summarize what's been tried
   python catalog_curate.py coverage                   # where the catalog is thin (no network)
+  # prove a civic country before it ships: rows, seconds and the largest city
+  python catalog_curate.py cityclass [US CH DE ...]   # every CITY_CLASSES entry if none named
   # after `git reset --hard origin/main`: put this run's ledger, cursor and
   # coverage line back on top of whatever main says NOW. No network.
   python catalog_curate.py reapply .curate-snapshot
@@ -3009,8 +3011,61 @@ def cmd_coverage_delta(before_path, after_path):
     return 0
 
 
+def cmd_cityclass(codes=()):
+    """Run the REAL cities() query for each country and report what it returns.
+
+    AGENTS.md's rule for CITY_CLASSES is that a country goes in "verified to
+    return rows before it goes in, rather than listed hopefully", and this is
+    what makes that rule followable rather than aspirational. It prints the
+    three numbers an entry's comment should carry — cities in the first page,
+    seconds, the largest city — so re-measuring a country is one command.
+
+    FINDING the class in the first place is the other half and is not here,
+    because it needs no SPARQL at all: ask the Wikidata Action API for three or
+    four mid-sized towns by name (`wbsearchentities`), read their `P31` claims
+    (`wbgetentities`), keep the ones whose `P17` is the country, and drop the
+    labels that are not a kind of settlement — a town is also a weather station
+    and a federal electoral district, and an electoral district has a population
+    AND a website, so the query cannot tell them apart afterwards. Mid-sized on
+    purpose: a capital is often its own class that no other town shares. That
+    was measured on 2026-09-19 against the sampling query it replaced, which
+    asked WDQS to group a whole country's settlements by class: the API route
+    answers in a second where the sampling query took 40-120 and spent an
+    afternoon answering 502 and 504.
+    """
+    import catalog_discover_civic as civic
+    session = _session()
+    codes = [c.upper() for c in codes] or sorted(civic.CITY_CLASSES)
+    bad = [c for c in codes if c not in civic.CITY_CLASSES]
+    if bad:
+        print(f"  FLAG no city class known for {', '.join(bad)} — see CITY_CLASSES")
+    rc = 0
+    for code in [c for c in codes if c in civic.CITY_CLASSES]:
+        classes, scope, label = civic.CITY_CLASSES[code]
+        t = time.time()
+        try:
+            places, rows = civic.cities(session, code, limit=40, offset=0)
+        except Exception as exc:                                  # noqa: BLE001
+            print(f"  {code}: {type(exc).__name__} — {exc}")
+            rc = 1
+            continue
+        secs = round(time.time() - t, 1)
+        if not places:
+            print(f"  {code}: NO ROWS in {secs}s over {len(classes)} class(es) "
+                  f"({label}) — do not ship this entry")
+            rc = 1
+            continue
+        top = places[0]
+        print(f"  {code}: {len(places)} cities from {rows} rows in {secs}s "
+              f"over {len(classes)} class(es); largest {top['name']} "
+              f"({top['population']:,}) {top['url'][:44]}")
+        print(f"       suffix: {civic._suffix(top)!r}")
+    return rc
+
+
 def main(argv):
-    cmds = {"verify", "merge", "audit", "ledger", "coverage", "discover", "reapply"}
+    cmds = {"verify", "merge", "audit", "ledger", "coverage", "discover",
+            "reapply", "cityclass"}
     if len(argv) < 2 or argv[1] not in cmds:
         print(__doc__)
         return 2
@@ -3042,6 +3097,9 @@ def main(argv):
               if "--max-minutes" in argv else 0.0)
         return cmd_discover(limit=lim, out=out, backend=backend, only=only,
                             metros=metros, max_minutes=mm)
+    if cmd == "cityclass":
+        # Every configured country, or the ones named: `cityclass CH DE`.
+        return cmd_cityclass(tuple(a for a in argv[2:] if not a.startswith("-")))
     if cmd == "audit":
         return cmd_audit()
     if cmd == "ledger":
