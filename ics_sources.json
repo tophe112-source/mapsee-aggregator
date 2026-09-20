@@ -13456,5 +13456,24 @@
   "geocode_suffix": ", Rome, Italy",
   "limit": 300,
   "_metro": "Rome, Italy"
+ },
+ {
+  "name": "Lyndale Neighborhood Association (Minneapolis)",
+  "category": "community",
+  "url": "https://calendar.google.com/calendar/ical/c_6enamte9majvmlvoq5scpqbj30%40group.calendar.google.com/public/basic.ics",
+  "url_home": "https://www.lyndale.org/events",
+  "geocode_suffix": ", Minneapolis, MN",
+  "limit": 300,
+  "_found": "manual: neighborhood garage sale search -> google calendar embed -> public ics",
+  "_metro": "Minneapolis, MN",
+  "_note": "Runs Lyndale Garage Sales Day each spring. lyndale.org/events is a Squarespace collection (36 articles, 6 upcoming) that ALSO embeds this Google Calendar, which is the richer copy: 285 VEVENTs on 2026-09-20, 10 upcoming, 9 with a street address. `venue` covers the neighbourhood-wide days (the Halloween Walk had no LOCATION).",
+  "venue": {
+   "name": "Lyndale neighborhood",
+   "city": "Minneapolis",
+   "region": "MN",
+   "country": "US",
+   "lat": 44.9429311,
+   "lon": -93.2813719
+  }
  }
 ]

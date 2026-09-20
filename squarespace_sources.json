@@ -1302,6 +1302,93 @@
         "lon": 6.9074769
       },
       "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Bryn Mawr Neighborhood Association (Minneapolis)",
+      "collection": "https://www.bmna.org/upcoming-events",
+      "category": "community",
+      "max_events": 200,
+      "_found": "manual: neighborhood garage sale search -> squarespace collection",
+      "_metro": "Minneapolis, MN",
+      "_note": "Runs the Festival of Garage Sales. 32 articles on 2026-09-20, 2 upcoming, no map links on any of them; the venue is Photon's centroid for the Bryn Mawr neighbourhood.",
+      "venue": {
+        "name": "Bryn Mawr neighborhood",
+        "city": "Minneapolis",
+        "region": "MN",
+        "country": "US",
+        "lat": 44.9737094,
+        "lon": -93.3083659
+      }
+    },
+    {
+      "name": "Linden Hills Neighborhood Council (Minneapolis)",
+      "collection": "https://www.lindenhills.org/events",
+      "category": "community",
+      "max_events": 200,
+      "_found": "manual: neighborhood garage sale search -> squarespace collection",
+      "_metro": "Minneapolis, MN",
+      "_note": "Runs the Linden Hills Neighborhood Garage Sale (first Saturday of May). 35 articles on 2026-09-20, 5 upcoming, no map links; venue is Photon's centroid for the neighbourhood.",
+      "venue": {
+        "name": "Linden Hills neighborhood",
+        "city": "Minneapolis",
+        "region": "MN",
+        "country": "US",
+        "lat": 44.9268804,
+        "lon": -93.3188456
+      }
+    },
+    {
+      "name": "Heart of Lincoln Square Neighbors (Chicago)",
+      "collection": "https://www.heartoflincolnsquare.org/events",
+      "category": "community",
+      "max_events": 200,
+      "_found": "manual: neighborhood garage sale search -> squarespace collection",
+      "_metro": "Chicago, IL",
+      "_note": "Runs a Community Yard Sale each June. 32 articles on 2026-09-20, 2 upcoming, no map links; Photon has no neighbourhood feature for Lincoln Square, so the venue is the association's own footer address.",
+      "venue": {
+        "name": "Lincoln Square",
+        "address": "4649 N Western Ave",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60625",
+        "country": "US",
+        "lat": 41.9663009,
+        "lon": -87.6884777
+      }
+    },
+    {
+      "name": "Hyde Park Neighborhood Association (Kansas City)",
+      "collection": "https://www.hydeparkkc.org/events",
+      "category": "community",
+      "max_events": 200,
+      "_found": "manual: neighborhood garage sale search -> squarespace collection",
+      "_metro": "Kansas City, MO",
+      "_note": "Runs the Hyde Park Annual Yard Sale (second Saturday of June, 50+ sales). 39 articles on 2026-09-20, 9 upcoming, no map links; the venue is Hyde Park itself, the park inside the neighbourhood, because Photon geocoded the association's mailing address to the wrong ZIP.",
+      "venue": {
+        "name": "Hyde Park",
+        "city": "Kansas City",
+        "region": "MO",
+        "country": "US",
+        "lat": 39.059964,
+        "lon": -94.5818165
+      }
+    },
+    {
+      "name": "Multnomah Neighborhood Association (Portland)",
+      "collection": "https://www.mnapdx.org/events",
+      "category": "community",
+      "max_events": 200,
+      "_found": "manual: neighborhood garage sale search -> squarespace collection",
+      "_metro": "Portland, OR",
+      "_note": "Runs Garage Sale Day each July. 67 articles on 2026-09-20, 37 upcoming (the Hillsdale Farmers' Market weekly among them), no map links; venue is Photon's centroid for Multnomah Village.",
+      "venue": {
+        "name": "Multnomah Village",
+        "city": "Portland",
+        "region": "OR",
+        "country": "US",
+        "lat": 45.4681602,
+        "lon": -122.7126914
+      }
     }
   ]
 }

@@ -578,3 +578,22 @@
   upcoming, Swapanistas is one day a year on Wix, and A2ZERO (Ann Arbor's
   monthly city-hall swap) is the one on a platform with an adapter - Luma, 4
   upcoming, all with coordinates.
+
+- **Neighbourhood associations live on Squarespace, and a search finds the
+  sale before it finds the calendar.** Second pass 2026-09-20, twenty US
+  metros searched for "neighborhood association" + garage/yard sale: 30-odd
+  association sites, of which six carry a feed. Five are Squarespace
+  collections (Bryn Mawr, Linden Hills and Lyndale in Minneapolis, Heart of
+  Lincoln Square in Chicago, Hyde Park in Kansas City, Multnomah in Portland -
+  2, 5, 6, 2, 9 and 37 upcoming) and NONE of the 240-odd articles across them
+  carried a map link, so every one needed a `venue` block at the
+  neighbourhood centroid; Lyndale's page also embeds a Google Calendar, which
+  is the richer copy (285 VEVENTs, 10 upcoming, 9 with a street) and became the
+  source instead. Three WordPress sites answered the Tribe REST route with 0
+  events (Lind-Bohanon, Longfellow, Old North End): the plugin is installed and
+  the sale is a page, not an event. Everything else was a static page (Site
+  Kit, Elementor, Weebly, Google Sites, Wild Apricot). The yield is roughly one
+  configurable source per three association sites found, and the search engine
+  returns listing aggregators (gsalr, garagesalefinder, yardsalesearch) ahead
+  of the associations after the first page, so the second query for a metro
+  is worth less than the first.

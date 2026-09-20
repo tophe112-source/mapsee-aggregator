@@ -22665,6 +22665,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "bmna.org/upcoming-events": {
+    "checked": 20260920,
+    "name": "Bryn Mawr Neighborhood Association (Minneapolis)",
+    "reason": "2/32 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "bmtheater.ch": {
     "checked": 20260919,
     "name": "Basler Marionettenthater",
@@ -26032,6 +26039,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "brooklynpark.org/events/?ical=1": {
+    "checked": 20260920,
+    "name": "Brooklyn Park (MN) \u2014 City Calendar",
+    "reason": "7 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "brot-hernals.at": {
     "checked": 20260908,
     "name": "B.R.O.T.-Haus",
@@ -29032,6 +29046,13 @@
     "checked": 20260904,
     "name": "International Teekkari Guild INTO Tampere",
     "reason": "59 vevents / 14 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/c_6enamte9majvmlvoq5scpqbj30%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20260920,
+    "name": "Lyndale Neighborhood Association (Minneapolis)",
+    "reason": "285 vevents / 10 future",
     "status": "ok",
     "type": "ics"
   },
@@ -80359,6 +80380,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "heartoflincolnsquare.org/events": {
+    "checked": 20260920,
+    "name": "Heart of Lincoln Square Neighbors (Chicago)",
+    "reason": "2/32 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "heartsfc.co.uk/tickets-and-hospitality/tours/hearts-museum": {
     "checked": 20260819,
     "name": "Heart of Midlothian Museum",
@@ -86084,6 +86112,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hydeparkkc.org/events": {
+    "checked": 20260920,
+    "name": "Hyde Park Neighborhood Association (Kansas City)",
+    "reason": "9/39 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "hyderabad.afindia.org/events/?ical=1": {
     "checked": 20260722,
@@ -110172,6 +110207,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lind-bohanon.org": {
+    "checked": 20260920,
+    "name": "Lind-Bohanon Neighborhood Association (Minneapolis)",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "linda-beirnaert.be": {
     "checked": 20260913,
     "name": "Linda Beirnaert",
@@ -110199,6 +110241,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lindenhills.org/events": {
+    "checked": 20260920,
+    "name": "Linden Hills Neighborhood Council (Minneapolis)",
+    "reason": "5/35 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "lindfieldlearningvillage.schools.nsw.gov.au": {
     "checked": 20260819,
@@ -111648,6 +111697,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "longfellow.org": {
+    "checked": 20260920,
+    "name": "Longfellow Community Council (Minneapolis)",
+    "reason": "ConnectionError: HTTPSConnectionPool(host='longfellow.org', port=443): Max retries exce",
+    "status": "fail",
+    "type": "tribe"
   },
   "longjumeau.fr/action-sociale/maison-de-la-fraternite": {
     "checked": 20260828,
@@ -120776,6 +120832,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mnapdx.org/events": {
+    "checked": 20260920,
+    "name": "Multnomah Neighborhood Association (Portland)",
+    "reason": "37/67 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "mncn.csic.es": {
     "checked": 20260914,
@@ -134461,6 +134524,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "oldnorthend.org": {
+    "checked": 20260920,
+    "name": "Old North End Neighborhood (Colorado Springs)",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "oldschoolgym24.ch": {
     "checked": 20260917,
