@@ -443,6 +443,17 @@ try:
           f"every country is swept before any is swept twice ({walk[:4]})")
     check(walk[4:8] == walk[:4],
           f"...and then it is plain round-robin ({walk[4:8]} vs {walk[:4]})")
+    # A country WDQS is refusing must not wedge the walk either. The cursor's
+    # `country` is whose TURN has been taken, not whose batch was read — it is
+    # set on the unread path too, and only the offset stays behind.
+    src = _io.open("catalog_curate.py", encoding="utf-8").read()
+    unread = src.split("batch UNREAD")[1].split("return found, skipped")[0]
+    check('cursor["country"] = country' in unread,
+          "an unread batch still takes its turn, so a refusing country cannot "
+          "hold every civic run")
+    check("_civic_offsets(cursor)[country]" not in unread,
+          "...and its offset is untouched, so none of its cities are skipped")
+
     # A country that has gone from CITY_CLASSES must not wedge the walk.
     stale = {"country": "ZZ", "offsets": {"US": 40}, "visited": ["US"]}
     check(_C._civic_next_country(stale, civ) in civ.CITY_CLASSES,

@@ -1269,10 +1269,19 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
         places, rows = civic.cities(session, country, limit=per_run, offset=offset)
     except Exception as exc:                                      # noqa: BLE001
         # UNREAD, NOT EMPTY. Wikidata answers 504 on a query it decides is too
-        # expensive, and advancing the cursor past a batch we never saw would
+        # expensive, and advancing the OFFSET past a batch we never saw would
         # skip those cities until the walk wraps.
+        #
+        # THE ROTATION ADVANCES ANYWAY, and the two are different things. The
+        # cursor's `country` is "whose turn has been taken", not "whose batch was
+        # read": leaving it behind means the next run picks the same country, and
+        # a country WDQS is currently refusing — it answered 502/504 for hours on
+        # 2026-09-19 — would hold every civic run in the repo for as long as it
+        # kept refusing. Its offset is untouched, so nothing is skipped; it
+        # simply comes round again.
         print(f"  wikidata {country} offset {offset}: {type(exc).__name__} — "
-              f"batch UNREAD, cursor stays")
+              f"batch UNREAD, offset stays, the rotation moves on")
+        cursor["country"] = country
         return found, skipped
     if not places:
         print(f"  {country}: offset {offset} is past the end — wrapping to the top")
