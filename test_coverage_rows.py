@@ -208,6 +208,100 @@ def t_the_country_count_matches_the_rows():
           snap["total_sources"] == len(rows), f"{snap['total_sources']} vs {len(rows)}")
 
 
+# --- 5. a place outside the United States is read as being outside it --------
+
+def t_a_foreign_iso_code_in_a_suffix_is_a_country():
+    """Measured 2026-09-19: 115 sources were filed under the United States with
+    a foreign country code standing in as the METRO. ", Zurich, CH" is the shape
+    — the venue backend wrote the metro label as `name, ISO` and _parse_place
+    knew neither half."""
+    for suffix, metro, country in (
+            (", Zurich, CH", "Zurich", "Switzerland"),
+            (", Stockholm, SE", "Stockholm", "Sweden"),
+            (", Brussels, BE", "Brussels", "Belgium"),
+            (", Sydney, AU", "Sydney", "Australia"),
+            (", Auckland, NZ", "Auckland", "New Zealand"),
+            (", Dublin, IE", "Dublin", "Ireland"),
+    ):
+        got = C._parse_place(suffix.strip(" ,"))
+        check(f"'{suffix.strip()}' is {metro}, {country}", got == (metro, country), str(got))
+
+
+def t_a_country_spelled_out_is_a_country_too():
+    """The other half of the same defect: a suffix ending in a country NAME that
+    _COUNTRY_ALIASES happened not to list ("Sweden", "Hong Kong") made the NAME
+    the metro and the US the country."""
+    for suffix, metro, country in (
+            (", Gothenburg, Sweden", "Gothenburg", "Sweden"),
+            (", Milan, Italy", "Milan", "Italy"),
+            (", Hong Kong", "Hong Kong", "Hong Kong"),
+            (", Oslo, Norway", "Oslo", "Norway"),
+            (", Brno, Czechia", "Brno", "Czechia"),
+    ):
+        got = C._parse_place(suffix.strip(" ,"))
+        check(f"'{suffix.strip()}' is {metro}, {country}", got == (metro, country), str(got))
+
+
+def t_a_us_state_spelled_out_is_still_the_us_and_is_not_the_metro():
+    """What the civic backend writes. `geocode_suffix` is ", City, Region" and
+    Wikidata's region label is the full name, so the state was read as the metro
+    — 894 rows on 2026-09-19, the whole top of the metro table."""
+    for suffix, metro in ((", Eau Claire, Wisconsin", "Eau Claire"),
+                          (", Mansfield, Texas", "Mansfield"),
+                          (", Poway, California", "Poway"),
+                          (", Edina, Minnesota", "Edina")):
+        got = C._parse_place(suffix.strip(" ,"))
+        check(f"'{suffix.strip()}' is {metro}, United States",
+              got == (metro, "United States"), str(got))
+    rows = C._coverage_rows()
+    # "New York" is the one name that is BOTH, and as a metro it is the right
+    # answer — 11 rows, all of them New York City (Prospect Park Alliance,
+    # Riverside Park Conservancy, Food Bank For New York City).
+    states = {m for _t, _n, m, c, _cat in rows
+              if c == "United States" and m in C._US_STATE_NAMES and m != "New York"}
+    check("no US row has a STATE where its metro should be", not states,
+          f"still states: {sorted(states)[:6]}")
+
+
+def t_a_two_letter_code_is_never_a_metro():
+    """The bare-'(City)'-is-US convention is about a city NAME. It was also
+    swallowing province codes (", Winnipeg, MB") and acronyms a curator put in a
+    source's name ("(RDA)", "(CFI)"), inventing US metros called MB and RDA."""
+    check("a bare province code is not a US metro",
+          C._locate("Winnipeg Chinese Cultural Centre", ", Winnipeg, MB")[1] != "United States",
+          str(C._locate("Winnipeg Chinese Cultural Centre", ", Winnipeg, MB")))
+    rows = C._coverage_rows()
+    codes = {m for _t, _n, m, c, _cat in rows
+             if c == "United States" and re.fullmatch(r"[A-Z]{2,3}", m or "")
+             and m not in C._US_STATES}
+    check("no US metro in the catalog is a bare code that is not a state",
+          not codes, f"still codes: {sorted(codes)}")
+
+
+def t_the_generators_write_a_country_a_reader_can_read():
+    """The read side above is a rescue. These two are why it stops being needed:
+    both backends now spell the country out in the suffix they SHIP."""
+    import catalog_discover_civic as civic
+    import catalog_discover_osm as osm
+
+    suffix = civic._suffix({"city": "Bern", "region": None, "country": "CH"})
+    check("civic writes the country for a town outside the US",
+          C._parse_place(suffix.strip(" ,")) == ("Bern", "Switzerland"), suffix)
+    us = civic._suffix({"city": "Issaquah", "region": "Washington", "country": "US"})
+    check("...and leaves a US town in the shorter form 900 sources already use",
+          us == ", Issaquah, Washington", us)
+
+    metros = osm.metros()
+    missing = [m for m in metros if not m.get("country_name")]
+    check("every metro in the sweep knows its country's NAME", not missing,
+          f"{len(missing)} without one, e.g. {missing[:2]}")
+    ch = next((m for m in metros if m["country"] == "CH"), None)
+    if ch:
+        label = f"{ch['name']}, {ch['country_name']}"
+        check("...so an ics candidate's suffix floor names a country",
+              C._parse_place(label)[1] == "Switzerland", label)
+
+
 def main() -> int:
     for t in (t_all_types_lists_each_type_once,
               t_no_source_is_counted_twice,
@@ -216,7 +310,12 @@ def main() -> int:
               t_no_country_is_a_bare_iso_code,
               t_every_iso_code_in_every_config_has_a_name,
               t_a_cctld_source_is_not_filed_under_unknown,
-              t_the_country_count_matches_the_rows):
+              t_the_country_count_matches_the_rows,
+              t_a_foreign_iso_code_in_a_suffix_is_a_country,
+              t_a_country_spelled_out_is_a_country_too,
+              t_a_us_state_spelled_out_is_still_the_us_and_is_not_the_metro,
+              t_a_two_letter_code_is_never_a_metro,
+              t_the_generators_write_a_country_a_reader_can_read):
         print(f"\n--- {t.__name__} ---")
         t()
     print()

@@ -1065,6 +1065,17 @@ def metros(path_global: str = "metros_global.json",
                 if not m.get("latlong"):
                     continue
                 out.append({"name": m["name"], "country": c.get("code", "??"),
+                            # The country SPELLED OUT, carried beside the code
+                            # because the two are read by different things: the
+                            # cursor keys on the code (metro_key), and the
+                            # geocode suffix a candidate ships with has to be
+                            # readable by a geocoder and by the coverage report.
+                            # ", Zurich, CH" was neither — Photon has to guess at
+                            # it, and catalog_curate read the code itself as the
+                            # METRO and filed 20 Swiss venue calendars under the
+                            # United States. metros_global.json has carried the
+                            # name all along.
+                            "country_name": c.get("name"),
                             "bbox": _bbox_from(m["latlong"], float(m.get("radius") or 25))})
     p = os.path.join(HERE, path_us)
     if os.path.exists(p):
@@ -1077,6 +1088,7 @@ def metros(path_global: str = "metros_global.json",
             if not re.match(r"^-?\d+(\.\d+)?,-?\d+(\.\d+)?$", latlong):
                 continue
             out.append({"name": (name.strip() or latlong), "country": "US",
+                        "country_name": "United States",
                         "bbox": _bbox_from(latlong, 25.0)})
     # Stable, so a tie inside one country keeps the order the config wrote down.
     out.sort(key=lambda m: CATALOG_SOURCES.get(m.get("country"), 0))

@@ -34,6 +34,63 @@
   `test_coverage_rows.py` pins the invariants (no type counted twice, no country
   that is a number or a bare ISO code) rather than today's totals.
 
+- **The report read the whole world as the United States, 115 sources of it.**
+  Measured 2026-09-19 over 3,131 live rows. `_parse_place` knew two spellings of
+  a place: a two-letter US STATE code, and a country in `_COUNTRY_ALIASES` — a
+  17-entry hand-written table. Everything else fell through to "the last comma
+  part is the metro", and `_locate` then applied the bare-`(City)`-is-US
+  convention on top, so the country's own name or code BECAME the metro and the
+  country became the US. 103 rows ended in a foreign ISO code (`, Zurich, CH` —
+  20, then Stockholm 10, Brussels 10, Sydney 7, Paris 6, Oslo 6, Copenhagen 5,
+  Warsaw 5, Madrid 5, Brno 3, Auckland 2, Vienna 2, London, Winnipeg, Dublin)
+  and 12 more in a country name the alias table happened to lack (Sweden 3,
+  Italy 2, Hong Kong 2, Norway 2, Spain, Finland, Denmark). That is where the
+  `*CH 20`, `*SE 10`, `*BE 10` and `*Wien 9` rows in the metro table came from.
+  Fixing it: US 1,882 -> 1,784, Switzerland 80 -> 100, Sweden 53 -> 66, Belgium
+  73 -> 83, Norway 15 -> 23, Denmark 48 -> 54, Spain 22 -> 28, Czechia 21 -> 24,
+  France 52 -> 58, Australia 84 -> 92, Hong Kong 3 -> 5. The direction is the
+  point: it inflated the one country the ticketing APIs already blanket and hid
+  real supply in eleven that read as thin ground. `_country_named` resolves all
+  three spellings and `_ISO_COUNTRY` — which already knew every one of these —
+  is read both ways round. The US-state branch still runs FIRST and must: `CA`
+  in a geocode suffix is California, `DE` Delaware, `IN` Indiana.
+
+- **894 more rows named a STATE where the metro belongs.** Same defect, other
+  half. The civic backend writes `geocode_suffix` as `, City, Region` and
+  Wikidata's region label is the full name, so `, Eau Claire, Wisconsin` parsed
+  as metro "Wisconsin" — and `_US_STATES` is codes only, so the full names were
+  not states to it. The country came out right by accident, via the bare-token
+  US default. That was the entire top of the metro table (`*Texas 173`,
+  `*Florida 125`, `*California 76`, `*Minnesota 71`), a report claiming 173
+  sources in one "metro" that is a state with a hundred towns in it. With
+  `_US_STATE_NAMES` in the same branch, 1,209 metro rows now name the actual
+  city (Shawnee, Mansfield, Lakeville, Idaho Falls, Royal Oak, Poway). "New
+  York" is the one name that is legitimately both, and 11 rows carry it as a
+  metro correctly.
+
+- **A two/three-letter token in a source's name is an acronym, not a city.**
+  `_locate` preferred the name's `(...)` over the geocode suffix, which is right
+  for "(DC metro)" and wrong for "Eau Claire — Redevelopment Authority (RDA)",
+  "Centre Franco-Iranien (CFI)" and a gancio entry spelling its parens
+  "(US, IL)". Each became a US metro with one source in it — the exact shape the
+  thin-ground ranker chases and sends a run at. `_looks_like_a_code` refuses
+  both that and the metro slot generally, so `, Winnipeg, MB` and `, SA` fall to
+  the ccTLD rescue instead and come back Canada and Australia.
+
+- **Both generators now SPELL THE COUNTRY OUT in the suffix they ship, so the
+  rescue above stops being needed.** The venue backend built its metro label as
+  `f"{name}, {ISO}"` and that label is the geocode_suffix floor for every ics
+  candidate a metro proposes — `, Zurich, CH` was written into
+  `ics_sources.json` 20 times, and it is not just unreadable by the report, it
+  is a suffix a geocoder has to guess at. `metros()` carries `country_name` from
+  `metros_global.json`, which has held it all along. The civic backend wrote no
+  country at all, which was true while it swept one: `, Issaquah, Washington`
+  means the US to a US-default geocoder. `, Bern` does not mean Switzerland to
+  one — Bern, Kansas, Bern, Indiana and Bern, Idaho are all real. US towns keep
+  the two-part form 900 shipped sources already use; everywhere else gets the
+  country. The cursor still keys on the ISO code via `metro_key`, so none of
+  this moves the walk.
+
 - **An ISO code with no name in `_ISO_COUNTRY` becomes a country.** `IS` and
   `JM` reached the report as two countries called "IS" and "JM", each with one
   source and each FLAGged as needing feeds — a gap invented by a lookup miss.

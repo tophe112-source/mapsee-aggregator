@@ -1339,7 +1339,13 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         idx = (start + step) % len(all_metros)
         m = all_metros[idx]
         key = keys[idx]                       # position moves; the name does not
-        label = f"{m['name']}, {m['country']}"
+        # The country SPELLED OUT. This label is the geocode_suffix floor for
+        # every ics candidate the metro proposes (osm._suffix falls back to it
+        # when the venue has no addr:city), so an ISO code here ships in the
+        # config file — ", Zurich, CH" — and is then read by the geocoder and by
+        # the coverage report, neither of which knows what CH is. The cursor
+        # still keys on the CODE via metro_key, so this does not move the walk.
+        label = f"{m['name']}, {m.get('country_name') or m['country']}"
         venues = osm.overpass_venues(session, m["bbox"], label)
         if venues is None:
             n = int(stuck.get(key, 0)) + 1
@@ -1950,6 +1956,35 @@ _US_STATES = {
     "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV",
     "WI", "WY", "DC",
 }
+# THE SAME STATES SPELLED OUT, because that is what the CATALOG actually says.
+#
+# _US_STATES is codes, and a hand-written suffix uses one (", Seattle, WA").
+# Everything the civic backend has ever written uses the full name instead —
+# `geocode_suffix` is ", City, Region" and Wikidata's region label is "Wisconsin"
+# — so _parse_place fell through to its last-token rule and read the STATE as
+# the metro. Measured 2026-09-19: 894 of the catalog's 3,131 rows, which is the
+# whole top of the metro table ("*Texas 173", "*Florida 125", "*California 76",
+# "*Minnesota 71"). Those are not metros; the city was sitting in the part the
+# parser threw away. The country came out right only because a bare token
+# defaults to the US, which is also why "(RDA)" and "(CFI)" — two acronyms in a
+# source's name — were US metros.
+_US_STATE_NAMES = {
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+    "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
+    "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
+    "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+    "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
+    "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
+    "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
+    "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
+    "Washington", "West Virginia", "Wisconsin", "Wyoming",
+    "District of Columbia",
+    # NOT "Puerto Rico": it already reads as its own country in the report, it
+    # is flagged as thin ground there, and folding it into the US would hide
+    # that. NOT a special case for "Georgia" either — the country is absent from
+    # _ISO_COUNTRY and the catalog has never had a source in it, so the state
+    # wins by default. Add the country there and this set needs a note.
+}
 _COUNTRY_ALIASES = {
     "UK": "United Kingdom", "United Kingdom": "United Kingdom",
     "US": "United States", "USA": "United States", "United States": "United States",
@@ -1958,6 +1993,45 @@ _COUNTRY_ALIASES = {
     "South Africa": "South Africa", "France": "France", "Germany": "Germany",
     "Netherlands": "Netherlands", "Mexico": "Mexico", "Japan": "Japan",
 }
+# A NAME OR AN ISO CODE, BOTH SPELLINGS OF ONE COUNTRY.
+#
+# `_COUNTRY_ALIASES` above is the hand-written half: the spellings that are not
+# derivable ("UK", "USA") and the names that were curated before _ISO_COUNTRY
+# existed. The derivable half is _ISO_COUNTRY itself, which already knows every
+# country the catalog touches by code AND by canonical name — and _parse_place
+# was reading neither, so both halves of the world were read as the United
+# States. Measured 2026-09-19 over the live catalog: 103 sources whose suffix
+# ends in a foreign ISO code (", Zurich, CH" — 20 of them, then Stockholm,
+# Brussels, Sydney, Paris, Oslo, Copenhagen, Warsaw, Madrid, Brno, Auckland,
+# Vienna, London, Winnipeg, Dublin) and 12 more whose suffix ends in a country
+# NAME that _COUNTRY_ALIASES happened not to list (Sweden, Italy, Hong Kong,
+# Norway, Spain, Finland, Denmark). 115 in total, every one of them filed under
+# "United States" with the ISO code itself standing in as the METRO — which is
+# where the "*CH 20", "*SE 10", "*BE 10" and "*Wien 9" rows in the metro table
+# came from. The report is what aims the next curation run, so this did not just
+# misprint: it inflated the one country the ticketing APIs already blanket and
+# hid real supply in nine countries that read as thin ground.
+#
+# The US-state branch in _parse_place runs FIRST and keeps running first. "CA"
+# in a geocode suffix is California, not Canada; "DE" is Delaware, "IN" Indiana,
+# "LA" Louisiana. That collision is the reason this is a fallback and not a
+# lookup at the top.
+def _country_named(token):
+    """The country a suffix's last part names, by alias, name or ISO code."""
+    if not token:
+        return None
+    hit = _COUNTRY_ALIASES.get(token)
+    if hit:
+        return hit
+    if len(token) == 2 and token.isalpha():
+        # Only an UPPERCASE code is a code. "Us" and "in" are words.
+        if token.isupper():
+            return _ISO_COUNTRY.get(token)
+        return None
+    # A canonical name spelled in full: "Switzerland", "Czechia", "Hong Kong".
+    return _ISO_COUNTRY_NAMES.get(token.casefold())
+
+
 _METRO_ALIASES = {
     "NYC": "New York", "New York City": "New York", "Brooklyn": "New York",
     "DC": "Washington DC", "DC metro": "Washington DC", "Washington": "Washington DC",
@@ -2031,11 +2105,13 @@ def _parse_place(text):
     if not parts:
         return None, None
     last = parts[-1]
-    if last.upper() in _US_STATES and len(last) == 2:
+    # A state, either spelling. The NAME is checked first because it is what the
+    # civic backend writes and it cannot collide with a two-letter code.
+    if (last in _US_STATE_NAMES) or (last.upper() in _US_STATES and len(last) == 2):
         # '(DC)' alone is a metro name, not a bare state
         metro = parts[-2] if len(parts) >= 2 else _METRO_ALIASES.get(last)
         return _METRO_ALIASES.get(metro, metro), "United States"
-    country = _COUNTRY_ALIASES.get(last)
+    country = _country_named(last)
     if country:
         rest = parts[:-1]
         while rest and re.fullmatch(r"[A-Z]{2,3}", rest[-1]):
@@ -2063,11 +2139,33 @@ def _locate(name, suffix):
     suffix carries metro intent ('DC metro'); the geocode_suffix pins country."""
     s_metro, s_country = _parse_place((suffix or "").strip(" ,"))
     p_metro, p_country = _parse_place(_name_paren(name)) if _name_paren(name) else (None, None)
+    # The name's parens win, EXCEPT when what they hold is a code rather than a
+    # place. Curators put acronyms there too — "Eau Claire — Redevelopment
+    # Authority (RDA)" and "Centre Franco-Iranien (CFI)" — and a gancio entry
+    # spells its parens as "(US, IL)", which names a country and a state and no
+    # city at all. Each of those became a METRO with one source in it, which is
+    # exactly the shape the thin-ground ranker chases.
+    if _looks_like_a_code(p_metro):
+        p_metro = None
     metro = p_metro or s_metro
     country = s_country or p_country
-    if not country and metro:
+    if not country and metro and not _looks_like_a_code(metro):
         country = "United States"          # config convention: bare '(City)' = US
     return metro or "?", country or "?"
+
+
+def _looks_like_a_code(metro):
+    """Whether a would-be metro is really a region/country code, not a place.
+
+    The bare-'(City)'-is-US convention above is about a CITY NAME: a curator who
+    writes "(Issaquah)" means Issaquah, Washington. It was also swallowing every
+    two-letter token the country tables do not know — ", Winnipeg, MB" (Manitoba)
+    and ", SA" (South Australia) were filed as US metros named MB and SA. A code
+    is not a city, so it does not get the city convention; leaving the country
+    unknown lets the ccTLD rescue in _coverage_rows read wcccc.ca and cmfc.asn.au
+    and get both right.
+    """
+    return bool(re.fullmatch(r"[A-Z]{2,3}", metro or ""))
 
 
 _TZ_COUNTRY = {
@@ -2113,6 +2211,9 @@ _ISO_COUNTRY = {
     # a gap report can act on.
     "IS": "Iceland", "JM": "Jamaica",
 }
+# The same table read the other way, for a suffix that spells the country out.
+# Built rather than written, so the two can never disagree.
+_ISO_COUNTRY_NAMES = {name.casefold(): name for name in _ISO_COUNTRY.values()}
 
 
 def _iso_countries(value):

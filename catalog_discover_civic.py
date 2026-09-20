@@ -353,6 +353,24 @@ def dmo_nominations(session, places: Iterable[Dict[str, Any]],
 
 
 # ---- turning a find into a city-wide candidate -------------------------------
+# The countries this file can NAME in a geocode suffix. An ISO code is not a
+# name — ", Zurich, CH" is what the venue backend used to write and it is
+# readable neither by a geocoder nor by catalog_curate's coverage report, which
+# read the code itself as the metro. Only the countries CITY_CLASSES sweeps need
+# to be here; a code with no name falls back to the code, which is still better
+# than nothing and is visible in the config for a curator to fix.
+COUNTRY_NAMES = {
+    "US": "United States", "CA": "Canada", "GB": "United Kingdom",
+    "IE": "Ireland", "AU": "Australia", "NZ": "New Zealand",
+    "DE": "Germany", "FR": "France", "NL": "Netherlands", "BE": "Belgium",
+    "CH": "Switzerland", "AT": "Austria", "SE": "Sweden", "NO": "Norway",
+    "DK": "Denmark", "FI": "Finland", "ES": "Spain", "IT": "Italy",
+    "PT": "Portugal", "PL": "Poland", "CZ": "Czechia", "BR": "Brazil",
+    "MX": "Mexico", "JP": "Japan", "ZA": "South Africa", "IN": "India",
+    "SG": "Singapore",
+}
+
+
 def _suffix(place: Dict[str, Any]) -> str:
     """What an iCal LOCATION gets appended before it is geocoded.
 
@@ -360,8 +378,19 @@ def _suffix(place: Dict[str, Any]) -> str:
     events — the same rule the venue backend's _suffix states, and it matters
     more here: a city calendar's LOCATION lines are bare venue names ('Pickering
     Barn') far more often than a single venue's are.
+
+    THE COUNTRY IS PART OF IT FOR EVERYWHERE BUT THE US. While this file swept
+    one country the suffix could be ", Issaquah, Washington" and mean it: the
+    geocoder's default is the US and so was the coverage report's. Neither is
+    true for Bern, and a bare ", Bern" is a town in Kansas — 'Bern, Indiana',
+    'Bern, Idaho' and 'Bern, Kansas' are all real places a US-default geocoder
+    reaches first. The US keeps the shorter form because 900 shipped sources are
+    already written that way and the state name already pins the country.
     """
     bits = [x for x in (place.get("city"), place.get("region")) if x]
+    code = (place.get("country") or "US").upper()
+    if code != "US":
+        bits.append(COUNTRY_NAMES.get(code, code))
     return (", " + ", ".join(bits)) if bits else ""
 
 
