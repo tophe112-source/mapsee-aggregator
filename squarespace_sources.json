@@ -1389,6 +1389,21 @@
         "lat": 45.4681602,
         "lon": -122.7126914
       }
+    },
+    {
+      "name": "Terranaut Beer Taproom",
+      "category": "food",
+      "_found": "osm:brewery -> squarespace",
+      "collection": "https://www.terranautbeer.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Terranaut Beer Taproom",
+        "address": "20750 STE 106 NE High Desert Lane",
+        "postal_code": "97701",
+        "lat": 44.0889773,
+        "lon": -121.2853794
+      },
+      "_metro": "Bend, United States"
     }
   ]
 }

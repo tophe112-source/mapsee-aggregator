@@ -13475,5 +13475,14 @@
    "lat": 44.9429311,
    "lon": -93.2813719
   }
+ },
+ {
+  "name": "First United Methodist Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> ics",
+  "url": "https://www.bendumc.org/events.ics",
+  "geocode_suffix": ", Bend, OR",
+  "limit": 300,
+  "_metro": "Bend, United States"
  }
 ]

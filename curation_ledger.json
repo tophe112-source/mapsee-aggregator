@@ -16603,6 +16603,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bendfaith.com/events": {
+    "checked": 20260920,
+    "name": "Faith Christian Center",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "bendumc.org/events.ics": {
+    "checked": 20260920,
+    "name": "First United Methodist Church",
+    "reason": "27 vevents / 27 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "benedictinessantperepuelles.cat": {
     "checked": 20260915,
     "name": "Monestir de Sant Pere de les Puel\u00b7les",
@@ -50934,6 +50948,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "deschuteshistory.org": {
+    "checked": 20260920,
+    "name": "Deschutes Historical Museum",
+    "reason": "4 events, 4/4 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "desertcity.es": {
     "checked": 20260914,
@@ -128249,6 +128270,13 @@
     "status": "empty",
     "type": "jsonld"
   },
+  "namaspa.com/retreats": {
+    "checked": 20260920,
+    "name": "Namaspa",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "nambu.lck.or.kr": {
     "checked": 20260902,
     "name": "\ub0a8\ubd80\ub8e8\ud130\uad50\ud68c",
@@ -129349,6 +129377,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "neighborimpact.org": {
+    "checked": 20260920,
+    "name": "NeighborImpact",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "nekalab.fi": {
     "checked": 20260904,
@@ -159031,6 +159066,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "scalehouse.org": {
+    "checked": 20260920,
+    "name": "Scalehouse",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "scancentre.ca": {
     "checked": 20260819,
     "name": "Scandinavian Centre",
@@ -181791,6 +181833,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "terranautbeer.com/events": {
+    "checked": 20260920,
+    "name": "Terranaut Beer Taproom",
+    "reason": "2/28 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "terrassenlindehoej.dk": {
     "checked": 20260831,
     "name": "Terrassen Lindeh\u00f8j",
@@ -196120,6 +196169,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "volcanictheatre.com/calendar": {
+    "checked": 20260920,
+    "name": "Volcanic Theatre Pub",
+    "reason": "25/25 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "voliere-zug.ch": {
     "checked": 20260918,
     "name": "Volieren",
@@ -201572,6 +201628,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "worthybrewing.com/events-and-concerts": {
+    "checked": 20260920,
+    "name": "Worthy Brewing",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
   },
   "woten.be": {
     "checked": 20260911,

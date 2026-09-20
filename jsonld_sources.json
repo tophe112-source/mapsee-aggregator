@@ -4205,6 +4205,26 @@
     "lon": 12.5159118
    },
    "_metro": "Rome, Italy"
+  },
+  {
+   "name": "Volcanic Theatre Pub",
+   "category": "theater",
+   "_found": "osm:theatre -> jsonld-event",
+   "listing": [
+    "https://volcanictheatre.com/calendar"
+   ],
+   "link_pattern": "https://volcanictheatre\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Volcanic Theatre Pub",
+    "address": "70 Southwest Century Drive",
+    "city": "Bend",
+    "region": "OR",
+    "postal_code": "97702",
+    "lat": 44.050913,
+    "lon": -121.3306716
+   },
+   "_metro": "Bend, United States"
   }
  ],
  "_not_included": {

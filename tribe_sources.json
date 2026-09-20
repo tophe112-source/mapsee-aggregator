@@ -9011,6 +9011,24 @@
         "lon": 6.8420643
       },
       "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Deschutes Historical Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.deschuteshistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Deschutes Historical Museum",
+        "address": "129 Northwest Idaho Avenue",
+        "city": "Bend",
+        "region": "OR",
+        "postal_code": "97703",
+        "lat": 44.0553466,
+        "lon": -121.317076
+      },
+      "_metro": "Bend, United States"
     }
   ],
   "_not_included": {
