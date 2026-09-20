@@ -239,11 +239,53 @@ def t_deadline_stops_before_spawning_and_is_not_reported_as_swept():
         folder.cleanup()
 
 
+def t_the_country_the_deadline_drops_is_not_always_the_same_one():
+    """The sweep has no cursor: it walks the config from the top and stops when
+    the job's clock runs out. metros_global.json is in the order countries were
+    ADDED, which leaves Brazil, Hong Kong, the UAE, South Korea, Singapore and
+    South Africa at the bottom — six of the eight thinnest countries in the
+    catalog, permanently first to be dropped."""
+    cfg = json.loads((HERE / "metros_global.json").read_text(encoding="utf-8"))
+    countries = cfg.get("countries", [])
+    n = len([c for c in countries if any(m.get("latlong") for m in c.get("metros", []))])
+    check("the config has enough countries for a rotation to mean anything",
+          n > 5, f"{n} countries")
+
+    firsts = {sweep.rotate_countries(countries, day)[0].get("code") for day in range(n)}
+    check("every country leads the sweep at least once in one turn of the wheel",
+          len(firsts) == n, f"{len(firsts)} of {n} lead")
+
+    # The set is preserved; only where it STARTS moves.
+    for day in (0, 1, 7, n - 1):
+        rot = sweep.rotate_countries(countries, day)
+        check(f"day {day} sweeps every country exactly once",
+              sorted(c.get("code") for c in rot)
+              == sorted(c.get("code") for c in countries
+                        if any(m.get("latlong") for m in c.get("metros", []))))
+
+    # A country is swept whole or not at all — its metros are written
+    # largest-first and splitting one is how you keep half a country for ever.
+    rot = sweep.rotate_countries(countries, 3)
+    check("a country's own metro order is untouched",
+          all(rot[i].get("metros") == next(c for c in countries
+                                           if c.get("code") == rot[i].get("code")).get("metros")
+              for i in range(len(rot))))
+
+    tail = countries[-1].get("code")
+    leads = [sweep.rotate_countries(countries, d)[0].get("code") for d in range(n)]
+    check(f"the country at the bottom of the file ({tail}) leads on one of them",
+          tail in leads)
+
+    check("MAPSEE_TODAY fixes the rotation the way it fixes everything else",
+          sweep._day_ordinal.__doc__ and "MAPSEE_TODAY" in sweep._day_ordinal.__doc__)
+
+
 def main() -> int:
     for t in (t_argparse_really_does_reject_the_split_form,
               t_sweep_emits_the_fused_form,
               t_every_configured_metro_survives_the_round_trip,
-              t_deadline_stops_before_spawning_and_is_not_reported_as_swept):
+              t_deadline_stops_before_spawning_and_is_not_reported_as_swept,
+              t_the_country_the_deadline_drops_is_not_always_the_same_one):
         print(f"\n--- {t.__name__} ---")
         t()
     print()

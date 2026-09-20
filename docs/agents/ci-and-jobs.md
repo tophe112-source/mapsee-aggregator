@@ -3,6 +3,25 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: a job that worked for an hour and lost its work, `timeout-minutes`, `always()`, `--only-new` in CI, the order of the daily jobs, secrets, a config file a job needs.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **The international sweep has no cursor, so the countries at the bottom of
+  the file are the ones a slow run always drops — and they are the thinnest.**
+  `mapsee_sweep_global.py` walks `metros_global.json` from the top every run and
+  stops at `--deadline`; the Meetup job's international leg stops starting
+  metros at 320 minutes of a 350-minute cap, and the job itself measured 288-326
+  minutes across 2026-09-04..09-13. The file's order is the order countries were
+  ADDED, which puts Brazil, Hong Kong, the UAE, South Korea, Singapore and South
+  Africa last: six of the eight countries the coverage report FLAGs as having
+  0-2 curated sources. A drop that always falls in the same place is not a
+  budget, it is a country that is never swept. `rotate_countries` starts the
+  walk at a different country each day (`_day_ordinal`, `MAPSEE_TODAY` fixes it
+  as everywhere), so 29 countries take 29 days to turn the wheel and every one
+  of them leads a run within it. By COUNTRY, not by metro: a country's metros
+  are written largest-first and cutting one in half would give its first six
+  metros a permanent seat and the rest none. NOT thinnest-first, which is how
+  `catalog_discover_osm.metros()` sorts and is right for a CURATION sweep with a
+  budget for empty ground — here it would only move the permanent drop onto
+  London, Toronto and Sydney.
+
 - **A five-hour feed job still dropped seven imports.** Run `34220367595`
   (2026-09-08) spent 223m34s in ICS, then hit its 300m limit in Tribe. Six later
   adapters and the final sync were skipped. `feeds` now has three independent
