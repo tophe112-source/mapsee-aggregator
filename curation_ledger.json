@@ -1057,8 +1057,9 @@
     "type": "osm-venue"
   },
   "aaniwalli.fi": {
-    "checked": 20260903,
+    "checked": 20260920,
     "name": "\u00c4\u00e4niwalli",
+    "offsite_url": "https://www.ticketmaster.fi/event/carbon-based--the-final-tour-lippuja/649798835",
     "reason": "osm probe: offsite:ticketmaster",
     "status": "fail",
     "type": "osm-venue"
@@ -4130,8 +4131,9 @@
     "type": "tribe"
   },
   "akasha.barcelona": {
-    "checked": 20260915,
+    "checked": 20260920,
     "name": "Akasha Barcelona",
+    "offsite_url": "https://www.meetup.com/akashabarcelona/",
     "reason": "osm probe: offsite:meetup.com",
     "status": "fail",
     "type": "osm-venue"
@@ -5425,8 +5427,9 @@
     "type": "osm-venue"
   },
   "alrashidmosque.ca": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "Al Rashid Mosque",
+    "offsite_url": "https://www.eventbrite.ca/e/2000311500545?aff=oddtdtcreator",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -5922,8 +5925,9 @@
     "type": "osm-venue"
   },
   "amagerbio.dk": {
-    "checked": 20260831,
+    "checked": 20260920,
     "name": "Amager Bio",
+    "offsite_url": "https://www.ticketmaster.dk/event/207178897?language=da-dk&camefrom=amagerbio&brand=dk_beta",
     "reason": "osm probe: offsite:ticketmaster",
     "status": "fail",
     "type": "osm-venue"
@@ -6832,8 +6836,9 @@
     "type": "osm-venue"
   },
   "angellanenightclub.ie": {
-    "checked": 20260823,
+    "checked": 20260920,
     "name": "Angel Lane Night Club",
+    "offsite_url": "https://www.eventbrite.ie/e/angel-lane-late-night-lounge-tickets-202107477907",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -12033,8 +12038,9 @@
     "type": "osm-venue"
   },
   "aumonerienanterre.wordpress.com": {
-    "checked": 20260828,
+    "checked": 20260920,
     "name": "Aumonerie Catholique des Etudiants de Nanterre",
+    "offsite_url": "http://eventbrite.com/l/wordpress?ref=wpfooter",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -14427,8 +14433,9 @@
     "type": "osm-venue"
   },
   "barcamp-graz.at": {
-    "checked": 20260908,
+    "checked": 20260920,
     "name": "BarCamp Graz",
+    "offsite_url": "https://www.eventbrite.at/e/barcamp-graz-2026-tickets-1986990852127",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -23653,8 +23660,9 @@
     "type": "jsonld"
   },
   "bookshop.rias.org.uk": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "RIAS Bookshop",
+    "offsite_url": "https://www.eventbrite.co.uk/e/bookshoplates-glasgow-from-above-tickets-1982428191085?aff=oddtdtcreator",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -25480,8 +25488,9 @@
     "type": "osm-venue"
   },
   "brementeater.dk": {
-    "checked": 20260831,
+    "checked": 20260920,
     "name": "Bremen Teater",
+    "offsite_url": "https://www.ticketmaster.dk/event/fisker-i-egen-so-live-klaphattetema-billetter/509340035",
     "reason": "osm probe: offsite:ticketmaster",
     "status": "fail",
     "type": "osm-venue"
@@ -37275,8 +37284,9 @@
     "type": "civic-city"
   },
   "ci.thibodaux.la.us": {
-    "checked": 20260913,
+    "checked": 20260920,
     "name": "Thibodaux",
+    "offsite_url": "https://www.ticketmaster.com/venue/222244/",
     "reason": "civic probe: offsite:ticketmaster",
     "status": "fail",
     "type": "civic-city"
@@ -41503,8 +41513,9 @@
     "type": "osm-venue"
   },
   "cka2.pl": {
-    "checked": 20260910,
+    "checked": 20260920,
     "name": "Centrum Koncertowe A2",
+    "offsite_url": "https://www.ticketmaster.pl/event/78074411?CL_ORIGIN=TMPRESALE",
     "reason": "osm probe: offsite:ticketmaster",
     "status": "fail",
     "type": "osm-venue"
@@ -51170,8 +51181,9 @@
     "type": "osm-venue"
   },
   "detnyteater.dk": {
-    "checked": 20260831,
+    "checked": 20260920,
     "name": "Det Ny Teater",
+    "offsite_url": "https://www.ticketmaster.dk/event/94824562",
     "reason": "osm probe: offsite:ticketmaster",
     "status": "fail",
     "type": "osm-venue"
@@ -55986,8 +55998,9 @@
     "type": "osm-venue"
   },
   "edlc.co.uk/venues/milngavie-library": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "Milngavie Library & Community Education Centre",
+    "offsite_url": "https://www.eventbrite.co.uk/",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -57449,8 +57462,9 @@
     "type": "osm-venue"
   },
   "elmwoodcrc.ca": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "Elmwood Community Resource Centre",
+    "offsite_url": "https://www.eventbrite.ca/e/a-place-to-call-home-gala-celebrating-25-years-of-impact-tickets-1676770940019",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -72968,8 +72982,9 @@
     "type": "osm-venue"
   },
   "georgesriver.spydus.com/cgi-bin/spydus.exe/MSGTRNGEN/OPAC/LOCATIONS#Kogarah": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "Clive James Library and Service Centre",
+    "offsite_url": "https://www.eventbrite.com.au/o/georges-river-libraries-7982128494",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -73528,8 +73543,9 @@
     "type": "osm-venue"
   },
   "gla.ac.uk/myglasgow/library": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "University of Glasgow Library",
+    "offsite_url": "https://www.eventbrite.co.uk/e/tour-of-university-of-glasgow-main-library-tickets-381700625847",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -98056,8 +98072,9 @@
     "type": "osm-venue"
   },
   "koninklijk-circus-brussel.be": {
-    "checked": 20260911,
+    "checked": 20260920,
     "name": "Cirque Royal - Koninklijk Circus",
+    "offsite_url": "https://www.ticketmaster.be/event/911140443?language=nl-be",
     "reason": "osm probe: offsite:ticketmaster",
     "status": "fail",
     "type": "osm-venue"
@@ -100793,8 +100810,9 @@
     "type": "osm-venue"
   },
   "kwlt.org": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "Kitchener-Waterloo Little Theatre",
+    "offsite_url": "https://www.eventbrite.ca/e/kwlt-presents-rent-tickets-1999269878024?aff=kwltwebsite",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -103768,8 +103786,9 @@
     "type": "osm-venue"
   },
   "larchipel.net": {
-    "checked": 20260828,
+    "checked": 20260920,
     "name": "L'Archipel",
+    "offsite_url": "https://dice.fm/event/6d23v8-gia-margaret-12th-sep-larchipel-paris-tickets",
     "reason": "osm probe: offsite:dice.fm",
     "status": "fail",
     "type": "osm-venue"
@@ -108934,22 +108953,25 @@
     "type": "osm-venue"
   },
   "libraries.tas.gov.au": {
-    "checked": 20260821,
+    "checked": 20260920,
     "name": "Glenorchy Library",
+    "offsite_url": "https://www.eventbrite.com.au/d/australia--tasmania/libraries-tasmania/?page=1",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
   },
   "libraries.tas.gov.au/locations/kingston-library": {
-    "checked": 20260821,
+    "checked": 20260920,
     "name": "Kingston Library",
+    "offsite_url": "http://kingston-library-tasmania.eventbrite.com/",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
   },
   "libraries.tas.gov.au/locations/new-norfolk-library": {
-    "checked": 20260821,
+    "checked": 20260920,
     "name": "New Norfolk Lbrary",
+    "offsite_url": "http://www.eventbrite.com/o/glenorchy-library-tasmania-6685743883",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -111146,8 +111168,9 @@
     "type": "osm-venue"
   },
   "llibreriafinestres.com": {
-    "checked": 20260915,
+    "checked": 20260920,
     "name": "Llibreria Finestres",
+    "offsite_url": "https://www.eventbrite.es/e/finestres-piscolabis-zadie-smith-tickets-1994550204353?aff=oddtdtcreator",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -114289,8 +114312,9 @@
     "type": "osm-venue"
   },
   "maisongabrielleroy.mb.ca": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "Maison Gabrielle Roy House",
+    "offsite_url": "https://www.eventbrite.ca/e/la-dictee-gabrielle-roy-7eme-edition-tickets-1028926194947",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -128695,8 +128719,9 @@
     "type": "osm-venue"
   },
   "nationaltrust.org.au/places/experiment-farm-cottage": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "Experiment Farm Cottage",
+    "offsite_url": "https://www.eventbrite.com.au/e/experiment-farm-cottage-general-entry-tickets-198185637577?aff=oddtdtcreator",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -128709,8 +128734,9 @@
     "type": "osm-venue"
   },
   "nationaltrust.org.au/places/old-government-house": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "Old Government House",
+    "offsite_url": "https://www.eventbrite.com.au/e/old-government-house-general-entry-tickets-198764378607?aff=oddtdtcreator",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -130375,8 +130401,9 @@
     "type": "osm-venue"
   },
   "nicc.be": {
-    "checked": 20260911,
+    "checked": 20260920,
     "name": "NICC",
+    "offsite_url": "https://www.eventbrite.be/e/front-row-aline-bouvy-tickets-1998415094343?aff=oddtdtcreator",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -136780,8 +136807,9 @@
     "type": "osm-venue"
   },
   "oslospektrum.no": {
-    "checked": 20260906,
+    "checked": 20260920,
     "name": "Oslo Spektrum",
+    "offsite_url": "https://www.ticketmaster.no/event/1100569058",
     "reason": "osm probe: offsite:ticketmaster",
     "status": "fail",
     "type": "osm-venue"
@@ -141743,8 +141771,9 @@
     "type": "jsonld"
   },
   "patt.be": {
-    "checked": 20260919,
+    "checked": 20260920,
     "name": "Spiukafi PATT",
+    "offsite_url": "https://www.meetup.com/die-berner-spielgruppe/events/",
     "reason": "osm probe: offsite:meetup.com",
     "status": "fail",
     "type": "osm-venue"
@@ -144004,8 +144033,9 @@
     "type": "osm-venue"
   },
   "pilar.brussels": {
-    "checked": 20260911,
+    "checked": 20260920,
     "name": "Pilar",
+    "offsite_url": "https://www.eventbrite.be/o/pilar-18004751158",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -145943,8 +145973,9 @@
     "type": "osm-venue"
   },
   "poolen.dk/da": {
-    "checked": 20260831,
+    "checked": 20260920,
     "name": "Poolen",
+    "offsite_url": "https://www.ticketmaster.dk/event/2060348130?language=da-dk",
     "reason": "osm probe: offsite:ticketmaster",
     "status": "fail",
     "type": "osm-venue"
@@ -152565,8 +152596,9 @@
     "type": "osm-venue"
   },
   "rhf.org.uk/rhf": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "Royal Highland Fusiliers",
+    "offsite_url": "https://www.eventbrite.co.uk/e/uniforms-in-the-prime-of-empire-1884-1920-tickets-1984376121397",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -153713,8 +153745,9 @@
     "type": "osm-venue"
   },
   "rochesterhills.org": {
-    "checked": 20260903,
+    "checked": 20260920,
     "name": "Rochester Hills",
+    "offsite_url": "https://www.eventbrite.com/o/rochester-hills-museum-31205740733",
     "reason": "civic probe: offsite:eventbrite",
     "status": "fail",
     "type": "civic-city"
@@ -154063,8 +154096,9 @@
     "type": "civic-city"
   },
   "rogersplace.com": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "Rogers Place",
+    "offsite_url": "https://www.ticketmaster.ca/event/11006497C73CDBFA",
     "reason": "osm probe: offsite:ticketmaster",
     "status": "fail",
     "type": "osm-venue"
@@ -162855,8 +162889,9 @@
     "type": "osm-venue"
   },
   "shop.llibreriabyron.com/es": {
-    "checked": 20260915,
+    "checked": 20260920,
     "name": "Byron llibreria & espais",
+    "offsite_url": "https://www.eventbrite.es/cc/cuban-rave-byron-1523469",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -163107,8 +163142,9 @@
     "type": "ics"
   },
   "sifas.org": {
-    "checked": 20260910,
+    "checked": 20260920,
     "name": "Singapore Indian Fine Arts Society",
+    "offsite_url": "https://www.eventbrite.sg/e/1991978548461?aff=oddtdtcreator",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
@@ -164955,8 +164991,9 @@
     "type": "osm-venue"
   },
   "skullspace.ca": {
-    "checked": 20260819,
+    "checked": 20260920,
     "name": "SkullSpace",
+    "offsite_url": "https://www.eventbrite.com/e/anti-social-first-fridays-at-skull-november-7-2025-tickets-1918506607909",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"

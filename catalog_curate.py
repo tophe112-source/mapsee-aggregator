@@ -57,6 +57,9 @@ Usage:
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
   python catalog_curate.py ledger                     # summarize what's been tried
+  # the venues whose events are on a platform we already ingest, with the link
+  python catalog_curate.py ledger --offsite [--refresh]   # --refresh re-probes
+         # the routable finds recorded before the link was kept
   python catalog_curate.py coverage                   # where the catalog is thin (no network)
   # prove a civic country before it ships: rows, seconds and the largest city
   python catalog_curate.py cityclass [US CH DE ...]   # every CITY_CLASSES entry if none named
@@ -264,7 +267,31 @@ def _load_ledger():
 
 
 def _save_ledger(led):
-    json.dump(led, open(LEDGER_FILE, "w", encoding="utf-8"), indent=2, sort_keys=True)
+    """Write the ledger, keeping any entry that landed while this run held it.
+
+    A WHOLE-FILE WRITE FROM AN IN-MEMORY COPY SILENTLY LOSES A CONCURRENT
+    WRITER, and this repo's working mode makes that reachable: more than one
+    agent works the same checkout, and every sweep loads the ledger once at the
+    start and saves it minutes or hours later. Measured 2026-09-20 — a
+    `ledger --offsite --refresh` that had loaded the file dropped ten
+    neighbourhood-association probes another session had written in between,
+    all of them dated the same day. Nothing had errored and nothing would have
+    noticed; the entries were simply gone, and the next sweep would re-probe
+    ten sites it had already answered.
+
+    Re-reading and merging costs one file read on a path that is already doing
+    a write, and _merge_ledgers is the rule cmd_reapply has always used for the
+    same collision — the more recent probe wins a shared URL, ours winning a
+    tie because this run finished later. Nothing deletes from the ledger, so a
+    union can never resurrect something deliberately removed.
+    """
+    try:
+        on_disk = _load_ledger()
+    except Exception:                                             # noqa: BLE001
+        on_disk = {}                     # unreadable or absent: ours is the file
+    merged = _merge_ledgers(on_disk, led)
+    json.dump(merged, open(LEDGER_FILE, "w", encoding="utf-8"),
+              indent=2, sort_keys=True)
 
 
 DEAD_TTL = 90
@@ -1355,6 +1382,8 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                 led[key] = {"checked": _today_int(), "name": place["name"][:80],
                             "reason": f"civic probe: {status}", "status": "fail",
                             "type": f"civic-{kind}"}
+                if f.get("offsite_url"):      # see the venue backend's note
+                    led[key]["offsite_url"] = f["offsite_url"][:300]
             if status.startswith("ok"):
                 bump("found-but-unusable: " + civic.why_no_candidate(f))
             else:
@@ -1552,6 +1581,15 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
                 led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
                              "reason": f"osm probe: {status}", "status": "fail",
                              "type": "osm-venue"}
+                # AND THE LINK, for the ones that name an adapter we have.
+                # `offsite:eventbrite` is a finished discovery wearing a
+                # failure's clothes: the venue's events exist, they are on a
+                # platform this repo ingests, and the only thing missing is the
+                # organizer id — which is in the link. Written beside the entry
+                # so `catalog_curate.py ledger --offsite` can list them without
+                # fetching 26,000 sites again.
+                if f.get("offsite_url"):
+                    led[home]["offsite_url"] = f["offsite_url"][:300]
             # A probe that SUCCEEDED and still yielded nothing is not the same
             # event as a probe that failed, and lumping them under the status
             # word reported 25 of them as "ok" in one sweep. Name the gap.
@@ -2044,6 +2082,134 @@ def cmd_audit():
     _save_ledger(led)
     print(f"\n{stale} entries are BROKEN (unreachable, or no longer a feed).")
     print(f"{quiet} entries parse fine but have nothing upcoming — kept, not a regression.")
+    return 0
+
+
+# WHAT AN `offsite:` FIND CAN AND CANNOT BECOME, and almost all of it is
+# cannot — which is the useful half, because "we already ingest that platform"
+# is the intuition this table exists to correct. Every line traces to an
+# adapter's own measurement rather than to this file's guess:
+#
+#   eventbrite (46, the largest routable-LOOKING pile) is REFERENCE ONLY. The
+#     `/o/<slug>-<id>` profile ids are a different id space from the
+#     organization ids the API serves, so organizer-scoped fetching 404s across
+#     the board — mapsee_ingest_eventbrite's header says so and its `organizers`
+#     list is documented as "NOT fetched". Four `/o/` ids were harvested here
+#     and NOT added for that reason.
+#   ticketmaster (24) and meetup (2) are already swept nationally, by metro and
+#     country, so a venue found this way is covered before it is configured.
+#   axs (1) is behind a partner agreement this project does not hold.
+#   facebook (158) and instagram (77) are structural dead ends: no API we may
+#     read. Together they are two thirds of the tally.
+#   humanitix (21) was ASSESSED, not assumed — see the OFFSITE_HOSTS note in
+#     catalog_discover_osm for why a platform that looks perfectly ingestable is
+#     not (no coordinates anywhere, and the only geocoder here is US Census).
+#
+# Which leaves ONE that routes, and only in one of its two shapes:
+ROUTABLE_OFFSITE = {
+    "dice.fm": ("dice_venue_sources.json — but only a /venue/<slug> link. "
+                "An /event/ link names a night, not a room"),
+}
+# The rest are kept in the report because the RANKED LIST is the point: it is
+# the only measurement this repo has of what venues worldwide actually use, and
+# it is what says which adapter would be worth writing next.
+REFERENCE_OFFSITE = {
+    "eventbrite": "reference only: /o/ ids are a different id space (see the adapter)",
+    "ticketmaster": "already swept nationally by metro",
+    "meetup.com": "already swept nationally by metro",
+    "axs.com": "partner credentials this project does not hold",
+    "facebook.com": "no API we may read",
+    "fb.me": "no API we may read",
+    "instagram.com": "no API we may read",
+    "humanitix.com": "assessed 2026-08-30: no coordinates anywhere",
+}
+
+
+def _refresh_offsite(led, session, cap=60):
+    """Re-probe the routable offsite entries that predate the link being kept.
+
+    The link is only written by a probe, and the ledger's 90-day TTL means these
+    venues are skipped until then — so 46 Eventbrite finds would sit unusable
+    for three months over a one-line change made after they were recorded. This
+    is the cheap half of a sweep: one GET per KNOWN venue, no Overpass, no
+    discovery, and only for the platforms something can be done with.
+    """
+    import catalog_discover_osm as osm
+    stale = [(k, v) for k, v in led.items()
+             if isinstance(v, dict) and not v.get("offsite_url")
+             and any(f"offsite:{h}" in (v.get("reason") or "")
+                     for h in set(ROUTABLE_OFFSITE) | set(REFERENCE_OFFSITE))]
+    if not stale:
+        print("  every routable offsite find already has its link")
+        return 0
+    print(f"  re-probing {min(len(stale), cap)} of {len(stale)} routable finds "
+          f"that predate the link being kept")
+    got = 0
+    for key, v in stale[:cap]:
+        url = key if key.startswith("http") else f"https://{key}"
+        try:
+            f = osm.find_calendar(session, url)
+        except Exception as exc:                                  # noqa: BLE001
+            print(f"    {v.get('name','?')[:30]:30} {type(exc).__name__}")
+            continue
+        # A site that has since GROWN a calendar of its own is not an offsite
+        # find any more, and saying so is the point of re-probing rather than
+        # scraping the old page for a link.
+        if (f.get("status") or "").startswith("ok"):
+            print(f"    {v.get('name','?')[:30]:30} now has its OWN calendar "
+                  f"({f.get('adapter')}) — left for the next sweep to propose")
+            continue
+        if f.get("offsite_url"):
+            v["offsite_url"] = f["offsite_url"][:300]
+            v["checked"] = _today_int()
+            got += 1
+            print(f"    {v.get('name','?')[:30]:30} {f['offsite_url'][:72]}")
+    if got:
+        _save_ledger(led)
+    print(f"  {got} link(s) recorded")
+    return got
+
+
+def cmd_ledger_offsite(refresh=False):
+    """The `offsite:` finds, grouped by platform, with the link that names them.
+
+    An `offsite:` probe is a finished discovery wearing a failure's clothes: the
+    venue HAS a calendar, it is on a platform, and for five of those platforms
+    this repo already has the adapter. What was missing was never the venue, it
+    was the id — and the id is in the link, which the probe used to throw away.
+    This reads what it now keeps.
+    """
+    led = _load_ledger()
+    if refresh:
+        _refresh_offsite(led, _session())
+    by_host = {}
+    for key, v in led.items():
+        if not isinstance(v, dict):
+            continue
+        reason = v.get("reason") or ""
+        if "offsite:" not in reason:
+            continue
+        host = reason.split("offsite:", 1)[1].strip()
+        by_host.setdefault(host, []).append((key, v))
+    if not by_host:
+        print("no offsite finds in the ledger")
+        return 0
+    total = sum(len(x) for x in by_host.values())
+    print(f"{total} venues publish their events somewhere else, on "
+          f"{len(by_host)} platforms")
+    print()
+    for host, hits in sorted(by_host.items(), key=lambda kv: -len(kv[1])):
+        routable = ROUTABLE_OFFSITE.get(host) or REFERENCE_OFFSITE.get(host)
+        with_url = [h for h in hits if h[1].get("offsite_url")]
+        head = f"{len(hits):5}  {host}"
+        if routable:
+            head += f"   -> {routable}"
+        print(head)
+        print(f"       {len(with_url)} of them recorded the link; the rest were "
+              f"probed before the link was kept and come round again on the "
+              f"ledger's 90-day TTL")
+        for key, v in with_url[:6]:
+            print(f"         {v.get('name', '?')[:34]:34} {v['offsite_url'][:74]}")
     return 0
 
 
@@ -3116,6 +3282,8 @@ def main(argv):
     if cmd == "audit":
         return cmd_audit()
     if cmd == "ledger":
+        if "--offsite" in argv:
+            return cmd_ledger_offsite(refresh="--refresh" in argv)
         return cmd_ledger()
     if cmd == "coverage":
         if "--delta" in argv:

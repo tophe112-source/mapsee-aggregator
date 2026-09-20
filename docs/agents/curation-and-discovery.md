@@ -34,6 +34,64 @@
   `test_coverage_rows.py` pins the invariants (no type counted twice, no country
   that is a number or a bare ISO code) rather than today's totals.
 
+- **A whole-file ledger write silently loses a concurrent writer.**
+  `_save_ledger` dumped the in-memory copy over the file, and every sweep loads
+  the ledger once at the start and saves it minutes or hours later — so
+  anything another run wrote in between is gone. Measured 2026-09-20: a
+  `ledger --offsite --refresh` that had loaded the file dropped ten
+  neighbourhood-association probes another session had written while it ran,
+  all dated the same day. Nothing errored, nothing was reported, and the next
+  sweep would simply re-probe ten sites already answered. It re-reads and
+  merges now, with `_merge_ledgers` — the rule `cmd_reapply` has always used
+  for the same collision, more recent probe wins a shared URL. Nothing deletes
+  from the ledger, so a union cannot resurrect something removed on purpose.
+  This matters because the repo's working mode reaches it: more than one agent
+  works the same checkout.
+
+- **`offsite:<host>` recorded the host and threw away the LINK, which is the
+  only part anything could act on.** 358 venues in the ledger were probed,
+  found to have a calendar, and filed as failures naming the platform: facebook
+  158, instagram 77, eventbrite 46, ticketmaster 24, humanitix 21, tickettailor
+  9, trybooking 6, universe 6, linktr.ee 3, dice 3, meetup 2, axs 1. The note
+  above `OFFSITE_HOSTS` already calls this "the only measurement this repo has
+  of what venues WORLDWIDE actually use", and it is — but an id lives in the
+  URL and nowhere else, so the tally could never become a source. `find_calendar`
+  keeps `offsite_url` now, `ledger --offsite` reads it, and `--refresh`
+  re-probes the ones recorded before the change (one GET per KNOWN venue, no
+  Overpass, no discovery — the ledger's 90-day TTL would otherwise hide them
+  for three months over a one-line fix).
+
+- **Almost none of it routes, and that is the finding.** Harvested 37 links on
+  2026-09-20 and checked each platform against its own adapter rather than
+  against the intuition that "we already ingest that". EVENTBRITE, the biggest
+  routable-looking pile at 46, does NOT: `mapsee_ingest_eventbrite`'s header
+  states that `/o/<slug>-<id>` profile ids are a different id space from the
+  organization ids the API serves and that organizer-scoped fetching 404s, and
+  its `organizers` list is documented as "NOT fetched". Four real `/o/` ids were
+  harvested (Georges River Libraries 7982128494, Glenorchy Library Tasmania
+  6685743883, Pilar 18004751158, Rochester Hills Museum 31205740733) and were
+  NOT added, for that reason. Ticketmaster and Meetup are already swept
+  nationally by metro, so a venue found this way is covered before it is
+  configured; AXS needs partner credentials this project does not hold;
+  facebook and instagram are two thirds of the tally and have no API we may
+  read; humanitix was assessed in August. What is left is DICE, and only as a
+  `/venue/<slug>` link — an `/event/` link names a night, not a room.
+
+- **A plugin's footer credit was being read as "this venue's events are
+  elsewhere".** Only visible once the link was recorded: Eventbrite's WordPress
+  plugin puts `eventbrite.com/l/wordpress?ref=wpfooter` in the site footer, and
+  a footer is on every page. Two of the 24 harvested eventbrite links were that
+  or a bare `eventbrite.co.uk/` brand link — about 8%. It is not a cosmetic
+  miscount: `offsite:` parks the venue in the ledger as dead for 90 days, so a
+  venue whose own calendar the probe simply failed to find is retired on the
+  strength of a plugin credit. `_offsite` now refuses a bare host and an `/l/`
+  path.
+
+- **A re-probe is also how you learn a site has GROWN a calendar.** One of the
+  60 re-probed (Buchhandlung List) now serves its own JSON-LD and no longer
+  reads as offsite at all; `--refresh` reports those rather than scraping the
+  old page for a link, and leaves them for the next sweep to propose properly.
+
 - **The one backend that can find a whole town's calendar anywhere on earth had
   one country in it, and 20 more were measured in an afternoon.**
   `catalog_discover_civic` says in its own header that it "works the same way in

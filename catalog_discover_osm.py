@@ -781,10 +781,23 @@ def _same_host(a: str, b: str) -> bool:
     return urlparse(a).netloc.lower().lstrip("www.") == urlparse(b).netloc.lower().lstrip("www.")
 
 
+# An offsite link that cannot be anybody's calendar. Found by recording the
+# LINK rather than the host and then reading 24 of them: Eventbrite's WordPress
+# plugin puts `eventbrite.com/l/wordpress?ref=wpfooter` in the site footer, and
+# the footer is on every page — so a venue using the plugin reads as "its events
+# are on Eventbrite" whether or not they are. A bare host with no path is the
+# same shape: a brand link, not a listing. Both cost more than a wrong tally,
+# because `offsite:` parks the venue as dead for the ledger's 90-day TTL.
+_OFFSITE_NOT_A_CALENDAR_RX = re.compile(r"^/(l/|$)", re.I)
+
+
 def _offsite(u: str) -> Optional[str]:
-    h = urlparse(u).netloc.lower()
+    parts = urlparse(u)
+    h = parts.netloc.lower()
     for host in OFFSITE_HOSTS:
         if host in h:
+            if _OFFSITE_NOT_A_CALENDAR_RX.match(parts.path or "/"):
+                return None
             return host.strip(".")
     return None
 
@@ -846,7 +859,7 @@ def find_calendar(session, home_url: str, timeout: int = 18,
     sweep starts running out of memory instead of time.
     """
     out = {"cal_url": None, "labels": [], "adapter": None, "ics": None,
-           "status": None, "offsite": None, "extra": {}}
+           "status": None, "offsite": None, "offsite_url": None, "extra": {}}
     try:
         r = session.get(home_url, timeout=timeout, allow_redirects=True)
     except Exception as exc:                                      # noqa: BLE001
@@ -868,7 +881,7 @@ def find_calendar(session, home_url: str, timeout: int = 18,
             pass                    # a caller's extra question must not cost the find
     home_labels, home_ics = fingerprint(body)
 
-    onsite, offsite_hit = [], None
+    onsite, offsite_hit, offsite_url = [], None, None
     for m in re.finditer(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', body, re.S | re.I):
         href, text = m.group(1), re.sub(r"<[^>]+>", " ", m.group(2))
         if not (CAL_LINK_RX.search(href) or CAL_LINK_RX.search(text)):
@@ -878,7 +891,14 @@ def find_calendar(session, home_url: str, timeout: int = 18,
             continue
         off = _offsite(u)
         if off:
-            offsite_hit = offsite_hit or off
+            # THE URL, NOT JUST THE HOST. `offsite:eventbrite` names an adapter
+            # this repo already has and cannot be acted on without the organizer
+            # id, which is in the link and nowhere else — eventbrite.com/o/
+            # <slug>-<id>. Recording the host alone made 46 venues a statistic
+            # instead of 46 candidates, and re-finding each one costs the fetch
+            # again. First hit wins, matching the host rule it replaces.
+            if offsite_hit is None:
+                offsite_hit, offsite_url = off, u
         elif _same_host(u, base):
             onsite.append(u)
 
@@ -919,7 +939,8 @@ def find_calendar(session, home_url: str, timeout: int = 18,
                    adapter=adapter_for(home_labels), status="ok-homepage")
         return out
     if offsite_hit:
-        out.update(status=f"offsite:{offsite_hit}", offsite=offsite_hit)
+        out.update(status=f"offsite:{offsite_hit}", offsite=offsite_hit,
+                   offsite_url=offsite_url)
         return out
     out["status"] = "no-calendar"
     return out
