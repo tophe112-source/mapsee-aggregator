@@ -1260,6 +1260,48 @@
         "lat": 42.3416395,
         "lon": -71.0664541
       }
+    },
+    {
+      "name": "Träffer",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.traeffer.ch/veranstaltungen",
+      "max_events": 200,
+      "venue": {
+        "name": "Träffer",
+        "lat": 46.9479984,
+        "lon": 7.4665155
+      },
+      "_metro": "Bern, Switzerland"
+    },
+    {
+      "name": "Landguet Ried",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.landguet.ch/de/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Landguet Ried",
+        "lat": 46.9208718,
+        "lon": 7.3822549
+      },
+      "_metro": "Bern, Switzerland"
+    },
+    {
+      "name": "Millésime Club",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.millesime-club.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Millésime Club",
+        "address": "2 Avenue Claude-Nobs",
+        "city": "Montreux",
+        "postal_code": "1820",
+        "lat": 46.4378624,
+        "lon": 6.9074769
+      },
+      "_metro": "Lausanne, Switzerland"
     }
   ]
 }

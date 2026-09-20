@@ -3990,6 +3990,221 @@
     "lon": 7.4477992
    },
    "_metro": "Bern, CH"
+  },
+  {
+   "name": "Kulturhalle Sägegasse",
+   "category": "community",
+   "_found": "osm:events_venue -> jsonld-event",
+   "listing": [
+    "https://www.saegegasse.ch/programm/event/217-pato"
+   ],
+   "link_pattern": "https://www\\.saegegasse\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Kulturhalle Sägegasse",
+    "lat": 47.0550565,
+    "lon": 7.630525
+   },
+   "_metro": "Bern, Switzerland"
+  },
+  {
+   "name": "Werkhof Egelsee",
+   "category": "community",
+   "_found": "osm:club -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.vereinamsee.ch/veranst/"
+   ],
+   "link_pattern": "https://www\\.vereinamsee\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Werkhof Egelsee",
+    "lat": 46.9436217,
+    "lon": 7.4639759
+   },
+   "_metro": "Bern, Switzerland"
+  },
+  {
+   "name": "Musée Historique de Lausanne",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://www.lausanne.ch/agenda-et-actualites/agenda/evenement/ecal-after-schmid"
+   ],
+   "link_pattern": "https://www\\.lausanne\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Musée Historique de Lausanne",
+    "address": "4 Place de la Cathédrale",
+    "lat": 46.5222197,
+    "lon": 6.6349237
+   },
+   "_metro": "Lausanne, Switzerland"
+  },
+  {
+   "name": "Groupe d'Accueil et d'Action Psychiatrique",
+   "category": "community",
+   "_found": "osm:community_centre -> jsonld-event",
+   "listing": [
+    "https://graap.ch/agenda/"
+   ],
+   "link_pattern": "https://graap\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Groupe d'Accueil et d'Action Psychiatrique",
+    "city": "Lausanne",
+    "postal_code": "1018",
+    "lat": 46.5290247,
+    "lon": 6.6320497
+   },
+   "_metro": "Lausanne, Switzerland"
+  },
+  {
+   "name": "Musée du Cheval",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://www.museeducheval.ch/agenda/"
+   ],
+   "link_pattern": "https://www\\.museeducheval\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Musée du Cheval",
+    "address": "1 Rue du Château",
+    "city": "La Sarraz",
+    "postal_code": "1315",
+    "lat": 46.6601332,
+    "lon": 6.5149647
+   },
+   "_metro": "Lausanne, Switzerland"
+  },
+  {
+   "name": "Temple Protestant de Châtel-St-Denis",
+   "category": "community",
+   "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+   "listing": [
+    "https://www.protestant-laveveyse.ch/calendrier/"
+   ],
+   "link_pattern": "https://www\\.protestant\\-laveveyse\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Temple Protestant de Châtel-St-Denis",
+    "address": "9 Le Gottau",
+    "city": "Châtel-St-Denis",
+    "postal_code": "1618",
+    "lat": 46.5305597,
+    "lon": 6.9071963
+   },
+   "_metro": "Lausanne, Switzerland"
+  },
+  {
+   "name": "Das Schlagzeug",
+   "category": "community",
+   "_found": "osm:events_venue -> jsonld-event",
+   "listing": [
+    "https://cullyjazz.ch/fr/"
+   ],
+   "link_pattern": "https://cullyjazz\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Das Schlagzeug",
+    "lat": 46.4881043,
+    "lon": 6.730292
+   },
+   "_metro": "Lausanne, Switzerland"
+  },
+  {
+   "name": "Local 14a",
+   "category": "community",
+   "_found": "osm:community_centre -> modern-events+jsonld-event",
+   "listing": [
+    "https://association2.lesfichesnord.ch/evenements/"
+   ],
+   "link_pattern": "https://association2\\.lesfichesnord\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Local 14a",
+    "address": "14a Chemin de Bérée",
+    "city": "Lausanne",
+    "postal_code": "1010",
+    "lat": 46.5381213,
+    "lon": 6.6535094
+   },
+   "_metro": "Lausanne, Switzerland"
+  },
+  {
+   "name": "Musée romain de Lausanne-Vidy",
+   "category": "arts",
+   "_found": "osm:museum -> jsonld-event",
+   "listing": [
+    "https://www.lausanne.ch/agenda-et-actualites/agenda/evenement/un-dimanche-anime"
+   ],
+   "link_pattern": "https://www\\.lausanne\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Musée romain de Lausanne-Vidy",
+    "lat": 46.5189571,
+    "lon": 6.5986725
+   },
+   "_metro": "Lausanne, Switzerland"
+  },
+  {
+   "name": "Centre Pluriculturel et social d'Ouchy",
+   "category": "community",
+   "_found": "osm:community_centre -> jsonld-event",
+   "listing": [
+    "https://www.cpo-ouchy.ch/"
+   ],
+   "link_pattern": "https://www\\.cpo\\-ouchy\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Centre Pluriculturel et social d'Ouchy",
+    "address": "2 Chemin de Beau-Rivage",
+    "city": "Lausanne",
+    "postal_code": "1006",
+    "country": "CH",
+    "lat": 46.5110376,
+    "lon": 6.6303901
+   },
+   "_metro": "Lausanne, Switzerland"
+  },
+  {
+   "name": "Chapelle catholique du Gottau",
+   "category": "community",
+   "_found": "osm:place_of_worship -> jsonld-event",
+   "listing": [
+    "https://www.upstdenis.ch/tout-les-evenements"
+   ],
+   "link_pattern": "https://www\\.upstdenis\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "Chapelle catholique du Gottau",
+    "address": "280 Le Bourg",
+    "city": "Châtel-St-Denis",
+    "postal_code": "1618",
+    "country": "CH",
+    "lat": 46.5307601,
+    "lon": 6.9066172
+   },
+   "_metro": "Lausanne, Switzerland"
+  },
+  {
+   "name": "La Feltrinelli",
+   "category": "learning",
+   "_found": "osm:books -> jsonld-event",
+   "listing": [
+    "https://www.lafeltrinelli.it/eventi/VR570-00009/verona/ms-verona"
+   ],
+   "link_pattern": "https://www\\.lafeltrinelli\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+   "max_events": 150,
+   "venue": {
+    "name": "La Feltrinelli",
+    "address": "72/M-N Viale Eritrea",
+    "city": "Roma",
+    "postal_code": "00199",
+    "lat": 41.9274155,
+    "lon": 12.5159118
+   },
+   "_metro": "Rome, Italy"
   }
  ],
  "_not_included": {

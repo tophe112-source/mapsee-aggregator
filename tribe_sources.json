@@ -8903,6 +8903,114 @@
         "lon": 7.453745
       },
       "_metro": "Bern, CH"
+    },
+    {
+      "name": "LO31 Quartiertreff",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://lo31.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "LO31 Quartiertreff",
+        "address": "31 Lorrainestrasse",
+        "postal_code": "3013",
+        "lat": 46.9582683,
+        "lon": 7.4444609
+      },
+      "_metro": "Bern, Switzerland"
+    },
+    {
+      "name": "Bibliothèque communale de Cuarnens",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://cuarnens.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bibliothèque communale de Cuarnens",
+        "address": "2 Route de l'Isle",
+        "city": "Cuarnens",
+        "postal_code": "1148",
+        "country": "CH",
+        "lat": 46.6247082,
+        "lon": 6.4373642
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Ancien atelier de couture – salle B",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.attalens.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ancien atelier de couture – salle B",
+        "lat": 46.5113444,
+        "lon": 6.8497735
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Assemblée Chrétienne des Trois-Rois",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://actr.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Assemblée Chrétienne des Trois-Rois",
+        "address": "5bis Chemin des Trois-Rois",
+        "lat": 46.5180963,
+        "lon": 6.6391058
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Château de La Sarraz",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://chateau-lasarraz.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Château de La Sarraz",
+        "lat": 46.6603855,
+        "lon": 6.5141234
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Paul & Henri Carnal Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.roseyconcerthall.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Paul & Henri Carnal Hall",
+        "address": "2",
+        "city": "Rolle",
+        "postal_code": "1180",
+        "lat": 46.4598271,
+        "lon": 6.3286646
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Jardin Robin",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://permacultureriviera.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jardin Robin",
+        "lat": 46.4673511,
+        "lon": 6.8420643
+      },
+      "_metro": "Lausanne, Switzerland"
     }
   ],
   "_not_included": {

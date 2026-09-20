@@ -13393,5 +13393,68 @@
   "_found": "manual: neighborhood yard sale -> google calendar embed -> public ics",
   "_metro": "Portland, OR",
   "_note": "The second calendar embedded on overlookneighborhood.org/events/: a shared North Portland community calendar. 530 VEVENTs on 2026-09-19, 105 upcoming, 102 with a LOCATION. It is where the Kenton Neighborhood Garage Sales, the Bethel Lutheran rummage sale and a kids' clothing swap were published. No `venue` fallback here on purpose: North Portland is a district, not a neighbourhood, and a district-wide pin would be a guess."
+ },
+ {
+  "name": "St Ursula's Church",
+  "category": "community",
+  "_found": "osm:place_of_worship -> events-manager",
+  "url": "https://stursula.ch/life-events/?ical=1",
+  "geocode_suffix": ", Bern, Switzerland",
+  "limit": 300,
+  "_metro": "Bern, Switzerland"
+ },
+ {
+  "name": "Pfadi Falkenstein",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://www.pfadi-falkenstein.ch/agenda.ics",
+  "geocode_suffix": ", Bern, Switzerland",
+  "limit": 300,
+  "_metro": "Bern, Switzerland"
+ },
+ {
+  "name": "Bibliothèque de Boulens",
+  "category": "learning",
+  "_found": "osm:library -> ics",
+  "url": "https://www.boulens.ch/index.php?option=com_dpcalendar&task=ical.download&id=56",
+  "geocode_suffix": ", Boulens",
+  "limit": 300,
+  "_metro": "Lausanne, Switzerland"
+ },
+ {
+  "name": "Cercle de la Voile de Moratel-Cully",
+  "category": "community",
+  "_found": "osm:club -> ics",
+  "url": "https://calendar.google.com/calendar/ical/info%40cvmc.ch/public/basic.ics",
+  "geocode_suffix": ", Cully",
+  "limit": 300,
+  "_metro": "Lausanne, Switzerland"
+ },
+ {
+  "name": "Maison de Quartier Sous-Gare",
+  "category": "community",
+  "_found": "osm:community_centre -> events-manager+ics",
+  "url": "https://maisondequartiersousgare.ch/events/perfect-days/ical/",
+  "geocode_suffix": ", Lausanne",
+  "limit": 300,
+  "_metro": "Lausanne, Switzerland"
+ },
+ {
+  "name": "Le Jardin aux 1000 mains",
+  "category": "outdoors",
+  "_found": "osm:garden -> events-manager",
+  "url": "https://www.1000mains.ch/visiter/?ical=1",
+  "geocode_suffix": ", Lausanne, Switzerland",
+  "limit": 300,
+  "_metro": "Lausanne, Switzerland"
+ },
+ {
+  "name": "Teatro Quirino",
+  "category": "theater",
+  "_found": "osm:theatre -> events-manager",
+  "url": "https://www.teatroquirino.it/concerto-pianoforte-orchestra/?ical=1",
+  "geocode_suffix": ", Rome, Italy",
+  "limit": 300,
+  "_metro": "Rome, Italy"
  }
 ]
