@@ -24,6 +24,14 @@ coordinates — 5,770 US cities carry all four — and answers a class-scoped qu
 in about two seconds. That is a geographic generator in the same sense the
 Overpass one is: it works the same way in every country that has the class.
 
+AND IT WORKS IN MORE THAN ONE COUNTRY NOW, which the sentence above promised and
+CITY_CLASSES did not deliver for the file's whole life: it held one entry, the
+cursor held one offset, and every civic run walked further down the same list of
+US cities while the report FLAGged twenty-odd countries as having no community
+feeds at all. catalog_curate._civic_next_country rotates, thinnest catalog
+first, and CITY_CLASSES now names a class per country with the measurement that
+proved it beside each one.
+
 TWO STREAMS OUT OF ONE FETCH
 The city's own site is fetched once and asked two questions:
 
@@ -99,8 +107,20 @@ WIKIDATA_ENDPOINT = "https://query.wikidata.org/sparql"
 # pretending otherwise is what made the general query unusable. Countries are
 # added here as they are swept, each one verified to return rows before it goes
 # in, rather than listed hopefully.
+#
+# Each entry is (classes, country scope, label). The scope is the country's QID
+# and it is REQUIRED beside a general class and absent beside a national one:
+# Q1093829 is "city in the United States" and can only be American, while
+# Q3957 "town" and Q532 "village" are worldwide.
+#
+# EVERY ONE WAS MEASURED BEFORE IT WENT IN, with the query this file actually
+# runs — 40 cities, population descending, all four properties present — and the
+# measurement is the row beside it: (cities in the first page, seconds, the
+# largest city it returns). A country whose query returns nothing, or times out,
+# is not listed hopefully; it is left out and the reason is written down in
+# docs/agents/curation-and-discovery.md.
 CITY_CLASSES = {
-    "US": ("Q1093829", "city in the United States"),
+    "US": (("Q1093829",), None, "city in the United States"),
 }
 
 # The DMO hop. A host is nominated only if the city's own site links to it AND
@@ -203,9 +223,30 @@ def category_for_feed(name: str) -> str:
 
 
 # ---- the candidate generator -------------------------------------------------
+# WDQS THROTTLES, AND IT SAYS SO. A 429 carries Retry-After and means "you have
+# spent your query seconds, come back"; it is not a fact about the query and it
+# is not a fact about the country. The driver treats any exception here as an
+# UNREAD batch and leaves the cursor, which is right for a 504 — but a run that
+# throws its whole civic budget away because the first request arrived a few
+# seconds early is a country skipped for a whole rotation. Measured while
+# building the country list: five queries in a row answered 200, the sixth and
+# seventh answered 429, and waiting the header out cleared it.
+#
+# Once, not a loop: if the second attempt is also refused, the service means it.
+SPARQL_RETRY_CAP = 75
+
+
 def _sparql(session, query: str, timeout: int = 120) -> List[Dict[str, Any]]:
     r = session.get(WIKIDATA_ENDPOINT,
                     params={"query": query, "format": "json"}, timeout=timeout)
+    if r.status_code in (429, 503):
+        wait = r.headers.get("Retry-After") or ""
+        secs = int(wait) if wait.isdigit() else 30
+        secs = min(secs, SPARQL_RETRY_CAP)
+        print(f"  wikidata {r.status_code}, waiting {secs}s and asking once more")
+        time.sleep(secs)
+        r = session.get(WIKIDATA_ENDPOINT,
+                        params={"query": query, "format": "json"}, timeout=timeout)
     if r.status_code != 200:
         raise RuntimeError(f"wikidata http {r.status_code}: {r.text[:120]}")
     return r.json()["results"]["bindings"]
@@ -220,7 +261,7 @@ def _coord(point: str) -> Tuple[Optional[float], Optional[float]]:
 
 
 def cities(session, country: str = "US", limit: int = 200, offset: int = 0,
-           timeout: int = 120) -> Tuple[List[Dict[str, Any]], int]:
+           timeout: int = 200) -> Tuple[List[Dict[str, Any]], int]:
     """(cities, rows_read). Ordered by population, largest first.
 
     DE-DUPLICATED BY QID HERE RATHER THAN IN SPARQL. San Antonio comes back
@@ -229,6 +270,15 @@ def cities(session, country: str = "US", limit: int = 200, offset: int = 0,
     means GROUP BY plus SAMPLE around the label service, which is where these
     queries start timing out again; doing it here costs a dict.
 
+    THE TIMEOUT IS 200 SECONDS AND THAT IS NOT GENEROSITY. The US query answers
+    in 1.9s because one class names the country. Everywhere else takes several,
+    and the cost climbs steeply with the number of them: Canada over five
+    classes is 34s and over six it is 117s, because ORDER BY DESC(?pop) has to
+    sort the whole matched set before LIMIT sees it. 120 would have timed out
+    on a country that works, and a timeout here is not a slow answer — the
+    driver treats the batch as UNREAD and the cursor stays, so a country too
+    slow to read would never advance past its own first page.
+
     WHICH IS WHY THE ROW COUNT COMES BACK TOO. LIMIT/OFFSET are over ROWS, and
     a caller holding a cursor has only the deduplicated cities to count — so
     advancing the offset by "cities I walked" under-advances by however many
@@ -236,18 +286,36 @@ def cities(session, country: str = "US", limit: int = 200, offset: int = 0,
     of this one for ever. Measured on the first live run: a 12-row batch was 7
     cities. The two numbers are different things and both have to be returned.
     """
-    cls = CITY_CLASSES.get(country.upper())
-    if not cls:
+    entry = CITY_CLASSES.get(country.upper())
+    if not entry:
         raise ValueError(f"no city class known for {country!r} — see CITY_CLASSES")
-    qid = cls[0]
+    classes, scope, _label = entry
+    # ONE CLASS OR SEVERAL, AND THE DIFFERENCE IS THE COUNTRY'S DOING. The US
+    # models every incorporated place as one class and 5,770 of them carry all
+    # four properties. Nowhere else does: Canada's settlements-with-a-website
+    # split across `municipality`, `city or town of Quebec`, `town`, `parish
+    # municipality`, `village` and a per-province class for Ontario and Alberta,
+    # so naming one would take 652 of 1,500 and miss Toronto outright.
+    values = " ".join(f"wd:{q}" for q in classes)
+    # And the country filter comes WITH the general classes, not instead of
+    # them. `town` (Q3957) and `village` (Q532) are worldwide classes; without
+    # wdt:P17 a Canadian sweep returns Bavarian villages.
+    scope_line = f"?city wdt:P17 wd:{scope} ." if scope else ""
+    # The state OPTIONAL is a US shape — Q35657 IS "U.S. state" — and it walks
+    # two P131 hops to get there. Outside the US it can only ever bind nothing,
+    # and it is not free, so it is not asked. Region is then empty and _suffix
+    # names the country instead, which is the part that actually places a pin.
+    state_line = ("OPTIONAL { ?city wdt:P131 ?county . ?county wdt:P131 ?state . "
+                  "?state wdt:P31 wd:Q35657 . }" if country.upper() == "US" else "")
     query = f"""
 SELECT ?city ?cityLabel ?stateLabel ?site ?pop ?coord ?article WHERE {{
-  ?city wdt:P31 wd:{qid} ;
+  VALUES ?cls {{ {values} }}
+  ?city wdt:P31 ?cls ;
         wdt:P856 ?site ;
         wdt:P625 ?coord ;
         wdt:P1082 ?pop .
-  OPTIONAL {{ ?city wdt:P131 ?county . ?county wdt:P131 ?state .
-             ?state wdt:P31 wd:Q35657 . }}
+  {scope_line}
+  {state_line}
   OPTIONAL {{ ?article schema:about ?city ;
                        schema:isPartOf <https://en.wikipedia.org/> . }}
   SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}

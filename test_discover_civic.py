@@ -354,8 +354,63 @@ check("rows += 1" in src and "return list(out.values()), rows" in src,
 curate = _io.open("catalog_curate.py", encoding="utf-8").read()
 check("places, rows = civic.cities(" in curate,
       "...and the driver takes both numbers")
-check('cursor["offset"] = offset + (rows if read >= len(places) else read)' in curate,
+check('_civic_offsets(cursor)[country] = offset + (rows if read >= len(places) else read)'
+      in curate,
       "...and advances the cursor by rows only when the batch was read whole")
+
+# ---------------------------------------------- 8. the walk is a rotation
+# The backend was built to work "the same way in every country that has the
+# class" and then ran for its whole life on one: CITY_CLASSES had a single entry
+# and the cursor a single offset. These pin the shape that lets it leave.
+check(all(isinstance(v, tuple) and len(v) == 3 and isinstance(v[0], tuple)
+          for v in civ.CITY_CLASSES.values()),
+      "every CITY_CLASSES entry is (classes, scope, label)")
+_GENERAL = {"Q3957": "town", "Q532": "village", "Q486972": "human settlement",
+            "Q15284": "municipality", "Q3957868": "small city"}
+_unscoped = sorted(code for code, v in civ.CITY_CLASSES.items()
+                   if not v[1] and any(q in _GENERAL for q in v[0]))
+check(not _unscoped,
+      "a general class like `town` or `village` is scoped to its country "
+      f"(unscoped: {_unscoped})")
+check(all(v[0] for v in civ.CITY_CLASSES.values()),
+      "no country is listed with an empty class list")
+check("_civic_next_country" in curate and "visited" in curate,
+      "the driver rotates countries rather than reading `country` from the cursor")
+
+# And the rotation itself, driven rather than read. The old cursor shape is the
+# live one — `{"country": "US", "offset": 2140}` — and 2,140 US cities of
+# walking is the thing most worth not losing to a refactor.
+import catalog_curate as _C
+_real = civ.CITY_CLASSES
+try:
+    civ.CITY_CLASSES = {"US": (("Q1093829",), None, "us"),
+                        "CA": (("Q1",), "Q16", "ca"),
+                        "JP": (("Q2",), "Q17", "jp"),
+                        "BR": (("Q3",), "Q155", "br")}
+    cursor = {"country": "US", "offset": 2140}
+    walk = []
+    for _ in range(9):
+        got = _C._civic_next_country(cursor, civ)
+        walk.append(got)
+        offs = _C._civic_offsets(cursor)
+        offs[got] = offs.get(got, 0) + 40
+        cursor["country"] = got
+    check(_C._civic_offsets(cursor)["US"] >= 2140,
+          f"the US's 2,140 cities of walking survive the new cursor shape "
+          f"({_C._civic_offsets(cursor).get('US')})")
+    check("offset" not in cursor, "...and the flat single-country key is gone")
+    check(walk[0] != "US",
+          f"the first run after the change leaves the US ({walk[0]})")
+    check(len(set(walk[:4])) == 4,
+          f"every country is swept before any is swept twice ({walk[:4]})")
+    check(walk[4:8] == walk[:4],
+          f"...and then it is plain round-robin ({walk[4:8]} vs {walk[:4]})")
+    # A country that has gone from CITY_CLASSES must not wedge the walk.
+    stale = {"country": "ZZ", "offsets": {"US": 40}, "visited": ["US"]}
+    check(_C._civic_next_country(stale, civ) in civ.CITY_CLASSES,
+          "a cursor naming a country that has been removed restarts in the list")
+finally:
+    civ.CITY_CLASSES = _real
 
 # ---------------------------------------------- report
 bad = [l for ok, l in checks if not ok]
