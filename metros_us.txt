@@ -84,3 +84,7 @@
 35.6870,-105.9378     # Santa Fe
 35.0456,-85.3097      # Chattanooga
 44.0582,-121.3153     # Bend OR
+# Olympia: the keyed API jobs already reach it, because Seattle runs at R=100 in
+# aggregate-events.yml (Olympia is ~60 mi south). The line is here so the OSM
+# venue walk (catalog_discover_osm.metros, a 25 mi box per line) visits it too.
+47.0379,-122.9007     # Olympia WA

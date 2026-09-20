@@ -134783,6 +134783,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "olympiafilmsociety.org": {
+    "checked": 20260920,
+    "name": "Olympia Film Society (Capitol Theater)",
+    "reason": "not json",
+    "status": "fail",
+    "type": "tribe"
+  },
   "olympiahall.com/agenda/izia": {
     "checked": 20260828,
     "name": "L'Olympia",
@@ -197505,6 +197512,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "washingtoncenter.org": {
+    "checked": 20260920,
+    "name": "Washington Center for the Performing Arts (Olympia)",
+    "reason": "51 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "washingtoncity.org": {
     "checked": 20260913,

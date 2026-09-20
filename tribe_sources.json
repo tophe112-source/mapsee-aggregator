@@ -9029,6 +9029,17 @@
         "lon": -121.317076
       },
       "_metro": "Bend, United States"
+    },
+    {
+      "name": "Washington Center for the Performing Arts (Olympia)",
+      "base_url": "https://www.washingtoncenter.org",
+      "category": "theater",
+      "default_city": "Olympia",
+      "default_region": "WA",
+      "default_country": "US",
+      "within_days": 180,
+      "_found": "manual: Olympia metro request -> tribe REST",
+      "_metro": "Olympia, WA"
     }
   ],
   "_not_included": {
