@@ -114,13 +114,95 @@ WIKIDATA_ENDPOINT = "https://query.wikidata.org/sparql"
 # Q3957 "town" and Q532 "village" are worldwide.
 #
 # EVERY ONE WAS MEASURED BEFORE IT WENT IN, with the query this file actually
-# runs — 40 cities, population descending, all four properties present — and the
-# measurement is the row beside it: (cities in the first page, seconds, the
-# largest city it returns). A country whose query returns nothing, or times out,
-# is not listed hopefully; it is left out and the reason is written down in
-# docs/agents/curation-and-discovery.md.
+# runs — 40 cities, population descending, all four properties present. A
+# country that returns nothing, or times out, is NOT listed hopefully; five are
+# missing for exactly that reason and the note below says which.
+#
+# Measured 2026-09-19/20. Every row is 40 cities out of 40, and the site is the
+# real town hall — the point of the exercise:
+#
+#   MX 13.1s Mexico City      SE 13.7s Stockholm     IN 16.6s Mumbai
+#   FI 19.1s Helsinki         CA 20.5s Toronto       DK 36.8s Copenhagen
+#   NO 42.2s Oslo             NZ 46.9s Auckland      AT 49.2s Vienna
+#   IE 49.9s Dublin           NL 50.8s Amsterdam     DE 58.5s Berlin
+#   JP 60.0s Tokyo            CH 64.9s Zurich        ES 65.9s Madrid
+#   PT 72.9s Lisbon           AU 80.2s Sydney        GB 81.2s London
+#   BE 85.3s Antwerp          ZA 211.9s Johannesburg
+#
+# TWO THINGS THOSE SECONDS ARE NOT. They are not the steady state: WDQS spent
+# both days answering 500, 502, 504 and 429 to queries of every size, including
+# the US one that has always taken 1.9s, so each is an upper bound measured on a
+# bad day. And they are from BEFORE the trim below, which only ever removes
+# classes — a smaller VALUES set cannot cost more. ZA's 211.9s was the trim's
+# whole reason: it included `human settlement`, which is every hamlet on earth,
+# and it ran past cities()'s own timeout. Re-measure any of them with
+# `python catalog_curate.py cityclass <ISO>`.
+#
+# WHAT IS DROPPED FROM EACH SET AND WHY. The seeds propose, and a seed town is
+# also other things: Mississauga is a weather station and a federal electoral
+# district, and an electoral district has a population AND a website, so the
+# query cannot tell them apart afterwards. Dropped: `human settlement` (CH, ZA),
+# `district of Austria` (a Bezirk is an administration, not a town), `district
+# of India` (which is why "Thane district" came back as a city), `district of
+# Madrid` (part of one city), `port city` and `place with town rights` (already
+# cities), `municipality seat` and `municipality capital` (the country class
+# covers them), `Ceremonial cities of the Republic of Ireland` (a title), and
+# every sub-national class a national one already covers — Victoria,
+# Saskatchewan, British Columbia, the canton of Zurich, Bavaria, Catalonia,
+# Galicia. `college town` went too: the German seeds were four university towns
+# and it is their artefact, not Germany's shape.
+#
+# THE FIVE THAT ARE NOT HERE — France, Italy, Poland, Czechia and Brazil — are
+# not missing by oversight. Each was attempted three times over two days and
+# answered 500 or 504 every time, and they have a structure in common: they are
+# the countries whose settlements are tens of thousands of small municipalities
+# (France alone has ~35,000 communes), so `ORDER BY DESC(?pop)` has the largest
+# set to sort before LIMIT sees any of it. A population floor is the obvious
+# next thing to try and is UNMEASURED — one attempt at FILTER(?pop >= 3000) for
+# France answered 500 after 103s, on a day WDQS was refusing healthy queries
+# too, so it proved nothing either way. Brazil is the one that matters most:
+# mapasculturais is its only other supply.
 CITY_CLASSES = {
     "US": (("Q1093829",), None, "city in the United States"),
+    "CA": (("Q130626256", "Q515", "Q1549591", "Q15210668"), "Q16",
+           "city in Canada, city, big city, lower-tier municipality of Ontario"),
+    "GB": (("Q100503226", "Q1357964", "Q1115575", "Q18511725", "Q515", "Q3957"),
+           "Q145", "town of the UK, county town, civil parish, market town, city, town"),
+    "IE": (("Q3559227", "Q515", "Q3957", "Q1357964"), "Q27",
+           "city in Ireland, city, town, county town"),
+    "AU": (("Q515", "Q1549591", "Q3957"), "Q408", "city, big city, town"),
+    "NZ": (("Q515", "Q2881272", "Q3957"), "Q664",
+           "city, district of New Zealand, town"),
+    "DE": (("Q262166", "Q42744322", "Q134626", "Q1549591"), "Q183",
+           "municipality in Germany, urban municipality, district capital, big city"),
+    "NL": (("Q2039348", "Q515", "Q707813"), "Q55",
+           "municipality of the Netherlands, city, Hanseatic city"),
+    "BE": (("Q493522", "Q15273785", "Q3957", "Q1549591", "Q515"), "Q31",
+           "municipality of Belgium, municipality titled city, town, big city, city"),
+    "CH": (("Q70208", "Q54935504", "Q14770218", "Q1549591"), "Q39",
+           "municipality of Switzerland, city, cantonal capital, big city"),
+    "AT": (("Q667509", "Q262882", "Q515"), "Q40",
+           "municipality of Austria, statutory city, city"),
+    "SE": (("Q127448", "Q515"), "Q34", "municipality of Sweden, city"),
+    "NO": (("Q755707", "Q515", "Q1549591"), "Q20",
+           "municipality of Norway, city, big city"),
+    "DK": (("Q2177636", "Q1549591", "Q515"), "Q35",
+           "municipality of Denmark, big city, city"),
+    "FI": (("Q856076", "Q11870638", "Q1549591", "Q515"), "Q33",
+           "municipality of Finland, city in Finland, big city, city"),
+    "ES": (("Q2074737", "Q515"), "Q29", "municipality of Spain, city"),
+    "PT": (("Q13217644", "Q15647906", "Q19833170", "Q1549591", "Q1131296"),
+           "Q45", "municipality, city, town and freguesia of Portugal, big city"),
+    "MX": (("Q1952852", "Q15045178", "Q123440126", "Q20202352", "Q515",
+            "Q1549591"), "Q96",
+           "municipality, City of, city in and locality of Mexico, city, big city"),
+    "JP": (("Q1054813", "Q494721", "Q1059478", "Q4174776", "Q1137833",
+            "Q1549591"), "Q17",
+           "municipality, city, town, village and core city of Japan, big city"),
+    "ZA": (("Q2666845", "Q515", "Q1500352", "Q3957"), "Q258",
+           "municipality of South Africa, city, local municipality, town"),
+    "IN": (("Q112684326", "Q58339518", "Q56436498", "Q1549591", "Q515"),
+           "Q668", "municipality, town and village in India, big city, city"),
 }
 
 # The DMO hop. A host is nominated only if the city's own site links to it AND
@@ -235,6 +317,12 @@ def category_for_feed(name: str) -> str:
 # Once, not a loop: if the second attempt is also refused, the service means it.
 SPARQL_RETRY_CAP = 75
 
+# How many pages cities() will ask for before giving the caller what it has.
+# Three, because two is not enough for Switzerland (2 cities in 40 rows) and
+# more than three spends the civic run's budget on Wikidata rather than on the
+# town halls the run exists to probe.
+CITY_PAGES_MAX = 3
+
 
 def _sparql(session, query: str, timeout: int = 120) -> List[Dict[str, Any]]:
     r = session.get(WIKIDATA_ENDPOINT,
@@ -307,7 +395,11 @@ def cities(session, country: str = "US", limit: int = 200, offset: int = 0,
     # names the country instead, which is the part that actually places a pin.
     state_line = ("OPTIONAL { ?city wdt:P131 ?county . ?county wdt:P131 ?state . "
                   "?state wdt:P31 wd:Q35657 . }" if country.upper() == "US" else "")
-    query = f"""
+    # Built per page rather than once and .format()ted: the body is full of
+    # SPARQL braces, and a template that survives an f-string is one .format()
+    # then reads as field names.
+    def _query(lim, off):
+        return f"""
 SELECT ?city ?cityLabel ?stateLabel ?site ?pop ?coord ?article WHERE {{
   VALUES ?cls {{ {values} }}
   ?city wdt:P31 ?cls ;
@@ -320,11 +412,53 @@ SELECT ?city ?cityLabel ?stateLabel ?site ?pop ?coord ?article WHERE {{
                        schema:isPartOf <https://en.wikipedia.org/> . }}
   SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
 }}
-ORDER BY DESC(?pop) LIMIT {int(limit)} OFFSET {int(offset)}
+ORDER BY DESC(?pop) LIMIT {int(lim)} OFFSET {int(off)}
 """
+
     out: Dict[str, Dict[str, Any]] = {}
     rows = 0
-    for b in _sparql(session, query, timeout):
+    # PAGE UNTIL `limit` CITIES, NOT UNTIL `limit` ROWS, and the difference is
+    # not small. A row is a (city, class, population statement) combination, so
+    # a country whose classes overlap and whose towns carry a population series
+    # returns the same town many times. Measured 2026-09-20 over a 40-row page:
+    # the United States is 40 cities and Denmark 37, but Belgium is 12, South
+    # Africa 9, Finland 4 and SWITZERLAND 2 — a civic run that was meant to
+    # probe forty Swiss towns probed two, and the rotation only comes back to
+    # Switzerland once a turn of the wheel. Asking for more rows is the whole
+    # fix; asking in SPARQL for one row per city means GROUP BY and SAMPLE
+    # around the label service, which is where these queries start timing out.
+    #
+    # The page cap is what keeps a pathological country from spending the whole
+    # civic budget on Wikidata rather than on town halls, and `rows` is the
+    # TOTAL consumed, because that is what the caller's cursor advances by.
+    for _page in range(CITY_PAGES_MAX):
+        want = max(int(limit), 1)
+        page_size = min(want * 2, 500) if _page else want
+        page = _sparql(session, _query(page_size, int(offset) + rows), timeout)
+        if not page:
+            break
+        rows += _absorb(page, out, country, rows)
+        if len(out) >= want or len(page) < page_size:
+            break
+    # NOT truncated to `limit`. A later page can carry the tail of a city whose
+    # first row was in an earlier one, and `rows` counts every row consumed — so
+    # dropping cities here would advance the cursor past towns nobody probed.
+    # An overshoot is a bigger batch, which the caller's own budget bounds.
+    return list(out.values()), rows
+
+
+def _absorb(page, out, country, rows_before=0):
+    """Fold one page of bindings into `out`, returning the rows it held.
+
+    Each city remembers `_row`, the 0-based row it FIRST appeared at, counted
+    from the start of the batch. That is what makes a partial read exact: a run
+    cut short by its deadline advances the cursor to the first unread city's own
+    row, where advancing by "cities I read" would under-advance by however many
+    duplicate rows they held — three quarters of a Danish batch — and the walk
+    would re-read its own head for ever.
+    """
+    rows = 0
+    for b in page:
         rows += 1
         qid_city = b["city"]["value"].rsplit("/", 1)[-1]
         if qid_city in out:
@@ -333,6 +467,7 @@ ORDER BY DESC(?pop) LIMIT {int(limit)} OFFSET {int(offset)}
         out[qid_city] = {
             "qid": qid_city,
             "kind": "city",
+            "_row": rows_before + rows - 1,
             "name": b["cityLabel"]["value"],
             "city": b["cityLabel"]["value"],
             "region": (b.get("stateLabel") or {}).get("value"),
@@ -345,7 +480,7 @@ ORDER BY DESC(?pop) LIMIT {int(limit)} OFFSET {int(offset)}
             # dmo_nominations.
             "article": (b.get("article") or {}).get("value"),
         }
-    return list(out.values()), rows
+    return rows
 
 
 # ---- the DMO hop -------------------------------------------------------------

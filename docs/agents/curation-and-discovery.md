@@ -34,6 +34,83 @@
   `test_coverage_rows.py` pins the invariants (no type counted twice, no country
   that is a number or a bare ISO code) rather than today's totals.
 
+- **The one backend that can find a whole town's calendar anywhere on earth had
+  one country in it, and 20 more were measured in an afternoon.**
+  `catalog_discover_civic` says in its own header that it "works the same way in
+  every country that has the class", and `CITY_CLASSES` held a single entry
+  while the cursor read `{"country": "US", "offset": 2140}` — so every civic run
+  since the file was written walked further down the same list of US cities. It
+  is also the richest backend here: two 40-city batches returned 64 verified
+  sources carrying 44 local-music events, 57 festivals and parades, 40
+  block-party-shaped events and 58 market days, against a Socrata sweep that
+  measured ZERO event-shaped datasets for "block party", "street fair" or
+  "community festivals". Measured 2026-09-19/20, each with the query the file
+  actually runs: 40 of 40 cities for every one of CA, GB, IE, AU, NZ, DE, NL,
+  BE, CH, AT, SE, NO, DK, FI, ES, PT, MX, JP, ZA and IN, and the site each
+  returns is the real town hall (toronto.ca, london.gov.uk, stadt-zuerich.ch,
+  berlin.de, lisboa.pt, joburg.org.za). The rotation then orders itself: with
+  the live catalog the first eight runs go to Portugal, Japan, South Africa,
+  Mexico, India, Norway, the Netherlands and Spain, and the US sorts last with
+  its 2,140 cities of walking intact.
+
+- **ONE CLASS IS A US LUXURY, and the seed towns you pick decide what you get.**
+  5,770 American cities are all `city in the United States`; nowhere else is
+  like that. Canada's settlements-with-a-website split across `municipality`,
+  `city or town of Quebec`, `town`, `parish municipality`, `village` and a class
+  per province — naming one takes 652 of ~1,500 and misses Toronto. And a
+  country's classes cannot be read off a few towns alone: four German seeds
+  (Regensburg, Göttingen, Konstanz, Bamberg) proposed `college town` and
+  `compact city` and never `municipality of Germany`, which is what ordinary
+  German towns are in — and ordinary towns are where the community calendars
+  are. Two generators, unioned: the Action API's `wbsearchentities` for the
+  phrase ("municipality in Germany" -> Q262166), and `P31` off mid-sized seed
+  towns. Mid-sized because a capital is often in a class no other town shares.
+  Both halves need filtering: the phrase search matched "City of Canada Bay" —
+  an Australian council — for Canada until the label had to END with the country,
+  and Mississauga's own `P31` includes `weather station` and `federal electoral
+  district`, and an electoral district has a population AND a website, so the
+  verification query cannot tell them apart afterwards.
+
+- **Forty rows is not forty cities, and in Switzerland it was two.** A row from
+  the civic query is a (city, class, population statement) combination, so a
+  country whose classes overlap and whose towns carry a population series
+  returns the same town many times. Measured 2026-09-20 over a 40-row page: the
+  United States 40 cities, Denmark 37, Portugal 38, Norway 37 — but the United
+  Kingdom 29, New Zealand 25, India 23, Canada 20, Austria 19, Mexico 19, Japan
+  16, Belgium 12, South Africa 9, Finland 4 and **Switzerland 2**. A civic run
+  meant to probe forty Swiss towns probed two, and the rotation only comes back
+  to Switzerland once a turn of a 21-country wheel. `cities()` now pages until
+  it has `limit` DISTINCT cities (cap `CITY_PAGES_MAX`, three), which is the
+  cheap half of the fix; the expensive half — asking SPARQL for one row per city
+  — means GROUP BY and SAMPLE around the label service, which is where these
+  queries start timing out. Live after: Denmark 109 cities in 120 rows, Belgium
+  60 in 120, Sweden 40 in 40 and one page, because it stops as soon as it has
+  enough.
+
+- **A cursor over ROWS cannot be advanced by a count of CITIES.** The partial
+  read — a batch cut short by the civic step's ten-minute deadline — used
+  `offset + read`, and `read` is cities where the offset is rows. With paging
+  the two diverge by however many duplicates the batch held, so after three
+  Danish cities the cursor moved three rows and the next run re-read the same
+  head. Each city now carries `_row`, the row it FIRST appeared at, and a
+  partial read advances to the first UNREAD city's own row: proven on a
+  synthetic batch whose third city really is 40 rows in, where the old rule said
+  3. A batch from an older cursor that has no `_row` falls back to the old
+  arithmetic rather than guessing.
+
+- **Five countries time WDQS out, and they have a structure in common.** France,
+  Italy, Poland, Czechia and Brazil each answered 500 or 504 to three attempts
+  over two days. They are the countries whose settlements are tens of thousands
+  of small municipalities — France alone has ~35,000 communes — so `ORDER BY
+  DESC(?pop)` has the largest set to sort before `LIMIT` sees any of it. They
+  are LEFT OUT rather than listed hopefully, which is CITY_CLASSES' own rule. A
+  population floor is the obvious next thing and is UNMEASURED: one attempt at
+  `FILTER(?pop >= 3000)` for France answered 500 after 103s, on a day the
+  service was also refusing healthy queries — the US query that has always taken
+  1.9s answered 504 twice — so it proved nothing either way. Brazil is the one
+  worth the most: `mapasculturais` is its only other supply. Re-measure any
+  country with `python catalog_curate.py cityclass <ISO>`.
+
 - **The governance filter was English-only, and the civic walk now leaves the
   US.** `CIVIC_SUMMARY_RX` is what `governance_heavy` reads a feed's SUMMARY
   lines with, and it is the ONLY thing standing between a town hall's meeting

@@ -386,15 +386,22 @@ check(civ._coord("") == (None, None), "...and an absent point is not a zero one"
 # and OFFSET are over rows, so a cursor advanced by deduplicated CITIES
 # under-advances and re-reads the tail of its own last batch for ever.
 import inspect
-src = inspect.getsource(civ.cities)
+src = inspect.getsource(civ.cities) + inspect.getsource(civ._absorb)
 check("rows += 1" in src and "return list(out.values()), rows" in src,
       "cities() counts the rows it read, not the cities it kept")
+check("rows += _absorb(" in src and "_query(page_size, int(offset) + rows)" in src,
+      "...across every page it asks for, so the second page starts after the first")
+check('"_row": rows_before + rows - 1' in src,
+      "...and every city remembers the row it first appeared at")
+check("[:max(int(limit), 1)]" not in src,
+      "...and it never drops a city it counted rows for")
 curate = _io.open("catalog_curate.py", encoding="utf-8").read()
 check("places, rows = civic.cities(" in curate,
       "...and the driver takes both numbers")
-check('_civic_offsets(cursor)[country] = offset + (rows if read >= len(places) else read)'
-      in curate,
-      "...and advances the cursor by rows only when the batch was read whole")
+check("nxt = offset + rows" in curate
+      and 'nxt = offset + int(places[read].get("_row", read))' in curate,
+      "...and advances by rows when the batch was read whole, and to the first "
+      "UNREAD city's own row when it was not")
 
 # ---------------------------------------------- 8. the walk is a rotation
 # The backend was built to work "the same way in every country that has the
@@ -412,6 +419,12 @@ check(not _unscoped,
       f"(unscoped: {_unscoped})")
 check(all(v[0] for v in civ.CITY_CLASSES.values()),
       "no country is listed with an empty class list")
+check(len(civ.CITY_CLASSES) > 1,
+      f"the walk has somewhere to rotate TO ({len(civ.CITY_CLASSES)} countries)")
+# Every country the rotation can pick must be reachable by _civic_next_country
+# and must name its scope, since all of these carry general classes.
+check(all(v[1] for code, v in civ.CITY_CLASSES.items() if code != "US"),
+      "every country but the US scopes its classes with wdt:P17")
 check("_civic_next_country" in curate and "visited" in curate,
       "the driver rotates countries rather than reading `country` from the cursor")
 

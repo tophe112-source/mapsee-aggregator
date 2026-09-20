@@ -1365,7 +1365,20 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
     # BY ROWS, NOT BY CITIES — see catalog_civic.cities. And only past the ones
     # actually read: a batch cut short by the deadline leaves the cursor before
     # its tail, exactly as the metro walk does.
-    _civic_offsets(cursor)[country] = offset + (rows if read >= len(places) else read)
+    #
+    # WHICH ROW, precisely: the first UNREAD city's own. `read` is a count of
+    # CITIES and the offset is over ROWS, and cities() pages until it has enough
+    # distinct cities, so the two diverge by however many duplicates the batch
+    # held — a Danish batch is 109 cities in 120 rows and a Swiss one was 2 in
+    # 40. Advancing by `read` there would leave the cursor in the middle of
+    # ground already walked and the run would re-read its own head for ever.
+    # cities() records `_row` for exactly this; a batch from an older cursor
+    # that lacks it falls back to the old arithmetic rather than guessing.
+    if read >= len(places):
+        nxt = offset + rows
+    else:
+        nxt = offset + int(places[read].get("_row", read))
+    _civic_offsets(cursor)[country] = nxt
     if read < len(places):
         print(f"  advanced {read}/{len(places)} cities; the rest come round again")
     _save_ledger(led)
