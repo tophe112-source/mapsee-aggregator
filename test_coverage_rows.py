@@ -302,6 +302,37 @@ def t_the_generators_write_a_country_a_reader_can_read():
               C._parse_place(label)[1] == "Switzerland", label)
 
 
+def t_a_curated_file_the_report_cannot_see_reads_as_a_gap():
+    """`coverage` reads CONFIG and EXTRA_CONFIG and nothing else, so a curated
+    file in neither does not read as supply — it reads as empty ground, and the
+    thin-ground ranker sends the next run at it. Three files were in that state
+    on 2026-09-19, and each one was a country the report was FLAGging."""
+    rows = C._coverage_rows()
+    by_type = collections.Counter(t for t, _n, _m, _c, _k in rows)
+    for t, least in (("openactive", 12), ("bibliocommons", 6), ("mapasculturais", 2)):
+        check(f"{t} is counted at all", by_type.get(t, 0) >= least,
+              f"{by_type.get(t, 0)} rows")
+
+    brazil = {k for t, _n, _m, c, k in rows if c == "Brazil"}
+    check("Brazil's own adapter counts as Brazilian community supply",
+          "community" in brazil, f"Brazil has {sorted(brazil)}")
+    uk_vol = [n for t, n, _m, c, k in rows
+              if c == "United Kingdom" and k == "volunteer"]
+    check("GoodGym is UK volunteer supply, which the report used to FLAG as absent",
+          uk_vol, "no UK volunteer row")
+    ca_lib = [n for t, n, _m, c, k in rows
+              if t == "bibliocommons" and c == "Canada"]
+    check("the two Canadian library systems are not American",
+          len(ca_lib) == 2, f"{ca_lib}")
+    # The expanders must not double-count: these three files are in no other
+    # table, which is the whole reason EXPANDER_OWNED exists for the ones that
+    # are.
+    dupes = [t for t in ("openactive", "bibliocommons", "mapasculturais")
+             if t in C.CONFIG]
+    check("...and none of the three is ALSO in CONFIG, where it would count twice",
+          not dupes, f"{dupes}")
+
+
 def main() -> int:
     for t in (t_all_types_lists_each_type_once,
               t_no_source_is_counted_twice,
@@ -315,7 +346,8 @@ def main() -> int:
               t_a_country_spelled_out_is_a_country_too,
               t_a_us_state_spelled_out_is_still_the_us_and_is_not_the_metro,
               t_a_two_letter_code_is_never_a_metro,
-              t_the_generators_write_a_country_a_reader_can_read):
+              t_the_generators_write_a_country_a_reader_can_read,
+              t_a_curated_file_the_report_cannot_see_reads_as_a_gap):
         print(f"\n--- {t.__name__} ---")
         t()
     print()

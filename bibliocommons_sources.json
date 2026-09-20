@@ -1,9 +1,9 @@
 {
-  "_comment": "BiblioCommons library systems (mapsee_ingest_bibliocommons.py). One entry per library; `slug` is the tenant name in both gateway.bibliocommons.com/v2/libraries/<slug>/events and <slug>.bibliocommons.com. No key and no account. `category` is only the fallback for a programme whose type and audience say nothing - most rows classify themselves, and library programming is overwhelmingly learning and kids. Every row arrives with a surveyed branch coordinate, so nothing here is geocoded; see the adapter header. Counts below were read live on 2026-09-03 and are recorded so a later run can tell a quiet library from a broken one.",
+  "_comment": "BiblioCommons library systems (mapsee_ingest_bibliocommons.py). One entry per library; `slug` is the tenant name in both gateway.bibliocommons.com/v2/libraries/<slug>/events and <slug>.bibliocommons.com. No key and no account. `city` and `country` are read only by catalog_curate's coverage report - the adapter ignores them - and they are here because two of the six systems are Canadian, which the report was counting as American. `category` is only the fallback for a programme whose type and audience say nothing - most rows classify themselves, and library programming is overwhelmingly learning and kids. Every row arrives with a surveyed branch coordinate, so nothing here is geocoded; see the adapter header. Counts below were read live on 2026-09-03 and are recorded so a later run can tell a quiet library from a broken one.",
   "sites": [
     {
       "name": "Charlotte Mecklenburg Library",
-      "slug": "cmlibrary",
+      "slug": "cmlibrary", "city": "Charlotte", "country": "US",
       "category": "learning",
       "measured_2026_09_03": 8197,
       "horizon_days": 180,
@@ -11,7 +11,7 @@
     },
     {
       "name": "Edmonton Public Library",
-      "slug": "epl",
+      "slug": "epl", "city": "Edmonton", "country": "CA",
       "category": "learning",
       "measured_2026_09_03": 4893,
       "horizon_days": 180,
@@ -19,7 +19,7 @@
     },
     {
       "name": "Chicago Public Library",
-      "slug": "chipublib",
+      "slug": "chipublib", "city": "Chicago", "country": "US",
       "category": "learning",
       "measured_2026_09_03": 4539,
       "horizon_days": 180,
@@ -27,7 +27,7 @@
     },
     {
       "name": "Harris County Public Library (Houston)",
-      "slug": "hcpl",
+      "slug": "hcpl", "city": "Houston", "country": "US",
       "category": "learning",
       "measured_2026_09_03": 4530,
       "horizon_days": 180,
@@ -35,7 +35,7 @@
     },
     {
       "name": "Boston Public Library",
-      "slug": "bpl",
+      "slug": "bpl", "city": "Boston", "country": "US",
       "category": "learning",
       "measured_2026_09_03": 4051,
       "horizon_days": 180,
@@ -43,7 +43,7 @@
     },
     {
       "name": "Vancouver Public Library",
-      "slug": "vpl",
+      "slug": "vpl", "city": "Vancouver", "country": "CA",
       "category": "learning",
       "measured_2026_09_03": 2104,
       "horizon_days": 180,

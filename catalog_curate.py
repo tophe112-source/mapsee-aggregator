@@ -1153,16 +1153,102 @@ OSM_METROS_PER_RUN = 3
 CIVIC_CITIES_PER_RUN = 40
 
 
+# THE CIVIC WALK IS A ROTATION NOW, NOT A COUNTRY.
+#
+# `catalog_discover_civic` was built to work "the same way in every country that
+# has the class" and then shipped with one country in CITY_CLASSES and a cursor
+# that read `{"country": "US", "offset": 2140}` — so every civic run since has
+# walked further down the same list of US cities, and the one backend that can
+# find a whole TOWN's calendar anywhere on earth has never left one. It is also
+# the RICHEST backend this repo has: two 40-city batches returned 64 verified
+# sources carrying 44 local-music events, 57 festivals and parades, 40
+# block-party-shaped events and 58 market days (`docs/agents/curation-and-
+# discovery.md`), against a Socrata sweep that measured ZERO event-shaped
+# datasets for "block party", "street fair" and "community festivals".
+#
+# So the country is chosen per run, thinnest catalog first — the same rule
+# osm.metros() sorts by, for the same reason. The cursor NAMES the country it
+# just swept rather than counting to one, again like the metro walk: the order
+# is computed from live counts and shifts as the catalog grows, and a position
+# would silently re-aim at a country that moved under it.
+def _civic_offsets(cursor):
+    """The per-country offsets, migrating the single-country cursor in place.
+
+    The old shape is `{"country": "US", "offset": 2140}` and 2,140 US cities of
+    walking is not something to throw away, so it is read as US's offset the
+    first time and the flat key is dropped."""
+    offsets = cursor.get("offsets")
+    if offsets is None:
+        offsets = {}
+        if cursor.get("offset"):
+            offsets[(cursor.get("country") or "US").upper()] = int(cursor["offset"])
+        cursor["offsets"] = offsets
+    cursor.pop("offset", None)
+    return offsets
+
+
+def _civic_country_order(civic):
+    """Every country with a city class, thinnest catalog first.
+
+    A country with no sources at all sorts FIRST, which is the whole point: it
+    is the ground a door opens onto and finds nothing. Ties keep CITY_CLASSES'
+    own order so the walk is deterministic on a fresh catalog."""
+    counts = {}
+    for _t, _n, _m, country, _cat in _coverage_rows():
+        counts[country] = counts.get(country, 0) + 1
+    ranked = sorted(
+        enumerate(civic.CITY_CLASSES),
+        key=lambda ic: (counts.get(_ISO_COUNTRY.get(ic[1], ic[1]), 0), ic[0]),
+    )
+    return [code for _i, code in ranked]
+
+
+def _civic_next_country(cursor, civic):
+    """The country this run sweeps: the one AFTER the last one swept.
+
+    Named rather than counted, so editing CITY_CLASSES does not re-aim the walk
+    at a country that happened to slide into the old position. A cursor naming a
+    country that has since been removed restarts at the thinnest.
+    """
+    order = _civic_country_order(civic)
+    if not order:
+        return "US"
+    prev = (cursor.get("country") or "").upper()
+    start = (order.index(prev) + 1) % len(order) if prev in order else 0
+    # A country NOBODY HAS SWEPT YET jumps the queue, once. Otherwise a small
+    # country that has already been read to the end spends the run re-reading
+    # its own top — the ledger's 90-day TTL makes that nearly free and nearly
+    # pointless — while a country with no sources at all waits another rotation.
+    # `visited` and not "offset is 0", because wrapping resets the offset to 0
+    # and a wrapped country would look new for ever. Once everything has been
+    # visited once this is plain round-robin, which is the steady state.
+    _civic_offsets(cursor)                      # migrate the old cursor shape
+    visited = cursor.setdefault("visited", [])
+    ring = [order[(start + i) % len(order)] for i in range(len(order))]
+    unswept = [c for c in ring if c not in visited]
+    country = unswept[0] if unswept else ring[0]
+    if country not in visited:
+        visited.append(country)
+    print(f"  civic rotation: {country} "
+          f"(thinnest first: {', '.join(order[:6])}{'...' if len(order) > 6 else ''})")
+    return country
+
+
 def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                     deadline=0.0):
     """Propose whole-town calendars. See catalog_discover_civic.py.
 
-    THE CURSOR IS AN OFFSET INTO A STABLE ORDER, which is the one thing that
-    makes this walkable. Wikidata is asked for cities BY POPULATION DESCENDING,
-    so position 400 means the same city next week as it does today unless a
-    census lands — unlike the OSM backend, whose list is a hand-edited file and
-    whose cursor therefore has to name a metro rather than count to one. The
-    order also means the sweep spends its early runs where the people are.
+    THE CURSOR IS AN OFFSET INTO A STABLE ORDER, PER COUNTRY, which is the one
+    thing that makes this walkable. Wikidata is asked for cities BY POPULATION
+    DESCENDING, so position 400 means the same city next week as it does today
+    unless a census lands — unlike the OSM backend, whose list is a hand-edited
+    file and whose cursor therefore has to name a metro rather than count to
+    one. The order also means the sweep spends its early runs where the people
+    are.
+
+    WHICH country is a rotation, not a setting: see _civic_next_country. The
+    offsets are per country and the cursor NAMES the one it just swept, so
+    adding a country to CITY_CLASSES never re-aims a walk already in progress.
 
     It walks past the end rather than stopping: `discover civic` on a wrapped
     cursor starts again at the top, where the ledger's 90-day TTL means the
@@ -1171,9 +1257,9 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
     """
     import catalog_discover_civic as civic
 
-    country = (cursor.get("country") or "US").upper()
+    country = _civic_next_country(cursor, civic)
     per_run = int(cities_per_run or CIVIC_CITIES_PER_RUN)
-    offset = int(cursor.get("offset") or 0)
+    offset = int(_civic_offsets(cursor).get(country) or 0)
     found, skipped = {}, {}
 
     def bump(k):
@@ -1190,7 +1276,8 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
         return found, skipped
     if not places:
         print(f"  {country}: offset {offset} is past the end — wrapping to the top")
-        cursor["offset"] = 0
+        _civic_offsets(cursor)[country] = 0
+        cursor["country"] = country
         return found, skipped
     print(f"  {country}: {len(places)} cities from offset {offset} "
           f"(pop {places[0]['population']} -> {places[-1]['population']})")
@@ -1260,7 +1347,7 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
     # BY ROWS, NOT BY CITIES — see catalog_civic.cities. And only past the ones
     # actually read: a batch cut short by the deadline leaves the cursor before
     # its tail, exactly as the metro walk does.
-    cursor["offset"] = offset + (rows if read >= len(places) else read)
+    _civic_offsets(cursor)[country] = offset + (rows if read >= len(places) else read)
     if read < len(places):
         print(f"  advanced {read}/{len(places)} cities; the rest come round again")
     _save_ledger(led)
@@ -2456,6 +2543,79 @@ def _rows_affiliate(data):
 # bounding box. Leaving them out entirely was worse, though; it meant the report
 # ranked market coverage as thin in exactly the countries a national source had
 # just covered, and every gap it printed was computed from 4 of the 10 configs.
+# THREE CURATED FILES THE REPORT COULD NOT SEE, AND ALL THREE ARE ABOUT THE
+# WORLD. `coverage` reads CONFIG and EXTRA_CONFIG and nothing else, and its
+# thin-ground ranker is what aims the next curation run — so a curated file
+# missing from both tables does not read as supply that exists, it reads as
+# ground nobody has reached. Measured 2026-09-19 against the live report:
+#
+#   • BRAZIL was FLAGged "no arts, community, fitness, kids, learning feeds
+#     yet" while `mapasculturais_sources.json` is, in AGENTS.md's own words,
+#     "the only source that puts anything on the map in Brazil" — two state
+#     registers, both `community`, one of them measured at 329 future
+#     occurrences. The report was sending sweeps at a country to find what the
+#     repo had already built an adapter for.
+#   • THE UNITED KINGDOM was FLAGged for `volunteer`, and GoodGym — a national
+#     volunteering network — is entry seven of `openactive_sources.json`. That
+#     is one of the nine curated volunteer sources on earth, invisible to the
+#     one report that counts them.
+#   • `learning` counted 244 without the six BiblioCommons library systems
+#     behind 28,314 upcoming programmes, two of which are Canadian.
+#
+# None of the three can go in CONFIG: that table is what `verify` and `merge`
+# probe, and these are adapters with their own shapes and their own hand
+# curation, not candidates a sweep can propose. An expander is exactly the
+# mechanism for that, which is what market, parkrun and bikereg already use.
+def _rows_openactive(data):
+    """One row per operator. OpenActive is a UK data standard and every entry
+    declares `country`, so nothing here is inferred.
+
+    The metro is a placeholder because these are NATIONAL operators — Better
+    (GLL) runs over 250 leisure centres — and giving one of them a city would
+    invent a metro with a hundred venues hiding behind it.
+    """
+    rows = []
+    for e in (data.get("sources") or []):
+        iso = str(e.get("country") or "").upper()
+        rows.append((e.get("name") or "?", "(national)",
+                     _ISO_COUNTRY.get(iso, iso or "?"),
+                     e.get("category") or "fitness"))
+    return rows
+
+
+def _rows_bibliocommons(data):
+    """One row per library SYSTEM, in the country it declares.
+
+    `country` was added to the config for this: the file is six systems and two
+    of them are Canadian (Edmonton, Vancouver), so deriving it from the name
+    would be a guess about exactly the thing the report is for. The adapter
+    reads only the keys it knows, so the field costs it nothing.
+    """
+    rows = []
+    for e in (data.get("sites") or []):
+        iso = str(e.get("country") or "").upper()
+        rows.append((e.get("name") or "?", e.get("city") or "?",
+                     _ISO_COUNTRY.get(iso, iso or "?"),
+                     e.get("category") or "learning"))
+    return rows
+
+
+def _rows_mapasculturais(data):
+    """One row per state register. Brazil is not declared per entry and does not
+    need to be: the adapter exists for Mapas Culturais, which is a Brazilian
+    federal software project, and every instance in the file is a state
+    secretariat of culture. The METRO is the state, because that is the extent
+    of what one register covers."""
+    rows = []
+    for e in (data.get("sites") or []):
+        name = e.get("name") or "?"
+        # "Mapa Cultural do Ceará" -> "Ceará". The slug is the state's own code
+        # and is what the adapter keys on; the name is what a person reads.
+        state = re.sub(r"^\s*Mapa\s+Cultural\s+d[eoa]s?\s+", "", name).strip() or "?"
+        rows.append((name, state, "Brazil", e.get("category") or "community"))
+    return rows
+
+
 EXTRA_CONFIG = {
     "market": ("market_sources.json", _rows_market),
     "mylisting": ("mylisting_sources.json", _rows_mylisting),
@@ -2467,6 +2627,9 @@ EXTRA_CONFIG = {
     "venuepilot": ("venuepilot_sources.json", _rows_venuepilot),
     "restaurant": ("restaurant_sources.json", _rows_restaurant),
     "affiliate": ("affiliate_sources.json", _rows_affiliate),
+    "openactive": ("openactive_sources.json", _rows_openactive),
+    "bibliocommons": ("bibliocommons_sources.json", _rows_bibliocommons),
+    "mapasculturais": ("mapasculturais_sources.json", _rows_mapasculturais),
 }
 # jsonld, mylisting and venuepilot are declared in BOTH tables, over the SAME
 # file: CONFIG so verify/merge can probe them, EXTRA_CONFIG for an expander that

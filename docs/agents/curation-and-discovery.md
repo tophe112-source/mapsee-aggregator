@@ -34,6 +34,27 @@
   `test_coverage_rows.py` pins the invariants (no type counted twice, no country
   that is a number or a bare ISO code) rather than today's totals.
 
+- **Three curated files were in neither config table, so the report read them
+  as empty ground — and each one was a country it was FLAGging.** `coverage`
+  walks `CONFIG` and `EXTRA_CONFIG` and nothing else. Measured 2026-09-19:
+  Brazil was FLAGged "no arts, community, fitness, kids, learning feeds yet"
+  while `mapasculturais_sources.json` holds the two state registers that are, in
+  AGENTS.md's own words, the only source that puts anything on the map there
+  (one measured at 329 genuinely future occurrences); the United Kingdom was
+  FLAGged for `volunteer` while GoodGym, a national volunteering network, is
+  entry seven of `openactive_sources.json` — one of the nine curated volunteer
+  sources on earth; and `learning` counted 244 without the six BiblioCommons
+  systems behind 28,314 upcoming programmes. Three expanders later: 3,131 rows
+  -> 3,155, Brazil 14 -> 16 with `community` no longer zero, UK 64 -> 76 with a
+  `volunteer` row, Canada 74 -> 76. `coverage_history.jsonl` carries that as a
+  step, not growth. None of the three can go in `CONFIG` — that table is what
+  `verify` and `merge` PROBE, and these are hand-curated adapters, not
+  candidates a sweep can propose. `country` and `city` were added to
+  `bibliocommons_sources.json` for this: two of the six systems are Canadian
+  (Edmonton, Vancouver) and the adapter reads neither key, so inferring the
+  country from the library's NAME would be a guess about exactly the thing the
+  report exists to state.
+
 - **The report read the whole world as the United States, 115 sources of it.**
   Measured 2026-09-19 over 3,131 live rows. `_parse_place` knew two spellings of
   a place: a two-letter US STATE code, and a country in `_COUNTRY_ALIASES` — a
