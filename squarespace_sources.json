@@ -1241,6 +1241,25 @@
         "lon": 7.6081649
       },
       "_metro": "Basel, CH"
+    },
+    {
+      "name": "ShowUp (Boston)",
+      "collection": "https://www.showupinc.org/master-calendar",
+      "category": "arts",
+      "max_events": 200,
+      "_found": "manual: clothing/art-supply swap search -> squarespace collection",
+      "_metro": "Boston, MA",
+      "_note": "A SoWa arts space whose master calendar runs a monthly Mending Society, an Art Supply Swap and First Fridays. 33 articles on 2026-09-19, 3 upcoming, no map links; every event's location is 'ShowUp', so the venue block is the site's own footer address.",
+      "venue": {
+        "name": "ShowUp",
+        "address": "524B Harrison Ave",
+        "city": "Boston",
+        "region": "MA",
+        "postal_code": "02118",
+        "country": "US",
+        "lat": 42.3416395,
+        "lon": -71.0664541
+      }
     }
   ]
 }

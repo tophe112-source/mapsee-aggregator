@@ -15,6 +15,15 @@ Config per source (JSON list):
     category         optional fixed Mapsee category KEY
     geocode_suffix   appended to LOCATION for Photon lookups (", Seattle, WA")
     limit            max future events to keep (default 500)
+    venue            optional {name, address, city, region, postal_code, country,
+                     lat, lon} used ONLY for a VEVENT that carries neither
+                     LOCATION nor GEO. A neighbourhood council's annual yard
+                     sale is a few hundred porches and a map, not an address,
+                     so the one event such a calendar exists for is exactly the
+                     one with no LOCATION - and it was being dropped as
+                     unplaceable. The pin is the neighbourhood centroid. A
+                     LOCATION that fails to geocode is still dropped: this is
+                     for events that HAVE no place, not for places Photon missed.
 
 Events need coordinates to land on the map: a VEVENT GEO property wins;
 otherwise the LOCATION string is geocoded via Photon (OSM) — one polite
@@ -267,6 +276,17 @@ def location_attempts(loc: str) -> List[str]:
     return out
 
 
+def _venue_pin(venue) -> bool:
+    """True when a source's `venue` block carries a usable coordinate pair."""
+    if not isinstance(venue, dict):
+        return False
+    try:
+        lat, lon = float(venue.get("lat")), float(venue.get("lon"))
+    except (TypeError, ValueError):
+        return False
+    return -90 <= lat <= 90 and -180 <= lon <= 180 and (lat, lon) != (0.0, 0.0)
+
+
 def make_location_geocoder(session, suffix: str):
     cache = _GEO_CACHE
 
@@ -341,6 +361,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
     # source wired up the wrong way (that one wanted the Tribe REST API, which
     # carries venues the iCal export omits), and the log has to be able to say so.
     unplaceable = 0
+    pinned_by_venue = 0
     past = 0
     governance = 0
     cancelled = 0
@@ -395,6 +416,12 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
                 lat = lon = None
         if (lat is None or lon is None) and loc:
             lat, lon = geocode(loc)
+        venue = None
+        if lat is None and not loc and _venue_pin(src.get("venue")):
+            venue = src["venue"]                      # no place named at all: the source's own fallback
+            lat, lon = float(venue["lat"]), float(venue["lon"])
+            loc = venue.get("name") or None
+            pinned_by_venue += 1
         if lat is None or lon is None:
             unplaceable += 1
             continue                                  # nowhere to pin it
@@ -412,7 +439,9 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
             start_local=start_local, start_utc=start_utc,
             end_local=end_local, end_utc=end_utc,
             venue_name=loc, latitude=lat, longitude=lon,
-            address=None,
+            address=(venue or {}).get("address"),
+            city=(venue or {}).get("city"), region=(venue or {}).get("region"),
+            country=(venue or {}).get("country"), postal_code=(venue or {}).get("postal_code"),
             category=src.get("category"),
             ticket_url=url or src.get("url_home"),   # every event links somewhere - the VEVENT URL, else the calendar's page
         )
@@ -420,6 +449,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
         store.upsert(nev)
         kept += 1
     note = f" ({how})" if how != "200" else ""
+    if pinned_by_venue:
+        note += f" — {pinned_by_venue} pinned to the source's venue (no LOCATION/GEO)"
     if unplaceable:
         note += f" — {unplaceable} unplaceable (no LOCATION/GEO)"
         if events and unplaceable >= max(3, len(events) // 2):

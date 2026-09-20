@@ -27971,6 +27971,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "calendar.google.com/calendar/ical/088f46d96a99b53fb3abedec4bbfa8f64a9dbc90d6f2453b1a61fe959f6d4f6d%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20260919,
+    "name": "North Portland Events (Overlook NA)",
+    "reason": "530 vevents / 105 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "calendar.google.com/calendar/ical/1d40ac096b17c056aa341240c473e570ebdc8ec7e8b3e5cffe3a9f9c9710cb59%40group.calendar.google.com/public/basic.ics": {
     "checked": 20260913,
     "name": "Chiro JEZ",
@@ -28059,6 +28066,20 @@
     "checked": 20260913,
     "name": "Watertown",
     "reason": "3420 vevents / 60 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/c_aa7cc93266fa3106c7b1f46bf3102ba00863c20f1ee1efd211ed63e38f7671a7%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20260919,
+    "name": "Montlake Community Club (Seattle)",
+    "reason": "65 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/c_c847e90cb89c91e78f7f31d29a8529ed39afaac723b33fa73253ce2328bce589%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20260919,
+    "name": "Overlook Neighborhood Association (Portland)",
+    "reason": "100 vevents / 2 future",
     "status": "ok",
     "type": "ics"
   },
@@ -125222,6 +125243,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nearsouth.org/events": {
+    "checked": 20260919,
+    "name": "Near South Neighborhood Association (Lincoln, NE)",
+    "reason": "30 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
+  },
   "nebia.ch": {
     "checked": 20260919,
     "name": "Nebia",
@@ -136337,6 +136365,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "parkmead.org/events": {
+    "checked": 20260919,
+    "name": "Parkmead Community Association (Walnut Creek, CA)",
+    "reason": "1/31 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "parkroadanglican.org.au": {
     "checked": 20260819,
@@ -157940,6 +157975,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "showupinc.org/master-calendar": {
+    "checked": 20260919,
+    "name": "ShowUp (Boston)",
+    "reason": "3/33 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "shreesitarammandir.com": {
     "checked": 20260819,
     "name": "Shree Sita Ram Mandir",
@@ -171036,6 +171078,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "swapdc.com/events": {
+    "checked": 20260919,
+    "name": "SwapDC (Washington, DC)",
+    "reason": "30 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
   },
   "sway.se": {
     "checked": 20260905,

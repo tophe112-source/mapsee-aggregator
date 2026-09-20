@@ -8,6 +8,14 @@
       "calendar_api_id": "cal-e5mvjF86anukzOt",
       "category": "learning",
       "max_events": 200
+    },
+    {
+      "name": "A2ZERO Clothing Swaps (Ann Arbor)",
+      "_comment": "The City of Ann Arbor's Office of Sustainability and Innovations runs a monthly clothing swap (third Thursday, City Hall) and publishes it on Luma; a2gov.org's own page only links there. Found 2026-09-19 while searching for clothing swaps for the fleabop lens; the adapter resolved the URL to cal-RWiHgZTHATaedQu and kept 4 upcoming events, every one with coordinates in Ann Arbor.",
+      "url": "https://luma.com/a2zeroclothingswaps",
+      "calendar_api_id": "cal-RWiHgZTHATaedQu",
+      "category": "community",
+      "max_events": 200
     }
   ],
   "places": [

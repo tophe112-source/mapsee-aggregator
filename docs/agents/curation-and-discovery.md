@@ -432,3 +432,30 @@
   add these queries — the same answer as for local music and festivals, and the
   reason the park-agency seed list above is a hand-curated file rather than a
   discovery backend.
+
+- **A neighbourhood-wide yard sale has no LOCATION, and it is the one event
+  the calendar exists for.** Measured 2026-09-19 while curating for fleabop:
+  Montlake Community Club's public Google Calendar (montlake.net/calendar is an
+  embed; the `calendar/ical/<id>/public/basic.ics` export is the feed, as it is
+  for the 23 Google calendars already in `ics_sources.json`) carried 65 VEVENTs,
+  2 upcoming, and the "Montlake Yard Sale" had no LOCATION - a sale that is a
+  few hundred porches and a map has no address to put there. Overlook
+  Neighborhood Association's calendar was the same: 100 VEVENTs, and its 2023,
+  2024 and 2025 yard sales all had no LOCATION while everything else carried a
+  street. The ICS adapter dropped every one of them as unplaceable, correctly,
+  so the source would have ingested exactly the events nobody curated it for.
+  `venue` on an ICS source (same block as Squarespace's) now pins a VEVENT that
+  carries NEITHER LOCATION nor GEO to the neighbourhood centroid; a LOCATION
+  that Photon cannot place is still dropped, because that is a place we failed
+  to find, not an event without one. A first run kept the 2026 yard sale ("1
+  pinned to the source's venue") and nothing else changed. Of the neighbourhood
+  garage-sale days found the same way, only these two publish a feed at all:
+  PhinneyWood, Maple Leaf, Wedgwood and West Seattle Garage Sale Day are a
+  static page each (two of them Google Sites), Rose City Park and Wedgwood's
+  WordPress have no calendar plugin, Mt Tabor and Multnomah Village are Wix,
+  and West Seattle Blog's All-in-One export is Disallowed by name in its
+  robots.txt (see `tribe_sources.json._not_included`). The clothing-swap
+  organisers were thinner still: SwapDC and Near South verify and have 0
+  upcoming, Swapanistas is one day a year on Wix, and A2ZERO (Ann Arbor's
+  monthly city-hall swap) is the one on a platform with an adapter - Luma, 4
+  upcoming, all with coordinates.

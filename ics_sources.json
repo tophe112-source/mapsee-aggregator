@@ -13344,5 +13344,54 @@
   "geocode_suffix": ", Mühlethurnen",
   "limit": 300,
   "_metro": "Bern, CH"
+ },
+ {
+  "name": "Montlake Community Club (Seattle)",
+  "category": "community",
+  "url": "https://calendar.google.com/calendar/ical/c_aa7cc93266fa3106c7b1f46bf3102ba00863c20f1ee1efd211ed63e38f7671a7%40group.calendar.google.com/public/basic.ics",
+  "url_home": "https://www.montlake.net/calendar",
+  "geocode_suffix": ", Seattle, WA",
+  "limit": 300,
+  "_found": "manual: neighborhood yard sale -> google calendar embed -> public ics",
+  "_metro": "Seattle, WA",
+  "_note": "The neighbourhood council behind the annual Montlake Yard Sale (montlake.net/yard-sale, 11th edition 2026-09-20). Its /calendar page is a public Google Calendar embed; the ical export carried 65 VEVENTs on 2026-09-19, 2 upcoming. The yard sale itself has NO LOCATION - a neighbourhood-wide sale is a few hundred porches and a map, not an address - so without `venue` the ICS adapter drops the one event this source is for. `venue` is used only for VEVENTs with neither LOCATION nor GEO; the pin is Photon's centroid for the Montlake neighbourhood.",
+  "venue": {
+   "name": "Montlake neighborhood",
+   "city": "Seattle",
+   "region": "WA",
+   "country": "US",
+   "lat": 47.6414082,
+   "lon": -122.3030441
+  }
+ },
+ {
+  "name": "Overlook Neighborhood Association (Portland)",
+  "category": "community",
+  "url": "https://calendar.google.com/calendar/ical/c_c847e90cb89c91e78f7f31d29a8529ed39afaac723b33fa73253ce2328bce589%40group.calendar.google.com/public/basic.ics",
+  "url_home": "https://overlookneighborhood.org/events/",
+  "geocode_suffix": ", Portland, OR",
+  "limit": 300,
+  "_found": "manual: neighborhood yard sale -> google calendar embed -> public ics",
+  "_metro": "Portland, OR",
+  "_note": "overlookneighborhood.org/events/ embeds two public Google Calendars. This is the association's own: 100 VEVENTs on 2026-09-19, 2 upcoming. The annual Overlook Yard Sale (2023, 2024, 2025 editions all present) never carries a LOCATION, so `venue` pins those to Photon's centroid for the Overlook neighbourhood; everything else on the calendar carried a street address.",
+  "venue": {
+   "name": "Overlook neighborhood",
+   "city": "Portland",
+   "region": "OR",
+   "country": "US",
+   "lat": 45.5591491,
+   "lon": -122.6919709
+  }
+ },
+ {
+  "name": "North Portland Events (Overlook NA)",
+  "category": "community",
+  "url": "https://calendar.google.com/calendar/ical/088f46d96a99b53fb3abedec4bbfa8f64a9dbc90d6f2453b1a61fe959f6d4f6d%40group.calendar.google.com/public/basic.ics",
+  "url_home": "https://overlookneighborhood.org/events/",
+  "geocode_suffix": ", Portland, OR",
+  "limit": 300,
+  "_found": "manual: neighborhood yard sale -> google calendar embed -> public ics",
+  "_metro": "Portland, OR",
+  "_note": "The second calendar embedded on overlookneighborhood.org/events/: a shared North Portland community calendar. 530 VEVENTs on 2026-09-19, 105 upcoming, 102 with a LOCATION. It is where the Kenton Neighborhood Garage Sales, the Bethel Lutheran rummage sale and a kids' clothing swap were published. No `venue` fallback here on purpose: North Portland is a district, not a neighbourhood, and a district-wide pin would be a guess."
  }
 ]
