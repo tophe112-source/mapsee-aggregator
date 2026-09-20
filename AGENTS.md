@@ -39,7 +39,7 @@ front doors it reaches.
 | Finding a VENUE's own calendar, anywhere on earth | `catalog_discover_osm.py` — OSM venues with a `website`, probed for a calendar and fingerprinted to an adapter |
 | US state fairs, as the fair itself | `mapsee_ingest_fairs.py` + `fair_sources.json` — 48 fairs, one multi-day event each. Identity and coordinates are curated; the DATES are scraped every run and never stored |
 | Music festivals with internal schedules | `mapsee_ingest_festivals.py`, `festival_pdf.py`, `catalog_discover_festivals.py`; `docs/agents/festival-schedules.md` — 24 agenda items across 12 Jackson Street stages verified 2026-09-09 |
-| Finding a whole TOWN's calendar | `catalog_discover_civic.py` — Wikidata cities with an official website (5,770 in the US), probed the same way. The city's own calendar, plus its tourism board where Wikipedia names one |
+| Finding a whole TOWN's calendar | `catalog_discover_civic.py` — Wikidata cities with an official website (5,770 in the US alone), probed the same way. The city's own calendar, plus its tourism board where Wikipedia names one. WHICH COUNTRY is a rotation: `CITY_CLASSES` names a settlement class per country and `_civic_next_country` in `catalog_curate.py` takes the thinnest catalog first, with a cursor offset per country |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
 | Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run — until 2026-09-14 every line counted jsonld, mylisting and venuepilot twice (166 of 2,975 rows); a line whose `per_type.jsonld` is double the entries in `jsonld_sources.json` predates the fix |
