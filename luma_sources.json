@@ -16,6 +16,14 @@
       "calendar_api_id": "cal-RWiHgZTHATaedQu",
       "category": "community",
       "max_events": 200
+    },
+    {
+      "name": "Home Ec NYC (Queens)",
+      "_comment": "A mending and sewing studio in Queens whose Luma calendar carries its Clothing & Material Swaps. Found 2026-09-20 searching Luma for clothing swaps; of eight swap event pages found, this and A2ZERO were the only US calendars with anything upcoming (Equals is Amsterdam, 33 events; five others resolved to calendars with 0). 2 upcoming, both with coordinates.",
+      "url": "https://luma.com/nv8epkra",
+      "calendar_api_id": "cal-UyDDcChc8i9Oxft",
+      "category": "community",
+      "max_events": 100
     }
   ],
   "places": [

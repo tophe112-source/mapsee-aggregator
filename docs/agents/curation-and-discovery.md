@@ -597,3 +597,21 @@
   returns listing aggregators (gsalr, garagesalefinder, yardsalesearch) ahead
   of the associations after the first page, so the second query for a metro
   is worth less than the first.
+
+- **A CivicPlus city almost never has a garage-sale calendar, so do not scan
+  for one.** The three garage-sale feeds in `ics_sources.json` (Little Elm,
+  Midlothian, Sebastian) all came from `civic` discovery, and the obvious
+  follow-up - discovery drops a category with nothing upcoming at probe time
+  and caps a city at 6, so the seasonal sale categories it walked past should
+  be recoverable - was measured 2026-09-20 over every CivicPlus origin already
+  configured: 472 origins, 423 answered `/iCalendar.aspx` (49 were 403s or
+  timed out), and among them exactly FOUR categories named a garage, yard,
+  rummage, flea or swap sale. Three were the three already configured; the
+  fourth (Glenpool, OK) had nothing upcoming. Zero candidates. The civic walk
+  is already taking every one of these that exists, and the reason the count
+  is tiny is that a city with a garage-sale permit programme publishes it as a
+  permit list, not a calendar. Sale-shaped supply for fleabop comes from
+  neighbourhood associations and swap organisers, not from city calendars -
+  see the two notes above. The Luma search for the same day: eight
+  clothing-swap event pages resolved to eight calendars, two US ones with
+  anything upcoming (A2ZERO, Home Ec NYC), one in Amsterdam with 33.
