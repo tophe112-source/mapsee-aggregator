@@ -34,6 +34,53 @@
   `test_coverage_rows.py` pins the invariants (no type counted twice, no country
   that is a number or a bare ISO code) rather than today's totals.
 
+- **The best location data in the catalog was invisible to the report: 824 of
+  840 surveyed venues read as metro "?".** `_locate` reads a source's NAME and
+  its `geocode_suffix`, and that is all an ics-shaped config carries — but 840
+  entries place themselves with a `venue` block instead, a surveyed OSM point
+  with an address. Measured 2026-09-20: lat/lon on 836 of them, a city on 399,
+  a country on 132, and the report could read none of it. That is 26% of the
+  catalog, and it is every source the venue walk has ever proposed: "Nectar
+  Lounge, Seattle WA" read as metro ?, country ?, which the thin-ground ranker
+  cannot tell apart from a country with no feeds. `_locate_entry` now falls
+  back, in order of how directly the thing was observed — `_metro` (868 of
+  them), the venue's stated city/region/country, then the surveyed point — and
+  metro "?" goes 1,004 -> 133 while country "?" goes 276 -> 219, with ZERO rows
+  moving from one named country to another.
+
+- **A METRO BBOX IS A SWEEP RADIUS, NOT A BORDER, and letting geometry name the
+  country got 24 rows wrong.** The first version of the fallback above took the
+  country from whichever swept metro's bbox contained the venue's point. It
+  located 820 of 824 — and moved Musee de l'Impression sur Etoffes (Mulhouse,
+  `.fr`) into Switzerland via Basel, De Muziekgieterij (Maastricht, `.nl`) into
+  Belgium via Liege, Hans-Peter Porsche TraumWerk (Bavaria, `.de`) into Austria
+  via Salzburg, and three Geneva-adjacent French venues into Switzerland. Every
+  one was a border case the ccTLD already had RIGHT. `_metro` has the same flaw
+  for the same reason: it records which sweep found the venue, not where the
+  venue is. So the rule is split — geometry and provenance may name the METRO,
+  and only a statement ABOUT THE VENUE (its own `venue.country`, or its city and
+  region together) may name the COUNTRY. Everything else still falls through to
+  the ccTLD rescue, which is where it belongs.
+
+- **`_rows_jsonld` must not start calling `_locate`.** Adding the venue fallback
+  to the generic path was safe; wiring the same call into the jsonld expander
+  was not. `_locate` reads a name's parenthetical as a city and defaults it to
+  the United States, so "i45 (industrie 45)" — a club in Zug — became a US
+  metro called "industrie 45". The expander keeps its original country rule
+  (ccTLD, then the US only when the NAME scan found a US metro) and takes only
+  the metro from the new fallback. The US default has to stay keyed to the name
+  scan rather than to the metro, because the metro can now come from a Swiss
+  venue block and "metro is known, therefore American" would then be false.
+
+- **Three registries that are not ccTLDs and still name one country.** `.cat` is
+  Catalonia's sponsored TLD and every holder is in Spain — 14 rows, and it is
+  why the metro table read "Barcelona ?" beside "Barcelona Spain". `.gov` and
+  `.edu` are US-restricted registries; everywhere else uses gov.uk, gov.au,
+  edu.au, ac.uk, which the table already resolves through their real ccTLD. 50
+  rows between them. The surrounding rule still holds for `.org`, `.com`,
+  `.net`, `.eu` and `.social`, which say nothing: those are the 217 rows that
+  remain "?" and they are honest.
+
 - **Six countries the report FLAGged as thin were reachable by no backend at
   all, so the flag could never be closed.** Measured 2026-09-20 by crossing the
   coverage rows against `metros_global.json` and `CITY_CLASSES`: Iceland,

@@ -333,6 +333,80 @@ def t_a_curated_file_the_report_cannot_see_reads_as_a_gap():
           not dupes, f"{dupes}")
 
 
+def t_a_surveyed_venue_is_a_place_the_report_can_read():
+    """840 entries place themselves with a `venue` block rather than a suffix —
+    a surveyed OSM point, which is the BEST location data in the catalog — and
+    `_locate` reads only the name and the geocode suffix. Measured 2026-09-20:
+    824 of those 840 reported metro "?", which is the bucket the thin-ground
+    ranker cannot tell apart from a country with no feeds at all."""
+    e = {"name": "Nectar Lounge",
+         "venue": {"city": "Seattle", "region": "WA", "lat": 47.65, "lon": -122.35}}
+    check("a venue block that STATES its city and state locates the source",
+          C._locate_entry(e, e["name"], "") == ("Seattle", "United States"),
+          str(C._locate_entry(e, e["name"], "")))
+
+    # `_metro` is what the sweep recorded about itself, and its tail is always a
+    # country — never a US state, which is the opposite of a geocode suffix.
+    check("`_metro` is parsed country-first: CA there is Canada, not California",
+          C._parse_metro_field("Winnipeg, CA") == ("Winnipeg", "Canada"),
+          str(C._parse_metro_field("Winnipeg, CA")))
+    check("...and a suffix keeps the opposite rule, because CA there IS California",
+          C._parse_place("Somewhere, CA") == ("Somewhere", "United States"),
+          str(C._parse_place("Somewhere, CA")))
+    check("a spelled-out country in `_metro` reads too",
+          C._parse_metro_field("Bend, United States") == ("Bend", "United States"),
+          str(C._parse_metro_field("Bend, United States")))
+
+    rows = C._coverage_rows()
+    unloc = sum(1 for _t, _n, m, _c, _k in rows if m == "?")
+    check("fewer than a tenth of catalog rows have no metro",
+          unloc < len(rows) / 10, f"{unloc} of {len(rows)}")
+
+
+def t_a_sweep_area_is_not_a_border():
+    """The fallback that nearly shipped: matching a surveyed point to the metro
+    whose bbox contains it, and taking that metro's COUNTRY. A metro bbox is a
+    sweep radius, not a frontier — Basel's covers Alsace and Baden, Liege's
+    reaches Maastricht, Salzburg's reaches Bavaria — and it moved 24 rows to the
+    wrong country, every one a border case the ccTLD had right."""
+    # A point inside a swept metro still names the METRO...
+    e = {"name": "Somewhere", "venue": {"lat": 47.5596, "lon": 7.5886}}   # Basel
+    metro = C._observed_metro(e)
+    check("a surveyed point names the metro that swept it", bool(metro), str(metro))
+    # ...and must NOT name the country.
+    m, c = C._locate_entry(e, e["name"], "")
+    check("...and NEVER the country, so the ccTLD still decides", c == "?",
+          f"geometry claimed {c!r}")
+
+    # The venue's OWN statement is different evidence and may name a country.
+    e2 = {"name": "X", "venue": {"city": "Liege", "country": "BE"}}
+    check("a venue that states its country is believed",
+          C._locate_entry(e2, "X", "")[1] == "Belgium",
+          str(C._locate_entry(e2, "X", "")))
+
+
+def t_jsonld_keeps_its_country_rule_while_gaining_a_metro():
+    """`_rows_jsonld` must not start using `_locate`: that reads a name's
+    parenthetical as a city and defaults it to the US, which turned
+    "i45 (industrie 45)" — a club in Zug — into a US metro called
+    "industrie 45"."""
+    site = {"name": "i45 (industrie 45)", "category": "music",
+            "listing": ["https://i45.ch/events/"],
+            "venue": {"city": "Zug", "lat": 47.1822, "lon": 8.5209},
+            "_metro": "Zurich, CH"}
+    rows = C._rows_jsonld({"sites": [site]})
+    check("a Swiss club stays in Switzerland", rows[0][2] == "Switzerland",
+          str(rows[0]))
+    check("...and gains the metro its venue block knows", rows[0][1] in ("Zug", "Zurich"),
+          str(rows[0]))
+    # The US default is still keyed to the NAME scan, not to the new metro.
+    us = C._rows_jsonld({"sites": [{"name": "Songbyrd Music House (Washington DC)",
+                                    "listing": ["https://songbyrddc.com/events"],
+                                    "category": "music"}]})
+    check("a US metro in the NAME still defaults the country to the US",
+          us[0][2] == "United States", str(us[0]))
+
+
 def main() -> int:
     for t in (t_all_types_lists_each_type_once,
               t_no_source_is_counted_twice,
@@ -347,7 +421,10 @@ def main() -> int:
               t_a_us_state_spelled_out_is_still_the_us_and_is_not_the_metro,
               t_a_two_letter_code_is_never_a_metro,
               t_the_generators_write_a_country_a_reader_can_read,
-              t_a_curated_file_the_report_cannot_see_reads_as_a_gap):
+              t_a_curated_file_the_report_cannot_see_reads_as_a_gap,
+              t_a_surveyed_venue_is_a_place_the_report_can_read,
+              t_a_sweep_area_is_not_a_border,
+              t_jsonld_keeps_its_country_rule_while_gaining_a_metro):
         print(f"\n--- {t.__name__} ---")
         t()
     print()

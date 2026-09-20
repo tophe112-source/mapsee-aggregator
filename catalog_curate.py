@@ -2412,6 +2412,138 @@ def _parse_place(text):
     return _METRO_ALIASES.get(last, last), None
 
 
+# WHAT DISCOVERY WROTE DOWN, and three ways to read it when the suffix cannot.
+#
+# `_locate` reads a source's NAME and its `geocode_suffix`, and that is all the
+# ics-shaped configs carry. But 840 entries place themselves with a `venue`
+# block instead — a surveyed point from OSM, which is BETTER data and was
+# invisible here. Measured 2026-09-20: 824 of those 840 reported metro "?", and
+# the country only survived when a ccTLD happened to rescue it. That is 26% of
+# the catalog, and it includes every source the venue walk has ever proposed:
+# "Nectar Lounge, Seattle WA" read as metro ?, country ?, which is the bucket
+# the thin-ground ranker cannot tell apart from a country with no feeds at all.
+#
+# Three fallbacks, in order of how directly they were OBSERVED:
+#
+#  1. `_metro` — what the sweep recorded about itself, present on 868 of them.
+#     Parsed COUNTRY-FIRST, never by _parse_place: this field is written as
+#     "<metro>, <country>" by _discover_osm and _discover_civic, so its tail is
+#     always a country and never a US state. _parse_place's state branch runs
+#     first by design and reads "Winnipeg, CA" as Winnipeg, California — which
+#     is right for a geocode suffix and wrong for this.
+#  2. The venue's own city/region/country. Present on 399 of 840; a config that
+#     states where it is outranks anything inferred from geometry.
+#  3. The surveyed POINT, matched to a metro this repo sweeps. Nearly complete
+#     — lat/lon is on 836 of 840 — and principled rather than a guess: these
+#     venues were found BY a metro sweep, so the point lies inside that metro's
+#     own bbox. Nearest centre among overlapping boxes, because Washington DC's
+#     100-mile radius reaches into Baltimore's.
+def _parse_metro_field(text):
+    """(metro, country) from a `_metro` provenance string, country-first."""
+    parts = [p.strip() for p in (text or "").split(",") if p.strip()]
+    if not parts:
+        return None, None
+    country = _country_named(parts[-1]) if len(parts) > 1 else None
+    if not country and len(parts) > 1 and re.fullmatch(r"[A-Z]{2}", parts[-1]):
+        country = _ISO_COUNTRY.get(parts[-1])
+    metro = parts[0] if len(parts) > 1 else parts[0]
+    return _METRO_ALIASES.get(metro, metro), country
+
+
+_swept_boxes = None
+
+
+def _swept_metro_for(lat, lon):
+    """The metro this repo sweeps that a surveyed point falls inside."""
+    global _swept_boxes
+    if _swept_boxes is None:
+        try:
+            import catalog_discover_osm as osm
+            _swept_boxes = []
+            for m in osm.metros():
+                s, w, n, e = (float(x) for x in m["bbox"].split(","))
+                _swept_boxes.append((s, w, n, e, (s + n) / 2, (w + e) / 2,
+                                     m["name"], m.get("country_name") or m["country"]))
+        except Exception:                                         # noqa: BLE001
+            _swept_boxes = []                # no metro list: this fallback is off
+    best = None
+    for s, w, n, e, clat, clon, name, country in _swept_boxes:
+        if s <= lat <= n and w <= lon <= e:
+            d = (lat - clat) ** 2 + (lon - clon) ** 2
+            if best is None or d < best[0]:
+                best = (d, name, country)
+    return (best[1], best[2]) if best else (None, None)
+
+
+def _observed_metro(e):
+    """The metro a config entry OBSERVED, in order of how directly: what the
+    sweep recorded about itself, what the venue block states, then which swept
+    metro the surveyed point falls in. Metro only — see _locate_entry."""
+    lat, lon = _venue_point(e.get("venue"))
+    for cand in (_parse_metro_field(e.get("_metro"))[0],
+                 _venue_place(e.get("venue"))[0],
+                 _swept_metro_for(lat, lon)[0] if lat is not None else None):
+        if cand:
+            return cand
+    return None
+
+
+def _locate_entry(e, name, suffix):
+    """(metro, country) for one config entry: the suffix first, then what the
+    sweep observed. Never overrides a value the suffix or the name produced.
+
+    A METRO AND A COUNTRY COME FROM DIFFERENT EVIDENCE HERE, and conflating them
+    is a mistake that ships wrong countries. `_metro` and a bbox match say which
+    SWEEP found the venue, and a sweep area is not a border: Basel's 25km box
+    covers Alsace and Baden, Liege's reaches Maastricht, Salzburg's reaches
+    Bavaria, Geneva's covers Haute-Savoie. Measured 2026-09-20 — letting
+    geometry name the country moved 24 rows to the wrong one, every one of them
+    a border case the ccTLD had right: Musee de l'Impression sur Etoffes
+    (Mulhouse, .fr) to Switzerland, De Muziekgieterij (Maastricht, .nl) to
+    Belgium, Hans-Peter Porsche TraumWerk (Bavaria, .de) to Austria.
+    So: geometry may name the METRO, and only a statement ABOUT THE VENUE — its
+    own `venue.country`, or its city and region together — may name the country.
+    Everything else still falls through to the ccTLD rescue in _coverage_rows,
+    which is where it belongs.
+    """
+    metro, country = _locate(name, suffix)
+    if metro != "?" and country != "?":
+        return metro, country
+    v_metro, v_country = _venue_place(e.get("venue"))
+    if country == "?" and v_country:
+        country = v_country
+    if metro == "?":
+        metro = _observed_metro(e) or "?"
+    return metro, country
+
+
+def _venue_point(venue):
+    v = venue or {}
+    try:
+        return float(v["lat"]), float(v["lon"])
+    except (KeyError, TypeError, ValueError):
+        return None, None
+
+
+def _venue_place(venue):
+    """(metro, country) a `venue` block STATES, as opposed to implies."""
+    v = venue or {}
+    if not v:
+        return None, None
+    country = None
+    if v.get("country"):
+        iso = str(v["country"]).upper()
+        country = _ISO_COUNTRY.get(iso) if len(iso) == 2 else None
+        country = country or _country_named(str(v["country"])) or None
+    metro = v.get("city") or None
+    if metro and not country and v.get("region"):
+        # "City, Region" is the shape _parse_place already reads, and a US state
+        # there is a state — this is a venue's own address, not a country code.
+        m2, c2 = _parse_place(f"{v['city']}, {v['region']}")
+        metro, country = m2 or metro, c2
+    return (_METRO_ALIASES.get(metro, metro) if metro else None), country
+
+
 def _name_paren(name):
     """The '(City...)' suffix curators put in source names, if any."""
     m = re.search(r"\(([^()]+)\)\s*$", name or "")
@@ -2477,6 +2609,14 @@ _TLD_COUNTRY = {
     "se": "SE", "no": "NO", "dk": "DK", "fi": "FI", "at": "AT", "pl": "PL",
     "pt": "PT", "cz": "CZ", "mx": "MX", "in": "IN", "jp": "JP", "kr": "KR",
     "sg": "SG", "hk": "HK", "ae": "AE", "za": "ZA",
+    # THREE THAT ARE NOT ccTLDs AND STILL NAME ONE COUNTRY. The rule above is
+    # right that .org and .eu say nothing; these three are not that. `.cat` is
+    # Catalonia's sponsored TLD and every holder is in Spain — 14 rows, and it
+    # is why the metro table read "Barcelona ?" beside "Barcelona Spain".
+    # `.gov` and `.edu` are US-restricted registries: everywhere else is
+    # gov.uk, gov.au, edu.au, ac.uk, which this table already resolves through
+    # their real ccTLD. 50 rows between them, measured 2026-09-20.
+    "cat": "ES", "gov": "US", "edu": "US",
 }
 
 _ISO_COUNTRY = {
@@ -2613,13 +2753,29 @@ def _rows_market(data):
 
 
 def _rows_jsonld(data):
+    """jsonld sites place themselves with a `venue` block, not a suffix — 235 of
+    the 239 carry one and this expander could read none of it, so "Songbyrd
+    Music House" (Washington DC) and "Chiswick House" (London) both arrived as
+    metro "?".
+
+    THE COUNTRY RULE IS UNCHANGED ON PURPOSE. It is the ccTLD, then the US only
+    when the NAME held a US metro — and that last clause has to stay keyed to
+    the name scan rather than to the metro below it, because the metro can now
+    come from a Swiss venue block and "metro is known, therefore American" would
+    then be false. `_locate` is not used here at all: it reads a name's
+    parenthetical as a city and defaults it to the US, which turns
+    "i45 (industrie 45)" into a US metro called "industrie 45".
+    """
     out = []
     for e in data.get("sites", []):
         name = e.get("name") or "?"
-        metro = _scan_name_metro(name) or "?"
+        us_metro = _scan_name_metro(name)
+        metro = us_metro or _observed_metro(e) or "?"
         country = _url_country((e.get("listing") or [None])[0])
         if not country:
-            country = "United States" if metro != "?" else "?"
+            country = _venue_place(e.get("venue"))[1]
+        if not country:
+            country = "United States" if us_metro else "?"
         out.append((name, metro, country, e.get("category") or "?"))
     return out
 
@@ -2893,7 +3049,7 @@ def _coverage_rows():
         for e in _entries(fname, json.load(open(p, encoding="utf-8"))):
             name = e.get("name") or "?"
             suffix = e.get("geocode_suffix") or ""
-            metro, country = _locate(name, suffix)
+            metro, country = _locate_entry(e, name, suffix)
             if metro == "?":
                 hit = _scan_name_metro(name)
                 if hit:
