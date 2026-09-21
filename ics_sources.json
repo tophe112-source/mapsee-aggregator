@@ -13475,5 +13475,32 @@
       "lat": 44.9429311,
       "lon": -93.2813719
     }
+  },
+  {
+    "name": "Teatro Biblioteca Quarticciolo",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager",
+    "url": "https://teatriincomune.roma.it/prossimi-eventi/?ical=1",
+    "geocode_suffix": ", Roma",
+    "limit": 300,
+    "_metro": "Rome, Italy"
+  },
+  {
+    "name": "Bibliotheca Hertziana",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.biblhertz.it/en/events.ics",
+    "geocode_suffix": ", Rome, Italy",
+    "limit": 300,
+    "_metro": "Rome, Italy"
+  },
+  {
+    "name": "Mudec - Museo delle Culture",
+    "category": "arts",
+    "_found": "osm:gallery -> events-manager+ics",
+    "url": "https://www.mudec.it/events/comunita-di-destini/ical/",
+    "geocode_suffix": ", Milano",
+    "limit": 300,
+    "_metro": "Milan, Italy"
   }
 ]

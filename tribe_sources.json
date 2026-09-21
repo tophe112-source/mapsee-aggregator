@@ -9040,6 +9040,248 @@
       "within_days": 180,
       "_found": "manual: Olympia metro request -> tribe REST",
       "_metro": "Olympia, WA"
+    },
+    {
+      "name": "Cento Incroci",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://centoincroci.regione.lazio.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cento Incroci",
+        "address": "158 Via delle Palme",
+        "postal_code": "00172",
+        "lat": 41.8902818,
+        "lon": 12.5704826
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "MuCaM - Museo civico archeologico di Mentana e dell'agro nomentano",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.poloculturalementana.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "MuCaM - Museo civico archeologico di Mentana e dell'agro nomentano",
+        "address": "1 Piazza Giuseppe Garibaldi",
+        "city": "Mentana",
+        "postal_code": "00013",
+        "lat": 42.0342332,
+        "lon": 12.6373319
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Libreria GRIOT",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://libreriagriot.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Libreria GRIOT",
+        "address": "1/A Via di Santa Cecilia",
+        "city": "Roma",
+        "postal_code": "00153",
+        "lat": 41.8875858,
+        "lon": 12.4773005
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Galactus",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://galactus.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Galactus",
+        "address": "27 Via Gualdo Tadino",
+        "city": "Roma",
+        "postal_code": "00181",
+        "country": "IT",
+        "lat": 41.8768062,
+        "lon": 12.5279345
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Museo dell'Olio",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.villacavalletti.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museo dell'Olio",
+        "address": "73 Via Ventiquattro Maggio",
+        "city": "Grottaferrata",
+        "postal_code": "00046",
+        "lat": 41.794977,
+        "lon": 12.6777838
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Chiesa di Santa Maria in Transpontina",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.parrocchiatraspontina.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chiesa di Santa Maria in Transpontina",
+        "address": "Via della Conciliazione",
+        "city": "Roma",
+        "lat": 41.9028241,
+        "lon": 12.4622048
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Chiesa di Santa Maria del Suffragio",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.luiginovarese.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chiesa di Santa Maria del Suffragio",
+        "lat": 41.8978683,
+        "lon": 12.4664095
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Chiesa di Santi Mario e Compagni Martiri",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.parrocchiasanmario.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chiesa di Santi Mario e Compagni Martiri",
+        "address": "245 Via del Ponte delle Sette Miglia",
+        "city": "Roma",
+        "postal_code": "00173",
+        "lat": 41.8439438,
+        "lon": 12.6027568
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Forum Austriaco di Cultura",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.austriacult.roma.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Forum Austriaco di Cultura",
+        "address": "113 Viale Bruno Buozzi",
+        "city": "Roma",
+        "postal_code": "00197",
+        "lat": 41.9189687,
+        "lon": 12.4785977
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Parrocchia Santa Maddalena di Canossa",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.parrocchiasantamaddalenadicanossa.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parrocchia Santa Maddalena di Canossa",
+        "address": "84 Via della Lucchina",
+        "lat": 41.959204,
+        "lon": 12.4002437
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Antiquarium Forense",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://colosseo.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Antiquarium Forense",
+        "lat": 41.8910776,
+        "lon": 12.4893205
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Santi Marcellino e Pietro al Laterano",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.diocesidiroma.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Santi Marcellino e Pietro al Laterano",
+        "lat": 41.8890461,
+        "lon": 12.5030197
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Autodromo Nazionale di Monza",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.monzanet.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Autodromo Nazionale di Monza",
+        "address": "5 Viale Vedano",
+        "city": "Monza",
+        "postal_code": "20900",
+        "country": "IT",
+        "lat": 45.6191059,
+        "lon": 9.282641
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Kasa dei Libri",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://www.eventiatmilano.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kasa dei Libri",
+        "address": "4 Largo Aldo De Benedetti",
+        "lat": 45.4858312,
+        "lon": 9.1945712
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "BASE Milano",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://base.milano.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BASE Milano",
+        "address": "26 Via Bergognone Da Fossano",
+        "city": "Milano",
+        "postal_code": "20144",
+        "lat": 45.4531125,
+        "lon": 9.1636486
+      },
+      "_metro": "Milan, Italy"
     }
   ],
   "_not_included": {

@@ -4205,6 +4205,173 @@
         "lon": 12.5159118
       },
       "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Cinema Troisi Aula Studio",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://cinematroisi.it/biglietti/"
+      ],
+      "link_pattern": "https://cinematroisi\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Cinema Troisi Aula Studio",
+        "address": "1 Via Girolamo Induno",
+        "city": "Roma",
+        "postal_code": "00153",
+        "lat": 41.8849389,
+        "lon": 12.4716306
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Istituto Figlie di Santa Maria della Divina Provvidenza „Casa Santa Rosa“",
+      "category": "community",
+      "_found": "osm:social_facility -> wix+jsonld-event",
+      "listing": [
+        "https://www.casasantarosa.it/event-details/codis-2026"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Istituto Figlie di Santa Maria della Divina Provvidenza „Casa Santa Rosa“",
+        "address": "205 Via Appia Antica",
+        "lat": 41.8401312,
+        "lon": 12.5372399
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Bioparco",
+      "category": "outdoors",
+      "_found": "osm:zoo -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.bioparco.it/attivita-ed-eventi/"
+      ],
+      "link_pattern": "https://www\\.bioparco\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bioparco",
+        "lat": 41.9176257,
+        "lon": 12.487302
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Basilica dei Santi XII Apostoli",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.santiapostoli.it/"
+      ],
+      "link_pattern": "https://www\\.santiapostoli\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Basilica dei Santi XII Apostoli",
+        "lat": 41.8980823,
+        "lon": 12.4834737
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Teatro Giuditta Pasta",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.teatrogiudittapasta.it/"
+      ],
+      "link_pattern": "https://www\\.teatrogiudittapasta\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Teatro Giuditta Pasta",
+        "address": "Via Primo Maggio",
+        "city": "Saronno",
+        "postal_code": "21047",
+        "lat": 45.6255985,
+        "lon": 9.026704
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Gate",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.gatemilano.it/events"
+      ],
+      "link_pattern": "https://www\\.gatemilano\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gate",
+        "address": "21 Via Valtellina",
+        "city": "Milano",
+        "postal_code": "20159",
+        "country": "IT",
+        "lat": 45.4943778,
+        "lon": 9.1819083
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "RED la Feltrinelli",
+      "category": "community",
+      "_found": "osm:cafe -> jsonld-event",
+      "listing": [
+        "https://www.lafeltrinelli.it/eventi/Mi574-00007/milano/fl-milano-porta-nuova"
+      ],
+      "link_pattern": "https://www\\.lafeltrinelli\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "RED la Feltrinelli",
+        "address": "3 Piazza Gae Aulenti",
+        "city": "Milano",
+        "postal_code": "20154",
+        "country": "IT",
+        "lat": 45.4836952,
+        "lon": 9.1899586
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Teatro Verdi",
+      "category": "theater",
+      "_found": "osm:theatre -> wix+jsonld-event",
+      "listing": [
+        "https://www.teatrodelburatto.com/event-details/bu-1-4"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Teatro Verdi",
+        "address": "16 Via Pastrengo",
+        "city": "Milano",
+        "postal_code": "20159",
+        "lat": 45.4867884,
+        "lon": 9.1858606
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Pianoterra Lab",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.pianoterralab.org/calendario/"
+      ],
+      "link_pattern": "https://www\\.pianoterralab\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pianoterra Lab",
+        "address": "3 Via Federico Confalonieri",
+        "city": "Milano",
+        "country": "IT",
+        "lat": 45.4865452,
+        "lon": 9.1899719
+      },
+      "_metro": "Milan, Italy"
     }
   ],
   "_not_included": {
