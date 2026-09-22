@@ -4391,6 +4391,145 @@
         "lon": 24.8096354
       },
       "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Bloom",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://bloomnet.org/calendario/2598/domenica-25-ottobre-2026-emergency-day"
+      ],
+      "link_pattern": "https://bloomnet\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bloom",
+        "address": "39 Via Eugenio Curiel",
+        "city": "Mezzago",
+        "postal_code": "20883",
+        "lat": 45.6310178,
+        "lon": 9.4419631
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Scamamù",
+      "category": "learning",
+      "_found": "osm:books -> modern-events+jsonld-event",
+      "listing": [
+        "https://scamamu.it/calendario/"
+      ],
+      "link_pattern": "https://scamamu\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Scamamù",
+        "address": "28 Via Bernardo Davanzati",
+        "postal_code": "20158",
+        "lat": 45.5039799,
+        "lon": 9.1743278
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Casa degli artisti",
+      "category": "arts",
+      "_found": "osm:arts_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.casadegliartisti.org/programma-news/"
+      ],
+      "link_pattern": "https://www\\.casadegliartisti\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Casa degli artisti",
+        "lat": 45.4767357,
+        "lon": 9.1833517
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "CineTeatro Pax",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.cineteatropax.it/events/"
+      ],
+      "link_pattern": "https://www\\.cineteatropax\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "CineTeatro Pax",
+        "address": "4 Vicolo Fiume",
+        "city": "Cinisello Balsamo",
+        "postal_code": "20092",
+        "lat": 45.5564849,
+        "lon": 9.2169222
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "La Feltrinelli Express",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.lafeltrinelli.it/eventi/FI503-00017/napoli/ls-napoli"
+      ],
+      "link_pattern": "https://www\\.lafeltrinelli\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "La Feltrinelli Express",
+        "address": "Piazza Giuseppe Garibaldi",
+        "city": "Napoli",
+        "postal_code": "80142",
+        "lat": 40.8520352,
+        "lon": 14.2723098
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "Teatro Sannazaro",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.teatrosannazaro.it/event/"
+      ],
+      "link_pattern": "https://www\\.teatrosannazaro\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Teatro Sannazaro",
+        "lat": 40.8360558,
+        "lon": 14.2433462
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "Il giardino liberato di Materdei",
+      "category": "outdoors",
+      "_found": "osm:garden -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.giardinoliberato.org/calendario/"
+      ],
+      "link_pattern": "https://www\\.giardinoliberato\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Il giardino liberato di Materdei",
+        "lat": 40.8545698,
+        "lon": 14.2479565
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "Lavanderia a Vapore",
+      "category": "theater",
+      "_found": "osm:theatre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.lavanderiaavapore.eu/events/"
+      ],
+      "link_pattern": "https://www\\.lavanderiaavapore\\.eu/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lavanderia a Vapore",
+        "lat": 45.0835998,
+        "lon": 7.5817778
+      },
+      "_metro": "Turin, Italy"
     }
   ],
   "_not_included": {

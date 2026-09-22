@@ -81,6 +81,17 @@
       "default_city": "Carbondale",
       "default_region": "IL",
       "default_country": "US"
+    },
+    {
+      "name": "Casa Occupata Gorizia",
+      "category": "arts",
+      "_found": "osm:arts_centre -> gancio",
+      "base_url": "https://puntello.org",
+      "within_days": 180,
+      "max": 500,
+      "default_city": "Milano",
+      "default_country": null,
+      "_metro": "Milan, Italy"
     }
   ],
   "_tried_and_dead": {

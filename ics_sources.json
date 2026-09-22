@@ -13529,5 +13529,14 @@
     "geocode_suffix": ", Graz",
     "limit": 300,
     "_metro": "Graz, Austria"
+  },
+  {
+    "name": "Museo Branca",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.museobranca.it/?ical=1",
+    "geocode_suffix": ", Milano",
+    "limit": 300,
+    "_metro": "Milan, Italy"
   }
 ]

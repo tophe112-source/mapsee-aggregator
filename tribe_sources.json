@@ -9330,6 +9330,409 @@
         "lon": 24.5834095
       },
       "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Extasià",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://extasiadiscotopless.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Extasià",
+        "address": "7 Largo Augusto",
+        "city": "Milano",
+        "postal_code": "20122",
+        "country": "IT",
+        "lat": 45.4634962,
+        "lon": 9.1985178
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Teatro Ringhiera",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.atirteatroringhiera.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro Ringhiera",
+        "address": "17 Via Pietro Boifava",
+        "city": "Milano",
+        "postal_code": "20142",
+        "lat": 45.4272007,
+        "lon": 9.1747759
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Spazio Culturale SC3 Milano",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://www.sc3milano.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Spazio Culturale SC3 Milano",
+        "address": "3 Via Scutari",
+        "city": "Milano",
+        "postal_code": "20127",
+        "lat": 45.4986543,
+        "lon": 9.2325582
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Libri al Banco",
+      "category": "community",
+      "_found": "osm:cafe -> tribe+jsonld-event+ics",
+      "base_url": "https://www.librialbanco.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Libri al Banco",
+        "address": "65 Via Camillo Benso Conte di Cavour",
+        "city": "Vimercate",
+        "postal_code": "20871",
+        "lat": 45.6132722,
+        "lon": 9.3741064
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "C.I.Q. – Centro Internazionale di Quartiere",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ciqmilano.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "C.I.Q. – Centro Internazionale di Quartiere",
+        "address": "19 Via Fabio Massimo",
+        "city": "Milano",
+        "postal_code": "20139",
+        "lat": 45.4349161,
+        "lon": 9.2279117
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Ambrosianeum",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event",
+      "base_url": "https://ambrosianeum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ambrosianeum",
+        "address": "3 Via delle Ore",
+        "city": "Milano",
+        "postal_code": "20122",
+        "lat": 45.4628939,
+        "lon": 9.1925617
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Magazzini Generali",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://www.magazzinigenerali.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Magazzini Generali",
+        "address": "16 Via Pietrasanta",
+        "city": "Milano",
+        "postal_code": "20141",
+        "lat": 45.4440969,
+        "lon": 9.1952615
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Pacta Salone",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.pacta.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pacta Salone",
+        "address": "7 Via Ulisse Dini",
+        "city": "Milano",
+        "postal_code": "20142",
+        "lat": 45.4290193,
+        "lon": 9.1798393
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Gruppo Archeologico Milanese",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://archeomilanese.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gruppo Archeologico Milanese",
+        "address": "8c Corso Lodi",
+        "city": "Milano",
+        "postal_code": "20135",
+        "lat": 45.4503868,
+        "lon": 9.2045697
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Circolo ARCI Bellezza",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://arcibellezza.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Circolo ARCI Bellezza",
+        "address": "16/A Via Giovanni Bellezza",
+        "city": "Milano",
+        "postal_code": "20136",
+        "lat": 45.4487253,
+        "lon": 9.1950129
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "San Nicola Vescovo",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+ics",
+      "base_url": "https://www.dergano.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "San Nicola Vescovo",
+        "address": "21 Via Livigno",
+        "postal_code": "20158",
+        "lat": 45.5022331,
+        "lon": 9.1772582
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Santuario della Beata Vergine dei Miracoli",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chiesadisaronno.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Santuario della Beata Vergine dei Miracoli",
+        "address": "1 Piazza Santuario",
+        "city": "Saronno",
+        "postal_code": "21047",
+        "country": "IT",
+        "lat": 45.6262564,
+        "lon": 9.0255719
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Palestra Grande (II.7.1)",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe",
+      "base_url": "https://pompeiisites.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Palestra Grande (II.7.1)",
+        "lat": 40.7507366,
+        "lon": 14.493894
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "Tempio Ten Shin",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.tenshin.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tempio Ten Shin",
+        "address": "429 Via Terracina",
+        "lat": 40.8304477,
+        "lon": 14.1886568
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "Cinema Vittoria",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cinemavittoriaaversa.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cinema Vittoria",
+        "address": "38-39 Piazza Vittorio Emanuele III",
+        "city": "Aversa",
+        "postal_code": "81031",
+        "lat": 40.9731551,
+        "lon": 14.2095824
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "Teatro Cilea",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://teatrocilea.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro Cilea",
+        "address": "11 Via San Domenico",
+        "city": "Napoli",
+        "postal_code": "80127",
+        "lat": 40.8399872,
+        "lon": 14.2161263
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "FOQUS Napoli",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+events-manager+jsonld-event+ics",
+      "base_url": "https://www.foqusnapoli.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FOQUS Napoli",
+        "address": "69 Via Portacarrese a Montecalvario",
+        "city": "Napoli",
+        "postal_code": "80132",
+        "lat": 40.8425233,
+        "lon": 14.2456441
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "Circuito Internazionale Napoli",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://circuitointernazionalenapoli.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Circuito Internazionale Napoli",
+        "address": "Via Sarno-Palma",
+        "city": "Sarno",
+        "postal_code": "84087",
+        "lat": 40.8361735,
+        "lon": 14.566481
+      },
+      "_metro": "Naples, Italy"
+    },
+    {
+      "name": "Fondazione Sandretto Re Rebaudengo",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://fsrr.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fondazione Sandretto Re Rebaudengo",
+        "address": "16 Via Modane",
+        "city": "Torino",
+        "postal_code": "10141",
+        "lat": 45.0573955,
+        "lon": 7.6523348
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Camera - Centro Italiano per la fotografia",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe",
+      "base_url": "https://camera.to",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Camera - Centro Italiano per la fotografia",
+        "address": "18 Via delle Rosine",
+        "city": "Torino",
+        "postal_code": "10123",
+        "lat": 45.0642368,
+        "lon": 7.6907554
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Gruppo Archeologico Torinese",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.archeogat.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gruppo Archeologico Torinese",
+        "address": "6e Via Santa Maria",
+        "city": "Torino",
+        "postal_code": "10122",
+        "lat": 45.072126,
+        "lon": 7.6778443
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Museo d'Arte Contemporanea",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.castellodirivoli.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museo d'Arte Contemporanea",
+        "address": "1 Piazzale Mafalda di Savoia",
+        "city": "Rivoli",
+        "postal_code": "10098",
+        "lat": 45.0696601,
+        "lon": 7.5102969
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Munlab Ecomuseo dell'Argilla",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.munlabtorino.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Munlab Ecomuseo dell'Argilla",
+        "address": "50 Via Camporelle",
+        "city": "Cambiano",
+        "postal_code": "10020",
+        "lat": 44.9770084,
+        "lon": 7.7870586
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Libreria Therese",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://www.libreriatherese.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Libreria Therese",
+        "address": "49 bis/A Corso Belgio",
+        "postal_code": "10153",
+        "lat": 45.0724244,
+        "lon": 7.7090769
+      },
+      "_metro": "Turin, Italy"
     }
   ],
   "_not_included": {
