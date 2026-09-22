@@ -26,7 +26,13 @@
   element list now NAMES the selectors it holds (`kinds` in the blob) and
   misses on a change, so the `-vN` cache bump is belt and braces from v3 on —
   the DC blob from the day before still held 11,324 elements and not one
-  library. The SCHEDULES half of the ask lives in discovery, not here:
+  library. The whole catalogue got the four Kinds on 2026-09-22 in three
+  dispatches (`shard=1,2,3`, `4,5`, then `only=Tokyo max_places=6000` because
+  Tokyo's **5,049** beat the 4,000 window): **260 areas, 143,565 candidates,
+  116,818 rows upserted** in about 2.5 hours, no area unread. Upserts are
+  fewer than candidates because hub boxes overlap (Yokohama 3,835 candidates,
+  910 written — the rest were Tokyo's, already in). The SCHEDULES half of the
+  ask lives in discovery, not here:
   `catalog_curate.py discover osm --kinds community_centre,library` walks the
   same buildings for their own calendars (`docs/agents/curation-and-discovery.md`).
 
