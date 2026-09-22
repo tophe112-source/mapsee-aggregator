@@ -198,6 +198,11 @@
   "metro_key": "IT:Milan",
   "stuck": {}
  },
+ "osm|community_centre,library": {
+  "metro": 31,
+  "metro_key": "ES:Barcelona",
+  "stuck": {}
+ },
  "socrata": {
   "art events": 0,
   "community events": 0,

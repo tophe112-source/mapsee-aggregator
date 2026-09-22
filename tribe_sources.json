@@ -9282,6 +9282,54 @@
         "lon": 9.1636486
       },
       "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Suomen somalialaisten liitto",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://somaliliitto.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Suomen somalialaisten liitto",
+        "address": "2 Haukilahdenkatu",
+        "city": "Helsinki",
+        "postal_code": "00550",
+        "lat": 60.1988555,
+        "lon": 24.964253
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Humallahden Venekerho HVK",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://hooveekoo.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Humallahden Venekerho HVK",
+        "address": "6 Rajasaarenpenger",
+        "city": "Helsinki",
+        "postal_code": "00250",
+        "lat": 60.1818658,
+        "lon": 24.9090056
+      },
+      "_metro": "Helsinki, Finland"
+    },
+    {
+      "name": "Karjakaivon ylämaja",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lapinkavijat.fi",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Karjakaivon ylämaja",
+        "lat": 60.2978794,
+        "lon": 24.5834095
+      },
+      "_metro": "Helsinki, Finland"
     }
   ],
   "_not_included": {

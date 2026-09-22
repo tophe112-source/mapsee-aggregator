@@ -4372,6 +4372,25 @@
         "lon": 9.1899719
       },
       "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Sellon kirjasto",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.espoo.fi/fi/tapahtumat/espooevents:agpblfl3i4"
+      ],
+      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sellon kirjasto",
+        "address": "9 Leppävaarankatu",
+        "city": "Espoo",
+        "postal_code": "02600",
+        "lat": 60.2175877,
+        "lon": 24.8096354
+      },
+      "_metro": "Helsinki, Finland"
     }
   ],
   "_not_included": {

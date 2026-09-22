@@ -13502,5 +13502,32 @@
     "geocode_suffix": ", Milano",
     "limit": 300,
     "_metro": "Milan, Italy"
+  },
+  {
+    "name": "Lokalhus Syd",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar",
+    "url": "https://lokalhuset.dk/?feed=my-calendar-ics",
+    "geocode_suffix": ", Copenhagen, Denmark",
+    "limit": 300,
+    "_metro": "Copenhagen, Denmark"
+  },
+  {
+    "name": "KVIC Brno-Vinohrady",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.kvicvinohradybrno.cz/?ical=1",
+    "geocode_suffix": ", Brno",
+    "limit": 300,
+    "_metro": "Brno, Czechia"
+  },
+  {
+    "name": "feel free",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/rosalilapantherinnen%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Graz",
+    "limit": 300,
+    "_metro": "Graz, Austria"
   }
 ]
