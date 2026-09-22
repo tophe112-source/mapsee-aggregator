@@ -53,6 +53,7 @@ Usage:
   # flags (main() reads argv[2:3]); omitted means socrata.
   python catalog_curate.py discover [socrata|ckan|mobilizon|osm|civic] [--limit 400]
          [--out candidates.json] [--metros N]      # --metros: osm only
+         [--kinds community_centre,library]        # osm only: pin the walk to these OSM kinds
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
@@ -1415,8 +1416,17 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
 
 
 def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
-                  deadline=0.0):
+                  deadline=0.0, kinds=()):
     """Propose venue calendars found on the map. See catalog_discover_osm.py.
+
+    `kinds` PINS the walk to named OSM kinds — `community_centre,library` —
+    and the caller gives a pinned walk its own cursor slot, because it is a
+    different walk: the full sweep covers three metros a day and had reached
+    metro 42 (Milan) after a month, and "the schedule of every community
+    centre" is a question about ALL 260 hubs that cannot wait for it. A pinned
+    metro costs a fraction of a full one (DC: 198 community-centre sites
+    against ~600 of every kind) and the ledger it writes into is shared, so
+    nothing is probed twice.
 
     The ledger does more work here than in the other backends. A metro has
     hundreds of venues with a website and most of them have no calendar we can
@@ -1493,7 +1503,10 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         # the coverage report, neither of which knows what CH is. The cursor
         # still keys on the CODE via metro_key, so this does not move the walk.
         label = f"{m['name']}, {m.get('country_name') or m['country']}"
-        venues = osm.overpass_venues(session, m["bbox"], label)
+        # The keyword only when pinned, so an unpinned walk is the call it always
+        # was (test_discover_osm stubs it with three positionals).
+        venues = osm.overpass_venues(session, m["bbox"], label,
+                                     **({"kinds": kinds} if kinds else {}))
         if venues is None:
             n = int(stuck.get(key, 0)) + 1
             stuck[key] = n
@@ -1705,7 +1718,7 @@ def _discover_mobilizon(session, seen_keys, led, limit):
 
 
 def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
-                 metros=None, max_minutes=0.0):
+                 metros=None, max_minutes=0.0, kinds=()):
     """`only` pins the sweep to specific lens categories.
 
     Without it the budget is spent thinnest-category-first across every query,
@@ -1719,7 +1732,11 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
     session = _session()
     cats = curated_categories(session)
     all_cursors = _load_cursor()
-    cursor = all_cursors.setdefault(backend, {})
+    # A kind-pinned osm walk is a different walk and keeps its own place —
+    # see _discover_osm. `osm|community_centre,library`, so the slot names
+    # what it is walking for.
+    slot = backend if not (backend == "osm" and kinds) else f"osm|{','.join(kinds)}"
+    cursor = all_cursors.setdefault(slot, {})
     src = "mapsee.me/api/lenses" if CURATED_FROM_LIVE else "committed fallback"
     print(f"targets via {src}: {', '.join(cats)}")
     if only:
@@ -1754,9 +1771,12 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
                   "category-pinned run)")
             found, skipped = {}, {}
         else:
+            if kinds:
+                print(f"  pinned to OSM kinds: {', '.join(kinds)} (cursor slot {slot!r})")
             found, skipped = _discover_osm(
                 session, seen_keys, led, limit, cursor, metros_per_run=metros,
-                deadline=(time.time() + max_minutes * 60) if max_minutes > 0 else 0.0)
+                deadline=(time.time() + max_minutes * 60) if max_minutes > 0 else 0.0,
+                kinds=kinds)
     elif backend == "civic":
         # Geographic like osm, and for the same reason category-pinning does not
         # apply: what a town programmes is not knowable from its population.
@@ -1777,7 +1797,7 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
         queries = _order_queries(_filter_queries(DISCOVER_QUERIES, only), cats)
         found, skipped = _discover_socrata(session, seen_keys, led, limit, cursor, queries)
 
-    all_cursors[backend] = cursor
+    all_cursors[slot] = cursor
     _save_cursor(all_cursors)
     out_list = list(found.values())[:limit]
     json.dump(out_list, open(out, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
@@ -3430,8 +3450,14 @@ def main(argv):
         # website, against servers we do not control. 0 = no limit.
         mm = (float(argv[argv.index("--max-minutes") + 1])
               if "--max-minutes" in argv else 0.0)
+        # osm only: pin the walk to these OSM kinds (`community_centre,library`)
+        # — its own cursor, its own pace. See _discover_osm.
+        kinds = ()
+        if "--kinds" in argv:
+            kinds = tuple(k.strip() for k in argv[argv.index("--kinds") + 1].split(",")
+                          if k.strip())
         return cmd_discover(limit=lim, out=out, backend=backend, only=only,
-                            metros=metros, max_minutes=mm)
+                            metros=metros, max_minutes=mm, kinds=kinds)
     if cmd == "cityclass":
         # Every configured country, or the ones named: `cityclass CH DE`.
         return cmd_cityclass(tuple(a for a in argv[2:] if not a.startswith("-")))

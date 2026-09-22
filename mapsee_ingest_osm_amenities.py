@@ -54,6 +54,23 @@ asks a map, and each is free at the point of use:
     social_facility=food_bank         4,938    volunteer
     amenity=give_box                  1,478    community (free/community fridges)
 
+Two more came later with their own measurements beside them in KINDS:
+`amenity=toilets` (519,045) and `leisure=swimming_pool` narrowed to public
+access. And on 2026-09-21 four BUILDINGS, measured against taginfo the same
+way and against six hubs before they were added (the numbers are on the Kinds):
+
+    amenity=community_centre        220,967    community
+    amenity=library                 113,107    learning
+    amenity=marketplace              98,624    market
+    leisure=dog_park                 30,793    outdoors
+
+Those four are the first Kinds here that are not furniture at all. They are
+places somebody GOES, they can be shut, and three of them carry a programme —
+which is why the same tags that pin them are what catalog_discover_osm.py
+sweeps for a venue's own calendar (`discover osm --kinds community_centre`).
+See the comment on them in KINDS for why they list, and what that does to the
+"deliberately one selector" rule below.
+
 NOTE `social_facility=food_bank` AND NOT `amenity=food_bank`. The latter exists
 and has 16 uses worldwide; the former has 4,938. Reaching for the obvious key
 would have produced an adapter that ran clean, reported success and imported
@@ -137,7 +154,7 @@ class Kind:
 
     def __init__(self, key, value, category, noun, glyph, secondary=(),
                  always_open=True, always_list=False, bare_is_enough=True,
-                 extra="", public_only=False):
+                 extra="", public_only=False, refuse=None):
         self.key, self.value = key, value
         # AN EXTRA OVERPASS FILTER, because one selector is not always a
         # category. Every other Kind here describes a thing that is civic by
@@ -153,6 +170,13 @@ class Kind:
         # access: if the tag that made a row eligible is not on the row that
         # came back, the row is dropped rather than trusted.
         self.public_only = public_only
+        # THE SAME SECOND GUARD, FOR A FILTER THAT IS NOT "access=public".
+        # `public_only` is one specific question; `extra` can ask any question
+        # of Overpass, and every question it asks has to be asked again of the
+        # element that came back, for the reason above. A callable on the tags
+        # that returns True to DROP the element — `None` for the Kinds whose
+        # query has no extra filter to re-check.
+        self.refuse = refuse
         self.category, self.noun, self.glyph = category, noun, glyph
         self.secondary = list(secondary)
         # IS "NO HOURS TAGGED" THE SAME AS "NEVER CLOSES"?
@@ -209,6 +233,16 @@ class Kind:
         return f"{self.key}={self.value}"
 
 
+# The restrictive `access` values, as an Overpass filter and as the Python
+# re-check of it (see Kind.refuse). Kept beside KINDS because KINDS is what
+# reads them; _ACCESS below is the same four values, spelled for the sheet.
+_NOT_PRIVATE = '["access"!~"^(private|no|customers|permit)$"]'
+
+
+def _is_private(tags) -> bool:
+    return str(tags.get("access") or "").strip().lower() in ("private", "no", "customers", "permit")
+
+
 KINDS = [
     Kind("leisure", "playground", "kids", "playground", "🛝", ["outdoors"]),
     Kind("tourism", "artwork", "arts", "public artwork", "🎨",
@@ -247,6 +281,68 @@ KINDS = [
     Kind("leisure", "swimming_pool", "fitness", "public swimming pool", "🏊",
          ["outdoors"], always_open=False, always_list=True,
          extra='["access"~"^(yes|public|permissive)$"]', public_only=True),
+    # FOUR BUILDINGS, and the first Kinds here that are not furniture.
+    #
+    # Asked for on 2026-09-21 as "free community activities anyone can find,
+    # anywhere": the answer that scales to every country on the same day is
+    # not a feed somebody publishes, it is the civic building itself, which
+    # OSM has already surveyed everywhere. Measured that day, per hub box
+    # (25 miles; Washington DC 35), as total / carrying opening_hours / with
+    # a website:
+    #
+    #   community_centre  DC 586/43/198   Seattle 239/41/90   London 1,926/70/441
+    #                     Berlin 1,073/359/692   Mexico City 549/26/167   Mumbai 73/3/3
+    #   library           DC 295/180/265  Seattle 143/121/126 London 604/238/205
+    #                     Berlin 258/196/164     Mexico City 296/27/7     Mumbai 57/14/2
+    #   marketplace       DC 110/61/44    Seattle 42/28/17    London 194/109/94
+    #                     Berlin 136/123/49      Mexico City 579/76/3     Mumbai 103/4/0
+    #   dog_park          DC 334/11/21    Seattle 140/4/24    London 124/1/12
+    #                     Berlin 93/4/22         Mexico City 34/1/0       Mumbai 4/0/0
+    #
+    # THREE OF THEM LIST WITHOUT HOURS, which widens `always_list` from the
+    # two Kinds it was written for — and the argument is the pool's, not the
+    # give box's. The header says widening always_list to furniture "would
+    # undo the split by degrees", and it would: a bike stand's pin already
+    # says all there is. A community centre's does not. WHERE ONE IS is the
+    # fact somebody came for, it has a name worth reading, a walking route
+    # and a share link, and most of what it offers is on its website (34% of
+    # DC's carry one; 64% of Berlin's), which only a listing can show. The
+    # hours are the minority everywhere but Berlin, exactly as they were for
+    # pools, and that is again the case FOR listing: a pin_only dot could
+    # never say "opening times are not listed — check before travelling".
+    #
+    # `always_open=False` on all three, because a building shuts and claiming
+    # otherwise is the food-bank failure at a library door.
+    #
+    # NOT ANYBODY'S PRIVATE ONE. All four take the pool's access problem in
+    # its milder form: an apartment block's dog run, a company's library and
+    # a members' hall are tagged `access=private` (dog parks: 40 of DC's 334,
+    # 25 of Seattle's 140; libraries 10 of DC's 295), so the query refuses the
+    # restrictive values and Python refuses them again. ABSENT access is
+    # allowed, unlike a pool: a field with no tag is a park, a pool with no
+    # tag is a garden.
+    #
+    # NOT a club house either. `community_centre=club_home` is a Vereinsheim
+    # — a sports club's own building, for members — and OSM files it under
+    # the same key: 112 of Berlin's 1,073, 47 of London's, 10 of DC's.
+    Kind("amenity", "community_centre", "community", "community centre", "🏘",
+         always_open=False, always_list=True,
+         extra=_NOT_PRIVATE + '["community_centre"!="club_home"]',
+         refuse=lambda t: (_is_private(t) or
+                           str(t.get("community_centre") or "").strip().lower() == "club_home")),
+    Kind("amenity", "library", "learning", "library", "📖", ["community"],
+         always_open=False, always_list=True, extra=_NOT_PRIVATE, refuse=_is_private),
+    # The market DAY is the fact, and it is the best-tagged hours of any
+    # selector here (Berlin 123 of 136). A market with no hours is still a
+    # destination — "there is a market square here" — so it lists like the
+    # other buildings, with the honest line instead of a guessed day.
+    Kind("amenity", "marketplace", "market", "marketplace", "🧺", ["community"],
+         always_open=False, always_list=True, extra=_NOT_PRIVATE, refuse=_is_private),
+    # A DOG PARK IS A PLAYGROUND FOR DOGS: a fenced field, open all hours,
+    # untagged because there is nothing to say. Furniture, exactly as a
+    # playground is.
+    Kind("leisure", "dog_park", "outdoors", "dog park", "🐕",
+         extra=_NOT_PRIVATE, refuse=_is_private),
 ]
 BY_SLUG = {k.slug: k for k in KINDS}
 
@@ -552,6 +648,26 @@ def useful_lines(tags: Dict[str, str], kind: Kind,
         if who:
             lines.append("🤝 For: " + who.replace("_", " ").replace(";", ", "))
 
+    elif kind.slug == "amenity=community_centre":
+        # WHAT SORT of centre decides whether to go: a youth centre and a
+        # village hall run different weeks. DC's 586 carry 42 youth_centre,
+        # 20 community_hall, 13 parish_hall; a bare "yes" says nothing.
+        sort = _clean(tags.get("community_centre"), 60)
+        if sort and sort.lower() not in _YES:
+            lines.append("🏘 " + sort.replace("_", " ").capitalize())
+        who = _clean(tags.get("community_centre:for"), 120)
+        if who:
+            lines.append("🤝 For: " + who.replace("_", " ").replace(";", ", "))
+
+    elif kind.slug == "leisure=dog_park":
+        extras = []
+        if str(tags.get("fenced") or "").lower() in _YES:
+            extras.append("fenced")
+        if str(tags.get("lit") or "").lower() in _YES:
+            extras.append("lit after dark")
+        if extras:
+            lines.append("🐕 " + ", ".join(extras).capitalize())
+
     phone = clean_public_phone(tags.get("phone") or tags.get("contact:phone"))
     if phone:
         lines.append(f"☎ Phone: {phone}")
@@ -707,6 +823,8 @@ def to_event(el: dict, area: dict, days_ahead: int = 7) -> Optional[NormalizedEv
     # somebody's garden. Cheap, and it fails closed.
     if kind.public_only and str(tags.get("access") or "").strip().lower() not in _ACCESS_ASSUMED:
         return None
+    if kind.refuse is not None and kind.refuse(tags):
+        return None
 
     town = _clean(tags.get("addr:city") or tags.get("addr:suburb"), 80)
     street = " ".join(x for x in [tags.get("addr:housenumber"),
@@ -846,11 +964,25 @@ def overpass(area, delay=2.0, tries=4):
                        f"[osm-amenity] {area['name']}", delay=delay)
 
 
+# WHAT THE CACHE WAS ASKED FOR. A cached tile answers the query that built
+# it, and KINDS is that query: add a selector and a 29-day-old blob is a
+# complete, fresh-looking answer with none of the new Kind in it. The
+# workflow's cache key carried this by hand ("bump it whenever KINDS gains or
+# loses an entry") and the local cache carried nothing — on 2026-09-21 the
+# four buildings were added and osm_amenity_cache/washington-dc.json still
+# held 11,324 elements from the day before, none of them a library. So the
+# blob names the selectors it holds and is a miss when they differ.
+def _kinds_signature():
+    return sorted(k.slug for k in KINDS)
+
+
 def load_places(cache_dir, area, max_age_days, bbox=None):
     try:
         with open(cache_path(cache_dir, area["name"]), encoding="utf-8") as fh:
             blob = json.load(fh)
         if bbox and list(blob.get("bbox") or []) != list(bbox):
+            return None, False
+        if list(blob.get("kinds") or []) != _kinds_signature():
             return None, False
         age = (time.time() - float(blob.get("fetched_at", 0))) / 86400.0
         if age <= max_age_days and blob.get("elements"):
@@ -867,7 +999,7 @@ def save_places(cache_dir, area, elements, bbox):
         os.makedirs(cache_dir, exist_ok=True)
         with open(cache_path(cache_dir, area["name"]), "w", encoding="utf-8") as fh:
             json.dump({"fetched_at": time.time(), "bbox": list(bbox),
-                       "elements": elements}, fh)
+                       "kinds": _kinds_signature(), "elements": elements}, fh)
     except Exception as exc:                         # noqa: BLE001
         print(f"[osm-amenity] could not cache {area['name']}: {exc}", flush=True)
 

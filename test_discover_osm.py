@@ -226,6 +226,23 @@ def main():
           ("Hall", "https://hall.example", 1.0))
 
     print()
+    print("a walk can be PINNED to named kinds, and the pin is read off OSM_SELECTORS")
+    keys = osm.kind_keys()
+    check("every selector kind resolves to its key",
+          (keys.get("library"), keys.get("museum"), keys.get("club"), keys.get("books")),
+          ("amenity", "tourism", "club", "shop"))
+    check("a pinned query asks only for the kinds named",
+          osm._overpass_query("0,0,1,1", ["library", "community_centre"]),
+          '[out:json][timeout:180];(nwr["amenity"~"^(community_centre|library)$"](0,0,1,1););out tags center;')
+    check("an unpinned query is the whole union, unchanged",
+          osm._overpass_query("0,0,1,1").count("nwr["), len(osm.OSM_SELECTORS))
+    try:
+        osm._overpass_query("0,0,1,1", ["pub"])
+        check_true("an unknown kind is refused out loud, not swept as nothing", False)
+    except ValueError:
+        check_true("an unknown kind is refused out loud, not swept as nothing", True)
+
+    print()
     print("a probe that succeeds and yields nothing must SAY what it yielded nothing for")
     check("an unshapeable adapter is named, not counted as a success",
           osm.why_no_candidate({"adapter": "mylisting", "labels": ["mylisting"], "cal_url": "u"}),

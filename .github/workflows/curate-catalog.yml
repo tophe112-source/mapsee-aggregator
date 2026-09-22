@@ -106,6 +106,12 @@ on:
       category:
         description: "Pin the sweep to these lens categories (comma-separated). 'gaps' = whatever has zero sources. Blank = sweep everything."
         default: ""
+      osm_kinds:
+        description: "osm only: pin the metro walk to these OSM kinds, e.g. community_centre,library (own cursor; blank = every programme-venue)"
+        default: ""
+      osm_metros:
+        description: "osm only: metros to walk this run (blank = 3). A kind-pinned walk is cheap enough for 20+."
+        default: ""
       dry_run:
         description: "Verify only — do not merge or commit"
         type: boolean
@@ -295,6 +301,19 @@ jobs:
             # log nobody scrolls, and both the numbers that say where to work next.
             BUDGET=""
             [ "$b" = "osm" ] && BUDGET="--max-minutes $OSM_BUDGET_MIN"
+            # A KIND-PINNED WALK: `--kinds community_centre,library` asks
+            # Overpass for one kind of place and probes only those, so it can
+            # cover many more metros inside the same budget than the full
+            # sweep — and it keeps its own cursor, so it never moves the full
+            # sweep's place. Same argv-pair rule as --category: absent means
+            # no argument, never an empty string.
+            if [ "$b" = "osm" ] && [ -n "${{ inputs.osm_kinds }}" ]; then
+              BUDGET="$BUDGET --kinds ${{ inputs.osm_kinds }}"
+              echo "osm walk pinned to kinds: ${{ inputs.osm_kinds }}"
+            fi
+            if [ "$b" = "osm" ] && [ -n "${{ inputs.osm_metros }}" ]; then
+              BUDGET="$BUDGET --metros ${{ inputs.osm_metros }}"
+            fi
             # civic gets a deadline too, and a smaller one. It is bounded by its
             # city count where osm is not, so this is a backstop against a slow
             # host rather than the knob that sizes the run — CIVIC_CITIES_PER_RUN

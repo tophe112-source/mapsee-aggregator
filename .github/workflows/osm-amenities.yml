@@ -169,13 +169,19 @@ jobs:
       # "7211 element(s) from cache", and imported not one toilet — a silent
       # no-op that looks exactly like a successful sweep. This comment said to
       # bump it and I did not.
+      #
+      # v3: community centre, library, marketplace and dog park joined KINDS
+      # (2026-09-21). Since that change the blob also NAMES the selectors it
+      # was fetched with and load_places treats a mismatch as a miss, so a
+      # forgotten bump now costs nothing — the bump is kept so the old blobs
+      # are not restored and then discarded on every shard.
       - name: Cache ${{ matrix.area }}'s amenity list
         uses: actions/cache@v4
         with:
           path: osm_amenity_cache
-          key: osm-amenity-v2-${{ matrix.area }}-${{ github.run_id }}
+          key: osm-amenity-v3-${{ matrix.area }}-${{ github.run_id }}
           restore-keys: |
-            osm-amenity-v2-${{ matrix.area }}-
+            osm-amenity-v3-${{ matrix.area }}-
 
       # THE SPLIT IS THE RISK IN THIS ADAPTER. Marking a real listing as
       # furniture makes its opening hours unreachable; marking furniture as a

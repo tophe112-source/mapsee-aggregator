@@ -3,6 +3,22 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: `catalog_curate`, the ledger and its statuses, `_not_included`, sitemaps and robots, bot challenges, site builders vs calendars, calendar plugins, licences.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **THE OSM WALK CAN BE PINNED TO A KIND, AND A PINNED WALK IS 40 METROS A RUN,
+  NOT 3.** Asked 2026-09-21 for "the schedule of every community centre": the
+  full `discover osm` sweep had already landed **125 community-centre and 45
+  library calendars** among its 1,016 OSM-found sources (Barcelona 11, Basel 10,
+  Paris 10, Warsaw 10 ...), but at 3 metros a day it stood at metro **42 of 261
+  (Milan)** with the whole US — where the amenity pins were just widened — sorted
+  last. `--kinds community_centre,library` (workflow input `osm_kinds`) narrows
+  the Overpass union to those kinds via `kind_keys()`, read off `OSM_SELECTORS`
+  so the two cannot drift, and keeps its OWN cursor slot
+  (`osm|community_centre,library`) so it never moves the full sweep's place.
+  Cost measured locally on Hong Kong: **43 venues, 75 seconds**, 31 of them
+  already `known-dead` in the shared ledger — so ~40 metros fit the 55-minute
+  osm budget and the globe takes about seven runs. An unknown kind raises,
+  because a pin that silently matched nothing would report a clean empty sweep
+  (the parkrun shape).
+
 - **The coverage report invented 26 of the 60 countries it claimed.** It is not
   a status page: its thin-ground ranker decides where the next curation run
   spends its budget, and `coverage --json` is the only record of whether the

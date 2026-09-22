@@ -696,13 +696,54 @@ def adapter_for(labels: Iterable[str]) -> Optional[str]:
 
 
 # ---- Overpass ----------------------------------------------------------------
-def _overpass_query(bbox: str) -> str:
-    parts = "".join(f"{sel}({bbox});" for sel in OSM_SELECTORS)
+# Which OSM key each kind in OSM_SELECTORS lives under, read off the selector
+# strings so the two can never disagree: `library` -> `amenity`, `museum` ->
+# `tourism`, `club` -> `club`. This is what lets a sweep be PINNED to a kind.
+_SEL_RX = re.compile(r'nwr\["([a-z_]+)"(?:[=~]"\^?\(?([a-z_|]+)\)?\$?")?\]')
+
+
+def kind_keys() -> Dict[str, str]:
+    out: Dict[str, str] = {}
+    for sel in OSM_SELECTORS:
+        m = _SEL_RX.match(sel)
+        if not m:
+            continue
+        key, values = m.group(1), m.group(2)
+        for v in (values.split("|") if values else [key]):
+            out[v] = key
+    return out
+
+
+def _overpass_query(bbox: str, kinds: Optional[Iterable[str]] = None) -> str:
+    """The union for one metro — every programme-venue, or only the KINDS named.
+
+    A pinned query asks Overpass for less and probes fewer sites, which is
+    what makes a targeted walk (`--kinds community_centre,library`) cheap
+    enough to cover many metros in one run: Washington DC has 198 community
+    centres with a website against ~600 programme-venues of every kind. An
+    unknown kind is a loud error, not an empty sweep — the parkrun rule.
+    """
+    if not kinds:
+        parts = "".join(f"{sel}({bbox});" for sel in OSM_SELECTORS)
+        return f"[out:json][timeout:180];({parts});out tags center;"
+    keys = kind_keys()
+    by_key: Dict[str, List[str]] = {}
+    for k in kinds:
+        if k not in keys:
+            raise ValueError(f"unknown OSM kind {k!r}; known: {', '.join(sorted(keys))}")
+        by_key.setdefault(keys[k], []).append(k)
+    parts = ""
+    for key, values in by_key.items():
+        if values == [key]:                       # a bare key, like `club`
+            parts += f'nwr["{key}"]({bbox});'
+        else:
+            parts += f'nwr["{key}"~"^({"|".join(sorted(values))})$"]({bbox});'
     return f"[out:json][timeout:180];({parts});out tags center;"
 
 
 def overpass_venues(session, bbox: str, name: str = "?",
-                    endpoint: str = OVERPASS_ENDPOINT, quiet: bool = False):
+                    endpoint: str = OVERPASS_ENDPOINT, quiet: bool = False,
+                    kinds: Optional[Iterable[str]] = None):
     """Venues in the bbox that publish a website.
 
     Returns None if OVERPASS NEVER ANSWERED, and [] if it answered with nothing.
@@ -714,7 +755,7 @@ def overpass_venues(session, bbox: str, name: str = "?",
     connection reset after four tries is the endpoint declining, and the metro is
     unread.
     """
-    q = _overpass_query(bbox)
+    q = _overpass_query(bbox, kinds)
     for attempt in range(4):
         try:
             r = session.post(endpoint, data=q.encode("utf-8"), timeout=200)

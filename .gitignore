@@ -22,6 +22,9 @@ health_report.md
 # refetchable — it belongs in the Actions cache, not in history. The CURSOR
 # (osm_food_cursor.json) is committed, because where we got to is not derivable.
 osm_places_cache/
+# The amenity adapter's copy of the same thing (osm_amenity_cache/<area>.json,
+# 12,599 elements for DC alone). Same rule, same reason.
+osm_amenity_cache/
 
 # local credentials - never commit
 .env

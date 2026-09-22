@@ -587,6 +587,53 @@ def main():
     checks.append((timed is not None and timed.recurring_days not in (None, A.ALWAYS),
                    "...and real hours become a real weekly pattern"))
 
+    # ---- four buildings: a place somebody GOES, not furniture ---------------
+    #
+    # Added 2026-09-21 (community centre, library, marketplace, dog park). The
+    # first three list without hours for the pool's reason — where one is IS
+    # the fact — and shut for the food bank's; the dog park is a playground
+    # for dogs and stays furniture. Measured in the 35-mile DC box the day
+    # they were added: 576 community centres, 295 libraries, 110 markets,
+    # 334 dog parks, and 43 / 180 / 61 / 11 of those carrying opening_hours.
+    for tags, cat in (({"amenity": "community_centre", "name": "Hillcrest Community Centre"}, "community"),
+                      ({"amenity": "library", "name": "Southwest Library"}, "learning"),
+                      ({"amenity": "marketplace", "name": "Eastern Market"}, "market")):
+        e = ev(tags)
+        checks.append((e is not None and e.pin_only is False and e.category == cat,
+                       f"a bare named {tags['amenity']} is a LISTING under `{cat}`"))
+        checks.append((e is not None and e.recurring_days == A.ALWAYS
+                       and "Opening times are not listed" in e.description,
+                       f"...claims no hours of its own and says so in the body"))
+    timed_cc = ev({"amenity": "community_centre", "name": "Hillcrest Community Centre",
+                   "opening_hours": "Mo-Fr 09:00-16:00"})
+    checks.append((timed_cc is not None and timed_cc.recurring_days not in (None, A.ALWAYS)
+                   and "🕑 Open: Mon-Fri 09:00-16:00" in timed_cc.description,
+                   "a community centre's real hours become a real weekly pattern"))
+    youth = ev({"amenity": "community_centre", "name": "The Hub", "community_centre": "youth_centre"})
+    checks.append((youth is not None and "🏘 Youth centre" in youth.description,
+                   "what SORT of centre prints — a youth centre is not a village hall"))
+    checks.append((ev({"amenity": "community_centre", "name": "FC Sportheim",
+                       "community_centre": "club_home"}) is None,
+                   "a club house (community_centre=club_home) is a members' building and is refused"))
+    for tags in ({"amenity": "community_centre", "name": "Staff Hall"},
+                 {"amenity": "library", "name": "Firm Library"},
+                 {"amenity": "marketplace", "name": "Trade Hall"},
+                 {"leisure": "dog_park", "name": "Residents' Dog Run"}):
+        k = A.kind_of(tags)
+        checks.append((bool(k.extra) and "access" in k.extra and k.refuse is not None,
+                       f"{k.slug}'s query refuses private access, and Python re-checks it"))
+        checks.append((ev(dict(tags, access="private")) is None
+                       and ev(dict(tags, access="customers")) is None,
+                       f"...so a private {k.noun} is refused"))
+        checks.append((ev(tags) is not None,
+                       f"...and one with NO access tag is allowed — unlike a pool, a bare {k.noun} is public"))
+    dog = ev({"leisure": "dog_park", "name": "Glencarlyn Dog Park"})
+    checks.append((dog is not None and dog.pin_only is True and dog.recurring_days == A.ALWAYS,
+                   "a bare dog park is FURNITURE, open all hours, like a playground"))
+    fenced = ev({"leisure": "dog_park", "name": "Glencarlyn Dog Park", "fenced": "yes"})
+    checks.append((fenced is not None and fenced.pin_only is True and "🐕 Fenced" in fenced.description,
+                   "...a fenced one has something to say when tapped and is still furniture"))
+
     # ---- the glyph must actually REACH the row ----------------------------
     #
     # Kind.glyph was assigned when this adapter was written and read by nothing

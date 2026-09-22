@@ -3,6 +3,33 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: toilets, food banks, artwork, deny-lists, facts vs names, the cached element list, `--only-new` on a rewrite-every-run adapter.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **FOUR BUILDINGS JOINED THE FURNITURE, AND THREE OF THEM LIST WITHOUT HOURS.**
+  `amenity=community_centre`, `amenity=library`, `amenity=marketplace` and
+  `leisure=dog_park` were added 2026-09-21 as the "free community supply that
+  exists in every country on the same day" — the civic building itself, not a
+  feed somebody publishes. Measured that day per hub box (25 miles; DC 35) as
+  total / carrying `opening_hours` / with a website: community centres **DC
+  586/43/198, Seattle 239/41/90, London 1,926/70/441, Berlin 1,073/359/692,
+  Mexico City 549/26/167, Mumbai 73/3/3**; libraries DC 295/180/265, Seattle
+  143/121/126, London 604/238/205, Berlin 258/196/164; marketplaces DC
+  110/61/44, Berlin 136/123/49, Mexico City 579/76/3; dog parks DC 334/11/21,
+  Seattle 140/4/24. So hours are the MINORITY for community centres everywhere
+  but Berlin, and that is the case for `always_list` (the pool's argument, not
+  the give box's): where one is IS the fact, and only a listing can carry the
+  website that holds the programme. The DC box went **11,324 -> 12,599
+  elements and 1,101 listings** (570 community centres, 285 libraries, 110
+  markets; 292 of 294 dog parks stayed furniture). Two refusals, both in the
+  query AND re-checked in Python (`Kind.refuse`, the pool's rule generalised):
+  `community_centre=club_home` is a members' Vereinsheim (**112 of Berlin's
+  1,073, 47 of London's, 10 of DC's**), and restrictive `access` on any of the
+  four (dog parks: 40 of DC's 334 private; libraries 10 of 295). The cached
+  element list now NAMES the selectors it holds (`kinds` in the blob) and
+  misses on a change, so the `-vN` cache bump is belt and braces from v3 on —
+  the DC blob from the day before still held 11,324 elements and not one
+  library. The SCHEDULES half of the ask lives in discovery, not here:
+  `catalog_curate.py discover osm --kinds community_centre,library` walks the
+  same buildings for their own calendars (`docs/agents/curation-and-discovery.md`).
+
 - **A 25-MILE HUB IS A CITY, NOT A METRO, AND THE GAP IS WHERE THE PINS WERE
   ASKED FOR.** Washington DC arrived in the 10 -> 260 sweep at 25 miles like
   everything else, and 25 miles from the Mall does not reach the Virginia
