@@ -117,7 +117,19 @@
     -43.1729
    ],
    "radius_miles": 25
+  },
+  {
+   "name": "Washington DC",
+   "city": "Washington",
+   "region": "DC",
+   "country": "US",
+   "center": [
+    38.9072,
+    -77.0369
+   ],
+   "radius_miles": 35
   }
  ],
- "_brazil": "Added 2026-08-28. Measured in the Rio box: 615 playgrounds, 355 public artworks, 268 toilets, 241 outdoor gyms, 32 drinking fountains; Brasília's 529/35/166/293/34. Most of that lands as pin_only furniture, which is the point — it draws the city without burying the gig three streets away. The cache key carries the area name, so new areas need no version bump; only a changed SELECTOR does."
+ "_brazil": "Added 2026-08-28. Measured in the Rio box: 615 playgrounds, 355 public artworks, 268 toilets, 241 outdoor gyms, 32 drinking fountains; Brasília's 529/35/166/293/34. Most of that lands as pin_only furniture, which is the point — it draws the city without burying the gig three streets away. The cache key carries the area name, so new areas need no version bump; only a changed SELECTOR does.",
+ "_washington": "Added 2026-09-21. A 35-mile radius rather than the 25 every other hub uses, because the ask was Manassas and Gainesville VA: at 25 miles Manassas clears the west edge by 0.03 degrees and Gainesville falls outside it, 33 is the first radius holding both, and 35 is that with margin at no extra cost - both tile to the same 4 cells at TILE_DEG=1.0. Measured the same day: 11,324 candidates in the box, 35 listings + 3,841 furniture from the first 4,000-candidate window. Within 6 miles of Manassas 335 elements (310 playgrounds, 15 toilets, 3 artworks) and of Gainesville 143 (122 playgrounds, 15 toilets, 6 fountains) - and all 478 sit at candidate index below 3,108, so the FIRST run reaches both towns. Tiles sweep south-west first and the cursor walks from there; the whole box takes three runs at --max-places 4000."
 }
