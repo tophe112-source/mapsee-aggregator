@@ -93,6 +93,23 @@ on:
     # loop — not this number. Moving it buys nothing; the number is here so the
     # two runs land on the same day, which is all it was ever doing.
     - cron: "50 3 * * 3"
+    # Daily 09:30 UTC — THE COMMUNITY WALK: `discover osm` pinned to
+    # community_centre,library over 40 metros, so every civic building the
+    # amenity adapter now pins gets asked for its own programme. The full osm
+    # sweep does 3 metros a day and had reached metro 42 of 261 (Milan) after a
+    # month with the whole US sorted last; a pinned metro is ~75 s (Hong Kong:
+    # 43 venues), so 40 fit the 55-minute budget and the globe takes a week,
+    # after which the shared ledger makes a repeat visit nearly free (a dead
+    # probe is not re-asked for 90 days, a merged source never). Its own cursor
+    # slot (`osm|community_centre,library`), so it never moves the full
+    # sweep's place. 09:30 because it is the one run here that queries
+    # Overpass 40 times, and every Overpass-tiling job (osm-food Tue 05:10,
+    # osm-secondhand Sat 05:10, osm-amenities Sun 05:40) and the 06:17 ingest
+    # are finished by then — and it is six hours clear of the two crons above,
+    # which matters more than it looks: the concurrency queue holds ONE pending
+    # run, and a third arriving while the daily is running and the Wednesday
+    # sweep is queued would cancel the Wednesday sweep, not wait behind it.
+    - cron: "30 9 * * *"
   workflow_dispatch:
     inputs:
       limit:
@@ -143,7 +160,7 @@ jobs:
     steps:
       # `ref:` MATTERS HERE, and its absence is what killed 2026-09-02's second
       # run. actions/checkout defaults to github.sha — the tip as it was when
-      # the run was CREATED — and this workflow's two crons put a second run in
+      # the run was CREATED — and this workflow's crons put a second run in
       # the concurrency queue behind the first. `concurrency` serialises the
       # two, correctly, but it cannot un-stale a SHA: the Wednesday run was
       # created at 08:08 against ab5ee01, waited, started at 08:40:12, and
@@ -242,7 +259,19 @@ jobs:
           CATS: ${{ steps.target.outputs.cats }}
         run: |
           set +e
-          case "${{ inputs.backend || 'all' }}" in
+          # The 09:30 cron is the community walk (see the schedule block): osm
+          # only, pinned to the two kinds, 40 metros. A dispatch that names
+          # osm_kinds is the same walk by hand.
+          OSM_KINDS="${{ inputs.osm_kinds }}"
+          OSM_METROS="${{ inputs.osm_metros }}"
+          BACKEND_WANT="${{ inputs.backend || 'all' }}"
+          if [ "${{ github.event.schedule }}" = "30 9 * * *" ]; then
+            BACKEND_WANT="osm"
+            OSM_KINDS="community_centre,library"
+            OSM_METROS="40"
+            echo "The community walk: osm pinned to $OSM_KINDS, $OSM_METROS metros"
+          fi
+          case "$BACKEND_WANT" in
             # THE TWO CRAWLERS GO LAST, cheapest catalog reads first. osm and
             # civic are the only backends whose cost is a crawl rather than a
             # catalog read, so if the run is going to be cut short it should be
@@ -256,7 +285,7 @@ jobs:
             # --max-minutes deadline for exactly that reason. Putting the
             # bounded crawl first means a bad Overpass day cannot starve it.
             all) BACKENDS="socrata ckan mobilizon civic osm" ;;
-            *)   BACKENDS="${{ inputs.backend }}" ;;
+            *)   BACKENDS="$BACKEND_WANT" ;;
           esac
           LIMIT="${{ inputs.limit || '300' }}"
           CATFLAG=""
@@ -307,12 +336,12 @@ jobs:
             # sweep — and it keeps its own cursor, so it never moves the full
             # sweep's place. Same argv-pair rule as --category: absent means
             # no argument, never an empty string.
-            if [ "$b" = "osm" ] && [ -n "${{ inputs.osm_kinds }}" ]; then
-              BUDGET="$BUDGET --kinds ${{ inputs.osm_kinds }}"
-              echo "osm walk pinned to kinds: ${{ inputs.osm_kinds }}"
+            if [ "$b" = "osm" ] && [ -n "$OSM_KINDS" ]; then
+              BUDGET="$BUDGET --kinds $OSM_KINDS"
+              echo "osm walk pinned to kinds: $OSM_KINDS"
             fi
-            if [ "$b" = "osm" ] && [ -n "${{ inputs.osm_metros }}" ]; then
-              BUDGET="$BUDGET --metros ${{ inputs.osm_metros }}"
+            if [ "$b" = "osm" ] && [ -n "$OSM_METROS" ]; then
+              BUDGET="$BUDGET --metros $OSM_METROS"
             fi
             # civic gets a deadline too, and a smaller one. It is bounded by its
             # city count where osm is not, so this is a backstop against a slow

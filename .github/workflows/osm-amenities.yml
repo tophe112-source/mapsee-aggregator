@@ -32,6 +32,10 @@ on:
         description: "One area by name (blank = all)"
         required: false
         default: ""
+      shard:
+        description: "Which of the 5 weekly shards to run, e.g. '1,2,3' (blank = this week's; at most 3 at once, a matrix is capped at 256 jobs)"
+        required: false
+        default: ""
       kinds:
         description: "Restrict to these selectors, e.g. leisure=playground,social_facility=food_bank"
         required: false
@@ -106,24 +110,43 @@ jobs:
       # That is the right trade at this size — it is what keeps a standing
       # dataset fresh — but it means the run cost is an Overpass fetch per area
       # per visit, not the near-free cache hit the 10-area sweep enjoyed.
+      # A SHARD CAN BE NAMED, for a refresh that cannot wait five Sundays: a
+      # new Kind reaches the whole catalogue in two dispatches (`shard=1,2,3`
+      # then `4,5`, 156 and 104 areas — under the 256 cap) with `kinds` set to
+      # the new selectors and `restart_cursor` on, so the walk starts at each
+      # area's first candidate and leaves the weekly cursor where it was. Two
+      # dispatches and not one, and not five: the matrix cap is why not one,
+      # and the concurrency queue holds a single PENDING run — a third
+      # dispatch arriving while one runs and one waits cancels the waiting one.
       - id: pick
         env:
           ONLY: ${{ github.event.inputs.only }}
+          SHARD: ${{ github.event.inputs.shard }}
         run: |
           python - <<'PY' >> "$GITHUB_OUTPUT"
-          import datetime, json, math, os, re
+          import datetime, json, math, os, re, sys
           PER_RUN = 64
           cfg = json.load(open("osm_amenity_sources.json", encoding="utf-8"))
           names = [a["name"] for a in cfg["areas"]]
           only = (os.environ.get("ONLY") or "").strip().lower()
+          asked = (os.environ.get("SHARD") or "").strip()
+          shards = max(1, math.ceil(len(names) / PER_RUN))
           if only:
               names = [n for n in names if only in n.lower()]
+          elif asked:
+              picked = sorted({int(s) - 1 for s in asked.split(",") if s.strip()})
+              if any(p < 0 or p >= shards for p in picked):
+                  sys.exit(f"shard must be 1..{shards}, got {asked!r}")
+              names = [n for i, n in enumerate(names) if i % shards in picked]
+              if len(names) > 256:
+                  sys.exit(f"{len(picked)} shards is {len(names)} jobs; a matrix is capped at 256")
+              print(f"::notice::shards {', '.join(str(p + 1) for p in picked)}/{shards}: "
+                    f"{len(names)} areas", file=sys.stderr)
           else:
               env = os.environ.get("MAPSEE_TODAY") or ""
               today = (datetime.date(int(env[:4]), int(env[4:6]), int(env[6:8]))
                        if re.fullmatch(r"\d{8}", env)
                        else datetime.datetime.now(datetime.timezone.utc).date())
-              shards = max(1, math.ceil(len(names) / PER_RUN))
               shard = today.isocalendar()[1] % shards
               # STRIDED, not a contiguous slice: the config is grouped by
               # country, so slicing it in blocks would send one run at 64
@@ -131,7 +154,7 @@ jobs:
               # area mixes dense and thin, and keeps each shard the same size.
               names = names[shard::shards]
               print(f"::notice::shard {shard + 1}/{shards}: {len(names)} areas",
-                    file=__import__("sys").stderr)
+                    file=sys.stderr)
           print("areas=" + json.dumps(names))
           PY
       - run: echo "Running ${{ steps.pick.outputs.areas }}"

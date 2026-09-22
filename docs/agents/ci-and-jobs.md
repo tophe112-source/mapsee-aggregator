@@ -3,6 +3,21 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: a job that worked for an hour and lost its work, `timeout-minutes`, `always()`, `--only-new` in CI, the order of the daily jobs, secrets, a config file a job needs.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A CONCURRENCY GROUP QUEUES ONE RUN, NOT A LINE — A THIRD ARRIVAL CANCELS
+  THE SECOND.** `cancel-in-progress: false` means a run that finds the group
+  busy waits, but GitHub keeps exactly ONE pending run per group and cancels
+  any earlier pending one when another arrives. Two things were sized on that
+  2026-09-22. The community walk (`curate-catalog.yml`, daily **09:30 UTC**,
+  `discover osm --kinds community_centre,library --metros 40`) sits six hours
+  after the 03:20 daily and the Wednesday 03:50 gap sweep, which together take
+  up to 3 h and already share the queue — a cron in that window would not wait
+  behind the Wednesday sweep, it would cancel it. And a whole-catalogue amenity
+  refresh (`osm-amenities.yml`, new `shard` input, `shard=1,2,3` then `4,5` —
+  **156 and 104 areas**, 260/5 = 52 a shard) is TWO dispatches, because one is
+  260 matrix jobs against the 256 cap and three or more would cancel each
+  other in the queue. Both crons resolve their pin off `github.event.schedule`
+  (the Wednesday sweep's pattern), because a `schedule` event has no inputs.
+
 - **The international sweep has no cursor, so the countries at the bottom of
   the file are the ones a slow run always drops — and they are the thinnest.**
   `mapsee_sweep_global.py` walks `metros_global.json` from the top every run and
