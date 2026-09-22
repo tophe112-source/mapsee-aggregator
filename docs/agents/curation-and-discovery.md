@@ -14,8 +14,13 @@
   so the two cannot drift, and keeps its OWN cursor slot
   (`osm|community_centre,library`) so it never moves the full sweep's place.
   Cost measured locally on Hong Kong: **43 venues, 75 seconds**, 31 of them
-  already `known-dead` in the shared ledger — so ~40 metros fit the 55-minute
-  osm budget and the globe takes about seven runs. An unknown kind raises,
+  already `known-dead` in the shared ledger. The first live run (35697117316,
+  2026-09-22) corrected that sample: **31 of 40 metros in 55 minutes, 3,312
+  venues** (Brussels alone 422, Warsaw 262, Helsinki 261), 2,391 of them
+  known-dead and skipped without a request, **20 candidates, 7 verified and
+  merged** (Lokalhus Syd, Sellon kirjasto, KVIC Brno-Vinohrady ...). So the
+  daily 09:30 cron's 40 is a ceiling the budget cuts to ~30, the unread nine
+  come round next run, and the globe takes about nine runs. An unknown kind raises,
   because a pin that silently matched nothing would report a clean empty sweep
   (the parkrun shape).
 
