@@ -3,6 +3,24 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: toilets, food banks, artwork, deny-lists, facts vs names, the cached element list, `--only-new` on a rewrite-every-run adapter.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A 25-MILE HUB IS A CITY, NOT A METRO, AND THE GAP IS WHERE THE PINS WERE
+  ASKED FOR.** Washington DC arrived in the 10 -> 260 sweep at 25 miles like
+  everything else, and 25 miles from the Mall does not reach the Virginia
+  exurbs. Measured 2026-09-21 against the elements a 35-mile box returns: within
+  six miles of Manassas there are 335 elements and a 25-mile box holds **266 of
+  them**; within six miles of Gainesville there are 143 and it holds **none** —
+  that town is 31 miles out. Over the whole box it is 8,156 against **11,324**,
+  so the last ten miles are 28% of the metro. Widening costs nothing here: at
+  `TILE_DEG = 1.0` both radii tile to the same FOUR cells, and a changed bbox
+  invalidates the cached element list on its own (`load_places` compares it), so
+  a wider hub needs no `-vN` cache bump — only a changed SELECTOR does. Sweep
+  ORDER is the other half: `tiles()` emits south-west first and `window_at`
+  walks from candidate 0, so all 478 Manassas and Gainesville candidates sit
+  below index 3,108 and the FIRST 4,000-place run reaches both towns; the whole
+  box takes three. DC is the only hub in the file that is not 25, and that is
+  the precedent — a radius is a claim about which towns the map covers, not a
+  default to copy.
+
 - **The amenity hubs are the EVENT metros now: 10 -> 260, sharded five ways.**
   Measured 2026-09-20 before committing to it. Density per 25-mile metro varies
   by a factor of fifty — Tokyo 20,004 elements against Johannesburg 365, Bend
