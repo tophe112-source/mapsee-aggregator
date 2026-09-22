@@ -11,7 +11,27 @@
   "area on every run - a run that adds only furniture has still made the map",
   "more useful, and being able to SEE that is the point of printing both.",
   "",
-  "AREA SHAPE IS area_bbox's, NOT THIS FILE'S CHOICE. It reads area['center'] as a [lat, lon] PAIR (or an explicit 'bbox'), and radius_miles. Writing lat/lon as separate keys parses as JSON, matches every test that builds a NormalizedEvent directly, and dies with KeyError: 'center' on the first real run - which is exactly what it did. test_ingest_osm_amenities.py now runs every area in this file through area_bbox."
+  "AREA SHAPE IS area_bbox's, NOT THIS FILE'S CHOICE. It reads area['center'] as a [lat, lon] PAIR (or an explicit 'bbox'), and radius_miles. Writing lat/lon as separate keys parses as JSON, matches every test that builds a NormalizedEvent directly, and dies with KeyError: 'center' on the first real run - which is exactly what it did. test_ingest_osm_amenities.py now runs every area in this file through area_bbox.",
+  "",
+  "260 AREAS, AND THEY ARE THE METROS MAPSEE ALREADY SWEEPS FOR EVENTS.",
+  "Generated 2026-09-20 from metros_us.txt + metros_global.json, the one list",
+  "every US and international event sweep reads, deduped against what was here",
+  "by name AND by proximity (under 12 miles is the same place: 'Portland OR' is",
+  "the 'Portland' that was already configured). Amenities only pay off where",
+  "somebody is looking, so the event metros are exactly the right list.",
+  "",
+  "A US area carries its state CODE and an international one carries no region,",
+  "which is the convention the first ten set. The codes were reverse-geocoded",
+  "once, at config-build time, from each centre - 78 of 78 resolved. They are",
+  "not derived at ingest: `region` lands on every row, and a wrong one is worse",
+  "than none. The CITY on a row never comes from here, it comes from the",
+  "element's own addr:city - see the note in mapsee_ingest_osm_food.to_event.",
+  "",
+  "THE MATRIX IS SHARDED BY WEEK, because GitHub caps a matrix at 256 jobs and",
+  "this file holds 260 areas - the whole list in one run would not be slow, it",
+  "would fail to start. osm-amenities.yml takes every Nth area, five shards, a",
+  "full turn every five weeks. Adding areas here is free until the shard size",
+  "(64) is exceeded, at which point the turn simply gets longer."
  ],
  "areas": [
   {
@@ -119,8 +139,41 @@
    "radius_miles": 25
   },
   {
+   "name": "Los Angeles",
+   "city": "Los Angeles",
+   "region": "CA",
+   "country": "US",
+   "center": [
+    34.0522,
+    -118.2437
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Dallas",
+   "city": "Dallas",
+   "region": "TX",
+   "country": "US",
+   "center": [
+    32.7767,
+    -96.797
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Houston",
+   "city": "Houston",
+   "region": "TX",
+   "country": "US",
+   "center": [
+    29.7604,
+    -95.3698
+   ],
+   "radius_miles": 25
+  },
+  {
    "name": "Washington DC",
-   "city": "Washington",
+   "city": "Washington DC",
    "region": "DC",
    "country": "US",
    "center": [
@@ -128,8 +181,2542 @@
     -77.0369
    ],
    "radius_miles": 35
+  },
+  {
+   "name": "Philadelphia",
+   "city": "Philadelphia",
+   "region": "PA",
+   "country": "US",
+   "center": [
+    39.9526,
+    -75.1652
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Atlanta",
+   "city": "Atlanta",
+   "region": "GA",
+   "country": "US",
+   "center": [
+    33.749,
+    -84.388
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Boston",
+   "city": "Boston",
+   "region": "MA",
+   "country": "US",
+   "center": [
+    42.3601,
+    -71.0589
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "San Francisco",
+   "city": "San Francisco",
+   "region": "CA",
+   "country": "US",
+   "center": [
+    37.7749,
+    -122.4194
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Phoenix",
+   "city": "Phoenix",
+   "region": "AZ",
+   "country": "US",
+   "center": [
+    33.4484,
+    -112.074
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Detroit",
+   "city": "Detroit",
+   "region": "MI",
+   "country": "US",
+   "center": [
+    42.3314,
+    -83.0458
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Minneapolis",
+   "city": "Minneapolis",
+   "region": "MN",
+   "country": "US",
+   "center": [
+    44.9778,
+    -93.265
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "San Diego",
+   "city": "San Diego",
+   "region": "CA",
+   "country": "US",
+   "center": [
+    32.7157,
+    -117.1611
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Denver",
+   "city": "Denver",
+   "region": "CO",
+   "country": "US",
+   "center": [
+    39.7392,
+    -104.9903
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Miami",
+   "city": "Miami",
+   "region": "FL",
+   "country": "US",
+   "center": [
+    25.7617,
+    -80.1918
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Tampa",
+   "city": "Tampa",
+   "region": "FL",
+   "country": "US",
+   "center": [
+    27.9506,
+    -82.4572
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Orlando",
+   "city": "Orlando",
+   "region": "FL",
+   "country": "US",
+   "center": [
+    28.5383,
+    -81.3792
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "St. Louis",
+   "city": "St. Louis",
+   "region": "MO",
+   "country": "US",
+   "center": [
+    38.627,
+    -90.1994
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Pittsburgh",
+   "city": "Pittsburgh",
+   "region": "PA",
+   "country": "US",
+   "center": [
+    40.4406,
+    -79.9959
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Charlotte",
+   "city": "Charlotte",
+   "region": "NC",
+   "country": "US",
+   "center": [
+    35.2271,
+    -80.8431
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Sacramento",
+   "city": "Sacramento",
+   "region": "CA",
+   "country": "US",
+   "center": [
+    38.5816,
+    -121.4944
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Las Vegas",
+   "city": "Las Vegas",
+   "region": "NV",
+   "country": "US",
+   "center": [
+    36.1699,
+    -115.1398
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Cincinnati",
+   "city": "Cincinnati",
+   "region": "OH",
+   "country": "US",
+   "center": [
+    39.1031,
+    -84.512
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Kansas City",
+   "city": "Kansas City",
+   "region": "MO",
+   "country": "US",
+   "center": [
+    39.0997,
+    -94.5786
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Columbus",
+   "city": "Columbus",
+   "region": "OH",
+   "country": "US",
+   "center": [
+    39.9612,
+    -82.9988
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Cleveland",
+   "city": "Cleveland",
+   "region": "OH",
+   "country": "US",
+   "center": [
+    41.4993,
+    -81.6944
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Indianapolis",
+   "city": "Indianapolis",
+   "region": "IN",
+   "country": "US",
+   "center": [
+    39.7684,
+    -86.1581
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Nashville",
+   "city": "Nashville",
+   "region": "TN",
+   "country": "US",
+   "center": [
+    36.1627,
+    -86.7816
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Austin",
+   "city": "Austin",
+   "region": "TX",
+   "country": "US",
+   "center": [
+    30.2672,
+    -97.7431
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "San Antonio",
+   "city": "San Antonio",
+   "region": "TX",
+   "country": "US",
+   "center": [
+    29.4241,
+    -98.4936
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Baltimore",
+   "city": "Baltimore",
+   "region": "MD",
+   "country": "US",
+   "center": [
+    39.2904,
+    -76.6122
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Milwaukee",
+   "city": "Milwaukee",
+   "region": "WI",
+   "country": "US",
+   "center": [
+    43.0389,
+    -87.9065
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Salt Lake City",
+   "city": "Salt Lake City",
+   "region": "UT",
+   "country": "US",
+   "center": [
+    40.7608,
+    -111.891
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "New Orleans",
+   "city": "New Orleans",
+   "region": "LA",
+   "country": "US",
+   "center": [
+    29.9511,
+    -90.0715
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Raleigh",
+   "city": "Raleigh",
+   "region": "NC",
+   "country": "US",
+   "center": [
+    35.7796,
+    -78.6382
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Buffalo",
+   "city": "Buffalo",
+   "region": "NY",
+   "country": "US",
+   "center": [
+    42.8864,
+    -78.8784
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Louisville",
+   "city": "Louisville",
+   "region": "KY",
+   "country": "US",
+   "center": [
+    38.2527,
+    -85.7585
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Memphis",
+   "city": "Memphis",
+   "region": "TN",
+   "country": "US",
+   "center": [
+    35.1495,
+    -90.049
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Oklahoma City",
+   "city": "Oklahoma City",
+   "region": "OK",
+   "country": "US",
+   "center": [
+    35.4676,
+    -97.5164
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Jacksonville",
+   "city": "Jacksonville",
+   "region": "FL",
+   "country": "US",
+   "center": [
+    30.3322,
+    -81.6557
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Hartford",
+   "city": "Hartford",
+   "region": "CT",
+   "country": "US",
+   "center": [
+    41.7658,
+    -72.6734
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Richmond",
+   "city": "Richmond",
+   "region": "VA",
+   "country": "US",
+   "center": [
+    37.5407,
+    -77.436
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Grand Rapids",
+   "city": "Grand Rapids",
+   "region": "MI",
+   "country": "US",
+   "center": [
+    42.9634,
+    -85.6681
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Albuquerque",
+   "city": "Albuquerque",
+   "region": "NM",
+   "country": "US",
+   "center": [
+    35.0844,
+    -106.6504
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Omaha",
+   "city": "Omaha",
+   "region": "NE",
+   "country": "US",
+   "center": [
+    41.2565,
+    -95.9345
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Honolulu",
+   "city": "Honolulu",
+   "region": "HI",
+   "country": "US",
+   "center": [
+    21.3069,
+    -157.8583
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Fairbanks",
+   "city": "Fairbanks",
+   "region": "AK",
+   "country": "US",
+   "center": [
+    64.8378,
+    -147.7164
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Tucson",
+   "city": "Tucson",
+   "region": "AZ",
+   "country": "US",
+   "center": [
+    32.2226,
+    -110.9747
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Fresno",
+   "city": "Fresno",
+   "region": "CA",
+   "country": "US",
+   "center": [
+    36.7378,
+    -119.7871
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Boise",
+   "city": "Boise",
+   "region": "ID",
+   "country": "US",
+   "center": [
+    43.615,
+    -116.2023
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Spokane",
+   "city": "Spokane",
+   "region": "WA",
+   "country": "US",
+   "center": [
+    47.6588,
+    -117.426
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Des Moines",
+   "city": "Des Moines",
+   "region": "IA",
+   "country": "US",
+   "center": [
+    41.5868,
+    -93.625
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Little Rock",
+   "city": "Little Rock",
+   "region": "AR",
+   "country": "US",
+   "center": [
+    34.7465,
+    -92.2896
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Birmingham AL",
+   "city": "Birmingham AL",
+   "region": "AL",
+   "country": "US",
+   "center": [
+    33.5186,
+    -86.8104
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Knoxville",
+   "city": "Knoxville",
+   "region": "TN",
+   "country": "US",
+   "center": [
+    35.9606,
+    -83.9207
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Greenville SC",
+   "city": "Greenville SC",
+   "region": "SC",
+   "country": "US",
+   "center": [
+    34.8526,
+    -82.394
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Charleston SC",
+   "city": "Charleston SC",
+   "region": "SC",
+   "country": "US",
+   "center": [
+    32.7765,
+    -79.9311
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Savannah",
+   "city": "Savannah",
+   "region": "GA",
+   "country": "US",
+   "center": [
+    32.0809,
+    -81.0912
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Sarasota",
+   "city": "Sarasota",
+   "region": "FL",
+   "country": "US",
+   "center": [
+    27.3364,
+    -82.5307
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Reno",
+   "city": "Reno",
+   "region": "NV",
+   "country": "US",
+   "center": [
+    39.5296,
+    -119.8138
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Colorado Springs",
+   "city": "Colorado Springs",
+   "region": "CO",
+   "country": "US",
+   "center": [
+    38.8339,
+    -104.8214
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "El Paso",
+   "city": "El Paso",
+   "region": "TX",
+   "country": "US",
+   "center": [
+    31.7619,
+    -106.485
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Tulsa",
+   "city": "Tulsa",
+   "region": "OK",
+   "country": "US",
+   "center": [
+    36.154,
+    -95.9928
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Wichita",
+   "city": "Wichita",
+   "region": "KS",
+   "country": "US",
+   "center": [
+    37.6872,
+    -97.3301
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Madison",
+   "city": "Madison",
+   "region": "WI",
+   "country": "US",
+   "center": [
+    43.0731,
+    -89.4012
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Ann Arbor",
+   "city": "Ann Arbor",
+   "region": "MI",
+   "country": "US",
+   "center": [
+    42.2808,
+    -83.743
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Rochester NY",
+   "city": "Rochester NY",
+   "region": "NY",
+   "country": "US",
+   "center": [
+    43.1566,
+    -77.6088
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Syracuse",
+   "city": "Syracuse",
+   "region": "NY",
+   "country": "US",
+   "center": [
+    43.0481,
+    -76.1474
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Albany NY",
+   "city": "Albany NY",
+   "region": "NY",
+   "country": "US",
+   "center": [
+    42.6526,
+    -73.7562
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Providence",
+   "city": "Providence",
+   "region": "RI",
+   "country": "US",
+   "center": [
+    41.824,
+    -71.4128
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Portland ME",
+   "city": "Portland ME",
+   "region": "ME",
+   "country": "US",
+   "center": [
+    43.6591,
+    -70.2568
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Burlington VT",
+   "city": "Burlington VT",
+   "region": "VT",
+   "country": "US",
+   "center": [
+    44.4759,
+    -73.2121
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Anchorage",
+   "city": "Anchorage",
+   "region": "AK",
+   "country": "US",
+   "center": [
+    61.2181,
+    -149.9003
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Boulder",
+   "city": "Boulder",
+   "region": "CO",
+   "country": "US",
+   "center": [
+    40.015,
+    -105.2705
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Asheville",
+   "city": "Asheville",
+   "region": "NC",
+   "country": "US",
+   "center": [
+    35.5951,
+    -82.5515
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Santa Fe",
+   "city": "Santa Fe",
+   "region": "NM",
+   "country": "US",
+   "center": [
+    35.687,
+    -105.9378
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Chattanooga",
+   "city": "Chattanooga",
+   "region": "TN",
+   "country": "US",
+   "center": [
+    35.0456,
+    -85.3097
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Bend OR",
+   "city": "Bend OR",
+   "region": "OR",
+   "country": "US",
+   "center": [
+    44.0582,
+    -121.3153
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Olympia WA",
+   "city": "Olympia WA",
+   "region": "WA",
+   "country": "US",
+   "center": [
+    47.0379,
+    -122.9007
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Manchester",
+   "city": "Manchester",
+   "country": "GB",
+   "center": [
+    53.4808,
+    -2.2426
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Birmingham",
+   "city": "Birmingham",
+   "country": "GB",
+   "center": [
+    52.4862,
+    -1.8904
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Glasgow",
+   "city": "Glasgow",
+   "country": "GB",
+   "center": [
+    55.8642,
+    -4.2518
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Bristol",
+   "city": "Bristol",
+   "country": "GB",
+   "center": [
+    51.4545,
+    -2.5879
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Leeds",
+   "city": "Leeds",
+   "country": "GB",
+   "center": [
+    53.8008,
+    -1.5491
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Liverpool",
+   "city": "Liverpool",
+   "country": "GB",
+   "center": [
+    53.4084,
+    -2.9916
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Sheffield",
+   "city": "Sheffield",
+   "country": "GB",
+   "center": [
+    53.3811,
+    -1.4701
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Newcastle upon Tyne",
+   "city": "Newcastle upon Tyne",
+   "country": "GB",
+   "center": [
+    54.9783,
+    -1.6178
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Cardiff",
+   "city": "Cardiff",
+   "country": "GB",
+   "center": [
+    51.4816,
+    -3.1791
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Belfast",
+   "city": "Belfast",
+   "country": "GB",
+   "center": [
+    54.5973,
+    -5.9301
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Nottingham",
+   "city": "Nottingham",
+   "country": "GB",
+   "center": [
+    52.9548,
+    -1.1581
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Brighton",
+   "city": "Brighton",
+   "country": "GB",
+   "center": [
+    50.8225,
+    -0.1372
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Toronto",
+   "city": "Toronto",
+   "country": "CA",
+   "center": [
+    43.6532,
+    -79.3832
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Montreal",
+   "city": "Montreal",
+   "country": "CA",
+   "center": [
+    45.5019,
+    -73.5674
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Vancouver",
+   "city": "Vancouver",
+   "country": "CA",
+   "center": [
+    49.2827,
+    -123.1207
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Calgary",
+   "city": "Calgary",
+   "country": "CA",
+   "center": [
+    51.0447,
+    -114.0719
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Ottawa",
+   "city": "Ottawa",
+   "country": "CA",
+   "center": [
+    45.4215,
+    -75.6972
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Edmonton",
+   "city": "Edmonton",
+   "country": "CA",
+   "center": [
+    53.5461,
+    -113.4938
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Winnipeg",
+   "city": "Winnipeg",
+   "country": "CA",
+   "center": [
+    49.8951,
+    -97.1384
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Quebec City",
+   "city": "Quebec City",
+   "country": "CA",
+   "center": [
+    46.8139,
+    -71.208
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Hamilton",
+   "city": "Hamilton",
+   "country": "CA",
+   "center": [
+    43.2557,
+    -79.8711
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Halifax",
+   "city": "Halifax",
+   "country": "CA",
+   "center": [
+    44.6488,
+    -63.5752
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Victoria",
+   "city": "Victoria",
+   "country": "CA",
+   "center": [
+    48.4284,
+    -123.3656
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Kitchener",
+   "city": "Kitchener",
+   "country": "CA",
+   "center": [
+    43.4516,
+    -80.4925
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Sydney",
+   "city": "Sydney",
+   "country": "AU",
+   "center": [
+    -33.8688,
+    151.2093
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Melbourne",
+   "city": "Melbourne",
+   "country": "AU",
+   "center": [
+    -37.8136,
+    144.9631
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Brisbane",
+   "city": "Brisbane",
+   "country": "AU",
+   "center": [
+    -27.4698,
+    153.0251
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Perth",
+   "city": "Perth",
+   "country": "AU",
+   "center": [
+    -31.9523,
+    115.8613
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Adelaide",
+   "city": "Adelaide",
+   "country": "AU",
+   "center": [
+    -34.9285,
+    138.6007
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Canberra",
+   "city": "Canberra",
+   "country": "AU",
+   "center": [
+    -35.2809,
+    149.13
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Gold Coast",
+   "city": "Gold Coast",
+   "country": "AU",
+   "center": [
+    -28.0167,
+    153.4
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Newcastle",
+   "city": "Newcastle",
+   "country": "AU",
+   "center": [
+    -32.9283,
+    151.7817
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Hobart",
+   "city": "Hobart",
+   "country": "AU",
+   "center": [
+    -42.8821,
+    147.3272
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Darwin",
+   "city": "Darwin",
+   "country": "AU",
+   "center": [
+    -12.4634,
+    130.8456
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Wollongong",
+   "city": "Wollongong",
+   "country": "AU",
+   "center": [
+    -34.4278,
+    150.8931
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Dublin",
+   "city": "Dublin",
+   "country": "IE",
+   "center": [
+    53.3498,
+    -6.2603
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Cork",
+   "city": "Cork",
+   "country": "IE",
+   "center": [
+    51.8985,
+    -8.4756
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Galway",
+   "city": "Galway",
+   "country": "IE",
+   "center": [
+    53.2707,
+    -9.0568
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Limerick",
+   "city": "Limerick",
+   "country": "IE",
+   "center": [
+    52.6638,
+    -8.6267
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Waterford",
+   "city": "Waterford",
+   "country": "IE",
+   "center": [
+    52.2593,
+    -7.1101
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Auckland",
+   "city": "Auckland",
+   "country": "NZ",
+   "center": [
+    -36.8485,
+    174.7633
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Wellington",
+   "city": "Wellington",
+   "country": "NZ",
+   "center": [
+    -41.2865,
+    174.7762
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Christchurch",
+   "city": "Christchurch",
+   "country": "NZ",
+   "center": [
+    -43.5321,
+    172.6362
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Tauranga",
+   "city": "Tauranga",
+   "country": "NZ",
+   "center": [
+    -37.6878,
+    176.1651
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Dunedin",
+   "city": "Dunedin",
+   "country": "NZ",
+   "center": [
+    -45.8788,
+    170.5028
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Napier",
+   "city": "Napier",
+   "country": "NZ",
+   "center": [
+    -39.4928,
+    176.912
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Lyon",
+   "city": "Lyon",
+   "country": "FR",
+   "center": [
+    45.764,
+    4.8357
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Marseille",
+   "city": "Marseille",
+   "country": "FR",
+   "center": [
+    43.2965,
+    5.3698
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Toulouse",
+   "city": "Toulouse",
+   "country": "FR",
+   "center": [
+    43.6047,
+    1.4442
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Bordeaux",
+   "city": "Bordeaux",
+   "country": "FR",
+   "center": [
+    44.8378,
+    -0.5792
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Nantes",
+   "city": "Nantes",
+   "country": "FR",
+   "center": [
+    47.2184,
+    -1.5536
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Nice",
+   "city": "Nice",
+   "country": "FR",
+   "center": [
+    43.7102,
+    7.262
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Strasbourg",
+   "city": "Strasbourg",
+   "country": "FR",
+   "center": [
+    48.5734,
+    7.7521
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Lille",
+   "city": "Lille",
+   "country": "FR",
+   "center": [
+    50.6292,
+    3.0573
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Rennes",
+   "city": "Rennes",
+   "country": "FR",
+   "center": [
+    48.1173,
+    -1.6778
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Montpellier",
+   "city": "Montpellier",
+   "country": "FR",
+   "center": [
+    43.6108,
+    3.8767
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Grenoble",
+   "city": "Grenoble",
+   "country": "FR",
+   "center": [
+    45.1885,
+    5.7245
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Nancy",
+   "city": "Nancy",
+   "country": "FR",
+   "center": [
+    48.6921,
+    6.1844
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Munich",
+   "city": "Munich",
+   "country": "DE",
+   "center": [
+    48.1351,
+    11.582
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Hamburg",
+   "city": "Hamburg",
+   "country": "DE",
+   "center": [
+    53.5511,
+    9.9937
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Cologne",
+   "city": "Cologne",
+   "country": "DE",
+   "center": [
+    50.9375,
+    6.9603
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Frankfurt",
+   "city": "Frankfurt",
+   "country": "DE",
+   "center": [
+    50.1109,
+    8.6821
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Leipzig",
+   "city": "Leipzig",
+   "country": "DE",
+   "center": [
+    51.3397,
+    12.3731
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Stuttgart",
+   "city": "Stuttgart",
+   "country": "DE",
+   "center": [
+    48.7758,
+    9.1829
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Dusseldorf",
+   "city": "Dusseldorf",
+   "country": "DE",
+   "center": [
+    51.2277,
+    6.7735
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Dortmund",
+   "city": "Dortmund",
+   "country": "DE",
+   "center": [
+    51.5136,
+    7.4653
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Essen",
+   "city": "Essen",
+   "country": "DE",
+   "center": [
+    51.4556,
+    7.0116
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Bremen",
+   "city": "Bremen",
+   "country": "DE",
+   "center": [
+    53.0793,
+    8.8017
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Dresden",
+   "city": "Dresden",
+   "country": "DE",
+   "center": [
+    51.0504,
+    13.7373
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Hannover",
+   "city": "Hannover",
+   "country": "DE",
+   "center": [
+    52.3759,
+    9.732
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Nuremberg",
+   "city": "Nuremberg",
+   "country": "DE",
+   "center": [
+    49.4521,
+    11.0767
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Amsterdam",
+   "city": "Amsterdam",
+   "country": "NL",
+   "center": [
+    52.3676,
+    4.9041
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Rotterdam",
+   "city": "Rotterdam",
+   "country": "NL",
+   "center": [
+    51.9244,
+    4.4777
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Utrecht",
+   "city": "Utrecht",
+   "country": "NL",
+   "center": [
+    52.0907,
+    5.1214
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "The Hague",
+   "city": "The Hague",
+   "country": "NL",
+   "center": [
+    52.0705,
+    4.3007
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Eindhoven",
+   "city": "Eindhoven",
+   "country": "NL",
+   "center": [
+    51.4416,
+    5.4697
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Groningen",
+   "city": "Groningen",
+   "country": "NL",
+   "center": [
+    53.2194,
+    6.5665
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Tilburg",
+   "city": "Tilburg",
+   "country": "NL",
+   "center": [
+    51.5555,
+    5.0913
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Mexico City",
+   "city": "Mexico City",
+   "country": "MX",
+   "center": [
+    19.4326,
+    -99.1332
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Guadalajara",
+   "city": "Guadalajara",
+   "country": "MX",
+   "center": [
+    20.6597,
+    -103.3496
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Monterrey",
+   "city": "Monterrey",
+   "country": "MX",
+   "center": [
+    25.6866,
+    -100.3161
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Puebla",
+   "city": "Puebla",
+   "country": "MX",
+   "center": [
+    19.0414,
+    -98.2063
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Tijuana",
+   "city": "Tijuana",
+   "country": "MX",
+   "center": [
+    32.5149,
+    -117.0382
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Cancun",
+   "city": "Cancun",
+   "country": "MX",
+   "center": [
+    21.1619,
+    -86.8515
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Merida",
+   "city": "Merida",
+   "country": "MX",
+   "center": [
+    20.9674,
+    -89.5926
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Queretaro",
+   "city": "Queretaro",
+   "country": "MX",
+   "center": [
+    20.5888,
+    -100.3899
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Leon",
+   "city": "Leon",
+   "country": "MX",
+   "center": [
+    21.1219,
+    -101.6833
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Bengaluru",
+   "city": "Bengaluru",
+   "country": "IN",
+   "center": [
+    12.9716,
+    77.5946
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Mumbai",
+   "city": "Mumbai",
+   "country": "IN",
+   "center": [
+    19.076,
+    72.8777
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Delhi",
+   "city": "Delhi",
+   "country": "IN",
+   "center": [
+    28.6139,
+    77.209
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Hyderabad",
+   "city": "Hyderabad",
+   "country": "IN",
+   "center": [
+    17.385,
+    78.4867
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Pune",
+   "city": "Pune",
+   "country": "IN",
+   "center": [
+    18.5204,
+    73.8567
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Chennai",
+   "city": "Chennai",
+   "country": "IN",
+   "center": [
+    13.0827,
+    80.2707
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Kolkata",
+   "city": "Kolkata",
+   "country": "IN",
+   "center": [
+    22.5726,
+    88.3639
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Ahmedabad",
+   "city": "Ahmedabad",
+   "country": "IN",
+   "center": [
+    23.0225,
+    72.5714
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Jaipur",
+   "city": "Jaipur",
+   "country": "IN",
+   "center": [
+    26.9124,
+    75.7873
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Chandigarh",
+   "city": "Chandigarh",
+   "country": "IN",
+   "center": [
+    30.7333,
+    76.7794
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Kochi",
+   "city": "Kochi",
+   "country": "IN",
+   "center": [
+    9.9312,
+    76.2673
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Tokyo",
+   "city": "Tokyo",
+   "country": "JP",
+   "center": [
+    35.6762,
+    139.6503
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Osaka",
+   "city": "Osaka",
+   "country": "JP",
+   "center": [
+    34.6937,
+    135.5023
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Kyoto",
+   "city": "Kyoto",
+   "country": "JP",
+   "center": [
+    35.0116,
+    135.7681
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Yokohama",
+   "city": "Yokohama",
+   "country": "JP",
+   "center": [
+    35.4437,
+    139.638
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Nagoya",
+   "city": "Nagoya",
+   "country": "JP",
+   "center": [
+    35.1815,
+    136.9066
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Fukuoka",
+   "city": "Fukuoka",
+   "country": "JP",
+   "center": [
+    33.5904,
+    130.4017
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Sapporo",
+   "city": "Sapporo",
+   "country": "JP",
+   "center": [
+    43.0618,
+    141.3545
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Kobe",
+   "city": "Kobe",
+   "country": "JP",
+   "center": [
+    34.6901,
+    135.1955
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Sendai",
+   "city": "Sendai",
+   "country": "JP",
+   "center": [
+    38.2682,
+    140.8694
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Hiroshima",
+   "city": "Hiroshima",
+   "country": "JP",
+   "center": [
+    34.3853,
+    132.4553
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Naha",
+   "city": "Naha",
+   "country": "JP",
+   "center": [
+    26.2124,
+    127.6809
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Madrid",
+   "city": "Madrid",
+   "country": "ES",
+   "center": [
+    40.4168,
+    -3.7038
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Barcelona",
+   "city": "Barcelona",
+   "country": "ES",
+   "center": [
+    41.3851,
+    2.1734
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Valencia",
+   "city": "Valencia",
+   "country": "ES",
+   "center": [
+    39.4699,
+    -0.3763
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Seville",
+   "city": "Seville",
+   "country": "ES",
+   "center": [
+    37.3891,
+    -5.9845
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Bilbao",
+   "city": "Bilbao",
+   "country": "ES",
+   "center": [
+    43.263,
+    -2.935
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Malaga",
+   "city": "Malaga",
+   "country": "ES",
+   "center": [
+    36.7213,
+    -4.4214
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Rome",
+   "city": "Rome",
+   "country": "IT",
+   "center": [
+    41.9028,
+    12.4964
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Milan",
+   "city": "Milan",
+   "country": "IT",
+   "center": [
+    45.4642,
+    9.19
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Naples",
+   "city": "Naples",
+   "country": "IT",
+   "center": [
+    40.8518,
+    14.2681
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Turin",
+   "city": "Turin",
+   "country": "IT",
+   "center": [
+    45.0703,
+    7.6869
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Bologna",
+   "city": "Bologna",
+   "country": "IT",
+   "center": [
+    44.4949,
+    11.3426
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Florence",
+   "city": "Florence",
+   "country": "IT",
+   "center": [
+    43.7696,
+    11.2558
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Zurich",
+   "city": "Zurich",
+   "country": "CH",
+   "center": [
+    47.3769,
+    8.5417
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Geneva",
+   "city": "Geneva",
+   "country": "CH",
+   "center": [
+    46.2044,
+    6.1432
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Basel",
+   "city": "Basel",
+   "country": "CH",
+   "center": [
+    47.5596,
+    7.5886
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Bern",
+   "city": "Bern",
+   "country": "CH",
+   "center": [
+    46.948,
+    7.4474
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Lausanne",
+   "city": "Lausanne",
+   "country": "CH",
+   "center": [
+    46.5197,
+    6.6323
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Brussels",
+   "city": "Brussels",
+   "country": "BE",
+   "center": [
+    50.8503,
+    4.3517
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Antwerp",
+   "city": "Antwerp",
+   "country": "BE",
+   "center": [
+    51.2194,
+    4.4025
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Ghent",
+   "city": "Ghent",
+   "country": "BE",
+   "center": [
+    51.0543,
+    3.7174
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Liege",
+   "city": "Liege",
+   "country": "BE",
+   "center": [
+    50.6326,
+    5.5797
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Stockholm",
+   "city": "Stockholm",
+   "country": "SE",
+   "center": [
+    59.3293,
+    18.0686
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Gothenburg",
+   "city": "Gothenburg",
+   "country": "SE",
+   "center": [
+    57.7089,
+    11.9746
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Malmo",
+   "city": "Malmo",
+   "country": "SE",
+   "center": [
+    55.605,
+    13.0038
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Oslo",
+   "city": "Oslo",
+   "country": "NO",
+   "center": [
+    59.9139,
+    10.7522
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Bergen",
+   "city": "Bergen",
+   "country": "NO",
+   "center": [
+    60.3913,
+    5.3221
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Copenhagen",
+   "city": "Copenhagen",
+   "country": "DK",
+   "center": [
+    55.6761,
+    12.5683
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Aarhus",
+   "city": "Aarhus",
+   "country": "DK",
+   "center": [
+    56.1629,
+    10.2039
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Helsinki",
+   "city": "Helsinki",
+   "country": "FI",
+   "center": [
+    60.1699,
+    24.9384
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Tampere",
+   "city": "Tampere",
+   "country": "FI",
+   "center": [
+    61.4978,
+    23.761
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Vienna",
+   "city": "Vienna",
+   "country": "AT",
+   "center": [
+    48.2082,
+    16.3738
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Graz",
+   "city": "Graz",
+   "country": "AT",
+   "center": [
+    47.0707,
+    15.4395
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Salzburg",
+   "city": "Salzburg",
+   "country": "AT",
+   "center": [
+    47.8095,
+    13.055
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Warsaw",
+   "city": "Warsaw",
+   "country": "PL",
+   "center": [
+    52.2297,
+    21.0122
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Krakow",
+   "city": "Krakow",
+   "country": "PL",
+   "center": [
+    50.0647,
+    19.945
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Gdansk",
+   "city": "Gdansk",
+   "country": "PL",
+   "center": [
+    54.352,
+    18.6466
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Wroclaw",
+   "city": "Wroclaw",
+   "country": "PL",
+   "center": [
+    51.1079,
+    17.0385
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Lisbon",
+   "city": "Lisbon",
+   "country": "PT",
+   "center": [
+    38.7223,
+    -9.1393
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Porto",
+   "city": "Porto",
+   "country": "PT",
+   "center": [
+    41.1579,
+    -8.6291
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Prague",
+   "city": "Prague",
+   "country": "CZ",
+   "center": [
+    50.0755,
+    14.4378
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Brno",
+   "city": "Brno",
+   "country": "CZ",
+   "center": [
+    49.1951,
+    16.6068
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Johannesburg",
+   "city": "Johannesburg",
+   "country": "ZA",
+   "center": [
+    -26.2041,
+    28.0473
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Cape Town",
+   "city": "Cape Town",
+   "country": "ZA",
+   "center": [
+    -33.9249,
+    18.4241
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Durban",
+   "city": "Durban",
+   "country": "ZA",
+   "center": [
+    -29.8587,
+    31.0218
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Pretoria",
+   "city": "Pretoria",
+   "country": "ZA",
+   "center": [
+    -25.7479,
+    28.2293
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Singapore",
+   "city": "Singapore",
+   "country": "SG",
+   "center": [
+    1.3521,
+    103.8198
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Seoul",
+   "city": "Seoul",
+   "country": "KR",
+   "center": [
+    37.5665,
+    126.978
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Busan",
+   "city": "Busan",
+   "country": "KR",
+   "center": [
+    35.1796,
+    129.0756
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Dubai",
+   "city": "Dubai",
+   "country": "AE",
+   "center": [
+    25.2048,
+    55.2708
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Abu Dhabi",
+   "city": "Abu Dhabi",
+   "country": "AE",
+   "center": [
+    24.4539,
+    54.3773
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Hong Kong",
+   "city": "Hong Kong",
+   "country": "HK",
+   "center": [
+    22.3193,
+    114.1694
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Brasília",
+   "city": "Brasília",
+   "country": "BR",
+   "center": [
+    -15.7939,
+    -47.8828
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Belo Horizonte",
+   "city": "Belo Horizonte",
+   "country": "BR",
+   "center": [
+    -19.9167,
+    -43.9345
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Salvador",
+   "city": "Salvador",
+   "country": "BR",
+   "center": [
+    -12.9777,
+    -38.5016
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Fortaleza",
+   "city": "Fortaleza",
+   "country": "BR",
+   "center": [
+    -3.7319,
+    -38.5267
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Curitiba",
+   "city": "Curitiba",
+   "country": "BR",
+   "center": [
+    -25.4284,
+    -49.2733
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Recife",
+   "city": "Recife",
+   "country": "BR",
+   "center": [
+    -8.0476,
+    -34.877
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Porto Alegre",
+   "city": "Porto Alegre",
+   "country": "BR",
+   "center": [
+    -30.0346,
+    -51.2177
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Manaus",
+   "city": "Manaus",
+   "country": "BR",
+   "center": [
+    -3.119,
+    -60.0217
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Belém",
+   "city": "Belém",
+   "country": "BR",
+   "center": [
+    -1.4558,
+    -48.4902
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Goiânia",
+   "city": "Goiânia",
+   "country": "BR",
+   "center": [
+    -16.6869,
+    -49.2648
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Campinas",
+   "city": "Campinas",
+   "country": "BR",
+   "center": [
+    -22.9099,
+    -47.0626
+   ],
+   "radius_miles": 25
+  },
+  {
+   "name": "Florianópolis",
+   "city": "Florianópolis",
+   "country": "BR",
+   "center": [
+    -27.5954,
+    -48.548
+   ],
+   "radius_miles": 25
   }
  ],
  "_brazil": "Added 2026-08-28. Measured in the Rio box: 615 playgrounds, 355 public artworks, 268 toilets, 241 outdoor gyms, 32 drinking fountains; Brasília's 529/35/166/293/34. Most of that lands as pin_only furniture, which is the point — it draws the city without burying the gig three streets away. The cache key carries the area name, so new areas need no version bump; only a changed SELECTOR does.",
- "_washington": "Added 2026-09-21. A 35-mile radius rather than the 25 every other hub uses, because the ask was Manassas and Gainesville VA: at 25 miles Manassas clears the west edge by 0.03 degrees and Gainesville falls outside it, 33 is the first radius holding both, and 35 is that with margin at no extra cost - both tile to the same 4 cells at TILE_DEG=1.0. Measured the same day: 11,324 candidates in the box, 35 listings + 3,841 furniture from the first 4,000-candidate window. Within 6 miles of Manassas 335 elements (310 playgrounds, 15 toilets, 3 artworks) and of Gainesville 143 (122 playgrounds, 15 toilets, 6 fountains) - and all 478 sit at candidate index below 3,108, so the FIRST run reaches both towns. Tiles sweep south-west first and the cursor walks from there; the whole box takes three runs at --max-places 4000."
+ "_washington": "Widened from 25 to 35 miles on 2026-09-21, and the only hub in this file that is not 25. The ask was Manassas and Gainesville VA, and a 25-mile box reaches neither properly: of the elements within 6 miles of Manassas it holds 266 of 335, and of Gainesville's 143 it holds NONE - the town is 31 miles out and the box stops at 25. 33 is the first radius that holds both; 35 is that with margin and costs nothing, because 25 and 35 both tile to the same 4 cells at TILE_DEG=1.0. Measured the same day by dry run: the 35-mile box returns 11,324 candidates against the 25-mile box's 8,156, and yields 35 listings + 3,841 furniture from the first 4,000 examined. Tiles sweep south-west first and the cursor walks from there, so all 478 Manassas and Gainesville candidates sit below index 3,108 and the FIRST run reaches both towns; the whole box takes three runs at --max-places 4000."
 }

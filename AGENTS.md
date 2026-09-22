@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 217 of them — live in
+session.** The measured notes about what bites — 252 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -39,7 +39,7 @@ front doors it reaches.
 | Finding a VENUE's own calendar, anywhere on earth | `catalog_discover_osm.py` — OSM venues with a `website`, probed for a calendar and fingerprinted to an adapter |
 | US state fairs, as the fair itself | `mapsee_ingest_fairs.py` + `fair_sources.json` — 48 fairs, one multi-day event each. Identity and coordinates are curated; the DATES are scraped every run and never stored |
 | Music festivals with internal schedules | `mapsee_ingest_festivals.py`, `festival_pdf.py`, `catalog_discover_festivals.py`; `docs/agents/festival-schedules.md` — 24 agenda items across 12 Jackson Street stages verified 2026-09-09 |
-| Finding a whole TOWN's calendar | `catalog_discover_civic.py` — Wikidata cities with an official website (5,770 in the US), probed the same way. The city's own calendar, plus its tourism board where Wikipedia names one |
+| Finding a whole TOWN's calendar | `catalog_discover_civic.py` — Wikidata cities with an official website (5,770 in the US alone), probed the same way. The city's own calendar, plus its tourism board where Wikipedia names one. WHICH COUNTRY is a rotation: `CITY_CLASSES` names a settlement class per country and `_civic_next_country` in `catalog_curate.py` takes the thinnest catalog first, with a cursor offset per country |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
 | Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run — until 2026-09-14 every line counted jsonld, mylisting and venuepilot twice (166 of 2,975 rows); a line whose `per_type.jsonld` is double the entries in `jsonld_sources.json` predates the fix |
@@ -58,7 +58,7 @@ front doors it reaches.
 | Takeaway places (not events) from OpenStreetMap | `mapsee_ingest_osm_food.py` + `osm_food_sources.json` — only places with a real order link AND readable hours |
 | Second-hand / charity / vintage shops (not events) from OpenStreetMap | `mapsee_ingest_osm_secondhand.py` + `osm_secondhand_sources.json` — the food adapter's sibling, feeding `market` (fleabop). Bar is readable hours, not an order link; read its header for why that differs. Fetches no third-party websites |
 | UK leisure-centre, community-sport and volunteering sessions | `mapsee_ingest_openactive.py` + `openactive_sources.json` — RPDE feeds, all CC-BY 4.0, all carrying their own coordinates |
-| Playgrounds, drinking fountains, outdoor gyms, little free libraries, food banks, public art | `mapsee_ingest_osm_amenities.py` + `osm_amenity_sources.json` — the third OSM PLACES adapter. Most of what it writes is `pin_only` FURNITURE: drawn on the map and nothing else |
+| Playgrounds, toilets, drinking fountains, outdoor gyms, little free libraries, food banks, public art | `mapsee_ingest_osm_amenities.py` + `osm_amenity_sources.json` — 260 areas, the same metros the event sweeps use, matrix-sharded five ways because GitHub caps a matrix at 256 — the third OSM PLACES adapter. Most of what it writes is `pin_only` FURNITURE: drawn on the map and nothing else |
 | Public transit bundles (bus/metro suggestions on a walk) | **not here** — `../mapsee/tools/transit_build.py` + `transit_sources.json`. It is Python and it is a scheduled pipeline, so this is where you would look; it lives in the product repo because its output is a static site asset and mapsee deploys on push, which a cross-repo push would only complicate |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | The planned kids door (unsie.com) and what it wants from this repo | **not here** — `../mapsee/docs/plans/unsie-and-the-lend-layer.md`. A PLAN, nothing shipped. Its §4 and §7 are this repo's half: new kid Kinds in `mapsee_ingest_osm_amenities.py` and swap language in `_KIDS_RX`/`derive_categories`. Toy libraries and little free libraries are MEASURED — the two notes in `docs/agents/osm-amenities.md` say why one is not worth a Kind without French hubs and why the other cannot be split by audience. Read those before widening either |
@@ -116,10 +116,10 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 | File | Notes | Covers |
 |---|---|---|
-| `docs/agents/curation-and-discovery.md` | 33 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic |
-| `docs/agents/osm-amenities.md` | 25 | which civic places earn a pin or a sheet, deny-lists, facts vs names, the cached element list |
+| `docs/agents/curation-and-discovery.md` | 63 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic |
+| `docs/agents/osm-amenities.md` | 29 | which civic places earn a pin or a sheet, deny-lists, facts vs names, the cached element list |
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
-| `docs/agents/ci-and-jobs.md` | 20 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |
+| `docs/agents/ci-and-jobs.md` | 21 | timeouts, `always()`, budgets, job order, secrets, configs a guarded job needs |
 | `docs/agents/adapters-and-sources.md` | 19 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes |
 | `docs/agents/classification-and-categories.md` | 23 | lens keys, promotion regexes, kids/food/market/music, category defaults, order pickup |
 | `docs/agents/cancelled-events.md` | 17 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete |

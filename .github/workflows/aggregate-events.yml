@@ -623,10 +623,19 @@ jobs:
         id: ingest_tribe
         if: matrix.group == 'civic'
         continue-on-error: true
-        timeout-minutes: 60
+        # 90, not 60, AND A DEADLINE INSIDE IT. tribe_sources.json reached 532 sites
+        # at ~6.8 s each — about 62 minutes — so the 60-minute cap started cancelling
+        # the step, and because `mapsee_ingest_tribe.py` saves ONCE after its loop, a
+        # cancel threw away the whole run: 35339055917 was killed at exactly 60m00s
+        # having already reported "kept" for 495 sites and wrote none of them. The cap
+        # buys the list room to finish; `--deadline` is what makes running out of it
+        # survivable, per the rule in docs/agents/ci-and-jobs.md — the step stamps its
+        # own start, the ingester starts no site past +80 min, and the save still runs.
+        timeout-minutes: 90
         run: |
           if [ -f tribe_sources.json ]; then
-            python mapsee_ingest_tribe.py --config tribe_sources.json --store feeds_events.json
+            python mapsee_ingest_tribe.py --config tribe_sources.json --store feeds_events.json \
+              --deadline "$(( $(date +%s) + 80*60 ))"
           else
             echo "no tribe_sources.json — skipping"
           fi

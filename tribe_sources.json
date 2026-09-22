@@ -8451,6 +8451,837 @@
         "lon": 8.4539083
       },
       "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Cevihaus Harass",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cevi-uster.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cevihaus Harass",
+        "address": "11 Struussenweidweg",
+        "city": "Uster",
+        "postal_code": "8610",
+        "lat": 47.358918,
+        "lon": 8.7349309
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Motorworld",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://motorworld.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Motorworld",
+        "lat": 47.4520667,
+        "lon": 8.7050766
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Clubhaus des FC Effretikon",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://fceffretikon.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Clubhaus des FC Effretikon",
+        "address": "99 Kirchweg",
+        "city": "Effretikon",
+        "postal_code": "8307",
+        "country": "CH",
+        "lat": 47.4185545,
+        "lon": 8.7007453
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Ruderclub Thalwil",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://rcthalwil.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ruderclub Thalwil",
+        "address": "178 Seestrasse",
+        "lat": 47.3009672,
+        "lon": 8.562788
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Widmerheim Pflege und Betreuung",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://sawh.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Widmerheim Pflege und Betreuung",
+        "address": "11 Amalie-Widmer-Strasse",
+        "city": "Horgen",
+        "postal_code": "8810",
+        "lat": 47.2680497,
+        "lon": 8.5843319
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Viva Kirche Grüningen",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.vivakirche-grueningen.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Viva Kirche Grüningen",
+        "address": "6 Brunnenwisstrasse",
+        "city": "Grüningen",
+        "postal_code": "8627",
+        "country": "CH",
+        "lat": 47.2843401,
+        "lon": 8.7574206
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Freie Evangelische Gemeinde Seuzach",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.feg-seuzach.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Freie Evangelische Gemeinde Seuzach",
+        "address": "52 Forrenbergstrasse",
+        "city": "Seuzach",
+        "postal_code": "8472",
+        "lat": 47.5269653,
+        "lon": 8.7302378
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Katholische Kirche",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kath-kuesnacht-erlenbach.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Katholische Kirche",
+        "address": "81 Seestrasse",
+        "city": "Erlenbach ZH",
+        "postal_code": "8703",
+        "lat": 47.3024606,
+        "lon": 8.5925713
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "ETG Rümlang",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://etg-ruemlang.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ETG Rümlang",
+        "address": "6 Steinfeldstrasse",
+        "city": "Rümlang",
+        "postal_code": "8153",
+        "lat": 47.453906,
+        "lon": 8.5264294
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Sportclub Steinhausen",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://sportclubsteinhausen.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sportclub Steinhausen",
+        "address": "17 Eschfeldstrasse",
+        "city": "Steinhausen",
+        "postal_code": "6312",
+        "lat": 47.1984865,
+        "lon": 8.4891838
+      },
+      "_metro": "Zurich, CH"
+    },
+    {
+      "name": "Musée Départemental des Sapeurs Pompiers",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.gex.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée Départemental des Sapeurs Pompiers",
+        "lat": 46.3345768,
+        "lon": 6.0655512
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Bibliothèque de Chancy",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chancy.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bibliothèque de Chancy",
+        "address": "81 Route de Bellegarde",
+        "city": "Chancy",
+        "postal_code": "1284",
+        "country": "CH",
+        "lat": 46.1501763,
+        "lon": 5.9701812
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Undertown",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://undertown.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Undertown",
+        "address": "1 Place des Cinq-Continents",
+        "city": "Meyrin",
+        "postal_code": "1217",
+        "lat": 46.2323407,
+        "lon": 6.0812943
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Maison des habitants",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.maisondeshabitants.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison des habitants",
+        "address": "3 Rue du Jura",
+        "city": "Saint-Julien-en-Genevois",
+        "postal_code": "74160",
+        "lat": 46.1457369,
+        "lon": 6.0818617
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Palais des sports",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.saint-claude.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Palais des sports",
+        "lat": 46.3897735,
+        "lon": 5.863213
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Le Groove",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://legroove.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Groove",
+        "address": "9 Rue des Gazomètres",
+        "city": "Genève",
+        "postal_code": "1205",
+        "lat": 46.2015686,
+        "lon": 6.1339126
+      },
+      "_metro": "Geneva, CH"
+    },
+    {
+      "name": "Lichtspiele",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://kino-lichtspiele.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lichtspiele",
+        "lat": 47.3504333,
+        "lon": 7.9034386
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Buchhandlung Merkel",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://buchhandlung-merkel.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buchhandlung Merkel",
+        "address": "2 Basler Straße",
+        "city": "Grenzach-Wyhlen",
+        "postal_code": "79639",
+        "lat": 47.5528462,
+        "lon": 7.6612057
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "GGG Migration",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ggg-migration.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "GGG Migration",
+        "address": "26 Eulerstrasse",
+        "city": "Basel",
+        "postal_code": "4051",
+        "lat": 47.5551401,
+        "lon": 7.5811188
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Stadtteilsekretariat Basel-West",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://stsbw.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadtteilsekretariat Basel-West",
+        "lat": 47.5561383,
+        "lon": 7.5737322
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Hochrheinsegler Schwörstadt",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://hochrheinsegler.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hochrheinsegler Schwörstadt",
+        "address": "18 Rheinbadstraße",
+        "city": "Schwörstadt",
+        "postal_code": "79739",
+        "lat": 47.590004,
+        "lon": 7.8799557
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Musée de l'Impression sur Étoffes",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.musee-impression.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musée de l'Impression sur Étoffes",
+        "address": "14 Rue Jean-Jacques Henner",
+        "city": "Mulhouse",
+        "postal_code": "68100",
+        "lat": 47.7447926,
+        "lon": 7.3447787
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Musikverein Märkt",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.musikverein-maerkt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musikverein Märkt",
+        "address": "2 Am Altrhein",
+        "city": "Weil am Rhein",
+        "postal_code": "79576",
+        "country": "DE",
+        "lat": 47.6252392,
+        "lon": 7.58005
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "La Passerelle",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.la-passerelle.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Passerelle",
+        "lat": 47.7492295,
+        "lon": 7.4125375
+      },
+      "_metro": "Basel, CH"
+    },
+    {
+      "name": "Maison",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://maisonbern.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison",
+        "address": "7 Theaterplatz",
+        "lat": 46.9475438,
+        "lon": 7.4478006
+      },
+      "_metro": "Bern, CH"
+    },
+    {
+      "name": "UIAA",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.theuiaa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "UIAA",
+        "lat": 46.9415245,
+        "lon": 7.4365431
+      },
+      "_metro": "Bern, CH"
+    },
+    {
+      "name": "Kulturspinnerei",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event",
+      "base_url": "https://kulturspinnerei.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturspinnerei",
+        "address": "17 Spinnereiweg",
+        "city": "Bern",
+        "postal_code": "3004",
+        "lat": 46.9687782,
+        "lon": 7.4415006
+      },
+      "_metro": "Bern, CH"
+    },
+    {
+      "name": "Berchtoldiakeller",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.berchtoldia.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Berchtoldiakeller",
+        "lat": 46.9488307,
+        "lon": 7.453745
+      },
+      "_metro": "Bern, CH"
+    },
+    {
+      "name": "LO31 Quartiertreff",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://lo31.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "LO31 Quartiertreff",
+        "address": "31 Lorrainestrasse",
+        "postal_code": "3013",
+        "lat": 46.9582683,
+        "lon": 7.4444609
+      },
+      "_metro": "Bern, Switzerland"
+    },
+    {
+      "name": "Bibliothèque communale de Cuarnens",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://cuarnens.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bibliothèque communale de Cuarnens",
+        "address": "2 Route de l'Isle",
+        "city": "Cuarnens",
+        "postal_code": "1148",
+        "country": "CH",
+        "lat": 46.6247082,
+        "lon": 6.4373642
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Ancien atelier de couture – salle B",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.attalens.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ancien atelier de couture – salle B",
+        "lat": 46.5113444,
+        "lon": 6.8497735
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Assemblée Chrétienne des Trois-Rois",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://actr.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Assemblée Chrétienne des Trois-Rois",
+        "address": "5bis Chemin des Trois-Rois",
+        "lat": 46.5180963,
+        "lon": 6.6391058
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Château de La Sarraz",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://chateau-lasarraz.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Château de La Sarraz",
+        "lat": 46.6603855,
+        "lon": 6.5141234
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Paul & Henri Carnal Hall",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.roseyconcerthall.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Paul & Henri Carnal Hall",
+        "address": "2",
+        "city": "Rolle",
+        "postal_code": "1180",
+        "lat": 46.4598271,
+        "lon": 6.3286646
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Jardin Robin",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://permacultureriviera.ch",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jardin Robin",
+        "lat": 46.4673511,
+        "lon": 6.8420643
+      },
+      "_metro": "Lausanne, Switzerland"
+    },
+    {
+      "name": "Deschutes Historical Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.deschuteshistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Deschutes Historical Museum",
+        "address": "129 Northwest Idaho Avenue",
+        "city": "Bend",
+        "region": "OR",
+        "postal_code": "97703",
+        "lat": 44.0553466,
+        "lon": -121.317076
+      },
+      "_metro": "Bend, United States"
+    },
+    {
+      "name": "Washington Center for the Performing Arts (Olympia)",
+      "base_url": "https://www.washingtoncenter.org",
+      "category": "theater",
+      "default_city": "Olympia",
+      "default_region": "WA",
+      "default_country": "US",
+      "within_days": 180,
+      "_found": "manual: Olympia metro request -> tribe REST",
+      "_metro": "Olympia, WA"
+    },
+    {
+      "name": "Cento Incroci",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://centoincroci.regione.lazio.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cento Incroci",
+        "address": "158 Via delle Palme",
+        "postal_code": "00172",
+        "lat": 41.8902818,
+        "lon": 12.5704826
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "MuCaM - Museo civico archeologico di Mentana e dell'agro nomentano",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.poloculturalementana.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "MuCaM - Museo civico archeologico di Mentana e dell'agro nomentano",
+        "address": "1 Piazza Giuseppe Garibaldi",
+        "city": "Mentana",
+        "postal_code": "00013",
+        "lat": 42.0342332,
+        "lon": 12.6373319
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Libreria GRIOT",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://libreriagriot.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Libreria GRIOT",
+        "address": "1/A Via di Santa Cecilia",
+        "city": "Roma",
+        "postal_code": "00153",
+        "lat": 41.8875858,
+        "lon": 12.4773005
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Galactus",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://galactus.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Galactus",
+        "address": "27 Via Gualdo Tadino",
+        "city": "Roma",
+        "postal_code": "00181",
+        "country": "IT",
+        "lat": 41.8768062,
+        "lon": 12.5279345
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Museo dell'Olio",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.villacavalletti.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museo dell'Olio",
+        "address": "73 Via Ventiquattro Maggio",
+        "city": "Grottaferrata",
+        "postal_code": "00046",
+        "lat": 41.794977,
+        "lon": 12.6777838
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Chiesa di Santa Maria in Transpontina",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.parrocchiatraspontina.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chiesa di Santa Maria in Transpontina",
+        "address": "Via della Conciliazione",
+        "city": "Roma",
+        "lat": 41.9028241,
+        "lon": 12.4622048
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Chiesa di Santa Maria del Suffragio",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.luiginovarese.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chiesa di Santa Maria del Suffragio",
+        "lat": 41.8978683,
+        "lon": 12.4664095
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Chiesa di Santi Mario e Compagni Martiri",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.parrocchiasanmario.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chiesa di Santi Mario e Compagni Martiri",
+        "address": "245 Via del Ponte delle Sette Miglia",
+        "city": "Roma",
+        "postal_code": "00173",
+        "lat": 41.8439438,
+        "lon": 12.6027568
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Forum Austriaco di Cultura",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://www.austriacult.roma.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Forum Austriaco di Cultura",
+        "address": "113 Viale Bruno Buozzi",
+        "city": "Roma",
+        "postal_code": "00197",
+        "lat": 41.9189687,
+        "lon": 12.4785977
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Parrocchia Santa Maddalena di Canossa",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.parrocchiasantamaddalenadicanossa.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parrocchia Santa Maddalena di Canossa",
+        "address": "84 Via della Lucchina",
+        "lat": 41.959204,
+        "lon": 12.4002437
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Antiquarium Forense",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://colosseo.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Antiquarium Forense",
+        "lat": 41.8910776,
+        "lon": 12.4893205
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Santi Marcellino e Pietro al Laterano",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.diocesidiroma.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Santi Marcellino e Pietro al Laterano",
+        "lat": 41.8890461,
+        "lon": 12.5030197
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Autodromo Nazionale di Monza",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.monzanet.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Autodromo Nazionale di Monza",
+        "address": "5 Viale Vedano",
+        "city": "Monza",
+        "postal_code": "20900",
+        "country": "IT",
+        "lat": 45.6191059,
+        "lon": 9.282641
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Kasa dei Libri",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://www.eventiatmilano.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kasa dei Libri",
+        "address": "4 Largo Aldo De Benedetti",
+        "lat": 45.4858312,
+        "lon": 9.1945712
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "BASE Milano",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe",
+      "base_url": "https://base.milano.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BASE Milano",
+        "address": "26 Via Bergognone Da Fossano",
+        "city": "Milano",
+        "postal_code": "20144",
+        "lat": 45.4531125,
+        "lon": 9.1636486
+      },
+      "_metro": "Milan, Italy"
     }
   ],
   "_not_included": {
@@ -8461,6 +9292,10 @@
     "https://tradersvillage.com": "One of the largest flea markets in the US, The Events Calendar answers, robots.txt allows it - and the calendar is not the market. All 10 upcoming entries are special events staged AT the site (Roll Out Volkswagen Car Show, Best Friends Pet Adoption, CORNy Maze, Trick R Treat Trail); the weekly flea market itself is never listed, because it simply happens every weekend and needs no event page. Filing these under `market` would put a pet adoption and a corn maze on fleabop and call them a flea market. The venue is worth revisiting only if they ever publish market days.",
     "https://sfbike.org": "51 upcoming events, real rides and classes, and robots.txt ALLOWS it (Cloudflare Managed Content: 'User-agent: * / Content-Signal: search=yes,ai-train=no,use=reference / Allow: /'). Declined anyway, because permission is not the binding constraint here - the site sits behind a Cloudflare bot challenge that answers this adapter's requests with a 403 and 'Just a moment...' every time. It is a CLIENT-FINGERPRINT block, not a rate limit and not a User-Agent block: identical URLs answer 200 from curl and 403 from python-requests with the same UA, headers and pacing, and the 403 is instant and repeatable. Getting past it would mean impersonating a browser to defeat bot management somebody deliberately turned on - the same line as borrowing theveraproject.org's DICE key. If we want this feed, ask SFBC to allowlist the aggregator's UA.",
     "https://www.marinbike.org": "Verifies fine - The Events Calendar answers, robots.txt is an empty Disallow with Crawl-delay: 10 - and is declined on DATA, not conduct: both upcoming events carry venue:null, with no name, address, city or coordinates anywhere in the record. There is nothing to place them by. A default_city would be worse than the gap: the two events are in different towns ('Slow and Say Hello: Mill Valley Multi-Use Path' and 'Kelly Brush Ride: Bay Area'), so any single fallback pins one of them somewhere real and wrong. Revisit if they start assigning venues.",
-    "https://www.cyclingtimetrials.org.uk": "UK time trials, thousands of events, and the event list is at /event-finder/ - which their robots.txt explicitly Disallows for 'User-agent: *' (along with /search/ and /svc/). Reachable is not licensed. Worth an approach to CTT for permission, the way parkrun is parked; not worth taking."
+    "https://www.cyclingtimetrials.org.uk": "UK time trials, thousands of events, and the event list is at /event-finder/ - which their robots.txt explicitly Disallows for 'User-agent: *' (along with /search/ and /svc/). Reachable is not licensed. Worth an approach to CTT for permission, the way parkrun is parked; not worth taking.",
+    "https://westseattleblog.com/events/": "The West Seattle community calendar, and the biggest single list of West Seattle garage sales, clothing swaps and rummage sales there is: the All-in-One Event Calendar export answered 4,799 VEVENTs (86 upcoming, 82 with a LOCATION, one of them a ski-and-snowboard swap) on 2026-09-19. Their robots.txt Disallows `/*controller=ai1ec_exporter_controller*` for `User-agent: *`, along with every `/events/action~*/` view. That is the only machine-readable route out of the plugin, so there is no permitted feed - the same line the Squarespace adapter walks with `?format=json`. Worth asking them for a subscription URL; not worth taking.",
+    "https://everout.com/everout/lists/2026-community-sales/": "EverOut's Seattle list of 2026 community sales looked like the one page that names every neighbourhood garage-sale day. It answers 403 to this aggregator's User-Agent - the robots.txt itself is a 403 - which is a refusal, and it is a commercial listings product besides. The neighbourhood councils it links to are the sources; four of them (Montlake, PhinneyWood, Maple Leaf, Wedgwood) were checked directly on 2026-09-19 and only Montlake publishes a feed.",
+    "https://www.parkmead.org/events": "Parkmead Community Association, Walnut Creek CA: a Squarespace collection that verifies (1 of 31 articles upcoming on 2026-09-19) and whose annual Neighborhood Garage Sale is exactly what the fleabop lens wants. Not configured because nothing on the page carries an address or map link, and Photon has no feature called Parkmead to anchor a `venue` block to - the closest hits were two other elementary schools. A squarespace source with neither is skipped loudly on every event, so this would be a source that ingests nothing. Re-probe if OSM gains the neighbourhood.",
+    "https://www.brooklynpark.org/events/": "Brooklyn Park, MN - the city that registers a Citywide Garage Sale weekend each spring. The Events Calendar answers 204 events on the REST API with street addresses, but on 2026-09-20 five of the seven on the front page were commission, council and budget meetings, and this adapter has no governance filter (that lives in the ICS adapter, keyed on a civic: label). The iCal export is one page - 7 VEVENTs - so the ICS route keeps two events. Worth revisiting if the tribe adapter grows the civic filter."
   }
 }

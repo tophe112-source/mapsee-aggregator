@@ -34,6 +34,365 @@
   `test_coverage_rows.py` pins the invariants (no type counted twice, no country
   that is a number or a bare ISO code) rather than today's totals.
 
+- **The best location data in the catalog was invisible to the report: 824 of
+  840 surveyed venues read as metro "?".** `_locate` reads a source's NAME and
+  its `geocode_suffix`, and that is all an ics-shaped config carries — but 840
+  entries place themselves with a `venue` block instead, a surveyed OSM point
+  with an address. Measured 2026-09-20: lat/lon on 836 of them, a city on 399,
+  a country on 132, and the report could read none of it. That is 26% of the
+  catalog, and it is every source the venue walk has ever proposed: "Nectar
+  Lounge, Seattle WA" read as metro ?, country ?, which the thin-ground ranker
+  cannot tell apart from a country with no feeds. `_locate_entry` now falls
+  back, in order of how directly the thing was observed — `_metro` (868 of
+  them), the venue's stated city/region/country, then the surveyed point — and
+  metro "?" goes 1,004 -> 133 while country "?" goes 276 -> 219, with ZERO rows
+  moving from one named country to another.
+
+- **A METRO BBOX IS A SWEEP RADIUS, NOT A BORDER, and letting geometry name the
+  country got 24 rows wrong.** The first version of the fallback above took the
+  country from whichever swept metro's bbox contained the venue's point. It
+  located 820 of 824 — and moved Musee de l'Impression sur Etoffes (Mulhouse,
+  `.fr`) into Switzerland via Basel, De Muziekgieterij (Maastricht, `.nl`) into
+  Belgium via Liege, Hans-Peter Porsche TraumWerk (Bavaria, `.de`) into Austria
+  via Salzburg, and three Geneva-adjacent French venues into Switzerland. Every
+  one was a border case the ccTLD already had RIGHT. `_metro` has the same flaw
+  for the same reason: it records which sweep found the venue, not where the
+  venue is. So the rule is split — geometry and provenance may name the METRO,
+  and only a statement ABOUT THE VENUE (its own `venue.country`, or its city and
+  region together) may name the COUNTRY. Everything else still falls through to
+  the ccTLD rescue, which is where it belongs.
+
+- **`_rows_jsonld` must not start calling `_locate`.** Adding the venue fallback
+  to the generic path was safe; wiring the same call into the jsonld expander
+  was not. `_locate` reads a name's parenthetical as a city and defaults it to
+  the United States, so "i45 (industrie 45)" — a club in Zug — became a US
+  metro called "industrie 45". The expander keeps its original country rule
+  (ccTLD, then the US only when the NAME scan found a US metro) and takes only
+  the metro from the new fallback. The US default has to stay keyed to the name
+  scan rather than to the metro, because the metro can now come from a Swiss
+  venue block and "metro is known, therefore American" would then be false.
+
+- **Three registries that are not ccTLDs and still name one country.** `.cat` is
+  Catalonia's sponsored TLD and every holder is in Spain — 14 rows, and it is
+  why the metro table read "Barcelona ?" beside "Barcelona Spain". `.gov` and
+  `.edu` are US-restricted registries; everywhere else uses gov.uk, gov.au,
+  edu.au, ac.uk, which the table already resolves through their real ccTLD. 50
+  rows between them. The surrounding rule still holds for `.org`, `.com`,
+  `.net`, `.eu` and `.social`, which say nothing: those are the 217 rows that
+  remain "?" and they are honest.
+
+- **Six countries the report FLAGged as thin were reachable by no backend at
+  all, so the flag could never be closed.** Measured 2026-09-20 by crossing the
+  coverage rows against `metros_global.json` and `CITY_CLASSES`: Iceland,
+  Jamaica, Lithuania, Malaysia, Puerto Rico and Slovenia each had exactly ONE
+  source, and in every case it came from a global feed (parkrun, bikereg, a
+  Mobilizon instance) rather than from anything that went looking. The ranker's
+  advice for them is "broaden metros and categories", and there was no metro
+  list and no city class to broaden. Five now have a civic walk — Iceland 77
+  cities (reykjavik.is), Lithuania 112 (vilnius.lt), Slovenia 40 (Ljubljana),
+  Malaysia 40 (Kuala Lumpur), Jamaica 2 from 8 rows (ksac.gov.jm) — plus South
+  Korea (Seoul) and the UAE (Dubai, dm.gov.ae), which the OSM venue walk swept
+  but the town walk never did. All seven sort to the FRONT of the thinnest-first
+  rotation, so they are the next seven civic runs.
+
+- **Puerto Rico is not missing, it is absent from the data.** Its
+  `municipality of Puerto Rico` class answers in 43 seconds with ZERO rows: the
+  78 municipios are in Wikidata, but not carrying an official website and
+  coordinates and a population together, which is what the walk needs. Hong Kong
+  has no settlement class to name at all — it is one city whose subdivisions are
+  districts, and the OSM venue walk already sweeps it. Neither is worth another
+  attempt without new evidence.
+
+- **Adding a country to CITY_CLASSES and not to COUNTRY_NAMES ships the bug the
+  suffix work existed to fix.** Caught on the first live verification of the new
+  batch: Jamaica's geocode suffix came out `, Kingston, JM` — an ISO code, the
+  exact shape that filed twenty Swiss venue calendars under the United States.
+  `cityclass` prints the suffix for this reason, which is how it was seen before
+  anything shipped. The two tables are asserted in step at import and pinned by
+  a test.
+
+- **The thin-ground ranker counts LABELS, not supply, and the label is
+  `community` by construction — so the four starved categories cannot be fed by
+  the backends that are actually growing.** Measured 2026-09-20 over all 51 runs
+  in `coverage_history.jsonl` (20260810 -> 20260920, 901 -> 3,164 sources).
+  Of the +2,263 grown: **community +1,579, seventy per cent of everything**,
+  then learning +176, arts +144, fitness +104 — against kids +24, outdoors +26,
+  running +21 and **volunteer +4**. The four the ranker points every gap sweep
+  at took 3.3% of six weeks of growth, and `running`'s +21 is one jump on
+  20260825 that is the parkrun expansion, not a sweep. The cause is structural,
+  not a bad query list: 993 of the 1,139 civic-discovered sources (87%) are
+  `community`, because `to_candidate` files ics/tribe/mylisting under
+  DEFAULT_CATEGORY and the ONLY path that reads a programme's own name —
+  `civicplus_candidates` -> `category_for_feed` — exists on CivicPlus, which is
+  a US platform. So the twenty countries added to CITY_CLASSES will deliver
+  essentially 100% `community`, and `volunteer` will still read as starved.
+  **A whole town's calendar IS mixed, so `community` is the honest label** — the
+  events inside it reach the right door through the promotion regexes in
+  mapsee_supabase_sync, not through the config. Which means the ranker is
+  measuring the wrong thing, and no amount of curation will move its numbers.
+  The obvious cheap fix DOES NOT WORK, and it was measured rather than assumed.
+  The Events Calendar exposes its category list — 18 of 24 civic-discovered town
+  calendars answered `/wp-json/tribe/events/v1/categories` — so giving Tribe the
+  treatment CivicPlus gets looks like the same trick played worldwide. It is
+  not: of 142 distinct category names across those 18, **96 (68%) are local
+  vocabulary no word list can hold** ("Route 66", "CAC", "Band Comp", "Healthy
+  Point", "Attractions", "Awareness"), 34 are governance the deny list already
+  refuses, 7 happen to BE a lens key, and `category_for_feed` recovers exactly
+  5 — two learning, two kids, one volunteer. That is the same wall the note
+  above `CIVIC_DENY_RX` describes from the other side: governance vocabulary is
+  small and stable, programme vocabulary is unbounded and local. A few names are
+  worth having anyway ("Arts & Culture" and "Arts/Culture" are arts, "Athletics"
+  is fitness, and the ampersand is the only reason the first is dropped today),
+  but that is a handful, not a fix. The real one is to rank by what the
+  CLASSIFIER produced per category rather than by what the configs declare —
+  which needs a per-category count the DB does not currently expose, since
+  `stats_snapshot_all` is per SOURCE. Until then, read `volunteer: 13` as "13
+  feeds SAY volunteer", never as "the volunteer door is empty".
+
+- **Where the events actually go is not where the config says.** The tribe
+  adapter already reads each event's own categories and passes them through
+  `norm_categories`, which keeps only names that are ALREADY a lens key and
+  drops the rest — so the platform's own labels are lost at ingest and the sync
+  never sees them. That is why the 7 of 142 that survive are the ones spelled
+  exactly "Arts", "Community", "Food", "Outdoors". Anything richer has to come
+  from the promotion regexes reading the event's TITLE, which is what
+  `mapsee_supabase_sync` does and is the reason a mixed town calendar still
+  fills the right doors.
+
+- **A whole-file ledger write silently loses a concurrent writer.**
+  `_save_ledger` dumped the in-memory copy over the file, and every sweep loads
+  the ledger once at the start and saves it minutes or hours later — so
+  anything another run wrote in between is gone. Measured 2026-09-20: a
+  `ledger --offsite --refresh` that had loaded the file dropped ten
+  neighbourhood-association probes another session had written while it ran,
+  all dated the same day. Nothing errored, nothing was reported, and the next
+  sweep would simply re-probe ten sites already answered. It re-reads and
+  merges now, with `_merge_ledgers` — the rule `cmd_reapply` has always used
+  for the same collision, more recent probe wins a shared URL. Nothing deletes
+  from the ledger, so a union cannot resurrect something removed on purpose.
+  This matters because the repo's working mode reaches it: more than one agent
+  works the same checkout.
+
+- **`offsite:<host>` recorded the host and threw away the LINK, which is the
+  only part anything could act on.** 358 venues in the ledger were probed,
+  found to have a calendar, and filed as failures naming the platform: facebook
+  158, instagram 77, eventbrite 46, ticketmaster 24, humanitix 21, tickettailor
+  9, trybooking 6, universe 6, linktr.ee 3, dice 3, meetup 2, axs 1. The note
+  above `OFFSITE_HOSTS` already calls this "the only measurement this repo has
+  of what venues WORLDWIDE actually use", and it is — but an id lives in the
+  URL and nowhere else, so the tally could never become a source. `find_calendar`
+  keeps `offsite_url` now, `ledger --offsite` reads it, and `--refresh`
+  re-probes the ones recorded before the change (one GET per KNOWN venue, no
+  Overpass, no discovery — the ledger's 90-day TTL would otherwise hide them
+  for three months over a one-line fix).
+
+- **Almost none of it routes, and that is the finding.** Harvested 37 links on
+  2026-09-20 and checked each platform against its own adapter rather than
+  against the intuition that "we already ingest that". EVENTBRITE, the biggest
+  routable-looking pile at 46, does NOT: `mapsee_ingest_eventbrite`'s header
+  states that `/o/<slug>-<id>` profile ids are a different id space from the
+  organization ids the API serves and that organizer-scoped fetching 404s, and
+  its `organizers` list is documented as "NOT fetched". Four real `/o/` ids were
+  harvested (Georges River Libraries 7982128494, Glenorchy Library Tasmania
+  6685743883, Pilar 18004751158, Rochester Hills Museum 31205740733) and were
+  NOT added, for that reason. Ticketmaster and Meetup are already swept
+  nationally by metro, so a venue found this way is covered before it is
+  configured; AXS needs partner credentials this project does not hold;
+  facebook and instagram are two thirds of the tally and have no API we may
+  read; humanitix was assessed in August. What is left is DICE, and only as a
+  `/venue/<slug>` link — an `/event/` link names a night, not a room.
+
+- **A plugin's footer credit was being read as "this venue's events are
+  elsewhere".** Only visible once the link was recorded: Eventbrite's WordPress
+  plugin puts `eventbrite.com/l/wordpress?ref=wpfooter` in the site footer, and
+  a footer is on every page. Two of the 24 harvested eventbrite links were that
+  or a bare `eventbrite.co.uk/` brand link — about 8%. It is not a cosmetic
+  miscount: `offsite:` parks the venue in the ledger as dead for 90 days, so a
+  venue whose own calendar the probe simply failed to find is retired on the
+  strength of a plugin credit. `_offsite` now refuses a bare host and an `/l/`
+  path.
+
+- **A re-probe is also how you learn a site has GROWN a calendar.** One of the
+  60 re-probed (Buchhandlung List) now serves its own JSON-LD and no longer
+  reads as offsite at all; `--refresh` reports those rather than scraping the
+  old page for a link, and leaves them for the next sweep to propose properly.
+
+- **The one backend that can find a whole town's calendar anywhere on earth had
+  one country in it, and 20 more were measured in an afternoon.**
+  `catalog_discover_civic` says in its own header that it "works the same way in
+  every country that has the class", and `CITY_CLASSES` held a single entry
+  while the cursor read `{"country": "US", "offset": 2140}` — so every civic run
+  since the file was written walked further down the same list of US cities. It
+  is also the richest backend here: two 40-city batches returned 64 verified
+  sources carrying 44 local-music events, 57 festivals and parades, 40
+  block-party-shaped events and 58 market days, against a Socrata sweep that
+  measured ZERO event-shaped datasets for "block party", "street fair" or
+  "community festivals". Measured 2026-09-19/20, each with the query the file
+  actually runs: 40 of 40 cities for every one of CA, GB, IE, AU, NZ, DE, NL,
+  BE, CH, AT, SE, NO, DK, FI, ES, PT, MX, JP, ZA and IN, and the site each
+  returns is the real town hall (toronto.ca, london.gov.uk, stadt-zuerich.ch,
+  berlin.de, lisboa.pt, joburg.org.za). The rotation then orders itself: with
+  the live catalog the first eight runs go to Portugal, Japan, South Africa,
+  Mexico, India, Norway, the Netherlands and Spain, and the US sorts last with
+  its 2,140 cities of walking intact.
+
+- **ONE CLASS IS A US LUXURY, and the seed towns you pick decide what you get.**
+  5,770 American cities are all `city in the United States`; nowhere else is
+  like that. Canada's settlements-with-a-website split across `municipality`,
+  `city or town of Quebec`, `town`, `parish municipality`, `village` and a class
+  per province — naming one takes 652 of ~1,500 and misses Toronto. And a
+  country's classes cannot be read off a few towns alone: four German seeds
+  (Regensburg, Göttingen, Konstanz, Bamberg) proposed `college town` and
+  `compact city` and never `municipality of Germany`, which is what ordinary
+  German towns are in — and ordinary towns are where the community calendars
+  are. Two generators, unioned: the Action API's `wbsearchentities` for the
+  phrase ("municipality in Germany" -> Q262166), and `P31` off mid-sized seed
+  towns. Mid-sized because a capital is often in a class no other town shares.
+  Both halves need filtering: the phrase search matched "City of Canada Bay" —
+  an Australian council — for Canada until the label had to END with the country,
+  and Mississauga's own `P31` includes `weather station` and `federal electoral
+  district`, and an electoral district has a population AND a website, so the
+  verification query cannot tell them apart afterwards.
+
+- **Forty rows is not forty cities, and in Switzerland it was two.** A row from
+  the civic query is a (city, class, population statement) combination, so a
+  country whose classes overlap and whose towns carry a population series
+  returns the same town many times. Measured 2026-09-20 over a 40-row page: the
+  United States 40 cities, Denmark 37, Portugal 38, Norway 37 — but the United
+  Kingdom 29, New Zealand 25, India 23, Canada 20, Austria 19, Mexico 19, Japan
+  16, Belgium 12, South Africa 9, Finland 4 and **Switzerland 2**. A civic run
+  meant to probe forty Swiss towns probed two, and the rotation only comes back
+  to Switzerland once a turn of a 21-country wheel. `cities()` now pages until
+  it has `limit` DISTINCT cities (cap `CITY_PAGES_MAX`, three), which is the
+  cheap half of the fix; the expensive half — asking SPARQL for one row per city
+  — means GROUP BY and SAMPLE around the label service, which is where these
+  queries start timing out. Live after: Denmark 109 cities in 120 rows, Belgium
+  60 in 120, Sweden 40 in 40 and one page, because it stops as soon as it has
+  enough.
+
+- **A cursor over ROWS cannot be advanced by a count of CITIES.** The partial
+  read — a batch cut short by the civic step's ten-minute deadline — used
+  `offset + read`, and `read` is cities where the offset is rows. With paging
+  the two diverge by however many duplicates the batch held, so after three
+  Danish cities the cursor moved three rows and the next run re-read the same
+  head. Each city now carries `_row`, the row it FIRST appeared at, and a
+  partial read advances to the first UNREAD city's own row: proven on a
+  synthetic batch whose third city really is 40 rows in, where the old rule said
+  3. A batch from an older cursor that has no `_row` falls back to the old
+  arithmetic rather than guessing.
+
+- **Five countries time WDQS out, and they have a structure in common.** France,
+  Italy, Poland, Czechia and Brazil each answered 500 or 504 to three attempts
+  over two days. They are the countries whose settlements are tens of thousands
+  of small municipalities — France alone has ~35,000 communes — so `ORDER BY
+  DESC(?pop)` has the largest set to sort before `LIMIT` sees any of it. They
+  are LEFT OUT rather than listed hopefully, which is CITY_CLASSES' own rule. A
+  population floor is the obvious next thing and is UNMEASURED: one attempt at
+  `FILTER(?pop >= 3000)` for France answered 500 after 103s, on a day the
+  service was also refusing healthy queries — the US query that has always taken
+  1.9s answered 504 twice — so it proved nothing either way. Brazil is the one
+  worth the most: `mapasculturais` is its only other supply. Re-measure any
+  country with `python catalog_curate.py cityclass <ISO>`.
+
+- **The governance filter was English-only, and the civic walk now leaves the
+  US.** `CIVIC_SUMMARY_RX` is what `governance_heavy` reads a feed's SUMMARY
+  lines with, and it is the ONLY thing standing between a town hall's meeting
+  schedule and the map — a council calendar passes the name test, verifies
+  perfectly, and lands as twenty `community` events. Its English half was built
+  from what live sweeps proposed (Woodbury's Holidays, Mount Vernon's IDA
+  Calendar, Mansfield's 70 bare holiday names). The rest is VOCABULARY and is
+  labelled as such in the file: nothing has swept a German town yet. What makes
+  writing it down safe rather than a guess is `governance_heavy`'s own floor —
+  two thirds of a feed's SUMMARY lines must match before anything is refused —
+  so only unambiguous COMPOUNDS are listed. `Gemeinderat`, `conseil municipal`,
+  `gemeenteraad`, `consiglio comunale`, `kommunfullmäktige`, `reunião de
+  câmara`, `sesja rady`, `zastupitelstvo` each name one thing; a bare `Sitzung`,
+  `réunion` or `möte` is the word "meeting" and would refuse a reading group.
+  `test_discover_civic.py` pins both directions, including the Brazilian book
+  club whose entries say `Reunião`. Replace this with a measurement the first
+  time a non-US sweep produces one. The same asymmetry the English list
+  documents applies: governance vocabulary is small and stable, programme
+  vocabulary is unbounded and local, so the list names what we are sure we do
+  NOT want.
+
+- **Three curated files were in neither config table, so the report read them
+  as empty ground — and each one was a country it was FLAGging.** `coverage`
+  walks `CONFIG` and `EXTRA_CONFIG` and nothing else. Measured 2026-09-19:
+  Brazil was FLAGged "no arts, community, fitness, kids, learning feeds yet"
+  while `mapasculturais_sources.json` holds the two state registers that are, in
+  AGENTS.md's own words, the only source that puts anything on the map there
+  (one measured at 329 genuinely future occurrences); the United Kingdom was
+  FLAGged for `volunteer` while GoodGym, a national volunteering network, is
+  entry seven of `openactive_sources.json` — one of the nine curated volunteer
+  sources on earth; and `learning` counted 244 without the six BiblioCommons
+  systems behind 28,314 upcoming programmes. Three expanders later: 3,131 rows
+  -> 3,155, Brazil 14 -> 16 with `community` no longer zero, UK 64 -> 76 with a
+  `volunteer` row, Canada 74 -> 76. `coverage_history.jsonl` carries that as a
+  step, not growth. None of the three can go in `CONFIG` — that table is what
+  `verify` and `merge` PROBE, and these are hand-curated adapters, not
+  candidates a sweep can propose. `country` and `city` were added to
+  `bibliocommons_sources.json` for this: two of the six systems are Canadian
+  (Edmonton, Vancouver) and the adapter reads neither key, so inferring the
+  country from the library's NAME would be a guess about exactly the thing the
+  report exists to state.
+
+- **The report read the whole world as the United States, 115 sources of it.**
+  Measured 2026-09-19 over 3,131 live rows. `_parse_place` knew two spellings of
+  a place: a two-letter US STATE code, and a country in `_COUNTRY_ALIASES` — a
+  17-entry hand-written table. Everything else fell through to "the last comma
+  part is the metro", and `_locate` then applied the bare-`(City)`-is-US
+  convention on top, so the country's own name or code BECAME the metro and the
+  country became the US. 103 rows ended in a foreign ISO code (`, Zurich, CH` —
+  20, then Stockholm 10, Brussels 10, Sydney 7, Paris 6, Oslo 6, Copenhagen 5,
+  Warsaw 5, Madrid 5, Brno 3, Auckland 2, Vienna 2, London, Winnipeg, Dublin)
+  and 12 more in a country name the alias table happened to lack (Sweden 3,
+  Italy 2, Hong Kong 2, Norway 2, Spain, Finland, Denmark). That is where the
+  `*CH 20`, `*SE 10`, `*BE 10` and `*Wien 9` rows in the metro table came from.
+  Fixing it: US 1,882 -> 1,784, Switzerland 80 -> 100, Sweden 53 -> 66, Belgium
+  73 -> 83, Norway 15 -> 23, Denmark 48 -> 54, Spain 22 -> 28, Czechia 21 -> 24,
+  France 52 -> 58, Australia 84 -> 92, Hong Kong 3 -> 5. The direction is the
+  point: it inflated the one country the ticketing APIs already blanket and hid
+  real supply in eleven that read as thin ground. `_country_named` resolves all
+  three spellings and `_ISO_COUNTRY` — which already knew every one of these —
+  is read both ways round. The US-state branch still runs FIRST and must: `CA`
+  in a geocode suffix is California, `DE` Delaware, `IN` Indiana.
+
+- **894 more rows named a STATE where the metro belongs.** Same defect, other
+  half. The civic backend writes `geocode_suffix` as `, City, Region` and
+  Wikidata's region label is the full name, so `, Eau Claire, Wisconsin` parsed
+  as metro "Wisconsin" — and `_US_STATES` is codes only, so the full names were
+  not states to it. The country came out right by accident, via the bare-token
+  US default. That was the entire top of the metro table (`*Texas 173`,
+  `*Florida 125`, `*California 76`, `*Minnesota 71`), a report claiming 173
+  sources in one "metro" that is a state with a hundred towns in it. With
+  `_US_STATE_NAMES` in the same branch, 1,209 metro rows now name the actual
+  city (Shawnee, Mansfield, Lakeville, Idaho Falls, Royal Oak, Poway). "New
+  York" is the one name that is legitimately both, and 11 rows carry it as a
+  metro correctly.
+
+- **A two/three-letter token in a source's name is an acronym, not a city.**
+  `_locate` preferred the name's `(...)` over the geocode suffix, which is right
+  for "(DC metro)" and wrong for "Eau Claire — Redevelopment Authority (RDA)",
+  "Centre Franco-Iranien (CFI)" and a gancio entry spelling its parens
+  "(US, IL)". Each became a US metro with one source in it — the exact shape the
+  thin-ground ranker chases and sends a run at. `_looks_like_a_code` refuses
+  both that and the metro slot generally, so `, Winnipeg, MB` and `, SA` fall to
+  the ccTLD rescue instead and come back Canada and Australia.
+
+- **Both generators now SPELL THE COUNTRY OUT in the suffix they ship, so the
+  rescue above stops being needed.** The venue backend built its metro label as
+  `f"{name}, {ISO}"` and that label is the geocode_suffix floor for every ics
+  candidate a metro proposes — `, Zurich, CH` was written into
+  `ics_sources.json` 20 times, and it is not just unreadable by the report, it
+  is a suffix a geocoder has to guess at. `metros()` carries `country_name` from
+  `metros_global.json`, which has held it all along. The civic backend wrote no
+  country at all, which was true while it swept one: `, Issaquah, Washington`
+  means the US to a US-default geocoder. `, Bern` does not mean Switzerland to
+  one — Bern, Kansas, Bern, Indiana and Bern, Idaho are all real. US towns keep
+  the two-part form 900 shipped sources already use; everywhere else gets the
+  country. The cursor still keys on the ISO code via `metro_key`, so none of
+  this moves the walk.
+
 - **An ISO code with no name in `_ISO_COUNTRY` becomes a country.** `IS` and
   `JM` reached the report as two countries called "IS" and "JM", each with one
   source and each FLAGged as needing feeds — a gap invented by a lookup miss.
@@ -332,6 +691,35 @@
   A hand-curated seed list is the right shape here, the same as
   `fair_sources.json`: there is no catalog to walk.
 
+- **Verification proves a feed PARSES; only an ingest proves it DELIVERS.** Two
+  of four Bend sources passed `verify` and were merged, and a full run through
+  their own adapters kept almost nothing. Measured 2026-09-20.
+  VOLCANIC THEATRE PUB: `verify` said 25/25 sampled events future; the ingest
+  kept ONE. The listing's 25 schema.org Event blocks carry no `url`, so every
+  one takes the listing page as its `source_id` and `EventStore`'s
+  `(source, source_id)` guard keeps a single row. The real links are tixr.com,
+  which answers 403 to the production UA, so following them is a refusal too.
+  Not an adapter bug: 239 of the 240 jsonld sites carry a `link_pattern` that
+  matches real event pages, and the one that does not — Nectar Lounge — ingests
+  all 10 because its Event blocks each carry a `url`.
+  FIRST UNITED METHODIST: `verify` said 27 vevents / 27 future, and it is 27
+  copies of ONE title, "In-Person Worship Service". A weekly service schedule,
+  the same shape as the City Park feed whose 365 vevents were 365 copies of
+  "Public Historical Tour". Both are now in `_not_included` with their numbers.
+  The general lesson is the cheap one: after `merge`, run the adapter over just
+  the new entries and count DISTINCT titles and placed rows, not the verifier's
+  "future events".
+
+- **An ics feed with an empty LOCATION is placeable after all, and the option
+  already exists.** The church's 27 VEVENTs each carry `LOCATION:` with nothing
+  after it, and the adapter kept 0 with "27 unplaceable — more than half this
+  feed has no location". `ics_sources.json` takes a `venue` block "used ONLY for
+  a VEVENT that carries neither LOCATION nor GEO", added for a neighbourhood
+  yard sale that is a few hundred porches; with the church's surveyed OSM point
+  it kept 27 of 27, pinned correctly. It came out anyway, for being standing
+  rows — but a single-venue calendar with no LOCATION is a `venue` block away
+  from working, not a dead end.
+
 - **Verification proves the feed, and the NAMES still have to be read.** Six of
   the 28 park candidates were dropped before verifying and two more after, all
   on what their titles turned out to be: a county's Public Health, Workforce
@@ -375,3 +763,67 @@
   add these queries — the same answer as for local music and festivals, and the
   reason the park-agency seed list above is a hand-curated file rather than a
   discovery backend.
+
+- **A neighbourhood-wide yard sale has no LOCATION, and it is the one event
+  the calendar exists for.** Measured 2026-09-19 while curating for fleabop:
+  Montlake Community Club's public Google Calendar (montlake.net/calendar is an
+  embed; the `calendar/ical/<id>/public/basic.ics` export is the feed, as it is
+  for the 23 Google calendars already in `ics_sources.json`) carried 65 VEVENTs,
+  2 upcoming, and the "Montlake Yard Sale" had no LOCATION - a sale that is a
+  few hundred porches and a map has no address to put there. Overlook
+  Neighborhood Association's calendar was the same: 100 VEVENTs, and its 2023,
+  2024 and 2025 yard sales all had no LOCATION while everything else carried a
+  street. The ICS adapter dropped every one of them as unplaceable, correctly,
+  so the source would have ingested exactly the events nobody curated it for.
+  `venue` on an ICS source (same block as Squarespace's) now pins a VEVENT that
+  carries NEITHER LOCATION nor GEO to the neighbourhood centroid; a LOCATION
+  that Photon cannot place is still dropped, because that is a place we failed
+  to find, not an event without one. A first run kept the 2026 yard sale ("1
+  pinned to the source's venue") and nothing else changed. Of the neighbourhood
+  garage-sale days found the same way, only these two publish a feed at all:
+  PhinneyWood, Maple Leaf, Wedgwood and West Seattle Garage Sale Day are a
+  static page each (two of them Google Sites), Rose City Park and Wedgwood's
+  WordPress have no calendar plugin, Mt Tabor and Multnomah Village are Wix,
+  and West Seattle Blog's All-in-One export is Disallowed by name in its
+  robots.txt (see `tribe_sources.json._not_included`). The clothing-swap
+  organisers were thinner still: SwapDC and Near South verify and have 0
+  upcoming, Swapanistas is one day a year on Wix, and A2ZERO (Ann Arbor's
+  monthly city-hall swap) is the one on a platform with an adapter - Luma, 4
+  upcoming, all with coordinates.
+
+- **Neighbourhood associations live on Squarespace, and a search finds the
+  sale before it finds the calendar.** Second pass 2026-09-20, twenty US
+  metros searched for "neighborhood association" + garage/yard sale: 30-odd
+  association sites, of which six carry a feed. Five are Squarespace
+  collections (Bryn Mawr, Linden Hills and Lyndale in Minneapolis, Heart of
+  Lincoln Square in Chicago, Hyde Park in Kansas City, Multnomah in Portland -
+  2, 5, 6, 2, 9 and 37 upcoming) and NONE of the 240-odd articles across them
+  carried a map link, so every one needed a `venue` block at the
+  neighbourhood centroid; Lyndale's page also embeds a Google Calendar, which
+  is the richer copy (285 VEVENTs, 10 upcoming, 9 with a street) and became the
+  source instead. Three WordPress sites answered the Tribe REST route with 0
+  events (Lind-Bohanon, Longfellow, Old North End): the plugin is installed and
+  the sale is a page, not an event. Everything else was a static page (Site
+  Kit, Elementor, Weebly, Google Sites, Wild Apricot). The yield is roughly one
+  configurable source per three association sites found, and the search engine
+  returns listing aggregators (gsalr, garagesalefinder, yardsalesearch) ahead
+  of the associations after the first page, so the second query for a metro
+  is worth less than the first.
+
+- **A CivicPlus city almost never has a garage-sale calendar, so do not scan
+  for one.** The three garage-sale feeds in `ics_sources.json` (Little Elm,
+  Midlothian, Sebastian) all came from `civic` discovery, and the obvious
+  follow-up - discovery drops a category with nothing upcoming at probe time
+  and caps a city at 6, so the seasonal sale categories it walked past should
+  be recoverable - was measured 2026-09-20 over every CivicPlus origin already
+  configured: 472 origins, 423 answered `/iCalendar.aspx` (49 were 403s or
+  timed out), and among them exactly FOUR categories named a garage, yard,
+  rummage, flea or swap sale. Three were the three already configured; the
+  fourth (Glenpool, OK) had nothing upcoming. Zero candidates. The civic walk
+  is already taking every one of these that exists, and the reason the count
+  is tiny is that a city with a garage-sale permit programme publishes it as a
+  permit list, not a calendar. Sale-shaped supply for fleabop comes from
+  neighbourhood associations and swap organisers, not from city calendars -
+  see the two notes above. The Luma search for the same day: eight
+  clothing-swap event pages resolved to eight calendars, two US ones with
+  anything upcoming (A2ZERO, Home Ec NYC), one in Amsterdam with 33.

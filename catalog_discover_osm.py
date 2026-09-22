@@ -327,10 +327,52 @@ def future_vevents(body: str, today: Optional[str] = None) -> int:
 
 # What a governance calendar's entries are CALLED. Used on the feed's own
 # SUMMARY lines, not on the category name — see governance_heavy.
-CIVIC_SUMMARY_RX = re.compile(
-    r"\b(meetings?|boards?|committees?|commissions?|councils?|hearings?|"
+#
+# MULTILINGUAL, for the same reason CAL_LINK_RX is: the civic walk rotates
+# countries now, and a town hall in Bern publishes its Gemeinderatssitzungen in
+# German. An English-only matcher does not fail loudly here — it passes the
+# calendar, and a council meeting schedule verifies perfectly and lands on the
+# map as twenty `community` events.
+#
+# Unlike the English half, which was built from what a live sweep proposed, this
+# half is VOCABULARY: nothing has swept a German town yet. What makes that safe
+# to write down is governance_heavy's floor — two thirds of a feed's SUMMARY
+# lines have to match before anything is refused — so a book club whose entries
+# say "Reunião" or "Treffen" is in no danger. Only unambiguous COMPOUNDS are
+# here for that reason: `Gemeinderat` and `conseil municipal` name one thing,
+# where a bare `Sitzung`, `réunion` or `möte` is just the word "meeting" and
+# would refuse a reading group. Replace a guess here with a measurement the
+# first time a non-US sweep produces one.
+_CIVIC_SUMMARY_EN = (
+    r"meetings?|boards?|committees?|commissions?|councils?|hearings?|"
     r"agendas?|caucus|executive session|offices? (?:will be )?closed|"
-    r"closed\s*[-–]|holiday observ)", re.I)
+    r"closed\s*[-–]|holiday observ")
+_CIVIC_SUMMARY_INTL = (
+    # de
+    r"gemeinderat\w*|stadtrat\w*|kreistag\w*|ratssitzung\w*|gemeindevertretung|"
+    r"ausschuss\w*|ausschüsse|amtsblatt|"
+    # fr
+    r"conseil municipal|conseil communautaire|conseil départemental|"
+    r"commission municipale|séance du conseil|enquête publique|"
+    # nl
+    r"gemeenteraad\w*|raadsvergadering\w*|raadscommissie\w*|collegevergadering\w*|"
+    # es
+    r"pleno municipal|pleno del ayuntamiento|junta de gobierno|comisión informativa|"
+    # it
+    r"consiglio comunale|giunta comunale|seduta del consiglio|"
+    # pt (and br)
+    r"câmara municipal|assembleia municipal|reunião de câmara|"
+    # sv / no / da
+    r"kommunfullmäktige|kommunstyrelse\w*|kommunestyre\w*|byrådsmøde\w*|"
+    r"byrådsmøte\w*|sammanträde\w*|"
+    # fi
+    r"kaupunginvaltuusto\w*|kunnanvaltuusto\w*|kaupunginhallitus\w*|lautakunn\w*|"
+    # pl
+    r"sesja rady|rada miasta|rada gminy|"
+    # cs
+    r"zastupitelstv\w*|rada města")
+CIVIC_SUMMARY_RX = re.compile(
+    r"\b(" + _CIVIC_SUMMARY_EN + r"|" + _CIVIC_SUMMARY_INTL + r")", re.I)
 
 # ...AND THE OTHER WAY A CALENDAR SAYS "WE ARE SHUT", which is to say nothing at
 # all beyond the name of the day. Mansfield's City Holidays is 70 entries of
@@ -739,10 +781,23 @@ def _same_host(a: str, b: str) -> bool:
     return urlparse(a).netloc.lower().lstrip("www.") == urlparse(b).netloc.lower().lstrip("www.")
 
 
+# An offsite link that cannot be anybody's calendar. Found by recording the
+# LINK rather than the host and then reading 24 of them: Eventbrite's WordPress
+# plugin puts `eventbrite.com/l/wordpress?ref=wpfooter` in the site footer, and
+# the footer is on every page — so a venue using the plugin reads as "its events
+# are on Eventbrite" whether or not they are. A bare host with no path is the
+# same shape: a brand link, not a listing. Both cost more than a wrong tally,
+# because `offsite:` parks the venue as dead for the ledger's 90-day TTL.
+_OFFSITE_NOT_A_CALENDAR_RX = re.compile(r"^/(l/|$)", re.I)
+
+
 def _offsite(u: str) -> Optional[str]:
-    h = urlparse(u).netloc.lower()
+    parts = urlparse(u)
+    h = parts.netloc.lower()
     for host in OFFSITE_HOSTS:
         if host in h:
+            if _OFFSITE_NOT_A_CALENDAR_RX.match(parts.path or "/"):
+                return None
             return host.strip(".")
     return None
 
@@ -804,7 +859,7 @@ def find_calendar(session, home_url: str, timeout: int = 18,
     sweep starts running out of memory instead of time.
     """
     out = {"cal_url": None, "labels": [], "adapter": None, "ics": None,
-           "status": None, "offsite": None, "extra": {}}
+           "status": None, "offsite": None, "offsite_url": None, "extra": {}}
     try:
         r = session.get(home_url, timeout=timeout, allow_redirects=True)
     except Exception as exc:                                      # noqa: BLE001
@@ -826,7 +881,7 @@ def find_calendar(session, home_url: str, timeout: int = 18,
             pass                    # a caller's extra question must not cost the find
     home_labels, home_ics = fingerprint(body)
 
-    onsite, offsite_hit = [], None
+    onsite, offsite_hit, offsite_url = [], None, None
     for m in re.finditer(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', body, re.S | re.I):
         href, text = m.group(1), re.sub(r"<[^>]+>", " ", m.group(2))
         if not (CAL_LINK_RX.search(href) or CAL_LINK_RX.search(text)):
@@ -836,7 +891,14 @@ def find_calendar(session, home_url: str, timeout: int = 18,
             continue
         off = _offsite(u)
         if off:
-            offsite_hit = offsite_hit or off
+            # THE URL, NOT JUST THE HOST. `offsite:eventbrite` names an adapter
+            # this repo already has and cannot be acted on without the organizer
+            # id, which is in the link and nowhere else — eventbrite.com/o/
+            # <slug>-<id>. Recording the host alone made 46 venues a statistic
+            # instead of 46 candidates, and re-finding each one costs the fetch
+            # again. First hit wins, matching the host rule it replaces.
+            if offsite_hit is None:
+                offsite_hit, offsite_url = off, u
         elif _same_host(u, base):
             onsite.append(u)
 
@@ -877,7 +939,8 @@ def find_calendar(session, home_url: str, timeout: int = 18,
                    adapter=adapter_for(home_labels), status="ok-homepage")
         return out
     if offsite_hit:
-        out.update(status=f"offsite:{offsite_hit}", offsite=offsite_hit)
+        out.update(status=f"offsite:{offsite_hit}", offsite=offsite_hit,
+                   offsite_url=offsite_url)
         return out
     out["status"] = "no-calendar"
     return out
@@ -1065,6 +1128,17 @@ def metros(path_global: str = "metros_global.json",
                 if not m.get("latlong"):
                     continue
                 out.append({"name": m["name"], "country": c.get("code", "??"),
+                            # The country SPELLED OUT, carried beside the code
+                            # because the two are read by different things: the
+                            # cursor keys on the code (metro_key), and the
+                            # geocode suffix a candidate ships with has to be
+                            # readable by a geocoder and by the coverage report.
+                            # ", Zurich, CH" was neither — Photon has to guess at
+                            # it, and catalog_curate read the code itself as the
+                            # METRO and filed 20 Swiss venue calendars under the
+                            # United States. metros_global.json has carried the
+                            # name all along.
+                            "country_name": c.get("name"),
                             "bbox": _bbox_from(m["latlong"], float(m.get("radius") or 25))})
     p = os.path.join(HERE, path_us)
     if os.path.exists(p):
@@ -1077,6 +1151,7 @@ def metros(path_global: str = "metros_global.json",
             if not re.match(r"^-?\d+(\.\d+)?,-?\d+(\.\d+)?$", latlong):
                 continue
             out.append({"name": (name.strip() or latlong), "country": "US",
+                        "country_name": "United States",
                         "bbox": _bbox_from(latlong, 25.0)})
     # Stable, so a tie inside one country keeps the order the config wrote down.
     out.sort(key=lambda m: CATALOG_SOURCES.get(m.get("country"), 0))

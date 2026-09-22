@@ -101,6 +101,44 @@ check(not osm.governance_heavy(ics("Juneteenth Jubilee in the Park",
                                    "Memorial Day Parade")),
       "and a town that PROGRAMMES its holidays keeps its calendar")
 
+# ...AND THE SAME TEST IN THE LANGUAGES THE WALK NOW REACHES. The civic
+# rotation leaves the US, and a town hall in Bern publishes its
+# Gemeinderatssitzungen in German — an English-only matcher would not fail
+# loudly, it would pass the calendar and put twenty council meetings on the map
+# as `community` events. Only unambiguous COMPOUNDS are refused: governance_heavy
+# needs two thirds of a feed before it refuses anything, but a bare "Sitzung" or
+# "réunion" is the word "meeting" and would have taken a reading group with it.
+check(osm.governance_heavy(ics("Gemeinderatssitzung", "Gemeinderatssitzung",
+                               "Sitzung des Bauausschusses")),
+      "a German council's meeting schedule is a meeting schedule")
+check(osm.governance_heavy(ics("Conseil municipal du 12 mars",
+                               "Conseil municipal du 9 avril")),
+      "...and a French one")
+check(osm.governance_heavy(ics("Gemeenteraad vergadering", "Raadsvergadering",
+                               "Raadscommissie Ruimte")),
+      "...and a Dutch one")
+check(osm.governance_heavy(ics("Consiglio comunale", "Giunta comunale")),
+      "...and an Italian one")
+check(osm.governance_heavy(ics("Kommunfullmäktige", "Kommunstyrelsen")),
+      "...and a Swedish one")
+check(osm.governance_heavy(ics("Reunião de Câmara", "Assembleia Municipal")),
+      "...and a Portuguese one, which is also Brazil's")
+check(osm.governance_heavy(ics("Sesja Rady Miasta", "Sesja Rady Miasta")),
+      "...and a Polish one")
+check(osm.governance_heavy(ics("Zasedání zastupitelstva", "Rada města")),
+      "...and a Czech one")
+
+# The words that are ONLY the word "meeting", and the programmes they belong to.
+check(not osm.governance_heavy(ics("Treffen der Lesegruppe", "Märchenstunde",
+                                   "Yoga im Park")),
+      "a German library's programme is not a council")
+check(not osm.governance_heavy(ics("Reunião do clube de leitura",
+                                   "Feira do Livro", "Oficina de dança")),
+      "...nor is a Brazilian one, though `reunião` is the word they share")
+check(not osm.governance_heavy(ics("Concert au parc", "Marché de Noël",
+                                   "Atelier cuisine")),
+      "...nor a French market and concert calendar")
+
 # THE ONES THAT MUST SURVIVE IT. A holiday with an event attached is an event,
 # and this is the whole reason the holiday match is anchored rather than loose.
 check(not osm.governance_heavy(ics("Down Home 4th of July Parade",
@@ -348,14 +386,103 @@ check(civ._coord("") == (None, None), "...and an absent point is not a zero one"
 # and OFFSET are over rows, so a cursor advanced by deduplicated CITIES
 # under-advances and re-reads the tail of its own last batch for ever.
 import inspect
-src = inspect.getsource(civ.cities)
+src = inspect.getsource(civ.cities) + inspect.getsource(civ._absorb)
 check("rows += 1" in src and "return list(out.values()), rows" in src,
       "cities() counts the rows it read, not the cities it kept")
+check("rows += _absorb(" in src and "_query(page_size, int(offset) + rows)" in src,
+      "...across every page it asks for, so the second page starts after the first")
+check('"_row": rows_before + rows - 1' in src,
+      "...and every city remembers the row it first appeared at")
+check("[:max(int(limit), 1)]" not in src,
+      "...and it never drops a city it counted rows for")
 curate = _io.open("catalog_curate.py", encoding="utf-8").read()
 check("places, rows = civic.cities(" in curate,
       "...and the driver takes both numbers")
-check('cursor["offset"] = offset + (rows if read >= len(places) else read)' in curate,
-      "...and advances the cursor by rows only when the batch was read whole")
+check("nxt = offset + rows" in curate
+      and 'nxt = offset + int(places[read].get("_row", read))' in curate,
+      "...and advances by rows when the batch was read whole, and to the first "
+      "UNREAD city's own row when it was not")
+
+# ---------------------------------------------- 8. the walk is a rotation
+# The backend was built to work "the same way in every country that has the
+# class" and then ran for its whole life on one: CITY_CLASSES had a single entry
+# and the cursor a single offset. These pin the shape that lets it leave.
+check(all(isinstance(v, tuple) and len(v) == 3 and isinstance(v[0], tuple)
+          for v in civ.CITY_CLASSES.values()),
+      "every CITY_CLASSES entry is (classes, scope, label)")
+_GENERAL = {"Q3957": "town", "Q532": "village", "Q486972": "human settlement",
+            "Q15284": "municipality", "Q3957868": "small city"}
+_unscoped = sorted(code for code, v in civ.CITY_CLASSES.items()
+                   if not v[1] and any(q in _GENERAL for q in v[0]))
+check(not _unscoped,
+      "a general class like `town` or `village` is scoped to its country "
+      f"(unscoped: {_unscoped})")
+check(all(v[0] for v in civ.CITY_CLASSES.values()),
+      "no country is listed with an empty class list")
+check(len(civ.CITY_CLASSES) > 1,
+      f"the walk has somewhere to rotate TO ({len(civ.CITY_CLASSES)} countries)")
+# Every country the rotation can pick must be reachable by _civic_next_country
+# and must name its scope, since all of these carry general classes.
+check(all(v[1] for code, v in civ.CITY_CLASSES.items() if code != "US"),
+      "every country but the US scopes its classes with wdt:P17")
+# The two tables drift the moment a country is added to one and not the other,
+# and the symptom ships: the suffix falls back to the ISO code and writes
+# ", Kingston, JM" into a config — the shape that filed twenty Swiss venue
+# calendars under the United States.
+_nameless = sorted(set(civ.CITY_CLASSES) - set(civ.COUNTRY_NAMES) - {"US"})
+check(not _nameless,
+      f"every country the walk reaches can be SPELLED in a suffix ({_nameless})")
+check(civ._suffix({"city": "Kingston", "region": None, "country": "JM"})
+      == ", Kingston, Jamaica",
+      "...proved on the one that caught it")
+check("_civic_next_country" in curate and "visited" in curate,
+      "the driver rotates countries rather than reading `country` from the cursor")
+
+# And the rotation itself, driven rather than read. The old cursor shape is the
+# live one — `{"country": "US", "offset": 2140}` — and 2,140 US cities of
+# walking is the thing most worth not losing to a refactor.
+import catalog_curate as _C
+_real = civ.CITY_CLASSES
+try:
+    civ.CITY_CLASSES = {"US": (("Q1093829",), None, "us"),
+                        "CA": (("Q1",), "Q16", "ca"),
+                        "JP": (("Q2",), "Q17", "jp"),
+                        "BR": (("Q3",), "Q155", "br")}
+    cursor = {"country": "US", "offset": 2140}
+    walk = []
+    for _ in range(9):
+        got = _C._civic_next_country(cursor, civ)
+        walk.append(got)
+        offs = _C._civic_offsets(cursor)
+        offs[got] = offs.get(got, 0) + 40
+        cursor["country"] = got
+    check(_C._civic_offsets(cursor)["US"] >= 2140,
+          f"the US's 2,140 cities of walking survive the new cursor shape "
+          f"({_C._civic_offsets(cursor).get('US')})")
+    check("offset" not in cursor, "...and the flat single-country key is gone")
+    check(walk[0] != "US",
+          f"the first run after the change leaves the US ({walk[0]})")
+    check(len(set(walk[:4])) == 4,
+          f"every country is swept before any is swept twice ({walk[:4]})")
+    check(walk[4:8] == walk[:4],
+          f"...and then it is plain round-robin ({walk[4:8]} vs {walk[:4]})")
+    # A country WDQS is refusing must not wedge the walk either. The cursor's
+    # `country` is whose TURN has been taken, not whose batch was read — it is
+    # set on the unread path too, and only the offset stays behind.
+    src = _io.open("catalog_curate.py", encoding="utf-8").read()
+    unread = src.split("batch UNREAD")[1].split("return found, skipped")[0]
+    check('cursor["country"] = country' in unread,
+          "an unread batch still takes its turn, so a refusing country cannot "
+          "hold every civic run")
+    check("_civic_offsets(cursor)[country]" not in unread,
+          "...and its offset is untouched, so none of its cities are skipped")
+
+    # A country that has gone from CITY_CLASSES must not wedge the walk.
+    stale = {"country": "ZZ", "offsets": {"US": 40}, "visited": ["US"]}
+    check(_C._civic_next_country(stale, civ) in civ.CITY_CLASSES,
+          "a cursor naming a country that has been removed restarts in the list")
+finally:
+    civ.CITY_CLASSES = _real
 
 # ---------------------------------------------- report
 bad = [l for ok, l in checks if not ok]

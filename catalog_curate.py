@@ -57,7 +57,12 @@ Usage:
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
   python catalog_curate.py ledger                     # summarize what's been tried
+  # the venues whose events are on a platform we already ingest, with the link
+  python catalog_curate.py ledger --offsite [--refresh]   # --refresh re-probes
+         # the routable finds recorded before the link was kept
   python catalog_curate.py coverage                   # where the catalog is thin (no network)
+  # prove a civic country before it ships: rows, seconds and the largest city
+  python catalog_curate.py cityclass [US CH DE ...]   # every CITY_CLASSES entry if none named
   # after `git reset --hard origin/main`: put this run's ledger, cursor and
   # coverage line back on top of whatever main says NOW. No network.
   python catalog_curate.py reapply .curate-snapshot
@@ -262,7 +267,31 @@ def _load_ledger():
 
 
 def _save_ledger(led):
-    json.dump(led, open(LEDGER_FILE, "w", encoding="utf-8"), indent=2, sort_keys=True)
+    """Write the ledger, keeping any entry that landed while this run held it.
+
+    A WHOLE-FILE WRITE FROM AN IN-MEMORY COPY SILENTLY LOSES A CONCURRENT
+    WRITER, and this repo's working mode makes that reachable: more than one
+    agent works the same checkout, and every sweep loads the ledger once at the
+    start and saves it minutes or hours later. Measured 2026-09-20 — a
+    `ledger --offsite --refresh` that had loaded the file dropped ten
+    neighbourhood-association probes another session had written in between,
+    all of them dated the same day. Nothing had errored and nothing would have
+    noticed; the entries were simply gone, and the next sweep would re-probe
+    ten sites it had already answered.
+
+    Re-reading and merging costs one file read on a path that is already doing
+    a write, and _merge_ledgers is the rule cmd_reapply has always used for the
+    same collision — the more recent probe wins a shared URL, ours winning a
+    tie because this run finished later. Nothing deletes from the ledger, so a
+    union can never resurrect something deliberately removed.
+    """
+    try:
+        on_disk = _load_ledger()
+    except Exception:                                             # noqa: BLE001
+        on_disk = {}                     # unreadable or absent: ours is the file
+    merged = _merge_ledgers(on_disk, led)
+    json.dump(merged, open(LEDGER_FILE, "w", encoding="utf-8"),
+              indent=2, sort_keys=True)
 
 
 DEAD_TTL = 90
@@ -1153,16 +1182,102 @@ OSM_METROS_PER_RUN = 3
 CIVIC_CITIES_PER_RUN = 40
 
 
+# THE CIVIC WALK IS A ROTATION NOW, NOT A COUNTRY.
+#
+# `catalog_discover_civic` was built to work "the same way in every country that
+# has the class" and then shipped with one country in CITY_CLASSES and a cursor
+# that read `{"country": "US", "offset": 2140}` — so every civic run since has
+# walked further down the same list of US cities, and the one backend that can
+# find a whole TOWN's calendar anywhere on earth has never left one. It is also
+# the RICHEST backend this repo has: two 40-city batches returned 64 verified
+# sources carrying 44 local-music events, 57 festivals and parades, 40
+# block-party-shaped events and 58 market days (`docs/agents/curation-and-
+# discovery.md`), against a Socrata sweep that measured ZERO event-shaped
+# datasets for "block party", "street fair" and "community festivals".
+#
+# So the country is chosen per run, thinnest catalog first — the same rule
+# osm.metros() sorts by, for the same reason. The cursor NAMES the country it
+# just swept rather than counting to one, again like the metro walk: the order
+# is computed from live counts and shifts as the catalog grows, and a position
+# would silently re-aim at a country that moved under it.
+def _civic_offsets(cursor):
+    """The per-country offsets, migrating the single-country cursor in place.
+
+    The old shape is `{"country": "US", "offset": 2140}` and 2,140 US cities of
+    walking is not something to throw away, so it is read as US's offset the
+    first time and the flat key is dropped."""
+    offsets = cursor.get("offsets")
+    if offsets is None:
+        offsets = {}
+        if cursor.get("offset"):
+            offsets[(cursor.get("country") or "US").upper()] = int(cursor["offset"])
+        cursor["offsets"] = offsets
+    cursor.pop("offset", None)
+    return offsets
+
+
+def _civic_country_order(civic):
+    """Every country with a city class, thinnest catalog first.
+
+    A country with no sources at all sorts FIRST, which is the whole point: it
+    is the ground a door opens onto and finds nothing. Ties keep CITY_CLASSES'
+    own order so the walk is deterministic on a fresh catalog."""
+    counts = {}
+    for _t, _n, _m, country, _cat in _coverage_rows():
+        counts[country] = counts.get(country, 0) + 1
+    ranked = sorted(
+        enumerate(civic.CITY_CLASSES),
+        key=lambda ic: (counts.get(_ISO_COUNTRY.get(ic[1], ic[1]), 0), ic[0]),
+    )
+    return [code for _i, code in ranked]
+
+
+def _civic_next_country(cursor, civic):
+    """The country this run sweeps: the one AFTER the last one swept.
+
+    Named rather than counted, so editing CITY_CLASSES does not re-aim the walk
+    at a country that happened to slide into the old position. A cursor naming a
+    country that has since been removed restarts at the thinnest.
+    """
+    order = _civic_country_order(civic)
+    if not order:
+        return "US"
+    prev = (cursor.get("country") or "").upper()
+    start = (order.index(prev) + 1) % len(order) if prev in order else 0
+    # A country NOBODY HAS SWEPT YET jumps the queue, once. Otherwise a small
+    # country that has already been read to the end spends the run re-reading
+    # its own top — the ledger's 90-day TTL makes that nearly free and nearly
+    # pointless — while a country with no sources at all waits another rotation.
+    # `visited` and not "offset is 0", because wrapping resets the offset to 0
+    # and a wrapped country would look new for ever. Once everything has been
+    # visited once this is plain round-robin, which is the steady state.
+    _civic_offsets(cursor)                      # migrate the old cursor shape
+    visited = cursor.setdefault("visited", [])
+    ring = [order[(start + i) % len(order)] for i in range(len(order))]
+    unswept = [c for c in ring if c not in visited]
+    country = unswept[0] if unswept else ring[0]
+    if country not in visited:
+        visited.append(country)
+    print(f"  civic rotation: {country} "
+          f"(thinnest first: {', '.join(order[:6])}{'...' if len(order) > 6 else ''})")
+    return country
+
+
 def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                     deadline=0.0):
     """Propose whole-town calendars. See catalog_discover_civic.py.
 
-    THE CURSOR IS AN OFFSET INTO A STABLE ORDER, which is the one thing that
-    makes this walkable. Wikidata is asked for cities BY POPULATION DESCENDING,
-    so position 400 means the same city next week as it does today unless a
-    census lands — unlike the OSM backend, whose list is a hand-edited file and
-    whose cursor therefore has to name a metro rather than count to one. The
-    order also means the sweep spends its early runs where the people are.
+    THE CURSOR IS AN OFFSET INTO A STABLE ORDER, PER COUNTRY, which is the one
+    thing that makes this walkable. Wikidata is asked for cities BY POPULATION
+    DESCENDING, so position 400 means the same city next week as it does today
+    unless a census lands — unlike the OSM backend, whose list is a hand-edited
+    file and whose cursor therefore has to name a metro rather than count to
+    one. The order also means the sweep spends its early runs where the people
+    are.
+
+    WHICH country is a rotation, not a setting: see _civic_next_country. The
+    offsets are per country and the cursor NAMES the one it just swept, so
+    adding a country to CITY_CLASSES never re-aims a walk already in progress.
 
     It walks past the end rather than stopping: `discover civic` on a wrapped
     cursor starts again at the top, where the ledger's 90-day TTL means the
@@ -1171,9 +1286,9 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
     """
     import catalog_discover_civic as civic
 
-    country = (cursor.get("country") or "US").upper()
+    country = _civic_next_country(cursor, civic)
     per_run = int(cities_per_run or CIVIC_CITIES_PER_RUN)
-    offset = int(cursor.get("offset") or 0)
+    offset = int(_civic_offsets(cursor).get(country) or 0)
     found, skipped = {}, {}
 
     def bump(k):
@@ -1183,14 +1298,24 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
         places, rows = civic.cities(session, country, limit=per_run, offset=offset)
     except Exception as exc:                                      # noqa: BLE001
         # UNREAD, NOT EMPTY. Wikidata answers 504 on a query it decides is too
-        # expensive, and advancing the cursor past a batch we never saw would
+        # expensive, and advancing the OFFSET past a batch we never saw would
         # skip those cities until the walk wraps.
+        #
+        # THE ROTATION ADVANCES ANYWAY, and the two are different things. The
+        # cursor's `country` is "whose turn has been taken", not "whose batch was
+        # read": leaving it behind means the next run picks the same country, and
+        # a country WDQS is currently refusing — it answered 502/504 for hours on
+        # 2026-09-19 — would hold every civic run in the repo for as long as it
+        # kept refusing. Its offset is untouched, so nothing is skipped; it
+        # simply comes round again.
         print(f"  wikidata {country} offset {offset}: {type(exc).__name__} — "
-              f"batch UNREAD, cursor stays")
+              f"batch UNREAD, offset stays, the rotation moves on")
+        cursor["country"] = country
         return found, skipped
     if not places:
         print(f"  {country}: offset {offset} is past the end — wrapping to the top")
-        cursor["offset"] = 0
+        _civic_offsets(cursor)[country] = 0
+        cursor["country"] = country
         return found, skipped
     print(f"  {country}: {len(places)} cities from offset {offset} "
           f"(pop {places[0]['population']} -> {places[-1]['population']})")
@@ -1235,7 +1360,14 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                 ckey = _canon(_key_of(cand))
                 if ckey in seen_keys or _dead_recently(led, ckey):
                     bump("configured"); continue
-                cand["_metro"] = f"{place.get('city')}, {place.get('region') or country}"
+                # The country SPELLED OUT, like the venue backend's label.
+                # `_metro` is written into the shipped config (1,247 ics entries
+                # carry one), so "Bern, CH" is a line a curator reads and a
+                # future parser has to guess at — the same trap the geocode
+                # suffix was in.
+                cand["_metro"] = (
+                    f"{place.get('city')}, "
+                    f"{place.get('region') or _ISO_COUNTRY.get(country, country)}")
                 found[ckey] = cand
                 new += 1
                 print(f"    + {cand['type']:5} {cand['name'][:46]:46} "
@@ -1250,6 +1382,8 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                 led[key] = {"checked": _today_int(), "name": place["name"][:80],
                             "reason": f"civic probe: {status}", "status": "fail",
                             "type": f"civic-{kind}"}
+                if f.get("offsite_url"):      # see the venue backend's note
+                    led[key]["offsite_url"] = f["offsite_url"][:300]
             if status.startswith("ok"):
                 bump("found-but-unusable: " + civic.why_no_candidate(f))
             else:
@@ -1260,7 +1394,20 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
     # BY ROWS, NOT BY CITIES — see catalog_civic.cities. And only past the ones
     # actually read: a batch cut short by the deadline leaves the cursor before
     # its tail, exactly as the metro walk does.
-    cursor["offset"] = offset + (rows if read >= len(places) else read)
+    #
+    # WHICH ROW, precisely: the first UNREAD city's own. `read` is a count of
+    # CITIES and the offset is over ROWS, and cities() pages until it has enough
+    # distinct cities, so the two diverge by however many duplicates the batch
+    # held — a Danish batch is 109 cities in 120 rows and a Swiss one was 2 in
+    # 40. Advancing by `read` there would leave the cursor in the middle of
+    # ground already walked and the run would re-read its own head for ever.
+    # cities() records `_row` for exactly this; a batch from an older cursor
+    # that lacks it falls back to the old arithmetic rather than guessing.
+    if read >= len(places):
+        nxt = offset + rows
+    else:
+        nxt = offset + int(places[read].get("_row", read))
+    _civic_offsets(cursor)[country] = nxt
     if read < len(places):
         print(f"  advanced {read}/{len(places)} cities; the rest come round again")
     _save_ledger(led)
@@ -1339,7 +1486,13 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         idx = (start + step) % len(all_metros)
         m = all_metros[idx]
         key = keys[idx]                       # position moves; the name does not
-        label = f"{m['name']}, {m['country']}"
+        # The country SPELLED OUT. This label is the geocode_suffix floor for
+        # every ics candidate the metro proposes (osm._suffix falls back to it
+        # when the venue has no addr:city), so an ISO code here ships in the
+        # config file — ", Zurich, CH" — and is then read by the geocoder and by
+        # the coverage report, neither of which knows what CH is. The cursor
+        # still keys on the CODE via metro_key, so this does not move the walk.
+        label = f"{m['name']}, {m.get('country_name') or m['country']}"
         venues = osm.overpass_venues(session, m["bbox"], label)
         if venues is None:
             n = int(stuck.get(key, 0)) + 1
@@ -1428,6 +1581,15 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
                 led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
                              "reason": f"osm probe: {status}", "status": "fail",
                              "type": "osm-venue"}
+                # AND THE LINK, for the ones that name an adapter we have.
+                # `offsite:eventbrite` is a finished discovery wearing a
+                # failure's clothes: the venue's events exist, they are on a
+                # platform this repo ingests, and the only thing missing is the
+                # organizer id — which is in the link. Written beside the entry
+                # so `catalog_curate.py ledger --offsite` can list them without
+                # fetching 26,000 sites again.
+                if f.get("offsite_url"):
+                    led[home]["offsite_url"] = f["offsite_url"][:300]
             # A probe that SUCCEEDED and still yielded nothing is not the same
             # event as a probe that failed, and lumping them under the status
             # word reported 25 of them as "ok" in one sweep. Name the gap.
@@ -1923,6 +2085,134 @@ def cmd_audit():
     return 0
 
 
+# WHAT AN `offsite:` FIND CAN AND CANNOT BECOME, and almost all of it is
+# cannot — which is the useful half, because "we already ingest that platform"
+# is the intuition this table exists to correct. Every line traces to an
+# adapter's own measurement rather than to this file's guess:
+#
+#   eventbrite (46, the largest routable-LOOKING pile) is REFERENCE ONLY. The
+#     `/o/<slug>-<id>` profile ids are a different id space from the
+#     organization ids the API serves, so organizer-scoped fetching 404s across
+#     the board — mapsee_ingest_eventbrite's header says so and its `organizers`
+#     list is documented as "NOT fetched". Four `/o/` ids were harvested here
+#     and NOT added for that reason.
+#   ticketmaster (24) and meetup (2) are already swept nationally, by metro and
+#     country, so a venue found this way is covered before it is configured.
+#   axs (1) is behind a partner agreement this project does not hold.
+#   facebook (158) and instagram (77) are structural dead ends: no API we may
+#     read. Together they are two thirds of the tally.
+#   humanitix (21) was ASSESSED, not assumed — see the OFFSITE_HOSTS note in
+#     catalog_discover_osm for why a platform that looks perfectly ingestable is
+#     not (no coordinates anywhere, and the only geocoder here is US Census).
+#
+# Which leaves ONE that routes, and only in one of its two shapes:
+ROUTABLE_OFFSITE = {
+    "dice.fm": ("dice_venue_sources.json — but only a /venue/<slug> link. "
+                "An /event/ link names a night, not a room"),
+}
+# The rest are kept in the report because the RANKED LIST is the point: it is
+# the only measurement this repo has of what venues worldwide actually use, and
+# it is what says which adapter would be worth writing next.
+REFERENCE_OFFSITE = {
+    "eventbrite": "reference only: /o/ ids are a different id space (see the adapter)",
+    "ticketmaster": "already swept nationally by metro",
+    "meetup.com": "already swept nationally by metro",
+    "axs.com": "partner credentials this project does not hold",
+    "facebook.com": "no API we may read",
+    "fb.me": "no API we may read",
+    "instagram.com": "no API we may read",
+    "humanitix.com": "assessed 2026-08-30: no coordinates anywhere",
+}
+
+
+def _refresh_offsite(led, session, cap=60):
+    """Re-probe the routable offsite entries that predate the link being kept.
+
+    The link is only written by a probe, and the ledger's 90-day TTL means these
+    venues are skipped until then — so 46 Eventbrite finds would sit unusable
+    for three months over a one-line change made after they were recorded. This
+    is the cheap half of a sweep: one GET per KNOWN venue, no Overpass, no
+    discovery, and only for the platforms something can be done with.
+    """
+    import catalog_discover_osm as osm
+    stale = [(k, v) for k, v in led.items()
+             if isinstance(v, dict) and not v.get("offsite_url")
+             and any(f"offsite:{h}" in (v.get("reason") or "")
+                     for h in set(ROUTABLE_OFFSITE) | set(REFERENCE_OFFSITE))]
+    if not stale:
+        print("  every routable offsite find already has its link")
+        return 0
+    print(f"  re-probing {min(len(stale), cap)} of {len(stale)} routable finds "
+          f"that predate the link being kept")
+    got = 0
+    for key, v in stale[:cap]:
+        url = key if key.startswith("http") else f"https://{key}"
+        try:
+            f = osm.find_calendar(session, url)
+        except Exception as exc:                                  # noqa: BLE001
+            print(f"    {v.get('name','?')[:30]:30} {type(exc).__name__}")
+            continue
+        # A site that has since GROWN a calendar of its own is not an offsite
+        # find any more, and saying so is the point of re-probing rather than
+        # scraping the old page for a link.
+        if (f.get("status") or "").startswith("ok"):
+            print(f"    {v.get('name','?')[:30]:30} now has its OWN calendar "
+                  f"({f.get('adapter')}) — left for the next sweep to propose")
+            continue
+        if f.get("offsite_url"):
+            v["offsite_url"] = f["offsite_url"][:300]
+            v["checked"] = _today_int()
+            got += 1
+            print(f"    {v.get('name','?')[:30]:30} {f['offsite_url'][:72]}")
+    if got:
+        _save_ledger(led)
+    print(f"  {got} link(s) recorded")
+    return got
+
+
+def cmd_ledger_offsite(refresh=False):
+    """The `offsite:` finds, grouped by platform, with the link that names them.
+
+    An `offsite:` probe is a finished discovery wearing a failure's clothes: the
+    venue HAS a calendar, it is on a platform, and for five of those platforms
+    this repo already has the adapter. What was missing was never the venue, it
+    was the id — and the id is in the link, which the probe used to throw away.
+    This reads what it now keeps.
+    """
+    led = _load_ledger()
+    if refresh:
+        _refresh_offsite(led, _session())
+    by_host = {}
+    for key, v in led.items():
+        if not isinstance(v, dict):
+            continue
+        reason = v.get("reason") or ""
+        if "offsite:" not in reason:
+            continue
+        host = reason.split("offsite:", 1)[1].strip()
+        by_host.setdefault(host, []).append((key, v))
+    if not by_host:
+        print("no offsite finds in the ledger")
+        return 0
+    total = sum(len(x) for x in by_host.values())
+    print(f"{total} venues publish their events somewhere else, on "
+          f"{len(by_host)} platforms")
+    print()
+    for host, hits in sorted(by_host.items(), key=lambda kv: -len(kv[1])):
+        routable = ROUTABLE_OFFSITE.get(host) or REFERENCE_OFFSITE.get(host)
+        with_url = [h for h in hits if h[1].get("offsite_url")]
+        head = f"{len(hits):5}  {host}"
+        if routable:
+            head += f"   -> {routable}"
+        print(head)
+        print(f"       {len(with_url)} of them recorded the link; the rest were "
+              f"probed before the link was kept and come round again on the "
+              f"ledger's 90-day TTL")
+        for key, v in with_url[:6]:
+            print(f"         {v.get('name', '?')[:34]:34} {v['offsite_url'][:74]}")
+    return 0
+
+
 def cmd_ledger():
     led = _load_ledger()
     good = {k: v for k, v in led.items() if v.get("status") == "ok"}
@@ -1950,6 +2240,35 @@ _US_STATES = {
     "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV",
     "WI", "WY", "DC",
 }
+# THE SAME STATES SPELLED OUT, because that is what the CATALOG actually says.
+#
+# _US_STATES is codes, and a hand-written suffix uses one (", Seattle, WA").
+# Everything the civic backend has ever written uses the full name instead —
+# `geocode_suffix` is ", City, Region" and Wikidata's region label is "Wisconsin"
+# — so _parse_place fell through to its last-token rule and read the STATE as
+# the metro. Measured 2026-09-19: 894 of the catalog's 3,131 rows, which is the
+# whole top of the metro table ("*Texas 173", "*Florida 125", "*California 76",
+# "*Minnesota 71"). Those are not metros; the city was sitting in the part the
+# parser threw away. The country came out right only because a bare token
+# defaults to the US, which is also why "(RDA)" and "(CFI)" — two acronyms in a
+# source's name — were US metros.
+_US_STATE_NAMES = {
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+    "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
+    "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
+    "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+    "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
+    "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
+    "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
+    "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
+    "Washington", "West Virginia", "Wisconsin", "Wyoming",
+    "District of Columbia",
+    # NOT "Puerto Rico": it already reads as its own country in the report, it
+    # is flagged as thin ground there, and folding it into the US would hide
+    # that. NOT a special case for "Georgia" either — the country is absent from
+    # _ISO_COUNTRY and the catalog has never had a source in it, so the state
+    # wins by default. Add the country there and this set needs a note.
+}
 _COUNTRY_ALIASES = {
     "UK": "United Kingdom", "United Kingdom": "United Kingdom",
     "US": "United States", "USA": "United States", "United States": "United States",
@@ -1958,6 +2277,45 @@ _COUNTRY_ALIASES = {
     "South Africa": "South Africa", "France": "France", "Germany": "Germany",
     "Netherlands": "Netherlands", "Mexico": "Mexico", "Japan": "Japan",
 }
+# A NAME OR AN ISO CODE, BOTH SPELLINGS OF ONE COUNTRY.
+#
+# `_COUNTRY_ALIASES` above is the hand-written half: the spellings that are not
+# derivable ("UK", "USA") and the names that were curated before _ISO_COUNTRY
+# existed. The derivable half is _ISO_COUNTRY itself, which already knows every
+# country the catalog touches by code AND by canonical name — and _parse_place
+# was reading neither, so both halves of the world were read as the United
+# States. Measured 2026-09-19 over the live catalog: 103 sources whose suffix
+# ends in a foreign ISO code (", Zurich, CH" — 20 of them, then Stockholm,
+# Brussels, Sydney, Paris, Oslo, Copenhagen, Warsaw, Madrid, Brno, Auckland,
+# Vienna, London, Winnipeg, Dublin) and 12 more whose suffix ends in a country
+# NAME that _COUNTRY_ALIASES happened not to list (Sweden, Italy, Hong Kong,
+# Norway, Spain, Finland, Denmark). 115 in total, every one of them filed under
+# "United States" with the ISO code itself standing in as the METRO — which is
+# where the "*CH 20", "*SE 10", "*BE 10" and "*Wien 9" rows in the metro table
+# came from. The report is what aims the next curation run, so this did not just
+# misprint: it inflated the one country the ticketing APIs already blanket and
+# hid real supply in nine countries that read as thin ground.
+#
+# The US-state branch in _parse_place runs FIRST and keeps running first. "CA"
+# in a geocode suffix is California, not Canada; "DE" is Delaware, "IN" Indiana,
+# "LA" Louisiana. That collision is the reason this is a fallback and not a
+# lookup at the top.
+def _country_named(token):
+    """The country a suffix's last part names, by alias, name or ISO code."""
+    if not token:
+        return None
+    hit = _COUNTRY_ALIASES.get(token)
+    if hit:
+        return hit
+    if len(token) == 2 and token.isalpha():
+        # Only an UPPERCASE code is a code. "Us" and "in" are words.
+        if token.isupper():
+            return _ISO_COUNTRY.get(token)
+        return None
+    # A canonical name spelled in full: "Switzerland", "Czechia", "Hong Kong".
+    return _ISO_COUNTRY_NAMES.get(token.casefold())
+
+
 _METRO_ALIASES = {
     "NYC": "New York", "New York City": "New York", "Brooklyn": "New York",
     "DC": "Washington DC", "DC metro": "Washington DC", "Washington": "Washington DC",
@@ -2031,11 +2389,13 @@ def _parse_place(text):
     if not parts:
         return None, None
     last = parts[-1]
-    if last.upper() in _US_STATES and len(last) == 2:
+    # A state, either spelling. The NAME is checked first because it is what the
+    # civic backend writes and it cannot collide with a two-letter code.
+    if (last in _US_STATE_NAMES) or (last.upper() in _US_STATES and len(last) == 2):
         # '(DC)' alone is a metro name, not a bare state
         metro = parts[-2] if len(parts) >= 2 else _METRO_ALIASES.get(last)
         return _METRO_ALIASES.get(metro, metro), "United States"
-    country = _COUNTRY_ALIASES.get(last)
+    country = _country_named(last)
     if country:
         rest = parts[:-1]
         while rest and re.fullmatch(r"[A-Z]{2,3}", rest[-1]):
@@ -2052,6 +2412,138 @@ def _parse_place(text):
     return _METRO_ALIASES.get(last, last), None
 
 
+# WHAT DISCOVERY WROTE DOWN, and three ways to read it when the suffix cannot.
+#
+# `_locate` reads a source's NAME and its `geocode_suffix`, and that is all the
+# ics-shaped configs carry. But 840 entries place themselves with a `venue`
+# block instead — a surveyed point from OSM, which is BETTER data and was
+# invisible here. Measured 2026-09-20: 824 of those 840 reported metro "?", and
+# the country only survived when a ccTLD happened to rescue it. That is 26% of
+# the catalog, and it includes every source the venue walk has ever proposed:
+# "Nectar Lounge, Seattle WA" read as metro ?, country ?, which is the bucket
+# the thin-ground ranker cannot tell apart from a country with no feeds at all.
+#
+# Three fallbacks, in order of how directly they were OBSERVED:
+#
+#  1. `_metro` — what the sweep recorded about itself, present on 868 of them.
+#     Parsed COUNTRY-FIRST, never by _parse_place: this field is written as
+#     "<metro>, <country>" by _discover_osm and _discover_civic, so its tail is
+#     always a country and never a US state. _parse_place's state branch runs
+#     first by design and reads "Winnipeg, CA" as Winnipeg, California — which
+#     is right for a geocode suffix and wrong for this.
+#  2. The venue's own city/region/country. Present on 399 of 840; a config that
+#     states where it is outranks anything inferred from geometry.
+#  3. The surveyed POINT, matched to a metro this repo sweeps. Nearly complete
+#     — lat/lon is on 836 of 840 — and principled rather than a guess: these
+#     venues were found BY a metro sweep, so the point lies inside that metro's
+#     own bbox. Nearest centre among overlapping boxes, because Washington DC's
+#     100-mile radius reaches into Baltimore's.
+def _parse_metro_field(text):
+    """(metro, country) from a `_metro` provenance string, country-first."""
+    parts = [p.strip() for p in (text or "").split(",") if p.strip()]
+    if not parts:
+        return None, None
+    country = _country_named(parts[-1]) if len(parts) > 1 else None
+    if not country and len(parts) > 1 and re.fullmatch(r"[A-Z]{2}", parts[-1]):
+        country = _ISO_COUNTRY.get(parts[-1])
+    metro = parts[0] if len(parts) > 1 else parts[0]
+    return _METRO_ALIASES.get(metro, metro), country
+
+
+_swept_boxes = None
+
+
+def _swept_metro_for(lat, lon):
+    """The metro this repo sweeps that a surveyed point falls inside."""
+    global _swept_boxes
+    if _swept_boxes is None:
+        try:
+            import catalog_discover_osm as osm
+            _swept_boxes = []
+            for m in osm.metros():
+                s, w, n, e = (float(x) for x in m["bbox"].split(","))
+                _swept_boxes.append((s, w, n, e, (s + n) / 2, (w + e) / 2,
+                                     m["name"], m.get("country_name") or m["country"]))
+        except Exception:                                         # noqa: BLE001
+            _swept_boxes = []                # no metro list: this fallback is off
+    best = None
+    for s, w, n, e, clat, clon, name, country in _swept_boxes:
+        if s <= lat <= n and w <= lon <= e:
+            d = (lat - clat) ** 2 + (lon - clon) ** 2
+            if best is None or d < best[0]:
+                best = (d, name, country)
+    return (best[1], best[2]) if best else (None, None)
+
+
+def _observed_metro(e):
+    """The metro a config entry OBSERVED, in order of how directly: what the
+    sweep recorded about itself, what the venue block states, then which swept
+    metro the surveyed point falls in. Metro only — see _locate_entry."""
+    lat, lon = _venue_point(e.get("venue"))
+    for cand in (_parse_metro_field(e.get("_metro"))[0],
+                 _venue_place(e.get("venue"))[0],
+                 _swept_metro_for(lat, lon)[0] if lat is not None else None):
+        if cand:
+            return cand
+    return None
+
+
+def _locate_entry(e, name, suffix):
+    """(metro, country) for one config entry: the suffix first, then what the
+    sweep observed. Never overrides a value the suffix or the name produced.
+
+    A METRO AND A COUNTRY COME FROM DIFFERENT EVIDENCE HERE, and conflating them
+    is a mistake that ships wrong countries. `_metro` and a bbox match say which
+    SWEEP found the venue, and a sweep area is not a border: Basel's 25km box
+    covers Alsace and Baden, Liege's reaches Maastricht, Salzburg's reaches
+    Bavaria, Geneva's covers Haute-Savoie. Measured 2026-09-20 — letting
+    geometry name the country moved 24 rows to the wrong one, every one of them
+    a border case the ccTLD had right: Musee de l'Impression sur Etoffes
+    (Mulhouse, .fr) to Switzerland, De Muziekgieterij (Maastricht, .nl) to
+    Belgium, Hans-Peter Porsche TraumWerk (Bavaria, .de) to Austria.
+    So: geometry may name the METRO, and only a statement ABOUT THE VENUE — its
+    own `venue.country`, or its city and region together — may name the country.
+    Everything else still falls through to the ccTLD rescue in _coverage_rows,
+    which is where it belongs.
+    """
+    metro, country = _locate(name, suffix)
+    if metro != "?" and country != "?":
+        return metro, country
+    v_metro, v_country = _venue_place(e.get("venue"))
+    if country == "?" and v_country:
+        country = v_country
+    if metro == "?":
+        metro = _observed_metro(e) or "?"
+    return metro, country
+
+
+def _venue_point(venue):
+    v = venue or {}
+    try:
+        return float(v["lat"]), float(v["lon"])
+    except (KeyError, TypeError, ValueError):
+        return None, None
+
+
+def _venue_place(venue):
+    """(metro, country) a `venue` block STATES, as opposed to implies."""
+    v = venue or {}
+    if not v:
+        return None, None
+    country = None
+    if v.get("country"):
+        iso = str(v["country"]).upper()
+        country = _ISO_COUNTRY.get(iso) if len(iso) == 2 else None
+        country = country or _country_named(str(v["country"])) or None
+    metro = v.get("city") or None
+    if metro and not country and v.get("region"):
+        # "City, Region" is the shape _parse_place already reads, and a US state
+        # there is a state — this is a venue's own address, not a country code.
+        m2, c2 = _parse_place(f"{v['city']}, {v['region']}")
+        metro, country = m2 or metro, c2
+    return (_METRO_ALIASES.get(metro, metro) if metro else None), country
+
+
 def _name_paren(name):
     """The '(City...)' suffix curators put in source names, if any."""
     m = re.search(r"\(([^()]+)\)\s*$", name or "")
@@ -2063,11 +2555,33 @@ def _locate(name, suffix):
     suffix carries metro intent ('DC metro'); the geocode_suffix pins country."""
     s_metro, s_country = _parse_place((suffix or "").strip(" ,"))
     p_metro, p_country = _parse_place(_name_paren(name)) if _name_paren(name) else (None, None)
+    # The name's parens win, EXCEPT when what they hold is a code rather than a
+    # place. Curators put acronyms there too — "Eau Claire — Redevelopment
+    # Authority (RDA)" and "Centre Franco-Iranien (CFI)" — and a gancio entry
+    # spells its parens as "(US, IL)", which names a country and a state and no
+    # city at all. Each of those became a METRO with one source in it, which is
+    # exactly the shape the thin-ground ranker chases.
+    if _looks_like_a_code(p_metro):
+        p_metro = None
     metro = p_metro or s_metro
     country = s_country or p_country
-    if not country and metro:
+    if not country and metro and not _looks_like_a_code(metro):
         country = "United States"          # config convention: bare '(City)' = US
     return metro or "?", country or "?"
+
+
+def _looks_like_a_code(metro):
+    """Whether a would-be metro is really a region/country code, not a place.
+
+    The bare-'(City)'-is-US convention above is about a CITY NAME: a curator who
+    writes "(Issaquah)" means Issaquah, Washington. It was also swallowing every
+    two-letter token the country tables do not know — ", Winnipeg, MB" (Manitoba)
+    and ", SA" (South Australia) were filed as US metros named MB and SA. A code
+    is not a city, so it does not get the city convention; leaving the country
+    unknown lets the ccTLD rescue in _coverage_rows read wcccc.ca and cmfc.asn.au
+    and get both right.
+    """
+    return bool(re.fullmatch(r"[A-Z]{2,3}", metro or ""))
 
 
 _TZ_COUNTRY = {
@@ -2095,6 +2609,14 @@ _TLD_COUNTRY = {
     "se": "SE", "no": "NO", "dk": "DK", "fi": "FI", "at": "AT", "pl": "PL",
     "pt": "PT", "cz": "CZ", "mx": "MX", "in": "IN", "jp": "JP", "kr": "KR",
     "sg": "SG", "hk": "HK", "ae": "AE", "za": "ZA",
+    # THREE THAT ARE NOT ccTLDs AND STILL NAME ONE COUNTRY. The rule above is
+    # right that .org and .eu say nothing; these three are not that. `.cat` is
+    # Catalonia's sponsored TLD and every holder is in Spain — 14 rows, and it
+    # is why the metro table read "Barcelona ?" beside "Barcelona Spain".
+    # `.gov` and `.edu` are US-restricted registries: everywhere else is
+    # gov.uk, gov.au, edu.au, ac.uk, which this table already resolves through
+    # their real ccTLD. 50 rows between them, measured 2026-09-20.
+    "cat": "ES", "gov": "US", "edu": "US",
 }
 
 _ISO_COUNTRY = {
@@ -2113,6 +2635,9 @@ _ISO_COUNTRY = {
     # a gap report can act on.
     "IS": "Iceland", "JM": "Jamaica",
 }
+# The same table read the other way, for a suffix that spells the country out.
+# Built rather than written, so the two can never disagree.
+_ISO_COUNTRY_NAMES = {name.casefold(): name for name in _ISO_COUNTRY.values()}
 
 
 def _iso_countries(value):
@@ -2228,13 +2753,29 @@ def _rows_market(data):
 
 
 def _rows_jsonld(data):
+    """jsonld sites place themselves with a `venue` block, not a suffix — 235 of
+    the 239 carry one and this expander could read none of it, so "Songbyrd
+    Music House" (Washington DC) and "Chiswick House" (London) both arrived as
+    metro "?".
+
+    THE COUNTRY RULE IS UNCHANGED ON PURPOSE. It is the ccTLD, then the US only
+    when the NAME held a US metro — and that last clause has to stay keyed to
+    the name scan rather than to the metro below it, because the metro can now
+    come from a Swiss venue block and "metro is known, therefore American" would
+    then be false. `_locate` is not used here at all: it reads a name's
+    parenthetical as a city and defaults it to the US, which turns
+    "i45 (industrie 45)" into a US metro called "industrie 45".
+    """
     out = []
     for e in data.get("sites", []):
         name = e.get("name") or "?"
-        metro = _scan_name_metro(name) or "?"
+        us_metro = _scan_name_metro(name)
+        metro = us_metro or _observed_metro(e) or "?"
         country = _url_country((e.get("listing") or [None])[0])
         if not country:
-            country = "United States" if metro != "?" else "?"
+            country = _venue_place(e.get("venue"))[1]
+        if not country:
+            country = "United States" if us_metro else "?"
         out.append((name, metro, country, e.get("category") or "?"))
     return out
 
@@ -2355,6 +2896,79 @@ def _rows_affiliate(data):
 # bounding box. Leaving them out entirely was worse, though; it meant the report
 # ranked market coverage as thin in exactly the countries a national source had
 # just covered, and every gap it printed was computed from 4 of the 10 configs.
+# THREE CURATED FILES THE REPORT COULD NOT SEE, AND ALL THREE ARE ABOUT THE
+# WORLD. `coverage` reads CONFIG and EXTRA_CONFIG and nothing else, and its
+# thin-ground ranker is what aims the next curation run — so a curated file
+# missing from both tables does not read as supply that exists, it reads as
+# ground nobody has reached. Measured 2026-09-19 against the live report:
+#
+#   • BRAZIL was FLAGged "no arts, community, fitness, kids, learning feeds
+#     yet" while `mapasculturais_sources.json` is, in AGENTS.md's own words,
+#     "the only source that puts anything on the map in Brazil" — two state
+#     registers, both `community`, one of them measured at 329 future
+#     occurrences. The report was sending sweeps at a country to find what the
+#     repo had already built an adapter for.
+#   • THE UNITED KINGDOM was FLAGged for `volunteer`, and GoodGym — a national
+#     volunteering network — is entry seven of `openactive_sources.json`. That
+#     is one of the nine curated volunteer sources on earth, invisible to the
+#     one report that counts them.
+#   • `learning` counted 244 without the six BiblioCommons library systems
+#     behind 28,314 upcoming programmes, two of which are Canadian.
+#
+# None of the three can go in CONFIG: that table is what `verify` and `merge`
+# probe, and these are adapters with their own shapes and their own hand
+# curation, not candidates a sweep can propose. An expander is exactly the
+# mechanism for that, which is what market, parkrun and bikereg already use.
+def _rows_openactive(data):
+    """One row per operator. OpenActive is a UK data standard and every entry
+    declares `country`, so nothing here is inferred.
+
+    The metro is a placeholder because these are NATIONAL operators — Better
+    (GLL) runs over 250 leisure centres — and giving one of them a city would
+    invent a metro with a hundred venues hiding behind it.
+    """
+    rows = []
+    for e in (data.get("sources") or []):
+        iso = str(e.get("country") or "").upper()
+        rows.append((e.get("name") or "?", "(national)",
+                     _ISO_COUNTRY.get(iso, iso or "?"),
+                     e.get("category") or "fitness"))
+    return rows
+
+
+def _rows_bibliocommons(data):
+    """One row per library SYSTEM, in the country it declares.
+
+    `country` was added to the config for this: the file is six systems and two
+    of them are Canadian (Edmonton, Vancouver), so deriving it from the name
+    would be a guess about exactly the thing the report is for. The adapter
+    reads only the keys it knows, so the field costs it nothing.
+    """
+    rows = []
+    for e in (data.get("sites") or []):
+        iso = str(e.get("country") or "").upper()
+        rows.append((e.get("name") or "?", e.get("city") or "?",
+                     _ISO_COUNTRY.get(iso, iso or "?"),
+                     e.get("category") or "learning"))
+    return rows
+
+
+def _rows_mapasculturais(data):
+    """One row per state register. Brazil is not declared per entry and does not
+    need to be: the adapter exists for Mapas Culturais, which is a Brazilian
+    federal software project, and every instance in the file is a state
+    secretariat of culture. The METRO is the state, because that is the extent
+    of what one register covers."""
+    rows = []
+    for e in (data.get("sites") or []):
+        name = e.get("name") or "?"
+        # "Mapa Cultural do Ceará" -> "Ceará". The slug is the state's own code
+        # and is what the adapter keys on; the name is what a person reads.
+        state = re.sub(r"^\s*Mapa\s+Cultural\s+d[eoa]s?\s+", "", name).strip() or "?"
+        rows.append((name, state, "Brazil", e.get("category") or "community"))
+    return rows
+
+
 EXTRA_CONFIG = {
     "market": ("market_sources.json", _rows_market),
     "mylisting": ("mylisting_sources.json", _rows_mylisting),
@@ -2366,6 +2980,9 @@ EXTRA_CONFIG = {
     "venuepilot": ("venuepilot_sources.json", _rows_venuepilot),
     "restaurant": ("restaurant_sources.json", _rows_restaurant),
     "affiliate": ("affiliate_sources.json", _rows_affiliate),
+    "openactive": ("openactive_sources.json", _rows_openactive),
+    "bibliocommons": ("bibliocommons_sources.json", _rows_bibliocommons),
+    "mapasculturais": ("mapasculturais_sources.json", _rows_mapasculturais),
 }
 # jsonld, mylisting and venuepilot are declared in BOTH tables, over the SAME
 # file: CONFIG so verify/merge can probe them, EXTRA_CONFIG for an expander that
@@ -2432,7 +3049,7 @@ def _coverage_rows():
         for e in _entries(fname, json.load(open(p, encoding="utf-8"))):
             name = e.get("name") or "?"
             suffix = e.get("geocode_suffix") or ""
-            metro, country = _locate(name, suffix)
+            metro, country = _locate_entry(e, name, suffix)
             if metro == "?":
                 hit = _scan_name_metro(name)
                 if hit:
@@ -2729,8 +3346,61 @@ def cmd_coverage_delta(before_path, after_path):
     return 0
 
 
+def cmd_cityclass(codes=()):
+    """Run the REAL cities() query for each country and report what it returns.
+
+    AGENTS.md's rule for CITY_CLASSES is that a country goes in "verified to
+    return rows before it goes in, rather than listed hopefully", and this is
+    what makes that rule followable rather than aspirational. It prints the
+    three numbers an entry's comment should carry — cities in the first page,
+    seconds, the largest city — so re-measuring a country is one command.
+
+    FINDING the class in the first place is the other half and is not here,
+    because it needs no SPARQL at all: ask the Wikidata Action API for three or
+    four mid-sized towns by name (`wbsearchentities`), read their `P31` claims
+    (`wbgetentities`), keep the ones whose `P17` is the country, and drop the
+    labels that are not a kind of settlement — a town is also a weather station
+    and a federal electoral district, and an electoral district has a population
+    AND a website, so the query cannot tell them apart afterwards. Mid-sized on
+    purpose: a capital is often its own class that no other town shares. That
+    was measured on 2026-09-19 against the sampling query it replaced, which
+    asked WDQS to group a whole country's settlements by class: the API route
+    answers in a second where the sampling query took 40-120 and spent an
+    afternoon answering 502 and 504.
+    """
+    import catalog_discover_civic as civic
+    session = _session()
+    codes = [c.upper() for c in codes] or sorted(civic.CITY_CLASSES)
+    bad = [c for c in codes if c not in civic.CITY_CLASSES]
+    if bad:
+        print(f"  FLAG no city class known for {', '.join(bad)} — see CITY_CLASSES")
+    rc = 0
+    for code in [c for c in codes if c in civic.CITY_CLASSES]:
+        classes, scope, label = civic.CITY_CLASSES[code]
+        t = time.time()
+        try:
+            places, rows = civic.cities(session, code, limit=40, offset=0)
+        except Exception as exc:                                  # noqa: BLE001
+            print(f"  {code}: {type(exc).__name__} — {exc}")
+            rc = 1
+            continue
+        secs = round(time.time() - t, 1)
+        if not places:
+            print(f"  {code}: NO ROWS in {secs}s over {len(classes)} class(es) "
+                  f"({label}) — do not ship this entry")
+            rc = 1
+            continue
+        top = places[0]
+        print(f"  {code}: {len(places)} cities from {rows} rows in {secs}s "
+              f"over {len(classes)} class(es); largest {top['name']} "
+              f"({top['population']:,}) {top['url'][:44]}")
+        print(f"       suffix: {civic._suffix(top)!r}")
+    return rc
+
+
 def main(argv):
-    cmds = {"verify", "merge", "audit", "ledger", "coverage", "discover", "reapply"}
+    cmds = {"verify", "merge", "audit", "ledger", "coverage", "discover",
+            "reapply", "cityclass"}
     if len(argv) < 2 or argv[1] not in cmds:
         print(__doc__)
         return 2
@@ -2762,9 +3432,14 @@ def main(argv):
               if "--max-minutes" in argv else 0.0)
         return cmd_discover(limit=lim, out=out, backend=backend, only=only,
                             metros=metros, max_minutes=mm)
+    if cmd == "cityclass":
+        # Every configured country, or the ones named: `cityclass CH DE`.
+        return cmd_cityclass(tuple(a for a in argv[2:] if not a.startswith("-")))
     if cmd == "audit":
         return cmd_audit()
     if cmd == "ledger":
+        if "--offsite" in argv:
+            return cmd_ledger_offsite(refresh="--refresh" in argv)
         return cmd_ledger()
     if cmd == "coverage":
         if "--delta" in argv:

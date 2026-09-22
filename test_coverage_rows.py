@@ -208,6 +208,205 @@ def t_the_country_count_matches_the_rows():
           snap["total_sources"] == len(rows), f"{snap['total_sources']} vs {len(rows)}")
 
 
+# --- 5. a place outside the United States is read as being outside it --------
+
+def t_a_foreign_iso_code_in_a_suffix_is_a_country():
+    """Measured 2026-09-19: 115 sources were filed under the United States with
+    a foreign country code standing in as the METRO. ", Zurich, CH" is the shape
+    — the venue backend wrote the metro label as `name, ISO` and _parse_place
+    knew neither half."""
+    for suffix, metro, country in (
+            (", Zurich, CH", "Zurich", "Switzerland"),
+            (", Stockholm, SE", "Stockholm", "Sweden"),
+            (", Brussels, BE", "Brussels", "Belgium"),
+            (", Sydney, AU", "Sydney", "Australia"),
+            (", Auckland, NZ", "Auckland", "New Zealand"),
+            (", Dublin, IE", "Dublin", "Ireland"),
+    ):
+        got = C._parse_place(suffix.strip(" ,"))
+        check(f"'{suffix.strip()}' is {metro}, {country}", got == (metro, country), str(got))
+
+
+def t_a_country_spelled_out_is_a_country_too():
+    """The other half of the same defect: a suffix ending in a country NAME that
+    _COUNTRY_ALIASES happened not to list ("Sweden", "Hong Kong") made the NAME
+    the metro and the US the country."""
+    for suffix, metro, country in (
+            (", Gothenburg, Sweden", "Gothenburg", "Sweden"),
+            (", Milan, Italy", "Milan", "Italy"),
+            (", Hong Kong", "Hong Kong", "Hong Kong"),
+            (", Oslo, Norway", "Oslo", "Norway"),
+            (", Brno, Czechia", "Brno", "Czechia"),
+    ):
+        got = C._parse_place(suffix.strip(" ,"))
+        check(f"'{suffix.strip()}' is {metro}, {country}", got == (metro, country), str(got))
+
+
+def t_a_us_state_spelled_out_is_still_the_us_and_is_not_the_metro():
+    """What the civic backend writes. `geocode_suffix` is ", City, Region" and
+    Wikidata's region label is the full name, so the state was read as the metro
+    — 894 rows on 2026-09-19, the whole top of the metro table."""
+    for suffix, metro in ((", Eau Claire, Wisconsin", "Eau Claire"),
+                          (", Mansfield, Texas", "Mansfield"),
+                          (", Poway, California", "Poway"),
+                          (", Edina, Minnesota", "Edina")):
+        got = C._parse_place(suffix.strip(" ,"))
+        check(f"'{suffix.strip()}' is {metro}, United States",
+              got == (metro, "United States"), str(got))
+    rows = C._coverage_rows()
+    # "New York" is the one name that is BOTH, and as a metro it is the right
+    # answer — 11 rows, all of them New York City (Prospect Park Alliance,
+    # Riverside Park Conservancy, Food Bank For New York City).
+    states = {m for _t, _n, m, c, _cat in rows
+              if c == "United States" and m in C._US_STATE_NAMES and m != "New York"}
+    check("no US row has a STATE where its metro should be", not states,
+          f"still states: {sorted(states)[:6]}")
+
+
+def t_a_two_letter_code_is_never_a_metro():
+    """The bare-'(City)'-is-US convention is about a city NAME. It was also
+    swallowing province codes (", Winnipeg, MB") and acronyms a curator put in a
+    source's name ("(RDA)", "(CFI)"), inventing US metros called MB and RDA."""
+    check("a bare province code is not a US metro",
+          C._locate("Winnipeg Chinese Cultural Centre", ", Winnipeg, MB")[1] != "United States",
+          str(C._locate("Winnipeg Chinese Cultural Centre", ", Winnipeg, MB")))
+    rows = C._coverage_rows()
+    codes = {m for _t, _n, m, c, _cat in rows
+             if c == "United States" and re.fullmatch(r"[A-Z]{2,3}", m or "")
+             and m not in C._US_STATES}
+    check("no US metro in the catalog is a bare code that is not a state",
+          not codes, f"still codes: {sorted(codes)}")
+
+
+def t_the_generators_write_a_country_a_reader_can_read():
+    """The read side above is a rescue. These two are why it stops being needed:
+    both backends now spell the country out in the suffix they SHIP."""
+    import catalog_discover_civic as civic
+    import catalog_discover_osm as osm
+
+    suffix = civic._suffix({"city": "Bern", "region": None, "country": "CH"})
+    check("civic writes the country for a town outside the US",
+          C._parse_place(suffix.strip(" ,")) == ("Bern", "Switzerland"), suffix)
+    us = civic._suffix({"city": "Issaquah", "region": "Washington", "country": "US"})
+    check("...and leaves a US town in the shorter form 900 sources already use",
+          us == ", Issaquah, Washington", us)
+
+    metros = osm.metros()
+    missing = [m for m in metros if not m.get("country_name")]
+    check("every metro in the sweep knows its country's NAME", not missing,
+          f"{len(missing)} without one, e.g. {missing[:2]}")
+    ch = next((m for m in metros if m["country"] == "CH"), None)
+    if ch:
+        label = f"{ch['name']}, {ch['country_name']}"
+        check("...so an ics candidate's suffix floor names a country",
+              C._parse_place(label)[1] == "Switzerland", label)
+
+
+def t_a_curated_file_the_report_cannot_see_reads_as_a_gap():
+    """`coverage` reads CONFIG and EXTRA_CONFIG and nothing else, so a curated
+    file in neither does not read as supply — it reads as empty ground, and the
+    thin-ground ranker sends the next run at it. Three files were in that state
+    on 2026-09-19, and each one was a country the report was FLAGging."""
+    rows = C._coverage_rows()
+    by_type = collections.Counter(t for t, _n, _m, _c, _k in rows)
+    for t, least in (("openactive", 12), ("bibliocommons", 6), ("mapasculturais", 2)):
+        check(f"{t} is counted at all", by_type.get(t, 0) >= least,
+              f"{by_type.get(t, 0)} rows")
+
+    brazil = {k for t, _n, _m, c, k in rows if c == "Brazil"}
+    check("Brazil's own adapter counts as Brazilian community supply",
+          "community" in brazil, f"Brazil has {sorted(brazil)}")
+    uk_vol = [n for t, n, _m, c, k in rows
+              if c == "United Kingdom" and k == "volunteer"]
+    check("GoodGym is UK volunteer supply, which the report used to FLAG as absent",
+          uk_vol, "no UK volunteer row")
+    ca_lib = [n for t, n, _m, c, k in rows
+              if t == "bibliocommons" and c == "Canada"]
+    check("the two Canadian library systems are not American",
+          len(ca_lib) == 2, f"{ca_lib}")
+    # The expanders must not double-count: these three files are in no other
+    # table, which is the whole reason EXPANDER_OWNED exists for the ones that
+    # are.
+    dupes = [t for t in ("openactive", "bibliocommons", "mapasculturais")
+             if t in C.CONFIG]
+    check("...and none of the three is ALSO in CONFIG, where it would count twice",
+          not dupes, f"{dupes}")
+
+
+def t_a_surveyed_venue_is_a_place_the_report_can_read():
+    """840 entries place themselves with a `venue` block rather than a suffix —
+    a surveyed OSM point, which is the BEST location data in the catalog — and
+    `_locate` reads only the name and the geocode suffix. Measured 2026-09-20:
+    824 of those 840 reported metro "?", which is the bucket the thin-ground
+    ranker cannot tell apart from a country with no feeds at all."""
+    e = {"name": "Nectar Lounge",
+         "venue": {"city": "Seattle", "region": "WA", "lat": 47.65, "lon": -122.35}}
+    check("a venue block that STATES its city and state locates the source",
+          C._locate_entry(e, e["name"], "") == ("Seattle", "United States"),
+          str(C._locate_entry(e, e["name"], "")))
+
+    # `_metro` is what the sweep recorded about itself, and its tail is always a
+    # country — never a US state, which is the opposite of a geocode suffix.
+    check("`_metro` is parsed country-first: CA there is Canada, not California",
+          C._parse_metro_field("Winnipeg, CA") == ("Winnipeg", "Canada"),
+          str(C._parse_metro_field("Winnipeg, CA")))
+    check("...and a suffix keeps the opposite rule, because CA there IS California",
+          C._parse_place("Somewhere, CA") == ("Somewhere", "United States"),
+          str(C._parse_place("Somewhere, CA")))
+    check("a spelled-out country in `_metro` reads too",
+          C._parse_metro_field("Bend, United States") == ("Bend", "United States"),
+          str(C._parse_metro_field("Bend, United States")))
+
+    rows = C._coverage_rows()
+    unloc = sum(1 for _t, _n, m, _c, _k in rows if m == "?")
+    check("fewer than a tenth of catalog rows have no metro",
+          unloc < len(rows) / 10, f"{unloc} of {len(rows)}")
+
+
+def t_a_sweep_area_is_not_a_border():
+    """The fallback that nearly shipped: matching a surveyed point to the metro
+    whose bbox contains it, and taking that metro's COUNTRY. A metro bbox is a
+    sweep radius, not a frontier — Basel's covers Alsace and Baden, Liege's
+    reaches Maastricht, Salzburg's reaches Bavaria — and it moved 24 rows to the
+    wrong country, every one a border case the ccTLD had right."""
+    # A point inside a swept metro still names the METRO...
+    e = {"name": "Somewhere", "venue": {"lat": 47.5596, "lon": 7.5886}}   # Basel
+    metro = C._observed_metro(e)
+    check("a surveyed point names the metro that swept it", bool(metro), str(metro))
+    # ...and must NOT name the country.
+    m, c = C._locate_entry(e, e["name"], "")
+    check("...and NEVER the country, so the ccTLD still decides", c == "?",
+          f"geometry claimed {c!r}")
+
+    # The venue's OWN statement is different evidence and may name a country.
+    e2 = {"name": "X", "venue": {"city": "Liege", "country": "BE"}}
+    check("a venue that states its country is believed",
+          C._locate_entry(e2, "X", "")[1] == "Belgium",
+          str(C._locate_entry(e2, "X", "")))
+
+
+def t_jsonld_keeps_its_country_rule_while_gaining_a_metro():
+    """`_rows_jsonld` must not start using `_locate`: that reads a name's
+    parenthetical as a city and defaults it to the US, which turned
+    "i45 (industrie 45)" — a club in Zug — into a US metro called
+    "industrie 45"."""
+    site = {"name": "i45 (industrie 45)", "category": "music",
+            "listing": ["https://i45.ch/events/"],
+            "venue": {"city": "Zug", "lat": 47.1822, "lon": 8.5209},
+            "_metro": "Zurich, CH"}
+    rows = C._rows_jsonld({"sites": [site]})
+    check("a Swiss club stays in Switzerland", rows[0][2] == "Switzerland",
+          str(rows[0]))
+    check("...and gains the metro its venue block knows", rows[0][1] in ("Zug", "Zurich"),
+          str(rows[0]))
+    # The US default is still keyed to the NAME scan, not to the new metro.
+    us = C._rows_jsonld({"sites": [{"name": "Songbyrd Music House (Washington DC)",
+                                    "listing": ["https://songbyrddc.com/events"],
+                                    "category": "music"}]})
+    check("a US metro in the NAME still defaults the country to the US",
+          us[0][2] == "United States", str(us[0]))
+
+
 def main() -> int:
     for t in (t_all_types_lists_each_type_once,
               t_no_source_is_counted_twice,
@@ -216,7 +415,16 @@ def main() -> int:
               t_no_country_is_a_bare_iso_code,
               t_every_iso_code_in_every_config_has_a_name,
               t_a_cctld_source_is_not_filed_under_unknown,
-              t_the_country_count_matches_the_rows):
+              t_the_country_count_matches_the_rows,
+              t_a_foreign_iso_code_in_a_suffix_is_a_country,
+              t_a_country_spelled_out_is_a_country_too,
+              t_a_us_state_spelled_out_is_still_the_us_and_is_not_the_metro,
+              t_a_two_letter_code_is_never_a_metro,
+              t_the_generators_write_a_country_a_reader_can_read,
+              t_a_curated_file_the_report_cannot_see_reads_as_a_gap,
+              t_a_surveyed_venue_is_a_place_the_report_can_read,
+              t_a_sweep_area_is_not_a_border,
+              t_jsonld_keeps_its_country_rule_while_gaining_a_metro):
         print(f"\n--- {t.__name__} ---")
         t()
     print()

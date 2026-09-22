@@ -100,6 +100,43 @@ def main():
     check("so does My Calendar", osm.fingerprint(MYCAL)[0], ["my-calendar"])
 
     print()
+    print("an offsite link is a routing signal, and the LINK is the signal")
+    # `offsite:` parks a venue as dead for the ledger's 90-day TTL, so a link
+    # that cannot be anybody's calendar must not trigger it. Found by recording
+    # the link and reading 24 of them: Eventbrite's WordPress plugin puts a
+    # credit in the FOOTER, which is on every page of every site using it.
+    check("a plugin's footer credit is not a calendar",
+          osm._offsite("https://eventbrite.com/l/wordpress?ref=wpfooter"), None)
+    check("...nor is a bare brand link with no path",
+          osm._offsite("https://www.eventbrite.co.uk/"), None)
+    check("...nor the same without the trailing slash",
+          osm._offsite("https://www.eventbrite.co.uk"), None)
+    check("an organizer profile still is",
+          osm._offsite("https://www.eventbrite.be/o/pilar-18004751158"), "eventbrite")
+    check("...and so is a single event",
+          osm._offsite("https://www.eventbrite.ie/e/angel-lane-tickets-2021"), "eventbrite")
+    check("...and a DICE venue page, which is the one shape that routes",
+          osm._offsite("https://dice.fm/venue/the-vera-project-wmmg"), "dice.fm")
+
+    # The id is in the link and nowhere else, so the link is what has to survive
+    # the probe — recording the host alone made 46 venues a statistic.
+    _HTML = ('<html><body><a href="https://www.eventbrite.com/o/hall-105655500371">'
+             'Events</a><a href="/about">About</a></body></html>')
+
+    class _R:
+        status_code, url, text = 200, "https://hall.example/", _HTML
+        headers = {"Content-Type": "text/html"}
+
+    class _S:
+        def get(self, u, timeout=None, allow_redirects=True, **kw):
+            return _R()
+
+    _f = osm.find_calendar(_S(), "https://hall.example/")
+    check("an offsite find reports its platform", _f["status"], "offsite:eventbrite")
+    check("...and keeps the link the id lives in",
+          _f["offsite_url"], "https://www.eventbrite.com/o/hall-105655500371")
+
+    print()
     print("a challenge is a refusal, whatever status code it wears")
     check_true("the 200-with-a-spinner is caught", osm.CHALLENGE_RX.search(CHALLENGE_200))
     check_true("SiteGround's 202 captcha is caught", osm.CHALLENGE_RX.search(CHALLENGE_SG))

@@ -92,16 +92,46 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
+      # A SHARD PER RUN, BECAUSE A MATRIX IS CAPPED AT 256 JOBS and the config
+      # now holds every metro mapsee sweeps for events. 260 areas would not
+      # merely be slow, it would fail to start.
+      #
+      # The shard is the WEEK NUMBER modulo the shard count, so it is
+      # deterministic, auditable and covers every area exactly once per turn
+      # rather than drifting. MAPSEE_TODAY fixes it, as everywhere.
+      #
+      # ONE CONSEQUENCE WORTH KNOWING: GitHub evicts a cache untouched for 7
+      # days, and a turn takes longer than that, so the ingest's own 30-day
+      # element cache will usually MISS and each visit refetches from Overpass.
+      # That is the right trade at this size — it is what keeps a standing
+      # dataset fresh — but it means the run cost is an Overpass fetch per area
+      # per visit, not the near-free cache hit the 10-area sweep enjoyed.
       - id: pick
         env:
           ONLY: ${{ github.event.inputs.only }}
         run: |
           python - <<'PY' >> "$GITHUB_OUTPUT"
-          import json, os
+          import datetime, json, math, os, re
+          PER_RUN = 64
           cfg = json.load(open("osm_amenity_sources.json", encoding="utf-8"))
+          names = [a["name"] for a in cfg["areas"]]
           only = (os.environ.get("ONLY") or "").strip().lower()
-          names = [a["name"] for a in cfg["areas"]
-                   if not only or only in a["name"].lower()]
+          if only:
+              names = [n for n in names if only in n.lower()]
+          else:
+              env = os.environ.get("MAPSEE_TODAY") or ""
+              today = (datetime.date(int(env[:4]), int(env[4:6]), int(env[6:8]))
+                       if re.fullmatch(r"\d{8}", env)
+                       else datetime.datetime.now(datetime.timezone.utc).date())
+              shards = max(1, math.ceil(len(names) / PER_RUN))
+              shard = today.isocalendar()[1] % shards
+              # STRIDED, not a contiguous slice: the config is grouped by
+              # country, so slicing it in blocks would send one run at 64
+              # Brazilian metros and leave a 4-area runt at the end. Every Nth
+              # area mixes dense and thin, and keeps each shard the same size.
+              names = names[shard::shards]
+              print(f"::notice::shard {shard + 1}/{shards}: {len(names)} areas",
+                    file=__import__("sys").stderr)
           print("areas=" + json.dumps(names))
           PY
       - run: echo "Running ${{ steps.pick.outputs.areas }}"

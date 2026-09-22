@@ -23,7 +23,10 @@ covered by the main metros job and is intentionally NOT repeated here.
 from __future__ import annotations
 
 import argparse
+import datetime
 import json
+import os
+import re
 import subprocess
 import sys
 import time
@@ -37,6 +40,56 @@ HERE = Path(__file__).resolve().parent
 # hour of a job that already ran 326 of its 360 minutes; 600 is still ~7x the
 # slowest metro seen.
 METRO_TIMEOUT_S = 600
+
+
+# THE TAIL OF THE FILE IS NOT A PLACE TO PUT A COUNTRY.
+#
+# This sweep has no cursor: it walks metros_global.json from the top every time
+# and stops when the job's clock runs out, which is a real event the workflow
+# plans around (`--deadline`, and the ::warning:: below that counts what was
+# never started). So the countries LAST in the file are the ones a slow run
+# always drops — and the order of that file is the order countries were added,
+# which puts Brazil, Hong Kong, the UAE, South Korea, Singapore and South Africa
+# at the bottom. Those are six of the eight thinnest countries in the catalog:
+# the ones a slow run drops are the ones with the least to lose and the most to
+# gain. Measured from the workflow's own header: the Meetup job ran 288-326
+# minutes against a 350-minute cap, and its international leg stops starting
+# metros at 320.
+#
+# The rotation is by DAY and by COUNTRY, and both halves matter. By day, so
+# every country reaches the front of the queue within one turn of the wheel
+# (29 countries, so 29 days) rather than by anybody's judgment of which country
+# deserves the budget. By country, so a country is swept whole or not at all —
+# cutting Germany in half every day would give six of its fourteen metros a
+# permanent seat and the other eight none.
+#
+# NOT thinnest-catalog-first, which is how catalog_discover_osm.metros() sorts
+# and was the first thing tried here. That rule is right for a CURATION sweep,
+# where the budget should go where the catalog is empty. It is wrong for an
+# INGEST sweep that runs every day: it would pin the same handful of thin
+# countries at the front for ever and make the drop fall permanently on London,
+# Toronto and Sydney, which is the same defect wearing better intentions.
+def _day_ordinal() -> int:
+    """Today as a day number. MAPSEE_TODAY=YYYYMMDD fixes it, as everywhere."""
+    env = os.environ.get("MAPSEE_TODAY")
+    if env and re.fullmatch(r"\d{8}", env):
+        d = datetime.date(int(env[:4]), int(env[4:6]), int(env[6:8]))
+    else:
+        d = datetime.datetime.now(datetime.timezone.utc).date()
+    return d.toordinal()
+
+
+def rotate_countries(countries: list, day: int = None) -> list:
+    """The configured countries, started at a different one each day.
+
+    Order inside a country is untouched: its metros are already written
+    largest-first and that is the order to spend a partial budget in.
+    """
+    usable = [c for c in countries if any(m.get("latlong") for m in c.get("metros", []))]
+    if len(usable) < 2:
+        return countries
+    start = (_day_ordinal() if day is None else day) % len(usable)
+    return usable[start:] + usable[:start]
 
 
 def run(script: str, args: list) -> None:
@@ -65,6 +118,12 @@ def main(argv=None) -> int:
     # sync still has time. 0 = no deadline (local runs, the Ticketmaster job).
     ap.add_argument("--deadline", type=float, default=0.0,
                     help="epoch seconds; start no metro at or after this (0 = none)")
+    # On by default, because the default is the one the scheduled job uses and
+    # the file order is the thing being corrected. --no-rotate is for comparing
+    # a run against an older one.
+    ap.add_argument("--no-rotate", dest="rotate", action="store_false",
+                    help="walk metros_global.json top to bottom (see rotate_countries)")
+    ap.set_defaults(rotate=True)
     a = ap.parse_args(argv)
 
     cfg = json.loads((HERE / a.config).read_text(encoding="utf-8"))
@@ -72,7 +131,12 @@ def main(argv=None) -> int:
     total = sum(1 for c in cfg.get("countries", []) for m in c.get("metros", []) if m.get("latlong"))
     n_metros = 0
     stopped = False
-    for country in cfg.get("countries", []):
+    order = (rotate_countries(cfg.get("countries", []))
+             if a.rotate else list(cfg.get("countries", [])))
+    if order:
+        print(f"[global] starting at {order[0].get('name', '?')} "
+              f"({'rotating daily' if a.rotate else 'file order'})", flush=True)
+    for country in order:
         code, cname = country.get("code"), country.get("name", "?")
         for m in country.get("metros", []):
             ll, radius, mname = m.get("latlong"), int(m.get("radius", 25)), m.get("name", "?")
