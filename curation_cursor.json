@@ -201,8 +201,8 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 31,
-  "metro_key": "ES:Barcelona",
+  "metro": 50,
+  "metro_key": "JP:Yokohama",
   "stuck": {}
  },
  "socrata": {

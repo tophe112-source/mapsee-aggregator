@@ -9733,6 +9733,78 @@
         "lon": 7.7090769
       },
       "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Laboratorio Sociale Autogestito Centocelle",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "http://www.lsa100celle.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Laboratorio Sociale Autogestito Centocelle",
+        "lat": 41.8783288,
+        "lon": 12.5592096
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Renato Turletti",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://prolocorevigliasco.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Renato Turletti",
+        "address": "28 Via Maurizio Beria",
+        "lat": 45.0182557,
+        "lon": 7.7361452
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Salus Space",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://saluspace.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Salus Space",
+        "lat": 44.4831282,
+        "lon": 11.401659
+      },
+      "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "Biblioteca della Fondazione Ernesto Ragionieri",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://biblioteca.comune.sesto-fiorentino.fi.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Biblioteca della Fondazione Ernesto Ragionieri",
+        "city": "Sesto Fiorentino",
+        "lat": 43.834145,
+        "lon": 11.2000715
+      },
+      "_metro": "Florence, Italy"
+    },
+    {
+      "name": "Gabinetto Scientifico Letterario G.P. Vieusseux",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.vieusseux.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gabinetto Scientifico Letterario G.P. Vieusseux",
+        "lat": 43.7713882,
+        "lon": 11.2518923
+      },
+      "_metro": "Florence, Italy"
     }
   ],
   "_not_included": {

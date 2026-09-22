@@ -4530,6 +4530,59 @@
         "lon": 7.5817778
       },
       "_metro": "Turin, Italy"
+    },
+    {
+      "name": "El Pumarejo",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://elpumarejo.org/events/polyglot/"
+      ],
+      "link_pattern": "https://elpumarejo\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "El Pumarejo",
+        "address": "187, Nau 4 Avinguda del Carrilet",
+        "postal_code": "08907",
+        "lat": 41.3614829,
+        "lon": 2.1133007
+      },
+      "_metro": "Barcelona, Spain"
+    },
+    {
+      "name": "Centro Sociale Primavera",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.comune.minerbio.bo.it/it-it/vivere-il-comune/eventi/"
+      ],
+      "link_pattern": "https://www\\.comune\\.minerbio\\.bo\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centro Sociale Primavera",
+        "address": "13 Via Roma",
+        "city": "Minerbio",
+        "postal_code": "40061",
+        "lat": 44.6221023,
+        "lon": 11.4864343
+      },
+      "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "Auditorium",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.loppiano.it/eventi/"
+      ],
+      "link_pattern": "https://www\\.loppiano\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Auditorium",
+        "lat": 43.6658175,
+        "lon": 11.4293207
+      },
+      "_metro": "Florence, Italy"
     }
   ],
   "_not_included": {

@@ -13538,5 +13538,32 @@
     "geocode_suffix": ", Milano",
     "limit": 300,
     "_metro": "Milan, Italy"
+  },
+  {
+    "name": "Universitätsbibliothek Religion",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://theologie.unibas.ch/de/shared-elements/infoblock-3spaltig-forschungsdekanat/1973.ics",
+    "geocode_suffix": ", Basel",
+    "limit": 300,
+    "_metro": "Basel, Switzerland"
+  },
+  {
+    "name": "CasaLarga",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager+ics",
+    "url": "https://www.casalarga.it/wp/events/assistenza-cie/ical/",
+    "geocode_suffix": ", Bologna",
+    "limit": 300,
+    "_metro": "Bologna, Italy"
+  },
+  {
+    "name": "麻布子ども中高生プラザ",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar+jsonld-event",
+    "url": "https://azabu-plaza.jp/?feed=my-calendar-ics",
+    "geocode_suffix": ", 港区, 東京都",
+    "limit": 300,
+    "_metro": "Tokyo, Japan"
   }
 ]
