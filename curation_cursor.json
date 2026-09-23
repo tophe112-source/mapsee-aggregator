@@ -205,7 +205,9 @@
  "osm|community_centre,library": {
   "metro": 50,
   "metro_key": "JP:Yokohama",
-  "stuck": {}
+  "stuck": {
+   "JP:Yokohama": 1
+  }
  },
  "socrata": {
   "art events": 0,
