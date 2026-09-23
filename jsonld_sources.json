@@ -4583,6 +4583,109 @@
         "lon": 11.4293207
       },
       "_metro": "Florence, Italy"
+    },
+    {
+      "name": "Binaria - Centro Commensale",
+      "category": "learning",
+      "_found": "osm:books -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.binariagruppoabele.org/eventi/"
+      ],
+      "link_pattern": "https://www\\.binariagruppoabele\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Binaria - Centro Commensale",
+        "lat": 45.0671008,
+        "lon": 7.6389539
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "ibis libreria esoterica e filosofica",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://libreriaesotericaibis.it/eventi-della-libreria-ibis-bologna/"
+      ],
+      "link_pattern": "https://libreriaesotericaibis\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "ibis libreria esoterica e filosofica",
+        "address": "11b Via Castiglione",
+        "lat": 44.4911863,
+        "lon": 11.3464366
+      },
+      "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "La Feltrinelli",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.lafeltrinelli.it/eventi/BO3-00016/bologna/lf-bologna-ravegnana"
+      ],
+      "link_pattern": "https://www\\.lafeltrinelli\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "La Feltrinelli",
+        "address": "1 Piazza di Porta Ravegnana",
+        "city": "Bologna",
+        "postal_code": "40126",
+        "lat": 44.4943798,
+        "lon": 11.346416
+      },
+      "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "Palazzo Pallavicini",
+      "category": "arts",
+      "_found": "osm:museum -> modern-events",
+      "listing": [
+        "https://www.palazzopallavicini.com/eventi/"
+      ],
+      "link_pattern": "https://www\\.palazzopallavicini\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palazzo Pallavicini",
+        "address": "24 Via San Felice",
+        "city": "Bologna",
+        "lat": 44.4965738,
+        "lon": 11.3344631
+      },
+      "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "Basilica di San Petronio",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.basilicadisanpetronio.org/eventi/"
+      ],
+      "link_pattern": "https://www\\.basilicadisanpetronio\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Basilica di San Petronio",
+        "postal_code": "40124",
+        "lat": 44.492732,
+        "lon": 11.3430314
+      },
+      "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "Viper Theatre",
+      "category": "music",
+      "_found": "osm:nightclub -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.viperclub.eu/prossimi-eventi/"
+      ],
+      "link_pattern": "https://www\\.viperclub\\.eu/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Viper Theatre",
+        "lat": 43.792679,
+        "lon": 11.1758149
+      },
+      "_metro": "Florence, Italy"
     }
   ],
   "_not_included": {

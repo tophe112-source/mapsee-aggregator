@@ -13565,5 +13565,14 @@
     "geocode_suffix": ", 港区, 東京都",
     "limit": 300,
     "_metro": "Tokyo, Japan"
+  },
+  {
+    "name": "Circolo Scacchi Arcotorre Chieri",
+    "category": "arts",
+    "_found": "osm:arts_centre -> my-calendar+jsonld-event",
+    "url": "https://www.arcotorrescacchi.it/?feed=my-calendar-ics",
+    "geocode_suffix": ", Chieri",
+    "limit": 300,
+    "_metro": "Turin, Italy"
   }
 ]

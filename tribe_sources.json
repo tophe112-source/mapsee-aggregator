@@ -9805,6 +9805,137 @@
         "lon": 11.2518923
       },
       "_metro": "Florence, Italy"
+    },
+    {
+      "name": "Casa Fools",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.casafools.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Casa Fools",
+        "lat": 45.0692832,
+        "lon": 7.7019027
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Palazzina di Caccia Stupinigi",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ordinemauriziano.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Palazzina di Caccia Stupinigi",
+        "address": "7 Piazza Principe Amedeo",
+        "city": "Nichelino",
+        "postal_code": "10042",
+        "lat": 44.995604,
+        "lon": 7.605944
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Museo della Chimica",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.mu-ch.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museo della Chimica",
+        "address": "84 Via Leinì",
+        "city": "Settimo Torinese",
+        "postal_code": "10036",
+        "lat": 45.1425443,
+        "lon": 7.7544133
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Luna'sTorta",
+      "category": "learning",
+      "_found": "osm:books -> tribe",
+      "base_url": "https://www.lunastorta.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Luna'sTorta",
+        "address": "50/e Via Belfiore",
+        "city": "Torino",
+        "postal_code": "10125",
+        "lat": 45.0523234,
+        "lon": 7.677595
+      },
+      "_metro": "Turin, Italy"
+    },
+    {
+      "name": "Laura Betti",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.teatrocasalecchio.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Laura Betti",
+        "address": "1 Piazza del Popolo",
+        "city": "Casalecchio di Reno",
+        "postal_code": "40033",
+        "lat": 44.4775846,
+        "lon": 11.2765478
+      },
+      "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "Raccolta Lercaro",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.museolercaro.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Raccolta Lercaro",
+        "address": "57 Via Riva di Reno",
+        "city": "Bologna",
+        "postal_code": "40122",
+        "lat": 44.4987097,
+        "lon": 11.3375785
+      },
+      "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "Link",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://www.link.bo.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Link",
+        "lat": 44.5124127,
+        "lon": 11.4157208
+      },
+      "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "MuTer - Museo del Territorio di Montespertoli",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://visitmontespertoli.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "MuTer - Museo del Territorio di Montespertoli",
+        "address": "74 Via Lucardese",
+        "city": "Montespertoli",
+        "postal_code": "50025",
+        "country": "IT",
+        "lat": 43.6369429,
+        "lon": 11.0894611
+      },
+      "_metro": "Florence, Italy"
     }
   ],
   "_not_included": {
