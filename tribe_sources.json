@@ -9955,9 +9955,143 @@
         "lon": 139.7128558
       },
       "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "Friends of Lafitte Greenway",
+      "category": "community",
+      "base_url": "https://lafittegreenway.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Friends of Lafitte Greenway",
+        "city": "New Orleans",
+        "region": "LA",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 17 upcoming, 7 distinct titles, all with a street address - yoga, boot camp, dance, movies in the park, a market march. A greenway's programme, not volunteering, so `community`: the fitness titles promote themselves."
+    },
+    {
+      "name": "Anchorage Park Foundation",
+      "category": "community",
+      "base_url": "https://anchorageparkfoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Anchorage Park Foundation",
+        "city": "Anchorage",
+        "region": "AK",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 5 upcoming (trick-or-treat trail, a recreation fair, haunted and enchanted trail walks, a solstice festival), 3 with an address. Family park events, hence `community` rather than the volunteer the organisation's name suggests."
+    },
+    {
+      "name": "Baltimore Woods Nature Center",
+      "category": "outdoors",
+      "base_url": "https://baltimorewoods.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Baltimore Woods Nature Center",
+        "city": "Marcellus",
+        "region": "NY",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 34 upcoming, 30 distinct titles, 32 with coordinates - walks, mushroom hunts, nature sketching, a family field day."
+    },
+    {
+      "name": "Overton Park Conservancy",
+      "category": "community",
+      "base_url": "https://overtonpark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Overton Park Conservancy",
+        "city": "Memphis",
+        "region": "TN",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 41 upcoming - bird strolls and nature journaling, the Shell's free concert series, a 5K, museum evenings. Mixed by construction, so `community` (the concerts and the run promote themselves). 18 of the conservancy's own rows carry no address and are dropped at sync; no venue fallback, because the rest of the feed happens at addresses of its own."
+    },
+    {
+      "name": "Trees Forever",
+      "category": "volunteer",
+      "base_url": "https://treesforever.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Trees Forever",
+        "city": "Marion",
+        "region": "IA",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 42 upcoming, of which 12 are 'Volunteer Planting - Des Moines' and 9 Cedar Rapids; 11 carry an address and place, the webinars and the address-less plantings do not. Multi-site across Iowa, so no venue fallback."
+    },
+    {
+      "name": "Greater Des Moines Botanical Garden",
+      "category": "outdoors",
+      "base_url": "https://dmbotanicalgarden.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Greater Des Moines Botanical Garden",
+        "city": "Des Moines",
+        "region": "IA",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 93 upcoming, 49 distinct titles, 90 with the garden's street address - a weekly children's storytime, drop-in workshops, yoga in the garden. 5 are holiday closure notices ('Closed Christmas Day'), which the tribe adapter has no way to refuse today."
+    },
+    {
+      "name": "Santa Fe Conservation Trust",
+      "category": "outdoors",
+      "base_url": "https://sfct.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Santa Fe Conservation Trust",
+        "city": "Santa Fe",
+        "region": "NM",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 25 upcoming, 25 distinct titles - weekly trail work days (which promote to volunteer) and the ¡Vámonos! walks. 12 place; the 4 'SFCT Office Closed' notices carry no address and drop at sync."
+    },
+    {
+      "name": "Sarasota Audubon Society",
+      "category": "outdoors",
+      "base_url": "https://www.sarasotaaudubon.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sarasota Audubon Society",
+        "city": "Sarasota",
+        "region": "FL",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 30 upcoming, 18 distinct titles, 23 placeable - bird walks across Sarasota's parks. 7 are members-only Wingspan game nights."
+    },
+    {
+      "name": "FortWhyte Alive",
+      "category": "outdoors",
+      "base_url": "https://www.fortwhyte.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FortWhyte Alive",
+        "address": "1961 McCreary Road",
+        "city": "Winnipeg",
+        "region": "MB",
+        "postal_code": "R3P 1A3",
+        "country": "CA",
+        "lat": 49.819088,
+        "lon": -97.224957
+      },
+      "_measured": "2026-09-24: 126 upcoming, 30 distinct titles - goose flights, bison tours, guided hikes, forest programmes for families. 110 carry only a Canadian street address, which the US Census geocoder cannot place, so the venue block is required: the Richardson Interpretive Centre at 1961 McCreary Road (OSM building, via Photon), where FortWhyte's programmes start."
     }
   ],
   "_not_included": {
+    "https://visitsfbg.org": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Santa Fe Botanical Garden: 50 upcoming, and 41 of them are one title, 'Public Garden Tour' - a standing tour on most days, the shape of the City Park feed whose 365 vevents were one tour. Two of the other nine were already CANCELED. The nine real events are not worth forty-one standing rows.",
+    "https://www.bfloparks.org": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Buffalo Olmsted Parks Conservancy: 4 upcoming, all fundraisers and socials ('Party for the Parks', a YPOP happy hour) and two of them in New York City ('Parks in Parallel: An NYC Social and Fundraiser'). Nothing outdoors, and half of it 400 miles from Buffalo.",
+    "https://fontenelleforest.org": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Fontenelle Forest (Bellevue, NE): DEFERRED, not declined. 93 upcoming - Mudpies and Acorn Academy (nature preschool), owl prowls, full-moon hikes - and 92 carry no venue or address, so a venue fallback at the nature centre is what would place them. 5 of the 93 are 'NATURE CENTER CLOSED', which that fallback would put on the map as events, and the tribe adapter has no way to refuse a closure notice today. Add it, with the nature centre's surveyed point, once one exists.",
+    "https://tectn.org": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Tennessee Environmental Council: 4 upcoming, 1 placeable - its lake clean-ups route through volunteer.bloomerang.co with no address. Multi-site across Tennessee, so a venue fallback would pin every clean-up at the office.",
     "https://wisconsinbikefed.org": "An ICS candidate rather than a Tribe one, recorded here because this file is where this sweep's editorial decisions live and ics_sources.json is a bare list with nowhere to put a NO. The feed parses beautifully - 50 VEVENTs, 46 with LOCATION, 41 with a GEO line, real riding ('MKE REC Polar Pedalers Winter Rides', 'Hugh Jass Fat Bike Series', '2026 Bike Swap') - and every single event is in the PAST: the range is 2025-11-02 to 2026-04-18 against a run date of 2026-08-16. It was briefly configured on the strength of the VEVENT and GEO counts, ingested 0 of 50, and came straight back out. Counting records is not checking dates. `empty` is not `fail`, so this is a stale export and not a broken feed - worth re-probing in a season, and worth asking them whether ?ical=1 is meant to be forward-looking.",
     "https://bikeloudpdx.org": "Portland cycling advocacy. robots.txt is two lines - 'User-agent: *' then 'Disallow: /' - which is a blanket no to everything, feed included. Not probed further.",
     "https://www.sustaincharlotte.org": "The Events Calendar answers with 8 upcoming and robots.txt allows it, and the calendar is not what the name suggests: 5 of the 8 are 'Public forum and Charlotte City Council meeting'. Filing a council meeting under a cycling or fitness category would be the Traders Village mistake; filing the whole feed under community for the sake of one Biketoberfest is not worth a weekly crawl. Revisit if their ride programming moves onto this calendar.",

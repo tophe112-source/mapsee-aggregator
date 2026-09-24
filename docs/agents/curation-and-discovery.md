@@ -3,6 +3,25 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: `catalog_curate`, the ledger and its statuses, `_not_included`, sitemaps and robots, bot challenges, site builders vs calendars, calendar plugins, licences.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **THE MAP CAN BE ASKED WHAT EACH DOOR SHOWS, and it answers the question the
+  coverage report cannot.** `mapsee.me/api/near?fn=categories_near` with a
+  bbox and a `ws`/`we` window returns per-category counts off the live
+  projection - what the CLASSIFIER produced, which the thin-ground note below
+  says the database does not expose per category. It does, per box. Measured
+  2026-09-24 over all 261 swept metros (+/-0.25 degrees, events starting in the
+  next 14 days, one throttled request each): fewer than 5 `kids` events in
+  **178**, none in 108; `arts` thin in 141, `sports` 134, `running` 118,
+  `party` 117, `volunteer` 105, `community` in only 15. Germany's kids door
+  was thin in 13 of 14 metros while its median metro held 243 community
+  events, France's in 12 of 13 (median 265). And the label count cannot see
+  any of it: `kids` read 46 sources before this session added 38 library
+  systems whose programmes are storytimes by the thousand, and 46 after,
+  because the systems are filed `learning` and the rows classify themselves.
+  Aim a curation run at the census, not at the report. A 24-metro read of the
+  kids layer itself (`events_near`, `cats=kids`) is what found the Meetup
+  noise in `classification-and-categories.md`; the per-door count alone would
+  have called New York's 41 rows supply.
+
 - **THE OSM WALK CAN BE PINNED TO A KIND, AND A PINNED WALK IS 40 METROS A RUN,
   NOT 3.** Asked 2026-09-21 for "the schedule of every community centre": the
   full `discover osm` sweep had already landed **125 community-centre and 45
@@ -848,3 +867,60 @@
   see the two notes above. The Luma search for the same day: eight
   clothing-swap event pages resolved to eight calendars, two US ones with
   anything upcoming (A2ZERO, Home Ec NYC), one in Amsterdam with 33.
+
+- **BiblioCommons is a platform no backend can propose, and 38 systems were one
+  request each away.** Its tenants are not in Socrata or CKAN, their catalogue
+  is not a calendar plugin `find_calendar` fingerprints, and `bibliocommons` is
+  not in CONFIG, so `verify` and `merge` cannot touch it - the six configured
+  on 2026-09-03 were the only six. Probed 2026-09-24 with one GET per slug
+  (`gateway.bibliocommons.com/v2/libraries/<slug>/events?limit=1`, production
+  UA; the gateway has no robots.txt): 88 slugs, **38 answered with events**,
+  Hamilton with a count of 0, 18 with a 403 (Ottawa, Calgary, NYPL, DC,
+  Milwaukee, Indianapolis, Las Vegas-Clark, San Antonio, Tampa...), 3 with a
+  410, 28 with a 404. The slugs that worked came from search results for
+  `<slug>.bibliocommons.com/v2/events`; guessing from a library's name hit
+  about half as often. Verified by running the adapter itself, which kept
+  58,629 upcoming within 90 days: Toronto 6,020, San Jose 4,369, King County
+  3,946 (Seattle's suburbs - SPL itself refuses), San Diego County 3,858,
+  Christchurch 3,197, Pima 2,761 - in metros the door census above found
+  thin (Tucson kids 3, Grand Rapids 2, Kansas City 2, Olympia 3, Halifax 64
+  events of ANY kind). The refusals are in the config's `_not_included`, the
+  same rule as every other 403.
+
+- **A hand-picked seed list fed volunteer and outdoors again, and the venue
+  fallback decided what could ship.** 89 conservation and volunteer
+  organisations (waterkeepers, tree planters, land trusts, park conservancies,
+  nature centres) in the 23 US metros plus Halifax, Winnipeg and Dunedin that
+  the census showed thin, probed with `find_calendar` exactly as the park
+  agencies were: 30 candidates (34%, against the parks' 28%), 41 no calendar,
+  13 unreachable from here, 5 behind a 403 or bot challenge - the last two not
+  recorded, from one vantage point. `verify` passed 22; the adapters and the
+  titles cut that to 13. PLACEMENT decided most of the drops, not parsing: an
+  organisation that works at many sites posts events with no address, and
+  giving it a venue fallback pins every clean-up at its office. So Golden Eagle
+  Audubon (0 of 15 placeable), Keep Truckee Meadows Beautiful (0 of 3) and
+  Frontera Land Alliance (1 of 20) went to `squarespace_sources.json`'s new
+  `_not_included`, where the OSM walk will read them before re-proposing them
+  WITH their office's OSM point; single-venue sites went in with theirs
+  (FortWhyte Alive 117 of 117 placed, Alaska Botanical Garden 0 -> 23 of 23 -
+  Canadian addresses cannot reach the Census geocoder at all). Categories came
+  from the titles, not the names: Friends of Lafitte Greenway's calendar is
+  yoga, boot camp and movies in the park, so `community`, not `volunteer`.
+
+- **A closure notice is not an event, and about 0.2% of the US map is one.**
+  Measured 2026-09-24 over 31,173 live titles from 40 US metros (the next 90
+  days): ~55 are the venue saying it is shut - "Library Closed - Thanksgiving",
+  "All City Facilities CLOSED", "Museum Closed for an Event", "CRC Closed" seven
+  times - mostly civic ICS and libraries, which CIVIC_HOLIDAY_RX does not reach
+  because it is anchored on the holiday's NAME. The seed batch above met the
+  same thing on nature centres: Des Moines Botanical Garden 5 of 93 ("Closed
+  Christmas Day", with the garden's address, so they place - shipped anyway),
+  Fontenelle Forest 5 of 93 ("NATURE CENTER CLOSED" - deferred in
+  `tribe_sources.json._not_included`, because the venue fallback it needs would
+  place them), Santa Fe Conservation Trust 4 (no address, dropped at sync). The
+  trap for whoever writes the gate is in the same sample: "Table 12 - The
+  Dimming - CLOSED", "Adventures of the Silly Scoundrels (Closed)" and
+  "Currently Closed to New Players" are FULL game sessions, and "Closing
+  Reception" and "Closing Day" are events. A closure gate has to name the
+  place that is shut - office, library, centre, museum, garden - or open with
+  "Closed for / on / at <day>".

@@ -4754,6 +4754,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "alaskabg.org/upcoming-events-workshops": {
+    "checked": 20260924,
+    "name": "Alaska Botanical Garden",
+    "reason": "25/55 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "alaskalibreria.it": {
     "checked": 20260922,
     "name": "Libreria Alaska",
@@ -7345,6 +7352,13 @@
     "reason": "ConnectionError: HTTPSConnectionPool(host='www.anchoragemarkets.com', port=443): Max re",
     "status": "fail",
     "type": "ics"
+  },
+  "anchorageparkfoundation.org": {
+    "checked": 20260924,
+    "name": "Anchorage Park Foundation",
+    "reason": "5 events, 5/5 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "anchorchurchpa.org.au": {
     "checked": 20260819,
@@ -15748,6 +15762,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "baltimorewoods.org": {
+    "checked": 20260924,
+    "name": "Baltimore Woods Nature Center",
+    "reason": "34 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "baltoppenlive.dk": {
     "checked": 20260831,
     "name": "Baltoppen LIVE",
@@ -19844,6 +19865,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bfloparks.org": {
+    "checked": 20260924,
+    "name": "Buffalo Olmsted Parks Conservancy",
+    "reason": "4 events, 4/4 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "bfm.ch": {
     "checked": 20260919,
@@ -49468,6 +49496,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cnylandtrust.org/news": {
+    "checked": 20260924,
+    "name": "Central New York Land Trust",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "coab.us/common/modules/iCalendar/iCalendar.aspx?catID=17&feed=calendar": {
     "checked": 20260916,
     "name": "Atlantic Beach \u2014 Recreation and Special Events",
@@ -59642,6 +59677,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "dmbotanicalgarden.com": {
+    "checked": 20260924,
+    "name": "Greater Des Moines Botanical Garden",
+    "reason": "93 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "dmh-chrischona.org": {
     "checked": 20260919,
@@ -76037,6 +76079,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fontenelleforest.org": {
+    "checked": 20260924,
+    "name": "Fontenelle Forest",
+    "reason": "93 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "fontis-shop.ch": {
     "checked": 20260917,
     "name": "Fontis Buchhandlung",
@@ -76631,6 +76680,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "fortwhyte.org": {
+    "checked": 20260924,
+    "name": "FortWhyte Alive",
+    "reason": "126 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "fortwhyte.org/events/?ical=1": {
     "checked": 20260727,
@@ -78059,6 +78115,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "fronteralandalliance.org/events": {
+    "checked": 20260924,
+    "name": "Frontera Land Alliance",
+    "reason": "20/50 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "frontloberne.dk": {
     "checked": 20260901,
@@ -84299,6 +84362,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "goldeneagleaudubon.org/events": {
+    "checked": 20260924,
+    "name": "Golden Eagle Audubon Society",
+    "reason": "15/45 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "goldenharebooks.com": {
     "checked": 20260819,
@@ -96767,6 +96837,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "idahobotanicalgarden.org": {
+    "checked": 20260924,
+    "name": "Idaho Botanical Garden",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "idahofallsidaho.gov/common/modules/iCalendar/iCalendar.aspx?catID=50&feed=calendar": {
     "checked": 20260905,
     "name": "Idaho Falls \u2014 Aquatic Center",
@@ -98419,6 +98496,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "inhf.org/events": {
+    "checked": 20260924,
+    "name": "Iowa Natural Heritage Foundation",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "inhousegolf.se": {
     "checked": 20260905,
@@ -105371,6 +105455,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "keeplouisianabeautiful.org": {
+    "checked": 20260924,
+    "name": "Keep Louisiana Beautiful",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "keerbergen.be/sportcomplex-keerbergen": {
     "checked": 20260912,
     "name": "Sportcomplex Keerbergen",
@@ -111007,6 +111098,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ktmb.org/events": {
+    "checked": 20260924,
+    "name": "Keep Truckee Meadows Beautiful",
+    "reason": "3/33 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "ktr.mlit.go.jp/keihin/keihin00490.html": {
     "checked": 20260924,
     "name": "\u9db4\u898b\u5ddd\u6d41\u57df\u30bb\u30f3\u30bf\u30fc",
@@ -113879,6 +113977,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lafittegreenway.org": {
+    "checked": 20260924,
+    "name": "Friends of Lafitte Greenway",
+    "reason": "17 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "lafleche14.be": {
     "checked": 20260911,
     "name": "Maison d'Enfants Reine Marie-Henriette",
@@ -115082,6 +115187,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "landscouncil.org/events": {
+    "checked": 20260924,
+    "name": "The Lands Council",
+    "reason": "5/35 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "landskronafoto.org": {
     "checked": 20260831,
@@ -127343,6 +127455,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "maineaudubon.org/events": {
+    "checked": 20260924,
+    "name": "Maine Audubon",
+    "reason": "12/12 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "mainiokodit.fi/hoivakodit/mainiokoti-luotsi": {
     "checked": 20260903,
@@ -150465,6 +150584,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ogeecheeriverkeeper.org/events": {
+    "checked": 20260924,
+    "name": "Ogeechee Riverkeeper",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "ogeli.munstadi.fi": {
     "checked": 20260903,
     "name": "Oulunkyl\u00e4n nuorisotalo",
@@ -154455,6 +154581,13 @@
     "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
+  },
+  "overtonpark.org": {
+    "checked": 20260924,
+    "name": "Overton Park Conservancy",
+    "reason": "41 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "ovestcomobiblioteche.it/uffici/53658/biblioteca-rovellasca": {
     "checked": 20260921,
@@ -166015,6 +166148,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "providenceparks.org/events": {
+    "checked": 20260924,
+    "name": "Partnership for Providence Parks",
+    "reason": "30 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
   },
   "provitreff.ch": {
     "checked": 20260917,
@@ -178279,6 +178419,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sarasotaaudubon.org": {
+    "checked": 20260924,
+    "name": "Sarasota Audubon Society",
+    "reason": "30 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "sarasotagov.org": {
     "checked": 20260907,
     "name": "Sarasota",
@@ -178495,6 +178642,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "savannahtree.org/event-list": {
+    "checked": 20260924,
+    "name": "Savannah Tree Foundation",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "savesfbay.org/events/?ical=1": {
     "checked": 20260727,
@@ -182451,6 +182605,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "sfct.org": {
+    "checked": 20260924,
+    "name": "Santa Fe Conservation Trust",
+    "reason": "27 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "sferas.com": {
     "checked": 20260819,
@@ -188895,6 +189056,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "spokaneriverkeeper.org/calendar": {
+    "checked": 20260924,
+    "name": "Spokane Riverkeeper",
+    "reason": "no event articles on the collection page",
+    "status": "fail",
+    "type": "squarespace"
   },
   "spolekvesna.cz/satnik": {
     "checked": 20260905,
@@ -202968,6 +203136,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "tectn.org": {
+    "checked": 20260924,
+    "name": "Tennessee Environmental Council",
+    "reason": "4 events, 4/4 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "tectrain.at": {
     "checked": 20260907,
     "name": "TecTrain",
@@ -207771,6 +207946,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tifft.org/events": {
+    "checked": 20260924,
+    "name": "Tifft Nature Preserve",
+    "reason": "12/12 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "tiftonga.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
     "checked": 20260913,
     "name": "Tifton \u2014 Senior Center",
@@ -209894,6 +210076,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "treefresno.org/schedule": {
+    "checked": 20260924,
+    "name": "Tree Fresno",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "treeoflifeyoga.be/events/workshops-and-retreats": {
     "checked": 20260911,
     "name": "Tree of Life",
@@ -209914,6 +210103,13 @@
     "reason": "http 200 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "treesforever.org": {
+    "checked": 20260924,
+    "name": "Trees Forever",
+    "reason": "42 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "treetopsadventure.com.au/location/nsw-the-hills": {
     "checked": 20260819,
@@ -219040,6 +219236,13 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "visitsfbg.org": {
+    "checked": 20260924,
+    "name": "Santa Fe Botanical Garden",
+    "reason": "64 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "visitsibu.com": {
     "checked": 20260924,
     "name": "Sibu",
@@ -224584,6 +224787,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "winnipegtrails.ca/events": {
+    "checked": 20260924,
+    "name": "Winnipeg Trails Association",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "winspearcentre.com": {
     "checked": 20260819,

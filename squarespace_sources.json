@@ -1404,6 +1404,42 @@
         "lon": -121.2853794
       },
       "_metro": "Bend, United States"
+    },
+    {
+      "name": "Alaska Botanical Garden",
+      "category": "outdoors",
+      "collection": "https://www.alaskabg.org/upcoming-events-workshops",
+      "max_events": 200,
+      "venue": {
+        "name": "Alaska Botanical Garden",
+        "address": "4601 Campbell Airstrip Road",
+        "city": "Anchorage",
+        "region": "AK",
+        "postal_code": "99507",
+        "country": "US",
+        "lat": 61.176751,
+        "lon": -149.759663
+      },
+      "_venue_comment": "0 of 25 upcoming placed without this: the posts carry no address. A single-venue garden, so the garden's OSM point (leisure=garden, via Photon) is right for the whole calendar."
+    },
+    {
+      "name": "The Lands Council",
+      "category": "volunteer",
+      "collection": "https://landscouncil.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "The Lands Council",
+        "city": "Spokane",
+        "region": "WA",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 5 upcoming, 2 placeable (community tree plantings in Spokane). Multi-site, so no venue fallback; the other three carry no address."
     }
-  ]
+  ],
+  "_not_included": {
+    "_why": "Editorial NOs, read by discovery (catalog_curate._not_included) so the OSM walk does not re-propose them. Each of these is a MULTI-SITE organisation whose Squarespace posts carry no address: discovery would attach the organisation's own OSM point as the venue fallback and pin every event there, which is the confidently-wrong pin the venue block exists to avoid.",
+    "https://www.goldeneagleaudubon.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Golden Eagle Audubon Society (Boise): 0 of 15 upcoming placeable - field trips and restoration days across the Treasure Valley, none with an address.",
+    "https://www.ktmb.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Keep Truckee Meadows Beautiful (Reno): 0 of 3 upcoming placeable - clean-ups at sites the posts do not name.",
+    "https://www.fronteralandalliance.org/events": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Frontera Land Alliance (El Paso): 1 of 20 upcoming placeable - preserve walks across the county."
+  }
 }

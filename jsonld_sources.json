@@ -4743,9 +4743,42 @@
         "lon": 139.8243656
       },
       "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "Tifft Nature Preserve",
+      "category": "outdoors",
+      "listing": [
+        "https://www.tifft.org/events/"
+      ],
+      "link_pattern": "https://www\\.tifft\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tifft Nature Preserve",
+        "city": "Buffalo",
+        "region": "NY",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 8 distinct upcoming, all with coordinates - moon walks, a trail clean-up, a kids' night out."
+    },
+    {
+      "name": "Maine Audubon",
+      "category": "outdoors",
+      "listing": [
+        "https://maineaudubon.org/events/"
+      ],
+      "link_pattern": "https://maineaudubon\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maine Audubon",
+        "city": "Falmouth",
+        "region": "ME",
+        "country": "US"
+      },
+      "_measured": "2026-09-24: 10 distinct upcoming, all placeable - bird walks, a preschool nature hour, homeschool naturalists."
     }
   ],
   "_not_included": {
+    "https://winnipegtrails.ca/events/": "Probed 2026-09-24 in the volunteer/outdoors seed batch; verify passed and the adapter was run over it before deciding. Winnipeg Trails Association: 1 upcoming event (a Cycleloopia ride that FortWhyte Alive's own calendar also carries). Multi-site, and too thin to be a source.",
     "https://dmhsus.org/events/": "Deconstructing the Mental Health System (Seattle 501c3). Refused from TWO independent networks, which is what settles it: this sandbox gets 202 with an sgcaptcha body on every path including /robots.txt, and a GitHub runner (172.208.127.83, an entirely different provider) gets a 403 on every path including /robots.txt. An earlier note here guessed the block was IP reputation against a datacenter address, because the challenge URL carries the caller's IP in its y= parameter; the two-network probe disproved that. The site is closed to automated clients, robots.txt cannot be read to establish permission, and we do not impersonate a browser to get round bot management - same line as sfbike.org. Re-probe with catalog_probe.py if that ever changes; the calendar itself is worth having. The route that does not depend on their WAF is to ask the org for an iCal feed.",
     "https://volcanictheatre.com/calendar": "Volcanic Theatre Pub, Bend OR. VERIFIES and does not INGEST: the listing carries 25 schema.org Event blocks and every one of them is future, but none has a `url`, so all 25 take the listing's page URL as source_id and EventStore's (source, source_id) guard keeps ONE. The real links are tixr.com, which answers 403 to the production UA, so following them is a refusal too. Measured 2026-09-20: `verify` said 25/25 sampled events future, a full ingest kept 1. Not a jsonld bug — 239 of the 240 sites carry a link_pattern that matches real event pages, and the one that does not (Nectar Lounge) works because its Event blocks each carry a url.",
     "https://www.bendumc.org/events.ics": "First United Methodist Church, Bend OR — an ics feed, recorded here because this file's _not_included is the one curation reads. STANDING ROWS: 27 VEVENTs, all future, all with an EMPTY LOCATION, and exactly ONE distinct title — 'In-Person Worship Service' twenty-seven times. It is a weekly service schedule, not a calendar of events, and it is the same shape as the City Park feed whose 365 vevents were 365 copies of 'Public Historical Tour'. Measured 2026-09-20: verify said 27/27 future, and a full ingest placed all 27 on the church's surveyed point — correctly, which is what makes it worth writing down. Proving a feed is not the same as reading what is IN it."
