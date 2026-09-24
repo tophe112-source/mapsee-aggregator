@@ -9936,6 +9936,25 @@
         "lon": 11.0894611
       },
       "_metro": "Florence, Italy"
+    },
+    {
+      "name": "Vent",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "http://vent-tokyo.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vent",
+        "address": "19",
+        "city": "港区",
+        "region": "東京都",
+        "postal_code": "107-0062",
+        "country": "JP",
+        "lat": 35.6651742,
+        "lon": 139.7128558
+      },
+      "_metro": "Tokyo, Japan"
     }
   ],
   "_not_included": {

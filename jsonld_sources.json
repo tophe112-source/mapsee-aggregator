@@ -4686,6 +4686,63 @@
         "lon": 11.1758149
       },
       "_metro": "Florence, Italy"
+    },
+    {
+      "name": "Womb",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.womb.co.jp/ja/events/092426"
+      ],
+      "link_pattern": "https://www\\.womb\\.co\\.jp/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Womb",
+        "address": "16",
+        "city": "渋谷区",
+        "region": "東京都",
+        "postal_code": "150-0044",
+        "lat": 35.6584259,
+        "lon": 139.6950494
+      },
+      "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "Circus Tokyo",
+      "category": "music",
+      "_found": "osm:nightclub -> wp-event-manager",
+      "listing": [
+        "http://circus-tokyo.jp/schedule/"
+      ],
+      "link_pattern": "https://circus\\-tokyo\\.jp/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Circus Tokyo",
+        "address": "16",
+        "city": "渋谷区",
+        "region": "東京都",
+        "postal_code": "150-0002",
+        "country": "JP",
+        "lat": 35.6541103,
+        "lon": 139.7055564
+      },
+      "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "すみだ向島EXPO",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://sumidaexpo.com/"
+      ],
+      "link_pattern": "https://sumidaexpo\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "すみだ向島EXPO",
+        "lat": 35.7160134,
+        "lon": 139.8243656
+      },
+      "_metro": "Tokyo, Japan"
     }
   ],
   "_not_included": {

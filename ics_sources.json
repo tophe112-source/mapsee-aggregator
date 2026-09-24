@@ -13574,5 +13574,23 @@
     "geocode_suffix": ", Chieri",
     "limit": 300,
     "_metro": "Turin, Italy"
+  },
+  {
+    "name": "チェッコリ",
+    "category": "learning",
+    "_found": "osm:books -> my-calendar",
+    "url": "https://www.chekccori.tokyo/?feed=my-calendar-ics",
+    "geocode_suffix": ", Tokyo, Japan",
+    "limit": 300,
+    "_metro": "Tokyo, Japan"
+  },
+  {
+    "name": "Soup",
+    "category": "music",
+    "_found": "osm:nightclub -> events-manager",
+    "url": "https://ochiaisoup.com/?ical=1",
+    "geocode_suffix": ", 東京都",
+    "limit": 300,
+    "_metro": "Tokyo, Japan"
   }
 ]
