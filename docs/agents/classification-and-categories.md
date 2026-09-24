@@ -277,3 +277,54 @@
   recovery support group, neither of them exercise. `parks & rec` stays absent
   for the reason recorded above: 81 sub-calendars carry it and every one is
   mixed by construction.
+
+- **The kids door was empty in thirteen languages because its words were
+  English.** `_KIDS_RX` is the only thing that gives the layer its supply, and
+  it had never met "pour enfants", "Kinder- und Jugendzentrum", "dla dzieci" or
+  "子ども" - the fleabop lesson one door along. The door census
+  (`curation-and-discovery.md`) found kids thin in 178 of 261 metros while
+  community was thin in 15. `_KIDS_INTL_RX` was counted over 18,137 distinct
+  live titles from 60 metros in 13 languages (2026-09-24, `events_near`,
+  promotable categories, three weekly windows) and every hit was read: it
+  moves **272 titles onto the layer, 271 of them for children** (the miss is a
+  Warsaw lending library "dla Dzieci, Dorosłych i Młodzieży", adults second).
+  Over English it is nearly silent: 11 of 31,173 US titles and 87 of 51,965
+  library titles, every one a Spanish or French storytime. The corpus set the
+  SHAPES: bare `enfants` is 5 job adverts in 18, bare `famille` is honey
+  brands and home-care training, bare `Familien...` is family-constellation
+  therapy, `Kita` was Tokyo's Kita ward every time, `baby foot` is table
+  football, `bebe` without its accent is "drink", `Born`/`Quickborn` are German
+  places, and all 35 Spanish age ranges were adult brackets ("20-45 años") - so
+  an age range must start at 12 or under and end by 18. A word that scored
+  zero is absent (bambini, crianças, cuentacuentos), the `bandshell` rule. TITLE
+  ONLY, for the secondary too: in a description these words are prices
+  ("gratuit pour les enfants de moins de 12 ans", "Kinder bis 6 Jahre frei").
+  Many of the German and Polish hits are PLACES - youth centres and children's
+  libraries from the OSM walk - which is what unsie wants them to be.
+
+- **Meetup's `family` and `storytime` sweeps filled the kids door with speed
+  dating, and the market demotion had never actually worked.** Read on the live
+  kids layer of 24 metros, 2026-09-24: New York 41 primary-kids rows, 4 for
+  children - Shut Up & Write! sessions, an investor rooftop, Jewish speed
+  dating, a Toastmasters club. Barcelona 29 with about 4 real: singles dinners,
+  seven speed-dating nights, a pirate-boat party, family-constellation therapy.
+  Denver, Austin, Toronto, Madrid, Amsterdam and London the same. It is the
+  `market` trap (a fuzzy search's keyword is not a classification), so kids got
+  the same provenance-gated demotion - and writing it exposed that the market
+  one only ever changed the pin's colour: `derive_categories` carried "the
+  source's own key" forward as a secondary, so the Berlin Magic: the Gathering
+  night came out `('community', ['market', ...])` and stayed on fleabop,
+  because a lens matches `category = any(keys) OR categories && keys`.
+  `_refused_sweep_guess` is now the one place both functions ask. What BACKS a
+  kids guess is deliberately wider than what may PROMOTE one
+  (`_KIDS_BACKING_RX`: kids, children, toddlers, "parents & kids"), because it
+  can only keep a label the source already chose: "Family Picnic ~ International
+  Mom & Kids Circle" stays. Not bare `family` - that is the keyword that fetched
+  the constellation therapy. A fix reaches the future only, and the two halves
+  of this one backfill DIFFERENTLY: the Wednesday full refresh re-derives every
+  row a source still returns, Meetup's included (the store keeps `sources`,
+  and `--skip-unchanged` compares `category`), but `mapsee_reclassify.py`
+  cannot demote anything here - its `recompute` passes no `sources`, so
+  `_from_keyword_sweep` is always False inside it. It CAN backfill the
+  non-English promotions, which need no provenance (dry run first, then
+  `--allow community->kids --allow learning->kids`).

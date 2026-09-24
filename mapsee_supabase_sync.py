@@ -213,7 +213,89 @@ _KIDS_RX = re.compile(
 _NOT_FOR_KIDS_RX = re.compile(
     r"\b(?:adults?|adult[\s-]only|grown[\s-]?ups?|seniors?|"
     r"speed\s+dating|singles?\s+(?:night|mixer|event|party|social|meetup))\b"
-    r"|(?:18|19|20|21)\+", re.I)
+    r"|(?:18|19|20|21)\+"
+    # The same statement in the languages _KIDS_INTL_RX reads, as PHRASES:
+    # "Spectacle pour enfants ...adultes bien sûr bienvenus !" is a children's
+    # show that says grown-ups may come too, and a bare "adultes" would have
+    # withheld it. Speed dating in Spanish is here because it was ON the kids
+    # layer: four "CITAS RÁPIDAS ... Solteros/as de 48 a 59 años" in Barcelona,
+    # 2026-09-24.
+    r"|\bf[üu]r\s+erwachsene|\bpour\s+(?:les\s+)?adultes|\badultes\s+uniquement"
+    r"|\bpara\s+adultos|\bsolo\s+adultos|\bper\s+adulti|\bvoor\s+volwassenen"
+    r"|\bf[öo]r\s+vuxna|\bfor\s+voksne|\baikuisille|\bdla\s+doros[łl]ych"
+    r"|\bpro\s+dosp[ěe]l[ée]|大人限定|大人向け|大人のみ|成人限定"
+    r"|\bcitas\s+r[áa]pidas|\bsolter[oa]s\b", re.I)
+
+# KIDS, IN THE LANGUAGES THE MAP ACTUALLY SPEAKS. _KIDS_RX is English, and the
+# kids door is the emptiest on the map because of it. Measured 2026-09-24 with
+# categories_near over the 261 swept metros, next 14 days: fewer than 5 kids
+# events in 178 of them, none at all in 108 - Germany 13 of 14 metros thin
+# while its median metro held 243 community events, France 12 of 13 with 265.
+# The supply was not missing, it was unlabelled, which is fleabop's lesson one
+# door along (`Flohmarkt` and `brocante` are why _MARKET_RX has loanwords).
+#
+# Every term below was counted over 18,137 distinct live titles from 60 metros
+# in 13 languages (events_near, promotable categories, three weekly windows)
+# and every hit was read. The corpus decided the SHAPE as much as the words:
+#   - bare `enfants` is 5 job adverts in 18 (childcare-worker recruitment, a
+#     children's hospital hiring), so French says "pour enfants";
+#   - bare `famille` is honey brands and home-care training, and bare
+#     `Familien...` is family-constellation therapy, genealogy and counsellor
+#     training, so family words are the listed compounds that meant an outing;
+#   - `Kita` was Tokyo's Kita ward every single time, `baby foot` is French
+#     for table football, `Born`/`Quickborn` are German place names, and
+#     "Big Bruce & the Retro Kids" is a band, so none of those are here;
+#   - all 35 Spanish age ranges were ADULT brackets ("20-45 años"), so an age
+#     range must start at 12 or under and end by 18, and only the French forms
+#     scored at all - and never "3 à 5 ans d'expérience", a job advert's range
+#     on a map that carries French recruitment sessions by the dozen.
+# A word that scored zero is absent however obvious it looks (bambini,
+# crianças, cuentacuentos, Vorlesestunde) - the same rule as `bandshell` in
+# the music secondary. Add one when a corpus shows it.
+#
+# TITLE ONLY, for the primary AND the secondary. In a description these words
+# are prices, not audiences: "gratuit pour les enfants de moins de 12 ans" is on
+# every other concert page, and "Kinder bis 6 Jahre frei" on every German one.
+_KIDS_INTL_RX = re.compile(
+    # French
+    r"\b(?:pour|avec)\s+(?:les\s+)?(?:jeunes\s+|petits\s+)?enfants?\b|\bparents?[\s-]+enfants?\b"
+    r"|\benfants\s+uniquement\b|\bjeune[\s-]public\b|\bheure\s+du\s+conte\b|\btout[\s-]petits\b"
+    r"|\b(?:ateliers?|visites?|spectacles?|mercredis|samedis|dimanches|danse|lectures?)\s+en\s+famille\b"
+    r"|\bvisites?\s+familiales?\b"
+    r"|\b(?:d[èe]s|[àa]\s+partir\s+de)\s+[1-9]\s*ans\b(?!\s*d['’]\s*(?:exp|anc))"
+    r"|\b(?:1[0-2]|[0-9])\s*(?:[-–/]|[àa])\s*(?:1[0-8]|[0-9])\s*ans\b(?!\s*d['’]\s*(?:exp|anc))"
+    # Catalan / Spanish / Portuguese - the accent is required: `bebe` is "drink"
+    r"|\bhora\s+del\s+(?:conte|cuento)\b|\ben\s+fam[íi]lia\b|\b(?:b[ée]bé|bebê)s?\b"
+    # German / Dutch
+    r"|\bf[üu]r\s+(?:kinder|kids|familien)(?![\w-])|\beltern[\s-]kind\b|\bkrabbel|\bkasperl(?:e|theater)?\b"
+    r"|\b(?:klein)?kinder[\s-]*(?:theater|bibliothee?k|bücherei|club|clubhaus|haus|hof|treff|treffen"
+    r"|zentrum|freizeit\w*|kirche|gottesdienst|park|disco|schnupper\w*|hüeti)"
+    r"|\bkinder[\s-]+(?:und|&)\s+jugend(?:zentrum|club|haus|treff|einrichtung|liche\b)"
+    r"|\bfamilien[\s-]*(?:zentrum|haus|treff|führung|gottesdienst|chor|bereich|begegnungs\w*)"
+    r"|\bjugend(?:zentrum|club|treff|treffen|haus|caf[eé]|raum|freizeit\w*|arbeit|bibliothek|kulturhaus)"
+    r"|\bhaus\s+der\s+jugend\b|\bkinderen\b|\bjeugd(?:huis|club|punt)"
+    # Nordic, Finnish, Polish, Czech, Italian
+    r"|\bf[öo]r\s+barn\b|\bfamiljetr[äa]ff|\bbaby[\s/-]*(?:club|klub|caf[eé]|f[öo]r[äa]ldracaf[eé]|dans"
+    r"|salmesang|meet[\s-]?ups?)|\bbørne(?:gudstjeneste|nes\b|ne\s+synger)"
+    r"|\blapsille\b|\blasten(?:tapahtuma|\s+oma\b)|\bperhe(?:sport\w*|liikun\w*|kahvila|talo)"
+    r"|\bvauva(?:kerho\w*|treff\w*)"
+    r"|\bdla\s+dzieci\b|\bwarsztaty\s+rodzinne\b|\brodzinnie\b|\bbajkow\w+"
+    r"|\bpro\s+d[ěe]ti\b|\bpro\s+rodiny\b|\bdei\s+ragazzi\b|\bper\s+le\s+famiglie\b"
+    # Japanese
+    r"|子ども|子供|こども|キッズ", re.I)
+
+# What BACKS a keyword sweep's `kids` guess, which is a different question from
+# what may PROMOTE an event onto the layer - see _refused_sweep_guess. Wider
+# than _KIDS_RX because it can only ever KEEP a guess the source already made,
+# never create one: "Family Picnic ~ International Mom & Kids Circle" and
+# "English-Speaking Parents & Kids (children aged 3-8)" are real Meetup
+# children's events that _KIDS_RX does not match. Not bare `family` - that is
+# the very keyword that fetched "Family Constellations" - and not bare `child`,
+# which is how "Healing the Inner Child" reads.
+_KIDS_BACKING_RX = re.compile(
+    r"\b(?:kids?|children|toddlers?|babies|preschoolers?|little\s+ones|strollers?"
+    r"|(?:parents?|moms?|mums?|dads?|caregivers?)\s*(?:&|and|\+|with)\s*(?:kids?|children|tots?|little\s+ones|toddlers?|babies))\b",
+    re.I)
 
 # The guard the SECONDARY may use, which is a different question. The rule above
 # reads a TITLE, where a bare "adult" is a statement about who the event is for.
@@ -592,8 +674,14 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
     #    was never a classification — Meetup's "dance" sweep calling a park
     #    workout a party — so carrying it forward would leave that workout on
     #    bar.ventures, which is the mislabelling the override exists to fix.
+    #
+    #    And never a keyword sweep's guess that map_category just REFUSED: that
+    #    key was demoted because the text does not back it, and re-adding it
+    #    here puts the event straight back on the door it was taken off. See
+    #    _refused_sweep_guess for the Berlin row this left on fleabop.
     if base != primary and base != DEFAULT_CATEGORY_KEY \
-       and not (primary == "fitness" and _strong_fitness_override(rec, base)):
+       and not (primary == "fitness" and _strong_fitness_override(rec, base)) \
+       and not _refused_sweep_guess(rec, base):
         add(base)
 
     # 2. Anything a source already told us explicitly (no adapter emits this
@@ -610,6 +698,7 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
     #    fitness SECONDARY off the slug, and an event whose only mention of yoga
     #    is inside our own generated Google search URL reaches wegosie on it.
     text = _classify_text(rec, _DESC_SCAN_CHARS)
+    title = _strip_urls(rec.get("name") or "")
     for key, rx in _SECONDARY_RX:
         if len(extras) >= MAX_EXTRA_CATEGORIES:
             break
@@ -631,6 +720,11 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
         # grown-ups' night somewhere. Withholds only — it can never move an
         # event off a layer it already has.
         if key == "kids" and _ADULTS_ONLY_RX.search(text):
+            continue
+        # The non-English kids words read the TITLE only (see _KIDS_INTL_RX:
+        # in a description they are ticket prices), under the title guard.
+        if key == "kids" and _KIDS_INTL_RX.search(title) and not _NOT_FOR_KIDS_RX.search(title):
+            add(key)
             continue
         if rx.search(text):
             add(key)
@@ -681,6 +775,41 @@ def _from_keyword_sweep(rec: Dict[str, Any]) -> bool:
                for s in (rec.get("sources") or []))
 
 
+def _refused_sweep_guess(rec: Dict[str, Any], key: str) -> bool:
+    """Is `key` a keyword sweep's GUESS that the event's own text does not back?
+
+    ONE place, for the two callers that must agree: map_category demotes the
+    guess, and derive_categories must then not carry it forward as a secondary.
+    They disagreed. The market demotion shipped in map_category alone, and
+    derive_categories kept "the source's own key" as a secondary like any other
+    - so the Berlin Magic: the Gathering night that note records as fixed
+    became ('community', ['market', ...]) and stayed on fleabop. A lens matches
+    `category = any(keys) OR categories && keys`, so the demotion had only ever
+    changed the pin's colour.
+
+    `kids` is the same trap, measured 2026-09-24 on the live kids layer of 24
+    metros. Meetup's sweep files `family` and `storytime` hits as kids, and its
+    eventSearch is fuzzy: New York's layer was 41 primary-kids rows of which 4
+    were for children - Shut Up & Write! sessions, an investor rooftop, Jewish
+    speed dating, a Toastmasters club. Barcelona's was 29 with about 4 real:
+    singles dinners, seven speed-dating nights, a pirate-boat party,
+    family-constellation therapy. Denver, Austin, Toronto, Madrid, Amsterdam and
+    London the same.
+    """
+    if not _from_keyword_sweep(rec):
+        return False
+    text = _classify_text(rec, _DESC_SCAN_CHARS)
+    if key == "market":
+        return not _MARKET_RX.search(text)
+    if key == "kids":
+        title = _strip_urls(rec.get("name") or "")
+        if _NOT_FOR_KIDS_RX.search(title) or _ADULTS_ONLY_RX.search(text):
+            return True
+        return not (_KIDS_RX.search(text) or _KIDS_BACKING_RX.search(text)
+                    or _KIDS_INTL_RX.search(title))
+    return False
+
+
 def map_category(rec: Dict[str, Any]) -> str:
     """Map the captured category to a Mapsee frontend category KEY (site/js/app.js).
     Accepts a Ticketmaster segment / schema.org @type, OR an already-valid Mapsee
@@ -709,8 +838,9 @@ def map_category(rec: Dict[str, Any]) -> str:
     #
     # 'community' rather than 'other', because these are Meetup socials and the
     # promotion rules below can still move them onto a better layer from there.
-    if key == "market" and _from_keyword_sweep(rec) \
-            and not _MARKET_RX.search(_classify_text(rec, _DESC_SCAN_CHARS)):
+    #
+    # `kids` too, and for the same reason - see _refused_sweep_guess.
+    if key in ("market", "kids") and _refused_sweep_guess(rec, key):
         key = "community"
     if key in _PROMOTABLE_TO_VOLUNTEER:
         # URL-stripped like every other description read: a Meetup group slug
@@ -727,7 +857,8 @@ def map_category(rec: Dict[str, Any]) -> str:
     # see either. _ADULTS_ONLY_RX rather than _NOT_FOR_KIDS_RX for the
     # description half — see its note for the price table that proves the
     # difference.
-    if key in _PROMOTABLE_TO_KIDS and _KIDS_RX.search(rec.get("name") or "") \
+    if key in _PROMOTABLE_TO_KIDS \
+            and (_KIDS_RX.search(rec.get("name") or "") or _KIDS_INTL_RX.search(rec.get("name") or "")) \
             and not _NOT_FOR_KIDS_RX.search(rec.get("name") or "") \
             and not _ADULTS_ONLY_RX.search(_classify_text(rec, _DESC_SCAN_CHARS)):
         return "kids"              # storytime/family day hiding in community/learning

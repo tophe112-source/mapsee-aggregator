@@ -584,4 +584,138 @@ print(f"{'ok ' if keeps else 'FAIL'} {'keeps a secondary the text supports':<40}
 
 print()
 print(f"{len(BACKFILL_CASES)+1-len(bfails)}/{len(BACKFILL_CASES)+1} passed")
-sys.exit(1 if (fails or cfails or bfails) else 0)
+
+
+# ---------------------------------------------------------------------------
+# The kids door in the languages the map speaks, and the sweep that filled it
+# ---------------------------------------------------------------------------
+# Every title below is a real live one, read off mapsee.me's own /api/near on
+# 2026-09-24: 18,137 titles from 60 non-English metros, and the kids layer of
+# 24 metros. The NEGATIVES are the point as much as the positives - each is the
+# shape that decided why a word is scoped rather than bare.
+print()
+print("-- kids, beyond English --")
+INTL_KIDS_CASES = [
+    # (title, want_primary) from a `learning` library/civic base
+    ("Lectures pour les 0-3 ans", "kids"),
+    ("Heure du conte sensorielle", "kids"),
+    ("Atelier parent-enfant au Grand Atelier : fabrication d’objets en bois", "kids"),
+    ("Spectacle Jeune public « La Pomme et le papillon »", "kids"),
+    ("Le Petit Black Movie (dès 4 ans)", "kids"),
+    ("Les RDV du samedi Capoeira (parents-enfants) De 4 à 7 ans", "kids"),
+    ("Capoeira für Kinder und Jugendliche", "kids"),
+    ("Kinder- und Jugendzentrum Steinhaus", "kids"),
+    ("Start der Eltern-Kind-Gruppe „Krabbelkäfer“", "kids"),
+    ("Babysalmesang kl. 10 og 11", "kids"),
+    ("PerheSport Keskusta", "kids"),
+    ("Warsztaty dla dzieci „Mali Wielcy”", "kids"),
+    ("Hora del conte menuts", "kids"),
+    ("Taller bebés: ‘La vaca Lola’", "kids"),
+    ("麻布子ども中高生プラザ", "kids"),
+    ("Cuentitos y Cantos: Edición Bebé @ BJK Main", "kids"),
+    # a grown-ups-welcome note is not a grown-ups-only one
+    ("Vers Ver Vert (Spectacle pour enfants ...adultes bien sûr bienvenus !)", "kids"),
+    # ...and what must NOT move
+    ("Exposition des 30 ans de Mémoire au village !", "learning"),        # "des 30 ans" = of 30 years
+    ("Recrutement CDI - Assistant(e) administratif, 3 à 5 ans d'expérience", "learning"),
+    ("Poste de chef de projet (2-5 ans d’expérience)", "learning"),
+    ("Stage d'autodéfense féministe « Ge peux » - Adultes, dès 16 ans", "learning"),
+    ("🔥3 plazas🙋🏼‍♀️20-45 años⛰️Los Siete Picos Fantásticos🥾Intermedio💪🏽", "learning"),
+    ("JOB CORNER - Auxiliaire de Puériculture ou Éducateur de Jeunes Enfants (EJE)", "learning"),
+    ("Découvrez les richesses de la ruche dans les boutiques Famille Mary", "learning"),
+    ("Taller de Constelaciones Familiares en Madrid", "learning"),
+    ("Systemische Familienaufstellung für HSP", "learning"),
+    ("✨🎆 Kita Ward Fireworks Festival ❤️💙 RED×BLUE SPARKLE GATE", "learning"),
+    ("Free event ! Karaoke, Pool, Foosbal / Karaoké , billard , baby foot", "learning"),
+    ("🎲 NOCHE SOCIAL DE JUEGOS DE MESA Juega, bebe algo y conoce gente nueva", "learning"),
+    ("Spielhaus Osdorfer Born", "learning"),
+    ("Psychotherapie und analytische Kinder- und Jugendlichenpsychotherapie, Bibliothek", "learning"),
+    ("Bibliothek des Schweizerischen Instituts für Kinder- und Jugendmedien SIKJM", "learning"),
+    ("Københavns Kommune , Børne- og Ungdomsforvaltningen , Organisation og Politik", "learning"),
+    ("Lastenkirjainstituutin kirjaston etäesittely", "learning"),
+    ("Wypożyczalnia dla Dorosłych i Młodzieży Nr 103", "learning"),
+    ("Biblioteka dla Dzieci i Młodzieży nr 21 i Wypożyczalnia dla Dorosłych i Młodzieży nr 32", "learning"),
+    ("第19回🔰初心者×大人限定🔰ダンスで友達作り💃子供からの経験者禁止⚠️", "learning"),
+]
+ifails = []
+for title, want in INTL_KIDS_CASES:
+    got = map_category({"name": title, "title": title, "description": "", "category": "learning",
+                        "sources": [{"source": "ics", "source_id": "1"}]})
+    ok = got == want
+    if not ok:
+        ifails.append(title)
+    print(f"{'ok ' if ok else 'FAIL'} {title[:52]:<54} -> {got}"
+          f"{'' if ok else f'   (wanted {want})'}")
+
+# Meetup files whatever its fuzzy `family` and `storytime` searches return as
+# kids. New York's kids layer on 2026-09-24 was 41 rows, 4 of them for children.
+# (name, description, source, want_primary) with the sweep's `kids` guess.
+KIDS_SWEEP_CASES = [
+    ("Shut Up & Write!® NYC", "Write together, in silence, for an hour.", "meetup", "community"),
+    ("Rooftop Investor Event", "Meet investors and founders.", "meetup", "community"),
+    # off the kids layer, and onto the one the party rule says it belongs on
+    ("❤️ SPECIAL EVENT JEWISH SPEED DATING for New Jersey Singles Age 30s/40s ❤️", "", "meetup", "party"),
+    ("CITAS RÁPIDAS BARCELONA Solteros/as de 48 a 59 años", "", "meetup", "community"),
+    ("Family Constellations Austin", "A systemic healing circle.", "meetup", "community"),
+    ("Taller: Sanando al niño que fui", "", "meetup", "community"),
+    ("Open Mic Storytelling #41 - \"ALONE\"", "", "meetup", "community"),
+    ("LEGO Night", "Adults only — 21+", "meetup", "community"),
+    # real children's Meetups the sweep found keep the guess
+    ("Family Picnic 〜 International Mom & Kids Circle〜", "", "meetup", "kids"),
+    ("English-Speaking Parents & Kids (children aged 3–8) — Sunday Meetup", "", "meetup", "kids"),
+    ("Stroller Stroll - October", "Bring the little ones.", "meetup", "kids"),
+    ("The Frog Princess", "A theatre show for children aged 3 to 8.", "meetup", "kids"),
+    ("Kids scavenger hunt", "", "meetup", "kids"),
+    # a source that STATED kids is never second-guessed
+    ("Disney On Ice presents Find Your Hero - Denver", "", "ticketmaster", "kids"),
+]
+for name, desc, src, want in KIDS_SWEEP_CASES:
+    got = map_category(_rec(name, desc, cat="kids", src=src))
+    ok = got == want
+    if not ok:
+        ifails.append(name)
+    print(f"{'ok ' if ok else 'FAIL'} [{src[:12]:<12}] {name[:44]:<46} -> {got}"
+          f"{'' if ok else f'   (wanted {want})'}")
+
+# A REFUSED GUESS MUST NOT COME BACK AS A SECONDARY. The market demotion shipped
+# in map_category alone and derive_categories carried "the source's own key"
+# forward, so the Berlin Magic night was ('community', ['market', ...]) and still
+# on fleabop: the demotion had only ever changed the pin's colour.
+LEAK_CASES = [
+    # (name, desc, sweep key, must not appear anywhere)
+    ("COMMON GROUND - Magic: the Gathering - Pauper Tuesdays", "Come play Magic.", "market", "market"),
+    ("E-Commerce over Breakfast Berlin", "A curated meetup for e-commerce operators.", "market", "market"),
+    ("Shut Up & Write!® NYC", "Write together, in silence, for an hour.", "kids", "kids"),
+    ("CITAS RÁPIDAS BARCELONA Solteros/as de 48 a 59 años", "", "kids", "kids"),
+]
+for name, desc, cat, gone in LEAK_CASES:
+    p, e = derive_categories(_rec(name, desc, cat=cat, src="meetup"))
+    ok = gone != p and gone not in (e or [])
+    if not ok:
+        ifails.append(name)
+    print(f"{'ok ' if ok else 'FAIL'} {'refused ' + gone + ' stays refused':<28} {name[:34]:<36} -> {p} + {sorted(e or [])}")
+p, e = derive_categories(_rec("Vintage Flea Market Crawl", "", cat="market", src="meetup"))
+ok = p == "market"
+if not ok:
+    ifails.append("Vintage Flea Market Crawl")
+print(f"{'ok ' if ok else 'FAIL'} {'a backed guess is kept':<28} {'Vintage Flea Market Crawl':<36} -> {p} + {sorted(e or [])}")
+
+# TITLE ONLY: in a description these words are a price list.
+TITLE_ONLY_CASES = [
+    # (name, source category, description, want kids anywhere?)
+    ("Rock Night", "music", "Gratuit pour les enfants de moins de 12 ans.", False),
+    ("Sommerkonzert im Park", "music", "Kinder bis 6 Jahre frei.", False),
+    ("Kindertheater: Die kleine Hexe", "theater", "", True),
+    ("Spectacle jeune public : Le Loup", "theater", "", True),
+]
+for name, cat, desc, want in TITLE_ONLY_CASES:
+    p, e = derive_categories({"name": name, "category": cat, "description": desc})
+    has = p == "kids" or "kids" in (e or [])
+    ok = has == want
+    if not ok:
+        ifails.append(name)
+    print(f"{'ok ' if ok else 'FAIL'} {'kids ' + ('from the title' if want else 'never from a price'):<28} {name[:34]:<36} -> {p} + {sorted(e or [])}")
+total = len(INTL_KIDS_CASES) + len(KIDS_SWEEP_CASES) + len(LEAK_CASES) + 1 + len(TITLE_ONLY_CASES)
+print()
+print(f"{total-len(ifails)}/{total} passed")
+sys.exit(1 if (fails or cfails or bfails or ifails) else 0)
