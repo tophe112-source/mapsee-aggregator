@@ -205,11 +205,9 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 50,
-  "metro_key": "JP:Yokohama",
-  "stuck": {
-   "JP:Yokohama": 1
-  }
+  "metro": 62,
+  "metro_key": "MX:Mexico City",
+  "stuck": {}
  },
  "socrata": {
   "art events": 0,
