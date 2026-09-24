@@ -250,6 +250,68 @@ check("the request asked for the biggest page the gateway honours",
 check("...and did NOT pass startDate/endDate, which are accepted and ignored",
       all("startDate" not in (p or {}) for p in Sess.seen), Sess.seen)
 
+# ------------------------------ 7b. a 5xx page is re-read in smaller pieces
+# The shape of Santa Clara County's page 2 on 2026-09-24: HTTP 500 at limit=200
+# on every try, and the same rows answering 200 as four pages of 50. The loop
+# used to stop there, which is how Boston Public Library kept 1,856 of ~4,000.
+print()
+print("a page the gateway cannot build at 200 rows")
+
+
+class Status(Resp):
+    def __init__(self, code):
+        super().__init__({})
+        self.status_code = code
+
+
+class Split:
+    """limit=200: page 1 answers 500 and page 2 is past the end. limit=50: each
+    of pages 1-4 carries one future row, except the pages in `bad`, which 500
+    as well. `first` replaces the page-1 answer, for the refusal case."""
+    headers = {}
+
+    def __init__(self, bad=(), first=500):
+        self.bad, self.first, self.seen = set(bad), first, []
+
+    def get(self, url, params=None, timeout=None):
+        p = dict(params or {})
+        self.seen.append(p)
+        if p.get("limit") == BC.PAGE_LIMIT:
+            if p.get("page") == 1:
+                return Status(self.first)
+            return Resp({"entities": {"events": {}}, "events": {"pagination": {"pages": 1}}})
+        n = p.get("page")
+        if n in self.bad:
+            return Status(500)
+        eid = f"s{n}"
+        return Resp({"entities": ent(events={eid: evt(eid, f"Storytime {n}", f"{soon}T10:0{n}",
+                                                      f"{soon}T11:00")}),
+                     "events": {"pagination": {"count": 4, "pages": 1, "limit": BC.SPLIT_LIMIT}}})
+
+
+def run_split(sess):
+    with tempfile.TemporaryDirectory() as d:
+        store = BC.EventStore(os.path.join(d, "s.json"))
+        n = BC.ingest_site(store, sess, dict(SITE, horizon_days=180, crawl_delay=0, max_pages=5))
+        return n, sorted(r["name"] for r in store.records.values())
+
+
+n, names = run_split(Split())
+check("every row of the failed page is kept, read as four pages of 50",
+      n == 4 and names == ["Storytime 1", "Storytime 2", "Storytime 3", "Storytime 4"], names)
+n, names = run_split(Split(bad={2}))
+check("a small page that fails too costs its own rows and nothing else",
+      n == 3 and "Storytime 2" not in names, names)
+sess = Split(bad={1, 2, 3, 4})
+n, names = run_split(sess)
+check("when every piece fails the system stops, as it did before",
+      n == 0 and not any(p.get("page", 0) > 1 and p.get("limit") == BC.PAGE_LIMIT
+                         for p in sess.seen), sess.seen)
+sess = Split(first=403)
+n, names = run_split(sess)
+check("a 403 is the library declining: stopped, and never asked again in pieces",
+      n == 0 and all(p.get("limit") == BC.PAGE_LIMIT for p in sess.seen), sess.seen)
+
 # ------------------------------------------------------- 8. the config itself
 print()
 print("the shipped config")

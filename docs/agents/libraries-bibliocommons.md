@@ -31,3 +31,17 @@
   graphic shared by every author event in the system. Importing it gives four
   hundred rows the same picture, which is what `mapsee_retire_thin_artwork.py`
   exists to undo. Only an image tagged to the event itself is taken.
+
+- **A 5xx IS THE GATEWAY FAILING TO BUILD A 200-ROW PAGE, and the same rows
+  come back as four pages of 50.** Santa Clara County's page 2 answers 500 at
+  `limit=200` on every try, and rows 201-400 answer 200 at `limit=50`
+  (2026-09-24): not a bad record and not a refusal. The loop stopped at the
+  first non-200, so a system lost everything after that page - Boston Public
+  Library "p13 HTTP 500" in the 2026-09-24 CI run, 1,856 kept of the 4,051
+  measured three weeks earlier - and 7 of the 38 systems probed that day
+  stopped the same way. `_split_page` re-reads a 5xx page as PAGE_LIMIT //
+  SPLIT_LIMIT smaller ones and merges their entities per KIND (a row names its
+  branch and audience by id, and those live beside it on its own page); a 403,
+  404 or 410 still stops the system. Every failed page came back 4 of 4: Pima
+  450 -> 2,761, Santa Clara 151 -> 1,383, Contra Costa 619 -> 1,488,
+  Christchurch 2,233 -> 3,197, Boston 2,330 at even a 90-day horizon.

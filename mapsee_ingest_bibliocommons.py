@@ -84,6 +84,18 @@ GATEWAY = "https://gateway.bibliocommons.com/v2/libraries/{slug}/events"
 # 200 is the largest the gateway honours; it silently clamps above that. Chicago
 # is 23 pages at this size and 46 at 100, so it halves the round trips.
 PAGE_LIMIT = 200
+# A 5xx ON A 200-ROW PAGE IS THE GATEWAY FAILING TO BUILD THAT PAGE, and the
+# same rows come back when asked for in smaller pieces. Measured 2026-09-24:
+# Santa Clara County's page 2 answers 500 at limit=200 on every try, and rows
+# 201-400 answer 200 as four pages of 50. It is not a bad record and not a
+# refusal. The loop used to stop at the first non-200, so a system lost
+# everything after that page - Boston Public Library "p13 HTTP 500" in the
+# 2026-09-24 CI run, 1,856 kept of the 4,051 measured on 2026-09-03 - and seven
+# of 38 systems probed the same day stopped the same way (Pima kept 450 of
+# ~4,000). A 5xx page is now re-read at SPLIT_LIMIT; a 403/404/410 still stops
+# the system, because those are the library's answer, not a server's bad
+# moment.
+SPLIT_LIMIT = 50
 # Nine months of programming is published in places (a fortnightly book group
 # booked to 2027-06). Six is enough to be useful and short enough that nothing
 # becomes furniture; the same reasoning as MyListing's horizon_days.
@@ -314,6 +326,44 @@ def to_event(ev: Dict[str, Any], ent: Dict[str, Any], site: Dict[str, Any]) -> O
     return nev
 
 
+def _split_page(session, url: str, page: int, delay: float) -> Optional[Dict[str, Any]]:
+    """Page `page` of PAGE_LIMIT rows, read as PAGE_LIMIT // SPLIT_LIMIT pages of
+    SPLIT_LIMIT and merged back into one body of the same shape.
+
+    The merge is per ENTITY KIND, not just events: a row names its branch,
+    audience and type by id, and those live in `entities.locations` etc. of the
+    page that carried the row. A small page that still fails costs its own
+    SPLIT_LIMIT rows and nothing after it. None when every one of them failed.
+    """
+    per = PAGE_LIMIT // SPLIT_LIMIT
+    merged: Dict[str, Dict[str, Any]] = {}
+    count, ok = None, 0
+    for k in range(1, per + 1):
+        if delay:
+            time.sleep(delay)
+        try:
+            r = session.get(url, params={"limit": SPLIT_LIMIT, "page": (page - 1) * per + k},
+                            timeout=45)
+            if r.status_code != 200:
+                continue
+            b = r.json()
+        except Exception:  # noqa: BLE001
+            continue
+        ok += 1
+        for kind, objs in (b.get("entities") or {}).items():
+            if isinstance(objs, dict):
+                merged.setdefault(kind, {}).update(objs)
+        c = ((b.get("events") or {}).get("pagination") or {}).get("count")
+        if c:
+            count = int(c)
+    if not ok:
+        return None
+    # `pages` in the units the caller pages in, so its last-page test still holds.
+    pages = -(-count // PAGE_LIMIT) if count else 0
+    return {"entities": merged, "events": {"pagination": {"pages": pages, "count": count}},
+            "split_ok": ok}
+
+
 def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     slug = (site.get("slug") or "").strip()
     label = site.get("name") or slug
@@ -334,17 +384,27 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         except Exception as exc:  # noqa: BLE001
             print(f"[bibliocommons] {label} p{page} failed: {exc}")
             break
-        if r.status_code != 200:
+        if r.status_code >= 500:
+            # The gateway failing to build a big page - see SPLIT_LIMIT.
+            body = _split_page(session, url, page, delay)
+            if body is None:
+                print(f"[bibliocommons] {label} p{page} HTTP {r.status_code}, "
+                      f"and so was every {SPLIT_LIMIT}-row page of it")
+                break
+            print(f"[bibliocommons] {label} p{page} HTTP {r.status_code}; re-read as "
+                  f"{body['split_ok']} of {PAGE_LIMIT // SPLIT_LIMIT} pages of {SPLIT_LIMIT}")
+        elif r.status_code != 200:
             # A 403 here is the SYSTEM declining, not a transport error: several
             # BiblioCommons libraries answer the catalogue and refuse the events
             # gateway. Reported plainly and never retried or worked around.
             print(f"[bibliocommons] {label} p{page} HTTP {r.status_code}")
             break
-        try:
-            body = r.json()
-        except Exception as exc:  # noqa: BLE001
-            print(f"[bibliocommons] {label} p{page} bad JSON: {exc}")
-            break
+        else:
+            try:
+                body = r.json()
+            except Exception as exc:  # noqa: BLE001
+                print(f"[bibliocommons] {label} p{page} bad JSON: {exc}")
+                break
         ent = body.get("entities") or {}
         rows = list((ent.get("events") or {}).values())
         if not rows:

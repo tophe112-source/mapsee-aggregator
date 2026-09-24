@@ -661,8 +661,9 @@ jobs:
           else
             echo "no mobilizon_sources.json — skipping"
           fi
-      # SIX NORTH AMERICAN LIBRARY SYSTEMS, 28,314 upcoming programmes measured
-      # 2026-09-03 - storytimes, ESL and citizenship classes, job-search help,
+      # 44 LIBRARY SYSTEMS (six on 2026-09-03 with 28,314 upcoming programmes;
+      # 38 more on 2026-09-24 with 58,629 kept inside a 90-day horizon, one of
+      # them Christchurch) - storytimes, ESL and citizenship classes, job-search help,
       # computer basics, teen makerspace, tax help. The civic long tail no
       # ticketing API indexes, and nearly all of it free to attend.
       #
@@ -672,7 +673,11 @@ jobs:
       # and a library system is 40-80 branches. The group has the room: on
       # 2026-09-12 civic finished in 70.8 of its 300 minutes, 49.7 of them
       # Tribe. The adapter reads at most max_pages (default 40) pages of 200
-      # per system and stops at its 180-day horizon.
+      # per system and stops at its horizon (180 days for the first six, 90
+      # for the rest, so the 2026-09-24 batch lands in the 20-minute sync step
+      # below: ~1,170 more 50-row POSTs, about five minutes at the markets
+      # rate of 22,780 rows in 2.0). A 5xx page is re-read as four pages of 50
+      # rather than ending the system - see the adapter's SPLIT_LIMIT.
       #
       # Read the adapter header before adding a library: startDate/endDate are
       # accepted and IGNORED, so the horizon is applied client-side, and several

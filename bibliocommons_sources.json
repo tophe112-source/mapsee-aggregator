@@ -1,5 +1,5 @@
 {
-  "_comment": "BiblioCommons library systems (mapsee_ingest_bibliocommons.py). One entry per library; `slug` is the tenant name in both gateway.bibliocommons.com/v2/libraries/<slug>/events and <slug>.bibliocommons.com. No key and no account. `city` and `country` are read only by catalog_curate's coverage report - the adapter ignores them - and they are here because two of the six systems are Canadian, which the report was counting as American. `category` is only the fallback for a programme whose type and audience say nothing - most rows classify themselves, and library programming is overwhelmingly learning and kids. Every row arrives with a surveyed branch coordinate, so nothing here is geocoded; see the adapter header. Counts below were read live on 2026-09-03 and are recorded so a later run can tell a quiet library from a broken one.",
+  "_comment": "BiblioCommons library systems (mapsee_ingest_bibliocommons.py). One entry per library; `slug` is the tenant name in both gateway.bibliocommons.com/v2/libraries/<slug>/events and <slug>.bibliocommons.com. No key and no account. `city` and `country` are read only by catalog_curate's coverage report - the adapter ignores them - and they are here because two of the six systems are Canadian, which the report was counting as American. `category` is only the fallback for a programme whose type and audience say nothing - most rows classify themselves, and library programming is overwhelmingly learning and kids. Every row arrives with a surveyed branch coordinate, so nothing here is geocoded; see the adapter header. Counts below were read live on 2026-09-03 and are recorded so a later run can tell a quiet library from a broken one. The 38 systems added 2026-09-24 carry `measured_2026_09_24`: programmes the adapter itself KEPT inside a 90-day horizon (58,629 between them), not the gateway's total. 90 rather than 180 because that batch is three times the size of the first six and lands in one sync step with a 20-minute limit; a library programme is listed well inside 90 days of happening, so the window rolls forward and loses nothing but distance.",
   "sites": [
     {
       "name": "Charlotte Mecklenburg Library",
@@ -48,6 +48,310 @@
       "measured_2026_09_03": 2104,
       "horizon_days": 180,
       "max_pages": 40
+    },
+    {
+      "name": "Toronto Public Library",
+      "slug": "tpl", "city": "Toronto", "country": "CA",
+      "category": "learning",
+      "measured_2026_09_24": 6020,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Halifax Public Libraries",
+      "slug": "halifax", "city": "Halifax", "country": "CA",
+      "category": "learning",
+      "measured_2026_09_24": 2014,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Markham Public Library",
+      "slug": "markham", "city": "Toronto", "country": "CA",
+      "category": "learning",
+      "measured_2026_09_24": 801,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Richmond Hill Public Library",
+      "slug": "rhpl", "city": "Toronto", "country": "CA",
+      "category": "learning",
+      "measured_2026_09_24": 359,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Oshawa Public Libraries",
+      "slug": "oshlib", "city": "Oshawa", "country": "CA",
+      "category": "learning",
+      "measured_2026_09_24": 255,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Woodstock Public Library",
+      "slug": "woodstock", "city": "Woodstock", "country": "CA",
+      "category": "learning",
+      "measured_2026_09_24": 270,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Richmond Public Library (BC)",
+      "slug": "yourlibrary", "city": "Vancouver", "country": "CA",
+      "category": "learning",
+      "measured_2026_09_24": 859,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Strathcona County Library",
+      "slug": "scl", "city": "Edmonton", "country": "CA",
+      "category": "learning",
+      "measured_2026_09_24": 422,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Christchurch City Libraries",
+      "slug": "christchurch", "city": "Christchurch", "country": "NZ",
+      "category": "learning",
+      "measured_2026_09_24": 3197,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "King County Library System",
+      "slug": "kcls", "city": "Seattle", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 3946,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Sno-Isle Libraries",
+      "slug": "sno-isle", "city": "Seattle", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1644,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Tacoma Public Library",
+      "slug": "tacoma", "city": "Seattle", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 776,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Timberland Regional Library",
+      "slug": "timberland", "city": "Olympia WA", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1475,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Washington County Cooperative Library Services",
+      "slug": "wccls", "city": "Portland OR", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1778,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Oakland Public Library",
+      "slug": "oaklandlibrary", "city": "San Francisco", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1253,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "San Mateo County Libraries",
+      "slug": "smcl", "city": "San Francisco", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 2625,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Santa Clara County Library District",
+      "slug": "sccl", "city": "San Francisco", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1383,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "San Jose Public Library",
+      "slug": "sjpl", "city": "San Francisco", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 4369,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Alameda County Library",
+      "slug": "aclibrary", "city": "San Francisco", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 983,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Contra Costa County Library",
+      "slug": "ccclib", "city": "San Francisco", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1488,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "San Diego County Library",
+      "slug": "sdcl", "city": "San Diego", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 3858,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Chandler Public Library",
+      "slug": "chandler", "city": "Phoenix", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 638,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Pima County Public Library",
+      "slug": "pima", "city": "Tucson", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 2761,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Jefferson County Public Library",
+      "slug": "jeffcolibrary", "city": "Denver", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1845,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Arapahoe Libraries",
+      "slug": "arapahoelibraries", "city": "Denver", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 297,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Denton Public Library",
+      "slug": "denton", "city": "Dallas", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 185,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Johnson County Library",
+      "slug": "jocolibrary", "city": "Kansas City", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 764,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Hennepin County Library",
+      "slug": "hclib", "city": "Minneapolis", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1909,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Saint Paul Public Library",
+      "slug": "sppl", "city": "Minneapolis", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1137,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Ramsey County Library",
+      "slug": "rclreads", "city": "Minneapolis", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 517,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Evanston Public Library",
+      "slug": "evanstonlibrary", "city": "Chicago", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 330,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Kent District Library",
+      "slug": "kdl", "city": "Grand Rapids", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1245,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Muskegon Area District Library",
+      "slug": "muskegonadl", "city": "Grand Rapids", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 451,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Greene County Public Library",
+      "slug": "greenelibrary", "city": "Dayton", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 875,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Fulton County Library System",
+      "slug": "fulcolibrary", "city": "Atlanta", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 2569,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Palm Beach County Library System",
+      "slug": "pbclibrary", "city": "Miami", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1868,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "St. Tammany Parish Library",
+      "slug": "stpl", "city": "New Orleans", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 460,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Central Rappahannock Regional Library",
+      "slug": "librarypoint", "city": "Washington DC", "country": "US",
+      "category": "learning",
+      "measured_2026_09_24": 1003,
+      "horizon_days": 90,
+      "max_pages": 40
     }
   ],
   "_not_included": {
@@ -74,6 +378,28 @@
     "https://gateway.bibliocommons.com/v2/libraries/kclibrary/events": "Kansas City Public Library: HTTP 403 to the production UA.",
     "https://gateway.bibliocommons.com/v2/libraries/slcpl/events": "Salt Lake City: HTTP 410 Gone - the tenant no longer serves events here.",
     "https://gateway.bibliocommons.com/v2/libraries/sandiego/events": "San Diego: HTTP 410 Gone.",
-    "_slugs_that_are_not_on_the_platform": "404 to this slug, meaning either a different tenant name or a different vendor entirely; not evidence the library is unreachable, only that the guess was wrong. Tried and missed: torontopubliclibrary, houstonlibrary, denverlibrary, bibliottawalibrary, calgarylibrary, saclibrary, nashville, austinlibrary, ocls, phoenixpubliclibrary, lapl."
+        "https://gateway.bibliocommons.com/v2/libraries/ottawa/events": "Ottawa Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/calgary/events": "Calgary Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/burlington/events": "Burlington Public Library (ON): HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/opl/events": "Oakville Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/mississauga/events": "Mississauga Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/surrey/events": "Surrey Libraries (BC): HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/burnaby/events": "Burnaby Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/fvrl/events": "Fraser Valley Regional Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/orl/events": "Okanagan Regional Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/nypl/events": "New York Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/dcpl/events": "DC Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/mpl/events": "Milwaukee Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/indypl/events": "Indianapolis Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/lvccld/events": "Las Vegas-Clark County Library District: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/mysapl/events": "San Antonio Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/hcplc/events": "Tampa-Hillsborough County Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/dcl/events": "Douglas County Libraries (CO): HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/cambridgepl/events": "Cambridge Public Library: HTTP 403 to the production UA, probed 2026-09-24. A refusal, not retried.",
+    "https://gateway.bibliocommons.com/v2/libraries/gvpl/events": "Greater Victoria Public Library: HTTP 410 Gone, probed 2026-09-24 - the tenant no longer serves events here.",
+    "https://gateway.bibliocommons.com/v2/libraries/nvdpl/events": "North Vancouver District Public Library: HTTP 410 Gone, probed 2026-09-24 - the tenant no longer serves events here.",
+    "https://gateway.bibliocommons.com/v2/libraries/cpl/events": "Cleveland Public Library: HTTP 410 Gone, probed 2026-09-24 - the tenant no longer serves events here.",
+    "https://gateway.bibliocommons.com/v2/libraries/hpl/events": "Hamilton Public Library (ON): HTTP 200 with a count of 0, probed 2026-09-24 - on the platform with nothing listed. An `empty`, not a `fail`: worth one request again in a season.",
+    "_slugs_that_are_not_on_the_platform": "404 to this slug, meaning either a different tenant name or a different vendor entirely; not evidence the library is unreachable, only that the guess was wrong. Tried and missed: torontopubliclibrary, houstonlibrary, denverlibrary, bibliottawalibrary, calgarylibrary, saclibrary, nashville, austinlibrary, ocls, phoenixpubliclibrary, lapl; and 2026-09-24: wpl, guelph, lpl, kpl, brampton, vaughan, kfpl, coquitlam, saskatoon, reginalibrary, aucklandlibraries, wcl, freelibrary, madpl, clpgh, arlingtonva, ocpl, lacountylibrary, slcolibrary, tulsalibrary, metrolibrary, omahalibrary, dallaslibrary, mdpls, broward, afpls, gwinnettpl, dekalblibrary, nolalibrary, wakegov, durhamcountylibrary, ppld, abqlibrary, librarieshawaii, epfl, prattlibrary, pcls, fortworth, mcldaz."
   }
 }

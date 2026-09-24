@@ -322,8 +322,18 @@ def t_a_curated_file_the_report_cannot_see_reads_as_a_gap():
           uk_vol, "no UK volunteer row")
     ca_lib = [n for t, n, _m, c, k in rows
               if t == "bibliocommons" and c == "Canada"]
-    check("the two Canadian library systems are not American",
-          len(ca_lib) == 2, f"{ca_lib}")
+    # Pinned to the CONFIG rather than to a count: it was "the two Canadian
+    # systems" until the 2026-09-24 batch made it ten, and the claim was never
+    # the number - it is that every system the config calls Canadian is
+    # counted as Canada and not one of them as the United States.
+    bib = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                      "bibliocommons_sources.json"), encoding="utf-8"))
+    want_ca = sorted(s["name"] for s in bib["sites"] if s.get("country") == "CA")
+    us_lib = [n for t, n, _m, c, k in rows
+              if t == "bibliocommons" and c == "United States"]
+    check("every Canadian library system is Canadian, and none is American",
+          want_ca and sorted(set(ca_lib)) == want_ca and not set(want_ca) & set(us_lib),
+          f"{sorted(set(ca_lib))} vs {want_ca}")
     # The expanders must not double-count: these three files are in no other
     # table, which is the whole reason EXPANDER_OWNED exists for the ones that
     # are.
