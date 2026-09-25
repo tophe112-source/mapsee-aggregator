@@ -40,6 +40,7 @@ import json
 import os
 import sys
 import time
+import urllib.parse
 import urllib.request
 
 from mapsee_ingest_parkrun import SERIES
@@ -147,17 +148,30 @@ def main():
         q = ("events?select=id,title,claimed_by,starts_at"
              "&external_source=eq.mapsee&is_private=eq.false"
              f"&hidden_at={want_hidden}"
-             f"&starts_at=gte.{w_a}&starts_at=lt.{w_b}&order=starts_at.asc&limit={PAGE}")
-        offset = 0
+             f"&starts_at=gte.{w_a}&starts_at=lt.{w_b}&order=starts_at.asc,id.asc&limit={PAGE}")
+        # A KEYSET, not OFFSET. The first dry run (2026-09-25) walked 284,624 rows
+        # and two 4-day windows answered 500 at offsets ~54,000: a deep OFFSET is
+        # read and thrown away row by row until it hits the statement timeout.
+        # Continuing from the last (starts_at, id) seen costs the same on every
+        # page, and it needs no correction for the rows a page just hid: the next
+        # page starts after the last key, whatever has left the set since. The
+        # cursor is the PAIR because many rows share one starts_at. Values are
+        # double-quoted, as in mapsee_indexnow: a timestamp carries ':' and '+'.
+        last = None
         while True:
+            page_q = q
+            if last:
+                ts, rid = last
+                page_q += "&or=" + urllib.parse.quote(
+                    f'(starts_at.gt."{ts}",and(starts_at.eq."{ts}",id.gt."{rid}"))', safe="")
             rows = None
             for attempt in range(3):
                 try:
-                    rows = sb(q + f"&offset={offset}") or []
+                    rows = sb(page_q) or []
                     break
                 except Exception as e:
                     if TIMEOUT_CODE in str(e) or attempt == 2:
-                        print(f"  window {w_a[:10]} offset {offset} failed ({e})",
+                        print(f"  window {w_a[:10]} after {last} failed ({e})",
                               file=sys.stderr)
                         skipped_windows.append(w_a[:10])
                         break
@@ -187,18 +201,10 @@ def main():
                 if len(examples) < 30:
                     examples.append((str(row.get("starts_at"))[:10],
                                      row.get("title") or "?"))
-            moved = flush(page_ids)
+            flush(page_ids)
             if len(rows) < PAGE:
                 break
-            # Under --apply the rows this page just changed have left the result
-            # set (hidden_at is in the filter, in both directions), so the next
-            # page starts that many rows earlier. PAGE minus what was actually
-            # WRITTEN, not what was decided: a page hidden whole starts the next
-            # one at the same offset (the old max(1, ...) skipped its first row),
-            # and a failed PATCH leaves its rows in the set, so the cursor steps
-            # over them rather than re-reading them for ever. Either rows leave
-            # or the offset moves.
-            offset += PAGE - (moved if args.apply else 0)
+            last = (rows[-1]["starts_at"], rows[-1]["id"])
         pages += 1
         t += step
 

@@ -166,7 +166,7 @@ def main():
     # The walk itself, against an in-memory table with a page of 3, so the
     # cursor correction is exercised across pages: under --apply, rows hidden on
     # one page leave the result set, and stepping a full page would skip rows.
-    import re as _re, sys as _sys, time as _time
+    import re as _re, sys as _sys, time as _time, urllib.parse
     t0 = _time.time()
     iso = lambda days: _time.strftime("%Y-%m-%dT%H:%M:%SZ", _time.gmtime(t0 + days * 86400))
     table = []
@@ -182,6 +182,8 @@ def main():
     row(10, "Park 10 parkrun", blurb5, claimed="someone", days=1.4)
     row(11, "Jazz night", "Live jazz.", days=1.5)
     row(12, "Park 12 parkrun", blurb5, days=30)
+    for i in (13, 14, 15, 16):   # one Saturday, one timestamp: the keyset's tie-break
+        row(i, f"Park {i} parkrun", blurb5, days=2.0)
     calls = []
 
     def fake_sb(path, method="GET", body=None, prefer=""):
@@ -200,11 +202,23 @@ def main():
         a = _re.search(r"starts_at=gte\.([^&]+)", path).group(1)
         b = _re.search(r"starts_at=lt\.([^&]+)", path).group(1)
         limit = int(_re.search(r"limit=(\d+)", path).group(1))
-        offset = int(_re.search(r"offset=(\d+)", path).group(1))
-        hit = [r for r in sorted(table, key=lambda r: r["starts_at"])
-               if a <= r["starts_at"] < b and (r["hidden_at"] is None) == (hidden == "is.null")]
-        return [{k: r[k] for k in ("id", "title", "claimed_by", "starts_at")}
-                for r in hit[offset:offset + limit]]
+        assert "offset=" not in path, "a deep OFFSET 500'd in production; the walk is a keyset"
+        key = lambda r: (r["starts_at"], int(r["id"]))
+        hit = sorted((r for r in table
+                      if a <= r["starts_at"] < b and (r["hidden_at"] is None) == (hidden == "is.null")),
+                     key=key)
+        m = _re.search(r"&or=([^&]+)", path)
+        if m:   # PostgREST's meaning for the two shapes a keyset can take; nothing else
+            expr = urllib.parse.unquote(m.group(1))
+            full = _re.fullmatch(r'\(starts_at\.gt\."([^"]+)",and\(starts_at\.eq\."\1",id\.gt\."([^"]+)"\)\)', expr)
+            bare = _re.fullmatch(r'\(starts_at\.gt\."([^"]+)"\)', expr)
+            if full:
+                hit = [r for r in hit if key(r) > (full.group(1), int(full.group(2)))]
+            elif bare:          # no tie-break: rows sharing the last timestamp are lost
+                hit = [r for r in hit if r["starts_at"] > bare.group(1)]
+            else:
+                raise ValueError(f"unexpected keyset expression {expr!r}")
+        return [{k: r[k] for k in ("id", "title", "claimed_by", "starts_at")} for r in hit[:limit]]
 
     saved = (rp.sb, rp.PAGE, rp.SUPABASE_URL, rp.SERVICE_KEY, list(_sys.argv))
     rp.sb, rp.PAGE, rp.SUPABASE_URL, rp.SERVICE_KEY = fake_sb, 3, "https://x.supabase.co", "k"
@@ -216,7 +230,7 @@ def main():
         rp.main()
         hidden_ids = sorted((r["id"] for r in table if r["hidden_at"]), key=int)
         check("--apply hides every adapter row across pages, and nothing else",
-              hidden_ids, ["1", "2", "3", "4", "5", "6", "7", "8", "12"])
+              hidden_ids, ["1", "2", "3", "4", "5", "6", "7", "8", "12", "13", "14", "15", "16"])
         check_true("descriptions are read only for rows whose title names parkrun",
                    all("11" not in p.split("id=in.(")[1] for m, p in calls if m == "GET" and "id=in.(" in p))
         _sys.argv = ["mapsee_retire_parkrun.py", "--apply", "--unhide"]

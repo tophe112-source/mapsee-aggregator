@@ -200,8 +200,12 @@
   stepped one row too far. It also counted rows DECIDED rather than WRITTEN, so a
   failed PATCH left rows in the set that the cursor then treated as gone.
   Simulated with a page of 3 over an in-memory table (2026-09-25), rows 4 and 8
-  of 9 were never examined. Both it and `mapsee_retire_parkrun` now advance by
-  `PAGE - rows actually written`. That always makes progress, because either
-  rows leave the set or the offset moves. `test_ingest_parkrun.py` runs that
-  walk.
+  of 9 were never examined. It now advances by `PAGE - rows actually written`,
+  which always makes progress, because either rows leave the set or the offset
+  moves. `mapsee_retire_parkrun` went further, to a keyset on
+  `(starts_at, id)`. Its first dry run walked 284,624 rows, and two 4-day
+  windows answered 500 at offsets of about 54,000. A keyset costs the same on
+  every page and needs no correction at all. `test_ingest_parkrun.py` runs that
+  walk, including four rows on one timestamp across a page boundary: a keyset
+  on `starts_at` alone loses them, and that mutant fails the test.
 
