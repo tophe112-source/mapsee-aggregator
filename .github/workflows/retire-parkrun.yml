@@ -1,0 +1,60 @@
+name: Retire parkrun rows (one-off)
+
+# A BACKFILL, not a schedule. parkrun is held pending permission (see
+# parkrun_sources.json.pending-permission and the README's Conduct section), but
+# the live config was re-created as a "missing config" and imported the
+# worldwide list until 2026-09-25. Parking the config again stops the future;
+# an upsert cannot delete, so the rows already written need one pass.
+#
+# Dry run by default: read the list in the log, then dispatch again with
+# `apply`. `unhide` reverses it. mapsee_retire_parkrun.py matches only rows
+# carrying the adapter's own blurb, so a parkrun meetup somebody else published
+# is never touched.
+#
+# Its own workflow rather than an input on prune-cancelled.yml, because a
+# dispatch there also runs that job's full 35-minute probe sweep of other
+# people's servers, which this has no reason to repeat.
+#
+# Required repo secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Write (hide the rows). Off = a dry run that only reports"
+        type: boolean
+        default: false
+      unhide:
+        description: "Reverse: un-hide what this hid (needs apply)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: retire-parkrun
+  cancel-in-progress: false
+
+jobs:
+  retire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # The script imports the adapter's blurbs, and the adapter sys.exit()s
+      # without requests rather than raising.
+      - name: Hide parkrun rows imported while parkrun was meant to be parked
+        env:
+          APPLY_IN: ${{ inputs.apply }}
+          UNHIDE_IN: ${{ inputs.unhide }}
+        run: |
+          pip install --quiet requests
+          FLAGS=""
+          if [ "$APPLY_IN" = "true" ]; then FLAGS="--apply"; fi
+          if [ "$UNHIDE_IN" = "true" ]; then FLAGS="$FLAGS --unhide"; fi
+          echo "flags: ${FLAGS:-(dry run)}"
+          python mapsee_retire_parkrun.py $FLAGS

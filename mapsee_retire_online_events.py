@@ -130,15 +130,18 @@ def main():
         worth keeping. Same reason mapsee_cleanup pages its deletes.
         """
         if not ids or not args.apply:
-            return
+            return 0
+        done = 0
         for i in range(0, len(ids), PATCH_IDS):
             chunk = ids[i:i + PATCH_IDS]
             try:
                 sb(f"events?id=in.({','.join(chunk)})", "PATCH",
                    {"hidden_at": stamp}, prefer="return=minimal")
                 written[0] += len(chunk)
+                done += len(chunk)
             except Exception as e:
                 print(f"    PATCH of {len(chunk)} failed: {e}", file=sys.stderr)
+        return done
 
     now = time.time()
     start = now - args.back * 86400
@@ -193,7 +196,7 @@ def main():
             # draft of this line used the leftover as if it were the page's
             # count — which would have skipped real rows on every page that hid
             # anything.
-            flush(page_ids)
+            moved = flush(page_ids)
             if len(rows) < PAGE:
                 break
             # `hidden_at=is.null` is IN THE FILTER, so under --apply the rows
@@ -203,7 +206,12 @@ def main():
             # and pages normally; so does --unhide, whose filter is the
             # complement and whose writes remove rows from it the same way —
             # hence the same correction, not a plain PAGE.
-            offset += PAGE if not args.apply else max(1, PAGE - len(page_ids))
+            # PAGE minus what was actually WRITTEN, not what was decided: a page
+            # hidden whole starts the next one at the same offset (the old
+            # max(1, ...) skipped its first row), and a failed PATCH leaves its
+            # rows in the set, so the cursor steps over them rather than
+            # re-reading them for ever. Either rows leave or the offset moves.
+            offset += PAGE - (moved if args.apply else 0)
         pages += 1
         t += step
 

@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 264 of them — live in
+session.** The measured notes about what bites — 266 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -49,6 +49,7 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | Whether a platform has already been probed and refused | `curation_ledger.json` - `verify` skips a `fail` for 90 days without a network call. The table under "Platforms probed" below is the durable half |
 | Whether a row is an advertisement rather than an event | `mapsee_spam.py` — one predicate, wired into `EventStore.upsert` so all 44 adapters get it; a phone number in the title counts only from Mobilizon, Gancio or an unknown source; `test_spam.py` is mostly about what it must NOT refuse |
 | How much of a source is advertising | `mapsee_spam_audit.py` — measures the rate per instance, so `_not_included` is a number and not an impression |
+| Whether a missing source config is parked ON PURPOSE | a `*_sources.json.pending-permission` twin, and the README's Conduct section. parkrun is parked pending written permission; a missing `parkrun_sources.json` is not a bug, and `test_ingest_parkrun.py` fails if it comes back. `mapsee_retire_parkrun.py` (`retire-parkrun.yml`, dispatch only) hides what it imported while it was live |
 | Removing an event that was never ANYWHERE (a Zoom call with a street pin) | `mapsee_retire_online_events.py` — the backfill half of `looks_online_only`/`venue_is_only_a_plus_code` in `mapsee_ingest.py`. Report by default, `--apply` to write, `--unhide` to take it back; opt-in input on `prune-cancelled.yml` |
 | Removing an event the source has since CANCELLED | `mapsee_prune_cancelled.py` — re-probes upcoming rows at their own source URL; hides on schema.org `EventCancelled` or a 404, never on prose or a 403. Report by default, `--apply` to write; twice daily from `prune-cancelled.yml` — 07:55 full sweep (between the import and the janitor) and 16:55 near horizon (`--days 2`), because a once-daily run cannot catch a same-day cancellation |
 | Removing spam that got in before the gate did | `mapsee_spam_purge.py` — reports by default, `--apply` to write. `spam-purge.yml` runs it daily at 07:40, BETWEEN the import and the janitor, but only once the repository variable `SPAM_PURGE_APPLY` is `true` — the one switch that allows deletes. Until then the schedule is skipped (a report walk reads every aggregator row: 744,093 in 1,261 s on 2026-09-14) and a manual run reports |
@@ -119,11 +120,11 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/curation-and-discovery.md` | 68 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic, the live per-door census |
 | `docs/agents/osm-amenities.md` | 31 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list |
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
-| `docs/agents/ci-and-jobs.md` | 22 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs |
+| `docs/agents/ci-and-jobs.md` | 23 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs |
 | `docs/agents/adapters-and-sources.md` | 19 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes |
 | `docs/agents/classification-and-categories.md` | 26 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup |
 | `docs/agents/cancelled-events.md` | 17 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete |
-| `docs/agents/sync-eventstore-and-paging.md` | 15 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors |
+| `docs/agents/sync-eventstore-and-paging.md` | 16 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors |
 | `docs/agents/dates-and-timezones.md` | 10 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |
 | `docs/agents/geocoding-and-addresses.md` | 6 | Census, Photon, wrong coordinates, the city in the address |

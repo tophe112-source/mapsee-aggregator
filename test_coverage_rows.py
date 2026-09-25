@@ -120,7 +120,15 @@ def t_no_country_is_a_number():
 
 
 def t_parkrun_lands_in_the_countries_it_actually_covers():
-    data = json.load(open(os.path.join(C.HERE, "parkrun_sources.json"), encoding="utf-8"))
+    # parkrun is PARKED pending permission (test_ingest_parkrun.py), so the
+    # coverage report must not count it at all - and the arithmetic below is
+    # still worth pinning on the parked config, because re-enabling it is one
+    # rename and the '97' bug would come straight back with it.
+    parked_rows = [r for r in C._coverage_rows() if r[0] == "parkrun"]
+    check("a parked source is not counted as coverage", not parked_rows,
+          f"{len(parked_rows)} parkrun rows counted")
+    data = json.load(open(os.path.join(C.HERE, "parkrun_sources.json.pending-permission"),
+                          encoding="utf-8"))
     declared = data.get("countries") or {}
     check("parkrun's config still maps numeric id -> ISO code (the shape the "
           "adapter needs, and the shape that tripped this)",

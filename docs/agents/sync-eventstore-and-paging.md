@@ -191,3 +191,17 @@
   decides now (`food`, `market`), client-side, because teaching `events_near`
   about shop-ish categories is a migration and 0204-0208 is a recent enough
   lesson in what an unverifiable change to that function costs.
+
+- **A PAGE HIDDEN WHOLE MOVES THE NEXT ONE BY A FULL PAGE, AND `max(1, PAGE -
+  decided)` SKIPPED ITS FIRST ROW.** A retire tool filters on `hidden_at`, so
+  under `--apply` every row it hides leaves the result set, and the offset for
+  the next page must shrink by exactly that many. `mapsee_retire_online_events`
+  advanced by `max(1, PAGE - len(page_ids))`. When a whole page matched, that
+  stepped one row too far. It also counted rows DECIDED rather than WRITTEN, so a
+  failed PATCH left rows in the set that the cursor then treated as gone.
+  Simulated with a page of 3 over an in-memory table (2026-09-25), rows 4 and 8
+  of 9 were never examined. Both it and `mapsee_retire_parkrun` now advance by
+  `PAGE - rows actually written`. That always makes progress, because either
+  rows leave the set or the offset moves. `test_ingest_parkrun.py` runs that
+  walk.
+

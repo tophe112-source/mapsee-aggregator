@@ -106,7 +106,23 @@
   when it was found: the other absent files are runtime STORES (`feeds_events`
   and friends, produced mid-run) and `ckan_sources.json`, which `merge` creates
   when something finally verifies — so parkrun was the only real one, and
-  `test_ingest_parkrun.py` now asserts every guarded source config is present.
+  `test_ingest_parkrun.py` now asserts every guarded source config is present,
+  except the ones parked on purpose (next note).
+
+- **A CONFIG THAT IS ABSENT ON PURPOSE LOOKS EXACTLY LIKE ONE NOBODY COMMITTED,
+  AND PARKRUN WAS "FIXED" BACK ON.** The note above took `parkrun_sources.json`
+  for forgotten. It had been parked: parkrun's terms reserve all rights in site
+  content and reference an anti-scraping policy, and the README's Conduct
+  section says publicly that the adapter sits disabled until parkrun says yes in
+  writing. Re-creating the file switched it back on, and it imported the
+  worldwide list twice a week. On 2026-09-25, 30 of the 91 running, sports and
+  fitness rows within 35 km of Ottawa were parkrun events. The config is parked
+  again as `parkrun_sources.json.pending-permission`, in the working shape so
+  that re-enabling is one rename. `test_ingest_parkrun.py` now FAILS while the
+  live file exists, and lists it in `KNOWN_EMPTY`. `mapsee_retire_parkrun.py`
+  (dispatched from `retire-parkrun.yml`) hides what was imported. Before
+  creating a guarded config that is missing, look for a `.pending-permission`
+  twin and read the README's Conduct section.
 
 - **A FAILED READ IS NOT A FAILED RUN, and `sys.exit(1)` cost seven domains
   their daily push.** That same job reads the events for mapsee.me and then

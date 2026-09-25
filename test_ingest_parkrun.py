@@ -123,15 +123,107 @@ def main():
           pr.parkrun_events(feature(seriesid=99), COUNTRIES, CFG), [])
 
     print()
-    print("the config the workflow guards on")
+    print("parked until parkrun says yes in writing")
+    # The job is guarded `if [ -f parkrun_sources.json ]`, so the LIVE file is the
+    # on-switch. parkrun's terms reserve all rights and reference an anti-scraping
+    # policy, and the README says publicly that this adapter is disabled. The
+    # file was re-created once as a "missing config" and imported the worldwide
+    # list until 2026-09-25, when 30 of the 91 running/sports/fitness rows within
+    # 35 km of Ottawa were parkrun. Flip the first check only WITH the permission.
     import json, os
-    check_true("parkrun_sources.json exists — the job is a no-op without it",
-               os.path.exists("parkrun_sources.json"))
-    cfg = json.load(open("parkrun_sources.json", encoding="utf-8"))
-    check_true("it maps every country parkrun currently serves", len(cfg["countries"]) >= 20)
+    check("parkrun_sources.json does not exist — parkrun is parked pending permission",
+          os.path.exists("parkrun_sources.json"), False)
+    parked = "parkrun_sources.json.pending-permission"
+    check_true("the parked config is kept, so re-enabling is one rename", os.path.exists(parked))
+    cfg = json.load(open(parked, encoding="utf-8"))
+    check_true("it says why it is parked", "PERMISSION" in cfg.get("_DISABLED", ""))
+    check_true("it is the WORKING shape: parkrun's country id -> ISO map, 20+ countries",
+               isinstance(cfg.get("countries"), dict) and len(cfg["countries"]) >= 20)
     check("start_times is empty on purpose — none has been checked", cfg["start_times"], {})
     check_true("and it runs on more than one weekday, so a lost run is not a lost week",
                len(cfg["run_weekdays"]) >= 2)
+    check_true("and the adapter accepts it exactly as it stands",
+               len(pr.parkrun_events(feature(), COUNTRIES, cfg)) > 0)
+
+    print()
+    print("the backfill hides exactly what this adapter wrote")
+    import mapsee_retire_parkrun as rp
+
+    def stored(ev):
+        # What the sync keeps: the adapter's description, then its own lines.
+        return {"title": ev.name, "description": (ev.description or "")
+                + "\n📍 Bushy Park, Teddington\nTickets / info: " + (ev.ticket_url or "")}
+    check_true("a 5k this adapter wrote is retired", rp.should_retire(stored(evs[0])))
+    check_true("so is a junior 2k", rp.should_retire(stored(jr[0])))
+    check("a parkrun social somebody else published is not",
+          rp.should_retire({"title": "Coffee after Bushy parkrun",
+                            "description": "Meet at the cafe after the run."}), False)
+    check("nor a row that carries the blurb without naming parkrun",
+          rp.should_retire({"title": "Community 5k", "description": evs[0].description}), False)
+    check("nor a row with no description at all",
+          rp.should_retire({"title": "Bushy parkrun", "description": None}), False)
+
+    # The walk itself, against an in-memory table with a page of 3, so the
+    # cursor correction is exercised across pages: under --apply, rows hidden on
+    # one page leave the result set, and stepping a full page would skip rows.
+    import re as _re, sys as _sys, time as _time
+    t0 = _time.time()
+    iso = lambda days: _time.strftime("%Y-%m-%dT%H:%M:%SZ", _time.gmtime(t0 + days * 86400))
+    table = []
+    def row(i, title, desc, claimed=None, days=1.0):
+        table.append({"id": str(i), "title": title, "description": desc, "claimed_by": claimed,
+                      "starts_at": iso(days), "hidden_at": None,
+                      "external_source": "mapsee", "is_private": False})
+    blurb5, blurb2 = (s["blurb"] for s in pr.SERIES.values())
+    for i in range(1, 8):
+        row(i, f"Park {i} parkrun", blurb5 + " Start time on the event page.", days=1 + i * 0.01)
+    row(8, "Park 8 junior parkrun", blurb2, days=1.2)
+    row(9, "Coffee after Bushy parkrun", "Meet at the cafe.", days=1.3)
+    row(10, "Park 10 parkrun", blurb5, claimed="someone", days=1.4)
+    row(11, "Jazz night", "Live jazz.", days=1.5)
+    row(12, "Park 12 parkrun", blurb5, days=30)
+    calls = []
+
+    def fake_sb(path, method="GET", body=None, prefer=""):
+        calls.append((method, path))
+        if method == "PATCH":
+            ids = set(_re.search(r"id=in\.\(([^)]*)\)", path).group(1).split(","))
+            for r in table:
+                if r["id"] in ids:
+                    r["hidden_at"] = body["hidden_at"]
+            return None
+        if "id=in.(" in path:
+            ids = set(_re.search(r"id=in\.\(([^)]*)\)", path).group(1).split(","))
+            return [{"id": r["id"], "description": r["description"]} for r in table if r["id"] in ids]
+        assert "ilike" not in path, "a text filter in the walk is a sequential scan"
+        hidden = _re.search(r"hidden_at=([a-z.]+)", path).group(1)
+        a = _re.search(r"starts_at=gte\.([^&]+)", path).group(1)
+        b = _re.search(r"starts_at=lt\.([^&]+)", path).group(1)
+        limit = int(_re.search(r"limit=(\d+)", path).group(1))
+        offset = int(_re.search(r"offset=(\d+)", path).group(1))
+        hit = [r for r in sorted(table, key=lambda r: r["starts_at"])
+               if a <= r["starts_at"] < b and (r["hidden_at"] is None) == (hidden == "is.null")]
+        return [{k: r[k] for k in ("id", "title", "claimed_by", "starts_at")}
+                for r in hit[offset:offset + limit]]
+
+    saved = (rp.sb, rp.PAGE, rp.SUPABASE_URL, rp.SERVICE_KEY, list(_sys.argv))
+    rp.sb, rp.PAGE, rp.SUPABASE_URL, rp.SERVICE_KEY = fake_sb, 3, "https://x.supabase.co", "k"
+    try:
+        _sys.argv = ["mapsee_retire_parkrun.py"]
+        rp.main()
+        check("a dry run writes nothing", [c for c in calls if c[0] == "PATCH"], [])
+        _sys.argv = ["mapsee_retire_parkrun.py", "--apply"]
+        rp.main()
+        hidden_ids = sorted((r["id"] for r in table if r["hidden_at"]), key=int)
+        check("--apply hides every adapter row across pages, and nothing else",
+              hidden_ids, ["1", "2", "3", "4", "5", "6", "7", "8", "12"])
+        check_true("descriptions are read only for rows whose title names parkrun",
+                   all("11" not in p.split("id=in.(")[1] for m, p in calls if m == "GET" and "id=in.(" in p))
+        _sys.argv = ["mapsee_retire_parkrun.py", "--apply", "--unhide"]
+        rp.main()
+        check("--unhide puts every one of them back", [r["id"] for r in table if r["hidden_at"]], [])
+    finally:
+        rp.sb, rp.PAGE, rp.SUPABASE_URL, rp.SERVICE_KEY, _sys.argv[:] = saved
 
     print()
     print("no OTHER adapter is a silent no-op for a config nobody committed")
@@ -145,7 +237,8 @@ def main():
     # exist yet and should not. Anything else appearing here is a job doing
     # nothing.
     import re
-    KNOWN_EMPTY = {"ckan_sources.json"}
+    KNOWN_EMPTY = {"ckan_sources.json",
+                   "parkrun_sources.json"}   # parked pending permission (above)
     wf = open(os.path.join(".github", "workflows", "aggregate-events.yml"),
               encoding="utf-8").read()
     guarded = set(re.findall(r"if \[ -f ([a-z_]+_sources\.json) \]", wf))
