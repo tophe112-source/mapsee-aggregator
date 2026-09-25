@@ -1434,6 +1434,23 @@
         "country": "US"
       },
       "_measured": "2026-09-24: 5 upcoming, 2 placeable (community tree plantings in Spokane). Multi-site, so no venue fallback; the other three carry no address."
+    },
+    {
+      "name": "日野キリスト教会",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.hinochurch.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "日野キリスト教会",
+        "address": "5",
+        "city": "日野市",
+        "region": "東京都",
+        "postal_code": "191-0061",
+        "lat": 35.6787494,
+        "lon": 139.3913629
+      },
+      "_metro": "Tokyo, Japan"
     }
   ],
   "_not_included": {

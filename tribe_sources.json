@@ -10085,6 +10085,98 @@
         "lon": -97.224957
       },
       "_measured": "2026-09-24: 126 upcoming, 30 distinct titles - goose flights, bison tours, guided hikes, forest programmes for families. 110 carry only a Canadian street address, which the US Census geocoder cannot place, so the venue block is required: the Richardson Interpretive Centre at 1961 McCreary Road (OSM building, via Photon), where FortWhyte's programmes start."
+    },
+    {
+      "name": "Sel Octagon Tokyo night club",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://sel-octagon-tokyo.jp",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sel Octagon Tokyo night club",
+        "lat": 35.6649473,
+        "lon": 139.7298302
+      },
+      "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "Enter",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://entershibuya.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Enter",
+        "address": "17",
+        "city": "渋谷区",
+        "region": "東京都",
+        "postal_code": "150-0001",
+        "lat": 35.6636995,
+        "lon": 139.7023743
+      },
+      "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "Apple Jump",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event+ics",
+      "base_url": "https://applejump.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Apple Jump",
+        "lat": 35.7309143,
+        "lon": 139.7051056
+      },
+      "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "Sugar Hill",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://sugarhill.jp",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sugar Hill",
+        "lat": 35.8300953,
+        "lon": 139.8049159
+      },
+      "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "龍峰寺",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://ebina-kankou.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "龍峰寺",
+        "address": "40",
+        "city": "海老名市",
+        "region": "神奈川県",
+        "postal_code": "243-0406",
+        "lat": 35.4613631,
+        "lon": 139.4013713
+      },
+      "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "?",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event",
+      "base_url": "https://www.metro.ne.jp",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "lat": 35.0170841,
+        "lon": 135.7725145
+      },
+      "_metro": "Kyoto, Japan"
     }
   ],
   "_not_included": {

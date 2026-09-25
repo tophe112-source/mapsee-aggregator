@@ -4775,6 +4775,42 @@
         "country": "US"
       },
       "_measured": "2026-09-24: 10 distinct upcoming, all placeable - bird walks, a preschool nature hour, homeschool naturalists."
+    },
+    {
+      "name": "Womb",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.womb.co.jp/ja/events/092526"
+      ],
+      "link_pattern": "https://www\\.womb\\.co\\.jp/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Womb",
+        "address": "16",
+        "city": "渋谷区",
+        "region": "東京都",
+        "postal_code": "150-0044",
+        "lat": 35.6584259,
+        "lon": 139.6950494
+      },
+      "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "?",
+      "category": "music",
+      "_found": "osm:nightclub -> wp-event-manager",
+      "listing": [
+        "https://circus-osaka.com/schedule/"
+      ],
+      "link_pattern": "https://circus\\-osaka\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "?",
+        "lat": 34.673069,
+        "lon": 135.4979717
+      },
+      "_metro": "Osaka, Japan"
     }
   ],
   "_not_included": {
