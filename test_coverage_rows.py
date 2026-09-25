@@ -120,14 +120,12 @@ def t_no_country_is_a_number():
 
 
 def t_parkrun_lands_in_the_countries_it_actually_covers():
-    # parkrun is PARKED pending permission (test_ingest_parkrun.py), so the
-    # coverage report must not count it at all - and the arithmetic below is
-    # still worth pinning on the parked config, because re-enabling it is one
-    # rename and the '97' bug would come straight back with it.
-    parked_rows = [r for r in C._coverage_rows() if r[0] == "parkrun"]
-    check("a parked source is not counted as coverage", not parked_rows,
-          f"{len(parked_rows)} parkrun rows counted")
-    data = json.load(open(os.path.join(C.HERE, "parkrun_sources.json.pending-permission"),
+    # parkrun is SHOWN (the owner's decision of 2026-09-25; test_ingest_parkrun.py),
+    # so the coverage report counts it, once per country it declares. It was
+    # parked for part of that day, and the arithmetic below was pinned on the
+    # parked copy because re-enabling it was one rename and the '97' bug would
+    # have come straight back with it.
+    data = json.load(open(os.path.join(C.HERE, "parkrun_sources.json"),
                           encoding="utf-8"))
     declared = data.get("countries") or {}
     check("parkrun's config still maps numeric id -> ISO code (the shape the "
@@ -140,6 +138,9 @@ def t_parkrun_lands_in_the_countries_it_actually_covers():
           got == want, f"missing {sorted(want - got)}; extra {sorted(got - want)}")
     check("...and Great Britain among them is a country name, not '97'",
           "United Kingdom" in got, f"got {sorted(got)[:6]}")
+    counted = {c for t, _n, _m, c, _cat in C._coverage_rows() if t == "parkrun"}
+    check("the live report counts parkrun in every one of them",
+          counted == want, f"missing {sorted(want - counted)}; extra {sorted(counted - want)}")
 
 
 # --- 3. one country, one spelling --------------------------------------------

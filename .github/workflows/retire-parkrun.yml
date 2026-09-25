@@ -1,10 +1,12 @@
 name: Retire parkrun rows (one-off)
 
-# A BACKFILL, not a schedule. parkrun is held pending permission (see
-# parkrun_sources.json.pending-permission and the README's Conduct section), but
-# the live config was re-created as a "missing config" and imported the
-# worldwide list until 2026-09-25. Parking the config again stops the future;
-# an upsert cannot delete, so the rows already written need one pass.
+# A BACKFILL, not a schedule: the one-run way to take every parkrun row off the
+# map, or put them back. parkrun was parked for part of 2026-09-25 and run 5 hid
+# the 17,870 rows it had imported; the owner then decided to show parkrun (the
+# `_decision` note in parkrun_sources.json, and the README's Conduct section),
+# and `apply` + `unhide` restored them. If parkrun ever asks us to stop, park the
+# config (which stops the future) and dispatch with `apply`: an upsert cannot
+# delete, so the rows already written need this pass.
 #
 # Dry run by default: read the list in the log, then dispatch again with
 # `apply`. `unhide` reverses it. mapsee_retire_parkrun.py matches only rows
@@ -47,7 +49,7 @@ jobs:
           python-version: "3.12"
       # The script imports the adapter's blurbs, and the adapter sys.exit()s
       # without requests rather than raising.
-      - name: Hide parkrun rows imported while parkrun was meant to be parked
+      - name: Hide (or, with unhide, restore) the parkrun rows this pipeline imported
         env:
           APPLY_IN: ${{ inputs.apply }}
           UNHIDE_IN: ${{ inputs.unhide }}

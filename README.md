@@ -61,7 +61,7 @@ a hand-maintained marketing estimate.
 | Ticketmaster / SeatGeek / DICE / AXS / Moshtix | `mapsee_ingest*.py` | Keyed APIs, skipped silently when unset |
 | Eventbrite | `mapsee_ingest_eventbrite.py` | Official API, organizer feeds |
 | Parks / recreation | `mapsee_ingest_nps.py`, `_recreation.py` | US National Park Service, Recreation.gov |
-| ~~parkrun~~ | `mapsee_ingest_parkrun.py` | **Parked — not ingesting.** The adapter works, but parkrun's terms do not permit this use, so its config is held at `parkrun_sources.json.pending-permission` and the workflow skips the step. It stays here, disabled, pending written permission. See [Conduct](#conduct) |
+| parkrun | `mapsee_ingest_parkrun.py` | Free weekly 5k runs on Saturdays and junior 2k runs on Sundays: ~2,965 events in 20 countries, from the public event list parkrun's own map reads, each weekly schedule expanded to dated occurrences six weeks ahead. A listing is the event's name, place and day, and links to its own parkrun page for the start time and the course. No results and no runner data. Read twice a week. See [Conduct](#conduct) |
 | Farmers markets | `mapsee_ingest_markets.py` | City open data, OpenStreetMap `amenity=marketplace`, and the **USDA Local Food Directories** (`USDA_LOCALFOOD_API_KEY`, free at [usdalocalfoodportal.com](https://www.usdalocalfoodportal.com/fe/datasharing)). All three publish weekly schedules, which this expands into dated occurrences |
 | Seoul Open Data | `mapsee_ingest_seoul.py` | Korea's own government API standard |
 | Restaurants / takeout | `mapsee_ingest_restaurants.py`, `_affiliates.py`, `_ubereats.py` | Pickup windows from published hours |
@@ -218,16 +218,24 @@ This project only reads **public, self-published** feeds:
 - Anything requiring a partner agreement stays behind an unset key until that
   agreement exists
 
-If you operate a feed here and want it removed, open an issue.
+**If your event is on the map and you want it off, or fixed, tell us.** Use the
+contact form at
+[conbinience.com/support?intent=listing](https://www.conbinience.com/support?intent=listing),
+email support@conbinience.com, or open an issue here. Include a link to the
+listing, or the name of your event or calendar. A person takes the listing down
+without asking you to justify it. If you would rather your calendar were not
+read at all, we stop importing it too.
 
-**A worked example.** parkrun publishes an open event list and the adapter for
-it works fine — ~2,900 events across 21 countries, and it would have been the
-whole `running` layer, which no other curated feed covers. On reading their
-terms, that use isn't permitted. So the config was renamed to
-`parkrun_sources.json.pending-permission`, the workflow step now guards on the
-file's absence and skips, and the adapter sits disabled until someone at
-parkrun says yes in writing. The events would have been good; the terms said
-no. That is what the rules above mean in practice.
+**A worked example.** parkrun publishes an open event list, and its free weekly
+5k is exactly what the `running` layer is for: no other curated feed covers it.
+The adapter writes only what gets somebody there: each event's name, place and
+day, linking to that event's own parkrun page for the start time, the course and
+everything else. It never copies results, runner data, course maps or the logo.
+On 2026-09-25 it was briefly parked, and the rows already imported were hidden,
+while we read parkrun's terms. We then decided to show them, because parkrun
+wants its events shared and attended, and they are back. If parkrun ever asks
+us to stop, one rename and one run of `retire-parkrun.yml` take every row off
+the map.
 
 ## Running it
 

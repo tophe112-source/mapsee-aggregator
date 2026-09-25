@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 """
-mapsee_retire_parkrun.py — hide the parkrun events imported while parkrun was
-meant to be parked.
+mapsee_retire_parkrun.py — hide every parkrun event this pipeline imported, or
+(--unhide) put them back.
 
-WHY. parkrun is held pending permission: their terms reserve all rights in site
-content and reference an anti-scraping policy, and the README's Conduct section
-says, publicly, that the adapter "sits disabled until someone at parkrun says yes
-in writing". But `parkrun_sources.json` was re-created as a "missing config" and
-the workflow step, guarded only on that file existing, imported the worldwide
-list twice a week. On 2026-09-25, 30 of the 91 running/sports/fitness rows within
-35 km of Ottawa were parkrun events. The config is parked again, which stops the
-FUTURE; AN UPSERT CANNOT DELETE, so the rows already written stay on the map for
-up to six weeks (the adapter's horizon) unless something takes them off. This is
-that something, and it is the same shape as mapsee_retire_online_events.py.
+WHY IT EXISTS. On 2026-09-25 parkrun's terms were read as needing written
+permission, and the README's Conduct section said the adapter sat disabled -
+while `parkrun_sources.json`, re-created as a "missing config", imported the
+worldwide list twice a week (30 of the 91 running/sports/fitness rows within
+35 km of Ottawa were parkrun events). Parking the config stops the FUTURE; AN
+UPSERT CANNOT DELETE, so the rows already written stay on the map for up to six
+weeks (the adapter's horizon) unless something takes them off. This is that
+something, and it is the same shape as mapsee_retire_online_events.py. Run 5
+hid 17,870 rows. The owner then decided to show parkrun (the `_decision` note in
+parkrun_sources.json), and `--apply --unhide` restored them. It stays as the
+one-run way to take parkrun off the map if parkrun ever asks.
 
 THE TEST IS THE ROW'S OWN STORED TEXT, and it is the adapter's own text: a title
 naming parkrun AND a description that begins with one of the two blurbs the
@@ -82,7 +83,7 @@ def should_retire(row):
 
 def main():
     ap = argparse.ArgumentParser(
-        description="Hide the parkrun events imported while parkrun was meant to be parked.")
+        description="Hide every parkrun event this pipeline imported, or (--unhide) restore them.")
     ap.add_argument("--apply", action="store_true", help="write (default is a dry run)")
     ap.add_argument("--unhide", action="store_true", help="reverse: un-hide what this hid")
     ap.add_argument("--days", type=int, default=45,

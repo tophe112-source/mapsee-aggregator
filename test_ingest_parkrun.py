@@ -123,20 +123,23 @@ def main():
           pr.parkrun_events(feature(seriesid=99), COUNTRIES, CFG), [])
 
     print()
-    print("parked until parkrun says yes in writing")
+    print("shown, by the owner's decision of 2026-09-25")
     # The job is guarded `if [ -f parkrun_sources.json ]`, so the LIVE file is the
-    # on-switch. parkrun's terms reserve all rights and reference an anti-scraping
-    # policy, and the README says publicly that this adapter is disabled. The
-    # file was re-created once as a "missing config" and imported the worldwide
-    # list until 2026-09-25, when 30 of the 91 running/sports/fitness rows within
-    # 35 km of Ottawa were parkrun. Flip the first check only WITH the permission.
+    # on-switch. It was parked for part of 2026-09-25, when parkrun's terms were
+    # read as needing written permission, and 17,870 imported rows were hidden;
+    # the owner then decided to show parkrun (it wants its events shared and
+    # attended) and the rows were put back. To stop again, rename the file to
+    # parkrun_sources.json.pending-permission and flip the first check.
     import json, os
-    check("parkrun_sources.json does not exist — parkrun is parked pending permission",
-          os.path.exists("parkrun_sources.json"), False)
-    parked = "parkrun_sources.json.pending-permission"
-    check_true("the parked config is kept, so re-enabling is one rename", os.path.exists(parked))
-    cfg = json.load(open(parked, encoding="utf-8"))
-    check_true("it says why it is parked", "PERMISSION" in cfg.get("_DISABLED", ""))
+    live = "parkrun_sources.json"
+    check_true("parkrun_sources.json exists: parkrun is shown", os.path.exists(live))
+    check("and no parked twin sits beside it, to drift from the one that runs",
+          os.path.exists(live + ".pending-permission"), False)
+    cfg = json.load(open(live, encoding="utf-8"))
+    check_true("it records the decision, and how to take it back",
+               "2026-09-25" in cfg.get("_decision", "")
+               and "ASKS US TO STOP" in cfg.get("_decision", ""))
+    check("the old parked note is gone with the parking", "_DISABLED" in cfg, False)
     check_true("it is the WORKING shape: parkrun's country id -> ISO map, 20+ countries",
                isinstance(cfg.get("countries"), dict) and len(cfg["countries"]) >= 20)
     check("start_times is empty on purpose — none has been checked", cfg["start_times"], {})
@@ -303,8 +306,7 @@ def main():
     # exist yet and should not. Anything else appearing here is a job doing
     # nothing.
     import re
-    KNOWN_EMPTY = {"ckan_sources.json",
-                   "parkrun_sources.json"}   # parked pending permission (above)
+    KNOWN_EMPTY = {"ckan_sources.json"}
     wf = open(os.path.join(".github", "workflows", "aggregate-events.yml"),
               encoding="utf-8").read()
     guarded = set(re.findall(r"if \[ -f ([a-z_]+_sources\.json) \]", wf))
