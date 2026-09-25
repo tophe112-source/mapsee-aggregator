@@ -5,14 +5,39 @@
 
 Open-source toolkit that imports **publicly advertised community events** into a
 normalized store, then syncs them to a database for map display. It powers the
-Nearby map at [mapsee.me](https://www.mapsee.me), but nothing here is
-mapsee-specific: the adapters, the source configs, and the curation tooling all
-work standalone.
+Nearby map at [mapsee.me](https://mapsee.me) and the eight single-topic maps
+beside it ([where the events show up](#where-the-events-show-up)), but nothing
+here is mapsee-specific: the adapters, the source configs, and the curation
+tooling all work standalone.
 
 The goal is unglamorous and useful: **most community events are published
 somewhere public - a library's iCal feed, a city's open-data portal, a venue's
 calendar - and almost none of it is discoverable on one map.** This pulls those
 scattered feeds together.
+
+## Where the events show up
+
+Everything this pipeline syncs lands in one catalog, and nine free maps read it.
+mapsee.me shows all of it; each of the others shows the categories in its row,
+and `derive_categories` in `mapsee_supabase_sync.py` decides which of those an
+event gets. None of them needs an account.
+
+| Map | Shows | Categories |
+|---|---|---|
+| [mapsee.me](https://mapsee.me) | every public event | all |
+| [wegosie.com](https://wegosie.com) | group runs, rides, hikes and classes | `running` `sports` `fitness` |
+| [bar.ventures](https://bar.ventures) | nights out: parties, live music, food | `party` `music` `food` |
+| [oneday.cafe](https://oneday.cafe) | food pop-ups and supper clubs | `food` |
+| [plansie.com](https://plansie.com) | things to do with friends | `community` `outdoors` `arts` `theater` |
+| [awaresie.com](https://awaresie.com) | neighborhood meetings, volunteering, library talks | `community` `volunteer` `learning` |
+| [vivosie.com](https://vivosie.com) | gigs, concerts and open mics | `music` |
+| [fleabop.com](https://fleabop.com) | flea markets, swaps and vintage fairs | `market` |
+| [unsie.com](https://unsie.com) | things to do with kids | `kids` |
+
+The code never keeps its own copy of this list: `catalog_curate.py`,
+`mapsee_indexnow.py` and `mapsee_seo_check.py` read the live roster from
+[`mapsee.me/api/lenses`](https://mapsee.me/api/lenses). This table is prose, so
+it is the one thing here to update by hand when a door is added.
 
 ## What it ingests
 
@@ -263,7 +288,7 @@ comment explains the job split in detail. The short version:
 | `meetup` | Mon & Thu 06:40 | One Meetup sweep. Separate key from Ticketmaster, so it runs in parallel. |
 | `extra_sources` | Mon & Thu 06:40 | SeatGeek/DICE/AXS metro sweep, Eventbrite, NPS/Localist/Sports. Skipped wholesale when none of those keys are set. |
 | `races` | daily 06:17 UTC | RunSignup races and BikeReg cycling onto the running + fitness layers, sharing one store so a duathlon listed on both platforms merges instead of pinning twice. Its own job: more events than every ICS feed combined, behind ~5 minutes of API paging, and `feeds` syncs one shared store at the end — a timeout there would discard the two emptiest lenses along with everything else. |
-| `indexnow` | after every run | Pushes the URLs of events that just landed to IndexNow (Bing/Yandex/Seznam/Naver), for **all seven front doors**. `if: always()`, so a run where one leg failed still announces what the others ingested. |
+| `indexnow` | after every run | Pushes the URLs of events that just landed to IndexNow (Bing/Yandex/Seznam/Naver), for **every front door**. `if: always()`, so a run where one leg failed still announces what the others ingested. |
 | `source-health` | daily 08:40 | Reads what landed; opens an issue if a source went quiet, and a separate one if the check itself cannot run. See [Monitoring](#monitoring-how-you-find-out-something-broke). |
 | `audit` | Sun 04:10 | Deep re-probe of every curated feed; commits the refreshed ledger. |
 | `curate` | daily 03:20 | discover → verify → merge across Socrata, CKAN and Mobilizon; commits new verified feeds, the cursor and the coverage history. |
@@ -282,15 +307,15 @@ care about Bing is that its index is what backs Copilot and ChatGPT search.
 so it is structurally incapable of announcing a private or hidden event, whatever
 its query says. It needs no secret.
 
-**All seven doors, but only one submits events.** IndexNow keys a submission to a
+**Every door, but only one submits events.** IndexNow keys a submission to a
 single `host`, so this makes one call per door. mapsee.me sends its new events
-plus its `/c/` pages; the six niche doors send their `/c/` pages only. Their
+plus its `/c/` pages; the niche doors send their `/c/` pages only. Their
 landing pages are genuinely different content — bar.ventures/c/seattle lists
 nightlife, fleabop.com/c/seattle lists markets — each is self-canonical with its
 own sitemap and its own Search Console property. Their *event* pages are not:
-one event behind seven doors, each canonicalling to itself, would put seven
-copies in the index and split its authority. The door list is read live from
-`mapsee.me/api/lenses` rather than copied here, so an eighth door needs no change
+one event behind every door, each canonicalling to itself, would put one copy
+per door in the index and split its authority. The door list is read live from
+`mapsee.me/api/lenses` rather than copied here, so a new door needs no change
 in this repo. `--doors-off` submits mapsee.me alone.
 
 > ⚠️ The submission is authenticated by a key file served at
@@ -346,8 +371,8 @@ the only public repository of the four:
 | --- | --- |
 | [`conbinience`](https://github.com/tophe112-source/conbinience) | www.conbinience.com — company site, and the suite map |
 | [`fishsie`](https://github.com/tophe112-source/fishsie) | www.fishsie.com |
-| [`mapsee`](https://github.com/tophe112-source/mapsee) | mapsee.me + six front doors — the app this pipeline writes into |
+| [`mapsee`](https://github.com/tophe112-source/mapsee) | mapsee.me + the [eight other doors](#where-the-events-show-up) — the app this pipeline writes into |
 | **`mapsee-aggregator`** *(this one)* | no site — runs on GitHub Actions |
 
-Events ingested here surface on all seven Mapsee doors; `derive_categories` in
+Events ingested here surface on every Mapsee door; `derive_categories` in
 `mapsee_supabase_sync.py` is what routes an event to the doors it belongs on.

@@ -5,8 +5,9 @@ WHY THIS EXISTS
 ---------------
 The indexable surface across the estate is now large and almost entirely
 GENERATED: 141 city and region pages, 800 category pages and 100 weekend pages
-per door, seven doors, plus ~51,000 event pages. None of it is hand-written, so
-none of it gets looked at, and every failure mode here is silent by nature:
+per door, on every door in the live roster, plus ~51,000 event pages. None of
+it is hand-written, so none of it gets looked at, and every failure mode here is
+silent by nature:
 
   * a canonical that starts pointing at a page which refuses to be indexed
   * a route that begins 404ing after a regex change, while the sitemap keeps

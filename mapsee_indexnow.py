@@ -43,22 +43,23 @@ batch must belong to it.
     event's URL to a search engine would be a data leak, not a bug.
   * Its /c/ city, region and category pages.
 
-  the six niche doors (bar.ventures, oneday.cafe, plansie.com, fleabop.com,
-  wegosie.com, awaresie.com) - their /c/ landing pages only:
+  the niche doors (read live from LENS_API below; on 2026-09-25 bar.ventures,
+  oneday.cafe, plansie.com, fleabop.com, wegosie.com, awaresie.com, vivosie.com
+  and unsie.com) - their /c/ landing pages only:
   * Each opens onto its own slice of the catalog, so bar.ventures/c/seattle and
     mapsee.me/c/seattle list different events. Every one is SELF-canonical and
     publishes its own sitemap, and each domain is separately verified in Bing
     and Search Console. There is no duplication to avoid here.
-  * NOT their event pages. An event is one piece of content behind seven doors,
-    and each door canonicals it to itself - announcing it seven times would put
-    seven copies in the index and split its authority. Only mapsee.me lists
+  * NOT their event pages. An event is one piece of content behind every door,
+    and each door canonicals it to itself - announcing it once per door would
+    put one copy per door in the index and split its authority. Only mapsee.me lists
     events in a sitemap, and only mapsee.me pushes them.
 
 The /c/ pages are not "new", but their content genuinely changes every run - the
 listings turn over and the live count in each <title> moves with them - so they
 are legitimately updated URLs, not spam.
 
-The key file needs no per-door deployment: one Worker serves all seven hosts from
+The key file needs no per-door deployment: one Worker serves every door's host from
 one assets binding, so /<key>.txt already resolves on every domain.
 
 CREDENTIALS
@@ -365,7 +366,7 @@ def lens_hosts(session: requests.Session):
 
     WHY THESE ARE SUBMITTED TOO
     ---------------------------
-    The six niche doors are not skins over one page. Each opens onto its own
+    The niche doors are not skins over one page. Each opens onto its own
     slice of the catalog - bar.ventures is party/music/food, fleabop.com is
     markets - so bar.ventures/c/seattle and mapsee.me/c/seattle list different
     events, and every door's /c/ page is SELF-canonical (verified live: each one
@@ -560,8 +561,8 @@ def main() -> None:
 
     # ---- the other doors: their landing pages only ----
     #
-    # No events here. An event is one piece of content behind seven doors and
-    # each door canonicals it to itself, so announcing it seven times would
+    # No events here. An event is one piece of content behind every door and
+    # each door canonicals it to itself, so announcing it once per door would
     # split its authority - that is the duplication this deliberately avoids.
     # Their /c/ pages are the opposite case: different events, self-canonical,
     # separately verified domains, and until now getting no push at all.

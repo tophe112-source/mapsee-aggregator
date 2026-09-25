@@ -1,7 +1,7 @@
 name: Tests
 
 # The category classifier is the highest-consequence code in this repo and the
-# hardest to eyeball. It decides which of the seven mapsee front doors an event
+# hardest to eyeball. It decides which of the mapsee front doors an event
 # reaches: a rule that is one word too greedy puts a food-bank repack shift on a
 # nightlife map, and a rule that is one word too narrow starves a whole lens.
 # Nothing about that failure is loud — the sweep still exits 0 and the events
