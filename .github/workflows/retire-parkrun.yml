@@ -38,7 +38,11 @@ concurrency:
 jobs:
   retire:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    # 90, not 40. The unhide walk reads HIDDEN rows, which are sparse (35,767
+    # among ~450k in the window), so a page scans far to fill and 60 instants
+    # timed out and were stepped past at ~29 s each: the dry run (run 6) took
+    # 34 min where the hide took 12.5. An apply adds its writes on top.
+    timeout-minutes: 90
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
