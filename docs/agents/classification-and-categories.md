@@ -328,3 +328,15 @@
   `_from_keyword_sweep` is always False inside it. It CAN backfill the
   non-English promotions, which need no provenance (dry run first, then
   `--allow community->kids --allow learning->kids`).
+
+- **A MARKET'S `food` SECONDARY PUTS FARMERS MARKETS ON THE NIGHTLIFE DOOR.**
+  `mapsee_ingest_markets.py` gives every market `categories=["food"]` so that it
+  reaches oneday.cafe (its comment calls markets "the single richest supply
+  oneday.cafe has"). But bar.ventures' slice is `party`, `music` and `food`, and
+  `events_near` matches secondaries, so the same rows land on the nightlife door.
+  On 2026-09-25, 71 of bar.ventures' 120 Berlin rows were `market` with a `food`
+  secondary. The first twelve listings on its Berlin, Munich, Frankfurt and London
+  pages held 12, 10, 11 and 5 markets; US cities held 0 or 1. Categories do not
+  know about doors, so dropping the secondary would also take markets off
+  oneday.cafe. The fix is a product choice: exclude a `market` primary on
+  bar.ventures, drop `food` from its slice, or accept it.
