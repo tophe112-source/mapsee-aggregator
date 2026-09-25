@@ -225,3 +225,17 @@
   now swept through category filters; the weekly check only judges one that
   cannot be swept.
 
+- **AN UNHIDE WALK IS NOT THE HIDE WALK RUN BACKWARDS, AND ITS DRY RUN
+  OVERCOUNTS.** `mapsee_retire_parkrun.py --unhide` walks the same window over
+  `hidden_at=not.is.null`. The hide took 12.5 minutes; the unhide took **34**
+  (dry, run 6) and **33.5** (apply, run 7). Hidden rows are sparse (35,767
+  among the ~450k the hide walked), so a page scans far to fill 500, and **60**
+  instants on the first day timed out and were stepped past at ~29 s each
+  (three ~8 s attempts), which is most of the run. `retire-parkrun.yml`'s limit
+  went from 40 to 90 minutes before the apply for that reason. The dry run
+  counted **17,923** rows to restore; the apply restored **17,870**, the exact
+  number hidden. The 53 were counted twice: a page reads part of an instant,
+  the next page times out, and the sweep of the stepped-past instant reads all
+  of it again. In an apply the first write takes a row out of the hidden set,
+  so the sweep cannot see it twice. When instants were stepped past, trust an
+  apply's written count over a dry run's hits.

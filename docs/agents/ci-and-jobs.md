@@ -127,6 +127,17 @@
   Ottawa, London, Dublin and Sydney pages held 0 each. Before creating a
   guarded config that is missing, look for a `.pending-permission` twin and
   read the README's Conduct section.
+  **Then the owner decided to show parkrun, the same day**, since it wants its
+  events shared and attended. The config is live again with a `_decision`
+  note (what is shown, and how to stop), the test now fails if the live file
+  goes MISSING or a parked twin reappears, and the README's Conduct section
+  says what a parkrun listing is and how any organizer gets one taken down.
+  `retire-parkrun.yml` run 7 (`apply` + `unhide`) put back exactly **17,870**
+  rows in 33.5 minutes: the same number run 5 hid. Measured on the app's own
+  public read, `events_near_public` within 35 km, running, that weekend:
+  London 187 parkrun rows of 269, Sydney 33 of 38, Dublin 20 of 24, Ottawa 5
+  of 5. A `/c/` page can lag by up to its `s-maxage` of 6 h (London's still
+  held 0 an hour later).
 
 - **A FAILED READ IS NOT A FAILED RUN, and `sys.exit(1)` cost seven domains
   their daily push.** That same job reads the events for mapsee.me and then
