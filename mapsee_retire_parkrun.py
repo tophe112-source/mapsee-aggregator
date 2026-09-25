@@ -41,6 +41,7 @@ import os
 import sys
 import time
 import urllib.parse
+from datetime import datetime
 import urllib.request
 
 from mapsee_ingest_parkrun import SERIES
@@ -124,6 +125,31 @@ def main():
     t, pages = start, 0
     scanned = hits = claimed_skipped = 0
     examples, skipped_windows = [], []
+    skipped_instants, found_instants = set(), set()
+
+    base = ("events?external_source=eq.mapsee&is_private=eq.false"
+            f"&hidden_at={want_hidden}")
+
+    def read(path):
+        """One request, retried on a transient failure. None when it cannot be
+        read at all, [] when there is simply nothing there."""
+        for attempt in range(3):
+            try:
+                return sb(path) or []
+            except Exception as e:
+                if TIMEOUT_CODE in str(e) or attempt == 2:
+                    print(f"    read failed ({e})", file=sys.stderr)
+                    return None
+                time.sleep(1.5 * (attempt + 1))
+        return None
+
+    def first_instant(lo, inclusive, hi):
+        """The next starts_at after `lo`, by the index's own order (no id, so no
+        sort): cheap even where a page of rows is not."""
+        op = "gte" if inclusive else "gt"
+        rows = read(f"{base}&select=starts_at&starts_at={op}.{urllib.parse.quote(lo, safe='')}"
+                    f"&starts_at=lt.{hi}&order=starts_at.asc&limit=1")
+        return rows[0]["starts_at"] if rows else None
 
     def descriptions(ids):
         """Only the rows whose TITLE names parkrun get their description read:
@@ -157,25 +183,36 @@ def main():
         # page starts after the last key, whatever has left the set since. The
         # cursor is the PAIR because many rows share one starts_at. Values are
         # double-quoted, as in mapsee_indexnow: a timestamp carries ':' and '+'.
-        last = None
+        last = None      # keyset cursor: (starts_at, id) of the last row read
+        after = None     # an instant stepped past; the walk resumes strictly after it
         while True:
             page_q = q
+            if after:
+                page_q += "&starts_at=gt." + urllib.parse.quote(after, safe="")
             if last:
                 ts, rid = last
                 page_q += "&or=" + urllib.parse.quote(
                     f'(starts_at.gt."{ts}",and(starts_at.eq."{ts}",id.gt."{rid}"))', safe="")
-            rows = None
-            for attempt in range(3):
-                try:
-                    rows = sb(page_q) or []
+            rows = read(page_q)
+            if rows is None:
+                # A page that cannot be read is stuck inside ONE instant. There
+                # is no (starts_at, id) index, so a page among rows sharing a
+                # starts_at must fetch and sort all of them, and a cluster of
+                # standing rows is tens of thousands: the second dry run
+                # (2026-09-25) stuck at 2026-09-24T22:00Z and 2026-09-30T06:00Z,
+                # neither of them a time parkrun meets at. Step past the instant
+                # and record it; the end of the run checks every one.
+                stuck = last[0] if last else first_instant(after or w_a, after is None, w_b)
+                if not stuck or stuck in skipped_instants:
+                    print(f"  window {w_a[:10]} failed and could not be stepped past",
+                          file=sys.stderr)
+                    skipped_windows.append(w_a[:10])
                     break
-                except Exception as e:
-                    if TIMEOUT_CODE in str(e) or attempt == 2:
-                        print(f"  window {w_a[:10]} after {last} failed ({e})",
-                              file=sys.stderr)
-                        skipped_windows.append(w_a[:10])
-                        break
-                    time.sleep(1.5 * (attempt + 1))
+                print(f"  stepped past {stuck}: too many rows share it to page through",
+                      file=sys.stderr)
+                skipped_instants.add(stuck)
+                after, last = stuck, None
+                continue
             if not rows:
                 break
             page_ids = []
@@ -197,6 +234,7 @@ def main():
                 if not should_retire(dict(row, description=desc.get(str(row["id"])))):
                     continue
                 hits += 1
+                found_instants.add(row["starts_at"])
                 page_ids.append(str(row["id"]))
                 if len(examples) < 30:
                     examples.append((str(row.get("starts_at"))[:10],
@@ -214,17 +252,34 @@ def main():
         print(f"    {when}  {title[:72]}")
     if hits > len(examples):
         print(f"    … and {hits - len(examples)} more")
-    if skipped_windows:
-        # A one-off backfill that missed a window has not done its job; say so
+    # parkrun is weekly, so a parkrun instant recurs every seven days to the
+    # minute, give or take the hour a clock change moves it. A skipped instant
+    # that matches no parkrun row found anywhere cannot be holding one.
+    week = 7 * 86400
+
+    def could_hold_parkrun(t):
+        T = datetime.fromisoformat(t)
+        for f in found_instants:
+            r = (T - datetime.fromisoformat(f)).total_seconds() % week
+            if r <= 3600 or r >= week - 3600:
+                return True
+        return not found_instants          # nothing found: nothing to judge by
+    unsafe = sorted(t for t in skipped_instants if could_hold_parkrun(t))
+    for t in sorted(skipped_instants):
+        print(f"  stepped past {t}: "
+              + ("COULD hold a parkrun row, NOT examined" if t in unsafe
+                 else "no weekly parkrun instant falls on it"))
+    if skipped_windows or unsafe:
+        # A one-off backfill that missed something has not done its job; say so
         # with the exit code, not only in a line nobody reads.
-        print(f"  INCOMPLETE: {len(skipped_windows)} window(s) errored and were not "
-              f"examined: {', '.join(skipped_windows[:6])}")
+        print(f"  INCOMPLETE: {len(skipped_windows)} window(s) failed, "
+              f"{len(unsafe)} unexamined instant(s) could hold parkrun rows")
     if not args.apply:
         print("\n  DRY RUN — nothing written. Read the list above, then re-run with --apply.")
-        return 1 if skipped_windows else 0
+        return 1 if (skipped_windows or unsafe) else 0
     print(f"\n  {past} {written[0]} row(s) (hidden_at "
           + ("cleared" if args.unhide else "set") + "; not deleted, and reversible)")
-    return 1 if skipped_windows else 0
+    return 1 if (skipped_windows or unsafe) else 0
 
 
 if __name__ == "__main__":

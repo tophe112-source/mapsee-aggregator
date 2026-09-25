@@ -184,6 +184,12 @@ def main():
     row(12, "Park 12 parkrun", blurb5, days=30)
     for i in (13, 14, 15, 16):   # one Saturday, one timestamp: the keyset's tie-break
         row(i, f"Park {i} parkrun", blurb5, days=2.0)
+    # Standing rows sharing ONE instant, too many to page through in production
+    # (the fake refuses to page inside it, as the database did): the walk must
+    # step past it and still reach everything after.
+    CLUSTER = iso(1.6)
+    for i in range(17, 22):
+        row(i, "Standing shop", "Open today.", days=1.6)
     calls = []
 
     def fake_sb(path, method="GET", body=None, prefer=""):
@@ -199,13 +205,25 @@ def main():
             return [{"id": r["id"], "description": r["description"]} for r in table if r["id"] in ids]
         assert "ilike" not in path, "a text filter in the walk is a sequential scan"
         hidden = _re.search(r"hidden_at=([a-z.]+)", path).group(1)
-        a = _re.search(r"starts_at=gte\.([^&]+)", path).group(1)
+        a = urllib.parse.unquote((_re.search(r"starts_at=gte?\.([^&]+)", path) or [None, ""])[1])
         b = _re.search(r"starts_at=lt\.([^&]+)", path).group(1)
+        strictly = [urllib.parse.unquote(x) for x in _re.findall(r"starts_at=gt\.([^&]+)", path)]
+        inclusive = "starts_at=gte." in path
+        def in_range(r):
+            return ((r["starts_at"] >= a) if inclusive else True) and r["starts_at"] < b \
+                and all(r["starts_at"] > x for x in strictly)
+        if "select=starts_at&" in path:     # the probe: index order, first instant only
+            hit = sorted(r["starts_at"] for r in table
+                         if in_range(r) and (r["hidden_at"] is None) == (hidden == "is.null"))
+            return [{"starts_at": hit[0]}] if hit else []
+        m0 = _re.search(r"&or=([^&]+)", path)
+        if m0 and f'starts_at.eq."{CLUSTER}"' in urllib.parse.unquote(m0.group(1)):
+            raise RuntimeError("HTTP Error 500: 57014 canceling statement due to statement timeout")
         limit = int(_re.search(r"limit=(\d+)", path).group(1))
         assert "offset=" not in path, "a deep OFFSET 500'd in production; the walk is a keyset"
         key = lambda r: (r["starts_at"], int(r["id"]))
         hit = sorted((r for r in table
-                      if a <= r["starts_at"] < b and (r["hidden_at"] is None) == (hidden == "is.null")),
+                      if in_range(r) and (r["hidden_at"] is None) == (hidden == "is.null")),
                      key=key)
         m = _re.search(r"&or=([^&]+)", path)
         if m:   # PostgREST's meaning for the two shapes a keyset can take; nothing else
@@ -224,7 +242,7 @@ def main():
     rp.sb, rp.PAGE, rp.SUPABASE_URL, rp.SERVICE_KEY = fake_sb, 3, "https://x.supabase.co", "k"
     try:
         _sys.argv = ["mapsee_retire_parkrun.py"]
-        rp.main()
+        check("a dry run that steps past a standing-row cluster is complete (exit 0)", rp.main(), 0)
         check("a dry run writes nothing", [c for c in calls if c[0] == "PATCH"], [])
         _sys.argv = ["mapsee_retire_parkrun.py", "--apply"]
         rp.main()
@@ -236,6 +254,17 @@ def main():
         _sys.argv = ["mapsee_retire_parkrun.py", "--apply", "--unhide"]
         rp.main()
         check("--unhide puts every one of them back", [r["id"] for r in table if r["hidden_at"]], [])
+        check("the cluster's own rows are never hidden",
+              [r["id"] for r in table if r["title"] == "Standing shop" and r["hidden_at"]], [])
+        # The same cluster, moved to exactly one week after a parkrun Saturday:
+        # a parkrun row could be in there, so stepping past it is INCOMPLETE.
+        week_on = iso(2.0 + 7)
+        for r in table:
+            if r["title"] == "Standing shop":
+                r["starts_at"] = week_on
+        CLUSTER = week_on
+        _sys.argv = ["mapsee_retire_parkrun.py"]
+        check("stepping past an instant a weekly parkrun could fall on exits 1", rp.main(), 1)
     finally:
         rp.sb, rp.PAGE, rp.SUPABASE_URL, rp.SERVICE_KEY, _sys.argv[:] = saved
 

@@ -207,5 +207,15 @@
   windows answered 500 at offsets of about 54,000. A keyset costs the same on
   every page and needs no correction at all. `test_ingest_parkrun.py` runs that
   walk, including four rows on one timestamp across a page boundary: a keyset
-  on `starts_at` alone loses them, and that mutant fails the test.
+  on `starts_at` alone loses them, and that mutant fails the test. **The keyset
+  still stuck at the same two places**, because `events` has no index on
+  `(starts_at, id)`. One page inside a run of rows that share a `starts_at` must
+  fetch and sort the whole run, and a cluster of standing rows is tens of
+  thousands of them. The second dry run failed after `2026-09-24T22:00Z` and
+  `2026-09-30T06:00Z`, with the same 14,891 hits. The walk now steps strictly
+  past an instant it cannot page through, finding the next instant with an
+  `order=starts_at` probe, which needs no sort. It then judges every skipped
+  instant against the weekly schedule of the parkrun rows it did find (seven
+  days, plus or minus an hour for clock changes). Only an instant that could
+  hold one makes the run INCOMPLETE.
 
