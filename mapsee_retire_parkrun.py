@@ -123,7 +123,7 @@ def main():
     start = now - args.back * 86400
     step = 86400 * 4
     t, pages = start, 0
-    scanned = hits = claimed_skipped = 0
+    n = {"scanned": 0, "hits": 0, "claimed": 0}
     examples, skipped_windows = [], []
     skipped_instants, found_instants = set(), set()
 
@@ -160,6 +160,52 @@ def main():
             for row in sb(f"events?select=id,description&id=in.({','.join(chunk)})") or []:
                 out[str(row["id"])] = row.get("description")
         return out
+
+    def consider(rows, where):
+        """Decide one batch of rows and write it now. False when the
+        descriptions could not be read, so nothing in the batch was judged."""
+        page_ids = []
+        named = [str(r["id"]) for r in rows
+                 if "parkrun" in (r.get("title") or "").lower() and not r.get("claimed_by")]
+        try:
+            desc = descriptions(named) if named else {}
+        except Exception as e:
+            print(f"  {where}: description read failed ({e})", file=sys.stderr)
+            return False
+        for row in rows:
+            n["scanned"] += 1
+            if "parkrun" not in (row.get("title") or "").lower():
+                continue
+            if row.get("claimed_by"):
+                n["claimed"] += 1
+                continue                           # somebody owns this listing now
+            if not should_retire(dict(row, description=desc.get(str(row["id"])))):
+                continue
+            n["hits"] += 1
+            found_instants.add(row["starts_at"])
+            page_ids.append(str(row["id"]))
+            if len(examples) < 30:
+                examples.append((str(row.get("starts_at"))[:10], row.get("title") or "?"))
+        flush(page_ids)
+        return True
+
+    def sweep_instant(t):
+        """Every row at exactly `t` that could be a parkrun row, read through
+        selective filters rather than a page of the whole instant. At
+        2026-09-26T00:00Z, whose pages could not be read at all, equality plus
+        category=running answered in 67 ms, and it held a parkrun row. A parkrun
+        row is primarily running (kids, if the junior 2k was promoted) and
+        carries outdoors or kids as a secondary. None when a read fails or
+        reaches PostgREST's 1,000-row cap, which is not an answer."""
+        seen = {}
+        at = urllib.parse.quote(t, safe="")
+        for f in ("category=eq.running", "category=eq.kids", "categories=ov.%7Boutdoors,kids%7D"):
+            rows = read(f"{base}&select=id,title,claimed_by,starts_at&starts_at=eq.{at}&{f}&limit=1000")
+            if rows is None or len(rows) >= 1000:
+                return None
+            for r in rows:
+                seen[str(r["id"])] = r
+        return list(seen.values())
 
     # Windowed along the (external_source, starts_at) index, like its siblings,
     # and with NO text filter in the query: a `title=ilike` or
@@ -215,43 +261,28 @@ def main():
                 continue
             if not rows:
                 break
-            page_ids = []
-            named = [str(r["id"]) for r in rows
-                     if "parkrun" in (r.get("title") or "").lower() and not r.get("claimed_by")]
-            try:
-                desc = descriptions(named) if named else {}
-            except Exception as e:
-                print(f"  window {w_a[:10]}: description read failed ({e})", file=sys.stderr)
+            if not consider(rows, w_a[:10]):
                 skipped_windows.append(w_a[:10])
-                desc = {}
-            for row in rows:
-                scanned += 1
-                if "parkrun" not in (row.get("title") or "").lower():
-                    continue
-                if row.get("claimed_by"):
-                    claimed_skipped += 1
-                    continue                       # somebody owns this listing now
-                if not should_retire(dict(row, description=desc.get(str(row["id"])))):
-                    continue
-                hits += 1
-                found_instants.add(row["starts_at"])
-                page_ids.append(str(row["id"]))
-                if len(examples) < 30:
-                    examples.append((str(row.get("starts_at"))[:10],
-                                     row.get("title") or "?"))
-            flush(page_ids)
             if len(rows) < PAGE:
                 break
             last = (rows[-1]["starts_at"], rows[-1]["id"])
         pages += 1
         t += step
 
-    print(f"\n  scanned {scanned} imported rows · {hits} parkrun rows to {verb}"
-          + (f" · {claimed_skipped} claimed and left alone" if claimed_skipped else ""))
+    # Every instant the walk stepped past is read again through its selective
+    # filters; only one that cannot be read that way is left to the weekly test.
+    examined = {}
+    for t in sorted(skipped_instants):
+        rows = sweep_instant(t)
+        if rows is not None and consider(rows, t):
+            examined[t] = len(rows)
+
+    print(f"\n  scanned {n['scanned']} imported rows · {n['hits']} parkrun rows to {verb}"
+          + (f" · {n['claimed']} claimed and left alone" if n['claimed'] else ""))
     for when, title in examples:
         print(f"    {when}  {title[:72]}")
-    if hits > len(examples):
-        print(f"    … and {hits - len(examples)} more")
+    if n["hits"] > len(examples):
+        print(f"    … and {n['hits'] - len(examples)} more")
     # parkrun is weekly, so a parkrun instant recurs every seven days to the
     # minute, give or take the hour a clock change moves it. A skipped instant
     # that matches no parkrun row found anywhere cannot be holding one.
@@ -264,11 +295,12 @@ def main():
             if r <= 3600 or r >= week - 3600:
                 return True
         return not found_instants          # nothing found: nothing to judge by
-    unsafe = sorted(t for t in skipped_instants if could_hold_parkrun(t))
+    unsafe = sorted(t for t in skipped_instants if t not in examined and could_hold_parkrun(t))
     for t in sorted(skipped_instants):
         print(f"  stepped past {t}: "
-              + ("COULD hold a parkrun row, NOT examined" if t in unsafe
-                 else "no weekly parkrun instant falls on it"))
+              + (f"then read through category filters ({examined[t]} candidate rows)" if t in examined
+                 else "COULD hold a parkrun row, NOT examined" if t in unsafe
+                 else "unreadable, but no weekly parkrun instant falls on it"))
     if skipped_windows or unsafe:
         # A one-off backfill that missed something has not done its job; say so
         # with the exit code, not only in a line nobody reads.

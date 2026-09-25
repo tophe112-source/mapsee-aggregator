@@ -217,5 +217,11 @@
   `order=starts_at` probe, which needs no sort. It then judges every skipped
   instant against the weekly schedule of the parkrun rows it did find (seven
   days, plus or minus an hour for clock changes). Only an instant that could
-  hold one makes the run INCOMPLETE.
+  hold one makes the run INCOMPLETE. That check was not academic. The third dry
+  run walked 436,667 rows and stepped past four instants. One of them,
+  `2026-09-26T00:00Z`, did hold a parkrun row ("Plantation Forest parkrun"),
+  and equality on that instant plus `category=eq.running` found it in 67 ms,
+  where no page of the instant could be read. So every stepped-past instant is
+  now swept through category filters; the weekly check only judges one that
+  cannot be swept.
 

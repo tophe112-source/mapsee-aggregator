@@ -170,10 +170,15 @@ def main():
     t0 = _time.time()
     iso = lambda days: _time.strftime("%Y-%m-%dT%H:%M:%SZ", _time.gmtime(t0 + days * 86400))
     table = []
-    def row(i, title, desc, claimed=None, days=1.0):
+    def row(i, title, desc, claimed=None, days=1.0, category=None, categories=None):
+        if category is None:      # the adapter's shape: running, with outdoors (5k) or kids (2k)
+            parkrun = "parkrun" in title.lower() and (desc or "").startswith(tuple(
+                s_["blurb"] for s_ in pr.SERIES.values()))
+            category = "running" if parkrun else "community"
+            categories = (["kids"] if "junior" in title.lower() else ["outdoors"]) if parkrun else None
         table.append({"id": str(i), "title": title, "description": desc, "claimed_by": claimed,
-                      "starts_at": iso(days), "hidden_at": None,
-                      "external_source": "mapsee", "is_private": False})
+                      "starts_at": iso(days), "hidden_at": None, "category": category,
+                      "categories": categories, "external_source": "mapsee", "is_private": False})
     blurb5, blurb2 = (s["blurb"] for s in pr.SERIES.values())
     for i in range(1, 8):
         row(i, f"Park {i} parkrun", blurb5 + " Start time on the event page.", days=1 + i * 0.01)
@@ -188,8 +193,12 @@ def main():
     # (the fake refuses to page inside it, as the database did): the walk must
     # step past it and still reach everything after.
     CLUSTER = iso(1.6)
+    SWEEP_REFUSED = set()
     for i in range(17, 22):
-        row(i, "Standing shop", "Open today.", days=1.6)
+        row(i, "Standing shop", "Open today.", days=1.6, category="food")
+    # ...and one parkrun row INSIDE that instant, past the page that stuck: only
+    # the category sweep of the stepped-past instant can reach it.
+    row(22, "Park 22 parkrun", blurb5, days=1.6)
     calls = []
 
     def fake_sb(path, method="GET", body=None, prefer=""):
@@ -205,6 +214,18 @@ def main():
             return [{"id": r["id"], "description": r["description"]} for r in table if r["id"] in ids]
         assert "ilike" not in path, "a text filter in the walk is a sequential scan"
         hidden = _re.search(r"hidden_at=([a-z.]+)", path).group(1)
+        m_eq = _re.search(r"starts_at=eq\.([^&]+)", path)
+        if m_eq:                              # the sweep of one instant, through a category filter
+            t = urllib.parse.unquote(m_eq.group(1))
+            if t in SWEEP_REFUSED:
+                raise RuntimeError("HTTP Error 500: 57014 canceling statement due to statement timeout")
+            cat = _re.search(r"&category=eq\.([a-z]+)", path)
+            ov = _re.search(r"&categories=ov\.([^&]+)", path)
+            want_ov = set(urllib.parse.unquote(ov.group(1)).strip("{}").split(",")) if ov else None
+            return [{k: r[k] for k in ("id", "title", "claimed_by", "starts_at")} for r in table
+                    if r["starts_at"] == t and (r["hidden_at"] is None) == (hidden == "is.null")
+                    and (not cat or r["category"] == cat.group(1))
+                    and (want_ov is None or set(r["categories"] or []) & want_ov)]
         a = urllib.parse.unquote((_re.search(r"starts_at=gte?\.([^&]+)", path) or [None, ""])[1])
         b = _re.search(r"starts_at=lt\.([^&]+)", path).group(1)
         strictly = [urllib.parse.unquote(x) for x in _re.findall(r"starts_at=gt\.([^&]+)", path)]
@@ -248,7 +269,7 @@ def main():
         rp.main()
         hidden_ids = sorted((r["id"] for r in table if r["hidden_at"]), key=int)
         check("--apply hides every adapter row across pages, and nothing else",
-              hidden_ids, ["1", "2", "3", "4", "5", "6", "7", "8", "12", "13", "14", "15", "16"])
+              hidden_ids, ["1", "2", "3", "4", "5", "6", "7", "8", "12", "13", "14", "15", "16", "22"])
         check_true("descriptions are read only for rows whose title names parkrun",
                    all("11" not in p.split("id=in.(")[1] for m, p in calls if m == "GET" and "id=in.(" in p))
         _sys.argv = ["mapsee_retire_parkrun.py", "--apply", "--unhide"]
@@ -264,7 +285,9 @@ def main():
                 r["starts_at"] = week_on
         CLUSTER = week_on
         _sys.argv = ["mapsee_retire_parkrun.py"]
-        check("stepping past an instant a weekly parkrun could fall on exits 1", rp.main(), 1)
+        check("an instant stepped past and then swept is complete (exit 0)", rp.main(), 0)
+        SWEEP_REFUSED.add(week_on)
+        check("one that cannot be swept either, on a weekly parkrun instant, exits 1", rp.main(), 1)
     finally:
         rp.sb, rp.PAGE, rp.SUPABASE_URL, rp.SERVICE_KEY, _sys.argv[:] = saved
 
