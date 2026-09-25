@@ -21189,6 +21189,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "biblioteca.cucei.udg.mx": {
+    "checked": 20260925,
+    "name": "Centro Integral de Documentaci\u00f3n (CID)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "biblioteca.dieti.unina.it": {
     "checked": 20260922,
     "name": "Biblioteca DIETI",
@@ -21283,6 +21290,13 @@
   "bibliotecadelledonne.women.it": {
     "checked": 20260922,
     "name": "Biblioteca Italiana delle Donne",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bibliotecademexico.gob.mx": {
+    "checked": 20260925,
+    "name": "Biblioteca de M\u00e9xico. La Ciudadela",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50308,6 +50322,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "clubdegolfvalleimperial.com.mx": {
+    "checked": 20260925,
+    "name": "Club de Golf Valle Imperial",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "clubdeletoile.fr": {
     "checked": 20260828,
     "name": "Club de l'\u00c9toile",
@@ -66698,6 +66719,13 @@
   "elargonauta.com": {
     "checked": 20260914,
     "name": "El argonauta",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "elarsenal.inba.gob.mx": {
+    "checked": 20260925,
+    "name": "El Arsenal",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -167758,6 +167786,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pilac.mx": {
+    "checked": 20260925,
+    "name": "Proteccion al Infante con Leucemia, A.C (PILAC)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "pilar.brussels": {
     "checked": 20260920,
     "name": "Pilar",
@@ -183778,6 +183813,13 @@
   "sangsangmadang.com": {
     "checked": 20260902,
     "name": "KT&G \uc0c1\uc0c1\ub9c8\ub2f9 \ube4c\ub529 (SangSang Madang)",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sanildefonso.org.mx": {
+    "checked": 20260925,
+    "name": "Colegio de San Ildefonso",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -223538,6 +223580,13 @@
   "valokuvataiteenmuseo.fi": {
     "checked": 20260903,
     "name": "Valokuvataiteen museo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "valoraradio.org": {
+    "checked": 20260925,
+    "name": "Valora Radio",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"

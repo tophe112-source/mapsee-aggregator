@@ -207,8 +207,8 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 62,
-  "metro_key": "MX:Mexico City",
+  "metro": 64,
+  "metro_key": "MX:Monterrey",
   "stuck": {}
  },
  "socrata": {
