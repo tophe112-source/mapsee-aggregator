@@ -120,9 +120,13 @@
   again as `parkrun_sources.json.pending-permission`, in the working shape so
   that re-enabling is one rename. `test_ingest_parkrun.py` now FAILS while the
   live file exists, and lists it in `KNOWN_EMPTY`. `mapsee_retire_parkrun.py`
-  (dispatched from `retire-parkrun.yml`) hides what was imported. Before
-  creating a guarded config that is missing, look for a `.pending-permission`
-  twin and read the README's Conduct section.
+  (dispatched from `retire-parkrun.yml`) hid what had been imported: 17,870
+  rows on 2026-09-25, after four dry runs to get a complete walk
+  (`sync-eventstore-and-paging.md` says why). Afterwards the running, sports
+  and fitness rows within 35 km of Ottawa held 0 parkrun of 61, and wegosie's
+  Ottawa, London, Dublin and Sydney pages held 0 each. Before creating a
+  guarded config that is missing, look for a `.pending-permission` twin and
+  read the README's Conduct section.
 
 - **A FAILED READ IS NOT A FAILED RUN, and `sys.exit(1)` cost seven domains
   their daily push.** That same job reads the events for mapsee.me and then
