@@ -4811,6 +4811,26 @@
         "lon": 135.4979717
       },
       "_metro": "Osaka, Japan"
+    },
+    {
+      "name": "Womb",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.womb.co.jp/ja/events/092726"
+      ],
+      "link_pattern": "https://www\\.womb\\.co\\.jp/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Womb",
+        "address": "16",
+        "city": "渋谷区",
+        "region": "東京都",
+        "postal_code": "150-0044",
+        "lat": 35.6584259,
+        "lon": 139.6950494
+      },
+      "_metro": "Yokohama, Japan"
     }
   ],
   "_not_included": {

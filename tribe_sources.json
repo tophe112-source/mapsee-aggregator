@@ -10177,6 +10177,24 @@
         "lon": 135.7725145
       },
       "_metro": "Kyoto, Japan"
+    },
+    {
+      "name": "Yokohama Country & Athletic Club",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ycac.jp",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Yokohama Country & Athletic Club",
+        "address": "1",
+        "city": "横浜市",
+        "region": "神奈川県",
+        "postal_code": "231-0831",
+        "lat": 35.4231662,
+        "lon": 139.6493072
+      },
+      "_metro": "Yokohama, Japan"
     }
   ],
   "_not_included": {
