@@ -209,9 +209,11 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 64,
-  "metro_key": "MX:Monterrey",
-  "stuck": {}
+  "metro": 73,
+  "metro_key": "BR:Bras\u00edlia",
+  "stuck": {
+   "BR:Bras\u00edlia": 1
+  }
  },
  "socrata": {
   "art events": 0,

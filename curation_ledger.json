@@ -1014,6 +1014,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aa.org.br": {
+    "checked": 20260926,
+    "name": "Alc\u00f3olicos An\u00f4nimos - Grupo S\u00e3o Bernardo",
+    "reason": "5 events, 5/5 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "aaapoumbapoum.com/nouveaux-evenements": {
     "checked": 20260828,
     "name": "Aaapoum Bapoum",
@@ -1031,6 +1038,13 @@
   "aacc.com.au": {
     "checked": 20260819,
     "name": "Austral-Asian Community Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "aaenglishmeetingcancun.com": {
+    "checked": 20260926,
+    "name": "Plaza Centro",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16224,6 +16238,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "balboapark.org": {
+    "checked": 20260926,
+    "name": "Photographic Arts Building",
+    "reason": "175 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "balchavaux.fr/agenda": {
     "checked": 20260830,
     "name": "Bal Chavaux",
@@ -18216,6 +18237,13 @@
   "bbk-badminton.dk": {
     "checked": 20260831,
     "name": "Br\u00f8ndby Badminton Klub",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bbm.usp.br": {
+    "checked": 20260926,
+    "name": "Biblioteca Brasiliana Guita e Jos\u00e9 Mindlin",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -21381,6 +21409,20 @@
   "biblioteca.fct.unl.pt": {
     "checked": 20260901,
     "name": "Biblioteca FCT/UNL",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "biblioteca.fflch.usp.br": {
+    "checked": 20260926,
+    "name": "Biblioteca Florestan Fernandes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "biblioteca.fmvz.usp.br": {
+    "checked": 20260926,
+    "name": "Biblioteca Virginie Buff D'\u00c1pice",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -32295,6 +32337,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bvl.org.br": {
+    "checked": 20260926,
+    "name": "Biblioteca Parque Villa Lobos",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bvmartyrshrine.com": {
     "checked": 20260819,
     "name": "Bishop Velychkovsky Martyr\u2019s Shrine",
@@ -35981,6 +36030,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "casafamiliar.org": {
+    "checked": 20260926,
+    "name": "San Ysidro Civic Center",
+    "reason": "6 events, 6/6 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "casafools.it": {
     "checked": 20260923,
     "name": "Casa Fools",
@@ -36201,6 +36257,20 @@
   "casatomada.es": {
     "checked": 20260916,
     "name": "Casa Tomada",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "casaum.org": {
+    "checked": 20260926,
+    "name": "Centro Cultural Casa1",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "casaum.org/nossos-espacos/biblioteca": {
+    "checked": 20260926,
+    "name": "Biblioteca Caio Fernando Abreu (Casa1)",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -37528,6 +37598,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ccn.com.br/conjunto/historia": {
+    "checked": 20260926,
+    "name": "Conjunto Nacional",
+    "offsite_url": "https://www.instagram.com/p/Cr1JBLuOS6W/",
+    "reason": "osm probe: offsite:instagram.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ccnb.org.au": {
     "checked": 20260819,
     "name": "Christ Church Northern Beaches",
@@ -37909,6 +37987,13 @@
   "ceciliawolvertem.be": {
     "checked": 20260911,
     "name": "Feestzaal Cecilia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cecut.gob.mx/sis/bibliotecas/muni/clavijero.php": {
+    "checked": 20260926,
+    "name": "Biblioteca P\u00fablica Municipal Francisco Javier Clavijero",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -38711,6 +38796,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "centroaleman.mx": {
+    "checked": 20260926,
+    "name": "Centro Alem\u00e1n de Cultura y Educaci\u00f3n",
+    "reason": "1 events, 1/1 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "centroambrosianodisolidarieta.org/mai-da-sole-2": {
     "checked": 20260922,
     "name": "Centro Mai Da Sole",
@@ -38784,6 +38876,13 @@
   "centrocongressi.confindustria.it/#/ms-1/1": {
     "checked": 20260921,
     "name": "Auditorium della Tecnica",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "centrocultural.sp.gov.br": {
+    "checked": 20260926,
+    "name": "Centro Cultural S\u00e3o Paulo",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -53473,6 +53572,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "convencoesreboucas.com.br": {
+    "checked": 20260926,
+    "name": "Centro de Conven\u00e7\u00f5es Rebou\u00e7as",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "conventionpoint.ch": {
     "checked": 20260917,
     "name": "SIX ConventionPoint",
@@ -56570,6 +56676,20 @@
   "culturapozuelo.es": {
     "checked": 20260914,
     "name": "Casa de Cultura de Pozuelo de Alarc\u00f3n",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "culturaz.santoandre.sp.gov.br/espaco/21": {
+    "checked": 20260926,
+    "name": "Biblioteca Nair Lacerda",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "culturaz.santoandre.sp.gov.br/espaco/27": {
+    "checked": 20260926,
+    "name": "Biblioteca Vila Humait\u00e1",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -61361,6 +61481,13 @@
   "dietlikon.ch/kultur-freizeit/freizeit/vereine/vereinsliste/details.html/130/association/56": {
     "checked": 20260917,
     "name": "Bring- & Holb\u00f6rse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dif.yucatan.gob.mx": {
+    "checked": 20260926,
+    "name": "Sistema para el Desarrollo Integral de la Familia en Yucat\u00e1n",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -66506,6 +66633,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ee.usp.br/biblioteca/site": {
+    "checked": 20260926,
+    "name": "Biblioteca Wanda de Aguiar Horta",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "eeba.fr": {
     "checked": 20260830,
     "name": "\u00c9glise Baptiste d\u2019Antony",
@@ -69006,6 +69140,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "enclavecaracol.wordpress.com": {
+    "checked": 20260926,
+    "name": "Enclave Caracol",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "enclavedelibros.com": {
     "checked": 20260914,
     "name": "Enclave de libros",
@@ -70038,6 +70179,13 @@
   "es-es.facebook.com/KitchenerElim": {
     "checked": 20260819,
     "name": "ELIM Internacional Kitchener",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "es-la.facebook.com/cocutlgbti": {
+    "checked": 20260926,
+    "name": "COCUT LGBT",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -73046,6 +73194,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/DAFISUFF": {
+    "checked": 20260926,
+    "name": "Diretorio Academico de Fisica",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/DignanStreetCommunityGarden": {
     "checked": 20260824,
     "name": "Dignan Street Community Garden",
@@ -73623,6 +73778,20 @@
   "facebook.com/dabskiks": {
     "checked": 20260909,
     "name": "D\u0105bski Klub Sportowy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/daeluff": {
+    "checked": 20260926,
+    "name": "Diretorio Academico de Engenharia Eletrica",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/deambuff": {
+    "checked": 20260926,
+    "name": "Diretorio Academico de Recursos Hidricos e do Meio Ambiente",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -74456,6 +74625,13 @@
   "facebook.com/triangle.snooker/?locale=en_GB": {
     "checked": 20260819,
     "name": "Triangle Snooker Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/uffdaec": {
+    "checked": 20260926,
+    "name": "Diretorio Academico de Engenharia Civil",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -75877,6 +76053,13 @@
   "fdys.ie": {
     "checked": 20260823,
     "name": "New Ross Youth Caf\u00e9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fea.usp.br/biblioteca": {
+    "checked": 20260926,
+    "name": "Biblioteca FEA 4",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -100435,6 +100618,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ib.usp.br/biblioteca": {
+    "checked": 20260926,
+    "name": "Biblioteca IB-USP",
+    "offsite_url": "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F930873232964153%2F&show_text=0&width=405&height=720",
+    "reason": "osm probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ibaraki-kasugaoka-church.jp/index.html": {
     "checked": 20260925,
     "name": "\u65e5\u672c\u30ad\u308a\u30b9\u30c8\u6559\u56e3 \u8328\u6728\u6625\u65e5\u4e18\u6559\u4f1a",
@@ -100736,6 +100927,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "icib.org.br": {
+    "checked": 20260926,
+    "name": "ICIB Cultura e Lingua Italiana",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "icietmaintenant1420.com": {
     "checked": 20260912,
     "name": "Le Jardin du Houz\u2019Art",
@@ -100872,6 +101070,13 @@
   "icrss.it/roma": {
     "checked": 20260921,
     "name": "Chiesa dei Santi Celso e Giuliano",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "iculturacancun.mx": {
+    "checked": 20260926,
+    "name": "Instituto de la Cultura y las Artes",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -102900,6 +103105,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "instagram.com/atleticamedsbc": {
+    "checked": 20260926,
+    "name": "Associa\u00e7\u00e3o Atl\u00e9tica Acad\u00eamica Erivelto Martinho Volpi - A.A.A.E.M.V.",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "instagram.com/atre_undo": {
     "checked": 20260926,
     "name": "ATRE\u904b\u52d5\u6559\u5ba4",
@@ -103099,6 +103311,13 @@
   "instagram.com/ost.barriera": {
     "checked": 20260922,
     "name": "Circolo Ost Barriera",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "instagram.com/quilombaque": {
+    "checked": 20260926,
+    "name": "Comunidade Cultural Quilombaque",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -132313,6 +132532,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "lyra.org.br/agenda": {
+    "checked": 20260926,
+    "name": "Sociedade Filarm\u00f4nica Lyra",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "lysakerfjorden.no": {
     "checked": 20260906,
     "name": "Lysakerfjorden Brettseilerklubb",
@@ -136109,6 +136335,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "martiusstaden.org.br": {
+    "checked": 20260926,
+    "name": "Instituto Martius-Staden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "marucelliana.cultura.gov.it": {
     "checked": 20260922,
     "name": "Biblioteca Marucelliana",
@@ -138744,6 +138977,13 @@
   "meriang\u00e4rten.ch/besuch/muehlemuseum": {
     "checked": 20260919,
     "name": "M\u00fchlemuseum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "meridaenglishlibrary.com": {
+    "checked": 20260926,
+    "name": "Merida English Library",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -145374,6 +145614,13 @@
   "multimondo.ch": {
     "checked": 20260919,
     "name": "Multimondo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "multirio.rj.gov.br/index.php/assista/tv/15366-biblioteca-machado-de-assis": {
+    "checked": 20260926,
+    "name": "Biblioteca Municipal Machado de Assis",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -157230,6 +157477,20 @@
   "obozowa.waw.pl": {
     "checked": 20260909,
     "name": "Centrum Wspinaczkowe On Sight",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "obrasocialsantaclara.org.br": {
+    "checked": 20260926,
+    "name": "Obra Social Santa Clara e S\u00e3o Francisco de Assis",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "obrasocialsantarita.org.br": {
+    "checked": 20260926,
+    "name": "Obra Social Santa Rita C\u00e1ssia",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -173150,6 +173411,202 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/biblioteca_belmonte": {
+    "checked": 20260926,
+    "name": "Biblioteca P\u00fablica Belmonte",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_a_l/affonsotaunay": {
+    "checked": 20260926,
+    "name": "Biblioteca Affonso Taunay",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_a_l/afonso_schmidt_": {
+    "checked": 20260926,
+    "name": "Biblioteca Afonso Schmit",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_a_l/alceu": {
+    "checked": 20260926,
+    "name": "Biblioteca P\u00fablica Alceu Amoroso Lima",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_a_l/alvaroguerra": {
+    "checked": 20260926,
+    "name": "Biblioteca \u00c1lvaro Guerra",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_a_l/britobroca": {
+    "checked": 20260926,
+    "name": "Biblioteca Brito Broca",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_a_l/camilacerqueiracesar": {
+    "checked": 20260926,
+    "name": "Biblioteca Camila Cerqueira C\u00e9sar",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_a_l/cassianoricardo": {
+    "checked": 20260926,
+    "name": "Cassiano Ricardo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_a_l/gilbertofreire": {
+    "checked": 20260926,
+    "name": "Biblioteca Gilberto Freyre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_a_l/josemaurodevasconcelos": {
+    "checked": 20260926,
+    "name": "Biblioteca Jos\u00e9 Mauro de Vasconcelos",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_a_l/jovinapessoa": {
+    "checked": 20260926,
+    "name": "Biblioteca Jovina Rocha \u00c1lvares Pessoa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/arnaldogiacomo": {
+    "checked": 20260926,
+    "name": "Biblioteca Professor Arnaldo Magalh\u00e3es Gi\u00e1como",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/marcosrey": {
+    "checked": 20260926,
+    "name": "Marcos Rey",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/marioschenberg": {
+    "checked": 20260926,
+    "name": "Biblioteca Mario Schenberg",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/menottidelpicchia": {
+    "checked": 20260926,
+    "name": "Biblioteca Menotti Del Picchia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/nutosantanna": {
+    "checked": 20260926,
+    "name": "Biblioteca Municipal Nuto Sant'anna",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/padrejosedeanchieta": {
+    "checked": 20260926,
+    "name": "Biblioteca Padre Jos\u00e9 de Anchieta",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/paulosetubal": {
+    "checked": 20260926,
+    "name": "Biblioteca Paulo Set\u00fabal",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/raimundodemenezes": {
+    "checked": 20260926,
+    "name": "Biblioteca Raimundo de Menezer",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/ricardoramos": {
+    "checked": 20260926,
+    "name": "Biblioteca Ricardo Ramos",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/robertosantos": {
+    "checked": 20260926,
+    "name": "Biblioteca P\u00fablica Roberto Santos",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/sergiobuarquedeholanda": {
+    "checked": 20260926,
+    "name": "Biblioteca S\u00e9rgio Buarque de Holanda",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/sylviaorthoff": {
+    "checked": 20260926,
+    "name": "Biblioteca Sylvia Orthof",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/thalescastanhodeandrade": {
+    "checked": 20260926,
+    "name": "Thales Castanho de Andrade",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/vicentedecarvalho": {
+    "checked": 20260926,
+    "name": "Biblioteca Vicente de Carvalho",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/bibliotecas_bairro/bibliotecas_m_z/viniciusdemorais": {
+    "checked": 20260926,
+    "name": "Biblioteca Vin\u00edcius de Morais",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/monteiro_lobato": {
+    "checked": 20260926,
+    "name": "Biblioteca Monteiro Lobato",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "prefeitura.sp.gov.br/cidade/secretarias/cultura/bibliotecas/programas_projetos/bibliotecas_tematicas/index.php?p=14330": {
+    "checked": 20260926,
+    "name": "Biblioteca Maria Firmina dos Reis",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "pregnancyandparents.org.uk/events": {
     "checked": 20260819,
     "name": "Pregnancy and Parents Centre",
@@ -174694,6 +175151,13 @@
   "punto-encuentro.com": {
     "checked": 20260915,
     "name": "Punto de Encuentro: Comunidad, Familia Y Fe - Iglesia Evang\u00e9lica",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "puntocomamty.mx": {
+    "checked": 20260926,
+    "name": "Punto y Coma",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -177365,6 +177829,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "realgabinete.com.br": {
+    "checked": 20260926,
+    "name": "Real Gabinete Portugu\u00eas de Leitura",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "realhermandaddelrefugio.org": {
     "checked": 20260914,
     "name": "Hermandad del Refugio",
@@ -178383,6 +178854,13 @@
   "renaissance-care.co.uk/our-homes/letham-park-care-home": {
     "checked": 20260819,
     "name": "Letham Park Care Home - Garden House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "renascencaclube.com.br": {
+    "checked": 20260926,
+    "name": "Renascen\u00e7a Clube",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -184501,6 +184979,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "salgueiro.com.br": {
+    "checked": 20260926,
+    "name": "GRES Acad\u00eamicos do Salgueiro",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "salisbury.md": {
     "checked": 20260913,
     "name": "Salisbury",
@@ -185512,6 +185997,111 @@
   "sandhillsretirement.ca": {
     "checked": 20260819,
     "name": "Sandhills Senior Living",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/park-and-recreation/centers/recctr/azalea": {
+    "checked": 20260926,
+    "name": "Azalea Recreation Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/park-and-recreation/centers/recctr/cesar": {
+    "checked": 20260926,
+    "name": "Cesar Chavez Recreation Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/park-and-recreation/centers/recctr/colonel": {
+    "checked": 20260926,
+    "name": "Colonel Irving Salomon San Ysidro Community Activity Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/park-and-recreation/centers/recctr/montgomery": {
+    "checked": 20260926,
+    "name": "Montgomery-Waller Recreation Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/park-and-recreation/centers/recctr/southbay": {
+    "checked": 20260926,
+    "name": "South Bay Recreation Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/park-and-recreation/centers/recctr/syteencenter": {
+    "checked": 20260926,
+    "name": "San Ysidro Teen Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/public-library/central-library": {
+    "checked": 20260926,
+    "name": "San Diego Central Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/public-library/locations/logan-heights-library": {
+    "checked": 20260926,
+    "name": "Logan Heights Branch San Diego Public Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/public-library/locations/mountain-view-beckwourth-library": {
+    "checked": 20260926,
+    "name": "Mountain View-Beckwourth Branch San Diego City Public Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/public-library/locations/oak-park-library": {
+    "checked": 20260926,
+    "name": "Oak Park Branch San Diego Public Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/public-library/locations/otay-mesa-nestor-library": {
+    "checked": 20260926,
+    "name": "Otay Mesa Branch San Diego Public Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/public-library/locations/paradise-hills-library": {
+    "checked": 20260926,
+    "name": "Paradise Hills Branch San Diego Public Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/public-library/locations/point-loma-hervey-library": {
+    "checked": 20260926,
+    "name": "Point Loma/Hervey Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/public-library/locations/san-ysidro-library": {
+    "checked": 20260926,
+    "name": "San Ysidro Branch Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/public-library/locations/skyline-hills-library": {
+    "checked": 20260926,
+    "name": "Skyline Hills Branch San Diego Public Library",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -186585,6 +187175,13 @@
   "sanzenin.or.jp": {
     "checked": 20260926,
     "name": "\u4e09\u5343\u9662",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saocaetanodosul.sp.gov.br": {
+    "checked": 20260926,
+    "name": "?",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -189215,6 +189812,41 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sdcl.org/locations/18": {
+    "checked": 20260926,
+    "name": "Imperial Beach Branch Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sdcl.org/locations/22": {
+    "checked": 20260926,
+    "name": "San Diego County Lincoln Acres Branch Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sdcl.org/locations/23": {
+    "checked": 20260926,
+    "name": "Lemon Grove Public Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sdcl.org/locations/34": {
+    "checked": 20260926,
+    "name": "Spring Valley Branch San Diego County Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sdcl.org/locations/5": {
+    "checked": 20260926,
+    "name": "Bonita-Sunnyside Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sde.unibo.it/it/biblioteca": {
     "checked": 20260922,
     "name": "Biblioteca del Dipartimento di Sociologia e Diritto dell'Economia - SDE. Sezione",
@@ -190695,6 +191327,27 @@
   "ses.fi/kinok13": {
     "checked": 20260903,
     "name": "Kino K13",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sescrio.org.br/unidades/sesc-copacabana": {
+    "checked": 20260926,
+    "name": "SESC Copacabana",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sescsp.org.br": {
+    "checked": 20260926,
+    "name": "SESC 24 de Maio",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sescsp.org.br/unidades/casa-verde": {
+    "checked": 20260926,
+    "name": "SESC Casa Verde",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -195645,6 +196298,13 @@
     "reason": "1 upcoming, sample: Cacerolada diaria",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "socialbomjesus.org.br": {
+    "checked": 20260926,
+    "name": "Organiza\u00e7\u00e3o N\u00e3o Governamental Social Bom Jesus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "socialpsykiatri.kk.dk/tilbud-i-socialpsykiatrien/specialiserede-botilbud/botilbud-i-center-for-specialiserede-botilbud/roede-mellemvej": {
     "checked": 20260831,
@@ -232721,6 +233381,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "web.santoandre.sp.gov.br/portal/secretarias-paginas/159/centros-educacionais-de-santo-andre": {
+    "checked": 20260926,
+    "name": "Centro Educacional de Santo Andr\u00e9  Jardim Santo Alberto",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "web.uniroma2.it/it/contenuto/cappella_universitaria-80687": {
     "checked": 20260921,
     "name": "Cappella Universitaria San Tommaso d'Aquino",
@@ -237100,6 +237767,13 @@
   "www2.standaardboekhandel.be/nl/winkels/malle": {
     "checked": 20260913,
     "name": "Standaard Boekhandel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "www3.eca.usp.br/biblioteca": {
+    "checked": 20260926,
+    "name": "Biblioteca da Escola de Comunica\u00e7\u00f5es e Artes",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"

@@ -10195,6 +10195,70 @@
         "lon": 139.6493072
       },
       "_metro": "Yokohama, Japan"
+    },
+    {
+      "name": "San Ysidro Civic Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.casafamiliar.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "San Ysidro Civic Center",
+        "address": "212 West Park Avenue",
+        "city": "San Ysidro",
+        "region": "CA",
+        "postal_code": "92173",
+        "lat": 32.5549465,
+        "lon": -117.04432
+      },
+      "_metro": "Tijuana, Mexico"
+    },
+    {
+      "name": "Photographic Arts Building",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://balboapark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Photographic Arts Building",
+        "lat": 32.7333521,
+        "lon": -117.1470324
+      },
+      "_metro": "Tijuana, Mexico"
+    },
+    {
+      "name": "Centro Alemán de Cultura y Educación",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+ics",
+      "base_url": "https://centroaleman.mx",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centro Alemán de Cultura y Educación",
+        "address": "9 Calle J. Dolores Frías",
+        "postal_code": "76000",
+        "lat": 20.5879639,
+        "lon": -100.3998624
+      },
+      "_metro": "Queretaro, Mexico"
+    },
+    {
+      "name": "Alcóolicos Anônimos - Grupo São Bernardo",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.aa.org.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alcóolicos Anônimos - Grupo São Bernardo",
+        "address": "1109 Rua Jurubatuba",
+        "postal_code": "09725-210",
+        "lat": -23.7071881,
+        "lon": -46.5533678
+      },
+      "_metro": "São Paulo, Brazil"
     }
   ],
   "_not_included": {
