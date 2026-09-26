@@ -67,6 +67,7 @@ jobs:
         run: |
           python test_workflow_contracts.py
           python test_ingest_ics.py
+          python test_feed_budgets.py
           python test_ingest_opendata.py
 
       - name: Festival schedules and agenda sync

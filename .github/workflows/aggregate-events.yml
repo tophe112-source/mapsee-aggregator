@@ -275,6 +275,8 @@ jobs:
           path: |
             geocode_cache.warm.json
             ics_feed_cache.json
+            ics_cursor.json
+            jsonld_cursor.json
           key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             geocode-cache-feeds-${{ matrix.group }}-
@@ -314,7 +316,9 @@ jobs:
         timeout-minutes: 250
         run: |
           if [ -f ics_sources.json ]; then
-            python mapsee_ingest_ics.py --config ics_sources.json --store feeds_events.json
+            # The 1,576-feed catalog reached this step's 250m cap on 2026-09-25.
+            # Stop before the cap so the store sync and cursor cache can finish.
+            python mapsee_ingest_ics.py --config ics_sources.json --store feeds_events.json --max-minutes 220
           else
             echo "no ics_sources.json — skipping ICS feeds"
           fi
@@ -341,7 +345,7 @@ jobs:
           fi
 
       # CHECKPOINT. Everything above is the bulk of this job's supply — Socrata
-      # open data, 258 ICS feeds and 481 markets — and until this step existed it
+      # open data, ICS feeds and markets — and until this step existed it
       # was all held in feeds_events.json until the single sync at the very end.
       #
       # On 2026-08-10 this job hit its timeout at exactly 120 minutes, ON THE
@@ -422,7 +426,9 @@ jobs:
         timeout-minutes: 60
         run: |
           if [ -f jsonld_sources.json ]; then
-            python mapsee_ingest_jsonld.py --config jsonld_sources.json --store feeds_events.json
+            # 273 sites reached this step's 60m cap on 2026-09-25. End within
+            # the cap; the adapter saves after each site and resumes its cursor.
+            python mapsee_ingest_jsonld.py --config jsonld_sources.json --store feeds_events.json --max-minutes 45
           else
             echo "no jsonld_sources.json — skipping"
           fi
@@ -803,6 +809,8 @@ jobs:
           path: |
             geocode_cache.warm.json
             ics_feed_cache.json
+            ics_cursor.json
+            jsonld_cursor.json
           key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Retain the feed store and step outcomes
         if: always()

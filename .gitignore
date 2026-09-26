@@ -9,6 +9,10 @@ __pycache__/
 # idle eviction, never saved by a timed-out job) is not a place to keep identity.
 # The warm cache still covers the other adapters — see aggregate-events.yml.
 ics_feed_cache.json
+ics_cursor.json
+ics_cursor.json.tmp
+jsonld_cursor.json
+jsonld_cursor.json.tmp
 geocode_cache.warm.json
 geo_budget.json
 feeds_events.json

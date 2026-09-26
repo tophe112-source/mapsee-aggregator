@@ -118,6 +118,33 @@ def _save_feed_cache(cache):
 
 _FEED_CACHE = _load_feed_cache()
 
+CURSOR_PATH = _os.environ.get("ICS_CURSOR", "ics_cursor.json")
+
+
+class BudgetExpired(Exception):
+    def __init__(self, offset, kept=0):
+        self.offset = offset
+        self.kept = kept
+
+
+def _load_cursor(path):
+    try:
+        cursor = json.load(open(path, encoding="utf-8"))
+        if isinstance(cursor, dict) and isinstance(cursor.get("source"), str) \
+                and isinstance(cursor.get("offset", 0), int) and cursor.get("offset", 0) >= 0 \
+                and isinstance(cursor.get("kept", 0), int) and cursor.get("kept", 0) >= 0:
+            return cursor
+    except (OSError, ValueError):
+        pass
+    return {}
+
+
+def _save_cursor(path, source, offset=0, kept=0):
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump({"source": source, "offset": offset, "kept": kept}, fh)
+    _os.replace(tmp, path)
+
 def _fetch_ics(session, url):
     """GET with revalidation. Returns (text, how) where how is 200/304/reuse."""
     # webcal:// is https:// wearing a hat — the standard "subscribe to this
@@ -345,14 +372,14 @@ def make_location_geocoder(session, suffix: str):
     return geocode
 
 
-def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
+def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=0, start_kept=0, deadline=None) -> int:
     text, how = _fetch_ics(session, src["url"])
     events = parse_ics(text)
     label = "ics:" + src["name"].lower().replace(" ", "-")
     geocode = make_location_geocoder(session, src.get("geocode_suffix", ""))
     now_key = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     limit = src.get("limit", 500)
-    kept = 0
+    kept = start_kept
     # A VEVENT with no LOCATION and no GEO cannot be pinned, so it is dropped -
     # correctly, but until this counter it was dropped in SILENCE. Seattle Parks
     # Foundation was publishing 30 events of which 20 had no LOCATION at all,
@@ -366,9 +393,12 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
     governance = 0
     cancelled = 0
     is_civic = str(src.get("_found", "")).startswith("civic:")
-    for ev in events:
+    for offset in range(start_offset, len(events)):
         if kept >= limit:
             break
+        if deadline is not None and time.monotonic() >= deadline:
+            raise BudgetExpired(offset, kept)
+        ev = events[offset]
         title = _unescape(ev.get("SUMMARY", ("", {}))[0]).strip()
         if not title or "DTSTART" not in ev:
             continue
@@ -485,26 +515,52 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any]) -> int:
     if cancelled:
         note += f"; {cancelled} cancelled (STATUS:CANCELLED)"
     print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}")
-    return kept
+    return kept - start_kept
 
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Import ICS/iCalendar event feeds into the Mapsee store.")
     ap.add_argument("--config", required=True, help="JSON list of feeds (name, url, …).")
     ap.add_argument("--store", default="mapsee_events.json")
+    ap.add_argument("--max-minutes", type=float, default=0,
+                    help="Finish before the Actions step cap, then sync the checkpointed store.")
+    ap.add_argument("--cursor", default=CURSOR_PATH)
     a = ap.parse_args(argv)
+    if a.max_minutes < 0:
+        ap.error("--max-minutes must be non-negative")
 
     sources = json.loads(open(a.config, encoding="utf-8").read())
     session = requests.Session()
     session.headers.update({"User-Agent": "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"})
     store = EventStore(a.store)
 
+    deadline = time.monotonic() + a.max_minutes * 60 if a.max_minutes else None
+    cursor = _load_cursor(a.cursor) if deadline is not None else {}
+    start = next((i for i, src in enumerate(sources) if src["url"] == cursor.get("source")), None)
+    if start is None:
+        start, cursor = 0, {}  # a removed source must not lend its offset to another
     total = 0
-    for src in sources:
+    attempted = 0
+    for step in range(len(sources)):
+        index = (start + step) % len(sources)
+        src = sources[index]
+        if deadline is not None and time.monotonic() >= deadline:
+            print(f"[ics] budget reached after {attempted} sources; next: {src['name']}")
+            break
+        offset = cursor.get("offset", 0) if step == 0 and index == start else 0
+        kept_before = cursor.get("kept", 0) if step == 0 and index == start else 0
+        complete = False
+        partial_offset = None
         try:
-            total += ingest_ics(store, session, src)
+            total += ingest_ics(store, session, src, start_offset=offset,
+                                start_kept=kept_before, deadline=deadline)
+            complete = True
+        except BudgetExpired as exc:
+            partial_offset = exc.offset
+            partial_kept = exc.kept
         except Exception as exc:
             print(f"[ics] {src.get('name', '?')} FAILED: {exc}")
+            complete = True  # a refused source must not pin the cursor forever
         finally:
             # One source is the unit of recoverable work.  The Actions cache is
             # uploaded only after the process exits, but its files used to be
@@ -516,6 +572,15 @@ def main(argv=None) -> int:
             store.save()
             _save_geo_cache(_GEO_CACHE)
             _save_feed_cache(_FEED_CACHE)
+        if partial_offset is not None:
+            if deadline is not None:
+                _save_cursor(a.cursor, src["url"], partial_offset, partial_kept)
+            print(f"[ics] budget reached inside {src['name']} at VEVENT {partial_offset}; resuming there next run")
+            break
+        if complete:
+            attempted += 1
+            if deadline is not None:
+                _save_cursor(a.cursor, sources[(index + 1) % len(sources)]["url"])
     print(f"[ics] done: +{total} events processed; store now holds {len(store.records)} unique events.")
     return 0
 

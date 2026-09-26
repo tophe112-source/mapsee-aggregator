@@ -45,3 +45,14 @@
   404 or 410 still stops the system. Every failed page came back 4 of 4: Pima
   450 -> 2,761, Santa Clara 151 -> 1,383, Contra Costa 619 -> 1,488,
   Christchurch 2,233 -> 3,197, Boston 2,330 at even a 90-day horizon.
+
+- **THREE MORE LIBRARY SYSTEMS YIELDED 3,683 UNIQUE UPCOMING EVENTS.** Probed
+  2026-09-25 with the production User-Agent and the BiblioCommons adapter, using
+  a separate store and a 90-day horizon: Cincinnati & Hamilton County kept
+  2,607 (2,605 unique), Stouffville kept 371 (370 unique), and Stark kept 708
+  (708 unique). The three repeated sessions merged by fingerprint; all 3,683
+  stored rows have branch or off-site coordinates. The adapter also skipped 13
+  past, 2,536 beyond the horizon, and 180 unplaceable rows. Primary category
+  `kids` accounts for 1,651 Cincinnati, 271 Stouffville and 280 Stark rows
+  (2,202 total); the stored start dates run 2026-09-25 through 2026-12-24.
+  This is event yield, not a count of calendar URLs or portal facets.

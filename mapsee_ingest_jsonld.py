@@ -65,6 +65,36 @@ except ImportError:  # pragma: no cover
 from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
 
 UA = "Mozilla/5.0 (compatible; MapseeAggregator/1.0; +https://mapsee.me; events@mapsee.me)"
+CURSOR_PATH = os.environ.get("JSONLD_CURSOR", "jsonld_cursor.json")
+
+
+class BudgetExpired(Exception):
+    def __init__(self, offset, inline_offset=0):
+        self.offset = offset
+        self.inline_offset = inline_offset
+
+
+def _site_key(site):
+    return json.dumps([site.get("name"), site.get("listing", [])], sort_keys=True)
+
+
+def _load_cursor(path):
+    try:
+        cursor = json.load(open(path, encoding="utf-8"))
+        if isinstance(cursor, dict) and isinstance(cursor.get("source"), str) \
+                and isinstance(cursor.get("offset", 0), int) and cursor.get("offset", 0) >= 0 \
+                and isinstance(cursor.get("inline_offset", 0), int) and cursor.get("inline_offset", 0) >= 0:
+            return cursor
+    except (OSError, ValueError):
+        pass
+    return {}
+
+
+def _save_cursor(path, source, offset=0, inline_offset=0):
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump({"source": source, "offset": offset, "inline_offset": inline_offset}, fh)
+    os.replace(tmp, path)
 
 # ---- persistent geocode cache (shared with the other feed adapters) ----------
 GEO_CACHE_PATH = os.environ.get("GEOCODE_CACHE", "geocode_cache.json")
@@ -342,7 +372,8 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
     return ev
 
 
-def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
+def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offset=0,
+                start_inline=0, deadline=None) -> int:
     name = site.get("name", "?")
     # link_pattern is optional: single-page venue sites (Wix etc.) embed every
     # Event block on the LISTING page itself, and their detail links often go
@@ -360,7 +391,10 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     urls: List[str] = []
     seen = set()
     kept = 0
+    inline_seen = 0
     for listing in site.get("listing", []):
+        if deadline is not None and time.monotonic() >= deadline:
+            raise BudgetExpired(start_offset, max(inline_seen, start_inline))
         try:
             r = session.get(listing, timeout=20)
             r.raise_for_status()
@@ -375,10 +409,16 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             for item in _iter_items(doc):
                 if not _is_event(item):
                     continue
+                if inline_seen < start_inline:
+                    inline_seen += 1
+                    continue
+                if deadline is not None and time.monotonic() >= deadline:
+                    raise BudgetExpired(start_offset, inline_seen)
                 ev = to_event(item, listing, category, session, venue_default, skip_rx)
                 if ev:
                     store.upsert(ev)
                     kept += 1
+                inline_seen += 1
         for m in (pattern.finditer(r.text) if pattern else ()):
             frag = m.group(1) if (tmpl and m.groups()) else m.group(0)
             u = urljoin(listing, tmpl.format(frag) if tmpl else frag)
@@ -389,7 +429,10 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     if len(urls) > cap:
         print(f"[jsonld] {name}: {len(urls)} event links found but max_events={cap} "
               f"— NOT reading {len(urls) - cap}; raise max_events to cover the calendar")
-    for u in urls[:cap]:
+    for offset in range(start_offset, min(len(urls), cap)):
+        if deadline is not None and time.monotonic() >= deadline:
+            raise BudgetExpired(offset, inline_seen)
+        u = urls[offset]
         try:
             r = session.get(u, timeout=20)
             r.raise_for_status()
@@ -416,18 +459,57 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Import schema.org Event JSON-LD pages into the Mapsee store.")
     ap.add_argument("--config", required=True, help="JSON: {sites:[{name, listing:[], link_pattern, category, max_events}]}")
     ap.add_argument("--store", default="feeds_events.json")
+    ap.add_argument("--max-minutes", type=float, default=0,
+                    help="Finish before the Actions step cap, then sync the checkpointed store.")
+    ap.add_argument("--cursor", default=CURSOR_PATH)
     a = ap.parse_args(argv)
+    if a.max_minutes < 0:
+        ap.error("--max-minutes must be non-negative")
 
     cfg = json.loads(open(a.config, encoding="utf-8").read())
     session = requests.Session()
     session.headers.update({"User-Agent": UA, "Accept-Language": "en-US,en;q=0.8"})
     store = EventStore(a.store)
+    sites = cfg.get("sites", [])
+    deadline = time.monotonic() + a.max_minutes * 60 if a.max_minutes else None
+    cursor = _load_cursor(a.cursor) if deadline is not None else {}
+    start = next((i for i, site in enumerate(sites) if _site_key(site) == cursor.get("source")), None)
+    if start is None:
+        start, cursor = 0, {}  # a removed site must not lend its offset to another
     total = 0
-    for site in cfg.get("sites", []):
+    attempted = 0
+    for step in range(len(sites)):
+        index = (start + step) % len(sites)
+        site = sites[index]
+        if deadline is not None and time.monotonic() >= deadline:
+            print(f"[jsonld] budget reached after {attempted} sites; next: {site.get('name', '?')}")
+            break
+        offset = cursor.get("offset", 0) if step == 0 and index == start else 0
+        inline_offset = cursor.get("inline_offset", 0) if step == 0 and index == start else 0
+        complete = False
+        partial_offset = None
         try:                                              # one site failing must not abort the sweep
-            total += ingest_site(store, session, site)
+            total += ingest_site(store, session, site, start_offset=offset,
+                                 start_inline=inline_offset, deadline=deadline)
+            complete = True
+        except BudgetExpired as exc:
+            partial_offset = exc.offset
+            partial_inline = exc.inline_offset
         except Exception as exc:
             print(f"[jsonld] {site.get('name','?')} FAILED: {exc}")
+            complete = True
+        finally:
+            store.save()
+            _save_geo_cache()
+        if partial_offset is not None:
+            if deadline is not None:
+                _save_cursor(a.cursor, _site_key(site), partial_offset, partial_inline)
+            print(f"[jsonld] budget reached inside {site.get('name', '?')} at inline event {partial_inline}, detail page {partial_offset}; resuming there next run")
+            break
+        if complete:
+            attempted += 1
+            if deadline is not None:
+                _save_cursor(a.cursor, _site_key(sites[(index + 1) % len(sites)]))
     store.save()
     _save_geo_cache()
     print(f"[jsonld] done: +{total} events processed; store now holds {len(store.records)} unique events.")

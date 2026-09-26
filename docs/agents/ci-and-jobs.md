@@ -3,6 +3,20 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: a job that worked for an hour and lost its work, `timeout-minutes`, `always()`, `--only-new` in CI, the order of the daily jobs, secrets, a config file a job needs.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A STEP BUDGET MUST ADVANCE THROUGH THE CATALOG, INCLUDING A PARTLY READ
+  SOURCE.** Run 36131926531 on 2026-09-25 hit the ICS import's 250-minute
+  step cap and the JSON-LD import's 60-minute cap (11:57:43–12:57:56 for the
+  latter). The current configs held **1,576 ICS feeds** and **273 JSON-LD
+  sites**. ICS already saved the event store after each feed and its later sync
+  succeeded; JSON-LD saved only after its entire site loop, so its timed-out
+  pass lost that adapter's rows. Both now stop under their step caps (220 and
+  45 minutes), save progress, and resume at the next source on the following
+  run. A deadline reached inside one source records the next VEVENT or detail
+  page, so a slow source cannot pin the cursor ahead of the catalog tail. The
+  cursor is cached with the feed caches; an unbounded manual run starts at the
+  beginning and leaves that cursor alone. `test_feed_budgets.py` checks rotation,
+  partial-source resume, a removed source, and manual full sweeps.
+
 - **A CONCURRENCY GROUP QUEUES ONE RUN, NOT A LINE — A THIRD ARRIVAL CANCELS
   THE SECOND.** `cancel-in-progress: false` means a run that finds the group
   busy waits, but GitHub keeps exactly ONE pending run per group and cancels

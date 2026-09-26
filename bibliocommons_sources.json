@@ -1,5 +1,5 @@
 {
-  "_comment": "BiblioCommons library systems (mapsee_ingest_bibliocommons.py). One entry per library; `slug` is the tenant name in both gateway.bibliocommons.com/v2/libraries/<slug>/events and <slug>.bibliocommons.com. No key and no account. `city` and `country` are read only by catalog_curate's coverage report - the adapter ignores them - and they are here because two of the six systems are Canadian, which the report was counting as American. `category` is only the fallback for a programme whose type and audience say nothing - most rows classify themselves, and library programming is overwhelmingly learning and kids. Every row arrives with a surveyed branch coordinate, so nothing here is geocoded; see the adapter header. Counts below were read live on 2026-09-03 and are recorded so a later run can tell a quiet library from a broken one. The 38 systems added 2026-09-24 carry `measured_2026_09_24`: programmes the adapter itself KEPT inside a 90-day horizon (58,629 between them), not the gateway's total. 90 rather than 180 because that batch is three times the size of the first six and lands in one sync step with a 20-minute limit; a library programme is listed well inside 90 days of happening, so the window rolls forward and loses nothing but distance.",
+  "_comment": "BiblioCommons library systems (mapsee_ingest_bibliocommons.py). One entry per library; `slug` is the tenant name in both gateway.bibliocommons.com/v2/libraries/<slug>/events and <slug>.bibliocommons.com. No key and no account. `city` and `country` are read only by catalog_curate's coverage report - the adapter ignores them - and they are here because two of the first six systems are Canadian, which the report was counting as American. `category` is only the fallback for a programme whose type and audience say nothing - most rows classify themselves, and library programming is overwhelmingly learning and kids. Every row arrives with a surveyed branch coordinate, so nothing here is geocoded; see the adapter header. Counts below were read live on 2026-09-03 and are recorded so a later run can tell a quiet library from a broken one. The 38 systems added 2026-09-24 carry `measured_2026_09_24`: programmes the adapter itself KEPT inside a 90-day horizon (58,629 between them), not the gateway's total. Three more systems added 2026-09-25 carry `measured_2026_09_25` (3,686 kept, 3,683 unique). 90 rather than 180 because the newer batches land in one sync step with a 20-minute limit; a library programme is listed well inside 90 days of happening, so the window rolls forward and loses nothing but distance.",
   "sites": [
     {
       "name": "Charlotte Mecklenburg Library",
@@ -350,6 +350,30 @@
       "slug": "librarypoint", "city": "Washington DC", "country": "US",
       "category": "learning",
       "measured_2026_09_24": 1003,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Cincinnati & Hamilton County Public Library",
+      "slug": "cincinnatilibrary", "city": "Cincinnati", "country": "US",
+      "category": "learning",
+      "measured_2026_09_25": 2607,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Stouffville Library",
+      "slug": "wsplibrary", "city": "Stouffville", "country": "CA",
+      "category": "learning",
+      "measured_2026_09_25": 371,
+      "horizon_days": 90,
+      "max_pages": 40
+    },
+    {
+      "name": "Stark Library",
+      "slug": "starklibrary", "city": "Canton", "country": "US",
+      "category": "learning",
+      "measured_2026_09_25": 708,
       "horizon_days": 90,
       "max_pages": 40
     }

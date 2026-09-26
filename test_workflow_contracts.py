@@ -60,6 +60,24 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('1 failed or cancelled', text)
         self.assertNotIn('| ingest_tribe', text)
 
+    def test_feed_budgets_leave_time_to_sync_and_persist_resume_cursors(self):
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['feeds']['steps']
+        restore = next(s for s in steps if s.get('uses') == 'actions/cache/restore@v4')
+        save = next(s for s in steps if s.get('uses') == 'actions/cache/save@v4')
+        for name in ('ics_cursor.json', 'jsonld_cursor.json'):
+            self.assertIn(name, restore['with']['path'])
+            self.assertIn(name, save['with']['path'])
+        self.assertEqual(save['if'], 'always()')
+        for adapter in ('ics', 'jsonld'):
+            step = next(s for s in steps if s.get('id') == f'ingest_{adapter}')
+            budget = re.search(r'--max-minutes (\d+)', step['run'])
+            self.assertIsNotNone(budget)
+            self.assertLessEqual(int(budget[1]) + 10, step['timeout-minutes'])
+            self.assertTrue(step['continue-on-error'])
+        self.assertTrue(any(s.get('id') == 'sync' for s in steps))
+        self.assertIn("contains(steps.*.outcome, 'failure')", steps[-1]['if'])
+
     def test_cursor_upload_retries_without_silently_losing_progress(self):
         for name in ('osm-food', 'osm-secondhand', 'osm-amenities'):
             workflow = yaml.safe_load((ROOT / f'.github/workflows/{name}.yml').read_text(encoding='utf-8'))

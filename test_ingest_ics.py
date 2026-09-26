@@ -34,18 +34,20 @@ store = Store("unused.json")
 cache_saves = []
 
 
-def ingest(_store, _session, src):
+def ingest(_store, _session, src, **_budget):
     if src["name"] == "bad":
         raise RuntimeError("feed refused")
     return 3
 
 
 with patch.object(ICS.json, "loads", return_value=sources), \
-     patch.object(ICS.requests, "Session"), \
+     patch.object(ICS.requests, "Session", create=True), \
      patch.object(ICS, "EventStore", return_value=store), \
      patch.object(ICS, "ingest_ics", side_effect=ingest), \
      patch.object(ICS, "_save_geo_cache", side_effect=lambda _cache: cache_saves.append("geo")), \
      patch.object(ICS, "_save_feed_cache", side_effect=lambda _cache: cache_saves.append("feed")), \
+     patch.object(ICS, "_load_cursor", return_value={}), \
+     patch.object(ICS, "_save_cursor"), \
      patch("builtins.open"):
     rc = ICS.main(["--config", "unused.json", "--store", "unused-store.json"])
 
