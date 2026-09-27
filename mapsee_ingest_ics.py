@@ -41,6 +41,7 @@ import time
 from mapsee_geo_budget import geocode_allowed
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
+from urllib.parse import urlparse
 
 try:
     import requests
@@ -518,6 +519,32 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     return kept - start_kept
 
 
+def _host(url: str) -> str:
+    return urlparse(url if "://" in url else "https://" + url).netloc.lower()
+
+
+def _crawl_delays(sources: List[Dict[str, Any]]) -> Dict[str, float]:
+    """The longest `crawl_delay` any source on a host asks for, per host.
+
+    ONE FEED IS ONE REQUEST, so a host's robots.txt Crawl-delay only binds when
+    it serves SEVERAL feeds in one run - a LibCal library with a calendar per
+    branch is the common case: Phoenix Public Library's nine branch calendars
+    are nine back-to-back requests to one host whose robots.txt asks for 10 s.
+    Keyed on the host, not the source, so a sibling feed that carries no
+    `crawl_delay` of its own is still paced by the one that does.
+    """
+    out: Dict[str, float] = {}
+    for src in sources:
+        try:
+            d = float(src.get("crawl_delay") or 0)
+        except (TypeError, ValueError):
+            d = 0.0
+        if d > 0:
+            h = _host(src.get("url", ""))
+            out[h] = max(out.get(h, 0.0), d)
+    return out
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Import ICS/iCalendar event feeds into the Mapsee store.")
     ap.add_argument("--config", required=True, help="JSON list of feeds (name, url, …).")
@@ -541,12 +568,25 @@ def main(argv=None) -> int:
         start, cursor = 0, {}  # a removed source must not lend its offset to another
     total = 0
     attempted = 0
+    delays = _crawl_delays(sources)
+    last_hit: Dict[str, float] = {}
     for step in range(len(sources)):
         index = (start + step) % len(sources)
         src = sources[index]
         if deadline is not None and time.monotonic() >= deadline:
             print(f"[ics] budget reached after {attempted} sources; next: {src['name']}")
             break
+        host = _host(src.get("url", ""))
+        if host in delays and host in last_hit:
+            wait = last_hit[host] + delays[host] - time.monotonic()
+            if wait > 0:
+                # A wait that would outlast the budget is the budget: the
+                # cursor already names this source, so the next run starts here.
+                if deadline is not None and time.monotonic() + wait >= deadline:
+                    print(f"[ics] budget reached waiting out {host}'s crawl delay; next: {src['name']}")
+                    break
+                time.sleep(wait)
+        last_hit[host] = time.monotonic()
         offset = cursor.get("offset", 0) if step == 0 and index == start else 0
         kept_before = cursor.get("kept", 0) if step == 0 and index == start else 0
         complete = False
