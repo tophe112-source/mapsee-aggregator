@@ -208,5 +208,113 @@
     "name": "San Jose State",
     "base_url": "https://events.sjsu.edu",
     "days": 90
+  },
+  {
+    "name": "State of Indiana Events (Indiana)",
+    "base_url": "https://events.in.gov",
+    "days": 90,
+    "_metro": "Indianapolis, US",
+    "_note": "The State of Indiana's own Localist calendar (DNR state-park interpretive programs, county museums, markets). robots.txt allows /api/. 3,347 events in 90 days on 2026-09-27, 74 of 100 sampled carry geo."
+  },
+  {
+    "name": "Washington University in St. Louis (St. Louis)",
+    "base_url": "https://happenings.washu.edu",
+    "days": 90,
+    "_metro": "St. Louis, US",
+    "_note": "WashU 'Happenings' Localist calendar. robots.txt allows /api/. 862 events in 90 days on 2026-09-27: Kemper Art Museum and Olin Library exhibitions, arboretum tours, lectures."
+  },
+  {
+    "name": "University of North Florida (Jacksonville)",
+    "base_url": "https://events.unf.edu",
+    "days": 90,
+    "_metro": "Jacksonville, US",
+    "_note": "UNF's Localist calendar, /api/2/events answers keyless. Fills Jacksonville's university gap (UNF not yet configured)."
+  },
+  {
+    "name": "MIT (Cambridge MA)",
+    "base_url": "https://calendar.mit.edu",
+    "category": "learning",
+    "days": 90,
+    "_metro": "Boston, United States",
+    "_note": "MIT's public Localist calendar: seminars, lectures, performing arts, community events; 310 of 418 upcoming carry coordinates. robots.txt allows /api/2/events."
+  },
+  {
+    "name": "Boston College (Boston)",
+    "base_url": "https://events.bc.edu",
+    "category": "learning",
+    "days": 90,
+    "_metro": "Boston, United States",
+    "_note": "Boston College's Localist calendar: seminars, lectures, arts, athletics; 339 of 718 upcoming carry coordinates. robots.txt allows /api/2/events."
+  },
+  {
+    "name": "Florida International University (Miami)",
+    "base_url": "https://calendar.fiu.edu",
+    "category": "learning",
+    "days": 90,
+    "_metro": "Miami, United States",
+    "_note": "FIU's Localist calendar: lectures, arts, community events; about half carry coordinates (the rest are dropped by the adapter). robots.txt allows /api/2/events."
+  },
+  {
+    "name": "University of North Texas (Denton)",
+    "base_url": "https://calendar.unt.edu",
+    "category": "learning",
+    "days": 90,
+    "_metro": "Dallas, United States",
+    "_note": "UNT's Localist calendar: recitals, film series, lectures, community garden; 241 of 492 upcoming marked free, 392 carry coordinates. robots.txt allows /api/2/events."
+  },
+  {
+    "name": "TCU (Fort Worth)",
+    "base_url": "https://calendar.tcu.edu",
+    "category": "learning",
+    "days": 90,
+    "_metro": "Dallas, United States",
+    "_note": "Texas Christian University's Localist calendar: concert and recital series, lectures, exhibitions. robots.txt allows /api/2/events. First Fort Worth university feed."
+  },
+  {
+    "name": "St. Mary's University (San Antonio)",
+    "base_url": "https://calendar.stmarytx.edu",
+    "category": "learning",
+    "days": 90,
+    "_metro": "San Antonio, United States",
+    "_note": "St. Mary's University Localist calendar: lectures, concerts, campus events; 111 of 161 upcoming carry coordinates. robots.txt allows /api/2/events. San Antonio had no university feed."
+  },
+  {
+    "name": "Kennesaw State University (Atlanta)",
+    "base_url": "https://calendar.kennesaw.edu",
+    "category": "learning",
+    "days": 90,
+    "_metro": "Atlanta, United States",
+    "_note": "Kennesaw State's Localist calendar (Kennesaw and Marietta campuses): arts, lectures, athletics; 243 of 532 upcoming carry coordinates. robots.txt allows /api/2/events."
+  },
+  {
+    "name": "Oberlin College & Conservatory (Oberlin OH)",
+    "base_url": "https://calendar.oberlin.edu",
+    "category": "learning",
+    "days": 90,
+    "_metro": "Cleveland, United States",
+    "_note": "Oberlin's Localist calendar: conservatory concerts and master classes, Allen Art Museum talks, lectures; 280 of 372 upcoming carry coordinates. robots.txt allows /api/2/events. Cleveland metro had no university feed."
+  },
+  {
+    "name": "Miami University (Oxford OH)",
+    "base_url": "https://events.miamioh.edu",
+    "category": "learning",
+    "days": 90,
+    "_metro": "Cincinnati, United States",
+    "_note": "Miami University's Localist calendar (Oxford, Hamilton, Middletown campuses): arts, lectures, family programmes; 183 of 232 upcoming carry coordinates. robots.txt allows /api/2/events."
+  },
+  {
+    "name": "Pennsylvania State Parks & Forests (DCNR)",
+    "base_url": "https://events.dcnr.pa.gov",
+    "category": "outdoors",
+    "days": 90,
+    "_metro": "Pittsburgh, United States",
+    "_note": "PA DCNR's own Localist: statewide state-park and forest programs (guided hikes, fishing clinics, archery, nature backpacks), ~635 in 90 days, 96% with geo; many marked Free. robots.txt: Crawl-Delay 1, /api/ not disallowed."
+  },
+  {
+    "name": "Trinity University (San Antonio)",
+    "base_url": "https://events.trinity.edu",
+    "days": 90,
+    "_metro": "San Antonio, United States",
+    "_note": "Localist API; public lectures (Maverick, Lennox series), recitals, concerts, athletics. robots allow /api/2/events. About 40 placeable events per 90 days."
   }
 ]

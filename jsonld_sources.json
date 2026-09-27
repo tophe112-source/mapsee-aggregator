@@ -4880,6 +4880,422 @@
         "lon": 135.1935629
       },
       "_metro": "Kobe, Japan"
+    },
+    {
+      "name": "MJC Jean Macé (Lyon, France)",
+      "category": "community",
+      "_found": "osm:arts_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.mjcjeanmace.com/events/"
+      ],
+      "link_pattern": "https://www\\.mjcjeanmace\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison des Jeunes et de la Culture Jean Macé",
+        "address": "Rue Camille Roy",
+        "city": "Lyon",
+        "postal_code": "69007",
+        "lat": 45.7451955,
+        "lon": 4.8479928
+      },
+      "_metro": "Lyon, France",
+      "_note": "MJC Jean Macé, a Lyon 7e youth and community centre; its Modern Events Calendar pages carry schema.org Event JSON-LD, most with price 0. robots.txt allows all. 5 upcoming of 14 listed on 2026-09-27."
+    },
+    {
+      "name": "Bürgerzentrum Nippes Altenberger Hof (Cologne)",
+      "category": "community",
+      "listing": [
+        "https://buergerzentrum-nippes.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://buergerzentrum-nippes\\.de/events/[a-z0-9\\-]+/(?:\\?occurrence=[0-9\\-]+)?",
+      "max_events": 60,
+      "_metro": "Cologne, Germany",
+      "_note": "Nippes Bürgerzentrum (one of Cologne's eleven): readings, councillor Q&A, open stage. Listing carries schema.org Events (Modern Events Calendar); rooms only, so `venue` places them. robots.txt allows.",
+      "venue": {
+        "name": "Bürgerzentrum Nippes – Altenberger Hof",
+        "address": "Mauenheimer Straße 92",
+        "city": "Köln",
+        "postal_code": "50733",
+        "country": "DE",
+        "lat": 50.9687374,
+        "lon": 6.9488154
+      }
+    },
+    {
+      "name": "Kulturhaus Milbertshofen (Munich)",
+      "category": "community",
+      "listing": [
+        "https://kulturhaus-milbertshofen.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://kulturhaus-milbertshofen\\.de/events/[a-z0-9\\-]+/(?:\\?occurrence=[0-9\\-]+)?",
+      "max_events": 80,
+      "_metro": "Munich, Germany",
+      "_note": "Milbertshofen district cultural centre: book market, open Schafkopf, exhibitions, kids' theatre; 60 schema.org Events on the listing (Modern Events Calendar), mostly free. Rooms only, so `venue` places them. robots.txt allows.",
+      "venue": {
+        "name": "Kulturhaus Milbertshofen",
+        "address": "Curt-Mezger-Platz 1",
+        "city": "München",
+        "postal_code": "80807",
+        "country": "DE",
+        "lat": 48.1819925,
+        "lon": 11.5671938
+      }
+    },
+    {
+      "name": "Vigyázó Sándor Művelődési Központ (Budapest Rákosmente)",
+      "category": "community",
+      "listing": [
+        "https://vigyazomk.hu/"
+      ],
+      "link_pattern": "https://vigyazomk\\.hu/programok/[a-z0-9\\-]+/",
+      "max_events": 60,
+      "_metro": "Budapest, Hungary",
+      "_note": "District XVII (Rákosmente) municipal cultural centre and its community houses: senior open university, kids' theatre, jazz, fitness. Event pages carry schema.org Event; venues resolve by name. robots.txt: Disallow empty."
+    },
+    {
+      "name": "Ateneo de Sevilla",
+      "listing": [
+        "https://www.ateneodesevilla.es/"
+      ],
+      "link_pattern": "https://www\\.ateneodesevilla\\.es/events/[a-z0-9\\-]+/",
+      "category": "learning",
+      "max_events": 60,
+      "venue": {
+        "name": "Ateneo de Sevilla",
+        "address": "Calle Orfila 7",
+        "city": "Sevilla",
+        "postal_code": "41003",
+        "country": "ES",
+        "lat": 37.3932469,
+        "lon": -5.993498
+      },
+      "_metro": "Seville, Spain",
+      "_note": "Seville's Ateneo (1887 cultural society): free lectures, book presentations, homages. Modern Events Calendar pages carry schema.org Event blocks; robots.txt allows /events/. Seville had one source."
+    },
+    {
+      "name": "Buurtkamer Weespersluis (Weesp)",
+      "category": "community",
+      "listing": [
+        "https://buurtkamer-weespersluis.nl/agenda/"
+      ],
+      "link_pattern": "https://buurtkamer\\-weespersluis\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Buurtkamer Weespersluis",
+        "address": "71a Fort Diemerdamstraat",
+        "city": "Weesp",
+        "postal_code": "1384AH",
+        "lat": 52.3171342,
+        "lon": 5.0441066
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Neighbourhood room in Weespersluis, Weesp (OSM community_centre); Modern Events Calendar pages with schema.org Event, robots.txt allows /agenda/. Toddler dance, kids' English, Burendag."
+    },
+    {
+      "name": "Podium Oost (Utrecht)",
+      "category": "community",
+      "listing": [
+        "https://www.podiumoostutrecht.nl/maand-agenda/"
+      ],
+      "link_pattern": "https://www\\.podiumoostutrecht\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Podium Oost",
+        "address": "148 Oudwijkerdwarsstraat",
+        "city": "Utrecht",
+        "postal_code": "3581LJ",
+        "lat": 52.0884498,
+        "lon": 5.1352926
+      },
+      "_metro": "Utrecht, Netherlands",
+      "_note": "Neighbourhood stage and community centre in Utrecht Oost (OSM community_centre); agenda page carries schema.org Event blocks, robots.txt allows it. Afternoon concerts, bingo, world kitchen, expos."
+    },
+    {
+      "name": "De Buurvrouw (Rotterdam)",
+      "category": "community",
+      "listing": [
+        "https://buurvrouwrotterdam.org/agenda/"
+      ],
+      "link_pattern": "https://buurvrouwrotterdam\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Buurvrouw",
+        "address": "200 Larikslaan",
+        "city": "Rotterdam",
+        "postal_code": "3053LG",
+        "lat": 51.9614161,
+        "lon": 4.4717086
+      },
+      "_metro": "Rotterdam, Netherlands",
+      "_note": "Neighbourhood culture house in Rotterdam Schiebroek (OSM theatre); Modern Events Calendar pages with schema.org Event, robots.txt allows /agenda/. Film and food nights, children's storytelling, a local arts festival."
+    },
+    {
+      "name": "Auckland Art Gallery Toi o Tāmaki (Auckland, New Zealand)",
+      "category": "arts",
+      "listing": [
+        "https://www.aucklandartgallery.com/visit/events/",
+        "https://www.aucklandartgallery.com/visit/events/?page=2",
+        "https://www.aucklandartgallery.com/visit/events/?page=3"
+      ],
+      "link_pattern": "/visit/events/[a-z0-9\\-]+",
+      "max_events": 60,
+      "venue": {
+        "name": "Auckland Art Gallery Toi o Tāmaki",
+        "address": "1 Kitchener Street",
+        "city": "Auckland",
+        "postal_code": "1010",
+        "country": "NZ",
+        "lat": -36.851261,
+        "lon": 174.7663713
+      },
+      "_metro": "Auckland, New Zealand",
+      "_note": "Auckland Council's public art gallery: free talks, drop-in drawing, kids and whanau festival; 16 of 23 listed events upcoming. skip_title drops members-only events. robots.txt disallows only /style-guide.",
+      "skip_title": "^\\s*members\\b"
+    },
+    {
+      "name": "Universidad Pontificia de México (Mexico City)",
+      "category": "learning",
+      "listing": [
+        "https://pontificia.edu.mx/"
+      ],
+      "link_pattern": "https://pontificia\\.edu\\.mx/eventos/[a-z0-9\\-]+/?",
+      "max_events": 60,
+      "venue": {
+        "name": "Universidad Pontificia de México",
+        "city": "Ciudad de México",
+        "country": "Mexico",
+        "lat": 19.2881,
+        "lon": -99.1692
+      },
+      "_metro": "Mexico City, Mexico",
+      "_note": "University public lectures, seminars and concerts in Tlalpan; event pages carry schema.org Event JSON-LD with no location, so the campus fills it. robots.txt allows all."
+    },
+    {
+      "name": "Fundación Herdez - Museo Galería Nuestra Cocina (Mexico City)",
+      "category": "food",
+      "listing": [
+        "https://fundacionherdez.com/agenda/"
+      ],
+      "link_pattern": "https://fundacionherdez\\.com/events/[a-z0-9\\-]+/?",
+      "max_events": 60,
+      "venue": {
+        "name": "Museo Galería Nuestra Cocina Duque de Herdez",
+        "lat": 19.43366,
+        "lon": -99.1318,
+        "city": "Ciudad de México",
+        "country": "Mexico"
+      },
+      "_metro": "Mexico City, Mexico",
+      "_note": "Free food museum in the Centro Histórico: daily tastings and garden days, MEC event pages with JSON-LD (price 0). robots.txt allows all. Fills the food door in Mexico City.",
+      "_found": "wikidata:museum -> modern-events+jsonld-event"
+    },
+    {
+      "name": "Kiran Nadar Museum of Art (New Delhi, India)",
+      "category": "arts",
+      "listing": [
+        "https://www.knma.org/whats-on/"
+      ],
+      "link_pattern": "https://www\\.knma\\.org/whats-on/(?:workshops|events|talks|performing-arts|guided-tours)/[a-z0-9\\-]+/?",
+      "max_events": 60,
+      "venue": {
+        "name": "Kiran Nadar Museum of Art",
+        "city": "New Delhi",
+        "region": "Delhi",
+        "country": "India",
+        "lat": 28.52884,
+        "lon": 77.22008
+      },
+      "_metro": "Delhi, India",
+      "_note": "Private non-profit museum in Saket, free entry; workshops, talks, tours and performances as schema.org Event JSON-LD (price 0). robots.txt allows all. The few off-site events take the museum pin."
+    },
+    {
+      "name": "UAM Xochimilco - Eventos (Mexico City)",
+      "category": "learning",
+      "_found": "wikidata:university -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.xoc.uam.mx/mec-category/eventos/"
+      ],
+      "link_pattern": "https://www\\.xoc\\.uam\\.mx/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "UAM Xochimilco",
+        "lat": 19.3030556,
+        "lon": -99.1019444,
+        "city": "Ciudad de México",
+        "country": "Mexico"
+      },
+      "_metro": "Mexico City, Mexico",
+      "_note": "Public university campus: free colloquia, talks, book drives (price 0), MEC category page with inline schema.org Event JSON-LD. robots.txt disallows only /wp-admin/. Fills Mexico City."
+    },
+    {
+      "name": "Clifton Cultural Arts Center (CCAC)",
+      "category": "arts",
+      "_found": "osm:arts_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://cliftonculturalarts.org/coming-events/"
+      ],
+      "link_pattern": "https://cliftonculturalarts\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Clifton Cultural Arts Center (CCAC)",
+        "address": "3412 Clifton Avenue",
+        "city": "Cincinnati",
+        "region": "OH",
+        "postal_code": "45220",
+        "lat": 39.1441253,
+        "lon": -84.5188151
+      },
+      "_metro": "Cincinnati, United States",
+      "_note": "Clifton Cultural Arts Center, Cincinnati (Modern Events pages with JSON-LD). robots.txt disallows /wp-admin/ only. Found by the OSM arts-centre sweep."
+    },
+    {
+      "name": "Erzsébetligeti Színház – Corvin Művelődési Ház (Budapest XVI)",
+      "category": "community",
+      "listing": [
+        "https://kulturliget.hu/"
+      ],
+      "max_events": 80,
+      "_metro": "Budapest, Hungary",
+      "_note": "District XVI municipal culture house: senior dance club, baby classes, kids' clubs, jazz nights, some ticketed theatre; 51 schema.org Events inline on the homepage. Rooms only, so `venue` places them. robots.txt allows.",
+      "venue": {
+        "name": "Erzsébetligeti Színház – Corvin Művelődési Ház",
+        "address": "Hunyadvár utca 43/b",
+        "city": "Budapest",
+        "postal_code": "1165",
+        "country": "HU",
+        "lat": 47.5100993,
+        "lon": 19.2041942
+      }
+    },
+    {
+      "name": "Tenri Japanisch-Deutsche KulturWerkstatt (Cologne)",
+      "category": "arts",
+      "listing": [
+        "https://www.tenri-kw.de/"
+      ],
+      "max_events": 60,
+      "_metro": "Cologne, Germany",
+      "_note": "Japanese-German cultural association at Kartäuserwall 20: exhibitions, Otsukimi moon festival, concerts, craft workshops and courses; ~30 future schema.org Events inline on the homepage. `venue` supplies the point. robots.txt allows.",
+      "venue": {
+        "name": "Tenri Japanisch-Deutsche KulturWerkstatt",
+        "address": "Kartäuserwall 20",
+        "city": "Köln",
+        "postal_code": "50678",
+        "country": "DE",
+        "lat": 50.9225599,
+        "lon": 6.9577934
+      }
+    },
+    {
+      "name": "ECHO e.V. Messestadt Riem (Munich)",
+      "category": "kids",
+      "listing": [
+        "https://echoev.de/veranstaltungen/"
+      ],
+      "max_events": 40,
+      "_metro": "Munich, Germany",
+      "_note": "Children's and youth association in Messestadt Riem (Quax centre, adventure playground, Grünwerkstatt): open play, story workshop, kite festival; ~12 upcoming as schema.org Events inline. `venue` places them. robots.txt allows.",
+      "venue": {
+        "name": "Quax – Zentrum für Freizeit und Kulturelle Bildung",
+        "address": "Helsinkistraße 100",
+        "city": "München",
+        "postal_code": "81829",
+        "country": "DE",
+        "lat": 48.1282632,
+        "lon": 11.6885862
+      }
+    },
+    {
+      "name": "Mehrgenerationenhaus Wassertor (Berlin)",
+      "category": "community",
+      "listing": [
+        "https://mgh-wassertor.de/"
+      ],
+      "max_events": 60,
+      "_metro": "Berlin, Germany",
+      "_note": "Kreuzberg multi-generation house (Wassertorstr. 48): literacy courses for women, movement games, self-help groups, social and tenant advice; 27 upcoming schema.org Events inline. `venue` supplies the point. robots.txt: none.",
+      "venue": {
+        "name": "MehrGenerationenHaus Wassertor",
+        "address": "Wassertorstraße 48",
+        "city": "Berlin",
+        "postal_code": "10969",
+        "country": "DE",
+        "lat": 52.5004427,
+        "lon": 13.4057303
+      }
+    },
+    {
+      "name": "De Voorkamer (Utrecht)",
+      "listing": [
+        "https://www.devoorkamer.org/agenda"
+      ],
+      "link_pattern": "https://www\\.devoorkamer\\.org/agenda/[a-z0-9\\-]+",
+      "max_events": 100,
+      "category": "community",
+      "venue": {
+        "name": "De Voorkamer",
+        "address": "Kanaalstraat 225",
+        "city": "Utrecht",
+        "postal_code": "3531 CJ",
+        "country": "NL",
+        "lat": 52.0908668,
+        "lon": 5.0944459
+      },
+      "_metro": "Utrecht, Netherlands",
+      "_note": "Community space for newcomers in Lombok, Utrecht; event pages carry schema.org Event (price 0); robots.txt disallows only /admin/. Language cafés, community dinners, free walking tours."
+    },
+    {
+      "name": "ACU (Utrecht)",
+      "listing": [
+        "https://acu.nl/agenda"
+      ],
+      "link_pattern": "https://acu\\.nl/events/\\d{8}/[a-z0-9\\-]+",
+      "max_events": 100,
+      "category": "community",
+      "venue": {
+        "name": "ACU",
+        "address": "Voorstraat 71",
+        "city": "Utrecht",
+        "postal_code": "3512 AK",
+        "country": "NL",
+        "lat": 52.0950568,
+        "lon": 5.1219384
+      },
+      "_metro": "Utrecht, Netherlands",
+      "_note": "Volunteer-run political-cultural centre in Utrecht; event pages carry schema.org Event; robots.txt disallows only /wp-admin/. Queer coffee afternoons, open stages, jam sessions, benefit gigs."
+    },
+    {
+      "name": "De Volharding (Haarlem)",
+      "listing": [
+        "https://devolharding.org/agenda-2/"
+      ],
+      "link_pattern": "https://devolharding\\.org/programma/[a-z0-9\\-]+/?",
+      "max_events": 100,
+      "category": "community",
+      "venue": {
+        "name": "De Volharding",
+        "address": "Paul Krugerkade 47",
+        "city": "Haarlem",
+        "postal_code": "2021BN",
+        "country": "NL",
+        "lat": 52.391776,
+        "lon": 4.648575
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Neighbourhood cultural centre in Haarlem; Modern Events Calendar pages carry schema.org Event; robots.txt disallows only /wp-admin/. Kids and adult cardboard-craft workshops, improv theatre, exhibitions."
+    },
+    {
+      "name": "京都観光Navi 伝統行事 (Kyoto)",
+      "category": "community",
+      "listing": [
+        "https://ja.kyoto.travel/event/search.php?category_id=1&display_count=0"
+      ],
+      "link_pattern": "data-is_finished=\"0\"[\\s\\S]{0,400}?/event/single\\.php\\?event_id=(\\d+)",
+      "url_template": "/event/single.php?event_id={}",
+      "max_events": 180,
+      "_found": "manual: city tourism site -> schema.org Event with geo on each event page",
+      "_metro": "Kyoto, Japan",
+      "_note": "Kyoto City's official event guide (京都観光Navi), the 伝統行事 listing: public shrine and temple festivals, unfinished events only (70 on 2026-09-27). Event pages carry schema.org Event with geo. No robots.txt (404). The グルメ/マーケット listing is left out: restaurant, hotel and ticketed-sport promotions."
     }
   ],
   "_not_included": {

@@ -1,0 +1,43 @@
+[
+ {
+  "name": "大阪府 府営公園イベント (Osaka)",
+  "url": "https://data.bodik.jp/api/3/action/datastore_search?resource_id=a6f32430-9e39-49f7-b429-6e4eadcc96de",
+  "category": "outdoors",
+  "limit": 2000,
+  "timezone": "Asia/Tokyo",
+  "map": {
+   "id": "ID",
+   "title": "イベント名",
+   "start": "開始日",
+   "end": "終了日",
+   "venue": "場所名称",
+   "lat": "緯度",
+   "lon": "経度",
+   "url": "コンテンツURL",
+   "description": "説明"
+  },
+  "_metro": "Osaka, Japan",
+  "_note": "Osaka Prefecture's standard event dataset (自治体標準オープンデータセット) on BODIK CKAN: prefectural-park nature walks, crafts, markets, with lat/lon. robots.txt allows /api/ for *. Fills Osaka outdoors."
+ },
+ {
+  "name": "豊中市 イベント一覧 (Osaka)",
+  "url": "https://data.bodik.jp/api/3/action/datastore_search?resource_id=b0a19f54-86b5-4083-bdea-17f7fa76487f",
+  "category": "community",
+  "limit": 2000,
+  "timezone": "Asia/Tokyo",
+  "geocode_venue": true,
+  "geocode_suffix": ", 豊中市, 大阪府",
+  "map": {
+   "id": "ID",
+   "title": "イベント名",
+   "start": "開始日",
+   "end": "終了日",
+   "venue": "場所名称",
+   "address": "所在地_連結表記",
+   "url": "コンテンツURL",
+   "description": "説明"
+  },
+  "_metro": "Osaka, Japan",
+  "_note": "Toyonaka City (next to Osaka) standard event dataset on BODIK CKAN, refreshed monthly: civic concerts, children's music festival, film days. No coordinates; venue names geocode. robots.txt allows /api/."
+ }
+]

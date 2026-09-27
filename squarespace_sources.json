@@ -1451,6 +1451,347 @@
         "lon": 139.3913629
       },
       "_metro": "Tokyo, Japan"
+    },
+    {
+      "name": "Civic Garden Center of Greater Cincinnati (Cincinnati)",
+      "collection": "https://www.civicgardencenter.org/events",
+      "category": "outdoors",
+      "max_events": 200,
+      "_metro": "Cincinnati, US",
+      "_note": "Nonprofit garden centre: workdays, compost tours, kids' programs, Hauck concerts. Squarespace collection page (robots.txt forbids ?format=json, not the page). 40 upcoming 2026-09-27; 35 at 2715 Reading Rd, hence the fallback venue.",
+      "venue": {
+        "name": "Civic Garden Center",
+        "address": "2715 Reading Rd",
+        "city": "Cincinnati",
+        "region": "OH",
+        "postal_code": "45206",
+        "country": "US",
+        "lat": 39.1301484,
+        "lon": -84.4986089
+      }
+    },
+    {
+      "name": "Overton Park Shell (Memphis, TN)",
+      "collection": "https://overtonparkshell.org/eventpage",
+      "category": "music",
+      "max_events": 200,
+      "_metro": "Memphis, US",
+      "venue": {
+        "name": "Overton Park Shell",
+        "address": "1928 Poplar Avenue",
+        "city": "Memphis",
+        "region": "TN",
+        "postal_code": "38104",
+        "country": "US",
+        "lat": 35.1454553,
+        "lon": -89.9946628
+      },
+      "_note": "Overton Park Shell (formerly Levitt Shell) Squarespace events page, read bare (robots disallows ?format= only). Home of the Orion free concert series, twilight yoga. Venue block places the page's events."
+    },
+    {
+      "name": "NMCX Centrum voor Duurzaamheid (Hoofddorp)",
+      "category": "community",
+      "collection": "https://duurzaamheidhaarlemmermeer.nl/activiteiten",
+      "max_events": 200,
+      "venue": {
+        "name": "NMCX Centrum voor Duurzaamheid",
+        "address": "33 Prins Hendriklaan",
+        "city": "Hoofddorp",
+        "postal_code": "2132DR",
+        "lat": 52.2997355,
+        "lon": 4.7006989
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Haarlemmermeer sustainability centre (OSM community_centre); Squarespace events page, robots.txt allows it. Swap markets, repair and energy-saving sessions, sustainability day."
+    },
+    {
+      "name": "Tante Toorop (Amsterdam)",
+      "category": "community",
+      "collection": "https://www.tantetoorop.nl/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Tante Toorop",
+        "address": "8 Jan Tooropstraat",
+        "city": "Amsterdam",
+        "postal_code": "1062BM",
+        "lat": 52.361349,
+        "lon": 4.8368059
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Neighbourhood house in Amsterdam Nieuw-West (OSM community_centre); Squarespace events page, robots.txt allows it. Homework help, pre/postnatal yoga, Repair Café, community oven; 44 upcoming."
+    },
+    {
+      "name": "Stadskant (Gouda)",
+      "category": "community",
+      "collection": "https://www.stadskant.com/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Stadskant",
+        "address": "36 Zeugstraat",
+        "city": "Gouda",
+        "postal_code": "2801JC",
+        "lat": 52.0118857,
+        "lon": 4.7125452
+      },
+      "_metro": "Rotterdam, Netherlands",
+      "_note": "Community and makers' space in central Gouda (OSM community_centre); Squarespace events page, robots.txt allows it. Craft workshops, rainbow café, co-working days."
+    },
+    {
+      "name": "Weimar's Wijkpaleis (The Hague)",
+      "category": "community",
+      "collection": "https://www.weimarswijkpaleis.nl/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Weimar's Wijkpaleis",
+        "address": "300 Weimarstraat",
+        "city": "'s-Gravenhage",
+        "postal_code": "2562HS",
+        "lat": 52.0735852,
+        "lon": 4.2773701
+      },
+      "_metro": "The Hague, Netherlands",
+      "_note": "Neighbourhood house in The Hague's Duinoord/Weimarstraat (OSM community_centre); Squarespace events page, robots.txt allows it. Clothes swaps, world dance, walk-in hours with local police."
+    },
+    {
+      "name": "The Greening of Detroit",
+      "collection": "https://www.greeningofdetroit.com/events",
+      "category": "volunteer",
+      "max_events": 200,
+      "venue": {
+        "name": "The Greening of Detroit",
+        "city": "Detroit",
+        "region": "MI",
+        "country": "US"
+      },
+      "_metro": "Detroit, United States",
+      "_note": "Community tree plantings and garden volunteering. Stock Squarespace robots.txt; the bare page is allowed. Venue has city only, no point: multi-site, so an event without a street address is dropped, not pinned at the office."
+    },
+    {
+      "name": "Friends of Tryon Creek (Portland)",
+      "collection": "https://www.tryonfriends.org/calendar",
+      "category": "outdoors",
+      "max_events": 200,
+      "venue": {
+        "name": "Tryon Creek Nature Center",
+        "address": "11321 SW Terwilliger Blvd",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97219",
+        "country": "US",
+        "lat": 45.4412821,
+        "lon": -122.6761952
+      },
+      "_metro": "Portland, United States",
+      "_note": "Single-site: trail work and stewardship days (about half), bird walks, hikes. Stock Squarespace robots.txt, bare page allowed. Venue point is OSM's Tryon Creek Nature Center."
+    },
+    {
+      "name": "Grosse Pointe War Memorial (Detroit)",
+      "collection": "https://www.warmemorial.org/events",
+      "category": "community",
+      "max_events": 200,
+      "venue": {
+        "name": "The War Memorial",
+        "address": "32 Lake Shore Rd",
+        "city": "Grosse Pointe Farms",
+        "region": "MI",
+        "postal_code": "48236",
+        "country": "US",
+        "lat": 42.386817,
+        "lon": -82.897354
+      },
+      "_metro": "Detroit, United States",
+      "_note": "Grosse Pointe War Memorial community center (Squarespace collection page): markets, veteran programs, blood drives, history tours, 2nd Saturdays. Stock Squarespace robots; bare page allowed."
+    },
+    {
+      "name": "Village of Los Ranchos de Albuquerque",
+      "category": "community",
+      "collection": "https://www.losranchosnm.gov/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Los Ranchos de Albuquerque Village Hall",
+        "address": "6718 Rio Grande Blvd NW",
+        "city": "Los Ranchos de Albuquerque",
+        "region": "NM",
+        "postal_code": "87107",
+        "country": "US",
+        "lat": 35.1586075,
+        "lon": -106.65527
+      },
+      "_metro": "Albuquerque, United States",
+      "_note": "Village calendar: growers' market, health talks, yard sale, green-waste days. Bare Squarespace page (robots allows it). Most rows carry the village as venue."
+    },
+    {
+      "name": "OFFCenter Community Arts (Albuquerque)",
+      "category": "arts",
+      "collection": "https://www.offcenterarts.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "OFFCenter Community Arts",
+        "address": "808 Park Ave SW",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87102",
+        "country": "US",
+        "lat": 35.0851777,
+        "lon": -106.6566698
+      },
+      "_metro": "Albuquerque, United States",
+      "_note": "Free open studio and community art workshops at OFFCenter. Bare Squarespace page (robots allows it)."
+    },
+    {
+      "name": "Downtown Growers' Market (Albuquerque)",
+      "category": "market",
+      "collection": "https://www.downtowngrowers.org/market-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Robinson Park",
+        "address": "810 Central Ave SW",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87102",
+        "country": "US",
+        "lat": 35.0857518,
+        "lon": -106.6567306
+      },
+      "_metro": "Albuquerque, United States",
+      "_note": "Saturday growers' market in Robinson Park. Bare Squarespace page (robots allows it)."
+    },
+    {
+      "name": "Waimea Valley (Haleiwa)",
+      "category": "outdoors",
+      "collection": "https://www.waimeavalley.net/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Waimea Valley",
+        "address": "59-864 Kamehameha Hwy",
+        "city": "Haleiwa",
+        "region": "HI",
+        "postal_code": "96712",
+        "country": "US",
+        "lat": 21.636374,
+        "lon": -158.0548
+      },
+      "_metro": "Honolulu, United States",
+      "_note": "Hi'ipaka / Waimea Valley cultural days, moonwalks, community days. Bare Squarespace page (robots allows it). Oahu North Shore."
+    },
+    {
+      "name": "Carers of West Lothian (Livingston)",
+      "collection": "https://cowl.org.uk/events",
+      "category": "community",
+      "max_events": 200,
+      "venue": {
+        "name": "Carers of West Lothian, Sycamore House",
+        "address": "Quarrywood Court",
+        "city": "Livingston",
+        "postal_code": "EH54 6AX",
+        "country": "GB",
+        "lat": 55.8888237,
+        "lon": -3.5275548
+      },
+      "_metro": "Edinburgh, GB",
+      "_note": "Carers of West Lothian: coffee mornings, peer support and young-carer groups, most at its Livingston centre (84 of 124 upcoming). Bare collection page; Squarespace robots allow it."
+    },
+    {
+      "name": "Maryhill Burgh Halls (Glasgow)",
+      "collection": "https://www.mbht.org.uk/whats-on",
+      "category": "community",
+      "max_events": 200,
+      "venue": {
+        "name": "Maryhill Burgh Halls",
+        "address": "10-24 Gairbraid Avenue",
+        "city": "Glasgow",
+        "postal_code": "G20 8YE",
+        "country": "GB",
+        "lat": 55.8907884,
+        "lon": -4.2909271
+      },
+      "_metro": "Glasgow, GB",
+      "_note": "Community-owned hall in Maryhill: exhibitions, social dances, community meditation, litter picks. Bare collection page; Squarespace robots allow it. Glasgow had 0 new feeds."
+    },
+    {
+      "name": "Birmingham and Midland Institute (Birmingham)",
+      "collection": "https://www.bmi.org.uk/events",
+      "category": "learning",
+      "max_events": 200,
+      "venue": {
+        "name": "Birmingham and Midland Institute",
+        "address": "9 Margaret Street",
+        "city": "Birmingham",
+        "postal_code": "B3 3BS",
+        "country": "GB",
+        "lat": 52.4814504,
+        "lon": -1.9035857
+      },
+      "_metro": "Birmingham, GB",
+      "_note": "BMI (1854 educational charity): public lectures, study days, reading and Ruskin clubs; some ticketed for non-members. Squarespace robots allow the bare page. Birmingham learning gap."
+    },
+    {
+      "name": "Memphis River Parks Partnership",
+      "collection": "https://www.memphisriverparks.org/events",
+      "category": "fitness",
+      "max_events": 200,
+      "venue": {
+        "name": "Tom Lee Park",
+        "address": "422 Riverside Dr",
+        "city": "Memphis",
+        "region": "TN",
+        "postal_code": "38103",
+        "lat": 35.13655,
+        "lon": -90.06218
+      },
+      "_metro": "Memphis, United States",
+      "_note": "Free riverfront fitness classes and park days (Tom Lee Park, River Garden, Beale Street Landing, all within ~1 km). Bare collection page; stock Squarespace robots allow it."
+    },
+    {
+      "name": "New Orleans Jazz Museum",
+      "collection": "https://nolajazzmuseum.org/events",
+      "category": "music",
+      "max_events": 200,
+      "venue": {
+        "name": "New Orleans Jazz Museum",
+        "address": "400 Esplanade Ave",
+        "city": "New Orleans",
+        "region": "LA",
+        "postal_code": "70116",
+        "lat": 29.96126,
+        "lon": -90.05708
+      },
+      "_metro": "New Orleans, United States",
+      "_note": "State museum in the Old U.S. Mint; mostly free concerts, talks and heritage-month celebrations (~49 upcoming). Bare collection page; stock Squarespace robots allow it."
+    },
+    {
+      "name": "The Parthenon (Nashville)",
+      "collection": "https://www.nashvilleparthenon.com/events",
+      "category": "arts",
+      "max_events": 100,
+      "venue": {
+        "name": "The Parthenon",
+        "address": "2500 West End Ave",
+        "city": "Nashville",
+        "region": "TN",
+        "postal_code": "37203",
+        "lat": 36.14972,
+        "lon": -86.81338
+      },
+      "_metro": "Nashville, United States",
+      "_note": "Metro Parks' Parthenon museum in Centennial Park: tours, Kidsville, Archaeology Day. Bare Squarespace collection page; stock Squarespace robots allow it."
+    },
+    {
+      "name": "Klyde Warren Park (Dallas)",
+      "collection": "https://www.klydewarrenpark.org/events-programming",
+      "category": "community",
+      "max_events": 200,
+      "venue": {
+        "name": "Klyde Warren Park",
+        "address": "2012 Woodall Rodgers Fwy",
+        "city": "Dallas",
+        "region": "TX",
+        "postal_code": "75201",
+        "lat": 32.78897,
+        "lon": -96.8014
+      },
+      "_metro": "Dallas, United States",
+      "_note": "Deck park's own programming page: free storytime, music bingo, stargazing, markets, fitness (~77 upcoming). Bare collection page; stock Squarespace robots allow it."
     }
   ],
   "_not_included": {

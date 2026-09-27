@@ -10276,6 +10276,2279 @@
         "lon": 141.354642
       },
       "_metro": "Sapporo, Japan"
+    },
+    {
+      "name": "San Diego River Park Foundation (San Diego)",
+      "category": "outdoors",
+      "base_url": "https://sandiegoriver.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "San Diego, United States",
+      "_note": "The Events Calendar REST API; robots.txt disallows /wp-admin/ only. Mostly free nature walks, storytimes and river cleanups along the San Diego River."
+    },
+    {
+      "name": "McDowell Sonoran Conservancy (Phoenix)",
+      "category": "outdoors",
+      "base_url": "https://www.mcdowellsonoran.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Phoenix, United States",
+      "_note": "The Events Calendar REST API; robots.txt blocks /events/*/day, ?ical=1 and similar combinatorial URLs, not /wp-json/. Free guided hikes, bird walks and talks in Scottsdale's preserve."
+    },
+    {
+      "name": "Arizona Humanities (Phoenix)",
+      "category": "learning",
+      "base_url": "https://www.azhumanities.org",
+      "crawl_delay": 10,
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Phoenix, United States",
+      "_note": "The Events Calendar REST API; robots.txt: Disallow /wp-admin/, Crawl-delay 10. Free public talks at Arizona libraries and museums, many in the Phoenix metro."
+    },
+    {
+      "name": "National Hispanic Cultural Center (Albuquerque)",
+      "category": "arts",
+      "base_url": "https://www.nhccnm.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Albuquerque, United States",
+      "_note": "The Events Calendar REST API; robots.txt has no disallow for *. Readings, dance, tours, free-admission Sundays; Albuquerque had 0 curated feeds."
+    },
+    {
+      "name": "Indian Pueblo Cultural Center (Albuquerque)",
+      "category": "arts",
+      "base_url": "https://www.indianpueblo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Indian Pueblo Cultural Center",
+        "address": "2401 12th St NW",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87104",
+        "lat": 35.110331,
+        "lon": -106.6587761
+      },
+      "_metro": "Albuquerque, United States",
+      "_note": "The Events Calendar REST API; robots.txt: 'User-Agent: * / Disallow:'. Pueblo dance programmes, story time and festivals, all at the centre (API rows carry no venue, so the config pins it)."
+    },
+    {
+      "name": "San Diego Coastkeeper (San Diego)",
+      "category": "volunteer",
+      "base_url": "https://www.sdcoastkeeper.org",
+      "crawl_delay": 10,
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "San Diego, United States",
+      "_note": "The Events Calendar REST API; robots.txt: Disallow /wp-admin/, Crawl-delay 10. Free watershed walks, cleanups and climate-week talks across San Diego County."
+    },
+    {
+      "name": "San Diego History Center (San Diego)",
+      "category": "arts",
+      "base_url": "https://www.sandiegohistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "San Diego, United States",
+      "_note": "The Events Calendar REST API; robots.txt disallows one uploads folder only. API rows carry no coordinates and 13 of 15 are at the centre, so the config pins it. Book launches, ofrenda, family history days.",
+      "venue": {
+        "name": "San Diego History Center",
+        "address": "1649 El Prado, Suite 3",
+        "city": "San Diego",
+        "region": "CA",
+        "postal_code": "92101",
+        "lat": 32.7311591,
+        "lon": -117.148272
+      }
+    },
+    {
+      "name": "Lakewood Public Library (Cleveland)",
+      "category": "learning",
+      "base_url": "https://www.lakewoodpubliclibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "venue": {
+        "name": "Lakewood Public Library",
+        "address": "15425 Detroit Avenue",
+        "postal_code": "44107",
+        "lat": 41.4846924,
+        "lon": -81.8042232
+      },
+      "default_city": "Lakewood",
+      "default_region": "OH",
+      "default_country": "United States",
+      "_metro": "Cleveland, US",
+      "_note": "The Events Calendar at Lakewood OH's library; robots.txt allows /wp-json/ (Crawl-delay 10, honoured). 47 upcoming 2026-09-27, all at Main Library rooms without an address, hence venue. Film fest, author talks."
+    },
+    {
+      "name": "Saint Louis Art Museum (St. Louis)",
+      "category": "arts",
+      "base_url": "https://www.slam.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 2,
+      "default_city": "St. Louis",
+      "default_region": "MO",
+      "default_country": "United States",
+      "_metro": "St. Louis, US",
+      "_note": "Free-admission museum in Forest Park; The Events Calendar, robots.txt allows /wp-json/. 124 upcoming 2026-09-27: tours, toddler programs, lectures. Every venue carries the One Fine Arts Drive address; Zoom rows drop."
+    },
+    {
+      "name": "Allegheny Land Trust (Pittsburgh)",
+      "category": "outdoors",
+      "base_url": "https://alleghenylandtrust.org",
+      "within_days": 365,
+      "max_pages": 6,
+      "crawl_delay": 2,
+      "default_region": "PA",
+      "default_country": "United States",
+      "_metro": "Pittsburgh, US",
+      "_note": "Conservancy hikes, stewardship sessions and science strolls on its preserves. robots.txt allows /wp-json/. 13 upcoming 2026-09-27; trailhead addresses on each venue, webinars (address 'Zoom') drop."
+    },
+    {
+      "name": "Scioto Mile (Columbus)",
+      "category": "fitness",
+      "base_url": "https://www.sciotomile.com",
+      "within_days": 120,
+      "max_pages": 4,
+      "crawl_delay": 2,
+      "default_city": "Columbus",
+      "default_region": "OH",
+      "default_country": "United States",
+      "_metro": "Columbus, US",
+      "_note": "Downtown riverfront parks' calendar; robots.txt allows /wp-json/. 5 upcoming 2026-09-27: free yoga and mat pilates on Dorrian Green and Bicentennial Park."
+    },
+    {
+      "name": "Kirkwood Public Library (St. Louis)",
+      "category": "learning",
+      "base_url": "https://kplmo.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 2,
+      "venue": {
+        "name": "Kirkwood Public Library",
+        "address": "140 E. Jefferson Ave.",
+        "postal_code": "63122",
+        "lat": 38.5818632,
+        "lon": -90.4045121
+      },
+      "default_city": "Kirkwood",
+      "default_region": "MO",
+      "default_country": "United States",
+      "_metro": "St. Louis, US",
+      "_note": "The Events Calendar at Kirkwood MO's library; robots.txt allows /wp-json/. 166 upcoming 2026-09-27, all at the one building (venue has no geo, hence venue). Storytimes, clubs, civics talks."
+    },
+    {
+      "name": "Indy Reads (Indianapolis)",
+      "category": "learning",
+      "base_url": "https://www.indyreads.org",
+      "within_days": 120,
+      "max_pages": 6,
+      "crawl_delay": 2,
+      "venue": {
+        "name": "Indy Reads",
+        "address": "1066 Virginia Avenue",
+        "postal_code": "46203",
+        "lat": 39.7524851,
+        "lon": -86.1400355
+      },
+      "default_city": "Indianapolis",
+      "default_region": "IN",
+      "default_country": "United States",
+      "_metro": "Indianapolis, US",
+      "_note": "Adult-literacy nonprofit and community bookstore in Fountain Square; The Events Calendar, robots.txt allows /wp-json/. 44 upcoming 2026-09-27, all at 1066 Virginia Ave: ELL circles, book club, writers' nights."
+    },
+    {
+      "name": "Big Car Collaborative (Indianapolis)",
+      "category": "arts",
+      "base_url": "https://www.bigcar.org",
+      "within_days": 180,
+      "max_pages": 4,
+      "crawl_delay": 2,
+      "default_city": "Indianapolis",
+      "default_region": "IN",
+      "default_country": "United States",
+      "_metro": "Indianapolis, US",
+      "_note": "Nonprofit arts collaborative (CAMi, Levitt VIBE free concerts, pop-up public places). The Events Calendar REST, robots.txt allows /wp-json/. 10 upcoming 2026-09-27, 7 marked Free."
+    },
+    {
+      "name": "Mitchell Park Domes (Milwaukee)",
+      "category": "outdoors",
+      "base_url": "https://milwaukeedomes.org",
+      "within_days": 120,
+      "max_pages": 6,
+      "crawl_delay": 2,
+      "venue": {
+        "name": "Mitchell Park Domes",
+        "address": "524 S Layton Blvd",
+        "postal_code": "53215",
+        "lat": 43.0263777,
+        "lon": -87.9454144
+      },
+      "default_city": "Milwaukee",
+      "default_region": "WI",
+      "default_country": "United States",
+      "_metro": "Milwaukee, US",
+      "_note": "Milwaukee County's horticultural conservatory; The Events Calendar, robots.txt allows /wp-json/. 121 upcoming 2026-09-27, mostly storytimes (incl. bilingual) and SPARK!; the venue carries no address, hence venue."
+    },
+    {
+      "name": "Friends of the Riverfront (Pittsburgh)",
+      "category": "volunteer",
+      "base_url": "https://friendsoftheriverfront.org",
+      "within_days": 365,
+      "max_pages": 4,
+      "crawl_delay": 2,
+      "default_region": "PA",
+      "default_country": "United States",
+      "_metro": "Pittsburgh, US",
+      "_note": "Three Rivers Heritage Trail and water-trail stewards; The Events Calendar, robots.txt allows /wp-json/. 7 upcoming 2026-09-27: Trail Care Thursdays at Millvale, the Color Park, Tarentum; tree planting."
+    },
+    {
+      "name": "Bernheim Arboretum and Research Forest (Louisville, KY)",
+      "category": "outdoors",
+      "base_url": "https://bernheim.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Louisville, US",
+      "_note": "Bernheim Forest (Clermont KY, south of Louisville), The Events Calendar REST API. Venues carry no coordinates, so the visitor-centre point fills gaps. robots allows all. Night hikes, nature programmes.",
+      "venue": {
+        "name": "Bernheim Forest and Arboretum Visitor Center",
+        "address": "2075 Clermont Road",
+        "city": "Clermont",
+        "region": "KY",
+        "country": "US",
+        "postal_code": "40110",
+        "lat": 37.9181645,
+        "lon": -85.6580221
+      }
+    },
+    {
+      "name": "Speed Art Museum (Louisville, KY)",
+      "category": "arts",
+      "base_url": "https://www.speedmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Louisville, US",
+      "_note": "Speed Art Museum, The Events Calendar REST API; events carry no venue, all at the museum. robots disallows only admin/search. Tours, cinema, workshops. Louisville had no arts feed.",
+      "venue": {
+        "name": "Speed Art Museum",
+        "address": "2035 South 3rd Street",
+        "city": "Louisville",
+        "region": "KY",
+        "country": "US",
+        "postal_code": "40208",
+        "lat": 38.2178538,
+        "lon": -85.7607957
+      }
+    },
+    {
+      "name": "North Carolina Museum of Art (Raleigh, NC)",
+      "category": "arts",
+      "base_url": "https://ncartmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Raleigh, US",
+      "venue": {
+        "name": "North Carolina Museum of Art",
+        "address": "2110 Blue Ridge Road",
+        "city": "Raleigh",
+        "region": "NC",
+        "country": "US",
+        "postal_code": "27607",
+        "lat": 35.8105029,
+        "lon": -78.7021777
+      },
+      "_note": "NCMA (free state museum), The Events Calendar REST API; venues are museum buildings without coordinates, so the museum point fills gaps. robots disallows only /wp-admin/. Tours, talks, park events."
+    },
+    {
+      "name": "Triangle Land Conservancy (Raleigh, NC)",
+      "category": "outdoors",
+      "base_url": "https://triangleland.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Raleigh, US",
+      "_note": "Triangle Land Conservancy, The Events Calendar REST API; free guided hikes, birding and night walks across its preserves (10 venues, street addresses). robots disallows only /wp-admin/."
+    },
+    {
+      "name": "New Orleans City Park (New Orleans, LA)",
+      "category": "outdoors",
+      "base_url": "https://neworleanscitypark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "_metro": "New Orleans, US",
+      "venue": {
+        "name": "City Park",
+        "city": "New Orleans",
+        "region": "LA",
+        "country": "US",
+        "lat": 30.0006067,
+        "lon": -90.0932876
+      },
+      "_note": "City Park's The Events Calendar REST API; events carry no venue, so the park point fills gaps. robots: Crawl-delay 10, disallows only /wp-admin/. Cleanup krewes, restoration days, farmers market."
+    },
+    {
+      "name": "Ogden Museum of Southern Art (New Orleans, LA)",
+      "category": "arts",
+      "base_url": "https://ogdenmuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "New Orleans, US",
+      "venue": {
+        "name": "Ogden Museum of Southern Art",
+        "address": "925 Camp Street",
+        "city": "New Orleans",
+        "region": "LA",
+        "country": "US",
+        "postal_code": "70130",
+        "lat": 29.9435723,
+        "lon": -90.0713431
+      },
+      "_note": "Ogden Museum, The Events Calendar REST API; events carry no venue, all at the museum. robots allows all. Free family days, art talks, First Fridays."
+    },
+    {
+      "name": "New Orleans Museum of Art (New Orleans, LA)",
+      "category": "arts",
+      "base_url": "https://noma.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "New Orleans, US",
+      "venue": {
+        "name": "New Orleans Museum of Art",
+        "address": "1 Collins Diboll Circle",
+        "city": "New Orleans",
+        "region": "LA",
+        "country": "US",
+        "postal_code": "70124",
+        "lat": 29.9864897,
+        "lon": -90.0934
+      },
+      "_note": "NOMA, The Events Calendar REST API; most venues carry coordinates, the museum point fills the rest. robots disallows plugins/admin only. Free yoga and tai chi in the Besthoff Sculpture Garden, tours."
+    },
+    {
+      "name": "Orlando Museum of Art (Orlando, FL)",
+      "category": "arts",
+      "base_url": "https://omart.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Orlando, US",
+      "venue": {
+        "name": "Orlando Museum of Art",
+        "address": "2416 North Mills Avenue",
+        "city": "Orlando",
+        "region": "FL",
+        "country": "US",
+        "postal_code": "32803",
+        "lat": 28.5727927,
+        "lon": -81.3651566
+      },
+      "_note": "Orlando Museum of Art, The Events Calendar REST API (robots disallows *ical=* and /wp-admin/, not /wp-json/). Venue has no coordinates, so the museum point fills them. Tours, family days, yoga."
+    },
+    {
+      "name": "Cummer Museum of Art & Gardens (Jacksonville, FL)",
+      "category": "arts",
+      "base_url": "https://www.cummermuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "_metro": "Jacksonville, US",
+      "venue": {
+        "name": "Cummer Museum of Art & Gardens",
+        "address": "829 Riverside Avenue",
+        "city": "Jacksonville",
+        "region": "FL",
+        "country": "US",
+        "postal_code": "32204",
+        "lat": 30.3151081,
+        "lon": -81.6765824
+      },
+      "_note": "Cummer Museum, The Events Calendar REST API; events carry no venue. robots: Crawl-delay 10, nothing disallowed. Free First Saturday, tours, storytime, garden programmes."
+    },
+    {
+      "name": "St. Johns Riverkeeper (Jacksonville, FL)",
+      "category": "outdoors",
+      "base_url": "https://www.stjohnsriverkeeper.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "_metro": "Jacksonville, US",
+      "_note": "St. Johns Riverkeeper, The Events Calendar REST API; river and creek cleanups, oyster-garden workshops, mostly Jacksonville (13 venues with street addresses). robots: Crawl-delay 10, nothing disallowed."
+    },
+    {
+      "name": "Brackenridge Park Conservancy (San Antonio, TX)",
+      "category": "outdoors",
+      "base_url": "https://www.brackenridgepark.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "_metro": "San Antonio, US",
+      "venue": {
+        "name": "Brackenridge Park",
+        "city": "San Antonio",
+        "region": "TX",
+        "country": "US",
+        "lat": 29.4627143,
+        "lon": -98.4695784
+      },
+      "_note": "Brackenridge Park Conservancy, The Events Calendar REST API. robots: Crawl-delay 10, disallows the /bpc-events HTML archive, not /wp-json/. Free tai chi, volunteer cleanup days, fishing day."
+    },
+    {
+      "name": "Hemisfair (San Antonio, TX)",
+      "category": "community",
+      "base_url": "https://hemisfair.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "San Antonio, US",
+      "venue": {
+        "name": "Hemisfair",
+        "address": "434 South Alamo Street",
+        "city": "San Antonio",
+        "region": "TX",
+        "country": "US",
+        "postal_code": "78205",
+        "lat": 29.4195672,
+        "lon": -98.487857
+      },
+      "_note": "Hemisfair parks (Yanaguana Garden, Civic Park), The Events Calendar REST API. robots disallows only /wp-admin/. Free community yoga, storytime, fitness, markets."
+    },
+    {
+      "name": "Tampa Museum of Art (Tampa, FL)",
+      "category": "arts",
+      "base_url": "https://tampamuseum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Tampa, US",
+      "_note": "Tampa Museum of Art, The Events Calendar REST API; venue carries coordinates. robots disallows uploads/testsite only. Gallery chats, lectures, studio classes."
+    },
+    {
+      "name": "St. Pete Pier (Tampa, FL)",
+      "category": "community",
+      "base_url": "https://www.stpetepier.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "_metro": "Tampa, US",
+      "venue": {
+        "name": "St. Pete Pier",
+        "address": "600 2nd Avenue NE",
+        "city": "St. Petersburg",
+        "region": "FL",
+        "country": "US",
+        "postal_code": "33701",
+        "lat": 27.7738264,
+        "lon": -82.6227993
+      },
+      "_note": "St. Pete Pier (city-owned), The Events Calendar REST API; most events carry no coordinates, so the pier point fills gaps. robots: Crawl-delay 10. Free fitness classes, festivals, movie nights."
+    },
+    {
+      "name": "Museum of Fine Arts St. Petersburg (Tampa, FL)",
+      "category": "arts",
+      "base_url": "https://mfastpete.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Tampa, US",
+      "venue": {
+        "name": "Museum of Fine Arts, St. Petersburg",
+        "address": "255 Beach Drive NE",
+        "city": "St. Petersburg",
+        "region": "FL",
+        "country": "US",
+        "postal_code": "33701",
+        "lat": 27.7744658,
+        "lon": -82.6318274
+      },
+      "_note": "MFA St. Petersburg, The Events Calendar REST API; venue has an address but no coordinates. robots disallows /wp-admin/ and wpforms only. Art After Dark, book clubs, sensory Saturdays."
+    },
+    {
+      "name": "Thames21 (London)",
+      "category": "volunteer",
+      "base_url": "https://www.thames21.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "London, GB",
+      "_note": "Thames21 river charity: free volunteer river-restoration days, cleanups and wildlife walks across London. robots.txt: Disallow empty (all allowed). First UK volunteer tribe feed."
+    },
+    {
+      "name": "Barber Institute Concerts (Birmingham)",
+      "category": "music",
+      "base_url": "https://barber.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 2,
+      "venue": {
+        "name": "Bramall Music Building, University of Birmingham",
+        "address": "Chancellor's Court, Edgbaston",
+        "city": "Birmingham",
+        "postal_code": "B15 2TT",
+        "lat": 52.449177,
+        "lon": -1.9294788
+      },
+      "_metro": "Birmingham, GB",
+      "_note": "Barber Institute (Univ. of Birmingham): free weekly lunchtime concerts, family and baby sessions, a few paid evening concerts. robots.txt: * Crawl-delay 2, no disallow. Birmingham had 0 feeds."
+    },
+    {
+      "name": "Friends of Roundhay Park (Leeds)",
+      "category": "volunteer",
+      "base_url": "https://forp.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Roundhay Park (The Mansion)",
+        "address": "Mansion Lane",
+        "city": "Leeds",
+        "postal_code": "LS8 2HH",
+        "lat": 53.8396198,
+        "lon": -1.4997748
+      },
+      "_metro": "Leeds, GB",
+      "_note": "Friends of Roundhay Park: monthly litter picks, working parties, art in the park, open meetings; all in the park. robots.txt disallows only /wp-admin/. Leeds volunteer gap."
+    },
+    {
+      "name": "Brighton Repair Café (Brighton)",
+      "category": "community",
+      "base_url": "https://brightonrepaircafe.org",
+      "within_days": 120,
+      "max_pages": 5,
+      "venue": {
+        "name": "St George's Hall",
+        "address": "125 Newick Road, Moulsecoomb",
+        "city": "Brighton",
+        "postal_code": "BN1 9JJ",
+        "lat": 50.8540087,
+        "lon": -0.1075761
+      },
+      "_metro": "Brighton, GB",
+      "_note": "Volunteer-run monthly repair café, free, one venue (St George's Hall, Moulsecoomb). robots.txt disallows only /wp-admin/. Brighton had no community feed."
+    },
+    {
+      "name": "Brighton Buddhist Centre (Brighton)",
+      "category": "community",
+      "base_url": "https://www.brightonbuddhistcentre.co.uk",
+      "within_days": 60,
+      "max_pages": 5,
+      "venue": {
+        "name": "Brighton Buddhist Centre",
+        "address": "17 Tichborne Street",
+        "city": "Brighton",
+        "postal_code": "BN1 1UR",
+        "lat": 50.8250161,
+        "lon": -0.1399723
+      },
+      "_metro": "Brighton, GB",
+      "_note": "Triratna centre: daily drop-in meditation (all welcome, donation), tai chi, chair yoga; some paid yoga/courses. robots.txt blocks only Woo paths. ~110 events/30 days."
+    },
+    {
+      "name": "Stretford Public Hall (Manchester)",
+      "category": "community",
+      "base_url": "https://stretfordpublichall.org.uk",
+      "within_days": 90,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stretford Public Hall",
+        "address": "Chester Road",
+        "city": "Stretford",
+        "lat": 53.4465879,
+        "lon": -2.3071146
+      },
+      "_metro": "Manchester, GB",
+      "_note": "Community-owned hall in Stretford (Trafford): repair café, advice drop-ins, carers, chairobics, parent groups; many free or pay-what-you-can. robots.txt blocks only Woo paths. Greater Manchester gap."
+    },
+    {
+      "name": "Lockleaze Neighbourhood Trust Hub (Bristol)",
+      "category": "community",
+      "base_url": "https://www.lockleazent.co.uk",
+      "within_days": 90,
+      "max_pages": 10,
+      "_metro": "Bristol, GB",
+      "_note": "Lockleaze Neighbourhood Trust (lockleazehub.org.uk redirects here): community garden sessions, advice drop-ins, wellbeing walks, baby hub, low-cost classes. robots.txt empty. Venues carry geo."
+    },
+    {
+      "name": "Commune de Gambsheim (Gambsheim, France)",
+      "category": "community",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://mairie-gambsheim.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Strasbourg, France",
+      "_note": "Town of Gambsheim (Eurométropole edge, 15 km NE of Strasbourg), The Events Calendar with geo on every venue, so no venue block. robots.txt allows /wp-json/. 11 upcoming on 2026-09-27, library storytimes free."
+    },
+    {
+      "name": "Maulbeerblatt Termine (Berlin Treptow-Köpenick)",
+      "category": "community",
+      "base_url": "https://maulbeerblatt.com",
+      "within_days": 60,
+      "max_pages": 20,
+      "_metro": "Berlin, Germany",
+      "_note": "Local magazine calendar for Treptow-Köpenick: Rathaus Köpenick, Museum Treptow, Kulturzentrum Schöneweide, walks, readings; 760 events in 90 days. robots.txt: Disallow empty. Fills SE Berlin."
+    },
+    {
+      "name": "Pasinger Fabrik (Munich)",
+      "category": "community",
+      "base_url": "https://pasinger-fabrik.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Munich, Germany",
+      "_note": "Pasing cultural centre with family centre: parent-baby groups, kids' workshops, exhibitions, some ticketed theatre; 423 events in 120 days. Venues are room names, so `venue` places them. robots.txt: Disallow empty.",
+      "venue": {
+        "name": "Pasinger Fabrik",
+        "address": "August-Exter-Straße 1",
+        "city": "München",
+        "postal_code": "81245",
+        "lat": 48.1510388,
+        "lon": 11.46128
+      }
+    },
+    {
+      "name": "Bellevue di Monaco (Munich)",
+      "category": "community",
+      "base_url": "https://bellevuedimonaco.de",
+      "within_days": 120,
+      "max_pages": 12,
+      "_metro": "Munich, Germany",
+      "_note": "Refugee and neighbourhood centre in the Glockenbach: repair café, language courses, women's breakfast, football, concerts; 532 events in 120 days. robots.txt blocks AI crawlers only, no * group.",
+      "venue": {
+        "name": "Bellevue di Monaco",
+        "address": "Müllerstraße 2",
+        "city": "München",
+        "postal_code": "80469",
+        "lat": 48.1332754,
+        "lon": 11.5743922
+      }
+    },
+    {
+      "name": "Haus Drei Stadtteilzentrum (Hamburg)",
+      "category": "community",
+      "base_url": "https://haus-drei.de",
+      "within_days": 120,
+      "max_pages": 5,
+      "_metro": "Hamburg, Germany",
+      "_note": "Altona-Altstadt neighbourhood centre: clothes swap, repair café, bike flea market, kids' cinema, dance workshops; 29 upcoming. Events have no venue, so `venue` places them. robots.txt: Disallow empty.",
+      "venue": {
+        "name": "Haus Drei",
+        "address": "Hospitalstraße 107",
+        "city": "Hamburg",
+        "postal_code": "22767",
+        "lat": 53.556203,
+        "lon": 9.9473012
+      }
+    },
+    {
+      "name": "Kulturbunker Mülheim (Cologne)",
+      "category": "arts",
+      "base_url": "https://kulturbunker-muelheim.de",
+      "within_days": 120,
+      "max_pages": 5,
+      "_metro": "Cologne, Germany",
+      "_note": "Volunteer-run cultural centre in a former bunker, Köln-Mülheim: jam sessions, storytelling, youth film festival, exhibitions; 19 upcoming. Events have no venue, so `venue` places them. robots.txt allows.",
+      "venue": {
+        "name": "Kulturbunker Mülheim",
+        "address": "Berliner Straße 20",
+        "city": "Köln",
+        "postal_code": "51063",
+        "lat": 50.9697264,
+        "lon": 7.0086129
+      }
+    },
+    {
+      "name": "Freizeitzentrum Schnelsen (Hamburg)",
+      "category": "community",
+      "base_url": "https://www.fz-schnelsen.de",
+      "within_days": 120,
+      "max_pages": 5,
+      "_metro": "Hamburg, Germany",
+      "_note": "Schnelsen community centre: Stadtteilbeirat meetings, jazz brunch, concerts, some ticketed. 29 upcoming; events carry no venue, so `venue` places them. robots.txt disallows WooCommerce paths only.",
+      "venue": {
+        "name": "Freizeitzentrum Schnelsen",
+        "address": "Wählingsallee 16",
+        "city": "Hamburg",
+        "postal_code": "22459",
+        "lat": 53.6322105,
+        "lon": 9.9184735
+      }
+    },
+    {
+      "name": "Kulturladen St. Georg (Hamburg)",
+      "category": "community",
+      "base_url": "https://kulturladen.com",
+      "within_days": 120,
+      "max_pages": 5,
+      "_metro": "Hamburg, Germany",
+      "_note": "St. Georg neighbourhood culture shop: digital-help sessions, afternoon classical, open stage; 12 upcoming, mostly free. Venue rows lack geo, so `venue` (Alexanderstr. 16) places them. robots.txt allows.",
+      "venue": {
+        "name": "Kulturladen St. Georg",
+        "address": "Alexanderstraße 16",
+        "city": "Hamburg",
+        "postal_code": "20099",
+        "lat": 53.5548557,
+        "lon": 10.0190267
+      }
+    },
+    {
+      "name": "KulturEnergieBunker Altona KEBAP (Hamburg)",
+      "category": "community",
+      "base_url": "https://kulturenergiebunker.de",
+      "within_days": 120,
+      "max_pages": 5,
+      "_metro": "Hamburg, Germany",
+      "_note": "Neighbourhood association converting an Altona bunker: free bunker tours, photo book club, garden and solar events; 18 upcoming. Venue rows lack geo, so `venue` places them. robots.txt allows.",
+      "venue": {
+        "name": "KulturEnergieBunkerAltonaProjekt (KEBAP)",
+        "address": "Schomburgstraße 6-8",
+        "city": "Hamburg",
+        "postal_code": "22767",
+        "lat": 53.5519512,
+        "lon": 9.951862
+      }
+    },
+    {
+      "name": "Interkultur e.V. im Bürgerhaus MüZe (Cologne)",
+      "category": "community",
+      "base_url": "https://www.interkultur-ev.net",
+      "within_days": 90,
+      "max_pages": 6,
+      "_metro": "Cologne, Germany",
+      "_note": "Intercultural association in Bürgerhaus MüZe, Köln-Mülheim: German conversation practice, women's afternoon, open media help, food-bank day; free. Venue rows lack geo, so `venue` places them. robots.txt: Disallow empty.",
+      "venue": {
+        "name": "Bürgerhaus MüZe",
+        "address": "Berliner Straße 77",
+        "city": "Köln",
+        "postal_code": "51063",
+        "lat": 50.9724525,
+        "lon": 7.0105939
+      }
+    },
+    {
+      "name": "Bürgersaal Fürstenried (Munich)",
+      "category": "community",
+      "base_url": "https://buergersaal-fuerstenried.de",
+      "within_days": 120,
+      "max_pages": 4,
+      "_metro": "Munich, Germany",
+      "_note": "Fürstenried-Ost Bürgersaal (Stadtteilkultur, Kulturreferat-listed): tea dances, talks, local theatre; 17 upcoming. Most events carry no venue, so `venue` places them. robots.txt is empty.",
+      "venue": {
+        "name": "Bürgersaal Fürstenried",
+        "address": "Züricher Straße 35",
+        "city": "München",
+        "postal_code": "81476",
+        "lat": 48.0940627,
+        "lon": 11.4992878
+      }
+    },
+    {
+      "name": "ubo9 Kulturzentrum Pasing (Munich)",
+      "category": "community",
+      "base_url": "https://www.ubo9.de",
+      "within_days": 120,
+      "max_pages": 4,
+      "_metro": "Munich, Germany",
+      "_note": "Neighbourhood arts centre at Ubostraße 9, Pasing (Kulturreferat-listed): painting meet-up, choir and open stages, exhibitions; 20 upcoming. Events carry no venue, so `venue` places them. robots.txt allows.",
+      "venue": {
+        "name": "ubo9",
+        "address": "Ubostraße 9",
+        "city": "München",
+        "postal_code": "81245",
+        "lat": 48.1573359,
+        "lon": 11.4135959
+      }
+    },
+    {
+      "name": "Eötvös10 Közösségi Színtér (Budapest Terézváros)",
+      "category": "community",
+      "base_url": "https://eotvos10.hu",
+      "within_days": 60,
+      "max_pages": 12,
+      "_metro": "Budapest, Hungary",
+      "_note": "District VI municipal community and culture house: senior dance, mama club, clay workshops, English course, theatre; 708 events in 120 days. Events carry no venue, so `venue` places them. robots.txt disallows /wp-admin/ only.",
+      "venue": {
+        "name": "Eötvös10",
+        "address": "Eötvös utca 10",
+        "city": "Budapest",
+        "postal_code": "1067",
+        "lat": 47.5050703,
+        "lon": 19.0648451
+      }
+    },
+    {
+      "name": "Fundación Tres Culturas del Mediterráneo (Seville)",
+      "category": "community",
+      "base_url": "https://www.tresculturas.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fundación Tres Culturas del Mediterráneo",
+        "address": "Calle Max Planck 2",
+        "city": "Sevilla",
+        "postal_code": "41092",
+        "lat": 37.4014512,
+        "lon": -6.0051828
+      },
+      "_metro": "Seville, Spain",
+      "_note": "Public foundation's free programme (film cycles, concerts, forums) at the Pabellón de Marruecos, Cartuja; The Events Calendar REST, robots.txt allows /wp-json. Seville had one source."
+    },
+    {
+      "name": "Octubre Centre de Cultura Contemporània (Valencia)",
+      "category": "learning",
+      "base_url": "https://www.octubre.cat",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Octubre Centre de Cultura Contemporània",
+        "address": "Carrer de Sant Ferran 12",
+        "city": "València",
+        "postal_code": "46001",
+        "lat": 39.4730182,
+        "lon": -0.3770474
+      },
+      "_metro": "Valencia, Spain",
+      "_note": "Cultural association in central Valencia: talks, book presentations, film; The Events Calendar REST, no robots.txt (404). Adds a Valencia civic-culture venue."
+    },
+    {
+      "name": "Ru Paré (Amsterdam)",
+      "category": "community",
+      "base_url": "https://rupare.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ru Paré",
+        "address": "4 Chris Lebeaustraat",
+        "city": "Amsterdam",
+        "postal_code": "1062DC",
+        "lat": 52.3625635,
+        "lon": 4.8385915
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Community centre in Amsterdam Nieuw-West (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Neighbourhood meetings, small concerts and theatre."
+    },
+    {
+      "name": "Buurtkamer Quellijn (Amsterdam)",
+      "category": "community",
+      "base_url": "https://buurtkamerquellijn.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buurtkamer Quellijn",
+        "address": "62 Quellijnstraat",
+        "city": "Amsterdam",
+        "postal_code": "1072XV",
+        "lat": 52.3567653,
+        "lon": 4.8892756
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Neighbourhood living room in De Pijp (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Free breakfasts, walk-in coffee, creative sessions; 141 upcoming."
+    },
+    {
+      "name": "De Kwaker - Dorpshuis Westzaan (Zaanstad)",
+      "category": "fitness",
+      "base_url": "https://dorpshuis-westzaan.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Kwaker",
+        "address": "127 J.J. Allanstraat",
+        "city": "Westzaan",
+        "postal_code": "1551RC",
+        "lat": 52.4488974,
+        "lon": 4.7761966
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Village community centre in Westzaan, Zaanstad (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Weekly movement classes for seniors, yoga, bridge, amateur theatre."
+    },
+    {
+      "name": "'t Reghthuys (Nieuwkoop)",
+      "category": "arts",
+      "base_url": "https://reghthuys-nieuwkoop.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "'t Reghthuys",
+        "address": "1 Reghthuysplein",
+        "city": "Nieuwkoop",
+        "postal_code": "2421BE",
+        "lat": 52.1503987,
+        "lon": 4.7793466
+      },
+      "_metro": "Nieuwkoop, Netherlands",
+      "_note": "Village cultural house in Nieuwkoop's old town hall (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Exhibitions, Tuesday music, courses, a gift market."
+    },
+    {
+      "name": "TorenTuin (Rotterdam)",
+      "category": "community",
+      "base_url": "https://torentuin.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TorenTuin",
+        "address": "1 Lisplein",
+        "city": "Rotterdam",
+        "postal_code": "3037AP",
+        "lat": 51.9394769,
+        "lon": 4.4742057
+      },
+      "_metro": "Rotterdam, Netherlands",
+      "_note": "Neighbourhood garden and meeting place in Rotterdam Liskwartier (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Open days, walks, toddler studio, breakfasts. Rotterdam had no source."
+    },
+    {
+      "name": "Het Kwartier (Stolwijk)",
+      "category": "community",
+      "base_url": "https://www.hetkwartierstolwijk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Het Kwartier",
+        "address": "16b Jan Steenlaan",
+        "city": "Stolwijk",
+        "postal_code": "2821VB",
+        "lat": 51.9740512,
+        "lon": 4.7719601
+      },
+      "_metro": "Rotterdam, Netherlands",
+      "_note": "Village cultural and community centre in Stolwijk, Krimpenerwaard (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Pub quiz, older people's day, choirs, small shows."
+    },
+    {
+      "name": "COC Haaglanden (The Hague)",
+      "category": "community",
+      "base_url": "https://www.cochaaglanden.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "COC Haaglanden",
+        "address": "7 Scheveningseveer",
+        "city": "'s-Gravenhage",
+        "postal_code": "2514HB",
+        "lat": 52.0836736,
+        "lon": 4.304764
+      },
+      "_metro": "The Hague, Netherlands",
+      "_note": "LGBTQ+ community centre in The Hague (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Support groups, queer Fridays, over-50s outings, jam sessions."
+    },
+    {
+      "name": "Huis Miereveld (Amersfoort)",
+      "category": "community",
+      "base_url": "https://www.huismiereveld.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Huis Miereveld",
+        "address": "72 Miereveldstraat",
+        "city": "Amersfoort",
+        "postal_code": "3817RP",
+        "lat": 52.146046,
+        "lon": 5.3870283
+      },
+      "_metro": "Amersfoort, Netherlands",
+      "_note": "Neighbourhood house in Amersfoort (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Repair Café, chair yoga, tai chi, shared meals, kids' LEGO afternoons; 290 upcoming."
+    },
+    {
+      "name": "Inter Amicos Buurt- en Speeltuinvereniging (Rijswijk)",
+      "category": "community",
+      "base_url": "https://www.interamicos.nl",
+      "within_days": 120,
+      "max_pages": 1,
+      "venue": {
+        "name": "Inter Amicos Buurt- en Speeltuinvereniging",
+        "address": "2a Handelskade",
+        "city": "Rijswijk",
+        "postal_code": "2282KV",
+        "lat": 52.0473912,
+        "lon": 4.3400702
+      },
+      "_metro": "The Hague, Netherlands",
+      "_note": "Neighbourhood and playground association in Rijswijk (OSM club); The Events Calendar REST, robots.txt allows /wp-json (crawl-delay 300, one request per run). Bingo, card marathons, Halloween for kids.",
+      "crawl_delay": 300
+    },
+    {
+      "name": "Ottawa Art Gallery (Ottawa, Canada)",
+      "category": "arts",
+      "base_url": "https://oaggao.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ottawa Art Gallery",
+        "address": "10 Daly Avenue",
+        "city": "Ottawa",
+        "region": "ON",
+        "postal_code": "K1N 6E2",
+        "country": "CA",
+        "lat": 45.4254542,
+        "lon": -75.6881438
+      },
+      "_metro": "Ottawa, Canada",
+      "_note": "Free municipal art gallery: Creative Sundays, Toddler Mornings, Sketchy Thursdays, art talks. REST venues carry no geo_lat, so the venue block (Photon point) places them. robots.txt allows /wp-json/."
+    },
+    {
+      "name": "North Branch Restoration Project (Chicago)",
+      "base_url": "https://northbranchrestoration.org",
+      "category": "volunteer",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_region": "IL",
+      "default_country": "US",
+      "_metro": "Chicago, United States",
+      "_note": "Volunteer restoration workdays in the North Branch forest preserves; each title is the site's name. robots.txt disallows /wp-admin/ only. Most events carry a street address."
+    },
+    {
+      "name": "Groundwork Jacksonville (Jacksonville, FL)",
+      "base_url": "https://www.groundworkjacksonville.org",
+      "category": "community",
+      "crawl_delay": 10,
+      "within_days": 120,
+      "max_pages": 5,
+      "default_city": "Jacksonville",
+      "default_region": "FL",
+      "default_country": "US",
+      "_metro": "Jacksonville, United States",
+      "_note": "Monthly creek cleanups and free LaVilla history walks. robots.txt: Crawl-delay 10 (honoured), nothing disallowed. community, the cleanups promote to volunteer at sync."
+    },
+    {
+      "name": "Museo Nacional de Culturas Populares (Mexico City)",
+      "category": "arts",
+      "base_url": "https://mncp.cultura.gob.mx",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museo Nacional de Culturas Populares",
+        "lat": 19.34995,
+        "lon": -99.16102,
+        "address": "Av. Miguel Hidalgo 289, Del Carmen, Coyoacán",
+        "city": "Ciudad de México",
+        "country": "Mexico"
+      },
+      "_metro": "Mexico City, Mexico",
+      "_note": "Federal (Secretaría de Cultura) museum in Coyoacán; free festivals, book launches, concerts. The Events Calendar REST API; robots.txt disallows only /Propuestas/. Fills Mexico City.",
+      "_found": "wikidata:museum -> tribe"
+    },
+    {
+      "name": "Facultad de Música UNAM (Mexico City)",
+      "category": "music",
+      "_found": "wikidata:arts_centre -> tribe",
+      "base_url": "https://www.fam.unam.mx",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Facultad de Música, UNAM",
+        "address": "Xicoténcatl 126, Del Carmen, Coyoacán",
+        "city": "Ciudad de México",
+        "country": "Mexico",
+        "lat": 19.3546026,
+        "lon": -99.1561146
+      },
+      "_metro": "Mexico City, Mexico",
+      "_note": "UNAM's music faculty in Coyoacán: free student recitals, ensemble concerts, talks. The Events Calendar REST API; robots.txt disallows only /wp-admin/. Venues carry no coordinates, so the faculty's fill them."
+    },
+    {
+      "name": "Chaldean Community Foundation",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.chaldeanfoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Detroit, United States",
+      "crawl_delay": 10,
+      "_note": "Chaldean Community Foundation (Sterling Heights + West Bloomfield). robots.txt: Yoast block, empty Disallow; top-level Crawl-delay 10, honoured. Free ESL, language classes, job fairs; two sites, so no venue block."
+    },
+    {
+      "name": "Edmond History Museum (Oklahoma City)",
+      "base_url": "https://www.edmondhistory.org",
+      "category": "learning",
+      "within_days": 180,
+      "max_pages": 4,
+      "venue": {
+        "name": "Edmond History Museum",
+        "address": "431 S Boulevard",
+        "city": "Edmond",
+        "region": "OK",
+        "postal_code": "73034",
+        "lat": 35.6500695,
+        "lon": -97.478651
+      },
+      "_metro": "Oklahoma City, United States",
+      "_note": "Edmond Historical Society & Museum (free museum). robots.txt: no disallow on /wp-json/. Free lectures, storytimes, day camps; every event at the museum, whose events carry no venue, hence the block."
+    },
+    {
+      "name": "Rose State College (Oklahoma City)",
+      "base_url": "https://rose.edu",
+      "category": "community",
+      "within_days": 180,
+      "max_pages": 4,
+      "venue": {
+        "name": "Rose State College",
+        "address": "6420 SE 15th St",
+        "city": "Midwest City",
+        "region": "OK",
+        "postal_code": "73110",
+        "lat": 35.4458953,
+        "lon": -97.413369
+      },
+      "_metro": "Oklahoma City, United States",
+      "_note": "Rose State College campus events (The Events Calendar REST): concerts, plays, Fall Fest, trunk or treat. robots.txt disallows /wp-admin/ only. All on the Midwest City campus; 32 of 35 carry no venue."
+    },
+    {
+      "name": "Bird Alliance of Central Indiana (Indianapolis)",
+      "base_url": "https://www.birdallianceofcentralindiana.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 6,
+      "_metro": "Indianapolis, United States",
+      "_note": "Bird Alliance of Central Indiana (formerly Amos W. Butler Audubon). robots.txt disallows /wp-admin/ only. ~144 free bird hikes and park cleanups at Eagle Creek, Holliday Park, Cool Creek; venues carry addresses."
+    },
+    {
+      "name": "Indiana Humanities (Indianapolis)",
+      "base_url": "https://indianahumanities.org",
+      "category": "learning",
+      "crawl_delay": 10,
+      "within_days": 120,
+      "max_pages": 4,
+      "_metro": "Indianapolis, United States",
+      "_note": "Indiana Humanities statewide programme: talks, book events, lit fest; most marked Free. robots.txt: 'User-agent: * / Disallow:' plus Crawl-delay 10, honoured. Many events in Indianapolis."
+    },
+    {
+      "name": "Ohio Wildlife Center (Columbus)",
+      "base_url": "https://ohiowildlifecenter.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 4,
+      "_metro": "Columbus, United States",
+      "_note": "Ohio Wildlife Center, Powell OH: Second Sunday open days (free), wild story time ($5), talks. robots.txt: 'User-agent: * / Disallow:'. 50 of 51 at the center, venue carried by the API."
+    },
+    {
+      "name": "Burroughs Audubon Society (Kansas City)",
+      "base_url": "https://burroughs.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 2,
+      "_metro": "Kansas City, United States",
+      "_note": "Burroughs Audubon Society of Greater KC: free field trips, bird census, nature-center programs; each event carries its park as venue. robots.txt disallows /wp-admin/ only."
+    },
+    {
+      "name": "Lakeside Nature Center (Kansas City)",
+      "base_url": "https://lakesidenaturecenter.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 2,
+      "_metro": "Kansas City, United States",
+      "_note": "Lakeside Nature Center (KC Parks, Swope Park): free naturalist hikes, storytelling, native-garden volunteer days. robots.txt User-agent:* group disallows plugins and /wp-admin/, not /wp-json/."
+    },
+    {
+      "name": "Friends of the Forest Preserves (Chicago)",
+      "base_url": "https://fotfp.org",
+      "category": "volunteer",
+      "within_days": 120,
+      "max_pages": 2,
+      "_metro": "Chicago, United States",
+      "_note": "Friends of the Forest Preserves: free stewardship volunteer workdays in Cook County preserves (Dan Ryan Woods, Eggers Grove, St. Paul Woods); venue per event. robots.txt disallows /wp-admin/ only."
+    },
+    {
+      "name": "Oklahoma Historical Society (Oklahoma City)",
+      "base_url": "https://www.okhistory.org/calendar",
+      "category": "learning",
+      "within_days": 120,
+      "max_pages": 4,
+      "_metro": "Oklahoma City, United States",
+      "_note": "Oklahoma Historical Society calendar (WordPress under /calendar): History Center talks, screenings, marker dedications, family days, statewide sites. robots.txt does not disallow /calendar/."
+    },
+    {
+      "name": "Columbus Recreation and Parks (Columbus)",
+      "base_url": "https://columbusrecparks.com",
+      "category": "community",
+      "within_days": 120,
+      "max_pages": 6,
+      "_metro": "Columbus, United States",
+      "_note": "City of Columbus Recreation & Parks (The Events Calendar REST): mobile produce markets at community centers, Friday Frights, youth theatre, park tournaments; 73/76 with venue. robots.txt: 'User-agent: * / Disallow:'."
+    },
+    {
+      "name": "Andrew Carnegie Free Library & Music Hall (Pittsburgh)",
+      "base_url": "https://carnegiecarnegie.org",
+      "category": "learning",
+      "within_days": 120,
+      "max_pages": 4,
+      "venue": {
+        "name": "Andrew Carnegie Free Library & Music Hall",
+        "address": "300 Beechwood Ave",
+        "city": "Carnegie",
+        "region": "PA",
+        "postal_code": "15106",
+        "lat": 40.406867,
+        "lon": -80.085856
+      },
+      "_metro": "Pittsburgh, United States",
+      "_note": "Andrew Carnegie Free Library & Music Hall, Carnegie PA: English conversation, yoga, book clubs, classic films, jazz; mostly Free. robots.txt disallows /wp-admin/ only. 7 of 33 lack a venue, filled by the block."
+    },
+    {
+      "name": "City of Asylum (Pittsburgh)",
+      "base_url": "https://cityofasylum.org",
+      "category": "arts",
+      "within_days": 120,
+      "max_pages": 4,
+      "venue": {
+        "name": "Alphabet City",
+        "address": "40 W North Ave",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15212",
+        "lat": 40.45562,
+        "lon": -80.007519
+      },
+      "_metro": "Pittsburgh, United States",
+      "_note": "City of Asylum, North Side Pittsburgh: free readings, world-literature talks, jazz and film at Alphabet City (29 of 30 there). robots.txt: 'User-agent: * / Disallow:'.",
+      "_found": "civic:city -> tribe (hand-curated)"
+    },
+    {
+      "name": "Dormont Public Library (Pittsburgh)",
+      "base_url": "https://dormontlibrary.org",
+      "category": "learning",
+      "within_days": 120,
+      "max_pages": 3,
+      "venue": {
+        "name": "Dormont Public Library",
+        "address": "2950 West Liberty Avenue",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15216",
+        "lat": 40.394214,
+        "lon": -80.035568
+      },
+      "_metro": "Pittsburgh, United States",
+      "_note": "Dormont Public Library: storytimes, STEAM, book club, fall festival. robots.txt disallows the /wp-events/ HTML page, not /wp-json/ which the adapter reads. Venue arrives as an address with no coordinates, hence the block."
+    },
+    {
+      "name": "Near West Side Partners (Milwaukee)",
+      "base_url": "https://nearwestsidemke.org",
+      "category": "community",
+      "crawl_delay": 10,
+      "within_days": 120,
+      "max_pages": 2,
+      "_metro": "Milwaukee, United States",
+      "_note": "Near West Side Partners, Milwaukee neighbourhood org: Washington Park meetings, pay-what-you-can produce market, community access days, trunk or treat. robots.txt: empty Disallow, Crawl-delay 10 honoured."
+    },
+    {
+      "name": "Ohio City Inc (Cleveland)",
+      "base_url": "https://ohiocity.org",
+      "category": "community",
+      "crawl_delay": 10,
+      "within_days": 90,
+      "max_pages": 1,
+      "_metro": "Cleveland, United States",
+      "_note": "Ohio City Inc neighbourhood development org: monthly block club meetings open to residents and the Ohio City Oktoberfest. robots.txt disallows /wp-admin/ only; Crawl-delay 10 honoured."
+    },
+    {
+      "name": "Como Park Zoo & Conservatory (Minneapolis-St. Paul)",
+      "base_url": "https://comozooconservatory.org",
+      "category": "outdoors",
+      "within_days": 60,
+      "max_pages": 6,
+      "_metro": "Minneapolis, United States",
+      "_note": "Como Park Zoo & Conservatory, St. Paul (free admission): keeper talks, story time, gardener chats, nearly all without a fee. robots.txt: no Disallow, Crawl-delay 3 honoured. ~3,985 upcoming, hence the 60-day window and page cap.",
+      "crawl_delay": 3
+    },
+    {
+      "name": "Utah State Parks Events",
+      "category": "outdoors",
+      "base_url": "https://stateparks.utah.gov",
+      "crawl_delay": 10,
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Antelope Island State Park",
+        "city": "Syracuse",
+        "region": "UT",
+        "country": "US",
+        "lat": 41.0561478,
+        "lon": -112.2408876
+      },
+      "_metro": "Salt Lake City, United States",
+      "_note": "Utah State Parks ranger programmes (bird walks, star parties, history nights). robots.txt allows /wp-json/, Crawl-delay 10. 89/100 rows are Antelope Island with no venue geo; the block pins those.",
+      "_found": "civic:city -> tribe (hand-curated)"
+    },
+    {
+      "name": "Utah Museum of Fine Arts (Salt Lake City)",
+      "category": "arts",
+      "base_url": "https://umfa.utah.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Utah Museum of Fine Arts",
+        "address": "410 Campus Center Dr",
+        "city": "Salt Lake City",
+        "region": "UT",
+        "postal_code": "84112",
+        "country": "US",
+        "lat": 40.760243,
+        "lon": -111.8431702
+      },
+      "_metro": "Salt Lake City, United States",
+      "_note": "UMFA talks, tours and community days (Land Art Week). robots.txt does not disallow /wp-json/. Venues carry no geo; block pins them to the museum."
+    },
+    {
+      "name": "Anderson Abruzzo Albuquerque International Balloon Museum (Albuquerque)",
+      "category": "arts",
+      "base_url": "https://balloonmuseum.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Anderson Abruzzo Albuquerque International Balloon Museum",
+        "address": "9201 Balloon Museum Dr NE",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87113",
+        "country": "US",
+        "lat": 35.1853155,
+        "lon": -106.5982554
+      },
+      "_metro": "Albuquerque, United States",
+      "_note": "City-run museum: Free Sunday Mornings, storytime, lectures. robots.txt does not disallow /wp-json/. Events carry no venue; block pins them to the museum."
+    },
+    {
+      "name": "Mililani Town Association (Mililani)",
+      "category": "community",
+      "base_url": "https://www.mililanitown.org",
+      "within_days": 180,
+      "max_pages": 5,
+      "_metro": "Honolulu, United States",
+      "_note": "Mililani Town Association community events at its recreation centres (keiki fair, pet fair, bingo); venues carry geo. robots.txt does not disallow /wp-json/. Honolulu had almost no feeds."
+    },
+    {
+      "name": "HD South - Gilbert Historical Museum (Gilbert)",
+      "category": "community",
+      "base_url": "https://hdsouth.org",
+      "within_days": 120,
+      "max_pages": 5,
+      "_metro": "Phoenix, United States",
+      "_note": "Gilbert heritage centre programmes: book club, family history, art, line dancing; many free, venues carry geo. robots.txt does not disallow /wp-json/."
+    },
+    {
+      "name": "Santa Fe Farmers Market (Santa Fe)",
+      "category": "market",
+      "base_url": "https://santafefarmersmarket.com",
+      "within_days": 120,
+      "max_pages": 5,
+      "_metro": "Santa Fe, United States",
+      "_note": "Santa Fe Farmers' Market and Railyard Artisan Market days; venues carry geo. robots.txt does not disallow /wp-json/."
+    },
+    {
+      "name": "Apex Park and Recreation District (Arvada)",
+      "category": "community",
+      "base_url": "https://apexprd.org",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_city": "Arvada",
+      "default_region": "CO",
+      "default_country": "US",
+      "_metro": "Denver, United States",
+      "_note": "Apex PRD community recreation centre events (book club, puzzle hustle, harvest bash); venues carry street addresses. robots.txt does not disallow /wp-json/."
+    },
+    {
+      "name": "City of Sherwood (Sherwood, OR)",
+      "category": "community",
+      "base_url": "https://www.sherwoodoregon.gov",
+      "within_days": 120,
+      "max_pages": 8,
+      "venue": {
+        "name": "Sherwood Public Library",
+        "address": "22560 SW Pine St",
+        "city": "Sherwood",
+        "region": "OR",
+        "postal_code": "97140",
+        "country": "US",
+        "lat": 45.3566509,
+        "lon": -122.8401164
+      },
+      "_metro": "Portland, United States",
+      "_note": "City of Sherwood calendar: library storytimes, tech help, senior centre. 57/100 rows have no venue (library programmes); the block pins those to the library. robots.txt allows /wp-json/.",
+      "_found": "civic:city -> tribe (hand-curated)"
+    },
+    {
+      "name": "Repair Café Wales (Wales)",
+      "category": "community",
+      "base_url": "https://repaircafewales.org",
+      "within_days": 90,
+      "max_pages": 10,
+      "_metro": "Cardiff, GB",
+      "_note": "Repair Café Wales network calendar: free volunteer-run repair cafés in 100+ Welsh towns incl. Cardiff, Newport, Swansea; every venue carries geo. robots.txt disallows only /wp-admin/. Wales had no repair feed."
+    },
+    {
+      "name": "Nasher Museum of Art at Duke (Durham)",
+      "category": "arts",
+      "base_url": "https://nasher.duke.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nasher Museum of Art at Duke University",
+        "address": "2001 Campus Drive",
+        "city": "Durham",
+        "region": "NC",
+        "postal_code": "27705",
+        "lat": 35.99904,
+        "lon": -78.92904
+      },
+      "_metro": "Raleigh, United States",
+      "_note": "Free-admission university art museum; The Events Calendar REST API. robots.txt disallows nothing. Talks, tours, bilingual story time, open studio."
+    },
+    {
+      "name": "Sarah P. Duke Gardens (Durham)",
+      "category": "outdoors",
+      "base_url": "https://gardens.duke.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sarah P. Duke Gardens",
+        "address": "420 Anderson St",
+        "city": "Durham",
+        "region": "NC",
+        "postal_code": "27705",
+        "lat": 36.00293,
+        "lon": -78.93013
+      },
+      "_metro": "Raleigh, United States",
+      "_note": "Public garden (free entry); The Events Calendar REST API, robots disallow only /wp-admin/. Mix of free drop-ins and paid classes; venues carry the street address but no coordinates."
+    },
+    {
+      "name": "Millington Public Library (Memphis)",
+      "category": "learning",
+      "base_url": "https://millingtonpubliclibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "venue": {
+        "name": "Millington Public Library",
+        "address": "4858 Navy Road",
+        "city": "Millington",
+        "region": "TN",
+        "postal_code": "38053-2031",
+        "lat": 35.3417865,
+        "lon": -89.901414
+      },
+      "_found": "osm:library -> tribe",
+      "_metro": "Memphis, United States",
+      "_note": "Shelby County municipal library; The Events Calendar API. robots allow /wp-json/ with Crawl-delay 10 (honoured). Memphis Public Libraries itself refuses crawlers, so this is the metro's first library feed."
+    },
+    {
+      "name": "Locust Grove (Louisville)",
+      "category": "arts",
+      "base_url": "https://locustgrove.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Locust Grove",
+        "address": "561 Blankenbaker Lane",
+        "city": "Louisville",
+        "region": "KY",
+        "postal_code": "40207",
+        "lat": 38.28618,
+        "lon": -85.66157
+      },
+      "_metro": "Louisville, United States",
+      "_note": "Historic site museum; free lectures, antiques market, readings. The Events Calendar API, robots.txt disallows nothing. Louisville's library and city calendars refuse crawlers."
+    },
+    {
+      "name": "Riverside, the Farnsley-Moremen Landing (Louisville)",
+      "category": "community",
+      "base_url": "https://riverside-landing.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "venue": {
+        "name": "Riverside, the Farnsley-Moremen Landing",
+        "address": "7410 Moorman Road",
+        "city": "Louisville",
+        "region": "KY",
+        "postal_code": "40272",
+        "lat": 38.09666,
+        "lon": -85.89492
+      },
+      "_metro": "Louisville, United States",
+      "_note": "Metro-owned historic riverside farm: farmers market, free author talks, Sunday concerts. The Events Calendar API; robots allow with Crawl-delay 10 (honoured). Southwest Louisville had nothing."
+    },
+    {
+      "name": "Main Plaza (San Antonio)",
+      "category": "community",
+      "base_url": "https://mainplaza.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Main Plaza",
+        "address": "115 N Main Ave",
+        "city": "San Antonio",
+        "region": "TX",
+        "postal_code": "78205",
+        "lat": 29.42537,
+        "lon": -98.49384
+      },
+      "_metro": "San Antonio, United States",
+      "_note": "City plaza's own calendar: free yoga, Second Saturday, Dia de los Muertos. The Events Calendar API, robots allow. Single venue."
+    },
+    {
+      "name": "James River Association (Richmond)",
+      "category": "learning",
+      "base_url": "https://thejamesriver.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "_metro": "Richmond, United States",
+      "_note": "Watershed nonprofit: stewardship Saturdays, buffer plantings, river workshops, most free, some outside Richmond. The Events Calendar API; robots allow with Crawl-delay 10 (honoured)."
+    },
+    {
+      "name": "Art & History Museums - Maitland (Orlando)",
+      "category": "arts",
+      "base_url": "https://artandhistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Art & History Museums - Maitland",
+        "address": "231 W Packwood Ave",
+        "city": "Maitland",
+        "region": "FL",
+        "postal_code": "32751",
+        "lat": 28.62581,
+        "lon": -81.36766
+      },
+      "_metro": "Orlando, United States",
+      "_note": "Nonprofit museum campus (Maitland Art Center); free history talks, family days, Last Wednesday, plus paid studio classes. The Events Calendar API; robots.txt has no rules."
+    },
+    {
+      "name": "Levy Park (Houston)",
+      "category": "fitness",
+      "base_url": "https://www.levyparkhouston.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Levy Park",
+        "address": "3801 Eastside St",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77098",
+        "lat": 29.7325,
+        "lon": -95.42438
+      },
+      "_metro": "Houston, United States",
+      "_note": "Upper Kirby city park run by a conservancy: daily free fitness classes, storytime, dance, concerts (~1,200 listed). The Events Calendar API; robots.txt disallows nothing. Single park."
+    },
+    {
+      "name": "Memorial Park Conservancy (Houston)",
+      "category": "outdoors",
+      "base_url": "https://www.memorialparkconservancy.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Memorial Park",
+        "address": "6501 Memorial Dr",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77007",
+        "lat": 29.76345,
+        "lon": -95.42738
+      },
+      "_metro": "Houston, United States",
+      "_note": "Conservancy calendar for Memorial Park: free yoga, movie nights, bird surveys, star parties. The Events Calendar API; robots.txt disallows nothing. All events inside the park."
+    },
+    {
+      "name": "HistoryMiami / Museum of Miami",
+      "category": "arts",
+      "base_url": "https://museumofmiami.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 20,
+      "_metro": "Miami, United States",
+      "_note": "Miami's history museum: free community days, talks, Yiddish-music series at several venues. The Events Calendar API; robots allow with Crawl-delay 20 (honoured). Includes a few virtual talks."
+    },
+    {
+      "name": "National Center for Civil and Human Rights (Atlanta)",
+      "category": "arts",
+      "base_url": "https://www.civilandhumanrights.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "venue": {
+        "name": "National Center for Civil and Human Rights",
+        "address": "100 Ivan Allen Jr Blvd",
+        "city": "Atlanta",
+        "region": "GA",
+        "postal_code": "30313",
+        "country": "US",
+        "lat": 33.7640448,
+        "lon": -84.3930476
+      },
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "_metro": "Atlanta, United States",
+      "_note": "Museum's own calendar: free Saturday Adventures storytimes, Museums on Us days, teacher days. The Events Calendar API; robots allow with Crawl-delay 10 (honoured). Single venue."
+    },
+    {
+      "name": "Cobb County Master Gardeners (Atlanta)",
+      "category": "learning",
+      "base_url": "https://www.cobbmastergardeners.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Atlanta, United States",
+      "_note": "UGA Extension volunteers' free gardening talks at Cobb County libraries and the extension office. The Events Calendar API; robots.txt disallows nothing. Venue names carry the street address."
+    },
+    {
+      "name": "Arts New Orleans - Arts Market",
+      "category": "market",
+      "base_url": "https://www.artsneworleans.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "New Orleans, United States",
+      "_note": "Arts Council New Orleans calendar: Arts Market New Orleans (City Park, Marsalis Harmony Park) and LUNA Fete, all free to attend. The Events Calendar API; robots.txt disallows nothing."
+    },
+    {
+      "name": "Memphis Listening Lab",
+      "category": "music",
+      "base_url": "https://memphislisteninglab.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Memphis Listening Lab",
+        "address": "1350 Concourse Ave, Suite 269",
+        "city": "Memphis",
+        "region": "TN",
+        "postal_code": "38104",
+        "lat": 35.1518557,
+        "lon": -90.0135167
+      },
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "_metro": "Memphis, United States",
+      "_note": "Nonprofit record library in Crosstown Concourse; free listening sessions and DJ sets. The Events Calendar API, robots allow. Events carry no venue, so the OSM point places them."
+    },
+    {
+      "name": "Saint-Paul-de-Vence - agenda de la commune (Saint-Paul-de-Vence, France)",
+      "category": "community",
+      "base_url": "https://saintpauldevence.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Saint-Paul-de-Vence",
+      "default_country": "France",
+      "venue": {
+        "name": "Place du Général de Gaulle, Saint-Paul-de-Vence",
+        "address": "Place du Général de Gaulle",
+        "city": "Saint-Paul-de-Vence",
+        "postal_code": "06570",
+        "country": "France",
+        "lat": 43.6983114,
+        "lon": 7.1217985
+      },
+      "_metro": "Nice, France",
+      "_note": "Village hall calendar (The Events Calendar REST; robots allows /wp-json/). 268 future: producers market, senior workshops, library. Only the auditorium carries geo, so the rest pin to the village square."
+    },
+    {
+      "name": "Le Shadok - fabrique du numerique (Strasbourg, France)",
+      "category": "learning",
+      "base_url": "https://shadok-strasbourg.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Le Shadok",
+        "address": "25 Presqu'ile Andre Malraux",
+        "city": "Strasbourg",
+        "postal_code": "67100",
+        "country": "France",
+        "lat": 48.5740219,
+        "lon": 7.7638542
+      },
+      "_metro": "Strasbourg, France",
+      "_note": "City of Strasbourg digital-culture venue: free PC/smartphone classes, code clubs, fablab. Tribe REST, robots allows all. 101 of 103 future events at Le Shadok; REST carries no geo."
+    },
+    {
+      "name": "Tiers-Lieu Quartier Libre (Valbonne Sophia-Antipolis, France)",
+      "category": "community",
+      "base_url": "https://quartierlibre.garbejaire.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tiers-Lieu Quartier Libre",
+        "city": "Valbonne",
+        "postal_code": "06560",
+        "country": "France",
+        "lat": 43.6226916,
+        "lon": 7.0471375
+      },
+      "_metro": "Nice, France",
+      "_note": "Associative third place in Garbejaire, Sophia-Antipolis (tribe REST; robots allows * ). 45 future, all on site: associative cafe, shared garden, repair cafe, free workshops. No venue/geo in REST."
+    },
+    {
+      "name": "Wekerlei Társaskör (Budapest Kispest)",
+      "category": "community",
+      "base_url": "https://wekerletelep.hu",
+      "within_days": 120,
+      "max_pages": 4,
+      "_metro": "Budapest, Hungary",
+      "_note": "Wekerle garden-suburb residents' association (XIX): Ringató baby singing, knitting circle, board-game club, advent crafts, Mikulás; 31 upcoming. Events carry no venue, so `venue` (Kós Károly tér 10) places them. robots.txt allows.",
+      "venue": {
+        "name": "Wekerlei Társaskör",
+        "address": "Kós Károly tér 10",
+        "city": "Budapest",
+        "postal_code": "1192",
+        "lat": 47.4553944,
+        "lon": 19.124639
+      }
+    },
+    {
+      "name": "Juhász Ferenc Művelődési Központ (Biatorbágy)",
+      "category": "community",
+      "base_url": "https://juhaszferencmk.hu",
+      "within_days": 120,
+      "max_pages": 4,
+      "_metro": "Budapest, Hungary",
+      "_note": "Biatorbágy town culture house (Budapest agglomeration): pub quiz, book launches, exhibitions, family days, some ticketed concerts; 32 upcoming. Venues lack geo, so `venue` (Baross Gábor u. 1) places them. robots.txt allows.",
+      "venue": {
+        "name": "Juhász Ferenc Művelődési Központ",
+        "address": "Baross Gábor utca 1",
+        "city": "Biatorbágy",
+        "postal_code": "2051",
+        "lat": 47.473512,
+        "lon": 18.8249478
+      }
+    },
+    {
+      "name": "Initiative 9. November – Hochbunker Friedberger Anlage (Frankfurt)",
+      "category": "community",
+      "base_url": "https://initiative-neunter-november.de",
+      "within_days": 120,
+      "max_pages": 3,
+      "_metro": "Frankfurt, Germany",
+      "_note": "Volunteer memorial initiative in the Ostend bunker built on the destroyed synagogue site: free guided walks through the Jewish Ostend, films, 9 November remembrance; 7 upcoming. Venue rows lack geo, so `venue` places them. robots.txt disallows /wp-admin/ only.",
+      "venue": {
+        "name": "Hochbunker an der Friedberger Anlage",
+        "address": "Friedberger Anlage 5-6",
+        "city": "Frankfurt am Main",
+        "postal_code": "60314",
+        "lat": 50.1145616,
+        "lon": 8.6955204
+      }
+    },
+    {
+      "name": "Fischereimuseum Bergheim an der Sieg (Troisdorf)",
+      "category": "outdoors",
+      "base_url": "https://fischereimuseum-bergheim.de",
+      "within_days": 120,
+      "max_pages": 3,
+      "_metro": "Cologne, Germany",
+      "_note": "Fishing-guild museum in the Siegaue reserve (Troisdorf, Cologne-Bonn): kids' nature club, bat and bird walks, holiday workshops, talks; 17 upcoming, some paid. Events carry no venue, so `venue` places them. robots.txt disallows /wp-admin/ only.",
+      "venue": {
+        "name": "Fischereimuseum Bergheim",
+        "address": "Nachtigallenweg 39",
+        "city": "Troisdorf",
+        "postal_code": "53844",
+        "lat": 50.7725797,
+        "lon": 7.0821283
+      }
+    },
+    {
+      "name": "Seelsorge & Begegnung Köln (Cologne)",
+      "category": "community",
+      "base_url": "https://www.seelsorge-und-begegnung.de",
+      "within_days": 120,
+      "max_pages": 3,
+      "_metro": "Cologne, Germany",
+      "_note": "Catholic encounter centre in Köln-Nippes (Auguststr. 58): painting groups, grief walks, biodanza, readings, open to all; 30 upcoming. Venue row lacks geo, so `venue` places it. robots.txt disallows /wp-admin/ only.",
+      "venue": {
+        "name": "Seelsorge & Begegnung",
+        "address": "Auguststraße 58",
+        "city": "Köln",
+        "postal_code": "50733",
+        "lat": 50.9638577,
+        "lon": 6.9517352
+      }
+    },
+    {
+      "name": "Ackermannbogen e.V. (Munich)",
+      "category": "community",
+      "base_url": "https://ackermannbogen-ev.de",
+      "within_days": 90,
+      "max_pages": 10,
+      "_metro": "Munich, Germany",
+      "_note": "Residents' association of the Ackermannbogen quarter (Schwabing-West): senior culture café, kids' dance and hip-hop, game nights, garden days; 322 events in 90 days, 294 with geo. `venue` (EKS 15) fills the rest. robots.txt allows.",
+      "venue": {
+        "name": "BewohnerTreff EKS 15",
+        "address": "Elisabeth-Kohn-Straße 15",
+        "city": "München",
+        "postal_code": "80797",
+        "lat": 48.1652034,
+        "lon": 11.5552564
+      }
+    },
+    {
+      "name": "Gemeindebibliothek Ismaning (Munich)",
+      "category": "learning",
+      "base_url": "https://bibliothek-ismaning.de",
+      "within_days": 120,
+      "max_pages": 3,
+      "_metro": "Munich, Germany",
+      "_note": "Municipal library of Ismaning (Munich district): picture-book cinema, senior reading circle, author and science talks, poetry show; 16 upcoming, 9 free. Venue rows lack geo, so `venue` places them. robots.txt allows.",
+      "venue": {
+        "name": "Gemeindebibliothek Ismaning",
+        "address": "Mühlenstraße 17",
+        "city": "Ismaning",
+        "postal_code": "85737",
+        "lat": 48.2223347,
+        "lon": 11.6772697
+      }
+    },
+    {
+      "name": "Haus am See Hohenhorst – Elternschule (Hamburg)",
+      "category": "kids",
+      "base_url": "https://haus-am-see-hohenhorst.de",
+      "within_days": 60,
+      "max_pages": 4,
+      "_metro": "Hamburg, Germany",
+      "_note": "Hohenhorst community house and parents' school (Rahlstedt): baby club, toddler groups, open women's café, children's clothes store; 116 events in 60 days, some low-fee. Venue rows lack geo, so `venue` places them. robots.txt allows.",
+      "venue": {
+        "name": "Haus am See Hohenhorst",
+        "address": "Schöneberger Straße 44",
+        "city": "Hamburg",
+        "postal_code": "22149",
+        "lat": 53.584047,
+        "lon": 10.1457309
+      }
+    },
+    {
+      "name": "Insel e.V. Offene Recycling-Werkstatt (Hamburg Lurup)",
+      "category": "community",
+      "base_url": "https://werkstatt.insel-ev.de",
+      "within_days": 120,
+      "max_pages": 3,
+      "_metro": "Hamburg, Germany",
+      "_note": "Open workshop in Lurup: electrical and textile repair cafés, plastic recycling, NABU insect-hotel building, upcycling crafts; 26 upcoming. Venue rows lack geo, so `venue` (Elbgaustraße 244) places them. robots.txt allows /wp-json/.",
+      "venue": {
+        "name": "Offene Recycling-Werkstatt Insel e.V.",
+        "address": "Elbgaustraße 244",
+        "city": "Hamburg",
+        "postal_code": "22547",
+        "lat": 53.592192,
+        "lon": 9.8801087
+      }
+    },
+    {
+      "name": "Kulturladen Hamm (Hamburg)",
+      "category": "community",
+      "base_url": "https://hh-hamm.de",
+      "crawl_delay": 5,
+      "within_days": 120,
+      "max_pages": 3,
+      "_metro": "Hamburg, Germany",
+      "_note": "Hamm district culture shop (Stadtteilkultur): senior coffee afternoons, clothes swap, table tennis 50+, literature circle, fermentation workshop; 12 upcoming. No venue rows, so `venue` places them. robots.txt: Crawl-delay 5, honoured.",
+      "venue": {
+        "name": "Kulturladen Hamm",
+        "address": "Sievekingdamm 3",
+        "city": "Hamburg",
+        "postal_code": "20535",
+        "lat": 53.5565022,
+        "lon": 10.0428085
+      }
+    },
+    {
+      "name": "Stadtteilzentrum Prenzlauer Berg – Pfefferwerk (Berlin)",
+      "category": "community",
+      "base_url": "https://stz-prenzlauerberg.pfefferwerk.de",
+      "within_days": 60,
+      "max_pages": 10,
+      "_metro": "Berlin, Germany",
+      "_note": "Neighbourhood centre at Fehrbelliner Str. 92: tai chi, laughing yoga, ceramics and eco workshops, family groups, tenant advice; 320 events in 45 days. Rooms only, so `venue` places them. robots.txt blocks AI bots, allows * on /wp-json/.",
+      "venue": {
+        "name": "Stadtteilzentrum Prenzlauer Berg",
+        "address": "Fehrbelliner Straße 92",
+        "city": "Berlin",
+        "postal_code": "10119",
+        "lat": 52.5314112,
+        "lon": 13.4080249
+      }
+    },
+    {
+      "name": "Familienzentrum Wrangelkiez – Kiezanker 36 (Berlin)",
+      "category": "community",
+      "base_url": "https://familienzentrum-wrangelkiez.de",
+      "within_days": 60,
+      "max_pages": 4,
+      "_metro": "Berlin, Germany",
+      "_note": "Kreuzberg family centre (Cuvrystr. 13/14): baby meet-ups, qi gong, guitar group, refugee law clinic, tenant advice; 100 events in 45 days, 60 with geo. `venue` fills the rest. robots.txt allows.",
+      "venue": {
+        "name": "Kiezanker 36",
+        "address": "Cuvrystraße 13-14",
+        "city": "Berlin",
+        "postal_code": "10997",
+        "lat": 52.4985917,
+        "lon": 13.4437627
+      }
+    },
+    {
+      "name": "REFO Moabit (Berlin)",
+      "category": "community",
+      "base_url": "https://www.refo-moabit.de",
+      "within_days": 120,
+      "max_pages": 3,
+      "_metro": "Berlin, Germany",
+      "_note": "Convent community in the Reformationskirche, Moabit: meditation, dance events, After8 readings, Kiezdinner, concerts; 43 upcoming. Venue rows lack geo, so `venue` (Beusselstr. 35) places them. robots.txt allows.",
+      "venue": {
+        "name": "REFO Kirche",
+        "address": "Beusselstraße 35",
+        "city": "Berlin",
+        "postal_code": "10553",
+        "lat": 52.5314163,
+        "lon": 13.3292967
+      }
+    },
+    {
+      "name": "Open Tiny (Berlin Neukölln)",
+      "category": "community",
+      "base_url": "https://opentiny.de",
+      "within_days": 120,
+      "max_pages": 3,
+      "_metro": "Berlin, Germany",
+      "_note": "Neighbourhood space on Treptower Straße, Neukölln: board-game nights, bilingual kids' creative workshops, anti-discrimination seminar, Halloween for kids; 20 upcoming. No venue rows, so `venue` places them. robots.txt allows.",
+      "venue": {
+        "name": "Open Tiny",
+        "address": "Treptower Straße",
+        "city": "Berlin",
+        "postal_code": "12059",
+        "lat": 52.4798006,
+        "lon": 13.4501349
+      }
+    },
+    {
+      "name": "W139 (Amsterdam)",
+      "category": "arts",
+      "base_url": "https://w139.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "W139",
+        "address": "Warmoesstraat 139",
+        "city": "Amsterdam",
+        "postal_code": "1012 JB",
+        "country": "NL",
+        "lat": 52.3737514,
+        "lon": 4.8959885
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Artist-run free-entry art space in Amsterdam's old centre; The Events Calendar REST, venues carry no geo so the venue block pins them; robots.txt disallows only /wp-admin/."
+    },
+    {
+      "name": "De CultuurHoek (Driebergen-Rijsenburg)",
+      "category": "arts",
+      "base_url": "https://www.cultuurhoek.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De CultuurHoek",
+        "address": "Engweg 14",
+        "city": "Driebergen-Rijsenburg",
+        "postal_code": "3972JH",
+        "country": "NL",
+        "lat": 52.0513631,
+        "lon": 5.2803251
+      },
+      "_metro": "Utrecht, Netherlands",
+      "_note": "Volunteer-run village cultural centre in Utrechtse Heuvelrug (Utrecht region); The Events Calendar REST; robots.txt allows all. Open podium, dance nights, lectures, arthouse film."
+    },
+    {
+      "name": "GroeneBuurten (Amsterdam)",
+      "category": "outdoors",
+      "base_url": "https://groenebuurten.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "GroeneBuurten",
+        "address": "Stadionplein 65",
+        "city": "Amsterdam",
+        "postal_code": "1076CJ",
+        "country": "NL",
+        "lat": 52.3430857,
+        "lon": 4.8581818
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Volunteer urban-nature group (Vondelpark meadows, Amsterdam Zuid); The Events Calendar REST, venues carry geo; robots.txt allows all (crawl-delay 5). Free work mornings, silent walks, soil-life open days.",
+      "crawl_delay": 5
+    },
+    {
+      "name": "Natuurmuseum Zirkel - ZNMC (Zaandam)",
+      "category": "kids",
+      "base_url": "https://znmc.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Natuurmuseum Zirkel",
+        "address": "Twiskeweg 90",
+        "city": "Zaandam",
+        "postal_code": "1504AE",
+        "country": "NL",
+        "lat": 52.4405924,
+        "lon": 4.8441646
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Zaans Natuur- en Milieucentrum (Zaanstad, Amsterdam metro) nature museum and heemtuin; The Events Calendar REST; robots.txt disallows only /wp-admin/. Family nature activities, trails, crafts."
+    },
+    {
+      "name": "Het Weefhuis (Zaandijk)",
+      "category": "arts",
+      "base_url": "https://hetweefhuis.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Het Weefhuis",
+        "address": "Lagedijk 39",
+        "city": "Zaandijk",
+        "postal_code": "1544BB",
+        "country": "NL",
+        "lat": 52.4740904,
+        "lon": 4.8137786
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "_note": "Volunteer-run gallery and cultural house in Zaandijk (Zaanstad); The Events Calendar REST; robots.txt blocks only WooCommerce paths. Local art exhibitions, painters' circle, heritage lectures."
+    },
+    {
+      "name": "Kiwassa Neighbourhood House (Vancouver, Canada)",
+      "category": "community",
+      "base_url": "https://www.kiwassa.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Vancouver, Canada",
+      "_note": "East Vancouver neighbourhood house: seniors line dancing, qi gong, ESL circles, community lunch and bingo. The Events Calendar REST, geo_lat on every venue; robots.txt allows /wp-json/."
+    },
+    {
+      "name": "Huron County Library (Goderich, Canada)",
+      "category": "learning",
+      "base_url": "https://www.huroncountylibrary.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Goderich, Canada",
+      "_note": "Huron County Library's 12 branches (EarlyON, English conversation, quiet hours); The Events Calendar REST with geo_lat on 498 of 500. robots.txt allows /wp-json/ (blocks only AI crawlers)."
+    },
+    {
+      "name": "Belleville Public Library (Belleville, Canada)",
+      "category": "learning",
+      "base_url": "https://www.bellevillelibrary.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Belleville Public Library",
+        "address": "254 Pinnacle Street",
+        "city": "Belleville",
+        "region": "ON",
+        "postal_code": "K8N 3B1",
+        "country": "CA",
+        "lat": 44.1653029,
+        "lon": -77.3836739
+      },
+      "_metro": "Belleville, Canada",
+      "_note": "Single-building library (the Parrott gallery is upstairs): babytime, storytime, chess club. REST venues lack geo_lat, so the venue block (Photon point) places them. robots.txt allows /wp-json/."
+    },
+    {
+      "name": "Marpole Neighbourhood House (Vancouver, Canada)",
+      "category": "community",
+      "base_url": "https://marpolenh.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Marpole Neighbourhood House",
+        "address": "8585 Hudson Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "postal_code": "V6P 3T1",
+        "country": "CA",
+        "lat": 49.2087922,
+        "lon": -123.1347358
+      },
+      "_metro": "Vancouver, Canada",
+      "_note": "South Vancouver neighbourhood house: Seniors Central, knitting, chair yoga, family playtime drop-in, homework club, English conversation. REST events carry no venue, so the venue block places them. robots.txt allows /wp-json/."
+    },
+    {
+      "name": "Stonegate Community Health Centre (Toronto, Canada)",
+      "category": "community",
+      "base_url": "https://www.stonegatechc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stonegate Community Health Centre",
+        "address": "10 Neighbourhood Lane, Unit 201",
+        "city": "Toronto",
+        "region": "ON",
+        "postal_code": "M8Y 0C5",
+        "country": "CA",
+        "lat": 43.6376077,
+        "lon": -79.4887383
+      },
+      "_metro": "Toronto, Canada",
+      "_note": "Etobicoke community health centre's free programme calendar: seniors chair exercise, tai chi, meditation, Spanish women's group, reading pals. REST venues lack geo; venue block places them. robots.txt allows."
+    },
+    {
+      "name": "Wabano Centre for Aboriginal Health (Ottawa, Canada)",
+      "category": "community",
+      "base_url": "https://wabano.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wabano Centre",
+        "address": "299 Montreal Road",
+        "city": "Ottawa",
+        "region": "ON",
+        "postal_code": "K1L 6C0",
+        "country": "CA",
+        "lat": 45.4374045,
+        "lon": -75.6588784
+      },
+      "_metro": "Ottawa, Canada",
+      "_note": "Indigenous health and community centre in Vanier: Indigenous Seniors Circle, Cardio Drum, carving, food and wellness. REST venues lack geo; ~60% are at 295-299 Montreal Rd, the rest within 1.5 km. robots allows /wp-json/."
+    },
+    {
+      "name": "CSC Vanier family programmes (Ottawa, Canada)",
+      "category": "kids",
+      "base_url": "https://cscvanier.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre des services communautaires Vanier",
+        "address": "270 Marier Avenue",
+        "city": "Ottawa",
+        "region": "ON",
+        "postal_code": "K1L 5P8",
+        "country": "CA",
+        "lat": 45.4365167,
+        "lon": -75.6619442
+      },
+      "_metro": "Ottawa, Canada",
+      "_note": "Bilingual Vanier community services centre: free playgroups (forest, dad-and-me, CHEO, baby and me with OPH nurse), La Leche League, youth space. 78% at 270 Marier; robots allows /wp-json/."
+    },
+    {
+      "name": "South Asian Women's Community Centre (Montreal, Canada)",
+      "category": "community",
+      "base_url": "https://www.sawcc-ccfsa.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South Asian Women's Community Centre",
+        "address": "1035 Rue Rachel Est",
+        "city": "Montreal",
+        "region": "QC",
+        "postal_code": "H2J 2J5",
+        "country": "CA",
+        "lat": 45.5255568,
+        "lon": -73.5750932
+      },
+      "_metro": "Montreal, Canada",
+      "_note": "Plateau Mont-Royal newcomer women's centre: free info sessions, library visit, community Diwali lunch. REST venues lack geo; all at 1035 Rachel E, so the venue block places them. robots allows /wp-json/."
+    },
+    {
+      "name": "Durham Community Health Centre (Oshawa, Canada)",
+      "category": "community",
+      "base_url": "https://www.durhamchc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Durham Community Health Centre - Oshawa",
+        "address": "115 Grassmere Avenue",
+        "city": "Oshawa",
+        "region": "ON",
+        "postal_code": "L1H 3X6",
+        "country": "CA",
+        "lat": 43.8696459,
+        "lon": -78.8452082
+      },
+      "_metro": "Toronto, Canada",
+      "_note": "Durham CHC programme calendar (Oshawa/Pickering): tiny tots drop-in, Indigenous drum circle, walking challenge, parent wellness group. REST has no geo; most at 115 Grassmere Ave. robots allows."
+    },
+    {
+      "name": "Taumarunui",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://taumarunui.co.nz",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Taumarunui",
+      "default_region": null,
+      "default_country": "NZ",
+      "_metro": "Taumarunui, New Zealand"
+    },
+    {
+      "name": "Milwaukee Riverkeeper (Milwaukee)",
+      "category": "volunteer",
+      "base_url": "https://www.milwaukeeriverkeeper.org",
+      "within_days": 365,
+      "max_pages": 6,
+      "crawl_delay": 2,
+      "default_region": "WI",
+      "default_country": "United States",
+      "_metro": "Milwaukee, US",
+      "_note": "River cleanups and community celebration. robots.txt allows /wp-json/. 13 upcoming 2026-09-27 ('Let's Clean Up: Menomonee River / Lincoln Creek / Honey Creek'). Multi-site; unaddressed rows drop at the sync."
+    },
+    {
+      "name": "Harpeth Conservancy (Nashville, TN)",
+      "base_url": "https://harpethconservancy.org",
+      "category": "volunteer",
+      "within_days": 120,
+      "max_pages": 5,
+      "default_region": "TN",
+      "default_country": "US",
+      "_metro": "Nashville, United States",
+      "_note": "Creek cleanups on Richland Creek and around the Harpeth watershed. robots.txt: empty Disallow. Nashville had no volunteer source."
+    },
+    {
+      "name": "Parque Fundidora (Monterrey)",
+      "category": "community",
+      "_found": "wikidata:garden -> tribe+jsonld-event+ics",
+      "base_url": "https://www.parquefundidora.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parque Fundidora",
+        "lat": 25.6780556,
+        "lon": -100.2833333,
+        "city": "Monterrey",
+        "region": "Nuevo León",
+        "country": "Mexico"
+      },
+      "_metro": "Monterrey, Mexico",
+      "_note": "Monterrey's main public park (state-run): free workshops (yoga, sign language, reading club), markets and runs. The Events Calendar REST API; robots.txt allows all. Thin right now: 2 upcoming."
+    },
+    {
+      "name": "Blue Water Baltimore",
+      "category": "volunteer",
+      "base_url": "https://bluewaterbaltimore.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "crawl_delay": 10,
+      "_metro": "Baltimore, United States",
+      "_note": "Watershed nonprofit: tree plantings, outfall screening, cleanups (30 of 31 free). The Events Calendar API; robots allow with Crawl-delay 10 (honoured). Volunteer events on street corners."
+    },
+    {
+      "name": "Buggybuddys Perth Family Events (Perth, Australia)",
+      "category": "kids",
+      "base_url": "https://buggybuddys.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Perth, Australia",
+      "_note": "Perth family events guide on The Events Calendar: library storytimes, markets, Kings Park and museum programmes; 97 of 150 sampled marked Free. robots.txt allows /wp-json/. Perth kids had no source."
+    },
+    {
+      "name": "Serpentine Jarrahdale Community Resource Centre (Perth, Australia)",
+      "category": "community",
+      "base_url": "https://www.sjcommunityresourcecentre.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Serpentine Jarrahdale Community Resource Centre",
+        "address": "2 Paterson Street",
+        "city": "Mundijong",
+        "postal_code": "6123",
+        "lat": -32.29856,
+        "lon": 115.98405
+      },
+      "_metro": "Perth, Australia",
+      "_note": "Linkwest member community resource centre in Mundijong (Perth's south-east): school-holiday crafts, community lunch, workshops, all at the centre. robots.txt disallows only /wp-admin/."
+    },
+    {
+      "name": "Otago Art Society (Dunedin, New Zealand)",
+      "category": "arts",
+      "base_url": "https://otagoartsociety.co.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Otago Art Society",
+        "address": "Dunedin Railway Station, 22 Anzac Avenue",
+        "city": "Dunedin",
+        "postal_code": "9016",
+        "lat": -45.87526,
+        "lon": 170.50899
+      },
+      "_metro": "Dunedin, New Zealand",
+      "_note": "Otago Art Society gallery at Dunedin Railway Station: free exhibitions and social art groups. Venues carry no geo, so the gallery pins them. robots.txt disallows nothing. First Dunedin source."
     }
   ],
   "_not_included": {

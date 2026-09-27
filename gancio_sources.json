@@ -92,6 +92,115 @@
       "default_city": "Milano",
       "default_country": null,
       "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Calendari.cc (Valencia)",
+      "base_url": "https://calendari.cc",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "València",
+      "default_country": "ES",
+      "_metro": "Valencia, Spain",
+      "_note": "Gancio instance: libertarian/social-centre agenda for Valencia (casals, ateneus, assemblies, free classes); robots.txt allows /api. Fills Valencia's grassroots gap."
+    },
+    {
+      "name": "Agenda Henares (Alcalá de Henares)",
+      "base_url": "https://agenda.henares.org",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "Alcalá de Henares",
+      "default_country": "ES",
+      "_metro": "Madrid, Spain",
+      "_note": "Gancio instance: self-managed activist and cultural agenda for the Henares valley (Madrid region); robots.txt allows /api. Free workshops, language exchanges, family play groups."
+    },
+    {
+      "name": "Enredad (Spain)",
+      "base_url": "https://enredad.es",
+      "category": "community",
+      "within_days": 180,
+      "default_country": "ES",
+      "_metro": "Madrid, Spain",
+      "_note": "Gancio instance: queer, feminist and racialised community events across Spain (Madrid, Barcelona, Málaga, Murcia...); robots.txt allows /api. Most events carry coordinates."
+    },
+    {
+      "name": "Convoca Málaga (ES)",
+      "base_url": "https://mlg.convoca.la",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "Málaga",
+      "default_country": "ES",
+      "_metro": "Malaga, Spain",
+      "_note": "Gancio instance (convoca.la network): self-managed social and cultural agenda for Málaga; robots.txt allows /api. Sibling of the configured bcn/mad instances."
+    },
+    {
+      "name": "Convoca Tramuntana (Girona)",
+      "base_url": "https://tramuntana.convoca.la",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "Girona",
+      "default_country": "ES",
+      "_metro": "Girona, Spain",
+      "_note": "Gancio instance (convoca.la network): social-movement agenda for the Girona counties; robots.txt allows /api. Tenant assemblies, talks, community sport."
+    },
+    {
+      "name": "Convoca Eivissa i Formentera (ES)",
+      "base_url": "https://eif.convoca.la",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "Eivissa",
+      "default_country": "ES",
+      "_metro": "Ibiza, Spain",
+      "_note": "Gancio instance (convoca.la network): community agenda for Ibiza and Formentera; robots.txt allows /api. Community garden open days, second-hand markets."
+    },
+    {
+      "name": "event.cologne (Cologne)",
+      "base_url": "https://event.cologne",
+      "category": "community",
+      "within_days": 180,
+      "max": 1000,
+      "default_city": "Köln",
+      "default_country": "DE",
+      "_metro": "Cologne, Germany",
+      "_note": "Gancio instance for Cologne: city libraries, Rathaus science talks, botanic-garden tours, Hänneschen, Karneval; 426 events in 180 days, 207 tagged EintrittFrei, 96% with coordinates. robots.txt allows all."
+    },
+    {
+      "name": "Wedel Veranstaltungen (Wedel, Hamburg metro)",
+      "base_url": "https://wedel.uber.space",
+      "category": "learning",
+      "within_days": 180,
+      "max": 1000,
+      "default_city": "Wedel",
+      "default_country": "DE",
+      "_metro": "Hamburg, Germany",
+      "_note": "Gancio calendar for Wedel (Pinneberg district, Hamburg metro): VHS talks and courses, sustainability series, DRK meeting centre, church events, excursions; 509 events in 180 days, all with coordinates. robots.txt allows all."
+    },
+    {
+      "name": "Fahrradtermine Berlin",
+      "base_url": "https://fahrradtermine-berlin.de",
+      "category": "community",
+      "within_days": 180,
+      "default_city": "Berlin",
+      "default_country": "DE",
+      "_metro": "Berlin, Germany",
+      "_note": "Gancio calendar of Berlin cycling groups: ADFC and Changing Cities district groups, bike demos, Critical Mass, self-help bike workshop; 40 upcoming, 25 with coordinates (online ones drop). robots.txt allows all."
+    },
+    {
+      "name": "FOMO RheinMain",
+      "base_url": "https://fomo.rheinmain.social",
+      "category": "music",
+      "within_days": 180,
+      "default_country": "DE",
+      "_metro": "Wiesbaden, Germany",
+      "_note": "Grassroots Gancio for Rhein-Main culture: Kreativfabrik and Schlachthof Wiesbaden, NAXOS Frankfurt, Mainz and Darmstadt collectives; 134 events in 180 days, 93 with coordinates; many concerts ticketed. robots.txt allows all."
+    },
+    {
+      "name": "Sprachtreffen.de (language cafés)",
+      "base_url": "https://sprachtreffen.de",
+      "category": "community",
+      "within_days": 180,
+      "default_country": "DE",
+      "_metro": "Berlin, Germany",
+      "_note": "Gancio listing free language cafés and tandem meetups in neighbourhood centres and libraries, about a third in Berlin, the rest across DE/AT/CH; 92 upcoming, 45 with coordinates. robots.txt allows all."
     }
   ],
   "_tried_and_dead": {
