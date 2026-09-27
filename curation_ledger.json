@@ -83,6 +83,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "109cinemas.net/hatkobe": {
+    "checked": 20260927,
+    "name": "109\u30b7\u30cd\u30de\u30baHAT\u795e\u6238",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "109cinemas.net/kawasaki": {
     "checked": 20260925,
     "name": "109\u30b7\u30cd\u30de\u30ba",
@@ -730,6 +737,13 @@
   "4pinesbeer.com.au": {
     "checked": 20260819,
     "name": "4 Pines Brewing Company HQ",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "500m.jp": {
+    "checked": 20260927,
+    "name": "500\u30e1\u30fc\u30c8\u30eb\u7f8e\u8853\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -2597,6 +2611,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "acros.or.jp/r_facilities/stepgarden.html": {
+    "checked": 20260927,
+    "name": "\u30b9\u30c6\u30c3\u30d7\u30ac\u30fc\u30c7\u30f3",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "acrosstheboardcafe.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260727,
     "name": "Across the Board Game Cafe (Winnipeg, Canada)",
@@ -3339,6 +3360,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aeoncinema.com/cinema/ebetsu": {
+    "checked": 20260927,
+    "name": "\u30a4\u30aa\u30f3\u30b7\u30cd\u30de\u6c5f\u5225",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aeri.ovh": {
     "checked": 20260830,
     "name": "AERI",
@@ -3815,6 +3843,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "agnusdei1980.wixsite.com/hokkaidopentecoste": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u9053\u30da\u30f3\u30c6\u30b3\u30b9\u30c6\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "agnz.org": {
     "checked": 20260824,
     "name": "East Auckland Christian Life Centre",
@@ -4235,6 +4270,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ailife24.jp/caremaison24/index.html": {
+    "checked": 20260927,
+    "name": "\u30b1\u30a2\u30e1\u30be\u30f324",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aim.org.au": {
     "checked": 20260819,
     "name": "Punchbowl Mosque",
@@ -4417,6 +4459,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aishinkan.jp/platform": {
+    "checked": 20260927,
+    "name": "\u4ecb\u8b77\u8001\u4eba\u4fdd\u5065\u65bd\u8a2d\u30d7\u30e9\u30c3\u30c8\u30db\u30fc\u30e0",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aisn.pl": {
     "checked": 20260909,
     "name": "Asocjacja Interwencji Sercowo Naczyniowych PTK",
@@ -4437,6 +4486,20 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "aiwafukusikai.or.jp/jisho/index.html": {
+    "checked": 20260927,
+    "name": "\u6148\u7167\u30cf\u30a4\u30c4",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "aizenkai.or.jp/pages/rilacoartaizen/index.shtml": {
+    "checked": 20260927,
+    "name": "\u30ea\u30e9\u30b3\u30fc\u30c8\u611b\u5168",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ajaesol.com": {
     "checked": 20260916,
@@ -4479,6 +4542,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ajman.ae": {
+    "checked": 20260927,
+    "name": "Ajman",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "ajstrup-forsamlingshus.dk": {
     "checked": 20260901,
@@ -6634,6 +6704,13 @@
   "alzheimermalaga.org": {
     "checked": 20260916,
     "name": "Unidad de Estancia Diurna de Enfermos de Alhzeimer Andaluc\u00eda",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "am12.jp": {
+    "checked": 20260927,
+    "name": "\u660e\u77f3\u5e02\u7acb\u5929\u6587\u79d1\u5b66\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8797,6 +8874,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aoao-sapporo.blue/en": {
+    "checked": 20260927,
+    "name": "AOAO Sapporo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aoberta.terrassa.cat/oficines/infoEntitat.jsp?id=17237": {
     "checked": 20260915,
     "name": "Biblioteca Districte 3",
@@ -8814,6 +8898,13 @@
   "aofa.pt": {
     "checked": 20260901,
     "name": "AOFA - Associa\u00e7\u00e3o de Oficiais das For\u00e7as Armadas",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "aoikai.jp": {
+    "checked": 20260927,
+    "name": "\u4ecb\u8b77\u8001\u4eba\u4fdd\u5065\u65bd\u8a2d \u30b5\u30f3\u30d3\u30aa\u30fc\u30ba\u65b0\u7434\u4f3c",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -9164,6 +9255,13 @@
   "appisberg.ch": {
     "checked": 20260917,
     "name": "Appisberg Abkl\u00e4rung Ausbildung Integration",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "apple-117.jp": {
+    "checked": 20260927,
+    "name": "\u3042\u3063\u3077\u308b\u660e\u77f3",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -11133,6 +11231,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "art-center.jp": {
+    "checked": 20260927,
+    "name": "\u795e\u6238\u82b8\u8853\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "art-colline.com": {
     "checked": 20260924,
     "name": "\u837b\u7aaa\u5c0f\u5287\u5834",
@@ -11707,6 +11812,13 @@
     "reason": "2 vevents / 1 future",
     "status": "ok",
     "type": "ics"
+  },
+  "artpark.or.jp/shisetsu/sapporo-art-museum": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u82b8\u8853\u306e\u68ee\u7f8e\u8853\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "artpartout.be": {
     "checked": 20260913,
@@ -12905,6 +13017,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "asuka-gp.or.jp/asukahouse/index.html": {
+    "checked": 20260927,
+    "name": "\u3042\u3059\u304bHOUSE\u6771\u82d7\u7a42",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "asuka-sw.jp/asukahouse/chuo": {
+    "checked": 20260927,
+    "name": "\u3042\u3059\u304bHOUSE\u4e2d\u592e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "asuka-sw.jp/asukahouse/teine": {
+    "checked": 20260927,
+    "name": "\u3042\u3059\u304bHOUSE\u624b\u7a32",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "asukafukushikai.com/center/saibien": {
     "checked": 20260925,
     "name": "\u7279\u5225\u990a\u8b77\u8001\u4eba\u30db\u30fc\u30e0 \u5f69\u7f8e\u82d1",
@@ -13559,6 +13692,13 @@
   "atmp74.fr": {
     "checked": 20260920,
     "name": "ATMP 74",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "atoa-kobe.jp": {
+    "checked": 20260927,
+    "name": "\u30a2\u30c8\u30a2",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -14901,6 +15041,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "awajishima-kanko.jp/manual/detail.html?bid=454": {
+    "checked": 20260927,
+    "name": "\u672c\u798f\u5bfa \u6c34\u5fa1\u5802",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "awakenchurch.life": {
     "checked": 20260822,
     "name": "Awaken Church Wollongong",
@@ -15429,6 +15576,13 @@
   "backstage-btm.com": {
     "checked": 20260828,
     "name": "Backstage By The Mill",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "backstage.fukuoka.jp": {
+    "checked": 20260927,
+    "name": "Backstage",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -17187,6 +17341,13 @@
   "barcobar.com": {
     "checked": 20260914,
     "name": "BarCo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "barehands.biz/english": {
+    "checked": 20260927,
+    "name": "Bare Hands Climbing Gym",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -19165,6 +19326,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bellclassic.co.jp/hokkaidou/lavert": {
+    "checked": 20260927,
+    "name": "\u30a2\u30fc\u30eb\u30d9\u30eb\u30a2\u30f3\u30b8\u30a7\u672d\u5e4c\u30e9\u30fb\u30d9\u30fc\u30eb\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "belleheide.com": {
     "checked": 20260912,
     "name": "Belleheide Centrum",
@@ -20706,6 +20874,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bf-basic.com": {
+    "checked": 20260927,
+    "name": "BASIC \u30d0\u30c3\u30c6\u30a3\u30f3\u30b0\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bf24gym.pl": {
     "checked": 20260909,
     "name": "BeFit24GYM",
@@ -20821,6 +20996,13 @@
   "bge-geneve.ch/voltaire": {
     "checked": 20260919,
     "name": "Mus\u00e9e Voltaire",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bgf.or.jp": {
+    "checked": 20260927,
+    "name": "\u65b0\u7be0\u6d25\u6751B&G\u6d77\u6d0b\u30bb\u30f3\u30bf\u30fc",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -27211,6 +27393,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "booklet.co.jp/shoplist/10822": {
+    "checked": 20260927,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "booklet.co.jp/shoplist/10825": {
     "checked": 20260925,
     "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
@@ -27253,8 +27442,43 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bookoff.co.jp/shop/shop10062.html": {
+    "checked": 20260927,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bookoff.co.jp/shop/shop10125.html": {
     "checked": 20260925,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bookoff.co.jp/shop/shop10154.html": {
+    "checked": 20260927,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bookoff.co.jp/shop/shop10228.html": {
+    "checked": 20260927,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bookoff.co.jp/shop/shop10331.html": {
+    "checked": 20260927,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bookoff.co.jp/shop/shop10377.html": {
+    "checked": 20260927,
     "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
     "reason": "osm probe: no-calendar",
     "status": "fail",
@@ -27358,6 +27582,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bookoff.co.jp/shop/shop20286.html": {
+    "checked": 20260927,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bookoff.co.jp/shop/shop20345.html": {
     "checked": 20260925,
     "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
@@ -27421,6 +27652,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bookoff.co.jp/shop/shop20493.html": {
+    "checked": 20260927,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bookoff.co.jp/shop/shop20494.html": {
+    "checked": 20260927,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bookoff.co.jp/shop/shop20495.html": {
+    "checked": 20260927,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bookoff.co.jp/shop/shop20501.html": {
     "checked": 20260925,
     "name": "BookOff Super Bazaar",
@@ -27437,6 +27689,13 @@
   },
   "bookoff.co.jp/shop/shop20520.html": {
     "checked": 20260925,
+    "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bookoff.co.jp/shop/shop20529.html": {
+    "checked": 20260927,
     "name": "\u30d6\u30c3\u30af\u30aa\u30d5",
     "reason": "osm probe: no-calendar",
     "status": "fail",
@@ -27470,6 +27729,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "books-ogaki.co.jp/stores/maruyama-class": {
+    "checked": 20260927,
+    "name": "\u5927\u57a3\u66f8\u5e97 \u30de\u30eb\u30e4\u30de\u30af\u30e9\u30b9\u5e97",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "books-ogaki.co.jp/stores/toko-gyokei": {
+    "checked": 20260927,
+    "name": "\u5927\u57a3\u66f8\u5e97 \u6771\u5149\u30b9\u30c8\u30a2\u884c\u5553\u901a\u5e97",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "books-ruhe.co.jp": {
     "checked": 20260924,
     "name": "BOOKS\u30eb\u30fc\u30a8",
@@ -27479,6 +27752,13 @@
   },
   "books-sanseido.co.jp": {
     "checked": 20260924,
+    "name": "\u4e09\u7701\u5802\u66f8\u5e97",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "books-sanseido.co.jp/shop/sapporo2": {
+    "checked": 20260927,
     "name": "\u4e09\u7701\u5802\u66f8\u5e97",
     "reason": "osm probe: no-calendar",
     "status": "fail",
@@ -27579,6 +27859,13 @@
   "bookshopmeda.it": {
     "checked": 20260922,
     "name": "Bookshop",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bookskubrick.jp": {
+    "checked": 20260927,
+    "name": "Books Kubrick",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -27691,6 +27978,13 @@
   "bootradgard.se": {
     "checked": 20260905,
     "name": "Boo Tr\u00e4dg\u00e5rd",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "booty-disco.com": {
+    "checked": 20260927,
+    "name": "booty\u672d\u5e4c",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -31728,6 +32022,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bunkazai.city.fukuoka.lg.jp/cultural_properties/detail/21": {
+    "checked": 20260927,
+    "name": "\u91ce\u65b9\u907a\u8de1\u4f4f\u5c45\u8de1\u5c55\u793a\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bunker-cine-theatre.wifeo.com": {
     "checked": 20260911,
     "name": "Le Bunker Cin\u00e9-Th\u00e9\u00e2tre",
@@ -32214,6 +32515,13 @@
   "butohkan.jp": {
     "checked": 20260925,
     "name": "KYOTO\u821e\u8e0f\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "butsuganji.jp": {
+    "checked": 20260927,
+    "name": "\u4f5b\u9858\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -41708,6 +42016,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "chitose-taikyo.or.jp/facility/detail.php?id=4": {
+    "checked": 20260927,
+    "name": "\u958b\u57fa\u8a18\u5ff5\u7dcf\u5408\u6b66\u9053\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chiv.fr/structures/cegidd-depistage-vih-94": {
     "checked": 20260829,
     "name": "CeGIDD - CH Intercommunal - Villeneuve Saint Georges",
@@ -42289,6 +42604,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "chuouji.or.jp": {
+    "checked": 20260927,
+    "name": "\u4e2d\u592e\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chuoukai.or.jp/naniwa": {
     "checked": 20260925,
     "name": "\u306a\u306b\u308f\u30ed\u30fc\u30e9\u30f3\u30c9",
@@ -42422,6 +42744,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "churchofjesuschrist.org/temples/details/fukuoka-japan-temple": {
+    "checked": 20260927,
+    "name": "Fukuoka Japan Temple",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "churchofjesuschrist.org/temples/details/hamilton-new-zealand-temple": {
     "checked": 20260825,
     "name": "Hamilton New Zealand Temple",
@@ -42460,6 +42789,13 @@
   "churchofjesuschrist.org/temples/details/rome-italy-temple": {
     "checked": 20260921,
     "name": "Tempio di Roma",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "churchofjesuschrist.org/temples/details/sapporo-japan-temple": {
+    "checked": 20260927,
+    "name": "\u65e5\u672c\u672d\u5e4c\u795e\u6bbf",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -43277,6 +43613,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cigr.co.jp/pj/shinchiku/A70002/index.html": {
+    "checked": 20260927,
+    "name": "\u30a4\u30cb\u30b7\u30a2\u30b0\u30e9\u30f3\u672d\u5e4c\u82d7\u7a42",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cigr.co.jp/pj/shinchiku/A70004": {
+    "checked": 20260927,
+    "name": "\u30a4\u30cb\u30b7\u30a2\u30b0\u30e9\u30f3\u672d\u5e4c\u30a4\u30fc\u30b9\u30c8",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cigrovestx.com": {
     "checked": 20260913,
     "name": "Groves",
@@ -43938,6 +44288,13 @@
   "cinemafossolo.it": {
     "checked": 20260923,
     "name": "Cinema Fossolo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cinemafrontier.net": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u30b7\u30cd\u30de\u30d5\u30ed\u30f3\u30c6\u30a3\u30a2",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -45596,6 +45953,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "city.eniwa.hokkaido.jp/soshikikarasagasu/kodomomiraibu/kodomohattatsushiencenter/kosodate/1/1116.html": {
+    "checked": 20260927,
+    "name": "\u5b50\u3069\u3082\u767a\u9054\u652f\u63f4\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "city.fuchu.tokyo.jp/art": {
     "checked": 20260925,
     "name": "\u5e9c\u4e2d\u5e02\u7f8e\u8853\u9928",
@@ -45739,6 +46103,27 @@
   "city.fujisawa.kanagawa.jp/tsuji-c": {
     "checked": 20260924,
     "name": "\u8fbb\u5802\u5e02\u6c11\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.fukuoka.lg.jp/kodomo/egaokan": {
+    "checked": 20260927,
+    "name": "\u798f\u5ca1\u5e02\u3053\u3069\u3082\u7dcf\u5408\u76f8\u8ac7\u30bb\u30f3\u30bf\u30fc \u3048\u304c\u304a\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.fukuoka.lg.jp/kowan/somu/hakata-port/port_museum.html": {
+    "checked": 20260927,
+    "name": "\u535a\u591a\u6e2f\u30d9\u30a4\u30b5\u30a4\u30c9\u30df\u30e5\u30fc\u30b8\u30a2\u30e0",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.fukuoka.lg.jp/nishiku/c-shinko/charm/nisikunotakara/shirahige_jinja.html": {
+    "checked": 20260927,
+    "name": "\u80fd\u53e4\u5cf6 \u767d\u9b1a\u795e\u793e",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -45911,6 +46296,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "city.kitahiroshima.hokkaido.jp/hanahall": {
+    "checked": 20260927,
+    "name": "\u5317\u5e83\u5cf6\u5e02\u82b8\u8853\u6587\u5316\u30db\u30fc\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "city.kitahiroshima.hokkaido.jp/hotnews/detail/00011512.html": {
     "checked": 20260924,
     "name": "\u5317\u5e83\u5cf6\u5e02\u3075\u308c\u3042\u3044\u5b66\u7fd2\u30bb\u30f3\u30bf\u30fc \u5922\u30d7\u30e9\u30b6",
@@ -45928,6 +46320,20 @@
   "city.kitahiroshima.hokkaido.jp/kosodate/detail/00125765.html": {
     "checked": 20260924,
     "name": "\u6771\u90e8\u5b66\u7ae5\u30af\u30e9\u30d6",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.kitahiroshima.hokkaido.jp/kyoiku/detail/00001365.html": {
+    "checked": 20260927,
+    "name": "\u767d\u6a3a\u30d7\u30fc\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.kitahiroshima.hokkaido.jp/kyoiku/detail/00001451.html": {
+    "checked": 20260927,
+    "name": "\u5317\u5e83\u5cf6\u5e02\u4e2d\u592e\u516c\u6c11\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -46584,6 +46990,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "city.sapporo.jp/higashi/annai/hoken.html": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u6771\u4fdd\u5065\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "city.sapporo.jp/higashi/fushikohoncho/index.html": {
     "checked": 20260924,
     "name": "\u672d\u5e4c\u5e02\u6771\u533a \u4f0f\u53e4\u672c\u753a\u307e\u3061\u3065\u304f\u308a\u30bb\u30f3\u30bf\u30fc",
@@ -46671,6 +47084,13 @@
   "city.sapporo.jp/higashi/tetto/index.html": {
     "checked": 20260924,
     "name": "\u672d\u5e4c\u5e02\u6771\u533a \u9244\u6771\u307e\u3061\u3065\u304f\u308a\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/kankyo/energy/energypark.html": {
+    "checked": 20260927,
+    "name": "\u52d5\u7269\u79d1\u5b66\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -46773,6 +47193,48 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "city.sapporo.jp/minami/gaiyo/meisho/0503026.html": {
+    "checked": 20260927,
+    "name": "\u4e0a\u7825\u5c71\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/minami/gaiyo/meisho/0503027.html": {
+    "checked": 20260927,
+    "name": "\u4e0a\u5c71\u9f3b\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/minami/gaiyo/meisho/0503028.html": {
+    "checked": 20260927,
+    "name": "\u5317\u30ce\u6ca2\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/minami/gaiyo/meisho/0503040.html": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5357\u6ca2\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/minami/gaiyo/meisho/0503075.html": {
+    "checked": 20260927,
+    "name": "\u4e2d\u30ce\u6ca2\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/minami/gaiyo/meisho/0503107.html": {
+    "checked": 20260927,
+    "name": "\u771f\u99d2\u5185\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "city.sapporo.jp/minami/shinko/center/index.html": {
     "checked": 20260924,
     "name": "\u672d\u5e4c\u5e02\u5357\u533a\u6c11\u30bb\u30f3\u30bf\u30fc",
@@ -46822,9 +47284,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "city.sapporo.jp/minami/shisetsu/hoken.html": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u5357\u4fdd\u5065\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "city.sapporo.jp/minami/shisetsu/machizukuri.html": {
     "checked": 20260924,
     "name": "\u672d\u5e4c\u5e02\u5357\u533a \u85fb\u5ca9\u4e0b\u307e\u3061\u3065\u304f\u308a\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/ncms/shimin/bunkazai/bunkazai/syousai/00k_tonden.html": {
+    "checked": 20260927,
+    "name": "\u5c6f\u7530\u90f7\u571f\u8cc7\u6599\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/ncms/shimin/bunkazai/bunkazai/syousai/30c_sapporomura.html": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u6751\u90f7\u571f\u8a18\u5ff5\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -46864,9 +47347,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "city.sapporo.jp/shimin/pirka-kotan": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u30a2\u30a4\u30cc\u6587\u5316\u4ea4\u6d41\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/shisetsuannai/024.html": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u767d\u77f3\u4fdd\u5065\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "city.sapporo.jp/shisetsuannai/050.html": {
     "checked": 20260924,
     "name": "\u672d\u5e4c\u5e02\u4e2d\u592e\u533a \u5927\u901a\u30fb\u897f\u307e\u3061\u3065\u304f\u308a\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/sports/sisetsu/institution/tennis/nakajima.html": {
+    "checked": 20260927,
+    "name": "\u4e2d\u5cf6\u516c\u5712\u5ead\u7403\u5834",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -47004,6 +47508,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "city.sapporo.jp/toyohira/machi/info/151-01.html#A06_ryushoji": {
+    "checked": 20260927,
+    "name": "\u9f8d\u677e\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/toyohira/machi/info/151-02.html#A30": {
+    "checked": 20260927,
+    "name": "\u6d45\u8349\u4e09\u4e95\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/toyohira/machi/info/151-05.html#A098": {
+    "checked": 20260927,
+    "name": "\u4e2d\u306e\u5cf6\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "city.sapporo.jp/toyohira/machi/machizukuri_center/index.html": {
     "checked": 20260924,
     "name": "\u672d\u5e4c\u5e02\u8c4a\u5e73\u533a \u5357\u5e73\u5cb8\u307e\u3061\u3065\u304f\u308a\u30bb\u30f3\u30bf\u30fc",
@@ -47028,6 +47553,13 @@
   "city.sapporo.jp/toyohira/toyohira/index.html": {
     "checked": 20260924,
     "name": "\u672d\u5e4c\u5e02\u8c4a\u5e73\u533a \u8c4a\u5e73\u307e\u3061\u3065\u304f\u308a\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "city.sapporo.jp/zoo": {
+    "checked": 20260927,
+    "name": "\u5186\u5c71\u52d5\u7269\u5712",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -50974,6 +51506,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "clubexte.jp/about.php": {
+    "checked": 20260927,
+    "name": "L-WAVE\u30b9\u30dd\u30fc\u30c4\u30af\u30e9\u30d6\u3000CLUB EXTENSION",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "clubgoldwand.ch": {
     "checked": 20260917,
     "name": "Club Goldwand",
@@ -51806,6 +52345,20 @@
     "reason": "107 vevents / 107 future",
     "status": "ok",
     "type": "ics"
+  },
+  "coachandfour-utsukushigaoka.jp": {
+    "checked": 20260927,
+    "name": "\u30b3\u30fc\u30c1\u30e3\u30f3\u30d5\u30a9\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "coachandfour.ne.jp": {
+    "checked": 20260927,
+    "name": "\u30b3\u30fc\u30c1\u30e3\u30f3\u30d5\u30a9\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "coalinga.com/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
     "checked": 20260913,
@@ -54174,6 +54727,13 @@
     "status": "ok",
     "type": "squarespace"
   },
+  "corp.asics.com/en/about_asics/museum": {
+    "checked": 20260927,
+    "name": "ASICS Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "corpomusicalevillasanta.it": {
     "checked": 20260922,
     "name": "Corpo Musicale di Villasanta",
@@ -56085,6 +56645,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "csd.or.jp": {
+    "checked": 20260927,
+    "name": "\u5c71\u9f3b\u30ab\u30c8\u30ea\u30c3\u30af\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "csdliege.be/fr": {
     "checked": 20260914,
     "name": "CSD Li\u00e8ge - Centrale de Services \u00e0 Domicile",
@@ -56399,6 +56966,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "cube-garden.com": {
+    "checked": 20260927,
+    "name": "cube garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "cube.club": {
     "checked": 20260919,
@@ -57506,9 +58080,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "daiganji.net": {
+    "checked": 20260927,
+    "name": "\u5927\u9858\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "daigoji.or.jp": {
     "checked": 20260926,
     "name": "\u918d\u9190\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "daijiji.com": {
+    "checked": 20260927,
+    "name": "\u5e73\u7b49\u9662\u5927\u6148\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -57534,9 +58122,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "daishoji.or.jp": {
+    "checked": 20260927,
+    "name": "\u5927\u677e\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "daitoyo.co.jp": {
     "checked": 20260925,
     "name": "Umeda Batting Dome",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "daiyashobou.com": {
+    "checked": 20260927,
+    "name": "\u30c0\u30a4\u30e4\u66f8\u623f",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -58735,6 +59337,27 @@
   "daymikan.sakura.ne.jp": {
     "checked": 20260925,
     "name": "\u307f\u304b\u3093",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dazaifu-ruminas.jp": {
+    "checked": 20260927,
+    "name": "\u7537\u5973\u5171\u540c\u53c2\u753b\u63a8\u9032\u30bb\u30f3\u30bf\u30fc \u30eb\u30df\u30ca\u30b9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dazaifutenmangu.or.jp": {
+    "checked": 20260927,
+    "name": "\u592a\u5bb0\u5e9c\u5929\u6e80\u5bae",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dazaifutenmangu.or.jp/en/discover-dazaifu-tenmangu/shrine-grounds/#dazaifutenmangumuseum": {
+    "checked": 20260927,
+    "name": "\u5b9d\u7269\u6bbf",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -62262,6 +62885,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dm.gov.ae": {
+    "checked": 20260927,
+    "name": "Dubai",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "dmbotanicalgarden.com": {
     "checked": 20260924,
     "name": "Greater Des Moines Botanical Garden",
@@ -62283,6 +62913,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dmhcj.or.jp/jp-house/1585": {
+    "checked": 20260927,
+    "name": "\u30c9\u30ca\u30eb\u30c9\u30fb\u30de\u30af\u30c9\u30ca\u30eb\u30c9\u30fb\u30cf\u30a6\u30b9 \u3075\u304f\u304a\u304b",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dmhcj.or.jp/jp-house/1592": {
     "checked": 20260926,
     "name": "\u30c9\u30ca\u30eb\u30c9\u30fb\u30de\u30af\u30c9\u30ca\u30eb\u30c9\u30fb\u30cf\u30a6\u30b9 \u306a\u3054\u3084",
@@ -62300,6 +62937,13 @@
   "dmhcj.or.jp/jp-house/1606": {
     "checked": 20260925,
     "name": "\u30c9\u30ca\u30eb\u30c9\u30fb\u30de\u30af\u30c9\u30ca\u30eb\u30c9\u30fb\u30cf\u30a6\u30b9 \u3075\u3061\u3085\u3046",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dmhcj.or.jp/jp-house/1612": {
+    "checked": 20260927,
+    "name": "\u30c9\u30ca\u30eb\u30c9\u30fb\u30de\u30af\u30c9\u30ca\u30eb\u30c9\u30fb\u30cf\u30a6\u30b9 \u3055\u3063\u307d\u308d",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -62331,6 +62975,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "dmt.gov.ae/aam": {
+    "checked": 20260927,
+    "name": "Al Ain",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "dmyc.ie": {
     "checked": 20260822,
@@ -62493,6 +63144,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dofukuji.or.jp/akashia": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u3042\u304b\u3057\u3042\u5b66\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dogodki.kompot.si": {
     "checked": 20260808,
     "name": "Dogodki kompot.si",
@@ -62545,6 +63203,20 @@
   "dokdomuseum.nahf.or.kr": {
     "checked": 20260902,
     "name": "\ub3c5\ub3c4\uccb4\ud5d8\uad00",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dokyoi.pref.hokkaido.lg.jp/hk/knb": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u9053\u7acb\u8fd1\u4ee3\u7f8e\u8853\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dokyoi.pref.hokkaido.lg.jp/hk/mkb": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u9053\u7acb\u4e09\u5cb8\u597d\u592a\u90ce\u7f8e\u8853\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -63403,6 +64075,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dougukan.jp": {
+    "checked": 20260927,
+    "name": "\u7af9\u4e2d\u5927\u5de5\u9053\u5177\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "douvaine.fr/culture/grange-a-joseph": {
     "checked": 20260919,
     "name": "Grange \u00e0 Joseph",
@@ -63770,6 +64449,13 @@
   "drevenykostelik.cz": {
     "checked": 20260905,
     "name": "Kostel Sboru Cyrila a Metod\u011bje",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dri.ne.jp": {
+    "checked": 20260927,
+    "name": "\u4eba\u3068\u9632\u707d\u672a\u6765\u30bb\u30f3\u30bf\u30fc",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -65349,6 +66035,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ebetsu-t.com/event": {
+    "checked": 20260927,
+    "name": "\u6c5f\u5225 \u8526\u5c4b\u66f8\u5e97",
+    "reason": "1/2 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "ebianum.ch": {
     "checked": 20260918,
@@ -70015,6 +70708,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "erinji.net": {
+    "checked": 20260927,
+    "name": "\u6167\u6797\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "erinsowngaa.ie": {
     "checked": 20260822,
     "name": "Erin's Own GAA",
@@ -70736,6 +71436,13 @@
     "reason": "http 401",
     "status": "fail",
     "type": "tribe"
+  },
+  "espacio.ne.jp": {
+    "checked": 20260927,
+    "name": "Scala Espacio Concert Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "espacio88.com": {
     "checked": 20260915,
@@ -71503,6 +72210,13 @@
   "etoh.edu.pl": {
     "checked": 20260909,
     "name": "Fundacja ETOH",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "etohji.or.jp": {
+    "checked": 20260927,
+    "name": "\u6167\u71c8\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -72847,6 +73561,13 @@
   "f9solna.se": {
     "checked": 20260905,
     "name": "F9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "faam.city.fukuoka.lg.jp": {
+    "checked": 20260927,
+    "name": "\u798f\u5ca1\u30a2\u30b8\u30a2\u7f8e\u8853\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -77837,6 +78558,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "flamingo-sapporo.jp/smt": {
+    "checked": 20260927,
+    "name": "\u30d5\u30e9\u30df\u30f3\u30b4",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "flandersexpo.be": {
     "checked": 20260913,
     "name": "Flanders Expo",
@@ -78246,6 +78974,13 @@
   "fmm.catholic.org.hk": {
     "checked": 20260831,
     "name": "\u746a\u5229\u4e9e\u65b9\u6fdf\u5404\u50b3\u6559\u4fee\u6703 Franciscan Missionaries of Mary",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fmm.jp/?p=1633": {
+    "checked": 20260927,
+    "name": "\u30de\u30ea\u30a2\u30ce\u5ba3\u6559\u8005\u30d5\u30e9\u30f3\u30b7\u30b9\u30b3\u4fee\u9053\u4f1a\u5317\u5e83\u5cf6\u4fee\u9053\u9662",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -81519,6 +82254,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fujairahtourism.ae": {
+    "checked": 20260927,
+    "name": "Fujairah",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "fujifilmsquare.jp/guide/museum.html": {
     "checked": 20260924,
     "name": "\u5bcc\u58eb\u30d5\u30a3\u30eb\u30e0 \u5199\u771f\u6b74\u53f2\u535a\u7269\u9928",
@@ -81603,6 +82345,41 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fukuoka-art-museum.jp": {
+    "checked": 20260927,
+    "name": "\u798f\u5ca1\u5e02\u7f8e\u8853\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fukuoka-gokoku.jp": {
+    "checked": 20260927,
+    "name": "\u798f\u5ca1\u7e23\u8b77\u570b\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fukuokajyo.com/facility/kourokan-ato-tenjikan": {
+    "checked": 20260927,
+    "name": "\u9d3b\u81da\u9928\u8de1\u5c55\u793a\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fukuokajyo.com/facility/mukashi-tanboukan": {
+    "checked": 20260927,
+    "name": "\u798f\u5ca1\u57ce\u3080\u304b\u3057\u63a2\u8a2a\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fukuokamasjid.org": {
+    "checked": 20260927,
+    "name": "\u798f\u5ca1\u30e2\u30b9\u30af",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "fukuseikai.or.jp/matsuba": {
     "checked": 20260925,
     "name": "\u30b5\u30dd\u30fc\u30c8\u30bb\u30f3\u30bf\u30fc\u307e\u3064\u3070",
@@ -81627,6 +82404,13 @@
   "fukushihoken.metro.tokyo.jp/jounan": {
     "checked": 20260925,
     "name": "\u6771\u4eac\u90fd\u7acb\u5317\u7642\u80b2\u533b\u7642\u30bb\u30f3\u30bf\u30fc \u57ce\u5357\u5206\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fukusikai.or.jp": {
+    "checked": 20260927,
+    "name": "\u6cb9\u5c71\u798f\u7949\u306e\u91cc",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -82110,6 +82894,13 @@
   "fuse.be": {
     "checked": 20260911,
     "name": "Fuse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fusoen.jp/hakuyou": {
+    "checked": 20260927,
+    "name": "\u67cf\u8449\u8358",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -88011,6 +88802,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "goodhourch.com": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u30b0\u30c3\u30c9\u30a2\u30ef\u30fc\u6559\u4f1a",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "goodlettsville.gov/common/modules/iCalendar/iCalendar.aspx?catID=19&feed=calendar": {
     "checked": 20260913,
     "name": "Goodlettsville \u2014 Parks & Rec",
@@ -89110,6 +89908,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "grand-wellness.jp/kotoni": {
+    "checked": 20260927,
+    "name": "\u30b0\u30e9\u30f3\u30a6\u30a8\u30eb\u30cd\u30b9\u7434\u4f3c\u99c5\u524d",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "grandcanyontrust.org/events/?ical=1": {
     "checked": 20260803,
     "name": "Grand Canyon Trust",
@@ -89743,6 +90548,13 @@
   "greenpeace.org/sweden": {
     "checked": 20260905,
     "name": "Greenpeace Sverige",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "greenpia-shinoro.jp": {
+    "checked": 20260927,
+    "name": "\u30b0\u30ea\u30fc\u30f3\u30d4\u30a2\u7be0\u8def",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -91581,6 +92393,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "h-bt.jp/rental_halls": {
+    "checked": 20260927,
+    "name": "\u535a\u591a\u30d0\u30b9\u30bf\u30fc\u30df\u30ca\u30eb\u8cb8\u30db\u30fc\u30eb\u30fb\u8cb8\u4f1a\u8b70\u5ba4",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "h-bungaku.or.jp": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u9053\u7acb\u6587\u5b66\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "h-chikucenter.com": {
     "checked": 20260924,
     "name": "\u672d\u5e4c\u5e02\u306f\u3063\u3055\u3080\u5730\u533a\u30bb\u30f3\u30bf\u30fc",
@@ -91605,6 +92431,20 @@
   "h-ju.ch/fr/L-Hopital-du-jura/Les-4-sites-de-l-hopital/Residence-La-Promenade/Residence-La-Promenade.html": {
     "checked": 20260919,
     "name": "R\u00e9sidence La Promenade",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "h-paf.ne.jp/zoo": {
+    "checked": 20260927,
+    "name": "\u30b7\u30a2\u30bf\u30fcZOO",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "h-yuuseikai.or.jp": {
+    "checked": 20260927,
+    "name": "\u30e9\u30a4\u30d5\u30d7\u30ec\u30b9\u30c6\u30fc\u30b8\u767d\u3086\u308a\u3042\u3044\u306e\u91cc",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -91994,6 +92834,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hakatamachiya.com": {
+    "checked": 20260927,
+    "name": "\u535a\u591a\u753a\u5bb6\u9109\u571f\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hakataza.co.jp": {
+    "checked": 20260927,
+    "name": "\u535a\u591a\u5ea7",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hakemisto.kirjastot.fi/lempaala/lempaala-virta-toki-kirjastot": {
     "checked": 20260904,
     "name": "Lemp\u00e4\u00e4l\u00e4 Virta",
@@ -92291,6 +93145,13 @@
   "hamakore.yokohama/yumesaki-gallery": {
     "checked": 20260924,
     "name": "YUMESAKI GALLERY",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hamanasu-kaigo.com/naebo.html": {
+    "checked": 20260927,
+    "name": "\u306f\u307e\u306a\u3059\u4ecb\u8b77\u30bb\u30f3\u30bf\u30fc\u82d7\u7a42",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -92690,6 +93551,13 @@
   "happybeerstreet.com": {
     "checked": 20260819,
     "name": "Happy Beer Street",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "happybernard.namara.jp": {
+    "checked": 20260927,
+    "name": "HAPPY BERNARD",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -96502,6 +97370,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hikarinomori-g.or.jp": {
+    "checked": 20260927,
+    "name": "\u5149\u306e\u68ee\u5b66\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hikawa-jinjya.com": {
     "checked": 20260926,
     "name": "\u6c37\u5ddd\u795e\u793e",
@@ -96866,6 +97741,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hiraobaptistchurch.jimdofree.com/%E5%A4%A7%E5%90%8D%E3%82%AF%E3%83%AD%E3%82%B9%E3%82%AC%E3%83%BC%E3%83%87%E3%83%B3": {
+    "checked": 20260927,
+    "name": "\u5927\u540d\u30af\u30ed\u30b9\u30ac\u30fc\u30c7\u30f3",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hirnibraeu.ch": {
     "checked": 20260917,
     "name": "Hirnibr\u00e4u",
@@ -97076,6 +97958,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hitotoki-b.jp": {
+    "checked": 20260927,
+    "name": "\u30c7\u30a4\u30b5\u30fc\u30d3\u30b9 \u4eba\u3068\u6728",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hitzendorf.bvoe.at": {
     "checked": 20260908,
     "name": "Bibliothek Hitzendorf",
@@ -97243,6 +98132,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hkdballpark.com/event": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u9053\u30dc\u30fc\u30eb\u30d1\u30fc\u30af",
+    "reason": "4/15 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "hkdcs.org": {
     "checked": 20260831,
@@ -97440,6 +98336,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hkt48.jp": {
+    "checked": 20260927,
+    "name": "\u897f\u65e5\u672c\u30b7\u30c6\u30a3\u9280\u884c HKT48\u5287\u5834",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hktmcc.com": {
     "checked": 20260831,
     "name": "\u5c6f\u9580\u7368\u6728\u821f\u6703 Tuen Mun Canoe Club",
@@ -97506,6 +98409,13 @@
   "hlo.tohotheater.jp/net/schedule/076/TNPI2000J01.do": {
     "checked": 20260924,
     "name": "TOHO\u30b7\u30cd\u30de\u30ba",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hlo.tohotheater.jp/net/schedule/089/TNPI2000J01.do": {
+    "checked": 20260927,
+    "name": "TOHO CINEMA",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -97625,6 +98535,20 @@
   "hnyouth.kr": {
     "checked": 20260902,
     "name": "\ud558\ub0a8\uc2dc\uccad\uc18c\ub144\uc218\ub828\uad00",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ho-ryu.com": {
+    "checked": 20260927,
+    "name": "\u5b9d\u6d41\u5bfa",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
+  "hoa-hoa.com": {
+    "checked": 20260927,
+    "name": "Hoa Hoa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -98028,9 +98952,205 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hokkaido-juishikai.jp": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u9053\u7363\u533b\u5e2b\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojingu.or.jp": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u9053\u795e\u5bae",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojingu.or.jp/keidaisya.html": {
+    "checked": 20260927,
+    "name": "\u958b\u62d3\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u85e4\u91ce\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/%E7%A6%8F%E4%BD%8F%E5%8E%B3%E5%B3%B6%E7%A5%9E%E7%A4%BE": {
+    "checked": 20260927,
+    "name": "\u798f\u4f4f\u53b3\u5cf6\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/%e5%86%86%e5%b1%b1%e8%a5%bf%e7%94%ba%e7%a5%9e%e7%a4%be": {
+    "checked": 20260927,
+    "name": "\u5186\u5c71\u897f\u753a\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/%e7%90%b4%e4%bc%bc%e7%a5%9e%e7%a4%be": {
+    "checked": 20260927,
+    "name": "\u7434\u4f3c\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01002.html": {
+    "checked": 20260927,
+    "name": "\u4e09\u5409\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01003.html": {
+    "checked": 20260927,
+    "name": "\u8c4a\u5e73\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01006.html": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u6751\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01010.html": {
+    "checked": 20260927,
+    "name": "\u82d7\u7a42\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01011.html": {
+    "checked": 20260927,
+    "name": "\u4e18\u73e0\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01012.html": {
+    "checked": 20260927,
+    "name": "\u7be0\u8def\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01020.html": {
+    "checked": 20260927,
+    "name": "\u76f8\u99ac\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01021.html": {
+    "checked": 20260927,
+    "name": "\u82b1\u5ca1\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01050.html": {
+    "checked": 20260927,
+    "name": "\u70c8\u3005\u5e03\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01055.html": {
+    "checked": 20260927,
+    "name": "\u5b9a\u5c71\u6e13\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01059.html": {
+    "checked": 20260927,
+    "name": "\u77f3\u5c71\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01062.html": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u7956\u970a\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01068.html": {
+    "checked": 20260927,
+    "name": "\u8c4a\u7551\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidojinjacho.jp/data/01/01079.html": {
+    "checked": 20260927,
+    "name": "\u8c4a\u6edd\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokkaidokyomusho.jp": {
+    "checked": 20260927,
+    "name": "\u672c\u9858\u5bfa\u672d\u5e4c\u5225\u9662",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokke-san.net": {
+    "checked": 20260927,
+    "name": "\u65e5\u6cf0\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokubu-kinen.or.jp": {
+    "checked": 20260927,
+    "name": "HOKUBU\u8a18\u5ff5\u7d75\u753b\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokudai.ac.jp/fsc/bg": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u9053\u5927\u5b66\u690d\u7269\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokudaiji.com": {
+    "checked": 20260927,
+    "name": "\u5317\u5927\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokuno.com/shop07": {
+    "checked": 20260927,
+    "name": "\u5199\u771f\u3068\u672c\u306e\u3060\u3044\u3044\u3061",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hokusai-museum.jp": {
     "checked": 20260925,
     "name": "\u3059\u307f\u3060\u5317\u658e\u7f8e\u8853\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hokusei.or.jp/hokuseikan": {
+    "checked": 20260927,
+    "name": "\u5317\u661f\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -98073,6 +99193,13 @@
   "holdsport.net/klub/asa-handbold": {
     "checked": 20260831,
     "name": "Idr\u00e6tsforeningen ASA",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "holiday-sc.jp": {
+    "checked": 20260927,
+    "name": "\u30db\u30ea\u30c7\u30a4\u30b9\u30dd\u30fc\u30c4\u30af\u30e9\u30d6",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -98444,6 +99571,13 @@
   "homemarket.hk": {
     "checked": 20260831,
     "name": "\u5bb6\u5712 HomeMarket",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "homepage.kaderu27.or.jp/index.html": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u9053\u7acb\u9053\u6c11\u6d3b\u52d5\u30bb\u30f3\u30bf\u30fc \u304b\u3067\u308b2\u30fb7",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -98924,6 +100058,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "horohirabashi.uruoi-gp.jp": {
+    "checked": 20260927,
+    "name": "\u3046\u308b\u304a\u3044\u306e\u5bb6\u00ae\u5e4c\u5e73\u6a4b",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "horses.net.nz": {
     "checked": 20260825,
     "name": "Waikato Equestrian Centre",
@@ -99207,6 +100348,13 @@
   "housen.org": {
     "checked": 20260925,
     "name": "\u5b9d\u4ed9\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "housenzan.com": {
+    "checked": 20260927,
+    "name": "\u6cd5\u6cc9\u5c71\u65e5\u6b63\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -99872,6 +101020,27 @@
   "hukuin.com": {
     "checked": 20260925,
     "name": "\u9ad8\u69fb\u30ad\u30ea\u30b9\u30c8\u96c6\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hukushiseikyou.or.jp": {
+    "checked": 20260927,
+    "name": "\u30a4\u30ea\u30b9\u3082\u3068\u307e\u3061",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hukushiseikyou.or.jp/naebo": {
+    "checked": 20260927,
+    "name": "\u30a4\u30ea\u30b9\u82d7\u7a42",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hukushiseikyou.or.jp/nangodori": {
+    "checked": 20260927,
+    "name": "\u30a4\u30ea\u30b9\u5357\u90f7\u901a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -100682,6 +101851,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ibiza-fukuoka.jp": {
+    "checked": 20260927,
+    "name": "\u30a4\u30d3\u30b6\u798f\u5ca1",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ibk.dk": {
     "checked": 20260831,
     "name": "Hedelands Veteranbane",
@@ -100874,6 +102050,13 @@
   "icf-winterthur.ch": {
     "checked": 20260917,
     "name": "ICF Winterthur",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "icfire.com": {
+    "checked": 20260927,
+    "name": "International Christian Fellowship",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -101599,6 +102782,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "iimorijinja.jp/top.htm": {
+    "checked": 20260927,
+    "name": "\u98ef\u76db\u795e\u793e\u672c\u793e\uff08\u4e0b\u5bae\uff09",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "iino.co.jp/hall": {
     "checked": 20260924,
     "name": "\u30a4\u30a4\u30ce\u30db\u30fc\u30eb",
@@ -101714,6 +102904,27 @@
   "ikufuku.or.jp/nishinomiya": {
     "checked": 20260925,
     "name": "\u30b3\u30c6\u30a3\u30b3\u30fc\u30c8\u897f\u5bae\u4ec1\u5ddd",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ikujien.jp": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u80b2\u5150\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ikutajinja.or.jp": {
+    "checked": 20260927,
+    "name": "\u751f\u7530\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ikutajinja.or.jp/otabi": {
+    "checked": 20260927,
+    "name": "\u751f\u7530\u795e\u793e \u5175\u5eab\u5bae\u5fa1\u65c5\u6240",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -102400,6 +103611,13 @@
   "impulsion-dance.be": {
     "checked": 20260911,
     "name": "Impulsion Dance",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ims.gr.jp/asahiyama": {
+    "checked": 20260927,
+    "name": "\u30a2\u30a4\u30e0\u30b9\u65ed\u5c71\u516c\u5712",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -104057,6 +105275,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "irs.jp/facility/hiraokakoen": {
+    "checked": 20260927,
+    "name": "\u30a4\u30ea\u30fc\u30bc\u5e73\u5ca1\u516c\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "irt.org.au/location/irt-tarrawanna": {
     "checked": 20260822,
     "name": "IRT Tarrawanna Care Centre",
@@ -104575,6 +105800,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "itoman.com/school/asabu": {
+    "checked": 20260927,
+    "name": "\u30a4\u30c8\u30de\u30f3\u30b9\u30a4\u30df\u30f3\u30b0\u30b9\u30af\u30fc\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "itomanozato.wixsite.com/home": {
     "checked": 20260924,
     "name": "\u7cf8\u6e80\u5e02\u5927\u91cc\u516c\u6c11\u9928",
@@ -104771,6 +106003,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "iyahiko.or.jp": {
+    "checked": 20260927,
+    "name": "\u4f0a\u591c\u65e5\u5b50\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "izbapamieci.muzeumwarszawy.pl/?ical=1": {
     "checked": 20260909,
     "name": "Izba Pami\u0119ci przy Cmentarzu Powsta\u0144c\u00f3w Warszawy",
@@ -104834,9 +106073,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ja-douou.or.jp": {
+    "checked": 20260927,
+    "name": "JA\u9053\u592e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ja-irumano.or.jp/branch/city/kawagoe": {
     "checked": 20260925,
     "name": "JA\u3044\u308b\u307e\u91ce",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ja-sapporo.or.jp": {
+    "checked": 20260927,
+    "name": "JA\u3055\u3063\u307d\u308d",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -105583,6 +106836,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jazz-voice.biz": {
+    "checked": 20260927,
+    "name": "Sabo Voice",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jazzbar-coltrane.com": {
     "checked": 20260925,
     "name": "Jazz & Bar Coltrane",
@@ -105723,6 +106983,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "jazztownkobe.jp/spot/jamjam": {
+    "checked": 20260927,
+    "name": "JAZZ\u55ab\u8336 jamjam",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jazzumuniaka.club": {
     "checked": 20260909,
     "name": "Jazz Club U Muniaka",
@@ -105793,6 +107060,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jccj.info/localchurch_tyokkatu.php": {
+    "checked": 20260927,
+    "name": "\u65e5\u672c\u30a4\u30a8\u30b9\u30fb\u30ad\u30ea\u30b9\u30c8\u6559\u56e3",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jccwarszawa.pl": {
     "checked": 20260909,
     "name": "Centrum Spo\u0142eczno\u015bci \u017bydowskiej",
@@ -105827,6 +107101,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "jcu-sapporo.com": {
+    "checked": 20260927,
+    "name": "\u65e5\u672c\u30ad\u30ea\u30b9\u30c8\u6559\u56e3 \u672d\u5e4c\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "jcwc.org/events/?ical=1": {
     "checked": 20260727,
@@ -105901,6 +107182,13 @@
   "jeansmuseum.org": {
     "checked": 20260917,
     "name": "The Jeans Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "jeca.jp/church/area/sapporo.html": {
+    "checked": 20260927,
+    "name": "\u5c6f\u7530\u30ad\u30ea\u30b9\u30c8\u6559\u4f1a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -106227,6 +107515,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jfwb.org/kitahiroshima": {
+    "checked": 20260927,
+    "name": "\u5317\u5e83\u5cf6\u30c1\u30e3\u30da\u30eb\u30ad\u30ea\u30b9\u30c8\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jhalleman.be": {
     "checked": 20260911,
     "name": "Jeugdhuis Alleman",
@@ -106318,6 +107613,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jiin.jpn.com/%E5%85%89%E8%93%AE%E5%AF%BA%E6%9C%AD%E5%B9%8C%E9%81%93%E5%A0%B4": {
+    "checked": 20260927,
+    "name": "\u5149\u84ee\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "jiin.jpn.com/%E5%A4%A7%E4%B9%97%E5%AF%BA": {
+    "checked": 20260927,
+    "name": "\u5927\u4e57\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jil.go.jp/lib": {
     "checked": 20260922,
     "name": "\u52b4\u50cd\u56f3\u66f8\u9928",
@@ -106360,6 +107669,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jinjasapporo.net/find-shrine/%E6%9C%AD%E5%B9%8C%E4%BC%8F%E8%A6%8B%E7%A8%B2%E8%8D%B7%E7%A5%9E%E7%A4%BE": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u4f0f\u898b\u7a32\u8377\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jirehchurch.org.uk": {
     "checked": 20260819,
     "name": "Jireh Church",
@@ -106370,6 +107686,13 @@
   "jirokichi.net": {
     "checked": 20260925,
     "name": "Live music Jirokichi",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "jishu-shinkouji.jp": {
+    "checked": 20260927,
+    "name": "\u771f\u5149\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -106878,6 +108201,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "joukoku-ji.jp": {
+    "checked": 20260927,
+    "name": "\u6d44\u56fd\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "joukou.sakura.ne.jp": {
     "checked": 20260925,
     "name": "\u5e38\u5149\u5bfa",
@@ -106909,6 +108239,13 @@
   "jousse-entreprise.com": {
     "checked": 20260828,
     "name": "Galerie Jousse Entreprise",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "joutokuji.com": {
+    "checked": 20260927,
+    "name": "\u6d44\u5fb3\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -106951,6 +108288,13 @@
   "joylife.alsok.co.jp/facility/bp_nishinomiyakitaguchi/index.html": {
     "checked": 20260925,
     "name": "\u30d9\u30eb\u30d1\u30fc\u30b8\u30e5\u897f\u5bae\u5317\u53e3",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "jozankei.jp/spot/165": {
+    "checked": 20260927,
+    "name": "\u5ca9\u6238\u89b3\u97f3\u5802",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -107070,6 +108414,13 @@
   "jsf.or.jp": {
     "checked": 20260925,
     "name": "\u79d1\u5b66\u6280\u8853\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "jss-group.co.jp/ayumi": {
+    "checked": 20260927,
+    "name": "JSS\u3042\u3086\u307f\u30b9\u30a4\u30df\u30f3\u30b0\u30b9\u30af\u30fc\u30eb\u672d\u5e4c",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -107651,6 +109002,13 @@
   "juniorsejlklub.dk": {
     "checked": 20260901,
     "name": "Skanderborg Junior Sejlklub",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "junkudo.co.jp": {
+    "checked": 20260927,
+    "name": "\u30b8\u30e5\u30f3\u30af\u5802\u66f8\u5e97",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -108397,6 +109755,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kaitaku.or.jp": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u9053\u958b\u62d3\u306e\u6751",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kaivokselandelfiinit.com": {
     "checked": 20260922,
     "name": "Partiolippukunta Kaivokselan Delfiinit ry",
@@ -108414,6 +109779,13 @@
   "kajakklubben-pilen.dk": {
     "checked": 20260831,
     "name": "Kajakklubben Pilen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kakuouji.com": {
+    "checked": 20260927,
+    "name": "\u899a\u738b\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -108894,6 +110266,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kanda-1.co.jp/meikohden": {
+    "checked": 20260927,
+    "name": "\u660e\u5eb7\u6bbf",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kandamyoujin.or.jp": {
     "checked": 20260925,
     "name": "\u795e\u7530\u660e\u795e",
@@ -109023,6 +110402,13 @@
   "kanko.travel.rakuten.co.jp/kanagawa/spot/S14010286.html": {
     "checked": 20260924,
     "name": "\u65e5\u672c\u6f2b\u753b\u535a\u7269\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kannan-church.web.app": {
+    "checked": 20260927,
+    "name": "\u30ab\u30ca\u30f3\u6559\u4f1a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -109604,6 +110990,13 @@
   "kashikaigishitsu.net/facilitys/cc-tokyoeki-central": {
     "checked": 20260925,
     "name": "TKP",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kashikaigishitsu.net/facilitys/gc-sapporo": {
+    "checked": 20260927,
+    "name": "TKP\u30ac\u30fc\u30c7\u30f3\u30b7\u30c6\u30a3\u672d\u5e4c\u99c5\u524d",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -110805,9 +112198,37 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "keibouen.jp/kogane": {
+    "checked": 20260927,
+    "name": "\u3053\u304c\u306d\u30c7\u30a4\u30b5\u30fc\u30d3\u30b9\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "keihingolf.com": {
     "checked": 20260925,
     "name": "\u4eac\u6d5c\u30b4\u30eb\u30d5\u30af\u30e9\u30d6",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "keijinkai.com/calm-nishimaruyama": {
+    "checked": 20260927,
+    "name": "\u30b1\u30a2\u30cf\u30a6\u30b9\u3000\u30ab\u30fc\u30e0\u30d2\u30eb\u897f\u5186\u5c71",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "keijinkai.com/keijuen": {
+    "checked": 20260927,
+    "name": "\u897f\u5186\u5c71\u656c\u6a39\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "keijinkai.com/keijuen/grouphome": {
+    "checked": 20260927,
+    "name": "\u30b0\u30eb\u30fc\u30d7\u30db\u30fc\u30e0\u897f\u5186\u5c71\u306e\u4e18",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -110822,6 +112243,13 @@
   "keio-equestrian.com": {
     "checked": 20260922,
     "name": "\u6176\u61c9\u7fa9\u587e\u5927\u5b66\u4f53\u80b2\u4f1a\u99ac\u8853\u90e8",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "keiouji.or.jp": {
+    "checked": 20260927,
+    "name": "\u7d4c\u738b\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -112261,6 +113689,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kinokuniya.co.jp": {
+    "checked": 20260927,
+    "name": "\u7d00\u4f0a\u570b\u5c4b\u66f8\u5e97",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kinokuniya.co.jp/c/store/Grand-Front-Osaka-Store": {
     "checked": 20260925,
     "name": "\u7d00\u4f0a\u570b\u5c4b\u66f8\u5e97",
@@ -112835,6 +114270,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kita8theater.com": {
+    "checked": 20260927,
+    "name": "\u30b8\u30e7\u30d6\u30ad\u30bf\u5317\u516b\u5287\u5834",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kitabunka.or.jp/tabata": {
     "checked": 20260925,
     "name": "\u7530\u7aef\u6587\u58eb\u6751\u8a18\u5ff5\u9928",
@@ -112873,6 +114315,27 @@
   "kitanotenmangu.or.jp/guidance/houmotsuden": {
     "checked": 20260925,
     "name": "\u5b9d\u7269\u6bbf",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kitara-sapporo.or.jp": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u30b3\u30f3\u30b5\u30fc\u30c8\u30db\u30fc\u30eb Kitara",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kitariha.net": {
+    "checked": 20260927,
+    "name": "\u5317\u5e83\u5cf6\u30ea\u30cf\u30d3\u30ea\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kitayell.jp": {
+    "checked": 20260927,
+    "name": "\u5317\u6d77\u304d\u305f\u3048\u30fc\u308b",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -114592,9 +116055,65 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kobe-kagakukan.jp": {
+    "checked": 20260927,
+    "name": "\u30d0\u30f3\u30c9\u30fc\u795e\u6238\u9752\u5c11\u5e74\u79d1\u5b66\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kobe-michael.org": {
+    "checked": 20260927,
+    "name": "\u795e\u6238\u8056\u30df\u30ab\u30a8\u30eb\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kobe-np.co.jp/info/bungakukan": {
+    "checked": 20260927,
+    "name": "\u795e\u6238\u6587\u5b66\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kobe-ojizoo.jp": {
+    "checked": 20260927,
+    "name": "\u795e\u6238\u5e02\u7acb\u738b\u5b50\u52d5\u7269\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kobe-park.or.jp/shinrin": {
+    "checked": 20260927,
+    "name": "\u795e\u6238\u5e02\u7acb\u68ee\u6797\u690d\u7269\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kobe-sone.com": {
+    "checked": 20260927,
+    "name": "\u30bd\u30cd",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kobeherb.com": {
+    "checked": 20260927,
+    "name": "\u795e\u6238\u5e03\u5f15\u30cf\u30fc\u30d6\u516c\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kobenhavn.adventistkirke.dk": {
     "checked": 20260831,
     "name": "Adventistkirken K\u00f8benhavn",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kobesuma-seaworld.jp": {
+    "checked": 20260927,
+    "name": "\u795e\u6238\u9808\u78e8\u30b7\u30fc\u30ef\u30fc\u30eb\u30c9",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -115615,6 +117134,20 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "koseikai-star.com/facility/detail?id=302": {
+    "checked": 20260927,
+    "name": "\u7279\u5225\u990a\u8b77\u8001\u4eba\u30db\u30fc\u30e0 \u30e9\u30b9\u30fc\u30eb\u82d7\u7a42",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "koseikai-star.com/facility/detail?id=327": {
+    "checked": 20260927,
+    "name": "\u7279\u5225\u990a\u8b77\u8001\u4eba\u30db\u30fc\u30e0 \u30e9\u30b9\u30fc\u30eb\u82d7\u7a42\u30ea\u30d0\u30fc\u30b5\u30a4\u30c9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "koshien-rekishikan.hanshin.co.jp": {
     "checked": 20260925,
     "name": "\u7532\u5b50\u5712\u6b74\u53f2\u9928",
@@ -115632,6 +117165,13 @@
   "koshoji.or.jp": {
     "checked": 20260925,
     "name": "\u8208\u6b63\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "koshoji.or.jp/betsuin_7.html": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u8208\u6b63\u5bfa\u5225\u9662",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -115734,6 +117274,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kotoni-church.heteml.net": {
+    "checked": 20260927,
+    "name": "\u65e5\u672c\u30ad\u30ea\u30b9\u30c8\u6559\u4f1a \u672d\u5e4c\u7434\u4f3c\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kotus.fi/palvelut/arkistot": {
     "checked": 20260903,
     "name": "Kotimaisten kielten keskuksen arkisto",
@@ -115811,6 +117358,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kousaikai.or.jp/nansouen": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5357\u85fb\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kouseikai-t.or.jp": {
     "checked": 20260925,
     "name": "\u4ecb\u8b77\u8001\u4eba\u4fdd\u5065\u65bd\u8a2d\u30d1\u30fc\u30af\u30b5\u30a4\u30c9\u30f4\u30a3\u30e9",
@@ -115824,6 +117378,13 @@
     "reason": "50 vevents / 0 future",
     "status": "empty",
     "type": "ics"
+  },
+  "koushou-ji.com": {
+    "checked": 20260927,
+    "name": "\u9999\u6b63\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "kouzapool.jp": {
     "checked": 20260926,
@@ -118065,6 +119626,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kusukusu.studio.site/gallery": {
+    "checked": 20260927,
+    "name": "Kusunoki",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kusunokino-ie.com": {
     "checked": 20260922,
     "name": "\u8431\u91ce\u5c0f\u4f1a\u9928\u300c\u304f\u3059\u306e\u6728\u306e\u5bb6\u300d",
@@ -118479,6 +120047,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kyobun.org": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u6559\u80b2\u6587\u5316\u4f1a\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kyobunkwan.co.jp": {
     "checked": 20260925,
     "name": "\u6559\u6587\u9928",
@@ -118689,6 +120264,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kyuhaku.jp": {
+    "checked": 20260927,
+    "name": "\u4e5d\u5dde\u56fd\u7acb\u535a\u7269\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kyuhoji-ryokuchi.jp/facility/fa16.html": {
     "checked": 20260925,
     "name": "\u30b7\u30e3\u30af\u30e4\u30af\u5712",
@@ -118699,6 +120281,20 @@
   "kyuhoji-ryokuchi.jp/facility/fa23.html": {
     "checked": 20260925,
     "name": "\u4e45\u5b9d\u5bfa\u7dd1\u5730\u30d7\u30fc\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kzc.jp/rehakobe": {
+    "checked": 20260927,
+    "name": "\u30ea\u30cf\u30fb\u795e\u6238",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kzc.jp/smile/center/kitaku": {
+    "checked": 20260927,
+    "name": "?",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -121101,6 +122697,13 @@
   "lamplightbooks.co.nz": {
     "checked": 20260824,
     "name": "Lamplight Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lampwork-museum.com": {
+    "checked": 20260927,
+    "name": "KOBE\u3068\u3093\u307c\u7389\u30df\u30e5\u30fc\u30b8\u30a2\u30e0",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -135166,6 +136769,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "mannachapel.jp": {
+    "checked": 20260927,
+    "name": "\u30de\u30ca\u30c1\u30e3\u30da\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mannerheim-museo.fi": {
     "checked": 20260903,
     "name": "Mannerheim-museo",
@@ -135775,6 +137385,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "marine-world.jp": {
+    "checked": 20260927,
+    "name": "\u6d77\u306e\u4e2d\u9053\u6c34\u65cf\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "marineforening.dk": {
     "checked": 20260831,
     "name": "Marineforeningen for Br\u00f8ndby og Omegn",
@@ -136097,6 +137714,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "marokiwi.net/kasumi": {
+    "checked": 20260927,
+    "name": "\u65e5\u672c\u30ad\u30ea\u30b9\u30c8\u6539\u9769\u9577\u8001\u971e\u30f6\u4e18\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "maroubraslsc.com.au": {
     "checked": 20260819,
     "name": "Maroubra Beach Surf Life Saving Club",
@@ -136352,6 +137976,13 @@
   "maruja-limon.com": {
     "checked": 20260916,
     "name": "Maruja Lim\u00f3n",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "maruyama-catholic-church.jp": {
+    "checked": 20260927,
+    "name": "\u30ab\u30c8\u30ea\u30c3\u30af\u5186\u5c71\u6559\u4f1a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -138308,6 +139939,13 @@
     "reason": "3 events, 3/3 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "meg-snow.com/fun/factory/sapporo.html": {
+    "checked": 20260927,
+    "name": "\u916a\u8fb2\u3068\u4e73\u306e\u6b74\u53f2\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "meg.ch": {
     "checked": 20260918,
@@ -141243,6 +142881,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "missyuji.web.fc2.com": {
+    "checked": 20260927,
+    "name": "\u5bc6\u4fee\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mistecko.art": {
     "checked": 20260904,
     "name": "M\u00edste\u010dko",
@@ -142573,6 +144218,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "moerenumapark.jp/music_shell": {
+    "checked": 20260927,
+    "name": "\u30df\u30e5\u30fc\u30b8\u30c3\u30af\u30b7\u30a7\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "moerkeif.dk": {
     "checked": 20260901,
     "name": "M\u00f8rke IF",
@@ -142653,6 +144305,13 @@
   "moissonsnouvelles.fr": {
     "checked": 20260830,
     "name": "Moissons Nouvelles",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "moiwashalom.com": {
+    "checked": 20260927,
+    "name": "\u85fb\u5ca9\u30b7\u30e3\u30ed\u30fc\u30e0\u6559\u4f1a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -143685,6 +145344,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "morgan.tagaya.co.jp": {
+    "checked": 20260927,
+    "name": "Kobe St. Morgan Church",
+    "reason": "1 events / 0 future",
+    "status": "empty",
+    "type": "jsonld"
   },
   "morgenbader-ballehage.dk": {
     "checked": 20260901,
@@ -145044,6 +146710,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "msnw-wis.jp/minami1": {
+    "checked": 20260927,
+    "name": "\u30a6\u30a3\u30b9\u30c6\u30ea\u30a2\u53571\u6761\u30d3\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mspg.ch/?lang=en": {
     "checked": 20260918,
     "name": "Mus\u00e9e Des Sapeurs Pompiers",
@@ -145743,6 +147416,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mun.rak.ae/en/Pages/default.aspx": {
+    "checked": 20260927,
+    "name": "Ras al-Khaimah",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "munaf.it": {
     "checked": 20260921,
@@ -150617,6 +152297,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "myoukakuji.com/index2.html": {
+    "checked": 20260927,
+    "name": "\u5999\u899a\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "myoukakuji.jp": {
     "checked": 20260924,
     "name": "\u5999\u899a\u5bfa",
@@ -150627,6 +152314,13 @@
   "myouonji.net": {
     "checked": 20260925,
     "name": "\u5999\u9060\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "myoushinji.org": {
+    "checked": 20260927,
+    "name": "\u5999\u5fc3\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -151023,6 +152717,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "naebono.com": {
+    "checked": 20260927,
+    "name": "\u306a\u3048\u307c\u306e\u30a2\u30fc\u30c8\u30b9\u30bf\u30b8\u30aa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "naerheden.dk/oplev-naerheden/faciliteter/springcenter": {
     "checked": 20260831,
     "name": "Springcenter N\u00e6rheden",
@@ -151187,6 +152888,13 @@
   "nakaoshoten.jp": {
     "checked": 20260925,
     "name": "\u4e2d\u5c3e\u66f8\u5e97",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nakayama-seikei.net/kaigo/index/7": {
+    "checked": 20260927,
+    "name": "\u4f4f\u5b85\u578b\u6709\u6599\u8001\u4eba\u30db\u30fc\u30e0 \u304a\u3042\u3057\u3059\u5e02\u6c11\u306e\u68ee",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -151362,6 +153070,13 @@
   "nantien.org.au": {
     "checked": 20260822,
     "name": "Nan Tien Temple",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nanzenin.jp": {
+    "checked": 20260927,
+    "name": "\u5357\u7985\u9662",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -151544,6 +153259,13 @@
   "narva.com": {
     "checked": 20260905,
     "name": "Narva Boxningsklubb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nas-club.co.jp/vitparksapporo": {
+    "checked": 20260927,
+    "name": "\u30b9\u30dd\u30fc\u30c4\u30af\u30e9\u30d6NAS Vit Park \u672d\u5e4c",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -152383,6 +154105,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ne.jp/asahi/shikanoshima/syougonji": {
+    "checked": 20260927,
+    "name": "\u8358\u53b3\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nearsouth.org/events": {
     "checked": 20260919,
     "name": "Near South Neighborhood Association (Lincoln, NE)",
@@ -152568,6 +154297,13 @@
   "nemohilft.ch": {
     "checked": 20260918,
     "name": "Notschlafstelle Nemo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nenpoushinkyou.jp": {
+    "checked": 20260927,
+    "name": "\u795e\u6238\u5ff5\u6cd5\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -153742,6 +155478,62 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nichiren.or.jp": {
+    "checked": 20260927,
+    "name": "\u745e\u7384\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nichiren.or.jp/temple/map": {
+    "checked": 20260927,
+    "name": "\u672c\u884c\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nichiren.or.jp/temple/map/tohoku/hokkaido/chitose-shi": {
+    "checked": 20260927,
+    "name": "\u65e5\u8a73\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nichiren.or.jp/temple/map/tohoku/hokkaido/kitahiroshima-shi": {
+    "checked": 20260927,
+    "name": "\u660c\u798f\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nichiren.or.jp/temple/map/tohoku/hokkaido/sapporo-shi-chuo-ku": {
+    "checked": 20260927,
+    "name": "\u672c\u9580\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nichiren.or.jp/temple/map/tohoku/hokkaido/sapporo-shi-higashi-ku": {
+    "checked": 20260927,
+    "name": "\u5999\u5ba3\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nichiren.or.jp/temple/map/tohoku/hokkaido/sapporo-shi-kita-ku": {
+    "checked": 20260927,
+    "name": "\u5149\u660e\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nichirenshoshu.or.jp/jpn/jptemples/0016.htm": {
+    "checked": 20260927,
+    "name": "\u8208\u6559\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nicholasville.org": {
     "checked": 20260913,
     "name": "Nicholasville",
@@ -153910,9 +155702,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nikki-church.org": {
+    "checked": 20260927,
+    "name": "\u65e5\u672c\u30ad\u30ea\u30b9\u30c8\u6559\u4f1a\u5317\u5e83\u5cf6\u5c71\u624b\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nikolajkunsthal.kk.dk": {
     "checked": 20260831,
     "name": "Nikolaj Kunsthal",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nikonikohouse.or.jp": {
+    "checked": 20260927,
+    "name": "\u306b\u3053\u306b\u3053\u30cf\u30a6\u30b9\u533b\u7642\u798f\u7949\u30bb\u30f3\u30bf\u30fc",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -153976,6 +155782,13 @@
   "nipponbudokan.or.jp": {
     "checked": 20260925,
     "name": "\u65e5\u672c\u6b66\u9053\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nipponseishu.co.jp/chitosetsuru/museum": {
+    "checked": 20260927,
+    "name": "\u5343\u6b73\u9db4\u9152\u30df\u30e5\u30fc\u30b8\u30a2\u30e0",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -154638,6 +156451,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nofukuji.jp": {
+    "checked": 20260927,
+    "name": "\u80fd\u798f\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "noge-chigusa.com": {
     "checked": 20260926,
     "name": "\u30b8\u30e3\u30ba\u55ab\u8336 \u3061\u3050\u3055",
@@ -154950,6 +156770,13 @@
   "nopat.fi": {
     "checked": 20260903,
     "name": "Nopat ja Taktiikka Ry",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "nopporo.or.jp/rouken_k": {
+    "checked": 20260927,
+    "name": "\u8001\u5065\u306e\u3063\u307d\u308d",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -156508,6 +158335,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "nukumori-mori.com": {
+    "checked": 20260927,
+    "name": "\u306c\u304f\u3082\u308a\u306e\u68ee \u4e2d\u592e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "numaclub.com": {
     "checked": 20260923,
     "name": "NUMA club",
@@ -157022,6 +158856,153 @@
   "o-spart.com": {
     "checked": 20260918,
     "name": "O\u00b4Spart",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/118.html": {
+    "checked": 20260927,
+    "name": "\u5927\u5c0e\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/120.html": {
+    "checked": 20260927,
+    "name": "\u5186\u7167\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/124.html": {
+    "checked": 20260927,
+    "name": "\u8056\u5149\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/126.html": {
+    "checked": 20260927,
+    "name": "\u5e4c\u5317\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/128.html": {
+    "checked": 20260927,
+    "name": "\u6d44\u9858\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/130.html": {
+    "checked": 20260927,
+    "name": "\u6975\u697d\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/134.html": {
+    "checked": 20260927,
+    "name": "\u6559\u9858\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/136.html": {
+    "checked": 20260927,
+    "name": "\u771f\u884c\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/158.html": {
+    "checked": 20260927,
+    "name": "\u5186\u4e57\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/172.html": {
+    "checked": 20260927,
+    "name": "\u670b\u5fc3\u5bfa\u672d\u5e4c\u652f\u9662",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/178.html": {
+    "checked": 20260927,
+    "name": "\u9759\u5186\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/20.html": {
+    "checked": 20260927,
+    "name": "\u6cd5\u7167\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/23.html": {
+    "checked": 20260927,
+    "name": "\u5fb3\u751f\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/26.html": {
+    "checked": 20260927,
+    "name": "\u7121\u788d\u5149\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/29.html": {
+    "checked": 20260927,
+    "name": "\u5999\u73fe\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/64.html": {
+    "checked": 20260927,
+    "name": "\u5149\u660e\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/72.html": {
+    "checked": 20260927,
+    "name": "\u6b63\u4fe1\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/81.html": {
+    "checked": 20260927,
+    "name": "\u5bf6\u559c\u5c71 \u9f8d\u97f3\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/84.html": {
+    "checked": 20260927,
+    "name": "\u6b63\u6a02\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/86.html": {
+    "checked": 20260927,
+    "name": "\u7db1\u9075\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "o-tani4so.jp/data/98.html": {
+    "checked": 20260927,
+    "name": "\u5927\u6cd5\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -157621,6 +159602,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "oceansgarden.jp/event": {
+    "checked": 20260927,
+    "name": "\u30e9\u30fb\u30b9\u30a4\u30fc\u30c8\u795e\u6238 \u30aa\u30fc\u30b7\u30e3\u30f3\u30ba\u30ac\u30fc\u30c7\u30f3",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "oceansideanglican.org.au/events": {
     "checked": 20260819,
     "name": "Oceanside Anglican",
@@ -157901,6 +159889,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "odori-b.co.jp": {
+    "checked": 20260927,
+    "name": "\u30ae\u30e3\u30e9\u30ea\u30fc\u5927\u901a\u7f8e\u8853\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "odouce.be": {
     "checked": 20260913,
     "name": "O'Douce",
@@ -158168,6 +160163,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ofmsapporo.jp/%E3%82%AB%E3%83%88%E3%83%AA%E3%83%83%E3%82%AF%E5%8C%9711%E6%9D%A1%E6%95%99%E4%BC%9A": {
+    "checked": 20260927,
+    "name": "\u30ab\u30c8\u30ea\u30c3\u30af\u531711\u6761\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ofrsystem.com": {
     "checked": 20260828,
     "name": "0fr. Librairie, galerie",
@@ -158343,6 +160345,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ohigashi-sapporo.jp/branch_hospital": {
+    "checked": 20260927,
+    "name": "\u6771\u672c\u9858\u5bfa \u672d\u5e4c\u5225\u9662 \u5317\u4e09\u6761\u652f\u9662",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ohigashi.or.jp": {
+    "checked": 20260927,
+    "name": "\u6771\u672c\u9858\u5bfa \u672d\u5e4c\u5225\u9662",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ohiocitymarket.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Cleveland Public Market District Events",
@@ -158402,6 +160418,13 @@
   "ohnojinja.shiga.jp": {
     "checked": 20260926,
     "name": "\u672c\u6bbf",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ohoriteien.jp": {
+    "checked": 20260927,
+    "name": "\u5927\u6fe0\u516c\u5712\u65e5\u672c\u5ead\u5712",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -158931,6 +160954,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "olympiabowl.co.jp": {
+    "checked": 20260927,
+    "name": "\u30b5\u30c3\u30dd\u30ed\u30aa\u30ea\u30f3\u30d4\u30a2\u30dc\u30a6\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "olympiafilmsociety.org": {
     "checked": 20260920,
     "name": "Olympia Film Society (Capitol Theater)",
@@ -159449,6 +161479,41 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "onishi.or.jp/otera/2-33": {
+    "checked": 20260927,
+    "name": "\u771f\u7167\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "onishi.or.jp/otera/3-23": {
+    "checked": 20260927,
+    "name": "\u898b\u771f\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "onishi.or.jp/otera/3-24": {
+    "checked": 20260927,
+    "name": "\u5186\u9759\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "onishi.or.jp/otera/3-37": {
+    "checked": 20260927,
+    "name": "\u4fe1\u884c\u5c71 \u5927\u5ff5\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "onishi.or.jp/otera/5-2": {
+    "checked": 20260927,
+    "name": "\u5149\u9855\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "onkaparingacity.com/Arts-events-tourism/Arts/Sauerbier-House/About-Sauerbier-House": {
     "checked": 20260819,
     "name": "Sauerbier House",
@@ -159568,6 +161633,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "oonamuchi-jinja.or.jp": {
+    "checked": 20260927,
+    "name": "\u5927\u5df1\u8cb4\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "oono.kyokai.org": {
     "checked": 20260925,
     "name": "\u5927\u91ce\u30ad\u30ea\u30b9\u30c8\u6559\u4f1a",
@@ -159592,6 +161664,13 @@
   "oorlogsmuseumossendrecht.nl": {
     "checked": 20260912,
     "name": "Oorlogsmuseum Ossendrecht",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ootomokeiaien.or.jp": {
+    "checked": 20260927,
+    "name": "\u5927\u53cb\u6075\u611b\u5712",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -162404,6 +164483,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ovenuniverse.net": {
+    "checked": 20260927,
+    "name": "Oven Universe",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "overflow.gallery": {
     "checked": 20260914,
     "name": "Overflow",
@@ -164164,6 +166250,13 @@
   "papilonia.cz": {
     "checked": 20260904,
     "name": "Papilonia - Mot\u00fdl\u00ed d\u016fm Praha",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "papio.jp": {
+    "checked": 20260927,
+    "name": "PaPiO",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -169503,6 +171596,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "phoenix-plaza.co.jp/nagata": {
+    "checked": 20260927,
+    "name": "\u30d5\u30a7\u30cb\u30c3\u30af\u30b9\u30d7\u30e9\u30b6\u9577\u7530",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "phoenixcentralpark.com.au": {
     "checked": 20260819,
     "name": "Phoenix Central Park",
@@ -169716,6 +171816,13 @@
   "picassent.es/poliesportiu-municipal": {
     "checked": 20260915,
     "name": "Poliesportiu Municipal Picassent",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "picassoart.jp": {
+    "checked": 20260927,
+    "name": "\u30d4\u30ab\u30bd\u30a2\u30fc\u30c8\u7d75\u753b\u6559\u5ba4\u5929\u795e",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -170725,6 +172832,13 @@
   "pkszerm.com": {
     "checked": 20260909,
     "name": "Polski Klub Szermierczy",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pl24.jp": {
+    "checked": 20260927,
+    "name": "\u30da\u30cb\u30fc\u30ec\u30fc\u30f324",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -177969,6 +180083,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "recoya.net/en/stores/doodlin": {
+    "checked": 20260927,
+    "name": "Funky&Soul JazzBar Doodlin`",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "recyclables.ch": {
     "checked": 20260918,
     "name": "Les Recyclables",
@@ -178626,6 +180747,27 @@
     "reason": "http 404",
     "status": "fail",
     "type": "tribe"
+  },
+  "reha-reha.jp/rehaliving-suma": {
+    "checked": 20260927,
+    "name": "\u30ea\u30cf\u30ea\u30d3\u30f3\u30b0\u795e\u6238\u9808\u78e8",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rehab.go.jp/fukuoka": {
+    "checked": 20260927,
+    "name": "\u798f\u5ca1\u8996\u529b\u969c\u5bb3\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rehab.go.jp/kobe": {
+    "checked": 20260927,
+    "name": "\u795e\u6238\u8996\u529b\u969c\u5bb3\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "rehabellikon.ch/freizeitangebot": {
     "checked": 20260918,
@@ -180301,6 +182443,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rinyu.co.jp/moiwa": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u85fb\u5ca9\u5c71\u30b9\u30ad\u30fc\u5834",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "riogrande.es": {
     "checked": 20260916,
     "name": "Club Social Rio Grande",
@@ -181093,6 +183242,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rockgarden.jp": {
+    "checked": 20260927,
+    "name": "\u30ed\u30c3\u30af\u30ac\u30fc\u30c7\u30f3\u795e\u6238",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rockhouse.at": {
     "checked": 20260909,
     "name": "Rockhouse",
@@ -181454,6 +183610,13 @@
   "rokko.or.jp": {
     "checked": 20260925,
     "name": "\u516d\u7532\u516b\u5e61\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rokkosan.jp": {
+    "checked": 20260927,
+    "name": "\u516d\u7532\u5c71\u7267\u5834",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -182494,6 +184657,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rpchigashisuma.main.jp": {
+    "checked": 20260927,
+    "name": "\u6771\u9808\u78e8\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rpsa.ch/liotard": {
     "checked": 20260919,
     "name": "R\u00e9sidence Liotard",
@@ -183495,6 +185665,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "s-lighthouse.org": {
+    "checked": 20260927,
+    "name": "\u672d\u82d7\u30e9\u30a4\u30c8\u30cf\u30a6\u30b9\u30ad\u30ea\u30b9\u30c8\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "s-loft.it": {
     "checked": 20260922,
     "name": "S Loft",
@@ -183502,9 +185679,44 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "s-meikei.org": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u660e\u5553\u9662",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "s-re.jp": {
+    "checked": 20260927,
+    "name": "\u30eb\u30cd\u30b5\u30f3\u30b9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "s-sektionen.se/uthyrningstjanster": {
     "checked": 20260905,
     "name": "oaSen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "s-shiryokan.jp": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u8cc7\u6599\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "s-sunplaza.or.jp/hall/index.htm": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u30b5\u30f3\u30d7\u30e9\u30b6 \u30b3\u30f3\u30b5\u30fc\u30c8\u30db\u30fc\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "s-zenkoj.com": {
+    "checked": 20260927,
+    "name": "\u65b0\u5584\u5149\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -185973,6 +188185,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sandaya.or.jp": {
+    "checked": 20260927,
+    "name": "\u4e09\u7530\u8c37\u6cbb\u7642\u6559\u80b2\u9662",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sandbsportsclub.co.uk": {
     "checked": 20260819,
     "name": "Southport & Birkdale Sports Club",
@@ -186654,6 +188873,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sannomiya.moffroom.com": {
+    "checked": 20260927,
+    "name": "Moff room \u4e09\u30ce\u5bae",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sanpaolodellacroce.org": {
     "checked": 20260921,
     "name": "Parrocchia San Paolo della Croce",
@@ -186811,6 +189037,13 @@
   "santamaravillasdejesus.es": {
     "checked": 20260914,
     "name": "Santa Maria Maravillas de Jes\u00fas",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "santamaria-cmc.main.jp": {
+    "checked": 20260927,
+    "name": "\u30ab\u30c8\u30ea\u30c3\u30af\u771f\u99d2\u5185\u6559\u4f1a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -187228,9 +189461,107 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sapporo-community-plaza.jp/scarts.php": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u6587\u5316\u82b8\u8853\u4ea4\u6d41\u30bb\u30f3\u30bf\u30fc SCARTS",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-community-plaza.jp/theater.html": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u6587\u5316\u82b8\u8853\u5287\u5834 hiraru",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-michael.org": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u8056\u30df\u30ab\u30a8\u30eb\u6559\u4f1a",
+    "reason": "14 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "sapporo-naritasan.jp": {
+    "checked": 20260927,
+    "name": "\u65b0\u69ae\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-olympicmuseum.jp": {
+    "checked": 20260927,
+    "name": "\u30a6\u30a4\u30f3\u30bf\u30fc\u30b9\u30dd\u30fc\u30c4\u30df\u30e5\u30fc\u30b8\u30a2\u30e0",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-park.or.jp/sake": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u8c4a\u5e73\u5ddd\u3055\u3051\u79d1\u5b66\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-shakyo.or.jp/service/chouseien": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u9577\u751f\u5712",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-shakyo.or.jp/service/welfare_center/nishi": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u897f\u8001\u4eba\u798f\u7949\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-shimin-gallery.jp": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u6c11\u30ae\u30e3\u30e9\u30ea\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-shiminhall.org": {
+    "checked": 20260927,
+    "name": "\u30ab\u30ca\u30e2\u30c8\u30db\u30fc\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-sport.jp/tsudome": {
+    "checked": 20260927,
+    "name": "\u3064\u3069\u30fc\u3080",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-src.com/kagakukan": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u4e0b\u6c34\u9053\u79d1\u5b66\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporo-teine.chu.jp": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u624b\u7a32\u8001\u4eba\u798f\u7949\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sapporo-youth.jp/akashia": {
     "checked": 20260924,
     "name": "Youth+\u30a2\u30ab\u30b7\u30a2",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporobeer.jp/brewery/s_museum": {
+    "checked": 20260927,
+    "name": "\u30b5\u30c3\u30dd\u30ed\u30d3\u30fc\u30eb\u535a\u7269\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -187242,9 +189573,37 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sapporokuroyurikai.skr.jp/lily": {
+    "checked": 20260927,
+    "name": "\u30af\u30ed\u30e6\u30ea\u7fa4\u751f\u5730",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporopk.com": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u30da\u30f3\u30c6\u30b3\u30b9\u30c6\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sapporosansin.jp": {
     "checked": 20260924,
     "name": "\u672d\u5e4c\u5e02\u7523\u696d\u632f\u8208\u30bb\u30f3\u30bf\u30fc \u7523\u696d\u632f\u8208\u68df",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporoshi-tokeidai.jp": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u6642\u8a08\u53f0",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sapporoshinsyo.jp": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u8eab\u4f53\u969c\u5bb3\u8005\u798f\u7949\u30bb\u30f3\u30bf\u30fc",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -189784,6 +192143,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sdasapporo.org": {
+    "checked": 20260927,
+    "name": "SDA\u672d\u5e4c\u30ad\u30ea\u30b9\u30c8\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sdc.com.sg": {
     "checked": 20260910,
     "name": "Singapore Discovery Centre",
@@ -192101,6 +194467,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sharjah.ae": {
+    "checked": 20260927,
+    "name": "Sharjah",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "sharjahart.org/en/whats_on/details/rain-room": {
     "checked": 20260902,
     "name": "\u0627\u0644\u063a\u0631\u0641\u0629 \u0627\u0644\u0645\u0627\u0637\u0631\u0629",
@@ -192507,6 +194880,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "shingakukai.co.jp/zip": {
+    "checked": 20260927,
+    "name": "Sports Club Zip",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "shingcheonghk.com": {
     "checked": 20260831,
     "name": "\u6210\u660c\u6587\u5177\u5716\u66f8\u6709\u9650\u516c\u53f8 Shing Cheong Stationery & Books",
@@ -192542,9 +194922,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "shinkawakoutai.net": {
+    "checked": 20260927,
+    "name": "\u65b0\u5ddd\u7687\u5927\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "shinkotoni-shinkawacc.com": {
     "checked": 20260924,
     "name": "\u65b0\u7434\u4f3c\u30fb\u65b0\u5ddd\u5730\u533a\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "shinkotonijinja.or.jp": {
+    "checked": 20260927,
+    "name": "\u65b0\u7434\u4f3c\u795e\u793e",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "shinkouen.or.jp/shisetsu/shiawase.html": {
+    "checked": 20260927,
+    "name": "\u795e\u6e2f\u5712\u3057\u3042\u308f\u305b\u306e\u5bb6",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -192591,9 +194992,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "shinshinotsu-shakyo.jp": {
+    "checked": 20260927,
+    "name": "\u65b0\u7be0\u6d25\u6751\u793e\u4f1a\u798f\u7949\u5354\u8b70\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "shinsyouji.com": {
     "checked": 20260926,
     "name": "\u771f\u7167\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "shinsyouji.or.jp": {
+    "checked": 20260927,
+    "name": "\u4fe1\u8b49\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -192639,6 +195054,13 @@
     "reason": "no event articles on the collection page",
     "status": "fail",
     "type": "squarespace"
+  },
+  "shiroikoibitopark.jp": {
+    "checked": 20260927,
+    "name": "\u767d\u3044\u604b\u4eba\u30d1\u30fc\u30af",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "shirotori-garden.jp/index.html": {
     "checked": 20260926,
@@ -193178,6 +195600,13 @@
   "sicktodeath.org": {
     "checked": 20260819,
     "name": "Sick To Death",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sicn4w11.amebaownd.com": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u56fd\u969b\u30ad\u30ea\u30b9\u30c8\u6559\u4f1a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -193764,6 +196193,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sinsinotu.jp": {
+    "checked": 20260927,
+    "name": "\u65b0\u7be0\u6d25\u30c7\u30a4\u30b5\u30fc\u30d3\u30b9\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sinsinotu.jp/fureaino-sono#ttl-navi04": {
+    "checked": 20260927,
+    "name": "\u969c\u304c\u3044\u8005\u652f\u63f4\u65bd\u8a2d \u3075\u308c\u3042\u3044\u306e\u82d1",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sinsmaastricht.nl": {
     "checked": 20260914,
     "name": "Sins",
@@ -194278,6 +196721,13 @@
   "sites.google.com/site/judoandr/accueil": {
     "checked": 20260914,
     "name": "Judo Club Andrimont",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sites.google.com/site/katedoraru99/home": {
+    "checked": 20260927,
+    "name": "\u30ab\u30c8\u30ea\u30c3\u30af\u5317\u4e00\u6761\u6559\u4f1a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -195567,6 +198017,13 @@
   "slovenskyinstitut.cz": {
     "checked": 20260904,
     "name": "Slovensk\u00fd institut v Praze",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "slowboat-jazz.jp": {
+    "checked": 20260927,
+    "name": "Slow boat",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -197139,8 +199596,22 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sompocare.com/service/home/kaigo/H000249": {
+    "checked": 20260927,
+    "name": "SOMPO\u30b1\u30a2",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sompocare.com/service/home/satsuki/H000345": {
     "checked": 20260925,
+    "name": "SOMPO\u30b1\u30a2",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sompocare.com/service/home/satsuki/H000469": {
+    "checked": 20260927,
     "name": "SOMPO\u30b1\u30a2",
     "reason": "osm probe: no-calendar",
     "status": "fail",
@@ -197377,9 +199848,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sora-scc.jp": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u30b3\u30f3\u30d9\u30f3\u30b7\u30e7\u30f3\u30bb\u30f3\u30bf\u30fc",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sorahaku.net": {
     "checked": 20260926,
     "name": "\u5c90\u961c\u304b\u304b\u307f\u304c\u306f\u3089\u822a\u7a7a\u5b87\u5b99\u535a\u7269\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sorakuen.com": {
+    "checked": 20260927,
+    "name": "\u76f8\u697d\u5712",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -197629,6 +200114,69 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sotozen-navi.com/detail/index_10086.html": {
+    "checked": 20260927,
+    "name": "\u5927\u899a\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sotozen-navi.com/detail/index_10090.html": {
+    "checked": 20260927,
+    "name": "\u542b\u7b11\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sotozen-navi.com/detail/index_10278.html": {
+    "checked": 20260927,
+    "name": "\u5b9a\u5c71\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sotozen-navi.com/detail/index_10371.html": {
+    "checked": 20260927,
+    "name": "\u9ad9\u6b63\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sotozen-navi.com/detail/index_10448.html": {
+    "checked": 20260927,
+    "name": "\u8c4a\u9f8d\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sotozen-navi.com/detail/index_10454.html": {
+    "checked": 20260927,
+    "name": "\u5927\u7985\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sotozen-navi.com/detail/index_10493.html": {
+    "checked": 20260927,
+    "name": "\u6771\u7985\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sotozen-navi.com/detail/index_10502.html": {
+    "checked": 20260927,
+    "name": "\u5927\u6148\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sotozen-navi.com/detail/index_10505.html": {
+    "checked": 20260927,
+    "name": "\u6d1e\u6e90\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sotozen-navi.com/detail/index_260035.html": {
     "checked": 20260926,
     "name": "\u8a95\u751f\u5bfa",
@@ -197716,6 +200264,13 @@
   "sound-powder.com": {
     "checked": 20260925,
     "name": "\u30b9\u30bf\u30b8\u30aa\u30fb\u30b9\u30a6 SOCRATES",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "soundcrue.com": {
+    "checked": 20260927,
+    "name": "SOUND CRUE",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -199978,6 +202533,13 @@
   "ssiimmiiaann.org": {
     "checked": 20260831,
     "name": "Simian",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ssj-h.com/kitanonosiki": {
+    "checked": 20260927,
+    "name": "\u5317\u91ce\u306e\u56db\u5b63",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -204316,6 +206878,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "store-tsutaya.tsite.jp/store/detail?storeId=7607": {
+    "checked": 20260927,
+    "name": "TSUTAYA AV\u30af\u30e9\u30d6\u592a\u5bb0\u5e9c\u5e97",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "store-tsutaya.tsite.jp/storelocator/detail/1737.html": {
     "checked": 20260924,
     "name": "TSUTAYA",
@@ -206363,6 +208932,13 @@
   "sunnylife-group.co.jp/ebina": {
     "checked": 20260925,
     "name": "\u30b5\u30cb\u30fc\u30e9\u30a4\u30d5\u6d77\u8001\u540d",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sunnylife-group.co.jp/hokkaido/11053/sapporotoyohira": {
+    "checked": 20260927,
+    "name": "\u30b5\u30cb\u30fc\u30e9\u30a4\u30d5\u672d\u5e4c\u8c4a\u5e73",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -208566,6 +211142,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "swsa.jp/museum": {
+    "checked": 20260927,
+    "name": "\u672d\u5e4c\u5e02\u6c34\u9053\u8a18\u5ff5\u9928",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "swsieber.ch/iglu": {
     "checked": 20260918,
     "name": "Notschlafstelle Iglu",
@@ -208993,6 +211576,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "syujyukai.or.jp/caretown": {
+    "checked": 20260927,
+    "name": "\u30b1\u30a2\u30bf\u30a6\u30f3\u7f8e\u3057\u304c\u4e18",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "syukado.jp": {
     "checked": 20260925,
     "name": "\u79cb\u83ef\u6d1e",
@@ -209367,6 +211957,13 @@
   "tac92.com": {
     "checked": 20260830,
     "name": "Territoire Art & Cr\u00e9ation",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tachibanaclinic.net/dayservice": {
+    "checked": 20260927,
+    "name": "\u671d\u9727\u30ea\u30cf\u30d3\u30ea\u30bb\u30f3\u30bf\u30fc",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -210000,6 +212597,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "tamm.abudhabi": {
+    "checked": 20260927,
+    "name": "Abu Dhabi",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "tammenlehvakeskus.fi": {
     "checked": 20260904,
@@ -211068,6 +213672,13 @@
   "taschen.com/pages/en/stores/39059.store_milan.htm": {
     "checked": 20260921,
     "name": "Taschen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tatara-fukushikai.com/nagomi": {
+    "checked": 20260927,
+    "name": "\u7279\u5225\u990a\u8b77\u8001\u4eba\u30db\u30fc\u30e0\u306a\u3054\u307f\u306e\u91cc",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -213641,6 +216252,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "teishinkai.jp/lapaz": {
+    "checked": 20260927,
+    "name": "\u4ecb\u8b77\u8001\u4eba\u4fdd\u5065\u65bd\u8a2d \u3089\uff65\u3071\u30fc\u3059",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "teishoin.net": {
     "checked": 20260926,
     "name": "\u8c9e\u660c\u9662",
@@ -213802,6 +216420,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "temple.nichiren.or.jp/9021005-honryuji": {
+    "checked": 20260927,
+    "name": "\u672c\u9f8d\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "templebargallery.com": {
     "checked": 20260822,
     "name": "Temple Bar Gallery",
@@ -213910,6 +216535,13 @@
   "tendaitokyo.jp/jiinmei/tennoji": {
     "checked": 20260925,
     "name": "\u5929\u738b\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tendoji.sakura.ne.jp": {
+    "checked": 20260927,
+    "name": "\u5929\u7ae5\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -214033,9 +216665,23 @@
     "status": "fail",
     "type": "tribe"
   },
+  "tenjin.bunkitsu.jp": {
+    "checked": 20260927,
+    "name": "\u6587\u55ab",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tenjinsha.or.jp": {
     "checked": 20260926,
     "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tenjinyamastudio.jp": {
+    "checked": 20260927,
+    "name": "\u3055\u3063\u307d\u308d\u5929\u795e\u5c71\u30a2\u30fc\u30c8\u30b9\u30bf\u30b8\u30aa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -214352,6 +216998,13 @@
   "tenryuji.com": {
     "checked": 20260926,
     "name": "\u5929\u9f8d\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tenshiangel-kids.jp": {
+    "checked": 20260927,
+    "name": "\u5929\u4f7f\u306e\u5712",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -214859,6 +217512,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "terumojinja.com": {
+    "checked": 20260927,
+    "name": "\u5149\u96f2\u795e\u793e",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "tervuren.be/woonzorgcentrum-zonien": {
     "checked": 20260911,
@@ -215465,6 +218125,13 @@
   "theaterimpark.at": {
     "checked": 20260907,
     "name": "Theater im Park",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theaterkino.net": {
+    "checked": 20260927,
+    "name": "\u30b7\u30a2\u30bf\u30fc\u30ad\u30ce",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -218724,6 +221391,13 @@
     "status": "fail",
     "type": "squarespace"
   },
+  "timeroman.com/kobedollmuseum": {
+    "checked": 20260927,
+    "name": "\u795e\u6238\u30c9\u30fc\u30eb\u30df\u30e5\u30fc\u30b8\u30a2\u30e0",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "timetravel-vienna.at": {
     "checked": 20260907,
     "name": "Time Travel Vienna",
@@ -218976,6 +221650,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tjoy.jp/t-joy_hakata": {
+    "checked": 20260927,
+    "name": "T\u30fb\u30b8\u30e7\u30a4",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tjoy.jp/t-joy_umeda": {
     "checked": 20260925,
     "name": "T\u30fb\u30b8\u30e7\u30a4\u6885\u7530",
@@ -219218,6 +221899,13 @@
   "tobaksochtandsticksmuseum.se": {
     "checked": 20260905,
     "name": "Tobak- och T\u00e4ndsticksmuseum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tobetsu-gym.jp": {
+    "checked": 20260927,
+    "name": "\u5f53\u5225\u753a\u7dcf\u5408\u4f53\u80b2\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -219859,6 +222547,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tomyoden.com": {
+    "checked": 20260927,
+    "name": "\u5bae\u524d\u8fce\u8cd3\u9928\u706f\u660e\u6bbf",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tonbo-kaigo.com": {
     "checked": 20260925,
     "name": "\u30ad\u30c3\u30ba\u30d7\u30ec\u30a4\u30b9\u3068\u3093\u307c",
@@ -220029,6 +222724,13 @@
   },
   "toranoana.jp/shop/nagoya/index.html": {
     "checked": 20260926,
+    "name": "\u3068\u3089\u306e\u3042\u306a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "toranoana.jp/shop/sapporo/index.html": {
+    "checked": 20260927,
     "name": "\u3068\u3089\u306e\u3042\u306a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
@@ -220360,6 +223062,13 @@
   "toto-kan.org": {
     "checked": 20260922,
     "name": "\u6e6f\u3005\u9928\u7279\u5225\u990a\u8b77\u8001\u4eba\u30db\u30fc\u30e0",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "touei.or.jp/oozora": {
+    "checked": 20260927,
+    "name": "\u4ecb\u8b77\u8001\u4eba\u4fdd\u5065\u65bd\u8a2d\u304a\u304a\u305e\u3089",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -221891,6 +224600,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tsubamekai.com": {
+    "checked": 20260927,
+    "name": "\u304b\u306e\u30932",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tsubasa-shishinkai.com/facility/tsubasa": {
     "checked": 20260926,
     "name": "\u7279\u5225\u990a\u8b77\u8001\u4eba\u30db\u30fc\u30e0 \u3064\u3070\u3055",
@@ -221999,6 +224715,13 @@
   "tsurumi-u.ac.jp/site/library": {
     "checked": 20260922,
     "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "tsutaya.co.jp": {
+    "checked": 20260927,
+    "name": "TSUTAYA",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -223238,6 +225961,13 @@
   "ucatholic.or.kr": {
     "checked": 20260902,
     "name": "\ucc9c\uc8fc\uad50\uc758\uc815\ubd80\uad50\uad6c\uccad",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ucc.co.jp/museum": {
+    "checked": 20260927,
+    "name": "UCC\u30b3\u30fc\u30d2\u30fc\u535a\u7269\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -224772,6 +227502,20 @@
   "unitedchurchgalway.ie": {
     "checked": 20260823,
     "name": "United Methodist Presbyterian Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "unitedcinemas.jp/kishiwada": {
+    "checked": 20260927,
+    "name": "\u30e6\u30ca\u30a4\u30c6\u30c3\u30c9\u30fb\u30b7\u30cd\u30de",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "unitedcinemas.jp/sapporo": {
+    "checked": 20260927,
+    "name": "\u30ed\u30fc\u30bd\u30f3\u30fb\u30e6\u30ca\u30a4\u30c6\u30c3\u30c9\u30fb\u30b7\u30cd\u30de",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -226935,6 +229679,13 @@
   "vartiovuorentytot.wordpress.com": {
     "checked": 20260903,
     "name": "Vartiovuoren Tyt\u00f6t",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "varus.co.jp/shisetsu/kotoni": {
+    "checked": 20260927,
+    "name": "\u5149\u30cf\u30a4\u30c4\uff65\u30f4\u30a7\u30e9\u30b9\u7434\u4f3c",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -230098,6 +232849,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitabudhabi.ae": {
+    "checked": 20260927,
+    "name": "Abu Dhabi",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "visitabudhabi.ae/ar-ae/what-to-see/national-attractions/sheikh-zayed-grand-mosque": {
     "checked": 20260903,
     "name": "\u062c\u0627\u0645\u0639 \u0627\u0644\u0634\u064a\u062e \u0632\u0627\u064a\u062f \u0627\u0644\u0643\u0628\u064a\u0631",
@@ -233139,6 +235897,13 @@
   "waxmuseumplus.ie": {
     "checked": 20260822,
     "name": "The National Wax Museum Plus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "way-books.com": {
+    "checked": 20260927,
+    "name": "WAY\u66f8\u5e97 TSUTAYA\u897f\u660e\u77f3\u5e97",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -237778,6 +240543,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "www5d.biglobe.ne.jp/~gyokuhou/gyokuhou_001.htm": {
+    "checked": 20260927,
+    "name": "\u66f9\u6d1e\u5b97\u7389\u5b9d\u7985\u5bfa \u8c4a\u5ddd\u7a32\u8377\u672d\u5e4c\u5225\u9662",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "www5e.biglobe.ne.jp/jazz-umi": {
     "checked": 20260925,
     "name": "JAZZ \u55ab\u8336 \u6d77",
@@ -238120,6 +240892,13 @@
     "reason": "1/1 sampled events future",
     "status": "ok",
     "type": "jsonld"
+  },
+  "xebec.co.jp/xebec-hall": {
+    "checked": 20260927,
+    "name": "\u30b8\u30fc\u30d9\u30c3\u30af\u30db\u30fc\u30eb",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "xeniabern.ch": {
     "checked": 20260919,
@@ -240145,6 +242924,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "zenshuuji.com": {
+    "checked": 20260927,
+    "name": "\u7985\u5b97\u5bfa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "zenti.ch/dienst-am-n%C3%A4chsten/imbiss-hope": {
     "checked": 20260917,
     "name": "Imbiss Hope",
@@ -240246,6 +243032,13 @@
   "zepp.co.jp/hall/divercity": {
     "checked": 20260925,
     "name": "Zepp \u30c0\u30a4\u30d0\u30fc\u30b7\u30c6\u30a3\u6771\u4eac",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "zepp.co.jp/hall/fukuoka": {
+    "checked": 20260927,
+    "name": "Zepp Fukuoka",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -241289,6 +244082,13 @@
   "zueriwerk.ch": {
     "checked": 20260917,
     "name": "Stiftung Z\u00fcriwerk",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "zuihouji.info": {
+    "checked": 20260927,
+    "name": "\u745e\u82b3\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"

@@ -10259,6 +10259,23 @@
         "lon": -46.5533678
       },
       "_metro": "São Paulo, Brazil"
+    },
+    {
+      "name": "札幌聖ミカエル教会",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.sapporo-michael.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "札幌聖ミカエル教会",
+        "address": "5",
+        "city": "札幌市",
+        "postal_code": "065-0019",
+        "lat": 43.085389,
+        "lon": 141.354642
+      },
+      "_metro": "Sapporo, Japan"
     }
   ],
   "_not_included": {
