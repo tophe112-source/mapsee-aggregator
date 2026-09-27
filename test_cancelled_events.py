@@ -219,6 +219,64 @@ check("a row with no Tickets / info line has nothing to probe",
 
 
 print()
+print("EventStore: a TITLE that says the event is off, or that the building is shut")
+# Live titles from the 2026-09-27 feed corpus (837 feeds, 87,572 rows): 37
+# cancellations written into the title and 293 closure notices, all well-formed.
+from mapsee_ingest import EventStore, NormalizedEvent, notice_reason  # noqa: E402
+
+for title, want in [
+    ("CANCELLED - Tech Tips Tuesday", "cancelled in the title"),
+    ("Cancelled: Facebook Live: Mystery Series Week", "cancelled in the title"),
+    ("POSTPONED: Redland Coast Sporting Hall of Fame", "cancelled in the title"),
+    ("CANCELED - Game On! Mondays", "cancelled in the title"),
+    ("Chess Club CANCELLED", "cancelled in the title"),
+    ("Baby and Me Lapsit Time - CANCELLED", "cancelled in the title"),
+    ("Game On: Nintendo Switch Fun at Bragtown- Cancelled!", "cancelled in the title"),
+    ("Library closed for Thanksgiving", "closure notice"),
+    ("Library Closed: Veterans Day", "closure notice"),
+    ("NATURE CENTER CLOSED", "closure notice"),
+    ("CLOSED", "closure notice"),
+    ("Closed for the Holidays", "closure notice"),
+    ("Museum Closed for an Event", "closure notice"),
+    # ...and what must stay: full game tables, a group, events about closing,
+    # accessible screenings, and comedy about cancelling.
+    ("Table 12 - The Dimming - CLOSED", None),
+    ("Adventures of the Silly Scoundrels (Closed)", None),
+    ("Currently Closed to New Players", None),
+    ("Closing Reception: Spring Show", None),
+    ("Closed Captioned Movie Night", None),
+    ("Cancelled Plans: An Improv Night", None),
+    ("Everything Is Cancelled", None),
+    ("Cancel Culture Comedy Hour", None),
+]:
+    check(f"notice_reason({title!r})", notice_reason(title), want)
+
+_now = datetime.now(timezone.utc) + timedelta(days=3)
+_stamp = _now.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _ev(name, sid):
+    return NormalizedEvent(source="ics:test", source_id=sid, name=name, start_utc=_stamp,
+                           start_local=_stamp[:19], venue_name="Main Library",
+                           latitude=47.6, longitude=-122.3)
+
+
+import tempfile  # noqa: E402
+
+with tempfile.TemporaryDirectory() as d:
+    store = EventStore(os.path.join(d, "s.json"))
+    real = _ev("Family Storytime", "a")
+    check("the storytime itself is stored", store.upsert(real), "added")
+    gone = _ev("CANCELLED - Family Storytime", "b")
+    check("its cancellation notice is refused, not merged into it", store.upsert(gone), "notice")
+    shut = _ev("Library Closed: Thanksgiving Day", "c")
+    check("a closure notice is refused", store.upsert(shut), "notice")
+    check("both are counted, apart from advertisements",
+          (store.stats["notices"], store.stats["rejected"], len(store.records)), (2, 0, 1))
+    check("per source", store.notices_by_source, {"ics:test": 2})
+
+
+print()
 if FAILS:
     print(f"{len(FAILS)} FAILED: " + "; ".join(FAILS))
     sys.exit(1)

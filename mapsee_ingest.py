@@ -278,6 +278,46 @@ def venue_is_only_a_plus_code(name: Optional[str], address: Optional[str]) -> bo
     return looks_like_plus_code(name) and looks_like_plus_code(address)
 
 
+# A NOTICE IS NOT AN EVENT, AND ITS TITLE SAYS WHICH ONE IT IS. Calendars carry
+# two kinds, both well-formed rows with real dates that nothing downstream can
+# tell from an event:
+#   * a CLOSURE: "Library closed for Thanksgiving", "NATURE CENTER CLOSED",
+#     "Closed: Veterans Day". 293 of 87,572 rows in a 2026-09-27 sample of 837
+#     feeds, almost all from libraries. The civic filter (CIVIC_TITLE_RX)
+#     refuses the same notices but reads only town-hall feeds.
+#   * a CANCELLATION written into the title: "CANCELLED - Tech Tips Tuesday",
+#     "POSTPONED: Sunday Concert", "Chess Club CANCELLED". 37 in the same
+#     sample, every one of them a cancellation when read. RFC 5545's STATUS:CANCELLED is the other way to say it, and the
+#     ics adapter already skips that.
+# The closure half names the place that is shut, or opens with the word:
+# "Table 12 - The Dimming - CLOSED" and "Adventures of the Silly Scoundrels
+# (Closed)" are FULL game sessions, "Currently Closed to New Players" is a
+# group, and "Closing Reception" and "Closed Captioned Screening" are events.
+# The cancelled half needs a separator, or capitals at the end, so a comedy
+# called "Cancelled Plans" or "Everything Is Cancelled" stays.
+_CLOSURE_TITLE_RX = re.compile(
+    r"\b(?:library|libraries|branch(?:es)?|facility|facilities|building|pool|town\s+hall|"
+    r"city\s+hall|offices?|museum|(?:community\s+|nature\s+|recreation\s+|senior\s+)?"
+    r"(?:centre|center)|garden|park)\s+(?:is\s+|are\s+|will\s+be\s+)?closed\b|"
+    r"^\W*closed\s*(?:$|[:\-–—|!(]|for\b|on\b|today\b)",
+    re.I)
+_CANCELLED_TITLE_RX = re.compile(
+    r"^\W*(?:cancel+ed|postponed)\s*(?:$|[:\-–—|!)\]])|"
+    r"[\-–—:(\[|]\s*(?:cancel+ed|postponed)\W*$",
+    re.I)
+_CANCELLED_CAPS_RX = re.compile(r"\s(?:CANCELL?ED|POSTPONED)\W*$")   # case-sensitive on purpose
+
+
+def notice_reason(name: Optional[str]) -> Optional[str]:
+    """Why a row with this title is a notice rather than an event, or None."""
+    title = (name or "").strip()
+    if _CLOSURE_TITLE_RX.search(title):
+        return "closure notice"
+    if _CANCELLED_TITLE_RX.search(title) or _CANCELLED_CAPS_RX.search(title):
+        return "cancelled in the title"
+    return None
+
+
 _AGENDA_MAX = 60
 _AGENDA_LENGTHS = {"id": 40, "title": 120, "place": 80, "emoji": 24, "url": 300}
 
@@ -586,8 +626,13 @@ class EventStore:
         # counted SEPARATELY, because a source that produces a lot of them is
         # publishing something that is not events, and that is a different
         # conversation from a source that is being spammed.
+        # "notices" counts rows whose TITLE says they are not an event: a closure
+        # or a cancellation (see notice_reason). Its own counter, not "rejected",
+        # because mapsee_spam_audit reads that one as a source's advertising rate.
         self.stats = {"added": 0, "merged": 0, "updated": 0, "rekeyed": 0,
-                      "rejected": 0, "unbounded": 0}
+                      "rejected": 0, "unbounded": 0, "notices": 0}
+        self.notices_by_source: Dict[str, int] = {}
+        self.notice_samples: List[str] = []
         self.rekeyed_by_source: Dict[str, int] = {}
         self.rejected_by_source: Dict[str, int] = {}
         self.reject_reasons: Dict[str, int] = {}
@@ -630,6 +675,12 @@ class EventStore:
                 log.info("  %s", line)
             for src, n in sorted(self.rejected_by_source.items(), key=lambda kv: -kv[1]):
                 log.info("  %s: %d refused", src, n)
+        if self.stats["notices"]:
+            log.info("Refused %d row(s) whose title is a closure or a cancellation: %s",
+                     self.stats["notices"], ", ".join(f"{k} x{v}" for k, v in sorted(
+                         self.notices_by_source.items(), key=lambda kv: -kv[1])))
+            for line in self.notice_samples:
+                log.info("  %s", line)
         if self.stats["unbounded"]:
             log.info("Dropped an implausible end date on %d row(s): %s", self.stats["unbounded"],
                      ", ".join(f"{k} x{v}" for k, v in sorted(
@@ -694,6 +745,16 @@ class EventStore:
             if len(self.reject_samples) < 10:
                 self.reject_samples.append(f"[{ev.source}] {reason}: {(ev.name or '')[:70]}")
             return "rejected"
+
+        # Before the dedupe for the same reason: "CANCELLED - Storytime" shares a
+        # date and a venue with the storytime it cancels.
+        notice = notice_reason(ev.name)
+        if notice:
+            self.stats["notices"] += 1
+            self.notices_by_source[ev.source] = self.notices_by_source.get(ev.source, 0) + 1
+            if len(self.notice_samples) < 10:
+                self.notice_samples.append(f"[{ev.source}] {notice}: {(ev.name or '')[:70]}")
+            return "notice"
 
         # AN END NOBODY COULD HAVE MEANT IS NOT AN END. Dropped rather than
         # clamped: a clamped date is a new claim we invented, and this is the

@@ -173,3 +173,21 @@
   host-level skip — a host that has never once returned an `eventStatus` is not
   worth a daily probe — which would roughly double useful throughput without
   touching the evidence rules. Not yet done; measure per-host yield first.
+
+- **A TITLE CAN SAY THE EVENT IS OFF, OR THAT THE BUILDING IS SHUT, and every
+  adapter now listens.** Over 87,572 rows from the 837-feed corpus, 37 titles
+  carried a cancellation ("CANCELLED - Tech Tips Tuesday", "POSTPONED: Sunday
+  Concert", "Chess Club CANCELLED") and 293 were closure notices ("Library
+  closed for Thanksgiving", "NATURE CENTER CLOSED", "CLOSED: Christmas Day").
+  All 28 distinct cancelled titles and all 107 distinct closure titles were
+  read: every one is a notice, not an event. `notice_reason` in
+  `mapsee_ingest.py` refuses them in `EventStore.upsert`, after the spam gate
+  and before the dedupe (a cancellation shares its date and venue with the
+  event it cancels). They are counted per source as `notices`, apart from
+  `rejected`, which `mapsee_spam_audit` reads as advertising. It is a title
+  rule only, so this note's prose rule still holds. It is anchored for the
+  traps the closure note in `curation-and-discovery.md` lists: "(Closed)" game
+  tables, "Closing Reception" and "Closed Captioned" stay, and so do "Cancelled
+  Plans" and "Everything Is Cancelled". It stops NEW rows only. A title edited
+  to "CANCELLED - X" after we took "X" is a new fingerprint, so the original
+  row stays up until `mapsee_prune_cancelled` finds its source page cancelled.
