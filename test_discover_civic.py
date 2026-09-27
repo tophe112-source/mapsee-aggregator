@@ -297,7 +297,12 @@ for t in ("City Council Regular Meeting", "Planning Commission Meeting",
           "Historic Preservation Commission", "Zoning Board of Appeals",
           "Public Hearing: Budget", "No Street Sweeping | Labor Day",
           "Labor Day: City Offices Closed", "City offices closed for Labor Day",
-          "Christmas Day", "New Year's Day", "Independence Day"):
+          "Christmas Day", "New Year's Day", "Independence Day",
+          # measured 2026-09-27 on hand-found city calendars
+          "Veterans Commission", "Convention and Visitors Commission",
+          "Board of Adjustment", "Library Closed (Staff Development Day)",
+          "New Year's Day - Holiday", "Labor Day – Holiday", "Thanksgiving: Holiday",
+          "CLOSED: Borough Building", "Closed - Labor Day"):
     check(refused(t), f"per-event: refuses {t!r}")
 
 # THE THREE THAT PROVE THE PHRASES ARE NECESSARY. All live, all real, all
@@ -309,7 +314,11 @@ for t in ("board game girlies! [20s&30s] - [Eastside Saturday]",
           "Kids Club", "Christmas Tree Lighting", "Independence Day Parade",
           "Fire Station Open House", "Police Department Coffee with a Cop",
           "Recreation Center Open House", "Summer Recreation Program",
-          "Water Safety Class", "Library Story Time"):
+          "Water Safety Class", "Library Story Time",
+          # ...and the look-alikes of the 2026-09-27 additions
+          "Veterans Day Parade", "Closed Captioned Movie Night",
+          "Board Game Night at the Library", "Visitors Center Guided Walk",
+          "Pool Party", "Tree Planting Day", "Christmas Day Parade"):
     check(not refused(t), f"per-event: keeps {t!r}")
 
 # ...and it is applied ONLY to sources discovery proposed as civic, because

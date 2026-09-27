@@ -277,6 +277,7 @@ jobs:
             ics_feed_cache.json
             ics_cursor.json
             jsonld_cursor.json
+            tribe_cursor.json
           key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             geocode-cache-feeds-${{ matrix.group }}-
@@ -811,6 +812,7 @@ jobs:
             ics_feed_cache.json
             ics_cursor.json
             jsonld_cursor.json
+            tribe_cursor.json
           key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Retain the feed store and step outcomes
         if: always()

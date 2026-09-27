@@ -108,6 +108,40 @@ with patch.object(ICS, "_fetch_ics", return_value=(VENUE_ICS, "200")), \
     check("a venue without coordinates is ignored", kept == 0, kept)
 
 
+# --- a LOCATION that names no place, and a GEO that says "unset" --------------
+# Willoughby-Eastlake's "Offsite" rows geocoded 369 km away; GEO:0;0 is the
+# null island, not a place.
+PLACEHOLDER_ICS = (
+    "BEGIN:VCALENDAR\r\n"
+    "BEGIN:VEVENT\r\nUID:off\r\nSUMMARY:Book Club at the Park\r\nDTSTART:20991010T170000Z\r\n"
+    "LOCATION:Offsite\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:zero\r\nSUMMARY:Craft Night\r\nDTSTART:20991011T170000Z\r\n"
+    "GEO:0;0\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:real\r\nSUMMARY:Author Talk\r\nDTSTART:20991012T170000Z\r\n"
+    "LOCATION:Offsite Gallery\\, 12 Main St\r\nEND:VEVENT\r\n"
+    "END:VCALENDAR\r\n"
+)
+geocode_calls.clear()
+with patch.object(ICS, "_fetch_ics", return_value=(PLACEHOLDER_ICS, "200")), \
+     patch.object(ICS, "make_location_geocoder", side_effect=_no_hit_geocoder):
+    vstore = VenueStore()
+    kept = ICS.ingest_ics(vstore, None, {"name": "willoughby", "url": "x"})
+    check("'Offsite' is not sent to the geocoder, and a real place that starts with it is",
+          geocode_calls == ["Offsite Gallery, 12 Main St"], geocode_calls)
+    check("with no venue, the placeholder and the 0;0 rows are unplaceable", kept == 0, kept)
+    geocode_calls.clear()
+    vstore = VenueStore()
+    kept = ICS.ingest_ics(vstore, None, {"name": "willoughby", "url": "x", "venue": VENUE})
+    pinned = sorted(r.name for r in vstore.rows)
+    check("with a venue, 'Offsite' and GEO:0;0 fall back to it instead of to 0,0 or a guess",
+          pinned == ["Book Club at the Park", "Craft Night"]
+          and all(r.latitude == 47.6414 for r in vstore.rows), [(r.name, r.latitude) for r in vstore.rows])
+for loc in ("Offsite", "off-site", "TBD", "To be announced", "Various locations", "See description"):
+    check(f"placeholder: {loc!r}", bool(ICS.PLACEHOLDER_LOC_RX.match(loc)))
+for loc in ("Offsite Gallery", "TBD Brewing Co.", "Various Artists Studio, 3 Elm St", "None Such Farm"):
+    check(f"not a placeholder: {loc!r}", not ICS.PLACEHOLDER_LOC_RX.match(loc))
+
+
 # --- several feeds on one host wait out that host's Crawl-delay ---------------
 # LibCal libraries publish a calendar per branch, and their robots.txt asks for
 # 10 s between requests. Nine branch feeds used to be nine back-to-back GETs.

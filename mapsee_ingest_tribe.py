@@ -33,6 +33,7 @@ from __future__ import annotations
 import argparse
 import html as html_mod
 import json
+import os
 import re
 import sys
 import time
@@ -45,6 +46,7 @@ except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
 from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
+from catalog_discover_osm import CIVIC_TITLE_RX, CIVIC_HOLIDAY_RX
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 _TAG = re.compile(r"<[^>]+>")
@@ -165,6 +167,8 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     }
     kept = 0
     malformed = 0
+    governance = 0
+    is_civic = str(site.get("_found", "")).startswith("civic:")
     for page in range(1, max_pages + 1):
         try:
             r = session.get(api, params=dict(params, page=page), timeout=45)
@@ -196,6 +200,14 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
                           f"{ev.get('id')!r} ({type(exc).__name__}: {exc})")
                 malformed += 1
                 continue
+            # A TOWN HALL'S CALENDAR IS TWO CALENDARS, here as in the ics adapter:
+            # Sherwood, OR carried a City Council Meeting and Dormont, PA six
+            # "CLOSED:" rows beside its programme (2026-09-27). Same phrases,
+            # same gate: only a source whose `_found` says it is a town hall's.
+            if nev and is_civic and (CIVIC_TITLE_RX.search(nev.name or "")
+                                     or CIVIC_HOLIDAY_RX.match((nev.name or "").strip())):
+                governance += 1
+                continue
             if nev:
                 store.upsert(nev)
                 kept += 1
@@ -204,8 +216,26 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         if delay:
             time.sleep(delay)                              # robots.txt Crawl-delay
     print(f"[tribe] {site.get('name')}: kept {kept} events"
-          + (f" ({malformed} unreadable record(s) skipped)" if malformed else ""))
+          + (f" ({malformed} unreadable record(s) skipped)" if malformed else "")
+          + (f" ({governance} town-hall row(s) refused)" if governance else ""))
     return kept
+
+
+def _load_cursor(path: str) -> Optional[str]:
+    try:
+        cur = json.load(open(path, encoding="utf-8"))
+        return cur.get("site") if isinstance(cur, dict) and isinstance(cur.get("site"), str) else None
+    except (OSError, ValueError):
+        return None
+
+
+def _save_cursor(path: str, base_url: Optional[str]) -> None:
+    if not base_url:
+        return
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump({"site": base_url}, fh)
+    os.replace(tmp, path)
 
 
 def main(argv=None) -> int:
@@ -224,6 +254,15 @@ def main(argv=None) -> int:
     # and the sites that did run are kept. 0 = no deadline (local runs).
     ap.add_argument("--deadline", type=float, default=0.0,
                     help="epoch seconds; start no site at or after this (0 = none)")
+    # A DEADLINE WITHOUT A CURSOR STARVES THE SAME TAIL EVERY DAY. Run
+    # 36317891716 (2026-09-27) stopped at the deadline "before Autodromo Nazionale
+    # di Monza: 65 of 673 sites not started", and because every run began at site
+    # one it was the same 65 every night: those calendars were never read at all.
+    # With a deadline, the run starts at the site the last one stopped before and
+    # walks the list round, so every site is read in turn, the way the ics and
+    # jsonld adapters resume. Local runs (no deadline) are unchanged.
+    ap.add_argument("--cursor", default=os.environ.get("TRIBE_CURSOR", "tribe_cursor.json"),
+                    help="with --deadline: file naming the site to start at")
     a = ap.parse_args(argv)
 
     cfg = json.loads(open(a.config, encoding="utf-8").read())
@@ -235,6 +274,12 @@ def main(argv=None) -> int:
              if not (a.only and a.only.lower() not in str(s.get("name", "")).lower())]
     done = 0
     stopped = False
+    if a.deadline and sites:
+        start_at = _load_cursor(a.cursor)
+        start = next((i for i, s in enumerate(sites) if s.get("base_url") == start_at), 0)
+        sites = sites[start:] + sites[:start]
+        if start:
+            print(f"[tribe] resuming at {sites[0].get('name','?')} (site {start + 1} of {len(sites)})")
     for site in sites:
         # Checked BEFORE the site is counted: a site never started must not appear
         # in the "done" line, which is the only line anyone reads.
@@ -242,6 +287,7 @@ def main(argv=None) -> int:
             # `::warning::` first, or the runner never annotates it.
             print(f"::warning::[tribe] deadline reached before {site.get('name','?')}: "
                   f"{len(sites) - done} of {len(sites)} sites not started this run", flush=True)
+            _save_cursor(a.cursor, site.get("base_url"))
             stopped = True
             break
         done += 1

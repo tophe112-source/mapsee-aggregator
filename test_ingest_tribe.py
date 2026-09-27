@@ -204,6 +204,72 @@ check("and so does its own venue name and street",
       (rev.venue_name, rev.address) == ("Elbow Springs", "100 Elbow Dr"),
       (rev.venue_name, rev.address))
 
+# --- a town hall's calendar is two calendars ----------------------------------
+# Sherwood, OR and Dormont, PA carried council meetings and "CLOSED:" rows beside
+# their programme. Refused only where `_found` says the source is a town hall's.
+civic_rows = [row(id=1, title="City Council Meeting"), row(id=2, title="Fall Festival"),
+              row(id=3, title="CLOSED: Borough Building"), row(id=4, title="Closed Captioned Movie Night")]
+store = _Store()
+with redirect_stdout(io.StringIO()) as buf:
+    kept = T.ingest_site(store, _Session(civic_rows),
+                         dict(SITE, crawl_delay=0, _found="civic:city -> tribe (hand-curated)"))
+check("a civic source refuses its town-hall rows and keeps its programme",
+      sorted(e.name for e in store.seen) == ["Closed Captioned Movie Night", "Fall Festival"],
+      [e.name for e in store.seen])
+check("...and says how many it refused", "2 town-hall row(s) refused" in buf.getvalue(), buf.getvalue())
+store = _Store()
+with redirect_stdout(io.StringIO()):
+    kept = T.ingest_site(store, _Session(civic_rows), dict(SITE, crawl_delay=0))
+check("a non-civic source keeps every row", kept == 4, kept)
+
+# --- the deadline resumes where it stopped, instead of starving the tail -----
+# Run 36317891716 (2026-09-27) stopped "before Autodromo Nazionale di Monza: 65
+# of 673 sites not started", and every run started at site one, so it was the
+# same 65 every night.
+import tempfile
+from unittest.mock import patch
+
+sites = [dict(SITE, name=n, base_url=f"https://{n}.example") for n in ("a", "b", "c", "d")]
+
+
+class _MainStore:
+    def __init__(self, _path):
+        self.records = {}
+
+    def save(self):
+        pass
+
+
+def run_main(tmp, clock_steps):
+    order, clock = [], [1000.0]
+
+    def fake_ingest(_store, _session, site):
+        order.append(site["name"])
+        clock[0] += clock_steps
+        return 1
+
+    with patch.object(T, "EventStore", _MainStore), patch.object(T, "ingest_site", fake_ingest), \
+         patch.object(T.time, "time", lambda: clock[0]), patch.object(T.requests, "Session"), \
+         redirect_stdout(io.StringIO()):
+        T.main(["--config", os.path.join(tmp, "cfg.json"), "--store", os.path.join(tmp, "s.json"),
+                "--deadline", "1015", "--cursor", os.path.join(tmp, "cursor.json")])
+    return order
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    json.dump({"sites": sites}, open(os.path.join(tmp, "cfg.json"), "w"))
+    first = run_main(tmp, 10)            # a, b; the clock passes 1015 before c
+    saved = json.load(open(os.path.join(tmp, "cursor.json")))
+    second = run_main(tmp, 1)            # resumes at c and walks the list round
+check("a run that meets the deadline stops before the next site", first == ["a", "b"], first)
+check("...and names that site in the cursor", saved == {"site": "https://c.example"}, saved)
+check("the next run starts there and walks round to the front",
+      second == ["c", "d", "a", "b"], second)
+with tempfile.TemporaryDirectory() as tmp:
+    json.dump({"sites": sites}, open(os.path.join(tmp, "cfg.json"), "w"))
+    json.dump({"site": "https://gone.example"}, open(os.path.join(tmp, "cursor.json"), "w"))
+    check("a cursor naming a removed site starts at the top", run_main(tmp, 1) == ["a", "b", "c", "d"])
+
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
 sys.exit(1 if fails else 0)

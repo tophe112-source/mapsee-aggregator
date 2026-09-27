@@ -68,6 +68,12 @@ class WorkflowContracts(unittest.TestCase):
         for name in ('ics_cursor.json', 'jsonld_cursor.json'):
             self.assertIn(name, restore['with']['path'])
             self.assertIn(name, save['with']['path'])
+        # The Events Calendar step resumes by cursor too: with a deadline and no
+        # cursor, the same 65 of 673 sites went unread every night (2026-09-27).
+        tribe = next(s for s in steps if s.get('id') == 'ingest_tribe')
+        self.assertIn('--deadline', tribe['run'])
+        self.assertIn('tribe_cursor.json', restore['with']['path'])
+        self.assertIn('tribe_cursor.json', save['with']['path'])
         self.assertEqual(save['if'], 'always()')
         for adapter in ('ics', 'jsonld'):
             step = next(s for s in steps if s.get('id') == f'ingest_{adapter}')

@@ -399,7 +399,9 @@ CIVIC_HOLIDAY_RX = re.compile(
     # anchored: "Juneteenth Day Holiday" matches, "Juneteenth Jubilee in the
     # Park" does not.
     rf"^\s*(?:holiday\s*[-–:]?\s*)?(?:{_HOLIDAY})"
-    rf"(?:\s+(?:day|holiday|observed|obs\.?))*"
+    # ...with or without a dash before the wrapper: Upper Arlington, OH writes
+    # "New Year's Day - Holiday", and five such rows slipped past (2026-09-27).
+    rf"(?:\s*[-–:]?\s*(?:day|holiday|observed|obs\.?))*"
     rf"\s*(?:\((?:observed|obs\.?)\))?\s*$", re.I)
 
 
@@ -462,11 +464,26 @@ CIVIC_TITLE_RX = re.compile(
     # bare, and the phrase above misses it by one word.
     r"\b(?:advisory|oversight|planning|zoning|review|development|appeals?|"
     r"services|library|parks?|recreation|arts?|housing|ethics|personnel|traffic|"
-    r"utility|water|police|fire|historic|preservation|landmarks?)\s+"
+    r"utility|water|police|fire|historic|preservation|landmarks?|"
+    # St. Charles, MO (2026-09-27): 7 rows past the list above, all of them one
+    # of these bodies named bare - "Veterans Commission" x3, "Convention and
+    # Visitors Commission" x2 - and "Board of Adjustment" x2 below.
+    r"veterans?|visitors?|tourism|beautification|sustainability|environmental|"
+    r"transportation|tree|cemetery|finance|audit|civil service)\s+"
     r"(?:board|committee|commission)\b|"
+    r"\bboard of (?:adjustment|appeals|zoning|education|directors|trustees|"
+    r"supervisors|commissioners|elections|health|review)\b|"
     r"\b(?:board|committee|commission|council|subcommittee)\s+meeting\b|"
     r"\bpublic hearing\b|\bexecutive session\b|\bcaucus\b|"
     r"\boffices?\s+(?:are\s+)?closed\b|\bcity hall closed\b|"
+    # A CLOSURE IS NOT AN EVENT. Yukon, OK: four "Library Closed (...)" rows
+    # on its main calendar passed the phrases above.
+    r"\b(?:library|libraries|branch|facility|facilities|building|pool|town hall)"
+    r"\s+(?:is\s+|will be\s+)?closed\b|"
+    # ...and the same notice written the other way round: Dormont, PA files six
+    # "CLOSED: ..." rows. A colon or dash right after the word, so "Closed
+    # Captioned" screenings are untouched.
+    r"^\s*closed\s*[:\-\u2013]|"
     r"\bno street sweeping\b|\bwork session\b|\bcanvass\b",
     re.I)
 

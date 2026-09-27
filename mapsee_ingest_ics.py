@@ -439,12 +439,16 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         if loc:  # Trumba locations can carry HTML ("111 Alamo Plaza<br>San Antonio")
             loc = re.sub(r"<[^>]+>", ", ", loc).replace("&amp;", "&")
             loc = re.sub(r"\s*,\s*,+", ", ", re.sub(r"\s+", " ", loc)).strip(" ,") or None
+        if loc and PLACEHOLDER_LOC_RX.match(loc):
+            loc = None                                # "Offsite" names no place; see the pattern
         lat = lon = None
         if "GEO" in ev:                               # "lat;lon"
             try:
                 lat, lon = (float(x) for x in ev["GEO"][0].split(";")[:2])
             except Exception:
                 lat = lon = None
+            if lat is not None and abs(lat) < 1e-9 and abs(lon) < 1e-9:
+                lat = lon = None                      # GEO:0;0 is "unset", not the Gulf of Guinea
         if (lat is None or lon is None) and loc:
             lat, lon = geocode(loc)
         venue = None
@@ -517,6 +521,19 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         note += f"; {cancelled} cancelled (STATUS:CANCELLED)"
     print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}")
     return kept - start_kept
+
+
+# A LOCATION THAT NAMES NO PLACE. Willoughby-Eastlake Public Library files its
+# off-site programmes under the LOCATION "Offsite", and Photon, handed
+# "Offsite, OH", placed eleven of them at a post office near Cincinnati, 369 km
+# away (measured 2026-09-27). Read as no LOCATION, the event falls back to the
+# source's own `venue` when it has one and is otherwise dropped as unplaceable,
+# which is the rule this adapter already keeps for a LOCATION that fails to
+# geocode: never pin by a guess. Whole-value matches only.
+PLACEHOLDER_LOC_RX = re.compile(
+    r"^\s*(?:off[\s-]?site|tbd|tba|to be (?:announced|determined|confirmed)|"
+    r"location tbd|various(?: locations)?|multiple locations|n/?a|none|"
+    r"see (?:description|details|website|below))\s*\.?\s*$", re.I)
 
 
 def _host(url: str) -> str:
