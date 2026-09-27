@@ -204,6 +204,34 @@ check("and so does its own venue name and street",
       (rev.venue_name, rev.address) == ("Elbow Springs", "100 Elbow Dr"),
       (rev.venue_name, rev.address))
 
+# --- a block that names itself fills only its own events ----------------------
+# UMFA's off-site trips name "Rozel Point" with no address, beside rows that say
+# only "UMFA"; a Tampere centre lists events in Oulu. With `names`, the block
+# fills what is plainly its own and nothing else - coordinates OR street, since a
+# borrowed street is geocoded straight back to the block by the Census pass.
+UMFA = {"name": "Utah Museum of Fine Arts", "address": "410 Campus Center Dr",
+        "city": "Salt Lake City", "region": "UT", "country": "US",
+        "lat": 40.760243, "lon": -111.8431702, "names": ["UMFA", "Utah Museum of Fine Arts"]}
+SITE_UMFA = dict(SITE, venue=UMFA)
+own = T.to_event(dict(bare, venue={"venue": "UMFA"}), SITE_UMFA)
+check("a block with names fills an event that names it by its alias",
+      (own.latitude, own.address) == (UMFA["lat"], "410 Campus Center Dr"), (own.latitude, own.address))
+room = T.to_event(dict(bare, venue={"venue": "Lintuaura, Kuurosokeiden Toimintakeskus"}),
+                  dict(SITE, venue={"name": "Kuurosokeiden toimintakeskus", "lat": 61.45, "lon": 23.84,
+                                    "names": ["Kuurosokeiden toimintakeskus"]}))
+check("...and one that names a room inside it", room.latitude == 61.45, room.latitude)
+none = T.to_event(dict(bare, venue={}), SITE_UMFA)
+check("...and one that names no venue at all", none.latitude == UMFA["lat"], none.latitude)
+away = T.to_event(dict(bare, venue={"venue": "Rozel Point"}), SITE_UMFA)
+check("but not one held somewhere else: no coordinates, and not the block's street",
+      (away.latitude, away.address, away.venue_name) == (None, None, "Rozel Point"),
+      (away.latitude, away.address, away.venue_name))
+check("'UMFA' does not match inside another word",
+      T.to_event(dict(bare, venue={"venue": "Umfang Hall"}), SITE_UMFA).latitude is None)
+plain = T.to_event(dict(bare, venue={"venue": "Rozel Point"}), dict(SITE, venue=dict(UMFA, names=None)))
+check("a block WITHOUT names still fills every coordless event, as before",
+      plain.latitude == UMFA["lat"], plain.latitude)
+
 # --- a town hall's calendar is two calendars ----------------------------------
 # Sherwood, OR and Dormont, PA carried council meetings and "CLOSED:" rows beside
 # their programme. Refused only where `_found` says the source is a town hall's.

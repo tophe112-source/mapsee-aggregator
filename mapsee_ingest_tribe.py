@@ -93,6 +93,36 @@ def _obj(v) -> Dict[str, Any]:
     return {}
 
 
+def _venue_key(name: Optional[str]) -> str:
+    return re.sub(r"[^\w]+", " ", (name or "").casefold()).strip()
+
+
+def _block_stands_in(v: Dict[str, Any], vd: Dict[str, Any]) -> bool:
+    """May the config's `venue` block fill this event's place?
+
+    By default, yes: most blocks belong to a single-venue site whose events name
+    a room, an alias or nothing, and 1,974 of 7,042 coordless events on 183
+    sites with a block (2026-09-27) gave the block's own address. A block that
+    lists its own `names` is stricter: it fills only an event that names no
+    venue, or names one of those. UMFA files its Land Art Week trips under
+    "Rozel Point", "Powder Mountain" and "Kimball Arts Center" with no address,
+    beside eighteen rows that say only "UMFA". The Finnish Deafblind
+    Association's centre in Tampere lists events in Oulu, Kemi and Rovaniemi.
+    Each of those was pinned at the block, and took its street too, so the
+    Census pass put the US ones straight back there.
+
+    Not the default because a city or address test cannot tell a place from its
+    other names: Den Haag is 's-Gravenhage, Etobicoke is Toronto, Vanier is
+    Ottawa, and 336 coordless events in that sample differed from their block's
+    city that way, almost all of them the same place.
+    """
+    names = vd.get("names") if vd else None
+    if not names:
+        return True
+    own = _venue_key(_clean(v.get("venue")))
+    return not own or any(re.search(rf"\b{re.escape(_venue_key(n))}\b", own) for n in names)
+
+
 def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEvent]:
     name = _clean(ev.get("title"))
     start = (ev.get("start_date") or "").strip()          # "2026-08-04 10:00:00", site-local
@@ -113,6 +143,8 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
     # have. Discovery supplies it for free: catalog_discover_osm proposes every
     # candidate with the surveyed point OSM holds for that venue.
     vd = site.get("venue") or {}
+    if not _block_stands_in(v, vd):
+        vd = {}                                   # not its coordinates, and not its street either
     if lat is None or lon is None:
         lat, lon = _f(vd.get("lat")), _f(vd.get("lon"))
     # The plugin's own taxonomy, folded in alongside the configured default so a

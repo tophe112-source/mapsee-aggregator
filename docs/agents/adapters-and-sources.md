@@ -232,3 +232,27 @@
   `mapsee_prune_cancelled` hid for being cancelled — most of these listings are
   both. It is self-healing (the pruner re-hides within the day), but run
   `--unhide` because you think THIS rule was wrong, not as a general undo.
+
+- **A VENUE BLOCK PINS EVERY COORDLESS EVENT AT ITS VENUE, including the ones
+  held somewhere else, and no automatic rule can tell which those are.**
+  Measured 2026-09-27 over the Events Calendar sites that carry a `venue`
+  block: 183 of them, 7,633 events. 7,042 had no coordinates of their own and
+  all took the block's. 2,865 named no venue, 1,974 gave the block's own
+  address, 1,374 named only a room or an alias, and the rest gave another
+  address. The obvious rule, "not the block's city, so not the block", would
+  have been wrong about almost every one of the 336 that differed: Den Haag vs
+  's-Gravenhage (91), Etobicoke vs Toronto (87), Vanier vs Ottawa (73), Lurup vs
+  Hamburg (30). Outside the US a row the block does not place is DROPPED, since
+  Census is the only geocoder at the sync, so that rule would have deleted
+  them. The strays that could be identified were a few dozen, most of them
+  in two sites: UMFA's Land Art Week trips ("Rozel Point", "Powder Mountain",
+  no address) beside 18 rows that say only "UMFA", and a Tampere centre's
+  events in Oulu, Kemi and Rovaniemi. How many of the 1,374 room-or-alias rows
+  are strays cannot be read from the data. A US stray WITH a street is fixed by the sync anyway, because the
+  Census pass re-geocodes every row that has an address. But the block also
+  lent its street to events without one, which the Census pass geocoded
+  straight back to the block. So `names` on a block is an opt-in: it then
+  fills only an event that names no venue or one of those names, and lends
+  neither its coordinates nor its street to anything else. Set on UMFA and
+  kuurosokeat.fi. Squarespace and JSON-LD have the same fallback and were not
+  measured.

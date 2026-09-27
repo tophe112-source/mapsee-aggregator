@@ -3811,7 +3811,10 @@
         "city": "Tampere",
         "postal_code": "33720",
         "lat": 61.456456,
-        "lon": 23.844546
+        "lon": 23.844546,
+        "names": [
+          "Kuurosokeiden toimintakeskus"
+        ]
       },
       "_metro": "Tampere, FI"
     },
@@ -11573,10 +11576,14 @@
         "postal_code": "84112",
         "country": "US",
         "lat": 40.760243,
-        "lon": -111.8431702
+        "lon": -111.8431702,
+        "names": [
+          "UMFA",
+          "Utah Museum of Fine Arts"
+        ]
       },
       "_metro": "Salt Lake City, United States",
-      "_note": "UMFA talks, tours and community days (Land Art Week). robots.txt does not disallow /wp-json/. Venues carry no geo; block pins them to the museum."
+      "_note": "UMFA talks, tours and community days (Land Art Week). robots.txt does not disallow /wp-json/. Venues carry no geo; the block pins them to the museum, and its `names` keep off-site trips (Rozel Point, Powder Mountain, Kimball Arts Center) off that pin."
     },
     {
       "name": "Anderson Abruzzo Albuquerque International Balloon Museum (Albuquerque)",
