@@ -25,6 +25,26 @@ Config (program_sources.json): a list of programs, each:
                  "start": "11:00", "end": "14:30",
                  "meals": "Lunch 11am-12pm, Snack 1pm-2pm" }, ... ] }
 
+MONTHLY RULES, for the free museum days (Italy's Domenica al museo, France's
+first Sundays at national monuments, Bank of America's Museums on Us). A museum
+that is free on the first Sunday is not free on the other three, so a weekday
+list alone would put a free day on the map that is not one:
+  "nth": 1                     only the Nth of each listed weekday in its month
+                               (1 = days 1-7, so "Sunday" + nth 1 = first Sunday)
+  "months": [1, 2, 3, 11, 12]  only these months (the season, for a rule that
+                               repeats every year and so has no season dates)
+  "rule": "first_full_weekend" the first Saturday of the month and the Sunday
+                               after it - which is NOT the first Sunday when the
+                               1st is a Sunday (then it is the 7th and 8th)
+A site with no "start" is an all-day occurrence (the museum's own opening hours
+decide), and a site carrying "lat"/"lon" is never geocoded. "city", "region",
+"country", "url" and "notes" pass through, and "categories" adds secondaries.
+
+The free/not-free reading of a row is NOT made here. ../mapsee's migration 0227
+tags every event from its own text, so a programme's blurb has to SAY what the
+offer is, and say it honestly: "Free admission for everyone" is tagged free;
+"cardholders get free general admission" is not, because it is free for some.
+
     python mapsee_ingest_programs.py --config program_sources.json --store mapsee_events.json
 """
 from __future__ import annotations
@@ -126,14 +146,36 @@ def _as_date(s: Optional[str]):
         return None
 
 
-def _occurrences(weekdays: List[int], horizon_days: int, s_start, s_end) -> List:
+def _today():
+    """MAPSEE_TODAY=YYYYMMDD fixes "today" for the tests, as everywhere else."""
+    fixed = os.environ.get("MAPSEE_TODAY")
+    if fixed:
+        return datetime.strptime(fixed, "%Y%m%d").date()
+    return datetime.now().date()
+
+
+def _occurrences(weekdays: List[int], horizon_days: int, s_start, s_end,
+                 nth: Optional[int] = None, months: Optional[List[int]] = None,
+                 rule: Optional[str] = None) -> List:
     """Every matching weekday from today through the horizon, clamped to the
-    program's season window."""
-    today = datetime.now().date()
+    program's season window, and narrowed by the monthly rules in the header."""
+    today = _today()
     out = []
     for i in range(horizon_days):
         d = today + timedelta(days=i)
-        if d.weekday() not in weekdays:
+        if rule == "first_full_weekend":
+            # The first Saturday is day 1-7 and its Sunday is day 2-8. The Sunday
+            # is tested by looking back one day, so a month that STARTS on a
+            # Sunday does not count that Sunday: its Saturday was last month.
+            sat = d - timedelta(days=1)
+            if not ((d.weekday() == 5 and d.day <= 7)
+                    or (d.weekday() == 6 and sat.month == d.month and sat.day <= 7)):
+                continue
+        elif d.weekday() not in weekdays:
+            continue
+        if nth and (d.day - 1) // 7 + 1 != int(nth):
+            continue
+        if months and d.month not in months:
             continue
         if s_start and d < s_start:
             continue
@@ -148,7 +190,9 @@ def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
     tz = _tz(prog.get("timezone"))
     s_start, s_end = _as_date(prog.get("season_start")), _as_date(prog.get("season_end"))
     horizon = int(prog.get("horizon_days", 42))
+    nth, months, rule = prog.get("nth"), prog.get("months"), prog.get("rule")
     category = prog.get("category", "community")
+    extra_cats = [c for c in (prog.get("categories") or []) if c and c != category]
     prefix = prog.get("title_prefix") or prog.get("name") or "Community program"
     blurb = (prog.get("blurb") or "").strip()
     url = prog.get("url")
@@ -161,14 +205,18 @@ def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
         addr = site.get("address")
         lat, lon = site.get("lat"), site.get("lon")
         if lat is None or lon is None:
-            lat, lon = _geocode(session, addr or f"{sname}, Seattle, WA")
+            # The site's own place when it names one: the Seattle fallback predates
+            # any programme outside Seattle, and would pin an Italian museum there.
+            where = ", ".join(x for x in (site.get("city"), site.get("region"), site.get("country")) if x)
+            lat, lon = _geocode(session, addr or (f"{sname}, {where}" if where else f"{sname}, Seattle, WA"))
         if lat is None or lon is None:
             continue                                 # nowhere to pin it (yet - retried next run)
         title = f"{prefix} - {sname}"
         meals = (site.get("meals") or "").strip()
-        desc = " · ".join(x for x in (blurb, meals) if x) or None
+        notes = (site.get("notes") or "").strip()
+        desc = " · ".join(x for x in (blurb, meals, notes) if x) or None
         start_t, end_t = site.get("start"), site.get("end")
-        for d in _occurrences(weekdays, horizon, s_start, s_end):
+        for d in _occurrences(weekdays, horizon, s_start, s_end, nth, months, rule):
             ds = d.isoformat()
             fp = make_fingerprint(title, ds, addr or sname)
             sl, su = _localize(ds, start_t, tz)
@@ -177,7 +225,9 @@ def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
                 source=label, source_id=fp, name=title, description=desc,
                 start_local=sl, start_utc=su, end_local=el, end_utc=eu,
                 venue_name=sname, latitude=lat, longitude=lon, address=addr,
-                category=category, ticket_url=url,
+                city=site.get("city"), region=site.get("region"), country=site.get("country"),
+                category=category, categories=list(extra_cats),
+                ticket_url=site.get("url") or url,
             )
             ev.fingerprint = fp
             out.append(ev)
