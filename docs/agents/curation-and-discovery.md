@@ -924,3 +924,55 @@
   Reception" and "Closing Day" are events. A closure gate has to name the
   place that is shut - office, library, centre, museum, garden - or open with
   "Closed for / on / at <day>".
+
+- **`verify` PASSES A PAID COURSE CATALOGUE. A ROW-LEVEL REVIEW REFUSED 21 OF
+  628 VERIFIED FEEDS AND RE-FILED 9 MORE.** Twenty-two discovery cells
+  (2026-09-27) proposed 631 sources. A check that ran each feed through its own
+  adapter (future rows, placeable rows, online rows) kept 627. Six review
+  agents then read each feed's live rows, and what they refused had passed both
+  checks:
+  - Paid registration catalogues (7). Danville's CivicPlus `catID=24`: 10 of
+    12 upcoming rows were ActiveNet course listings. Cranberry Township
+    `catID=61`: 131 of 134 were numbered course sessions. Also Anderson Parks
+    (45 of 50 sampled), a seniors' centre, and three Hungarian community houses
+    (Pannka: 98 of 100 rows state an entrance fee).
+  - Commercial listings (2). Downtown OKC: 100 of the first 150 rows priced,
+    19 free. Also a business-improvement area's member promotions.
+  - Four more that were not events anyone can attend: a library's
+    room-booking diary, a bookmobile calendar (124 of 147 rows at LOCATION
+    "Bookmobile" with no GEO), a district council's meetings (17 of 17), and a
+    young carers' closed programme (24 of 30).
+  - LibCal views (8); see the next note.
+
+  The re-filings were about the DEFAULT category, which only decides rows that
+  `derive_categories` does not promote. The reviewers checked each default row
+  by row through it. Milwaukee Domes as `kids` would have put 7 memory-loss
+  sessions and 2 closure notices on unsie.com. As `outdoors`, its 14 storytimes
+  still reach kids. Choose the default for the rows the classifier cannot
+  place, not for the site's headline.
+
+- **A LIBCAL AUDIENCE VIEW IS THE SAME CALENDAR, and one batch proposed 12 of
+  them.** LibCal serves a calendar as `ical_subscribe.php?cid=N` and also as
+  `?src=p&cid=N&aud=...`, which is the same calendar filtered to an audience.
+  Brentwood's `src=p&cid=2720` shared 314 of 314 UIDs with `cid=2720`.
+  Albuquerque's five views had the same future counts as their plain calendars
+  (313, 158, 114, 228, 367). Discovery finds the view because a library's
+  "Kids" or "Teens" page links it. Configuring it adds a request per run and no
+  rows. Configure the plain `cid` only. On 2026-09-27 the review caught 8, the
+  merge caught 3 more by rule (a `src`/`aud` URL whose host and `cid` are
+  already plain), and the adapter check caught 1. The refused URLs are in the
+  ledger as `fail`.
+
+- **A TOWN CALENDAR CURATED BY HAND SKIPS THE TOWN-HALL FILTER.** Both
+  adapters apply the filter only when `_found` starts with `civic:`: ics has
+  for a long time, and tribe has since 2026-09-27. Civic discovery writes that
+  prefix. A person or an agent pasting a CivicPlus `iCalendar.aspx` URL does
+  not. Of the 607 feeds merged on 2026-09-27, 46 were town calendars with no
+  marker: 43 CivicPlus feeds and 3 municipal Events Calendar sites. Unmarked,
+  their "City Council Meeting" and "Library Closed" rows would have reached
+  the community door. They were merged as `civic:city -> civicplus
+  (hand-curated)` and `civic:city -> tribe (hand-curated)`. Of the 1,101
+  CivicPlus feeds configured before that batch, 31 still carry no `civic:`
+  prefix: 25 were found as `parks:agency -> civicplus[...]` and 6 have no
+  `_found` at all. The filter does not reach any of them. When you add a town's
+  own calendar by hand, write the prefix.

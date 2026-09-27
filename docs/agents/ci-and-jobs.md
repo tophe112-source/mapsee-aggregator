@@ -348,3 +348,17 @@
   kind of line a later edit removes without noticing. A test that drives real
   machinery has to intercept every write that machinery does, not only the ones
   it asserts on.
+
+- **THE EVENTS CALENDAR STEP NEVER READ ITS LAST 65 SITES, because every run
+  started at site one.** Run 36317891716 (2026-09-27) stopped at its deadline
+  "before Autodromo Nazionale di Monza: 65 of 673 sites not started" after
+  reading 608 in 80m19s, and the run before it stopped at the same place, so
+  the tail of `tribe_sources.json` was configured and never imported. With
+  `--deadline`, `mapsee_ingest_tribe.py` now starts at the site the last run
+  stopped before (`tribe_cursor.json`, restored and saved by the feeds job's
+  `actions/cache` beside the ics and jsonld cursors) and walks the list round;
+  without `--deadline` it reads the whole list from the top as before. The file
+  holds 820 sites after the 2026-09-27 batch, so at 608 per budget a site is
+  now read every run or the one after. `test_workflow_contracts.py` pins the
+  flag and both cache paths, because dropping either one silently restores the
+  starvation.
