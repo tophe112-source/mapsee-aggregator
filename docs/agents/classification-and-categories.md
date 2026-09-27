@@ -340,3 +340,31 @@
   know about doors, so dropping the secondary would also take markets off
   oneday.cafe. The fix is a product choice: exclude a `market` primary on
   bar.ventures, drop `food` from its slice, or accept it.
+
+- **A DESCRIPTION THAT NAMES A VOLUNTEER IS NOT A CALL FOR ONE, and it was half
+  the volunteer door.** Measured 2026-09-27 over 34,113 distinct listings from
+  837 feeds: every ics and Events Calendar feed batch 1 added, plus a seeded
+  200 + 100 configured before it, each run through its own adapter. 858
+  listings reached volunteer as primary. The rule read the WHOLE description
+  for the bare word, so most of them had been put there by the people who run
+  the event: "a trained therapy dog and volunteer handler" (Read to a Dog),
+  "Math Club volunteers are available to help tutor", repair-café
+  "volunteer repairers", "Library Grandparents are warm, enthusiastic
+  volunteers". Others came from a sponsor ("Food is provided by Three Square
+  Food Bank" on Kids Cafe; "proceeds will benefit San Antonio Food Bank" put a
+  21+ beer festival on the volunteer door), from chores ("the library will
+  handle all the preparation and clean up"), and from Trumba's taxonomy
+  footer, "Event Type: ... Service & Volunteering". The TITLE rule is
+  unchanged. A description now has to ASK (`_VOLUNTEER_CALL_RX`: volunteers
+  needed, sign up to volunteer, become a volunteer docent, community service
+  hours, an orientation for new volunteers, a morning of service, a working
+  bee, invasive plant removal). It reads the first `_DESC_SCAN_CHARS`, like
+  every other description rule, and `_volunteer_hit` is one predicate for the
+  primary and the secondary. Result: 858 -> 420. The 449 moved off went to
+  community 191, learning 179, outdoors 42, kids 31, fitness 5 and party 1.
+  In a random 40 of them read by hand there was no volunteering shift, and
+  two recruitment sessions, one of which the orientation phrase now keeps. 11
+  moved ON: teens earning community service hours, and "working bee" and
+  "bushcare", Australian for a work party, now in the title rule too. Rows
+  already stored keep their category until `mapsee_reclassify.py` revisits
+  them (dry run first).

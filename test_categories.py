@@ -718,4 +718,61 @@ for name, cat, desc, want in TITLE_ONLY_CASES:
 total = len(INTL_KIDS_CASES) + len(KIDS_SWEEP_CASES) + len(LEAK_CASES) + 1 + len(TITLE_ONLY_CASES)
 print()
 print(f"{total-len(ifails)}/{total} passed")
+
+# ---------------------------------------------------------------------------
+# A DESCRIPTION THAT NAMES A VOLUNTEER IS NOT A CALL FOR ONE. Live rows from the
+# 2026-09-27 feed corpus: the description names who runs the event (a dog
+# handler, tutors, guides, a food bank sponsor), and the volunteer door took it
+# as primary AND secondary. A title still decides on any volunteer word; a
+# description has to ask. (name, source category, description, want_primary,
+# want volunteer anywhere)
+VOLUNTEER_CASES = [
+    ("Read to a Dog", "learning",
+     "Practice your reading skills by reading aloud to a trained therapy dog and volunteer "
+     "handler from the BARK Reading Dogs group! For children ages 5-14.", "kids", False),
+    ("Kids Cafe", "learning",
+     "Join Spring Valley Library in the children's area for free meals for children ages "
+     "3-18. Food is provided by Three Square Food Bank.", "learning", False),
+    ("Math Club", "learning",
+     "Math Club volunteers are available to help tutor any students who need assistance.",
+     "learning", False),
+    ("Free guided tours - City Botanic Gardens", "outdoors",
+     "Take a free volunteer guided walk to learn about the plants. Our volunteer guides are "
+     "passionate about the gardens.", "outdoors", False),
+    ("Chat Connect Create", "community",
+     "Cost: Free Event Type: Adults,Community and volunteering,Creative arts and crafts",
+     "community", False),
+    ("The Craft Lab", "learning",
+     "Free of charge. Rules: reasonable use and clean up. Items available: sewing machines.",
+     "learning", False),
+    # ...and what a description must still carry onto the door.
+    ("Foster Garden Docent Training Begins", "community",
+     "Join us for training to become a volunteer docent! Our garden staff will train the "
+     "next cohort.", "volunteer", True),
+    ("Saturday at the Creek", "community",
+     "Volunteers needed to pull ivy along the creek. Gloves provided.", "volunteer", True),
+    ("Teens Give Back", "learning",
+     "Volunteer to get community service hours for school! For teens ages 13-18.",
+     "volunteer", True),
+    ("Public Lands Day", "learning",
+     "Meet at the Prosperity Epicenter before heading out for a morning of service.",
+     "volunteer", True),
+    ("Friends of Hanlon Park", "outdoors", "Monthly working bee. Tools and morning tea provided.",
+     "volunteer", True),
+    # the title rule is unchanged
+    ("Volunteer Shift: Repack Room", "community", "", "volunteer", True),
+    ("Green Lake Litter Patrol", "community", "", "volunteer", True),
+]
+vfails = []
+for name, cat, desc, want_primary, want_vol in VOLUNTEER_CASES:
+    p, e = derive_categories({"name": name, "category": cat, "description": desc})
+    has = p == "volunteer" or "volunteer" in (e or [])
+    ok = p == want_primary and has == want_vol
+    if not ok:
+        vfails.append(name)
+    print(f"{'ok ' if ok else 'FAIL'} {name[:38]:<40} -> {p:<10} + {sorted(e or [])}"
+          f"{'' if ok else f'   (wanted {want_primary}, volunteer={want_vol})'}")
+print()
+print(f"{len(VOLUNTEER_CASES)-len(vfails)}/{len(VOLUNTEER_CASES)} passed")
+cfails += vfails
 sys.exit(1 if (fails or cfails or bfails or ifails) else 0)

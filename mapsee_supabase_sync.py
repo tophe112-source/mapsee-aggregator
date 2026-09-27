@@ -85,8 +85,44 @@ _VOLUNTEER_RX = re.compile(
     r"\b(volunteers?|volunteering|clean[\s-]?ups?|stewardship|litter|"
     r"food\s?bank|habitat\s+restoration|mutual\s+aid|work\s+part(?:y|ies)|"
     r"trail\s+work|tree\s+planting|beach\s+clean|park\s+clean|blood\s+drive|"
-    r"days?\s+of\s+service)\b", re.I)
+    r"days?\s+of\s+service|working\s+bees?|bushcare)\b", re.I)   # AU/NZ: a work party
 _PROMOTABLE_TO_VOLUNTEER = {"community", "learning", "outdoors", "other"}
+
+# A DESCRIPTION THAT MENTIONS A VOLUNTEER IS NOT A CALL FOR ONE. The rule above
+# reads a TITLE, where "Volunteer Shift", "Park Cleanup" and "Blood Drive" mean
+# what they say. A description mostly names the people who RUN the event: "a
+# trained therapy dog and volunteer handler" (Read to a Dog), "Math Club
+# volunteers are available to help tutor", "Food is provided by Three Square
+# Food Bank" (Kids Cafe, which lost the kids door to this), "the library will
+# handle all the preparation and clean up", and Trumba's footer "Event Type:
+# Service & Volunteering". So a description has to ASK: volunteers needed, sign
+# up to volunteer, a volunteer session, a morning of service, or name the work
+# itself. See _volunteer_hit.
+_VOLUNTEER_CALL_RX = re.compile(
+    r"\b(volunteers?\s+(?:are\s+|is\s+)?(?:needed|wanted|welcome|required)|"
+    r"(?:looking\s+for|seeking|recruiting|needs?)\s+(?:\w+\s+){0,2}volunteers|"
+    r"(?:sign(?:ed)?\s+up|register(?:ed)?|come|like|want)\s+to\s+volunteer|"
+    r"become\s+an?\s+(?:\w+\s+){0,2}volunteer|community\s+service\s+hours|"
+    r"(?:information|info|orientation|training)\s+(?:\w+\s+){0,2}for\s+(?:new\s+|prospective\s+)?"
+    r"volunteers|"
+    r"volunteer\s+(?:sessions?|shifts?|(?:service\s+)?hours|opportunit(?:y|ies)|orientation|"
+    r"work\s?days?)|"
+    r"(?:days?|morning|afternoon|weekend)\s+of\s+service|"
+    r"habitat\s+restoration|work\s+part(?:y|ies)|working\s+bees?|trail\s+work|"
+    r"tree\s+planting|litter\s+pick(?:ing|s)?|beach\s+clean[\s-]?ups?|"
+    r"park\s+clean[\s-]?ups?|invasive\s+(?:plant\s+|species\s+|weed\s+)?(?:removal|pull)|"
+    r"blood\s+drive)\b", re.I)
+
+
+def _volunteer_hit(rec: Dict[str, Any]) -> bool:
+    """Is this listing a volunteering shift? Any volunteer word in the title, or
+    a call to volunteer in the description's opening (_DESC_SCAN_CHARS, where
+    every other description rule reads). ONE predicate for the primary and the
+    secondary, because a secondary puts the event on the volunteer door too."""
+    if _VOLUNTEER_RX.search(_strip_urls(rec.get("name") or "")):
+        return True
+    desc = (rec.get("description") or "")[:_DESC_SCAN_CHARS]
+    return bool(_VOLUNTEER_CALL_RX.search(_strip_urls(desc)))
 
 
 # Comedy / standup / film / theater booked at a MUSIC venue inherit that venue
@@ -726,6 +762,12 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
         if key == "kids" and _KIDS_INTL_RX.search(title) and not _NOT_FOR_KIDS_RX.search(title):
             add(key)
             continue
+        # The same predicate as the primary: a description that names a
+        # volunteer handler or a food bank sponsor is not a shift.
+        if key == "volunteer":
+            if _volunteer_hit(rec):
+                add(key)
+            continue
         if rx.search(text):
             add(key)
 
@@ -845,8 +887,9 @@ def map_category(rec: Dict[str, Any]) -> str:
     if key in _PROMOTABLE_TO_VOLUNTEER:
         # URL-stripped like every other description read: a Meetup group slug
         # such as …-volunteer-cleanup-group- is the name of a GROUP, not a
-        # statement that this event is a volunteering shift.
-        if _VOLUNTEER_RX.search(_strip_urls(f"{rec.get('name') or ''} {rec.get('description') or ''}")):
+        # statement that this event is a volunteering shift. And the description
+        # has to ASK for volunteers, not mention one: see _VOLUNTEER_CALL_RX.
+        if _volunteer_hit(rec):
             return "volunteer"
     if key in _PROMOTABLE_TO_THEATER and _THEATER_RX.search(rec.get("name") or ""):
         return "theater"           # comedy/standup/film at a music venue -> stage layer
