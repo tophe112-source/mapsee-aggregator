@@ -439,8 +439,10 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         if loc:  # Trumba locations can carry HTML ("111 Alamo Plaza<br>San Antonio")
             loc = re.sub(r"<[^>]+>", ", ", loc).replace("&amp;", "&")
             loc = re.sub(r"\s*,\s*,+", ", ", re.sub(r"\s+", " ", loc)).strip(" ,") or None
+        elsewhere = False
         if loc and PLACEHOLDER_LOC_RX.match(loc):
-            loc = None                                # "Offsite" names no place; see the pattern
+            elsewhere = bool(ELSEWHERE_LOC_RX.match(loc))   # "Offsite": not the venue either
+            loc = None                                # "TBD" names no place; see the pattern
         lat = lon = None
         if "GEO" in ev:                               # "lat;lon"
             try:
@@ -452,7 +454,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         if (lat is None or lon is None) and loc:
             lat, lon = geocode(loc)
         venue = None
-        if lat is None and not loc and _venue_pin(src.get("venue")):
+        if lat is None and not loc and not elsewhere and _venue_pin(src.get("venue")):
             venue = src["venue"]                      # no place named at all: the source's own fallback
             lat, lon = float(venue["lat"]), float(venue["lon"])
             loc = venue.get("name") or None
@@ -526,14 +528,31 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
 # A LOCATION THAT NAMES NO PLACE. Willoughby-Eastlake Public Library files its
 # off-site programmes under the LOCATION "Offsite", and Photon, handed
 # "Offsite, OH", placed eleven of them at a post office near Cincinnati, 369 km
-# away (measured 2026-09-27). Read as no LOCATION, the event falls back to the
-# source's own `venue` when it has one and is otherwise dropped as unplaceable,
-# which is the rule this adapter already keeps for a LOCATION that fails to
-# geocode: never pin by a guess. Whole-value matches only.
-PLACEHOLDER_LOC_RX = re.compile(
-    r"^\s*(?:off[\s-]?site|tbd|tba|to be (?:announced|determined|confirmed)|"
-    r"location tbd|various(?: locations)?|multiple locations|n/?a|none|"
-    r"see (?:description|details|website|below))\s*\.?\s*$", re.I)
+# away (measured 2026-09-27). Read as no LOCATION, the event is dropped as
+# unplaceable, which is the rule this adapter already keeps for a LOCATION that
+# fails to geocode: never pin by a guess. Whole-value matches only.
+#
+# Two kinds, because they disagree about the source's own `venue` fallback:
+#   - UNKNOWN ("TBD", "See description"): the source did not say where, and its
+#     venue is the best guess it would make itself. The fallback applies.
+#   - ELSEWHERE ("Offsite", "Outreach", "Bookmobile", "Various locations"): the
+#     source said the event is NOT at its venue, so the fallback would pin it
+#     exactly where it is not. So is a bare country: LibraryMarket files online
+#     sessions under the LOCATION "US" (71 rows from five libraries in a sample
+#     of 837 feeds, 2026-09-27; 59 of them say online or virtual in the title),
+#     and "US" plus a geocode suffix is a guess.
+# Communico writes LOCATION as "Branch - Room", so an event with no room ends in
+# a dash: "Offsite -" (64 rows in that sample), "Bookmobile -" (210),
+# "Outreach -", "External -". The trailing separators are part of the match.
+_UNKNOWN_LOC = (r"tbd|tba|to be (?:announced|determined|confirmed)|location tbd|n/?a|none|"
+                r"see (?:description|details|website|below)")
+_ELSEWHERE_LOC = (r"off[\s-]?site|outreach|external|bookmobile|various(?: locations)?|"
+                  r"multiple locations|us|usa|u\.s\.(?:a\.)?|united states(?: of america)?|"
+                  r"canada|uk|u\.k\.|united kingdom|australia|new zealand|ireland|france|"
+                  r"deutschland|germany")
+_LOC_TAIL = r"[\s.\-\u2013\u2014|,;:]*$"
+PLACEHOLDER_LOC_RX = re.compile(rf"^\s*(?:{_UNKNOWN_LOC}|{_ELSEWHERE_LOC}){_LOC_TAIL}", re.I)
+ELSEWHERE_LOC_RX = re.compile(rf"^\s*(?:{_ELSEWHERE_LOC}){_LOC_TAIL}", re.I)
 
 
 def _host(url: str) -> str:

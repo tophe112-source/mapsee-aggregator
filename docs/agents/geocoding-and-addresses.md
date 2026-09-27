@@ -94,3 +94,22 @@
   geocoder is the unlock, and until there is one this is not a to-do.
   **`offsite:<host>` is a routing signal, not a failure** — that counter is the
   only measurement this repo has of what venues worldwide actually use.
+
+- **A LOCATION THAT SAYS "NOT HERE" MUST NOT BE GEOCODED, NOR PINNED TO THE
+  VENUE, and Communico hides the word behind a dash.** Communico
+  (`*.libnet.info`) writes LOCATION as "Branch - Room", so a programme with no
+  room reads "Offsite -", "Bookmobile -", "Outreach -" or "External -".
+  LibraryMarket files online sessions under the LOCATION "US". Over 70,904 ics
+  rows from the same 837-feed corpus, 393 carried one of these, and the
+  placeholder rule of the same day matched none of them, because it only knew
+  bare words. Each went to Photon with the feed's suffix ("US, Kaysville, UT",
+  "Bookmobile -, ...") and came back as a real-looking pin. The biggest were
+  Clearview's 204 bookmobile stops, 71 "US" rows (59 say online or virtual in
+  the title) and 64 "Offsite -". `PLACEHOLDER_LOC_RX` now accepts trailing
+  separators, and `ELSEWHERE_LOC_RX` marks the subset that names another place
+  or no place at all: offsite, outreach, external, bookmobile, various or
+  multiple locations, and a bare country. Those never take the source's
+  `venue` fallback either, because "Offsite" at a library means not at the
+  library. Only "TBD" and "See description" may still fall back. Look-alikes
+  pinned as places: "US Bank Stadium", "Canada Water Library", "Outreach
+  Center, 5 Oak St", "Main Library - Room 2".

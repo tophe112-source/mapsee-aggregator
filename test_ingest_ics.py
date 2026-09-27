@@ -119,6 +119,12 @@ PLACEHOLDER_ICS = (
     "GEO:0;0\r\nEND:VEVENT\r\n"
     "BEGIN:VEVENT\r\nUID:real\r\nSUMMARY:Author Talk\r\nDTSTART:20991012T170000Z\r\n"
     "LOCATION:Offsite Gallery\\, 12 Main St\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:tbd\r\nSUMMARY:Board Games\r\nDTSTART:20991013T170000Z\r\n"
+    "LOCATION:TBD\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:mobile\r\nSUMMARY:Library Stop\r\nDTSTART:20991014T170000Z\r\n"
+    "LOCATION:Bookmobile -\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:us\r\nSUMMARY:Virtual Storytime\r\nDTSTART:20991015T170000Z\r\n"
+    "LOCATION:US\r\nEND:VEVENT\r\n"
     "END:VCALENDAR\r\n"
 )
 geocode_calls.clear()
@@ -133,12 +139,23 @@ with patch.object(ICS, "_fetch_ics", return_value=(PLACEHOLDER_ICS, "200")), \
     vstore = VenueStore()
     kept = ICS.ingest_ics(vstore, None, {"name": "willoughby", "url": "x", "venue": VENUE})
     pinned = sorted(r.name for r in vstore.rows)
-    check("with a venue, 'Offsite' and GEO:0;0 fall back to it instead of to 0,0 or a guess",
-          pinned == ["Book Club at the Park", "Craft Night"]
+    # "TBD" did not say where, so the source's own venue is its best guess too.
+    # "Offsite", "Bookmobile -" and "US" said the event is NOT there: the venue
+    # would pin each of them exactly where it is not.
+    check("with a venue, GEO:0;0 and 'TBD' fall back to it; 'Offsite', 'Bookmobile -' and 'US' do not",
+          pinned == ["Board Games", "Craft Night"]
           and all(r.latitude == 47.6414 for r in vstore.rows), [(r.name, r.latitude) for r in vstore.rows])
-for loc in ("Offsite", "off-site", "TBD", "To be announced", "Various locations", "See description"):
+    check("no placeholder reaches the geocoder", geocode_calls == ["Offsite Gallery, 12 Main St"], geocode_calls)
+for loc in ("Offsite", "off-site", "TBD", "To be announced", "Various locations", "See description",
+            "Offsite -", "Bookmobile -", "Outreach -", "External -", "US", "U.S.", "United States", "France"):
     check(f"placeholder: {loc!r}", bool(ICS.PLACEHOLDER_LOC_RX.match(loc)))
-for loc in ("Offsite Gallery", "TBD Brewing Co.", "Various Artists Studio, 3 Elm St", "None Such Farm"):
+for loc in ("Offsite", "Offsite -", "Bookmobile -", "Various locations", "US", "France"):
+    check(f"elsewhere, never the venue: {loc!r}", bool(ICS.ELSEWHERE_LOC_RX.match(loc)))
+for loc in ("TBD", "To be announced", "See description"):
+    check(f"unknown, the venue may stand in: {loc!r}", not ICS.ELSEWHERE_LOC_RX.match(loc))
+for loc in ("Offsite Gallery", "TBD Brewing Co.", "Various Artists Studio, 3 Elm St", "None Such Farm",
+            "US Bank Stadium", "Canada Water Library", "Outreach Center, 5 Oak St", "Bookmobile Garage",
+            "Main Library - Room 2"):
     check(f"not a placeholder: {loc!r}", not ICS.PLACEHOLDER_LOC_RX.match(loc))
 
 
