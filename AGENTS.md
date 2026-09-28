@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 282 of them — live in
+session.** The measured notes about what bites — 291 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -73,10 +73,12 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 ## How this repo wants to be worked
 
-- **`--only-new` is the default in CI, so a fix reaches the FUTURE only.** A
-  classifier, glyph or coordinate fix changes nothing already in the table until
-  `mapsee_reclassify.py` (dry run by default) or a rewrite-every-run adapter
-  revisits it. An upsert cannot delete.
+- **`--only-new` is the default in CI, so a fix reaches NEW rows first.** A
+  stored row changes when Wednesday's refresh re-derives it (every row a source
+  still returns; Thursday for the Mon/Thu extra sources), when a
+  rewrite-every-run adapter does, or through `mapsee_reclassify.py` (dry run by
+  default; it starts from the STORED category, so it cannot undo a promotion).
+  An upsert cannot delete.
 - **A 403 or a bot challenge is a refusal, not an obstacle.** Do not retry with a
   browser User-Agent; the way in is to ask the operator (`docs/agents/platforms-probed.md`).
 - **The three daily jobs run in a load-bearing order**, every ingest step is
@@ -123,7 +125,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 25 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped |
 | `docs/agents/adapters-and-sources.md` | 21 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms |
-| `docs/agents/classification-and-categories.md` | 27 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer |
+| `docs/agents/classification-and-categories.md` | 36 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer, title-only kids words, markets named for a day, a shift is not the event, a play is not the verb, what the refresh backfills |
 | `docs/agents/cancelled-events.md` | 18 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut |
 | `docs/agents/sync-eventstore-and-paging.md` | 17 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors, an unhide walk and its dry-run overcount |
 | `docs/agents/dates-and-timezones.md` | 11 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side, monthly rules |

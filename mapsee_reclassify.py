@@ -2,10 +2,20 @@
 """
 mapsee_reclassify.py — re-run the classifier over rows already in the table.
 
-WHY. A classifier fix only reaches events ingested AFTER it. `--only-new` is the
-default in CI, so a scheduled run can only ADD; Wednesday's run drops the flag
-and re-reads the sources, which is the one time a change at the SOURCE reaches
-the map — but a change in OUR rules never does, because those rows are not new.
+WHY. A classifier fix reaches new rows first: `--only-new` is the default in
+CI, so a scheduled run can only ADD. Wednesday's run drops the flag and rebuilds
+every row a source still returns from that source's OWN category under today's
+rules, and `--skip-unchanged` rewrites the ones whose category changed, so most
+of a fix lands the next Wednesday with nothing run by hand. This sentence used to
+say the opposite ("a change in OUR rules never does"), and the volunteer
+backfill of 2026-09-27 was pointed here because of it.
+
+What the refresh cannot reach is a row no source returns any more: a feed taken
+out of its config, an event past its adapter's horizon, an Events Calendar site
+the step's deadline did not reach that Wednesday. That is what this is for, with
+a limit of its own (see `recompute`): it starts from the STORED category, so it
+can promote and it can rewrite secondaries, but it cannot take a promotion back.
+A row stored as `volunteer` recomputes to volunteer.
 
 So the yoga-in-food fix (2026-08-12) corrected the future and left the past.
 Measured at the time: of 1,000 upcoming food-classified events, only 16% carried

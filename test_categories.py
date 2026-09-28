@@ -730,9 +730,10 @@ VOLUNTEER_CASES = [
     ("Read to a Dog", "learning",
      "Practice your reading skills by reading aloud to a trained therapy dog and volunteer "
      "handler from the BARK Reading Dogs group! For children ages 5-14.", "kids", False),
+    # kids since 2026-09-28's title words: a free meal for children is theirs
     ("Kids Cafe", "learning",
      "Join Spring Valley Library in the children's area for free meals for children ages "
-     "3-18. Food is provided by Three Square Food Bank.", "learning", False),
+     "3-18. Food is provided by Three Square Food Bank.", "kids", False),
     ("Math Club", "learning",
      "Math Club volunteers are available to help tutor any students who need assistance.",
      "learning", False),
@@ -775,4 +776,111 @@ for name, cat, desc, want_primary, want_vol in VOLUNTEER_CASES:
 print()
 print(f"{len(VOLUNTEER_CASES)-len(vfails)}/{len(VOLUNTEER_CASES)} passed")
 cfails += vfails
+
+# ---------------------------------------------------------------------------
+# THE WORDS A DOOR WAS MISSING, AND THE ONES IT MUST NOT TAKE. Live titles from
+# the 2026-09-28 corpus (40,920 distinct listings from 831 feeds), every rule
+# read over all of its hits first. (name, source category, description,
+# doors it must reach, doors it must not reach) - a door is the primary or a
+# secondary.
+# ---------------------------------------------------------------------------
+print()
+print("-- doors the rules were missing, 2026-09-28 --")
+DOOR_CASES = [
+    # kids words that only count in a TITLE
+    ("STEAM for Kids", "learning", "", {"kids"}, set()),
+    ("Nature Kids: Batty for Bats!", "outdoors", "", {"kids", "outdoors"}, set()),
+    ("Little Readers", "learning", "", {"kids"}, set()),
+    ("Library Babies", "learning", "", {"kids"}, set()),
+    ("Tales for Twos and Threes", "learning", "", {"kids"}, set()),
+    ("Tiny Tots Drop-in", "community", "", {"kids"}, set()),
+    ("Explore and Learn Playgroup", "learning", "", {"kids"}, set()),
+    ("Family Art Lab", "learning", "", {"kids"}, set()),
+    ("SMASH! A Piñata-Making Workshop for Families", "learning", "", {"kids"}, set()),
+    ("Kids&#39; Club", "learning", "", {"kids"}, set()),
+    ("Rock Night", "music", "Doors 8pm. Kids under 12 free with an adult.", set(), {"kids"}),
+    ("Big Bruce & the Retro Kids", "music", "", set(), {"kids"}),
+    ("The Karate Kid Trilogy", "learning", "", set(), {"kids"}),
+    ("Little Women", "theater", "", set(), {"kids"}),
+    ("Martin Luther King Jr. Day", "learning", "", set(), {"kids"}),
+    ("Young at Heart Book Club", "learning", "", set(), {"kids"}),
+    ("Family History Research Help", "learning", "", set(), {"kids"}),
+    ("Writing Family Stories", "learning", "", set(), {"kids"}),
+    ("Emory Choirs Family Weekend", "learning", "", set(), {"kids"}),
+    # ...and a talk ABOUT the children is for the grown-ups
+    ("AI and Your Kids: An Open Conversation", "learning", "", set(), {"kids"}),
+    ("Parenting Kids in Turbulent Times", "learning", "", set(), {"kids"}),
+    ("Parenting Your Toddler", "learning", "", set(), {"kids"}),
+    ("Firefighters for Kids Toy Drive", "community", "", set(), {"kids"}),
+    ("Kids Eat Free Thursdays", "food", "", set(), {"kids"}),
+    ("Sunday Brunch Club (no kids!)", "community", "", set(), {"kids"}),
+    ("Kids-Free Night Out", "community", "", set(), {"kids"}),
+    # how a library writes the age
+    ("Mad Science (K-5th Grade)", "learning", "", {"kids"}, set()),
+    ("Baby & Me (0-10 Months)", "learning", "", {"kids"}, set()),
+    ("Tiny Tykes Tales for ages 2 to 3", "learning", "", {"kids"}, set()),
+    ("Ballet with Dancing Little Stars, 2- to 5-year-olds", "learning", "", {"kids"}, set()),
+    ("Art Challenge (6th-12th Grade)", "learning", "", {"kids"}, set()),
+    ("Garden Work Party", "community", "Volunteers needed. A 1-2 year commitment is ideal.", set(), {"kids"}),
+    ("Friends of Hanlon Park working bee", "volunteer", "All welcome, ages 5 to 95.", set(), {"kids"}),
+    ("Grant Writing Course", "learning", "Runs 3-6 months, 3-5 years experience helpful.", set(), {"kids"}),
+    # plurals and suffixes the trailing \b refused
+    ("Family Movies: Hook", "learning", "", {"kids"}, set()),
+    ("Summer Reading Kickoff", "learning", "", {"kids"}, set()),
+    ("Yoga for Preschoolers", "learning", "", {"kids", "fitness"}, set()),
+    # the title guard, now on the secondary too - unless a child is named with it
+    ("LEGO for Adults", "learning", "", set(), {"kids"}),
+    ("Adult Story Time -- Ghost Stories", "learning", "", set(), {"kids"}),
+    ("Teen & Adult Crochet Club", "learning", "", {"kids"}, set()),
+    ("Grown Ups & Me Halloween Storytime", "learning", "", {"kids"}, set()),
+    ("Donuts with Grown Ups Story Time", "learning", "", {"kids"}, set()),
+    # markets named for their day, hour, season, goods - and the apostrophe
+    ("Farmer's Market", "community", "", {"market"}, set()),
+    ("Riverside Farmers’ Market", "community", "", {"market"}, set()),
+    ("Kitsilano Farmer&#39;s Market", "community", "", {"market"}, set()),
+    ("Sunday Market on Main Street", "community", "", {"market"}, set()),
+    ("Glenwood – Mobile Produce Market", "community", "", {"market"}, set()),
+    ("Pre-Loved Markets", "community", "", {"market"}, set()),
+    ("Tootgarook Primary School Market", "community", "", {"market"}, set()),
+    ("Frankston Food Swap", "community", "", {"market"}, set()),
+    ("Weihnachtsmarkt", "community", "", {"market"}, set()),
+    ("Marché aux puces, rue du Stade", "community", "", {"market"}, set()),
+    ("Julemarked", "community", "", {"market"}, set()),
+    ("Arbeitsmarktberatung", "learning", "", set(), {"market"}),
+    ("Tech Policy Forum: Recommendation Algorithms, Markets, and Society", "learning", "",
+     set(), {"market"}),
+    ("Spring Market Update for Home Buyers", "learning", "", set(), {"market"}),
+    ("Art Market Trends: A Gallerist's View", "learning", "", set(), {"market"}),
+    ("Community Market Update", "community", "", set(), {"market"}),
+    # a shift at an event is not the event (Tualatin Hills' volunteer calendar)...
+    ("Silent Disco Dance at Tualatin Hills Nature Center", "volunteer",
+     "Volunteer at this fun, family-oriented event for all abilities! Provide assistance "
+     "setting up for the event.", {"volunteer"}, {"party"}),
+    ("Holiday Bazaar at Elsie Stuhr Center", "volunteer",
+     "Volunteer to help us set up for or clean up after this fun, family-oriented event!",
+     {"volunteer"}, {"market"}),
+    # ...but a volunteer-filed row that IS the event keeps its door
+    ("Chocolate Sundays at Be'er Sheva Park", "volunteer",
+     "A free summer concert series in the park with live music.", {"music"}, set()),
+    # a play is not the verb
+    ("Toddler Stay and Play", "learning", "Stay after story time to play and meet other families.",
+     set(), {"theater"}),
+    ("Mah-Jongg Mondays Free Play", "learning", "Join us for American-style free play.",
+     set(), {"theater"}),
+    ('"Gloria" by Branden Jacobs-Jenkins', "learning", "A Play by Branden Jacobs-Jenkins.",
+     {"theater"}, set()),
+    ('Play reading: "Final Curtain"', "learning", "", {"theater"}, set()),
+    ("THE LONG PLAY – THE CURE", "music", "", {"music"}, {"theater"}),
+]
+gfails = []
+for name, cat, desc, must, must_not in DOOR_CASES:
+    p, e = derive_categories({"name": name, "category": cat, "description": desc})
+    doors = {p, *(e or [])}
+    ok = must <= doors and not (must_not & doors)
+    if not ok:
+        gfails.append(name)
+    print(f"{'ok ' if ok else 'FAIL'} {name[:44]:<46} -> {p:<10} + {sorted(e or [])}")
+print()
+print(f"{len(DOOR_CASES)-len(gfails)}/{len(DOOR_CASES)} passed")
+cfails += gfails
 sys.exit(1 if (fails or cfails or bfails or ifails) else 0)

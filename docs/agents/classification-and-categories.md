@@ -365,6 +365,123 @@
   In a random 40 of them read by hand there was no volunteering shift, and
   two recruitment sessions, one of which the orientation phrase now keeps. 11
   moved ON: teens earning community service hours, and "working bee" and
-  "bushcare", Australian for a work party, now in the title rule too. Rows
-  already stored keep their category until `mapsee_reclassify.py` revisits
-  them (dry run first).
+  "bushcare", Australian for a work party, now in the title rule too. The
+  backfill is the Wednesday refresh and NOT `mapsee_reclassify.py`, which
+  this note first said: reclassify starts from the STORED category, and for
+  these rows that is `volunteer`, so "Read to a Dog" recomputes to volunteer
+  from its stored row and to kids from its source's own key. The refresh
+  re-derives every row a source still returns from the source's key, and
+  `--skip-unchanged` rewrites a row whose category changed.
+
+- **THE 2026-09-28 CORPUS, AND WHAT A FIX HERE REACHES.** The notes below were
+  measured over 40,920 distinct listings (one per feed, title and description)
+  from 831 feeds: every ics and Events Calendar feed batches 1 and 2 added,
+  the weekly sweep's new ones, and a seeded 300 configured before them, each
+  run through its own adapter. Every changed listing was read. None of it
+  reaches a stored row until something re-derives it: the Wednesday refresh
+  does, for every row a source still returns (Thursday for the Monday and
+  Thursday extra sources). `mapsee_reclassify.py` can backfill a promotion and
+  a secondary, which it recomputes from the text, but never a primary that a
+  promotion put there, because the source's own key is not stored.
+
+- **A KIDS WORD IN A TITLE SAYS WHO IT IS FOR; IN A DESCRIPTION IT IS A PRICE,
+  so English got the title-only rule the other languages had.** Bare `kids`
+  was the biggest miss on the door: 153 distinct titles in 87 feeds reached no
+  kids layer ("STEAM for Kids", "Kids Café", Deschutes Land Trust's "Nature
+  Kids"), and neither did "Little Readers" (Jacksonville's commonest
+  programme), "Library Babies", "Tales for Twos and Threes", "Tiny Tots",
+  playgroups, or `family` with an activity. `_KIDS_TITLE_RX` reads titles
+  only, and never adds a secondary to a music, theater or party row, whose
+  title is a name. Nine of the 153 were wrong, eight of them talks FOR THE
+  PARENTS ("AI and Your Kids", "Parenting Kids in Turbulent Times"), a toy
+  drive or "Kids Eat Free", so `_ABOUT_KIDS_RX` withholds a title whose
+  children are its topic or its beneficiary, whatever rule fired, and it
+  took "Parenting Your Toddler" off the door too. Over the whole change 811
+  listings newly reach kids (646 distinct, 193 feeds), and 8 of the 646 are
+  wrong: the four description hits in the next note, a lecture ("Leave Them
+  Kids (and Retirees) Alone!"), a campus play and a youth orchestra whose
+  blurbs name teenagers, and the Acoma Family Dance Group, a troupe.
+  Not bare `little`, `young` or `junior`: Little Women, Young Frankenstein,
+  MLK Jr. Day and Young at Heart (a seniors' club) all scored.
+
+- **THE KIDS RULE HAD THE TRAILING-\b BUG TOO, and could not read the ages a
+  library writes.** `kids?\s+(?:...|activit)` could never match, because every
+  title goes on to "Activities" and the boundary refused the "i"; "Family
+  Movies" (16 listings), "Kids Crafts" and "Summer Reading Kickoff" missed the
+  same way. McKinney's LibCal writes "Baby & Me (0-10 Months)" and "Mad
+  Science (K-5th Grade)", Midlothian "for ages 2 to 3". A description reads
+  them too, where "a 1-2 year commitment", "runs 3-6 months" and "3-5 years
+  experience" are not ages, so a bare range counts only in parentheses or
+  when it says OLD, and "ages N-M" must end by 24: a working bee "for ages 5
+  to 95" put itself on the kids door. Of the 216 distinct titles that reached
+  kids through a description this way, 4 were wrong: a fathers' parenting
+  course, a volunteer session "for our children's programs", a notice that
+  children's programming is paused, and a college information table.
+
+- **A TITLE THAT SAID ADULTS STILL REACHED KIDS, THROUGH THE SECONDARY.** The
+  title guard `_NOT_FOR_KIDS_RX` was only ever asked by the primary, so
+  "LEGO for Adults", "Adult Story Time -- Ghost Stories" and "YA Book Club
+  for Adults" kept `kids` as a secondary off the words the guard had refused
+  to promote them on. 85 listings had such a title and reached kids; 25 were
+  for adults alone. The rest name a young audience in the same title ("Teen &
+  Adult Crochet Club", "Grown Ups & Me Halloween Storytime") and keep it
+  (`_KIDS_CO_AUDIENCE_RX`, which also knows that a library's "Young Adult" is a
+  teenager and that LA County's "Adult 101" is for teens). With the other
+  kids changes, 32 listings leave the door and 31 of them should.
+
+- **A SOURCE'S OWN `kids` IS NEVER DEMOTED BY A TITLE, so the default must not
+  be kids for a calendar that is not.** McKinney Public Library's John and
+  Judy Gay branch went in with batch 2 as `kids` ("mostly storytimes"), and 18
+  of its 49 listings said "(Adults)": genealogy office hours and a true-crime
+  book club on the kids door, as primary. It is `learning` like every other
+  library feed, and its children's rows reach kids by their own titles now
+  that the rule reads "(0-10 Months)" and "(6th-12th Grade)": 28 kids, 20
+  learning, 1 volunteer. The other 24 kids-filed feeds in the corpus carry at
+  most one adult title each.
+
+- **THE MARKET RULE COULD NOT SPELL "FARMER'S MARKET", NOR ANY PLURAL.**
+  `farmers?\s+market` refuses the apostrophe (19 listings in 7 feeds) and
+  "Farmers’ Market", and the trailing \b refuses "Community Markets" and
+  "Pre-Loved Markets". A market is also named for its day, hour or season
+  more often than for its goods: "Sunday Market" 14, "Mobile Produce Market"
+  15 (Columbus Recreation and Parks), "Christmas Market", "Moonlight Market",
+  and the reviewer's Community Plate "Community", "School" and "Sunday"
+  markets and food swaps. Never bare `market` (stock, job, housing; "Markets,
+  and Society"), never a season alone ("Spring Market Update" is a
+  realtor's), and German only in the compounds that scored, because
+  "Arbeitsmarktberatung" is job-market counselling. 116 listings newly reach
+  market (87 distinct, 56 feeds; reach 625 -> 739): 2 are wrong (an adults'
+  upcycling class citing "local thrift stores", a SNAP benefits table citing
+  "farmers markets") and about 6 are library pop-ups held at a market.
+
+- **A SHIFT AT AN EVENT IS NOT THE EVENT.** Tualatin Hills Park & Recreation's
+  volunteer calendar titles each shift by what it staffs ("Silent Disco Dance
+  at Tualatin Hills Nature Center", "Holiday Bazaar at Elsie Stuhr Center"),
+  and only the description says "Provide assistance setting up". 7 of its 26
+  rows went to the staffed event's door, a disco set-up crew to
+  bar.ventures. `_SHIFT_RX` withholds party, music, market, food, theater and
+  running from a volunteer PRIMARY whose description is shift work; outdoors,
+  kids, learning, community and fitness stay. Not on the event alone:
+  Seattle Parks Foundation files "Chocolate Sundays" under volunteer, and the
+  concert keeps music. In the corpus it changes exactly THPRD's 4 shifts.
+
+- **A PLAY IS NOT THE VERB, and the theater secondary was mostly toddlers.**
+  `_THEATER_RX` held a bare `play`, and the secondary reads descriptions: of
+  2,448 listings with theater as a secondary, 2,039 had it on "play" alone -
+  "Stay & Play", "play board games", "Mah-Jongg Mondays Free Play" - and a
+  sample of 45 held no stage play. Only "a/the/new play", "play reading" and
+  their like count now: 24 of the 2,039 still match, 23 of them plays, films
+  "based on a play" or theatre, one a storytime's "stay for the play!". The
+  theater layer loses 2,016 listings, and "THE LONG PLAY - THE CURE", an
+  album listening session, stops being a stage show.
+
+- **THE CLASSIFIER READ THE RAW TITLE, ENTITIES AND ALL.** `_clean_text`
+  decodes HTML entities on the way into the table, but the rules ran before
+  it, so "Kitsilano Farmer&#39;s Market" and "Kids&#39; Club" missed rules
+  whose apostrophe the map was showing. 293 of the 40,920 titles carried one,
+  in 25 feeds, Trumba nearly all of them. `_classifiable` decodes a copy
+  first. Not the same as 3,692 listings in 58 feeds, nearly all openagenda.com,
+  whose text is UTF-8 read as Latin-1 (the "é" of "Numériques" arrives as
+  U+00C3 U+00A9): that is the ics adapter taking `resp.text` from a
+  `text/calendar` with no charset, and fixing it changes every one of those
+  rows' fingerprints.

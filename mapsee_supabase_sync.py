@@ -130,10 +130,24 @@ def _volunteer_hit(rec: Dict[str, Any]) -> bool:
 # the 'theater' layer. Kept tight (e.g. "comedy night/show", not a bare "comedy"
 # that could be a band name) so a real concert is never miscast, and only from
 # music/other — a strong existing category (sports, food…) is left alone.
+# A PLAY IS NOT THE VERB. Bare `play` sat in this rule, and the theater
+# SECONDARY reads descriptions, where the word is what children and mahjong
+# players do: of the 2,448 listings in the 2026-09-28 corpus (40,920 distinct
+# listings from 831 community and library feeds) that carried theater as a
+# secondary, 2,039 carried it on a bare "play" alone - "Stay & Play", "play
+# board games", "Toddler Play Time", "Mah-Jongg Mondays Free Play" - and a
+# sample of 45 held no stage play at all. Only the phrases that make it a
+# work count now: "a play", "the play", "a new play", "play reading". Of the
+# 2,039, 24 still match: "Gloria" by Branden Jacobs-Jenkins, a campus
+# premiere, a play reading, films "based on a play" - and one toddler
+# storytime's "stay for the play!".
 _THEATER_RX = re.compile(
     r"\b(stand[\s-]?up|comedy\s+(?:night|show|hour|special|showcase)|open\s+mic\s+comedy|"
     r"improv|sketch\s+comedy|burlesque|drag\s+(?:show|brunch|bingo|race)|"
-    r"film\s+screening|movie\s+night|screening\s+of|\bplay(?:\s+reading)?\b|"
+    r"film\s+screening|movie\s+night|screening\s+of|play\s+readings?|"
+    r"(?:a|the|new|this|one[\s-]act|stage|staged|original|award[\s-]winning)\s+play(?![/-])"
+    r"(?!\s*(?:dates?|groups?|time|ground|room|area|space|days?|dough|ball|card|house|pen|mat|"
+    r"kitchen|centre|center|equipment|based))|"
     r"broadway|matinee|one[\s-]?(?:wo)?man\s+show)\b", re.I)
 _PROMOTABLE_TO_THEATER = {"music", "other"}
 
@@ -197,16 +211,26 @@ _PROMOTABLE_TO_PARTY = {"community", "food", "other"}
 # Zero real children's ranges were lost to the bound, because a library writes
 # "ages 4-18" and "grades K-2" and never "ages 30-46". The reported one was
 # "Seattle Gay Online Speed Dating", on plansie's kids layer.
+#
+# PLURALS AND SUFFIXES, SPELLED OUT: the group's trailing \b is the bug the
+# outdoors and fitness rules already record, and it had bitten here too.
+# `activit` could never match anything, because every real title goes on to
+# "Activities" and the boundary refused the "i"; "Family Movies", "Kids Crafts"
+# and "Summer Reading Kickoff" missed the same way. Counted 2026-09-28 over
+# 40,920 distinct listings from 831 feeds: "Family Movies" alone was 16 of them.
 _KIDS_RX = re.compile(
-    r"\b(story\s?time|"
-    r"family\s+(?:day|fun|friendly|workshop|concert|steam|stem|storytime|movie|game|craft|night|hour)|"
-    r"kids?\s+(?:club|craft|workshop|class|hour|day|camp|activit)|"
-    r"children'?s?\s+(?:workshop|hour|program|craft|story|activit)|"
-    r"toddler|preschool|pre[\s-]?k\b|baby\s+(?:time|rhyme|song)|rhyme\s?time|"
-    r"puppet\s+show|petting\s+zoo|face\s+painting|egg\s+hunt|"
-    r"lego\s+(?:club|build)|youth\s+(?:program|workshop|club)|"
-    r"t(?:w)?eens?|teenager|"
-    r"(?:baby|babies)\s+(?:bounce|lap\s?sit|steps|play|sign|and\s+me)|bouncing\s+babies|"
+    r"\b(story\s?times?|"
+    r"family\s+(?:days?|fun|friendly|workshops?|concerts?|steam|stem|storytimes?|movies?|games?|"
+    r"crafts?|nights?|hours?)|"
+    r"kids?\s+(?:clubs?|crafts?|workshops?|class(?:es)?|hours?|days?|camps?|activit(?:y|ies))|"
+    r"children'?s?\s+(?:workshops?|hours?|programs?|programmes?|crafts?|stor(?:y|ies)|activit(?:y|ies))|"
+    r"toddlers?|preschool(?:ers?)?|pre[\s-]?k\b|baby\s+(?:time|rhymes?|songs?)|rhyme\s?time|"
+    r"puppet\s+shows?|petting\s+zoo|face\s+painting|egg\s+hunts?|"
+    r"lego\s+(?:club|build)|youth\s+(?:programs?|workshops?|clubs?)|"
+    r"t(?:w)?eens?|teenagers?|"
+    r"(?:baby|babies)\s+(?:bounce|lap\s?sit|steps|play|sign)|"
+    r"(?:baby|babies|toddlers?|grown[\s-]?ups?|caregivers?|parents?|dads?|moms?|mums?)\s*(?:and|&|\+|n['’]?)\s*me|"
+    r"bouncing\s+babies|"
     r"lego|duplo|brick\s+(?:club|build|night)|"
     r"read\s+(?:to|with)\s+(?:a\s+|the\s+)?(?:dog|therapy\s+dog|teen)|"
     r"minecraft|pok[eé]mon|anime\s+club|"
@@ -224,8 +248,25 @@ _KIDS_RX = re.compile(
     r"playgroup|play|music|swim|sensory|support|feeding|rhyme|sign)|"
     r"youth\s+(?:crew|group|night|craft|art|writing|hangout)|"
     r"sensory\s+(?:play|story)|messy\s+play|tummy\s+time|"
-    r"summer\s+reading\s+(?:kick|program|club)|"
-    r"ages?\s+(?:1[0-7]|\d)\s*[-–]\s*\d{1,2}|grades?\s+[kK0-9])\b", re.I)
+    r"summer\s+reading\s+(?:kick[\s-]?off|programs?|club)|"
+    # HOW A LIBRARY STATES THE AGE IN A TITLE, beyond "ages 4-8": McKinney's
+    # LibCal writes "Baby & Me (0-10 Months)", "Mad Science (K-5th Grade)",
+    # "Art Challenge (6th-12th Grade)"; Midlothian "for ages 2 to 3" and
+    # "2- to 5-year-olds". This rule reads descriptions too, where "a 1-2 year
+    # commitment", "3-6 months" and "payment over up to 12 months" are not
+    # ages, so a bare range counts only in parentheses or when it says OLD: a
+    # range from birth or 0, or one in months that ends in years, is always an
+    # age. Years must start by 12 and end by 18, as _KIDS_INTL_RX draws it,
+    # and "ages N-M" must end by 24: a working bee "for ages 5 to 95" is
+    # everyone's.
+    r"ages?\s+(?:1[0-7]|\d)\s*(?:[-–]|to)\s*(?:1\d|2[0-4]|\d)(?!\d)|grades?\s+[kK0-9]|"
+    r"(?:k|pre-?k|\d{1,2}(?:st|nd|rd|th)?)\s*(?:[-–]|to|through)\s*\d{1,2}(?:st|nd|rd|th)?\s+grades?|"
+    r"(?:birth|newborns?|0)\s*(?:[-–]|to|through)\s*\d{1,2}\s*(?:months?|mos?|years?|yrs?)|"
+    r"\d{1,2}\s*(?:months?|mos?)\s*(?:[-–]|to|through)\s*\d{1,2}\s*(?:years?|yrs?)|"
+    r"(?<=\()\d{1,2}\s*(?:months?|mos?)?\s*(?:[-–]|to)\s*\d{1,2}\s*(?:months?|mos?)(?=\s*\))|"
+    r"(?<=\()(?:1[0-2]|\d)\s*(?:[-–]|to)\s*(?:1[0-8]|\d)\s*(?:years?|yrs?)(?=\s*\))|"
+    r"(?:infants?|babies|children|kids)\s+(?:\w+\s+)?up\s+to\s+\d{1,2}\s+months|"
+    r"(?:1[0-2]|\d)\s*(?:[-–]\s*(?:to\s*)?|to\s+)(?:1[0-8]|\d)[\s-]*(?:years?|yrs?)[\s-]*olds?)\b", re.I)
 
 # The same widening that catches "LEGO in the Library" catches "Adult LEGO®
 # Club", which is a real listing on a real library calendar — libraries run the
@@ -353,6 +394,93 @@ _ADULTS_ONLY_RX = re.compile(
     r"\bover[\s-](?:18|21)s?\b|\bno\s+(?:one\s+)?under\s+(?:18|21)\b|\bno\s+minors\b|"
     r"\bspeed\s+dating\b|\bsingles?\s+(?:night|mixer|event|party|social|meetup)\b", re.I)
 
+# ENGLISH WORDS THAT NAME A CHILDREN'S AUDIENCE ONLY WHEN THEY ARE IN A TITLE,
+# the same reasoning as _KIDS_INTL_RX: in a description "kids" is a price ("kids
+# under 12 free") or who else may come, and in a title it is who the event is
+# for. Read over 40,920 distinct listings from 831 community and library feeds
+# (2026-09-28), every term below scored and every hit was read:
+#   - bare `kids` was the biggest single miss: 153 distinct titles in 87 feeds
+#     reached no kids door ("STEAM for Kids", "Kids Café", "Ukulele for Kids",
+#     Deschutes Land Trust's "Nature Kids"). 9 were wrong, and 8 of those are
+#     talks for the PARENTS ("AI and Your Kids", "Parenting Kids in Turbulent
+#     Times"), a toy drive or "Kids Eat Free", which _ABOUT_KIDS_RX withholds;
+#     the ninth is a lecture, "Leave Them Kids (and Retirees) Alone!". Not the
+#     singular: `kid` is Kid Rock, The Karate Kid and Ugly Kid Joe;
+#   - a `little`, `mini`, `young` or `junior` word only with the noun that
+#     makes it a children's programme: "Little Explorers" 20, "Little Learners"
+#     15, "Mini Makers" 7, "Junior Scientists". Not bare: Little Women, Little
+#     Shop of Horrors, Little Falls, Young Frankenstein, MLK Jr. Day, Young at
+#     Heart (a seniors' club), the Junior Women's Club;
+#   - babies with a library's word for them ("Book Babies", "Library Babies",
+#     "Books and Babies"), tots and tykes, playgroups and playdates, "Tales for
+#     Twos and Threes";
+#   - `family` with an activity, never alone: "Family Art Lab", "Family Dance
+#     Party", "Family Sunday", while "Family History", "Family Law" and "The
+#     Family Stone" are not for children - nor a university's "Family Weekend",
+#     which is the students' parents, nor "Writing Family Stories".
+# Never from a performance primary - see _NO_KIDS_TITLE_SECONDARY_FROM.
+_KIDS_TITLE_RX = re.compile(
+    r"\b(?:kids|kid['’]s|kids['’])(?![\w'’])|"
+    r"\bfor\s+(?:young\s+)?families\b|"
+    r"\blittle\s+(?:(?:nature|history|art|science|music|lego)\s+)?(?:ones|hands|sprouts?|explorers?|"
+    r"learners?|readers?|creators?|makers?|artists?|scientists?|listeners?|builders?|crafters?|"
+    r"cooks?|chefs?|movers?|lifeguards?|lifesavers?|brushes|stompers)\b|"
+    r"\bmini\s+(?:makers?|painters?|chefs?|scientists?|explorers?)\b|"
+    r"\byoung\s+(?:explorers?|scientists?|children|audiences?|artists?|readers?|learners?|makers?|"
+    r"naturalists?)\b|"
+    r"\b(?:junior|jr\.?)\s+(?:book\s+club|police|explorers?|artists?|scientists?|steam|stem|kitchen|"
+    r"chefs?|rangers?|naturalists?|robotics|makers?)\b|"
+    r"\b(?:books?|library|lap|rhyme|music|sign(?:ing)?|story|parents?|mums?|moms?|mothers?)\s*"
+    r"(?:(?:and|&|\+|with|for)\s*)?babies\b|\bfor\s+babies\b|"
+    r"(?<!tater\s)\b(?:tiny\s+)?(?:tots|tykes)\b|"
+    r"\bplay\s?groups?\b|\bplay\s?dates?\b|"
+    r"\btwos\s*(?:&|and|\+|n)\s*threes\b|\b(?:for|with)\s+twos\b|\bterrific\s+twos\b|"
+    r"\bstroller\s+(?:walks?|strides?|derby|tours?)\b|"
+    r"\bfamily\s+(?:art|arts|dance|festival|fest|music|literacy|sundays?|saturdays?|fridays?|"
+    r"colou?ring|yoga|films?|puzzles?|chess|nature|science|makerspace|board\s+games?|picnic|"
+    r"story\s+hours?|books?|zines?|bingo|trivia|skate|swim|hikes?|walks?|campout|"
+    r"paint\w*|pottery|cooking|lego|tours?|drop[\s-]?in|programs?|programmes?|play|playtime)\b",
+    re.I)
+
+# A band called "Retro Kids" and a play called "The Kids Are Alright" are names,
+# the rule _NO_FITNESS_SECONDARY_FROM applies to "The Rowing Club".
+_NO_KIDS_TITLE_SECONDARY_FROM = {"music", "theater", "party"}
+
+# A TALK FOR THE PARENTS NAMES THE CHILDREN, and every kids word then fires on
+# it. "Parenting Your Toddler" was PROMOTED to kids by `toddler`; with bare
+# `kids` added, "AI and Your Kids: An Open Conversation", "Parenting Kids in
+# Turbulent Times" and "How to Launch Financially Independent Kids" would have
+# followed, and so would "Firefighters for Kids Toy Drive", where the children
+# are who the toys are FOR. Only phrases that make the children the topic or
+# the beneficiary, so "Storytime with Your Toddler" is untouched. Checked with
+# the title guard, and like it only ever withholds.
+_ABOUT_KIDS_RX = re.compile(
+    r"\b(?:parenting|raising|teaching|helping|launch\w*|protecting|supporting|talking\s+(?:to|with))\s+"
+    r"(?:\w+\s+){0,2}(?:kids|children|child|teens?|tweens?|toddlers?|famil(?:y|ies))\b|"
+    r"\b(?:and|&)\s+your\s+(?:kids|children|child|teens?|tweens?)\b|"
+    r"\bparents?\s+of\s+(?:\w+\s+){0,3}(?:kids|children|teens?|tweens?)\b|"
+    r"\bparent\s+caf[eé]\b|\bnot\s+just\s+for\s+kids\b|\bkids\s+eat\s+free\b|"
+    r"\b(?:toy|coat|book|food|supply|school\s+supplies|diaper|clothing)\s+drive\b|"
+    # and a title that says the children are NOT coming: "Brunch Club (no
+    # kids!)", "Kids-Free Night Out". Here and not in the title guard, because
+    # the co-audience exception below would read the word "kids" as a child.
+    r"\bno\s+kids\b|\bkids?[\s-]free\b|\bwithout\s+(?:the\s+|your\s+)?kids\b|\bchild[\s-]?free\b", re.I)
+
+# THE TITLE GUARD WAS ONLY EVER ASKED ABOUT THE PRIMARY, so "LEGO for Adults",
+# "Adult Story Time -- Ghost Stories" and "Adults Read YA Book Club" kept `kids`
+# as a SECONDARY off the very words the guard had refused to promote them on.
+# Of the 85 listings in the 2026-09-28 corpus whose title says adult, senior
+# or grown-up and still reached kids, 25 were for adults alone; the rest also
+# named a young audience in the same title - "Teen & Adult Crochet Club",
+# "Grown Ups & Me Halloween Storytime", "Fun soccer for seniors and kids" -
+# and those keep it. "Adult 101" is LA County's life-skills series for teens,
+# "Young Adult" is a library's word for them, and "Donuts with Grown Ups Story
+# Time" brings the child.
+_KIDS_CO_AUDIENCE_RX = re.compile(
+    r"\b(?:kids?|children|child|teens?|tweens?|youth|famil(?:y|ies)|toddlers?|bab(?:y|ies)|"
+    r"preschool\w*|grades?|ages?\s+\d|adult(?:ing)?\s+101|young\s+adults?|"
+    r"with\s+(?:your\s+|a\s+|their\s+)?grown[\s-]?ups?)\b|(?:&|\band)\s*me\b", re.I)
+
 _PROMOTABLE_TO_KIDS = {"community", "learning", "arts", "outdoors", "other"}
 
 
@@ -457,24 +585,50 @@ _SECONDARY_RX = [
     # exactly one thing, and Flohmarkt is a COMPOUND — Garagenflohmarkt,
     # Frauenflohmarkt, Musik-Flohmarkt are all real live titles — so it must
     # match as a suffix, which is why it carries no leading \b.
+    #
+    # THE COMMONEST SPELLING OF THE COMMONEST MARKET COULD NOT MATCH, and nor
+    # could any plural. `farmers?\s+market` refuses "Farmer's Market" (19
+    # listings in 7 feeds of the 2026-09-28 corpus, 40,920 distinct listings
+    # from 831 feeds) and "Farmers’ Market", and the trailing \b refuses
+    # "Community Markets" and "Pre-Loved Markets" — the plural bug the kids,
+    # outdoors and fitness rules record. A market is also named for its DAY,
+    # its HOUR or its SEASON far more often than for what it sells: "Sunday
+    # Market" 14, "Produce Market" 15, "Community Market", "Christmas Market",
+    # "Twilight Market". Business words are why none of this is bare `market`:
+    # stock, job, housing, "Recommendation Algorithms, Markets, and Society",
+    # and "Arbeitsmarktberatung" is job-market counselling, so German takes the
+    # compounds that scored (Weihnachtsmarkt, Kunsthandwerkerinnenmarkt,
+    # Nostalgiemarkt, Abendmarkt) and French takes marché only with the word
+    # that makes it one ("marché aux puces", "marché des producteurs"). The
+    # seasons ride only on a noun that sells: "Spring Market Update" is a
+    # realtor's, and no qualifier survives "research", "trends" or "update"
+    # after it ("Art Market Trends" is a gallery talk). "Food Swap" is
+    # Community Plate's produce swap, the swap fleabop is for.
     ("market", _MARKET_RX := re.compile(
-        r"(\b(flea\s+market|farmers?\s+market|night\s+market|craft\s+fair|"
-        r"makers?\s+market|artisan\s+market|vintage\s+(?:market|fair|sale|show|pop[\s-]?up)|"
-        r"swap\s+meet|clothing\s+swap|rummage\s+sale|estate\s+sale|holiday\s+market|"
-        r"bazaar|street\s+fair|pop[\s-]?up\s+shop|craft\s+market|record\s+fair|"
+        r"(\b(flea\s+markets?|farmers?['’]?s?\s+markets?|night\s+markets?|craft\s+fairs?|"
+        r"makers?['’]?\s+markets?|artisans?['’]?\s+markets?|vintage\s+(?:markets?|fairs?|sales?|shows?|pop[\s-]?ups?)|"
+        r"swap\s+meets?|clothing\s+swaps?|rummage\s+sales?|estate\s+sales?|holiday\s+markets?|"
+        r"bazaars?|street\s+fairs?|pop[\s-]?up\s+shops?|craft\s+markets?|record\s+fairs?|"
+        r"(?:sunday|saturday|friday|thursday|wednesday|tuesday|monday|weekend|twilight|moonlight|"
+        r"evening|midnight|morning|christmas|xmas|festive|halloween|harvest|produce|farm|growers['’]?|"
+        r"producers['’]?|flower|plant|art|arts|artists['’]?|gift|community|village|street|"
+        r"pre[\s-]?loved|preloved|mobile|merry|school)\s+markets?"
+        r"(?!\s+(?:research|analysis|updates?|reports?|trends?|values?|insights?|outlook|data|share))|"
         # second-hand, thrift and reuse
-        r"thrift\s+(?:store|shop|market|sale|fair|society|pop[\s-]?up)|thrifting|"
+        r"thrift\s+(?:stores?|shops?|markets?|sales?|fairs?|society|pop[\s-]?ups?)|thrifting|"
         r"thrift\s*(?:&|and)\s*vintage|"
-        r"second[\s-]?hand\s+(?:market|shop|sale|fair)|"
-        r"antiques?\s+(?:market|fair|show|mall|sale)|antiquing|"
-        r"(?:car\s+)?boot\s+sale|jumble\s+sale|garage\s+sale|yard\s+sale|"
-        r"charity\s+shop|op\s+shop|consignment\s+sale|"
-        r"(?:book|toy|plant|seed|clothes|clothing|kit)\s+swap|swap\s+shop|"
-        r"repair\s+caf[eé]|upcycling\s+(?:market|fair)|"
-        r"record\s+swap|vinyl\s+fair|car\s+boot)\b|"
+        r"second[\s-]?hand\s+(?:markets?|shops?|sales?|fairs?)|"
+        r"antiques?\s+(?:markets?|fairs?|shows?|malls?|sales?)|antiquing|"
+        r"(?:car\s+)?boot\s+sales?|jumble\s+sales?|garage\s+sales?|yard\s+sales?|"
+        r"charity\s+shops?|op\s+shops?|consignment\s+sales?|"
+        r"(?:book|toy|plant|seed|clothes|clothing|kit|food)\s+swaps?|swap\s+shops?|"
+        r"repair\s+caf[eé]s?|upcycling\s+(?:markets?|fairs?)|"
+        r"record\s+swaps?|vinyl\s+fairs?|car\s+boot)\b|"
         # Loanwords: unambiguous in their own language, and Flohmarkt/Trodelmarkt
         # compound freely, so no leading word boundary on those two.
         r"flohmarkt|tr[oö]delmarkt|tauschb[oö]rse|"
+        r"\b(?:weihnachts|kunsthandwerk(?:er(?:innen)?)?|nostalgie|abend|cadeau)[\s-]?markt|"
+        r"\bjule?marked\b|\bmarch[ée]s?\s+(?:aux\s+puces|des?\s+producteurs|d['’]artistes|du\s+village)\b|"
         r"\b(brocante|vide[\s-]?greniers?|mercadillo|rastro|rommelmarkt|"
         r"loppis|kirpputori|mercatino|feira\s+da\s+ladra|pchli\s+targ)\b)", re.I)),
     # BRUNCH WAS MISSING, and it is the single commonest food word on the map.
@@ -627,6 +781,26 @@ _SECONDARY_RX = [
 # only false positive the fitness rule produced across the test corpus.)
 _NO_FITNESS_SECONDARY_FROM = {"music", "theater"}
 
+# A SHIFT AT AN EVENT IS NOT THE EVENT. Tualatin Hills Park & Recreation's
+# volunteer calendar titles each shift by the event it staffs - "Silent Disco
+# Dance at Tualatin Hills Nature Center", "Holiday Bazaar at Elsie Stuhr
+# Center" - and only the description says "Volunteer at this fun,
+# family-oriented event! Provide assistance setting up". The keyword rules then
+# sent 7 of its 26 rows to the event's door: the disco to bar.ventures, a 07:00
+# bazaar set-up shift to fleabop. So a volunteer PRIMARY whose description is
+# shift work keeps no door a guest would choose it from. Not when the text is
+# only the event: Seattle Parks Foundation files "Chocolate Sundays at Be'er
+# Sheva Park" under volunteer too, and the concert is what reaches vivosie.
+# Outdoors, kids, learning, community and fitness stay - a trail work party is
+# outdoors, a teen volunteer club is for teens.
+_SHIFT_RX = re.compile(
+    r"\b(?:set(?:ting)?[\s-]?up\s+(?:for|the|and)|tear(?:ing)?[\s-]?down|clean(?:ing)?[\s-]?up\s+after|"
+    r"provide\s+assistance|(?:help|assist)\s+(?:us\s+)?(?:run|staff)\b|"
+    r"volunteer\s+(?:at|for|with|during)\s+(?:this|the|our)\s+(?:\w+[\s,-]+){0,3}(?:event|festival|fair|"
+    r"race|tournament|parade|bazaar|dance|concert|party|celebration|market|show)|"
+    r"volunteer\s+shifts?|ushers?|course\s+marshals?|greeters?|parking\s+attendants?)\b", re.I)
+_GUEST_KEYS = {"party", "music", "market", "food", "theater", "running"}
+
 MAX_EXTRA_CATEGORIES = 2          # DB CHECK allows 2 (migration 0108) => 3 total
 _DESC_SCAN_CHARS = 600            # enough for the real blurb, short of the boilerplate
                                   # footer ("parking info", "our sponsors") that
@@ -691,9 +865,26 @@ def _base_category(rec: Dict[str, Any]) -> str:
     return raw if raw in MAPSEE_CATEGORY_KEYS else CATEGORY_KEYS.get(raw, DEFAULT_CATEGORY_KEY)
 
 
+def _classifiable(rec: Dict[str, Any]) -> Dict[str, Any]:
+    """The record as the rules must read it: HTML entities decoded.
+
+    _clean_text decodes them on the way INTO the table, but the rules ran on the
+    raw record, so the map showed "Kitsilano Farmer's Market" while the
+    classifier read "Farmer&#39;s Market", and every rule with an apostrophe or
+    an ampersand in it ("Kids' Club", "Craft & Country Fair", "thrift &
+    vintage") missed. 293 of 40,920 distinct listings from 831 feeds carried one
+    in the title on 2026-09-28, 25 feeds, Trumba nearly all of them. A copy, so
+    the row that is written keeps going through _clean_text as before."""
+    name, desc = rec.get("name") or "", rec.get("description") or ""
+    if "&" not in name and "&" not in desc:
+        return rec
+    return dict(rec, name=html.unescape(name), description=html.unescape(desc))
+
+
 def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
     """(primary, secondaries) for one record. Secondaries is None, never [], so
     the column stays NULL — 0108's CHECK rejects an empty array."""
+    rec = _classifiable(rec)
     base = _base_category(rec)
     primary = map_category(rec)
 
@@ -746,6 +937,10 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
         # and the shape recurs every time a venue names a night after a lyric.
         if key == "market" and _NOT_A_MARKET_RX.search(text):
             continue
+        # A volunteer shift keeps no door a guest would choose it from - see
+        # _SHIFT_RX for the Silent Disco set-up crew that reached bar.ventures.
+        if key in _GUEST_KEYS and primary == "volunteer" and _SHIFT_RX.search(text):
+            continue
         # THE KIDS GUARD WAS ONLY EVER ASKED ABOUT THE PRIMARY, and the primary
         # is the path that reads titles. This one reads descriptions, so it is
         # the path an adults' listing actually arrives down: "Seattle Gay Online
@@ -757,9 +952,22 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
         # event off a layer it already has.
         if key == "kids" and _ADULTS_ONLY_RX.search(text):
             continue
+        # And the title guard itself, which only the primary ever asked: see
+        # _KIDS_CO_AUDIENCE_RX for "LEGO for Adults" and "Teen & Adult Crochet".
+        # A talk for the parents is withheld whatever else it names, because
+        # its topic IS the children.
+        if key == "kids" and (_ABOUT_KIDS_RX.search(title)
+                              or (_NOT_FOR_KIDS_RX.search(title)
+                                  and not _KIDS_CO_AUDIENCE_RX.search(title))):
+            continue
         # The non-English kids words read the TITLE only (see _KIDS_INTL_RX:
         # in a description they are ticket prices), under the title guard.
         if key == "kids" and _KIDS_INTL_RX.search(title) and not _NOT_FOR_KIDS_RX.search(title):
+            add(key)
+            continue
+        # So do the English ones in _KIDS_TITLE_RX, and never from a bill.
+        if key == "kids" and _KIDS_TITLE_RX.search(title) \
+                and primary not in _NO_KIDS_TITLE_SECONDARY_FROM:
             add(key)
             continue
         # The same predicate as the primary: a description that names a
@@ -845,10 +1053,11 @@ def _refused_sweep_guess(rec: Dict[str, Any], key: str) -> bool:
         return not _MARKET_RX.search(text)
     if key == "kids":
         title = _strip_urls(rec.get("name") or "")
-        if _NOT_FOR_KIDS_RX.search(title) or _ADULTS_ONLY_RX.search(text):
+        if _NOT_FOR_KIDS_RX.search(title) or _ABOUT_KIDS_RX.search(title) \
+                or _ADULTS_ONLY_RX.search(text):
             return True
         return not (_KIDS_RX.search(text) or _KIDS_BACKING_RX.search(text)
-                    or _KIDS_INTL_RX.search(title))
+                    or _KIDS_INTL_RX.search(title) or _KIDS_TITLE_RX.search(title))
     return False
 
 
@@ -860,6 +1069,7 @@ def map_category(rec: Dict[str, Any]) -> str:
 
     Still the PRIMARY-only answer: the pin colour, the emoji and _compute_end all
     need exactly one key. derive_categories() wraps this for the full set."""
+    rec = _classifiable(rec)
     raw = (rec.get("category") or "").strip().lower()
     key = raw if raw in MAPSEE_CATEGORY_KEYS else CATEGORY_KEYS.get(raw, DEFAULT_CATEGORY_KEY)
     # A FUZZY SEARCH'S KEYWORD IS NOT A CLASSIFICATION. Meetup's eventSearch is
@@ -901,8 +1111,10 @@ def map_category(rec: Dict[str, Any]) -> str:
     # description half — see its note for the price table that proves the
     # difference.
     if key in _PROMOTABLE_TO_KIDS \
-            and (_KIDS_RX.search(rec.get("name") or "") or _KIDS_INTL_RX.search(rec.get("name") or "")) \
+            and (_KIDS_RX.search(rec.get("name") or "") or _KIDS_INTL_RX.search(rec.get("name") or "")
+                 or _KIDS_TITLE_RX.search(rec.get("name") or "")) \
             and not _NOT_FOR_KIDS_RX.search(rec.get("name") or "") \
+            and not _ABOUT_KIDS_RX.search(rec.get("name") or "") \
             and not _ADULTS_ONLY_RX.search(_classify_text(rec, _DESC_SCAN_CHARS)):
         return "kids"              # storytime/family day hiding in community/learning
     if key in _PROMOTABLE_TO_PARTY and _PARTY_RX.search(rec.get("name") or ""):

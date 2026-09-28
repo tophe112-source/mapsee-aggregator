@@ -1,9 +1,10 @@
 # Backfill a classifier fix onto rows already in the table.
 #
-# A classifier change only reaches events ingested AFTER it: --only-new means a
-# scheduled run can only ADD, and Wednesday's full refresh re-reads the SOURCES,
-# not our rules. So a fix to map_category corrects the future and leaves the past
-# exactly as it was. This is how the past gets corrected.
+# Most of a fix needs nothing from here: Wednesday's full refresh rebuilds every
+# row a source still returns under today's rules, and --skip-unchanged rewrites
+# the ones whose category changed. This is for the rest, rows no source returns
+# any more, and it starts from the STORED category: it can promote and rewrite
+# secondaries, never take a promotion back. See mapsee_reclassify.py.
 #
 # MANUAL ONLY. No schedule, deliberately. Re-running the classifier over live
 # rows replays every rule ever written against rows that predate all of them, so

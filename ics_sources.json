@@ -17918,12 +17918,12 @@
   {
     "name": "McKinney Public Library - John and Judy Gay (Dallas)",
     "url": "https://mckinneytexas.libcal.com/ical_subscribe.php?cid=17826",
-    "category": "kids",
+    "category": "learning",
     "geocode_suffix": ", John and Judy Gay Library, McKinney, TX",
     "limit": 300,
     "crawl_delay": 10,
     "_metro": "Dallas, United States",
-    "_note": "LibCal calendar of the John and Judy Gay branch (cid from the calendar picker). robots.txt '*': Crawl-delay 10. Mostly storytimes and kids' clubs; LOCATION is 'JJG - room', so the suffix names the building."
+    "_note": "LibCal calendar of the John and Judy Gay branch (cid from the calendar picker). robots.txt '*': Crawl-delay 10. LOCATION is 'JJG - room', so the suffix names the building. Filed learning, not kids: 18 of its 49 listings on 2026-09-28 said '(Adults)' in the title, and the children's ones ('Baby & Me (0-10 Months)', 'Mad Science (K-5th Grade)') reach kids by their own titles."
   },
   {
     "name": "Campbell County Public Library (Cincinnati)",
