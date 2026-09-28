@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 291 of them — live in
+session.** The measured notes about what bites — 292 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
