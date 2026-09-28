@@ -60,6 +60,23 @@ the failing evidence before spending another broad investigation.
   it omits the generated INDEX duplicate. The portable check walks capped
   pages to exhaustion and verifies that no result disappears or repeats.
   This reduces retrieval volume without changing, executing or squashing SQL.
+- **A patch left in a cloud session's container reaches nobody: no other
+  session can see it, and the container does not outlive the session.** On
+  2026-09-28 a session that could push to ../mapsee but not to this repo
+  finished three commits here (the free museum days: `program_sources.json`,
+  `mapsee_ingest_programs.py`) and left them as `museum-free-days.patch` in
+  its container, with `git am` steps for the user. The session started two
+  hours later to run those steps had the push access and not the file, which
+  was in no branch of either repo and no artifact. A request relayed from the
+  new session was refused by the old one's safety check, so it took the user
+  going back to the old session, and a temporary branch on ../mapsee carrying
+  the 1,397-line patch: 20 minutes from the ask to the file, and a branch the
+  new session was then not allowed to delete. The commits applied cleanly and
+  passed all 52 gate scripts; only the hand-off failed. So the deliverable is
+  a PUSHED branch, never a file in the container. A session that cannot push
+  to the repo its work belongs to says so BEFORE writing the work, so the user
+  can attach that repo; if a patch is unavoidable, push it to a branch of a
+  repo the session can push to and name that branch in the handoff.
 
 The lead reads the actual diff against the stated base and checks the caller,
 data contract, error path and tests. Green tests alone are insufficient: verify
