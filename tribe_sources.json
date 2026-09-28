@@ -12791,6 +12791,67 @@
         "lon": 140.7325481
       },
       "_metro": "Sendai, Japan"
+    },
+    {
+      "name": "Biblioteca Central Irmão José Otão",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://biblioteca.pucrs.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Biblioteca Central Irmão José Otão",
+        "address": "6681 Avenida Ipiranga",
+        "city": "Porto Alegre",
+        "postal_code": "90619-900",
+        "lat": -30.0586384,
+        "lon": -51.1733721
+      },
+      "_metro": "Porto Alegre, Brazil"
+    },
+    {
+      "name": "Iate Clube Guaíba",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://iateclubeguaiba.com.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Iate Clube Guaíba",
+        "address": "95 Avenida Guaíba",
+        "postal_code": "91760-740",
+        "lat": -30.0944092,
+        "lon": -51.2515988
+      },
+      "_metro": "Porto Alegre, Brazil"
+    },
+    {
+      "name": "Bangalore International Centre - BIC",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://bangaloreinternationalcentre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bangalore International Centre - BIC",
+        "lat": 12.9668485,
+        "lon": 77.6352863
+      },
+      "_metro": "Bengaluru, India"
+    },
+    {
+      "name": "Mandala Cultural Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://mandalabengaluru.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mandala Cultural Center",
+        "lat": 12.8633219,
+        "lon": 77.5301259
+      },
+      "_metro": "Bengaluru, India"
     }
   ],
   "_not_included": {

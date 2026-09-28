@@ -215,10 +215,10 @@
   }
  },
  "osm|community_centre,library": {
-  "metro": 73,
-  "metro_key": "BR:Bras\u00edlia",
+  "metro": 97,
+  "metro_key": "NZ:Wellington",
   "stuck": {
-   "BR:Bras\u00edlia": 2
+   "NZ:Wellington": 1
   }
  },
  "socrata": {
