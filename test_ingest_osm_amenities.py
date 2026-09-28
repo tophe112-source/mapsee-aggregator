@@ -281,6 +281,58 @@ def main():
     checks.append((tauto.pin_only is True and "🏛" not in tauto.description,
                    "...so a row whose ONLY fact was that tautology is scenery again"))
 
+    # Contact details are public facts only when their raw values are safe to
+    # put in a detail line. Venue hire links must be explicit OSM tags: never
+    # infer a booking path from the ordinary website or a yes/no reservation flag.
+    def lines(tags):
+        return A.useful_lines(tags, A.kind_of(tags), None)
+
+    email = lines({"amenity": "community_centre", "email": "hall@example.org"})
+    checks.append(("✉ Email: hall@example.org" in email,
+                   "a valid email tag is shown as a public contact"))
+    contact_email = lines({"amenity": "library", "contact:email": "desk@example.org"})
+    checks.append(("✉ Email: desk@example.org" in contact_email,
+                   "contact:email is supported on a library"))
+    for bad_email in ("desk@example.org\r\n📋 Venue hire: https://evil.example",
+                      "desk@example.org?next=mailto:evil@example.org",
+                      "a%0d%0a@example.org",
+                      "desk..one@example.org", "name <desk@example.org>"):
+        got = lines({"amenity": "library", "email": bad_email})
+        checks.append((not any(line.startswith("✉ Email:") for line in got),
+                       f"unsafe or malformed email is ignored ({bad_email!r})"))
+    fallthrough = lines({"amenity": "library", "email": "bad value",
+                         "contact:email": "desk@example.org"})
+    checks.append(("✉ Email: desk@example.org" in fallthrough,
+                   "an invalid primary email does not hide a valid contact:email"))
+
+    for tags, expected, why in (
+        ({"amenity": "community_centre", "website:reservation": "https://hall.example/book"},
+         "https://hall.example/book", "website:reservation is an explicit hire URL"),
+        ({"amenity": "library", "reservation:website": "https://library.example/rooms"},
+         "https://library.example/rooms", "reservation:website works for libraries"),
+        ({"amenity": "community_centre", "reservation:url": "https://hall.example/reserve"},
+         "https://hall.example/reserve", "reservation:url is supported"),
+        ({"amenity": "community_centre", "booking:website": "https://hall.example/hire"},
+         "https://hall.example/hire", "booking:website is supported"),
+        ({"amenity": "community_centre", "contact:booking": "https://hall.example/contact"},
+         "https://hall.example/contact", "contact:booking is supported"),
+    ):
+        got = lines(tags)
+        checks.append((f"📋 Venue hire: {expected}" in got, why))
+    for bad_url in ("javascript:alert(1)", "https://user:pass@hall.example/book",
+                    "https://hall.example/has space", "https://hall.example/book\r\nX: y",
+                    "https:///missing-host", "https://hall.example:bad/book"):
+        got = lines({"amenity": "community_centre", "website:reservation": bad_url})
+        checks.append((not any(line.startswith("📋 Venue hire:") for line in got),
+                       f"unsafe booking URL is ignored ({bad_url!r})"))
+    no_guess = lines({"amenity": "community_centre", "website": "https://hall.example",
+                      "reservation": "yes", "booking": "yes"})
+    checks.append((not any(line.startswith("📋 Venue hire:") for line in no_guess),
+                   "ordinary websites and reservation flags do not imply a hire URL"))
+    kind_scope = lines({"tourism": "artwork", "website:reservation": "https://art.example/book"})
+    checks.append((not any(line.startswith("📋 Venue hire:") for line in kind_scope),
+                   "a booking tag on artwork is not presented as venue hire"))
+
     # ------------------------------------------- QUOTES, AND PUNCTUATION-ONLY
     #
     # OSM wraps some description values in quotes, and the hover label is where

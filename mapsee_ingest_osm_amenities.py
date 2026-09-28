@@ -471,6 +471,50 @@ def own_website(tags: Dict[str, str]) -> Optional[str]:
     return site if host and not NOT_A_VENUE_SITE.search(host) else None
 
 
+_PUBLIC_EMAIL = re.compile(
+    r"^[A-Za-z0-9!#$&'*+/=_`{|}~-]+(?:\.[A-Za-z0-9!#$&'*+/=_`{|}~-]+)*@"
+    r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?"
+    r"(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$"
+)
+
+
+def public_email(tags: Dict[str, str]) -> Optional[str]:
+    """Return a plainly usable public email, rejecting controls and markup-ish input."""
+    for key in ("email", "contact:email"):
+        raw = tags.get(key)
+        if not raw or any(ord(ch) < 32 or ord(ch) == 127 for ch in str(raw)):
+            continue
+        value = str(raw).strip()
+        if _PUBLIC_EMAIL.fullmatch(value):
+            return value
+    return None
+
+
+def venue_hire_url(tags: Dict[str, str], kind: Kind) -> Optional[str]:
+    """An explicitly tagged venue-hire link for public halls and libraries only."""
+    if kind.slug not in {"amenity=community_centre", "amenity=library"}:
+        return None
+    for key in ("website:reservation", "reservation:website",
+                "reservation:url", "booking:website", "contact:booking"):
+        raw = tags.get(key)
+        if not raw:
+            continue
+        value = str(raw)
+        if (any(ord(ch) < 32 or ord(ch) == 127 or ch.isspace() for ch in value)
+                or "\\" in value):
+            continue
+        try:
+            parsed = urllib.parse.urlsplit(value)
+            # Accessing .port also validates malformed port syntax.
+            _ = parsed.port
+        except ValueError:
+            continue
+        if (parsed.scheme.lower() in ("http", "https") and parsed.hostname
+                and parsed.username is None and parsed.password is None):
+            return value
+    return None
+
+
 def own_image(tags: Dict[str, str]) -> Optional[str]:
     """A photograph of this thing, or None.
 
@@ -671,9 +715,15 @@ def useful_lines(tags: Dict[str, str], kind: Kind,
     phone = clean_public_phone(tags.get("phone") or tags.get("contact:phone"))
     if phone:
         lines.append(f"☎ Phone: {phone}")
+    email = public_email(tags)
+    if email:
+        lines.append(f"✉ Email: {email}")
     site = own_website(tags)
     if site:
         lines.append(f"🌐 Website: {site}")
+    hire = venue_hire_url(tags, kind)
+    if hire:
+        lines.append(f"📋 Venue hire: {hire}")
 
     body = _clean(tags.get("description"), 400)
     if body:
