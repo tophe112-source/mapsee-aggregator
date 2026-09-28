@@ -3,6 +3,16 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: toilets, food banks, artwork, deny-lists, facts vs names, the cached element list, `--only-new` on a rewrite-every-run adapter.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **HALL CONTACTS ARE USEFUL EVEN WITHOUT A CALENDAR.** Added on 2026-09-27:
+  `email` / `contact:email` now yield `✉ Email:`, and **5 explicit booking URL
+  tags** yield `📋 Venue hire:` on community centres and libraries. Existing
+  phone, website and `🏛 Run by:` markers remain. No hire availability is
+  inferred from a category or reservation flag. The adapter test passes
+  **704 cases**, including email header injection, unsafe URL schemes and
+  userinfo. The product parses these markers into contact actions. Existing
+  rows refresh through `osm-amenities.yml`'s `--skip-unchanged` sync with
+  `ONLY_NEW=""`; this change does not add page fetches or a database column.
+
 - **FOUR BUILDINGS JOINED THE FURNITURE, AND THREE OF THEM LIST WITHOUT HOURS.**
   `amenity=community_centre`, `amenity=library`, `amenity=marketplace` and
   `leisure=dog_park` were added 2026-09-21 as the "free community supply that
