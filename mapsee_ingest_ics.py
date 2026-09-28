@@ -34,6 +34,7 @@ skipped; recurring events keep only their base instance if it's upcoming
 from __future__ import annotations
 
 import argparse
+import html as _html
 import json
 import re
 import sys
@@ -393,6 +394,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     past = 0
     governance = 0
     cancelled = 0
+    online = 0
     is_civic = str(src.get("_found", "")).startswith("civic:")
     for offset in range(start_offset, len(events)):
         if kept >= limit:
@@ -437,11 +439,18 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             end_local, end_utc, _ = _parse_dt(*ev["DTEND"])
         loc = _unescape(ev.get("LOCATION", ("", {}))[0]).strip() or None
         if loc:  # Trumba locations can carry HTML ("111 Alamo Plaza<br>San Antonio")
-            loc = re.sub(r"<[^>]+>", ", ", loc).replace("&amp;", "&")
+            loc = _html.unescape(re.sub(r"<[^>]+>", ", ", loc))    # &amp; and &nbsp; alike
             loc = re.sub(r"\s*,\s*,+", ", ", re.sub(r"\s+", " ", loc)).strip(" ,") or None
+        # An online session is on no map, whatever GEO its branch stamped on it:
+        # see ONLINE_LOC_RX. Before GEO is read, because Communico gives these
+        # rows the owning branch's coordinates (or 0;0, which the geocoder then
+        # guesses at).
+        if loc and ONLINE_LOC_RX.search(loc):
+            online += 1
+            continue
         elsewhere = False
-        if loc and PLACEHOLDER_LOC_RX.match(loc):
-            elsewhere = bool(ELSEWHERE_LOC_RX.match(loc))   # "Offsite": not the venue either
+        if loc and (PLACEHOLDER_LOC_RX.match(loc) or _all_placeholders(loc)):
+            elsewhere = bool(ELSEWHERE_LOC_RX.match(loc)) or _all_placeholders(loc, ELSEWHERE_LOC_RX)
             loc = None                                # "TBD" names no place; see the pattern
         lat = lon = None
         if "GEO" in ev:                               # "lat;lon"
@@ -521,6 +530,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     # whose cancellations suddenly jump is telling us something about the venue.
     if cancelled:
         note += f"; {cancelled} cancelled (STATUS:CANCELLED)"
+    if online:
+        note += f"; {online} online (a virtual room, not a place)"
     print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}")
     return kept - start_kept
 
@@ -544,15 +555,45 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
 # Communico writes LOCATION as "Branch - Room", so an event with no room ends in
 # a dash: "Offsite -" (64 rows in that sample), "Bookmobile -" (210),
 # "Outreach -", "External -". The trailing separators are part of the match.
+# Its "not here" branches have other names too, and a review of 46 library
+# calendars (2026-09-28) found them guessed onto a community centre, a school
+# and a post office: "In the Community -", "Community Location -", "Outside
+# Venue -", "All Library Locations -", and "Offsite - Offsite", which is two
+# placeholders in a row (_all_placeholders).
 _UNKNOWN_LOC = (r"tbd|tba|to be (?:announced|determined|confirmed)|location tbd|n/?a|none|"
                 r"see (?:description|details|website|below)")
 _ELSEWHERE_LOC = (r"off[\s-]?site|outreach|external|bookmobile|various(?: locations)?|"
-                  r"multiple locations|us|usa|u\.s\.(?:a\.)?|united states(?: of america)?|"
+                  r"multiple locations|in the community|community location|outside venue|"
+                  r"all (?:library )?(?:locations|branches)|"
+                  r"us|usa|u\.s\.(?:a\.)?|united states(?: of america)?|"
                   r"canada|uk|u\.k\.|united kingdom|australia|new zealand|ireland|france|"
                   r"deutschland|germany")
 _LOC_TAIL = r"[\s.\-\u2013\u2014|,;:]*$"
 PLACEHOLDER_LOC_RX = re.compile(rf"^\s*(?:{_UNKNOWN_LOC}|{_ELSEWHERE_LOC}){_LOC_TAIL}", re.I)
 ELSEWHERE_LOC_RX = re.compile(rf"^\s*(?:{_ELSEWHERE_LOC}){_LOC_TAIL}", re.I)
+_LOC_SPLIT_RX = re.compile(r"\s+[-\u2013\u2014|]\s*|\s*[-\u2013\u2014|]\s*$")
+
+
+def _all_placeholders(loc: str, rx: "re.Pattern[str]" = PLACEHOLDER_LOC_RX) -> bool:
+    """Is every " - " part of this LOCATION a placeholder ("Offsite - Offsite")?"""
+    parts = [p for p in _LOC_SPLIT_RX.split(loc) if p.strip()]
+    return len(parts) > 1 and all(rx.match(p) for p in parts)
+
+
+# AN ONLINE SESSION IS NOT A PLACE, and Communico says so in the branch half of
+# "Branch - Room": "Online - Virtual Room", "Virtual - Zoom", "Virtual Branch -
+# Virtual Room 3", "Virtual Library - ...", or in the room half, "Westlake Porter
+# Public Library - Online". The same review of 46 library calendars counted 101
+# such rows with GEO 0;0, which the geocoder turned into a pin anyway (OCLS: 56
+# on the Orange County centroid and 3 on a shoe shop), and 114 more carrying the
+# owning branch's GEO. The sync's is_virtual only knows a venue that is nothing
+# BUT placeholder words, so "Virtual - Virtual Room - Adult Programming" passed
+# it and landed on a bank. Checked before GEO, and the row is skipped. Bare
+# "Online" and "Virtual" match too. "Virtual Reality Lab - Room 2" does not.
+ONLINE_LOC_RX = re.compile(
+    r"^\s*(?:online|virtual)(?:\s+(?:branch|library|room|programs?|events?))?\s*(?:$|[-\u2013\u2014|:])|"
+    r"(?:[-\u2013\u2014|]\s*|\(\s*)(?:online|virtual)(?:\s+(?:room|event|program|class))?\s*\)?\s*$",
+    re.I)
 
 
 def _host(url: str) -> str:

@@ -256,3 +256,25 @@
   neither its coordinates nor its street to anything else. Set on UMFA and
   kuurosokeat.fi. Squarespace and JSON-LD have the same fallback and were not
   measured.
+
+- **COMMUNICO PUTS "ONLINE" IN THE BRANCH HALF OF THE LOCATION, and the sync's
+  online check never saw it.** A row-level review of 46 library calendars
+  (2026-09-28, 36 of them Communico `*.libnet.info` feeds) found online
+  sessions written as "Online - Virtual Room", "Virtual - Zoom", "Virtual
+  Branch - Virtual Room 3" and "Virtual Library - ...". 101 carried GEO:0;0,
+  which the adapter correctly ignores, so it sent the LOCATION to Photon and
+  pinned whatever came back: OCLS's 59 went to the Orange County centroid and
+  a shoe shop, PGCMLS's 34 to a schools office, HEPL's 4 to a bank. 114 more
+  carried the owning branch's GEO and were pinned at the branch (Miami-Dade
+  38, Jacksonville 27). `is_virtual` in the sync reads a venue made ONLY of
+  placeholder words, so "Virtual - Virtual Room - Adult Programming" passed
+  it. `ONLINE_LOC_RX` in `mapsee_ingest_ics.py` now skips such a row before
+  GEO is read, and counts it on the feed's line. It matches the room half too
+  ("Westlake Porter Public Library - Online"). Look-alikes stay:
+  "Virtual Reality Lab - Room 2", "Online Learning Center, 5 Elm St". Over the
+  837-feed corpus of 2026-09-27 it matches 315 of 70,904 ics rows: 28
+  distinct strings, every one of them plainly online. The same
+  review found Kent County's LOCATION reaching Photon with a literal `&nbsp;`,
+  because only `&amp;` was unescaped. It found "Offsite - Offsite" and "In the
+  Community -" guessed onto a post office and a community centre: they are
+  now placeholders, and "In the Community - Lincoln Park" still geocodes.

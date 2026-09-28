@@ -159,6 +159,60 @@ for loc in ("Offsite Gallery", "TBD Brewing Co.", "Various Artists Studio, 3 Elm
     check(f"not a placeholder: {loc!r}", not ICS.PLACEHOLDER_LOC_RX.match(loc))
 
 
+# --- an online session carries its branch's GEO, or 0;0 ------------------------
+# Communico (2026-09-28, 46 library calendars): "Online - Virtual Room" with
+# GEO:0;0 was guessed onto a county centroid and a shoe shop; "Virtual Branch -
+# Virtual Room 3" carried the Main Library's GEO. Kent County's "&nbsp;" went to
+# the geocoder as written, and "Offsite - Offsite" is two placeholders in a row.
+import io  # noqa: E402
+from contextlib import redirect_stdout  # noqa: E402
+
+ONLINE_ICS = (
+    "BEGIN:VCALENDAR\r\n"
+    "BEGIN:VEVENT\r\nUID:o1\r\nSUMMARY:ESL Conversation\r\nDTSTART:20991010T170000Z\r\n"
+    "LOCATION:Online - Virtual Room\r\nGEO:0;0\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:o2\r\nSUMMARY:Resume Help\r\nDTSTART:20991011T170000Z\r\n"
+    "LOCATION:Virtual Branch - Virtual Room 3\r\nGEO:30.3288;-81.6597\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:o3\r\nSUMMARY:Author Talk\r\nDTSTART:20991012T170000Z\r\n"
+    "LOCATION:Westlake Porter Public Library - Online\r\nGEO:41.45;-81.92\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:vr\r\nSUMMARY:VR Open Lab\r\nDTSTART:20991013T170000Z\r\n"
+    "LOCATION:Virtual Reality Lab - Room 2\r\nGEO:41.45;-81.92\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:nb\r\nSUMMARY:Stewardship Day\r\nDTSTART:20991014T170000Z\r\n"
+    "LOCATION:Kent County Parks Administration Building&nbsp;\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:off2\r\nSUMMARY:Storytime in the Park\r\nDTSTART:20991015T170000Z\r\n"
+    "LOCATION:Offsite - Offsite\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:comm\r\nSUMMARY:Pop-up Library\r\nDTSTART:20991016T170000Z\r\n"
+    "LOCATION:In the Community -\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:park\r\nSUMMARY:Pop-up Library at the Park\r\nDTSTART:20991017T170000Z\r\n"
+    "LOCATION:In the Community - Lincoln Park\r\nEND:VEVENT\r\n"
+    "END:VCALENDAR\r\n"
+)
+geocode_calls.clear()
+with patch.object(ICS, "_fetch_ics", return_value=(ONLINE_ICS, "200")), \
+     patch.object(ICS, "make_location_geocoder", side_effect=_no_hit_geocoder), \
+     redirect_stdout(io.StringIO()) as out:
+    vstore = VenueStore()
+    ICS.ingest_ics(vstore, None, {"name": "communico", "url": "x", "venue": VENUE})
+names = sorted(r.name for r in vstore.rows)
+check("an online session is skipped whatever GEO its branch gave it, and a VR lab is a place",
+      names == ["VR Open Lab"], names)
+check("...and the skips are counted on the feed's line", "3 online" in out.getvalue(), out.getvalue())
+check("&nbsp; is unescaped before the geocoder sees the LOCATION",
+      "Kent County Parks Administration Building" in geocode_calls, geocode_calls)
+check("'Offsite - Offsite' and 'In the Community -' reach neither the geocoder nor the venue",
+      not {"Offsite - Offsite", "In the Community -"} & set(geocode_calls)
+      and "Storytime in the Park" not in names and "Pop-up Library" not in names, (geocode_calls, names))
+check("'In the Community - Lincoln Park' names a place, so it is geocoded",
+      "In the Community - Lincoln Park" in geocode_calls, geocode_calls)
+for loc in ("Online - Virtual Room", "Virtual -", "Virtual Branch - Virtual Room 3",
+            "Virtual Library - Virtual Room 1", "Online", "Virtual", "Main Library (Online)",
+            "Westlake Porter Public Library - Online"):
+    check(f"online: {loc!r}", bool(ICS.ONLINE_LOC_RX.search(loc)))
+for loc in ("Virtual Reality Lab - Room 2", "Online Learning Center, 5 Elm St", "Main Library - Room 2",
+            "Zoom Room at Central Library"):
+    check(f"not online: {loc!r}", not ICS.ONLINE_LOC_RX.search(loc))
+
+
 # --- several feeds on one host wait out that host's Crawl-delay ---------------
 # LibCal libraries publish a calendar per branch, and their robots.txt asks for
 # 10 s between requests. Nine branch feeds used to be nine back-to-back GETs.
