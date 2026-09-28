@@ -12556,6 +12556,120 @@
       },
       "_metro": "Dunedin, New Zealand",
       "_note": "Otago Art Society gallery at Dunedin Railway Station: free exhibitions and social art groups. Venues carry no geo, so the gallery pins them. robots.txt disallows nothing. First Dunedin source."
+    },
+    {
+      "name": "WA Naturalists' Club (Perth, Australia)",
+      "category": "learning",
+      "base_url": "https://www.wanaturalists.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Perth, Australia",
+      "_note": "WA Naturalists' Club's The Events Calendar: free public natural-history talks (Nedlands, Kalamunda), wildflower excursions, bushwalks; 9 of 11 upcoming venues carry coordinates. robots.txt disallows only /newsletters/ and /members/."
+    },
+    {
+      "name": "Casa del Lago UNAM (Mexico City)",
+      "category": "arts",
+      "base_url": "https://casadellago.unam.mx/nuevo",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Casa del Lago UNAM",
+        "city": "Ciudad de México",
+        "region": "CDMX",
+        "country": "Mexico",
+        "lat": 19.4223778,
+        "lon": -99.1858294
+      },
+      "_metro": "Mexico City, Mexico",
+      "_found": "osm:museum -> tribe",
+      "_note": "UNAM cultural centre in Chapultepec: free film cycles, concerts, sound art, workshops. The Events Calendar under /nuevo; no robots.txt (404). 138 events since 2025-06; rooms carry no coordinates."
+    },
+    {
+      "name": "Indian Institute of World Culture (Bengaluru)",
+      "category": "arts",
+      "base_url": "https://iiwc.in",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Indian Institute of World Culture",
+        "address": "6 B.P. Wadia Road, Basavanagudi",
+        "city": "Bengaluru",
+        "region": "Karnataka",
+        "postal_code": "560004",
+        "country": "India",
+        "lat": 12.9441051,
+        "lon": 77.5761955
+      },
+      "_metro": "Bengaluru, India",
+      "_found": "osm:events_venue -> tribe",
+      "_note": "Basavanagudi cultural institute: free concerts, lectures, readings, film and dance at Wadia Hall, 244 events since 2025-06. The Events Calendar REST; robots.txt disallows only /wp-admin/."
+    },
+    {
+      "name": "BLR Design Centre (Bengaluru)",
+      "category": "community",
+      "base_url": "https://blrdesigncentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BLR Design Centre",
+        "names": [
+          "BLR Design Centre"
+        ],
+        "address": "46/1 Church Street",
+        "city": "Bengaluru",
+        "region": "Karnataka",
+        "postal_code": "560001",
+        "country": "India",
+        "lat": 12.9756868,
+        "lon": 77.602692
+      },
+      "_metro": "Bengaluru, India",
+      "_found": "osm:gallery -> tribe",
+      "_note": "Church Street civic design centre: talks, city walks, Climate Fresk, placemaking (123 events since 2025-01). The Events Calendar REST; robots.txt disallows only /wp-admin/ and cart paths."
+    },
+    {
+      "name": "Pheasant Branch Conservancy (Middleton, WI)",
+      "category": "volunteer",
+      "base_url": "https://pheasantbranch.org",
+      "within_days": 180,
+      "max_pages": 3,
+      "default_region": "WI",
+      "default_country": "US",
+      "_metro": "Madison, United States",
+      "_note": "Friends of Pheasant Branch: volunteer seed-collection days at the conservancy, plus family nature programmes. robots.txt disallows only /wp-admin/. Madison had 5 volunteer rows."
+    },
+    {
+      "name": "Groundswell Conservancy (Madison, WI)",
+      "category": "volunteer",
+      "base_url": "https://groundswellconservancy.org",
+      "within_days": 180,
+      "max_pages": 3,
+      "crawl_delay": 10,
+      "default_region": "WI",
+      "default_country": "US",
+      "_metro": "Madison, United States",
+      "_note": "Dane County land trust: prairie seed-collection workdays (Westport Prairie), tours, a benefit run. robots.txt empty Disallow, Crawl-delay 10 (honoured). Madison volunteer gap."
+    },
+    {
+      "name": "Land Conservancy of West Michigan (Grand Rapids)",
+      "category": "volunteer",
+      "base_url": "https://naturenearby.org",
+      "within_days": 180,
+      "max_pages": 3,
+      "default_region": "MI",
+      "default_country": "US",
+      "_metro": "Grand Rapids, United States",
+      "_note": "Second Saturday stewardship workdays at its nature preserves (seed collecting, invasive removal, tree planting), each with a street address. robots.txt disallows plugins/pdfs only."
+    },
+    {
+      "name": "Maryland Humanities (Baltimore)",
+      "category": "learning",
+      "base_url": "https://www.mdhumanities.org",
+      "crawl_delay": 10,
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Baltimore, United States",
+      "_note": "Statewide humanities council calendar: One Maryland One Book discussions and author talks at public libraries (80 upcoming), free. robots.txt: Crawl-delay 10, /wp-json/ allowed."
     }
   ],
   "_not_included": {

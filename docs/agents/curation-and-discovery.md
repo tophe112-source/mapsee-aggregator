@@ -976,3 +976,21 @@
   prefix: 25 were found as `parks:agency -> civicplus[...]` and 6 have no
   `_found` at all. The filter does not reach any of them. When you add a town's
   own calendar by hand, write the prefix.
+
+- **A COMMUNICO LIBRARY CAN ANSWER ON TWO HOSTNAMES, AND A LIBRARY'S WEBSITE
+  REFUSING US IS NOT ITS CALENDAR REFUSING US.** The two library and
+  university cells of 2026-09-28 proposed 59 entries. They were 46 distinct
+  calendars, because 13 were proposed by both cells. Four more were one
+  calendar under two names: `attend.indypl.org`, `attend.cuyahogalibrary.org`,
+  `attend.hcplc.org` and `attend.ocls.org` share 498 to 500 of 500 UIDs with
+  their `*.libnet.info` twins. Configure the `libnet.info` one, and check
+  `attend.` before proposing either. Separately, jaxpubliclibrary.org serves a
+  Cloudflare challenge and columbuslibrary.org a CloudFront 403. Their
+  Communico calendars are on the vendor's host (`jaxpubliclibrary.libnet.info`,
+  `columbus.libnet.info`), whose robots.txt allows `/feeds`, and both answered
+  the production UA with 500 rows. They were configured on that reading: a
+  different host with its own published policy, reached with the honest UA,
+  is not a way round a refusal. If a library says otherwise, its feed comes
+  off. The same review kept 41 of the 46 calendars (the 5 drops were the
+  `attend.` twins and a campus calendar that was mostly internal) and made no
+  category change.

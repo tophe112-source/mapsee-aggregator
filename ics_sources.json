@@ -17458,5 +17458,501 @@
     "limit": 300,
     "_metro": "Melbourne, Australia",
     "_note": "Mornington Peninsula Landcare Network's The Events Calendar ical: free monthly working bees at Main Ridge Flora Reserve. robots.txt disallows only /wp-admin/. Volunteer events for Melbourne."
+  },
+  {
+    "name": "Community Plate (Mornington Peninsula, Melbourne, Australia)",
+    "url": "https://communityplate.org.au/events/?ical=1",
+    "category": "community",
+    "geocode_suffix": ", Victoria, Australia",
+    "limit": 300,
+    "crawl_delay": 10,
+    "_metro": "Melbourne, Australia",
+    "_note": "Mornington Peninsula food-security network's The Events Calendar ical: community garden working bees, food swaps, community markets; 28 of 30 locations resolve on Photon. robots.txt allows * with Crawl-delay 10."
+  },
+  {
+    "name": "Brisbane Natural Areas (Brisbane, Australia)",
+    "url": "https://www.trumba.com/calendars/natural-areas.ics",
+    "category": "outdoors",
+    "geocode_suffix": ", Brisbane, Queensland, Australia",
+    "limit": 300,
+    "_found": "civic:city -> ics (hand-curated)",
+    "_metro": "Brisbane, Australia",
+    "_note": "Brisbane City Council's Natural areas Trumba calendar: bushcare working bees, Bush Kindy, wildlife walks at bushland centres; 81 of 83 marked Free, shares no UID with the configured Brisbane feeds. trumba.com robots.txt allows all."
+  },
+  {
+    "name": "Brisbane GOLD n Kids (Brisbane, Australia)",
+    "url": "https://www.trumba.com/calendars/gold-n-kids.ics",
+    "category": "kids",
+    "geocode_suffix": ", Brisbane, Queensland, Australia",
+    "limit": 300,
+    "_found": "civic:city -> ics (hand-curated)",
+    "_metro": "Brisbane, Australia",
+    "_note": "Brisbane City Council's GOLD n Kids Trumba calendar: grandparent-and-grandchild sessions (fishing, soccer, pickleball, paddling) in parks; 21 of 34 Free, rest $6; no UID shared with the gold feed. trumba.com robots.txt allows all."
+  },
+  {
+    "name": "History Month Victoria (Melbourne, Australia)",
+    "url": "https://historymonth.org.au/events/?ical=1",
+    "category": "learning",
+    "geocode_suffix": ", Victoria, Australia",
+    "limit": 300,
+    "_metro": "Melbourne, Australia",
+    "_note": "Royal Historical Society of Victoria's History Month (October) on The Events Calendar: historical-society talks, exhibitions, heritage walks; 90 of 144 free, mostly Melbourne. robots.txt disallows only /staging/ and /OLD/."
+  },
+  {
+    "name": "尼崎市立ユース交流センター (Amagasaki)",
+    "url": "https://youthconso.jp/?feed=my-calendar-ics&span=year",
+    "category": "kids",
+    "geocode_suffix": ", 尼崎市, 兵庫県, Japan",
+    "limit": 300,
+    "venue": {
+      "name": "尼崎市立ユース交流センター（あまがさき・ひと咲きプラザ）",
+      "address": "若王寺2丁目18番4号",
+      "city": "尼崎市",
+      "region": "兵庫県",
+      "country": "JP",
+      "lat": 34.74942,
+      "lon": 135.438126
+    },
+    "_found": "manual: municipal youth centre -> my-calendar ics",
+    "_metro": "Osaka, Japan",
+    "_note": "Amagasaki City youth centre: free teen drop-ins (board games, youth cafe, sports day, guitar class). My Calendar iCal, span=year; no LOCATION, venue pins the one site. robots.txt blocks only ClaudeBot."
+  },
+  {
+    "name": "川口ダム自然エネルギーミュージアム (Tokushima)",
+    "url": "https://kre-museum.jp/?feed=eo-events",
+    "category": "learning",
+    "geocode_suffix": ", 那賀町, 徳島県, Japan",
+    "limit": 300,
+    "_found": "manual: prefectural energy museum -> event-organiser eo-events feed",
+    "_metro": "Tokushima, Japan",
+    "_note": "Free museum run for Tokushima Prefecture: monthly free dam and power-station tours (phone booking). Event Organiser iCal, GEO on every VEVENT. robots.txt disallows only /wp-admin/."
+  },
+  {
+    "name": "Tualatin Hills Park & Recreation District - Volunteer (Beaverton, OR)",
+    "url": "https://www.tualatinhillsparks.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+    "category": "volunteer",
+    "geocode_suffix": ", Beaverton, OR",
+    "limit": 200,
+    "_found": "civic:city -> civicplus (hand-curated)",
+    "_metro": "Portland, United States",
+    "_note": "Park district's CivicPlus 'Volunteer' category: ivy pulls, native plantings, garden work parties, event helpers; every row asks for volunteers and carries a street address. robots.txt allows /common/modules/."
+  },
+  {
+    "name": "Kent County Parks - Volunteer Opportunities (Grand Rapids, MI)",
+    "url": "https://www.kentcountymi.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+    "category": "volunteer",
+    "geocode_suffix": ", Kent County, Michigan",
+    "limit": 200,
+    "_found": "civic:city -> civicplus (hand-curated)",
+    "_metro": "Grand Rapids, United States",
+    "_note": "Kent County Parks' CivicPlus 'Parks Volunteer Opportunities' category: seed collecting, invasive-plant control and stewardship days in county parks, each with a street address. robots.txt allows /common/modules/. Grand Rapids had 7 volunteer rows."
+  },
+  {
+    "name": "Deschutes Land Trust - Walks & Hikes (Bend, OR)",
+    "url": "https://www.deschuteslandtrust.org/hikes-events/ics_view",
+    "category": "outdoors",
+    "geocode_suffix": ", Oregon",
+    "limit": 200,
+    "_metro": "Bend, United States",
+    "_note": "Land trust's free guided walks, hikes, bird walks and Nature Kids outings on its Central Oregon preserves (Plone ics_view of the hikes-events folder). robots.txt: empty Disallow. Bend outdoors gap; LOCATION is the preserve name."
+  },
+  {
+    "name": "Minnesota DNR - SNA Volunteer Stewardship (Minnesota)",
+    "url": "https://webapps.dnr.state.mn.us/calendar/app?jsp=ical&k=sna&nd=365",
+    "category": "volunteer",
+    "geocode_suffix": ", Minnesota",
+    "limit": 200,
+    "_metro": "Minneapolis, United States",
+    "_note": "MN DNR's Scientific and Natural Areas calendar (its own iCal output): buckthorn removal and seed-collection stewardship days, half in the Twin Cities metro. webapps host has no robots.txt (404). LOCATION is the SNA name."
+  },
+  {
+    "name": "New Orleans Public Library (New Orleans)",
+    "url": "https://neworleans.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", New Orleans, LA",
+    "limit": 500,
+    "url_home": "https://neworleans.libnet.info/events",
+    "_metro": "New Orleans, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 15 branches; New Orleans kids door had 0 events in the next 14 days (2026-09-28)."
+  },
+  {
+    "name": "Indianapolis Public Library (Indianapolis)",
+    "url": "https://indianapolis.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Indianapolis, IN",
+    "limit": 500,
+    "url_home": "https://indianapolis.libnet.info/events",
+    "_metro": "Indianapolis, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 24 branches; Indianapolis kids door had 4 events in the next 14 days."
+  },
+  {
+    "name": "Hamilton East Public Library (Indianapolis)",
+    "url": "https://hepl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Hamilton County, IN",
+    "limit": 500,
+    "url_home": "https://hepl.libnet.info/events",
+    "_metro": "Indianapolis, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Fishers and Noblesville; storytime-heavy. Indianapolis kids door is thin."
+  },
+  {
+    "name": "Carmel Clay Public Library (Indianapolis)",
+    "url": "https://carmel.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Carmel, IN",
+    "limit": 500,
+    "url_home": "https://carmel.libnet.info/events",
+    "_metro": "Indianapolis, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Single building in Carmel; Indianapolis kids door is thin."
+  },
+  {
+    "name": "Johnson County Public Library (Indianapolis)",
+    "url": "https://jcplin.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Johnson County, IN",
+    "limit": 500,
+    "url_home": "https://jcplin.libnet.info/events",
+    "_metro": "Indianapolis, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Greenwood, Franklin, Trafalgar, White River branches south of Indianapolis."
+  },
+  {
+    "name": "Cuyahoga County Public Library (Cleveland)",
+    "url": "https://cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Cuyahoga County, OH",
+    "limit": 500,
+    "url_home": "https://cuyahoga.libnet.info/events",
+    "_metro": "Cleveland, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 27 suburban branches; Cleveland kids door had 6 events in the next 14 days."
+  },
+  {
+    "name": "Westlake Porter Public Library (Cleveland)",
+    "url": "https://westlakelibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Westlake, OH",
+    "limit": 500,
+    "url_home": "https://westlakelibrary.libnet.info/events",
+    "_metro": "Cleveland, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Single building in Westlake; many storytimes."
+  },
+  {
+    "name": "Columbus Metropolitan Library (Columbus)",
+    "url": "https://columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Columbus, OH",
+    "limit": 500,
+    "url_home": "https://columbus.libnet.info/events",
+    "_metro": "Columbus, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 23 branches; 500 rows reach ~4 days. Columbus kids door had 5 events in 14 days."
+  },
+  {
+    "name": "Bexley Public Library (Columbus)",
+    "url": "https://bexley.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Bexley, OH",
+    "limit": 500,
+    "url_home": "https://bexley.libnet.info/events",
+    "_metro": "Columbus, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Single building in Bexley; Columbus kids door is thin."
+  },
+  {
+    "name": "Delaware County District Library (Columbus)",
+    "url": "https://delawarelibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Delaware County, OH",
+    "limit": 500,
+    "url_home": "https://delawarelibrary.libnet.info/events",
+    "_metro": "Columbus, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Delaware, Powell, Orange, Ostrander branches north of Columbus."
+  },
+  {
+    "name": "Pickerington Public Library (Columbus)",
+    "url": "https://pickeringtonlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Pickerington, OH",
+    "limit": 500,
+    "url_home": "https://pickeringtonlibrary.libnet.info/events",
+    "_metro": "Columbus, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Pickerington and Sycamore Plaza branches east of Columbus."
+  },
+  {
+    "name": "Jacksonville Public Library (Jacksonville)",
+    "url": "https://jaxpubliclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Jacksonville, FL",
+    "limit": 500,
+    "url_home": "https://jaxpubliclibrary.libnet.info/events",
+    "_metro": "Jacksonville, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 21 branches; Jacksonville kids door had 2 events in 14 days. The .org site 403s here."
+  },
+  {
+    "name": "Hillsborough County Public Library Cooperative (Tampa)",
+    "url": "https://hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Hillsborough County, FL",
+    "limit": 500,
+    "url_home": "https://hcplc.libnet.info/events",
+    "_metro": "Tampa, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 30+ branches; Tampa kids door had 12 events in 14 days. BiblioCommons gateway 403s."
+  },
+  {
+    "name": "Largo Public Library (Tampa)",
+    "url": "https://largopubliclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Largo, FL",
+    "limit": 500,
+    "url_home": "https://largopubliclibrary.libnet.info/events",
+    "_metro": "Tampa, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Single building in Largo, Pinellas County."
+  },
+  {
+    "name": "Pasco County Public Library Cooperative (Tampa)",
+    "url": "https://pascolibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Pasco County, FL",
+    "limit": 500,
+    "url_home": "https://pascolibraries.libnet.info/events",
+    "_metro": "Tampa, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Pasco County branches north of Tampa."
+  },
+  {
+    "name": "Miami-Dade Public Library System (Miami)",
+    "url": "https://mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Miami-Dade County, FL",
+    "limit": 500,
+    "url_home": "https://mdpls.libnet.info/events",
+    "_metro": "Miami, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 50 branches; 500 rows reach ~6 days. Miami kids door had 22 events in 14 days."
+  },
+  {
+    "name": "Broward County Library (Miami)",
+    "url": "https://broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Broward County, FL",
+    "limit": 500,
+    "url_home": "https://broward.libnet.info/events",
+    "_metro": "Miami, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 37 Broward County branches (Fort Lauderdale, Hollywood, Miramar)."
+  },
+  {
+    "name": "Orange County Library System (Orlando)",
+    "url": "https://ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Orange County, FL",
+    "limit": 500,
+    "url_home": "https://ocls.libnet.info/events",
+    "_metro": "Orlando, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 16 branches; Orlando kids door had 7 events in 14 days. ocls.org has no feed."
+  },
+  {
+    "name": "Collierville Burch Library (Memphis)",
+    "url": "https://collierville.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Collierville, TN",
+    "limit": 500,
+    "url_home": "https://collierville.libnet.info/events",
+    "_metro": "Memphis, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Single building in Collierville; Memphis PL's platform refuses us in robots.txt."
+  },
+  {
+    "name": "Clinton-Macomb Public Library (Detroit)",
+    "url": "https://cmpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Clinton Township, MI",
+    "limit": 500,
+    "url_home": "https://cmpl.libnet.info/events",
+    "_metro": "Detroit, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 3 Macomb County branches; Detroit kids door had 1 event in 14 days."
+  },
+  {
+    "name": "Boulder City Library (Las Vegas)",
+    "url": "https://bclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Boulder City, NV",
+    "limit": 500,
+    "url_home": "https://bclibrary.libnet.info/events",
+    "_metro": "Las Vegas, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Single building in Boulder City, Las Vegas metro."
+  },
+  {
+    "name": "Milwaukee Public Library (Milwaukee)",
+    "url": "https://mpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 500,
+    "url_home": "https://mpl.libnet.info/events",
+    "_metro": "Milwaukee, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 13 branches; its BiblioCommons gateway 403s. Milwaukee kids door had 36 events in 14 days."
+  },
+  {
+    "name": "Plano Public Library (Dallas)",
+    "url": "https://plano.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Plano, TX",
+    "limit": 500,
+    "url_home": "https://plano.libnet.info/events",
+    "_metro": "Dallas, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 5 branches, storytime-heavy. Dallas kids door had 38 events in 14 days."
+  },
+  {
+    "name": "Prince George's County Memorial Library System (Washington)",
+    "url": "https://pgcmls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Prince George's County, MD",
+    "limit": 500,
+    "url_home": "https://pgcmls.libnet.info/events",
+    "_metro": "Washington, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 19 branches east of DC; many storytimes."
+  },
+  {
+    "name": "Montgomery County Public Libraries (Washington)",
+    "url": "https://mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 500,
+    "url_home": "https://mcpl.libnet.info/events",
+    "_metro": "Washington, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 21 branches north of DC; many storytimes."
+  },
+  {
+    "name": "Alexandria Library (Washington)",
+    "url": "https://alexandria.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Alexandria, VA",
+    "limit": 500,
+    "url_home": "https://alexandria.libnet.info/events",
+    "_metro": "Washington, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Beatley Central and 4 branches in Alexandria, VA."
+  },
+  {
+    "name": "Loudoun County Public Library (Washington)",
+    "url": "https://loudoun.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Loudoun County, VA",
+    "limit": 500,
+    "url_home": "https://loudoun.libnet.info/events",
+    "_metro": "Washington, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 10 branches in Loudoun County (Ashburn, Leesburg, Sterling)."
+  },
+  {
+    "name": "North Bergen Public Library (New York)",
+    "url": "https://nbpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", North Bergen, NJ",
+    "limit": 500,
+    "url_home": "https://nbpl.libnet.info/events",
+    "_metro": "New York, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. North Bergen and Guttenberg sites across the Hudson from Manhattan."
+  },
+  {
+    "name": "Upper Arlington Public Library (Columbus)",
+    "url": "https://ualibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Upper Arlington, OH",
+    "limit": 500,
+    "url_home": "https://ualibrary.libnet.info/events",
+    "_metro": "Columbus, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Tremont, Lane Road and Miller Park branches next to Columbus; storytime-heavy."
+  },
+  {
+    "name": "Fairfield County District Library (Columbus)",
+    "url": "https://fcdlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Fairfield County, OH",
+    "limit": 500,
+    "url_home": "https://fcdlibrary.libnet.info/events",
+    "_metro": "Columbus, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Lancaster main plus 4 branches southeast of Columbus."
+  },
+  {
+    "name": "Somerset County Library System of New Jersey (New York)",
+    "url": "https://sclsnj.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Somerset County, NJ",
+    "limit": 500,
+    "url_home": "https://sclsnj.libnet.info/events",
+    "_metro": "New York, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 10 branches (Bridgewater, Hillsborough, Raritan); New York kids door had 43 events in 14 days."
+  },
+  {
+    "name": "Maplewood Memorial Library (New York)",
+    "url": "https://maplewoodlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Maplewood, NJ",
+    "limit": 500,
+    "url_home": "https://maplewoodlibrary.libnet.info/events",
+    "_metro": "New York, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Main and Hilton branch in Maplewood, NJ."
+  },
+  {
+    "name": "Hoboken Public Library (New York)",
+    "url": "https://hobokenlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Hoboken, NJ",
+    "limit": 500,
+    "url_home": "https://hobokenlibrary.libnet.info/events",
+    "_metro": "New York, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Main library and Grand Street branch in Hoboken."
+  },
+  {
+    "name": "White Plains Public Library (New York)",
+    "url": "https://whiteplainslibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", White Plains, NY",
+    "limit": 500,
+    "url_home": "https://whiteplainslibrary.libnet.info/events",
+    "_metro": "New York, United States",
+    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. Single building in White Plains, Westchester."
+  },
+  {
+    "name": "Jefferson County Library (St. Louis)",
+    "url": "https://jeffcolibrarymo.libcal.com/ical_subscribe.php?cid=17659",
+    "category": "learning",
+    "geocode_suffix": ", Jefferson County, MO",
+    "limit": 300,
+    "crawl_delay": 10,
+    "_metro": "St. Louis, United States",
+    "_note": "LibCal all-branch calendar (cid from the site's embedded widget). robots.txt '*': Crawl-delay 10, Disallow /process_ only. Arnold, Windsor, Cedar Hill, Northwest branches south of St. Louis."
+  },
+  {
+    "name": "McKinney Public Library - John and Judy Gay (Dallas)",
+    "url": "https://mckinneytexas.libcal.com/ical_subscribe.php?cid=17826",
+    "category": "kids",
+    "geocode_suffix": ", John and Judy Gay Library, McKinney, TX",
+    "limit": 300,
+    "crawl_delay": 10,
+    "_metro": "Dallas, United States",
+    "_note": "LibCal calendar of the John and Judy Gay branch (cid from the calendar picker). robots.txt '*': Crawl-delay 10. Mostly storytimes and kids' clubs; LOCATION is 'JJG - room', so the suffix names the building."
+  },
+  {
+    "name": "Campbell County Public Library (Cincinnati)",
+    "url": "https://ccpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Campbell County, KY",
+    "limit": 500,
+    "url_home": "https://ccpl.libnet.info/events",
+    "_metro": "Cincinnati, United States",
+    "_note": "Communico public iCal export (Subscribe link, no key); robots.txt allows /feeds; GEO on each row. Cold Spring, Newport, Fort Thomas (Kentucky side of Cincinnati)."
+  },
+  {
+    "name": "DeKalb County Public Library (Atlanta)",
+    "url": "https://events.dekalblibrary.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", DeKalb County, GA",
+    "limit": 500,
+    "url_home": "https://events.dekalblibrary.org/events",
+    "_metro": "Atlanta, United States",
+    "_note": "Communico public iCal export (Subscribe link, no key); robots.txt allows /feeds; GEO on each row. 22 branches; once filed as Communico 'no public feed', which was wrong."
+  },
+  {
+    "name": "Gwinnett County Public Library (Atlanta)",
+    "url": "https://gwinnettpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Gwinnett County, GA",
+    "limit": 500,
+    "url_home": "https://gwinnettpl.libnet.info/events",
+    "_metro": "Atlanta, United States",
+    "_note": "Communico public iCal export (Subscribe link, no key); robots.txt allows /feeds; GEO on each row. 15 branches; once filed as Communico 'no public feed', which was wrong."
   }
 ]

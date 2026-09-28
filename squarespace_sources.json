@@ -1792,6 +1792,24 @@
       },
       "_metro": "Dallas, United States",
       "_note": "Deck park's own programming page: free storytime, music bingo, stargazing, markets, fitness (~77 upcoming). Bare collection page; stock Squarespace robots allow it."
+    },
+    {
+      "name": "Downey City Library (Los Angeles)",
+      "collection": "https://www.downeylibrary.org/calendar-of-events",
+      "category": "learning",
+      "max_events": 200,
+      "_metro": "Los Angeles, United States",
+      "_note": "Squarespace events collection, read from the bare page (robots.txt disallows ?format=json, which the adapter never uses). Single-building city library; storytimes in English and Spanish, family nights, teen clubs.",
+      "venue": {
+        "name": "Downey City Library",
+        "address": "11121 Brookshire Ave",
+        "city": "Downey",
+        "region": "CA",
+        "postal_code": "90241",
+        "country": "US",
+        "lat": 33.9397381,
+        "lon": -118.1289332
+      }
     }
   ],
   "_not_included": {
