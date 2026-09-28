@@ -2805,11 +2805,15 @@ def _rows_program(data):
     for e in data:
         name = e.get("name") or "?"
         # The sites carry full street addresses; the first one locates the program.
-        addr = ((e.get("sites") or [{}])[0].get("address") or "")
+        # A nationwide one (the free museum days) has coordinates and a "country"
+        # per site instead, and no one metro; Museums on Us has no timezone either.
+        site = (e.get("sites") or [{}])[0]
+        addr = site.get("address") or ""
         metro, country = _parse_place(re.sub(r"\s+\d{5}(?:-\d{4})?\s*$", "", addr))
         if not metro or metro == "?":
             metro = _scan_name_metro(name) or "?"
-        out.append((name, metro, country or _tz_country(e.get("timezone")) or "?",
+        out.append((name, metro, country or _country_named(site.get("country"))
+                    or _tz_country(e.get("timezone")) or "?",
                     e.get("category") or "?"))
     return out
 

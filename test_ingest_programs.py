@@ -83,12 +83,45 @@ if evs:
     check(e.name == "Free first Sunday - Pantheon", "title is prefix - site")
     check(len({ev.fingerprint for ev in evs}) == 2, "each date is its own row")
 
+# ------------------------------------------ 2b. a site narrows its programme, never widens it
+weekend = {"name": "Museums on Us", "category": "arts", "rule": "first_full_weekend", "horizon_days": 70,
+           "title_prefix": "Museums on Us", "blurb": "x"}
+here = {"lat": 45.40, "lon": -93.64, "_coords": "test"}
+
+
+def site_days(**site):
+    evs = P.program_events(dict(weekend, sites=[dict(here, name="Site", **site)]), NoNetwork())
+    return [e.start_local for e in evs]
+
+
+check(site_days() == ["2026-10-03", "2026-10-04", "2026-11-07", "2026-11-08", "2026-12-05"],
+      "no site rule: every date the programme has")
+check(site_days(days=["Saturday"]) == ["2026-10-03", "2026-11-07", "2026-12-05"],
+      "a Saturdays-only partner keeps the Saturdays (a list)")
+check(site_days(days="Sunday") == ["2026-10-04", "2026-11-08"], "...and a string spells it too")
+check(site_days(months=[11]) == ["2026-11-07", "2026-11-08"], "a site's months narrow the programme's")
+check(site_days(season_end="2026-10-04") == ["2026-10-03", "2026-10-04"],
+      "a site's own season ends it: a partner taking part one weekend only")
+check(site_days(season_start="2026-11-08") == ["2026-11-08", "2026-12-05"], "...and begins it")
+check(site_days(exclude_dates=["2026-10-04"]) == ["2026-10-03", "2026-11-07", "2026-11-08", "2026-12-05"],
+      "a site closed on one programme day loses that day only")
+check(site_days(days=["Tuesday"]) == [], "a site cannot widen its programme: a Tuesday is never a weekend day")
+cmn = {"name": "CMN", "category": "arts", "days": "Sunday", "nth": 1, "months": [1, 2, 3, 11, 12],
+       "horizon_days": 70, "title_prefix": "p", "blurb": "x"}
+evs = P.program_events(dict(cmn, sites=[dict(here, name="Musée", months=[1, 2, 3, 10, 11, 12])]), NoNetwork())
+check([e.start_local for e in evs] == ["2026-11-01"],
+      "a site's months cannot add October to a November-to-March programme")
+
 # ------------------------------------------- 3. the wording contract, on the live file
-# The phrases 0227 reads as FREE FOR EVERYONE. A conditional programme must not
-# contain them, and must not open its title with "Free".
+# The phrases 0227 reads as FREE FOR EVERYONE, or as a DISCOUNT. A conditional
+# programme must not contain them - in its blurb or in any site's notes, because
+# the tagger reads the whole description - and must not open its title with
+# "Free". Five of the bank's own notes did ("required to reserve free admission",
+# "use promo code BOFA"), and tagged a cardholders-only row free or discount.
 FREE_FOR_ALL = re.compile(r"\bfree\s+(?:admission|entry|entrance)\b(?!\s+for\s+(?:\w+\s+){0,3}"
                           r"(?:members|cardholders|subscribers|students|seniors|residents|veterans|military)\b)"
                           r"|\b(?:admission|entry)\s+is\s+free\b", re.I)
+DISCOUNTED = re.compile(r"\bdiscount(?:s|ed)?\b|\b(?:promo|discount|coupon)\s+code\b|\buse\s+(?:the\s+)?code\b", re.I)
 try:
     live = json.load(open("program_sources.json", encoding="utf-8"))
 except FileNotFoundError:
@@ -104,7 +137,10 @@ for p in monthly:
               f"{name}: free for everyone, and says so in words the tagger reads as free")
     else:
         check(who and who.lower() in blurb.lower(), f"{name}: the blurb names who it is free for ({who})")
-        check(not FREE_FOR_ALL.search(blurb), f"{name}: no free-for-everyone phrase in a conditional offer")
+        said = [s.get("name") for s in [{"name": "(blurb)", "notes": blurb}] + p.get("sites", [])
+                if FREE_FOR_ALL.search(s.get("notes") or "") or DISCOUNTED.search(s.get("notes") or "")]
+        check(not said, f"{name}: no free-for-everyone or discount phrase anywhere in a conditional offer "
+                        f"(found in: {said[:3]})")
         check(not (p.get("title_prefix") or "").lower().startswith("free"),
               f"{name}: a conditional offer's title does not open with 'Free'")
     for s in p.get("sites", []):
@@ -114,6 +150,38 @@ for p in monthly:
             break
     else:
         check(True, f"{name}: every site carries coordinates with a provenance ({len(p.get('sites', []))} sites)")
+    # A swapped lat/lon or a namesake in another country still parses as a number.
+    boxes = {"Italy": (35.3, 6.6, 47.1, 18.6), "France": (41.3, -5.2, 51.1, 9.6),
+             "United States": (18.9, -179.9, 71.4, -66.9)}
+    stray = [s.get("name") for s in p.get("sites", [])
+             if s.get("country") not in boxes
+             or not (boxes[s["country"]][0] <= (s.get("lat") or 0) <= boxes[s["country"]][2]
+                     and boxes[s["country"]][1] <= (s.get("lon") or 0) <= boxes[s["country"]][3])]
+    check(not stray, f"{name}: every site names its country and lies inside it (outside: {stray[:3]})")
+    # A site rule that does not parse narrows to NOTHING, and the site vanishes
+    # without a word: "Satruday" is an empty weekday list, not an error.
+    bad = []
+    for s in p.get("sites", []):
+        if s.get("days") and not P._weekdays(s["days"]):
+            bad.append((s.get("name"), "days", s["days"]))
+        if s.get("months") and not all(isinstance(m, int) and 1 <= m <= 12 for m in s["months"]):
+            bad.append((s.get("name"), "months", s["months"]))
+        for k in ("season_start", "season_end"):
+            if s.get(k) and not P._as_date(s[k]):
+                bad.append((s.get("name"), k, s[k]))
+        if any(not P._as_date(x) for x in (s.get("exclude_dates") or ())):
+            bad.append((s.get("name"), "exclude_dates", s["exclude_dates"]))
+    check(not bad, f"{name}: every site rule parses ({bad[:2]})")
+
+# ------------------------------------------ 4. the coverage report can file them
+# catalog_curate reads a programme's place from its first site's street address;
+# a nationwide programme has none, and would be counted under "?".
+if monthly:
+    import catalog_curate as C  # noqa: E402
+    rows = {r[0]: r for r in C._rows_program(live)}
+    for p in monthly:
+        got = rows.get(p.get("name"), (None, None, "?"))[2]
+        check(got != "?", f"{p.get('name')}: the coverage report files it under a country (got {got})")
 
 failed = [label for ok, label in checks if not ok]
 for ok, label in checks:

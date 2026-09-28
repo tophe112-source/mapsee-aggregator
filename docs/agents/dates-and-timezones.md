@@ -118,3 +118,16 @@
   anchored shape at any UTC offset and never a timed row's. The other 46 (food
   banks, a sculpture walk, multi-day food drives) are genuinely all day and stay;
   ../mapsee now labels them "all day" and sorts them after timed events.
+
+- **"The first full weekend" is not "the first Sunday" plus a Saturday, and the
+  two part company one month in seven.** Bank of America's Museums on Us runs
+  the first Saturday of the month and the Sunday after it. When the 1st is a
+  Sunday, the first Sunday is that day, but its Saturday was last month; the
+  programme is on the 7th and 8th. That happens in 17 of the 120 months from
+  2026 to 2035 (14.2%), four of them in 2026-27: February, March and November
+  2026, and August 2027. `nth: 1` on "Saturday Sunday" would have put a free day
+  on the map a week early, on 1 November 2026, inside the first horizon the
+  programme ran with. So it is a named rule, `"rule": "first_full_weekend"`, in
+  `mapsee_ingest_programs._occurrences`, which finds the Sunday by looking one
+  day back for its Saturday. `test_ingest_programs.py` pins 1 November out and
+  7-8 November in.

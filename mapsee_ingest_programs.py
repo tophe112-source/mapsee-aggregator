@@ -36,6 +36,13 @@ list alone would put a free day on the map that is not one:
   "rule": "first_full_weekend" the first Saturday of the month and the Sunday
                                after it - which is NOT the first Sunday when the
                                1st is a Sunday (then it is the 7th and 8th)
+A SITE can narrow its programme, never widen it - a partner that takes part on
+Saturdays only, a monument free in fewer months than its network, a house closed
+for a marathon on the one Sunday that counted:
+  "days": ["Saturday"]            only these weekdays (a list or a string)
+  "months": [1, 2, 3]             only these months
+  "season_start"/"season_end"     only inside this window
+  "exclude_dates": ["2026-11-01"] never on these dates
 A site with no "start" is an all-day occurrence (the museum's own opening hours
 decide), and a site carrying "lat"/"lon" is never geocoded. "city", "region",
 "country", "url" and "notes" pass through, and "categories" adds secondaries.
@@ -110,8 +117,8 @@ _DAYS = {"monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3,
          "friday": 4, "saturday": 5, "sunday": 6}
 
 
-def _weekdays(s: Optional[str]) -> List[int]:
-    s = (s or "").lower()
+def _weekdays(s) -> List[int]:
+    s = (" ".join(s) if isinstance(s, (list, tuple)) else (s or "")).lower()
     return sorted({v for k, v in _DAYS.items() if k in s})
 
 
@@ -185,6 +192,19 @@ def _occurrences(weekdays: List[int], horizon_days: int, s_start, s_end,
     return out
 
 
+def _site_dates(site: Dict[str, Any], dates: List) -> List:
+    """The programme's dates this one site keeps (its narrowing rules, header)."""
+    only_days = _weekdays(site["days"]) if site.get("days") else None
+    only_months = site.get("months")
+    first, last = _as_date(site.get("season_start")), _as_date(site.get("season_end"))
+    closed = {str(x)[:10] for x in (site.get("exclude_dates") or ())}
+    return [d for d in dates
+            if (only_days is None or d.weekday() in only_days)
+            and (not only_months or d.month in only_months)
+            and (not first or d >= first) and (not last or d <= last)
+            and d.isoformat() not in closed]
+
+
 def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
     weekdays = _weekdays(prog.get("days")) or [0, 1, 2, 3, 4]   # Mon-Fri default
     tz = _tz(prog.get("timezone"))
@@ -197,6 +217,7 @@ def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
     blurb = (prog.get("blurb") or "").strip()
     url = prog.get("url")
     label = "program:" + str(prog.get("name", "program")).lower().replace(" ", "-")
+    dates = _occurrences(weekdays, horizon, s_start, s_end, nth, months, rule)
     out: List[NormalizedEvent] = []
     for site in prog.get("sites", []):
         sname = (site.get("name") or "").strip()
@@ -216,7 +237,7 @@ def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
         notes = (site.get("notes") or "").strip()
         desc = " · ".join(x for x in (blurb, meals, notes) if x) or None
         start_t, end_t = site.get("start"), site.get("end")
-        for d in _occurrences(weekdays, horizon, s_start, s_end, nth, months, rule):
+        for d in _site_dates(site, dates):
             ds = d.isoformat()
             fp = make_fingerprint(title, ds, addr or sname)
             sl, su = _localize(ds, start_t, tz)
