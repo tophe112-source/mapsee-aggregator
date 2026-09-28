@@ -301,9 +301,19 @@ _CLOSURE_TITLE_RX = re.compile(
     r"(?:centre|center)|garden|park)\s+(?:is\s+|are\s+|will\s+be\s+)?closed\b|"
     r"^\W*closed\s*(?:$|[:\-–—|!(]|for\b|on\b|today\b)",
     re.I)
+# The same word in the languages the catalog carries: 14 more titles in that
+# sample ("Entfällt: Zumba mit Lorena" and five more "Entfällt:", "FÄLLT AUS:",
+# "***ABGESAGT***", "Club ados - ANNULE", "(CANCELADO) Habitar la voz", and
+# "**CANCELED** Chair Yoga"), all of them cancellations when read, plus
+# 【開催中止】 on a Tokushima museum's tour that its feed still publishes as
+# CONFIRMED.
+_OFF_WORDS = (r"cancel+ed|postponed|abgesagt|entf[äa]llt|f[äa]llt\s+aus|verschoben|"
+              r"annul[ée]e?s?|cancelad[oa]s?|suspendid[oa]s?|aplazad[oa]s?|geannuleerd|"
+              r"afgelast|annullat[oa]")
 _CANCELLED_TITLE_RX = re.compile(
-    r"^\W*(?:cancel+ed|postponed)\s*(?:$|[:\-–—|!)\]])|"
-    r"[\-–—:(\[|]\s*(?:cancel+ed|postponed)\W*$",
+    rf"^\W*(?:{_OFF_WORDS})\s*(?:$|[:\-–—|!)\]*])|"
+    rf"[\-–—:(\[|*]\s*(?:{_OFF_WORDS})\W*$|"
+    r"【\s*(?:開催)?中止\s*】|^\s*中止\s*[:：]",
     re.I)
 _CANCELLED_CAPS_RX = re.compile(r"\s(?:CANCELL?ED|POSTPONED)\W*$")   # case-sensitive on purpose
 

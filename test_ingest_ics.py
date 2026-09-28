@@ -206,7 +206,8 @@ check("'In the Community - Lincoln Park' names a place, so it is geocoded",
       "In the Community - Lincoln Park" in geocode_calls, geocode_calls)
 for loc in ("Online - Virtual Room", "Virtual -", "Virtual Branch - Virtual Room 3",
             "Virtual Library - Virtual Room 1", "Online", "Virtual", "Main Library (Online)",
-            "Westlake Porter Public Library - Online"):
+            "Westlake Porter Public Library - Online", "ONLINE, Gorey Library",
+            "Online, Melbourne, VIC, Australia"):
     check(f"online: {loc!r}", bool(ICS.ONLINE_LOC_RX.search(loc)))
 for loc in ("Virtual Reality Lab - Room 2", "Online Learning Center, 5 Elm St", "Main Library - Room 2",
             "Zoom Room at Central Library"):

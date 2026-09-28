@@ -591,7 +591,7 @@ def _all_placeholders(loc: str, rx: "re.Pattern[str]" = PLACEHOLDER_LOC_RX) -> b
 # it and landed on a bank. Checked before GEO, and the row is skipped. Bare
 # "Online" and "Virtual" match too. "Virtual Reality Lab - Room 2" does not.
 ONLINE_LOC_RX = re.compile(
-    r"^\s*(?:online|virtual)(?:\s+(?:branch|library|room|programs?|events?))?\s*(?:$|[-\u2013\u2014|:])|"
+    r"^\s*(?:online|virtual)(?:\s+(?:branch|library|room|programs?|events?))?\s*(?:$|[-\u2013\u2014|:,])|"
     r"(?:[-\u2013\u2014|]\s*|\(\s*)(?:online|virtual)(?:\s+(?:room|event|program|class))?\s*\)?\s*$",
     re.I)
 

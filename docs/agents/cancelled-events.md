@@ -191,3 +191,10 @@
   Plans" and "Everything Is Cancelled". It stops NEW rows only. A title edited
   to "CANCELLED - X" after we took "X" is a new fingerprint, so the original
   row stays up until `mapsee_prune_cancelled` finds its source page cancelled.
+  The rule was English-only at first. The same corpus held 14 more
+  cancellations it let through: "Entfällt:" x6, "FÄLLT AUS:", "***ABGESAGT***",
+  "Club ados - ANNULE", "(CANCELADO)" x2 and "**CANCELED**". A 2026-09-28
+  review found a 【開催中止】 tour that its feed publishes as CONFIRMED.
+  `_OFF_WORDS` now carries the German, French, Spanish, Dutch and Italian word
+  under the same anchoring, and "Reporte anual" and "Suspendidos en el tiempo"
+  stay.

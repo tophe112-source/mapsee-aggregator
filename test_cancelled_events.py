@@ -248,6 +248,19 @@ for title, want in [
     ("Cancelled Plans: An Improv Night", None),
     ("Everything Is Cancelled", None),
     ("Cancel Culture Comedy Hour", None),
+    # the same word in the catalog's other languages, live titles
+    ("Entfällt: Zumba mit Lorena", "cancelled in the title"),
+    ("FÄLLT AUS: Musikbühne Meiendorf", "cancelled in the title"),
+    ("***ABGESAGT***  Pflanzen-Flohmarkt   ***ABGESAGT***", "cancelled in the title"),
+    ("ANNULE : Mapathon en ligne 2026-2027", "cancelled in the title"),
+    ("Club ados - ANNULE", "cancelled in the title"),
+    ("(CANCELADO) Habitar la voz", "cancelled in the title"),
+    ("【開催中止】蔭平発電所見学会", "cancelled in the title"),
+    # ...and look-alikes that are events
+    ("Reporte anual de la biblioteca", None),
+    ("Suspendidos en el tiempo: exposición", None),
+    ("Annual Meeting of the Friends", None),
+    ("Abgesang: ein Liederabend", None),
 ]:
     check(f"notice_reason({title!r})", notice_reason(title), want)
 
