@@ -5730,7 +5730,7 @@
   "alexandria.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Alexandria Library (Washington)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -11752,7 +11752,7 @@
   "arroyosfoothills.org": {
     "checked": 20260928,
     "name": "Arroyos & Foothills Conservancy (Pasadena, CA)",
-    "reason": "25 events, 10/10 on page 1 future",
+    "reason": "25 future, 25 placeable",
     "status": "ok",
     "type": "tribe"
   },
@@ -19554,7 +19554,7 @@
   "bclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Boulder City Library (Las Vegas)",
-    "reason": "134 future, 134 placeable",
+    "reason": "134 vevents / 134 future",
     "status": "ok",
     "type": "ics"
   },
@@ -21998,7 +21998,7 @@
   "bexley.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Bexley Public Library (Columbus)",
-    "reason": "138 future, 138 placeable",
+    "reason": "138 vevents / 138 future",
     "status": "ok",
     "type": "ics"
   },
@@ -27487,7 +27487,7 @@
   "blrdesigncentre.com": {
     "checked": 20260928,
     "name": "BLR Design Centre (Bengaluru)",
-    "reason": "2 future, 2 placeable",
+    "reason": "2 events, 2/2 on page 1 future",
     "status": "ok",
     "type": "tribe"
   },
@@ -32132,7 +32132,7 @@
   "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Broward County Library (Miami)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -37918,7 +37918,7 @@
   "carmel.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Carmel Clay Public Library (Indianapolis)",
-    "reason": "407 future, 407 placeable",
+    "reason": "407 vevents / 407 future",
     "status": "ok",
     "type": "ics"
   },
@@ -38415,7 +38415,7 @@
   "casadellago.unam.mx/nuevo": {
     "checked": 20260928,
     "name": "Casa del Lago UNAM (Mexico City)",
-    "reason": "8 future, 8 placeable",
+    "reason": "8 events, 8/8 on page 1 future",
     "status": "ok",
     "type": "tribe"
   },
@@ -40236,7 +40236,7 @@
   "ccpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Campbell County Public Library (Cincinnati)",
-    "reason": "409 future, 409 placeable",
+    "reason": "409 vevents / 409 future",
     "status": "ok",
     "type": "ics"
   },
@@ -54984,7 +54984,7 @@
   "cmpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Clinton-Macomb Public Library (Detroit)",
-    "reason": "398 future, 398 placeable",
+    "reason": "398 vevents / 398 future",
     "status": "ok",
     "type": "ics"
   },
@@ -55824,7 +55824,7 @@
   "collierville.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Collierville Burch Library (Memphis)",
-    "reason": "208 future, 208 placeable",
+    "reason": "208 vevents / 208 future",
     "status": "ok",
     "type": "ics"
   },
@@ -55859,7 +55859,7 @@
   "coloradoriver.org/?post_type=tribe_events&tribe_events_cat=cleanups&ical=1&eventDisplay=list": {
     "checked": 20260928,
     "name": "Colorado River Alliance - Cleanups (Austin, TX)",
-    "reason": "2 vevents / 2 future",
+    "reason": "2 future, 2 placeable",
     "status": "ok",
     "type": "ics"
   },
@@ -55908,7 +55908,7 @@
   "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Columbus Metropolitan Library (Columbus)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -61013,7 +61013,7 @@
   "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Cuyahoga County Public Library (Cleveland)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -64129,7 +64129,7 @@
   "delawarelibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Delaware County District Library (Columbus)",
-    "reason": "334 future, 334 placeable",
+    "reason": "334 vevents / 334 future",
     "status": "ok",
     "type": "ics"
   },
@@ -64991,7 +64991,7 @@
   "deschuteslandtrust.org/hikes-events/ics_view": {
     "checked": 20260928,
     "name": "Deschutes Land Trust - Walks & Hikes (Bend, OR)",
-    "reason": "20 future, 20 placeable",
+    "reason": "136 vevents / 20 future",
     "status": "ok",
     "type": "ics"
   },
@@ -68114,7 +68114,7 @@
   "downeylibrary.org/calendar-of-events": {
     "checked": 20260928,
     "name": "Downey City Library (Los Angeles)",
-    "reason": "113 future, 113 placeable",
+    "reason": "113/143 upcoming",
     "status": "ok",
     "type": "squarespace"
   },
@@ -77255,7 +77255,7 @@
   "eventos.sociales.unam.mx": {
     "checked": 20260928,
     "name": "Instituto de Investigaciones Sociales UNAM (Mexico City)",
-    "reason": "18 events, 10/10 on page 1 future",
+    "reason": "18 future, 17 placeable",
     "status": "ok",
     "type": "tribe"
   },
@@ -77325,7 +77325,7 @@
   "events.dekalblibrary.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "DeKalb County Public Library (Atlanta)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -81280,7 +81280,7 @@
   "fcdlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Fairfield County District Library (Columbus)",
-    "reason": "286 future, 255 placeable",
+    "reason": "286 vevents / 286 future",
     "status": "ok",
     "type": "ics"
   },
@@ -96126,8 +96126,8 @@
   "greenumbrella.org/?post_type=tribe_events&tribe_events_cat=volunteer-opportunities&ical=1&eventDisplay=list": {
     "checked": 20260928,
     "name": "Green Umbrella - Volunteer Opportunities (Cincinnati, OH)",
-    "reason": "22 vevents / 22 future",
-    "status": "ok",
+    "reason": "review: Unplaceable: the adapter places 6 of 22 upcoming rows (7 with no geocode_suffix). Photon finds nothing for 12 of the 16 unique 'Venue, street, city, ST, zip, United States' LOCATIONs as location_attempts sends them, and the preserves are all among the misses. A geocode_suffix change does not",
+    "status": "fail",
     "type": "ics"
   },
   "greenwood.in.gov": {
@@ -96658,7 +96658,7 @@
   "groundswellconservancy.org": {
     "checked": 20260928,
     "name": "Groundswell Conservancy (Madison, WI)",
-    "reason": "8 future, 7 placeable",
+    "reason": "8 events, 8/8 on page 1 future",
     "status": "ok",
     "type": "tribe"
   },
@@ -97253,8 +97253,8 @@
   "gtmnerr.org/?post_type=tribe_events&tribe_events_cat=volunteer&ical=1&eventDisplay=list": {
     "checked": 20260928,
     "name": "GTM Research Reserve - Volunteer (Ponte Vedra Beach, FL)",
-    "reason": "3 vevents / 3 future",
-    "status": "ok",
+    "reason": "review: Unplaceable: 0 of 3. Photon misses the single LOCATION 'GTM Research Reserve, 505 Guana River Rd., Ponte Vedra Beach, FL, 32082, United States' with the configured suffix, with none, and as the bare address. The feed has no GEO, and the ics venue fallback does not apply to rows that carry a ",
+    "status": "fail",
     "type": "ics"
   },
   "gu.se/jonsereds-herrgard/samverka-med-oss/jonsereds-tradgardar": {
@@ -97820,7 +97820,7 @@
   "gwinnettpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Gwinnett County Public Library (Atlanta)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -100480,7 +100480,7 @@
   "hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Hillsborough County Public Library Cooperative (Tampa)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -102545,7 +102545,7 @@
   "hepl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Hamilton East Public Library (Indianapolis)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -104855,7 +104855,7 @@
   "hobokenlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Hoboken Public Library (New York)",
-    "reason": "204 future, 191 placeable",
+    "reason": "204 vevents / 204 future",
     "status": "ok",
     "type": "ics"
   },
@@ -109329,7 +109329,7 @@
   "iiwc.in": {
     "checked": 20260928,
     "name": "Indian Institute of World Culture (Bengaluru)",
-    "reason": "6 future, 6 placeable",
+    "reason": "6 events, 6/6 on page 1 future",
     "status": "ok",
     "type": "tribe"
   },
@@ -110289,7 +110289,7 @@
   "indianapolis.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Indianapolis Public Library (Indianapolis)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -113572,7 +113572,7 @@
   "jaxpubliclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Jacksonville Public Library (Jacksonville)",
-    "reason": "500 future, 498 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -113895,7 +113895,7 @@
   "jcplin.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Johnson County Public Library (Indianapolis)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -114028,7 +114028,7 @@
   "jeffcolibrarymo.libcal.com/ical_subscribe.php?cid=17659": {
     "checked": 20260928,
     "name": "Jefferson County Library (St. Louis)",
-    "reason": "217 future, 182 placeable",
+    "reason": "365 vevents / 217 future",
     "status": "ok",
     "type": "ics"
   },
@@ -119245,8 +119245,8 @@
   "keeptempebeautiful.org": {
     "checked": 20260928,
     "name": "Keep Tempe Beautiful (Tempe, AZ)",
-    "reason": "4 events, 4/4 on page 1 future",
-    "status": "ok",
+    "reason": "review: Unplaceable through tribe: no venue has geo, and the Census batch places 1 of 4 upcoming rows (North Shore Beach, 550 E Tempe Town Lake and 281 S Mill Ave are No_Match) and 9 of 22 over the past year. If wanted, re-file as ics at https://keeptempebeautiful.org/events/?ical=1 with geocode_suf",
+    "status": "fail",
     "type": "tribe"
   },
   "keerbergen.be/sportcomplex-keerbergen": {
@@ -119595,7 +119595,7 @@
   "kentcountymi.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
     "checked": 20260928,
     "name": "Kent County Parks - Volunteer Opportunities (Grand Rapids, MI)",
-    "reason": "22 future, 22 placeable",
+    "reason": "22 vevents / 22 future",
     "status": "ok",
     "type": "ics"
   },
@@ -130968,7 +130968,7 @@
   "largopubliclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Largo Public Library (Tampa)",
-    "reason": "301 future, 301 placeable",
+    "reason": "301 vevents / 301 future",
     "status": "ok",
     "type": "ics"
   },
@@ -133866,7 +133866,7 @@
   "lemonbayconservancy.org": {
     "checked": 20260928,
     "name": "Lemon Bay Conservancy (Englewood, FL)",
-    "reason": "35 events, 10/10 on page 1 future",
+    "reason": "35 future, 35 placeable",
     "status": "ok",
     "type": "tribe"
   },
@@ -141168,7 +141168,7 @@
   "loudoun.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Loudoun County Public Library (Washington)",
-    "reason": "500 future, 493 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -145289,7 +145289,7 @@
   "maplewoodlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Maplewood Memorial Library (New York)",
-    "reason": "107 future, 107 placeable",
+    "reason": "107 vevents / 107 future",
     "status": "ok",
     "type": "ics"
   },
@@ -147551,7 +147551,7 @@
   "mckinneytexas.libcal.com/ical_subscribe.php?cid=17826": {
     "checked": 20260928,
     "name": "McKinney Public Library - John and Judy Gay (Dallas)",
-    "reason": "146 future, 133 placeable",
+    "reason": "220 vevents / 146 future",
     "status": "ok",
     "type": "ics"
   },
@@ -147614,7 +147614,7 @@
   "mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Montgomery County Public Libraries (Washington)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -147719,7 +147719,7 @@
   "mdhumanities.org": {
     "checked": 20260928,
     "name": "Maryland Humanities (Baltimore)",
-    "reason": "80 future, 75 placeable",
+    "reason": "80 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
   },
@@ -147873,7 +147873,7 @@
   "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Miami-Dade Public Library System (Miami)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -155463,7 +155463,7 @@
   "mpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Milwaukee Public Library (Milwaukee)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -162858,7 +162858,7 @@
   "naturenearby.org": {
     "checked": 20260928,
     "name": "Land Conservancy of West Michigan (Grand Rapids)",
-    "reason": "5 future, 5 placeable",
+    "reason": "5 events, 5/5 on page 1 future",
     "status": "ok",
     "type": "tribe"
   },
@@ -163173,7 +163173,7 @@
   "nbpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "North Bergen Public Library (New York)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -164279,7 +164279,7 @@
   "neworleans.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "New Orleans Public Library (New Orleans)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -169393,7 +169393,7 @@
   "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Orange County Library System (Orlando)",
-    "reason": "500 future, 493 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -179853,8 +179853,8 @@
   },
   "pascolibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
-    "name": "Pasco County Public Library Cooperative (Tampa)",
-    "reason": "500 future, 500 placeable",
+    "name": "Pasco County Libraries (Tampa)",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -182208,7 +182208,7 @@
   "pgcmls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Prince George's County Memorial Library System (Washington)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -182278,7 +182278,7 @@
   "pheasantbranch.org": {
     "checked": 20260928,
     "name": "Pheasant Branch Conservancy (Middleton, WI)",
-    "reason": "8 future, 8 placeable",
+    "reason": "8 events, 8/8 on page 1 future",
     "status": "ok",
     "type": "tribe"
   },
@@ -182642,7 +182642,7 @@
   "pickeringtonlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Pickerington Public Library (Columbus)",
-    "reason": "500 future, 474 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -183623,7 +183623,7 @@
   "pjcvt.org": {
     "checked": 20260928,
     "name": "Peace & Justice Center - Clean Up Crew (Burlington, VT)",
-    "reason": "32 events, 10/10 on page 1 future",
+    "reason": "32 future, 32 placeable",
     "status": "ok",
     "type": "tribe"
   },
@@ -183910,7 +183910,7 @@
   "plano.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Plano Public Library (Dallas)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -203577,7 +203577,7 @@
   "sclsnj.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Somerset County Library System of New Jersey (New York)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -205838,7 +205838,7 @@
   "sequoiariverlands.org": {
     "checked": 20260928,
     "name": "Sequoia Riverlands Trust (Visalia, CA)",
-    "reason": "14 events, 10/10 on page 1 future",
+    "reason": "14 future, 14 placeable",
     "status": "ok",
     "type": "tribe"
   },
@@ -234365,7 +234365,7 @@
   "thewhiteriveralliance.org": {
     "checked": 20260928,
     "name": "The White River Alliance (Indianapolis)",
-    "reason": "8 events, 8/8 on page 1 future",
+    "reason": "8 future, 8 placeable",
     "status": "ok",
     "type": "tribe"
   },
@@ -237868,7 +237868,7 @@
   "treesforhonolulu.org/events/?ical=1": {
     "checked": 20260928,
     "name": "Trees for Honolulu's Future (Honolulu, HI)",
-    "reason": "30 vevents / 29 future",
+    "reason": "29 future, 25 placeable",
     "status": "ok",
     "type": "ics"
   },
@@ -239220,7 +239220,7 @@
   "tualatinhillsparks.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar": {
     "checked": 20260928,
     "name": "Tualatin Hills Park & Recreation District - Volunteer (Beaverton, OR)",
-    "reason": "29 future, 29 placeable",
+    "reason": "29 vevents / 29 future",
     "status": "ok",
     "type": "ics"
   },
@@ -240201,7 +240201,7 @@
   "ualibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Upper Arlington Public Library (Columbus)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -251343,7 +251343,7 @@
   "webapps.dnr.state.mn.us/calendar/app?jsp=ical&k=sna&nd=365": {
     "checked": 20260928,
     "name": "Minnesota DNR - SNA Volunteer Stewardship (Minnesota)",
-    "reason": "7 future, 7 placeable",
+    "reason": "8 vevents / 7 future",
     "status": "ok",
     "type": "ics"
   },
@@ -252407,7 +252407,7 @@
   "westlakelibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Westlake Porter Public Library (Cleveland)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },
@@ -252954,7 +252954,7 @@
   "whiteplainslibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "White Plains Public Library (New York)",
-    "reason": "500 future, 500 placeable",
+    "reason": "500 vevents / 500 future",
     "status": "ok",
     "type": "ics"
   },

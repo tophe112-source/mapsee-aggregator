@@ -12670,6 +12670,86 @@
       "max_pages": 10,
       "_metro": "Baltimore, United States",
       "_note": "Statewide humanities council calendar: One Maryland One Book discussions and author talks at public libraries (80 upcoming), free. robots.txt: Crawl-delay 10, /wp-json/ allowed."
+    },
+    {
+      "name": "Instituto de Investigaciones Sociales UNAM (Mexico City)",
+      "category": "learning",
+      "base_url": "https://eventos.sociales.unam.mx",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Instituto de Investigaciones Sociales, UNAM",
+        "address": "Circuito Maestro Mario de la Cueva s/n, Ciudad Universitaria",
+        "city": "Ciudad de México",
+        "region": "CDMX",
+        "postal_code": "04510",
+        "country": "Mexico",
+        "lat": 19.3150433,
+        "lon": -99.1793698,
+        "names": [
+          "Instituto de Investigaciones Sociales"
+        ]
+      },
+      "_metro": "Mexico City, Mexico",
+      "_found": "search:unam.mx -> tribe",
+      "_note": "UNAM institute's public cartelera: free seminars, book presentations, colloquia at CU. TEC REST; robots.txt 404. `names` keeps Casa de las Humanidades rows off the pin; its iCal is TZID America/Chicago."
+    },
+    {
+      "name": "The White River Alliance (Indianapolis)",
+      "category": "volunteer",
+      "base_url": "https://thewhiteriveralliance.org",
+      "within_days": 120,
+      "max_pages": 2,
+      "crawl_delay": 60,
+      "default_region": "IN",
+      "default_country": "US",
+      "_metro": "Indianapolis, United States",
+      "_note": "Watershed nonprofit: tree-planting volunteer events in Indy parks and RAFT river-sampling days, every venue addressed. robots.txt: empty Disallow, Crawl-delay 60. Indianapolis volunteer was 7."
+    },
+    {
+      "name": "Arroyos & Foothills Conservancy (Pasadena, CA)",
+      "category": "outdoors",
+      "base_url": "https://arroyosfoothills.org",
+      "within_days": 120,
+      "max_pages": 4,
+      "default_region": "CA",
+      "default_country": "US",
+      "_metro": "Los Angeles, United States",
+      "_note": "Land trust's preserve calendar: habitat-restoration and trail workdays at Rubio, Millard, Sycamore, Sunshine and Cottonwood canyons (20 of 25 upcoming), all free and addressed. robots.txt: no rule for /wp-json/."
+    },
+    {
+      "name": "Lemon Bay Conservancy (Englewood, FL)",
+      "category": "outdoors",
+      "base_url": "https://lemonbayconservancy.org",
+      "within_days": 120,
+      "max_pages": 3,
+      "default_region": "FL",
+      "default_country": "US",
+      "_metro": "Englewood, United States",
+      "_note": "Twice-weekly Volunteer Work Crew at Lemon Creek Wildflower Preserve plus moon walks; 28 of 35 upcoming are work crews, every venue geocoded. robots.txt: no rule for /wp-json/. Outside the city-page metros."
+    },
+    {
+      "name": "Sequoia Riverlands Trust (Visalia, CA)",
+      "category": "outdoors",
+      "base_url": "https://sequoiariverlands.org",
+      "within_days": 120,
+      "max_pages": 2,
+      "default_region": "CA",
+      "default_country": "US",
+      "_metro": "Visalia, United States",
+      "_note": "Land trust: weekly native-plant nursery volunteer days at Dry Creek Preserve and monthly stewardship days at Kaweah Oaks (13 of 14 upcoming). robots.txt: no rule for /wp-json/. Outside the city-page metros."
+    },
+    {
+      "name": "Peace & Justice Center - Clean Up Crew (Burlington, VT)",
+      "category": "community",
+      "base_url": "https://www.pjcvt.org",
+      "within_days": 90,
+      "max_pages": 2,
+      "crawl_delay": 10,
+      "default_region": "VT",
+      "default_country": "US",
+      "_metro": "Burlington, United States",
+      "_note": "Weekly BTV Clean Up Crew and City Hall Park mini crews (18 of 22 upcoming) plus a fortnightly book club; all free, all addressed. robots.txt Crawl-delay 10. Outside the city-page metros."
     }
   ],
   "_not_included": {

@@ -17954,5 +17954,24 @@
     "url_home": "https://gwinnettpl.libnet.info/events",
     "_metro": "Atlanta, United States",
     "_note": "Communico public iCal export (Subscribe link, no key); robots.txt allows /feeds; GEO on each row. 15 branches; once filed as Communico 'no public feed', which was wrong."
+  },
+  {
+    "name": "Trees for Honolulu's Future (Honolulu, HI)",
+    "url": "https://www.treesforhonolulu.org/events/?ical=1",
+    "category": "volunteer",
+    "geocode_suffix": ", Honolulu, HI",
+    "limit": 300,
+    "crawl_delay": 10,
+    "_metro": "Honolulu, United States",
+    "_note": "Oahu urban-forestry nonprofit's Events Calendar iCal: weekly Hamakua Marsh forest restoration, Kuli'ou'ou ridge and Diamond Head planting days. robots.txt allows all, Crawl-delay 10. Honolulu volunteer was 14."
+  },
+  {
+    "name": "Colorado River Alliance - Cleanups (Austin, TX)",
+    "url": "https://coloradoriver.org/?post_type=tribe_events&tribe_events_cat=cleanups&ical=1&eventDisplay=list",
+    "category": "volunteer",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 50,
+    "_metro": "Austin, United States",
+    "_note": "Events Calendar 'cleanups' category only: monthly first-Saturday community creek cleanup at Onion Creek Metro Park. Rest of the calendar is mobile-exhibit appearances. robots.txt: no rule for the path."
   }
 ]
