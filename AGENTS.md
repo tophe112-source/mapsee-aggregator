@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 280 of them — live in
+session.** The measured notes about what bites — 281 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -128,7 +128,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/sync-eventstore-and-paging.md` | 17 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors, an unhide walk and its dry-run overcount |
 | `docs/agents/dates-and-timezones.md` | 10 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |
-| `docs/agents/geocoding-and-addresses.md` | 7 | Census, Photon, wrong coordinates, the city in the address, a LOCATION that says elsewhere |
+| `docs/agents/geocoding-and-addresses.md` | 8 | Census, Photon, wrong coordinates, the city in the address, a LOCATION that says elsewhere, the Events Calendar's comma LOCATION |
 | `docs/agents/spam-and-content.md` | 8 | the predicate, the purge, implausible end dates, safe scheduled deletes |
 | `docs/agents/state-fairs.md` | 5 | marketing-copy dates, towns vs venues |
 | `docs/agents/health-and-monitoring.md` | 6 | `stats_snapshot_all`, baselines, a source with no retry |

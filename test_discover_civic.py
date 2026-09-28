@@ -270,6 +270,29 @@ check(_g(_loc) == (32.60, -97.11) and len(_calls) == _before,
 
 check(icsad.location_attempts("Somewhere -  ") == ["Somewhere -"],
       "a dash with nothing after it does not split into an empty attempt")
+# The Events Calendar writes "Venue, street, city, ST zip" with no dash. On 40
+# live LOCATIONs the whole string placed 21 and the street-onwards remainder 12
+# more, all in the right town; the venue name alone was wrong 2 times in 5.
+check(icsad.location_attempts("Oasis Community Garden, 2445 Monroe Boulevard, Ogden, UT 84401")
+      == ["Oasis Community Garden, 2445 Monroe Boulevard, Ogden, UT 84401",
+          "2445 Monroe Boulevard, Ogden, UT 84401"],
+      "a comma-separated venue and street: the street onwards is the second attempt")
+check(icsad.location_attempts("Toronto Botanical Garden, 777 Lawrence Ave E, Toronto, ON, M3C 1P2, Canada")[1]
+      == "777 Lawrence Ave E, Toronto, ON, M3C 1P2, Canada",
+      "...country and postcode are kept, as the feed wrote them")
+check(icsad.location_attempts("Main Library, Room 2") == ["Main Library, Room 2"],
+      "a room after a comma is not a street")
+check(icsad.location_attempts("123 Main St, Springfield, IL") == ["123 Main St, Springfield, IL"],
+      "a LOCATION that already starts with the street is tried once")
+check(icsad.location_attempts("Pickering Barn, 1234") == ["Pickering Barn, 1234"],
+      "a number with nothing after it is not a street")
+_g, _calls = _fake_geocoder("2445 Monroe")
+_loc = "Oasis Community Garden, 2445 Monroe Boulevard, Ogden, UT 84401"
+check(_g(_loc) == (32.60, -97.11) and len(_calls) == 2,
+      "the street-onwards attempt is sent when the whole string misses")
+_before = len(_calls)
+check(_g(_loc) == (32.60, -97.11) and len(_calls) == _before,
+      "...and its hit is cached under the feed's own string")
 # Two separators split once and leave the second dash leading the remainder.
 check(icsad.location_attempts("City Hall -  - 1200 E. Broad St. Mansfield TX")[1]
       == "1200 E. Broad St. Mansfield TX",

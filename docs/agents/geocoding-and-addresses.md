@@ -113,3 +113,25 @@
   library. Only "TBD" and "See description" may still fall back. Look-alikes
   pinned as places: "US Bank Stadium", "Canada Water Library", "Outreach
   Center, 5 Oak St", "Main Library - Room 2".
+
+- **THE EVENTS CALENDAR'S iCAL LOCATION HAS NO DASH, so the adapter sent
+  Photon one string and gave up.** `location_attempts` split only on " - "
+  (CivicPlus's "Venue - street"). The Events Calendar writes "Venue, street,
+  city, ST zip, Country". The 837-feed corpus held 125 such distinct
+  LOCATIONs, on 527 rows from 38 feeds. Measured on 40 of them (2026-09-28,
+  Photon, one request a second, a hit counted only in the LOCATION's own
+  town or postcode):
+  - the whole string placed 21;
+  - the street-onwards remainder placed 33, with 0 wrong, 2 of them to the
+    house number in a town Photon calls "County of Brant";
+  - the venue name alone placed 28 but put 4 in the wrong town, and 2 of the 5
+    it was the last hope for.
+
+  So the remainder is now the second attempt, and the venue name is not
+  added. Because a hit is cached under the feed's own string, a LOCATION
+  that needs the second attempt costs two lookups once and none after. A
+  miss is not cached, so today each one costs a lookup on every run.
+  The 2026-09-28 reviewers dropped Green Umbrella's volunteer view on this.
+  12 of its 16 distinct LOCATIONs missed as sent, and 9 of those 12 resolved
+  when the address half was sent alone, some only to a street centroid, so
+  it can be proposed again. GTM's single LOCATION misses either way.

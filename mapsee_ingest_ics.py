@@ -302,6 +302,19 @@ def location_attempts(loc: str) -> List[str]:
             out += [rest, venue]
         else:
             out += [venue, rest]
+        return out
+    # THE EVENTS CALENDAR WRITES "Venue, street, city, ST zip, Country" WITH NO
+    # DASH, so the split above never fires and Photon sees only the whole
+    # string. Measured 2026-09-28 on 40 of the 125 such LOCATIONs in the 837-feed
+    # corpus: the whole string placed 21, all in the right town. Adding the
+    # street-onwards remainder as a second attempt placed 12 more, every one in
+    # the right town, and two of them to the house number. The venue name alone
+    # was measured as a third attempt and NOT added: where the first two missed,
+    # it put 2 of 5 in the wrong town, which is a guess.
+    commas = [p.strip() for p in loc.split(",")]
+    street = next((i for i, p in enumerate(commas) if i and re.match(r"\d", p)), None)
+    if street and len(commas) - street >= 2 and not re.search(r"\d", commas[0]):
+        out.append(", ".join(commas[street:]))
     return out
 
 
