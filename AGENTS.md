@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 281 of them — live in
+session.** The measured notes about what bites — 282 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -82,7 +82,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 51 `test_*.py` scripts are the CI gate.** They print one line per case
+- **The 52 `test_*.py` scripts are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -126,7 +126,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/classification-and-categories.md` | 27 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer |
 | `docs/agents/cancelled-events.md` | 18 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut |
 | `docs/agents/sync-eventstore-and-paging.md` | 17 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors, an unhide walk and its dry-run overcount |
-| `docs/agents/dates-and-timezones.md` | 10 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side |
+| `docs/agents/dates-and-timezones.md` | 11 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side, monthly rules |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |
 | `docs/agents/geocoding-and-addresses.md` | 8 | Census, Photon, wrong coordinates, the city in the address, a LOCATION that says elsewhere, the Events Calendar's comma LOCATION |
 | `docs/agents/spam-and-content.md` | 8 | the predicate, the purge, implausible end dates, safe scheduled deletes |
@@ -140,7 +140,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 ```bash
 pip install -r requirements.txt
-python test_categories.py            # one of the 50 gate scripts; the full list is in docs/agents/running.md
+python test_categories.py            # one of the 52 gate scripts; the full list is in docs/agents/running.md
 python catalog_curate.py coverage    # where the catalog is thin, per lens category
 python agent_notes.py                # the notes map is under budget and the index is fresh
 ```

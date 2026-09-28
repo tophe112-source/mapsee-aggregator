@@ -213,6 +213,15 @@ jobs:
       - name: State fairs (sale windows, other events, the year in the wrong place)
         run: python test_ingest_fairs.py
 
+      # The free museum days are MONTHLY rules on a weekly adapter: a museum that
+      # is free on the first Sunday is not free on the other three, and Bank of
+      # America's "first full weekend" is not the first Sunday when the 1st is a
+      # Sunday. Also pins the wording contract with ../mapsee's 0227 tagger: a
+      # programme free for everyone says so in words it reads as free, and one
+      # free for cardholders never does.
+      - name: Recurring programmes (first Sundays, first full weekends, the free-for-whom wording)
+        run: python test_ingest_programs.py
+
       # OFFSET paging gets dearer every page: offset=6000 makes Postgres produce
       # and discard six thousand rows to return the next thousand. It held while
       # the catalog was small and died the day a 26-hour window held more than

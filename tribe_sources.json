@@ -12750,6 +12750,47 @@
       "default_country": "US",
       "_metro": "Burlington, United States",
       "_note": "Weekly BTV Clean Up Crew and City Hall Park mini crews (18 of 22 upcoming) plus a fortnightly book club; all free, all addressed. robots.txt Crawl-delay 10. Outside the city-page metros."
+    },
+    {
+      "name": "Portimão",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.jf-portimao.pt",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Portimão",
+      "default_region": null,
+      "default_country": "PT",
+      "_metro": "Portimão, Portugal"
+    },
+    {
+      "name": "Benfica",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://bairrobenfica.pt",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Benfica",
+      "default_region": null,
+      "default_country": "PT",
+      "_metro": "Benfica, Portugal"
+    },
+    {
+      "name": "Great Dane Brewing",
+      "category": "food",
+      "_found": "osm:brewery -> tribe",
+      "base_url": "https://greatdanebrewing.jp",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Great Dane Brewing",
+        "city": "仙台市",
+        "region": "宮城県",
+        "postal_code": "982-0241",
+        "lat": 38.2239559,
+        "lon": 140.7325481
+      },
+      "_metro": "Sendai, Japan"
     }
   ],
   "_not_included": {
