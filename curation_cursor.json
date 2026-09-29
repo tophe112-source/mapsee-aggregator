@@ -215,10 +215,10 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 97,
-  "metro_key": "NZ:Wellington",
+  "metro": 101,
+  "metro_key": "NZ:Dunedin",
   "stuck": {
-   "NZ:Wellington": 1
+   "NZ:Dunedin": 1
   }
  },
  "socrata": {

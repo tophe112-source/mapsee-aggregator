@@ -185071,6 +185071,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "phillipstown.org": {
+    "checked": 20260929,
+    "name": "Te Whare Wh\u0101nau Wh\u0101nui / Phillipstown Community Hub",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "phinneycenter.org/calendar/?ical=1": {
     "checked": 20260821,
     "name": "Phinneycenter (Seattle)",
