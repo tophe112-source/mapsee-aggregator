@@ -34,6 +34,7 @@ skipped; recurring events keep only their base instance if it's upcoming
 from __future__ import annotations
 
 import argparse
+import codecs
 import html as _html
 import json
 import re
@@ -101,6 +102,16 @@ _GEO_CACHE = _load_geo_cache()
 FEED_CACHE_PATH = _os.environ.get("ICS_FEED_CACHE", "ics_feed_cache.json")
 FEED_BODY_MAX = 3_000_000          # don't cache pathological multi-MB feeds
 FEED_KEEP_DAYS = 30
+# Entries without this version hold `resp.text` as requests decoded it before
+# _decode_ics existed, which for a charset-less text/calendar is ISO-8859-1. A
+# 304 would hand that text straight back, so they are ignored: one full fetch
+# each, once.
+FEED_CACHE_VERSION = 2
+# The old reader's keys are worth computing only while a row it wrote can still
+# be upcoming (mapsee_supabase_sync.rekey_legacy moves those rows). OpenAgenda's
+# feeds list current and upcoming events; two months after the fix every such
+# row has been moved or is past, and each sync stops paying the lookup.
+LEGACY_KEYS_UNTIL = "2026-11-30"
 
 def _load_feed_cache():
     try:
@@ -147,8 +158,44 @@ def _save_cursor(path, source, offset=0, kept=0):
         json.dump({"source": source, "offset": offset, "kept": kept}, fh)
     _os.replace(tmp, path)
 
+# THE DEFAULT CHARSET OF AN iCALENDAR STREAM IS UTF-8 (RFC 5545 3.1.4), and
+# `resp.text` did not know it. requests decodes a text/* body whose Content-Type
+# names no charset as ISO-8859-1, HTTP/1.1's default and not iCalendar's, so
+# every non-ASCII character of such a feed became two: the "é" of "Numériques"
+# arrived as U+00C3 U+00A9. OpenAgenda serves a bare `text/calendar`, and in the
+# 2026-09-28 corpus (40,920 distinct listings from 831 feeds) 3,692 listings
+# from 58 feeds were garbled this way, 57 of the feeds OpenAgenda's. Those rows
+# are on the map with that text, and their fingerprints were hashed from it,
+# so reading the feed correctly changes every one of their identities: see
+# `legacy_fingerprints` in mapsee_ingest.NormalizedEvent.
+def _decode_ics(resp) -> Tuple[str, Optional[str]]:
+    """(text, legacy_encoding): the body as RFC 5545 says to read it, and the
+    encoding `resp.text` used instead when that reading differed, else None."""
+    if "charset=" in (resp.headers.get("Content-Type") or "").lower():
+        return resp.text, None                         # the server said; requests honours it
+    raw = resp.content or b""
+    # Unfold at the octet level first: RFC 5545 folds at 75 OCTETS, and a
+    # generator that splits a character across a fold leaves UTF-8 that only
+    # decodes once the fold is gone. Idempotent for _unfold afterwards.
+    raw = re.sub(rb"\r?\n[ \t]", b"", raw)
+    try:
+        text = raw.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        return resp.text, None                         # not UTF-8: read it as we always did
+    if raw.isascii():
+        return text, None
+    old = resp.encoding or resp.apparent_encoding or "utf-8"
+    try:
+        same = codecs.lookup(old).name == "utf-8"
+    except LookupError:
+        return text, None                              # a reading Python cannot reproduce
+    return text, (None if same else old)
+
+
 def _fetch_ics(session, url):
-    """GET with revalidation. Returns (text, how) where how is 200/304/reuse."""
+    """GET with revalidation. Returns (text, how, legacy_encoding), how being
+    200/304/reuse and legacy_encoding what the pre-_decode_ics reader used where
+    it read this body differently (see _decode_ics), else None."""
     # webcal:// is https:// wearing a hat — the standard "subscribe to this
     # calendar" scheme, and what parish and club sites publish. requests has no
     # adapter for it and raises InvalidSchema, which reads as a broken feed
@@ -156,6 +203,8 @@ def _fetch_ics(session, url):
     if url.lower().startswith("webcal://"):
         url = "https://" + url[9:]
     ent = _FEED_CACHE.get(url)
+    if ent and ent.get("v") != FEED_CACHE_VERSION:
+        ent = None                                     # decoded the old way; see FEED_CACHE_VERSION
     headers = {}
     if ent:
         if ent.get("etag"):
@@ -166,19 +215,21 @@ def _fetch_ics(session, url):
         resp = session.get(url, timeout=25, headers=headers)   # fail fast: a hanging feed must not burn a minute each
     except Exception:
         if ent and ent.get("body"):
-            return ent["body"], "reuse"                # network hiccup → last good body
+            return ent["body"], "reuse", ent.get("legacy_enc")   # network hiccup → last good body
         raise
     now_ts = datetime.now(timezone.utc).timestamp()
     if resp.status_code == 304 and ent and ent.get("body"):
         ent["ts"] = now_ts                             # keep it inside the prune window
-        return ent["body"], "304"
+        return ent["body"], "304", ent.get("legacy_enc")
     resp.raise_for_status()
+    text, legacy_enc = _decode_ics(resp)
     etag, lm = resp.headers.get("ETag"), resp.headers.get("Last-Modified")
-    if (etag or lm) and len(resp.text) < FEED_BODY_MAX:
-        _FEED_CACHE[url] = {"etag": etag, "lm": lm, "ts": now_ts, "body": resp.text}
+    if (etag or lm) and len(text) < FEED_BODY_MAX:
+        _FEED_CACHE[url] = {"etag": etag, "lm": lm, "ts": now_ts, "body": text,
+                            "v": FEED_CACHE_VERSION, "legacy_enc": legacy_enc}
     else:
         _FEED_CACHE.pop(url, None)                     # no validator → full fetch every time
-    return resp.text, "200"
+    return text, "200", legacy_enc
 
 
 
@@ -387,9 +438,50 @@ def make_location_geocoder(session, suffix: str):
     return geocode
 
 
+def _summary(ev: Dict[str, Any]) -> str:
+    return _unescape(ev.get("SUMMARY", ("", {}))[0]).strip()
+
+
+def _location(ev: Dict[str, Any]) -> Optional[str]:
+    loc = _unescape(ev.get("LOCATION", ("", {}))[0]).strip() or None
+    if loc:  # Trumba locations can carry HTML ("111 Alamo Plaza<br>San Antonio")
+        loc = _html.unescape(re.sub(r"<[^>]+>", ", ", loc))    # &amp; and &nbsp; alike
+        loc = re.sub(r"\s*,\s*,+", ", ", re.sub(r"\s+", " ", loc)).strip(" ,") or None
+    return loc
+
+
+def _legacy_fingerprint(old_ev: Dict[str, Any], date_key: str, venue: Optional[Dict[str, Any]]) -> str:
+    """The fingerprint the pre-_decode_ics reader gave this VEVENT: the same
+    parser and the same steps, over the text it was reading. A row the old
+    reader pinned to the source's venue carried the venue's name, which comes
+    from the config and was never misread."""
+    if venue is not None:
+        loc = venue.get("name") or None
+    else:
+        loc = _location(old_ev)
+        if loc and (PLACEHOLDER_LOC_RX.match(loc) or _all_placeholders(loc)):
+            loc = None
+    return make_fingerprint(_summary(old_ev), date_key, loc)
+
+
 def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=0, start_kept=0, deadline=None) -> int:
-    text, how = _fetch_ics(session, src["url"])
+    got = _fetch_ics(session, src["url"])
+    text, how = got[0], got[1]
+    legacy_enc = got[2] if len(got) > 2 else None      # tests patch in the older (text, how)
     events = parse_ics(text)
+    # The VEVENTs as the old reader saw them, index for index: BEGIN/END and
+    # every property name are ASCII, so both readings split the same way.
+    old_events = None
+    if legacy_enc and datetime.now(timezone.utc).strftime("%Y-%m-%d") <= LEGACY_KEYS_UNTIL:
+        try:
+            old = parse_ics(text.encode("utf-8").decode(legacy_enc, errors="replace"))
+        except (LookupError, ValueError):
+            old = []                                   # the old keys are a courtesy, never a failure
+        if len(old) == len(events):
+            old_events = old
+        else:
+            print(f"::warning::[ics] {src['name']}: read as {legacy_enc} it has {len(old)} VEVENTs "
+                  f"and as UTF-8 {len(events)}; its rows keep no legacy fingerprint", flush=True)
     label = "ics:" + src["name"].lower().replace(" ", "-")
     geocode = make_location_geocoder(session, src.get("geocode_suffix", ""))
     now_key = datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -415,7 +507,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         if deadline is not None and time.monotonic() >= deadline:
             raise BudgetExpired(offset, kept)
         ev = events[offset]
-        title = _unescape(ev.get("SUMMARY", ("", {}))[0]).strip()
+        title = _summary(ev)
         if not title or "DTSTART" not in ev:
             continue
         # STATUS:CANCELLED, and the publisher has told us in the only way a
@@ -450,10 +542,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         end_local = end_utc = None
         if "DTEND" in ev:
             end_local, end_utc, _ = _parse_dt(*ev["DTEND"])
-        loc = _unescape(ev.get("LOCATION", ("", {}))[0]).strip() or None
-        if loc:  # Trumba locations can carry HTML ("111 Alamo Plaza<br>San Antonio")
-            loc = _html.unescape(re.sub(r"<[^>]+>", ", ", loc))    # &amp; and &nbsp; alike
-            loc = re.sub(r"\s*,\s*,+", ", ", re.sub(r"\s+", " ", loc)).strip(" ,") or None
+        loc = _location(ev)
         # An online session is on no map, whatever GEO its branch stamped on it:
         # see ONLINE_LOC_RX. Before GEO is read, because Communico gives these
         # rows the owning branch's coordinates (or 0;0, which the geocoder then
@@ -505,6 +594,10 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             ticket_url=url or src.get("url_home"),   # every event links somewhere - the VEVENT URL, else the calendar's page
         )
         nev.fingerprint = make_fingerprint(title, date_key, loc)
+        if old_events is not None:
+            legacy = _legacy_fingerprint(old_events[offset], date_key, venue)
+            if legacy != nev.fingerprint:
+                nev.legacy_fingerprints = [legacy]
         store.upsert(nev)
         kept += 1
     note = f" ({how})" if how != "200" else ""

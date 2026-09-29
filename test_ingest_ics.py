@@ -280,6 +280,99 @@ check("a crawl-delay wait longer than the budget stops the run before the fetch"
       rc == 0 and [n for n, _ in order] == ["branch A"] and not sleeps, (order, sleeps))
 
 
+# --- a feed that names no charset is UTF-8, and its rows remember the old key --
+# OpenAgenda serves a bare `text/calendar`; requests read it as ISO-8859-1, and
+# every accented title reached the map garbled and was hashed into its row's
+# identity. The reader is fixed; the old identity must still be computable, or
+# the next sync writes the clean row beside the garbled one.
+from requests.models import Response
+from requests.structures import CaseInsensitiveDict
+from requests.utils import get_encoding_from_headers
+from mapsee_ingest import make_fingerprint
+
+
+def _response(body, ctype, status=200, extra=None):
+    r = Response()
+    r.status_code, r._content = status, body
+    r.headers = CaseInsensitiveDict({"Content-Type": ctype, **(extra or {})})
+    r.encoding = get_encoding_from_headers(r.headers)    # what requests itself does
+    return r
+
+
+FR_ICS = ("BEGIN:VCALENDAR\r\n"
+          "BEGIN:VEVENT\r\nUID:a\r\nSUMMARY:Ateliers Numériques\r\nDTSTART:20991010T170000Z\r\n"
+          "LOCATION:Médiathèque Lisa Bresner\r\nGEO:47.2;-1.55\r\nEND:VEVENT\r\n"
+          "BEGIN:VEVENT\r\nUID:b\r\nSUMMARY:Chess club\r\nDTSTART:20991011T170000Z\r\n"
+          "LOCATION:Main Library\r\nGEO:47.2;-1.55\r\nEND:VEVENT\r\n"
+          "BEGIN:VEVENT\r\nUID:c\r\nSUMMARY:Fête du quartier\r\nDTSTART:20991012T170000Z\r\nEND:VEVENT\r\n"
+          "END:VCALENDAR\r\n")
+FR_RAW = FR_ICS.encode("utf-8")
+fr_text, fr_enc = ICS._decode_ics(_response(FR_RAW, "text/calendar"))
+check("a text/calendar that names no charset is read as UTF-8",
+      "Ateliers Numériques" in fr_text and fr_enc == "ISO-8859-1", fr_enc)
+t2, e2 = ICS._decode_ics(_response(FR_RAW, "text/calendar; charset=utf-8"))
+check("a declared charset is honoured and leaves no legacy reading", "Numériques" in t2 and e2 is None, e2)
+_, e3 = ICS._decode_ics(_response(b"BEGIN:VCALENDAR\r\nEND:VCALENDAR\r\n", "text/calendar"))
+check("an ASCII feed reads the same either way", e3 is None, e3)
+LATIN = "SUMMARY:Fête\r\n".encode("latin-1")
+t4, e4 = ICS._decode_ics(_response(LATIN, "text/calendar"))
+check("a body that is not UTF-8 is read as it always was", t4 == LATIN.decode("latin-1") and e4 is None, (t4, e4))
+bogus = _response(FR_RAW, "text/calendar")
+bogus.encoding = "x-no-such-codec"
+t6, e6 = ICS._decode_ics(bogus)
+check("an encoding Python does not know leaves no legacy reading to fail on", "Numériques" in t6 and e6 is None, e6)
+E = "è".encode("utf-8")
+FOLDED = b"SUMMARY:M\xc3\xa9diath" + E[:1] + b"\r\n " + E[1:] + b"que\r\n"
+t5, _ = ICS._decode_ics(_response(FOLDED, "text/calendar"))
+check("a fold that splits a character is joined before decoding", "Médiathèque" in t5, repr(t5))
+
+mis = lambda s: s.encode("utf-8").decode("latin-1")      # what requests made of it
+with patch.object(ICS, "_fetch_ics", return_value=(fr_text, "200", fr_enc)), \
+     patch.object(ICS, "make_location_geocoder", side_effect=_no_hit_geocoder):
+    vstore = VenueStore()
+    ICS.ingest_ics(vstore, None, {"name": "oa", "url": "x",
+                                  "venue": {"name": "Médiathèque de quartier", "lat": 47.2, "lon": -1.55}})
+by = {r.source_id: r for r in vstore.rows}
+a, b, c = by.get("a"), by.get("b"), by.get("c")
+check("the title is stored as the source wrote it", a is not None and a.name == "Ateliers Numériques",
+      a and a.name)
+check("its old key is exactly the one the ISO-8859-1 reading hashed",
+      a is not None and a.legacy_fingerprints == [make_fingerprint(
+          mis("Ateliers Numériques"), "2099-10-10", mis("Médiathèque Lisa Bresner"))],
+      a and a.legacy_fingerprints)
+check("an ASCII event carries no old key", b is not None and b.legacy_fingerprints == [],
+      b and b.legacy_fingerprints)
+check("a venue fallback's name came from the config and was never misread",
+      c is not None and c.legacy_fingerprints == [make_fingerprint(
+          mis("Fête du quartier"), "2099-10-12", "Médiathèque de quartier")],
+      c and c.legacy_fingerprints)
+
+
+class _Feed:
+    def __init__(self, status=200):
+        self.status, self.sent = status, []
+
+    def get(self, url, timeout=None, headers=None):
+        self.sent.append(dict(headers or {}))
+        if self.status == 304:
+            return _response(b"", "text/calendar", status=304)
+        return _response(FR_RAW, "text/calendar", extra={"ETag": '"v1"'})
+
+
+OA = "https://oa.test/a.ics"
+with patch.dict(ICS._FEED_CACHE, {OA: {"etag": '"v1"', "ts": 9e12, "body": mis(FR_ICS)}}, clear=True):
+    feed = _Feed()
+    body, how, enc = ICS._fetch_ics(feed, OA)
+    check("a cache entry from the old reader is neither revalidated nor reused",
+          how == "200" and "If-None-Match" not in feed.sent[0] and "Numériques" in body, (how, feed.sent))
+    entry = ICS._FEED_CACHE.get(OA) or {}
+    check("the new entry records which reading the old reader used",
+          entry.get("v") == ICS.FEED_CACHE_VERSION and entry.get("legacy_enc") == "ISO-8859-1", entry)
+    body2, how2, enc2 = ICS._fetch_ics(_Feed(304), OA)
+    check("a 304 hands back the same text and the same old reading",
+          how2 == "304" and body2 == body and enc2 == enc, (how2, enc2))
+
+
 if fails:
     raise SystemExit(f"{len(fails)} ICS test(s) failed: {', '.join(fails)}")
 print("all ICS tests passed")

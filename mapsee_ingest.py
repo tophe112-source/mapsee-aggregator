@@ -531,6 +531,16 @@ class NormalizedEvent:
     # did not publish an agenda; [] is an intentional refresh that clears it.
     agenda: Optional[List[Dict[str, Any]]] = None
     agenda_tz: Optional[str] = None
+    # FINGERPRINTS THIS EVENT HAD BEFORE A READER WAS FIXED, so the sync can move
+    # the row it already wrote instead of writing a second one. The fingerprint
+    # IS the row's identity (external_id), and it is hashed from the title and
+    # the venue text, so correcting how a source is READ changes it: when the
+    # ics adapter stopped reading charset-less feeds as ISO-8859-1, every
+    # OpenAgenda row's title changed, and an upsert on the new key would have
+    # left the garbled row beside the clean one, because an upsert cannot
+    # delete. mapsee_supabase_sync.rekey_legacy consumes these. Empty for every
+    # event whose reading did not change, and then left out of the store.
+    legacy_fingerprints: List[str] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         if self.agenda is not None:
@@ -555,6 +565,8 @@ class NormalizedEvent:
             rec.pop("agenda", None)
         if self.agenda_tz is None:
             rec.pop("agenda_tz", None)
+        if not self.legacy_fingerprints:
+            rec.pop("legacy_fingerprints", None)
         return rec
 
 
@@ -712,6 +724,10 @@ class EventStore:
         if ev.categories:
             rec["categories"] = norm_categories(
                 rec.get("category"), rec.get("categories"), ev.categories)
+        # A union too: every identity this event ever had must still be movable.
+        if ev.legacy_fingerprints:
+            rec["legacy_fingerprints"] = sorted(
+                set(rec.get("legacy_fingerprints") or []) | set(ev.legacy_fingerprints))
 
     def _add_source_ref(self, rec: Dict[str, Any], ev: NormalizedEvent) -> None:
         ref = ev.source_ref()

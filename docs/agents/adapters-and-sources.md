@@ -278,3 +278,23 @@
   because only `&amp;` was unescaped. It found "Offsite - Offsite" and "In the
   Community -" guessed onto a post office and a community centre: they are
   now placeholders, and "In the Community - Lincoln Park" still geocodes.
+
+- **AN iCALENDAR FEED THAT NAMES NO CHARSET IS UTF-8, and `resp.text` read it
+  as ISO-8859-1.** requests gives a `text/*` body without a charset HTTP/1.1's
+  default, and RFC 5545 says an iCalendar stream's default is UTF-8.
+  OpenAgenda serves a bare `text/calendar`, so every accented character of its
+  57 feeds became two (the "é" of "Numériques" arrived as U+00C3 U+00A9), on
+  the map and in the fingerprint. In the 2026-09-28 corpus that was 3,692
+  listings in 58 feeds; the 58th, wina-gent.be, garbled only descriptions.
+  `_decode_ics` now decodes the octets as UTF-8 after unfolding them (a fold
+  may split a character) and keeps `resp.text` for a declared charset or a
+  body that is not UTF-8. Replayed over 13 of the feeds, fetched once each: of
+  3,031 records the old reader built, 2,708 had a garbled title or venue and
+  none do now. Changing the text changes the identity, so the adapter also
+  hashes each event as the old reader did (the same parser over the Latin-1
+  reading) into `legacy_fingerprints`, and 3,030 of the 3,031 old identities
+  are recovered that way. The one it misses is "Point Information Nantes
+  Solidaire : ANNULÉ", which the fixed reader recognises as a cancellation and
+  refuses. None of these feeds sends an ETag or Last-Modified, so none was ever
+  in `ics_feed_cache.json`; any feed that was is fetched afresh once
+  (`FEED_CACHE_VERSION`).

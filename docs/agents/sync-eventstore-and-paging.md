@@ -239,3 +239,22 @@
   of it again. In an apply the first write takes a row out of the hidden set,
   so the sweep cannot see it twice. When instants were stepped past, trust an
   apply's written count over a dry run's hits.
+
+- **READING A SOURCE BETTER CHANGES EVERY ROW'S IDENTITY, so the sync moves
+  the rows instead of inserting new ones.** `external_id` is a fingerprint of
+  the title and the venue text, and the upsert keys on it and cannot delete:
+  the day the ics adapter stopped reading OpenAgenda as ISO-8859-1, every one
+  of its rows would have been written a second time, clean, beside the garbled
+  one. An adapter that knows an event's old identity now says so
+  (`legacy_fingerprints`), and `rekey_legacy` runs before anything reads
+  existence. A row still under an old key is PATCHed to the new one, keeping
+  its id, its /e/ link and any claim. If the new key already has a row, the
+  old one is hidden, and left alone if claimed. A record whose old row cannot
+  be looked up or moved is held back for that run, never inserted, and a moved
+  row is written even under `--only-new`, since it still carries the garbled
+  text. Measured end to end on 13 real feeds, with the old reader's keys as
+  the table: 2,738 rows under an old key, 2,737 moved, 1 hidden (the same
+  event twice, once with a no-break space before "!"), 0 held, and the table's
+  row count unchanged. The only old row left is the cancellation the fixed
+  reader refuses. The adapter stops emitting old keys after `LEGACY_KEYS_UNTIL`
+  (2026-11-30), when every such row has moved or is past.

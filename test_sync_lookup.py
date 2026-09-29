@@ -268,8 +268,102 @@ class LookupTests(unittest.TestCase):
             write.assert_not_called()
 
 
+class Writable(Store):
+    """Store that also answers PATCH, moving or hiding a row as PostgREST would."""
+    def __init__(self, rows, fail_patch=False, **kw):
+        super().__init__(rows, **kw)
+        self.patches, self.hidden, self.fail_patch = [], set(), fail_patch
+
+    def patch(self, url, headers=None, data=None, timeout=None):
+        q = parse_qs(urlsplit(url).query)
+        old, body = q["external_id"][0][len("eq."):], json.loads(data)
+        self.patches.append((old, body))
+        failed = self.fail_patch
+        if not failed and "external_id" in body:
+            self.rows[body["external_id"]] = self.rows.pop(old)
+        if not failed and "hidden_at" in body:
+            self.hidden.add(old)
+
+        class Response:
+            status_code = 503 if failed else 204
+        return Response()
+
+
+class LegacyRekeyTests(unittest.TestCase):
+    """A row garbled by the old ics reader is MOVED to its new key, never duplicated."""
+    def rekey(self, store, pairs):
+        return sync.rekey_legacy(store, "https://db.example", "unused-test-key", pairs)
+
+    def quiet(self, *a):
+        with redirect_stdout(io.StringIO()):
+            return self.rekey(*a)
+
+    def test_a_legacy_row_moves_to_its_new_key(self):
+        store = Writable({"old": None, "other": None})
+        self.assertEqual(self.quiet(store, {"new": ["old"]}), ({"new"}, set()))
+        self.assertEqual(store.patches, [("old", {"external_id": "new"})])
+        self.assertEqual(set(store.rows), {"new", "other"})
+
+    def test_a_claimed_row_moves_too_and_keeps_its_claim(self):
+        store = Writable({"old": "2026-09-05"})
+        self.assertEqual(self.quiet(store, {"new": ["old"]}), ({"new"}, set()))
+        self.assertEqual(store.rows, {"new": "2026-09-05"})
+
+    def test_a_taken_new_key_hides_the_legacy_copy_instead(self):
+        store = Writable({"old": None, "new": None})
+        self.assertEqual(self.quiet(store, {"new": ["old"]}), (set(), set()))
+        self.assertEqual([(o, sorted(b)) for o, b in store.patches], [("old", ["hidden_at"])])
+        self.assertEqual(store.hidden, {"old"})
+
+    def test_a_claimed_duplicate_is_left_to_its_owner(self):
+        store = Writable({"old": "2026-09-05", "new": None})
+        self.assertEqual(self.quiet(store, {"new": ["old"]}), (set(), set()))
+        self.assertEqual(store.patches, [])
+
+    def test_two_old_keys_for_one_event_move_one_and_hide_the_other(self):
+        store = Writable({"old1": None, "old2": None})
+        moved, held = self.quiet(store, {"new": ["old1", "old2"]})
+        self.assertEqual((moved, held), ({"new"}, set()))
+        self.assertEqual(store.hidden, {"old2"})
+
+    def test_a_failed_move_is_held_back_not_inserted(self):
+        store = Writable({"old": None}, fail_patch=True)
+        self.assertEqual(self.quiet(store, {"new": ["old"]}), (set(), {"new"}))
+
+    def test_a_failed_lookup_holds_every_record_that_has_an_old_key(self):
+        store = Writable({"old": None}, fail_page=1)
+        self.assertEqual(self.quiet(store, {"new": ["old"], "new2": ["old2"]}), (set(), {"new", "new2"}))
+        self.assertEqual(store.patches, [])
+
+    def test_nothing_to_move_costs_nothing(self):
+        store = Writable({})
+        self.assertEqual(self.rekey(store, {}), (set(), set()))
+        self.assertEqual(store.calls, [])
+        self.assertEqual(self.quiet(store, {"new": ["old"]}), (set(), set()))
+        self.assertEqual(len(store.calls), 1)
+        self.assertEqual(store.patches, [])
+
+    def test_only_new_rewrites_a_moved_row_and_never_inserts_a_held_one(self):
+        rows = [dict(external_id=eid) for eid in ("new", "existing", "fresh")]
+        for fail, expected in ((False, ["new", "fresh"]), (True, ["fresh"])):
+            store = Writable({"old": None, "existing": None}, fail_patch=fail)
+            with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID":"host", "SUPABASE_URL":"https://db.example",
+                                        "SUPABASE_SERVICE_ROLE_KEY":"unused-test-key"}), \
+                 patch("sys.argv", ["sync", "--only-new"]), patch("requests.Session", return_value=store), \
+                 patch.object(sync, "legacy_pairs", return_value={"new": ["old"]}), \
+                 patch.object(sync, "build_rows", return_value=[dict(r) for r in rows]), \
+                 patch.object(sync, "load_blocklist", return_value=[]), \
+                 patch.object(sync, "upsert", return_value=(len(expected), 0, 0)) as write, \
+                 redirect_stdout(io.StringIO()):
+                sync.main()
+            self.assertEqual([r["external_id"] for r in write.call_args.args[0]], expected)
+
+
 def run():
-    result = unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(LookupTests))
+    loader = unittest.defaultTestLoader
+    suite = unittest.TestSuite([loader.loadTestsFromTestCase(LookupTests),
+                                loader.loadTestsFromTestCase(LegacyRekeyTests)])
+    result = unittest.TextTestRunner(verbosity=2).run(suite)
     return len(result.failures) + len(result.errors)
 
 

@@ -37,6 +37,7 @@ import os
 import re
 import sys
 import urllib.parse
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 from typing import Any, Dict, List, Optional, Tuple
@@ -2156,6 +2157,97 @@ def fetch_import_state(session, url: str, key: str, candidates):
 
 
 # --------------------------------------------------------------------------- #
+# A ROW WHOSE IDENTITY CHANGED BECAUSE WE LEARNED TO READ ITS SOURCE
+# --------------------------------------------------------------------------- #
+# external_id is a fingerprint hashed from the title and the venue text, so the
+# day an adapter reads a source more correctly, every row it already wrote has
+# a new identity. The upsert keys on external_id and cannot delete: left alone,
+# the next run inserts the clean row and the garbled one stays beside it until
+# the event is past. That was the ics adapter's fix for charset-less feeds (see
+# _decode_ics there): OpenAgenda's rows, a few thousand, all of them renamed.
+#
+# So an adapter that knows an event's old identity says so
+# (NormalizedEvent.legacy_fingerprints), and before anything reads existence
+# the row still filed under it is MOVED to the new key. Its id, its /e/ link,
+# its series and any claim on it survive. Nothing is deleted: a legacy row whose
+# new key is already taken is hidden, and a claimed one is left alone.
+def legacy_pairs(store_path: str) -> Dict[str, List[str]]:
+    """{fingerprint: its legacy fingerprints}, for the records that have any.
+    Empty on any error: main() reads the same file next and says what is wrong.
+    A store with no legacy key anywhere is not parsed twice: that is every store
+    but a feed store written before ics's LEGACY_KEYS_UNTIL."""
+    try:
+        raw = open(store_path, "rb").read()
+        if b'"legacy_fingerprints"' not in raw:
+            return {}
+        data = json.loads(raw.decode("utf-8"))
+    except Exception:
+        return {}
+    return {r["fingerprint"]: list(r["legacy_fingerprints"]) for r in data.get("events", [])
+            if isinstance(r, dict) and r.get("fingerprint") and r.get("legacy_fingerprints")}
+
+
+def rekey_legacy(session, url: str, key: str, pairs: Dict[str, List[str]]):
+    """Move rows still filed under a legacy fingerprint to their new one.
+
+    Returns (moved, held). `moved` must be WRITTEN this run even under
+    --only-new: the row exists under its new key now, but it still carries the
+    text it was garbled with. `held` must NOT be written this run: its legacy row
+    exists and could not be moved, or could not be looked up, and an insert under
+    the new key would put a second copy beside it. A later run tries again.
+    Fails closed, like fetch_import_state, whose checked reads it uses."""
+    legacy_of: Dict[str, str] = {}
+    for fp, olds in pairs.items():
+        for old in olds:
+            if old and old != fp:
+                legacy_of.setdefault(old, fp)
+    if not legacy_of:
+        return set(), set()
+    try:
+        found = fetch_import_state(session, url, key, list(legacy_of))
+        taken = fetch_import_state(session, url, key, sorted({legacy_of[o] for o in found})) if found else {}
+    except RuntimeError:
+        print(f"::warning::Legacy re-key: the lookup failed, so the {len(pairs)} record(s) with a "
+              f"legacy fingerprint are held back this run rather than risk writing any twice.", flush=True)
+        return set(), set(pairs)
+    if not found:
+        return set(), set()
+    moves, hides, left_claimed, planned = [], [], 0, set(taken)
+    for old in sorted(found):
+        new = legacy_of[old]
+        if new in planned:                            # the new key already has (or will have) a row
+            if found[old]:
+                left_claimed += 1                     # somebody owns the garbled copy: theirs to keep
+            else:
+                hides.append(old)
+        else:
+            moves.append((old, new))
+            planned.add(new)
+    base = url.rstrip("/") + "/rest/v1/events"
+    hdr = {"apikey": key, "Authorization": f"Bearer {key}",
+           "Content-Type": "application/json", "Prefer": "return=minimal"}
+
+    def patch(old, body):
+        q = urllib.parse.urlencode({"external_source": "eq.mapsee", "external_id": f"eq.{old}"})
+        try:
+            r = session.patch(f"{base}?{q}", headers=hdr, data=json.dumps(body), timeout=30)
+            return r.status_code in (200, 204)
+        except Exception:                             # noqa: BLE001 - a failed move is held, not raised
+            return False
+
+    stamp = datetime.now(timezone.utc).isoformat()
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        move_ok = list(pool.map(lambda m: patch(m[0], {"external_id": m[1]}), moves))
+        hide_ok = list(pool.map(lambda old: patch(old, {"hidden_at": stamp}), hides))
+    moved = {new for (old, new), ok in zip(moves, move_ok) if ok}
+    held = {new for (old, new), ok in zip(moves, move_ok) if not ok}
+    print(f"Legacy re-key: {len(found)} row(s) still under a legacy fingerprint; moved {len(moved)}, "
+          f"hid {sum(hide_ok)} of {len(hides)} whose new key already had a row, left {left_claimed} "
+          f"claimed, held back {len(held)} whose move failed.", flush=True)
+    return moved, held
+
+
+# --------------------------------------------------------------------------- #
 # "REWRITE WHAT CHANGED", WHICH IS NOT THE SAME AS "REWRITE EVERYTHING"
 # --------------------------------------------------------------------------- #
 # --only-new froze every row on the day it first landed, which is a permanent
@@ -2427,13 +2519,19 @@ def main() -> None:
               f"read in {time.monotonic() - t0:.1f}s.", flush=True)
         return got
 
+    # BEFORE ANYTHING READS EXISTENCE: a row still filed under a legacy
+    # fingerprint moves to its new one first, or --only-new would call the clean
+    # record new and insert it beside the garbled row. See rekey_legacy.
+    moved, held = rekey_legacy(geo, url, key, legacy_pairs(a.store))
+
     def keep_new(recs):
         # --only-new: read the state on the STORE's fingerprints (to_row's
         # external_id) and drop what exists BEFORE build_rows enriches,
         # geocodes and builds it. See build_rows for the 2026-09-12 numbers.
         nonlocal state
         state = read_state([r["fingerprint"] for r in recs])
-        fresh = [r for r in recs if r["fingerprint"] not in state]
+        fresh = [r for r in recs if (r["fingerprint"] not in state or r["fingerprint"] in moved)
+                 and r["fingerprint"] not in held]
         n_claimed = sum(1 for is_claimed in state.values() if is_claimed)
         print(f"Only-new: {len(fresh)} of {len(recs)} are new ({len(state)} from this batch "
               f"already in Supabase, {n_claimed} of them claimed), dropped before geocoding.",
@@ -2441,6 +2539,8 @@ def main() -> None:
         return fresh
 
     rows = build_rows(a.store, host_id, geo, keep=keep_new if a.only_new else None)
+    if held:
+        rows = [r for r in rows if r["external_id"] not in held]
     print(f"Prepared {len(rows)} event rows from {a.store}.")
     if state is None:                                 # refresh day: build first, then read, as before
         state = read_state([r["external_id"] for r in rows])
@@ -2453,7 +2553,7 @@ def main() -> None:
             print(f"Claimed-guard: skipped {before - len(rows)} claimed events.")
 
     if a.only_new:                                    # skip events already in the DB
-        existing = set(state)
+        existing = set(state) - moved                 # a moved row still has to be rewritten
         before = len(rows)
         rows = [r for r in rows if r["external_id"] not in existing]
         if before != len(rows):                       # already done in keep_new, normally

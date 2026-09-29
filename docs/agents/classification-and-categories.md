@@ -482,6 +482,6 @@
   in 25 feeds, Trumba nearly all of them. `_classifiable` decodes a copy
   first. Not the same as 3,692 listings in 58 feeds, nearly all openagenda.com,
   whose text is UTF-8 read as Latin-1 (the "é" of "Numériques" arrives as
-  U+00C3 U+00A9): that is the ics adapter taking `resp.text` from a
-  `text/calendar` with no charset, and fixing it changes every one of those
-  rows' fingerprints.
+  U+00C3 U+00A9): that was the ics adapter taking `resp.text` from a
+  `text/calendar` with no charset, fixed on 2026-09-29 together with the move
+  of every row it renamed (adapters-and-sources.md, sync-eventstore-and-paging.md).
