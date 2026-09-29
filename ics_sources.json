@@ -17973,5 +17973,14 @@
     "limit": 50,
     "_metro": "Austin, United States",
     "_note": "Events Calendar 'cleanups' category only: monthly first-Saturday community creek cleanup at Onion Creek Metro Park. Rest of the calendar is mobile-exhibit appearances. robots.txt: no rule for the path."
+  },
+  {
+    "name": "Origins Centre",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://www.wits.ac.za/events-archive/2026/event-3836180.ics",
+    "geocode_suffix": ", Johannesburg, South Africa",
+    "limit": 300,
+    "_metro": "Johannesburg, South Africa"
   }
 ]
