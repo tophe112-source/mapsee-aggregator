@@ -12852,6 +12852,20 @@
         "lon": 77.5301259
       },
       "_metro": "Bengaluru, India"
+    },
+    {
+      "name": "Risner Gym",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://kadenafss.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Risner Gym",
+        "lat": 26.3394248,
+        "lon": 127.7748932
+      },
+      "_metro": "Naha, Japan"
     }
   ],
   "_not_included": {

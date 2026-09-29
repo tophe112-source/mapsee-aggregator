@@ -5296,6 +5296,23 @@
       "_found": "manual: city tourism site -> schema.org Event with geo on each event page",
       "_metro": "Kyoto, Japan",
       "_note": "Kyoto City's official event guide (京都観光Navi), the 伝統行事 listing: public shrine and temple festivals, unfinished events only (70 on 2026-09-27). Event pages carry schema.org Event with geo. No robots.txt (404). The グルメ/マーケット listing is left out: restaurant, hotel and ticketed-sport promotions."
+    },
+    {
+      "name": "Remy's",
+      "category": "community",
+      "_found": "osm:events_venue -> wix",
+      "listing": [
+        "https://www.remysokinawa.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Remy's",
+        "lat": 26.3365316,
+        "lon": 127.7974632
+      },
+      "_metro": "Naha, Japan"
     }
   ],
   "_not_included": {
