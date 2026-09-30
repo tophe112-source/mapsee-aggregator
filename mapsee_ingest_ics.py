@@ -193,7 +193,7 @@ def _decode_ics(resp) -> Tuple[str, Optional[str]]:
     return text, (None if same else old)
 
 
-def _fetch_ics(session, url):
+def _fetch_ics(session, url, days=None):
     """GET with revalidation. Returns (text, how, legacy_encoding), how being
     200/304/reuse and legacy_encoding what the pre-_decode_ics reader used where
     it read this body differently (see _decode_ics), else None."""
@@ -208,9 +208,10 @@ def _fetch_ics(session, url):
     # The text that comes back is built to parse exactly like the export did,
     # so a one-off event keeps its fingerprint. Not cached: the API sends no
     # validator worth the bookkeeping, and it is one request per calendar.
+    # `days` is the source's `within_days`, the window the API reads ahead.
     key = mapsee_gcal.api_key()
     if key and mapsee_gcal.calendar_id(url):
-        return mapsee_gcal.fetch_as_ics(session, url, key), "api", None
+        return mapsee_gcal.fetch_as_ics(session, url, key, days=int(days or mapsee_gcal.DAYS_AHEAD)), "api", None
     ent = _FEED_CACHE.get(url)
     if ent and ent.get("v") != FEED_CACHE_VERSION:
         ent = None                                     # decoded the old way; see FEED_CACHE_VERSION
@@ -474,7 +475,7 @@ def _legacy_fingerprint(old_ev: Dict[str, Any], date_key: str, venue: Optional[D
 
 
 def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=0, start_kept=0, deadline=None) -> int:
-    got = _fetch_ics(session, src["url"])
+    got = _fetch_ics(session, src["url"], days=src.get("within_days"))
     text, how = got[0], got[1]
     legacy_enc = got[2] if len(got) > 2 else None      # tests patch in the older (text, how)
     events = parse_ics(text)

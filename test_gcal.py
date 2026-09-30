@@ -219,6 +219,16 @@ check("...and in neither the URL nor the query", KEY not in url and KEY not in j
 check("the read asks for instances, in order, from today",
       params.get("singleEvents") == "true" and params.get("orderBy") == "startTime"
       and str(params.get("timeMin", "")).startswith(today.isoformat()), params)
+check("...and 180 days ahead by default, the catalog's usual window",
+      str(params.get("timeMax", "")).startswith((today + timedelta(days=G.DAYS_AHEAD)).isoformat())
+      and G.DAYS_AHEAD == 180, params.get("timeMax"))
+near = Session([("https://www.googleapis.com/calendar/v3/", Resp(200, dict(META, items=ITEMS)))])
+with patch.dict(os.environ, {"GOOGLE_CALENDAR_API_KEY": KEY}), \
+     patch.object(ICS, "make_location_geocoder", side_effect=_geocoder):
+    ICS.ingest_ics(Store(), near, dict(SRC, within_days=30))
+check("a source's within_days sets how far the API reads",
+      str(near.asked[0][1].get("timeMax", "")).startswith((today + timedelta(days=30)).isoformat()),
+      near.asked[0][1].get("timeMax"))
 plain = Session([("https://calendar.google.com/", Resp(200, None, text=EXPORT))])
 with patch.dict(os.environ, {}, clear=False):
     os.environ.pop("GOOGLE_CALENDAR_API_KEY", None)

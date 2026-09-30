@@ -325,3 +325,15 @@
   the last instance. 2 of the 30 configured Google calendars (Richmond Yacht
   Club, Edsvikens Tennisklubb) hold a secret `private-...` address. The API
   cannot open a private calendar with a key, so those two log NOT READ.
+  Measured with the real key (`smoke-gcal.yml`, 2026-09-30): 28 of 30 read.
+  Of the 224 still-upcoming rows the export had made from 7 of them, 223 came
+  back under the same fingerprint. The one that did not is a screening no
+  longer in the theatre's calendar: Garneau's "NAZA" had four, and the other
+  three matched, including the one whose UTC date is the next day. Reading 400
+  days ahead kept 949 rows, 616 of them series instances the export could
+  never give. That is why the window is now 180 days (`DAYS_AHEAD`), the
+  catalog's usual one, with `within_days` per source. Nine calendars keep
+  nothing because their events carry no LOCATION (Betlehem 314 VEVENTs,
+  Mercedarias 283, St. Herman's 246, Lasswade Archery 154). A `venue` block
+  like Montlake's would pin them. That is a curation decision, not a reader
+  bug.

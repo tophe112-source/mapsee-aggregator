@@ -62,6 +62,14 @@ except ImportError:                     # pragma: no cover - 3.9+ has it
 KEY_ENV = "GOOGLE_CALENDAR_API_KEY"
 API = "https://www.googleapis.com/calendar/v3/calendars/{}/events"
 
+# HOW FAR AHEAD, now that a series is expanded. The export never had to answer
+# this, because the ics parser read only a series' first occurrence. The first
+# smoke run read 400 days ahead: 949 rows from 28 calendars, 616 of them
+# instances of a series (2026-09-30). The other calendar adapters read 90-180
+# days: tribe's sources are 727 of 843 at 120 and its default is 180, gancio
+# 180, ODS 90. 180 is that default. An ics source's `within_days` overrides it.
+DAYS_AHEAD = 180
+
 # The export URL a config entry keeps as the calendar's identity. `private-<hex>`
 # is a calendar's SECRET address, which the API cannot read with a key: that
 # calendar is not public, and only its owner's OAuth could open it.
@@ -124,7 +132,7 @@ def _explain(resp) -> str:
     return out
 
 
-def fetch_events(session, cid: str, key: str, *, days: int = 400, max_items: int = 2500,
+def fetch_events(session, cid: str, key: str, *, days: int = DAYS_AHEAD, max_items: int = 2500,
                  timeout: float = 25, now: Optional[datetime] = None) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """(calendar meta, event items) from today to `days` ahead, series expanded."""
     now = now or datetime.now(timezone.utc)
