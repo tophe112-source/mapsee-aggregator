@@ -332,7 +332,12 @@
   three matched, including the one whose UTC date is the next day. Reading 400
   days ahead kept 949 rows, 616 of them series instances the export could
   never give. That is why the window is now 180 days (`DAYS_AHEAD`), the
-  catalog's usual one, with `within_days` per source. Nine calendars keep
+  catalog's usual one, with `within_days` per source. Re-run at 180 days: 614
+  rows, 315 from a series. 195 of the 196 production rows inside the window
+  matched (the same screening missing). The 28 beyond it, yacht races as far
+  out as August 2027, are not re-read. An import cannot delete, so they stay
+  as they are, and come back under the same fingerprint once inside the
+  window. Nine calendars keep
   nothing because their events carry no LOCATION (Betlehem 314 VEVENTs,
   Mercedarias 283, St. Herman's 246, Lasswade Archery 154). A `venue` block
   like Montlake's would pin them. That is a curation decision, not a reader
