@@ -1047,6 +1047,35 @@
   as allowing the `?ical=1` exports that both files refuse. `test_robots.py`
   pins the matcher on seven real files.
 
+- **THE 74 CAME OUT, AND WHEN A WHOLE PLATFORM REFUSES, THE LETTER GOES TO
+  THE VENDOR.** The owner's third decision, 2026-09-30: retire what the line
+  refuses. A fresh fetch that afternoon still refused 74 publisher requests
+  (ics 45, tribe 27, jsonld 1, venuepilot 1; the morning's run had counted
+  ics 44 and tribe 28), and with the 2 secret-address Google calendars 76
+  entries left the configs, each into `_not_included` quoting its rule and
+  the path it covers. `ics_sources.json` is a bare list, so its 47 went into
+  `jsonld_sources.json`'s, as Bend UMC's had; `venuepilot_sources.json` is
+  empty now. In production run #102, 12 of the 74 had supplied 1,405 rows,
+  Santa Fe Public Library 1,109 of them. 22 library systems (26 feeds) were
+  among them, in three kinds that need three different letters. The 12 on
+  LibraryCalendar serve a byte-identical rule set (one md5 over the rule
+  lines on all 12, Santa Fe's own domain included), so the file is the
+  vendor's, not the library's. The 7 LibCal tenants chose theirs: 75 of the
+  82 configured tenants carry no `Disallow: /`. 3 run their own WordPress.
+  The letters are `../mapsee/outreach/partners/library-calendar-permission.md`.
+  Left alone: 83 entries whose robots.txt answered with a challenge and 36
+  whose host did not answer at all. RFC 9309 has a crawler assume complete
+  disallow while a file is unreachable, so those are the next question, not
+  a settled one, and not a stable one either: the re-run after the move
+  found 2 more refused, Christ Church Cathedral (Dublin, `Disallow: /wp-json/`)
+  and the Wabano Centre (Ottawa, `Disallow: /*?`), both of which had answered
+  the afternoon's first fetch with a bot challenge. They went the same way, 78
+  entries in all, and that run's DISALLOWED list was those 2 and nothing else.
+  A challenged host is unread, not cleared, so re-run `robots` before trusting
+  an empty list. To restore a retired source, copy its entry back from its
+  config at f8465bf, delete its `_not_included` key, and let `verify` pass it
+  through the gate.
+
 - **A NEIGHBOURHOOD GROUP ON GOOGLE SITES POSTS ITS EVENTS AS PROSE, AND THE
   CALENDAR BLOCK IT COULD USE NAMES A CALENDAR GOOGLE WILL NOT LET US READ.**
   Measured 2026-09-30 on Judkins Park Neighbors

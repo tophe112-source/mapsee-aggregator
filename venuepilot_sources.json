@@ -1,18 +1,7 @@
 {
   "_comment": "Venues that ticket through VenuePilot (public GraphQL API, no key). Each site: account_ids from the venue's widget config (window.venuepilotSettings.general.accountIds), a Mapsee category, and a venue block for location (the public API returns only the venue NAME, so supply address+city+region for the sync to geocode, or lat+lon). Single venue per site.",
-  "sites": [
-    {
-      "name": "Baba Yaga",
-      "account_ids": [2906],
-      "category": "music",
-      "within_days": 150,
-      "venue": {
-        "name": "Baba Yaga",
-        "address": "124 S Washington St",
-        "city": "Seattle",
-        "region": "WA",
-        "postal_code": "98104"
-      }
-    }
-  ]
+  "sites": [],
+  "_not_included": {
+    "Baba Yaga (VenuePilot account 2906)": "Baba Yaga - VenuePilot's GraphQL endpoint. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.venuepilot.co/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`), and our POST /graphql falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from venuepilot_sources.json at f8465bf; `verify` will then pass it."
+  }
 }

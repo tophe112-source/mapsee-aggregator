@@ -198,3 +198,22 @@
   `_OFF_WORDS` now carries the German, French, Spanish, Dutch and Italian word
   under the same anchoring, and "Reporte anual" and "Suspendidos en el tiempo"
   stay.
+
+- **THE SWEEP VISITED PAGES ROBOTS.TXT REFUSES, AND RETIRING A FEED DID NOT
+  STOP IT.** A row's "Tickets / info" link is `primary_url`, the source's own
+  event page, and the sweep fetched up to 4,000 of them a run, twice a day,
+  without asking robots.txt. On 2026-09-30, 76 feeds were retired because
+  their robots.txt refuses us, and the rows they had already imported stay on
+  the map until their dates pass. So the sweep kept visiting those libraries'
+  event pages: `https://santafelibrary.org/event/...` and
+  `https://denverlibrary.libcal.com/event/...` both answer `Disallow: /`,
+  and Santa Fe alone had 1,109 upcoming programs. `cancellation_verdict` now
+  asks first, through a `robots_txt.Robots` that reads over urllib
+  (`_RobotsSession`), so the twice-daily run still needs nothing outside the
+  standard library. A page robots.txt does not plainly allow is not fetched.
+  That includes a challenged or unreachable robots.txt. Its verdict is
+  `robots`, which keeps the row as `unknown` does, and the run prints the
+  hosts it did not read. Measured the same day, the job's reason to exist is
+  untouched: meetup.com and eventbrite.com event pages are allowed.
+  `test_cancelled_events.py` pins it, and three mutations fail it: no check,
+  a challenge read as allowed, and the shim dropping an error's body.
