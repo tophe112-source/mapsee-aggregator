@@ -5,8 +5,9 @@
 
 Open-source toolkit that imports **publicly advertised community events** into a
 normalized store, then syncs them to a database for map display. It powers the
-Nearby map at [mapsee.me](https://mapsee.me) and the eight single-topic maps
-beside it ([where the events show up](#where-the-events-show-up)), but nothing
+Nearby map at [mapsee.me](https://mapsee.me), its broad sibling
+[nearsie.com](https://nearsie.com) and the eight single-topic maps beside it
+([where the events show up](#where-the-events-show-up)), but nothing
 here is mapsee-specific: the adapters, the source configs, and the curation
 tooling all work standalone.
 
@@ -18,13 +19,14 @@ scattered feeds together.
 ## Where the events show up
 
 Everything this pipeline syncs lands in one catalog, and ten free maps read it.
-mapsee.me shows all of it; each of the others shows the categories in its row,
-and `derive_categories` in `mapsee_supabase_sync.py` decides which of those an
-event gets. None of them needs an account.
+mapsee.me and nearsie.com show all of it; each of the others shows the
+categories in its row, and `derive_categories` in `mapsee_supabase_sync.py`
+decides which of those an event gets. None of them needs an account.
 
 | Map | Shows | Categories |
 |---|---|---|
 | [mapsee.me](https://mapsee.me) | every public event | all |
+| [nearsie.com](https://nearsie.com) | nature, art, events and community, with its own city guides | all |
 | [wegosie.com](https://wegosie.com) | group runs, rides, hikes and classes | `running` `sports` `fitness` |
 | [bar.ventures](https://bar.ventures) | nights out: parties, live music, food | `party` `music` `food` |
 | [oneday.cafe](https://oneday.cafe) | food pop-ups and supper clubs | `food` |
@@ -317,12 +319,13 @@ its query says. It needs no secret.
 
 **Every door, but only one submits events.** IndexNow keys a submission to a
 single `host`, so this makes one call per door. mapsee.me sends its new events
-plus its `/c/` pages; the niche doors send their `/c/` pages only. Their
+plus its `/c/` pages; every other door sends its `/c/` pages only. Their
 landing pages are genuinely different content — bar.ventures/c/seattle lists
-nightlife, fleabop.com/c/seattle lists markets — each is self-canonical with its
-own sitemap and its own Search Console property. Their *event* pages are not:
-one event behind every door, each canonicalling to itself, would put one copy
-per door in the index and split its authority. The door list is read live from
+nightlife, fleabop.com/c/seattle lists markets, and nearsie.com shows everything
+under a brand of its own — each is self-canonical with its own sitemap and its
+own Search Console property. Their *event* pages are not: one event behind
+every door, each canonicalling to itself, would put one copy per door in the
+index and split its authority. The door list is read live from
 `mapsee.me/api/lenses` rather than copied here, so a new door needs no change
 in this repo. `--doors-off` submits mapsee.me alone.
 
@@ -379,7 +382,7 @@ the only public repository of the four:
 | --- | --- |
 | [`conbinience`](https://github.com/tophe112-source/conbinience) | www.conbinience.com — company site, and the suite map |
 | [`fishsie`](https://github.com/tophe112-source/fishsie) | www.fishsie.com |
-| [`mapsee`](https://github.com/tophe112-source/mapsee) | mapsee.me + the [eight other doors](#where-the-events-show-up) — the app this pipeline writes into |
+| [`mapsee`](https://github.com/tophe112-source/mapsee) | mapsee.me + the [nine other doors](#where-the-events-show-up) — the app this pipeline writes into |
 | **`mapsee-aggregator`** *(this one)* | no site — runs on GitHub Actions |
 
 Events ingested here surface on every Mapsee door; `derive_categories` in
