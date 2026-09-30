@@ -43,11 +43,13 @@ batch must belong to it.
     event's URL to a search engine would be a data leak, not a bug.
   * Its /c/ city, region and category pages.
 
-  the niche doors (read live from LENS_API below; on 2026-09-25 bar.ventures,
-  oneday.cafe, plansie.com, fleabop.com, wegosie.com, awaresie.com, vivosie.com
-  and unsie.com) - their /c/ landing pages only:
-  * Each opens onto its own slice of the catalog, so bar.ventures/c/seattle and
-    mapsee.me/c/seattle list different events. Every one is SELF-canonical and
+  every other door (read live from LENS_API below; on 2026-09-29 nearsie.com,
+  bar.ventures, oneday.cafe, plansie.com, fleabop.com, wegosie.com,
+  awaresie.com, vivosie.com and unsie.com) - their /c/ landing pages only:
+  * Each niche door opens onto its own slice of the catalog, so
+    bar.ventures/c/seattle and mapsee.me/c/seattle list different events.
+    nearsie.com has no slice - it shows everything, as mapsee.me does - but
+    owns its city guides under its own brand. Every one is SELF-canonical and
     publishes its own sitemap, and each domain is separately verified in Bing
     and Search Console. There is no duplication to avoid here.
   * NOT their event pages. An event is one piece of content behind every door,
@@ -376,6 +378,14 @@ def lens_hosts(session: requests.Session):
     So the duplication argument never applied to these pages, only to their event
     pages - and this file's first version conflated the two and pushed nothing at
     all for six domains that had every right to it.
+
+    A door with NO slice can own its /c/ pages too. nearsie.com opens onto every
+    category, like mapsee.me, but is a public brand with its own city guides
+    (`ownCityPages` in lens.js): nearsie.com/c/seattle declares itself canonical
+    and its sitemap-pages.xml listed 265 /c/ URLs on 2026-09-29. The roster
+    does not publish `ownCityPages`, so "which doors own their guides" is read
+    from each door's own sitemap in landing_urls() - a door that defers to
+    mapsee.me lists no /c/ pages of its own there, and submits nothing.
     """
     try:
         r = session.get(LENS_API, timeout=30)
@@ -387,9 +397,11 @@ def lens_hosts(session: requests.Session):
     sites = []
     for lens in roster.values():
         site = (lens or {}).get("site")
-        # A door with no category filter shows what mapsee.me shows, and its
-        # pages canonical back here; only the filtered ones are their own pages.
-        if site and site.rstrip("/") != SITE and (lens.get("categories") or []):
+        # Every door but this one, with or without a category filter. This used
+        # to require `categories`, on the theory that an unfiltered door's pages
+        # canonical back here - which silently dropped nearsie.com, the first
+        # unfiltered door with guides of its own. Its sitemap is the judge now.
+        if site and site.rstrip("/") != SITE:
             sites.append(site.rstrip("/"))
     return sorted(set(sites))
 
@@ -429,8 +441,9 @@ def submit(host: str, urls, session: requests.Session, dry_run: bool) -> bool:
     One call per host: the protocol keys a submission to a single `host`, and
     every URL in urlList has to belong to it or the whole batch is refused
     with 422. The key file is the same for all of them - one Worker serves
-    every door from one assets binding, so /<key>.txt already resolves on all
-    seven hostnames (verified). keyLocation therefore points at THIS host's
+    every door from one assets binding, so /<key>.txt already resolves on every
+    door's hostname (verified again 2026-09-29 on nearsie.com and unsie.com, the
+    two newest). keyLocation therefore points at THIS host's
     copy, which is what the protocol asks for.
     """
     ok = True
@@ -506,7 +519,7 @@ def main() -> None:
     ap.add_argument("--no-pages", action="store_true",
                     help="Skip the /c/ city and region landing pages.")
     ap.add_argument("--doors-off", action="store_true",
-                    help="Submit mapsee.me only, skipping the six niche front doors.")
+                    help="Submit mapsee.me only, skipping every other front door.")
     ap.add_argument("--max-urls", type=int, default=MAX_EVENT_URLS,
                     help=f"Most event URLs one run may announce, newest first. "
                          f"Default {MAX_EVENT_URLS} — IndexNow's own per-request "

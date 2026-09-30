@@ -31,6 +31,9 @@ was not.
 And the trap the first fix could have introduced: created_at is NOT unique —
 a merge lands hundreds of rows on one timestamp — so a keyset on created_at
 alone either serves that timestamp for ever or skips its tail.
+
+Last, which doors' /c/ pages are pushed at all: nearsie.com has no category
+filter and owns its city guides anyway, and a filter test silently skipped it.
 """
 import sys
 import time
@@ -232,6 +235,43 @@ def main():
     got7, complete7 = walk(_Stuck(), max_urls=BIG)
     check("it returns what it had rather than looping for ever", got7, ["same"])
     check("and does not call that a complete walk", complete7, False)
+
+    print()
+    print("every door with guides of its own gets its /c/ pages pushed")
+    # nearsie.com (2026-09-29) opens onto every category, like mapsee.me, and
+    # still owns its city guides. lens_hosts() used to require `categories`,
+    # which dropped it without a word. Roster shapes as /api/lenses serves them.
+    class _Web:
+        ROSTER = {"lenses": {
+            "mapsee": {"site": "https://mapsee.me", "categories": []},
+            "nearsie": {"site": "https://nearsie.com", "categories": []},
+            "bar": {"site": "https://bar.ventures", "categories": ["party", "music", "food"]},
+            "unsie": {"site": "https://unsie.com", "categories": ["kids"]},
+        }}
+        def get(self, url, timeout=None):
+            r = _Resp(200, self.ROSTER)
+            r.raise_for_status = lambda: None
+            return r
+    hosts = ix.lens_hosts(_Web())
+    check("nearsie.com is a door, with no category filter", "https://nearsie.com" in hosts, True)
+    check("and so are the niche doors", ["https://bar.ventures", "https://unsie.com"],
+          [h for h in hosts if h in ("https://bar.ventures", "https://unsie.com")])
+    check("mapsee.me is not one of the OTHER doors", ix.SITE in hosts, False)
+
+    # Which door owns its guides is the door's own sitemap's call: one that
+    # defers to mapsee.me lists no /c/ pages of its own, so it submits nothing.
+    class _Sitemap:
+        def __init__(self, text): self.text = text
+        def get(self, url, timeout=None):
+            r = _Resp(200, text=self.text)
+            r.raise_for_status = lambda: None
+            return r
+    own = _Sitemap("<loc>https://nearsie.com/</loc><loc>https://nearsie.com/c/seattle</loc>")
+    check("an owning door's /c/ pages are read from its sitemap",
+          ix.landing_urls("https://nearsie.com", own), ["https://nearsie.com/c/seattle"])
+    deferring = _Sitemap("<loc>https://example.door/</loc><loc>https://mapsee.me/c/seattle</loc>")
+    check("a deferring door submits nothing, not mapsee.me's pages",
+          ix.landing_urls("https://example.door", deferring), [])
 
     print()
     if FAILURES:

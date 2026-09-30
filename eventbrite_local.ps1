@@ -6,7 +6,7 @@
 #
 # ⚠️ This SYNCS TO PRODUCTION. Step 2 writes to live Supabase with the
 # service-role key, which bypasses every row-level-security policy, and anything
-# it inserts shows up on mapsee.me and all three lens domains immediately.
+# it inserts shows up on mapsee.me and every other door immediately.
 # `--only-new` keeps it to inserts (no updates, no deletes). To see what it
 # WOULD do first, run just the ingest line by hand and read eventbrite_local.json
 # before letting the sync run.
