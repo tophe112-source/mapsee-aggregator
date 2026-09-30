@@ -79,7 +79,7 @@ committed while the job printed a friendly skip every night.
 
 NO NEW CATEGORY KEY. Every row lands on a key that already exists in
 MAPSEE_CATEGORY_KEYS and that a lens already opens onto, for the reason
-osm_secondhand gives: a key no lens opens onto reaches only mapsee.me.
+osm_secondhand gives: a key no lens opens onto reaches only mapsee.me and nearsie.com.
 
 HOURS ARE OPTIONAL HERE, AND THAT IS THE ONE BAR THAT MOVED. The food adapter
 requires an order link; the second-hand adapter requires readable opening hours,

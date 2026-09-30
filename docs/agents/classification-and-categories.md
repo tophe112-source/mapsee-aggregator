@@ -3,7 +3,7 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: a category key no lens opens, the kids/food/market regexes, category defaults, order pickup, a lens starved by its classifier.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
-- **A category key that no lens opens onto reaches only mapsee.me.** The
+- **A category key that no lens opens onto reaches only the two broad doors, mapsee.me and nearsie.com.** The
   vocabulary is `MAPSEE_CATEGORY_KEYS` in `mapsee_supabase_sync.py` (mirrored as
   `VALID_CATEGORIES` in `mapsee_ingest.py`) and it must match `CATEGORIES` in
   `../mapsee/site/js/app.js`. `test_ingest_categories.py` asserts the first two

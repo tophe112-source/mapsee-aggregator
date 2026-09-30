@@ -29,7 +29,7 @@ the grouping instrument, not of the data — the coordinate is always there.
 
 NO NEW CATEGORY KEY. Every row here is `market`, which already exists in
 MAPSEE_CATEGORY_KEYS and which fleabop already opens onto. That is the whole
-reason this is cheap: a key no lens opens onto reaches only mapsee.me, and the
+reason this is cheap: a key no lens opens onto reaches only mapsee.me and nearsie.com, and the
 cycling case was lost on exactly that. Nothing in ../mapsee needs editing.
 
 WHERE THE BAR MOVED, and it is the one judgement in this file worth arguing
