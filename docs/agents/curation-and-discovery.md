@@ -1073,3 +1073,44 @@
   so both need correcting by hand. The same sample found 11 of the 600
   homepages under `Disallow: /` for us. Discovery fetched every one of them,
   because `find_calendar` does not read robots.txt. Only verify does.
+
+- **A CALENDAR FOUND THROUGH A VENUE IS OFTEN NOT THAT VENUE'S PROGRAMME, SO
+  PIN IT BY HAND, FROM ITS EVENTS.** Nine OSM-found Google calendars put
+  nothing on the map because none of their events carried a LOCATION. Their
+  events, listed with `smoke-gcal.yml`'s `show` input on 2026-09-30, decided
+  each one. Four were right to pin, 294 events in all. St. Herman's Orthodox
+  Church in Edmonton is 116 services, all at the church. Betlehem in Bergen
+  had 101 of 154 at its hall; `venue_skip` keeps off the weekly online prayer
+  meeting ("på nett"), the weekly street evangelism and a camp at Alværa.
+  Lasswade Archery Club had 72 of 131: it shoots at a school hall AND at Grove
+  Farm, so only the sessions its titles place at Lasswade are pinned. CVMC's
+  5 regattas are at its harbour. Five were wrong to pin. Mercedarias de la
+  Caridad is the Diocese of Málaga's whole agenda: cathedral masses, councils,
+  and "XXVII Domingo del Tiempo Ordinario", which is not an event. Pitkäjärven
+  Vaeltajat and Mankkaan makasiini are scout troops whose entries are trips.
+  Ruderclub Rapperswil-Jona lists a meeting in Lausanne and a camp in
+  St. Moritz. Chiro JEZ holds its ball at another hall. Each carries a
+  `_note` saying why. 4 of 9 is why discovery still writes no `venue` for
+  an ics candidate (`to_candidate`): a venue is a claim about every event
+  that names no place, and here it was false five times out of nine.
+  `venue_skip` is a per-source regex over the title. A match is left
+  unplaced, and the ics log line counts it.
+
+- **THE PIPELINE'S OWN INFRASTRUCTURE APIS REFUSE CRAWLERS TOO.** Checked
+  2026-09-30 with `robots_txt.py` while looking up those venues. Photon,
+  which geocodes every LOCATION the ics adapter reads, is `Disallow: /`.
+  Nominatim disallows `/search`. overpass-api.de disallows `/api/`, which is
+  the endpoint OSM discovery, all three OSM places adapters and the markets
+  adapter call.
+  api.openstreetmap.org disallows `/api/`, www.openstreetmap.org `/node/` and
+  `/search`, and query.wikidata.org `/sparql`. Each publishes a usage policy
+  for exactly the programmatic use the pipeline makes of it. So "respect
+  robots.txt", read literally, would stop the geocoder and every OSM walk.
+  And the verify gate reads it literally, so it refuses an OpenDatasoft
+  dataset for the same stock `Disallow: /api/`. The distinction the owner has
+  kept in practice is between a PUBLISHER's own pages and feeds, where
+  robots.txt is that publisher's consent (Squarespace's JSON, DICE's API, and
+  since 2026-09-30 Google's iCal export), and a documented API used within its
+  usage policy. That line is
+  the owner's to draw, and the 20 open-data API reads in the 127 are the
+  cases it decides.
