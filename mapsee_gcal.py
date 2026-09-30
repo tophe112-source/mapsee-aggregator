@@ -308,7 +308,7 @@ def embed_ids(html: str) -> List[str]:
 
 
 # ---- the smoke test ----------------------------------------------------------
-def smoke(config_path: str = "ics_sources.json") -> int:
+def smoke(config_path: str = "ics_sources.json", show: str = "", n: int = 12) -> int:
     """Read every configured Google calendar through the API, as the ics
     adapter would, and print what came back. Writes nothing.
 
@@ -317,6 +317,11 @@ def smoke(config_path: str = "ics_sources.json") -> int:
     10-character prefix of each fingerprint, so a run can be compared against
     the rows the export route already made. It checks identity, not placement,
     so nothing is geocoded: every LOCATION is taken as placeable.
+
+    `show` (comma-separated name fragments) also lists up to `n` of a
+    calendar's events that carry no LOCATION and no GEO - the ones a `venue`
+    block would pin - so whether they happen AT the venue can be read off
+    their titles before anyone pins them there.
     """
     import json
     import requests
@@ -355,6 +360,16 @@ def smoke(config_path: str = "ics_sources.json") -> int:
             series = sum(1 for e in store.events if "/" in (e.source_id or ""))
             fps = ",".join(sorted(e.fingerprint[:10] for e in store.events))
             print(f"[gcal] {src.get('name', '?')}: kept {len(store.events)} ({series} from a series) fp={fps}")
+            wanted = [w.strip().lower() for w in (show or "").split(",") if w.strip()]
+            if wanted and any(w in (src.get("name") or "").lower() for w in wanted):
+                text = fetch_as_ics(session, src["url"], key, days=int(src.get("within_days") or DAYS_AHEAD))
+                bare = [e for e in ICS.parse_ics(text) if not ICS._location(e) and "GEO" not in e]
+                print(f"[gcal]   {len(bare)} with no LOCATION or GEO; the first {min(n, len(bare))}:")
+                for e in bare[:n]:
+                    day = ICS._parse_dt(*e["DTSTART"])[2] if "DTSTART" in e else "?"
+                    desc = ICS._unescape(e.get("DESCRIPTION", ("", {}))[0])
+                    desc = " ".join(re.sub(r"<[^>]+>", " ", desc).split())[:90]
+                    print(f"[gcal]     {day} | {ICS._summary(e)[:70]} | {desc}")
     finally:
         ICS.make_location_geocoder = real_geocoder
     print(f"[gcal] {read} of {len(sources)} Google calendars read through the Calendar API; {refused} not.")
@@ -364,6 +379,9 @@ def smoke(config_path: str = "ics_sources.json") -> int:
 if __name__ == "__main__":
     import sys
     if len(sys.argv) >= 2 and sys.argv[1] == "--smoke":
-        sys.exit(smoke(sys.argv[2] if len(sys.argv) > 2 else "ics_sources.json"))
+        args = sys.argv[2:]
+        show = args[args.index("--show") + 1] if "--show" in args and args.index("--show") + 1 < len(args) else ""
+        path = next((a for a in args if a.endswith(".json")), "ics_sources.json")
+        sys.exit(smoke(path, show=show))
     print("usage: python mapsee_gcal.py --smoke [ics_sources.json]")
     sys.exit(2)

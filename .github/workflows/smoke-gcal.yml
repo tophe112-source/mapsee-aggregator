@@ -7,6 +7,11 @@ name: Smoke test - Google Calendar API key
 # prefixes, to compare against the rows the iCal export already made.
 on:
   workflow_dispatch:
+    inputs:
+      show:
+        description: "Comma-separated calendar name fragments: also list their events with no LOCATION (the ones a venue block would pin)"
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -25,4 +30,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Read every configured Google calendar through the Calendar API
-        run: python mapsee_gcal.py --smoke ics_sources.json
+        env:
+          SHOW: ${{ inputs.show }}          # through env, never interpolated into the shell line
+        run: python mapsee_gcal.py --smoke ics_sources.json --show "$SHOW"
