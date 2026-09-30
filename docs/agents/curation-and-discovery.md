@@ -994,3 +994,72 @@
   off. The same review kept 41 of the 46 calendars (the 5 drops were the
   `attend.` twins and a campus calendar that was mostly internal) and made no
   category change.
+
+- **VERIFY NEVER READ ROBOTS.TXT, AND 127 CONFIGURED REQUESTS ARE ONES IT
+  WOULD HAVE REFUSED.** "Respect robots.txt" was enforced nowhere: verify
+  proved a feed parsed and had something upcoming, and the weekly sweep
+  committed whatever passed. `python catalog_curate.py robots`, 2026-09-30,
+  over the request each INGEST adapter actually makes (the tribe REST route
+  with its query, not the page the feed was found on): 3,587 requests on 2,686
+  origins; 3,341 allowed, 127 disallowed on 82 origins, 83 still challenged
+  and 36 unreachable. The 127 are five kinds, and they are different decisions:
+  30 Google calendars (calendar.google.com is `Allow: /$` then `Disallow: /`);
+  20 open-data API reads (OpenDatasoft's stock file disallows `/api/`:
+  Brisbane's 11 datasets and six other portals; San Mateo's Socrata
+  `datahub.smcgov.org` is `Disallow: /`; one OpenActive feed, sportsuite
+  `/api/`); 22 library-platform feeds (all 11 LibraryCalendar tenants, whose
+  platform file ends in a second `User-agent: *` group of `Disallow: /` and
+  then an allow-list of named search engines, and 7 of the 82 configured LibCal
+  hosts, whose `*` group is `Disallow: /`: FIU, Denver, UMN, Tulane, Whitby,
+  Fresno, Johannesburg); 5 platform APIs (VenuePilot's GraphQL host is
+  `Disallow: /`, three Mobilizon instances, one Mapas Culturais); and 50 single
+  sites (`Disallow: /` 15, `/*?` 14, `/wp-json/` 9, the rest one pattern each,
+  such as `*ical=*` and `/*ical=`). Verify now asks first. A Disallow is ledger
+  status `refused`: parked for the 90-day TTL like a `fail`, never counted as a
+  dead feed, and the candidate is never fetched at all, only its robots.txt.
+  When a host asks for a Crawl-delay, verify writes it into an ics or tribe
+  entry, because the audit found 7 hosts that serve several paced feeds with
+  none configured (four LibCal hosts at 10 s, fortwhyte.org at 60 s). The
+  command edits nothing: what becomes of the 127 is the owner's decision, as
+  parkrun's was. One trap in taking this measurement: the first, parallel pass
+  read 129 origins' files as challenged. Asked one at a time, 100 of the 214 origins
+  that had come back challenged or unreachable answered normally, because 16
+  connections at once from one address is what a shared host's WAF answers
+  with its "One moment, please" page. `Robots.prefetch` re-asks those alone
+  before believing them; the ingest adapters never burst, so the quiet answer
+  is the one they get. `robots_txt.py` is RFC 9309 (longest match, a tie to
+  Allow, `*` and `$`, merged groups, percent-encoding normalised on both
+  sides). urllib.robotparser ignores `*` inside a path, so it reads Houston
+  Food Bank's `Disallow: *ical=*` and Minneapolis Parks' `Disallow: /*?*ical=`
+  as allowing the `?ical=1` exports that both files refuse. `test_robots.py`
+  pins the matcher on seven real files.
+
+- **A NEIGHBOURHOOD GROUP ON GOOGLE SITES POSTS ITS EVENTS AS PROSE, AND THE
+  CALENDAR BLOCK IT COULD USE NAMES A CALENDAR GOOGLE WILL NOT LET US READ.**
+  Measured 2026-09-30 on Judkins Park Neighbors
+  (sites.google.com/view/judkinsparkneighbors). sites.google.com/robots.txt
+  disallows only `/feeds` and `/*/_/`, so the page may be read. It is one page,
+  and its one upcoming event is a paragraph: "Fall BBQ! Saturday, October 3rd
+  at the Judkins Park Picnic Shelter ... 2-5pm". It has no calendar, no
+  schema.org Event, and links out only to a Google Form, Facebook and
+  Instagram. No adapter reads that, and one barbecue a season is not worth a
+  scraper. Three of four Google Sites that a search for neighbourhood
+  calendars turned up do embed the native Calendar block, which Google Sites
+  renders server-side as `<iframe aria-label="Calendar, <name>"
+  src="https://www.google.com/calendar/embed?...&src=<id>">`. The host is
+  www.google.com, not calendar.google.com, and one block carried seven `src=`
+  ids. `fingerprint()` in catalog_discover_osm.py matches only `.ics` hrefs and
+  webcal links, so discovery has never seen an embed. Of 600 random sites the
+  ledger files as `no-calendar` (a pool of 31,104), 483 could be read and 14
+  (2.9%) embed a Google Calendar. That is roughly 700 across the pool. Two of
+  the 14 carry the id base64-encoded (`src=c3NiY0Bzd29yZHNzYWlsaW5nLmll` is
+  ssbc@swordssailing.ie), and one links a `basic.ics`. Not one of them is
+  readable as iCal (see `platforms-probed.md`: calendar.google.com refuses us),
+  so do not teach discovery to propose `basic.ics` URLs. The allowed route is
+  the Calendar API with a key, and none exists yet. For a group that posts
+  prose, the honest route is a person posting the event on mapsee.
+  `/api/import` on the Judkins page gets the date (October 3) but reads
+  "2-5pm" as a 17:00 start and titles the event "Home" (the site's og:title),
+  so both need correcting by hand. The same sample found 11 of the 600
+  homepages under `Disallow: /` for us. Discovery fetched every one of them,
+  because `find_calendar` does not read robots.txt. Only verify does.
