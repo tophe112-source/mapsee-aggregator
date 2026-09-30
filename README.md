@@ -17,7 +17,7 @@ scattered feeds together.
 
 ## Where the events show up
 
-Everything this pipeline syncs lands in one catalog, and nine free maps read it.
+Everything this pipeline syncs lands in one catalog, and ten free maps read it.
 mapsee.me shows all of it; each of the others shows the categories in its row,
 and `derive_categories` in `mapsee_supabase_sync.py` decides which of those an
 event gets. None of them needs an account.
