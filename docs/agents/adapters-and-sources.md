@@ -298,3 +298,30 @@
   refuses. None of these feeds sends an ETag or Last-Modified, so none was ever
   in `ics_feed_cache.json`; any feed that was is fetched afresh once
   (`FEED_CACHE_VERSION`).
+
+- **A GOOGLE CALENDAR READ THROUGH THE CALENDAR API HAS TO PARSE LIKE ITS
+  EXPORT, OR EVERY ROW MOVES.** calendar.google.com/robots.txt refuses the
+  iCal export (`curation-and-discovery.md`), so with GOOGLE_CALENDAR_API_KEY set
+  `mapsee_gcal.py` reads a Google calendar through the Calendar API v3.
+  www.googleapis.com serves no robots.txt (a 404). It then writes the events
+  back as VCALENDAR text for this adapter. Measured 2026-09-30: an unkeyed call
+  answers 403 "Method doesn't allow unregistered callers ... Please use API Key
+  or other form of API consumer identity". A fake key in the `X-Goog-Api-Key`
+  header turns that into 400 "API key not valid", so the header is read and the
+  key never has to be in a URL. Identity was the risk. The fingerprint's date
+  is whatever `_parse_dt` reads off DTSTART, and for a `Z` time that is the UTC
+  date: a 9:30pm show in Edmonton (03:30Z) is filed under the next day. The
+  rows the export made from 7 Google calendars in production (2026-09-29) were
+  221 of 227 timed in UTC, 2 in a local zone and 4 all-day. Their UIDs were the
+  export's (`...@google.com`, or `CSVConvert...` for imported events), which
+  the API returns as `iCalUID`. So the text writes a one-off event in UTC with
+  its iCalUID, and a series in its own zone. `test_gcal.py` runs the same
+  events through `ingest_ics` both ways, and every export row comes back under
+  its fingerprint. What changes is series: this parser ignores RRULE, so the
+  export gave a series only its first occurrence. The API expands it
+  (`singleEvents=true`), and each instance needs a UID of its own
+  (`<iCalUID>/<originalStartTime>`), because EventStore re-keys a (source,
+  source_id) that returns with a new fingerprint and a shared UID leaves only
+  the last instance. 2 of the 30 configured Google calendars (Richmond Yacht
+  Club, Edsvikens Tennisklubb) hold a secret `private-...` address. The API
+  cannot open a private calendar with a key, so those two log NOT READ.

@@ -153,6 +153,9 @@ jobs:
       # Untracked, so it survives `git reset --hard`. It is the only channel
       # between the sweep and the commit step once that step re-reads main.
       SNAPSHOT: .curate-snapshot
+      # verify reads a Google calendar (configured, or found embedded in a page)
+      # through the Calendar API; without the key it skips one, unrecorded.
+      GOOGLE_CALENDAR_API_KEY: ${{ secrets.GOOGLE_CALENDAR_API_KEY }}
     # Verification is one live HTTP request per candidate against servers that
     # are sometimes slow and sometimes dead; the ceiling is the point, and a run
     # that hits it still commits everything it proved before stopping.

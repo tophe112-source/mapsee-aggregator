@@ -73,6 +73,8 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 from html import unescape
 from urllib.parse import urljoin, urlparse
 
+import mapsee_gcal
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 OVERPASS_ENDPOINT = "https://overpass-api.de/api/interpreter"
@@ -684,6 +686,19 @@ def fingerprint(body: str) -> Tuple[List[str], Optional[str]]:
     ics = _https((m.group(1) or m.group(2)) if m else None)
     if ics:
         labels.append("ics")
+    # AN EMBEDDED GOOGLE CALENDAR IS A CALENDAR, though it links no .ics. It is
+    # what a club or a neighbourhood group reaches for, and Google Sites' own
+    # Calendar block is one: 14 of 600 sites filed `no-calendar` carried one
+    # (2026-09-30). Proposed under its export URL, which is the calendar's
+    # identity in ics_sources.json. `verify` reads it through the Calendar API,
+    # or skips it until GOOGLE_CALENDAR_API_KEY is set (see mapsee_gcal). The
+    # first calendar only: a block can carry several, and a candidate is one
+    # source.
+    else:
+        ids = mapsee_gcal.embed_ids(body)
+        if ids:
+            labels.append("gcal-embed")
+            ics = mapsee_gcal.ical_url(ids[0])
     return labels, ics
 
 
@@ -701,9 +716,12 @@ def adapter_for(labels: Iterable[str]) -> Optional[str]:
     order = ["tribe", "mylisting", "localist", "gancio", "venuepilot",
              "squarespace", "my-calendar", "trumba", "libcal",
              "wp-event-manager", "events-manager", "modern-events", "wix",
-             "civicplus", "jsonld-event", "ics"]
+             "civicplus", "gcal-embed", "jsonld-event", "ics"]
+    # gcal-embed outranks the page's own Event block for my-calendar's reason:
+    # the embedded calendar is the whole programme, the JSON-LD one view of it.
     labs = set(labels)
     by_label = {name: adapter for name, _, adapter in PLATFORM_SIGNS}
+    by_label["gcal-embed"] = "ics"
     by_label["jsonld-event"] = "jsonld"
     by_label["ics"] = "ics"
     for name in order:

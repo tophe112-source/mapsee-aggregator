@@ -1021,7 +1021,11 @@
   entry, because the audit found 7 hosts that serve several paced feeds with
   none configured (four LibCal hosts at 10 s, fortwhyte.org at 60 s). The
   command edits nothing: what becomes of the 127 is the owner's decision, as
-  parkrun's was. One trap in taking this measurement: the first, parallel pass
+  parkrun's was. The owner's first decision was the Google 30. With
+  GOOGLE_CALENDAR_API_KEY set they are read through the Calendar API, which
+  robots.txt allows, and the report stops listing them. The 2 whose config
+  holds a secret `private-...` address cannot be read that way (see
+  `adapters-and-sources.md`). One trap in taking this measurement: the first, parallel pass
   read 129 origins' files as challenged. Asked one at a time, 100 of the 214 origins
   that had come back challenged or unreachable answered normally, because 16
   connections at once from one address is what a shared host's WAF answers
@@ -1054,10 +1058,16 @@
   (2.9%) embed a Google Calendar. That is roughly 700 across the pool. Two of
   the 14 carry the id base64-encoded (`src=c3NiY0Bzd29yZHNzYWlsaW5nLmll` is
   ssbc@swordssailing.ie), and one links a `basic.ics`. Not one of them is
-  readable as iCal (see `platforms-probed.md`: calendar.google.com refuses us),
-  so do not teach discovery to propose `basic.ics` URLs. The allowed route is
-  the Calendar API with a key, and none exists yet. For a group that posts
-  prose, the honest route is a person posting the event on mapsee.
+  readable as iCal (see `platforms-probed.md`: calendar.google.com refuses us).
+  So discovery now reads the embed (`fingerprint` labels it `gcal-embed`) and
+  proposes the calendar under its export URL, which is its identity in
+  `ics_sources.json`. `verify` reads it through the Calendar API
+  (`mapsee_gcal.py`). Without GOOGLE_CALENDAR_API_KEY set, verify skips it
+  unrecorded, so a missing key is never a 90-day verdict. Only a block's
+  first calendar is proposed, because a candidate is one source. The 31,104
+  sites filed `no-calendar` before this are re-probed as their 90-day ledger
+  rows lapse. For a group that posts prose, the honest route is a person
+  posting the event on mapsee.
   `/api/import` on the Judkins page gets the date (October 3) but reads
   "2-5pm" as a 17:00 start and titles the event "Home" (the site's og:title),
   so both need correcting by hand. The same sample found 11 of the 600

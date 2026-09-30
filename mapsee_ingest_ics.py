@@ -57,6 +57,7 @@ except ImportError:  # pragma: no cover
 
 from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
 from catalog_discover_osm import CIVIC_TITLE_RX, CIVIC_HOLIDAY_RX
+import mapsee_gcal
 
 # ---- persistent geocode cache -----------------------------------------------
 # Photon lookups sleep ~1.1s each for fair use; without persistence every
@@ -202,6 +203,14 @@ def _fetch_ics(session, url):
     # rather than as a URL nobody normalised.
     if url.lower().startswith("webcal://"):
         url = "https://" + url[9:]
+    # A GOOGLE CALENDAR IS READ THROUGH THE CALENDAR API when the key is set:
+    # calendar.google.com/robots.txt refuses its iCal export (see mapsee_gcal).
+    # The text that comes back is built to parse exactly like the export did,
+    # so a one-off event keeps its fingerprint. Not cached: the API sends no
+    # validator worth the bookkeeping, and it is one request per calendar.
+    key = mapsee_gcal.api_key()
+    if key and mapsee_gcal.calendar_id(url):
+        return mapsee_gcal.fetch_as_ics(session, url, key), "api", None
     ent = _FEED_CACHE.get(url)
     if ent and ent.get("v") != FEED_CACHE_VERSION:
         ent = None                                     # decoded the old way; see FEED_CACHE_VERSION

@@ -81,6 +81,10 @@ env:
   THESPORTSDB_KEY: ${{ secrets.THESPORTSDB_KEY }}             # optional; "3" test key used if unset
   RECREATION_GOV_KEY: ${{ secrets.RECREATION_GOV_KEY }}       # ridb.recreation.gov/docs (free)
   USDA_LOCALFOOD_API_KEY: ${{ secrets.USDA_LOCALFOOD_API_KEY }}  # usdalocalfoodportal.com/fe/datasharing
+  # Google calendars in ics_sources.json are read through the Calendar API when
+  # this is set, because calendar.google.com/robots.txt refuses their iCal export
+  # (mapsee_gcal.py). Unset, the ics step fetches them exactly as before.
+  GOOGLE_CALENDAR_API_KEY: ${{ secrets.GOOGLE_CALENDAR_API_KEY }}  # console.cloud.google.com
   # Optional: exact Spotify artist "listen" links on music events.
   SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}         # developer.spotify.com/dashboard
   SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}

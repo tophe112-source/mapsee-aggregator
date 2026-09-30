@@ -268,6 +268,9 @@ jobs:
       # Untracked so this run's completed probes survive reset --hard while the
       # commit step re-reads the branch's current ledger.
       SNAPSHOT: .audit-snapshot
+      # The audit's verify_ics reads the Google calendars through the Calendar API
+      # when this is set, as the ingest does (mapsee_gcal.py).
+      GOOGLE_CALENDAR_API_KEY: ${{ secrets.GOOGLE_CALENDAR_API_KEY }}
     steps:
       - uses: actions/checkout@v4
         with:

@@ -1,0 +1,28 @@
+name: Smoke test - Google Calendar API key
+
+# Manual-only: proves GOOGLE_CALENDAR_API_KEY reads the Google calendars in
+# ics_sources.json through the Calendar API, in a minute instead of waiting for
+# the ICS rotation to reach them. Reads only: no store, no sync, no commit.
+# Each line prints a calendar's kept rows and 10-character fingerprint
+# prefixes, to compare against the rows the iCal export already made.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GOOGLE_CALENDAR_API_KEY: ${{ secrets.GOOGLE_CALENDAR_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Read every configured Google calendar through the Calendar API
+        run: python mapsee_gcal.py --smoke ics_sources.json

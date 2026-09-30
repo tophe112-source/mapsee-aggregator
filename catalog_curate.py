@@ -83,6 +83,7 @@ from urllib.parse import urljoin
 
 import requests
 
+import mapsee_gcal
 import robots_txt
 
 # Every [OK]/[XX] line quotes a REMOTE title back at the console, and remote
@@ -428,10 +429,18 @@ def verify_localist(s, e):
 
 
 def verify_ics(s, e):
-    r = s.get(e["url"], timeout=60)
-    txt = r.text
-    if r.status_code != 200 or "BEGIN:VCALENDAR" not in txt[:400]:
-        return False, f"http {r.status_code} / no VCALENDAR"
+    key = mapsee_gcal.api_key()
+    if key and mapsee_gcal.calendar_id(e["url"]):
+        # The same text the ics adapter will parse; see mapsee_gcal.
+        try:
+            txt = mapsee_gcal.fetch_as_ics(s, e["url"], key, timeout=60)
+        except mapsee_gcal.GcalError as ex:
+            return False, str(ex)[:90]
+    else:
+        r = s.get(e["url"], timeout=60)
+        txt = r.text
+        if r.status_code != 200 or "BEGIN:VCALENDAR" not in txt[:400]:
+            return False, f"http {r.status_code} / no VCALENDAR"
     today = _today_int()
     # Scope the scan to VEVENT BODIES. Scanning the whole file also catches the
     # DTSTARTs inside VTIMEZONE STANDARD/DAYLIGHT sub-components, which carry
@@ -1835,6 +1844,11 @@ def _ingest_requests(t, e):
     day = _as_date(_today_int()).isoformat()
     if t == "ics":
         u = e.get("url") or ""
+        # A Google calendar with the key set is read through the Calendar API,
+        # so that is the request robots.txt is asked about (mapsee_gcal).
+        cid = mapsee_gcal.calendar_id(u)
+        if cid and mapsee_gcal.api_key():
+            return [("GET", mapsee_gcal.api_url(cid))]
         return [("GET", "https://" + u[9:] if u.lower().startswith("webcal://") else u)] if u else []
     if t == "localist":
         return [("GET", f"{base}/api/2/events?days=90&pp=100&page=1")] if base else []
@@ -1919,6 +1933,15 @@ def cmd_verify(path, recheck=False, ttl=90):
                       f"{e.get('name','?')[:36]}")
                 skipped += 1
                 continue
+        # A Google calendar can only be read with the Calendar API key, because
+        # robots.txt refuses its iCal export. Without the key it is skipped and
+        # NOT recorded: a `refused` row would park it for 90 days, and the key
+        # is a setting, not a verdict about the calendar.
+        if t == "ics" and mapsee_gcal.calendar_id(e.get("url") or "") and not mapsee_gcal.api_key():
+            print(f"[SKIP] {t:8} {e.get('name','?')[:46]:46} a Google calendar: needs "
+                  f"{mapsee_gcal.KEY_ENV} (its iCal export is refused by robots.txt)")
+            skipped += 1
+            continue
         gate = _robots_gate(robots, t, e)
         if gate:
             status, note = gate

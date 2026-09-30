@@ -482,6 +482,14 @@ jobs:
       - name: robots.txt is read per RFC 9309, and verify obeys it
         run: python test_robots.py
 
+      # With GOOGLE_CALENDAR_API_KEY set, a Google calendar is read through the
+      # Calendar API and turned back into VCALENDAR text. Pins that the rows
+      # keep their fingerprints across the switch (one-off events in UTC, as
+      # the export writes 221 of 227), that a series gets a UID per instance,
+      # that the key never reaches a URL, and that no key changes nothing.
+      - name: Google calendars through the Calendar API keep their rows
+        run: python test_gcal.py
+
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a
       # mid-sweep crash on a schedule, hours later. Compiling is not a test, but

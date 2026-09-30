@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 296 of them — live in
+session.** The measured notes about what bites — 297 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -48,6 +48,7 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | Public swimming pools | the `leisure=swimming_pool` Kind in `mapsee_ingest_osm_amenities.py`. The only Kind with an extra Overpass filter, and the reason is that most pools on earth are in back gardens |
 | Whether a platform has already been probed and refused | `curation_ledger.json` - `verify` skips a `fail` for 90 days without a network call. The table under "Platforms probed" below is the durable half |
 | Whether robots.txt lets us read a feed | `robots_txt.py` (RFC 9309). `verify` asks before it fetches and records a Disallow as ledger status `refused`; `python catalog_curate.py robots` lists every CONFIGURED request a host refuses (127 on 2026-09-30, 30 of them Google calendars) and changes nothing. What to do about those is the owner's call |
+| A Google calendar, configured or embedded in a page | `mapsee_gcal.py`. With `GOOGLE_CALENDAR_API_KEY` set, the ics adapter and `verify` read it through the Calendar API (its iCal export is refused by robots.txt), as text that parses like the export so rows keep their fingerprints. Unset, nothing changes. `smoke-gcal.yml` (dispatch) proves a key. Discovery proposes Google Sites Calendar blocks and other embeds as `gcal-embed` |
 | Whether a row is an advertisement rather than an event | `mapsee_spam.py` — one predicate, wired into `EventStore.upsert` so all 44 adapters get it; a phone number in the title counts only from Mobilizon, Gancio or an unknown source; `test_spam.py` is mostly about what it must NOT refuse |
 | How much of a source is advertising | `mapsee_spam_audit.py` — measures the rate per instance, so `_not_included` is a number and not an impression |
 | Whether a missing source config is parked ON PURPOSE | a `*_sources.json.pending-permission` twin, and the README's Conduct section. None is parked today: parkrun was, for part of 2026-09-25, and is shown by the owner's decision (`_decision` in `parkrun_sources.json`); `test_ingest_parkrun.py` fails if the live file goes missing or a parked twin reappears. `mapsee_retire_parkrun.py` (`retire-parkrun.yml`, dispatch only) takes every parkrun row off with `apply`, and puts them back with `unhide` |
@@ -85,7 +86,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 53 `test_*.py` scripts are the CI gate.** They print one line per case
+- **The 54 `test_*.py` scripts are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -115,7 +116,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | A state fair's dates | `docs/agents/state-fairs.md` | `python test_ingest_seattlecenter.py` (yearless dates share the lesson) |
 | Brazil is empty, or a Mapas Culturais row is odd | `docs/agents/brazil-mapasculturais.md` | `python test_ingest_mapasculturais.py` |
 | One specific adapter or source misbehaves | `docs/agents/adapters-and-sources.md` | its `test_ingest_<name>.py` |
-| A secret is missing | `docs/agents/credentials.md` | `.env.example` lists all 37 |
+| A secret is missing | `docs/agents/credentials.md` | `.env.example` lists all 38 |
 
 ## The notes
 
@@ -125,7 +126,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/osm-amenities.md` | 32 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list, hall contacts |
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 25 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped |
-| `docs/agents/adapters-and-sources.md` | 22 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset |
+| `docs/agents/adapters-and-sources.md` | 23 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar read through the Calendar API |
 | `docs/agents/classification-and-categories.md` | 36 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer, title-only kids words, markets named for a day, a shift is not the event, a play is not the verb, what the refresh backfills |
 | `docs/agents/cancelled-events.md` | 18 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut |
 | `docs/agents/sync-eventstore-and-paging.md` | 18 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors, an unhide walk and its dry-run overcount, moving a row whose identity changed |
@@ -143,7 +144,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 ```bash
 pip install -r requirements.txt
-python test_categories.py            # one of the 53 gate scripts; the full list is in docs/agents/running.md
+python test_categories.py            # one of the 54 gate scripts; the full list is in docs/agents/running.md
 python catalog_curate.py coverage    # where the catalog is thin, per lens category
 python agent_notes.py                # the notes map is under budget and the index is fresh
 ```

@@ -294,8 +294,11 @@ cc.HERE = tmp
 cc.LEDGER_FILE = os.path.join(tmp, "curation_ledger.json")
 FEED = "BEGIN:VCALENDAR\nBEGIN:VEVENT\nDTSTART:20261010T180000Z\nSUMMARY:Fall BBQ\nEND:VEVENT\nEND:VCALENDAR\n"
 pages = {
-    "https://calendar.google.com/robots.txt": (200, GOOGLE_CAL),
-    "https://calendar.google.com/calendar/ical/x%40gmail.com/public/basic.ics": (200, FEED),
+    # LibraryCalendar's platform file: a second `*` group of `Disallow: /`,
+    # then an allow-list of named search engines (all 11 tenants, 2026-09-30).
+    # Not a Google calendar: those take mapsee_gcal's route before this gate.
+    "https://orem.librarycalendar.com/robots.txt": (200, SANTA_FE),
+    "https://orem.librarycalendar.com/events/feed/ical": (200, FEED),
     "https://club.example/robots.txt": (200, "User-agent: *\nDisallow: /wp-admin/\n"),
     "https://club.example/?ical=1": (200, FEED),
     "https://lib.example/robots.txt": (200, "User-agent: *\nCrawl-delay: 10\nDisallow: /admin/\n"),
@@ -304,8 +307,8 @@ pages = {
 sess = Session(pages)
 cc._session = lambda: sess
 cands = [
-    {"type": "ics", "name": "A Google calendar", "category": "community",
-     "url": "https://calendar.google.com/calendar/ical/x%40gmail.com/public/basic.ics"},
+    {"type": "ics", "name": "A library platform", "category": "learning",
+     "url": "https://orem.librarycalendar.com/events/feed/ical"},
     {"type": "ics", "name": "A club", "category": "community", "url": "https://club.example/?ical=1"},
     {"type": "ics", "name": "A library", "category": "learning", "url": "https://lib.example/ical_subscribe.php?cid=1"},
 ]
@@ -320,7 +323,7 @@ finally:
 names = [v["name"] for v in verified]
 check("verify passes the allowed feeds and not the refused one", names == ["A club", "A library"], names)
 check("the refused feed was never requested - only its robots.txt was",
-      not any("public/basic.ics" in u for u in sess.asked), sess.asked)
+      not any(u.endswith("/events/feed/ical") for u in sess.asked), sess.asked)
 row = led.get(cc._canon(cands[0]["url"])) or {}
 check("the ledger records the refusal as `refused`, with the rule",
       row.get("status") == "refused" and "Disallow: /" in row.get("reason", ""), row)
