@@ -473,6 +473,15 @@ jobs:
       - name: Thin-artwork retirement (which OSM art rows are not worth a pin)
         run: python test_retire_thin_artwork.py
 
+      # "Respect robots.txt" was a rule nothing enforced: verify proved a feed
+      # worked and the weekly sweep committed it. 127 of 3,468 configured
+      # requests turned out to be disallowed (2026-09-30), 30 of them on
+      # calendar.google.com. Pins the RFC 9309 matcher on real files (longest
+      # match, merged groups, `*` and `$`) and that verify never FETCHES a feed
+      # its host refuses. No network.
+      - name: robots.txt is read per RFC 9309, and verify obeys it
+        run: python test_robots.py
+
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a
       # mid-sweep crash on a schedule, hours later. Compiling is not a test, but

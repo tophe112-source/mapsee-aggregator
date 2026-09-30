@@ -57,6 +57,9 @@ Usage:
   python catalog_curate.py verify candidates.json [--recheck] [--ttl 90]
   python catalog_curate.py merge  candidates.verified.json
   python catalog_curate.py audit                     # re-check EXISTING configs
+  # which configured requests robots.txt refuses, and hosts fetched unpaced.
+  # Report only: it edits nothing.
+  python catalog_curate.py robots
   python catalog_curate.py ledger                     # summarize what's been tried
   # the venues whose events are on a platform we already ingest, with the link
   python catalog_curate.py ledger --offsite [--refresh]   # --refresh re-probes
@@ -79,6 +82,8 @@ import time
 from urllib.parse import urljoin
 
 import requests
+
+import robots_txt
 
 # Every [OK]/[XX] line quotes a REMOTE title back at the console, and remote
 # titles contain whatever the publisher typed. On a cp1252 console one narrow
@@ -317,7 +322,10 @@ def _dead_recently(led, key, ttl=DEAD_TTL):
     # reports it (see _status_for), but proposing a NEW source with nothing
     # upcoming buys a feed that ingests zero — which is the same waste of the
     # candidate budget, so discovery treats the two alike.
-    if not rec or rec.get("status") not in ("fail", "empty"):
+    # 'refused' too: robots.txt said no. Asking again next week costs a fetch
+    # and gets the same answer; after the TTL a site that changed its file is
+    # worth the look.
+    if not rec or rec.get("status") not in ("fail", "empty", "refused"):
         return False
     return _days_since(rec.get("checked", 0)) < ttl
 
@@ -1807,10 +1815,89 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
     return 0
 
 
+# --- robots.txt --------------------------------------------------------------
+# Verification proved a feed WORKS and never asked whether we were allowed to
+# read it, and the weekly sweep commits whatever verifies. Measured 2026-09-30
+# over every configured request: 127 of 3,468 disallowed by their own host's
+# robots.txt, 30 of them Google calendars. See robots_txt.py for the matching
+# rules and the four files that decided them.
+#
+# What is checked is the request the INGEST adapter makes, built here the way
+# each adapter builds it, and not the page the feed was found on or the
+# verifier's smaller probe: `Disallow: /*?` and `Disallow: /*ical=` are exactly
+# the rules a query string trips, and the probe and the ingest can differ by one.
+_TRIBE_Q = "?per_page=50&start_date={d}&end_date={d}"
+
+
+def _ingest_requests(t, e):
+    """[(method, url)] the ingest adapter for type `t` fetches for entry `e`."""
+    base = (e.get("base_url") or "").rstrip("/")
+    day = _as_date(_today_int()).isoformat()
+    if t == "ics":
+        u = e.get("url") or ""
+        return [("GET", "https://" + u[9:] if u.lower().startswith("webcal://") else u)] if u else []
+    if t == "localist":
+        return [("GET", f"{base}/api/2/events?days=90&pp=100&page=1")] if base else []
+    if t == "tribe":
+        return [("GET", f"{base}/wp-json/tribe/events/v1/events" + _TRIBE_Q.format(d=day))] if base else []
+    if t == "gancio":
+        return [("GET", f"{base}/api/events?start=0&end=0&max=500")] if base else []
+    if t == "mobilizon":
+        return [("POST", f"{base}/api")] if base else []
+    if t == "squarespace":
+        return [("GET", e["collection"])] if e.get("collection") else []
+    if t == "jsonld":
+        listing = e.get("listing") or []
+        return [("GET", u) for u in (listing if isinstance(listing, list) else [listing]) if u]
+    if t == "mylisting":
+        return [("GET", e["explore_url"])] if e.get("explore_url") else []
+    if t == "ods":
+        return [("GET", (e.get("url") or _ods_url(e)) + "?where=x&limit=100&offset=0")]
+    if t in ("opendata", "ckan", "market"):
+        u = e.get("url") or ""
+        return [("GET", u + ("&" if "?" in u else "?") + "limit=1")] if u else []
+    if t == "venuepilot":
+        return [("POST", "https://www.venuepilot.co/graphql")]
+    u = e.get("url") or ""
+    return [("GET", u)] if u.startswith(("http://", "https://")) else []
+
+
+# The adapters that pace a host by a config's `crawl_delay`: ics per host across
+# its feeds, tribe between pages.
+_PACED = ("ics", "tribe")
+
+
+def _robots_gate(robots, t, e):
+    """None when every request is allowed, else the ledger (status, reason).
+
+    A Disallow is `refused` - the operator's answer, parked for the TTL and
+    never counted as a dead feed. An unreachable robots.txt and a challenge on
+    it are `fail`: RFC 9309 says assume Disallow for the first, permission
+    cannot be established for the second, and neither is a verdict about the
+    feed that a later look could not change.
+
+    Side effect, deliberately: when the host asks for a Crawl-delay and the
+    entry carries none, the entry gets one, so merge writes it into the config
+    and the adapter paces the host by it.
+    """
+    for method, url in _ingest_requests(t, e):
+        ans = robots.check(url)
+        if ans["allowed"] is False and ans["status"] == "unreachable":
+            return "fail", f"robots.txt unreachable ({ans['robots']})"
+        if ans["allowed"] is None:
+            return "fail", f"robots.txt challenged ({ans['robots']})"
+        if ans["allowed"] is False:
+            return "refused", f"robots.txt: {ans['rule']} ({method} {robots_txt.request_path(url)[:60]})"
+        if ans.get("crawl_delay") and t in _PACED and not e.get("crawl_delay"):
+            e["crawl_delay"] = ans["crawl_delay"]
+    return None
+
+
 # --- commands --------------------------------------------------------------
 def cmd_verify(path, recheck=False, ttl=90):
     cands = json.load(open(path, encoding="utf-8"))
     s = _session()
+    robots = robots_txt.Robots(s)
     led = _load_ledger()
     in_config = _config_keys()
     passed, skipped = [], 0
@@ -1825,13 +1912,20 @@ def cmd_verify(path, recheck=False, ttl=90):
             skipped += 1
             continue
         rec = led.get(key)
-        if not recheck and rec and rec.get("status") in ("fail", "empty"):
+        if not recheck and rec and rec.get("status") in ("fail", "empty", "refused"):
             age = _days_since(rec.get("checked", 0))
             if age < ttl:
                 print(f"[SKIP] {t:8} known-dead {age}d ago ({rec.get('reason','')[:30]}): "
                       f"{e.get('name','?')[:36]}")
                 skipped += 1
                 continue
+        gate = _robots_gate(robots, t, e)
+        if gate:
+            status, note = gate
+            led[key] = {"type": t, "name": e.get("name"), "status": status,
+                        "reason": note, "checked": _today_int()}
+            print(f"[XX ] {t:8} {e.get('name','?')[:46]:46} {note}")
+            continue
         try:
             ok, note = VERIFIERS[t](s, e)
         except Exception as ex:  # noqa: BLE001
@@ -1845,6 +1939,109 @@ def cmd_verify(path, recheck=False, ttl=90):
     out = os.path.splitext(path)[0] + ".verified.json"
     json.dump(passed, open(out, "w", encoding="utf-8"), indent=2)
     print(f"\n{len(passed)} verified, {skipped} skipped (known) of {len(cands)} -> {out}")
+    return 0
+
+
+# Files outside CONFIG that an adapter still FETCHES from. program, affiliate
+# and restaurant configs carry links for people, not requests, and are left out.
+_ROBOTS_EXTRA = ("fair_sources.json", "market_sources.json", "openactive_sources.json",
+                 "mapasculturais_sources.json", "festival_sources.json",
+                 "luma_sources.json", "dice_venue_sources.json", "slu_sources.json",
+                 "pioneersquare_sources.json", "seattlecenter_sources.json",
+                 "rolodex_sources.json", "parkrun_sources.json")
+
+
+def _walk_urls(o):
+    """Every http(s) value in a config, skipping `_`-prefixed keys (the
+    `_not_included` lists and the notes)."""
+    if isinstance(o, dict):
+        for k, v in o.items():
+            if k.startswith("_"):
+                continue
+            if isinstance(v, str) and v.startswith(("http://", "https://")):
+                yield o.get("name") or "?", v
+            else:
+                yield from _walk_urls(v)
+    elif isinstance(o, list):
+        for x in o:
+            yield from _walk_urls(x)
+
+
+def _configured_requests():
+    """[(file, type, name, method, url)] for every configured source."""
+    out = []
+    for t, (fname, _key) in CONFIG.items():
+        path = os.path.join(HERE, fname)
+        if not os.path.exists(path):
+            continue
+        for e in _entries(fname, json.load(open(path, encoding="utf-8"))):
+            if isinstance(e, dict):
+                for method, url in _ingest_requests(t, e):
+                    out.append((fname, t, e.get("name") or "?", method, url))
+    for fname in _ROBOTS_EXTRA:
+        path = os.path.join(HERE, fname)
+        if not os.path.exists(path):
+            continue
+        t = fname.replace("_sources.json", "")
+        for name, url in _walk_urls(json.load(open(path, encoding="utf-8"))):
+            out.append((fname, t, name, "GET", url))
+    return out
+
+
+def cmd_robots(workers=16):
+    """REPORT ONLY: which configured requests their host's robots.txt refuses.
+
+    Changes nothing - no config, no ledger. What to do about a refused source is
+    the owner's call (see the parkrun `_decision` for what that looks like), and
+    this is the evidence for it. Crawl-delay is reported too: a host that asks
+    for one and serves several paced feeds with none configured is fetched
+    back to back.
+    """
+    reqs = _configured_requests()
+    robots = robots_txt.Robots(_session())
+    robots.prefetch([u for *_x, u in reqs], workers=workers)
+    by_status, refused, paced = {}, {}, {}
+    for fname, t, name, method, url in reqs:
+        ans = robots.check(url)
+        kind = ("disallowed" if ans["allowed"] is False and ans["status"] not in ("unreachable",)
+                else "unreachable" if ans["status"] == "unreachable"
+                else "challenged" if ans["allowed"] is None
+                else "allowed")
+        by_status[kind] = by_status.get(kind, 0) + 1
+        origin = robots_txt.origin_of(url)
+        if kind == "disallowed":
+            refused.setdefault((origin, ans["rule"]), []).append((fname, name, method, url))
+        elif kind == "allowed" and ans.get("crawl_delay") and t in _PACED:
+            paced.setdefault(origin, {"asks": ans["crawl_delay"], "n": 0, "set": 0})
+            paced[origin]["n"] += 1
+    # which paced requests already carry a crawl_delay in their config
+    for t in _PACED:
+        fname = CONFIG[t][0]
+        for e in _entries(fname, json.load(open(os.path.join(HERE, fname), encoding="utf-8"))):
+            if isinstance(e, dict) and e.get("crawl_delay"):
+                for _m, url in _ingest_requests(t, e):
+                    o = robots_txt.origin_of(url)
+                    if o in paced:
+                        paced[o]["set"] += 1
+    print(f"robots.txt audit: {len(reqs)} configured requests across "
+          f"{len({robots_txt.origin_of(u) for *_x, u in reqs})} origins "
+          f"({robots.retried} re-asked one at a time after the parallel pass, "
+          f"{robots.recovered} of them answered)")
+    print("  " + ", ".join(f"{k} {v}" for k, v in sorted(by_status.items())))
+    n = sum(len(v) for v in refused.values())
+    print(f"\nDISALLOWED for our User-Agent: {n} request(s) on {len({o for o, _r in refused})} origin(s)")
+    for (origin, rule), rows in sorted(refused.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+        files = ", ".join(sorted({f for f, *_x in rows}))
+        print(f"  {len(rows):3}  {origin}  [{rule}]  {files}")
+        for _f, name, method, url in rows[:3]:
+            print(f"         {name[:48]}  {method} {robots_txt.request_path(url)[:70]}")
+        if len(rows) > 3:
+            print(f"         ... and {len(rows) - 3} more")
+    unpaced = {o: v for o, v in paced.items() if v["n"] > 1 and not v["set"]}
+    print(f"\nUNPACED: {len(unpaced)} host(s) ask for a Crawl-delay, serve several ics/tribe "
+          f"requests, and no config on them carries `crawl_delay`")
+    for o, v in sorted(unpaced.items(), key=lambda kv: -kv[1]["n"]):
+        print(f"  {o}  asks {v['asks']:g}s  {v['n']} requests")
     return 0
 
 
@@ -3424,7 +3621,7 @@ def cmd_cityclass(codes=()):
 
 def main(argv):
     cmds = {"verify", "merge", "audit", "ledger", "coverage", "discover",
-            "reapply", "cityclass"}
+            "reapply", "cityclass", "robots"}
     if len(argv) < 2 or argv[1] not in cmds:
         print(__doc__)
         return 2
@@ -3467,6 +3664,8 @@ def main(argv):
         return cmd_cityclass(tuple(a for a in argv[2:] if not a.startswith("-")))
     if cmd == "audit":
         return cmd_audit()
+    if cmd == "robots":
+        return cmd_robots()
     if cmd == "ledger":
         if "--offsite" in argv:
             return cmd_ledger_offsite(refresh="--refresh" in argv)

@@ -43,11 +43,13 @@ python test_ingest_meetup.py        # a Zoom call is not a place, and a hybrid s
 python test_ingest_bibliocommons.py # a date filter the gateway ignores, stock image tiles, two storytimes in one day
 python test_spam.py                 # the advertisement gate, and mostly what it must never refuse
 python test_coverage_rows.py        # the coverage report's arithmetic: no source counted twice, no ccTLD left under "?"
+python test_robots.py               # robots.txt per RFC 9309, and verify never fetching a feed its host refuses
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
+python catalog_curate.py robots     # which configured requests robots.txt refuses (report only, network)
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 ```
 
-The 50 test scripts are the CI gate (`tests.yml`). They print one line per
+The 53 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
