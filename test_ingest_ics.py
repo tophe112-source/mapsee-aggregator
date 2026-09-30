@@ -107,6 +107,27 @@ with patch.object(ICS, "_fetch_ics", return_value=(VENUE_ICS, "200")), \
     kept = ICS.ingest_ics(vstore, None, {"name": "montlake", "url": "x", "venue": {"name": "no pin"}})
     check("a venue without coordinates is ignored", kept == 0, kept)
 
+# ...but not the one whose own title says it is elsewhere. Betlehem in Bergen
+# lists an online prayer meeting and street evangelism beside its services.
+SKIP_ICS = (
+    "BEGIN:VCALENDAR\r\n"
+    "BEGIN:VEVENT\r\nUID:svc\r\nSUMMARY:Gudstjeneste. Ingvald Kårbø.\r\nDTSTART:20991011T090000Z\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:web\r\nSUMMARY:Bønnemøte på nett\r\nDTSTART:20991012T170000Z\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:street\r\nSUMMARY:Gateevangelisering\r\nDTSTART:20991014T170000Z\r\nEND:VEVENT\r\n"
+    "END:VCALENDAR\r\n"
+)
+with patch.object(ICS, "_fetch_ics", return_value=(SKIP_ICS, "200")), \
+     patch.object(ICS, "make_location_geocoder", side_effect=_no_hit_geocoder):
+    vstore = VenueStore()
+    kept = ICS.ingest_ics(vstore, None, {"name": "betlehem", "url": "x", "venue": VENUE,
+                                         "venue_skip": r"på nett|gateevangelisering"})
+    check("venue_skip keeps an event its title places elsewhere off the venue",
+          kept == 1 and [r.name for r in vstore.rows] == ["Gudstjeneste. Ingvald Kårbø."],
+          [r.name for r in vstore.rows])
+    vstore = VenueStore()
+    kept = ICS.ingest_ics(vstore, None, {"name": "betlehem", "url": "x", "venue": VENUE})
+    check("...and without it every one of them is pinned there", kept == 3, kept)
+
 
 # --- a LOCATION that names no place, and a GEO that says "unset" --------------
 # Willoughby-Eastlake's "Offsite" rows geocoded 369 km away; GEO:0;0 is the

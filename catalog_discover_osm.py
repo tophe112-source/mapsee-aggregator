@@ -1086,6 +1086,13 @@ def to_candidate(v: Dict[str, Any], found: Dict[str, Any],
         ics = found.get("ics")
         if not ics:
             return None                       # the platform said ics, the site did not serve one
+        # NO `venue` BLOCK, unlike the adapters below, and on purpose. An ics
+        # source's venue pins every event that names no place, and a calendar
+        # found through a venue is often not that venue's programme. Of the 9
+        # OSM-found Google calendars whose events carried no LOCATION at all
+        # (2026-09-30), 4 were right to pin. The rest were a diocese's whole
+        # agenda, two scout troops' trips, and a rowing club's meetings in
+        # Lausanne and camp in St. Moritz. Pin by hand, from the events.
         return dict(common, type="ics", url=_https(urljoin(cal, ics)),
                     geocode_suffix=_suffix(v, metro), limit=300)
     if adapter == "tribe":

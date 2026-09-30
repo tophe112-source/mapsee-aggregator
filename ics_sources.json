@@ -1846,7 +1846,20 @@
     "url": "https://calendar.google.com/calendar/ical/webmaster.lasswadeac%40gmail.com/public/basic.ics",
     "geocode_suffix": ", Bonnyrigg",
     "limit": 300,
-    "_metro": "Edinburgh, GB"
+    "_metro": "Edinburgh, GB",
+    "url_home": "http://www.lasswadearcheryclub.co.uk/",
+    "venue": {
+      "name": "Lasswade High School Centre",
+      "address": "11 Eskdale Drive",
+      "city": "Bonnyrigg",
+      "region": "Midlothian",
+      "postal_code": "EH19 2LA",
+      "country": "GB",
+      "lat": 55.87378,
+      "lon": -3.1172
+    },
+    "venue_skip": "^(?!.*\\blasswade\\b)",
+    "_note": "Evidence 2026-09-30, from its events read through the Calendar API (smoke-gcal show): 131 events, none with a LOCATION. The club shoots at two places: 'indoors at Lasswade High School Centre, and outdoors at Grove farm' (Scottish Archery's club spotlight). Its titles name one for some sessions ('Lasswade club session', 'Grove club session') and neither for coaching, courses and squad nights. venue_skip is 'anything that does not say Lasswade', so only the sessions the club itself places at the school are pinned there, and the rest stay unplaced rather than guessed. School coordinates from Wikipedia."
   },
   {
     "name": "Canongate Kirk",
@@ -1927,7 +1940,19 @@
     "url": "https://calendar.google.com/calendar/ical/b6e0e71b8b20079c84be2622226fa873a895fadc6892f7b37df2af857414984a%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Edmonton",
     "limit": 300,
-    "_metro": "Edmonton, CA"
+    "_metro": "Edmonton, CA",
+    "url_home": "https://www.sthermans.ca/",
+    "venue": {
+      "name": "St. Herman of Alaska Orthodox Church",
+      "address": "9930 167 St NW",
+      "city": "Edmonton",
+      "region": "AB",
+      "postal_code": "T5P 4W7",
+      "country": "CA",
+      "lat": 53.538646,
+      "lon": -113.6102909
+    },
+    "_note": "Evidence 2026-09-30, from its events read through the Calendar API (smoke-gcal show): 116 events in 180 days, none with a LOCATION, all services at the church (Great Vespers, Divine Liturgy, Hours). Coordinates are the ones sthermans.ca publishes in its own structured data."
   },
   {
     "name": "The Black Altar Project (Seattle)",
@@ -2371,7 +2396,8 @@
     "url": "https://calendar.google.com/calendar/ical/erasudet.fi_5lfve34rlbpp90ndgda4r3o34s%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Espoo",
     "limit": 300,
-    "_metro": "Helsinki, FI"
+    "_metro": "Helsinki, FI",
+    "_note": "Evidence 2026-09-30, from its events read through the Calendar API (smoke-gcal show). No venue, deliberately. Its one event in 180 days is a troop trip ('Lippukuntaretki')."
   },
   {
     "name": "Pitkäjärven Vaeltajat ry",
@@ -2380,7 +2406,8 @@
     "url": "https://calendar.google.com/calendar/ical/c_6309bb08d9ccf8c3437272d5447594464f86c1e53d92d5b35d7d06c2c4d414cf%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Espoo",
     "limit": 300,
-    "_metro": "Helsinki, FI"
+    "_metro": "Helsinki, FI",
+    "_note": "Evidence 2026-09-30, from its events read through the Calendar API (smoke-gcal show). No venue, deliberately. A scout troop (lippukunta), not a hiking club: 16 events with no LOCATION, most of them trips (retki), district and national events (Explo, Vimma) and leaders' work days at its cabin. Its den (kolo) is one place among many."
   },
   {
     "name": "Woodbury — Central Park",
@@ -3865,7 +3892,19 @@
     "url": "https://calendar.google.com/calendar/ical/post%40betlehem.no/public/basic.ics",
     "geocode_suffix": ", Bergen, NO",
     "limit": 300,
-    "_metro": "Bergen, NO"
+    "_metro": "Bergen, NO",
+    "url_home": "https://www.betlehem.no/",
+    "venue": {
+      "name": "Betlehem, Bergens Indremisjon",
+      "address": "Vestre Murallmenningen 15",
+      "city": "Bergen",
+      "postal_code": "5011",
+      "country": "NO",
+      "lat": 60.393448,
+      "lon": 5.317056
+    },
+    "venue_skip": "på nett|gateevangelisering|leir|alværa",
+    "_note": "Evidence 2026-09-30, from its events read through the Calendar API (smoke-gcal show): 154 events, none with a LOCATION. Services, meetings and the young-adults evenings are at Betlehem (address from betlehem.no/kontakt). venue_skip keeps off it the ones whose titles say otherwise: 'Bønnemøte på nett' is online, 'Gateevangelisering' is in the street, and the camps ('Høstleir på Alværa Misjonssenter') are elsewhere. The coordinate is Vestre Murallmenningen's own (gateguiden), within about 80 m of number 15."
   },
   {
     "name": "Weymouth — Main Calendar",
@@ -5872,7 +5911,8 @@
     "url": "https://calendar.google.com/calendar/ical/1d40ac096b17c056aa341240c473e570ebdc8ec7e8b3e5cffe3a9f9c9710cb59%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Antwerp, BE",
     "limit": 300,
-    "_metro": "Antwerp, BE"
+    "_metro": "Antwerp, BE",
+    "_note": "Evidence 2026-09-30, from its events read through the Calendar API (smoke-gcal show). No venue, deliberately. Of its 2 events, the Chirobal is at Zaal Lux (chirojez.be/chirobal), not the Chiro's premises at Frans de Peuterstraat 31a, and the BBQ's place is not stated."
   },
   {
     "name": "Kunstfabriek Kaleidoscoop",
@@ -12506,7 +12546,8 @@
     "url": "https://calendar.google.com/calendar/ical/diocesisdemalaga.es_3r1vo9biq68pb1rnrrr2q7jdl8%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Malaga, ES",
     "limit": 300,
-    "_metro": "Malaga, ES"
+    "_metro": "Malaga, ES",
+    "_note": "Evidence 2026-09-30, from its events read through the Calendar API (smoke-gcal show). No venue, deliberately. This calendar is the Diocese of Malaga's whole agenda, not the sisters' house: 182 events in 180 days with no LOCATION, among them masses 'en la Catedral', diocesan councils, and liturgical markers ('XXVII Domingo del Tiempo Ordinario') that are not events at all. Pinning them to the convent would put the diocese on one building. Worth retiring."
   },
   {
     "name": "Bedford",
@@ -12695,7 +12736,8 @@
     "url": "https://calendar.google.com/calendar/ical/c_e388d2d0ca304f7cf215ca1df7aa1c787c1686c8f82bb07cc9be7363b492ccca%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Zurich, CH",
     "limit": 300,
-    "_metro": "Zurich, CH"
+    "_metro": "Zurich, CH",
+    "_note": "Evidence 2026-09-30, from its events read through the Calendar API (smoke-gcal show). No venue, deliberately. Of 4 events with no LOCATION, two are elsewhere by their own titles: 'SRV Delegiertenversammlung - Lausanne' and 'Langlauflager - St. Moritz'."
   },
   {
     "name": "Wassersportvertein Richterswil",
@@ -13428,7 +13470,19 @@
     "url": "https://calendar.google.com/calendar/ical/info%40cvmc.ch/public/basic.ics",
     "geocode_suffix": ", Cully",
     "limit": 300,
-    "_metro": "Lausanne, Switzerland"
+    "_metro": "Lausanne, Switzerland",
+    "url_home": "https://www.cvmc.ch/",
+    "venue": {
+      "name": "Cercle de la Voile de Moratel-Cully (Port de Moratel)",
+      "address": "Route de Moratel 2",
+      "city": "Cully",
+      "region": "VD",
+      "postal_code": "1096",
+      "country": "CH",
+      "lat": 46.488469,
+      "lon": 6.737336
+    },
+    "_note": "Evidence 2026-09-30, from its events read through the Calendar API (smoke-gcal show): 5 events, none with a LOCATION: the club's own regattas (Régate des Feuilles Mortes, Saint-Nicolas, Coupe de l'Avent), a junior final and its general assembly, sailed and held from its harbour. Harbour coordinates from French Wikipedia's list of Lake Geneva ports. cvmc.ch serves a bot challenge even on robots.txt, so nothing here was read from it."
   },
   {
     "name": "Maison de Quartier Sous-Gare",

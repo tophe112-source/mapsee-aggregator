@@ -379,6 +379,28 @@ def location_attempts(loc: str) -> List[str]:
     return out
 
 
+# A SOURCE'S VENUE IS WHERE MOST OF ITS EVENTS ARE, NOT ALL OF THEM. The venue
+# fallback pins every event that names no place, and a calendar's own titles
+# often say one is elsewhere. Measured 2026-09-30 on the calendars that first
+# got a `venue`: Betlehem in Bergen lists "Bønnemøte på nett" (online),
+# "Gateevangelisering" (in the street) and a camp at Alværa beside its
+# services, and Lasswade Archery Club's "Grove club session" is at Grove Farm,
+# not the school hall its other sessions use. `venue_skip` is a regex over the
+# title. A match is left unplaced, which is the adapter's rule for a place
+# it cannot find: never pin by a guess.
+_SKIP_RX_CACHE: Dict[str, "re.Pattern[str]"] = {}
+
+
+def _off_venue(src: Dict[str, Any], title: str) -> bool:
+    pattern = src.get("venue_skip")
+    if not pattern:
+        return False
+    rx = _SKIP_RX_CACHE.get(pattern)
+    if rx is None:
+        rx = _SKIP_RX_CACHE[pattern] = re.compile(pattern, re.I)
+    return bool(rx.search(title or ""))
+
+
 def _venue_pin(venue) -> bool:
     """True when a source's `venue` block carries a usable coordinate pair."""
     if not isinstance(venue, dict):
@@ -506,6 +528,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     # carries venues the iCal export omits), and the log has to be able to say so.
     unplaceable = 0
     pinned_by_venue = 0
+    off_venue = 0
     past = 0
     governance = 0
     cancelled = 0
@@ -576,10 +599,13 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             lat, lon = geocode(loc)
         venue = None
         if lat is None and not loc and not elsewhere and _venue_pin(src.get("venue")):
-            venue = src["venue"]                      # no place named at all: the source's own fallback
-            lat, lon = float(venue["lat"]), float(venue["lon"])
-            loc = venue.get("name") or None
-            pinned_by_venue += 1
+            if _off_venue(src, title):
+                off_venue += 1                        # its own title says it is somewhere else
+            else:
+                venue = src["venue"]                  # no place named at all: the source's own fallback
+                lat, lon = float(venue["lat"]), float(venue["lon"])
+                loc = venue.get("name") or None
+                pinned_by_venue += 1
         if lat is None or lon is None:
             unplaceable += 1
             continue                                  # nowhere to pin it
@@ -613,6 +639,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     note = f" ({how})" if how != "200" else ""
     if pinned_by_venue:
         note += f" — {pinned_by_venue} pinned to the source's venue (no LOCATION/GEO)"
+    if off_venue:
+        note += f" — {off_venue} kept off the venue by venue_skip"
     if unplaceable:
         note += f" — {unplaceable} unplaceable (no LOCATION/GEO)"
         if events and unplaceable >= max(3, len(events) // 2):
