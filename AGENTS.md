@@ -27,7 +27,7 @@ mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 
 Every adapter normalises one source into `NormalizedEvent` and appends to a
 store file. The sync is the only thing that talks to the database, and it is
-where an event gets its **category** — which decides which of the nine mapsee
+where an event gets its **category** — which decides which of the ten mapsee
 front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 
 | Looking for | Go to |
