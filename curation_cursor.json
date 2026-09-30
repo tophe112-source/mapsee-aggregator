@@ -217,11 +217,9 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 101,
-  "metro_key": "NZ:Dunedin",
-  "stuck": {
-   "NZ:Dunedin": 1
-  }
+  "metro": 108,
+  "metro_key": "NL:Groningen",
+  "stuck": {}
  },
  "socrata": {
   "art events": 0,

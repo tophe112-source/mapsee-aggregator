@@ -12528,6 +12528,241 @@
         "lon": 28.1947181
       },
       "_metro": "Pretoria, South Africa"
+    },
+    {
+      "name": "Buurtteam Rivierenbuurt",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.buurtteamamsterdam.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buurtteam Rivierenbuurt",
+        "address": "13A Lekstraat",
+        "city": "Amsterdam",
+        "postal_code": "1079EK",
+        "lat": 52.3449498,
+        "lon": 4.9063521
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Scouting Holendrecht",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://scoutingholendrecht.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scouting Holendrecht",
+        "address": "23 Meerkerkdreef",
+        "city": "Amsterdam",
+        "postal_code": "1106GZ",
+        "lat": 52.3008969,
+        "lon": 4.9770851
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "T.P.C. Botesa",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://botesa.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "T.P.C. Botesa",
+        "address": "4 Broekveldselaan",
+        "city": "Bodegraven",
+        "postal_code": "2411NL",
+        "lat": 52.0718594,
+        "lon": 4.7537846
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Ons Eigen Gebouw Buurmalsen",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.onseigengebouw.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ons Eigen Gebouw Buurmalsen",
+        "address": "23 Groeneweg",
+        "city": "Buurmalsen",
+        "postal_code": "4197HD",
+        "lat": 51.8930199,
+        "lon": 5.288809
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Consultatiebureau",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ggdru.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Consultatiebureau",
+        "address": "2 Lisidunalaan",
+        "city": "Leusden",
+        "postal_code": "3833BR",
+        "lat": 52.1348275,
+        "lon": 5.4263758
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "De Hangar",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.meerhoven.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Hangar",
+        "lat": 51.4428565,
+        "lon": 5.4108073
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "'t Trefpunt",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.trefpunteindhoven.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "'t Trefpunt",
+        "address": "20 Belgiëplein",
+        "city": "Eindhoven",
+        "postal_code": "5628XJ",
+        "lat": 51.4791809,
+        "lon": 5.4795728
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "De Smis",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://dorpshuisdesmis.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Smis",
+        "address": "33a Smitseind",
+        "city": "Duizel",
+        "postal_code": "5525AN",
+        "lat": 51.3682639,
+        "lon": 5.2992926
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Scouting Boekel",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.scoutingboekel.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scouting Boekel",
+        "address": "20 Mezenlaan",
+        "city": "Boekel",
+        "postal_code": "5427SL",
+        "lat": 51.5980874,
+        "lon": 5.6848699
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "OEC Korfbal",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://oeckorfbal.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "OEC Korfbal",
+        "address": "1A Braakse Bosdijk",
+        "city": "Helmond",
+        "postal_code": "5703HZ",
+        "lat": 51.4865127,
+        "lon": 5.6780392
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Ellenhof",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ellenhof.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ellenhof",
+        "address": "18 Scheijmansplein",
+        "city": "Ell",
+        "postal_code": "6011PC",
+        "lat": 51.2202835,
+        "lon": 5.795358
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "De Sprank",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.demortel.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Sprank",
+        "address": "12 Oude-Molenweg",
+        "city": "De Mortel",
+        "postal_code": "5425VR",
+        "lat": 51.5397738,
+        "lon": 5.7096417
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "HFC '15",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://hfc15.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "HFC '15",
+        "address": "50 De Verbetering",
+        "city": "Groningen",
+        "postal_code": "9744DZ",
+        "lat": 53.2090191,
+        "lon": 6.5109206
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Buurtcentrum Oranjewijk",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://buurtcentrumoranjewijk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buurtcentrum Oranjewijk",
+        "address": "44-1 Prinsesseweg",
+        "city": "Groningen",
+        "postal_code": "9717BK",
+        "lat": 53.2227759,
+        "lon": 6.5468627
+      },
+      "_metro": "Groningen, Netherlands"
     }
   ],
   "_not_included": {

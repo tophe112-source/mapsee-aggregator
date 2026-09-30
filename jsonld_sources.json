@@ -5297,6 +5297,173 @@
         "lon": 127.7974632
       },
       "_metro": "Naha, Japan"
+    },
+    {
+      "name": "Roei- en Kanovereniging Michiel de Ruyter",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.mdr.nu/kalender2025/"
+      ],
+      "link_pattern": "https://www\\.mdr\\.nu/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roei- en Kanovereniging Michiel de Ruyter",
+        "address": "253 Amsteldijk-Zuid",
+        "city": "Uithoorn",
+        "postal_code": "1423BZ",
+        "lat": 52.2275427,
+        "lon": 4.8126367
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "OSCD",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.oscd.nl/agenda/"
+      ],
+      "link_pattern": "https://www\\.oscd\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "OSCD",
+        "address": "20 Fanny Blankers-Koenweg",
+        "city": "Dordrecht",
+        "lat": 51.7935878,
+        "lon": 4.6781016
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Benoordenhuis",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.wvbn.nl/agenda/"
+      ],
+      "link_pattern": "https://www\\.wvbn\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Benoordenhuis",
+        "address": "5 Bisschopstraat",
+        "city": "'s-Gravenhage",
+        "postal_code": "2596XH",
+        "lat": 52.0918071,
+        "lon": 4.3224616
+      },
+      "_metro": "The Hague, Netherlands"
+    },
+    {
+      "name": "DRC De Mol",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.drcdemol.nl/"
+      ],
+      "link_pattern": "https://www\\.drcdemol\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "DRC De Mol",
+        "lat": 51.8166671,
+        "lon": 4.7477366
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Stella Maris",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.dwarsverbandutrecht.nl/agenda/"
+      ],
+      "link_pattern": "https://www\\.dwarsverbandutrecht\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stella Maris",
+        "address": "4 Jagerskade",
+        "city": "Utrecht",
+        "postal_code": "3552TL",
+        "lat": 52.1069665,
+        "lon": 5.1075107
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Dorpshuis De Schakel",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://deschakelleerbroek.nl/events/"
+      ],
+      "link_pattern": "https://deschakelleerbroek\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Dorpshuis De Schakel",
+        "address": "1 Raadhuisplein",
+        "city": "Leerbroek",
+        "postal_code": "4245KJ",
+        "lat": 51.9084681,
+        "lon": 5.050107
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "De Treffer",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.stichtingveteranenbrabantzuidoost.nl/activiteiten/"
+      ],
+      "link_pattern": "https://www\\.stichtingveteranenbrabantzuidoost\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Treffer",
+        "address": "17 Smitsstraat",
+        "city": "Eindhoven",
+        "postal_code": "5611HM",
+        "lat": 51.4364545,
+        "lon": 5.4724811
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "De Krekul",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://krekul.nl/agenda/"
+      ],
+      "link_pattern": "https://krekul\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Krekul",
+        "address": "30 Nicolaas van Eschstraat",
+        "city": "Oisterwijk",
+        "postal_code": "5061VT",
+        "lat": 51.5839657,
+        "lon": 5.203212
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "'t Spectrum",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://sebaldeburen.net/activiteitenagenda/"
+      ],
+      "link_pattern": "https://sebaldeburen\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "'t Spectrum",
+        "address": "5 Kerkweg",
+        "city": "Sebaldeburen",
+        "postal_code": "9862TH",
+        "lat": 53.2195964,
+        "lon": 6.3101377
+      },
+      "_metro": "Groningen, Netherlands"
     }
   ],
   "_not_included": {

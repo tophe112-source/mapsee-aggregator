@@ -17664,5 +17664,321 @@
     "geocode_suffix": ", Centurion",
     "limit": 300,
     "_metro": "Pretoria, South Africa"
+  },
+  {
+    "name": "Schoten Tennis & Padel",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/675b9970faace0837792dedad432b22acffd9af50a7b8ab97450c3ce113b4708%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Haarlem",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Buurtkamer Corantijn",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40buurtkamercorantijn.nl/public/basic.ics",
+    "geocode_suffix": ", Amsterdam",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Dorpshuis Plein 13",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pd0pt2bdujrl7l1t0o8oi46enk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rijpwetering",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "The Victory",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40thevictory.nl/public/basic.ics",
+    "geocode_suffix": ", Weesp",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Scouting Sarto",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/beheer%40scoutingsarto.nl/public/basic.ics",
+    "geocode_suffix": ", Amsterdam",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Scouting Ferguson",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/apj34rirdpita4m2c9f14gdpbs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", 's-Gravenhage",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Scouting Bernisse",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_84e5a455ac0a34d4ab9ae18643f12039f9fabcff3cd45e87a28adf37fd30bda9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Heenvliet",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Wijkcentrum De Akkers",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/BarbaraPeter709%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Spijkenisse",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Willem de Zwijgergroep III",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wdzdordt.nl_ebodg25outk4u225l32ubf5gj8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dordrecht",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Dordtse Elektronica Club",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_9cbf2d00c1131507ac3ebfde298cc43d1ded4eddb84663b408bb5f98af452695%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dordrecht",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Ontmoetingscentrum De Werf Kethel",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gd7edeaphqcq1t552pi5gv2b30%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Schiedam",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "'t Huis van Noord",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/u54qmno52fgljlb57el9i1ggu4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Schoonhoven",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "De Bolk",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tgvfhi116cpvfq0cnv463rt154%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Delft",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Marnix van Sint-Aldegondegroep",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mvansintaldegonde%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Vlaardingen",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Lodewijck van Praetgroep",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/waterwerk.lvp%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "De Stuw",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5ki9k740tbepofbb7fksda3c0k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hoevelaken",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Kade 117",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/muntmeesters%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Yumbo",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/yumbobunnik%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Bunnik",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Buurthuis het Wevehuis",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wevehuis%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Scouting Nijkerk",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/scoutingnijkerk.nl_4j5vka2pns3vf3ti46jbpuhcrg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nijkerk",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Het Vijverkwartier",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jlchmdtblpe75i064l7ubkfgs0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht, Netherlands",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "SV De Duinschutters",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40duinschutters.nl/public/basic.ics",
+    "geocode_suffix": ", Noordwijkerhout",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Het Duivelsei",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/duivelsei%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Leiden",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Stichting de Kunsterij",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.stichtingdekunsterij.nl/?ical=1",
+    "geocode_suffix": ", Eindhoven",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands",
+    "crawl_delay": 2.0
+  },
+  {
+    "name": "De Walnoot",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar+jsonld-event",
+    "url": "https://dewalnootboxtel.nl/?feed=my-calendar-ics",
+    "geocode_suffix": ", Boxtel",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "De Stuik",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/destuik%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Vorstenbosch",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Krijt Op Tijd",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/999acb13e24bfe2a706a7c4a1488a78f361febbcfa1613e5b345dc6a5a4b54b8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Veghel",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "De Wa-Kwai",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/90a121444f987130233f360025c280ef45d6d43a043780fff006d27f6aecf193%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Veghel",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Ontmoetingscentrum de Coppele",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agend.ocdecoppele%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Oisterwijk",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "De Schakel",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8avtfcb7iqfon50lt8kkskibb8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Budel-Dorplein",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Lopersgroep Deurne",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agendaavlgd%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Deurne",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Scouting Brandevoort",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/scouting.brandevoort%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Helmond",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Helmondse Tennisvereniging",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://htv.nl/?ical=1",
+    "geocode_suffix": ", Helmond",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "De Holm",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/acdeholm%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Groningen",
+    "limit": 300,
+    "_metro": "Groningen, Netherlands"
+  },
+  {
+    "name": "Dorpshuis",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.dezandvoorten.nl/evenementen/?ical=1",
+    "geocode_suffix": ", Groningen, Netherlands",
+    "limit": 300,
+    "_metro": "Groningen, Netherlands"
   }
 ]
