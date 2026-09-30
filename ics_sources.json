@@ -17637,5 +17637,32 @@
     "geocode_suffix": ", Johannesburg, South Africa",
     "limit": 300,
     "_metro": "Johannesburg, South Africa"
+  },
+  {
+    "name": "Jumu'a Mosque of Cape Town",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/info@jumuamosquect.com/public/basic.ics",
+    "geocode_suffix": ", Cape Town, South Africa",
+    "limit": 300,
+    "_metro": "Cape Town, South Africa"
+  },
+  {
+    "name": "Grace Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2b19mnah1i2ms46a1laluuht44%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Monte Vista",
+    "limit": 300,
+    "_metro": "Cape Town, South Africa"
+  },
+  {
+    "name": "Highway Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_7d704324df9a4c93a3374ab33a2352e46f9954ba5a6b4eec780905ddcd1431b2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Centurion",
+    "limit": 300,
+    "_metro": "Pretoria, South Africa"
   }
 ]

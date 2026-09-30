@@ -12423,6 +12423,111 @@
         "lon": 127.7748932
       },
       "_metro": "Naha, Japan"
+    },
+    {
+      "name": "Norval Foundation",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe",
+      "base_url": "https://www.norvalfoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Norval Foundation",
+        "address": "4 Steenberg Road",
+        "city": "Cape Town",
+        "postal_code": "7945",
+        "lat": -34.0764763,
+        "lon": 18.4289061
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "El Shaddai Christian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://escc.co.za",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "El Shaddai Christian Church",
+        "address": "Lords Walk",
+        "city": "Durbanville",
+        "postal_code": "7550",
+        "lat": -33.8291771,
+        "lon": 18.6607856
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "Lutheran Church Wynberg",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lutherancape.org.za",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lutheran Church Wynberg",
+        "address": "52 Waterloo Road",
+        "city": "Cape Town",
+        "postal_code": "7800",
+        "country": "ZA",
+        "lat": -34.0082003,
+        "lon": 18.4614629
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "Durbanville Children's Home",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.durbanvillekinderhuis.org.za",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Durbanville Children's Home",
+        "address": "1 Church Street",
+        "city": "Cape Town",
+        "postal_code": "7750",
+        "country": "ZA",
+        "lat": -33.8352871,
+        "lon": 18.6448435
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "St Michael and All Angels",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.stmichael.org.za",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Michael and All Angels",
+        "address": "10 St. Michael's Road",
+        "city": "Cape Town",
+        "postal_code": "7925",
+        "country": "ZA",
+        "lat": -33.935755,
+        "lon": 18.4687623
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "South African State Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.statetheatre.co.za",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South African State Theatre",
+        "address": "320 Pretorius Street",
+        "city": "Pretoria",
+        "postal_code": "0002",
+        "lat": -25.7467575,
+        "lon": 28.1947181
+      },
+      "_metro": "Pretoria, South Africa"
     }
   ],
   "_not_included": {
