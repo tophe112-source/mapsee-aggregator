@@ -1025,7 +1025,16 @@
   GOOGLE_CALENDAR_API_KEY set they are read through the Calendar API, which
   robots.txt allows, and the report stops listing them. The 2 whose config
   holds a secret `private-...` address cannot be read that way (see
-  `adapters-and-sources.md`). One trap in taking this measurement: the first, parallel pass
+  `adapters-and-sources.md`). The second decision, the same day, drew the
+  line the rule is held to. robots.txt binds a publisher's own pages and
+  feeds. A documented public API used within its usage policy is exempt
+  (`DOCUMENTED_API_TYPES`: Socrata, OpenDatasoft, CKAN, Localist, Gancio,
+  Mobilizon, Mapas Culturais, OpenActive). VenuePilot's widget GraphQL stays
+  bound, for DICE's reason. Re-run under that line with the key set: 74
+  publisher requests on 70 origins still refused (ics 44, tribe 28, jsonld 1,
+  venuepilot 1). The report lists 24 API reads on 12 origins apart, as
+  exempt: 17 OpenDatasoft, 3 Mobilizon, 2 Socrata, 1 Mapas Culturais, 1
+  OpenActive. One trap in taking this measurement: the first, parallel pass
   read 129 origins' files as challenged. Asked one at a time, 100 of the 214 origins
   that had come back challenged or unreachable answered normally, because 16
   connections at once from one address is what a shared host's WAF answers
@@ -1111,6 +1120,5 @@
   kept in practice is between a PUBLISHER's own pages and feeds, where
   robots.txt is that publisher's consent (Squarespace's JSON, DICE's API, and
   since 2026-09-30 Google's iCal export), and a documented API used within its
-  usage policy. That line is
-  the owner's to draw, and the 20 open-data API reads in the 127 are the
-  cases it decides.
+  usage policy. The owner drew the line there that day (see the robots
+  note above): the APIs are exempt, the publishers' pages and feeds are not.

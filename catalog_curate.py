@@ -1881,6 +1881,31 @@ def _ingest_requests(t, e):
 _PACED = ("ics", "tribe")
 
 
+# WHERE ROBOTS.TXT BINDS, AND WHERE IT DOES NOT. The owner's decision,
+# 2026-09-30. robots.txt is a PUBLISHER's consent for its own pages and feeds:
+# an iCal export, a WordPress site's REST route, a Squarespace collection, a
+# listing page, a fair's own site. Those are what `verify` refuses.
+#
+# A DOCUMENTED PUBLIC API used within its published usage policy is not
+# crawling. robots.txt on an API host keeps search engines out of query URLs.
+# Photon (`Disallow: /`) and Overpass (`Disallow: /api/`), which the pipeline
+# runs on, carry theirs for the same reason. These adapters read such APIs:
+#   - Socrata's SODA (opendata, market)
+#   - OpenDatasoft's Explore API (ods)
+#   - CKAN's datastore
+#   - Localist's /api/2
+#   - Gancio's and Mobilizon's APIs
+#   - Mapas Culturais
+#   - OpenActive's RPDE feeds
+# The API's own terms still bind: rate limits, licences, keys.
+#
+# VenuePilot's GraphQL is NOT on the list. It is the back end of a ticket
+# widget with no published usage policy, which is DICE's case
+# (platforms-probed.md), and its host says `Disallow: /`.
+DOCUMENTED_API_TYPES = frozenset({"opendata", "market", "ods", "ckan", "localist",
+                                  "gancio", "mobilizon", "mapasculturais", "openactive"})
+
+
 def _robots_gate(robots, t, e):
     """None when every request is allowed, else the ledger (status, reason).
 
@@ -1893,7 +1918,11 @@ def _robots_gate(robots, t, e):
     Side effect, deliberately: when the host asks for a Crawl-delay and the
     entry carries none, the entry gets one, so merge writes it into the config
     and the adapter paces the host by it.
+
+    A documented public API is not asked at all (DOCUMENTED_API_TYPES).
     """
+    if t in DOCUMENTED_API_TYPES:
+        return None
     for method, url in _ingest_requests(t, e):
         ans = robots.check(url)
         if ans["allowed"] is False and ans["status"] == "unreachable":
@@ -2014,6 +2043,10 @@ def _configured_requests():
 def cmd_robots(workers=16):
     """REPORT ONLY: which configured requests their host's robots.txt refuses.
 
+    A publisher's pages and feeds are listed as DISALLOWED. A documented
+    public API is listed apart: robots.txt does not bind it
+    (DOCUMENTED_API_TYPES), but the line should stay visible.
+
     Changes nothing - no config, no ledger. What to do about a refused source is
     the owner's call (see the parkrun `_decision` for what that looks like), and
     this is the evidence for it. Crawl-delay is reported too: a host that asks
@@ -2023,15 +2056,21 @@ def cmd_robots(workers=16):
     reqs = _configured_requests()
     robots = robots_txt.Robots(_session())
     robots.prefetch([u for *_x, u in reqs], workers=workers)
-    by_status, refused, paced = {}, {}, {}
+    by_status, refused, paced, api_would = {}, {}, {}, {}
     for fname, t, name, method, url in reqs:
         ans = robots.check(url)
         kind = ("disallowed" if ans["allowed"] is False and ans["status"] not in ("unreachable",)
                 else "unreachable" if ans["status"] == "unreachable"
                 else "challenged" if ans["allowed"] is None
                 else "allowed")
-        by_status[kind] = by_status.get(kind, 0) + 1
         origin = robots_txt.origin_of(url)
+        if t in DOCUMENTED_API_TYPES:
+            # Not bound by robots.txt (see DOCUMENTED_API_TYPES), and reported
+            # apart so that line stays visible rather than silently applied.
+            if kind == "disallowed":
+                api_would.setdefault((origin, ans["rule"]), []).append((fname, name, method, url))
+            kind = "documented-api"
+        by_status[kind] = by_status.get(kind, 0) + 1
         if kind == "disallowed":
             refused.setdefault((origin, ans["rule"]), []).append((fname, name, method, url))
         elif kind == "allowed" and ans.get("crawl_delay") and t in _PACED:
@@ -2052,7 +2091,8 @@ def cmd_robots(workers=16):
           f"{robots.recovered} of them answered)")
     print("  " + ", ".join(f"{k} {v}" for k, v in sorted(by_status.items())))
     n = sum(len(v) for v in refused.values())
-    print(f"\nDISALLOWED for our User-Agent: {n} request(s) on {len({o for o, _r in refused})} origin(s)")
+    print(f"\nDISALLOWED for our User-Agent, a publisher's own pages and feeds: {n} request(s) "
+          f"on {len({o for o, _r in refused})} origin(s)")
     for (origin, rule), rows in sorted(refused.items(), key=lambda kv: (-len(kv[1]), kv[0])):
         files = ", ".join(sorted({f for f, *_x in rows}))
         print(f"  {len(rows):3}  {origin}  [{rule}]  {files}")
@@ -2060,6 +2100,11 @@ def cmd_robots(workers=16):
             print(f"         {name[:48]}  {method} {robots_txt.request_path(url)[:70]}")
         if len(rows) > 3:
             print(f"         ... and {len(rows) - 3} more")
+    n_api = sum(len(v) for v in api_would.values())
+    print(f"\nDOCUMENTED APIs whose host's robots.txt disallows the path: {n_api} request(s) "
+          f"on {len({o for o, _r in api_would})} origin(s). Not bound by it; their usage policy is.")
+    for (origin, rule), rows in sorted(api_would.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+        print(f"  {len(rows):3}  {origin}  [{rule}]  {', '.join(sorted({f for f, *_x in rows}))}")
     unpaced = {o: v for o, v in paced.items() if v["n"] > 1 and not v["set"]}
     print(f"\nUNPACED: {len(unpaced)} host(s) ask for a Crawl-delay, serve several ics/tribe "
           f"requests, and no config on them carries `crawl_delay`")
