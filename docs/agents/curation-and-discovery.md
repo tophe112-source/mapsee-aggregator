@@ -3,6 +3,33 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: `catalog_curate`, the ledger and its statuses, `_not_included`, sitemaps and robots, bot challenges, site builders vs calendars, calendar plugins, licences.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A CALENDAR THAT PARSES CAN SEND A LIBRARY ROOM TO ANOTHER STATE.**
+  The 2026-10-01 hand-curation batch verified publisher calendar links and
+  robots rules, then ran the production ICS adapter before adding anything.
+  Cornelius Public Library's CivicPlus category 23 produces **115 unique
+  upcoming rows within 90 days**, after the civic gate refuses **3 governance
+  rows**, from **1 feed request + 3 initial Photon lookups** (10.5 seconds).
+  A same-process repeat takes **1 feed request + 0 Photon lookups**, keeps the
+  same 115 rows and takes 0.2 seconds. Preflight separately makes one robots.txt
+  request and one official calendar-page request, both 200; the publisher page
+  links the subscription and its robots rules allow the page and feed.
+  Its street address is 1370 N Adair St, and the room/address queries land at
+  the library. It is configured as `learning`, with the civic marker and no
+  geocode suffix; existing persistent geocode and conditional-feed caches still
+  apply. This is measured ingestable supply, not proof those rows are already
+  in production Supabase.
+  Truro's main calendar has **105 VEVENTs, 72 within 90 days**, but `LOCATION`
+  `-` acquired a town pin with a suffix and a Serbia pin without one; its
+  Highland Center address acquired a Pennsylvania pin. Truro Youth adds only
+  **8 distinct UIDs beyond 8 overlaps** with the main feed. Brockton Teens has
+  **11 upcoming VEVENTs / 9 stored**, but two room strings for one branch
+  geocoded 3.4 km apart. All three feed URLs are recorded with their
+  measurements in `jsonld_sources.json._not_included`, the existing cross-type
+  decline registry; `ics_sources.json` is a bare feed list, not a registry.
+  These are placement failures, not robots refusals. Reconsider when the source
+  or adapter can place the actual locations, rather than publishing a guessed
+  branch pin or spending the same discovery requests again.
+
 - **THE MAP CAN BE ASKED WHAT EACH DOOR SHOWS, and it answers the question the
   coverage report cannot.** `mapsee.me/api/near?fn=categories_near` with a
   bbox and a `ws`/`we` window returns per-category counts off the live

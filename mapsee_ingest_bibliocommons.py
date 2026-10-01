@@ -101,6 +101,10 @@ SPLIT_LIMIT = 50
 # becomes furniture; the same reasoning as MyListing's horizon_days.
 DEFAULT_HORIZON_DAYS = 180
 
+# Parsed location fields shared by events that reference one page entity.
+_LocationData = Tuple[Optional[float], Optional[float], Optional[str],
+                      Dict[str, Optional[str]], Optional[str]]
+
 _TAG = re.compile(r"<[^>]+>")
 
 
@@ -259,7 +263,9 @@ def _image_url(image: Optional[Dict[str, Any]]) -> Optional[str]:
     return url if isinstance(url, str) and url.startswith("http") else None
 
 
-def to_event(ev: Dict[str, Any], ent: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEvent]:
+def to_event(ev: Dict[str, Any], ent: Dict[str, Any], site: Dict[str, Any],
+             location_cache: Optional[Dict[int, _LocationData]] = None
+             ) -> Optional[NormalizedEvent]:
     dfn = ev.get("definition") or {}
     name = _clean(dfn.get("title"), 300)
     start = _iso_local(dfn.get("start"))
@@ -276,10 +282,21 @@ def to_event(ev: Dict[str, Any], ent: Dict[str, Any], site: Dict[str, Any]) -> O
         where = places.get(str(dfn.get("nonBranchLocationId")))
     if not where:
         return None
-    lat, lon, tz = _point(where)
+    # A page carries one location object per branch, referenced by many event
+    # rows. Parse its coordinates and address once for this page; location
+    # entities are re-read on the next page so an updated source value is seen.
+    location_key = id(where)
+    cached_location = location_cache.get(location_key) if location_cache is not None else None
+    if cached_location is None:
+        lat, lon, tz = _point(where)
+        addr = _address(where) if lat is not None else {}
+        venue_name = _clean(where.get("name"), 160)
+        cached_location = (lat, lon, tz, addr, venue_name)
+        if location_cache is not None:
+            location_cache[location_key] = cached_location
+    lat, lon, tz, addr, venue_name = cached_location
     if lat is None:
         return None
-    addr = _address(where)
 
     types = [(ent.get("eventTypes") or {}).get(str(t), {}).get("name")
              for t in (dfn.get("typeIds") or [])]
@@ -300,7 +317,7 @@ def to_event(ev: Dict[str, Any], ent: Dict[str, Any], site: Dict[str, Any]) -> O
         # same refusal mapsee_ingest_mapasculturais makes.
         end_local=end if (end and end > start) else None,
         timezone=tz,
-        venue_name=_clean(where.get("name"), 160),
+        venue_name=venue_name,
         latitude=lat, longitude=lon,
         coords_exact=True,
         category=primary, categories=extras,
@@ -411,6 +428,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             break
 
         on_page = 0
+        location_cache: Dict[int, _LocationData] = {}
         for ev in rows:
             day = str(((ev.get("definition") or {}).get("start") or ""))[:10]
             if day and day < today:
@@ -421,7 +439,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             if day and day > limit_day:
                 beyond += 1
                 continue
-            nev = to_event(ev, ent, site)
+            nev = to_event(ev, ent, site, location_cache)
             if not nev:
                 unplaceable += 1
                 continue

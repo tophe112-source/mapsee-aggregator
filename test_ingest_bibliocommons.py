@@ -11,15 +11,18 @@ stock tile shared by four hundred rows.
 
     python test_ingest_bibliocommons.py
 """
+import copy
 import json
 import os
 import sys
 import tempfile
+import time
 from datetime import date, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import mapsee_ingest_bibliocommons as BC
+import mapsee_ingest as shared_ingest
 
 fails = []
 
@@ -249,6 +252,118 @@ check("the request asked for the biggest page the gateway honours",
       Sess.seen and Sess.seen[0].get("limit") == BC.PAGE_LIMIT, Sess.seen[:1])
 check("...and did NOT pass startDate/endDate, which are accepted and ignored",
       all("startDate" not in (p or {}) for p in Sess.seen), Sess.seen)
+
+# --------------------------- 7a. locations are cached within one page
+# Before location memoization, this 200-row page made 200 coordinate parses and
+# 200 address parses. Both variants read a mixed branch/offsite page and a
+# second page that reuses the IDs with changed location data. Compare the full
+# stored records; a fixed timestamp makes the run deterministic. Runtime is a
+# local measurement, not asserted because wall time is noisy.
+print()
+print("branch and offsite locations reused within each page")
+future_day = (date.today() + timedelta(days=7)).isoformat()
+
+
+def location_page(first, count, branch, offsite):
+    events = {}
+    for i in range(first, first + count):
+        eid = str(i)
+        branch_id = i % 2 == 0
+        events[eid] = evt(eid, f"Program {i}", f"{future_day}T10:{i % 60:02d}",
+                          f"{future_day}T11:00", branch="48" if branch_id else None,
+                          nonbranch=None if branch_id else "p1")
+    return {"entities": ent(events=events, locations={"48": branch}, places={"p1": offsite}),
+            "events": {"pagination": {"pages": 2}}}
+
+
+branch_page1, offsite_page1 = copy.deepcopy(BRANCH), copy.deepcopy(OFFSITE)
+branch_page2, offsite_page2 = copy.deepcopy(BRANCH), copy.deepcopy(OFFSITE)
+branch_page2["address"]["street"] = "Changed Branch Road"
+branch_page2["mapLocation"]["centrePoint"] = {"lat": 40.7128, "lng": -74.006}
+branch_page2["mapLocation"]["timeZone"] = "America/New_York"
+offsite_page2["address"]["street"] = "Changed Offsite Avenue"
+offsite_page2["mapLocation"]["centrePoint"] = {"lat": 34.0522, "lng": -118.2437}
+offsite_page2["mapLocation"]["timeZone"] = "America/Los_Angeles"
+location_pages = {1: location_page(0, 200, branch_page1, offsite_page1),
+                  2: location_page(200, 4, branch_page2, offsite_page2)}
+fixture_bytes = sum(len(json.dumps(body).encode("utf-8"))
+                    for body in location_pages.values())
+
+
+class ReusedBranch:
+    headers = {}
+
+    def __init__(self):
+        self.calls = 0
+        self.bytes = 0
+
+    def get(self, url, params=None, timeout=None):
+        self.calls += 1
+        page = (params or {}).get("page", 1)
+        body = location_pages[page]
+        self.bytes += len(json.dumps(body).encode("utf-8"))
+        return Resp(body)
+
+
+point, address = BC._point, BC._address
+original_to_event = BC.to_event
+original_iso_now = shared_ingest.iso_now
+
+def run_reused_branch(disable_cache):
+    counts = {"point": 0, "address": 0}
+    session = ReusedBranch()
+
+    def counted_point(where):
+        counts["point"] += 1
+        return point(where)
+
+    def counted_address(where):
+        counts["address"] += 1
+        return address(where)
+
+    def legacy_to_event(ev, entities, site, location_cache=None):
+        return original_to_event(ev, entities, site)
+
+    BC._point, BC._address = counted_point, counted_address
+    shared_ingest.iso_now = lambda: "2026-10-01T12:00:00Z"
+    if disable_cache:
+        BC.to_event = legacy_to_event
+    try:
+        with tempfile.TemporaryDirectory() as d:
+            store = BC.EventStore(os.path.join(d, "s.json"))
+            started = time.perf_counter()
+            n = BC.ingest_site(store, session, dict(SITE, horizon_days=180,
+                                                   crawl_delay=0, max_pages=3))
+            elapsed_ms = (time.perf_counter() - started) * 1000
+            return n, len(store.records), dict(store.records), counts, session, elapsed_ms
+    finally:
+        BC._point, BC._address, BC.to_event = point, address, original_to_event
+        shared_ingest.iso_now = original_iso_now
+
+
+baseline = run_reused_branch(disable_cache=True)
+optimized = run_reused_branch(disable_cache=False)
+for label, result in (("before", baseline), ("after", optimized)):
+    n, stored, records, counts, session, elapsed_ms = result
+    print(f"{label}: {session.calls} GET, {session.bytes} response bytes, "
+          f"{counts['point']} coordinate parses, {counts['address']} address parses, "
+          f"{elapsed_ms:.2f} ms")
+    check(f"{label} keeps all events from both pages", n == stored == 204, (n, stored))
+check("the cache leaves fixture requests and bytes unchanged",
+      baseline[4].calls == optimized[4].calls == 2 and
+      baseline[4].bytes == optimized[4].bytes == fixture_bytes,
+      (baseline[4].calls, baseline[4].bytes, optimized[4].calls, optimized[4].bytes))
+check("location normalization runs once per entity per page",
+      optimized[3] == {"point": 4, "address": 4}, optimized[3])
+check("every emitted event record matches the uncached baseline",
+      baseline[2] == optimized[2],
+      (len(baseline[2]), len(optimized[2])))
+check("the second page uses its changed branch and offsite locations",
+      all((r["latitude"], r["longitude"], r["address"], r["timezone"]) in {
+              (40.7128, -74.006, "6 Changed Branch Road", "America/New_York"),
+              (34.0522, -118.2437, "506 Changed Offsite Avenue", "America/Los_Angeles")}
+          for r in optimized[2].values() if r["name"] in {f"Program {i}" for i in range(200, 204)}),
+      [r for r in optimized[2].values() if r["name"] in {f"Program {i}" for i in range(200, 204)}])
 
 # ------------------------------ 7b. a 5xx page is re-read in smaller pieces
 # The shape of Santa Clara County's page 2 on 2026-09-24: HTTP 500 at limit=200

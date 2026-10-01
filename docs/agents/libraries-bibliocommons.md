@@ -3,6 +3,19 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: geocoding cost, an ignored date filter, the date-granular fingerprint, stock image tiles.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A BRANCH APPEARS ONCE PER PAGE, AND ITS LOCATION WAS PARSED FOR EVERY EVENT.**
+  On 2026-10-01 the production adapter fixture in
+  `test_ingest_bibliocommons.py` returned 204 events across two pages, with
+  repeated branch and offsite entities. Memoizing the parsed location object
+  within one page cuts coordinate and address normalization from **204 each
+  to 4 each**. Both paths make **2 GETs / 64,434 serialized fixture bytes**
+  and emit identical complete stored records, including timestamps. The second
+  page deliberately reuses location IDs with changed coordinates, address and
+  timezone; those new facts appear in its rows, because the cache is discarded
+  between pages. No live geocoding or request-count saving is claimed; this is
+  less repeated local CPU work. Date filters, identities and split-page retry
+  behavior are unchanged. The helper remains callable without memoization.
+
 - **THE EXPENSIVE HALF OF A CIVIC FEED IS THE GEOCODING, AND BIBLIOCOMMONS
   HANDS IT OVER.** Every `ics_sources.json` entry carries a `geocode_suffix` and
   pays ~1.1s of Photon per venue; a library system is 40-80 branches. The

@@ -17980,5 +17980,14 @@
     "geocode_suffix": ", Groningen, Netherlands",
     "limit": 300,
     "_metro": "Groningen, Netherlands"
+  },
+  {
+    "name": "Cornelius Public Library",
+    "category": "learning",
+    "url": "https://corneliusor.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "limit": 300,
+    "_metro": "Portland, United States",
+    "_note": "City of Cornelius library programmes via the CivicPlus iCalendar feed linked from its public calendar subscription page. robots.txt allows the page and /common/modules/iCalendar/.",
+    "_found": "civic:city -> civicplus[Library Events] (hand-curated)"
   }
 ]
