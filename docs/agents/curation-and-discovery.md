@@ -3,6 +3,48 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: `catalog_curate`, the ledger and its statuses, `_not_included`, sitemaps and robots, bot challenges, site builders vs calendars, calendar plugins, licences.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **VOLUNTEERING NEEDS A SHIFT, A MEETING PLACE AND AN ACTIONABLE ORGANIZER LINK.**
+  The 2026-10-01 volunteer batch adds **2 sources / 8 unique upcoming shifts**,
+  verified through the production adapters and `build_rows`, without database
+  writes. Cold source reads total **2 GETs / 33,032 decoded response bytes**;
+  WHC's three rows need **1 Census batch POST / 2 unique address matches**.
+  Santa Rosa's four verified address points are saved through the existing
+  shared cache writer, preserving all **110** prior entries; neither adapter
+  calls Photon or fetches an individual event page during these final probes.
+  This is supply ready for the next ingest, not a production-row count.
+  - Washington Hebrew Congregation: publisher category `hunger-project` keeps
+    **3 food-packing/service sessions**, all 13:00-15:00 local. Oct 11 and Dec 13
+    meet at JBSC, 11810 Falls Road, Potomac MD; Nov 22 Sunday Stuffing meets at
+    Temple, 3935 Macomb St NW, Washington DC. No shared venue fallback is used.
+    The **22,502-byte** API response contains both venues; Census places 3/3
+    rows from 2/2 addresses in one request. Food packing welcomes ages 8+ and
+    links registration; December still says registration coming soon. The
+    November event's header/structured date agrees on Nov 22, while some
+    donation-dropoff prose names older dates; do not infer those as shifts.
+  - Santa Rosa Recreation & Parks: the published category 31 subscription has
+    **16 VEVENTs -> 5 unique shifts**, with **11 titles excluded before geocoding**.
+    Keep only `Park-A-Month Volunteer Program:` and `Santa Rosa Rural Cemetery
+    Workday`; other city recreation events must not inherit `volunteer`.
+    Oct 10/17, Nov 14/21 and Dec 12 all run 09:00-12:00 at four named park or
+    cemetery street addresses. The **10,530-byte** initial feed GET becomes
+    **304 / 0 body bytes** on repeat, retaining the same five rows and pins.
+    The Oct 10 event provides tools/gloves, links Register and requires an
+    accompanying adult for under-13s. Each displayed info link now reaches its
+    exact event page rather than the subscription export (see adapter note).
+  - Useful-looking leads were held: Eugene yielded **27** recurring work-party
+    rows and **3** location-less matches, but its feed also emitted Dec 25
+    without confirmation from the bounded December-page check; Sabil's and
+    Cleaner Coast's existing-adapter runs kept **0**, with respectively
+    contradictory venue information and missing event-level locations.
+    Fayette-Spalding's linked ICS contained **15 past events / 0 future** despite
+    current cleanup prose on its website. St Ambrose's robots and API both
+    answered **502**, so no source was configured. Tzu Chi's official terms
+    prohibit automated extraction without authorization; its measured JSON-LD
+    yield was **0** before that finding, and its exact page is in `_not_included`.
+    GoodGym is already configured: its licensed OpenActive feed kept **546**
+    unique upcoming records from **867**, including food-bank and litter-pick
+    shifts with native points and signup links; no duplicate source was added.
+
 - **PUBLIC WELCOME EVENTS SHARE CALENDARS WITH PRIVATE SESSIONS AND NO-MEETING NOTICES.**
   The 2026-10-01 organization batch adds **3 sources / 20 unique upcoming
   events**, using existing Tribe, Squarespace and ICS adapters. Actual cold and

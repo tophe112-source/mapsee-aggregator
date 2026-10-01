@@ -12858,6 +12858,21 @@
         "lat": 41.21979372547,
         "lon": -95.997099703017
       }
+    },
+    {
+      "name": "Washington Hebrew Congregation - Hunger Project volunteering",
+      "base_url": "https://www.whctemple.org",
+      "category": "volunteer",
+      "include_categories": [
+        "hunger-project"
+      ],
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 5,
+      "crawl_delay": 2,
+      "_metro": "Washington, United States",
+      "_found": "organization:volunteer -> tribe (hand-curated)",
+      "_note": "2026-10-01: publisher Hunger Project category contains three upcoming food-packing/service sessions, each 13:00-15:00: Oct 11 and Dec 13 at JBSC, 11810 Falls Road, Potomac MD; Nov 22 Sunday Stuffing at Temple, 3935 Macomb St NW, Washington DC. Food packing welcomes volunteers ages 8+ and links registration. Keep each event's own venue/address and info link; December signup is marked coming soon, and November donation-dropoff prose contains older dates. One category-filtered API GET; three map rows verified through one Census batch for two unique addresses, with no Photon or per-event page requests."
     }
   ],
   "_not_included": {

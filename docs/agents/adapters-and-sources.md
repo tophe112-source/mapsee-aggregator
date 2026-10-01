@@ -3,6 +3,24 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: Luma, parkrun, businesses vs events, a malformed record, schema.org by accident, webcal, JSON-LD, Overpass slots, seattlecenter, a helper's inherited contract.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A VEVENT URL can be the subscription export, not its event page.** Measured
+  2026-10-01 on Santa Rosa's category 31 CivicPlus feed: all **5** retained
+  volunteer shifts had relative URL
+  `/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=31`, while their
+  descriptions supplied exact `/calendar.aspx?EID=` pages. The old importer
+  put the relative export in `sources[].url` and the displayed Tickets / info
+  line. `_event_url` now resolves explicit relative URLs with stdlib `urljoin`,
+  preserves third-party signup URLs, and replaces a CivicPlus subscription
+  only with an already-published same-host event-page URL whose numeric EID
+  matches this VEVENT's UID. Missing, wrong-event or foreign description links
+  leave the configured calendar home as the info fallback, or no link when
+  there is no home. No URL is invented and no extra page is fetched. A home
+  fallback never triggers opt-in per-event detail enrichment; malformed URLs
+  cannot lose the feed. **10 regression checks** exercise the real ingest and
+  final store-to-row link, including these failure paths; RamArt's existing
+  **9/9** source-detail checks still pass. Fingerprint/time/location inputs are
+  untouched. Existing rows follow the normal only-new/Wednesday refresh rule.
+
 - **An empty iCal DESCRIPTION can hide a useful source page.** The 3 museum
   events in Unsie's 2026-10-01 Search Console notice had full street addresses
   inside LOCATION but no structured address columns, price/status or artists.

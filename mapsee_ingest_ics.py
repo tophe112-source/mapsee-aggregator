@@ -43,7 +43,7 @@ import time
 from mapsee_geo_budget import geocode_allowed
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urljoin, urlparse
 
 try:
     import requests
@@ -482,6 +482,41 @@ def _location(ev: Dict[str, Any]) -> Optional[str]:
     return loc
 
 
+def _event_url(ev: Dict[str, Any], src: Dict[str, Any]) -> Optional[str]:
+    """Keep published event/signup links; a calendar subscription is not one.
+
+    CivicPlus emits its relative subscription URL in every VEVENT, but appends
+    the real event page to DESCRIPTION. Use that existing link only when its
+    publisher and numeric EID match this event's UID. No detail-page fetch.
+    """
+    base = src["url"]
+    try:
+        raw = _html.unescape(_unescape(ev.get("URL", ("", {}))[0] or "")).strip()
+        url = urljoin(base, raw) if raw else None
+        feed = urlparse(base)
+        link = urlparse(url) if url else None
+        civic = feed.path.lower().endswith("/common/modules/icalendar/icalendar.aspx")
+        same_path = link is not None and (link.netloc.lower(), link.path.lower()) == (
+            feed.netloc.lower(), feed.path.lower())
+        subscription = same_path and (civic or parse_qs(link.query) == parse_qs(feed.query))
+        if url and not subscription:
+            return url                             # includes third-party signup URLs
+        uid = (ev.get("UID", ("", {}))[0] or "").strip()
+        if civic and uid.isdecimal():
+            description = _html.unescape(_unescape(ev.get("DESCRIPTION", ("", {}))[0] or ""))
+            for candidate in re.findall(r"https?://[^\s<>\"']+", description):
+                candidate = candidate.rstrip(".,;:)")
+                page = urlparse(candidate)
+                query = {k.lower(): v for k, v in parse_qs(page.query).items()}
+                if (page.netloc.lower() == feed.netloc.lower()
+                        and page.path.lower().endswith("/calendar.aspx")
+                        and query.get("eid") == [uid]):
+                    return candidate
+    except ValueError:                              # malformed source links do not lose the feed
+        return None
+    return None
+
+
 def _legacy_fingerprint(old_ev: Dict[str, Any], date_key: str, venue: Optional[Dict[str, Any]]) -> str:
     """The fingerprint the pre-_decode_ics reader gave this VEVENT: the same
     parser and the same steps, over the text it was reading. A row the old
@@ -627,7 +662,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         if desc:                                      # ICS descriptions are often HTML-ish — keep them short + plain
             desc = re.sub(r"<[^>]+>", " ", desc)
             desc = re.sub(r"\s+", " ", desc).strip() or None
-        url = (ev.get("URL", ("", {}))[0] or "").strip() or None
+        url = _event_url(ev, src)
         uid = (ev.get("UID", ("", {}))[0] or "").strip()
         nev = NormalizedEvent(
             source=label,
@@ -641,9 +676,11 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             city=(venue or {}).get("city"), region=(venue or {}).get("region"),
             country=(venue or {}).get("country"), postal_code=(venue or {}).get("postal_code"),
             category=src.get("category"),
-            ticket_url=url or src.get("url_home"),   # every event links somewhere - the VEVENT URL, else the calendar's page
+            ticket_url=url or (urljoin(src["url"], src["url_home"]) if src.get("url_home") else None),
         )
         nev.fingerprint = make_fingerprint(title, date_key, loc)
+        # A configured calendar home is an info fallback, not an individual
+        # event page to fetch repeatedly for optional source-detail enrichment.
         if details_reader and url:
             details = details_reader(url, title, start_utc or start_local)
             if details is not None:

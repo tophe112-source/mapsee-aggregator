@@ -1,6 +1,7 @@
 """Focused regression checks for the ICS importer's durable checkpoints."""
 import os
 import sys
+import tempfile
 from unittest.mock import patch
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -443,6 +444,74 @@ with patch.object(ICS, "_fetch_ics", return_value=(ROTARY_ICS, "200")):
         bad_regex_failed_source = "invalid skip_title regex" in str(exc)
 check("a malformed title-filter regex fails the source explicitly", bad_regex_failed_source)
 
+
+# CivicPlus's URL is sometimes its subscription, while DESCRIPTION carries the
+# exact event page. This is the Santa Rosa volunteer-feed shape, without fetching
+# individual event pages or guessing a URL from the UID.
+LINK_FEED = 'https://city.test/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar'
+LINK_HOME = 'https://city.test/calendar.aspx?CID=31'
+LINK_ICS = 'BEGIN:VCALENDAR\r\n' + ''.join(
+    'BEGIN:VEVENT\r\nUID:' + uid + '\r\nSUMMARY:Volunteer cleanup ' + uid +
+    '\r\nDTSTART:20991010T160000Z\r\nGEO:38.45;-122.74\r\n' +
+    ('URL:' + url + '\r\n' if url else '') + 'DESCRIPTION:' + desc + '\r\nEND:VEVENT\r\n'
+    for uid, url, desc in [
+        ('2237', '/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=31',
+         'Bring your friends. https://city.test/calendar.aspx?EID=2237'),
+        ('2238', 'https://signup.test/volunteer?shift=2238',
+         'https://city.test/calendar.aspx?EID=2238'),
+        ('2239', '/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=31',
+         'https://other.test/calendar.aspx?EID=2239 https://city.test/calendar.aspx?EID=999'),
+        ('2240', '', 'https://city.test/calendar.aspx?EID=2240'),
+        ('2241', '/calendar.aspx?EID=2241', 'https://city.test/calendar.aspx?EID=999'),
+        ('2242', '/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=31', ''),
+        ('2243', 'http://[', ''),
+    ]
+) + 'END:VCALENDAR\r\n'
+with patch.object(ICS, '_fetch_ics', return_value=(LINK_ICS, '200')):
+    link_store = VenueStore()
+    ICS.ingest_ics(link_store, None, {'name': 'volunteer-links', 'url': LINK_FEED, 'url_home': LINK_HOME})
+links = {r.source_id: r for r in link_store.rows}
+check('a relative subscription URL uses its exact publisher event link',
+      links['2237'].ticket_url == 'https://city.test/calendar.aspx?EID=2237', links['2237'].ticket_url)
+check('a third-party signup URL remains exact',
+      links['2238'].ticket_url == 'https://signup.test/volunteer?shift=2238', links['2238'].ticket_url)
+check('foreign and wrong-event description links cannot replace a subscription',
+      links['2239'].ticket_url == LINK_HOME, links['2239'].ticket_url)
+check('an omitted URL can use an exact publisher event link already in the description',
+      links['2240'].ticket_url == 'https://city.test/calendar.aspx?EID=2240', links['2240'].ticket_url)
+check('an ordinary relative event URL becomes absolute',
+      links['2241'].ticket_url == 'https://city.test/calendar.aspx?EID=2241', links['2241'].ticket_url)
+check('a subscription without an exact event link falls back to the configured calendar page',
+      links['2242'].ticket_url == LINK_HOME, links['2242'].ticket_url)
+check('a malformed event URL does not lose the feed or other events',
+      len(links) == 7 and links['2243'].ticket_url == LINK_HOME, links['2243'].ticket_url)
+with patch.object(ICS, '_fetch_ics', return_value=(LINK_ICS, '200')):
+    no_home = VenueStore()
+    ICS.ingest_ics(no_home, None, {'name': 'no-home', 'url': LINK_FEED})
+check('an unresolved subscription without a home is not an event info link',
+      next(r for r in no_home.rows if r.source_id == '2242').ticket_url is None)
+from mapsee_ingest import EventStore
+from mapsee_supabase_sync import to_row
+with tempfile.TemporaryDirectory() as td:
+    persisted = EventStore(os.path.join(td, 'volunteer-links.json'))
+    persisted.upsert(links['2237'])
+    rendered = to_row(next(iter(persisted.records.values())), 'host')
+check('the stored source link reaches the displayed Tickets / info line',
+      'Tickets / info: https://city.test/calendar.aspx?EID=2237' in rendered['description'], rendered['description'])
+HOME_ONLY_ICS = ('BEGIN:VCALENDAR\r\nBEGIN:VEVENT\r\nUID:2242\r\nSUMMARY:Volunteer shift\r\n'
+                 'DTSTART:20991010T160000Z\r\nGEO:38.45;-122.74\r\n'
+                 'URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=31\r\n'
+                 'END:VEVENT\r\nBEGIN:VEVENT\r\nUID:2244\r\nSUMMARY:Another volunteer shift\r\n'
+                 'DTSTART:20991011T160000Z\r\nGEO:38.45;-122.74\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n')
+detail_calls = []
+with patch.object(ICS, '_fetch_ics', return_value=(HOME_ONLY_ICS, '200')), \
+     patch('mapsee_event_details.ramart_reader', return_value=lambda *args: detail_calls.append(args)):
+    detail_store = VenueStore()
+    ICS.ingest_ics(detail_store, None, {'name': 'home-only', 'url': LINK_FEED,
+                                      'url_home': LINK_HOME, 'details': 'ramart'})
+check('a home-only info fallback never fetches per-event source details',
+      not detail_calls and len(detail_store.rows) == 2
+      and all(r.ticket_url == LINK_HOME for r in detail_store.rows), detail_calls)
 
 if fails:
     raise SystemExit(f"{len(fails)} ICS test(s) failed: {', '.join(fails)}")

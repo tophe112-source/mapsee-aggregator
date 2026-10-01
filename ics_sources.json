@@ -18056,5 +18056,18 @@
     "_metro": "Los Angeles, United States",
     "_found": "organization:welcome -> public Teamup subscription (hand-curated)",
     "_note": "2026-10-01: official calendar invites visitors and links this subscription. 28 VEVENTs, four future club meetings at Rancho Senior Center, three NO Club notices excluded, 21 past. The exact LOCATION is cached from the Census match for 3 Ethel Coplen Way, Irvine CA 92612 (33.662547343445,-117.829094335146); no runtime Photon lookup is needed. Source calendar is the info link when ICS omits URL."
+  },
+  {
+    "name": "Santa Rosa Recreation & Parks Volunteer Opportunities",
+    "url": "https://www.srcity.org/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+    "url_home": "https://www.srcity.org/calendar.aspx?CID=31",
+    "category": "volunteer",
+    "geocode_suffix": ", Santa Rosa, CA",
+    "within_days": 90,
+    "limit": 100,
+    "skip_title": "^(?!(?:Park-A-Month Volunteer Program:|Santa Rosa Rural Cemetery Workday\\b)).*$",
+    "_metro": "Santa Rosa, United States",
+    "_found": "civic:volunteer calendar -> ICS (hand-curated)",
+    "_note": "2026-10-01: official subscription links this feed; robots permits it. Title scope retains Park-A-Month Volunteer Program cleanups and Rural Cemetery Workdays before geocoding; other Recreation & Parks events are excluded. Five upcoming shifts at four distinct park/cemetery addresses, each 09:00-12:00. Oct 10 Northwest cleanup provides tools/gloves, accepts families, requires an accompanying adult for under-13s, and links Register. Preserve each event info/signup link. Four exact LOCATION+suffix cache keys are verified Census street-address matches; no office/whole-city fallback or runtime Photon calls."
   }
 ]
