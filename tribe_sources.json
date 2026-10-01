@@ -12779,6 +12779,57 @@
         "lon": -99.1765973
       },
       "_metro": "Mexico City, Mexico"
+    },
+    {
+      "name": "Michi-Noeki",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://mijnoosterparkwijk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Michi-Noeki",
+        "address": "67a Zaagmuldersweg",
+        "city": "Groningen",
+        "postal_code": "9713LG",
+        "lat": 53.2284628,
+        "lon": 6.5767857
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "'t Patronaat",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://patronaatnieuwkuijk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "'t Patronaat",
+        "address": "106 Nieuwkuijksestraat",
+        "city": "Nieuwkuijk",
+        "postal_code": "5253AJ",
+        "lat": 51.6909587,
+        "lon": 5.1783155
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Fox Farm",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://foxfarm.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fox Farm",
+        "address": "2 Zuilichemstraat",
+        "city": "Tilburg",
+        "postal_code": "5036ZA",
+        "lat": 51.5702653,
+        "lon": 4.9902539
+      },
+      "_metro": "Tilburg, Netherlands"
     }
   ],
   "_not_included": {

@@ -17990,5 +17990,59 @@
     "_metro": "Portland, United States",
     "_note": "City of Cornelius library programmes via the CivicPlus iCalendar feed linked from its public calendar subscription page. robots.txt allows the page and /common/modules/iCalendar/.",
     "_found": "civic:city -> civicplus[Library Events] (hand-curated)"
+  },
+  {
+    "name": "?",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar",
+    "url": "https://leroy-groningen.nl/het-leroyhuis/?feed=my-calendar-ics",
+    "geocode_suffix": ", Groningen, Netherlands",
+    "limit": 300,
+    "_metro": "Groningen, Netherlands"
+  },
+  {
+    "name": "Dorpshuis De Kern",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dorpshuis.zuidwolde%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Groningen, Netherlands",
+    "limit": 300,
+    "_metro": "Groningen, Netherlands"
+  },
+  {
+    "name": "Dorpshuis De Pekhoeve",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40pekhoeve.nl/public/basic.ics",
+    "geocode_suffix": ", Ulvenhout",
+    "limit": 300,
+    "_metro": "Tilburg, Netherlands"
+  },
+  {
+    "name": "Scouting Sint Willibrord",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/200fb32810834a6a5d118e95b63495c0056dca8669d2bc55cd53b3284a42d463%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Goirle",
+    "limit": 300,
+    "_metro": "Tilburg, Netherlands"
+  },
+  {
+    "name": "Scouting Gillesa",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f3bdaop279mlnjdqsf7844l26c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Gilze",
+    "limit": 300,
+    "_metro": "Tilburg, Netherlands"
+  },
+  {
+    "name": "Kruikenstam",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/studentenscoutingtilburg%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Tilburg",
+    "limit": 300,
+    "_metro": "Tilburg, Netherlands"
   }
 ]
