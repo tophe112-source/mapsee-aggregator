@@ -717,6 +717,7 @@
     "name": "Racine Art Museum (Racine, WI)",
     "url": "https://www.ramart.org/events/?ical=1",
     "category": "arts",
+    "details": "ramart",
     "geocode_suffix": ", Racine, WI",
     "limit": 300
   },

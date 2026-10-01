@@ -3,6 +3,23 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: Luma, parkrun, businesses vs events, a malformed record, schema.org by accident, webcal, JSON-LD, Overpass slots, seattlecenter, a helper's inherited contract.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **An empty iCal DESCRIPTION can hide a useful source page.** The 3 museum
+  events in Unsie's 2026-10-01 Search Console notice had full street addresses
+  inside LOCATION but no structured address columns, price/status or artists.
+  Racine Art Museum's own allowed event pages supply those: `mapsee_event_details`
+  reads only their overview/ticket blocks and the matching JSON-LD occasion.
+  The opt-in `details: ramart` on 1 ICS source keeps its fingerprint/time/coords.
+  A successful `source_details` read refreshes unclaimed rows even in only-new;
+  failed reads omit the key and preserve known facts. Skip-unchanged still
+  compares these existing rows. Requires Mapsee **0229 applied before shipping**.
+  Current facts: 3 exact addresses, 2 named artists, USD 130 public vs 104 member
+  price on Potter's Wheel, sold-out/no current price on Pet Portraits, and a free
+  family festival with no named performer. Its source's `performer: Organization`
+  is a placeholder, not a participant. **9/9** source/ingest/sync checks pass in
+  `test_event_details.py`; fake network calls, wrong dates, member-only prices,
+  claimed rows and held rekeys are covered. The generic free classifier keeps
+  its conservative exclusion for the words "free fall".
+
 - **Luma's Discover feed takes `discover_place_api_id`.** The obvious
   `place_api_id` — which is what the id is called everywhere else in Luma's own
   payloads — is accepted, ignored, and answered with a 200 and a full page of
