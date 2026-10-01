@@ -3,6 +3,39 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: `catalog_curate`, the ledger and its statuses, `_not_included`, sitemaps and robots, bot challenges, site builders vs calendars, calendar plugins, licences.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **PUBLIC WELCOME EVENTS SHARE CALENDARS WITH PRIVATE SESSIONS AND NO-MEETING NOTICES.**
+  The 2026-10-01 organization batch adds **3 sources / 20 unique upcoming
+  events**, using existing Tribe, Squarespace and ICS adapters. Actual cold and
+  repeat ingests each make **3 source GETs / 310,955 decoded response bytes /
+  0 Photon calls**; preflight robots reads and one-time Census matches are
+  separate. All 20 records carry coordinates and source links and retain
+  `community`; Brooklyn's two also derive the existing `market` secondary.
+  This is verified supply for the next ingest, not a production-row count.
+  - Made New Makerspace, Omaha: **14 unique rows**, comprising **13 free Tuesday
+    open houses** (Oct 6-Dec 29, 17:30-20:00) and the public Nov 10 Fir Lumber
+    Rally. Publisher category **123** says members and non-members are welcome;
+    category **127** is private. `include_categories: [123]` requests that
+    category through TEC's documented CSV parameter, then checks returned IDs
+    and slugs before applying any venue fallback. The ignored-query fixture
+    keeps **2 public rows and excludes 4 private/unlabelled rows** across two
+    pages, including a malformed private record; invalid scopes fail before
+    fetching. One API GET is **152,750 bytes**. The Census match for 5366 F St
+    supplies the coordinate; no per-event detail/category API fetch is needed.
+  - Brooklyn Repair Cafe: **2 unique events**, Oct 25 and Nov 22, 10:00-13:00,
+    at Another World, 629 Nostrand Ave. The bare Squarespace collection is
+    allowed; its query exports are refused and never fetched. One listing GET
+    is **127,548 bytes**. Its Census venue point fills both articles; the sync
+    still performs its usual Census batch refinement for street addresses.
+  - Rotary Club of Irvine: the official page invites visitors and links its
+    Teamup meetings subscription. **28 VEVENTs -> 4 meetings**, with **21 past
+    and 3 `NO Club Weekly Club Meeting` notices** excluded by `skip_title`.
+    One feed GET is **30,657 bytes**, with no validator/304 on repeat. Photon
+    returned 403 during a cold probe (**8 failed lookup attempts**); the exact
+    shared LOCATION key is now saved through the existing geocode-cache writer
+    from a Census match for 3 Ethel Coplen Way, Irvine CA 92612. That gives the
+    four rows a verified address point with **0 runtime geocoding requests**.
+    The calendar supplies their info link; no visitor price is inferred.
+
 - **A CALENDAR THAT PARSES CAN SEND A LIBRARY ROOM TO ANOTHER STATE.**
   The 2026-10-01 hand-curation batch verified publisher calendar links and
   robots rules, then ran the production ICS adapter before adding anything.

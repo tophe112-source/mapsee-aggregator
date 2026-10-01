@@ -197,9 +197,21 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         "start_date": now.strftime("%Y-%m-%d"),
         "end_date": (now + timedelta(days=int(site.get("within_days", 180)))).strftime("%Y-%m-%d"),
     }
+    # Publisher categories can separate public welcomes from private sessions.
+    # Request only those categories, then check every returned row too: a server
+    # that ignores the query must not let a private event inherit our venue pin.
+    included = site.get("include_categories")
+    if included is not None:
+        if (not isinstance(included, list) or not included
+                or any(isinstance(c, bool) or not isinstance(c, (str, int))
+                       or not str(c).strip() or "," in str(c) for c in included)):
+            raise ValueError("include_categories must be a nonempty list of category IDs or slugs")
+        included = {str(c).strip().lower() for c in included}
+        params["categories"] = ",".join(sorted(included))
     kept = 0
     malformed = 0
     governance = 0
+    excluded = 0
     is_civic = str(site.get("_found", "")).startswith("civic:")
     for page in range(1, max_pages + 1):
         try:
@@ -225,6 +237,15 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             # Counted and printed rather than swallowed: a silent skip is how a
             # shape change eats a source one record at a time.
             try:
+                if included is not None:
+                    cats = ev.get("categories")
+                    keys = {str(c[k]).strip().lower()
+                            for c in (cats if isinstance(cats, list) else [])
+                            if isinstance(c, dict) for k in ("id", "slug")
+                            if c.get(k) is not None}
+                    if included.isdisjoint(keys):
+                        excluded += 1
+                        continue
                 nev = to_event(ev, site)
             except Exception as exc:                       # noqa: BLE001
                 if not malformed:
@@ -249,7 +270,8 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             time.sleep(delay)                              # robots.txt Crawl-delay
     print(f"[tribe] {site.get('name')}: kept {kept} events"
           + (f" ({malformed} unreadable record(s) skipped)" if malformed else "")
-          + (f" ({governance} town-hall row(s) refused)" if governance else ""))
+          + (f" ({governance} town-hall row(s) refused)" if governance else "")
+          + (f" ({excluded} outside configured categories)" if excluded else ""))
     return kept
 
 

@@ -12779,6 +12779,34 @@
         "lon": -99.1765973
       },
       "_metro": "Mexico City, Mexico"
+    },
+    {
+      "name": "Made New Makerspace - public community events",
+      "base_url": "https://madenewomaha.com",
+      "category": "community",
+      "include_categories": [
+        123
+      ],
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 5,
+      "crawl_delay": 10,
+      "_metro": "Omaha, United States",
+      "_found": "organization:welcome -> tribe (hand-curated)",
+      "_note": "2026-10-01: category 123 is All ages event, explicitly for members and non-members alike; 14 unique upcoming events (13 free Tuesday open houses plus the public Fir Lumber Rally). Category 127 is private. One filtered API GET; verified Census venue point fills missing publisher coordinates.",
+      "venue": {
+        "name": "Made New Makerspace",
+        "names": [
+          "Made New Makerspace"
+        ],
+        "address": "5366 F St",
+        "city": "Omaha",
+        "region": "NE",
+        "postal_code": "68117",
+        "country": "US",
+        "lat": 41.21979372547,
+        "lon": -95.997099703017
+      }
     }
   ],
   "_not_included": {

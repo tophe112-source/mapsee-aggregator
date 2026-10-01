@@ -298,6 +298,65 @@ with tempfile.TemporaryDirectory() as tmp:
     json.dump({"site": "https://gone.example"}, open(os.path.join(tmp, "cursor.json"), "w"))
     check("a cursor naming a removed site starts at the top", run_main(tmp, 1) == ["a", "b", "c", "d"])
 
+# A publisher can ignore the category query. Private sessions must be rejected
+# before a source's venue fallback turns them into plausible public map pins.
+class _CategorySession:
+    def __init__(self, pages):
+        self.pages = pages
+        self.params = []
+
+    def get(self, url, *, params, **kwargs):
+        self.params.append(dict(params))
+        pages = self.pages
+        class Response:
+            status_code = 200
+
+            def json(self):
+                return {"events": pages[params["page"] - 1], "total_pages": len(pages)}
+        return Response()
+
+
+pages = [
+    [row(id=1, title="Community Open House", venue={}, categories=[{"id": 123}]),
+     row(id=2, title="Private school session", venue={}, categories=[{"id": 127}]),
+     row(id=3, venue={}, categories="123")],
+    [row(id=4, title="Public welcome", venue={}, categories=[None, {"slug": "community-open"}]),
+     row(id=5, venue={}, categories=[]),
+     row(id=6, start_date={}, venue={}, categories=[{"slug": "members-only"}])],
+]
+session = _CategorySession(pages)
+store = _Store()
+with redirect_stdout(io.StringIO()) as buf:
+    kept = T.ingest_site(store, session, dict(SITE_CA, crawl_delay=0,
+                                             include_categories=[123, "community-open"]))
+check("an ignored category query cannot publish private or unlabelled sessions",
+      kept == 2 and [e.source_id for e in store.seen] == ["1", "4"],
+      [e.source_id for e in store.seen])
+check("both public occurrences retain the source's usable venue pin",
+      all(e.latitude == SITE_CA["venue"]["lat"] for e in store.seen))
+check("category IDs and slugs are sent on every page to reduce the download",
+      len(session.params) == 2 and all(p["categories"] == "123,community-open" for p in session.params),
+      session.params)
+check("excluded rows are counted without trying to normalize a private poison record",
+      "4 outside configured categories" in buf.getvalue() and "unreadable" not in buf.getvalue(),
+      buf.getvalue())
+
+session = _CategorySession([[row(id=1), row(id=2, categories=[])]])
+store = _Store()
+with redirect_stdout(io.StringIO()):
+    T.ingest_site(store, session, dict(SITE, crawl_delay=0))
+check("existing unfiltered sources keep their events and omit the category query",
+      len(store.seen) == 2 and "categories" not in session.params[0], session.params)
+for invalid in ([], "123", [None], [True], [""], ["public,private"]):
+    session = _CategorySession(pages)
+    try:
+        T.ingest_site(_Store(), session, dict(SITE, include_categories=invalid))
+        refused = False
+    except ValueError:
+        refused = True
+    check(f"invalid category scope {invalid!r} fails before any request",
+          refused and not session.params)
+
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
 sys.exit(1 if fails else 0)

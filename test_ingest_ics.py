@@ -394,6 +394,56 @@ with patch.dict(ICS._FEED_CACHE, {OA: {"etag": '"v1"', "ts": 9e12, "body": mis(F
           how2 == "304" and body2 == body and enc2 == enc, (how2, enc2))
 
 
+# --- a source can exclude known non-events before date/geocode/store work -----
+ROTARY_ICS = (
+    "BEGIN:VCALENDAR\r\n"
+    "BEGIN:VEVENT\r\nUID:public\r\nSUMMARY:Rotary Speaker Meeting\r\nDTSTART:20991014T170000Z\r\n"
+    "LOCATION:Rancho Senior Center, 3 Ethel Coplen Way, Irvine 92612\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:no1\r\nSUMMARY:NO Club Weekly Club Meeting\r\nDTSTART:20991025T170000Z\r\n"
+    "LOCATION:Do Not Geocode 1\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:no2\r\nSUMMARY:NO Club Weekly Club Meeting\r\nDTSTART:20991125T170000Z\r\n"
+    "LOCATION:Do Not Geocode 2\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:no3\r\nSUMMARY:NO Club Weekly Club Meeting\r\nDTSTART:20991225T170000Z\r\n"
+    "LOCATION:Do Not Geocode 3\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:members\r\nSUMMARY:Code required: members-only session\r\nDTSTART:20991226T170000Z\r\n"
+    "LOCATION:Do Not Geocode members\r\nEND:VEVENT\r\n"
+    "BEGIN:VEVENT\r\nUID:cancelled\r\nSUMMARY:Cancelled public meeting\r\nDTSTART:20991227T170000Z\r\n"
+    "STATUS:CANCELLED\r\nLOCATION:Do Not Geocode cancelled\r\nEND:VEVENT\r\n"
+    "END:VCALENDAR\r\n"
+)
+rotary_geocodes = []
+
+def _rotary_geocoder(_session, _suffix):
+    def geocode(loc):
+        rotary_geocodes.append(loc)
+        return (33.6646738, -117.8307687) if loc.startswith("Rancho Senior Center") else (1, 2)
+    return geocode
+
+with patch.object(ICS, "_fetch_ics", return_value=(ROTARY_ICS, "200")), \
+     patch.object(ICS, "make_location_geocoder", side_effect=_rotary_geocoder), \
+     redirect_stdout(io.StringIO()) as out:
+    rotary_store = VenueStore()
+    rotary_kept = ICS.ingest_ics(rotary_store, None, {
+        "name": "rotary-test", "url": "x",
+        "skip_title": r"^NO Club Weekly Club Meeting$|code required",
+    })
+check("title filters skip Rotary notice and code-gated rows before geocoding or storage",
+      rotary_kept == 1 and [r.name for r in rotary_store.rows] == ["Rotary Speaker Meeting"]
+      and rotary_geocodes == ["Rancho Senior Center, 3 Ethel Coplen Way, Irvine 92612"],
+      (rotary_kept, [r.name for r in rotary_store.rows], rotary_geocodes))
+check("title filter and existing cancellation skips are counted",
+      "4 title-filtered" in out.getvalue() and "1 cancelled (STATUS:CANCELLED)" in out.getvalue(),
+      out.getvalue())
+
+with patch.object(ICS, "_fetch_ics", return_value=(ROTARY_ICS, "200")):
+    try:
+        ICS.ingest_ics(VenueStore(), None, {"name": "bad-regex", "url": "x", "skip_title": "["})
+        bad_regex_failed_source = False
+    except ValueError as exc:
+        bad_regex_failed_source = "invalid skip_title regex" in str(exc)
+check("a malformed title-filter regex fails the source explicitly", bad_regex_failed_source)
+
+
 if fails:
     raise SystemExit(f"{len(fails)} ICS test(s) failed: {', '.join(fails)}")
 print("all ICS tests passed")

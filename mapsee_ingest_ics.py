@@ -505,6 +505,12 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     text, how = got[0], got[1]
     legacy_enc = got[2] if len(got) > 2 else None      # tests patch in the older (text, how)
     events = parse_ics(text)
+    skip_title = None
+    if src.get("skip_title"):
+        try:
+            skip_title = re.compile(src["skip_title"], re.I)
+        except (re.error, TypeError) as exc:
+            raise ValueError(f"{src.get('name', '?')}: invalid skip_title regex: {exc}") from exc
     # The VEVENTs as the old reader saw them, index for index: BEGIN/END and
     # every property name are ASCII, so both readings split the same way.
     old_events = None
@@ -537,6 +543,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     governance = 0
     cancelled = 0
     online = 0
+    skipped_title = 0
     is_civic = str(src.get("_found", "")).startswith("civic:")
     for offset in range(start_offset, len(events)):
         if kept >= limit:
@@ -546,6 +553,9 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         ev = events[offset]
         title = _summary(ev)
         if not title or "DTSTART" not in ev:
+            continue
+        if skip_title and skip_title.search(title):
+            skipped_title += 1
             continue
         # STATUS:CANCELLED, and the publisher has told us in the only way a
         # subscribed calendar can. Refusing it here is the cheap half of the
@@ -685,6 +695,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         note += f"; {cancelled} cancelled (STATUS:CANCELLED)"
     if online:
         note += f"; {online} online (a virtual room, not a place)"
+    if skipped_title:
+        note += f"; {skipped_title} title-filtered"
     print(f"[ics] {src.get('name', '?')}: kept {kept} of {len(events)} VEVENTs{note}")
     return kept - start_kept
 

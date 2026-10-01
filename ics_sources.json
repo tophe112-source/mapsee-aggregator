@@ -17990,5 +17990,17 @@
     "_metro": "Portland, United States",
     "_note": "City of Cornelius library programmes via the CivicPlus iCalendar feed linked from its public calendar subscription page. robots.txt allows the page and /common/modules/iCalendar/.",
     "_found": "civic:city -> civicplus[Library Events] (hand-curated)"
+  },
+  {
+    "name": "Rotary Club of Irvine - visitor meetings",
+    "url": "https://ics.teamup.com/feed/ksp57gzcv8jhqn2svw/3241089.ics",
+    "url_home": "https://irvinerotary.org/calendar/",
+    "category": "community",
+    "geocode_suffix": ", Irvine, CA",
+    "limit": 100,
+    "skip_title": "^NO Club Weekly Club Meeting\\b",
+    "_metro": "Los Angeles, United States",
+    "_found": "organization:welcome -> public Teamup subscription (hand-curated)",
+    "_note": "2026-10-01: official calendar invites visitors and links this subscription. 28 VEVENTs, four future club meetings at Rancho Senior Center, three NO Club notices excluded, 21 past. The exact LOCATION is cached from the Census match for 3 Ethel Coplen Way, Irvine CA 92612 (33.662547343445,-117.829094335146); no runtime Photon lookup is needed. Source calendar is the info link when ICS omits URL."
   }
 ]

@@ -1810,6 +1810,25 @@
         "lat": 33.9397381,
         "lon": -118.1289332
       }
+    },
+    {
+      "name": "Brooklyn Repair Cafe",
+      "collection": "https://www.repaircafe.nyc/upcoming-events",
+      "category": "community",
+      "max_events": 200,
+      "_metro": "New York, United States",
+      "_found": "organization:welcome -> squarespace (hand-curated)",
+      "_note": "2026-10-01: two unique public repair cafes, Oct 25 and Nov 22, 10am-1pm; free community events where visitors meet volunteer repairers. Bare collection page only, no query export (robots disallows those). One listing GET; single venue point matched exactly by Census.",
+      "venue": {
+        "name": "Another World",
+        "address": "629 Nostrand Ave",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11216",
+        "country": "US",
+        "lat": 40.675762467431,
+        "lon": -73.949871411967
+      }
     }
   ],
   "_not_included": {
