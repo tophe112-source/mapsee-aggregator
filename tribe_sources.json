@@ -12763,6 +12763,22 @@
         "lon": 6.5468627
       },
       "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Foro Shakespeare",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://foroshakespeare.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Foro Shakespeare",
+        "address": "7 Calle Zamora",
+        "postal_code": "06140",
+        "lat": 19.4194546,
+        "lon": -99.1765973
+      },
+      "_metro": "Mexico City, Mexico"
     }
   ],
   "_not_included": {
