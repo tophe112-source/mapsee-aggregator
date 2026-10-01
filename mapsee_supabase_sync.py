@@ -1639,7 +1639,28 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         # A timezone supplied without an agenda is still source data and must
         # be written; an explicit empty agenda clears both columns.
         row["agenda_tz"] = None if ("agenda" in rec and not rec.get("agenda")) else rec["agenda_tz"]
+    if isinstance(rec.get("source_details"), dict):
+        # Presence-sensitive, like agendas: a thin source must not erase a
+        # richer one. A successful page read may deliberately clear old facts.
+        row["source_details"] = rec["source_details"] or None
     return row
+
+
+def needs_detail_sync(rec, state, moved=(), held=()):
+    """A successful exact-detail read refreshes unclaimed rows, even only-new.
+
+    Ticket availability is time-sensitive; waiting until Wednesday would show
+    Saturday's sold-out class as available. Failed/thin reads preserve old data.
+    """
+    key = rec["fingerprint"]
+    return key not in held and not state.get(key, False) and (
+        key not in state or key in moved or isinstance(rec.get("source_details"), dict))
+
+
+def should_compare_unchanged(only_new, rows, state):
+    # Ordinary only-new batches contain no stored rows. Exact-detail refreshes
+    # are the exception; compare those so a daily read costs no needless UPDATE.
+    return not only_new or any(r["external_id"] in (state or {}) for r in rows)
 
 
 def _recurring_hours(rec, lat, lon):
@@ -2530,10 +2551,9 @@ def main() -> None:
         # geocodes and builds it. See build_rows for the 2026-09-12 numbers.
         nonlocal state
         state = read_state([r["fingerprint"] for r in recs])
-        fresh = [r for r in recs if (r["fingerprint"] not in state or r["fingerprint"] in moved)
-                 and r["fingerprint"] not in held]
+        fresh = [r for r in recs if needs_detail_sync(r, state, moved, held)]
         n_claimed = sum(1 for is_claimed in state.values() if is_claimed)
-        print(f"Only-new: {len(fresh)} of {len(recs)} are new ({len(state)} from this batch "
+        print(f"Only-new: {len(fresh)} of {len(recs)} need sync ({len(state)} from this batch "
               f"already in Supabase, {n_claimed} of them claimed), dropped before geocoding.",
               flush=True)
         return fresh
@@ -2567,7 +2587,7 @@ def main() -> None:
         print(f"Moderation pre-filter: dropped {before - len(rows)} of {before} rows.")
 
     # LAST, so nothing is read back for a row the filters above already dropped.
-    if a.skip_unchanged and not a.only_new and rows:
+    if a.skip_unchanged and rows and should_compare_unchanged(a.only_new, rows, state):
         same = unchanged_ids(geo, url, key, rows)
         if same:
             before = len(rows)

@@ -262,10 +262,12 @@ check("...and the three most-blamed columns are printed with counts, most first"
       "3 of 4 stored rows differ; most-blamed columns: description 3, title 2, lat 1"
       in buf.getvalue(), buf.getvalue())
 
-# --- 7. --only-new makes it a no-op, and main() must not pay for it ---------
+# --- 7. Ordinary only-new is free; explicit detail refreshes are compared ---
 src = open("mapsee_supabase_sync.py", encoding="utf-8").read()
-check("the filter is skipped under --only-new (every row is new by construction)",
-      "if a.skip_unchanged and not a.only_new" in src)
+check("only-new skips the comparison when all rows are new",
+      not m.should_compare_unchanged(True, [row(external_id="new")], {"existing": False}))
+check("an exact-detail refresh under only-new still compares its stored row",
+      m.should_compare_unchanged(True, [row(external_id="existing")], {"existing": False}))
 # LAST, after the claimed-guard and the moderation pre-filter, so nothing is
 # read back for a row that is about to be dropped anyway.
 # Anchored on `= upsert(` rather than on the whole assignment: upstream has
@@ -273,7 +275,7 @@ check("the filter is skipped under --only-new (every row is new by construction)
 # the literal line failed a check whose actual property — the filter runs after
 # the ones that DROP rows, and before the write — was never in danger.
 check("...and runs after the filters that drop rows",
-      src.index("Moderation pre-filter") < src.index("a.skip_unchanged and not a.only_new")
+      src.index("Moderation pre-filter") < src.index("a.skip_unchanged and rows and should_compare_unchanged")
       < src.index("= upsert("))
 
 # --- 8. EVERY sync invocation carries it, because one that does not is silent -

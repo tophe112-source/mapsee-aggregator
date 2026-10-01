@@ -497,6 +497,10 @@ def _legacy_fingerprint(old_ev: Dict[str, Any], date_key: str, venue: Optional[D
 
 
 def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=0, start_kept=0, deadline=None) -> int:
+    details_reader = None
+    if src.get("details") == "ramart":
+        from mapsee_event_details import ramart_reader
+        details_reader = ramart_reader(session)
     got = _fetch_ics(session, src["url"], days=src.get("within_days"))
     text, how = got[0], got[1]
     legacy_enc = got[2] if len(got) > 2 else None      # tests patch in the older (text, how)
@@ -630,6 +634,11 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             ticket_url=url or src.get("url_home"),   # every event links somewhere - the VEVENT URL, else the calendar's page
         )
         nev.fingerprint = make_fingerprint(title, date_key, loc)
+        if details_reader and url:
+            details = details_reader(url, title, start_utc or start_local)
+            if details is not None:
+                for key, value in details.items():
+                    setattr(nev, key, value)
         if old_events is not None:
             legacy = _legacy_fingerprint(old_events[offset], date_key, venue)
             if legacy != nev.fingerprint:

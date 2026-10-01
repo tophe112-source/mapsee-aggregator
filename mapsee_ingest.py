@@ -471,6 +471,10 @@ class NormalizedEvent:
     lineup: List[str] = field(default_factory=list)
     poster_image_url: Optional[str] = None
     ticket_url: Optional[str] = None
+    # Exact public ticket / participant facts. None means this source did not
+    # read them; {} intentionally clears a previous successful read. Projected
+    # by Mapsee 0229 for Event JSON-LD; never inferred from approximate prices.
+    source_details: Optional[Dict[str, Any]] = None
     spotify_url: Optional[str] = None      # artist's Spotify page (exact, when a source provides it)
     youtube_url: Optional[str] = None      # artist's YouTube (exact, when a source provides it)
     # A WEEKLY PATTERN, for sources that describe a standing arrangement rather
@@ -565,6 +569,8 @@ class NormalizedEvent:
             rec.pop("agenda", None)
         if self.agenda_tz is None:
             rec.pop("agenda_tz", None)
+        if self.source_details is None:
+            rec.pop("source_details", None)
         if not self.legacy_fingerprints:
             rec.pop("legacy_fingerprints", None)
         return rec
@@ -709,6 +715,11 @@ class EventStore:
                          self.unbounded_by_source.items(), key=lambda kv: -kv[1])))
 
     def _fill_missing(self, rec: Dict[str, Any], ev: NormalizedEvent) -> None:
+        if ev.source_details is not None:
+            rec["source_details"] = ev.source_details
+            # A successful detail read also refreshes the visible facts. Keeping
+            # yesterday's 'available' prose beside today's SoldOut JSON is wrong.
+            rec["description"] = ev.description
         for f in _FILLABLE:
             if not rec.get(f):
                 val = getattr(ev, f)
