@@ -54,6 +54,17 @@ WHAT IS NOT EVIDENCE, and the list is the point:
     cancelled show among twenty would otherwise condemn our row. So a page is
     only read as cancelled when EVERY eventStatus on it says so; a mixed page is
     unknown, and unknown keeps the row.
+  * A page its host's ROBOTS.TXT refuses us, because that page is not read at
+    all. The owner's line (2026-09-30): robots.txt binds a publisher's own pages
+    and feeds, and a "Tickets / info" link is the publisher's own page. The
+    verdict is `robots`, which keeps the row as `unknown` does. It went in the
+    day 76 feeds were retired for their robots.txt. The rows those feeds had
+    already imported stay on the map until their dates pass, and this sweep was
+    still visiting their event pages. Santa Fe Public Library alone had 1,109
+    upcoming programs there, on a site whose robots.txt says `Disallow: /` to
+    every crawler it does not name. Measured that day: meetup.com and
+    eventbrite.com event pages are allowed, so the sweep's reason to exist is
+    untouched.
   * A whole HOST answering dead at once. Restaurants close independently and so
     do gigs; twenty listings on one domain dying on the same afternoon is a
     statement about us, not about them. Lifted wholesale from mapsee_prune_links,
@@ -91,6 +102,8 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+
+import robots_txt   # stdlib only, like this file
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -160,14 +173,41 @@ def page_verdict(html: str) -> str:
     return "unknown"
 
 
-def cancellation_verdict(url: str, timeout: int = 20) -> str:
-    """"cancelled" | "gone" | "live" | "unknown". Only the first two act."""
+class _RobotsSession:
+    """The one call robots_txt.Robots makes of a session, over urllib, so the
+    twice-daily run keeps no dependency to break. An HTTP error is an answer
+    (its code and body are what RFC 9309 and the challenge check read); a
+    network failure raises, which Robots records as unreachable."""
+
+    class _Answer:
+        def __init__(self, status_code, content):
+            self.status_code, self.content = status_code, content
+
+    def get(self, url, timeout=15, allow_redirects=True):
+        req = urllib.request.Request(url, headers={"user-agent": UA})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return self._Answer(r.status, r.read(robots_txt.MAX_BYTES))
+        except urllib.error.HTTPError as e:
+            try:
+                body = e.read(robots_txt.MAX_BYTES) or b""
+            except Exception:           # an error with no body is still its code
+                body = b""
+            return self._Answer(e.code, body)
+
+
+def cancellation_verdict(url: str, timeout: int = 20, robots=None) -> str:
+    """"cancelled" | "gone" | "live" | "unknown" | "robots". Only the first two
+    act. `robots` (a robots_txt.Robots) is asked first when given: a page it
+    does not plainly allow is never fetched."""
     try:
         host = (urllib.parse.urlparse(url).hostname or "").lower()
     except Exception:
         return "unknown"
     if host and UNVERIFIABLE_HOSTS.search(host):
         return "unknown"
+    if robots is not None and robots.check(url)["allowed"] is not True:
+        return "robots"
     try:
         req = urllib.request.Request(url, headers={"user-agent": UA})
         with urllib.request.urlopen(req, timeout=timeout) as r:
@@ -331,12 +371,14 @@ def main():
         order = order[:args.max_checks]
 
     verdicts, budget_hit = {}, 0
+    robots = robots_txt.Robots(_RobotsSession())      # one robots.txt per host per run
     for i, url in enumerate(order, 1):
         if args.max_seconds and time.time() - began > args.max_seconds:
             budget_hit = len(order) - i + 1
             break
-        verdicts[url] = cancellation_verdict(url)
-        time.sleep(args.delay)
+        verdicts[url] = cancellation_verdict(url, robots=robots)
+        if verdicts[url] != "robots":                  # nothing was fetched to pace
+            time.sleep(args.delay)
         if i % 50 == 0:
             print(f"    probed {i}/{len(order)}", flush=True)
     if budget_hit:
@@ -345,6 +387,11 @@ def main():
 
     tally = collections.Counter(verdicts.values())
     print("\n  verdicts: " + " · ".join(f"{k}={v}" for k, v in tally.most_common()))
+    refused_by = collections.Counter(_host(u) for u, v in verdicts.items() if v == "robots")
+    if refused_by:
+        print(f"  NOT READ: {sum(refused_by.values())} page(s) on {len(refused_by)} host(s) "
+              "whose robots.txt refuses us (their rows are kept): "
+              + ", ".join(f"{h} {n}" for h, n in refused_by.most_common(8)))
 
     refusing = refusing_hosts(verdicts)
     off = {u: v for u, v in verdicts.items()

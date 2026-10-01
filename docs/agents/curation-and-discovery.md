@@ -1025,7 +1025,16 @@
   GOOGLE_CALENDAR_API_KEY set they are read through the Calendar API, which
   robots.txt allows, and the report stops listing them. The 2 whose config
   holds a secret `private-...` address cannot be read that way (see
-  `adapters-and-sources.md`). One trap in taking this measurement: the first, parallel pass
+  `adapters-and-sources.md`). The second decision, the same day, drew the
+  line the rule is held to. robots.txt binds a publisher's own pages and
+  feeds. A documented public API used within its usage policy is exempt
+  (`DOCUMENTED_API_TYPES`: Socrata, OpenDatasoft, CKAN, Localist, Gancio,
+  Mobilizon, Mapas Culturais, OpenActive). VenuePilot's widget GraphQL stays
+  bound, for DICE's reason. Re-run under that line with the key set: 74
+  publisher requests on 70 origins still refused (ics 44, tribe 28, jsonld 1,
+  venuepilot 1). The report lists 24 API reads on 12 origins apart, as
+  exempt: 17 OpenDatasoft, 3 Mobilizon, 2 Socrata, 1 Mapas Culturais, 1
+  OpenActive. One trap in taking this measurement: the first, parallel pass
   read 129 origins' files as challenged. Asked one at a time, 100 of the 214 origins
   that had come back challenged or unreachable answered normally, because 16
   connections at once from one address is what a shared host's WAF answers
@@ -1037,6 +1046,35 @@
   Food Bank's `Disallow: *ical=*` and Minneapolis Parks' `Disallow: /*?*ical=`
   as allowing the `?ical=1` exports that both files refuse. `test_robots.py`
   pins the matcher on seven real files.
+
+- **THE 74 CAME OUT, AND WHEN A WHOLE PLATFORM REFUSES, THE LETTER GOES TO
+  THE VENDOR.** The owner's third decision, 2026-09-30: retire what the line
+  refuses. A fresh fetch that afternoon still refused 74 publisher requests
+  (ics 45, tribe 27, jsonld 1, venuepilot 1; the morning's run had counted
+  ics 44 and tribe 28), and with the 2 secret-address Google calendars 76
+  entries left the configs, each into `_not_included` quoting its rule and
+  the path it covers. `ics_sources.json` is a bare list, so its 47 went into
+  `jsonld_sources.json`'s, as Bend UMC's had; `venuepilot_sources.json` is
+  empty now. In production run #102, 12 of the 74 had supplied 1,405 rows,
+  Santa Fe Public Library 1,109 of them. 22 library systems (26 feeds) were
+  among them, in three kinds that need three different letters. The 12 on
+  LibraryCalendar serve a byte-identical rule set (one md5 over the rule
+  lines on all 12, Santa Fe's own domain included), so the file is the
+  vendor's, not the library's. The 7 LibCal tenants chose theirs: 75 of the
+  82 configured tenants carry no `Disallow: /`. 3 run their own WordPress.
+  The letters are `../mapsee/outreach/partners/library-calendar-permission.md`.
+  Left alone: 83 entries whose robots.txt answered with a challenge and 36
+  whose host did not answer at all. RFC 9309 has a crawler assume complete
+  disallow while a file is unreachable, so those are the next question, not
+  a settled one, and not a stable one either: the re-run after the move
+  found 2 more refused, Christ Church Cathedral (Dublin, `Disallow: /wp-json/`)
+  and the Wabano Centre (Ottawa, `Disallow: /*?`), both of which had answered
+  the afternoon's first fetch with a bot challenge. They went the same way, 78
+  entries in all, and that run's DISALLOWED list was those 2 and nothing else.
+  A challenged host is unread, not cleared, so re-run `robots` before trusting
+  an empty list. To restore a retired source, copy its entry back from its
+  config at f8465bf, delete its `_not_included` key, and let `verify` pass it
+  through the gate.
 
 - **A NEIGHBOURHOOD GROUP ON GOOGLE SITES POSTS ITS EVENTS AS PROSE, AND THE
   CALENDAR BLOCK IT COULD USE NAMES A CALENDAR GOOGLE WILL NOT LET US READ.**
@@ -1073,3 +1111,43 @@
   so both need correcting by hand. The same sample found 11 of the 600
   homepages under `Disallow: /` for us. Discovery fetched every one of them,
   because `find_calendar` does not read robots.txt. Only verify does.
+
+- **A CALENDAR FOUND THROUGH A VENUE IS OFTEN NOT THAT VENUE'S PROGRAMME, SO
+  PIN IT BY HAND, FROM ITS EVENTS.** Nine OSM-found Google calendars put
+  nothing on the map because none of their events carried a LOCATION. Their
+  events, listed with `smoke-gcal.yml`'s `show` input on 2026-09-30, decided
+  each one. Four were right to pin, 294 events in all. St. Herman's Orthodox
+  Church in Edmonton is 116 services, all at the church. Betlehem in Bergen
+  had 101 of 154 at its hall; `venue_skip` keeps off the weekly online prayer
+  meeting ("på nett"), the weekly street evangelism and a camp at Alværa.
+  Lasswade Archery Club had 72 of 131: it shoots at a school hall AND at Grove
+  Farm, so only the sessions its titles place at Lasswade are pinned. CVMC's
+  5 regattas are at its harbour. Five were wrong to pin. Mercedarias de la
+  Caridad is the Diocese of Málaga's whole agenda: cathedral masses, councils,
+  and "XXVII Domingo del Tiempo Ordinario", which is not an event. Pitkäjärven
+  Vaeltajat and Mankkaan makasiini are scout troops whose entries are trips.
+  Ruderclub Rapperswil-Jona lists a meeting in Lausanne and a camp in
+  St. Moritz. Chiro JEZ holds its ball at another hall. Each carries a
+  `_note` saying why. 4 of 9 is why discovery still writes no `venue` for
+  an ics candidate (`to_candidate`): a venue is a claim about every event
+  that names no place, and here it was false five times out of nine.
+  `venue_skip` is a per-source regex over the title. A match is left
+  unplaced, and the ics log line counts it.
+
+- **THE PIPELINE'S OWN INFRASTRUCTURE APIS REFUSE CRAWLERS TOO.** Checked
+  2026-09-30 with `robots_txt.py` while looking up those venues. Photon,
+  which geocodes every LOCATION the ics adapter reads, is `Disallow: /`.
+  Nominatim disallows `/search`. overpass-api.de disallows `/api/`, which is
+  the endpoint OSM discovery, all three OSM places adapters and the markets
+  adapter call.
+  api.openstreetmap.org disallows `/api/`, www.openstreetmap.org `/node/` and
+  `/search`, and query.wikidata.org `/sparql`. Each publishes a usage policy
+  for exactly the programmatic use the pipeline makes of it. So "respect
+  robots.txt", read literally, would stop the geocoder and every OSM walk.
+  And the verify gate reads it literally, so it refuses an OpenDatasoft
+  dataset for the same stock `Disallow: /api/`. The distinction the owner has
+  kept in practice is between a PUBLISHER's own pages and feeds, where
+  robots.txt is that publisher's consent (Squarespace's JSON, DICE's API, and
+  since 2026-09-30 Google's iCal export), and a documented API used within its
+  usage policy. The owner drew the line there that day (see the robots
+  note above): the APIs are exempt, the publishers' pages and feeds are not.

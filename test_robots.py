@@ -334,6 +334,77 @@ check("...and a host that asks for none gets none", "crawl_delay" not in club, c
 check("a recent refusal keeps discovery from proposing it again",
       cc._dead_recently({"k": {"status": "refused", "checked": 20260930}}, "k") is True)
 
+# --- 5. where robots.txt binds (the owner's decision, 2026-09-30) ---------------
+# A publisher's own pages and feeds: yes. A documented public API used within
+# its usage policy: no - Photon and Overpass, which the pipeline runs on, say
+# Disallow for the same reason an open-data portal does.
+class DenyAll:
+    asked = 0
+
+    def check(self, url):
+        DenyAll.asked += 1
+        return {"allowed": False, "status": "ok", "rule": "Disallow: /", "crawl_delay": None, "robots": "x"}
+
+
+API_ENTRIES = {
+    "opendata": {"url": "https://data.example.gov/resource/abcd-1234.json"},
+    "market": {"url": "https://datahub.example.org/resource/wxyz-9876.json"},
+    "ods": {"domain": "data.example.fr", "dataset": "agenda"},
+    "ckan": {"url": "https://data.example.ca/api/3/action/datastore_search?resource_id=1"},
+    "localist": {"base_url": "https://events.example.edu"},
+    "gancio": {"base_url": "https://gancio.example"},
+    "mobilizon": {"base_url": "https://mobilizon.example"},
+    "mapasculturais": {"url": "https://mapa.example.gov.br/api/event/find"},
+    "openactive": {"url": "https://sessions.example.co.uk/api/feeds/sessions"},
+}
+PUBLISHER_ENTRIES = {
+    "ics": {"url": "https://calendar.example.org/events.ics"},
+    "tribe": {"base_url": "https://club.example"},
+    "squarespace": {"collection": "https://sq.example/events"},
+    "jsonld": {"listing": ["https://venue.example/whats-on"]},
+    "venuepilot": {"account_ids": [1]},
+}
+DenyAll.asked = 0
+check("a documented public API is not held to robots.txt: " + ", ".join(sorted(API_ENTRIES)),
+      all(cc._robots_gate(DenyAll(), t, dict(e)) is None for t, e in API_ENTRIES.items()) and DenyAll.asked == 0,
+      [t for t, e in API_ENTRIES.items() if cc._robots_gate(DenyAll(), t, dict(e)) is not None])
+check("...and a publisher's own pages and feeds still are: " + ", ".join(sorted(PUBLISHER_ENTRIES)),
+      all((cc._robots_gate(DenyAll(), t, dict(e)) or ("",))[0] == "refused" for t, e in PUBLISHER_ENTRIES.items()))
+check("the exemption names no publisher type",
+      cc.DOCUMENTED_API_TYPES.isdisjoint({"ics", "tribe", "squarespace", "jsonld", "mylisting", "venuepilot",
+                                          "fair", "parkrun", "festival", "dice_venue"}))
+
+
+class JResp(Resp):
+    def __init__(self, data, url=""):
+        super().__init__(200, json.dumps(data), url)
+        self.headers = {"content-type": "application/json; charset=utf-8"}
+        self._data = data
+
+    def json(self):
+        return self._data
+
+
+LOCALIST = {"events": [{"event": {"event_instances": [{"event_instance": {"start": "2099-10-10T10:00:00"}}]}}]}
+tmp = tempfile.mkdtemp(prefix="robots-api-")
+keep = (cc.HERE, cc.LEDGER_FILE, cc._session)
+cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
+api_sess = Session({"https://events.example.edu/robots.txt": (200, "User-agent: *\nDisallow: /api/\n")})
+api_sess.get = (lambda orig: (lambda url, **kw: JResp(LOCALIST, url) if "/api/2/events" in url
+                              else orig(url, **kw)))(api_sess.get)
+cc._session = lambda: api_sess
+path = os.path.join(tmp, "cand.json")
+json.dump([{"type": "localist", "name": "A campus calendar", "base_url": "https://events.example.edu"}],
+          open(path, "w", encoding="utf-8"))
+try:
+    cc.cmd_verify(path)
+    verified = json.load(open(os.path.join(tmp, "cand.verified.json"), encoding="utf-8"))
+finally:
+    cc.HERE, cc.LEDGER_FILE, cc._session = keep
+check("verify passes a Localist calendar whose host disallows /api/ for crawlers",
+      [v["name"] for v in verified] == ["A campus calendar"], verified)
+check("...without so much as fetching that robots.txt", not any("robots.txt" in u for u in api_sess.asked), api_sess.asked)
+
 if fails:
     print(f"\n{len(fails)} FAILED")
 sys.exit(1 if fails else 0)

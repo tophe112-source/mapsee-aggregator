@@ -209,6 +209,87 @@ check("4 dead on a host we have only 4 rows for is below the floor -> they are h
       "small.test" in PRUNE.refusing_hosts(few), False)
 
 print()
+print("  a page robots.txt refuses is never FETCHED (the owner's line, 2026-09-30)")
+
+
+class _Robots:
+    def __init__(self, allowed):
+        self.allowed, self.asked = allowed, []
+
+    def check(self, url):
+        self.asked.append(url)
+        return {"allowed": self.allowed}
+
+
+def _must_not_fetch(*a, **k):
+    raise AssertionError("fetched a page robots.txt did not allow")
+
+
+class _Resp:
+    def __init__(self, status, body, ctype="text/html"):
+        self.status, self._body, self.headers = status, body, {"content-type": ctype}
+
+    def read(self, n=-1):
+        return self._body if n is None or n < 0 else self._body[:n]
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+
+for allowed, why in ((False, "a Disallow"), (None, "a challenge instead of a robots.txt")):
+    rb = _Robots(allowed)
+    try:
+        with patch.object(PRUNE.urllib.request, "urlopen", _must_not_fetch):
+            got = PRUNE.cancellation_verdict("https://www.santafelibrary.org/event/storytime", robots=rb)
+    except AssertionError as ex:
+        got = str(ex)
+    check(f"{why}: verdict 'robots', and no request for the page", got, "robots")
+check("'robots' is not evidence: a host full of them is not 'refusing', and nothing is hidden",
+      PRUNE.refusing_hosts({f"https://lib.test/e/{i}": "robots" for i in range(9)}), set())
+
+rb = _Robots(True)
+page = b'<script type="application/ld+json">{"eventStatus":"https://schema.org/EventCancelled"}</script>'
+with patch.object(PRUNE.urllib.request, "urlopen", lambda req, timeout=20: _Resp(200, page)):
+    got = PRUNE.cancellation_verdict("https://www.meetup.com/g/events/1/", robots=rb)
+check("an allowed page is read as before, and a cancelled one still acts", got, "cancelled")
+check("...after asking robots.txt about that exact page", rb.asked, ["https://www.meetup.com/g/events/1/"])
+with patch.object(PRUNE.urllib.request, "urlopen", lambda req, timeout=20: _Resp(200, page)):
+    check("no robots given (a direct call) reads the page as it always did",
+          PRUNE.cancellation_verdict("https://www.meetup.com/g/events/1/"), "cancelled")
+
+print("  ...and the stdlib session it asks through answers the way RFC 9309 reads it")
+import io
+import urllib.error
+
+
+def _serve(answer):
+    def urlopen(req, timeout=15):
+        if isinstance(answer, Exception):
+            raise answer
+        return answer
+    return urlopen
+
+
+def _http_error(code, body=b""):
+    return urllib.error.HTTPError("https://h.test/robots.txt", code, "x", {}, io.BytesIO(body))
+
+
+CHALLENGE = b"<html><title>Just a moment...</title>Checking your browser</html>"
+for label, answer, want in (
+        ("a file that says Disallow: / refuses", _Resp(200, b"User-agent: *\nDisallow: /\n", "text/plain"), False),
+        ("an empty Disallow allows", _Resp(200, b"User-agent: *\nDisallow:\n", "text/plain"), True),
+        ("404: no file, no rules, allowed", _http_error(404), True),
+        ("503: unreachable, assume Disallow", _http_error(503), False),
+        ("no answer at all: unreachable, assume Disallow", urllib.error.URLError("timed out"), False),
+        ("a 403 bot challenge in place of the file: permission unknown", _http_error(403, CHALLENGE), None)):
+    with patch.object(PRUNE.urllib.request, "urlopen", _serve(answer)):
+        ans = PRUNE.robots_txt.Robots(PRUNE._RobotsSession()).check("https://h.test/event/1")
+    check(f"    {label}", ans["allowed"], want)
+
+print()
 print("  the link it reads is the one the sync writes")
 desc = ("Blurb about the show.\n\n\U0001F4CD 1 Main St\n\n"
         "Tickets / info: https://www.meetup.com/g/events/1/\n\n\U0001F50E More on this show: https://g.test/s")

@@ -103,18 +103,6 @@
       "_note": "325 upcoming across 46 distinct titles, and DELIBERATELY community rather than fitness. The calendar is genuinely mixed - '2026 Group Ride: Bikes, Birds, Botanas' next to 'Valet Volunteer at the Oakland Roots', 'Bike Hayward Organizing Meeting' and 'Hopkins Victory Party'. Measured both ways over the live titles: a fitness base puts all 46 on wegosie including the stadium valet shift and the phone-banking, because _PROMOTABLE_TO_VOLUNTEER does not include fitness so nothing can rescue them. A community base lets the promotion rules sort it - rides to fitness, volunteer shifts to volunteer, the rest honestly community. Fewer events reach wegosie and none of them is a lie."
     },
     {
-      "name": "Community Cycling Center (Portland OR)",
-      "base_url": "https://www.communitycyclingcenter.org",
-      "category": "community",
-      "crawl_delay": 2,
-      "within_days": 365,
-      "max_pages": 12,
-      "default_city": "Portland",
-      "default_region": "OR",
-      "default_country": "United States",
-      "_note": "284 occurrences from only 11 distinct titles - a recurring VOLUNTEER roster, not a ride calendar: 'The Repair Hub - Volunteer Shift', 'Bike Tear-downs - Volunteer Shift', 'Wrench Nights - Volunteer Shift', 'Volunteer Drop-in Hours'. Worth as much to awaresie as to any cycling door: `catalog_curate.py coverage` counts 8 curated volunteer sources worldwide. community base measured to sort 6 of the 11 onto volunteer by keyword and leave the rest honest; a fitness base would file a wrench night as exercise."
-    },
-    {
       "name": "BikeWalkKC (Kansas City)",
       "base_url": "https://bikewalkkc.org",
       "category": "community",
@@ -492,21 +480,6 @@
       "_metro": "Calgary, CA"
     },
     {
-      "name": "Fresh Start Recovery Centre",
-      "category": "community",
-      "_found": "osm:social_facility -> tribe",
-      "base_url": "https://freshstartrecovery.ca",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Fresh Start Recovery Centre",
-        "address": "411 41 Avenue NE",
-        "lat": 51.0896281,
-        "lon": -114.0543201
-      },
-      "_metro": "Calgary, CA"
-    },
-    {
       "name": "Église Sainte-Famille",
       "category": "community",
       "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
@@ -814,23 +787,6 @@
         "address": "100 Ferry Road",
         "lat": 49.8747386,
         "lon": -97.2196847
-      },
-      "_metro": "Winnipeg, CA"
-    },
-    {
-      "name": "Winnipeg Harvest",
-      "category": "community",
-      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
-      "base_url": "https://www.harvestmanitoba.ca",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Winnipeg Harvest",
-        "address": "1085 Winnipeg Avenue",
-        "city": "Winnipeg",
-        "postal_code": "R3E 0S2",
-        "lat": 49.9073476,
-        "lon": -97.1740554
       },
       "_metro": "Winnipeg, CA"
     },
@@ -1163,20 +1119,6 @@
         "postal_code": "2216",
         "lat": -33.9539282,
         "lon": 151.1377405
-      },
-      "_metro": "Sydney, AU"
-    },
-    {
-      "name": "QStation Visitor Centre Museum",
-      "category": "arts",
-      "_found": "osm:museum -> tribe+jsonld-event+ics",
-      "base_url": "https://qstation.com.au",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "QStation Visitor Centre Museum",
-        "lat": -33.8156422,
-        "lon": 151.2858876
       },
       "_metro": "Sydney, AU"
     },
@@ -1719,22 +1661,6 @@
       "_metro": "Dublin, IE"
     },
     {
-      "name": "Christ Church Cathedral",
-      "category": "community",
-      "_found": "osm:place_of_worship -> tribe+jsonld-event",
-      "base_url": "https://christchurchcathedral.ie",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Christ Church Cathedral",
-        "address": "6 Christchurch Place",
-        "city": "Dublin",
-        "lat": 53.3434134,
-        "lon": -6.2711999
-      },
-      "_metro": "Dublin, IE"
-    },
-    {
       "name": "Lansdowne Football Club",
       "category": "fitness",
       "_found": "osm:sports_centre -> tribe",
@@ -1968,21 +1894,6 @@
       "_metro": "Galway, IE"
     },
     {
-      "name": "Church of Saint Nicholas",
-      "category": "community",
-      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
-      "base_url": "https://stnicholas.ie",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Church of Saint Nicholas",
-        "address": "Lombard Street",
-        "lat": 53.2727093,
-        "lon": -9.0536896
-      },
-      "_metro": "Galway, IE"
-    },
-    {
       "name": "Galway Lawn Tennis Club",
       "category": "fitness",
       "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
@@ -2026,21 +1937,6 @@
         "name": "Saint Mary's Church",
         "lat": 52.4722783,
         "lon": -8.4707799
-      },
-      "_metro": "Limerick, IE"
-    },
-    {
-      "name": "Dance Limerick",
-      "category": "theater",
-      "_found": "osm:theatre -> tribe+jsonld-event",
-      "base_url": "https://dancelimerick.ie",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Dance Limerick",
-        "address": "1-2 John's Square",
-        "lat": 52.6634215,
-        "lon": -8.6182452
       },
       "_metro": "Limerick, IE"
     },
@@ -2532,21 +2428,6 @@
       "_metro": "Paris, FR"
     },
     {
-      "name": "L'Européen",
-      "category": "theater",
-      "_found": "osm:theatre -> tribe",
-      "base_url": "https://welcome.leuropeen.paris",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "L'Européen",
-        "address": "5 Rue Biot",
-        "lat": 48.8837701,
-        "lon": 2.3265034
-      },
-      "_metro": "Paris, FR"
-    },
-    {
       "name": "Le Passage vers les Etoiles",
       "category": "theater",
       "_found": "osm:theatre -> tribe",
@@ -2930,20 +2811,6 @@
         "name": "Théâtre Montansier",
         "lat": 48.8081378,
         "lon": 2.1240974
-      },
-      "_metro": "Paris, FR"
-    },
-    {
-      "name": "Hôtel de la Grande Loge de France",
-      "category": "community",
-      "_found": "osm:club -> tribe+jsonld-event+ics",
-      "base_url": "https://www.gldf.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Hôtel de la Grande Loge de France",
-        "lat": 48.8831719,
-        "lon": 2.3221549
       },
       "_metro": "Paris, FR"
     },
@@ -3975,20 +3842,6 @@
         "name": "Carl Eldhs Ateljémuseum",
         "lat": 59.3528674,
         "lon": 18.0516224
-      },
-      "_metro": "Stockholm, SE"
-    },
-    {
-      "name": "Dansmuseet",
-      "category": "arts",
-      "_found": "osm:museum -> tribe",
-      "base_url": "https://dansmuseet.se",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Dansmuseet",
-        "lat": 59.3297418,
-        "lon": 18.0653366
       },
       "_metro": "Stockholm, SE"
     },
@@ -5430,20 +5283,6 @@
       "_metro": "Warsaw, PL"
     },
     {
-      "name": "Wypożyczalnia dla Dorosłych i Młodzieży Nr 133 \"Radosna\"",
-      "category": "learning",
-      "_found": "osm:library -> tribe+jsonld-event",
-      "base_url": "https://www.bibliotekawilanowska.pl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Wypożyczalnia dla Dorosłych i Młodzieży Nr 133 \"Radosna\"",
-        "lat": 52.1736349,
-        "lon": 21.0676636
-      },
-      "_metro": "Warsaw, PL"
-    },
-    {
       "name": "Klub Kultury w Józefosławiu",
       "category": "arts",
       "_found": "osm:arts_centre -> tribe",
@@ -5922,23 +5761,6 @@
       "_metro": "Brussels, BE"
     },
     {
-      "name": "Koninklijk Verbond der Jaartallen",
-      "category": "community",
-      "_found": "osm:club -> tribe+jsonld-event+ics",
-      "base_url": "https://jaartallen1890.wpcomstaging.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Koninklijk Verbond der Jaartallen",
-        "address": "8A Grote Markt",
-        "city": "Leuven",
-        "postal_code": "3000",
-        "lat": 50.8789404,
-        "lon": 4.7013914
-      },
-      "_metro": "Brussels, BE"
-    },
-    {
       "name": "Zik-Zak",
       "category": "music",
       "_found": "osm:music_venue -> tribe+jsonld-event+ics",
@@ -6210,18 +6032,6 @@
       "default_region": "Minnesota",
       "default_country": "US",
       "_metro": "Mankato, Minnesota"
-    },
-    {
-      "name": "Lompoc (explorelompoc.com)",
-      "category": "community",
-      "_found": "civic:dmo -> tribe+jsonld-event+ics",
-      "base_url": "https://explorelompoc.com",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Lompoc",
-      "default_region": "California",
-      "default_country": "US",
-      "_metro": "Lompoc, California"
     },
     {
       "name": "Librairie de l'Europe",
@@ -7037,18 +6847,6 @@
       "_metro": "Sylvania, Ohio"
     },
     {
-      "name": "Sheridan",
-      "category": "community",
-      "_found": "civic:city -> tribe",
-      "base_url": "https://sheridanwyomingchamber.org",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Sheridan",
-      "default_region": "Wyoming",
-      "default_country": "US",
-      "_metro": "Sheridan, Wyoming"
-    },
-    {
       "name": "Albert Lea",
       "category": "community",
       "_found": "civic:city -> tribe",
@@ -7131,18 +6929,6 @@
       "default_region": "Florida",
       "default_country": "US",
       "_metro": "Auburndale, Florida"
-    },
-    {
-      "name": "Gloversville",
-      "category": "community",
-      "_found": "civic:city -> tribe+jsonld-event+ics",
-      "base_url": "https://cityofgloversvilleny.gov",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Gloversville",
-      "default_region": "New York",
-      "default_country": "US",
-      "_metro": "Gloversville, New York"
     },
     {
       "name": "Fort Payne",
@@ -7318,23 +7104,6 @@
         "lon": 5.3621717
       },
       "_metro": "Liege, BE"
-    },
-    {
-      "name": "Casa de León",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe",
-      "base_url": "https://leonesesenmadrid.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Casa de León",
-        "address": "6 Calle del Pez",
-        "city": "Madrid",
-        "postal_code": "28004",
-        "lat": 40.4229307,
-        "lon": -3.7040239
-      },
-      "_metro": "Madrid, ES"
     },
     {
       "name": "Centro diocesano de Pastoral Social Santa María de Fontarrón",
@@ -7806,22 +7575,6 @@
       "_metro": "Barcelona, ES"
     },
     {
-      "name": "Museu de Badalona",
-      "category": "arts",
-      "_found": "osm:museum -> tribe+jsonld-event+ics",
-      "base_url": "https://museudebadalona.cat",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Museu de Badalona",
-        "address": "1 Plaça de l'Assemblea de Catalunya",
-        "city": "Badalona",
-        "lat": 41.4521555,
-        "lon": 2.2476506
-      },
-      "_metro": "Barcelona, ES"
-    },
-    {
       "name": "Agrupació Foto-Cine Cerdanyola-Ripollet",
       "category": "community",
       "_found": "osm:club -> tribe+jsonld-event+ics",
@@ -7839,23 +7592,6 @@
       "_metro": "Barcelona, ES"
     },
     {
-      "name": "Llibreria Terranova",
-      "category": "learning",
-      "_found": "osm:books -> tribe+jsonld-event+ics",
-      "base_url": "https://terrranova.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Llibreria Terranova",
-        "address": "99 Carrer del Comte Borrell",
-        "city": "Barcelona",
-        "postal_code": "08015",
-        "lat": 41.3795135,
-        "lon": 2.1595454
-      },
-      "_metro": "Barcelona, ES"
-    },
-    {
       "name": "Club Arc Montjuïc",
       "category": "fitness",
       "_found": "osm:sports_centre -> tribe+jsonld-event",
@@ -7866,23 +7602,6 @@
         "name": "Club Arc Montjuïc",
         "lat": 41.3637856,
         "lon": 2.1651288
-      },
-      "_metro": "Barcelona, ES"
-    },
-    {
-      "name": "Biblioteca Central de Cerdanyola",
-      "category": "learning",
-      "_found": "osm:library -> tribe+jsonld-event+ics",
-      "base_url": "https://www.bibliotecacerdanyola.cat",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Biblioteca Central de Cerdanyola",
-        "address": "1 Plaça d'Enric Granados",
-        "city": "Cerdanyola del Vallès",
-        "postal_code": "08290",
-        "lat": 41.4926747,
-        "lon": 2.1421128
       },
       "_metro": "Barcelona, ES"
     },
@@ -8073,23 +7792,6 @@
       "_metro": "Bilbao, ES"
     },
     {
-      "name": "La Polivalente",
-      "category": "arts",
-      "_found": "osm:arts_centre -> tribe",
-      "base_url": "https://www.lapolivalente.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "La Polivalente",
-        "address": "53 Calle Lagunillas",
-        "city": "Málaga",
-        "postal_code": "29012",
-        "lat": 36.7260261,
-        "lon": -4.4155328
-      },
-      "_metro": "Malaga, ES"
-    },
-    {
       "name": "Club Málaga de Tiro con Arco",
       "category": "community",
       "_found": "osm:club -> tribe",
@@ -8138,37 +7840,6 @@
       "_metro": "Malaga, ES"
     },
     {
-      "name": "Málaga Espacio Expositivo Tabacalera",
-      "category": "arts",
-      "_found": "osm:museum -> tribe+jsonld-event+ics",
-      "base_url": "https://www.meet-malaga.eu",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Málaga Espacio Expositivo Tabacalera",
-        "address": "15 Avenida Sor Teresa Prat",
-        "postal_code": "29003",
-        "lat": 36.6990359,
-        "lon": -4.4384876
-      },
-      "_metro": "Malaga, ES"
-    },
-    {
-      "name": "Centro Pompidou Málaga",
-      "category": "arts",
-      "_found": "osm:museum -> tribe",
-      "base_url": "https://centrepompidou-malaga.eu",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Centro Pompidou Málaga",
-        "address": "Pasaje Doctor Carrillo Casaux",
-        "lat": 36.7190429,
-        "lon": -4.4132463
-      },
-      "_metro": "Malaga, ES"
-    },
-    {
       "name": "Museo Interactivo de la Música",
       "category": "arts",
       "_found": "osm:museum -> tribe+jsonld-event",
@@ -8181,20 +7852,6 @@
         "postal_code": "29008",
         "lat": 36.7233685,
         "lon": -4.4196844
-      },
-      "_metro": "Malaga, ES"
-    },
-    {
-      "name": "Jardín del Recuerdo",
-      "category": "outdoors",
-      "_found": "osm:garden -> tribe+jsonld-event+ics",
-      "base_url": "https://parcema.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Jardín del Recuerdo",
-        "lat": 36.7208868,
-        "lon": -4.5148785
       },
       "_metro": "Malaga, ES"
     },
@@ -9061,23 +8718,6 @@
       "_metro": "Rome, Italy"
     },
     {
-      "name": "MuCaM - Museo civico archeologico di Mentana e dell'agro nomentano",
-      "category": "arts",
-      "_found": "osm:museum -> tribe+jsonld-event+ics",
-      "base_url": "https://www.poloculturalementana.it",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "MuCaM - Museo civico archeologico di Mentana e dell'agro nomentano",
-        "address": "1 Piazza Giuseppe Garibaldi",
-        "city": "Mentana",
-        "postal_code": "00013",
-        "lat": 42.0342332,
-        "lon": 12.6373319
-      },
-      "_metro": "Rome, Italy"
-    },
-    {
       "name": "Libreria GRIOT",
       "category": "learning",
       "_found": "osm:books -> tribe",
@@ -9304,23 +8944,6 @@
       "_metro": "Helsinki, Finland"
     },
     {
-      "name": "Humallahden Venekerho HVK",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://hooveekoo.fi",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Humallahden Venekerho HVK",
-        "address": "6 Rajasaarenpenger",
-        "city": "Helsinki",
-        "postal_code": "00250",
-        "lat": 60.1818658,
-        "lon": 24.9090056
-      },
-      "_metro": "Helsinki, Finland"
-    },
-    {
       "name": "Karjakaivon ylämaja",
       "category": "community",
       "_found": "osm:community_centre -> tribe+jsonld-event+ics",
@@ -9538,20 +9161,6 @@
         "lon": 9.0255719
       },
       "_metro": "Milan, Italy"
-    },
-    {
-      "name": "Palestra Grande (II.7.1)",
-      "category": "outdoors",
-      "_found": "osm:garden -> tribe",
-      "base_url": "https://pompeiisites.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Palestra Grande (II.7.1)",
-        "lat": 40.7507366,
-        "lon": 14.493894
-      },
-      "_metro": "Naples, Italy"
     },
     {
       "name": "Tempio Ten Shin",
@@ -10056,20 +9665,6 @@
         "country": "US"
       },
       "_measured": "2026-09-24: 25 upcoming, 25 distinct titles - weekly trail work days (which promote to volunteer) and the ¡Vámonos! walks. 12 place; the 4 'SFCT Office Closed' notices carry no address and drop at sync."
-    },
-    {
-      "name": "Sarasota Audubon Society",
-      "category": "outdoors",
-      "base_url": "https://www.sarasotaaudubon.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Sarasota Audubon Society",
-        "city": "Sarasota",
-        "region": "FL",
-        "country": "US"
-      },
-      "_measured": "2026-09-24: 30 upcoming, 18 distinct titles, 23 placeable - bird walks across Sarasota's parks. 7 are members-only Wingspan game nights."
     },
     {
       "name": "FortWhyte Alive",
@@ -12319,25 +11914,6 @@
       "_note": "Huron County Library's 12 branches (EarlyON, English conversation, quiet hours); The Events Calendar REST with geo_lat on 498 of 500. robots.txt allows /wp-json/ (blocks only AI crawlers)."
     },
     {
-      "name": "Belleville Public Library (Belleville, Canada)",
-      "category": "learning",
-      "base_url": "https://www.bellevillelibrary.ca",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Belleville Public Library",
-        "address": "254 Pinnacle Street",
-        "city": "Belleville",
-        "region": "ON",
-        "postal_code": "K8N 3B1",
-        "country": "CA",
-        "lat": 44.1653029,
-        "lon": -77.3836739
-      },
-      "_metro": "Belleville, Canada",
-      "_note": "Single-building library (the Parrott gallery is upstairs): babytime, storytime, chess club. REST venues lack geo_lat, so the venue block (Photon point) places them. robots.txt allows /wp-json/."
-    },
-    {
       "name": "Marpole Neighbourhood House (Vancouver, Canada)",
       "category": "community",
       "base_url": "https://marpolenh.org",
@@ -12374,25 +11950,6 @@
       },
       "_metro": "Toronto, Canada",
       "_note": "Etobicoke community health centre's free programme calendar: seniors chair exercise, tai chi, meditation, Spanish women's group, reading pals. REST venues lack geo; venue block places them. robots.txt allows."
-    },
-    {
-      "name": "Wabano Centre for Aboriginal Health (Ottawa, Canada)",
-      "category": "community",
-      "base_url": "https://wabano.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Wabano Centre",
-        "address": "299 Montreal Road",
-        "city": "Ottawa",
-        "region": "ON",
-        "postal_code": "K1L 6C0",
-        "country": "CA",
-        "lat": 45.4374045,
-        "lon": -75.6588784
-      },
-      "_metro": "Ottawa, Canada",
-      "_note": "Indigenous health and community centre in Vanier: Indigenous Seniors Circle, Cardio Drum, carving, food and wellness. REST venues lack geo; ~60% are at 295-299 Montreal Rd, the rest within 1.5 km. robots allows /wp-json/."
     },
     {
       "name": "CSC Vanier family programmes (Ottawa, Canada)",
@@ -12866,6 +12423,362 @@
         "lon": 127.7748932
       },
       "_metro": "Naha, Japan"
+    },
+    {
+      "name": "Norval Foundation",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe",
+      "base_url": "https://www.norvalfoundation.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Norval Foundation",
+        "address": "4 Steenberg Road",
+        "city": "Cape Town",
+        "postal_code": "7945",
+        "lat": -34.0764763,
+        "lon": 18.4289061
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "El Shaddai Christian Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://escc.co.za",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "El Shaddai Christian Church",
+        "address": "Lords Walk",
+        "city": "Durbanville",
+        "postal_code": "7550",
+        "lat": -33.8291771,
+        "lon": 18.6607856
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "Lutheran Church Wynberg",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lutherancape.org.za",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lutheran Church Wynberg",
+        "address": "52 Waterloo Road",
+        "city": "Cape Town",
+        "postal_code": "7800",
+        "country": "ZA",
+        "lat": -34.0082003,
+        "lon": 18.4614629
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "Durbanville Children's Home",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://www.durbanvillekinderhuis.org.za",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Durbanville Children's Home",
+        "address": "1 Church Street",
+        "city": "Cape Town",
+        "postal_code": "7750",
+        "country": "ZA",
+        "lat": -33.8352871,
+        "lon": 18.6448435
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "St Michael and All Angels",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.stmichael.org.za",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Michael and All Angels",
+        "address": "10 St. Michael's Road",
+        "city": "Cape Town",
+        "postal_code": "7925",
+        "country": "ZA",
+        "lat": -33.935755,
+        "lon": 18.4687623
+      },
+      "_metro": "Cape Town, South Africa"
+    },
+    {
+      "name": "South African State Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.statetheatre.co.za",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South African State Theatre",
+        "address": "320 Pretorius Street",
+        "city": "Pretoria",
+        "postal_code": "0002",
+        "lat": -25.7467575,
+        "lon": 28.1947181
+      },
+      "_metro": "Pretoria, South Africa"
+    },
+    {
+      "name": "Buurtteam Rivierenbuurt",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.buurtteamamsterdam.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buurtteam Rivierenbuurt",
+        "address": "13A Lekstraat",
+        "city": "Amsterdam",
+        "postal_code": "1079EK",
+        "lat": 52.3449498,
+        "lon": 4.9063521
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Scouting Holendrecht",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://scoutingholendrecht.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scouting Holendrecht",
+        "address": "23 Meerkerkdreef",
+        "city": "Amsterdam",
+        "postal_code": "1106GZ",
+        "lat": 52.3008969,
+        "lon": 4.9770851
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "T.P.C. Botesa",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://botesa.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "T.P.C. Botesa",
+        "address": "4 Broekveldselaan",
+        "city": "Bodegraven",
+        "postal_code": "2411NL",
+        "lat": 52.0718594,
+        "lon": 4.7537846
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Ons Eigen Gebouw Buurmalsen",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.onseigengebouw.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ons Eigen Gebouw Buurmalsen",
+        "address": "23 Groeneweg",
+        "city": "Buurmalsen",
+        "postal_code": "4197HD",
+        "lat": 51.8930199,
+        "lon": 5.288809
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Consultatiebureau",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ggdru.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Consultatiebureau",
+        "address": "2 Lisidunalaan",
+        "city": "Leusden",
+        "postal_code": "3833BR",
+        "lat": 52.1348275,
+        "lon": 5.4263758
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "De Hangar",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.meerhoven.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Hangar",
+        "lat": 51.4428565,
+        "lon": 5.4108073
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "'t Trefpunt",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.trefpunteindhoven.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "'t Trefpunt",
+        "address": "20 Belgiëplein",
+        "city": "Eindhoven",
+        "postal_code": "5628XJ",
+        "lat": 51.4791809,
+        "lon": 5.4795728
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "De Smis",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://dorpshuisdesmis.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Smis",
+        "address": "33a Smitseind",
+        "city": "Duizel",
+        "postal_code": "5525AN",
+        "lat": 51.3682639,
+        "lon": 5.2992926
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Scouting Boekel",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.scoutingboekel.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scouting Boekel",
+        "address": "20 Mezenlaan",
+        "city": "Boekel",
+        "postal_code": "5427SL",
+        "lat": 51.5980874,
+        "lon": 5.6848699
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "OEC Korfbal",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://oeckorfbal.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "OEC Korfbal",
+        "address": "1A Braakse Bosdijk",
+        "city": "Helmond",
+        "postal_code": "5703HZ",
+        "lat": 51.4865127,
+        "lon": 5.6780392
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Ellenhof",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ellenhof.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ellenhof",
+        "address": "18 Scheijmansplein",
+        "city": "Ell",
+        "postal_code": "6011PC",
+        "lat": 51.2202835,
+        "lon": 5.795358
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "De Sprank",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.demortel.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Sprank",
+        "address": "12 Oude-Molenweg",
+        "city": "De Mortel",
+        "postal_code": "5425VR",
+        "lat": 51.5397738,
+        "lon": 5.7096417
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "HFC '15",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://hfc15.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "HFC '15",
+        "address": "50 De Verbetering",
+        "city": "Groningen",
+        "postal_code": "9744DZ",
+        "lat": 53.2090191,
+        "lon": 6.5109206
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Buurtcentrum Oranjewijk",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://buurtcentrumoranjewijk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buurtcentrum Oranjewijk",
+        "address": "44-1 Prinsesseweg",
+        "city": "Groningen",
+        "postal_code": "9717BK",
+        "lat": 53.2227759,
+        "lon": 6.5468627
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Foro Shakespeare",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://foroshakespeare.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Foro Shakespeare",
+        "address": "7 Calle Zamora",
+        "postal_code": "06140",
+        "lat": 19.4194546,
+        "lon": -99.1765973
+      },
+      "_metro": "Mexico City, Mexico"
     }
   ],
   "_not_included": {
@@ -12884,6 +12797,35 @@
     "https://westseattleblog.com/events/": "The West Seattle community calendar, and the biggest single list of West Seattle garage sales, clothing swaps and rummage sales there is: the All-in-One Event Calendar export answered 4,799 VEVENTs (86 upcoming, 82 with a LOCATION, one of them a ski-and-snowboard swap) on 2026-09-19. Their robots.txt Disallows `/*controller=ai1ec_exporter_controller*` for `User-agent: *`, along with every `/events/action~*/` view. That is the only machine-readable route out of the plugin, so there is no permitted feed - the same line the Squarespace adapter walks with `?format=json`. Worth asking them for a subscription URL; not worth taking.",
     "https://everout.com/everout/lists/2026-community-sales/": "EverOut's Seattle list of 2026 community sales looked like the one page that names every neighbourhood garage-sale day. It answers 403 to this aggregator's User-Agent - the robots.txt itself is a 403 - which is a refusal, and it is a commercial listings product besides. The neighbourhood councils it links to are the sources; four of them (Montlake, PhinneyWood, Maple Leaf, Wedgwood) were checked directly on 2026-09-19 and only Montlake publishes a feed.",
     "https://www.parkmead.org/events": "Parkmead Community Association, Walnut Creek CA: a Squarespace collection that verifies (1 of 31 articles upcoming on 2026-09-19) and whose annual Neighborhood Garage Sale is exactly what the fleabop lens wants. Not configured because nothing on the page carries an address or map link, and Photon has no feature called Parkmead to anchor a `venue` block to - the closest hits were two other elementary schools. A squarespace source with neither is skipped loudly on every event, so this would be a source that ingests nothing. Re-probe if OSM gains the neighbourhood.",
-    "https://www.brooklynpark.org/events/": "Brooklyn Park, MN - the city that registers a Citywide Garage Sale weekend each spring. The Events Calendar answers 204 events on the REST API with street addresses, but on 2026-09-20 five of the seven on the front page were commission, council and budget meetings, and this adapter has no governance filter (that lives in the ICS adapter, keyed on a civic: label). The iCal export is one page - 7 VEVENTs - so the ICS route keeps two events. Worth revisiting if the tribe adapter grows the civic filter."
+    "https://www.brooklynpark.org/events/": "Brooklyn Park, MN - the city that registers a Citywide Garage Sale weekend each spring. The Events Calendar answers 204 events on the REST API with street addresses, but on 2026-09-20 five of the seven on the front page were commission, council and budget meetings, and this adapter has no governance filter (that lives in the ICS adapter, keyed on a civic: label). The iCal export is one page - 7 VEVENTs - so the ICS route keeps two events. Worth revisiting if the tribe adapter grows the civic filter.",
+    "https://www.communitycyclingcenter.org": "Community Cycling Center (Portland OR) - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.communitycyclingcenter.org/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://freshstartrecovery.ca": "Fresh Start Recovery Centre - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://freshstartrecovery.ca/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://www.harvestmanitoba.ca": "Winnipeg Harvest - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.harvestmanitoba.ca/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://qstation.com.au": "QStation Visitor Centre Museum - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://qstation.com.au/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://stnicholas.ie": "Church of Saint Nicholas - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://stnicholas.ie/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://dancelimerick.ie": "Dance Limerick - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://dancelimerick.ie/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://welcome.leuropeen.paris": "L'Européen - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://welcome.leuropeen.paris/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://www.gldf.org": "Hôtel de la Grande Loge de France - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.gldf.org/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://dansmuseet.se": "Dansmuseet - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://dansmuseet.se/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://www.bibliotekawilanowska.pl": "Wypożyczalnia dla Dorosłych i Młodzieży Nr 133 \"Radosna\" - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.bibliotekawilanowska.pl/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Letter: ../mapsee/outreach/partners/library-calendar-permission.md. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://jaartallen1890.wpcomstaging.com": "Koninklijk Verbond der Jaartallen - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://jaartallen1890.wpcomstaging.com/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://explorelompoc.com": "Lompoc (explorelompoc.com) - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://explorelompoc.com/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://sheridanwyomingchamber.org": "Sheridan - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://sheridanwyomingchamber.org/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://cityofgloversvilleny.gov": "Gloversville - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://cityofgloversvilleny.gov/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://leonesesenmadrid.org": "Casa de León - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://leonesesenmadrid.org/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://museudebadalona.cat": "Museu de Badalona - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://museudebadalona.cat/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://terrranova.com": "Llibreria Terranova - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://terrranova.com/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://www.bibliotecacerdanyola.cat": "Biblioteca Central de Cerdanyola - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.bibliotecacerdanyola.cat/robots.txt answers `Disallow: /*` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Letter: ../mapsee/outreach/partners/library-calendar-permission.md. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://www.lapolivalente.com": "La Polivalente - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.lapolivalente.com/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://www.meet-malaga.eu": "Málaga Espacio Expositivo Tabacalera - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.meet-malaga.eu/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://centrepompidou-malaga.eu": "Centro Pompidou Málaga - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://centrepompidou-malaga.eu/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://parcema.com": "Jardín del Recuerdo - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://parcema.com/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://www.poloculturalementana.it": "MuCaM - Museo civico archeologico di Mentana e dell'agro nomentano - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.poloculturalementana.it/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://hooveekoo.fi": "Humallahden Venekerho HVK - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://hooveekoo.fi/robots.txt answers `Disallow: /wp-json` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://pompeiisites.org": "Palestra Grande (II.7.1) - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://pompeiisites.org/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://www.sarasotaaudubon.org": "Sarasota Audubon Society - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.sarasotaaudubon.org/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://www.bellevillelibrary.ca": "Belleville Public Library (Belleville, Canada) - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.bellevillelibrary.ca/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Letter: ../mapsee/outreach/partners/library-calendar-permission.md. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://christchurchcathedral.ie": "Christ Church Cathedral - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://christchurchcathedral.ie/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Its robots.txt answered the first fetch that day with a bot challenge, and the second with this rule. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://wabano.com": "Wabano Centre for Aboriginal Health (Ottawa, Canada) - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://wabano.com/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Its robots.txt answered the first fetch that day with a bot challenge, and the second with this rule. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it."
   }
 }

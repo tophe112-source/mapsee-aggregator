@@ -182,20 +182,6 @@
     "limit": 300
   },
   {
-    "name": "FIU Library Events (Miami)",
-    "url": "https://fiu.libcal.com/ical_subscribe.php?cid=15594",
-    "category": "learning",
-    "geocode_suffix": ", Miami, FL",
-    "limit": 300
-  },
-  {
-    "name": "Denver Public Library - Programs & Events (Denver)",
-    "url": "https://denverlibrary.libcal.com/ical_subscribe.php?cid=20634",
-    "category": "learning",
-    "geocode_suffix": ", Denver, CO",
-    "limit": 300
-  },
-  {
     "name": "Parker Recreation & Community Events (Denver)",
     "url": "https://www.parkerrec.com/common/modules/iCalendar/iCalendar.aspx?catID=20&feed=calendar",
     "category": "community",
@@ -249,27 +235,6 @@
     "url": "https://www.huntersville.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
     "category": "community",
     "geocode_suffix": ", Charlotte, NC",
-    "limit": 300
-  },
-  {
-    "name": "Minneapolis Park & Recreation Board (Minneapolis)",
-    "url": "https://www.minneapolisparks.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Minneapolis, MN",
-    "limit": 300
-  },
-  {
-    "name": "UMN Libraries - Innovation & Technology (Minneapolis)",
-    "url": "https://umn.libcal.com/ical_subscribe.php?cid=12437",
-    "category": "learning",
-    "geocode_suffix": ", Minneapolis, MN",
-    "limit": 300
-  },
-  {
-    "name": "UMN Libraries - Workshops (Minneapolis)",
-    "url": "https://umn.libcal.com/ical_subscribe.php?cid=3064",
-    "category": "learning",
-    "geocode_suffix": ", Minneapolis, MN",
     "limit": 300
   },
   {
@@ -480,13 +445,6 @@
     "url": "https://downtownwinnipegbiz.com/events/?ical=1",
     "category": "community",
     "geocode_suffix": ", Winnipeg, Canada",
-    "limit": 300
-  },
-  {
-    "name": "Gardiner Museum (Toronto, Canada)",
-    "url": "https://gardinermuseum.on.ca/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Toronto, Canada",
     "limit": 300
   },
   {
@@ -785,13 +743,6 @@
     "limit": 300
   },
   {
-    "name": "Toronto Botanical Garden (Toronto, Canada)",
-    "url": "https://torontobotanicalgarden.ca/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Toronto, Canada",
-    "limit": 300
-  },
-  {
     "name": "Stanley Park Ecology Society (Vancouver, Canada)",
     "url": "https://www.stanleyparkecology.ca/events/?ical=1",
     "category": "outdoors",
@@ -922,20 +873,6 @@
     "url": "https://bangaloreinternationalcentre.org/events/?ical=1",
     "category": "community",
     "geocode_suffix": ", Bengaluru, India",
-    "limit": 300
-  },
-  {
-    "name": "University of Johannesburg Library - Events (Johannesburg, South Africa)",
-    "url": "https://uj-ac-za.libcal.com/ical_subscribe.php?cid=16683",
-    "category": "learning",
-    "geocode_suffix": ", Johannesburg, South Africa",
-    "limit": 300
-  },
-  {
-    "name": "University of Johannesburg Library - Training (Johannesburg, South Africa)",
-    "url": "https://uj-ac-za.libcal.com/ical_subscribe.php?cid=16682",
-    "category": "learning",
-    "geocode_suffix": ", Johannesburg, South Africa",
     "limit": 300
   },
   {
@@ -1156,24 +1093,10 @@
     "limit": 300
   },
   {
-    "name": "Merikarvia Municipality (Merikarvia, Finland)",
-    "url": "https://merikarvia.fi/tapahtumat/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Merikarvia, Finland",
-    "limit": 300
-  },
-  {
     "name": "Kulturstedet Lindegaarden (Kgs. Lyngby, Denmark)",
     "url": "https://kulturstedetlindegaarden.dk/events/?ical=1",
     "category": "community",
     "geocode_suffix": ", Kgs. Lyngby, Denmark",
-    "limit": 300
-  },
-  {
-    "name": "Alliance Francaise de Chandigarh (Chandigarh, India)",
-    "url": "https://chandigarh.afindia.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Chandigarh, India",
     "limit": 300
   },
   {
@@ -1314,13 +1237,6 @@
     "url": "https://foodbanknyc.org/events/?ical=1",
     "category": "community",
     "geocode_suffix": ", New York, NY",
-    "limit": 300
-  },
-  {
-    "name": "Houston Food Bank",
-    "url": "https://houstonfoodbank.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Houston, TX",
     "limit": 300
   },
   {
@@ -1478,13 +1394,6 @@
     "limit": 300
   },
   {
-    "name": "Gansevoort Market (New York)",
-    "url": "https://gansmarket.com/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", New York, NY",
-    "limit": 300
-  },
-  {
     "name": "La Cosecha Market (Washington DC)",
     "url": "https://lacosechadc.com/events/?ical=1",
     "category": "market",
@@ -1597,13 +1506,6 @@
     "limit": 300
   },
   {
-    "name": "Woodstock Farmers Market (Oxfordshire)",
-    "url": "https://www.wutw.co.uk/whats-on/category/markets/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Woodstock, Oxfordshire, UK",
-    "limit": 300
-  },
-  {
     "name": "Nourish Knoxville Farmers Markets (Knoxville, TN)",
     "url": "https://nourishknoxville.org/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "market",
@@ -1629,13 +1531,6 @@
     "url": "https://athertonmillandmarket.com/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "market",
     "geocode_suffix": ", Charlotte, NC",
-    "limit": 300
-  },
-  {
-    "name": "Bristol Brewing (Colorado Springs)",
-    "url": "https://bristolbrewing.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Colorado Springs, CO",
     "limit": 300
   },
   {
@@ -1723,13 +1618,6 @@
     "limit": 300
   },
   {
-    "name": "Alla Massor mat och dryck (Sweden)",
-    "url": "https://www.allamassor.se/events/category/mat-dryck/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Sweden",
-    "limit": 300
-  },
-  {
     "name": "Voedselbos Lingehout (Gelderland, Netherlands)",
     "url": "https://voedselboslingehout.nl/agenda/?ical=1",
     "category": "food",
@@ -1758,25 +1646,11 @@
     "limit": 300
   },
   {
-    "name": "Santa Fe Public Library",
-    "url": "https://santafelibrary.org/events/feed/ical/",
-    "category": "learning",
-    "geocode_suffix": ", Santa Fe, NM",
-    "limit": 1500
-  },
-  {
     "name": "Fletcher Free Library (Burlington VT)",
     "url": "https://fletcherfree.libcal.com/ical_subscribe.php?cid=21587",
     "category": "learning",
     "geocode_suffix": ", Burlington, VT",
     "limit": 400
-  },
-  {
-    "name": "Fresno County Public Library",
-    "url": "https://fresnolibrary.libcal.com/ical_subscribe.php?cid=11003",
-    "category": "learning",
-    "geocode_suffix": ", Fresno, CA",
-    "limit": 300
   },
   {
     "name": "Chattanooga Public Library",
@@ -2220,15 +2094,6 @@
     "_metro": "Auckland, NZ"
   },
   {
-    "name": "Richmond Yacht Club",
-    "category": "community",
-    "_found": "osm:club -> ics",
-    "url": "https://calendar.google.com/calendar/ical/c_3s0a13m0mthbr4hsd3p6ogm748%40group.calendar.google.com/private-2857337a6bfb041386cfa07f66d326f7/basic.ics",
-    "geocode_suffix": ", Auckland, NZ",
-    "limit": 300,
-    "_metro": "Auckland, NZ"
-  },
-  {
     "name": "Titirangi Baptist Church",
     "category": "community",
     "_found": "osm:place_of_worship -> ics",
@@ -2355,28 +2220,10 @@
     "_metro": "Copenhagen, DK"
   },
   {
-    "name": "Slagtehal3",
-    "category": "theater",
-    "_found": "osm:cinema -> ics",
-    "url": "https://slagtehal3.dk/slagtehal3.ics",
-    "geocode_suffix": ", Aarhus, DK",
-    "limit": 300,
-    "_metro": "Aarhus, DK"
-  },
-  {
     "name": "AMOK",
     "category": "community",
     "_found": "osm:community_centre -> ics",
     "url": "https://amok.today/events/calender.ics",
-    "geocode_suffix": ", Aarhus, DK",
-    "limit": 300,
-    "_metro": "Aarhus, DK"
-  },
-  {
-    "name": "Saralystkirken",
-    "category": "community",
-    "_found": "osm:place_of_worship -> ics",
-    "url": "https://api.chmeetings.com/client/saralystkirken/6E61EBF72AE47D6B/Calendar/ICal/",
     "geocode_suffix": ", Aarhus, DK",
     "limit": 300,
     "_metro": "Aarhus, DK"
@@ -3320,15 +3167,6 @@
     "_metro": "Stockholm, SE"
   },
   {
-    "name": "Lidingö Roddklubb",
-    "category": "community",
-    "_found": "osm:club -> ics",
-    "url": "https://www.lidingoroddklubb.se/api2/bokning-vcalendar",
-    "geocode_suffix": ", Lidingö",
-    "limit": 300,
-    "_metro": "Stockholm, SE"
-  },
-  {
     "name": "Centrumkyrkan",
     "category": "community",
     "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
@@ -3363,24 +3201,6 @@
     "geocode_suffix": ", Stockholm, SE",
     "limit": 300,
     "_metro": "Stockholm, SE"
-  },
-  {
-    "name": "Edsvikens Tennisklubb",
-    "category": "fitness",
-    "_found": "osm:sports_centre -> ics",
-    "url": "https://calendar.google.com/calendar/ical/edsvikenstennis%40gmail.com/private-001e9d4a2c3efd8b39d9c504cd5b3b3b/basic.ics",
-    "geocode_suffix": ", Stockholm, SE",
-    "limit": 300,
-    "_metro": "Stockholm, SE"
-  },
-  {
-    "name": "Betlehemskyrkan",
-    "category": "community",
-    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
-    "url": "https://betlehemskyrkan.se/?feed=my-calendar-ics",
-    "geocode_suffix": ", Göteborg",
-    "limit": 300,
-    "_metro": "Gothenburg, SE"
   },
   {
     "name": "Gasquen",
@@ -3824,15 +3644,6 @@
     "_metro": "St. Peters, Missouri"
   },
   {
-    "name": "Malmö Klätterklubb",
-    "category": "community",
-    "_found": "osm:club -> events-manager",
-    "url": "https://malmoklatterklubb.se/?ical=1",
-    "geocode_suffix": ", Malmö",
-    "limit": 300,
-    "_metro": "Malmo, SE"
-  },
-  {
     "name": "Barnens Scen",
     "category": "theater",
     "_found": "osm:theatre -> ics",
@@ -4137,15 +3948,6 @@
     "category": "theater",
     "_found": "osm:theatre -> events-manager",
     "url": "https://planet.tt/kalender/?ical=1",
-    "geocode_suffix": ", Wien",
-    "limit": 300,
-    "_metro": "Vienna, AT"
-  },
-  {
-    "name": "Buddhistisches Zentrum Wien KKD",
-    "category": "community",
-    "_found": "osm:place_of_worship -> ics",
-    "url": "https://ical.dwbn.org/public/lectures/center/wien.ics?_locale=de",
     "geocode_suffix": ", Wien",
     "limit": 300,
     "_metro": "Vienna, AT"
@@ -5199,15 +5001,6 @@
     "category": "community",
     "_found": "osm:place_of_worship -> my-calendar",
     "url": "https://sjoseph.be/?feed=my-calendar-ics",
-    "geocode_suffix": ", Brussels, BE",
-    "limit": 300,
-    "_metro": "Brussels, BE"
-  },
-  {
-    "name": "Beth Hillel",
-    "category": "community",
-    "_found": "osm:place_of_worship -> events-manager",
-    "url": "https://www.beth-hillel.org/evenements/?ical=1",
     "geocode_suffix": ", Brussels, BE",
     "limit": 300,
     "_metro": "Brussels, BE"
@@ -7839,15 +7632,6 @@
     "limit": 300,
     "_found": "civic:city -> civicplus[Recreation Division]",
     "_metro": "Casselberry, Florida"
-  },
-  {
-    "name": "Independence — Main Calendar",
-    "category": "community",
-    "url": "https://ky-independence.civicplus.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
-    "geocode_suffix": ", Independence, Kentucky",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Main Calendar]",
-    "_metro": "Independence, Kentucky"
   },
   {
     "name": "Frankfort — Events Calendar",
@@ -12361,15 +12145,6 @@
     "_metro": "Barcelona, ES"
   },
   {
-    "name": "Museu de Ciències Naturals de Barcelona",
-    "category": "arts",
-    "_found": "osm:museum -> events-manager",
-    "url": "https://museuciencies.cat/?ical=1",
-    "geocode_suffix": ", Barcelona, ES",
-    "limit": 300,
-    "_metro": "Barcelona, ES"
-  },
-  {
     "name": "Warrenville — Community Events",
     "category": "community",
     "url": "https://www.warrenville.il.us/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
@@ -12704,15 +12479,6 @@
     "_metro": "Artesia, New Mexico"
   },
   {
-    "name": "Internationalhof Seebach",
-    "category": "community",
-    "_found": "osm:community_centre -> ics",
-    "url": "https://calendar.clubdesk.com/clubdesk/ical/icsfile/15472/1002821/djEtaSkpV1acfWsVcG5ItVLlQL0dDCJ-3qFp5vwJZ4Q-xKY=/basic.ics",
-    "geocode_suffix": ", Zurich, CH",
-    "limit": 300,
-    "_metro": "Zurich, CH"
-  },
-  {
     "name": "Exil",
     "category": "music",
     "_found": "osm:nightclub -> ics",
@@ -12883,15 +12649,6 @@
     "limit": 300,
     "_found": "civic:city -> civicplus[City Calendar]",
     "_metro": "Grover Beach, California"
-  },
-  {
-    "name": "Lindsay",
-    "category": "community",
-    "_found": "civic:city -> ics",
-    "url": "https://legacylindsayca.teammunicode.com/calendar/ical/%2A/calendar.ics",
-    "geocode_suffix": ", Lindsay, California",
-    "limit": 300,
-    "_metro": "Lindsay, California"
   },
   {
     "name": "Wickliffe — Community Center Room Rentals",
@@ -14645,15 +14402,6 @@
     "_note": "Clay County (FL) libraries' LibCal 'Library Calendar - Overall'. libcal robots disallows only /process_. Jacksonville Public Library itself answers 403 here; this fills the south suburbs."
   },
   {
-    "name": "Tulane University Libraries - Public Events (New Orleans, LA)",
-    "url": "https://tulane.libcal.com/ical_subscribe.php?cid=21966",
-    "category": "learning",
-    "geocode_suffix": ", New Orleans, LA",
-    "limit": 300,
-    "_metro": "New Orleans, US",
-    "_note": "Tulane Libraries LibCal calendar named '1 - Public (posted to the website)'. libcal robots disallows only /process_. Talks, exhibits, music; New Orleans Public Library is Communico (no feed)."
-  },
-  {
     "name": "St. Petersburg Library System (Tampa, FL)",
     "url": "https://splibraries.libcal.com/ical_subscribe.php?cid=2830",
     "category": "learning",
@@ -15201,24 +14949,6 @@
     "_note": "District I (Budavár) municipal cultural centre: baba-mama club, senior gym, clubs, talks at three houses; 273 events in 120 days. TEC iCal list (venues carry no geo). robots.txt disallows only WooCommerce/admin."
   },
   {
-    "name": "Bürgerhaus in Meiendorf BiM (Hamburg)",
-    "url": "https://bim-hamburg.de/?plugin=all-in-one-event-calendar&controller=ai1ec_exporter_controller&action=export_events",
-    "category": "community",
-    "geocode_suffix": ", Hamburg, Germany",
-    "limit": 300,
-    "_metro": "Hamburg, Germany",
-    "_note": "Meiendorf Bürgerhaus: Dorfcafé, repair café, clothes swap, children's reading day, Musikbühne. All-in-One Event Calendar export, 37 upcoming; most lack LOCATION, so `venue` places them. robots.txt disallows only /calendar/action~ views.",
-    "venue": {
-      "name": "Bürgerhaus in Meiendorf (BiM)",
-      "address": "Saseler Straße 21",
-      "city": "Hamburg",
-      "postal_code": "22145",
-      "country": "DE",
-      "lat": 53.6234536,
-      "lon": 10.1629959
-    }
-  },
-  {
     "name": "KulturWerk Rahlstedt (Hamburg)",
     "url": "https://www.kulturwerk-rahlstedt.de/events.ics",
     "category": "community",
@@ -15425,36 +15155,6 @@
     "limit": 500,
     "_metro": "Toronto, Canada",
     "_note": "LibCal programme calendar of Milton Public Library (Halton, GTA); robots.txt allows ical_subscribe.php (only /process_ is disallowed). Storytimes, clubs, workshops."
-  },
-  {
-    "name": "Whitby Public Library - Adults (Whitby, Canada)",
-    "url": "https://whitbylibrary.libcal.com/ical_subscribe.php?cid=7833",
-    "category": "learning",
-    "geocode_suffix": ", Whitby, ON, Canada",
-    "limit": 300,
-    "_metro": "Toronto, Canada",
-    "_note": "LibCal adult programmes calendar of Whitby Public Library (Durham, GTA); robots.txt allows ical_subscribe.php. Kids and teens are separate cids.",
-    "crawl_delay": 10.0
-  },
-  {
-    "name": "Whitby Public Library - Children (Whitby, Canada)",
-    "url": "https://whitbylibrary.libcal.com/ical_subscribe.php?cid=7835",
-    "category": "kids",
-    "geocode_suffix": ", Whitby, ON, Canada",
-    "limit": 300,
-    "_metro": "Toronto, Canada",
-    "_note": "LibCal children's programmes calendar of Whitby Public Library (Durham, GTA): storytimes, Lego club, baby music. robots.txt allows ical_subscribe.php.",
-    "crawl_delay": 10.0
-  },
-  {
-    "name": "Whitby Public Library - Teens (Whitby, Canada)",
-    "url": "https://whitbylibrary.libcal.com/ical_subscribe.php?cid=7837",
-    "category": "learning",
-    "geocode_suffix": ", Whitby, ON, Canada",
-    "limit": 200,
-    "_metro": "Toronto, Canada",
-    "_note": "LibCal teen programmes calendar of Whitby Public Library (Durham, GTA); robots.txt allows ical_subscribe.php.",
-    "crawl_delay": 10.0
   },
   {
     "name": "County of Brant Public Library (Paris, Canada)",
@@ -16147,105 +15847,6 @@
     "limit": 300,
     "_metro": "Albuquerque, United States",
     "_note": "Village of Los Lunas CivicPlus Library category: storytimes, movies, readings. robots.txt allows the iCalendar path. Albuquerque metro, Valencia County."
-  },
-  {
-    "name": "Davis County Library (Davis County, UT)",
-    "url": "https://daviscounty.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", UT",
-    "limit": 500,
-    "_metro": "Salt Lake City, United States",
-    "_note": "Davis County Library, 7 branches (Layton, Kaysville, Centerville, Syracuse...). LibraryMarket /events/feed/ical, address + GEO per row. robots.txt allows /events/; answered 200, no Cloudflare."
-  },
-  {
-    "name": "Orem Public Library (Orem)",
-    "url": "https://orem.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", Orem, UT",
-    "limit": 500,
-    "_metro": "Salt Lake City, United States",
-    "_note": "Orem Public Library programmes. LibraryMarket /events/feed/ical, address + GEO per row. robots.txt allows /events/; answered 200, no Cloudflare."
-  },
-  {
-    "name": "Logan Library (Logan)",
-    "url": "https://loganutah.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", Logan, UT",
-    "limit": 500,
-    "_metro": "Logan, United States",
-    "_note": "Logan Library (Cache Valley) programmes. LibraryMarket /events/feed/ical, address + GEO per row. robots.txt allows /events/; answered 200, no Cloudflare."
-  },
-  {
-    "name": "Glendale Public Library (Glendale, AZ)",
-    "url": "https://glendaleaz.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", Glendale, AZ",
-    "limit": 500,
-    "_metro": "Phoenix, United States",
-    "_note": "Glendale AZ libraries (Foothills, Main, Velma Teague). LibraryMarket /events/feed/ical, address + GEO per row. robots.txt allows /events/; answered 200, no Cloudflare."
-  },
-  {
-    "name": "Escondido Public Library (Escondido)",
-    "url": "https://escondido.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", Escondido, CA",
-    "limit": 500,
-    "_metro": "San Diego, United States",
-    "_note": "Escondido Public Library programmes. LibraryMarket /events/feed/ical; rows carry a full street address but no GEO. robots.txt allows /events/; answered 200, no Cloudflare."
-  },
-  {
-    "name": "Coronado Public Library (Coronado)",
-    "url": "https://coronado.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", Coronado, CA",
-    "limit": 500,
-    "_metro": "San Diego, United States",
-    "_note": "Coronado Public Library programmes. LibraryMarket /events/feed/ical, address + GEO per row. robots.txt allows /events/; answered 200, no Cloudflare."
-  },
-  {
-    "name": "Santa Clarita Public Library (Santa Clarita)",
-    "url": "https://santaclarita.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", Santa Clarita, CA",
-    "limit": 500,
-    "_metro": "Los Angeles, United States",
-    "_note": "Santa Clarita Public Library, 4 branches. LibraryMarket /events/feed/ical, address + GEO per row. robots.txt allows /events/; answered 200, no Cloudflare."
-  },
-  {
-    "name": "Simi Valley Library (Simi Valley)",
-    "url": "https://simivalley.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", Simi Valley, CA",
-    "limit": 500,
-    "_metro": "Los Angeles, United States",
-    "_note": "Simi Valley Library programmes. LibraryMarket /events/feed/ical; rows carry a full street address but no GEO. robots.txt allows /events/; answered 200, no Cloudflare."
-  },
-  {
-    "name": "Hayward Public Library (Hayward)",
-    "url": "https://hayward.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", Hayward, CA",
-    "limit": 500,
-    "_metro": "San Francisco, United States",
-    "_note": "Hayward Public Library (Downtown, Weekes). LibraryMarket /events/feed/ical, address + GEO per row. robots.txt allows /events/; answered 200, no Cloudflare."
-  },
-  {
-    "name": "Camas Public Library (Camas)",
-    "url": "https://camaspl.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", Camas, WA",
-    "limit": 500,
-    "_metro": "Portland, United States",
-    "_note": "Camas Public Library (Clark County WA). LibraryMarket /events/feed/ical, address + GEO per row. robots.txt allows /events/; answered 200, no Cloudflare."
-  },
-  {
-    "name": "Poudre River Public Library District (Fort Collins)",
-    "url": "https://poudrelibraries.librarycalendar.com/events/feed/ical",
-    "category": "learning",
-    "geocode_suffix": ", Fort Collins, CO",
-    "limit": 500,
-    "_metro": "Fort Collins, United States",
-    "_note": "Poudre River Public Library District, Fort Collins. LibraryMarket /events/feed/ical, address + GEO per row. robots.txt allows /events/; answered 200, no Cloudflare."
   },
   {
     "name": "Belvedere Tiburon Library (Tiburon)",
@@ -18037,5 +17638,348 @@
     "geocode_suffix": ", Johannesburg, South Africa",
     "limit": 300,
     "_metro": "Johannesburg, South Africa"
+  },
+  {
+    "name": "Jumu'a Mosque of Cape Town",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/info@jumuamosquect.com/public/basic.ics",
+    "geocode_suffix": ", Cape Town, South Africa",
+    "limit": 300,
+    "_metro": "Cape Town, South Africa"
+  },
+  {
+    "name": "Grace Presbyterian Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2b19mnah1i2ms46a1laluuht44%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Monte Vista",
+    "limit": 300,
+    "_metro": "Cape Town, South Africa"
+  },
+  {
+    "name": "Highway Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_7d704324df9a4c93a3374ab33a2352e46f9954ba5a6b4eec780905ddcd1431b2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Centurion",
+    "limit": 300,
+    "_metro": "Pretoria, South Africa"
+  },
+  {
+    "name": "Schoten Tennis & Padel",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/675b9970faace0837792dedad432b22acffd9af50a7b8ab97450c3ce113b4708%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Haarlem",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Buurtkamer Corantijn",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40buurtkamercorantijn.nl/public/basic.ics",
+    "geocode_suffix": ", Amsterdam",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Dorpshuis Plein 13",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pd0pt2bdujrl7l1t0o8oi46enk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rijpwetering",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "The Victory",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40thevictory.nl/public/basic.ics",
+    "geocode_suffix": ", Weesp",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Scouting Sarto",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/beheer%40scoutingsarto.nl/public/basic.ics",
+    "geocode_suffix": ", Amsterdam",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Scouting Ferguson",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/apj34rirdpita4m2c9f14gdpbs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", 's-Gravenhage",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Scouting Bernisse",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_84e5a455ac0a34d4ab9ae18643f12039f9fabcff3cd45e87a28adf37fd30bda9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Heenvliet",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Wijkcentrum De Akkers",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/BarbaraPeter709%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Spijkenisse",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Willem de Zwijgergroep III",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wdzdordt.nl_ebodg25outk4u225l32ubf5gj8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dordrecht",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Dordtse Elektronica Club",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_9cbf2d00c1131507ac3ebfde298cc43d1ded4eddb84663b408bb5f98af452695%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dordrecht",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Ontmoetingscentrum De Werf Kethel",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gd7edeaphqcq1t552pi5gv2b30%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Schiedam",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "'t Huis van Noord",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/u54qmno52fgljlb57el9i1ggu4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Schoonhoven",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "De Bolk",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tgvfhi116cpvfq0cnv463rt154%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Delft",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Marnix van Sint-Aldegondegroep",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mvansintaldegonde%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Vlaardingen",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Lodewijck van Praetgroep",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/waterwerk.lvp%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "De Stuw",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5ki9k740tbepofbb7fksda3c0k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hoevelaken",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Kade 117",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/muntmeesters%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Yumbo",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/yumbobunnik%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Bunnik",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Buurthuis het Wevehuis",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wevehuis%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Scouting Nijkerk",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/scoutingnijkerk.nl_4j5vka2pns3vf3ti46jbpuhcrg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nijkerk",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Het Vijverkwartier",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jlchmdtblpe75i064l7ubkfgs0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht, Netherlands",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "SV De Duinschutters",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40duinschutters.nl/public/basic.ics",
+    "geocode_suffix": ", Noordwijkerhout",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Het Duivelsei",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/duivelsei%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Leiden",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Stichting de Kunsterij",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.stichtingdekunsterij.nl/?ical=1",
+    "geocode_suffix": ", Eindhoven",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands",
+    "crawl_delay": 2.0
+  },
+  {
+    "name": "De Walnoot",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar+jsonld-event",
+    "url": "https://dewalnootboxtel.nl/?feed=my-calendar-ics",
+    "geocode_suffix": ", Boxtel",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "De Stuik",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/destuik%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Vorstenbosch",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Krijt Op Tijd",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/999acb13e24bfe2a706a7c4a1488a78f361febbcfa1613e5b345dc6a5a4b54b8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Veghel",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "De Wa-Kwai",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/90a121444f987130233f360025c280ef45d6d43a043780fff006d27f6aecf193%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Veghel",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Ontmoetingscentrum de Coppele",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agend.ocdecoppele%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Oisterwijk",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "De Schakel",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8avtfcb7iqfon50lt8kkskibb8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Budel-Dorplein",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Lopersgroep Deurne",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agendaavlgd%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Deurne",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Scouting Brandevoort",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/scouting.brandevoort%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Helmond",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Helmondse Tennisvereniging",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://htv.nl/?ical=1",
+    "geocode_suffix": ", Helmond",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "De Holm",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/acdeholm%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Groningen",
+    "limit": 300,
+    "_metro": "Groningen, Netherlands"
+  },
+  {
+    "name": "Dorpshuis",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.dezandvoorten.nl/evenementen/?ical=1",
+    "geocode_suffix": ", Groningen, Netherlands",
+    "limit": 300,
+    "_metro": "Groningen, Netherlands"
   }
 ]
