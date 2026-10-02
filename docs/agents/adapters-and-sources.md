@@ -3,6 +3,21 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: Luma, parkrun, businesses vs events, a malformed record, schema.org by accident, webcal, JSON-LD, Overpass slots, seattlecenter, a helper's inherited contract.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **MUSEUM ADMISSION WINDOWS ARE VISITS, NOT ORGANIZED EVENTS.** Google's
+  Event guidance excludes business hours. The 2026-10-01 dry run of 14 curated
+  museum/fort/gallery programs generated 2,854 records: 2,853 dated windows and
+  1 standing VMFA row. All now explicitly carry
+  `source_details.listing_type = "visit_window"`, which the Mapsee Worker uses
+  for Place metadata; a monthly free-admission offer is also a visit. The
+  opt-in changes no fingerprints, dates, coordinates, admission restrictions
+  or row cardinality. All 2,854 markers survived EventStore and `build_rows`
+  with 0 geocoding calls. Only the 10 programs with existing numeric admission
+  facts assert zero prices; the 4 established monthly programs gain no invented
+  price facts. Summer meals, the gallery tour and 2 performances retain Event
+  defaults. Unsupported opt-ins fail closed. `test_programs.py`: 45/45;
+  `test_ingest_programs.py`: 49/49. Deploy the compatible Worker before this
+  metadata; 0229 already projects the JSON, so no database migration is needed.
+
 - **NATIVE ZERO PRICES NEED NO PER-EVENT FETCH, BUT MUST SURVIVE REFRESHES.**
   On 2026-10-01 Tribe `cost` and JSON-LD raw Offer/list/AggregateOffer fields
   gain conservative admission normalization: **80 helper checks**, bounded

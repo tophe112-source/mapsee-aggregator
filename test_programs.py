@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Standing-program rows stay stable and reuse the existing recurring roller."""
+import json
 import os
 import sys
 import tempfile
@@ -171,6 +172,104 @@ priced_rows = P.program_events(priced_legacy, NoNetwork())
 check(len(priced_rows) == 1 and priced_rows[0].source_details == {
     "free": True, "offer": {"price": "0"}},
       "dated programs normalize only an explicit configured zero through the shared helper")
+
+visit_program = dict(priced_legacy, listing_type="visit_window")
+visit_rows = P.program_events(visit_program, NoNetwork())
+check(len(visit_rows) == 1 and visit_rows[0].source_details == {
+    "free": True, "offer": {"price": "0"}, "listing_type": "visit_window"},
+      "visit_window is merged with verified admission facts")
+if visit_rows and priced_rows:
+    visit = visit_rows[0]
+    baseline = priced_rows[0]
+    check((visit.fingerprint, visit.start_local, visit.start_utc, visit.latitude, visit.longitude,
+           visit.address, visit.name) ==
+          (baseline.fingerprint, baseline.start_local, baseline.start_utc, baseline.latitude,
+           baseline.longitude, baseline.address, baseline.name),
+          "visit_window leaves dated event identity, time, place and coordinates unchanged")
+    with tempfile.TemporaryDirectory(prefix="mapsee-visit-window-") as temp:
+        path = Path(temp) / "events.json"
+        store = EventStore(str(path))
+        store.upsert(visit)
+        store.save()
+        built = build_rows(str(path), "test-host", geo_session=None)
+        check(len(store.records) == 1 and len(built) == 1
+              and built[0]["source_details"] == {
+                  "free": True, "offer": {"price": "0"}, "listing_type": "visit_window"}
+              and built[0]["external_id"] == baseline.fingerprint
+              and (built[0]["lat"], built[0]["lon"], built[0]["street_address"]) ==
+                  (baseline.latitude, baseline.longitude, baseline.address),
+              "EventStore and build_rows preserve the marker, offer, identity and place")
+
+without_admission = dict(legacy, listing_type="visit_window")
+without_admission_rows = P.program_events(without_admission, NoNetwork())
+check(len(without_admission_rows) == 1 and without_admission_rows[0].source_details == {
+    "listing_type": "visit_window"},
+      "visit_window can be persisted without inventing admission facts")
+for invalid in (None, "event", "Place", {}, True):
+    check(fails_closed(dict(legacy, listing_type=invalid)),
+          f"invalid listing_type {invalid!r} fails closed")
+
+new_visit_configs = {
+    "Cleveland Museum of Art Free Permanent Collection",
+    "Nelson-Atkins Museum of Art Free Admission",
+    "Virginia Museum of Fine Arts Free General Admission",
+    "Free self-guided visit to Elizabeth Fort",
+    "Free visit to Galway City Museum",
+    "Free visit to Christchurch Art Gallery",
+    "MUSA Guadalajara free museum visit",
+    "Museo del Palacio free exhibition visit",
+    "FUGA free exhibition visit: Made in Hungary",
+    "Darshan Museum Pune free public visit",
+}
+established_visit_configs = {
+    "Domenica al museo",
+    "Centre des monuments nationaux: premier dimanche",
+    "Musées nationaux à Paris: premier dimanche",
+    "Museums on Us",
+}
+expected_visit_configs = new_visit_configs | established_visit_configs
+live_programs = json.loads(Path("program_sources.json").read_text(encoding="utf-8"))
+actual_visit_configs = {p.get("name") for p in live_programs if p.get("listing_type") == "visit_window"}
+check(actual_visit_configs == expected_visit_configs,
+      "the fourteen curated museum, fort and gallery visits opt into visit_window")
+unmarked_event_configs = {"Seattle Free Summer Meals", "Free Guided Gallery Tour: Tour for Tots",
+                          "Tauranga Civic Choir", "Harp over the Harbour"}
+check(all("listing_type" not in p for p in live_programs if p.get("name") in unmarked_event_configs),
+      "meals, a scheduled gallery tour and performances retain Event defaults")
+check(all(p.get("listing_type") == "visit_window" for p in live_programs
+          if p.get("name") in established_visit_configs),
+      "the four existing free-admission calendars opt into visit_window")
+
+tagged_events = [event for program in live_programs if program.get("name") in expected_visit_configs
+                 for event in P.program_events(program, NoNetwork())]
+check(all(any(event.source_details and event.source_details.get("listing_type") == "visit_window"
+              for event in tagged_events if event.source.startswith(
+                  "program:" + program["name"].lower().replace(" ", "-")))
+          for program in live_programs if program.get("name") in expected_visit_configs),
+      "each of the fourteen live visit configs emits a tagged row")
+new_tagged_events = [event for program in live_programs if program.get("name") in new_visit_configs
+                     for event in P.program_events(program, NoNetwork())]
+check(all(event.source_details.get("free") is True
+          and event.source_details.get("offer", {}).get("price") == "0"
+          for event in new_tagged_events),
+      "the ten new configs retain their explicit zero-price evidence")
+with tempfile.TemporaryDirectory(prefix="mapsee-live-visit-windows-") as temp:
+    path = Path(temp) / "events.json"
+    store = EventStore(str(path))
+    for event in tagged_events:
+        store.upsert(event)
+    store.save()
+    built = build_rows(str(path), "test-host", geo_session=None)
+    check(len(store.records) == len(tagged_events) == len(built)
+          and all(row["source_details"].get("listing_type") == "visit_window" for row in built),
+          "all live visit records keep cardinality and listing metadata through build_rows")
+
+standing_visit = P.program_events(dict(vmfa, listing_type="visit_window"), NoNetwork())
+check(len(standing_visit) == 1 and standing_visit[0].recurring_days == first[0].recurring_days
+      and standing_visit[0].source_details == {
+          "free": True, "offer": {"price": "0", "url": vmfa["url"]},
+          "listing_type": "visit_window"},
+      "the VMFA standing row retains weekly hours and admission alongside its visit marker")
 
 failed = [label for ok, label in checks if not ok]
 for ok, label in checks:

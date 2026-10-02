@@ -25,6 +25,7 @@
   },
   {
     "name": "Domenica al museo",
+    "listing_type": "visit_window",
     "free_for": "everyone",
     "category": "arts",
     "categories": ["learning"],
@@ -396,6 +397,7 @@
   },
   {
     "name": "Centre des monuments nationaux: premier dimanche",
+    "listing_type": "visit_window",
     "free_for": "everyone",
     "category": "arts",
     "categories": ["learning"],
@@ -482,6 +484,7 @@
   },
   {
     "name": "Musées nationaux à Paris: premier dimanche",
+    "listing_type": "visit_window",
     "free_for": "everyone",
     "category": "arts",
     "categories": ["learning"],
@@ -503,6 +506,7 @@
   },
   {
     "name": "Museums on Us",
+    "listing_type": "visit_window",
     "free_for": "Bank of America and Merrill cardholders",
     "category": "arts",
     "categories": ["learning"],
@@ -768,6 +772,7 @@
   },
   {
     "name": "Cleveland Museum of Art Free Permanent Collection",
+    "listing_type": "visit_window",
     "category": "arts",
     "timezone": "America/New_York",
     "days": "Tuesday Wednesday Thursday Friday Saturday Sunday",
@@ -870,6 +875,7 @@
   },
   {
     "name": "Nelson-Atkins Museum of Art Free Admission",
+    "listing_type": "visit_window",
     "category": "arts",
     "timezone": "America/Chicago",
     "days": "Monday Thursday Friday Saturday Sunday",
@@ -935,6 +941,7 @@
   },
   {
     "name": "Virginia Museum of Fine Arts Free General Admission",
+    "listing_type": "visit_window",
     "standing": true,
     "category": "arts",
     "timezone": "America/New_York",
@@ -989,6 +996,7 @@
   },
   {
     "name": "Free self-guided visit to Elizabeth Fort",
+    "listing_type": "visit_window",
     "category": "arts",
     "url": "https://www.corkcity.ie/en/elizabeth-fort/visitor-information/",
     "timezone": "Europe/Dublin",
@@ -1053,6 +1061,7 @@
   },
   {
     "name": "Free visit to Galway City Museum",
+    "listing_type": "visit_window",
     "category": "arts",
     "url": "https://galwaycitymuseum.ie/plan-your-visit/",
     "timezone": "Europe/Dublin",
@@ -1127,6 +1136,7 @@
   },
   {
     "name": "Free visit to Christchurch Art Gallery",
+    "listing_type": "visit_window",
     "category": "arts",
     "url": "https://christchurchartgallery.org.nz/visit/",
     "timezone": "Pacific/Auckland",
@@ -1251,6 +1261,7 @@
   },
   {
     "name": "MUSA Guadalajara free museum visit",
+    "listing_type": "visit_window",
     "category": "arts",
     "url": "https://udg.mx/node/86280",
     "timezone": "America/Mexico_City",
@@ -1311,6 +1322,7 @@
   },
   {
     "name": "Museo del Palacio free exhibition visit",
+    "listing_type": "visit_window",
     "category": "arts",
     "url": "https://nl.gob.mx/es/evento/exposicion-museo-del-palacio",
     "timezone": "America/Monterrey",
@@ -1352,6 +1364,7 @@
   },
   {
     "name": "FUGA free exhibition visit: Made in Hungary",
+    "listing_type": "visit_window",
     "category": "arts",
     "url": "https://fuga.org.hu/fevent/made-in-hungary-fritz-reutner-kiallitasa/",
     "timezone": "Europe/Budapest",
@@ -1380,6 +1393,7 @@
   },
   {
     "name": "Darshan Museum Pune free public visit",
+    "listing_type": "visit_window",
     "category": "arts",
     "url": "https://www.sadhuvaswani.org/darshan-museum",
     "timezone": "Asia/Kolkata",

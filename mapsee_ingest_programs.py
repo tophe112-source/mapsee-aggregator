@@ -66,6 +66,10 @@ Standing site example:
                                     "Wednesday": ["10:00", "21:00"] } }] }
 `admission` is optional. If supplied, its public zero-price fact is normalized
 through `mapsee_admission`; an omitted/invalid value does not imply free entry.
+Use `"listing_type": "visit_window"` for general museum/monument admission
+during opening hours, including monthly admission offers. It preserves the
+dated visitor window but lets the public page publish Place search metadata.
+Organized tours, concerts and other occasions keep the default Event type.
 
 The offer:free catalog tag is assigned by ../mapsee's migration 0227 from each
 event's text, so a programme's blurb has to SAY what the
@@ -352,11 +356,21 @@ def _standing_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
     return out
 
 
+def _with_listing_type(events: List[NormalizedEvent], listing_type: Optional[str]) -> List[NormalizedEvent]:
+    if listing_type:
+        for event in events:
+            event.source_details = {**(event.source_details or {}), "listing_type": listing_type}
+    return events
+
+
 def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
+    listing_type = prog.get("listing_type")
+    if "listing_type" in prog and listing_type != "visit_window":
+        raise ValueError("listing_type must be 'visit_window' when supplied")
     if "standing" in prog and not isinstance(prog["standing"], bool):
         raise ValueError("standing must be a boolean")
     if prog.get("standing") is True:
-        return _standing_events(prog, session)
+        return _with_listing_type(_standing_events(prog, session), listing_type)
     weekdays = _weekdays(prog.get("days")) or [0, 1, 2, 3, 4]   # Mon-Fri default
     tz = _tz(prog.get("timezone"))
     s_start, s_end = _as_date(prog.get("season_start")), _as_date(prog.get("season_end"))
@@ -410,7 +424,7 @@ def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
             )
             ev.fingerprint = fp
             out.append(ev)
-    return out
+    return _with_listing_type(out, listing_type)
 
 
 def main(argv=None) -> int:

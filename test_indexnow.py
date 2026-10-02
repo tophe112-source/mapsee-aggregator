@@ -35,6 +35,9 @@ alone either serves that timestamp for ever or skips its tail.
 Last, which doors' /c/ pages are pushed at all: nearsie.com has no category
 filter and owns its city guides anyway, and a filter test silently skipped it.
 """
+import contextlib
+import io
+import json
 import sys
 import time
 
@@ -272,6 +275,62 @@ def main():
     deferring = _Sitemap("<loc>https://example.door/</loc><loc>https://mapsee.me/c/seattle</loc>")
     check("a deferring door submits nothing, not mapsee.me's pages",
           ix.landing_urls("https://example.door", deferring), [])
+
+    print()
+    print("the canonical city free URL is in the sitemap batch, and a foreign host is not")
+    free_sitemap = _Sitemap(
+        "<loc>https://mapsee.me/c/seattle</loc>"
+        "<loc>https://mapsee.me/c/seattle/free</loc>"
+        "<loc>https://other.example/c/seattle/free</loc>"
+    )
+    check("both canonical mapsee city paths are returned",
+          ix.landing_urls("https://mapsee.me", free_sitemap),
+          ["https://mapsee.me/c/seattle", "https://mapsee.me/c/seattle/free"])
+
+    print()
+    print("IndexNow receipts distinguish accepted, pending, and rejected submissions")
+    class _PostResp:
+        def __init__(self, code, payload=None, text=""):
+            self.status_code, self._payload, self.text = code, payload or {}, text
+        def json(self):
+            return self._payload
+
+    class _Poster:
+        def __init__(self, response): self.response, self.calls = response, []
+        def post(self, url, data=None, headers=None, timeout=None):
+            self.calls.append((url, json.loads(data), headers, timeout))
+            return self.response
+
+    def submit_case(code, payload=None, text=""):
+        session = _Poster(_PostResp(code, payload, text))
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            result = ix.submit("mapsee.me", ["https://mapsee.me/c/seattle/free"],
+                               session, dry_run=False)
+        return result, output.getvalue(), session
+
+    ok200, out200, post200 = submit_case(200)
+    check("HTTP 200 is accepted", ok200, True)
+    check_true("HTTP 200 is reported as accepted", "OK 1 URLs accepted (200)" in out200)
+    check("the accepted payload stays on its canonical host",
+          post200.calls[0][1]["urlList"], ["https://mapsee.me/c/seattle/free"])
+    ok202, out202, _ = submit_case(202)
+    check("HTTP 202 accepted-pending-key-validation is successful", ok202, True)
+    check_true("HTTP 202 is distinguishable in the receipt report",
+               "OK 1 URLs accepted (202)" in out202)
+    pending, out_pending, _ = submit_case(
+        403, {"errorCode": "SiteVerificationNotCompleted"})
+    check("verification-pending HTTP 403 is non-fatal", pending, True)
+    check_true("verification-pending HTTP 403 is reported as pending",
+               "PENDING 1 URLs held" in out_pending)
+    rejected403, out403, _ = submit_case(403, {"errorCode": "KeyNotFound"}, "bad key")
+    check("a non-pending HTTP 403 is fatal", rejected403, False)
+    check_true("a non-pending HTTP 403 is reported as rejected",
+               "FAIL 1 URLs rejected: HTTP 403" in out403)
+    rejected422, out422, _ = submit_case(422, {}, "host mismatch")
+    check("HTTP 422 is fatal", rejected422, False)
+    check_true("HTTP 422 is reported as rejected",
+               "FAIL 1 URLs rejected: HTTP 422" in out422)
 
     print()
     if FAILURES:
