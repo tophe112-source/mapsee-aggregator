@@ -3795,6 +3795,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "africamsafari.com": {
+    "checked": 20261002,
+    "name": "Africam Safari",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "africamuseum.be": {
     "checked": 20260911,
     "name": "AfricaMuseum",
@@ -5420,6 +5427,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "alanon.mx": {
+    "checked": 20261002,
+    "name": "AL-ANON GRUPO FE Y ESPERANZA",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "alaskabg.org/upcoming-events-workshops": {
     "checked": 20260924,
     "name": "Alaska Botanical Garden",
@@ -6697,6 +6711,13 @@
   "alpinesmuseum.ch": {
     "checked": 20260920,
     "name": "Alpines Museum der Schweiz",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "alpinochipinque.com.mx": {
+    "checked": 20261002,
+    "name": "Club Alpino Chipinque",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -41215,6 +41236,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "casadelmendrugo.com/eventos": {
+    "checked": 20261002,
+    "name": "La Casa Del Mendrugo",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "casadelquartiere.it": {
     "checked": 20260922,
     "name": "Casa del Quartiere San Salvario",
@@ -48332,6 +48360,20 @@
   "churchofjesuschrist.org/temples/details/mexico-city-mexico-temple": {
     "checked": 20261001,
     "name": "Templo de la Ciudad de M\u00e9xico",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "churchofjesuschrist.org/temples/details/monterrey-mexico-temple": {
+    "checked": 20261002,
+    "name": "Monterrey Mexico Temple",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "churchofjesuschrist.org/temples/details/puebla-mexico-temple": {
+    "checked": 20261002,
+    "name": "Templo de Puebla, M\u00e9xico",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -57951,6 +57993,13 @@
     "reason": "no event articles on the collection page",
     "status": "fail",
     "type": "squarespace"
+  },
+  "clubsonoma.mx": {
+    "checked": 20261002,
+    "name": "Club Sonoma",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "clubspark.kiwi/BishopdaleTennisClub": {
     "checked": 20260824,
@@ -69667,6 +69716,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "deportivolasfuentes.com.mx": {
+    "checked": 20261002,
+    "name": "Las Fuentes",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "deportivosbenitojuarez.com.mx/deportivo-joaquin-capilla": {
     "checked": 20261001,
     "name": "Deportivo Joaquin Capilla",
@@ -72948,6 +73004,13 @@
   "donboscobologna.it": {
     "checked": 20260923,
     "name": "San Giovanni Bosco",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dondehaymisa.com": {
+    "checked": 20261002,
+    "name": "Parroquia San Jose Obrero",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -82016,6 +82079,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "espoo.fi": {
+    "checked": 20261002,
+    "name": "Espoo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "espoo.fi/en/units/otaniemi-sports-park-athletics-field": {
     "checked": 20260903,
     "name": "Otaniemen urheilupuisto",
@@ -84886,6 +84956,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/SUNTUAP": {
+    "checked": 20261002,
+    "name": "Auditorio SUNTUAP",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/SingaporeAccidentHelpCentre": {
     "checked": 20260910,
     "name": "Persatuan Bantuan Kemalangan Di Singapura",
@@ -85239,6 +85316,13 @@
   "facebook.com/fluxhedel": {
     "checked": 20261001,
     "name": "Jongerenvereniging Flux",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/foro13espacioescenico?mibextid=ZbWKwL": {
+    "checked": 20261002,
+    "name": "Foro 13",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -87479,6 +87563,13 @@
   "fcfehraltorf.ch": {
     "checked": 20260918,
     "name": "Fussballclub Fehraltorf",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fcfm.uanl.mx/museo-universitario-de-ciencias": {
+    "checked": 20261002,
+    "name": "Museo Universitario de Ciencias UANL",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -105753,6 +105844,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hameenlinna.fi": {
+    "checked": 20261002,
+    "name": "H\u00e4meenlinna",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "hamhelsinki.fi": {
     "checked": 20260903,
     "name": "Helsingin taidemuseo HAM",
@@ -109315,6 +109413,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "helsinki.fi": {
+    "checked": 20261002,
+    "name": "Helsinki",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "helsinki.fi/fi/tiedemuseo-liekki/observatorio": {
     "checked": 20260903,
@@ -115624,6 +115729,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hyvinkaa.fi": {
+    "checked": 20261002,
+    "name": "Hyvink\u00e4\u00e4",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "hzaa.com.au": {
     "checked": 20260821,
     "name": "Hobart Zoo and Aquarium",
@@ -115876,6 +115988,13 @@
     "reason": "7 vevents / 7 future",
     "status": "ok",
     "type": "ics"
+  },
+  "ibppmty.mx": {
+    "checked": 20261002,
+    "name": "Iglesia Bautista Pr\u00edncipe de Paz",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ibrahim-masjid.org.uk": {
     "checked": 20260819,
@@ -121212,6 +121331,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "japipaseointeractivo.mx": {
+    "checked": 20261002,
+    "name": "JAPI Jalisco Paseo Interactivo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jardibotanic.org": {
     "checked": 20260915,
     "name": "Jard\u00ed Bot\u00e0nic de la Universitat de Val\u00e8ncia",
@@ -121421,6 +121547,13 @@
     "reason": "5 upcoming, sample: Encuentro Hola Tampere",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "jarvenpaa.fi": {
+    "checked": 20261002,
+    "name": "J\u00e4rvenp\u00e4\u00e4",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "jar\u00fc.ch/angebot/jugendtreff": {
     "checked": 20260917,
@@ -122965,6 +123098,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "joensuu.fi/en": {
+    "checked": 20261002,
+    "name": "Joensuu",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "joesgarage.nl": {
     "checked": 20260930,
     "name": "Joe's Garage",
@@ -124365,6 +124505,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "justiciaciudadanapuebla.org": {
+    "checked": 20261002,
+    "name": "Centro de Justicia para las Mujeres",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "justinmiller.art": {
     "checked": 20260819,
     "name": "Justin Miller Art",
@@ -124568,6 +124715,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jyvaskyla.fi/en": {
+    "checked": 20261002,
+    "name": "Jyv\u00e4skyl\u00e4",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "k-haus.at": {
     "checked": 20260907,
     "name": "K\u00fcnstlerhaus Wien",
@@ -124637,6 +124791,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kaarina.fi/sv": {
+    "checked": 20261002,
+    "name": "Kaarina",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kaarle.com": {
     "checked": 20260903,
@@ -125022,6 +125183,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kajaani.fi": {
+    "checked": 20261002,
+    "name": "Kajaani",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kajakgraz.com/vereinsstaetten/slalomstrecke": {
     "checked": 20260908,
@@ -125617,6 +125785,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kangasala.fi": {
+    "checked": 20261002,
+    "name": "Kangasala",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kangasala.fi/hyvinvointi-ja-vapaa-aika/kirjasto/kirjastot-ja-aukioloajat/paakirjasto": {
     "checked": 20260904,
@@ -128067,6 +128242,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kerava.fi": {
+    "checked": 20261002,
+    "name": "Kerava",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kerkattenhoven.be": {
     "checked": 20260913,
@@ -132170,6 +132352,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kokkola.fi": {
+    "checked": 20261002,
+    "name": "Kokkola",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kokogkage.dk": {
     "checked": 20260831,
     "name": "Kok&Kage",
@@ -133074,6 +133263,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "kotka.fi": {
+    "checked": 20261002,
+    "name": "Kotka",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kotobuki-p.co.jp/jiin/ensenji": {
     "checked": 20260924,
     "name": "\u5186\u6cc9\u5bfa",
@@ -133220,6 +133416,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kouvola.fi": {
+    "checked": 20261002,
+    "name": "Kouvola",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kouzapool.jp": {
     "checked": 20260926,
@@ -135531,6 +135734,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kuopio.fi": {
+    "checked": 20261002,
+    "name": "Kuopio",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kuparitupa.fi": {
     "checked": 20260903,
     "name": "Kuparitupa",
@@ -136336,6 +136546,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kyrkslatt.fi": {
+    "checked": 20261002,
+    "name": "Kirkkonummi",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kyrktorget.se/mankby.bibliska": {
     "checked": 20260903,
@@ -138096,6 +138313,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lahti.fi": {
+    "checked": 20261002,
+    "name": "Lahti",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "laicite-dalembert.be": {
     "checked": 20260911,
     "name": "Maison de la La\u00efcit\u00e9 d\u2019Alembert",
@@ -139621,6 +139845,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lappeenranta.fi": {
+    "checked": 20261002,
+    "name": "Lappeenranta",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "lapuente.org": {
     "checked": 20260913,
@@ -148121,6 +148352,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "linktr.ee/dientedeleonsp": {
+    "checked": 20261002,
+    "name": "Diente de Le\u00f3n",
+    "offsite_url": "https://linktr.ee/gigis.libraryy",
+    "reason": "osm probe: offsite:linktr.ee",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "linktr.ee/guetohub": {
     "checked": 20260928,
     "name": "Gueto Hub",
@@ -149620,6 +149859,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lohja.fi": {
+    "checked": 20261002,
+    "name": "Lohja",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "lohnbrauerei.ch": {
     "checked": 20260920,
@@ -154613,6 +154859,13 @@
   "marcilhacgalerie.com": {
     "checked": 20260828,
     "name": "Galerie Marcilhac - Rive Droite",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "marco.org.mx": {
+    "checked": 20261002,
+    "name": "Museo de Arte Contempor\u00e1neo MARCO",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -160043,6 +160296,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mikkeli.fi": {
+    "checked": 20261002,
+    "name": "Mikkeli",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "miklavz.si": {
     "checked": 20260923,
     "name": "Municipality of Miklav\u017e na Dravskem Polju",
@@ -163727,6 +163987,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "moonrockboulder.com": {
+    "checked": 20261002,
+    "name": "Moonrock Boulder",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "moonstonecreation.ca": {
     "checked": 20260819,
     "name": "Moonstone Creation Native Gallery",
@@ -167395,6 +167662,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museoamparo.com": {
+    "checked": 20261002,
+    "name": "Museo Amparo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museoapr.it": {
     "checked": 20260921,
     "name": "Museo APR \u2013 Archeologia Per Roma",
@@ -167479,6 +167753,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museoautopuebla.com": {
+    "checked": 20261002,
+    "name": "Museo del autom\u00f3vil Puebla",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museobagattivalsecchi.org": {
     "checked": 20260921,
     "name": "Museo Bagatti Valsecchi",
@@ -167520,6 +167801,13 @@
     "reason": "5 vevents / 5 future",
     "status": "ok",
     "type": "ics"
+  },
+  "museocabanas.jalisco.gob.mx": {
+    "checked": 20261002,
+    "name": "Instituto Cultural Caba\u00f1as",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "museocanonica.it": {
     "checked": 20260920,
@@ -167962,6 +168250,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museolamilarca.mx": {
+    "checked": 20261002,
+    "name": "Museo La Milarca",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museolenuove.it": {
     "checked": 20260923,
     "name": "Museo del carcere Le Nuove",
@@ -168280,6 +168575,13 @@
   "museospaziopubblico.it": {
     "checked": 20260923,
     "name": "Museo Spazio Pubblico",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "museospuebla.puebla.gob.mx/museos/item/6-museo-del-ejercito-y-fuerza-aerea-mexicanos": {
+    "checked": 20261002,
+    "name": "Museo del Ejercito y Fuerza A\u00e9rea Mexicanos",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -176241,6 +176543,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nokiankaupunki.fi": {
+    "checked": 20261002,
+    "name": "Nokia",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "nokiankaupunki.fi/hyvinvointi-ja-vapaa-aika/kirjasto/toimipisteet-ja-aukioloajat": {
     "checked": 20260903,
     "name": "Linnavuoren kirjasto",
@@ -178468,6 +178777,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nurmijarvi.fi": {
+    "checked": 20261002,
+    "name": "Nurmij\u00e4rvi",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "nurmijarvi.fi/teemasivut/monikko_-_nurmijarven_monitoimitalo": {
     "checked": 20260903,
@@ -185506,6 +185822,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ouka.fi": {
+    "checked": 20261002,
+    "name": "Oulu",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "ourchurch.co.nz": {
     "checked": 20260824,
@@ -195877,6 +196200,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "polideportivoescobedo.uanl.mx": {
+    "checked": 20261002,
+    "name": "Polideportivo Tigres Escobedo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "polideportivosangabriel.es": {
     "checked": 20260914,
     "name": "Polideportivo San Gabriel",
@@ -196431,6 +196761,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "pori.fi": {
+    "checked": 20261002,
+    "name": "Pori",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "porirua.elim.org.nz": {
     "checked": 20260824,
     "name": "Porirua Elim Church",
@@ -196801,6 +197138,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "porvoo.fi/sv": {
+    "checked": 20261002,
+    "name": "Porvoo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "pos.csd.waw.pl": {
     "checked": 20260909,
@@ -200801,6 +201145,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "radio28.net": {
+    "checked": 20261002,
+    "name": "Radio28.net",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "radioenlace.org": {
     "checked": 20260914,
     "name": "Radio Enlace",
@@ -201690,6 +202041,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "rauma.fi": {
+    "checked": 20261002,
+    "name": "Rauma",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "raumen.co.jp": {
     "checked": 20260924,
@@ -207575,6 +207933,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rovaniemi.fi": {
+    "checked": 20261002,
+    "name": "Rovaniemi",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "rowandale.ca": {
     "checked": 20260819,
     "name": "Rowandale Baptist Church",
@@ -210843,6 +211208,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "salo.fi": {
+    "checked": 20261002,
+    "name": "Salo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "salon-fuer-kunstbuch.at": {
     "checked": 20260907,
@@ -217245,6 +217617,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "seinajoki.fi": {
+    "checked": 20261002,
+    "name": "Sein\u00e4joki",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "seine-saintgermain.fr/fr/fiche/797419/un-musee-a-la-gloire-du-celebre-compositeur-claude-debussy": {
     "checked": 20260828,
@@ -239345,6 +239724,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tampere.fi": {
+    "checked": 20261002,
+    "name": "Tampere",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "tampere.fi/haiharan-taidekeskus.html": {
     "checked": 20260904,
     "name": "Haiharan taidekeskus",
@@ -253634,6 +254020,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tuusula.fi": {
+    "checked": 20261002,
+    "name": "Tuusula",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "tuusulanurheilukeskus.fi/monitoimihalli": {
     "checked": 20260903,
     "name": "Tekova Areena",
@@ -254592,6 +254985,13 @@
     "reason": "65 vevents / 43 future",
     "status": "ok",
     "type": "ics"
+  },
+  "udlap.mx/internas/capilladelarte.aspx": {
+    "checked": 20261002,
+    "name": "Capilla del Arte",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "udmataronesa.blogspot.com": {
     "checked": 20260915,
@@ -257547,6 +257947,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "vaasa.fi": {
+    "checked": 20261002,
+    "name": "Vaasa",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "vacherin-le-pelerin.ch": {
     "checked": 20260920,
@@ -262295,6 +262702,13 @@
   "visitridgeland.com": {
     "checked": 20260913,
     "name": "Ridgeland",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
+  "visitrovaniemi.fi": {
+    "checked": 20261002,
+    "name": "Rovaniemi",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-dmo"
