@@ -32,6 +32,25 @@ def main():
     check({"priceSpecification": {"price": 0}, "priceCurrency": "EUR"},
           {"free": True, "offer": {"price": "0", "currency": "EUR"}})
     check({"offers": [{"price": 0}, {"price": 0}]}, {"free": True, "offer": {"price": "0"}})
+    check({"price": "12.50", "priceCurrency": "USD",
+           "availability": "https://schema.org/InStock",
+           "validFrom": "2026-10-01T09:30:00-07:00"},
+          {"free": False, "offer": {"price": "12.5", "currency": "USD",
+                                     "availability": "https://schema.org/InStock",
+                                     "valid_from": "2026-10-01T09:30:00-07:00"}})
+    for invalid_date in (None, True, "2026-10-01", "2026-02-30T09:30:00Z",
+                         "2026-10-01T09:30:00", "2026-10-01T09:30:00+99:00"):
+        check({"price": 12, "priceCurrency": "USD", "validFrom": invalid_date},
+              {"free": False, "offer": {"price": "12", "currency": "USD"}})
+    check({"offers": [{"price": 12, "priceCurrency": "USD",
+                        "validFrom": "2026-10-01T09:30:00Z"},
+                       {"price": 12, "priceCurrency": "USD",
+                        "validFrom": "2026-10-02T09:30:00Z"}]},
+          {"free": False, "offer": {"price": "12", "currency": "USD"}})
+    check({"offers": [{"price": 12, "priceCurrency": "USD",
+                        "validFrom": "2026-10-01T09:30:00Z"},
+                       {"price": 12, "priceCurrency": "USD"}]},
+          {"free": False, "offer": {"price": "12", "currency": "USD"}})
     check("USD 10.00", {"free": False, "offer": {"price": "10", "currency": "USD"}})
     check("€5", {"free": False, "offer": {"price": "5", "currency": "EUR"}})
     check("£5", {"free": False})
@@ -54,7 +73,11 @@ def main():
     for context in ("Free for members", "Members only", "First class free", "Free with a purchase",
                     "Free for children under 5", "Free before 6 pm", "Free before 18:00", "Free to attend for MSL members",
                     "Free general admission for Bank of America cardholders", "Students get in free",
-                    "Free first class", "Admission requires a purchase", "Réservé aux membres"):
+                    "Free first class", "Admission requires a purchase", "Réservé aux membres",
+                    "first 100 adult tickets FREE, kids always free!", "Club party FREE/Lady",
+                    "FREE ENTRY WITH RSVP UNTIL 11:30pm $10 ON THE DOOR FROM 11:30pm",
+                    "Wear a German-themed outfit and join for free!",
+                    "There is no cover. Food or drink purchase at the bar then proceed to meeting area."):
         check(0, {"free": False, "restricted": True}, context=context)
     check(0, {"free": True, "offer": {"price": "0"}}, context="Members and nonmembers welcome")
     deep = {"price": 0}

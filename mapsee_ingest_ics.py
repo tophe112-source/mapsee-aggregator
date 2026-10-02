@@ -482,6 +482,34 @@ def _location(ev: Dict[str, Any]) -> Optional[str]:
     return loc
 
 
+def _location_override(src: Dict[str, Any], location: Optional[str]) -> Optional[Dict[str, Any]]:
+    """Return a source-configured, exact LOCATION pin, if one matches."""
+    if not location:
+        return None
+    for rule in src.get("location_overrides", []):
+        if isinstance(rule, dict) and rule.get("location") == location:
+            venue = rule.get("venue")
+            if _venue_pin(venue):
+                return venue
+    return None
+
+
+def _datetime_override(src: Dict[str, Any], title: str, location: Optional[str],
+                       value: str, params: Dict[str, str]) -> Optional[Dict[str, str]]:
+    """Match only a source's exact timed local-wall-clock correction rule."""
+    if value.endswith("Z") or not re.fullmatch(r"\d{8}T\d{6}", value):
+        return None
+    for rule in src.get("datetime_overrides", []):
+        if (isinstance(rule, dict) and title == rule.get("title")
+                and location == rule.get("location")
+                and params.get("TZID") == rule.get("from_tzid")
+                and rule.get("to_tzid")):
+            adjusted = dict(params)
+            adjusted["TZID"] = rule["to_tzid"]
+            return adjusted
+    return None
+
+
 def _event_url(ev: Dict[str, Any], src: Dict[str, Any]) -> Optional[str]:
     """Keep published event/signup links; a calendar subscription is not one.
 
@@ -616,14 +644,21 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
                          or CIVIC_HOLIDAY_RX.match(title.strip())):
             governance += 1
             continue
-        start_local, start_utc, date_key = _parse_dt(*ev["DTSTART"])
+        start_value, start_params = ev["DTSTART"]
+        start_local, start_utc, date_key = _parse_dt(start_value, start_params)
+        adjusted_params = _datetime_override(src, title, _location(ev), start_value, start_params)
+        if adjusted_params is not None:
+            adjusted_local, adjusted_utc, _ = _parse_dt(start_value, adjusted_params)
+            start_local, start_utc = adjusted_local, adjusted_utc
         if not date_key or date_key < now_key:
             if date_key:
                 past += 1                             # counted; see the report below
             continue                                  # past (or unparseable) → skip
         end_local = end_utc = None
         if "DTEND" in ev:
-            end_local, end_utc, _ = _parse_dt(*ev["DTEND"])
+            end_value, end_params = ev["DTEND"]
+            adjusted_params = _datetime_override(src, title, _location(ev), end_value, end_params)
+            end_local, end_utc, _ = _parse_dt(end_value, adjusted_params or end_params)
         loc = _location(ev)
         # An online session is on no map, whatever GEO its branch stamped on it:
         # see ONLINE_LOC_RX. Before GEO is read, because Communico gives these
@@ -636,24 +671,31 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         if loc and (PLACEHOLDER_LOC_RX.match(loc) or _all_placeholders(loc)):
             elsewhere = bool(ELSEWHERE_LOC_RX.match(loc)) or _all_placeholders(loc, ELSEWHERE_LOC_RX)
             loc = None                                # "TBD" names no place; see the pattern
-        lat = lon = None
-        if "GEO" in ev:                               # "lat;lon"
+        fingerprint_loc = loc
+        had_source_location = bool(loc)
+        venue = _location_override(src, loc)
+        if venue:
+            lat, lon = float(venue["lat"]), float(venue["lon"])
+            loc = venue.get("name") or loc
+        else:
+            lat = lon = None
+        if venue is None and "GEO" in ev:             # "lat;lon"
             try:
                 lat, lon = (float(x) for x in ev["GEO"][0].split(";")[:2])
             except Exception:
                 lat = lon = None
             if lat is not None and abs(lat) < 1e-9 and abs(lon) < 1e-9:
                 lat = lon = None                      # GEO:0;0 is "unset", not the Gulf of Guinea
-        if (lat is None or lon is None) and loc:
+        if venue is None and (lat is None or lon is None) and loc:
             lat, lon = geocode(loc)
-        venue = None
-        if lat is None and not loc and not elsewhere and _venue_pin(src.get("venue")):
+        if venue is None and lat is None and not loc and not elsewhere and _venue_pin(src.get("venue")):
             if _off_venue(src, title):
                 off_venue += 1                        # its own title says it is somewhere else
             else:
                 venue = src["venue"]                  # no place named at all: the source's own fallback
                 lat, lon = float(venue["lat"]), float(venue["lon"])
                 loc = venue.get("name") or None
+                fingerprint_loc = loc
                 pinned_by_venue += 1
         if lat is None or lon is None:
             unplaceable += 1
@@ -666,7 +708,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         uid = (ev.get("UID", ("", {}))[0] or "").strip()
         nev = NormalizedEvent(
             source=label,
-            source_id=uid or make_fingerprint(title, date_key, loc),
+            source_id=uid or make_fingerprint(title, date_key, fingerprint_loc),
             name=title,
             description=desc,
             start_local=start_local, start_utc=start_utc,
@@ -677,8 +719,10 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             country=(venue or {}).get("country"), postal_code=(venue or {}).get("postal_code"),
             category=src.get("category"),
             ticket_url=url or (urljoin(src["url"], src["url_home"]) if src.get("url_home") else None),
+            source_details=({"organizer": venue["organizer"]}
+                            if venue and isinstance(venue.get("organizer"), dict) else None),
         )
-        nev.fingerprint = make_fingerprint(title, date_key, loc)
+        nev.fingerprint = make_fingerprint(title, date_key, fingerprint_loc)
         # A configured calendar home is an info fallback, not an individual
         # event page to fetch repeatedly for optional source-detail enrichment.
         if details_reader and url:
@@ -687,7 +731,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
                 for key, value in details.items():
                     setattr(nev, key, value)
         if old_events is not None:
-            legacy = _legacy_fingerprint(old_events[offset], date_key, venue)
+            legacy_venue = venue if not had_source_location else None
+            legacy = _legacy_fingerprint(old_events[offset], date_key, legacy_venue)
             if legacy != nev.fingerprint:
                 nev.legacy_fingerprints = [legacy]
         store.upsert(nev)

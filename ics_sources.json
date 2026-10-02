@@ -165,7 +165,35 @@
     "url": "https://poncecitymarket.com/events/?ical=1",
     "category": "community",
     "geocode_suffix": ", Atlanta, GA",
-    "limit": 300
+    "limit": 300,
+    "location_overrides": [
+      {
+        "location": "City Winery",
+        "venue": {
+          "name": "City Winery Atlanta",
+          "address": "650 North Avenue NE",
+          "city": "Atlanta",
+          "region": "GA",
+          "postal_code": "30308",
+          "country": "US",
+          "lat": 33.7716908,
+          "lon": -84.3668292,
+          "organizer": {
+            "type": "Organization",
+            "name": "City Winery Atlanta",
+            "url": "https://citywinery.com/pages/locations/atlanta"
+          }
+        }
+      }
+    ],
+    "datetime_overrides": [
+      {
+        "title": "City Winery Tour + Tasting",
+        "location": "City Winery",
+        "from_tzid": "UTC",
+        "to_tzid": "America/New_York"
+      }
+    ]
   },
   {
     "name": "Georgia Tech Library Programming (Atlanta)",

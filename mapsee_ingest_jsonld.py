@@ -55,7 +55,7 @@ import time
 from mapsee_geo_budget import geocode_allowed
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 try:
     import requests
@@ -358,6 +358,38 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
     admission = normalize_admission_facts(
         raw_offers, url=ticket_url, context=f"{name} {description or ''}")
     description = admission_description(description, admission)
+    # Retain named participants already published in this downloaded Event.
+    # CMS type placeholders and unrelated book authors are not participants.
+    details = dict(admission or {})
+    named_performers = []
+    raw_performers = _ld_get(item, "performer")
+    if isinstance(raw_performers, dict):
+        raw_performers = [raw_performers]
+    if isinstance(raw_performers, list):
+        for person in raw_performers[:10]:
+            if not isinstance(person, dict) or not isinstance(person.get("name"), str):
+                continue
+            person_name = _meaningful(person["name"])
+            kind = person.get("@type")
+            if (kind in ("Person", "Organization", "PerformingGroup") and person_name
+                    and len(person_name) <= 200
+                    and person_name.casefold() not in ("person", "organization", "performer", "host")):
+                named_performers.append({"type": kind, "name": person_name})
+    if named_performers:
+        details["performers"] = named_performers
+    organizer = _ld_get(item, "organizer")
+    if isinstance(organizer, dict) and isinstance(organizer.get("name"), str):
+        organizer_name = _meaningful(organizer["name"])
+        organizer_url = organizer.get("url")
+        if (organizer.get("@type") in ("Person", "Organization") and organizer_name
+                and len(organizer_name) <= 200 and isinstance(organizer_url, str) and len(organizer_url) <= 2048
+                and organizer_name.casefold() not in ("person", "organization", "organizer", "host", "unknown")):
+            try:
+                parsed = urlparse(organizer_url)
+                if parsed.scheme in ("http", "https") and parsed.hostname and not parsed.username and not parsed.password:
+                    details["organizer"] = {"type": organizer["@type"], "name": organizer_name, "url": organizer_url}
+            except ValueError:
+                pass
     ev = NormalizedEvent(
         source="jsonld",
         source_id=item.get("url") or page_url,
@@ -374,7 +406,7 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
         lineup=[_clean(x) for x in lineup if x],
         poster_image_url=_image_url(item.get("image")),
         ticket_url=ticket_url,
-        source_details=admission,
+        source_details=details or None,
         admission_checked=True,
     )
     ev.fingerprint = make_fingerprint(name, date_key, venue)

@@ -262,6 +262,24 @@ def main():
     check_true("missing and malformed offers remain unknown",
                with_offers(None).source_details is None
                and with_offers({"price": "not a price"}).source_details is None)
+    participants = to_event(dict(item, startDate=SOON,
+        performer=[{"@type": "PerformingGroup", "name": "Trio Reunion"},
+                   {"@type": "Person", "name": "Person"}],
+        Organizer={"@type": "Organization", "name": "The Royal Room", "url": "https://theroyalroomseattle.com/"},
+        offers=dict(paid_offer, availability="https://schema.org/InStock", validFrom="2026-10-01T09:30:00-07:00")),
+        event_url, "music", no_geocode, VENUE)
+    check("named source participants survive alongside exact admission facts",
+          participants.source_details.get("performers"), [{"type": "PerformingGroup", "name": "Trio Reunion"}])
+    check("capitalized Organizer retains the actual public organization URL",
+          participants.source_details.get("organizer"),
+          {"type": "Organization", "name": "The Royal Room", "url": "https://theroyalroomseattle.com/"})
+    check("source on-sale dates survive the real adapter-to-database mapping",
+          to_row(participants.as_record("now"), "fixture-host")["source_details"]["offer"].get("valid_from"),
+          "2026-10-01T09:30:00-07:00")
+    invalid_organizer = to_event(dict(item, startDate=SOON,
+        Organizer={"@type":"Organization", "name":"Venue", "url":"https://user:pass@example.org/"}),
+        event_url, "music", no_geocode, VENUE)
+    check("credentials in a publisher URL cannot create organizer metadata", invalid_organizer.source_details, None)
 
     nested = {"price": "0", "priceCurrency": "USD"}
     for _ in range(7):

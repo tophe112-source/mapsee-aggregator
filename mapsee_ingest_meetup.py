@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -41,6 +42,7 @@ except ImportError:  # pragma: no cover
 
 from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint,
                            looks_online_only, venue_is_only_a_plus_code)
+from mapsee_admission import normalize_admission_facts, admission_description
 
 GQL = "https://api.meetup.com/gql-ext"
 
@@ -135,6 +137,10 @@ query($query: String!, $lat: Float!, $lon: Float!, $radius: Float,
 DEAD_STATUSES = {"cancelled", "canceled", "cancelled_perm", "autosched_cancelled",
                  "draft", "autosched_draft", "template", "proposed", "blocked", "past"}
 
+_MEETUP_GROUP_SLUG = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]*$")
+_MEETUP_GROUP_NAME_PLACEHOLDERS = {"", "group", "meetup", "meetup group", "unknown",
+                                  "unnamed", "no name", "n/a", "none", "null"}
+
 
 def to_event(ev: Dict[str, Any], category: str = "community") -> Optional[NormalizedEvent]:
     title = (ev.get("title") or "").strip()
@@ -147,7 +153,8 @@ def to_event(ev: Dict[str, Any], category: str = "community") -> Optional[Normal
     lat, lon = v.get("lat"), v.get("lon")
     if lat is None or lon is None:
         return None                                        # online / no venue -> can't map it
-    group = (ev.get("group") or {}).get("name")
+    group_data = ev.get("group") or {}
+    group = group_data.get("name")
     desc = (ev.get("description") or "").strip() or None
     if desc:
         desc = " ".join(desc.split())
@@ -171,11 +178,22 @@ def to_event(ev: Dict[str, Any], category: str = "community") -> Optional[Normal
         return None                                        # a Zoom call is not somewhere to go
     if venue_is_only_a_plus_code(v.get("name"), v.get("address")):
         return None                                        # a dropped pin is not a venue
+    # The native record's complete prose can veto conditional free entry even
+    # when no ticket prices are published. Retain that before sync truncation.
+    admission = normalize_admission_facts(None, context=f"{title} {desc or ''}")
+    details = dict(admission or {})
+    slug = group_data.get("urlname")
+    if (isinstance(group, str) and 0 < len(group.strip()) <= 200
+            and group.strip().casefold() not in _MEETUP_GROUP_NAME_PLACEHOLDERS
+            and isinstance(slug, str) and len(slug.strip()) <= 200
+            and _MEETUP_GROUP_SLUG.fullmatch(slug.strip())):
+        details["organizer"] = {"type": "Organization", "name": group.strip(),
+                                "url": f"https://www.meetup.com/{slug.strip()}/"}
     nev = NormalizedEvent(
         source="meetup",
         source_id=str(ev.get("id")),
         name=title,
-        description=desc,
+        description=admission_description(desc, admission),
         start_local=start,
         venue_name=v.get("name") or group,
         latitude=float(lat), longitude=float(lon),
@@ -183,6 +201,8 @@ def to_event(ev: Dict[str, Any], category: str = "community") -> Optional[Normal
         country=v.get("country"), postal_code=v.get("postalCode"),
         category=category,                                 # from the keyword that found it
         promoter=group,
+        source_details=details or None,
+        admission_checked=True,
         # standardUrl/highResUrl are complete image URLs; baseUrl is just a
         # meetupstatic path PREFIX (a broken link if used directly)
         poster_image_url=(ev.get("featuredEventPhoto") or {}).get("standardUrl")

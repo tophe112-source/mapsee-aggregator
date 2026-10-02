@@ -5,6 +5,7 @@ free entry. This module never fetches a detail page or infers currency from a ve
 """
 from __future__ import annotations
 
+from datetime import datetime
 from decimal import Decimal, InvalidOperation
 import re
 from typing import Any, Optional
@@ -26,7 +27,12 @@ _RESTRICTED_ADMISSION = re.compile(
     r"\b(?:members?|cardholders?|students?|seniors?|children|kids)\s+(?:get\s+in\s+|enter\s+)?free\b|"
     r"\b(?:free\s+(?:first|trial|introductory)\s+(?:class|lesson|session)|"
     r"(?:admission|entry)\s+requires?\s+(?:a\s+)?purchase)\b|"
-    r"\br[ée]serv[ée]e?s?\s+aux\s+(?:membres|abonn[ée]s)\b", re.I)
+    r"\br[ée]serv[ée]e?s?\s+aux\s+(?:membres|abonn[ée]s)\b|"
+    r"\bfirst\s+\d+\s+(?:adult\s+)?tickets?\s+(?:are\s+)?free\b|"
+    r"\bfree\s*[/:-]\s*(?:lad(?:y|ies)|women)\b|"
+    r"\bfree\s+(?:entry\s+)?(?:with\s+rsvp\s+)?until\s+\d|"
+    r"\bwear\b[^.!?\n]{0,80}\boutfit\b[^.!?\n]{0,40}\bjoin\s+for\s+free\b|"
+    r"\bfood\s+or\s+drink\s+purchase\s+at\s+the\s+bar\b", re.I)
 
 
 def _restricted(text: str) -> bool:
@@ -35,6 +41,8 @@ _FREE = re.compile(r"^(?:free(?:\s+(?:admission|entry|to attend))?|no charge)$",
 _NUMBER = re.compile(r"^\d+(?:\.\d+)?$")
 _COST = re.compile(r"^(?:(?P<currency>[A-Z]{3})\s*)?(?P<symbol>[$€£])?\s*"
                    r"(?P<price>\d+(?:\.\d+)?)(?:\s*(?P<tail>[A-Z]{3}))?$", re.I)
+_ISO_DATETIME = re.compile(
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})$")
 
 
 def _currency(value: Any) -> Optional[str]:
@@ -57,6 +65,16 @@ def _number(value: Any) -> Optional[Decimal]:
 
 def _amount(value: Decimal) -> str:
     return format(value, "f").rstrip("0").rstrip(".") if "." in format(value, "f") else str(value)
+
+
+def _valid_from(value: Any) -> Optional[str]:
+    if not isinstance(value, str) or len(value) > 40 or not _ISO_DATETIME.fullmatch(value):
+        return None
+    try:
+        parsed = datetime.fromisoformat(value[:-1] + "+00:00" if value.endswith("Z") else value)
+    except ValueError:
+        return None
+    return value if parsed.tzinfo is not None and parsed.utcoffset() is not None else None
 
 
 def normalize_admission_facts(raw: Any, *, url: Optional[str] = None,
@@ -115,7 +133,7 @@ def normalize_admission_facts(raw: Any, *, url: Optional[str] = None,
                 if number is None:
                     complete = False
                 else:
-                    prices.append((number, currency, availability))
+                    prices.append((number, currency, availability, _valid_from(value.get("validFrom"))))
                     own = True
             if "lowPrice" in value or "highPrice" in value:
                 low, high = _number(value.get("lowPrice")), _number(value.get("highPrice"))
@@ -126,13 +144,17 @@ def normalize_admission_facts(raw: Any, *, url: Optional[str] = None,
                     # malformed. Keep it only as evidence; never emit a range.
                     for bound in (low, high):
                         if bound is not None:
-                            prices.append((bound, currency, availability))
+                            prices.append((bound, currency, availability, _valid_from(value.get("validFrom"))))
                             own = True
                 elif low > high:
                     complete = False
-                    prices.extend(((low, currency, availability), (high, currency, availability)))
+                    valid_from = _valid_from(value.get("validFrom"))
+                    prices.extend(((low, currency, availability, valid_from),
+                                   (high, currency, availability, valid_from)))
                 else:
-                    prices.extend(((low, currency, availability), (high, currency, availability)))
+                    valid_from = _valid_from(value.get("validFrom"))
+                    prices.extend(((low, currency, availability, valid_from),
+                                   (high, currency, availability, valid_from)))
                     own = True
             for key in ("priceSpecification", "offers"):
                 if key in value:
@@ -142,7 +164,7 @@ def normalize_admission_facts(raw: Any, *, url: Optional[str] = None,
                         own = True
             return own and complete
         if isinstance(value, str) and _FREE.fullmatch(value.strip()):
-            prices.append((Decimal(0), inherited_currency, None))
+            prices.append((Decimal(0), inherited_currency, None, None))
             return True
         if isinstance(value, str):
             match = _COST.fullmatch(value.strip())
@@ -162,27 +184,30 @@ def normalize_admission_facts(raw: Any, *, url: Optional[str] = None,
             number, currency = _number(value), inherited_currency
         if number is None:
             return False
-        prices.append((number, currency, None))
+        prices.append((number, currency, None, None))
         return True
 
     complete = walk(raw, _currency(currency_hint))
     if not complete or not prices:
-        if any(price > 0 for price, _, _ in prices):
+        if any(price > 0 for price, _, _, _ in prices):
             return {"free": False, **({"restricted": True} if restricted else {})}
         return {"free": False, "restricted": True} if restricted else None
-    free = all(price == 0 for price, _, _ in prices)
+    free = all(price == 0 for price, _, _, _ in prices)
     facts = {"free": free}
-    amounts = {price for price, _, _ in prices}
-    currencies = {currency for _, currency, _ in prices}
+    amounts = {price for price, _, _, _ in prices}
+    currencies = {currency for _, currency, _, _ in prices}
     if len(amounts) == 1 and (free or (len(currencies) == 1 and None not in currencies)):
         offer = {"price": _amount(prices[0][0])}
         if len(currencies) == 1 and None not in currencies:
             offer["currency"] = prices[0][1]
         if isinstance(url, str) and url.strip():
             offer["url"] = url.strip()
-        statuses = {status for _, _, status in prices}
+        statuses = {status for _, _, status, _ in prices}
         if len(statuses) == 1 and None not in statuses:
             offer["availability"] = prices[0][2]
+        valid_from_dates = {valid_from for _, _, _, valid_from in prices}
+        if len(valid_from_dates) == 1 and None not in valid_from_dates:
+            offer["valid_from"] = prices[0][3]
         facts["offer"] = offer
     return facts
 

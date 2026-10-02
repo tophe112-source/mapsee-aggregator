@@ -3,6 +3,29 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: Luma, parkrun, businesses vs events, a malformed record, schema.org by accident, webcal, JSON-LD, Overpass slots, seattlecenter, a helper's inherited contract.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **Optional search fields need source facts, including negative admission facts.**
+  The 2026-10-02 GSC audit checked 40 public URLs / 39 distinct listings. Meetup
+  group names were being emitted as people with no public URL; retain the native
+  `group.urlname` as an actual Organization URL, with bounded names/slugs. The
+  native complete prose now retains restricted admission before truncation:
+  first 100 tickets, FREE/Lady, a required themed outfit, purchase and free-until
+  entry cannot assert universal free admission. Generic JSON-LD retains its
+  named performer/organizer fields alongside conservative ticket facts.
+  `validFrom` survives only if every same-price offer publishes the same valid
+  zoned ISO datetime; import/event dates are never substitutes. 94 admission
+  checks and all 59 test scripts pass; 2 Windows stdout failures needed
+  `python -X utf8`, not a source repair. No extra per-event HTTP read was added.
+  Ponce's allowed 26,330-byte ICS response had 30 VEVENTs, including 4 City
+  Winery occasions tagged UTC at 15:00 despite official pages publishing
+  3–5pm Atlanta. Source-configured exact LOCATION overrides now retain the
+  official 650 North Avenue NE address / entrance coordinates / organizer;
+  the explicit title+LOCATION+TZID rule alone corrects this wall clock to
+  America/New_York. Other sources, UTC-Z timestamps and all-day dates remain
+  unchanged. Original location/date fingerprints and UID/fallback IDs survive.
+  The Mapsee backfill repairs the 2 reported occasions immediately; normal
+  source-detail refresh reaches future occurrences. RAM's fresh source page
+  still publishes no availability or on-sale date; do not invent them.
+
 - **MUSEUM ADMISSION WINDOWS ARE VISITS, NOT ORGANIZED EVENTS.** Google's
   Event guidance excludes business hours. The 2026-10-01 dry run of 14 curated
   museum/fort/gallery programs generated 2,854 records: 2,853 dated windows and

@@ -83,6 +83,34 @@ check("status ACTIVE and real coordinates are NOT enough on their own — this i
       "the row as it passed every previous check", to_event(node()) is None, False)
 
 print()
+print("Meetup groups are organizations with a validated public group URL")
+GROUP_EVENT = node(group={"name": "Seattle Makers", "urlname": "Seattle-Makers"})
+GROUP_NORMALIZED = to_event(GROUP_EVENT)
+check("a real group name and URL are retained as organizer metadata",
+      GROUP_NORMALIZED.source_details,
+      {"organizer": {"type": "Organization", "name": "Seattle Makers",
+                      "url": "https://www.meetup.com/Seattle-Makers/"}})
+check("a missing group URL adds no organizer metadata",
+      to_event(node(group={"name": "Seattle Makers"})).source_details, None)
+check("a malformed group URL adds no organizer metadata",
+      to_event(node(group={"name": "Seattle Makers", "urlname": "../profile"})).source_details,
+      None)
+check("a placeholder group name adds no organizer metadata",
+      to_event(node(group={"name": "Meetup Group", "urlname": "Seattle-Makers"})).source_details,
+      None)
+WITHOUT_GROUP = to_event(node())
+check("adding group metadata leaves source identity and fingerprint unchanged",
+      (GROUP_NORMALIZED.source_id, GROUP_NORMALIZED.fingerprint),
+      (WITHOUT_GROUP.source_id, WITHOUT_GROUP.fingerprint))
+CONDITIONAL = to_event(node(title="Club party FREE/Lady", group={"name": "Seattle Makers", "urlname": "Seattle-Makers"}))
+check("conditional free admission is retained alongside the organizer",
+      (CONDITIONAL.source_details["free"], CONDITIONAL.source_details["restricted"],
+       CONDITIONAL.source_details["organizer"]),
+      (False, True, GROUP_NORMALIZED.source_details["organizer"]))
+check("conditional admission is visible before long prose is truncated",
+      CONDITIONAL.description.startswith("Not a free public admission offer."), True)
+
+print()
 print("a hybrid event has somewhere to turn up, and must stay on the map")
 HYBRID = [
     ("Sunday Sangha Night & Community Gathering: Online and In-Person",
