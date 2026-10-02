@@ -12887,6 +12887,370 @@
       "_metro": "Honolulu",
       "_country": "United States",
       "_verified": "2026-10-01: robots allows public Tribe API; full 12-page dry run kept 20 native zero-price physical events from 588, blank costs remain unknown."
+    },
+    {
+      "name": "Ruder-Riege Turnverein Waidmannslust",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ruder-riege-tvw.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ruder-Riege Turnverein Waidmannslust",
+        "address": "22-24 Eisenhammerweg",
+        "city": "Berlin",
+        "postal_code": "13507",
+        "country": "DE",
+        "lat": 52.5841064,
+        "lon": 13.2770771
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Quälgeist",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://quaelgeist.sm",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Quälgeist",
+        "address": "42/43 Lankwitzer Straße",
+        "city": "Berlin",
+        "postal_code": "12107",
+        "country": "DE",
+        "lat": 52.4374457,
+        "lon": 13.3754837
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Quartiersmanagement Pankstraße",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+ics",
+      "base_url": "https://www.pankstrasse-quartier.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Quartiersmanagement Pankstraße",
+        "address": "1 Prinz-Eugen-Straße",
+        "city": "Berlin",
+        "postal_code": "13347",
+        "country": "DE",
+        "lat": 52.5468526,
+        "lon": 13.3666534
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Katholische Studierendengemeinde Edith Stein Berlin",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ksg-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Katholische Studierendengemeinde Edith Stein Berlin",
+        "address": "17-18 Dänenstraße",
+        "city": "Berlin",
+        "postal_code": "10439",
+        "lat": 52.5500389,
+        "lon": 13.4070548
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Jugendfreizeiteinrichtung \"Anna Landsberger\"",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://roter-baum.berlin",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jugendfreizeiteinrichtung \"Anna Landsberger\"",
+        "address": "13 Prötzeler Ring",
+        "city": "Berlin",
+        "postal_code": "12685",
+        "country": "DE",
+        "lat": 52.5447356,
+        "lon": 13.5774895
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Machon-Eck",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://bbg-eg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Machon-Eck",
+        "lat": 52.4483327,
+        "lon": 13.3822262
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Quartiersmanagement Badstraße",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.badstrasse-quartier.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Quartiersmanagement Badstraße",
+        "address": "81 Bellermannstraße",
+        "postal_code": "13357",
+        "lat": 52.5525108,
+        "lon": 13.3880887
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Karada House",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://karada-house.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Karada House",
+        "address": "59 Perleberger Straße",
+        "city": "Berlin",
+        "postal_code": "10559",
+        "lat": 52.5324624,
+        "lon": 13.3515286
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Familientreff RIGATONI",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.lebensnah.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Familientreff RIGATONI",
+        "lat": 52.5162381,
+        "lon": 13.4671218
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Kladow Forum",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kladower-forum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kladow Forum",
+        "lat": 52.4537154,
+        "lon": 13.1437013
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Platzhaus",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "http://platzhaus-helmholtzplatz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Platzhaus",
+        "address": "0",
+        "city": "Berlin",
+        "postal_code": "10437",
+        "lat": 52.5427072,
+        "lon": 13.4191812
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Ruderverein Birkenwerder e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://rudern.me",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ruderverein Birkenwerder e.V.",
+        "address": "63B Havelstraße",
+        "city": "Birkenwerder",
+        "postal_code": "16547",
+        "lat": 52.689232,
+        "lon": 13.254072
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Jugendfreizeitheim Manege",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://campusruetli.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jugendfreizeitheim Manege",
+        "lat": 52.4870017,
+        "lon": 13.434556
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Sportgemeinschaft Segeln Potsdam",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sgs-potsdam.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sportgemeinschaft Segeln Potsdam",
+        "address": "49 Tornowstraße",
+        "city": "Potsdam",
+        "postal_code": "14473",
+        "country": "DE",
+        "lat": 52.387563,
+        "lon": 13.0418796
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Buntes Haus",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.roter-baum-berlin.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Buntes Haus",
+        "address": "14 Hellersdorfer Promenade",
+        "city": "Berlin",
+        "postal_code": "12627",
+        "country": "DE",
+        "lat": 52.5408006,
+        "lon": 13.6069678
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Jugendtreff am Biederstein",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://www.kjr-m.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jugendtreff am Biederstein",
+        "address": "6 Gohrenstraße",
+        "city": "München",
+        "postal_code": "80802",
+        "country": "DE",
+        "lat": 48.1631118,
+        "lon": 11.5916115
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "SuB e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://subonline.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SuB e.V.",
+        "address": "14 Müllerstraße",
+        "city": "München",
+        "postal_code": "80469",
+        "country": "DE",
+        "lat": 48.1325626,
+        "lon": 11.5734489
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Kafe Marat",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kafemarat.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kafe Marat",
+        "address": "102 Thalkirchner Straße",
+        "city": "München",
+        "postal_code": "80337",
+        "country": "DE",
+        "lat": 48.1239256,
+        "lon": 11.5603815
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "oekom e.V. - Münchner Zukunftssalon",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://oekom-verein.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "oekom e.V. - Münchner Zukunftssalon",
+        "address": "28 Goethestraße",
+        "city": "München",
+        "postal_code": "80336",
+        "country": "DE",
+        "lat": 48.1360331,
+        "lon": 11.5584577
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Gemeindebücherei Glonn",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://gemeindeglonn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gemeindebücherei Glonn",
+        "lat": 47.987498,
+        "lon": 11.867724
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Tolstoi-Bibliothek",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tolstoi.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tolstoi-Bibliothek",
+        "address": "4 Aldringenstraße",
+        "postal_code": "80639",
+        "lat": 48.1555596,
+        "lon": 11.5310249
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Freiluftgarten Freiham",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kinderschutz.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Freiluftgarten Freiham",
+        "lat": 48.1505377,
+        "lon": 11.4086987
+      },
+      "_metro": "Munich, Germany"
     }
   ],
   "_not_included": {

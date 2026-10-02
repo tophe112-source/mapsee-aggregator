@@ -5464,6 +5464,174 @@
         "lon": 6.3101377
       },
       "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Bona Peiser",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://bona-peiser.de/"
+      ],
+      "link_pattern": "https://bona\\-peiser\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bona Peiser",
+        "address": "72 Oranienstraße",
+        "city": "Berlin",
+        "postal_code": "10969",
+        "country": "DE",
+        "lat": 52.5049903,
+        "lon": 13.407098
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Campus Hub",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://berlin.campus-d.de/event/mentorentraining-berlin"
+      ],
+      "link_pattern": "https://berlin\\.campus\\-d\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Campus Hub",
+        "address": "39 Luisenstraße",
+        "city": "Berlin",
+        "postal_code": "10117",
+        "country": "DE",
+        "lat": 52.52183,
+        "lon": 13.3799778
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "BürgerZentrum Grünau",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://buergerhaus-gruenau.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://buergerhaus\\-gruenau\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "BürgerZentrum Grünau",
+        "address": "34 Wassersportallee",
+        "city": "Berlin",
+        "postal_code": "12527",
+        "lat": 52.4157665,
+        "lon": 13.5780654
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Bibliothek Leegebruch",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.leegebruch.de/veranstaltungen/2931311/2026/10/30/lesecaf%C3%A9.html"
+      ],
+      "link_pattern": "https://www\\.leegebruch\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothek Leegebruch",
+        "lat": 52.725361,
+        "lon": 13.1936188
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "BENN Marzahn-Süd",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://marzahn-sued.de/events/"
+      ],
+      "link_pattern": "https://marzahn\\-sued\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "BENN Marzahn-Süd",
+        "address": "7 Fichtelbergstraße",
+        "city": "Berlin",
+        "postal_code": "12685",
+        "country": "DE",
+        "lat": 52.5343727,
+        "lon": 13.5522245
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "FC Internationale Berlin",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.inter-berlin.de/veranstaltungen/2836149/2026/10/28/club-voltaire-im-oktober.html"
+      ],
+      "link_pattern": "https://www\\.inter\\-berlin\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "FC Internationale Berlin",
+        "lat": 52.4724736,
+        "lon": 13.3569324
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Heilsarmee Gemeinde (Korps) München",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.heilsarmee.de/muenchen/termineveranstaltungen.html"
+      ],
+      "link_pattern": "https://www\\.heilsarmee\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Heilsarmee Gemeinde (Korps) München",
+        "lat": 48.1038363,
+        "lon": 11.5366523
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Quartiersbüro Parkstraße",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://rethink-muenchen.de/events/"
+      ],
+      "link_pattern": "https://rethink\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Quartiersbüro Parkstraße",
+        "address": "18 Parkstraße",
+        "city": "München",
+        "postal_code": "80339",
+        "country": "DE",
+        "lat": 48.1363192,
+        "lon": 11.543958
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Freiheitshalle",
+      "category": "community",
+      "_found": "osm:community_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.freiheitshalle-munich.com/events/neon-kunst-fur-kids-ein-nachmittag-voller-farbe-und-fantasie"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-info/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Freiheitshalle",
+        "address": "1 Rainer-Werner-Fassbinder-Platz",
+        "city": "München",
+        "postal_code": "80636",
+        "country": "DE",
+        "lat": 48.143794,
+        "lon": 11.5366469
+      },
+      "_metro": "Munich, Germany"
     }
   ],
   "_not_included": {

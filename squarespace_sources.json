@@ -1829,6 +1829,56 @@
         "lat": 40.675762467431,
         "lon": -73.949871411967
       }
+    },
+    {
+      "name": "Daruma",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.daruma.berlin/all-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Daruma",
+        "address": "275 Karl-Marx-Straße",
+        "city": "Berlin",
+        "postal_code": "12057",
+        "lat": 52.4644054,
+        "lon": 13.445034
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Carat",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.jugendarbeit-kleinmachnow.de/veranstaltungen",
+      "max_events": 200,
+      "venue": {
+        "name": "Carat",
+        "address": "1 Adolf-Grimme-Ring",
+        "city": "Kleinmachnow",
+        "postal_code": "14532",
+        "country": "DE",
+        "lat": 52.4028128,
+        "lon": 13.2179087
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Spree-Ruder-Club Köpenick",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.spreeruderclub.de/veranstaltungskalender",
+      "max_events": 200,
+      "venue": {
+        "name": "Spree-Ruder-Club Köpenick",
+        "address": "404 Wendenschloßstraße",
+        "city": "Berlin",
+        "postal_code": "12557",
+        "country": "DE",
+        "lat": 52.4208816,
+        "lon": 13.58722
+      },
+      "_metro": "Berlin, Germany"
     }
   ],
   "_not_included": {

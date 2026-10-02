@@ -221,11 +221,9 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 113,
-  "metro_key": "IE:Limerick",
-  "stuck": {
-   "IE:Limerick": 1
-  }
+  "metro": 116,
+  "metro_key": "DE:Munich",
+  "stuck": {}
  },
  "socrata": {
   "art events": 0,

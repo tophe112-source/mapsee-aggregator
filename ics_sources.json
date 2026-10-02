@@ -18097,5 +18097,131 @@
     "_metro": "Santa Rosa, United States",
     "_found": "civic:volunteer calendar -> ICS (hand-curated)",
     "_note": "2026-10-01: official subscription links this feed; robots permits it. Title scope retains Park-A-Month Volunteer Program cleanups and Rural Cemetery Workdays before geocoding; other Recreation & Parks events are excluded. Five upcoming shifts at four distinct park/cemetery addresses, each 09:00-12:00. Oct 10 Northwest cleanup provides tools/gloves, accepts families, requires an accompanying adult for under-13s, and links Register. Preserve each event info/signup link. Four exact LOCATION+suffix cache keys are verified Census street-address matches; no office/whole-city fallback or runtime Photon calls."
+  },
+  {
+    "name": "Schwulenberatung Berlin",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar",
+    "url": "https://schwulenberatungberlin.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Polizeisportverein Delphin 1889",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar+jsonld-event",
+    "url": "https://psv-delphin.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Offenes Wohnzimmer",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar+jsonld-event",
+    "url": "https://offeneswohnzimmer.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Bibliothek Rechtswissenschaft",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.jura.fu-berlin.de/bibliothek/Veranstaltungen/Bibliothekstermine/index.ics?format=ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Interkulturelles Haus Schöneberg",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sprachtisch%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "BENN Wilmersdorf",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar+jsonld-event",
+    "url": "https://benn-wilmersdorf.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Zentralbibliothek der Freien Universität Berlin",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.fu-berlin.de/sites/ub/termine/2026-10-05-cb-aktionsstand.ics?format=ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Kieztreff",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6bfe4f1cee18f5392edc3d1425db567d3bc0450c08bd6fe77675a04b1075cee9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin, Germany",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Landhaus Rosenthal",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/landhausrosenthal%40googlemail.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Nachbarschaftshaus Orangerie",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kiezspinne.de_4hp3et04n67o1neki0ukivi60k%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Philologische Bibliothek",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.fu-berlin.de/sites/philbib/aktuelle-schulungstermine/Hausrundgang-durch-die-Bibliothek.ics?format=ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "IPP Bibliothek",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.ipp.mpg.de/3867011/oeffentlich.ics",
+    "geocode_suffix": ", Garching bei München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Nachbarschaftstreff",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.nachbarschaftstreff-moosach.de/kalender/?ical=1",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Abenteuerspielplatz Maulwurfshausen",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar+jsonld-event",
+    "url": "https://maulwurfshausen.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", München",
+    "limit": 300,
+    "_metro": "Munich, Germany"
   }
 ]
