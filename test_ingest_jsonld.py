@@ -53,6 +53,7 @@ from mapsee_ingest_jsonld import (
     _ld_get, _meaningful, _address_parts, _parse_ld, _is_event, to_event,
 )
 from mapsee_supabase_sync import _to_utc_if_naive
+from mapsee_supabase_sync import to_row
 
 FAILURES = []
 
@@ -193,6 +194,80 @@ def main():
     print("one page is one occurrence: the id the sync upserts on")
     check("source_id is the event's own page, so two nights cannot collide",
           ev.source_id, "https://theroyalroomseattle.com/event/trio-reunion/")
+
+    print()
+    print("structured admission facts are exact, public and conservative")
+    event_url = "https://example.org/event/admission/"
+    def with_offers(offers, desc="", title="Free family art day"):
+        return to_event(dict(item, name=title, startDate=SOON, offers=offers,
+                             description=desc, url=event_url), event_url,
+                        "community", no_geocode, VENUE)
+
+    free_offer = {"@type": "Offer", "url": event_url,
+                  "price": "0", "priceCurrency": "USD"}
+    free_row_ev = with_offers(free_offer)
+    check("one explicit public zero-price Offer gets exact free facts",
+          free_row_ev.source_details if free_row_ev else None,
+          {"free": True, "offer": {"price": "0", "currency": "USD", "url": event_url}})
+    check_true("the exact free marker leads the description",
+               free_row_ev is not None and free_row_ev.description.startswith("Free to attend."))
+    mapped = to_row(free_row_ev.as_record("now"), "fixture-host")
+    check("the JSON-LD facts survive the real adapter-to-row mapping",
+          mapped.get("source_details"), free_row_ev.source_details)
+    no_offer_ev = with_offers(None)
+    check("adding admission facts does not change event identity",
+          free_row_ev.fingerprint if free_row_ev else None,
+          no_offer_ev.fingerprint if no_offer_ev else None)
+
+    paid_offer = {"@type": "Offer", "url": "https://tickets.example.org/buy",
+                  "price": "12.50", "priceCurrency": "USD"}
+    paid_ev = with_offers(paid_offer)
+    check("one exact positive Offer keeps its currency",
+          paid_ev.source_details if paid_ev else None,
+          {"free": False,
+           "offer": {"price": "12.5", "currency": "USD",
+                     "url": "https://tickets.example.org/buy"}})
+    check_true("a known positive price leads with the free-tag veto",
+               paid_ev is not None
+               and paid_ev.description.startswith("Some admission options are not free."))
+    mixed_ev = with_offers([free_offer, paid_offer])
+    check("mixed free and paid Offers veto global free without a guessed price",
+          mixed_ev.source_details if mixed_ev else None, {"free": False})
+    check_true("mixed prices lead with the free-tag veto",
+               mixed_ev is not None
+               and mixed_ev.description.startswith("Some admission options are not free."))
+
+    aggregate_free = with_offers({"@type": "AggregateOffer", "url": event_url,
+                                  "lowPrice": "0", "highPrice": "0",
+                                  "priceCurrency": "USD"})
+    check_true("an all-zero AggregateOffer is explicit free admission",
+               aggregate_free is not None and aggregate_free.source_details is not None
+               and aggregate_free.source_details.get("free") is True)
+    aggregate_mixed = with_offers({"@type": "AggregateOffer", "lowPrice": "0",
+                                   "highPrice": "20", "priceCurrency": "USD"})
+    check("an AggregateOffer range starting at zero is not globally free",
+          aggregate_mixed.source_details if aggregate_mixed else None, {"free": False})
+
+    for label, offer in (
+        ("eligibility field", dict(free_offer, eligibleCustomerType="Members")),
+        ("offer description", dict(free_offer, description="Free for members only")),
+        ("age-limited offer description", dict(free_offer, description="Free for ages 18 and under")),
+        ("offer name", dict(free_offer, name="Members only free admission")),
+    ):
+        restricted = with_offers(offer)
+        check_true(f"{label} cannot claim globally free admission",
+                   restricted is not None and restricted.source_details == {"free": False, "restricted": True}
+                   and not (restricted.description or "").startswith("Free to attend."))
+
+    check_true("missing and malformed offers remain unknown",
+               with_offers(None).source_details is None
+               and with_offers({"price": "not a price"}).source_details is None)
+
+    nested = {"price": "0", "priceCurrency": "USD"}
+    for _ in range(7):
+        nested = {"offers": nested}
+    check_true("deeply nested offer data is bounded and cannot claim free",
+               with_offers(nested).source_details is None)
 
     print()
     if FAILURES:

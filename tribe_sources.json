@@ -12873,6 +12873,20 @@
       "_metro": "Washington, United States",
       "_found": "organization:volunteer -> tribe (hand-curated)",
       "_note": "2026-10-01: publisher Hunger Project category contains three upcoming food-packing/service sessions, each 13:00-15:00: Oct 11 and Dec 13 at JBSC, 11810 Falls Road, Potomac MD; Nov 22 Sunday Stuffing at Temple, 3935 Macomb St NW, Washington DC. Food packing welcomes volunteers ages 8+ and links registration. Keep each event's own venue/address and info link; December signup is marked coming soon, and November donation-dropoff prose contains older dates. One category-filtered API GET; three map rows verified through one Census batch for two unique addresses, with no Photon or per-event page requests."
+    },
+    {
+      "name": "Hawaii State Public Library System free events",
+      "base_url": "https://www.librarieshawaii.org",
+      "category": "community",
+      "free_only": true,
+      "timezone": "Pacific/Honolulu",
+      "within_days": 31,
+      "per_page": 50,
+      "max_pages": 12,
+      "crawl_delay": 1,
+      "_metro": "Honolulu",
+      "_country": "United States",
+      "_verified": "2026-10-01: robots allows public Tribe API; full 12-page dry run kept 20 native zero-price physical events from 588, blank costs remain unknown."
     }
   ],
   "_not_included": {

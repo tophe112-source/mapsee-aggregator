@@ -63,6 +63,7 @@ except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
 from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_admission import admission_description, normalize_admission_facts
 
 UA = "Mozilla/5.0 (compatible; MapseeAggregator/1.0; +https://mapsee.me; events@mapsee.me)"
 CURSOR_PATH = os.environ.get("JSONLD_CURSOR", "jsonld_cursor.json")
@@ -348,14 +349,20 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
     if isinstance(performers, dict):
         performers = [performers]
     lineup = [p.get("name") for p in performers if isinstance(p, dict) and p.get("name")]
-    offers = item.get("offers") or {}
-    if isinstance(offers, list):
-        offers = offers[0] if offers else {}
+    raw_offers = item.get("offers")
+    first_offer = (raw_offers[0] if isinstance(raw_offers, list) and raw_offers
+                   else raw_offers if isinstance(raw_offers, dict) else {})
+    ticket_url = ((first_offer.get("url") if isinstance(first_offer, dict) else None)
+                  or item.get("url") or page_url)
+    description = _clean(item.get("description"))
+    admission = normalize_admission_facts(
+        raw_offers, url=ticket_url, context=f"{name} {description or ''}")
+    description = admission_description(description, admission)
     ev = NormalizedEvent(
         source="jsonld",
         source_id=item.get("url") or page_url,
         name=name,
-        description=_clean(item.get("description")),
+        description=description,
         start_local=start,
         end_local=(item.get("endDate") or "").strip() or None,
         venue_name=venue,
@@ -366,7 +373,9 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
         category=category,
         lineup=[_clean(x) for x in lineup if x],
         poster_image_url=_image_url(item.get("image")),
-        ticket_url=(offers.get("url") if isinstance(offers, dict) else None) or item.get("url") or page_url,
+        ticket_url=ticket_url,
+        source_details=admission,
+        admission_checked=True,
     )
     ev.fingerprint = make_fingerprint(name, date_key, venue)
     return ev

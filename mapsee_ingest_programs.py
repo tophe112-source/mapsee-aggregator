@@ -12,6 +12,15 @@ prunes past ones and re-runs regenerate the window in place. Every event carries
 the program's source URL, so the app's "More on this event" link points at the
 official page.
 
+A source with verified year-round weekly hours may opt into `"standing": true`.
+That emits one stable venue row with `recurring_days` (weekday-name to
+`[opening, closing]`), and Mapsee's existing recurring-hours roller advances its
+window. It requires a valid IANA `timezone`, explicit hours and fixed coordinates
+for every site; dated, seasonal, monthly and one-off closure rules are rejected.
+The weekly roller cannot represent holiday exceptions, so source notes must tell
+visitors to verify exceptional closures on the official page. Do not use this
+mode when a weekly schedule would misstate whether the place is open.
+
 Config (program_sources.json): a list of programs, each:
   { "name": "Seattle Free Summer Meals", "category": "community",
     "url": "https://www.hungerfreewa.org/freesummerfood",
@@ -44,11 +53,22 @@ for a marathon on the one Sunday that counted:
   "season_start"/"season_end"     only inside this window
   "exclude_dates": ["2026-11-01"] never on these dates
 A site with no "start" is an all-day occurrence (the museum's own opening hours
-decide), and a site carrying "lat"/"lon" is never geocoded. "city", "region",
-"country", "url" and "notes" pass through, and "categories" adds secondaries.
+decide), and a site carrying "lat"/"lon" is not geocoded by this adapter. Set
+`"coords_exact": true` when those coordinates are authoritative to prevent the
+sync's later Census refresh from replacing them. "city", "region", "country",
+"url" and "notes" pass through, and "categories" adds secondaries.
 
-The free/not-free reading of a row is NOT made here. ../mapsee's migration 0227
-tags every event from its own text, so a programme's blurb has to SAY what the
+Standing site example:
+  { "name": "Year-round museum hours", "standing": true,
+    "timezone": "America/New_York", "admission": 0,
+    "sites": [{ "name": "Museum", "lat": 37.5, "lon": -77.4,
+                "recurring_days": { "Monday": ["10:00", "17:00"],
+                                    "Wednesday": ["10:00", "21:00"] } }] }
+`admission` is optional. If supplied, its public zero-price fact is normalized
+through `mapsee_admission`; an omitted/invalid value does not imply free entry.
+
+The offer:free catalog tag is assigned by ../mapsee's migration 0227 from each
+event's text, so a programme's blurb has to SAY what the
 offer is, and say it honestly: "Free admission for everyone" is tagged free;
 "cardholders get free general admission" is not, because it is free for some.
 
@@ -58,7 +78,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
+import re
 import sys
 import time
 from mapsee_geo_budget import geocode_allowed
@@ -71,6 +93,7 @@ except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
 from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_admission import admission_description, normalize_admission_facts
 
 # ---- persistent geocode cache (shared with the other adapters) --------------
 GEO_CACHE_PATH = os.environ.get("GEOCODE_CACHE", "geocode_cache.json")
@@ -205,7 +228,135 @@ def _site_dates(site: Dict[str, Any], dates: List) -> List:
             and d.isoformat() not in closed]
 
 
+_STANDING_SCHEDULE_KEYS = frozenset(("season_start", "season_end", "nth", "months", "rule", "days", "exclude_dates"))
+_STANDING_SITE_DATE_KEYS = _STANDING_SCHEDULE_KEYS | {"exclude_dates"}
+_HHMM = re.compile(r"^(?:[01]\d|2[0-3]):[0-5]\d$")
+
+
+def _standing_timezone(name: Any):
+    """Require a declared IANA zone for standing rows; never fall back to UTC."""
+    if not isinstance(name, str) or not name.strip():
+        raise ValueError("standing program requires a valid timezone")
+    zone_name = name.strip()
+    if zone_name != "UTC" and "/" not in zone_name:
+        raise ValueError(f"standing program timezone must be an IANA name: {name!r}")
+    zone = _tz(zone_name)
+    if zone is None:
+        raise ValueError(f"standing program has an unknown timezone: {name!r}")
+    return zone
+
+
+def _standing_weekly_hours(raw: Any) -> Dict[str, List[str]]:
+    """Validate weekday-name -> [opening, closing] and emit sync's 0=Mon keys."""
+    if not isinstance(raw, dict) or not raw:
+        raise ValueError("standing site requires recurring_days with at least one weekday")
+    out: Dict[str, List[str]] = {}
+    for day, times in raw.items():
+        if not isinstance(day, str) or day.strip().lower() not in _DAYS:
+            raise ValueError(f"standing site has an invalid weekday: {day!r}")
+        key = str(_DAYS[day.strip().lower()])
+        if key in out:
+            raise ValueError(f"standing site repeats weekday: {day!r}")
+        if (not isinstance(times, (list, tuple)) or len(times) != 2
+                or any(not isinstance(value, str) or not _HHMM.fullmatch(value) for value in times)):
+            raise ValueError(f"standing site needs two HH:MM times for {day}")
+        start = datetime.strptime(times[0], "%H:%M").time()
+        end = datetime.strptime(times[1], "%H:%M").time()
+        if start >= end:
+            raise ValueError(f"standing site hours must close after opening on {day}")
+        out[key] = [times[0], times[1]]
+    return out
+
+
+def _standing_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
+    """A standing venue is one stable row; the DB roller advances its window."""
+    if _STANDING_SCHEDULE_KEYS.intersection(prog):
+        raise ValueError("standing program cannot use seasonal, monthly, or dated weekday rules")
+    tz = _standing_timezone(prog.get("timezone"))
+    sites = prog.get("sites")
+    if not isinstance(sites, list) or not sites:
+        raise ValueError("standing program requires at least one site")
+    category = prog.get("category", "community")
+    extra_cats = [c for c in (prog.get("categories") or []) if c and c != category]
+    prefix = (prog.get("title_prefix") or prog.get("name") or "Community program").strip()
+    blurb = (prog.get("blurb") or "").strip()
+    url = prog.get("url")
+    label = "program:" + str(prog.get("name", "program")).lower().replace(" ", "-")
+    out: List[NormalizedEvent] = []
+    for site in sites:
+        if _STANDING_SITE_DATE_KEYS.intersection(site):
+            raise ValueError(f"standing site {site.get('name')!r} cannot use seasonal/monthly/date rules")
+        weekly = _standing_weekly_hours(site.get("recurring_days"))
+        sname = (site.get("name") or "").strip()
+        if not sname:
+            raise ValueError("standing site requires a name")
+        addr = site.get("address")
+        lat, lon = site.get("lat"), site.get("lon")
+        if (not isinstance(lat, (int, float)) or isinstance(lat, bool)
+                or not isinstance(lon, (int, float)) or isinstance(lon, bool)
+                or not math.isfinite(lat) or not math.isfinite(lon)
+                or not -90 <= lat <= 90 or not -180 <= lon <= 180):
+            raise ValueError(f"standing site {sname!r} requires fixed source coordinates")
+
+        # The sync's rolling-hours timezone is resolved from these coordinates.
+        # Fail if it would disagree with the source-declared zone used below.
+        from mapsee_supabase_sync import _tz_for
+        resolved = _tz_for(lat, lon)
+        if getattr(resolved, "key", None) != getattr(tz, "key", None):
+            raise ValueError(f"standing site {sname!r} coordinates resolve to "
+                             f"{getattr(resolved, 'key', None)!r}, not {tz.key!r}")
+
+        fixed_today = os.environ.get("MAPSEE_TODAY")
+        if fixed_today:
+            now = datetime.combine(datetime.strptime(fixed_today, "%Y%m%d").date(),
+                                   datetime.min.time(), tzinfo=tz)
+        else:
+            now = datetime.now(tz)
+        earliest = None
+        first_hours = None
+        for offset in range(8):
+            day = now.date() + timedelta(days=offset)
+            hours = weekly.get(str(day.weekday()))
+            closing = (datetime.fromisoformat(f"{day.isoformat()}T{hours[1]}:00")
+                       .replace(tzinfo=tz) if hours else None)
+            if hours and closing > now:
+                earliest, first_hours = day, hours
+                break
+        if earliest is None or first_hours is None:
+            # Weekly schedules must include a real day; the validator above
+            # already ensures one, but retain this guard at the use site.
+            raise ValueError(f"standing site {sname!r} has no upcoming open day")
+
+        title = f"{prefix} - {sname}"
+        desc_parts = [blurb, (site.get("notes") or "").strip()]
+        desc = " · ".join(part for part in desc_parts if part) or None
+        admission = None
+        if "admission" in prog:
+            admission = normalize_admission_facts(
+                prog.get("admission"), url=site.get("url") or url, context=desc or "")
+            desc = admission_description(desc, admission)
+        fp = make_fingerprint(title, "standing", addr or sname)
+        sl, su = _localize(earliest.isoformat(), first_hours[0], tz)
+        el, eu = _localize(earliest.isoformat(), first_hours[1], tz)
+        ev = NormalizedEvent(
+            source=label, source_id=fp, name=title, description=desc,
+            start_local=sl, start_utc=su, end_local=el, end_utc=eu,
+            timezone=tz.key, venue_name=sname, latitude=lat, longitude=lon, address=addr,
+            city=site.get("city"), region=site.get("region"), country=site.get("country"),
+            category=category, categories=list(extra_cats),
+            ticket_url=site.get("url") or url, recurring_days=weekly,
+            coords_exact=True, source_details=admission,
+        )
+        ev.fingerprint = fp
+        out.append(ev)
+    return out
+
+
 def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
+    if "standing" in prog and not isinstance(prog["standing"], bool):
+        raise ValueError("standing must be a boolean")
+    if prog.get("standing") is True:
+        return _standing_events(prog, session)
     weekdays = _weekdays(prog.get("days")) or [0, 1, 2, 3, 4]   # Mon-Fri default
     tz = _tz(prog.get("timezone"))
     s_start, s_end = _as_date(prog.get("season_start")), _as_date(prog.get("season_end"))
@@ -236,6 +387,11 @@ def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
         meals = (site.get("meals") or "").strip()
         notes = (site.get("notes") or "").strip()
         desc = " · ".join(x for x in (blurb, meals, notes) if x) or None
+        admission = None
+        if "admission" in prog:
+            admission = normalize_admission_facts(
+                prog.get("admission"), url=site.get("url") or url, context=desc or "")
+            desc = admission_description(desc, admission)
         start_t, end_t = site.get("start"), site.get("end")
         for d in _site_dates(site, dates):
             ds = d.isoformat()
@@ -249,6 +405,8 @@ def program_events(prog: Dict[str, Any], session) -> List[NormalizedEvent]:
                 city=site.get("city"), region=site.get("region"), country=site.get("country"),
                 category=category, categories=list(extra_cats),
                 ticket_url=site.get("url") or url,
+                coords_exact=site.get("coords_exact") is True,
+                source_details=admission,
             )
             ev.fingerprint = fp
             out.append(ev)

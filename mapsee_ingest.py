@@ -475,6 +475,10 @@ class NormalizedEvent:
     # read them; {} intentionally clears a previous successful read. Projected
     # by Mapsee 0229 for Event JSON-LD; never inferred from approximate prices.
     source_details: Optional[Dict[str, Any]] = None
+    # Transient: a native admission reader inspected this publisher record.
+    # Enables removal of obsolete facts from the SAME reader without making
+    # blank-price events force daily detail syncs or erasing other sources' facts.
+    admission_checked: bool = False
     spotify_url: Optional[str] = None      # artist's Spotify page (exact, when a source provides it)
     youtube_url: Optional[str] = None      # artist's YouTube (exact, when a source provides it)
     # A WEEKLY PATTERN, for sources that describe a standing arrangement rather
@@ -545,6 +549,10 @@ class NormalizedEvent:
     # delete. mapsee_supabase_sync.rekey_legacy consumes these. Empty for every
     # event whose reading did not change, and then left out of the store.
     legacy_fingerprints: List[str] = field(default_factory=list)
+    # Transient publisher host for adapters whose source IDs are only locally
+    # unique (notably Tribe). Removed as a standalone field; source refs carry
+    # publisher provenance and local pricing ownership remembers the host.
+    admission_publisher: Optional[str] = None
 
     def __post_init__(self) -> None:
         if self.agenda is not None:
@@ -554,10 +562,20 @@ class NormalizedEvent:
             self.agenda_tz = _validate_agenda_tz(self.agenda_tz)
 
     def source_ref(self) -> Dict[str, Optional[str]]:
-        return {"source": self.source, "source_id": self.source_id, "url": self.ticket_url}
+        ref = {"source": self.source, "source_id": self.source_id, "url": self.ticket_url}
+        if self.source == "tribe" and self.admission_publisher:
+            ref["publisher"] = self.admission_publisher
+        return ref
 
     def as_record(self, now: str) -> Dict[str, Any]:
         rec = dataclasses.asdict(self)
+        rec.pop("admission_checked", None)
+        rec.pop("admission_publisher", None)
+        if self.admission_checked and self.source_details is not None:
+            owner = {"source": self.source, "source_id": self.source_id}
+            if self.source == "tribe" and self.admission_publisher:
+                owner["publisher"] = self.admission_publisher
+            rec["_admission_source"] = owner
         for k in ("source", "source_id", "ticket_url"):
             rec.pop(k, None)
         rec["sources"] = [self.source_ref()]
@@ -582,6 +600,50 @@ _FILLABLE = (
     "postal_code", "category", "promoter", "poster_image_url",
     "spotify_url", "youtube_url",
 )
+
+
+def _normalized_publisher(value: Any) -> Optional[str]:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    try:
+        parsed = urllib.parse.urlsplit(text if "://" in text else "https://" + text)
+        host = parsed.hostname
+    except ValueError:
+        return None
+    return host.lower().rstrip(".") if host else None
+
+
+def _tribe_ref_publisher(ref: Dict[str, Any], rec: Optional[Dict[str, Any]] = None) -> Optional[str]:
+    """Publisher provenance for a Tribe ref, preferring explicit local metadata."""
+    publisher = _normalized_publisher(ref.get("publisher"))
+    if publisher:
+        return publisher
+    owner = rec.get("_admission_source") if isinstance(rec, dict) else None
+    if (isinstance(owner, dict) and owner.get("source") == "tribe"
+            and str(owner.get("source_id")) == str(ref.get("source_id"))):
+        publisher = _normalized_publisher(owner.get("publisher"))
+        if publisher:
+            return publisher
+    # Before explicit provenance existed, only recognizable event-page routes
+    # can recover the publisher host. A checkout URL alone is deliberately
+    # left unbound; its host may belong to a ticket vendor.
+    try:
+        parsed = urllib.parse.urlsplit(str(ref.get("url") or ""))
+    except ValueError:
+        return None
+    if (parsed.scheme.lower() in {"http", "https"}
+            and re.search(r"(?:^|/)(?:event|events)(?:/|$)", parsed.path, re.I)):
+        return (parsed.hostname or "").lower().rstrip(".") or None
+    return None
+
+
+def _source_lookup_key(source: Any, source_id: Any,
+                       publisher: Optional[str] = None) -> Tuple[Any, ...]:
+    if source == "tribe":
+        return ("tribe", _normalized_publisher(publisher),
+                str(source_id) if source_id is not None else None)
+    return (source, source_id)
 # events.categories accepts 2 extras beyond the primary (migration 0108).
 MAX_EXTRA_CATEGORIES = 2
 # The category vocabulary, which MUST stay in step with site/js/app.js CATEGORIES
@@ -615,7 +677,10 @@ def norm_categories(primary: Optional[str], *extras: Any) -> List[str]:
 
 
 class EventStore:
-    """JSON-file store that dedupes on fingerprint (primary) and (source, source_id) (guard).
+    """JSON-file store that dedupes on fingerprint, then source identity.
+
+    Most adapters use `(source, source_id)`; Tribe adds its publisher host
+    because WordPress IDs are installation-local.
 
     It also REFUSES rows — see the note on `rejected` in __init__ and
     mapsee_spam.py. This is the only place in the pipeline every one of the 44
@@ -626,7 +691,7 @@ class EventStore:
     def __init__(self, path: str) -> None:
         self.path = Path(path)
         self.records: Dict[str, Dict[str, Any]] = {}
-        self.source_to_fp: Dict[Tuple[str, str], str] = {}
+        self.source_to_fp: Dict[Tuple[Any, ...], str] = {}
         # "rekeyed" counts the branch in upsert() where one (source, source_id)
         # turns up carrying a DIFFERENT fingerprint than last time. The store
         # handles that fine. The DATABASE does not: mapsee_supabase_sync upserts
@@ -683,9 +748,17 @@ class EventStore:
                 continue
             self.records[fp] = rec
             for ref in rec.get("sources", []):
-                key = (ref.get("source"), ref.get("source_id"))
-                if key[0] is not None and key[1] is not None:
-                    self.source_to_fp[key] = fp
+                if not isinstance(ref, dict):
+                    continue
+                source, source_id = ref.get("source"), ref.get("source_id")
+                if source is None or source_id is None or not str(source_id).strip():
+                    continue
+                publisher = (_tribe_ref_publisher(ref, rec) if source == "tribe" else None)
+                # An unbound legacy Tribe ID is unsafe as a lookup key; it can
+                # still merge by fingerprint when a matching occurrence arrives.
+                if source == "tribe" and publisher is None:
+                    continue
+                self.source_to_fp[_source_lookup_key(source, source_id, publisher)] = fp
         log.info("Loaded %d existing events from %s", len(self.records), self.path)
 
     def save(self) -> None:
@@ -715,8 +788,38 @@ class EventStore:
                          self.unbounded_by_source.items(), key=lambda kv: -kv[1])))
 
     def _fill_missing(self, rec: Dict[str, Any], ev: NormalizedEvent) -> None:
-        if ev.source_details is not None:
+        if ev.admission_checked:
+            owner = {"source": ev.source, "source_id": ev.source_id}
+            publisher = ev.admission_publisher if ev.source == "tribe" else None
+            if publisher:
+                owner["publisher"] = publisher
+            same_owner = self._same_admission_owner(rec, owner, publisher)
+            previous = rec.get("source_details")
+            previous = previous if isinstance(previous, dict) else {}
+            from mapsee_admission import admission_description, normalize_admission_facts
+            old_offer = normalize_admission_facts(previous.get("offer"))
+            # Two publishers disagreeing about a deduplicated event must never
+            # become a free claim just because the zero-price reader ran last.
+            other_paid = not same_owner and (
+                previous.get("free") is False or (old_offer and old_offer.get("free") is False))
+            conflict = (other_paid and isinstance(ev.source_details, dict)
+                        and ev.source_details.get("free") is True)
+            if conflict:
+                rec["source_details"] = dict(previous, free=False)
+                rec["description"] = admission_description(rec.get("description"), rec["source_details"])
+            elif ev.source_details is not None or same_owner:
+                # Native admission fields replace only pricing facts. A thinner
+                # source must not discard another reader's performer details.
+                details = dict(previous)
+                for key in ("free", "offer", "restricted"):
+                    details.pop(key, None)
+                details.update(ev.source_details or {})
+                rec["source_details"] = details
+                rec["_admission_source"] = owner
+                rec["description"] = ev.description
+        elif ev.source_details is not None:
             rec["source_details"] = ev.source_details
+            rec.pop("_admission_source", None)
             # A successful detail read also refreshes the visible facts. Keeping
             # yesterday's 'available' prose beside today's SoldOut JSON is wrong.
             rec["description"] = ev.description
@@ -740,10 +843,59 @@ class EventStore:
             rec["legacy_fingerprints"] = sorted(
                 set(rec.get("legacy_fingerprints") or []) | set(ev.legacy_fingerprints))
 
+    @staticmethod
+    def _same_admission_owner(rec: Dict[str, Any], owner: Dict[str, Any],
+                              publisher: Optional[str]) -> bool:
+        previous = rec.get("_admission_source")
+        if previous == owner:
+            return True
+        # Before publisher hosts were recorded, a Tribe owner contained only
+        # source + numeric ID. Trust that legacy identity only if its stored
+        # source URL proves it belongs to the incoming publisher; otherwise a
+        # colliding ID from another installation must not replace paid facts.
+        if not publisher:
+            return False
+        if isinstance(previous, dict):
+            if (previous.get("source") != "tribe"
+                    or str(previous.get("source_id")) != str(owner.get("source_id"))
+                    or previous.get("publisher")):
+                return False
+        elif previous is not None:
+            return False
+        refs = rec.get("sources")
+        matches = []
+        for ref in refs if isinstance(refs, list) else []:
+            if (not isinstance(ref, dict) or ref.get("source") != "tribe"
+                    or ref.get("source_id") != owner.get("source_id")):
+                continue
+            host = _normalized_publisher(ref.get("publisher"))
+            if not host:
+                try:
+                    parsed = urllib.parse.urlsplit(str(ref.get("url") or ""))
+                    host = ((parsed.hostname or "").lower().rstrip(".")
+                            if parsed.scheme.lower() in {"http", "https"} else "")
+                except ValueError:
+                    host = ""
+            matches.append(host)
+        # Every persisted ref for this legacy numeric ID must verify the same
+        # publisher. This also upgrades old owner-less free details when their
+        # source ref proves the publisher. An incoming ref is added only after
+        # this check, so a colliding host cannot teach old data to trust it.
+        return bool(matches) and all(host == publisher for host in matches)
+
     def _add_source_ref(self, rec: Dict[str, Any], ev: NormalizedEvent) -> None:
         ref = ev.source_ref()
+        ref_publisher = (_tribe_ref_publisher(ref, rec)
+                         if ev.source == "tribe" else None)
+        ref_key = _source_lookup_key(ref.get("source"), ref.get("source_id"), ref_publisher)
         for existing in rec.setdefault("sources", []):
-            if existing.get("source") == ref["source"] and existing.get("source_id") == ref["source_id"]:
+            if not isinstance(existing, dict):
+                continue
+            existing_publisher = (_tribe_ref_publisher(existing, rec)
+                                  if existing.get("source") == "tribe" else None)
+            existing_key = _source_lookup_key(existing.get("source"),
+                                              existing.get("source_id"), existing_publisher)
+            if existing_key == ref_key:
                 existing.update(ref)
                 return
         rec["sources"].append(ref)
@@ -760,7 +912,11 @@ class EventStore:
 
     def upsert(self, ev: NormalizedEvent) -> str:
         now = iso_now()
-        key = (ev.source, ev.source_id)
+        publisher = (_tribe_ref_publisher(ev.source_ref())
+                     if ev.source == "tribe" else None)
+        key = _source_lookup_key(ev.source, ev.source_id, publisher)
+        has_source_id = ev.source_id is not None and bool(str(ev.source_id).strip())
+        indexed_key = has_source_id and (ev.source != "tribe" or publisher is not None)
 
         # BEFORE ANY OF THE DEDUPE, because a rejected row must not be able to
         # merge into a real one. The fingerprint is (name, date, venue, city) and
@@ -812,7 +968,7 @@ class EventStore:
             self.unbounded_by_source[ev.source] = self.unbounded_by_source.get(ev.source, 0) + 1
 
         # 1) exact source event seen before -> update in place
-        if key in self.source_to_fp:
+        if indexed_key and key in self.source_to_fp:
             old_fp = self.source_to_fp[key]
             rec = self.records.get(old_fp)
             if rec is not None:
@@ -828,8 +984,8 @@ class EventStore:
                         rec["fingerprint"] = ev.fingerprint
                         self.records[ev.fingerprint] = rec
                     self.source_to_fp[key] = ev.fingerprint
-                self._add_source_ref(rec, ev)
                 self._fill_missing(rec, ev)
+                self._add_source_ref(rec, ev)
                 self._refresh_agenda(rec, ev)
                 rec["last_seen"] = now
                 self.stats["updated"] += 1
@@ -838,17 +994,19 @@ class EventStore:
         # 2) same logical event from another source -> merge
         if ev.fingerprint in self.records:
             rec = self.records[ev.fingerprint]
-            self._add_source_ref(rec, ev)
             self._fill_missing(rec, ev)
+            self._add_source_ref(rec, ev)
             self._refresh_agenda(rec, ev)
             rec["last_seen"] = now
-            self.source_to_fp[key] = ev.fingerprint
+            if indexed_key:
+                self.source_to_fp[key] = ev.fingerprint
             self.stats["merged"] += 1
             return "merged"
 
         # 3) brand new
         self.records[ev.fingerprint] = ev.as_record(now)
-        self.source_to_fp[key] = ev.fingerprint
+        if indexed_key:
+            self.source_to_fp[key] = ev.fingerprint
         self.stats["added"] += 1
         return "added"
 

@@ -68,6 +68,8 @@ jobs:
           python test_workflow_contracts.py
           python test_ingest_ics.py
           python test_event_details.py
+          python test_admission.py
+          python test_admission_refresh.py
           python test_feed_budgets.py
           python test_ingest_opendata.py
 
@@ -221,7 +223,9 @@ jobs:
       # programme free for everyone says so in words it reads as free, and one
       # free for cardholders never does.
       - name: Recurring programmes (first Sundays, first full weekends, the free-for-whom wording)
-        run: python test_ingest_programs.py
+        run: |
+          python test_ingest_programs.py
+          python test_programs.py
 
       # OFFSET paging gets dearer every page: offset=6000 makes Postgres produce
       # and discard six thousand rows to return the next thousand. It held while

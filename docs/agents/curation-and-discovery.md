@@ -3,6 +3,59 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: `catalog_curate`, the ledger and its statuses, `_not_included`, sitemaps and robots, bot challenges, site builders vs calendars, calendar plugins, licences.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **FREE COVERAGE IS A MEASURED CITY GAP, NOT COMPLETE DISCOVERY.** On 2026-10-01,
+  **121/121** supported city centers answered the public cached `categories_near`
+  API: **121 GETs / 66,166 bytes / 26.6 seconds**, no stale or failed replies.
+  Window: Oct 1-15 UTC; each square has a 35 km half-width, rather than the
+  /free page's circular radius. **114 cities** have at least one `offer:free`
+  label; **15 have fewer than 5**, including **7 with zero**: Budapest, Cork,
+  Dunedin, Guadalajara, Monterrey, Pune and Tauranga. Counts include standing
+  activities and overlap across neighboring metros; do not sum them into a
+  global inventory. `catalog_free_city_coverage.json` preserves the snapshot
+  derived from `Mapsee/src/cities.js`.
+  - The batch adds **13 curated programs across 12 cities**: Cleveland, Kansas
+    City, Richmond, Cork, Galway, Dunedin, Christchurch, Tauranga, Guadalajara,
+    Monterrey, Budapest and Pune. Actual program -> EventStore -> production-path
+    `build_rows` yields **260 unique rows / 0 network calls**, using verified
+    venue points. Most are museum visit windows, not 260 separate organized
+    events; the Dunedin tour and two Tauranga concerts are three one-off events.
+    Preserve source links, paid-tour/exhibition exclusions, check-in requirements,
+    gallery access limitations, approximate concert end times and holiday rules.
+    Dated programs expire at verified boundaries; omit Nelson's Dec 31 visit
+    because its early closing hour is unconfirmed. VMFA opens **365 days/year**:
+    its weekly hours become **1 stable row instead of 42**. The three US museums
+    fall from **108 to 67 rows**; museums with holidays retain dated schedules.
+    Mexico's two museum schedules and Pune's museum are bounded to October,
+    avoiding later unverified holiday hours. MUSA's published **Oct 16** museum
+    night closes at **21:00**, last entry **20:30**; its regular closing window
+    is excluded that day so one dated row carries the extended hours.
+    Darshan's publisher confirms free
+    entry for ages **3+**, daily **10:00-17:00** except Thursdays and hourly
+    shows, but does not give a final-show/last-entry time: its **26 October
+    rows** represent visitor windows, not invented individual show sessions.
+    All **260/260** program rows and **20/20** retained library rows match the
+    Python free tagger, whose pattern block passes parity with migration 0227.
+    Age/booking restrictions stay visible; optional paid tours/donations also
+    cause secondary priced/cheap tags, without changing the free base visit.
+  - Hawai'i State Public Library System: its robots-allowed Tribe API yields
+    **588 unique IDs / 12 pages / 3,721,600 successful body bytes**. `free_only`
+    keeps **20 native zero-price physical events** and drops **568 unknown costs**
+    before venue conversion. All 20 survive `build_rows` with source coordinates;
+    production retains its usual Census batch refinement. Configure 50 rows/page,
+    12 pages and 31 days: the server clamps 100 to 50. A page-four **500 / 2,482
+    bytes** was followed by an ordinary successful 50-row request; no refusal was
+    bypassed. Its live total changed **587 -> 588** during pagination. Configure
+    `Pacific/Honolulu` so UTC midnight does not skip the current local day.
+  - Holds: Toitu's robots challenge; Tauranga's screening vs paid non-resident
+    gallery entry; Cabanas' current prices vs stale free-Tuesday claims;
+    Montreal without established reuse permission;
+    Louisville's robots denial; Vegas's robots/DNS failure; Lyon and Brighton
+    without a supported feed. A Louisville page was accidentally fetched after
+    its denial during research and was not used in curation.
+  This is verified supply ready for ingestion, not proof that production already
+  gained every row or that any city is exhaustive. Tauranga's Oct 16-17 concerts
+  sit outside the snapshot's next-two-week window.
+
 - **VOLUNTEERING NEEDS A SHIFT, A MEETING PLACE AND AN ACTIONABLE ORGANIZER LINK.**
   The 2026-10-01 volunteer batch adds **2 sources / 8 unique upcoming shifts**,
   verified through the production adapters and `build_rows`, without database

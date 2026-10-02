@@ -1,0 +1,1173 @@
+{
+  "as_of": "2026-10-01",
+  "window_start": "2026-10-01T00:00:00Z",
+  "window_end": "2026-10-15T00:00:00Z",
+  "method": "Public cached categories_near API; 35km half-width bounding square around each supported city. Counts are per-city label counts, overlap across metros, include standing activities, and are not a complete inventory or circular /free-page counts. Failed/stale responses are unknown, not zero.",
+  "request_count": 121,
+  "response_bytes": 66166,
+  "elapsed_ms": 26608,
+  "success": 121,
+  "unknown": [],
+  "zero": [
+    "budapest",
+    "cork",
+    "dunedin",
+    "guadalajara",
+    "monterrey",
+    "pune",
+    "tauranga"
+  ],
+  "thin": [
+    {
+      "slug": "bengaluru",
+      "free": 2
+    },
+    {
+      "slug": "budapest",
+      "free": 0
+    },
+    {
+      "slug": "christchurch",
+      "free": 1
+    },
+    {
+      "slug": "copenhagen",
+      "free": 4
+    },
+    {
+      "slug": "cork",
+      "free": 0
+    },
+    {
+      "slug": "dunedin",
+      "free": 0
+    },
+    {
+      "slug": "galway",
+      "free": 1
+    },
+    {
+      "slug": "guadalajara",
+      "free": 0
+    },
+    {
+      "slug": "hamilton-nz",
+      "free": 2
+    },
+    {
+      "slug": "hyderabad",
+      "free": 1
+    },
+    {
+      "slug": "monterrey",
+      "free": 0
+    },
+    {
+      "slug": "mumbai",
+      "free": 2
+    },
+    {
+      "slug": "porto",
+      "free": 2
+    },
+    {
+      "slug": "pune",
+      "free": 0
+    },
+    {
+      "slug": "tauranga",
+      "free": 0
+    }
+  ],
+  "cities": [
+    {
+      "city": "Adelaide",
+      "slug": "adelaide",
+      "lat": -34.9285,
+      "lon": 138.6007,
+      "free": 5,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Albuquerque",
+      "slug": "albuquerque",
+      "lat": 35.0844,
+      "lon": -106.6504,
+      "free": 17,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Amsterdam",
+      "slug": "amsterdam",
+      "lat": 52.3676,
+      "lon": 4.9041,
+      "free": 215,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Atlanta",
+      "slug": "atlanta",
+      "lat": 33.749,
+      "lon": -84.388,
+      "free": 33,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Auckland",
+      "slug": "auckland",
+      "lat": -36.8485,
+      "lon": 174.7633,
+      "free": 9,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Austin",
+      "slug": "austin",
+      "lat": 30.2672,
+      "lon": -97.7431,
+      "free": 107,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Baltimore",
+      "slug": "baltimore",
+      "lat": 39.2904,
+      "lon": -76.6122,
+      "free": 18,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Barcelona",
+      "slug": "barcelona",
+      "lat": 41.3851,
+      "lon": 2.1734,
+      "free": 134,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Bengaluru",
+      "slug": "bengaluru",
+      "lat": 12.9716,
+      "lon": 77.5946,
+      "free": 2,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Berlin",
+      "slug": "berlin",
+      "lat": 52.52,
+      "lon": 13.405,
+      "free": 75,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Birmingham",
+      "slug": "birmingham-uk",
+      "lat": 52.4862,
+      "lon": -1.8904,
+      "free": 152,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Bordeaux",
+      "slug": "bordeaux",
+      "lat": 44.8378,
+      "lon": -0.5792,
+      "free": 11,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Boston",
+      "slug": "boston",
+      "lat": 42.3601,
+      "lon": -71.0589,
+      "free": 74,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Brighton",
+      "slug": "brighton",
+      "lat": 50.8225,
+      "lon": -0.1372,
+      "free": 89,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Brisbane",
+      "slug": "brisbane",
+      "lat": -27.4698,
+      "lon": 153.0251,
+      "free": 28,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Bristol",
+      "slug": "bristol",
+      "lat": 51.4545,
+      "lon": -2.5879,
+      "free": 44,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Brussels",
+      "slug": "brussels",
+      "lat": 50.8503,
+      "lon": 4.3517,
+      "free": 8,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Budapest",
+      "slug": "budapest",
+      "lat": 47.4979,
+      "lon": 19.0402,
+      "free": 0,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Calgary",
+      "slug": "calgary",
+      "lat": 51.0447,
+      "lon": -114.0719,
+      "free": 21,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Charlotte",
+      "slug": "charlotte",
+      "lat": 35.2271,
+      "lon": -80.8431,
+      "free": 26,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Chicago",
+      "slug": "chicago",
+      "lat": 41.8781,
+      "lon": -87.6298,
+      "free": 55,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Christchurch",
+      "slug": "christchurch",
+      "lat": -43.5321,
+      "lon": 172.6362,
+      "free": 1,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Cincinnati",
+      "slug": "cincinnati",
+      "lat": 39.1031,
+      "lon": -84.512,
+      "free": 13,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Cleveland",
+      "slug": "cleveland",
+      "lat": 41.4993,
+      "lon": -81.6944,
+      "free": 16,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Cologne",
+      "slug": "cologne",
+      "lat": 50.9375,
+      "lon": 6.9603,
+      "free": 7,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Columbus",
+      "slug": "columbus",
+      "lat": 39.9612,
+      "lon": -82.9988,
+      "free": 39,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Copenhagen",
+      "slug": "copenhagen",
+      "lat": 55.6761,
+      "lon": 12.5683,
+      "free": 4,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Cork",
+      "slug": "cork",
+      "lat": 51.8985,
+      "lon": -8.4756,
+      "free": 0,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Dallas",
+      "slug": "dallas",
+      "lat": 32.7767,
+      "lon": -96.797,
+      "free": 40,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Delhi",
+      "slug": "delhi",
+      "lat": 28.6139,
+      "lon": 77.209,
+      "free": 7,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Denver",
+      "slug": "denver",
+      "lat": 39.7392,
+      "lon": -104.9903,
+      "free": 57,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Detroit",
+      "slug": "detroit",
+      "lat": 42.3314,
+      "lon": -83.0458,
+      "free": 9,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Dublin",
+      "slug": "dublin",
+      "lat": 53.3498,
+      "lon": -6.2603,
+      "free": 26,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Dunedin",
+      "slug": "dunedin",
+      "lat": -45.8788,
+      "lon": 170.5028,
+      "free": 0,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Edinburgh",
+      "slug": "edinburgh",
+      "lat": 55.9533,
+      "lon": -3.1883,
+      "free": 11,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Frankfurt",
+      "slug": "frankfurt",
+      "lat": 50.1109,
+      "lon": 8.6821,
+      "free": 9,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Fukuoka",
+      "slug": "fukuoka",
+      "lat": 33.5904,
+      "lon": 130.4017,
+      "free": 10,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Galway",
+      "slug": "galway",
+      "lat": 53.2707,
+      "lon": -9.0568,
+      "free": 1,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Glasgow",
+      "slug": "glasgow",
+      "lat": 55.8642,
+      "lon": -4.2518,
+      "free": 5,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Guadalajara",
+      "slug": "guadalajara",
+      "lat": 20.6597,
+      "lon": -103.3496,
+      "free": 0,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Hamburg",
+      "slug": "hamburg",
+      "lat": 53.5511,
+      "lon": 9.9937,
+      "free": 15,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Hamilton",
+      "slug": "hamilton-nz",
+      "lat": -37.787,
+      "lon": 175.2793,
+      "free": 2,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Helsinki",
+      "slug": "helsinki",
+      "lat": 60.1699,
+      "lon": 24.9384,
+      "free": 11,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Honolulu",
+      "slug": "honolulu",
+      "lat": 21.3069,
+      "lon": -157.8583,
+      "free": 18,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Houston",
+      "slug": "houston",
+      "lat": 29.7604,
+      "lon": -95.3698,
+      "free": 55,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Hyderabad",
+      "slug": "hyderabad",
+      "lat": 17.385,
+      "lon": 78.4867,
+      "free": 1,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Indianapolis",
+      "slug": "indianapolis",
+      "lat": 39.7684,
+      "lon": -86.1581,
+      "free": 26,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Jacksonville",
+      "slug": "jacksonville",
+      "lat": 30.3322,
+      "lon": -81.6557,
+      "free": 8,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Kansas City",
+      "slug": "kansas-city",
+      "lat": 39.0997,
+      "lon": -94.5786,
+      "free": 16,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Kyoto",
+      "slug": "kyoto",
+      "lat": 35.0116,
+      "lon": 135.7681,
+      "free": 29,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Las Vegas",
+      "slug": "las-vegas",
+      "lat": 36.1699,
+      "lon": -115.1398,
+      "free": 55,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Leeds",
+      "slug": "leeds",
+      "lat": 53.8008,
+      "lon": -1.5491,
+      "free": 26,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Lisbon",
+      "slug": "lisbon",
+      "lat": 38.7223,
+      "lon": -9.1393,
+      "free": 22,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "London",
+      "slug": "london",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "free": 1047,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Los Angeles",
+      "slug": "los-angeles",
+      "lat": 34.0522,
+      "lon": -118.2437,
+      "free": 53,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Louisville",
+      "slug": "louisville",
+      "lat": 38.2527,
+      "lon": -85.7585,
+      "free": 7,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Lyon",
+      "slug": "lyon",
+      "lat": 45.764,
+      "lon": 4.8357,
+      "free": 15,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Madrid",
+      "slug": "madrid",
+      "lat": 40.4168,
+      "lon": -3.7038,
+      "free": 107,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Manchester",
+      "slug": "manchester",
+      "lat": 53.4808,
+      "lon": -2.2426,
+      "free": 26,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Marseille",
+      "slug": "marseille",
+      "lat": 43.2965,
+      "lon": 5.3698,
+      "free": 6,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Melbourne",
+      "slug": "melbourne",
+      "lat": -37.8136,
+      "lon": 144.9631,
+      "free": 44,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Memphis",
+      "slug": "memphis",
+      "lat": 35.1495,
+      "lon": -90.049,
+      "free": 8,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Mexico City",
+      "slug": "mexico-city",
+      "lat": 19.4326,
+      "lon": -99.1332,
+      "free": 7,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Miami",
+      "slug": "miami",
+      "lat": 25.7617,
+      "lon": -80.1918,
+      "free": 52,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Milan",
+      "slug": "milan",
+      "lat": 45.4642,
+      "lon": 9.19,
+      "free": 11,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Milwaukee",
+      "slug": "milwaukee",
+      "lat": 43.0389,
+      "lon": -87.9065,
+      "free": 9,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Minneapolis",
+      "slug": "minneapolis",
+      "lat": 44.9778,
+      "lon": -93.265,
+      "free": 28,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Monterrey",
+      "slug": "monterrey",
+      "lat": 25.6866,
+      "lon": -100.3161,
+      "free": 0,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Montreal",
+      "slug": "montreal",
+      "lat": 45.5019,
+      "lon": -73.5674,
+      "free": 17,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Mumbai",
+      "slug": "mumbai",
+      "lat": 19.076,
+      "lon": 72.8777,
+      "free": 2,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Munich",
+      "slug": "munich",
+      "lat": 48.1351,
+      "lon": 11.582,
+      "free": 62,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Nagoya",
+      "slug": "nagoya",
+      "lat": 35.1815,
+      "lon": 136.9066,
+      "free": 21,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Nantes",
+      "slug": "nantes",
+      "lat": 47.2184,
+      "lon": -1.5536,
+      "free": 13,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Naples",
+      "slug": "naples",
+      "lat": 40.8518,
+      "lon": 14.2681,
+      "free": 35,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Nashville",
+      "slug": "nashville",
+      "lat": 36.1627,
+      "lon": -86.7816,
+      "free": 30,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "New Orleans",
+      "slug": "new-orleans",
+      "lat": 29.9511,
+      "lon": -90.0715,
+      "free": 13,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "New York",
+      "slug": "new-york",
+      "lat": 40.7128,
+      "lon": -74.006,
+      "free": 133,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Nice",
+      "slug": "nice",
+      "lat": 43.7102,
+      "lon": 7.262,
+      "free": 9,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Oklahoma City",
+      "slug": "oklahoma-city",
+      "lat": 35.4676,
+      "lon": -97.5164,
+      "free": 10,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Orlando",
+      "slug": "orlando",
+      "lat": 28.5383,
+      "lon": -81.3792,
+      "free": 28,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Osaka",
+      "slug": "osaka",
+      "lat": 34.6937,
+      "lon": 135.5023,
+      "free": 52,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Oslo",
+      "slug": "oslo",
+      "lat": 59.9139,
+      "lon": 10.7522,
+      "free": 5,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Ottawa",
+      "slug": "ottawa",
+      "lat": 45.4215,
+      "lon": -75.6972,
+      "free": 6,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Paris",
+      "slug": "paris",
+      "lat": 48.8566,
+      "lon": 2.3522,
+      "free": 91,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Perth",
+      "slug": "perth",
+      "lat": -31.9523,
+      "lon": 115.8613,
+      "free": 26,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Philadelphia",
+      "slug": "philadelphia",
+      "lat": 39.9526,
+      "lon": -75.1652,
+      "free": 51,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Phoenix",
+      "slug": "phoenix",
+      "lat": 33.4484,
+      "lon": -112.074,
+      "free": 29,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Pittsburgh",
+      "slug": "pittsburgh",
+      "lat": 40.4406,
+      "lon": -79.9959,
+      "free": 20,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Portland",
+      "slug": "portland",
+      "lat": 45.5152,
+      "lon": -122.6784,
+      "free": 29,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Porto",
+      "slug": "porto",
+      "lat": 41.1579,
+      "lon": -8.6291,
+      "free": 2,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Prague",
+      "slug": "prague",
+      "lat": 50.0755,
+      "lon": 14.4378,
+      "free": 14,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Pune",
+      "slug": "pune",
+      "lat": 18.5204,
+      "lon": 73.8567,
+      "free": 0,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Raleigh",
+      "slug": "raleigh",
+      "lat": 35.7796,
+      "lon": -78.6382,
+      "free": 45,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Richmond",
+      "slug": "richmond",
+      "lat": 37.5407,
+      "lon": -77.436,
+      "free": 14,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Rome",
+      "slug": "rome",
+      "lat": 41.9028,
+      "lon": 12.4964,
+      "free": 49,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Rotterdam",
+      "slug": "rotterdam",
+      "lat": 51.9244,
+      "lon": 4.4777,
+      "free": 30,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Sacramento",
+      "slug": "sacramento",
+      "lat": 38.5816,
+      "lon": -121.4944,
+      "free": 16,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Salt Lake City",
+      "slug": "salt-lake-city",
+      "lat": 40.7608,
+      "lon": -111.891,
+      "free": 12,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "San Antonio",
+      "slug": "san-antonio",
+      "lat": 29.4241,
+      "lon": -98.4936,
+      "free": 30,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "San Diego",
+      "slug": "san-diego",
+      "lat": 32.7157,
+      "lon": -117.1611,
+      "free": 45,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "San Francisco",
+      "slug": "san-francisco",
+      "lat": 37.7749,
+      "lon": -122.4194,
+      "free": 42,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Sapporo",
+      "slug": "sapporo",
+      "lat": 43.0618,
+      "lon": 141.3545,
+      "free": 5,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Seattle",
+      "slug": "seattle",
+      "lat": 47.6062,
+      "lon": -122.3321,
+      "free": 90,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Seville",
+      "slug": "seville",
+      "lat": 37.3891,
+      "lon": -5.9845,
+      "free": 10,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "St. Louis",
+      "slug": "st-louis",
+      "lat": 38.627,
+      "lon": -90.1994,
+      "free": 18,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Stockholm",
+      "slug": "stockholm",
+      "lat": 59.3293,
+      "lon": 18.0686,
+      "free": 18,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Strasbourg",
+      "slug": "strasbourg",
+      "lat": 48.5734,
+      "lon": 7.7521,
+      "free": 6,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Sydney",
+      "slug": "sydney",
+      "lat": -33.8688,
+      "lon": 151.2093,
+      "free": 47,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Tampa",
+      "slug": "tampa",
+      "lat": 27.9506,
+      "lon": -82.4572,
+      "free": 27,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Tauranga",
+      "slug": "tauranga",
+      "lat": -37.6878,
+      "lon": 176.1651,
+      "free": 0,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Tokyo",
+      "slug": "tokyo",
+      "lat": 35.6762,
+      "lon": 139.6503,
+      "free": 101,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Toronto",
+      "slug": "toronto",
+      "lat": 43.6532,
+      "lon": -79.3832,
+      "free": 56,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Toulouse",
+      "slug": "toulouse",
+      "lat": 43.6047,
+      "lon": 1.4442,
+      "free": 117,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Turin",
+      "slug": "turin",
+      "lat": 45.0703,
+      "lon": 7.6869,
+      "free": 9,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Utrecht",
+      "slug": "utrecht",
+      "lat": 52.0907,
+      "lon": 5.1214,
+      "free": 215,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Valencia",
+      "slug": "valencia",
+      "lat": 39.4699,
+      "lon": -0.3763,
+      "free": 40,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Vancouver",
+      "slug": "vancouver",
+      "lat": 49.2827,
+      "lon": -123.1207,
+      "free": 29,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Vienna",
+      "slug": "vienna",
+      "lat": 48.2082,
+      "lon": 16.3738,
+      "free": 28,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Washington",
+      "slug": "washington-dc",
+      "lat": 38.9072,
+      "lon": -77.0369,
+      "free": 81,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Wellington",
+      "slug": "wellington",
+      "lat": -41.2865,
+      "lon": 174.7762,
+      "free": 7,
+      "status": 200,
+      "stale": false
+    },
+    {
+      "city": "Yokohama",
+      "slug": "yokohama",
+      "lat": 35.4437,
+      "lon": 139.638,
+      "free": 99,
+      "status": 200,
+      "stale": false
+    }
+  ]
+}

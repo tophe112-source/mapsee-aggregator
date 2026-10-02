@@ -3,6 +3,45 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: Luma, parkrun, businesses vs events, a malformed record, schema.org by accident, webcal, JSON-LD, Overpass slots, seattlecenter, a helper's inherited contract.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **NATIVE ZERO PRICES NEED NO PER-EVENT FETCH, BUT MUST SURVIVE REFRESHES.**
+  On 2026-10-01 Tribe `cost` and JSON-LD raw Offer/list/AggregateOffer fields
+  gain conservative admission normalization: **80 helper checks**, bounded
+  to **64 nodes / 6 levels / 32 price digits**. Every offer needs a price for
+  universal zero; known positive prices veto global free even with incomplete
+  siblings or bounds, while zero-only incomplete offers remain unknown.
+  Audience-restricted offers do not invent a paid price. Admission
+  markers precede the sync's **600-character** prose cap and the existing 0227
+  text tagger. No detail-page request, guessed currency or database schema is
+  added. Tribe's opt-in `free_only` filters before venue normalization; a spy
+  sees **1 converter call for 4 rows**, dropping unknown/paid/member-only rows.
+  - The native reader's transient `admission_checked` flag is not serialized.
+    The local EventStore remembers its pricing owner; a successful same-owner
+    unknown read clears obsolete prices and injected free prose. Unrelated thin
+    readers preserve facts, and native pricing updates retain performer metadata.
+    A known paid/restricted source vetoes another source's zero, independently
+    of ingestion order; the same owner's paid -> zero correction still applies.
+    **11 persisted EventStore -> to_row lifecycle checks** cover these transitions.
+    New blank-price rows omit details and do not force daily refreshes; explicit
+    clears of previously enriched rows retain the existing detail-sync behavior.
+    Fresh thin feeds follow the existing only-new/Wednesday refresh rule.
+  - Tribe IDs are local to a publisher. Two different hosts with numeric ID
+    **541** previously became **1 persisted record / 1 rekey**; scoped internal
+    keys now preserve **2 records / 0 rekeys**, including after save/reload.
+    Public source IDs and fingerprints are unchanged; source refs carry publisher
+    provenance, so an external ticket link cannot hide the owning feed. Unbound
+    legacy refs do not steal another host's event. **64 Tribe checks** cover
+    free-only refreshes from zero to paid/unknown, cross-host collisions, legacy
+    upgrades and rekeying into an existing destination. New unknown/paid rows
+    still skip conversion; the one site lookup avoids rescanning per event.
+  - `standing:true` is opt-in for programs with verified year-round weekly hours:
+    fixed coordinates, explicit weekday hours and an IANA zone that agrees with
+    the sync are required; seasonal/monthly/closure rules are rejected. **29
+    standing checks** and the existing **49 program checks** pass. VMFA's weekday
+    hours use **1 stable fingerprint**, retaining it on the next day, with no
+    geocoder requests. The weekly roller has no holiday exceptions: use dated
+    schedules when closures matter. Verified dated site points can separately
+    opt into `coords_exact:true` to avoid redundant Census refinement.
+
 - **A VEVENT URL can be the subscription export, not its event page.** Measured
   2026-10-01 on Santa Rosa's category 31 CivicPlus feed: all **5** retained
   volunteer shifts had relative URL

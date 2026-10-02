@@ -765,5 +765,644 @@
       { "name": "Boerner Botanical Gardens", "city": "Hales Corners", "region": "Wisconsin", "country": "United States", "lat": 42.936964, "lon": -88.032172, "url": "https://county.milwaukee.gov/EN/Parks/Explore/Boerner-Botanical-Gardens", "_coords": "osm:way/1042480702" },
       { "name": "Milwaukee Art Museum", "city": "Milwaukee", "region": "Wisconsin", "country": "United States", "lat": 43.040073, "lon": -87.897058, "url": "https://mam.org/", "_coords": "wikidata:Q325712" }
     ]
+  },
+  {
+    "name": "Cleveland Museum of Art Free Permanent Collection",
+    "category": "arts",
+    "timezone": "America/New_York",
+    "days": "Tuesday Wednesday Thursday Friday Saturday Sunday",
+    "horizon_days": 42,
+    "season_end": "2026-12-31",
+    "title_prefix": "Free museum visit",
+    "blurb": "Free general admission for everyone to the permanent collection galleries. Some ticketed exhibitions and events require paid admission.",
+    "url": "https://www.clevelandart.org/plan-your-visit",
+    "admission": 0,
+    "sites": [
+      {
+        "name": "Cleveland Museum of Art",
+        "address": "11150 East Boulevard, Cleveland, OH 44106",
+        "city": "Cleveland",
+        "region": "Ohio",
+        "country": "United States",
+        "lat": 41.509608598114,
+        "lon": -81.610254618714,
+        "_coords": "US Census Geocoder Public_AR_Current exact street match 2026-10-01",
+        "exclude_dates": [
+          "2026-11-26",
+          "2026-12-25",
+          "2026-12-24",
+          "2026-12-31"
+        ],
+        "start": "10:00",
+        "end": "17:00",
+        "notes": "Usual hours: Tue, Thu, Sat and Sun 10 am–5 pm; Wed and Fri 10 am–9 pm. Closed Monday. Holiday hours vary; see official holiday schedule. Closed Thanksgiving and Dec 25. Closes at 4 pm Dec 24 and Dec 31.",
+        "coords_exact": true,
+        "days": [
+          "Tuesday",
+          "Thursday",
+          "Saturday",
+          "Sunday"
+        ]
+      },
+      {
+        "name": "Cleveland Museum of Art",
+        "address": "11150 East Boulevard, Cleveland, OH 44106",
+        "city": "Cleveland",
+        "region": "Ohio",
+        "country": "United States",
+        "lat": 41.509608598114,
+        "lon": -81.610254618714,
+        "_coords": "US Census Geocoder Public_AR_Current exact street match 2026-10-01",
+        "exclude_dates": [
+          "2026-11-26",
+          "2026-12-25",
+          "2026-12-24",
+          "2026-12-31"
+        ],
+        "start": "10:00",
+        "end": "21:00",
+        "notes": "Usual hours: Tue, Thu, Sat and Sun 10 am–5 pm; Wed and Fri 10 am–9 pm. Closed Monday. Holiday hours vary; see official holiday schedule. Closed Thanksgiving and Dec 25. Closes at 4 pm Dec 24 and Dec 31.",
+        "coords_exact": true,
+        "days": [
+          "Wednesday",
+          "Friday"
+        ]
+      },
+      {
+        "name": "Cleveland Museum of Art",
+        "address": "11150 East Boulevard, Cleveland, OH 44106",
+        "city": "Cleveland",
+        "region": "Ohio",
+        "country": "United States",
+        "lat": 41.509608598114,
+        "lon": -81.610254618714,
+        "_coords": "US Census Geocoder Public_AR_Current exact street match 2026-10-01",
+        "season_start": "2026-12-24",
+        "season_end": "2026-12-24",
+        "start": "10:00",
+        "end": "16:00",
+        "notes": "One-day published holiday schedule: closes at 4 pm.",
+        "coords_exact": true,
+        "days": [
+          "Thursday"
+        ]
+      },
+      {
+        "name": "Cleveland Museum of Art",
+        "address": "11150 East Boulevard, Cleveland, OH 44106",
+        "city": "Cleveland",
+        "region": "Ohio",
+        "country": "United States",
+        "lat": 41.509608598114,
+        "lon": -81.610254618714,
+        "_coords": "US Census Geocoder Public_AR_Current exact street match 2026-10-01",
+        "season_start": "2026-12-31",
+        "season_end": "2026-12-31",
+        "start": "10:00",
+        "end": "16:00",
+        "notes": "One-day published holiday schedule: closes at 4 pm.",
+        "coords_exact": true,
+        "days": [
+          "Thursday"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Nelson-Atkins Museum of Art Free Admission",
+    "category": "arts",
+    "timezone": "America/Chicago",
+    "days": "Monday Thursday Friday Saturday Sunday",
+    "horizon_days": 42,
+    "season_end": "2026-12-30",
+    "title_prefix": "Free museum visit",
+    "blurb": "Free admission for everyone to general-admission galleries. Check-in is required before entry and is available in person or online. Some separately ticketed exhibitions or events may have their own charge.",
+    "url": "https://nelson-atkins.org/visit/",
+    "admission": 0,
+    "sites": [
+      {
+        "name": "Nelson-Atkins Museum of Art",
+        "address": "4525 Oak Street, Kansas City, MO 64111",
+        "city": "Kansas City",
+        "region": "Missouri",
+        "country": "United States",
+        "lat": 39.045865206378,
+        "lon": -94.581999251442,
+        "_coords": "US Census Geocoder Public_AR_Current exact street match 2026-10-01",
+        "exclude_dates": [
+          "2026-11-26",
+          "2026-12-24",
+          "2026-12-25",
+          "2026-12-31",
+          "2027-01-01"
+        ],
+        "start": "10:00",
+        "end": "17:00",
+        "notes": "Usual hours: Mon 10 am–5 pm; Thu/Fri 10 am–9 pm; Sat/Sun 10 am–5 pm; closed Tue/Wed. Holiday closures: Thanksgiving, Christmas Eve, Christmas Day and New Year’s Day; Dec 31 closes early. Check official holiday schedule before visiting.",
+        "coords_exact": true,
+        "days": [
+          "Monday",
+          "Saturday",
+          "Sunday"
+        ]
+      },
+      {
+        "name": "Nelson-Atkins Museum of Art",
+        "address": "4525 Oak Street, Kansas City, MO 64111",
+        "city": "Kansas City",
+        "region": "Missouri",
+        "country": "United States",
+        "lat": 39.045865206378,
+        "lon": -94.581999251442,
+        "_coords": "US Census Geocoder Public_AR_Current exact street match 2026-10-01",
+        "exclude_dates": [
+          "2026-11-26",
+          "2026-12-24",
+          "2026-12-25",
+          "2026-12-31",
+          "2027-01-01"
+        ],
+        "start": "10:00",
+        "end": "21:00",
+        "notes": "Usual hours: Mon 10 am–5 pm; Thu/Fri 10 am–9 pm; Sat/Sun 10 am–5 pm; closed Tue/Wed. Holiday closures: Thanksgiving, Christmas Eve, Christmas Day and New Year’s Day; Dec 31 closes early. Check official holiday schedule before visiting.",
+        "coords_exact": true,
+        "days": [
+          "Thursday",
+          "Friday"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Virginia Museum of Fine Arts Free General Admission",
+    "standing": true,
+    "category": "arts",
+    "timezone": "America/New_York",
+    "title_prefix": "Free museum visit",
+    "blurb": "Free general admission for everyone. Check the official page for any separately ticketed exhibition or event.",
+    "url": "https://www.vmfa.museum/about-us",
+    "admission": 0,
+    "sites": [
+      {
+        "name": "Virginia Museum of Fine Arts",
+        "address": "200 N Arthur Ashe Boulevard, Richmond, VA 23220",
+        "city": "Richmond",
+        "region": "Virginia",
+        "country": "United States",
+        "lat": 37.5560585,
+        "lon": -77.4748956,
+        "coords_exact": true,
+        "_coords": "osm:way/146689449; Nominatim exact named museum polygon, 200 N Arthur Ashe Blvd, queried 2026-10-01",
+        "recurring_days": {
+          "Monday": [
+            "10:00",
+            "17:00"
+          ],
+          "Tuesday": [
+            "10:00",
+            "17:00"
+          ],
+          "Wednesday": [
+            "10:00",
+            "21:00"
+          ],
+          "Thursday": [
+            "10:00",
+            "21:00"
+          ],
+          "Friday": [
+            "10:00",
+            "21:00"
+          ],
+          "Saturday": [
+            "10:00",
+            "17:00"
+          ],
+          "Sunday": [
+            "10:00",
+            "17:00"
+          ]
+        },
+        "notes": "Open 365 days/year. Sat–Tue 10 am–5 pm; Wed–Fri 10 am–9 pm. Usual hours; check the official visitor page for exceptional changes."
+      }
+    ]
+  },
+  {
+    "name": "Free self-guided visit to Elizabeth Fort",
+    "category": "arts",
+    "url": "https://www.corkcity.ie/en/elizabeth-fort/visitor-information/",
+    "timezone": "Europe/Dublin",
+    "season_start": "2026-10-01",
+    "season_end": "2026-11-30",
+    "days": [
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "horizon_days": 42,
+    "admission": 0,
+    "title_prefix": "Free self-guided visit to Elizabeth Fort",
+    "blurb": "Free general admission for a self-guided visit. Guided tours cost €5 and the audio guide costs €3; these optional extras are separate.",
+    "sites": [
+      {
+        "name": "Elizabeth Fort",
+        "address": "Elizabeth Fort, Barrack Street, Cork, T12 C8A0, Ireland",
+        "city": "Cork",
+        "region": "County Cork",
+        "country": "Ireland",
+        "lat": 51.8945399,
+        "lon": -8.4780194,
+        "coords_exact": true,
+        "_coords": "OpenStreetMap way/54598301: named historic fort, Cork City Council operator, official fort website; not same-name postbox node. ODbL, 2026-10-01",
+        "start": "10:00",
+        "end": "17:00",
+        "notes": "October–April: closed Mondays; Sunday opens at noon. Wheelchair access is limited to the courtyard. Source: Cork City Council.",
+        "days": [
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ]
+      },
+      {
+        "name": "Elizabeth Fort",
+        "address": "Elizabeth Fort, Barrack Street, Cork, T12 C8A0, Ireland",
+        "city": "Cork",
+        "region": "County Cork",
+        "country": "Ireland",
+        "lat": 51.8945399,
+        "lon": -8.4780194,
+        "coords_exact": true,
+        "_coords": "OpenStreetMap way/54598301: named historic fort, Cork City Council operator, official fort website; not same-name postbox node. ODbL, 2026-10-01",
+        "start": "12:00",
+        "end": "17:00",
+        "notes": "October–April: closed Mondays; Sunday opens at noon. Wheelchair access is limited to the courtyard. Source: Cork City Council.",
+        "days": [
+          "Sunday"
+        ]
+      }
+    ],
+    "categories": [
+      "outdoors",
+      "learning"
+    ]
+  },
+  {
+    "name": "Free visit to Galway City Museum",
+    "category": "arts",
+    "url": "https://galwaycitymuseum.ie/plan-your-visit/",
+    "timezone": "Europe/Dublin",
+    "season_start": "2026-10-01",
+    "season_end": "2027-03-16",
+    "days": [
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "horizon_days": 42,
+    "admission": 0,
+    "title_prefix": "Free visit to Galway City Museum",
+    "blurb": "Free museum admission with no booking required. A €5 donation is suggested and optional. Galleries close at 4:45pm.",
+    "sites": [
+      {
+        "name": "Galway City Museum",
+        "address": "Spanish Parade, Galway, H91 CX5P, Ireland",
+        "city": "Galway",
+        "region": "County Galway",
+        "country": "Ireland",
+        "lat": 53.2698151,
+        "lon": -9.053464,
+        "coords_exact": true,
+        "_coords": "OpenStreetMap museum node/10028843150: same Spanish Parade address and official museum website. ODbL, 2026-10-01",
+        "start": "10:00",
+        "end": "16:45",
+        "notes": "Sunday opening ends in mid-September; closed Mondays. Closed Christmas Day and St Stephen’s Day. Source: Galway City Museum.",
+        "exclude_dates": [
+          "2026-12-25",
+          "2026-12-26"
+        ]
+      }
+    ],
+    "categories": [
+      "learning",
+      "kids"
+    ]
+  },
+  {
+    "name": "Free Guided Gallery Tour: Tour for Tots",
+    "category": "kids",
+    "url": "https://dunedin.art.museum/events/tour-for-tots-32/?date=2026-10-13",
+    "timezone": "Pacific/Auckland",
+    "season_start": "2026-10-13",
+    "season_end": "2026-10-13",
+    "days": [
+      "Tuesday"
+    ],
+    "horizon_days": 42,
+    "admission": 0,
+    "title_prefix": "Free Guided Gallery Tour: Tour for Tots",
+    "blurb": "Free guided gallery tour for babies, toddlers and under-fives with a parent or caregiver. Explore art in te reo Māori and English, then enjoy morning tea and a chat.",
+    "sites": [
+      {
+        "name": "Dunedin Public Art Gallery",
+        "address": "30 The Octagon, Dunedin 9016, New Zealand",
+        "city": "Dunedin",
+        "region": "Otago",
+        "country": "New Zealand",
+        "lat": -45.8744985,
+        "lon": 170.5027315,
+        "coords_exact": true,
+        "_coords": "Photon/OSM exact named gallery at the publisher’s street address, verified 2026-10-01",
+        "start": "10:15",
+        "end": "11:00",
+        "notes": "Parent or caregiver must stay. Source: Dunedin Public Art Gallery."
+      }
+    ]
+  },
+  {
+    "name": "Free visit to Christchurch Art Gallery",
+    "category": "arts",
+    "url": "https://christchurchartgallery.org.nz/visit/",
+    "timezone": "Pacific/Auckland",
+    "season_start": "2026-10-01",
+    "season_end": "2026-10-25",
+    "days": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "horizon_days": 42,
+    "admission": 0,
+    "title_prefix": "Free visit to Christchurch Art Gallery",
+    "blurb": "Free gallery admission. Open daily 10am–5pm, with Wednesday late opening until 9pm.",
+    "sites": [
+      {
+        "name": "Christchurch Art Gallery Te Puna o Waiwhetū",
+        "address": "Corner Worcester Boulevard and Montreal Street, Christchurch 8013, New Zealand",
+        "city": "Christchurch",
+        "region": "Canterbury",
+        "country": "New Zealand",
+        "lat": -43.5304171,
+        "lon": 172.6313954,
+        "coords_exact": true,
+        "_coords": "Photon/OSM exact named gallery at official street corner, verified 2026-10-01",
+        "start": "10:00",
+        "end": "17:00",
+        "notes": "Source: Christchurch Art Gallery. Check the visitor page for exceptional changes.",
+        "days": [
+          "Monday",
+          "Tuesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ]
+      },
+      {
+        "name": "Christchurch Art Gallery Te Puna o Waiwhetū",
+        "address": "Corner Worcester Boulevard and Montreal Street, Christchurch 8013, New Zealand",
+        "city": "Christchurch",
+        "region": "Canterbury",
+        "country": "New Zealand",
+        "lat": -43.5304171,
+        "lon": 172.6313954,
+        "coords_exact": true,
+        "_coords": "Photon/OSM exact named gallery at official street corner, verified 2026-10-01",
+        "start": "10:00",
+        "end": "21:00",
+        "notes": "Source: Christchurch Art Gallery. Check the visitor page for exceptional changes.",
+        "days": [
+          "Wednesday"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Tauranga Civic Choir",
+    "category": "music",
+    "url": "https://library.tauranga.govt.nz/whats-on/event-details/tctl/24327_eventdetails/event/84ce0ecb-7eb8-41c8-bdb4-43aac9106f96",
+    "timezone": "Pacific/Auckland",
+    "season_start": "2026-10-16",
+    "season_end": "2026-10-16",
+    "days": [
+      "Friday"
+    ],
+    "horizon_days": 42,
+    "admission": 0,
+    "title_prefix": "Tauranga Civic Choir",
+    "blurb": "Free all-ages easy-listening performance by Tauranga Civic Choir to celebrate the new library opening.",
+    "sites": [
+      {
+        "name": "Te Ao Mārama - Tauranga Library & Community Hub",
+        "address": "95 Willow Street, Tauranga 3110, New Zealand",
+        "city": "Tauranga",
+        "region": "Bay of Plenty",
+        "country": "New Zealand",
+        "lat": -37.6830786,
+        "lon": 176.1686879,
+        "coords_exact": true,
+        "_coords": "Photon/OSM node/5627799104 exact official 95 Willow Street address, verified 2026-10-01",
+        "start": "12:30",
+        "end": "13:00",
+        "notes": "End time is approximate, as published by Tauranga City Libraries."
+      }
+    ]
+  },
+  {
+    "name": "Harp over the Harbour",
+    "category": "music",
+    "url": "https://library.tauranga.govt.nz/whats-on/event-details/tctl/24327_eventdetails/event/a8933505-e46b-4377-8aa5-c047199d182b",
+    "timezone": "Pacific/Auckland",
+    "season_start": "2026-10-17",
+    "season_end": "2026-10-17",
+    "days": [
+      "Saturday"
+    ],
+    "horizon_days": 42,
+    "admission": 0,
+    "title_prefix": "Harp over the Harbour",
+    "blurb": "Free all-ages harp performance by Margaret Harper for Community Celebration Day. No booking required.",
+    "sites": [
+      {
+        "name": "Te Ao Mārama - Tauranga Library & Community Hub",
+        "address": "95 Willow Street, Tauranga 3110, New Zealand",
+        "city": "Tauranga",
+        "region": "Bay of Plenty",
+        "country": "New Zealand",
+        "lat": -37.6830786,
+        "lon": 176.1686879,
+        "coords_exact": true,
+        "_coords": "Photon/OSM node/5627799104 exact official 95 Willow Street address, verified 2026-10-01",
+        "start": "10:30",
+        "end": "11:30",
+        "notes": "End time is approximate, as published by Tauranga City Libraries."
+      }
+    ]
+  },
+  {
+    "name": "MUSA Guadalajara free museum visit",
+    "category": "arts",
+    "url": "https://udg.mx/node/86280",
+    "timezone": "America/Mexico_City",
+    "horizon_days": 31,
+    "title_prefix": "Free admission at MUSA",
+    "blurb": "Free museum admission for all visitors. Visit the current exhibitions; Tuesday–Saturday 10:00–18:00, Sunday 10:00–15:00. Verify opening hours before visiting.",
+    "sites": [
+      {
+        "name": "Museo de las Artes UDG (MUSA)",
+        "address": "Avenida Juárez 975, Guadalajara, Jalisco 44100, Mexico",
+        "city": "Guadalajara",
+        "region": "Jalisco",
+        "country": "Mexico",
+        "lat": 20.6743758,
+        "lon": -103.3589923,
+        "days": "Tuesday Wednesday Thursday Friday Saturday",
+        "start": "10:00",
+        "end": "18:00",
+        "coords_exact": true,
+        "exclude_dates": [
+          "2026-10-16"
+        ]
+      },
+      {
+        "name": "Museo de las Artes UDG (MUSA)",
+        "address": "Avenida Juárez 975, Guadalajara, Jalisco 44100, Mexico",
+        "city": "Guadalajara",
+        "region": "Jalisco",
+        "country": "Mexico",
+        "lat": 20.6743758,
+        "lon": -103.3589923,
+        "days": "Sunday",
+        "start": "10:00",
+        "end": "15:00",
+        "coords_exact": true
+      },
+      {
+        "name": "Museo de las Artes UDG (MUSA)",
+        "address": "Avenida Juárez 975, Guadalajara, Jalisco 44100, Mexico",
+        "city": "Guadalajara",
+        "region": "Jalisco",
+        "country": "Mexico",
+        "lat": 20.6743758,
+        "lon": -103.3589923,
+        "days": "Friday",
+        "start": "10:00",
+        "end": "21:00",
+        "coords_exact": true,
+        "season_start": "2026-10-16",
+        "season_end": "2026-10-16",
+        "notes": "Published October 16 museum night: open until 21:00, last entry 20:30. Check the official program before visiting."
+      }
+    ],
+    "days": "Tuesday Wednesday Thursday Friday Saturday Sunday",
+    "season_start": "2026-01-01",
+    "season_end": "2026-10-31",
+    "admission": 0
+  },
+  {
+    "name": "Museo del Palacio free exhibition visit",
+    "category": "arts",
+    "url": "https://nl.gob.mx/es/evento/exposicion-museo-del-palacio",
+    "timezone": "America/Monterrey",
+    "season_start": "2026-01-02",
+    "season_end": "2026-10-31",
+    "horizon_days": 31,
+    "title_prefix": "Free Museo del Palacio exhibition",
+    "blurb": "Free admission to Museo del Palacio, including the permanent exhibition Constitución y ciudadanía. The official museum notice says admission is free; open Tuesday–Saturday 10:00–18:00 and Sunday 10:00–20:00. Verify opening hours before visiting.",
+    "sites": [
+      {
+        "name": "Museo del Palacio",
+        "address": "5 de Mayo S/N, Col. Centro, Monterrey, Nuevo León, Mexico",
+        "city": "Monterrey",
+        "region": "Nuevo León",
+        "country": "Mexico",
+        "lat": 25.6724868,
+        "lon": -100.3097022,
+        "days": "Tuesday Wednesday Thursday Friday Saturday",
+        "start": "10:00",
+        "end": "18:00",
+        "coords_exact": true
+      },
+      {
+        "name": "Museo del Palacio",
+        "address": "5 de Mayo S/N, Col. Centro, Monterrey, Nuevo León, Mexico",
+        "city": "Monterrey",
+        "region": "Nuevo León",
+        "country": "Mexico",
+        "lat": 25.6724868,
+        "lon": -100.3097022,
+        "days": "Sunday",
+        "start": "10:00",
+        "end": "20:00",
+        "coords_exact": true
+      }
+    ],
+    "days": "Tuesday Wednesday Thursday Friday Saturday Sunday",
+    "admission": 0
+  },
+  {
+    "name": "FUGA free exhibition visit: Made in Hungary",
+    "category": "arts",
+    "url": "https://fuga.org.hu/fevent/made-in-hungary-fritz-reutner-kiallitasa/",
+    "timezone": "Europe/Budapest",
+    "season_start": "2026-10-01",
+    "season_end": "2026-10-25",
+    "horizon_days": 31,
+    "title_prefix": "Free FUGA exhibition: Made in Hungary",
+    "blurb": "Free exhibition viewing. FUGA states exhibitions are free unless otherwise indicated; its posted exhibition hours are Wednesday–Sunday 14:00–19:00. Exhibition access can be reduced or unavailable during events, so verify the current program before visiting.",
+    "sites": [
+      {
+        "name": "FUGA Budapest Center of Architecture",
+        "address": "Petőfi Sándor utca 5, 1052 Budapest, Hungary",
+        "city": "Budapest",
+        "region": "Budapest",
+        "country": "Hungary",
+        "lat": 47.493871,
+        "lon": 19.054937,
+        "days": "Wednesday Thursday Friday Saturday Sunday",
+        "start": "14:00",
+        "end": "19:00",
+        "coords_exact": true
+      }
+    ],
+    "days": "Wednesday Thursday Friday Saturday Sunday",
+    "admission": 0
+  },
+  {
+    "name": "Darshan Museum Pune free public visit",
+    "category": "arts",
+    "url": "https://www.sadhuvaswani.org/darshan-museum",
+    "timezone": "Asia/Kolkata",
+    "season_start": "2026-10-01",
+    "season_end": "2026-10-31",
+    "horizon_days": 42,
+    "days": "Monday Tuesday Wednesday Friday Saturday Sunday",
+    "title_prefix": "Free Darshan Museum visit",
+    "blurb": "Free entry for visitors age 3 and older. Open 10:00–17:00; shows start by the hour and last 90 minutes (60-minute fast track). The publisher does not state the final show start/last-entry time. Group bookings: call in advance. Closed Thursdays and Jan 26, May 1, Aug 15.",
+    "sites": [
+      {
+        "name": "Darshan Museum",
+        "address": "10, Sadhu Vaswani Path, Pune 411001, India",
+        "city": "Pune",
+        "region": "Maharashtra",
+        "country": "India",
+        "lat": 18.5240953,
+        "lon": 73.8764697,
+        "start": "10:00",
+        "end": "17:00",
+        "coords_exact": true
+      }
+    ],
+    "admission": 0
   }
 ]

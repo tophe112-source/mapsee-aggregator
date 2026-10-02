@@ -39,6 +39,7 @@ import sys
 import time
 from datetime import datetime, timezone, timedelta
 from typing import Any, Dict, List, Optional
+from urllib.parse import urlsplit
 
 try:
     import requests
@@ -47,6 +48,7 @@ except ImportError:  # pragma: no cover
 
 from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
 from catalog_discover_osm import CIVIC_TITLE_RX, CIVIC_HOLIDAY_RX
+from mapsee_admission import admission_description, normalize_admission_facts
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 _TAG = re.compile(r"<[^>]+>")
@@ -95,6 +97,65 @@ def _obj(v) -> Dict[str, Any]:
 
 def _venue_key(name: Optional[str]) -> str:
     return re.sub(r"[^\w]+", " ", (name or "").casefold()).strip()
+
+
+def _http_host(url: str) -> str:
+    try:
+        parsed = urlsplit(str(url or ""))
+        if parsed.scheme.lower() not in {"http", "https"}:
+            return ""
+        return (parsed.hostname or "").lower().rstrip(".")
+    except ValueError:
+        return ""
+
+
+def _known_admission_ids_for_site(store: EventStore, base_url: str) -> set:
+    """Previously known Tribe admission facts owned by this publisher host.
+
+    A free-only refresh still needs to see a source event when its publisher
+    changes the price to paid, restricted, or unknown. The source ID alone is
+    not enough: Tribe IDs are only unique within a WordPress installation.
+    Build this once per site so rejected new rows stay cheap. New records carry
+    a transient publisher host in their local admission owner, independent of
+    the selected ticket URL; legacy records fall back to a same-host source ref.
+    """
+    base_host = _http_host(base_url)
+    records = getattr(store, "records", {})
+    if not base_host or not isinstance(records, dict):
+        return set()
+
+    known = set()
+    for rec in records.values():
+        details = rec.get("source_details")
+        if not isinstance(details, dict) or not any(
+                key in details for key in ("free", "offer", "restricted")):
+            continue
+        owner = rec.get("_admission_source")
+        refs = rec.get("sources")
+        for ref in refs if isinstance(refs, list) else []:
+            if not isinstance(ref, dict) or ref.get("source") != "tribe":
+                continue
+            source_id = ref.get("source_id")
+            if not source_id:
+                continue
+            publisher = str(ref.get("publisher") or "")
+            source_host = (_http_host(publisher if "://" in publisher
+                                      else "https://" + publisher)
+                           or _http_host(ref.get("url")))
+            owns_current = (isinstance(owner, dict)
+                            and owner.get("source") == "tribe"
+                            and owner.get("source_id") == source_id
+                            and owner.get("publisher") == base_host)
+            owns_legacy = (isinstance(owner, dict)
+                           and owner.get("source") == "tribe"
+                           and owner.get("source_id") == source_id
+                           and not owner.get("publisher")
+                           and source_host == base_host)
+            legacy_free = (owner is None and details.get("free") is True
+                           and source_host == base_host)
+            if owns_current or owns_legacy or legacy_free:
+                known.add(str(source_id))
+    return known
 
 
 def _block_stands_in(v: Dict[str, Any], vd: Dict[str, Any]) -> bool:
@@ -156,11 +217,17 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
     extras = norm_categories(primary, [c.get("slug") or c.get("name")
                                        for c in (cats if isinstance(cats, list) else [])
                                        if isinstance(c, dict)])
+    description = _clean(ev.get("description"))
+    ticket_url = ev.get("website") or ev.get("url")
+    admission = normalize_admission_facts(
+        ev.get("cost"), url=ticket_url, currency_hint=site.get("currency"),
+        context=f"{name} {description or ''}")
+    description = admission_description(description, admission)
     nev = NormalizedEvent(
         source="tribe",
         source_id=str(ev.get("id") or ev.get("global_id") or make_fingerprint(name, start_local[:10], v.get("venue"))),
         name=name,
-        description=_clean(ev.get("description")),
+        description=description,
         start_local=start_local,
         end_local=((ev.get("end_date") or "").strip().replace(" ", "T")[:19] or None),
         timezone=ev.get("timezone") or None,
@@ -177,7 +244,10 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
         poster_image_url=_obj(ev.get("image")).get("url"),
         # `website` is the venue's own ticket link when set; `url` is the event
         # page on the source site, which is always present and always useful.
-        ticket_url=ev.get("website") or ev.get("url"),
+        ticket_url=ticket_url,
+        source_details=admission,
+        admission_checked=True,
+        admission_publisher=_http_host(site.get("base_url")) or None,
     )
     nev.fingerprint = make_fingerprint(name, start_local[:10], nev.venue_name, nev.city)
     return nev
@@ -192,6 +262,12 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     per_page = int(site.get("per_page", 50))
     max_pages = int(site.get("max_pages", 20))
     now = datetime.now(timezone.utc)
+    if site.get("timezone"):
+        # A UTC date at midnight is already tomorrow in Hawai'i. Asking for
+        # that date skips still-upcoming local-day activities. Only publishers
+        # with a configured calendar zone change the existing UTC default.
+        from zoneinfo import ZoneInfo
+        now = now.astimezone(ZoneInfo(site["timezone"]))
     params = {
         "per_page": per_page,
         "start_date": now.strftime("%Y-%m-%d"),
@@ -212,7 +288,10 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     malformed = 0
     governance = 0
     excluded = 0
+    admission_excluded = 0
     is_civic = str(site.get("_found", "")).startswith("civic:")
+    refreshable_admission_ids = (_known_admission_ids_for_site(store, base)
+                                 if site.get("free_only") else set())
     for page in range(1, max_pages + 1):
         try:
             r = session.get(api, params=dict(params, page=page), timeout=45)
@@ -246,6 +325,17 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
                     if included.isdisjoint(keys):
                         excluded += 1
                         continue
+                if site.get("free_only"):
+                    title = _clean(ev.get("title")) or ""
+                    description = _clean(ev.get("description")) or ""
+                    facts = normalize_admission_facts(
+                        ev.get("cost"), currency_hint=site.get("currency"),
+                        context=f"{title} {description}")
+                    source_id = str(ev.get("id") or ev.get("global_id") or "")
+                    if (not facts or facts.get("free") is not True) and (
+                            source_id not in refreshable_admission_ids):
+                        admission_excluded += 1
+                        continue
                 nev = to_event(ev, site)
             except Exception as exc:                       # noqa: BLE001
                 if not malformed:
@@ -271,7 +361,9 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     print(f"[tribe] {site.get('name')}: kept {kept} events"
           + (f" ({malformed} unreadable record(s) skipped)" if malformed else "")
           + (f" ({governance} town-hall row(s) refused)" if governance else "")
-          + (f" ({excluded} outside configured categories)" if excluded else ""))
+          + (f" ({excluded} outside configured categories)" if excluded else "")
+          + (f" ({admission_excluded} outside explicit-free admission scope)"
+             if admission_excluded else ""))
     return kept
 
 
