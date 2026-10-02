@@ -53,6 +53,17 @@ class Details(unittest.TestCase):
         got = ramart_details(page(tickets='<div>$104</div><div>RAM Member</div>'), URL, TITLE, START)
         self.assertNotIn('offer', got['source_details'])
 
+    def test_registration_cutoff_survives_prose_cap_without_inventing_stock(self):
+        notice = ('Online registration closes four days before class begins. '
+                  'After that, call RAM Wustum at 262.636.9177 to confirm availability.')
+        body = page().replace('<p>Learn wheel throwing and create pottery.</p>',
+                              '<p>' + 'Long class overview. ' * 70 + '</p><p>' + notice + '</p>')
+        got = ramart_details(body, URL, TITLE, START)
+        self.assertIn(notice, got['description'][:800])
+        self.assertEqual(got['source_details']['offer'], {'url': URL, 'price': '130', 'currency': 'USD'})
+        footer = page().replace('</footer>', '<p>' + notice + '</p></footer>')
+        self.assertNotIn(notice, ramart_details(footer, URL, TITLE, START)['description'])
+
     def test_free_festival_has_no_placeholder_performer(self):
         got = ramart_details(page(title='Free Fall Family Fun Fest', artist=None, tickets=''),
                              URL, 'Free Fall Family Fun Fest', START)

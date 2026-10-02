@@ -105,6 +105,12 @@ def ramart_details(body, url, title, starts_at):
         lead.append("Free admission.")
     if price or sold_out or details.get("free"):
         details["offer"] = offer
+    # A published registration cutoff is actionable prose, not ticket stock or
+    # an on-sale date. Retain it ahead of the description cap on later refreshes.
+    for line in overview:
+        if re.match(r"Online registration closes\b", line, re.I) and len(line) <= 400:
+            lead.append(line)
+            break
     address = (obj.get("location") or {}).get("address") or {}
     out = {"source_details": details}
     for prop, column in (("streetAddress", "address"), ("addressLocality", "city"),

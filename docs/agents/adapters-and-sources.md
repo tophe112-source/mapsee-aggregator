@@ -24,7 +24,9 @@
   unchanged. Original location/date fingerprints and UID/fallback IDs survive.
   The Mapsee backfill repairs the 2 reported occasions immediately; normal
   source-detail refresh reaches future occurrences. RAM's fresh source page
-  still publishes no availability or on-sale date; do not invent them.
+  still publishes no availability or on-sale date; do not invent them. Its
+  published registration cutoff/call notice now survives the 800-character
+  prose cap on refresh: 10 event-detail checks retain it without inferring stock.
 
 - **MUSEUM ADMISSION WINDOWS ARE VISITS, NOT ORGANIZED EVENTS.** Google's
   Event guidance excludes business hours. The 2026-10-01 dry run of 14 curated
