@@ -5673,6 +5673,193 @@
         "lon": -117.1625178
       },
       "_metro": "Tijuana, Mexico"
+    },
+    {
+      "name": "Stadtteilprojekt Sonnenland",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.sonnenland-hamburg.de/events/"
+      ],
+      "link_pattern": "https://www\\.sonnenland\\-hamburg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtteilprojekt Sonnenland",
+        "address": "13 Sonnenland",
+        "city": "Hamburg",
+        "postal_code": "22115",
+        "lat": 53.5335529,
+        "lon": 10.1314972
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Helmut Grützmacher Haus",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://svbergstedt.de/sturzpraevention-sicher-durch-die-dunkle-jahreszeit/"
+      ],
+      "link_pattern": "https://svbergstedt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Helmut Grützmacher Haus",
+        "address": "9 Teekoppel",
+        "city": "Hamburg",
+        "postal_code": "22395",
+        "country": "DE",
+        "lat": 53.671273,
+        "lon": 10.1339685
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Stadtbibliothek Hennef",
+      "category": "learning",
+      "_found": "osm:library -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.hennef.de/freizeit/"
+      ],
+      "link_pattern": "https://www\\.hennef\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtbibliothek Hennef",
+        "address": "21 Beethovenstraße",
+        "lat": 50.7742063,
+        "lon": 7.2794046
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Gemeindezentrum St. Maria Magdalena",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.puk-bonn.de/veroeffentlichungen/events/Abendmusiken-im-Oktober-2026.10.04/?instancedate=1791122040000"
+      ],
+      "link_pattern": "https://www\\.puk\\-bonn\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gemeindezentrum St. Maria Magdalena",
+        "address": "25 Magdalenenstraße",
+        "city": "Bonn",
+        "postal_code": "53121",
+        "country": "DE",
+        "lat": 50.7259937,
+        "lon": 7.0752122
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Nachbarschaftszentrum Dicker Busch",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://dickerbusch.de/kalender/"
+      ],
+      "link_pattern": "https://dickerbusch\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Nachbarschaftszentrum Dicker Busch",
+        "lat": 49.9807068,
+        "lon": 8.4405125
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Begegnungszentrum Wiederitzsch",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.geyserhaus.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://www\\.geyserhaus\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Begegnungszentrum Wiederitzsch",
+        "lat": 51.3916922,
+        "lon": 12.3772049
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Kinder u. Jugendcafé \"Die Brücke\"",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.heilsarmee.de/leipzig/termineveranstaltungen.html"
+      ],
+      "link_pattern": "https://www\\.heilsarmee\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kinder u. Jugendcafé \"Die Brücke\"",
+        "address": "Südblick",
+        "city": "Leipzig",
+        "postal_code": "04329",
+        "country": "DE",
+        "lat": 51.3511264,
+        "lon": 12.4548763
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Stadtbibliothek Pegau",
+      "category": "learning",
+      "_found": "osm:library -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.stadt-pegau.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://www\\.stadt\\-pegau\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtbibliothek Pegau",
+        "address": "9 Kirchplatz",
+        "city": "Pegau",
+        "postal_code": "04523",
+        "country": "DE",
+        "lat": 51.1665443,
+        "lon": 12.2525286
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Mittendrin",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.buergervereinleutzsch.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://www\\.buergervereinleutzsch\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Mittendrin",
+        "address": "157 Georg-Schwarz-Straße",
+        "city": "Leipzig",
+        "postal_code": "04179",
+        "lat": 51.3500982,
+        "lon": 12.3085198
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Evangelisches Gemeindehaus Rübgarten",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://kirche-gniebel-ruebgarten.de/event/"
+      ],
+      "link_pattern": "https://kirche\\-gniebel\\-ruebgarten\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Evangelisches Gemeindehaus Rübgarten",
+        "address": "1 Kirchgasse",
+        "city": "Pliezhausen",
+        "postal_code": "72124",
+        "country": "DE",
+        "lat": 48.5656959,
+        "lon": 9.1675294
+      },
+      "_metro": "Stuttgart, Germany"
     }
   ],
   "_not_included": {

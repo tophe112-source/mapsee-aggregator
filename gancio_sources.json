@@ -201,6 +201,17 @@
       "default_country": "DE",
       "_metro": "Berlin, Germany",
       "_note": "Gancio listing free language cafés and tandem meetups in neighbourhood centres and libraries, about a third in Berlin, the rest across DE/AT/CH; 92 upcoming, 45 with coordinates. robots.txt allows all."
+    },
+    {
+      "name": "Centro Sociale",
+      "category": "community",
+      "_found": "osm:community_centre -> gancio",
+      "base_url": "https://www.centrosociale.de",
+      "within_days": 180,
+      "max": 500,
+      "default_city": "Hamburg",
+      "default_country": "DE",
+      "_metro": "Hamburg, Germany"
     }
   ],
   "_tried_and_dead": {

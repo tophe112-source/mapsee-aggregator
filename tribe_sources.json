@@ -13365,6 +13365,451 @@
         "lon": -117.0570918
       },
       "_metro": "Tijuana, Mexico"
+    },
+    {
+      "name": "Haus 25",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://stadtjugendpflege-quickborn.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Haus 25",
+        "address": "25 Am Freibad",
+        "city": "Quickborn",
+        "postal_code": "25451",
+        "lat": 53.7319491,
+        "lon": 9.9036218
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Jugendraum Hasloh",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kijura.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jugendraum Hasloh",
+        "address": "1 Am Sportplatz",
+        "city": "Hasloh",
+        "postal_code": "25474",
+        "country": "DE",
+        "lat": 53.6920063,
+        "lon": 9.9164975
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Begegungszentrum Alte Villa",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.wirfuerniendorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Begegungszentrum Alte Villa",
+        "address": "9 Garstedter Weg",
+        "city": "Hamburg",
+        "postal_code": "22453",
+        "country": "DE",
+        "lat": 53.6202003,
+        "lon": 9.9531958
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Ev. Gemeindezentrum Mümmelmannsberg",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kirche-in-steinbek.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ev. Gemeindezentrum Mümmelmannsberg",
+        "address": "50 Havighorster Redder",
+        "city": "Hamburg",
+        "postal_code": "22115",
+        "country": "DE",
+        "lat": 53.5271361,
+        "lon": 10.149107
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Grasbrookpark",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://unsere-hafencity.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grasbrookpark",
+        "address": "2 Am Grasbrookpark",
+        "city": "Hamburg",
+        "postal_code": "20457",
+        "lat": 53.5401455,
+        "lon": 9.9943495
+      },
+      "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Dorfgemeinschaftshaus Oelinghoven",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://oelinghoven.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dorfgemeinschaftshaus Oelinghoven",
+        "lat": 50.7240278,
+        "lon": 7.2219069
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Dialograum Kreuzung an St. Helena",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kreuzung-helena.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dialograum Kreuzung an St. Helena",
+        "address": "130 Bornheimer Straße",
+        "city": "Bonn",
+        "postal_code": "53119",
+        "country": "DE",
+        "lat": 50.7377618,
+        "lon": 7.0833098
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Glashütte",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://glashuette.jugz.eu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Glashütte",
+        "address": "20 Glashüttenstraße",
+        "city": "Köln",
+        "postal_code": "51143",
+        "country": "DE",
+        "lat": 50.8859365,
+        "lon": 7.0599789
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Jugendzentrum.digital",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jugendzentrum.digital",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jugendzentrum.digital",
+        "address": "10 Sachsenbergstraße",
+        "city": "Köln",
+        "postal_code": "51063",
+        "lat": 50.9531968,
+        "lon": 6.9800192
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Kulturkirche Rondorf",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://treffpunkt-rodenkirchen.koeln",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturkirche Rondorf",
+        "address": "45 Rondorfer Hauptstraße",
+        "city": "Köln",
+        "postal_code": "50997",
+        "country": "DE",
+        "lat": 50.8723225,
+        "lon": 6.954423
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Begegnungsstätte Rathaus Widdeshoven",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.rommerskirchen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Begegnungsstätte Rathaus Widdeshoven",
+        "address": "12 Rathausstraße",
+        "city": "Rommerskirchen",
+        "postal_code": "41569",
+        "country": "DE",
+        "lat": 51.0876522,
+        "lon": 6.6911993
+      },
+      "_metro": "Cologne, Germany"
+    },
+    {
+      "name": "Haus der Begegnung",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://hdb-koenigstein.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Haus der Begegnung",
+        "address": "3 Bischof-Kaller-Straße",
+        "city": "Königstein im Taunus",
+        "postal_code": "61462",
+        "country": "DE",
+        "lat": 50.1784385,
+        "lon": 8.4735022
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Albert-Schweitzer-Zentrum",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event",
+      "base_url": "https://albert-schweitzer-heute.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Albert-Schweitzer-Zentrum",
+        "lat": 50.123535,
+        "lon": 8.6707604
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Vereinsheim TSV Langstadt",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://tsv-langstadt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vereinsheim TSV Langstadt",
+        "address": "23 Forsthausstraße",
+        "city": "Babenhausen",
+        "postal_code": "64832",
+        "lat": 49.9210229,
+        "lon": 8.9528268
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Alt-Katholisches Pfarramt",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.alt-katholisch.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Alt-Katholisches Pfarramt",
+        "address": "9 Otto-Steinwachs-Weg",
+        "city": "Offenbach am Main",
+        "postal_code": "63065",
+        "lat": 50.1008153,
+        "lon": 8.7644165
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Schützengesellschaft 1858 e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://sg-friedrichsdorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Schützengesellschaft 1858 e.V.",
+        "address": "9 Marie-Curie-Straße",
+        "city": "Friedrichsdorf",
+        "postal_code": "61381",
+        "lat": 50.2540956,
+        "lon": 8.6580098
+      },
+      "_metro": "Frankfurt, Germany"
+    },
+    {
+      "name": "Familienzentrum Thekla",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://fiz-leipzig.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Familienzentrum Thekla",
+        "address": "14 Klingenthaler Straße",
+        "city": "Leipzig",
+        "postal_code": "04349",
+        "lat": 51.3761482,
+        "lon": 12.4338337
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Westkreuz",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://westkreuz.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Westkreuz",
+        "address": "16 Weißenfelser Straße",
+        "city": "Leipzig",
+        "postal_code": "04229",
+        "lat": 51.3306366,
+        "lon": 12.3398677
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Ev.-Luth. Taborkirchgemeinde",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.taborkirche.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ev.-Luth. Taborkirchgemeinde",
+        "address": "45a Windorfer Straße",
+        "city": "Leipzig",
+        "postal_code": "04229",
+        "lat": 51.3156214,
+        "lon": 12.3277358
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Ev. Luth. Michaelis-Friedens-Kirchgemeinde",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.michaelis-friedens.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ev. Luth. Michaelis-Friedens-Kirchgemeinde",
+        "address": "9 Kirchplatz",
+        "city": "Leipzig",
+        "postal_code": "04155",
+        "lat": 51.3581671,
+        "lon": 12.3693903
+      },
+      "_metro": "Leipzig, Germany"
+    },
+    {
+      "name": "Kickers Fanprojekt",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://kickers-fanprojekt.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kickers Fanprojekt",
+        "address": "17 Alexanderstraße",
+        "postal_code": "70184",
+        "lat": 48.7754599,
+        "lon": 9.1893534
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Musikverein Oberbrüden",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://mv-oberbrueden.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musikverein Oberbrüden",
+        "address": "15 Bruckwiesen",
+        "city": "Auenwald",
+        "postal_code": "71549",
+        "country": "DE",
+        "lat": 48.9515982,
+        "lon": 9.5016608
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Ho Ryu Zen-Dojo Stuttgart e.V",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://zendojostuttgart.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ho Ryu Zen-Dojo Stuttgart e.V",
+        "address": "60 Silberburgstraße",
+        "postal_code": "70176",
+        "lat": 48.7816196,
+        "lon": 9.1608755
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Gemeindehaus der Evang. Oswaldkirchengemeinde",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.weilimdorf-evangelisch.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gemeindehaus der Evang. Oswaldkirchengemeinde",
+        "address": "10 Ludmannstraße",
+        "city": "Stuttgart",
+        "postal_code": "70499",
+        "country": "DE",
+        "lat": 48.8146052,
+        "lon": 9.110207
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Dietrich-Bonhoeffer-Gemeindezentrum",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.weilimdorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dietrich-Bonhoeffer-Gemeindezentrum",
+        "address": "23 Wormser Straße",
+        "city": "Stuttgart",
+        "postal_code": "70499",
+        "country": "DE",
+        "lat": 48.8116435,
+        "lon": 9.1207187
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "TC Murr e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tc-murr.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TC Murr e.V.",
+        "address": "11 Lindenweg",
+        "city": "Murr",
+        "postal_code": "71711",
+        "lat": 48.965306,
+        "lon": 9.2506188
+      },
+      "_metro": "Stuttgart, Germany"
     }
   ],
   "_not_included": {

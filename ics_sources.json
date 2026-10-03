@@ -18304,5 +18304,223 @@
     "geocode_suffix": ", Jamul, CA",
     "limit": 300,
     "_metro": "Tijuana, Mexico"
+  },
+  {
+    "name": "Universitätsbibliothek der TUHH",
+    "category": "learning",
+    "_found": "osm:library -> events-manager",
+    "url": "https://www.tub.tuhh.de/veranstaltungen/?ical=1",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Tante Hedwig",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.internationaler-bund.de/presse-themen/events-im-ib/2026/month/10/events.ics",
+    "geocode_suffix": ", Leipzig",
+    "limit": 300,
+    "_metro": "Leipzig, Germany"
+  },
+  {
+    "name": "Mädchentreff Mümmelmannsberg",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://trockendock-hamburg.de/site/assets/files/4691/event.ics",
+    "geocode_suffix": ", Hamburg",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Allgemeiner Studierenden Ausschuss TUHH",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/fsr.aiw.ges%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "FSR ET/IT",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/webmaster%40fsr-etit.de/public/basic.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "Vereinshaus Gartengemeinschaft Bachstücken",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vereinshaus590%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Hamburg, Germany",
+    "limit": 300,
+    "_metro": "Hamburg, Germany"
+  },
+  {
+    "name": "DPSG Stamm Las Casas",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/okfaqjd0qni2rg7olur99g9he4ubn29l%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Erftstadt",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Stadthalle",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.troisdorf.de/de/kalender/startseite/event.ics?weekends=false&amp;tagMode=ANY",
+    "geocode_suffix": ", Troisdorf",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Bücherei St. Stephanus Bürrig",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/koeb-buerrig%40stephanus-wbk.de/public/basic.ics",
+    "geocode_suffix": ", Leverkusen",
+    "limit": 300,
+    "_metro": "Cologne, Germany"
+  },
+  {
+    "name": "Deutsche Nationalbibliothek",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.dnb.de/DE/Kulturell/Veranstaltungskalender/Studispezial/20261005BiblfuehrungErstsemester_event.ics?view=dnbwebicsdownload",
+    "geocode_suffix": ", Leipzig",
+    "limit": 300,
+    "_metro": "Leipzig, Germany",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Jugendzentrum",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kijufoe%40erzhausen.de/public/basic.ics",
+    "geocode_suffix": ", Erzhausen",
+    "limit": 300,
+    "_metro": "Frankfurt, Germany"
+  },
+  {
+    "name": "Dorfgemeinschaftshaus Oberdorfelden",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.schoeneck.de/kalender/kulturveranstaltungen/event.ics?weekends=false&amp;tagMode=ALL",
+    "geocode_suffix": ", Schöneck",
+    "limit": 300,
+    "_metro": "Frankfurt, Germany"
+  },
+  {
+    "name": "Jugendzentrum Walldorf",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.moerfelden-walldorf.de/de/kalender/va-kalender/event.ics?weekends=false&amp;tagMode=ALL",
+    "geocode_suffix": ", Mörfelden-Walldorf",
+    "limit": 300,
+    "_metro": "Frankfurt, Germany"
+  },
+  {
+    "name": "DPSG - Stamm Wartbaum",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/v7rmbthabghb6pcdfe08or0fa0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nidderau",
+    "limit": 300,
+    "_metro": "Frankfurt, Germany"
+  },
+  {
+    "name": "Grünes Haus",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f88023ba35da867d242826a97c96bea17e8408fa6767a46796431ad600b109c8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hattersheim am Main",
+    "limit": 300,
+    "_metro": "Frankfurt, Germany"
+  },
+  {
+    "name": "Bibliothek des Max-Planck-Institut für Kognitions- und Neurowissenschaften",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.cbs.mpg.de/aktuelles/veranstaltungen.ics",
+    "geocode_suffix": ", Leipzig",
+    "limit": 300,
+    "_metro": "Leipzig, Germany"
+  },
+  {
+    "name": "Bibliothek des Max-Planck-Institut für Mathematik in den Naturwissenschaften",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://forms.mis.mpg.de/newsfeed/calendar.ics",
+    "geocode_suffix": ", Leipzig",
+    "limit": 300,
+    "_metro": "Leipzig, Germany"
+  },
+  {
+    "name": "Hoffnungszentrum",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager+ics",
+    "url": "https://hoffnungszentrum.de/events/ue50-cafe-5/ical/",
+    "geocode_suffix": ", Leipzig",
+    "limit": 300,
+    "_metro": "Leipzig, Germany"
+  },
+  {
+    "name": "Stadtbücherei",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.backnang.de/site/Backnang-Internet/zmservice/25062112/ical/Handgemacht_Kreativzeit_in_der_Stadtbuecherei.ics?nodeID=523256775654",
+    "geocode_suffix": ", Stuttgart, Germany",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany",
+    "crawl_delay": 30.0
+  },
+  {
+    "name": "ASV Schlichten e.V.",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://asv-schlichten.de/?ical=1",
+    "geocode_suffix": ", Schorndorf",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "CEL - Children‘s English Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/celrenewals%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Stuttgart, Germany",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Württembergische Landesbibliothek",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.wlb-stuttgart.de/veranstaltungen/kalender/termin/default-7ffe1a4b0327ffbd48e2c99098d40b29.ics",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "casa nostra",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.casanostra-bb.de/termine/event/termin/weltmaedchentag-20261006-1530-1730.ics",
+    "geocode_suffix": ", Böblingen",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "Haus der Blasmusik",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://mv-weilderstadt.de/termine/?ical=1",
+    "geocode_suffix": ", Weil der Stadt",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
   }
 ]

@@ -1879,6 +1879,19 @@
         "lon": 13.58722
       },
       "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Trafo im Burgforum",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://trafo-koengen.de/trafo-veranstaltungen",
+      "max_events": 200,
+      "venue": {
+        "name": "Trafo im Burgforum",
+        "lat": 48.678857,
+        "lon": 9.3535759
+      },
+      "_metro": "Stuttgart, Germany"
     }
   ],
   "_not_included": {
