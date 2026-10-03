@@ -23,6 +23,8 @@ Config per source (JSON):
     limit        max rows to pull (default 1000)
     map          which columns hold each field:
                  id, title, description, start, end, venue, address, url,
+                 fee        (a price column: 0 -> "Admission: free.", 8 ->
+                            "Admission: $8."; `currency` overrides the "$")
                  lat, lon   (separate numeric columns), and/or
                  geo        (a Socrata point/location column — GeoJSON Point or
                             {latitude, longitude})
@@ -294,11 +296,15 @@ def row_to_event(row: Dict[str, Any], src: Dict[str, Any], geocoder=None) -> Opt
     # page derived from the API URL (proves the data is official + findable).
     url = url or src.get("url_home") or _dataset_page(src.get("url"))
     label = "opendata:" + src["name"].lower().replace(" ", "-")
+    desc = str(_get(row, m.get("description"))) if _get(row, m.get("description")) else None
+    fee = _fee_line(_get(row, m.get("fee")), src.get("currency", "$"))
+    if fee:
+        desc = f"{desc}\n\n{fee}" if desc else fee
     ev = NormalizedEvent(
         source=label,
         source_id=str(_get(row, m.get("id")) or make_fingerprint(str(title), date_key, venue)),
         name=str(title),
-        description=(str(_get(row, m.get("description"))) if _get(row, m.get("description")) else None),
+        description=desc,
         start_local=start_local, start_utc=start_utc,
         end_local=end_local, end_utc=end_utc,
         venue_name=venue, latitude=lat, longitude=lon,
@@ -308,6 +314,27 @@ def row_to_event(row: Dict[str, Any], src: Dict[str, Any], geocoder=None) -> Opt
     )
     ev.fingerprint = make_fingerprint(str(title), date_key, venue)
     return ev
+
+
+def _fee_line(raw: Any, currency: str = "$") -> Optional[str]:
+    """A dataset's price column, said in words ../mapsee's offer tagger reads.
+
+    Chicago Park District publishes a `fee` per activity (0 for a free event, 8
+    for an open skate) and no description worth the name - the column is the
+    only place the price lives. Migration 0227 tags `free` from TEXT, and a bare
+    "Free." does not match its strict pattern, so a zero is written as
+    "Admission: free." (which does) and anything else as the amount. A blank or
+    unreadable value says nothing: no price is not the same as free."""
+    if raw in (None, ""):
+        return None
+    s = str(raw).strip()
+    try:
+        v = float(s.lstrip("$£€").replace(",", ""))
+    except ValueError:
+        return "Admission: free." if s.lower() in ("free", "no fee", "no charge") else None
+    if v < 0:
+        return None
+    return "Admission: free." if v == 0 else f"Admission: {currency}{v:g}."
 
 
 def _dataset_page(api_url: Optional[str]) -> Optional[str]:

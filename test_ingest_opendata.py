@@ -58,6 +58,24 @@ class OpenDataTests(TestCase):
         with patch.object(ingest,'datetime',Clock):ingest.ingest_socrata(Mock(),session,self.src)
         self.assertEqual(session.get.call_args.kwargs['params']['$where'],"endtime >= '2026-09-09T18:00:00'")
 
+    def test_fee_column_is_said_in_words_the_offer_tagger_reads(self):
+        src={'name':'Chicago Park District Activities (Chicago)','timezone':'America/Chicago','drop_past':False,
+             'map':{'title':'title','start':'start_date','lat':'latitude','lon':'longitude',
+                    'venue':'location_facility','description':'description','fee':'fee'}}
+        row={'title':'Ice Skating - Freestyle Ice','start_date':'2030-10-03T06:00:00.000',
+             'latitude':'41.95','longitude':'-87.69','location_facility':'McFetridge Sports Center',
+             'description':'October 3, 2030 to October 3, 2030','fee':'8'}
+        self.assertEqual(ingest.row_to_event(row,src).description,
+                         'October 3, 2030 to October 3, 2030\n\nAdmission: $8.')
+        # "Admission: free" is what 0227's strict `free` pattern matches; a bare "Free." is not.
+        self.assertEqual(ingest.row_to_event({**row,'fee':'0'},src).description.splitlines()[-1],'Admission: free.')
+        self.assertEqual(ingest.row_to_event({**row,'fee':'0','description':None},src).description,'Admission: free.')
+        # no price is not a price: a blank or unreadable fee says nothing
+        for raw in ('',None,'TBD','-1'):
+            self.assertEqual(ingest.row_to_event({**row,'fee':raw},src).description,'October 3, 2030 to October 3, 2030')
+        self.assertEqual(ingest.row_to_event({**row,'fee':'12.5'},{**src,'currency':'C$'}).description.splitlines()[-1],
+                         'Admission: C$12.5.')
+
     def test_failed_source_is_reported_after_other_sources_are_saved(self):
         sources=[{'name':'good'},{'name':'broken'},{'name':'also good'}]
         store=Mock(records={})

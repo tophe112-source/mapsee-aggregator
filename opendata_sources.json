@@ -160,9 +160,9 @@
     "url": "https://data.cityofchicago.org/resource/tn7v-6rnw.json",
     "app_token": null,
     "category": "community",
-    "where": "start_date > '{now}'",
+    "where": "start_date > '{now}' AND (activity_type IS NULL OR activity_type = 'Open')",
     "order": "start_date",
-    "limit": 500,
+    "limit": 3000,
     "map": {
       "id": "activity_id",
       "title": "title",
@@ -173,7 +173,8 @@
       "address": "address",
       "lat": "latitude",
       "lon": "longitude",
-      "url": "information_link"
+      "url": "information_link",
+      "fee": "fee"
     }
   },
   {
