@@ -230,6 +230,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "1805gallery.com": {
+    "checked": 20261003,
+    "name": "1805 Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "18600.cz": {
     "checked": 20260904,
     "name": "P\u0159\u00edstav 18600",
@@ -675,6 +682,13 @@
   "3pierrots.fr": {
     "checked": 20260828,
     "name": "Cin\u00e9ma-Th\u00e9\u00e2tre Les 3 Pierrots",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "3punkales.com": {
+    "checked": 20261003,
+    "name": "3 Punk Ales Brewing Company",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -8033,6 +8047,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "americancomedyco.com": {
+    "checked": 20261003,
+    "name": "American Comedy Co San Diego",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "americanfork.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20260913,
     "name": "American Fork \u2014 Home Page Calendar",
@@ -11474,6 +11495,13 @@
     "name": "Areapergolesi",
     "offsite_url": "https://www.facebook.com/areapergolesi.events",
     "reason": "osm probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "areasontosurvive.org": {
+    "checked": 20261003,
+    "name": "ARTS Center",
+    "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -20133,6 +20161,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "baycitybrewingco.com": {
+    "checked": 20261003,
+    "name": "Bay City Brewing Co Tasting Room",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "baycitytx.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar": {
     "checked": 20260913,
     "name": "Bay City \u2014 Special Events",
@@ -20220,6 +20255,13 @@
   "bayvenues.co.nz/find-a-venue/queen-elizabeth-youth-centre": {
     "checked": 20260825,
     "name": "Queen Elizabeth II Youth Center and Memorial Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bayviewbc.org": {
+    "checked": 20261003,
+    "name": "Bayview Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -30517,6 +30559,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bloomdtsd.com": {
+    "checked": 20261003,
+    "name": "Bloom Nightclub",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "bloomfield.ie": {
     "checked": 20260822,
     "name": "Bloomfield Health Services and Quaker House",
@@ -31838,6 +31887,27 @@
   "bonifratrzy.pl/index.php?option=18&action=articles_show&art_id=55&menu_id=94&page=17": {
     "checked": 20260909,
     "name": "Klasztor pw. \u015awi\u0119tego Floriana w Zebrzydowicach",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bonitahistoricalsociety.org": {
+    "checked": 20261003,
+    "name": "Bonita Museum & Cultural Center",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
+  "bonitasunnysidefol.org": {
+    "checked": 20261003,
+    "name": "Bonita-Sunnyside Friends of the Library;Bonita Sunnyside Friends of the Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bonitavalley.com": {
+    "checked": 20261003,
+    "name": "Bonita Valley Community Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -34752,6 +34822,13 @@
   "brewhouse.se": {
     "checked": 20260905,
     "name": "Brewhouse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "brewjeriacompany.com": {
+    "checked": 20261003,
+    "name": "Brewjeria Tap Room & Kitchen",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -39261,6 +39338,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "calendar.google.com/calendar/ical/3b7ql575bnns64dp9j3cbinefo%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261003,
+    "name": "Saint Pius X Catholic Church",
+    "reason": "458 vevents / 457 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "calendar.google.com/calendar/ical/5ki9k740tbepofbb7fksda3c0k%40group.calendar.google.com/public/basic.ics": {
     "checked": 20260930,
     "name": "De Stuw",
@@ -39321,6 +39405,20 @@
     "checked": 20260930,
     "name": "Krijt Op Tijd",
     "reason": "150 vevents / 150 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/9m9jdneu4hd7484sb7r3bl2ku4%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261003,
+    "name": "Centro Cultural de la Raza",
+    "reason": "550 vevents / 547 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/9t483uu0o5thl77s6bof1e1qb0%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261003,
+    "name": "Masjidul Taqwa San Diego",
+    "reason": "49 vevents / 49 future",
     "status": "ok",
     "type": "ics"
   },
@@ -39387,6 +39485,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "calendar.google.com/calendar/ical/breadandsaltgallery%40gmail.com/public/basic.ics": {
+    "checked": 20261003,
+    "name": "Bread & Salt",
+    "reason": "186 vevents / 186 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "calendar.google.com/calendar/ical/bremerhoehle%40bremer-hoehe.de/public/basic.ics": {
     "checked": 20261002,
     "name": "Gemeinschaftsraum Bremer H\u00f6hle",
@@ -39399,6 +39504,13 @@
     "name": "BSC Almere",
     "reason": "0 vevents / 0 future",
     "status": "fail",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/c_030ec2ecef70d57ed006172f40863b5350fd57ccca76c92a15819babf640b4df%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261003,
+    "name": "Chula Vista Live Steamer Station",
+    "reason": "17 vevents / 17 future",
+    "status": "ok",
     "type": "ics"
   },
   "calendar.google.com/calendar/ical/c_1881k257fff5oj8slf2lqj181rae2%40resource.calendar.google.com/public/basic.ics": {
@@ -39447,6 +39559,13 @@
     "checked": 20260819,
     "name": "Garneau Theatre",
     "reason": "3535 vevents / 63 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/c_5d042c40561ebdaff4c6e11c3ef6458f4f1c24d39a18eab4f0f37ba0f531a257%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261003,
+    "name": "Saint Pauls United Methodist Church",
+    "reason": "147 vevents / 147 future",
     "status": "ok",
     "type": "ics"
   },
@@ -39590,6 +39709,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "calendar.google.com/calendar/ical/erb0dtbb7qudtdh493jqf6t49o%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261003,
+    "name": "Outboard Boating Club of San Diego",
+    "reason": "21 vevents / 21 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "calendar.google.com/calendar/ical/f3bdaop279mlnjdqsf7844l26c%40group.calendar.google.com/public/basic.ics": {
     "checked": 20261001,
     "name": "Scouting Gillesa",
@@ -39716,6 +39842,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "calendar.google.com/calendar/ical/o6802imd4p4kqudggdu3iiqqls%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261003,
+    "name": "Temple Beth Shalom",
+    "reason": "0 vevents / 0 future",
+    "status": "fail",
+    "type": "ics"
+  },
   "calendar.google.com/calendar/ical/pd0pt2bdujrl7l1t0o8oi46enk%40group.calendar.google.com/public/basic.ics": {
     "checked": 20260930,
     "name": "Dorpshuis Plein 13",
@@ -39749,6 +39882,13 @@
     "name": "Peter Clarke Art Centre",
     "reason": "0 vevents / 0 future",
     "status": "fail",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/saint-johns.org_3617q1k8rrgdqf88f0houolfds%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261003,
+    "name": "Saint John's Episcopal Church",
+    "reason": "326 vevents / 325 future",
+    "status": "ok",
     "type": "ics"
   },
   "calendar.google.com/calendar/ical/scouting.brandevoort%40gmail.com/public/basic.ics": {
@@ -42728,6 +42868,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "casadeoracionsd.org": {
+    "checked": 20261003,
+    "name": "Casa De Oraci\u00f3n",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "casaderepousovaledelobos.pt": {
     "checked": 20260901,
     "name": "Casa de Repouso Vale de Lobos",
@@ -44937,6 +45084,13 @@
   "ceciliawolvertem.be": {
     "checked": 20260911,
     "name": "Feestzaal Cecilia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cecut.gob.mx": {
+    "checked": 20261003,
+    "name": "Centro Cultural Tijuana - CECUT",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -49576,6 +49730,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "chulavistacommunitychurch.wordpress.com/our-church": {
+    "checked": 20261003,
+    "name": "Chula Vista Community Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "chuluotasportsmensclub.com": {
     "checked": 20260927,
     "name": "Chuluota Sportsmens Club",
@@ -49880,6 +50041,13 @@
   "churchofjesuschrist.org/temples/details/stockholm-sweden-temple": {
     "checked": 20260905,
     "name": "Stockholm Sverige Tempel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "churchofjesuschrist.org/temples/details/tijuana-mexico-temple": {
+    "checked": 20261003,
+    "name": "Templo de Tijuana",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -59192,6 +59360,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "clubdeajedrezbenitojuarez.weebly.com": {
+    "checked": 20261003,
+    "name": "Club de Ajedrez Benito Ju\u00e1rez",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "clubdeesgrimademadrid.com": {
     "checked": 20260914,
     "name": "Club de Esgrima de Madrid",
@@ -60887,6 +61062,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "cocobongo.com/?ref=B5BUY6XHEV": {
+    "checked": 20261003,
+    "name": "COCO BONGO CANCUN",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cocofump.co.jp/facilities/detail/ebina": {
     "checked": 20260925,
     "name": "\u30b3\u30b3\u30d5\u30a1\u30f3\u6d77\u8001\u540d",
@@ -61874,6 +62056,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "communityactorstheatre.com": {
+    "checked": 20261003,
+    "name": "Community Actor's Theatre",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "communitybaptist-nz.com": {
     "checked": 20260825,
@@ -63416,6 +63605,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "coronadohistory.org": {
+    "checked": 20261003,
+    "name": "Coronado Historical Association",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "corp.asics.com/en/about_asics/museum": {
     "checked": 20260927,
     "name": "ASICS Museum",
@@ -63468,6 +63664,13 @@
   "corpuschristi-edm.ca": {
     "checked": 20260819,
     "name": "The Catholic Parish of Corpus Christi",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "corpuschristicatholic.org": {
+    "checked": 20261003,
+    "name": "Corpus Christi Catholic Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -66846,6 +67049,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cvmrcc.com": {
+    "checked": 20261003,
+    "name": "Chula Vista Model and Radio Control Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cvv-vlugenvaardig.nl": {
     "checked": 20260930,
     "name": "CVV Vlug en Vaardig",
@@ -66961,6 +67171,13 @@
   "cyclonelesite.com": {
     "checked": 20260830,
     "name": "Cyclone le studio",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cygnettheatre.org": {
+    "checked": 20261003,
+    "name": "The Joan and Irwin Jacobs Performing Arts Center",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -71449,6 +71666,13 @@
   "derbymuseum.org": {
     "checked": 20260927,
     "name": "Kentucky Derby Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "derbyunited.com": {
+    "checked": 20261003,
+    "name": "Derby United Headquarters",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -76757,6 +76981,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "dundalk.ie": {
+    "checked": 20261003,
+    "name": "Dundalk",
+    "reason": "3 events, 3/3 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "dundeecity.gov.uk": {
     "checked": 20260927,
     "name": "Dundee",
@@ -80108,6 +80339,13 @@
   "el-atelier.org/es/main/home": {
     "checked": 20260915,
     "name": "Cora Egger El Atelier",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "elaftersocialclub.com": {
+    "checked": 20261003,
+    "name": "El After Social Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -83782,6 +84020,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "espaciocona.com.mx": {
+    "checked": 20261003,
+    "name": "Espacio Cona",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "espaciodedentro.com": {
     "checked": 20260916,
     "name": "Espacio de Dentro",
@@ -86638,6 +86883,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/EjercitoDePeones": {
+    "checked": 20261003,
+    "name": "Club de Ajedrez Ej\u00e9rcito de Peones",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/FactoryWaterford": {
     "checked": 20260823,
     "name": "The Factory Nightclub",
@@ -86760,6 +87012,13 @@
   "facebook.com/KomunitnizahradaVidimova": {
     "checked": 20260904,
     "name": "Komunitn\u00ed zahrada Vidimova",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/Koox-Balak-MTB-Club-AC-112359676007889C": {
+    "checked": 20261003,
+    "name": "Ko\u00b4ox Balak\u00b4 MTB Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -87401,6 +87660,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/grupoxvimid": {
+    "checked": 20261003,
+    "name": "Grupo XVI JEsucristo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/hakkajb": {
     "checked": 20260910,
     "name": "Persatuan Thoong Nyien (Hakka) Johor Bahru",
@@ -87744,6 +88010,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/pages/Unidad-Deportiva-del-Bosque/1448785635344623": {
+    "checked": 20261003,
+    "name": "Unidad Deportiva de Residencial del Bosque",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "facebook.com/pages/Wat-Phra-Dhammakaya-Auckland/934465446662717": {
     "checked": 20260824,
     "name": "Wat Phra Dhammakaya Auckland",
@@ -87964,6 +88237,13 @@
   "facebook.com/profile.php?id=100079084634612": {
     "checked": 20260915,
     "name": "Tot per l'aire",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/profile.php?id=100083082263452": {
+    "checked": 20261003,
+    "name": "Club de Ajedrez El Matador",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -92226,6 +92506,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fluxxsd.com": {
+    "checked": 20261003,
+    "name": "Fluxx",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "fly-in.be": {
     "checked": 20260914,
     "name": "FLY-IN",
@@ -93748,6 +94035,13 @@
   "foro37.com": {
     "checked": 20261001,
     "name": "Foro37",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "forognpseguros.mx": {
+    "checked": 20261003,
+    "name": "Foro GNP Seguros",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -99359,6 +99653,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gaslampmuseum.org/copy-of-home-1": {
+    "checked": 20261003,
+    "name": "Gaslamp Museum at the Davis-Horton House",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "gasmuseum.jp": {
     "checked": 20260924,
     "name": "\u30ac\u30b9\u30df\u30e5\u30fc\u30b8\u30a2\u30e0",
@@ -104866,6 +105167,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "granmuseodelmundomaya.com.mx": {
+    "checked": 20261003,
+    "name": "Gran Museo del Mundo Maya",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "granslev-forsamlingshus.dk": {
     "checked": 20260901,
     "name": "Granslev Forsamlingshus",
@@ -108257,6 +108565,13 @@
   "hallesaintpierre.org": {
     "checked": 20260830,
     "name": "Halle Saint-Pierre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "hallforrentsandiego.com": {
+    "checked": 20261003,
+    "name": "Swiss Park",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -116746,6 +117061,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hotel.hardrock.com/san-diego": {
+    "checked": 20261003,
+    "name": "Hard Rock Hotel - 207 Lobby Bar",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "hotelcecil.dk": {
     "checked": 20260831,
     "name": "Hotel Cecil",
@@ -117908,6 +118230,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "humphreysconcerts.com": {
+    "checked": 20261003,
+    "name": "Humphreys Concerts by the Bay",
+    "offsite_url": "http://www.ticketmaster.com/Humphreys-Concerts-By-the-Bay-tickets-San-Diego/venue/81964",
+    "reason": "osm probe: offsite:ticketmaster",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "humus-art.com": {
     "checked": 20260920,
     "name": "Galerie d'art Humus",
@@ -118675,6 +119005,13 @@
   "ibenthaler-stiftung.jimdofree.com/das-ibenthaler-haus": {
     "checked": 20260919,
     "name": "Ibenthaler-Haus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ibethlem.com": {
+    "checked": 20261003,
+    "name": "Mision Familair Bethlem",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -121907,6 +122244,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "instagram.com/rocksolid.merida": {
+    "checked": 20261003,
+    "name": "Rock Solid M\u00e9rida",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "instagram.com/sea_arttraces?igsh=MXFtZ3RxbDIwazJuMw==": {
+    "checked": 20261003,
+    "name": "Sitio Experimental De Arte",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "instagram.com/seirenkyo": {
     "checked": 20260926,
     "name": "Seibu Kodo",
@@ -124066,6 +124417,13 @@
   "jamsilyouthcenter.or.kr": {
     "checked": 20260902,
     "name": "\uc7a0\uc2e4\ubcf8\ub3d9\uc1a1\ud30c\ud0a4\uc6c0\uc13c\ud130",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "jamulbaseball.com": {
+    "checked": 20261003,
+    "name": "Jamul Little League Grounds",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -133103,6 +133461,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kinsale.ie": {
+    "checked": 20261003,
+    "name": "Kinsale",
+    "reason": "14 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "kinsaleafc.net": {
     "checked": 20260822,
@@ -143370,6 +143735,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "laplayabooks.com": {
+    "checked": 20261003,
+    "name": "La Playa Books",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "laploma.org": {
     "checked": 20260915,
     "name": "La Ploma. llibreria-papereria",
@@ -144063,6 +144435,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "laspulgas.mx": {
+    "checked": 20261003,
+    "name": "Las Pulgas Bar",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "lasrejas.forus.es": {
     "checked": 20260914,
@@ -145145,6 +145524,13 @@
   "lds.org": {
     "checked": 20260819,
     "name": "The Church of Jesus Christ of Latter-day Saints",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lds.org/?lang=spa": {
+    "checked": 20261003,
+    "name": "La Iglesia de Jesucristo de los Santos de los \u00daltimos D\u00edas",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -148811,6 +149197,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "libertystation.com": {
+    "checked": 20261003,
+    "name": "The Lot",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "libertystation.com/events/centennial/uss-recruit": {
+    "checked": 20261003,
+    "name": "USS Recruit",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "libet.org": {
     "checked": 20260921,
     "name": "Libet",
@@ -152086,6 +152486,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "linktr.ee/barezzitocancun": {
+    "checked": 20261003,
+    "name": "Barezzito Puerto Canc\u00fan",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "linktr.ee/bloom_gallery": {
     "checked": 20260925,
     "name": "\u30d6\u30eb\u30fc\u30e0\u30ae\u30e3\u30e9\u30ea\u30fc",
@@ -153973,6 +154380,13 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "lorcacentrocultural.com": {
+    "checked": 20261003,
+    "name": "Centro Cultural Lorca",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lordchurch.org.nz": {
     "checked": 20260824,
     "name": "Lord's Church of Auckland",
@@ -155568,6 +155982,13 @@
   "m.facebook.com/asdburracoland": {
     "checked": 20260921,
     "name": "BurracoLand",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "m.facebook.com/dansooz": {
+    "checked": 20261003,
+    "name": "Dansooz Cycle Studio",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -159481,6 +159902,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "marriott.com/hotels/event-planning/business-meeting/sandt-marriott-marquis-san-diego-marina": {
+    "checked": 20261003,
+    "name": "Marriott Hall",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "marsdenbooks.co.nz": {
     "checked": 20260824,
     "name": "Marsden Books",
@@ -160154,6 +160582,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "materdeicv.org": {
+    "checked": 20261003,
+    "name": "Mater Dei Catholic Church",
+    "reason": "not json",
+    "status": "fail",
+    "type": "tribe"
+  },
   "materialinmotion.com": {
     "checked": 20260927,
     "name": "Material In Motion",
@@ -160790,6 +161225,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "mcasd.org": {
+    "checked": 20261003,
+    "name": "Museum of Contemporary Art",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "mcb-bs.ch": {
     "checked": 20260919,
@@ -164018,6 +164460,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "midway.org": {
+    "checked": 20261003,
+    "name": "USS Midway Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "midwaypointyachtclub.yachting.org.au": {
     "checked": 20260821,
     "name": "Midway Point Yacht Club",
@@ -164143,6 +164592,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mijeesmexico.org": {
+    "checked": 20261003,
+    "name": "Ministerio Internacional Jesucristo Es El Se\u00f1or",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "mijnoosterparkwijk.nl": {
     "checked": 20261001,
@@ -164826,6 +165282,13 @@
   "minerva.co.nz": {
     "checked": 20260824,
     "name": "Minerva",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mingei.org": {
+    "checked": 20261003,
+    "name": "Mingei International Museum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -166045,6 +166508,13 @@
   "mladiinfo.cz": {
     "checked": 20260905,
     "name": "Mladiinfo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mlb.com/padres": {
+    "checked": 20261003,
+    "name": "San Diego Padres",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -169921,6 +170391,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mucoti.com.mx": {
+    "checked": 20261003,
+    "name": "Museo del Coleccionista",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mudac.ch": {
     "checked": 20260920,
     "name": "MUDAC",
@@ -170365,6 +170842,13 @@
   "muliermuliergallery.com": {
     "checked": 20260911,
     "name": "Mulier Mulier",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mullme.com": {
+    "checked": 20261003,
+    "name": "MULLME Museo de La Lucha Libre Mexicana",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -172161,6 +172645,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museodelaluz.unam.mx": {
+    "checked": 20261003,
+    "name": "Museo de la Luz",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museodelaluzmadrid.com": {
     "checked": 20260914,
     "name": "Museo De La Luz Madrid",
@@ -172290,6 +172781,13 @@
   "museodelsaxofono.com": {
     "checked": 20260921,
     "name": "Museo del Saxofono",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "museodeltaco.mx": {
+    "checked": 20261003,
+    "name": "Museo del Taco",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -173925,6 +174423,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museumofus.org": {
+    "checked": 20261003,
+    "name": "Museum of Us",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museumonthemound.com": {
     "checked": 20260819,
     "name": "Museum on the Mound",
@@ -174216,6 +174721,13 @@
   "musicboxlisboa.com": {
     "checked": 20260901,
     "name": "Musicbox",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "musicboxsd.com": {
+    "checked": 20261003,
+    "name": "Music Box",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -175659,6 +176171,14 @@
     "checked": 20260925,
     "name": "\u30de\u30a4\u30c9\u30fc\u30e0\u304a\u304a\u3055\u304b",
     "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mydreamhall2018.wixsite.com/website": {
+    "checked": 20261003,
+    "name": "My Dream Hall",
+    "offsite_url": "https://www.facebook.com/mydreamhallevents/",
+    "reason": "osm probe: offsite:facebook.com",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -177652,6 +178172,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "navymwr.org/programs/motion-pictures/theaters?id=fa01c38d-22f6-4875-a986-184e294c208d": {
+    "checked": 20261003,
+    "name": "Navy Base San Diego Theater",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "navymwrjacksonville.com/programs/c8daacd0-9750-4b00-90f4-b6444cc629f0": {
     "checked": 20260927,
     "name": "MWR Liberty Center",
@@ -178894,6 +179421,13 @@
   "newhope.org.nz": {
     "checked": 20260824,
     "name": "New Hope Fellowship",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "newhopeeastlake.org": {
+    "checked": 20261003,
+    "name": "New Hope Eastlake",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -180239,6 +180773,13 @@
   "nivonrotterdam.nl": {
     "checked": 20260930,
     "name": "Nivon",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "niwa.org": {
+    "checked": 20261003,
+    "name": "Japanese Friendship Garden",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -181771,6 +182312,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "northislandcreditunionamp.com/shows": {
+    "checked": 20261003,
+    "name": "North Island Credit Union Amphitheatre",
+    "reason": "11/11 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "northkirra.com.au/supporters": {
     "checked": 20260819,
     "name": "North Kirra Surf Club",
@@ -182465,6 +183013,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "novasd.com": {
+    "checked": 20261003,
+    "name": "Nova",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "novasin.org": {
     "checked": 20260904,
     "name": "Galerie Nov\u00e1 s\u00ed\u0148",
@@ -182489,6 +183044,13 @@
   "novekino.pl/kina/wisla": {
     "checked": 20260909,
     "name": "Wis\u0142a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "novofut.com": {
+    "checked": 20261003,
+    "name": "Novofut",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -186094,6 +186656,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "olgsd.org": {
+    "checked": 20261003,
+    "name": "Our Lady of Guadalupe Catholic Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "olimpicorugby.com/#": {
     "checked": 20260914,
     "name": "Ol\u00edmpico de Pozuelo Rugby Club (instalaciones)",
@@ -186976,6 +187545,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "onstageplayhouse.org": {
+    "checked": 20261003,
+    "name": "OnStage Playhouse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "onstatenborough.com.au": {
     "checked": 20260819,
     "name": "On Statenborough",
@@ -187045,6 +187621,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "onyxroom.com/events": {
+    "checked": 20261003,
+    "name": "Onyx Room Nightclub",
+    "reason": "2 events / 0 future",
+    "status": "empty",
+    "type": "jsonld"
   },
   "onzecplus.org": {
     "checked": 20260829,
@@ -187990,6 +188573,13 @@
     "reason": "141 future, 141 placeable",
     "status": "ok",
     "type": "ics"
+  },
+  "openarmsadhc.com": {
+    "checked": 20261003,
+    "name": "Open Arms Adult Day Healthcare",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "openbeachvolley.com": {
     "checked": 20260922,
@@ -190505,6 +191095,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ourladyofmountcarmel-sy.org": {
+    "checked": 20261003,
+    "name": "Our Lady of Mount Carmel Catholic Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "ourladysbryn.org.uk": {
     "checked": 20260819,
     "name": "Parish Hall",
@@ -191856,6 +192453,13 @@
     "status": "empty",
     "type": "tribe"
   },
+  "palaciodelamusica.yucatan.gob.mx": {
+    "checked": 20261003,
+    "name": "Palacio de la M\u00fasica",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "palaciodelebrija.com": {
     "checked": 20260916,
     "name": "Museo Palacio de Lebrija",
@@ -192566,6 +193170,13 @@
   "papanuiclub.co.nz": {
     "checked": 20260824,
     "name": "Papanui Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "papasandbeer.com/rosarito": {
+    "checked": 20261003,
+    "name": "Papas & Beer",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -197058,6 +197669,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "peopleschurchsd.org": {
+    "checked": 20261003,
+    "name": "People's Church San Diego",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
   "peoplesenvironmentalplanning.org.za": {
     "checked": 20260930,
     "name": "People's Environmental Planning (PEP)",
@@ -198325,6 +198943,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "phcsandiego.com": {
+    "checked": 20261003,
+    "name": "Portuguese Historical Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "pheasantbranch.org": {
     "checked": 20260928,
@@ -202367,6 +202992,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ppbcsd.org": {
+    "checked": 20261003,
+    "name": "Pilgrim Progressive Baptist Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ppcc.org.sg": {
     "checked": 20260910,
     "name": "Pasir Panjang Christ Church",
@@ -203655,6 +204287,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "prohibitionsd.com/private-events": {
+    "checked": 20261003,
+    "name": "Prohibition Lounge",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "prohombrechtikon.ch": {
     "checked": 20260917,
     "name": "Stricklerhuus",
@@ -204934,6 +205573,13 @@
   "pv-pacem.de/st-peter-und-paul/st-peter-und-paul": {
     "checked": 20261002,
     "name": "Pfarrheim St. Peter und Paul",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pvchurch.org": {
+    "checked": 20261003,
+    "name": "Paradise Valley Seventh-day Adventist Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -208249,6 +208895,13 @@
     "reason": "1 vevents / 1 future",
     "status": "ok",
     "type": "ics"
+  },
+  "redwoodbridgeclub.org": {
+    "checked": 20261003,
+    "name": "Redwood Bridge Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "redwoodtennis.co.nz": {
     "checked": 20260824,
@@ -214778,6 +215431,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sacredheartcor.org/join-us-live/?ical=1": {
+    "checked": 20261003,
+    "name": "Sacred Heart Catholic Church",
+    "reason": "1237 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "sacrestimmate.org": {
     "checked": 20260921,
     "name": "Santissime Stimmate di San Francesco",
@@ -216332,6 +216992,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "salonmonarcasd.com/events-1": {
+    "checked": 20261003,
+    "name": "Salon Monarca",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "salons-hoche.fr": {
     "checked": 20260828,
     "name": "Les Salons Hoche",
@@ -217207,6 +217874,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "sanantoniohool.com": {
+    "checked": 20261003,
+    "name": "Hacienda San Antonio Hool",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sanapark.ch": {
     "checked": 20260918,
     "name": "Sanapark",
@@ -217431,6 +218105,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sandiego.gov/park-and-recreation/parks": {
+    "checked": 20261003,
+    "name": "Zoro Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiego.gov/pools/vista-terrace-pool": {
+    "checked": 20261003,
+    "name": "Vista Terrace Park and Pool Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sandiego.gov/public-library/central-library": {
     "checked": 20260926,
     "name": "San Diego Central Library",
@@ -217494,6 +218182,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sandiego.gov/public-library/visualarts": {
+    "checked": 20261003,
+    "name": "Central Library Art Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiegoairandspace.org": {
+    "checked": 20261003,
+    "name": "San Diego Air & Space Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiegofirehousemuseum.com": {
+    "checked": 20261003,
+    "name": "Firehouse Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sandiegohistory.org": {
     "checked": 20260927,
     "name": "San Diego History Center (San Diego)",
@@ -217501,12 +218210,40 @@
     "status": "ok",
     "type": "tribe"
   },
+  "sandiegolawnbowling.org": {
+    "checked": 20261003,
+    "name": "San Diego Lawn Bowling Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sandiegonewlife.org/calendar": {
+    "checked": 20261003,
+    "name": "San Diego New Life Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "sandiegoriver.org": {
     "checked": 20260927,
     "name": "San Diego River Park Foundation (San Diego)",
     "reason": "31 future, 29 placeable",
     "status": "ok",
     "type": "tribe"
+  },
+  "sandiegotheatres.org/events": {
+    "checked": 20261003,
+    "name": "Civic Theatre",
+    "reason": "7/7 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
+  "sandiegozoo.org": {
+    "checked": 20261003,
+    "name": "San Diego Zoo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "sandleiten.at": {
     "checked": 20260907,
@@ -219288,6 +220025,13 @@
     "reason": "2 vevents / 2 future",
     "status": "ok",
     "type": "ics"
+  },
+  "savestarlight.org": {
+    "checked": 20261003,
+    "name": "Starlight Bowl",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "savethesound.org/events/?ical=1": {
     "checked": 20260803,
@@ -222097,6 +222841,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sdautomuseum.org/events": {
+    "checked": 20261003,
+    "name": "San Diego Automotive Museum",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "sdc.com.sg": {
     "checked": 20260910,
     "name": "Singapore Discovery Centre",
@@ -222121,6 +222872,13 @@
   "sdcc.ie/en/services/sport-and-recreation/libraries/join-library-login/find-a-library/palmerstown": {
     "checked": 20260822,
     "name": "Palmerstown Library Digital Hub",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sdchm.org": {
+    "checked": 20261003,
+    "name": "San Diego Chinese Historical Museum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -222174,6 +222932,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sdera.org": {
+    "checked": 20261003,
+    "name": "San Diego Electric Railway Association & National City Depot Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sdfcweblog.wordpress.com": {
     "checked": 20260824,
     "name": "Saint David's in the Fields",
@@ -222188,9 +222953,44 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sdmg.org": {
+    "checked": 20261003,
+    "name": "San Diego Mineral & Gem Society",
+    "reason": "robots.txt: Disallow: / (GET /wp-json/tribe/events/v1/events?per_page=50&start_date=2026-)",
+    "status": "refused",
+    "type": "tribe"
+  },
   "sdmp.church": {
     "checked": 20260819,
     "name": "St David's Memorial Park Parish Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sdmrm.org": {
+    "checked": 20261003,
+    "name": "San Diego Model Railroad Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sdmt.org": {
+    "checked": 20261003,
+    "name": "San Diego Musical Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sdnhm.org": {
+    "checked": 20261003,
+    "name": "San Diego Natural History Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sdpolicemuseum.com/THE-MUSEUM.html": {
+    "checked": 20261003,
+    "name": "San Diego Police Museum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -222202,9 +223002,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sdrescue.org": {
+    "checked": 20261003,
+    "name": "San Diego Rescue Mission",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sds.comune.fi.it/pagina/progetto-desteenazione": {
     "checked": 20260922,
     "name": "Desteenazione",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sdswissclub.com": {
+    "checked": 20261003,
+    "name": "San Diego County Swiss Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -224603,6 +225417,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sgyc.org": {
+    "checked": 20261003,
+    "name": "Silver Gate Yacht Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "shaareyzedek.mb.ca": {
     "checked": 20260819,
     "name": "Congregation Shaare Zedek",
@@ -226126,6 +226947,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "sic.cultura.gob.mx/ficha.php?estado_id=23&table=teatro&table_id=179": {
+    "checked": 20261003,
+    "name": "Teatro 8 de octubre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sic.cultura.gob.mx/ficha.php?table=museo&table_id=1285": {
     "checked": 20261001,
     "name": "Museo de los Ferrocarrileros",
@@ -226697,6 +227525,13 @@
   "simpl.at": {
     "checked": 20260907,
     "name": "Kabarett Simpl",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "simplergifts.com": {
+    "checked": 20261003,
+    "name": "Simpler Gifts Press",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -228582,6 +229417,13 @@
   "skyddsrummet.se": {
     "checked": 20260905,
     "name": "Skyddsrummet",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "skydivesandiego.com": {
+    "checked": 20261003,
+    "name": "Skydive San Diego",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -231354,6 +232196,20 @@
   "southafrica.iom.int": {
     "checked": 20260930,
     "name": "International Organization for Migration",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "southbaydrivein.com": {
+    "checked": 20261003,
+    "name": "South Bay Drive-In Theatre & Swap Meet",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "southbaypostacute.com": {
+    "checked": 20261003,
+    "name": "South Bay Post Acute Care",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -238236,6 +239092,13 @@
     "status": "fail",
     "type": "squarespace"
   },
+  "stmarynationalcity.org/centenary-events": {
+    "checked": 20261003,
+    "name": "Saint Mary Catholic Church",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "stmarypncc.ca/?feed=my-calendar-ics": {
     "checked": 20260819,
     "name": "St. Mary\u2019s Parish",
@@ -239174,6 +240037,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stpaulseniors.org": {
+    "checked": 20261003,
+    "name": "St. Paul\u2019s Senior Services",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "stpaulseniors.org/services/st-pauls-villa": {
+    "checked": 20261003,
+    "name": "The Villa on Bankers HIll",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "stpaulserbsville.ca": {
     "checked": 20260819,
     "name": "Saint Paul's Lutheran Church",
@@ -239975,6 +240852,13 @@
   "ststephenscalgary.org": {
     "checked": 20260819,
     "name": "St. Stephen's Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ststephenscogic.church": {
+    "checked": 20261003,
+    "name": "St. Stephen's Cathedral Church of God in Christ",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -243331,6 +244215,13 @@
   "swedward.com.pl": {
     "checked": 20260909,
     "name": "Ko\u015bci\u00f3\u0142 pw. \u015awi\u0119tego Edwarda",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sweetpetesmaa.com": {
+    "checked": 20261003,
+    "name": "Sweet Pete's Martial Arts Academy",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -252971,6 +253862,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thefront.casafamiliar.org": {
+    "checked": 20261003,
+    "name": "The FRONT",
+    "reason": "20 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "thegalaxy.jp": {
     "checked": 20260924,
     "name": "Galaxy \u9280\u6cb3\u7cfb",
@@ -253095,6 +253993,13 @@
   "thehangarmuseum.ca": {
     "checked": 20260819,
     "name": "The Hangar Flight Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theheadquarters.com/police-jail-cells": {
+    "checked": 20261003,
+    "name": "San Diego Police Department Exhibit & Jail Cells",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -253498,6 +254403,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theoldglobe.org": {
+    "checked": 20261003,
+    "name": "Old Globe Theater",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "theoldlibrary.ae": {
     "checked": 20260922,
     "name": "The Old Library",
@@ -253802,6 +254714,13 @@
   "theshelf.ie": {
     "checked": 20260822,
     "name": "The Shelf",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "theshell.org": {
+    "checked": 20261003,
+    "name": "Rady Shell",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -254352,6 +255271,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "thinkplaycreate.org": {
+    "checked": 20261003,
+    "name": "The New Children's Museum",
+    "reason": "189 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "thirdbarrel.com": {
     "checked": 20260822,
     "name": "Third Barrel Brewing",
@@ -254864,6 +255790,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "tijuana.tecnm.mx/teatro-calafornix": {
+    "checked": 20261003,
+    "name": "Teatro Cala-Fornix",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tik-graz.at/kontakt.php": {
     "checked": 20260908,
     "name": "Theater im Keller",
@@ -254987,6 +255920,13 @@
     "checked": 20260907,
     "name": "Time Travel Vienna",
     "reason": "osm probe: offsite:instagram.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "timkenmuseum.org": {
+    "checked": 20261003,
+    "name": "Timken Museum of Art",
+    "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -256980,6 +257920,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "toussaintacademy.org": {
+    "checked": 20261003,
+    "name": "Toussaint Academy San Diego",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "toutesdirections.be": {
     "checked": 20260913,
     "name": "Toutes directions",
@@ -257382,6 +258329,13 @@
   "train.dk": {
     "checked": 20260831,
     "name": "Train",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "trainatchulavista.com": {
+    "checked": 20261003,
+    "name": "Chula Vista Elite Athlete Training Center",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -257819,6 +258773,13 @@
     "reason": "42 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "treesforhealthgarden.org": {
+    "checked": 20261003,
+    "name": "Trees for Health Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "treesforhonolulu.org/events/?ical=1": {
     "checked": 20260928,
@@ -262975,6 +263936,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "upstartcrowtrading.com": {
+    "checked": 20261003,
+    "name": "Upstart Crow bookstore & cafe",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "upstdenis.ch/tout-les-evenements": {
     "checked": 20260920,
     "name": "Chapelle catholique du Gottau",
@@ -265895,6 +266863,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "veteranmuseum.net": {
+    "checked": 20261003,
+    "name": "Veteran's Museum and Memorial Center",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "veterinaria.sba.unibo.it/agenda": {
     "checked": 20260922,
     "name": "Biblioteca Universitaria di Veterinaria Giovan Battista Ercolani",
@@ -267104,6 +268079,13 @@
   "villamirabilis.it": {
     "checked": 20260922,
     "name": "Villa Mirabilis",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "villamontezumamuseum.org/_public_html/Home.html": {
+    "checked": 20261003,
+    "name": "Villa Montezuma Museum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -268439,6 +269421,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "visitingangels.com/chulavista/home": {
+    "checked": 20261003,
+    "name": "Visiting Angels",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "visitingangels.com/memphis/home": {
     "checked": 20260927,
     "name": "Visiting Angels Senior Home Care",
@@ -269479,6 +270468,13 @@
   "vmg-steiermark.at": {
     "checked": 20260908,
     "name": "M\u00e4nnerberatung Graz",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "vmota.org": {
+    "checked": 20261003,
+    "name": "Visions Art Museum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -273725,6 +274721,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "westmontliving.com": {
+    "checked": 20261003,
+    "name": "Westmont At San Miguel Ranch",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "westoncccentre.org.au": {
     "checked": 20260819,
     "name": "Weston Creek Community Centre",
@@ -274057,6 +275060,13 @@
   "whiplashbeer.com": {
     "checked": 20260822,
     "name": "Whiplash Beer",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "whiskeygirl.com": {
+    "checked": 20261003,
+    "name": "Whiskey Girl",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -276862,6 +277872,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "worldbeatcenter.org": {
+    "checked": 20261003,
+    "name": "WorldBeat Cultural Center",
+    "reason": "11 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "worldofbirds.org.za": {
     "checked": 20260930,
     "name": "World of Birds",
@@ -278619,6 +279636,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "yaxcopoil.com": {
+    "checked": 20261003,
+    "name": "Casa comisarial de Yaxcopoil",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "yayoikusamamuseum.jp": {
     "checked": 20260925,
     "name": "\u8349\u9593\u5f4c\u751f\u7f8e\u8853\u9928",
@@ -278996,6 +280020,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ymcasd.org": {
+    "checked": 20261003,
+    "name": "YMCA",
+    "reason": "6 events, 6/6 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "ymcasthelens.org.uk": {
     "checked": 20260819,

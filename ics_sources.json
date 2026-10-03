@@ -18223,5 +18223,86 @@
     "geocode_suffix": ", München",
     "limit": 300,
     "_metro": "Munich, Germany"
+  },
+  {
+    "name": "Saint John's Episcopal Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/saint-johns.org_3617q1k8rrgdqf88f0houolfds%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chula Vista",
+    "limit": 300,
+    "_metro": "Tijuana, Mexico"
+  },
+  {
+    "name": "Chula Vista Live Steamer Station",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_030ec2ecef70d57ed006172f40863b5350fd57ccca76c92a15819babf640b4df%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tijuana, Mexico",
+    "limit": 300,
+    "_metro": "Tijuana, Mexico"
+  },
+  {
+    "name": "Bread & Salt",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/breadandsaltgallery%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Tijuana, Mexico",
+    "limit": 300,
+    "_metro": "Tijuana, Mexico"
+  },
+  {
+    "name": "Masjidul Taqwa San Diego",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9t483uu0o5thl77s6bof1e1qb0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Diego",
+    "limit": 300,
+    "_metro": "Tijuana, Mexico"
+  },
+  {
+    "name": "Centro Cultural de la Raza",
+    "category": "arts",
+    "_found": "osm:museum -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9m9jdneu4hd7484sb7r3bl2ku4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Diego, CA",
+    "limit": 300,
+    "_metro": "Tijuana, Mexico"
+  },
+  {
+    "name": "Saint Pauls United Methodist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5d042c40561ebdaff4c6e11c3ef6458f4f1c24d39a18eab4f0f37ba0f531a257%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Coronado, CA",
+    "limit": 300,
+    "_metro": "Tijuana, Mexico"
+  },
+  {
+    "name": "Outboard Boating Club of San Diego",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/erb0dtbb7qudtdh493jqf6t49o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Diego, CA",
+    "limit": 300,
+    "_metro": "Tijuana, Mexico"
+  },
+  {
+    "name": "Sacred Heart Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://sacredheartcor.org/join-us-live/?ical=1",
+    "geocode_suffix": ", Coronado, CA",
+    "limit": 300,
+    "_metro": "Tijuana, Mexico"
+  },
+  {
+    "name": "Saint Pius X Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3b7ql575bnns64dp9j3cbinefo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Jamul, CA",
+    "limit": 300,
+    "_metro": "Tijuana, Mexico"
   }
 ]

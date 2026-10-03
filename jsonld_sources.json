@@ -5632,6 +5632,47 @@
         "lon": 11.5366469
       },
       "_metro": "Munich, Germany"
+    },
+    {
+      "name": "North Island Credit Union Amphitheatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.northislandcreditunionamp.com/shows"
+      ],
+      "link_pattern": "https://www\\.northislandcreditunionamp\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "North Island Credit Union Amphitheatre",
+        "address": "2050 Entertainment Circle",
+        "city": "Chula Vista",
+        "region": "CA",
+        "postal_code": "91911",
+        "lat": 32.5880954,
+        "lon": -117.0055312
+      },
+      "_metro": "Tijuana, Mexico"
+    },
+    {
+      "name": "Civic Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.sandiegotheatres.org/events"
+      ],
+      "link_pattern": "https://www\\.sandiegotheatres\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Civic Theatre",
+        "address": "1100 3rd Avenue",
+        "city": "San Diego",
+        "region": "CA",
+        "postal_code": "92101",
+        "country": "US",
+        "lat": 32.7172957,
+        "lon": -117.1625178
+      },
+      "_metro": "Tijuana, Mexico"
     }
   ],
   "_not_included": {

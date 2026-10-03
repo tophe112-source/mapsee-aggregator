@@ -13251,6 +13251,120 @@
         "lon": 11.4086987
       },
       "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Dundalk",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.dundalk.ie",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Dundalk",
+      "default_region": null,
+      "default_country": "IE",
+      "_metro": "Dundalk, Ireland"
+    },
+    {
+      "name": "Kinsale",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kinsale.ie",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Kinsale",
+      "default_region": null,
+      "default_country": "IE",
+      "_metro": "Kinsale, Ireland"
+    },
+    {
+      "name": "The FRONT",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://thefront.casafamiliar.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The FRONT",
+        "address": "147 West San Ysidro Boulevard",
+        "city": "San Ysidro",
+        "postal_code": "92173",
+        "country": "US",
+        "lat": 32.5531682,
+        "lon": -117.0461124
+      },
+      "_metro": "Tijuana, Mexico"
+    },
+    {
+      "name": "The New Children's Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://thinkplaycreate.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The New Children's Museum",
+        "address": "205 West Island Avenue",
+        "city": "San Diego",
+        "postal_code": "92101",
+        "country": "US",
+        "lat": 32.710666,
+        "lon": -117.165156
+      },
+      "_metro": "Tijuana, Mexico"
+    },
+    {
+      "name": "Community Actor's Theatre",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.communityactorstheatre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Community Actor's Theatre",
+        "address": "2957 54th Street",
+        "city": "San Diego",
+        "region": "CA",
+        "postal_code": "92105",
+        "lat": 32.7360658,
+        "lon": -117.0792127
+      },
+      "_metro": "Tijuana, Mexico"
+    },
+    {
+      "name": "WorldBeat Cultural Center",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.worldbeatcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "WorldBeat Cultural Center",
+        "address": "2100 Park Boulevard",
+        "city": "San Diego",
+        "region": "CA",
+        "postal_code": "92101",
+        "lat": 32.7272089,
+        "lon": -117.1495749
+      },
+      "_metro": "Tijuana, Mexico"
+    },
+    {
+      "name": "YMCA",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ymcasd.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "YMCA",
+        "address": "3601 Arey Drive",
+        "city": "San Diego",
+        "region": "CA",
+        "postal_code": "92154",
+        "lat": 32.5782107,
+        "lon": -117.0570918
+      },
+      "_metro": "Tijuana, Mexico"
     }
   ],
   "_not_included": {
