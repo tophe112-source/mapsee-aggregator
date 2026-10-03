@@ -430,35 +430,67 @@ check("same Tribe numeric ID from another host cannot replace paid admission wit
 
 # Different publishers can reuse numeric IDs for unrelated events. Persist and
 # reload between reads so this covers the exact lookup keys used by production.
+# The public event link can be a third-party ticket URL: its host must not be
+# mistaken for the publisher used to scope Tribe's locally unique ID.
 with tempfile.TemporaryDirectory(prefix="tribe-scoped-source-ids-") as tmp:
     path = os.path.join(tmp, "events.json")
-    site_a = dict(SITE, base_url="https://calendar-a.example", crawl_delay=0)
-    site_b = dict(SITE, base_url="https://calendar-b.example", crawl_delay=0)
+    site_a = dict(SITE, base_url="https://unexpectedproductions.org", crawl_delay=0)
+    site_b = dict(SITE, base_url="https://blessingtonparish.ie", crawl_delay=0)
+    site_c = dict(SITE, base_url="https://lockleazent.co.uk", crawl_delay=0)
     first = row(id=544, title="Astronomy Night", start_date="2099-08-19 19:00:00",
-                url="https://calendar-a.example/events/astronomy-night/")
+                url="https://unexpectedproductions.org/events/astronomy-night/",
+                website="https://tickets.example.test/astronomy-night")
     second = row(id=544, title="Garden Work Party", start_date="2099-08-20 10:00:00",
-                 url="https://calendar-b.example/events/garden-work-party/")
+                 venue={**VENUE, "venue": "Blessington Community Hall", "city": "Blessington",
+                        "address": "Main Street", "state": "Wicklow", "country": "Ireland",
+                        "geo_lat": "53.1700", "geo_lng": "-6.5300"},
+                 url="https://blessingtonparish.ie/events/garden-work-party/",
+                 website="https://tickets.example.test/garden-work-party")
+    third = row(id=544, title="Harbour Jazz Evening", start_date="2099-08-21 18:00:00",
+                venue={**VENUE, "venue": "Lockleaze Community Centre", "city": "Bristol",
+                       "address": "Barnstaple Road", "state": "Somerset", "country": "United Kingdom",
+                       "geo_lat": "51.4900", "geo_lng": "-2.5600"},
+                url="https://lockleazent.co.uk/events/harbour-jazz-evening/",
+                website="https://tickets.example.test/harbour-jazz-evening")
     store = T.EventStore(path)
     T.ingest_site(store, _Session([first]), site_a)
     store.save()
     store = T.EventStore(path)
     T.ingest_site(store, _Session([second]), site_b)
+    T.ingest_site(store, _Session([third]), site_c)
     rekeyed_total = store.stats["rekeyed"]
     store.save()
     store = T.EventStore(path)
     names = sorted(rec["name"] for rec in store.records.values())
     source_keys = set(store.source_to_fp)
-check("different Tribe hosts with the same numeric ID keep two persisted events without rekeying",
-      names == ["Astronomy Night", "Garden Work Party"]
+    rows_by_id = {r["external_id"]: r for r in build_rows(path, "fixture-host")}
+    expected = (("Astronomy Night", first, site_a),
+                ("Garden Work Party", second, site_b),
+                ("Harbour Jazz Evening", third, site_c))
+    expected_ids = {name: T.to_event(event, site).fingerprint
+                    for name, event, site in expected}
+check("three Tribe hosts with the same numeric ID keep separate rows and publisher-owned ticket links",
+      names == ["Astronomy Night", "Garden Work Party", "Harbour Jazz Evening"]
       and rekeyed_total == 0
-      and ("tribe", "calendar-a.example", "544") in source_keys
-      and ("tribe", "calendar-b.example", "544") in source_keys
+      and ("tribe", "unexpectedproductions.org", "544") in source_keys
+      and ("tribe", "blessingtonparish.ie", "544") in source_keys
+      and ("tribe", "lockleazent.co.uk", "544") in source_keys
       and {(ref.get("publisher"), ref.get("source_id"))
            for rec in store.records.values() for ref in rec.get("sources", [])
            if ref.get("source") == "tribe"} == {
-               ("calendar-a.example", "544"), ("calendar-b.example", "544")}
+               ("unexpectedproductions.org", "544"),
+               ("blessingtonparish.ie", "544"),
+               ("lockleazent.co.uk", "544")}
+      and set(rows_by_id) == set(expected_ids.values())
+      and all(f"Tickets / info: {event['website']}" in rows_by_id[expected_ids[name]]["description"]
+              for name, event, _site in expected)
+      and all(next(ref for ref in store.records[expected_ids[name]]["sources"]
+                  if ref.get("source") == "tribe").get("publisher") == site["base_url"].split("//", 1)[1]
+              and next(ref for ref in store.records[expected_ids[name]]["sources"]
+                       if ref.get("source") == "tribe").get("url") == event["website"]
+              for name, event, site in expected)
       and all("admission_publisher" not in rec for rec in store.records.values()),
-      (names, rekeyed_total, source_keys))
+      (names, rekeyed_total, source_keys, rows_by_id))
 
 # An old external checkout URL cannot prove which Tribe installation owned the
 # numeric ID. Keep that ref unbound on load so a different event cannot rekey it.

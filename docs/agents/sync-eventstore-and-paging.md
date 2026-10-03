@@ -3,6 +3,25 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: an upsert that cannot delete, OFFSET vs keyset, PostgREST 5xx, `series_id`, `make_fingerprint`, `--ignore-cursor`, a toggle overtaken by a new kind of row.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **SCOPING A SOURCE ID PREVENTS NEW COLLISIONS, BUT DOES NOT REPAIR OLD ROWS.**
+  On 2026-10-02 the map showed 3 Improv Happy Hour rows for one Seattle show.
+  Unexpected Productions, Blessington Parish (an Irish Mass) and Lockleaze
+  (a Bristol Baby Hub) all published Tribe ID 10011650. Their live normalized
+  fingerprints exactly matched the 3 stored external IDs; only `425e0db3...`
+  was the Seattle event. Before 294b34f the global `(tribe, numeric_id)` lookup
+  rekeyed a populated record to another publisher's fingerprint while keeping
+  its Seattle fields, then replaced its source URL. Supabase upserts on the
+  new fingerprint cannot remove the old row. Publisher-scoped lookup now
+  prevents that merge, but existing corrupt rows require a separate repair.
+  `ops/2026-10-02_improv_happy_hour_duplicates.sql` records the guarded,
+  reversible hide of 2 unclaimed copies with 0 attendees; the verified current
+  Seattle fingerprint stays visible with the publisher's Eventbrite link.
+  The latest automated dedupe step also timed out after 12 minutes (run
+  37008068654, job 110957722472); a successful overall job is not evidence
+  that its continue-on-error cleanup finished. The persisted Tribe regression
+  now checks 3 publishers through `build_rows`, including each external ticket
+  URL. Do not identify the publisher from a third-party checkout hostname.
+
 - **A feed's ownership guard must read that feed's IDs, not the global catalog.**
   `fetch_import_state` combines existence and claimed-state reads in batches
   of at most 100 IDs / 6 KB URL, before any writes. In `test_sync_lookup.py`,
