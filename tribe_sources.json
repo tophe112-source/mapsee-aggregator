@@ -13810,6 +13810,206 @@
         "lon": 9.2506188
       },
       "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Guadalupe Centers",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://guadalupecenters.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Guadalupe Centers",
+        "address": "1015 Avenida Cesar E Chavez",
+        "city": "Kansas City",
+        "region": "MO",
+        "postal_code": "64108",
+        "country": "US",
+        "lat": 39.0858787,
+        "lon": -94.5962938
+      },
+      "_metro": "Kansas City, United States",
+      "_note": "seed-us 2026-10-03: 5 rows starting 2026-10-03..2027-01-01; of 5 read, 3 free/drop-in/community, 1 paid, 0 governance, 0 hours/closure notices, 0 members-only, 1 unstated; the venue block places the rest."
+    },
+    {
+      "name": "Levite JCC",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://bhamjcc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Levite JCC",
+        "address": "3960 Montclair Rd",
+        "city": "Birmingham",
+        "region": "AL",
+        "postal_code": "35213",
+        "country": "US",
+        "lat": 33.5113603,
+        "lon": -86.7545467
+      },
+      "_metro": "Birmingham, United States",
+      "_note": "seed-us 2026-10-03: 110 rows starting 2026-10-03..2027-01-01; of 100 read, 51 free/drop-in/community, 20 paid, 0 governance, 4 hours/closure notices, 0 members-only, 25 unstated; the venue block places the rest."
+    },
+    {
+      "name": "Osher Marin JCC",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.marinjcc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Osher Marin JCC",
+        "address": "200 N San Pedro Rd",
+        "city": "San Rafael",
+        "region": "CA",
+        "postal_code": "94903",
+        "country": "US",
+        "lat": 37.9996871,
+        "lon": -122.523128
+      },
+      "_metro": "San Francisco, United States",
+      "_note": "seed-us 2026-10-03: 34 rows starting 2026-10-03..2027-01-01; of 34 read, 21 free/drop-in/community, 12 paid, 0 governance, 0 hours/closure notices, 0 members-only, 1 unstated; the venue block places the rest."
+    },
+    {
+      "name": "JCC of Louisville",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jewishlouisville.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Louisville, United States",
+      "_note": "seed-us 2026-10-03: 90 rows starting 2026-10-03..2027-01-01; of 90 read, 45 free/drop-in/community, 9 paid, 0 governance, 0 hours/closure notices, 0 members-only, 36 unstated; 69 carry their own coordinates; 21 (13 an off-site 'Jews & Brews' meetup) name no venue and are left unplaced rather than pinned at the JCC."
+    },
+    {
+      "name": "Capital City Pride LGBTQ+ Community Calendar (Des Moines Pride Center)",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://calendar.capitalcitypride.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Des Moines, United States",
+      "_note": "seed-us 2026-10-03: 39 rows starting 2026-10-03..2027-01-01; of 39 read, 25 free/drop-in/community, 14 paid, 0 governance, 0 hours/closure notices, 0 members-only, 0 unstated; all 39 name a venue with a Des Moines street address (13 at the Pride Center); 14 paid are ticketed shows at bars and theatres."
+    },
+    {
+      "name": "JCC of the North Shore",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jccns.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "JCC of the North Shore",
+        "address": "4 Community Rd",
+        "city": "Marblehead",
+        "region": "MA",
+        "postal_code": "01945",
+        "country": "US",
+        "lat": 42.4848449,
+        "lon": -70.873961,
+        "names": [
+          "JCCNS"
+        ]
+      },
+      "_metro": "Boston, United States",
+      "crawl_delay": 10.0,
+      "_note": "seed-us 2026-10-03: 70 rows starting 2026-10-03..2027-01-01; of 70 read, 45 free/drop-in/community, 14 paid, 0 governance, 0 hours/closure notices, 0 members-only, 11 unstated; 61 at JCCNS rooms or naming no venue take the block; 6 at other Marblehead/Salem/Swampscott venues carry street addresses for the Census pass; 3 Zoom rows will not place."
+    },
+    {
+      "name": "The Community Center (TCC), Boise",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://tccidaho.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Community Center",
+        "address": "1088 N Orchard St",
+        "city": "Boise",
+        "region": "ID",
+        "postal_code": "83706",
+        "country": "US",
+        "lat": 43.6142006,
+        "lon": -116.2433747,
+        "names": [
+          "1088 N Orchard St"
+        ]
+      },
+      "_metro": "Boise, United States",
+      "_note": "seed-us 2026-10-03: 111 rows starting 2026-10-03..2027-01-01; of 100 read, 36 free/drop-in/community, 0 paid, 3 governance, 0 hours/closure notices, 0 members-only, 61 unstated; 65 of 111 take the block (the centre's own address variants, the church that shares it, and 7 naming no venue); 45 at other churches, a library and a park carry their address only inside the venue NAME and will not place; 1 is a Google Meet link."
+    },
+    {
+      "name": "JCC of Northern NJ",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe",
+      "base_url": "https://jccnnj.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "JCC of Northern NJ",
+        "address": "450 West Nyack Road",
+        "city": "West Nyack",
+        "region": "NY",
+        "postal_code": "10994",
+        "country": "US",
+        "lat": 40.992612,
+        "lon": -74.060693
+      },
+      "_metro": "New York, United States",
+      "crawl_delay": 10.0,
+      "_note": "seed-us 2026-10-03: 19 rows starting 2026-10-03..2027-01-01; of 19 read, 6 free/drop-in/community, 2 paid, 0 governance, 0 hours/closure notices, 0 members-only, 11 unstated; the venue block places the rest."
+    },
+    {
+      "name": "Greenwich House",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://greenwichhouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "New York, United States",
+      "_note": "seed-us 2026-10-03: 17 rows starting 2026-10-03..2027-01-01; of 17 read, 5 free/drop-in/community, 6 paid, 0 governance, 0 hours/closure notices, 0 members-only, 6 unstated; all 17 name a venue with a Manhattan street address (music school, two potteries, Center for Healing)."
+    },
+    {
+      "name": "Boonshoft Center for Jewish Culture and Education (Jewish Dayton)",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jewishdayton.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Dayton, United States",
+      "_note": "seed-us 2026-10-03: 71 rows starting 2026-10-03..2027-01-01; of 71 read, 25 free/drop-in/community, 31 paid, 3 governance, 0 hours/closure notices, 0 members-only, 12 unstated; 53 name a venue with a street address (2 with coordinates); 15 name none and 3 are Zoom - left unplaced; 20 of the 31 paid are Winter Camp Shalom days, a JLI course and a writers' workshop series."
+    },
+    {
+      "name": "Keystone Community Services",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://keystoneservices.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Keystone Community Services",
+        "address": "2000 St Anthony Ave",
+        "city": "St Paul",
+        "region": "MN",
+        "postal_code": "55104",
+        "country": "US",
+        "lat": 44.953134,
+        "lon": -93.185527
+      },
+      "_metro": "Saint Paul, United States",
+      "_note": "seed-us 2026-10-03: 43 rows starting 2026-10-03..2027-01-01; of 43 read, 43 free/drop-in/community, 0 paid, 0 governance, 0 hours/closure notices, 0 members-only, 0 unstated; the venue block places the rest."
+    },
+    {
+      "name": "Edmonton Federation of Community Leagues - League Events",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe",
+      "base_url": "https://efcl.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "Edmonton, Canada",
+      "_seed": "efcl.org/league-search/ (EFCL); the site's own <link rel=alternate type=text/calendar> names efcl.org/league-events/?ical=1",
+      "_measured": "2026-10-03: 12 rows in 90 days. 5 carry venue geo (Board Game night at Glenwood CL x2, Jiu-jitsu at Inglewood CL, Halloween Night Out at Blackmud Creek/Ellerslie, a casino fundraiser at West Jasper Sherwood CL). 7 carry no venue: EFCL's own volunteer trainings (Membership Biannual, Hall Rentals Training, New Board Member Orientation, Rink Conversations, Programming Meet-up, a partnerships webinar) and its Regular General Meeting.",
+      "_note": "NO venue block on purpose: a federation calendar's events are at ~160 different halls, and the block would pin the 7 internal trainings and the RGM to one of them. Without it the sync drops those 7 as coordless and keeps the 5 league events. Low yield (5 rows), proposed because leagues post to it."
     }
   ],
   "_not_included": {

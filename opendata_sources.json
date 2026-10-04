@@ -234,5 +234,28 @@
     },
     "_metro": "Barcelona, Spain",
     "_note": "Generalitat de Catalunya's cultural agenda on its Socrata portal, filtered to free (gratuita) events with coordinates; robots.txt disallows only /browse. First Catalonia-wide civic feed."
+  },
+  {
+    "name": "City of Edmonton Free Drop-In Skate (Edmonton)",
+    "url": "https://data.edmonton.ca/resource/mdkr-4c27.json",
+    "app_token": null,
+    "category": "community",
+    "where": "activitysubgroup = 'Free Drop-In Skate' AND facilityid not in ('4061','7212') AND startdatetime > '{now}'",
+    "order": "startdatetime",
+    "limit": 500,
+    "timezone": "America/Edmonton",
+    "geocode_venue": true,
+    "geocode_suffix": ", Edmonton, Alberta",
+    "map": {
+      "id": "bookingid",
+      "title": "activity",
+      "description": "activitysubgroupdesc",
+      "start": "startdatetime",
+      "end": "enddatetime",
+      "venue": "facilityname"
+    },
+    "_metro": "Edmonton, Canada",
+    "_note": "City of Edmonton 'Recreation Facilities_Drop-in Fitness' (Socrata, refreshed daily, rolling 7-day window), filtered to the 'Free Drop-In Skate' subgroup: free public skating, parent-and-tot, older-adult and early skates at City arenas. Measured 2026-10-03: the where clause returns 54 sessions at 19 arenas for 2026-10-03..10-10, 100% free, 0 registration; ~700 over 90 days of daily runs. The dataset has no coordinates; Photon resolves 19 of the 21 arena names to the right ice rink. The two excluded by facilityid resolve WRONG (4061 Mill Woods Twin Arena -> a residential 'Twin Terrace'; 7212 The Meadows Twin Arena -> 'KC Twin Arenas', the other side of the city), 11 of 65 sessions. Do NOT join the facility table buc9-mag8 for coordinates: 21 of its 22 arena rows sit 0.2 deg south of Edmonton (its street addresses are right). 5 of 49 title/date/venue fingerprints carry two start times, so the store keeps one of them. robots.txt allows /resource/; Socrata is a documented API either way. Not overlapping the configured Edmonton Public Events Calendar (0 skate rows there).",
+    "_found": "opendata-canada 2026-10-03: Socrata catalog search domains=data.edmonton.ca q=drop-in -> mdkr-4c27, subgroup filter measured row by row"
   }
 ]

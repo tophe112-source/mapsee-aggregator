@@ -24559,6 +24559,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "bhamjcc.org": {
+    "checked": 20261004,
+    "name": "Levite JCC",
+    "reason": "132 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "bharatiyamandir.org.nz/about-balmoral-hall": {
     "checked": 20260824,
     "name": "Balmoral Community Hall",
@@ -40366,6 +40373,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "calendar.capitalcitypride.org": {
+    "checked": 20261004,
+    "name": "Capital City Pride LGBTQ+ Community Calendar (Des Moines Pride Center)",
+    "reason": "48 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "calendar.clubdesk.com/clubdesk/ical/icsfile/15472/1002821/djEtaSkpV1acfWsVcG5ItVLlQL0dDCJ-3qFp5vwJZ4Q-xKY=/basic.ics": {
     "checked": 20260917,
@@ -69899,6 +69913,13 @@
     "status": "ok",
     "type": "opendata"
   },
+  "data.bodik.jp/api/3/action/datastore_search?resource_id=00a0b50c-a46b-498c-94fd-0fe61f3d14c2": {
+    "checked": 20261004,
+    "name": "\u5b87\u4f50\u5e02 \u30a4\u30d9\u30f3\u30c8\u4e00\u89a7 (Usa, Oita)",
+    "reason": "5 rows, sample: \u5b87\u4f50\u795e\u5bae\u9664\u591c\u796d",
+    "status": "ok",
+    "type": "ckan"
+  },
   "data.bodik.jp/api/3/action/datastore_search?resource_id=0849fcf9-a505-42b8-827c-58a9d72d5317": {
     "checked": 20260927,
     "name": "\u6771\u5927\u962a\u5e02 \u30a4\u30d9\u30f3\u30c8\u4e00\u89a7 (Osaka)",
@@ -70078,6 +70099,13 @@
     "checked": 20260727,
     "name": "City of Edmonton Public Events (Edmonton)",
     "reason": "3 rows, sample: EPL Children's Programming - Outdoor Fun",
+    "status": "ok",
+    "type": "opendata"
+  },
+  "data.edmonton.ca/resource/mdkr-4c27.json": {
+    "checked": 20261004,
+    "name": "City of Edmonton Free Drop-In Skate (Edmonton)",
+    "reason": "3 rows, sample: Drop In Public Skating",
     "status": "ok",
     "type": "opendata"
   },
@@ -81196,6 +81224,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "efcl.org": {
+    "checked": 20261004,
+    "name": "Edmonton Federation of Community Leagues - League Events",
+    "reason": "16 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "effinghamil.com/event/city-council-meeting-2026-10-06/?ical=1": {
     "checked": 20260919,
@@ -108114,6 +108149,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "greenwichhouse.org": {
+    "checked": 20261004,
+    "name": "Greenwich House",
+    "reason": "17 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "greenwood.in.gov": {
     "checked": 20260905,
     "name": "Greenwood",
@@ -109331,6 +109373,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "guadalupecenters.org": {
+    "checked": 20261004,
+    "name": "Guadalupe Centers",
+    "reason": "5 events, 5/5 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "gudenaagruppe.dk": {
     "checked": 20260901,
@@ -128524,6 +128573,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jccnnj.org": {
+    "checked": 20261004,
+    "name": "JCC of Northern NJ",
+    "reason": "19 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "jccns.org": {
+    "checked": 20261004,
+    "name": "JCC of the North Shore",
+    "reason": "81 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "jccwarszawa.pl": {
     "checked": 20260909,
     "name": "Centrum Spo\u0142eczno\u015bci \u017bydowskiej",
@@ -128995,6 +129058,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jewishdayton.org": {
+    "checked": 20261004,
+    "name": "Boonshoft Center for Jewish Culture and Education (Jewish Dayton)",
+    "reason": "80 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "jewishinseattle.org/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20260821,
     "name": "Jewishinseattle (Seattle)",
@@ -129008,6 +129078,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "jewishlouisville.org": {
+    "checked": 20261004,
+    "name": "JCC of Louisville",
+    "reason": "109 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "jewishmuseum.cz": {
     "checked": 20260904,
@@ -135716,6 +135793,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "keystoneservices.org": {
+    "checked": 20261004,
+    "name": "Keystone Community Services",
+    "reason": "43 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "keyton.com.au/home/our-villages/act/isabella-gardens": {
     "checked": 20260819,
@@ -163998,6 +164082,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "marinjcc.org": {
+    "checked": 20261004,
+    "name": "Osher Marin JCC",
+    "reason": "38 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "marinohall.com.au/events/?ical=1": {
     "checked": 20260927,
     "name": "Marino Community Hall (Adelaide, Australia)",
@@ -187347,6 +187438,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "northhavenyyc.ca/community-events": {
+    "checked": 20261004,
+    "name": "North Haven Community Association",
+    "reason": "43/73 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "northhorsham-pc.gov.uk": {
     "checked": 20260927,
     "name": "North Horsham",
@@ -209494,6 +209592,13 @@
     "checked": 20260727,
     "name": "Brisbane Botanic Gardens Events (Brisbane)",
     "reason": "292 records",
+    "status": "ok",
+    "type": "ods"
+  },
+  "prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/brisbane-city-council-events/records": {
+    "checked": 20261004,
+    "name": "Brisbane City Council Events (Brisbane)",
+    "reason": "1978 future records",
     "status": "ok",
     "type": "ods"
   },
@@ -248392,6 +248497,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sumac.org.uk/events/list": {
+    "checked": 20261004,
+    "name": "Sumac Centre",
+    "reason": "19/20 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "sumai.panasonic.jp/agefree/facility_care/agefree-house/amagasakioshima": {
     "checked": 20260925,
     "name": "\u30a8\u30a4\u30b8\u30d5\u30ea\u30fc\u30cf\u30a6\u30b9\u5c3c\u5d0e\u5927\u5cf6",
@@ -254428,6 +254540,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "tccidaho.org": {
+    "checked": 20261004,
+    "name": "The Community Center (TCC), Boise",
+    "reason": "110 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "tcco-craft.com": {
     "checked": 20260922,
@@ -267079,6 +267198,13 @@
     "reason": "53 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "tucsonchinese.org/calendar": {
+    "checked": 20261004,
+    "name": "Tucson Chinese Cultural Center",
+    "reason": "7/37 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "tucsoncleanandbeautiful.org": {
     "checked": 20260928,

@@ -20,7 +20,7 @@ def report(steps, group):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('steps')
-    parser.add_argument('--group', required=True, choices=['ics', 'local', 'civic'])
+    parser.add_argument('--group', required=True, choices=['ics', 'local', 'civic', 'rec'])
     args = parser.parse_args()
     text = report(json.loads(Path(args.steps).read_text(encoding='utf-8')), args.group)
     print(text)

@@ -1496,6 +1496,13 @@ def _compute_end(starts_at: Optional[str], real_end: Optional[str], category: st
     return end.isoformat()
 
 
+# Source prefixes of the community-centre timetable adapters. A lane swim or a
+# seniors' bingo is not a show: without this the 70,953 PerfectMind sessions of
+# 2026-10-03 would each have carried a "More on this show" web search and a
+# violet big-venue pin.
+CIVIC_TIMETABLE_SOURCES = ("toronto-rec", "toronto-earlyon", "linkedevents:", "perfectmind")
+
+
 def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     """Map one normalized event -> a public.events row for PostgREST upsert."""
     if "agenda" in rec and rec.get("agenda") is not None:
@@ -1508,7 +1515,10 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     # Community-created events keep the app default blue (#2563eb).
     _src = (rec.get("source")
             or ((rec.get("sources") or [{}])[0].get("source")) or "")
-    color = "#0891b2" if str(_src).startswith(("opendata:", "ics:", "program:")) else "#7c3aed"
+    # A city's own recreation timetable is city data too: Toronto's open data,
+    # Helsinki/Espoo Linked Events and the PerfectMind booking widgets a city
+    # links from its own website (community-centre drop-ins, 2026-10-03).
+    color = "#0891b2" if str(_src).startswith(("opendata:", "ics:", "program:") + CIVIC_TIMETABLE_SOURCES) else "#7c3aed"
     category_key, extra_categories = derive_categories(rec)
     # Volunteering is first-class: ROSE pins across every source, so "ways to
     # help nearby" reads as its own layer on the map (not generic civic teal).
@@ -1537,7 +1547,7 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     # this row's boilerplate, and a Google search link is not a fact about a
     # drinking fountain. Found by generating the real stored description for a
     # bare fountain and reading it.
-    if not str(_src).startswith(("opendata:", "venue:", "ics:", "program:", "osm-")):
+    if not str(_src).startswith(("opendata:", "venue:", "ics:", "program:", "osm-") + CIVIC_TIMETABLE_SOURCES):
         show = venue_show_search_url(rec)
         if show:
             parts.append(f"🔎 More on this show: {show}")

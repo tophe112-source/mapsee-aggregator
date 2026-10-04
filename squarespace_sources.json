@@ -1892,6 +1892,45 @@
         "lon": 9.3535759
       },
       "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Tucson Chinese Cultural Center",
+      "category": "community",
+      "_found": "seed:community_centre -> squarespace",
+      "collection": "https://www.tucsonchinese.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Tucson Chinese Cultural Center",
+        "address": "1288 W River Rd",
+        "city": "Tucson",
+        "region": "AZ",
+        "postal_code": "85704",
+        "country": "US",
+        "lat": 32.2975429,
+        "lon": -110.9928643
+      },
+      "_metro": "Tucson, United States",
+      "_note": "seed-us 2026-10-03: 7 rows starting 2026-10-03..2027-01-01; of 7 read, 0 free/drop-in/community, 0 paid, 0 governance, 0 hours/closure notices, 0 members-only, 7 unstated; the venue block places them."
+    },
+    {
+      "name": "North Haven Community Association",
+      "collection": "https://northhavenyyc.ca/community-events",
+      "category": "community",
+      "max_events": 200,
+      "venue": {
+        "name": "North Haven Community Hall",
+        "address": "5003 North Haven Dr NW",
+        "city": "Calgary",
+        "region": "AB",
+        "country": "CA",
+        "lat": 51.0991045,
+        "lon": -114.0866375
+      },
+      "_found": "seed:community_centre -> squarespace",
+      "_metro": "Calgary, Canada",
+      "_seed": "Federation of Calgary Communities directory, calgarycommunities.com/ca-map-list-view/?letter=n",
+      "_venue_source": "data.calgary.ca x34e-bcjz Community Services (address match '5003 North Haven Dr NW')",
+      "_measured": "2026-10-03: 40 rows start 2026-10-03..2027-01-01; 37 name the hall, 3 carry no address and take the venue block. 22 'Ario Karate Class' (instructor's registered class, first class free), 11 'Weekly Yoga Class' ($15 pay at the door, drop-in), 4 scrapbooking crop, 3 community events (Halloween family dance, Winter Haven Craft Market, Light Haven). Paid registered share 22/40 = 55%; drop-in or community 18/40 = 45%."
     }
   ],
   "_not_included": {

@@ -5860,6 +5860,31 @@
         "lon": 9.1675294
       },
       "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Sumac Centre",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "listing": [
+        "https://sumac.org.uk/events/list/",
+        "https://sumac.org.uk/events/list/page/2/",
+        "https://sumac.org.uk/events/list/page/3/",
+        "https://sumac.org.uk/events/list/page/4/",
+        "https://sumac.org.uk/events/list/page/5/",
+        "https://sumac.org.uk/events/list/page/6/"
+      ],
+      "max_events": 150,
+      "skip_title": "^\\s*private event\\b",
+      "venue": {
+        "name": "Sumac Centre",
+        "address": "245 Gladstone Street",
+        "city": "Nottingham",
+        "country": "GB",
+        "lat": 52.9714703,
+        "lon": -1.1633688
+      },
+      "_metro": "Nottingham, GB",
+      "_note": "Nottingham social centre (cafe, Community Food Hub, library, makers club, open mic). Measured 2026-10-03: the six path-paginated list pages carry 117 distinct schema.org Events in the next 90 days, every one with address+geo; 13 (11%) state a price; 6 are 'Private event' rows that skip_title drops (dry run through mapsee_ingest_jsonld: 113 kept, 111 in 90 days, 111 placed). NOT the tribe shape: /wp-json/tribe/events/v1/events ignores page, per_page and start_date (the same 10 rows for every page; total=309, total_pages=31) and ?ical=1 returns HTML - a page cache keyed on the path - so a tribe entry would ingest 10 rows. robots.txt: no rule for these paths."
     }
   ],
   "_not_included": {

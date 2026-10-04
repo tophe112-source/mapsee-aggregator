@@ -130,6 +130,19 @@ class Details(unittest.TestCase):
             self.assertEqual(store.records['fp']['source_details'], {})
             self.assertIsNone(to_row(store.records['fp'], 'fixture-host')['source_details'])
 
+    def test_a_community_centre_session_is_city_data_not_a_show(self):
+        # The sync's "More on this show" search and its violet pin are a
+        # deny-list: every adapter not named inherits them. A lane swim is not a show.
+        for source in ('toronto-rec', 'toronto-earlyon', 'linkedevents:helsinki', 'perfectmind'):
+            ev = NormalizedEvent(source=source, source_id='s1', name='Lane Swim, ages 7+',
+                                 description='Admission: free.', start_local='2099-10-19T11:30:00-04:00',
+                                 start_utc='2099-10-19T15:30:00Z', venue_name='Antibes Community Centre',
+                                 latitude=43.77, longitude=-79.45, ticket_url='https://www.toronto.ca/x')
+            ev.fingerprint = make_fingerprint(ev.name, '2099-10-19', ev.venue_name)
+            row = to_row(ev.as_record('2099-10-01T00:00:00Z'), 'fixture-host')
+            self.assertNotIn('More on this show', row['description'], source)
+            self.assertEqual(row['color_hex'], '#0891b2', source)
+
     def test_only_new_refreshes_facts_but_respects_claims_and_failed_rekeys(self):
         rec = {'fingerprint': 'fp', 'source_details': {}}
         self.assertTrue(needs_detail_sync(rec, {'fp': False}))

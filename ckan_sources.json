@@ -39,5 +39,28 @@
   },
   "_metro": "Osaka, Japan",
   "_note": "Toyonaka City (next to Osaka) standard event dataset on BODIK CKAN, refreshed monthly: civic concerts, children's music festival, film days. No coordinates; venue names geocode. robots.txt allows /api/."
+ },
+ {
+  "name": "宇佐市 イベント一覧 (Usa, Oita)",
+  "url": "https://data.bodik.jp/api/3/action/datastore_search?resource_id=00a0b50c-a46b-498c-94fd-0fe61f3d14c2",
+  "category": "community",
+  "limit": 2000,
+  "timezone": "Asia/Tokyo",
+  "geocode_venue": true,
+  "geocode_suffix": ", 宇佐市, 大分県",
+  "map": {
+   "id": "ID",
+   "title": "イベント名",
+   "start": "開始日",
+   "end": "終了日",
+   "venue": "場所名称",
+   "lat": "緯度",
+   "lon": "経度",
+   "url": "URL",
+   "description": "説明"
+  },
+  "_metro": "Usa, Japan",
+  "_note": "Usa City standard event dataset (自治体標準オープンデータセット) on BODIK CKAN, ISO dates, 2026 calendar refreshed 2026-08-03. 11 events start in the next 90 days, 10 of them free (料金(基本)=0), 6 with lat/lon and the rest at named venues (Usa Jingu, temples). Includes the town's community culture festivals at 院内文化交流ホール and 安心院複合支所多目的ホール. Thin, but free and placeable. robots.txt allows /api/ (ckan is a documented API anyway).",
+  "_found": "opendata-apac-latam 2026-10-03: BODIK package_search title:イベント modified since 2026-07-01 (13 packages); the only ISO-dated, unconfigured, unledgered one with more than 4 upcoming rows"
  }
 ]

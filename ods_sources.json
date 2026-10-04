@@ -431,6 +431,31 @@
       "countries": [
         "BE"
       ]
+    },
+    {
+      "name": "Brisbane City Council Events (Brisbane)",
+      "domain": "prod-brisbane-queensland.opendatasoft.com",
+      "dataset": "brisbane-city-council-events",
+      "category": "community",
+      "within_days": 90,
+      "max": 2000,
+      "map": {
+        "title": "subject",
+        "description": "description",
+        "start": "start_datetime",
+        "end": "end_datetime",
+        "venue": "venue",
+        "address": "venueaddress",
+        "city": "suburb",
+        "geo": "geolocation",
+        "url": "web_link",
+        "image": "eventimage"
+      },
+      "url": "https://prod-brisbane-queensland.opendatasoft.com/api/explore/v2.1/catalog/datasets/brisbane-city-council-events/records",
+      "countries": [
+        "AU"
+      ],
+      "_found": "opendata-apac-latam 2026-10-03: Brisbane ODS catalog search('events'); the whole-council superset of the 11 configured Brisbane datasets. CC BY 4.0. Dataset holds a rolling 2,000 rows (2026-10-03..2026-11-04 today): 1,969 start in the next 90 days, 306 of them in NONE of the 11 configured Brisbane datasets (title+start+venue), 296/306 with geolocation; of the 306: 162 cost 'Free', 62 blank, 82 other; bookingsrequired No 114 / Yes 164; 101 at venuetype 'Community Hall' (Wynnum, Sunnybank, Rochedale, St Lucia, Northgate, Zillmere halls, Archerfield Wetlands Community Hub), of which 53 need no booking and 19 are free. robots.txt: stock ODS 'Disallow: /api/' - exempt as a documented API (ods in DOCUMENTED_API_TYPES; https://help.opendatasoft.com/apis/ods-explore-v2/). Overlap with configured datasets is deduped by the sync fingerprint."
     }
   ]
 }
