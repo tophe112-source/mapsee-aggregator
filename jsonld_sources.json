@@ -5860,6 +5860,24 @@
         "lon": 9.1675294
       },
       "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Clube de Campo MESC",
+      "category": "community",
+      "_found": "osm:club -> modern-events+jsonld-event",
+      "listing": [
+        "https://mesc.com.br/agenda/"
+      ],
+      "link_pattern": "https://mesc\\.com\\.br/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Clube de Campo MESC",
+        "address": "2113 Avenida Robert Kennedy",
+        "postal_code": "09890-005",
+        "lat": -23.7095117,
+        "lon": -46.5729717
+      },
+      "_metro": "São Paulo, Brazil"
     }
   ],
   "_not_included": {

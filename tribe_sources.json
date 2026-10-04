@@ -13810,6 +13810,146 @@
         "lon": 9.2506188
       },
       "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Torrent",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://torrent.es",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Torrent",
+      "default_region": null,
+      "default_country": "ES",
+      "_metro": "Torrent, Spain"
+    },
+    {
+      "name": "Orihuela",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://www.orihuela.es",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Orihuela",
+      "default_region": null,
+      "default_country": "ES",
+      "_metro": "Orihuela, Spain"
+    },
+    {
+      "name": "Museu do Futebol",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://museudofutebol.org.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museu do Futebol",
+        "address": "Praça Charles Miller",
+        "city": "São Paulo",
+        "postal_code": "01234-010",
+        "lat": -23.5474227,
+        "lon": -46.6654699
+      },
+      "_metro": "São Paulo, Brazil"
+    },
+    {
+      "name": "Memorial da Resistência de São Paulo",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://memorialdaresistenciasp.org.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Memorial da Resistência de São Paulo",
+        "address": "66 Largo General Osório",
+        "city": "São Paulo",
+        "postal_code": "01213-010",
+        "lat": -23.5347933,
+        "lon": -46.6391162
+      },
+      "_metro": "São Paulo, Brazil"
+    },
+    {
+      "name": "Clube da Cidade",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.apcefsp.org.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Clube da Cidade",
+        "address": "1256 Avenida Yervant Kissajikian",
+        "city": "São Paulo",
+        "postal_code": "04657-001",
+        "lat": -23.6731715,
+        "lon": -46.6685708
+      },
+      "_metro": "São Paulo, Brazil"
+    },
+    {
+      "name": "Clube Atlético Monte Líbano",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://caml.com.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Clube Atlético Monte Líbano",
+        "address": "2267 Avenida República do Líbano",
+        "city": "São Paulo",
+        "postal_code": "04501-003",
+        "country": "BR",
+        "lat": -23.5982399,
+        "lon": -46.6584786
+      },
+      "_metro": "São Paulo, Brazil"
+    },
+    {
+      "name": "Paróquia Santa Generosa",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://paroquiasantagenerosa.com.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Paróquia Santa Generosa",
+        "address": "360 Avenida Bernardino de Campos",
+        "city": "São Paulo",
+        "lat": -23.5748609,
+        "lon": -46.6422527
+      },
+      "_metro": "São Paulo, Brazil"
+    },
+    {
+      "name": "Teatro Liberdade",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://teatroliberdade.com.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Teatro Liberdade",
+        "address": "129 Rua São Joaquim",
+        "lat": -23.5616975,
+        "lon": -46.6374026
+      },
+      "_metro": "São Paulo, Brazil"
+    },
+    {
+      "name": "Centro Cultural da Juventude Ruth Cardoso",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+wp-event-manager+jsonld-event+ics",
+      "base_url": "https://ccj.prefeitura.sp.gov.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centro Cultural da Juventude Ruth Cardoso",
+        "address": "3641 Avenida Deputado Emílio Carlos",
+        "postal_code": "02720-200",
+        "lat": -23.4759146,
+        "lon": -46.6703995
+      },
+      "_metro": "São Paulo, Brazil"
     }
   ],
   "_not_included": {
