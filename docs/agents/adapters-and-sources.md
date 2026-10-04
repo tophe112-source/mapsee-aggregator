@@ -456,3 +456,24 @@
   Mercedarias 283, St. Herman's 246, Lasswade Archery 154). A `venue` block
   like Montlake's would pin them. That is a curation decision, not a reader
   bug.
+
+- **MODERN EVENTS CALENDAR'S `"price": "0"` IS AN EMPTY COST FIELD, NOT A FREE EVENT.** MEC copies the event's cost field into `offers.price`. For an empty field the Pro build (7.36) writes "0" and the Lite source (`features/schema.php`) writes "".
+  - Measured 2026-10-04 on 26 MEC calendars: 39 of 39 event pages whose block says "0" print no cost line. All 8 with a cost filled in print it.
+  - On 20 configured listings, 188 of 388 upcoming events (224 of 455 listed, 11 of 19 sites) carried the zero. `normalize_admission_facts` read every one as free, giving "Free to attend.", then offer:free from 0227 and isAccessibleForFree on /e/<id>. Whitehorn's "$10 drop-ins" yoga was one of them.
+  - `_mec_unset_price` drops a bare zero on any page matching `modern-events-calendar|mec-event`. The row then carries `source_details` `{}`, not None, so the sync writes NULL over a stored free claim.
+  - Typed text ("Free", "kostenfrei") stays as written, and the admission reader treats it as unknown.
+  - MEC's own printed "Free" (`<dd class="mec-events-event-cost">`, from `render_price()` on a zero) is believed, but only on an event page holding a single Event. It appeared on 0 of 60 sampled zero-price pages.
+  - `python test_ingest_jsonld.py`.
+- **MODERN EVENTS CALENDAR PRINTS THE WALL CLOCK AS IF IT WERE UTC.** MEC stores an occurrence as the local wall clock read as UTC, and its own links show it: Haus Steinstraße's `&time=1791576000` is 20:00Z for a 20:00 show. The JSON-LD prints that instant in the site's offset, here `22:00:00+02:00`.
+  - Measured 2026-10-04 on 15 event pages from 9 MEC sites: 14 were late by exactly the site's offset.
+    - Whitehorn prints "6:45 pm" next to a block saying 12:45-06:00.
+    - Ateliertheater prints 19:30 next to 21:30+02:00 before 25 Oct and 20:30+01:00 after, so the error follows DST.
+    - Basler Papiermühle's site is set to UTC, so Basel saw everything 2 h late.
+    - The 15th page matched only because the UK was at +00:00.
+  - `_mec_wall_clock` hands the sync the naive UTC wall clock before `to_event`, and the sync localises it from the venue. This happens before the date is taken, so the fingerprint uses the corrected date: a block saying `2026-10-24T00:00+02:00` is the 23rd's night, as its `?occurrence=2026-10-23` url says.
+  - Lite writes bare dates, which pass through untouched.
+  - Live after the fix: 0 of 118 timed candidate rows keep an offset, and every one checked against its page matches.
+- **ONE URL WITH SEVERAL DATES WAS ONE ROW.** `EventStore.upsert` looks a row up by source_id before the fingerprint. The Florrie gives every Tuesday's yoga the same url with no `?occurrence=`, so each later date re-keyed the first row and kept the first date's time. Live 2026-10-04: "kept 91 events" into a store holding 21.
+  - In the 20-listing sample, 127 of 417 upcoming inline blocks share an id with another date.
+  - `_shared_urls` appends `#<date>` only to an id that the same page shows with more than one date, on every JSON-LD site. The fingerprint (external_id) never involved source_id, so DB identity is unchanged.
+  - After the fix: 89 kept, 89 stored, 0 re-keyed.

@@ -97,10 +97,14 @@ on:
     # community_centre,library over 40 metros, so every civic building the
     # amenity adapter now pins gets asked for its own programme. The full osm
     # sweep does 3 metros a day and had reached metro 42 of 261 (Milan) after a
-    # month with the whole US sorted last; a pinned metro is ~75 s (Hong Kong:
-    # 43 venues), so 40 fit the 55-minute budget and the globe takes a week,
-    # after which the shared ledger makes a repeat visit nearly free (a dead
-    # probe is not re-asked for 90 days, a merged source never). Its own cursor
+    # month with the whole US sorted last. The first estimate (a pinned metro
+    # ~75 s, Hong Kong's 43 venues, so 40 fit and the globe takes a week) held
+    # only over ground the full sweep had already probed: past it, a metro costs
+    # one live probe per venue the ledger has not settled, 2.3-3.5 s each, at
+    # 155-516 venues a metro, so a run reads 3-7 metros and `40` never bound in
+    # 13 runs (2026-09-22..10-03; docs/agents/curation-and-discovery.md). The
+    # shared ledger still makes a repeat visit nearly free (a dead probe is not
+    # re-asked for 90 days, a merged source never). Its own cursor
     # slot (`osm|community_centre,library`), so it never moves the full
     # sweep's place. 09:30 because it is the one run here that queries
     # Overpass 40 times, and every Overpass-tiling job (osm-food Tue 05:10,
