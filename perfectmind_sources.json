@@ -1,0 +1,513 @@
+{
+ "_comment": "Municipal drop-in schedules read by mapsee_ingest_perfectmind.py from PerfectMind (Xplor Recreation / nextRec) BookMe4 widgets. Read the adapter's header before adding a tenant: only BookingType 2 calendars are read, private-booking calendars and rows are refused by a shared rule (childminding, external trainers, birthday parties, court reservations, orientations, equipment lending, appointments), and `exclude_calendars` / `exclude_title_rx` are for what that rule misses. `venues` places a facility the widget gives no point, or overrides one the widget puts in the wrong place (checked against OpenStreetMap for all 118 venues on 2026-10-03: 5 were 460 m to 6.0 km off), with its provenance in `_coords`. `widgets` may list several; calendars are de-duplicated by Id.",
+ "tenants": [
+  {
+   "name": "City of Abbotsford daily activity schedules",
+   "host": "abbotsford.perfectmind.com",
+   "org_path": "/23852",
+   "widget_path": "Clients",
+   "widgets": [
+    "ad625bdf-5218-4de3-9107-02ae4b7762e0",
+    "08e5b393-d274-4eb3-833b-b82514e6fa95"
+   ],
+   "timezone": "America/Vancouver",
+   "country": "CA",
+   "region": "BC",
+   "city": "Abbotsford",
+   "category": "community",
+   "start_url": "https://abbotsford.perfectmind.com/23852/Clients/BookMe4?widgetId=ad625bdf-5218-4de3-9107-02ae4b7762e0",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com BookMe4 drop-in'",
+   "_widgets_note": "08e5b393-... is the arena widget; it repeats two of the daily widget's calendars, which are read once (calendars are de-duplicated by Id)",
+   "_measured_research": {
+    "rows_90d": 5757,
+    "kept_after_excludes": 3793,
+    "kept_with_coords": 3793,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 79,
+    "facilities": 3,
+    "bt2_calendars": 15,
+    "all_calendars": 15,
+    "booking_types": {
+     "2": 15
+    },
+    "max_per_title_venue_day": 3
+   }
+  },
+  {
+   "name": "City of Brampton drop-in and try-it programs",
+   "host": "cityofbrampton.perfectmind.com",
+   "org_path": "/23782",
+   "widget_path": "Clients",
+   "widgets": [
+    "15f6af07-39c5-473e-b053-96653f77a406"
+   ],
+   "timezone": "America/Toronto",
+   "country": "CA",
+   "region": "ON",
+   "city": "Brampton",
+   "category": "community",
+   "start_url": "https://cityofbrampton.perfectmind.com/23782/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com BookMe4 drop-in schedules widgetId city'",
+   "_measured_research": {
+    "rows_90d": 7049,
+    "kept_after_excludes": 7049,
+    "kept_with_coords": 7049,
+    "kept_course_priced_gt20": 1,
+    "kept_no_fee": 495,
+    "facilities": 18,
+    "bt2_calendars": 9,
+    "all_calendars": 68,
+    "booking_types": {
+     "3": 59,
+     "2": 9
+    },
+    "max_per_title_venue_day": 2
+   }
+  },
+  {
+   "name": "City of Coquitlam drop-in activities",
+   "host": "cityofcoquitlam.perfectmind.com",
+   "org_path": "/23902",
+   "widget_path": "Clients",
+   "widgets": [
+    "15f6af07-39c5-473e-b053-96653f77a406"
+   ],
+   "timezone": "America/Vancouver",
+   "country": "CA",
+   "region": "BC",
+   "city": "Coquitlam",
+   "category": "community",
+   "start_url": "https://cityofcoquitlam.perfectmind.com/23902/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406",
+   "_found": "rec-platforms cell 2026-10-03: linked from coquitlam.ca/979/Drop-In-Activities",
+   "_measured_research": {
+    "rows_90d": 5338,
+    "kept_after_excludes": 4942,
+    "kept_with_coords": 4942,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 319,
+    "facilities": 13,
+    "bt2_calendars": 20,
+    "all_calendars": 72,
+    "booking_types": {
+     "3": 52,
+     "2": 20
+    },
+    "max_per_title_venue_day": 4
+   }
+  },
+  {
+   "name": "City of Kamloops drop-in",
+   "host": "cityofkamloops.perfectmind.com",
+   "org_path": "/23702",
+   "widget_path": "Reports",
+   "widgets": [
+    "15f6af07-39c5-473e-b053-96653f77a406"
+   ],
+   "timezone": "America/Vancouver",
+   "country": "CA",
+   "region": "BC",
+   "city": "Kamloops",
+   "category": "community",
+   "start_url": "https://cityofkamloops.perfectmind.com/23702/Reports/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406",
+   "_found": "rec-platforms cell 2026-10-03: web search; kamloops.ca/parks-recreation/schedules-programs-and-activities/perfectmind",
+   "_measured_research": {
+    "rows_90d": 264,
+    "kept_after_excludes": 264,
+    "kept_with_coords": 264,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 18,
+    "facilities": 8,
+    "bt2_calendars": 6,
+    "all_calendars": 32,
+    "booking_types": {
+     "3": 21,
+     "4": 5,
+     "2": 6
+    },
+    "max_per_title_venue_day": 2
+   },
+   "venues": {
+    "McArthur Island Sport and Event Centre": {
+     "lat": 50.6940927,
+     "lon": -120.372403,
+     "_coords": "photon.komoot.io 2026-10-03: OpenStreetMap leisure=sports_centre 'McArthur Island Sport and Event Centre' (W125445113), which the street address '1665 Island Parkway' resolves to as well. The widget's own point is 460 m away (32 rows on 2026-10-03), so this one overrides it."
+    }
+   }
+  },
+  {
+   "name": "City of Markham drop-in programs & activities",
+   "host": "cityofmarkham.perfectmind.com",
+   "org_path": "",
+   "widget_path": "Clients",
+   "widgets": [
+    "6825ea71-e5b7-4c2a-948f-9195507ad90a"
+   ],
+   "timezone": "America/Toronto",
+   "country": "CA",
+   "region": "ON",
+   "city": "Markham",
+   "category": "community",
+   "start_url": "https://cityofmarkham.perfectmind.com/Clients/BookMe4?widgetId=6825ea71-e5b7-4c2a-948f-9195507ad90a",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com Clients/BookMe4 drop-in Markham'",
+   "_measured_research": {
+    "rows_90d": 6646,
+    "kept_after_excludes": 6646,
+    "kept_with_coords": 6646,
+    "kept_course_priced_gt20": 6,
+    "kept_no_fee": 2335,
+    "facilities": 16,
+    "bt2_calendars": 14,
+    "all_calendars": 14,
+    "booking_types": {
+     "2": 14
+    },
+    "max_per_title_venue_day": 7
+   }
+  },
+  {
+   "name": "City of Menlo Park drop-in (Belle Haven, Arrillaga)",
+   "host": "cityofmenlopark.perfectmind.com",
+   "org_path": "/26116",
+   "widget_path": "Clients",
+   "widgets": [
+    "15f6af07-39c5-473e-b053-96653f77a406"
+   ],
+   "timezone": "America/Los_Angeles",
+   "country": "US",
+   "region": "CA",
+   "city": "Menlo Park",
+   "category": "community",
+   "start_url": "https://cityofmenlopark.perfectmind.com/26116/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com BookMe4'",
+   "_measured_research": {
+    "rows_90d": 269,
+    "kept_after_excludes": 269,
+    "kept_with_coords": 269,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 0,
+    "facilities": 2,
+    "bt2_calendars": 3,
+    "all_calendars": 16,
+    "booking_types": {
+     "3": 6,
+     "2": 3,
+     "4": 7
+    },
+    "max_per_title_venue_day": 1
+   }
+  },
+  {
+   "name": "City of Moose Jaw drop-in programs",
+   "host": "cityofmoosejaw.perfectmind.com",
+   "org_path": "/24467",
+   "widget_path": "Clients",
+   "widgets": [
+    "6ec7e70d-6d90-48cb-85d2-81b99c99778f"
+   ],
+   "timezone": "America/Regina",
+   "country": "CA",
+   "region": "SK",
+   "city": "Moose Jaw",
+   "category": "community",
+   "start_url": "https://cityofmoosejaw.perfectmind.com/24467/Clients/BookMe4?widgetId=6ec7e70d-6d90-48cb-85d2-81b99c99778f",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com BookMe4 drop-in'",
+   "_measured_research": {
+    "rows_90d": 4415,
+    "kept_after_excludes": 4395,
+    "kept_with_coords": 4395,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 164,
+    "facilities": 2,
+    "bt2_calendars": 15,
+    "all_calendars": 15,
+    "booking_types": {
+     "2": 15
+    },
+    "max_per_title_venue_day": 16
+   }
+  },
+  {
+   "name": "City of Nanaimo drop-in",
+   "host": "cityofnanaimo.perfectmind.com",
+   "org_path": "/23733",
+   "widget_path": "Clients",
+   "widgets": [
+    "9ffdc6c6-dfd5-45f4-9745-def901d20e55"
+   ],
+   "timezone": "America/Vancouver",
+   "country": "CA",
+   "region": "BC",
+   "city": "Nanaimo",
+   "category": "community",
+   "start_url": "https://cityofnanaimo.perfectmind.com/23733/Clients/BookMe4?widgetId=9ffdc6c6-dfd5-45f4-9745-def901d20e55",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com Drop In widget Nanaimo'",
+   "_measured_research": {
+    "rows_90d": 1905,
+    "kept_after_excludes": 1905,
+    "kept_with_coords": 1905,
+    "kept_course_priced_gt20": 10,
+    "kept_no_fee": 206,
+    "facilities": 5,
+    "bt2_calendars": 7,
+    "all_calendars": 42,
+    "booking_types": {
+     "3": 35,
+     "2": 7
+    },
+    "max_per_title_venue_day": 4
+   },
+   "venues": {
+    "Nanaimo Ice Centre": {
+     "lat": 49.1635377,
+     "lon": -123.9642437,
+     "_coords": "photon.komoot.io 2026-10-03: OpenStreetMap leisure=sports_centre 'Nanaimo Ice Centre' (W207543092), which the street address '750 Third Street' resolves to as well. The widget's own point is 704 m away (219 rows on 2026-10-03), so this one overrides it."
+    }
+   }
+  },
+  {
+   "name": "City of Rochester (NY) R-Sports free drop-in",
+   "host": "cityofrochester.perfectmind.com",
+   "org_path": "",
+   "widget_path": "Clients",
+   "widgets": [
+    "15f6af07-39c5-473e-b053-96653f77a406"
+   ],
+   "timezone": "America/New_York",
+   "country": "US",
+   "region": "NY",
+   "city": "Rochester",
+   "category": "community",
+   "start_url": "https://cityofrochester.perfectmind.com/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com BookMe4 drop-in'",
+   "_measured_research": {
+    "rows_90d": 202,
+    "kept_after_excludes": 202,
+    "kept_with_coords": 202,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 202,
+    "facilities": 1,
+    "bt2_calendars": 3,
+    "all_calendars": 20,
+    "booking_types": {
+     "3": 17,
+     "2": 3
+    },
+    "max_per_title_venue_day": 1
+   }
+  },
+  {
+   "name": "City of Surrey drop-in schedules",
+   "host": "cityofsurrey.perfectmind.com",
+   "org_path": "/23615",
+   "widget_path": "Clients",
+   "widgets": [
+    "b4059e75-9755-401f-a7b5-d7c75361420d"
+   ],
+   "timezone": "America/Vancouver",
+   "country": "CA",
+   "region": "BC",
+   "city": "Surrey",
+   "category": "community",
+   "start_url": "https://cityofsurrey.perfectmind.com/23615/Clients/BookMe4?widgetId=b4059e75-9755-401f-a7b5-d7c75361420d",
+   "_found": "rec-platforms cell 2026-10-03: linked as 'Broad Search' from surrey.ca/parks-recreation/activities-registration/drop-schedules",
+   "_measured_research": {
+    "rows_90d": 8637,
+    "kept_after_excludes": 7330,
+    "kept_with_coords": 7011,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 2860,
+    "facilities": 23,
+    "bt2_calendars": 12,
+    "all_calendars": 66,
+    "booking_types": {
+     "3": 54,
+     "2": 12
+    },
+    "max_per_title_venue_day": 4
+   },
+   "venues": {
+    "Clayton Community Centre": {
+     "lat": 49.1329933,
+     "lon": -122.7045639,
+     "_coords": "photon.komoot.io 2026-10-03: OpenStreetMap amenity=community_centre 'Clayton Community Centre' (W807014518), which the street address '7155 187A Street' resolves to as well. The widget's own point is 1,096 m away (1,085 rows on 2026-10-03), so this one overrides it."
+    },
+    "North Surrey Sport and Ice Complex": {
+     "lat": 49.2019387,
+     "lon": -122.8705021,
+     "_coords": "photon.komoot.io 2026-10-03: OpenStreetMap leisure=sports_centre 'North Surrey Sport and Ice Complex' (W617329163), which the street address '10950 126A Street' resolves to as well. The widget's own point is 5,981 m away (830 rows on 2026-10-03), so this one overrides it."
+    }
+   }
+  },
+  {
+   "name": "City of Vaughan drop-in activities",
+   "host": "vaughan.perfectmind.com",
+   "org_path": "/25076",
+   "widget_path": "Clients",
+   "widgets": [
+    "15f6af07-39c5-473e-b053-96653f77a406"
+   ],
+   "timezone": "America/Toronto",
+   "country": "CA",
+   "region": "ON",
+   "city": "Vaughan",
+   "category": "community",
+   "start_url": "https://vaughan.perfectmind.com/25076/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com BookMe4 drop-in'",
+   "venues": {
+    "Woodbridge Pool & Memorial Arena": {
+     "lat": 43.7811688,
+     "lon": -79.590402,
+     "_coords": "photon.komoot.io 2026-10-03: OpenStreetMap leisure=sports_centre 'Woodbridge Memorial Arena', Vaughan. The widget gives this facility no point (296 of 5,317 research rows); the 5020 Highway 7 address point is 140 m away."
+    }
+   },
+   "_measured_research": {
+    "rows_90d": 5317,
+    "kept_after_excludes": 5306,
+    "kept_with_coords": 5010,
+    "kept_course_priced_gt20": 98,
+    "kept_no_fee": 561,
+    "facilities": 13,
+    "bt2_calendars": 4,
+    "all_calendars": 137,
+    "booking_types": {
+     "3": 133,
+     "2": 4
+    },
+    "max_per_title_venue_day": 5
+   }
+  },
+  {
+   "name": "North Vancouver Recreation & Culture drop-in schedules",
+   "host": "nvrc.perfectmind.com",
+   "org_path": "/23734",
+   "widget_path": "Clients",
+   "widgets": [
+    "191b3742-8801-4eb9-bbfa-abb28439f20c"
+   ],
+   "timezone": "America/Vancouver",
+   "country": "CA",
+   "region": "BC",
+   "city": "North Vancouver",
+   "category": "community",
+   "start_url": "https://nvrc.perfectmind.com/23734/Clients/BookMe4?widgetId=191b3742-8801-4eb9-bbfa-abb28439f20c",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com BookMe4 drop-in schedules'",
+   "_measured_research": {
+    "rows_90d": 2946,
+    "kept_after_excludes": 2946,
+    "kept_with_coords": 2946,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 0,
+    "facilities": 7,
+    "bt2_calendars": 9,
+    "all_calendars": 9,
+    "booking_types": {
+     "2": 9
+    },
+    "max_per_title_venue_day": 1
+   }
+  },
+  {
+   "name": "Oakville Museum drop-in tours",
+   "host": "townofoakville.perfectmind.com",
+   "org_path": "/24974",
+   "widget_path": "Clients",
+   "widgets": [
+    "f71800e0-b405-44fd-bc89-2ccb57eee118"
+   ],
+   "timezone": "America/Toronto",
+   "country": "CA",
+   "region": "ON",
+   "city": "Oakville",
+   "category": "community",
+   "start_url": "https://townofoakville.perfectmind.com/24974/Clients/BookMe4?widgetId=f71800e0-b405-44fd-bc89-2ccb57eee118",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com Clients/BookMe4 Oakville'",
+   "_measured_research": {
+    "rows_90d": 226,
+    "kept_after_excludes": 226,
+    "kept_with_coords": 226,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 226,
+    "facilities": 1,
+    "bt2_calendars": 3,
+    "all_calendars": 11,
+    "booking_types": {
+     "3": 8,
+     "2": 3
+    },
+    "max_per_title_venue_day": 4
+   }
+  },
+  {
+   "name": "Town of Caledon drop-ins",
+   "host": "townofcaledon.perfectmind.com",
+   "org_path": "/24154",
+   "widget_path": "Clients",
+   "widgets": [
+    "35d8183d-dfce-41b1-acc4-05781df12eca"
+   ],
+   "timezone": "America/Toronto",
+   "country": "CA",
+   "region": "ON",
+   "city": "Caledon",
+   "category": "community",
+   "start_url": "https://townofcaledon.perfectmind.com/24154/Clients/BookMe4?widgetId=35d8183d-dfce-41b1-acc4-05781df12eca",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com Drop-In Start Page'",
+   "_measured_research": {
+    "rows_90d": 4409,
+    "kept_after_excludes": 4160,
+    "kept_with_coords": 4160,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 291,
+    "facilities": 5,
+    "bt2_calendars": 9,
+    "all_calendars": 9,
+    "booking_types": {
+     "2": 9
+    },
+    "max_per_title_venue_day": 5
+   },
+   "venues": {
+    "Caledon Centre for Recreation and Wellness": {
+     "lat": 43.8908942,
+     "lon": -79.7520111,
+     "_coords": "photon.komoot.io 2026-10-03: OpenStreetMap leisure=sports_centre 'Caledon Centre for Recreation and Wellness' (W277304847), which the street address '14111 Regional Road 50' resolves to as well. The widget's own point is 3,326 m away (1,618 rows on 2026-10-03), so this one overrides it."
+    }
+   }
+  },
+  {
+   "name": "Westside Recreation Centre facility schedules",
+   "host": "westsiderec.perfectmind.com",
+   "org_path": "/24353",
+   "widget_path": "Clients",
+   "widgets": [
+    "f1e6a8a0-b407-405d-ab37-d55ca51fa2b4"
+   ],
+   "timezone": "America/Edmonton",
+   "country": "CA",
+   "region": "AB",
+   "city": "Calgary",
+   "category": "community",
+   "start_url": "https://westsiderec.perfectmind.com/24353/Clients/BookMe4?widgetId=f1e6a8a0-b407-405d-ab37-d55ca51fa2b4",
+   "_found": "rec-platforms cell 2026-10-03: web search 'perfectmind.com BookMe4 drop-in schedule'",
+   "_measured_research": {
+    "rows_90d": 3654,
+    "kept_after_excludes": 2527,
+    "kept_with_coords": 2527,
+    "kept_course_priced_gt20": 0,
+    "kept_no_fee": 0,
+    "facilities": 1,
+    "bt2_calendars": 11,
+    "all_calendars": 12,
+    "booking_types": {
+     "3": 1,
+     "2": 11
+    },
+    "max_per_title_venue_day": 4
+   }
+  }
+ ],
+ "_not_included": {
+  "https://cityofhamilton.perfectmind.com/39117/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406": "Measured 2026-10-03: its 2 BookingType-2 calendars hold 4,347 rows in 90 days and 4,260 of them (98%) are 'Rental Program - Pickleball (Outdoor)' court rentals; the other 87 are one sensory room. Not a drop-in schedule.",
+  "https://chattanooga.perfectmind.com/Clients/BookMe4?widgetId=a83c2520-1d02-4e6b-a512-d8583b48d1b7": "Measured 2026-10-03: 4 BookingType-2 calendars, 0 rows in the next 90 days. Re-probe in spring; the summer programme may publish here."
+ }
+}
