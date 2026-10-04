@@ -3357,8 +3357,8 @@
   "adminebpgalerie.wixsite.com/ebp-galerie": {
     "checked": 20260911,
     "name": "Galerie En Bas du Parc",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "admiralkino.at": {
@@ -5640,8 +5640,8 @@
   "albalzani.wixsite.com/ilmiosito": {
     "checked": 20260922,
     "name": "Garage Moulinsky",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "albanyca.org": {
@@ -14358,8 +14358,8 @@
   "assarikunn.wixsite.com/website": {
     "checked": 20260924,
     "name": "\u6d66\u5b89\u5e02\u90f7\u571f\u535a\u7269\u9928",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "asse.be/Sporthal-Waalborre-Sportloods": {
@@ -18413,8 +18413,8 @@
   "baifuugakuen.wixsite.com/tenmanguu": {
     "checked": 20260925,
     "name": "\u798f\u5cf6\u5929\u6e80\u5bae",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "baignade.larivedeneuilly.fr": {
@@ -22342,8 +22342,8 @@
   "benitagaleanacmuse.wixsite.com/casamuseobenita": {
     "checked": 20260927,
     "name": "Casa Museo Benita Galeana",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "benkyo-cafe.net/studio/suita-esaka": {
@@ -44758,6 +44758,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "castlehaven.org.uk/events": {
+    "checked": 20261004,
+    "name": "Castlehaven Community Association",
+    "reason": "12/12 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "castleknock.net": {
     "checked": 20260822,
     "name": "Somerton Park",
@@ -45216,8 +45223,8 @@
   "cavershambaptist.wixsite.com/main": {
     "checked": 20260825,
     "name": "Caversham Baptist Church",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "cavomaastricht.com/agenda": {
@@ -46967,8 +46974,8 @@
   "centrecultureltheux.wixsite.com/cctheux": {
     "checked": 20260914,
     "name": "Centre Culturel Theux",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "centrededansedumarais.fr": {
@@ -47167,6 +47174,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "centresocialgerardphilipe.fr/evenement": {
+    "checked": 20261004,
+    "name": "Centre Social et Culturel G\u00e9rard Philipe",
+    "reason": "9/9 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "centresocialsaintjust.com/copie-de-programme": {
     "checked": 20260927,
     "name": "Centre social Saint-Just Solitude (Marseille, France)",
@@ -47194,6 +47208,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "centretownchc.org/calendar": {
+    "checked": 20261004,
+    "name": "Centretown Community Health Centre",
+    "reason": "1/4 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "centretownottawa.ca/events-in-centretown/?ical=1": {
     "checked": 20260927,
@@ -73448,6 +73469,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "desmoinespridecenter.org/events": {
+    "checked": 20261004,
+    "name": "Des Moines Pride Center",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "desmoineswa.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
     "checked": 20260913,
@@ -109104,8 +109132,8 @@
   "grupo93sintra.wixsite.com/escoteirosdesintra93": {
     "checked": 20260901,
     "name": "Associa\u00e7\u00e3o dos Escoteiros de Portugal - Grupo 93",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "grupoarena.com": {
@@ -109293,8 +109321,8 @@
   "gsaltair.wixsite.com/gruposcoutaltair": {
     "checked": 20260915,
     "name": "Grupo Scout Alta\u00efr",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "gsc.ie": {
@@ -112471,8 +112499,8 @@
   "hasarts.wixsite.com/deambulle/le-bouquin-qui-bulle": {
     "checked": 20260828,
     "name": "Le Bouquin qui bulle",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "hasedera.jp": {
@@ -112782,6 +112810,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "haus-steinstrasse.de": {
+    "checked": 20261004,
+    "name": "Haus Steinstra\u00dfe",
+    "reason": "8/8 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "haus-zur-sonne.ch": {
     "checked": 20260917,
@@ -113839,6 +113874,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "heartcentre.org.uk/what-s-on": {
+    "checked": 20261004,
+    "name": "HEART Headingley",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "heartlandhousing.ca/housing-directory/seniors-lodges/clover-bar-lodge": {
     "checked": 20260819,
@@ -135675,6 +135717,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kensingtoncl.ca/events": {
+    "checked": 20261004,
+    "name": "Kensington Community League",
+    "reason": "4/4 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "kensuikai-asunaro.or.jp": {
     "checked": 20260925,
     "name": "\u834f\u7530\u4ecb\u8b77\u8001\u4eba\u4fdd\u5065\u65bd\u8a2d \u3042\u3059\u306a\u308d",
@@ -142560,8 +142609,8 @@
   "ksazele.wixsite.com/ksazele": {
     "checked": 20260911,
     "name": "KSA Zele",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "ksbchurch.org/events": {
@@ -149340,8 +149389,8 @@
   "lautrelieu.wixsite.com/blog": {
     "checked": 20260829,
     "name": "L\u2019Autre Lieu d'Anis Gras",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "lavachebleue.fr": {
@@ -164183,8 +164232,8 @@
   "mario62.wixsite.com/parrocchia-smmk?lang=en": {
     "checked": 20260922,
     "name": "Parrocchia San Massimiliano Maria Kolbe",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "mariomieli.org": {
@@ -176821,8 +176870,8 @@
   "museebatiment74.wixsite.com/musedubtiment": {
     "checked": 20260918,
     "name": "Mus\u00e9e du Batiment",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "museebolle.ch": {
@@ -221841,8 +221890,8 @@
   "saintjeanbaptistep8.wixsite.com/my-site": {
     "checked": 20260911,
     "name": "\u00c9glise Saint-Jean-Baptiste",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "saintjeanbosco.fr": {
@@ -224209,8 +224258,8 @@
   "sanghasaleve.wixsite.com/shedrubchoekhorling": {
     "checked": 20260919,
     "name": "Shedrub Choekhor Ling",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "sangil.onmam.com": {
@@ -234158,8 +234207,8 @@
   "sitecacvigneux.wixsite.com/cacvigneux": {
     "checked": 20260829,
     "name": "Club des Amis du Chien de Vigneux-sur-Seine",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "sites.google.com/a/adelepicot.com/a-picot-asso-bis/home": {
@@ -238278,6 +238327,13 @@
     "reason": "4 vevents / 4 future",
     "status": "ok",
     "type": "ics"
+  },
+  "southclareview.ca": {
+    "checked": 20261004,
+    "name": "South Clareview Community League",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "southdunedinbaptist.org": {
     "checked": 20260825,
@@ -243837,8 +243893,8 @@
   "startracktokorozaw.wixsite.com/homepage": {
     "checked": 20260925,
     "name": "STAR TRACK TOKOROZAWA RC CIRCUIT",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "startvrsovice.cz/vrsovicka_zahrada.html": {
@@ -255832,8 +255888,8 @@
   "teatrobocage.wixsite.com/bocage": {
     "checked": 20260901,
     "name": "Teatro Bocage",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "teatrobodevil.com": {
@@ -260738,6 +260794,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "theflorrie.org/whatson": {
+    "checked": 20261004,
+    "name": "The Florrie",
+    "reason": "89/112 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "theforgecamden.co.uk": {
     "checked": 20260819,
@@ -283041,6 +283104,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "whitehorncommunity.com/calendar": {
+    "checked": 20261004,
+    "name": "Whitehorn Community Association",
+    "reason": "20/25 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "whitepadel.com": {
     "checked": 20260921,
     "name": "White Padel",
@@ -290906,8 +290976,8 @@
   "zvertigobouldergym.wixsite.com/zvert": {
     "checked": 20260910,
     "name": "Z-Vertigo",
-    "reason": "no schema.org Event blocks found",
-    "status": "fail",
+    "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
+    "status": "reopened",
     "type": "jsonld"
   },
   "zwalcznude.pl": {

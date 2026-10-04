@@ -748,7 +748,12 @@ def verify_jsonld(s, e):
     pat = e.get("link_pattern")
     tmpl = e.get("url_template")
     if pat and not future:
-        urls = list(dict.fromkeys(re.findall(pat, r.text)))[:6]
+        urls = list(dict.fromkeys(re.findall(pat, r.text)))
+        # Both ends of the list, still six fetches at most. A calendar listed
+        # oldest-first keeps its future at the END: Centretown CHC's Wix page
+        # (Ottawa, 76 upcoming drop-ins) lists 116 slugs and the first upcoming
+        # one is the 41st, so the first six could only ever say "none future".
+        urls = urls if len(urls) <= 6 else urls[:3] + urls[-3:]
         for u in urls:
             u = u if isinstance(u, str) else u[0]
             # url_template is not decoration: a Wix site's link_pattern captures a

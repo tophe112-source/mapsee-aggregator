@@ -1226,26 +1226,6 @@
       "_metro": "Helsinki, FI"
     },
     {
-      "name": "Espoon kulttuurikeskus",
-      "category": "arts",
-      "_found": "osm:arts_centre -> jsonld-event",
-      "listing": [
-        "https://www.espoo.fi/fi/tapahtumat/espooevents:agpifm6gm4"
-      ],
-      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Espoon kulttuurikeskus",
-        "address": "2 Kulttuuriaukio",
-        "city": "Espoo",
-        "postal_code": "02100",
-        "country": "FI",
-        "lat": 60.1778999,
-        "lon": 24.804333
-      },
-      "_metro": "Helsinki, FI"
-    },
-    {
       "name": "KokoTeatteri",
       "category": "theater",
       "_found": "osm:theatre -> wix+jsonld-event",
@@ -1286,25 +1266,6 @@
       "_metro": "Helsinki, FI"
     },
     {
-      "name": "Koulumuseo Lagstad",
-      "category": "arts",
-      "_found": "osm:museum -> jsonld-event",
-      "listing": [
-        "https://www.espoo.fi/fi/tapahtumat/espooevents:agpbwzmb7a"
-      ],
-      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Koulumuseo Lagstad",
-        "address": "4 Vanha Lagstadintie",
-        "city": "Espoo",
-        "postal_code": "02770",
-        "lat": 60.2079916,
-        "lon": 24.6521621
-      },
-      "_metro": "Helsinki, FI"
-    },
-    {
       "name": "Risteyspaikka",
       "category": "community",
       "_found": "osm:place_of_worship -> modern-events+jsonld-event",
@@ -1320,44 +1281,6 @@
         "postal_code": "00670",
         "lat": 60.2498861,
         "lon": 24.9413423
-      },
-      "_metro": "Helsinki, FI"
-    },
-    {
-      "name": "Näyttelykeskus WeeGee",
-      "category": "arts",
-      "_found": "osm:arts_centre -> jsonld-event",
-      "listing": [
-        "https://www.espoo.fi/fi/tapahtumat/espooevents:agpspmdevu"
-      ],
-      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Näyttelykeskus WeeGee",
-        "address": "5 Ahertajantie",
-        "city": "Espoo",
-        "postal_code": "02100",
-        "lat": 60.1788086,
-        "lon": 24.7943382
-      },
-      "_metro": "Helsinki, FI"
-    },
-    {
-      "name": "Matinkylän uimahalli",
-      "category": "fitness",
-      "_found": "osm:sports_centre -> jsonld-event",
-      "listing": [
-        "https://www.espoo.fi/fi/tapahtumat/espooevents:agqb6rikee"
-      ],
-      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Matinkylän uimahalli",
-        "address": "6 Tynnyritie",
-        "city": "Espoo",
-        "postal_code": "02230",
-        "lat": 60.160113,
-        "lon": 24.7356696
       },
       "_metro": "Helsinki, FI"
     },
@@ -4330,25 +4253,6 @@
       "_metro": "Milan, Italy"
     },
     {
-      "name": "Sellon kirjasto",
-      "category": "learning",
-      "_found": "osm:library -> jsonld-event",
-      "listing": [
-        "https://www.espoo.fi/fi/tapahtumat/espooevents:agpblfl3i4"
-      ],
-      "link_pattern": "https://www\\.espoo\\.fi/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Sellon kirjasto",
-        "address": "9 Leppävaarankatu",
-        "city": "Espoo",
-        "postal_code": "02600",
-        "lat": 60.2175877,
-        "lon": 24.8096354
-      },
-      "_metro": "Helsinki, Finland"
-    },
-    {
       "name": "Bloom",
       "category": "community",
       "_found": "osm:community_centre -> jsonld-event",
@@ -5954,6 +5858,223 @@
       },
       "_metro": "Seattle, WA",
       "_measured": "2026-10-04: thin - Wix events app lists 6, 2 upcoming (Filipino Heritage Night with the Sounders, the 91st Anniversary Gala). The centre's weekly senior and youth programmes are not on it."
+    },
+    {
+      "name": "The Florrie",
+      "category": "community",
+      "_found": "seed:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.theflorrie.org/whatson/"
+      ],
+      "max_events": 150,
+      "venue": {
+        "name": "The Florrie",
+        "address": "377 Mill Street",
+        "city": "Liverpool",
+        "postal_code": "L8 4RF",
+        "country": "GB",
+        "lat": 53.3836113,
+        "lon": -2.9685997
+      },
+      "_metro": "Liverpool, GB",
+      "_note": "Community centre in the Dingle, Liverpool (the Florence Institute). Modern Events Calendar emits 112 Event blocks inline on /whatson/; 90 start in the next 90 days, 22 distinct weekly groups (Youth Club 12, Men's Walking Group 8, Yoga, Tai Chi, Gardening Club, Table Tennis, Readers Group, Ukulele...). 3 state a price (two GBP 5 tea dances, one GBP 30 show); 87 carry MEC's default price 0, which means no fee entered, not 'free'. Dry run: 90 in 90 days, 90 placed. robots.txt: no rule."
+    },
+    {
+      "name": "Castlehaven Community Association",
+      "category": "community",
+      "_found": "seed:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.castlehaven.org.uk/events/"
+      ],
+      "max_events": 150,
+      "venue": {
+        "name": "Castlehaven Community Association",
+        "address": "23 Castlehaven Road",
+        "city": "London",
+        "postal_code": "NW1 8RU",
+        "country": "GB",
+        "lat": 51.5427773,
+        "lon": -0.144591
+      },
+      "_metro": "London, GB",
+      "_note": "Camden community centre (OSM way 183492708, amenity=community_centre). MEC lists each weekly club's NEXT occurrence only: 12 rows in the next 90 days, 12 distinct (Men's Club, Women's Club, Chess Club, Chinese Square Dancing, Basketball, LGBTQ+ Community Hub, Tai Chi, Chi Kung, Bengali Women's Social Club, After Work Yoga...), none states a price; a daily run rolls them forward. Dry run: 12 in 90 days, 12 placed. robots.txt: no rule."
+    },
+    {
+      "name": "Haus Steinstraße",
+      "category": "community",
+      "_found": "seed:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://haus-steinstrasse.de"
+      ],
+      "max_events": 150,
+      "venue": {
+        "name": "Haus Steinstraße",
+        "address": "Steinstraße 18",
+        "city": "Leipzig",
+        "postal_code": "04275",
+        "country": "DE",
+        "lat": 51.3176149,
+        "lon": 12.3706034
+      },
+      "_metro": "Leipzig, DE",
+      "_note": "Soziokulturelles Zentrum in Leipzig-Südvorstadt (OSM amenity=arts_centre). MEC Event blocks inline on the homepage: 7 rows in the next 90 days (5 distinct), all placed; 3 priced (5-75 EUR, one a festival pass), 2 free or donation. Thin; kept because the rows are public events at a neighbourhood house."
+    },
+    {
+      "name": "Centre Social et Culturel Gérard Philipe",
+      "category": "community",
+      "_found": "seed:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://centresocialgerardphilipe.fr/evenement/"
+      ],
+      "max_events": 150,
+      "venue": {
+        "name": "Centre Social et Culturel Gérard Philipe",
+        "address": "11 rue Gérard Philipe",
+        "city": "Bron",
+        "postal_code": "69500",
+        "country": "FR",
+        "lat": 45.742014,
+        "lon": 4.9183147
+      },
+      "_metro": "Lyon, FR",
+      "_note": "Centre social in Bron (Métropole de Lyon), from the fede69.centres-sociaux.fr annuaire. MEC: 9 Event blocks inline on /evenement/, 8 in the next 90 days (intercultural cooking workshops x3, troc evening, bourse aux loisirs, community dinner-dance, réveillon solidaire, chants gourmands); all carry MEC's default price 0. Dry run: 8 in 90 days, 8 placed (1 at the centre's other site, Maison des Genêts, which carries its own address)."
+    },
+    {
+      "name": "Whitehorn Community Association",
+      "category": "community",
+      "_found": "seed:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.whitehorncommunity.com/calendar/"
+      ],
+      "max_events": 150,
+      "skip_title": "^Whitehorn Total Fitness$",
+      "venue": {
+        "name": "Whitehorn Community Association",
+        "address": "228 Whitehorn Rd NE",
+        "city": "Calgary",
+        "region": "AB",
+        "country": "CA",
+        "lat": 51.0887954,
+        "lon": -113.9669642
+      },
+      "_metro": "Calgary, Canada",
+      "_seed": "Federation of Calgary Communities directory, calgarycommunities.com/ca-map-list-view/?letter=w",
+      "_venue_source": "data.calgary.ca x34e-bcjz Community Services (address match '228 Whitehorn Rd NE')",
+      "_measured": "2026-10-03/04: 20 rows in 90 days, 20 placeable (16 'WCA Main Hall', 4 'WCA Market Hall', both 228 Whitehorn Rd NE). 8 Whitehorn Total Fitness ($40 for 8 weeks, members only: a registered course, hence skip_title), 4 Yoga with Vic ($10 drop-in), 4 Seniors Games Day, 4 WCA Pop-Up Pantry. With the skip: 12 rows, all drop-in; 0 of 12 tagged free after the MEC fix (its pages do not say free in words).",
+      "_note": "Modern Events Calendar writes offers.price '0' where the event's cost field is empty (not on every event); since 2026-10-04 mapsee_ingest_jsonld reads that zero as an unset price, so nothing here is tagged free from it. skip_title removes the members-only registered course."
+    },
+    {
+      "name": "Kensington Community League",
+      "category": "community",
+      "_found": "seed:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://kensingtoncl.ca/events/"
+      ],
+      "max_events": 150,
+      "venue": {
+        "name": "Kensington Community Hall",
+        "address": "12130 134B Ave NW",
+        "city": "Edmonton",
+        "region": "AB",
+        "country": "CA",
+        "lat": 53.5960554,
+        "lon": -113.5312234
+      },
+      "_metro": "Edmonton, Canada",
+      "_seed": "EFCL tribe organizers list, efcl.org/wp-json/tribe/events/v1/organizers",
+      "_venue_source": "data.edmonton.ca kaps-rk7z Community League Halls ('Kensington')",
+      "_measured": "2026-10-03: 2 rows in 90 days (Halloween Dance, 2nd Annual Trunk or Treat), both at Kensington Community Hall. Thin: a seasonal league calendar."
+    },
+    {
+      "name": "HEART Headingley",
+      "category": "community",
+      "_found": "seed:community_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.heartcentre.org.uk/what-s-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "HEART (Headingley Enterprise and Arts Centre)",
+        "address": "Bennett Rd",
+        "city": "Leeds",
+        "postal_code": "LS6 3HN",
+        "country": "GB",
+        "lat": 53.820475,
+        "lon": -1.5785629
+      },
+      "_metro": "Leeds, United Kingdom",
+      "_measured": "wix-walk 2026-10-04: listing ships 13 events, 13 upcoming (2026-10-06..11-24), 13 placeable (Wix location with coordinates, all at the centre); registration: 10 external (TicketSource: concerts, films), 3 none (Soundbites, The HEART Jazz Jam, The HEART Quiz - drop-in); 0 governance/closure/online. Route read off the page, NOT its links: every event link on it is ticketsource.com/heartcentreheadingley/<slug>; /event-details/<slug> answers 200 with an Event block. verify_jsonld: ok 1/1."
+    },
+    {
+      "name": "Des Moines Pride Center",
+      "category": "community",
+      "_found": "seed:community_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.desmoinespridecenter.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Des Moines Pride Center",
+        "address": "1620 Pleasant St",
+        "city": "Des Moines",
+        "region": "IA",
+        "postal_code": "50314",
+        "country": "US",
+        "lat": 41.589817,
+        "lon": -93.6392074
+      },
+      "_metro": "Des Moines, United States",
+      "_measured": "wix-walk 2026-10-04: 3 events, 3 upcoming (Rick Miller Library Access Hours 10-04 [tickets], Queer Art Now! Gallery 10-22 [rsvp], LGBTQ+ Historical Archives Pop Up 10-28 [rsvp] at Drake University), 3 placeable. Wix's JSON-LD gives the address as one string and no geo, so the venue block's point fills it: the Drake University pop-up will pin at the centre. verify_jsonld: ok 1/1."
+    },
+    {
+      "name": "South Clareview Community League",
+      "category": "community",
+      "_found": "seed:community_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.southclareview.ca/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "South Clareview Community League",
+        "address": "3250 132a Ave NW",
+        "city": "Edmonton",
+        "region": "AB",
+        "postal_code": "T5A 3T1",
+        "country": "CA",
+        "lat": 53.5937611,
+        "lon": -113.3915265
+      },
+      "_metro": "Edmonton, Canada",
+      "_measured": "wix-walk 2026-10-04: the found page (/news-events) ships no events; the homepage ships 1, upcoming (WIP Wednesdays (hosted by Blair) 2026-10-22, registration none - drop-in), placeable. Thin: one event. verify_jsonld: ok 1/1."
+    },
+    {
+      "name": "Centretown Community Health Centre",
+      "category": "community",
+      "_found": "seed:community_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.centretownchc.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 150,
+      "venue": {
+        "name": "Centretown Community Health Centre",
+        "address": "420 Cooper St",
+        "city": "Ottawa",
+        "region": "ON",
+        "postal_code": "K2P 2N6",
+        "country": "CA",
+        "lat": 45.4153239,
+        "lon": -75.6978195
+      },
+      "_metro": "Ottawa, Canada",
+      "_measured": "wix-walk 2026-10-04: listing ships 116 events, 76 upcoming (2026-10-05..), 76 placeable, ALL registration none (Wix: no registration - drop-in): Playgroup 0-6 x17, Chair Exercise x12, Strong and Steady x12, Tiny Toes Playgroup x12, Breastfeeding Support x6, Yoga for Everyone x6, Baby Prenatal Nutrition x5, Family Fun with Food x2, 2 more; 2 say (Cancelled) in the title and notice_reason refuses them -> 74. PAST FIRST: the first upcoming slug is the 41st, so max_events 150 (100 reads 60 of 76) and verify_jsonld, which samples the first 6 slugs, answers '6 events / 0 future' until it samples the tail too."
     }
   ],
   "_not_included": {
@@ -6013,6 +6134,11 @@
     "https://trurolibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar": "Truro Public Library Youth calendar. Measured 2026-10-01 alongside the main feed: 16 VEVENTs in 90 days; 8 UIDs overlap the main calendar, with only 8 incremental youth rows. The main calendar is declined for unsafe online/offsite geocoding, and the overlapping rows would be duplicated/relabelled across categories. Reconsider only with a clean, distinct feed.",
     "https://www.brocktonpubliclibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": "Brockton Public Library Teens. Measured 2026-10-01: 11 VEVENTs in 90 days; production adapter kept 9 and dropped 2 as unplaceable. Photon returned materially different points for the same Main Branch address: 42.0669,-71.0170 for \"Main Branch - 304 Main St\" and 42.0892,-70.9890 for \"Lingos Multi-Purpose Room - Ground Floor - Main Branch 304 Main St\". Branch/room placements are not verified on library property; do not add until geocoding is reliable.",
     "https://tzuchi.us/events/flushing-food-packing-distribution-call-for-volunteers?i=fe08bd4": "Tzu Chi Flushing food packing/distribution volunteer calls. Declined 2026-10-01: official /terms explicitly prohibits robots/scrapers and extraction/distribution of site materials without prior written authorization, despite robots.txt allowing the page. Do not fetch or configure without publisher authorization. Before this terms finding, the production JSON-LD adapter returned 0 events from one allowed detail-page GET: only WebPage schema, no Event; Tribe was 404 rest_no_route. Calendar prose is useful but does not establish a supported permitted feed.",
-    "https://www.penichecinema.com/": "La Péniche cinéma, Paris (Wix). Was in `sites` with one event's page as its listing (https://www.penichecinema.com/events/panchama-fight-klub), which is past, and /event-info/ as its route, which 404s here: the site's own links route events through /events/. Measured 2026-10-04: the homepage ships 3 events in its warmup data, 0 upcoming (verify_jsonld on the homepage with /events/{}: \"3 events / 0 future\"), and its sitemap's newest event page was 2026-09-23. No page with upcoming events was found. Re-add as listing https://www.penichecinema.com/ with url_template /events/{} once it posts a programme again; `verify` will then pass it."
+    "https://www.penichecinema.com/": "La Péniche cinéma, Paris (Wix). Was in `sites` with one event's page as its listing (https://www.penichecinema.com/events/panchama-fight-klub), which is past, and /event-info/ as its route, which 404s here: the site's own links route events through /events/. Measured 2026-10-04: the homepage ships 3 events in its warmup data, 0 upcoming (verify_jsonld on the homepage with /events/{}: \"3 events / 0 future\"), and its sitemap's newest event page was 2026-09-23. No page with upcoming events was found. Re-add as listing https://www.penichecinema.com/ with url_template /events/{} once it posts a programme again; `verify` will then pass it.",
+    "https://www.espoo.fi/fi/tapahtumat/espooevents:agpifm6gm4": "Espoon kulttuurikeskus: retired 2026-10-04. The listing was one espooevents event page dated 2026-09; its link_pattern (www.espoo.fi/event/...) matched 0 links, so it yielded 0 upcoming rows. Espoo's own Linked Events instance (mapsee_ingest_linkedevents.py, linkedevents_sources.json) now reads this place's events in full.",
+    "https://www.espoo.fi/fi/tapahtumat/espooevents:agpbwzmb7a": "Koulumuseo Lagstad: retired 2026-10-04. The listing was one espooevents event page dated 2026-09; its link_pattern (www.espoo.fi/event/...) matched 0 links, so it yielded 0 upcoming rows. Espoo's own Linked Events instance (mapsee_ingest_linkedevents.py, linkedevents_sources.json) now reads this place's events in full.",
+    "https://www.espoo.fi/fi/tapahtumat/espooevents:agpspmdevu": "Näyttelykeskus WeeGee: retired 2026-10-04. The listing was one espooevents event page dated 2026-09; its link_pattern (www.espoo.fi/event/...) matched 0 links, so it yielded 0 upcoming rows. Espoo's own Linked Events instance (mapsee_ingest_linkedevents.py, linkedevents_sources.json) now reads this place's events in full.",
+    "https://www.espoo.fi/fi/tapahtumat/espooevents:agqb6rikee": "Matinkylän uimahalli: retired 2026-10-04. The listing was one espooevents event page dated 2026-09; its link_pattern (www.espoo.fi/event/...) matched 0 links, so it yielded 0 upcoming rows. Espoo's own Linked Events instance (mapsee_ingest_linkedevents.py, linkedevents_sources.json) now reads this place's events in full.",
+    "https://www.espoo.fi/fi/tapahtumat/espooevents:agpblfl3i4": "Sellon kirjasto: retired 2026-10-04. The listing was one espooevents event page dated 2026-09; its link_pattern (www.espoo.fi/event/...) matched 0 links, so it yielded 0 upcoming rows. Espoo's own Linked Events instance (mapsee_ingest_linkedevents.py, linkedevents_sources.json) now reads this place's events in full."
   }
 }
