@@ -25,11 +25,12 @@ one, forbids automated retrieval in its Terms of Use and is not read).
 
 MEASURED 2026-10-03, the live run over the 15 configured tenants (16 widgets):
 538 calendars, 140 of them BookingType 2; 12 of those refused by name and 128
-walked (22 empty this season), 78,378 rows read in the next 90 days with 2,230
-requests in 17.5 minutes (three tenants at a time). 70,424 rows kept, every one on its
-facility's own point, at 118 venues in 15 cities: Brampton 15,661, Vaughan
-11,632, Surrey 11,557, Markham 7,581, Caledon 5,559, Coquitlam 5,123, Abbotsford
-3,609, North Vancouver 3,018, Calgary's Westside 2,392, Nanaimo 1,764, Moose Jaw
+walked (22 empty this season), 78,339 rows read in the next 90 days with 2,230
+requests in 17.5 minutes (three tenants at a time). Replayed through this code
+(2026-10-04, the members-only rule of lesson 4 included): 65,163 rows kept, every
+one on its facility's point, at 118 venues in 15 places: Brampton 13,562, Vaughan
+11,631, Surrey 9,765, Markham 6,235, Caledon 5,559, Coquitlam 5,121, Abbotsford
+3,609, North Vancouver 2,997, Calgary's Westside 2,392, Nanaimo 1,764, Moose Jaw
 1,574, Menlo Park 269, Kamloops 262, Oakville 226, Rochester NY 197. Two
 measured tenants are not configured (perfectmind_sources.json `_not_included`:
 Hamilton's drop-in calendars are 98% pickleball court RENTALS, Chattanooga's
@@ -50,7 +51,8 @@ THE BASIS FOR READING IT, stated plainly because it is the first question
     pages link no terms of their own. That is the opposite of ActiveNet, whose
     footer terms name "robot, bot, spider ... to retrieve, index, data mine"
     and are why that platform is not read.
-  * Publication: these are the cities' own public schedules. Three tenants are
+  * Publication: these are the public schedules of fourteen cities and one
+    non-profit centre (Calgary's Westside Recreation Centre). Three tenants are
     recorded linking the widget from the city's own recreation pages (Surrey's
     "Broad Search" on surrey.ca drop-in schedules, coquitlam.ca/979/Drop-In-
     Activities, kamloops.ca's PerfectMind page); the other twelve were found
@@ -99,10 +101,14 @@ THE THINGS THAT WILL BITE YOU
    them something you can turn up to. 12 whole calendars are refused by name
    (`PRIVATE_CALENDAR_RX`; a tenant's `exclude_calendars` adds to it) - every
    one the research had to list per tenant - and then rows by title
-   (`_ROW_RULES`), each counted under its reason. On 2026-10-03: childminding
-   1,542 (Surrey files it under "Drop In 0-12"), closure notices 450,
-   members-only 159, private bookings and rentals 149, cancelled 22,
-   orientations 12. Closures and cancellations are refused HERE because
+   (`_ROW_RULES`), each counted under its reason. On 2026-10-03: members-only
+   5,412 (159 by title, 5,253 by a membership the Details require - see
+   MEMBERS_ONLY_DETAILS_RX; Surrey's Seniors Services, Markham's fitness classes
+   and Brampton's Flower City Seniors Centre, each a paid membership, and
+   every one of them "No fee" or "$0.00 - ..." because a member books for
+   nothing), childminding 1,542 (Surrey files it under "Drop In 0-12"), closure
+   notices 450, private bookings and rentals 149, cancelled 22, orientations
+   12. Closures and cancellations are refused HERE because
    notice_reason in mapsee_ingest misses "CANCELLED Winmar Toddler Turf" and
    "Lane Swim - CLOSED for Programs".
 
@@ -139,13 +145,28 @@ THE THINGS THAT WILL BITE YOU
    printed: 0 on 2026-10-03. Re-check `venues` when a tenant is added.
 
 7. THE PRICE WORDING IS A CONTRACT with ../mapsee's offer tagger (migration
-   0227 reads `free` from the event's own text; see the note in
-   mapsee_ingest_programs.py's header). A row says it is free ONLY when its
-   PriceRange is "No fee" or every amount in it is $0: "Free drop-in: no fee."
-   Anything else states the range as "Drop-in fee: $0.00 - $7.50" - the $0
-   end is the pass-holder price, which is not free to everyone - and a widget
-   that hides prices says "Drop-in fee: see the listing". The line comes FIRST
-   in the description, because the sync trims long prose from the head and
+   0227 reads `free` from the title AND THE WHOLE DESCRIPTION, prose included;
+   its Python twin is ../mapsee/tools/measure_deals.py). Three rules, each
+   measured with that twin over the rows the sync writes (replay of 2026-10-03):
+     * FREE only when the PriceRange is "No fee" (or all $0) on a row the
+       widget sells: "Free drop-in: no fee." "No fee" is the WIDGET's charge -
+       a members-only row says it (lesson 4) and so does a row the widget does
+       not sell: Markham's 749 "Drop-In Aquafit" rows, "not available for
+       registration online", cost $7.58 at the desk. Those write no price.
+     * A STATED FEE SAYS "not free", which 0227's negation (`FREE_NEG`) reads
+       as a veto on the whole row: "Drop-in fee: $9.00 (not free)." and, when
+       the range starts at a pass-holder's $0, "(not free for everyone)".
+       Without it the source's own prose tagged 181 paid rows free - Coquitlam's
+       $9.00 Figure Skating Buy-On says "Coaches are free of charge" (95), Moose
+       Jaw's $0.00 - $18.25 gym "free of charge with membership" (86).
+     * A HIDDEN PRICE (DisplayPrices false: NVRC 3,018 rows, Westside 2,392)
+       writes no price line: the old "Drop-in fee: see the listing" claimed a
+       fee on 119 youth-centre rows whose text says "It is FREE to drop in!".
+   Before: 8,692 rows tagged free, 3,190 of them behind a paid membership
+   (Surrey 1,792, Markham 1,313; Caledon's 85 "Free Membership" track rows are
+   free and stay), 181 with a stated fee. After: 4,498 tagged free, 0 with a
+   stated fee, 0 behind a paid membership. The line comes FIRST in the
+   description, because the sync's _cap_prose cuts the END of long prose and
    keeps only a short last paragraph.
 
 8. TITLES CARRY THE PLACE AND THE CLOCK. Brampton writes "Billiards Drop-In
@@ -194,8 +215,8 @@ DEFAULT_HORIZON_DAYS = 90
 # `--workers` reads that many tenants at once, one request in flight each.
 PACE_SECONDS = 1.1
 
-# Per tenant. The research's last full pass needed 258 ClassesV2 requests for
-# Abbotsford's 15 calendars and 172 for Brampton's 9, so 400 is headroom and a
+# Per tenant. The live run of 2026-10-03 needed 326 requests for Brampton, the
+# most of any tenant (Surrey 300, Coquitlam 235), so 600 is headroom and a
 # ceiling - it is LOUD when it bites, because a silent cap reads as "we read the
 # whole schedule". Per-tenant override: `max_requests`.
 DEFAULT_MAX_REQUESTS = 600
@@ -237,7 +258,7 @@ _WS = re.compile(r"\s+")
 # ---------------------------------------------------------------------------
 # Matched against "<category> / <calendar>" so a tenant's "Childminding /
 # ARC Childminding" and "Appointments / Skate Vault" are caught by either half.
-# Measured over the 600 calendars: every hit below is a private booking or a
+# Measured over the 538 calendars: every hit below is a private booking or a
 # service you reserve for yourself, and nothing a resident could turn up to.
 # `part(y|ies)` is CALENDAR-level only: a "Halloween Skate Party" title is a
 # public event, and the title rules below say `birthday` instead.
@@ -285,6 +306,31 @@ _ROW_RULES: Tuple[Tuple[str, "re.Pattern[str]"], ...] = (
 )
 
 
+# A MEMBERSHIP WRITTEN IN THE DETAILS IS A MEMBERS-ONLY SESSION TOO (lesson 4).
+# The title rule above sees Coquitlam's "(Society Members Only)"; the same gate
+# written in the prose did not, and those rows say "No fee" because a member
+# books them for nothing. Read over the 78,339 rows of 2026-10-03: Surrey's
+# "Seniors Services Membership required." (1,801 rows, the membership is $30 a
+# year), Markham's "Fitness membership required" (1,313; "Fitness members Only"
+# on markham.ca), Brampton's "...will require a Flower City Senior Membership in
+# order to register for a spot in drop-ins" (2,161), NVRC's "Must have an active
+# Parkgate Society Membership to attend at $10 a year" (21) and Markham's
+# "required to hold a Recreation Youth Basketball Pass" (32).
+# A membership the source itself calls FREE is a sign-up at the desk, not a
+# gate, and stays: Markham's "requires a free Youth Basketball membership" (127)
+# and "required to hold a free basketball pass" (44), Caledon's "Free Membership
+# is required" (92). So do "Membership is not required." (Surrey, 33),
+# "Membership or per visit drop-in fee is required" (Caledon, 93) and "for pool
+# plan holders and non-members" (Vaughan, 1,138): anyone can turn up to those.
+_NOT_FREE_WORDS = r"(?:(?!free\b)[\w'-]+\s+){0,4}"
+MEMBERS_ONLY_DETAILS_RX = re.compile(
+    r"\bmembers?[\s-]+only\b|"
+    r"(?<!free\s)(?<!no\s)\bmembership\s+(?:is\s+)?required\b|"
+    r"\b(?:must|should)\s+have\s+(?:a|an)\s+(?:active\s+|valid\s+|current\s+)?" + _NOT_FREE_WORDS + r"membership\b|"
+    r"\brequires?\s+(?:a|an)\s+" + _NOT_FREE_WORDS + r"membership\b|"
+    r"\brequired\s+to\s+hold\s+(?:a|an)\s+" + _NOT_FREE_WORDS + r"(?:membership|pass)\b", re.I)
+
+
 def calendar_refusal(category: str, calendar: str, tenant: Dict[str, Any]) -> Optional[str]:
     """Why a calendar is not read, or None. Shared rule first, then the tenant's."""
     both = f"{category or ''} / {calendar or ''}"
@@ -305,6 +351,8 @@ def row_refusal(title: str, details: str, tenant: Dict[str, Any]) -> Optional[st
     extra = tenant.get("exclude_title_rx")
     if extra and re.search(extra, title or "", re.I):
         return "excluded by the tenant's config"
+    if MEMBERS_ONLY_DETAILS_RX.search(details or ""):
+        return "members only"
     # The shared refusals every adapter shares, asked here so the count lands in
     # THIS report rather than only in EventStore's.
     if notice_reason(title):
@@ -422,20 +470,35 @@ def _clock(s: Any) -> Optional[str]:
 
 _AMOUNT_RX = re.compile(r"\$\s*([0-9][0-9,]*(?:\.\d+)?)")
 
+# "No fee" is what the WIDGET charges, and a row the widget does not sell says
+# it whatever the desk charges. Markham's 749 "Drop-In Aquafit" rows read "No
+# fee" and "Drop-in Aquafit programs are not available for registration online;
+# please visit the facility on the day-of" - and markham.ca prices drop-in
+# aquafit at $7.58 ($5.26 at 65+). Measured 2026-10-03: the phrase is on 876
+# rows, all Markham's. Such a row states no price, so it says none (lesson 7).
+_NOT_SOLD_HERE_RX = re.compile(
+    r"\bnot\s+available\s+for\s+(?:online\s+registration|registration\s+online)\b", re.I)
 
-def price_line(price_range: Any) -> Tuple[str, bool]:
-    """(the description's fee line, is it free). Lesson 7: the wording is a
-    contract with the offer tagger, so FREE is said only when the source says
-    "No fee" or every amount is zero."""
+
+def price_line(price_range: Any, details: Any = None) -> Tuple[Optional[str], bool]:
+    """(the description's fee line or None, is it free). Lesson 7: the wording
+    is a contract with ../mapsee's offer tagger (0227), so FREE is said only
+    when the source says "No fee" (or every amount is zero) for a row it sells,
+    and a stated fee says "not free" in the words 0227's negation vetoes on."""
     text = _clean(price_range, 80)
     if not text:
-        return "🎟 Drop-in fee: see the listing for prices.", False
-    if re.fullmatch(r"(?:no\s+fee|free)\.?", text, re.I):
-        return "🎟 Free drop-in: no fee.", True
+        # DisplayPrices false (NVRC, Westside: 6,210 rows): the city shows no
+        # price, so neither do we - and nothing here may claim a fee exists.
+        return None, False
     amounts = [float(a.replace(",", "")) for a in _AMOUNT_RX.findall(text)]
-    if amounts and all(a == 0 for a in amounts):
+    if re.fullmatch(r"(?:no\s+fee|free)\.?", text, re.I) or (amounts and all(a == 0 for a in amounts)):
+        if _NOT_SOLD_HERE_RX.search(_clean(details) or ""):
+            return None, False
         return "🎟 Free drop-in: no fee.", True
-    return f"🎟 Drop-in fee: {text.rstrip('.')}.", False
+    # The $0 end of "$0.00 - $18.25" is a pass-holder's or an extra family
+    # member's price, not everyone's.
+    tail = "not free for everyone" if amounts and min(amounts) == 0 else "not free"
+    return f"🎟 Drop-in fee: {text.rstrip('.')} ({tail}).", False
 
 
 def age_text(row: Dict[str, Any]) -> Optional[str]:
@@ -463,6 +526,24 @@ def age_text(row: Dict[str, Any]) -> Optional[str]:
     if own and not re.fullmatch(r"0\s*to\s*(?:99|100)", own):
         return own if own.lower().startswith("age") else f"Ages {own}"
     return None
+
+
+# AlternativeLocation is free text. On 2026-10-03 it was set on 171 rows, all
+# Coquitlam's: 121 repeat the Location ("Centennial Pavilion"), 50 say
+# "Spectators are not allowed". Only a different PLACE reads as "Meets at".
+_SENTENCE_RX = re.compile(r"\b(?:are|is|not|no|please|must|will|may|allowed)\b", re.I)
+
+
+def alternative_location(row: Dict[str, Any]) -> Optional[str]:
+    """'Meets at: <place>', the source's note as it stands, or None."""
+    if not row.get("HasAlternativeLocation"):
+        return None
+    alt = _clean(row.get("AlternativeLocation"), 120)
+    if not alt or normalize_text(alt) == normalize_text(row.get("Location") or ""):
+        return None
+    if _SENTENCE_RX.search(alt):
+        return alt if alt.endswith((".", "!", "?")) else alt + "."
+    return f"Meets at: {alt}"
 
 
 def _point(addr: Dict[str, Any]) -> Optional[Tuple[float, float]]:
@@ -582,14 +663,14 @@ def to_event(row: Dict[str, Any], cal: Dict[str, Any], tenant: Dict[str, Any],
         start_local, end_local, start_utc, end_utc = iso_day, None, None, None
 
     details = _clean(row.get("Details"), 520)
-    fee, _free = price_line(row.get("PriceRange"))
+    fee, _free = price_line(row.get("PriceRange"), row.get("Details"))
     # Not the Facility: it is the booking system's room code ("AQ-Westsyde Pool
     # Swim Lesson Deck Space 6", "SSLCAq - Deck - Main Shallow"), which reads as
     # noise to anybody but the front desk. The building is the venue.
-    alt = _clean(row.get("AlternativeLocation"), 120) if row.get("HasAlternativeLocation") else None
-    facts = [x for x in (age_text(row), f"Meets at: {alt}" if alt else None) if x]
+    facts = [x for x in (age_text(row), alternative_location(row)) if x]
     org = _clean(row.get("OrgName"), 80) or tenant.get("name")
-    paras = [fee + (("\n" + " · ".join(facts)) if facts else "")]
+    head = "\n".join(x for x in (fee, " · ".join(facts)) if x)
+    paras = [head] if head else []
     if details:
         paras.append(details)
     # THE LAST PARAGRAPH IS SHORT ON PURPOSE: the sync's _cap_prose keeps a final
@@ -894,10 +975,19 @@ def read_tenant(tenant: Dict[str, Any], today: date, horizon_end: date,
     cats_url = f"{base}/BookMe4V2/GetCategoriesDataV2?embed=False"
     classes_url = f"{base}/BookMe4BookingPagesV2/ClassesV2"
 
+    # A tenant still queued when the run deadline passes asks nothing, not even
+    # for robots.txt (that read does not go through Client._wait).
+    if deadline is not None and client.clock() >= deadline:
+        report["stopped"] = "run deadline reached before this tenant started"
+        report["requests"] = 0
+        return report
+
     # ROBOTS, EVERY RUN. 404 today on every tenant; the day one starts refusing,
-    # this is where the adapter stops reading it.
+    # this is where the adapter stops reading it. The start page is asked too:
+    # it is read only as the token fallback (lesson 2), but it is still a read.
     robots = robots or robots_txt.Robots(client.session)
-    for u in (cats_url, classes_url):
+    start_urls = [f"{base}/BookMe4?widgetId={w}" for w in tenant.get("widgets") or ()]
+    for u in [cats_url, classes_url] + start_urls:
         verdict = robots.check(u)
         if verdict.get("allowed") is not True:
             report["stopped"] = (f"robots.txt {verdict.get('status')}: "
@@ -1010,8 +1100,14 @@ def build_events(tenant: Dict[str, Any], pairs: List[Tuple[Dict[str, Any], Dict[
             continue
         events.append(ev)
 
-    # The grid decision is made BEFORE the past filter, so a day's slot count -
-    # and with it the day row's identity - does not change as the day goes by.
+    # The grid decision is made BEFORE the past filter, so slots this adapter
+    # would drop as past still count toward the day's shape. That does NOT make
+    # TODAY's grid row stable: the source itself stops returning slots once they
+    # have started, so a run partway through a grid day can see too few to fold
+    # and writes slot rows beside the day row an earlier run stored. Measured
+    # 2026-10-03, Moose Jaw's Gym at 19:06 local: 2 of the day's 9 slots came
+    # back; from Oct 5 to Dec 31, 0 of 274 grid days changed shape. A run
+    # near the tenants' local midnight sees whole days.
     events, dupes, folded, grid_notes = collapse_booking_grids(
         events, int(tenant.get("grid_min_per_day", GRID_MIN_PER_DAY)))
     if dupes:
@@ -1133,7 +1229,7 @@ def main(argv=None) -> int:
                     # Between tenants, so a step cancelled by its timeout keeps
                     # the work - but at most every SAVE_EVERY_SECONDS: in CI this
                     # store is the civic group's shared feeds_events.json, and
-                    # this run alone adds 91 MB of it (70,424 rows, 2026-10-03).
+                    # this run alone added 91 MB of it (70,408 rows, 2026-10-03).
                     if time.monotonic() - last_save[0] >= SAVE_EVERY_SECONDS:
                         store.save()
                         last_save[0] = time.monotonic()

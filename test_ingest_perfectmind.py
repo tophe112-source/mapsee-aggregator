@@ -7,8 +7,10 @@ Every fixture is the SHAPE of something read live off *.perfectmind.com on
 2026-10-03 (Kamloops, Brampton, Surrey, Moose Jaw, Vaughan). The expensive
 cases are the ones that answer 200 and look healthy: a pager that stops at the
 first empty window, a childminding booking inside a drop-in calendar, an hourly
-slot grid, a pool's closure notice, and a $0.00 pass-holder price that is not
-free to everyone.
+slot grid, a pool's closure notice, a $0.00 pass-holder price that is not free
+to everyone, a "No fee" that is a members-only session or a class sold at the
+desk, and a $9.00 session whose own prose says "free of charge" - the last
+three judged by migration 0227's whole free predicate on the stored row.
 
     python test_ingest_perfectmind.py
 """
@@ -253,6 +255,25 @@ sess = Tenant(CATS, robots_body="User-agent: *\nDisallow: /23702/Reports/BookMe4
 rep = PM.read_tenant(TENANT, TODAY, HORIZON, client=client(sess), robots=robots_txt.Robots(sess))
 check("a tenant whose robots.txt starts refusing is skipped before any request",
       rep["stopped"] and "robots.txt" in rep["stopped"] and not sess.asked, rep["stopped"])
+# The start page is only the token fallback, but it is a read, so robots.txt is
+# asked about it too (it was not, before 2026-10-04).
+sess = Tenant(CATS, robots_body="User-agent: *\nDisallow: /23702/Reports/BookMe4?\n")
+rep = PM.read_tenant(TENANT, TODAY, HORIZON, client=client(sess), robots=robots_txt.Robots(sess))
+check("...and so is one that refuses only the widget's start page",
+      rep["stopped"] and "robots.txt" in rep["stopped"] and not sess.asked, rep["stopped"])
+
+
+class Counting(Tenant):
+    def get(self, url, timeout=None, allow_redirects=True):
+        self.asked.append(("GET", url, {}, {}))
+        return super().get(url, timeout, allow_redirects)
+
+
+sess = Counting(CATS)
+late = PM.Client(TENANT, session=sess, deadline=50.0, pace=0, sleep=lambda s: None, clock=lambda: 100.0)
+rep = PM.read_tenant(TENANT, TODAY, HORIZON, deadline=50.0, client=late, robots=robots_txt.Robots(sess))
+check("a tenant still queued at the run deadline asks nothing, robots.txt included",
+      not sess.asked and "deadline" in (rep["stopped"] or "") and rep["requests"] == 0, (sess.asked, rep["stopped"]))
 
 # ------------------------------------------------------------- 4. which rows
 print()
@@ -287,21 +308,189 @@ for title in KEPT:
     check(f"kept: {title}", PM.row_refusal(title, "", TENANT) is None, PM.row_refusal(title, "", TENANT))
 check("a tenant's own exclude_title_rx applies", PM.row_refusal("Snoezelen Nook", "", dict(
     TENANT, exclude_title_rx="snoezelen")) == "excluded by the tenant's config")
+# A membership gate written in the DETAILS, verbatim from the 2026-10-03 rows.
+# Each of these said "No fee" (or "$0.00 - ...") because a member books for
+# nothing, and was written "Free drop-in" until 2026-10-04 (3,190 rows).
+MEMBERS = {
+    "Surrey": "Join a game of billiards. New players welcome. Seniors Services Membership required.",
+    "Surrey, 'is required'": "Friendly game play and player rotation between multiple courts. "
+                             "Senior Services membership is required.",
+    "Surrey, 'must have'": "All participants must have a Seniors Services Membership and must complete a "
+                           "studio orientation before attending.",
+    "Markham": "Fitness membership required The thrill of Latin dance and the heart-pounding beats.",
+    "Brampton": "Using a chair for seated and standing poses, chair yoga provides an opportunity to stretch. "
+                "Programs occurring at Bob Callahan Flower City Senior Centre will require a Flower City Senior "
+                "Membership in order to register for a spot in drop-ins or registered programs.",
+    "NVRC": "Come and enjoy coffee and a game with friends. Must have an active Parkgate Society Membership "
+            "to attend at $10 a year.",
+    "Markham pass": "Basketballs and hoops are provided. Players are required to hold a Recreation Youth "
+                    "Basketball Pass prior to registering.",
+}
+for who, details in MEMBERS.items():
+    got = PM.row_refusal("Drop In Billiards - Seniors Services", details, TENANT)
+    check(f"members only by its Details ({who})", got == "members only", got)
+NOT_MEMBERS = {
+    "Surrey says it is not": "Children ages 8 to 12 can enjoy drop-in activities, make arts and crafts, and "
+                             "play games in the gymnasium. Membership is not required.",
+    "a FREE membership (Markham)": "This drop-in program requires a free Youth Basketball membership and is not "
+                                   "available for registration online; please visit the facility on the day-of.",
+    "a FREE pass (Markham)": "Players are required to hold a free basketball pass prior to registering.",
+    "a FREE membership (Caledon)": "Our Indoor tracks are a great place to stay active! Free Membership is "
+                                   "required and can be purchased and a Recreation Centre.",
+    "membership OR a fee (Caledon)": "Membership or per visit drop-in fee is required.",
+    "non-members welcome (Vaughan)": "Recreational swim time for pool plan holders and non-members.",
+    "no passes (Coquitlam)": "Waist belts are available. No membership passes at this time.",
+}
+for who, details in NOT_MEMBERS.items():
+    got = PM.row_refusal("Drop-In Basketball: Teens", details, TENANT)
+    check(f"kept: {who}", got is None, got)
 
 # --------------------------------------------------- 5. the price is a contract
 print()
 print("the fee line is a contract with ../mapsee 0227's offer tagger")
-# The phrases 0227's re_free reads as free that this adapter could ever write.
-TAGGED_FREE = re.compile(r"(?<![-\w/])free\s+(?:drop[- ]in|admission|entry|to\s+attend)\b|\bno\s+cost\b", re.I)
-for src, want_free in (("No fee", True), ("$0.00", True), ("$0.00 - $0.00", True), ("Free", True),
-                       ("$0.00 - $7.50", False), ("$13.55", False), ("$231.60 - $238.55", False),
-                       (None, False), ("", False)):
+# 0227's whole `free` predicate, VENDORED VERBATIM from its Python twin
+# ../mapsee/tools/measure_deals.py (FREE, FREE_TITLE, FREE_NEG, FREE_PERK,
+# FREE_COND, INTRO; body_text and classify's free branch). Not a subset: 0227
+# reads the source's PROSE as well as our line, and a hand-picked subset of the
+# phrases this adapter writes passed 181 paid rows ("Coaches are free of
+# charge") and 3,190 members-only rows as fine (review of 2026-10-04). When
+# ../mapsee is checked out beside this repo, a drift from the twin FAILS below.
+_I = re.I
+
+
+def _rx(*parts):
+    return re.compile("|".join(parts), _I)
+
+
+FREE = _rx(
+    r"(?<![-\w/])free\s+(?:admission|entry|entrance|event|of\s+charge|to\s+(?:attend|join|enter|participate|the\s+public|all|everyone)|and\s+open|for\s+(?:all|everyone|kids|children|the\s+public|families)|community\s+event|concert|show|screening|class|classes|workshop|tour|tours|tasting|session|lesson|drop[- ]in|museum|comedy|yoga|rsvp|with\s+(?:rsvp|registration|admission|entry)|tickets?|family\s+(?:day|fun))\b",
+    r"\b(?:admission|entry|entrance|attendance|cost|price|cover(?:\s+charge)?)\s*(?:is|:|-|–)?\s*free\b",
+    r"\bno\s+(?:cover|cover\s+charge|admission\s+(?:fee|charge)|entry\s+fee)\b",
+    r"\bat\s+no\s+cost\b", r"\bfree\s*!", r"\bis\s+free\b(?!\s+(?:of|from|to\s+(?:use|choose)))",
+    r"\bentr[ée]e\s+(?:libre|gratuite)\b", r"\bacc[èe]s\s+(?:libre|gratuit)\b", r"\bgratuit(?:e|s|es)?\b",
+    r"\b(?:entrada|acceso|ingreso)\s+(?:libre|gratuit[ao]|gratis)\b", r"\bgratuit[ao]s?\b",
+    r"\bingresso\s+(?:libero|gratuito)\b", r"\bgratis\b",
+    r"\beintritt\s*(?::\s*)?(?:frei|kostenlos)\b", r"\bfreier\s+eintritt\b", r"\bkostenlos\b", r"\bkostenfrei\b",
+    r"入場無料|参加無料|無料", r"무료",
+)
+FREE_TITLE = re.compile(r"(?<![-\w])free\b(?![-\w])(?!\s+(?:jazz|style|spirit|will|agent|fall|range|form|skate|swim|throw|kick|time|state|mason|masons|press|radio|speech|palestine|tibet))", _I)
+FREE_NEG = re.compile(r"\b(?:not|isn'?t|is\s+not)\s+(?:a\s+)?free\b|\bnon[- ]gratuit|\bpas\s+gratuit|\bno\s+es\s+gratis", _I)
+FREE_PERK = _rx(r"\bfree\s+(?:shots?|drinks?|drink\s+tickets?|beers?|parking|wi-?fi|snacks?|coffee|tea|pizza|food|gifts?|swag|t-?shirts?|tote|valet|shuttle|consultations?|estimates?|delivery|shipping|samples?|refills?)\b",
+                r"\b(?:parking|wi-?fi|food|drinks?|refreshments|snacks|coffee|tea|lunch|breakfast|dinner|pizza|childcare)(?:\s+and\s+\w+)?\s+(?:is\s+|are\s+|will\s+be\s+)?(?:provided,?\s+)?(?:free(?:\s+of\s+charge)?|for\s+free)\b")
+FREE_COND = _rx(
+    r"\b(?:free|gratis|gratuit[oae]?s?|kostenlos)\s+(?:before|until|till|antes\s+de|hasta(?:\s+las)?|avant|bis)\s+\d",
+    r"\b(?:ladies|girls|women|chicas|mujeres|damas|filles|femmes)\s+(?:get\s+in\s+|enter\s+|go\s+)?(?:free|gratis|gratuit)",
+    r"\b(?:free|gratis|gratuit)\s+(?:for\s+)?(?:ladies|girls|women|chicas|mujeres|damas|filles|femmes)\b",
+    r"\bfree\s+(?:to\s+(?:attend|join|enter)\s+)?(?:for|to)\s+(?:\w+\s+){0,2}(?:members|subscribers|students|seniors|residents|veterans|military|cardholders)\b",
+    r"\bfree\s+(?:general\s+)?(?:admission|entry|entrance)\s+(?:for|to)\s+(?:\w+\s+){0,3}(?:members|subscribers|cardholders|students|seniors|residents|veterans|military)\b",
+    r"\bfree\s+(?:for\s+)?(?:(?:kids|children)\s+under|under[- ]?\d+s?\b|those\s+(?:under|over|with)\b)",
+    r"\b(?:members|students|seniors|kids|children|under[- ]?\d+s?)\s+(?:get\s+in\s+|enter\s+|go\s+)?free\b",
+    r"\bfirst\s+\d+\s+(?:people|guests|attendees)\s+(?:get\s+in\s+)?free",
+    r"\b(?:companions?|carers?|caregivers?|chaperones?)\s+(?:enter\s+|go\s+|get\s+in\s+|are\s+|is\s+)?free",
+    r"以下無料|未満無料",
+)
+INTRO = _rx(r"\b(?:first|1st|trial|intro(?:ductory)?|taster)\s+(?:class|lesson|session|visit|week|month|workout|attendance|ride|climb|dance)\s+(?:is\s+)?(?:free|on\s+us|gratis|just\s+(?:\$|£|€)\s?\d+|half)",
+            r"\bfree\s+(?:trial|intro(?:ductory)?|taster)\s+(?:class|lesson|session|week|visit)?",
+            r"\bfree\s+first\s+(?:class|lesson|session|week|visit)\b",
+            r"\bnew\s+(?:students?|members?|customers?|clients?)\s+[^.]{0,40}?(?:free|\$\s?\d+|£\s?\d+|€\s?\d+|\d+\s?%\s?off)",
+            r"\bprimera\s+clase\s+(?:gratis|gratuita)\b", r"\bclase\s+de\s+prueba\s+gratis\b", r"\bcours\s+d'essai\s+gratuit\b",
+            r"\bpremier\s+cours\s+(?:gratuit|offert)\b", r"\bprobetraining\b", r"\bprobestunde\b", r"\bschnupper(?:stunde|training|kurs)\b")
+
+
+def tagged_free(title, description):
+    """measure_deals.classify's `free`, on what the sync stores."""
+    body = (description or "").split("\n\n📍")[0]
+    body = re.split(r"\n\nTickets / info:|\n\n🔎 More on this|\n\n🎵 Listen", body)[0]
+    txt = (title or "") + "\n" + body
+    strip = lambda s: FREE_COND.sub(" ", FREE_PERK.sub(" ", INTRO.sub(" ", s)))  # noqa: E731
+    return not FREE_NEG.search(txt) and bool(FREE.search(strip(txt)) or FREE_TITLE.search(strip(title or "")))
+
+
+TWIN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "mapsee", "tools", "measure_deals.py")
+if os.path.exists(TWIN):
+    import importlib.util
+    _spec = importlib.util.spec_from_file_location("_measure_deals_twin", TWIN)
+    MD = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(MD)
+    drift = [n for n in ("FREE", "FREE_TITLE", "FREE_NEG", "FREE_PERK", "FREE_COND", "INTRO")
+             if (getattr(MD, n).pattern, getattr(MD, n).flags) != (globals()[n].pattern, globals()[n].flags)]
+    check("the vendored 0227 patterns equal ../mapsee/tools/measure_deals.py's", not drift, drift)
+    probe = {"title": "Figure Skating Buy-On", "description": "🎟 Drop-in fee: $9.00.\n\nCoaches are free of charge."}
+    check("...and so does the verdict", ("free" in MD.classify(probe)[0]) == tagged_free(probe["title"], probe["description"]))
+else:
+    print("skip the vendored 0227 patterns are not compared: ../mapsee is not checked out here")
+
+for src, want_line, want_free in (
+        ("No fee", "🎟 Free drop-in: no fee.", True), ("$0.00", "🎟 Free drop-in: no fee.", True),
+        ("$0.00 - $0.00", "🎟 Free drop-in: no fee.", True), ("Free", "🎟 Free drop-in: no fee.", True),
+        ("$0.00 - $7.50", "🎟 Drop-in fee: $0.00 - $7.50 (not free for everyone).", False),
+        ("$13.55", "🎟 Drop-in fee: $13.55 (not free).", False),
+        ("$231.60 - $238.55", "🎟 Drop-in fee: $231.60 - $238.55 (not free).", False)):
     line, free = PM.price_line(src)
-    check(f"{src!r} -> {line!r}", free == want_free and bool(TAGGED_FREE.search(line)) == want_free, line)
-    if not want_free:
-        check(f"...and the word free appears nowhere in it", "free" not in line.lower(), line)
-check("a range is stated verbatim, the $0 pass-holder end included",
-      PM.price_line("$0.00 - $7.50")[0] == "🎟 Drop-in fee: $0.00 - $7.50.")
+    check(f"{src!r} -> {line!r}", (line, free) == (want_line, want_free), (line, free))
+    check(f"...and 0227 reads it as {'free' if want_free else 'NOT free'}", tagged_free("", line) == want_free, line)
+for hidden in (None, ""):
+    check(f"a hidden price ({hidden!r}) writes no line at all, so claims no fee", PM.price_line(hidden) == (None, False),
+          PM.price_line(hidden))
+AQUAFIT = ("This is a water exercise class set to music and focused in both the shallow and deep end of the pool. "
+           "Drop-in Aquafit programs are not available for registration online; please visit the facility on the "
+           "day-of to attend your program.")
+check("\"No fee\" on a row the widget does not sell is no price (Markham's $7.58 aquafit)",
+      PM.price_line("No fee", AQUAFIT) == (None, False), PM.price_line("No fee", AQUAFIT))
+
+# The same, on the row the sync stores: the adapter's description through
+# mapsee_supabase_sync.to_row (its prose cap, its machine tail), tagged by 0227.
+import mapsee_supabase_sync as SY  # noqa: E402
+
+
+def stored(r, tenant=TENANT):
+    """(title, description) as the sync writes them, or the refusal."""
+    evs, refused, _n, _s = build([r], tenant=tenant)
+    if not evs:
+        return None, refused
+    with tempfile.TemporaryDirectory() as d:
+        st = PM.EventStore(os.path.join(d, "s.json"))
+        st.upsert(evs[0])
+        rec = next(iter(st.records.values()))
+    out = SY.to_row(rec, "00000000-0000-0000-0000-000000000000")
+    return (out["title"], out["description"]), refused
+
+
+SKATE = ("Drop-in Figure Skating. This program is run in partnership with the Coquitlam Skate Club. Participants are "
+         "to bring their own coach. Coaches are free of charge.")
+got, _r = stored(row(EventName="Figure Skating Buy-On", PriceRange="$9.00", Details=SKATE))
+check("Coquitlam's $9.00 skate whose Details say \"Coaches are free of charge\" is NOT tagged free",
+      got and not tagged_free(*got), got)
+check("...and that check bites: the same prose under the old line WAS tagged free",
+      tagged_free("Figure Skating Buy-On", "🎟 Drop-in fee: $9.00.\n\n" + SKATE))
+GYM = ("For those who are looking to get active in a gym. Youth (12-15) fitness orientation of the Fitness Centre "
+       "free of charge with membership. Adult fitness orientations of Fitness Centre free of charge with membership.")
+got, _r = stored(row(EventName="Yara Centre Gym Drop in", PriceRange="$0.00 - $18.25", Details=GYM))
+check("Moose Jaw's $0.00 - $18.25 gym (\"free of charge with membership\") is NOT tagged free",
+      got and not tagged_free(*got), got)
+got, refused = stored(row(EventName="Drop In Billiards - Seniors Services", PriceRange="No fee",
+                          Details=MEMBERS["Surrey"]))
+check("Surrey's \"No fee\" billiards behind a Seniors Services Membership is not stored, let alone free",
+      got is None and refused == {"members only": 1}, (got, refused))
+got, refused = stored(row(EventName="Drop-In Zumba", PriceRange="No fee", Details=MEMBERS["Markham"]))
+check("...nor Markham's \"No fee\" Zumba behind a Fitness membership", got is None and refused == {"members only": 1},
+      (got, refused))
+got, _r = stored(row(EventName="Drop-In Aquafit: Shallow/Deep", PriceRange="No fee", Details=AQUAFIT))
+check("Markham's \"No fee\" aquafit, sold at the desk, is stored with no price and NOT tagged free",
+      got and "🎟" not in got[1] and not tagged_free(*got), got)
+YOUTH = ("Lynn Creek is open only to youth grade 6-9 every Saturday night. Have the facility to yourself. "
+         "Admission is $6.00 at the Front Desk.")
+got, _r = stored(row(EventName="Youth Night Lynn Creek", PriceRange=None, Details=YOUTH))
+check("a hidden price claims no fee and no freedom: the city's own prose says $6.00",
+      got and "🎟" not in got[1] and "fee" not in got[1].split("Admission")[0].lower() and not tagged_free(*got), got)
+got, _r = stored(row(EventName="Delbrook Youth Centre (Grades 5+)", PriceRange=None,
+                     Details="Looking for something fun to do at Delbrook? Grab a friend. It is FREE to drop in!"))
+check("...and when that prose says \"It is FREE to drop in!\" nothing of ours vetoes it", got and tagged_free(*got), got)
+got, _r = stored(row(EventName="Drop In Middle Years - Children", PriceRange="No fee",
+                     Details=NOT_MEMBERS["Surrey says it is not"]))
+check("a sold \"No fee\" drop-in with no gate is stored free", got and got[1].startswith("🎟 Free drop-in: no fee.")
+      and tagged_free(*got), got)
+
 ev = build([row(PriceRange="No fee")])[0][0]
 check("the fee line OPENS the description, ahead of the prose the sync may trim",
       ev.description.startswith("🎟 Free drop-in: no fee."), ev.description[:60])
@@ -311,6 +500,12 @@ check("...and the provenance line closes it, short enough for _cap_prose to keep
       and len(long.description.rsplit("\n\n", 1)[1]) <= 200)
 check("ages: an upper bound of 99/100 means none", PM.age_text({"MinAge": 54, "MaxAge": 99}) == "Ages 54+")
 check("ages: a children's range reads as one", PM.age_text({"MinAge": 1, "MaxAge": 5}) == "Ages 1 to 5")
+# AlternativeLocation is free text: Coquitlam's 121 rows repeat the venue, 50
+# say "Spectators are not allowed".
+for alt, want in (("Memorial Arena", None), ("Spectators are not allowed", "Spectators are not allowed."),
+                  ("Riverside Park Field 2", "Meets at: Riverside Park Field 2")):
+    got = PM.alternative_location(row(HasAlternativeLocation=True, AlternativeLocation=alt))
+    check(f"AlternativeLocation {alt!r} -> {want!r}", got == want, got)
 
 # ----------------------------------------------------------- 6. reading a row
 print()
@@ -429,7 +624,7 @@ check("...opening with the first slot and closing with the last",
       (g.start_local, g.end_local) == ("2026-10-05T06:00:00", "2026-10-05T22:00:00"), (g.start_local, g.end_local))
 check("...saying how many slots it stands for, the fee line intact",
       g.description.startswith("🕒 16 drop-in time slots on this day: 06:00–22:00.")
-      and "🎟 Drop-in fee: $0.00 - $11.75." in g.description, g.description[:120])
+      and "🎟 Drop-in fee: $0.00 - $11.75 (not free for everyone)." in g.description, g.description[:120])
 gappy = [x for x in grid if not ("08:00 AM" <= x["FormattedStartTime"] < "12:00 PM"
                                 and x["FormattedStartTime"].endswith("AM"))]
 evs, *_ = build(gappy)

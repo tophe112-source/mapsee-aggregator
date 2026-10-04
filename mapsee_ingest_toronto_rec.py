@@ -4,7 +4,7 @@ mapsee_ingest_toronto_rec.py - what is on at Toronto's community centres this
 week: the City's drop-in programme schedule, and the EarlyON family drop-ins.
 
     python mapsee_ingest_toronto_rec.py --config toronto_rec_sources.json \
-        --store feeds_events.json [--only dropin|earlyon]
+        --store feeds_events.json [--only dropin|earlyon] [--max-minutes 10]
 
 Both come from the City of Toronto's open data portal, read ONLY through the
 CKAN datastore API (`/api/3/action/datastore_search`). The host's robots.txt
@@ -44,21 +44,40 @@ DROP-IN: A THREE-RESOURCE JOIN
 
 3. A WEIGHT ROOM IS A ROOM, NOT A PROGRAMME. 3,630 upcoming rows are
    facility-use slots - "Weight/Cardio Room", "Walking/Running Track", "Open
-   Fitness Studio" - and York's track alone publishes eleven a day. Same refusal as OpenActive's FacilityUse/Slot ("a
-   bookable badminton court at 19:00 is an empty room"). The prefixes are in
-   the config.
+   Fitness Studio" - and York's track alone publishes eleven a day. Same
+   refusal as OpenActive's FacilityUse/Slot ("a bookable badminton court at
+   19:00 is an empty room"). The prefixes are in the config.
+   ...and the same room comes back under other titles as a SHAPE: Table
+   Tennis 9:00-20:00, Squash 7:00-20:00, Snooker 9:00-16:00, FitnessTO
+   "Walking" 11:00-19:00 (the refused track by another name). Of the sessions
+   kept on 2026-10-03, 713 ran six hours or more; `facility_use_shapes`
+   refuses those titles from six hours on, read on the joined STRETCH so six
+   back-to-back hours count too: 563 more sessions. Youth Zone, Club: Social,
+   a caregiver play morning and a long lane swim are staffed programmes and
+   stay (177 kept rows run 6 h+), which is why the cut is not bare duration.
 
-4. ONE ROW PER TITLE, AGE BAND, PLACE AND DAY, listing every session time. The
+4. ONE ROW PER CONTIGUOUS STRETCH of a title, age band, place and day. The
    shared fingerprint is title|date|venue (make_fingerprint), so Lane Swim at
    07:30, 11:45 and 20:00 at one pool would silently merge into whichever came
-   first and keep one time. Of the 27,364 sessions kept on 2026-10-03, 2,706
-   title/place/days run two to six times. The collapse keeps the first start
-   and the last end, as collapse_booking_grids does, and SAYS so in the
-   description: 27,364 sessions become 23,333 rows.
+   first and keep one time. The first version folded the whole day into one
+   row from the first start to the last end, and 2,506 of its 23,232 rows then
+   spanned hours when nothing runs - 11,346 gap-hours, "Lane Swim" at Antibes
+   11:30-21:00 for three short swims - and ../mapsee pulses a pin "Happening
+   now" from starts_at to its end, straight through every gap. So exact
+   repeats fold (359), back-to-back or overlapping sessions join into one
+   stretch (a start within JOIN_MINUTES of the running end; 0 such joins
+   needed the tolerance on 2026-10-03), and a GAP ENDS THE ROW: 2,416
+   title-days split, and 0 written rows span a gap. Each row names the day's
+   other stretches ("Also on this day: ..."). Identity is the stretch's
+   FIRST clock, in source_id and in the fingerprint's basis, exactly as
+   bibliocommons and perfectmind key a storytime or a session; a shuffled
+   re-read writes identical rows and a second run adds 0 and rekeys 0. A
+   start that MOVES orphans the old stretch until its date passes (at most
+   the ~6 weeks the City publishes) - the same trade those adapters make.
    ...and the AGE BAND IS IN THE TITLE, because 1,235 title/place/days carry two
    bands: Pickleball for 19+ and Pickleball for 60+ are different sessions for
-   different people. A key without the band writes 21,912 rows and folds 1,421
-   audiences into somebody else's listing.
+   different people, and on one key 1,421 audiences fold into somebody else's
+   listing.
 
 5. "RESERVE A SPOT" IS NOT A DROP-IN, AND IT IS MOSTLY A DUPLICATE. 690 of the
    33,457 rows need an advance booking. 616 of them have a drop-in twin at the same place,
@@ -70,12 +89,17 @@ DROP-IN: A THREE-RESOURCE JOIN
    "Free" only where toronto.ca says so (read 2026-10-03): leisure swim ("free
    at all indoor and outdoor pools"), every skating drop-in ("All drop-in
    programs are free"), older-adult lane swim (the fee table says Free), the
-   Enhanced Youth Spaces ("Free programs include ..."), and EVERY City drop-in
-   at the 38 Free Centres ("All City-delivered, registered and drop-in programs
-   for all age groups"). Lane swim, aquatic fitness and FitnessTO classes say
-   "Drop-in fee". Everything else says fees may apply, which is what the City's
-   own sports page says. No amounts: they change every January. The rules are
+   Enhanced Youth Spaces' arts, hobbies and interest drop-ins ("Free programs
+   include photography, barbering ... DJing and music recording" - the page
+   names no sport, so EYS - Sports falls through: 84 rows that said free on
+   2026-10-03 now say fees may apply), and EVERY City drop-in at the 38 Free
+   Centres ("All City-delivered, registered and drop-in programs for all age
+   groups"). Lane swim, aquatic fitness and FitnessTO classes say "Drop-in
+   fee". Everything else says fees may apply, which is what the City's own
+   sports page says. No amounts: they change every January. The rules are
    `price_rules` in the config, first match wins, each with its evidence URL.
+   A Free Centre is matched on its Location ID, never its address: on number
+   + street, 9 PARKS at a centre's address matched too (FreeCentres).
 
 7. DATED ROWS, NEVER STANDING ROWS. The City publishes ~6 weeks ahead and drops
    holidays itself: 0 sessions on Thanksgiving Monday 2026-10-12 against 835-988
@@ -88,7 +112,7 @@ EARLYON: WEEKLY HOURS AS TEXT, WRITTEN AS DATED ROWS
 `dropinHours` is text: "Monday: 9:00 a.m. - noon ; 1:00 p.m. - 3:30 p.m. |
 Tuesday: ...". Days split on '|', ranges on ';', times are "h[:mm] a.m./p.m."
 or "noon". Over the 209 centres: 888 centre-days a week, 1,086 ranges, 0
-fragments unparsed.
+fragments unparsed. 22 centres write the literal word 'None', read as no hours.
 
 WHY NOT ONE STANDING ROW PER CENTRE with recurring_days, which is what the
 field is for: `recurring_days` holds ONE [open, close] pair per weekday, and
@@ -98,8 +122,11 @@ those gaps as open hours or drop a session. And a standing row never dies
 (docs/agents/openactive-and-standing-rows.md): 94 of the 209 are run by the two
 school boards and follow a school calendar the data does not carry.
 
-So: one dated row per centre per open day, `horizon_days` (14) ahead, re-read
-daily. A changed timetable is wrong for at most the horizon, not for ever.
+So: one dated row per centre per open STRETCH, `horizon_days` (14) ahead,
+re-read daily - 251 centre-days split at a gap in the 2026-10-03 read, 1,886
+rows. A changed timetable is wrong for at most the horizon, not for ever.
+The `website` field is typed by hand and once held a staff member's email:
+`_website` refuses anything that is not a web address (see there).
 `skip_dates` (Ontario's public holidays) are not written - the City's own
 drop-in table is empty on Thanksgiving, and listing a locked door is worse than
 missing an open one. The adapter warns when that list runs out.
@@ -114,8 +141,12 @@ _cap_prose keeps it when it trims (TAIL_KEEP_MAX), exactly as OpenActive's
 CC-BY line survives.
 
 Every HTTP request carries the MapseeAggregator UA and is paced >= 1.1 s on the
-host. A 401/403/429 stops that source and is never retried; a 5xx or a timeout
-is retried twice. One source failing never stops the other.
+host. A 401/403/429 is never retried, and because both sources live on one
+host it ends the run's reading: the second source is not asked. A 5xx or a
+timeout (30 s) is retried twice; any other failure of one source never stops
+the other. --max-minutes (default 10) is a deadline no request starts after,
+and the store is saved after EVERY source, so a step cancelled by its
+timeout-minutes keeps the drop-ins even if EarlyON was cut off.
 """
 from __future__ import annotations
 
@@ -127,6 +158,7 @@ import sys
 import time
 from datetime import date, datetime, timedelta, timezone
 from typing import Any, Dict, Iterable, List, Optional, Tuple
+from urllib.parse import urlsplit
 
 try:
     import requests
@@ -147,6 +179,18 @@ DEFAULT_API = "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/data
 # host we pace at one a second.
 PAGE_LIMIT = 10000
 MIN_INTERVAL_S = 1.1
+# A page of 10,000 rows answers in about 2 s (7 requests, 14.6 s with pacing,
+# 2026-10-03), so 30 s is generous. With 3 tries and 2 + 4 s of backoff the
+# worst call is 96 s, and the run deadline below stops any request from
+# STARTING after --max-minutes: 10 minutes + one 30 s read + the save sits
+# inside a 15-minute step. At timeout=60 the worst case was 7 x 186 s = 21.7 min.
+REQUEST_TIMEOUT_S = 30
+DEFAULT_MAX_MINUTES = 10.0
+# Two sessions this close are one stretch: a 5-minute changeover between two
+# blocks of one programme is not a gap anybody plans around (the same tolerance
+# as mapsee_ingest_perfectmind's GRID_JOIN_MINUTES). On 2026-10-03 every join
+# was exactly back to back or overlapping; 0 needed the tolerance.
+JOIN_MINUTES = 5
 # A transient failure is retried; a refusal never is (see Refused).
 _RETRYABLE = {408, 500, 502, 503, 504}
 _REFUSALS = {401, 403, 429}
@@ -156,7 +200,13 @@ ATTRIBUTION_MAX = 200
 
 
 class Refused(Exception):
-    """The publisher said no (401/403/429). Reported, never retried or worked around."""
+    """The publisher said no (401/403/429). Reported, never retried or worked
+    around - and the reader asks that host nothing more this run."""
+
+
+class OutOfTime(Exception):
+    """The run deadline (--max-minutes) has passed: no request starts after it.
+    Whatever was written before it is saved."""
 
 
 # ---------------------------------------------------------------------------
@@ -167,14 +217,21 @@ class Reader:
     the request budget is part of what a dry run has to report."""
 
     def __init__(self, session, api: str = DEFAULT_API, min_interval: float = MIN_INTERVAL_S,
-                 tries: int = 3, sleep=time.sleep, clock=time.monotonic) -> None:
+                 tries: int = 3, sleep=time.sleep, clock=time.monotonic,
+                 deadline: Optional[float] = None, timeout: float = REQUEST_TIMEOUT_S) -> None:
         self.session = session
         self.api = api
         self.min_interval = min_interval
         self.tries = tries
         self.sleep = sleep
         self.clock = clock
+        # On `clock`'s scale (time.monotonic by default); None = no deadline.
+        self.deadline = deadline
+        self.timeout = timeout
         self.requests = 0
+        # Set by the first 401/403/429. Both sources live on one host, so a
+        # refusal of one is a refusal of the next: a 429 above all means stop.
+        self.refused: Optional[str] = None
         self._last: Optional[float] = None
 
     def _pace(self) -> None:
@@ -186,15 +243,20 @@ class Reader:
     def call(self, params: Dict[str, Any]) -> Dict[str, Any]:
         last: Exception = RuntimeError("no attempt made")
         for attempt in range(self.tries):
+            if self.refused:
+                raise Refused(f"{self.refused} earlier this run; nothing more is asked of this host")
             self._pace()
+            if self.deadline is not None and self.clock() >= self.deadline:
+                raise OutOfTime("run deadline reached; no request starts after it")
             try:
                 self.requests += 1
-                r = self.session.get(self.api, params=params, timeout=60)
+                r = self.session.get(self.api, params=params, timeout=self.timeout)
             except Exception as exc:  # noqa: BLE001 - timeouts, resets
                 last = exc
             else:
                 if r.status_code in _REFUSALS:
-                    raise Refused(f"HTTP {r.status_code} from {self.api}")
+                    self.refused = f"HTTP {r.status_code} from {self.api}"
+                    raise Refused(self.refused)
                 if r.status_code == 200:
                     try:
                         body = r.json()
@@ -385,24 +447,27 @@ def location_points(rows: List[Dict[str, Any]], box: Optional[List[float]] = Non
         if lid in out and rank[lid] <= r_rank:
             continue
         url = _none(r.get("URL"))
-        out[lid] = (lat, lon, url if url and url.startswith("http") else None)
+        out[lid] = (lat, lon, _website(url) if url and url.startswith("http") else None)
         rank[lid] = r_rank
     return out
 
 
 class FreeCentres:
-    """Toronto's Free Centres, matched on street NUMBER + NAME first and the
-    location name second. The page and the data spell one street two ways
-    ("McNicholl" vs "Mcnicoll"), so the config carries the data's spelling."""
+    """Toronto's Free Centres, matched on the City's own LOCATION ID - never on
+    the address. On street number + name, 47 of the 1,884 locations matched the
+    page's 38 centres on 2026-10-04: the other 9 are PARKS at a centre's address
+    (Moss Park at 150 Sherbourne, Cedarbrook Park at 91 Eastpark, Jimmie Simpson
+    Park ...), whose winter rinks and summer courts would have been called free.
+    Each of the 38 has exactly one non-park location; its id is in the config
+    beside the page's name and street, which stay as provenance. A centre the
+    City re-numbers falls back to "fees may apply" - the safe direction."""
 
     def __init__(self, entries: List[Dict[str, Any]]) -> None:
-        self.addresses = {(_norm(e.get("number")), _norm(e.get("street"))) for e in entries
-                          if e.get("number") and e.get("street")}
-        self.names = {_norm(e.get("name")) for e in entries if e.get("name")}
+        self.ids = {i for i in (_int(e.get("location_id")) for e in entries) if i is not None}
 
-    def __contains__(self, loc: Dict[str, Any]) -> bool:
-        key = (_norm(_none(loc.get("Street No"))), _norm(_none(loc.get("Street Name"))))
-        return key in self.addresses or _norm(loc.get("Location Name")) in self.names
+    def __contains__(self, loc: Any) -> bool:
+        lid = _int(loc.get("Location ID")) if isinstance(loc, dict) else _int(loc)
+        return lid is not None and lid in self.ids
 
 
 def _starts(value: str, prefixes: Iterable[str]) -> bool:
@@ -426,6 +491,48 @@ def exclusion(row: Dict[str, Any], rules: Dict[str, Any]) -> Optional[str]:
     if title.lower() in {t.lower() for t in (rules.get("restricted_titles") or ())}:
         return "restricted audience"
     return None
+
+
+def facility_shape(row: Dict[str, Any], minutes: int, rules: List[Dict[str, Any]]) -> bool:
+    """A table, a court or a track left open all day is a room, not a
+    programme (lesson 3), whatever its title. Read on the STRETCH, so six
+    back-to-back hours of table tennis are caught as surely as one six-hour
+    session. Each rule names title prefixes, optionally a section, and the
+    length from which the shape is a facility."""
+    title = row.get("Course Title") or ""
+    section = row.get("Section") or ""
+    for rule in rules:
+        if minutes < float(rule.get("min_hours", 6)) * 60:
+            continue
+        if rule.get("section_prefix") and not _starts(section, rule["section_prefix"]):
+            continue
+        if _starts(title, rule.get("title_prefix") or ()):
+            return True
+    return False
+
+
+def stretches(times: Iterable[Tuple[int, int]], join: int = JOIN_MINUTES
+              ) -> List[Tuple[int, int, List[Tuple[int, int]]]]:
+    """Distinct (start, end) sessions -> [(start, end, sessions)] per CONTIGUOUS
+    stretch. A session that starts within `join` minutes of the running end
+    (back to back, or overlapping it) continues the stretch; anything later is
+    a gap, and a gap is where the row ends."""
+    out: List[List[Any]] = []
+    for a, b in sorted(set(times)):
+        if out and a <= out[-1][1] + join:
+            out[-1][1] = max(out[-1][1], b)
+            out[-1][2].append((a, b))
+        else:
+            out.append([a, b, [(a, b)]])
+    return [(a, b, parts) for a, b, parts in out]
+
+
+def _hm(minutes: int) -> str:
+    return f"{minutes // 60:02d}:{minutes % 60:02d}"
+
+
+def _bump(stats: Dict[str, int], key: str, n: int = 1) -> None:
+    stats[key] = stats.get(key, 0) + n
 
 
 def price(row: Dict[str, Any], free_centre: bool, rules: List[Dict[str, Any]]) -> Tuple[str, str]:
@@ -469,6 +576,11 @@ def category(row: Dict[str, Any], cfg: Dict[str, Any]) -> Tuple[str, List[str]]:
     if (hi is not None and hi <= int(cfg.get("kids_age_max", 12))) \
             or _has(title, cfg.get("kids_title_words") or ()):
         extras.append("kids")
+    # Doors a title belongs on, said outright, so the sync's keyword pass has
+    # nothing left to guess: see `extras_by_title_prefix` in the config.
+    for prefix, keys in (cfg.get("extras_by_title_prefix") or {}).items():
+        if title.lower().startswith(prefix.lower()):
+            extras.extend(keys)
     return primary, norm_categories(primary, extras)
 
 
@@ -519,71 +631,87 @@ def dropin_events(rows: List[Dict[str, Any]], locations: Dict[int, Dict[str, Any
 
     out: List[NormalizedEvent] = []
     attribution = common["attribution"]
+    shapes = rules.get("facility_use_shapes") or []
     for (lid, shown, day_s), sessions in sorted(groups.items()):
         loc = locations.get(lid)
         pt = points.get(str(lid))
         if not loc or not pt:
-            stats["unplaceable (no point)"] = stats.get("unplaceable (no point)", 0) + len(sessions)
+            _bump(stats, "unplaceable (no point)", len(sessions))
             continue
         venue = re.sub(r"\s+", " ", (loc.get("Location Name") or "").strip())
+        # The input order is a weekly rebuild's row order, not a fact: sort, so
+        # the session that speaks for the group is the same on every read.
+        sessions.sort(key=lambda s: (s["_start"], s["_end"], s.get("Section") or ""))
         times = sorted({(s["_start"], s["_end"]) for s in sessions})
         # A session published twice (two sections, or one row twice) is one
         # session: 359 exact repeats among the sessions kept on 2026-10-03.
-        stats["repeat sessions folded"] = stats.get("repeat sessions folded", 0) + len(sessions) - len(times)
+        _bump(stats, "repeat sessions folded", len(sessions) - len(times))
         first = sessions[0]
+        runs = []
+        for a, b, parts in stretches(times):
+            if facility_shape(first, b - a, shapes):
+                _bump(stats, "facility use, not a programme",
+                      sum(1 for s in sessions if a <= s["_start"] and s["_end"] <= b))
+                continue
+            runs.append((a, b, parts))
+        if not runs:
+            continue
         primary, extras = category(first, src)
         for s in sessions[1:]:
             p2, e2 = category(s, src)
             extras = norm_categories(primary, extras, [p2], e2)
         tier, price_text = price(first, loc in free, src.get("price_rules") or [])
-        stats[f"price: {tier}"] = stats.get(f"price: {tier}", 0) + 1
         day = date.fromisoformat(day_s)
-        start = min(t[0] for t in times)
-        end = max(t[1] for t in times)
-        sl, su = _stamp(day, start, tz)
-        el, eu = _stamp(day, end, tz)
-        if len(times) > 1:
-            when = (_sentence(f"Runs {len(times)} times this day: {_join([span(a, b) for a, b in times])}")
-                    + " It does not run in between.")
-        else:
-            when = None
-        desc = _description([
-            f"City of Toronto drop-in program, {age_label(first.get('Age Min'), first.get('Age Max'))}. "
-            "No registration needed.",
-            when,
-            price_text,
-            src.get("notice"),
-        ], attribution)
-        ev = NormalizedEvent(
-            source=src.get("source", "toronto-rec"),
-            # STABLE ACROSS RUNS: the City's `_id` is a row number in this
-            # week's rebuild, and Course_ID names a whole series (3,297 of them
-            # for 33,457 sessions), so neither is one day's identity. The
-            # place, the title as shown and the day are; a moved time updates
-            # the same row.
-            source_id=f"{lid}|{_norm(shown)}|{day_s}",
-            name=shown,
-            description=desc,
-            start_local=sl, start_utc=su, end_local=el, end_utc=eu,
-            timezone=common.get("timezone"),
-            venue_name=venue,
-            latitude=pt[0], longitude=pt[1],
-            # The City's own asset point for its own building.
-            coords_exact=True,
-            address=street_line(loc),
-            city=common.get("city"), region=common.get("region"),
-            country=common.get("country"),
-            postal_code=_none(loc.get("Postal Code")),
-            category=primary, categories=extras,
-            promoter=src.get("promoter"),
-            ticket_url=pt[2] or src.get("dataset"),
-        )
-        # The street joins the place in the key: a name is not unique on its
-        # own (two EarlyON centres are both "Eastview ..."), and a key that
-        # only works because today's names happen to differ breaks the day a
-        # new one arrives.
-        ev.fingerprint = make_fingerprint(shown, day_s, f"{venue} {ev.address or ''}".strip())
-        out.append(ev)
+        age = age_label(first.get("Age Min"), first.get("Age Max"))
+        if len(runs) > 1:
+            _bump(stats, "title-days split at a gap")
+        for a, b, parts in runs:
+            _bump(stats, f"price: {tier}")
+            sl, su = _stamp(day, a, tz)
+            el, eu = _stamp(day, b, tz)
+            # ONE ROW PER STRETCH (lesson 4): the row's own clock is the truth,
+            # and the day's other stretches are said, not spanned.
+            others = [span(x, y) for x, y, _ in runs if (x, y) != (a, b)]
+            desc = _description([
+                f"City of Toronto drop-in program, {age}. No registration needed.",
+                _sentence(f"Sessions: {_join([span(x, y) for x, y in parts])}") if len(parts) > 1 else None,
+                _sentence(f"Also on this day: {_join(others)}") if others else None,
+                price_text,
+                src.get("notice"),
+            ], attribution)
+            hm = _hm(a)
+            ev = NormalizedEvent(
+                source=src.get("source", "toronto-rec"),
+                # STABLE ACROSS RUNS: the City's `_id` is a row number in this
+                # week's rebuild, and Course_ID names a whole series (3,297 of
+                # them for 33,457 sessions), so neither is one stretch's
+                # identity. The place, the title as shown, the day and the
+                # stretch's first clock are; a later end updates the same row.
+                source_id=f"{lid}|{_norm(shown)}|{day_s}|{hm}",
+                name=shown,
+                description=desc,
+                start_local=sl, start_utc=su, end_local=el, end_utc=eu,
+                timezone=common.get("timezone"),
+                venue_name=venue,
+                latitude=pt[0], longitude=pt[1],
+                # The City's own asset point for its own building.
+                coords_exact=True,
+                address=street_line(loc),
+                city=common.get("city"), region=common.get("region"),
+                country=common.get("country"),
+                postal_code=_none(loc.get("Postal Code")),
+                category=primary, categories=extras,
+                promoter=src.get("promoter"),
+                ticket_url=pt[2] or src.get("dataset"),
+            )
+            # The clock joins the key's BASIS (never the shown name), as
+            # mapsee_ingest_bibliocommons and _perfectmind do: on title|day|
+            # venue alone the 07:30 and the 20:00 lane swim are one row. The
+            # street joins the place: a name is not unique on its own (two
+            # EarlyON centres are both "Eastview ...").
+            ev.fingerprint = make_fingerprint(f"{shown} {hm}", day_s,
+                                              f"{venue} {ev.address or ''}".strip())
+            out.append(ev)
     return out
 
 
@@ -671,14 +799,32 @@ def _postal(full_address: Optional[str]) -> Optional[str]:
     return f"{m.group(1)} {m.group(2)}" if m else None
 
 
+_HOST = re.compile(r"^(?=.{4,253}$)[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$")
+
+
 def _website(url: Optional[str]) -> Optional[str]:
+    """A centre's own web page, or None - and NEVER an email address.
+
+    The field is typed by hand. On 2026-10-04 one of the 231 EarlyON centres
+    held a staff member's email there, and "https://" + it is a URL whose
+    userinfo is a person: it reached 11 rows' "Tickets / info" line. Anything
+    with an '@', userinfo, whitespace or no dotted host name is refused, and
+    the caller falls back to the City's finder page."""
     u = _none(url)
     if not u:
         return None
     u = u.strip()
+    if "@" in u or re.search(r"\s", u):
+        return None
     if not re.match(r"^https?://", u, re.I):
         u = "https://" + u.lstrip("/")
-    return u if re.match(r"^https?://[^\s/]+\.[^\s]+", u) else None
+    try:
+        parts = urlsplit(u)
+        host = (parts.hostname or "").lower()
+        bad = parts.username is not None or parts.password is not None or parts.port is not None
+    except ValueError:
+        return None
+    return u if (not bad and _HOST.match(host)) else None
 
 
 def earlyon_events(rows: List[Dict[str, Any]], src: Dict[str, Any], common: Dict[str, Any],
@@ -686,23 +832,26 @@ def earlyon_events(rows: List[Dict[str, Any]], src: Dict[str, Any], common: Dict
     horizon = int(src.get("horizon_days", 14))
     skip = {str(d)[:10] for d in (src.get("skip_dates") or ())}
     attribution = common["attribution"]
+    title = src.get("title", "EarlyON family drop-in")
     out: List[NormalizedEvent] = []
     for c in rows:
         name = re.sub(r"\s+", " ", (_none(c.get("program_name")) or "").strip())
-        week, bad = parse_hours(c.get("dropinHours"))
+        # 'None' is how the table writes "no hours" (22 centres on 2026-10-04);
+        # read raw, the word was counted as 22 unparsed fragments.
+        week, bad = parse_hours(_none(c.get("dropinHours")))
         if bad:
-            stats["unparsed hour fragments"] = stats.get("unparsed hour fragments", 0) + len(bad)
+            _bump(stats, "unparsed hour fragments", len(bad))
         if not week:
-            stats["centre with no drop-in hours"] = stats.get("centre with no drop-in hours", 0) + 1
+            _bump(stats, "centre with no drop-in hours")
             continue
         try:
             lat, lon = float(c.get("lat")), float(c.get("lng"))
         except (TypeError, ValueError):
             lat = lon = None
         if lat is None or not _in_box(lat, lon, common.get("bbox")) or not name:
-            stats["centre unplaceable"] = stats.get("centre unplaceable", 0) + 1
+            _bump(stats, "centre unplaceable")
             continue
-        stats["centres listed"] = stats.get("centres listed", 0) + 1
+        _bump(stats, "centres listed")
         agency = _none(c.get("agency"))
         building = _none(c.get("buildingName"))
         who = f"Run by {agency}" if agency else None
@@ -718,54 +867,66 @@ def earlyon_events(rows: List[Dict[str, Any]], src: Dict[str, Any], common: Dict
             extras.append("A French-language program.")
         if _none(c.get("indigenous_program")) == "Yes":
             extras.append("An Indigenous program.")
-        url = _website(c.get("website")) or src.get("finder_url")
+        site = _none(c.get("website"))
+        url = _website(site)
+        if site and not url:
+            _bump(stats, "website refused (not a web address)")
+        url = url or src.get("finder_url")
         for i in range(horizon):
             day = today + timedelta(days=i)
             ranges = week.get(day.weekday())
             if not ranges:
                 continue
             if day.isoformat() in skip:
-                stats["holiday skipped"] = stats.get("holiday skipped", 0) + 1
+                _bump(stats, "holiday skipped")
                 continue
-            sl, su = _stamp(day, ranges[0][0], tz)
-            el, eu = _stamp(day, max(b for _, b in ranges), tz)
-            hours = _join([span(a, b) for a, b in ranges])
-            desc = _description([
-                src.get("blurb"),
-                _sentence(f"Drop-in hours this day: {hours}")
-                + (" It is closed in between." if len(ranges) > 1 and any(
-                    ranges[k + 1][0] > max(b for _, b in ranges[:k + 1]) for k in range(len(ranges) - 1))
-                   else ""),
-                " ".join(x for x in [(who + ".") if who else None] + extras if x) or None,
-                src.get("notice"),
-            ], attribution)
-            title = src.get("title", "EarlyON family drop-in")
-            ev = NormalizedEvent(
-                source=src.get("source", "toronto-earlyon"),
-                source_id=f"{_none(c.get('loc_id')) or _norm(name)}|{day.isoformat()}",
-                name=title,
-                description=desc,
-                start_local=sl, start_utc=su, end_local=el, end_utc=eu,
-                timezone=common.get("timezone"),
-                venue_name=name,
-                latitude=lat, longitude=lon,
-                # The City's point for a centre it funds and lists.
-                coords_exact=True,
-                address=_none(c.get("address")),
-                city=common.get("city"), region=common.get("region"),
-                country=common.get("country"),
-                postal_code=_postal(c.get("full_address")),
-                category=src.get("category", "kids"),
-                categories=norm_categories(src.get("category", "kids"), src.get("categories")),
-                promoter=agency,
-                ticket_url=url,
-            )
-            # Name AND street: "Eastview EarlyON Child and Family Centre" is two
-            # centres (20 Waldock St and 86 Blake St), and on the name alone the
-            # second merged into the first on every day both were open.
-            ev.fingerprint = make_fingerprint(title, day.isoformat(),
-                                              f"{name} {ev.address or ''}".strip())
-            out.append(ev)
+            # ONE ROW PER STRETCH, as for the drop-ins: a centre open 9-noon and
+            # 4-6 is closed at 2, and a row spanning 9-6 pulses "happening now"
+            # through the gap. Overlapping ranges (27 centre-days list 10-11
+            # inside 10-noon: two rooms or two programmes) are one stretch.
+            runs = stretches(ranges)
+            if len(runs) > 1:
+                _bump(stats, "centre-days split at a gap")
+            hours = _join([span(a, b) for a, b, _ in runs])
+            day_line = _sentence(f"Drop-in hours this day: {hours}") + (
+                " It is closed in between." if len(runs) > 1 else "")
+            for a, b, _parts in runs:
+                sl, su = _stamp(day, a, tz)
+                el, eu = _stamp(day, b, tz)
+                desc = _description([
+                    src.get("blurb"),
+                    day_line,
+                    " ".join(x for x in [(who + ".") if who else None] + extras if x) or None,
+                    src.get("notice"),
+                ], attribution)
+                hm = _hm(a)
+                ev = NormalizedEvent(
+                    source=src.get("source", "toronto-earlyon"),
+                    source_id=f"{_none(c.get('loc_id')) or _norm(name)}|{day.isoformat()}|{hm}",
+                    name=title,
+                    description=desc,
+                    start_local=sl, start_utc=su, end_local=el, end_utc=eu,
+                    timezone=common.get("timezone"),
+                    venue_name=name,
+                    latitude=lat, longitude=lon,
+                    # The City's point for a centre it funds and lists.
+                    coords_exact=True,
+                    address=_none(c.get("address")),
+                    city=common.get("city"), region=common.get("region"),
+                    country=common.get("country"),
+                    postal_code=_postal(c.get("full_address")),
+                    category=src.get("category", "kids"),
+                    categories=norm_categories(src.get("category", "kids"), src.get("categories")),
+                    promoter=agency,
+                    ticket_url=url,
+                )
+                # Name AND street: "Eastview EarlyON Child and Family Centre" is
+                # two centres (20 Waldock St and 86 Blake St), and on the name
+                # alone the second merged into the first on every day both were
+                # open. The clock joins the basis so a split day is two rows.
+                ev.fingerprint = make_fingerprint(f"{title} {hm}", day.isoformat(),
+                                                  f"{name} {ev.address or ''}".strip())
+                out.append(ev)
     if skip and today.isoformat() > max(skip):
         print(f"[toronto-rec] WARNING: skip_dates ends {max(skip)}; add next year's holidays")
     return out
@@ -805,37 +966,61 @@ def main(argv=None) -> int:
     ap.add_argument("--config", required=True)
     ap.add_argument("--store", default="mapsee_events.json")
     ap.add_argument("--only", choices=sorted(KINDS), help="read just one kind of source")
+    ap.add_argument("--max-minutes", type=float, default=DEFAULT_MAX_MINUTES,
+                    help="whole-run deadline; no request starts after it, and the store is "
+                         "saved after every source (0 = none)")
     a = ap.parse_args(argv)
 
+    started = time.monotonic()
     cfg = load_config(a.config)
     tz = ZoneInfo(cfg["timezone"])
     session = requests.Session()
     session.headers.update({"User-Agent": UA, "Accept": "application/json"})
-    reader = Reader(session, cfg.get("api") or DEFAULT_API)
+    reader = Reader(session, cfg.get("api") or DEFAULT_API,
+                    deadline=started + a.max_minutes * 60 if a.max_minutes else None)
     store = EventStore(a.store)
     total = 0
+    # A source that raised after an upsert would leave work unsaved; a run that
+    # wrote nothing still writes the file, which the sync step expects.
+    unsaved, saved = False, False
     for src in cfg.get("sources", []):
         kind = src.get("kind")
         if kind not in KINDS or (a.only and kind != a.only):
             continue
+        label = src.get("name", kind)
+        if reader.refused:
+            print(f"[toronto-rec] {label}: NOT READ - {reader.refused} earlier this run (one host)")
+            continue
         before = reader.requests
+        unsaved = True
         try:
             stats = KINDS[kind](store, reader, src, cfg, tz)
         except Refused as exc:
-            print(f"[toronto-rec] {src.get('name', kind)} REFUSED: {exc} - not retried")
+            print(f"[toronto-rec] {label} REFUSED: {exc} - not retried, and the host is asked nothing more")
             continue
+        except OutOfTime as exc:
+            print(f"[toronto-rec] {label} STOPPED: {exc} (--max-minutes {a.max_minutes:g})")
+            break
         except Exception as exc:  # noqa: BLE001 - one source never stops the other
-            print(f"[toronto-rec] {src.get('name', kind)} FAILED: {exc}")
+            print(f"[toronto-rec] {label} FAILED: {exc}")
             continue
         total += stats.get("rows written", 0)
-        print(f"[toronto-rec] {src.get('name', kind)}: {stats.get('rows written', 0)} rows "
+        print(f"[toronto-rec] {label}: {stats.get('rows written', 0)} rows "
               f"in {reader.requests - before} requests")
         for k, v in sorted(stats.items()):
             if k != "rows written":
                 print(f"[toronto-rec]     {k}: {v}")
-    store.save()
-    print(f"[toronto-rec] done: +{total} rows in {reader.requests} requests; "
-          f"store now holds {len(store.records)} unique events.")
+        # After EVERY source, so a step cancelled by its timeout-minutes keeps
+        # what was read (docs/agents/ci-and-jobs.md): two saves, not one.
+        store.save()
+        unsaved, saved = False, True
+    if unsaved or not saved:
+        store.save()
+    st = store.stats
+    print(f"[toronto-rec] done in {(time.monotonic() - started):.0f} s: {total} rows written "
+          f"(added {st.get('added', 0)}, updated {st.get('updated', 0)}, merged {st.get('merged', 0)}, "
+          f"rekeyed {st.get('rekeyed', 0)}, rejected {st.get('rejected', 0)}) in {reader.requests} "
+          f"requests; store now holds {len(store.records)} unique events.")
     return 0
 
 

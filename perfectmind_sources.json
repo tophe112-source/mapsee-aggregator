@@ -1,5 +1,5 @@
 {
- "_comment": "Municipal drop-in schedules read by mapsee_ingest_perfectmind.py from PerfectMind (Xplor Recreation / nextRec) BookMe4 widgets. Read the adapter's header before adding a tenant: only BookingType 2 calendars are read, private-booking calendars and rows are refused by a shared rule (childminding, external trainers, birthday parties, court reservations, orientations, equipment lending, appointments), and `exclude_calendars` / `exclude_title_rx` are for what that rule misses. `venues` places a facility the widget gives no point, or overrides one the widget puts in the wrong place (checked against OpenStreetMap for all 118 venues on 2026-10-03: 5 were 460 m to 6.0 km off), with its provenance in `_coords`. `widgets` may list several; calendars are de-duplicated by Id.",
+ "_comment": "Municipal drop-in schedules read by mapsee_ingest_perfectmind.py from PerfectMind (Xplor Recreation / nextRec) BookMe4 widgets. Read the adapter's header before adding a tenant: only BookingType 2 calendars are read, private-booking calendars and rows are refused by a shared rule (childminding, external trainers, birthday parties, court reservations, orientations, equipment lending, appointments; and a session whose title says members only or whose Details require a membership or pass the source does not call free (the Details half was 5,253 rows on 2026-10-03: Surrey's Seniors Services, Markham's fitness classes, Brampton's Flower City Seniors Centre)), and `exclude_calendars` / `exclude_title_rx` are for what that rule misses. A widget's \"No fee\" is what the WIDGET charges: when Details say the row is not sold online (Markham's drop-in aquafit, $7.58 at the desk) no price is written, and a hidden price (DisplayPrices false) writes no price line at all. `venues` places a facility the widget gives no point, or overrides one the widget puts in the wrong place (checked against OpenStreetMap for all 118 venues on 2026-10-03: 5 were 460 m to 6.0 km off), with its provenance in `_coords`. `widgets` may list several; calendars are de-duplicated by Id.",
  "tenants": [
   {
    "name": "City of Abbotsford daily activity schedules",
@@ -503,6 +503,119 @@
      "2": 11
     },
     "max_per_title_venue_day": 4
+   }
+  },
+  {
+   "name": "City of Tukwila Parks & Recreation drop-in (Tukwila Community Center)",
+   "host": "tukwilaparks.perfectmind.com",
+   "org_path": "/23426",
+   "widget_path": "Clients",
+   "widgets": [
+    "15f6af07-39c5-473e-b053-96653f77a406"
+   ],
+   "timezone": "America/Los_Angeles",
+   "country": "US",
+   "region": "WA",
+   "city": "Tukwila",
+   "category": "community",
+   "start_url": "https://tukwilaparks.perfectmind.com/23426/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406",
+   "_found": "seed:seattle-community-centres -> perfectmind: linked from tukwilawa.gov's own Parks & Recreation pages ('Register for Classes & Programs' on /departments/parks-and-recreation/, the seniors and teens pages)",
+   "_metro": "Seattle, WA",
+   "_measured_research": {
+    "rows_90d": 396,
+    "kept_after_excludes": 386,
+    "refused": "10 beyond horizon",
+    "bt2_calendars": 6,
+    "all_calendars": 19,
+    "booking_types": {
+     "2": 6,
+     "3": 13
+    },
+    "per_calendar_rows": {
+     "Adult / Adult Drop-In Activities": 29,
+     "Community Events and Activities / Community Special Events": 0,
+     "Fitness Classes / Adult Fitness": 28,
+     "Senior / Senior Drop-In Activities": 206,
+     "Teens / Teen Drop-In Activities": 122,
+     "Youth / Preschool Drop in Activities": 11
+    },
+    "requests": 59,
+    "minutes": 1.1,
+    "robots": "http404 (allowed)"
+   }
+  },
+  {
+   "name": "City of Renton drop-in (Renton Community Center, Senior Activity Center, fitness)",
+   "host": "cityofrenton.perfectmind.com",
+   "org_path": "/24123",
+   "widget_path": "Clients",
+   "widgets": [
+    "3c841aea-46ca-4b8e-b369-94fe6bc53c4c"
+   ],
+   "timezone": "America/Los_Angeles",
+   "country": "US",
+   "region": "WA",
+   "city": "Renton",
+   "category": "community",
+   "start_url": "https://cityofrenton.perfectmind.com/24123/Clients/BookMe4?widgetId=3c841aea-46ca-4b8e-b369-94fe6bc53c4c",
+   "_found": "seed:seattle-community-centres -> perfectmind: rentonwa.gov links widget 1129dabb-8ff3-489c-b3f8-79dad3506a67 (4 calendars, all BookingType 3); widget 3c841aea-... found by web search 'cityofrenton.perfectmind.com BookMe4 drop-in' (a Renton course landing page). Widgets 754f431c-... ('Multi Age Events') and the default 15f6af07-... return 0 calendars on this tenant",
+   "_metro": "Seattle, WA",
+   "_widgets_note": "Two aquatics BT2 calendars (Lap Swim and Water Walking; Open Swim Sessions & Half Pint Splash and Play) and 'Daily Activities - Senior Center' were empty on 2026-10-04; keep them, they are seasonal",
+   "_measured_research": {
+    "rows_90d": 990,
+    "kept_after_excludes": 459,
+    "refused": "531 = 521 private booking or rental (53% of rows, refused by the adapter's shared rule), 7 beyond horizon, 3 orientation",
+    "bt2_calendars": 7,
+    "all_calendars": 25,
+    "booking_types": {
+     "2": 7,
+     "3": 18
+    },
+    "per_calendar_rows_before_refusals": {
+     "Enrichment / Daily Activities - 50+": 117,
+     "Fitness & Wellness / Fitness Class Drop-In": 126,
+     "Fitness & Wellness / Fitness Room": 84,
+     "Fitness & Wellness / Open Gyms & Activities": 663,
+     "Aquatics / Lap Swim and Water Walking": 0,
+     "Aquatics / Open Swim Sessions & Half Pint Splash and Play": 0,
+     "Enrichment / Daily Activities - Senior Center": 0
+    },
+    "requests": 69,
+    "robots": "allowed (no file)"
+   }
+  },
+  {
+   "name": "City of Maple Valley drop-in sports and special events",
+   "host": "cityofmaplevalley.perfectmind.com",
+   "org_path": "/24440",
+   "widget_path": "Clients",
+   "widgets": [
+    "861c7012-87c2-4870-8dd2-a28a093eab05"
+   ],
+   "timezone": "America/Los_Angeles",
+   "country": "US",
+   "region": "WA",
+   "city": "Maple Valley",
+   "category": "community",
+   "start_url": "https://cityofmaplevalley.perfectmind.com/24440/Clients/BookMe4?widgetId=861c7012-87c2-4870-8dd2-a28a093eab05",
+   "_found": "seed:seattle-community-centres -> perfectmind: web search '\"perfectmind.com\" BookMe4 widgetId drop-in Washington state'. maplevalleywa.gov carries a ledger fail (civic probe: no-calendar, 2026-09-13) and was not read",
+   "_metro": "Seattle, WA",
+   "_measured_research": {
+    "rows_90d": 6,
+    "kept_after_excludes": 6,
+    "bt2_calendars": 2,
+    "all_calendars": 11,
+    "booking_types": {
+     "2": 2,
+     "3": 7,
+     "4": 2
+    },
+    "per_calendar_rows": {
+     "Events / Special Events": 6,
+     "Sport League Registration / Drop-in Sports": 0
+    },
+    "requests": 7,
+    "note": "THIN: 6 rows; the default widget 15f6af07-... lists the same 11 calendars, so one widget is enough"
    }
   }
  ],

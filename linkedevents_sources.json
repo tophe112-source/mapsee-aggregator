@@ -31,6 +31,25 @@
   "September event and 0 upcoming rows, so nothing is doubled there, and they",
   "are not excluded here - they should be retired from jsonld_sources.json.",
   "",
+  "event_only_images (false): the API's own image licence, `event_only`, allows an",
+  "image only in communication about that event and only with its photographer",
+  "named. ../mapsee/src/index.js (venue page, around line 4968) takes the first",
+  "poster among a venue's events as that VENUE page's og:image, and list thumbnails",
+  "carry no credit - both outside those terms. So neither instance takes one: on",
+  "2026-10-03 that is 6,426 kept rows without a picture, and the 4,127 under",
+  "cc_by keep theirs with a credit. Set true only once the product shows a",
+  "`linkedevents:` poster on the event's own page and nowhere else; even then an",
+  "image whose photographer field names nobody (1,333 empty, 112 '-', 60 'm') is",
+  "skipped.",
+  "",
+  "city_level_places: places that are the town itself (a centroid, not a venue).",
+  "Their rows are left out; a place named exactly like a town is too.",
+  "",
+  "Re-derived offline from the same 2026-10-03 pull after the review's fixes",
+  "(2026-10-04): Helsinki 8,615 -> 8,308 placed rows, Espoo 1,972 -> 1,944 (plus 53",
+  "hobby-catalogue drop-ins whose place the replay could not supply). The",
+  "header's items 4-15 say what each rule took and why.",
+  "",
   "keep_card_holder_rows (false): Helsinki's senior and service centres run",
   "1,586 rows for service-centre card holders only (Helsinki pensioners and",
   "unemployed people; the card is issued at the front desk). They are out",
@@ -60,6 +79,10 @@
     "tprek:76754": "Kalasataman Vapaakaupungin Olohuone - its own Tribe calendar (tribe_sources.json, vapaakaupunki.fi) is ingested"
    },
    "keep_card_holder_rows": false,
+   "event_only_images": false,
+   "city_level_places": {
+    "matko:732": "\"Helsinki\" at the city centre (60.170833, 24.9375, no address): 4 kept rows on 2026-10-03, among them a trout-spawning walk on the Mätäjoki and Independence Day"
+   },
    "_drop_data_sources_why": {
     "lippupiste": "Lippupiste is a ticket reseller re-publishing theatre and concert runs (309 leaf rows on 2026-10-03); the venues publish their own programme and none of it is community-centre drop-in.",
     "espoo_le": "A mirror of Espoo's own instance (below): all 1,548 espoo_le rows on 2026-10-03 had a twin there by title and day, and the mirror drops the two fields that say a row is a sign-up (106 of the 1,548 carry a sign-up link in Espoo, 59 are hobby-catalogue groups)."
@@ -75,7 +98,11 @@
    "name": "Espoo",
    "key": "espoo",
    "api": "https://espooevents.prod.espoon-voltti.fi/api/events/v1",
-   "event_page": "https://www.espoo.fi/fi/tapahtumat/{id}",
+   "event_page": {
+    "fi": "https://www.espoo.fi/fi/tapahtumat/{id}",
+    "sv": "https://www.espoo.fi/sv/evenemang/{id}",
+    "en": "https://www.espoo.fi/en/events/{id}"
+   },
    "attribution": "Event data: City of Espoo (Espoo Events, a Linked Events API), CC BY 4.0.",
    "timezone": "Europe/Helsinki",
    "country": "FI",
@@ -88,13 +115,18 @@
    "drop_data_sources": [],
    "drop_locations": {},
    "keep_card_holder_rows": false,
+   "event_only_images": false,
+   "city_level_places": {
+    "espooevents:espoo": "\"Espoo\" at the city centre (60.20549, 24.6559, address 'Espoon kaupunki'): 6 kept rows on 2026-10-03, among them public skating 'in Espoo's ice halls'"
+   },
    "measured_2026_10_03": {
     "leaf_rows": 6149,
     "kept": 1954,
     "requests": 68,
     "seconds": 105
    },
-   "_api_host_why": "api.espoo.fi/events/v1 answers too, but links every page through this backend host, and api.espoo.fi/robots.txt is unreachable (RFC 9309: assume Disallow) while this host has no robots.txt at all (an HTML page). So the host the pages are actually served from is the one configured."
+   "_api_host_why": "api.espoo.fi/events/v1 answers too, but links every page through this backend host, and api.espoo.fi/robots.txt is unreachable (RFC 9309: assume Disallow) while this host has no robots.txt at all (an HTML page). So the host the pages are actually served from is the one configured.",
+   "_event_page_why": "www.espoo.fi names the path in each language. Checked 2026-10-04 with the production User-Agent (robots.txt allows all three): /en/events/espooevents:agqikxguri rendered 'Repair workshop' and /sv/evenemang/espooevents:agqd2vchkm 'Språkcafé på svenska', each 200 with <html lang> to match; 154 of the 1,978 kept Espoo rows are held in English or Swedish and linked to the Finnish page before."
   }
  ],
  "_unverified": {
