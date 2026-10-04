@@ -73,8 +73,16 @@ DAYS_AHEAD = 180
 # The export URL a config entry keeps as the calendar's identity. `private-<hex>`
 # is a calendar's SECRET address, which the API cannot read with a key: that
 # calendar is not public, and only its owner's OAuth could open it.
+#
+# www.google.com/calendar/ical/... is the same export under its old address:
+# it answers 302 to calendar.google.com. Unrecognised, it was a way round the
+# robots gate - www.google.com/robots.txt allows the path, verify passed it, and
+# the fetch followed the redirect into the file that refuses us (Änderei,
+# Dresden, merged by the weekly sweep of 2026-10-04). Recognised, it takes the
+# Calendar API route like every other Google calendar, and verify refuses it
+# when no key is set.
 ICAL_RX = re.compile(
-    r"^(?:https?|webcal)://calendar\.google\.com/calendar/ical/([^/?#]+)/(public|private-[^/]+)/basic\.ics",
+    r"^(?:https?|webcal)://(?:calendar|www)\.google\.com/calendar/ical/([^/?#]+)/(public|private-[^/]+)/basic\.ics",
     re.I)
 
 # A calendar embedded in a page. Google Sites' own Calendar block renders on

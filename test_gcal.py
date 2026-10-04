@@ -89,6 +89,9 @@ for cid in ("wprtwatch@gmail.com", "c_abc123@group.calendar.google.com", "en.iri
 check("the export URL is spelled the way ics_sources.json spells it (@ as %40)",
       G.ical_url("calendar@erithyachtclub.org.uk")
       == "https://calendar.google.com/calendar/ical/calendar%40erithyachtclub.org.uk/public/basic.ics")
+check("the old www.google.com export address is the same calendar (it 302s to calendar.google.com)",
+      G.calendar_id("https://www.google.com/calendar/ical/abc%40group.calendar.google.com/public/basic.ics")
+      == "abc@group.calendar.google.com")
 cfg = json.load(open("ics_sources.json", encoding="utf-8"))
 google = [s["url"] for s in cfg if "calendar.google.com" in s["url"]]
 check("every configured Google calendar is recognised", google and all(G.calendar_id(u) for u in google),
