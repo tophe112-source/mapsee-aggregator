@@ -719,7 +719,7 @@ print("the shipped config")
 cfg = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "perfectmind_sources.json"),
                      encoding="utf-8"))
 ts = cfg["tenants"]
-check("fifteen tenants", len(ts) == 15, len(ts))
+check("no tenant was lost (15 launched 2026-10-03; Tukwila, Renton, Maple Valley added 2026-10-04)", len(ts) >= 18, len(ts))
 hosts = [t["host"] for t in ts]
 check("hosts are unique - they namespace source_id", len(hosts) == len(set(hosts)), hosts)
 check("every host is a perfectmind.com tenant", all(h.endswith(".perfectmind.com") for h in hosts))

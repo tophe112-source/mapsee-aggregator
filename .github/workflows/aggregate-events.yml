@@ -14,6 +14,9 @@ name: Aggregate public events
 #     (429-backoff waste) and pays the runner/pip overhead once.
 #   • feeds — independent ICS, local and civic groups, each with its own cache,
 #     sync and recovery artifacts. A failed adapter cannot block its neighbors.
+#     `rec` is the community-centre timetables (Toronto, Helsinki/Espoo,
+#     PerfectMind cities): ~100k dated drop-in rows a first run, which is why
+#     they have their own runner and their own 20-minute sync.
 #   • meetup — ONE Meetup sweep (US then international). Meetup shares no key
 #     with Ticketmaster, so it runs parallel; it used to run in TWO places
 #     (here for the US, a separate job for international), which was both
@@ -43,7 +46,7 @@ on:
       feed_group:
         description: "Run a single feed group for recovery; all preserves the normal full run"
         type: choice
-        options: [all, ics, local, civic]
+        options: [all, ics, local, civic, rec]
         default: all
       full_refresh:
         description: "Re-sync ALL events (update existing) — already automatic on Wednesdays"
@@ -253,7 +256,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: ${{ fromJSON(inputs.feed_group != '' && inputs.feed_group != 'all' && format('["{0}"]', inputs.feed_group) || '["ics","local","civic"]') }}
+        group: ${{ fromJSON(inputs.feed_group != '' && inputs.feed_group != 'all' && format('["{0}"]', inputs.feed_group) || '["ics","local","civic","rec"]') }}
     timeout-minutes: 300
     env:
       GEOCODE_MAX_NEW: "5000"
@@ -756,6 +759,68 @@ jobs:
             python mapsee_ingest_ckan.py --config ckan_sources.json --store feeds_events.json
           else
             echo "no ckan_sources.json yet — nothing merged from the CKAN sweep"
+          fi
+      # ---- rec: what is on at community centres -------------------------------
+      # Drop-in timetables (lane swim, pickleball, open gym, seniors' socials,
+      # family drop-ins) from three sources that publish them as data. A session
+      # anyone can turn up to is in, with its fee stated; a registration-only
+      # course, a private booking and a member-only session are not
+      # (docs/agents/community-centres.md). Every row carries the publisher's
+      # own coordinate, so the sync geocodes none of them.
+      # TORONTO: the City's own drop-in timetable (lane swim, pickleball, youth
+      # spaces, toddler gyms) at 175 community centres, and 209 EarlyON family
+      # drop-ins. City of Toronto CKAN datastore API only (robots.txt allows
+      # /api/ and refuses the /download/ files). 7 requests, ~17 s, 27,654 rows
+      # on 2026-10-04, one per contiguous stretch; every row carries the City's
+      # point (coords_exact), so the sync geocodes nothing. --max-minutes 10 is
+      # a deadline no request starts after (30 s request timeout, worst call
+      # 96 s) and the store is saved after each source, so the 15-minute cap
+      # can never cost the drop-ins. Daily because EarlyON rows are dated 14
+      # days ahead and re-read; the drop-in table refreshes weekly.
+      - name: Import Toronto drop-ins + EarlyON (City of Toronto open data)
+        id: ingest_toronto_rec
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        timeout-minutes: 15
+        run: |
+          if [ -f toronto_rec_sources.json ]; then
+            python mapsee_ingest_toronto_rec.py --config toronto_rec_sources.json --store feeds_events.json --max-minutes 10
+          else
+            echo "no toronto_rec_sources.json - skipping"
+          fi
+      # TWO FINNISH CITIES' EVENT APIs (Linked Events, CC BY 4.0): what is on at
+      # Helsinki's and Espoo's community houses, staffed playgrounds, senior
+      # centres and libraries - about 10,250 drop-in rows in a 90-day window,
+      # every one on the city's own coordinate (no geocoding), 89.6% free.
+      # About 210 requests at 1/s and 417 s for the full window. 20 minutes with
+      # the deadline inside it: no request starts after --max-minutes 15, the
+      # slowest request is 105 s, and the store is saved after each instance,
+      # so a slow API day keeps what it read (docs/agents/ci-and-jobs.md).
+      - name: Import Linked Events (Helsinki and Espoo city event APIs)
+        id: ingest_linkedevents
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        timeout-minutes: 20
+        run: |
+          if [ -f linkedevents_sources.json ]; then
+            python mapsee_ingest_linkedevents.py --config linkedevents_sources.json --store feeds_events.json --max-minutes 15
+          else
+            echo "no linkedevents_sources.json — skipping"
+          fi
+      - name: Import PerfectMind drop-in schedules (municipal rec centres, CA/US)
+        id: ingest_perfectmind
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        # 17.5 min for all 15 tenants on 2026-10-03 (2,230 requests, three hosts at
+        # a time, 1.1 s apart per host). --max-minutes 45 starts no request after
+        # +45 min and the store is saved between tenants, so the 60-minute cap
+        # cannot cost the run.
+        timeout-minutes: 60
+        run: |
+          if [ -f perfectmind_sources.json ]; then
+            python mapsee_ingest_perfectmind.py --config perfectmind_sources.json --store feeds_events.json --max-minutes 45
+          else
+            echo "no perfectmind_sources.json — skipping"
           fi
       - name: Sync feeds to Supabase (batch-geocoded)
         id: sync

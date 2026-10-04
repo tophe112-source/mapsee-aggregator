@@ -353,6 +353,19 @@ jobs:
       - name: BiblioCommons library programmes
         run: python test_ingest_bibliocommons.py
 
+      # Community-centre timetables (the `rec` feed group). Toronto: three lane
+      # swims are three rows and none spans a gap, no email is ever a link, an
+      # all-day table is a room. Linked Events: an event-only image never goes
+      # out uncredited, a card-holder or sign-up session is not a drop-in.
+      # PerfectMind: a $0 behind a paid membership is not free, and 0227's own
+      # free predicate is run over the row the sync stores.
+      - name: Toronto drop-ins and EarlyON
+        run: python test_ingest_toronto_rec.py
+      - name: Linked Events (Helsinki, Espoo)
+        run: python test_ingest_linkedevents.py
+      - name: PerfectMind municipal drop-ins
+        run: python test_ingest_perfectmind.py
+
       # The gate that keeps advertisements out of the catalogue, and the ONE
       # place it must be graded is the half nobody would notice failing. Letting
       # a marabout listing through gets reported by a user; refusing a real

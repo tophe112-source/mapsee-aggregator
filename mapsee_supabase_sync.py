@@ -172,6 +172,23 @@ _PARTY_RX = re.compile(
     r"tap\s?takeover|pub\s+quiz)\b", re.I)
 _PROMOTABLE_TO_PARTY = {"community", "food", "other"}
 
+# Source prefixes of the community-centre timetable adapters. A lane swim or a
+# seniors' bingo is not a show: without this the 70,953 PerfectMind sessions of
+# 2026-10-03 would each have carried a "More on this show" web search and a
+# violet big-venue pin (see to_row).
+#
+# NOR IS IT NIGHTLIFE. "Music: Karaoke, ages 60+" at 09:30 in a Toronto seniors'
+# centre, "Karaoke" at a Helsinki senior centre at 11:00 and a PerfectMind
+# "Zumba Party" all matched _PARTY_RX and reached bar.ventures: 16 Toronto, 44
+# Linked Events and 150 PerfectMind rows on 2026-10-03/04. A community centre's
+# timetable never earns the party door - not as a primary, not as a layer.
+CIVIC_TIMETABLE_SOURCES = ("toronto-rec", "toronto-earlyon", "linkedevents:", "perfectmind")
+
+
+def _from_civic_timetable(rec: Dict[str, Any]) -> bool:
+    src = rec.get("source") or ((rec.get("sources") or [{}])[0].get("source")) or ""
+    return str(src).startswith(CIVIC_TIMETABLE_SOURCES)
+
 
 # KIDS. Measured 2026-07-27: exactly ONE 'kids' event existed across six major
 # metros, because only Ticketmaster's rare "family" segment mapped to it - while
@@ -680,7 +697,12 @@ _SECONDARY_RX = [
         r"music\s+(?:series|festival|night|of)\b|music\s+(?:in|on)\s+the\b|"
         r"live\s+jazz|jazz\s+(?:night|series|band|brunch|concert|ensemble|trio|"
         r"quartet|orchestra|jam)|jazz\s+at\b|"
-        r"drum\s+circle)\b|\bbands?\b(?!\s+together)", re.I)),
+        r"drum\s+circle)\b|"
+        # Not the bands a fitness class hands out: "resistance bands" and "wrist
+        # bands provided on deck" put 568 PerfectMind workouts and swims on the
+        # music layer (2026-10-04).
+        r"(?<!resistance )(?<!wrist )(?<!elastic )(?<!exercise )(?<!rubber )(?<!loop )"
+        r"\bbands?\b(?!\s+together)", re.I)),
     # `kayak` and `canoe` COULD NOT MATCH THE WORD PEOPLE ACTUALLY WRITE. Both sit
     # inside the group's trailing `\b`, so the boundary demanded a non-word
     # character straight after "canoe" — and every real listing says "Canoeing"
@@ -766,7 +788,13 @@ _SECONDARY_RX = [
         r"mural\s+(?:tour|project)|printmaking)\b", re.I)),
     ("learning", re.compile(
         r"\b(workshop|masterclass|master\s+class|seminar|lecture|panel\s+discussion|"
-        r"book\s+club|author\s+talk|guest\s+speaker|bootcamp|intro\s+to\s+)\b", re.I)),
+        r"book\s+club|author\s+talk|guest\s+speaker|intro\s+to\s+|"
+        # A bare "bootcamp" is a workout: about 605 of the 685 PerfectMind rows
+        # this rule put on learning were fitness boot camps (2026-10-04). The
+        # 'fitness' rule above still takes the bare word; learning keeps the
+        # kinds that teach something.
+        r"(?:coding|code|data|tech|ux|design|developer|writing|startup|business|"
+        r"job|career|grant[\s-]?writing)\s+boot\s?camp)\b", re.I)),
     ("running", re.compile(
         r"\b(5k|10k|half\s+marathon|marathon|fun\s+run|park\s?run|"
         r"turkey\s+trot|road\s+race|group\s+run)\b", re.I)),
@@ -938,6 +966,8 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
         # and the shape recurs every time a venue names a night after a lyric.
         if key == "market" and _NOT_A_MARKET_RX.search(text):
             continue
+        if key == "party" and _from_civic_timetable(rec):
+            continue
         # A volunteer shift keeps no door a guest would choose it from - see
         # _SHIFT_RX for the Silent Disco set-up crew that reached bar.ventures.
         if key in _GUEST_KEYS and primary == "volunteer" and _SHIFT_RX.search(text):
@@ -986,8 +1016,13 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
 # Formats that borrow retail words for a night out. Checked only against the
 # market secondary, and only ever to WITHHOLD a layer — it can never move an
 # event off the lens it is already on.
+#
+# "Bazaar Crafts, ages 60+" is Toronto's name for a seniors' craft session (40
+# rows at five community centres, 09:30-12:30, 2026-10-03), not a bazaar: the
+# crafts are being MADE. A bazaar crafts SALE, fair, market or show still is one.
 _NOT_A_MARKET_RX = re.compile(
-    r"\b(trivia|quiz\s+night|pub\s+quiz|bingo|karaoke|open\s+mic)\b", re.I)
+    r"\b(trivia|quiz\s+night|pub\s+quiz|bingo|karaoke|open\s+mic)\b"
+    r"|\bbazaar\s+crafts?\b(?!\s+(?:sales?|fairs?|markets?|shows?))", re.I)
 
 
 _URL_RX = re.compile(r"https?://\S+", re.I)
@@ -1118,7 +1153,8 @@ def map_category(rec: Dict[str, Any]) -> str:
             and not _ABOUT_KIDS_RX.search(rec.get("name") or "") \
             and not _ADULTS_ONLY_RX.search(_classify_text(rec, _DESC_SCAN_CHARS)):
         return "kids"              # storytime/family day hiding in community/learning
-    if key in _PROMOTABLE_TO_PARTY and _PARTY_RX.search(rec.get("name") or ""):
+    if key in _PROMOTABLE_TO_PARTY and _PARTY_RX.search(rec.get("name") or "") \
+            and not _from_civic_timetable(rec):
         return "party"             # crawls/happy hours/karaoke -> the nightlife layer
     # Last in the chain deliberately: a volunteer trail-work party, a kids' karate
     # storytime or a boxing-themed club night should keep the more specific layer
@@ -1494,13 +1530,6 @@ def _compute_end(starts_at: Optional[str], real_end: Optional[str], category: st
     if s.endswith("Z"):
         return end.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     return end.isoformat()
-
-
-# Source prefixes of the community-centre timetable adapters. A lane swim or a
-# seniors' bingo is not a show: without this the 70,953 PerfectMind sessions of
-# 2026-10-03 would each have carried a "More on this show" web search and a
-# violet big-venue pin.
-CIVIC_TIMETABLE_SOURCES = ("toronto-rec", "toronto-earlyon", "linkedevents:", "perfectmind")
 
 
 def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:

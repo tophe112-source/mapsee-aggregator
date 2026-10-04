@@ -871,6 +871,16 @@ DOOR_CASES = [
      {"theater"}, set()),
     ('Play reading: "Final Curtain"', "learning", "", {"theater"}, set()),
     ("THE LONG PLAY – THE CURE", "music", "", {"music"}, {"theater"}),
+    # Community-centre timetables, 2026-10-04: a seniors' craft session called
+    # "Bazaar Crafts" is not a bazaar, but a bazaar crafts SALE still is.
+    ("Bazaar Crafts, ages 60+", "arts", "", {"arts"}, {"market"}),
+    ("Holiday Bazaar Crafts Sale", "community", "Handmade gifts from local makers.", {"market"}, set()),
+    # The bands a fitness class hands out are not bands; a band still is.
+    ("Fitness Studio Workout", "fitness", "Resistance bands and wrist bands provided on deck.", {"fitness"}, {"music"}),
+    ("Summer Concert in the Park", "community", "Three local bands on the lawn.", {"music"}, set()),
+    # A bare bootcamp is a workout; a coding bootcamp is still learning.
+    ("Outdoor Bootcamp", "fitness", "A bootcamp workout for all levels.", {"fitness"}, {"learning"}),
+    ("Info night", "community", "Learn about our coding bootcamp and data bootcamp.", {"learning"}, set()),
 ]
 gfails = []
 for name, cat, desc, must, must_not in DOOR_CASES:
@@ -883,4 +893,23 @@ for name, cat, desc, must, must_not in DOOR_CASES:
 print()
 print(f"{len(DOOR_CASES)-len(gfails)}/{len(DOOR_CASES)} passed")
 cfails += gfails
+
+# A COMMUNITY CENTRE'S TIMETABLE NEVER EARNS THE NIGHTLIFE DOOR. Seniors'
+# karaoke at 09:30 (Toronto), at 11:00 (a Helsinki senior centre) and a
+# PerfectMind "Zumba Party" all matched _PARTY_RX; the same title from any
+# other source still reaches bar.ventures.
+print()
+for name, cat, src in (("Music: Karaoke, ages 60+", "arts", "toronto-rec"),
+                       ("Karaoke", "community", "linkedevents:helsinki"),
+                       ("Zumba Dance Party", "community", "perfectmind")):
+    p, e = derive_categories({"name": name, "category": cat, "description": "", "source": src})
+    ok = "party" not in {p, *(e or [])}
+    print(f"{'ok ' if ok else 'FAIL'} {name} from {src} keeps off the party door -> {p} + {sorted(e or [])}")
+    if not ok:
+        cfails.append(name)
+p, e = derive_categories({"name": "Karaoke Night", "category": "community", "description": "", "source": "ics:x"})
+ok = p == "party"
+print(f"{'ok ' if ok else 'FAIL'} ...while a bar's karaoke night from any other source still does -> {p}")
+if not ok:
+    cfails.append("Karaoke Night")
 sys.exit(1 if (fails or cfails or bfails or ifails) else 0)

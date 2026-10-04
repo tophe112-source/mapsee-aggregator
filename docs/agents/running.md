@@ -41,6 +41,9 @@ python test_curate_coverage.py      # the report that AIMS the loop: real countr
 python test_cancelled_events.py     # a cancelled event must not arrive, and must leave once it is called off
 python test_ingest_meetup.py        # a Zoom call is not a place, and a hybrid service still is
 python test_ingest_bibliocommons.py # a date filter the gateway ignores, stock image tiles, two storytimes in one day
+python test_ingest_toronto_rec.py   # one row per stretch and none across a gap, two age bands in two rows, a free sentence only where toronto.ca says free
+python test_ingest_linkedevents.py  # no uncredited event-only image, no card-holder or sign-up row, paid wording vetoes is_free
+python test_ingest_perfectmind.py   # BookingType 2 only, a $0 behind a paid membership is not free, 0227's predicate over the stored row
 python test_spam.py                 # the advertisement gate, and mostly what it must never refuse
 python test_coverage_rows.py        # the coverage report's arithmetic: no source counted twice, no ccTLD left under "?"
 python test_robots.py               # robots.txt per RFC 9309, and verify never fetching a feed its host refuses
