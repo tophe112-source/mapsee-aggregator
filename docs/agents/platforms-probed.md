@@ -21,6 +21,25 @@ All probed 2026-09-03 with the production User-Agent.
 | **Austin Pool Schedule** (Socrata) | good data, wrong shape | 46 city pools, coordinates, status, website, and weekday/weekend hours as text. It is `recurring_hours`, and the opendata adapter needs start/end EVENT columns. Wants a small civic-facility-hours adapter reading a column map into `recurring_days`, the way `mapsee_ingest_osm_food` does from `opening_hours`. Deferred until a second city's dataset exists to shape it against: one dataset is not a schema |
 | Delaware State Park Programs (Socrata) | dead archive | 4,077 rows and ONE in the future |
 
+Recreation-booking platforms, where most North American municipal community
+centres keep their drop-in timetables. None had been probed before; all measured
+2026-10-03 over 3-17 tenants each, 3,537 requests at 1/s per host. A centre whose
+site links one of these is filed `offsite:<host>` by the OSM walk
+(`REC_BOOKING_HOSTS`), and `ledger --offsite` says which of them routes.
+
+| Platform | Result | What it means |
+|---|---|---|
+| **PerfectMind / Xplor Recreation** (`<city>.perfectmind.com`, BookMe4 widgets) | **WORKS, adapter built** | `/robots.txt` 404 on all 19 tenant hosts; the nextRec terms bind subscribers and name no automated reading. The widget JSON needs the start page's anti-forgery token (not a login). `BookingType` 2 is a drop-in class, 3 a course, 4 a facility schedule: 146 of 600 calendars are type 2, and an "ALL programs" widget is 87-97% courses. `mapsee_ingest_perfectmind.py`, `docs/agents/community-centres.md` |
+| **ActiveNet / ActiveCommunities** (`anc.apm.activecommunities.com/<org>`) | richest feed; **refused by its Terms of Use** | The public online calendars' JSON gave 38,286 dated drop-ins in 90 days at 112 centres over 4 tenants (Seattle, Portland, Vancouver, Mississauga), 3% over $20. robots.txt has no rule (it 301s to the marketing site), but ACTIVE's Terms of Use forbid any automated retrieval without prior written consent. Not read. Consent letters: `../mapsee/outreach/partners/activenet-permission.md`. The documented routes need a key and permission to store a day's results |
+| Amilia / SmartRec | course catalogue | 8,358 of 10,906 expanded rows (77%) are paid courses over 9 Quebec tenants. API v3 needs a token (401); the legacy `/PublicApi/` answers without one. Quebec City's free-play programme (536 rows) is the only carve-out |
+| CivicRec / Rec1 (`secure.rec1.com`) | course catalogue | 153 of 176 sampled sessions (87%) paid, season sessions not dated rows, 20 at "Location TBD". www.civicrec.com answers 403 |
+| RecDesk | facility diary | 8,273 rows over 4 tenants: 2.6% clearly drop-in, 16% private bookings (union meetings, AA), no price, address or coordinates |
+| MyRec | facility diary | 5,707 rows over 4 tenants: 7% drop-in, 29%+ "Booked"/"Reserved"/practices, no address |
+| Vermont Systems WebTrac (`myvscloud.com`) | **robots.txt refuses** | `User-agent: *` `Disallow: /` after an allow-list of search engines |
+| CommunityPass (`register.capturepoint.com`) | **robots.txt refuses** | `Disallow: /` |
+| Daxko / GroupEx PRO | **robots.txt refuses** | `operations.daxko.com` `Disallow: /`; `groupexpro.com` disallows `/schedule/`, the embed path. YMCA classes are member-only anyway |
+| FrontDesk Suite (Ottawa drop-in reservations) | **robots.txt refuses** | BOM + `Disallow: /`, which `robots_txt.parse` read as allow-all until 2026-10-04 |
+
 Two things that table is really saying:
 
 - **A 403 IS A REFUSAL AND NOT AN OBSTACLE.** Four of the rows above are
