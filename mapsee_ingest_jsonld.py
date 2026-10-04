@@ -42,6 +42,15 @@ Notes:
     for the sync's Census batch geocoder, and address-less venues fall back to
     one cached Photon lookup (same geocode_cache.json as the other feed adapters).
   • Politeness: identified UA, ~1s between event-page fetches, per-site cap.
+  • Modern Events Calendar (measured 2026-10-04; see the notes above
+    _mec_unset_price and _mec_wall_clock). Its "price": "0" is an EMPTY cost
+    field, not a free event, so on a page carrying MEC's markup a bare zero is
+    dropped before the admission reader sees it. Its timed startDate/endDate is
+    the local wall clock printed as if it were UTC, so it is read back as that
+    wall clock and the sync localises it from the venue.
+  • One url, several dates: when a page gives the same url to more than one
+    start, each occurrence is keyed url#date (see _shared_urls). Otherwise the
+    store folds every occurrence of a weekly session into one row.
 """
 from __future__ import annotations
 
@@ -53,7 +62,7 @@ import re
 import sys
 import time
 from mapsee_geo_budget import geocode_allowed
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urljoin, urlparse
 
@@ -206,6 +215,178 @@ def _is_event(item: Dict[str, Any]) -> bool:
                for x in types)
 
 
+# MODERN EVENTS CALENDAR WRITES "price": "0" FOR A COST NOBODY ENTERED. Its schema
+# block copies the event's cost field into offers.price. The Lite source
+# (features/schema.php) writes "" for an empty field, which already reads as
+# unknown; the Pro build (7.36 at The Florrie and Whitehorn) writes "0". Measured
+# 2026-10-04 on 26 MEC calendars, 20 drawn at random from the 107 configured plus
+# 6 proposed: 39 of 39 event pages whose block says "0" print NO cost on the page,
+# while all 8 with a non-zero or text price print MEC's "Cost" line ("£5.00"
+# beside "5", "kostenfrei" beside "kostenfrei"). On the 20 configured listing
+# pages, 188 of 388 upcoming events (224 of 455 listed; 11 of the 19 sites with
+# Event blocks) carry the "0", and normalize_admission_facts read every one as an
+# explicit free offer: "Free to attend." led the description, 0227's offer
+# tagger reads that as offer:free (the /c/<city>/free page), and source_details
+# {free: true, offer.price "0"} becomes isAccessibleForFree on /e/<id>. Among
+# the 6 proposed sites it was 110 of 131 rows in 90 days, Whitehorn's "$10
+# drop-ins" yoga included.
+#
+# So on a page with MEC's markup a bare numeric zero is removed and the event is
+# left saying nothing about price, as source_details {} rather than None: that
+# is what makes the sync clear the {free: true} an earlier run stored (to_event
+# says how). A paid cost the organiser typed ("5") stays a paid offer. TYPED TEXT stays exactly as written, and the admission reader reads
+# it as UNKNOWN, not free: normalize_admission_facts takes only a number from an
+# Offer, so "Free", "kostenfrei" and "Gratis" give no facts (checked 2026-10-04,
+# before and after this change). A description that says "free" / "gratuit" /
+# "kostenlos" still reaches 0227's text tagger untouched (50 of the 224 listed
+# carry such a word).
+#
+# MEC's ONE explicit free marker is kept. Its single-event template prints the
+# Cost line (<dd class="mec-events-event-cost">) only `if($cost)`, which PHP
+# makes false for "" and "0", and renders a numeric cost through render_price(),
+# which returns its translated "Free" for a zero. So a Cost line with no non-zero
+# digit beside a zero price is the organiser typing a zero ("0.00") and MEC
+# calling it free on the page: on an event page holding exactly one Event, that
+# zero is kept (_mec_cost_says_free). 0 of the 60 zero-price event pages sampled
+# (39, then 21 in review) show it, so today this keeps nothing; it is here so a
+# real one is not dropped. The page fingerprint is the one
+# catalog_discover_osm.py proposed these sites with.
+_MEC_PAGE_RX = re.compile(r"modern-events-calendar|mec-event", re.I)
+_ZERO_PRICE_RX = re.compile(r"0+(?:\.0+)?")
+_MEC_COST_RX = re.compile(
+    r"<dd[^>]*\bclass=[\"'][^\"']*\bmec-events-event-cost\b[^\"']*[\"'][^>]*>(.*?)</dd>",
+    re.S | re.I)
+
+
+def _mec_cost_says_free(page: str) -> bool:
+    """MEC printed its own Cost line, and it holds no price above zero."""
+    m = _MEC_COST_RX.search(page or "")
+    label = _clean(m.group(1)) if m else None
+    return bool(label) and not re.search(r"[1-9]", label)
+
+
+def _mec_unset_price(item: Dict[str, Any]) -> Dict[str, Any]:
+    """The same Event with any Offer whose price is a bare zero stripped of it."""
+    def unset(offer):
+        price = offer.get("price") if isinstance(offer, dict) else None
+        return (isinstance(price, (int, float, str)) and not isinstance(price, bool)
+                and _ZERO_PRICE_RX.fullmatch(str(price).strip()) is not None)
+
+    def without(offer):
+        return {k: v for k, v in offer.items() if k != "price"} if unset(offer) else offer
+
+    offers = item.get("offers")
+    if isinstance(offers, dict) and unset(offers):
+        return dict(item, offers=without(offers))
+    if isinstance(offers, list) and any(unset(o) for o in offers):
+        return dict(item, offers=[without(o) for o in offers])
+    return item
+
+
+# MODERN EVENTS CALENDAR PRINTS THE WALL CLOCK AS IF IT WERE UTC. MEC keeps an
+# occurrence as a timestamp that is the venue's wall clock read as UTC; its own
+# links show it (Haus Steinstraße's "?occurrence=2026-10-09&time=1791576000" is
+# 2026-10-09 20:00Z for a 20:00 show), and the schema block prints that instant
+# in the site's offset: "2026-10-09T22:00:00+02:00". Read as written, every timed
+# MEC row is late by the venue's UTC offset, which is 1-2 h in Europe and 6 h in
+# Calgary. Measured 2026-10-04 on 15 event pages on 9 configured or proposed MEC
+# sites, page time against block: 14 off by exactly the site's offset (Whitehorn
+# prints "6:45 pm" beside "12:45:00-06:00"; Ateliertheater prints 19:30 beside
+# 21:30+02:00 on 21 Oct and 20:30+01:00 on 3 Nov, so the error follows DST;
+# Basler Papiermühle prints 14:00 beside 14:00+00:00, a site set to UTC, so
+# Basel saw it 2 h late), and the 15th agreed only because the UK was at +00:00.
+# Timed starts are 80 of the 388 upcoming events on the 20 sampled listings; the
+# rest are MEC Lite's bare dates, which pass through untouched.
+#
+# So on a page with MEC's markup an offset-bearing stamp is turned into that UTC
+# wall clock and handed on NAIVE, and the sync localises it from the venue's
+# coordinates (_to_utc_if_naive), exactly as for the WP Event Manager stamps in
+# this file's test. It is done before to_event, because the date can change and
+# the date is part of the fingerprint: a Berlin Dark (Barcelona) club night whose
+# url says "?occurrence=2026-10-23" is "2026-10-24T00:00:00+02:00" in its block,
+# and only the wall clock, 2026-10-23 22:00, puts it on its own night. If MEC
+# ever prints honest offsets this shifts every timed MEC row by the offset; the
+# 15 pairs above are the check.
+_STAMP_RX = re.compile(
+    r"(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2})(?::(\d{2}))?(?:\.\d+)?\s*(Z|[+-]\d{2}:?\d{2})", re.I)
+
+
+def _mec_wall_clock(stamp: Any) -> Any:
+    """MEC's offset-bearing stamp as the naive wall clock it stands for."""
+    m = _STAMP_RX.fullmatch(stamp.strip()) if isinstance(stamp, str) else None
+    if not m:
+        return stamp                                   # a bare date, a naive stamp, "" or junk
+    try:
+        wall = datetime.fromisoformat(f"{m[1]}T{m[2]}:{m[3] or '00'}")
+    except ValueError:
+        return stamp
+    off = m[4].upper().replace(":", "")
+    minutes = 0 if off == "Z" else (int(off[1:3]) * 60 + int(off[3:5])) * (-1 if off[0] == "-" else 1)
+    return (wall - timedelta(minutes=minutes)).strftime("%Y-%m-%dT%H:%M:%S")
+
+
+def _from_mec(item: Dict[str, Any], keep_zero: bool = False) -> Tuple[Dict[str, Any], bool]:
+    """A MEC Event as its organiser meant it, and whether a price was withdrawn."""
+    priced = item if keep_zero else _mec_unset_price(item)
+    times = {k: _mec_wall_clock(priced.get(k)) for k in ("startDate", "endDate")}
+    moved = {k: v for k, v in times.items() if v != priced.get(k)}
+    return (dict(priced, **moved) if moved else priced), priced is not item
+
+
+# ONE URL, SEVERAL DATES. EventStore.upsert looks a row up by (source,
+# source_id) BEFORE the fingerprint, and source_id is the Event's url. Some
+# calendars give every occurrence of a weekly session the same url and no
+# ?occurrence= (The Florrie: /events/yoga/ for every Tuesday), and an Event with
+# no url at all takes the page's. Each later date then found the first row,
+# re-keyed it to its own fingerprint and kept the FIRST date's start_local, so
+# the row's id and its time disagreed and moved as the horizon rolled on. Live
+# 2026-10-04: The Florrie printed "kept 91 events" into a store that held 21;
+# 127 of the 417 upcoming inline Event blocks on the 20 sampled MEC listings (9
+# sites) share an id with another date.
+# Such an id gets "#<date>" appended, but only when the SAME page shows it with
+# more than one date, so every other row keeps the id it had. The fingerprint,
+# which is the database's external_id, does not involve source_id at all.
+def _shared_urls(items: List[Dict[str, Any]], page_url: str) -> set:
+    dates: Dict[str, set] = {}
+    for item in items:
+        start, uid = item.get("startDate"), item.get("url") or page_url
+        if isinstance(start, str) and len(start.strip()) >= 10 and isinstance(uid, str):
+            dates.setdefault(uid, set()).add(start.strip()[:10])
+    return {u for u, d in dates.items() if len(d) > 1}
+
+
+def _page_events(page: str) -> List[Dict[str, Any]]:
+    """Every schema.org Event on one page, in document order."""
+    out = []
+    for block in _LD_RX.findall(page or ""):
+        doc = _parse_ld(block)
+        if doc is not None:
+            out.extend(item for item in _iter_items(doc) if _is_event(item))
+    return out
+
+
+def _prepared(page: str, page_url: str, detail: bool):
+    """(item, to_event keyword arguments) for each Event on a fetched page. A
+    keyword is passed only when it is set, so an ordinary page calls to_event
+    exactly as it always did."""
+    items = _page_events(page)
+    flags = [False] * len(items)
+    if _MEC_PAGE_RX.search(page or ""):
+        # MEC's own "Free" is believable only where it sits beside the one event
+        # it describes: an event page, not a listing of dozens.
+        keep_zero = detail and len(items) == 1 and _mec_cost_says_free(page)
+        pairs = [_from_mec(item, keep_zero) for item in items]
+        items, flags = [p[0] for p in pairs], [p[1] for p in pairs]
+    shared = _shared_urls(items, page_url)
+    out = []
+    for item, withdrawn in zip(items, flags):
+        uid = item.get("url") or page_url
+        opts = {"occurrence_key": isinstance(uid, str) and uid in shared,
+                "price_withdrawn": withdrawn}
+        out.append((item, {k: v for k, v in opts.items() if v}))
+    return out
+
+
 def _clean(s: Optional[str]) -> Optional[str]:
     if not s:
         return None
@@ -286,7 +467,12 @@ def _address_parts(loc: Dict[str, Any]) -> Dict[str, Optional[str]]:
 
 def to_event(item: Dict[str, Any], page_url: str, category: str, session,
              venue_default: Optional[Dict[str, Any]] = None,
-             skip_rx: Optional[re.Pattern] = None) -> Optional[NormalizedEvent]:
+             skip_rx: Optional[re.Pattern] = None, *, occurrence_key: bool = False,
+             price_withdrawn: bool = False) -> Optional[NormalizedEvent]:
+    """occurrence_key: this url carries other dates on the same page (_shared_urls).
+    price_withdrawn: a price the page printed was set aside (_mec_unset_price), so an
+    empty result must still be sent as {} - the sync then CLEARS facts an earlier
+    run stored from that price instead of leaving them on the row."""
     if "OnlineEventAttendanceMode" in str(item.get("eventAttendanceMode") or ""):
         return None
     # schema.org/eventStatus is the publisher saying the show is off, in the same
@@ -392,7 +578,7 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
                 pass
     ev = NormalizedEvent(
         source="jsonld",
-        source_id=item.get("url") or page_url,
+        source_id=(item.get("url") or page_url) + ("#" + date_key if occurrence_key else ""),
         name=name,
         description=description,
         start_local=start,
@@ -406,7 +592,11 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
         lineup=[_clean(x) for x in lineup if x],
         poster_image_url=_image_url(item.get("image")),
         ticket_url=ticket_url,
-        source_details=details or None,
+        # {} and not None after a withdrawn price: to_row writes NULL for {}, and
+        # needs_detail_sync sends the row even under --only-new, so a row stored
+        # as {free: true, offer.price "0"} before the fix is put right on the next
+        # run instead of serving isAccessibleForFree until the event has passed.
+        source_details=details or ({} if price_withdrawn else None),
         admission_checked=True,
     )
     ev.fingerprint = make_fingerprint(name, date_key, venue)
@@ -443,23 +633,17 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
             print(f"[jsonld] {name} listing {listing} failed: {exc}")
             continue
         # harvest Event blocks embedded in the listing page itself
-        for block in _LD_RX.findall(r.text):
-            doc = _parse_ld(block)
-            if doc is None:
-                continue
-            for item in _iter_items(doc):
-                if not _is_event(item):
-                    continue
-                if inline_seen < start_inline:
-                    inline_seen += 1
-                    continue
-                if deadline is not None and time.monotonic() >= deadline:
-                    raise BudgetExpired(start_offset, inline_seen)
-                ev = to_event(item, listing, category, session, venue_default, skip_rx)
-                if ev:
-                    store.upsert(ev)
-                    kept += 1
+        for item, opts in _prepared(r.text, listing, detail=False):
+            if inline_seen < start_inline:
                 inline_seen += 1
+                continue
+            if deadline is not None and time.monotonic() >= deadline:
+                raise BudgetExpired(start_offset, inline_seen)
+            ev = to_event(item, listing, category, session, venue_default, skip_rx, **opts)
+            if ev:
+                store.upsert(ev)
+                kept += 1
+            inline_seen += 1
         for m in (pattern.finditer(r.text) if pattern else ()):
             frag = m.group(1) if (tmpl and m.groups()) else m.group(0)
             u = urljoin(listing, tmpl.format(frag) if tmpl else frag)
@@ -480,17 +664,11 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
         except Exception as exc:
             print(f"[jsonld] {name} {u} failed: {exc}")
             continue
-        for block in _LD_RX.findall(r.text):
-            doc = _parse_ld(block)
-            if doc is None:
-                continue
-            for item in _iter_items(doc):
-                if not _is_event(item):
-                    continue
-                ev = to_event(item, u, category, session, venue_default, skip_rx)
-                if ev:
-                    store.upsert(ev)
-                    kept += 1
+        for item, opts in _prepared(r.text, u, detail=True):
+            ev = to_event(item, u, category, session, venue_default, skip_rx, **opts)
+            if ev:
+                store.upsert(ev)
+                kept += 1
         time.sleep(1.0)
     print(f"[jsonld] {name}: kept {kept} events from {min(len(urls), cap)} pages")
     return kept
