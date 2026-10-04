@@ -18510,6 +18510,51 @@
     "_metro": "Stuttgart, Germany"
   },
   {
+    "name": "Cáceres",
+    "category": "community",
+    "_found": "civic:city -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agenda.publica.ayto.caceres%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Cáceres, Spain",
+    "limit": 300,
+    "_metro": "Cáceres, Spain"
+  },
+  {
+    "name": "Paróquia Nossa Senhora do Carmo da Aclimação",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nsdocarmo.com.br_6tp00foh2ic2h9oo2me43ijbk4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", São Paulo, Brazil",
+    "limit": 300,
+    "_metro": "São Paulo, Brazil"
+  },
+  {
+    "name": "Paróquia Sagrado Coração de Jesus",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/479e8b208f2300bda55595689ee050c4b077ac7115e04a79f8a749f4bb327241%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", São Paulo",
+    "limit": 300,
+    "_metro": "São Paulo, Brazil"
+  },
+  {
+    "name": "Igreja Capela Santo Antônio",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dompedroagenda%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", São Bernardo do Campo",
+    "limit": 300,
+    "_metro": "São Paulo, Brazil"
+  },
+  {
+    "name": "Paróquia Nossa Senhora Aparecida",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/diocesedeguarulhos%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", São Paulo, Brazil",
+    "limit": 300,
+    "_metro": "São Paulo, Brazil"
+  },
+  {
     "name": "McLean Community Center",
     "category": "community",
     "url": "https://mcleancenter.org/?mec-ical-feed=1",

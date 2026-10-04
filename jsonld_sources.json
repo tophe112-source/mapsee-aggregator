@@ -134,24 +134,6 @@
       "_metro": "Glasgow, GB"
     },
     {
-      "name": "French Street Studios",
-      "category": "arts",
-      "_found": "osm:arts_centre -> wix+jsonld-event",
-      "listing": [
-        "https://www.strangefield.org/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/event-details/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "French Street Studios",
-        "lat": 55.8417353,
-        "lon": -4.2224582
-      },
-      "_metro": "Glasgow, GB",
-      "_measured": "2026-10-04: the listing was one event's own page (www.strangefield.org/event-details/bleaks-cassette-launch-with-votiv-rank-moss-nurse), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 1 upcoming event in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
-    },
-    {
       "name": "FACT",
       "category": "arts",
       "_found": "osm:arts_centre -> jsonld-event",
@@ -680,42 +662,6 @@
       "_metro": "Paris, FR"
     },
     {
-      "name": "Yoga vision",
-      "category": "community",
-      "_found": "osm:club -> wix+jsonld-event",
-      "listing": [
-        "https://www.yoga-vision.org/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/event-details/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "Yoga vision",
-        "lat": 48.8682797,
-        "lon": 2.3745858
-      },
-      "_metro": "Paris, FR",
-      "_measured": "2026-10-04: the listing was one event's own page (www.yoga-vision.org/event-details/atelier-yoga-incarne), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 3 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
-    },
-    {
-      "name": "La Librairie Perse En Poche",
-      "category": "learning",
-      "_found": "osm:books -> wix+jsonld-event",
-      "listing": [
-        "https://en.utopiran.com/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/event-details/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "La Librairie Perse En Poche",
-        "lat": 48.8451946,
-        "lon": 2.2897565
-      },
-      "_metro": "Paris, FR",
-      "_measured": "2026-10-04: the listing was one event's own page (en.utopiran.com/event-details/rencontre-et-seance-de-dedicace-avec-poupeh-missaghi-autour-de-louvrage-inventaire-des-disparus), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 4 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
-    },
-    {
       "name": "My Ciné",
       "category": "theater",
       "_found": "osm:cinema -> jsonld-event",
@@ -730,24 +676,6 @@
         "lon": 2.6530024
       },
       "_metro": "Paris, FR"
-    },
-    {
-      "name": "Studios 27",
-      "category": "theater",
-      "_found": "osm:theatre -> wix+jsonld-event",
-      "listing": [
-        "https://www.studios27.fr/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/event-details/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "Studios 27",
-        "lat": 48.8766896,
-        "lon": 2.3537954
-      },
-      "_metro": "Paris, FR",
-      "_measured": "2026-10-04: the listing was one event's own page (www.studios27.fr/event-details/sortir-des-cliches), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 18 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
     },
     {
       "name": "Centre de loisirs de Vigneux - Le Château",
@@ -1224,27 +1152,6 @@
         "lon": 24.93255
       },
       "_metro": "Helsinki, FI"
-    },
-    {
-      "name": "KokoTeatteri",
-      "category": "theater",
-      "_found": "osm:theatre -> wix+jsonld-event",
-      "listing": [
-        "https://www.kokoteatteri.fi/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/event-details/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "KokoTeatteri",
-        "address": "3 Hämeentie",
-        "city": "Helsinki",
-        "postal_code": "00530",
-        "lat": 60.1807591,
-        "lon": 24.9532954
-      },
-      "_metro": "Helsinki, FI",
-      "_measured": "2026-10-04: the listing was one event's own page (www.kokoteatteri.fi/event-details/anna-politkovskaja-putinin-venaja), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 11 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
     },
     {
       "name": "Lamerfest",
@@ -1940,27 +1847,6 @@
         "lon": 16.3593802
       },
       "_metro": "Vienna, AT"
-    },
-    {
-      "name": "Lento Dance Studio",
-      "category": "fitness",
-      "_found": "osm:dance -> wix+jsonld-event",
-      "listing": [
-        "https://www.lentodance.at/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/events/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "Lento Dance Studio",
-        "address": "14 Traungasse",
-        "city": "Wien",
-        "postal_code": "1030",
-        "lat": 48.1986452,
-        "lon": 16.3781475
-      },
-      "_metro": "Vienna, AT",
-      "_measured": "2026-10-04: the listing was one event's own page (www.lentodance.at/events/classes-online-payment-2026-09-07-18-00), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 1 upcoming event in its Wix warmup data; the route /events/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
     },
     {
       "name": "Wiener Konzerthaus",
@@ -3340,27 +3226,6 @@
       "_metro": "Zurich, CH"
     },
     {
-      "name": "Brausyndikat GmbH",
-      "category": "food",
-      "_found": "osm:brewery -> wix+jsonld-event",
-      "listing": [
-        "https://www.brausyndikat.ch/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/event-details/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "Brausyndikat GmbH",
-        "address": "21 Grünaustrasse",
-        "city": "Dietikon",
-        "postal_code": "8953",
-        "lat": 47.4116057,
-        "lon": 8.4022383
-      },
-      "_metro": "Zurich, CH",
-      "_measured": "2026-10-04: the listing was one event's own page (www.brausyndikat.ch/event-details/oranje-feest), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 5 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
-    },
-    {
       "name": "Kulturhaus Gleis 21",
       "category": "community",
       "_found": "osm:events_venue -> jsonld-event",
@@ -3831,25 +3696,6 @@
       "_metro": "Basel, CH"
     },
     {
-      "name": "Gestüt Waidhof",
-      "category": "fitness",
-      "_found": "osm:sports_centre -> wix+jsonld-event",
-      "listing": [
-        "https://www.waidhof.net/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/event-details/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "Gestüt Waidhof",
-        "address": "5 Waidhof",
-        "lat": 47.6002999,
-        "lon": 7.7043057
-      },
-      "_metro": "Basel, CH",
-      "_measured": "2026-10-04: the listing was one event's own page (www.waidhof.net/event-details/reitabzeichen-2026), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 1 upcoming event in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
-    },
-    {
       "name": "Yehudi Menuhin Forum",
       "category": "theater",
       "_found": "osm:theatre -> jsonld-event",
@@ -4103,25 +3949,6 @@
       "_metro": "Rome, Italy"
     },
     {
-      "name": "Istituto Figlie di Santa Maria della Divina Provvidenza „Casa Santa Rosa“",
-      "category": "community",
-      "_found": "osm:social_facility -> wix+jsonld-event",
-      "listing": [
-        "https://www.casasantarosa.it/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/event-details/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "Istituto Figlie di Santa Maria della Divina Provvidenza „Casa Santa Rosa“",
-        "address": "205 Via Appia Antica",
-        "lat": 41.8401312,
-        "lon": 12.5372399
-      },
-      "_metro": "Rome, Italy",
-      "_measured": "2026-10-04: the listing was one event's own page (www.casasantarosa.it/event-details/codis-2026), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 1 upcoming event in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
-    },
-    {
       "name": "Bioparco",
       "category": "outdoors",
       "_found": "osm:zoo -> modern-events+jsonld-event",
@@ -4211,27 +4038,6 @@
         "lon": 9.1899586
       },
       "_metro": "Milan, Italy"
-    },
-    {
-      "name": "Teatro Verdi",
-      "category": "theater",
-      "_found": "osm:theatre -> wix+jsonld-event",
-      "listing": [
-        "https://www.teatrodelburatto.com/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/event-details/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "Teatro Verdi",
-        "address": "16 Via Pastrengo",
-        "city": "Milano",
-        "postal_code": "20159",
-        "lat": 45.4867884,
-        "lon": 9.1858606
-      },
-      "_metro": "Milan, Italy",
-      "_measured": "2026-10-04: the listing was one event's own page (www.teatrodelburatto.com/event-details/bu-1-4), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 20 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
     },
     {
       "name": "Pianoterra Lab",
@@ -5489,28 +5295,6 @@
       "_metro": "Munich, Germany"
     },
     {
-      "name": "Freiheitshalle",
-      "category": "community",
-      "_found": "osm:community_centre -> wix+jsonld-event",
-      "listing": [
-        "https://www.freiheitshalle-munich.com/"
-      ],
-      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
-      "url_template": "/events/{}",
-      "max_events": 100,
-      "venue": {
-        "name": "Freiheitshalle",
-        "address": "1 Rainer-Werner-Fassbinder-Platz",
-        "city": "München",
-        "postal_code": "80636",
-        "country": "DE",
-        "lat": 48.143794,
-        "lon": 11.5366469
-      },
-      "_metro": "Munich, Germany",
-      "_measured": "2026-10-04: the listing was one event's own page (www.freiheitshalle-munich.com/events/neon-kunst-fur-kids-ein-nachmittag-voller-farbe-und-fantasie), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 13 upcoming events in its Wix warmup data; the route /events/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
-    },
-    {
       "name": "North Island Credit Union Amphitheatre",
       "category": "theater",
       "_found": "osm:theatre -> jsonld-event",
@@ -5737,6 +5521,240 @@
         "lon": 9.1675294
       },
       "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "Clube de Campo MESC",
+      "category": "community",
+      "_found": "osm:club -> modern-events+jsonld-event",
+      "listing": [
+        "https://mesc.com.br/agenda/"
+      ],
+      "link_pattern": "https://mesc\\.com\\.br/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Clube de Campo MESC",
+        "address": "2113 Avenida Robert Kennedy",
+        "postal_code": "09890-005",
+        "lat": -23.7095117,
+        "lon": -46.5729717
+      },
+      "_metro": "São Paulo, Brazil"
+    },
+    {
+      "name": "French Street Studios",
+      "category": "arts",
+      "_found": "osm:arts_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.strangefield.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "French Street Studios",
+        "lat": 55.8417353,
+        "lon": -4.2224582
+      },
+      "_metro": "Glasgow, GB",
+      "_measured": "2026-10-04: the listing was one event's own page (www.strangefield.org/event-details/bleaks-cassette-launch-with-votiv-rank-moss-nurse), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 1 upcoming event in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
+    },
+    {
+      "name": "Yoga vision",
+      "category": "community",
+      "_found": "osm:club -> wix+jsonld-event",
+      "listing": [
+        "https://www.yoga-vision.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Yoga vision",
+        "lat": 48.8682797,
+        "lon": 2.3745858
+      },
+      "_metro": "Paris, FR",
+      "_measured": "2026-10-04: the listing was one event's own page (www.yoga-vision.org/event-details/atelier-yoga-incarne), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 3 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
+    },
+    {
+      "name": "La Librairie Perse En Poche",
+      "category": "learning",
+      "_found": "osm:books -> wix+jsonld-event",
+      "listing": [
+        "https://en.utopiran.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "La Librairie Perse En Poche",
+        "lat": 48.8451946,
+        "lon": 2.2897565
+      },
+      "_metro": "Paris, FR",
+      "_measured": "2026-10-04: the listing was one event's own page (en.utopiran.com/event-details/rencontre-et-seance-de-dedicace-avec-poupeh-missaghi-autour-de-louvrage-inventaire-des-disparus), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 4 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
+    },
+    {
+      "name": "Studios 27",
+      "category": "theater",
+      "_found": "osm:theatre -> wix+jsonld-event",
+      "listing": [
+        "https://www.studios27.fr/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Studios 27",
+        "lat": 48.8766896,
+        "lon": 2.3537954
+      },
+      "_metro": "Paris, FR",
+      "_measured": "2026-10-04: the listing was one event's own page (www.studios27.fr/event-details/sortir-des-cliches), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 18 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
+    },
+    {
+      "name": "KokoTeatteri",
+      "category": "theater",
+      "_found": "osm:theatre -> wix+jsonld-event",
+      "listing": [
+        "https://www.kokoteatteri.fi/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "KokoTeatteri",
+        "address": "3 Hämeentie",
+        "city": "Helsinki",
+        "postal_code": "00530",
+        "lat": 60.1807591,
+        "lon": 24.9532954
+      },
+      "_metro": "Helsinki, FI",
+      "_measured": "2026-10-04: the listing was one event's own page (www.kokoteatteri.fi/event-details/anna-politkovskaja-putinin-venaja), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 11 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
+    },
+    {
+      "name": "Lento Dance Studio",
+      "category": "fitness",
+      "_found": "osm:dance -> wix+jsonld-event",
+      "listing": [
+        "https://www.lentodance.at/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Lento Dance Studio",
+        "address": "14 Traungasse",
+        "city": "Wien",
+        "postal_code": "1030",
+        "lat": 48.1986452,
+        "lon": 16.3781475
+      },
+      "_metro": "Vienna, AT",
+      "_measured": "2026-10-04: the listing was one event's own page (www.lentodance.at/events/classes-online-payment-2026-09-07-18-00), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 1 upcoming event in its Wix warmup data; the route /events/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
+    },
+    {
+      "name": "Brausyndikat GmbH",
+      "category": "food",
+      "_found": "osm:brewery -> wix+jsonld-event",
+      "listing": [
+        "https://www.brausyndikat.ch/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Brausyndikat GmbH",
+        "address": "21 Grünaustrasse",
+        "city": "Dietikon",
+        "postal_code": "8953",
+        "lat": 47.4116057,
+        "lon": 8.4022383
+      },
+      "_metro": "Zurich, CH",
+      "_measured": "2026-10-04: the listing was one event's own page (www.brausyndikat.ch/event-details/oranje-feest), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 5 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
+    },
+    {
+      "name": "Gestüt Waidhof",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.waidhof.net/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Gestüt Waidhof",
+        "address": "5 Waidhof",
+        "lat": 47.6002999,
+        "lon": 7.7043057
+      },
+      "_metro": "Basel, CH",
+      "_measured": "2026-10-04: the listing was one event's own page (www.waidhof.net/event-details/reitabzeichen-2026), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 1 upcoming event in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
+    },
+    {
+      "name": "Istituto Figlie di Santa Maria della Divina Provvidenza „Casa Santa Rosa“",
+      "category": "community",
+      "_found": "osm:social_facility -> wix+jsonld-event",
+      "listing": [
+        "https://www.casasantarosa.it/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Istituto Figlie di Santa Maria della Divina Provvidenza „Casa Santa Rosa“",
+        "address": "205 Via Appia Antica",
+        "lat": 41.8401312,
+        "lon": 12.5372399
+      },
+      "_metro": "Rome, Italy",
+      "_measured": "2026-10-04: the listing was one event's own page (www.casasantarosa.it/event-details/codis-2026), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 1 upcoming event in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
+    },
+    {
+      "name": "Teatro Verdi",
+      "category": "theater",
+      "_found": "osm:theatre -> wix+jsonld-event",
+      "listing": [
+        "https://www.teatrodelburatto.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Teatro Verdi",
+        "address": "16 Via Pastrengo",
+        "city": "Milano",
+        "postal_code": "20159",
+        "lat": 45.4867884,
+        "lon": 9.1858606
+      },
+      "_metro": "Milan, Italy",
+      "_measured": "2026-10-04: the listing was one event's own page (www.teatrodelburatto.com/event-details/bu-1-4), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 20 upcoming events in its Wix warmup data; the route /event-details/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
+    },
+    {
+      "name": "Freiheitshalle",
+      "category": "community",
+      "_found": "osm:community_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.freiheitshalle-munich.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Freiheitshalle",
+        "address": "1 Rainer-Werner-Fassbinder-Platz",
+        "city": "München",
+        "postal_code": "80636",
+        "country": "DE",
+        "lat": 48.143794,
+        "lon": 11.5366469
+      },
+      "_metro": "Munich, Germany",
+      "_measured": "2026-10-04: the listing was one event's own page (www.freiheitshalle-munich.com/events/neon-kunst-fur-kids-ein-nachmittag-voller-farbe-und-fantasie), a source that dies with that event, and /event-info/ 404s on this site. Now the homepage, which ships 13 upcoming events in its Wix warmup data; the route /events/{} is the one its own links use. verify_jsonld: 1/1 sampled events future."
     },
     {
       "name": "Sumac Centre",
