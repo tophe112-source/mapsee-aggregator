@@ -822,10 +822,17 @@ jobs:
           else
             echo "no perfectmind_sources.json — skipping"
           fi
+      # The `rec` group's FIRST sync of its ~103,600 rows (Toronto 27,654,
+      # Linked Events 10,204, PerfectMind 65,760) ran out the 20 minutes on
+      # 2026-10-04 (run 37216641420): 4 minutes reading what is stored, then
+      # about 2,070 fifty-row POSTs. --only-new days add only the new sessions,
+      # and --skip-unchanged keeps the Wednesday refresh to what moved, so the
+      # longer cap is for first syncs and big source changes. The other groups
+      # keep 20.
       - name: Sync feeds to Supabase (batch-geocoded)
         id: sync
         continue-on-error: true
-        timeout-minutes: 20
+        timeout-minutes: ${{ matrix.group == 'rec' && 60 || 20 }}
         run: |
           ONLY_NEW="--only-new"
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step

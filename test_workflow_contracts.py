@@ -83,6 +83,10 @@ class WorkflowContracts(unittest.TestCase):
             self.assertLessEqual(int(budget[1]) + 10, step['timeout-minutes'])
             self.assertTrue(step['continue-on-error'])
         self.assertTrue(any(s.get('id') == 'sync' for s in steps))
+        # The rec group's first sync of ~103,600 rows ran out 20 minutes
+        # (2026-10-04); it keeps a longer cap, and every other group keeps 20.
+        sync = next(s for s in steps if s.get('id') == 'sync')
+        self.assertEqual(sync['timeout-minutes'], "${{ matrix.group == 'rec' && 60 || 20 }}")
         self.assertIn("contains(steps.*.outcome, 'failure')", steps[-1]['if'])
 
     def test_cursor_upload_retries_without_silently_losing_progress(self):
