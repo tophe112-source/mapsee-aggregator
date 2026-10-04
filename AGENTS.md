@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 319 of them — live in
+session.** The measured notes about what bites — 325 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -21,7 +21,7 @@ the Worker this pipeline feeds), `../Fish/fishsie-repo` (the game),
 ## The shape of it
 
 ```
-44 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+47 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -44,12 +44,13 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | Whether a source has gone quiet | `mapsee_health_check.py` |
 | Whether the catalog is actually growing | `coverage_history.jsonl`, one line per curation run — until 2026-09-14 every line counted jsonld, mylisting and venuepilot twice (166 of 2,975 rows); a line whose `per_type.jsonld` is double the entries in `jsonld_sources.json` predates the fix |
 | Deleting past events | `mapsee_cleanup.py` |
+| What is on at a community centre (drop-in timetables) | `mapsee_ingest_toronto_rec.py`, `mapsee_ingest_perfectmind.py` (18 cities), `mapsee_ingest_linkedevents.py` (Helsinki, Espoo) - the `rec` feed group; `docs/agents/community-centres.md`, and `platforms-probed.md` for the booking platforms that refuse |
 | North American public library programmes | `mapsee_ingest_bibliocommons.py` + `bibliocommons_sources.json` - 44 systems (38 added 2026-09-24: 58,629 kept within 90 days), every row carrying its branch's surveyed coordinate. No backend discovers a BiblioCommons tenant; they are added by hand |
 | Public swimming pools | the `leisure=swimming_pool` Kind in `mapsee_ingest_osm_amenities.py`. The only Kind with an extra Overpass filter, and the reason is that most pools on earth are in back gardens |
 | Whether a platform has already been probed and refused | `curation_ledger.json` - `verify` skips a `fail` for 90 days without a network call. The table under "Platforms probed" below is the durable half |
 | Whether robots.txt lets us read a feed | `robots_txt.py` (RFC 9309). The owner's line (2026-09-30): robots.txt binds a publisher's own pages and feeds, which `verify` refuses (ledger status `refused`) before fetching. A documented public API used within its usage policy is exempt (`DOCUMENTED_API_TYPES` in `catalog_curate.py`). `python catalog_curate.py robots` lists the configured publisher requests a host refuses and the exempt API reads apart (24), and changes nothing. On 2026-09-30 the 76 it refused were retired into `_not_included`, each quoting its rule; a host that answers with a challenge can refuse on the next fetch, so re-run it |
 | A Google calendar, configured or embedded in a page | `mapsee_gcal.py`. With `GOOGLE_CALENDAR_API_KEY` set, the ics adapter and `verify` read it through the Calendar API (its iCal export is refused by robots.txt), as text that parses like the export so rows keep their fingerprints. Unset, nothing changes. `smoke-gcal.yml` (dispatch) proves a key. Discovery proposes Google Sites Calendar blocks and other embeds as `gcal-embed` |
-| Whether a row is an advertisement rather than an event | `mapsee_spam.py` — one predicate, wired into `EventStore.upsert` so all 44 adapters get it; a phone number in the title counts only from Mobilizon, Gancio or an unknown source; `test_spam.py` is mostly about what it must NOT refuse |
+| Whether a row is an advertisement rather than an event | `mapsee_spam.py` — one predicate, wired into `EventStore.upsert` so all 47 adapters get it; a phone number in the title counts only from Mobilizon, Gancio or an unknown source; `test_spam.py` is mostly about what it must NOT refuse |
 | How much of a source is advertising | `mapsee_spam_audit.py` — measures the rate per instance, so `_not_included` is a number and not an impression |
 | Whether a missing source config is parked ON PURPOSE | a `*_sources.json.pending-permission` twin, and the README's Conduct section. None is parked today: parkrun was, for part of 2026-09-25, and is shown by the owner's decision (`_decision` in `parkrun_sources.json`); `test_ingest_parkrun.py` fails if the live file goes missing or a parked twin reappears. `mapsee_retire_parkrun.py` (`retire-parkrun.yml`, dispatch only) takes every parkrun row off with `apply`, and puts them back with `unhide` |
 | An organizer asks for their listing to come off | they reach us through `conbinience.com/support?intent=listing` or support@conbinience.com (the README's Conduct section is the public promise). Set `hidden_at` on the row: the sync never writes that column, so a re-import cannot bring a hidden row back. A whole calendar comes off by leaving its config too. One organizer inside a many-organizer source (parkrun, Mobilizon, a library system) has no per-event opt-out yet: a weekly listing's next dates are new rows |
@@ -86,7 +87,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 59 `test_*.py` scripts are the CI gate.** They print one line per case
+- **The 62 `test_*.py` scripts are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -137,7 +138,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/state-fairs.md` | 5 | marketing-copy dates, towns vs venues |
 | `docs/agents/health-and-monitoring.md` | 6 | `stats_snapshot_all`, baselines, a source with no retry |
 | `docs/agents/libraries-bibliocommons.md` | 6 | geocoding cost, ignored date filters, stock tiles, a 5xx page, verified event yield |
-| `docs/agents/community-centres.md` | 7 | drop-in vs course, where a centre's timetable lives, booking platforms, city open data, seed yield |
+| `docs/agents/community-centres.md` | 13 | drop-in vs course, where a centre's timetable lives, booking platforms, city open data, seed yield |
 | `docs/agents/running.md`, `credentials.md`, `platforms-probed.md` | — | the operational sections, verbatim |
 | `docs/agents/INDEX.md` | all | every headline, generated — grep it first |
 
@@ -145,7 +146,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 ```bash
 pip install -r requirements.txt
-python test_categories.py            # one of the 59 gate scripts; the full list is in docs/agents/running.md
+python test_categories.py            # one of the 62 gate scripts; the full list is in docs/agents/running.md
 python catalog_curate.py coverage    # where the catalog is thin, per lens category
 python agent_notes.py                # the notes map is under budget and the index is fresh
 ```

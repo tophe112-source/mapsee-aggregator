@@ -85,3 +85,52 @@
   bot challenges, 25 offsite; 396 candidates, 203 merged (median 12 future
   rows). Throughput fell from 31 metros a run to 3-7. 140 metros remain, 82 of
   them in the US.
+
+- **AROUND WASHINGTON, DC THE TIMETABLES SIT BEHIND ONE VENDOR'S ROBOTS.TXT;
+  AROUND SEATTLE BEHIND ACTIVENET'S TERMS.** Swept 2026-10-04 at the pipeline's
+  R=100 km. DC: 31 government bodies. Vermont Systems' WebTrac holds 11 of them
+  (DC DPR, Arlington, Alexandria, Reston's classes, Vienna, Montgomery County
+  Recreation, Loudoun, Falls Church, Prince George's Parks, Greenbelt, Prince
+  William), and every tenant's robots.txt answers 403; ActiveNet holds McLean's
+  courses, Howard County and Takoma Park; Gaithersburg, Leesburg, Herndon and the
+  Columbia Association answer 403 outright; calendar.dc.gov and the Department of
+  Aging's calendars are empty; no PerfectMind tenant. What the cities DO publish
+  as feeds is their events, not their timetables: 8 sources, about 507 rows in 90
+  days (Reston Community Center 262, Montgomery County's Trumba calendars 118,
+  Alexandria 77 after its meetings are removed by title). Community-run: 99 hosts
+  probed (49 from OSM, 50 seeds) -> 8 feeds, about 202 rows. The configured
+  Prince George's Parks Events Calendar carries 509 rows in 90 days but 199 of
+  200 sampled have no venue, so with no street they are never geocoded and never
+  reach the map: lost supply, not misplaced pins. Seattle: 41 government bodies.
+  ActiveNet holds 7 (Seattle, Shoreline, Auburn, Edmonds, Mill Creek, Marysville,
+  Snohomish County), Rec1 or Amilia course catalogues 4 (Kirkland, Bellevue,
+  Puyallup, Redmond), and 6 sites answer 403 (Shoreline's, Kenmore's, Kent's and
+  SeaTac's city sites, Parks Tacoma, Bainbridge parks). PerfectMind holds the
+  drop-ins of Tukwila (386 in 90 days), Renton (459, after 521 private bookings
+  refused) and Maple Valley (6); Lynnwood, Burien, Mercer Island and Bothell are
+  tenants with no drop-in calendar. Seattle's two configured Trumba feeds hold
+  one-off events: 12 of the city-wide feed's 500 rows are at a centre. The
+  community-run centres are where Seattle's supply is: 103 hosts probed -> 14
+  feeds, about 1,150 rows (the Center for Active Living in West Seattle 709,
+  CISC 200). Five more centres publish Google calendars, which need
+  GOOGLE_CALENDAR_API_KEY; 9 answered with a bot challenge. Consent letters:
+  ../mapsee/outreach/partners/webtrac-permission.md and activenet-permission.md.
+  Overpass reset every TLS handshake from the cloud sandbox on all 5 mirrors;
+  Geofabrik's Postpass (OSM over SQL, robots.txt allows /) ran the same selector.
+
+- **A CENTRE'S DAY IS ONE ROW PER STRETCH, NEVER ONE ROW FROM THE FIRST START TO THE LAST END.** Toronto's Drop-in table (CKAN, read 2026-10-03/04) runs Lane Swim up to six times a day at one pool. The first `mapsee_ingest_toronto_rec.py` folded a title's day into one row and listed the times in the text. 2,506 of its 23,232 rows then spanned hours when nothing runs (11,346 gap-hours; Antibes "Lane Swim" 11:30-21:00 for three short swims), plus 251 of 1,603 EarlyON rows, and ../mapsee pulses a pin "Happening now" from starts_at to the end, through every gap. The adapter now folds exact repeats (359), joins back-to-back or overlapping sessions, and ends a row at every gap: 2,401 title-days and 251 centre-days split live on 2026-10-04, 27,654 rows in 7 requests and 17 s, 0 spanning a gap. Each row names the day's other stretches. Identity is the stretch's first start time, as bibliocommons and perfectmind key theirs: a shuffled re-read is identical, and a second upsert adds 0 and rekeys 0.
+- **AN ALL-DAY TABLE IS A ROOM UNDER ANY TITLE, AND A STAFF EMAIL HIDES IN A WEBSITE FIELD.** Beyond the three facility titles (3,630 sessions), 713 kept Toronto sessions ran 6 h or more: Table Tennis 9:00-20:00, Squash 40 of 40, Billiards 28 of 28, Snooker 112 of 146, FitnessTO "Walking" 11:00-19:00. `facility_use_shapes` refuses those titles from 6 h, judged on the joined stretch (563 more sessions). Youth Zone and Club: Social at 6 h+ are staffed and kept, so the cut is not bare duration. Matching Free Centres on street number + name also caught 9 parks at a centre's address (47 locations for 38 centres); they now match on Location ID. One of 231 EarlyON centres had a staff email in `website`, and adding "https://" put it on 11 rows' "Tickets / info" line. `_website` now refuses '@', userinfo and values without a dotted host, and those rows fall back to the City's finder page.
+
+- **A CITY'S EVENT API MARKS A SIGN-UP IN FIELDS, BUT A THIRD OF WHAT IS NOT A DROP-IN IS ONLY IN THE WORDS.** `mapsee_ingest_linkedevents.py` read Helsinki's and Espoo's Linked Events on 2026-10-03: 12,575 + 6,149 leaf rows, 10,529 kept on fields alone. The fields catch 216 Helsinki enrolment windows, 3,691 Espoo hobby-catalogue rows and 277 sign-up links. A review replay of the same pull on 2026-10-04 found what fields cannot say:
+  - 242 private appointments. One-to-one digital help "ajanvarauksella" and a sewing machine "varattavissa" say it in the title; reading dogs' 15-minute slots say "Varaa oma aikasi" in the text.
+  - 41 rows titled as courses.
+  - 19 rows with kulke's stock "Maksuton, vaatii ilmoittautumisen" (free, requires registration).
+  - 10 card-only rows in Swedish ("servicecentralskort").
+  - 19 weekly sessions written as ONE row from the first date to the last ("Vauva-aamu", Mondays 10-11, stored 09-21 to 12-14).
+  - 10 rows on a place that is the town itself.
+  - 20 Zoom/Teams language cafés pinned at a library.
+
+  The traps run the other way too. 158 of 200 registration phrases sit inside a negation that contains them ("ingen förhandsanmälan krävs", "no prior registration required"). "Ei ajanvarausta" (no appointment) is common on drop-in digital help. And 89 of 3,852 Espoo catalogue rows say "ei tarvitse ilmoittautua" and are drop-ins. So each phrase is checked against the words right before it. A live 7-day Helsinki run kept 1,033 of 1,768 rows with none of these on the map.
+- **AN IMAGE LICENCE CAN FORBID WHAT THE PRODUCT DOES WITH A POSTER.** Linked Events marks 6,426 of the 10,648 replayed rows' images `event_only`: "can only be used for information and communications connected to the event ... The source and photographer must absolutely be mentioned". 1,333 of them name no photographer at all, and 112 more say "-". ../mapsee/src/index.js (~4968) takes the first poster among a venue's events as the VENUE page's og:image, and list thumbnails carry no credit. So `event_only_images` is false on both instances, and only the 4,127 cc_by images are used, each credited in the attribution paragraph.
+
+- **A PERFECTMIND "NO FEE" IS THE WIDGET'S CHARGE, NOT THE SESSION'S PRICE.** I replayed the 2026-10-03 capture (78,339 rows) and scored the stored rows with 0227's twin. The adapter had written "Free drop-in" on 8,392 rows and 0227 tagged 8,692 free. 3,190 of those sat behind a paid membership named in the Details: Surrey's "Seniors Services Membership required." (1,792) and Markham's "Fitness membership required" (1,313). Another 181 had a stated fee but prose that read as free: Coquitlam's $9.00 skate, "Coaches are free of charge" (95), and Moose Jaw's $0.00-$18.25 gym, "free of charge with membership" (86). Since 2026-10-04 the adapter does three things. It refuses a row whose Details require a membership or pass the source does not call free: 5,253 rows, including Brampton's Flower City Seniors Centre 2,095, Markham 1,345 and NVRC's Parkgate Society 21. It writes no price where the widget does not sell the row (Markham's 749 drop-in aquafit, $7.58 at the desk) or hides prices (NVRC, Westside). And it ends every stated fee with "(not free)", which 0227's FREE_NEG reads as a veto on the whole row. After: 65,163 rows kept and 4,498 tagged free, with 0 behind a paid membership and 0 with a stated fee. Live on 2026-10-04 (Markham, Coquitlam and Moose Jaw, 148 requests), the same answers went from 491 tagged free to 104.
