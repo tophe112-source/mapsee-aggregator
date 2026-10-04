@@ -71,7 +71,14 @@ MAX_BYTES = 512_000
 CHALLENGE_RX = re.compile(
     r"sgcaptcha|just a moment|one moment,?\s*please|being verified|"
     r"cf-browser-verification|challenge-platform|captcha-delivery|_Incapsula_|"
-    r"/cdn-cgi/challenge|checking your browser|enable javascript and cookies",
+    r"/cdn-cgi/challenge|checking your browser|enable javascript and cookies|"
+    # Cloudflare's BLOCK page, as distinct from its challenge: "Sorry, you have
+    # been blocked / You are unable to access myvscloud.com", served as the 403
+    # for /robots.txt on every DC-area WebTrac tenant checked 2026-10-04 (DC
+    # DPR, Arlington, Montgomery Rec, Prince William). As a bare 403 it read as
+    # "no file, allow everything", so verify would have passed a host that is
+    # refusing us by name.
+    r"sorry,\s*you\s+have\s+been\s+blocked|attention\s+required!?\s*\|\s*cloudflare",
     re.I)
 
 _UNRESERVED = set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~")

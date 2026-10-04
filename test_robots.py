@@ -207,6 +207,15 @@ check("a homepage served at /robots.txt has no rules: allowed", a["allowed"] is 
 a = answer({"https://cap.example/robots.txt": (200, "User-agent: *\nDisallow: /captcha-delivery/\n")},
            "https://cap.example/cal.ics")
 check("a real file that merely MENTIONS a challenge path is read as a file", a["allowed"] is True and a["status"] == "ok", a)
+CF_BLOCK = ('<!DOCTYPE html><html><head><title>Attention Required! | Cloudflare</title></head><body>'
+            '<h1 data-translate="block_headline">Sorry, you have been blocked</h1>'
+            '<h2><span>You are unable to access</span> myvscloud.com</h2></body></html>')
+a = answer({"https://dcwashingtonweb.example/robots.txt": (403, CF_BLOCK)}, "https://dcwashingtonweb.example/webtrac/web/search.html")
+check("Cloudflare's 'you have been blocked' 403 on robots.txt is a refusal, not 'no file' (WebTrac, 2026-10-04)",
+      a["allowed"] is None and a["status"] == "challenge", a)
+a = answer({"https://plain.example/robots.txt": (403, "Forbidden")}, "https://plain.example/cal.ics")
+check("...while a bare 403 with no block page is still RFC 9309's 'unavailable': allowed",
+      a["allowed"] is True and a["status"] == "http403", a)
 a = answer({"https://reservation.example/robots.txt": (200, FRONTDESK)}, "https://reservation.example/rcfs/ottawacity/")
 check("a BOM-prefixed `Disallow: /` read off the wire refuses (FrontDesk Suite)",
       a["allowed"] is False and a["status"] == "ok" and a["rule"] == "Disallow: /", a)
