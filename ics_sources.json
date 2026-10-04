@@ -18567,5 +18567,176 @@
     "geocode_suffix": ", São Paulo, Brazil",
     "limit": 300,
     "_metro": "São Paulo, Brazil"
+  },
+  {
+    "name": "Bürgerhaus Botnang",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://buergerhaus-botnang.de/events/mulle/?ical=1",
+    "geocode_suffix": ", Stuttgart",
+    "limit": 300,
+    "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "International English Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/events%40international-library.de/public/basic.ics",
+    "geocode_suffix": ", Düsseldorf",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Narrennest",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar",
+    "url": "https://mg-mkv.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Dusseldorf, Germany",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Rollhaus Solingen",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar+jsonld-event",
+    "url": "https://rollhaus.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Solingen",
+    "limit": 300,
+    "_metro": "Dusseldorf, Germany"
+  },
+  {
+    "name": "Chaostreff Dortmund",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager+ics",
+    "url": "https://www.chaostreff-dortmund.de/events.ics",
+    "geocode_suffix": ", Dortmund",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "Das Labor",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://das-labor.org/termine.ics",
+    "geocode_suffix": ", Bochum",
+    "limit": 300,
+    "_metro": "Essen, Germany"
+  },
+  {
+    "name": "Vereinsheim TC im TuS Brackel 1891 e.V.",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ef2ea934b3add4f5c20b995213a1f2a436472905a33f9a258a294962cc5bbe26%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dortmund",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "Gemeindezentrum Aplerbecker Mark",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/georgsgemeinde.de_0jo8sub2qrp8heu4m8rqp1f9d4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dortmund",
+    "limit": 300,
+    "_metro": "Dortmund, Germany"
+  },
+  {
+    "name": "Landeskirchliche Gemeinschaft Bremen, Evangelisches Gemeinschaftszentrum Walle",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://lkg-bremen.de/events/kinder-ferien-kiste-23/?ical=1",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Gemeindehaus",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.termine-e.de/api/events/download.ics?ids[]=3b0c65bd-6c42-458c-af12-9b22ed3610a7&amp;ids[]=973807e1-8541-4e0e-a1a7-384378ef6781&amp;ids[]=5e575a12-55b4-4fa9-bab5-465b197bd380",
+    "geocode_suffix": ", Langwedel",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Kleingärtnerverein Beim Kuhhirten",
+    "category": "community",
+    "_found": "osm:community_centre -> my-calendar",
+    "url": "https://www.kgvbeimkuhhirten.de/?feed=my-calendar-ics",
+    "geocode_suffix": ", Bremen",
+    "limit": 300,
+    "_metro": "Bremen, Germany"
+  },
+  {
+    "name": "Änderei",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.google.com/calendar/ical/bj85d742g31mgkblbaiusmk3s8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dresden",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "JuClu 16",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ef8d69763bcc1be142ef3152989aac0f8d75e2e1a2821bc2eff1a08dd8534ae5%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Meißen",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "KuRSiF",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.kursif.eu/?ical=1",
+    "geocode_suffix": ", Dresden, Germany",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Stadtteilladen Löbtop e.V.",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager+ics",
+    "url": "https://loebtop.de/termine/events.ics",
+    "geocode_suffix": ", Dresden, Germany",
+    "limit": 300,
+    "_metro": "Dresden, Germany"
+  },
+  {
+    "name": "Quartierstreff Empelde",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://win-e-v.de/programm-august-empelde-2/?ical=1",
+    "geocode_suffix": ", Hannover, Germany",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Quartierstreff Wiesenau",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://win-e-v.de/frontpage/veranstaltungen-allgemein/?ical=1",
+    "geocode_suffix": ", Langenhagen",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Nachbarschaftstreff Mittelfeld",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40nachbarschaftstreff-mittelfeld.de/public/basic.ics",
+    "geocode_suffix": ", Hannover",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Mensing’schen Scheune",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/egd0a51u8d1i9lr89lb8ko22i0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wennigsen (Deister)",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
   }
 ]

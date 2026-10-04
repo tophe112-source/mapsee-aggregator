@@ -225,8 +225,8 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 121,
-  "metro_key": "DE:Stuttgart",
+  "metro": 127,
+  "metro_key": "DE:Hannover",
   "stuck": {}
  },
  "socrata": {

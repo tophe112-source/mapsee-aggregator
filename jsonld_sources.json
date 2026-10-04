@@ -5878,6 +5878,202 @@
         "lon": -46.5729717
       },
       "_metro": "São Paulo, Brazil"
+    },
+    {
+      "name": "Stadtteilbibliothek Velbert-Neviges",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://bibliothek.velbert.de/veranstaltungen"
+      ],
+      "link_pattern": "https://bibliothek\\.velbert\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadtteilbibliothek Velbert-Neviges",
+        "lat": 51.3102317,
+        "lon": 7.088182
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Bücherei St. Cyriakus Krefeld-Hüls",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://katholisch-krefeld-nordwest.de/aktuelles/Terminliste/a-event/Kinder-Troedel-Markt/?instancedate=1791711000000"
+      ],
+      "link_pattern": "https://katholisch\\-krefeld\\-nordwest\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bücherei St. Cyriakus Krefeld-Hüls",
+        "lat": 51.3732543,
+        "lon": 6.5109926
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "MiO Miteinander in Oppum",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://augustinus-krefeld.de/aktuelles/veranstaltungen/veranstaltung/vielfaeltiges-Wochenangebot-2026.10.05/?instancedate=1791187200000"
+      ],
+      "link_pattern": "https://augustinus\\-krefeld\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "MiO Miteinander in Oppum",
+        "address": "9 Hauptstraße",
+        "city": "Krefeld",
+        "postal_code": "47809",
+        "lat": 51.3289092,
+        "lon": 6.6123697
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "IHK Mittlerer Niederrhein (Mönchengladbach)",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://mittlerer-niederrhein.ihk.de/veranstaltungen"
+      ],
+      "link_pattern": "https://mittlerer\\-niederrhein\\.ihk\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "IHK Mittlerer Niederrhein (Mönchengladbach)",
+        "lat": 51.1990332,
+        "lon": 6.4379278
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Stadt- und Landesbibliothek",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.dortmund.de/dortmund-erleben/veranstaltungskalender/termin_142434.html"
+      ],
+      "link_pattern": "https://www\\.dortmund\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadt- und Landesbibliothek",
+        "address": "1-3 Max-von-der-Grün-Platz",
+        "city": "Dortmund",
+        "postal_code": "44137",
+        "country": "DE",
+        "lat": 51.5165234,
+        "lon": 7.4608722
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Die Färberei",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event+ics",
+      "listing": [
+        "https://faerberei-wuppertal.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://faerberei\\-wuppertal\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Die Färberei",
+        "lat": 51.2744848,
+        "lon": 7.2166852
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Ölberg-Hub",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event+ics",
+      "listing": [
+        "https://nord-stadt.de/veranstaltungen/"
+      ],
+      "link_pattern": "https://nord\\-stadt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ölberg-Hub",
+        "city": "Wuppertal",
+        "postal_code": "42105",
+        "lat": 51.259493,
+        "lon": 7.1370216
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Zentrum Altenberg",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.zentrumaltenberg.de/programm/"
+      ],
+      "link_pattern": "https://www\\.zentrumaltenberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zentrum Altenberg",
+        "address": "20 Hansastraße",
+        "postal_code": "46049",
+        "lat": 51.4751658,
+        "lon": 6.8472381
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Martin-Luther Kirchgemeindehaus",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://kirchspiel-dresden-neustadt.de/veranstaltungen-gottesdienste-konzerte/gottesdienst-319.html"
+      ],
+      "link_pattern": "https://kirchspiel\\-dresden\\-neustadt\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Martin-Luther Kirchgemeindehaus",
+        "address": "5 Martin-Luther-Platz",
+        "city": "Dresden",
+        "postal_code": "01099",
+        "lat": 51.0645444,
+        "lon": 13.7567562
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Kinder- und Jugendhaus Pat's Colour Box",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.unternehmen-kultur.de/termine-veranstaltungen"
+      ],
+      "link_pattern": "https://www\\.unternehmen\\-kultur\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kinder- und Jugendhaus Pat's Colour Box",
+        "address": "23 Händelallee",
+        "city": "Dresden",
+        "postal_code": "01309",
+        "lat": 51.0552919,
+        "lon": 13.787634
+      },
+      "_metro": "Dresden, Germany"
+    },
+    {
+      "name": "Jugendzentrum Burgwedel",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://jugendpflege.burgwedel.de/portal/veranstaltungen/tcg-treffen-1041-341.html"
+      ],
+      "link_pattern": "https://jugendpflege\\.burgwedel\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jugendzentrum Burgwedel",
+        "address": "53 Hannoversche Straße",
+        "city": "Burgwedel",
+        "postal_code": "30938",
+        "lat": 52.482805,
+        "lon": 9.8587571
+      },
+      "_metro": "Hannover, Germany"
     }
   ],
   "_not_included": {
