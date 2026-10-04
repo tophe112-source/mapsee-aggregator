@@ -1894,6 +1894,19 @@
       "_metro": "Stuttgart, Germany"
     },
     {
+      "name": "Haltestelle Kempen",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.haltestelle-kempen.de/veranstaltungen",
+      "max_events": 200,
+      "venue": {
+        "name": "Haltestelle Kempen",
+        "lat": 51.3635078,
+        "lon": 6.425911
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
       "name": "Tucson Chinese Cultural Center",
       "category": "community",
       "_found": "seed:community_centre -> squarespace",

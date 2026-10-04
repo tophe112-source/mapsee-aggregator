@@ -13935,6 +13935,417 @@
       "_metro": "São Paulo, Brazil"
     },
     {
+      "name": "Forum 3",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.forum3.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Forum 3",
+        "address": "21 Gymnasiumstraße",
+        "city": "Stuttgart",
+        "postal_code": "70173",
+        "country": "DE",
+        "lat": 48.7764457,
+        "lon": 9.1737273
+      },
+      "_metro": "Stuttgart, Germany"
+    },
+    {
+      "name": "die botschaft",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://dasein.info",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "die botschaft",
+        "address": "3 Stiftsplatz",
+        "city": "Düsseldorf",
+        "postal_code": "40213",
+        "country": "DE",
+        "lat": 51.2282237,
+        "lon": 6.7711005
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Kulturschmiede e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://kulturschmiede-ev.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturschmiede e.V.",
+        "address": "3 An der Hütte",
+        "city": "Wuppertal",
+        "postal_code": "42349",
+        "lat": 51.2059367,
+        "lon": 7.1293787
+      },
+      "_metro": "Dusseldorf, Germany"
+    },
+    {
+      "name": "Haus der Jugend",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://jugendring-duesseldorf.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Haus der Jugend",
+        "address": "10 Lacombletstraße",
+        "city": "Düsseldorf",
+        "postal_code": "40239",
+        "country": "DE",
+        "lat": 51.2472628,
+        "lon": 6.8005472
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "VHS-Radiowerkstatt Moers",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "http://www.buergerfunk-moers.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "VHS-Radiowerkstatt Moers",
+        "address": "195 Asberger Straße",
+        "city": "Moers",
+        "postal_code": "47441",
+        "country": "DE",
+        "lat": 51.4386272,
+        "lon": 6.6590502
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Jugendzentrum St. Peter",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jz-stpeter.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jugendzentrum St. Peter",
+        "address": "10 Friedrich-Alfred-Straße",
+        "city": "Duisburg",
+        "postal_code": "47226",
+        "country": "DE",
+        "lat": 51.4142911,
+        "lon": 6.7127092
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Kanuverein Paddelfreunde e.V. Essen",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://paddelfreunde-essen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kanuverein Paddelfreunde e.V. Essen",
+        "address": "7 Im Löwental",
+        "city": "Essen",
+        "postal_code": "45239",
+        "country": "DE",
+        "lat": 51.3855167,
+        "lon": 6.9985964
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Jugendtreff Sit-Down",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://stadtteilweb.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jugendtreff Sit-Down",
+        "address": "15 Ennepestraße",
+        "city": "Bochum",
+        "postal_code": "44807",
+        "country": "DE",
+        "lat": 51.4974026,
+        "lon": 7.2429735
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Stadtteiltreff Alte Post",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://ifak-bochum.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadtteiltreff Alte Post",
+        "address": "34 Normannenstraße",
+        "city": "Bochum",
+        "postal_code": "44793",
+        "country": "DE",
+        "lat": 51.4779029,
+        "lon": 7.1922097
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Cute Community Space",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://cute-community.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cute Community Space",
+        "address": "9 Herner Straße",
+        "city": "Bochum",
+        "postal_code": "44787",
+        "lat": 51.4863776,
+        "lon": 7.2141364
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Karl-Exius-Haus",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "http://karl-exius-haus.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Karl-Exius-Haus",
+        "address": "16 Westhusener Straße",
+        "city": "Dortmund",
+        "postal_code": "44369",
+        "country": "DE",
+        "lat": 51.5283083,
+        "lon": 7.3957327
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Bürgerhaus Dorstfeld",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://pulsschlag-dorstfeld.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bürgerhaus Dorstfeld",
+        "address": "15 Vogelpothsweg",
+        "city": "Dortmund",
+        "postal_code": "44149",
+        "lat": 51.5026065,
+        "lon": 7.4174127
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Gemeindezentrum",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://skghagen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gemeindezentrum",
+        "address": "26 Rheinstraße",
+        "city": "Hagen",
+        "postal_code": "58097",
+        "country": "DE",
+        "lat": 51.3693113,
+        "lon": 7.4711884
+      },
+      "_metro": "Dortmund, Germany"
+    },
+    {
+      "name": "Kleingärtnerverein Bochum-Riemke e.V,",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.kgv-bochum-riemke.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kleingärtnerverein Bochum-Riemke e.V,",
+        "address": "20b Beisingstraße",
+        "city": "Bochum",
+        "postal_code": "44807",
+        "country": "DE",
+        "lat": 51.5104292,
+        "lon": 7.22008
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Hochschul- und Landeskirchenbibliothek Wuppertal",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hlb-wuppertal.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hochschul- und Landeskirchenbibliothek Wuppertal",
+        "lat": 51.265171,
+        "lon": 7.1712684
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Der springende Punkt St. Barbara",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "http://der-springende-punkt.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Der springende Punkt St. Barbara",
+        "address": "93 Schildberg",
+        "city": "Mülheim an der Ruhr",
+        "postal_code": "45475",
+        "lat": 51.4656885,
+        "lon": 6.8935657
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "ESV Wuppertal Ost",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://esv-wuppertal-ost.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "ESV Wuppertal Ost",
+        "address": "98d Ackersiepen",
+        "city": "Ennepetal",
+        "postal_code": "58256",
+        "country": "DE",
+        "lat": 51.2451218,
+        "lon": 7.3011579
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Vereinsheim TSV Feldhausen 66",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://tsv-feldhausen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vereinsheim TSV Feldhausen 66",
+        "address": "31 Marienstraße",
+        "city": "Bottrop",
+        "postal_code": "46244",
+        "lat": 51.6114261,
+        "lon": 6.9741767
+      },
+      "_metro": "Essen, Germany"
+    },
+    {
+      "name": "Brodelpott Bibliothek",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kulturhauswalle.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brodelpott Bibliothek",
+        "address": "4 Schleswiger Straße",
+        "city": "Bremen",
+        "postal_code": "28219",
+        "country": "DE",
+        "lat": 53.0996511,
+        "lon": 8.7915329
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Kultur-Aula",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kultur-aula.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kultur-Aula",
+        "lat": 53.0710851,
+        "lon": 8.9257559
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Tagungszentrum Mikado",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://verein-prinzhoefte.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tagungszentrum Mikado",
+        "lat": 52.9740725,
+        "lon": 8.5728074
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Nachbarschaftshaus Helene Kaisen",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://na-bremen.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nachbarschaftshaus Helene Kaisen",
+        "address": "10 Beim Ohlenhof",
+        "city": "Bremen",
+        "postal_code": "28239",
+        "country": "DE",
+        "lat": 53.11737,
+        "lon": 8.7585267
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Martin-Luther-Gemeindehaus",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ev-kirche-hude.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Martin-Luther-Gemeindehaus",
+        "address": "31 Waldstraße",
+        "city": "Hude",
+        "postal_code": "27798",
+        "lat": 53.0980961,
+        "lon": 8.4727788
+      },
+      "_metro": "Bremen, Germany"
+    },
+    {
+      "name": "Kulturtreff Bothfeld",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.kulturtreffbothfeld.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kulturtreff Bothfeld",
+        "address": "9 Klein-Buchholzer Kirchweg",
+        "lat": 52.4127442,
+        "lon": 9.8000596
+      },
+      "_metro": "Hannover, Germany"
+    },
+    {
       "name": "Guadalupe Centers",
       "category": "community",
       "_found": "seed:community_centre -> tribe+jsonld-event+ics",
