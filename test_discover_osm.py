@@ -136,6 +136,32 @@ def main():
     check("...and keeps the link the id lives in",
           _f["offsite_url"], "https://www.eventbrite.com/o/hall-105655500371")
 
+    # A community centre's timetable on its city's booking platform. The link
+    # says "Register" or "Drop-in schedule", which CAL_LINK_RX does not read, so
+    # the host is the signal for these platforms and these only.
+    _PM = "https://cityofsurrey.perfectmind.com/23615/Clients/BookMe4?widgetId=b4059e75-9755-401f-a7b5-d7c75361420d"
+
+    def _page(html):
+        class _R2:
+            status_code, url, text = 200, "https://centre.example/", html
+            headers = {"Content-Type": "text/html"}
+
+        class _S2:
+            def get(self, u, timeout=None, allow_redirects=True, **kw):
+                return _R2()
+        return osm.find_calendar(_S2(), "https://centre.example/")
+
+    _f = _page(f'<html><body><a href="{_PM}">Drop-in schedule</a><a href="/about">About</a></body></html>')
+    check("a booking-platform link reads as offsite even when its text is not 'events'",
+          (_f["status"], _f["offsite_url"]), ("offsite:perfectmind.com", _PM))
+    check("...and an ActiveNet portal names its platform too",
+          _page('<a href="https://anc.apm.activecommunities.com/seattle/activity/search">Register</a>')["status"],
+          "offsite:activecommunities.com")
+    check("an ordinary link that says Register is still not a calendar",
+          _page('<a href="https://shop.example/register">Register</a>')["status"], "no-calendar")
+    check("ActiveNet's bare marketing home is a brand link, not a timetable",
+          osm._offsite("https://www.activecommunities.com/"), None)
+
     print()
     print("a challenge is a refusal, whatever status code it wears")
     check_true("the 200-with-a-spinner is caught", osm.CHALLENGE_RX.search(CHALLENGE_200))

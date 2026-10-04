@@ -2394,6 +2394,9 @@ def cmd_audit():
 ROUTABLE_OFFSITE = {
     "dice.fm": ("dice_venue_sources.json — but only a /venue/<slug> link. "
                 "An /event/ link names a night, not a room"),
+    # A community centre's drop-ins on its city's booking platform (2026-10-03).
+    "perfectmind.com": ("perfectmind_sources.json — a /BookMe4?widgetId=<uuid> link "
+                        "names the widget; the tenant's org path is in the same URL"),
 }
 # The rest are kept in the report because the RANKED LIST is the point: it is
 # the only measurement this repo has of what venues worldwide actually use, and
@@ -2407,6 +2410,18 @@ REFERENCE_OFFSITE = {
     "fb.me": "no API we may read",
     "instagram.com": "no API we may read",
     "humanitix.com": "assessed 2026-08-30: no coordinates anywhere",
+    # Recreation-booking platforms, each measured 2026-10-03 over 3-9 tenants
+    # (docs/agents/platforms-probed.md). Kept for the tally of which platform
+    # holds which centre's timetable - the letters go to whoever owns it.
+    "activecommunities.com": ("ACTIVE's Terms of Use refuse automated retrieval "
+                              "without written consent; letters drafted in "
+                              "../mapsee/outreach/partners/activenet-permission.md"),
+    "amilia.com": "a course catalogue: 8,358 of 10,906 rows (77%) paid courses",
+    "recdesk.com": "a facility diary: 2.6% drop-in, 16% private bookings, no address",
+    "myrec.com": "a facility diary: 7% drop-in, 29%+ bookings, no address",
+    "rec1.com": "a course catalogue: 153 of 176 sessions (87%) paid",
+    "myvscloud.com": "robots.txt refuses (WebTrac)",
+    "capturepoint.com": "robots.txt refuses (CommunityPass)",
 }
 
 

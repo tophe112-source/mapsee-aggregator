@@ -174,12 +174,26 @@ CHALLENGE_RX = re.compile(
 # a non-US geocoder would make the address they already publish enough. Until
 # there is one, or a feed we can ask them for, this is a decline and not a
 # to-do. Re-check if either changes.
+
+# WHERE A COMMUNITY CENTRE'S TIMETABLE LIVES. Most North American municipal
+# centres publish drop-ins through a recreation-booking platform, not their
+# own CMS: a 2026-10-03 sample of 117 centres the ledger calls no-calendar
+# found ActiveNet linked on 14 (Canada 9 of 25), Xplor 2, RecDesk 1, WebTrac
+# 1. Each was measured that day (docs/agents/platforms-probed.md): only
+# PerfectMind is both permitted and drop-in (mapsee_ingest_perfectmind), and
+# the rest are refused or course catalogues. The link is rarely labelled
+# "events" - it says Register, Programs or Drop-in schedule - so for these
+# hosts the HOST is the signal, not the text (see find_calendar).
+REC_BOOKING_HOSTS = (
+    "activecommunities.com", "perfectmind.com", "amilia.com", "recdesk.com",
+    "myrec.com", "rec1.com", "myvscloud.com", "capturepoint.com",
+)
 OFFSITE_HOSTS = (
     "eventbrite.", "meetup.com", "facebook.com", "fb.me", "instagram.com",
     "linktr.ee", "ticketmaster.", "axs.com", "seatgeek.com", "dice.fm",
     "lu.ma", "songkick.com", "bandsintown.com", "tickettailor.com",
     "universe.com", "showpass.com", "humanitix.com", "trybooking.com",
-)
+) + REC_BOOKING_HOSTS
 
 # A website tag that is not a website we can read.
 BAD_SITE_RX = re.compile(r"\.(pdf|jpe?g|png|doc x?|zip)$|^mailto:|^tel:", re.I)
@@ -960,10 +974,11 @@ def find_calendar(session, home_url: str, timeout: int = 18,
     onsite, offsite_hit, offsite_url = [], None, None
     for m in re.finditer(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', body, re.S | re.I):
         href, text = m.group(1), re.sub(r"<[^>]+>", " ", m.group(2))
-        if not (CAL_LINK_RX.search(href) or CAL_LINK_RX.search(text)):
-            continue
         u = urljoin(base, href)
         if not u.startswith(("http://", "https://")):
+            continue
+        if not (CAL_LINK_RX.search(href) or CAL_LINK_RX.search(text)
+                or any(h in urlparse(u).netloc.lower() for h in REC_BOOKING_HOSTS)):
             continue
         off = _offsite(u)
         if off:

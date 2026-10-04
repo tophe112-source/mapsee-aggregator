@@ -105,10 +105,18 @@ def parse(text: str) -> List[Tuple[List[str], List[Tuple[str, str]]]]:
     line AFTER a rule starts the next group. Crawl-delay counts as a rule for
     that purpose, so `User-agent: *`, `Crawl-delay: 10`, `User-agent: Googlebot`
     is two groups. Lines before any user-agent belong to nobody.
+
+    A leading UTF-8 byte-order mark is not part of the first field name.
+    reservation.frontdesksuite.ca serves BOM + `User-agent: *` + `Disallow: /`
+    (2026-10-03), and with the BOM kept the first line's field read
+    "\\ufeffuser-agent", matched nothing, and the whole refusal parsed as no
+    groups at all - allow everything. `str.strip()` does not remove U+FEFF.
     """
     groups: List[Tuple[List[str], List[Tuple[str, str]]]] = []
     agents: List[str] = []
     rules: List[Tuple[str, str]] = []
+    if text.startswith("﻿"):
+        text = text[1:]
     for raw in text.splitlines():
         line = raw.split("#", 1)[0].strip()
         if ":" not in line:

@@ -114,6 +114,18 @@ check("a group that names MapseeAggregator replaces `*`", ok is True and which =
 check("`User-agent: Mapsee` is not our product token",
       decide("User-agent: *\nDisallow: /\n\nUser-agent: Mapsee\nAllow: /\n", "/x")[0] is False)
 
+# A leading byte-order mark. FrontDesk Suite's real file (2026-10-03) is BOM +
+# `User-agent: *` + `Disallow: /`; with the BOM glued to the first field name it
+# parsed as NO groups, which reads as allow-everything.
+FRONTDESK = "﻿User-agent: *\nDisallow: /\n"
+check("a BOM before `User-agent: *` / `Disallow: /` still refuses everything",
+      decide(FRONTDESK, "/rcfs/ottawacity/")[0] is False, R.parse(FRONTDESK))
+check("...and a BOM before a group that names us still selects that group",
+      decide("﻿User-agent: MapseeAggregator\nDisallow: /private/\n", "/private/x")[:3]
+      == (False, "Disallow: /private/", "named"))
+check("a file without a BOM parses exactly as before",
+      R.parse("User-agent: *\nDisallow: /\n") == R.parse(FRONTDESK) == [(["*"], [("disallow", "/")])])
+
 # Longest match, a tie to Allow, `$` as an end anchor.
 check("the longest pattern wins: `Allow: /p` over `Disallow: /`",
       decide("User-agent: *\nDisallow: /\nAllow: /p\n", "/page")[0] is True)
@@ -195,6 +207,9 @@ check("a homepage served at /robots.txt has no rules: allowed", a["allowed"] is 
 a = answer({"https://cap.example/robots.txt": (200, "User-agent: *\nDisallow: /captcha-delivery/\n")},
            "https://cap.example/cal.ics")
 check("a real file that merely MENTIONS a challenge path is read as a file", a["allowed"] is True and a["status"] == "ok", a)
+a = answer({"https://reservation.example/robots.txt": (200, FRONTDESK)}, "https://reservation.example/rcfs/ottawacity/")
+check("a BOM-prefixed `Disallow: /` read off the wire refuses (FrontDesk Suite)",
+      a["allowed"] is False and a["status"] == "ok" and a["rule"] == "Disallow: /", a)
 
 s = Session({"https://once.example/robots.txt": (200, "User-agent: *\nDisallow: /private/\n")})
 rb = R.Robots(s)
