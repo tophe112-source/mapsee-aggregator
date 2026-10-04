@@ -12350,23 +12350,6 @@
       "_metro": "Sendai, Japan"
     },
     {
-      "name": "Biblioteca Central Irmão José Otão",
-      "category": "learning",
-      "_found": "osm:library -> tribe+jsonld-event+ics",
-      "base_url": "https://biblioteca.pucrs.br",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Biblioteca Central Irmão José Otão",
-        "address": "6681 Avenida Ipiranga",
-        "city": "Porto Alegre",
-        "postal_code": "90619-900",
-        "lat": -30.0586384,
-        "lon": -51.1733721
-      },
-      "_metro": "Porto Alegre, Brazil"
-    },
-    {
       "name": "Iate Clube Guaíba",
       "category": "community",
       "_found": "osm:community_centre -> tribe",
@@ -14559,6 +14542,7 @@
     "https://www.sarasotaaudubon.org": "Sarasota Audubon Society - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.sarasotaaudubon.org/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
     "https://www.bellevillelibrary.ca": "Belleville Public Library (Belleville, Canada) - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.bellevillelibrary.ca/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Letter: ../mapsee/outreach/partners/library-calendar-permission.md. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
     "https://christchurchcathedral.ie": "Christ Church Cathedral - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://christchurchcathedral.ie/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Its robots.txt answered the first fetch that day with a bot challenge, and the second with this rule. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
-    "https://wabano.com": "Wabano Centre for Aboriginal Health (Ottawa, Canada) - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://wabano.com/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Its robots.txt answered the first fetch that day with a bot challenge, and the second with this rule. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it."
+    "https://wabano.com": "Wabano Centre for Aboriginal Health (Ottawa, Canada) - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://wabano.com/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Its robots.txt answered the first fetch that day with a bot challenge, and the second with this rule. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
+    "https://biblioteca.pucrs.br": "Biblioteca Central Irmão José Otão - The Events Calendar's REST API. RETIRED 2026-10-04 under the robots line: https://biblioteca.pucrs.br/robots.txt answers our User-Agent with Cloudflare's 'Sorry, you have been blocked' page (HTTP 403), which robots_txt.py read as a missing file (allow-all) until e9775d4. A block page naming us is a refusal. To restore: once the host answers MapseeAggregator with a robots.txt that allows /wp-json/tribe/, copy the entry back from tribe_sources.json at 7bff5e8; verify will then pass it."
   }
 }

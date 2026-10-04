@@ -78,6 +78,12 @@
   configured origin's robots.txt once to size it: 2 of 2,759 serve a BOM
   (cal.laget.se, ville-hoenheim.fr) and neither file refuses any of their 3
   configured requests, so nothing configured moves; the fix is for the next one.
+  The same day showed the other way robots.txt was being misread: Cloudflare's
+  BLOCK page ("Sorry, you have been blocked", HTTP 403) is not a challenge, so
+  a 4xx on /robots.txt carrying it read as RFC 9309's "unavailable", allow-all.
+  Every DC-area WebTrac tenant checked serves exactly that. CHALLENGE_RX names it
+  since e9775d4; of 2,816 configured origins, 1 moved (Biblioteca Central PUCRS,
+  Porto Alegre, a tribe source, retired into `_not_included` with the rule).
 
 - **THE PINNED COMMUNITY-CENTRE WALK IS HALF DONE.** 13 runs (2026-09-22..10-03)
   moved its cursor 0 -> 121 of 261 and read 11,797 centre and library venues:
