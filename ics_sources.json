@@ -2039,13 +2039,6 @@
     "limit": 300
   },
   {
-    "name": "Stroum Jewish Community Center - Family Programs (Mercer Island)",
-    "url": "https://sjcc.org/?post_type=tribe_events&tribe_events_cat=family-programs&ical=1&eventDisplay=list",
-    "category": "kids",
-    "geocode_suffix": ", Mercer Island, WA",
-    "limit": 300
-  },
-  {
     "name": "The Octopus Bar (Seattle)",
     "url": "https://theoctopusbar.com/?ical=1&eventDisplay=list",
     "category": "party",
@@ -2078,13 +2071,6 @@
     "url": "https://www.kidsquestmuseum.org/calendar/?ical=1",
     "category": "kids",
     "geocode_suffix": ", Bellevue, WA",
-    "limit": 300
-  },
-  {
-    "name": "Phinney Center / Greenwood Senior Center Programs (Seattle)",
-    "url": "https://www.phinneycenter.org/calendar/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Seattle, WA",
     "limit": 300
   },
   {
@@ -18522,5 +18508,132 @@
     "geocode_suffix": ", Weil der Stadt",
     "limit": 300,
     "_metro": "Stuttgart, Germany"
+  },
+  {
+    "name": "McLean Community Center",
+    "category": "community",
+    "url": "https://mcleancenter.org/?mec-ical-feed=1",
+    "geocode_suffix": ", McLean, VA",
+    "limit": 300,
+    "skip_title": "\\b(class(es)?|cooking|cuisine|dining in|baking|bread basket|knife skills|camp|flower arranging|tiki|small world|a cut above|sunday dinner|seafood|buen provecho|oktoberfest|gingerbread house|improv for kids|manners|school break trip|clos(ed|ing))\\b|^\\s*youth\\b",
+    "_found": "seed:dc-community-centres -> ics",
+    "_metro": "Washington, DC",
+    "url_home": "https://mcleancenter.org/calendar/",
+    "_note": "Fairfax County Small District 1A-Dranesville community centre (MCC, the Alden Theatre, the Old Firehouse teen centre). Modern Events Calendar's built-in iCal export (text/calendar, robots.txt allows /); the calendar page itself (/calendar/) carries the same events as 72 schema.org blocks for the current month only, so the export is the wider read. Measured 2026-10-04: 144 future, 105 in 90 days, 93 with a LOCATION; 36 of those 93 (39%) are registration courses (cooking/art classes, kids' camps, school-break trips, 'Center Closing') and skip_title removes them, leaving 62: Seniors-in-Action drop-ins (line dancing, canasta, scrabble, health screenings, talks), OFC teen nights and game nights, films, concerts, festivals. SUMMARY carries HTML entities (&amp;). Courses register on ActiveNet (apm.activecommunities.com/mcleancommunitycenter), which is refused by its Terms and not read.",
+    "_measured_2026_10_04": {
+      "kept_90d": 62
+    }
+  },
+  {
+    "name": "Montgomery County Recreation (MD) — events",
+    "category": "community",
+    "url": "https://www.trumba.com/calendars/REC-1.ics",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 100,
+    "skip_title": "\\b(advisory board|advisory committee|committee meeting)\\b",
+    "_found": "civic:county -> trumba[REC-1] (hand-curated)",
+    "_seed": "seed:dc-community-centres -> ics",
+    "_metro": "Washington, DC",
+    "url_home": "https://www.montgomerycountymd.gov/montgomery-county-recreation",
+    "_note": "Slug read off the department page's own data (__NEXT_DATA__ trumbaCalendarId 'REC-1'), not guessed; trumba.com robots allows it. Measured 2026-10-04: 22 future, all within 90 days; 6 advisory-board meetings and 3 bare holidays go (skip_title + the civic filter), 13 kept: rec-centre special events (Fall Festival, Haunted House, Monster Bash family dance, Seniors Halloween Costume Party, Therapeutic Recreation swim party, Holiday Craft Show). 4 of its 22 UIDs also appear in the county calendar entry below. The department's classes and drop-in passes are on WebTrac (mdmontgomeryctyweb.myvscloud.com) - refused, not read.",
+    "_measured_2026_10_04": {
+      "kept_90d": 13
+    }
+  },
+  {
+    "name": "Montgomery County, MD — County Calendar",
+    "category": "community",
+    "url": "https://www.trumba.com/calendars/montgomery-county.ics",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 300,
+    "skip_title": "\\b(by appointment|appointments?|by phone only|delivery only|help requests? for food|hearings?|meetings?|advisory (board|council|committee)|commission|board of|council session|bill \\d+-\\d+)\\b|^\\s*(TE|PHP|PS|ECON|GO)\\s*$|\\([A-Z]{2,6}\\)\\s*$",
+    "_found": "civic:county -> trumba[montgomery-county] (hand-curated)",
+    "_seed": "seed:dc-community-centres -> ics",
+    "_metro": "Washington, DC",
+    "url_home": "https://www.montgomerycountymd.gov/calendar",
+    "_note": "Slug read off /calendar's own page data (trumbaCalendarId 'montgomery-county'). Measured 2026-10-04: 198 future, all within 90 days; Trumba Category field: Food Distribution 69, Seniors 44, Boards 21, Community 18, Council 9. skip_title drops appointment-only/phone-only/delivery-only food help, council bills and hearings, board/commission meetings and the bare polling-site rows ('Glenmont United Methodist Church (GLEN)', 'GO', 'TE'), leaving 105: senior-centre and Active Aging drop-ins (Yoga 55+, Tai Chi, chair yoga, Senior Shape, kayaking 55+, Active Aging luncheon), English conversation groups, crochet circles, food distributions anyone can walk up to, food-scrap drop-offs, health testing. 177 of 198 carry a LOCATION.",
+    "_measured_2026_10_04": {
+      "kept_90d": 105
+    }
+  },
+  {
+    "name": "Alexandria, VA — City Calendar",
+    "category": "community",
+    "url": "https://apps.alexandriava.gov/Calendar/iCal.aspx?in=Events+%26+Public+Meetings",
+    "geocode_suffix": ", Alexandria, VA",
+    "limit": 300,
+    "skip_title": "\\b(boards?|commissions?|committees?|comm\\.?|hearings?|meetings?|mtg|work ?group|pension|electoral|deadline|early voting|hiring|inquiry|session|housing authority)\\b|^\\s*VIRTUAL:",
+    "_found": "civic:city -> ics[apps.alexandriava.gov Calendar] (hand-curated)",
+    "_seed": "seed:dc-community-centres -> ics",
+    "_metro": "Washington, DC",
+    "url_home": "https://apps.alexandriava.gov/Calendar/",
+    "_note": "The city's own calendar app; this is its webcal subscribe link without the ss= start-date stamp (same 357 events either way). robots.txt allows it. Measured 2026-10-04: 357 future, 281 within 90 days; CATEGORIES: Boards & Commissions 143, Recreation 53, Recreation Centers 43, Museums 47. The phrase-based civic filter removes only 1 of the meeting rows here ('Board of Equalization Hearing' x33, '... Executive Meeting', 'Electoral Board' all pass it), so skip_title carries the governance words; 15 STATUS:CANCELLED and 20 without LOCATION/GEO go too. 77 kept in 90 days: RPCA recreation-centre events (Durant Center brunch club and adult socials, Charles Houston line-dance social and kiddie cabaret, Patrick Henry Hispanic Heritage dance, family game nights, HalloTeen Night, Senior Sip & Paint, Parents Night Out), museum tours and lectures, fun runs, festivals. Many rows carry GEO. RPCA's registered classes are on WebTrac (vaalexandriaweb.myvscloud.com) - refused, not read.",
+    "_measured_2026_10_04": {
+      "kept_90d": 77
+    }
+  },
+  {
+    "name": "Hyattsville — Community Events",
+    "category": "community",
+    "url": "https://www.hyattsville.org/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+    "geocode_suffix": ", Hyattsville, MD",
+    "limit": 300,
+    "skip_title": "\\b(deadline|hearing)\\b",
+    "_found": "civic:city -> civicplus[Community Events] (hand-curated)",
+    "_seed": "seed:dc-community-centres -> ics",
+    "_metro": "Washington, DC",
+    "_note": "civicplus_feeds 2026-10-04: 2 named categories (Public Meetings dropped by name); Community Events 72 future, all within 90 days, 72/72 placeable, not governance-heavy. Mostly drop-ins at the City Building (4310 Gallatin St): 70 kept after skip_title (Thrive Grant Deadline, Tree Appeal Hearing go): Free Zumba x25, Seated Exercise for Older Adults x12, Digital Literacy x11, Free Movie Monday, produce and diaper distributions, Teen Center drop-in hours; 6 'Hyattsville is Home Art Classes'. Main City Calendar (catID=14, 163 future) is a superset with council/committee meetings and camps, not proposed.",
+    "_measured_2026_10_04": {
+      "kept_90d": 70
+    }
+  },
+  {
+    "name": "Falls Church — Events",
+    "category": "community",
+    "url": "https://www.fallschurchva.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Falls Church, VA",
+    "limit": 300,
+    "skip_title": "farmers market|recruitment fair|elected officials summit",
+    "_found": "civic:city -> civicplus[Events] (hand-curated)",
+    "_seed": "seed:dc-community-centres -> ics",
+    "_metro": "Washington, DC",
+    "_note": "civicplus_feeds 2026-10-04: 8 named categories after 32 governance names; Events 42 future, 21 within 90 days, all placeable. 13 of the 21 are the Falls Church Farmers Market, already in market_sources.json, so skip_title drops them; 6 kept (Halloween Carnival, Holiday Gift and Craft Show x2 at the Community Center, Sunset Cinema, Birding 101, Farm Day). Senior Center (catID=32) and Fitness Challenge (89) are empty; FC250 (87, 8 library history talks) not proposed. Rec classes are on WebTrac (vafallschurchweb.myvscloud.com) - refused.",
+    "_measured_2026_10_04": {
+      "kept_90d": 6
+    }
+  },
+  {
+    "name": "Takoma Park — Arts and Humanities",
+    "category": "community",
+    "url": "https://takomaparkmd.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+    "geocode_suffix": ", Takoma Park, MD",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Arts and Humanities] (hand-curated)",
+    "_seed": "seed:dc-community-centres -> ics",
+    "_metro": "Washington, DC",
+    "_note": "civicplus_feeds 2026-10-04: 6 future, 2 within 90 days, all at the Takoma Park Community Center auditorium (comedy night, film screening). Small; the city's Community Events (catID=24) is already configured. Recreation (catID=38) had 1 future row and is not proposed. Takoma Park Recreation registers on ActiveNet (apm.activecommunities.com/takomaparkrecreation) - refused by its Terms, not read.",
+    "_measured_2026_10_04": {
+      "kept_90d": 2
+    }
+  },
+  {
+    "name": "Issaquah — Parks & Community Services",
+    "category": "community",
+    "url": "https://www.issaquahwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar",
+    "geocode_suffix": ", Issaquah, WA",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks & Community Services] (hand-curated)",
+    "_metro": "Seattle, WA",
+    "_measured": "2026-10-04, production UA: 12 future VEVENTs, 10 in the next 90 days, 12/12 with a LOCATION, governance_heavy False. Parks & Community Services programming (Tots and Trees and BOO at the Barn at Pickering Barn, planting parties, Green Issaquah Day). 1 of 12 also in the configured catID=37 Community Events (BOO at the Barn 2026-10-24). Senior Services (catID=69) and Pickering Barn (catID=54) categories hold 0 future events and are not proposed."
+  },
+  {
+    "name": "Everett — Community Calendar",
+    "category": "community",
+    "url": "https://www.everettwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+    "geocode_suffix": ", Everett, WA",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Calendar] (hand-curated)",
+    "_metro": "Seattle, WA",
+    "_measured": "2026-10-04, production UA: 53 future VEVENTs, 15 in the next 90 days, 53/53 with a LOCATION, governance_heavy False. A community-events calendar, not a centre timetable: in 90 days 7 Everett Public Library programmes, 6 Imagine Children's Museum sensory/free-access nights, a Philharmonic concert, 1 Park Board meeting (the civic: prefix lets the town-hall filter drop it); the 2027 tail is Everett Performing Arts Center runs. No other Everett category qualifies: Parks & Recreation Events (catID=26) is 1 Park Board meeting, City Events (32) is empty, Neighborhoods (25) answered 429 and was not retried."
   }
 ]

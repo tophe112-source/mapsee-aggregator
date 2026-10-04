@@ -14010,6 +14010,368 @@
       "_seed": "efcl.org/league-search/ (EFCL); the site's own <link rel=alternate type=text/calendar> names efcl.org/league-events/?ical=1",
       "_measured": "2026-10-03: 12 rows in 90 days. 5 carry venue geo (Board Game night at Glenwood CL x2, Jiu-jitsu at Inglewood CL, Halloween Night Out at Blackmud Creek/Ellerslie, a casino fundraiser at West Jasper Sherwood CL). 7 carry no venue: EFCL's own volunteer trainings (Membership Biannual, Hall Rentals Training, New Board Member Orientation, Rink Conversations, Programming Meet-up, a partnerships webinar) and its Regular General Meeting.",
       "_note": "NO venue block on purpose: a federation calendar's events are at ~160 different halls, and the block would pin the 7 internal trainings and the RGM to one of them. Without it the sync drops those 7 as coordless and keeps the 5 league events. Low yield (5 rows), proposed because leagues post to it."
+    },
+    {
+      "name": "Reston Community Center",
+      "category": "community",
+      "_found": "seed:dc-community-centres -> tribe",
+      "base_url": "https://restoncommunitycenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "default_city": "Reston",
+      "default_region": "Virginia",
+      "default_country": "US",
+      "_metro": "Washington, DC",
+      "_note": "Fairfax County Small District 5 community centre (Hunters Woods + Lake Anne), The Events Calendar Pro on WordPress; robots.txt has no rule against us, no Crawl-delay. Measured 2026-10-04 over the REST API: 262 events in 90 days, 145 with cost 'Free', 30 priced (theatre/concerts at the Leila Gordon Theatre, $5-$55), 1 of 262 descriptions mentions registration. 180 rows are the free drop-in 'One Hunters Woods: Community Tai Chi' - two identical series at 07:00 daily, which the title|date|venue fingerprint merges to 90. Every venue carries a street address (2310 Colts Neck Rd / Lake Anne Plaza), none carries geo. RCC's registered classes live in WebTrac (web1.myvscloud.com/wbwsc/varestonwt.wsc), which is refused and not read.",
+      "_measured_2026_10_04": {
+        "kept_90d": 172
+      }
+    },
+    {
+      "name": "Edlavitch DCJCC",
+      "category": "community",
+      "base_url": "https://www.edcjcc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Edlavitch DCJCC",
+        "address": "1529 16th St NW",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20036",
+        "country": "US",
+        "lat": 38.9104937,
+        "lon": -77.0364462,
+        "names": [
+          "Edlavitch DCJCC",
+          "EDCJCC",
+          "DCJCC"
+        ]
+      },
+      "_found": "seed:dc-community-centres -> tribe",
+      "_metro": "Washington, DC",
+      "_measured": "2026-10-04: 62 rows 2026-10-04..2027-01-02 (REST total). Publisher categories: 33 event, 24 class, 4 JxJ, 1 Capital J. About 16 of 62 (26%) are registration courses or members-only (adult group swim, FitLab small-group training, Red Cross CPR/WSI, Nested childbirth classes, 4 Break Out Day Camp closure-day childcare, Intro to Judaism, Pizza and Pilates for fitness members); the rest are public talks (Capital J salons), volunteering (Everything But The Turkey, Handmade for the Homeless, blood drive), book clubs and Day at the J. 45 rows carry the JCC's own geo; 11 name no venue and take the block; 5 say 'Address provided after registration' and are kept off the block by venue.names; 1 at Sixth and I. Category 'class' is not a clean course label here, so the whole feed is read."
+    },
+    {
+      "name": "JCC of Greater Baltimore",
+      "category": "community",
+      "base_url": "https://www.jcc.org",
+      "include_categories": [
+        "event"
+      ],
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 5,
+      "venue": {
+        "name": "JCC of Greater Baltimore",
+        "address": "3506 Gwynnbrook Ave",
+        "city": "Owings Mills",
+        "region": "MD",
+        "postal_code": "21117",
+        "country": "US",
+        "lat": 39.4473222,
+        "lon": -76.7731953,
+        "names": [
+          "Rosenbloom Owings Mills JCC",
+          "Owings Mills JCC",
+          "Gordon Center"
+        ]
+      },
+      "_found": "seed:dc-community-centres -> tribe",
+      "_metro": "Washington, DC",
+      "_coords": "JCC Association directory point for 3506 Gwynnbrook Ave (Census interpolated 39.4437392,-76.7819288, 0.85 km off along the street)",
+      "_measured": "2026-10-04: the whole feed is a course catalogue and is NOT proposed: 631 rows in 90 days, 540 in category 'class' (swim lessons ARC levels, tennis clinics, CTPC musical theatre, ballet, teen fellowships) and 66 uncategorised rows of the same courses = 606/631 (96%) registration courses. Category 'event' (id 311) is 26 rows: 18 concerts and screenings at the Gordon Center for Performing Arts (same campus), Concert in the Courtyard, a trail restoration workday, a women's health talk, an SAT/ACT talk, 3 School's Out camp days (registration) and a Maccabi kickoff at Rita's Quarry Lake (no venue named; takes the block). 0 rows carry publisher geo, so the block places them; venue.names keeps the Weinberg Park Heights campus (5700 Park Heights Ave, none in this category today) off the Owings Mills point."
+    },
+    {
+      "name": "Hill Center at the Old Naval Hospital",
+      "category": "community",
+      "base_url": "https://hillcenterdc.org",
+      "include_categories": [
+        "concerts",
+        "lectures-conversations",
+        "galleries",
+        "films-and-performances"
+      ],
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 3,
+      "venue": {
+        "name": "Hill Center DC",
+        "country": "US",
+        "lat": 38.8829796,
+        "lon": -76.9931422,
+        "address": "921 Pennsylvania Ave SE",
+        "city": "Washington",
+        "region": "DC",
+        "postal_code": "20003",
+        "names": [
+          "Hill Center DC",
+          "Hill Center"
+        ]
+      },
+      "_found": "seed:dc-community-centres -> tribe",
+      "_metro": "Washington, DC",
+      "_measured": "2026-10-04: the whole feed is a course catalogue and is NOT proposed: 362 rows in 90 days, 154 children-teens (Tippi Toes dance, Woolfolk ballet, Go Spanish Now), 51 language courses, 49 studio arts, 44 cooking classes, 35 tai chi/mindful motion, 26 piano lessons - about 342/362 (94%) registration courses priced $49-$349. The four public-programme categories give 20 rows: 10 concerts (American Roots series free, Stone Room/Global Sounds $23), 6 lectures ($12 At Issue, free Overbeck Lecture), 3 gallery openings/Pottery on the Hill (free), 1 film ($12). 358 of 362 rows carry the Hill Center's own geo (921 Pennsylvania Ave SE; address added by hand, OSM has none).",
+      "_osm": "N358960313"
+    },
+    {
+      "name": "Sri Siva Vishnu Temple",
+      "category": "community",
+      "base_url": "https://ssvt.org",
+      "within_days": 90,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sri Siva Vishnu Temple",
+        "address": "6905 Cipriano Rd",
+        "city": "Lanham",
+        "region": "MD",
+        "postal_code": "20706",
+        "country": "US",
+        "lat": 38.9850196,
+        "lon": -76.8544523
+      },
+      "_found": "seed:dc-community-centres -> tribe",
+      "_metro": "Washington, DC",
+      "_measured": "2026-10-04: 4 rows in 90 days (Navaratri cultural programme, Navaratri Vastra Alankaram, UHJT Diwali Mela hosted by SSVT, a ticketed Carnatic concert). No venue on any row; the block places them at the temple. Thin but public; 0 courses.",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Casa de la Cultura",
+      "category": "community",
+      "base_url": "https://nuestrasraicesinc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Casa de la Cultura",
+        "address": "3403 Gough Street",
+        "city": "Baltimore",
+        "region": "MD",
+        "postal_code": "21224",
+        "country": "US",
+        "lat": 39.2884635,
+        "lon": -76.5686441,
+        "names": [
+          "Casa de la Cultura"
+        ]
+      },
+      "_found": "seed:dc-community-centres -> tribe",
+      "_metro": "Washington, DC",
+      "_measured": "2026-10-04: 1 row in 90 days - the 8th Annual Baltimore Latino Cultural Festival (free, two days, Patterson Park, its own geo). Nuestras Raices Inc. runs Casa de la Cultura; a festival-sized single source, kept because verify's gate is one future row and the festival is the centre's flagship public event; venue.names keeps Patterson Park events off the Gough St point.",
+      "_osm": "N13364032756"
+    },
+    {
+      "name": "The Center for Active Living (West Seattle, formerly Senior Center of West Seattle) - activities",
+      "base_url": "https://wscenter.org",
+      "category": "community",
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 16,
+      "venue": {
+        "name": "The Center for Active Living",
+        "names": [
+          "The Center for Active Living",
+          "Center for Active Living"
+        ],
+        "address": "4217 SW Oregon St",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98116",
+        "country": "US",
+        "lat": 47.5628145,
+        "lon": -122.3857306
+      },
+      "_found": "seed:seattle-community-centres -> tribe",
+      "_metro": "Seattle, WA",
+      "_seed": "wscenter.org (sc-ws.org redirects there); /calendar/ runs The Events Calendar",
+      "_measured": "2026-10-04: REST total 709 events 2026-10-04..2027-01-02. First 250 read: 249 at the centre (no geo on the venue, so the block places them), 24 (9.6%) mention registration (support groups, bridge); the rest are drop-in games (cribbage, pinochle, chess, mah jongg), Margie's Cafe and Community Dining, the computer lab, fitness and language groups, priced as 'Free to members, $5 non-members' where stated. A drop-in senior-centre timetable."
+    },
+    {
+      "name": "Chinese Information and Service Center (CISC) - community and older-adult activities",
+      "base_url": "https://cisc-seattle.org",
+      "category": "community",
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 6,
+      "_found": "seed:seattle-community-centres -> tribe",
+      "_metro": "Seattle, WA",
+      "_measured": "2026-10-04: 200 events in 90 days at 5 venues (North Bellevue Community Center 112, Sunshine Garden Chinese senior centre 38, Peter Kirk Community Center 24, Redmond Together Center 13, The Lucky Pen 13); none carry geo, every one carries a venue name and city. 73 (36.5%) are services or enrolment (Russian-speaking senior day programme 47, SHIBA Medicare consultations 13, caregiver assistance 13); the rest are weekly open classes and groups (tai chi, line dance, square dance, English conversation, choir, yoga, drop-in tech help). No venue block on purpose: multi-venue."
+    },
+    {
+      "name": "Phinney Neighborhood Association / Greenwood Senior Center - public events, groups and senior events",
+      "base_url": "https://www.phinneycenter.org",
+      "category": "community",
+      "include_categories": [
+        "events",
+        "senior-events",
+        "clubs-groups",
+        "volunteer",
+        "co-op",
+        "phinneywood",
+        "featured"
+      ],
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 4,
+      "venue": {
+        "name": "Phinney Center Campus",
+        "names": [
+          "Phinney Center Campus",
+          "Phinney Center"
+        ],
+        "address": "6532 Phinney Ave N",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98103",
+        "country": "US",
+        "lat": 47.6766028,
+        "lon": -122.354276
+      },
+      "_found": "seed:seattle-community-centres -> tribe",
+      "_metro": "Seattle, WA",
+      "_replaces": "ics_sources.json 'Phinney Center / Greenwood Senior Center Programs (Seattle)' url https://www.phinneycenter.org/calendar/?ical=1 (30 vevents / 26 future at its 2026-08-21 verify: the iCal export is the list view's first page). Merge only if that entry is removed, or both import the same events.",
+      "_measured": "2026-10-04: REST has 239 events in 90 days: Services 80 (Hot Meal Program 39, PNA Woodshop 38 - members with orientation only), Classes 75 (Greenwood Senior Center classes, 'Register: 206...'), Renter Event 38 (rentals), Events/Senior Events 36, Clubs & Groups 13. The filtered request returns 62: Needle Arts Group 13, Tea and Brain Games 11, Fixers Collective 3, LGBTQ+ Community Circle, Open Mic, Oktoberfest, bingo nights, Dia de los Muertos, Winter Festival; 13 (21%) are the weekly Intermediate/Advanced French conversation group, tagged both Classes and Senior Events. Leaving out 'services' drops the free Hot Meal Program with the member-only woodshop."
+    },
+    {
+      "name": "Stroum Jewish Community Center - drop-ins, Tot Shabbat and community events (Mercer Island)",
+      "base_url": "https://sjcc.org",
+      "category": "community",
+      "include_categories": [
+        "adult-gatherings",
+        "tot-shabbat",
+        "family-programs",
+        "holiday-programs",
+        "makom",
+        "talks",
+        "arts-featured",
+        "teen-programs"
+      ],
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 4,
+      "venue": {
+        "name": "Stroum Jewish Community Center",
+        "names": [
+          "Stroum Jewish Community Center",
+          "SJCC"
+        ],
+        "address": "3801 E Mercer Way",
+        "city": "Mercer Island",
+        "region": "WA",
+        "postal_code": "98040",
+        "country": "US",
+        "lat": 47.5769034,
+        "lon": -122.2068307
+      },
+      "_found": "seed:seattle-community-centres -> tribe",
+      "_metro": "Seattle, WA",
+      "_replaces": "ics_sources.json 'Stroum Jewish Community Center - Family Programs (Mercer Island)' (family-programs category only, 16 future at 2026-08-21); family-programs is inside this filter.",
+      "_measured": "2026-10-04: REST has 210 events in 90 days; 91 are daily Pool Hours (member facility schedule), 14 School's Out J Camp and the bridge/canasta/mahjong lesson series ($25-$125) are registration courses. The filtered request returns 70: Mahjong Free Play 26 ('Drop in on Monday afternoons'), Tot Shabbat 15 ('Registration not required, just come by the J'), Bagels + Babies, book clubs, challah bakes, community Shabbat dinner, concerts and talks ($10-$42 where priced). Rooms (SJCC Makom, Auditorium) carry no address, so the block's 'SJCC' name places them at the J."
+    },
+    {
+      "name": "Sunset Hill Community Hall - hall events, open mic and drop-ins (Ballard)",
+      "base_url": "https://sunsethillcommunity.org",
+      "category": "community",
+      "include_categories": [
+        "shch-events",
+        "free",
+        "family",
+        "theatre"
+      ],
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 3,
+      "venue": {
+        "name": "Sunset Hill Community Hall",
+        "names": [
+          "Sunset Hill Community Hall",
+          "Sunset Hill Community Association"
+        ],
+        "address": "3003 NW 66th St",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98117",
+        "country": "US",
+        "lat": 47.6765389,
+        "lon": -122.3957905
+      },
+      "_found": "seed:seattle-community-centres -> tribe",
+      "_metro": "Seattle, WA",
+      "_measured": "2026-10-04: the whole calendar is 147 events in 90 days and 69% is the hall's booking diary (Music Together 36, ballet courses 22, Cub/Girl Scout meetings 16, orchestra and choir rehearsals 17, class series 6, board 3, 'Private Event' 2): refused unfiltered. The hall's own categories return 12: DIY Art Club 3, Open Mic 3, Family Movie Night, Halloween party, Drop-In Comedy Improv, and 3 SHCH Board Meetings (governance, 25% of the 12). Waltz Etc. (13 drop-in $20 dances) sits in 'classes'/'dance' with the courses and is not reachable by category."
+    },
+    {
+      "name": "Solid Ground - Marra Farm volunteer work parties (South Park)",
+      "base_url": "https://www.solid-ground.org",
+      "category": "volunteer",
+      "crawl_delay": 10,
+      "within_days": 90,
+      "per_page": 50,
+      "max_pages": 2,
+      "venue": {
+        "name": "Marra Farm",
+        "names": [
+          "Marra Farm"
+        ],
+        "address": "9026 4th Ave S",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98108",
+        "country": "US",
+        "lat": 47.5225302,
+        "lon": -122.3295566
+      },
+      "_found": "seed:seattle-community-centres -> tribe",
+      "_metro": "Seattle, WA",
+      "_measured": "2026-10-04: 12 events in 90 days, all 'Marra Farm Volunteer Opportunity' at Marra Farm, 9026 4th Ave S; no geo on the venue. robots.txt asks Crawl-delay: 10."
+    },
+    {
+      "name": "United Indians of All Tribes - Daybreak Star community events (Discovery Park)",
+      "base_url": "https://unitedindians.org",
+      "category": "community",
+      "within_days": 120,
+      "per_page": 50,
+      "max_pages": 2,
+      "venue": {
+        "name": "Daybreak Star Indian Cultural Center",
+        "names": [
+          "Daybreak Star Indian Cultural Center",
+          "Daybreak Star"
+        ],
+        "address": "5011 Bernie Whitebear Way",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98199",
+        "country": "US",
+        "lat": 47.6679292,
+        "lon": -122.4180263
+      },
+      "_found": "seed:seattle-community-centres -> tribe",
+      "_metro": "Seattle, WA",
+      "_venue_source": "OSM way 159915631 via Nominatim (Census did not match the address)",
+      "_measured": "2026-10-04: 5 events in 90 days, all at Daybreak Star: Indigenous Peoples' Day, the November and December Native Art Markets, the Community 5k run/walk (2 rows)."
+    },
+    {
+      "name": "Tacoma Community House - community events (Hilltop)",
+      "base_url": "https://www.tacomacommunityhouse.org",
+      "category": "community",
+      "within_days": 120,
+      "per_page": 50,
+      "max_pages": 2,
+      "venue": {
+        "name": "Tacoma Community House",
+        "names": [
+          "Tacoma Community House"
+        ],
+        "address": "1314 S L St",
+        "city": "Tacoma",
+        "region": "WA",
+        "postal_code": "98405",
+        "country": "US",
+        "lat": 47.2495957,
+        "lon": -122.4527258
+      },
+      "_found": "seed:seattle-community-centres -> tribe",
+      "_metro": "Seattle, WA",
+      "_measured": "2026-10-04: thin - 2 events in 90 days (Job Fair, Halloween on the Hill), neither naming a venue, so the block places both."
     }
   ],
   "_not_included": {

@@ -10499,6 +10499,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "apps.alexandriava.gov/Calendar/iCal.aspx?in=Events+%26+Public+Meetings": {
+    "checked": 20261004,
+    "name": "Alexandria, VA \u2014 City Calendar",
+    "reason": "357 vevents / 357 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "apreservices.be": {
     "checked": 20260911,
     "name": "APRE Services",
@@ -30579,6 +30586,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "blackrockcenter.org/community-events": {
+    "checked": 20261004,
+    "name": "BlackRock Center for the Arts",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "blackrockcollegerfc.ie/events": {
     "checked": 20260822,
@@ -54079,6 +54093,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cisc-seattle.org": {
+    "checked": 20261004,
+    "name": "Chinese Information and Service Center (CISC) - community and older-adult activities",
+    "reason": "200 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "cisza.org.pl": {
     "checked": 20260909,
@@ -78899,6 +78920,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "durgatemple.org/event-list": {
+    "checked": 20261004,
+    "name": "Durga Temple",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "durham.gov.uk": {
     "checked": 20260927,
     "name": "Durham",
@@ -80236,6 +80264,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "edcjcc.org": {
+    "checked": 20261004,
+    "name": "Edlavitch DCJCC",
+    "reason": "66 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "edcn.pt": {
     "checked": 20260901,
@@ -87807,6 +87842,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "everettwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar": {
+    "checked": 20261004,
+    "name": "Everett \u2014 Community Calendar",
+    "reason": "53 vevents / 53 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "evergreen.ca/events/?ical=1": {
     "checked": 20260803,
     "name": "Evergreen (Toronto, Canada)",
@@ -90957,6 +90999,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fallschurchva.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
+    "checked": 20261004,
+    "name": "Falls Church \u2014 Events",
+    "reason": "43 vevents / 42 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "falmouth.co.uk": {
     "checked": 20260927,
     "name": "Falmouth",
@@ -93359,6 +93408,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "filcommsea.org/upcoming-events": {
+    "checked": 20261004,
+    "name": "Filipino Community of Seattle",
+    "reason": "1/5 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "filder.die-apis.de/startseite": {
     "checked": 20261003,
@@ -117004,6 +117060,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hillcenterdc.org": {
+    "checked": 20261004,
+    "name": "Hill Center at the Old Naval Hospital",
+    "reason": "362 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "hillcity.org.nz": {
     "checked": 20260825,
     "name": "Hill City-University Clubrooms",
@@ -121856,6 +121919,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hyattsville.org/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar": {
+    "checked": 20261004,
+    "name": "Hyattsville \u2014 Community Events",
+    "reason": "72 vevents / 72 future",
+    "status": "ok",
+    "type": "ics"
   },
   "hybernia.eu": {
     "checked": 20260904,
@@ -126878,6 +126948,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "issaquahwa.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar": {
+    "checked": 20261004,
+    "name": "Issaquah \u2014 Parks & Community Services",
+    "reason": "12 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "isshinji.or.jp": {
     "checked": 20260925,
     "name": "\u4e00\u5fc3\u5bfa",
@@ -128558,6 +128635,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "jcc.org": {
+    "checked": 20261004,
+    "name": "JCC of Greater Baltimore",
+    "reason": "631 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "jccac.org.hk": {
     "checked": 20260831,
@@ -166043,6 +166127,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mcleancenter.org/?mec-ical-feed=1": {
+    "checked": 20261004,
+    "name": "McLean Community Center",
+    "reason": "223 vevents / 144 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "mcminnvilletn.gov": {
     "checked": 20260915,
     "name": "McMinnville",
@@ -171981,6 +172072,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mocopridefamily.org/events": {
+    "checked": 20261004,
+    "name": "MoCo Pride Center",
+    "reason": "77/107 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "mod.go.jp/gsdf/eae/prcenter": {
     "checked": 20260924,
     "name": "\u9678\u4e0a\u81ea\u885b\u968a\u5e83\u5831\u30bb\u30f3\u30bf\u30fc",
@@ -174318,6 +174416,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mountbaker.org/events": {
+    "checked": 20261004,
+    "name": "Mt Baker Community Club",
+    "reason": "5/35 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "mountchurch.org.nz": {
     "checked": 20260825,
@@ -188719,6 +188824,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nuestrasraicesinc.org": {
+    "checked": 20261004,
+    "name": "Casa de la Cultura",
+    "reason": "1 events, 1/1 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "nuevenorte.com": {
     "checked": 20260914,
@@ -204434,6 +204546,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "phinneycenter.org": {
+    "checked": 20261004,
+    "name": "Phinney Neighborhood Association / Greenwood Senior Center - public events, groups and senior events",
+    "reason": "239 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "phinneycenter.org/calendar/?ical=1": {
     "checked": 20260821,
     "name": "Phinneycenter (Seattle)",
@@ -215792,6 +215911,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "restoncommunitycenter.com": {
+    "checked": 20261004,
+    "name": "Reston Community Center",
+    "reason": "300 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "restorethedeschutes.org": {
     "checked": 20260928,
@@ -234407,6 +234533,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "sjcc.org": {
+    "checked": 20261004,
+    "name": "Stroum Jewish Community Center - drop-ins, Tot Shabbat and community events (Mercer Island)",
+    "reason": "210 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "sjcc.org/?post_type=tribe_events&tribe_events_cat=family-programs&ical=1&eventDisplay=list": {
     "checked": 20260821,
     "name": "Sjcc (Seattle)",
@@ -236935,6 +237068,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "solid-ground.org": {
+    "checked": 20261004,
+    "name": "Solid Ground - Marra Farm volunteer work parties (South Park)",
+    "reason": "12 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "solidar.ch/de": {
     "checked": 20260917,
     "name": "Solidar Suisse",
@@ -238369,6 +238509,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "southwhidbeycommunitycenter.org": {
+    "checked": 20261004,
+    "name": "South Whidbey Community Center",
+    "reason": "1/2 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "southwoodcl.ca": {
     "checked": 20260819,
@@ -241011,6 +241158,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ssvt.org": {
+    "checked": 20261004,
+    "name": "Sri Siva Vishnu Temple",
+    "reason": "7 events, 7/7 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "st-agnes-international-church-kyoto.com": {
     "checked": 20260925,
@@ -248910,6 +249064,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "sunsethillcommunity.org": {
+    "checked": 20261004,
+    "name": "Sunset Hill Community Hall - hall events, open mic and drop-ins (Ballard)",
+    "reason": "147 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "sunshine.at": {
     "checked": 20260907,
     "name": "Passage Vanity",
@@ -250900,6 +251061,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "swedishclubnw.org/program-calendar": {
+    "checked": 20261004,
+    "name": "The Swedish Club NW",
+    "reason": "38/68 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "swedishswing.se": {
     "checked": 20260905,
     "name": "Swedish Swing Society",
@@ -252258,6 +252426,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "tacomacommunityhouse.org": {
+    "checked": 20261004,
+    "name": "Tacoma Community House - community events (Hilltop)",
+    "reason": "2 events, 2/2 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "tacticasbl.be": {
     "checked": 20260911,
     "name": "Tactic",
@@ -252661,6 +252836,13 @@
     "checked": 20260913,
     "name": "Takoma Park \u2014 Community Events",
     "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "takomaparkmd.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": {
+    "checked": 20261004,
+    "name": "Takoma Park \u2014 Arts and Humanities",
+    "reason": "6 vevents / 6 future",
     "status": "ok",
     "type": "ics"
   },
@@ -266373,6 +266555,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "trumba.com/calendars/REC-1.ics": {
+    "checked": 20261004,
+    "name": "Montgomery County Recreation (MD) \u2014 events",
+    "reason": "22 vevents / 22 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "trumba.com/calendars/active-parks.ics": {
     "checked": 20260927,
     "name": "Brisbane Active Parks (Brisbane, Australia)",
@@ -266489,6 +266678,13 @@
     "checked": 20260927,
     "name": "Brisbane City Council Libraries (Brisbane, Australia)",
     "reason": "200 future, 200 placeable",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trumba.com/calendars/montgomery-county.ics": {
+    "checked": 20261004,
+    "name": "Montgomery County, MD \u2014 County Calendar",
+    "reason": "200 vevents / 198 future",
     "status": "ok",
     "type": "ics"
   },
@@ -269251,6 +269447,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "uheightscenter.org/upcoming-events": {
+    "checked": 20261004,
+    "name": "University Heights Community Center",
+    "reason": "25/55 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "uhelnymlyn.cz": {
     "checked": 20260904,
     "name": "Uheln\u00fd ml\u00fdn",
@@ -270721,6 +270924,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "unitedindians.org": {
+    "checked": 20261004,
+    "name": "United Indians of All Tribes - Daybreak Star community events (Discovery Park)",
+    "reason": "5 events, 5/5 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "unitedserviceclub.wildapricot.org": {
     "checked": 20260821,
@@ -286002,6 +286212,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "wscenter.org": {
+    "checked": 20261004,
+    "name": "The Center for Active Living (West Seattle, formerly Senior Center of West Seattle) - activities",
+    "reason": "709 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "wsci.ch": {
     "checked": 20260920,
     "name": "Windsurfclub Ipsach",
@@ -288613,6 +288830,13 @@
     "reason": "54 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "ywcaofolympia.org/calendar": {
+    "checked": 20261004,
+    "name": "YWCA Of Olympia",
+    "reason": "2/6 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "ywcasa.org": {
     "checked": 20260927,

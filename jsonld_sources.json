@@ -5885,6 +5885,102 @@
       },
       "_metro": "Nottingham, GB",
       "_note": "Nottingham social centre (cafe, Community Food Hub, library, makers club, open mic). Measured 2026-10-03: the six path-paginated list pages carry 117 distinct schema.org Events in the next 90 days, every one with address+geo; 13 (11%) state a price; 6 are 'Private event' rows that skip_title drops (dry run through mapsee_ingest_jsonld: 113 kept, 111 in 90 days, 111 placed). NOT the tribe shape: /wp-json/tribe/events/v1/events ignores page, per_page and start_date (the same 10 rows for every page; total=309, total_pages=31) and ?ical=1 returns HTML - a page cache keyed on the path - so a tribe entry would ingest 10 rows. robots.txt: no rule for these paths."
+    },
+    {
+      "name": "Durga Temple",
+      "category": "community",
+      "listing": [
+        "https://www.durgatemple.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Durga Temple",
+        "address": "8400 Durga Pl",
+        "city": "Fairfax Station",
+        "region": "VA",
+        "postal_code": "22039",
+        "country": "US",
+        "lat": 38.7292746,
+        "lon": -77.2509319
+      },
+      "_found": "seed:dc-community-centres -> jsonld",
+      "_metro": "Washington, DC",
+      "_measured": "2026-10-04: Wix events, 12 event links on /event-list, 8 sampled with schema.org Event: Navratri festival (one row per day Oct 11-20, free), weekly Hanuman Chalisa path (Tue 7pm, open), monthly Mata ki Chowki bhajan with community meal (Bhandara), Pitru Amavasya. Public and free; no paid courses. Block places them at the temple."
+    },
+    {
+      "name": "BlackRock Center for the Arts",
+      "category": "community",
+      "listing": [
+        "https://www.blackrockcenter.org/community-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "BlackRock Center for the Arts",
+        "address": "12901 Town Commons Dr",
+        "city": "Germantown",
+        "region": "MD",
+        "postal_code": "20874",
+        "country": "US",
+        "lat": 39.1820732,
+        "lon": -77.2682527
+      },
+      "_found": "seed:dc-community-centres -> jsonld",
+      "_metro": "Washington, DC",
+      "_measured": "2026-10-04: Wix events at /community-events: 8 linked, 4 in the next 90 days, all free public community events (Germantown October Festival with parade and children's carnival, Local Spirits, Diwali Festival with Kuchipudi Dance Academy, holiday market). Nonprofit-run arts centre; its ticketed performances are a separate page not proposed here."
+    },
+    {
+      "name": "South Whidbey Community Center",
+      "category": "community",
+      "_found": "seed:seattle-community-centres -> jsonld",
+      "listing": [
+        "https://www.southwhidbeycommunitycenter.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "South Whidbey Community Center",
+        "address": "723 Camano Avenue",
+        "city": "Langley",
+        "region": "WA",
+        "postal_code": "98260",
+        "lat": 48.0345332,
+        "lon": -122.4032232
+      },
+      "_metro": "Seattle, WA",
+      "_via": "OSM amenity=community_centre walk, catalog_discover_osm.find_calendar",
+      "_measured": "2026-10-04: a Wix site; the homepage ships 8 event slugs and 7 of the 8 event pages are upcoming (felted-pumpkin and wool-picture workshops, a veterans' football watch party, Open Play @ The Backyard Whidbey, the SmileMobile, a puppetry show, an opening reception). Langley, ~50 km from Seattle."
+    },
+    {
+      "name": "Filipino Community of Seattle",
+      "category": "community",
+      "_found": "seed:seattle-community-centres -> jsonld",
+      "listing": [
+        "https://www.filcommsea.org/upcoming-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Filipino Community of Seattle",
+        "names": [
+          "Filipino Community of Seattle",
+          "Filipino Community Center"
+        ],
+        "address": "5740 Martin Luther King Jr Way S",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98118",
+        "country": "US",
+        "lat": 47.5509153,
+        "lon": -122.2877033
+      },
+      "_metro": "Seattle, WA",
+      "_measured": "2026-10-04: thin - Wix events app lists 6, 2 upcoming (Filipino Heritage Night with the Sounders, the 91st Anniversary Gala). The centre's weekly senior and youth programmes are not on it."
     }
   ],
   "_not_included": {

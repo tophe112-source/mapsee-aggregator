@@ -1931,6 +1931,98 @@
       "_seed": "Federation of Calgary Communities directory, calgarycommunities.com/ca-map-list-view/?letter=n",
       "_venue_source": "data.calgary.ca x34e-bcjz Community Services (address match '5003 North Haven Dr NW')",
       "_measured": "2026-10-03: 40 rows start 2026-10-03..2027-01-01; 37 name the hall, 3 carry no address and take the venue block. 22 'Ario Karate Class' (instructor's registered class, first class free), 11 'Weekly Yoga Class' ($15 pay at the door, drop-in), 4 scrapbooking crop, 3 community events (Halloween family dance, Winter Haven Craft Market, Light Haven). Paid registered share 22/40 = 55%; drop-in or community 18/40 = 45%."
+    },
+    {
+      "name": "MoCo Pride Center",
+      "category": "community",
+      "collection": "https://www.mocopridefamily.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "MoCo Pride Center",
+        "address": "4085 Edgemoor Lane",
+        "city": "Bethesda",
+        "region": "MD",
+        "postal_code": "20814",
+        "country": "US",
+        "lat": 38.9853186,
+        "lon": -77.0960194
+      },
+      "_found": "seed:dc-community-centres -> squarespace",
+      "_metro": "Washington, DC",
+      "_measured": "2026-10-04: 77 rows in 90 days, no paid courses: T4T Zoom support group 13 (online, the ingest's online-only rule should drop those that say Zoom), Queer Dharma weekly meditation 11, Hope & Support Circle 13, Trans*Unity in-person group 6, caregivers of trans youth 6, free HIV/STI testing 4, board game nights, How Bazaar! vendor market 3, chosen-family dinners, Halloween party, Transgender Day of Remembrance. Trans Maryland policy meetings 7 (advocacy, not governance of the centre). Locations: 36 name the centre, 31 blank (take the block), 6 at Mattie's Peace Room @ Main Street Connect, 1 Patterson Park, 1 Leggett Building. 0 unplaceable.",
+      "_osm": "N13097388093"
+    },
+    {
+      "name": "University Heights Community Center",
+      "category": "community",
+      "_found": "seed:seattle-community-centres -> squarespace",
+      "collection": "https://www.uheightscenter.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "University Heights Community Center",
+        "address": "5031 University Way Northeast",
+        "city": "Seattle",
+        "postal_code": "98105",
+        "lat": 47.6658899,
+        "lon": -122.3136409
+      },
+      "_metro": "Seattle, WA",
+      "_via": "OSM amenity=community_centre walk, catalog_discover_osm.find_calendar",
+      "_measured": "2026-10-04: 25 upcoming on the collection page (of 55 listed), all inside 90 days: 'Don't Call It a Journey' 11, Seattle Magic Show 3, Thursdays at 10 (Conversations, Memoir Group, Stitchery), a science game show, the Warm Winter Distribution; 7 are 'Online via Zoom' (Online Zumba 4), which looks_online_only should drop. Community-run (University Heights Center for the Community Association)."
+    },
+    {
+      "name": "Mt Baker Community Club",
+      "category": "community",
+      "_found": "seed:seattle-community-centres -> squarespace",
+      "collection": "https://www.mountbaker.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Mt Baker Community Club",
+        "address": "2811 Mount Baker Drive S",
+        "lat": 47.5778805,
+        "lon": -122.2878489
+      },
+      "_metro": "Seattle, WA",
+      "_via": "OSM amenity=community_centre walk, catalog_discover_osm.find_calendar",
+      "_measured": "2026-10-04: 5 upcoming of 35 listed: Monthly Hub Meeting, Wine Tasting, Home Tour, Holiday Arts & Crafts Sale, Holiday Party - the clubhouse's own events. None carry a location, so the OSM block places them at 2811 Mount Baker Dr S."
+    },
+    {
+      "name": "YWCA Of Olympia",
+      "category": "community",
+      "_found": "seed:seattle-community-centres -> squarespace",
+      "collection": "https://www.ywcaofolympia.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "YWCA Of Olympia",
+        "lat": 47.0393994,
+        "lon": -122.8986602
+      },
+      "_metro": "Seattle, WA",
+      "_via": "OSM amenity=community_centre walk, catalog_discover_osm.find_calendar",
+      "_measured": "2026-10-04: thin - 2 upcoming of 6 listed (Women of Achievement 2026, 'Bread & Belonging' discussion). Olympia, ~85 km from Seattle; YWCA public events, not member classes."
+    },
+    {
+      "name": "The Swedish Club NW",
+      "category": "community",
+      "_found": "seed:seattle-community-centres -> squarespace",
+      "collection": "https://www.swedishclubnw.org/program-calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "The Swedish Club",
+        "names": [
+          "The Swedish Club",
+          "Swedish Club"
+        ],
+        "address": "1920 Dexter Ave N",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98109",
+        "country": "US",
+        "lat": 47.6361816,
+        "lon": -122.3424273
+      },
+      "_metro": "Seattle, WA",
+      "_measured": "2026-10-04: 37 upcoming within 90 days on /program-calendar (68 listed): Fika 3, Fresh Ground Stories 3, Swedish Pancake Breakfast 2, Jenny Lind Day, Leif Erikson's birthday disco, Nordic Mixer + Soup & Cinema, a crafting circle. 7 (19%) are member-only or governance (Members Dinner 3, Lifetime Member Celebration, Board Meeting 3) and 5 are 'Bar Open 5-10 PM' hours. A membership club whose programme is mostly public."
     }
   ],
   "_not_included": {
