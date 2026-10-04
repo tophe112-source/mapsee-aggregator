@@ -79,6 +79,30 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 OVERPASS_ENDPOINT = "https://overpass-api.de/api/interpreter"
 OVERPASS_BACKOFF_S = 5
+# EIGHT ASKS, NOT FOUR, because a refusal costs the RUN and not the metro: the
+# caller stops at the first metro Overpass never answered, so the cursor does
+# not pass it. Over the community walk's 13 runs to 2026-10-03, 134 asks were
+# answered 67 at once, 45 on the second try, 10 on the third, 6 on the fourth,
+# and 6 never — each attempt failing about half the time (67/134, 22/67,
+# 12/22, 6/12). Every one of the 6 ended its run, two of them before a single
+# metro (09-23 and 09-27, under two minutes each); the six used 60 of their
+# 330 budgeted minutes. Were the asks independent, four more would leave
+# 6 x 0.5^4 = 0.4 of those; they are not quite (Brasilia was refused two days
+# running), which is why the wait is capped rather than the asks unbounded. A
+# 504 comes back in ~9 s (09-23: four asks and 65 s of waits in 102 s), so
+# eight refused asks cost ~6 minutes (8 x 9 s + 305 s of waits) of a budget
+# that would otherwise go unspent.
+#
+# AND A CLOCK, because not every refusal is a quick 504. An ask may hang for
+# its whole 200 s read timeout, and eight of those plus the waits is 32
+# minutes on ONE metro, outside the caller's --max-minutes deadline (it is
+# checked between metros, not inside this call), where four asks were 14.
+# So no ask starts once it would begin past OVERPASS_PATIENCE_S: the worst
+# case is then 600 s plus one ask, under the old 865 s, and the measured
+# refusal shape (~380 s) still gets all eight.
+OVERPASS_ATTEMPTS = 8
+OVERPASS_BACKOFF_CAP_S = 60
+OVERPASS_PATIENCE_S = 600
 
 # Places that put on a programme. Deliberately narrow: a restaurant that serves
 # dinner every night is not a calendar, and sweeping every shop would bury the
@@ -801,28 +825,37 @@ def overpass_venues(session, bbox: str, name: str = "?",
     had simply never been asked — while the cursor advanced past all nine. The
     endpoint hands out a couple of slots and answers 429 or 504 when they are
     busy, which is normal traffic across a sweep and worth waiting out; a
-    connection reset after four tries is the endpoint declining, and the metro is
-    unread.
+    refusal after OVERPASS_ATTEMPTS tries, or OVERPASS_PATIENCE_S of trying,
+    is the endpoint declining, and the metro is unread.
     """
     q = _overpass_query(bbox, kinds)
-    for attempt in range(4):
+    last = OVERPASS_ATTEMPTS - 1
+    t0 = time.monotonic()
+
+    def patient(wait: float) -> bool:
+        return time.monotonic() - t0 + wait <= OVERPASS_PATIENCE_S
+
+    for attempt in range(OVERPASS_ATTEMPTS):
+        wait = min(OVERPASS_BACKOFF_S * 3 ** attempt, OVERPASS_BACKOFF_CAP_S)
         try:
             r = session.post(endpoint, data=q.encode("utf-8"), timeout=200)
-            if r.status_code in (429, 504) and attempt < 3:
-                wait = int(r.headers.get("Retry-After") or 0) or (OVERPASS_BACKOFF_S * 3 ** attempt)
-                if not quiet:
-                    print(f"  overpass {name}: {r.status_code}, retrying in {wait}s")
-                time.sleep(wait)
-                continue
+            if r.status_code in (429, 504) and attempt < last:
+                wait = int(r.headers.get("Retry-After") or 0) or wait
+                if patient(wait):
+                    if not quiet:
+                        print(f"  overpass {name}: {r.status_code}, retrying in {wait}s")
+                    time.sleep(wait)
+                    continue
             r.raise_for_status()
             elements = r.json().get("elements", [])
             break
         except Exception as exc:                                  # noqa: BLE001
-            if attempt == 3:
+            if attempt == last or not patient(wait):
                 if not quiet:
-                    print(f"  overpass {name} FAILED: {type(exc).__name__}: {exc}")
+                    print(f"  overpass {name} FAILED after {attempt + 1} ask(s), "
+                          f"{time.monotonic() - t0:.0f}s: {type(exc).__name__}: {exc}")
                 return None
-            time.sleep(OVERPASS_BACKOFF_S * 3 ** attempt)
+            time.sleep(wait)
     else:
         return None
     out = []
@@ -933,6 +966,142 @@ def _prefer_listing(session, deep_url: str, timeout: int = 18) -> Optional[str]:
     return str(r.url)
 
 
+# WHERE A WIX SITE ROUTES ONE EVENT IS THE SITE'S CHOICE, NOT THE PLATFORM'S.
+# to_candidate used to write `/event-info/{}` for every Wix find, which is the
+# route of the older sites only. Measured 2026-10-04 on the 14 Wix sites in
+# jsonld_sources.json: /event-info/ answers on 2 (Sea Monster Lounge, Remy's),
+# /event-details/ on 9 and a renamed /events/ on 3, so 13 of the 15 entries
+# were fetching 404s; and on the 6 community-centre seeds whose events page
+# answered at all, /event-details/ on every one. So the route is READ off the
+# page that fingerprinted as Wix, from its own links to the events it lists —
+# a share link, an anchor, a URL in the warmup data, each ending in one of the
+# slugs the page lists — and only guessed, as the newer default, when the page
+# shows no such link.
+#
+# THE WHOLE PATH IN FRONT OF THE SLUG, not its last segment, because the
+# adapter resolves the template against the listing's ORIGIN. A free Wix site
+# lives at <user>.wixsite.com/<site>/, so its events are at
+# /<site>/event-details/<slug>, and /event-details/<slug> on that host is a
+# 404: centrecultureltheux.wixsite.com/cctheux (2026-10-04) lists 13 events,
+# 12 upcoming, and the last-segment route fetched 404 for every one where the
+# page's own link answered 200 with its Event block. The ledger holds 61
+# wixsite.com hosts, 20 of them Wix candidates that failed verify with "no
+# schema.org Event blocks found", every one of them asked at the host root.
+# The same holds for a language prefix (/fr/evenements/<slug>): the link the
+# site wrote is the one that answers.
+#
+# The slugs are taken from the EVENT objects in the warmup data (they carry
+# `scheduling`), not from every `"slug":` on the page, because a Wix blog
+# widget ships its posts the same way and routes them through /post/.
+WIX_DEFAULT_ROUTE = "/event-details/{}"
+_WIX_ROUTE_NAMES = ("event-details", "event-info")
+_WIX_WARMUP_RX = re.compile(
+    r'<script[^>]*id="wix-warmup-data"[^>]*>(.*?)</script>', re.S | re.I)
+_WIX_SLUG_RX = re.compile(r'"slug":"([a-zA-Z0-9-]+)"')
+# A link as written: `//host` and its path, or a path standing on its own (a
+# relative link, which is the page's own). The lookbehind keeps a relative
+# path from starting inside a word, so `ticketsource.com/x/<slug>` written
+# without a scheme is not read as this site's /x/.
+_WIX_HREF_RX = re.compile(
+    r'(?:(?:https?:)?//([A-Za-z0-9.-]+)|(?<![A-Za-z0-9._~%-]))(/[A-Za-z0-9_.~%/-]*)')
+
+
+def wix_events(body: str) -> List[Dict[str, Any]]:
+    """The Wix Events objects a page ships in its warmup data, one per slug.
+
+    Every one carries `slug`, `title`, `scheduling.config.startDate` and a
+    `location`. [] when the page has no events widget, or one that renders
+    client-side — which is most of the Wix finds that verify to nothing.
+    """
+    m = _WIX_WARMUP_RX.search(body or "")
+    if not m:
+        return []
+    try:
+        doc = json.loads(m.group(1))
+    except ValueError:
+        return []
+    out: Dict[str, Dict[str, Any]] = {}
+    stack: List[Any] = [doc]
+    while stack:
+        x = stack.pop()
+        if isinstance(x, dict):
+            if isinstance(x.get("slug"), str) and isinstance(x.get("scheduling"), dict):
+                out.setdefault(x["slug"], x)
+                continue
+            stack.extend(x.values())
+        elif isinstance(x, list):
+            stack.extend(x)
+    return list(out.values())
+
+
+def _bare_host(h: str) -> str:
+    h = (h or "").lower().split(":")[0]
+    return h[4:] if h.startswith("www.") else h
+
+
+def wix_route(body: str, page_url: Optional[str] = None) -> Optional[str]:
+    """`<path>/{}` — the route this Wix site's own links give its events.
+
+    None when the page links none of them; the caller picks the default. A
+    link counts only when a segment of it is a slug the page itself lists
+    AND it sits on the page's own host, so a renamed events page
+    (`/events/<slug>`, three of the configured entries) is read as readily as
+    either Wix default, while a ticketer that reuses the slug is not: HEART
+    Headingley's 13 events each carry an external registration link,
+    ticketsource.com/heartcentreheadingley/<slug>, and without the host test
+    that is the route this read. Everything in front of the slug is kept
+    (see the block comment): `/cctheux/event-details/{}`, not the 404 that
+    `/event-details/{}` is on a wixsite.com host.
+    """
+    text = (body or "").replace("\\/", "/")
+    own = _bare_host(urlparse(page_url).netloc) if page_url else None
+    slugs = {e["slug"] for e in wix_events(text)}
+    if not slugs:
+        # No warmup events: the page's own slugs are still the best key.
+        slugs = set(_WIX_SLUG_RX.findall(text))
+    votes: Dict[str, int] = {}
+    named: Dict[str, int] = {}
+    for m in _WIX_HREF_RX.finditer(text):
+        if own and m.group(1) and _bare_host(m.group(1)) != own:
+            continue
+        segs = m.group(2).split("/")
+        for i in range(2, len(segs)):
+            route = "/".join(segs[:i]) + "/{}"
+            if segs[i] in slugs:
+                votes[route] = votes.get(route, 0) + 1
+                break
+            if segs[i] and segs[i - 1] in _WIX_ROUTE_NAMES:
+                # No slug-anchored link: a link through either Wix route
+                # is weaker evidence, and still better than the guess.
+                named[route] = named.get(route, 0) + 1
+                break
+    votes = votes or named
+    if not votes:
+        return None
+    return max(votes, key=lambda k: votes[k])
+
+
+def wix_default_route(listing: str) -> str:
+    """The newer Wix route, under the site's own path on a free wixsite.com
+    host, where the origin is not the site (see the block comment)."""
+    o = urlparse(listing or "")
+    first = [p for p in o.path.split("/") if p][:1]
+    if o.netloc.lower().endswith(".wixsite.com") and first:
+        return f"/{first[0]}{WIX_DEFAULT_ROUTE}"
+    return WIX_DEFAULT_ROUTE
+
+
+# THE CONNECT HALF OF A PROBE'S TIMEOUT, separately. An unreachable venue is
+# not a fast failure on this walk: on 2026-09-25 155 of the 163 sites probed
+# in three Mexican metros were `unreachable`, and the run read those three in
+# 62 minutes, ~23 s a site, so the 18 s timeout fired rather than DNS saying
+# no. A host that has not taken a TCP connection in 6 s (three SYNs) is not
+# coming back inside the read timeout either. The log does not say which
+# timeout fired, so this bounds the connect half only; `unreachable` is not
+# parked in the ledger, so a host this misses is asked again next sweep.
+PROBE_CONNECT_S = 6
+
+
 def find_calendar(session, home_url: str, timeout: int = 18,
                   max_follow: int = 2, on_home=None) -> Dict[str, Any]:
     """Locate the calendar on a venue site and say what runs it.
@@ -951,7 +1120,8 @@ def find_calendar(session, home_url: str, timeout: int = 18,
     out = {"cal_url": None, "labels": [], "adapter": None, "ics": None,
            "status": None, "offsite": None, "offsite_url": None, "extra": {}}
     try:
-        r = session.get(home_url, timeout=timeout, allow_redirects=True)
+        r = session.get(home_url, timeout=(PROBE_CONNECT_S, timeout),
+                        allow_redirects=True)
     except Exception as exc:                                      # noqa: BLE001
         out["status"] = "unreachable"
         out["note"] = type(exc).__name__
@@ -995,7 +1165,8 @@ def find_calendar(session, home_url: str, timeout: int = 18,
 
     for u in sorted(dict.fromkeys(onsite), key=_rank)[:max_follow]:
         try:
-            r2 = session.get(u, timeout=timeout, allow_redirects=True)
+            r2 = session.get(u, timeout=(PROBE_CONNECT_S, timeout),
+                             allow_redirects=True)
         except Exception:                                          # noqa: BLE001
             continue
         if CHALLENGE_RX.search(r2.text[:6000]):
@@ -1011,7 +1182,34 @@ def find_calendar(session, home_url: str, timeout: int = 18,
                 out["extra"]["account_ids"] = [int(x) for x in m.group(1).replace(" ", "").split(",") if x]
             adapter = adapter_for(labels)
             cal_url = str(r2.url)
-            if adapter == "jsonld":
+            if "wix" in labels:
+                # Read here because the page is in hand; to_candidate never
+                # sees it. The homepage is the second witness, not a fetch.
+                route = wix_route(r2.text, cal_url) or wix_route(body, base)
+                if route:
+                    out["extra"]["wix_route"] = route
+                # A WIX EVENT'S OWN PAGE IS ONE EVENT, and a homepage that
+                # features events links straight to them, so this is where
+                # the walk lands: 13 of the 15 configured Wix entries had
+                # one event page as their `listing` (2026-10-04), each a
+                # source that dies with that event. The homepage that linked
+                # it ships the list it was picked from — 11, 13, 18 and 20
+                # upcoming on four of them — and is already in hand.
+                # _prefer_listing cannot find it: Wix answers the parent
+                # path, /event-details/, with a page that indexes nothing.
+                # The same for a page that ships NO events: `wix-events` is
+                # on every page of a site with the app, so a link that says
+                # "programma" passes the fingerprint with nothing behind it
+                # (teatrodelburatto.com/ilgiardinodellestorie: 0 events, its
+                # homepage 20) — unless the page carries Event blocks of its
+                # own, which the adapter reads off the listing without a slug.
+                here = wix_events(r2.text)
+                one = (len(here) == 1 and here[0]["slug"]
+                       == urlparse(cal_url).path.rstrip("/").rsplit("/", 1)[-1])
+                if ((one or (not here and "jsonld-event" not in labels))
+                        and wix_events(body)):
+                    cal_url = base
+            if adapter == "jsonld" and cal_url == str(r2.url):
                 cal_url = _prefer_listing(session, cal_url, timeout) or cal_url
             out.update(cal_url=cal_url, labels=labels, ics=ics,
                        adapter=adapter, status="ok")
@@ -1025,6 +1223,9 @@ def find_calendar(session, home_url: str, timeout: int = 18,
         # The platform is visible but no page announced itself as the calendar.
         # Still worth proposing — verification is what decides — but the URL is
         # the weaker one, so say so rather than dress it up as a calendar page.
+        route = wix_route(body, base) if "wix" in home_labels else None
+        if route:
+            out["extra"]["wix_route"] = route
         out.update(cal_url=out["cal_url"] or base, labels=home_labels,
                    ics=home_ics or constructed_feed(session, base, home_labels),
                    adapter=adapter_for(home_labels), status="ok-homepage")
@@ -1137,13 +1338,16 @@ def to_candidate(v: Dict[str, Any], found: Dict[str, Any],
         host = re.escape(o.netloc)
         if "wix" in (found.get("labels") or []):
             # Wix Events does not put its listing in anchors — it ships the whole
-            # set as {"slug": ...} and routes each one through /event-info/. A
-            # WordPress-shaped /event/<slug>/ pattern matches none of it, which is
-            # how four London candidates were proposed with a link_pattern that
-            # could never fire. Same shape as the Sea Monster Lounge entry.
+            # set as {"slug": ...} and routes each one through a page of its
+            # own. A WordPress-shaped /event/<slug>/ pattern matches none of it,
+            # which is how four London candidates were proposed with a
+            # link_pattern that could never fire. WHICH page is the site's: read
+            # off its own links by find_calendar (see wix_route), the newer
+            # default when it linked none.
             return dict(common, type="jsonld", listing=[cal],
                         link_pattern=r'"slug":"([a-zA-Z0-9-]+)"',
-                        url_template="/event-info/{}",
+                        url_template=(found.get("extra") or {}).get("wix_route")
+                        or wix_default_route(cal),
                         max_events=100, venue=_venue_block(v))
         return dict(common, type="jsonld", listing=[cal],
                     link_pattern=rf"https://{host}/(?:event|events)/[a-z0-9\-]+/?",
