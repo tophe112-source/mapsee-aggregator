@@ -134,7 +134,9 @@ class Details(unittest.TestCase):
         # The sync's "More on this show" search and its violet pin are a
         # deny-list: every adapter not named inherits them. A lane swim is not a show.
         for source in ('toronto-rec', 'toronto-earlyon', 'linkedevents:helsinki', 'perfectmind',
-                       'drupal-fullcalendar:fairfax-county', 'montreal-loisirs', 'phl-parks'):
+                       'drupal-fullcalendar:fairfax-county', 'montreal-loisirs', 'phl-parks',
+                       'barcelona-agenda', 'lcsd-smartplay', 'facility-hours:seattle-cc',
+                       'madrid:centros'):
             ev = NormalizedEvent(source=source, source_id='s1', name='Lane Swim, ages 7+',
                                  description='Admission: free.', start_local='2099-10-19T11:30:00-04:00',
                                  start_utc='2099-10-19T15:30:00Z', venue_name='Antibes Community Centre',

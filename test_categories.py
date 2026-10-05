@@ -910,6 +910,21 @@ for name, cat, src in (("Music: Karaoke, ages 60+", "arts", "toronto-rec"),
     print(f"{'ok ' if ok else 'FAIL'} {name} from {src} keeps off the party door -> {p} + {sorted(e or [])}")
     if not ok:
         cfails.append(name)
+# A BUILDING'S OPENING HOURS ARE NEVER A SHIFT: NYC Aging names one older adult
+# centre for its sponsor, and "Food Bank" in the title sent it to the volunteer
+# door (2026-10-05). A store record carries `sources`, not `source`.
+_fb = {"name": "Food Bank for New York City Older Adult Center", "category": "community",
+       "description": "Food Bank for New York City Older Adult Center - an NYC Aging older adult center in New York."}
+p, e = derive_categories(dict(_fb, sources=[{"source": "facility-hours:nyc-aging-oac"}]))
+ok = (p, e) == ("community", None)
+print(f"{'ok ' if ok else 'FAIL'} a facility-hours centre named for a food bank stays community -> {p} + {e}")
+if not ok:
+    cfails.append("facility-hours food bank")
+p, e = derive_categories(dict(_fb, source="ics:x"))
+ok = p == "volunteer" or "volunteer" in (e or [])
+print(f"{'ok ' if ok else 'FAIL'} ...while the same title from an events feed still reaches volunteer -> {p} + {e}")
+if not ok:
+    cfails.append("food bank events feed")
 p, e = derive_categories({"name": "Karaoke Night", "category": "community", "description": "", "source": "ics:x"})
 ok = p == "party"
 print(f"{'ok ' if ok else 'FAIL'} ...while a bar's karaoke night from any other source still does -> {p}")

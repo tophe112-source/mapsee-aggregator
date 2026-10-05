@@ -120,6 +120,13 @@ def _volunteer_hit(rec: Dict[str, Any]) -> bool:
     a call to volunteer in the description's opening (_DESC_SCAN_CHARS, where
     every other description rule reads). ONE predicate for the primary and the
     secondary, because a secondary puts the event on the volunteer door too."""
+    # A building's opening hours are never a shift. NYC Aging names one older
+    # adult centre for its sponsor, "Food Bank For New York City Older Adult
+    # Center", and the title's food bank sent it to the volunteer door (1 of 455
+    # facility rows, 2026-10-05). A store record carries `sources`, not `source`.
+    src = rec.get("source") or ((rec.get("sources") or [{}])[0].get("source")) or ""
+    if str(src).startswith("facility-hours:"):
+        return False
     if _VOLUNTEER_RX.search(_strip_urls(rec.get("name") or "")):
         return True
     desc = (rec.get("description") or "")[:_DESC_SCAN_CHARS]
@@ -189,8 +196,20 @@ _PROMOTABLE_TO_PARTY = {"community", "food", "other"}
 # its contra, swing and tango nights are the DC area's social dances, which is
 # what the party door is for - and neither are the Revize town calendars, whose
 # concerts and festivals are shows.
+#
+# Joined later on 2026-10-05, each measured: Barcelona's agenda at its centres
+# cívics, casals and libraries (1,230 of 1,237 rows took the violet pin, all a
+# web search, a centre's ping-pong group included); Hong Kong's SmartPlay
+# walk-in sessions (all 2,009; LCSD's cultural programme, lcsd-culture, is an
+# agenda of shows and stays out); civic facility opening hours (455 rows - a
+# building's weekly hours, and without this every standing row's description
+# changed daily, which --skip-unchanged cannot survive); and Madrid's sessions
+# at its community places (madrid:centros; madrid:agenda is its shows), which
+# write nothing while that config is parked.
 CIVIC_TIMETABLE_SOURCES = ("toronto-rec", "toronto-earlyon", "linkedevents:", "perfectmind",
-                           "drupal-fullcalendar:", "montreal-loisirs", "phl-parks")
+                           "drupal-fullcalendar:", "montreal-loisirs", "phl-parks",
+                           "barcelona-agenda", "lcsd-smartplay", "facility-hours:",
+                           "madrid:centros")
 
 
 def _from_civic_timetable(rec: Dict[str, Any]) -> bool:
