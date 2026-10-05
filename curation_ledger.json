@@ -15601,6 +15601,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "athlone.ca": {
+    "checked": 20261005,
+    "name": "Athlone Community League",
+    "reason": "22 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "atholhallvenue.com.au": {
     "checked": 20260819,
     "name": "Athol Hall",
@@ -83569,6 +83576,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "edmontonsouthwoodcl.ca": {
+    "checked": 20261005,
+    "name": "Southwood Community League",
+    "reason": "1/4 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "edmontontemple.com/events": {
     "checked": 20260819,
     "name": "Salvation Army Edmonton Temple",
@@ -87748,6 +87762,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "erjcchouston.org": {
+    "checked": 20261005,
+    "name": "Evelyn Rubenstein Jewish Community Center",
+    "reason": "65 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "erk-bs.ch": {
     "checked": 20260919,
@@ -132962,12 +132983,33 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jcceastbay.org": {
+    "checked": 20261005,
+    "name": "Jewish Community Center of the East Bay",
+    "reason": "76 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "jccj.info/localchurch_tyokkatu.php": {
     "checked": 20260927,
     "name": "\u65e5\u672c\u30a4\u30a8\u30b9\u30fb\u30ad\u30ea\u30b9\u30c8\u6559\u56e3",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "jccmetrowest.org": {
+    "checked": 20261005,
+    "name": "JCC Metrowest",
+    "reason": "63 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "jccmw.org": {
+    "checked": 20261005,
+    "name": "JCC of Mid-Westchester",
+    "reason": "68 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "jccnnj.org": {
     "checked": 20261004,
@@ -133495,6 +133537,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "jewishwindsor.org": {
+    "checked": 20261005,
+    "name": "JCC of Windsor",
+    "reason": "52 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "jewishwinnipeg.org/directory/chavurat-tefilah-fellowship-of-prayer": {
     "checked": 20260819,
@@ -157094,6 +157143,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "lendrum.org/events": {
+    "checked": 20261005,
+    "name": "Lendrum Community League",
+    "reason": "19/49 upcoming",
+    "status": "ok",
+    "type": "squarespace"
+  },
   "lenebilgrav.dk": {
     "checked": 20260901,
     "name": "Galleri Lene Bilgrav",
@@ -170017,6 +170073,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "marjcc.org": {
+    "checked": 20261005,
+    "name": "Michael-Ann Russell JCC",
+    "reason": "307 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "markaz.ca": {
     "checked": 20260819,
@@ -212542,6 +212605,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pjcc.org": {
+    "checked": 20261005,
+    "name": "Peninsula JCC",
+    "reason": "1528 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "pjcvt.org": {
     "checked": 20260928,
     "name": "Peace & Justice Center - Clean Up Crew (Burlington, VT)",
@@ -224385,6 +224455,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "riverdaley.org/events": {
+    "checked": 20261005,
+    "name": "Riverdale YM-YWHA",
+    "reason": "6/9 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
+  },
   "riveredgenaturecenter.org": {
     "checked": 20260913,
     "name": "Riveredge Nature Center, WI",
@@ -233851,6 +233928,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "scclive.org": {
+    "checked": 20261005,
+    "name": "The Center",
+    "reason": "47 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "sccliving.org.au/our-services/residential-aged-care/find-a-community/greystanes-residential-aged-care": {
     "checked": 20260819,
     "name": "Southern Cross Care Greystanes Residential Aged Care",
@@ -239073,6 +239157,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "shamesjcc.org": {
+    "checked": 20261005,
+    "name": "Harold and Elaine Shames JCC on the Hudson",
+    "reason": "53 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "shamrockrovers.ie": {
     "checked": 20260822,
     "name": "Shamrock Rovers Football Club",
@@ -240757,6 +240848,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "sijcc.net/calendar": {
+    "checked": 20261005,
+    "name": "Silverlake Independent JCC",
+    "reason": "21/51 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "sikeston.org": {
     "checked": 20260913,
@@ -269550,6 +269648,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thelbca.ca": {
+    "checked": 20261005,
+    "name": "Lake Bonavista Community Association",
+    "reason": "204 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "thelibrary.ch": {
     "checked": 20260918,
     "name": "The Library in English",
@@ -281716,6 +281821,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "valleygardenscc.com/events": {
+    "checked": 20261005,
+    "name": "Valley Gardens CC",
+    "reason": "6/36 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "valleyrovers.com": {
     "checked": 20260822,

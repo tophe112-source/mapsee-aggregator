@@ -15571,6 +15571,264 @@
         ]
       },
       "_note": "Kuldīga main library: free author meetings, forest-school storytelling for children, the readers' club, lectures and financial-literacy seminars. None of the REST venues carries an address or coordinates, so the block places the rows that name the library or the Art House (Mākslas nams, 36 m away); the Zoom discussion club names neither and drops. 'Metodiskā diena' is a recurring closure notice."
+    },
+    {
+      "name": "Jewish Community Center of the East Bay",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jcceastbay.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "San Francisco, United States",
+      "_note": "seeds2 2026-10-04: 69 rows starting 2026-10-04..2027-01-02; read 69: 46 free, 13 paid, 9 unknown, 1 online. 44 of 69 name a venue with a street address for the Census pass (campus, Lake Temescal, other congregations); 25 name none and are left unplaced, because 13 of them are other organisations' Community Bulletin listings; 10 are JCCSF events at JCCSF's address."
+    },
+    {
+      "name": "Peninsula JCC",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://pjcc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Peninsula JCC",
+        "address": "800 Foster City Blvd",
+        "city": "Foster City",
+        "region": "CA",
+        "postal_code": "94404",
+        "country": "US",
+        "lat": 37.5582101,
+        "lon": -122.263613,
+        "names": [
+          "PJCC",
+          "Peninsula Jewish Community Center"
+        ]
+      },
+      "_metro": "San Francisco, United States",
+      "include_categories": [
+        "arts-culture",
+        "art-exhibits",
+        "center-for-healthy-longevity",
+        "concerts",
+        "count-me-in-social-impact",
+        "games-2",
+        "holidays-celebrations",
+        "jewish-life",
+        "jewish-learning",
+        "lectures-discussions",
+        "youth",
+        "pj-library",
+        "sports",
+        "sukkot",
+        "hanukkah",
+        "community-partner",
+        "north-peninsula-jewish-collaboration",
+        "israel-forum",
+        "pink"
+      ],
+      "_note": "seeds2 2026-10-04: 200 rows starting 2026-10-04..2027-01-02; read 150: 91 free, 41 paid, 14 online, 3 members, 1 unknown. include_categories leaves out the 1,310 group-exercise rows ('Registration & PJCC Membership Required'): 200 rows remain, read 150 - Drop-In Pickleball 29, drop-in mahjong, lectures, family days; 15 of the 150 are 'Virtual Discussion' rows naming no venue that WILL take the block (see open issue: tribe has no exclude_categories). Venue point: Census '800 FOSTER CITY BLVD, FOSTER CITY, CA, 94404' (the jcca.org directory point was 312 m off). Dry run 2026-10-05 (real adapter): 222 rows, 200 in 90 days, 191 with coordinates; 18 are 'Let's Talk About It: Virtual Discussion Group' (Zoom), which mapsee_ingest.looks_online_only flags but the tribe adapter never calls, so they take the block and pin at the J - merge after tribe skips looks_online_only rows. 2 'Tech Talk' rows ('Cost: Free/Members & CHL Passholders, $10/Public') are tagged free by 0227's wording. 2026-10-05: tribe now refuses an online-only row that names no place (online_with_no_place)."
+    },
+    {
+      "name": "JCC Metrowest",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jccmetrowest.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "JCC Metrowest",
+        "address": "760 Northfield Ave",
+        "city": "West Orange",
+        "region": "NJ",
+        "postal_code": "07052",
+        "country": "US",
+        "lat": 40.7674616,
+        "lon": -74.2963088,
+        "names": [
+          "JCC MetroWest"
+        ]
+      },
+      "_metro": "New York, United States",
+      "_note": "seeds2 2026-10-04: 50 rows starting 2026-10-04..2027-01-02; read 50: 41 paid, 9 free. 46 of 50 carry their own coordinates; the block fills the 4 JCC MetroWest rooms that carry only an address; 26 are 'Parkinson's Strength', free for members and $5 for non-members. Venue point: jcca.org directory point; Census matches '760 NORTHFIELD AVE, WEST ORANGE, NJ, 07052' 109 m away.",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "The Center",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+events-manager+jsonld-event",
+      "base_url": "https://www.scclive.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "New York, United States",
+      "_note": "seeds2 2026-10-04: 47 rows starting 2026-10-04..2027-01-02; read 47: 19 paid, 15 free, 12 unknown, 1 online. 33 of 47 name the Sephardic Community Center with its street address; 8 others name venues with addresses; the 6 naming none are trips and stay unplaced.",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "Harold and Elaine Shames JCC on the Hudson",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.shamesjcc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Harold and Elaine Shames JCC on the Hudson",
+        "address": "371 S Broadway",
+        "city": "Tarrytown",
+        "region": "NY",
+        "postal_code": "10591",
+        "country": "US",
+        "lat": 41.0616549,
+        "lon": -73.8626742
+      },
+      "_metro": "New York, United States",
+      "_note": "seeds2 2026-10-04: 52 rows starting 2026-10-04..2027-01-02; read 52: 21 paid, 17 free, 9 unknown, 5 online. 51 of 52 name no venue and the descriptions place them at the JCC (1 lunch outing to a restaurant will take the block); fees are stated as member/non-member prices. Venue point: jcca.org directory point; Census matches '371 S BROADWAY, TARRYTOWN, NY, 10591' 56 m away.",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "JCC of Mid-Westchester",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jccmw.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "_metro": "New York, United States",
+      "_note": "seeds2 2026-10-04: 66 rows starting 2026-10-04..2027-01-02; read 66: 29 free, 22 unknown, 14 paid, 1 online. 59 of 66 name JCCMW with its street address; offsite rows carry their own addresses."
+    },
+    {
+      "name": "Evelyn Rubenstein Jewish Community Center",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.erjcchouston.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evelyn Rubenstein Jewish Community Center",
+        "address": "5601 S. Braeswood",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77096",
+        "country": "US",
+        "lat": 29.6735366,
+        "lon": -95.4833483,
+        "names": [
+          "Evelyn Rubenstein",
+          "Kaplan Theatre",
+          "Herzstein",
+          "Merfish",
+          "Zinn Boardroom",
+          "Joe Frank Theatre"
+        ]
+      },
+      "_metro": "Houston, United States",
+      "_note": "seeds2 2026-10-04: 66 rows starting 2026-10-04..2027-01-02; read 66: 39 free, 22 unknown, 4 paid, 1 online. 60 of 66 carry their own coordinates; the block fills the Herzstein room (3); TBA (2) and Virtual (1) do not take it. Venue point: jcca.org directory point; Census matches '5601 S BRAESWOOD BLVD, HOUSTON, TX, 77096' 164 m away.",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Michael-Ann Russell JCC",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://marjcc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Michael-Ann Russell JCC",
+        "address": "18900 NE 25th Ave",
+        "city": "North Miami Beach",
+        "region": "FL",
+        "postal_code": "33180",
+        "country": "US",
+        "lat": 25.9495576,
+        "lon": -80.1529144,
+        "names": [
+          "Senior Lounge",
+          "MARJCC",
+          "Lieberman Theater",
+          "Art Studio"
+        ]
+      },
+      "_metro": "Miami, United States",
+      "include_categories": [
+        "adult-services",
+        "adult-services-2",
+        "the-hub-adult-programing-events",
+        "cultural-arts",
+        "performing-arts-productions",
+        "jcat-performance",
+        "jazz-at-the-j-series",
+        "meet-the-author-series",
+        "marjcc-community-events",
+        "guest-performances",
+        "bamachol-dance-program-performance",
+        "marjcc-performance"
+      ],
+      "_note": "seeds2 2026-10-04: 225 rows starting 2026-10-04..2027-01-02; read 125: 90 unknown, 20 paid, 15 free. include_categories leaves out the building-hours category (6 holiday-hours notices) and Hebraica sports; 225 rows remain: 107 of 125 read are the Senior Adult Services drop-in groups (mah jongg, chess, knitting, support groups; no fee or eligibility stated on the row or its page), 14 padel nights at $20; the 49 naming no venue are Adult Services rows and take the block. Venue point: jcca.org directory point; Census matches '18900 NE 25TH AVE, MIAMI, FL, 33180' 211 m away."
+    },
+    {
+      "name": "JCC of Windsor",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://jewishwindsor.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "JCC of Windsor",
+        "address": "1641 Ouellete Ave",
+        "city": "Windsor",
+        "region": "ON",
+        "postal_code": "N8X 1K9",
+        "country": "CA",
+        "lat": 42.2971393,
+        "lon": -83.0265595,
+        "names": [
+          "Windsor Jewish Community Centre"
+        ]
+      },
+      "_metro": "Windsor, Canada",
+      "_note": "seeds2 2026-10-04: 52 rows starting 2026-10-04..2027-01-02; read 52: 38 unknown, 8 free, 4 room, 2 paid. 49 of 52 at the centre (address only, and Canada has no Census pass, so the block places them); 26 Senior Exercise, 11 Light Dance, bingo, social club; 4 are 'WJCC Closed' notices that no gate refuses (see open issue). Venue point: round-1 seed coordinate (municipal open data / jcca.org directory). Dry run 2026-10-05: 52 rows, 49 with coordinates; 4 are 'WJCC Closed for Thanksgiving' / 'WJCC CLOSED' (Dec 25, Dec 28, Jan 1), which mapsee_ingest._CLOSURE_TITLE_RX misses (an acronym before 'Closed') and tribe has no skip_title - merge after either is fixed. 2026-10-05: skip_title refuses the 4 'WJCC Closed' notices.",
+      "skip_title": "^\\W*WJCC\\s+closed\\b"
+    },
+    {
+      "name": "Lake Bonavista Community Association",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://thelbca.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lake Bonavista Community Association",
+        "address": "1401 Acadia Drive SE",
+        "city": "Calgary",
+        "region": "AB",
+        "country": "CA",
+        "lat": 50.9369523,
+        "lon": -114.0492261,
+        "names": [
+          "LBCA",
+          "Lake Bonavista Community Association"
+        ]
+      },
+      "_metro": "Calgary, Canada",
+      "_note": "seeds2 2026-10-04: 206 rows starting 2026-10-04..2027-01-02; read 106: 40 free, 39 unknown, 27 paid. all at the LBCA gym and two rinks: drop-in gym ($6), stick & puck, leisure skate, pickleball, Tumble Time (drop-in, fee for children); 3 naming no venue take the block. Venue point: round-1 seed coordinate (municipal open data / jcca.org directory)."
+    },
+    {
+      "name": "Athlone Community League",
+      "category": "community",
+      "_found": "seed:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://athlone.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Athlone Community League",
+        "city": "Edmonton",
+        "region": "AB",
+        "country": "CA",
+        "lat": 53.58973,
+        "lon": -113.5447443,
+        "names": [
+          "Athlone Hall"
+        ]
+      },
+      "_metro": "Edmonton, Canada",
+      "_note": "seeds2 2026-10-04: 21 rows starting 2026-10-04..2027-01-02; read 21: 20 free, 1 paid. all 21 at Athlone Hall: weekly Zumba ($5 drop-in), free financial workshops, a family dinner & dance, a jam session, two markets. Venue point: round-1 seed coordinate (municipal open data / jcca.org directory)."
     }
   ],
   "_not_included": {

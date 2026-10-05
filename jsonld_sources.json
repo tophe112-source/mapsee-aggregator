@@ -6385,6 +6385,41 @@
       "_found": "manual:2026-10-03 guessed domain; Modern Events Calendar pages carry schema.org Event JSON-LD",
       "_note": "Free programmes in Austin parks: 17 upcoming on the calendar page (Restoration Reset volunteer workdays x8, Art/Playdate/Hoops/Movie/Spark in the Park), each page's JSON-LD carries the park's street address and no price.",
       "skip_title": "^Spark in the Park: Dick Nichols District Park$|^10/29 Movies in the Park: Coco @ Springwoods"
+    },
+    {
+      "name": "Riverdale YM-YWHA",
+      "category": "community",
+      "_found": "seed:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://riverdaley.org/events/"
+      ],
+      "link_pattern": "https://riverdaley\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "_metro": "New York, United States",
+      "_note": "seeds2 2026-10-04: 6 rows starting 2026-10-04..2027-01-02; read 6: 6 free. 6 rows, all at the Y (talks, a commemoration, family Shabbat, a Knicks watch party); JSON-LD offers carry price 0. Venue point: jcca.org directory point; Census matches '5625 ARLINGTON AVE, BRONX, NY, 10471' 77 m away. Venue block left out 2026-10-05: all 6 rows carry a Bronx street address for the Census pass, and the jsonld block fills coordinates even when a row names another venue, which pinned the 'Community Wide October 7 Commemoration' at SAR High School (503 W 259th St) on the Y. Dry run without the block: 5 rows (the season-long 'Family Shabbat 2026/27' row names the Riverdale-Yonkers Society for Ethical Culture without a city, finds no Photon match and is not imported)."
+    },
+    {
+      "name": "Southwood Community League",
+      "category": "community",
+      "_found": "seed:community_centre -> wix+jsonld-event",
+      "listing": [
+        "https://www.edmontonsouthwoodcl.ca/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "_metro": "Edmonton, Canada",
+      "_note": "seeds2 2026-10-04: 0 rows starting 2026-10-04..2027-01-02; read 0: . 8 rows at the hall: seniors social, D&D nights, youth/kids movie nights, a wellness workshop; 1 stained-glass class; 1 board meeting (members, RSVP). Venue point: round-1 seed coordinate (municipal open data / jcca.org directory). skip_title refuses the 'Monthly ESCL Board Meeting' row (1 of 13 in the dry run).",
+      "skip_title": "\\bboard meeting\\b",
+      "venue": {
+        "name": "Southwood Community League",
+        "address": "1880 37 Street",
+        "city": "Edmonton",
+        "region": "AB",
+        "country": "CA",
+        "lat": 53.4490735,
+        "lon": -113.4001695
+      }
     }
   ],
   "_not_included": {

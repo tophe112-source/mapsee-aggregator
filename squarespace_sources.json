@@ -2072,6 +2072,61 @@
       "_metro": "Ísafjörður, IS",
       "_found": "manual:2026-10-03 homepage sniff of Icelandic regional culture houses -> squarespace",
       "_note": "Ísafjörður's culture house in the Westfjords: fortnightly Magic: the Gathering game nights, Creative Saturdays for kids, a Halloween costume-swap market, concerts and some paid art courses; 15 of 45 articles upcoming, none with an address, so the OSM point of the house is the venue."
+    },
+    {
+      "name": "Silverlake Independent JCC",
+      "category": "community",
+      "_found": "seed:community_centre -> squarespace",
+      "collection": "https://www.sijcc.net/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Silverlake Independent JCC",
+        "address": "1110 Bates Ave",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90029",
+        "country": "US",
+        "lat": 34.094705,
+        "lon": -118.2821545
+      },
+      "_metro": "Los Angeles, United States",
+      "_note": "seeds2 2026-10-04: 21 rows starting 2026-10-04..2027-01-02; read 21: 13 unknown, 8 free. every row is at the centre: ballet-strength and pay-what-you-can yoga classes, parent-and-me, book club, family Shabbat, a blood drive, a ballot forum, 3 early-voting days. Venue point: jcca.org directory point; Census matches '1110 BATES AVE, LOS ANGELES, CA, 90029' 43 m away."
+    },
+    {
+      "name": "Lendrum Community League",
+      "category": "community",
+      "_found": "seed:community_centre -> squarespace",
+      "collection": "https://www.lendrum.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Lendrum Community League",
+        "city": "Edmonton",
+        "region": "AB",
+        "country": "CA",
+        "lat": 53.4938367,
+        "lon": -113.5245398
+      },
+      "_metro": "Edmonton, Canada",
+      "_note": "seeds2 2026-10-04: 18 rows starting 2026-10-04..2027-01-02; read 18: 17 unknown, 1 governance. 18 rows: yoga, Turkey Trot, bottle drive, pumpkin parade, toy swap; 8 are a kids' sewing class series and 1 a board meeting. Venue point: round-1 seed coordinate (municipal open data / jcca.org directory). Dry run 2026-10-05: 19 rows, 18 in 90 days, all placed; 1 'LCL September Board Meeting' passes (Squarespace has no skip_title); 18 of 19 descriptions end in Squarespace CSS ('#block-... { --tweak-text-block-padding ...') because the adapter strips tags but not <style> contents."
+    },
+    {
+      "name": "Valley Gardens CC",
+      "category": "community",
+      "_found": "seed:community_centre -> squarespace",
+      "collection": "https://www.valleygardenscc.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Valley Gardens CC",
+        "address": "218 Antrim Rd",
+        "city": "Winnipeg",
+        "region": "MB",
+        "postal_code": "R2K 3L2",
+        "country": "CA",
+        "lat": 49.920963,
+        "lon": -97.071136
+      },
+      "_metro": "Winnipeg, Canada",
+      "_note": "seeds2 2026-10-04: 6 rows starting 2026-10-04..2027-01-02; read 6: 6 unknown. 6 rows: Community Stitches (4), a craft sale & quiz night, breakfast with Santa. Venue point: round-1 seed coordinate (municipal open data / jcca.org directory). Dry run 2026-10-05: 6 rows, all placed; 6 of 6 descriptions carry Squarespace CSS (see Lendrum)."
     }
   ],
   "_not_included": {
