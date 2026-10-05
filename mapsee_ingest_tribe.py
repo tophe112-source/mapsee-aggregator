@@ -46,7 +46,7 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
+from mapsee_ingest import NormalizedEvent, EventStore, looks_online_only, make_fingerprint, norm_categories
 from catalog_discover_osm import CIVIC_TITLE_RX, CIVIC_HOLIDAY_RX
 from mapsee_admission import admission_description, normalize_admission_facts
 
@@ -184,6 +184,27 @@ def _block_stands_in(v: Dict[str, Any], vd: Dict[str, Any]) -> bool:
     return not own or any(re.search(rf"\b{re.escape(_venue_key(n))}\b", own) for n in names)
 
 
+# A ZOOM TALK IS NOT AT THE J. Peninsula JCC's "Let's Talk About It: Virtual
+# Discussion Group" (a Zoom link, 18 of its 200 rows on 2026-10-04) names no
+# venue, so the config's venue block pinned every one at the centre. A row that
+# says it is online in its own words (looks_online_only, as Meetup and Linked
+# Events read it) AND names no street of its own, nor any place but "Online" or
+# "Zoom", has nowhere to turn up. A row with a street of its own is kept: the
+# words may be about a stream beside the room.
+_ONLINE_PLACE_RX = re.compile(r"\b(?:online|virtual|zoom|webinar|live\s*stream)\b", re.I)
+
+
+def online_with_no_place(ev: Dict[str, Any], name: Optional[str],
+                         description: Optional[str]) -> bool:
+    if not looks_online_only(name, description):
+        return False
+    v = _obj(ev.get("venue"))
+    if _clean(v.get("address")):
+        return False
+    place = _clean(v.get("venue"))
+    return not place or bool(_ONLINE_PLACE_RX.search(place))
+
+
 def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEvent]:
     name = _clean(ev.get("title"))
     start = (ev.get("start_date") or "").strip()          # "2026-08-04 10:00:00", site-local
@@ -306,6 +327,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     excluded = 0
     admission_excluded = 0
     title_filtered = 0
+    online = 0
     is_civic = str(site.get("_found", "")).startswith("civic:")
     refreshable_admission_ids = (_known_admission_ids_for_site(store, base)
                                  if site.get("free_only") else set())
@@ -371,6 +393,9 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             if nev and skip_title and skip_title.search(nev.name or ""):
                 title_filtered += 1
                 continue
+            if nev and online_with_no_place(ev, nev.name, nev.description):
+                online += 1
+                continue
             if nev:
                 store.upsert(nev)
                 kept += 1
@@ -382,6 +407,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
           + (f" ({malformed} unreadable record(s) skipped)" if malformed else "")
           + (f" ({governance} town-hall row(s) refused)" if governance else "")
           + (f" ({title_filtered} title-filtered)" if title_filtered else "")
+          + (f" ({online} online with no place refused)" if online else "")
           + (f" ({excluded} outside configured categories)" if excluded else "")
           + (f" ({admission_excluded} outside explicit-free admission scope)"
              if admission_excluded else ""))

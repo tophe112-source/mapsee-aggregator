@@ -659,6 +659,25 @@ except ValueError:
     refused = True
 check("an invalid skip_title fails loudly instead of filtering nothing", refused)
 
+# --- a Zoom talk is not at the J ------------------------------------------------
+# Peninsula JCC (2026-10-04): 18 of 200 rows were a Zoom discussion group that
+# named no venue, so the venue block pinned each one at the centre.
+zoom = "<p>Join us on Zoom for a lively conversation.</p>"
+online_rows = [row(id=1, title="Virtual Discussion Group", description=zoom, venue=[]),
+               row(id=2, title="Book Talk", description=zoom, venue={"venue": "Zoom"}),
+               row(id=3, title="Watch Party", description=zoom),                 # has a street
+               row(id=4, title="Hybrid Shabbat", venue=[],
+                   description="<p>In-person in the hall, or on Zoom.</p>"),
+               row(id=5, title="Pickleball", venue=[])]                            # says nothing
+store = _Store()
+with redirect_stdout(io.StringIO()) as buf:
+    kept = T.ingest_site(store, _Session(online_rows),
+                         dict(SITE, crawl_delay=0, venue={"name": "The J", "lat": 37.5, "lon": -122.2}))
+check("an online-only row with no place of its own, or a place called Zoom, is refused",
+      sorted(e.name for e in store.seen) == ["Hybrid Shabbat", "Pickleball", "Watch Party"],
+      [e.name for e in store.seen])
+check("...and the run says how many", "2 online with no place refused" in buf.getvalue(), buf.getvalue())
+
 # --- a website without a scheme is no link -------------------------------------
 # BCUT Timisoara's rows said "www.bcut.ro"; the event's own page is whole.
 check("a scheme-less website falls back to the event's own page",
