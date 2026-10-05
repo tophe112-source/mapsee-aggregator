@@ -140,3 +140,18 @@
 - **AN IMAGE LICENCE CAN FORBID WHAT THE PRODUCT DOES WITH A POSTER.** Linked Events marks 6,426 of the 10,648 replayed rows' images `event_only`: "can only be used for information and communications connected to the event ... The source and photographer must absolutely be mentioned". 1,333 of them name no photographer at all, and 112 more say "-". ../mapsee/src/index.js (~4968) takes the first poster among a venue's events as the VENUE page's og:image, and list thumbnails carry no credit. So `event_only_images` is false on both instances, and only the 4,127 cc_by images are used, each credited in the attribution paragraph.
 
 - **A PERFECTMIND "NO FEE" IS THE WIDGET'S CHARGE, NOT THE SESSION'S PRICE.** I replayed the 2026-10-03 capture (78,339 rows) and scored the stored rows with 0227's twin. The adapter had written "Free drop-in" on 8,392 rows and 0227 tagged 8,692 free. 3,190 of those sat behind a paid membership named in the Details: Surrey's "Seniors Services Membership required." (1,792) and Markham's "Fitness membership required" (1,313). Another 181 had a stated fee but prose that read as free: Coquitlam's $9.00 skate, "Coaches are free of charge" (95), and Moose Jaw's $0.00-$18.25 gym, "free of charge with membership" (86). Since 2026-10-04 the adapter does three things. It refuses a row whose Details require a membership or pass the source does not call free: 5,253 rows, including Brampton's Flower City Seniors Centre 2,095, Markham 1,345 and NVRC's Parkgate Society 21. It writes no price where the widget does not sell the row (Markham's 749 drop-in aquafit, $7.58 at the desk) or hides prices (NVRC, Westside). And it ends every stated fee with "(not free)", which 0227's FREE_NEG reads as a veto on the whole row. After: 65,163 rows kept and 4,498 tagged free, with 0 behind a paid membership and 0 with a stated fee. Live on 2026-10-04 (Markham, Coquitlam and Moose Jaw, 148 requests), the same answers went from 491 tagged free to 104.
+
+- **THE `rec` GROUP'S FIRST SYNC IS 103,600 ROWS, AND PREPARING THEM, NOT
+  POSTING THEM, IS WHAT TAKES THE TIME.** Verified on main 2026-10-04 by two
+  `feed_group=rec` dispatches. Run 37216641420: Toronto 27,654 rows in 18 s,
+  Linked Events 10,204 kept in 7 min, PerfectMind 65,760 sessions in 2,410
+  requests and 17.1 min, 0 rows geocoded (all carry the publisher's point) - and
+  the sync ran out its then 20-minute cap with 78,770 rows stored. Run
+  37219810868 (cap 60 for `rec` only, 4e4fa55): "78,770 of 103,604 id(s) already
+  in Supabase, read in 135.4 s", 24,834 left, 5 dropped by the moderation
+  pre-filter, preparing the rows 4.5 min, "Upsert phase: 24,829 row(s) in
+  218.5 s"; the whole sync 8 min and the job green. So a first sync or a
+  Wednesday refresh of the full group is about 4 + 19 + 15 minutes, which the
+  60-minute cap holds and 20 never could; a --only-new day is the new sessions
+  only.
+

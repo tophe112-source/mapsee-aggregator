@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 330 of them — live in
+session.** The measured notes about what bites — 331 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -138,7 +138,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/state-fairs.md` | 5 | marketing-copy dates, towns vs venues |
 | `docs/agents/health-and-monitoring.md` | 6 | `stats_snapshot_all`, baselines, a source with no retry |
 | `docs/agents/libraries-bibliocommons.md` | 6 | geocoding cost, ignored date filters, stock tiles, a 5xx page, verified event yield |
-| `docs/agents/community-centres.md` | 13 | drop-in vs course, where a centre's timetable lives, booking platforms, city open data, seed yield |
+| `docs/agents/community-centres.md` | 14 | drop-in vs course, where a centre's timetable lives, booking platforms, city open data, seed yield |
 | `docs/agents/running.md`, `credentials.md`, `platforms-probed.md` | — | the operational sections, verbatim |
 | `docs/agents/INDEX.md` | all | every headline, generated — grep it first |
 
