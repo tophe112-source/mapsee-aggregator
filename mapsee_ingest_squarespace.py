@@ -110,10 +110,19 @@ _DEFAULT_LATLON = (40.7207559, -74.0007613)
 _DESC_MAX = 1200
 
 
+# A STYLE BLOCK IS NOT PROSE. Squarespace ships a text block's CSS inside the
+# excerpt, and stripping only the tags kept what was between them: 36 of 63
+# rows on 3 of 4 community-league sites ended "#block-<hex> {
+# --tweak-text-block-padding ... }" (2026-10-05). The element goes, contents
+# and all, and again after unescaping for an excerpt that arrives escaped.
+_NOT_PROSE = re.compile(r"<(style|script|noscript)\b[^>]*>.*?</\1\s*>", re.I | re.S)
+
+
 def _clean(s: Optional[str], limit: Optional[int] = None) -> Optional[str]:
     if not s:
         return None
-    s = html_mod.unescape(_TAG.sub(" ", str(s)))
+    s = html_mod.unescape(_TAG.sub(" ", _NOT_PROSE.sub(" ", str(s))))
+    s = _NOT_PROSE.sub(" ", s)
     s = re.sub(r"\s+", " ", s).strip()
     if not s:
         return None

@@ -207,6 +207,19 @@ ev = LU.to_event(luma_event(geo_address_info=dict(
 check("a numeric address is treated as a street",
       ev is not None and ev.address == "1275 Kinnear Rd" and ev.venue_name is None, ev)
 
+# A Squarespace excerpt carries its text block's CSS; the prose is what is left
+# once the element goes, contents and all (Lendrum, Valley Gardens, 2026-10-05).
+_EXC = ('<p>Pumpkin carving in the hall.</p><style>#block-yui_3_17 { '
+        '--tweak-text-block-padding: 0; mix-blend-mode: normal; }</style>'
+        '<script>window.x = 1;</script>')
+check("a <style> or <script> block is not prose",
+      SQ._clean(_EXC) == "Pumpkin carving in the hall.", SQ._clean(_EXC))
+check("...nor when the excerpt arrives escaped",
+      SQ._clean("Fun fair &lt;style&gt;#b { color: red }&lt;/style&gt; for all") == "Fun fair for all",
+      SQ._clean("Fun fair &lt;style&gt;#b { color: red }&lt;/style&gt; for all"))
+check("...and an ordinary 'a < b' sentence is left alone",
+      SQ._clean("Ages 3 &lt; 5 welcome") == "Ages 3 < 5 welcome", SQ._clean("Ages 3 &lt; 5 welcome"))
+
 # The Discover feed is requested with discover_place_api_id; place_api_id is
 # accepted, ignored and answered with the CALLER's city. Guard the spelling.
 import inspect
