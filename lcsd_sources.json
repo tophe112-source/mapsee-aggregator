@@ -1,0 +1,76 @@
+{
+  "_doc": "mapsee_ingest_lcsd.py - Hong Kong's Leisure and Cultural Services Department: SmartPlay's WALK-IN community sports sessions (no enrolment, FEE 0) and the cultural programme at LCSD's town halls, civic centres, theatres and museums. DATA.GOV.HK terms: free re-use with attribution. Read the adapter's header before changing a filter: every refusal is counted in the run's output.",
+  "timezone": "Asia/Hong_Kong",
+  "city": "Hong Kong",
+  "country": "HK",
+  "_bbox": "S, W, N, E: the SAR with Lantau and the outlying islands. A point outside is a parse gone wrong (Sham Shui Po Sports Centre's published longitude is 144-14-90).",
+  "bbox": [22.13, 113.82, 22.57, 114.45],
+  "_district_check": "A facility point (or a geocoded one) is refused when strictly more of its district's other facilities lie beyond district_check_km than within it. 6 of 141 facility points failed on 2026-10-05, all wrong by eye; Islands district spans Lantau to Cheung Chau, so it gets its own radius.",
+  "district_check_km": 8,
+  "district_radius_km": {"islands": 20},
+  "_geocode_check_km": "A geocoded point must be this close to the nearest facility of its district (district_radius_km overrides). 2026-10-05: right answers within 2.5 km, Photon's wrong parks 3.7 and 4.9 km.",
+  "geocode_check_km": 3,
+  "geocode_suffix": ", Hong Kong",
+  "attribution": "Source: Leisure and Cultural Services Department, HKSAR (DATA.GOV.HK, free re-use with attribution).",
+  "facility_urls": [
+    "https://www.lcsd.gov.hk/datagovhk/facility/facility-sc.json",
+    "https://www.lcsd.gov.hk/datagovhk/facility/facility-sg.json"
+  ],
+  "_venue_aliases": "SmartPlay's EN_VENUE spelling -> the facility list's Name_en, both after venue_key() (lower case, parentheticals gone, & -> and). Only names measured to differ.",
+  "venue_aliases": {
+    "jc tuen mun butterfly beach sports centre": "the jockey club tuen mun butterfly beach sports centre"
+  },
+  "_sources_order": "The cultural programme is read first: 4 requests and about 6 geocodes, so a slow SmartPlay transfer or a cold geocode cache (310 s, 35 venues left for the next run, measured 2026-10-05) can never use up --max-minutes before it.",
+  "sources": [
+    {
+      "kind": "culture",
+      "name": "LCSD cultural programmes",
+      "source": "lcsd-culture",
+      "events_url": "https://www.lcsd.gov.hk/datagovhk/event/events.xml",
+      "dates_url": "https://www.lcsd.gov.hk/datagovhk/event/eventDates.xml",
+      "venues_url": "https://www.lcsd.gov.hk/datagovhk/event/venues.xml",
+      "holiday_url": "https://www.lcsd.gov.hk/datagovhk/event/holiday.xml",
+      "dataset": "https://data.gov.hk/en-data/dataset/hk-lcsd-event-event-cultural",
+      "horizon_days": 90,
+      "_venue_include": "null keeps every LCSD venue. A regex here (e.g. 'Town Hall|Civic Centre') would keep the district halls only; see the adapter header for the numbers behind keeping all.",
+      "venue_include": null,
+      "_category_by_cat2": "LCSD's cat2 codes, named from the titles they carry (2026-10-03/05): sc1 orchestral and choral concerts, sc2 Cantonese opera, sc3 dance, sc4 exhibitions, sc5 film, sc6 drama and musicals, sc7 multi-arts, sc8 community concerts, sc9 pop, sc10 festivals, sc12 variety shows, sc14 hirers' programmes, inc7 health talks and exhibitions, inc9 carnivals and community arts.",
+      "category_by_cat2": {
+        "inc4sc1": "music", "inc4sc2": "theater", "inc4sc3": "theater", "inc4sc4": "arts",
+        "inc4sc5": "arts", "inc4sc6": "theater", "inc4sc7": "theater", "inc4sc8": "music",
+        "inc4sc9": "music", "inc4sc10": "arts", "inc4sc11": "community", "inc4sc12": "music",
+        "inc4sc14": "community", "inc7sc8": "learning", "inc9sc1": "community", "inc9sc2": "arts",
+        "inc9sc3": "arts"
+      },
+      "category_by_title": [
+        ["\\bexhibition\\b", "arts"],
+        ["\\bconcert\\b|\\brecital\\b", "music"],
+        ["\\btalk\\b|\\bseminar\\b|\\blecture\\b|sharing session", "learning"]
+      ],
+      "category_default": "arts"
+    },
+    {
+      "kind": "smartplay",
+      "name": "LCSD SmartPlay walk-in programmes",
+      "source": "lcsd-smartplay",
+      "url": "https://data.smartplay.lcsd.gov.hk/rest/cms/api/v1/publ/contents/open-data/activity-prog/file",
+      "dataset": "https://data.gov.hk/en-data/dataset/hk-lcsd-prog-smartplay-prog",
+      "horizon_days": 90,
+      "_category_by_title": "First match wins, read on the folded English title; then category_by_type on EN_ACT_TYPE_NAME; then category_default.",
+      "category_by_title": [
+        ["bird[- ]?watch|orienteering|planting|\\bgreen\\b|hiking|\\bbeach\\b|\\bbike\\b|cycling", "outdoors"],
+        ["seminar|briefing|\\btalk\\b", "learning"],
+        ["tai chi|baduanjin|qigong|fitness|exercise|gymnastic|dance|yoga|wushu|kung fu|martial|aerobic|hydro|assessment", "fitness"],
+        ["badminton|table[- ]?tennis|gateball|bowl|tennis|golf|\\bpool\\b|billiard|snooker|volleyball|basketball|soccer|football|squash|archery|flying disc|athletic|netball|handball|hockey|swim", "sports"],
+        ["carnival|fun games|sports day|fun day", "community"]
+      ],
+      "category_by_type": {
+        "Carnivals/Sports Carnivals": "community",
+        "Bird Watching": "outdoors",
+        "Orienteering": "outdoors",
+        "Green Activity": "outdoors"
+      },
+      "category_default": "fitness"
+    }
+  ]
+}
