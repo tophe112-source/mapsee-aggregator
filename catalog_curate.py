@@ -1196,6 +1196,301 @@ BACKENDS = ("socrata", "ckan", "mobilizon", "osm", "civic")
 # than glanced at — the same reason the Socrata cursor exists.
 OSM_METROS_PER_RUN = 3
 
+# HOW MANY VENUES ONE `discover osm` RUN PROBES AT ONCE. The walk is time-bound,
+# not request-bound: over 13 community walks (2026-09-22..10-03) a 55-minute
+# run made 950-1,450 live probes at 2.3-3.5 s each, almost all of it waiting on
+# somebody else's server, and read 3-7 metros a run. On 2026-10-04 the cursor
+# sat at Hannover with Washington DC 57 metros on and Seattle 63: 8-19 runs.
+# Most venues are a different site, but not all: in Winnipeg 19 of the 30
+# unsettled venues are branch pages on one library site, in Halifax 11 of 25.
+# So _discover_osm never runs two probes of one host together, and _HostGate
+# releases the requests one host sees, redirects and follow-ups included,
+# OSM_HOST_GAP_S apart across all the workers. That gate is a COST as well as
+# a courtesy: about a second per same-host follow-up, which the one-at-a-time
+# code never paid. Measured live 2026-10-05 against the code this replaced
+# (git 1ea55aa, one at a time, ungated), same venue lists, scratch ledger, every
+# request inside robots.txt: Halifax 46.7 s -> 28.1-29.0 s with four workers
+# (1.6x; one worker of this code took 67.3 s, the gate and robots.txt reads
+# included), Hamilton 72.2 s -> 32.0 s (2.3x on one sample each; a review run
+# a day earlier implied about 53 s for the old code there, which is 1.7x). Both
+# found the same candidates with fewer requests: 58 -> 48 and 80 -> 61, because
+# robots.txt refuses some (12 in Halifax) and the run's cache answers repeats
+# (11 and 19), at the price of one robots.txt read per origin. What sets
+# the gain is how much of a metro sits on one host: that host's chain is the
+# critical path, and the other workers are idle while it drains.
+OSM_PROBE_WORKERS = 4
+OSM_HOST_GAP_S = 1.0
+
+# AN UNREACHABLE VENUE IS PARKED FOR A WEEK, NOT THE 90 DAYS A DEAD END GETS.
+# It is how the site answered one request, not a fact about the site, which is
+# why it was never written down — but a metro the deadline cuts short is read
+# again the next day, and it used to pay for every unreachable venue again:
+# Mexico City was walked on 09-24 and 09-25, and on 09-25 155 of the 163 sites
+# probed in three Mexican metros were unreachable at ~23 s each (62 minutes).
+# Its own status, so _dead_recently (fail/empty/refused, which `verify` also
+# reads) means what it did and a verify of the same URL is never skipped.
+UNREACHABLE_TTL_DAYS = 7
+
+# A metro where at least this many probes raised, and more than half of them,
+# is not read; see where it is used.
+OSM_PROBE_ERRORS_STOP = 3
+
+
+class _HostGate:
+    """No two requests to one host are RELEASED less than `gap` seconds apart
+    (or the host's Crawl-delay, when that is longer), across every worker that
+    holds this gate. Paced on the last request actually let go, not on a
+    reserved slot: with slots, a worker that woke late from its sleep was
+    followed by the next on-time slot less than `gap` later (0.974-0.999 s
+    measured). A waiting worker never holds the lock while it sleeps."""
+
+    def __init__(self, gap=OSM_HOST_GAP_S, clock=time.monotonic, sleep=time.sleep):
+        import threading
+        self.gap, self._clock, self._sleep = float(gap), clock, sleep
+        self._lock = threading.Lock()
+        self._last, self._slow = {}, {}
+        self.waits, self.waited = 0, 0.0
+
+    def slow(self, url, delay):
+        """A robots.txt Crawl-delay: this host's gap is at least `delay`."""
+        host = _probe_host(url)
+        with self._lock:
+            self._slow[host] = max(self._slow.get(host, 0.0), float(delay))
+
+    def wait(self, url):
+        host = _probe_host(url)
+        waited = 0.0
+        while True:
+            with self._lock:
+                now = self._clock()
+                last = self._last.get(host)
+                pause = 0.0 if last is None else (
+                    last + max(self.gap, self._slow.get(host, 0.0)) - now)
+                if pause <= 0:
+                    self._last[host] = now
+                    if waited:
+                        self.waits += 1
+                        self.waited += waited
+                    return
+            self._sleep(pause)
+            waited += pause
+
+
+def _probe_host(url):
+    """The host a probe is serialised on: `www.` and case do not make a second
+    site, and nor does the scheme (http:// redirects to https:// on the host)."""
+    from urllib.parse import urlparse
+    try:
+        h = (urlparse(url).hostname or "").lower()
+    except ValueError:
+        h = ""
+    return h[4:] if h.startswith("www.") else h
+
+
+# ROBOTS.TXT BINDS THE WALK TOO. Until 2026-10-05 discovery fetched whatever a
+# venue linked and only `verify` read robots.txt; a review of the pinned walk
+# on Halifax found 10 of its 11 library-branch probes fetching
+# halifaxpubliclibraries.ca/explore/?post-type=events..., which that host's
+# robots.txt disallows (`Disallow: /explore/`), and a hop to facebook.com,
+# which disallows everything. Every request a probe makes, redirect hops
+# included, now asks first; the refusal is raised BEFORE anything is sent, so
+# find_calendar's own handling decides what it costs: a refused follow-up page
+# is skipped, a refused homepage (or a homepage that redirects somewhere
+# refused) is parked `refused` for DEAD_TTL like a verify's, an unreachable
+# robots.txt is `unreachable` (a week), and a challenge on it is a challenge.
+class _RobotsRefusal(requests.exceptions.RequestException):
+    """robots.txt said no to this request, so it was never sent."""
+
+
+class RobotsDisallowed(_RobotsRefusal):
+    """A Disallow rule in the host's own robots.txt matched."""
+
+
+class RobotsUnreachable(_RobotsRefusal):
+    """robots.txt answered 5xx or not at all: RFC 9309 says assume Disallow: /."""
+
+
+class RobotsChallenged(_RobotsRefusal):
+    """A bot challenge served on /robots.txt: permission cannot be established."""
+
+
+class RobotsCrawlDelay(_RobotsRefusal):
+    """A Crawl-delay longer than OSM_MAX_CRAWL_DELAY_S: the page is not asked,
+    rather than asked faster than the file says, or slept on past the deadline."""
+
+
+# The walk waits out a Crawl-delay up to this long per request. Beyond it the
+# request is skipped, never sent sooner: a worker asleep for a 3,600 s delay
+# would carry the run past its deadline into the job's timeout-minutes.
+OSM_MAX_CRAWL_DELAY_S = 30.0
+
+
+class _WalkRobots:
+    """One robots.txt per origin for the whole walk, read once, by whichever
+    worker asks first and through that worker's gated session, while any other
+    worker asking about the same origin waits for the answer."""
+
+    def __init__(self, timeout):
+        import threading
+        self.timeout = timeout
+        self._lock = threading.Lock()
+        self._origins = {}              # origin -> [Lock, robots_txt.Robots | None]
+        self.fetched = 0
+
+    def check(self, session, url):
+        import threading
+        origin = robots_txt.origin_of(url)
+        with self._lock:
+            slot = self._origins.setdefault(origin, [threading.Lock(), None])
+        with slot[0]:
+            if slot[1] is None:
+                rb = robots_txt.Robots(session, timeout=self.timeout)
+                session._fetching_robots = True
+                try:
+                    ans = rb.check(url)             # reads the file, once
+                finally:
+                    session._fetching_robots = False
+                slot[1] = rb
+                with self._lock:
+                    self.fetched += 1
+                return ans
+            return slot[1].check(url)
+
+
+# A LIBRARY SYSTEM'S BRANCHES LINK THE SAME PAGES, and the walk read them once
+# per branch: in the review runs of 2026-10-04, 21 of Halifax's 70 requests,
+# 19 of Hamilton's 80 and 35 of Winnipeg's 95 re-fetched a URL already fetched
+# that run (one Winnipeg page 18 times). Those repeats sit on the one shared
+# host that is each metro's critical path, a second of gate apiece. So a GET
+# answered once is answered from memory for the rest of the run, keyed by the
+# URL asked and by every redirect hop on the way, and a worker asking for a
+# URL another is mid-fetch on waits for that answer rather than asking twice.
+# Measured live 2026-10-05: repeats were 11 of 58 requests in Halifax and 19 of
+# 80 in Hamilton under the old code; 1 and 0 under this one (the 1 is a
+# robots.txt that redirects to the homepage, which robots.txt reads never
+# take from the cache).
+# Errors are not kept. Capped in bytes, least recently used out first.
+OSM_CACHE_BYTES = 48_000_000
+OSM_CACHE_MAX_BODY = 4_000_000
+
+
+class _ResponseCache:
+    def __init__(self, max_bytes=OSM_CACHE_BYTES, max_body=OSM_CACHE_MAX_BODY):
+        import collections
+        import threading
+        self.max_bytes, self.max_body = max_bytes, max_body
+        self._lock = threading.Lock()
+        self._keys = {}
+        self._data = collections.OrderedDict()
+        self._bytes = 0
+        self.hits = 0
+
+    def fetch(self, key, do):
+        import copy
+        import threading
+        with self._lock:
+            lk = self._keys.setdefault(key, threading.Lock())
+        with lk:
+            with self._lock:
+                got, r = key, self._data.get(key)
+                if r is None:
+                    # A page asked directly and the same page reached as a
+                    # redirect hop are one answer, unless it was a redirect.
+                    got = (key[0], not key[1])
+                    r = self._data.get(got)
+                    if r is not None and (r.history or r.is_redirect):
+                        r = None
+                if r is not None:
+                    self._data.move_to_end(got)
+                    self.hits += 1
+                    return copy.copy(r)          # Session.send sets .history on it
+            r = do()                             # raises: nothing is kept
+            size = len(r.content or b"")
+            if size <= self.max_body:
+                kept = copy.copy(r)
+                with self._lock:
+                    self._data[key] = kept
+                    self._bytes += size
+                    while self._bytes > self.max_bytes and len(self._data) > 1:
+                        _k, old = self._data.popitem(last=False)
+                        self._bytes -= len(old.content or b"")
+            return r
+
+
+class _PacedSession(requests.Session):
+    """A worker's own Session (requests does not promise one survives being
+    shared across threads). Every request asks the run's robots.txt first,
+    then the run's cache, then waits on the shared gate. `send` is where each
+    redirect hop goes too, so a hop to another host is asked of THAT host's
+    robots.txt and paced on that host's clock, not the one it left."""
+
+    gate = None
+    robots = None
+    cache = None
+
+    def __init__(self):
+        super().__init__()
+        self.refusals = []               # (url, why) a probe was refused; reset per probe
+        self._fetching_robots = False
+
+    def send(self, request, **kw):
+        if self._fetching_robots:        # robots.txt itself: paced, never asked of itself
+            if self.gate is not None:
+                self.gate.wait(request.url)
+            return super().send(request, **kw)
+        if (self.cache is not None and request.method == "GET"
+                and not kw.get("stream")):
+            key = (request.url, bool(kw.get("allow_redirects", True)))
+            return self.cache.fetch(key, lambda: self._send(request, **kw))
+        return self._send(request, **kw)
+
+    def _send(self, request, **kw):
+        url = request.url
+        if self.robots is not None:
+            ans = self.robots.check(self, url)
+            if ans["allowed"] is not True:
+                exc = (RobotsUnreachable if ans["status"] == "unreachable" else
+                       RobotsChallenged if ans["allowed"] is None else RobotsDisallowed)
+                why = f"{ans.get('rule') or ans['status']} ({ans.get('robots')})"
+                self.refusals.append((url, exc.__name__, why))
+                raise exc(f"robots.txt refuses {url}: {why}")
+            delay = ans.get("crawl_delay")
+            if delay and self.gate is not None:
+                if delay > OSM_MAX_CRAWL_DELAY_S:
+                    why = f"Crawl-delay: {delay:g} ({ans.get('robots')})"
+                    self.refusals.append((url, "RobotsCrawlDelay", why))
+                    raise RobotsCrawlDelay(f"robots.txt asks {delay:g} s between requests")
+                self.gate.slow(url, delay)
+        if self.gate is not None:
+            self.gate.wait(url)
+        return super().send(request, **kw)
+
+
+# What robots.txt cost a probe, by how find_calendar reports it: a refused
+# HOMEPAGE (or a homepage that redirects somewhere refused) comes back
+# `unreachable` with the exception's name as its note.
+_ROBOTS_PROBE_STATUS = {"RobotsDisallowed": "robots-disallowed",
+                        "RobotsChallenged": "bot-challenge",
+                        "RobotsCrawlDelay": "robots-crawl-delay"}
+
+
+def _robots_probe_session(headers):
+    """A walk's own session: robots.txt asked before every request and every
+    redirect hop, one host at a time, each page read once a run."""
+    import catalog_discover_osm as osm
+    s = _PacedSession()
+    s.headers.update(dict(headers or {}))
+    s.gate = _HostGate(OSM_HOST_GAP_S)
+    s.robots = _WalkRobots(timeout=(osm.PROBE_CONNECT_S, 15))
+    s.cache = _ResponseCache()
+    return s
+
+
+def _unreachable_recently(led, key, ttl=UNREACHABLE_TTL_DAYS):
+    rec = led.get(key)
+    return (bool(rec) and rec.get("status") == "unreachable"
+            and _days_since(rec.get("checked", 0)) < ttl)
+
 
 # How many cities one `discover civic` run walks. A CivicPlus city costs one
 # fetch for the homepage, one for /iCalendar.aspx and one PER SURVIVING CATEGORY
@@ -1352,6 +1647,13 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
     if noms:
         print(f"  {len(noms)} of them name a tourism board on Wikipedia")
 
+    # ROBOTS.TXT BINDS THIS WALK TOO, as it does the venue walk (see
+    # _WalkRobots). Until 2026-10-05 a city's pages were fetched with the plain
+    # session and nothing asked first. Wikidata is a documented API and keeps
+    # that session; every page of a city's or a board's own site goes through
+    # this one.
+    probe_s = _robots_probe_session(getattr(session, "headers", None))
+
     read = 0
     for place in places:
         if deadline and time.time() >= deadline:
@@ -1372,12 +1674,17 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                 bump("configured"); continue
             if _dead_recently(led, key):
                 bump("known-dead"); continue
+            probe_s.refusals = []
             try:
-                cands, f = (civic.probe(session, who)
-                            if kind == "city" else civic.probe_dmo(session, who, home))
+                cands, f = (civic.probe(probe_s, who)
+                            if kind == "city" else civic.probe_dmo(probe_s, who, home))
             except Exception as exc:                              # noqa: BLE001
                 bump("exception:" + type(exc).__name__); continue
             status = f.get("status") or "?"
+            for _u, why, _r in probe_s.refusals:
+                bump(f"robots-refused-request:{why}")
+            if status == "unreachable" and f.get("note") in _ROBOTS_PROBE_STATUS:
+                status = _ROBOTS_PROBE_STATUS[f["note"]]
             new = 0
             for cand in cands:
                 ckey = _canon(_key_of(cand))
@@ -1407,6 +1714,13 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                             "type": f"civic-{kind}"}
                 if f.get("offsite_url"):      # see the venue backend's note
                     led[key]["offsite_url"] = f["offsite_url"][:300]
+            elif (status == "robots-disallowed"
+                  and (led.get(key) or {}).get("type") in (None, f"civic-{kind}")):
+                # A verify's status and so its DEAD_TTL; the rule in the reason.
+                why = next((r for _u, w, r in probe_s.refusals if w == "RobotsDisallowed"), "")
+                led[key] = {"checked": _today_int(), "name": place["name"][:80],
+                            "reason": f"civic probe: robots.txt {why}"[:300],
+                            "status": "refused", "type": f"civic-{kind}"}
             if status.startswith("ok"):
                 bump("found-but-unusable: " + civic.why_no_candidate(f))
             else:
@@ -1438,7 +1752,7 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
 
 
 def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
-                  deadline=0.0, kinds=()):
+                  deadline=0.0, kinds=(), workers=None):
     """Propose venue calendars found on the map. See catalog_discover_osm.py.
 
     `kinds` PINS the walk to named OSM kinds — `community_centre,library` —
@@ -1455,6 +1769,9 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
     read — so the OUTCOME OF THE PROBE is recorded against the venue's homepage,
     not just the successes. Without that, every run re-fetches every dead end in
     the city it lands on, and the cost of a sweep never falls.
+
+    `workers` venues are probed at once (OSM_PROBE_WORKERS), never two on one
+    host; `session` is the Overpass session and lends its headers to theirs.
     """
     import catalog_discover_osm as osm
 
@@ -1486,9 +1803,132 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         declined |= _not_included(fname)   # already canonicalised
 
     found, skipped = {}, {}
+    found_rank = {}           # key -> (metro step, venue index) of its proposer
 
     def bump(k):
         skipped[k] = skipped.get(k, 0) + 1
+
+    robots_status = _ROBOTS_PROBE_STATUS
+
+    def settle(v, home, f, rank):
+        """What one probe's answer means for the ledger, `found` and the tally.
+        Main thread only."""
+        status = f.get("status") or "?"
+        refusals = f.get("robots_refused") or []
+        for _u, why, _r in refusals:
+            bump(f"robots-refused-request:{why}")
+        if status == "unreachable" and f.get("note") in robots_status:
+            status = robots_status[f["note"]]
+        cand = osm.to_candidate(v, f, label) if status in ("ok", "ok-homepage") else None
+        if cand:
+            key = _canon(_key_of(cand))
+            if key in seen_keys or key in declined:
+                bump("configured")
+                return
+            if _dead_recently(led, key):
+                bump("known-dead")
+                return
+            # TWO VENUES, ONE CALENDAR (a city's events page linked from each
+            # of its centres): the FIRST in map order proposes it, whichever
+            # probe finished first, so the candidate's name and venue block do
+            # not change between two runs of the same metro.
+            if key in found_rank:
+                bump("same-calendar")
+                if found_rank[key] <= rank:
+                    return
+            else:
+                print(f"    + {cand['type']:11} {cand['name'][:36]:36} {str(f.get('cal_url'))[:52]}")
+            cand["_metro"] = label
+            found[key] = cand
+            found_rank[key] = rank
+            return
+        # A probe that found nothing is a RESULT, and recording it is what
+        # keeps the next sweep of this metro cheap — 3,748 London venues
+        # publish a website and most have no calendar we can read.
+        #
+        # But only the STABLE findings are parked for the 90-day TTL. "This
+        # site has no events page" and "its events live on Eventbrite" are
+        # facts about the site that will still be true in a month. A bot
+        # challenge, a timeout or a 5xx is not a fact about the site at all, it
+        # is how the site felt about us for one request — theblackaltar.org
+        # served this probe and challenged the very next one, from the same IP,
+        # seconds apart. Parking those for 90 days would retire a working
+        # calendar on the strength of a bad moment, and the metro cursor means
+        # nobody would look again for months. Challenges and HTTP errors are not
+        # written down at all; `unreachable` is parked for UNREACHABLE_TTL_DAYS
+        # under its own status (see there for why a week).
+        if status in ("no-calendar",) or status.startswith("offsite"):
+            led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
+                         "reason": f"osm probe: {status}", "status": "fail",
+                         "type": "osm-venue"}
+            # AND THE LINK, for the ones that name an adapter we have.
+            # `offsite:eventbrite` is a finished discovery wearing a
+            # failure's clothes: the venue's events exist, they are on a
+            # platform this repo ingests, and the only thing missing is the
+            # organizer id — which is in the link. Written beside the entry
+            # so `catalog_curate.py ledger --offsite` can list them without
+            # fetching 26,000 sites again.
+            if f.get("offsite_url"):
+                led[home]["offsite_url"] = f["offsite_url"][:300]
+        elif status == "unreachable" and (led.get(home) or {}).get("type") in (None, "osm-venue"):
+            # Never over a row some other probe of this URL wrote (a verify's
+            # ok, empty or refused says more than one failed connection).
+            note = f" ({f['note']})" if f.get("note") else ""
+            led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
+                         "reason": f"osm probe: unreachable{note}",
+                         "status": "unreachable", "type": "osm-venue"}
+        elif status == "robots-disallowed" and (led.get(home) or {}).get("type") in (None, "osm-venue"):
+            # The same status, and so the same DEAD_TTL, a verify gives a
+            # source robots.txt refuses; the rule is in the reason.
+            why = next((r for _u, w, r in refusals if w == "RobotsDisallowed"), "")
+            led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
+                         "reason": f"osm probe: robots.txt {why}"[:300],
+                         "status": "refused", "type": "osm-venue"}
+        # A probe that SUCCEEDED and still yielded nothing is not the same
+        # event as a probe that failed, and lumping them under the status
+        # word reported 25 of them as "ok" in one sweep. Name the gap.
+        if status.startswith("ok"):
+            bump("found-but-unusable: " + osm.why_no_candidate(f))
+        elif status == "unreachable" and f.get("note"):
+            # BY EXCEPTION, because the two timeouts are different costs and
+            # the log never said which fired: a ConnectTimeout is spent inside
+            # PROBE_CONNECT_S, a ReadTimeout waits out the read timeout.
+            bump(f"unreachable:{f['note']}")
+        else:
+            bump(status.split(":")[0])
+
+    # The probing pool, built once for the run. One Session per worker thread,
+    # carrying the caller's headers (the User-Agent the walk is judged by), and
+    # one gate across all of them. See OSM_PROBE_WORKERS.
+    import concurrent.futures as cf
+    import threading
+    workers = max(1, int(workers or OSM_PROBE_WORKERS))
+    gate = _HostGate(OSM_HOST_GAP_S)
+    robots = _WalkRobots(timeout=(osm.PROBE_CONNECT_S, 15))
+    cache = _ResponseCache()
+    headers = dict(getattr(session, "headers", None) or {})
+    local, sessions, live = threading.local(), [], [0]
+
+    def _probe(url):
+        s = getattr(local, "s", None)
+        if s is None:
+            s = local.s = _PacedSession()
+            s.headers.update(headers)
+            s.gate, s.robots, s.cache = gate, robots, cache
+            sessions.append(s)
+        s.refusals = []
+        f = osm.find_calendar(s, url)
+        if s.refusals:
+            f = dict(f, robots_refused=list(s.refusals))
+        return f
+
+    def _submit(url):
+        live[0] += 1
+        return pool.submit(_probe, url)
+
+    pool = cf.ThreadPoolExecutor(max_workers=workers, thread_name_prefix="osm-probe")
+    probed = set()            # every site this run has started a probe of
+    broken = None
 
     # A metro Overpass never answered for is UNREAD, not swept. Advancing the
     # cursor past it costs the whole metro until the cursor wraps — 78 runs, or
@@ -1554,23 +1994,13 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         # because the ledger already records every dead end found here and
         # `_dead_recently` skips them next time; that is what the ledger is for.
         whole = True
-        for v in venues:
-            # THE BUDGET HAS TO BE CHECKED HERE, NOT ONLY BETWEEN METROS.
-            #
-            # Live on 2026-08-26: a --max-minutes 70 budget checked only at the
-            # top of the metro loop never fired, and the step was cancelled at
-            # its 90-minute cap having printed NOTHING from this backend — no
-            # "out of time", no per-metro summary. One metro is an Overpass call
-            # plus a LIVE FETCH PER VENUE (find_calendar, below), and a dense
-            # metro is hundreds of them, so a single iteration of the outer loop
-            # can outlast the whole budget. Bounding the loop you can see is not
-            # the same as bounding the work.
-            if deadline and time.time() >= deadline:
-                whole = False
-                break
-            if len(found) >= limit:
-                whole = False
-                break
+        # THE CHEAP DECISIONS FIRST, ON THIS THREAD: which venues need a live
+        # probe at all. A venue already configured, declined, parked dead or
+        # parked unreachable costs nothing, and neither does the second venue
+        # that names a site this run has already probed (overlapping bboxes,
+        # one website on several map objects).
+        todo = []
+        for vi, v in enumerate(venues):
             home = _canon(v["url"])
             if not home:
                 continue
@@ -1583,55 +2013,85 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
             if _dead_recently(led, home):
                 bump("known-dead")
                 continue
-            f = osm.find_calendar(session, v["url"])
-            status = f.get("status") or "?"
-            cand = osm.to_candidate(v, f, label) if status in ("ok", "ok-homepage") else None
-            if cand:
-                key = _canon(_key_of(cand))
-                if key in seen_keys or key in declined:
-                    bump("configured")
-                    continue
-                if _dead_recently(led, key):
-                    bump("known-dead")
-                    continue
-                cand["_metro"] = label
-                found[key] = cand
-                print(f"    + {cand['type']:11} {cand['name'][:36]:36} {str(f.get('cal_url'))[:52]}")
+            if _unreachable_recently(led, home):
+                bump("unreachable-recently")
                 continue
-            # A probe that found nothing is a RESULT, and recording it is what
-            # keeps the next sweep of this metro cheap — 3,748 London venues
-            # publish a website and most have no calendar we can read.
-            #
-            # But only the STABLE findings are parked. "This site has no events
-            # page" and "its events live on Eventbrite" are facts about the site
-            # that will still be true in a month. A bot challenge, a timeout or a
-            # 5xx is not a fact about the site at all, it is how the site felt
-            # about us for one request — theblackaltar.org served this probe and
-            # challenged the very next one, from the same IP, seconds apart.
-            # Parking those for the 90-day TTL would retire a working calendar on
-            # the strength of a bad moment, and the metro cursor means nobody
-            # would look again for months. They cost one request to re-probe next
-            # sweep, so they are simply not written down.
-            if status in ("no-calendar",) or status.startswith("offsite"):
-                led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
-                             "reason": f"osm probe: {status}", "status": "fail",
-                             "type": "osm-venue"}
-                # AND THE LINK, for the ones that name an adapter we have.
-                # `offsite:eventbrite` is a finished discovery wearing a
-                # failure's clothes: the venue's events exist, they are on a
-                # platform this repo ingests, and the only thing missing is the
-                # organizer id — which is in the link. Written beside the entry
-                # so `catalog_curate.py ledger --offsite` can list them without
-                # fetching 26,000 sites again.
-                if f.get("offsite_url"):
-                    led[home]["offsite_url"] = f["offsite_url"][:300]
-            # A probe that SUCCEEDED and still yielded nothing is not the same
-            # event as a probe that failed, and lumping them under the status
-            # word reported 25 of them as "ok" in one sweep. Name the gap.
-            if status.startswith("ok"):
-                bump("found-but-unusable: " + osm.why_no_candidate(f))
-            else:
-                bump(status.split(":")[0])
+            if home in probed:
+                bump("same-site")
+                continue
+            probed.add(home)
+            todo.append((v, home, _probe_host(v["url"]), (step, vi)))
+
+        # THE LIVE PROBES, `workers` AT ONCE, NEVER TWO ON ONE HOST. Only the
+        # fetching happens on a worker; every write — the ledger, `found`, the
+        # tally — happens here, as each probe comes back, so nothing below the
+        # loop is shared between threads.
+        #
+        # THE LONGEST SAME-HOST QUEUE GOES FIRST. A host's venues run one after
+        # another, so a library system with 19 branch pages on one site is the
+        # metro's critical path (Winnipeg: the others were done at 12.5 s, the
+        # chain at 40 s), and starting it last adds the rest of the metro to it.
+        inflight, busy = {}, set()
+        attempted = errors = 0
+        left = {}
+        for t in todo:
+            left[t[2]] = left.get(t[2], 0) + 1
+        while todo or inflight:
+            while todo and len(inflight) < workers:
+                # THE BUDGET HAS TO BE CHECKED HERE, NOT ONLY BETWEEN METROS.
+                #
+                # Live on 2026-08-26: a --max-minutes 70 budget checked only at
+                # the top of the metro loop never fired, and the step was
+                # cancelled at its 90-minute cap having printed NOTHING from
+                # this backend — no "out of time", no per-metro summary. One
+                # metro is an Overpass call plus a LIVE FETCH PER VENUE
+                # (find_calendar), and a dense metro is hundreds of them, so a
+                # single iteration of the outer loop can outlast the whole
+                # budget. Bounding the loop you can see is not the same as
+                # bounding the work. Checked before every probe is STARTED;
+                # the ones already running are let finish and are recorded.
+                if (deadline and time.time() >= deadline) or len(found) >= limit:
+                    whole = False
+                    todo = []
+                    break
+                pick = max((i for i, t in enumerate(todo) if t[2] not in busy),
+                           key=lambda i: (left[todo[i][2]], -i), default=None)
+                if pick is None:
+                    break                 # every waiting venue's host is mid-probe
+                v, home, host, rank = todo.pop(pick)
+                left[host] -= 1
+                busy.add(host)
+                inflight[_submit(v["url"])] = (v, home, host, rank)
+            if not inflight:
+                break
+            done, _ = cf.wait(list(inflight), return_when=cf.FIRST_COMPLETED)
+            for fut in [f for f in inflight if f in done]:   # submission order
+                v, home, host, rank = inflight.pop(fut)
+                busy.discard(host)
+                attempted += 1
+                try:
+                    f = fut.result()
+                except Exception as exc:                          # noqa: BLE001
+                    # One venue's page breaking the parser must not end the
+                    # walk; it is tallied, not parked, and asked again next time.
+                    print(f"    ! {home[:60]}: {type(exc).__name__}: {str(exc)[:60]}")
+                    bump(f"probe-error:{type(exc).__name__}")
+                    errors += 1
+                    continue
+                settle(v, home, f, rank)
+        # BUT A METRO WHERE MOST PROBES RAISED WAS NOT READ: that is the code
+        # broken, not one page. Tallying it and moving on would march the
+        # cursor past every metro the run visits while recording nothing
+        # (measured in review: find_calendar raising on every venue moved a
+        # 3-metro cursor three metros and wrote no ledger row), where the code
+        # before the pool raised and left the cursor where it was. So the
+        # metro is UNREAD and the run stops, loudly, once the ledger is saved.
+        if errors >= OSM_PROBE_ERRORS_STOP and errors * 2 > attempted:
+            whole = False
+            broken = (label, errors, attempted)
+            print(f"  {label}: {errors} of {attempted} probes RAISED — the probe "
+                  f"code is broken, not the sites; metro UNREAD, stopping the walk")
+            break
         read += 1 if whole else 0
         if not whole and deadline and time.time() >= deadline:
             print(f"  out of time inside {label} — stopping so the candidates "
@@ -1641,6 +2101,15 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         if len(found) >= limit:
             break
 
+    pool.shutdown(wait=True)
+    for s in sessions:
+        s.close()
+    if live[0]:
+        print(f"  {live[0]} live probe(s), {workers} at a time; the host gate held "
+              f"{gate.waits} request(s) back, {gate.waited:.0f}s in all; "
+              f"{robots.fetched} robots.txt read, {cache.hits} repeat request(s) "
+              f"answered from this run's cache")
+
     # Only past what was actually READ.
     nxt = (start + read) % len(all_metros)
     cursor["metro_key"] = keys[nxt]
@@ -1649,6 +2118,11 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         print(f"  advanced {read}/{per_run} metros; the rest are unread and come "
               f"round again next run")
     _save_ledger(led)
+    if broken:
+        raise RuntimeError(f"osm walk: {broken[1]} of {broken[2]} probes raised in "
+                           f"{broken[0]}; the ledger is saved and the metro left unread")
+    # In map order, not the order the probes happened to finish in.
+    found = dict(sorted(found.items(), key=lambda kv: found_rank.get(kv[0], (0, 0))))
     return found, skipped
 
 MOBILIZON_DIRECTORY = "https://instances.joinmobilizon.org/api/v1/instances"
@@ -2005,7 +2479,11 @@ _ROBOTS_EXTRA = ("fair_sources.json", "market_sources.json", "openactive_sources
                  "mapasculturais_sources.json", "festival_sources.json",
                  "luma_sources.json", "dice_venue_sources.json", "slu_sources.json",
                  "pioneersquare_sources.json", "seattlecenter_sources.json",
-                 "rolodex_sources.json", "parkrun_sources.json")
+                 "rolodex_sources.json", "parkrun_sources.json",
+                 # The community-centre adapters that read a publisher's own
+                 # pages or CMS endpoint (each also asks robots.txt itself).
+                 "glenecho_sources.json", "drupal_fullcalendar_sources.json",
+                 "revize_sources.json", "perfectmind_sources.json")
 
 
 def _walk_urls(o):
@@ -2523,8 +3001,17 @@ def cmd_ledger():
     good = {k: v for k, v in led.items() if v.get("status") == "ok"}
     dead = {k: v for k, v in led.items() if v.get("status") == "fail"}
     quiet = {k: v for k, v in led.items() if v.get("status") == "empty"}
+    # Every status the ledger holds, so the header adds up: `refused` is
+    # robots.txt (verify, and the osm walk's homepages), `unreachable` the osm
+    # walk's week-long park, `reopened` a hand-cleared row.
+    other = {}
+    for v in led.values():
+        st = v.get("status")
+        if st not in ("ok", "fail", "empty"):
+            other[st or "?"] = other.get(st or "?", 0) + 1
+    rest = "".join(f"  |  {n} {st}" for st, n in sorted(other.items()))
     print(f"ledger: {len(led)} tried  |  {len(good)} ok  |  {len(dead)} broken  "
-          f"|  {len(quiet)} parse fine but nothing upcoming\n")
+          f"|  {len(quiet)} parse fine but nothing upcoming{rest}\n")
     print("broken (skipped until TTL lapses):")
     for k, v in sorted(dead.items()):
         print(f"  [{v.get('type','?'):8}] {k}  <- {v.get('reason','')[:40]}  ({v.get('checked')})")

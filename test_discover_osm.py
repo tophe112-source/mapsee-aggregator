@@ -37,6 +37,17 @@ What is pinned is what the first real sweeps got wrong:
     community walk's 13 runs ended on a metro refused four times running. But
     inside a patience, since an ask can hang 200 s and eight of those would
     run past the caller's deadline.
+  * THE WALK PROBES FOUR VENUES AT ONCE AND NEVER TWO ON ONE HOST. It is
+    time-bound (950-1,450 probes per 55-minute run, one at a time), and venues
+    share hosts more than it looks: 19 of Winnipeg's 30 are on one library
+    site. Every write stays on the main thread, the deadline still binds, and
+    an unreachable venue is parked a week under its own status so a metro cut
+    short does not pay for it again the next day.
+  * ROBOTS.TXT BINDS DISCOVERY TOO, every request and every redirect hop.
+    The walk fetched halifaxpubliclibraries.ca/explore/... on 10 of 11
+    branch probes, a path that host disallows. And a page linked from every
+    branch is read once a run, not once a branch (19 of Hamilton's 80
+    requests were repeats).
   * A PLATFORM CAN IMPLY A FEED URL. My Calendar publishes iCal at a fixed path
     and never links to it, so scraping for an .ics href finds nothing and a
     readable site looks unreadable.
@@ -651,8 +662,11 @@ def main():
     osm.find_calendar = _fc
     try:
         cur = {"metro": 0}
+        # ONE worker: the exact count below is the sequential contract. The
+        # pool's own bound (at most workers-1 probes past it) is pinned in
+        # "probing several venues at once", further down.
         C._discover_osm(C._session(), set(), {}, 500, cur, metros_per_run=3,
-                        deadline=1000.0 + 20)              # 20 venues of budget
+                        deadline=1000.0 + 20, workers=1)   # 20 venues of budget
         check_true("the budget stops the sweep INSIDE a metro, not only between "
                    f"metros ({len(probed)} venues probed of 150)",
                    20 <= len(probed) <= 21)
@@ -746,6 +760,510 @@ def main():
     finally:
         (osm.overpass_venues, osm.find_calendar, osm.metros,
          C._save_ledger) = real
+
+    # ------------------------------------------------------------------
+    # PROBING SEVERAL VENUES AT ONCE, AND WHAT MUST NOT CHANGE BECAUSE OF IT.
+    #
+    # The community walk is time-bound: 950-1,450 live probes per 55-minute
+    # run at 2.3-3.5 s each, almost all of it waiting on other people's
+    # servers, so it read 3-7 metros a run and the US (DC, Seattle) sat two to
+    # three weeks out. Four at once is only polite if no host ever sees two of
+    # them: two OSM venues CAN share a site (a city site hosting several
+    # centres). And every write stays on the main thread.
+    # ------------------------------------------------------------------
+    print("\nprobing several venues at once")
+    import threading as _th
+    import time as _tm
+
+    class _MainOnlyLedger(dict):
+        """Records which thread wrote each row."""
+        def __init__(self, *a):
+            super().__init__(*a)
+            self.writers = set()
+
+        def __setitem__(self, k, v):
+            self.writers.add(_th.current_thread() is _th.main_thread())
+            super().__setitem__(k, v)
+
+    real = (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger)
+    C._save_ledger = lambda led: None
+    osm.metros = lambda: [{"name": "Solo", "country": "GB", "bbox": (0, 0, 1, 1)}]
+    try:
+        # 1. It actually runs four at once, and that is what buys the time.
+        lock, now_in, peak, per_host, host_peak = _th.Lock(), [0], [0], {}, [0]
+        order = []
+        venues = ([{"url": f"https://site{j}.example/", "name": f"s{j}"} for j in range(12)]
+                  + [{"url": f"https://www.city.example/centre-{j}", "name": f"c{j}"}
+                     for j in range(6)])
+        osm.overpass_venues = lambda sess, bbox, lab: list(venues)
+
+        asked_urls = []
+
+        def _slow(sess, url):
+            h = C._probe_host(url)
+            with lock:
+                order.append(h)
+                asked_urls.append(url)
+                now_in[0] += 1
+                peak[0] = max(peak[0], now_in[0])
+                per_host[h] = per_host.get(h, 0) + 1
+                host_peak[0] = max(host_peak[0], per_host[h])
+            _tm.sleep(0.1)
+            with lock:
+                now_in[0] -= 1
+                per_host[h] -= 1
+            return {"status": "no-calendar"}
+        osm.find_calendar = _slow
+        led = _MainOnlyLedger()
+        t0 = _tm.monotonic()
+        found, sk = C._discover_osm(C._session(), set(), led, 500, {}, metros_per_run=1,
+                                    workers=4)
+        took = _tm.monotonic() - t0
+        check("four workers have four probes in flight at once", peak[0], 4)
+        check("...but never two on one host: six centres on one city site go "
+              "one after another", host_peak[0], 1)
+        check("...and every venue is still probed exactly once",
+              (len(asked_urls), len(set(asked_urls)), len(led)), (18, 18, 18))
+        check_true(f"...in well under the sequential time ({took:.2f}s for 18 probes "
+                   "of 0.1 s; 1.8 s one at a time, 0.6 s the floor)", took < 1.2)
+        check("the longest same-host queue starts first, though the map lists it last",
+              order[0], "city.example")
+        check("every ledger write happened on the main thread", led.writers, {True})
+        check("www. is not a second site", C._probe_host("https://WWW.City.example/x"),
+              "city.example")
+
+        # 2. The deadline still binds: no probe STARTS after it, and the ones
+        # in flight when it passes are recorded, not lost.
+        clock, started = [1000.0], []
+
+        def _tick(sess, url):
+            with lock:
+                started.append(url)
+                clock[0] += 1.0
+            _tm.sleep(0.01)
+            return {"status": "no-calendar"}
+        osm.find_calendar = _tick
+        osm.overpass_venues = lambda sess, bbox, lab: [
+            {"url": f"https://d{j}.example", "name": f"d{j}"} for j in range(50)]
+        real_time = C.time.time
+        C.time.time = lambda: clock[0]
+        try:
+            led2, cur = {}, {}
+            C._discover_osm(C._session(), set(), led2, 500, cur, metros_per_run=1,
+                            deadline=1000.0 + 20, workers=4)
+        finally:
+            C.time.time = real_time
+        check_true(f"with four workers the deadline overshoots by at most three "
+                   f"probes in flight ({len(started)} started, budget 20)",
+                   20 <= len(started) <= 23)
+        check("...every probe that did run is in the ledger", len(led2), len(started))
+        check("...and the cut-short metro stays UNREAD", cur.get("metro_key"), "GB:Solo")
+
+        # 3. An unreachable venue is parked a WEEK, under its own status,
+        # and the tally says which timeout it was.
+        notes = {"https://a.example": "ConnectTimeout", "https://b.example": "ReadTimeout",
+                 "https://c.example": None}
+        asked = []
+
+        def _unreach(sess, url):
+            asked.append(url)
+            n = notes[url]
+            return {"status": "unreachable", **({"note": n} if n else {})}
+        osm.find_calendar = _unreach
+        osm.overpass_venues = lambda sess, bbox, lab: [
+            {"url": u, "name": u[8:9]} for u in notes]
+        led3 = {"c.example": {"checked": 20260901, "status": "ok", "type": "jsonld",
+                              "reason": "12 events / 5 future"}}
+        _f, sk3 = C._discover_osm(C._session(), set(), led3, 500, {}, metros_per_run=1)
+        check("an unreachable venue is parked under its own status",
+              (led3.get("a.example") or {}).get("status"), "unreachable")
+        check("...as an osm-venue row, dated today",
+              ((led3.get("a.example") or {}).get("type"),
+               (led3.get("a.example") or {}).get("checked")), ("osm-venue", C._today_int()))
+        check("...which says which exception it was",
+              (led3.get("b.example") or {}).get("reason"), "osm probe: unreachable (ReadTimeout)")
+        check("...but never over a row a verify wrote for the same URL",
+              led3["c.example"]["status"], "ok")
+        check("the tally splits unreachable by exception",
+              {k: v for k, v in sk3.items() if k.startswith("unreachable")},
+              {"unreachable:ConnectTimeout": 1, "unreachable:ReadTimeout": 1,
+               "unreachable": 1})
+        check("...and _dead_recently does not read it, so verify is unchanged",
+              C._dead_recently(led3, "a.example"), False)
+        asked.clear()
+        _f, sk4 = C._discover_osm(C._session(), set(), led3, 500, {}, metros_per_run=1)
+        check("the next day's walk does not re-pay a parked unreachable venue",
+              sorted(asked), ["https://c.example"])
+        check("...and says so in the tally", sk4.get("unreachable-recently"), 2)
+        led3["a.example"]["checked"] = int(
+            (C._as_date(C._today_int()) - __import__("datetime").timedelta(
+                days=C.UNREACHABLE_TTL_DAYS)).strftime("%Y%m%d"))
+        asked.clear()
+        C._discover_osm(C._session(), set(), led3, 500, {}, metros_per_run=1)
+        check("...and asks it again once the week is up",
+              sorted(asked), ["https://a.example", "https://c.example"])
+
+        # 4. One site on two map objects is probed once; a probe that raises
+        # costs that venue, not the walk.
+        asked.clear()
+
+        def _boom(sess, url):
+            asked.append(url)
+            if "bad" in url:
+                raise ValueError("unparseable page")
+            return {"status": "no-calendar"}
+        osm.find_calendar = _boom
+        osm.overpass_venues = lambda sess, bbox, lab: [
+            {"url": "https://twice.example/", "name": "hall"},
+            {"url": "http://www.twice.example", "name": "hall again"},
+            {"url": "https://bad.example", "name": "bad"},
+            {"url": "https://fine.example", "name": "fine"}]
+        led5 = {}
+        _f, sk5 = C._discover_osm(C._session(), set(), led5, 500, {}, metros_per_run=1)
+        check("one site on two map objects is probed once",
+              sorted(asked), ["https://bad.example", "https://fine.example",
+                              "https://twice.example/"])
+        check("...and the second is tallied as the same site", sk5.get("same-site"), 1)
+        check("a probe that raises is tallied, and the walk goes on",
+              (sk5.get("probe-error:ValueError"), "fine.example" in led5), (1, True))
+        check("...without parking the venue it could not read", "bad.example" in led5, False)
+    finally:
+        (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real
+
+    # 5. THE GATE, which is what makes "one host, one request a second" true
+    # for every request a probe makes, follow-ups and redirect hops included.
+    t = [0.0]
+    slept = []
+
+    def _sleep(s):
+        slept.append(s)
+        t[0] += s
+    g = C._HostGate(1.0, clock=lambda: t[0], sleep=_sleep)
+    for u in ("https://x.example/", "https://www.x.example/events", "http://x.example/cal",
+              "https://y.example/"):
+        g.wait(u)
+    check("three requests to one host start a second apart; another host waits for nothing",
+          slept, [1.0, 1.0])
+    g.slow("https://x.example/robots.txt", 2.5)
+    slept.clear()
+    g.wait("https://x.example/next")
+    check("...and a robots.txt Crawl-delay longer than the gap widens it for that host",
+          slept, [2.5])
+    import requests as _rq
+    from requests.adapters import BaseAdapter as _BA
+
+    class _Hop(_BA):
+        def send(self, request, **kw):
+            r = _rq.models.Response()
+            r.request, r.url, r.encoding = request, request.url, "utf-8"
+            if "old.example" in request.url:
+                r.status_code, r.headers["Location"] = 301, "https://new.example/home"
+            else:
+                r.status_code = 200
+            r._content = b"ok"
+            return r
+
+        def close(self):
+            pass
+
+    class _Spy:
+        def __init__(self):
+            self.seen = []
+
+        def wait(self, url):
+            self.seen.append(C._probe_host(url))
+    ps = C._PacedSession()
+    ps.mount("https://", _Hop())
+    ps.gate = _Spy()
+    ps.get("https://old.example/")
+    check("a redirect hop is paced on the host it lands on", ps.gate.seen,
+          ["old.example", "new.example"])
+
+
+    # 6. A LATE WAKE DOES NOT SHORTEN THE NEXT GAP. Paced on the last request
+    # actually released, so a worker that oversleeps pushes the one after it
+    # back; with reserved slots the next on-time slot followed it 0.974-0.999 s
+    # apart on a 1.0 s gap (measured live).
+    import threading as _th6
+    import time as _tm6
+    first = [True]
+    flock = _th6.Lock()
+
+    def _oversleep(s):
+        with flock:
+            late, first[0] = first[0], False
+        _tm6.sleep(s + (0.08 if late else 0.0))
+    g6 = C._HostGate(0.1, clock=_tm6.monotonic, sleep=_oversleep)
+    rel, rlock = [], _th6.Lock()
+
+    def _go():
+        g6.wait("https://one.example/")
+        with rlock:
+            rel.append(_tm6.monotonic())
+    ths = [_th6.Thread(target=_go) for _ in range(4)]
+    for th in ths:
+        th.start()
+    for th in ths:
+        th.join()
+    rel.sort()
+    gaps = [b - a for a, b in zip(rel, rel[1:])]
+    check_true(f"a worker that wakes late pushes the next one back (smallest gap "
+               f"{min(gaps):.3f} s on a 0.1 s gate)", min(gaps) >= 0.095)
+
+    # 7. ROBOTS.TXT BINDS EVERY REQUEST THE WALK MAKES, redirect hops included,
+    # and the walk reads each page once. Live 2026-10-04 (review of the pool):
+    # 10 of Halifax's 11 library-branch probes fetched /explore/?post-type=...,
+    # which halifaxpubliclibraries.ca disallows, and one hop landed on
+    # facebook.com, which disallows everything; 21 of the metro's 70 requests
+    # repeated a URL already fetched that run.
+    print("\nrobots.txt and the run's cache")
+    from requests.adapters import BaseAdapter as _BA7
+    import requests as _rq7
+    wire = []
+    robots_files = {
+        "refused.example": "User-agent: *\nDisallow: /\n",
+        "hop.example": "User-agent: *\nAllow: /\n",
+        "walled.example": "User-agent: *\nDisallow: /page\n",
+        "lib.example": "User-agent: *\nDisallow: /explore/\n",
+        "cf.example": "<html><title>Just a moment...</title></html>",
+        "slow.example": "User-agent: *\nCrawl-delay: 120\n",
+    }
+    branch = (b'<html><a href="/explore/?post-type=events">Events</a>'
+              b'<a href="/whats-on/">What\'s on</a></html>')
+
+    class _Web(_BA7):
+        def send(self, request, **kw):
+            u = request.url
+            host = C._probe_host(u)
+            wire.append(u)
+            if host == "down.example":
+                raise _rq7.exceptions.ConnectionError("refused")
+            r = _rq7.models.Response()
+            r.request, r.url, r.encoding, r.status_code = request, u, "utf-8", 200
+            if u.endswith("/robots.txt"):
+                r._content = robots_files.get(host, "").encode()
+                if host not in robots_files:
+                    r.status_code = 404
+            elif host == "hop.example":
+                r.status_code, r.headers["Location"] = 301, "https://walled.example/page"
+                r._content = b""
+            elif host == "lib.example" and "/branch-" in u:
+                r._content = branch
+            else:
+                r._content = b"<html>nothing here</html>"
+            return r
+
+        def close(self):
+            pass
+
+    class _WebSession(C._PacedSession):
+        def __init__(self):
+            super().__init__()
+            self.mount("https://", _Web())
+
+    real7 = (osm.overpass_venues, osm.metros, C._save_ledger, C._PacedSession,
+             C.OSM_HOST_GAP_S)
+    C._save_ledger = lambda led: None
+    C._PacedSession = _WebSession
+    C.OSM_HOST_GAP_S = 0.01
+    osm.metros = lambda: [{"name": "Web", "country": "GB", "bbox": (0, 0, 1, 1)}]
+    osm.overpass_venues = lambda sess, bbox, lab: [
+        {"url": u, "name": u.split("/")[2]} for u in (
+            "https://refused.example/", "https://hop.example/",
+            "https://lib.example/branch-1", "https://lib.example/branch-2",
+            "https://down.example/", "https://cf.example/", "https://slow.example/",
+            "https://open.example/")]
+    try:
+        led7, cur7 = {}, {}
+        _f7, sk7 = C._discover_osm(C._session(), set(), led7, 500, cur7,
+                                   metros_per_run=1, workers=4)
+    finally:
+        (osm.overpass_venues, osm.metros, C._save_ledger, C._PacedSession,
+         C.OSM_HOST_GAP_S) = real7
+    sent = [u for u in wire if not u.endswith("/robots.txt")]
+    check("a homepage robots.txt disallows is never fetched",
+          [u for u in sent if "refused.example" in u], [])
+    check("...and is parked `refused`, which _dead_recently reads for DEAD_TTL",
+          ((led7.get("refused.example") or {}).get("status"),
+           C._dead_recently(led7, "refused.example")), ("refused", True))
+    check("...with the rule that refused it",
+          "Disallow: /" in (led7.get("refused.example") or {}).get("reason", ""), True)
+    check("a redirect to a page its own host's robots.txt disallows is not followed",
+          ([u for u in sent if "walled.example" in u],
+           (led7.get("hop.example") or {}).get("status")), ([], "refused"))
+    check("...though the redirect's target host was asked for its robots.txt",
+          "https://walled.example/robots.txt" in wire, True)
+    check("a disallowed follow-up page is skipped, never sent",
+          [u for u in sent if "/explore/" in u], [])
+    check("...and the venue is still read for what it was allowed to see",
+          (led7.get("lib.example/branch-1") or {}).get("status"), "fail")
+    check("two branches linking one page fetch it once; the second is the cache's",
+          sent.count("https://lib.example/whats-on/"), 1)
+    check("each origin's robots.txt is read once for the whole run",
+          wire.count("https://lib.example/robots.txt"), 1)
+    check("an unreachable robots.txt is a week's `unreachable`, not a refusal",
+          ((led7.get("down.example") or {}).get("status"),
+           [u for u in wire if "down.example" in u and not u.endswith("robots.txt")]),
+          ("unreachable", []))
+    check("a challenge on robots.txt is a challenge: tallied, not written",
+          ("cf.example" in led7, sk7.get("bot-challenge")), (False, 1))
+    check("a Crawl-delay past the cap skips the page rather than asking it sooner",
+          ([u for u in sent if "slow.example" in u], "slow.example" in led7,
+           sk7.get("robots-crawl-delay")), ([], False, 1))
+    check("an origin with no robots.txt (404) is read as it always was",
+          ((led7.get("open.example") or {}).get("status"),
+           "https://open.example/" in sent), ("fail", True))
+    check("every request that was refused is in the tally, by reason",
+          {k: v for k, v in sk7.items() if k.startswith("robots-refused")},
+          {"robots-refused-request:RobotsDisallowed": 4,
+           "robots-refused-request:RobotsUnreachable": 1,
+           "robots-refused-request:RobotsChallenged": 1,
+           "robots-refused-request:RobotsCrawlDelay": 1})
+
+    # CIVIC DISCOVERY ASKS TOO. Until 2026-10-05 `_discover_civic` handed a
+    # city's site to find_calendar on the plain session, so nothing read
+    # robots.txt there. Wikidata (the cities list) is a documented API and
+    # keeps the plain session; the probe gets the walk's.
+    import catalog_discover_civic as _civ7
+    wire.clear()
+    seen_sess = []
+
+    def _probe7(sess, place, timeout=18):
+        seen_sess.append(sess)
+        return [], osm.find_calendar(sess, place["url"])
+
+    realc = (_civ7.cities, _civ7.dmo_nominations, _civ7.probe, C._save_ledger,
+             C._PacedSession, C.OSM_HOST_GAP_S)
+    _civ7.cities = lambda sess, country, limit=40, offset=0: (
+        [{"qid": f"Q{i}", "name": h, "city": h, "url": f"https://{h}/", "_row": i,
+          "population": 1000 - i}
+         for i, h in enumerate(("refused.example", "open.example"))], 2)
+    _civ7.dmo_nominations = lambda sess, places: {}
+    _civ7.probe = _probe7
+    C._save_ledger = lambda led: None
+    C._PacedSession = _WebSession
+    C.OSM_HOST_GAP_S = 0.01
+    try:
+        led8 = {}
+        _f8, sk8 = C._discover_civic(C._session(), set(), led8, 500, {}, cities_per_run=2)
+    finally:
+        (_civ7.cities, _civ7.dmo_nominations, _civ7.probe, C._save_ledger,
+         C._PacedSession, C.OSM_HOST_GAP_S) = realc
+    sent8 = [u for u in wire if not u.endswith("/robots.txt")]
+    check("civic: the probe's session asks robots.txt (not the plain session)",
+          all(isinstance(x, C._PacedSession) and x.robots is not None for x in seen_sess)
+          and len(seen_sess) == 2, True)
+    check("civic: a town homepage robots.txt disallows is never fetched",
+          [u for u in sent8 if "refused.example" in u], [])
+    check("civic: ...and is parked `refused` with its rule, for DEAD_TTL",
+          ((led8.get("refused.example") or {}).get("status"),
+           "Disallow: /" in (led8.get("refused.example") or {}).get("reason", ""),
+           C._dead_recently(led8, "refused.example")), ("refused", True, True))
+    check("civic: a town with no robots.txt is read as it always was",
+          ("https://open.example/" in sent8, sk8.get("robots-refused-request:RobotsDisallowed")),
+          (True, 1))
+
+    # The cache keys redirect hops too: two branch URLs that redirect to one
+    # page fetch that page once. And an error is not kept.
+    hops = []
+
+    class _Hops(_BA7):
+        def send(self, request, **kw):
+            hops.append(request.url)
+            if "flaky" in request.url and hops.count(request.url) == 1:
+                raise _rq7.exceptions.ConnectTimeout("once")
+            r = _rq7.models.Response()
+            r.request, r.url, r.encoding, r.status_code = request, request.url, "utf-8", 200
+            if "/b/" in request.url:
+                r.status_code, r.headers["Location"] = 302, "https://x.example/hours"
+            r._content = b"hours"
+            return r
+
+        def close(self):
+            pass
+    ps8 = C._PacedSession()
+    ps8.mount("https://", _Hops())
+    ps8.cache = C._ResponseCache()
+    a = ps8.get("https://x.example/b/1")
+    b = ps8.get("https://x.example/b/2")
+    check("two URLs that redirect to one page fetch that page once",
+          hops.count("https://x.example/hours"), 1)
+    check("...and both callers get it, at the URL it lives at",
+          (a.text, str(a.url), b.text, str(b.url)),
+          ("hours", "https://x.example/hours", "hours", "https://x.example/hours"))
+    ps8.get("https://x.example/hours")
+    check("...and a page first reached as a redirect hop is not fetched again "
+          "when it is asked for by name", hops.count("https://x.example/hours"), 1)
+    ps8.get("https://x.example/b/1", allow_redirects=False)
+    check("...though a redirect asked for without following it is its own answer",
+          hops.count("https://x.example/b/1"), 2)
+    try:
+        ps8.get("https://x.example/flaky")
+    except _rq7.exceptions.ConnectTimeout:
+        pass
+    check("a request that failed is asked again, not answered with the failure",
+          ps8.get("https://x.example/flaky").text, "hours")
+
+    # 8. A METRO WHERE MOST PROBES RAISED WAS NOT READ. Review, 2026-10-04:
+    # with find_calendar raising on every venue, the pool tallied 30 errors,
+    # wrote nothing and moved a 3-metro cursor from GB:M0 to GB:M3; the code
+    # before the pool raised and left it alone.
+    print("\nwhen the probe code itself is broken")
+    real8 = (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger)
+    saves8 = []
+    C._save_ledger = lambda led: saves8.append(len(led))
+    # FOUR metros and a run of three, so a cursor that marched would land on
+    # GB:M3 and not wrap back round to where it started.
+    osm.metros = lambda: [{"name": f"M{i}", "country": "GB", "bbox": (0, 0, 1, 1)}
+                          for i in range(4)]
+    osm.overpass_venues = lambda sess, bbox, lab: [
+        {"url": f"https://{lab[:2]}-{j}.example", "name": f"v{j}"} for j in range(10)]
+
+    def _typeerror(sess, url):
+        raise TypeError("a refactor broke the parser")
+    osm.find_calendar = _typeerror
+    cur8, led8, raised = {"metro_key": "GB:M0"}, {}, None
+    try:
+        C._discover_osm(C._session(), set(), led8, 500, cur8, metros_per_run=3)
+    except RuntimeError as exc:
+        raised = str(exc)
+    finally:
+        (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real8
+    check_true(f"every probe raising stops the walk loudly ({raised})",
+               bool(raised) and "10 of 10" in raised)
+    check("...without moving the cursor past the metro", cur8["metro_key"], "GB:M0")
+    check("...after saving the ledger, which says nothing about those venues",
+          (saves8, led8), ([0], {}))
+
+    # 9. TWO VENUES, ONE CALENDAR: the first in MAP order proposes it, however
+    # the probes finish. Both of Halifax's Captain William Spry and Dartmouth
+    # North centres propose halifax.ca's events calendar.
+    real9 = (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger)
+    C._save_ledger = lambda led: None
+    osm.metros = lambda: [{"name": "Two", "country": "GB", "bbox": (0, 0, 1, 1)}]
+    osm.overpass_venues = lambda sess, bbox, lab: [
+        {"url": "https://first.example/", "name": "First Centre", "lat": 1.0, "lon": 1.0},
+        {"url": "https://second.example/", "name": "Second Centre", "lat": 2.0, "lon": 2.0}]
+
+    slow9 = ["first"]
+
+    def _shared(sess, url):
+        if slow9[0] in url:
+            _tm6.sleep(0.15)                  # this one finishes LAST
+        return {"status": "ok", "adapter": "tribe", "labels": ["tribe"],
+                "cal_url": "https://city.example/events/"}
+    osm.find_calendar = _shared
+    named = []
+    try:
+        for slow9[0] in ("first", "second"):
+            f9, sk9 = C._discover_osm(C._session(), set(), {}, 500, {}, metros_per_run=1,
+                                      workers=4)
+            named.append([c["name"] for c in f9.values()])
+    finally:
+        (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real9
+    check("two venues proposing one calendar: the first on the map names it, "
+          "whichever probe finishes first", named, [["First Centre"], ["First Centre"]])
+    check("...and the collision is tallied", sk9.get("same-calendar"), 1)
 
     print()
     if FAILURES:
