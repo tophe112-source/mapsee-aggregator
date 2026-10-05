@@ -49,6 +49,10 @@ python test_ingest_revize.py        # RRULEs as python-dateutil reads them, the 
 python test_ingest_glenecho.py      # the written time line over the <time> field, open hours refused unread, 'Admission: free.' only when the park says FREE
 python test_ingest_montreal_loisirs.py # est_inscription_obligatoire is not enough, a City point 20-34 km off its own address is refused
 python test_ingest_phl_parks.py     # a sign-up link or "registration required" vetoes the drop-in words, City holidays skipped
+python test_ingest_barcelona.py     # the timetable's clock not start_date's 03:00, a weekday label is not a weekly day, the facility at the row's own point, opening hours refused
+python test_ingest_lcsd.py          # walk-in only, only the dates the event's text names, the room in the fingerprint, SmartPlay skipped without facility lists
+python test_ingest_madrid.py        # parked: robots.txt names the datastore, so 0 rows without a recorded permission; a fiesta's all-day programme is not its 21:00 concert
+python test_ingest_facility_hours.py # opening hours parsed never approximated, one writer per OSM centre, a refused centre rewritten not skipped
 python test_spam.py                 # the advertisement gate, and mostly what it must never refuse
 python test_coverage_rows.py        # the coverage report's arithmetic: no source counted twice, no ccTLD left under "?"
 python test_robots.py               # robots.txt per RFC 9309, and verify never fetching a feed its host refuses

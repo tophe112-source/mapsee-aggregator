@@ -36,6 +36,11 @@ on:
       - "glenecho_sources.json"
       - "montreal_loisirs_sources.json"
       - "phl_parks_sources.json"
+      - "barcelona_sources.json"
+      - "lcsd_sources.json"
+      - "facility_hours_sources.json"
+      - "madrid_sources.json.pending-permission"
+      - "openactive_sources.json"
       - ".github/workflows/tests.yml"
   pull_request:
     paths:
@@ -53,6 +58,11 @@ on:
       - "glenecho_sources.json"
       - "montreal_loisirs_sources.json"
       - "phl_parks_sources.json"
+      - "barcelona_sources.json"
+      - "lcsd_sources.json"
+      - "facility_hours_sources.json"
+      - "madrid_sources.json.pending-permission"
+      - "openactive_sources.json"
       - ".github/workflows/tests.yml"
   workflow_dispatch:
 
@@ -398,6 +408,19 @@ jobs:
         run: python test_ingest_montreal_loisirs.py
       - name: Philadelphia Parks & Rec Finder drop-ins
         run: python test_ingest_phl_parks.py
+      # Barcelona: the timetable's clock, not start_date's 03:00 placeholder; the
+      # facility at the row's own point names it. Hong Kong: walk-in only, and
+      # only the dates the event's own text names. Madrid: parked, and the
+      # robots.txt gate is the first thing the test pins. Facility hours: one
+      # writer per centre, hours parsed and never approximated.
+      - name: Barcelona community places' agenda (open data)
+        run: python test_ingest_barcelona.py
+      - name: Hong Kong LCSD (walk-in only, only the dates the text names, the room in the fingerprint)
+        run: python test_ingest_lcsd.py
+      - name: Madrid municipal agenda (parked by robots.txt; the gate and the rules)
+        run: python test_ingest_madrid.py
+      - name: Civic facility opening hours (city open data)
+        run: python test_ingest_facility_hours.py
 
       # The gate that keeps advertisements out of the catalogue, and the ONE
       # place it must be graded is the half nobody would notice failing. Letting

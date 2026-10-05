@@ -32,7 +32,8 @@ class WorkflowContracts(unittest.TestCase):
                       'mylisting', 'luma', 'restaurants', 'seoul', 'affiliates', 'ubereats',
                       'venuepilot', 'dice_venue', 'rolodex', 'pioneersquare', 'seattlecenter', 'slu'},
             'rec': {'toronto_rec', 'linkedevents', 'perfectmind', 'drupal_fullcalendar', 'revize',
-                    'glenecho', 'montreal_loisirs', 'phl_parks'},
+                    'glenecho', 'montreal_loisirs', 'phl_parks', 'barcelona', 'lcsd', 'madrid',
+                    'facility_hours'},
         }
         found = {group: set() for group in expected}
         for step in job['steps']:

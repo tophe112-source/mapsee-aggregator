@@ -16,8 +16,9 @@ name: Aggregate public events
 #     sync and recovery artifacts. A failed adapter cannot block its neighbors.
 #     `rec` is the community-centre timetables (Toronto, Helsinki/Espoo,
 #     PerfectMind cities, Montreal, Philadelphia, Fairfax County, Revize towns,
-#     Glen Echo Park): ~100k dated drop-in rows a first run, which is why they
-#     have their own runner and their own 60-minute sync.
+#     Glen Echo Park, Barcelona, Hong Kong; Madrid parked) and the civic
+#     facility opening hours: ~100k dated drop-in rows a first run, which is why
+#     they have their own runner and their own 60-minute sync.
 #   • meetup — ONE Meetup sweep (US then international). Meetup shares no key
 #     with Ticketmaster, so it runs parallel; it used to run in TWO places
 #     (here for the US, a separate job for international), which was both
@@ -924,6 +925,87 @@ jobs:
           else
             echo "no phl_parks_sources.json - skipping Philadelphia Parks & Rec"
           fi
+      # BARCELONA'S CITY AGENDA AT ITS COMMUNITY PLACES (Ajuntament de Barcelona
+      # open data, CC BY 4.0, CKAN datastore): what anyone can turn up to at the
+      # centres civics, casals and municipal libraries, each row joined to the
+      # City's facility register for its venue and timed from the timetable HTML
+      # (start_date's clock is a placeholder). 2026-10-05: 1,237 rows at 131
+      # places in 90 days (87% free by the City's own Preus cell), 2 datastore
+      # requests in 5 s. No request starts after --max-minutes 3 and one attempt
+      # is at most 45 s, so 6 minutes holds it.
+      - name: Import Barcelona community places' agenda (Barcelona open data)
+        id: ingest_barcelona
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        timeout-minutes: 6
+        run: |
+          if [ -f barcelona_sources.json ]; then
+            python mapsee_ingest_barcelona.py --config barcelona_sources.json --store feeds_events.json --max-minutes 3
+          else
+            echo "no barcelona_sources.json - skipping Barcelona"
+          fi
+      # HONG KONG LCSD (DATA.GOV.HK, free re-use with attribution): the cultural
+      # programme at LCSD's town halls, civic centres, theatres and museums
+      # (events/eventDates/venues/holiday XML, read FIRST), then SmartPlay's
+      # WALK-IN community sports sessions - 468 of 6,350 programmes; the rest are
+      # ballot/enrolment courses. 9 requests (one 12 MB JSON); 2026-10-05: 2,822
+      # rows in 69 s on a warm geocode cache (310 s cold). No request starts and
+      # no transfer runs past --max-minutes 6 (a body is streamed and abandoned at
+      # the deadline), the store is saved after each source, so the 9-minute cap
+      # cannot cost the cultural rows.
+      - name: Import Hong Kong LCSD walk-in sports sessions and cultural programmes
+        id: ingest_lcsd
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        timeout-minutes: 9
+        run: |
+          if [ -f lcsd_sources.json ]; then
+            python mapsee_ingest_lcsd.py --config lcsd_sources.json --store feeds_events.json --max-minutes 6
+          else
+            echo "no lcsd_sources.json - skipping"
+          fi
+      # MADRID'S MUNICIPAL AGENDA - PARKED (madrid_sources.json.pending-permission).
+      # datos.madrid.es's robots.txt Disallows /api/3/action/datastore_search by
+      # name (2026-10-05), and its /egob/catalogo/*.json files redirect into a
+      # path it also Disallows, so this step skips until the City's written yes
+      # is recorded in the config's `permission` and the file is renamed. The
+      # adapter asks robots.txt first and stops on a Disallow without one. On
+      # the one pull already taken: 975 rows in 90 days, 616 at community places,
+      # 2 requests 10 s apart.
+      - name: Import Madrid's municipal agenda (datos.madrid.es; parked)
+        id: ingest_madrid
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        timeout-minutes: 6
+        run: |
+          if [ -f madrid_sources.json ]; then
+            python mapsee_ingest_madrid.py --config madrid_sources.json --store feeds_events.json --max-minutes 3
+          else
+            echo "no madrid_sources.json - Madrid is parked (madrid_sources.json.pending-permission)"
+          fi
+      # CIVIC FACILITY OPENING HOURS (mapsee_ingest_facility_hours.py): ONE
+      # standing row per community / older adult centre from city open data
+      # (Seattle Parks, NYC Aging, Chicago DFSS, Cleveland, Phoenix), plus
+      # Seattle's Teen Late Night evenings 21 days ahead. 455 rows in 12
+      # requests + 5 robots.txt, 14 s on 2026-10-05. Its OWN store, synced in
+      # this step WITHOUT --only-new and with --skip-unchanged, as
+      # osm-secondhand.yml does: a standing row changes only when a city's hours
+      # do, --only-new would never write that change, and --skip-unchanged
+      # writes only what moved (0 of 419 standing rows differ day to day once
+      # "facility-hours:" is in CIVIC_TIMETABLE_SOURCES). --max-minutes 3 and
+      # the sync of ~455 rows fit well inside the 10-minute cap.
+      - name: Import civic facility opening hours (city open data)
+        id: ingest_facility_hours
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        timeout-minutes: 10
+        run: |
+          if [ -f facility_hours_sources.json ]; then
+            python mapsee_ingest_facility_hours.py --config facility_hours_sources.json --store facility_hours_events.json --max-minutes 3
+            python mapsee_supabase_sync.py --store facility_hours_events.json --skip-unchanged
+          else
+            echo "no facility_hours_sources.json - skipping civic facility hours"
+          fi
       # The `rec` group's FIRST sync of its ~103,600 rows (Toronto 27,654,
       # Linked Events 10,204, PerfectMind 65,760) ran out the 20 minutes on
       # 2026-10-04 (run 37216641420): 4 minutes reading what is stored, then
@@ -1007,8 +1089,11 @@ jobs:
         with:
           name: feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
           retention-days: 7
+          # facility_hours_events.json is the rec group's second store, synced
+          # in its own step; kept so a failed sync there can be replayed.
           path: |
             feeds_events.json
+            facility_hours_events.json
             feed-steps.json
       - name: Fail when an import or sync failed
         if: ${{ always() && contains(steps.*.outcome, 'failure') }}
