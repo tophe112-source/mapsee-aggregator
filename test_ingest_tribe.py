@@ -640,6 +640,35 @@ with redirect_stdout(io.StringIO()):
     kept = T.ingest_site(store, _Session(civic_rows), dict(SITE, crawl_delay=0))
 check("a non-civic source keeps every row", kept == 4, kept)
 
+# --- skip_title, as in ics and jsonld -----------------------------------------
+# Haydon Wick Parish Council (2026-10-04): "Planning & Highways Meeting" beside
+# its memory café, under titles CIVIC_TITLE_RX does not know.
+parish_rows = [row(id=1, title="Planning & Highways Meeting"), row(id=2, title="Memory Café"),
+               row(id=3, title="Finance & Policy meeting"), row(id=4, title="Meeting Point Walk")]
+store = _Store()
+with redirect_stdout(io.StringIO()) as buf:
+    kept = T.ingest_site(store, _Session(parish_rows), dict(SITE, crawl_delay=0, skip_title=r"\bMeeting$"))
+check("skip_title drops the titles it matches, case-insensitively, and only those",
+      kept == 2 and sorted(e.name for e in store.seen) == ["Meeting Point Walk", "Memory Café"],
+      [e.name for e in store.seen])
+check("...and says how many", "2 title-filtered" in buf.getvalue(), buf.getvalue())
+try:
+    T.ingest_site(_Store(), _Session(parish_rows), dict(SITE, crawl_delay=0, skip_title="(unclosed"))
+    refused = False
+except ValueError:
+    refused = True
+check("an invalid skip_title fails loudly instead of filtering nothing", refused)
+
+# --- a website without a scheme is no link -------------------------------------
+# BCUT Timisoara's rows said "www.bcut.ro"; the event's own page is whole.
+check("a scheme-less website falls back to the event's own page",
+      T.to_event(row(website="www.bcut.ro"), SITE).ticket_url == "https://example.org/event/velo/")
+check("a real website still wins over the event page",
+      T.to_event(row(website="https://tickets.example.com/x"), SITE).ticket_url
+      == "https://tickets.example.com/x")
+check("no website at all keeps the event page, as before",
+      T.to_event(row(), SITE).ticket_url == "https://example.org/event/velo/")
+
 # --- the deadline resumes where it stopped, instead of starving the tail -----
 # Run 36317891716 (2026-09-27) stopped "before Autodromo Nazionale di Monza: 65
 # of 673 sites not started", and every run started at site one, so it was the
