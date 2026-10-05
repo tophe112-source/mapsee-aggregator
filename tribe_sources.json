@@ -15829,6 +15829,22 @@
       },
       "_metro": "Edmonton, Canada",
       "_note": "seeds2 2026-10-04: 21 rows starting 2026-10-04..2027-01-02; read 21: 20 free, 1 paid. all 21 at Athlone Hall: weekly Zumba ($5 drop-in), free financial workshops, a family dinner & dance, a jam session, two markets. Venue point: round-1 seed coordinate (municipal open data / jcca.org directory)."
+    },
+    {
+      "name": "Centro de Meditação Kadampa",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://meditario.org.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centro de Meditação Kadampa",
+        "address": "604 Rua Conde de Irajá",
+        "city": "Rio de Janeiro",
+        "lat": -22.957814,
+        "lon": -43.194496
+      },
+      "_metro": "Rio de Janeiro, Brazil"
     }
   ],
   "_not_included": {

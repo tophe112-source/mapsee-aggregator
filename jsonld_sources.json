@@ -6420,6 +6420,24 @@
         "lat": 53.4490735,
         "lon": -113.4001695
       }
+    },
+    {
+      "name": "Sociedade Hípica Brasileira",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://shb.com.br/calendario/"
+      ],
+      "link_pattern": "https://shb\\.com\\.br/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sociedade Hípica Brasileira",
+        "address": "2448 Avenida Borges de Medeiros",
+        "postal_code": "22470-050",
+        "lat": -22.9625601,
+        "lon": -43.2141049
+      },
+      "_metro": "Rio de Janeiro, Brazil"
     }
   ],
   "_not_included": {

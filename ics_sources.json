@@ -19482,5 +19482,14 @@
     "_metro": "Fort-de-France, Martinique",
     "_found": "manual:2026-10-03 OpenAgenda agenda search (martinique) -> events.v2.ics",
     "_note": "North Martinique tourist office's agenda: 462 upcoming timings, all with GEO; skip_title drops 343 calls for entries and bar, restaurant and distillery promotions, leaving 111 municipal and association events (Semaine Bleue senior week, randonnées, heure du conte, initiation tambou, Gym Bèlè, éveil musical) that name no price. OpenAgenda pins its 'Bellefontaine' place in France (48.015,6.443), so location_overrides re-pins those 9 rows at Bellefontaine, Martinique (OSM relation 287640)."
+  },
+  {
+    "name": "Casa do Baile",
+    "category": "arts",
+    "_found": "osm:museum -> ics",
+    "url": "https://calendar.google.com/calendar/ical/c_e96d8c55ff9a179dd20f9afd5c27a69adf71c84e63bd504e7d2d4e574d0f7514%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Belo Horizonte",
+    "limit": 300,
+    "_metro": "Belo Horizonte, Brazil"
   }
 ]
