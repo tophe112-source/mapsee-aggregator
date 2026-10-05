@@ -135,3 +135,15 @@
   12 of its 16 distinct LOCATIONs missed as sent, and 9 of those 12 resolved
   when the address half was sent alone, some only to a street centroid, so
   it can be proposed again. GTM's single LOCATION misses either way.
+
+- **ON A SMALL TOWN'S CALENDAR, PHOTON ANSWERS FROM ANYWHERE, AND THE CENSUS PASS CAN MAKE A GOOD PIN WORSE.** Measured on four Revize towns, 2026-10-04/05:
+  - Far answers: 'Downtown Olympia' gave a memorial in Tacoma (40 km away), 'Gymnasium, Pacific, WA' gave Pacific County's centroid (140 km), and a bare '2600 East Bay Drive NE' (NE read as Nebraska) gave Massapequa NY. A 25 km radius from each site's `centre` unplaces such answers.
+  - Answers inside the town: '9317 Center St' (the cemetery tours) gave a roofer 2.5 km away, and the Census geocoder has no match to correct it. 'Downtown Manassas' gave a post office. Photon placed the city library on its building, but the sync's Census pass moved it 370 m to an address interpolation, because coords_exact was False.
+  - In-town errors are fixed only by venue-book pins (OSM id, coords_exact true). The shared ics geocoder returns a point, not Photon's properties, so a street-mismatch check is not possible there.
+
+- **A CITY'S OWN COORDINATE CAN SIT ON THE SAME STREET NAME IN ANOTHER BOROUGH.** Montreal's Loisirs dataset (2026-10-05, 176 sites, 153 distinct points) was checked against each site's postal area:
+  - **Misplaced:** "504 5e Avenue, Verdun, H4G" is pinned in Pointe-aux-Trembles, 20 km off. "35 rue Sainte-Anne, Sainte-Geneviève, H9H" is 34 km off, beside it.
+  - Five Lachine (H8S) sites land 8-27 km off, on downtown's Notre-Dame, Sherbrooke and Saint-Antoine, on Verdun's 5e Avenue, and on the east end's 19e Avenue. One Montréal-Nord site is 11 km off on the wrong end of boulevard Gouin.
+  - All of them are inside the island's box. Two were written: 68 rows, 44 of them free Zumba and basketball, marked coords_exact so the sync never re-geocoded them.
+  - **The check:** compare a point with the distinct points of other sites sharing its FSA, and refuse it when strictly more of them lie beyond 5 km than within. Correct sites sit a median 0.8 km from their peers (p90 1.6, max 3.1); the 8 wrong ones sit 8-34 km off.
+  - **Limit:** 17 points share their postal area with no other site, so this check cannot reach them.

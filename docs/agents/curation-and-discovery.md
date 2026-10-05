@@ -1266,6 +1266,8 @@
   so both need correcting by hand. The same sample found 11 of the 600
   homepages under `Disallow: /` for us. Discovery fetched every one of them,
   because `find_calendar` does not read robots.txt. Only verify does.
+  Since 2026-10-05 both walks (`_discover_osm`, `_discover_civic`) read it for
+  every request and redirect hop, through `_PacedSession`.
 
 - **A CALENDAR FOUND THROUGH A VENUE IS OFTEN NOT THAT VENUE'S PROGRAMME, SO
   PIN IT BY HAND, FROM ITS EVENTS.** Nine OSM-found Google calendars put
@@ -1309,3 +1311,24 @@
 
 - **A WIX SITE'S EVENT ROUTE IS ITS OWN, ALL OF THE PATH IN FRONT OF THE SLUG, AND A WIX EVENT PAGE IS NOT A LISTING.** `to_candidate` wrote `/event-info/{}` for every Wix find. On the 14 Wix sites in `jsonld_sources.json` (2026-10-04) that route answers on 2 (Sea Monster Lounge, Remy's). On the other 12, `/event-info/<slug>` was a 404 and the site's own route a 200: `/event-details/` on 9, a renamed `/events/` on 3. Also, 13 of the 15 entries had ONE event's page as `listing`, a source that dies with that event. `find_calendar` now reads the route off the page's own same-host links that run through a slug from the warmup data's EVENT objects (not blog posts, which ship `"slug"` too). It keeps everything in front of the slug, because the adapter `urljoin`s the template against the listing's ORIGIN and a free site lives at `<user>.wixsite.com/<site>/`. Example: centrecultureltheux.wixsite.com/cctheux (13 events, 12 upcoming) verifies False with `/event-details/{}` and True with `/cctheux/event-details/{}`. The ledger holds 20 wixsite.com Wix candidates refused 'no schema.org Event blocks found', every one checked at the host root. HEART Headingley's events all link TicketSource, which reuses the slug, so without the host test the route would read as `/heartcentreheadingley/`. A Wix page holding one event, or none and no Event block of its own, is swapped for the homepage that linked it. After the fix the 11 corrected entries verify on their homepages (78 upcoming between them), and KokoTeatteri ingests 11 events from 11 pages where it used to read one.
 - **THE COMMUNITY WALK READ 31 METROS A RUN ONLY WHILE IT WALKED GROUND THE FULL SWEEP HAD ALREADY PROBED.** Over 13 runs (2026-09-22..10-03), the ledger already settled 71% and 57% of listed venues in runs 1-2. Past Yokohama (metro 50; the full sweep's cursor is at 69) that fell to 1-27%, with German and Dutch metros at 155-516 venues. A run makes about 950-1,450 live probes in its 55 minutes (2.3-3.5 s each). On 09-25 each probe took 22.9 s, when 155 of 163 probes were unreachable. So `--metros 40` never limited a run: 7 runs ended on the budget, and 6 on a metro Overpass refused four times running. Those 6 used 60 of their 330 minutes, and two read nothing. Overpass now gets 8 tries (each try failed about half the time: 67/134, 22/67, 12/22, 6/12), but only within 600 s. An ask can hang for its 200 s timeout, and eight hangs would be about 32 minutes on one metro, outside the deadline the caller checks between metros; the patience caps it at about 800 s, under the 865 s that four asks cost. A probe's connect timeout is now 6 s. Which timeout fired on the unreachable probes is not measured yet.
+
+- **THE OSM WALK READS ROBOTS.TXT NOW, FOR EVERY REQUEST AND EVERY REDIRECT HOP.** Until 2026-10-05 only `verify` read robots.txt, so discovery fetched what a venue linked. On Halifax, 10 of 11 library-branch probes fetched halifaxpubliclibraries.ca/explore/?post-type=..., which that host disallows (`Disallow: /explore/`), and one homepage redirected to facebook.com, which disallows everything. `_PacedSession.send` now reads the origin's robots.txt before sending anything: one read per origin per run, through the gate. Measured live: Halifax 12 requests refused and 15 robots.txt reads for 25 probes; Hamilton 19 reads for 28 probes; 0 disallowed requests sent. How each outcome is recorded:
+  - A refused homepage, or a homepage that redirects somewhere refused, becomes a `refused` osm-venue row, with the rule in the reason, and `_dead_recently` skips it for 90 days.
+  - An unreachable robots.txt is the week-long `unreachable`.
+  - A challenge on robots.txt is counted, not written.
+  - A Crawl-delay over 30 s means the page is skipped, never asked sooner.
+
+  Civic discovery (`_discover_civic`) probed with a plain session until the same day; it now
+  takes `_robots_probe_session` and parks a refused town homepage `refused` the same way
+  (`test_discover_osm.py`'s civic cases; reverting it fails 3). Wikidata, a documented API,
+  keeps the plain session.
+
+- **FOUR PROBES AT ONCE BUY 1.6-2.3x, NOT 4x, AND ONE HOST DECIDES IT.** Measured 2026-10-05 on identical venue lists against main's one-at-a-time code, both inside robots.txt:
+  - Halifax: 46.7 s down to 28.1-29.0 s.
+  - Hamilton: 72.2 s down to 32.0 s. That is one main sample; a review run a day earlier implied about 53 s, which would be 1.7x.
+
+  The host gate costs about 1 s per same-host follow-up: one worker of the new code took 67.3 s on Halifax. A metro's critical path is its biggest same-host chain (11 of Halifax's 25 venues are on one library site), and the other workers sit idle while it drains. The run's cache takes the repeats off that chain: 11 of 58 requests on Halifax and 19 of 80 on Hamilton were repeats under main, 1 and 0 now.
+
+- **THE LEDGER HAS TWO NEW KINDS OF OSM-VENUE ROW, SO ITS TOTAL WILL STEP UP.** These are `unreachable` (parked 7 days, UNREACHABLE_TTL_DAYS) and robots.txt `refused` (parked 90 days). `catalog_curate.py ledger` now prints every status, so the header adds up: 42,762 = 3,723 ok + 38,719 broken + 291 empty + 9 refused + 20 reopened on 2026-10-05. `coverage_snapshot` counts every row in `ledger.total` but only `fail` in `dead`, so a jump in `coverage_history.jsonl`'s ledger total after this change is these rows.
+
+- **A METRO WHERE MOST PROBES RAISED IS NOT READ.** With `find_calendar` raising on every venue, the pool tallied 30 errors, wrote nothing, and moved a 3-metro cursor three metros (review, 2026-10-04). It now stops when at least 3 probes, and more than half, have raised (OSM_PROBE_ERRORS_STOP): the metro stays unread and the run raises after saving the ledger. A single page that breaks the parser still costs only that venue.
