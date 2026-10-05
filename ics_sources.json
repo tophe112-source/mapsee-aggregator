@@ -18851,5 +18851,636 @@
     "_found": "civic:city -> civicplus[Community Calendar] (hand-curated)",
     "_metro": "Seattle, WA",
     "_measured": "2026-10-04, production UA: 53 future VEVENTs, 15 in the next 90 days, 53/53 with a LOCATION, governance_heavy False. A community-events calendar, not a centre timetable: in 90 days 7 Everett Public Library programmes, 6 Imagine Children's Museum sensory/free-access nights, a Philharmonic concert, 1 Park Board meeting (the civic: prefix lets the town-hall filter drop it); the 2027 tail is Everett Performing Arts Center runs. No other Everett category qualifies: Parks & Recreation Events (catID=26) is 1 Park Board meeting, City Events (32) is empty, Neighborhoods (25) answered 429 and was not retried."
+  },
+  {
+    "name": "Mestna knjižnica Ljubljana (Ljubljana City Library)",
+    "url": "https://www.mklj.si/dogodki/?ical=1",
+    "category": "learning",
+    "geocode_suffix": ", Ljubljana, Slovenia",
+    "limit": 300,
+    "_metro": "Ljubljana, Slovenia",
+    "_found": "manual:2026-10-03 sniffed library site, The Events Calendar iCal export",
+    "_note": "Free programme of Ljubljana's public library and its branches. The REST API lists 847 events in the next 180 days, but 138 of the first 150 venues have no coordinates, so this uses the iCal export instead (30 rows, about 3 days ahead). In a test, Photon placed 17 of 20 branch LOCATIONs at the right branch.",
+    "location_overrides": [
+      {
+        "location": "Slovanska knjižnica",
+        "venue": {
+          "city": "Ljubljana",
+          "postal_code": "1000",
+          "country": "SI",
+          "name": "Slovanska knjižnica",
+          "address": "Einspielerjeva ulica 1",
+          "lat": 46.0650435,
+          "lon": 14.5082229
+        }
+      },
+      {
+        "location": "Slovanska knjižnica – 2. nadstropje",
+        "venue": {
+          "city": "Ljubljana",
+          "postal_code": "1000",
+          "country": "SI",
+          "name": "Slovanska knjižnica",
+          "address": "Einspielerjeva ulica 1",
+          "lat": 46.0650435,
+          "lon": 14.5082229
+        }
+      },
+      {
+        "location": "Knjižnica Otona Župančiča, 3. nadstropje, dvorana",
+        "venue": {
+          "city": "Ljubljana",
+          "postal_code": "1000",
+          "country": "SI",
+          "name": "Knjižnica Otona Župančiča",
+          "address": "Kersnikova ulica 2",
+          "lat": 46.0553105,
+          "lon": 14.5042119
+        }
+      },
+      {
+        "location": "Knjižnica Otona Župančiča, 2. nadstropje",
+        "venue": {
+          "city": "Ljubljana",
+          "postal_code": "1000",
+          "country": "SI",
+          "name": "Knjižnica Otona Župančiča",
+          "address": "Kersnikova ulica 2",
+          "lat": 46.0553105,
+          "lon": 14.5042119
+        }
+      }
+    ]
+  },
+  {
+    "name": "Mladi Maribor - youth events (Maribor)",
+    "url": "https://mladimaribor.si/dogodki/?ical=1",
+    "category": "community",
+    "geocode_suffix": ", Maribor, Slovenia",
+    "limit": 300,
+    "_metro": "Maribor, Slovenia",
+    "_found": "manual:2026-10-03 web search for Slovenian youth centres",
+    "_note": "Calendar of Maribor's youth portal with 27 upcoming rows. 10 of 22 REST rows say brezplačno (free): a reading marathon, free exercise, a clothes swap, a peer support group and free STI testing. Photon placed 9 of 12 distinct LOCATIONs.",
+    "location_overrides": [
+      {
+        "location": "Dom ustvarjalnosti mladih (DUM) Maribor, Razlagova ulica 16, Maribor 2000, 2000",
+        "venue": {
+          "name": "Dom ustvarjalnosti mladih (DUM) Maribor",
+          "address": "Razlagova ulica 16",
+          "city": "Maribor",
+          "postal_code": "2000",
+          "country": "SI",
+          "lat": 46.5619033,
+          "lon": 15.6528684
+        }
+      }
+    ]
+  },
+  {
+    "name": "Knjižnica Antona Tomaža Linharta Radovljica (Radovljica, Bled, Bohinj)",
+    "url": "https://www.knjiznica-radovljica.si/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "learning",
+    "geocode_suffix": ", Slovenia",
+    "limit": 300,
+    "_metro": "Ljubljana, Slovenia",
+    "_found": "manual:2026-10-03 OSM libraries Slovenia -> The Events Calendar iCal",
+    "_note": "Gorenjska public library with branches in Radovljica, Bled and Bohinjska Bistrica: 30 upcoming free events (the REST API has 35 in 180 days). Every LOCATION is a street address, and 8 of 9 distinct ones geocode. Events include English story time, reading clubs, crafts for kids and exhibition openings.",
+    "location_overrides": [
+      {
+        "location": "Knjižnica Blaža Kumerdeja Bled, Ulica Jule Vovk Molnar 2, Bled, 4260",
+        "venue": {
+          "name": "Knjižnica Blaža Kumerdeja Bled",
+          "address": "Ulica Jule Vovk Molnar 2",
+          "city": "Bled",
+          "postal_code": "4260",
+          "country": "SI",
+          "lat": 46.3707863,
+          "lon": 14.1171682
+        }
+      },
+      {
+        "location": "Kulturni dom Kropa, Kropa 3, Kropa, 4245, Slovenija",
+        "venue": {
+          "name": "Kulturni dom Kropa",
+          "address": "Kropa 3",
+          "city": "Kropa",
+          "postal_code": "4245",
+          "country": "SI",
+          "lat": 46.2918069,
+          "lon": 14.2060588
+        }
+      }
+    ]
+  },
+  {
+    "name": "Centar za kulturu Sigmund Romberg and Gradska knjižnica Belišće",
+    "url": "https://cks-romberg.hr/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", Belišće, Croatia",
+    "limit": 300,
+    "_metro": "Osijek, Croatia",
+    "_found": "manual:2026-10-03 OSM community_centre Croatia -> The Events Calendar iCal",
+    "_note": "Belišće culture centre and town library: 12 upcoming events for Croatian Book Month, including knitting workshops, kids' workshops, the reading club's 10th birthday, book launches and the autumn festival. 11 rows have a street-address LOCATION, and 3 of 4 distinct LOCATIONs geocode."
+  },
+  {
+    "name": "Miskolc city library branches (rfmlib.hu)",
+    "url": "https://www.rfmlib.hu/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "learning",
+    "geocode_suffix": ", Miskolc, Hungary",
+    "limit": 300,
+    "_metro": "Miskolc, Hungary",
+    "_found": "manual:2026-10-03 OSM libraries Hungary -> The Events Calendar iCal",
+    "_note": "Miskolc's library network: 83 upcoming events on REST and 30 in the iCal export, each with a branch street address (6 of 8 branches geocode). Events include Spanish and English conversation clubs, a baby-mama club, a patchwork club, board games and story mornings. Library programmes are free."
+  },
+  {
+    "name": "Domy kultury SM Osiedle Młodych (Poznań Rataje)",
+    "url": "https://osiedlemlodych.pl/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", Poznań, Poland",
+    "limit": 300,
+    "_metro": "Poznań, Poland",
+    "_found": "manual:2026-10-03 OSM community_centre Poznań -> The Events Calendar iCal",
+    "_note": "A housing co-operative's seven neighbourhood culture houses: 70 upcoming on REST, 47 marked Bezpłatnie (free). Events include seniors' psychology workshops, digital-skills sessions for seniors, legal talks and free concerts. The iCal export carries 30 with street-address LOCATIONs, and 9 of 10 distinct ones geocode.",
+    "location_overrides": [
+      {
+        "location": "DK „Polan Sto”",
+        "venue": {
+          "name": "Dom Kultury „Polan 100”",
+          "address": "os. Polan 100",
+          "city": "Poznań",
+          "country": "PL",
+          "lat": 52.3837237,
+          "lon": 16.9600244
+        }
+      },
+      {
+        "location": "Polana przy DK „Polan STO”",
+        "venue": {
+          "name": "Dom Kultury „Polan 100”",
+          "address": "os. Polan 100",
+          "city": "Poznań",
+          "country": "PL",
+          "lat": 52.3837237,
+          "lon": 16.9600244
+        }
+      }
+    ]
+  },
+  {
+    "name": "Nature Society (Singapore)",
+    "url": "https://www.nss.org.sg/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "outdoors",
+    "geocode_suffix": ", Singapore",
+    "limit": 300,
+    "_metro": "Singapore, SG",
+    "_found": "manual:2026-10-03 sniffed nss.org.sg from a hand list of SG nature/community groups: WordPress The Events Calendar, list-view iCal export",
+    "_note": "Nature Society (Singapore)'s own calendar of guided nature walks and volunteer habitat days: 6 upcoming on 2026-10-03 (mangrove, butterfly and plant walks, rail-corridor rewilding and invasive-species volunteering); a scratch run of the ics adapter placed 5 of 6 at the right Singapore parks and addresses; no ticket price stated on any."
+  },
+  {
+    "name": "Restarters London - repair cafes (London, UK)",
+    "url": "https://restarters.net/calendar/network/4",
+    "category": "community",
+    "geocode_suffix": "",
+    "limit": 300,
+    "_metro": "London, UK",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) network iCal at /calendar/network/<id>, ids from the public /api/v2/networks list",
+    "_note": "Restarters London network: 89 upcoming free community repair events across 38 venues (Lambeth Town Hall, Forest Fixers E17, The Fixery Richmond), every one with a street address; 84 of 89 LOCATIONs end in UK, so no suffix (measured 7/10 placed bare vs 5/10 with ', London, UK').",
+    "location_overrides": [
+      {
+        "location": "Church St, London, UK",
+        "venue": {
+          "name": "Triangle Studios, Church Street",
+          "city": "London",
+          "country": "GB",
+          "lat": 51.5228495,
+          "lon": -0.1711376
+        }
+      }
+    ]
+  },
+  {
+    "name": "Hampshire repair cafes (Restarters, Hampshire, UK)",
+    "url": "https://restarters.net/calendar/network/7",
+    "category": "community",
+    "geocode_suffix": "",
+    "limit": 300,
+    "_metro": "Southampton, UK",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) network iCal at /calendar/network/<id>, ids from the public /api/v2/networks list",
+    "_note": "Hampshire network of volunteer repair cafes: 80 upcoming sessions (Ringwood, Hayling, Havant, Fleet, Basingstoke), all with an address; repair cafes are free or by donation."
+  },
+  {
+    "name": "Repair Cafe Hauts-de-France (Restarters, Lille, France)",
+    "url": "https://restarters.net/calendar/network/8",
+    "category": "community",
+    "geocode_suffix": ", Hauts-de-France, France",
+    "limit": 300,
+    "_metro": "Lille, France",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) network iCal at /calendar/network/<id>, ids from the public /api/v2/networks list",
+    "_note": "Hauts-de-France repair cafe network: 145 upcoming free repair sessions across 47 venues (Bondues, Don, Richebourg, Lille), all with addresses; 8 of 8 sampled LOCATIONs geocoded to the right commune.",
+    "wall_clock_tzids": [
+      "Europe/London"
+    ]
+  },
+  {
+    "name": "Cambridgeshire Repair Cafe Network (Restarters, Cambridge, UK)",
+    "url": "https://restarters.net/calendar/network/9",
+    "category": "community",
+    "geocode_suffix": "",
+    "limit": 300,
+    "_metro": "Cambridge, UK",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) network iCal at /calendar/network/<id>, ids from the public /api/v2/networks list",
+    "_note": "Cambridgeshire repair cafe network: 36 upcoming free repair cafes at 26 venues (Remo Eco Hub, Cambridge Retrofit Hub, Buckden Village Hall), 35 of 36 LOCATIONs ending in UK."
+  },
+  {
+    "name": "Repair Cafe Aotearoa New Zealand (Restarters, Auckland, New Zealand)",
+    "url": "https://restarters.net/calendar/network/10",
+    "category": "community",
+    "geocode_suffix": ", New Zealand",
+    "limit": 300,
+    "_metro": "Auckland, New Zealand",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) network iCal at /calendar/network/<id>, ids from the public /api/v2/networks list",
+    "_note": "Repair Cafe Aotearoa network: 30 upcoming free repair cafes at 18 venues (Levin, Rotorua, Timaru, Feilding), all LOCATIONs ending 'New Zealand'; 6 of 6 sampled placed in the right town.",
+    "wall_clock_tzids": [
+      "Europe/London"
+    ]
+  },
+  {
+    "name": "Repair Cafe Northern Ireland (Restarters, Belfast, UK)",
+    "url": "https://restarters.net/calendar/network/12",
+    "category": "community",
+    "geocode_suffix": "",
+    "limit": 300,
+    "_metro": "Belfast, UK",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) network iCal at /calendar/network/<id>, ids from the public /api/v2/networks list",
+    "_note": "Repair Cafe Northern Ireland network: 10 upcoming free repair cafes at 9 venues (Aghalee Village Hall, Moira Primary School, Lowe Memorial Belfast), all with addresses.",
+    "skip_title": "venue (?:to be confirmed|tbc|tba|tbd)",
+    "location_overrides": [
+      {
+        "location": "Lurgan Rd, Aghalee, Craigavon, UK",
+        "venue": {
+          "name": "Aghalee Village Hall",
+          "address": "6 Lurgan Road",
+          "city": "Aghalee",
+          "postal_code": "BT67 0DD",
+          "country": "GB",
+          "lat": 54.5205909,
+          "lon": -6.2675121
+        }
+      },
+      {
+        "location": "700 Saintfield Rd, Carryduff, Belfast BT8 8BU, UK",
+        "venue": {
+          "name": "St Ignatius' Church",
+          "address": "700 Saintfield Road",
+          "city": "Carryduff",
+          "postal_code": "BT8 8BU",
+          "country": "GB",
+          "lat": 54.5163619,
+          "lon": -5.8832376
+        }
+      },
+      {
+        "location": "Edward Rd, Whitehead, Carrickfergus, UK",
+        "venue": {
+          "name": "St Patrick's Parochial Hall",
+          "address": "Edward Road",
+          "city": "Whitehead",
+          "postal_code": "BT38 9PT",
+          "country": "GB",
+          "lat": 54.7530425,
+          "lon": -5.7105446
+        }
+      },
+      {
+        "location": "77 Stream St, Downpatrick BT30, UK",
+        "venue": {
+          "name": "Owenbeg Bowls Club",
+          "address": "77 Stream Street",
+          "city": "Downpatrick",
+          "postal_code": "BT30 6FJ",
+          "country": "GB",
+          "lat": 54.3237788,
+          "lon": -5.7125819
+        }
+      },
+      {
+        "location": "Railway St, Antrim, UK",
+        "venue": {
+          "name": "Antrim Library",
+          "address": "10 Railway Street",
+          "city": "Antrim",
+          "postal_code": "BT41 4AE",
+          "country": "GB",
+          "lat": 54.7147326,
+          "lon": -6.2171006
+        }
+      },
+      {
+        "location": "Rathfriland, Newry BT34, UK",
+        "venue": {
+          "name": "Rathfriland",
+          "city": "Rathfriland",
+          "country": "GB",
+          "lat": 54.2381785,
+          "lon": -6.1603136
+        }
+      }
+    ]
+  },
+  {
+    "name": "Fixing Factories (Restarters, London, UK)",
+    "url": "https://restarters.net/calendar/network/13",
+    "category": "community",
+    "geocode_suffix": "",
+    "limit": 300,
+    "_metro": "London, UK",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) network iCal at /calendar/network/<id>, ids from the public /api/v2/networks list",
+    "_note": "Fixing Factories (Barking, Victoria, Hackney): 10 upcoming free community repair sessions, all with London addresses; no UID overlap with the Restarters London network feed.",
+    "location_overrides": [
+      {
+        "location": "Pembury Rd, London E8 1FA, UK",
+        "venue": {
+          "name": "Pembury Community Centre",
+          "address": "1 Atkins Square",
+          "city": "London",
+          "postal_code": "E8 1FA",
+          "country": "GB",
+          "lat": 51.5497706,
+          "lon": -0.0588878
+        }
+      }
+    ]
+  },
+  {
+    "name": "Repair & Share Flanders (Restarters, Leuven, Belgium)",
+    "url": "https://restarters.net/calendar/network/2",
+    "category": "community",
+    "geocode_suffix": ", Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) network iCal at /calendar/network/<id>, ids from the public /api/v2/networks list",
+    "_note": "Repair & Share network (Maakbaar Leuven, Repair Cafe Oostende, Izegem): 10 upcoming free repair cafes, all with Flemish addresses; supersedes the Repair Connects network (its 6 upcoming are all in this one).",
+    "wall_clock_tzids": [
+      "Europe/London"
+    ]
+  },
+  {
+    "name": "Repair Together repair cafes - Province de Liege (Restarters, Belgium)",
+    "url": "https://restarters.net/calendar/group-area/Province%20de%20Li%C3%A8ge",
+    "category": "community",
+    "geocode_suffix": ", Belgium",
+    "limit": 300,
+    "_metro": "Liege, Belgium",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) area iCal at /calendar/group-area/<area>, area names from /api/v2/groups/summary",
+    "_note": "Repair Together (Wallonia-Brussels) repair cafes in Province de Liege: 73 upcoming free repair sessions (Amay, Wanze, Herve, Crisnee, Stavelot), every one with a street address. The whole network feed (/calendar/network/3, 547 upcoming) takes 81 s to first byte, past the adapter's 25 s timeout, so it is split by province; the six provinces share no UIDs.",
+    "wall_clock_tzids": [
+      "Europe/London"
+    ]
+  },
+  {
+    "name": "Repair Together repair cafes - Province de Luxembourg (Restarters, Belgium)",
+    "url": "https://restarters.net/calendar/group-area/Province%20de%20Luxembourg",
+    "category": "community",
+    "geocode_suffix": ", Belgium",
+    "limit": 300,
+    "_metro": "Arlon, Belgium",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) area iCal at /calendar/group-area/<area>, area names from /api/v2/groups/summary",
+    "_note": "Repair Together (Wallonia-Brussels) repair cafes in Province de Luxembourg: 83 upcoming free repair sessions (Florenville, Attert, Houffalize, Messancy, Manhay), every one with a street address. The whole network feed (/calendar/network/3, 547 upcoming) takes 81 s to first byte, past the adapter's 25 s timeout, so it is split by province; the six provinces share no UIDs.",
+    "wall_clock_tzids": [
+      "Europe/London"
+    ]
+  },
+  {
+    "name": "Repair Together repair cafes - Province de Namur (Restarters, Belgium)",
+    "url": "https://restarters.net/calendar/group-area/Province%20de%20Namur",
+    "category": "community",
+    "geocode_suffix": ", Belgium",
+    "limit": 300,
+    "_metro": "Namur, Belgium",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) area iCal at /calendar/group-area/<area>, area names from /api/v2/groups/summary",
+    "_note": "Repair Together (Wallonia-Brussels) repair cafes in Province de Namur: 41 upcoming free repair sessions (La Bruyere, Havelange, Floreffe, Namur), every one with a street address. The whole network feed (/calendar/network/3, 547 upcoming) takes 81 s to first byte, past the adapter's 25 s timeout, so it is split by province; the six provinces share no UIDs.",
+    "wall_clock_tzids": [
+      "Europe/London"
+    ],
+    "location_overrides": [
+      {
+        "location": "Rue de l'Entrée Jacques 31a, Gembloux, Belgique",
+        "venue": {
+          "name": "Repair Café Gembloux (ITH, réfectoire de l'internat)",
+          "address": "Rue Entrée Jacques 31",
+          "city": "Gembloux",
+          "postal_code": "5030",
+          "country": "BE",
+          "lat": 50.559944,
+          "lon": 4.6864262
+        }
+      }
+    ]
+  },
+  {
+    "name": "Repair Together repair cafes - Brabant wallon (Restarters, Belgium)",
+    "url": "https://restarters.net/calendar/group-area/Province%20du%20Brabant%20Wallon",
+    "category": "community",
+    "geocode_suffix": ", Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) area iCal at /calendar/group-area/<area>, area names from /api/v2/groups/summary",
+    "_note": "Repair Together (Wallonia-Brussels) repair cafes in Brabant wallon: 84 upcoming free repair sessions (Mont-Saint-Guibert, Jodoigne, Nivelles, Waterloo, Chastre), every one with a street address. The whole network feed (/calendar/network/3, 547 upcoming) takes 81 s to first byte, past the adapter's 25 s timeout, so it is split by province; the six provinces share no UIDs.",
+    "wall_clock_tzids": [
+      "Europe/London"
+    ]
+  },
+  {
+    "name": "Repair Together repair cafes - Hainaut (Restarters, Belgium)",
+    "url": "https://restarters.net/calendar/group-area/Province%20du%20Hainaut",
+    "category": "community",
+    "geocode_suffix": ", Belgium",
+    "limit": 300,
+    "_metro": "Charleroi, Belgium",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) area iCal at /calendar/group-area/<area>, area names from /api/v2/groups/summary",
+    "_note": "Repair Together (Wallonia-Brussels) repair cafes in Hainaut: 79 upcoming free repair sessions (Dour, Ellezelles, Peruwelz, Lessines, Soignies), every one with a street address. The whole network feed (/calendar/network/3, 547 upcoming) takes 81 s to first byte, past the adapter's 25 s timeout, so it is split by province; the six provinces share no UIDs.",
+    "wall_clock_tzids": [
+      "Europe/London"
+    ]
+  },
+  {
+    "name": "Repair Together repair cafes - Brussels-Capital Region (Restarters, Belgium)",
+    "url": "https://restarters.net/calendar/group-area/R%C3%A9gion%20de%20Bruxelles-Capitale",
+    "category": "community",
+    "geocode_suffix": ", Belgium",
+    "limit": 300,
+    "_metro": "Brussels, Belgium",
+    "_found": "manual:2026-10-03 Restarters.net (Fixometer) area iCal at /calendar/group-area/<area>, area names from /api/v2/groups/summary",
+    "_note": "Repair Together (Wallonia-Brussels) repair cafes in Brussels-Capital Region: 150 upcoming free repair sessions (Molenbeek, Schaerbeek, Uccle, Etterbeek, Forest), every one with a street address. The whole network feed (/calendar/network/3, 547 upcoming) takes 81 s to first byte, past the adapter's 25 s timeout, so it is split by province; the six provinces share no UIDs.",
+    "wall_clock_tzids": [
+      "Europe/London"
+    ]
+  },
+  {
+    "name": "OSMCAL - OpenStreetMap community calendar (worldwide)",
+    "url": "https://osmcal.org/events.ics",
+    "category": "community",
+    "geocode_suffix": "",
+    "limit": 300,
+    "_metro": "Berlin, Germany",
+    "_found": "manual:2026-10-03 osmcal.org/events.ics, the OpenStreetMap community's own event calendar",
+    "_note": "OpenStreetMap community calendar: 129 upcoming, 90 in-person with GEO coordinates in 19 countries (OSM-Stammtisch Berlin/Bonn/Chemnitz, Sheffield monthly social, mapping parties in Noida and Salgotarjan, Missing Maps mapathons) - free, open to newcomers; ~7 online rows leak past ONLINE_LOC_RX ('Jitsi Meet (online), ...').",
+    "skip_title": "\\(online\\)|\\bonline\\s+(?:mapathon|community|meeting|meetup)|\\ben\\s+ligne\\b",
+    "utc_is_wall_clock": true
+  },
+  {
+    "name": "Netz39 hackerspace (Magdeburg)",
+    "url": "https://www.netz39.de/feed/eo-events/events.ics",
+    "category": "community",
+    "geocode_suffix": ", Magdeburg, Germany",
+    "limit": 300,
+    "_metro": "Magdeburg, Germany",
+    "_found": "manual:2026-10-03 SpaceAPI directory (directory.spaceapi.io) feeds.calendar for Netz39",
+    "_note": "Netz39 e.V. hackerspace: 17 upcoming in 12 distinct events (Lasercutter 101, Arduino Deepdive, Embedded Linux on the Raspberry Pi, Docker Ahoi!, OSM-Stammtisch, Code-Week, Digital Independence Day), all at Leibnizstr. 32 with a full LOCATION; open to non-members, free.",
+    "skip_title": "^Code-Week$"
+  },
+  {
+    "name": "Queeres Zentrum Göttingen (Göttingen, Germany)",
+    "url": "https://queeres-zentrum-goettingen.de/kalender/?ical=1",
+    "category": "community",
+    "geocode_suffix": ", Göttingen, Germany",
+    "limit": 300,
+    "_metro": "Hanover, Germany",
+    "_found": "manual:2026-10-03 WebSearch for queer community calendars; The Events Calendar ?ical=1 export",
+    "_note": "Göttingen's queer community centre: the export holds the next 30 events (6 weeks) in 15 distinct groups (Queerer Buchclub, Queere Jugendgruppe, Offener Queerer Spieleabend, Polyamorie Treff, Trans*Angehörigen Treffen, Just Dance Queers), 20 with a street LOCATION; groups are free to attend. The REST API has no geo_lat, so ics (Photon on LOCATION) is the route that places them."
+  },
+  {
+    "name": "Samtökin '78 (Reykjavík, Iceland)",
+    "url": "https://samtokin78.is/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", Reykjavík, Iceland",
+    "limit": 300,
+    "_metro": "Reykjavík, IS",
+    "_found": "manual:2026-10-03 homepage sniff of Icelandic LGBTQ+ orgs -> The Events Calendar iCal export (tribe REST venues carry no coordinates, so ics+Photon)",
+    "_note": "The national LGBTQ+ association's own calendar: free queer youth clubs (13-18), HinUng 18-25 meetups, trans peer-support groups and readings at Suðurgata 3 and Spennistöðin; 88 upcoming via REST, 28 of the 30 served per iCal fetch carry a LOCATION and none lists a price."
+  },
+  {
+    "name": "Kuopion museot (Kuopio, Finland)",
+    "url": "https://kuopionmuseot.fi/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "arts",
+    "geocode_suffix": ", Kuopio, Finland",
+    "limit": 300,
+    "_metro": "Kuopio, FI",
+    "_found": "manual:2026-10-03 Kuopio city 'tapahtumakalenterit' page -> The Events Calendar iCal export",
+    "_note": "Kuopio's city museums (Kuopion museo, KUMMA, Korttelimuseo): family dances, free art workshops for queer youth, seniors' story hours and free repair-sewing circles beside EUR 5-8 guided tours; 65 upcoming, 30/30 iCal rows with LOCATION, 15 of the first 20 marked free (Ilmainen) or unpriced."
+  },
+  {
+    "name": "Aivovammayhdistykset - brain injury associations (Finland)",
+    "url": "https://aivovammayhdistykset.fi/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", Finland",
+    "limit": 300,
+    "_metro": "Turku, FI",
+    "_found": "manual:2026-10-03 own OSM sweep of unswept metro Jyväskylä (office=association -> aivovammayhdistykset.fi/ksavy) -> network-wide tribe iCal",
+    "_note": "Network calendar of Finland's brain-injury associations: open peer-support groups (Aivoklubi), Aivola open doors, men's and women's clubs, bowling, art and computer clubs in Turku, Helsinki, Espoo, Vantaa, Seinäjoki and Salo; 30 per fetch, 24 with a LOCATION.",
+    "skip_title": "hallituksen kokous|syyskokous|kevätkokous|vuosikokous|^suljettu"
+  },
+  {
+    "name": "Regionmuseet Kristianstad (Kristianstad, Sweden)",
+    "url": "https://regionmuseet.se/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "arts",
+    "geocode_suffix": ", Kristianstad, Sweden",
+    "limit": 300,
+    "_metro": "Kristianstad, SE",
+    "_found": "manual:2026-10-03 own OSM sweep of town Kristianstad (tourism=museum) -> The Events Calendar iCal export (two venues, no API coordinates)",
+    "_note": "Regionmuseet Skåne in Kristianstad and its Filmmuseet: free autumn-holiday science and craft workshops, free-entry lectures and guided tours, and 60-110 kr screenings incl. 'film för daglediga'; 55 upcoming, 30/30 iCal rows with a street LOCATION."
+  },
+  {
+    "name": "Stuttgart German-American Wandering Club volksmarch calendar (Baden-Wuerttemberg, Germany)",
+    "url": "https://www.sgawc.org/us/sgawc-events.ics",
+    "category": "fitness",
+    "geocode_suffix": ", Germany",
+    "limit": 300,
+    "skip_title": "\\b(?:club|council) meeting\\b|\\bbus trip\\b",
+    "_metro": "Stuttgart, Germany",
+    "_found": "manual:2026-10-03 web search 'IVV Wandertage Termine' -> sgawc.org events.php webcal link",
+    "_note": "English-language calendar of DVV/IVV volksmarches by local German walking clubs, mostly guided 6/10 km walks: 29 upcoming, 25 after dropping 4 club/council meetings, all with LOCATION and GEO."
+  },
+  {
+    "name": "The Nomads Outdoors Group (Melbourne, Australia)",
+    "url": "https://thenomadsinc.tidyhq.com/public/events.ics",
+    "category": "outdoors",
+    "geocode_suffix": ", Victoria, Australia",
+    "limit": 300,
+    "skip_title": "naturis|\\bnud(?:e|is|ity)|clothing[\\s-]+optional|pro forma|committee|via zoom",
+    "_metro": "Melbourne, Australia",
+    "_found": "manual:2026-10-03 web search 'site:tidyhq.com bushwalking club' -> TidyHQ public events.ics",
+    "_note": "LGBTQ+ outdoors club's programme of day walks, bushwalks and social rides around Melbourne: 25 upcoming, 20 after skipping naturist/committee/Zoom/template rows, 15 of those with a LOCATION."
+  },
+  {
+    "name": "Nottingham and Nottinghamshire Carers Hub (Nottingham, UK)",
+    "url": "https://carershub.carersfederation.co.uk/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", United Kingdom",
+    "limit": 300,
+    "skip_title": "\\bon-?line\\b|\\bCREATE Collage\\b|^Parent Carer Involvement Group$",
+    "_metro": "Nottingham, GB",
+    "_found": "manual:2026-10-03 lead from an interrupted earlier pass of this cell; its Events Calendar REST venues carry no geo (0 of 234), so the iCal export",
+    "_note": "Carers Federation's hub calendar: free carer support groups, memory cafes, dementia drop-ins and health walks across Nottinghamshire. The REST API holds 234 upcoming with 69 distinct titles; the iCal export serves a rolling 30 (27 distinct).",
+    "utc_is_wall_clock": true
+  },
+  {
+    "name": "Your Wellbeing Bedfordshire community drop-ins (Bedford, UK)",
+    "url": "https://yourwellbeingbedfordshire.org.uk/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", United Kingdom",
+    "limit": 300,
+    "_metro": "Bedford, GB",
+    "_found": "manual:2026-10-03 web search on The Events Calendar month-view title 'Events for October 2026'",
+    "_note": "Bedfordshire wellbeing directory: 13 free weekly or fortnightly drop-ins, warm spaces, community cafes, a men's group and conservation volunteering at 13 venues (277 dated rows in 180 days). The iCal export serves a rolling 30, and 12 of 13 locations geocode inside the county.",
+    "skip_title": "^Ivel Valley Conservation Volunteers$"
+  },
+  {
+    "name": "Lesnes Abbey Woods events (Abbey Wood, London, UK)",
+    "url": "https://www.lesnesabbeywoods.org/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, GB",
+    "_found": "manual:2026-10-03 earlier OSM venue sweep logged it as tribe; REST venues carry no geo, so the iCal export",
+    "_note": "Lesnes Abbey Woods (Bexley) lodge programme: farmers market, GBP 3 lantern and Halloween craft workshops, a free climate film and outdoor theatre; 6 upcoming, all at the lodge or The Clearing.",
+    "location_overrides": [
+      {
+        "location": "The Clearing, New Road, London, London, SE2 0AX, United Kingdom",
+        "venue": {
+          "name": "The Clearing, Lesnes Abbey Woods",
+          "address": "New Road",
+          "city": "London",
+          "postal_code": "SE2 0AX",
+          "country": "GB",
+          "lat": 51.4886354,
+          "lon": 0.1279225
+        }
+      }
+    ]
+  },
+  {
+    "name": "Plakatak - agenda du Péyi Nord Martinique (OpenAgenda)",
+    "url": "https://openagenda.com/agendas/66591922/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "community",
+    "geocode_suffix": ", Martinique",
+    "limit": 300,
+    "skip_title": "appel (à|a|aux) |candidatures?\\b|r[ée]servez votre|ultimate game|m[ée]lodie vakans|visites guid[ée]es \"patrimoniales|atelier cacao|atelier rhum|okt[òo]b an kako|master ?class ia|conviviales du bien|nos a[îi]n[ée]s [àa] l'honneur|belfontenn",
+    "location_overrides": [
+      {
+        "location": "Bellefontaine - Bellefontaine",
+        "venue": {
+          "name": "Bellefontaine",
+          "city": "Bellefontaine",
+          "postal_code": "97222",
+          "country": "MQ",
+          "lat": 14.6728531,
+          "lon": -61.16335
+        }
+      }
+    ],
+    "_metro": "Fort-de-France, Martinique",
+    "_found": "manual:2026-10-03 OpenAgenda agenda search (martinique) -> events.v2.ics",
+    "_note": "North Martinique tourist office's agenda: 462 upcoming timings, all with GEO; skip_title drops 343 calls for entries and bar, restaurant and distillery promotions, leaving 111 municipal and association events (Semaine Bleue senior week, randonnées, heure du conte, initiation tambou, Gym Bèlè, éveil musical) that name no price. OpenAgenda pins its 'Bellefontaine' place in France (48.015,6.443), so location_overrides re-pins those 9 rows at Bellefontaine, Martinique (OSM relation 287640)."
   }
 ]

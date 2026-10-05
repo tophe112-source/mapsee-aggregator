@@ -14906,6 +14906,671 @@
       "_found": "seed:seattle-community-centres -> tribe",
       "_metro": "Seattle, WA",
       "_measured": "2026-10-04: thin - 2 events in 90 days (Job Fair, Halloween on the Hill), neither naming a venue, so the block places both."
+    },
+    {
+      "name": "Šiaulių rajono savivaldybės Vytauto Vitkausko viešoji biblioteka",
+      "category": "learning",
+      "base_url": "https://srsvb.lt",
+      "within_days": 180,
+      "max_pages": 15,
+      "crawl_delay": 10,
+      "default_city": "Kuršėnai",
+      "default_region": null,
+      "default_country": "LT",
+      "venue": {
+        "name": "Šiaulių rajono savivaldybės Vytauto Vitkausko viešoji biblioteka",
+        "names": [
+          "Šiaulių rajono savivaldybės Vytauto Vitkausko viešoji biblioteka"
+        ],
+        "address": "Vytauto g. 1",
+        "city": "Kuršėnai",
+        "postal_code": "LT-81182",
+        "country": "LT",
+        "lat": 56.0048397,
+        "lon": 22.9337265
+      },
+      "_metro": "Šiauliai, Lithuania",
+      "_found": "manual:2026-10-03 web search 'Eksportuoti renginius' (The Events Calendar)",
+      "_note": "Šiauliai district public library: 14 upcoming free programmes at the main library in Kuršėnai, including toddler mornings in the toy library, a knitting club, beginners' English, youth robotics and a youth night. The venue point is Photon on the library's published address."
+    },
+    {
+      "name": "Kult2 Kultúrkúria and Marczi (Budapest II) - community programmes",
+      "category": "community",
+      "base_url": "https://kult2.hu",
+      "include_categories": [
+        64,
+        97,
+        102,
+        183,
+        100,
+        161,
+        210
+      ],
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Budapest",
+      "default_region": null,
+      "default_country": "HU",
+      "_metro": "Budapest, Hungary",
+      "_found": "manual:2026-10-03 OSM community_centre Budapest -> tribe",
+      "_note": "District II community houses, filtered to their green, market, civic, seniors, lecture, club, film-club, opening and book-launch categories, because the unfiltered feed is 98 of 150 courses. The filtered feed has 38 rows to January, all with coordinates, including a plant swap, a wild-food walk, a seniors' club, a documentary film club and a bird school for kids. 1 row states a forint price."
+    },
+    {
+      "name": "Kulturní centrum Velký mlýn (Praha 8 - Libeň)",
+      "category": "community",
+      "base_url": "https://www.velkymlyn.cz",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Praha",
+      "default_region": null,
+      "default_country": "CZ",
+      "venue": {
+        "name": "Velký Mlýn",
+        "names": [
+          "Velký Mlýn"
+        ],
+        "address": "U Českých loděnic 40",
+        "city": "Praha 8-Libeň",
+        "postal_code": "18000",
+        "country": "CZ",
+        "lat": 50.1075563,
+        "lon": 14.4692498
+      },
+      "_metro": "Prague, Czechia",
+      "_found": "manual:2026-10-03 Wikidata cultural centres -> tribe",
+      "_note": "Prague 8 community and culture centre with its own library: 32 upcoming events at one address. 15 are free (seniors' meetings, toddler story mornings, local-history lectures, an art workshop) and 13 are low-price theatre at 190-450 Kč. The venue point is the OSM address node."
+    },
+    {
+      "name": "Biblioteca Centrală Universitară Eugen Todoran (Timișoara)",
+      "category": "learning",
+      "base_url": "https://bcut.ro",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Timișoara",
+      "default_region": null,
+      "default_country": "RO",
+      "venue": {
+        "name": "Biblioteca Centrală Universitară Eugen Todoran",
+        "names": [
+          "Biblioteca Centrală Universitară",
+          "Bibliotecii Centrale Universitare"
+        ],
+        "address": "Bulevardul Vasile Pârvan 4A",
+        "city": "Timișoara",
+        "postal_code": "300223",
+        "country": "RO",
+        "lat": 45.7473566,
+        "lon": 21.2326044
+      },
+      "_metro": "Timișoara, Romania",
+      "_found": "manual:2026-10-03 OSM library Timișoara -> tribe",
+      "_note": "Public programme of the university central library: 8 free October events in its own building, including Musical Thursday, a Tuesday book talk, a literary samovar, an author reading and a workshop. The venue point is from OSM."
+    },
+    {
+      "name": "Kós Károly Művelődési Ház és Könyvtár (Budakalász)",
+      "category": "community",
+      "base_url": "https://koskarolymh.hu",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Budakalász",
+      "default_region": null,
+      "default_country": "HU",
+      "venue": {
+        "name": "Kós Károly Művelődési Ház és Könyvtár",
+        "names": [
+          "Kós Károly Művelődési Ház",
+          "Bálterem",
+          "Könyvtár",
+          "Díszterem",
+          "Galéria",
+          "udvar",
+          "Előadó",
+          "Klubterem",
+          "kávézó"
+        ],
+        "address": "Szentendrei út 9",
+        "city": "Budakalász",
+        "postal_code": "2011",
+        "country": "HU",
+        "lat": 47.6230733,
+        "lon": 19.049564
+      },
+      "_metro": "Budapest, Hungary",
+      "_found": "manual:2026-10-03 OSM community_centre Hungary -> tribe",
+      "_note": "Budakalász culture house and library: 29 upcoming events filed under its own rooms at Szentendrei út 9; `names` leaves the one park event unpinned. 12 are free (board-game afternoons, a kids' slide-cinema club, Alzheimer Café, a numismatists' club, a garage sale), and most priced ones cost 1,000-4,500 Ft.",
+      "include_categories": [
+        258,
+        305,
+        851,
+        259,
+        579,
+        341,
+        1075
+      ]
+    },
+    {
+      "name": "Orlai ház (Mezőberény)",
+      "category": "community",
+      "base_url": "https://orlaihaz.mezobereny.hu",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Mezőberény",
+      "default_region": null,
+      "default_country": "HU",
+      "venue": {
+        "name": "Orlai ház",
+        "names": [
+          "Orlai ház"
+        ],
+        "address": "Fő út 6",
+        "city": "Mezőberény",
+        "postal_code": "5650",
+        "country": "HU",
+        "lat": 46.8253245,
+        "lon": 21.0285743
+      },
+      "_metro": "Békéscsaba, Hungary",
+      "_found": "manual:2026-10-03 OSM community_centre Hungary -> tribe",
+      "_note": "Small-town community and memorial house: 13 upcoming events. 9 have cost 'Free' (library days, book launches, creative workshops, a pumpkin-decorating contest) and 1 costs 2,490 Ft. 12 are at Fő út 6; `names` leaves the one elsewhere unpinned."
+    },
+    {
+      "name": "Książnica Pomorska (Szczecin)",
+      "category": "learning",
+      "base_url": "https://ksiaznica.szczecin.pl",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Szczecin",
+      "default_region": null,
+      "default_country": "PL",
+      "venue": {
+        "name": "Książnica Pomorska",
+        "names": [
+          "Książnica Pomorska",
+          "Książnicy Pomorskiej",
+          "Sala im. Zbigniewa Herberta",
+          "Sala nr 9",
+          "Sala Kolumnowa"
+        ],
+        "address": "Podgórna 15/16",
+        "city": "Szczecin",
+        "postal_code": "70-205",
+        "country": "PL",
+        "lat": 53.423508,
+        "lon": 14.5531947
+      },
+      "_metro": "Szczecin, Poland",
+      "_found": "manual:2026-10-03 OSM library Szczecin -> tribe",
+      "_note": "West Pomeranian regional public library: 13 upcoming free events, all in its rooms at Podgórna 15/16. They include a seniors' culture weekend, author meetings, a kids' digital playground, Library Night, German-Polish workshops and the book club. The venue point is Photon on the published address."
+    },
+    {
+      "name": "The Center on Colfax (LGBTQ Colorado, Denver)",
+      "category": "community",
+      "base_url": "https://lgbtqcolorado.org",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Denver",
+      "default_region": "CO",
+      "default_country": "US",
+      "_metro": "Denver, US",
+      "_found": "manual:2026-10-03 LGBTQ+ community centre WebSearch, The Events Calendar REST API",
+      "_note": "Denver's LGBTQ+ community centre: 150 events in the next 6 months at 69 distinct titles (LGBThemed Book Club, Lesbian Lounge, Men's Coffee Group, Rainbow Alley youth drop-in, Club50, LGBTQ+ Writers' Group, Open Art Studio), every one with a venue; 59 say free; 20 are clinics/12-step and 23 online."
+    },
+    {
+      "name": "Stonewall Columbus (Columbus, Ohio)",
+      "category": "community",
+      "base_url": "https://stonewallcolumbus.org",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Columbus",
+      "default_region": "OH",
+      "default_country": "US",
+      "_metro": "Columbus, US",
+      "_found": "manual:2026-10-03 LGBTQ+ community centre guess, The Events Calendar REST API",
+      "_note": "Columbus's LGBTQ+ community centre: 100 events in 6 months, 94 with an address (Trans Talk Tuesday, Men's and Women's book clubs, Queer Yoga, ballroom dance class, Adventure Pride outings, Time Out Thursday); 26 are a recurring Central Outreach testing night and a few are ticketed shows.",
+      "crawl_delay": 10
+    },
+    {
+      "name": "Affirmations LGBTQ+ Community Center (Ferndale, Michigan)",
+      "category": "community",
+      "base_url": "https://goaffirmations.org",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Ferndale",
+      "default_region": "MI",
+      "default_country": "US",
+      "_metro": "Detroit, US",
+      "_found": "manual:2026-10-03 LGBTQ+ community centre guess, The Events Calendar REST API",
+      "_note": "Detroit-area LGBTQ+ community centre: 746 upcoming, 141 of the first 150 marked Free (TeaEnby trans/nonbinary group, Senior Koffee Klatch, Teen Drop-In, Coming Out Group, Disability and Discussion Group, queer book club, D&D teen campaign); 66 of 150 are 12-step/recovery meetings and 33 have no venue.",
+      "include_categories": [
+        "social",
+        "identity",
+        "youth",
+        "activity",
+        "senior-45",
+        "ally",
+        "coming-out",
+        "arts-culture",
+        "sports-wellness"
+      ]
+    },
+    {
+      "name": "Centro Cultural Espacio Matta (La Granja, Santiago)",
+      "category": "arts",
+      "base_url": "https://www.espaciomatta.cl/web",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "La Granja",
+      "default_region": "Región Metropolitana",
+      "default_country": "CL",
+      "_metro": "Santiago, Chile",
+      "_found": "manual:2026-10-03 OSM arts_centre sweep (read-only) -> tribe",
+      "_note": "La Granja's municipal cultural centre, with 14 upcoming events and 12 marked 'Gratuito'. They are theatre, youth symphony and chamber orchestra concerts, a folk-dance masterclass, a family holiday programme and Día de la Música. Every row has the venue and address.",
+      "venue": {
+        "name": "Espacio Matta",
+        "address": "Avenida Santa Rosa 9014",
+        "city": "La Granja",
+        "region": "Región Metropolitana",
+        "country": "CL",
+        "lat": -33.5437235,
+        "lon": -70.6327048,
+        "names": [
+          "Espacio Matta"
+        ]
+      }
+    },
+    {
+      "name": "Trekanten - Bibliotek og Kulturhus",
+      "category": "community",
+      "base_url": "https://trekanten.info",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Aalborg",
+      "default_region": null,
+      "default_country": "DK",
+      "venue": {
+        "name": "Trekanten - Bibliotek og Kulturhus",
+        "address": "Sebbersundvej 2a",
+        "city": "Aalborg Øst",
+        "postal_code": "9220",
+        "country": "DK",
+        "lat": 57.0276603,
+        "lon": 10.0009174
+      },
+      "_metro": "Aalborg, DK",
+      "_found": "manual:2026-10-03 own OSM sweep of unswept metro Aalborg (amenity=community_centre) -> tribe",
+      "_note": "Aalborg Øst's library-and-culture house: walking groups, Makerspace9220, repair café, sing-alongs, knitting and autumn-holiday kids' workshops; 157 events to 31 Dec, every one at 'Trekanten' (no coordinates in the API, so the OSM point is the venue block), 11 of the first 20 say free."
+    },
+    {
+      "name": "Folkehuset Kvaglund",
+      "category": "community",
+      "base_url": "https://www.folkehusetkvaglund.dk",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Esbjerg",
+      "default_region": null,
+      "default_country": "DK",
+      "venue": {
+        "name": "Folkehuset Kvaglund",
+        "address": "Kvaglundparken 12",
+        "city": "Esbjerg Ø",
+        "postal_code": "6705",
+        "country": "DK",
+        "lat": 55.4955752,
+        "lon": 8.4856332
+      },
+      "_metro": "Esbjerg, DK",
+      "_found": "manual:2026-10-03 own OSM sweep of unswept metro Esbjerg (amenity=community_centre) -> tribe",
+      "_note": "Community house in a Kvaglund housing estate: international women's club, international day, shared walks, IT help, canasta, knitting café and community dinners; 90 events to 31 Dec, 148/148 at the house, no row carries a price."
+    },
+    {
+      "name": "Matara",
+      "category": "community",
+      "base_url": "https://matara.fi",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Jyväskylä",
+      "default_region": null,
+      "default_country": "FI",
+      "venue": {
+        "name": "Matara",
+        "address": "Matarankatu 6",
+        "city": "Jyväskylä",
+        "postal_code": "40100",
+        "country": "FI",
+        "lat": 62.247746,
+        "lon": 25.7584226
+      },
+      "_metro": "Jyväskylä, FI",
+      "_found": "manual:2026-10-03 own OSM sweep of unswept metro Jyväskylä (Tourujokisali -> matara.fi) -> tribe",
+      "_note": "Jyväskylä's open meeting-place house: drop-in coffee-and-encounters, craft circles, volunteer-led gentle exercise, bingo, quiz and housing advice, described as 'kaikille avoin ja maksuton' (open to all, free); 41 upcoming, all in Matara's lobby."
+    },
+    {
+      "name": "Bror Hjorths Hus",
+      "category": "arts",
+      "base_url": "https://brorhjorthshus.se",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Uppsala",
+      "default_region": null,
+      "default_country": "SE",
+      "venue": {
+        "name": "Bror Hjorths Hus",
+        "address": "Norbyvägen 26",
+        "city": "Uppsala",
+        "postal_code": "752 39",
+        "country": "SE",
+        "lat": 59.8492864,
+        "lon": 17.6200629
+      },
+      "_metro": "Uppsala, SE",
+      "_found": "manual:2026-10-03 own OSM sweep of unswept metro Uppsala (tourism=museum) -> tribe",
+      "_note": "Uppsala artist-home museum: free guided tours and 50 kr autumn-holiday family workshops beside 195 kr concerts and a few paid courses; 18 kept, 12 of them free or 150 kr and under (6 free, 4 at 50, 1 at 100, 1 at 150), all at the house."
+    },
+    {
+      "name": "Lokalcenter Rosengård",
+      "category": "community",
+      "base_url": "https://lokalcenter-rosengaard.dk",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Odense",
+      "default_region": null,
+      "default_country": "DK",
+      "venue": {
+        "name": "Lokalcenter Rosengård",
+        "address": "Ørbækvej 150",
+        "city": "Odense SØ",
+        "postal_code": "5220",
+        "country": "DK",
+        "lat": 55.3796114,
+        "lon": 10.4371948
+      },
+      "_metro": "Odense, DK",
+      "_found": "manual:2026-10-03 own OSM sweep of unswept metro Odense (amenity=social_facility) -> tribe",
+      "_note": "Odense senior local centre's open programme: games afternoons, senior bingo, sing-alongs with indoor curling, a folk-high-school day, monthly film and a clothes sale; 13 upcoming in October, all in the centre's café or hall."
+    },
+    {
+      "name": "Ejby Medborgerhus",
+      "category": "learning",
+      "base_url": "https://ejby-medborgerhus.dk",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Lille Skensved",
+      "default_region": null,
+      "default_country": "DK",
+      "venue": {
+        "name": "Ejby Medborgerhus",
+        "address": "Gemsevej 19",
+        "city": "Lille Skensved",
+        "postal_code": "4623",
+        "country": "DK",
+        "lat": 55.4879112,
+        "lon": 12.0803714
+      },
+      "_metro": "Copenhagen, DK",
+      "_found": "manual:2026-10-03 own OSM sweep of town Køge (amenity=community_centre) -> tribe",
+      "_note": "Village community house near Køge: free livestreamed university lectures and 50 kr local concerts and talks; 6 upcoming, 4 'Gratis' and 2 at kr. 50."
+    },
+    {
+      "name": "Kalmar Konstmuseum",
+      "category": "arts",
+      "base_url": "https://www.kalmarkonstmuseum.se",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Kalmar",
+      "default_region": null,
+      "default_country": "SE",
+      "venue": {
+        "name": "Kalmar Konstmuseum",
+        "address": "Stadsparken",
+        "city": "Kalmar",
+        "postal_code": "392 33",
+        "country": "SE",
+        "lat": 56.6608044,
+        "lon": 16.3559539
+      },
+      "_metro": "Kalmar, SE",
+      "_found": "manual:2026-10-03 own OSM sweep of town Kalmar (tourism=gallery) -> tribe",
+      "_note": "Kalmar's art museum: Family Club, art mornings, a drop-in Konstlabbet for kids, Drink & Draw and talks; 21 upcoming, all filed at the museum, rows say 'Pris': 2 are free to all and the children's sessions are 50 kr a child."
+    },
+    {
+      "name": "Treasure Coast Running group runs (Stuart / Port St. Lucie, FL)",
+      "category": "running",
+      "base_url": "https://www.tcrunning.org",
+      "within_days": 60,
+      "max_pages": 15,
+      "crawl_delay": 10,
+      "default_city": "Stuart",
+      "default_region": "FL",
+      "default_country": "US",
+      "_metro": "West Palm Beach, United States",
+      "_found": "manual:2026-10-03 web search 'group run Subscribe to calendar Export Events'",
+      "_note": "Regional directory of free weekly group runs from about 26 run clubs, coffee-shop and store runs across Martin and St. Lucie counties plus a few local 5Ks: 237 events inside 60 days; in October 106 of 110 are 'Weekly Running' and 100 of 110 have a venue."
+    },
+    {
+      "name": "Coffs Harbour Regional Landcare (Coffs Harbour, Australia)",
+      "category": "volunteer",
+      "base_url": "https://www.coffsharbourlandcare.org.au",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Coffs Harbour",
+      "default_region": "NSW",
+      "default_country": "AU",
+      "_metro": "Coffs Harbour, Australia",
+      "_found": "manual:2026-10-03 web search for landcare working bees; Tribe REST answered",
+      "_note": "Network calendar for 29 Landcare/Dunecare groups: 219 working bees in the next 180 days (216 in 'Working Bees'), 117 priced 'Free' and none priced; 68 carry the organisers' own coordinates and are placed; the rest have none and drop at the sync.",
+      "include_categories": [
+        "working-bees"
+      ]
+    },
+    {
+      "name": "Natural Lands - Volunteer Days (Philadelphia region, PA)",
+      "category": "volunteer",
+      "base_url": "https://wp.natlands.org",
+      "include_categories": [
+        "volunteer"
+      ],
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Media",
+      "default_region": "PA",
+      "default_country": "US",
+      "_metro": "Philadelphia, USA",
+      "_found": "manual:2026-10-03 web search hit wp.natlands.org/event/volunteer-...; Tribe REST on the wp. subdomain (natlands.org itself was tried before)",
+      "_note": "Land trust's free volunteer days at its preserves (gardening, invasive removal, tree care): include_categories volunteer returns 42 upcoming, all 42 with a street address; the rest of the 122-event calendar (yoga, wine walks, member perks) is left out."
+    },
+    {
+      "name": "Haydon Wick Parish Council community sessions (Swindon, UK)",
+      "category": "community",
+      "base_url": "https://haydonwick.gov.uk",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Swindon",
+      "default_region": "England",
+      "default_country": "GB",
+      "crawl_delay": 30,
+      "venue": {
+        "name": "Haydon Wick Parish Council Office",
+        "names": [
+          "Haydon Wick Parish Council Office",
+          "Haydon Wick Bowls Club"
+        ],
+        "address": "Thames Avenue",
+        "city": "Swindon",
+        "postal_code": "SN25 1QQ",
+        "country": "GB",
+        "lat": 51.5923436,
+        "lon": -1.8077345
+      },
+      "_metro": "Swindon, GB",
+      "_found": "civic:city -> tribe (hand-curated)",
+      "_note": "Parish council's own programme at its Thames Avenue office: memory cafes, limited-mobility exercise, a companions cafe, the Haven social and craft evenings; 51 of 59 upcoming rows are these mostly free sessions. The venue pin is OSM's office=government node, via Photon.",
+      "skip_title": "\\bMeeting$"
+    },
+    {
+      "name": "Kauai Festivals - island happenings (Kauai, Hawaii)",
+      "category": "community",
+      "base_url": "https://kauaifestivals.com",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Lihue",
+      "default_region": "HI",
+      "default_country": "US",
+      "timezone": "Pacific/Honolulu",
+      "_metro": "Lihue, United States",
+      "_found": "manual:2026-10-03 web search for Hawaii island community calendars -> find_calendar -> The Events Calendar REST",
+      "_note": "Island-wide Kauai community calendar: the adapter kept 186 events in the next 180 days (51 distinct titles) across Lihue, Kapaa, Anahola, Princeville and Kekaha, 183 of 184 stored rows with source coordinates; 104 are marked Free (Kaua'i Matsuri Festival, night markets, YWCA hula lessons, keiki play mornings, holiday parades) and 25 carry a price."
+    },
+    {
+      "name": "Centro León (Santiago de los Caballeros, Dominican Republic)",
+      "category": "arts",
+      "base_url": "https://centroleon.org.do",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Santiago de los Caballeros",
+      "default_region": "Santiago",
+      "default_country": "DO",
+      "timezone": "America/Santo_Domingo",
+      "venue": {
+        "name": "Centro León",
+        "names": [
+          "Centro León"
+        ],
+        "address": "Avenida 27 de Febrero 146",
+        "city": "Santiago de los Caballeros",
+        "country": "DO",
+        "lat": 19.4632769,
+        "lon": -70.6706827
+      },
+      "_metro": "Santiago de los Caballeros, Dominican Republic",
+      "_found": "manual:2026-10-03 find_calendar on centroleon.org.do -> The Events Calendar REST; venue point OSM way 191565997",
+      "_note": "Cultural centre's public programme (cine club, conversatorios, printmaking and clay workshops, Viernes Musicales, poetry week): 20 upcoming, all at the centre, 11 of 20 descriptions say entrada libre, libre de costo or gratuita; 162 events posted Jan-Oct 2026; REST venues carry no coordinates, so the OSM venue block places them."
+    },
+    {
+      "name": "Museo de Arte de Bayamón (Bayamón, Puerto Rico)",
+      "category": "arts",
+      "base_url": "https://www.museodeartedebayamon.com",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Bayamón",
+      "default_region": "Puerto Rico",
+      "default_country": "PR",
+      "timezone": "America/Puerto_Rico",
+      "venue": {
+        "name": "Museo de Arte de Bayamón",
+        "address": "Avenida Ramón Luis Rivera",
+        "city": "Bayamón",
+        "postal_code": "00961",
+        "country": "PR",
+        "lat": 18.4109659,
+        "lon": -66.1611255
+      },
+      "_metro": "San Juan, Puerto Rico",
+      "_found": "manual:2026-10-03 Bayamón municipal Events Calendar listed the museum -> its own The Events Calendar REST; venue point OSM way 338133520",
+      "_note": "Municipal art museum's workshops for children (Pequeños Artistas, ages 9+ and 12+) and seniors (Tarde de Oro, 55+): 6 events in October 2026, all 6 say libre de costo with phone reservation; 43 events posted Jan-Oct 2026; REST rows name no venue, so the OSM block places them."
+    },
+    {
+      "name": "Biblioteca Nacional Aruba (Oranjestad, Aruba)",
+      "category": "learning",
+      "base_url": "https://www.bibliotecanacional.aw/pages",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Oranjestad",
+      "default_region": null,
+      "default_country": "AW",
+      "timezone": "America/Aruba",
+      "venue": {
+        "name": "Biblioteca Nacional Aruba",
+        "address": "George Madurostraat 13",
+        "city": "Oranjestad",
+        "country": "AW",
+        "lat": 12.5152518,
+        "lon": -70.02949
+      },
+      "_metro": "Oranjestad, Aruba",
+      "_found": "manual:2026-10-03 find_calendar on bibliotecanacional.aw -> The Events Calendar REST under /pages; venue point OSM way 368233604",
+      "_note": "National library's public programme (Festival di buki pa mucha children's book festival, language and theatre workshops, K-9 team talks): 5 upcoming, none priced and one marked Free; only 5 more posted Jan-Oct 2026, so about ten a year; REST venues carry no coordinates."
+    },
+    {
+      "name": "Netanya AACI (Netanya, Israel)",
+      "category": "community",
+      "base_url": "https://netanyaaaci.org.il",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Netanya",
+      "default_region": null,
+      "default_country": "IL",
+      "include_categories": [
+        "bazaar",
+        "book-club",
+        "cafenetanya",
+        "folkclub",
+        "lectures",
+        "musical-programs",
+        "poetry-please",
+        "program"
+      ],
+      "_metro": "Tel Aviv, Israel",
+      "_found": "manual:2026-10-03 web search for AACI events; its /event/<slug>/all/ recurrence URLs are The Events Calendar Pro and the REST route answered",
+      "_note": "English-speaking newcomer and retiree community centre at 28 Shmuel Hanatziv, Netanya. Filtered to its one-off categories it held 15 events on 2026-10-04 (talks, book club, poetry, folk club, cafe concert, bazaar, election forum, bridge tournament) at NIS 25-70 or free. The filter keeps out 155 weekly exercise-class rows and a 12-row donation campaign of the 274 unfiltered.",
+      "venue": {
+        "name": "Netanya AACI",
+        "address": "28 Shmuel Hanatziv",
+        "city": "Netanya",
+        "postal_code": "4231204",
+        "country": "IL",
+        "lat": 32.3308717,
+        "lon": 34.8567212
+      }
+    },
+    {
+      "name": "The Book Lounge (Cape Town)",
+      "category": "learning",
+      "base_url": "https://www.booklounge.co.za",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Cape Town",
+      "default_region": "Western Cape",
+      "default_country": "ZA",
+      "_metro": "Cape Town, South Africa",
+      "_found": "manual:2026-10-03 TEC REST route probe of Cape Town literary venues",
+      "_note": "Independent bookshop at 71 Roeland Street whose calendar is author-in-conversation book launches open to all. 8 were upcoming on 2026-10-03, all 17:30 weekday evenings at the shop, with no cost set on any and each an open 'Join us' invitation with a sponsored wine table.",
+      "venue": {
+        "name": "The Book Lounge",
+        "address": "71 Roeland Street",
+        "city": "Cape Town",
+        "region": "Western Cape",
+        "postal_code": "8001",
+        "country": "ZA",
+        "lat": -33.92914,
+        "lon": 18.4216383
+      }
+    },
+    {
+      "name": "Kuldīgas Galvenā bibliotēka (Kuldīga Main Library)",
+      "base_url": "https://biblio.kuldiga.lv",
+      "category": "learning",
+      "within_days": 180,
+      "max_pages": 15,
+      "default_city": "Kuldīga",
+      "default_country": "LV",
+      "skip_title": "^Metodisk[aā] diena",
+      "_metro": "Liepāja, Latvia",
+      "_found": "manual:2026-10-03 OSM libraries Latvia -> The Events Calendar REST (its iCal export stamps a fixed wrong zone)",
+      "venue": {
+        "name": "Kuldīgas Galvenā bibliotēka",
+        "address": "1905. gada iela 6",
+        "city": "Kuldīga",
+        "postal_code": "LV-3301",
+        "country": "LV",
+        "lat": 56.9693109,
+        "lon": 21.9684827,
+        "names": [
+          "Kuldīgas Galvenā bibliotēka",
+          "Kuldīgas Galvenās bibliotēkas",
+          "Mākslas nams"
+        ]
+      },
+      "_note": "Kuldīga main library: free author meetings, forest-school storytelling for children, the readers' club, lectures and financial-literacy seminars. None of the REST venues carries an address or coordinates, so the block places the rows that name the library or the Art House (Mākslas nams, 36 m away); the Zoom discussion club names neither and drops. 'Metodiskā diena' is a recurring closure notice."
     }
   ],
   "_not_included": {

@@ -23,10 +23,12 @@ start/end are UNIX SECONDS, not ISO dates, and so are `start_datetime` and
 out. Only `/api/events` is public; `/api/places`, `/api/tags` and `/api/settings
 ` are admin-only and 403.
 
-robots.txt is byte-identical across the instances checked and allows everything
-(`user-agent: *`, `allow: /`, no Disallow, no crawl-delay); there is no terms
-page on any of them. A polite default delay is still applied - these are
-volunteer-run servers, several on home connections.
+Gancio's stock robots.txt allows everything (`user-agent: *`, `allow: /`, no
+crawl-delay), and an operator can replace it: vagancio.partidopirata.com.ar
+serves `Disallow: /` (2026-10-04). /api/events is a documented public API, read
+under catalog_curate.DOCUMENTED_API_TYPES like Mobilizon's; an operator who asks
+is taken off. There is no terms page on any instance. A polite default delay is
+still applied - these are volunteer-run servers, several on home connections.
 """
 from __future__ import annotations
 

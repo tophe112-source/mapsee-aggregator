@@ -6289,6 +6289,102 @@
       },
       "_metro": "Ottawa, Canada",
       "_measured": "wix-walk 2026-10-04: listing ships 116 events, 76 upcoming (2026-10-05..), 76 placeable, ALL registration none (Wix: no registration - drop-in): Playgroup 0-6 x17, Chair Exercise x12, Strong and Steady x12, Tiny Toes Playgroup x12, Breastfeeding Support x6, Yoga for Everyone x6, Baby Prenatal Nutrition x5, Family Fun with Food x2, 2 more; 2 say (Cancelled) in the title and notice_reason refuses them -> 74. PAST FIRST: the first upcoming slug is the 41st, so max_events 150 (100 reads 60 of 76) and verify_jsonld, which samples the first 6 slugs, answers '6 events / 0 future' until it samples the tail too."
+    },
+    {
+      "name": "Artequin Viña del Mar",
+      "category": "kids",
+      "listing": [
+        "https://artequinvina.cl/eventos/"
+      ],
+      "link_pattern": "https://artequinvina\\.cl/events/[a-z0-9\\-]+/?",
+      "max_events": 80,
+      "venue": {
+        "name": "Artequin Viña del Mar",
+        "address": "500 Alcalde Prieto Nieto",
+        "city": "Viña del Mar",
+        "country": "CL",
+        "lat": -33.0304199,
+        "lon": -71.5501103
+      },
+      "_metro": "Valparaíso, Chile",
+      "_found": "manual:2026-10-03 OSM museum sweep (read-only) -> modern-events+jsonld-event",
+      "_note": "A children's art museum's family programme, with 15 upcoming Event blocks on the listing. 11 have price 0 (weekend group games and paper workshops, kids' art school sessions, book-festival storytelling) and 4 cost 6,500-15,000 CLP. The blocks carry no location, so the OSM venue places them.",
+      "skip_title": "^(escuelita|taller avanzado)"
+    },
+    {
+      "name": "Oaxaca Lending Library",
+      "category": "learning",
+      "listing": [
+        "https://www.oaxlibrary.org/"
+      ],
+      "link_pattern": "https://www\\.oaxlibrary\\.org/event-details/[a-z0-9\\-]+",
+      "max_events": 60,
+      "venue": {
+        "name": "Oaxaca Lending Library",
+        "address": "Calle de José María Pino Suárez 519",
+        "city": "Oaxaca de Juárez",
+        "postal_code": "68000",
+        "country": "MX",
+        "lat": 17.0664833,
+        "lon": -96.7197387
+      },
+      "_metro": "Oaxaca, Mexico",
+      "_found": "manual:2026-10-03 OSM library sweep (read-only) -> wix event-details JSON-LD",
+      "_note": "Bilingual community library whose homepage links 5 upcoming Wix events, each with an Event block and the library's street address. They are a creative-writing and pronunciation workshop for English learners, bilingual mindfulness sessions, a food-safety talk and a Libros para Pueblos reading-promotion session."
+    },
+    {
+      "name": "Viborg Kunsthal",
+      "listing": [
+        "https://viborgkunsthal.viborg.dk/kalender/"
+      ],
+      "link_pattern": "https://viborgkunsthal\\.viborg\\.dk/kalender/[a-z0-9\\-]+/",
+      "category": "arts",
+      "max_events": 40,
+      "venue": {
+        "name": "Viborg Kunsthal",
+        "address": "Riddergade 8",
+        "city": "Viborg",
+        "postal_code": "8800",
+        "country": "DK",
+        "lat": 56.4498109,
+        "lon": 9.4157538
+      },
+      "_metro": "Aarhus, DK",
+      "_found": "manual:2026-10-03 own OSM sweep of town Viborg (tourism=museum) -> jsonld",
+      "_note": "Viborg's municipal art hall: family workshops, autumn-holiday activities, a silent reading party and craft workshops; 5 upcoming event pages, each with a schema.org Event at Riddergade 8.",
+      "skip_title": "^Ferieaktiviteter"
+    },
+    {
+      "name": "Wandelsport Vlaanderen wandelkalender (Flanders, Belgium)",
+      "listing": [
+        "https://wandel.be/wandelkalender/",
+        "https://wandel.be/wandelkalender/?page=2",
+        "https://wandel.be/wandelkalender/?page=3",
+        "https://wandel.be/wandelkalender/?page=4",
+        "https://wandel.be/wandelkalender/?page=5",
+        "https://wandel.be/wandelkalender/?page=6",
+        "https://wandel.be/wandelkalender/?page=7",
+        "https://wandel.be/wandelkalender/?page=8"
+      ],
+      "link_pattern": "/wandelkalender/\\d+/",
+      "category": "fitness",
+      "max_events": 120,
+      "_metro": "Brussels, Belgium",
+      "_found": "manual:2026-10-03 wandelsportvlaanderen.be -> wandel.be/wandelkalender (JSON-LD per walk)",
+      "_note": "Flemish walking federation's calendar of organised club walks (wandeltochten) open to all, youth under 12 free: about 294 walks to 31 Dec at 15 per page; 20 of 20 sampled event pages carry Event JSON-LD with geo and EventScheduled."
+    },
+    {
+      "name": "Austin Parks Foundation (Austin, TX)",
+      "category": "community",
+      "listing": [
+        "https://austinparks.org/event-calendar/"
+      ],
+      "link_pattern": "https://austinparks\\.org/events/[a-z0-9\\-]+/",
+      "max_events": 60,
+      "_metro": "Austin, USA",
+      "_found": "manual:2026-10-03 guessed domain; Modern Events Calendar pages carry schema.org Event JSON-LD",
+      "_note": "Free programmes in Austin parks: 17 upcoming on the calendar page (Restoration Reset volunteer workdays x8, Art/Playdate/Hoops/Movie/Spark in the Park), each page's JSON-LD carries the park's street address and no price.",
+      "skip_title": "^Spark in the Park: Dick Nichols District Park$|^10/29 Movies in the Park: Coco @ Springwoods"
     }
   ],
   "_not_included": {

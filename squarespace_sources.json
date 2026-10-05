@@ -2036,6 +2036,42 @@
       },
       "_metro": "Seattle, WA",
       "_measured": "2026-10-04: 37 upcoming within 90 days on /program-calendar (68 listed): Fika 3, Fresh Ground Stories 3, Swedish Pancake Breakfast 2, Jenny Lind Day, Leif Erikson's birthday disco, Nordic Mixer + Soup & Cinema, a crafting circle. 7 (19%) are member-only or governance (Members Dinner 3, Lifetime Member Celebration, Board Meeting 3) and 5 are 'Bar Open 5-10 PM' hours. A membership club whose programme is mostly public."
+    },
+    {
+      "name": "Tvibit",
+      "category": "community",
+      "collection": "https://tvibit.net/aktivitetskalender",
+      "max_events": 200,
+      "venue": {
+        "name": "Tvibit",
+        "address": "Parkgata 27/29",
+        "city": "Tromsø",
+        "postal_code": "9008",
+        "country": "NO",
+        "lat": 69.6514028,
+        "lon": 18.9531937
+      },
+      "_metro": "Tromsø, NO",
+      "_found": "manual:2026-10-03 own OSM sweep of unswept metro Tromsø (amenity=events_venue) -> squarespace",
+      "_note": "Tromsø's municipal youth culture house: queer youth Mondays/Saturdays, Creative Tuesdays (incl. a Sámi duodji workshop), a youth reading circle, student dinners and a second-hand market; 25 of 55 articles upcoming, 20 at Parkgata 27/29, 4 with no place, 1 at Aurorakino."
+    },
+    {
+      "name": "Edinborgarhúsið",
+      "category": "arts",
+      "collection": "https://www.edinborg.is/vidburdir",
+      "max_events": 200,
+      "venue": {
+        "name": "Edinborgarhúsið",
+        "address": "Aðalstræti 7",
+        "city": "Ísafjörður",
+        "postal_code": "400",
+        "country": "IS",
+        "lat": 66.0710175,
+        "lon": -23.1212025
+      },
+      "_metro": "Ísafjörður, IS",
+      "_found": "manual:2026-10-03 homepage sniff of Icelandic regional culture houses -> squarespace",
+      "_note": "Ísafjörður's culture house in the Westfjords: fortnightly Magic: the Gathering game nights, Creative Saturdays for kids, a Halloween costume-swap market, concerts and some paid art courses; 15 of 45 articles upcoming, none with an address, so the OSM point of the house is the venue."
     }
   ],
   "_not_included": {

@@ -1,5 +1,5 @@
 {
-  "_comment": "Gancio instances (https://gancio.org) - self-hosted AGPL event software used by social centres, DIY venues and neighbourhood collectives. One URL pattern, no key: {base}/api/events?start=<unix>&end=<unix>&max=<n>. Almost every event carries place.latitude/longitude, so these need no geocoding. robots.txt on every instance checked is byte-identical and allows everything, with no crawl-delay; the 2s here is politeness toward volunteer-run servers, several on home connections. default_city/region/country only fill gaps - Gancio's own place.address is used when present. There is no public directory API (gancio.org/instances is HTML), so this list is seeded by hand; add instances as they are verified.",
+  "_comment": "Gancio instances (https://gancio.org) - self-hosted AGPL event software used by social centres, DIY venues and neighbourhood collectives. One URL pattern, no key: {base}/api/events?start=<unix>&end=<unix>&max=<n>. Almost every event carries place.latitude/longitude, so these need no geocoding. Gancio's stock robots.txt allows everything, with no crawl-delay, but an operator can replace it: vagancio.partidopirata.com.ar serves `User-agent: *` / `Disallow: /` (2026-10-04). The API is read under DOCUMENTED_API_TYPES either way, as the Mobilizon instances with the same file are; an operator who asks is taken off (README, Conduct). The 2s here is politeness toward volunteer-run servers, several on home connections. default_city/region/country only fill gaps - Gancio's own place.address is used when present. There is no public directory API (gancio.org/instances is HTML), so this list is seeded by hand; add instances as they are verified.",
   "crawl_delay": 2,
   "sites": [
     {
@@ -41,6 +41,18 @@
       "within_days": 180,
       "default_city": "Berlin",
       "default_country": "DE"
+    },
+    {
+      "name": "Akce nolog.cz (Czech community and activist calendar)",
+      "category": "community",
+      "base_url": "https://akce.nolog.cz",
+      "within_days": 180,
+      "max": 500,
+      "default_city": null,
+      "default_country": "CZ",
+      "_metro": "Prague, Czechia",
+      "_found": "manual:2026-10-03 gancio.org instance list",
+      "_note": "Czech Gancio instance with 25 upcoming events (20 carry coordinates) in Prague, Brno and Bratislava community spaces: swaps, book clubs, a weekly trans/enby chat, a game jam and Critical Mass rides. The benefits are free or donation-based. devent.cz federates every event here but without coordinates (0 of 49 on 2026-10-04), and the sync geocodes only US addresses, so this origin is what places them (20 of 25). Listed before Devent (CZ) so a row's first link is the organiser's own page. Not a duplicate."
     },
     {
       "name": "Devent (CZ)",
@@ -212,6 +224,29 @@
       "default_city": "Hamburg",
       "default_country": "DE",
       "_metro": "Hamburg, Germany"
+    },
+    {
+      "name": "Vagancio - agenda autogestiva (Buenos Aires / La Plata)",
+      "category": "community",
+      "base_url": "https://vagancio.partidopirata.com.ar",
+      "within_days": 180,
+      "max": 500,
+      "default_country": "AR",
+      "_metro": "Buenos Aires, Argentina",
+      "_found": "manual:2026-10-03 gancio.org/instances",
+      "_note": "Grassroots shared agenda with 44 upcoming events, 43 distinct and 40 with a place. It lists pay-what-you-can ('a la gorra') crochet and embroidery circles, reading groups, French and tango practice, community soup kitchens (ollas populares) and neighbourhood assemblies. 4 are online. robots.txt is `User-agent: *` / `Disallow: /`, the operator's own (Gancio's stock file allows all); read under DOCUMENTED_API_TYPES like the three Mobilizon instances with the same file. Checked 2026-10-04. If the operator asks, it comes off (README, Conduct)."
+    },
+    {
+      "name": "Laboratório Hacker de Campinas (Campinas, Brazil)",
+      "category": "community",
+      "base_url": "https://eventos.lhc.net.br",
+      "within_days": 180,
+      "max": 500,
+      "default_city": "Campinas",
+      "default_country": "BR",
+      "_metro": "Campinas, Brazil",
+      "_found": "manual:2026-10-03 gancio.org/instances",
+      "_note": "The hackerspace's own Gancio, with 16 upcoming events. 11 are at the space (Rua Araribóia 121): a Rust course, open coworking days, CoffeeOps talks, a Home Assistant community day and the 15th-birthday barbecue. 3 are online council meetings."
     }
   ],
   "_tried_and_dead": {

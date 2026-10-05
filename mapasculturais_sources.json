@@ -26,6 +26,22 @@
    "horizon_days": 42,
    "limit": 100,
    "max_pages": 25
+  },
+  {
+   "name": "CulturAZ - Mapa Cultural de Santo André (SP)",
+   "slug": "sa",
+   "base_url": "https://culturaz.santoandre.sp.gov.br",
+   "category": "community",
+   "default_region": "SP",
+   "default_country": "Brazil",
+   "horizon_days": 42,
+   "limit": 200,
+   "max_pages": 60,
+   "_metro": "São Paulo, Brazil",
+   "_found": "manual:2026-10-03 hostname probe of Mapas Culturais /api/eventOccurrence/find",
+   "_measured": "2026-10-03: 8,123 occurrences in total, and the same 8,123 come back with _startsOn=GTE(today), so the filter is ignored. A full walk (41 pages at limit 200) found 86 future named occurrences, 66 of them placeable (154 dated pins inside 42 days) across 66 distinct events. At the adapter's default limit 100 and max_pages 40 it reads only the oldest 4,000 rows, which hold 0 future occurrences, so limit 200 / max_pages 45 is load-bearing.",
+   "_note": "Santo André's municipal cultural register, live with 66 placeable future events: the city choir, a thrift fair, a stencil workshop in a square, the Older People's Month celebration, open capoeira and theatre classes at CEUs, a cineclub and library saraus.",
+   "default_city": "Santo André"
   }
  ],
  "_null_island": "0,0 IS THE COMMONEST COORDINATE IN THIS SOURCE and it is a string, so it passes a presence check. 55 of the 345 genuinely-future occurrences carry {\"latitude\": \"0\", \"longitude\": \"0\"} — a space whose registrant never dragged the map pin. \"0\" is truthy, so an audit that asks `if loc.get('latitude')` counts every one of them as placed; the first pass of this very audit reported Ceará at 328/329 when the real figure is 281. parse_location rejects them, which is why two instances that look live are in _not_included below: they answer, they have future events, and not one of those events can be drawn.",

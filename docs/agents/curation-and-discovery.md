@@ -1309,3 +1309,39 @@
 
 - **A WIX SITE'S EVENT ROUTE IS ITS OWN, ALL OF THE PATH IN FRONT OF THE SLUG, AND A WIX EVENT PAGE IS NOT A LISTING.** `to_candidate` wrote `/event-info/{}` for every Wix find. On the 14 Wix sites in `jsonld_sources.json` (2026-10-04) that route answers on 2 (Sea Monster Lounge, Remy's). On the other 12, `/event-info/<slug>` was a 404 and the site's own route a 200: `/event-details/` on 9, a renamed `/events/` on 3. Also, 13 of the 15 entries had ONE event's page as `listing`, a source that dies with that event. `find_calendar` now reads the route off the page's own same-host links that run through a slug from the warmup data's EVENT objects (not blog posts, which ship `"slug"` too). It keeps everything in front of the slug, because the adapter `urljoin`s the template against the listing's ORIGIN and a free site lives at `<user>.wixsite.com/<site>/`. Example: centrecultureltheux.wixsite.com/cctheux (13 events, 12 upcoming) verifies False with `/event-details/{}` and True with `/cctheux/event-details/{}`. The ledger holds 20 wixsite.com Wix candidates refused 'no schema.org Event blocks found', every one checked at the host root. HEART Headingley's events all link TicketSource, which reuses the slug, so without the host test the route would read as `/heartcentreheadingley/`. A Wix page holding one event, or none and no Event block of its own, is swapped for the homepage that linked it. After the fix the 11 corrected entries verify on their homepages (78 upcoming between them), and KokoTeatteri ingests 11 events from 11 pages where it used to read one.
 - **THE COMMUNITY WALK READ 31 METROS A RUN ONLY WHILE IT WALKED GROUND THE FULL SWEEP HAD ALREADY PROBED.** Over 13 runs (2026-09-22..10-03), the ledger already settled 71% and 57% of listed venues in runs 1-2. Past Yokohama (metro 50; the full sweep's cursor is at 69) that fell to 1-27%, with German and Dutch metros at 155-516 venues. A run makes about 950-1,450 live probes in its 55 minutes (2.3-3.5 s each). On 09-25 each probe took 22.9 s, when 155 of 163 probes were unreachable. So `--metros 40` never limited a run: 7 runs ended on the budget, and 6 on a metro Overpass refused four times running. Those 6 used 60 of their 330 minutes, and two read nothing. Overpass now gets 8 tries (each try failed about half the time: 67/134, 22/67, 12/22, 6/12), but only within 600 s. An ask can hang for its 200 s timeout, and eight hangs would be about 32 minutes on one metro, outside the deadline the caller checks between metros; the patience caps it at about 800 s, under the 865 s that four asks cost. A probe's connect timeout is now 6 s. Which timeout fired on the unreachable probes is not measured yet.
+
+- **TWO REVIEWERS PER FEED STILL MISS A MIRROR IN ANOTHER BATCH; A FINGERPRINT
+  OVERLAP DOES NOT.** The 2026-10-04 worldwide sweep for low-cost gatherings
+  verified 107 candidates. Each ran alone through its own adapter, then two
+  reviewers read its rows (data quality, community fit), with a judge on
+  disagreement. 90 agreed (74 kept, 16 refused), and 17 went to a judge. 7 of
+  those judge runs died on a session limit and were decided by hand from the
+  same summaries: 5 Restarters mirrors, Trailkeepers of Oregon (2 of 21 trail
+  parties carry an address the Census can match), and North East Museums
+  (mostly ticketed exhibitions). Restarters.net serves one group under
+  `network/<id>`, `group-area/<place>` and `group-area/<province>`. A batch that
+  held both spellings caught the twin. Namur, Brabant wallon and Hainaut had
+  their spellings in different batches, and only a pairwise overlap of the
+  stores' fingerprints found them: 29 of 29, 79 of 79, 74 of 74. Run the
+  overlap before a merge, not instead of the review. 74 feeds merged; two more
+  had landed from another session the same day. They cover 32 countries and
+  territories, with 3,771 upcoming rows: 2,858 placed by their own adapters
+  and 1,028 US rows left to the Census pass.
+
+- **OUTSIDE THE US A ROW THE ADAPTER DOES NOT PLACE IS GONE, AND A REVIEWER'S
+  COORDINATE IS A CLAIM TO CHECK.** The sync's only geocoder is the US Census,
+  so three single-venue Events Calendar sites placed nothing: Espacio Matta
+  (0 of 13), Netanya AACI (0 of 15) and The Book Lounge (0 of 8). OSM venue
+  blocks took them to 12 of 12, 14 of 14 and 8 of 8. Espacio Matta's block
+  lists its `names`, so a show held elsewhere is not pinned to the centre.
+  AACI's does not, so its 3 rows titled 'In Person or on Zoom' at the same
+  street are placed. Coffs Harbour Landcare stays at 67 of 207: its groups
+  work from Corindi to Toormina, and a block would put them all on one point.
+  17 override pins were looked up in Photon and Nominatim before use. 14 match
+  an OSM object to the metre. Gembloux uses the address point 73 m from the
+  claimed one, Whitehead is street-level, and Downpatrick's bowls club was
+  confirmed by name. One claim was wrong: a reviewer called 52.3837237,
+  16.9600244 Poznan's Jubilat, and it is OSM's Dom Kultury "Polan 100". An
+  override matches LOCATION exactly, so take the strings from the live feed,
+  never retype them: Ljubljana's 'Slovanska knjižnica – 2. nadstropje' has an
+  en dash.
