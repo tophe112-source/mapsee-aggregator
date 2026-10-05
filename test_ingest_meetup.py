@@ -185,6 +185,16 @@ STORED = [
     ("Sunday Sangha Night & Community Gathering: Online and In-Person",
      "Join us in the hall or on Zoom.\n\n📍 1 Main St\n\nTickets / info: https://x.test/e", False),
     ("Farmers Market", "Every Saturday, rain or shine.\n\n📍 1 Main St", False),
+    # OpenActive's own wording, on its own rows (the CC-BY line): Our Parks Live.
+    ("RISE & SHINE LIVE YOGA",
+     "Free to attend.\n\nThis live online session is only available through Our Parks Plus.\n\n"
+     "Session data published by Our Parks via OpenActive, licensed CC-BY 4.0.", True),
+    ("Run Club",
+     "Free to attend.\n\nJoin us in person in the park, or catch the live online session from home.\n\n"
+     "Session data published by Our Parks via OpenActive, licensed CC-BY 4.0.", False),
+    ("Library Coding Club",
+     "Bring a laptop: tonight's online class is in the library's own room, sorry, workshop.\n\n"
+     "📍 1 Main St", False),
 ]
 for title, desc, want in STORED:
     check(f"  {title[:52]}", should_retire({"title": title, "description": desc}), want)

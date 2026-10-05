@@ -94,9 +94,11 @@ import urllib.error          # explicit: urllib.request only exposes it by accid
 import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-from mapsee_ingest import EventStore, NormalizedEvent
+from mapsee_admission import admission_description, normalize_admission_facts
+from mapsee_ingest import _HYBRID_RX, EventStore, NormalizedEvent
 
 UA = "mapsee-aggregator/1.0 (+https://mapsee.me; OpenActive session import)"
 
@@ -256,6 +258,36 @@ def _parse_dt(value: Any) -> Optional[datetime]:
     return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
 
 
+# OpenActive is a UK standard and every configured publisher is GB, so the WALL
+# CLOCK a weekly pattern is written in is London's. Most feeds stamp true UTC:
+# GoodGym, SportSuite and Upshot as 'Z', and all five leisurecloud tenants
+# (Everyone Active, Places, Castlepoint, Pembrokeshire, Oxford) as '+00:00' in
+# summer time too - Everyone Active's 'Parent & Junior Mon 11:00' (eventSchedule
+# 11:00, Europe/London) is '2026-10-05T10:00:00+00:00'. Reading the clock off the
+# stamp put a Saturday 08:30 London session at 07:30 until 2026-10-25, and the
+# weekly fold kept BOTH windows: 18 of GoodGym's 38 standing rows on 2026-10-05,
+# and every leisurecloud standing row built in summer time was an hour early.
+LOCAL_TZ = ZoneInfo("Europe/London")
+
+# NOWHERE TO TURN UP. Our Parks publishes its 'Our Parks Live' Zoom-style classes
+# as a Place with a London coordinate and OfflineEventAttendanceMode; only the
+# words say otherwise ('This live online session is only available through Our
+# Parks Plus'). 60 future records on 2026-10-05, 5 standing rows, every one
+# marked free. mapsee_ingest.looks_online_only does not read that wording.
+ONLINE_SESSION_RX = re.compile(r"\b(?:live\s+)?online\s+(?:session|class(?:es)?|workout)s?\b", re.I)
+
+
+def _local(stamp: Optional[str]) -> Optional[datetime]:
+    """A stored ISO stamp as the London wall clock, or None if it does not parse."""
+    try:
+        dt = datetime.fromisoformat(stamp or "")
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(LOCAL_TZ)
+
+
 def coords(place: Any) -> Optional[Tuple[float, float]]:
     """(lat, lon) from an OpenActive Place, or None.
 
@@ -404,6 +436,20 @@ def to_event(record: dict, source: dict, now: datetime,
         return None, "past"
     if start > now + timedelta(days=horizon_days):
         return None, "beyond horizon"
+    # A CANCELLED SESSION THE PUBLISHER HAS NOT DELETED is still in the feed.
+    # Willen On Ice 2/311 and Upshot 2/339 in-window on 2026-10-05. Refused here,
+    # before the grid and weekly folds, so a cancelled week is not weekly evidence.
+    status = str(record.get("eventStatus") or "").rstrip("/")
+    if status.endswith(("EventCancelled", "EventPostponed")):
+        return None, "cancelled"
+    if status.endswith("EventMovedOnline"):
+        return None, "moved online"
+    where = record.get("location") if isinstance(record.get("location"), dict) else {}
+    said = " ".join(str(x or "") for x in (record.get("name"), record.get("description"),
+                                           where.get("name"), where.get("description")))
+    if (str(record.get("eventAttendanceMode") or "").endswith("OnlineEventAttendanceMode")
+            or (ONLINE_SESSION_RX.search(said) and not _HYBRID_RX.search(said))):
+        return None, "online only"
     name = _text(record.get("name"), 160)
     if not name:
         return None, "no name"
@@ -428,8 +474,6 @@ def to_event(record: dict, source: dict, now: datetime,
     acts = activity_names(record)
     if acts:
         lines.append("🏃 Activity: " + " · ".join(acts[:4]))
-    if is_free(record):
-        lines.append("🎟 Free to attend.")
     instructions = _text(record.get("attendeeInstructions"), 300)
     if instructions:
         lines.append("ℹ️ " + instructions)
@@ -440,10 +484,14 @@ def to_event(record: dict, source: dict, now: datetime,
     # THE LICENCE CONDITION, not a footer. See lesson 4.
     lines.append(f"Session data published by {source['name']} via OpenActive, "
                  f"licensed CC-BY 4.0.")
-    description = "\n\n".join(lines)
-
     url = record.get("url") or record.get("@id") or record.get("id")
     url = url if isinstance(url, str) and url.startswith("http") else None
+    # ADMISSION FIRST, through the module every other adapter uses: the sync's
+    # _cap_prose keeps the head, and a trailing 'Free to attend.' was cut from
+    # 29 of 65 Played rows and 1 of 35 Our Parks rows on 2026-10-05.
+    facts = normalize_admission_facts(record.get("offers"), url=url,
+                                      context=" ".join(x for x in (name, body, instructions) if x))
+    description = admission_description("\n\n".join(lines), facts)
 
     image = None
     img = record.get("image")
@@ -484,20 +532,27 @@ def to_event(record: dict, source: dict, now: datetime,
         # OpenActive publishes a surveyed point for the venue; the address text
         # is derived from it, not the other way round. Never geocode over it.
         coords_exact=True,
+        source_details=facts,
+        admission_checked=facts is not None,
     ), None
 
 
 def _grid_key(ev: NormalizedEvent) -> Tuple[str, float, float, str]:
     """What makes two rows the same thing on the same day.
 
-    The title, the point, and the LOCAL date. `start_utc` holds the offset the
-    publisher sent, so its first ten characters are already the local day —
-    which is the day a person would be looking at, and not the UTC one that
-    puts a 00:30 session on the previous date.
+    The title, the point, and the LONDON date (_local): the day a person would
+    be looking at, not the UTC one that puts a 00:30 session on the previous
+    date. The offset a feed sends is usually UTC, not London (see LOCAL_TZ).
     """
+    local = _local(ev.start_utc)
     return ((ev.name or "").strip().lower(),
             round(ev.latitude or 0.0, 5), round(ev.longitude or 0.0, 5),
-            (ev.start_utc or "")[:10])
+            local.date().isoformat() if local else (ev.start_utc or "")[:10])
+
+
+def _hhmm(stamp: Optional[str]) -> str:
+    local = _local(stamp)
+    return local.strftime("%H:%M") if local else (stamp or "")[11:16]
 
 
 def collapse_booking_grids(events: List[NormalizedEvent], min_per_day: int
@@ -562,7 +617,7 @@ def collapse_booking_grids(events: List[NormalizedEvent], min_per_day: int
         # has to survive somewhere a reader can see it.
         first.description = (
             f"🎟 {len(rows)} bookable slots on this day, from "
-            f"{(first.start_utc or '')[11:16]} to {last_end[11:16]}.\n\n"
+            f"{_hhmm(first.start_utc)} to {_hhmm(last_end)}.\n\n"
             + (first.description or "")).strip()
         # IDENTITY IS THE DAY NOW, not the slot that happened to be first. Keyed
         # on the slot's own id, a pool opening at 05:50 instead of 05:40
@@ -584,20 +639,14 @@ def collapse_booking_grids(events: List[NormalizedEvent], min_per_day: int
 def _local_slot(ev: NormalizedEvent) -> Optional[Tuple[int, str, str]]:
     """(weekday, "HH:MM" start, "HH:MM" end) in the publisher's own local time.
 
-    `start_utc` holds the offset the feed sent, so `fromisoformat` gives the
-    local wall clock and `weekday()` the local day — which is what a weekly
-    pattern is expressed in. Reading it in UTC would move a 00:30 class to the
-    previous day for half the year.
+    Converted to Europe/London (_local) before the weekday and the clock are
+    read, because a weekly pattern is expressed in London's wall clock and most
+    feeds send UTC (see LOCAL_TZ).
     """
-    try:
-        s = datetime.fromisoformat(ev.start_utc or "")
-    except ValueError:
+    s = _local(ev.start_utc)
+    if s is None:
         return None
-    end = None
-    try:
-        end = datetime.fromisoformat(ev.end_utc) if ev.end_utc else None
-    except ValueError:
-        end = None
+    end = _local(ev.end_utc) if ev.end_utc else None
     return s.weekday(), s.strftime("%H:%M"), (end.strftime("%H:%M") if end else s.strftime("%H:%M"))
 
 
@@ -618,10 +667,10 @@ def _consecutive_weeks(rows: List[NormalizedEvent]) -> bool:
     """
     days = []
     for ev in rows:
-        try:
-            days.append(datetime.fromisoformat(ev.start_utc or "").date())
-        except ValueError:
+        local = _local(ev.start_utc)
+        if local is None:
             return False
+        days.append(local.date())
     days.sort()
     return any((b - a).days == 7 for a, b in zip(days, days[1:]))
 

@@ -400,12 +400,153 @@ def main():
                    "the collapse's own opener does not push the licence off the end"))
 
 
+    checks.extend(fix_checks_2026_10_05())
+
     failed = 0
     for ok, why in checks:
         failed += 0 if ok else 1
         print(f"{'ok  ' if ok else 'FAIL'}  {why}")
     print(f"\n{len(checks)} cases, {failed} failed")
     return 1 if failed else 0
+
+
+# ---------------------------------------------------------------------------
+# 2026-10-05: the UK OpenActive survey's review found four adapter bugs on live
+# feeds (GoodGym: 17 of 38 standing rows an hour off, "Free to attend" cut from
+# 271 of 508 rows by the sync's cap; Our Parks Live online classes; cancelled
+# sessions). Their own clock: the cases straddle the 2026-10-25 change.
+import mapsee_supabase_sync as S
+NOW2 = datetime(2026, 10, 5, tzinfo=timezone.utc)
+SRC2 = {"name": "Test Publisher", "category": "fitness", "country": "GB"}
+GEO2 = {"name": "Church Hall", "geo": {"latitude": 51.51, "longitude": -0.3}}
+
+
+def rec2(ident, start, end=None, name="Strength and Balance", **extra):
+    r = {"@id": f"https://example.test/s/{ident}", "name": name, "startDate": start,
+         "location": GEO2}
+    if end:
+        r["endDate"] = end
+    r.update(extra)
+    return r
+
+
+def rows2(records):
+    return [e for e in (OA.to_event(r, SRC2, NOW2, 120)[0] for r in records) if e]
+
+
+def fix_checks_2026_10_05():
+    """The survey review's adapter changes (London clock, eventStatus, online
+    only, admission first), each failing 2-7 of these when reverted."""
+    checks = []
+    # ------------------------------------------------ 1. THE WALL CLOCK IS LONDON'S
+    # GoodGym, SportSuite and Upshot send 'Z'. A Tuesday 10:00 London class is
+    # 09:00Z until 2026-10-25 and 10:00Z after it; reading the clock off the Z
+    # stamp gave TWO windows (18 of GoodGym's 38 standing rows on 2026-10-05).
+    z = [rec2(f"z{i}", f"2026-10-{d:02d}T{h:02d}:00:00Z", f"2026-10-{d:02d}T{h+1:02d}:00:00Z")
+         for i, (d, h) in enumerate([(6, 9), (13, 9), (20, 9), (27, 10)])]
+    z += [rec2("z4", "2026-11-03T10:00:00Z", "2026-11-03T11:00:00Z")]
+    out, folded, _ = OA.collapse_weekly_series(rows2(z), 2)
+    checks.append((len(out) == 1 and folded == 4,
+                   "Z stamps across the 2026-10-25 change fold into ONE standing row"))
+    checks.append((out[0].recurring_days == {"1": [["10:00", "11:00"]]},
+                   "with ONE window, at the London clock (10:00-11:00), not 09:00 and 10:00"))
+    off = [rec2(f"o{i}", s, e) for i, (s, e) in enumerate([
+        ("2026-10-06T10:00:00+01:00", "2026-10-06T11:00:00+01:00"),
+        ("2026-10-13T10:00:00+01:00", "2026-10-13T11:00:00+01:00"),
+        ("2026-10-27T10:00:00+00:00", "2026-10-27T11:00:00+00:00")])]
+    out2, _, _ = OA.collapse_weekly_series(rows2(off), 2)
+    checks.append((out2[0].recurring_days == {"1": [["10:00", "11:00"]]},
+                   "a feed that sends the London offset gives the same pattern (control)"))
+    late_ev = OA.to_event(rec2("late", "2026-10-06T23:30:00Z"), SRC2, NOW2, 120)[0]
+    checks.append((OA._grid_key(late_ev)[3] == "2026-10-07",
+                   "a 23:30Z session in summer time is grouped on its LONDON day (00:30 the next)"))
+    sat = [rec2(f"g{i}", f"2026-10-10T{8 + i // 6:02d}:{(i % 6) * 10:02d}:00Z",
+               name="Swim For Fitness") for i in range(11)]
+    grid, dropped, _ = OA.collapse_booking_grids(rows2(sat), OA.GRID_MIN_PER_DAY)
+    checks.append((len(grid) == 1 and "09:00" in (grid[0].description or "")
+                   and "08:00 to" not in (grid[0].description or ""),
+                   "a Z booking grid states its opening time on the London clock (09:00, not 08:00)"))
+
+    # ------------------------------------------------ 2. eventStatus
+    for status, why in (("https://schema.org/EventCancelled", "cancelled"),
+                        ("EventPostponed", "cancelled"),
+                        ("https://schema.org/EventMovedOnline", "moved online")):
+        got = OA.to_event(rec2("c", "2026-10-06T10:00:00+01:00", eventStatus=status), SRC2, NOW2, 120)
+        checks.append((got[0] is None and got[1] == why,
+                       f"eventStatus {status.rsplit('/', 1)[-1]} is refused as '{why}'"))
+    kept = OA.to_event(rec2("k", "2026-10-06T10:00:00+01:00",
+                           eventStatus="https://schema.org/EventScheduled"), SRC2, NOW2, 120)
+    checks.append((kept[0] is not None, "EventScheduled is kept"))
+    wk = [rec2("w1", "2026-10-06T10:00:00+01:00"),
+          rec2("w2", "2026-10-13T10:00:00+01:00", eventStatus="https://schema.org/EventCancelled"),
+          rec2("w3", "2026-10-20T10:00:00+01:00")]
+    out3, folded3, _ = OA.collapse_weekly_series(rows2(wk), 2)
+    checks.append((len(out3) == 2 and folded3 == 0 and not any(e.recurring_days for e in out3),
+                   "a cancelled week is NOT weekly evidence: weeks 1 and 3 stay two dated rows"))
+
+    # ------------------------------------------------ 2b. NOW2HERE TO TURN UP
+    # 'Our Parks Live' is a Place with a London coordinate and Offline attendance
+    # mode; only its words say online (60 future records, 2026-10-05).
+    live = rec2("ol", "2026-10-06T07:30:00+01:00", name="RISE & SHINE LIVE YOGA",
+               description="This live online session is only available through Our Parks Plus.",
+               eventAttendanceMode="https://schema.org/OfflineEventAttendanceMode",
+               offers=[{"price": 0, "priceCurrency": "GBP"}])
+    live["location"] = dict(GEO2, name="Our Parks Live")
+    got = OA.to_event(live, SRC2, NOW2, 120)
+    checks.append((got[0] is None and got[1] == "online only",
+                   "an 'online session' pinned to a Place marked Offline is refused as online only"))
+    mode = OA.to_event(rec2("om", "2026-10-06T10:00:00+01:00",
+                           eventAttendanceMode="https://schema.org/OnlineEventAttendanceMode"), SRC2, NOW2, 120)
+    checks.append((mode[0] is None and mode[1] == "online only",
+                   "OnlineEventAttendanceMode is refused as online only"))
+    hybrid = OA.to_event(rec2("oh", "2026-10-06T10:00:00+01:00",
+                             description="Join in person at the hall, or our live online session from home."),
+                         SRC2, NOW2, 120)
+    mixed_mode = OA.to_event(rec2("mm", "2026-10-06T10:00:00+01:00",
+                                 eventAttendanceMode="https://schema.org/MixedEventAttendanceMode"), SRC2, NOW2, 120)
+    checks.append((hybrid[0] is not None and mixed_mode[0] is not None,
+                   "a session that is ALSO in person, in words or by Mixed mode, stays"))
+
+    # ------------------------------------------------ 3. ADMISSION, FIRST, SHARED MODULE
+    body = "A friendly falls-prevention class for all abilities. " * 20     # ~1,060 chars
+    free = OA.to_event(rec2("f", "2026-10-06T10:00:00+01:00", description=body,
+                           offers=[{"@type": "Offer", "price": 0, "priceCurrency": "GBP"}]),
+                       SRC2, NOW2, 120)[0]
+    stored = S._cap_prose(S._clean_text(free.description))
+    checks.append(("Free to attend" in stored,
+                   "a 1,000-character body still says 'Free to attend' after the sync's cap"))
+    weekly = S._cap_prose(S._clean_text("\U0001F501 Runs weekly — 17 sessions.\n\n" + free.description))
+    checks.append(("Free to attend" in weekly and "via OpenActive" in weekly,
+                   "and so does the weekly opener's version, with the licence still on the end"))
+    checks.append((free.source_details == {"free": True, "offer": {"price": "0", "currency": "GBP",
+                                                                    "url": "https://example.test/s/f"}}
+                   and free.admission_checked is True,
+                   "the free row carries source_details for mapsee 0229, admission_checked"))
+    fee = OA.to_event(rec2("p", "2026-10-06T10:00:00+01:00", description=body,
+                          offers=[{"@type": "Offer", "price": 4.1, "priceCurrency": "GBP"}]),
+                      SRC2, NOW2, 120)[0]
+    fee_stored = S._cap_prose(S._clean_text(fee.description))
+    checks.append((fee_stored.startswith("Some admission options are not free. Admission: GBP 4.1.")
+                   and "Free to attend" not in fee_stored,
+                   "a fee row leads with its price and the words 'not free', through the cap"))
+    mixed = OA.to_event(rec2("m", "2026-10-06T10:00:00+01:00",
+                            offers=[{"price": 0}, {"price": 5}]), SRC2, NOW2, 120)[0]
+    checks.append(("Free to attend" not in mixed.description and (mixed.source_details or {}).get("free") is False,
+                   "a free taster beside a paid block is not a free session"))
+    member = OA.to_event(rec2("mb", "2026-10-06T10:00:00+01:00",
+                             offers=[{"name": "Members", "price": 0, "priceCurrency": "GBP"}]),
+                         SRC2, NOW2, 120)[0]
+    checks.append(("Free to attend" not in member.description
+                   and (member.source_details or {}).get("restricted") is True,
+                   "a 0-price 'Members' offer is restricted, never 'Free to attend'"))
+    none = OA.to_event(rec2("n", "2026-10-06T10:00:00+01:00"), SRC2, NOW2, 120)[0]
+    checks.append((none.source_details is None and none.admission_checked is False
+                   and "free" not in none.description.lower(),
+                   "no offers: nothing claimed either way"))
+    row = S.to_row(dict(free.as_record("2026-10-05T00:00:00+00:00")), "host")
+    checks.append(((row.get("source_details") or {}).get("free") is True,
+                   "to_row carries source_details through to the table row"))
+    return checks
 
 
 if __name__ == "__main__":

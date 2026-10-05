@@ -66,7 +66,8 @@ import time
 import urllib.error
 import urllib.request
 
-from mapsee_ingest import looks_online_only
+from mapsee_ingest import _HYBRID_RX, looks_online_only
+from mapsee_ingest_openactive import ONLINE_SESSION_RX
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -97,8 +98,20 @@ def should_retire(row):
     that would not be written today. The description the sync stored has our own
     generated lines appended (📍 address, Tickets / info, 🔎 More on this show);
     they carry no Zoom vocabulary, so there is nothing to strip.
+
+    AND THE OPENACTIVE ADAPTER'S OWN WORDING, on its own rows only (they carry
+    its CC-BY line, "via OpenActive"): Our Parks publishes 'Our Parks Live'
+    online classes ("This live online session is only available through Our
+    Parks Plus") as a Place with a London point, 60 future records and 5 standing
+    rows marked free on 2026-10-05. looks_online_only does not read that phrase,
+    and a standing row rolls on for ever, so the ingest refusing it is not enough.
     """
-    return looks_online_only(row.get("title"), row.get("description"))
+    title, desc = row.get("title"), row.get("description") or ""
+    if looks_online_only(title, desc):
+        return True
+    said = f"{title or ''} {desc}"
+    return ("via OpenActive" in desc and bool(ONLINE_SESSION_RX.search(said))
+            and not _HYBRID_RX.search(said))
 
 
 def main():
