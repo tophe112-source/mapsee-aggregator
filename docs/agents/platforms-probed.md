@@ -40,6 +40,7 @@ site links one of these is filed `offsite:<host>` by the OSM walk
 | CommunityPass (`register.capturepoint.com`) | **robots.txt refuses** | `Disallow: /` |
 | Daxko / GroupEx PRO | **robots.txt refuses** | `operations.daxko.com` `Disallow: /`; `groupexpro.com` disallows `/schedule/`, the embed path. YMCA classes are member-only anyway |
 | FrontDesk Suite (Ottawa drop-in reservations) | **robots.txt refuses** | BOM + `Disallow: /`, which `robots_txt.parse` read as allow-all until 2026-10-04 |
+| **datos.madrid.es** (Ayuntamiento de Madrid CKAN) | **robots.txt refuses, parked** | `Disallow: /api/3/action/datastore_search` by name (2026-10-05), beside `/api/`, `/*?` and `/dataset/*/resource/*/download/*`, where the `/egob/catalogo/*.json` files redirect. The portal's OpenAPI spec lists no datastore call, so the CKAN exemption does not reach it. `mapsee_ingest_madrid.py` and its rules exist; the read waits for written permission in `madrid_sources.json.pending-permission`'s `permission` |
 
 Two things that table is really saying:
 

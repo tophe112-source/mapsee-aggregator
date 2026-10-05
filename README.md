@@ -244,7 +244,10 @@ with a bot challenge, is not read by pretending to be a browser. Visit Pioneer
 Square's calendar does both, so its reader has been parked since 2026-10-05
 (`pioneersquare_sources.json.pending-permission`) until the neighbourhood
 alliance agrees to let us read it. Feeds whose `robots.txt` asks every crawler to
-stay out are retired the same way, each with the rule it quoted.
+stay out are retired the same way, each with the rule it quoted. Madrid's
+municipal agenda (datos.madrid.es) is not read either: its `robots.txt` refuses
+the paths that hold it, so its reader waits for the City's written permission
+(`madrid_sources.json.pending-permission`) before it asks for a single row.
 
 ## Running it
 
