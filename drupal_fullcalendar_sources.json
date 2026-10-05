@@ -1,0 +1,82 @@
+{
+ "_comment": "Drupal sites whose events calendar is the fullcalendar_view module, read by mapsee_ingest_drupal_fullcalendar.py. One entry per site. calendar_url is the page carrying drupalSettings.fullCalendarView; detail_rewrite maps an event's calendar path to the page that says where it is; map_centres are the geolocation widget's default view (never a venue unless the node's street is that street); venues is the venue book (longest path prefix wins), used only when a page has neither its own point nor a street.",
+ "sources": [
+  {
+   "key": "fairfax-county",
+   "name": "Fairfax County, VA events calendar",
+   "source": "drupal-fullcalendar:fairfax-county",
+   "calendar_url": "https://www.fairfaxcounty.gov/events/",
+   "timezone": "America/New_York",
+   "city": "Fairfax",
+   "region": "VA",
+   "country": "US",
+   "bbox": [38.55, -77.65, 39.10, -76.95],
+   "attribution": "From Fairfax County's events calendar (fairfaxcounty.gov/events).",
+   "detail_rewrite": [["^/events/", "/"]],
+   "exclude_eventtypes": ["Public Meeting"],
+   "require_visible_date": true,
+   "_require_visible_date_why": "Fairfax's template prints the date it means in .event_date.value; a page without one (Animal Services' Reading Tails, 2 of 151 on 2026-10-04: 'check the exact date and time in the registration link') carries only a placeholder startDate.",
+   "map_centres": [
+    {"lat": 38.853854, "lon": -77.356967, "street": "12000 Government Center",
+     "_why": "data-centre-lat/lng on every page's geolocation map, measured 2026-10-04; it is the Government Center's own pin"}
+   ],
+   "venue_strip_rx": "\\s+Location$",
+   "promoter": "Fairfax County Government",
+   "promoters": [
+    {"path": "/events/parks/", "promoter": "Fairfax County Park Authority"},
+    {"path": "/events/animalservices/", "promoter": "Fairfax County Animal Services"},
+    {"path": "/events/familyservices/", "promoter": "Fairfax County Department of Family Services"},
+    {"path": "/events/neighborhood-community-services/", "promoter": "Fairfax County Neighborhood and Community Services"},
+    {"path": "/events/community-services-board/", "promoter": "Fairfax-Falls Church Community Services Board"},
+    {"path": "/events/publicworks/", "promoter": "Fairfax County Public Works and Environmental Services"}
+   ],
+   "category": "community",
+   "categories": [
+    {"path": "/events/parks/", "category": "outdoors"},
+    {"path": "/events/parks/golf/", "category": "sports"},
+    {"path": "/events/parks/reccenter/", "category": "community"},
+    {"path": "/events/parks/colvin-run-mill/", "category": "learning"},
+    {"path": "/events/parks/sully-historic-site/", "category": "learning"},
+    {"path": "/events/parks/sully-historic/", "category": "learning"},
+    {"path": "/events/parks/historic-huntley/", "category": "learning"},
+    {"path": "/events/parks/green-spring/", "category": "learning"},
+    {"path": "/events/parks/frying-pan-park/", "category": "community"},
+    {"path": "/events/parks/watermine/", "category": "community"}
+   ],
+   "_venues_why": "The Park Authority's own location-node pins (geolocation data-lat/lng on its pages), read 2026-10-04 from 116 park event pages and 4 rec-centre location pages. Used only for a page that names no place: 1 of 116 park rows that day (Huntley Meadows). Census geocodes of the same streets sit a median 216 m (max 1,074 m, Lake Accotink) from these pins; 23 of 24 matched. rivebend is the calendar's own misspelling of riverbend.",
+   "_street_pins_why": "Streets a page names WITHOUT a point that the US Census batch the sync geocodes with cannot place: on 2026-10-04 5 of 15 street-only rows (3 streets) got no match, and the one-line geocoder put the third on 6500 Franconia Rd, the wrong road. Each pin is OpenStreetMap's (via Geofabrik's Postpass, read 2026-10-05), matched on the normalised street with its house number.",
+   "street_pins": [
+    {"street": "4621 Legato Road", "name": "Fairfax Center Fire Station 40", "lat": 38.8484142, "lon": -77.3651395, "city": "Fairfax", "region": "VA", "_source": "OSM node 367985992 (amenity=fire_station, 'Fairfax County Fire / Rescue Fairfax Center Station 40')"},
+    {"street": "3001 Vaden Drive", "name": "Jim Scott Community Center", "lat": 38.873101108, "lon": -77.272206265, "city": "Fairfax", "region": "VA", "postal": "22031", "_source": "OSM way 577543684 (amenity=community_centre, addr 3001 Vaden Drive), building centroid"},
+    {"street": "6500 Franconia-Springfield Pkwy", "name": "Springfield Town Center", "lat": 38.774442485, "lon": -77.174328404, "city": "Springfield", "region": "VA", "postal": "22150", "_source": "OSM way 350698272 (shop=mall, 6500 Springfield Mall), centroid"}
+   ],
+   "venues": [
+    {"path": "/events/parks/burke-lake/", "name": "Burke Lake Park", "lat": 38.7607784, "lon": -77.306883, "address": "7315 Ox Road", "city": "Fairfax Station", "region": "VA", "postal": "22039", "node": "/parks/burke-lake-park-location"},
+    {"path": "/events/parks/colvin-run-mill/", "name": "Colvin Run Mill", "lat": 38.9685457, "lon": -77.2930497, "address": "10017 Colvin Run Road", "city": "Great Falls", "region": "VA", "postal": "22066", "node": "/parks/colvin-run-mill/location"},
+    {"path": "/events/parks/eclawrence/", "name": "Ellanor C. Lawrence Park", "lat": 38.8613775, "lon": -77.430505, "address": "5040 Walney Road", "city": "Chantilly", "region": "VA", "postal": "20151", "node": "/parks/eclawrence/location"},
+    {"path": "/events/parks/frying-pan-park/", "name": "Frying Pan Farm Park", "lat": 38.936830311213, "lon": -77.410590447462, "address": "2709 West Ox Road", "city": "Herndon", "region": "VA", "postal": "20171", "node": "/parks/frying-pan-park/location"},
+    {"path": "/events/parks/golf/burke-lake/", "name": "Burke Lake Golf Center", "lat": 38.763235939821, "lon": -77.309653759003, "address": "6915 Ox Road", "city": "Fairfax Station", "region": "VA", "postal": "22039", "node": "/parks/golf/burke-lake/location"},
+    {"path": "/events/parks/golf/laurel-hill/", "name": "Laurel Hill Golf Club", "lat": 38.7178902, "lon": -77.2477313, "address": "8701 Laurel Crest Drive", "city": "Lorton", "region": "VA", "postal": "22079", "node": "/parks/golf/laurel-hill/location"},
+    {"path": "/events/parks/golf/pinecrest/", "name": "Pinecrest Golf Course", "lat": 38.824245, "lon": -77.162607, "address": "6600 Little River Turnpike", "city": "Alexandria", "region": "VA", "postal": "22312", "node": "/parks/golf/pinecrest-location"},
+    {"path": "/events/parks/green-spring/", "name": "Green Spring Gardens", "lat": 38.825010288201, "lon": -77.160165238338, "address": "4603 Green Spring Rd.", "city": "Alexandria", "region": "VA", "postal": "22312", "node": "/parks/green-spring/location"},
+    {"path": "/events/parks/hidden-oaks/", "name": "Hidden Oaks Nature Center", "lat": 38.838096, "lon": -77.2115479, "address": "7701 Royce Street", "city": "Annandale", "region": "VA", "postal": "22003", "node": "/parks/hidden-oaks-nature-center-location"},
+    {"path": "/events/parks/hidden-pond/", "name": "Hidden Pond Nature Center", "lat": 38.7723133, "lon": -77.2386734, "address": "8511 Greeley Blvd.", "city": "Springfield", "region": "VA", "postal": "22152", "node": "/parks/hidden-pond-nature-center-location"},
+    {"path": "/events/parks/huntley-meadows/", "name": "Huntley Meadows", "lat": 38.7601672, "lon": -77.0955692, "address": "3701 Lockheed Blvd.", "city": "Alexandria", "region": "VA", "postal": null, "node": "/parks/huntley-meadows/location"},
+    {"path": "/events/parks/lake-accotink/", "name": "Lake Accotink", "lat": 38.7896843, "lon": -77.2125075, "address": "7500 Accotink Park Road", "city": "Springfield", "region": "VA", "postal": "22150", "node": "/parks/lake-accotink-location"},
+    {"path": "/events/parks/lake-fairfax/", "name": "Lake Fairfax", "lat": 38.9701358, "lon": -77.3179359, "address": "1400 Lake Fairfax Drive", "city": "Reston", "region": "VA", "postal": "20190", "node": "/parks/lake-fairfax-location"},
+    {"path": "/events/parks/reccenter/audrey-moore/", "name": "Wakefield Park/Audrey Moore Rec Center", "lat": 38.8146476, "lon": -77.2252242, "address": "8100 Braddock Road", "city": "Annandale", "region": "VA", "postal": "22003", "node": "/parks/reccenter/audrey-moore/location"},
+    {"path": "/events/parks/reccenter/cub-run/", "name": "Cub Run Rec Center", "lat": 38.8900193, "lon": -77.4685365, "address": "4630 Stonecroft Blvd.", "city": "Chantilly", "region": "VA", "postal": "20151", "node": "/parks/reccenter/cub-run/location"},
+    {"path": "/events/parks/reccenter/franconia/", "name": "Franconia Rec Center", "lat": 38.7740436, "lon": -77.1087914, "address": "6601 Telegraph Rd", "city": "Alexandria", "region": "VA", "postal": "22310", "node": "/parks/reccenter/franconia/location"},
+    {"path": "/events/parks/reccenter/mount-vernon/", "name": "Mount Vernon Rec Center", "lat": 38.7743858, "lon": -77.0633374, "address": "2017 Belle View Blvd", "city": "Alexandria", "region": "VA", "postal": "22307", "node": "/parks/reccenter/mount-vernon/location"},
+    {"path": "/events/parks/reccenter/oakmont/", "name": "Oakmont Rec Center", "lat": 38.8751363, "lon": -77.3142595, "address": "3200 Jermantown Rd", "city": "Oakton", "region": "VA", "postal": "22124", "node": "/parks/reccenter/oakmont/location"},
+    {"path": "/events/parks/reccenter/providence/", "name": "Providence Rec Center", "lat": 38.861766, "lon": -77.210798, "address": "7525 Marc Dr", "city": "Falls Church", "region": "VA", "postal": "22042", "node": "/parks/reccenter/providence/location"},
+    {"path": "/events/parks/reccenter/south-run/", "name": "South Run Rec Center", "lat": 38.7476846, "lon": -77.2745818, "address": "7550 Reservation Dr", "city": "Springfield", "region": "VA", "postal": "22153", "node": "/parks/reccenter/south-run/location"},
+    {"path": "/events/parks/reccenter/spring-hill/", "name": "Spring Hill Rec Center", "lat": 38.9423625, "lon": -77.2288222, "address": "1239 Spring Hill Road", "city": "McLean", "region": "VA", "postal": "22102", "node": "/parks/reccenter/spring-hill/location"},
+    {"path": "/events/parks/riverbend/", "name": "Riverbend Park", "lat": 39.0176208, "lon": -77.2554268, "address": "8700 Potomac Hills St.", "city": "Great Falls", "region": "VA", "postal": "22066", "node": "/parks/riverbend-park-location"},
+    {"path": "/events/parks/sully-historic-site/", "name": "Sully Historic Site", "lat": 38.9076663, "lon": -77.4308043, "address": "3650 Historic Sully Way", "city": "Chantilly", "region": "VA", "postal": "20151", "node": "/parks/sully-historic-site/location"},
+    {"path": "/events/parks/turner-farm/", "name": "Observatory Park at Turner Farm", "lat": 38.995559, "lon": -77.312735, "address": "925 Springvale Road", "city": "Great Falls", "region": "VA", "postal": "22066", "node": "/parks/observatory-park-turner-farm"},
+    {"path": "/events/parks/rivebend/", "name": "Riverbend Park", "lat": 39.0176208, "lon": -77.2554268, "address": "8700 Potomac Hills St.", "city": "Great Falls", "region": "VA", "postal": "22066", "node": "/parks/riverbend-park-location"}
+   ]
+  }
+ ]
+}
