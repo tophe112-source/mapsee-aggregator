@@ -370,6 +370,41 @@ with tempfile.TemporaryDirectory() as d:
     check("per source", store.notices_by_source, {"ics:test": 2})
 
 
+# A HOST'S CRAWL-DELAY IS A FLOOR. Barcelona's guia.barcelona.cat asks 10 s
+# (2026-10-05); every probe used to sleep the same 0.35 s. A URL whose host is
+# not due yet is skipped this run, never asked sooner, and the walk goes on.
+class _DelayRobots:
+    def check(self, url):
+        slow = "slow.test" in url
+        return {"allowed": True, "crawl_delay": 10 if slow else None}
+
+
+_now = [1000.0]
+_asked = []
+
+
+def _fake_verdict(url, robots=None):
+    _asked.append(url)
+    return "live"
+
+
+def _sleep(s):
+    _now[0] += s
+
+
+_order = ["https://slow.test/a", "https://slow.test/b", "https://fast.test/1",
+          "https://fast.test/2", "https://slow.test/c"]
+_v, _hit, _paced = PRUNE.probe_all(_order, _DelayRobots(), 0.35, 0, _now[0], verdict=_fake_verdict,
+                                   clock=lambda: _now[0], sleep=_sleep)
+check("a 10 s Crawl-delay host is asked once in 1.4 s, its next pages left for a later run",
+      (_asked, dict(_paced)), (["https://slow.test/a", "https://fast.test/1", "https://fast.test/2"],
+                               {"slow.test": 2}))
+_now[0] += 20
+_asked.clear()
+PRUNE.probe_all(["https://slow.test/b", "https://slow.test/c"], _DelayRobots(), 0.35, 0, _now[0],
+                verdict=_fake_verdict, clock=lambda: _now[0], sleep=_sleep)
+check("...and asked again once its delay has passed", _asked, ["https://slow.test/b"])
+
 print()
 if FAILS:
     print(f"{len(FAILS)} FAILED: " + "; ".join(FAILS))

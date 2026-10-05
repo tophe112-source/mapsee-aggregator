@@ -78,7 +78,13 @@ CHALLENGE_RX = re.compile(
     # DPR, Arlington, Montgomery Rec, Prince William). As a bare 403 it read as
     # "no file, allow everything", so verify would have passed a host that is
     # refusing us by name.
-    r"sorry,\s*you\s+have\s+been\s+blocked|attention\s+required!?\s*\|\s*cloudflare",
+    r"sorry,\s*you\s+have\s+been\s+blocked|attention\s+required!?\s*\|\s*cloudflare|"
+    # The Ajuntament de Barcelona's portal: /robots.txt is a 302 to /challenge,
+    # a "Bot Detection ... Please prove that you are Human" page (2026-10-05),
+    # which read as a homepage with no rules - allow everything. Anchored on the
+    # page's <title> and its "Please", because five adapters also run this
+    # pattern over fetched event pages, where a talk about bot detection is prose.
+    r"<title>\s*bot\s+detection|please\s+prove\s+that\s+you\s+are\s+(?:a\s+)?human",
     re.I)
 
 _UNRESERVED = set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~")

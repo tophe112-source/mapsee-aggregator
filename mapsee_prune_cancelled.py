@@ -223,6 +223,38 @@ def cancellation_verdict(url: str, timeout: int = 20, robots=None) -> str:
         return "unknown"
 
 
+def probe_all(order, robots, delay, max_seconds, began, verdict=None,
+              clock=time.time, sleep=time.sleep):
+    """Probe each URL once, soonest first. Returns (verdicts, budget_hit, paced).
+
+    A HOST'S CRAWL-DELAY IS A FLOOR, NOT A SUGGESTION. Until 2026-10-05 every
+    probe slept the same --delay (0.35 s) whatever the host's robots.txt asked:
+    Barcelona's guia.barcelona.cat asks 10 s and was about to carry 1,237
+    upcoming rows' links. Sleeping 10 s per row would spend the whole budget on
+    one host, so a URL whose host is not due yet is skipped this run (counted in
+    `paced`) and the walk moves on; it comes round again tomorrow, nearer the top.
+    """
+    verdict = verdict or cancellation_verdict
+    verdicts, budget_hit, paced = {}, 0, collections.Counter()
+    next_ok = {}
+    for i, url in enumerate(order, 1):
+        if max_seconds and clock() - began > max_seconds:
+            budget_hit = len(order) - i + 1
+            break
+        host = _host(url)
+        if clock() < next_ok.get(host, 0.0):
+            paced[host] += 1
+            continue
+        verdicts[url] = verdict(url, robots=robots)
+        if verdicts[url] != "robots":                  # nothing was fetched to pace
+            ans = robots.check(url) if robots is not None else {}
+            next_ok[host] = clock() + float(ans.get("crawl_delay") or 0)
+            sleep(delay)
+        if i % 50 == 0:
+            print(f"    probed {i}/{len(order)}", flush=True)
+    return verdicts, budget_hit, paced
+
+
 def _host(url: str) -> str:
     try:
         return (urllib.parse.urlparse(url).hostname or "").lower().lstrip("www.")
@@ -370,20 +402,15 @@ def main():
               f"{len(order) - args.max_checks} are further out and wait for a later run")
         order = order[:args.max_checks]
 
-    verdicts, budget_hit = {}, 0
     robots = robots_txt.Robots(_RobotsSession())      # one robots.txt per host per run
-    for i, url in enumerate(order, 1):
-        if args.max_seconds and time.time() - began > args.max_seconds:
-            budget_hit = len(order) - i + 1
-            break
-        verdicts[url] = cancellation_verdict(url, robots=robots)
-        if verdicts[url] != "robots":                  # nothing was fetched to pace
-            time.sleep(args.delay)
-        if i % 50 == 0:
-            print(f"    probed {i}/{len(order)}", flush=True)
+    verdicts, budget_hit, paced = probe_all(order, robots, args.delay, args.max_seconds, began)
     if budget_hit:
         print(f"  BUDGET: stopped after {args.max_seconds}s with {budget_hit} URL(s) "
               f"unprobed; they are left for the next run")
+    if paced:
+        print(f"  PACED: {sum(paced.values())} URL(s) not asked because their host's "
+              f"Crawl-delay had not elapsed; left for a later run: "
+              + ", ".join(f"{h} {n}" for h, n in paced.most_common(6)))
 
     tally = collections.Counter(verdicts.values())
     print("\n  verdicts: " + " · ".join(f"{k}={v}" for k, v in tally.most_common()))

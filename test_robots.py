@@ -213,6 +213,17 @@ CF_BLOCK = ('<!DOCTYPE html><html><head><title>Attention Required! | Cloudflare<
 a = answer({"https://dcwashingtonweb.example/robots.txt": (403, CF_BLOCK)}, "https://dcwashingtonweb.example/webtrac/web/search.html")
 check("Cloudflare's 'you have been blocked' 403 on robots.txt is a refusal, not 'no file' (WebTrac, 2026-10-04)",
       a["allowed"] is None and a["status"] == "challenge", a)
+BOT_DETECT = ('<!DOCTYPE html><html><head><title>Bot Detection</title></head><body>'
+              '<p>Please prove that you are Human</p></body></html>')
+a = answer({"https://opendata.example/robots.txt": (200, BOT_DETECT)}, "https://opendata.example/data/x.json")
+check("a 'Bot Detection ... prove that you are Human' page on robots.txt is a challenge (Barcelona, 2026-10-05)",
+      a["allowed"] is None and a["status"] == "challenge", a)
+a = answer({"https://cmt.example/robots.txt": (200, "# Bot detection runs on /login\nUser-agent: *\nDisallow: /login\n")},
+           "https://cmt.example/cal.ics")
+check("...while a real file whose comment says 'bot detection' is read as a file",
+      a["allowed"] is True and a["status"] == "ok", a)
+check("...and an event page that talks about bot detection is not a challenge",
+      R.CHALLENGE_RX.search("<h2>Workshop: bot detection with machine learning</h2>") is None)
 a = answer({"https://plain.example/robots.txt": (403, "Forbidden")}, "https://plain.example/cal.ics")
 check("...while a bare 403 with no block page is still RFC 9309's 'unavailable': allowed",
       a["allowed"] is True and a["status"] == "http403", a)
