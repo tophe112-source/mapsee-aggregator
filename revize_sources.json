@@ -1,0 +1,271 @@
+{
+  "_comment": "Town calendars served by the Revize CMS calendar plugin (mapsee_ingest_revize.py). One JSON request per site: /_assets_/plugins/revizeCalendar/calendar_data_handler.php?webspace=<webspace>&relative_revize_url=<revize_base>&protocol=https: on the town's own host. Find a site by its calendar.php page: `RZ.protocolRelativeRevizeBaseUrl='//cmsN.revize.com'` and `webspace = '<ws>'` are in its HTML. `calendars` maps a primary_calendar_name to a lens key; a calendar not named is never read, and meetings/closure calendars are never named. `host_calendars` are the calendars the town itself runs: only their rows name the town as host (promoter), and only their sessions are skipped on the days the town's own closure rows cover; `not_host_title` excepts a club the town merely lists. `centre` + `radius_km` (default 25) bound what the geocoder is believed: a geocoded answer further away is unplaced. `venues` is a book: `match` is a regex over the row's location; an entry with lat/lon pins, one with `query` is geocoded by that text instead of the row's, one with neither only names. `category_by_title` (top level, for every site, after a site's own) is [regex over the title, lens key], first match wins. robots.txt is read for every site before its request. Probed 2026-10-04 (22 town sites in the DC metro and Washington state): 5 run this plugin; 4 are here, Langley WA is in _not_included with its numbers.",
+  "category_by_title": [
+    [
+      "\\bRun Club\\b|\\bfun run\\b|\\b5K\\b",
+      "running"
+    ],
+    [
+      "\\bOpen Gym\\b|\\bBasketball\\b|\\bSoccer\\b|\\bBaseball\\b|\\bSoftball\\b|\\bPickleball\\b|\\bVolleyball\\b",
+      "sports"
+    ],
+    [
+      "\\bWalk With Ease\\b|\\bLine Danc(?:e|ing)\\b|\\bZumba\\b|\\bTai Chi\\b|\\bLaBlast\\b|\\bYoga\\b|\\bStretch(?:ing)?\\b|\\bAerobics\\b|\\bFitness\\b",
+      "fitness"
+    ],
+    [
+      "\\bMusical\\b|\\bTheat(?:er|re)\\b|\\bRadio Play\\b",
+      "theater"
+    ],
+    [
+      "\\bBeyond the Storm Drain\\b",
+      "learning"
+    ]
+  ],
+  "_category_by_title_why": "Every calendar maps to community, and on 2026-10-04 derive_categories promoted none of the Community Center timetable (Run Club 26, Open Gym 21, Higher Level Basketball 14, Walk With Ease 14, Line Dancing 7 all primary community) - the adapter's own key decides those doors, as perfectmind's category_for_calendar and toronto_rec's category_by_title_prefix do. 'Beyond the Storm Drain' is a talk series that the sync otherwise sent to volunteer.",
+  "sites": [
+    {
+      "key": "manassas",
+      "name": "City of Manassas, VA",
+      "origin": "https://www.manassasva.gov",
+      "webspace": "manassasva",
+      "revize_base": "//cms9.revize.com",
+      "calendar_page": "https://www.manassasva.gov/calendar.php",
+      "timezone": "America/New_York",
+      "city": "Manassas",
+      "region": "VA",
+      "country": "US",
+      "geocode_suffix": ", Manassas, VA",
+      "centre": [
+        38.750553,
+        -77.473818
+      ],
+      "_centre_source": "Harris Pavilion (the venue book's OSM node), downtown Manassas. Only the radius guard reads it.",
+      "calendars": {
+        "Community Center": "community",
+        "Community Events": "community",
+        "Harris Pavilion": "community"
+      },
+      "_calendars_not_read": "Public Meetings (135 rows: council, boards, commissions - governance).",
+      "host_calendars": [
+        "Community Center"
+      ],
+      "not_host_title": "^Run Club\\b",
+      "_host_why": "The Community Center calendar is the city's own programme (Toddler Drop-In, Open Gym 'The City of Manassas is continuing its Open Gym program', Zumba, Walk With Ease). Run Club is filed there but is a club (manassasrunclub@gmail.com), so it is neither hosted by the city nor closed by its holidays. Community Events and Harris Pavilion list other organisers' events (Hylton PAC, ARTfactory, the Prince William library, Historic Manassas Inc), so they name no host.",
+      "venues": [
+        {
+          "match": "8750 Sudley|(?:City of )?Manassas Community Center",
+          "name": "Manassas Community Center",
+          "address": "8750 Sudley Rd",
+          "postal_code": "20110",
+          "lat": 38.766816,
+          "lon": -77.484091,
+          "coords_exact": false,
+          "_source": "US Census geocoder, 2026-10-04 ('8750 SUDLEY RD, MANASSAS, VA, 20110', address-range interpolation). OSM has no feature named for the centre; Photon answers the address with Sudley Road's midpoint (38.762025,-77.477066), ~0.7 km off. Listed before the library: one row reads 'Manassas City Library, Community Center, 8750 Sudley Road'."
+        },
+        {
+          "match": "Harris Pavilion|9201 Center St",
+          "name": "Harris Pavilion",
+          "address": "9201 Center St",
+          "postal_code": "20110",
+          "lat": 38.750553,
+          "lon": -77.473818,
+          "coords_exact": true,
+          "_source": "OSM node 6993933259 (Harris Pavilion Ice Rink - the pavilion), via Photon 2026-10-04"
+        },
+        {
+          "match": "Manassas City Library|10104 Dumfries",
+          "name": "Manassas City Library",
+          "address": "10104 Dumfries Rd",
+          "postal_code": "20110",
+          "lat": 38.7372343,
+          "lon": -77.4750134,
+          "coords_exact": true,
+          "_source": "OSM way 225859128 (amenity=library 'Manassas City Library'), via Photon 2026-10-04; the city's own Google link for the library is @38.7372205,-77.4748741. Pinned exact because the sync's Census pass otherwise moves it ~370 m to an address-range interpolation (38.739327,-77.471816)."
+        },
+        {
+          "match": "9501 Dean Park",
+          "name": "Boys & Girls Club, Dean Park Lane",
+          "address": "9501 Dean Park Ln",
+          "postal_code": "20110",
+          "lat": 38.742868,
+          "lon": -77.491569,
+          "coords_exact": true,
+          "_source": "OSM way 223220999 (Boys & Girls Club, 9501 Dean Park Lane), via Photon 2026-10-04. The Community Center calendar's Open Gym is here."
+        },
+        {
+          "match": "Manassas Museum|9101 Prince William",
+          "name": "Manassas Museum",
+          "address": "9101 Prince William St",
+          "postal_code": "20110",
+          "lat": 38.748588,
+          "lon": -77.472165,
+          "coords_exact": true,
+          "_source": "OSM way 45749984 (Manassas Museum), via Photon 2026-10-04. The city writes this address as 'Historic District, 9101 Prince William St' and as '9101 Prince Williams St.'."
+        },
+        {
+          "match": "Hylton Performing Arts Center|10960 George Mason",
+          "name": "Hylton Performing Arts Center",
+          "address": "10960 George Mason Cir",
+          "postal_code": "20109",
+          "lat": 38.759343,
+          "lon": -77.524519,
+          "coords_exact": true,
+          "_source": "OSM way 544901011 (the building), via Photon 2026-10-04. The city writes 'Hylton Performing Arts Center, Merchant Hall', which Photon does not find."
+        },
+        {
+          "match": "9317 Center St|(?:Manassas )?City Cemetery|Manassas Cemetery",
+          "name": "Manassas City Cemetery",
+          "address": "9317 Center St",
+          "postal_code": "20110",
+          "lat": 38.7503501,
+          "lon": -77.4803433,
+          "coords_exact": true,
+          "_source": "OSM relation 11859971 (amenity=grave_yard 'Manassas Cemetery'), via Photon 2026-10-05; the row's own Google link is @38.7496715,-77.4807395. Without this pin Photon answered '9317 Center St, Manassas, VA 20110' with a roofing contractor 2.5 km away (node 14084814418) and the Census geocoder has no match to correct it."
+        },
+        {
+          "match": "9419 Battle St",
+          "name": "ARTfactory"
+        },
+        {
+          "match": "8601 Portner Ave",
+          "name": "Liberia House"
+        },
+        {
+          "match": "^\\s*(?:Historic\\s+)?Downtown(?:\\s+Manassas)?\\s*(?:,|$)",
+          "name": "Historic Downtown Manassas",
+          "lat": 38.750553,
+          "lon": -77.473818,
+          "coords_exact": false,
+          "_source": "A district, pinned deliberately at West St and Center St (the Harris Pavilion corner), where the city's own Go Green First Friday row puts its staff. Not exact and carries no street, so the sync's Census pass leaves it. Without it Photon answered 'Downtown Manassas' with the Manassas Downtown Post Office (way 386109189)."
+        }
+      ],
+      "clock_fixes": [
+        {
+          "id": "1115",
+          "from": "08:30",
+          "to": "20:30",
+          "why": "Open Gym, Fridays at the Boys & Girls Club: the row runs 08:30-22:00 and the city's own Saturday Open Gym row (id 1167) says 'Friday 8:30 - 10:00 pm'. Read 2026-10-04."
+        }
+      ],
+      "_measured_2026_10_04": "915 rows (Community Events 663, Public Meetings 135, Community Center 66, Harris Pavilion 51), 193 with an RRULE. See the adapter header and docs/agents/community-centres.md for the dry run."
+    },
+    {
+      "key": "bladensburg",
+      "name": "Town of Bladensburg, MD",
+      "origin": "https://www.bladensburgmd.gov",
+      "webspace": "bladensburgmd",
+      "revize_base": "//cms9.revize.com",
+      "calendar_page": "https://www.bladensburgmd.gov/calendar.php",
+      "timezone": "America/New_York",
+      "city": "Bladensburg",
+      "region": "MD",
+      "country": "US",
+      "geocode_suffix": ", Bladensburg, MD",
+      "centre": [
+        38.945546,
+        -76.917446
+      ],
+      "_centre_source": "The Bladensburg Community Center book pin. Only the radius guard reads it.",
+      "calendars": {
+        "Events": "community"
+      },
+      "_calendars_not_read": "Meetings (32), Closings/Holidays (14), Test (1).",
+      "venues": [
+        {
+          "match": "Bladensburg Community Center|4500 57th Ave",
+          "name": "Bladensburg Community Center",
+          "address": "4500 57th Ave",
+          "postal_code": "20710",
+          "lat": 38.945546,
+          "lon": -76.917446,
+          "coords_exact": true,
+          "_source": "OSM way 614864291 (amenity=community_centre, 4500 57th Avenue), via Photon 2026-10-04"
+        },
+        {
+          "match": "Bladensburg Town Hall|4229 Edmonston",
+          "name": "Bladensburg Town Hall",
+          "address": "4229 Edmonston Rd",
+          "postal_code": "20710",
+          "query": "4229 Edmonston Rd, Bladensburg, MD 20710",
+          "_source": "The town's own address for its hall (row '4229 EDMONSTON RD.BLADENDSBURG, MD 20710'); Photon has no feature named for it (2026-10-05), so the address is geocoded and the sync's Census pass refines it."
+        }
+      ],
+      "_measured_2026_10_04": "225 rows (Events 178 since 2021, about 4 a month); 2 Events occurrences in the next 90 days (Trunk-or-Treat at the Community Center, a fall clean-up). Prince George's County, on DC's border."
+    },
+    {
+      "key": "pacific-wa",
+      "name": "City of Pacific, WA",
+      "origin": "https://www.pacificwa.gov",
+      "webspace": "pacific",
+      "revize_base": "//cms3.revize.com",
+      "calendar_page": "https://www.pacificwa.gov/calendar.php",
+      "timezone": "America/Los_Angeles",
+      "city": "Pacific",
+      "region": "WA",
+      "country": "US",
+      "geocode_suffix": ", Pacific, WA",
+      "centre": [
+        47.2672086,
+        -122.2502717
+      ],
+      "_centre_source": "Photon's answer for '305 Milwaukee Blvd. S., Pacific, WA 98047' (the community center), 2026-10-04. Only the radius guard reads it.",
+      "calendars": {
+        "Community": "community"
+      },
+      "_calendars_not_read": "Meetings (57), City Hall Closed (26).",
+      "venues": [
+        {
+          "match": "Pacific Community Center|305 Milwaukee|Community Center Gym|^\\s*Gymnasium\\s*$",
+          "name": "Pacific Community Center",
+          "address": "305 Milwaukee Blvd S",
+          "postal_code": "98047",
+          "query": "305 Milwaukee Blvd. S., Pacific, WA 98047",
+          "_source": "The city writes the same centre as 'Pacific Community Center', '305 Milwaukee Blvd. S., Pacific, WA 98047', 'Community Center Gym' and, for Community Bingo, 'Gymnasium'. Photon answered 'Gymnasium, Pacific, WA' with the centroid of Pacific COUNTY, 140 km away."
+        }
+      ],
+      "_measured_2026_10_04": "125 rows; 5 Community occurrences in the next 90 days (Community Bingo x3, Harvest Festival, Annual Tree Lighting), all at 305 Milwaukee Blvd S. King County, Seattle metro."
+    },
+    {
+      "key": "olympia",
+      "name": "City of Olympia, WA",
+      "origin": "https://www.olympiawa.gov",
+      "webspace": "olympia",
+      "revize_base": "//cms7.revize.com",
+      "calendar_page": "https://www.olympiawa.gov/calendar.php",
+      "timezone": "America/Los_Angeles",
+      "city": "Olympia",
+      "region": "WA",
+      "country": "US",
+      "geocode_suffix": ", Olympia, WA",
+      "centre": [
+        47.0450965,
+        -122.8948482
+      ],
+      "_centre_source": "OSM way 230394213 (Olympia City Hall, 601 4th Ave E), via Photon 2026-10-05. Only the radius guard reads it.",
+      "calendars": {
+        "Community Events": "community"
+      },
+      "_calendars_not_read": "Advisory Committees & Commissions (221), City Council & Interagency Meetings (116), Planning & Development (63), City Office Closures (24), Land Use & Development (5), Test (1); Oly on Ice (41 rows, the last in January 2023 - re-check each November).",
+      "_measured_2026_10_04": "551 rows; Community Events 80 since 2022 (busiest months 7-10), 1 occurrence in the next 90 days (Indigenous Peoples' Day Celebration)."
+    }
+  ],
+  "_not_included": [
+    {
+      "name": "City of Manassas Park, VA",
+      "url": "https://www.manassasparkva.gov/",
+      "why": "robots.txt is `User-agent: *` + `Disallow: /` (read 2026-10-04). A Revize site; nothing on it is read."
+    },
+    {
+      "name": "Town of Riverdale Park, MD",
+      "url": "https://www.riverdaleparkmd.gov/calendar.php",
+      "why": "A Revize site (webspace riverdalemd, cms7) on the older calendar: calendar_data_handler.php answers 404 (2026-10-04). Its calendar is not this plugin."
+    },
+    {
+      "name": "City of Langley, WA",
+      "url": "https://www.langleywa.org/_assets_/plugins/revizeCalendar/calendar_data_handler.php?webspace=langleywa&relative_revize_url=//cms4.revize.com&protocol=https:",
+      "why": "Permitted, 108 rows, but 0 community events in the next 90 days on 2026-10-04: Council & Commissions 26 occurrences (governance), Holidays/Special Events 5 (all 'City Hall closed'), Public Works 2 ('Utility Bills Due'). Re-check in summer."
+    }
+  ],
+  "_probed_not_revize": "2026-10-04, calendar.php then the home page: Dumfries VA (calendar.php 403 - a refusal, not retried), Front Royal VA, District Heights MD, Seat Pleasant MD, Laurel MD, Haymarket VA, Occoquan VA, Snoqualmie WA, Mill Creek WA, Lake Stevens WA, Poulsbo WA, DuPont WA, North Bend WA - no Revize calendar marker. Covington WA robots.txt `Disallow: /`; Gig Harbor WA robots.txt behind a bot challenge; Sultan WA robots.txt unreachable - none of the three read."
+}
