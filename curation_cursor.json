@@ -227,9 +227,11 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 127,
-  "metro_key": "DE:Hannover",
-  "stuck": {}
+  "metro": 130,
+  "metro_key": "FR:Lyon",
+  "stuck": {
+   "FR:Lyon": 1
+  }
  },
  "socrata": {
   "art events": 0,

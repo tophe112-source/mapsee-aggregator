@@ -19267,5 +19267,52 @@
     "geocode_suffix": ", Belo Horizonte",
     "limit": 300,
     "_metro": "Belo Horizonte, Brazil"
+  },
+  {
+    "name": "Quartierstreff Empelde",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://win-e-v.de/events/49869-2026-10-08/?ical=1",
+    "geocode_suffix": ", Hannover, Germany",
+    "limit": 300,
+    "_metro": "Hannover, Germany"
+  },
+  {
+    "name": "Zweigbibliothek FAU Campus Regensburger Straße",
+    "category": "learning",
+    "_found": "osm:library -> events-manager",
+    "url": "https://ub.fau.de/bibliothek/veranstaltungen/nacht-der-bibliotheken/?ical=1",
+    "geocode_suffix": ", Nürnberg",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "CVJM",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/u38fl9q0di0ii5jhjtpia4vou0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nuremberg, Germany",
+    "limit": 300,
+    "_metro": "Nuremberg, Germany"
+  },
+  {
+    "name": "Maison des Fêtes Familiales",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.ville-torcy.fr/locations-demandes-de-salles/maison-des-fetes-familiales/?ical=1",
+    "geocode_suffix": ", Torcy",
+    "limit": 300,
+    "_metro": "Paris, France",
+    "crawl_delay": 3.0
+  },
+  {
+    "name": "Ferme du Couvent",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.ville-torcy.fr/evenements/?ical=1",
+    "geocode_suffix": ", Torcy",
+    "limit": 300,
+    "_metro": "Paris, France",
+    "crawl_delay": 3.0
   }
 ]

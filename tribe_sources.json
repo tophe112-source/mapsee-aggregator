@@ -15354,6 +15354,91 @@
         "lon": -43.194496
       },
       "_metro": "Rio de Janeiro, Brazil"
+    },
+    {
+      "name": "Treffpunkt Röthelheimpark",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.treffpunkt-roethelheimpark.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Treffpunkt Röthelheimpark",
+        "address": "111 Schenkstraße",
+        "city": "Erlangen",
+        "postal_code": "91052",
+        "country": "DE",
+        "lat": 49.5863527,
+        "lon": 11.0243929
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Stadtteilzentrum Desi",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://desi-nbg.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadtteilzentrum Desi",
+        "address": "23 Brückenstraße",
+        "city": "Nürnberg",
+        "postal_code": "90419",
+        "country": "DE",
+        "lat": 49.4578855,
+        "lon": 11.0597196
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Villa Flaire",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+ics",
+      "base_url": "https://villa-flaire.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Villa Flaire",
+        "lat": 49.3384323,
+        "lon": 11.2895558
+      },
+      "_metro": "Nuremberg, Germany"
+    },
+    {
+      "name": "Centre des Arts et Loisirs",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.vairessurmarne.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre des Arts et Loisirs",
+        "address": "31;33 Avenue Jean Jaurès",
+        "city": "Vaires-sur-Marne",
+        "postal_code": "77360",
+        "lat": 48.8732695,
+        "lon": 2.6376073
+      },
+      "_metro": "Paris, France"
+    },
+    {
+      "name": "Maison du vélo",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://mdb-idf.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison du vélo",
+        "address": "37 Boulevard Bourdon",
+        "city": "Paris",
+        "postal_code": "75004",
+        "lat": 48.8522689,
+        "lon": 2.367669
+      },
+      "_metro": "Paris, France",
+      "crawl_delay": 10.0
     }
   ],
   "_not_included": {
