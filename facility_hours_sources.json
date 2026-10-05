@@ -1,0 +1,329 @@
+{
+  "_about": "Opening hours of community centres and older-adult centres from city open data, read by mapsee_ingest_facility_hours.py: one STANDING row per centre (recurring_days), plus dated rows for Seattle's Teen Late Night programme. Each source's `osm` map is written by `--propose-osm` and checked by a person: mode `same` means this adapter writes the OSM community_centre listing's own row (osm_amenities skips that element, see claimed_osm_refs), `colocated` means another centre in the same building, drawn on the same dot. A centre this adapter owns whose hours it refuses today (closed, no hours for the season, unreadable, or gone from the city's data) is handled by mapsee_ingest_facility_hours.refused_event: a taken-over listing is REWRITTEN as a listing with no hours, never skipped; an own row is not written (as pin_only scenery ../mapsee still opened a sheet with a 24-hour clock), so an own row written once and refused later keeps its last week until a retirement exists. Seattle's `summer` window ends on Labor Day because the centres' own pages say 'Fall 2026 (begins Sept 8)'; its June start is not measured (the pages show only the current season). `late_night_days_ahead` keeps the programme's projected evenings short, because an upsert cannot remove one the open data later drops. Washington, DC publishes no hours in open data (2026-10-05: DPR's 70 recreation centres, the 114 aging-services sites, 28 libraries and 49 group meal centres on maps2.dcgis.dc.gov carry none), so DC has no source here.",
+  "late_night_days_ahead": 21,
+  "max_age_days": 400,
+  "sources": [
+    {
+      "key": "seattle-cc",
+      "name": "Seattle Parks and Recreation community centers",
+      "type": "arcgis",
+      "url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/Community_Centers/FeatureServer/0",
+      "format": "seattle_seasons",
+      "summer": [
+        "06-20",
+        "labor-day"
+      ],
+      "fields": {
+        "id": "PMAID",
+        "name": "NAME",
+        "address": "ADDRESS",
+        "phone": "PHONE",
+        "website": "WEBSITE_LINK"
+      },
+      "closure_fields": [
+        "OPEN_",
+        "OPERATIONALSTATUS",
+        "NOTES"
+      ],
+      "closure_rx": "^\\s*closed\\b",
+      "late_night_field": "LN_HOURS",
+      "late_night_flag": "LN_LOCATION",
+      "late_night_disagrees": {
+        "_why": "LN_HOURS exactly as the open data says it, for a centre whose own seattle.gov page says otherwise (both read 2026-10-05). While the cell still says this, the centre's Late Night evenings are not written; the day the city corrects it, they come back. South Park's page: 'Fri ... (Late Nite 7:00pm - Midnight) Sat ... (Late Nite 7:00pm - Midnight)'. Van Asselt's page: 'Sat: Closed ( Teen Late Night: 7pm-12am)'.",
+        "467": "Fri 6:30pm-10:30pm and Sat 3:30pm-8:30pm",
+        "431": "Fri 7pm-12am  (no Saturday)"
+      },
+      "programme_line": "Seattle Parks and Recreation's Late Night programme for teens",
+      "extra_holidays": [
+        "thanksgiving+1"
+      ],
+      "kind": "general",
+      "noun": "a Seattle Parks and Recreation community center",
+      "publisher": "the City of Seattle's open data (Seattle Parks and Recreation)",
+      "city": "Seattle",
+      "region": "WA",
+      "country": "US",
+      "timezone": "America/Los_Angeles",
+      "default_area_code": "206",
+      "category": "community",
+      "osm": {
+        "4437": {"ref": "node/2434531628", "mode": "same", "lat": 47.596027, "lon": -122.3226387, "metres": 3, "osm_name": "International District/Chinatown Community Center"},
+        "446": {"ref": "node/927614329", "mode": "same", "lat": 47.5775704, "lon": -122.4070101, "metres": 4, "osm_name": "Alki Community Center"},
+        "373": {"ref": "way/77966334", "mode": "same", "lat": 47.6218666, "lon": -122.3069152, "metres": 5, "osm_name": "Miller Community Center"},
+        "467": {"ref": "way/50622241", "mode": "same", "lat": 47.5283941, "lon": -122.324055, "metres": 6, "osm_name": "South Park Community Center"},
+        "0": {"ref": "way/337831268", "mode": "same", "lat": 47.6419116, "lon": -122.399771, "metres": 6, "osm_name": "Magnolia Community Center"},
+        "376": {"ref": "way/40833037", "mode": "same", "lat": 47.6416895, "lon": -122.310051, "metres": 9, "osm_name": "Montlake Community Center"},
+        "398": {"ref": "way/161502323", "mode": "same", "lat": 47.680585, "lon": -122.2615106, "metres": 9, "osm_name": "Magnuson Community Center"},
+        "340": {"ref": "way/53589225", "mode": "same", "lat": 47.6591627, "lon": -122.2779938, "metres": 10, "osm_name": "Laurelhurst Community Center"},
+        "289": {"ref": "way/53588546", "mode": "same", "lat": 47.6846908, "lon": -122.3828385, "metres": 12, "osm_name": "Loyal Heights Community Center"},
+        "114": {"ref": "way/77965447", "mode": "same", "lat": 47.5697746, "lon": -122.3082832, "metres": 12, "osm_name": "Jefferson Community Center"},
+        "3941": {"ref": "way/37024763", "mode": "same", "lat": 47.5406126, "lon": -122.3746276, "metres": 14, "osm_name": "High Point Community Center"},
+        "431": {"ref": "way/56176613", "mode": "same", "lat": 47.5393873, "lon": -122.2954278, "metres": 14, "osm_name": "Van Asselt Community Center"},
+        "497": {"ref": "way/50321776", "mode": "same", "lat": 47.6728241, "lon": -122.3922158, "metres": 14, "osm_name": "Ballard Community Center"},
+        "456": {"ref": "way/53610787", "mode": "same", "lat": 47.5781549, "lon": -122.3843997, "metres": 15, "osm_name": "Hiawatha Community Center"},
+        "4263": {"ref": "way/26007965", "mode": "same", "lat": 47.6013423, "lon": -122.3201294, "metres": 16, "osm_name": "Yesler Terrace Community Center"},
+        "307": {"ref": "way/34148647", "mode": "same", "lat": 47.6802687, "lon": -122.3285063, "metres": 19, "osm_name": "Green Lake Community Center"},
+        "353": {"ref": "way/228779140", "mode": "same", "lat": 47.6076221, "lon": -122.3021504, "metres": 20, "osm_name": "Garfield Community Center"},
+        "330": {"ref": "way/224436893", "mode": "same", "lat": 47.6362067, "lon": -122.3589565, "metres": 22, "osm_name": "Queen Anne Community Center"},
+        "450": {"ref": "way/35089137", "mode": "same", "lat": 47.5633268, "lon": -122.3643475, "metres": 26, "osm_name": "Delridge Community Center"},
+        "352": {"ref": "way/221295297", "mode": "same", "lat": 47.7057189, "lon": -122.2916462, "metres": 27, "osm_name": "Meadowbrook Community Center"},
+        "409": {"ref": "way/160980421", "mode": "same", "lat": 47.5614214, "lon": -122.2841945, "metres": 28, "osm_name": "Rainier Community Center"},
+        "288": {"ref": "way/50536560", "mode": "same", "lat": 47.7240706, "lon": -122.3486117, "metres": 31, "osm_name": "Bitter Lake Community Center"},
+        "434": {"ref": "way/196614933", "mode": "same", "lat": 47.524361, "lon": -122.2706879, "metres": 36, "osm_name": "Rainier Beach Community Center"},
+        "488": {"ref": "way/60193648", "mode": "same", "lat": 47.6769493, "lon": -122.3043545, "metres": 37, "osm_name": "Ravenna-Eckstein Community Center"},
+        "4425": {"ref": "way/34151089", "mode": "same", "lat": 47.7054567, "lon": -122.3222908, "metres": 87, "osm_name": "Northgate Community Center"}
+      }
+    },
+    {
+      "key": "seattle-teen-life",
+      "name": "Seattle Parks and Recreation Teen Life Centers",
+      "type": "arcgis",
+      "url": "https://services.arcgis.com/ZOyb2t4B0UYuYNYH/arcgis/rest/services/Teen_Life_Center/FeatureServer/0",
+      "format": "seattle_seasons",
+      "summer": [
+        "06-20",
+        "labor-day"
+      ],
+      "fields": {
+        "id": "PMAID",
+        "name": "NAME",
+        "address": "ADDRESS",
+        "phone": "PHONE",
+        "note": "NOTES"
+      },
+      "note_keep_rx": "holiday",
+      "closure_fields": [
+        "STATUS"
+      ],
+      "closure_rx": "^\\s*closed\\b",
+      "programme_line": "Late Night at a Seattle Parks and Recreation Teen Life Center",
+      "extra_holidays": [
+        "thanksgiving+1"
+      ],
+      "kind": "teen",
+      "noun": "a Seattle Parks and Recreation Teen Life Center",
+      "publisher": "the City of Seattle's open data (Seattle Parks and Recreation)",
+      "city": "Seattle",
+      "region": "WA",
+      "country": "US",
+      "timezone": "America/Los_Angeles",
+      "default_area_code": "206",
+      "category": "community",
+      "osm": {
+        "4625": {"ref": "node/13078794339", "mode": "same", "lat": 47.6062307, "lon": -122.3018579, "metres": 12, "osm_name": "Garfield Teen Life Center"},
+        "3996": {"ref": "way/31321306", "mode": "colocated", "lat": 47.527848, "lon": -122.3689627, "metres": 28, "osm_name": "Southwest Community Center"}
+      }
+    },
+    {
+      "key": "nyc-aging-oac",
+      "name": "NYC Aging older adult centers",
+      "type": "socrata",
+      "url": "https://data.cityofnewyork.us/resource/cqc8-am9x.json",
+      "where": "providertype='OLDER ADULT CENTER CONTRACTS'",
+      "format": "open_close_columns",
+      "fields": {
+        "id": "dfta_id",
+        "name": "programname",
+        "address": "programaddress",
+        "city": "programcity",
+        "postal_code": "programzipcode",
+        "phone": "programphone",
+        "operator": "sponsorname"
+      },
+      "name_rewrites": {
+        "\\bOAC\\b": "Older Adult Center",
+        "\\bNSC\\b": "Neighborhood Senior Center",
+        "\\bCTR\\b": "Center",
+        "\\bSC$": "Senior Center",
+        "\\bCen$": "Center",
+        "\\bCl$": "Club",
+        "\\bSVS\\b": "Services"
+      },
+      "kind": "senior",
+      "noun": "an NYC Aging older adult center",
+      "publisher": "NYC Aging's list of contracted providers (NYC Open Data)",
+      "region": "NY",
+      "country": "US",
+      "timezone": "America/New_York",
+      "category": "community",
+      "keep_upper": [
+        "ABSW",
+        "AME",
+        "ARC",
+        "BCA",
+        "CASC",
+        "HANAC",
+        "ISC",
+        "JASA",
+        "JCCGCI",
+        "NNORC",
+        "SAGE",
+        "SEBCO",
+        "SNAP",
+        "UCA",
+        "UJCES",
+        "XVI",
+        "II",
+        "YMCA",
+        "AKA"
+      ],
+      "osm": {
+        "C2104": {"ref": "node/2547245953", "mode": "same", "lat": 40.7197599, "lon": -73.9981915, "metres": 11, "osm_name": "Open Door Senior Center"},
+        "C0102": {"ref": "node/5415887484", "mode": "same", "lat": 40.8531163, "lon": -73.9355226, "metres": 16, "osm_name": "Moriah Senior Center"},
+        "C4001": {"ref": "node/2568739191", "mode": "same", "lat": 40.668396, "lon": -73.9809336, "metres": 23, "osm_name": "Park Slope Center for Successful Aging"},
+        "C3601": {"ref": "node/2744863949", "mode": "same", "lat": 40.7749341, "lon": -73.9871901, "metres": 27, "osm_name": "Goddard Riverside Older Adult Center"},
+        "C1701": {"ref": "way/1137610812", "mode": "same", "lat": 40.7498473, "lon": -73.7568087, "metres": 28, "osm_name": "Bayside Senior Center"},
+        "W1906": {"ref": "node/6657904345", "mode": "colocated", "lat": 40.8095546, "lon": -73.9453751, "metres": 13, "osm_name": "The Laundromat Project"},
+        "C8102": {"ref": "node/2826571502", "mode": "colocated", "lat": 40.7140867, "lon": -73.9883066, "metres": 16, "osm_name": "Manny Cantor Center"},
+        "C5601": {"ref": "node/6385710655", "mode": "colocated", "lat": 40.7361966, "lon": -73.8501995, "metres": 32, "osm_name": "Queens Community House"},
+        "C3602": {"ref": "node/11821220861", "mode": "colocated", "lat": 40.7879321, "lon": -73.9708151, "metres": 32, "osm_name": "Goddard Riverside"},
+        "C1901": {"ref": "node/3545220730", "mode": "colocated", "lat": 40.8126493, "lon": -73.9400429, "metres": 34, "osm_name": "Lt. Joseph P. Kennedy Center"},
+        "C3201": {"ref": "way/248892425", "mode": "colocated", "lat": 40.6063682, "lon": -73.9897506, "metres": 44, "osm_name": "Edith and Carl Marks Jewish Community House of Bensonhurst"},
+        "C7601": {"ref": "way/266908239", "mode": "colocated", "lat": 40.7812762, "lon": -73.945134, "metres": 41, "osm_name": "Stanley M. Isaacs Neighborhood Center"},
+        "C9501": {"ref": "way/275112656", "mode": "colocated", "lat": 40.8602248, "lon": -73.9295419, "metres": 43, "osm_name": "YM&YWHA of Washington Heights & Inwood"},
+        "C9701": {"ref": "way/276544415", "mode": "colocated", "lat": 40.9050304, "lon": -73.9083482, "metres": 102, "osm_name": "The Riverdale YM-YWHA"},
+        "C6501": {"ref": "way/1054847043", "mode": "colocated", "lat": 40.76104355, "lon": -73.7227451, "metres": 67, "osm_name": "Commonpoint Queens", "by_hand": "58-20 Little Neck Pkwy is Commonpoint Queens' Sam Field Center; the OSM way carries no address, so --propose-osm cannot see it"},
+        "4N101": {"ref": "way/1054847043", "mode": "colocated", "lat": 40.76104355, "lon": -73.7227451, "metres": 67, "osm_name": "Commonpoint Queens", "by_hand": "58-20 Little Neck Pkwy is Commonpoint Queens' Sam Field Center; the OSM way carries no address, so --propose-osm cannot see it"}
+      }
+    },
+    {
+      "key": "chicago-dfss-senior",
+      "name": "Chicago DFSS senior centers",
+      "type": "arcgis",
+      "url": "https://services7.arcgis.com/A03QrhyHnDaUmK0W/arcgis/rest/services/DFSS_Senior_Centers/FeatureServer/0",
+      "format": "free_text",
+      "fields": {
+        "id": "SITE_NAME",
+        "name": "{SITE_NAME} {PROGRAM}",
+        "hours": "HOURS_OF_O",
+        "address": "ADDRESS",
+        "city": "CITY",
+        "postal_code": "ZIP",
+        "phone": "PHONE"
+      },
+      "kind": "senior",
+      "noun": "a City of Chicago senior center (Department of Family and Support Services)",
+      "publisher": "a City of Chicago public map layer (Department of Family and Support Services senior centers)",
+      "max_age_days": 730,
+      "_max_age_why": "The layer (owner CDPH.GIS on ArcGIS Online, not the city's Socrata portal, whose copy qhfc-4cw2 was last updated in 2019) was last edited 2025-04-30, 522 days before 2026-10-05, and states no licence. Admitted at 730 days by decision: it carries only facts (a centre's name, address, phone and weekly hours), each row says to check with the centre, and 21 senior centres are the whole of Chicago's supply here. Drop this override to refuse it at the global 400 days. Past 730 days (2027-04-30) the source is refused whole and writes nothing, so its 2 taken-over OSM listings keep their last hours until their `osm` entries are removed here.",
+      "region": "IL",
+      "country": "US",
+      "timezone": "America/Chicago",
+      "category": "community",
+      "osm": {
+        "Northeast (Levy)": {"ref": "way/209938828", "mode": "same", "lat": 41.9684676, "lon": -87.6800183, "metres": 20, "osm_name": "Levy Senior Center"},
+        "Austin": {"ref": "way/162512739", "mode": "same", "lat": 41.8737541, "lon": -87.7523182, "metres": 26, "osm_name": "Austin Satellite Senior Center"}
+      }
+    },
+    {
+      "key": "cleveland-rec",
+      "name": "Cleveland recreation centers",
+      "type": "arcgis",
+      "url": "https://services3.arcgis.com/dty2kHktVXHrqO8i/arcgis/rest/services/Cleveland_Recreation_Centers_(Public)/FeatureServer/13",
+      "format": "free_text",
+      "fields": {
+        "id": "Facility_Name",
+        "name": "Facility_Name",
+        "hours": "Hours",
+        "address": "Address"
+      },
+      "exclude": {
+        "Facility_Type": "camp|golf|rink|greenhouse"
+      },
+      "closure_fields": [
+        "Operational_Status"
+      ],
+      "closure_rx": "closed|renovation",
+      "kind": "general",
+      "kind_by_field": {
+        "Facility_Type": {
+          "fine arts": "arts"
+        }
+      },
+      "noun": "a City of Cleveland recreation center",
+      "noun_by_kind": {
+        "arts": "a City of Cleveland fine arts center"
+      },
+      "publisher": "the City of Cleveland's open data (ODbL)",
+      "city": "Cleveland",
+      "region": "OH",
+      "country": "US",
+      "timezone": "America/New_York",
+      "category": "community",
+      "osm": {
+        "E.J. Kovacic Recreation Center": {"ref": "way/254530098", "mode": "same", "lat": 41.5241946, "lon": -81.6468874, "metres": 1, "osm_name": "EJ Kovacic Recreation Center"},
+        "Alexander Hamilton Recreation Center": {"ref": "way/243109831", "mode": "same", "lat": 41.464907, "lon": -81.5906675, "metres": 2, "osm_name": "Alexander Hamilton Recreation Center"},
+        "Earle B. Turner Recreation Center": {"ref": "way/109962226", "mode": "same", "lat": 41.4446835, "lon": -81.6055196, "metres": 4, "osm_name": "Earle B. Turner Recreation Center"},
+        "Fairfax Recreation Center": {"ref": "way/119056399", "mode": "same", "lat": 41.4953655, "lon": -81.6302227, "metres": 4, "osm_name": "Fairfax Recreation Center"},
+        "Estabrook Recreation Center": {"ref": "way/103307469", "mode": "same", "lat": 41.4439309, "lon": -81.7227526, "metres": 7, "osm_name": "Estabrook Recreation Center"},
+        "Collinwood Recreation Center": {"ref": "way/249899409", "mode": "same", "lat": 41.5794157, "lon": -81.5663476, "metres": 8, "osm_name": "Collinwood Recreation Center"},
+        "Stella Walsh Recreation Center": {"ref": "way/262231477", "mode": "same", "lat": 41.4568267, "lon": -81.6360823, "metres": 9, "osm_name": "Stella Walsh Recreation Center"},
+        "Zelma Watson George Recreation Center": {"ref": "way/423454216", "mode": "same", "lat": 41.4722625, "lon": -81.608941, "metres": 10, "osm_name": "Zelma Watson George Roller Skating and Recreation Center"},
+        "Cudell Recreation Center": {"ref": "way/112459656", "mode": "same", "lat": 41.4791588, "lon": -81.7525223, "metres": 10, "osm_name": "Cudell Recreation Center"},
+        "Gunning Recreation Center": {"ref": "way/225050455", "mode": "same", "lat": 41.4349078, "lon": -81.8133844, "metres": 12, "osm_name": "Gunning Rec Center"},
+        "Clark Recreation Center": {"ref": "node/357508556", "mode": "same", "lat": 41.4697733, "lon": -81.7256875, "metres": 16, "osm_name": "Clark Recreation Center"},
+        "Woodland Recreation Center": {"ref": "way/183741843", "mode": "same", "lat": 41.4877368, "lon": -81.6222815, "metres": 18, "osm_name": "Woodland Recreation Center"},
+        "Thurgood Marshall Recreation Center": {"ref": "way/783120651", "mode": "same", "lat": 41.5103481, "lon": -81.626874, "metres": 18, "osm_name": "Thurgood Marshall Rec Center"},
+        "Glenville-James Hubbard Recreation Center": {"ref": "node/4235646314", "mode": "same", "lat": 41.5378854, "lon": -81.6062607, "metres": 19, "osm_name": "Glenville Recreation Center"},
+        "Michael Zone Recreation Center": {"ref": "node/4233945640", "mode": "same", "lat": 41.474402, "lon": -81.7288874, "metres": 19, "osm_name": "Michael J. Zone"},
+        "Cory Recreation Center": {"ref": "node/2692998770", "mode": "same", "lat": 41.5268094, "lon": -81.6149625, "metres": 20, "osm_name": "Cory Recreation Center"},
+        "Sterling Recreation Center": {"ref": "node/7312795098", "mode": "same", "lat": 41.5126295, "lon": -81.6703074, "metres": 24, "osm_name": "Sterling Recreation Center"},
+        "Lonnie Burten Recreation Center": {"ref": "way/783081196", "mode": "same", "lat": 41.4910232, "lon": -81.6542158, "metres": 103, "osm_name": "Lonnie L. Burten Recreation Center"}
+      }
+    },
+    {
+      "key": "phoenix-cc",
+      "name": "Phoenix community and recreation centers",
+      "type": "arcgis",
+      "url": "https://maps.phoenix.gov/pub/rest/services/Public/ParksOpenData/MapServer/1",
+      "format": "free_text",
+      "fields": {
+        "id": "COMMUNITY_CENTER_ID",
+        "name": "BUILDING_NAME",
+        "hours": "HOURS",
+        "address": "ADDRESS",
+        "city": "ADDR_CITY_NAME",
+        "postal_code": "ADDR_ZIPPLUS_NBR",
+        "website": "WEBSITE_URL"
+      },
+      "kind_by_field": {
+        "BUILDING_TYPE": {
+          "senior": "senior",
+          "teen|youth": "teen"
+        }
+      },
+      "noun": "a City of Phoenix community center",
+      "noun_by_kind": {
+        "senior": "a City of Phoenix senior center",
+        "teen": "a City of Phoenix teen and youth center"
+      },
+      "publisher": "the City of Phoenix's open data (Creative Commons Attribution)",
+      "region": "AZ",
+      "country": "US",
+      "timezone": "America/Phoenix",
+      "category": "community",
+      "osm": {
+        "22": {"ref": "way/949853524", "mode": "same", "lat": 33.3989851, "lon": -112.1055959, "metres": 1, "osm_name": "Muriel Smith Recreation Center"},
+        "10": {"ref": "way/948298447", "mode": "same", "lat": 33.5038177, "lon": -112.107708, "metres": 1, "osm_name": "Mark Atkinson Recreation Center"},
+        "23": {"ref": "way/935171600", "mode": "same", "lat": 33.3949559, "lon": -112.0380137, "metres": 2, "osm_name": "Faye Gray Recreation Center"},
+        "6": {"ref": "way/126003326", "mode": "same", "lat": 33.4388709, "lon": -112.0839825, "metres": 2, "osm_name": "Vernell Coleman Recreation Center"},
+        "21": {"ref": "way/343708760", "mode": "same", "lat": 33.4408442, "lon": -112.0770245, "metres": 3, "osm_name": "Grant Recreation Center"},
+        "1": {"ref": "relation/9301955", "mode": "same", "lat": 33.6662445, "lon": -112.1030436, "metres": 3, "osm_name": "Deer Valley Community Center"},
+        "32": {"ref": "way/352586426", "mode": "same", "lat": 33.438435, "lon": -112.0719292, "metres": 4, "osm_name": "Central Park Recreation Center"},
+        "16": {"ref": "way/1304217021", "mode": "same", "lat": 33.374175, "lon": -112.1414489, "metres": 5, "osm_name": "Aguila Community Center"},
+        "28": {"ref": "way/468784453", "mode": "same", "lat": 33.4969297, "lon": -112.0211187, "metres": 6, "osm_name": "Devonshire Senior Center"},
+        "33": {"ref": "way/475502787", "mode": "same", "lat": 33.4300726, "lon": -112.0495318, "metres": 6, "osm_name": "Barrios Unidos Recreation Center"},
+        "15": {"ref": "way/953824712", "mode": "same", "lat": 33.6481558, "lon": -112.0593817, "metres": 6, "osm_name": "Mountain View Community Center"},
+        "8": {"ref": "way/932659185", "mode": "same", "lat": 33.4334127, "lon": -112.1011039, "metres": 9, "osm_name": "Coffelt-Lamoreaux Recreation Center"},
+        "2": {"ref": "way/944061826", "mode": "same", "lat": 33.3890813, "lon": -112.0705547, "metres": 15, "osm_name": "South Mountain Community Center"},
+        "26": {"ref": "way/152864165", "mode": "same", "lat": 33.5009781, "lon": -112.1697455, "metres": 15, "osm_name": "Maryvale Community Center"},
+        "12": {"ref": "way/205716581", "mode": "same", "lat": 33.2919021, "lon": -111.9810577, "metres": 18, "osm_name": "Pecos Community Center"},
+        "18": {"ref": "relation/8880365", "mode": "same", "lat": 33.645415, "lon": -111.9974596, "metres": 36, "osm_name": "Paradise Valley Community Center"},
+        "19": {"ref": "relation/12710306", "mode": "same", "lat": 33.4760318, "lon": -112.2010001, "metres": 36, "osm_name": "Desert West Community Center"},
+        "25": {"ref": "way/937933964", "mode": "same", "lat": 33.5035608, "lon": -112.2045816, "metres": 70, "osm_name": "Holiday Park Recreation Center"},
+        "27": {"ref": "way/973610084", "mode": "same", "lat": 33.5302261, "lon": -112.1075038, "metres": 80, "osm_name": "Washington Activity Center"},
+        "7": {"ref": "way/833063885", "mode": "colocated", "lat": 33.6486476, "lon": -112.0596738, "metres": 6, "osm_name": "Thunderbird Arts Center"}
+      }
+    }
+  ]
+}

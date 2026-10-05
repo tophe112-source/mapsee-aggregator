@@ -607,6 +607,42 @@ def main():
         A.sweep_tiles, A.CURSOR_PATH = _real_sweep, _real_cursor
         _shutil.rmtree(_cursor_dir, ignore_errors=True)
 
+    import re as _re_mod
+    _re_claim = _re_mod.compile(r"(node|way|relation)/\d+")
+    # ---- one writer per centre ---------------------------------------------
+    #
+    # mapsee_ingest_facility_hours writes 70 community centres' rows (2026-10-05)
+    # under THIS adapter's fingerprint, with the city's hours. Writing them here
+    # too would flip each row between two sets of hours every Sunday.
+    _cc = [{"type": "way", "id": 53589225, "lat": 47.66, "lon": -122.38,
+            "tags": {"amenity": "community_centre", "name": "Green Lake Community Center"}}]
+    _real = (A.sweep_tiles, A.CURSOR_PATH, A.CLAIMED_BY_FACILITY_HOURS)
+    A.sweep_tiles = lambda cells, fetch_one, label, delay=2.0, sleep=None: (_cc, True)
+    _cursor_dir = _tempfile.mkdtemp()
+    A.CURSOR_PATH = _os.path.join(_cursor_dir, "cursor.json")
+    try:
+        got = {}
+        for claimed in (set(), {"way/53589225"}):
+            A.CLAIMED_BY_FACILITY_HOURS = claimed
+            with _tempfile.TemporaryDirectory() as tmp:
+                store = _os.path.join(tmp, "feeds.json")
+                A.main(["--config", "osm_amenity_sources.json", "--store", store,
+                        "--only", "Seattle", "--max-places", "50",
+                        "--places-cache", _os.path.join(tmp, "cache"), "--ignore-cursor"])
+                got[bool(claimed)] = len(_json2.load(open(store, encoding="utf-8")).get("events", []))
+        checks.append((got == {False: 1, True: 0},
+                       f"a community centre facility_hours claims is not written here, and an "
+                       f"unclaimed one still is ({got})"))
+    except Exception as exc:                                    # noqa: BLE001
+        checks.append((False, f"the claimed-centre run raised {type(exc).__name__}: {exc}"))
+    finally:
+        A.sweep_tiles, A.CURSOR_PATH, A.CLAIMED_BY_FACILITY_HOURS = _real
+        _shutil.rmtree(_cursor_dir, ignore_errors=True)
+    checks.append((len(A.CLAIMED_BY_FACILITY_HOURS) >= 1
+                   and all(_re_claim.fullmatch(r) for r in A.CLAIMED_BY_FACILITY_HOURS),
+                   f"the live facility_hours config claims refs in to_event's own 'type/id' "
+                   f"shape ({len(A.CLAIMED_BY_FACILITY_HOURS)})"))
+
     # ---- a private pool is somebody's garden ------------------------------
     #
     # `leisure=swimming_pool` is the only selector here that is not civic by

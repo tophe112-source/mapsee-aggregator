@@ -140,6 +140,14 @@ UA = "mapsee-aggregator/1.0 (+https://mapsee.me; OSM civic amenity discovery)"
 OVERPASS = "https://overpass-api.de/api/interpreter"
 CURSOR_PATH = "osm_amenity_cursor.json"
 
+# The OSM community centres whose row mapsee_ingest_facility_hours writes (its
+# config's `osm` maps, mode "same"), with the city's own hours, under the
+# fingerprint this adapter would give them. Skipped here: one writer per centre.
+# A missing config claims nothing.
+from mapsee_ingest_facility_hours import claimed_osm_refs
+CLAIMED_BY_FACILITY_HOURS = claimed_osm_refs(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "facility_hours_sources.json"))
+
 # Sparser than second-hand shops in most boxes and far denser in a few
 # (playgrounds are everywhere). 1.0 splits the difference: a 50-mile hub is ~6
 # cells, and a failed cell costs a sixth of a metro rather than all of it.
@@ -1106,7 +1114,7 @@ def main(argv=None):
 
     store = None if a.dry_run else EventStore(a.store)
     cursor = {} if a.ignore_cursor else load_cursor(CURSOR_PATH)
-    listings = furniture = 0
+    listings = furniture = claimed = 0
 
     for area in areas:
         bbox = area_bbox(area)
@@ -1135,6 +1143,13 @@ def main(argv=None):
         next_start = ((start + len(window)) % len(candidates)) if candidates else 0
         area_listings = area_furniture = 0
         for el in window:
+            # ONE WRITER PER CENTRE. mapsee_ingest_facility_hours writes these
+            # community centres' rows under this adapter's own fingerprint, with
+            # the city's hours (70 of them, 2026-10-05); writing them here too
+            # would flip each row between two sets of hours every Sunday.
+            if f"{el.get('type', 'n')}/{el.get('id')}" in CLAIMED_BY_FACILITY_HOURS:
+                claimed += 1
+                continue
             event = to_event(el, area, a.days_ahead)
             if not event:
                 continue
@@ -1162,7 +1177,8 @@ def main(argv=None):
         if not a.ignore_cursor:
             save_cursor(cursor, CURSOR_PATH)
     print(f"[osm-amenity] {'dry run — ' if a.dry_run else ''}"
-          f"{listings} listing(s) + {furniture} furniture pin(s)", flush=True)
+          f"{listings} listing(s) + {furniture} furniture pin(s)"
+          + (f"; {claimed} centre(s) left to facility_hours" if claimed else ""), flush=True)
     return 0
 
 
