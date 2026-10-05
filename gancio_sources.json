@@ -226,17 +226,6 @@
       "_metro": "Hamburg, Germany"
     },
     {
-      "name": "Vagancio - agenda autogestiva (Buenos Aires / La Plata)",
-      "category": "community",
-      "base_url": "https://vagancio.partidopirata.com.ar",
-      "within_days": 180,
-      "max": 500,
-      "default_country": "AR",
-      "_metro": "Buenos Aires, Argentina",
-      "_found": "manual:2026-10-03 gancio.org/instances",
-      "_note": "Grassroots shared agenda with 44 upcoming events, 43 distinct and 40 with a place. It lists pay-what-you-can ('a la gorra') crochet and embroidery circles, reading groups, French and tango practice, community soup kitchens (ollas populares) and neighbourhood assemblies. 4 are online. robots.txt is `User-agent: *` / `Disallow: /`, the operator's own (Gancio's stock file allows all); read under DOCUMENTED_API_TYPES like the three Mobilizon instances with the same file. Checked 2026-10-04. If the operator asks, it comes off (README, Conduct)."
-    },
-    {
       "name": "Laboratório Hacker de Campinas (Campinas, Brazil)",
       "category": "community",
       "base_url": "https://eventos.lhc.net.br",
@@ -253,5 +242,8 @@
     "https://cisti.org": "/api/events 404 - instance decommissioned",
     "https://kompot.si": "302 to YunoHost SSO; API behind a login, not public",
     "https://clonmel.town": "302 to whatson.clonmel.town, which 404s /api/events too - verified directly, not inferred. No Gancio API on either host despite being listed as an instance."
+  },
+  "_not_included": {
+    "https://vagancio.partidopirata.com.ar": "Vagancio - agenda autogestiva (Buenos Aires / La Plata) - a Gancio instance's /api/events. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://vagancio.partidopirata.com.ar/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: Gancio's stock robots.txt allows crawling, and 25 of the 26 configured instances answered with no such line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from gancio_sources.json at 1fbdfaa; `verify` will then pass it."
   }
 }

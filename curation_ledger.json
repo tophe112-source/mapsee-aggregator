@@ -54588,10 +54588,10 @@
     "type": "osm-venue"
   },
   "cinegex.fr/events/80716-festival-de-cinema-des-5-continents": {
-    "checked": 20260918,
+    "checked": 20261005,
     "name": "Le Patio",
-    "reason": "1/1 sampled events future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sun gone; audit 10-04 n/a; recheck 10-05 http 404. Entry in jsonld_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "jsonld"
   },
   "cineiris.com.br": {
@@ -71768,10 +71768,10 @@
     "type": "tribe"
   },
   "dallasculture.org/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20261005,
     "name": "Dallas Office of Arts and Culture (Dallas)",
-    "reason": "15 vevents / 15 future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat timeout; sun timeout; audit 10-04 ConnectTimeout: HTTPSConnectionPool(host='dallasculture.org', port=443): Max retries e; recheck 10-05 ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by. Entry in ics_sources.json a",
+    "status": "fail",
     "type": "ics"
   },
   "dallasfarmersmarket.org/events/?ical=1": {
@@ -77315,10 +77315,10 @@
     "type": "osm-venue"
   },
   "diebachschmiede.at/veranstaltung/pirnis-plattenkiste-3": {
-    "checked": 20260909,
+    "checked": 20261005,
     "name": "Die Bachschmiede - Kultur Museum Kunst",
-    "reason": "1/1 sampled events future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sun gone; audit 10-04 n/a; recheck 10-05 http 404. Entry in jsonld_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "jsonld"
   },
   "dieboerse-wtal.de": {
@@ -102119,10 +102119,10 @@
     "type": "osm-venue"
   },
   "frenkenbuendten.ch/agenda/lotto-1": {
-    "checked": 20260919,
+    "checked": 20261005,
     "name": "Alters- und Pflegeheim Frenkenb\u00fcndten",
-    "reason": "1/1 sampled events future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sun gone; audit 10-04 n/a; recheck 10-05 http 404. Entry in jsonld_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "jsonld"
   },
   "freres-poussiere.com": {
@@ -108623,10 +108623,10 @@
     "type": "osm-venue"
   },
   "gingerandspicefest.co.uk/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20261005,
     "name": "Ginger and Spice Festival (Market Drayton)",
-    "reason": "7 vevents / 7 future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat unreachable; audit 10-04 http 200 / no VCALENDAR; recheck 10-05 http 200 / no VCALENDAR. Entry in ics_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "ics"
   },
   "gingerbreadbakery.cz/en/home": {
@@ -113058,10 +113058,10 @@
     "type": "osm-venue"
   },
   "grevemuseum.dk/det-sker/event-mappe/pilates-i-det-fri": {
-    "checked": 20260831,
+    "checked": 20261005,
     "name": "Greve Museum",
-    "reason": "1/4 sampled events future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat gone; audit 10-04 n/a; recheck 10-05 http 404. Entry in jsonld_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "jsonld"
   },
   "greveroklub.dk": {
@@ -127460,10 +127460,10 @@
     "type": "osm-venue"
   },
   "ibb.info": {
-    "checked": 20260808,
+    "checked": 20261005,
     "name": "ibb.info - Veranstaltungen in Ibbenb\u00fcren und drumzu",
-    "reason": "163 upcoming, sample: Johann K\u00f6nig - Heute ein K\u00f6nig",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production not read in production on 10-03/10-04; audit 10-04 http 404; recheck 10-05 http 404. Entry in mobilizon_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "mobilizon"
   },
   "ibbadminton.dk": {
@@ -141838,10 +141838,10 @@
     "type": "osm-venue"
   },
   "kenilworthbc.ie/?feed=my-calendar-ics": {
-    "checked": 20260822,
+    "checked": 20261005,
     "name": "Kenilworth Bowling Club",
-    "reason": "16 vevents / 9 future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat 5xx; audit 10-04 http 500 / no VCALENDAR; recheck 10-05 http 500 / no VCALENDAR. Entry in ics_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "ics"
   },
   "kenilworthcommunity.com": {
@@ -173200,10 +173200,10 @@
     "type": "tribe"
   },
   "maxlinder.com/events/76408-festival-play-it-again": {
-    "checked": 20260828,
+    "checked": 20261005,
     "name": "Max Linder Panorama",
-    "reason": "1/1 sampled events future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat gone; audit 10-04 n/a; recheck 10-05 http 404. Entry in jsonld_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "jsonld"
   },
   "mayarochat.com/en": {
@@ -189100,10 +189100,10 @@
     "type": "osm-venue"
   },
   "my-cine.com/events/68101-artus-le-show-xxl": {
-    "checked": 20260829,
+    "checked": 20261005,
     "name": "My Cin\u00e9",
-    "reason": "1/1 sampled events future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat gone; audit 10-04 n/a; recheck 10-05 http 404. Entry in jsonld_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "jsonld"
   },
   "my-group.events": {
@@ -204752,10 +204752,10 @@
     "type": "osm-venue"
   },
   "ottawafarmersmarket.ca/events/?ical=1": {
-    "checked": 20260727,
+    "checked": 20261005,
     "name": "Ottawa Farmers Market",
-    "reason": "2 vevents / 1 future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat gone; audit 10-04 http 404 / no VCALENDAR; recheck 10-05 http 404 / no VCALENDAR. Entry in ics_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "ics"
   },
   "ottawaks.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
@@ -219149,10 +219149,10 @@
     "type": "tribe"
   },
   "provelozuerich.ch": {
-    "checked": 20260917,
+    "checked": 20261005,
     "name": "Pro Velo",
-    "reason": "12 events, 10/10 on page 1 future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat timeout; sun timeout; audit 10-04 ConnectTimeout: HTTPSConnectionPool(host='www.provelozuerich.ch', port=443): Max retri; recheck 10-05 5 events, 5/5 on page 1 future. Entry in tribe_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "tribe"
   },
   "providencechildren.com": {
@@ -223842,10 +223842,10 @@
     "type": "jsonld"
   },
   "reformiert-zuerich.ch/event/gottesdienst-10199": {
-    "checked": 20260918,
+    "checked": 20261005,
     "name": "Kirche Oberstrass",
-    "reason": "1/1 sampled events future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sun gone; audit 10-04 n/a; recheck 10-05 http 404. Entry in jsonld_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "jsonld"
   },
   "reformowani.org.pl": {
@@ -252450,10 +252450,10 @@
     "type": "osm-venue"
   },
   "stadt.winterthur.ch/veranstaltung/erlebnistag60plus": {
-    "checked": 20260917,
+    "checked": 20261005,
     "name": "Innovationslabor Winterthur",
-    "reason": "1/1 sampled events future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sun gone; audit 10-04 n/a; recheck 10-05 http 404. Entry in jsonld_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "jsonld"
   },
   "stadtaffoltern.ch/sportanlagen/10132": {
@@ -272487,17 +272487,17 @@
     "type": "squarespace"
   },
   "thepiano.nz/media/calendar-events/3330.ics": {
-    "checked": 20260824,
+    "checked": 20261005,
     "name": "The Philip Carter Family Concert Hall",
-    "reason": "1 vevents / 1 future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat gone; audit 10-04 http 404 / no VCALENDAR; recheck 10-05 http 404 / no VCALENDAR. Entry in ics_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "ics"
   },
   "thepiano.nz/media/calendar-events/3371.ics": {
-    "checked": 20260824,
+    "checked": 20261005,
     "name": "The Piano",
-    "reason": "1 vevents / 1 future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat gone; audit 10-04 http 404 / no VCALENDAR; recheck 10-05 http 404 / no VCALENDAR. Entry in ics_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "ics"
   },
   "thepipefactory.co.uk": {
@@ -275949,10 +275949,10 @@
     "type": "osm-venue"
   },
   "tourrettessurloup.com/?post_type=tribe_events&ical=1&eventDisplay=list": {
-    "checked": 20260927,
+    "checked": 20261005,
     "name": "Tourrettes-sur-Loup - agenda de la commune (Tourrettes-sur-Loup, France)",
-    "reason": "14 future, 14 placeable",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat timeout; sun timeout; audit 10-04 ConnectTimeout: HTTPSConnectionPool(host='www.tourrettessurloup.com', port=443): Max r; recheck 10-05 15 vevents / 10 future. Entry in ics_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "ics"
   },
   "tourtaxispadel.brussels": {
@@ -291217,10 +291217,10 @@
     "type": "osm-venue"
   },
   "wagandoo.dk/begivenhed/sheltertur": {
-    "checked": 20260831,
+    "checked": 20261005,
     "name": "Wagandoo Gruppe",
-    "reason": "1/1 sampled events future",
-    "status": "ok",
+    "reason": "retired 2026-10-05, not working: production sat gone; audit 10-04 n/a; recheck 10-05 http 404. Entry in jsonld_sources.json at 1fbdfaa.",
+    "status": "fail",
     "type": "jsonld"
   },
   "wagerenhof.ch/wagerenhof/aktuell/eventkalender/detail/herbstfest/202609121100": {

@@ -421,25 +421,6 @@
       "_metro": "Gold Coast, AU"
     },
     {
-      "name": "Moonah Arts Centre",
-      "category": "arts",
-      "_found": "osm:arts_centre -> jsonld-event",
-      "listing": [
-        "https://www.moonahartscentre.org.au/calendar/"
-      ],
-      "link_pattern": "https://www\\.moonahartscentre\\.org\\.au/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Moonah Arts Centre",
-        "address": "23-27 Albert Road",
-        "region": "TAS",
-        "postal_code": "7009",
-        "lat": -42.848254,
-        "lon": 147.295269
-      },
-      "_metro": "Hobart, AU"
-    },
-    {
       "name": "DublinTown",
       "category": "community",
       "_found": "osm:ngo -> jsonld-event",
@@ -494,23 +475,6 @@
       "_metro": "Waterford, IE"
     },
     {
-      "name": "Shri Shirdi Saibaba Mandir",
-      "category": "community",
-      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
-      "listing": [
-        "https://www.shirdisaibaba.org.nz/upcoming-events/"
-      ],
-      "link_pattern": "https://www\\.shirdisaibaba\\.org\\.nz/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Shri Shirdi Saibaba Mandir",
-        "address": "14 Princes Street",
-        "lat": -36.9252138,
-        "lon": 174.7802911
-      },
-      "_metro": "Auckland, NZ"
-    },
-    {
       "name": "Churchill Club",
       "category": "community",
       "_found": "osm:club -> modern-events+jsonld-event",
@@ -526,24 +490,6 @@
         "postal_code": "1071",
         "lat": -36.8618718,
         "lon": 174.8804417
-      },
-      "_metro": "Auckland, NZ"
-    },
-    {
-      "name": "Browns Bay Brewing",
-      "category": "community",
-      "_found": "osm:restaurant -> jsonld-event",
-      "listing": [
-        "https://brownsbaybrewing.co.nz/event-directory/"
-      ],
-      "link_pattern": "https://brownsbaybrewing\\.co\\.nz/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Browns Bay Brewing",
-        "address": "111 Clyde Road",
-        "postal_code": "0630",
-        "lat": -36.7136711,
-        "lon": 174.7486889
       },
       "_metro": "Auckland, NZ"
     },
@@ -614,22 +560,6 @@
       "_metro": "Paris, FR"
     },
     {
-      "name": "Max Linder Panorama",
-      "category": "theater",
-      "_found": "osm:cinema -> jsonld-event",
-      "listing": [
-        "https://www.maxlinder.com/events/76408-festival-play-it-again/"
-      ],
-      "link_pattern": "https://www\\.maxlinder\\.com/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Max Linder Panorama",
-        "lat": 48.8713796,
-        "lon": 2.3448127
-      },
-      "_metro": "Paris, FR"
-    },
-    {
       "name": "Maison des liens familiaux",
       "category": "community",
       "_found": "osm:social_facility -> modern-events+jsonld-event",
@@ -658,22 +588,6 @@
         "name": "Complexe boulevard du Nord",
         "lat": 48.902453,
         "lon": 2.5157572
-      },
-      "_metro": "Paris, FR"
-    },
-    {
-      "name": "My Ciné",
-      "category": "theater",
-      "_found": "osm:cinema -> jsonld-event",
-      "listing": [
-        "https://www.my-cine.com/events/68101-artus-le-show-xxl/"
-      ],
-      "link_pattern": "https://www\\.my\\-cine\\.com/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "My Ciné",
-        "lat": 48.943739,
-        "lon": 2.6530024
       },
       "_metro": "Paris, FR"
     },
@@ -856,22 +770,6 @@
       "_metro": "Copenhagen, DK"
     },
     {
-      "name": "Wagandoo Gruppe",
-      "category": "community",
-      "_found": "osm:club -> jsonld-event",
-      "listing": [
-        "https://www.wagandoo.dk/begivenhed/sheltertur"
-      ],
-      "link_pattern": "https://www\\.wagandoo\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Wagandoo Gruppe",
-        "lat": 55.6554664,
-        "lon": 12.3098442
-      },
-      "_metro": "Copenhagen, DK"
-    },
-    {
       "name": "Portalen, Greve Teater- & Musikhus",
       "category": "theater",
       "_found": "osm:theatre -> jsonld-event",
@@ -900,22 +798,6 @@
         "name": "Buddhistisk Center København",
         "lat": 55.7224963,
         "lon": 12.5749769
-      },
-      "_metro": "Copenhagen, DK"
-    },
-    {
-      "name": "Greve Museum",
-      "category": "arts",
-      "_found": "osm:museum -> jsonld-event",
-      "listing": [
-        "https://grevemuseum.dk/det-sker/event-mappe/pilates-i-det-fri"
-      ],
-      "link_pattern": "https://grevemuseum\\.dk/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Greve Museum",
-        "lat": 55.5908664,
-        "lon": 12.2521363
       },
       "_metro": "Copenhagen, DK"
     },
@@ -2059,26 +1941,6 @@
         "country": "AT",
         "lat": 47.8253096,
         "lon": 13.0279441
-      },
-      "_metro": "Salzburg, AT"
-    },
-    {
-      "name": "Die Bachschmiede - Kultur Museum Kunst",
-      "category": "arts",
-      "_found": "osm:museum -> jsonld-event",
-      "listing": [
-        "https://www.diebachschmiede.at/veranstaltung/pirnis-plattenkiste-3"
-      ],
-      "link_pattern": "https://www\\.diebachschmiede\\.at/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Die Bachschmiede - Kultur Museum Kunst",
-        "address": "2 Jakob-Lechnerweg",
-        "city": "Wals-Siezenheim",
-        "postal_code": "5071",
-        "country": "AT",
-        "lat": 47.7907577,
-        "lon": 12.9643034
       },
       "_metro": "Salzburg, AT"
     },
@@ -3347,22 +3209,6 @@
       "_metro": "Zurich, CH"
     },
     {
-      "name": "Innovationslabor Winterthur",
-      "category": "community",
-      "_found": "osm:events_venue -> jsonld-event",
-      "listing": [
-        "https://stadt.winterthur.ch/veranstaltung/erlebnistag60plus"
-      ],
-      "link_pattern": "https://stadt\\.winterthur\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Innovationslabor Winterthur",
-        "lat": 47.498477,
-        "lon": 8.7491764
-      },
-      "_metro": "Zurich, CH"
-    },
-    {
       "name": "Opernhaus",
       "category": "theater",
       "_found": "osm:theatre -> jsonld-event",
@@ -3442,26 +3288,6 @@
       "_metro": "Zurich, CH"
     },
     {
-      "name": "Kirche Oberstrass",
-      "category": "community",
-      "_found": "osm:place_of_worship -> jsonld-event",
-      "listing": [
-        "https://reformiert-zuerich.ch/event/gottesdienst-10199/"
-      ],
-      "link_pattern": "https://reformiert\\-zuerich\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Kirche Oberstrass",
-        "address": "58 Stapferstrasse",
-        "city": "Zürich",
-        "postal_code": "8006",
-        "country": "CH",
-        "lat": 47.3839096,
-        "lon": 8.5468111
-      },
-      "_metro": "Zurich, CH"
-    },
-    {
       "name": "Strebergärtli",
       "category": "outdoors",
       "_found": "osm:garden -> modern-events+jsonld-event",
@@ -3496,23 +3322,6 @@
         "lon": 8.518637
       },
       "_metro": "Zurich, CH"
-    },
-    {
-      "name": "Le Patio",
-      "category": "theater",
-      "_found": "osm:cinema -> jsonld-event",
-      "listing": [
-        "https://www.cinegex.fr/events/80716-festival-de-cinema-des-5-continents/"
-      ],
-      "link_pattern": "https://www\\.cinegex\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Le Patio",
-        "city": "Gex",
-        "lat": 46.3320243,
-        "lon": 6.058686
-      },
-      "_metro": "Geneva, CH"
     },
     {
       "name": "Église adventiste du Septième Jour",
@@ -3599,26 +3408,6 @@
         "postal_code": "4059",
         "lat": 47.5299579,
         "lon": 7.5928613
-      },
-      "_metro": "Basel, CH"
-    },
-    {
-      "name": "Alters- und Pflegeheim Frenkenbündten",
-      "category": "community",
-      "_found": "osm:social_facility -> jsonld-event",
-      "listing": [
-        "https://www.frenkenbuendten.ch/agenda/lotto-1"
-      ],
-      "link_pattern": "https://www\\.frenkenbuendten\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
-      "max_events": 150,
-      "venue": {
-        "name": "Alters- und Pflegeheim Frenkenbündten",
-        "address": "10 Gitterlistrasse",
-        "city": "Liestal",
-        "postal_code": "4410",
-        "country": "CH",
-        "lat": 47.4789904,
-        "lon": 7.7395657
       },
       "_metro": "Basel, CH"
     },
@@ -6502,6 +6291,31 @@
     "https://www.espoo.fi/fi/tapahtumat/espooevents:agpbwzmb7a": "Koulumuseo Lagstad: retired 2026-10-04. The listing was one espooevents event page dated 2026-09; its link_pattern (www.espoo.fi/event/...) matched 0 links, so it yielded 0 upcoming rows. Espoo's own Linked Events instance (mapsee_ingest_linkedevents.py, linkedevents_sources.json) now reads this place's events in full.",
     "https://www.espoo.fi/fi/tapahtumat/espooevents:agpspmdevu": "Näyttelykeskus WeeGee: retired 2026-10-04. The listing was one espooevents event page dated 2026-09; its link_pattern (www.espoo.fi/event/...) matched 0 links, so it yielded 0 upcoming rows. Espoo's own Linked Events instance (mapsee_ingest_linkedevents.py, linkedevents_sources.json) now reads this place's events in full.",
     "https://www.espoo.fi/fi/tapahtumat/espooevents:agqb6rikee": "Matinkylän uimahalli: retired 2026-10-04. The listing was one espooevents event page dated 2026-09; its link_pattern (www.espoo.fi/event/...) matched 0 links, so it yielded 0 upcoming rows. Espoo's own Linked Events instance (mapsee_ingest_linkedevents.py, linkedevents_sources.json) now reads this place's events in full.",
-    "https://www.espoo.fi/fi/tapahtumat/espooevents:agpblfl3i4": "Sellon kirjasto: retired 2026-10-04. The listing was one espooevents event page dated 2026-09; its link_pattern (www.espoo.fi/event/...) matched 0 links, so it yielded 0 upcoming rows. Espoo's own Linked Events instance (mapsee_ingest_linkedevents.py, linkedevents_sources.json) now reads this place's events in full."
+    "https://www.espoo.fi/fi/tapahtumat/espooevents:agpblfl3i4": "Sellon kirjasto: retired 2026-10-04. The listing was one espooevents event page dated 2026-09; its link_pattern (www.espoo.fi/event/...) matched 0 links, so it yielded 0 upcoming rows. Espoo's own Linked Events instance (mapsee_ingest_linkedevents.py, linkedevents_sources.json) now reads this place's events in full.",
+    "https://kestreltrust.org/events/?ical=1": "Kestrel Land Trust (Amherst, MA) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://kestreltrust.org/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`), and the feed itself answered our production runs 403 Forbidden on 2026-10-03 and 2026-10-04. To restore: once robots.txt lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa; `verify` will then pass it.",
+    "https://datahub.smcgov.org/resource/ehqe-kh4j.json?%24select=market_name%2Copen_days_1%2Copen_hours_1%2Clocation_1_address%2Clocation_1_city%2Clocation_1.latitude+as+lat%2Clocation_1.longitude+as+lon": "San Mateo County Farmers Markets - a Socrata dataset (market_sources.json; recorded here because that file is a bare list). RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://datahub.smcgov.org/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: none of the 12 portals in opendata_sources.json answered with such a line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from market_sources.json at 1fbdfaa; `verify` will then pass it.",
+    "https://events.baltimoremagazine.com/calendar.ics": "Baltimore Magazine Events Calendar (Baltimore) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 2500 vevents / 1728 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://oldstrathcona.ca/events-full/?ical=1": "Old Strathcona BIA (Edmonton, Canada) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 30 vevents / 30 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://www.prospectpark.org/events/?ical=1": "Prospect Park Alliance (Brooklyn, NY) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 30 vevents / 30 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://www.wildflower.org/events/?ical=1": "Lady Bird Johnson Wildflower Center (Austin, TX) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 30 vevents / 29 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://wonderlab.org/events/?ical=1": "WonderLab Museum (Bloomington, IN) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: http 403 / no VCALENDAR. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://acrosstheboardcafe.com/?post_type=tribe_events&ical=1&eventDisplay=list": "Across the Board Game Cafe (Winnipeg, Canada) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 14 vevents / 14 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://events.goodgames.com.au/events/list/?ical=1": "Good Games (Australia) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat unreachable. Audit on a GitHub runner 2026-10-04: http 202 / no VCALENDAR. Recheck 2026-10-05: http 202 / no VCALENDAR. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://mdfoodbank.org/?post_type=tribe_events&ical=1&eventDisplay=list": "Maryland Food Bank (Baltimore) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: http 403 / no VCALENDAR. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://tafb.org/events/?ical=1": "Tarrant Area Food Bank (Fort Worth) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: http 403 / no VCALENDAR. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://indeedbrewing.com/events/?ical=1": "Indeed Brewing (Minneapolis) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: http 403 / no VCALENDAR. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://margaretriver.wine/events/?ical=1": "Margaret River Wine Region Events (Australia) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 30 vevents / 30 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://www.harboroughmarket.co.uk/events/?ical=1": "Harborough Market (Leicestershire) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: http 403 / no VCALENDAR. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://asapconnections.org/?post_type=tribe_events&ical=1&eventDisplay=list": "ASAP Appalachian Grown Markets (Asheville, NC) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: http 403 / no VCALENDAR. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://oregonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list": "Oregon Wine Board Events - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 30 vevents / 29 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://audubonportland.org/events/?ical=1": "Audubon Society of Portland - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: http 403 / no VCALENDAR. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://runningzone.cz/?ical=1": "Running zone - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 401 / no VCALENDAR. Recheck 2026-10-05: http 401 / no VCALENDAR. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://www.cityofinkstermi.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar": "Inkster — Events Calendar - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sun refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 29 vevents / 29 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://www.cityofhanahan.com/calendar/ical/calendar.ics": "Hanahan - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 320 vevents / 12 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://dlrsportspartnership.ie/?post_type=tribe_events&ical=1&eventDisplay=list": "DLR Sports Partnership (Dún Laoghaire-Rathdown, Dublin) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 30 vevents / 26 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://youthconso.jp/?feed=my-calendar-ics&span=year": "尼崎市立ユース交流センター (Amagasaki) - an iCal feed. Recorded here because ics_sources.json is a bare list, as Bend UMC's is. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403 / no VCALENDAR. Recheck 2026-10-05: 194 vevents / 19 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from ics_sources.json at 1fbdfaa.",
+    "https://www.moonahartscentre.org.au/calendar/": "Moonah Arts Centre - jsonld. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: n/a. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from jsonld_sources.json at 1fbdfaa.",
+    "https://www.shirdisaibaba.org.nz/upcoming-events/": "Shri Shirdi Saibaba Mandir - jsonld. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: n/a. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from jsonld_sources.json at 1fbdfaa.",
+    "https://brownsbaybrewing.co.nz/event-directory/": "Browns Bay Brewing - jsonld. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: n/a. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from jsonld_sources.json at 1fbdfaa."
   }
 }

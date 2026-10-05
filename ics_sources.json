@@ -91,13 +91,6 @@
     "limit": 300
   },
   {
-    "name": "Dallas Office of Arts and Culture (Dallas)",
-    "url": "https://dallasculture.org/events/?ical=1",
-    "category": "arts",
-    "geocode_suffix": ", Dallas, TX",
-    "limit": 300
-  },
-  {
     "name": "Arlington Public Library Events (Dallas)",
     "url": "https://arlingtontx.libcal.com/ical_subscribe.php?cid=20065",
     "category": "learning",
@@ -287,13 +280,6 @@
     "limit": 2500
   },
   {
-    "name": "Baltimore Magazine Events Calendar (Baltimore)",
-    "url": "https://events.baltimoremagazine.com/calendar.ics",
-    "category": "community",
-    "geocode_suffix": ", Baltimore, MD",
-    "limit": 2200
-  },
-  {
     "name": "University of Exeter Library (Exeter, United Kingdom)",
     "url": "https://exeter-uk.libcal.com/ical_subscribe.php?cid=8108",
     "category": "learning",
@@ -455,13 +441,6 @@
     "limit": 300
   },
   {
-    "name": "Old Strathcona BIA (Edmonton, Canada)",
-    "url": "https://oldstrathcona.ca/events-full/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Edmonton, Canada",
-    "limit": 300
-  },
-  {
     "name": "West End BIA (Vancouver, Canada)",
     "url": "https://westendbia.com/events/list/?ical=1",
     "category": "community",
@@ -497,13 +476,6 @@
     "limit": 300
   },
   {
-    "name": "Prospect Park Alliance (Brooklyn, NY)",
-    "url": "https://www.prospectpark.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Brooklyn, NY",
-    "limit": 300
-  },
-  {
     "name": "Piedmont Park Conservancy (Atlanta, GA)",
     "url": "https://www.piedmontpark.org/events/?ical=1",
     "category": "outdoors",
@@ -532,13 +504,6 @@
     "limit": 300
   },
   {
-    "name": "Kestrel Land Trust (Amherst, MA)",
-    "url": "https://kestreltrust.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Amherst, MA",
-    "limit": 300
-  },
-  {
     "name": "City Parks Foundation (New York, NY)",
     "url": "https://www.cityparksfoundation.org/events/?ical=1",
     "category": "outdoors",
@@ -557,13 +522,6 @@
     "url": "https://www.houstonarboretum.org/events/?ical=1",
     "category": "outdoors",
     "geocode_suffix": ", Houston, TX",
-    "limit": 300
-  },
-  {
-    "name": "Lady Bird Johnson Wildflower Center (Austin, TX)",
-    "url": "https://www.wildflower.org/events/?ical=1",
-    "category": "outdoors",
-    "geocode_suffix": ", Austin, TX",
     "limit": 300
   },
   {
@@ -662,13 +620,6 @@
     "url": "https://sciencenter.org/experiences/events/?ical=1",
     "category": "kids",
     "geocode_suffix": ", Ithaca, NY",
-    "limit": 300
-  },
-  {
-    "name": "WonderLab Museum (Bloomington, IN)",
-    "url": "https://wonderlab.org/events/?ical=1",
-    "category": "kids",
-    "geocode_suffix": ", Bloomington, IN",
     "limit": 300
   },
   {
@@ -1177,13 +1128,6 @@
     "limit": 300
   },
   {
-    "name": "Across the Board Game Cafe (Winnipeg, Canada)",
-    "url": "https://acrosstheboardcafe.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Winnipeg, Manitoba, Canada",
-    "limit": 300
-  },
-  {
     "name": "Well Played Board Game Cafe (Asheville, NC)",
     "url": "https://wellplayedasheville.com/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
@@ -1195,13 +1139,6 @@
     "url": "https://swordandboard.net/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "community",
     "geocode_suffix": ", Ukiah, CA",
-    "limit": 300
-  },
-  {
-    "name": "Good Games (Australia)",
-    "url": "https://events.goodgames.com.au/events/list/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Australia",
     "limit": 300
   },
   {
@@ -1275,13 +1212,6 @@
     "limit": 300
   },
   {
-    "name": "Maryland Food Bank (Baltimore)",
-    "url": "https://mdfoodbank.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Baltimore, MD",
-    "limit": 300
-  },
-  {
     "name": "Regional Food Bank of Oklahoma (Oklahoma City)",
     "url": "https://rfbo.org/events/?ical=1",
     "category": "community",
@@ -1314,13 +1244,6 @@
     "url": "https://safoodbank.org/events/?ical=1",
     "category": "community",
     "geocode_suffix": ", San Antonio, TX",
-    "limit": 300
-  },
-  {
-    "name": "Tarrant Area Food Bank (Fort Worth)",
-    "url": "https://tafb.org/events/?ical=1",
-    "category": "community",
-    "geocode_suffix": ", Fort Worth, TX",
     "limit": 300
   },
   {
@@ -1387,13 +1310,6 @@
     "limit": 300
   },
   {
-    "name": "Indeed Brewing (Minneapolis)",
-    "url": "https://indeedbrewing.com/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Minneapolis, MN",
-    "limit": 300
-  },
-  {
     "name": "Rhinegeist Brewery (Cincinnati)",
     "url": "https://rhinegeist.com/events/?ical=1",
     "category": "food",
@@ -1443,13 +1359,6 @@
     "limit": 300
   },
   {
-    "name": "Ottawa Farmers Market",
-    "url": "https://ottawafarmersmarket.ca/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Ottawa, ON, Canada",
-    "limit": 300
-  },
-  {
     "name": "Mathallen Oslo Food Hall",
     "url": "https://mathallenoslo.no/events/?ical=1",
     "category": "market",
@@ -1457,24 +1366,10 @@
     "limit": 300
   },
   {
-    "name": "Margaret River Wine Region Events (Australia)",
-    "url": "https://margaretriver.wine/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Margaret River, WA, Australia",
-    "limit": 300
-  },
-  {
     "name": "Aldeburgh Food and Drink Festival (Suffolk)",
     "url": "https://aldeburghfoodanddrink.co.uk/events/?ical=1",
     "category": "food",
     "geocode_suffix": ", Snape, Suffolk, UK",
-    "limit": 300
-  },
-  {
-    "name": "Ginger and Spice Festival (Market Drayton)",
-    "url": "https://gingerandspicefest.co.uk/events/?ical=1",
-    "category": "food",
-    "geocode_suffix": ", Market Drayton, Shropshire, UK",
     "limit": 300
   },
   {
@@ -1520,13 +1415,6 @@
     "limit": 300
   },
   {
-    "name": "Harborough Market (Leicestershire)",
-    "url": "https://www.harboroughmarket.co.uk/events/?ical=1",
-    "category": "market",
-    "geocode_suffix": ", Market Harborough, Leicestershire, UK",
-    "limit": 300
-  },
-  {
     "name": "WGC Market (Welwyn Garden City)",
     "url": "https://wgcmarket.co.uk/events/?ical=1",
     "category": "market",
@@ -1545,13 +1433,6 @@
     "url": "https://frenchmarket.org/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "market",
     "geocode_suffix": ", French Market, New Orleans, LA",
-    "limit": 300
-  },
-  {
-    "name": "ASAP Appalachian Grown Markets (Asheville, NC)",
-    "url": "https://asapconnections.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "market",
-    "geocode_suffix": ", Asheville, NC",
     "limit": 300
   },
   {
@@ -1580,13 +1461,6 @@
     "url": "https://eldoradowines.org/?post_type=tribe_events&ical=1&eventDisplay=list",
     "category": "food",
     "geocode_suffix": ", El Dorado County, CA",
-    "limit": 300
-  },
-  {
-    "name": "Oregon Wine Board Events",
-    "url": "https://oregonwine.org/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "food",
-    "geocode_suffix": ", Oregon",
     "limit": 300
   },
   {
@@ -1699,13 +1573,6 @@
     "url": "https://caseytrees.org/events/?ical=1",
     "category": "volunteer",
     "geocode_suffix": ", Washington, DC",
-    "limit": 300
-  },
-  {
-    "name": "Audubon Society of Portland",
-    "url": "https://audubonportland.org/events/?ical=1",
-    "category": "volunteer",
-    "geocode_suffix": ", Portland, OR",
     "limit": 300
   },
   {
@@ -2090,15 +1957,6 @@
     "_metro": "Wollongong, AU"
   },
   {
-    "name": "Kenilworth Bowling Club",
-    "category": "fitness",
-    "_found": "osm:sports_centre -> my-calendar",
-    "url": "https://kenilworthbc.ie/?feed=my-calendar-ics",
-    "geocode_suffix": ", Dublin, IE",
-    "limit": 300,
-    "_metro": "Dublin, IE"
-  },
-  {
     "name": "Long Bay Baptist Church",
     "category": "community",
     "_found": "osm:place_of_worship -> ics",
@@ -2124,24 +1982,6 @@
     "geocode_suffix": ", Wellington",
     "limit": 300,
     "_metro": "Wellington, NZ"
-  },
-  {
-    "name": "The Piano",
-    "category": "arts",
-    "_found": "osm:arts_centre -> ics",
-    "url": "https://thepiano.nz/media/calendar-events/3371.ics",
-    "geocode_suffix": ", Christchurch",
-    "limit": 300,
-    "_metro": "Christchurch, NZ"
-  },
-  {
-    "name": "The Philip Carter Family Concert Hall",
-    "category": "community",
-    "_found": "osm:events_venue -> ics",
-    "url": "https://thepiano.nz/media/calendar-events/3330.ics",
-    "geocode_suffix": ", Christchurch, NZ",
-    "limit": 300,
-    "_metro": "Christchurch, NZ"
   },
   {
     "name": "Théâtre André Malraux",
@@ -3143,15 +2983,6 @@
     "limit": 300,
     "_found": "civic:city -> civicplus[Main Calendar]",
     "_metro": "Monterey Park, California"
-  },
-  {
-    "name": "Running zone",
-    "category": "fitness",
-    "_found": "osm:sports_centre -> events-manager",
-    "url": "https://runningzone.cz/?ical=1",
-    "geocode_suffix": ", Brno, CZ",
-    "limit": 300,
-    "_metro": "Brno, CZ"
   },
   {
     "name": "Orel jednota Telnice",
@@ -8188,15 +8019,6 @@
     "_metro": "Imperial Beach, California"
   },
   {
-    "name": "Inkster — Events Calendar",
-    "category": "community",
-    "url": "https://www.cityofinkstermi.gov/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
-    "geocode_suffix": ", Inkster, Michigan",
-    "limit": 300,
-    "_found": "civic:city -> civicplus[Events Calendar]",
-    "_metro": "Inkster, Michigan"
-  },
-  {
     "name": "Camas",
     "category": "community",
     "_found": "civic:city -> ics",
@@ -9520,15 +9342,6 @@
     "limit": 300,
     "_found": "civic:city -> civicplus[Parks & Recreation]",
     "_metro": "Mayfield Heights, Ohio"
-  },
-  {
-    "name": "Hanahan",
-    "category": "community",
-    "_found": "civic:city -> civicplus+ics",
-    "url": "https://www.cityofhanahan.com/calendar/ical/calendar.ics",
-    "geocode_suffix": ", Hanahan, South Carolina",
-    "limit": 300,
-    "_metro": "Hanahan, South Carolina"
   },
   {
     "name": "South Burlington — Recreation Adult Drop-in Sports",
@@ -16150,15 +15963,6 @@
     "_note": "Leeds neighbourhood network for older people: shared tables, tai chi, dance, Sporting Memories in Moortown church halls. robots.txt: no disallow. venue pins the 12/30 VEVENTs with no LOCATION to its centre."
   },
   {
-    "name": "DLR Sports Partnership (Dún Laoghaire-Rathdown, Dublin)",
-    "url": "https://dlrsportspartnership.ie/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "fitness",
-    "geocode_suffix": ", Dún Laoghaire-Rathdown, Dublin, Ireland",
-    "limit": 300,
-    "_metro": "Dublin, IE",
-    "_note": "Local Sports Partnership calendar: inclusive and free sport sessions (VI tennis, adaptive rugby, chair yoga, cycling) in south Dublin parks/schools. robots.txt disallows only /wp-admin/. /events/list/?ical=1 returns 7; this form 30."
-  },
-  {
     "name": "Sport Birmingham (Birmingham)",
     "url": "https://sportbirmingham.org/events.ics",
     "category": "fitness",
@@ -16269,15 +16073,6 @@
     "_found": "civic:city -> civicplus[Community Events]",
     "_metro": "New Orleans, United States",
     "_note": "CivicPlus 'Community Events' category for St. Bernard Parish (Chalmette, Arabi, Los Islenos festivals). Meeting categories excluded; robots allow. Every row carries a street address."
-  },
-  {
-    "name": "Tourrettes-sur-Loup - agenda de la commune (Tourrettes-sur-Loup, France)",
-    "url": "https://www.tourrettessurloup.com/?post_type=tribe_events&ical=1&eventDisplay=list",
-    "category": "community",
-    "geocode_suffix": ", Tourrettes-sur-Loup, France",
-    "limit": 100,
-    "_metro": "Nice, France",
-    "_note": "Village calendar, The Events Calendar iCal export (robots: Disallow empty for *). CCAS senior workshops, neighbourhood meetings, cine-debates; every event has a LOCATION. REST has no geo, so iCal."
   },
   {
     "name": "Eckbolsheim - agenda de la commune (Eckbolsheim, France)",
@@ -17167,25 +16962,6 @@
     "limit": 300,
     "_metro": "Melbourne, Australia",
     "_note": "Royal Historical Society of Victoria's History Month (October) on The Events Calendar: historical-society talks, exhibitions, heritage walks; 90 of 144 free, mostly Melbourne. robots.txt disallows only /staging/ and /OLD/."
-  },
-  {
-    "name": "尼崎市立ユース交流センター (Amagasaki)",
-    "url": "https://youthconso.jp/?feed=my-calendar-ics&span=year",
-    "category": "kids",
-    "geocode_suffix": ", 尼崎市, 兵庫県, Japan",
-    "limit": 300,
-    "venue": {
-      "name": "尼崎市立ユース交流センター（あまがさき・ひと咲きプラザ）",
-      "address": "若王寺2丁目18番4号",
-      "city": "尼崎市",
-      "region": "兵庫県",
-      "country": "JP",
-      "lat": 34.74942,
-      "lon": 135.438126
-    },
-    "_found": "manual: municipal youth centre -> my-calendar ics",
-    "_metro": "Osaka, Japan",
-    "_note": "Amagasaki City youth centre: free teen drop-ins (board games, youth cafe, sports day, guitar class). My Calendar iCal, span=year; no LOCATION, venue pins the one site. robots.txt blocks only ClaudeBot."
   },
   {
     "name": "川口ダム自然エネルギーミュージアム (Tokushima)",

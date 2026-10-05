@@ -488,23 +488,6 @@
   }
  },
  {
-  "name": "San Mateo County Farmers Markets",
-  "type": "socrata",
-  "timezone": "America/Los_Angeles",
-  "url": "https://datahub.smcgov.org/resource/ehqe-kh4j.json?%24select=market_name%2Copen_days_1%2Copen_hours_1%2Clocation_1_address%2Clocation_1_city%2Clocation_1.latitude+as+lat%2Clocation_1.longitude+as+lon",
-  "limit": 100,
-  "horizon_days": 42,
-  "url_home": "https://datahub.smcgov.org/Community/Certified-Farmers-Markets/ehqe-kh4j",
-  "map": {
-   "name": "market_name",
-   "lat": "lat",
-   "lon": "lon",
-   "days": "open_days_1",
-   "hours": "open_hours_1",
-   "address": "location_1_address"
-  }
- },
- {
   "name": "Montgomery County MD Farmers Markets",
   "type": "socrata",
   "timezone": "America/New_York",

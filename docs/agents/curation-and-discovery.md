@@ -1368,3 +1368,28 @@
 - **THE LEDGER HAS TWO NEW KINDS OF OSM-VENUE ROW, SO ITS TOTAL WILL STEP UP.** These are `unreachable` (parked 7 days, UNREACHABLE_TTL_DAYS) and robots.txt `refused` (parked 90 days). `catalog_curate.py ledger` now prints every status, so the header adds up: 42,762 = 3,723 ok + 38,719 broken + 291 empty + 9 refused + 20 reopened on 2026-10-05. `coverage_snapshot` counts every row in `ledger.total` but only `fail` in `dead`, so a jump in `coverage_history.jsonl`'s ledger total after this change is these rows.
 
 - **A METRO WHERE MOST PROBES RAISED IS NOT READ.** With `find_calendar` raising on every venue, the pool tallied 30 errors, wrote nothing, and moved a 3-metro cursor three metros (review, 2026-10-04). It now stops when at least 3 probes, and more than half, have raised (OSM_PROBE_ERRORS_STOP): the metro stays unread and the run raises after saving the ledger. A single page that breaks the parser still costs only that venue.
+
+- **ONLY WORKING AND COMPLIANT SOURCES (OWNER, 2026-10-05): 81 RETIRED, AND
+  GITHUB'S VIEW DECIDES.** Evidence per configured source: production logs of
+  runs 107 and 108 (Sat and Sun, by name), Sunday's audit (GitHub runner), a
+  recheck from another network, and robots.txt for all 3,974 configured requests.
+  *Refused* (56, into `_not_included`): every GitHub read was a 401, 403, a 202
+  challenge, or a bare 307 with no Location. Most answer another network fine,
+  so the block is on GitHub's address ranges, where the import runs: Golden,
+  CO (2,102 events), Baltimore Magazine (1,728 upcoming), Prospect Park
+  Alliance, Prattville, Seal Beach. The way back is the operator, never a
+  disguise. *Operator says no crawlers* (7): `Disallow: /` on an API read
+  (Vagancio, 3 of 70 Mobilizon instances, San Mateo County's market data, Mapa
+  Cultural do Ceará, most of Brazil's supply), plus Kestrel Land Trust's feed.
+  Gancio's and Mobilizon's stock files allow all, so those are the operators'
+  choices. *Not working* (18, ledger `fail`, so discovery may find them again
+  after DEAD_TTL): a 404 on every read (9 jsonld listings that were one Wix
+  event's page), a 500, an HTML page, timeouts from GitHub on every read.
+  KEPT, and why: 101 of the 102 iCal requests robots.txt refuses are Google
+  calendars, read through the Calendar API since the key was set. 19 open-data
+  API reads sit under OpenDataSoft's (and one SportSuite's) stock
+  `Disallow: /api/`, under the 2026-09-30 API line: 12 Brisbane datasets, the
+  two OpenAgenda exports, Basel, Bologna, Wallonia and Castilla y Leon. 25
+  sources answer robots.txt with a challenge but serve their feed to
+  production. An empty calendar is not a dead one: the audit read Edina's
+  Braemar Arena as "0 vevents" the same weekend production kept 300 of 432.

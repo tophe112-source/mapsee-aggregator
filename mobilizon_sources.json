@@ -144,13 +144,6 @@
       "default_country": "Finland"
     },
     {
-      "name": "ibb.info - Veranstaltungen in Ibbenbüren und drumzu",
-      "base_url": "https://ibb.info",
-      "category": "community",
-      "limit": 100,
-      "max_pages": 5
-    },
-    {
       "name": "Animal Liberation Summit",
       "base_url": "https://animalliberationsummit.org",
       "category": "community",
@@ -186,13 +179,6 @@
       "limit": 100,
       "max_pages": 5,
       "default_country": "Netherlands"
-    },
-    {
-      "name": "Instance Mobilizon de Picasoft",
-      "base_url": "https://mobilizon.picasoft.net",
-      "category": "community",
-      "limit": 100,
-      "max_pages": 5
     },
     {
       "name": "Mobilizon Infini",
@@ -256,14 +242,6 @@
       "limit": 100,
       "max_pages": 5,
       "default_country": "Netherlands"
-    },
-    {
-      "name": "Jura-Biel-Seeland",
-      "base_url": "https://jura-biel-seeland.fedievents.ch",
-      "category": "community",
-      "limit": 100,
-      "max_pages": 5,
-      "default_country": "Switzerland"
     },
     {
       "name": "Litfaßseite",
@@ -463,13 +441,6 @@
       "max_pages": 5
     },
     {
-      "name": "Eventos Xalapacode",
-      "base_url": "https://eventos.xalapacode.com",
-      "category": "community",
-      "limit": 100,
-      "max_pages": 5
-    },
-    {
       "name": "Treffpunkt Ruhr",
       "base_url": "https://treffpunkt.ruhr",
       "category": "community",
@@ -526,6 +497,9 @@
     "https://meet.debian.net": "measured 2026-09-03: 262 of 291 upcoming listings are advertising - a marabout/retour-affectif campaign and a casino one, the latter dated 457 days long so it could never be cleaned up. Kept at first because 58 rows looked like real Brussels and French cultural events; they are, and they are FEDERATED - of 273 distinct titles, the 55 that are not spam already arrive from other instances in this file, and all 218 unique to it are the spam. Zero unique supply, which is what settled it.",
     "https://mobilizon.ethibox.fr": "measured 2026-09-03: 22 of 22 upcoming listings are marabout/voodoo services carrying their own dialling code. Nothing on this instance is an event.",
     "https://mobilizon.us": "heavily spammed; scam listings geocoded to France.",
-    "https://tummeln.kreatives-leipzig.de": "measured 2026-09-03: 25 of 34 refused, and the nine that got through are SEO product spam the gate does not recognise (dumbbells, LED fixtures, IPTV resellers, Roman blinds). Zero real events, which is the whole case: a source the per-row gate cannot protect us from because there is nothing behind it."
+    "https://tummeln.kreatives-leipzig.de": "measured 2026-09-03: 25 of 34 refused, and the nine that got through are SEO product spam the gate does not recognise (dumbbells, LED fixtures, IPTV resellers, Roman blinds). Zero real events, which is the whole case: a source the per-row gate cannot protect us from because there is nothing behind it.",
+    "https://mobilizon.picasoft.net": "Instance Mobilizon de Picasoft - a Mobilizon instance's GraphQL API. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://mobilizon.picasoft.net/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: Mobilizon's stock robots.txt allows crawling, and 67 of the 70 configured instances answered with no such line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from mobilizon_sources.json at 1fbdfaa; `verify` will then pass it.",
+    "https://jura-biel-seeland.fedievents.ch": "Jura-Biel-Seeland - a Mobilizon instance's GraphQL API. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://jura-biel-seeland.fedievents.ch/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: Mobilizon's stock robots.txt allows crawling, and 67 of the 70 configured instances answered with no such line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from mobilizon_sources.json at 1fbdfaa; `verify` will then pass it.",
+    "https://eventos.xalapacode.com": "Eventos Xalapacode - a Mobilizon instance's GraphQL API. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources (2026-10-05): https://eventos.xalapacode.com/robots.txt answers `Disallow: /` to every crawler (`User-agent: *`). That is the operator's own file: Mobilizon's stock robots.txt allows crawling, and 67 of the 70 configured instances answered with no such line on 2026-10-05. It had been read under DOCUMENTED_API_TYPES (the 2026-09-30 API line); an operator who refuses every crawler is now taken at its word. To restore: once its robots.txt lets MapseeAggregator in, or the operator says yes, copy the entry back from mobilizon_sources.json at 1fbdfaa; `verify` will then pass it."
   }
 }

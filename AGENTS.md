@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 353 of them — live in
+session.** The measured notes about what bites — 355 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -52,7 +52,7 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | A Google calendar, configured or embedded in a page | `mapsee_gcal.py`. With `GOOGLE_CALENDAR_API_KEY` set, the ics adapter and `verify` read it through the Calendar API (its iCal export is refused by robots.txt), as text that parses like the export so rows keep their fingerprints. Unset, nothing changes. `smoke-gcal.yml` (dispatch) proves a key. Discovery proposes Google Sites Calendar blocks and other embeds as `gcal-embed` |
 | Whether a row is an advertisement rather than an event | `mapsee_spam.py` — one predicate, wired into `EventStore.upsert` so all 52 adapters get it; a phone number in the title counts only from Mobilizon, Gancio or an unknown source; `test_spam.py` is mostly about what it must NOT refuse |
 | How much of a source is advertising | `mapsee_spam_audit.py` — measures the rate per instance, so `_not_included` is a number and not an impression |
-| Whether a missing source config is parked ON PURPOSE | a `*_sources.json.pending-permission` twin, and the README's Conduct section. None is parked today: parkrun was, for part of 2026-09-25, and is shown by the owner's decision (`_decision` in `parkrun_sources.json`); `test_ingest_parkrun.py` fails if the live file goes missing or a parked twin reappears. `mapsee_retire_parkrun.py` (`retire-parkrun.yml`, dispatch only) takes every parkrun row off with `apply`, and puts them back with `unhide` |
+| Whether a missing source config is parked ON PURPOSE | a `*_sources.json.pending-permission` twin, and the README's Conduct section. Pioneer Square's is (2026-10-05). parkrun was, for part of 2026-09-25, and is shown by the owner's decision (`_decision` in `parkrun_sources.json`); `test_ingest_parkrun.py` fails if the live file goes missing or a parked twin reappears. `mapsee_retire_parkrun.py` (`retire-parkrun.yml`, dispatch only) takes every parkrun row off with `apply`, and puts them back with `unhide` |
 | An organizer asks for their listing to come off | they reach us through `conbinience.com/support?intent=listing` or support@conbinience.com (the README's Conduct section is the public promise). Set `hidden_at` on the row: the sync never writes that column, so a re-import cannot bring a hidden row back. A whole calendar comes off by leaving its config too. One organizer inside a many-organizer source (parkrun, Mobilizon, a library system) has no per-event opt-out yet: a weekly listing's next dates are new rows |
 | Removing an event that was never ANYWHERE (a Zoom call with a street pin) | `mapsee_retire_online_events.py` — the backfill half of `looks_online_only`/`venue_is_only_a_plus_code` in `mapsee_ingest.py`. Report by default, `--apply` to write, `--unhide` to take it back; opt-in input on `prune-cancelled.yml` |
 | Removing an event the source has since CANCELLED | `mapsee_prune_cancelled.py` — re-probes upcoming rows at their own source URL; hides on schema.org `EventCancelled` or a 404, never on prose or a 403, and never reads a page robots.txt refuses. Report by default, `--apply` to write; twice daily from `prune-cancelled.yml` — 07:55 full sweep (between the import and the janitor) and 16:55 near horizon (`--days 2`), because a once-daily run cannot catch a same-day cancellation |
@@ -68,7 +68,7 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | The kids door (unsie.com, live) and what its plan still wants from this repo | **not here** — `../mapsee/docs/plans/unsie-and-the-lend-layer.md`. The door has shipped; the plan's §4 and §7 are this repo's half: new kid Kinds in `mapsee_ingest_osm_amenities.py` and swap language in `_KIDS_RX`/`derive_categories`. Toy libraries and little free libraries are MEASURED — the two notes in `docs/agents/osm-amenities.md` say why one is not worth a Kind without French hubs and why the other cannot be split by audience. Read those before widening either |
 | Brazilian cultural events (state/municipal registers) | `mapsee_ingest_mapasculturais.py` + `mapasculturais_sources.json` — the only source that puts anything on the map in Brazil |
-| The three HTML scrapers (no feed exists at any) | `mapsee_ingest_pioneersquare.py`, `mapsee_ingest_seattlecenter.py`, `mapsee_ingest_glenecho.py` — all place events from a venue book in their config, never from the page |
+| The three HTML scrapers (no feed exists at any) | `mapsee_ingest_pioneersquare.py`, `mapsee_ingest_seattlecenter.py`, `mapsee_ingest_glenecho.py` — all place events from a venue book in their config, never from the page; Pioneer Square's is parked |
 | What runs when | `.github/workflows/aggregate-events.yml` header — the best doc in the repo |
 
 Source lists are the `*_sources.json` files; `CONFIG` at the top of
@@ -123,7 +123,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 | File | Notes | Covers |
 |---|---|---|
-| `docs/agents/curation-and-discovery.md` | 89 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic, the live per-door census, what a row-level review refuses, LibCal views, the civic marker, Communico's two hostnames, the 127 configured requests robots.txt refuses, Google Sites calendar blocks, pinning a calendar to its venue by hand, the infrastructure APIs' own robots.txt, retiring what robots.txt refuses and whose file a platform's is |
+| `docs/agents/curation-and-discovery.md` | 90 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic, the live per-door census, what a row-level review refuses, LibCal views, the civic marker, Communico's two hostnames, the 127 configured requests robots.txt refuses, Google Sites calendar blocks, pinning a calendar to its venue by hand, the infrastructure APIs' own robots.txt, retiring what robots.txt refuses and whose file a platform's is |
 | `docs/agents/osm-amenities.md` | 32 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list, hall contacts |
 | `docs/agents/openactive-and-standing-rows.md` | 15 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 25 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped |
@@ -136,7 +136,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | `docs/agents/geocoding-and-addresses.md` | 10 | Census, Photon, wrong coordinates, the city in the address, a LOCATION that says elsewhere, the Events Calendar's comma LOCATION, a City point in another borough |
 | `docs/agents/spam-and-content.md` | 8 | the predicate, the purge, implausible end dates, safe scheduled deletes |
 | `docs/agents/state-fairs.md` | 5 | marketing-copy dates, towns vs venues |
-| `docs/agents/health-and-monitoring.md` | 6 | `stats_snapshot_all`, baselines, a source with no retry |
+| `docs/agents/health-and-monitoring.md` | 7 | `stats_snapshot_all`, baselines, a source with no retry, the audit's crash |
 | `docs/agents/libraries-bibliocommons.md` | 6 | geocoding cost, ignored date filters, stock tiles, a 5xx page, verified event yield |
 | `docs/agents/community-centres.md` | 24 | drop-in vs course, where a centre's timetable lives, booking platforms, city open data, seed yield, RRULE timetables, a price line the sync cuts |
 | `docs/agents/running.md`, `credentials.md`, `platforms-probed.md` | — | the operational sections, verbatim |

@@ -11,14 +11,6 @@
       "_note": "robots.txt: 'User-agent: * / Disallow:' then 'Crawl-Delay: 10'. Independent standup, improv and open mics - the scene the ticketing APIs do not index. ~10,500 future events, so max_pages caps the sweep rather than walking all 5,000 pages."
     },
     {
-      "name": "Montgomery County Road Runners (MD)",
-      "base_url": "https://mcrrc.org",
-      "category": "running",
-      "crawl_delay": 2,
-      "within_days": 180,
-      "_note": "robots.txt disallows /wp-admin/ only. Fills a real gap: coverage reports no curated running feeds anywhere in the US."
-    },
-    {
       "name": "New Jersey Audubon",
       "base_url": "https://njaudubon.org",
       "category": "outdoors",
@@ -68,17 +60,6 @@
       "default_region": "CO",
       "default_country": "United States",
       "_note": "robots.txt is two lines: 'User-agent: *' then 'Allow: /'. 144 upcoming events, and the RECURRING ones are the point - 'Wednesday Morning Velo', 'Rise n Ride Commuter Group Bicycle Rides', 'TNT Tuesday Night Thunder Race Series'. A weekly group ride is the repeat-visit content wegosie's tagline promises and BikeReg's race calendar does not carry. NO geo_lat/geo_lng on any venue, so every row is placed by the sync's geocoder from address+city+zip; default_region is set because the venue records leave `state` null and 'Leadville' alone is ambiguous nationally."
-    },
-    {
-      "name": "London Cycling Campaign",
-      "base_url": "https://www.lcc.org.uk",
-      "category": "fitness",
-      "crawl_delay": 2,
-      "within_days": 365,
-      "max_pages": 10,
-      "default_city": "London",
-      "default_country": "United Kingdom",
-      "_note": "Same Cloudflare Managed Content robots.txt as sfbike.org - '*' is Allow: / with Content-Signal search=yes,ai-train=no,use=reference. 117 upcoming events, EVERY venue carrying geo_lat/geo_lng, so nothing here needs the geocoder. The reason it is worth more than its event count: `catalog_curate.py coverage` reports the United Kingdom has no curated fitness, outdoors, running or volunteer feed at all, and this is monthly recurring content (Kentish Town Bike Workshop, Kentish Town Pedals) rather than a season of one-offs."
     },
     {
       "name": "Bicycle Coalition of Maine",
@@ -147,17 +128,6 @@
       "default_region": "MA",
       "default_country": "United States",
       "_note": "One upcoming event ('BoP-Town Bikepacking Ride to Provincetown'), which is thin rather than broken - `status` empty is not `status` fail. Kept because Boston is a major metro with no cycling source at all and the count is a snapshot of one week in August. The single event carries a venue but no city, so default_city is load-bearing. Revisit at the next source-health audit: if it is still 1, it is a season, not a calendar."
-    },
-    {
-      "name": "Randolph Street Market (Chicago vintage + antiques)",
-      "base_url": "https://www.randolphstreetmarket.com",
-      "category": "market",
-      "crawl_delay": 2,
-      "within_days": 365,
-      "max_pages": 5,
-      "default_region": "IL",
-      "default_country": "United States",
-      "_note": "robots.txt is 'User-agent: *' with an EMPTY Disallow. Only 3 upcoming dates, and worth the entry anyway: fleabop.com is 'Flea Markets, Clothing Swaps and Vintage Near You' and market_sources.json is a farmers-market file end to end - 85 uses of 'farmers', 0 of 'flea'. Measured 2026-08-16, the market lens held 3,469 upcoming events of which 2 named a flea market and 0 named thrift, vintage, swap or antique. This is a monthly vintage and antiques market that publishes a season at a time. No geo_lat on any venue, but every one carries a real street address ('1341 W Randolph Street') so the sync's Census pass places them; default_region is set because the venue records leave `state` null."
     },
     {
       "name": "West Ealing Community Library",
@@ -544,21 +514,6 @@
       "_metro": "Calgary, CA"
     },
     {
-      "name": "Irish Cultural Centre",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe",
-      "base_url": "https://www.calgaryics.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Irish Cultural Centre",
-        "address": "6452 35 Avenue NW",
-        "lat": 51.0845491,
-        "lon": -114.182741
-      },
-      "_metro": "Calgary, CA"
-    },
-    {
       "name": "Calgary Horseshoe Club",
       "category": "community",
       "_found": "osm:club -> tribe+ics",
@@ -623,21 +578,6 @@
         "name": "Islamic Shia Ithna-Asheri Centre",
         "lat": 53.4621345,
         "lon": -113.4058892
-      },
-      "_metro": "Edmonton, CA"
-    },
-    {
-      "name": "North Millbourne Community League",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://nmclinfo.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "North Millbourne Community League",
-        "address": "980 Millbourne Road East NW",
-        "lat": 53.4796121,
-        "lon": -113.4474247
       },
       "_metro": "Edmonton, CA"
     },
@@ -825,23 +765,6 @@
       "_metro": "Winnipeg, CA"
     },
     {
-      "name": "Registry Theatre",
-      "category": "theater",
-      "_found": "osm:theatre -> tribe+jsonld-event+ics",
-      "base_url": "https://registrytheatre.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Registry Theatre",
-        "address": "122 Frederick Street",
-        "city": "Kitchener",
-        "postal_code": "N2H 2L9",
-        "lat": 43.4519348,
-        "lon": -80.485633
-      },
-      "_metro": "Kitchener, CA"
-    },
-    {
       "name": "Immigrant Services Guelph-Wellington",
       "category": "community",
       "_found": "osm:social_facility -> tribe+jsonld-event+ics",
@@ -935,20 +858,6 @@
         "address": "204 Madison Avenue South",
         "lat": 43.441332,
         "lon": -80.4873513
-      },
-      "_metro": "Kitchener, CA"
-    },
-    {
-      "name": "Alpine Club",
-      "category": "community",
-      "_found": "osm:club -> tribe+jsonld-event+ics",
-      "base_url": "https://alpineclub.ca",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Alpine Club",
-        "lat": 43.4728636,
-        "lon": -80.4819361
       },
       "_metro": "Kitchener, CA"
     },
@@ -1536,23 +1445,6 @@
       "_metro": "Hobart, AU"
     },
     {
-      "name": "Derwent Sailing Squadron",
-      "category": "community",
-      "_found": "osm:club -> tribe",
-      "base_url": "https://dssinc.org.au",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Derwent Sailing Squadron",
-        "address": "23 Marieville Esplanade",
-        "region": "TAS",
-        "postal_code": "7005",
-        "lat": -42.899002,
-        "lon": 147.3318622
-      },
-      "_metro": "Hobart, AU"
-    },
-    {
       "name": "Illawarra Yacht Club",
       "category": "community",
       "_found": "osm:club -> tribe+jsonld-event",
@@ -1661,22 +1553,6 @@
       "_metro": "Dublin, IE"
     },
     {
-      "name": "Lansdowne Football Club",
-      "category": "fitness",
-      "_found": "osm:sports_centre -> tribe",
-      "base_url": "https://lansdownerugby.com",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Lansdowne Football Club",
-        "address": "Ballycorus Road",
-        "city": "Kilternan",
-        "lat": 53.2343663,
-        "lon": -6.1812581
-      },
-      "_metro": "Dublin, IE"
-    },
-    {
       "name": "?",
       "category": "community",
       "_found": "osm:social_facility -> tribe+jsonld-event+ics",
@@ -1704,20 +1580,6 @@
         "postal_code": "D16 W5X9",
         "lat": 53.2819866,
         "lon": -6.2557751
-      },
-      "_metro": "Dublin, IE"
-    },
-    {
-      "name": "Belvedere Swimming Pool",
-      "category": "fitness",
-      "_found": "osm:sports_centre -> tribe+ics",
-      "base_url": "https://belvederecollege.ie",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Belvedere Swimming Pool",
-        "lat": 53.3560732,
-        "lon": -6.262403
       },
       "_metro": "Dublin, IE"
     },
@@ -2173,20 +2035,6 @@
         "address": "8-10 Tāmaki Drive",
         "lat": -36.849796,
         "lon": 174.8103976
-      },
-      "_metro": "Auckland, NZ"
-    },
-    {
-      "name": "Deaf Aotearoa",
-      "category": "community",
-      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
-      "base_url": "https://www.deaf.org.nz",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Deaf Aotearoa",
-        "lat": -36.8936769,
-        "lon": 174.6968051
       },
       "_metro": "Auckland, NZ"
     },
@@ -3717,20 +3565,6 @@
       "_metro": "Prague, CZ"
     },
     {
-      "name": "RC klub Kyje",
-      "category": "fitness",
-      "_found": "osm:sports_centre -> tribe+jsonld-event",
-      "base_url": "https://rcklubkyje.cz",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "RC klub Kyje",
-        "lat": 50.0974979,
-        "lon": 14.5394366
-      },
-      "_metro": "Prague, CZ"
-    },
-    {
       "name": "Koncertní sál Pražské konzervatoře",
       "category": "theater",
       "_found": "osm:theatre -> tribe",
@@ -4307,24 +4141,6 @@
         "address": "6 Stålverksgatan",
         "lat": 57.7217152,
         "lon": 11.9768154
-      },
-      "_metro": "Gothenburg, SE"
-    },
-    {
-      "name": "Galleri Insikten, Röda Stugan",
-      "category": "arts",
-      "_found": "osm:gallery -> tribe+jsonld-event+ics",
-      "base_url": "https://astol.se",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Galleri Insikten, Röda Stugan",
-        "address": "10",
-        "city": "Åstol",
-        "postal_code": "47144",
-        "country": "SE",
-        "lat": 57.9212951,
-        "lon": 11.5821877
       },
       "_metro": "Gothenburg, SE"
     },
@@ -5718,20 +5534,6 @@
       "_metro": "Brussels, BE"
     },
     {
-      "name": "Centre culturel Bruegel",
-      "category": "theater",
-      "_found": "osm:theatre -> tribe+jsonld-event+ics",
-      "base_url": "https://ccbruegel.be",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Centre culturel Bruegel",
-        "lat": 50.8369148,
-        "lon": 4.3471409
-      },
-      "_metro": "Brussels, BE"
-    },
-    {
       "name": "Kings of Comedy Club",
       "category": "theater",
       "_found": "osm:theatre -> tribe+jsonld-event+ics",
@@ -5757,24 +5559,6 @@
         "address": "8 Stevensveld",
         "lat": 50.9011036,
         "lon": 4.2197036
-      },
-      "_metro": "Brussels, BE"
-    },
-    {
-      "name": "Zik-Zak",
-      "category": "music",
-      "_found": "osm:music_venue -> tribe+jsonld-event+ics",
-      "base_url": "https://zik-zak.be",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Zik-Zak",
-        "address": "28 Rue de Tubize",
-        "city": "Ittre",
-        "postal_code": "1460",
-        "country": "BE",
-        "lat": 50.6572191,
-        "lon": 4.2190284
       },
       "_metro": "Brussels, BE"
     },
@@ -6371,18 +6155,6 @@
       "_metro": "Muskegon, Michigan"
     },
     {
-      "name": "Prattville",
-      "category": "community",
-      "_found": "civic:city -> tribe+jsonld-event+ics",
-      "base_url": "https://prattvilleal.gov",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Prattville",
-      "default_region": "Alabama",
-      "default_country": "US",
-      "_metro": "Prattville, Alabama"
-    },
-    {
       "name": "Bartlesville",
       "category": "community",
       "_found": "civic:city -> tribe+jsonld-event+ics",
@@ -6498,17 +6270,6 @@
       "default_country": "United States"
     },
     {
-      "name": "Audubon Society of Portland",
-      "category": "outdoors",
-      "_found": "parks:agency -> tribe+jsonld-event+ics",
-      "base_url": "https://birdallianceoregon.org",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Portland",
-      "default_region": "Oregon",
-      "default_country": "United States"
-    },
-    {
       "name": "Schlitz Audubon Nature Center",
       "category": "outdoors",
       "_found": "parks:agency -> tribe+jsonld-event+ics",
@@ -6590,18 +6351,6 @@
       "default_region": "Georgia",
       "default_country": "US",
       "_metro": "Pooler, Georgia"
-    },
-    {
-      "name": "Seal Beach",
-      "category": "community",
-      "_found": "civic:city -> tribe",
-      "base_url": "https://sealbeachca.gov",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Seal Beach",
-      "default_region": "California",
-      "default_country": "US",
-      "_metro": "Seal Beach, California"
     },
     {
       "name": "Henrico County Rec & Parks, VA",
@@ -6727,18 +6476,6 @@
       "_metro": "Keene, New Hampshire"
     },
     {
-      "name": "Acworth",
-      "category": "community",
-      "_found": "civic:city -> tribe",
-      "base_url": "https://acworth-ga.gov",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Acworth",
-      "default_region": "Georgia",
-      "default_country": "US",
-      "_metro": "Acworth, Georgia"
-    },
-    {
       "name": "Del City",
       "category": "community",
       "_found": "civic:city -> tribe+jsonld-event+ics",
@@ -6799,18 +6536,6 @@
       "_metro": "Pittsburg, Kansas"
     },
     {
-      "name": "Golden (visitgolden.com)",
-      "category": "community",
-      "_found": "civic:dmo -> tribe+jsonld-event+ics",
-      "base_url": "https://www.visitgolden.com",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Golden",
-      "default_region": "Colorado",
-      "default_country": "US",
-      "_metro": "Golden, Colorado"
-    },
-    {
       "name": "Hammond",
       "category": "community",
       "_found": "civic:city -> tribe+jsonld-event+ics",
@@ -6833,18 +6558,6 @@
       "default_region": "Oklahoma",
       "default_country": "US",
       "_metro": "Claremore, Oklahoma"
-    },
-    {
-      "name": "Sylvania",
-      "category": "community",
-      "_found": "civic:city -> tribe+jsonld-event+ics",
-      "base_url": "https://www.cityofsylvania.com",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Sylvania",
-      "default_region": "Ohio",
-      "default_country": "US",
-      "_metro": "Sylvania, Ohio"
     },
     {
       "name": "Albert Lea",
@@ -6929,18 +6642,6 @@
       "default_region": "Florida",
       "default_country": "US",
       "_metro": "Auburndale, Florida"
-    },
-    {
-      "name": "Fort Payne",
-      "category": "community",
-      "_found": "civic:city -> tribe+jsonld-event+ics",
-      "base_url": "https://fortpayne.org",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Fort Payne",
-      "default_region": "Alabama",
-      "default_country": "US",
-      "_metro": "Fort Payne, Alabama"
     },
     {
       "name": "Havre de Grace",
@@ -8015,23 +7716,6 @@
       "_metro": "Zurich, CH"
     },
     {
-      "name": "Pro Velo",
-      "category": "community",
-      "_found": "osm:club -> tribe",
-      "base_url": "https://www.provelozuerich.ch",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Pro Velo",
-        "address": "20 Kornhausstrasse",
-        "city": "Zürich",
-        "postal_code": "8006",
-        "lat": 47.3877356,
-        "lon": 8.5361678
-      },
-      "_metro": "Zurich, CH"
-    },
-    {
       "name": "Stadtkeller Dietikon",
       "category": "community",
       "_found": "osm:events_venue -> tribe+jsonld-event+ics",
@@ -8691,17 +8375,6 @@
       "_metro": "Bend, United States"
     },
     {
-      "name": "Washington Center for the Performing Arts (Olympia)",
-      "base_url": "https://www.washingtoncenter.org",
-      "category": "theater",
-      "default_city": "Olympia",
-      "default_region": "WA",
-      "default_country": "US",
-      "within_days": 180,
-      "_found": "manual: Olympia metro request -> tribe REST",
-      "_metro": "Olympia, WA"
-    },
-    {
       "name": "Cento Incroci",
       "category": "learning",
       "_found": "osm:books -> tribe",
@@ -9095,40 +8768,6 @@
       "_metro": "Milan, Italy"
     },
     {
-      "name": "Gruppo Archeologico Milanese",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe",
-      "base_url": "https://archeomilanese.eu",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Gruppo Archeologico Milanese",
-        "address": "8c Corso Lodi",
-        "city": "Milano",
-        "postal_code": "20135",
-        "lat": 45.4503868,
-        "lon": 9.2045697
-      },
-      "_metro": "Milan, Italy"
-    },
-    {
-      "name": "Circolo ARCI Bellezza",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
-      "base_url": "https://arcibellezza.it",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "Circolo ARCI Bellezza",
-        "address": "16/A Via Giovanni Bellezza",
-        "city": "Milano",
-        "postal_code": "20136",
-        "lat": 45.4487253,
-        "lon": 9.1950129
-      },
-      "_metro": "Milan, Italy"
-    },
-    {
       "name": "San Nicola Vescovo",
       "category": "community",
       "_found": "osm:place_of_worship -> tribe+ics",
@@ -9208,23 +8847,6 @@
         "postal_code": "80127",
         "lat": 40.8399872,
         "lon": 14.2161263
-      },
-      "_metro": "Naples, Italy"
-    },
-    {
-      "name": "FOQUS Napoli",
-      "category": "community",
-      "_found": "osm:community_centre -> tribe+events-manager+jsonld-event+ics",
-      "base_url": "https://www.foqusnapoli.it",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "FOQUS Napoli",
-        "address": "69 Via Portacarrese a Montecalvario",
-        "city": "Napoli",
-        "postal_code": "80132",
-        "lat": 40.8425233,
-        "lon": 14.2456441
       },
       "_metro": "Naples, Italy"
     },
@@ -9941,24 +9563,6 @@
       "_note": "The Events Calendar REST API; robots.txt: Disallow /wp-admin/, Crawl-delay 10. Free watershed walks, cleanups and climate-week talks across San Diego County."
     },
     {
-      "name": "San Diego History Center (San Diego)",
-      "category": "arts",
-      "base_url": "https://www.sandiegohistory.org",
-      "within_days": 120,
-      "max_pages": 10,
-      "_metro": "San Diego, United States",
-      "_note": "The Events Calendar REST API; robots.txt disallows one uploads folder only. API rows carry no coordinates and 13 of 15 are at the centre, so the config pins it. Book launches, ofrenda, family history days.",
-      "venue": {
-        "name": "San Diego History Center",
-        "address": "1649 El Prado, Suite 3",
-        "city": "San Diego",
-        "region": "CA",
-        "postal_code": "92101",
-        "lat": 32.7311591,
-        "lon": -117.148272
-      }
-    },
-    {
       "name": "Lakewood Public Library (Cleveland)",
       "category": "learning",
       "base_url": "https://www.lakewoodpubliclibrary.org",
@@ -10035,26 +9639,6 @@
       "default_country": "United States",
       "_metro": "St. Louis, US",
       "_note": "The Events Calendar at Kirkwood MO's library; robots.txt allows /wp-json/. 166 upcoming 2026-09-27, all at the one building (venue has no geo, hence venue). Storytimes, clubs, civics talks."
-    },
-    {
-      "name": "Indy Reads (Indianapolis)",
-      "category": "learning",
-      "base_url": "https://www.indyreads.org",
-      "within_days": 120,
-      "max_pages": 6,
-      "crawl_delay": 2,
-      "venue": {
-        "name": "Indy Reads",
-        "address": "1066 Virginia Avenue",
-        "postal_code": "46203",
-        "lat": 39.7524851,
-        "lon": -86.1400355
-      },
-      "default_city": "Indianapolis",
-      "default_region": "IN",
-      "default_country": "United States",
-      "_metro": "Indianapolis, US",
-      "_note": "Adult-literacy nonprofit and community bookstore in Fountain Square; The Events Calendar, robots.txt allows /wp-json/. 44 upcoming 2026-09-27, all at 1066 Virginia Ave: ELL circles, book club, writers' nights."
     },
     {
       "name": "Big Car Collaborative (Indianapolis)",
@@ -10803,23 +10387,6 @@
       "_note": "Village cultural and community centre in Stolwijk, Krimpenerwaard (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Pub quiz, older people's day, choirs, small shows."
     },
     {
-      "name": "COC Haaglanden (The Hague)",
-      "category": "community",
-      "base_url": "https://www.cochaaglanden.nl",
-      "within_days": 120,
-      "max_pages": 10,
-      "venue": {
-        "name": "COC Haaglanden",
-        "address": "7 Scheveningseveer",
-        "city": "'s-Gravenhage",
-        "postal_code": "2514HB",
-        "lat": 52.0836736,
-        "lon": 4.304764
-      },
-      "_metro": "The Hague, Netherlands",
-      "_note": "LGBTQ+ community centre in The Hague (OSM community_centre); The Events Calendar REST, robots.txt allows /wp-json. Support groups, queer Fridays, over-50s outings, jam sessions."
-    },
-    {
       "name": "Huis Miereveld (Amersfoort)",
       "category": "community",
       "base_url": "https://www.huismiereveld.nl",
@@ -10998,15 +10565,6 @@
       "max_pages": 4,
       "_metro": "Indianapolis, United States",
       "_note": "Indiana Humanities statewide programme: talks, book events, lit fest; most marked Free. robots.txt: 'User-agent: * / Disallow:' plus Crawl-delay 10, honoured. Many events in Indianapolis."
-    },
-    {
-      "name": "Ohio Wildlife Center (Columbus)",
-      "base_url": "https://ohiowildlifecenter.org",
-      "category": "outdoors",
-      "within_days": 120,
-      "max_pages": 4,
-      "_metro": "Columbus, United States",
-      "_note": "Ohio Wildlife Center, Powell OH: Second Sunday open days (free), wild story time ($5), talks. robots.txt: 'User-agent: * / Disallow:'. 50 of 51 at the center, venue carried by the API."
     },
     {
       "name": "Burroughs Audubon Society (Kansas City)",
@@ -11207,15 +10765,6 @@
       "max_pages": 5,
       "_metro": "Honolulu, United States",
       "_note": "Mililani Town Association community events at its recreation centres (keiki fair, pet fair, bingo); venues carry geo. robots.txt does not disallow /wp-json/. Honolulu had almost no feeds."
-    },
-    {
-      "name": "HD South - Gilbert Historical Museum (Gilbert)",
-      "category": "community",
-      "base_url": "https://hdsouth.org",
-      "within_days": 120,
-      "max_pages": 5,
-      "_metro": "Phoenix, United States",
-      "_note": "Gilbert heritage centre programmes: book club, family history, art, line dancing; many free, venues carry geo. robots.txt does not disallow /wp-json/."
     },
     {
       "name": "Santa Fe Farmers Market (Santa Fe)",
@@ -12815,34 +12364,6 @@
       "_metro": "Tilburg, Netherlands"
     },
     {
-      "name": "Made New Makerspace - public community events",
-      "base_url": "https://madenewomaha.com",
-      "category": "community",
-      "include_categories": [
-        123
-      ],
-      "within_days": 90,
-      "per_page": 50,
-      "max_pages": 5,
-      "crawl_delay": 10,
-      "_metro": "Omaha, United States",
-      "_found": "organization:welcome -> tribe (hand-curated)",
-      "_note": "2026-10-01: category 123 is All ages event, explicitly for members and non-members alike; 14 unique upcoming events (13 free Tuesday open houses plus the public Fir Lumber Rally). Category 127 is private. One filtered API GET; verified Census venue point fills missing publisher coordinates.",
-      "venue": {
-        "name": "Made New Makerspace",
-        "names": [
-          "Made New Makerspace"
-        ],
-        "address": "5366 F St",
-        "city": "Omaha",
-        "region": "NE",
-        "postal_code": "68117",
-        "country": "US",
-        "lat": 41.21979372547,
-        "lon": -95.997099703017
-      }
-    },
-    {
       "name": "Washington Hebrew Congregation - Hunger Project volunteering",
       "base_url": "https://www.whctemple.org",
       "category": "volunteer",
@@ -13246,18 +12767,6 @@
       "default_region": null,
       "default_country": "IE",
       "_metro": "Dundalk, Ireland"
-    },
-    {
-      "name": "Kinsale",
-      "category": "community",
-      "_found": "civic:city -> tribe+jsonld-event+ics",
-      "base_url": "https://www.kinsale.ie",
-      "within_days": 365,
-      "max_pages": 15,
-      "default_city": "Kinsale",
-      "default_region": null,
-      "default_country": "IE",
-      "_metro": "Kinsale, Ireland"
     },
     {
       "name": "The FRONT",
@@ -15893,6 +15402,39 @@
     "https://www.bellevillelibrary.ca": "Belleville Public Library (Belleville, Canada) - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://www.bellevillelibrary.ca/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Letter: ../mapsee/outreach/partners/library-calendar-permission.md. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
     "https://christchurchcathedral.ie": "Christ Church Cathedral - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://christchurchcathedral.ie/robots.txt answers `Disallow: /wp-json/` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Its robots.txt answered the first fetch that day with a bot challenge, and the second with this rule. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
     "https://wabano.com": "Wabano Centre for Aboriginal Health (Ottawa, Canada) - The Events Calendar's REST API. RETIRED 2026-09-30 under the robots line (robots.txt binds a publisher's own pages and feeds): https://wabano.com/robots.txt answers `Disallow: /*?` to every crawler (`User-agent: *`), and our GET /wp-json/tribe/events/v1/events?... falls under it. Its robots.txt answered the first fetch that day with a bot challenge, and the second with this rule. To restore: once robots.txt lets MapseeAggregator read that path, copy the entry back from tribe_sources.json at f8465bf; `verify` will then pass it.",
-    "https://biblioteca.pucrs.br": "Biblioteca Central Irmão José Otão - The Events Calendar's REST API. RETIRED 2026-10-04 under the robots line: https://biblioteca.pucrs.br/robots.txt answers our User-Agent with Cloudflare's 'Sorry, you have been blocked' page (HTTP 403), which robots_txt.py read as a missing file (allow-all) until e9775d4. A block page naming us is a refusal. To restore: once the host answers MapseeAggregator with a robots.txt that allows /wp-json/tribe/, copy the entry back from tribe_sources.json at 7bff5e8; verify will then pass it."
+    "https://biblioteca.pucrs.br": "Biblioteca Central Irmão José Otão - The Events Calendar's REST API. RETIRED 2026-10-04 under the robots line: https://biblioteca.pucrs.br/robots.txt answers our User-Agent with Cloudflare's 'Sorry, you have been blocked' page (HTTP 403), which robots_txt.py read as a missing file (allow-all) until e9775d4. A block page naming us is a refusal. To restore: once the host answers MapseeAggregator with a robots.txt that allows /wp-json/tribe/, copy the entry back from tribe_sources.json at 7bff5e8; verify will then pass it.",
+    "https://mcrrc.org": "Montgomery County Road Runners (MD) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: http 403. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.lcc.org.uk": "London Cycling Campaign - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 49 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.randolphstreetmarket.com": "Randolph Street Market (Chicago vintage + antiques) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.calgaryics.org": "Irish Cultural Centre - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://nmclinfo.com": "North Millbourne Community League - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://registrytheatre.com": "Registry Theatre - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 23 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://alpineclub.ca": "Alpine Club - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 10 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://dssinc.org.au": "Derwent Sailing Squadron - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sun challenge. Audit on a GitHub runner 2026-10-04: http 307. Recheck 2026-10-05: 68 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://lansdownerugby.com": "Lansdowne Football Club - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://belvederecollege.ie": "Belvedere Swimming Pool - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.deaf.org.nz": "Deaf Aotearoa - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://rcklubkyje.cz": "RC klub Kyje - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 401. Recheck 2026-10-05: http 401. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://astol.se": "Galleri Insikten, Röda Stugan - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://ccbruegel.be": "Centre culturel Bruegel - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://zik-zak.be": "Zik-Zak - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://prattvilleal.gov": "Prattville - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 307. Recheck 2026-10-05: 117 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://birdallianceoregon.org": "Audubon Society of Portland - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: http 403. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://sealbeachca.gov": "Seal Beach - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 307. Recheck 2026-10-05: 110 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://acworth-ga.gov": "Acworth - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 106 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.visitgolden.com": "Golden (visitgolden.com) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 2102 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.cityofsylvania.com": "Sylvania - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 307. Recheck 2026-10-05: 10 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://fortpayne.org": "Fort Payne - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 15 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.washingtoncenter.org": "Washington Center for the Performing Arts (Olympia) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 70 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://archeomilanese.eu": "Gruppo Archeologico Milanese - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: 4 events, 4/4 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://arcibellezza.it": "Circolo ARCI Bellezza - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: 84 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.foqusnapoli.it": "FOQUS Napoli - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.sandiegohistory.org": "San Diego History Center (San Diego) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 14 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.indyreads.org": "Indy Reads (Indianapolis) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 32 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.cochaaglanden.nl": "COC Haaglanden (The Hague) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 68 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://ohiowildlifecenter.org": "Ohio Wildlife Center (Columbus) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 11 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://hdsouth.org": "HD South - Gilbert Historical Museum (Gilbert) - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 32 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://madenewomaha.com": "Made New Makerspace - public community events - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat refused; sun refused. Audit on a GitHub runner 2026-10-04: http 403. Recheck 2026-10-05: 32 events, 10/10 on page 1 future. It answered this check from another network, so the block is on GitHub's address ranges, where the import runs; the way in is to ask the operator. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa.",
+    "https://www.kinsale.ie": "Kinsale - tribe. RETIRED 2026-10-05 under the owner's instruction to keep only working and compliant sources: the host refuses us. Production: sat challenge; sun challenge. Audit on a GitHub runner 2026-10-04: http 202. Recheck 2026-10-05: http 202. It refused that check too. A 403 or a bot challenge is a refusal, not an obstacle (AGENTS.md). To restore: once the site lets MapseeAggregator read it, copy the entry back from tribe_sources.json at 1fbdfaa."
   }
 }
