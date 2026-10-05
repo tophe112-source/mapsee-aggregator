@@ -3426,6 +3426,10 @@ _ISO_COUNTRY = {
     # from this table they stayed as "IS" and "JM", which is not a country name
     # a gap report can act on.
     "IS": "Iceland", "JM": "Jamaica",
+    # The 2026-10-05 community-feeds batch declared these and nothing had before.
+    "AR": "Argentina", "AW": "Aruba", "CL": "Chile", "DO": "Dominican Republic",
+    "IL": "Israel", "LV": "Latvia", "MQ": "Martinique", "PR": "Puerto Rico",
+    "RO": "Romania",
 }
 # The same table read the other way, for a suffix that spells the country out.
 # Built rather than written, so the two can never disagree.

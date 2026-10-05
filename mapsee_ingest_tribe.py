@@ -218,7 +218,12 @@ def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEve
                                        for c in (cats if isinstance(cats, list) else [])
                                        if isinstance(c, dict)])
     description = _clean(ev.get("description"))
-    ticket_url = ev.get("website") or ev.get("url")
+    # `website` is the organiser's free text, and a link without a scheme is no
+    # link: 7 of BCUT Timisoara's 8 rows said "www.bcut.ro" and 26 of Trekanten's
+    # "www.makerspace0220.dk" (2026-10-04). The event's own page is always whole.
+    website = ev.get("website") if isinstance(ev.get("website"), str) else ""
+    website = website.strip()
+    ticket_url = website if re.match(r"https?://", website, re.I) else (ev.get("url") or None)
     admission = normalize_admission_facts(
         ev.get("cost"), url=ticket_url, currency_hint=site.get("currency"),
         context=f"{name} {description or ''}")
@@ -284,11 +289,23 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             raise ValueError("include_categories must be a nonempty list of category IDs or slugs")
         included = {str(c).strip().lower() for c in included}
         params["categories"] = ",".join(sorted(included))
+    # A parish council's calendar files "Planning & Highways Meeting" beside its
+    # memory café, under titles the town-hall phrases (CIVIC_TITLE_RX) do not
+    # know, and its category filter would cost the café too: Haydon Wick's
+    # committee rows carry only a committee slug and its Companions Café none
+    # (2026-10-04). Same option, same case-insensitive search, as ics and jsonld.
+    skip_title = None
+    if site.get("skip_title"):
+        try:
+            skip_title = re.compile(site["skip_title"], re.I)
+        except (re.error, TypeError) as exc:
+            raise ValueError(f"{site.get('name', '?')}: invalid skip_title regex: {exc}") from exc
     kept = 0
     malformed = 0
     governance = 0
     excluded = 0
     admission_excluded = 0
+    title_filtered = 0
     is_civic = str(site.get("_found", "")).startswith("civic:")
     refreshable_admission_ids = (_known_admission_ids_for_site(store, base)
                                  if site.get("free_only") else set())
@@ -351,6 +368,9 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
                                      or CIVIC_HOLIDAY_RX.match((nev.name or "").strip())):
                 governance += 1
                 continue
+            if nev and skip_title and skip_title.search(nev.name or ""):
+                title_filtered += 1
+                continue
             if nev:
                 store.upsert(nev)
                 kept += 1
@@ -361,6 +381,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     print(f"[tribe] {site.get('name')}: kept {kept} events"
           + (f" ({malformed} unreadable record(s) skipped)" if malformed else "")
           + (f" ({governance} town-hall row(s) refused)" if governance else "")
+          + (f" ({title_filtered} title-filtered)" if title_filtered else "")
           + (f" ({excluded} outside configured categories)" if excluded else "")
           + (f" ({admission_excluded} outside explicit-free admission scope)"
              if admission_excluded else ""))

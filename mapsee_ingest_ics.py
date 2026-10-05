@@ -165,10 +165,12 @@ def _save_cursor(path, source, offset=0, kept=0):
 # every non-ASCII character of such a feed became two: the "é" of "Numériques"
 # arrived as U+00C3 U+00A9. OpenAgenda serves a bare `text/calendar`, and in the
 # 2026-09-28 corpus (40,920 distinct listings from 831 feeds) 3,692 listings
-# from 58 feeds were garbled this way, 57 of the feeds OpenAgenda's. Those rows
-# are on the map with that text, and their fingerprints were hashed from it,
-# so reading the feed correctly changes every one of their identities: see
-# `legacy_fingerprints` in mapsee_ingest.NormalizedEvent.
+# from 58 feeds were garbled this way, 57 of the feeds OpenAgenda's. A row a
+# charset-less feed put on the map that way carries that text, and its
+# fingerprint was hashed from it, so reading the feed correctly changes its
+# identity: see `legacy_fingerprints` in mapsee_ingest.NormalizedEvent. (The
+# OpenAgenda feeds themselves first ran in production after this fix; the
+# re-key moved 7 older rows on 2026-09-29. adapters-and-sources.md.)
 def _decode_ics(resp) -> Tuple[str, Optional[str]]:
     """(text, legacy_encoding): the body as RFC 5545 says to read it, and the
     encoding `resp.text` used instead when that reading differed, else None."""
@@ -510,6 +512,43 @@ def _datetime_override(src: Dict[str, Any], title: str, location: Optional[str],
     return None
 
 
+# SOME FEEDS STAMP THE WALL CLOCK AS UTC. A WordPress site left on the "UTC"
+# timezone exports The Events Calendar's local times as TZID=UTC: Nottingham
+# and Nottinghamshire Carers Hub's 13:00 quilting group, all 30 of its VEVENTs
+# (2026-10-05), arrived as 14:00 BST. osmcal.org gives an event whose organiser
+# set no zone `+00:00`: its own API shows the Hamburger Mappertreffen as
+# "13th October 19:00" with start 2026-10-13T19:00:00+00:00, and its iCal says
+# 20261013T190000Z, which is 21:00 in Hamburg (32 of its 207 VEVENTs are Z).
+# datetime_overrides cannot reach either: it matches one exact title and place,
+# and it leaves a Z value alone. A source with `utc_is_wall_clock` has its UTC
+# stamps read as floating local time instead, and the sync gives each row the
+# zone of its own coordinates. A value with any other TZID is left as it is.
+#
+# `wall_clock_tzids` is the same reading for a platform's DEFAULT zone. Every
+# Restarters group that never set one is exported as TZID=Europe/London over
+# its own wall clock: Repair Café Waremme's 09:30 in Belgium, Manurewa's 10:00
+# in Auckland. The reviewers caught three such groups by title and place, and a
+# rule per group misses the next one, so a non-UK Restarters feed names the
+# zone instead: its rows are never in London.
+UTC_TZIDS = {"UTC", "ETC/UTC", "GMT", "ETC/GMT", "UNIVERSAL", "ETC/UNIVERSAL", "ZULU"}
+
+
+def _wall_clock(src: Dict[str, Any], value: str, params: Dict[str, str]) -> Tuple[str, Dict[str, str]]:
+    """A DTSTART/DTEND as `utc_is_wall_clock` / `wall_clock_tzids` say to read
+    it: floating local time, which the sync zones from the row's coordinates."""
+    utc = bool(src.get("utc_is_wall_clock"))
+    named = {str(z).strip().upper() for z in (src.get("wall_clock_tzids") or [])}
+    if not utc and not named:
+        return value, params
+    v = value.strip()
+    tzid = (params.get("TZID") or "").strip().upper()
+    if utc and re.fullmatch(r"\d{8}T\d{6}Z", v):
+        v = v[:-1]
+    elif not tzid or tzid not in (named | (UTC_TZIDS if utc else set())):
+        return value, params
+    return v, {k: p for k, p in params.items() if k != "TZID"}
+
+
 def _event_url(ev: Dict[str, Any], src: Dict[str, Any]) -> Optional[str]:
     """Keep published event/signup links; a calendar subscription is not one.
 
@@ -644,7 +683,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
                          or CIVIC_HOLIDAY_RX.match(title.strip())):
             governance += 1
             continue
-        start_value, start_params = ev["DTSTART"]
+        start_value, start_params = _wall_clock(src, *ev["DTSTART"])
         start_local, start_utc, date_key = _parse_dt(start_value, start_params)
         adjusted_params = _datetime_override(src, title, _location(ev), start_value, start_params)
         if adjusted_params is not None:
@@ -656,7 +695,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
             continue                                  # past (or unparseable) → skip
         end_local = end_utc = None
         if "DTEND" in ev:
-            end_value, end_params = ev["DTEND"]
+            end_value, end_params = _wall_clock(src, *ev["DTEND"])
             adjusted_params = _datetime_override(src, title, _location(ev), end_value, end_params)
             end_local, end_utc, _ = _parse_dt(end_value, adjusted_params or end_params)
         loc = _location(ev)

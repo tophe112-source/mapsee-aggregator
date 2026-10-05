@@ -125,4 +125,72 @@ with patch.object(ICS, "_fetch_ics", return_value=(FIXTURE.replace("UID:ponce-oc
     ICS.ingest_ics(missing_uid, None, source)
 assert missing_uid.rows[0].source_id == target.fingerprint
 
+# utc_is_wall_clock: a feed that stamps its local wall clock as UTC (Nottingham
+# Carers Hub's TZID=UTC, osmcal.org's Z) is read as floating local time, which
+# the sync zones from the row's coordinates. Same date, so the same identity.
+WALL = "\r\n".join((
+    "BEGIN:VCALENDAR",
+    "BEGIN:VEVENT", "UID:wall-tzid-utc", "SUMMARY:Quilting & Textile Group",
+    "DTSTART;TZID=UTC:20261005T130000", "DTEND;TZID=UTC:20261005T150000",
+    "LOCATION:Nottingham Women's Centre", "END:VEVENT",
+    "BEGIN:VEVENT", "UID:wall-z", "SUMMARY:Hamburger Mappertreffen",
+    "DTSTART:20261013T190000Z", "LOCATION:Variable, Karolinenstrasse 23", "END:VEVENT",
+    "BEGIN:VEVENT", "UID:wall-real-zone", "SUMMARY:State of the Map Asia",
+    "DTSTART;TZID=Asia/Tokyo:20261006T100000", "LOCATION:Tokyo", "END:VEVENT",
+    "BEGIN:VEVENT", "UID:wall-date", "SUMMARY:Open day",
+    "DTSTART;VALUE=DATE:20261007", "LOCATION:Somewhere", "END:VEVENT",
+    "END:VCALENDAR", "",
+))
+
+
+def ingest_wall(src):
+    with patch.object(ICS, "_fetch_ics", return_value=(WALL, "200")), \
+         patch.object(ICS, "datetime", AuditClock), \
+         patch.object(ICS, "make_location_geocoder", side_effect=fake_geocoder):
+        s = Store()
+        assert ICS.ingest_ics(s, None, src) == 4
+    return {row.source_id: row for row in s.rows}
+
+
+plain = ingest_wall({"name": "wall plain", "url": "https://example.test/wall.ics"})
+wall = ingest_wall({"name": "wall flagged", "url": "https://example.test/wall.ics",
+                    "utc_is_wall_clock": True})
+assert (plain["wall-tzid-utc"].start_utc, plain["wall-z"].start_utc) == (
+    "2026-10-05T13:00:00Z", "2026-10-13T19:00:00Z")          # unflagged: unchanged
+row = wall["wall-tzid-utc"]
+assert (row.start_local, row.start_utc, row.end_local, row.end_utc) == (
+    "2026-10-05T13:00:00", None, "2026-10-05T15:00:00", None), (
+    row.start_local, row.start_utc, row.end_local, row.end_utc)
+assert (wall["wall-z"].start_local, wall["wall-z"].start_utc) == ("2026-10-13T19:00:00", None)
+assert wall["wall-real-zone"].start_utc == plain["wall-real-zone"].start_utc == "2026-10-06T01:00:00Z"
+assert wall["wall-date"].start_local == "2026-10-07" and wall["wall-date"].start_utc is None
+for uid in plain:
+    assert wall[uid].fingerprint == plain[uid].fingerprint, uid  # identity does not move
+
+# wall_clock_tzids: a platform's default zone over a group's own wall clock
+# (Restarters' Europe/London on Repair Café Waremme, in Belgium). Only the named
+# zone is read as floating; a real zone and a Z stamp keep their meaning.
+DEFAULT_ZONE = "\r\n".join((
+    "BEGIN:VCALENDAR",
+    "BEGIN:VEVENT", "UID:waremme", "SUMMARY:Repair Café Waremme",
+    "DTSTART;TZID=Europe/London:20261024T093000", "DTEND;TZID=Europe/London:20261024T123000",
+    "LOCATION:Rue de Grand-Axhe 45, 4300 Waremme, Belgique", "END:VEVENT",
+    "BEGIN:VEVENT", "UID:jette", "SUMMARY:Repair Café Jette",
+    "DTSTART;TZID=Europe/Brussels:20261024T140000", "LOCATION:Jette", "END:VEVENT",
+    "BEGIN:VEVENT", "UID:z", "SUMMARY:Online upload day",
+    "DTSTART:20261025T100000Z", "LOCATION:Namur", "END:VEVENT",
+    "END:VCALENDAR", "",
+))
+with patch.object(ICS, "_fetch_ics", return_value=(DEFAULT_ZONE, "200")), \
+     patch.object(ICS, "datetime", AuditClock), \
+     patch.object(ICS, "make_location_geocoder", side_effect=fake_geocoder):
+    s = Store()
+    assert ICS.ingest_ics(s, None, {"name": "restarters be", "url": "https://example.test/be.ics",
+                                    "wall_clock_tzids": ["Europe/London"]}) == 3
+zoned = {row.source_id: row for row in s.rows}
+assert (zoned["waremme"].start_local, zoned["waremme"].start_utc, zoned["waremme"].end_local) == (
+    "2026-10-24T09:30:00", None, "2026-10-24T12:30:00"), zoned["waremme"].start_local
+assert zoned["jette"].start_utc == "2026-10-24T12:00:00Z"            # a real zone is kept
+assert zoned["z"].start_utc == "2026-10-25T10:00:00Z"                # Z is UTC unless utc_is_wall_clock
+
 print("ICS source overrides passed")

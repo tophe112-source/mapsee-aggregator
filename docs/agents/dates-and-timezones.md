@@ -131,3 +131,23 @@
   `mapsee_ingest_programs._occurrences`, which finds the Sunday by looking one
   day back for its Saturday. `test_ingest_programs.py` pins 1 November out and
   7-8 November in.
+
+- **AN iCAL FEED CAN STAMP ITS WALL CLOCK AS UTC, OR AS ITS PLATFORM'S DEFAULT
+  ZONE, AND BOTH ARE NOW A SOURCE OPTION.** Measured 2026-10-05. Nottingham and
+  Nottinghamshire Carers Hub exports all 30 VEVENTs as `TZID=UTC` over local
+  digits (a WordPress site left on UTC), so the 13:00 quilting group was 14:00
+  BST. osmcal.org stamps an event whose organiser set no zone with `Z`: 32 of its
+  207 VEVENTs, and its own API shows the Hamburger Mappertreffen as "13th October
+  19:00" with start `2026-10-13T19:00:00+00:00`, which put it at 21:00 in
+  Hamburg. Restarters exports a group that never set a zone as
+  `TZID=Europe/London`: 6 upcoming rows on 2026-10-05 in its Belgian and New
+  Zealand feeds (Waremme 2, Hastiere 3, Manurewa 1). `datetime_overrides` fits
+  none of these, because it matches one exact title and place and leaves a `Z`
+  value alone. So `utc_is_wall_clock: true` reads a `Z` or UTC-zoned value as
+  floating local time, and `wall_clock_tzids: ["Europe/London"]` does the same
+  for the zones named. A real zone on the same feed is kept (OSMCAL's Bremen
+  meetup stays +01:00). The sync zones a floating time from the row's own
+  coordinates: 13:00 in Nottingham is 12:00Z in October and 13:00Z in November,
+  and 19:00 in Hamburg is 17:00Z. The date digits do not change, so neither does
+  the fingerprint. `test_ics_source_overrides.py` pins all of it. A UK
+  Restarters feed needs no flag, because London is where its groups are.

@@ -412,6 +412,15 @@
   refuses. None of these feeds sends an ETag or Last-Modified, so none was ever
   in `ics_feed_cache.json`; any feed that was is fetched afresh once
   (`FEED_CACHE_VERSION`).
+  CORRECTION, measured 2026-10-05: the 3,692 were the review corpus, read
+  locally, not the map. The 57 OpenAgenda feeds landed 2026-09-27 22:07Z
+  (6d32217) and the ICS rotation first reached them in run 107 (2026-10-03),
+  after the fix (0923c1f, 2026-09-29 10:54Z), so no garbled copy of theirs
+  was ever written. Runs 107 and 108 printed no `Legacy re-key:` line, because
+  none of the 10,715 legacy keys in run 108's store is in the table (20 of 20
+  sampled: clean key present, legacy key absent). The re-key has done work once:
+  run 102 (2026-09-29), 7 rows found, 7 moved, 0 held. A silent re-key is
+  therefore not a failure by itself; it prints only when a legacy key is found.
 
 - **A GOOGLE CALENDAR READ THROUGH THE CALENDAR API HAS TO PARSE LIKE ITS
   EXPORT, OR EVERY ROW MOVES.** calendar.google.com/robots.txt refuses the
@@ -477,3 +486,17 @@
   - In the 20-listing sample, 127 of 417 upcoming inline blocks share an id with another date.
   - `_shared_urls` appends `#<date>` only to an id that the same page shows with more than one date, on every JSON-LD site. The fingerprint (external_id) never involved source_id, so DB identity is unchanged.
   - After the fix: 89 kept, 89 stored, 0 re-keyed.
+
+- **THE TRIBE ADAPTER TAKES `skip_title` NOW, AND A `website` WITH NO SCHEME
+  IS NO LINK.** Haydon Wick Parish Council (2026-10-04) files "Planning &
+  Highways Meeting", "Finance & Policy Meeting" and three more committees beside
+  its memory café. `CIVIC_TITLE_RX` knows none of those phrasings, and
+  `include_categories` would also drop the 6 Companions Café rows, which carry
+  no category. So tribe compiles `skip_title` the way ics and jsonld do
+  (case-insensitive search; an invalid pattern raises before any request) and
+  counts what it drops on the log line; `\bMeeting$` takes the council 56 -> 50.
+  Kuldiga's library uses it for a recurring closure notice. The event link was
+  `website or url`, and `website` is free text: 7 of BCUT Timisoara's 8 rows
+  said `www.bcut.ro`, and 26 of Trekanten's said `www.makerspace0220.dk`, a
+  typo for 9220. A `website` without `http(s)://` now falls back to the
+  event's own page. `test_ingest_tribe.py` pins both.
