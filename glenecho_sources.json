@@ -1,0 +1,169 @@
+{
+  "_comment": "Glen Echo Park's events calendar (Glen Echo, Montgomery County MD), read by mapsee_ingest_glenecho.py. `places` is a VENUE BOOK keyed on the detail page's own `Location` string - the adapter never takes a coordinate from a page. Keys and `aliases` are matched loosely (lowercased, punctuation dropped, a leading 'the' removed), and a Location that STARTS with a key matches it, so 'Arcade Building Classrooms 202 & 203' finds 'Arcade Building'.",
+  "_coordinates_provenance": "Every lat/lon is the centroid of the OpenStreetMap feature named in `osm`, read through Geofabrik Postpass on 2026-10-04. The whole park is about 250 m across. `coords_exact` is set on buildings only; the park-wide pin (used when a page names no Location, or names the park itself) is left inexact, so the sync may geocode it from the street address.",
+  "_how_the_book_grows": "A Location with no entry here is skipped and NAMED on every run ('unplaceable, skipped'). Read it, find the building in OSM, add it. Nothing is guessed into place.",
+  "sites": [
+    {
+      "name": "Glen Echo Park",
+      "base": "https://glenechopark.org",
+      "category": "community",
+      "within_days": 90,
+      "max_events": 600,
+      "pause": 1.0,
+      "_volume_comment": "Measured 2026-10-04: 430 cards from October 4 to January 2, 240 of them gallery and studio open hours and 5 'CANCELLED TODAY' dances, both refused from the listing without a detail request. The rest cost one detail page each at one request per second: 190 requests, 190 s. A network error or a 5xx skips one page; max_failures_in_row of them in a row end the run.",
+      "max_failures_in_row": 5,
+      "default_address": "7300 MacArthur Blvd",
+      "default_city": "Glen Echo",
+      "default_region": "MD",
+      "default_country": "US",
+      "default_postal_code": "20812",
+      "park_place": "Glen Echo Park",
+      "_open_hours_comment": "A resident studio's or gallery's OPENING HOURS, posted as one calendar row per open day: 240 of 430 cards in October-December 2026 (Stone Tower Studio 63, SilverWorks 48, Photoworks 25, Art Glass Center 25, Park View Gallery 24, Glen Echo Pottery 23, Yellow Barn Gallery 14, Popcorn Gallery 9, Stone Tower Gallery 9). A shop's hours are not an occasion. A title that IS one of these names, or the name then ' |' and an exhibition title, is refused; an artist talk or a critique session in the same gallery has its own title and is kept.",
+      "open_hours_titles": [
+        "STONE TOWER STUDIO",
+        "SILVERWORKS",
+        "PHOTOWORKS",
+        "ART GLASS CENTER",
+        "PARK VIEW GALLERY",
+        "GLEN ECHO POTTERY",
+        "YELLOW BARN GALLERY",
+        "YELLOW BARN STUDIO",
+        "POPCORN GALLERY",
+        "STONE TOWER GALLERY",
+        "GLEN ECHO GLASSWORKS",
+        "SCULPTURE STUDIO"
+      ],
+      "places": {
+        "Glen Echo Park": {
+          "osm": "relation/13248618",
+          "lat": 38.966882, "lon": -77.139186,
+          "coords_exact": false,
+          "aliases": ["Glen Echo Park grounds"]
+        },
+        "Spanish Ballroom": {
+          "osm": "way/150868827",
+          "lat": 38.965599, "lon": -77.139068,
+          "coords_exact": true,
+          "aliases": ["Spanish Ballroom Main Floor"]
+        },
+        "Ballroom Back Room": {
+          "osm": "way/150868827",
+          "lat": 38.965599, "lon": -77.139068,
+          "coords_exact": true,
+          "_note": "A room of the Spanish Ballroom building, so its point; kept a SEPARATE venue name because the Back Room hosts its own dances (tango after the Bumper Car Squares, on nights the main floor has something else). On 2026-12-27 at 2:45pm Ballroom Time lists a 'BALLROOM DANCE' in each room (9581 Spanish Ballroom, $15, DJ; 9658 Back Room, $20, holiday party, live orchestra) with the same lesson and the same 3:30-6:00 social - possibly ONE dance posted twice, not verified with the park. Under one name they would share a fingerprint and the store would keep one; the adapter prints the pair every run ('same title, presenter and start'). The annex is OSM way/990094318, 25 m south-east.",
+          "aliases": ["Ballroom Backroom", "Back Room", "Spanish Ballroom Back Room"]
+        },
+        "Ballroom Annex": {
+          "osm": "way/990094318",
+          "lat": 38.96542, "lon": -77.138903,
+          "coords_exact": true
+        },
+        "Bumper Car Pavilion": {
+          "osm": "way/150868819",
+          "lat": 38.965606, "lon": -77.138519,
+          "coords_exact": true,
+          "aliases": ["Bumper Car Pavillion"]
+        },
+        "Hall of Mirrors": {
+          "osm": "way/333925971",
+          "lat": 38.965444, "lon": -77.138201,
+          "coords_exact": true
+        },
+        "Cuddle Up Pavilion": {
+          "osm": "way/150868828",
+          "lat": 38.965709, "lon": -77.138173,
+          "coords_exact": true
+        },
+        "Arcade Building": {
+          "osm": "way/545134732",
+          "lat": 38.966184, "lon": -77.1381,
+          "coords_exact": true,
+          "_note": "Unnamed in OSM; it holds the Puppet Co., Art Glass Center and Partnership Office nodes.",
+          "aliases": ["Arcade"]
+        },
+        "Puppet Co. Playhouse": {
+          "osm": "node/9149543092",
+          "lat": 38.966043, "lon": -77.138064,
+          "coords_exact": true,
+          "category": "kids",
+          "categories": ["theater"],
+          "aliases": ["Puppet Co.", "the Puppet Co. Playhouse", "Puppet Company Playhouse"]
+        },
+        "Adventure Theatre MTC": {
+          "osm": "node/9149543089",
+          "lat": 38.9658, "lon": -77.137905,
+          "coords_exact": true,
+          "category": "kids",
+          "categories": ["theater"],
+          "aliases": ["Adventure Theatre", "Adventure Theater", "Adventure Theater MTC"]
+        },
+        "Dentzel Carousel": {
+          "osm": "way/150868822",
+          "lat": 38.9662, "lon": -77.138789,
+          "coords_exact": true,
+          "aliases": ["Carousel", "the Dentzel Carousel", "Glen Echo Park Carousel"]
+        },
+        "Photoworks": {
+          "osm": "node/9149543095",
+          "lat": 38.966339, "lon": -77.138305,
+          "coords_exact": true,
+          "category": "arts",
+          "aliases": ["Glen Echo Photoworks", "Photoworks Gallery"]
+        },
+        "Popcorn Gallery": {
+          "osm": "node/9149543094",
+          "lat": 38.966259, "lon": -77.138447,
+          "coords_exact": true,
+          "category": "arts"
+        },
+        "Stone Tower Gallery": {
+          "osm": "node/9149543096",
+          "lat": 38.966574, "lon": -77.138236,
+          "coords_exact": true,
+          "category": "arts",
+          "aliases": ["Stone Tower Studio", "Stone Tower"]
+        },
+        "Yellow Barn Gallery": {
+          "osm": "node/9149543101",
+          "lat": 38.966766, "lon": -77.138321,
+          "coords_exact": true,
+          "category": "arts",
+          "aliases": ["Yellow Barn Studio", "Yellow Barn"]
+        },
+        "SilverWorks": {
+          "osm": "node/9149543102",
+          "lat": 38.966678, "lon": -77.138271,
+          "coords_exact": true,
+          "category": "arts",
+          "aliases": ["SilverWorks Studio"]
+        },
+        "Art Glass Center": {
+          "osm": "node/9149543091",
+          "lat": 38.965954, "lon": -77.138007,
+          "coords_exact": true,
+          "category": "arts"
+        },
+        "Glen Echo Pottery": {
+          "osm": "way/333925742",
+          "lat": 38.966615, "lon": -77.138998,
+          "coords_exact": true,
+          "category": "arts",
+          "aliases": ["Pottery Gallery"]
+        },
+        "Glen Echo Park Aquarium": {
+          "osm": "way/150868870",
+          "lat": 38.967205, "lon": -77.138511,
+          "coords_exact": true,
+          "aliases": ["Aquarium", "Glen Echo Aquarium"]
+        },
+        "Clara Barton National Historic Site": {
+          "osm": "way/150868826",
+          "lat": 38.967231, "lon": -77.140727,
+          "coords_exact": true,
+          "address": "5801 Oxford Rd",
+          "aliases": ["Clara Barton House", "Clara Barton NHS"]
+        }
+      }
+    }
+  ]
+}
