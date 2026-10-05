@@ -182,7 +182,15 @@ _PROMOTABLE_TO_PARTY = {"community", "food", "other"}
 # "Zumba Party" all matched _PARTY_RX and reached bar.ventures: 16 Toronto, 44
 # Linked Events and 150 PerfectMind rows on 2026-10-03/04. A community centre's
 # timetable never earns the party door - not as a primary, not as a layer.
-CIVIC_TIMETABLE_SOURCES = ("toronto-rec", "toronto-earlyon", "linkedevents:", "perfectmind")
+#
+# Fairfax County's calendar (drupal-fullcalendar:), Montreal's Loisirs sessions
+# and Philadelphia's Finder drop-ins joined 2026-10-05: a county's "Boo-gie"
+# Halloween dance for families was the party row. Glen Echo Park is NOT here -
+# its contra, swing and tango nights are the DC area's social dances, which is
+# what the party door is for - and neither are the Revize town calendars, whose
+# concerts and festivals are shows.
+CIVIC_TIMETABLE_SOURCES = ("toronto-rec", "toronto-earlyon", "linkedevents:", "perfectmind",
+                           "drupal-fullcalendar:", "montreal-loisirs", "phl-parks")
 
 
 def _from_civic_timetable(rec: Dict[str, Any]) -> bool:

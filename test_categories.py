@@ -901,7 +901,10 @@ cfails += gfails
 print()
 for name, cat, src in (("Music: Karaoke, ages 60+", "arts", "toronto-rec"),
                        ("Karaoke", "community", "linkedevents:helsinki"),
-                       ("Zumba Dance Party", "community", "perfectmind")):
+                       ("Zumba Dance Party", "community", "perfectmind"),
+                       ("Boo-gie Halloween Dance Party", "community", "drupal-fullcalendar:fairfax-county"),
+                       ("Karaoke", "community", "montreal-loisirs"),
+                       ("Teen Dance Party", "community", "phl-parks")):
     p, e = derive_categories({"name": name, "category": cat, "description": "", "source": src})
     ok = "party" not in {p, *(e or [])}
     print(f"{'ok ' if ok else 'FAIL'} {name} from {src} keeps off the party door -> {p} + {sorted(e or [])}")
