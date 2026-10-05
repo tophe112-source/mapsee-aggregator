@@ -53,9 +53,15 @@ The book was built from the site's own directory (/businesses/<slug>/ carries a
 "Contact:" block with the street address), not from memory. Venues that have no
 directory page are simply absent, and will log until someone adds them.
 
-BLOCKS NON-BROWSER CLIENTS. The site 403s a default user agent, so this sends a
-browser one. That is not evasion of a paywall or a login - the pages are public
-and unauthenticated - it is the minimum needed to read what a visitor reads.
+PARKED 2026-10-05: THE SITE REFUSES US. It 403s our User-Agent, and this used
+to send a browser one to read what a visitor reads. A 403 is a refusal, not an
+obstacle (AGENTS.md), and the README's Conduct section says requests identify
+themselves honestly, so it now sends ours. It would get nothing either way: the
+listing answered `202` with a 177-178 byte bot challenge on 2026-10-02 and
+2026-10-04 (kept 0 both days), and robots.txt itself answers with a challenge.
+The config is parked as `pioneersquare_sources.json.pending-permission`, so the
+CI step skips. Rename it back only once the Alliance for Pioneer Square lets
+MapseeAggregator read the calendar.
 
 AND IT SOFT-BLOCKS, WHICH DOES NOT LOOK LIKE AN ERROR. The edge in front of the
 site answers a request it dislikes with `202 Accepted` and an interstitial body
@@ -85,10 +91,9 @@ except ImportError:  # pragma: no cover
 
 from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
 
-# The MapseeAggregator UA every other adapter sends gets a 403 here. A browser
-# string is what the pages answer to; see the module docstring.
-UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-      "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36")
+# Our own agent, like every other adapter. The site refuses it; see the module
+# docstring for why this is parked rather than disguised.
+UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 
 _TAG = re.compile(r"<[^>]+>")
 

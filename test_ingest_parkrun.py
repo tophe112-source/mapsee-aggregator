@@ -311,8 +311,12 @@ def main():
               encoding="utf-8").read()
     guarded = set(re.findall(r"if \[ -f ([a-z_]+_sources\.json) \]", wf))
     check_true("the workflow does guard several source configs", len(guarded) >= 10)
-    absent = sorted(c for c in guarded if not os.path.exists(c) and c not in KNOWN_EMPTY)
-    check("every guarded source config is present", absent, [])
+    # A config renamed `.pending-permission` is parked on purpose (README,
+    # Conduct): Pioneer Square's since 2026-10-05, because its site refuses us.
+    # That is an absence somebody chose, with the file still beside it.
+    parked = {c for c in guarded if os.path.exists(c + ".pending-permission")}
+    absent = sorted(c for c in guarded if not os.path.exists(c) and c not in KNOWN_EMPTY | parked)
+    check("every guarded source config is present, or parked beside its twin", absent, [])
 
     print()
     if FAILURES:

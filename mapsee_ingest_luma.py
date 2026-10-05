@@ -67,10 +67,12 @@ except ImportError:  # pragma: no cover
 from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
-# The web pages 403 a non-browser agent; the API routes do not care. Reading a
-# public page to learn a public id is the minimum needed to resolve a slug.
-_BROWSER_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-               "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36")
+# The web pages 403 a non-browser agent; the API routes do not care. This used
+# to resolve a slug by asking the page as Chrome. A 403 is a refusal, and the
+# README's Conduct section says requests identify themselves honestly, so
+# resolve() asks as us and gives up on a refusal (2026-10-05). Every configured
+# calendar and place already carries its api id, so nothing configured relied
+# on the page; a new entry brings its `calendar_api_id` with it.
 API = "https://api.lu.ma"
 WEB = "https://luma.com"
 
@@ -113,9 +115,10 @@ def resolve(session, slug_or_url: str) -> Tuple[Optional[str], Optional[str], Op
     if not slug:
         return None, None, None
     r = session.get(f"{WEB}/{slug}", timeout=30,
-                    headers={"Accept": "text/html", "User-Agent": _BROWSER_UA})
+                    headers={"Accept": "text/html", "User-Agent": UA})
     if r.status_code != 200:
-        print(f"[luma] resolve {slug}: HTTP {r.status_code}")
+        print(f"[luma] resolve {slug}: HTTP {r.status_code}"
+              + (" - a refusal; give the entry its calendar_api_id" if r.status_code in (401, 403) else ""))
         return None, None, None
     m = _NEXT_DATA.search(r.text)
     if not m:

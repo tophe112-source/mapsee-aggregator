@@ -578,7 +578,9 @@ jobs:
       # other step here avoids. It earns it: a dense arts neighbourhood whose
       # galleries and artist talks appear in no ticketing API. If the theme
       # changes it finds nothing and says so, and source-health.yml turns that
-      # into an issue.
+      # into an issue. PARKED 2026-10-05: the site refuses our agent and answers
+      # every client with a bot challenge, so its config is renamed
+      # `.pending-permission` and this step skips (see the adapter's docstring).
       - name: Import Visit Pioneer Square (Seattle neighbourhood calendar, HTML)
         id: ingest_pioneersquare
         if: matrix.group == 'local'

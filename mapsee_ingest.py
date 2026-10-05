@@ -112,7 +112,9 @@ MAX_RETRIES = 5
 BACKOFF_BASE_S = 1.0
 BACKOFF_CAP_S = 30.0
 
-USER_AGENT = "MapseeBot/0.2 (+https://mapsee.example; contact@mapsee.example)"
+# The same agent every adapter sends (README, Conduct). This was a placeholder,
+# "MapseeBot/0.2" at mapsee.example, which no operator could reach.
+USER_AGENT = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 
 log = logging.getLogger("mapsee.ingest")
 

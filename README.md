@@ -239,6 +239,13 @@ wants its events shared and attended, and they are back. If parkrun ever asks
 us to stop, one rename and one run of `retire-parkrun.yml` take every row off
 the map.
 
+**Refused means refused.** A site that turns our User-Agent away, or answers
+with a bot challenge, is not read by pretending to be a browser. Visit Pioneer
+Square's calendar does both, so its reader has been parked since 2026-10-05
+(`pioneersquare_sources.json.pending-permission`) until the neighbourhood
+alliance agrees to let us read it. Feeds whose `robots.txt` asks every crawler to
+stay out are retired the same way, each with the rule it quoted.
+
 ## Running it
 
 ```bash
