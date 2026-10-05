@@ -927,12 +927,14 @@ jobs:
       # 2026-10-04 (run 37216641420): 4 minutes reading what is stored, then
       # about 2,070 fifty-row POSTs. --only-new days add only the new sessions,
       # and --skip-unchanged keeps the Wednesday refresh to what moved, so the
-      # longer cap is for first syncs and big source changes. The other groups
-      # keep 20.
+      # longer cap is for first syncs and big source changes. The `civic` group
+      # ran out the same 20 minutes on Wednesday's full refresh (2026-09-30, run
+      # 36716083467), after its store doubled from 68,705 to 143,128 events, and
+      # gets the same 60 (owner's decision, 2026-10-05). ics and local keep 20.
       - name: Sync feeds to Supabase (batch-geocoded)
         id: sync
         continue-on-error: true
-        timeout-minutes: ${{ matrix.group == 'rec' && 60 || 20 }}
+        timeout-minutes: ${{ (matrix.group == 'rec' || matrix.group == 'civic') && 60 || 20 }}
         run: |
           ONLY_NEW="--only-new"
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
