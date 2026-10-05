@@ -28,6 +28,14 @@ on:
       - ".github/workflows/*.yml"
       - "festival_sources.json"
       - "opendata_sources.json"
+      - "toronto_rec_sources.json"
+      - "linkedevents_sources.json"
+      - "perfectmind_sources.json"
+      - "drupal_fullcalendar_sources.json"
+      - "revize_sources.json"
+      - "glenecho_sources.json"
+      - "montreal_loisirs_sources.json"
+      - "phl_parks_sources.json"
       - ".github/workflows/tests.yml"
   pull_request:
     paths:
@@ -37,6 +45,14 @@ on:
       - ".github/workflows/*.yml"
       - "festival_sources.json"
       - "opendata_sources.json"
+      - "toronto_rec_sources.json"
+      - "linkedevents_sources.json"
+      - "perfectmind_sources.json"
+      - "drupal_fullcalendar_sources.json"
+      - "revize_sources.json"
+      - "glenecho_sources.json"
+      - "montreal_loisirs_sources.json"
+      - "phl_parks_sources.json"
       - ".github/workflows/tests.yml"
   workflow_dispatch:
 
@@ -358,13 +374,30 @@ jobs:
       # all-day table is a room. Linked Events: an event-only image never goes
       # out uncredited, a card-holder or sign-up session is not a drop-in.
       # PerfectMind: a $0 behind a paid membership is not free, and 0227's own
-      # free predicate is run over the row the sync stores.
+      # free predicate is run over the row the sync stores. Each test below also
+      # reads its live config, which is why the configs are in `paths`.
+      # Fairfax: a class named in the blurb is a class, the price line comes
+      # first so the sync's 800-character cap cannot cut it. Revize: RRULEs
+      # match python-dateutil and the town's own closure days skip sessions.
+      # Glen Echo: the park's written time line beats its <time> field.
+      # Montreal: a City point its postal area contradicts is refused.
+      # Philadelphia: a sign-up link or "registration required" vetoes "open".
       - name: Toronto drop-ins and EarlyON
         run: python test_ingest_toronto_rec.py
       - name: Linked Events (Helsinki, Espoo)
         run: python test_ingest_linkedevents.py
       - name: PerfectMind municipal drop-ins
         run: python test_ingest_perfectmind.py
+      - name: Drupal fullcalendar_view calendars (Fairfax County)
+        run: python test_ingest_drupal_fullcalendar.py
+      - name: Revize town calendars (Manassas VA)
+        run: python test_ingest_revize.py
+      - name: Glen Echo Park (the park's time line over its <time>, open hours, one timeout is one page)
+        run: python test_ingest_glenecho.py
+      - name: Montreal Loisirs drop-ins (open data)
+        run: python test_ingest_montreal_loisirs.py
+      - name: Philadelphia Parks & Rec Finder drop-ins
+        run: python test_ingest_phl_parks.py
 
       # The gate that keeps advertisements out of the catalogue, and the ONE
       # place it must be graded is the half nobody would notice failing. Letting

@@ -44,6 +44,11 @@ python test_ingest_bibliocommons.py # a date filter the gateway ignores, stock i
 python test_ingest_toronto_rec.py   # one row per stretch and none across a gap, two age bands in two rows, a free sentence only where toronto.ca says free
 python test_ingest_linkedevents.py  # no uncredited event-only image, no card-holder or sign-up row, paid wording vetoes is_free
 python test_ingest_perfectmind.py   # BookingType 2 only, a $0 behind a paid membership is not free, 0227's predicate over the stored row
+python test_ingest_drupal_fullcalendar.py # a county calendar's class named in the blurb, the price line first, a street book for what the Census misses
+python test_ingest_revize.py        # RRULEs as python-dateutil reads them, the town's closure days, a far geocode unplaced
+python test_ingest_glenecho.py      # the written time line over the <time> field, open hours refused unread, 'Admission: free.' only when the park says FREE
+python test_ingest_montreal_loisirs.py # est_inscription_obligatoire is not enough, a City point 20-34 km off its own address is refused
+python test_ingest_phl_parks.py     # a sign-up link or "registration required" vetoes the drop-in words, City holidays skipped
 python test_spam.py                 # the advertisement gate, and mostly what it must never refuse
 python test_coverage_rows.py        # the coverage report's arithmetic: no source counted twice, no ccTLD left under "?"
 python test_robots.py               # robots.txt per RFC 9309, and verify never fetching a feed its host refuses

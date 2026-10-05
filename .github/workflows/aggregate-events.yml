@@ -15,8 +15,9 @@ name: Aggregate public events
 #   • feeds — independent ICS, local and civic groups, each with its own cache,
 #     sync and recovery artifacts. A failed adapter cannot block its neighbors.
 #     `rec` is the community-centre timetables (Toronto, Helsinki/Espoo,
-#     PerfectMind cities): ~100k dated drop-in rows a first run, which is why
-#     they have their own runner and their own 20-minute sync.
+#     PerfectMind cities, Montreal, Philadelphia, Fairfax County, Revize towns,
+#     Glen Echo Park): ~100k dated drop-in rows a first run, which is why they
+#     have their own runner and their own 60-minute sync.
 #   • meetup — ONE Meetup sweep (US then international). Meetup shares no key
 #     with Ticketmaster, so it runs parallel; it used to run in TWO places
 #     (here for the US, a separate job for international), which was both
@@ -762,11 +763,13 @@ jobs:
           fi
       # ---- rec: what is on at community centres -------------------------------
       # Drop-in timetables (lane swim, pickleball, open gym, seniors' socials,
-      # family drop-ins) from three sources that publish them as data. A session
+      # family drop-ins) from the sources that publish them as data. A session
       # anyone can turn up to is in, with its fee stated; a registration-only
       # course, a private booking and a member-only session are not
-      # (docs/agents/community-centres.md). Every row carries the publisher's
-      # own coordinate, so the sync geocodes none of them.
+      # (docs/agents/community-centres.md). Toronto, Linked Events, PerfectMind,
+      # Montreal and Philadelphia rows carry the publisher's own coordinate;
+      # Fairfax, the Revize towns and Glen Echo are placed by each adapter's own
+      # book of surveyed pins first, so the sync geocodes few of them.
       # TORONTO: the City's own drop-in timetable (lane swim, pickleball, youth
       # spaces, toddler gyms) at 175 community centres, and 209 EarlyON family
       # drop-ins. City of Toronto CKAN datastore API only (robots.txt allows
@@ -821,6 +824,103 @@ jobs:
             python mapsee_ingest_perfectmind.py --config perfectmind_sources.json --store feeds_events.json --max-minutes 45
           else
             echo "no perfectmind_sources.json — skipping"
+          fi
+      # FAIRFAX COUNTY, VA's events calendar (Drupal fullcalendar_view JSON): what
+      # the Park Authority's parks, nature centres and rec centres, Animal
+      # Services and the county's community services say is on, one occasion at a
+      # time. 2026-10-04: 195 in 90 days, 123 rows written (122 stored), every one
+      # placed (112 on the publisher's or a surveyed pin, 10 streets the Census
+      # matches). About 153 requests at 1.1 s in 198 s; a slow day is ~9 min.
+      # 15 minutes with the deadline inside it: no request starts after
+      # --max-minutes 12, the slowest request is 30 s x 3 tries, and the store
+      # is saved after each source (docs/agents/ci-and-jobs.md).
+      - name: Import Drupal fullcalendar_view calendars (Fairfax County, VA)
+        id: ingest_drupal_fullcalendar
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        timeout-minutes: 15
+        run: |
+          if [ -f drupal_fullcalendar_sources.json ]; then
+            python mapsee_ingest_drupal_fullcalendar.py --config drupal_fullcalendar_sources.json --store feeds_events.json --max-minutes 12
+          else
+            echo "no drupal_fullcalendar_sources.json — skipping"
+          fi
+      # REVIZE TOWN CALENDARS: the City of Manassas, VA's Community Center
+      # timetable (Toddler Drop-In, Open Gym, Run Club, Zumba, Walk With Ease -
+      # every one an RRULE, expanded here, skipped on the city's own closure
+      # days), its Community Events and Harris Pavilion, and three small towns
+      # (Bladensburg MD, Pacific WA, Olympia WA). One JSON request per town after
+      # its robots.txt: 8 requests, 11 s warm, 55 s on a cold geocode cache (17
+      # Photon lookups); 221 occurrences in 90 days on 2026-10-05. No request
+      # starts after --max-minutes 5 and the store is saved after each town, so
+      # the 10-minute cap cannot cost the work.
+      - name: Import Revize town calendars (Manassas VA community center + 3 towns)
+        id: ingest_revize
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        timeout-minutes: 10
+        run: |
+          if [ -f revize_sources.json ]; then
+            python mapsee_ingest_revize.py --config revize_sources.json --store feeds_events.json --max-minutes 5
+          else
+            echo "no revize_sources.json - skipping"
+          fi
+      # GLEN ECHO PARK (Montgomery County MD, an NPS site): the DC area's community
+      # dance hall - contra, tango, folk, blues, swing, waltz most nights, each
+      # with its door fee - and two children's theatres. No feed: HTML read like
+      # seattlecenter, placed from a venue book of OSM buildings. 2026-10-04: 190
+      # requests at 1/s in 190 s, 184 rows in 90 days (28 free by the park's own
+      # word); 240 gallery/studio open-hours cards refused from the listing unread.
+      - name: Import Glen Echo Park (social dances and children's theatre, DC area)
+        id: ingest_glenecho
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        # --max-minutes 10 starts no request after +10 min (a request may take 40 s)
+        # and the store is saved every 40 rows, so the 15-minute cap cannot cost the run.
+        timeout-minutes: 15
+        run: |
+          if [ -f glenecho_sources.json ]; then
+            python mapsee_ingest_glenecho.py --config glenecho_sources.json --store feeds_events.json --max-minutes 10
+          else
+            echo "no glenecho_sources.json — skipping"
+          fi
+      # MONTREAL'S LOISIRS MONTREAL PROGRAMME (Ville de Montreal open data, CC
+      # BY 4.0): free skates, free swims, pick-up hockey and open gyms that need
+      # no registration - 920 rows in 90 days at 18 sites (read 2026-10-05), on
+      # the City's own coordinates except where most of a site's postal area
+      # disagrees with them (8 of 176 sites refused). 2 datastore requests 10 s
+      # apart (robots.txt's Crawl-delay), 12 s. The worst call is ~106 s
+      # (3 tries x 30 s + backoff + pacing) and no request starts after
+      # --max-minutes 5, so 10 minutes holds it.
+      - name: Import Loisirs Montréal free-play sessions (Montreal open data)
+        id: ingest_montreal_loisirs
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        timeout-minutes: 10
+        run: |
+          if [ -f montreal_loisirs_sources.json ]; then
+            python mapsee_ingest_montreal_loisirs.py --config montreal_loisirs_sources.json --store feeds_events.json --max-minutes 5
+          else
+            echo "no montreal_loisirs_sources.json — skipping"
+          fi
+      # PHILADELPHIA PARKS & RECREATION FINDER (the CARTO SQL tables behind
+      # phila.gov/parks-rec-finder): programmes whose OWN words say anyone can
+      # turn up (open gym, pickup games, drop-in) and that carry no sign-up link
+      # or "registration required", as dated rows inside each programme's
+      # season, City holidays skipped. 144 rows at 4 centres in a 90-day window
+      # on 2026-10-05, 10 requests + 2 robots.txt in 13 s. --max-minutes 5 sits
+      # well inside the 10-minute cap, and the store is saved on the way out
+      # (docs/agents/ci-and-jobs.md).
+      - name: Import Philadelphia Parks & Rec Finder drop-ins (CARTO)
+        id: ingest_phl_parks
+        if: matrix.group == 'rec'
+        continue-on-error: true
+        timeout-minutes: 10
+        run: |
+          if [ -f phl_parks_sources.json ]; then
+            python mapsee_ingest_phl_parks.py --config phl_parks_sources.json --store feeds_events.json --max-minutes 5
+          else
+            echo "no phl_parks_sources.json - skipping Philadelphia Parks & Rec"
           fi
       # The `rec` group's FIRST sync of its ~103,600 rows (Toronto 27,654,
       # Linked Events 10,204, PerfectMind 65,760) ran out the 20 minutes on
