@@ -288,7 +288,12 @@ jobs:
       - name: Re-probe every curated feed
         run: |
           set +e
-          python catalog_curate.py audit | tee audit.log
+          # Unbuffered and with stderr in the log, so a crash is seen where it
+          # happened: 2026-10-04's TypeError surfaced 60 lines above the output
+          # it followed, and the run still went green with "ledger unchanged".
+          python -u catalog_curate.py audit 2>&1 | tee audit.log
+          grep -q "entries are BROKEN" audit.log || \
+            echo "::error::the audit did not finish; whatever it probed before stopping is in the ledger, see the log"
           mkdir -p "$SNAPSHOT"
           cp curation_ledger.json "$SNAPSHOT/curation_ledger.json"
           exit 0

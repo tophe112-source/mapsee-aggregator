@@ -2846,7 +2846,15 @@ def cmd_audit():
                                         "status": status, "reason": note,
                                         "checked": _today_int()}
             mark = {"ok": "OK ", "empty": "-- ", "fail": "XX "}[status]
-            print(f"[{mark}] {e.get(key,'?')[:60]:60} {note}")
+            # jsonld's key, `listing`, is a LIST. Slicing it and formatting the
+            # slice with :60 raised TypeError on the first jsonld entry, and the
+            # one save sat after the loop, so every Sunday since mid-September
+            # threw the whole audit away: 2026-10-04 probed 3,240 feeds in 94
+            # minutes (211 broken) and the commit step found "ledger unchanged".
+            shown = e.get(key, "?")
+            shown = (shown[0] if shown else "?") if isinstance(shown, list) else shown
+            print(f"[{mark}] {str(shown)[:60]:60} {note}", flush=True)
+        _save_ledger(led)     # per file, so a later crash cannot discard what was probed
     _save_ledger(led)
     print(f"\n{stale} entries are BROKEN (unreachable, or no longer a feed).")
     print(f"{quiet} entries parse fine but have nothing upcoming — kept, not a regression.")

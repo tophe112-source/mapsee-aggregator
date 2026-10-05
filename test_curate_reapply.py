@@ -244,6 +244,37 @@ check("...and the cursor and the coverage line still land",
 cc.HERE, cc.LEDGER_FILE, cc.CURSOR_FILE, cc.COVERAGE_HISTORY_FILE = keep
 shutil.rmtree(tmp, ignore_errors=True)
 
+# --- the weekly audit keeps what it probed ------------------------------------
+# 2026-10-04: the audit probed 3,240 feeds in 94 minutes, then crashed formatting
+# jsonld's `listing` (a LIST) for its log line. Its one save sat after the loop,
+# so the commit step found "ledger unchanged", as it had every Sunday since
+# mid-September. Run the REAL cmd_audit over a temp tree with fake verifiers.
+tmp = tempfile.mkdtemp()
+keep = (cc.HERE, cc.LEDGER_FILE, cc.CONFIG, dict(cc.VERIFIERS), cc._session)
+cc.HERE, cc.LEDGER_FILE = tmp, os.path.join(tmp, "curation_ledger.json")
+json.dump([{"name": "Library", "url": "https://lib.example/cal.ics"}],
+          open(os.path.join(tmp, "a_sources.json"), "w"))
+json.dump({"sites": [{"name": "Centre", "listing": ["https://centre.example/events/"]}]},
+          open(os.path.join(tmp, "b_sources.json"), "w"))
+cc.CONFIG = {"ics": ("a_sources.json", "url"), "jsonld": ("b_sources.json", "listing"),
+             "ods": ("missing_sources.json", "url")}          # its file is absent: a crash
+cc.VERIFIERS["ics"] = lambda s, e: (True, "3 vevents / 2 future")
+cc.VERIFIERS["jsonld"] = lambda s, e: (False, "http 404")
+cc._session = lambda: None
+try:
+    cc.cmd_audit()
+    crashed = False
+except Exception:                                             # noqa: BLE001
+    crashed = True
+led = read(cc.LEDGER_FILE) if os.path.exists(cc.LEDGER_FILE) else {}
+check("a jsonld entry whose listing is a list is audited, not a TypeError",
+      lambda: led[cc._canon("https://centre.example/events/")]["status"] == "fail")
+check("...and a crash in a LATER file keeps every file probed before it",
+      lambda: crashed and led[cc._canon("https://lib.example/cal.ics")]["status"] == "ok")
+cc.HERE, cc.LEDGER_FILE, cc.CONFIG, verifiers, cc._session = keep
+cc.VERIFIERS.clear(); cc.VERIFIERS.update(verifiers)
+shutil.rmtree(tmp, ignore_errors=True)
+
 # --- the workflow's half of the contract -----------------------------------
 # The snapshot is passed between two steps by PATH, and a typo in either one is
 # a silent no-op for ever — this repo has already paid for that shape twice (a

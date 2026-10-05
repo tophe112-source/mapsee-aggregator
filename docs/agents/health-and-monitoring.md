@@ -57,3 +57,18 @@
   health check sees `external_source='mapsee'` as one bucket, so it can say the
   pipeline stopped but never that ONE source did. Now `[0, 4]`, so a lost run
   costs three days rather than seven.
+
+- **THE WEEKLY AUDIT HAD RECORDED NOTHING SINCE MID-SEPTEMBER, AND WENT GREEN
+  EVERY SUNDAY.** On 2026-10-04 `catalog_curate.py audit` probed 3,240 configured
+  feeds in 94 minutes and found 211 broken and 33 with nothing upcoming. Then it
+  reached the first jsonld entry and formatted its `listing` for the log line.
+  `listing` is a LIST, so `e.get(key)[:60]:60` raised TypeError. The audit's
+  only `_save_ledger` sat after the loop, so the commit step found "ledger
+  unchanged", and the job summary said nothing. No "Weekly catalog audit" commit
+  is among the ledger's last 100, and the ledger listed 0 configured feeds as
+  `fail`. The traceback was in the log, 60 lines ABOVE the output it followed,
+  because `| tee` block-buffered stdout and stderr is not. Now the line takes a
+  list's first URL, the ledger is saved after every config file, the step runs
+  `python -u ... 2>&1`, and a missing "entries are BROKEN" summary line is an
+  `::error::`. `test_curate_reapply.py` runs the real `cmd_audit` over a jsonld
+  list and a crashing third file, and fails on the old code.
