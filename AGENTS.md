@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 373 of them — live in
+session.** The measured notes about what bites — 395 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -47,16 +47,16 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | What is on at a community centre (drop-in timetables) | the `rec` feed group: `mapsee_ingest_toronto_rec.py`, `_perfectmind.py` (18 cities), `_linkedevents.py` (Helsinki, Espoo), `_montreal_loisirs.py`, `_phl_parks.py` (Philadelphia), `_drupal_fullcalendar.py` (Fairfax County), `_revize.py` (Manassas + 3 towns), `_glenecho.py` (Glen Echo Park's dances), `_barcelona.py`, `_lcsd.py` (Hong Kong); `docs/agents/community-centres.md`, and `platforms-probed.md` for the booking platforms that refuse |
 | When a community or seniors' centre is OPEN (not events) | `mapsee_ingest_facility_hours.py` — city open data (Seattle, NYC, Chicago, Cleveland, Phoenix), one standing row per centre; `osm_amenities` skips the OSM centres it writes (`claimed_osm_refs`) |
 | North American public library programmes | `mapsee_ingest_bibliocommons.py` + `bibliocommons_sources.json` - 44 systems (38 added 2026-09-24: 58,629 kept within 90 days), every row carrying its branch's surveyed coordinate. No backend discovers a BiblioCommons tenant; they are added by hand |
-| Public swimming pools | the `leisure=swimming_pool` Kind in `mapsee_ingest_osm_amenities.py`. The only Kind with an extra Overpass filter, and the reason is that most pools on earth are in back gardens |
+| Public swimming pools | the `leisure=swimming_pool` Kind in `mapsee_ingest_osm_amenities.py`. The only Kind with an extra Overpass filter: most pools on earth are in back gardens |
 | Whether a platform has already been probed and refused | `curation_ledger.json` - `verify` skips a `fail` for 90 days without a network call. The table under "Platforms probed" below is the durable half |
 | Whether robots.txt lets us read a feed | `robots_txt.py` (RFC 9309). The owner's line (2026-09-30): robots.txt binds a publisher's own pages and feeds, which `verify` refuses (ledger status `refused`) before fetching. A documented public API used within its usage policy is exempt (`DOCUMENTED_API_TYPES` in `catalog_curate.py`). `python catalog_curate.py robots` reports what a host refuses (exempt API reads apart) and changes nothing; the 76 it refused on 2026-09-30 were retired into `_not_included`, each quoting its rule. Re-run it: a challenge can refuse on the next fetch |
 | A Google calendar, configured or embedded in a page | `mapsee_gcal.py`. With `GOOGLE_CALENDAR_API_KEY` set, the ics adapter and `verify` read it through the Calendar API (its iCal export is refused by robots.txt), as text that parses like the export so rows keep their fingerprints. Unset, nothing changes. `smoke-gcal.yml` (dispatch) proves a key. Discovery proposes Google Sites Calendar blocks and other embeds as `gcal-embed` |
 | Whether a row is an advertisement rather than an event | `mapsee_spam.py` — one predicate, wired into `EventStore.upsert` so all 56 adapters get it; a phone number in the title counts only from Mobilizon, Gancio or an unknown source; `test_spam.py` is mostly about what it must NOT refuse |
 | How much of a source is advertising | `mapsee_spam_audit.py` — measures the rate per instance, so `_not_included` is a number and not an impression |
 | Whether a missing source config is parked ON PURPOSE | a `*_sources.json.pending-permission` twin, and the README's Conduct section. Pioneer Square's and Madrid's are (2026-10-05). parkrun was, for part of 2026-09-25, and is shown by the owner's decision (`_decision` in `parkrun_sources.json`); `test_ingest_parkrun.py` fails if the live file goes missing or a parked twin reappears. `mapsee_retire_parkrun.py` (`retire-parkrun.yml`, dispatch only) takes every parkrun row off with `apply`, and puts them back with `unhide` |
-| An organizer asks for their listing to come off | they reach us through `conbinience.com/support?intent=listing` or support@conbinience.com (the README's Conduct section is the public promise). Set `hidden_at` on the row: the sync never writes that column, so a re-import cannot bring a hidden row back. A whole calendar comes off by leaving its config too. One organizer inside a many-organizer source (parkrun, Mobilizon, a library system) has no per-event opt-out yet: a weekly listing's next dates are new rows |
+| An organizer asks for their listing to come off | they reach us through `conbinience.com/support?intent=listing` or support@conbinience.com (the README's Conduct section is the public promise). Set `hidden_at` alone: the sync lifts only its own cancellation (both stamps equal), so a re-import cannot bring a hidden row back. A whole calendar comes off by leaving its config too. One organizer inside a many-organizer source (parkrun, Mobilizon, a library system) has no per-event opt-out yet: a weekly listing's next dates are new rows |
 | Removing an event that was never ANYWHERE (a Zoom call with a street pin) | `mapsee_retire_online_events.py` — the backfill half of `looks_online_only`/`venue_is_only_a_plus_code` in `mapsee_ingest.py`. Report by default, `--apply` to write, `--unhide` to take it back; opt-in input on `prune-cancelled.yml` |
-| Removing an event the source has since CANCELLED | `mapsee_prune_cancelled.py` — re-probes upcoming rows at their own source URL; hides on schema.org `EventCancelled` or a 404, never on prose or a 403, and never reads a page robots.txt refuses. Report by default, `--apply` to write; twice daily from `prune-cancelled.yml` — 07:55 full sweep (between the import and the janitor) and 16:55 near horizon (`--days 2`), because a once-daily run cannot catch a same-day cancellation |
+| Removing an event the source has since CANCELLED | at import: `store.cancel()` (the source's own status or notice) and a whole-read timetable's absence (`--retire-absent`); the sync sets `cancelled_at`+`hidden_at`, and `mapsee_uncancel.py` undoes a misfire. After: `mapsee_prune_cancelled.py` re-probes upcoming rows at their own URL; hides on `EventCancelled` or a 404, never on prose, a 403 or a page robots.txt refuses. Report by default, `--apply` to write; `prune-cancelled.yml` at 07:55 (full) and 16:55 (`--days 2`: same-day ones) |
 | Removing spam that got in before the gate did | `mapsee_spam_purge.py` — reports by default, `--apply` to write. `spam-purge.yml` runs it daily at 07:40, BETWEEN the import and the janitor, but only once the repository variable `SPAM_PURGE_APPLY` is `true` — the one switch that allows deletes. Until then the schedule is skipped (a report walk reads every row; `spam-and-content.md`) and a manual run reports |
 | Real "order pickup" links for food venues | `mapsee_menu_links.py` — writes a `🛒 Order:` line the product turns into the button |
 | Removing an order/booking link whose destination has died | `mapsee_prune_links.py` — dry run by default; only a 404 or an empty page counts, never a 403 |
@@ -65,7 +65,7 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | Second-hand / charity / vintage shops (not events) from OpenStreetMap | `mapsee_ingest_osm_secondhand.py` + `osm_secondhand_sources.json` — the food adapter's sibling, feeding `market` (fleabop). Bar is readable hours, not an order link; read its header for why that differs. Fetches no third-party websites |
 | UK leisure-centre, community-sport and volunteering sessions | `mapsee_ingest_openactive.py` + `openactive_sources.json` — RPDE feeds, all CC-BY 4.0, all carrying their own coordinates |
 | Playgrounds, toilets, drinking fountains, outdoor gyms, little free libraries, food banks, public art | `mapsee_ingest_osm_amenities.py` + `osm_amenity_sources.json` — 260 areas, matrix-sharded five ways (`osm-amenities.md`) — the third OSM PLACES adapter. Most of what it writes is `pin_only` FURNITURE: drawn on the map and nothing else |
-| Public transit bundles (bus/metro suggestions on a walk) | **not here** — `../mapsee/tools/transit_build.py` + `transit_sources.json`. It is Python and it is a scheduled pipeline, so this is where you would look; it lives in the product repo because its output is a static site asset and mapsee deploys on push, which a cross-repo push would only complicate |
+| Public transit bundles (bus/metro suggestions on a walk) | **not here** — `../mapsee/tools/transit_build.py` + `transit_sources.json`. Python on a schedule, but it lives in the product repo: its output is a static site asset, and mapsee deploys on push |
 | Chaining a repeating listing into one `series_id` | `mapsee_link_series.py` |
 | The kids door (unsie.com, live) and what its plan still wants from this repo | **not here** — `../mapsee/docs/plans/unsie-and-the-lend-layer.md`. The door has shipped; the plan's §4 and §7 are this repo's half: new kid Kinds in `mapsee_ingest_osm_amenities.py` and swap language in `_KIDS_RX`/`derive_categories`. Toy libraries and little free libraries are MEASURED: read the two notes in `docs/agents/osm-amenities.md` before widening either |
 | Brazilian cultural events (state/municipal registers) | `mapsee_ingest_mapasculturais.py` + `mapasculturais_sources.json` — the only source that puts anything on the map in Brazil |
@@ -82,13 +82,13 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
   still returns; Thursday for the Mon/Thu extra sources), when a
   rewrite-every-run adapter does, or through `mapsee_reclassify.py` (dry run by
   default; it starts from the STORED category, so it cannot undo a promotion).
-  An upsert cannot delete.
+  A time change or a cancellation reaches a stored row daily.
 - **A 403 or a bot challenge is a refusal, not an obstacle.** Do not retry with a
   browser User-Agent; the way in is to ask the operator (`docs/agents/platforms-probed.md`).
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 71 `test_*.py` scripts are the CI gate.** They print one line per case
+- **The 73 `test_*.py` scripts are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -110,7 +110,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 | Duplicates, rows that never die, paging, a cursor, a fingerprint, `series_id` | `docs/agents/sync-eventstore-and-paging.md` | `python test_indexnow.py`, `python test_skip_unchanged.py`, `python test_link_series.py` |
 | A job timed out, lost an hour's work, ran in the wrong order | `docs/agents/ci-and-jobs.md` | read `.github/workflows/aggregate-events.yml`'s header |
 | An event that should never have been imported at all — a Zoom call on a street corner, a Plus Code for a venue | `docs/agents/adapters-and-sources.md` | `python test_ingest_meetup.py`, `python mapsee_retire_online_events.py` (report first) |
-| An event on the map that is not happening; a source says cancelled and the row does not | `docs/agents/cancelled-events.md` | `python mapsee_prune_cancelled.py` (report first), `python test_cancelled_events.py` |
+| An event on the map that is not happening; a source says cancelled and the row does not | `docs/agents/cancelled-events.md` | `python test_cancellations.py`, `python mapsee_prune_cancelled.py` (report first) |
 | Advertisements on the map | `docs/agents/spam-and-content.md` | `python mapsee_spam_audit.py`, `python mapsee_spam_purge.py` (report first) |
 | A civic place (toilets, food banks, artwork, community centres, libraries) drawn wrong or unopenable | `docs/agents/osm-amenities.md` | `python test_ingest_osm_amenities.py` |
 | OpenActive sessions, booking grids, forty thousand standing rows | `docs/agents/openactive-and-standing-rows.md` | `python test_ingest_openactive.py`, `python test_retire_openactive_slots.py` |
@@ -126,11 +126,11 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 |---|---|---|
 | `docs/agents/curation-and-discovery.md` | 90 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic, the live per-door census, what a row-level review refuses, LibCal views, the civic marker, Communico's two hostnames, the 127 configured requests robots.txt refuses, Google Sites calendar blocks, pinning a calendar to its venue by hand, the infrastructure APIs' own robots.txt, retiring what robots.txt refuses and whose file a platform's is |
 | `docs/agents/osm-amenities.md` | 32 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list, hall contacts |
-| `docs/agents/openactive-and-standing-rows.md` | 20 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
+| `docs/agents/openactive-and-standing-rows.md` | 21 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 25 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped |
 | `docs/agents/adapters-and-sources.md` | 34 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar read through the Calendar API, exact source ticket and organizer facts |
 | `docs/agents/classification-and-categories.md` | 36 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer, title-only kids words, markets named for a day, a shift is not the event, a play is not the verb, what the refresh backfills |
-| `docs/agents/cancelled-events.md` | 19 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut |
+| `docs/agents/cancelled-events.md` | 40 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut, tombstones, absence, who may lift one |
 | `docs/agents/sync-eventstore-and-paging.md` | 18 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors, an unhide walk and its dry-run overcount, moving a row whose identity changed |
 | `docs/agents/dates-and-timezones.md` | 12 | server offsets, bare dates, sentinels, `starts_at`, years on the wrong side, monthly rules, a wall clock stamped as UTC or a platform's default zone |
 | `docs/agents/brazil-mapasculturais.md` | 7 | an accepted filter that never ran, `0,0`, placeholders, `Etc/UTC`, measured negatives |
@@ -147,7 +147,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 ```bash
 pip install -r requirements.txt
-python test_categories.py            # one of the 71 gate scripts; the full list is in docs/agents/running.md
+python test_categories.py            # one of the 73 gate scripts; the full list is in docs/agents/running.md
 python catalog_curate.py coverage    # where the catalog is thin, per lens category
 python agent_notes.py                # the notes map is under budget and the index is fresh
 ```
