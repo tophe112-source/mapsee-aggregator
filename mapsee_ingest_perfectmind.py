@@ -110,7 +110,8 @@ THE THINGS THAT WILL BITE YOU
    notices 450, private bookings and rentals 149, cancelled 22, orientations
    12. Closures and cancellations are refused HERE because
    notice_reason in mapsee_ingest misses "CANCELLED Winmar Toddler Turf" and
-   "Lane Swim - CLOSED for Programs".
+   "Lane Swim - CLOSED for Programs". A cancellation is then a TOMBSTONE on
+   the session's own row (called_off; 20 of 20 at Moose Jaw on 2026-10-05).
 
 5. BOOKING GRIDS. Moose Jaw publishes "Yara Centre Track Drop in" as 1,040
    rows in 90 days, up to 16 one-hour slots a day: a grid, not a schedule.
@@ -180,6 +181,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures as cf
+import copy
 import html as html_mod
 import json
 import os
@@ -402,6 +404,39 @@ def category_for_calendar(category: str, calendar: str, tenant: Dict[str, Any]) 
             if rx.search(name or ""):
                 return key
     return default
+
+
+# A SESSION CALLED OFF IS A TOMBSTONE, NOT A REFUSAL. BookMe4 has no status
+# field: a cancelled session stays in the calendar with the word typed into its
+# title ("CANCELLED Winmar Toddler Turf", "'Cancelled' Group Cycle", 22 rows on
+# 2026-10-03). Refusing it left the row an earlier read stored - same session,
+# same clock, same place - on the map, because an upsert cannot delete. So the
+# session's own title is recovered and the row is built exactly as the live one
+# was: the fingerprint is title + clock | day | venue, and the title is the only
+# part the word changed.
+_CALLED_OFF_RX = re.compile(r"\bcancel+ed\b|\bpostponed\b", re.I)
+_EDGE_PUNCT = " \t-–—|:;,.!*'\"()[]{}"
+
+
+def called_off(title: Optional[str]) -> Optional[str]:
+    """The session's own title inside a "called off" title, or None when the
+    title does not say so or nothing is left of it.
+
+    The word at the start: what follows ("CANCELLED Winmar Toddler Turf",
+    "'Cancelled' Group Cycle"). Anywhere else: what precedes it ("Lane Swim -
+    CANCELLED", "Lane Swim (Cancelled due to staffing)"). A guess that names no
+    stored row matches no fingerprint and costs nothing; one that does names
+    the same title, clock, day and venue, which is that session."""
+    text = title or ""
+    m = _CALLED_OFF_RX.search(text)
+    if not m:
+        return None
+    before = text[:m.start()].strip(_EDGE_PUNCT)
+    after = text[m.end():].strip(_EDGE_PUNCT)
+    base = before or after
+    base = _CALLED_OFF_RX.sub(" ", base).strip(_EDGE_PUNCT)
+    base = re.sub(r"\s+", " ", base)
+    return base if normalize_text(base) else None
 
 
 # ---------------------------------------------------------------------------
@@ -962,6 +997,11 @@ def walk_calendar(client: Client, url: str, calendar_id: str, widget: str,
         date_string = (date.fromisoformat(nk) + timedelta(days=1)).isoformat()
 
 
+# How walk_calendar says a calendar was read to its end. Kamloops ends every
+# calendar on the two empty answers (2026-10-05), Menlo Park on the horizon.
+COMPLETE_WALKS = ("end of schedule", "horizon reached", "two empty answers in a row")
+
+
 def read_tenant(tenant: Dict[str, Any], today: date, horizon_end: date,
                 deadline: Optional[float] = None, client: Optional[Client] = None,
                 robots: Optional[robots_txt.Robots] = None) -> Dict[str, Any]:
@@ -970,7 +1010,7 @@ def read_tenant(tenant: Dict[str, Any], today: date, horizon_end: date,
     client = client or Client(tenant, max_requests=int(tenant.get("max_requests") or DEFAULT_MAX_REQUESTS),
                               deadline=deadline)
     report: Dict[str, Any] = {"notes": [], "calendars": {}, "refused_calendars": {}, "rows": [],
-                              "stopped": None}
+                              "stopped": None, "incomplete": None}
     base = _base(tenant)
     cats_url = f"{base}/BookMe4V2/GetCategoriesDataV2?embed=False"
     classes_url = f"{base}/BookMe4BookingPagesV2/ClassesV2"
@@ -978,7 +1018,7 @@ def read_tenant(tenant: Dict[str, Any], today: date, horizon_end: date,
     # A tenant still queued when the run deadline passes asks nothing, not even
     # for robots.txt (that read does not go through Client._wait).
     if deadline is not None and client.clock() >= deadline:
-        report["stopped"] = "run deadline reached before this tenant started"
+        report["stopped"] = report["incomplete"] = "run deadline reached before this tenant started"
         report["requests"] = 0
         return report
 
@@ -990,8 +1030,9 @@ def read_tenant(tenant: Dict[str, Any], today: date, horizon_end: date,
     for u in [cats_url, classes_url] + start_urls:
         verdict = robots.check(u)
         if verdict.get("allowed") is not True:
-            report["stopped"] = (f"robots.txt {verdict.get('status')}: "
-                                 f"{verdict.get('rule') or 'permission not established'} - skipped")
+            report["stopped"] = report["incomplete"] = (
+                f"robots.txt {verdict.get('status')}: "
+                f"{verdict.get('rule') or 'permission not established'} - skipped")
             report["requests"] = client.requests + 1
             return report
     report["robots"] = robots.check(cats_url).get("status")
@@ -1004,7 +1045,11 @@ def read_tenant(tenant: Dict[str, Any], today: date, horizon_end: date,
             except FetchError as exc:
                 report["notes"].append(f"widget {widget}: calendars unreadable - {exc}")
                 continue
-            for cat in cats if isinstance(cats, list) else ():
+            if not isinstance(cats, list):
+                report["notes"].append(f"widget {widget}: calendars unreadable - answer was "
+                                       f"{type(cats).__name__}, not a list")
+                continue
+            for cat in cats:
                 for cal in cat.get("Calendars") or ():
                     cid = str(cal.get("Id") or "")
                     if not cid or cid in seen_calendars:
@@ -1034,6 +1079,25 @@ def read_tenant(tenant: Dict[str, Any], today: date, horizon_end: date,
                 raise stop
     except Stop as stop:
         report["stopped"] = str(stop)
+    # A COMPLETE READ: every drop-in calendar of every widget walked to one of
+    # the ends the widget itself recognises. Anything else - a stop, a failed
+    # page, a cursor that stalled, a widget whose calendar list did not load -
+    # leaves sessions unread, and an unread session must never look ABSENT
+    # (mapsee_supabase_sync --retire-absent cancels what a complete read lost).
+    unwalked = [f"{e['category']} / {e['name']}: {e.get('why') or 'not walked'}"
+                for e in report["calendars"].values() if e.get("why") not in COMPLETE_WALKS]
+    unread = [n for n in report["notes"] if "calendars unreadable" in n]
+    # An EMPTY read is not a tenant that called everything off: no drop-in
+    # calendar listed, or none of them holding one session, is refused as
+    # complete, as revize (`silent`), drupal_fullcalendar and phl_parks refuse
+    # theirs - otherwise the sync's max(3, 10%) floor cancelled ALL of a small
+    # tenant's sessions. One 0-row calendar alone is normal (6 of Kamloops' 6
+    # walks end on two empty answers, "Special Events" with 0 rows, 2026-10-05).
+    report["incomplete"] = (report["stopped"] or (unread[0] if unread else None)
+                            or (f"{len(unwalked)} calendar(s) not read to the end: {unwalked[0]}"
+                                if unwalked else None)
+                            or ("no drop-in calendar listed" if not report["calendars"] else None)
+                            or ("no session read from any calendar" if not report["rows"] else None))
     report["requests"] = client.requests + 1          # + the robots.txt read
     report["token_fallbacks"] = client.token_fallbacks
     report["retries"] = client.retries
@@ -1049,6 +1113,12 @@ def _tz(name: Optional[str]):
         return ZoneInfo(name) if name else None
     except Exception:                                   # noqa: BLE001
         return None
+
+
+def _edge(d: date, tz):
+    """A read window's edge: the aware instant a local day starts, or the bare
+    date when the tenant names no zone (mark_complete then rounds it inward)."""
+    return datetime(d.year, d.month, d.day, tzinfo=tz) if tz else d
 
 
 def _now_local(tz) -> datetime:
@@ -1070,6 +1140,7 @@ def build_events(tenant: Dict[str, Any], pairs: List[Tuple[Dict[str, Any], Dict[
     lookup = coordinate_book((r for _c, r in pairs), tenant)
     placed: Dict[str, int] = {}
     events: List[NormalizedEvent] = []
+    called: List[NormalizedEvent] = []
 
     def refuse(why: str) -> None:
         refused[why] = refused.get(why, 0) + 1
@@ -1088,6 +1159,20 @@ def build_events(tenant: Dict[str, Any], pairs: List[Tuple[Dict[str, Any], Dict[
             refuse("beyond horizon")
             continue
         why = row_refusal(clean_title(row.get("EventName")) or "", _clean(row.get("Details")) or "", tenant)
+        if why == "cancelled":
+            # The "| place 8:15-9:45am" tail the live title loses is cut by
+            # to_event below, from the recovered title, exactly as it was then.
+            base = called_off(_clean(row.get("EventName"), 200))
+            # The session itself must be one this adapter lists: "Pool CLOSED -
+            # lessons cancelled" is a closure notice and never a tombstone.
+            if base and row_refusal(base, _clean(row.get("Details")) or "", tenant) is None:
+                live_row = dict(row, EventName=base)
+                ev, _why = to_event(live_row, cal, tenant, lookup(live_row)[0], tz)
+                if ev:
+                    called.append(ev)
+                    continue
+            refuse("called off, never a listing")
+            continue
         if why:
             refuse(why)
             continue
@@ -1108,8 +1193,16 @@ def build_events(tenant: Dict[str, Any], pairs: List[Tuple[Dict[str, Any], Dict[
     # 2026-10-03, Moose Jaw's Gym at 19:06 local: 2 of the day's 9 slots came
     # back; from Oct 5 to Dec 31, 0 of 274 grid days changed shape. A run
     # near the tenants' local midnight sees whole days.
-    events, dupes, folded, grid_notes = collapse_booking_grids(
-        events, int(tenant.get("grid_min_per_day", GRID_MIN_PER_DAY)))
+    min_per_day = int(tenant.get("grid_min_per_day", GRID_MIN_PER_DAY))
+    # WHAT AN EARLIER READ STORED for a called-off session is what this fold
+    # makes of the day WITH it (the same rows, uncancelled): its own slot row,
+    # or the day row of a grid. Folded again here on copies, because the fold
+    # rewrites the row that speaks for a grid.
+    tombs: List[NormalizedEvent] = []
+    if called:
+        full, _d, _f, _n = collapse_booking_grids([copy.copy(e) for e in events + called], min_per_day)
+        tombs = called + full
+    events, dupes, folded, grid_notes = collapse_booking_grids(events, min_per_day)
     if dupes:
         refused["exact duplicate (same title, place and time)"] = dupes
     if folded:
@@ -1127,12 +1220,28 @@ def build_events(tenant: Dict[str, Any], pairs: List[Tuple[Dict[str, Any], Dict[
             refuse("past")
             continue
         kept.append(ev)
+    # A TOMBSTONE NEVER NAMES A ROW THIS READ WRITES LIVE: the store lets a
+    # tombstone beat a live record of its fingerprint, and a session published
+    # twice (two calendars) with one copy called off is still on. Nor one that
+    # is over: the past is cleanup's.
+    live_fps = {ev.fingerprint for ev in events}
+    cancel: Dict[str, NormalizedEvent] = {}
+    beside_live = sum(1 for ev in called if ev.fingerprint in live_fps)
+    for ev in tombs:
+        ends = ev.end_local or ev.start_local or ""
+        if len(ends) == 10:
+            ends += "T23:59:59"
+        if ev.fingerprint not in live_fps and ends >= now_s:
+            cancel.setdefault(ev.fingerprint, ev)
+    if beside_live:
+        refused["called off beside a live copy (kept live)"] = beside_live
     placed.pop("none", None)
     if placed:
         notes.append("placed by other than the row's own point: "
                      + ", ".join(f"{n} by {how}" for how, n in sorted(placed.items())))
     return kept, refused, notes, {"grid_folded": folded, "grid_days": len(grid_notes),
-                                  "borrowed": sum(placed.values()), "placed": placed}
+                                  "borrowed": sum(placed.values()), "placed": placed,
+                                  "called_off": len(called), "cancel": list(cancel.values())}
 
 
 # ---------------------------------------------------------------------------
@@ -1195,7 +1304,7 @@ def main(argv=None) -> int:
                 tz = _tz(tenant.get("timezone"))
                 horizon = int(tenant.get("horizon_days") or a.horizon_days)
                 now_local = _now_local(tz)
-                events, refused, notes, _stats = build_events(
+                events, refused, notes, stats = build_events(
                     tenant, report["rows"], now_local, now_local.date() + timedelta(days=horizon))
             except Exception as exc:                    # noqa: BLE001
                 print(f"[perfectmind] {label}: FAILED building rows - {type(exc).__name__}: {exc}", flush=True)
@@ -1216,9 +1325,13 @@ def main(argv=None) -> int:
                 detail = ", ".join(f"{n} {w}" for w, n in sorted(refused.items(), key=lambda kv: -kv[1]))
                 print(f"[perfectmind] {label}: refused {sum(refused.values())} of {len(report['rows'])} "
                       f"({detail})", flush=True)
-            print(f"[perfectmind] {label}: kept {len(events)} drop-in session(s) "
+            cancels = stats.get("cancel") or []
+            complete = report.get("incomplete") is None
+            print(f"[perfectmind] {label}: kept {len(events)} drop-in session(s), "
+                  f"cancelled {len(cancels)} (of {stats.get('called_off', 0)} called off) "
                   f"in {report.get('requests', 0)} request(s)"
-                  + (f", {report['token_fallbacks']} token fallback(s)" if report.get("token_fallbacks") else ""),
+                  + (f", {report['token_fallbacks']} token fallback(s)" if report.get("token_fallbacks") else "")
+                  + ("; complete read" if complete else f"; NOT a complete read: {report['incomplete']}"),
                   flush=True)
             with lock:
                 totals["kept"] += len(events)
@@ -1226,6 +1339,17 @@ def main(argv=None) -> int:
                 if store is not None:
                     for ev in events:
                         store.upsert(ev)
+                    for ev in cancels:
+                        store.cancel(ev, "called off in the title", notice=True)
+                    if complete:
+                        # One unit per TENANT: all eighteen share the source
+                        # name "perfectmind", and their source_ids start with
+                        # the tenant's slug - the grid rows' too. The window is
+                        # the one walked: local midnight today to the horizon.
+                        start = now_local.date()
+                        store.mark_complete("perfectmind", _edge(start, tz),
+                                            _edge(start + timedelta(days=horizon), tz),
+                                            id_prefix=f"{tenant_slug(tenant)}:")
                     # Between tenants, so a step cancelled by its timeout keeps
                     # the work - but at most every SAVE_EVERY_SECONDS: in CI this
                     # store is the civic group's shared feeds_events.json, and

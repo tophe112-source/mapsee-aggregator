@@ -590,6 +590,119 @@ with tempfile.TemporaryDirectory() as d:
           [u for u, _ in fake.calls])
     check("the second instance is not read at all", not any("espoo.example" in u for u, _ in fake.calls))
 
+# ------------------------------------- 7c. called off: a tombstone, not a gap
+print()
+print("a cancelled row is a TOMBSTONE keyed exactly as its live row was")
+
+
+def conv_cancel(r, inst=INST):
+    pid = LE._ref_id(r.get("location"))
+    return LE.cancellation(r, PLACES.get(pid), inst, NOW, HEND)
+
+
+live, _ = conv(row())
+for label, r, why in [
+    ("EventCancelled", row(event_status="EventCancelled"), "event_status EventCancelled"),
+    ("EventPostponed (no new date)", row(event_status="EventPostponed"), "event_status EventPostponed"),
+    ("PERUTTU: at the start of the title", row(name={"fi": "PERUTTU: Lautapeli-illat aikuisille"}),
+     "cancelled in the title"),
+    ("(PERUTTU) at the end", row(name={"fi": "Lautapeli-illat aikuisille (PERUTTU)"}), "cancelled in the title"),
+]:
+    tomb, cwhy = conv_cancel(r)
+    check(f"{label}: tombstone with the live row's fingerprint, source and id",
+          tomb is not None and cwhy == why and tomb.fingerprint == live.fingerprint
+          and (tomb.source, tomb.source_id) == (live.source, live.source_id), (cwhy, tomb and tomb.fingerprint))
+check("a scheduled row is not called off", conv_cancel(row()) == (None, None))
+tomb, cwhy = conv_cancel(row(event_status="EventCancelled", location=ref("place", "helsinki:internet")))
+check("called off, but no rule would ever list it (online): no tombstone, the reason kept",
+      tomb is None and cwhy == "event_status EventCancelled", (tomb, cwhy))
+check("to_event still refuses it (its contract is unchanged)",
+      conv(row(event_status="EventCancelled")) == (None, "cancelled (event_status)"))
+
+# Through the store, the way two runs see it: yesterday's live write, today's
+# cancel. The tombstone's key IS the stored row's fingerprint.
+with tempfile.TemporaryDirectory() as d:
+    yday, today_st = LE.EventStore(os.path.join(d, "a.json")), LE.EventStore(os.path.join(d, "b.json"))
+    yday.upsert(conv(row())[0])
+    res = today_st.cancel(conv_cancel(row(event_status="EventCancelled",
+                                          name={"fi": "PERUTTU: Lautapeli-illat aikuisille"}))[0], "x")
+    check("store.cancel's key == store.upsert's key, across a retitled cancellation",
+          res == "cancelled" and list(today_st.tombstones) == list(yday.records), (res, list(today_st.tombstones)))
+
+
+class Cancels(Fake):
+    """The walk with one of its rows called off and one sold as the city's own
+    duplicate (both are real shapes of 2026-10-05)."""
+    def get(self, url, params=None, timeout=None):
+        r = super().get(url, params, timeout)
+        if url.endswith("/event/"):
+            r._body["data"].append(row(id="helsinki:agp77uujbu", event_status="EventCancelled",
+                                       name={"fi": "Sävelten siivin - toivemusiikkituokio"}))
+            r._body["meta"]["count"] = 4
+        if "page=2" in url:
+            r._body["meta"]["count"] = 4
+        return r
+
+
+fake = Cancels()
+st = LE.EventStore(os.devnull + ".none")
+out = LE.ingest_instance(st, fake, dict(INST))
+check("the called-off row is a tombstone, the three live rows are kept, and the log counts it",
+      out["kept"] == 3 and out["cancelled"] == 1 and len(st.tombstones) == 1 and len(st.records) == 3
+      and st.cancelled_by_source.get("linkedevents:helsinki") == 1, (out, st.stats))
+check("a whole read is marked complete, for the instance's own source name",
+      out["complete"] and list(st.complete_reads) == ["linkedevents:helsinki"], (out.get("incomplete"), st.complete_reads))
+win = st.complete_reads.get("linkedevents:helsinki") or {}
+check("...over the window asked for: Helsinki midnight today to the end of the horizon's last day",
+      (win.get("from"), win.get("to")) == ("2026-10-02T21:00:00Z", "2027-01-01T22:00:00Z"), win)
+
+st = LE.EventStore(os.devnull + ".none")
+out = LE.ingest_instance(st, OtherHost(), dict(INST))
+check("a next page on another host is NOT a complete read", not out["complete"] and not st.complete_reads, out)
+
+
+class OtherHostUndercounted(OtherHost):
+    """...even when the first page's count says the rows read are all of them."""
+    def get(self, url, params=None, timeout=None):
+        r = super().get(url, params, timeout)
+        if url.endswith("/event/"):
+            r._body["meta"]["count"] = 2
+        return r
+
+
+st = LE.EventStore(os.devnull + ".none")
+out = LE.ingest_instance(st, OtherHostUndercounted(), dict(INST))
+check("...even when the count agrees with what was read: an unfollowed page is never a whole read",
+      not out["complete"] and not st.complete_reads and "another host" in (out["incomplete"] or ""), out)
+st = LE.EventStore(os.devnull + ".none")
+out = LE.ingest_instance(st, Fake(status={"/place/tprek:15321/": 404}), dict(INST))
+check("a place that could not be fetched is NOT a complete read (its rows would look gone)",
+      not out["complete"] and not st.complete_reads and "place" in (out["incomplete"] or ""), out)
+
+
+class Undercount(Fake):
+    def get(self, url, params=None, timeout=None):
+        r = super().get(url, params, timeout)
+        if url.endswith("/event/") or "page=2" in url:
+            r._body["meta"]["count"] = 5
+        return r
+
+
+st = LE.EventStore(os.devnull + ".none")
+out = LE.ingest_instance(st, Undercount(), dict(INST))
+check("fewer distinct rows than the API counted is NOT a complete read",
+      not out["complete"] and not st.complete_reads, out)
+st = LE.EventStore(os.devnull + ".none")
+out = LE.ingest_instance(st, Fake(), dict(INST, max_pages=1))
+check("the page cap is NOT a complete read", not out["complete"] and not st.complete_reads, out)
+st = LE.EventStore(os.devnull + ".none")
+out = LE.ingest_instance(st, Clocked(), dict(INST), deadline=150.0, clock=lambda: 0.0)
+check("a read inside the deadline is complete", out["complete"], out)
+fake = Clocked()
+st = LE.EventStore(os.devnull + ".none")
+out = LE.ingest_instance(st, fake, dict(INST), deadline=150.0, clock=lambda: getattr(fake, "now", 0.0))
+check("a read cut by the deadline is NOT", not out["complete"] and not st.complete_reads, out)
+
 # ------------------------------------------------- 8. the config itself
 print()
 print("the shipped config")

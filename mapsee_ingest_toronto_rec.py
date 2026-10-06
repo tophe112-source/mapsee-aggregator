@@ -305,6 +305,10 @@ class Reader:
                 if not page or len(page) < limit or (total is not None and len(rows) >= total):
                     break
             if not moved:
+                # A short page is not the end of the table when CKAN's own total
+                # says more: the complete read (mark_complete) trusts this list.
+                if total is not None and len(rows) < int(total):
+                    raise RuntimeError(f"resource {resource_id}: {len(rows)} of {total} rows read")
                 return rows
         raise RuntimeError(f"resource {resource_id} changed size twice while being read")
 
@@ -587,8 +591,12 @@ def category(row: Dict[str, Any], cfg: Dict[str, Any]) -> Tuple[str, List[str]]:
 def dropin_events(rows: List[Dict[str, Any]], locations: Dict[int, Dict[str, Any]],
                   points: Dict[str, Tuple[float, float, Optional[str]]],
                   src: Dict[str, Any], common: Dict[str, Any], tz, today: date,
-                  stats: Dict[str, int]) -> List[NormalizedEvent]:
-    """Session rows -> one dated row per (location, title + age band, day)."""
+                  stats: Dict[str, int], seen: Optional[List[str]] = None) -> List[NormalizedEvent]:
+    """Session rows -> one dated row per (location, title + age band, day).
+
+    `seen`, when given, collects the fingerprints of sessions the City lists
+    that could not be placed (EventStore.mark_seen): still on its timetable, so
+    never absent."""
     horizon = today + timedelta(days=int(src.get("horizon_days", 90)))
     rules = src.get("exclude") or {}
     free = FreeCentres(src.get("free_centres") or [])
@@ -635,13 +643,29 @@ def dropin_events(rows: List[Dict[str, Any]], locations: Dict[int, Dict[str, Any
     for (lid, shown, day_s), sessions in sorted(groups.items()):
         loc = locations.get(lid)
         pt = points.get(str(lid))
-        if not loc or not pt:
-            _bump(stats, "unplaceable (no point)", len(sessions))
+        if not loc:
+            # Every session names a location the Locations table holds (0 of
+            # 33,457 did not, 2026-10-06): one that does not is a table read
+            # mid-rebuild, and the read is not complete (ingest_dropin).
+            _bump(stats, "unplaceable (no location row)", len(sessions))
             continue
         venue = re.sub(r"\s+", " ", (loc.get("Location Name") or "").strip())
         # The input order is a weekly rebuild's row order, not a fact: sort, so
         # the session that speaks for the group is the same on every read.
         sessions.sort(key=lambda s: (s["_start"], s["_end"], s.get("Section") or ""))
+        if not pt:
+            # STILL ON THE CITY'S TIMETABLE. Only the point table lacks the
+            # place (118 sessions at 2 locations, 2026-10-06): the fingerprint
+            # needs no point, so it is SEEN, and absence never reads a point
+            # table's gap as 1,236 cancelled sessions (the review's measured
+            # run, under the 10% breaker).
+            _bump(stats, "unplaceable (no point)", len(sessions))
+            if seen is not None:
+                for a, b, _parts in stretches(sorted({(s["_start"], s["_end"]) for s in sessions})):
+                    if not facility_shape(sessions[0], b - a, shapes):
+                        seen.append(make_fingerprint(f"{shown} {_hm(a)}", day_s,
+                                                     f"{venue} {street_line(loc) or ''}".strip()))
+            continue
         times = sorted({(s["_start"], s["_end"]) for s in sessions})
         # A session published twice (two sections, or one row twice) is one
         # session: 359 exact repeats among the sessions kept on 2026-10-03.
@@ -734,11 +758,39 @@ def ingest_dropin(store: EventStore, reader: Reader, src: Dict[str, Any],
         # Canadian row is dropped by the sync anyway (it geocodes with US
         # Census). Say so here, where the reason is known.
         raise RuntimeError("the facility point table came back empty; nothing placed")
-    evs = dropin_events(sessions, locations, points, src, common, tz, _today(tz), stats)
+    today = _today(tz)
+    seen: List[str] = []
+    evs = dropin_events(sessions, locations, points, src, common, tz, today, stats, seen)
     for ev in evs:
         store.upsert(ev)
+    for fp in seen:
+        store.mark_seen(src.get("source", "toronto-rec"), fp)
     stats["rows written"] = len(evs)
+    if seen:
+        stats["listed but unplaced (seen, never absent)"] = len(seen)
+    # A COMPLETE READ (mapsee_supabase_sync --retire-absent): all three tables
+    # were read whole, or resource() raised. The City has no status column and
+    # no cancelled row (0 of 33,457 sessions mention one, 2026-10-05): a session
+    # it calls off is a row it stops publishing, so ABSENCE is the only signal.
+    # The window ends where the City's table ends, not at horizon_days: the
+    # table is rebuilt weekly and covers ~6 weeks, and a rebuild that covered
+    # fewer days must not make the days it left out look emptied.
+    days = sorted(d for d in (str(r.get("First Date") or "")[:10] for r in sessions)
+                  if re.fullmatch(r"\d{4}-\d{2}-\d{2}", d))
+    last = min(date.fromisoformat(days[-1]), today + timedelta(days=int(src.get("horizon_days", 90)))) \
+        if days else None
+    if stats.get("unplaceable (no location row)"):
+        stats["read NOT complete: a session names a location the Locations table lacks"] = 1
+    elif last is not None and last >= today:
+        store.mark_complete(src.get("source", "toronto-rec"), _midnight(today, tz),
+                            _midnight(last + timedelta(days=1), tz))
+        stats["complete read through"] = last.isoformat()
     return stats
+
+
+def _midnight(d: date, tz) -> datetime:
+    """The aware instant a local day starts: a read window's edge."""
+    return datetime(d.year, d.month, d.day, tzinfo=tz)
 
 
 # ---------------------------------------------------------------------------
@@ -937,10 +989,20 @@ def ingest_earlyon(store: EventStore, reader: Reader, src: Dict[str, Any],
     stats: Dict[str, int] = {}
     rows = reader.resource(src["resource"], fields=src.get("fields"))
     stats["centres read"] = len(rows)
-    evs = earlyon_events(rows, src, common, tz, _today(tz), stats)
+    today = _today(tz)
+    evs = earlyon_events(rows, src, common, tz, today, stats)
     for ev in evs:
         store.upsert(ev)
     stats["rows written"] = len(evs)
+    # One request reads every centre, so a read that returned is complete. A
+    # centre that leaves the table, or whose hours become 'None', writes no row
+    # and its stored days are ABSENT: under --retire-absent they come off the
+    # map rather than send a family to a locked door for up to horizon_days.
+    # An empty table is not a city that closed every centre: never complete.
+    if rows:
+        store.mark_complete(src.get("source", "toronto-earlyon"), _midnight(today, tz),
+                            _midnight(today + timedelta(days=int(src.get("horizon_days", 14))), tz))
+        stats["complete read through"] = (today + timedelta(days=int(src.get("horizon_days", 14)) - 1)).isoformat()
     return stats
 
 

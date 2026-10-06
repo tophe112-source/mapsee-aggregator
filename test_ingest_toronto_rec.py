@@ -641,6 +641,120 @@ with tempfile.TemporaryDirectory() as tmpdir:
     check("--max-minutes: past the deadline no request starts, the run exits 0 and still saves",
           code == 0 and not fake.calls and "STOPPED" in out and os.path.exists(path), (fake.calls, out))
 
+# ------------------------------------------------- 8. a complete read
+print()
+print("a complete read, and what goes missing from the next one")
+import mapsee_supabase_sync as sync  # noqa: E402
+from datetime import datetime as _dt, timezone as _tzu  # noqa: E402
+
+NOW = _dt(2026, 10, 3, 12, 0, tzinfo=_tzu.utc)
+
+
+class Without(FakeCkan):
+    """The datastore with some session rows gone (a pool closure, a class
+    called off: the City has no status column, it stops publishing the row)."""
+
+    def __init__(self, drop, **kw):
+        super().__init__(**kw)
+        self.drop = drop
+
+    def get(self, url, params=None, timeout=None):
+        if params["resource_id"] == DROPIN["resources"]["sessions"]:
+            rows = [r for r in FIXTURE["sessions"] if not self.drop(r)]
+            o, n = int(params.get("offset", 0)), int(params.get("limit", T.PAGE_LIMIT))
+            self.calls.append(params["resource_id"])
+            return ok(rows[o:o + n], len(rows))
+        return super().get(url, params, timeout)
+
+
+with tempfile.TemporaryDirectory() as tmpdir:
+    code, out, path = run(FakeCkan())
+    reads = json.load(open(path, encoding="utf-8")).get("complete_reads") or {}
+    check("both sources read whole are marked complete, by their own source names",
+          sorted(reads) == ["toronto-earlyon", "toronto-rec"], (sorted(reads), out[-400:]))
+    check("drop-ins: Toronto midnight today to the end of the LAST day the City's table holds (11-02), "
+          "not the 90-day horizon",
+          (reads.get("toronto-rec", {}).get("from"), reads.get("toronto-rec", {}).get("to"))
+          == ("2026-10-03T04:00:00Z", "2026-11-03T05:00:00Z"), reads.get("toronto-rec"))
+    check("EarlyON: Toronto midnight today to the end of the 14-day horizon",
+          (reads.get("toronto-earlyon", {}).get("from"), reads.get("toronto-earlyon", {}).get("to"))
+          == ("2026-10-03T04:00:00Z", "2026-10-17T04:00:00Z"), reads.get("toronto-earlyon"))
+    first = sync.cancellation_inputs(path)
+    check("every row the run wrote belongs to its source's unit (the manifest's baseline)",
+          sorted(first["units"]["toronto-rec"]) == sorted(e.fingerprint for e in evs)
+          and len(first["units"]["toronto-earlyon"]) > 0, {u: len(v) for u, v in first["units"].items()})
+    mpath = os.path.join(tmpdir, "manifest.json")
+    sync.write_manifest(mpath, None, first)
+    prev = sync.load_manifest(mpath)
+
+    # One stretch called off: every session row of it leaves the table.
+    target = next(e for e in sorted(evs, key=lambda e: e.source_id)
+                  if e.start_local[:10] >= "2026-10-05" and "Sessions:" not in (e.description or ""))
+    lid, _shown, day, hm = target.source_id.split("|")
+    gone = lambda r: (str(r.get("Location ID")) == lid and r.get("First Date", "")[:10] == day
+                      and f"{int(r['Start Hour']):02d}:{int(r['Start Minute'] or 0):02d}" == hm
+                      and T._norm(f"{r['Course Title']}, {T.age_label(r.get('Age Min'), r.get('Age Max'))}") == _shown)
+    code, out, path2 = run(Without(gone))
+    absent, _lines, warns = sync.absent_fingerprints(prev, sync.cancellation_inputs(path2), NOW)
+    check("A SESSION GONE FROM THE NEXT COMPLETE READ IS ABSENT - that one, and nothing else",
+          sorted(absent) == [target.fingerprint] and not warns, (target.source_id, sorted(absent), warns))
+
+    # Not complete -> never absent, however much is missing.
+    code, out, path3 = run(FakeCkan(lambda rid: 500 if rid == DROPIN["resources"]["points"] else None))
+    reads = json.load(open(path3, encoding="utf-8")).get("complete_reads") or {}
+    check("a table that failed mid-read (5xx on the points) is NOT complete; EarlyON still is",
+          sorted(reads) == ["toronto-earlyon"], (sorted(reads), out[-300:]))
+    absent, _l, _w = sync.absent_fingerprints(prev, sync.cancellation_inputs(path3), NOW)
+    check("...so none of the drop-ins it could not place is absent", not absent, len(absent))
+    code, out, path4 = run(FakeCkan(lambda rid: 403 if rid == DROPIN["resources"]["sessions"] else None))
+    check("a refusal is never a complete read",
+          not (json.load(open(path4, encoding="utf-8")).get("complete_reads") or {}), out[-200:])
+
+    class EmptyEarlyon(FakeCkan):
+        def get(self, url, params=None, timeout=None):
+            if params["resource_id"] == EARLYON["resource"]:
+                self.calls.append(params["resource_id"])
+                return ok([], 0)
+            return super().get(url, params, timeout)
+    code, out, path5 = run(EmptyEarlyon())
+    reads = json.load(open(path5, encoding="utf-8")).get("complete_reads") or {}
+    check("an EMPTY EarlyON table is not every centre closing: not complete",
+          sorted(reads) == ["toronto-rec"], sorted(reads))
+
+    class Filtered(FakeCkan):
+        """One table served with some rows left out (`keep(rid, row)`)."""
+
+        def __init__(self, keep, short=None, **kw):
+            super().__init__(**kw)
+            self.keep, self.short = keep, short
+
+        def get(self, url, params=None, timeout=None):
+            rid = params["resource_id"]
+            self.calls.append(rid)
+            rows = [r for r in RID[rid] if self.keep(rid, r)]
+            o, n = int(params.get("offset", 0)), int(params.get("limit", T.PAGE_LIMIT))
+            total = len(rows) + (1 if self.short == rid else 0)
+            return ok(rows[o:o + n], total)
+
+    # THE REVIEW'S RUN: the point table lost a location, the sessions did not.
+    code, out, path6 = run(Filtered(lambda rid, r: not (rid == DROPIN["resources"]["points"]
+                                                        and str(r.get("LOCATIONID")) == lid)))
+    inp6 = sync.cancellation_inputs(path6)
+    absent, _l, warns = sync.absent_fingerprints(prev, inp6, NOW)
+    at_lid = {e.fingerprint for e in evs if e.source_id.split("|")[0] == lid}
+    check("A LOCATION GONE FROM THE POINT TABLE ONLY: its sessions are SEEN (still listed), never absent",
+          bool(at_lid) and at_lid <= inp6["seen"] and not (set(absent) & at_lid) and "toronto-rec" in inp6["complete"],
+          (len(at_lid), len(at_lid & inp6["seen"]), len(set(absent) & at_lid), sorted(inp6["complete"])))
+    code, out, path7 = run(Filtered(lambda rid, r: not (rid == DROPIN["resources"]["locations"]
+                                                        and str(r.get("Location ID")) == lid)))
+    reads = json.load(open(path7, encoding="utf-8")).get("complete_reads") or {}
+    check("a session naming a location the Locations table lacks: the drop-in read is NOT complete",
+          "toronto-rec" not in reads, sorted(reads))
+    code, out, path8 = run(Filtered(lambda rid, r: True, short=DROPIN["resources"]["locations"]))
+    reads = json.load(open(path8, encoding="utf-8")).get("complete_reads") or {}
+    check("a table that ends short of CKAN's own total is NOT a complete read",
+          "toronto-rec" not in reads, (sorted(reads), out[-200:]))
+
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
 sys.exit(1 if fails else 0)

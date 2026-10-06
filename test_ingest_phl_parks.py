@@ -678,6 +678,36 @@ with tempfile.TemporaryDirectory() as tmpdir:
     check("a step cancelled mid-read still leaves a store file for the sync",
           isinstance(code, KeyboardInterrupt) and os.path.exists(path), repr(code))
 
+    # 2026-10-05 (the owner): a session the City takes off must not stay on
+    # the map. The Finder has no per-session cancellation, so a complete read
+    # is the evidence: a row the last one wrote and this one did not is gone
+    # (mapsee_supabase_sync --retire-absent). Only a WHOLE read may say so.
+    def reads(path):
+        return json.load(open(path, encoding="utf-8")).get("complete_reads") or {}
+    code, out, path = run(FakeCarto())
+    cr = reads(path).get("phl-parks") or {}
+    check("COMPLETE: a whole run marks phl-parks read over [today, horizon]",
+          cr.get("from", "")[:10] == TODAY.isoformat() and cr.get("to", "")[:10] == HORIZON.isoformat(), reads(path))
+    code, out, path = run(FakeCarto(lambda host, q: 500 if host == "api.phila.gov" else None))
+    check("COMPLETE: a failed holiday read still is (it can only add rows, never lose one)",
+          "phl-parks" in reads(path), reads(path))
+    code, out, path = run(FakeCarto(lambda host, q: 403 if "ppr_programs " in q else None))
+    check("NOT complete: a refusal mid-read", reads(path) == {}, reads(path))
+    held = FIXTURE["schedules"]
+    FIXTURE["schedules"] = []
+    try:
+        code, out, path = run(FakeCarto())
+    finally:
+        FIXTURE["schedules"] = held
+    check("NOT complete: no schedule at all in the window (a broken query, not a City that cancelled all)",
+          reads(path) == {} and "no schedules in the window" in out, out[-300:])
+    code, out, path = run(FakeCarto(lambda host, q: 400 if "ppr_website_locatorpoints" in q else None))
+    check("NOT complete: one query failing (the locator points)", reads(path) == {} and "FAILED" in out, out[-200:])
+    code, out, path = run(FakeCarto(), "--max-minutes", "0.0000001")
+    check("NOT complete: stopped by the deadline", reads(path) == {}, reads(path))
+    code, out, path = run(FakeCarto(cancel))
+    check("NOT complete: a step cancelled mid-read", reads(path) == {}, reads(path))
+
     calls = []
 
     class Rec:

@@ -13,12 +13,14 @@ hourly and 0158's is_standing demotes it in Nearby, so 300 senior centres cannot
 crowd tonight's events off the list. The only DATED rows are a real programme:
 Seattle's Teen Late Night (Fri/Sat 7 pm - midnight at 3 community centres and 3
 Teen Life Centers), one row per evening, skipping federal holidays, projected
-only `late_night_days_ahead` (21) days: an upsert cannot remove an evening, and
-the open data's LN_HOURS has been wrong - South Park's "Fri 6:30pm-10:30pm and Sat
-3:30pm-8:30pm" and Van Asselt's "(no Saturday)" against their own seattle.gov
-pages' "7:00pm - Midnight" both nights (2026-10-05). The config records each such
-cell (`late_night_disagrees`); while the data still says it, that centre's
-evenings are not written, and they return by themselves when the city fixes it.
+only `late_night_days_ahead` (21) days, because the open data's LN_HOURS has
+been wrong - South Park's "Fri 6:30pm-10:30pm and Sat 3:30pm-8:30pm" and Van
+Asselt's "(no Saturday)" against their own seattle.gov pages' "7:00pm - Midnight"
+both nights (2026-10-05). The config records each such cell
+(`late_night_disagrees`); while the data still says it, that centre's evenings
+are neither written nor cancelled (its page says they happen), and they return
+by themselves when the city fixes it. An evening the data stops listing is
+retired by absence, and a closed centre's evenings are cancelled with it (below).
 
 NEVER TWO PINS ON ONE CENTRE. mapsee_ingest_osm_amenities.py already LISTS every
 amenity=community_centre in OSM as a standing row (always_list), mostly with
@@ -83,8 +85,8 @@ the live data and pinned in test_ingest_facility_hours.py:
 MEASURED LIVE 2026-10-05: 6 sources, 12 requests (+5 robots.txt), 14 s, 455
 rows; a second Seattle run added 0. 419 standing: 395 with their weekly hours
 (Seattle 23 + 3 Teen Life, NYC 302, Chicago 21, Cleveland 18, Phoenix 28; 2,051
-weekly windows), 8 taken-over listings refused today and rewritten with no hours,
-16 own rows refused today and rewritten as pins. 36 Late Night evenings in the
+weekly windows); refused that day: 8 taken-over listings and 16 own rows (the first
+build wrote both, the own ones as pins; see below). 36 Late Night evenings in the
 next 21 days at 6 sites. Refused hours, counted: 10 closures, 9 with no hours,
 1 with only summer hours, 2 NYC centres with an unreadable clock, 2 Phoenix
 strings (two buildings; "4PM-PM"); 4 Cleveland non-centres (golf, rink, camp,
@@ -93,6 +95,12 @@ without, so all 70 claimed elements have a writer; 12 share a building's dot.
 After the sync's derive_categories: community 414, kids 40 (the teen rows),
 volunteer 1 (an older adult centre named after its sponsor, Food Bank For New
 York City - a shared change in the sync). DC: see the config's _about.
+Re-measured with cancellations, two live reads the same evening: 434 rows
+written and 21 cancelled each time (10 closed, 5 of them taken-over OSM
+listings; 9 with no hours; 2 unreadable), 3 taken-over listings with no readable
+hours kept as listings (Northgate's summer-only set, 2 Phoenix strings), 12
+complete units (6 sources, 6 Late Night centres), and 0 of 434 rows absent
+between the two reads.
 
 WHO, AND WHAT IT COSTS. Every one of these is a public building anyone may walk
 into during its hours; none of these datasets states a price, so no row says
@@ -108,17 +116,39 @@ dated "More on this show" Google line and is rewritten daily (measured: to_row
 on 10-05 and 10-06 differs in no compared column with it, in the description
 without it).
 
-A REFUSED CENTRE IS REWRITTEN, NEVER SKIPPED. An upsert cannot delete and a
-standing row never expires, so skipping a centre the city marks closed (or whose
-hours stop parsing, or which leaves the data) would keep its old week rolling
-for ever, and a skipped taken-over listing would have no writer at all. See
-refused_event: a taken-over listing becomes osm_amenities' "opening times are not
-listed" listing. An own row that is refused is NOT written (any shape of it would
-draw a 24-hour clock in ../mapsee), so an own row written once and refused or
-gone later keeps its last week until a retirement exists; none does yet. An
-EMPTY answer writes nothing. A source refused whole (data too old, a 403) writes
-nothing either, so its rows keep their last state until it reads again: the log
-says which.
+A REFUSED CENTRE IS CANCELLED, OR REWRITTEN, NEVER LEFT. An upsert cannot
+delete and a standing row never expires, so skipping a centre the city marks
+closed (or whose hours stop parsing) kept its old week rolling for ever. Now
+(refused_event, cancels()): every refused OWN row, and a taken-over OSM listing
+the city calls closed or no longer lists, goes to store.cancel under the exact
+identity the live row has, and the sync sets cancelled_at + hidden_at on the
+stored row (unclaimed rows only), so nobody is sent to a closed centre; a closed
+centre's Late Night evenings go with it. A taken-over listing whose hours are
+merely unreadable or missing this season stays osm_amenities' "opening times
+are not listed" listing: the building is open, and nothing else writes it. The
+day the city lists a centre's hours again it is written live and the sync lifts
+the cancellation (20 h after the last cancellation, mapsee_supabase_sync).
+
+A BROKEN READ CANCELS NOTHING. A renamed hours field reads as "no hours" for
+every centre and a re-keyed layer makes every claimed listing "gone", so when
+more than max(3, a third) of one source's centres would be cancelled in one read
+nothing is, the taken-over listings are rewritten as before and a ::warning::
+says so (measured most: 4 of 28 in Seattle, 3 of 21 in Cleveland). An EMPTY
+answer writes and cancels nothing. A source refused whole (data too old, a 403)
+writes nothing either, so its rows keep their last state until it reads again:
+the log says which.
+
+COMPLETE READS. Each source is read whole every run, so once a read finished
+with no failed request, no deadline and no page cut short, ingest calls
+store.mark_complete for the source's standing rows and for each centre's Late
+Night programme (one unit per centre, id_prefix "<name>|", so a centre whose
+data contradicts its page is left out). The workflow syncs this store with
+--retire-absent: a row the previous complete read wrote that this one did not -
+an own centre gone from the city's data, an evening dropped from LN_HOURS - is
+cancelled, past the sync's own max(3, 10%) breaker. A read cut short infers no
+"gone" centre at all. Not covered: a centre whose LN_LOCATION turns "No" keeps
+its evenings already written (at most 21 days), because a whole programme
+disappearing trips that breaker by design.
 
 Env:  none (ArcGIS REST and Socrata SODA are documented public APIs)
 Run:  python mapsee_ingest_facility_hours.py --config facility_hours_sources.json \
@@ -136,6 +166,7 @@ import os
 import re
 import sys
 import time
+from collections import Counter
 from datetime import date, datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlsplit
@@ -735,8 +766,12 @@ class Reader:
         raise last
 
 
-def read_arcgis(reader: Reader, src: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """Every feature of a layer as {"attrs": {...}, "lat":, "lon":}, paged."""
+def read_arcgis(reader: Reader, src: Dict[str, Any],
+                notes: Optional[Dict[str, str]] = None) -> List[Dict[str, Any]]:
+    """Every feature of a layer as {"attrs": {...}, "lat":, "lon":}, paged.
+    A read that may have stopped short is recorded in `notes["partial"]`: it is
+    still written, but it is not a COMPLETE read (mark_complete), because a
+    centre missing from it may simply be on the page that never came."""
     url = src["url"].rstrip("/") + "/query"
     out, offset = [], 0
     while True:
@@ -751,16 +786,26 @@ def read_arcgis(reader: Reader, src: Dict[str, Any]) -> List[Dict[str, Any]]:
                 g = {"x": g["points"][0][0], "y": g["points"][0][1]}
             out.append({"attrs": f.get("attributes") or {},
                         "lat": g.get("y"), "lon": g.get("x")})
-        if not body.get("exceededTransferLimit") or not feats:
+        if not body.get("exceededTransferLimit"):
+            return out
+        if not feats:
+            if notes is not None:
+                notes["partial"] = "the server said more features exist and sent none"
             return out
         offset += len(feats)
 
 
-def read_socrata(reader: Reader, src: Dict[str, Any]) -> List[Dict[str, Any]]:
-    params = {"$limit": 5000, "$order": ":id"}
+SOCRATA_LIMIT = 5000
+
+
+def read_socrata(reader: Reader, src: Dict[str, Any],
+                 notes: Optional[Dict[str, str]] = None) -> List[Dict[str, Any]]:
+    params = {"$limit": SOCRATA_LIMIT, "$order": ":id"}
     if src.get("where"):
         params["$where"] = src["where"]
     rows = reader.get(src["url"], params)
+    if notes is not None and isinstance(rows, list) and len(rows) >= SOCRATA_LIMIT:
+        notes["partial"] = f"{len(rows)} rows is the $limit: there may be more"
     out = []
     for r in rows if isinstance(rows, list) else []:
         lat, lon = r.get(src.get("lat_field", "latitude")), r.get(src.get("lon_field", "longitude"))
@@ -963,29 +1008,28 @@ def standing_event(src: Dict[str, Any], c: Dict[str, Any], d: date) -> Optional[
 def refused_event(src: Dict[str, Any], c: Dict[str, Any], d: date) -> NormalizedEvent:
     """The row for a centre whose row this adapter owns but whose hours it will
     not publish today: closed, no hours for the season, hours it cannot read, or
-    gone from the city's data.
+    gone from the city's data. ingest either WRITES it or CANCELS it (cancels()):
 
-    A STANDING ROW NEVER EXPIRES and an upsert cannot delete, so SKIPPING such a
-    centre would leave whatever was written last rolling forward for ever: Seattle's
-    Northgate lists only "Summer" hours and would have kept them all winter, and a
-    centre the city marks closed would have kept advertising its old week. And a
-    taken-over OSM listing that this adapter skips has no writer at all, because
-    osm_amenities skips every element claimed_osm_refs() names (8 of 70 on
-    2026-10-05). So the row is REWRITTEN, saying what is true:
+      * a taken-over OSM listing with merely no readable hours keeps being the
+        listing osm_amenities would write for a centre with unknown hours: the
+        all-week window, the OSM line, "opening times are not listed". It has no
+        other writer (osm_amenities skips every element claimed_osm_refs()
+        names), and the building is open.
+      * a taken-over listing the city calls CLOSED, or no longer lists, and EVERY
+        refused own row is handed to store.cancel: the sync sets cancelled_at
+        and hidden_at on the stored row (unclaimed rows only), so nobody is sent
+        to a closed centre. A STANDING ROW NEVER EXPIRES and an upsert cannot
+        delete, so before this an own row written with hours one day and refused
+        the next kept its last week rolling for ever (Seattle's Northgate lists
+        only "Summer" hours and would have kept them all winter). An own row is
+        never written in a refused shape: as pin_only scenery ../mapsee still
+        opened a sheet and drew the all-week window as "12:00 AM - 11:59 PM"
+        (review, 2026-10-05). The day the city lists the centre's hours again,
+        the live row is written and the sync lifts the cancellation.
 
-      * a taken-over OSM listing keeps being the listing osm_amenities would write
-        for a centre with unknown hours: the all-week window, the OSM line, and a
-        sentence saying closed or "opening times are not listed".
-
-    A ROW OF OUR OWN IS NOT WRITTEN AT ALL (the caller skips it). The first build
-    wrote it as `pin_only` scenery, but ../mapsee opens a sheet for every pin
-    (app.js pinTapHandler -> openEventFromMap), and without the OSM line
-    isStandingAllDay is false, so the sheet drew the all-week window as
-    "12:00 AM - 11:59 PM" for 16 centres the city calls closed or gives no hours
-    (review, 2026-10-05). None of those rows exists yet, so skipping leaves
-    nothing behind. THE GAP THAT REMAINS: an own row written with hours on one
-    day and refused (or gone from the data) on a later one keeps its last week
-    until something retires it; nothing does yet.
+    The cancelled row is built here so it carries EXACTLY the identity the live
+    row has (source, source_id, fingerprint: none of them depends on the
+    hours), which is the only key the sync finds the stored row by.
     """
     kind, detail = c["refused"]
     if kind == "closure":
@@ -1062,6 +1106,31 @@ def _closure(src: Dict[str, Any], attrs: Dict[str, Any]) -> Optional[str]:
     return max(hits, key=len) if hits else None
 
 
+def late_programme(src: Dict[str, Any], attrs: Dict[str, Any], sid: str,
+                   late: Optional[Dict[int, Tuple[int, int]]], stats) -> Dict[int, Tuple[int, int]]:
+    """{weekday: (open, close)} of the centre's Late Night evenings: the hours
+    cells' "(Late Night ...)" and the LN_HOURS text where LN_LOCATION says Yes,
+    or {} when the open data contradicts the centre's own page."""
+    if src.get("late_night_field") and str(attrs.get(src.get("late_night_flag", "LN_LOCATION"))
+                                             or "").strip().lower() == "yes":
+        ln_days, ln_reason = parse_week_text(field(attrs, src["late_night_field"]))
+        if ln_reason or any(len(v) != 1 for v in ln_days.values()):
+            stats["Late Night text unreadable (centre kept, programme not)"] += 1
+        else:
+            late = {**(late or {}), **{k: v[0] for k, v in ln_days.items()}}
+    stale = (src.get("late_night_disagrees") or {}).get(sid)
+    if late and isinstance(stale, str) and src.get("late_night_field") \
+            and _spaces(stale) == field(attrs, src["late_night_field"]):
+        # The open data's Late Night times contradict the centre's own page; the
+        # config records the text it said, so the programme comes back on its
+        # own the day the city corrects it. Not a cancellation either: the
+        # page says the evenings happen, so they are neither written nor
+        # cancelled, and the centre is not a complete read of the programme.
+        stats["Late Night skipped: open data contradicts the centre's page"] += 1
+        late = {}
+    return late or {}
+
+
 def build_centre(src: Dict[str, Any], rec: Dict[str, Any], stats: Dict[str, int],
                  d: date) -> Optional[Dict[str, Any]]:
     """One record -> a centre dict, or None when it is not a centre this adapter
@@ -1110,6 +1179,11 @@ def build_centre(src: Dict[str, Any], rec: Dict[str, Any], stats: Dict[str, int]
         stats["excluded: closure"] += 1
         print(f"[facility-hours]   closed per the status fields ({closed!r}): {name}")
         c["refused"] = ("closure", closed)
+        # The evenings a closed building cannot host, so they are cancelled with
+        # it: whatever programme its data still lists, counted nowhere (the
+        # centre's own counts already say closed).
+        _, _, cell_late, _, why = read_hours(src, attrs, d)
+        c["late"] = late_programme(src, attrs, sid, None if why else cell_late, Counter())
         return c
     label, days, late, overruled, reason = read_hours(src, attrs, d)
     stats["days whose DAY_ flag says No beside listed hours (hours kept)"] += overruled
@@ -1120,23 +1194,10 @@ def build_centre(src: Dict[str, Any], rec: Dict[str, Any], stats: Dict[str, int]
             raw = field(attrs, f.get("hours")) if src["format"] == "free_text" else ""
             detail = raw or None
             print(f"[facility-hours]   closure in the hours field: {name}")
+            c["late"] = late_programme(src, attrs, sid, None, Counter())
         c["refused"] = (reason, detail)
         return c
-    if src.get("late_night_field") and str(attrs.get(src.get("late_night_flag", "LN_LOCATION"))
-                                             or "").strip().lower() == "yes":
-        ln_days, ln_reason = parse_week_text(field(attrs, src["late_night_field"]))
-        if ln_reason or any(len(v) != 1 for v in ln_days.values()):
-            stats["Late Night text unreadable (centre kept, programme not)"] += 1
-        else:
-            late = {**(late or {}), **{k: v[0] for k, v in ln_days.items()}}
-    stale = (src.get("late_night_disagrees") or {}).get(sid)
-    if late and isinstance(stale, str) and src.get("late_night_field") \
-            and _spaces(stale) == field(attrs, src["late_night_field"]):
-        # The open data's Late Night times contradict the centre's own page; the
-        # config records the text it said, so the programme comes back on its
-        # own the day the city corrects it.
-        stats["Late Night skipped: open data contradicts the centre's page"] += 1
-        late = {}
+    late = late_programme(src, attrs, sid, late, stats)
     if f.get("note"):
         n = field(attrs, f["note"])
         if n and re.search(src.get("note_keep_rx") or r"$^", n, re.I):
@@ -1163,9 +1224,46 @@ def gone_centres(src: Dict[str, Any], seen_sids: set) -> List[Dict[str, Any]]:
     return out
 
 
+# A refused centre is CANCELLED (see refused_event) unless too many of one
+# source's centres are refused at once: then the read is broken (a renamed
+# hours field reads as "no hours" for every centre, a re-keyed layer makes every
+# claimed OSM listing "gone"), not a third of a city's centres closing
+# overnight, and nothing is cancelled. Measured on the live data 2026-10-05,
+# the most a source refused was 6 of 34 (Phoenix: 4 closed, 2 unreadable) and
+# 5 of 28 (Seattle: 3 closed, 2 with no hours this season), 18%; NYC 10 of 312.
+REFUSAL_BREAKER_SHARE = 1 / 3
+REFUSAL_BREAKER_FLOOR = 3
+# The standing rows' read window for mark_complete. A standing row has no date
+# to fall outside of (the sync compares every one), so this only has to be a
+# real span: the 8 days _first_window looks across.
+STANDING_WINDOW_DAYS = 8
+
+
+def cancels(c: Dict[str, Any]) -> bool:
+    """Whether a refused centre's row is CANCELLED rather than rewritten: every
+    own row, and a taken-over OSM listing only when the city says it is closed
+    or no longer lists it. A taken-over listing with merely no readable hours
+    this season stays osm_amenities' "opening times are not listed" listing:
+    the building is open, and the listing was there before we took it over."""
+    return not _same(c) or c["refused"][0] in ("closure", "gone")
+
+
+def _local_midnight(src: Dict[str, Any], day: date):
+    """The start of `day` where the source is (an aware instant), or the bare
+    date, which mark_complete rounds inward, when the zone is unknown."""
+    try:
+        from zoneinfo import ZoneInfo
+        return datetime(day.year, day.month, day.day, tzinfo=ZoneInfo(src["timezone"]))
+    except Exception:  # noqa: BLE001 - no zone, or no tz database
+        return day
+
+
 def ingest(store, reader: Reader, src: Dict[str, Any], cfg: Dict[str, Any],
            d: date) -> Dict[str, int]:
-    from collections import Counter
+    """Read one source and write its rows: upsert the centres it lists open,
+    cancel the ones it refuses (cancels()), and, when the whole source was read
+    and nothing tripped the breaker, mark the read complete so the sync's
+    --retire-absent can cancel a row the next complete read no longer lists."""
     stats: Counter = Counter()
     max_age = src.get("max_age_days", cfg.get("max_age_days"))
     if max_age:
@@ -1174,59 +1272,127 @@ def ingest(store, reader: Reader, src: Dict[str, Any], cfg: Dict[str, Any],
             stats[f"source refused: data last edited {age:.0f} days ago (> {max_age})"] += 1
             return stats
         stats["data age, days"] = int(age) if age is not None else -1
-    recs = read_arcgis(reader, src) if src["type"] == "arcgis" else read_socrata(reader, src)
+    notes: Dict[str, str] = {}
+    recs = (read_arcgis(reader, src, notes) if src["type"] == "arcgis"
+            else read_socrata(reader, src, notes))
     stats["records read"] = len(recs)
     if not recs:
-        # An empty answer is not "every centre closed": write nothing, so no
-        # taken-over listing is rewritten as gone on a publisher's bad day.
+        # An empty answer is not "every centre closed": write nothing and cancel
+        # nothing, so no taken-over listing is rewritten as gone on a
+        # publisher's bad day, and the read is not complete.
         return stats
-    # The programme's evenings are projected a short way only: an upsert cannot
-    # remove an evening the open data later drops, and its LN_HOURS has been
-    # wrong before (South Park, Van Asselt; see the config).
+    # The programme's evenings are projected a short way only: its LN_HOURS
+    # has been wrong before (South Park, Van Asselt; see the config), and an
+    # evening the open data later drops is retired only by absence.
     horizon = int(src.get("late_night_days_ahead", cfg.get("late_night_days_ahead", 21)))
     title = src.get("late_night_title", "Teen Late Night")
     hol = set()
     for y in (d.year, d.year + 1):
         hol |= us_holidays(y, src.get("extra_holidays") or [])
-    seen, sids = set(), set()
+    sids = set()
     centres = []
     for rec in recs:
         c = build_centre(src, rec, stats, d)
         if c:
             sids.add(c["sid"])
             centres.append(c)
-    gone = gone_centres(src, sids)
+    # "Gone" is inferred from absence, so a read that may have stopped short
+    # infers nothing: the missing centre may be on the page that never came.
+    gone = [] if notes.get("partial") else gone_centres(src, sids)
     stats["excluded: gone from the city's data (claimed OSM listing)"] += len(gone)
+    live: List[NormalizedEvent] = []
+    doomed: List[Dict[str, Any]] = []
     for c in centres + gone:
-        rows = []
         ev = standing_event(src, c, d) if not c["refused"] else None
         if not c["refused"] and not ev:
             stats["excluded: hours that overlap themselves"] += 1
             c["refused"] = ("unreadable time", None)
         if c["refused"]:
-            if not _same(c):
-                # See refused_event: an own row has no shape that can say
-                # "closed" without ../mapsee drawing a 24-hour clock.
-                stats["refused, not written (own row)"] += 1
-                continue
-            ev = refused_event(src, c, d)
-            stats["refused, written as a listing with no hours (taken-over OSM listing)"] += 1
-        elif _same(c):
+            if cancels(c):
+                doomed.append(c)
+            else:
+                live.append(refused_event(src, c, d))
+                stats["refused, written as a listing with no hours (taken-over OSM listing)"] += 1
+            continue
+        if _same(c):
             stats["rows taking over an OSM listing"] += 1
         elif c["osm_mode"] == "colocated":
             stats["rows sharing an OSM building's dot"] += 1
-        rows.append(ev)
-        if c.get("late") and not c["refused"]:
-            rows += late_night_events(src, c, c["late"], d, horizon, hol, title)
-        for ev in rows:
-            if ev.fingerprint in seen:
-                stats["duplicate identity in one read (second dropped)"] += 1
-                continue
-            seen.add(ev.fingerprint)
-            if store is not None:
-                store.upsert(ev)
-            stats["standing rows" if ev.recurring_days else "dated rows (Late Night)"] += 1
+        live.append(ev)
+        if c.get("late"):
+            live += late_night_events(src, c, c["late"], d, horizon, hol, title)
+    considered = len(centres) + len(gone)
+    limit = max(REFUSAL_BREAKER_FLOOR, int(REFUSAL_BREAKER_SHARE * considered))
+    tripped = len(doomed) > limit
+    dead: List[Tuple[NormalizedEvent, str]] = []
+    if tripped:
+        print(f"::warning::facility-hours {src['key']}: {len(doomed)} of {considered} centres refused "
+              f"in one read (limit {limit}); cancelled none and marked the read incomplete. A "
+              f"renamed field or a re-keyed layer is not a wave of closures: read the source.")
+        stats["breaker: refused centres NOT cancelled (too many at once)"] = len(doomed)
+        for c in doomed:
+            if _same(c):
+                live.append(refused_event(src, c, d))
+                stats["refused, written as a listing with no hours (taken-over OSM listing)"] += 1
+            else:
+                stats["refused, not written (own row; breaker)"] += 1
+    else:
+        for c in doomed:
+            kind, detail = c["refused"]
+            why = f"facility {kind}" + (f": {detail}" if detail else "")
+            dead.append((refused_event(src, c, d), why[:80]))
+            stats["refused, cancelled (own row)" if not _same(c)
+                  else "refused, cancelled (taken-over OSM listing: closed or gone)"] += 1
+            if kind == "closure" and c.get("late"):
+                # A closed building hosts no Late Night: the evenings already
+                # written (the identity late_night_events gives them live) go too.
+                dead += [(ev, "facility closure: Late Night evening")
+                         for ev in late_night_events(src, c, c["late"], d, horizon, hol, title)]
+    # LIVE FIRST, so a duplicate record of one centre (one listing open, one
+    # closed) leaves it live: a duplicate is not the publisher calling it off.
+    seen = set()
+    for ev in live:
+        if ev.fingerprint in seen:
+            stats["duplicate identity in one read (second dropped)"] += 1
+            continue
+        seen.add(ev.fingerprint)
+        if store is not None and store.upsert(ev) == "cancelled":
+            stats["live row beaten by an earlier source's cancellation"] += 1
+            continue
+        stats["standing rows" if ev.recurring_days else "dated rows (Late Night)"] += 1
+    for ev, why in dead:
+        if ev.fingerprint in seen:
+            stats["refused, but the same identity is live in this read (kept live)"] += 1
+            continue
+        seen.add(ev.fingerprint)
+        got = store.cancel(ev, why) if store is not None else "cancelled"
+        if got != "cancelled":
+            stats[f"cancellation refused by the store ({got})"] += 1
+            continue
+        stats["cancelled standing rows" if ev.recurring_days else "cancelled dated rows (Late Night)"] += 1
     stats["rows written"] = stats.get("standing rows", 0) + stats.get("dated rows (Late Night)", 0)
+    stats["rows cancelled"] = (stats.get("cancelled standing rows", 0)
+                               + stats.get("cancelled dated rows (Late Night)", 0))
+    if tripped or notes.get("partial"):
+        if notes.get("partial"):
+            stats[f"read incomplete: {notes['partial']}"] += 1
+        return stats
+    # COMPLETE: every centre the city lists was written or cancelled above, so
+    # a row the last complete read wrote and this one did not is gone at the
+    # source (mapsee_supabase_sync --retire-absent, with its own breaker). The
+    # Late Night programme is one unit PER CENTRE whose programme was read and
+    # trusted, so an evening dropped from its LN text is retired, while a centre
+    # whose open data contradicts its own page (late == {}) is left alone.
+    if store is not None:
+        lo = _local_midnight(src, d)
+        store.mark_complete(f"{SOURCE}:{src['key']}", lo,
+                            _local_midnight(src, d + timedelta(days=STANDING_WINDOW_DAYS)))
+        for c in centres:
+            if c.get("late") and not c["refused"]:
+                store.mark_complete(f"{SOURCE}:late-night", lo,
+                                    _local_midnight(src, d + timedelta(days=horizon)),
+                                    id_prefix=f"{_norm(c['name'])}|")
+    stats["complete read"] = 1
     return stats
 
 
@@ -1416,7 +1582,7 @@ def main(argv=None) -> int:
         return 0
 
     store = None if a.dry_run else EventStore(a.store)
-    total = 0
+    total = cancelled = 0
     for src in sources:
         label = src.get("name") or src["key"]
         before = reader.requests
@@ -1432,10 +1598,13 @@ def main(argv=None) -> int:
             print(f"[facility-hours] {label} FAILED: {type(exc).__name__}: {exc}")
             continue
         total += stats.get("rows written", 0)
-        print(f"[facility-hours] {label}: {stats.get('rows written', 0)} rows "
+        cancelled += stats.get("rows cancelled", 0)
+        print(f"[facility-hours] {label}: {stats.get('rows written', 0)} rows, "
+              f"{stats.get('rows cancelled', 0)} cancelled "
+              f"({'complete read' if stats.get('complete read') else 'NOT a complete read'}) "
               f"in {reader.requests - before} requests")
         for k, v in sorted(stats.items()):
-            if k != "rows written":
+            if k not in ("rows written", "rows cancelled", "complete read"):
                 print(f"[facility-hours]     {k}: {v}")
         if store is not None:
             store.save()                         # after every source: a later failure loses nothing
@@ -1444,11 +1613,12 @@ def main(argv=None) -> int:
         st = store.stats
         print(f"[facility-hours] done in {time.monotonic() - started:.0f} s: {total} rows "
               f"(added {st.get('added', 0)}, updated {st.get('updated', 0)}, "
-              f"rejected {st.get('rejected', 0)}) in {reader.requests} requests; "
-              f"store holds {len(store.records)}.")
+              f"rejected {st.get('rejected', 0)}), {cancelled} cancelled "
+              f"({len(store.tombstones)} tombstones, {len(store.complete_reads)} complete reads) "
+              f"in {reader.requests} requests; store holds {len(store.records)}.")
     else:
-        print(f"[facility-hours] dry run done in {time.monotonic() - started:.0f} s: {total} rows "
-              f"in {reader.requests} requests (nothing written)")
+        print(f"[facility-hours] dry run done in {time.monotonic() - started:.0f} s: {total} rows, "
+              f"{cancelled} cancelled in {reader.requests} requests (nothing written)")
     return 0
 
 

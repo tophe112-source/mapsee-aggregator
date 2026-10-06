@@ -401,6 +401,7 @@ def main():
 
 
     checks.extend(fix_checks_2026_10_05())
+    checks.extend(cancel_checks_2026_10_05())
 
     failed = 0
     for ok, why in checks:
@@ -546,6 +547,110 @@ def fix_checks_2026_10_05():
     row = S.to_row(dict(free.as_record("2026-10-05T00:00:00+00:00")), "host")
     checks.append(((row.get("source_details") or {}).get("free") is True,
                    "to_row carries source_details through to the table row"))
+    return checks
+
+
+def cancel_checks_2026_10_05():
+    """A session the publisher marks EventCancelled/EventPostponed is a
+    TOMBSTONE on the row an earlier read stored for it - whichever fold that
+    row was - and never on a row this read still writes live."""
+    import contextlib
+    import io
+    import json as _json
+    import os
+    import tempfile
+    from mapsee_ingest import EventStore
+    checks = []
+    CANCELLED = "https://schema.org/EventCancelled"
+
+    def read(records):
+        real = OA.walk
+        OA.walk = lambda url, *a, **k: ({r["@id"]: r for r in records}, "end of feed (1 page(s))")
+        try:
+            return OA.read_source(dict(SRC2, feeds=[{"kind": "Event", "url": "https://example.test/feed"}]),
+                                  120, 5, 0, now=NOW2)
+        finally:
+            OA.walk = real
+
+    def tue(i, ident, h=10, **extra):
+        day = 6 + 7 * i                       # London leaves summer time on 10-25
+        off = "+01:00" if day < 25 else "+00:00"
+        return rec2(ident, f"2026-10-{day:02d}T{h:02d}:00:00{off}", f"2026-10-{day:02d}T{h:02d}:45:00{off}", **extra)
+
+    # 1. A dated session: the tombstone IS the stored row's key.
+    one = [rec2("d1", "2026-10-09T18:00:00+01:00", name="Walking Netball")]
+    live, _ = read(one)
+    gone, rep = read([dict(one[0], eventStatus=CANCELLED)])
+    tomb = (rep.get("cancel") or [None])[0]
+    checks.append((not gone and tomb is not None and tomb.fingerprint == live[0].fingerprint
+                   and (tomb.source, tomb.source_id) == (live[0].source, live[0].source_id),
+                   "a cancelled dated session: one tombstone, with the live row's fingerprint, source and id"))
+    with tempfile.TemporaryDirectory() as d:
+        yday, today_st = EventStore(os.path.join(d, "a.json")), EventStore(os.path.join(d, "b.json"))
+        yday.upsert(live[0])
+        res = today_st.cancel(tomb, "eventStatus cancelled or postponed") if tomb else None
+        checks.append((res == "cancelled" and list(today_st.tombstones) == list(yday.records),
+                       "store.cancel's key == store.upsert's key"))
+    _ev, why = OA.to_event(dict(one[0], eventStatus="EventPostponed"), SRC2, NOW2, 120)
+    checks.append((why == "cancelled", "to_event still refuses it (its contract is unchanged)"))
+
+    # 2. ONE WEEK OFF A CLASS THAT STILL FOLDS: the standing row stays, says so.
+    weeks = [tue(i, f"w{i}") for i in range(4)]
+    all_live, _ = read(weeks)
+    w_fp = next(e.fingerprint for e in all_live if e.recurring_days)
+    out, rep = read([dict(r, eventStatus=CANCELLED) if r["@id"].endswith("w1") else r for r in weeks])
+    stand = [e for e in out if e.recurring_days]
+    tfps = {e.fingerprint for e in rep["cancel"]}
+    checks.append((len(stand) == 1 and stand[0].fingerprint == w_fp and w_fp not in tfps,
+                   "one cancelled week of four: the weekly row is still written live and is NOT a tombstone"))
+    checks.append(((stand[0].description if stand else "").startswith(
+        "\u26a0\ufe0f Not on Tue 13 Oct: cancelled by the publisher."),
+        "...and it names the week that is off"))
+
+    # 3. Two weeks listed, one off: nothing live folds any more.
+    two = [tue(0, "a0"), tue(1, "a1")]
+    w2 = next(e.fingerprint for e in read(two)[0] if e.recurring_days)
+    out, rep = read([two[0], dict(two[1], eventStatus=CANCELLED)])
+    checks.append((len(out) == 1 and not out[0].recurring_days and w2 in {e.fingerprint for e in rep["cancel"]},
+                   "two weeks listed and one off: the live week is a dated row, the standing row a tombstone "
+                   "(a live write lifts it when the arrangement is listed again)"))
+    out, rep = read([dict(r, eventStatus=CANCELLED) for r in weeks])
+    checks.append((not out and w_fp in {e.fingerprint for e in rep["cancel"]},
+                   "every listed week called off: the standing row is a tombstone"))
+
+    # 4. A grid day: the day row is what was stored.
+    slots = [rec2(f"g{i}", f"2026-10-10T{9 + i:02d}:00:00+01:00", name="Swim For Fitness") for i in range(7)]
+    g_fp = read(slots)[0][0].fingerprint
+    out, rep = read([dict(r, eventStatus=CANCELLED) for r in slots])
+    checks.append((not out and g_fp in {e.fingerprint for e in rep["cancel"]},
+                   "every slot of a grid day called off: the day row is a tombstone"))
+    out, rep = read([dict(r, eventStatus=CANCELLED) if r["@id"].endswith("g0") else r for r in slots])
+    checks.append((len(out) == 1 and out[0].fingerprint == g_fp and g_fp not in {e.fingerprint for e in rep["cancel"]},
+                   "one slot of seven called off: the day row is still live and never a tombstone"))
+    live_fps = {e.fingerprint for e in out}
+    checks.append((not (live_fps & {e.fingerprint for e in rep["cancel"]}),
+                   "no tombstone ever names a row this read writes live"))
+
+    # 5. The CLI: tombstones in the store, counted, and NEVER a complete read.
+    real = OA.walk
+    OA.walk = lambda url, *a, **k: ({r["@id"]: r for r in [one[0], dict(tue(0, "x"), eventStatus=CANCELLED)]},
+                                    "end of feed (1 page(s))")
+    try:
+        with tempfile.TemporaryDirectory() as d:
+            cfg = os.path.join(d, "c.json")
+            _json.dump({"sources": [dict(SRC2, feeds=[{"kind": "Event", "url": "https://example.test/f"}])]},
+                       open(cfg, "w", encoding="utf-8"))
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                OA.main(["--config", cfg, "--store", os.path.join(d, "s.json"), "--horizon-days", "400"])
+            whole = _json.load(open(os.path.join(d, "s.json"), encoding="utf-8"))
+    finally:
+        OA.walk = real
+    checks.append((len(whole.get("tombstones") or []) == 1 and len(whole["events"]) == 1
+                   and "cancelled 1" in buf.getvalue(),
+                   "the CLI writes the tombstone beside the live row, and its log line counts it"))
+    checks.append((not whole.get("complete_reads"),
+                   "OpenActive is never a complete read: its folds move as sessions pass, so absence would guess"))
     return checks
 
 

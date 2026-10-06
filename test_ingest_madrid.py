@@ -757,6 +757,40 @@ check("--max-minutes: past the deadline no request starts (not even robots.txt),
       code == 0 and not fk.calls and not fk.robots_calls and "STOPPED" in out and os.path.exists(path),
       (fk.calls, fk.robots_calls, out))
 
+# COMPLETE READS (2026-10-05, the owner: a session taken off must not stay on
+# the map). Only a read of EVERY resource, whole, may let absence cancel.
+def reads(path):
+    return json.load(open(path, encoding="utf-8")).get("complete_reads") or {}
+
+
+code, out, path = run_main(FakeCkan())
+got = {k: (v["from"][:10], v["to"][:10]) for k, v in reads(path).items()}
+want = (TODAY.isoformat(), (TODAY + timedelta(days=int(CFG.get("horizon_days", 90)))).isoformat())
+check("COMPLETE: both resources whole marks madrid:centros and madrid:agenda, over [today, horizon]",
+      got == {"madrid:centros": want, "madrid:agenda": want}, got)
+code, out, path = run_main(FakeCkan({2: Resp(403, text="Forbidden")}))
+check("NOT complete: the second resource refused (a PARTIAL RUN)", reads(path) == {}, reads(path))
+code, out, path = run_main(FakeCkan({1: Resp(302, text="", headers={"Location": "https://datos.madrid.es/x"})}))
+check("NOT complete: one resource failed", reads(path) == {}, reads(path))
+code, out, path = run_main(FakeCkan(total_fn=lambda n, rows: len(rows) + 2))
+check("NOT complete: a resource came back short of CKAN's total", reads(path) == {} and "read NOT complete" in out,
+      (reads(path), out[-300:]))
+code, out, path = run_main(FakeCkan(), permission="")
+check("NOT complete: the parked config (no permission) reads nothing", reads(path) == {}, reads(path))
+
+
+class EmptySecond(FakeCkan):
+    def get(self, url, params=None, timeout=None, allow_redirects=True):
+        r = super().get(url, params, timeout, allow_redirects)
+        if params and params.get("resource_id") == CFG["sources"][-1]["resource_id"]:
+            return Resp(200, {"success": True, "result": {"records": [], "total": 0}})
+        return r
+
+
+code, out, path = run_main(EmptySecond())
+check("NOT complete: one resource came back empty (a broken export, not a City that cancelled all)",
+      reads(path) == {}, (reads(path), out[-200:]))
+
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
 sys.exit(1 if fails else 0)

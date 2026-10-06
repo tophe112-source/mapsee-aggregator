@@ -557,6 +557,78 @@ with tempfile.TemporaryDirectory() as tmp:
           isinstance(raised, D.OutOfTime) and 1 <= stats3.get("rows written", 0) < 3, (raised, stats3))
 
     # -----------------------------------------------------------------------
+    # 8b2. completeness: only a whole read may let absence cancel a row
+    # -----------------------------------------------------------------------
+    done = "read complete (absence may cancel)"
+    stats3, raised, _ = run_three(("/nothing", 500))
+    check("COMPLETE: every page read", raised is None and stats3.get(done) == 1, stats3)
+    st_e, stats_e = EventStore(os.path.join(tmp, "empty.json")), {}
+    D.ingest_source(st_e, D.Reader(Site({base + "/events/": settings_page([])}), robots=Robots(), min_interval=0,
+                                   sleep=lambda s: None), dict(SRC, calendar_url=base + "/events/"), 90, stats_e)
+    check("NOT complete: a calendar that lists nothing (a broken page, not a county that cancelled all)",
+          stats_e.get(done) is None and not st_e.complete_reads, stats_e)
+    stats3, raised, _ = run_three(("/bird-walk/111626", 500))
+    check("NOT complete: one page failed", stats3.get(done) is None
+          and any(k.startswith("read NOT complete") for k in stats3), stats3)
+    stats3, raised, _ = run_three(("/nothing", 500), robots=Robots(deny=("/bird-walk/111626",)))
+    check("NOT complete: one page refused by robots.txt", stats3.get(done) is None, stats3)
+    stats3, raised, _ = run_three(("/bird-walk/111626", 404))
+    check("NOT complete: a listed occasion whose page is gone (404) was not read", stats3.get(done) is None, stats3)
+    stats3, raised, _ = run_three(("/bird-walk/111626", 403))
+    check("NOT complete: the host refused mid-read", stats3.get(done) is None, stats3)
+    tick[0] = 0.0
+    stats3, raised, _ = run_three(("/nothing", 500), clock=clock3, deadline=9.5)
+    check("NOT complete: stopped by the deadline", stats3.get(done) is None, stats3)
+
+    # -----------------------------------------------------------------------
+    # 8b3. a called-off occasion is a tombstone with the live row's fingerprint
+    # -----------------------------------------------------------------------
+    # 2026-10-05 (the owner): "we don't want users to go to an event that is
+    # closed". The county retitles the occasion's own node; the row we wrote
+    # under its own title stays on the map unless the run tombstones THAT
+    # row's fingerprint (EventStore.cancel).
+    for t, want in (("CANCELED: Campfire Fridays", "Campfire Fridays"), ("Goblin Golf - Postponed", "Goblin Golf"),
+                    ("Bird Walk (Cancelled)", "Bird Walk"), ("CANCELLED TODAY- Bird Walk", "Bird Walk"),
+                    ("Park Closed", None), ("Closures: Lake Fairfax", None), ("Cancelled", None),
+                    ("CANCELED: Lake Closed for the Season", None),
+                    ("Cancellation Policy Workshop", None)):
+        check(f"called_off({t!r}) is {want!r}", D.called_off(t) == want, D.called_off(t))
+
+    def run_cal(rows_, name):
+        site = Site({base + "/events/": settings_page(rows_),
+                     **{base + r["url"][len("/events"):]: PAGES["burke_lake"] for r in rows_}})
+        st_, stats_ = EventStore(os.path.join(tmp, name)), {}
+        with redirect_stdout(io.StringIO()):
+            D.ingest_source(st_, D.Reader(site, robots=Robots(), min_interval=0, sleep=lambda s: None),
+                            dict(SRC, calendar_url=base + "/events/"), 90, stats_)
+        return st_, stats_, site
+    st_live, stats_live, _ = run_cal([three[0]], "live.json")
+    st_off, stats_off, site_off = run_cal([dict(three[0], title="CANCELED: Bird Walk With a Naturalist")], "off.json")
+    check("the called-off node writes no row; it is excluded and counted as cancelled",
+          not st_off.records and stats_off.get("excluded: closure or cancellation") == 1
+          and stats_off.get("rows cancelled (a called-off title: a tombstone for the row we wrote)") == 1
+          and not stats_off.get("rows written"), stats_off)
+    check("ITS TOMBSTONE IS THE LIVE ROW'S FINGERPRINT (events.external_id), source and source_id",
+          len(st_live.records) == 1 and list(st_off.tombstones) == list(st_live.records)
+          and [(t["source"], t["source_id"]) for t in st_off.tombstones.values()]
+          == [("drupal-fullcalendar:fairfax-county", "fairfax-county:34100:2026-11-10")],
+          (list(st_live.records), st_off.tombstones))
+    cr = st_off.complete_reads.get("drupal-fullcalendar:fairfax-county") or {}
+    check("the read is marked complete under the rows' own source, over [today, today + 90 days]",
+          cr.get("from", "")[:10] == "2026-10-04" and cr.get("to", "")[:10] == "2027-01-02", cr)
+    check("...read from the node's own page (one request, like the live row)",
+          any("/bird-walk/110626" in u for u in site_off.calls), site_off.calls)
+    check("...and the live tallies are the live run's (the tombstone's build is counted apart)",
+          not any(k.startswith("placed") or k.startswith("price") for k in stats_off), stats_off)
+    st_both, _, _ = run_cal([three[0], dict(three[0], id="34199", title="CANCELED: Bird Walk With a Naturalist")],
+                            "both.json")
+    check("a live node and a called-off twin of it in one read: the tombstone wins",
+          not st_both.records and list(st_both.tombstones) == list(st_live.records), list(st_both.records))
+    _, stats_cl, site_cl = run_cal([dict(three[0], title="Park Closed")], "closed.json")
+    check("a closure names no occasion: refused, no tombstone, no page asked",
+          stats_cl.get("excluded: closure or cancellation") == 1 and len(site_cl.calls) == 1, site_cl.calls)
+
+    # -----------------------------------------------------------------------
     # 8c. what the sync makes of these rows
     # -----------------------------------------------------------------------
     boo = PAGES["burke_lake"].replace(

@@ -35,7 +35,7 @@ import re
 import sys
 import tempfile
 import time
-from datetime import date
+from datetime import date, timedelta
 
 for _s in (sys.stdout, sys.stderr):
     try:
@@ -752,6 +752,41 @@ with tempfile.TemporaryDirectory() as tmpdir:
     check("a SmartPlay transfer cut at --max-minutes stops SmartPlay only: the cultural programme, read first, is saved",
           code == 0 and "STOPPED" in out and "while reading" in out and rows
           and all(r["sources"][0]["source"] == "lcsd-culture" for r in rows.values()), out[-500:])
+
+    # COMPLETE READS (2026-10-05, the owner: a session taken off must not stay
+    # on the map). Neither file says a session is cancelled, so a WHOLE read is
+    # the evidence (mapsee_supabase_sync --retire-absent); a partial one never.
+    def reads(path):
+        return json.load(open(path, encoding="utf-8")).get("complete_reads") or {}
+    want = (TODAY.isoformat(), (TODAY + timedelta(days=90)).isoformat())
+    code, out, path = run(FakeSession())
+    got = {k: (v["from"][:10], v["to"][:10]) for k, v in reads(path).items()}
+    check("COMPLETE: a whole run marks both sources, each over [today, today + 90 days]",
+          got == {"lcsd-culture": want, "lcsd-smartplay": want}, got)
+    code, out, path = run(FakeSession(lambda u, n: Resp(403) if "smartplay" in u else None))
+    check("a refused SmartPlay is NOT complete; the cultural programme still is", set(reads(path)) == {"lcsd-culture"},
+          reads(path))
+    code, out, path = run(FakeSession(lambda u, n: Resp(404) if u.endswith("facility-sc.json") else None))
+    check("facility lists not read: NEITHER is complete (a venue they placed would read as gone)",
+          reads(path) == {} and "read NOT complete: the facility lists were not read" in out, out[-400:])
+    code, out, path = run(FakeSession(lambda u, n: Trickle(SERVED["activity-prog/file"], n=8, step=0.25, real=True)
+                                      if "smartplay" in u else None), None, "--max-minutes", "0.02")
+    check("SmartPlay cut at the deadline is NOT complete; the cultural programme read before it is",
+          set(reads(path)) == {"lcsd-culture"}, reads(path))
+    import mapsee_geo_budget as _gb  # noqa: E402
+    budget = os.path.join(tmpdir, "budget.json")
+    json.dump({"n": 3}, open(budget, "w"))
+    held_geo, held_budget = dict(GEO), (_gb._MAX, _gb._FILE)
+    GEO.clear()
+    _gb._MAX, _gb._FILE = 3, budget
+    asked.clear()
+    try:
+        code, out, path = run(FakeSession())
+    finally:
+        GEO.update(held_geo)
+        _gb._MAX, _gb._FILE = held_budget
+    check("the geocoding budget spent with a venue unasked: NOT complete (it is not a venue nobody can find)",
+          asked and reads(path) == {} and "the budget was spent" in out, (len(asked), reads(path)))
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

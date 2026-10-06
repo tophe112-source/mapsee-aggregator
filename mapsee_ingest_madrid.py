@@ -393,6 +393,9 @@ class Reader:
                 if not page or len(page) < limit or (total is not None and len(rows) >= total):
                     break
             if not moved:
+                if not hasattr(self, "totals"):
+                    self.totals: Dict[str, Optional[int]] = {}
+                self.totals[resource_id] = total     # ingest's completeness test reads it
                 return rows
         raise RuntimeError(f"resource {resource_id} changed size twice while being read")
 
@@ -1438,6 +1441,7 @@ def ingest(store: EventStore, reader: Reader, cfg: Dict[str, Any], tz, stats: Di
     first = cfg["sources"][0]["resource_id"]
     print(f"[madrid] {reader.robots_gate(f'{reader.api}?resource_id={first}&limit={PAGE_LIMIT}', _s(cfg.get('permission')))}")
     files: List[List[Dict[str, Any]]] = []
+    got_rows: Dict[str, int] = {}
     for src in cfg.get("sources", []):
         label = src.get("name") or src["resource_id"]
         try:
@@ -1455,14 +1459,37 @@ def ingest(store: EventStore, reader: Reader, cfg: Dict[str, Any], tz, stats: Di
             _bump(stats, "resources that failed")
             continue
         stats[f"rows read: {label}"] = len(rows)
+        got_rows[src["resource_id"]] = len(rows)
         files.append([item_from_row(r) for r in rows if isinstance(r, dict)])
     if not files:
         raise RuntimeError("no resource could be read")
     items = merge_files(files, stats)
     stats["distinct items"] = len(items)
-    evs = events(items, cfg, tz, _today(tz), stats)
+    today = _today(tz)
+    evs = events(items, cfg, tz, today, stats)
     for ev in evs:
         store.upsert(ev)
+    # EVERY RESOURCE WAS READ WHOLE (each one, as many rows as CKAN's own
+    # total): a session the last complete read wrote and this one did not is
+    # gone from the City's agenda, and mapsee_supabase_sync --retire-absent may
+    # cancel it. Both source names come from this one read (a row is
+    # madrid:centros or madrid:agenda by its place), so both are marked or
+    # neither. A title the City marks "cancelado"/"suspendido" is refused by
+    # verdict(); its row, if written before, goes by absence. (Parked since
+    # 2026-10-05 - madrid_sources.json.pending-permission - so unmeasured.)
+    totals = getattr(reader, "totals", {}) or {}
+    # An empty resource is a broken export, not a City that called everything off.
+    short = [rid for rid, n in got_rows.items()
+             if n == 0 or (totals.get(rid) is not None and n < int(totals[rid]))]
+    if len(got_rows) == len(cfg.get("sources", [])) and not short \
+            and not stats.get("resources that failed") and not stats.get(
+                "PARTIAL RUN: a resource not read after a refusal or the deadline"):
+        horizon = today + timedelta(days=int(cfg.get("horizon_days", 90)))
+        for source in ("madrid:centros", "madrid:agenda"):
+            store.mark_complete(source, today, horizon)
+        stats["read complete (absence may cancel)"] = 1
+    else:
+        _bump(stats, "read NOT complete (a resource failed, stopped or came back short)")
     return len(evs)
 
 

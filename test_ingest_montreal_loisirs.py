@@ -484,6 +484,96 @@ with tempfile.TemporaryDirectory() as tmpdir:
     check("--max-minutes: past the deadline no request starts, the run exits 0 and still saves",
           code == 0 and not fake.calls and "STOPPED" in out and os.path.exists(path), (fake.calls, out))
 
+# ------------------------------------------------------------- 8. called off
+# 2026-10-05 (the owner): "we don't want users to go to an event or center that
+# is closed". est_annulee turns a session the City HAD listed into one it
+# says is off; the row we wrote from it stays on the map unless the run
+# tombstones the fingerprint THAT row has (EventStore.cancel).
+print()
+print("called off: est_annulee is a tombstone with the live row's fingerprint")
+off_row = BY["678799"]                                      # real: Patinage libre tous, est_annulee Vrai
+on_row = synth("678799", est_annulee="Faux")                # SYNTHETIC: the same row before the City called it off
+live_evs, _ = run_events([on_row])
+off_evs, st_off = run_events([off_row])
+tombs = T.cancelled_events([off_row], off_evs, SRC, CFG, TZ, TODAY)
+check("the real est_annulee row writes nothing and is counted",
+      not off_evs and st_off.get("refused: cancelled (est_annulee)") == 1, st_off)
+check("its tombstones are exactly the rows it wrote while it ran (every Tuesday in the window)",
+      len(live_evs) >= 10 and sorted(e.fingerprint for e in tombs) == sorted(e.fingerprint for e in live_evs),
+      (len(live_evs), len(tombs)))
+check("same source and source_id as the live rows",
+      sorted((e.source, e.source_id) for e in tombs) == sorted((e.source, e.source_id) for e in live_evs))
+_tmp = tempfile.mkdtemp()
+st_live, st_off_store = EventStore(os.path.join(_tmp, "a.json")), EventStore(os.path.join(_tmp, "b.json"))
+for e in live_evs:
+    st_live.upsert(e)
+for e in tombs:
+    st_off_store.cancel(e, "est_annulee")
+check("THROUGH THE STORE: cancel's fingerprints are upsert's (events.external_id)",
+      st_live.records and sorted(st_off_store.tombstones) == sorted(st_live.records) and not st_off_store.records,
+      (len(st_live.records), len(st_off_store.tombstones)))
+# SYNTHETIC: a cancelled 10:00-11:00 hour joined to a live 11:00-12:00 one.
+# The stretch's identity is its FIRST clock, so the row we wrote was 10:00 and
+# today's is 11:00: the 10:00 fingerprint is the one to tombstone.
+nxt = synth("678799", est_annulee="Faux", id_seance="x1", heure_debut_seance="11:00:00", heure_fin_seance="12:00:00")
+joined, _ = run_events([on_row, nxt])
+now_evs, _ = run_events([off_row, nxt])
+gone = T.cancelled_events([off_row, nxt], now_evs, SRC, CFG, TZ, TODAY)
+check("a cancelled first hour of a stretch tombstones the 10:00 row and writes the 11:00 one",
+      {e.start_local[11:16] for e in joined} == {"10:00"} and {e.start_local[11:16] for e in now_evs} == {"11:00"}
+      and sorted(e.fingerprint for e in gone) == sorted(e.fingerprint for e in joined), (len(gone), len(joined)))
+reg = synth("678799", est_inscription_obligatoire="Vrai")   # SYNTHETIC: cancelled AND registration-only
+check("a cancelled session the policy refuses anyway gives no tombstone (no row was ever written)",
+      T.cancelled_events([reg], [], SRC, CFG, TZ, TODAY) == [])
+check("no est_annulee row: no second pass at all", T.cancelled_events([on_row], live_evs, SRC, CFG, TZ, TODAY) == [])
+
+print()
+print("complete reads, and only those, are marked")
+from datetime import timedelta  # noqa: E402
+
+
+class ShortCkan(FakeCkan):
+    """CKAN claiming more rows than it serves: a read that stopped short."""
+
+    def get(self, url, params=None, timeout=None):
+        r = super().get(url, params, timeout)
+        if r.status_code == 200:
+            r._body["result"]["total"] += 5
+        return r
+
+
+with tempfile.TemporaryDirectory() as tmpdir:
+    code, out, path = run(FakeCkan())
+    saved = json.load(open(path, encoding="utf-8"))
+    cr = (saved.get("complete_reads") or {}).get("montreal-loisirs") or {}
+    check("a whole run marks montreal-loisirs complete over [today, today + horizon]",
+          cr.get("from", "")[:10] == TODAY.isoformat()
+          and cr.get("to", "")[:10] == (TODAY + timedelta(days=SRC.get("horizon_days", 90))).isoformat(), cr)
+    check("and saves the fixture's est_annulee tombstones, counted in the run's output",
+          len(saved.get("tombstones") or []) == len(live_evs)
+          and f"rows cancelled (est_annulee: a tombstone for the row we wrote): {len(live_evs)}" in out,
+          (len(saved.get("tombstones") or []), out[-400:]))
+    code, out, path = run(ShortCkan())
+    check("a read that got fewer rows than CKAN's total is NOT complete",
+          not json.load(open(path, encoding="utf-8")).get("complete_reads") and "read NOT complete" in out, out[-300:])
+    code, out, path = run(FakeCkan(lambda n: 403))
+    check("a refused read is NOT complete", not json.load(open(path, encoding="utf-8")).get("complete_reads"))
+
+print()
+print("a session the City lists but we cannot place is SEEN, never absent")
+full, _st = run_events(FIXTURE)
+site0 = sorted({e.venue_name for e in full})[0]
+# SYNTHETIC: one site's rows lose their point, as a row of the City's table can.
+pointless = [dict(r, latitude=None, longitude=None) if r["site_seance"] == site0 else r for r in FIXTURE]
+live2, st2 = run_events(pointless)
+seen2 = T.seen_events(pointless, live2, SRC, CFG, TZ, TODAY, st2)
+seen0 = T.seen_events(FIXTURE, full, SRC, CFG, TZ, TODAY, _st)
+want = {e.fingerprint for e in full if e.venue_name == site0}
+check("a site whose rows lost their point: exactly its sessions' fingerprints join the seen set",
+      bool(want) and set(seen2) - set(seen0) == want, (len(want), len(set(seen2) - set(seen0))))
+check("  ...and a fingerprint written live is never also seen",
+      not (set(seen2) & {e.fingerprint for e in live2}) and not (set(seen0) & {e.fingerprint for e in full}))
+
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
 sys.exit(1 if fails else 0)

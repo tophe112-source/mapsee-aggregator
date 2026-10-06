@@ -1500,6 +1500,22 @@ def make_geocoder(session, cfg: Dict[str, Any]):
     return make_location_geocoder(session, cfg.get("geocode_suffix") or ", Hong Kong")
 
 
+def _budget_spent() -> bool:
+    """True when this run's cap on NEW Photon lookups (mapsee_geo_budget) is
+    used up: a venue the geocoder then "did not find" was never asked."""
+    try:
+        import mapsee_geo_budget as gb
+        if gb._MAX <= 0:
+            return False
+        with open(gb._FILE, encoding="utf-8") as fh:
+            return int(json.load(fh).get("n", 0)) >= gb._MAX
+    except Exception:  # noqa: BLE001 - no file yet: nothing spent
+        return False
+
+
+DEFAULT_SOURCE = {"smartplay": "lcsd-smartplay", "culture": "lcsd-culture"}
+
+
 def save_geocoder() -> None:
     try:
         from mapsee_ingest_ics import _GEO_CACHE, _save_geo_cache
@@ -1526,13 +1542,24 @@ def main(argv=None) -> int:
     total = 0
     geocode = None
     places: Optional[Places] = None
+    facilities_read = False
     try:
         facilities = load_facilities(reader, cfg.get("facility_urls") or [])
+        facilities_read = True
     except (Refused, OutOfTime, Exception) as exc:  # noqa: BLE001 - places can still be geocoded
         print(f"[lcsd] facility lists NOT read: {type(exc).__name__}: {exc}")
         facilities = []
+    # A venue the geocoder could not be ASKED (this run's budget spent) is not
+    # a venue it could not find: counted, so the read is not called complete.
+    unasked = [0]
     try:
-        geocode = make_geocoder(session, cfg)
+        bare = make_geocoder(session, cfg)
+
+        def geocode(query: str, _g=bare):
+            got = _g(query)
+            if (got[0] is None or got[1] is None) and _budget_spent():
+                unasked[0] += 1
+            return got
     except Exception as exc:  # noqa: BLE001
         print(f"[lcsd] no geocoder: {type(exc).__name__}: {exc}")
     places = Places(facilities, cfg, geocode,
@@ -1546,6 +1573,7 @@ def main(argv=None) -> int:
             print(f"[lcsd] {label}: NOT READ - the run deadline passed")
             continue
         before = reader.requests
+        today = _today(tz)
         try:
             if src.get("kind") == "smartplay":
                 need = int(cfg.get("smartplay_min_districts") or SMARTPLAY_MIN_DISTRICTS)
@@ -1576,6 +1604,27 @@ def main(argv=None) -> int:
         finally:
             store.save()
         total += stats.get("rows written", 0)
+        # THE SOURCE WAS READ WHOLE: its files answered in full (a body cut by
+        # the deadline raises OutOfTime above), the facility lists that place
+        # its venues were read, and no venue went unplaced for want of time or
+        # geocoding budget. Then a session the last complete read wrote and
+        # this one did not is gone from LCSD's own data (SmartPlay is rebuilt
+        # every 10 minutes), and mapsee_supabase_sync --retire-absent may
+        # cancel it. Neither file carries a per-session cancellation of its
+        # own: absence is the signal (the one "postponed" in 3,137 rows on
+        # 2026-10-05 was a typhoon contingency, not a postponement).
+        lost = [why for why, bad in (
+            ("the facility lists were not read", not facilities_read),
+            ("there was no geocoder", geocode is None),
+            ("venues not geocoded: the run deadline passed", stats.get("venues not geocoded: the run deadline passed")),
+            (f"{unasked[0]} venue(s) not geocoded: the budget was spent", unasked[0])) if bad]
+        if lost:
+            stats["read NOT complete: " + "; ".join(lost)] = 1
+        else:
+            store.mark_complete(src.get("source") or DEFAULT_SOURCE[src["kind"]], today,
+                                today + timedelta(days=int(src.get("horizon_days", 90))))
+            stats["read complete (absence may cancel)"] = 1
+            store.save()
         print(f"[lcsd] {label}: {stats.get('rows written', 0)} rows in {reader.requests - before} requests")
         for k, v in sorted(stats.items()):
             if k != "rows written":

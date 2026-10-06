@@ -808,8 +808,12 @@ def event_page(inst: Dict[str, Any], event_id: Any, lang: str) -> Optional[str]:
 
 # ----------------------------------------------------------------- one row
 def to_event(ev: Dict[str, Any], place: Optional[Dict[str, Any]], inst: Dict[str, Any],
-             now: datetime, horizon_end: date) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
-    """(event, None) or (None, the reason it was left out)."""
+             now: datetime, horizon_end: date, as_cancelled: bool = False
+             ) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
+    """(event, None) or (None, the reason it was left out).
+
+    `as_cancelled` builds the row a cancelled one WOULD have been (see
+    cancellation): the two cancellation refusals are skipped and nothing else."""
     tz = _tz(inst.get("timezone"))
     if ev.get("deleted"):
         return None, "deleted"
@@ -818,9 +822,9 @@ def to_event(ev: Dict[str, Any], place: Optional[Dict[str, Any]], inst: Dict[str
     if (ev.get("type_id") or "General") != "General":
         return None, f"type {ev.get('type_id')}"
     status = ev.get("event_status") or "EventScheduled"
-    if status == "EventCancelled":
+    if status == "EventCancelled" and not as_cancelled:
         return None, "cancelled (event_status)"
-    if status == "EventPostponed":
+    if status == "EventPostponed" and not as_cancelled:
         return None, "postponed, no date (event_status)"
     if ev.get("data_source") in set(inst.get("drop_data_sources") or ()):
         return None, f"data source {ev.get('data_source')}"
@@ -832,7 +836,7 @@ def to_event(ev: Dict[str, Any], place: Optional[Dict[str, Any]], inst: Dict[str
     if not name:
         return None, "no name"
     name = name.replace("\n", " ")
-    if _CANCELLED_TITLE_RX.search(name):
+    if _CANCELLED_TITLE_RX.search(name) and not as_cancelled:
         return None, "cancelled (title)"
     if _CLOSED_GROUP_RX.search(name):
         return None, "closed group (title)"
@@ -1002,6 +1006,31 @@ def to_event(ev: Dict[str, Any], place: Optional[Dict[str, Any]], inst: Dict[str
 
 
 # ---------------------------------------------------------------- the walk
+def cancellation(ev: Dict[str, Any], place: Optional[Dict[str, Any]], inst: Dict[str, Any],
+                 now: datetime, horizon_end: date) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
+    """(the row to TOMBSTONE, why) when the publisher has called this row off;
+    (None, why) when it did but no rule would ever have listed it; (None, None)
+    when it is not called off.
+
+    A refusal alone leaves the row an earlier read stored on the map (an upsert
+    cannot delete), so a cancelled row is built exactly as the live one was -
+    and its fingerprint is the row's permanent id (see to_event), which no
+    title edit or "PERUTTU:" prefix changes - and handed to store.cancel.
+    Postponed is called off too: the API gives it no new date (0 rows in the
+    2026-10-05 window; a new date arrives as EventRescheduled, a live row).
+    Measured 2026-10-05, 90 days ahead: Helsinki 14 EventCancelled of ~12,500
+    leaf rows (11 of them one weekly "Savelten siivin" run), Espoo 2."""
+    status = ev.get("event_status") or "EventScheduled"
+    if status in ("EventCancelled", "EventPostponed"):
+        why = f"event_status {status}"
+    elif _CANCELLED_TITLE_RX.search(clean_text(_tr(ev.get("name"), pick_language(ev)), 300) or ""):
+        why = "cancelled in the title"
+    else:
+        return None, None
+    nev, _refused = to_event(ev, place, inst, now, horizon_end, as_cancelled=True)
+    return nev, why
+
+
 class Refused(Exception):
     """A 401/403/429: the operator's answer, never retried or worked around."""
 
@@ -1023,6 +1052,9 @@ class Walker:
         self.deadline, self.clock = deadline, clock
         self.requests = 0
         self._last = 0.0
+        # Why a walk ended before the list did (a page cap, a next page on
+        # another host), or None. A walk that sets it is not a complete read.
+        self.truncated: Optional[str] = None
 
     def get(self, url: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         last_exc: Optional[Exception] = None
@@ -1075,10 +1107,12 @@ class Walker:
                 return
             if not str(nxt).startswith(self.origin + "/"):
                 print(f"[linkedevents] {label}: next page is on another host ({nxt[:80]}); stopped")
+                self.truncated = f"{path}: next page on another host"
                 return
             url, p = nxt, None
         print(f"[linkedevents] {label}: STOPPED AT THE {max_pages}-PAGE CAP - the rest of "
               f"{path} was not read")
+        self.truncated = f"{path}: {max_pages}-page cap"
 
 
 def fetch_places(walker: Walker, label: str) -> Optional[Dict[str, Dict[str, Any]]]:
@@ -1154,6 +1188,9 @@ def ingest_instance(store: EventStore, session, inst: Dict[str, Any],
         }
         if places is None:
             params["include"] = "location"
+        # The place list's own walk does not decide completeness: a place it
+        # missed is fetched by id below, and THAT is what is checked.
+        walker.truncated = None
         for meta, row in walker.pages("event", params, int(inst.get("max_pages", DEFAULT_MAX_PAGES)), label):
             if count is None:
                 count = meta.get("count")
@@ -1178,6 +1215,7 @@ def ingest_instance(store: EventStore, session, inst: Dict[str, Any],
     missing = sorted({pid for pid in (_ref_id(r.get("location")) for r in rows)
                       if pid and pid not in places and pid.split(":")[-1] != "internet"})
     lookups = int(inst.get("max_place_lookups", DEFAULT_PLACE_LOOKUPS))
+    places_failed = 0
     for pid in ([] if cut else missing[:lookups]):
         try:
             places[pid] = walker.get(f"{walker.base}/place/{urllib.parse.quote(pid, safe=':')}/")
@@ -1187,9 +1225,25 @@ def ingest_instance(store: EventStore, session, inst: Dict[str, Any],
             cut = True
             break
         except Exception as exc:  # noqa: BLE001
+            places_failed += 1
             print(f"[linkedevents] {label}: place {pid} failed: {exc}")
     if len(missing) > lookups:
         print(f"[linkedevents] {label}: {len(missing) - lookups} places left unfetched (cap {lookups})")
+
+    # A COMPLETE READ is what lets mapsee_supabase_sync --retire-absent call a
+    # row the last complete read wrote and this one did not "gone at the
+    # source". So it is claimed only when every row the API counted was read
+    # and every one of them could be judged: a row whose place was not fetched
+    # is refused for want of a point, and would read as gone.
+    incomplete = None
+    if cut:
+        incomplete = "cut short by --max-minutes"
+    elif walker.truncated:
+        incomplete = walker.truncated
+    elif count is None or len(seen) < int(count):
+        incomplete = f"read {len(seen)} distinct rows of {count if count is not None else '?'} counted"
+    elif places_failed or len(missing) > lookups:
+        incomplete = f"{places_failed + max(0, len(missing) - lookups)} place(s) not fetched"
 
     # THE SAME SESSION PUBLISHED TWICE is two ids with one title, one start
     # and one place - a standalone row and its copy inside a series, usually
@@ -1199,8 +1253,20 @@ def ingest_instance(store: EventStore, session, inst: Dict[str, Any],
     # series' last date - and then the smallest id, so the choice is the same
     # on every run.
     chosen: Dict[Tuple[str, str, str], Tuple[Tuple[float, str], NormalizedEvent]] = {}
+    tombs: List[Tuple[NormalizedEvent, str]] = []
     for row in rows:
         pid = _ref_id(row.get("location"))
+        # CALLED OFF IS A TOMBSTONE, not a refusal (see cancellation). Its
+        # fingerprint is its own id, so a copy of the session under another id
+        # (the "published twice" pair below) is a different row and stays.
+        tomb, cwhy = cancellation(row, places.get(pid) if pid else None, inst, now, horizon_end)
+        if cwhy:
+            if tomb is None:
+                reasons[f"called off ({cwhy}), never a listing"] = \
+                    reasons.get(f"called off ({cwhy}), never a listing", 0) + 1
+            else:
+                tombs.append((tomb, cwhy))
+            continue
         nev, why = to_event(row, places.get(pid) if pid else None, inst, now, horizon_end)
         if nev is None:
             reasons[why] = reasons.get(why, 0) + 1
@@ -1218,13 +1284,31 @@ def ingest_instance(store: EventStore, session, inst: Dict[str, Any],
             reasons[f"refused by the store ({result})"] = reasons.get(f"refused by the store ({result})", 0) + 1
             continue
         kept += 1
+    cancelled = 0
+    for tomb, cwhy in tombs:
+        result = store.cancel(tomb, cwhy)
+        if result == "cancelled":
+            cancelled += 1
+        else:
+            reasons[f"called off, not recorded ({result})"] = \
+                reasons.get(f"called off, not recorded ({result})", 0) + 1
     left = ", ".join(f"{v} {k}" for k, v in sorted(reasons.items(), key=lambda kv: -kv[1]))
     if cut:
         print(f"[linkedevents] {label}: CUT SHORT BY --max-minutes - {len(rows)} rows read of "
               f"{count if count is not None else '?'} counted; what was read is kept and saved")
-    print(f"[linkedevents] {label}: kept {kept} of {len(rows)} rows read "
-          f"({walker.requests} requests, {time.monotonic() - t0:.0f}s); left out: {left or 'none'}")
-    return {"kept": kept, "read": len(rows), "reasons": reasons, "requests": walker.requests, "cut": cut}
+    if incomplete is None:
+        # The window is the one the API was asked for: rows starting from
+        # today's local midnight to the end of horizon_end (to_event refuses
+        # anything later), in the instance's own zone.
+        store.mark_complete(f"linkedevents:{inst['key']}",
+                            datetime.combine(today, datetime.min.time(), tzinfo=tz),
+                            datetime.combine(horizon_end + timedelta(days=1), datetime.min.time(), tzinfo=tz))
+    print(f"[linkedevents] {label}: kept {kept} of {len(rows)} rows read, cancelled {cancelled} "
+          f"({walker.requests} requests, {time.monotonic() - t0:.0f}s); "
+          f"{'complete read' if incomplete is None else 'NOT a complete read: ' + incomplete}; "
+          f"left out: {left or 'none'}")
+    return {"kept": kept, "read": len(rows), "reasons": reasons, "requests": walker.requests, "cut": cut,
+            "cancelled": cancelled, "complete": incomplete is None, "incomplete": incomplete}
 
 
 def main(argv=None, session=None, clock=time.monotonic) -> int:

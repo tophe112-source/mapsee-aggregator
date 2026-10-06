@@ -593,6 +593,123 @@ except T.OutOfTime:
     ok = rd.requests == 0
 check("past --max-minutes no request starts", ok)
 
+print("-- called off in the title: a tombstone with the live row's fingerprint")
+# 2026-10-05 (the owner): "we don't want users to go to an event or center
+# that is closed". The City appends *Anul·lat* / *Ajornat* to a row it had
+# listed; written as it stands, it is a session that is not happening.
+for t, want in (('Espectacle "De què parlàvem?" **Anul·lat**', 'Espectacle "De què parlàvem?"'),
+                ("Gastromarket de l'Eix Maragall  *Ajornat*", "Gastromarket de l'Eix Maragall"),
+                ('Fira "Faig Gaudí"  *Ajornada*', 'Fira "Faig Gaudí"'),
+                ("PROCESiOnaria - Sessió 2  **Cancel·lat**", "PROCESiOnaria - Sessió 2"),
+                ("Jornada 'Arts i oficis'  *Ajornada per motius meteorològics*", "Jornada 'Arts i oficis'"),
+                ("Exposició permanent 'Pensada per fer pensar' *CANCEL·LADA TEMPORALMENT",
+                 "Exposició permanent 'Pensada per fer pensar'")):
+    check(f"called off: {t[-30:]!r}", T.called_off(t) == want, T.called_off(t))
+check("not without the asterisk: a show ABOUT suspension (99400770934) is a show",
+      T.called_off("Performance participativa, suspensió, noves dramatúrgies") is None)
+check("not a title that merely contains the word ('Suspès en el temps' is a film)",
+      T.called_off("Cinema: Suspès en el temps") is None and T.called_off("Teatre 'Ajornat' de la Cia. X") is None)
+check("not a marker that says something else (*NOU*)", T.called_off("Xerrada 'Ictus' *NOU*") is None)
+check("not the marker alone", T.called_off("**Anul·lat**") is None)
+
+ping = row("99400777314")                                         # real: Grup de ping pong, Tue & Fri 10:00
+off = dict(ping, name="Grup de ping pong  **Cancel·lat**")         # SYNTHETIC: the City's marker added
+live_evs, _ = run([ping])
+now_evs, st_now = run([off])
+tombs = T.cancelled_events([off], FACILITIES, now_evs, SRC, CFG, TZ, TODAY)
+check("the marked row writes nothing and is counted",
+      not now_evs and st_now.get("refused: called off in its title (*Anul·lat*, *Ajornat* ...): a tombstone") == 1,
+      st_now)
+check("its tombstones are the rows it wrote while it ran",
+      len(live_evs) >= 10 and sorted(e.fingerprint for e in tombs) == sorted(e.fingerprint for e in live_evs),
+      (len(live_evs), len(tombs)))
+_tmp = tempfile.mkdtemp()
+a, b = EventStore(os.path.join(_tmp, "a.json")), EventStore(os.path.join(_tmp, "b.json"))
+for e in live_evs:
+    a.upsert(e)
+for e in tombs:
+    b.cancel(e, "called off in the City's title")
+check("THROUGH THE STORE: cancel's fingerprints are upsert's, same source and source_id",
+      a.records and sorted(b.tombstones) == sorted(a.records)
+      and sorted((t["source"], t["source_id"]) for t in b.tombstones.values())
+      == sorted((e.source, e.source_id) for e in live_evs),
+      (len(a.records), len(b.tombstones)))
+# SYNTHETIC: two registers of one title at one casal, 10-11 and 11-12, fold
+# into one group (venue, title, day) and are written as two rows, each keyed
+# by its own clock. The 10:00 register called off: exactly the 10:00 row is
+# tombstoned, and the 11:00 one is written as before.
+h10 = synth("9101", "Ball de saló", "2026-11-03", "2026-11-03", tt(("Dimarts", "de 10.00 h a 11.00 h", "Entrada Gratuïta", "")))
+h11 = synth("9102", "Ball de saló", "2026-11-03", "2026-11-03", tt(("Dimarts", "de 11.00 h a 12.00 h", "Entrada Gratuïta", "")))
+both, _ = run([h10, h11])
+h10off = dict(h10, name="Ball de saló *Anul·lat*")
+left, _ = run([h10off, h11])
+gone = T.cancelled_events([h10off, h11], FACILITIES, left, SRC, CFG, TZ, TODAY)
+check("a called-off register folded with another tombstones its own row and no other",
+      [e.start_local[11:16] for e in both] == ["10:00", "11:00"] and [e.start_local[11:16] for e in left] == ["11:00"]
+      and [e.fingerprint for e in gone] == [both[0].fingerprint] and left[0].fingerprint == both[1].fingerprint,
+      ([e.start_local for e in both], [e.start_local for e in gone]))
+# SYNTHETIC: a live 10-12 register and a called-off 11-13 one overlap, so the
+# row we wrote was ONE 10:00-13:00 stretch; today's is 10:00-12:00 under the
+# same 10:00 identity. Nothing to tombstone - which is why the second pass
+# reads the called-off row WITH every register of its title, never alone
+# (alone it would invent an 11:00 row nobody wrote).
+w10 = synth("9201", "Ball de saló", "2026-11-03", "2026-11-03", tt(("Dimarts", "de 10.00 h a 12.00 h", "Entrada Gratuïta", "")))
+w11 = synth("9202", "Ball de saló *Anul·lat*", "2026-11-03", "2026-11-03",
+            tt(("Dimarts", "de 11.00 h a 13.00 h", "Entrada Gratuïta", "")))
+was, _ = run([w10, dict(w11, name="Ball de saló")])
+now, _ = run([w10, w11])
+check("a called-off register inside a live one's stretch tombstones nothing: the row stays, shorter",
+      [(e.start_local[11:16], e.end_local[11:16]) for e in was] == [("10:00", "13:00")]
+      and [(e.start_local[11:16], e.end_local[11:16]) for e in now] == [("10:00", "12:00")]
+      and T.cancelled_events([w10, w11], FACILITIES, now, SRC, CFG, TZ, TODAY) == [],
+      ([(e.start_local, e.end_local) for e in was], [(e.start_local, e.end_local) for e in now]))
+check("nothing marked: no second pass", T.cancelled_events(AGENDA, FACILITIES, EVS, SRC, CFG, TZ, TODAY) == [])
+
+print("-- complete reads, and only those, are marked")
+
+
+class FakeReader:
+    def __init__(self, short=None):
+        self.requests, self.refused, self.short = 0, None, short or {}
+        self.totals = {}
+
+    def resource(self, rid, fields=None, limit=None):
+        rows = (FACILITIES if rid == SRC["facilities_resource_id"] else
+                [off if T._rid(r["register_id"]) == "99400777314" else r for r in AGENDA])
+        self.totals[rid] = len(rows) + self.short.get(rid, 0)
+        return [dict(r) for r in rows]
+
+
+st = EventStore(os.path.join(_tmp, "run.json"))
+stats = T.ingest(st, FakeReader(), SRC, CFG, TZ)
+cr = st.complete_reads.get("barcelona-agenda") or {}
+check("a whole read marks barcelona-agenda complete over [today, today + horizon]",
+      cr.get("from", "")[:10] == TODAY.isoformat()
+      and cr.get("to", "")[:10] == (TODAY + timedelta(days=SRC["horizon_days"])).isoformat(), cr)
+check("and tombstones the marked row, counted",
+      len(st.tombstones) == len(live_evs)
+      and stats.get("rows cancelled (called off in the title: a tombstone for the row we wrote)") == len(live_evs),
+      stats)
+for rid, what in ((SRC["resource_id"], "the agenda"), (SRC["facilities_resource_id"], "the facility register")):
+    st = EventStore(os.path.join(_tmp, f"short{len(what)}.json"))
+    stats = T.ingest(st, FakeReader({rid: 3}), SRC, CFG, TZ)
+    check(f"{what} read short of CKAN's total: NOT complete", not st.complete_reads
+          and any(k.startswith("read NOT complete") for k in stats), stats)
+
+print()
+print("-- a session the City lists with no point today is SEEN, never absent")
+# SYNTHETIC: Casal Mas Guinardó's rows (road 294808 no. 2) lose their point.
+mas = lambda r: r.get("addresses_road_id") == "294808"
+pointless = [dict(r, geo_epgs_4326_lat=None, geo_epgs_4326_lon=None) if mas(r) else r for r in AGENDA]
+live2, st2 = run(pointless)
+seen2 = T.seen_events(pointless, FACILITIES, live2, SRC, CFG, TZ, TODAY, st2)
+want = {e.fingerprint for e in EVS if e.venue_name.startswith("Casal  Mas") or "Mas Guinard" in e.venue_name}
+check("its sessions leave the written rows, and exactly their fingerprints are seen",
+      bool(want) and not (want & {e.fingerprint for e in live2}) and set(seen2) == want,
+      (len(want), len(seen2)))
+check("no row without a point: no second pass", T.seen_events(AGENDA, FACILITIES, EVS, SRC, CFG, TZ, TODAY, STATS)
+      == [] or not STATS.get("unplaceable (no point)"))
+
 print()
 print(f"{len(fails)} failed" if fails else "all passed")
 sys.exit(1 if fails else 0)

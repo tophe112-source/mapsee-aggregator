@@ -713,6 +713,158 @@ check("...and the other tenant's rows reached the store",
       len(saved) == 1 and saved[0]["sources"][0]["source_id"].startswith("cityofkamloops:"),
       [r["sources"][0]["source_id"] for r in saved])
 
+# ------------------------------------------- 11b. called off, and read whole
+print()
+print("a session called off is a TOMBSTONE keyed exactly as its live row was")
+for raw, want in [("CANCELLED Winmar Toddler Turf", "Winmar Toddler Turf"),
+                  ("'Cancelled' Group Cycle", "Group Cycle"),
+                  ("Lane Swim - CANCELLED", "Lane Swim"),
+                  ("Public Skate (Cancelled due to a tournament)", "Public Skate"),
+                  ("POSTPONED: Family Shinny", "Family Shinny"),
+                  ("Lane Swim", None), ("CANCELLED", None), ("** Cancelled **", None)]:
+    got = PM.called_off(raw)
+    check(f"called_off({raw!r}) -> {want!r}", got == want, got)
+
+live_evs, *_ = build([row()])
+live = live_evs[0]
+for raw in ["CANCELLED Family Stick, Puck and Ring", "Family Stick, Puck and Ring - Cancelled",
+            "'Cancelled' Family Stick, Puck and Ring",
+            # the "| place clock-range" tail the live title loses, with the word before it
+            "Family Stick, Puck and Ring CANCELLED | Memorial Arena 10:45-11:45am"]:
+    evs, refused, _n, stats = build([row(EventName=raw)])
+    tomb = (stats.get("cancel") or [None])[0]
+    check(f"{raw!r}: no live row, one tombstone with the live row's fingerprint, source and id",
+          not evs and len(stats.get("cancel") or []) == 1 and tomb.fingerprint == live.fingerprint
+          and (tomb.source, tomb.source_id) == (live.source, live.source_id),
+          (len(evs), tomb and (tomb.name, tomb.source_id), live.source_id))
+with tempfile.TemporaryDirectory() as d:
+    yday, today_st = PM.EventStore(os.path.join(d, "a.json")), PM.EventStore(os.path.join(d, "b.json"))
+    yday.upsert(live)
+    _e, _r, _n, stats = build([row(EventName="CANCELLED Family Stick, Puck and Ring")])
+    res = today_st.cancel(stats["cancel"][0], "called off in the title")
+    check("store.cancel's key == store.upsert's key", res == "cancelled"
+          and list(today_st.tombstones) == list(yday.records), (res, list(today_st.tombstones), list(yday.records)))
+evs, refused, _n, stats = build([row(EventName="Main Pool CLOSED - lessons cancelled")])
+check("a closure notice that says cancelled is never a tombstone (a shut building names no session)",
+      not stats.get("cancel") and refused.get("called off, never a listing") == 1, (refused, stats.get("cancel")))
+evs, refused, _n, stats = build([row(), row(EventId="copy", EventName="CANCELLED Family Stick, Puck and Ring")])
+check("the same session live in one calendar and called off in another stays LIVE (no tombstone beats it)",
+      len(evs) == 1 and not stats.get("cancel")
+      and refused.get("called off beside a live copy (kept live)") == 1, (len(evs), refused, stats.get("cancel")))
+evs, refused, _n, stats = build([row(EventName="CANCELLED Family Stick, Puck and Ring", OccurrenceDate="20261003",
+                                     FormattedStartTime="12:00 AM", FormattedEndTime="01:00 AM")],
+                                now=datetime(2026, 10, 3, 9, 0))
+check("a called-off session that is already over is not a tombstone (the past is cleanup's)",
+      not stats.get("cancel"), stats.get("cancel"))
+
+# A GRID: the stored row is the DAY row, so that is what a whole day called off must name.
+grid_live, *_ = build(grid)
+day_fp = grid_live[0].fingerprint
+evs, refused, _n, stats = build([dict(x, EventName="CANCELLED " + x["EventName"]) for x in grid])
+fps = {e.fingerprint for e in stats.get("cancel") or []}
+check("EVERY slot of a grid day called off: the day row's fingerprint is a tombstone (and no row is live)",
+      not evs and day_fp in fps, (len(evs), len(fps)))
+part = [dict(x, EventName="CANCELLED " + x["EventName"]) if i < 3 else x for i, x in enumerate(grid)]
+evs, refused, _n, stats = build(part)
+fps = {e.fingerprint for e in stats.get("cancel") or []}
+check("three slots of sixteen called off: the day row stays live and is never a tombstone",
+      len(evs) == 1 and evs[0].fingerprint == day_fp and day_fp not in fps, (len(evs), len(fps)))
+few = [dict(x, EventName="CANCELLED " + x["EventName"]) if i >= 4 else x for i, x in enumerate(grid)]
+evs, refused, _n, stats = build(few)
+fps = {e.fingerprint for e in stats.get("cancel") or []}
+check("twelve of sixteen called off: the four left are slot rows, and the day row an earlier read "
+      "stored is a tombstone", len(evs) == 4 and day_fp in fps and not ({e.fingerprint for e in evs} & fps),
+      (len(evs), day_fp in fps))
+
+print()
+print("a tenant read whole is a complete read; anything less is not")
+sess = Tenant(CATS)
+rep = PM.read_tenant(dict(TENANT, widgets=["w1", "w2"]), TODAY, HORIZON, client=client(sess),
+                     robots=robots_txt.Robots(sess))
+check("every calendar walked to its end: complete", rep["incomplete"] is None, rep["incomplete"])
+for label, cats, why in (("an EMPTY calendar list", {"w1": []}, "no drop-in calendar listed"),
+                         ("a calendar list that is not a list", {"w1": {}}, "not a list")):
+    sess = Tenant(cats)
+    rep = PM.read_tenant(dict(TENANT, widgets=["w1"]), TODAY, HORIZON, client=client(sess),
+                         robots=robots_txt.Robots(sess))
+    check(f"{label} is NOT complete, and says why (an empty read is not a tenant that called everything off)",
+          bool(rep["incomplete"]) and why in rep["incomplete"], rep["incomplete"])
+
+
+class NoRows(Tenant):
+    def request(self, method, url, data=None, headers=None, timeout=None):
+        if "ClassesV2" in url:
+            self.asked.append((method, url, dict(data or {}), dict(headers or {})))
+            return Resp(body={"classes": [], "nextKey": "0001-01-01"})
+        return super().request(method, url, data, headers, timeout)
+
+
+sess = NoRows(CATS)
+rep = PM.read_tenant(dict(TENANT, widgets=["w1"]), TODAY, HORIZON, client=client(sess), robots=robots_txt.Robots(sess))
+check("every calendar walked and NO session in any of them is NOT complete",
+      bool(rep["incomplete"]) and "no session" in rep["incomplete"], rep["incomplete"])
+
+
+class FailsOnD(Tenant):
+    def request(self, method, url, data=None, headers=None, timeout=None):
+        if "ClassesV2" in url and (data or {}).get("calendarId") == "d":
+            self.asked.append((method, url, dict(data or {}), dict(headers or {})))
+            return Resp(502, text="<html>bad gateway</html>")
+        return super().request(method, url, data, headers, timeout)
+
+
+sess = FailsOnD(CATS)
+rep = PM.read_tenant(TENANT, TODAY, HORIZON, client=client(sess), robots=robots_txt.Robots(sess))
+check("one calendar's page failing (502 twice) is NOT complete, though its tenant kept the rest",
+      rep["incomplete"] and "Fitness" in rep["incomplete"] and rep["rows"], rep["incomplete"])
+sess = Tenant(CATS, robots_body="User-agent: *\nDisallow: /23702/Reports/BookMe4V2/\n")
+rep = PM.read_tenant(TENANT, TODAY, HORIZON, client=client(sess), robots=robots_txt.Robots(sess))
+check("a robots.txt refusal is NOT complete", rep["incomplete"] and "robots.txt" in rep["incomplete"], rep["incomplete"])
+rep = PM.read_tenant(TENANT, TODAY, HORIZON, client=client(Tenant(CATS), max_requests=2),
+                     robots=robots_txt.Robots(Tenant(CATS)))
+check("the request cap is NOT complete", rep["incomplete"] and "CAP" in rep["incomplete"], rep["incomplete"])
+
+
+class Called(Fleet):
+    """Calendar d's one session is called off; calendar a's is live."""
+    def request(self, method, url, data=None, headers=None, timeout=None):
+        r = super().request(method, url, data, headers, timeout)
+        if "ClassesV2" in url and (data or {}).get("calendarId") == "d":
+            return Resp(body={"classes": [row(EventId="d", EventName="CANCELLED Drop-In Pickleball")],
+                              "nextKey": "0001-01-01"})
+        return r
+
+
+PM.requests.Session = Called
+try:
+    with tempfile.TemporaryDirectory() as d:
+        conf = {"tenants": [dict(TENANT, host="refuser.perfectmind.com", name="Refuser"), dict(TENANT, widgets=["w1"])]}
+        open(os.path.join(d, "c.json"), "w", encoding="utf-8").write(json.dumps(conf))
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            rc = PM.main(["--config", os.path.join(d, "c.json"), "--store", os.path.join(d, "s.json"),
+                          "--workers", "2", "--max-minutes", "1"])
+        whole = json.load(open(os.path.join(d, "s.json"), encoding="utf-8"))
+finally:
+    PM.requests.Session = real_session
+reads = whole.get("complete_reads") or {}
+check("ONE UNIT PER TENANT: the tenant read whole is complete under its slug, the refused one is not",
+      sorted(reads) == ["perfectmind|cityofkamloops:"]
+      and reads["perfectmind|cityofkamloops:"]["id_prefix"] == "cityofkamloops:", sorted(reads))
+# From the zone, not a literal: tzdata 2026b keeps British Columbia on UTC-7
+# all winter, so a January edge pinned at 08:00Z passes on one machine only.
+_z = PM._tz(TENANT["timezone"])
+_utc = lambda d: datetime(d.year, d.month, d.day, tzinfo=_z).astimezone(PM.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+check("...over local midnight today to the horizon, in the tenant's own zone",
+      (reads["perfectmind|cityofkamloops:"]["from"], reads["perfectmind|cityofkamloops:"]["to"])
+      == (_utc(TODAY), _utc(HORIZON)) and _utc(TODAY) == "2026-10-03T07:00:00Z", reads.get("perfectmind|cityofkamloops:"))
+tombs = whole.get("tombstones") or []
+check("the called-off session is in the store as a tombstone, under the tenant's source_id",
+      len(tombs) == 1 and tombs[0]["source"] == "perfectmind" and tombs[0]["source_id"].startswith("cityofkamloops:d:")
+      and len(whole["events"]) == 1, (tombs, len(whole["events"])))
+check("the log line counts it", "cancelled 1 (of 1 called off)" in buf.getvalue() and "; complete read" in buf.getvalue(),
+      buf.getvalue()[-500:])
+
 # ------------------------------------------------------ 12. the shipped config
 print()
 print("the shipped config")

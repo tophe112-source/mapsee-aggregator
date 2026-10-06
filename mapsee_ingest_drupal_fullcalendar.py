@@ -167,7 +167,7 @@ except ImportError:  # pragma: no cover
     sys.exit("This script needs Python 3.9+ (zoneinfo).")
 
 import robots_txt
-from mapsee_ingest import EventStore, NormalizedEvent, looks_online_only, make_fingerprint
+from mapsee_ingest import EventStore, NormalizedEvent, looks_online_only, make_fingerprint, strip_notice
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 MIN_INTERVAL_S = 1.1
@@ -658,6 +658,34 @@ REGISTRATION_RX = re.compile(r"\bregistration\s+(?:is\s+)?required\b|\bmust\s+re
 NO_REGISTRATION_RX = re.compile(r"\bno\s+(?:pre-?)?registration\b|\bregistration\s+(?:is\s+)?not\s+required\b", re.I)
 
 
+# A TITLE THAT CALLS AN OCCASION OFF NAMES IT: "CANCELED: Campfire Fridays",
+# "Goblin Golf - Postponed". Each occasion is its own node, retitled in place,
+# so the row we wrote under the occasion's own title stays on the map unless
+# the run tombstones THAT row's fingerprint (EventStore.cancel). called_off()
+# gives the title back and ingest_source builds the row from the node's page
+# exactly as it would a live one. A closure ("Park Closed", "Closures") names
+# no occasion and gives None (mapsee_ingest.strip_notice reads the forms; a
+# "CANCELLED TODAY- X" is read here). 0 such titles in 190 window rows on
+# 2026-10-05: the path costs one page request per called-off occasion.
+_CALLED_OFF_TODAY = re.compile(r"^\W*(?:cancel+ed|postponed)\s+(?:today|tonight)\s*[-\u2013\u2014:|!*]+\s*", re.I)
+
+
+def called_off(title: Optional[str]) -> Optional[str]:
+    """The occasion's own title inside a cancelled or postponed title, or None."""
+    t = (title or "").strip()
+    cut = _CALLED_OFF_TODAY.sub("", t, count=1).strip()
+    cut = cut if cut != t else (strip_notice(t) or "")
+    if cut and re.search(r"\w", cut) and not CLOSURE_RX.search(cut):
+        return cut
+    return None
+
+
+# What a page lost this run means: the calendar lists an occasion whose row
+# was not built, so the read is not complete and nothing may read as gone.
+INCOMPLETE_STATS = ("not read: over max_pages", "dropped: page refused (robots.txt or a redirect's host)",
+                    "dropped: page failed (5xx, timeout or redirects)", "dropped: page gone (404)")
+
+
 def json_exclusion(ev: Dict[str, Any], src: Dict[str, Any]) -> Optional[str]:
     """Refusals made from the calendar's JSON alone, before any page is asked for."""
     title = _clean(ev.get("title"))
@@ -939,6 +967,9 @@ def ingest_source(store: EventStore, reader: Reader, src: Dict[str, Any], days: 
         why = json_exclusion(ev, src)
         if why:
             _bump(stats, f"excluded: {why}")
+            live = called_off(_clean(ev.get("title")).replace("\n", " ")) if why == "closure or cancellation" else None
+            if live and json_exclusion(dict(ev, title=live), src) is None:
+                todo.append(dict(ev, title=live, _called_off=_clean(ev.get("title"))))
             continue
         todo.append(ev)
     cap = src.get("max_pages")
@@ -972,12 +1003,36 @@ def ingest_source(store: EventStore, reader: Reader, src: Dict[str, Any], days: 
             continue
         page_url, body = got
         info = parse_event_page(body, src.get("page_selectors"))
-        row = build_event(ev, info, page_url, src, tz, stats)
+        notice = ev.get("_called_off")
+        # A called-off occasion is built like a live one (its counts kept
+        # apart, so the live tallies stay true) and tombstoned.
+        row = build_event(ev, info, page_url, src, tz, {} if notice else stats)
         if row is None:
+            continue
+        if notice:
+            if store.cancel(row, notice[:80], notice=True) == "cancelled":
+                _bump(stats, "rows cancelled (a called-off title: a tombstone for the row we wrote)")
             continue
         store.upsert(row)
         written += 1
         stats["rows written"] = written
+    # THE WHOLE CALENDAR WAS READ, and every occasion in the window either built
+    # (or tombstoned) from its page or was refused by a rule: an occasion the
+    # last complete read wrote and this one did not is gone from the calendar
+    # (a node deleted or re-dated), and mapsee_supabase_sync --retire-absent
+    # may cancel it. A page lost to a refusal, a failure, a 404 or the
+    # max_pages cap leaves the read incomplete; a deadline or a refusal from
+    # the calendar's own host raises past this line.
+    lost = [k for k in INCOMPLETE_STATS if stats.get(k)]
+    if not events:
+        # A calendar that lists nothing is a broken page or a moved setting,
+        # not a county that called everything off.
+        lost.append("the calendar listed nothing")
+    if lost:
+        _bump(stats, "read NOT complete: " + ", ".join(lost))
+    else:
+        store.mark_complete(src.get("source") or f"drupal-fullcalendar:{src['key']}", today, last)
+        stats["read complete (absence may cancel)"] = 1
     return written
 
 
@@ -1065,7 +1120,9 @@ def main(argv=None) -> int:
             print(f"[drupal-fullcalendar] {label} FAILED: {type(exc).__name__}: {exc}")
         n = stats.get("rows written", 0)
         total += n
-        print(f"[drupal-fullcalendar] {label}: {n} rows in {reader.requests - before} requests")
+        print(f"[drupal-fullcalendar] {label}: {n} rows, "
+              f"{stats.get('rows cancelled (a called-off title: a tombstone for the row we wrote)', 0)} cancelled, "
+              f"in {reader.requests - before} requests")
         for k, v in sorted(stats.items()):
             if k != "rows written":
                 print(f"[drupal-fullcalendar]     {k}: {v}")

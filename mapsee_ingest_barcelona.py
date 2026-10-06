@@ -287,6 +287,8 @@ class Reader:
                  limit: int = PAGE_LIMIT) -> List[Dict[str, Any]]:
         """Every row, paged by offset in `_id` order; restarts once if `total`
         moves mid-read (the table is rebuilt daily)."""
+        if not hasattr(self, "totals"):
+            self.totals: Dict[str, Optional[int]] = {}
         for _ in range(2):
             rows: List[Dict[str, Any]] = []
             total: Optional[int] = None
@@ -308,6 +310,7 @@ class Reader:
                 if not page or len(page) < limit or (total is not None and len(rows) >= total):
                     break
             if not moved:
+                self.totals[resource_id] = total     # ingest's completeness test reads it
                 return rows
         raise RuntimeError(f"resource {resource_id} changed size twice while being read")
 
@@ -1301,6 +1304,27 @@ def opening_text(rows: List[Dict[str, str]]) -> str:
     return "; ".join(dict.fromkeys(parts))
 
 
+# THE CITY MARKS A CALLED-OFF ROW IN ITS TITLE, after an asterisk: of 5,741
+# rows on 2026-10-05, 10 did - "Espectacle "De què parlàvem?" **Anul·lat**",
+# "PROCESiOnaria - Sessió 2  **Cancel·lat**", "Gastromarket de l'Eix
+# Maragall  *Ajornat*", "Fira "Faig Gaudí"  *Ajornada*", "*Ajornada per
+# motius meteorològics*", "*CANCEL·LADA TEMPORALMENT". None was at a
+# community place that day, but one at a casal would have been written as a
+# session that is not happening (the store's notice_reason reads no Catalan).
+# The asterisk is required: "Performance participativa, suspensió, noves
+# dramatúrgies" (99400770934) is a show ABOUT suspension. Ajornat (postponed)
+# is off on the dates listed, which are the ones we wrote.
+_CALLED_OFF_RX = re.compile(
+    r"\s*\*+\s*(?:anul[·.]?la(?:t|da)|cancel[·.]?la(?:t|da)|susp[eè]s(?:a)?|suspesa|ajorna(?:t|da)|"
+    r"cancelad[oa]|anulad[oa]|suspendid[oa]|aplazad[oa])\b[^*]*\**\s*$", re.I)
+
+
+def called_off(title: str) -> Optional[str]:
+    """The row's own title when the City has marked it called off, else None."""
+    cut = _CALLED_OFF_RX.sub("", title or "", count=1).strip()
+    return cut if cut != (title or "").strip() and re.search(r"\w", cut) else None
+
+
 def notes_text(rows: List[Dict[str, str]]) -> str:
     """The Observacions of the lines written, as sentences: a <br> mid-sentence
     is a space, not a full stop ("durada d'1 hora i. un aforament" before), and
@@ -1321,10 +1345,16 @@ def _fmt_day(d: date) -> str:
 
 
 def events(agenda: List[Dict[str, Any]], facilities: List[Dict[str, Any]], src: Dict[str, Any],
-           cfg: Dict[str, Any], tz, today: date, stats: Dict[str, int]) -> List[NormalizedEvent]:
+           cfg: Dict[str, Any], tz, today: date, stats: Dict[str, int],
+           as_if_live: bool = False, as_if_placed: bool = False) -> List[NormalizedEvent]:
+    """The rows to write. `as_if_live` reads a called-off row under its own
+    title, as the row it was before the City marked it (cancelled_events).
+    `as_if_placed` reads a row with NO POINT at its address's facility (the
+    point-dependent museum and distance checks skipped): what the City lists
+    whatever its point says (seen_events)."""
     horizon = today + timedelta(days=int(src.get("horizon_days", 90)))
     skip = {date.fromisoformat(x) for x in cfg.get("skip_dates") or []}
-    if skip and max(skip) < horizon:
+    if skip and max(skip) < horizon and not (as_if_live or as_if_placed):
         print(f"[barcelona] WARNING: skip_dates end {max(skip)}, before the horizon {horizon}; "
               "add the next public holidays to the config")
     kinds = list(cfg.get("venue_kinds") or [])
@@ -1350,10 +1380,10 @@ def events(agenda: List[Dict[str, Any]], facilities: List[Dict[str, Any]], src: 
             continue
         _bump(stats, "agenda rows in the window")
         pt = _point(row)
-        if pt is None:
+        if pt is None and not as_if_placed:
             _bump(stats, "unplaceable (no point)")
             continue
-        if box and not (box[0] <= pt[0] <= box[2] and box[1] <= pt[1] <= box[3]):
+        if pt is not None and box and not (box[0] <= pt[0] <= box[2] and box[1] <= pt[1] <= box[3]):
             _bump(stats, "outside Barcelona's box")
             continue
         addr = (_s(row.get("addresses_road_id")), _s(row.get("addresses_start_street_number")))
@@ -1361,10 +1391,17 @@ def events(agenda: List[Dict[str, Any]], facilities: List[Dict[str, Any]], src: 
         if not here:
             _bump(stats, "not at a community place (no facility at its address)")
             continue
-        venue, same = choose_venue(here, pt)
-        gap = metres(pt, venue["point"])
+        if pt is None:                                  # as_if_placed: the address alone
+            venue = min(here, key=lambda f: (f["rank"], f["name"]))
+            same = [f for f in here if f is not venue and metres(f["point"], venue["point"]) <= AT_FACILITY_M]
+            gap = 0.0
+        else:
+            venue, same = choose_venue(here, pt)
+            gap = metres(pt, venue["point"])
         shown_museums: List[str] = []
-        if museums.get(addr):
+        if museums.get(addr) and pt is None:
+            shown_museums = [n for n, mp in museums[addr] if metres(venue["point"], mp) <= AT_FACILITY_M]
+        elif museums.get(addr):
             # A museum at the address. The row's point says whose programme it
             # is: kept only AT the community facility (within AT_FACILITY_M)
             # and nearer it than the museum. Casal de l'Avi Barça shares a
@@ -1388,6 +1425,11 @@ def events(agenda: List[Dict[str, Any]], facilities: List[Dict[str, Any]], src: 
             _bump(stats, "address matched; the row's own point was 25 m+ off, the facility's is used")
         _bump(stats, "at a community place")
         title = _s(row.get("name"))
+        off = called_off(title)
+        if off and not as_if_live:
+            _bump(stats, "refused: called off in its title (*Anul·lat*, *Ajornat* ...): a tombstone")
+            continue
+        title = off or title
         rows = timetable(row.get("timetable"))
         single = lo == hi
         kept, why = verdict(title, rows, not single)
@@ -1553,11 +1595,64 @@ def ingest(store: EventStore, reader: Reader, src: Dict[str, Any], cfg: Dict[str
     stats["facility rows read"] = len(facilities)
     if not agenda:
         raise RuntimeError("the datastore returned no agenda rows")
-    evs = events(agenda, facilities, src, cfg, tz, _today(tz), stats)
+    today = _today(tz)
+    evs = events(agenda, facilities, src, cfg, tz, today, stats)
     for ev in evs:
         store.upsert(ev)
     stats["rows written"] = len(evs)
+    for ev in cancelled_events(agenda, facilities, evs, src, cfg, tz, today):
+        if store.cancel(ev, "called off in the City's title", notice=True) == "cancelled":
+            _bump(stats, "rows cancelled (called off in the title: a tombstone for the row we wrote)")
+    for fp in seen_events(agenda, facilities, evs, src, cfg, tz, today, stats):
+        store.mark_seen(src.get("source", "barcelona-agenda"), fp)
+        _bump(stats, "listed but unplaced (seen, never absent)")
+    # BOTH TABLES WERE READ WHOLE (as many rows as CKAN's own total): a session
+    # the last complete read wrote and this one did not is gone from the
+    # City's agenda, and mapsee_supabase_sync --retire-absent may cancel it.
+    # The facility register counts too: a row we placed through it and could
+    # not place today would otherwise read as gone.
+    short = [f"{rid}: {len(got)} of {reader.totals.get(rid)}"
+             for rid, got in ((src["facilities_resource_id"], facilities), (src["resource_id"], agenda))
+             if reader.totals.get(rid) is not None and len(got) < int(reader.totals[rid])]
+    if short:
+        _bump(stats, f"read NOT complete ({'; '.join(short)})")
+    else:
+        store.mark_complete(src.get("source", "barcelona-agenda"), today,
+                            today + timedelta(days=int(src.get("horizon_days", 90))))
+        stats["read complete (absence may cancel)"] = 1
     return stats
+
+
+def seen_events(agenda: List[Dict[str, Any]], facilities: List[Dict[str, Any]], live: List[NormalizedEvent],
+                src: Dict[str, Any], cfg: Dict[str, Any], tz, today: date, stats: Dict[str, int]) -> List[str]:
+    """Fingerprints of sessions the City LISTS at a community facility's address
+    whose row has no point today: still on its agenda, so EventStore.mark_seen,
+    and absence never cancels one. Only computed when a row had no point."""
+    if not stats.get("unplaceable (no point)"):
+        return []
+    have = {ev.fingerprint for ev in live}
+    return sorted({ev.fingerprint for ev in events(agenda, facilities, src, cfg, tz, today, {},
+                                                   as_if_placed=True)} - have)
+
+
+def cancelled_events(agenda: List[Dict[str, Any]], facilities: List[Dict[str, Any]],
+                     live: List[NormalizedEvent], src: Dict[str, Any], cfg: Dict[str, Any], tz,
+                     today: date) -> List[NormalizedEvent]:
+    """The rows a called-off title took off: events() over the marked rows
+    under their own titles - with every row that shares such a title, since
+    registers of one title at one place and day fold into one stretch whose
+    identity is its first clock - less what was written live. Built by the
+    code that built the live rows, so each carries the fingerprint that row
+    has in the database (events.external_id)."""
+    marked = [r for r in agenda if called_off(_s(r.get("name")))]
+    if not marked:
+        return []
+    names = {_norm(called_off(_s(r.get("name"))) or "") for r in marked}
+    ids = {id(r) for r in marked}
+    peers = [r for r in agenda if id(r) in ids or _norm(_s(r.get("name"))) in names]
+    have = {ev.fingerprint for ev in live}
+    return [ev for ev in events(peers, facilities, src, cfg, tz, today, {}, as_if_live=True)
+            if ev.fingerprint not in have]
 
 
 # ---------------------------------------------------------------------------
@@ -1617,7 +1712,8 @@ def main(argv=None) -> int:
             failed += 1
             continue
         total += stats.get("rows written", 0)
-        print(f"[barcelona] {label}: {stats.get('rows written', 0)} rows "
+        print(f"[barcelona] {label}: {stats.get('rows written', 0)} rows, "
+              f"{stats.get('rows cancelled (called off in the title: a tombstone for the row we wrote)', 0)} cancelled, "
               f"in {reader.requests - before} requests")
         for k, v in sorted(stats.items()):
             if k != "rows written":

@@ -438,6 +438,114 @@ check("past the deadline no request starts", sess.asked == [] and "deadline" in 
 
 check("the config's horizon is bounded", 0 < SITE["within_days"] <= 120 and SITE["max_events"] <= 1000)
 
+# --------------------------------------------------------------------------- #
+print("-- a called-off dance is a tombstone with the live dance's fingerprint")
+# 2026-10-05 (the owner): "we don't want users to go to an event that is
+# closed". SYNTHETIC: a dance retitled in place (the 5 real notices that day
+# were cards of their own - see called_off's comment). The row we wrote stays
+# on the map unless the run tombstones the fingerprint THAT row has.
+check("'CANCELLED TODAY- X' names X", G.called_off("CANCELLED TODAY- CAPITAL BLUES DANCE") == "CAPITAL BLUES DANCE")
+check("'X - POSTPONED' names X", G.called_off("Swing Night - POSTPONED") == "Swing Night")
+check("'Cancelled: X' names X", G.called_off("Cancelled: Contra Dance") == "Contra Dance")
+check("'RESCHEDULED' is not a tombstone (the card may sit on the new date)",
+      G.called_off("RESCHEDULED - Contra Dance") is None)
+check("the word alone names nothing", G.called_off("CANCELLED") is None and G.called_off("Cancelled -") is None)
+check("a closure names no dance", G.called_off("Ballroom closed") is None)
+check("a mid-title 'cancelled' is not stripped", G.called_off("The Cancelled Plans Comedy Hour") is None)
+
+import tempfile
+from mapsee_ingest import EventStore
+
+blues = detail_html("Oct 08, 8:15 pm", "8:15pm - 11:30pm",
+                    {"Presenter": "Capital Blues", "Location": "Spanish Ballroom", "Admission": "$15"})
+tmp = tempfile.mkdtemp()
+live_store = EventStore(os.path.join(tmp, "live.json"))
+off_store = EventStore(os.path.join(tmp, "off.json"))
+live_pages = {f"{B}/events-calendar/202610": (200, card_html("8845", "CAPITAL BLUES DANCE", "October 8",
+                                                             "8:15pm - 11:30pm")),
+              f"{B}/events-calendar/event-detail/8845": (200, blues)}
+off_pages = dict(live_pages, **{f"{B}/events-calendar/202610": (200, card_html(
+    "8845", "CANCELLED TODAY- CAPITAL BLUES DANCE", "October 8", "8:15pm - 11:30pm"))})
+rep_live = G.read_site(site, G.Client(Session(live_pages), 1.0, None, clock=clk, sleep=clk.sleep),
+                       date(2026, 10, 4), live_store.upsert, live_store.cancel)
+sess = Session(off_pages)
+rep_off = G.read_site(site, G.Client(sess, 1.0, None, clock=clk, sleep=clk.sleep),
+                      date(2026, 10, 4), off_store.upsert, off_store.cancel)
+live_fp = next(iter(live_store.records), None)
+check("the live dance is one row", len(live_store.records) == 1 and not live_store.tombstones)
+check("the called-off card writes no row and one tombstone",
+      not off_store.records and len(off_store.tombstones) == 1 and rep_off["cancelled"] == 1,
+      (len(off_store.records), off_store.tombstones))
+check("THE TOMBSTONE IS THE LIVE ROW'S FINGERPRINT (events.external_id)",
+      live_fp is not None and list(off_store.tombstones) == [live_fp], (live_fp, list(off_store.tombstones)))
+tomb = next(iter(off_store.tombstones.values()), {})
+check("same source and source_id as the live row, reason is the card's title",
+      tomb.get("source") == "glenecho" and tomb.get("source_id") == "8845"
+      and tomb.get("reason") == "CANCELLED TODAY- CAPITAL BLUES DANCE", tomb)
+check("it costs the one detail request that names the room",
+      sess.asked == [f"{B}/events-calendar/202610", f"{B}/events-calendar/event-detail/8845"], sess.asked)
+both = EventStore(os.path.join(tmp, "both.json"))
+live_card = G.parse_listing(live_pages[f"{B}/events-calendar/202610"][1], 2026, 10)[0][0]
+both.upsert(G.build_event(live_card, G.parse_detail(blues), site, "u")[0])
+G.read_site(site, G.Client(Session(off_pages), 1.0, None, clock=clk, sleep=clk.sleep),
+            date(2026, 10, 4), both.upsert, both.cancel)
+check("a live record of the dance in the same store loses to the tombstone",
+      not both.records and list(both.tombstones) == [live_fp], (list(both.records), list(both.tombstones)))
+
+print("-- complete reads, and only those, are marked")
+check("a read of every card is complete; its window is the read's own",
+      rep_live["complete"] and rep_off["complete"]
+      and rep_live["window"] == (date(2026, 10, 4), date(2026, 10, 24)), (rep_live["complete"], rep_live["window"]))
+sess, rows = Flaky(tpages, ["7734"]), []
+rep = G.read_site(site, G.Client(sess, 1.0, None, clock=clk, sleep=clk.sleep), date(2026, 10, 4), rows.append)
+check("one detail page lost: NOT complete (its dance would read as gone)", rep["complete"] is False, rep["notes"])
+rep = G.read_site(site, G.Client(Session(live_pages), 1.0, clk.t - 1, clock=clk, sleep=clk.sleep),
+                  date(2026, 10, 4), rows.append)
+check("stopped by the deadline: NOT complete", rep["complete"] is False, rep["stopped"])
+rep = G.read_site(site, G.Client(Session({f"{B}/events-calendar/202610": (200, "<html>new theme</html>")}),
+                                 1.0, None, clock=clk, sleep=clk.sleep), date(2026, 10, 4), rows.append)
+check("a month that matches no card (new markup): NOT complete", rep["complete"] is False, rep["notes"])
+off_missing = {f"{B}/events-calendar/202610": off_pages[f"{B}/events-calendar/202610"]}
+rep = G.read_site(site, G.Client(Session(off_missing), 1.0, None, clock=clk, sleep=clk.sleep),
+                  date(2026, 10, 4), rows.append, lambda ev, why: None)
+check("a called-off card whose page was not read: NOT complete", rep["complete"] is False, rep["notes"])
+
+
+class MainSession(Session):
+    headers = {}
+
+
+import requests as _requests
+import robots_txt as _robots_txt
+
+
+class AllowAll:
+    def __init__(self, *a, **k):
+        pass
+
+    def check(self, url):
+        return {"allowed": True, "status": "ok", "rule": None, "crawl_delay": None}
+
+
+cfg_path, store_path = os.path.join(tmp, "cfg.json"), os.path.join(tmp, "store.json")
+json.dump({"sites": [dict(site, pause=0)]}, open(cfg_path, "w", encoding="utf-8"))
+_saved = (_requests.Session, _robots_txt.Robots)
+_requests.Session, _robots_txt.Robots = (lambda: MainSession(off_pages)), AllowAll
+try:
+    G.main(["--config", cfg_path, "--store", store_path, "--max-minutes", "0"])
+    saved = json.load(open(store_path, encoding="utf-8"))
+    _requests.Session = lambda: MainSession({})
+    G.main(["--config", cfg_path, "--store", os.path.join(tmp, "store2.json"), "--max-minutes", "0"])
+    saved2 = json.load(open(os.path.join(tmp, "store2.json"), encoding="utf-8"))
+finally:
+    _requests.Session, _robots_txt.Robots = _saved
+cr = (saved.get("complete_reads") or {}).get("glenecho") or {}
+check("main: a complete run saves the tombstone and marks 'glenecho' complete over its window",
+      [t.get("fingerprint") for t in saved.get("tombstones") or []] == [live_fp]
+      and cr.get("from", "").startswith("2026-10-04") and cr.get("to", "").startswith("2026-10-24"), (saved.get("tombstones"), cr))
+check("main: a run whose month page failed marks nothing complete", not saved2.get("complete_reads"),
+      saved2.get("complete_reads"))
+
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")
 sys.exit(1 if fails else 0)

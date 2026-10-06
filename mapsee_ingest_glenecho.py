@@ -229,6 +229,40 @@ def refusal(title: str, text: str) -> Optional[str]:
     return None
 
 
+# THE CARD THAT CALLS A DANCE OFF NAMES THE DANCE. A dance the park retitles
+# "CANCELLED TODAY- <its title>" keeps its date, time line and room, so the
+# row we wrote from it is the same card under its own title. called_off()
+# gives that title back and the run tombstones the fingerprint the live row
+# had (EventStore.cancel) instead of leaving it on the map. "Postponed" says
+# the same of that date. NOT "rescheduled": that card may sit on the NEW date,
+# where the dance is on. notice_reason() in mapsee_ingest does not read
+# "CANCELLED TODAY-" (the word is followed by TODAY, not by a separator).
+# MEASURED 2026-10-05: the 5 such cards in the window (nodes 8845-8852, Nov
+# 20 - Dec 31) were notices posted on their own, titled "CAPITAL BLUES DANCE"
+# and "FRIDAY NIGHT CONTRA DANCE", while the weekly series are "BLUES DANCE"
+# (nodes 7569-7578) and "CONTRA DANCE" (9627-9635) - contiguous ids in date
+# order, no gap where a deleted node would sit: as far as the listing shows,
+# those holiday dates were never listed live, and the 5 tombstones match no
+# row (the sync ignores a tombstone it cannot find).
+# The 5 requests are paid for the dance retitled in place; a series node that
+# is DELETED instead is absence, and mapsee_supabase_sync --retire-absent's.
+_CALLED_OFF_HEAD = re.compile(r"^\W*(?:cancel+ed|postponed)(?:\s+(?:today|tonight))?\s*[-\u2013\u2014:|!*]+\s*", re.I)
+_CALLED_OFF_TAIL = re.compile(r"\s*[-\u2013\u2014:|(\[*]+\s*(?:cancel+ed|postponed)(?:\s+(?:today|tonight))?\W*$", re.I)
+
+
+def called_off(title: Optional[str]) -> Optional[str]:
+    """The dance's own title inside a "CANCELLED TODAY- <title>" card, or None
+    when the card names no event (a closure, "Rescheduled", the word alone)."""
+    t = (title or "").strip()
+    for rx in (_CALLED_OFF_HEAD, _CALLED_OFF_TAIL):
+        cut = rx.sub("", t, count=1).strip()
+        if cut != t:
+            if re.search(r"\w", cut) and refusal(cut, "") is None:
+                return cut
+            return None
+    return None
+
+
 def is_open_hours(title: str, names: List[str]) -> bool:
     """A resident studio's or gallery's opening hours: the title IS the house's
     name ("SILVERWORKS"), or the name and an exhibition ("POPCORN GALLERY |
@@ -817,15 +851,27 @@ def months_between(start: date, end: date) -> List[Tuple[int, int]]:
     return out
 
 
+# Notes that mean a card the park lists was NOT read this run: the read is then
+# not complete, and no row may be called absent from it (mark_complete).
+INCOMPLETE_NOTES = ("month page not read", "month page matched no cards", "detail page not read",
+                    "over max_events, not read", "network error, page skipped")
+
+
 def read_site(site: Dict[str, Any], client: Client, today: date,
-              emit: Callable[[NormalizedEvent], None]) -> Dict[str, Any]:
+              emit: Callable[[NormalizedEvent], None],
+              cancel: Optional[Callable[[NormalizedEvent, str], Any]] = None) -> Dict[str, Any]:
     """Walk the months, refuse what is refused, fetch a detail page per kept
-    card, and emit rows. Returns the report; never raises on content."""
+    card, and emit rows. A card that calls a dance off (called_off) is read
+    like the dance and handed to `cancel` with the dance's own title, so the
+    tombstone carries the fingerprint the live row had. Returns the report,
+    whose "complete" says every card in [today, horizon] was read; never
+    raises on content."""
     base = site.get("base", "https://glenechopark.org").rstrip("/")
     horizon = today + timedelta(days=int(site.get("within_days", DEFAULT_WITHIN_DAYS)))
     max_events = int(site.get("max_events", 600))
-    rep: Dict[str, Any] = {"listed": 0, "kept": 0, "free": 0, "refused": {}, "notes": {},
-                           "unplaceable": {}, "stopped": None}
+    rep: Dict[str, Any] = {"listed": 0, "kept": 0, "free": 0, "cancelled": 0, "refused": {}, "notes": {},
+                           "unplaceable": {}, "stopped": None, "complete": False,
+                           "window": (today, horizon)}
 
     def count(bucket: str, key: str) -> None:
         rep[bucket][key] = rep[bucket].get(key, 0) + 1
@@ -842,7 +888,10 @@ def read_site(site: Dict[str, Any], client: Client, today: date,
             got, notes = parse_listing(page, y, m)
             for k, v in notes.items():
                 rep["notes"][k] = rep["notes"].get(k, 0) + v
-            if not got and (y, m) == (today.year, today.month):
+            if not got:
+                # Nine studios' daily hours alone put ~80 cards in every month,
+                # so an empty month is a markup change, not a quiet month.
+                count("notes", "month page matched no cards")
                 print(f"[{SOURCE}] !! {y}-{m:02d} matched no cards - the markup has "
                       f"probably changed. Check _CARD_HEAD.")
             for c in got:
@@ -853,7 +902,7 @@ def read_site(site: Dict[str, Any], client: Client, today: date,
                     cards.append(c)
         rep["listed"] = len(cards)
         names = site.get("open_hours_titles") or []
-        todo = []
+        todo, offs = [], []
         for c in cards:
             # Both decided from the TITLE, so neither costs a detail request:
             # 240 open-hours cards and 5 "CANCELLED TODAY-" dances, Oct 4 - Jan 2.
@@ -863,6 +912,11 @@ def read_site(site: Dict[str, Any], client: Client, today: date,
             why = refusal(c["title"], "")
             if why:
                 count("refused", why)
+                live = called_off(c["title"]) if why == "cancelled" and cancel is not None else None
+                if live:
+                    # One detail request each (5 in 90 days on 2026-10-04): the
+                    # room, and so the fingerprint, is on the page only.
+                    offs.append(dict(c, title=live, notice=c["title"]))
                 continue
             todo.append(c)
         if len(todo) > max_events:
@@ -899,6 +953,19 @@ def read_site(site: Dict[str, Any], client: Client, today: date,
             rep["kept"] += 1
             rep["free"] += 1 if is_free(nev) else 0
             emit(nev)
+        # After the live rows, so a deadline costs a tombstone before a row.
+        for c in offs:
+            url = f"{base}/events-calendar/event-detail/{c['id']}"
+            page = client.get(url)
+            if page is None:
+                count("notes", "detail page not read")
+                continue
+            nev, why = build_event(c, parse_detail(page), site, url)
+            if nev is None:
+                count("notes", f"called off, but its dance would not have been a row ({why.split(':')[0]})")
+                continue
+            cancel(nev, c["notice"][:80])
+            rep["cancelled"] += 1
     except Stop as exc:
         rep["stopped"] = str(exc)
     except Refused as exc:
@@ -906,6 +973,7 @@ def read_site(site: Dict[str, Any], client: Client, today: date,
     if client.errors:
         rep["notes"]["network error, page skipped"] = client.errors
     rep["requests"] = client.requests
+    rep["complete"] = rep["stopped"] is None and not any(rep["notes"].get(k) for k in INCOMPLETE_NOTES)
     return rep
 
 
@@ -914,7 +982,9 @@ def _report(name: str, rep: Dict[str, Any]) -> None:
     detail = ", ".join(f"{n} {w}" for w, n in sorted(rep["refused"].items(), key=lambda kv: -kv[1]))
     print(f"[{SOURCE}] {name}: kept {rep['kept']} of {rep['listed']} listed "
           f"({rep['free']} free by the park's own word); refused {refused}"
-          + (f" ({detail})" if detail else "") + f"; {rep['requests']} request(s)", flush=True)
+          + (f" ({detail})" if detail else "") + f"; cancelled {rep.get('cancelled', 0)} "
+          f"called-off dance(s); read {'COMPLETE' if rep.get('complete') else 'NOT complete'}; "
+          f"{rep['requests']} request(s)", flush=True)
     for w, n in sorted(rep["unplaceable"].items()):
         print(f"[{SOURCE}] {name}: unplaceable location {w!r} x{n}", flush=True)
     for w, n in sorted(rep["notes"].items()):
@@ -953,6 +1023,7 @@ def main(argv=None) -> int:
     store = None if a.dry_run else EventStore(a.store)
     today = _today_local()
     total = 0
+    reads: List[Optional[Tuple[date, date]]] = []
     for site in cfg.get("sites", []):
         if site.get("skip"):
             continue
@@ -974,17 +1045,30 @@ def main(argv=None) -> int:
                 store.save()
                 pending[0] = 0
 
+        def cancel(ev: NormalizedEvent, reason: str) -> None:
+            if store is not None:
+                store.cancel(ev, reason, notice=True)  # a called-off title
+
         try:
-            rep = read_site(site, client, today, emit)
+            rep = read_site(site, client, today, emit, cancel)
         except Exception as exc:                          # noqa: BLE001
             # One source must never cost the others.
             print(f"[{SOURCE}] {name} FAILED: {type(exc).__name__}: {exc}", flush=True)
+            reads.append(None)
             continue
         finally:
             if store is not None:
                 store.save()
         _report(name, rep)
+        reads.append(rep["window"] if rep["complete"] else None)
         total += rep["kept"]
+    # Every card in the window was read, so a dance the last complete read
+    # wrote and this one did not is gone from the calendar (mapsee_supabase_sync
+    # --retire-absent). The rows of every site share SOURCE, so it is one unit:
+    # complete only when every site was, over the window they all covered.
+    if store is not None and reads and all(reads):
+        store.mark_complete(SOURCE, max(w[0] for w in reads), min(w[1] for w in reads))
+        store.save()
     took = (time.monotonic() - started) / 60
     if store is not None:
         print(f"[{SOURCE}] done: +{total} events in {took:.1f} min; "

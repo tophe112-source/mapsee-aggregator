@@ -269,6 +269,7 @@ class Reader:
                  limit: int = PAGE_LIMIT) -> List[Dict[str, Any]]:
         """Every row, paged by offset in `_id` order; restarts once if `total`
         moves mid-read (the table is rebuilt daily)."""
+        self.last_total = None
         for _ in range(2):
             rows: List[Dict[str, Any]] = []
             total: Optional[int] = None
@@ -290,6 +291,7 @@ class Reader:
                 if not page or len(page) < limit or (total is not None and len(rows) >= total):
                     break
             if not moved:
+                self.last_total = total          # ingest's completeness test reads it
                 return rows
         raise RuntimeError(f"resource {resource_id} changed size twice while being read")
 
@@ -771,10 +773,15 @@ def stretches(times: Iterable[Tuple[int, int]], join: int = JOIN_MINUTES
 
 
 def events(rows: List[Dict[str, Any]], src: Dict[str, Any], cfg: Dict[str, Any], tz, today: date,
-           stats: Dict[str, int]) -> List[NormalizedEvent]:
+           stats: Dict[str, int], as_if_live: bool = False, as_if_placed: bool = False) -> List[NormalizedEvent]:
+    """The rows to write. `as_if_live` reads every `est_annulee` session as
+    running: the rows the City's table would give had nothing been called off
+    (cancelled_events). `as_if_placed` skips the three placement refusals (no
+    point, a point off the island, a point its postal area contradicts): the
+    sessions the City LISTS whatever we make of their point (seen_events)."""
     horizon = today + timedelta(days=int(src.get("horizon_days", 90)))
     skip = {date.fromisoformat(x) for x in cfg.get("skip_dates") or []}
-    if skip and max(skip) < horizon:
+    if skip and max(skip) < horizon and not (as_if_live or as_if_placed):
         print(f"[montreal-loisirs] WARNING: skip_dates end {max(skip)}, before the horizon {horizon}; "
               "add the next statutory holidays to the config")
     box = cfg.get("bbox")
@@ -788,7 +795,7 @@ def events(rows: List[Dict[str, Any]], src: Dict[str, Any], cfg: Dict[str, Any],
             _bump(stats, "outside the window (season over or not begun)")
             continue
         _bump(stats, "session rows in the window")
-        if _s(row.get("est_annulee")).lower() == "vrai":
+        if _s(row.get("est_annulee")).lower() == "vrai" and not as_if_live:
             _bump(stats, "refused: cancelled (est_annulee)")
             continue
         if _s(row.get("est_inscription_obligatoire")).lower() != "faux":
@@ -809,11 +816,11 @@ def events(rows: List[Dict[str, Any]], src: Dict[str, Any], cfg: Dict[str, Any],
         if a is None or b is None or b <= a:
             _bump(stats, "no usable time")
             continue
-        if _point(row) is None:
+        if _point(row) is None and not as_if_placed:
             _bump(stats, "unplaceable (no point)")
             continue
-        lat, lon = float(row.get("latitude")), float(row.get("longitude"))
-        if not _in_box(lat, lon, box):
+        lat, lon = (float(row.get("latitude")), float(row.get("longitude"))) if _point(row) else (None, None)
+        if lat is not None and not _in_box(lat, lon, box) and not as_if_placed:
             _bump(stats, "unplaceable (point outside the island)")
             continue
         site = _s(row.get("site_seance"))
@@ -821,7 +828,7 @@ def events(rows: List[Dict[str, Any]], src: Dict[str, Any], cfg: Dict[str, Any],
             _bump(stats, "no title or site")
             continue
         here = (_fsa(row) or "", _point(row))
-        if here in bad_points:
+        if here in bad_points and not as_if_placed:
             _bump(stats, "unplaceable (the City's point contradicts its own address)")
             _bump(stats, f"  {site}, {split_address(row.get('adresse_site_seance'))[1]}: "
                          f"{bad_points[here]:.0f} km from its postal area's other sites")
@@ -921,16 +928,65 @@ def events(rows: List[Dict[str, Any]], src: Dict[str, Any], cfg: Dict[str, Any],
     return out
 
 
+def cancelled_events(rows: List[Dict[str, Any]], live: List[NormalizedEvent], src: Dict[str, Any],
+                     cfg: Dict[str, Any], tz, today: date) -> List[NormalizedEvent]:
+    """The rows `est_annulee` took off: what events() gives with every
+    cancelled session read as running, less what it gives today. Each is built
+    by the code that built the live row, so it carries the fingerprint that
+    row has in the database (events.external_id) - a stretch's identity is its
+    FIRST clock, and a cancelled 10:00 hour in a 10:00-12:00 stretch moves the
+    surviving row to 11:00, so the 10:00 row is the one that must go. A
+    session the policy would refuse anyway (registration, no place) gives
+    nothing. 8 of the 1,791 window rows were est_annulee on 2026-10-05."""
+    if not any(_s(r.get("est_annulee")).lower() == "vrai" for r in rows):
+        return []
+    have = {ev.fingerprint for ev in live}
+    return [ev for ev in events(rows, src, cfg, tz, today, {}, as_if_live=True) if ev.fingerprint not in have]
+
+
+def seen_events(rows: List[Dict[str, Any]], live: List[NormalizedEvent], src: Dict[str, Any],
+                cfg: Dict[str, Any], tz, today: date, stats: Dict[str, int]) -> List[str]:
+    """Fingerprints of sessions the City LISTS that a placement check refused
+    (no point, off the island, a point its postal area contradicts): still on
+    its timetable, so EventStore.mark_seen, and absence never cancels one. A
+    point is a property of the row AND of its neighbours (contradicted_points),
+    so a neighbour's new point can refuse a site whose sessions all still run.
+    Only computed when a placement check refused something."""
+    if not any(stats.get(k) for k in ("unplaceable (no point)", "unplaceable (point outside the island)",
+                                      "unplaceable (the City's point contradicts its own address)")):
+        return []
+    have = {ev.fingerprint for ev in live}
+    return sorted({ev.fingerprint for ev in events(rows, src, cfg, tz, today, {}, as_if_placed=True)} - have)
+
+
 def ingest(store: EventStore, reader: Reader, src: Dict[str, Any], cfg: Dict[str, Any], tz) -> Dict[str, int]:
     stats: Dict[str, int] = {}
     rows = reader.resource(src["resource_id"], fields=src.get("fields"))
     stats["session rows read"] = len(rows)
     if not rows:
         raise RuntimeError("the datastore returned no rows")
-    evs = events(rows, src, cfg, tz, _today(tz), stats)
+    today = _today(tz)
+    evs = events(rows, src, cfg, tz, today, stats)
     for ev in evs:
         store.upsert(ev)
     stats["rows written"] = len(evs)
+    for ev in cancelled_events(rows, evs, src, cfg, tz, today):
+        if store.cancel(ev, "est_annulee") == "cancelled":
+            _bump(stats, "rows cancelled (est_annulee: a tombstone for the row we wrote)")
+    for fp in seen_events(rows, evs, src, cfg, tz, today, stats):
+        store.mark_seen(src.get("source", "montreal-loisirs"), fp)
+        _bump(stats, "listed but unplaced (seen, never absent)")
+    # THE WHOLE TABLE WAS READ (every page, and as many rows as CKAN's own
+    # total), so a session the last complete read wrote and this one did not
+    # is gone from the City's timetable: mapsee_supabase_sync --retire-absent
+    # may cancel it. The window is the one events() expanded into.
+    total = getattr(reader, "last_total", None)
+    if total is None or len(rows) >= int(total):
+        store.mark_complete(src.get("source", "montreal-loisirs"), today,
+                            today + timedelta(days=int(src.get("horizon_days", 90))))
+        stats["read complete (absence may cancel)"] = 1
+    else:
+        _bump(stats, f"read NOT complete: {len(rows)} of {total} rows")
     return stats
 
 
@@ -986,7 +1042,8 @@ def main(argv=None) -> int:
             print(f"[montreal-loisirs] {label} FAILED: {exc}")
             continue
         total += stats.get("rows written", 0)
-        print(f"[montreal-loisirs] {label}: {stats.get('rows written', 0)} rows "
+        print(f"[montreal-loisirs] {label}: {stats.get('rows written', 0)} rows, "
+              f"{stats.get('rows cancelled (est_annulee: a tombstone for the row we wrote)', 0)} cancelled, "
               f"in {reader.requests - before} requests")
         for k, v in sorted(stats.items()):
             if k != "rows written":

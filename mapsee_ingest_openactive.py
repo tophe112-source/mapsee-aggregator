@@ -85,6 +85,7 @@ THE FOUR THINGS THAT WILL BITE YOU
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import re
@@ -422,8 +423,11 @@ def _series_key(occurrence: dict) -> Optional[str]:
 
 
 def to_event(record: dict, source: dict, now: datetime,
-             horizon_days: int) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
+             horizon_days: int, as_cancelled: bool = False) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
     """One dated row, or (None, why-not). The reasons are counted by the caller.
+
+    `as_cancelled` builds the row a cancelled session WOULD have been, for its
+    tombstone (see cancellations): the status refusal is skipped, nothing else.
 
     Every refusal here is a refusal the header argues for. None of them is a
     tidy-up: a session with no coordinates cannot be placed, a session past the
@@ -440,7 +444,7 @@ def to_event(record: dict, source: dict, now: datetime,
     # Willen On Ice 2/311 and Upshot 2/339 in-window on 2026-10-05. Refused here,
     # before the grid and weekly folds, so a cancelled week is not weekly evidence.
     status = str(record.get("eventStatus") or "").rstrip("/")
-    if status.endswith(("EventCancelled", "EventPostponed")):
+    if status.endswith(("EventCancelled", "EventPostponed")) and not as_cancelled:
         return None, "cancelled"
     if status.endswith("EventMovedOnline"):
         return None, "moved online"
@@ -759,6 +763,62 @@ def collapse_weekly_series(events: List[NormalizedEvent], min_repeats: int
     return out, folded_total, notes
 
 
+def cancellations(live: List[NormalizedEvent], before_folds: List[NormalizedEvent],
+                  called: List[NormalizedEvent], source: dict) -> Tuple[List[NormalizedEvent], int]:
+    """(the rows to TOMBSTONE, live standing rows that now name a cancelled
+    week) for the sessions a publisher marked EventCancelled/EventPostponed.
+
+    A refusal alone left the row an earlier read stored - while the session was
+    still on - on the map: an upsert cannot delete. Which row that was depends
+    on the folds, so the folds are run again WITH the called-off sessions (on
+    copies: a fold rewrites the row that speaks for it) and every row that read
+    would have written and this one does not is the tombstone:
+
+      - a dated session: its own occurrence row;
+      - a grid day: the day row, when the day's live slots no longer make one
+        (every slot called off: the pool is shut that day);
+      - a standing weekly row: ONLY when what is still live no longer folds
+        into it. Then its live sessions are written as dated rows and the
+        standing row, which would still say "every Tuesday", is hidden; it
+        comes back by itself when the publisher lists the arrangement again
+        (a live write lifts an import's cancellation). One cancelled week of a
+        class that still folds does NOT cancel it: the standing row stays, and
+        says which week is off (see the note below).
+
+    A fingerprint this read writes live is never a tombstone: the store lets a
+    tombstone beat a live record of its fingerprint, and a session listed live
+    elsewhere in the same feed is still on."""
+    if not called:
+        return [], 0
+    grid_min = int(source.get("grid_min_per_day", GRID_MIN_PER_DAY))
+    weekly_min = int(source.get("weekly_min_repeats", WEEKLY_MIN_REPEATS))
+    full, _g, _n = collapse_booking_grids([copy.copy(e) for e in before_folds + called], grid_min)
+    full, _w, _n = collapse_weekly_series(full, weekly_min)
+    live_fps = {e.fingerprint for e in live}
+    out: Dict[str, NormalizedEvent] = {}
+    for ev in called + full:
+        if ev.fingerprint and ev.fingerprint not in live_fps:
+            out.setdefault(ev.fingerprint, ev)
+    # THE WEEK THAT IS OFF, said on the standing row that stays. A class run
+    # seventeen weeks with one called off is still a weekly class, and the row
+    # is the right listing - but nobody should turn up on that Tuesday.
+    standing = {((e.name or "").strip().lower(), round(e.latitude or 0.0, 5),
+                 round(e.longitude or 0.0, 5)): e for e in live if e.recurring_days}
+    off: Dict[int, Tuple[NormalizedEvent, List[datetime]]] = {}
+    for ev in called:
+        rep = standing.get(((ev.name or "").strip().lower(), round(ev.latitude or 0.0, 5),
+                            round(ev.longitude or 0.0, 5)))
+        slot = _local_slot(ev)
+        if rep is None or slot is None or [slot[1], slot[2]] not in (rep.recurring_days or {}).get(str(slot[0]), []):
+            continue
+        off.setdefault(id(rep), (rep, []))[1].append(_local(ev.start_utc))
+    for rep, days in off.values():
+        days = sorted(set(d.date() for d in days if d))
+        rep.description = (f"⚠️ Not on {', '.join(f'{d:%a} {d.day} {d:%b}' for d in days)}: "
+                           f"cancelled by the publisher.\n\n" + (rep.description or "")).strip()
+    return list(out.values()), len(off)
+
+
 def read_source(source: dict, horizon_days: int, max_pages: int,
                 delay: float, now: Optional[datetime] = None) -> Tuple[List[NormalizedEvent], Dict[str, Any]]:
     """Every dated row one publisher has, plus a report of what was refused."""
@@ -818,6 +878,7 @@ def read_source(source: dict, horizon_days: int, max_pages: int,
         records.extend(data.values())
 
     kept: List[NormalizedEvent] = []
+    called: List[NormalizedEvent] = []
     refused: Dict[str, int] = {}
     for rec in records:
         event, why = to_event(rec, source, now, horizon_days)
@@ -825,6 +886,13 @@ def read_source(source: dict, horizon_days: int, max_pages: int,
             kept.append(event)
         else:
             refused[why or "?"] = refused.get(why or "?", 0) + 1
+            if why == "cancelled":
+                gone, _why = to_event(rec, source, now, horizon_days, as_cancelled=True)
+                if gone:
+                    called.append(gone)
+    # The live folds rewrite the row that speaks for a fold; re-folding it
+    # gives the same key, because a fold is keyed on its group, not its row.
+    before_folds = kept
     kept, gridded, grid_notes = collapse_booking_grids(
         kept, int(source.get("grid_min_per_day", GRID_MIN_PER_DAY)))
     if gridded:
@@ -844,8 +912,12 @@ def read_source(source: dict, horizon_days: int, max_pages: int,
         notes.extend("  " + n for n in weekly_notes[:8])
         if len(weekly_notes) > 8:
             notes.append(f"  ...and {len(weekly_notes) - 8} more")
+    cancel, noted = cancellations(kept, before_folds, called, source)
+    if called:
+        notes.append(f"called off: {len(called)} session(s) marked cancelled or postponed -> "
+                     f"{len(cancel)} tombstone(s); {noted} standing row(s) name the week that is off")
     return kept, {"notes": notes, "refused": refused, "records": len(records),
-                  "gridded": gridded, "weekly": weekly}
+                  "gridded": gridded, "weekly": weekly, "cancel": cancel}
 
 
 # ---------------------------------------------------------------------------
@@ -895,11 +967,23 @@ def main(argv=None):
                                sorted(report["refused"].items(), key=lambda kv: -kv[1]))
             print(f"[openactive] {label}: dropped {sum(report['refused'].values())} "
                   f"of {report['records']} ({detail})", flush=True)
-        print(f"[openactive] {label}: kept {len(events)} upcoming session(s)", flush=True)
+        # NEVER mark_complete here, so mapsee_supabase_sync --retire-absent can
+        # never read this feed's absences as cancellations. A row's identity
+        # here is a FOLD (a session, a grid day, a weekly standing row), and
+        # the fold moves as sessions pass: the same snapshot converted 24 h
+        # later unfolded 7 of Castlepoint's 102 rows and 51 of Pembrokeshire's
+        # 529 (every one a standing row) with nothing changed at the source
+        # (2026-10-05) - at the breaker's 10%. And an RPDE `deleted` item
+        # carries no name or date to fingerprint. Explicit status only.
+        cancels = report.get("cancel") or []
+        print(f"[openactive] {label}: kept {len(events)} upcoming session(s), "
+              f"cancelled {len(cancels)}", flush=True)
         total += len(events)
         if store is not None:
             for event in events:
                 store.upsert(event)
+            for event in cancels:
+                store.cancel(event, "eventStatus cancelled or postponed")
 
     if store is not None:
         store.save()

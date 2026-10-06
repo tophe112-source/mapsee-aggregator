@@ -455,6 +455,18 @@ for site, loc in ((PAC, "Eastroom"), (OLY, "2600 East Bay Drive NE"), (OLY, "Oly
     ev, _, notes = RV.build_events(site, [one(site, "Community Bingo", loc)], NOW, HORIZON, far_geo)
     check(f"a geocoder answer far from the town is unplaced ({loc!r})",
           not ev and notes.get("unplaced: the geocoder answered outside the town's radius") == 1, notes)
+# A geocoder miss is OURS, not the town's: the ics geocoder answers (None, None)
+# for a 502 as for no match, so the session the town still lists is SEEN.
+site, loc = OLY, "2600 East Bay Drive NE"
+seen = []
+ev, _, notes = RV.build_events(site, [one(site, "Community Bingo", loc)], NOW, HORIZON, far_geo, None, seen)
+placed, _, _ = RV.build_events(site, [one(site, "Community Bingo", loc)], NOW, HORIZON,
+                               lambda q: (47.04, -122.89))
+check("a session the geocoder could not place is SEEN under the fingerprint it has when placed",
+      not ev and len(placed) == 1 and seen == [placed[0].fingerprint], (seen, [e.fingerprint for e in placed]))
+seen = []
+RV.build_events(site, [one(site, "Community Bingo", "Online via Zoom")], NOW, HORIZON, far_geo, None, seen)
+check("  ...but never one refused for what its own text says (online, no place)", seen == [], seen)
 sl = RV.split_location("2600 East Bay Drive NE", "Olympia", "WA")
 check("'NE' after a street is a quadrant, not Nebraska", sl["region"] is None and sl["street"] == "2600 East Bay Drive NE", sl)
 sl = RV.split_location("Olympia Center, 222 Columbia St NW", "Olympia", "WA")
@@ -636,6 +648,139 @@ for text in ("DTSTART:20260101T100000\nRRULE:FREQ=YEARLY;BYMONTHDAY=1",
         check(f"{text.split('RRULE:')[1]!r} is refused, not mis-expanded", False)
     except RV.RuleError:
         check(f"{text.split('RRULE:')[1]!r} is refused, not mis-expanded", True)
+
+# ------------------------------------------------------------ 14. what the town calls off is a tombstone
+# 2026-10-05 (the owner): "we don't want users to go to an event or center that
+# is closed". An upsert cannot delete: the row written from the session the
+# town now calls off stays on the map unless the run tombstones the fingerprint
+# THAT row has (EventStore.cancel).
+print()
+print("14. called off, a no-session day, a closure day: tombstones with the live row's fingerprint")
+import tempfile  # noqa: E402
+from mapsee_ingest import EventStore  # noqa: E402
+for t, want in (("CANCELLED - Toddler Drop-In", "Toddler Drop-In"), ("Run Club - CANCELED", "Run Club"),
+                ("Toddler Drop-In (Cancelled)", "Toddler Drop-In"), ("Postponed: Fall Festival", "Fall Festival"),
+                ("CANCELLED TODAY- Open Gym", "Open Gym"), ("No Meeting", None), ("Cancelled", None),
+                ("City Hall closed", None)):
+    check(f"called_off({t!r}) is {want!r}", RV.called_off(t) == want, RV.called_off(t))
+one_day = dict(rrule=None, start="2026-10-20T10:30:00", end="2026-10-20T12:30:00")
+live, _, _ = build([row(**one_day)])
+offs = []
+ev, ref, _ = RV.build_events(SITE, [row(title="CANCELLED - Toddler Drop-In", **one_day)], NOW, HORIZON, geocode, offs)
+check("the called-off row writes nothing and is counted as cancelled", not ev and ref.get("cancelled") == 1, ref)
+check("ITS TOMBSTONE IS THE LIVE ROW'S FINGERPRINT, source and source_id",
+      len(live) == 1 and [(e.fingerprint, e.source, e.source_id) for e, _ in offs]
+      == [(live[0].fingerprint, live[0].source, live[0].source_id)], (live, offs))
+ev, _, _ = build([row(title="CANCELLED - Toddler Drop-In", **one_day)])
+check("without a collector the row is only refused (dry runs, older callers)", not ev)
+_tmp = tempfile.mkdtemp()
+a, b = EventStore(os.path.join(_tmp, "a.json")), EventStore(os.path.join(_tmp, "b.json"))
+a.upsert(live[0])
+for e, why in offs:
+    b.cancel(e, why)
+check("through the store: cancel's fingerprint is upsert's", list(b.tombstones) == list(a.records) and not b.records)
+offs = []
+build_live, _, _ = RV.build_events(MAN, [row()], NOW, HORIZON, geocode)
+ev, ref, notes = RV.build_events(MAN, [row(), xmas, newyear, run_thu], NOW, HORIZON, geocode, offs)
+shut = {e.start_local[:10]: e.fingerprint for e in build_live
+        if e.start_local[:10] in ("2026-12-24", "2026-12-25", "2027-01-01")}
+check("a host session on a closure day is a tombstone with the fingerprint it had before the closure row",
+      len(shut) == 3 and {e.start_local[:10]: e.fingerprint for e, _ in offs} == shut,
+      ({e.start_local[:10] for e, _ in offs}, sorted(shut)))
+check("...said why, and still counted as before",
+      all(w.startswith("town closed: ") for _, w in offs)
+      and notes.get("skipped: the town is closed that day (Christmas Holidays)") == 2, [w for _, w in offs])
+check("...and Run Club, a club the town only lists, is neither skipped nor tombstoned",
+      not any(e.name == "Run Club" for e, _ in offs))
+offs = []
+nosess = row(desc=quote("Bring your little ones. No program on 12/1 and 12/22."))
+ev, _, notes = RV.build_events(SITE, [nosess], NOW, HORIZON, geocode, offs)
+want = {e.start_local[:10]: e.fingerprint for e in build_live if e.start_local[:10] in ("2026-12-01", "2026-12-22")}
+check("'No program on 12/1 and 12/22': two tombstones with the live rows' fingerprints",
+      len(want) == 2 and {e.start_local[:10]: e.fingerprint for e, _ in offs} == want, [e.start_local for e, _ in offs])
+
+print()
+print("15. complete reads, and only those, are marked")
+import robots_txt as _robots  # noqa: E402
+import mapsee_geo_budget as _budget  # noqa: E402
+
+
+class _Resp:
+    def __init__(self, code, text=""):
+        self.status_code, self.text, self.headers = code, text, {}
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise OSError(f"HTTP {self.status_code}")
+
+
+class _Sess:
+    headers = {}
+
+    def __init__(self, body, code=200):
+        self.body, self.code = body, code
+
+    def get(self, url, **kw):
+        return _Resp(self.code, self.body)
+
+
+class _Allow:
+    def __init__(self, *a, **k):
+        pass
+
+    def check(self, url):
+        return {"allowed": True, "status": "ok", "rule": None, "crawl_delay": None}
+
+
+def run_main(body, code=200, spent=False, geo=geocode):
+    path = os.path.join(_tmp, f"store{len(os.listdir(_tmp))}.json")
+    cfg_path = os.path.join(_tmp, "cfg.json")
+    json.dump({"sites": [dict(SITE, origin="https://www.manassasva.gov")]}, open(cfg_path, "w"))
+    budget = os.path.join(_tmp, "budget.json")
+    json.dump({"n": 5 if spent else 0}, open(budget, "w"))
+    import mapsee_ingest_ics as _ics
+    # main() saves the shared geocode cache on the way out: never the repo's.
+    saved = (RV.requests.Session, _robots.Robots, RV.make_geocoder, RV.time.sleep, _budget._MAX, _budget._FILE,
+             _ics._save_geo_cache)
+    RV.requests.Session, _robots.Robots = (lambda: _Sess(body, code)), _Allow
+    RV.make_geocoder, RV.time.sleep = (lambda session, site: geo), (lambda s: None)
+    _budget._MAX, _budget._FILE, _ics._save_geo_cache = 5, budget, (lambda cache: None)
+    try:
+        RV.main(["--config", cfg_path, "--store", path, "--max-minutes", "0"])
+    finally:
+        (RV.requests.Session, _robots.Robots, RV.make_geocoder, RV.time.sleep, _budget._MAX, _budget._FILE,
+         _ics._save_geo_cache) = saved
+    return json.load(open(path, encoding="utf-8")) if os.path.exists(path) else {}
+
+
+# A row on each of the site's three calendars: a read is complete only when
+# every configured calendar answers.
+feed = json.dumps([row(), row(title="CANCELLED - Toddler Drop-In", id="9", rid="9", **one_day),
+                   row(title="Talk", id="10", rid="10", rrule=None, start="2026-10-21T18:00:00",
+                       end="2026-10-21T19:00:00", location="100 Grant Ave, Manassas, VA 20110",
+                       primary_calendar_name="Harris Pavilion"),
+                   row(title="Fall Fair", id="11", rid="11", primary_calendar_name="Community Events", **one_day)])
+got = run_main(feed)
+cr = (got.get("complete_reads") or {}).get(f"revize:{RV.site_slug(SITE)}") or {}
+check("a whole read marks revize:<site> complete, over now .. now + horizon in the town's own clock",
+      cr.get("from") == "2026-10-04T04:00:00Z" and cr.get("to") == "2027-01-02T05:00:00Z", got.get("complete_reads"))
+check("...and saves the called-off row's tombstone", [t.get("source_id") for t in got.get("tombstones") or []]
+      == [live[0].source_id.replace("1114", "9")], got.get("tombstones"))
+got = run_main(feed, spent=True)
+check("the geocoding budget spent with the Talk's venue unasked: NOT complete", not got.get("complete_reads"),
+      got.get("complete_reads"))
+got = run_main(feed, spent=True, geo=lambda loc: (38.75, -77.47))
+check("...but the budget spent with every venue already known: complete", bool(got.get("complete_reads")))
+got = run_main(json.dumps([]))
+check("an empty calendar is NOT complete (it would let absence cancel a small town whole)",
+      not got.get("complete_reads"), got.get("complete_reads"))
+got = run_main(json.dumps([row(primary_calendar_name="Renamed Calendar")]))
+check("a configured calendar with no rows (renamed, emptied) is NOT complete", not got.get("complete_reads"),
+      got.get("complete_reads"))
+got = run_main(feed, code=503)
+check("a failed read marks nothing", not got.get("complete_reads"), got)
+got = run_main("<html>Just a moment...</html>")
+check("a page that is not the JSON list marks nothing", not got.get("complete_reads"), got)
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

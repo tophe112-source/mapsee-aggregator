@@ -9,6 +9,11 @@ Garfield is open on Saturday), free text written for two buildings at once,
 Late Night on Christmas or from stale open data, a second dot for a centre
 OpenStreetMap already lists, a refused centre whose old row would roll on for
 ever, the phone the product hides, and the OSM phrase a retirement keys on.
+
+And the cancellations (2026-10-05): a closed, unreadable or vanished centre is
+cancelled under the identity its live row has (proved through the real
+EventStore and the sync's own readers), a broken read cancels nothing, and only
+a whole read is marked complete for --retire-absent.
 """
 import json
 import os
@@ -249,18 +254,31 @@ class FakeReader:
 
 
 class Store:
+    """Records what ingest hands the store: upserts, cancellations, complete reads."""
     def __init__(self):
-        self.rows = []
+        self.rows, self.cancelled, self.complete = [], [], []
 
     def upsert(self, ev):
         self.rows.append(ev)
+        return "added"
+
+    def cancel(self, ev, reason):
+        self.cancelled.append((ev, reason))
+        return "cancelled"
+
+    def mark_complete(self, source, window_from, window_to, id_prefix=None):
+        self.complete.append((source, window_from, window_to, id_prefix))
 
 
-def run(key, payload, **over):
+LAST = Store()
+
+
+def run(key, payload, store=None, **over):
+    global LAST
     src = dict(by_key[key], **over)
-    st = Store()
-    stats = F.ingest(st, FakeReader(payload), src, CFG, F.today())
-    return st.rows, stats
+    LAST = store if store is not None else Store()
+    stats = F.ingest(LAST, FakeReader(payload), src, CFG, F.today())
+    return (LAST.rows if isinstance(LAST, Store) else []), stats
 
 
 LAU = {"ref": "way/53589225", "mode": "same", "lat": 47.6591627, "lon": -122.2779938}
@@ -268,6 +286,8 @@ NG = {"ref": "way/34151089", "mode": "same", "lat": 47.7054567, "lon": -122.3222
 GONE = {"ref": "node/927614329", "mode": "same", "lat": 47.5775704, "lon": -122.4070101,
         "osm_name": "Old Hall Community Center"}
 rows, stats = run("seattle-cc", SEA_CC, late_night_days_ahead=90, osm={"1": LAU, "2": NG, "9": GONE})
+SEA_RUN = LAST
+dead = {ev.fingerprint: (ev, why) for ev, why in SEA_RUN.cancelled}
 standing = [r for r in rows if r.recurring_days]
 dated = [r for r in rows if not r.recurring_days]
 lau = [r for r in standing if r.name.startswith("Laurelhurst")][0]
@@ -286,15 +306,27 @@ check("run seattle: a taken-over centre with no hours this season is still WRITT
       ng.fingerprint == F.osm_fingerprint("way/34151089") and not ng.pin_only
       and ng.recurring_days == F.ALWAYS and "Opening times are not listed" in ng.description
       and "Opening hours (" not in ng.description and F.OSM_LISTING_LINE in ng.description, ng.description)
-check("run seattle: a claimed OSM listing the city no longer carries is rewritten too, never left frozen",
-      len(gone) == 1 and gone[0].fingerprint == F.osm_fingerprint("node/927614329")
-      and "no longer lists" in gone[0].description and not gone[0].pin_only, [g.description for g in gone])
-check("run seattle: every 'same' element in the config has a row this run",
-      {F.osm_fingerprint(m["ref"]) for m in (LAU, NG, GONE)} <= {r.fingerprint for r in rows})
-# A refused OWN row is not written: as pin_only scenery ../mapsee still opened
+# A claimed listing the city no longer carries is CANCELLED (cancelled + hidden
+# by the sync) under the OSM row's own fingerprint: neither left frozen with its
+# last week nor kept as a listing of a centre the city stopped running.
+check("run seattle: a claimed OSM listing the city no longer carries is cancelled, never left frozen",
+      not gone and F.osm_fingerprint("node/927614329") in dead
+      and dead[F.osm_fingerprint("node/927614329")][1] == "facility gone"
+      and stats.get("refused, cancelled (taken-over OSM listing: closed or gone)") == 1, dict(stats))
+check("run seattle: every 'same' element in the config is written or cancelled this run",
+      {F.osm_fingerprint(m["ref"]) for m in (LAU, NG, GONE)} <= {r.fingerprint for r in rows} | set(dead))
+check("run seattle: a taken-over listing with merely no hours this season is never cancelled",
+      F.osm_fingerprint("way/34151089") not in dead)
+# A refused OWN row is never written: as pin_only scenery ../mapsee still opened
 # a sheet and drew the all-week window as a 24-hour clock (review, 2026-10-05).
-check("run seattle: an own row that is refused (Alki, closed) is not written at all",
-      alki == [] and stats.get("refused, not written (own row)", 0) >= 1, [a.description for a in alki])
+# It is cancelled instead, so the row an earlier day wrote stops rolling on.
+alki_fp = F._fp(F.SOURCE, "seattle-cc", "3")
+check("run seattle: an own row that is refused (Alki, closed) is cancelled, not written",
+      alki == [] and alki_fp in dead and dead[alki_fp][1] == "facility closure: Closed - Childcare Site Only"
+      and stats.get("refused, cancelled (own row)") == 1, (dict(stats), list(dead.values())))
+check("run seattle: the log counts cancellations, and the read is complete",
+      stats.get("rows cancelled") == 2 and stats.get("cancelled standing rows") == 2
+      and stats.get("complete read") == 1, dict(stats))
 check("run seattle: no own row is ever pin_only scenery",
       not [r for r in rows if r.pin_only], [r.name for r in rows if r.pin_only])
 check("run seattle: a taken-over listing keeps the marker lines the civic card renders",
@@ -330,17 +362,23 @@ stale_feat = {"features": [feature(dict(SEA_CC["features"][0]["attributes"], PMA
                                         NAME="South Park Community Center",
                                         LN_HOURS="Fri 6:30pm-10:30pm and Sat 3:30pm-8:30pm"), 47.528, -122.324)]}
 srows, sstats = run("seattle-cc", stale_feat, osm={})
+check("run seattle: a centre whose Late Night data contradicts its page is neither cancelled nor a complete "
+      "read of the programme (its page says the evenings happen)",
+      not LAST.cancelled and [u[0] for u in LAST.complete] == ["facility-hours:seattle-cc"], LAST.complete)
 check("run seattle: Late Night is skipped while the open data still says what contradicts the centre's page",
       [r for r in srows if r.recurring_days] and not [r for r in srows if not r.recurring_days]
       and sstats.get("Late Night skipped: open data contradicts the centre's page") == 1, dict(sstats))
 fixed_feat = {"features": [feature(dict(stale_feat["features"][0]["attributes"], LN_HOURS="Fri & Sat, 7pm-12am"),
                                    47.528, -122.324)]}
 frows, _ = run("seattle-cc", fixed_feat, osm={})
+check("run seattle: ...and is its own complete unit again once it reads true",
+      ("facility-hours:late-night", "south park community center|") in {(u[0], u[3]) for u in LAST.complete},
+      LAST.complete)
 check("run seattle: ...and comes back on its own the day the city corrects it",
       len([r for r in frows if not r.recurring_days]) == 6, len(frows))
 erows, estats = run("seattle-cc", {"features": []}, osm={"9": GONE})
-check("run seattle: an empty answer writes nothing (no claimed listing is rewritten as gone)",
-      not erows, dict(estats))
+check("run seattle: an empty answer writes nothing, cancels nothing and is not a complete read",
+      not erows and not LAST.cancelled and not LAST.complete and not estats.get("complete read"), dict(estats))
 
 rows, stats = run("nyc-aging-oac", NYC_ROWS, osm={})
 listed = [r for r in rows if not r.pin_only]
@@ -348,9 +386,10 @@ pins = [r for r in rows if r.pin_only]
 check("run nyc: 8 AM-4 PM weekdays, weekend closed",
       len(listed) == 1 and listed[0].recurring_days == {str(i): [["08:00", "16:00"]] for i in range(5)},
       listed and listed[0].recurring_days)
-check("run nyc: unreadable and missing hours are counted, not guessed, and not written",
+check("run nyc: unreadable and missing hours are counted, not guessed, not written, and cancelled",
       stats.get("excluded: unreadable time") == 1 and stats.get("excluded: no hours") == 1
-      and not pins and stats.get("refused, not written (own row)") == 2, dict(stats))
+      and not pins and stats.get("refused, cancelled (own row)") == 2
+      and sorted(w for _, w in LAST.cancelled) == ["facility no hours", "facility unreadable time"], dict(stats))
 check("run nyc: the name and the operator are tidied",
       listed[0].name == "ABSW Older Adult Center"
       and "Run by Association of Black Social Workers Inc." in listed[0].description, listed[0].name)
@@ -360,15 +399,152 @@ check("run nyc: an own row's phone and operator are sentences ../mapsee parseImp
       and "OpenStreetMap" not in listed[0].description, listed[0].description)
 
 rows, stats = run("cleveland-rec", CLE, osm={})
-check("run cleveland: a golf course is never written; a renovation is counted and not written",
+check("run cleveland: a golf course is never written nor cancelled; a renovation is cancelled",
       len(rows) == 1 and stats.get("excluded: not a centre (Facility_Type)") == 1
       and stats.get("excluded: closure") == 1
-      and "Clark Recreation Center" not in [r.name for r in rows], dict(stats))
+      and "Clark Recreation Center" not in [r.name for r in rows]
+      and [ev.name for ev, _ in LAST.cancelled] == ["Clark Recreation Center"], dict(stats))
 
 rows, stats = run("chicago-dfss-senior", {"features": []}, max_age_days=5)   # data 6 days old
 check("run: a source whose data is older than max_age_days is refused",
       not rows and any(k.startswith("source refused") for k in stats), dict(stats))
 
+
+# --- complete reads: what --retire-absent may compare -----------------------------
+units = {(u[0], u[3]): u for u in SEA_RUN.complete}
+std = units.get(("facility-hours:seattle-cc", None))
+lnu = units.get(("facility-hours:late-night", "laurelhurst community center|"))
+check("complete: a whole read marks the source's standing rows complete, from local midnight",
+      std is not None and std[1].isoformat() == "2026-10-05T00:00:00-07:00" and std[2] > std[1], std)
+check("complete: the Late Night programme is one unit per centre, over its own projection horizon",
+      lnu is not None and lnu[1] == std[1] and lnu[2].date() == date(2027, 1, 3) and len(units) == 2,
+      sorted(units))                                       # 2026-10-05 + late_night_days_ahead=90
+
+
+class PagedReader(FakeReader):
+    def __init__(self, pages):
+        super().__init__(None)
+        self.pages = list(pages)
+
+    def get(self, url, params=None, tries=3):
+        if params and "outFields" not in params and "$limit" not in params:
+            return super().get(url, params)
+        self.requests += 1
+        return self.pages.pop(0)
+
+
+short = Store()
+pstats = F.ingest(short, PagedReader([dict(SEA_CC, exceededTransferLimit=True),
+                                      {"features": [], "exceededTransferLimit": True}]),
+                  dict(by_key["seattle-cc"], osm={"1": LAU, "2": NG, "9": GONE}), CFG, F.today())
+check("partial: a read the server cut short is written but never marked complete",
+      short.rows and not short.complete and not pstats.get("complete read")
+      and any(k.startswith("read incomplete") for k in pstats), dict(pstats))
+check("partial: ...infers no 'gone' centre from it, but still cancels what the city says is closed",
+      F.osm_fingerprint("node/927614329") not in {e.fingerprint for e, _ in short.cancelled}
+      and F.osm_fingerprint("node/927614329") not in {r.fingerprint for r in short.rows}
+      and alki_fp in {e.fingerprint for e, _ in short.cancelled}, [e.name for e, _ in short.cancelled])
+notes = {}
+F.read_socrata(PagedReader([[{"latitude": "40.7", "longitude": "-73.9"}] * F.SOCRATA_LIMIT]),
+               {"url": "https://h/resource/abcd-1234.json"}, notes)
+check("partial: a Socrata answer as long as its $limit may have more, so it is partial", "partial" in notes, notes)
+
+# --- the breaker ------------------------------------------------------------------
+blank = {"features": [feature(dict(sea("Year Round", {}), PMAID=str(20 + i), NAME=f"Blank {i} Community Center"),
+                              47.6 + i / 100, -122.3) for i in range(6)]
+         + [feature(dict(sea("Year Round", {}), PMAID="1", NAME="Laurelhurst Community Center"), 47.659, -122.278)]}
+import contextlib as _ctx  # noqa: E402
+import io as _io  # noqa: E402
+_buf = _io.StringIO()
+with _ctx.redirect_stdout(_buf):
+    brows, bstats = run("seattle-cc", blank, osm={"1": LAU, "9": GONE})
+check("breaker: 7 of 8 centres refused in one read (a renamed hours field) cancels none and is not complete",
+      not LAST.cancelled and not LAST.complete and "::warning::" in _buf.getvalue()
+      and bstats.get("breaker: refused centres NOT cancelled (too many at once)") == 7, dict(bstats))
+check("breaker: ...and leaves the taken-over listings written as before, own rows unwritten",
+      sorted(r.fingerprint for r in brows) == sorted([F.osm_fingerprint("way/53589225"),
+                                                       F.osm_fingerprint("node/927614329")])
+      and bstats.get("refused, not written (own row; breaker)") == 6, [r.name for r in brows])
+
+dup = {"features": [SEA_CC["features"][3],
+                    feature(dict(SEA_CC["features"][3]["attributes"], OPEN_="Closed"), 47.5148, -122.2598)]}
+drows, dstats = run("seattle-cc", dup, osm={})
+check("duplicate: one centre listed open and closed in one read stays live (a duplicate is not a cancellation)",
+      len(drows) == 1 and not LAST.cancelled
+      and dstats.get("refused, but the same identity is live in this read (kept live)") == 1, dict(dstats))
+
+# --- a cancellation carries the identity the stored row has ------------------------
+# The sync finds a stored row ONLY by its fingerprint (events.external_id), so a
+# tombstone under any other key cancels nothing. Built through the real
+# EventStore: a day the city lists every centre open, then a day it does not.
+import tempfile  # noqa: E402
+from mapsee_ingest import EventStore  # noqa: E402
+import mapsee_supabase_sync as S  # noqa: E402
+TMP = tempfile.TemporaryDirectory()
+LN = dict(LN_LOCATION="Yes", LN_HOURS="Fri & Sat, 7pm-12am")
+fill = [feature(dict(sea("Year Round", {0: "9am-5pm"}), PMAID=str(40 + i), NAME=f"Filler {i} Community Center"),
+                47.55 + i / 100, -122.35) for i in range(12)]
+day1 = {"features": [
+    feature(dict(SEA_CC["features"][0]["attributes"]), 47.65917, -122.27786),               # Laurelhurst, OSM, LN
+    feature(dict(sea("Year Round", {4: "9am-7pm", 5: "9am-5pm"}), PMAID="3", NAME="Alki Community Center",
+                 OPEN_="Year-round", **LN), 47.5776, -122.407),                                # own, LN
+    feature(dict(sea("Year Round", {0: "9am-5pm"}), PMAID="4", NAME="Hutchinson Community Center",
+                 OPEN_="Year-round"), 47.5148, -122.2598),                                    # own
+    feature(dict(sea("Year Round", {0: "9am-5pm"}), PMAID="9", NAME="Old Hall Community Center",
+                 OPEN_="Year-round"), 47.5776, -122.4071)] + fill}                            # OSM
+day2 = {"features": [
+    feature(dict(SEA_CC["features"][0]["attributes"], OPEN_="Closed"), 47.65917, -122.27786),  # closed
+    feature(dict(day1["features"][1]["attributes"], OPEN_="Closed"), 47.5776, -122.407),        # closed
+    feature(dict(sea("Year Round", {0: "8am-45pm"}), PMAID="4", NAME="Hutchinson Community Center",
+                 OPEN_="Year-round"), 47.5148, -122.2598)] + fill}                              # unreadable; Old Hall gone
+OSM4 = {"1": LAU, "9": GONE}
+st1 = EventStore(os.path.join(TMP.name, "day1.json"))
+run("seattle-cc", day1, store=st1, osm=OSM4)
+st2 = EventStore(os.path.join(TMP.name, "day2.json"))
+_, s2 = run("seattle-cc", day2, store=st2, osm=OSM4)
+live_ids = {fp: (r["sources"][0]["source"], r["sources"][0]["source_id"]) for fp, r in st1.records.items()}
+tomb_ids = {fp: (t["source"], t["source_id"]) for fp, t in st2.tombstones.items()}
+evenings = {fp for fp, r in st1.records.items() if not r.get("recurring_days")
+            and r["venue_name"] in ("Laurelhurst Community Center", "Alki Community Center")}
+standing4 = {F.osm_fingerprint("way/53589225"), F._fp(F.SOURCE, "seattle-cc", "3"),
+             F._fp(F.SOURCE, "seattle-cc", "4"), F.osm_fingerprint("node/927614329")}
+check("identity: every cancellation's fingerprint, source and source_id are the live row's own",
+      tomb_ids and all(live_ids.get(fp) == ids for fp, ids in tomb_ids.items()),
+      {fp: (ids, live_ids.get(fp)) for fp, ids in tomb_ids.items() if live_ids.get(fp) != ids})
+check("identity: an own row closed, an own row unreadable, a taken-over listing closed and one gone are "
+      "all cancelled, with every Late Night evening of the two closed centres",
+      set(tomb_ids) == standing4 | evenings and len(evenings) == 12 and standing4 <= set(live_ids),
+      (len(tomb_ids), len(evenings)))
+check("identity: the real store counts them and nothing open is lost",
+      st2.stats["cancelled"] == 16 and s2.get("rows cancelled") == 16 and len(st2.records) == 12
+      and not set(st2.records) & set(st2.tombstones), (st2.stats, len(st2.records)))
+st1.save()
+st2.save()
+in1 = S.cancellation_inputs(os.path.join(TMP.name, "day1.json"))
+in2 = S.cancellation_inputs(os.path.join(TMP.name, "day2.json"))
+check("sync: the store's tombstones are the sync's cancellation targets",
+      set(S.cancellation_targets(in2, {})) == standing4 | evenings, len(S.cancellation_targets(in2, {})))
+check("sync: the standing unit holds every standing row; each Late Night unit only its own centre's evenings",
+      set(in1["units"]["facility-hours:seattle-cc"]) == standing4 | {r for r in st1.records if r not in evenings
+                                                                       and st1.records[r].get("recurring_days")}
+      and len(in1["units"]["facility-hours:late-night|alki community center|"]) == 6
+      and len(in1["units"]["facility-hours:late-night|laurelhurst community center|"]) == 6, sorted(in1["units"]))
+# Day 3: Alki's programme drops Saturday and Hutchinson leaves the data.
+day3 = {"features": [day1["features"][0],
+                     feature(dict(day1["features"][1]["attributes"], LN_HOURS="Fri, 7pm-12am"), 47.5776, -122.407),
+                     day1["features"][3]] + fill}
+st3 = EventStore(os.path.join(TMP.name, "day3.json"))
+run("seattle-cc", day3, store=st3, osm=OSM4)
+st3.save()
+man = os.path.join(TMP.name, "manifest.json")
+S.write_manifest(man, None, in1)
+from datetime import datetime as _dt, timezone as _tz  # noqa: E402
+absent, _, warn = S.absent_fingerprints(S.load_manifest(man), S.cancellation_inputs(os.path.join(TMP.name, "day3.json")),
+                                        _dt(2026, 10, 5, 8, tzinfo=_tz.utc))
+sat = {fp for fp in evenings if st1.records[fp]["venue_name"] == "Alki Community Center"
+       and date.fromisoformat(st1.records[fp]["start_local"][:10]).weekday() == 5}
+check("absence: an evening dropped from a centre's programme and an own centre gone from the data are retired",
+      set(absent) == sat | {F._fp(F.SOURCE, "seattle-cc", "4")} and len(sat) == 3 and not warn, (len(absent), warn))
 
 # --- reading ------------------------------------------------------------------------
 class Resp:
@@ -463,7 +639,6 @@ check("propose: a source with no placeable record proposes nothing instead of cr
                        lambda bbox: asked.append(bbox) or []) is None and not asked)
 
 # --- the shipped config ---------------------------------------------------------
-import mapsee_supabase_sync as S  # noqa: E402
 refs = [m["ref"] for s in CFG["sources"] for m in (s.get("osm") or {}).values() if m.get("mode") == "same"]
 check("config: no OSM element is claimed twice", len(refs) == len(set(refs)), len(refs))
 check("config: claimed_osm_refs reads exactly the 'same' entries", F.claimed_osm_refs(
@@ -475,8 +650,6 @@ check("config: a missing config claims nothing", F.claimed_osm_refs("/nonexisten
 # --- main's --propose-osm path --------------------------------------------------
 # It crashed with a NameError (`cs`) on the first source with a placeable centre,
 # after its Postpass query had been sent (review, 2026-10-05).
-import contextlib as _ctx  # noqa: E402
-import io as _io  # noqa: E402
 _real_ps = F.propose_source
 F.propose_source = lambda reader, src, fetch: {"way/1": {"mode": "same", "ref": "way/1"},
                                                 "node/2": {"mode": "colocated", "ref": "node/2"}}
@@ -493,6 +666,23 @@ finally:
     F.propose_source = _real_ps
 check("main --propose-osm prints each source's map and its counts, without crashing",
       _err is None and "2 centres" in _out and '"osm"' in _out, _err or _out[:300])
+
+# --- main's log line counts cancellations per source --------------------------------
+from collections import Counter as _Counter  # noqa: E402
+_real_ingest = F.ingest
+F.ingest = lambda store, reader, src, cfg, d: _Counter({"rows written": 5, "rows cancelled": 2,
+                                                         "complete read": 1, "cancelled standing rows": 2})
+try:
+    _buf = _io.StringIO()
+    with _ctx.redirect_stdout(_buf):
+        F.main(["--config", os.path.join(os.path.dirname(os.path.abspath(__file__)), "facility_hours_sources.json"),
+                "--dry-run", "--only", "phoenix"])
+    _out = _buf.getvalue()
+finally:
+    F.ingest = _real_ingest
+check("main: each source's line says how many rows it cancelled and whether the read was complete",
+      ": 5 rows, 2 cancelled (complete read) in 0 requests" in _out
+      and "dry run done" in _out and "5 rows, 2 cancelled" in _out.split("dry run done")[1], _out)
 
 print(f"\n{len(FAILED)} failed" if FAILED else "\nall passed")
 sys.exit(1 if FAILED else 0)

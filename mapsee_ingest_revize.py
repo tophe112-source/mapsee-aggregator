@@ -180,7 +180,7 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import EventStore, NormalizedEvent, make_fingerprint, looks_online_only
+from mapsee_ingest import EventStore, NormalizedEvent, make_fingerprint, looks_online_only, strip_notice
 
 USER_AGENT = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 DEFAULT_HORIZON_DAYS = 90
@@ -506,6 +506,41 @@ _NOT_REQUIRED_RX = re.compile(
 _NOT_GOVERNANCE_RX = re.compile(r"\bteen\s+advisory\s+(?:group|board|council)\b", re.I)
 # "Pick up a kit ... Make it there or take it home!" is a gathering with a kit.
 _KIT_ON_SITE_RX = re.compile(r"\bmake\s+it\s+(?:there|here|on[- ]site)\b", re.I)
+
+
+# A TITLE THAT CALLS AN EVENT OFF NAMES IT: "CANCELLED - Toddler Drop-In",
+# "Run Club - CANCELED", "Postponed: Fall Festival". The row we wrote under
+# the event's own title stays on the map unless the run tombstones THAT row's
+# fingerprint (EventStore.cancel), so called_off() gives the title back and
+# build_events builds the row exactly as it would a live one.
+# mapsee_ingest.strip_notice reads the separators; "CANCELLED TODAY- X"
+# (Glen Echo's form) is read here, since strip_notice wants a separator
+# straight after the word. "No meeting" and a closure name no event.
+_CALLED_OFF_TODAY = re.compile(r"^\W*(?:cancel+ed|postponed)\s+(?:today|tonight)\s*[-\u2013\u2014:|!*]+\s*", re.I)
+
+
+def called_off(title: Optional[str]) -> Optional[str]:
+    """The event's own title inside a "cancelled" title, or None."""
+    t = (title or "").strip()
+    cut = _CALLED_OFF_TODAY.sub("", t, count=1).strip()
+    cut = cut if cut != t else (strip_notice(t) or "")
+    if cut and re.search(r"\w", cut) and not REFUSALS[0][1].search(cut):
+        return cut
+    return None
+
+
+def _budget_spent() -> bool:
+    """True when this run's cap on NEW Photon lookups (mapsee_geo_budget) is
+    used up: a venue the geocoder then "did not find" was never asked, so the
+    read is not complete (its rows would read as gone)."""
+    try:
+        import mapsee_geo_budget as gb
+        if gb._MAX <= 0:
+            return False
+        with open(gb._FILE, encoding="utf-8") as fh:
+            return int(json.load(fh).get("n", 0)) >= gb._MAX
+    except Exception:  # noqa: BLE001 - no file yet: nothing spent
+        return False
 
 
 def refusal(title: str, desc: str, site: Dict[str, Any]) -> Optional[str]:
@@ -872,9 +907,22 @@ def closure_days(site: Dict[str, Any], rows: List[Dict[str, Any]], tz, lo: datet
 
 
 def build_events(site: Dict[str, Any], rows: List[Dict[str, Any]], now_local: datetime,
-                 horizon_end: datetime, geocode: Optional[Callable[[str], Tuple[Any, Any]]] = None
+                 horizon_end: datetime, geocode: Optional[Callable[[str], Tuple[Any, Any]]] = None,
+                 cancelled: Optional[List[Tuple[NormalizedEvent, str]]] = None,
+                 seen: Optional[List[str]] = None
                  ) -> Tuple[List[NormalizedEvent], Dict[str, int], Dict[str, int]]:
-    """(events, refused-by-reason, notes). Pure apart from `geocode`."""
+    """(events, refused-by-reason, notes). Pure apart from `geocode`.
+
+    `cancelled`, when given, collects (row, reason) for occurrences the town
+    says are off - a called-off title (called_off), a "no session on 11/27"
+    day, a host session on a closure day - each built exactly as the live
+    row, so its fingerprint is that row's events.external_id.
+
+    `seen`, when given, collects the fingerprints of occurrences the town
+    LISTS that the GEOCODER could not place (no match, a far answer): the ics
+    geocoder answers (None, None) for a network error as for a miss and does
+    not cache it, so a 502 must not read as every session at that venue gone
+    (EventStore.mark_seen; the fingerprint holds no coordinates)."""
     tz = _tz(site.get("timezone"))
     slug = site_slug(site)
     cals: Dict[str, str] = site.get("calendars") or {}
@@ -927,9 +975,15 @@ def build_events(site: Dict[str, Any], rows: List[Dict[str, Any]], now_local: da
         if not occ:
             continue
         why = refusal(title, desc, site)
+        off = None
+        if why == "cancelled" and cancelled is not None:
+            live = called_off(title)
+            if live and refusal(live, desc, site) is None:
+                off, title = f"called off: {title}"[:80], live
         if why:
             refuse(why, len(occ))
-            continue
+            if off is None:
+                continue
         loc_raw = clean_text(row.get("location"), 300).replace("\n", ", ")
         if loc_raw and re.search(r"\b(?:zoom|online|virtual|webinar|teams)\b", loc_raw, re.I) \
                 and not re.search(r"\d", loc_raw) and not re.search(r"\b(?:and|&|\+)\b", loc_raw):
@@ -961,9 +1015,14 @@ def build_events(site: Dict[str, Any], rows: List[Dict[str, Any]], now_local: da
                         lat = lon = None
                         why = "the geocoder answered outside the town's radius"
                         note(f"  far answer for {loc_raw[:60]!r}: {km:.0f} km", len(occ))
+        unplaced = False
         if lat is None or lon is None:
-            note(f"unplaced: {why}", len(occ))
-            continue
+            if off is None:
+                note(f"unplaced: {why}", len(occ))
+            if seen is None or off is not None or why not in (
+                    "location not found by the geocoder", "the geocoder answered outside the town's radius"):
+                continue
+            unplaced = True                              # still listed: built for its fingerprint only
         venue_name = (venue or {}).get("name") or parts["venue"] or parts["street"] or loc_raw[:120]
         street = (venue or {}).get("address") or parts["street"]
         city = (venue or {}).get("city") or parts["city"] or site.get("city")
@@ -983,11 +1042,20 @@ def build_events(site: Dict[str, Any], rows: List[Dict[str, Any]], now_local: da
                 break
         is_host = cal in host_cals and not (not_host and re.search(not_host, title, re.I))
         for s, e in occ:
+            # The town's word that THIS occurrence is off. Skipped as before,
+            # and, when the caller collects them, tombstoned: a "no session"
+            # line or a closure row added after the session was written would
+            # otherwise leave it on the map until its date passed.
+            gone = off
             if (s.month, s.day) in skip_days:
-                note("skipped: the description says no session that day")
-                continue
-            if is_host and s.date() in closed:
-                note(f"skipped: the town is closed that day ({closed[s.date()]})")
+                if off is None:
+                    note("skipped: the description says no session that day")
+                gone = gone or "no session that day (the description)"
+            elif is_host and s.date() in closed:
+                if off is None:
+                    note(f"skipped: the town is closed that day ({closed[s.date()]})")
+                gone = gone or f"town closed: {closed[s.date()]}"[:80]
+            if gone and cancelled is None:
                 continue
             day_iso = s.strftime("%Y-%m-%d")
             whole_day = all_day or (s.strftime("%H:%M") == "00:00" and e is not None
@@ -995,7 +1063,8 @@ def build_events(site: Dict[str, Any], rows: List[Dict[str, Any]], now_local: da
             if not whole_day and e is not None:
                 span_h = (e - s).total_seconds() / 3600
                 if SPAN_REFUSE_HOURS <= span_h < 24:
-                    refuse(f"a {SPAN_REFUSE_HOURS}-24 h span, not a session")
+                    if not gone:
+                        refuse(f"a {SPAN_REFUSE_HOURS}-24 h span, not a session")
                     continue
             if whole_day:
                 start_local, start_utc, end_utc = day_iso, None, None
@@ -1026,7 +1095,14 @@ def build_events(site: Dict[str, Any], rows: List[Dict[str, Any]], now_local: da
             )
             ev.fingerprint = make_fingerprint(f"{title} {hm}" if hm != "allday" else title,
                                               day_iso, venue_name, city)
-            events.append(ev)
+            if unplaced:
+                if not gone:
+                    seen.append(ev.fingerprint)
+                continue
+            if gone:
+                cancelled.append((ev, gone))
+            else:
+                events.append(ev)
     return events, refused, notes
 
 
@@ -1121,12 +1197,23 @@ def main(argv=None) -> int:
             failed += 1
             print(f"[revize] {label}: FAILED - {type(exc).__name__}: {exc}", flush=True)
             continue
+        # A venue the geocoder could not be ASKED (this run's budget spent) is
+        # not a venue it could not find: counted, so the read is not complete.
+        unasked = [0]
+        offs: List[Tuple[NormalizedEvent, str]] = []
+        seen: List[str] = []
         try:
+            geocoder = make_geocoder(session, site)
+
+            def geocode(loc: str, _g=geocoder, _n=unasked):
+                got = _g(loc)
+                if (got[0] is None or got[1] is None) and _budget_spent():
+                    _n[0] += 1
+                return got
             tz = _tz(site.get("timezone"))
             now_local = _now_local(tz)
             horizon_end = now_local + timedelta(days=int(site.get("horizon_days") or a.horizon_days))
-            events, refused, notes = build_events(site, rows, now_local, horizon_end,
-                                                  make_geocoder(session, site))
+            events, refused, notes = build_events(site, rows, now_local, horizon_end, geocode, offs, seen)
         except Exception as exc:                        # noqa: BLE001
             failed += 1
             print(f"[revize] {label}: FAILED building rows - {type(exc).__name__}: {exc}", flush=True)
@@ -1142,11 +1229,37 @@ def main(argv=None) -> int:
                 f"{n} {w}" for w, n in sorted(refused.items(), key=lambda kv: -kv[1])), flush=True)
         for w, n in sorted(notes.items(), key=lambda kv: -kv[1]):
             print(f"[revize] {label}: {n} {w}", flush=True)
-        print(f"[revize] {label}: kept {len(events)} occurrence(s)", flush=True)
+        # THE WHOLE CALENDAR WAS READ: one JSON list per site, every row of it
+        # built, and no venue left unplaced because the geocoding budget ran
+        # out. Then an occurrence the last complete read wrote and this one did
+        # not is gone from the town's calendar (an EXDATE added, a row deleted)
+        # and mapsee_supabase_sync --retire-absent may cancel it. And every
+        # configured calendar answered with rows: an empty list or a renamed
+        # calendar is not a town that called everything off, and the sync's
+        # breaker cannot tell - it allows max(3, 10%) gone, which is ALL of
+        # Pacific's 5 rows or Olympia's 1 (2026-10-05).
+        silent = sorted(c for c in (site.get("calendars") or {}) if not read.get(c))
+        complete = unasked[0] == 0 and not silent
+        print(f"[revize] {label}: kept {len(events)} occurrence(s); cancelled {len(offs)} the town called off "
+              f"({sum(1 for _e, w in offs if w.startswith('called off'))} by title, "
+              f"{sum(1 for _e, w in offs if w.startswith('town closed'))} on a closure day, "
+              f"{sum(1 for _e, w in offs if w.startswith('no session'))} on a no-session day); read "
+              + ("COMPLETE" if complete else "NOT complete (" + "; ".join(
+                  ([f"{unasked[0]} venue(s) not geocoded: budget spent"] if unasked[0] else [])
+                  + ([f"no rows from {', '.join(silent)}"] if silent else [])) + ")"),
+              flush=True)
         kept_total += len(events)
         if store is not None:
             for ev in events:
                 store.upsert(ev)
+            for ev, why in offs:
+                store.cancel(ev, why, notice=True)     # the town's text, never a status flag
+            for fp in seen:
+                store.mark_seen(f"revize:{site_slug(site)}", fp)
+            if complete:
+                # The wall clock the window was read in, made exact.
+                zone = (lambda d: d.replace(tzinfo=tz)) if tz else (lambda d: d)
+                store.mark_complete(f"revize:{site_slug(site)}", zone(now_local), zone(horizon_end))
             store.save()                                 # after each site: a cancelled step keeps the work
         elif a.dump:
             from dataclasses import asdict

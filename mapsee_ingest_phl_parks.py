@@ -811,6 +811,21 @@ def ingest(store: EventStore, reader: Reader, src: Dict[str, Any], cfg: Dict[str
     for ev in evs:
         store.upsert(ev)
     stats["rows written"] = len(evs)
+    # THE WHOLE FINDER WAS READ: every query above either answered whole (CARTO
+    # SQL has no paging; a failure raises and never reaches here) or the source
+    # failed. So a session the last complete read wrote and this one did not
+    # is gone from the City's timetable - a programme made inactive or private,
+    # a schedule cut short, a City holiday added - and mapsee_supabase_sync
+    # --retire-absent may cancel it. The Finder carries no per-session
+    # cancellation of its own (registration_status "Closed" is a SIGN-UP that
+    # closed, and is refused as such), so absence is the only signal there is.
+    if not schedules:
+        # No schedule at all in 90 days is a broken query or a rebuilt table,
+        # not a City that called every session off.
+        _bump(stats, "read NOT complete: no schedules in the window")
+        return stats
+    store.mark_complete(src.get("source", "phl-parks"), today, horizon)
+    stats["read complete (absence may cancel)"] = 1
     return stats
 
 
