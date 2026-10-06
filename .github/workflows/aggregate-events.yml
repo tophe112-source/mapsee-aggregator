@@ -278,6 +278,10 @@ jobs:
       # restored to a SIDE path so actions/cache can never overwrite it — it is a
       # speed optimization for the other adapters (which fingerprint on venue
       # TEXT, so a coordinate that drifts there only nudges a pin), not identity.
+      # rec_absence_manifest.json and facility_hours_manifest.json are the rec
+      # group's ABSENCE baselines: the fingerprints each timetable source wrote
+      # at its last complete read (mapsee_supabase_sync --retire-absent). An
+      # evicted cache costs one run of absence, never a guess.
       - name: Restore warm geocode cache (Photon is ~1.1s/venue — persist across runs)
         uses: actions/cache/restore@v4
         with:
@@ -287,6 +291,8 @@ jobs:
             ics_cursor.json
             jsonld_cursor.json
             tribe_cursor.json
+            rec_absence_manifest.json
+            facility_hours_manifest.json
           key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             geocode-cache-feeds-${{ matrix.group }}-
@@ -993,7 +999,9 @@ jobs:
       # do, --only-new would never write that change, and --skip-unchanged
       # writes only what moved (0 of 419 standing rows differ day to day once
       # "facility-hours:" is in CIVIC_TIMETABLE_SOURCES). --max-minutes 3 and
-      # the sync of ~455 rows fit well inside the 10-minute cap.
+      # the sync of ~455 rows fit well inside the 10-minute cap. --retire-absent
+      # cancels + hides a centre a complete read no longer lists, against
+      # facility_hours_manifest.json (a standing row never expires on its own).
       - name: Import civic facility opening hours (city open data)
         id: ingest_facility_hours
         if: matrix.group == 'rec'
@@ -1002,7 +1010,7 @@ jobs:
         run: |
           if [ -f facility_hours_sources.json ]; then
             python mapsee_ingest_facility_hours.py --config facility_hours_sources.json --store facility_hours_events.json --max-minutes 3
-            python mapsee_supabase_sync.py --store facility_hours_events.json --skip-unchanged
+            python mapsee_supabase_sync.py --store facility_hours_events.json --skip-unchanged --retire-absent --manifest facility_hours_manifest.json
           else
             echo "no facility_hours_sources.json - skipping civic facility hours"
           fi
@@ -1024,8 +1032,13 @@ jobs:
           [ "$(date -u +%u)" = "3" ] && ONLY_NEW=""   # Wednesday refresh — see the first sync step
           [ "${{ github.event.inputs.full_refresh }}" = "true" ] && ONLY_NEW=""
           echo "sync mode: ${ONLY_NEW:-FULL REFRESH (updates all events)}"
+          # The rec timetables are read WHOLE every run (~90 days ahead), so a
+          # session gone from a complete read is called off; the sync cancels
+          # it against the last complete read, behind a circuit breaker.
+          ABSENT=""
+          [ "${{ matrix.group }}" = "rec" ] && ABSENT="--retire-absent --manifest rec_absence_manifest.json"
           if [ -f feeds_events.json ]; then
-            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW
+            python mapsee_supabase_sync.py --store feeds_events.json --skip-unchanged $ONLY_NEW $ABSENT
           else
             echo "no feeds ingested — nothing to sync"
           fi
@@ -1075,6 +1088,8 @@ jobs:
             ics_cursor.json
             jsonld_cursor.json
             tribe_cursor.json
+            rec_absence_manifest.json
+            facility_hours_manifest.json
           key: geocode-cache-feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Retain the feed store and step outcomes
         if: always()
@@ -1090,10 +1105,15 @@ jobs:
           name: feeds-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
           retention-days: 7
           # facility_hours_events.json is the rec group's second store, synced
-          # in its own step; kept so a failed sync there can be replayed.
+          # in its own step; kept so a failed sync there can be replayed. The
+          # two absence manifests are the baselines the sync compared against:
+          # the Actions cache cannot be downloaded, so after an absence misfire
+          # this is the only place to see what it thought had gone.
           path: |
             feeds_events.json
             facility_hours_events.json
+            rec_absence_manifest.json
+            facility_hours_manifest.json
             feed-steps.json
       - name: Fail when an import or sync failed
         if: ${{ always() && contains(steps.*.outcome, 'failure') }}

@@ -93,6 +93,35 @@ class WorkflowContracts(unittest.TestCase):
                          "${{ (matrix.group == 'rec' || matrix.group == 'civic') && 60 || 20 }}")
         self.assertIn("contains(steps.*.outcome, 'failure')", steps[-1]['if'])
 
+    def test_rec_timetables_retire_absent_sessions_against_a_cached_manifest(self):
+        # A community-centre session gone from a COMPLETE read is cancelled
+        # (mapsee_supabase_sync --retire-absent). The baseline lives in the
+        # Actions cache like the cursors: restored and saved always(), and only
+        # the rec group's syncs compare against it.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        steps = workflow['jobs']['feeds']['steps']
+        restore = next(s for s in steps if s.get('uses') == 'actions/cache/restore@v4')
+        save = next(s for s in steps if s.get('uses') == 'actions/cache/save@v4')
+        for name in ('rec_absence_manifest.json', 'facility_hours_manifest.json'):
+            self.assertIn(name, restore['with']['path'])
+            self.assertIn(name, save['with']['path'])
+        self.assertEqual(save['if'], 'always()')
+        sync = next(s for s in steps if s.get('id') == 'sync')['run']
+        self.assertIn('[ "${{ matrix.group }}" = "rec" ] && ABSENT="--retire-absent --manifest '
+                      'rec_absence_manifest.json"', sync)
+        self.assertIn('--skip-unchanged $ONLY_NEW $ABSENT', sync)
+        hours = next(s for s in steps if s.get('id') == 'ingest_facility_hours')['run']
+        self.assertIn('python mapsee_supabase_sync.py --store facility_hours_events.json --skip-unchanged '
+                      '--retire-absent --manifest facility_hours_manifest.json', hours)
+        self.assertNotIn('--only-new', hours)
+        # Nowhere else: absence is only meaningful for a source read whole.
+        text = (ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8')
+        flags = [line for line in text.splitlines()
+                 if '--retire-absent' in line and not line.strip().startswith('#')]
+        self.assertEqual(len(flags), 2)
+        tests = (ROOT / '.github/workflows/tests.yml').read_text(encoding='utf-8')
+        self.assertIn('run: python test_cancellations.py', tests)
+
     def test_cursor_upload_retries_without_silently_losing_progress(self):
         for name in ('osm-food', 'osm-secondhand', 'osm-amenities'):
             workflow = yaml.safe_load((ROOT / f'.github/workflows/{name}.yml').read_text(encoding='utf-8'))

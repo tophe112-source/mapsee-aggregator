@@ -39,6 +39,8 @@ python test_retire_perday.py        # collapsing per-day rows never empties a ve
 python test_curate_reapply.py       # putting a finished curation run back on a main that moved
 python test_curate_coverage.py      # the report that AIMS the loop: real countries, real targets
 python test_cancelled_events.py     # a cancelled event must not arrive, and must leave once it is called off
+python test_cancellations.py        # the row we already wrote leaves too: tombstones, absence from a whole read, un-cancel only ours
+python test_platform_cancellations.py  # Meetup, Eventbrite, DICE, Venuepilot, SeatGeek, AXS, Moshtix: the tombstone carries the stored row's fingerprint
 python test_ingest_meetup.py        # a Zoom call is not a place, and a hybrid service still is
 python test_ingest_bibliocommons.py # a date filter the gateway ignores, stock image tiles, two storytimes in one day
 python test_ingest_toronto_rec.py   # one row per stretch and none across a gap, two age bands in two rows, a free sentence only where toronto.ca says free
@@ -60,11 +62,17 @@ python test_gcal.py                 # a Google calendar read through the Calenda
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python catalog_curate.py robots     # which configured requests robots.txt refuses (report only, network)
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
+python mapsee_uncancel.py --since 2026-10-06T06:00:00Z   # report the pipeline's own cancellations since then; --apply lifts them
 ```
 
-The 54 test scripts are the CI gate (`tests.yml`). They print one line per
+The 72 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
 
 `MAPSEE_TODAY=YYYYMMDD` fixes "today" for reproducible curation runs.
+
+`mapsee_supabase_sync.py --dry-run` also prints what the store would cancel:
+its tombstones, and with `--retire-absent --manifest PATH` the sessions a
+complete read no longer lists, against that manifest. Nothing is sent and the
+manifest is not rewritten.

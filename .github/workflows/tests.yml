@@ -482,6 +482,23 @@ jobs:
       - name: A cancelled event must not arrive, and must leave once called off
         run: python test_cancelled_events.py
 
+      # ...and the row we ALREADY wrote comes off too (owner, 2026-10-05: "we
+      # don't want users to go to an event or center that is closed"). A
+      # tombstone in the store cancels + hides its row; a community-centre
+      # session gone from a WHOLE read is cancelled behind a circuit breaker;
+      # a row listed live again is lifted, but only one this pipeline
+      # cancelled (cancelled_at), never a take-down; an --only-new day writes a
+      # time change. Every write carries claimed_at=is.null in its filter.
+      - name: A row the source called off, or stopped listing, leaves the map
+        run: python test_cancellations.py
+
+      # The platforms' half: Meetup, Eventbrite, DICE, Venuepilot, SeatGeek, AXS
+      # and Moshtix build a cancelled listing's tombstone with the SAME
+      # fingerprint, source and source_id as the live row they stored, and never
+      # both upsert and cancel one listing. The only gate on those seven.
+      - name: A platform that calls an event off tombstones the row we stored
+        run: python test_platform_cancellations.py
+
       # "Has coordinates" was the whole online test, and an organiser can walk
       # through it: file a Zoom event as PHYSICAL, type anything into the venue
       # box, and it arrives with a latitude. The expensive direction to get
