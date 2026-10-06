@@ -31,6 +31,7 @@ Typical pipeline (cron):
 """
 from __future__ import annotations
 import argparse
+import functools
 import html
 import json
 import os
@@ -1436,6 +1437,15 @@ def _tz_for(lat, lon):
         lon = float(lon)
     except (TypeError, ValueError):
         return None
+    return _tz_at(lat, lon)
+
+
+# Cached per point: a community centre's hundreds of sessions share one, and the
+# daily time-change check (time_changed) asks for every stored naive-time row.
+# Measured on 20,000 naive rows: 3.85 s uncached (~19 s per 100k) with
+# timezonefinder; see the note in docs/agents/running.md.
+@functools.lru_cache(maxsize=65536)
+def _tz_at(lat: float, lon: float):
     name = None
     try:
         from timezonefinder import TimezoneFinder
@@ -2159,8 +2169,17 @@ def upsert(rows: List[Dict[str, Any]], url: str, key: str) -> Tuple[int, int, in
 _LEET = str.maketrans("@0135$!7", "aoiessit")
 
 
-def fetch_import_state(session, url: str, key: str, candidates):
+class StateColumnMissing(RuntimeError):
+    """The server refused a STATE_FIELDS column it has not got (yet)."""
+
+
+def fetch_import_state(session, url: str, key: str, candidates, fields=(), detail=None):
     """Read existence AND ownership only for the imports this run may write.
+
+    `fields` adds columns to the same bounded reads (STATE_FIELDS: the times and
+    the hidden/cancelled stamps), and `detail` collects them per external_id.
+    A column the server leaves out is simply absent from `detail`, which every
+    caller reads as "unknown, do nothing".
 
     A small feed must not scan the global catalog. Each indexed IN query holds
     at most 100 IDs and 6 KB of URL. Paging is confined to that bounded set and
@@ -2177,7 +2196,7 @@ def fetch_import_state(session, url: str, key: str, candidates):
     def endpoint(chunk, offset=0):
         # JSON quoting also escapes quotes/backslashes in PostgREST IN values.
         values = ",".join(json.dumps(eid, ensure_ascii=False) for eid in chunk)
-        params = {"external_source": "eq.mapsee", "select": "external_id,claimed_at",
+        params = {"external_source": "eq.mapsee", "select": ",".join(("external_id", "claimed_at") + tuple(fields)),
                   "external_id": f"in.({values})", "order": "external_id.asc",
                   "limit": str(len(chunk)), "offset": str(offset)}
         return base + "?" + urllib.parse.urlencode(params)
@@ -2198,6 +2217,8 @@ def fetch_import_state(session, url: str, key: str, candidates):
         while expected_count is None or offset < expected_count:
             try:
                 response = session.get(endpoint(chunk, offset), headers=headers, timeout=30)
+                if response.status_code == 400 and fields and _missing_column(response):
+                    raise StateColumnMissing("unknown state column")
                 if response.status_code not in (200, 206):
                     raise ValueError(f"HTTP {response.status_code}")
                 rows = response.json()
@@ -2234,13 +2255,27 @@ def fetch_import_state(session, url: str, key: str, candidates):
                         raise ValueError("unexpected or repeated identity")
                     seen.add(eid)
                     state[eid] = row["claimed_at"] is not None
+                    if detail is not None:
+                        detail[eid] = {f: row[f] for f in fields if f in row}
                 offset += len(rows)
+            except StateColumnMissing:
+                raise
             except Exception:
                 # Do not echo request exceptions: their URL/headers can carry
                 # credentials. A retry of this feed is safe; a partial guard is not.
                 raise RuntimeError("Could not verify imported event ownership; no events were written. "
                                    "Retry this sync when the database is available.") from None
     return state
+
+
+def _missing_column(response) -> bool:
+    """Postgres 42703 / PostgREST PGRST204: a selected column does not exist."""
+    try:
+        body = response.json()
+    except Exception:                                 # noqa: BLE001
+        return False
+    return isinstance(body, dict) and (body.get("code") in ("42703", "PGRST204")
+                                       or "does not exist" in str(body.get("message", "")))
 
 
 # --------------------------------------------------------------------------- #
@@ -2332,6 +2367,445 @@ def rekey_legacy(session, url: str, key: str, pairs: Dict[str, List[str]]):
           f"hid {sum(hide_ok)} of {len(hides)} whose new key already had a row, left {left_claimed} "
           f"claimed, held back {len(held)} whose move failed.", flush=True)
     return moved, held
+
+
+# --------------------------------------------------------------------------- #
+# A ROW THE SOURCE HAS CALLED OFF (owner, 2026-10-05: "we don't want users to go
+# to an event or center that is closed")
+# --------------------------------------------------------------------------- #
+# An upsert cannot delete, so until now a cancellation the adapters could SEE
+# only stopped the record being written again: the row from last week stayed on
+# the map. Three things now reach it, all here, all on unclaimed imports only:
+#
+#   * a TOMBSTONE in the store (EventStore.cancel, a notice title, Ticketmaster's
+#     status): the publisher said so. Applied in every run.
+#   * ABSENCE (--retire-absent --manifest PATH): a source whose whole timetable
+#     was read (EventStore.mark_complete) stopped listing a session it listed at
+#     the last complete read. For the community-centre feeds that IS how a pool
+#     closure or a called-off class shows up.
+#   * UN-CANCEL: a fingerprint a source READ WHOLE this run writes live again,
+#     whose row still carries the two stamps we wrote.
+#
+# THE MARKER IS TWO EQUAL STAMPS. ../mapsee's cancel_event sets cancelled_at with
+# hidden_at, and so does this sync, in ONE PATCH with ONE value, never re-stamped
+# afterwards. Every other writer of hidden_at on an imported row
+# (mapsee_prune_cancelled, the retire_* scripts, rekey_legacy, an organizer
+# take-down) sets hidden_at ALONE. So a row whose cancelled_at and hidden_at are
+# the same instant is ours and untouched; a take-down or a prune that lands on top
+# of our cancellation changes hidden_at, and the lift (which names both exact
+# stamps in its PATCH filter) can no longer match it - whatever procedure the
+# person followed. A row we cancelled that something later UN-hides (a retire
+# script's --unhide) is cancelled again, both stamps anew, while a tombstone still
+# says cancelled. Every write below carries
+# its conditions in the PATCH filter itself (claimed_at=is.null, and the state
+# it expects), so a claim that lands between our read and our write is never
+# overwritten: the database evaluates the condition, not this process.
+
+# The import-state read also returns these, in the same bounded chunks (no
+# extra request): what a daily run needs to see a time change or a cancellation.
+STATE_FIELDS = ("starts_at", "ends_at", "hidden_at", "cancelled_at")
+
+# A cancellation younger than this is never undone by a live listing. Only a
+# source read WHOLE this run can lift one at all (main), and only a row whose two
+# stamps are still the ones we wrote (import_cancelled), so this hold is no longer
+# what stops two stores flapping a row: it keeps a session that blinked out of
+# one complete read and back into the next from bouncing on and off the map
+# within a day. 30 hours = a day plus the daily run's ~5 h spread (06:17 to
+# ~11:20 UTC) plus margin. The price: a real relist returns after ~2 days.
+UNCANCEL_AFTER = timedelta(hours=30)
+
+# Absence never reaches a session starting within 2 hours (a run is not a
+# promise about the next hour, and a same-day change is the source's to make in
+# its own words), nor the last day of either read's window (where two reads'
+# horizons, computed on different days, disagree by construction).
+ABSENT_NEAR = timedelta(hours=2)
+ABSENT_FAR_MARGIN = timedelta(days=1)
+# More than this share of a source's in-window sessions gone at once is a
+# glitch or a schedule rebuild, not a wave of cancellations: cancel none.
+ABSENT_MAX_SHARE = 0.10
+ABSENT_MAX_FLOOR = 3
+# ...and a WHOLE unit emptied at once is the same glitch at a small scale: the
+# floor above let a "complete" read listing none of a unit's 1-3 sessions cancel
+# them all (revize:olympia holds 1 in-window session, revize:bladensburg 2,
+# 2026-10-05). From this many sessions up, all of them gone trips the breaker.
+ABSENT_WHOLE_UNIT_MIN = 2
+# A failed cancellation write is retried this many times (a transient 503 must
+# not cost the night: patch_imports used to give up on the first answer).
+PATCH_TRIES = 3
+
+
+def _utc(value) -> Optional[datetime]:
+    """An aware UTC instant, or None when the stamp names no instant."""
+    if not value:
+        return None
+    s = str(value).strip()
+    if len(s) == 10:
+        return None
+    try:
+        d = datetime.fromisoformat(s.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return d.astimezone(timezone.utc) if d.tzinfo else None
+
+
+def import_cancelled(detail: Optional[Dict[str, Any]], now: Optional[datetime] = None) -> bool:
+    """This pipeline cancelled the stored row, nothing has touched it since, and
+    long enough ago to lift (see UNCANCEL_AFTER).
+
+    OURS MEANS BOTH STAMPS ARE THE SAME INSTANT. apply_cancellations writes
+    cancelled_at and hidden_at in one PATCH with one value, and nothing re-stamps
+    either afterwards. A take-down (README Conduct), a prune or a retire script
+    sets hidden_at alone, so a row hidden again on top of our cancellation - with
+    or without cancelled_at cleared - no longer has equal stamps and is never
+    lifted. It does not depend on anyone remembering a procedure."""
+    if not detail or not detail.get("cancelled_at") or not detail.get("hidden_at"):
+        return False
+    at, hid = _utc(detail["cancelled_at"]), _utc(detail["hidden_at"])
+    return (at is not None and at == hid
+            and at <= (now or datetime.now(timezone.utc)) - UNCANCEL_AFTER)
+
+
+def time_changed(rec: Dict[str, Any], detail: Optional[Dict[str, Any]]) -> bool:
+    """The stored row's starts_at/ends_at differ from what to_row would write.
+
+    Before build_rows, on purpose: it decides whether an --only-new run keeps a
+    stored row, so it must cost no geocoding and no extra read. It FAILS TOWARD
+    KEEPING NOTHING: a value either side cannot turn into an instant (a naive
+    time with no coordinates yet, a missing column) means "leave it to
+    Wednesday", because the opposite default would rewrite every stored row
+    daily. A standing row's window is rolled by the database (skip_cols)."""
+    if not detail or "starts_at" not in detail or rec.get("recurring_days"):
+        return False
+    start = rec.get("start_utc") or rec.get("start_local")
+    end = rec.get("end_utc") or rec.get("end_local")
+    if not start:
+        return False
+    lat, lon = rec.get("latitude"), rec.get("longitude")
+    if _utc(start) is None or (end and _utc(end) is None):
+        if lat is None or lon is None:
+            return False                              # the geocoder places it later
+        start, end = _to_utc_if_naive(start, lat, lon), _to_utc_if_naive(end, lat, lon)
+        start, end = _anchor_all_day(start, end, lat, lon)
+    ours, theirs = _utc(start), _utc(detail.get("starts_at"))
+    if ours is None or theirs is None:
+        return False
+    if ours != theirs:
+        return True
+    if end and "ends_at" in detail:                   # only a REAL end; a default follows start
+        ours, theirs = _utc(end), _utc(detail.get("ends_at"))
+        return ours is not None and theirs is not None and ours != theirs
+    return False
+
+
+def cancellation_inputs(store_path: str) -> Dict[str, Any]:
+    """The store's tombstones and complete reads, and for each complete unit the
+    fingerprints it holds now. Empty on a store that has neither (one byte scan,
+    like legacy_pairs), so a store nothing cancelled costs no second parse."""
+    out = {"tombstones": {}, "complete": {}, "live": set(), "units": {}, "standing": {}, "seen": set()}
+    try:
+        raw = open(store_path, "rb").read()
+        if b'"tombstones"' not in raw and b'"complete_reads"' not in raw:
+            return out
+        data = json.loads(raw.decode("utf-8"))
+    except Exception:
+        return out
+    out["tombstones"] = {t["fingerprint"]: t for t in data.get("tombstones") or []
+                         if isinstance(t, dict) and t.get("fingerprint")}
+    complete = data.get("complete_reads")
+    out["complete"] = complete if isinstance(complete, dict) else {}
+    # Listed by the source, not written by us (EventStore.mark_seen): never absent.
+    out["seen"] = {fp for fp in data.get("seen") or [] if isinstance(fp, str)}
+    units = {u: {} for u in out["complete"]}
+    standing = {u: set() for u in out["complete"]}
+    # A record belongs to a unit when one of its source refs carries the unit's
+    # source and a source_id starting with its id_prefix (a merged record can
+    # belong to several). Indexed by source: a rec group has ~30 units.
+    by_source: Dict[Any, List[Tuple[str, str]]] = {}
+    for unit, read in out["complete"].items():
+        if isinstance(read, dict):
+            by_source.setdefault(read.get("source"), []).append((unit, str(read.get("id_prefix") or "")))
+    for rec in data.get("events") or []:
+        fp = rec.get("fingerprint") if isinstance(rec, dict) else None
+        if not fp:
+            continue
+        out["live"].add(fp)
+        for ref in rec.get("sources") or []:
+            if not isinstance(ref, dict):
+                continue
+            for unit, prefix in by_source.get(ref.get("source"), ()):
+                if str(ref.get("source_id") or "").startswith(prefix):
+                    units[unit][fp] = rec.get("start_utc") or rec.get("start_local")
+                    if rec.get("recurring_days"):
+                        standing[unit].add(fp)
+    out["units"], out["standing"] = units, standing
+    return out
+
+
+def load_manifest(path: str) -> Optional[Dict[str, Any]]:
+    """The last complete reads' fingerprints, or None. No manifest means no
+    absence this run: a guess about what was there is never a reason to hide."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            data = json.load(fh)
+    except FileNotFoundError:
+        return None
+    except Exception as error:                        # noqa: BLE001
+        print(f"::warning::Absence: manifest {path} unreadable ({type(error).__name__}); "
+              f"no absence this run, and a fresh one is written.", flush=True)
+        return None
+    units = data.get("units") if isinstance(data, dict) else None
+    return units if isinstance(units, dict) else None
+
+
+def write_manifest(path: str, previous: Optional[Dict[str, Any]], inputs: Dict[str, Any]) -> int:
+    """Replace the entries of the units read whole this run; keep the others.
+
+    A session the source still LISTED but we could not write this run (seen)
+    keeps its previous entry, so the day it really goes, absence still sees it."""
+    units = dict(previous or {})
+    seen = inputs.get("seen") or set()
+    for unit, read in inputs["complete"].items():
+        starts = dict(inputs["units"].get(unit, {}))
+        prev = (previous or {}).get(unit)
+        prev_starts = prev.get("starts") if isinstance(prev, dict) else None
+        if isinstance(prev_starts, dict) and seen:
+            for fp, start in prev_starts.items():
+                if fp in seen and fp not in starts:
+                    starts[fp] = start
+        units[unit] = dict(read, starts=starts, standing=sorted(inputs["standing"].get(unit, ())))
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump({"version": 1, "units": units}, fh, separators=(",", ":"))
+    os.replace(tmp, path)
+    return len(inputs["complete"])
+
+
+def absent_fingerprints(previous: Optional[Dict[str, Any]], inputs: Dict[str, Any],
+                        now: Optional[datetime] = None):
+    """{fingerprint: unit} the last complete read wrote and this one did not.
+
+    Only for a unit read whole THIS run and present in the previous manifest,
+    only inside both reads' windows (ABSENT_NEAR, ABSENT_FAR_MARGIN), never a
+    fingerprint anything in this store still lists, and none at all for a unit
+    past the circuit breaker. Returns (absent, report lines, warnings)."""
+    now = now or datetime.now(timezone.utc)
+    absent, lines, warnings = {}, [], []
+    if not previous:
+        return absent, lines, warnings
+    gone_anywhere = inputs["live"] | set(inputs["tombstones"]) | set(inputs.get("seen") or ())
+    for unit, read in sorted(inputs["complete"].items()):
+        prev = previous.get(unit)
+        if not isinstance(prev, dict) or not isinstance(prev.get("starts"), dict):
+            lines.append(f"  {unit}: no previous complete read, baseline written")
+            continue
+        edges = [_utc(read.get("from")), _utc(prev.get("from")), _utc(read.get("to")), _utc(prev.get("to"))]
+        if any(e is None for e in edges):
+            lines.append(f"  {unit}: unreadable window, skipped")
+            continue
+        lo = max(now + ABSENT_NEAR, edges[0], edges[1])
+        hi = min(edges[2], edges[3]) - ABSENT_FAR_MARGIN
+        standing = set(prev.get("standing") or [])
+        in_window = []
+        for fp, start in prev["starts"].items():
+            if fp in standing:
+                in_window.append(fp)                  # a standing row has no date to be outside of
+                continue
+            at = _utc(start)
+            if at is None and start and len(str(start)) >= 16:
+                # A naive local time: an instant somewhere in a 26-hour band.
+                try:
+                    naive = datetime.fromisoformat(str(start)[:19]).replace(tzinfo=timezone.utc)
+                except ValueError:
+                    continue
+                if lo <= naive - timedelta(hours=14) and naive + timedelta(hours=12) <= hi:
+                    in_window.append(fp)
+            elif at is not None and lo <= at <= hi:
+                in_window.append(fp)
+        gone = [fp for fp in in_window if fp not in gone_anywhere]
+        limit = max(ABSENT_MAX_FLOOR, int(ABSENT_MAX_SHARE * len(in_window)))
+        if len(in_window) >= ABSENT_WHOLE_UNIT_MIN and len(gone) == len(in_window):
+            limit = len(gone) - 1                     # the whole unit at once: see ABSENT_WHOLE_UNIT_MIN
+        if len(gone) > limit:
+            warnings.append(f"::warning::Absence: {unit} dropped {len(gone)} of {len(in_window)} "
+                            f"in-window session(s) since its last complete read (limit {limit}); "
+                            f"cancelled none. A glitch or a rebuilt schedule is not a wave of "
+                            f"cancellations; this read becomes the baseline, so read the source "
+                            f"if a whole centre may have closed.")
+            continue
+        for fp in gone:
+            absent[fp] = unit
+        lines.append(f"  {unit}: {len(gone)} of {len(in_window)} in-window session(s) gone "
+                     f"({lo:%Y-%m-%d %H:%M} .. {hi:%Y-%m-%d %H:%M} UTC)")
+    return absent, lines, warnings
+
+
+def _id_chunks(base: str, ids, extra: Dict[str, str]):
+    """IN-list chunks of <=100 ids whose URL stays inside fetch_import_state's 6 KB."""
+    def endpoint(chunk):
+        values = ",".join(json.dumps(eid, ensure_ascii=False) for eid in chunk)
+        return base + "?" + urllib.parse.urlencode(dict(extra, external_id=f"in.({values})"))
+    chunk = []
+    for eid in sorted(set(ids)):
+        if chunk and (len(chunk) >= 100 or len(endpoint(chunk + [eid])) > 6000):
+            yield endpoint(chunk), chunk
+            chunk = []
+        chunk.append(eid)
+    if chunk:
+        yield endpoint(chunk), chunk
+
+
+def patch_imports(session, url: str, key: str, ids, conditions: Dict[str, str],
+                  body: Dict[str, Any]):
+    """PATCH unclaimed imported rows among `ids` that still meet `conditions`.
+    Returns (ids changed, ids whose request failed). The conditions travel in
+    the filter, so the database decides, at write time, which rows qualify."""
+    base = url.rstrip("/") + "/rest/v1/events"
+    hdr = {"apikey": key, "Authorization": f"Bearer {key}",
+           "Content-Type": "application/json", "Prefer": "return=representation"}
+    extra = dict({"external_source": "eq.mapsee", "claimed_at": "is.null", "select": "external_id"},
+                 **conditions)
+    changed, failed = set(), set()
+    for endpoint, chunk in _id_chunks(base, ids, extra):
+        for attempt in range(PATCH_TRIES):
+            try:
+                r = session.patch(endpoint, headers=hdr, data=json.dumps(body), timeout=30)
+                if r.status_code not in (200, 204):
+                    raise ValueError(f"HTTP {r.status_code}")
+                rows = r.json() if r.status_code == 200 else []
+                changed |= {row.get("external_id") for row in rows or [] if isinstance(row, dict)} & set(chunk)
+                break
+            except Exception:                         # noqa: BLE001 - owed, counted, never echoed
+                # The conditions are in the filter, so a retried PATCH can only
+                # match what still qualifies: repeating one is safe.
+                if attempt + 1 == PATCH_TRIES:
+                    failed |= set(chunk)
+                else:
+                    _patch_sleep(1.5 * (attempt + 1))
+    return changed, failed
+
+
+def _patch_sleep(seconds: float) -> None:
+    import time
+    time.sleep(seconds)
+
+
+def own_rows(session, url: str, key: str, owned: Dict[str, str]):
+    """Of the own-only tombstones' rows ({external_id: listing URL}), the ones
+    whose "Tickets / info:" line IS that URL - the rows that platform wrote
+    (mapsee_ingest.OWN_ONLY_CANCEL_SOURCES). One bounded read per <=100 ids,
+    like fetch_import_state. Returns (ids owned, ids whose read failed): a
+    failed read cancels nothing, and the tombstone is read again next run."""
+    if not owned:
+        return set(), set()
+    base = url.rstrip("/") + "/rest/v1/events"
+    hdr = {"apikey": key, "Authorization": f"Bearer {key}"}
+    extra = {"external_source": "eq.mapsee", "claimed_at": "is.null", "select": "external_id,description"}
+    mine, failed = set(), set()
+    for endpoint, chunk in _id_chunks(base, owned, extra):
+        try:
+            r = session.get(endpoint, headers=hdr, timeout=30)
+            if r.status_code != 200:
+                raise ValueError(f"HTTP {r.status_code}")
+            for row in r.json() or []:
+                eid = row.get("external_id") if isinstance(row, dict) else None
+                link = owned.get(eid)
+                # The URL ends at whitespace or the end: ".../events/1" never
+                # matches a row whose link is ".../events/12".
+                if link and re.search(re.escape(f"Tickets / info: {link}") + r"(?=\s|$)",
+                                      str(row.get("description") or "")):
+                    mine.add(eid)
+        except Exception:                             # noqa: BLE001
+            failed |= set(chunk)
+    return mine, failed
+
+
+def apply_cancellations(session, url: str, key: str, targets: Dict[str, str], now: datetime):
+    """Cancel + hide each target row that is not already hidden for another
+    reason: cancelled_at and hidden_at, ONE stamp, one PATCH (import_cancelled
+    reads "equal stamps" as "ours and untouched"). A row we already cancelled is
+    left exactly as it is: re-stamping cancelled_at alone would break that
+    equality, and lifts no longer need the refresh, because only a source that
+    read its whole timetable this run can lift (see main). Returns (newly
+    cancelled, set(), failed) - the empty set is the old 'refreshed', kept for
+    the callers' shape."""
+    stamp = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    if not targets:
+        return set(), set(), set()
+    # Ours, and since UN-hidden (a retire script's --unhide, a hand edit) while
+    # the publisher still says cancelled: cancel it again, both stamps anew.
+    # Without this the row kept cancelled_at, sat on the map, and nothing could
+    # ever lift or re-hide it. claimed_at=is.null still guards it.
+    rehidden, failed3 = patch_imports(session, url, key, targets,
+                                      {"cancelled_at": "not.is.null", "hidden_at": "is.null"},
+                                      {"cancelled_at": stamp, "hidden_at": stamp})
+    new, failed2 = patch_imports(session, url, key, targets,
+                                 {"cancelled_at": "is.null", "hidden_at": "is.null"},
+                                 {"cancelled_at": stamp, "hidden_at": stamp})
+    return new | rehidden, set(), failed2 | failed3
+
+
+def lift_cancellations(session, url: str, key: str, ids, now: datetime,
+                       detail: Optional[Dict[str, Dict[str, Any]]] = None):
+    """Un-cancel rows written live again. Each PATCH names the EXACT stamp the
+    state read saw in both columns (import_cancelled: ours and untouched), so a
+    take-down or any other hide that lands between the read and this write makes
+    the filter match nothing. Grouped by stamp: one cancellation run's rows share
+    one. Returns (lifted, failed)."""
+    if not ids:
+        return set(), set()
+    detail = detail or {}
+    by_stamp: Dict[str, List[str]] = {}
+    for eid in ids:
+        st = (detail.get(eid) or {}).get("cancelled_at")
+        if st and import_cancelled(detail.get(eid), now):
+            by_stamp.setdefault(str(st), []).append(eid)
+    lifted, failed = set(), set()
+    for st, group in sorted(by_stamp.items()):
+        got, bad = patch_imports(session, url, key, group,
+                                 {"cancelled_at": f"eq.{st}", "hidden_at": f"eq.{st}"},
+                                 {"cancelled_at": None, "hidden_at": None})
+        lifted |= got
+        failed |= bad
+    return lifted, failed
+
+
+def owned_tombstones(inputs: Dict[str, Any]) -> Dict[str, str]:
+    """{external_id: listing URL} for tombstones an own-only source wrote
+    (Meetup, Eventbrite): they may hide only the row that links to that URL."""
+    from mapsee_ingest import OWN_ONLY_CANCEL_SOURCES
+    from mapsee_spam import source_family
+    out = {}
+    for fp, tomb in inputs["tombstones"].items():
+        if source_family(tomb.get("source")) in OWN_ONLY_CANCEL_SOURCES and tomb.get("url"):
+            for eid in [fp] + list(tomb.get("legacy") or []):
+                out.setdefault(eid, str(tomb["url"]))
+    return out
+
+
+def cancellation_targets(inputs: Dict[str, Any], absent: Dict[str, str]) -> Dict[str, str]:
+    """{external_id: why} for every row to cancel: each tombstone's fingerprint
+    and its legacy ones, and each absent fingerprint, minus anything this store
+    still lists live (a legacy key can collide with a live one). An own-only
+    tombstone with no URL names no row it may hide, so it targets nothing; with
+    one, the caller narrows it to the rows own_rows proves are that platform's."""
+    from mapsee_ingest import OWN_ONLY_CANCEL_SOURCES
+    from mapsee_spam import source_family
+    targets: Dict[str, str] = {}
+    for fp, tomb in inputs["tombstones"].items():
+        if source_family(tomb.get("source")) in OWN_ONLY_CANCEL_SOURCES and not tomb.get("url"):
+            continue
+        for eid in [fp] + list(tomb.get("legacy") or []):
+            targets.setdefault(eid, str(tomb.get("source") or "?"))
+    for fp, unit in absent.items():
+        targets.setdefault(fp, f"absent:{unit}")
+    return {eid: why for eid, why in targets.items() if eid not in inputs["live"]}
+
+
+def _tally(ids, why: Dict[str, str]) -> str:
+    counts: Dict[str, int] = {}
+    for eid in ids:
+        counts[why.get(eid, "?")] = counts.get(why.get(eid, "?"), 0) + 1
+    return ", ".join(f"{k} x{v}" for k, v in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0])))
 
 
 # --------------------------------------------------------------------------- #
@@ -2555,7 +3029,17 @@ def main() -> None:
                          "adapter that must rewrite (every column derived from an upstream people "
                          "edit) but whose rows rarely change. No-op under --only-new, where every "
                          "row is new by construction.")
+    ap.add_argument("--retire-absent", action="store_true",
+                    help="Cancel + hide a session a source read WHOLE this run (EventStore."
+                         "mark_complete) no longer lists, against --manifest's last complete read. "
+                         "Tombstones in the store are applied in every run, with or without this.")
+    ap.add_argument("--manifest", default=None,
+                    help="The per-source fingerprint manifest --retire-absent compares with and "
+                         "rewrites after a successful sync (kept in the Actions cache).")
     a = ap.parse_args()
+    if a.retire_absent and not a.manifest:
+        raise SystemExit("--retire-absent needs --manifest PATH: absence is measured against the "
+                         "last complete read, and without one there is nothing to compare.")
 
     # Fail LOUDLY on a missing host profile. The old default was the literal
     # placeholder "<MAPSEE_HOST_PROFILE_ID>", which is not a UUID, so a workflow
@@ -2577,6 +3061,15 @@ def main() -> None:
         print(f"Prepared {len(rows)} event rows from {a.store}.")
         for row in rows[:3]:
             print(json.dumps(row, ensure_ascii=False, indent=1))
+        inputs = cancellation_inputs(a.store)
+        absent, lines, warnings = absent_fingerprints(
+            load_manifest(a.manifest) if a.retire_absent else None, inputs)
+        targets = cancellation_targets(inputs, absent)
+        print(f"Cancellations: {len(inputs['tombstones'])} tombstone(s), {len(absent)} absent "
+              f"session(s) -> {len(targets)} row(s) would be cancelled if present and unclaimed"
+              + (f": {_tally(targets, targets)}" if targets else "") + ".")
+        for line in lines + warnings:
+            print(line)
         print(f"... {len(rows)} rows total. Dry run — nothing sent to Supabase.")
         return
 
@@ -2595,11 +3088,23 @@ def main() -> None:
     # so a full refresh can't clobber a claimer's edits and only-new stays correct.
     # ONE read supplies both guards, and it FAILS CLOSED: no write follows it.
     state = None
+    detail: Dict[str, Dict[str, Any]] = {}            # STATE_FIELDS per stored row
+    daily = set()                                     # stored rows an --only-new run still writes
+    now = datetime.now(timezone.utc)
 
     def read_state(ids):
         t0 = time.monotonic()
         try:
-            got = fetch_import_state(geo, url, key, ids)
+            try:
+                got = fetch_import_state(geo, url, key, ids, fields=STATE_FIELDS, detail=detail)
+            except StateColumnMissing:
+                # A column the database has not got YET costs the daily time
+                # changes and un-cancels, never the night (test_sync_unknown_column's
+                # rule). Ownership is read again, plainly, and still fails closed.
+                print("::warning::Import state: a time/cancellation column is missing from "
+                      "events; reading ownership only (no time changes, no un-cancel).", flush=True)
+                detail.clear()
+                got = fetch_import_state(geo, url, key, ids)
         except RuntimeError as error:
             raise SystemExit(str(error)) from None
         print(f"Import state: {len(got)} of {len(set(ids))} id(s) already in Supabase, "
@@ -2615,13 +3120,32 @@ def main() -> None:
         # --only-new: read the state on the STORE's fingerprints (to_row's
         # external_id) and drop what exists BEFORE build_rows enriches,
         # geocodes and builds it. See build_rows for the 2026-09-12 numbers.
+        # A STORED row is kept too when a daily run has something to say about
+        # it: an exact-detail refresh (needs_detail_sync), a TIME CHANGE (same
+        # fingerprint, new starts_at/ends_at: a class moved from 10:00 to 11:00
+        # used to wait for Wednesday), or a row we CANCELLED that is listed live
+        # again. All three are read off the state above, so this adds no request.
         nonlocal state
         state = read_state([r["fingerprint"] for r in recs])
-        fresh = [r for r in recs if needs_detail_sync(r, state, moved, held)]
+        fresh, n_time, n_back = [], 0, 0
+        for r in recs:
+            fp = r["fingerprint"]
+            if needs_detail_sync(r, state, moved, held):
+                fresh.append(r)
+            elif fp in held or state.get(fp, True):    # claimed, held, or not stored: nothing to add
+                continue
+            elif import_cancelled(detail.get(fp), now):
+                fresh.append(r)
+                n_back += 1
+            elif time_changed(r, detail.get(fp)):
+                fresh.append(r)
+                n_time += 1
+        daily.update(r["fingerprint"] for r in fresh if r["fingerprint"] in state)
         n_claimed = sum(1 for is_claimed in state.values() if is_claimed)
         print(f"Only-new: {len(fresh)} of {len(recs)} need sync ({len(state)} from this batch "
-              f"already in Supabase, {n_claimed} of them claimed), dropped before geocoding.",
-              flush=True)
+              f"already in Supabase, {n_claimed} of them claimed; {n_time} stored row(s) with a "
+              f"new time and {n_back} cancelled row(s) listed again are kept), dropped before "
+              f"geocoding.", flush=True)
         return fresh
 
     rows = build_rows(a.store, host_id, geo, keep=keep_new if a.only_new else None)
@@ -2639,7 +3163,10 @@ def main() -> None:
             print(f"Claimed-guard: skipped {before - len(rows)} claimed events.")
 
     if a.only_new:                                    # skip events already in the DB
-        existing = set(state) - moved                 # a moved row still has to be rewritten
+        # A moved row still has to be rewritten, and so does every stored row
+        # keep_new kept on purpose: this line used to drop those again, so the
+        # daily exact-detail refresh never reached the table.
+        existing = set(state) - moved - daily
         before = len(rows)
         rows = [r for r in rows if r["external_id"] not in existing]
         if before != len(rows):                       # already done in keep_new, normally
@@ -2651,6 +3178,10 @@ def main() -> None:
         rows = [r for r in rows if all(is_clean(r.get(f) or "", terms)
                                        for f in ("title", "description", "place_name", "host_name"))]
         print(f"Moderation pre-filter: dropped {before - len(rows)} of {before} rows.")
+
+    # Before skip-unchanged, which drops an identical row from the WRITE but not
+    # from the fact that the source lists it live today.
+    relist = sorted(r["external_id"] for r in rows if import_cancelled(detail.get(r["external_id"]), now))
 
     # LAST, so nothing is read back for a row the filters above already dropped.
     if a.skip_unchanged and rows and should_compare_unchanged(a.only_new, rows, state):
@@ -2677,6 +3208,68 @@ def main() -> None:
     tail += f"; LOST {lost} to an unanswering database" if lost else ""
     print(f"Upserted {n} events into Supabase as host {host_id}{tail}. "
           f"They will now appear in events_near / the Nearby map.")
+
+    # AFTER the upsert, so a failure here never costs the night's new rows, and
+    # the rows a cancellation lifts are already current when they reappear.
+    owed = 0
+    inputs = cancellation_inputs(a.store)
+    previous = load_manifest(a.manifest) if a.manifest else None
+    if a.retire_absent and previous is None:
+        print(f"Absence: no manifest at {a.manifest} (first run or an evicted cache); "
+              f"nothing is cancelled for absence this run.", flush=True)
+    absent, lines, warnings = absent_fingerprints(previous, inputs, now) if a.retire_absent else ({}, [], [])
+    for line in lines + warnings:
+        print(line, flush=True)
+    targets = cancellation_targets(inputs, absent)
+    owned = {eid: u for eid, u in owned_tombstones(inputs).items() if eid in targets}
+    if owned:
+        mine, unread = own_rows(geo, url, key, owned)
+        owed += len(unread)
+        targets = {eid: why for eid, why in targets.items() if eid not in owned or eid in mine}
+        print(f"Own-only cancellations: {len(mine)} of {len(owned)} row(s) link to the listing its "
+              f"platform called off; the rest are another source's row, or not stored"
+              + (f"; {len(unread)} OWED (read failed)" if unread else "") + ".", flush=True)
+    if targets:
+        new, refreshed, failed = apply_cancellations(geo, url, key, targets, now)
+        owed += len(failed)
+        print(f"Cancelled + hid {len(new)} of {len(targets)} row(s) the source called off or "
+              f"stopped listing" + (f" ({_tally(new, targets)})" if new else "")
+              + f"; the rest are already cancelled, not in the table, claimed, or hidden for "
+              f"another reason"
+              + (f"; {len(failed)} OWED (request failed)" if failed else "") + ".", flush=True)
+    # ONLY A SOURCE READ WHOLE THIS RUN MAY LIFT, and only a row it wrote live:
+    # a session listed again, a centre reopened. Two sources can share a
+    # fingerprint (a venue's feed and a platform's copy); if one says cancelled
+    # and another, read in passing, still lists it, the cancellation stands -
+    # the owner's line is that nobody is sent to an event that is off. A row
+    # tombstoned in this very store is never lifted by it either.
+    complete_live = set().union(*inputs["units"].values()) if inputs["units"] else set()
+    held_back = [eid for eid in relist if eid not in complete_live or eid in inputs["tombstones"]]
+    relist = [eid for eid in relist if eid in complete_live and eid not in inputs["tombstones"]]
+    if held_back:
+        print(f"Un-cancel: {len(held_back)} cancelled row(s) listed live by a source not read whole "
+              f"this run are left cancelled (only a complete read lifts).", flush=True)
+    if relist:
+        lifted, failed = lift_cancellations(geo, url, key, relist, now, detail)
+        owed += len(failed)
+        print(f"Un-cancelled {len(lifted)} of {len(relist)} row(s) listed live again by a source "
+              f"read whole" + (f"; {len(failed)} OWED (request failed)" if failed else "") + ".",
+              flush=True)
+    if a.manifest and inputs["complete"] and not lost and not owed:
+        kept = write_manifest(a.manifest, previous, inputs)
+        print(f"Absence manifest: {kept} complete read(s) recorded in {a.manifest}.", flush=True)
+    elif a.manifest and inputs["complete"]:
+        print(f"Absence manifest NOT updated ({lost} row(s) lost, {owed} cancellation write(s) "
+              f"owed): the last good baseline stays.", flush=True)
+    if owed:
+        # A WARNING, NOT A FAILURE. Every owed write is derived again next run (a
+        # tombstone is the publisher's word re-read, absence compares with the
+        # baseline kept above, a relist is listed again), and an exit here
+        # skipped the steps after it: in the Meetup and Ticketmaster jobs the
+        # US-leg sync has no continue-on-error, so one 503 cost the day's
+        # international sweep (review, 2026-10-06).
+        print(f"::warning::{owed} cancellation write(s) never reached Supabase (after "
+              f"{PATCH_TRIES} tries); the next run derives them again.", flush=True)
     # Same contract mapsee_indexnow settled on: a run that reported what it
     # could and a run that quietly wrote everything must not look the same. The
     # rows that DID land are already committed above — this only sets the exit

@@ -39,12 +39,24 @@ every other imported row, and hiding is durable against re-import —
 `fetch_import_state` does not filter on `hidden_at`, so a hidden row still
 counts as existing and `--only-new` will not put it back.
 
+HIDDEN ONLY, NEVER cancelled_at (which the sync's own cancellations set with
+hidden_at since 2026-10-05). A Zoom call was never cancelled: ../mapsee would
+tell the people who RSVP'd it was "Cancelled", which is false. And cancelled_at
+on an unclaimed import is the sync's marker for "a live listing may lift this":
+mapsee_supabase_sync un-cancels such a row when an adapter writes it again, so
+the marker would let a re-read undo this rule's verdict. hidden_at alone is
+never lifted by the sync.
+
 ONE THING TO KNOW ABOUT `--unhide`: hidden_at is a single column and several
 tools set it, so a row hidden by mapsee_prune_cancelled for being CANCELLED can
 also match this rule — most of these listings are both. The predicate is applied
-in unhide mode too, so nothing outside this rule is ever restored; but a
-cancelled row restored here is restored wrongly, and the fix is that it is
-self-healing: prune-cancelled runs daily and re-hides it within the day. Run
+in unhide mode too, so nothing outside this rule is ever restored. A row the
+SYNC cancelled (cancelled_at set) is never un-hidden here: --unhide filters on
+cancelled_at=is.null, because nothing re-hid such a row before (the sync's
+cancel wants cancelled_at null, its lift wants hidden_at set) and one restored
+here sat on the map for good while its publisher still said cancelled (review,
+2026-10-06). A row only mapsee_prune_cancelled hid can still be restored
+wrongly; prune-cancelled runs daily and re-hides it within the day. Run
 `--unhide` when you think THIS rule was wrong, not as a general undo.
 
 Never touches:
@@ -148,7 +160,7 @@ def main():
         for i in range(0, len(ids), PATCH_IDS):
             chunk = ids[i:i + PATCH_IDS]
             try:
-                sb(f"events?id=in.({','.join(chunk)})", "PATCH",
+                sb(f"events?id=in.({','.join(chunk)})" + ("&cancelled_at=is.null" if args.unhide else ""), "PATCH",
                    {"hidden_at": stamp}, prefer="return=minimal")
                 written[0] += len(chunk)
                 done += len(chunk)
@@ -172,6 +184,7 @@ def main():
         q = ("events?select=id,title,description,claimed_by,starts_at"
              "&external_source=eq.mapsee&is_private=eq.false"
              f"&hidden_at={want_hidden}"
+             + ("&cancelled_at=is.null" if args.unhide else "") +
              f"&starts_at=gte.{w_a}&starts_at=lt.{w_b}&order=starts_at.asc&limit={PAGE}")
         offset = 0
         while True:

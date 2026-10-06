@@ -79,6 +79,17 @@ hiding is durable against re-import: fetch_import_state does not filter on
 hidden_at, so a hidden row still counts as existing and `--only-new` will not
 put it back.
 
+HIDDEN ONLY, NEVER cancelled_at, though the sync's own cancellations set both
+(2026-10-05). cancelled_at on an unclaimed import is the sync's marker for "WE
+cancelled this, so a live listing may lift it": mapsee_supabase_sync un-cancels
+a row a source that read its whole timetable lists live again (both stamps
+still equal). This sweep's evidence is a PAGE, and a feed
+lags its pages: a Meetup group's feed still lists an event its own page calls
+cancelled (the 30-for-30 ACTIVE sweep in docs/agents/cancelled-events.md). Set
+cancelled_at here and the next sync would lift every such hide, and this sweep
+would put it back, twice a day. A 404 is not a cancellation either, and
+../mapsee labels a cancelled_at row "Cancelled" to the people who RSVP'd.
+
 HOW BIG THE SWEEP ACTUALLY IS, measured on the first live run 2026-09-13:
 **88,128 rows and 25,311 distinct source URLs inside a three-day window.** At
 roughly one probe a second that is seven hours of work, so every run is capped

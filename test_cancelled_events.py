@@ -76,10 +76,15 @@ ICS_BODY = "BEGIN:VCALENDAR\n" + "\n".join([
 class FakeStore:
     def __init__(self):
         self.seen = []
+        self.cancelled = []
 
     def upsert(self, ev):
         self.seen.append(ev.name)
         return "added"
+
+    def cancel(self, ev, reason):
+        self.cancelled.append((ev.name, reason))
+        return "cancelled"
 
 
 print("ICS: RFC 5545 STATUS is the only cancellation signal a calendar can send")
@@ -90,9 +95,12 @@ check("parse_ics keeps STATUS (it used to drop the property entirely)",
 store = FakeStore()
 with patch.object(ICS, "_fetch_ics", return_value=(ICS_BODY, "200")):
     kept = ICS.ingest_ics(store, None, {"name": "lib", "url": "https://x.test/f.ics"})
-check("a cancelled VEVENT never reaches the store", "Cancelled Craft Night" in store.seen, False)
+check("a cancelled VEVENT is never upserted", "Cancelled Craft Night" in store.seen, False)
 check("...case-insensitively, because feeds are not careful",
       "Lowercase Cancellation" in store.seen, False)
+check("...it is handed to store.cancel instead, so the row stored last week comes off",
+      store.cancelled, [("Cancelled Craft Night", "STATUS:CANCELLED"),
+                        ("Lowercase Cancellation", "STATUS:CANCELLED")])
 check("TENTATIVE is NOT a cancellation — municipal software publishes everything that way",
       "Maybe Book Club" in store.seen, True)
 check("CONFIRMED is kept", "Confirmed Lecture" in store.seen, True)
@@ -128,6 +136,204 @@ check("EventPostponed is refused — the date we hold is the one NOT happening",
       ld(eventStatus="https://schema.org/EventPostponed"), None)
 check("a bare, unprefixed value is refused too", ld(eventStatus="EventCancelled"), None)
 check_true("no eventStatus at all is still imported", ld())
+
+
+# --------------------------------------------------------------------------- #
+# THE CALENDAR ADAPTERS: a cancellation tombstones the row the LIVE record was
+# stored as. Refusing it kept a cancellation off the map only if we had not
+# stored it yet (an upsert cannot delete). The fingerprint is events.external_id,
+# the only key the sync can find a row by, so every case builds the live record
+# and the cancelled one THROUGH THE ADAPTER and compares what store.upsert keyed
+# with what store.cancel keyed.
+# --------------------------------------------------------------------------- #
+print()
+print("Calendar adapters: store.cancel gets the key store.upsert would have used")
+import tempfile as _tmp  # noqa: E402
+import mapsee_ingest_jsonld as JSONLD  # noqa: E402
+import mapsee_ingest_localist as LOCALIST  # noqa: E402
+import mapsee_ingest_mobilizon as MOBILIZON  # noqa: E402
+import mapsee_ingest_tribe as TRIBE  # noqa: E402
+from mapsee_ingest import EventStore as _Store  # noqa: E402
+
+
+def _fresh():
+    d = _tmp.mkdtemp()
+    return _Store(os.path.join(d, "s.json"))
+
+
+def _live_keys(st):
+    return {fp: (r["sources"][0]["source"], r["sources"][0]["source_id"]) for fp, r in st.records.items()}
+
+
+def _tomb_keys(st):
+    return {fp: (t["source"], t["source_id"]) for fp, t in st.tombstones.items()}
+
+
+def _refuse_geocode(*a, **k):
+    raise AssertionError("a cancelled record is never geocoded: its key reads no coordinates")
+
+
+def _ics(body, src, geocoder=_refuse_geocode):
+    st = _fresh()
+    with patch.object(ICS, "_fetch_ics", return_value=(body, "200")), \
+            patch.object(ICS, "make_location_geocoder", return_value=geocoder):
+        ICS.ingest_ics(st, None, src)
+    return st
+
+
+def _vev(summary, uid, *, status=None, loc="LOCATION:Ballard Branch, 5614 22nd Ave NW", extra=()):
+    lines = ["BEGIN:VEVENT", f"SUMMARY:{summary}", f"DTSTART:{SOON}T190000Z", f"UID:{uid}"]
+    lines += [loc] if loc else []
+    lines += [f"STATUS:{status}"] if status else []
+    return "\n".join(lines + list(extra) + ["END:VEVENT"])
+
+
+def _cal(*vevents):
+    return "BEGIN:VCALENDAR\n" + "\n".join(vevents) + "\nEND:VCALENDAR\n"
+
+
+SRC = {"name": "Ballard Library", "url": "https://x.test/f.ics"}
+live = _ics(_cal(_vev("Family Storytime", "u1")), SRC, lambda q: (47.67, -122.38))
+gone = _ics(_cal(_vev("CANCELLED - Family Storytime", "u1", status="CANCELLED")), SRC)
+check("ics: STATUS:CANCELLED (retitled) tombstones the live row's fingerprint and UID",
+      (_tomb_keys(gone), gone.records), (_live_keys(live), {}))
+VSRC = dict(SRC, venue={"name": "Ballard Branch", "lat": 47.67, "lon": -122.38})
+live = _ics(_cal(_vev("Lego Club", "u2", loc=None)), VSRC)
+gone = _ics(_cal(_vev("Lego Club", "u2", loc=None, status="CANCELLED")), VSRC)
+check("ics: ...and when the source's own venue named the place (no LOCATION at all)",
+      _tomb_keys(gone), _live_keys(live))
+check_true("ics: (that key really is the venue's, not an empty place)",
+           len(_live_keys(live)) == 1 and _live_keys(live) != _tomb_keys(
+               _ics(_cal(_vev("Lego Club", "u2", loc="GEO:47.67;-122.38", status="CANCELLED")), SRC)))
+master = _vev("Chess Club", "u3", extra=["GEO:47.67;-122.38"])
+override = _vev("Chess Club", "u3", status="CANCELLED",
+                extra=["GEO:47.67;-122.38", f"RECURRENCE-ID:{SOON}T190000Z"])
+for order, body in (("override after", _cal(master, override)), ("override first", _cal(override, master))):
+    st = _ics(body, SRC)
+    check(f"ics: an override cancelling the master's own date wins ({order})",
+          (len(st.records), len(st.tombstones)), (0, 1))
+check("ics: CANCELLED with a title that is only the word names no row: nothing",
+      _ics(_cal(_vev("CANCELLED", "u4", status="CANCELLED")), SRC).tombstones, {})
+
+LDV = {"name": "The Royal Room", "address": "5000 Rainier Ave S", "city": "Seattle",
+       "region": "WA", "country": "US", "lat": 47.5589, "lon": -122.2839}
+
+
+def _ld(item, venue=LDV):
+    st, tally = _fresh(), {}
+    with patch.object(JSONLD, "_geocode", _refuse_geocode if dead_or_moved(item) else (lambda s, q: (47.6, -122.3))):
+        JSONLD.store_item(st, dict(BASE, **item), "https://x.test/e/1", "music", None, venue, None, {}, tally)
+    return st, tally
+
+
+def dead_or_moved(item):
+    return bool(JSONLD.dead_status(item))
+
+
+live, _ = _ld({})
+for status in ("EventCancelled", "EventPostponed"):
+    gone, tally = _ld({"name": "CANCELLED: Trio Reunion", "eventStatus": "https://schema.org/" + status})
+    check(f"jsonld: {status} (retitled) tombstones the live row's key",
+          (_tomb_keys(gone), gone.records, tally), (_live_keys(live), {}, {"cancelled": 1}))
+gone, _ = _ld({"eventStatus": "https://schema.org/EventMovedOnline",
+               "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode"})
+check("jsonld: EventMovedOnline tombstones the in-person row (nobody is in the room)",
+      _tomb_keys(gone), _live_keys(live))
+bare = {"location": {"@type": "Place", "name": "Rhythm & Rye", "address": "311 E 4th Ave"}}
+live2, _ = _ld(bare, venue=None)
+gone2, _ = _ld(dict(bare, eventStatus="EventCancelled"), venue=None)
+check("jsonld: a venue that needed geocoding: same key, and no geocode paid for the tombstone",
+      _tomb_keys(gone2), _live_keys(live2))
+LATER = (datetime.now(timezone.utc) + timedelta(days=16)).strftime("%Y-%m-%dT19:00:00Z")
+moved, tally = _ld({"startDate": LATER, "previousStartDate": SOON_ISO,
+                    "eventStatus": "https://schema.org/EventRescheduled"})
+check("jsonld: EventRescheduled keeps the new date live and tombstones the old date's row",
+      (_tomb_keys(moved), len(moved.records), tally), (_live_keys(live), 1, {"rescheduled": 1}))
+same_day, tally = _ld({"previousStartDate": SOON_ISO[:11] + "10:00:00Z",
+                       "eventStatus": "https://schema.org/EventRescheduled"})
+check("jsonld: ...but a new TIME on the same day is the same row, never tombstoned",
+      (same_day.tombstones, len(same_day.records), tally), ({}, 1, {}))
+check("jsonld: to_event alone never returns a dead Event, nor a live one as a tombstone",
+      (JSONLD.to_event(dict(BASE, eventStatus="EventCancelled"), "u", "music", None, LDV),
+       JSONLD.to_event(dict(BASE), "u", "music", None, LDV, tombstone=True)), (None, None))
+
+
+class _Resp:
+    def __init__(self, body):
+        self.status_code, self._b = 200, body
+
+    def json(self):
+        return self._b
+
+
+class _Sess:
+    def __init__(self, body):
+        self.body = body
+
+    def get(self, *a, **k):
+        return _Resp(self.body)
+
+    def post(self, *a, **k):
+        return _Resp(self.body)
+
+
+DAY = SOON_ISO[:10]
+
+
+def _wrap(title, status):
+    return {"event": {"id": 7, "title": title, "status": status, "first_date": DAY,
+                      "event_instances": [{"event_instance": {"start": f"{DAY}T16:00:00-04:00"}}],
+                      "geo": {"latitude": "33.95", "longitude": "-83.37", "city": "Athens"},
+                      "location_name": "Ecology Building"}}
+
+
+def _localist(title, status):
+    st = _fresh()
+    LOCALIST.ingest(st, _Sess({"events": [_wrap(title, status)], "page": {"current": 1, "total": 1}}),
+                    {"name": "UGA", "base_url": "https://calendar.uga.edu"})
+    return st
+
+
+live = _localist("Ecology Seminar Series: Joseph Hoyt", "live")
+gone = _localist("CANCELED: Ecology Seminar Series: Joseph Hoyt", "canceled")
+check("localist: status canceled (retitled, as UGA's was) tombstones the live row's key",
+      (_tomb_keys(gone), gone.records), (_live_keys(live), {}))
+check("localist: sold out is still happening", len(_localist("Write-In", "soldout").records), 1)
+
+
+def _mob(status, title="Repair Café"):
+    return {"uuid": "abc", "title": title, "beginsOn": SOON_ISO, "status": status,
+            "physicalAddress": {"description": "Maison de quartier", "locality": "Lausanne",
+                                "geom": "6.63;46.52"}}
+
+
+def _mobilizon(ev):
+    st = _fresh()
+    MOBILIZON.ingest_site(st, _Sess({"data": {"searchEvents": {"total": 1, "elements": [ev]}}}),
+                          {"name": "m", "base_url": "https://m.test", "crawl_delay": 0})
+    return st
+
+
+check_true("mobilizon: the query asks for status (it did not, so CANCELLED came in live)",
+           " status" in MOBILIZON.QUERY)
+gone = _mobilizon(_mob("CANCELLED"))
+check("mobilizon: CANCELLED is not imported, and open registration records no tombstone",
+      (gone.records, gone.tombstones, gone.stats["cancel_untrusted"]), ({}, {}, 1))
+check("mobilizon: TENTATIVE is kept, as in ics", len(_mobilizon(_mob("TENTATIVE")).records), 1)
+check("mobilizon: the cancelled record still carries the live key (for when it is trusted)",
+      MOBILIZON.to_event(_mob("CANCELLED", "ANNULÉ : Repair Café"), {}, tombstone=True).fingerprint,
+      MOBILIZON.to_event(_mob("CONFIRMED"), {}).fingerprint)
+
+TEC = {"id": 41, "title": "Book Club", "start_date": f"{DAY} 18:00:00",
+       "venue": {"venue": "Haydon Wick Hall", "city": "Swindon", "geo_lat": 51.59, "geo_lng": -1.8}}
+st = _fresh()
+st.upsert(TRIBE.to_event(TEC, {"base_url": "https://hw.test"}))
+retitled = _fresh()
+check("tribe: REST carries no status; a CANCELLED title is EventStore's notice",
+      retitled.upsert(TRIBE.to_event(dict(TEC, title="CANCELLED - Book Club"), {"base_url": "https://hw.test"})),
+      "notice")
+check("tribe: ...and its tombstone is the live row's fingerprint",
+      list(retitled.tombstones), list(st.records))
 
 
 # --------------------------------------------------------------------------- #

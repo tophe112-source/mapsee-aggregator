@@ -79,7 +79,7 @@ import sys
 import time
 import urllib.parse
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple
 
@@ -328,6 +328,26 @@ def notice_reason(name: Optional[str]) -> Optional[str]:
     if _CANCELLED_TITLE_RX.search(title) or _CANCELLED_CAPS_RX.search(title):
         return "cancelled in the title"
     return None
+
+
+def strip_notice(name: Optional[str]) -> Optional[str]:
+    """The event's own title inside a "cancelled in the title" notice, or None.
+
+    "CANCELLED - Family Storytime" -> "Family Storytime", "Chess Club CANCELLED"
+    -> "Chess Club", "***ABGESAGT***  Pflanzen-Flohmarkt   ***ABGESAGT***" ->
+    "Pflanzen-Flohmarkt". None for a closure notice (a shut building names no
+    event) and for a title that is nothing but the word. Edge punctuation is
+    dropped freely: make_fingerprint's normalize_text ignores it anyway."""
+    if notice_reason(name) != "cancelled in the title":
+        return None
+    text = (name or "").strip()
+    for _ in range(4):                       # a word at both ends takes two passes
+        cut = _CANCELLED_CAPS_RX.sub("", _CANCELLED_TITLE_RX.sub(" ", text)).strip()
+        if cut == text:
+            break
+        text = cut
+    text = re.sub(r"^[\W_]+|[\W_]+$", "", text).strip()
+    return text if normalize_text(text) else None
 
 
 _AGENDA_MAX = 60
@@ -678,6 +698,124 @@ def norm_categories(primary: Optional[str], *extras: Any) -> List[str]:
     return out[:MAX_EXTRA_CATEGORIES]
 
 
+# --------------------------------------------------------------------------- #
+# A CANCELLATION IS A FACT ABOUT A ROW WE ALREADY WROTE.
+#
+# An upsert cannot delete, so every adapter that read a cancellation could only
+# REFUSE the record, and the row it wrote last week stayed on the map. The store
+# now keeps that word as a TOMBSTONE, keyed by the fingerprint the live record
+# had (= events.external_id), and mapsee_supabase_sync sets cancelled_at and
+# hidden_at on that row. cancelled_at is what makes it reversible: only an import
+# cancellation carries it on an unclaimed row (a take-down, a prune and the
+# retire scripts set hidden_at alone), so the day the event is listed live again
+# the sync lifts exactly what this put down and nothing else.
+#
+# Open-registration platforms are not trusted to cancel. The fingerprint is
+# cross-source (title | day | venue), so on Mobilizon or Gancio anybody could
+# publish a self-cancelled copy of a real event's title at its venue and take the
+# real one off the map. mapsee_spam.OPEN_REGISTRATION_SOURCES names them.
+#
+# Meetup and Eventbrite are publish-anyone too, but their organisers DO cancel
+# their own listings, so they cancel only what THEY wrote (OWN_ONLY_CANCEL_SOURCES):
+# never a live listing from another family in this store, and in the database
+# only the row whose "Tickets / info:" link is that listing's own URL (the
+# mapsee_supabase_sync PATCH carries it as a filter). A group's called-off outing
+# to a public concert, or an organiser who moved ticketing off Eventbrite, must
+# not hide the venue's own row: Tribe-published Seattle shows already carry
+# Eventbrite ticket links (docs/agents/sync-eventstore-and-paging.md).
+#
+# A CANCEL-AND-RELIST IS NOT A CANCELLATION. Chicago Public Library (BiblioCommons,
+# 2026-10-05): 25 isCancelled rows, 6 of them one series cancelled and listed again
+# under NEW ids at the same title, branch, day and clock - the fingerprint the
+# live copy has. "Tombstone beats live" hid all 6 live sessions. So a status
+# cancellation never beats a live listing of the SAME source under a DIFFERENT
+# source_id (in either order); it still beats the same listing (an RRULE override
+# shares its UID) and another source's. A NOTICE - a title that says the event
+# is off ("CANCELLED - Storytime" under the notice's own id: the notice path in
+# upsert, and cancel(..., notice=True) from the adapters that read a called-off
+# title: Revize, Glen Echo, Drupal FullCalendar, PerfectMind, Barcelona) - is
+# about another listing by construction, so it keeps winning: Revize's weekly
+# row plus a one-day "CANCELLED - Toddler Drop-In" row is how a town calls off
+# one occurrence (test_ingest_revize.py).
+# --------------------------------------------------------------------------- #
+
+OWN_ONLY_CANCEL_SOURCES = frozenset({"meetup", "eventbrite", "luma"})
+
+_STAMP_FMT = "%Y-%m-%dT%H:%M:%SZ"
+
+
+def _window_edge(value: Any, side: str) -> str:
+    """One edge of a complete read's window, as a UTC instant, rounded INWARD.
+
+    An aware datetime (or an ISO string with Z/offset) is exact. A bare date or a
+    naive local time is placed where it is LATEST (for `from`) or EARLIEST (for
+    `to`) on earth: local offsets run from UTC-12 to UTC+14, so `from` 2026-10-05
+    becomes 12:00Z that day and `to` 2026-10-05 (meaning through that day)
+    becomes 10:00Z. Rounding inward can only shrink what absence may cancel."""
+    if isinstance(value, datetime):
+        dt = value
+    else:
+        if isinstance(value, date):
+            dt, bare = datetime(value.year, value.month, value.day), True
+        else:
+            text = str(value or "").strip()
+            bare = len(text) == 10
+            dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
+        if bare and side == "to":
+            dt += timedelta(days=1)                            # through the end of that day
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc) + (timedelta(hours=12) if side == "from" else timedelta(hours=-14))
+    return dt.astimezone(timezone.utc).strftime(_STAMP_FMT)
+
+
+def _open_registration(source: Optional[str]) -> bool:
+    from mapsee_spam import OPEN_REGISTRATION_SOURCES, source_family
+    family = source_family(source)
+    return not family or family in OPEN_REGISTRATION_SOURCES
+
+
+def _family(source: Optional[str]) -> str:
+    from mapsee_spam import source_family
+    return source_family(source)
+
+
+def _own_only(source: Optional[str]) -> bool:
+    return _family(source) in OWN_ONLY_CANCEL_SOURCES
+
+
+def _relist(tomb_source: Any, tomb_id: Any, source: Any, source_id: Any) -> bool:
+    """Two listings of ONE source under different ids: a cancel-and-relist."""
+    a, b = str(tomb_id or "").strip(), str(source_id or "").strip()
+    return bool(a and b and tomb_source == source and a != b)
+
+
+def _fp_basis(name: Optional[str], day: str, place: str) -> str:
+    return hashlib.sha1(f"{normalize_text(name)}|{day}|{place}".encode("utf-8")).hexdigest()
+
+
+def notice_fingerprint(ev: "NormalizedEvent", title: str) -> Optional[str]:
+    """The fingerprint the event inside a notice had, or None when unprovable.
+
+    The store cannot know each adapter's recipe, so it PROVES one: it finds the
+    (title, day, place) that reproduces the notice's own fingerprint exactly and
+    swaps in the stripped title. The day is start_local's or start_utc's, the
+    place venue/city/address, and the title may carry the session's HH:MM (Toronto
+    and PerfectMind add it). An adapter whose recipe is not among those gets None
+    and is counted, never guessed at; it can call EventStore.cancel itself."""
+    if not ev.fingerprint:
+        return None
+    days = {d for d in ((ev.start_local or "")[:10], (ev.start_utc or "")[:10]) if len(d) == 10}
+    places = [normalize_text(ev.venue_name) or normalize_text(ev.city), normalize_text(ev.city),
+              normalize_text(ev.address), ""]
+    hm = (ev.start_local or "")[11:16]
+    for suffix in [""] + ([f" {hm}"] if len(hm) == 5 else []):
+        for day in sorted(days):
+            for place in dict.fromkeys(places):
+                if _fp_basis(f"{ev.name}{suffix}", day, place) == ev.fingerprint:
+                    return _fp_basis(f"{title}{suffix}", day, place)
+    return None
+
+
 class EventStore:
     """JSON-file store that dedupes on fingerprint, then source identity.
 
@@ -724,8 +862,31 @@ class EventStore:
         # "notices" counts rows whose TITLE says they are not an event: a closure
         # or a cancellation (see notice_reason). Its own counter, not "rejected",
         # because mapsee_spam_audit reads that one as a source's advertising rate.
+        # "cancelled" counts tombstones (see cancel()); "cancel_over_live" the
+        # live records a tombstone for the same fingerprint beat in this file;
+        # "cancel_untrusted" the cancellations an open-registration source sent;
+        # "notice_unproven" the notice titles whose event fingerprint could not
+        # be proved (notice_fingerprint), so nothing was cancelled for them.
+        # "cancel_beside_relist" the cancellations a live listing of the same
+        # source under another id outvoted (a cancel-and-relist); "cancel_unowned"
+        # an own-only source's cancellations that met another source's live
+        # listing, or carried no URL to find its own row by.
         self.stats = {"added": 0, "merged": 0, "updated": 0, "rekeyed": 0,
-                      "rejected": 0, "unbounded": 0, "notices": 0}
+                      "rejected": 0, "unbounded": 0, "notices": 0,
+                      "cancelled": 0, "cancel_over_live": 0, "cancel_untrusted": 0,
+                      "notice_unproven": 0, "cancel_beside_relist": 0, "cancel_unowned": 0}
+        # fingerprint -> {source, source_id, reason, name, start, at[, legacy]}.
+        # Saved as the store's top-level "tombstones" list; every older reader
+        # reads "events" only, and a tombstoned fingerprint is never in it.
+        self.tombstones: Dict[str, Dict[str, Any]] = {}
+        self.cancelled_by_source: Dict[str, int] = {}
+        # unit -> {source, id_prefix, from, to, at}: the reads that finished whole
+        # this run (mark_complete). Saved as top-level "complete_reads".
+        self.complete_reads: Dict[str, Dict[str, Any]] = {}
+        # Fingerprints a source LISTED this run that its adapter could not write
+        # (no point for the place, a geocoder miss): mark_seen. Saved as
+        # top-level "seen"; absence never cancels one.
+        self.seen: set = set()
         self.notices_by_source: Dict[str, int] = {}
         self.notice_samples: List[str] = []
         self.rekeyed_by_source: Dict[str, int] = {}
@@ -761,6 +922,13 @@ class EventStore:
                 if source == "tribe" and publisher is None:
                     continue
                 self.source_to_fp[_source_lookup_key(source, source_id, publisher)] = fp
+        for tomb in data.get("tombstones") or []:
+            if isinstance(tomb, dict) and tomb.get("fingerprint"):
+                self.tombstones[tomb["fingerprint"]] = {k: v for k, v in tomb.items() if k != "fingerprint"}
+        reads = data.get("complete_reads")
+        if isinstance(reads, dict):
+            self.complete_reads = {k: v for k, v in reads.items() if isinstance(v, dict)}
+        self.seen = {fp for fp in data.get("seen") or [] if isinstance(fp, str) and fp}
         log.info("Loaded %d existing events from %s", len(self.records), self.path)
 
     def save(self) -> None:
@@ -768,6 +936,13 @@ class EventStore:
             "_meta": {"version": 1, "updated": iso_now(), "count": len(self.records)},
             "events": list(self.records.values()),
         }
+        # Only when used, so a store nothing cancelled is byte-for-byte what it was.
+        if self.tombstones:
+            payload["tombstones"] = [dict(fingerprint=fp, **t) for fp, t in self.tombstones.items()]
+        if self.complete_reads:
+            payload["complete_reads"] = self.complete_reads
+        if self.seen:
+            payload["seen"] = sorted(self.seen)
         self.path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
         log.info("Saved %d events to %s", len(self.records), self.path)
         if self.stats["rejected"]:
@@ -784,6 +959,16 @@ class EventStore:
                          self.notices_by_source.items(), key=lambda kv: -kv[1])))
             for line in self.notice_samples:
                 log.info("  %s", line)
+        if (self.stats["cancelled"] or self.stats["cancel_untrusted"] or self.stats["notice_unproven"]
+                or self.stats["cancel_beside_relist"] or self.stats["cancel_unowned"]):
+            log.info("Cancelled %d event(s) the publisher called off (%d beat a live listing of the "
+                     "same event; %d from open-registration sources not trusted; %d notice title(s) "
+                     "whose event could not be identified; %d outvoted by the same source's relisting; "
+                     "%d own-only cancellation(s) that were not that platform's row): %s",
+                     self.stats["cancelled"], self.stats["cancel_over_live"], self.stats["cancel_untrusted"],
+                     self.stats["notice_unproven"], self.stats["cancel_beside_relist"],
+                     self.stats["cancel_unowned"], ", ".join(f"{k} x{v}" for k, v in sorted(
+                         self.cancelled_by_source.items(), key=lambda kv: -kv[1])))
         if self.stats["unbounded"]:
             log.info("Dropped an implausible end date on %d row(s): %s", self.stats["unbounded"],
                      ", ".join(f"{k} x{v}" for k, v in sorted(
@@ -949,7 +1134,37 @@ class EventStore:
             self.notices_by_source[ev.source] = self.notices_by_source.get(ev.source, 0) + 1
             if len(self.notice_samples) < 10:
                 self.notice_samples.append(f"[{ev.source}] {notice}: {(ev.name or '')[:70]}")
+            # "CANCELLED - Family Storytime" is the publisher saying the
+            # storytime we may already have written is off: a tombstone for the
+            # storytime's own fingerprint. A closure names no event, so never.
+            title = strip_notice(ev.name)
+            if title:
+                fp = notice_fingerprint(ev, title)
+                if fp is None:
+                    self.stats["notice_unproven"] += 1
+                else:
+                    self.cancel(dataclasses.replace(ev, name=title, fingerprint=fp,
+                                                    legacy_fingerprints=[]), notice, notice=True)
             return "notice"
+
+        # THE PUBLISHER'S LATER WORD WINS. A cancellation and a live listing of
+        # one fingerprint in one run (an RRULE expanding the instance an
+        # override called off, or a second source still listing it) leave the
+        # event cancelled; a store is one run's read, so "later" is this run.
+        # Two exceptions, both a live listing the tombstone does not speak for
+        # (see the block above OWN_ONLY_CANCEL_SOURCES): the SAME source listing
+        # it again under another id (a cancel-and-relist), and any other family
+        # listing what an own-only platform's organiser called off.
+        tomb = self.tombstones.get(ev.fingerprint) if ev.fingerprint else None
+        if tomb is not None:
+            if not tomb.get("notice") and _relist(tomb.get("source"), tomb.get("source_id"),
+                                                  ev.source, ev.source_id):
+                self._drop_tombstone(ev.fingerprint, "cancel_beside_relist")
+            elif _own_only(tomb.get("source")) and _family(ev.source) != _family(tomb.get("source")):
+                self._drop_tombstone(ev.fingerprint, "cancel_unowned")
+            else:
+                self.stats["cancel_over_live"] += 1
+                return "cancelled"
 
         # AN END NOBODY COULD HAVE MEANT IS NOT AN END. Dropped rather than
         # clamped: a clamped date is a new claim we invented, and this is the
@@ -1011,6 +1226,114 @@ class EventStore:
             self.source_to_fp[key] = ev.fingerprint
         self.stats["added"] += 1
         return "added"
+
+    def _drop_tombstone(self, fp: str, why: str) -> None:
+        tomb = self.tombstones.pop(fp)
+        self.stats[why] += 1
+        src = tomb.get("source")
+        if self.cancelled_by_source.get(src, 0) > 0:      # counted by this process, not loaded
+            self.cancelled_by_source[src] -= 1
+            self.stats["cancelled"] = max(0, self.stats["cancelled"] - 1)
+
+    def cancel(self, ev: NormalizedEvent, reason: str, notice: bool = False) -> str:
+        """Record that the publisher called this event off. Returns "cancelled",
+        or why not: "unkeyed" (no fingerprint/source), "untrusted"
+        (open-registration source), "relisted" (the same source lists it live
+        under another id), "unowned" (an own-only source's cancellation of
+        another family's live listing, or with no URL to find its row by).
+        `notice=True` when the word is a TITLE that says the event is off,
+        not a status on the listing itself (see the block above
+        OWN_ONLY_CANCEL_SOURCES).
+
+        `ev` is built EXACTLY as the live row would have been — same source,
+        source_id and, above all, the same fingerprint, because the fingerprint
+        is events.external_id and is the only thing the sync can find the row
+        by. A live record of that fingerprint already in this store is dropped:
+        the tombstone wins (see upsert), except beside a relisting or another
+        family's listing (the block above OWN_ONLY_CANCEL_SOURCES)."""
+        fp = ev.fingerprint
+        if not fp or not ev.source:
+            return "unkeyed"
+        if _open_registration(ev.source):
+            self.stats["cancel_untrusted"] += 1
+            return "untrusted"
+        own_only = _own_only(ev.source)
+        if own_only and not (ev.ticket_url or "").strip():
+            self.stats["cancel_unowned"] += 1
+            return "unowned"
+        live = self.records.get(fp)
+        if live is not None:
+            refs = [r for r in live.get("sources") or [] if isinstance(r, dict)]
+            if own_only and any(_family(r.get("source")) != _family(ev.source) for r in refs):
+                self.stats["cancel_unowned"] += 1
+                return "unowned"
+            mine = [r for r in refs if r.get("source") == ev.source]
+            if (not notice and mine
+                    and all(_relist(ev.source, ev.source_id, r.get("source"), r.get("source_id")) for r in mine)):
+                self.stats["cancel_beside_relist"] += 1
+                return "relisted"
+        rec = self.records.pop(fp, None)
+        if rec is not None:
+            self.stats["cancel_over_live"] += 1
+            for ref in rec.get("sources") or []:
+                if isinstance(ref, dict):
+                    src = ref.get("source")
+                    k = _source_lookup_key(src, ref.get("source_id"),
+                                           _tribe_ref_publisher(ref, rec) if src == "tribe" else None)
+                    if self.source_to_fp.get(k) == fp:
+                        del self.source_to_fp[k]
+        if fp in self.tombstones:
+            return "cancelled"
+        tomb = {"source": ev.source, "source_id": ev.source_id, "reason": str(reason or "cancelled")[:80],
+                "name": (ev.name or "")[:120], "start": ev.start_utc or ev.start_local, "at": iso_now()}
+        legacy = [x for x in (ev.legacy_fingerprints or []) if x and x != fp]
+        if legacy:
+            tomb["legacy"] = sorted(set(legacy))
+        if notice:
+            tomb["notice"] = True
+        if own_only:
+            tomb["url"] = ev.ticket_url.strip()          # the sync hides only the row that links here
+        self.tombstones[fp] = tomb
+        self.stats["cancelled"] += 1
+        self.cancelled_by_source[ev.source] = self.cancelled_by_source.get(ev.source, 0) + 1
+        return "cancelled"
+
+    def mark_seen(self, source: str, fingerprint: Optional[str]) -> None:
+        """The source LISTED this event this run, and the adapter could not write
+        it for a reason that is ours, not the publisher's: no point for the
+        place (a second table's glitch), a geocoder miss. Absence is measured
+        against what the source listed, so it never cancels a seen fingerprint.
+
+        Measured 2026-10-05 (review): Toronto's facility point table losing two
+        locations while the sessions table was unchanged made 1,236 live
+        sessions read as gone, under the 10% breaker (limit 2,400 of 24,004).
+        Call it with the fingerprint the live row would have had."""
+        if fingerprint and source:
+            self.seen.add(fingerprint)
+
+    def mark_complete(self, source: str, window_from: Any, window_to: Any,
+                      id_prefix: Optional[str] = None) -> None:
+        """Record that THIS run read `source` WHOLE, for events starting in
+        [window_from, window_to] (the source's own read horizon).
+
+        Complete means: no deadline hit, no request failed, no page skipped, so
+        every event the publisher lists in that window was upserted or cancelled
+        here (or refused by a rule). Then an event the previous complete read
+        wrote and this one did not is gone at the source, and
+        `mapsee_supabase_sync --retire-absent` may cancel it. Call it after the
+        read, never for a partial one. `id_prefix` narrows the unit to rows whose
+        source_id starts with it, so one tenant of a shared source name
+        ("perfectmind", source_id "slug:...") can be complete while another
+        failed. Edges: an aware datetime is exact, a date or naive time is
+        rounded inward (_window_edge)."""
+        if not source:
+            raise ValueError("mark_complete needs the rows' own source name")
+        lo, hi = _window_edge(window_from, "from"), _window_edge(window_to, "to")
+        if hi <= lo:
+            raise ValueError(f"empty read window {lo} .. {hi}")
+        unit = f"{source}|{id_prefix}" if id_prefix else source
+        self.complete_reads[unit] = {"source": source, "id_prefix": id_prefix or "",
+                                     "from": lo, "to": hi, "at": iso_now()}
 
 
 # --------------------------------------------------------------------------- #
@@ -1268,6 +1591,21 @@ def build_tm_params(args: argparse.Namespace, api_key: str) -> Dict[str, Any]:
     return params
 
 
+# Discovery's dates.status.code: onsale, offsale, canceled, postponed,
+# rescheduled (developer.ticketmaster.com, Discovery API v2, "Event Status"). The
+# code was never read, so a called-off show was imported like any other and the
+# row already written stayed. "canceled" is TM's spelling; both are accepted. A
+# POSTPONED show has no date: the row on the old one is wrong either way, and a
+# new date arrives as a new event. "rescheduled" carries its NEW date in
+# dates.start, so it is imported live (the old date's row is a different
+# fingerprint, and nothing here can see it). "offsale" is still happening.
+TM_OFF_STATUSES = frozenset({"canceled", "cancelled", "postponed"})
+
+
+def tm_status(raw: Dict[str, Any]) -> str:
+    return str((((raw.get("dates") or {}).get("status") or {}).get("code") or "")).strip().lower()
+
+
 def ingest_ticketmaster(store: EventStore, session: requests.Session, limiter: RateLimiter,
                         args: argparse.Namespace, api_key: str) -> int:
     base = build_tm_params(args, api_key)
@@ -1277,6 +1615,7 @@ def ingest_ticketmaster(store: EventStore, session: requests.Session, limiter: R
     page_size = max(1, min(args.size, 199))
     processed = 0
     no_clock = 0
+    cancelled = 0
     page = 0
     while True:
         data = http_get(session, DISCOVERY_URL, limiter, dict(base, size=page_size, page=page)).json()
@@ -1284,19 +1623,27 @@ def ingest_ticketmaster(store: EventStore, session: requests.Session, limiter: R
         if not events:
             break
         for raw in events:
-            if not tm_has_clock(raw):
-                no_clock += 1            # a day with no published minute: see tm_has_clock
-                continue
             ev = parse_ticketmaster_event(raw)
             if not ev.source_id or ev.source_id == "None":
+                continue
+            # BEFORE the clock check: a postponed show often loses its time
+            # (dateTBA) while the row we wrote last month still has one.
+            status = tm_status(raw)
+            if status in TM_OFF_STATUSES:
+                store.cancel(ev, f"ticketmaster {status}")
+                cancelled += 1
+                continue
+            if not tm_has_clock(raw):
+                no_clock += 1            # a day with no published minute: see tm_has_clock
                 continue
             store.upsert(ev)
             processed += 1
         info = data.get("page", {}) or {}
         total_pages = int(info.get("totalPages", 0) or 0)
         current = int(info.get("number", page) or 0)
-        log.info("[ticketmaster] page %d/%s (%d processed, %d skipped with no start time)",
-                 current + 1, total_pages or "?", processed, no_clock)
+        log.info("[ticketmaster] page %d/%s (%d processed, %d skipped with no start time, "
+                 "%d cancelled or postponed)", current + 1, total_pages or "?", processed, no_clock,
+                 cancelled)
         if current + 1 >= total_pages:
             break
         if (page + 1) * page_size >= MAX_RESULT_WINDOW:
