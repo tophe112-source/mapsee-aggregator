@@ -35,14 +35,14 @@ import re
 import sys
 import time
 from datetime import datetime, timezone, timedelta
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import requests
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, notice_reason, strip_notice
 
 API = "https://www.venuepilot.co/graphql"
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
@@ -71,12 +71,24 @@ def _clean(s: Optional[str]) -> Optional[str]:
 
 
 def to_event(ev: Dict[str, Any], category: str, venue_default: Dict[str, Any]) -> Optional[NormalizedEvent]:
+    """The live row, or None (a cancelled show too — see to_record)."""
+    nev, cancelled = to_record(ev, category, venue_default)
+    return None if cancelled else nev
+
+
+def to_record(ev: Dict[str, Any], category: str, venue_default: Dict[str, Any]
+              ) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
+    """(event, why it is cancelled). The status vocabulary is not documented, so
+    "cancel" anywhere in it is the venue calling the show off; that show is
+    built exactly as its live row was, for EventStore.cancel, never upsert."""
     name = (ev.get("name") or "").strip()
     date = (ev.get("date") or "").strip()
+    status = str(ev.get("status") or "").strip()
+    cancelled = f"status:{status}" if "cancel" in status.lower() else None
+    if cancelled and notice_reason(name):
+        name = strip_notice(name) or ""               # stored under the old title
     if not name or len(date) < 10:
-        return None
-    if "cancel" in str(ev.get("status") or "").lower():
-        return None
+        return None, None
     t = (ev.get("startTime") or ev.get("doorTime") or "19:00:00")[:8]
     start_local = f"{date}T{t}"                       # naive local; sync -> UTC via venue coords
     artists = [a.get("name") for a in (ev.get("announceArtists") or []) if a.get("name")]
@@ -99,7 +111,7 @@ def to_event(ev: Dict[str, Any], category: str, venue_default: Dict[str, Any]) -
         ticket_url=ev.get("ticketsUrl") or ev.get("websiteUrl"),
     )
     nev.fingerprint = make_fingerprint(name, date[:10], nev.venue_name)
-    return nev
+    return nev, cancelled
 
 
 def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
@@ -111,7 +123,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     now = datetime.now(timezone.utc)
     sd = now.strftime("%Y-%m-%d")
     ed = (now + timedelta(days=int(site.get("within_days", 120)))).strftime("%Y-%m-%d")
-    kept = 0
+    kept = cancelled = 0
     for page in range(1, 21):                         # cap ~1000 events/site
         variables = {"ids": ids, "sd": sd, "ed": ed, "limit": 50, "page": page}
         try:
@@ -129,14 +141,18 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         if not rows:
             break
         for ev in rows:
-            nev = to_event(ev, category, venue)
-            if nev:
+            nev, why = to_record(ev, category, venue)
+            if nev is None:
+                continue
+            if why:
+                cancelled += store.cancel(nev, why) == "cancelled"
+            else:
                 store.upsert(nev)
                 kept += 1
         meta = node.get("metadata") or {}
         if page >= int(meta.get("totalPages") or page):
             break
-    print(f"[venuepilot] {site.get('name')}: kept {kept} events")
+    print(f"[venuepilot] {site.get('name')}: kept {kept} events, {cancelled} cancelled")
     return kept
 
 

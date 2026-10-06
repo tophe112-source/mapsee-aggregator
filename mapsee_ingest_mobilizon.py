@@ -43,7 +43,8 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
+from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint, norm_categories,
+                           notice_reason, strip_notice)
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 _TAG = re.compile(r"<[^>]+>")
@@ -54,7 +55,7 @@ query($b:DateTime,$l:Int,$p:Int){
     total
     elements{
       ... on Event {
-        uuid title description beginsOn endsOn url category onlineAddress
+        uuid title description beginsOn endsOn url category onlineAddress status
         physicalAddress{ description street locality postalCode region country geom }
       }
     }
@@ -104,11 +105,25 @@ def parse_geom(geom: Optional[str]) -> Tuple[Optional[float], Optional[float]]:
     return lat, lon
 
 
-def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEvent]:
+def to_event(ev: Dict[str, Any], site: Dict[str, Any], *,
+             tombstone: bool = False) -> Optional[NormalizedEvent]:
+    """The live row, or with tombstone=True the record of an event whose status
+    is CANCELLED (for EventStore.cancel); None for the other kind.
+
+    The query did not ask for `status` until 2026-10-05, so a CANCELLED event was
+    imported as a live one. Asked of all 65 instances that answer (none errored
+    on the field): 3,558 CONFIRMED, 29 TENTATIVE, 7 CANCELLED on the first page.
+    TENTATIVE stays, as in the ics adapter: unconfirmed is not off."""
     name = _clean(ev.get("title"))
     begins = (ev.get("beginsOn") or "").strip()
     if not name or len(begins) < 10:
         return None
+    if (str(ev.get("status") or "").upper() == "CANCELLED") != tombstone:
+        return None
+    if tombstone and notice_reason(name):
+        name = strip_notice(name)
+        if not name:
+            return None
     pa = ev.get("physicalAddress") or {}
     lat, lon = parse_geom(pa.get("geom"))
     primary = _CATEGORY.get(str(ev.get("category") or "").upper(), site.get("category", "community"))
@@ -146,7 +161,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     max_pages = int(site.get("max_pages", 5))
     delay = float(site.get("crawl_delay", 1))
     begins = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    kept = 0
+    kept = cancelled = 0
     for page in range(1, max_pages + 1):
         payload = {"query": QUERY, "variables": {"b": begins, "l": limit, "p": page}}
         try:
@@ -166,15 +181,24 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
         if not rows:
             break
         for ev in rows:
-            nev = to_event(ev, site)
-            if nev:
+            off = str(ev.get("status") or "").upper() == "CANCELLED"
+            nev = to_event(ev, site, tombstone=off)
+            if nev and off:
+                # Never imported. Mobilizon is open registration, so EventStore
+                # returns "untrusted" and records no tombstone: a stranger could
+                # otherwise publish a cancelled copy of somebody else's event
+                # (same title, day and place) and take the real one off the map.
+                cancelled += 1
+                store.cancel(nev, "status:CANCELLED")
+            elif nev:
                 store.upsert(nev)
                 kept += 1
         if page * limit >= int(node.get("total") or 0):
             break
         if delay:
             time.sleep(delay)
-    print(f"[mobilizon] {site.get('name')}: kept {kept} events")
+    print(f"[mobilizon] {site.get('name')}: kept {kept} events"
+          + (f"; {cancelled} CANCELLED not imported" if cancelled else ""))
     return kept
 
 

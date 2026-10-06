@@ -64,10 +64,15 @@ check("both caches checkpoint after every attempted source",
 class VenueStore:
     def __init__(self):
         self.rows = []
+        self.cancelled = []
 
     def upsert(self, ev):
         self.rows.append(ev)
         return ev.source_id
+
+    def cancel(self, ev, reason):
+        self.cancelled.append(ev)
+        return "cancelled"
 
 
 VENUE_ICS = (
@@ -369,6 +374,26 @@ check("a venue fallback's name came from the config and was never misread",
           mis("Fête du quartier"), "2099-10-12", "Médiathèque de quartier")],
       c and c.legacy_fingerprints)
 
+# A CANCELLED VEVENT is tombstoned under both keys the live row could be stored
+# by, and the old key is the misread title INSIDE the notice: "CANCELLED - " was
+# added when the event was called off, after the row was stored.
+from mapsee_ingest import EventStore as _CxStore  # noqa: E402
+CX_RAW = FR_ICS.replace("SUMMARY:Ateliers Numériques\r\n",
+                        "SUMMARY:CANCELLED - Ateliers Numériques\r\nSTATUS:CANCELLED\r\n").encode("utf-8")
+cx_text, cx_enc = ICS._decode_ics(_response(CX_RAW, "text/calendar"))
+with tempfile.TemporaryDirectory() as _d, \
+        patch.object(ICS, "_fetch_ics", return_value=(cx_text, "200", cx_enc)), \
+        patch.object(ICS, "make_location_geocoder", side_effect=_no_hit_geocoder), \
+        redirect_stdout(io.StringIO()):
+    cstore = _CxStore(os.path.join(_d, "s.json"))
+    ICS.ingest_ics(cstore, None, {"name": "oa", "url": "x",
+                                  "venue": {"name": "Médiathèque de quartier", "lat": 47.2, "lon": -1.55}})
+tomb = cstore.tombstones.get(a.fingerprint if a else "")
+check("a cancelled VEVENT is tombstoned under the live row's key",
+      tomb is not None and tomb["source_id"] == "a", sorted(cstore.tombstones))
+check("...and under its old key, unwrapped from the notice like the title",
+      tomb is not None and tomb.get("legacy") == a.legacy_fingerprints, tomb)
+
 
 class _Feed:
     def __init__(self, status=200):
@@ -435,6 +460,29 @@ check("title filters skip Rotary notice and code-gated rows before geocoding or 
 check("title filter and existing cancellation skips are counted",
       "4 title-filtered" in out.getvalue() and "1 cancelled (STATUS:CANCELLED)" in out.getvalue(),
       out.getvalue())
+check("...and the cancelled meeting, never geocoded above, went to store.cancel",
+      [r.source_id for r in rotary_store.cancelled] == ["cancelled"],
+      [r.source_id for r in rotary_store.cancelled])
+
+
+
+class _ReadOnly:                       # mapsee_gcal's smoke read: rows, no cancel
+    def __init__(self):
+        self.rows = []
+
+    def upsert(self, ev):
+        self.rows.append(ev)
+        return "new"
+
+
+with patch.object(ICS, "_fetch_ics", return_value=(ROTARY_ICS, "200")), \
+     patch.object(ICS, "make_location_geocoder", side_effect=_rotary_geocoder), \
+     redirect_stdout(io.StringIO()):
+    ro = _ReadOnly()
+    ICS.ingest_ics(ro, None, {"name": "ro", "url": "x"})
+check("a collector with no cancel still reads a feed that carries a cancellation",
+      "Rotary Speaker Meeting" in [r.name for r in ro.rows]
+      and "Cancelled public meeting" not in [r.name for r in ro.rows], [r.name for r in ro.rows])
 
 with patch.object(ICS, "_fetch_ics", return_value=(ROTARY_ICS, "200")):
     try:

@@ -23,14 +23,14 @@ import os
 import sys
 import time
 from datetime import datetime, timezone, timedelta
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import requests
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, notice_reason, strip_notice
 
 API = "https://api.seatgeek.com/2/events"
 
@@ -90,16 +90,35 @@ def _iso_utc(s: Optional[str]) -> Optional[str]:
     return s if (s.endswith("Z") or "+" in s[10:]) else s + "Z"
 
 
+# SeatGeek's event `status` reads "normal" for a show on sale. Its other values
+# are NOT verified here (no SEATGEEK_CLIENT_ID in this repo), so this is a
+# denylist of the words that mean the show is off on the date our row carries;
+# an absent or unknown status is a live listing, exactly as before.
+CANCELLED_STATUSES = {"cancelled", "canceled", "postponed"}
+
+
 def to_event(ev: Dict[str, Any]) -> Optional[NormalizedEvent]:
+    """The live row, or None (a cancelled show too — see to_record)."""
+    nev, cancelled = to_record(ev)
+    return None if cancelled else nev
+
+
+def to_record(ev: Dict[str, Any]) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
+    """(event, why it is cancelled); a cancelled one is built exactly as the live
+    row was, for EventStore.cancel."""
     title = (ev.get("title") or "").strip()
+    status = str(ev.get("status") or "").strip().lower()
+    cancelled = f"status:{status}" if status in CANCELLED_STATUSES else None
+    if cancelled and notice_reason(title):
+        title = strip_notice(title) or ""              # stored under the old title
     dt_local = ev.get("datetime_local")
     if not title or not dt_local:
-        return None
+        return None, None
     venue = ev.get("venue") or {}
     loc = venue.get("location") or {}
     lat, lon = loc.get("lat"), loc.get("lon")
     if lat is None or lon is None:
-        return None                                        # nowhere to pin it
+        return None, None                                  # nowhere to pin it
     date_key = dt_local[:10]
     performers = [p.get("name") for p in (ev.get("performers") or []) if p.get("name")]
     price = (ev.get("stats") or {}).get("lowest_price")
@@ -127,7 +146,7 @@ def to_event(ev: Dict[str, Any]) -> Optional[NormalizedEvent]:
         ticket_url=ev.get("url"),
     )
     nev.fingerprint = make_fingerprint(title, date_key, venue.get("name"), venue.get("city"))
-    return nev
+    return nev, cancelled
 
 
 def ingest(store: EventStore, session, client_id, client_secret,
@@ -142,7 +161,7 @@ def ingest(store: EventStore, session, client_id, client_secret,
     }
     if client_secret:
         params["client_secret"] = client_secret
-    kept = 0
+    kept = cancelled = 0
     for page in range(1, 8):                               # cap ~700 events/metro
         params["page"] = page
         r = _get(session, params)
@@ -154,14 +173,18 @@ def ingest(store: EventStore, session, client_id, client_secret,
         if not events:
             break
         for ev in events:
-            nev = to_event(ev)
-            if nev:
+            nev, why = to_record(ev)
+            if nev is None:
+                continue
+            if why:
+                cancelled += store.cancel(nev, why) == "cancelled"
+            else:
                 store.upsert(nev)
                 kept += 1
         meta = data.get("meta") or {}
         if page * int(meta.get("per_page") or 100) >= int(meta.get("total") or 0):
             break
-    print(f"[seatgeek] {lat},{lon}: kept {kept}")
+    print(f"[seatgeek] {lat},{lon}: kept {kept}, {cancelled} cancelled/postponed")
     return kept
 
 

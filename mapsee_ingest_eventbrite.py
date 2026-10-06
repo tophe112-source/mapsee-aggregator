@@ -45,14 +45,15 @@ import re
 import sys
 import time
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import requests
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
+from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint, norm_categories,
+                           notice_reason, strip_notice)
 
 API = "https://www.eventbriteapi.com/v3"
 WEB_UA = "Mozilla/5.0 (compatible; MapseeAggregator/1.0; +https://mapsee.me; events@mapsee.me)"
@@ -160,7 +161,11 @@ def discover_event_ids(web, slug: str, pages: int) -> List[str]:
         if not results:
             break
         for ev in results:
-            if ev.get("is_online_event") or ev.get("is_cancelled"):
+            # A cancelled listing is still hydrated: the API's status "canceled"
+            # is what lets to_record tombstone the row we stored while it was
+            # live (EventStore.cancel). Skipping it here is how that row stayed
+            # on the map. An online one never had a row.
+            if ev.get("is_online_event"):
                 continue
             eid = str(ev.get("eventbrite_event_id") or ev.get("id") or "").strip()
             if eid.isdigit():
@@ -181,22 +186,38 @@ def _categories(ev: Dict[str, Any], override: Optional[str]) -> tuple:
 
 
 def to_event(ev: Dict[str, Any], category_override: Optional[str] = None) -> Optional[NormalizedEvent]:
+    """The live row, or None (a cancelled event too — see to_record)."""
+    nev, cancelled = to_record(ev, category_override)
+    return None if cancelled else nev
+
+
+def to_record(ev: Dict[str, Any], category_override: Optional[str] = None
+              ) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
+    """(event, why it is cancelled). Eventbrite's status is one of draft, live,
+    started, ended, completed, canceled; only "canceled" is the organiser
+    calling it off, and then the event is built exactly as the live row was —
+    same refusals, same fingerprint — for EventStore.cancel, never upsert."""
     if ev.get("online_event"):
-        return None                                    # no place to pin an online event
-    if (ev.get("status") or "live") not in ("live", "started"):
-        return None                                    # draft/ended/canceled
+        return None, None                              # no place to pin an online event
+    status = ev.get("status") or "live"
+    cancelled = "status:canceled" if status in ("canceled", "cancelled") else None
+    if status not in ("live", "started") and not cancelled:
+        return None, None                              # draft/ended/completed
     name = ((ev.get("name") or {}).get("text") or "").strip()
+    if cancelled and notice_reason(name):
+        # Retitled "CANCELLED - X" as well: the stored row carries X's title.
+        name = strip_notice(name) or ""                # a closure names no event
     start = ev.get("start") or {}
     start_utc, start_local = start.get("utc"), start.get("local")
     if not name or not (start_utc or start_local):
-        return None
+        return None, None
     venue = ev.get("venue") or {}
     addr = venue.get("address") or {}
     try:
         lat = float(addr.get("latitude"))
         lon = float(addr.get("longitude"))
     except (TypeError, ValueError):
-        return None                                    # nowhere to pin it
+        return None, None                              # nowhere to pin it
     desc = ((ev.get("description") or {}).get("text") or "").strip() or None
     logo = ev.get("logo") or {}
     poster = None
@@ -228,18 +249,25 @@ def to_event(ev: Dict[str, Any], category_override: Optional[str] = None) -> Opt
         ticket_url=ev.get("url"),
     )
     nev.fingerprint = make_fingerprint(name, date_key, venue.get("name"))
-    return nev
+    return nev, cancelled
 
 
-def hydrate(store: EventStore, api, eid: str) -> bool:
+def _store(store: EventStore, ev: Dict[str, Any]) -> Optional[str]:
+    """Write one API event: "kept", "cancelled", or None (refused / not keyed)."""
+    nev, why = to_record(ev)
+    if nev is None:
+        return None
+    if why:
+        return "cancelled" if store.cancel(nev, why) == "cancelled" else None
+    store.upsert(nev)
+    return "kept"
+
+
+def hydrate(store: EventStore, api, eid: str) -> Optional[str]:
     r = _api_get(api, f"{API}/events/{eid}/", {"expand": "venue,category"})
     if r is None or r.status_code != 200:
-        return False
-    nev = to_event(r.json())
-    if nev:
-        store.upsert(nev)
-        return True
-    return False
+        return None
+    return _store(store, r.json())
 
 
 # ---- your own organizations (full API path) ----------------------------------
@@ -263,6 +291,9 @@ def my_organization_ids(api) -> List[Dict[str, Any]]:
 
 
 def ingest_organization(store: EventStore, api, org: Dict[str, Any]) -> int:
+    # status=live only, so this path never SEES a cancellation; the metro path
+    # (hydrate) does. Widening it to "live,canceled" is unmeasured — no token
+    # here — and a rejected parameter would empty the owner's own events.
     kept, cont = 0, None
     base = f"{API}/organizations/{org['id']}/events/"
     for _ in range(40):
@@ -276,10 +307,7 @@ def ingest_organization(store: EventStore, api, org: Dict[str, Any]) -> int:
             break
         body = r.json()
         for ev in body.get("events") or []:
-            nev = to_event(ev)
-            if nev:
-                store.upsert(nev)
-                kept += 1
+            kept += _store(store, ev) == "kept"
         pag = body.get("pagination") or {}
         if pag.get("has_more_items") and pag.get("continuation"):
             cont = pag["continuation"]
@@ -338,14 +366,18 @@ def main(argv=None) -> int:
             blocked = True
         fresh = [i for i in ids if i not in seen]
         seen.update(fresh)
-        kept = 0
+        kept = cancelled = 0
         for eid in fresh:
             try:
-                kept += 1 if hydrate(store, api, eid) else 0
+                got = hydrate(store, api, eid)
             except Exception as exc:
                 print(f"[eventbrite] event {eid} FAILED: {exc}")
+                continue
+            kept += got == "kept"
+            cancelled += got == "cancelled"
         total += kept
-        print(f"[eventbrite] {m.get('name', slug)}: {len(fresh)} discovered, {kept} kept")
+        print(f"[eventbrite] {m.get('name', slug)}: {len(fresh)} discovered, {kept} kept, "
+              f"{cancelled} cancelled by the organiser")
         if blocked:
             print("[eventbrite] discovery unavailable from this IP - stopping the metro sweep (run eventbrite_local.ps1 from a home connection).")
             break

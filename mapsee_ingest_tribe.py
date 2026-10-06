@@ -206,6 +206,12 @@ def online_with_no_place(ev: Dict[str, Any], name: Optional[str],
 
 
 def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEvent]:
+    # NO EVENT STATUS IN THIS API. The Events Calendar's "Canceled"/"Postponed"
+    # reaches the event page's JSON-LD (eventStatus, which
+    # mapsee_prune_cancelled reads) but not REST v1: its 45 keys on njaudubon.org
+    # and gnps.org (2026-10-05) hold none, and `status` is the WordPress post
+    # status ("publish"). A title that says CANCELLED is EventStore's to refuse
+    # and tombstone (notice_reason), since this key is name|day|venue|city.
     name = _clean(ev.get("title"))
     start = (ev.get("start_date") or "").strip()          # "2026-08-04 10:00:00", site-local
     if not name or len(start) < 10:

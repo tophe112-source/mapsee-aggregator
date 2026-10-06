@@ -33,14 +33,15 @@ import os
 import sys
 import time
 from datetime import datetime, timezone, timedelta
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import requests
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
+from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint, norm_categories,
+                           notice_reason, strip_notice)
 
 # AXS gives partners an events endpoint; set it via env so no code change is
 # needed when you onboard. Left blank on purpose - the script no-ops without it.
@@ -113,13 +114,29 @@ def _iso_utc(s):
     return s if (s.endswith("Z") or "+" in s[10:]) else s + "Z"
 
 
+# PROVISIONAL like every field here: the words a status would use for a show
+# that is off on our row's date. Unknown or absent = live, as before.
+CANCELLED_STATUSES = {"cancelled", "canceled", "postponed"}
+
+
 def to_event(ev: Dict[str, Any]) -> Optional[NormalizedEvent]:
+    """The live row, or None (a cancelled show too — see to_record)."""
+    nev, cancelled = to_record(ev)
+    return None if cancelled else nev
+
+
+def to_record(ev: Dict[str, Any]) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
     """PROVISIONAL - confirm field names against AXS partner docs. Reads every
-    field defensively so an unexpected shape drops the event, never crashes."""
+    field defensively so an unexpected shape drops the event, never crashes.
+    (event, why it is cancelled); a cancelled one goes to EventStore.cancel."""
     name = str(_first(ev, "title", "name", "eventName") or "").strip()
+    status = str(_first(ev, "status", "eventStatus") or "").strip().lower()
+    cancelled = f"status:{status}" if status in CANCELLED_STATUSES else None
+    if cancelled and notice_reason(name):
+        name = strip_notice(name) or ""                # stored under the old title
     start = _first(ev, "eventDateTime", "startDateTime", "start", "date")
     if not name or not start:
-        return None
+        return None, None
     venue = ev.get("venue") or ev.get("location") or {}
     if not isinstance(venue, dict):
         venue = {}
@@ -159,7 +176,7 @@ def to_event(ev: Dict[str, Any]) -> Optional[NormalizedEvent]:
         ticket_url=_first(ev, "url", "ticketUrl", "eventUrl"),
     )
     nev.fingerprint = make_fingerprint(name, date_key, nev.venue_name, nev.city)
-    return nev
+    return nev, cancelled
 
 
 def ingest(store: EventStore, session, within_days: int,
@@ -175,7 +192,7 @@ def ingest(store: EventStore, session, within_days: int,
         params["lat"], params["lon"] = lat, lon
         if radius_mi:
             params["radius"] = radius_mi
-    kept = 0
+    kept = cancelled = 0
     for page in range(1, 16):
         params["page"] = page
         r = _get(session, params)
@@ -189,13 +206,17 @@ def ingest(store: EventStore, session, within_days: int,
         if not events:
             break
         for ev in events:
-            nev = to_event(ev)
-            if nev:
+            nev, why = to_record(ev)
+            if nev is None:
+                continue
+            if why:
+                cancelled += store.cancel(nev, why) == "cancelled"
+            else:
                 store.upsert(nev)
                 kept += 1
         if len(events) < params["pageSize"]:
             break
-    print(f"[axs] kept {kept} events ({lat},{lon})")
+    print(f"[axs] kept {kept} events, {cancelled} cancelled ({lat},{lon})")
     return kept
 
 

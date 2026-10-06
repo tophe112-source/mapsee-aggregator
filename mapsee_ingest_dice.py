@@ -28,14 +28,14 @@ import os
 import sys
 import time
 from datetime import datetime, timezone, timedelta
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import requests
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, notice_reason, strip_notice
 
 API_BASE = os.environ.get("DICE_API_BASE", "https://partners-endpoint.dice.fm/api/v2/events")
 
@@ -62,6 +62,14 @@ def _get(session, params) -> Optional[requests.Response]:
 # DICE tags lean overwhelmingly music/nightlife; only clear stage/screen tags
 # move an event onto the theater layer (the sync also reclassifies comedy titles).
 _THEATER_TAGS = {"comedy", "theatre", "theater", "spoken word", "film", "cinema"}
+
+# A listing DICE has called off. These are the states mapsee_ingest_dice_venue
+# reads from the same event objects on DICE's own pages; the partner API's
+# `status` is NOT verified here (no DICE_API_KEY in this repo), so it is read as
+# a denylist of those words — an absent or unknown status is a live listing.
+# Postponed counts: the show is not happening on the date our row carries, and
+# a new date arrives as a new row.
+CANCELLED_STATUSES = {"cancelled", "canceled", "postponed"}
 
 
 def _category(ev: Dict[str, Any]) -> str:
@@ -98,10 +106,22 @@ def _image(ev: Dict[str, Any]) -> Optional[str]:
 
 
 def to_event(ev: Dict[str, Any]) -> Optional[NormalizedEvent]:
+    """The live row, or None (a cancelled event too — see to_record)."""
+    nev, cancelled = to_record(ev)
+    return None if cancelled else nev
+
+
+def to_record(ev: Dict[str, Any]) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
+    """(event, why it is cancelled); a cancelled one is built exactly as the live
+    row was, for EventStore.cancel."""
     name = (ev.get("name") or "").strip()
+    status = str(ev.get("status") or "").strip().lower()
+    cancelled = f"status:{status}" if status in CANCELLED_STATUSES else None
+    if cancelled and notice_reason(name):
+        name = strip_notice(name) or ""                # stored under the old title
     start_utc, start_local = _start(ev)
     if not name or not (start_utc or start_local):
-        return None
+        return None, None
     venues = ev.get("venues") or []
     v = venues[0] if venues else (ev.get("venue") or {})
     loc = v.get("location") or {}
@@ -138,7 +158,7 @@ def to_event(ev: Dict[str, Any]) -> Optional[NormalizedEvent]:
         ticket_url=ticket_url,
     )
     nev.fingerprint = make_fingerprint(name, date_key, v.get("name"), city)
-    return nev
+    return nev, cancelled
 
 
 def ingest(store: EventStore, session, within_days: int, city: Optional[str],
@@ -156,7 +176,7 @@ def ingest(store: EventStore, session, within_days: int, city: Optional[str],
         params["filter[location][lng]"] = lon
         if radius_mi:
             params["filter[location][radius]"] = radius_mi
-    kept = 0
+    kept = cancelled = 0
     for page in range(1, 21):                              # cap ~1000 events/sweep
         params["page[number]"] = page
         r = _get(session, params)
@@ -171,13 +191,17 @@ def ingest(store: EventStore, session, within_days: int, city: Optional[str],
         if not events:
             break
         for ev in events:
-            nev = to_event(ev)
-            if nev:
+            nev, why = to_record(ev)
+            if nev is None:
+                continue
+            if why:
+                cancelled += store.cancel(nev, why) == "cancelled"
+            else:
                 store.upsert(nev)
                 kept += 1
         if len(events) < params["page[size]"]:
             break
-    print(f"[dice] kept {kept} events ({city or f'{lat},{lon}'})")
+    print(f"[dice] kept {kept} events, {cancelled} cancelled ({city or f'{lat},{lon}'})")
     return kept
 
 

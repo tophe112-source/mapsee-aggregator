@@ -33,7 +33,7 @@ import re
 import sys
 import time
 from datetime import datetime, timedelta, timezone
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Tuple
 
 try:
     import requests
@@ -41,7 +41,8 @@ except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
 from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint,
-                           looks_online_only, venue_is_only_a_plus_code)
+                           looks_online_only, venue_is_only_a_plus_code,
+                           notice_reason, strip_notice)
 from mapsee_admission import normalize_admission_facts, admission_description
 
 GQL = "https://api.meetup.com/gql-ext"
@@ -136,6 +137,19 @@ query($query: String!, $lat: Float!, $lon: Float!, $radius: Float,
 # thing the public can turn up to.
 DEAD_STATUSES = {"cancelled", "canceled", "cancelled_perm", "autosched_cancelled",
                  "draft", "autosched_draft", "template", "proposed", "blocked", "past"}
+# The subset that is the organiser CALLING THE EVENT OFF, which is a tombstone
+# (EventStore.cancel) and not just a refusal: the row we stored while it was
+# ACTIVE is still on the map otherwise, and that is the 12.9% above. The rest of
+# DEAD_STATUSES stay plain refusals — DRAFT/TEMPLATE/PROPOSED were never public,
+# PAST happened, and BLOCKED is Meetup's moderation rather than the organiser's
+# word (mapsee_prune_cancelled still re-probes that row's own page). A tombstone
+# hides a row until the same event is written live again, so it is kept to the
+# states whose own name says the event is off.
+# The yield is small and that is expected: live 2026-10-05 over Seattle,
+# eventSearch answered 9,700 hits (1,022 rows) and 4 were CANCELLED — 2 events,
+# one of them a tombstone, the other with no venue (it never had a row). A
+# search is not a ledger; the post-hoc sweep still does most of this work.
+CANCELLED_STATUSES = {"cancelled", "canceled", "cancelled_perm", "autosched_cancelled"}
 
 _MEETUP_GROUP_SLUG = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]*$")
 _MEETUP_GROUP_NAME_PLACEHOLDERS = {"", "group", "meetup", "meetup group", "unknown",
@@ -143,16 +157,37 @@ _MEETUP_GROUP_NAME_PLACEHOLDERS = {"", "group", "meetup", "meetup group", "unkno
 
 
 def to_event(ev: Dict[str, Any], category: str = "community") -> Optional[NormalizedEvent]:
+    """The live row, or None — a cancelled event is None here too; to_record
+    is what tells the two apart."""
+    nev, cancelled = to_record(ev, category)
+    return None if cancelled else nev
+
+
+def to_record(ev: Dict[str, Any], category: str = "community"
+              ) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
+    """(event, why it is cancelled). With a reason, the event is the record the
+    live row WOULD have been — every refusal below still applies, so the
+    fingerprint is the one a stored row can actually carry — and it goes to
+    EventStore.cancel, never to upsert."""
     title = (ev.get("title") or "").strip()
     start = ev.get("dateTime")
     if not title or not start:
-        return None
-    if str(ev.get("status") or "").strip().lower() in DEAD_STATUSES:
-        return None                                        # cancelled/draft/blocked — not on
+        return None, None
+    status = str(ev.get("status") or "").strip().lower()
+    cancelled = f"status:{status.upper()}" if status in CANCELLED_STATUSES else None
+    if status in DEAD_STATUSES and not cancelled:
+        return None, None                                  # draft/blocked/past — not on
+    if cancelled and notice_reason(title):
+        # Called off AND retitled "CANCELLED: Board Game Night": the row we
+        # stored was written under the old title, so the tombstone must be too.
+        # A closure title names no event (strip_notice gives None) — refused.
+        title = strip_notice(title) or ""
+        if not title:
+            return None, None
     v = ev.get("venue") or {}
     lat, lon = v.get("lat"), v.get("lon")
     if lat is None or lon is None:
-        return None                                        # online / no venue -> can't map it
+        return None, None                                  # online / no venue -> can't map it
     group_data = ev.get("group") or {}
     group = group_data.get("name")
     desc = (ev.get("description") or "").strip() or None
@@ -175,9 +210,9 @@ def to_event(ev: Dict[str, Any], category: str = "community") -> Optional[Normal
     # are a sangha, a church and a meditation group that really do run a room as
     # well as a stream, and looks_online_only leaves every one of them alone.
     if looks_online_only(title, desc):
-        return None                                        # a Zoom call is not somewhere to go
+        return None, None                                  # a Zoom call is not somewhere to go
     if venue_is_only_a_plus_code(v.get("name"), v.get("address")):
-        return None                                        # a dropped pin is not a venue
+        return None, None                                  # a dropped pin is not a venue
     # The native record's complete prose can veto conditional free entry even
     # when no ticket prices are published. Retain that before sync truncation.
     admission = normalize_admission_facts(None, context=f"{title} {desc or ''}")
@@ -210,7 +245,7 @@ def to_event(ev: Dict[str, Any], category: str = "community") -> Optional[Normal
         ticket_url=ev.get("eventUrl"),
     )
     nev.fingerprint = make_fingerprint(title, str(start)[:10], v.get("name") or group)
-    return nev
+    return nev, cancelled
 
 
 def ingest(store: EventStore, session, token: str, lat: str, lon: str, radius: int,
@@ -220,6 +255,9 @@ def ingest(store: EventStore, session, token: str, lat: str, lon: str, radius: i
     end = (now + timedelta(days=within_days)).strftime("%Y-%m-%dT%H:%M:%SZ")
     headers = {"Authorization": f"Bearer {token}"} if token else {}
     kept = seen = 0
+    # DISTINCT fingerprints: the keyword sweep overlaps (9,700 hits for 1,022
+    # rows over Seattle on 2026-10-05) and one cancelled event came back 3 times.
+    cancelled: set = set()
     for kw, category in keywords:
         r = session.post(
             GQL,
@@ -238,12 +276,19 @@ def ingest(store: EventStore, session, token: str, lat: str, lon: str, radius: i
         edges = (((data.get("data") or {}).get("eventSearch") or {}).get("edges")) or []
         seen += len(edges)
         for e in edges:
-            nev = to_event(e.get("node") or {}, category)
-            if nev:
+            nev, why = to_record(e.get("node") or {}, category)
+            if nev is None:
+                continue
+            if why:
+                # Never upsert AND cancel: the tombstone is the whole answer.
+                if store.cancel(nev, why) == "cancelled":
+                    cancelled.add(nev.fingerprint)
+            else:
                 store.upsert(nev)
                 kept += 1
         time.sleep(0.3)                                    # be polite across the keyword sweep
-    print(f"[meetup] {lat},{lon}: kept {kept} of {seen} across {len(keywords)} keywords")
+    print(f"[meetup] {lat},{lon}: kept {kept} of {seen} across {len(keywords)} keywords"
+          f"; {len(cancelled)} cancelled by the organiser")
     return kept
 
 

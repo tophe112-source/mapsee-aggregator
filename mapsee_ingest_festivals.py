@@ -280,11 +280,68 @@ def jackson_event(source, fetcher, today):
         agenda=parsed['agenda'], agenda_tz=source['timezone'])
 
 
-def structured_events(body, source, today):
+# schema.org/eventStatus values that take a festival, or one set in it, off the
+# map: Postponed means the dates in the markup are the ones NOT happening, and
+# MovedOnline that the grounds are empty (the same three mapsee_ingest_jsonld reads).
+DEAD_STATUSES = ('EventCancelled', 'EventPostponed', 'EventMovedOnline')
+
+
+def dead_status(item):
+    return next((s for s in DEAD_STATUSES if s in str(item.get('eventStatus', ''))), None)
+
+
+def _when_where(item, source):
+    """(loc, lat, lon, zone, start, end) of a festival parent, or ValueError.
+    One function for the live row and its tombstone, because the edition in the
+    fingerprint is the start's year IN THIS ZONE and a second copy could drift."""
+    loc = item.get('location')
+    if not isinstance(loc, dict) or not isinstance(loc.get('geo'), dict):
+        raise ValueError('festival has no precise location')
+    lat, lon = float(loc['geo']['latitude']), float(loc['geo']['longitude'])
+    if not (-90 <= lat <= 90 and -180 <= lon <= 180) or (lat == 0 and lon == 0):
+        raise ValueError('invalid festival location')
+    zone = source.get('timezone') or item.get('eventTimeZone')
+    if not zone:
+        from mapsee_supabase_sync import _tz_for
+        zone = _tz_for(lat, lon)
+    if not zone:
+        raise ValueError('festival needs a verified local timezone')
+    start, end = instant(item.get('startDate'), zone), instant(item.get('endDate'), zone)
+    if end <= start:
+        raise ValueError('festival end precedes start')
+    return loc, lat, lon, zone, start, end
+
+
+def _event_id(item, source):
+    return str(item.get('@id') or item.get('url') or source['official_url'])
+
+
+def festival_tombstone(item, source, today):
+    """The record a festival the organizer marks dead was stored as, for
+    EventStore.cancel: same source_id and identity(event_id, edition). None when
+    that key cannot be proved (no place or zone to date the edition by) or the
+    edition is over. The schedule items are not needed: they key nothing."""
+    try:
+        loc, lat, lon, zone, start, end = _when_where(item, source)
+    except (ValueError, TypeError, KeyError):
+        return None
+    if not upcoming(start, end, today):
+        return None
+    event_id, edition = _event_id(item, source), start[:4]
+    return NormalizedEvent(source='venue:festival', source_id=event_id + ':' + edition,
+                           fingerprint=identity(event_id, edition), name=item.get('name'),
+                           start_utc=start, end_utc=end, timezone=zone, category='music',
+                           venue_name=loc.get('name'), latitude=lat, longitude=lon)
+
+
+def structured_events(body, source, today, dead=None):
     """Only explicit festival parents with complete timed subEvents qualify.
 
     No inference from a lineup, ticket-sale date, neighboring event, or city
     centroid. Unsupported sites stay in the review queue for another parser.
+    `dead`, a list, collects (record, status) for the parents the organizer marks
+    cancelled, postponed or moved online: skipping them kept a stored festival
+    on the map, because an upsert cannot delete.
     """
     out = []
     for doc in Page(body).jsonld:
@@ -294,35 +351,27 @@ def structured_events(body, source, today):
                 kinds = [kinds]
             if not any(k.rsplit('/', 1)[-1] in ('Festival', 'MusicFestival') for k in kinds if isinstance(k, str)):
                 continue
-            if any(s in str(item.get('eventStatus', '')) for s in ('EventCancelled', 'EventPostponed')):
+            status = dead_status(item)
+            if status:
+                tomb = festival_tombstone(item, source, today) if dead is not None else None
+                if tomb is not None:
+                    dead.append((tomb, status))
                 continue
             children = item.get('subEvent') or item.get('subEvents')
             if isinstance(children, dict):
                 children = [children]
             if not isinstance(children, list) or not children or len(children) > 60:
                 raise ValueError('festival needs 1–60 explicit schedule items')
-            loc = item.get('location')
-            if not isinstance(loc, dict) or not isinstance(loc.get('geo'), dict):
-                raise ValueError('festival has no precise location')
-            lat, lon = float(loc['geo']['latitude']), float(loc['geo']['longitude'])
-            if not (-90 <= lat <= 90 and -180 <= lon <= 180) or (lat == 0 and lon == 0):
-                raise ValueError('invalid festival location')
-            zone = source.get('timezone') or item.get('eventTimeZone')
-            if not zone:
-                from mapsee_supabase_sync import _tz_for
-                zone = _tz_for(lat, lon)
-            if not zone:
-                raise ValueError('festival needs a verified local timezone')
-            start, end = instant(item.get('startDate'), zone), instant(item.get('endDate'), zone)
-            if end <= start:
-                raise ValueError('festival end precedes start')
+            loc, lat, lon, zone, start, end = _when_where(item, source)
             if not upcoming(start, end, today):
                 continue
             agenda = []
             for child in children:
                 if not isinstance(child, dict) or not child.get('name'):
                     raise ValueError('incomplete schedule item')
-                if 'EventCancelled' in str(child.get('eventStatus', '')):
+                # A set that is off leaves the agenda the parent row is rewritten
+                # with; postponed too, since its time in the markup is the old one.
+                if dead_status(child):
                     continue
                 stage = child.get('location')
                 place = stage.get('name') if isinstance(stage, dict) else stage
@@ -337,7 +386,7 @@ def structured_events(body, source, today):
             if not agenda:
                 raise ValueError('no active schedule items')
             address = loc.get('address') if isinstance(loc.get('address'), dict) else {}
-            event_id = str(item.get('@id') or item.get('url') or source['official_url'])
+            event_id = _event_id(item, source)
             edition = start[:4]
             offers = item.get('offers')
             if isinstance(offers, list):
@@ -387,6 +436,9 @@ def run(config, candidates, state_path, store_path, report_path, max_candidates=
     store = EventStore(store_path)
     store.records.clear()
     store.source_to_fp.clear()
+    # ...nor replays last run's cancellations: a tombstone is this run's word.
+    store.tombstones.clear()
+    store.complete_reads.clear()
     results, failures, examined = [], 0, 0
     for source in registered + refresh + selected:
         if time.monotonic() >= fetcher.deadline:
@@ -395,20 +447,25 @@ def run(config, candidates, state_path, store_path, report_path, max_candidates=
         result = {'id': sid, 'name': source['name'], 'checked_at': datetime.now(timezone.utc).isoformat(),
                   'verified_once': state['sources'].get(sid, {}).get('verified_once', False)}
         try:
+            dead = []
             if source.get('parser') == 'jackson-pdf':
                 event = jackson_event(source, fetcher, today)
                 events = [event] if event else []
             else:
                 url = source.get('schedule_url') or source['official_url']
-                events = structured_events(fetcher.get_text(url), source, today)
+                events = structured_events(fetcher.get_text(url), source, today, dead)
             for event in events:
                 store.upsert(event)
+            cancelled = sum(store.cancel(tomb, why) == 'cancelled' for tomb, why in dead)
             result.update(status='verified' if events else 'pending', events=len(events),
                           agenda_items=sum(len(e.agenda or []) for e in events))
+            if cancelled:
+                result['cancelled'] = cancelled
             if events:
                 result['verified_once'] = True
             if not events:
-                result['reason'] = 'No supported upcoming timetable; needs review'
+                result['reason'] = ('The organizer marks this edition ' + ', '.join(sorted({w for _, w in dead}))
+                                    if cancelled else 'No supported upcoming timetable; needs review')
         except Exception as exc:
             # Do not echo arbitrary response text or credentials from exceptions.
             result.update(status='failed' if source in registered else 'pending', reason=type(exc).__name__ + ': ' + str(exc)[:240])

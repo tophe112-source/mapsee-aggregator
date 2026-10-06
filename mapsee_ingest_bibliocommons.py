@@ -77,7 +77,8 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
+from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint, norm_categories,
+                           notice_reason, strip_notice)
 
 UA = "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"
 GATEWAY = "https://gateway.bibliocommons.com/v2/libraries/{slug}/events"
@@ -264,15 +265,29 @@ def _image_url(image: Optional[Dict[str, Any]]) -> Optional[str]:
 
 
 def to_event(ev: Dict[str, Any], ent: Dict[str, Any], site: Dict[str, Any],
-             location_cache: Optional[Dict[int, _LocationData]] = None
-             ) -> Optional[NormalizedEvent]:
+             location_cache: Optional[Dict[int, _LocationData]] = None, *,
+             tombstone: bool = False) -> Optional[NormalizedEvent]:
+    """The live row of a programme, or with tombstone=True the record of one the
+    library marks isCancelled (for EventStore.cancel); None for the other kind.
+
+    ONE builder for both, because the tombstone must carry the fingerprint the
+    stored row has: name + HH:MM | day | branch | city. Refusing a cancelled
+    programme kept it off the map only if we had not stored it yet, and a
+    library cancels after publishing: 8 of 600 rows were isCancelled on the
+    first pages of Toronto (2), Chicago (6) and Vancouver (0), 2026-10-05."""
     dfn = ev.get("definition") or {}
     name = _clean(dfn.get("title"), 300)
     start = _iso_local(dfn.get("start"))
     if not name or not start:
         return None
-    if dfn.get("isCancelled"):
+    if bool(dfn.get("isCancelled")) != tombstone:
         return None
+    # A library that cancels often retitles too; the row was stored under the
+    # title inside "CANCELLED - " (EventStore refuses a notice title).
+    if tombstone and notice_reason(name):
+        name = strip_notice(name)
+        if not name:
+            return None
 
     # Branch first, then off-site. No place at all means no pin, and a library
     # programme with no location is not something we can put on a map.
@@ -394,7 +409,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
     max_pages = int(site.get("max_pages", 40))
     url = GATEWAY.format(slug=slug)
 
-    kept = past = beyond = unplaceable = 0
+    kept = past = beyond = unplaceable = cancelled = 0
     for page in range(1, max_pages + 1):
         try:
             r = session.get(url, params={"limit": PAGE_LIMIT, "page": page}, timeout=45)
@@ -439,13 +454,18 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             if day and day > limit_day:
                 beyond += 1
                 continue
-            nev = to_event(ev, ent, site, location_cache)
+            off = bool((ev.get("definition") or {}).get("isCancelled"))
+            nev = to_event(ev, ent, site, location_cache, tombstone=off)
             if not nev:
                 unplaceable += 1
                 continue
+            on_page += 1
+            if off:
+                if store.cancel(nev, "isCancelled") == "cancelled":
+                    cancelled += 1
+                continue
             store.upsert(nev)
             kept += 1
-            on_page += 1
 
         pag = (body.get("events") or {}).get("pagination") or {}
         pages = int(pag.get("pages") or 0)
@@ -461,7 +481,8 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any]) -> int:
             time.sleep(delay)
 
     print(f"[bibliocommons] {label}: kept {kept} "
-          f"(skipped {past} past, {beyond} beyond horizon, {unplaceable} unplaceable)")
+          f"(skipped {past} past, {beyond} beyond horizon, {unplaceable} unplaceable)"
+          + (f"; {cancelled} cancelled (isCancelled, tombstoned)" if cancelled else ""))
     return kept
 
 

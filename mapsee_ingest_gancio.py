@@ -94,6 +94,11 @@ def _f(v) -> Optional[float]:
 
 
 def to_event(ev: Dict[str, Any], site: Dict[str, Any]) -> Optional[NormalizedEvent]:
+    # NO STATUS TO READ. /api/events carries ten keys (end_datetime, id, media,
+    # multidate, online_locations, place, slug, start_datetime, tags, title;
+    # bonn.jetzt, 89 events, 2026-10-05), so a Gancio cancellation reaches us
+    # only as a title ("ABGESAGT: ..."). EventStore refuses that title, and does
+    # not tombstone from it: Gancio is open registration (mapsee_spam).
     name = _clean(ev.get("title"))
     start_utc = _iso_utc(ev.get("start_datetime"))
     if not name or not start_utc:

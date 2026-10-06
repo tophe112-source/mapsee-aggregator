@@ -55,7 +55,7 @@ try:
 except ImportError:  # pragma: no cover
     ZoneInfo = None
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, notice_reason, strip_notice
 from catalog_discover_osm import CIVIC_TITLE_RX, CIVIC_HOLIDAY_RX
 import mapsee_gcal
 
@@ -584,18 +584,23 @@ def _event_url(ev: Dict[str, Any], src: Dict[str, Any]) -> Optional[str]:
     return None
 
 
-def _legacy_fingerprint(old_ev: Dict[str, Any], date_key: str, venue: Optional[Dict[str, Any]]) -> str:
+def _legacy_fingerprint(old_ev: Dict[str, Any], date_key: str, venue: Optional[Dict[str, Any]],
+                        cancelled: bool = False) -> str:
     """The fingerprint the pre-_decode_ics reader gave this VEVENT: the same
     parser and the same steps, over the text it was reading. A row the old
     reader pinned to the source's venue carried the venue's name, which comes
-    from the config and was never misread."""
+    from the config and was never misread. `cancelled`: the title as the live
+    row had it, without a "CANCELLED - " the publisher added (see ingest_ics)."""
     if venue is not None:
         loc = venue.get("name") or None
     else:
         loc = _location(old_ev)
         if loc and (PLACEHOLDER_LOC_RX.match(loc) or _all_placeholders(loc)):
             loc = None
-    return make_fingerprint(_summary(old_ev), date_key, loc)
+    title = _summary(old_ev)
+    if cancelled and notice_reason(title):
+        title = strip_notice(title) or title
+    return make_fingerprint(title, date_key, loc)
 
 
 def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=0, start_kept=0, deadline=None) -> int:
@@ -644,6 +649,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     past = 0
     governance = 0
     cancelled = 0
+    cancelled_unnamed = 0
     online = 0
     skipped_title = 0
     is_civic = str(src.get("_found", "")).startswith("civic:")
@@ -656,18 +662,33 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         title = _summary(ev)
         if not title or "DTSTART" not in ev:
             continue
+        # STATUS:CANCELLED, and the publisher has told us in the only way a
+        # subscribed calendar can. Refusing the VEVENT kept a cancellation off
+        # the map only for rows we had not written YET: an upsert cannot delete,
+        # so the storytime we stored last week stayed on the map. So the record
+        # is built below EXACTLY as the live one would be - same source, UID,
+        # fingerprint and legacy fingerprint, which is what the stored row is
+        # keyed by - and handed to store.cancel, which tombstones that row
+        # (mapsee_supabase_sync sets cancelled_at + hidden_at). Nothing that only
+        # PLACES the event is paid for: the fingerprint is title|date|location
+        # text, never coordinates, so a cancelled VEVENT is not geocoded and its
+        # page is not fetched. TENTATIVE is left alone: "not confirmed" is how a
+        # lot of municipal software publishes everything, and it is not a
+        # cancellation.
+        is_cancelled = (ev.get("STATUS", ("", {}))[0] or "").strip().upper() == "CANCELLED"
+        # A publisher that flips STATUS often renames the event too ("CANCELLED -
+        # Family Storytime"); the row it cancels was stored as "Family
+        # Storytime", so that is the title the record is built with - before skip_title
+        # and the title-keyed overrides below read it, as they did for the live row. A
+        # closure notice, or a title that is nothing but the word, names no
+        # event we could have stored: counted, never guessed at.
+        if is_cancelled and notice_reason(title):
+            title = strip_notice(title)
+            if not title:
+                cancelled_unnamed += 1
+                continue
         if skip_title and skip_title.search(title):
             skipped_title += 1
-            continue
-        # STATUS:CANCELLED, and the publisher has told us in the only way a
-        # subscribed calendar can. Refusing it here is the cheap half of the
-        # problem — it stops a cancellation reaching the map at all — and it is
-        # only the half that works for rows we have not written YET, because an
-        # upsert cannot delete (mapsee_prune_cancelled.py is the other half).
-        # TENTATIVE is left alone: "not confirmed" is how a lot of municipal
-        # software publishes everything, and it is not a cancellation.
-        if (ev.get("STATUS", ("", {}))[0] or "").strip().upper() == "CANCELLED":
-            cancelled += 1
             continue
         # A CITY CALENDAR IS TWO CALENDARS SHARING A FEED. The discovery side
         # refuses a feed that is NOTHING but meetings (governance_heavy, at two
@@ -725,7 +746,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
                 lat = lon = None
             if lat is not None and abs(lat) < 1e-9 and abs(lon) < 1e-9:
                 lat = lon = None                      # GEO:0;0 is "unset", not the Gulf of Guinea
-        if venue is None and (lat is None or lon is None) and loc:
+        if venue is None and (lat is None or lon is None) and loc and not is_cancelled:
             lat, lon = geocode(loc)
         if venue is None and lat is None and not loc and not elsewhere and _venue_pin(src.get("venue")):
             if _off_venue(src, title):
@@ -736,7 +757,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
                 loc = venue.get("name") or None
                 fingerprint_loc = loc
                 pinned_by_venue += 1
-        if lat is None or lon is None:
+        if (lat is None or lon is None) and not is_cancelled:
             unplaceable += 1
             continue                                  # nowhere to pin it
         desc = _unescape(ev.get("DESCRIPTION", ("", {}))[0]).strip() or None
@@ -764,16 +785,28 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         nev.fingerprint = make_fingerprint(title, date_key, fingerprint_loc)
         # A configured calendar home is an info fallback, not an individual
         # event page to fetch repeatedly for optional source-detail enrichment.
-        if details_reader and url:
+        if details_reader and url and not is_cancelled:
             details = details_reader(url, title, start_utc or start_local)
             if details is not None:
                 for key, value in details.items():
                     setattr(nev, key, value)
         if old_events is not None:
             legacy_venue = venue if not had_source_location else None
-            legacy = _legacy_fingerprint(old_events[offset], date_key, legacy_venue)
+            legacy = _legacy_fingerprint(old_events[offset], date_key, legacy_venue, is_cancelled)
             if legacy != nev.fingerprint:
                 nev.legacy_fingerprints = [legacy]
+        if is_cancelled:
+            # Not counted against `limit`: a tombstone writes no row. A
+            # RECURRENCE-ID override that cancels one instance carries the
+            # master's UID and that instance's DTSTART, so it tombstones the
+            # master's row only when it cancels the date the master is stored
+            # under; the store keeps the tombstone over the master in either order.
+            # A collector that only reads rows (mapsee_gcal's smoke read) has no
+            # cancel; there the VEVENT is skipped, as it always was.
+            cancel = getattr(store, "cancel", None)
+            if cancel is not None and cancel(nev, "STATUS:CANCELLED") == "cancelled":
+                cancelled += 1
+            continue
         store.upsert(nev)
         kept += 1
     note = f" ({how})" if how != "200" else ""
@@ -812,8 +845,10 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         note += f"; {governance} town-hall row(s) refused"
     # Same rule as governance: counted and printed, never a silent skip. A feed
     # whose cancellations suddenly jump is telling us something about the venue.
-    if cancelled:
-        note += f"; {cancelled} cancelled (STATUS:CANCELLED)"
+    if cancelled or cancelled_unnamed:
+        note += f"; {cancelled} cancelled (STATUS:CANCELLED), tombstoned"
+        if cancelled_unnamed:
+            note += f", {cancelled_unnamed} more naming no event"
     if online:
         note += f"; {online} online (a virtual room, not a place)"
     if skipped_title:

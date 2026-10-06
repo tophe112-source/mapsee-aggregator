@@ -25,7 +25,14 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
+from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint, norm_categories,
+                           notice_reason, strip_notice)
+
+# Event.status values that take an event off the map. Measured 2026-10-05 on the
+# first page (days=90, pp=100) of all 56 sources: 5,410 "live", 4 "soldout", 3
+# "canceled" of 5,417. Sold out is still happening. "postponed" was not seen and
+# is here because its date, like a cancelled one's, is not happening.
+DEAD_STATUSES = frozenset({"canceled", "cancelled", "postponed"})
 
 # Localist event_type filter name -> Mapsee frontend category KEY.
 _TYPE_MAP = {
@@ -84,11 +91,29 @@ def _instance_start(event: Dict[str, Any]) -> str:
     return str(_instance(event).get("start") or "")
 
 
-def to_event(wrap: Dict[str, Any], src: Dict[str, Any]) -> Optional[NormalizedEvent]:
+def dead_status(wrap: Dict[str, Any]) -> Optional[str]:
+    status = str((wrap.get("event") or {}).get("status") or "").strip().lower()
+    return status if status in DEAD_STATUSES else None
+
+
+def to_event(wrap: Dict[str, Any], src: Dict[str, Any], *,
+             tombstone: bool = False) -> Optional[NormalizedEvent]:
+    """The live row, or with tombstone=True the record of an event Localist marks
+    canceled (for EventStore.cancel); None for the other kind. One builder, so
+    the tombstone carries the stored row's fingerprint: title | first_date |
+    place. The status is the EVENT's, so it covers every occurrence."""
     event = wrap.get("event") or {}
     title = (event.get("title") or "").strip()
     if not title:
         return None
+    if bool(dead_status(wrap)) != tombstone:
+        return None
+    # "CANCELED: Ecology Seminar Series: Joseph Hoyt" (UGA, 2026-10-05) was
+    # stored under the title inside the notice; "CANCELLED" alone names nothing.
+    if tombstone and notice_reason(title):
+        title = strip_notice(title)
+        if not title:
+            return None
     inst0 = _instance(event)
     start = inst0.get("start")
     end = inst0.get("end")
@@ -188,15 +213,23 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
         pg = data.get("page") or {}
         if int(pg.get("current") or page) >= int(pg.get("total") or page):
             break
-    kept = 0
+    kept = cancelled = 0
     for key in order:
-        nev = to_event(best[key], src)
-        if nev:
-            store.upsert(nev)
-            kept += 1
+        dead = dead_status(best[key])
+        nev = to_event(best[key], src, tombstone=bool(dead))
+        if not nev:
+            continue
+        if dead:
+            # Refused, it stayed on the map if an earlier run stored it.
+            if store.cancel(nev, f"status:{dead}") == "cancelled":
+                cancelled += 1
+            continue
+        store.upsert(nev)
+        kept += 1
     collapsed = seen_wraps - len(order)
     print(f"[localist] {src.get('name','?')}: kept {kept}"
-          + (f" ({collapsed} duplicate occurrence wrap(s) collapsed)" if collapsed else ""))
+          + (f" ({collapsed} duplicate occurrence wrap(s) collapsed)" if collapsed else "")
+          + (f"; {cancelled} canceled (tombstoned)" if cancelled else ""))
     return kept
 
 

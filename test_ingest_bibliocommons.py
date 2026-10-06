@@ -253,6 +253,53 @@ check("the request asked for the biggest page the gateway honours",
 check("...and did NOT pass startDate/endDate, which are accepted and ignored",
       all("startDate" not in (p or {}) for p in Sess.seen), Sess.seen)
 
+# ------------------- 7c. a cancelled programme is a tombstone, keyed as stored
+# The library cancels AFTER publishing (8 of 600 rows were isCancelled on the
+# first pages of three systems, 2026-10-05), so refusing the row left the one we
+# stored last week on the map. The tombstone must carry that row's key: name +
+# HH:MM | day | branch | city. Proved by building both through ingest_site.
+print()
+print("a cancelled programme tombstones the row the live one was stored as")
+
+
+class OneRow:
+    headers = {}
+
+    def __init__(self, row):
+        self.row = row
+
+    def get(self, url, params=None, timeout=None):
+        if (params or {}).get("page", 1) > 1:
+            return Resp({"entities": {"events": {}}, "events": {"pagination": {"pages": 1}}})
+        return Resp({"entities": ent(events={"x": self.row}), "events": {"pagination": {"pages": 1}}})
+
+
+def _run(row):
+    with tempfile.TemporaryDirectory() as d:
+        st = BC.EventStore(os.path.join(d, "s.json"))
+        BC.ingest_site(st, OneRow(row), dict(SITE, horizon_days=180, crawl_delay=0, max_pages=2))
+        return st
+
+
+live = _run(evt("c1", "Story and Play Time", f"{soon}T11:00", f"{soon}T11:30"))
+gone = _run(evt("c1", "CANCELLED - Story and Play Time", f"{soon}T11:00", f"{soon}T11:30",
+                cancelled=True))
+(live_fp, live_rec), = live.records.items()
+check("the cancelled row is not stored live", gone.records == {}, list(gone.records))
+check("its tombstone has the live row's fingerprint (the title inside the notice)",
+      list(gone.tombstones) == [live_fp], (list(gone.tombstones), live_fp))
+check("...and the same source and source_id",
+      [(t["source"], t["source_id"]) for t in gone.tombstones.values()]
+      == [(live_rec["sources"][0]["source"], live_rec["sources"][0]["source_id"])],
+      gone.tombstones)
+other = _run(evt("c1", "Story and Play Time", f"{soon}T14:00", f"{soon}T14:30", cancelled=True))
+check("the 14:00 session's tombstone is not the 11:00 session's row",
+      live_fp not in other.tombstones and len(other.tombstones) == 1, other.tombstones)
+check("to_event alone still returns no live row for a cancelled programme",
+      BC.to_event(evt(cancelled=True), ent(), SITE) is None
+      and BC.to_event(evt(), ent(), SITE, tombstone=True) is None)
+
+
 # --------------------------- 7a. locations are cached within one page
 # Before location memoization, this 200-row page made 200 coordinate parses and
 # 200 address parses. Both variants read a mixed branch/offsite page and a
@@ -321,8 +368,8 @@ def run_reused_branch(disable_cache):
         counts["address"] += 1
         return address(where)
 
-    def legacy_to_event(ev, entities, site, location_cache=None):
-        return original_to_event(ev, entities, site)
+    def legacy_to_event(ev, entities, site, location_cache=None, **kw):
+        return original_to_event(ev, entities, site, **kw)
 
     BC._point, BC._address = counted_point, counted_address
     shared_ingest.iso_now = lambda: "2026-10-01T12:00:00Z"

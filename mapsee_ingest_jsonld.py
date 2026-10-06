@@ -71,7 +71,7 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint
+from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, notice_reason, strip_notice
 from mapsee_admission import admission_description, normalize_admission_facts
 
 UA = "Mozilla/5.0 (compatible; MapseeAggregator/1.0; +https://mapsee.me; events@mapsee.me)"
@@ -465,28 +465,62 @@ def _address_parts(loc: Dict[str, Any]) -> Dict[str, Optional[str]]:
     return {k: _meaningful(v) for k, v in out.items()}
 
 
+# schema.org/eventStatus values that mean "not at this place on this date".
+# Postponed counts: the date in the markup is the one that is NOT happening.
+# MovedOnline counts: the row we stored sends people to a room nobody is in
+# (mapsee_ingest_openactive refuses it for the same reason).
+DEAD_STATUSES = ("EventCancelled", "EventPostponed", "EventMovedOnline")
+
+
+def dead_status(item: Dict[str, Any]) -> Optional[str]:
+    """The eventStatus that takes this Event off the map, or None."""
+    status = str(item.get("eventStatus") or "")
+    return next((s for s in DEAD_STATUSES if s in status), None)
+
+
+def previous_starts(item: Dict[str, Any]) -> List[str]:
+    """The dates an EventRescheduled Event says it is NO LONGER on.
+
+    The fingerprint is name|date|venue, so a show moved from the 7th to the 8th
+    is a NEW row and the row of the 7th stays on the map, telling people to come
+    on the wrong night, until the 7th passes. schema.org's previousStartDate is
+    the publisher naming that date. store_item tombstones only a key that is
+    not the live one: a new time on the same day is the same row, whose time
+    the sync rewrites."""
+    if "EventRescheduled" not in str(item.get("eventStatus") or ""):
+        return []
+    prev = item.get("previousStartDate")
+    prev = prev if isinstance(prev, list) else [prev]
+    return list(dict.fromkeys(p.strip() for p in prev if isinstance(p, str) and len(p.strip()) >= 10))
+
+
 def to_event(item: Dict[str, Any], page_url: str, category: str, session,
              venue_default: Optional[Dict[str, Any]] = None,
              skip_rx: Optional[re.Pattern] = None, *, occurrence_key: bool = False,
-             price_withdrawn: bool = False) -> Optional[NormalizedEvent]:
+             price_withdrawn: bool = False, tombstone: bool = False) -> Optional[NormalizedEvent]:
     """occurrence_key: this url carries other dates on the same page (_shared_urls).
     price_withdrawn: a price the page printed was set aside (_mec_unset_price), so an
     empty result must still be sent as {} - the sync then CLEARS facts an earlier
-    run stored from that price instead of leaving them on the row."""
-    if "OnlineEventAttendanceMode" in str(item.get("eventAttendanceMode") or ""):
-        return None
+    run stored from that price instead of leaving them on the row.
+    tombstone: build the record of an Event the page marks dead (dead_status), for
+    EventStore.cancel; None for a live one. Without it a dead Event is None."""
     # schema.org/eventStatus is the publisher saying the show is off, in the same
-    # markup we are already reading for the date and the venue — free to honour,
-    # and mapsee_ingest_festivals.py has honoured it since it was written. This
-    # adapter did not, so a venue that correctly flipped its own page to
-    # EventCancelled still had the gig re-imported on the next run.
-    # Postponed counts too: the date in this markup is the one that is NOT
-    # happening, so importing it puts a wrong date on the map rather than a
-    # missing one.
-    if any(s in str(item.get("eventStatus") or "")
-           for s in ("EventCancelled", "EventPostponed")):
+    # markup we are already reading for the date and the venue. Refusing it kept
+    # the gig off the map only if we had not stored it yet: an upsert cannot
+    # delete. So a dead Event is built by THIS function, exactly as the live row
+    # was (same source_id, same name|date|venue fingerprint), and tombstoned
+    # (store_item). Only what places a pin is skipped: the fingerprint never
+    # reads coordinates, so a cancelled show is not geocoded.
+    if bool(dead_status(item)) != tombstone:
+        return None
+    if not tombstone and "OnlineEventAttendanceMode" in str(item.get("eventAttendanceMode") or ""):
         return None
     name = _clean(item.get("name"))
+    # "CANCELLED: Trio Reunion" was stored as "Trio Reunion" (EventStore refuses a
+    # notice title), so a dead Event is keyed by the title inside the notice; a
+    # closure, or nothing but the word, names no row (strip_notice -> None).
+    if tombstone and notice_reason(name):
+        name = strip_notice(name)
     start = (item.get("startDate") or "").strip()
     if not name or len(start) < 10:
         return None
@@ -524,7 +558,7 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
                 parts[k] = venue_default[k]
         if lat is None and venue_default.get("lat") is not None:
             lat, lon = venue_default.get("lat"), venue_default.get("lon")
-    if lat is None and not (parts["address"] and parts["city"]):
+    if lat is None and not (parts["address"] and parts["city"]) and not tombstone:
         # no coords and not enough address for the sync's Census pass → one cached Photon try
         q = ", ".join(x for x in (venue or parts["address"], parts["city"], parts["region"]) if x)
         if q:
@@ -603,6 +637,33 @@ def to_event(item: Dict[str, Any], page_url: str, category: str, session,
     return ev
 
 
+def store_item(store: EventStore, item: Dict[str, Any], page_url: str, category: str, session,
+               venue_default: Optional[Dict[str, Any]], skip_rx: Optional[re.Pattern],
+               opts: Dict[str, Any], tally: Dict[str, int]) -> bool:
+    """Upsert a live Event, or tombstone the row a dead one was stored as.
+    True when a live row was stored; tally counts the tombstones."""
+    dead = dead_status(item)
+    if dead:
+        ev = to_event(item, page_url, category, session, venue_default, skip_rx,
+                      tombstone=True, **opts)
+        if ev is not None and store.cancel(ev, dead) == "cancelled":
+            tally["cancelled"] = tally.get("cancelled", 0) + 1
+        return False
+    ev = to_event(item, page_url, category, session, venue_default, skip_rx, **opts)
+    if ev is None:
+        return False
+    for prev in previous_starts(item):
+        # The same Event on the day it left, built by the same function: its
+        # name, venue and url are the row's, only the date is the old one.
+        old = to_event(dict(item, startDate=prev, endDate=None, eventStatus="EventPostponed"),
+                       page_url, category, session, venue_default, skip_rx, tombstone=True, **opts)
+        if old is not None and old.fingerprint != ev.fingerprint \
+                and store.cancel(old, "EventRescheduled") == "cancelled":
+            tally["rescheduled"] = tally.get("rescheduled", 0) + 1
+    store.upsert(ev)
+    return True
+
+
 def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offset=0,
                 start_inline=0, deadline=None) -> int:
     name = site.get("name", "?")
@@ -622,6 +683,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
     urls: List[str] = []
     seen = set()
     kept = 0
+    tally: Dict[str, int] = {}
     inline_seen = 0
     for listing in site.get("listing", []):
         if deadline is not None and time.monotonic() >= deadline:
@@ -639,9 +701,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
                 continue
             if deadline is not None and time.monotonic() >= deadline:
                 raise BudgetExpired(start_offset, inline_seen)
-            ev = to_event(item, listing, category, session, venue_default, skip_rx, **opts)
-            if ev:
-                store.upsert(ev)
+            if store_item(store, item, listing, category, session, venue_default, skip_rx, opts, tally):
                 kept += 1
             inline_seen += 1
         for m in (pattern.finditer(r.text) if pattern else ()):
@@ -665,12 +725,14 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
             print(f"[jsonld] {name} {u} failed: {exc}")
             continue
         for item, opts in _prepared(r.text, u, detail=True):
-            ev = to_event(item, u, category, session, venue_default, skip_rx, **opts)
-            if ev:
-                store.upsert(ev)
+            if store_item(store, item, u, category, session, venue_default, skip_rx, opts, tally):
                 kept += 1
         time.sleep(1.0)
-    print(f"[jsonld] {name}: kept {kept} events from {min(len(urls), cap)} pages")
+    print(f"[jsonld] {name}: kept {kept} events from {min(len(urls), cap)} pages"
+          + (f"; {tally['cancelled']} cancelled/postponed/moved online (tombstoned)"
+             if tally.get("cancelled") else "")
+          + (f"; {tally['rescheduled']} old date(s) of a rescheduled event tombstoned"
+             if tally.get("rescheduled") else ""))
     return kept
 
 

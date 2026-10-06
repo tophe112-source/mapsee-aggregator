@@ -46,8 +46,9 @@ WHAT IT EMITS
 -------------
 One event per listing on the page, with the venue's exact coordinates from the
 payload — no geocoding, so no Photon budget and no chance of a wrong pin.
-Cancelled and postponed listings are dropped; sold-out ones are kept, because a
-sold-out show is still a real thing happening at a real place.
+Cancelled and postponed listings are tombstones (EventStore.cancel), so the row
+we stored while they were on sale comes off the map; sold-out ones are kept,
+because a sold-out show is still a real thing happening at a real place.
 
     python mapsee_ingest_dice_venue.py --config dice_venue_sources.json \\
                                        --store events.json
@@ -61,14 +62,15 @@ import re
 import sys
 import time
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import requests
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
+from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint, norm_categories,
+                           notice_reason, strip_notice)
 
 WEB = "https://dice.fm"
 # The events are in the Next.js hydration payload the server already sent. Same
@@ -138,27 +140,39 @@ def fetch_events(session, url: str, cfg: Dict[str, Any]) -> List[dict]:
 
 
 def to_event(ev: dict, src: Dict[str, Any], cfg: Dict[str, Any]) -> Optional[NormalizedEvent]:
+    """The live row, or None (a cancelled listing too — see to_record)."""
+    nev, cancelled = to_record(ev, src, cfg)
+    return None if cancelled else nev
+
+
+def to_record(ev: dict, src: Dict[str, Any], cfg: Dict[str, Any]
+              ) -> Tuple[Optional[NormalizedEvent], Optional[str]]:
+    """(event, why it is cancelled). A DEAD_STATUSES listing is built exactly as
+    the live row was — the past and unplaceable refusals still apply — so its
+    fingerprint is the stored row's, for EventStore.cancel, never upsert."""
     name = _clean(ev.get("name"))
+    status = str(ev.get("status") or "").lower()
+    cancelled = f"status:{status}" if status in DEAD_STATUSES else None
+    if cancelled and notice_reason(name):
+        name = strip_notice(name)                     # stored under the old title
     if not name:
-        return None
-    if str(ev.get("status") or "").lower() in DEAD_STATUSES:
-        return None
+        return None, None
 
     dates = ev.get("dates") or {}
     start = dates.get("event_start_date")
     tzname = dates.get("timezone")
     if not start:
-        return None
+        return None, None
     # Already carries its offset ("2026-08-11T19:00:00-07:00"), so this is a real
     # instant and the sync has nothing to infer.
     try:
         dt = datetime.fromisoformat(str(start))
     except ValueError:
-        return None
+        return None, None
     if dt.tzinfo is None:
-        return None
+        return None, None
     if dt.astimezone(timezone.utc) < datetime.now(timezone.utc):
-        return None                       # already happened
+        return None, None                 # already happened
 
     venues = ev.get("venues") or []
     venue = venues[0] if venues and isinstance(venues[0], dict) else {}
@@ -168,7 +182,7 @@ def to_event(ev: dict, src: Dict[str, Any], cfg: Dict[str, Any]) -> Optional[Nor
         # The venue's own coordinates are the entire reason this adapter needs no
         # geocoder. Without them there is nothing to fall back on that would not
         # be a guess, so the listing is skipped and counted.
-        return None
+        return None, None
 
     # "305 Harrison Street, Seattle, Washington 98109, United States" — the
     # street is everything before the first comma; the rest is already covered by
@@ -207,7 +221,7 @@ def to_event(ev: dict, src: Dict[str, Any], cfg: Dict[str, Any]) -> Optional[Nor
         ticket_url=f"{WEB}/event/{slug}" if slug else src.get("url"),
     )
     nev.fingerprint = fp
-    return nev
+    return nev, cancelled
 
 
 def ingest(store: EventStore, session, cfg: Dict[str, Any]) -> int:
@@ -222,15 +236,19 @@ def ingest(store: EventStore, session, cfg: Dict[str, Any]) -> int:
         except Exception as exc:  # noqa: BLE001
             print(f"[dice_venue] {label}: FAILED — {exc}")
             continue
-        kept = dropped = 0
+        kept = dropped = cancelled = 0
         for ev in raw:
-            nev = to_event(ev, src, cfg)
+            nev, why = to_record(ev, src, cfg)
             if nev is None:
                 dropped += 1
                 continue
+            if why:
+                cancelled += store.cancel(nev, why) == "cancelled"
+                continue
             store.upsert(nev)
             kept += 1
-        note = f", {dropped} past/cancelled/unplaceable" if dropped else ""
+        note = f", {dropped} past/unplaceable" if dropped else ""
+        note += f", {cancelled} cancelled/postponed" if cancelled else ""
         print(f"[dice_venue] {label}: kept {kept} of {len(raw)} listed{note}")
         total += kept
         time.sleep(cfg["pause_s"])

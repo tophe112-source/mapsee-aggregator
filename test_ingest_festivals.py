@@ -51,6 +51,36 @@ def main():
     p = parent()
     p['eventStatus'] = 'https://schema.org/EventCancelled'
     assert parse(p) == []
+    # ...and the row we stored before the organizer called it off is tombstoned
+    # under its own key, identity(@id, edition). The sets may be gone already.
+    src = {'official_url': 'https://festival.example'}
+    body = lambda q: '<script type="application/ld+json">' + json.dumps(q) + '</script>'
+    for status in ('EventCancelled', 'EventPostponed', 'EventMovedOnline'):
+        p = parent()
+        p['eventStatus'] = 'https://schema.org/' + status
+        p.pop('subEvent')
+        dead = []
+        assert structured_events(body(p), src, date(2026, 9, 9), dead) == []
+        assert [(t.fingerprint, t.source, t.source_id, w) for t, w in dead] == \
+            [(event.fingerprint, event.source, event.source_id, status)], (status, dead)
+    p = parent()
+    p['eventStatus'] = 'https://schema.org/EventCancelled'
+    p['location'] = {'name': 'Park'}
+    p.pop('eventTimeZone')
+    dead = []
+    structured_events(body(p), src, date(2026, 9, 9), dead)
+    assert dead == [], 'no place and no zone: the edition cannot be dated, so no guess'
+    dead = []
+    structured_events(body(parent()), src, date(2026, 9, 14), dead)
+    assert dead == []
+    p = parent()
+    p['eventStatus'] = 'https://schema.org/EventCancelled'
+    structured_events(body(p), src, date(2026, 9, 14), dead)
+    assert dead == [], 'an edition that is over is left to the cleanup'
+    # A postponed set leaves the agenda, as a cancelled one always did.
+    p = parent()
+    p['subEvent'].append(dict(p['subEvent'][0], name='Later', eventStatus='https://schema.org/EventPostponed'))
+    assert [i['title'] for i in parse(p)[0].agenda] == ['Artist']
     refuses(lambda: instant('2026-11-01T01:30:00', 'America/Los_Angeles'))
     refuses(lambda: instant('2026-03-08T02:30:00', 'America/Los_Angeles'))
     refuses(lambda: instant('2026-09-12'))
@@ -193,7 +223,51 @@ def main():
     assert len(verify([row, row], Session(), 'https://db.example', 'test-key')) == 2
     actual['agenda'] = None
     refuses(lambda: verify([row], Session(), 'https://db.example', 'test-key'))
+    run_tombstones()
     print('festival ingest: structured schedule, stable IDs, bounds, DST, assets, robots and read-back passed')
+
+
+def run_tombstones():
+    """run() writes this run's tombstones and never replays last run's: the
+    store file is fresh output, and a stale tombstone would hide a festival the
+    organizer has since put back on."""
+    import os
+    import tempfile
+    import mapsee_ingest_festivals as F
+    from mapsee_ingest import EventStore, NormalizedEvent
+    p = parent()
+    p['eventStatus'] = 'https://schema.org/EventCancelled'
+    page = '<script type="application/ld+json">' + json.dumps(p) + '</script>'
+
+    class Stub:
+        def __init__(self, max_seconds):
+            import time
+            self.deadline, self.requests = time.monotonic() + 60, 0
+
+        def get_text(self, url):
+            return page
+
+    with tempfile.TemporaryDirectory() as d:
+        cfg, store_path = os.path.join(d, 'f.json'), os.path.join(d, 's.json')
+        with open(cfg, 'w') as fh:
+            json.dump({'festivals': [{'id': 'fest', 'name': 'Festival',
+                                      'official_url': 'https://festival.example'}]}, fh)
+        old = EventStore(store_path)
+        old.cancel(NormalizedEvent(source='venue:festival', source_id='gone:2026', name='Gone',
+                                   fingerprint='stale'), 'EventCancelled')
+        old.save()
+        import contextlib
+        import io
+        with patch.object(F, 'Fetcher', Stub), contextlib.redirect_stdout(io.StringIO()):
+            F.run(cfg, os.path.join(d, 'c.json'), os.path.join(d, 'st.json'), store_path,
+                  os.path.join(d, 'r.json'), today=date(2026, 9, 9))
+        saved = json.load(open(store_path))
+        report = json.load(open(os.path.join(d, 'r.json')))
+    want = identity('https://festival.example/2026', '2026')
+    assert [t['fingerprint'] for t in saved.get('tombstones', [])] == [want], saved.get('tombstones')
+    assert saved['events'] == []
+    assert report['results'][0].get('cancelled') == 1, report['results'][0]
+    assert 'EventCancelled' in report['results'][0]['reason'], report['results'][0]
 
 
 if __name__ == '__main__':
