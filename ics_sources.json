@@ -19314,5 +19314,159 @@
     "limit": 300,
     "_metro": "Paris, France",
     "crawl_delay": 3.0
+  },
+  {
+    "name": "Ferme de la Croix-Rousse",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9skvjforvtdpukcubgtg12jpnc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lyon, France",
+    "limit": 300,
+    "_metro": "Lyon, France"
+  },
+  {
+    "name": "Bibliothèque Emilienne Leroux",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a9457d0fe27d3c60e9ca4d985a084a6a253ecf3a9968dd937d21c16d42da5345%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nantes, France",
+    "limit": 300,
+    "_metro": "Nantes, France"
+  },
+  {
+    "name": "Chiro Tsjoef",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/piprh1peuai56j5nqq27n78ei8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lille, France",
+    "limit": 300,
+    "_metro": "Lille, France"
+  },
+  {
+    "name": "Allende !",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.monsenbaroeul.fr/node/3954/field_date/full/0/addtocal.ics",
+    "geocode_suffix": ", Lille, France",
+    "limit": 300,
+    "_metro": "Lille, France",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Institut Confucius de Bretagne",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6a868406bed3dd6f5762a6d8d6f6295d8085d9218dc1ba854f01c7cb16c3ecd1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rennes",
+    "limit": 300,
+    "_metro": "Rennes, France"
+  },
+  {
+    "name": "ESS Cargo",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_7b4eb762d68971049ed31009478a4469d0a28ecaef8a17a9be9d5ca8478cdfa4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rennes",
+    "limit": 300,
+    "_metro": "Rennes, France"
+  },
+  {
+    "name": "Salle du Chai",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/albnm57akpcvt8v1ijk5h5ibuk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Saint-Bauzille-de-Montmel",
+    "limit": 300,
+    "_metro": "Montpellier, France"
+  },
+  {
+    "name": "Centre LGBTI de Grenoble",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_f914a2727b43bb66898fcd0572f2451f01e638dd4d45d08e9aa71201703a2b78%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Grenoble",
+    "limit": 300,
+    "_metro": "Grenoble, France"
+  },
+  {
+    "name": "E-Bibliothèque Universitaire Campus Manufacture",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bf90808192991244c93a70ca587365180ed5821abe4ff5d04d81a377201929eb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nancy, France",
+    "limit": 300,
+    "_metro": "Nancy, France"
+  },
+  {
+    "name": "The Toronto Camera Club",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://torontocameraclub.com/index.php?option=com_dpcalendar&task=ical.download&id=60",
+    "geocode_suffix": ", Toronto, Ontario",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Algonquin Island Association Clubhouse",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bookings.aia%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Toronto, Ontario",
+    "limit": 300,
+    "_metro": "Toronto, Canada"
+  },
+  {
+    "name": "Downtown Eastside Neighbourhood House",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dtesnhevents%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Pinetree Community Centre",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://coquitlam.ca/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Vancouver Aboriginal Friendship Centre Society",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8da7194c613d98d53e058cf4c97df996a12162b99b026f0025b6532460786dc0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vancouver, Canada",
+    "limit": 300,
+    "_metro": "Vancouver, Canada"
+  },
+  {
+    "name": "Beaver Bank Community Hall - The Brown Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ehlpomkkolde2bgq13fncvjfi4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Beaver Bank, Nova Scotia",
+    "limit": 300,
+    "_metro": "Halifax, Canada"
+  },
+  {
+    "name": "Captain William Spry Centre",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dd2f3gg1q7g2sodi34c479jqmk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Halifax, Nova Scotia",
+    "limit": 300,
+    "_metro": "Halifax, Canada"
+  },
+  {
+    "name": "East Sooke Community Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eastsookecommunityhall%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Victoria, Canada",
+    "limit": 300,
+    "_metro": "Victoria, Canada"
   }
 ]

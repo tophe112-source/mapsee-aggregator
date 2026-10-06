@@ -6227,6 +6227,998 @@
         "lon": -43.2141049
       },
       "_metro": "Rio de Janeiro, Brazil"
+    },
+    {
+      "name": "Conseil de Quartier Ferrandière Maisons-Neuves",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://conseilsdequartier.villeurbanne.fr/agenda/"
+      ],
+      "link_pattern": "https://conseilsdequartier\\.villeurbanne\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Conseil de Quartier Ferrandière Maisons-Neuves",
+        "address": "21",
+        "city": "Villeurbanne",
+        "postal_code": "69100",
+        "lat": 45.7562913,
+        "lon": 4.8776814
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Centre Léo Lagrange",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.leolagrange-villeurbanne.com/agenda/festival-les-guitares/"
+      ],
+      "link_pattern": "https://www\\.leolagrange\\-villeurbanne\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre Léo Lagrange",
+        "lat": 45.7647444,
+        "lon": 4.8793514
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Maison des femmes — Simone de Beauvoir",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.maisondesfemmes-simonedebeauvoir.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/d-tails-et-inscription/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Maison des femmes — Simone de Beauvoir",
+        "lat": 47.2064652,
+        "lon": -1.5736783
+      },
+      "_metro": "Nantes, France"
+    },
+    {
+      "name": "Athletenhalle",
+      "category": "community",
+      "_found": "osm:community_centre -> wp-event-manager+modern-events+jsonld-event",
+      "listing": [
+        "https://www.asvurloffen.de/alle-veranstaltungen"
+      ],
+      "link_pattern": "https://www\\.asvurloffen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Athletenhalle",
+        "lat": 48.5590245,
+        "lon": 7.9644948
+      },
+      "_metro": "Strasbourg, France"
+    },
+    {
+      "name": "L'Intervalle Médiathèque",
+      "category": "learning",
+      "_found": "osm:library -> modern-events+jsonld-event",
+      "listing": [
+        "https://lintervalle.fr/la-saison/"
+      ],
+      "link_pattern": "https://lintervalle\\.fr/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "L'Intervalle Médiathèque",
+        "address": "Rue de la Motte",
+        "lat": 48.1147974,
+        "lon": -1.5239217
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Ferme de La Harpe",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.3regards.com/agenda/agenda-des-evenements/"
+      ],
+      "link_pattern": "https://www\\.3regards\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ferme de La Harpe",
+        "address": "26 Avenue Charles et Raymonde Tillon",
+        "lat": 48.1261877,
+        "lon": -1.7075829
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "The Filipino Centre Toronto",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.filipinocentretoronto.com/2023-event-schedule"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Filipino Centre Toronto",
+        "address": "597 Parliament Street",
+        "city": "Toronto",
+        "postal_code": "M4X 1W3",
+        "lat": 43.6677953,
+        "lon": -79.3691676
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Bibliothèque Hélène-Charbonneau",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/sos-informatique-115378"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Hélène-Charbonneau",
+        "address": "10300 Rue Lajeunesse",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.553483,
+        "lon": -73.6626049
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Saint-Charles",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/eveil-musical-0-2-ans-119201"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Saint-Charles",
+        "address": "1050 Rue d'Hibernia",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.4791571,
+        "lon": -73.5635716
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Parc-Extension",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/colle-et-bricole-118699"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Parc-Extension",
+        "address": "421 Rue Saint-Roch",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3N 1K2",
+        "lat": 45.5314163,
+        "lon": -73.6289844
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre des Loisirs de Saint-Laurent",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/atelier-de-cuisine-zero-dechet-lespace-citoyen-de-saint-laurent-119100"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre des Loisirs de Saint-Laurent",
+        "address": "1375 Rue Grenet",
+        "region": "QC",
+        "postal_code": "H4L 5K3",
+        "lat": 45.5141591,
+        "lon": -73.6908893
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Notre-Dame-de-Grâce",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/tricot-120304"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Notre-Dame-de-Grâce",
+        "address": "3755 Botrel",
+        "lat": 45.4755031,
+        "lon": -73.6143992
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Roxboro",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/yoga-sur-chaise-117354"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Roxboro",
+        "address": "110 Rue Cartier",
+        "city": "Montréal",
+        "postal_code": "H8Y 1G8",
+        "lat": 45.5026224,
+        "lon": -73.8145453
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Père-Ambroise",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/jeudis-technos-8-14-ans-119494"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Père-Ambroise",
+        "address": "2093 Rue de la Visitation",
+        "city": "Montréal",
+        "postal_code": "H2L 3C9",
+        "lat": 45.5227932,
+        "lon": -73.5626849
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Saint-Léonard",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/pinocchio-117015"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Saint-Léonard",
+        "address": "8420 Boulevard Lacordaire",
+        "city": "Montréal",
+        "postal_code": "H1R 3G5",
+        "lat": 45.5866552,
+        "lon": -73.5977342
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Frontenac",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/ludotheque-club-lego-118148"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Frontenac",
+        "address": "2550 Rue Ontario Est",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2K 1W7",
+        "lat": 45.5329177,
+        "lon": -73.5517134
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Saint-Michel",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/livres-o-max-116972"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Saint-Michel",
+        "address": "7601 Rue François-Perrault",
+        "city": "Montréal",
+        "postal_code": "H2A 3L6",
+        "lat": 45.5621974,
+        "lon": -73.6020202
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Jean-Corbeil",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/rencontre-litteraire-avec-mariana-mazza-119289"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Jean-Corbeil",
+        "address": "7500 Avenue Goncourt",
+        "city": "Montréal",
+        "postal_code": "H1K 3X9",
+        "lat": 45.6030237,
+        "lon": -73.5587928
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Cartierville",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/vendredi-je-cree-ma-bd-117025"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Cartierville",
+        "address": "5900 Rue De Salaberry",
+        "city": "Montréal",
+        "postal_code": "H4J 1J8",
+        "lat": 45.5271591,
+        "lon": -73.713004
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque De Salaberry",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/eveil-musical-116460"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque De Salaberry",
+        "address": "4170 Rue De Salaberry",
+        "city": "Montréal",
+        "postal_code": "H4J 1H1",
+        "lat": 45.5346141,
+        "lon": -73.7038342
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Saint-Henri",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/club-de-lecture-116099"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Saint-Henri",
+        "address": "4707 Rue Notre-Dame Ouest",
+        "city": "Montréal",
+        "postal_code": "H4C 1S9",
+        "lat": 45.4726461,
+        "lon": -73.5891097
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Réjean-Ducharme",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/didi-raconte-115227"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Réjean-Ducharme",
+        "address": "2450 Rue Workman",
+        "city": "Montréal",
+        "postal_code": "H3J 1L8",
+        "lat": 45.4836019,
+        "lon": -73.5750672
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Marie-Uguay",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/creation-dun-livre-parfume-118524"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Marie-Uguay",
+        "address": "6052 Boulevard Monk",
+        "city": "Montréal",
+        "postal_code": "H4E 3E6",
+        "lat": 45.4576905,
+        "lon": -73.5954481
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Langelier",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cerveaux-actifs-117930"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Langelier",
+        "address": "6473 Rue Sherbrooke Est",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1N 1C5",
+        "lat": 45.5816816,
+        "lon": -73.544147
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Mercier",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-musicale-115851"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Mercier",
+        "address": "8105 Rue Hochelaga",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H1L 2K9",
+        "lat": 45.5955039,
+        "lon": -73.5236768
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Serge-Bouchard",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cours-dechecs-115718"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Serge-Bouchard",
+        "address": "14 001 Rue Notre-Dame Est",
+        "city": "Montréal",
+        "postal_code": "H1A 1T9",
+        "lat": 45.6680518,
+        "lon": -73.494856
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Rivière-des-Prairies",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/la-lampe-minecraft-115870"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Rivière-des-Prairies",
+        "address": "9001 Boulevard Perras",
+        "city": "Montréal",
+        "postal_code": "H1E 3J7",
+        "lat": 45.6499172,
+        "lon": -73.5790735
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Benny",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/aide-technologique-115459"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Benny",
+        "address": "6400 Avenue de Monkland",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H4B 1H3",
+        "lat": 45.4663823,
+        "lon": -73.6309558
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Le Prevost",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/heure-du-conte-118846"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Le Prevost",
+        "address": "7355 Avenue Christophe-Colomb",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2R 2S5",
+        "lat": 45.5438649,
+        "lon": -73.6145722
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Pierrefonds",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cerveaux-actifs-116590"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Pierrefonds",
+        "address": "13555 Boulevard de Pierrefonds",
+        "city": "Pierrefonds",
+        "postal_code": "H9A 1A6",
+        "lat": 45.4960289,
+        "lon": -73.8475197
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Interculturelle",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/les-jeux-di-video-118751"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Interculturelle",
+        "lat": 45.5032164,
+        "lon": -73.636872
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Quai 5160 - Maison de la culture de Verdun",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/la-bas-laubergine-118141"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Quai 5160 - Maison de la culture de Verdun",
+        "address": "5160 Boulevard LaSalle",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H4H 1N8",
+        "lat": 45.4535631,
+        "lon": -73.5650821
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque L’Octogone",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/miniconte-117779"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque L’Octogone",
+        "address": "1080 Avenue Dollard",
+        "city": "Montréal",
+        "lat": 45.4242983,
+        "lon": -73.6235267
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque de Côte-des-Neiges",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/cerveaux-actifs-116505"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque de Côte-des-Neiges",
+        "address": "5290 Chemin de la Côte-des-Neiges",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H3T 1Y2",
+        "lat": 45.4959105,
+        "lon": -73.6222404
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Mordecai-Richler",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/yoga-sur-chaise-114073"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Mordecai-Richler",
+        "address": "5434 Avenue du Parc",
+        "postal_code": "H2V 4G7",
+        "lat": 45.5216337,
+        "lon": -73.6017018
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Henri-Bourassa",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/jeux-video-8-13-ans-118653"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Henri-Bourassa",
+        "address": "5400 Boulevard Henri-Bourassa",
+        "city": "Montréal",
+        "lat": 45.6046301,
+        "lon": -73.6250091
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque du Boisé",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/salon-des-ados-119845"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque du Boisé",
+        "address": "2727 Boulevard Thimens",
+        "city": "Montréal",
+        "postal_code": "H4R 1T4",
+        "lat": 45.5042664,
+        "lon": -73.7050752
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque du Vieux-Saint-Laurent",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/peinture-sur-bois-119680"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque du Vieux-Saint-Laurent",
+        "address": "1380 Rue de l'Église",
+        "city": "Montréal",
+        "region": "Quebec",
+        "postal_code": "H4L 2H2",
+        "lat": 45.5126504,
+        "lon": -73.6764136
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre Leonardo Da Vinci",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.cldv.ca/fr"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Centre Leonardo Da Vinci",
+        "address": "8370 Boulevard Lacordaire",
+        "city": "Montréal",
+        "postal_code": "H1R 3G6",
+        "lat": 45.5854777,
+        "lon": -73.5970926
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Jacqueline-de-Repentigny",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bebe-conte-verdun-115807"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Jacqueline-de-Repentigny",
+        "address": "5955 Rue Bannantyne",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H4H 1H6",
+        "lat": 45.448547,
+        "lon": -73.5778979
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Maison de la culture Claude-Léveillée",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/flesh-and-sound-vias-116451"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Maison de la culture Claude-Léveillée",
+        "address": "911 Rue Jean-Talon Est",
+        "city": "Montréal",
+        "region": "QC",
+        "lat": 45.5416425,
+        "lon": -73.6134293
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque d'Hochelaga",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/completement-jeu-2-6-ans-117276"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque d'Hochelaga",
+        "address": "1870 Rue Davidson",
+        "city": "Montréal",
+        "region": "Québec",
+        "postal_code": "H1W 2Y6",
+        "lat": 45.5423301,
+        "lon": -73.5455697
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Centre des musiciens du monde",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://centredesmusiciensdumonde.com/programmation/"
+      ],
+      "link_pattern": "https://centredesmusiciensdumonde\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centre des musiciens du monde",
+        "address": "5043 Rue Saint-Dominique",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H2T 1V1",
+        "lat": 45.5235166,
+        "lon": -73.5915882
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Bibliothèque Maisonneuve",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://montreal.ca/evenements/bebes-contes-116637"
+      ],
+      "link_pattern": "https://montreal\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothèque Maisonneuve",
+        "address": "4120 Rue Ontario Est",
+        "city": "Montréal",
+        "postal_code": "H1V 1J9",
+        "lat": 45.5506235,
+        "lon": -73.5405648
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "Collingwood Neighbourhood House",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.cnh.bc.ca/calendar/"
+      ],
+      "link_pattern": "https://www\\.cnh\\.bc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Collingwood Neighbourhood House",
+        "address": "5288 Joyce Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "lat": 49.2367332,
+        "lon": -123.032835
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "False Creek Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wp-event-manager",
+      "listing": [
+        "https://falsecreekcc.ca/calendar/"
+      ],
+      "link_pattern": "https://falsecreekcc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "False Creek Community Centre",
+        "address": "1318 Cartwright Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "lat": 49.2694516,
+        "lon": -123.1342222
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Kitsilano War Memorial Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wp-event-manager",
+      "listing": [
+        "https://kitscc.com/program-calendar/"
+      ],
+      "link_pattern": "https://kitscc\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kitsilano War Memorial Community Centre",
+        "address": "2690 Larch Street",
+        "lat": 49.2615678,
+        "lon": -123.1620092
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Douglas Park Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://douglasparkcc.org/event/science4kids-2/"
+      ],
+      "link_pattern": "https://douglasparkcc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Douglas Park Community Centre",
+        "address": "801 West 22nd Avenue",
+        "lat": 49.2521979,
+        "lon": -123.122437
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "North Shore Women's Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.northshorewomen.ca/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "North Shore Women's Centre",
+        "address": "131 East 2nd Street",
+        "lat": 49.311976,
+        "lon": -123.0767661
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Burquest Jewish Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.burquest.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Burquest Jewish Community Centre",
+        "address": "2860 Dewdney Trunk Road",
+        "lat": 49.2720385,
+        "lon": -122.8035217
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Barclay Manor",
+      "category": "community",
+      "_found": "osm:community_centre -> wp-event-manager",
+      "listing": [
+        "https://westendcc.ca/news-events-updates/"
+      ],
+      "link_pattern": "https://westendcc\\.ca/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Barclay Manor",
+        "address": "1447 Barclay Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "lat": 49.2872189,
+        "lon": -123.1325916
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Italian Cultural Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.italianculturalcentre.ca/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Italian Cultural Centre",
+        "lat": 49.2570447,
+        "lon": -123.0503911
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Issamba Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.issambacentre.ca/upcomingevents"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Issamba Centre",
+        "address": "2722 Fifth Street",
+        "lat": 48.44013,
+        "lon": -123.3581828
+      },
+      "_metro": "Victoria, Canada"
     }
   ],
   "_not_included": {

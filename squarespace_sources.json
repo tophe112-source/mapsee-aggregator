@@ -2127,6 +2127,34 @@
       },
       "_metro": "Winnipeg, Canada",
       "_note": "seeds2 2026-10-04: 6 rows starting 2026-10-04..2027-01-02; read 6: 6 unknown. 6 rows: Community Stitches (4), a craft sale & quiz night, breakfast with Santa. Venue point: round-1 seed coordinate (municipal open data / jcca.org directory). Dry run 2026-10-05: 6 rows, all placed; 6 of 6 descriptions carry Squarespace CSS (see Lendrum)."
+    },
+    {
+      "name": "Parkdale Cromdale Community League",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.parkdalecromdale.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Parkdale Cromdale Community League",
+        "address": "11335 85 Street",
+        "lat": 53.5634777,
+        "lon": -113.4713699
+      },
+      "_metro": "Edmonton, Canada"
+    },
+    {
+      "name": "Scottish Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://vicscotcentre.ca/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Scottish Community Centre",
+        "address": "1803 Admirals Road",
+        "lat": 48.45168,
+        "lon": -123.4248303
+      },
+      "_metro": "Victoria, Canada"
     }
   ],
   "_not_included": {

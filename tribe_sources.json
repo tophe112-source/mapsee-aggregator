@@ -15451,6 +15451,505 @@
       "default_region": null,
       "default_country": "DK",
       "_metro": "Sønderborg, Denmark"
+    },
+    {
+      "name": "Maison des Jeunes et de la Culture",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://mjc-oullins.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison des Jeunes et de la Culture",
+        "lat": 45.7163279,
+        "lon": 4.8109512
+      },
+      "_metro": "Lyon, France"
+    },
+    {
+      "name": "Bibliothèque Victor Gelu",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://ville-de-roquevaire.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bibliothèque Victor Gelu",
+        "lat": 43.3492502,
+        "lon": 5.6026252
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "Pôle Culturel Jean Bonfillon",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.mairiedefuveau.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pôle Culturel Jean Bonfillon",
+        "lat": 43.454658,
+        "lon": 5.5600865
+      },
+      "_metro": "Marseille, France"
+    },
+    {
+      "name": "Bib'INSA",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://bib.insa-toulouse.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bib'INSA",
+        "address": "135 Avenue de Rangueil",
+        "city": "Toulouse",
+        "postal_code": "31400",
+        "lat": 43.5699104,
+        "lon": 1.4687904
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "Centre occitan des musiques et danses traditionnelles",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.comdt.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre occitan des musiques et danses traditionnelles",
+        "lat": 43.5978161,
+        "lon": 1.4416891
+      },
+      "_metro": "Toulouse, France"
+    },
+    {
+      "name": "La Chapelle",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+gcal-embed",
+      "base_url": "https://lachapelletoulouse.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "La Chapelle",
+        "address": "36 Rue Danielle Casanova",
+        "city": "Toulouse",
+        "postal_code": "31000",
+        "lat": 43.6138651,
+        "lon": 1.4371127
+      },
+      "_metro": "Toulouse, France",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Foyer de charité Roquefort-Côte d'Azur",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://foyercotedazur.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Foyer de charité Roquefort-Côte d'Azur",
+        "lat": 43.6621049,
+        "lon": 7.0617987
+      },
+      "_metro": "Nice, France"
+    },
+    {
+      "name": "Cercle Paul Bert Centre Ginguené",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://cerclepaulbert.asso.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cercle Paul Bert Centre Ginguené",
+        "address": "15 Rue Ginguené",
+        "city": "Rennes",
+        "postal_code": "35000",
+        "lat": 48.0993199,
+        "lon": -1.6848241
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Maison de quartier Francisco Ferrer",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://mqff.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maison de quartier Francisco Ferrer",
+        "address": "40 Rue Montaigne",
+        "city": "Rennes",
+        "postal_code": "35000",
+        "lat": 48.0965699,
+        "lon": -1.6560317
+      },
+      "_metro": "Rennes, France"
+    },
+    {
+      "name": "Médiathèque Léon Guizard",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fabregues.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Médiathèque Léon Guizard",
+        "address": "31 Rue Paul Doumer",
+        "city": "Fabrègues",
+        "postal_code": "34690",
+        "lat": 43.550228,
+        "lon": 3.777409
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "MJC Centre André Malraux",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://mjc-castelnau.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "MJC Centre André Malraux",
+        "address": "10 Avenue de la Moutte",
+        "city": "Castelnau-le-Lez",
+        "postal_code": "34170",
+        "lat": 43.633784,
+        "lon": 3.9061115
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Centre Socio-Culturel Gutemberg",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.centregutenberg.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre Socio-Culturel Gutemberg",
+        "lat": 43.6478002,
+        "lon": 3.8017853
+      },
+      "_metro": "Montpellier, France"
+    },
+    {
+      "name": "Bibliothèque Paul Langevin",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://culture.saintmartindheres.fr",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bibliothèque Paul Langevin",
+        "address": "29 Place Karl Marx",
+        "city": "Saint-Martin-d'Hères",
+        "postal_code": "38400",
+        "lat": 45.1798146,
+        "lon": 5.7593676
+      },
+      "_metro": "Grenoble, France"
+    },
+    {
+      "name": "The ArQuives",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://arquives.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The ArQuives",
+        "address": "34 Isabella Street",
+        "city": "Toronto",
+        "postal_code": "M4Y 1N1",
+        "lat": 43.668138,
+        "lon": -79.3839765
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Caven Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://knox.utoronto.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Caven Library",
+        "lat": 43.6617136,
+        "lon": -79.3965456
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "AccessPoint Danforth",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://accessalliance.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "AccessPoint Danforth",
+        "address": "3079 Danforth Avenue",
+        "city": "Toronto",
+        "lat": 43.691185,
+        "lon": -79.287284
+      },
+      "_metro": "Toronto, Canada"
+    },
+    {
+      "name": "Parkdale Activity-Recreation Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://parc.on.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parkdale Activity-Recreation Centre",
+        "address": "1499 Queen Street West",
+        "lat": 43.6396197,
+        "lon": -79.4404072
+      },
+      "_metro": "Toronto, Canada",
+      "crawl_delay": 2.0
+    },
+    {
+      "name": "Bâtiment 7",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.batiment7.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bâtiment 7",
+        "address": "1900 Rue Le Ber",
+        "city": "Montréal",
+        "region": "QC",
+        "postal_code": "H3K 2A4",
+        "lat": 45.4810209,
+        "lon": -73.5523233
+      },
+      "_metro": "Montreal, Canada"
+    },
+    {
+      "name": "South Burnaby Neighbourhood House",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://burnabynh.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South Burnaby Neighbourhood House",
+        "address": "4460 Beresford Street",
+        "city": "Burnaby",
+        "region": "BC",
+        "postal_code": "V5H 0B8",
+        "lat": 49.225354,
+        "lon": -123.004168
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Community Kollel",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://thekollel.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Community Kollel",
+        "address": "1965 West Broadway",
+        "lat": 49.2639667,
+        "lon": -123.1496801
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "8EAST",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.8east.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "8EAST",
+        "address": "8 East Pender Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "lat": 49.2802624,
+        "lon": -123.1041933
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Chief Joe Mathias Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.squamish.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chief Joe Mathias Centre",
+        "address": "100 Capilano Road",
+        "lat": 49.3178154,
+        "lon": -123.1241202
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Old Barn Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.myuna.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Old Barn Community Centre",
+        "address": "6308 Thunderbird Boulevard",
+        "lat": 49.2589184,
+        "lon": -123.2482735
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "North Shore Neighbourhood House",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.nsnh.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Shore Neighbourhood House",
+        "address": "225 East 2nd Street",
+        "lat": 49.310643,
+        "lon": -123.0739711
+      },
+      "_metro": "Vancouver, Canada",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "AMS Nest (Student Union Building)",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ams.ubc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "AMS Nest (Student Union Building)",
+        "address": "6133 University Boulevard",
+        "city": "Vancouver",
+        "postal_code": "V6T 1Z1",
+        "lat": 49.2665762,
+        "lon": -123.2497871
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Scottish Cultural Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://scottishculturalcentre.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scottish Cultural Centre",
+        "address": "8886 Hudson Street",
+        "city": "Vancouver",
+        "region": "BC",
+        "lat": 49.2045282,
+        "lon": -123.1343879
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Roundhouse Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.roundhouse.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Roundhouse Community Centre",
+        "address": "181 Roundhouse Mews",
+        "city": "Vancovuer",
+        "region": "BC",
+        "lat": 49.2734093,
+        "lon": -123.121807
+      },
+      "_metro": "Vancouver, Canada"
+    },
+    {
+      "name": "Ottawa Trans Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://ottawatranslibrary.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ottawa Trans Library",
+        "address": "1104",
+        "postal_code": "K1Y 3C7",
+        "lat": 45.4059222,
+        "lon": -75.7220587
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "Glebe Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://gnag.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Glebe Community Centre",
+        "address": "175 Third Avenue",
+        "postal_code": "K1S 2K2",
+        "lat": 45.402125,
+        "lon": -75.6915325
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "New Edinburgh Park Field House",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://newedinburgh.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New Edinburgh Park Field House",
+        "address": "203 Stanley Avenue",
+        "city": "Ottawa",
+        "region": "Ontario",
+        "lat": 45.4388198,
+        "lon": -75.6852248
+      },
+      "_metro": "Ottawa, Canada"
+    },
+    {
+      "name": "VIRL: South Cowichan Branch",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event",
+      "base_url": "https://virl.bc.ca",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "VIRL: South Cowichan Branch",
+        "address": "2720 Mill Bay Road",
+        "city": "Mill Bay",
+        "region": "BC",
+        "postal_code": "V8H 1H9",
+        "lat": 48.6512231,
+        "lon": -123.5590125
+      },
+      "_metro": "Victoria, Canada"
     }
   ],
   "_not_included": {

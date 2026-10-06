@@ -229,11 +229,9 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 130,
-  "metro_key": "FR:Lyon",
-  "stuck": {
-   "FR:Lyon": 1
-  }
+  "metro": 153,
+  "metro_key": "CA:Kitchener",
+  "stuck": {}
  },
  "socrata": {
   "art events": 0,
