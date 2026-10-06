@@ -1176,6 +1176,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aabenraa.dk": {
+    "checked": 20261006,
+    "name": "Aabenraa Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "aacc.com.au": {
     "checked": 20260819,
     "name": "Austral-Asian Community Church",
@@ -1463,6 +1470,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "aarhus.dk": {
+    "checked": 20261006,
+    "name": "Aarhus Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "aarhus.dk/borger/job-og-ledighed/handicap-og-job/aktivitets-og-beskaeftigelsestilbud-til-voksne-med-handicap/kompetencecenter-nord": {
     "checked": 20260901,
@@ -2948,6 +2962,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "acridas.org.br": {
+    "checked": 20261006,
+    "name": "Associa\u00e7\u00e3o Crist\u00e3 de Assist\u00eancia Social",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "acropolys.be": {
     "checked": 20260913,
     "name": "Woonzorgcentrum Acropolys",
@@ -3287,6 +3308,13 @@
   "adc.ch": {
     "checked": 20260917,
     "name": "ADC",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adcidade.org": {
+    "checked": 20261006,
+    "name": "Assembleia de Deus Cidade",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -6057,6 +6085,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "albertslund.dk": {
+    "checked": 20261006,
+    "name": "Albertslund Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "albertslundbibliotek.dk": {
     "checked": 20260831,
     "name": "Bibliotek og Medborgercenter Hedemarken",
@@ -6798,6 +6833,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "alleroed.dk": {
+    "checked": 20261006,
+    "name": "Aller\u00f8d Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "alleroedkunst.dk": {
     "checked": 20260831,
@@ -8817,6 +8859,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "amma.net.br": {
+    "checked": 20261006,
+    "name": "Abrigo Mariana Magalh\u00e3es",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "amnesiamilano.com": {
     "checked": 20260922,
     "name": "Amnesia",
@@ -10653,6 +10702,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "apcefpr.org.br": {
+    "checked": 20261006,
+    "name": "APCEF/ PR",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "apcefsp.org.br": {
     "checked": 20261004,
     "name": "Clube da Cidade",
@@ -11213,6 +11269,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aquariusws.com.br": {
+    "checked": 20261006,
+    "name": "Aquarius Water Sports",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aquaspa.pl": {
     "checked": 20260909,
     "name": "Aquaspa",
@@ -11275,6 +11338,13 @@
     "reason": "11/11 sampled events future",
     "status": "ok",
     "type": "jsonld"
+  },
+  "aquiraz-riviera.com/beach-club": {
+    "checked": 20261006,
+    "name": "Riviera Beach Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ara-amoa.com": {
     "checked": 20260924,
@@ -12275,6 +12345,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "arenaaquatica.salvador.ba.gov.br": {
+    "checked": 20261006,
+    "name": "Arena Aqu\u00e1tica Salvador",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "arenab3.com.br/#": {
     "checked": 20261004,
     "name": "Arena B3",
@@ -13100,6 +13177,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "arquidiocesesalvador.org.br/programa-oracao-por-um-dia-feliz-05-10-2026": {
+    "checked": 20261006,
+    "name": "Igreja Nossa Senhora da Assun\u00e7\u00e3o",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "arquivarqueologos.pt": {
     "checked": 20260901,
@@ -14390,6 +14474,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ascensaodosenhor.org": {
+    "checked": 20261006,
+    "name": "Par\u00f3quia Ascens\u00e3o do Senhor",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ascgliding.org": {
     "checked": 20260824,
     "name": "RNZAF Aviation Sports Club",
@@ -14978,6 +15069,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "assembleiadedeus.org.br": {
+    "checked": 20261006,
+    "name": "Igreja Evang\u00e9lica Assembleia de Deus em Curitiba",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "assembly.ab.ca/visit/plan-your-visit#grounds": {
     "checked": 20260819,
     "name": "Legislative Assembly Interpretive Centre",
@@ -15005,6 +15103,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "assens.dk": {
+    "checked": 20261006,
+    "name": "Assens Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "assigigliorosso.it": {
     "checked": 20260923,
@@ -15060,6 +15165,13 @@
     "name": "Associa\u00e7\u00e3o Reto Esperan\u00e7a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "associacaosantarita.com.br": {
+    "checked": 20261006,
+    "name": "Associa\u00e7\u00e3o Santa Rita de C\u00e1ssia",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "association-st-camille.ch": {
@@ -17171,6 +17283,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "autismobrasil.org": {
+    "checked": 20261006,
+    "name": "Casa da Esperan\u00e7a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "autismosur.es/index.php/fundacion/centro-integral-de-recursos-para-personas-con-tea-la-virreina": {
     "checked": 20260916,
     "name": "Centro Integral de Recursos para Personas con Autismo La Virreina",
@@ -17953,6 +18072,13 @@
     "name": "Auburn Lidcombe RSL Youth Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "ayofitnessclub.com.br": {
+    "checked": 20261006,
+    "name": "Ayo Fitness Club",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "ayrlies.co.nz": {
@@ -19530,6 +19656,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ballerup.dk": {
+    "checked": 20261006,
+    "name": "Ballerup Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "ballerup.dk/brug-byen/kunst-i-ballerup/skovlunde-friluftsscene": {
     "checked": 20260831,
@@ -21257,6 +21390,13 @@
   "batistabetel.org.br": {
     "checked": 20261004,
     "name": "Igreja Batista Betel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "batistacidadejardim.wixsite.com/ibcj": {
+    "checked": 20261006,
+    "name": "Igreja Batista Cidade Jardim",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -26387,6 +26527,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "biblioteca.ufc.br/pt/bibliotecas-do-sistema/biblioteca-de-pos-graduacao-em-engenharia-bpge-2": {
+    "checked": 20261006,
+    "name": "Biblioteca da P\u00f3s Gradua\u00e7\u00e3o de Engenharia",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "biblioteca.ufc.br/pt/sobre-o-sibi-ufc/bibliotecas-do-sistema/bibliotecas-no-campus-do-pici/biblioteca-do-curso-de-fisica-bcf-2": {
+    "checked": 20261006,
+    "name": "Biblioteca da F\u00edsica",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "biblioteca.unisal.it": {
     "checked": 20260920,
     "name": "Biblioteca Don Bosco",
@@ -31057,6 +31211,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "billund.dk": {
+    "checked": 20261006,
+    "name": "Billund Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "biloxi.ms.us/?feed=my-calendar-ics": {
     "checked": 20260909,
     "name": "Biloxi",
@@ -33668,6 +33829,13 @@
     "name": "Bokv\u00e4rlden",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "boladenevesjp.com.br": {
+    "checked": 20261006,
+    "name": "Bola de Neve S\u00e3o Jos\u00e9 dos Pinhais",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "bolapadel.be": {
@@ -37270,6 +37438,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "brigadeirobuffet.com.br": {
+    "checked": 20261006,
+    "name": "Buffet Infantil Brigadeiro",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "brigataebraica.it": {
     "checked": 20260922,
     "name": "Museo della Brigata ebraica",
@@ -37445,6 +37620,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "brk.dk": {
+    "checked": 20261006,
+    "name": "Bornholm regional municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "brkk.klub-modul.dk": {
     "checked": 20260831,
     "name": "Br\u00f8ndby Ro- og Kajakklub",
@@ -37606,6 +37788,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "brondby.dk": {
+    "checked": 20261006,
+    "name": "Br\u00f8ndby Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "brondbyoster-kirke.dk": {
     "checked": 20260831,
     "name": "Br\u00f8ndby\u00f8ster Kirke",
@@ -37633,6 +37822,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bronderslev.dk": {
+    "checked": 20261006,
+    "name": "Br\u00f8nderslev Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "bronislawchromy.pl/index.html": {
     "checked": 20260909,
@@ -40038,6 +40234,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "buffethullabaloo.com.br": {
+    "checked": 20261006,
+    "name": "Buffet Infantil Hullabaloo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "buffetkidsbh.com.br": {
     "checked": 20261005,
     "name": "Buffet Kids BH",
@@ -42133,6 +42336,13 @@
     "name": "Palestra di Roccia di Avigliana",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "caixacultural.com.br/SitePages/unidade-home.aspx?uid=3": {
+    "checked": 20261006,
+    "name": "Caixa Cultural",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "caixeirosviajantes.com.br": {
@@ -46057,6 +46267,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "casadashistoriasdesalvador.com.br": {
+    "checked": 20261006,
+    "name": "Casa das Hist\u00f3rias de Salvador",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "casadasrosas.org.br": {
     "checked": 20261004,
     "name": "Casa das Rosas",
@@ -46218,6 +46435,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "casadeoxumare.com.br": {
+    "checked": 20261006,
+    "name": "Casa de Oxumar\u00e9",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "casadepedra.com.br": {
     "checked": 20261004,
     "name": "Casa de Pedra",
@@ -46302,6 +46526,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "casadivinabahia.com.br/acasadeitapua": {
+    "checked": 20261006,
+    "name": "A casa de Itapu\u00e3",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "casadocandango.org.br": {
     "checked": 20261005,
     "name": "Casa do Candango",
@@ -46335,6 +46566,13 @@
     "name": "Casa do Povo",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "casadoriovermelho.com.br": {
+    "checked": 20261006,
+    "name": "A Casa do Rio Vermelho",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "casadosaber.com.br": {
@@ -46406,6 +46644,13 @@
     "offsite_url": "https://www.instagram.com/p/DYTN1RuNRkF/",
     "reason": "osm probe: offsite:instagram.com",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "casajosedealencar.ufc.br": {
+    "checked": 20261006,
+    "name": "Casa de Jos\u00e9 de Alencar",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "casakinkza.com/event": {
@@ -46596,6 +46841,13 @@
     "reason": "8/38 upcoming",
     "status": "ok",
     "type": "squarespace"
+  },
+  "casasalvatore.com.br": {
+    "checked": 20261006,
+    "name": "Casa Salvatore",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "casasantarosa.it/event-details/codis-2026": {
     "checked": 20260921,
@@ -46989,6 +47241,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "castelodobatel.com.br": {
+    "checked": 20261006,
+    "name": "Castelo do Batel",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "castlebar.ie": {
     "checked": 20260927,
     "name": "Castlebar",
@@ -47090,6 +47349,13 @@
   "catalogo.fondazioneperleggere.it/library/Bareggio": {
     "checked": 20260922,
     "name": "Biblioteca civica",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "catalogodeservicos.fortaleza.ce.gov.br/categoria/social/servico/257": {
+    "checked": 20261006,
+    "name": "Conselho Tutelar",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -47762,6 +48028,13 @@
   "ccbinder.be": {
     "checked": 20260911,
     "name": "cc Binder",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ccbj.org.br": {
+    "checked": 20261006,
+    "name": "Centro Cultural Bom Jardim",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -48593,6 +48866,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "ceas.com.br": {
+    "checked": 20261006,
+    "name": "Centro de Estudos e A\u00e7\u00e3o Social",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cec-ong.org": {
     "checked": 20260911,
     "name": "Espace C\u00e9saire",
@@ -48746,6 +49026,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "cedpr.com.br/superintendencias/963": {
+    "checked": 20261006,
+    "name": "1\u00aa Igreja do Evangelho Quadrangular de Bocaiuva do Sul",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ceeak.ch/eventos": {
     "checked": 20260917,
@@ -49648,6 +49935,13 @@
     "name": "Centro Mai Da Sole",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "centroaquaticoaguaevida.com.br": {
+    "checked": 20261006,
+    "name": "Centro Aqu\u00e1tico \u00c1gua e Vida",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "centroarrupesevilla.org/sociedad-y-politica/entreculturas": {
@@ -50949,6 +51243,21 @@
     "checked": 20260911,
     "name": "Beth Chabad",
     "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "chacarabaldan.com.br": {
+    "checked": 20261006,
+    "name": "Ch\u00e1cara Baldan",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "chacarabaldaneventos.com": {
+    "checked": 20261006,
+    "name": "Ch\u00e1cara Baldan Eventos em Curitiba",
+    "offsite_url": "https://instagram.com/chacarabaldaneventos",
+    "reason": "osm probe: offsite:instagram.com",
     "status": "fail",
     "type": "osm-venue"
   },
@@ -53487,6 +53796,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "christus.com.br/horario-das-missas": {
+    "checked": 20261006,
+    "name": "Capela Christus, Filius Dei",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "christusgemeente.be": {
     "checked": 20260913,
     "name": "Vlaamse Evangelische kerk",
@@ -53739,6 +54055,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "churchofjesuschrist.org/maps/meetinghouses/id=meetinghouse:5347564-01-01": {
+    "checked": 20261006,
+    "name": "A Igreja de Jesus Cristo dos Santos dos \u00daltimos Dias",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "churchofjesuschrist.org/temples/details/adelaide-australia-temple": {
     "checked": 20260819,
     "name": "Adelaide Australia Temple",
@@ -53770,6 +54093,13 @@
   "churchofjesuschrist.org/temples/details/copenhagen-denmark-temple?lang=dan": {
     "checked": 20260831,
     "name": "Templet i K\u00f8benhavn",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "churchofjesuschrist.org/temples/details/curitiba-brazil-temple": {
+    "checked": 20261006,
+    "name": "Templo de Curitiba Brasil",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -54643,6 +54973,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cicloiguacu.org.br": {
+    "checked": 20261006,
+    "name": "Associa\u00e7\u00e3o de Ciclistas do Alto - Cicloigua\u00e7u",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cicp21ter.org": {
     "checked": 20260828,
     "name": "Centre International de Culture Populaire",
@@ -54655,6 +54992,13 @@
     "name": "Centro de Interven\u00e7\u00e3o para o Desenvolvimento Am\u00edlcar Cabral",
     "reason": "osm probe: offsite:facebook.com",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "cidadedamusicadabahia.com.br": {
+    "checked": 20261006,
+    "name": "Cidade da M\u00fasica da Bahia",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "cidadedasartes.org": {
@@ -55007,6 +55351,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cineflix.com.br/cinema/salvador": {
+    "checked": 20261006,
+    "name": "Cineflix",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cineflix.com.br/programacao/cantareira-norte-shopping": {
     "checked": 20261004,
     "name": "Cineflix Cantareira Norte Shopping",
@@ -55020,6 +55371,13 @@
     "reason": "retired 2026-10-05, not working: production sun gone; audit 10-04 n/a; recheck 10-05 http 404. Entry in jsonld_sources.json at 1fbdfaa.",
     "status": "fail",
     "type": "jsonld"
+  },
+  "cineglauberrocha.com.br": {
+    "checked": 20261006,
+    "name": "Cine Glauber Rocha",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "cineiris.com.br": {
     "checked": 20261005,
@@ -55651,6 +56009,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cinemark.com.br": {
+    "checked": 20261006,
+    "name": "Cinemark",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cinemark.com.br/programacao/sao-bernardo-do-campo/extra-anchieta/3/724": {
     "checked": 20261004,
     "name": "Cinemark",
@@ -55955,6 +56320,13 @@
   "cinepal.fr": {
     "checked": 20260828,
     "name": "Cin\u00e9Pal",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cinepasseio.org/guarani": {
+    "checked": 20261006,
+    "name": "Cine Guarani",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -56365,6 +56737,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cineteatrosaoluiz.com.br/programacao-mensal-cineteatrosaoluiz": {
+    "checked": 20261006,
+    "name": "Cineteatro S\u00e3o Luiz",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "cinetecadibologna.it/luogo/arena-puccini": {
     "checked": 20260923,
     "name": "Arena Puccini",
@@ -56468,6 +56847,13 @@
   "cinetransat.ch": {
     "checked": 20260918,
     "name": "Cin\u00e9Transat",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cineuniplex.com.br/colombo": {
+    "checked": 20261006,
+    "name": "Cineuniplex",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -56645,6 +57031,13 @@
     "name": "Circolo Tennis Monza",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "circopicolino.xpg.uol.com.br": {
+    "checked": 20261006,
+    "name": "Escola Picolino de Artes do Circo",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "circovoador.com.br": {
@@ -63840,6 +64233,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "clubvibe.com.br": {
+    "checked": 20261006,
+    "name": "CLUB Vibe",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "clubviewtennis.co.za": {
     "checked": 20260930,
     "name": "Clubview Tennis Club",
@@ -64866,6 +65266,20 @@
   "cnes-observatoire.fr": {
     "checked": 20260829,
     "name": "Observatoire de l\u2019Espace",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cnes2.datasus.gov.br/Exibe_Ficha_Estabelecimento.asp?VCo_Unidade=2304405525888": {
+    "checked": 20261006,
+    "name": "Associa\u00e7\u00e3o de Assist\u00eancia \u00e0 Crian\u00e7a Especial",
+    "reason": "osm probe: unreachable (ConnectTimeout)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "cnes2.datasus.gov.br/Exibe_Ficha_Estabelecimento.asp?VCo_Unidade=2304406603610": {
+    "checked": 20261006,
+    "name": "Associa\u00e7\u00e3o dos Idosos do Mucuripe",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -66166,6 +66580,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "commons.com.br": {
+    "checked": 20261006,
+    "name": "Commons Studio Bar",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "commonwealth.com.au": {
     "checked": 20260819,
     "name": "The Commonwealth Club",
@@ -66402,6 +66823,20 @@
     "name": "Comunidade Cat\u00f3lica Santos Anjos",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "comshalom.org": {
+    "checked": 20261006,
+    "name": "Centro de Espiritualidade Santa Teresa",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "comshalom.org/contatos-formacao": {
+    "checked": 20261006,
+    "name": "CEST - Centro de Espiritualidade Santa Teresa",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "comteatro.it": {
@@ -68644,6 +69079,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cpm.org.br/programa-adote-uma-montanha": {
+    "checked": 20261006,
+    "name": "Clube Paranaense de Montanhismo - CPM",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "cpnl.cat/xarxa/cnlvallesoriental": {
     "checked": 20260915,
@@ -71315,6 +71757,13 @@
   "curiouscity.org": {
     "checked": 20260927,
     "name": "CURIOUSCITY Science Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "curitiba.ierb.org.br": {
+    "checked": 20261006,
+    "name": "Igreja Evang\u00e9lica Reformada Curitiba",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -78127,6 +78576,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dimas.ba.gov.br": {
+    "checked": 20261006,
+    "name": "Sala Walter da Silveira",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "dime.be": {
     "checked": 20260913,
     "name": "Ferme de la D\u00eeme",
@@ -78354,6 +78810,13 @@
   "direzioneregionalemuseilazio.cultura.gov.it/luoghi/museo-delle-navi-romane": {
     "checked": 20260921,
     "name": "Museo delle navi romane di Nemi",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "disal.com.br": {
+    "checked": 20261006,
+    "name": "Disal Livraria",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -80192,6 +80655,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dorcas.org.br": {
+    "checked": 20261006,
+    "name": "Grupo Escoteiro Dorcas 209 / Pr",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dorchester-tc.gov.uk": {
     "checked": 20260927,
     "name": "Dorchester",
@@ -80913,6 +81383,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dozetribos.com.br": {
+    "checked": 20261006,
+    "name": "Comunidade das Doze Tribos",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dpp.cz/muzeum-mhd": {
     "checked": 20260904,
     "name": "Muzeum m\u011bstsk\u00e9 hromadn\u00e9 dopravy v Praze",
@@ -81105,6 +81582,34 @@
   "dracolorium.ch": {
     "checked": 20260917,
     "name": "Dracolorium",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dragaodomar.org.br/espacos/anfiteatro": {
+    "checked": 20261006,
+    "name": "Anfiteatro S\u00e9rgio Motta",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dragaodomar.org.br/espacos/cinema-do-dragao": {
+    "checked": 20261006,
+    "name": "Cinema do Drag\u00e3o",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dragaodomar.org.br/espacos/museu-da-cultura-cearense": {
+    "checked": 20261006,
+    "name": "Museu da Cultura Cearense",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dragaodomar.org.br/espacos/museu-de-arte-contemporanea": {
+    "checked": 20261006,
+    "name": "Museu de Arte Contempor\u00e2nea do Cear\u00e1",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -83407,6 +83912,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eao.org.br": {
+    "checked": 20261006,
+    "name": "Escola de Artes e Of\u00edcios Thomaz Pompeu Sobrinho",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "earley-tc.gov.uk": {
     "checked": 20260927,
     "name": "Earley",
@@ -84038,6 +84550,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ecomuseunaturaldomangue.com.br": {
+    "checked": 20261006,
+    "name": "Ecomuseu Natural do Mangue",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "economie.gouv.fr/cedef": {
     "checked": 20260829,
     "name": "Centre de documentation \u00c9conomie - Finances",
@@ -84626,6 +85145,13 @@
     "status": "fail",
     "type": "squarespace"
   },
+  "edisca.org.br": {
+    "checked": 20261006,
+    "name": "Edisca",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "edisofer.com": {
     "checked": 20260914,
     "name": "?",
@@ -85061,6 +85587,76 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "educacao.curitiba.pr.gov.br/unidade/biblioteca-especializada-em-educacao/18468": {
+    "checked": 20261006,
+    "name": "Biblioteca Especializada em Educa\u00e7\u00e3o",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "educacao.curitiba.pr.gov.br/unidade/farol-do-saber-aristides-vinholes/18456": {
+    "checked": 20261006,
+    "name": "Farol do Saber Aristides Vinholes",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "educacao.curitiba.pr.gov.br/unidade/farol-do-saber-e-inovacao-albert-einstein/18513": {
+    "checked": 20261006,
+    "name": "Farol do Saber Albert Einstein",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "educacao.curitiba.pr.gov.br/unidade/farol-do-saber-e-inovacao-cecilia-meireles/18504": {
+    "checked": 20261006,
+    "name": "Farol do Saber Cec\u00edlia Meireles",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "educacao.curitiba.pr.gov.br/unidade/farol-do-saber-e-inovacao-emiliano-perneta/18518": {
+    "checked": 20261006,
+    "name": "Farol do Saber Emiliano Perneta",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "educacao.curitiba.pr.gov.br/unidade/farol-do-saber-e-inovacao-jose-de-alencar/18527": {
+    "checked": 20261006,
+    "name": "Farol do Saber Jos\u00e9 de Alencar",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "educacao.curitiba.pr.gov.br/unidade/farol-do-saber-e-inovacao-rubem-braga/18505": {
+    "checked": 20261006,
+    "name": "Farol do Saber Rubem Braga",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "educacao.curitiba.pr.gov.br/unidade/farol-do-saber-e-inovacao-samuel-chameki/18521": {
+    "checked": 20261006,
+    "name": "Farol do Saber Samuel Chameki",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "educacao.curitiba.pr.gov.br/unidade/farol-do-saber-e-inovacao-senador-accioly-filho/18506": {
+    "checked": 20261006,
+    "name": "Farol do Saber Senador Accioly Filho",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "educacao.curitiba.pr.gov.br/unidade/farol-do-saber-e-inovacao-tasso-da-silveira/18528": {
+    "checked": 20261006,
+    "name": "Farol do Saber Tasso da Silveira",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "educattepeople.it/2022/09/21/un-nuovo-spazio-per-container-9": {
     "checked": 20260922,
     "name": "Container.9",
@@ -85368,6 +85964,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "egedalkommune.dk": {
+    "checked": 20261006,
+    "name": "Egedal Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "egelmoos.domicilbern.ch": {
     "checked": 20260920,
@@ -88338,6 +88941,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "enjoynordjylland.dk/aalborg": {
+    "checked": 20261006,
+    "name": "Aalborg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "enjoysport.eu": {
     "checked": 20260922,
     "name": "Enjoy sport center",
@@ -89599,6 +90209,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "escariz.com.br": {
+    "checked": 20261006,
+    "name": "Escariz",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "escc.co.za": {
     "checked": 20260930,
     "name": "El Shaddai Christian Church",
@@ -89637,6 +90254,13 @@
   "escoppet.ch/parascolaire/bibliotheque-scolaire-et-intercommunale": {
     "checked": 20260918,
     "name": "Biblioth\u00e8que scolaire et intecommunale de Coppet",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "escoteiros.saomarcelino.org.br/wp": {
+    "checked": 20261006,
+    "name": "Grupo Escoteiro S\u00e3o Marcelino Champagnat 111 / Pr",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -90194,6 +90818,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "espacoculturalalagados.wordpress.com": {
+    "checked": 20261006,
+    "name": "Espa\u00e7o Cultural Alagados",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "espacoescandinavo.com.br": {
     "checked": 20261004,
     "name": "Igreja Escandinava Luterana",
@@ -90639,6 +91270,13 @@
   "espoonvpk.fi/yhteystiedot": {
     "checked": 20260903,
     "name": "Espoon VPK:n juhlasali",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "esporteclubebahia.com.br": {
+    "checked": 20261006,
+    "name": "Fazend\u00e3o",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -92820,6 +93458,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "exporenaultbarigui.com.br": {
+    "checked": 20261006,
+    "name": "Expo Renault Barigui",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "expotrescoronas.es": {
     "checked": 20260916,
     "name": "Museo de Historia Militar de M\u00e1laga",
@@ -93576,6 +94221,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/GETAPEJARA": {
+    "checked": 20261006,
+    "name": "Grupo Escoteiro Tapejara / 23 PR",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.facebook.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "facebook.com/GaleriePekarska": {
     "checked": 20260904,
     "name": "Galerie Peka\u0159sk\u00e1",
@@ -94178,6 +94830,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/comunidadeapostolicasemeai": {
+    "checked": 20261006,
+    "name": "Comunidade Apost\u00f3lica Semeai",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.facebook.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "facebook.com/coopcasabo": {
     "checked": 20260901,
     "name": "Casa B\u00f4",
@@ -94311,6 +94970,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "facebook.com/groups/249362595209259/?fref=ts": {
+    "checked": 20261006,
+    "name": "Jardim do Di\u00e1logo Invis\u00edvel - Espa\u00e7o Coletivo",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.facebook.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "facebook.com/groups/350445261795955": {
     "checked": 20260903,
     "name": "Ph\u00fac L\u00e2m -temppeli",
@@ -94386,6 +95052,13 @@
     "name": "Sri Manonwani Ampal Tempel",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "facebook.com/ieqonap": {
+    "checked": 20261006,
+    "name": "Igreja do Evangelho Quadrangular Obra Nova Afonso Pena",
+    "reason": "osm probe: robots.txt Disallow: / (http://www.facebook.com/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "facebook.com/ile.orisaonirasola": {
@@ -95350,6 +96023,13 @@
   "fadonabaixa.com": {
     "checked": 20260901,
     "name": "Fado na Baixa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "faec.org.br": {
+    "checked": 20261006,
+    "name": "Federa\u00e7\u00e3o da Agricultura e Pecu\u00e1ria do Estado do Cear\u00e1",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -96516,6 +97196,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "favrskov.dk": {
+    "checked": 20261006,
+    "name": "Favrskov Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "favrskovbib.dk/hadsten-bibliotek": {
     "checked": 20260901,
     "name": "Hadsten Bibliotek",
@@ -96543,6 +97230,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "faxekommune.dk": {
+    "checked": 20261006,
+    "name": "Faxe Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "fayetteville-ga.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20260913,
@@ -96813,6 +97507,13 @@
   "fcengelen.nl": {
     "checked": 20261001,
     "name": "FC Engelen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "fcepe.com.br/_clubes/clube-2004-da-bahia": {
+    "checked": 20261006,
+    "name": "CEPE Clube 2004 da Bahia",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -97678,6 +98379,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ferreomodelismo.org.br": {
+    "checked": 20261006,
+    "name": "Associa\u00e7\u00e3o Paranaense de Ferreomodelismo e Mem\u00f3ria Ferrovi\u00e1ria",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ferrerocinemas.it/adriano/index.php#inside": {
     "checked": 20260920,
     "name": "Cinema Adriano",
@@ -97769,6 +98477,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "festivalhalleluya.com": {
+    "checked": 20261006,
+    "name": "Halleluya Fortaleza",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "festivalplace.ca": {
     "checked": 20260819,
@@ -99737,6 +100452,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "fmk.dk": {
+    "checked": 20261006,
+    "name": "Faaborg-Midtfyn Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "fmlucha.es": {
     "checked": 20260914,
@@ -102405,12 +103127,26 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "fredensborg.dk": {
+    "checked": 20261006,
+    "name": "Fredensborg Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "fredensognazaret.dk": {
     "checked": 20260831,
     "name": "Nazaret Kirke",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "fredericia.dk": {
+    "checked": 20261006,
+    "name": "Fredericia Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "frederickcountymd.gov/common/modules/iCalendar/iCalendar.aspx?catID=50&feed=calendar": {
     "checked": 20260913,
@@ -102447,6 +103183,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "frederiksberg.dk": {
+    "checked": 20261006,
+    "name": "Frederiksberg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "frederiksbergbadene.frederiksberg.dk/flintholm-svoemmehal": {
     "checked": 20260831,
     "name": "Flintholm Sv\u00f8mmehal",
@@ -102474,6 +103217,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "frederikshavn.dk": {
+    "checked": 20261006,
+    "name": "Frederikshavn Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "frederikssund.dk": {
+    "checked": 20261006,
+    "name": "Frederikssund Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "fredrikstad.kommune.no": {
     "checked": 20260930,
@@ -103511,6 +104268,13 @@
     "status": "ok",
     "type": "localist"
   },
+  "ftddigitalarena.com.br": {
+    "checked": 20261006,
+    "name": "FTD Digital Arena",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "ftgern.de": {
     "checked": 20261002,
     "name": "Freie Turnerschaft Gern",
@@ -104001,6 +104765,69 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "fundacaoculturaldecuritiba.com.br": {
+    "checked": 20261006,
+    "name": "Espa\u00e7o Cultural Capela Santa Maria",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "fundacaoculturaldecuritiba.com.br/espacos-culturais/casa-da-leitura-wilson-bueno-r-portao-cultural": {
+    "checked": 20261006,
+    "name": "Casa da Leitura Wilson Bueno",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "fundacaoculturaldecuritiba.com.br/espacos-culturais/casa-da-leitura-wilson-martins": {
+    "checked": 20261006,
+    "name": "Casa da Leitura Wilson Martins",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "fundacaoculturaldecuritiba.com.br/espacos-culturais/casa-romario-martins": {
+    "checked": 20261006,
+    "name": "Casa Rom\u00e1rio Martins",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "fundacaoculturaldecuritiba.com.br/espacos-culturais/memorial-paranista": {
+    "checked": 20261006,
+    "name": "Memorial Paranista",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "fundacaoculturaldecuritiba.com.br/espacos-culturais/museu-municipal-de-arte-muma-r-portao-cultural": {
+    "checked": 20261006,
+    "name": "Museu Municipal de Arte",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "fundacaoculturaldecuritiba.com.br/espacos-culturais/portao-cultural": {
+    "checked": 20261006,
+    "name": "Port\u00e3o Cultural",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "fundacaoculturaldecuritiba.com.br/espacos-culturais/teatro-cleon-jacques": {
+    "checked": 20261006,
+    "name": "Teatro Cleon Jacques",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "fundacaoculturaldecuritiba.com.br/espacos-culturais/teatro-do-paiol": {
+    "checked": 20261006,
+    "name": "Teatro Paiol",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "fundacaodorina.org.br": {
     "checked": 20261004,
     "name": "Funda\u00e7\u00e3o Dorina Nowill para Cegos",
@@ -104406,6 +105233,13 @@
     "reason": "24 vevents / 24 future",
     "status": "ok",
     "type": "ics"
+  },
+  "furesoe.dk": {
+    "checked": 20261006,
+    "name": "Fures\u00f8 Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "furesoebibliotekerne.dk": {
     "checked": 20260831,
@@ -104837,6 +105671,13 @@
   "gabrielelevy.com": {
     "checked": 20260921,
     "name": "ALEFBET - the hebrew letters art gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gaccbahia.org.br": {
+    "checked": 20261006,
+    "name": "Grupo de Apoio \u00e0 Crian\u00e7a com C\u00e2ncer - Unidade Bahia",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -105933,6 +106774,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "galiciaec.com.br": {
+    "checked": 20261006,
+    "name": "Gal\u00edcia Esporte Clube",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "galiciajewishmuseum.org": {
     "checked": 20260909,
     "name": "\u017bydowskie Muzeum Galicja",
@@ -106631,6 +107479,13 @@
     "name": "Galleria civica d'Arte Moderna e Contemporanea",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "gamurio.com.br": {
+    "checked": 20261006,
+    "name": "Vale do Amanhecer",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "ganadorsport.pl": {
@@ -108720,6 +109575,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "gesaogaspar.com.br": {
+    "checked": 20261006,
+    "name": "Grupo Escoteiro S\u00e3o Gaspar Bertoni 124 PR",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "geschichtewiki.wien.gv.at/Johannes-Nepomuk-Kapelle_(14,_Linzer_Stra%C3%9Fe_421_a)": {
     "checked": 20260908,
     "name": "Johannes-Nepomuk-Kapelle",
@@ -108744,6 +109606,13 @@
   "geschichtsverein-steinbach.de/museum.html": {
     "checked": 20261003,
     "name": "Heimatmuseum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gesd.org.br": {
+    "checked": 20261006,
+    "name": "Grupo Escoteiro Santos Dumont 20/PR",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -108835,6 +109704,13 @@
   "geumsunsa.org": {
     "checked": 20260902,
     "name": "\uae08\uc120\uc0ac",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "geuniversitario.com.br": {
+    "checked": 20261006,
+    "name": "Grupo Escoteiro Universit\u00e1rio UFPR",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -109630,6 +110506,13 @@
     "reason": "557 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "gladsaxe.dk": {
+    "checked": 20261006,
+    "name": "Gladsaxe Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "gladsaxe.dk/Carlshuse": {
     "checked": 20260831,
@@ -110631,6 +111514,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "glostrup.dk": {
+    "checked": 20261006,
+    "name": "Glostrup Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "glostrup.dk/borger/sundhed-aeldre-og-socialpsykiatri/aeldrecentre-og-rehabiliteringshus/aeldrecenter-dalvangen": {
     "checked": 20260831,
@@ -111807,6 +112697,13 @@
   "gordonwilsonart.co.uk": {
     "checked": 20260819,
     "name": "Gordon Wilson Art",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "gorettiquintela.webnode.com.br": {
+    "checked": 20261006,
+    "name": "Escola de Dan\u00e7a Gorete Quintella",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -113708,6 +114605,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "greve.dk": {
+    "checked": 20261006,
+    "name": "Greve Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "grevefrikirke.dk/kalender": {
     "checked": 20260831,
     "name": "Greve Frikirke",
@@ -113805,6 +114709,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "gribskov.dk": {
+    "checked": 20261006,
+    "name": "Gribskov Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "grieghallen.no": {
     "checked": 20260906,
@@ -114464,6 +115375,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "grupobcad.org.br": {
+    "checked": 20261006,
+    "name": "Grupo Bailarinos de Cristo, Amor e Doa\u00e7\u00f5es",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "grupocostabreve.com": {
     "checked": 20260915,
     "name": "Costa Breve",
@@ -114490,6 +115408,13 @@
     "name": "Hug",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "grupoitalo.com.br": {
+    "checked": 20261006,
+    "name": "Grupo Folcl\u00f3rico \u00cdtalo Brasileiro Santa Felicidade",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "gruposcoutcarrick579.blogspot.com": {
@@ -115045,6 +115970,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "guldborgsund.dk": {
+    "checked": 20261006,
+    "name": "Guldborgsund Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "gulfport-ms.gov": {
     "checked": 20260903,
     "name": "Gulfport",
@@ -115135,6 +116067,13 @@
     "reason": "54 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "gunhouse.com.br": {
+    "checked": 20261006,
+    "name": "Clube de Tiro Gun House",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "gunjong.or.kr": {
     "checked": 20260902,
@@ -115941,6 +116880,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "haderslev.dk": {
+    "checked": 20261006,
+    "name": "Haderslev Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "hadithshop.com": {
     "checked": 20260911,
     "name": "Al-Hadith",
@@ -116549,6 +117495,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "halsnaes.dk": {
+    "checked": 20261006,
+    "name": "Halsn\u00e6s Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "halstenbek.de/bildung-familie/buecherei-vhs/buechereien": {
     "checked": 20261003,
@@ -118629,6 +119582,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "havanairacema.com.br": {
+    "checked": 20261006,
+    "name": "Havana Iracema",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "havant.gov.uk": {
     "checked": 20260927,
     "name": "Havant",
@@ -119455,6 +120415,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hds.saude.pr.gov.br/Pagina/MUSEU-MUSAR": {
+    "checked": 20261006,
+    "name": "MUSAR - Museu S\u00e3o Roque",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "hdsouth.org": {
     "checked": 20260927,
     "name": "HD South - Gilbert Historical Museum (Gilbert)",
@@ -119706,6 +120673,13 @@
     "reason": "http 404",
     "status": "fail",
     "type": "tribe"
+  },
+  "hedensted.dk": {
+    "checked": 20261006,
+    "name": "Hedensted Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "hedoniasquash.pl": {
     "checked": 20260909,
@@ -121149,6 +122123,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "helsingor.dk": {
+    "checked": 20261006,
+    "name": "Helsing\u00f8r Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "helsinki.at": {
     "checked": 20260908,
     "name": "Radio Helsinki",
@@ -121715,6 +122696,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "herning.dk": {
+    "checked": 20261006,
+    "name": "Herning Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "herocomics.cz": {
     "checked": 20260905,
@@ -122892,6 +123880,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hillerod.dk": {
+    "checked": 20261006,
+    "name": "Hiller\u00f8d Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "hillhurstunited.com": {
     "checked": 20260819,
     "name": "Hillhurst United Church",
@@ -123549,6 +124544,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "hjoerring.dk": {
+    "checked": 20261006,
+    "name": "Hj\u00f8rring Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "hjorteparken.dk": {
     "checked": 20260831,
@@ -124874,6 +125876,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "holbaek.dk": {
+    "checked": 20261006,
+    "name": "Holb\u00e6k Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "holbeinhof.ch": {
     "checked": 20260919,
     "name": "Alterszentrum Holbeinhof",
@@ -125083,6 +126092,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "holstebro.dk": {
+    "checked": 20261006,
+    "name": "Holstebro Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "holy-trinity.org.nz/events": {
     "checked": 20260824,
@@ -125966,12 +126982,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "horsens.dk": {
+    "checked": 20261006,
+    "name": "Horsens Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "horses.net.nz": {
     "checked": 20260825,
     "name": "Waikato Equestrian Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "horsholm.dk": {
+    "checked": 20261006,
+    "name": "H\u00f8rsholm Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "horta.noblogs.org": {
     "checked": 20260915,
@@ -126911,6 +127941,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "htk.dk": {
+    "checked": 20261006,
+    "name": "H\u00f8je-Taastrup Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "htm-rc.dk": {
     "checked": 20260831,
     "name": "H\u00f8je-Taastrup Modelflyveklub",
@@ -127787,6 +128824,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hvidovre.dk": {
+    "checked": 20261006,
+    "name": "Hvidovre Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "hvidovrevinterbadere.dk": {
     "checked": 20260831,
     "name": "Hvidovre vinterbadere",
@@ -128116,6 +129160,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "iamo.org.br": {
+    "checked": 20261006,
+    "name": "Instituto Audiovisual Mulheres de Odun",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "iamo.org.br/cine-lankiana": {
+    "checked": 20261006,
+    "name": "Cine Lankiana",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "iamprague.eu": {
     "checked": 20260904,
     "name": "IAM Illusion Art Museum",
@@ -128274,6 +129332,13 @@
   "ibethlem.com": {
     "checked": 20261003,
     "name": "Mision Familair Bethlem",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ibeuce.com.br": {
+    "checked": 20261006,
+    "name": "Instituto Brasil-Estados Unidos no Cear\u00e1",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -128934,6 +129999,13 @@
     "name": "Ideal Cityplex",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "idealclube.org.br": {
+    "checked": 20261006,
+    "name": "Ideal Clube",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "ideasinstitute.ie": {
@@ -129741,6 +130813,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ikast-brande.dk": {
+    "checked": 20261006,
+    "name": "Ikast-Brande Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ikb-frauen.de": {
     "checked": 20261003,
     "name": "Interkulturelle Begegnungsst\u00e4tte e.V.",
@@ -129975,6 +131054,13 @@
   "ildepositostudiodanza.it": {
     "checked": 20260921,
     "name": "Il Deposito Studio Danza",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ileaiyeoficial.com": {
+    "checked": 20261006,
+    "name": "Senzala do Barro Preto - Cultural Association Ile Aiye",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -130315,6 +131401,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "imaxpalladium.com.br": {
+    "checked": 20261006,
+    "name": "IMAX",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "imbaglobal.com": {
     "checked": 20260910,
     "name": "IMBA Theatre",
@@ -130585,6 +131678,13 @@
   "imperialyachtclub.co.za": {
     "checked": 20260930,
     "name": "Clubhouse",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "imperiumbuffet.com.br": {
+    "checked": 20261006,
+    "name": "Palatium Buffet",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -131591,6 +132691,48 @@
     "status": "refused",
     "type": "osm-venue"
   },
+  "instagram.com/abocacentrodeartes": {
+    "checked": 20261006,
+    "name": "A.B.O.C.A. Centro de Artes",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "instagram.com/acervomucuripe": {
+    "checked": 20261006,
+    "name": "Acervo Mucuripe",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "instagram.com/acquanovanatacao": {
+    "checked": 20261006,
+    "name": "Acqua Nova",
+    "reason": "osm probe: robots.txt Disallow: / (https://instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "instagram.com/adventistasbarrasalvador": {
+    "checked": 20261006,
+    "name": "Espa\u00e7o Novo Tempo Barra",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "instagram.com/adventistascentenario": {
+    "checked": 20261006,
+    "name": "Igreja Adventista do S\u00e9timo Dia da Centen\u00e1rio",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "instagram.com/amsterdamrv": {
+    "checked": 20261006,
+    "name": "Amsterdam",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "instagram.com/antro_torino": {
     "checked": 20260922,
     "name": "Antro - Uno spazio in cui condividere",
@@ -131710,6 +132852,13 @@
     "status": "refused",
     "type": "osm-venue"
   },
+  "instagram.com/casadamaeoficial": {
+    "checked": 20261006,
+    "name": "Casa da M\u00e3e",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "instagram.com/centrecultureldesgrottes": {
     "checked": 20260918,
     "name": "Centre Culturel des Grottes",
@@ -131717,11 +132866,25 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "instagram.com/cereja.teatro": {
+    "checked": 20261006,
+    "name": "Cereja Teatro Cabar\u00e9",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "instagram.com/cycad_brewing": {
     "checked": 20260924,
     "name": "Cycad Brewing",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "instagram.com/eco.rv": {
+    "checked": 20261006,
+    "name": "ECO",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "instagram.com/entressen_kirjaston_kibe": {
@@ -131742,6 +132905,13 @@
     "checked": 20261005,
     "name": "Espa\u00e7o Recanto Aconchego Verde",
     "reason": "osm probe: robots.txt Disallow: / (https://instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "instagram.com/evolvemoresurfschool": {
+    "checked": 20261006,
+    "name": "Evolve More Surf Club",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
     "status": "refused",
     "type": "osm-venue"
   },
@@ -131773,11 +132943,25 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "instagram.com/grupoescoteiropindorama": {
+    "checked": 20261006,
+    "name": "Grupo Escoteiro Pindorama 51-PR",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "instagram.com/gtor.22.p11": {
     "checked": 20260909,
     "name": "galeria TOR",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "instagram.com/iasdgarcia": {
+    "checked": 20261006,
+    "name": "Igreja Adventista do Garcia",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "instagram.com/jingeonfc_u15": {
@@ -132746,6 +133930,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "ipaseparanaense.wordpress.com": {
+    "checked": 20261006,
+    "name": "ASSAFAZ - Associa\u00e7\u00e3o dos Amigos do Fazendinha",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ipassi.it": {
     "checked": 20260923,
     "name": "Cooperativa Sociale \"I Passi\"",
@@ -132791,6 +133982,13 @@
   "ipernity.com": {
     "checked": 20260829,
     "name": "ipernity.com",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ipf.org.br": {
+    "checked": 20261006,
+    "name": "Igreja Presbiteriana de Fortaleza",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -133001,6 +134199,20 @@
   "irjalanmakasiini.fi": {
     "checked": 20260904,
     "name": "Irjalan Makasiini",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "irmadulce.org.br/portugues/religioso/memorial": {
+    "checked": 20261006,
+    "name": "Memorial Irm\u00e3 Dulce",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "irmadulce.org.br/portugues/religioso/santuario": {
+    "checked": 20261006,
+    "name": "Santu\u00e1rio Santa Dulce dos Pobres",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -133256,6 +134468,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "isgh.org.br/onde-estamos/casa-de-cuidados-do-ceara": {
+    "checked": 20261006,
+    "name": "Casa de Cuidados do Cear\u00e1",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "ishiyamadera.or.jp": {
     "checked": 20260926,
@@ -134390,6 +135609,13 @@
     "reason": "3 events, 2/3 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "jammerbugt.dk": {
+    "checked": 20261006,
+    "name": "Jammerbugt Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "jamnola.com": {
     "checked": 20260927,
@@ -139814,6 +141040,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kalundborg.dk": {
+    "checked": 20261006,
+    "name": "Kalundborg Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kalvarienbergkirche.at": {
     "checked": 20260907,
     "name": "Kalvarienbergkirche",
@@ -140974,6 +142207,13 @@
     "name": "Karting Sevilla",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "kartmonaco.com.br": {
+    "checked": 20261006,
+    "name": "Kart M\u00f4naco",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "kartodromochecoperez.com": {
@@ -142956,6 +144196,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kerteminde.dk": {
+    "checked": 20261006,
+    "name": "Kerteminde Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kerzers.ch/index.php/leben-kerzers/freizeit/schwimmbad": {
     "checked": 20260920,
@@ -145960,6 +147207,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kk.dk": {
+    "checked": 20261006,
+    "name": "Copenhagen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kk.dk/om-kommunen/kontakt/din-sociale-indgang-0": {
     "checked": 20260831,
     "name": "Din Sociale Indgang - Voksne",
@@ -147787,6 +149041,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "koege.dk": {
+    "checked": 20261006,
+    "name": "K\u00f8ge Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "koegebib.dk/rishoj-minibibliotek": {
     "checked": 20260831,
     "name": "Rish\u00f8j Minibibliotek",
@@ -148087,6 +149348,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kolding.dk": {
+    "checked": 20261006,
+    "name": "Kolding",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "kolding.dk/om-kommunen": {
+    "checked": 20261006,
+    "name": "Kolding Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "koldkaergaard.dk": {
     "checked": 20260831,
@@ -159406,6 +160681,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lejre.dk": {
+    "checked": 20261006,
+    "name": "Lejre Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "lekable.fr": {
     "checked": 20260829,
     "name": "Le KABLE",
@@ -165173,6 +166455,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "linktr.ee/amigovelho": {
+    "checked": 20261006,
+    "name": "Grupo Escoteiro do Mar Amigo Velho 16- PR",
+    "reason": "osm probe: robots.txt Disallow: / (https://linktr.ee/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "linktr.ee/barezzitocancun": {
     "checked": 20261003,
     "name": "Barezzito Puerto Canc\u00fan",
@@ -165208,6 +166497,13 @@
     "offsite_url": "https://linktr.ee/gigis.libraryy",
     "reason": "osm probe: offsite:linktr.ee",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "linktr.ee/galeriamercado": {
+    "checked": 20261006,
+    "name": "Galeria Mercado",
+    "reason": "osm probe: robots.txt Disallow: / (https://linktr.ee/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "linktr.ee/guetohub": {
@@ -165258,6 +166554,13 @@
     "name": "Metro Core Circolo ARCI",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "linktr.ee/nujel.m": {
+    "checked": 20261006,
+    "name": "Cervejaria Nujel'm",
+    "reason": "osm probe: robots.txt Disallow: / (https://linktr.ee/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "linktr.ee/quiosque210": {
@@ -166072,9 +167375,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "livrariaarteeciencia.com.br": {
+    "checked": 20261006,
+    "name": "Livraria Arte e Ci\u00eancia",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "livrariadavila.com.br": {
     "checked": 20261004,
     "name": "Livraria da Vila",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "livrariadpedro.com.br": {
+    "checked": 20261006,
+    "name": "Livraria D. Pedro",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -166517,6 +167834,13 @@
   "local.churchofjesuschrist.org/it/it/varese/busto-arsizio/via-del-passero-7?utm_source=gmb&utm_medium=yext": {
     "checked": 20260922,
     "name": "Chiesa di Ges\u00f9 Cristo dei santi degli ultimi giorni",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "local.churchofjesuschrist.org/pt/br/ceara/caucaia/r.-jorge-guimaraes-384?utm_source=gmb&utm_medium=yext&y_source=1_NjcwODI3NzctNzE1LWxvY2F0aW9uLndlYnNpdGU%3D": {
+    "checked": 20261006,
+    "name": "?",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -166968,6 +168292,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lolland.dk": {
+    "checked": 20261006,
+    "name": "Lolland Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "lomalinda-ca.gov": {
     "checked": 20260913,
@@ -167781,6 +169112,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ltk.dk": {
+    "checked": 20261006,
+    "name": "Lyngby-Taarb\u00e6k Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ltmtennis.com": {
     "checked": 20260908,
     "name": "LTM Tennis",
@@ -168103,6 +169441,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lumenserfeliz.com": {
+    "checked": 20261006,
+    "name": "Obra Lumen",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "lumia.gallery": {
     "checked": 20260904,
     "name": "Lumia Gallery",
@@ -168281,6 +169626,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lupusbier.com.br": {
+    "checked": 20261006,
+    "name": "Lupus Bier",
+    "offsite_url": "https://www.instagram.com/lupusbiershowdehumor/",
+    "reason": "osm probe: offsite:instagram.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lurgan-forward.com": {
     "checked": 20260927,
     "name": "Lurgan",
@@ -168342,6 +169695,13 @@
     "name": "Par\u00f3quia luterana Cantareira",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "luteranos.com.br/paroquia/fortaleza-ce": {
+    "checked": 20261006,
+    "name": "Comunidade Evang\u00e9lica de Confiss\u00e3o Luterana em Fortaleza",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "luther-basel.ch": {
@@ -169010,6 +170370,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "maa.pr.gov.br": {
+    "checked": 20261006,
+    "name": "Alfredo Andersen",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "maaat.be": {
     "checked": 20260911,
     "name": "Maatwerkbedrijf MAAAT",
@@ -169132,6 +170499,13 @@
   "mac.cat/ca/Visita-ns-Portada/Barcelona-Portada-Seu": {
     "checked": 20260915,
     "name": "Museu d'Arqueologia de Catalunya",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mac.pr.gov.br": {
+    "checked": 20261006,
+    "name": "Museu de Arte Contempor\u00e2nea do Paran\u00e1",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -170239,6 +171613,13 @@
   "mailapelikeskus.fi": {
     "checked": 20260903,
     "name": "Helsingin Mailapelikeskus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "maimuseu.com.br": {
+    "checked": 20261006,
+    "name": "MAI - Museu de Arte Ind\u00edgena",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -171539,6 +172920,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mam.ba.gov.br": {
+    "checked": 20261006,
+    "name": "Museu de Arte Moderna da Bahia",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "mam.org.br": {
     "checked": 20261004,
     "name": "Museu de Arte Moderna de S\u00e3o Paulo",
@@ -172441,6 +173829,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mariagerfjord.dk": {
+    "checked": 20261006,
+    "name": "Mariagerfjord Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "mariaheem.be": {
     "checked": 20260913,
@@ -174128,6 +175523,13 @@
     "name": "Mutter-Eltern-Beratung Matzen",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "mauc.ufc.br/biblioteca": {
+    "checked": 20261006,
+    "name": "Biblioteca do Museu de Arte Floriano Teixeira",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "maulbeerblatt.com": {
@@ -178169,6 +179571,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "middelfart.dk": {
+    "checked": 20261006,
+    "name": "Middelfart Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "middelheimmuseum.be": {
     "checked": 20260913,
     "name": "Middelheimmuseum",
@@ -179289,6 +180698,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ministeriocanaa.com.br": {
+    "checked": 20261006,
+    "name": "Assembl\u00e9ia de Deus Cana\u00e3",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "miniteatern.se": {
     "checked": 20260905,
     "name": "Miniteatern",
@@ -179551,6 +180967,13 @@
   "mis.arsus.pl": {
     "checked": 20260909,
     "name": "Dom Kultury Mi\u015b",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mis.pr.gov.br": {
+    "checked": 20261006,
+    "name": "Museu da Imagem e do Som do Paran\u00e1",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -181025,6 +182448,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mobidick.com.br": {
+    "checked": 20261006,
+    "name": "Mobi Dick",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
   },
   "mobile-jugendarbeit-stuttgart.de/teams/standorte/bad-cannstadt": {
     "checked": 20261003,
@@ -187922,6 +189352,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museucostapinto.com.br": {
+    "checked": 20261006,
+    "name": "Museu Carlos Costa Pinto",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museudafarmacia.pt": {
     "checked": 20260901,
     "name": "Museu da Farm\u00e1cia Lisboa",
@@ -187929,9 +189366,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museudafotografia.com.br": {
+    "checked": 20261006,
+    "name": "Museu da Fotografia Fortaleza",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museudaimprensa.pt": {
     "checked": 20260901,
     "name": "Museu Nacional da Imprensa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "museudaindustria-ce.org.br": {
+    "checked": 20261006,
+    "name": "Museu da Ind\u00fastria",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -187949,6 +189400,13 @@
     "reason": "37 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "museudamisericordia.org.br": {
+    "checked": 20261006,
+    "name": "Museu da Miseric\u00f3rdia",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "museudamusicamecanica.com": {
     "checked": 20260901,
@@ -188069,6 +189527,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museudobahia.com.br": {
+    "checked": 20261006,
+    "name": "Museu do Bahia",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "museudocarroelectrico.pt": {
     "checked": 20260901,
     "name": "Museu do Carro El\u00e9ctrico",
@@ -188090,6 +189555,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "museudohumorcearense.com.br": {
+    "checked": 20261006,
+    "name": "Museu do Humor Cearense",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museudoipiranga.org.br": {
     "checked": 20261004,
     "name": "Museu Paulista",
@@ -188100,6 +189572,13 @@
   "museudolactario.fasl.org.pt/museu": {
     "checked": 20260901,
     "name": "Museu do Lact\u00e1rio",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "museudomaraleixobelov.org.br": {
+    "checked": 20261006,
+    "name": "Museu do Mar Aleixo Belov",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -189091,9 +190570,23 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "museunauticodabahia.org.br": {
+    "checked": 20261006,
+    "name": "Museu N\u00e1utico da Bahia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "museuolimpicbcn.cat/ca": {
     "checked": 20260915,
     "name": "Museu Ol\u00edmpic i de l'Esport Joan Antoni Samaranch",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "museuparanaense.pr.gov.br": {
+    "checked": 20261006,
+    "name": "Museu Paranaense",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -191551,6 +193044,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "naestved.dk": {
+    "checked": 20261006,
+    "name": "N\u00e6stved Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "nafialce.cz": {
     "checked": 20260904,
     "name": "Na Fialce",
@@ -193021,6 +194521,13 @@
     "name": "Sociaal Huis De Pinte",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "nazarwnocapaoraso.com": {
+    "checked": 20261006,
+    "name": "Igreja Evang\u00e9lica do Nazareno",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "nb.admin.ch": {
@@ -196736,6 +198243,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "norddjurs.dk": {
+    "checked": 20261006,
+    "name": "Norddjurs Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "nordenhake.com": {
     "checked": 20260905,
     "name": "Galerie Nordenhake",
@@ -196756,6 +198270,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "nordfynskommune.dk": {
+    "checked": 20261006,
+    "name": "Nordfyn Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "nordhavn.bigbio.dk": {
     "checked": 20260831,
@@ -197384,6 +198905,13 @@
   "northrydeanglican.org.au": {
     "checked": 20260819,
     "name": "North Ryde Anglican Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "northshoppingjoquei.com.br/cinema": {
+    "checked": 20261006,
+    "name": "Cin\u00e9polis",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -199134,6 +200662,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nyborg.dk": {
+    "checked": 20261006,
+    "name": "Nyborg Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "nybylisbjerg.dk/livet-i-lisbjerg/infohuset": {
     "checked": 20260901,
     "name": "Infohuset",
@@ -200177,6 +201712,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ocadrones.com": {
+    "checked": 20261006,
+    "name": "OCA Drones",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ocamareine.fr": {
     "checked": 20260828,
     "name": "L'Art des Mots",
@@ -200197,6 +201739,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ocasulo.com/book-online": {
+    "checked": 20261006,
+    "name": "O Casulo",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "ocatavent.com": {
     "checked": 20260915,
@@ -200563,6 +202112,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "odder.dk": {
+    "checked": 20261006,
+    "name": "Odder Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "odderfrimenighed.dk": {
     "checked": 20260901,
     "name": "Odder Frimenighed",
@@ -200618,6 +202174,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "odense.dk": {
+    "checked": 20261006,
+    "name": "Odense Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "odensehuisalblasserdam.nl/agenda/?ical=1": {
     "checked": 20260927,
@@ -200772,6 +202335,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "odsherred.dk": {
+    "checked": 20261006,
+    "name": "Odsherred Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "odskpiast.art": {
     "checked": 20260910,
@@ -204718,6 +206288,13 @@
   "orientalvevey.ch": {
     "checked": 20260920,
     "name": "Th\u00e9\u00e2tre de l'Oriental",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "orientcinemas.com.br": {
+    "checked": 20261006,
+    "name": "UCI Orient Paralela",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -209826,6 +211403,13 @@
     "status": "empty",
     "type": "jsonld"
   },
+  "paranaclube.com.br": {
+    "checked": 20261006,
+    "name": "Paran\u00e1 Clube",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paranhos.ciberjunta.com": {
     "checked": 20260928,
     "name": "Paranhos",
@@ -211156,6 +212740,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paroquiaaguaverde.org.br": {
+    "checked": 20261006,
+    "name": "Par\u00f3quia Santu\u00e1rio Sagrado Cora\u00e7\u00e3o de Jesus",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "paroquiacarmoitaquera.com.br": {
     "checked": 20261004,
     "name": "Par\u00f3quia Nossa Senhora do Carmo",
@@ -211166,6 +212757,13 @@
   "paroquiacristoressuscitado.com.br": {
     "checked": 20261004,
     "name": "Comunidade Sagrada Fam\u00edlia",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "paroquiadapaz.org.br": {
+    "checked": 20261006,
+    "name": "Par\u00f3quia da Paz",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -211268,6 +212866,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paroquiasaofranciscoxavier.com.br": {
+    "checked": 20261006,
+    "name": "Par\u00f3quia S\u00e3o Francisco Xavier",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paroquiasaofranciscoxavier.org/horarios-de-missas-3": {
     "checked": 20261005,
     "name": "Igreja Imaculado Cora\u00e7\u00e3o de Maria",
@@ -211341,6 +212946,13 @@
   "parquecientec.usp.br": {
     "checked": 20261004,
     "name": "Parque CienTec",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "parquedaciencia.pr.gov.br": {
+    "checked": 20261006,
+    "name": "Parque da Ci\u00eancia Newton Freire Maia",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -212388,6 +214000,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "patrimonioespiritual.org/2015/10/21/igreja-de-sao-pedro-dos-clerigos-salvador-ba": {
+    "checked": 20261006,
+    "name": "Igreja S\u00e3o Pedro dos Cl\u00e9rigos",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "patrimonionacional.es/real-sitio/palacio-real-de-madrid": {
     "checked": 20260914,
     "name": "Palacio Real de Madrid",
@@ -212725,6 +214344,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "paz.church/fortaleza": {
+    "checked": 20261006,
+    "name": "Paz Church Fortaleza",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "pazhapa.com": {
     "checked": 20260912,
     "name": "Centre PaZhapa",
@@ -212989,6 +214615,13 @@
     "name": "Polski Czerwony Krzy\u017c",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "pcormaria.com": {
+    "checked": 20261006,
+    "name": "Par\u00f3quia do Imaculado Cora\u00e7\u00e3o de Maria",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "pcpr.pruszkow.pl": {
@@ -213670,6 +215303,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "perpetuosocorro.org.br": {
+    "checked": 20261006,
+    "name": "Santu\u00e1rio Nossa Senhora do Perp\u00e9tuo Socorro",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "perrignier.fr/resa?t=resa": {
     "checked": 20260918,
@@ -215272,6 +216912,13 @@
     "name": "\u4e0a\u5742\u90e8\u798f\u7949\u4f1a\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "pib7bocaiuvadosul.com.br": {
+    "checked": 20261006,
+    "name": "Primeira Igreja Batista do S\u00e9timo Dia de Bocaiuva do Sul - PR",
+    "reason": "osm probe: robots.txt Disallow: / (https://pib7bocaiuvadosul.com.br/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "pibdobras.com.br": {
@@ -217242,6 +218889,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "plusbuffet.com.br": {
+    "checked": 20261006,
+    "name": "Plus Buffet",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "plusjesus.or.kr": {
     "checked": 20260902,
     "name": "\uacfc\ucc9c\uc131\ub2f9",
@@ -217301,6 +218955,13 @@
   "pmclub.net": {
     "checked": 20260904,
     "name": "P.M. Club & Cocktail bar",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pmilitarnsgraca.com.br": {
+    "checked": 20261006,
+    "name": "Capelania Militar Nossa Senhora das Gra\u00e7as",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -219315,6 +220976,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "praiacentro.com.br/fabrica-de-negocios": {
+    "checked": 20261006,
+    "name": "F\u00e1brica de Neg\u00f3cios",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "prairieskygeneralstore.com": {
     "checked": 20260819,
     "name": "Prairie Sky",
@@ -220064,6 +221732,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "primaveraresidencialce.com.br": {
+    "checked": 20261006,
+    "name": "Primavera Residencial",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "primefighters.fi": {
     "checked": 20260903,
     "name": "Prime Fighters",
@@ -220496,6 +222171,13 @@
     "name": "Progresja Music Zone",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "prohansen.org": {
+    "checked": 20261006,
+    "name": "Funda\u00e7\u00e3o Pr\u00f3-Hansen",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "prohibitionsd.com/private-events": {
@@ -221204,6 +222886,13 @@
     "name": "WerkRaum Himberg",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "pt-br.facebook.com/TeatroSESI": {
+    "checked": 20261006,
+    "name": "Teatro SESI Rio Vermelho | Sistema Fieb",
+    "reason": "osm probe: robots.txt Disallow: / (https://pt-br.facebook.com/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "pt-br.facebook.com/ocupasarai": {
@@ -222629,6 +224318,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "queladeira.com.br": {
+    "checked": 20261006,
+    "name": "Centro Cultural Que Ladeira \u00e9 Essa",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "querbeete.ch": {
     "checked": 20260918,
     "name": "queerbeete",
@@ -223711,6 +225407,13 @@
   "randaberg.kommune.no": {
     "checked": 20260930,
     "name": "Randaberg Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "randers.dk": {
+    "checked": 20261006,
+    "name": "Randers Municipality",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -224926,12 +226629,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rebild.dk": {
+    "checked": 20261006,
+    "name": "Rebild Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "rebl.space": {
     "checked": 20260920,
     "name": "Rebl Space",
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "rebootcomics.com.br": {
+    "checked": 20261006,
+    "name": "Reboot Comic Store",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "reborn-amagasaki2.jp": {
     "checked": 20260925,
@@ -225118,6 +226835,13 @@
   "redeemeredinburgh.org": {
     "checked": 20260819,
     "name": "Redeemer Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "redefluir.com.br": {
+    "checked": 20261006,
+    "name": "Fluir",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -228539,6 +230263,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rk.dk": {
+    "checked": 20261006,
+    "name": "R\u00f8dovre Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "rk5.dk": {
     "checked": 20260831,
     "name": "Torslunde-Ish\u00f8j Rottweilerklub",
@@ -228622,6 +230353,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "rksk.dk": {
+    "checked": 20261006,
+    "name": "Ringk\u00f8bing-Skjern Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "rksv-volkel.nl": {
     "checked": 20260930,
@@ -230285,6 +232023,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "roskilde.dk": {
+    "checked": 20261006,
+    "name": "Roskilde Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "roskillbaptist.nz": {
     "checked": 20260824,
     "name": "Mount Roskill Baptist Church",
@@ -230438,6 +232183,13 @@
     "reason": "1 events / 0 future",
     "status": "empty",
     "type": "jsonld"
+  },
+  "rotasceart.sps.ce.gov.br": {
+    "checked": 20261006,
+    "name": "CeArt Cear\u00e1",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "rote-flora.de/programm": {
     "checked": 20261003,
@@ -231244,6 +232996,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "rudersdal.dk": {
+    "checked": 20261006,
+    "name": "Rudersdal Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "rudersdal.dk/rehabiliteringscenter-hegnsgaarden": {
     "checked": 20260831,
     "name": "Rehabiliteringscenter Hegnsg\u00e5rden",
@@ -231852,6 +233611,13 @@
     "reason": "probe 2026-09-28: no readable calendar (find_calendar: no-calendar; no Events Calendar REST route)",
     "status": "fail",
     "type": "tribe"
+  },
+  "rvculturaearte.com": {
+    "checked": 20261006,
+    "name": "RV Cultura e Arte",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "rvtchristine.be": {
     "checked": 20260913,
@@ -233641,6 +235407,13 @@
   "saladana.org": {
     "checked": 20260914,
     "name": "Sala D\u0101na",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "saladearte.art.br": {
+    "checked": 20261006,
+    "name": "Sala de Arte / Cinema da UFBA",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -236421,6 +238194,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "santamonica.rec.br": {
+    "checked": 20261006,
+    "name": "Santa M\u00f4nica Clube de Campo",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "santamonicafarmersmarket.com/events/?ical=1": {
     "checked": 20260727,
     "name": "Santa Monica Farmers Market Events",
@@ -236433,6 +238213,13 @@
     "name": "Santana 27",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "santanadeabranches.com.br": {
+    "checked": 20261006,
+    "name": "Par\u00f3quia Sant'Ana de Abranches",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "santanadeparnaiba.sesisp.org.br/home": {
@@ -236688,9 +238475,30 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "santuariosagradocoracaodejesus.com": {
+    "checked": 20261006,
+    "name": "Santu\u00e1rio Sagrado Cora\u00e7\u00e3o de Jesus",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "santuariosaofrancisco.com.br": {
     "checked": 20261004,
     "name": "Igreja S\u00e3o Francisco",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "santuariosaojosecapaoraso.com.br": {
+    "checked": 20261006,
+    "name": "Santu\u00e1rio S\u00e3o Jos\u00e9 do Cap\u00e3o Raso",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "santuariosenhordobonfim.com": {
+    "checked": 20261006,
+    "name": "Igreja Senhor do Bonfim",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -240763,6 +242571,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "seboleitura.com.br": {
+    "checked": 20261006,
+    "name": "Sebo Leitura",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "sebophetweb.nl": {
     "checked": 20260930,
     "name": "Stichting Elinkwijks Belang",
@@ -240840,6 +242655,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "secult.ce.gov.br/2013/01/03/museu-do-ceara": {
+    "checked": 20261006,
+    "name": "Museu do Cear\u00e1",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "secult.ce.gov.br/index.php/equipamentos-culturais/theatro-carlos-camara": {
+    "checked": 20261006,
+    "name": "Teatro Carlos C\u00e2mara",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "sedac.org.mx": {
     "checked": 20261001,
     "name": "Servicio De Educacion Y Desarrollo A La Comunidad",
@@ -240864,6 +242693,13 @@
   "sede-electronica.rivasciudad.es/equipamiento/polideportivo-parque-del-sureste": {
     "checked": 20260914,
     "name": "Polideportivo Municipal Parque del Sureste",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sedesocial.abmnet.org.br": {
+    "checked": 20261006,
+    "name": "ABM - Associa\u00e7\u00e3o Bahiana de Medicina",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -242411,6 +244247,13 @@
   "sesipr.org.br/cultura/centros-culturais/Sistema-Fiep/?ref=capa_lista": {
     "checked": 20260928,
     "name": "Centro Cultural Sistema FIEP",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sesipr.org.br/cultura/cinema": {
+    "checked": 20261006,
+    "name": "Cine SESI",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -245108,6 +246951,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "silkeborg.dk": {
+    "checked": 20261006,
+    "name": "Silkeborg Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "silkyotter.co.nz": {
     "checked": 20260824,
     "name": "Silky Otter",
@@ -245380,6 +247230,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "sinalverdelivros.com.br": {
+    "checked": 20261006,
+    "name": "Livraria Esp\u00edrita Sinal Verde",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "since1950-keiaikai-yamato.or.jp": {
     "checked": 20260926,
@@ -245980,6 +247837,13 @@
   "sitdown.fr": {
     "checked": 20260830,
     "name": "Sit Down",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "site.bileto.sympla.com.br/teatrojorgeamado": {
+    "checked": 20261006,
+    "name": "Teatro Jorge Amado",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -246684,6 +248548,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "skanderborg.dk": {
+    "checked": 20261006,
+    "name": "Skanderborg Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "skanderborg.dk/flok": {
     "checked": 20260901,
     "name": "FLOK",
@@ -247033,6 +248904,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "skive.dk": {
+    "checked": 20261006,
+    "name": "Skive Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "skj.de/angebote/stadtteilarbeit/stadtteiltreff": {
     "checked": 20261004,
@@ -248134,6 +250012,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "smurb.ufba.br": {
+    "checked": 20261006,
+    "name": "Servi\u00e7o M\u00e9dico Universit\u00e1rio Prof. Rubens Brasil, M.D. | SMURB | AMN | HUPES | E",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "smv.org": {
     "checked": 20260927,
     "name": "Science Museum of Virginia",
@@ -248522,6 +250407,13 @@
   "sociedadbilbaina.com": {
     "checked": 20260916,
     "name": "Sociedad Bilba\u00edna",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sociedadeespiritaclaudioreis.wordpress.com": {
+    "checked": 20261006,
+    "name": "Soc. Esp\u00edrita Claudio Reis",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -249450,6 +251342,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sonderborg.dk": {
+    "checked": 20261006,
+    "name": "S\u00f8nderborg",
+    "reason": "825 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
+  "sonderborgkommune.dk": {
+    "checked": 20261006,
+    "name": "S\u00f8nderborg Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "songol.or.kr": {
     "checked": 20260902,
     "name": "\uc190\uace8\uc131\uc9c0",
@@ -249793,6 +251699,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "soroe.dk": {
+    "checked": 20261006,
+    "name": "Sor\u00f8 Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "sorrywereclosed.com": {
     "checked": 20260911,
     "name": "Sorry We're Closed",
@@ -250085,6 +251998,13 @@
     "name": "\u9577\u677e\u9662",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "sotozencuritiba.org": {
+    "checked": 20261006,
+    "name": "Escola Soto-Budismo Zen",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "sotres.org": {
@@ -257085,6 +259005,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stevns.dk": {
+    "checked": 20261006,
+    "name": "Stevns Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "stewartonstcolumbas.org": {
     "checked": 20260819,
     "name": "Saint Columbas Parish Church",
@@ -262618,6 +264545,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "svendborg.dk": {
+    "checked": 20261006,
+    "name": "Svendborg Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "svengali.jp": {
     "checked": 20260925,
     "name": "Svengali - House of Curiosities",
@@ -264361,6 +266295,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "syddjurs.dk": {
+    "checked": 20261006,
+    "name": "Syddjurs Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "syddjurs.dk/da/borger/aeldre/bolig-til-aeldre/plejehjem/plejehjemmet-rosengaarden": {
     "checked": 20260831,
     "name": "Roseng\u00e5rden",
@@ -264920,6 +266861,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "taarnby.dk": {
+    "checked": 20261006,
+    "name": "T\u00e5rnby Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "taarnby.dk/borger/seniorer/plejehjem-i-taarnby/plejehjemmet-pyrus-alle": {
     "checked": 20260831,
@@ -267400,6 +269348,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tca.ba.gov.br": {
+    "checked": 20261006,
+    "name": "Teatro Castro Alves",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tcambrosiano.com": {
     "checked": 20260922,
     "name": "Tennis Club Ambrosiano",
@@ -268688,6 +270643,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "teatrochicoanysio.com.br": {
+    "checked": 20261006,
+    "name": "Teatro Chico Anysio",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "teatrochoty.pl": {
     "checked": 20260909,
     "name": "Teatr Ochoty",
@@ -268736,6 +270698,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "teatroclaromaisfortaleza.com.br": {
+    "checked": 20261006,
+    "name": "Teatro Claro MAIS Fortaleza",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "teatroclaromaissp.com.br": {
     "checked": 20261004,
@@ -269158,6 +271127,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "teatromodulo.com.br": {
+    "checked": 20261006,
+    "name": "Teatro M\u00f3dulo",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "teatromoisesafra.com.br/pt": {
     "checked": 20261004,
     "name": "Teatro Moise Safra",
@@ -269504,6 +271480,13 @@
   "teatrovictoria.net": {
     "checked": 20260914,
     "name": "Teatro Victoria",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "teatrovilavelha.com.br": {
+    "checked": 20261006,
+    "name": "Teatro Vila velha",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -273024,6 +275007,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theatrojosedealencar.secult.ce.gov.br": {
+    "checked": 20261006,
+    "name": "Theatro Jos\u00e9 de Alencar",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "theatromunicipal.rj.gov.br": {
     "checked": 20261005,
     "name": "Theatro Municipal",
@@ -275266,6 +277256,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "thisted.dk": {
+    "checked": 20261006,
+    "name": "Thisted Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "thistlecurling.ab.ca": {
     "checked": 20260819,
     "name": "Thistle Curling Club",
@@ -276661,6 +278658,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "toender.dk": {
+    "checked": 20261006,
+    "name": "T\u00f8nder Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "toestand.be/projecten/Monast%C3%A8reJette": {
     "checked": 20260911,
     "name": "Mona",
@@ -277453,6 +279457,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "toplivros.com.br": {
+    "checked": 20261006,
+    "name": "Top Livros",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "topmuseum.jp": {
     "checked": 20260924,
     "name": "\u6771\u4eac\u90fd\u5199\u771f\u7f8e\u8853\u9928",
@@ -277507,6 +279518,13 @@
     "name": "Top Rock",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "toqdefesta.com.br": {
+    "checked": 20261006,
+    "name": "Espa\u00e7o de eventos Toq de Festa",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "toranoana.jp/shop": {
@@ -282335,6 +284353,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ucicinemas.com.br/Cinemas/UCI-Kinoplex-Iguatemi-Fortaleza/info": {
+    "checked": 20261006,
+    "name": "UCI Kinoplex",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ucicinemas.com.br/Cinemas/UCI-Santana-Parque-Shopping/info": {
     "checked": 20261004,
     "name": "UCI Santana Parque Shopping",
@@ -284551,6 +286576,13 @@
   "universal.org": {
     "checked": 20261005,
     "name": "Igreja Universal do Reino de Deus",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "universal.org/enderecos/igreja/brasil/ce/fortaleza/3734": {
+    "checked": 20261006,
+    "name": "IURD Sede Seis Bocas",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -286796,6 +288828,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "vardekommune.dk": {
+    "checked": 20261006,
+    "name": "Varde Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "varenkabooks.com": {
     "checked": 20260901,
     "name": "Varenka",
@@ -287293,12 +289332,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "vejen.dk": {
+    "checked": 20261006,
+    "name": "Vejen Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "vejlbykirke.dk": {
     "checked": 20260901,
     "name": "Vejlby Kirke",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "vejle.dk": {
+    "checked": 20261006,
+    "name": "Vejle Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "vek-muelheim.de": {
     "checked": 20261004,
@@ -288035,6 +290088,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "vesthimmerland.dk": {
+    "checked": 20261006,
+    "name": "Vesthimmerland Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "vestingmuseummaastricht.nl": {
     "checked": 20260913,
     "name": "Vestingmuseum Maastricht",
@@ -288356,6 +290416,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "viborg.dk": {
+    "checked": 20261006,
+    "name": "Viborg Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "viborgkunsthal.viborg.dk/kalender": {
     "checked": 20261004,
@@ -288861,6 +290928,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "viladasartesfortaleza.com.br": {
+    "checked": 20261006,
+    "name": "Vila das Artes",
+    "offsite_url": "https://www.instagram.com/p/DdtaN2CFOIJ/",
+    "reason": "osm probe: offsite:instagram.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "viladoconde.cienciaviva.pt": {
     "checked": 20260901,
     "name": "Centro Ci\u00eancia Viva",
@@ -289250,6 +291325,13 @@
   "villaflora.be": {
     "checked": 20260913,
     "name": "Villa Pintemakerslust",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "villaforma.com.br": {
+    "checked": 20261006,
+    "name": "Villa Forma",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -290669,6 +292751,27 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitaalborg.com": {
+    "checked": 20261006,
+    "name": "Aalborg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
+  "visitaalborg.dk": {
+    "checked": 20261006,
+    "name": "Aalborg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
+  "visitaarhus.com": {
+    "checked": 20261006,
+    "name": "Aarhus",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "visitabergavenny.co.uk": {
     "checked": 20260927,
     "name": "Abergavenny",
@@ -290775,6 +292878,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitcopenhagen.com": {
+    "checked": 20261006,
+    "name": "Copenhagen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "visitdublinohio.com": {
     "checked": 20260909,
     "name": "Dublin",
@@ -290817,6 +292927,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "visitesbjerg.dk": {
+    "checked": 20261006,
+    "name": "Esbjerg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "visitescanaba.com": {
     "checked": 20260919,
     "name": "Escanaba",
@@ -290830,6 +292947,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "visitfrederikshavn.dk": {
+    "checked": 20261006,
+    "name": "Frederikshavn",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
   },
   "visitgolden.com": {
     "checked": 20260913,
@@ -290855,6 +292979,13 @@
   "visithanford.com": {
     "checked": 20260906,
     "name": "Hanford",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
+  "visithorsens.dk": {
+    "checked": 20261006,
+    "name": "Horsens",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-dmo"
@@ -290985,6 +293116,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "visitkoege.dk": {
+    "checked": 20261006,
+    "name": "K\u00f8ge",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "visitlancashire.com/explore/lancaster": {
     "checked": 20260927,
     "name": "Lancaster",
@@ -291097,6 +293235,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitodense.com": {
+    "checked": 20261006,
+    "name": "Odense",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "visitoslo.com": {
     "checked": 20260930,
     "name": "Oslo",
@@ -291160,6 +293305,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "visitranders.com": {
+    "checked": 20261006,
+    "name": "Randers",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
   },
   "visitrapidcity.com": {
     "checked": 20260903,
@@ -291297,6 +293449,13 @@
   "visitstmarys.com": {
     "checked": 20260913,
     "name": "St. Marys",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
+  "visitsvendborg.dk": {
+    "checked": 20261006,
+    "name": "Svendborg",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-dmo"
@@ -292480,6 +294639,13 @@
   "vopnafjardarhreppur.is": {
     "checked": 20260921,
     "name": "Vopnafjar\u00f0arhreppur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "vordingborg.dk": {
+    "checked": 20261006,
+    "name": "Vordingborg Municipality",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -300689,6 +302855,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "www2.hsbc.com.br/hs/quem_somos/cultural/hsbc_teatro.shtml": {
+    "checked": 20261006,
+    "name": "Teatro Bradesco",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "www2.isep.ipp.pt/museu/index.php?page=inicio": {
     "checked": 20260901,
     "name": "Museu do Instituto Superior de Engenharia do Porto",
@@ -301457,6 +303630,13 @@
     "name": "\u8c37\u4fdd\u5929\u6e80\u5bae",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "yachtclubedabahia.com.br": {
+    "checked": 20261006,
+    "name": "Yacht Clube da Bahia",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "yachtingnz.org.nz/clubs/yacht-club/panmure-lagoon-sailing-club": {
@@ -304384,6 +306564,13 @@
     "name": "Zoo de Servion",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "zoo.ba.gov.br": {
+    "checked": 20261006,
+    "name": "Parque Zoobot\u00e2nico Get\u00falio Vargas",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "zoo.ch": {

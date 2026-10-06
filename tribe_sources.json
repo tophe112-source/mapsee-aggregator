@@ -15439,6 +15439,18 @@
       },
       "_metro": "Paris, France",
       "crawl_delay": 10.0
+    },
+    {
+      "name": "Sønderborg",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://sonderborg.dk",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Sønderborg",
+      "default_region": null,
+      "default_country": "DK",
+      "_metro": "Sønderborg, Denmark"
     }
   ],
   "_not_included": {
