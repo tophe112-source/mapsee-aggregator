@@ -15950,6 +15950,21 @@
         "lon": -123.5590125
       },
       "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Velopark",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://autodromofueltech.com.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Velopark",
+        "city": "Nova Santa Rita",
+        "lat": -29.8243297,
+        "lon": -51.3224852
+      },
+      "_metro": "Porto Alegre, Brazil"
     }
   ],
   "_not_included": {

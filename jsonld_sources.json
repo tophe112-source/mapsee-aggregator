@@ -7219,6 +7219,26 @@
         "lon": -123.3581828
       },
       "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Autódromo Internacional de Tarumã",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.autodromodetaruma.com.br/agenda"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Autódromo Internacional de Tarumã",
+        "address": "5905 Estrada Capitão Gentil Machado de Godoy",
+        "city": "Viamão",
+        "postal_code": "94420-000",
+        "lat": -30.0485131,
+        "lon": -51.0189298
+      },
+      "_metro": "Porto Alegre, Brazil"
     }
   ],
   "_not_included": {

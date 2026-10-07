@@ -19468,5 +19468,14 @@
     "geocode_suffix": ", Victoria, Canada",
     "limit": 300,
     "_metro": "Victoria, Canada"
+  },
+  {
+    "name": "Southland District",
+    "category": "community",
+    "_found": "civic:city -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sdccomms17%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Southland District, New Zealand",
+    "limit": 300,
+    "_metro": "Southland District, New Zealand"
   }
 ]
