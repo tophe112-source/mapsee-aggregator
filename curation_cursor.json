@@ -231,9 +231,11 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 153,
-  "metro_key": "CA:Kitchener",
-  "stuck": {}
+  "metro": 158,
+  "metro_key": "AU:Adelaide",
+  "stuck": {
+   "AU:Adelaide": 1
+  }
  },
  "socrata": {
   "art events": 0,

@@ -19477,5 +19477,14 @@
     "geocode_suffix": ", Southland District, New Zealand",
     "limit": 300,
     "_metro": "Southland District, New Zealand"
+  },
+  {
+    "name": "Showgrounds Community Mens Shed",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://msclaremont.tidyhq.com/public/events.ics",
+    "geocode_suffix": ", Perth, Australia",
+    "limit": 300,
+    "_metro": "Perth, Australia"
   }
 ]

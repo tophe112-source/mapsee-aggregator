@@ -15965,6 +15965,69 @@
         "lon": -51.3224852
       },
       "_metro": "Porto Alegre, Brazil"
+    },
+    {
+      "name": "Victorian Pride Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://pridecentre.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Victorian Pride Centre",
+        "address": "79-81 Fitzroy Street",
+        "region": "VIC",
+        "postal_code": "3182",
+        "lat": -37.8606374,
+        "lon": 144.9762933
+      },
+      "_metro": "Melbourne, Australia"
+    },
+    {
+      "name": "Stuartholme School",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://stuartholme.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stuartholme School",
+        "lat": -27.4687252,
+        "lon": 152.9734465
+      },
+      "_metro": "Brisbane, Australia",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "Picabeen Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://picabeen.org.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Picabeen Community Centre",
+        "address": "22 Hoben Street",
+        "region": "QLD",
+        "postal_code": "4053",
+        "lat": -27.4137358,
+        "lon": 152.9721149
+      },
+      "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Brookfield Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.brookfieldshowground.com.au",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brookfield Hall",
+        "lat": -27.493461,
+        "lon": 152.9121018
+      },
+      "_metro": "Brisbane, Australia"
     }
   ],
   "_not_included": {

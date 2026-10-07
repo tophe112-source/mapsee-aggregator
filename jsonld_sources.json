@@ -7239,6 +7239,26 @@
         "lon": -51.0189298
       },
       "_metro": "Porto Alegre, Brazil"
+    },
+    {
+      "name": "Fitzgibbon Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wp-event-manager",
+      "listing": [
+        "https://www.fitzgibboncommunitycentre.org/calendar/"
+      ],
+      "link_pattern": "https://www\\.fitzgibboncommunitycentre\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Fitzgibbon Community Centre",
+        "address": "545 Roghan Road",
+        "city": "Brisbane",
+        "region": "QLD",
+        "postal_code": "4018",
+        "lat": -27.3387716,
+        "lon": 153.0280318
+      },
+      "_metro": "Brisbane, Australia"
     }
   ],
   "_not_included": {
