@@ -632,9 +632,12 @@ def cancel_checks_2026_10_05():
                    "no tombstone ever names a row this read writes live"))
 
     # 5. The CLI: tombstones in the store, counted, and NEVER a complete read.
-    real = OA.walk
+    real, real_read = OA.walk, OA.read_source
     OA.walk = lambda url, *a, **k: ({r["@id"]: r for r in [one[0], dict(tue(0, "x"), eventStatus=CANCELLED)]},
                                     "end of feed (1 page(s))")
+    # The CLI reads the wall clock; its fixtures are dated, so pin it to NOW2 like
+    # every other case here (it went red on 2026-10-07, the day after tue(0)).
+    OA.read_source = lambda *a, **k: real_read(*a, **dict(k, now=NOW2))
     try:
         with tempfile.TemporaryDirectory() as d:
             cfg = os.path.join(d, "c.json")
@@ -645,7 +648,7 @@ def cancel_checks_2026_10_05():
                 OA.main(["--config", cfg, "--store", os.path.join(d, "s.json"), "--horizon-days", "400"])
             whole = _json.load(open(os.path.join(d, "s.json"), encoding="utf-8"))
     finally:
-        OA.walk = real
+        OA.walk, OA.read_source = real, real_read
     checks.append((len(whole.get("tombstones") or []) == 1 and len(whole["events"]) == 1
                    and "cancelled 1" in buf.getvalue(),
                    "the CLI writes the tombstone beside the live row, and its log line counts it"))
