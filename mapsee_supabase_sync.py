@@ -32,12 +32,15 @@ Typical pipeline (cron):
 from __future__ import annotations
 import argparse
 import functools
+import hashlib
 import html
 import json
 import os
 import re
 import sys
+import unicodedata
 import urllib.parse
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
@@ -2501,7 +2504,8 @@ def cancellation_inputs(store_path: str) -> Dict[str, Any]:
     """The store's tombstones and complete reads, and for each complete unit the
     fingerprints it holds now. Empty on a store that has neither (one byte scan,
     like legacy_pairs), so a store nothing cancelled costs no second parse."""
-    out = {"tombstones": {}, "complete": {}, "live": set(), "units": {}, "standing": {}, "seen": set()}
+    out = {"tombstones": {}, "complete": {}, "live": set(), "units": {}, "standing": {}, "seen": set(),
+           "ident": {}}
     try:
         raw = open(store_path, "rb").read()
         if b'"tombstones"' not in raw and b'"complete_reads"' not in raw:
@@ -2535,6 +2539,8 @@ def cancellation_inputs(store_path: str) -> Dict[str, Any]:
             for unit, prefix in by_source.get(ref.get("source"), ()):
                 if str(ref.get("source_id") or "").startswith(prefix):
                     units[unit][fp] = rec.get("start_utc") or rec.get("start_local")
+                    if fp not in out["ident"]:
+                        out["ident"][fp] = absence_ident(rec)
                     if rec.get("recurring_days"):
                         standing[unit].add(fp)
     out["units"], out["standing"] = units, standing
@@ -2564,15 +2570,21 @@ def write_manifest(path: str, previous: Optional[Dict[str, Any]], inputs: Dict[s
     keeps its previous entry, so the day it really goes, absence still sees it."""
     units = dict(previous or {})
     seen = inputs.get("seen") or set()
+    ident = inputs.get("ident") or {}
     for unit, read in inputs["complete"].items():
         starts = dict(inputs["units"].get(unit, {}))
         prev = (previous or {}).get(unit)
         prev_starts = prev.get("starts") if isinstance(prev, dict) else None
+        prev_ident = prev.get("ident") if isinstance(prev, dict) and isinstance(prev.get("ident"), dict) else {}
         if isinstance(prev_starts, dict) and seen:
             for fp, start in prev_starts.items():
                 if fp in seen and fp not in starts:
                     starts[fp] = start
-        units[unit] = dict(read, starts=starts, standing=sorted(inputs["standing"].get(unit, ())))
+        # What absent_successors matches a gone session on next run; a session
+        # carried over as seen keeps the identity it was last written with.
+        ids = {fp: (ident.get(fp) or prev_ident.get(fp)) for fp in starts
+               if ident.get(fp) or prev_ident.get(fp)}
+        units[unit] = dict(read, starts=starts, standing=sorted(inputs["standing"].get(unit, ())), ident=ids)
     tmp = path + ".tmp"
     with open(tmp, "w", encoding="utf-8") as fh:
         json.dump({"version": 1, "units": units}, fh, separators=(",", ":"))
@@ -2637,6 +2649,187 @@ def absent_fingerprints(previous: Optional[Dict[str, Any]], inputs: Dict[str, An
         lines.append(f"  {unit}: {len(gone)} of {len(in_window)} in-window session(s) gone "
                      f"({lo:%Y-%m-%d %H:%M} .. {hi:%Y-%m-%d %H:%M} UTC)")
     return absent, lines, warnings
+
+
+# --------------------------------------------------------------------------- #
+# A SESSION THAT CHANGED ITS NAME OR ITS CLOCK IS NOT CANCELLED
+# --------------------------------------------------------------------------- #
+# A fingerprint hashes the title (and in some timetables the clock), so the day
+# a publisher retitles a session or moves it a quarter of an hour, its old key
+# is gone from a complete read and a new key is there. Cancelling the old row
+# and inserting the new one was right for the map and wrong for everyone who had
+# RSVP'd: their row said "Cancelled" for a session that is on (run 116,
+# 2026-10-06: Barcelona retitled "Nit d'ànimes" to "Nit d'ànimes a la Ludoteca
+# Ca L'Arnó", same register, day, clock and venue; Surrey moved a Pickleball
+# from 17:15 to 17:00 on the same class and date). So, BEFORE the upsert, a gone
+# key with exactly one clear successor in its unit has its row MOVED to the new
+# key, as rekey_legacy moves a row a better reading renamed: same id, /e/ link
+# and RSVPs, and a take-down stays a take-down.
+#
+# A successor is a key NEW to the unit since its last complete read, at the SAME
+# VENUE, under a SIMILAR title, matched one to one, and either
+#   * on THE SAME OCCURRENCE LINK the same day, where exactly one session carries
+#     that link in each read (PerfectMind's classId + occurrenceDate); or
+#   * at THE SAME START, where the old title is listed nowhere else at that venue
+#     now and the new one was listed nowhere there before: a series renamed, not
+#     a class swapped into another's slot.
+# SIMILAR is strict, because a wrong move hands someone's RSVP to a different
+# session, which is worse than telling them it is off: one title must contain the
+# other word for word, and the words that differ must not name an audience, an
+# age or a level ("Computer Lab, ages 6+" is not "ages 60+"; run 116 holds 3,457
+# same-slot pairs of DIFFERENT sessions that share half their words, e.g. "Drop In
+# Badminton - Adult" / "Drop In Volleyball - Adult"). Anything ambiguous,
+# unstored, claimed, or whose new key is already stored is left to the
+# cancellation, exactly as before. Matching runs only inside the breaker's
+# allowance (absent_fingerprints), and only against a manifest that recorded
+# identities (written from 2026-10-07 on).
+def _ident_words(text) -> str:
+    folded = unicodedata.normalize("NFKD", str(text or "")).lower()
+    folded = "".join(c for c in folded if not unicodedata.combining(c))
+    return " ".join(re.findall(r"\w+", folded))
+
+
+def absence_ident(rec: Dict[str, Any]) -> List[str]:
+    """[link key, venue key, title words] for one store record: what a gone
+    session's successor must share (see above). Hashes keep the manifest small."""
+    link = primary_url(rec) or ""
+    venue = _ident_words(rec.get("venue_name"))
+    if not venue and rec.get("latitude") is not None and rec.get("longitude") is not None:
+        venue = f"{round(float(rec['latitude']), 4)},{round(float(rec['longitude']), 4)}"
+    return [hashlib.sha1(link.encode("utf-8")).hexdigest()[:12] if link else "",
+            hashlib.sha1(venue.encode("utf-8")).hexdigest()[:10] if venue else "",
+            _ident_words(rec.get("name"))[:400]]
+
+
+# A word that tells WHO or WHAT LEVEL a session is for. Two titles that differ by
+# one of these are two sessions, however much else they share (run 116: "Adult
+# Shinny (18+)" / "... [Goalies]", "Length Swim" / "Length Swim - Ladies Only").
+_AUDIENCE_WORD = re.compile(
+    r"\d+|adults?|adultes?|youth|teens?|ados?|jeunes?|child|children|enfants?|kids?|infants?|nens|"
+    r"seniors?|older|aines?|gent|gran|aikuiset|lapset|nuoret|seniorit|goalies?|gardiens?|ladies|"
+    r"women|womens|men|mens|femmes?|hommes?|girls?|boys?|filles?|garcons?|family|families|famille|"
+    r"parents?|preschool|toddlers?|baby|babies|bebes?|beginners?|debutants?|intermediate|advanced|"
+    r"avances?|junior|juniors|novice|elite|masters?|adapted|adapte|inclusive|members?|tous|all")
+
+
+def _similar_titles(a: str, b: str) -> bool:
+    """One title contains the other WORD FOR WORD, and none of the words that
+    differ names an audience, an age or a level (see above)."""
+    if not a or not b:
+        return False
+    if a == b:
+        return True
+    if f" {a} " not in f" {b} " and f" {b} " not in f" {a} ":
+        return False
+    return not any(_AUDIENCE_WORD.fullmatch(w) for w in set(a.split()) ^ set(b.split()))
+
+
+def absent_successors(previous: Optional[Dict[str, Any]], inputs: Dict[str, Any],
+                      absent: Dict[str, str]) -> Dict[str, str]:
+    """{gone fingerprint: its one clear successor in the same unit} (see above)."""
+    out: Dict[str, str] = {}
+    if not previous or not absent:
+        return out
+    ident_now = inputs.get("ident") or {}
+    by_unit: Dict[str, List[str]] = {}
+    for fp, unit in absent.items():
+        by_unit.setdefault(unit, []).append(fp)
+    for unit, olds in sorted(by_unit.items()):
+        prev = previous.get(unit) if isinstance(previous.get(unit), dict) else {}
+        prev_ident = prev.get("ident") if isinstance(prev.get("ident"), dict) else {}
+        prev_starts = prev.get("starts") if isinstance(prev.get("starts"), dict) else {}
+        now_starts = inputs["units"].get(unit) or {}
+        new = [g for g in sorted(now_starts) if g not in prev_starts and ident_now.get(g)]
+        if not prev_ident or not new:
+            continue
+        then_ids = [v for v in prev_ident.values() if isinstance(v, list) and len(v) >= 3]
+        now_ids = {g: ident_now[g] for g in now_starts if ident_now.get(g)}
+        links_then = Counter(str(v[0]) for v in then_ids if v[0])
+        links_now = Counter(str(v[0]) for v in now_ids.values() if v[0])
+        # (venue key, title) pairs each read lists: the series guard on the slot rule.
+        titles_then = {(v[1], v[2]) for v in then_ids}
+        titles_now = Counter((v[1], v[2]) for v in now_ids.values())
+        cands: Dict[str, set] = {}
+        for f in olds:
+            fi = prev_ident.get(f)
+            if not isinstance(fi, list) or len(fi) < 3 or not fi[1]:
+                continue
+            fs = str(prev_starts.get(f) or "")
+            for g in new:
+                gi, gs = ident_now[g], str(now_starts.get(g) or "")
+                if not isinstance(gi, list) or len(gi) < 3 or gi[1] != fi[1] or not _similar_titles(fi[2], gi[2]):
+                    continue
+                same_link = bool(fi[0] and fi[0] == gi[0] and links_then[str(fi[0])] == 1
+                                 and links_now[str(gi[0])] == 1 and len(fs) >= 10 and fs[:10] == gs[:10])
+                renamed = bool(fs and fs == gs and fi[2] != gi[2]
+                               and titles_now[(fi[1], fi[2])] == 0             # old title gone from the venue
+                               and (gi[1], gi[2]) not in titles_then)         # new title new to the venue
+                if same_link or renamed:
+                    cands.setdefault(f, set()).add(g)
+        claimed_by: Dict[str, set] = {}
+        for f, gs in cands.items():
+            for g in gs:
+                claimed_by.setdefault(g, set()).add(f)
+        for f, gs in cands.items():
+            if len(gs) == 1 and claimed_by[next(iter(gs))] == {f}:
+                out[f] = next(iter(gs))
+    return out
+
+
+def rekey_absent(session, url: str, key: str, successors: Dict[str, str]):
+    """Move each gone key's row to its successor's key. Returns (new keys whose
+    row moved, old keys that moved). Only an unclaimed stored row whose new key
+    is not stored yet moves (claimed_at travels in the PATCH filter); every
+    other gone key stays gone, and the cancellation after the upsert takes it."""
+    if not successors:
+        return set(), set()
+    try:
+        found = fetch_import_state(session, url, key, list(successors))
+        taken = fetch_import_state(session, url, key, sorted(set(successors.values())))
+    except RuntimeError:
+        print(f"::warning::Absence re-key: the lookup failed, so {len(successors)} session(s) "
+              f"listed under a new key are treated as gone, as before.", flush=True)
+        return set(), set()
+    base = url.rstrip("/") + "/rest/v1/events"
+    hdr = {"apikey": key, "Authorization": f"Bearer {key}",
+           "Content-Type": "application/json", "Prefer": "return=representation"}
+    extra = {"external_source": "eq.mapsee", "claimed_at": "is.null", "select": "external_id"}
+    moved_new, moved_old, failed = set(), set(), 0
+    for old, new in sorted(successors.items()):
+        if old not in found and new in taken and not taken[new]:
+            # An earlier move landed but its row was never rewritten (a lost
+            # reply, a lost upsert batch, a killed step): rewrite it now.
+            moved_new.add(new)
+            continue
+        if old not in found or found[old] or new in taken:
+            continue
+        # Written this run whatever the reply says: if the move landed unseen the
+        # row is rewritten under its new key, and if it did not, the new key is
+        # simply inserted, as before. Only a CONFIRMED move spares the old key.
+        moved_new.add(new)
+        endpoint = next(_id_chunks(base, [old], extra))[0]
+        for attempt in range(PATCH_TRIES):
+            try:
+                r = session.patch(endpoint, headers=hdr, data=json.dumps({"external_id": new}), timeout=30)
+                if r.status_code not in (200, 204):
+                    raise ValueError(f"HTTP {r.status_code}")
+                # The representation is the row AFTER the write, so it carries the
+                # NEW key (patch_imports, which counts the keys it sent, would
+                # read every successful move as "not moved").
+                rows = r.json() if r.status_code == 200 else []
+                if any(isinstance(row, dict) and row.get("external_id") == new for row in rows or []):
+                    moved_old.add(old)
+                break
+            except Exception:                         # noqa: BLE001 - the session is then cancelled, as before
+                if attempt + 1 == PATCH_TRIES:
+                    failed += 1
+                else:
+                    _patch_sleep(1.5 * (attempt + 1))
+    print(f"Absence re-key: {len(successors)} gone session(s) are listed again under a new key "
+          f"(renamed or re-timed); moved {len(moved_old)} stored row(s) to it, keeping its id, "
+          f"link and RSVPs; the rest are left to the cancellation (not stored, claimed, new key "
+          f"already stored{', or the move failed' if failed else ''}).", flush=True)
+    return moved_new, moved_old
 
 
 def _id_chunks(base: str, ids, extra: Dict[str, str]):
@@ -3062,11 +3255,13 @@ def main() -> None:
         for row in rows[:3]:
             print(json.dumps(row, ensure_ascii=False, indent=1))
         inputs = cancellation_inputs(a.store)
-        absent, lines, warnings = absent_fingerprints(
-            load_manifest(a.manifest) if a.retire_absent else None, inputs)
-        targets = cancellation_targets(inputs, absent)
+        previous = load_manifest(a.manifest) if a.retire_absent else None
+        absent, lines, warnings = absent_fingerprints(previous, inputs)
+        succ = absent_successors(previous, inputs, absent)
+        targets = cancellation_targets(inputs, {fp: u for fp, u in absent.items() if fp not in succ})
         print(f"Cancellations: {len(inputs['tombstones'])} tombstone(s), {len(absent)} absent "
-              f"session(s) -> {len(targets)} row(s) would be cancelled if present and unclaimed"
+              f"session(s), {len(succ)} of them listed again under a new key (would MOVE, if stored "
+              f"and unclaimed) -> {len(targets)} row(s) would be cancelled if present and unclaimed"
               + (f": {_tally(targets, targets)}" if targets else "") + ".")
         for line in lines + warnings:
             print(line)
@@ -3115,6 +3310,21 @@ def main() -> None:
     # fingerprint moves to its new one first, or --only-new would call the clean
     # record new and insert it beside the garbled row. See rekey_legacy.
     moved, held = rekey_legacy(geo, url, key, legacy_pairs(a.store))
+    # Absence is read off the store and the manifest, so it is known now; a gone
+    # session that is only renamed or re-timed moves to its new key here, before
+    # the upsert would insert it beside the old row (see absent_successors).
+    inputs = cancellation_inputs(a.store)
+    previous = load_manifest(a.manifest) if a.manifest else None
+    absent, absent_lines, absent_warnings = (absent_fingerprints(previous, inputs, now)
+                                             if a.retire_absent else ({}, [], []))
+    try:
+        moved_on, gone_moved = rekey_absent(geo, url, key, absent_successors(previous, inputs, absent))
+    except Exception as error:                        # noqa: BLE001 - it runs BEFORE the upsert
+        print(f"::warning::Absence re-key failed ({type(error).__name__}); gone sessions are "
+              f"treated as gone, as before.", flush=True)
+        moved_on, gone_moved = set(), set()
+    moved |= moved_on
+    absent = {fp: unit for fp, unit in absent.items() if fp not in gone_moved}
 
     def keep_new(recs):
         # --only-new: read the state on the STORE's fingerprints (to_row's
@@ -3212,13 +3422,10 @@ def main() -> None:
     # AFTER the upsert, so a failure here never costs the night's new rows, and
     # the rows a cancellation lifts are already current when they reappear.
     owed = 0
-    inputs = cancellation_inputs(a.store)
-    previous = load_manifest(a.manifest) if a.manifest else None
     if a.retire_absent and previous is None:
         print(f"Absence: no manifest at {a.manifest} (first run or an evicted cache); "
               f"nothing is cancelled for absence this run.", flush=True)
-    absent, lines, warnings = absent_fingerprints(previous, inputs, now) if a.retire_absent else ({}, [], [])
-    for line in lines + warnings:
+    for line in absent_lines + absent_warnings:
         print(line, flush=True)
     targets = cancellation_targets(inputs, absent)
     owned = {eid: u for eid, u in owned_tombstones(inputs).items() if eid in targets}

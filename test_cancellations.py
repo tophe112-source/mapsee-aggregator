@@ -389,9 +389,15 @@ class FakeDB:
         if self.fail_patch:
             return type("R", (), {"status_code": 503, "json": lambda s: []})()
         hit = self._select(url)
+        body = json.loads(data)
+        out = []
         for i in hit:
-            self.rows[i].update(json.loads(data))
-        out = [{"external_id": i} for i in hit]
+            self.rows[i].update({k: v for k, v in body.items() if k != "external_id"})
+            if body.get("external_id") and body["external_id"] != i:      # a re-key moves the row itself
+                self.rows[body["external_id"]] = self.rows.pop(i)
+            # PostgREST's return=representation is the row AFTER the write: a
+            # re-keyed row comes back under its NEW external_id.
+            out.append({"external_id": body.get("external_id") or i})
         return type("R", (), {"status_code": 200, "json": lambda s: out})()
 
 
@@ -613,6 +619,215 @@ try:
     check("--retire-absent without --manifest is refused", False, True)
 except SystemExit as e:
     check("--retire-absent without --manifest is refused", "--manifest" in str(e.code), True)
+
+print()
+print("A gone session that is only RENAMED or RE-TIMED moves to its new key; it is not cancelled")
+CLS = "https://surrey.perfectmind.com/24063/Clients/BookMe4LandingPages/Class?classId={}&occurrenceDate=20261012"
+SHARED = "https://example.org/centre/calendar"
+UNIT = "perfectmind|surrey:"
+WS = {UNIT: {"source": "perfectmind", "id_prefix": "surrey:", "from": stamp(NOW - timedelta(hours=1)),
+             "to": stamp(NOW + timedelta(days=90)), "at": stamp(NOW)}}
+D = NOW + timedelta(days=6)
+
+
+def srec(fp, when, name, url=None, venue="Cloverdale Recreation Centre"):
+    return dict(fingerprint=fp, name=name, start_utc=stamp(when), venue_name=venue, latitude=49.1, longitude=-122.7,
+                coords_exact=True, sources=[{"source": "perfectmind", "source_id": "surrey:" + fp, "url": url}])
+
+
+keep = [srec(f"k{i}", NOW + timedelta(days=2 + i), f"Keep {i}") for i in range(60)]
+then = keep + [srec("ren_old", D, "Nit d'ànimes", venue="Ludoteca Ca L'Arnó"),
+               srec("time_old", D + timedelta(minutes=15), "Drop In Pickleball - 13+", url=CLS.format("1752")),
+               srec("swap_old", D + timedelta(hours=3), "Lane Swim"),
+               srec("shared_old", D + timedelta(hours=5), "Yoga", url=SHARED),
+               srec("shared_sib", D + timedelta(hours=6), "Pilates", url=SHARED)]
+now_ = keep + [srec("ren_new", D, "Nit d'ànimes a la Ludoteca Ca L'Arnó", venue="Ludoteca Ca L'Arnó"),
+               srec("time_new", D, "Drop In Pickleball - 13+", url=CLS.format("1752")),
+               srec("swap_new", D + timedelta(hours=3), "Aquafit"),
+               srec("shared_new", D + timedelta(hours=5, minutes=30), "Yoga Flow", url=SHARED),
+               srec("shared_sib", D + timedelta(hours=6), "Pilates", url=SHARED)]
+mf = store_path("succ_manifest.json")
+if os.path.exists(mf):
+    os.remove(mf)
+sync.write_manifest(mf, None, sync.cancellation_inputs(write_store("succ_then.json", then, complete=WS)))
+prev_m = sync.load_manifest(mf)
+check("the manifest records an identity for every session it records a start for",
+      sorted(prev_m[UNIT]["ident"]) == sorted(prev_m[UNIT]["starts"]), True)
+inp_now = sync.cancellation_inputs(write_store("succ_now.json", now_, complete=WS))
+gone, _l, _w = sync.absent_fingerprints(prev_m, inp_now, NOW)
+check("four sessions are gone from the whole read", sorted(gone), ["ren_old", "shared_old", "swap_old", "time_old"])
+check("a retitle (same start, venue, a title that contains the old one) and a 15-minute move on the same "
+      "occurrence link are each matched to their one successor; another class in the same slot and a "
+      "calendar page every session shares are not",
+      sync.absent_successors(prev_m, inp_now, gone), {"ren_old": "ren_new", "time_old": "time_new"})
+
+old_fmt = {UNIT: {k: v for k, v in prev_m[UNIT].items() if k != "ident"}}
+check("a manifest written before identities were recorded matches nothing (absence as before)",
+      sync.absent_successors(old_fmt, inp_now, gone), {})
+
+
+def succ_case(then_recs, now_recs):
+    m = store_path("succ_case.json")
+    if os.path.exists(m):
+        os.remove(m)
+    sync.write_manifest(m, None, sync.cancellation_inputs(write_store("sc_then.json", keep + then_recs, complete=WS)))
+    pm = sync.load_manifest(m)
+    inp_c = sync.cancellation_inputs(write_store("sc_now.json", keep + now_recs, complete=WS))
+    return sync.absent_successors(pm, inp_c, sync.absent_fingerprints(pm, inp_c, NOW)[0])
+
+
+check("one gone session, two equally good successors: ambiguous, so it is cancelled as before",
+      succ_case([srec("a", D, "Lane Swim")],
+                [srec("b1", D, "Lane Swim - Pool 1"), srec("b2", D, "Lane Swim - Pool 2")]), {})
+check("two gone sessions, one successor that fits both: ambiguous, both cancelled as before",
+      succ_case([srec("c1", D, "Badminton Court 1"), srec("c2", D, "Badminton Court 2")],
+                [srec("c", D, "Badminton")]), {})
+check("a successor that was already listed at the last read is not new, so it is not a successor",
+      succ_case([srec("d_old", D, "Family Swim"), srec("d_new", D + timedelta(days=7), "Family Swim Time")],
+                [srec("d_new", D + timedelta(days=7), "Family Swim Time")]), {})
+check("the same occurrence link on ANOTHER day is not the same occurrence",
+      succ_case([srec("e_old", D, "Spin", url=CLS.format("9"))],
+                [srec("e_new", D + timedelta(days=1), "Spin", url=CLS.format("9"))]), {})
+check("a renamed session at the same start in ANOTHER venue is not matched",
+      succ_case([srec("f_old", D, "Zumba")], [srec("f_new", D, "Zumba Gold", venue="South Surrey Rec")]), {})
+check("accents and punctuation do not make a rename look new ('Nit d'ànimes' ~ 'nit d animes')",
+      sync._similar_titles(sync._ident_words("Nit d'ànimes"), sync._ident_words("NIT D'ANIMES (Halloween)")), True)
+
+# A WRONG MOVE hands an RSVP to a different session (review, 2026-10-07): every
+# one of these is a DIFFERENT session in the same slot, and must be cancelled.
+check("another activity for the same audience in the slot is not a rename (run 116 has 3,457 such pairs)",
+      succ_case([srec("x_old", D, "Drop In Badminton - Adult")], [srec("x_new", D, "Drop In Volleyball - Adult")]), {})
+check("an age band is not a rename ('ages 6+' is not 'ages 60+')",
+      succ_case([srec("y_old", D, "Computer Lab, ages 6+")], [srec("y_new", D, "Computer Lab, ages 60+")]), {})
+check("a narrower audience is not a rename ('Adult Shinny (18+)' -> '... [Goalies]', 'Length Swim' -> "
+      "'... Ladies Only')",
+      (succ_case([srec("z_old", D, "Adult Shinny (18+)")], [srec("z_new", D, "Adult Shinny (18+) [Goalies]")]),
+       succ_case([srec("w_old", D, "Length Swim")], [srec("w_new", D, "Length Swim - Ladies Only")])), ({}, {}))
+check("titles are compared word for word, not as strings ('art' is not in 'party', 'yoga' not in 'yogafusion')",
+      (sync._similar_titles("art", "party"), sync._similar_titles("yoga", "yogafusion")), (False, False))
+check("a class the venue ALREADY ran, put into this slot, is a swap, not a rename",
+      succ_case([srec("v_old", D, "Lane Swim"), srec("v_plus", D + timedelta(days=1), "Lane Swim Plus")],
+                [srec("v_plus", D + timedelta(days=1), "Lane Swim Plus"), srec("v_new", D, "Lane Swim Plus")]), {})
+check("one date of a series dropped while a new title takes its slot: the series is still listed, so the "
+      "date is gone, not renamed",
+      succ_case([srec("u_old", D, "Aqua Fit"), srec("u_wk", D + timedelta(days=7), "Aqua Fit")],
+                [srec("u_wk", D + timedelta(days=7), "Aqua Fit"), srec("u_new", D, "Aqua Fit Deep Water")]), {})
+check("a link only one session carries, carried over to a DIFFERENT event at another venue the same day "
+      "(a small town's one calendar page), is not the same occurrence",
+      succ_case([srec("t_old", D, "Indigenous Peoples' Day Celebration", url=SHARED, venue="East Bay Dr")],
+                [srec("t_new", D + timedelta(hours=4), "Harvest Market", url=SHARED, venue="City Hall")]), {})
+long = "Yau Ma Tei Theatre Venue Partnership Scheme Elite Young Talents Cantonese Opera Performance "
+check("absence_ident keeps a long title whole (a cut title makes 'X' contain 'X Book Display for Children')",
+      "for children" in sync.absence_ident({"name": long + "Book Display for Children"})[2], True)
+check("titles are kept whole: two long titles with the same first 80 characters are not one session",
+      succ_case([srec("s_old", D, long + "Power and Dilemma")], [srec("s_new", D, long + "Farewell My Husband")]), {})
+check("a series renamed on every date moves date by date (the old title is gone from the venue, the new "
+      "one is new to it)",
+      succ_case([srec("q1", D, "Toddler Time"), srec("q2", D + timedelta(days=7), "Toddler Time")],
+                [srec("r1", D, "Toddler Time Stories"), srec("r2", D + timedelta(days=7), "Toddler Time Stories")]),
+      {"q1": "r1", "q2": "r2"})
+
+print()
+print("The sync moves the row (id, link, RSVPs) instead of cancelling it")
+mf2 = store_path("succ_sync_manifest.json")
+if os.path.exists(mf2):
+    os.remove(mf2)
+p = write_store("succ_sync_then.json", then, complete=WS)
+db = FakeDB({r["fingerprint"]: {"starts_at": r["start_utc"], "id": 100 + i} for i, r in enumerate(then)})
+run_sync(p, db, ["--only-new", "--retire-absent"], manifest=mf2)
+check("first read: a baseline, nothing moved or cancelled", (db.patches, os.path.exists(mf2)), ([], True))
+db.rows["claimed_twin_old"] = {"claimed_at": "2026-09-01", "starts_at": stamp(D + timedelta(hours=9)),
+                               "cancelled_at": None, "hidden_at": None, "id": 900}
+p = write_store("succ_sync_now.json", now_, complete=WS)
+written, log, code = run_sync(p, db, ["--only-new", "--retire-absent"], manifest=mf2)
+check("the renamed and the re-timed rows now live under their new keys, as the SAME rows (same id)",
+      (db.rows.get("ren_new", {}).get("id"), db.rows.get("time_new", {}).get("id"), "ren_old" in db.rows,
+       "time_old" in db.rows), (160, 161, False, False))
+check("  ...not cancelled, not hidden", [(db.rows[k]["cancelled_at"], db.rows[k]["hidden_at"])
+                                         for k in ("ren_new", "time_new")], [(None, None), (None, None)])
+check("  ...and rewritten this run with the new title and time (--only-new still writes a moved row)",
+      ("ren_new" in written, "time_new" in written), (True, True))
+check("the slot another class took and the session behind a shared calendar link are cancelled, as before",
+      [db.rows[k]["cancelled_at"] is not None and db.rows[k]["hidden_at"] is not None
+       for k in ("swap_old", "shared_old")], [True, True])
+check("  ...and the log says what moved", "Absence re-key: 2 gone session(s)" in log and "moved 2 stored row(s)"
+      in log, True)
+check("  ...and a moved key is no longer a cancellation target (2 targets, not 4)",
+      "Cancelled + hid 2 of 2 row(s)" in log, True)
+check("every move PATCH carries claimed_at=is.null and external_source=mapsee",
+      all(c.get("claimed_at") == "is.null" and c.get("external_source") == "eq.mapsee"
+          for c, b, _ in db.patches if "external_id" in b), True)
+check("the next manifest records the new keys with their identities",
+      all(k in json.load(open(mf2))["units"][UNIT]["ident"] for k in ("ren_new", "time_new")),
+      True)
+
+then3 = keep + [srec("g_old", D, "Story Time"), srec("h_old", D + timedelta(hours=2), "Chess Club")]
+now3 = keep + [srec("g_new", D, "Story Time at the Branch"), srec("h_new", D + timedelta(hours=2), "Chess Club Night")]
+mf3 = store_path("succ_sync3.json")
+if os.path.exists(mf3):
+    os.remove(mf3)
+p = write_store("succ3_then.json", then3, complete=WS)
+db = FakeDB({r["fingerprint"]: {"starts_at": r["start_utc"]} for r in then3})
+run_sync(p, db, ["--only-new", "--retire-absent"], manifest=mf3)
+db.rows["g_new"] = {"starts_at": stamp(D), "claimed_at": None, "hidden_at": None, "cancelled_at": None}
+db.rows["h_old"]["claimed_at"] = "2026-09-01"
+p = write_store("succ3_now.json", now3, complete=WS)
+written, log, code = run_sync(p, db, ["--only-new", "--retire-absent"], manifest=mf3)
+check("  (both pairs are matched as successors, so the cases below test the move, not the matcher)",
+      "Absence re-key: 2 gone session(s)" in log, True)
+check("a successor whose key is ALREADY stored: the old row is cancelled (never hidden alone, which "
+      "nothing would ever lift), and the stored new row is left as it is",
+      (db.rows.get("g_old", {}).get("cancelled_at") is not None,
+       db.rows.get("g_old", {}).get("cancelled_at") == db.rows.get("g_old", {}).get("hidden_at"),
+       db.rows["g_new"]["cancelled_at"]), (True, True, None))
+check("a CLAIMED old row is neither moved nor cancelled (its owner's)",
+      ("h_old" in db.rows, db.rows["h_old"]["cancelled_at"], "h_new" in db.rows and db.rows["h_new"].get("claimed_at")),
+      (True, None, False))
+
+
+class LostReply(FakeDB):
+    """The re-key PATCH commits, and its reply never arrives."""
+
+    def patch(self, url, headers=None, data=None, timeout=None):
+        reply = super().patch(url, headers, data, timeout)
+        if "external_id" in json.loads(data):
+            raise ConnectionError("reset by peer")
+        return reply
+
+
+then4 = keep + [srec("m_old", D, "Story Time")]
+now4 = keep + [srec("m_new", D, "Story Time at the Branch")]
+mf4 = store_path("succ_sync4.json")
+if os.path.exists(mf4):
+    os.remove(mf4)
+p = write_store("succ4_then.json", then4, complete=WS)
+db = LostReply({r["fingerprint"]: {"starts_at": r["start_utc"], "id": 7} for r in then4})
+run_sync(p, db, ["--only-new", "--retire-absent"], manifest=mf4)
+baseline4 = open(mf4, encoding="utf-8").read()
+p = write_store("succ4_now.json", now4, complete=WS)
+written, log, code = run_sync(p, db, ["--only-new", "--retire-absent"], manifest=mf4)
+check("a move that landed but whose reply was lost: the row is still rewritten under its new key this run "
+      "(not left with its old title until Wednesday), and nothing is cancelled",
+      ("m_new" in written, db.rows.get("m_new", {}).get("id"), db.rows.get("m_new", {}).get("cancelled_at"),
+       "m_old" in db.rows), (True, 7, None, False))
+# A lost upsert keeps the last good baseline (main: no manifest write when rows were lost).
+open(mf4, "w", encoding="utf-8").write(baseline4)
+db = FakeDB({"m_new": {"starts_at": stamp(D), "id": 7}} | {r["fingerprint"]: {"starts_at": r["start_utc"]}
+                                                            for r in keep})
+written, log, code = run_sync(p, db, ["--only-new", "--retire-absent"], manifest=mf4)
+check("a move that landed in a run whose upsert never wrote it (lost batch, killed step): the next run "
+      "finds the old key gone and the new one stored, and rewrites it",
+      "m_new" in written, True)
+
+dm = store_path("succ_dry_manifest.json")
+if os.path.exists(dm):
+    os.remove(dm)
+sync.write_manifest(dm, None, sync.cancellation_inputs(write_store("succ_dry_then.json", then, complete=WS)))
+with patch("sys.argv", ["sync", "--store", write_store("succ_dry_now.json", now_, complete=WS), "--dry-run",
+                        "--retire-absent", "--manifest", dm]), patch.object(sync, "build_rows", return_value=[]):
+    _, dry = quiet(sync.main)
+check("--dry-run says which gone sessions would MOVE, and leaves them out of what would be cancelled",
+      "2 of them listed again under a new key" in dry and "-> 2 row(s) would be cancelled" in dry, True)
 
 print()
 print("The extended state read stays inside the URL budget")
