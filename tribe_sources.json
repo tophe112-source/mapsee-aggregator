@@ -16028,6 +16028,18 @@
         "lon": 152.9121018
       },
       "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Lansingerland",
+      "category": "community",
+      "_found": "civic:city -> tribe",
+      "base_url": "https://www.lansingerland.nl",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Lansingerland",
+      "default_region": null,
+      "default_country": "NL",
+      "_metro": "Lansingerland, Netherlands"
     }
   ],
   "_not_included": {

@@ -19486,5 +19486,23 @@
     "geocode_suffix": ", Perth, Australia",
     "limit": 300,
     "_metro": "Perth, Australia"
+  },
+  {
+    "name": "Centro Espírita Allan Kardec",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agendainstitucional%40ceak.org.br/public/basic.ics",
+    "geocode_suffix": ", Campinas, Brazil",
+    "limit": 300,
+    "_metro": "Campinas, Brazil"
+  },
+  {
+    "name": "Centro de Meditação Kadampa Campinas",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/eb48e1ae2cfefde84cf19a84b6b3ab9215a91f3e4ce1c662ab59873736e4917b%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Campinas",
+    "limit": 300,
+    "_metro": "Campinas, Brazil"
   }
 ]

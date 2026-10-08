@@ -7259,6 +7259,43 @@
         "lon": 153.0280318
       },
       "_metro": "Brisbane, Australia"
+    },
+    {
+      "name": "Theatro da Paz",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.theatrodapaz.com.br/programa%C3%A7%C3%A3o"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/informa-es-do-evento-e-registro/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Theatro da Paz",
+        "address": "Praça da Republica",
+        "city": "Belém",
+        "postal_code": "66017-060",
+        "lat": -1.4529952,
+        "lon": -48.4937051
+      },
+      "_metro": "Belém, Brazil"
+    },
+    {
+      "name": "Laroc Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.laroc.club/valinhos/agenda/2026-11-07/"
+      ],
+      "link_pattern": "https://www\\.laroc\\.club/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Laroc Club",
+        "address": "km 118 Rodovia Dom Pedro I",
+        "lat": -22.9345916,
+        "lon": -46.9216805
+      },
+      "_metro": "Campinas, Brazil"
     }
   ],
   "_not_included": {
