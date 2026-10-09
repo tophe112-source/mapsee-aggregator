@@ -7296,6 +7296,22 @@
         "lon": -46.9216805
       },
       "_metro": "Campinas, Brazil"
+    },
+    {
+      "name": "National Centre for the Performing Arts",
+      "category": "arts",
+      "_found": "osm:arts_centre -> jsonld-event",
+      "listing": [
+        "https://www.ncpamumbai.com/event/marcia/"
+      ],
+      "link_pattern": "https://www\\.ncpamumbai\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "National Centre for the Performing Arts",
+        "lat": 18.9253759,
+        "lon": 72.819831
+      },
+      "_metro": "Mumbai, India"
     }
   ],
   "_not_included": {

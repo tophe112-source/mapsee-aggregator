@@ -19504,5 +19504,32 @@
     "geocode_suffix": ", Campinas",
     "limit": 300,
     "_metro": "Campinas, Brazil"
+  },
+  {
+    "name": "Paróquia Santo Antônio",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cpp%40paroquiasantoantonio.net/public/basic.ics",
+    "geocode_suffix": ", São José",
+    "limit": 300,
+    "_metro": "Florianópolis, Brazil"
+  },
+  {
+    "name": "Casa de Apoio Vovó Gertrudes",
+    "category": "community",
+    "_found": "osm:social_facility -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f28ad337bdca1a626b4328a1367c79fef73171c7ba8b65ea00b02cbab59e8a4a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Florianópolis, Brazil",
+    "limit": 300,
+    "_metro": "Florianópolis, Brazil"
+  },
+  {
+    "name": "Choe Khor Sum Ling Centre",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_0tfecbctgj9m3ei54jihee4u0c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bengaluru, India",
+    "limit": 300,
+    "_metro": "Bengaluru, India"
   }
 ]

@@ -16040,6 +16040,21 @@
       "default_region": null,
       "default_country": "NL",
       "_metro": "Lansingerland, Netherlands"
+    },
+    {
+      "name": "Parador 12",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://parador12.com.br",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Parador 12",
+        "address": "Servidão José Cardoso de Oliveira",
+        "lat": -27.4331272,
+        "lon": -48.5141674
+      },
+      "_metro": "Florianópolis, Brazil"
     }
   ],
   "_not_included": {
