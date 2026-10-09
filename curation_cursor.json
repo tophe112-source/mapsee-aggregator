@@ -235,11 +235,9 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 158,
-  "metro_key": "AU:Adelaide",
-  "stuck": {
-   "AU:Adelaide": 2
-  }
+  "metro": 179,
+  "metro_key": "US:New York",
+  "stuck": {}
  },
  "socrata": {
   "art events": 0,

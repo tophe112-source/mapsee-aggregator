@@ -16055,6 +16055,446 @@
         "lon": -48.5141674
       },
       "_metro": "Florianópolis, Brazil"
+    },
+    {
+      "name": "London LGBTQ+ Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://londonlgbtqcentre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "London LGBTQ+ Community Centre",
+        "address": "60-62 Hopton Street",
+        "city": "London",
+        "postal_code": "SE1 9JH",
+        "lat": 51.5083088,
+        "lon": -0.1025268
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Polish Social and Cultural Association",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://posk.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Polish Social and Cultural Association",
+        "address": "238-246 King Street",
+        "city": "London",
+        "postal_code": "W6 0RF",
+        "lat": 51.4935328,
+        "lon": -0.2374235
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Hall of Remembrance",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://chelseaparish.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hall of Remembrance",
+        "address": "Flood Street",
+        "city": "London",
+        "lat": 51.4862655,
+        "lon": -0.165692
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Ringway Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://gpcg.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ringway Centre",
+        "address": "268 Baring Road",
+        "city": "London",
+        "postal_code": "SE12 0DS",
+        "lat": 51.4357708,
+        "lon": 0.0186699
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Uppermill Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://hla.oldham.gov.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Uppermill Library",
+        "lat": 53.5481034,
+        "lon": -2.0064252
+      },
+      "_metro": "Manchester, United Kingdom",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "New Mills & District Volunteer Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.nmvc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New Mills & District Volunteer Centre",
+        "address": "33-35 Union Road",
+        "postal_code": "SK22 3EL",
+        "lat": 53.3645919,
+        "lon": -2.0010462
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "Ombersley Memorial Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://www.ombersleymemorialhall.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ombersley Memorial Hall",
+        "address": "Sandys Road",
+        "city": "Ombersley",
+        "postal_code": "WR9 0DY",
+        "lat": 52.2749559,
+        "lon": -2.2304399
+      },
+      "_metro": "Birmingham, United Kingdom"
+    },
+    {
+      "name": "Bricks",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://bricksbristol.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bricks",
+        "address": "Saint Anne's Road",
+        "city": "Bristol",
+        "postal_code": "BS4 4AB",
+        "lat": 51.4527562,
+        "lon": -2.5476082
+      },
+      "_metro": "Bristol, United Kingdom",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "New Oriel Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://neworielhall.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "New Oriel Hall",
+        "address": "Brookleaze Buildings",
+        "postal_code": "BA1 6RA",
+        "lat": 51.3979006,
+        "lon": -2.3458584
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "The Leeds Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.theleedslibrary.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Leeds Library",
+        "address": "18 Commercial Street",
+        "city": "Leeds",
+        "postal_code": "LS1 6AL",
+        "lat": 53.7974761,
+        "lon": -1.5444463
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "The Clarke Foley Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://clarkefoley.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Clarke Foley Centre",
+        "address": "Cunliffe Road",
+        "city": "Ilkley",
+        "postal_code": "LS29 9DZ",
+        "country": "GB",
+        "lat": 53.9252924,
+        "lon": -1.826527
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "Salisbury Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.salisburycentre.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Salisbury Centre",
+        "lat": 55.9381301,
+        "lon": -3.1745624
+      },
+      "_metro": "Edinburgh, United Kingdom"
+    },
+    {
+      "name": "Tyneside Irish Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://tynesideirish.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tyneside Irish Centre",
+        "address": "43-49 Gallowgate",
+        "city": "Newcastle upon Tyne",
+        "postal_code": "NE1 4SG",
+        "lat": 54.9735336,
+        "lon": -1.6194159
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "St Martins Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.stmartinscentre.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "St Martins Centre",
+        "address": "Roman Avenue",
+        "city": "Newcastle upon Tyne",
+        "postal_code": "NE6 2RJ",
+        "country": "GB",
+        "lat": 54.9748415,
+        "lon": -1.5599915
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Jesmond Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://jesmondlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jesmond Library",
+        "address": "St. George's Terrace",
+        "city": "Newcastle upon Tyne",
+        "postal_code": "NE2 2DL",
+        "lat": 54.9932659,
+        "lon": -1.6064372
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Gateshead Older People's Assembly",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://gateshead50plus.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gateshead Older People's Assembly",
+        "address": "Split Crow Road",
+        "city": "Gateshead",
+        "postal_code": "NE8 3UB",
+        "lat": 54.9503506,
+        "lon": -1.5822586
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "The Linen Hall Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://linenhall.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Linen Hall Library",
+        "address": "17 Donegall Square North",
+        "city": "Belfast",
+        "postal_code": "BT1 5GB",
+        "lat": 54.5974784,
+        "lon": -5.9316112
+      },
+      "_metro": "Belfast, United Kingdom",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "John Godber Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.johngodbercentre.co.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "John Godber Centre",
+        "address": "Ogle Street",
+        "city": "Nottingham",
+        "postal_code": "NG15 7FQ",
+        "country": "GB",
+        "lat": 53.0393487,
+        "lon": -1.206693
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "The Weston Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.westoncentre.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Weston Centre",
+        "address": "4 Tamworth Street",
+        "city": "Belper",
+        "postal_code": "DE56 4ER",
+        "lat": 52.9873394,
+        "lon": -1.4893285
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Butt Field Sports Pavilion",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://buttfieldsportsclub.org.uk",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Butt Field Sports Pavilion",
+        "address": "Moorbridge Road",
+        "city": "Nottingham",
+        "postal_code": "NG13 8GG",
+        "country": "GB",
+        "lat": 52.9548295,
+        "lon": -0.9505102
+      },
+      "_metro": "Nottingham, United Kingdom"
+    },
+    {
+      "name": "Commonpoint Queens Central Queens",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://www.commonpoint.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Commonpoint Queens Central Queens",
+        "address": "67-09 108th Street",
+        "city": "Forest Hills",
+        "region": "NY",
+        "postal_code": "11375",
+        "lat": 40.7286758,
+        "lon": -73.8472015
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Resobox",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://resobox.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Resobox",
+        "address": "91 East 3rd Street",
+        "lat": 40.724844,
+        "lon": -73.9878407
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "NYC LGBT Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://gaycenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "NYC LGBT Community Center",
+        "address": "208 West 13th Street",
+        "postal_code": "10011",
+        "lat": 40.7380132,
+        "lon": -74.0010581
+      },
+      "_metro": "New York, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Scandinavia House",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.scandinaviahouse.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Scandinavia House",
+        "address": "58 Park Avenue",
+        "postal_code": "10016",
+        "lat": 40.7494881,
+        "lon": -73.9800924
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Verona Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.veronalibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Verona Public Library",
+        "address": "17 Gould Street",
+        "city": "Verona",
+        "region": "NJ",
+        "postal_code": "07044",
+        "country": "US",
+        "lat": 40.8329157,
+        "lon": -74.2463902
+      },
+      "_metro": "New York, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "West New York Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.westnewyorknj.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "West New York Public Library",
+        "region": "NJ",
+        "lat": 40.7881285,
+        "lon": -74.0154705
+      },
+      "_metro": "New York, United States"
     }
   ],
   "_not_included": {

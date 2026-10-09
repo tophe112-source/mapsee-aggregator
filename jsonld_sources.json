@@ -7312,6 +7312,196 @@
         "lon": 72.819831
       },
       "_metro": "Mumbai, India"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://ourtasmania.com.au/whats-on/"
+      ],
+      "link_pattern": "https://ourtasmania\\.com\\.au/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "?",
+        "address": "838 East Derwent Highway",
+        "region": "TAS",
+        "postal_code": "7017",
+        "lat": -42.8146134,
+        "lon": 147.3250868
+      },
+      "_metro": "Hobart, Australia"
+    },
+    {
+      "name": "Poplar Union",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://poplarunion.com/events/"
+      ],
+      "link_pattern": "https://poplarunion\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Poplar Union",
+        "address": "2 Cotall Street",
+        "city": "London",
+        "postal_code": "E14 6TL",
+        "lat": 51.5156099,
+        "lon": -0.0231861
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Kidbrooke Community Hub",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.kidbrookechub.org.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kidbrooke Community Hub",
+        "address": "8 Pegler Square Pegler Square",
+        "lat": 51.4611943,
+        "lon": 0.0269384
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "The Green",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://thegreennunhead.org/events/"
+      ],
+      "link_pattern": "https://thegreennunhead\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Green",
+        "address": "5 Nunhead Green",
+        "city": "London",
+        "postal_code": "SE15 3QQ",
+        "lat": 51.4650775,
+        "lon": -0.0596786
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Sale Conservative Club",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.saleconservativeclub.co.uk/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Sale Conservative Club",
+        "lat": 53.4282576,
+        "lon": -2.3027297
+      },
+      "_metro": "Manchester, United Kingdom"
+    },
+    {
+      "name": "The Park Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.theparkcentre.org.uk/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Park Centre",
+        "address": "Daventry Road",
+        "city": "Bristol",
+        "postal_code": "BS4 1DQ",
+        "lat": 51.4288107,
+        "lon": -2.581975
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "St Pauls Learning Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.stpaulslc.co.uk/whats-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "St Pauls Learning Centre",
+        "address": "94 Grosvenor Road",
+        "city": "Bristol",
+        "postal_code": "BS2 8XJ",
+        "lat": 51.4641086,
+        "lon": -2.5826328
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Keighley Healthy Living",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.khl.org.uk/activity-calendar/"
+      ],
+      "link_pattern": "https://www\\.khl\\.org\\.uk/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Keighley Healthy Living",
+        "lat": 53.8680585,
+        "lon": -1.9104389
+      },
+      "_metro": "Leeds, United Kingdom"
+    },
+    {
+      "name": "The Fulforth Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.thefulforthcentre.co.uk/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "The Fulforth Centre",
+        "address": "Front Street",
+        "city": "Durham",
+        "postal_code": "DH7 6JT",
+        "country": "GB",
+        "lat": 54.8185089,
+        "lon": -1.6288298
+      },
+      "_metro": "Newcastle upon Tyne, United Kingdom"
+    },
+    {
+      "name": "Brooklyn Community Pride Center",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.lgbtbrooklyn.org/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Brooklyn Community Pride Center",
+        "address": "1360 Fulton Street",
+        "city": "Brooklyn",
+        "region": "NY",
+        "postal_code": "11216",
+        "lat": 40.6799803,
+        "lon": -73.9465571
+      },
+      "_metro": "New York, United States"
     }
   ],
   "_not_included": {

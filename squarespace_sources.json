@@ -2155,6 +2155,125 @@
         "lon": -123.4248303
       },
       "_metro": "Victoria, Canada"
+    },
+    {
+      "name": "Walworth Town Hall Community Space",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://wthcommunityspace.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Walworth Town Hall Community Space",
+        "lat": 51.4910074,
+        "lon": -0.0970355
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "New Unity @Upper Street",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.new-unity.org/whatson",
+      "max_events": 200,
+      "venue": {
+        "name": "New Unity @Upper Street",
+        "address": "277A Upper Street",
+        "city": "London",
+        "postal_code": "N1 2TZ",
+        "lat": 51.5404035,
+        "lon": -0.1022294
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Shrewsbury House Community Centre",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.shrewsburyhouse.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Shrewsbury House Community Centre",
+        "address": "Bushmoor Crescent",
+        "city": "London",
+        "postal_code": "SE18 3EG",
+        "lat": 51.4734514,
+        "lon": 0.0729774
+      },
+      "_metro": "London, United Kingdom"
+    },
+    {
+      "name": "Batheaston New Village Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.batheastonhall.org/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Batheaston New Village Hall",
+        "address": "School Lane",
+        "postal_code": "BA1 7EP",
+        "lat": 51.4094538,
+        "lon": -2.3197784
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Claverham Village Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.claverhamvillagehall.co.uk/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Claverham Village Hall",
+        "address": "Mayors Road",
+        "city": "Claverham",
+        "lat": 51.3912157,
+        "lon": -2.7936059
+      },
+      "_metro": "Bristol, United Kingdom"
+    },
+    {
+      "name": "Walkley Library",
+      "category": "learning",
+      "_found": "osm:library -> squarespace",
+      "collection": "https://www.walkleylibrary.org.uk/whats-on",
+      "max_events": 200,
+      "venue": {
+        "name": "Walkley Library",
+        "address": "403 South Road",
+        "city": "Sheffield",
+        "postal_code": "S6 3TD",
+        "lat": 53.3948325,
+        "lon": -1.5030468
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "Ashover Parish Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.ashoverparishhall.com/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Ashover Parish Hall",
+        "lat": 53.1647212,
+        "lon": -1.4765654
+      },
+      "_metro": "Sheffield, United Kingdom"
+    },
+    {
+      "name": "New York Irish Center",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.newyorkirishcenter.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "New York Irish Center",
+        "address": "10-40 Jackson Avenue",
+        "postal_code": "11101",
+        "lat": 40.7421334,
+        "lon": -73.953081
+      },
+      "_metro": "New York, United States"
     }
   ],
   "_not_included": {

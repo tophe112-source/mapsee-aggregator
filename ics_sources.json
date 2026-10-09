@@ -19531,5 +19531,248 @@
     "geocode_suffix": ", Bengaluru, India",
     "limit": 300,
     "_metro": "Bengaluru, India"
+  },
+  {
+    "name": "Kingston Hive",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mrktkgvqf00dfvdhemfrcaiijo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kingston upon Thames",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "5th Dartford Scout Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5mnnsvclbmtdg6lgr719ms4n6g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dartford",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Newspeak House",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://newspeak.house/api/events.ics",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Ukrainian Institute in London",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://uil.org.uk/events/?ical=1",
+    "geocode_suffix": ", London",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "Romford United Services And Social Club",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/therussc%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", London, United Kingdom",
+    "limit": 300,
+    "_metro": "London, United Kingdom"
+  },
+  {
+    "name": "St Wilfrid's Parish Centre",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c343fed6f441cc5e8653029de76435be6bce28f880ccf48a30e8c287d0270b70%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Warrington",
+    "limit": 300,
+    "_metro": "Manchester, United Kingdom"
+  },
+  {
+    "name": "Golborne Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ktdj787rgahs2scast0j40ra6c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Warrington",
+    "limit": 300,
+    "_metro": "Manchester, United Kingdom"
+  },
+  {
+    "name": "Warwick University Library",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://warwick.ac.uk/sitebuilder2/api/sitebuilder.ics?page=/services/library/all-events-calendar/&amp;event=8ac672c7a10f2c9001a1173291df581f",
+    "geocode_suffix": ", Coventry",
+    "limit": 300,
+    "_metro": "Birmingham, United Kingdom"
+  },
+  {
+    "name": "Freshford Village Memorial Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hall.bookings%40freshfordvillage.com/public/basic.ics",
+    "geocode_suffix": ", Bristol, United Kingdom",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "The Old Library",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://theoldlibrary.org.uk/activities-events/?ical=1",
+    "geocode_suffix": ", Bristol",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Priston Village Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/85ble1iot60g0j46tads31vpnc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Priston",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Saint Nicholas Church Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bnpghqbn9ubeoq1k0vsicll9js%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bristol, Bath And North East Somerset",
+    "limit": 300,
+    "_metro": "Bristol, United Kingdom"
+  },
+  {
+    "name": "Eldwick Memorial Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/webmaster%40eldwickmemorialhall.co.uk/public/basic.ics",
+    "geocode_suffix": ", Bingley",
+    "limit": 300,
+    "_metro": "Leeds, United Kingdom"
+  },
+  {
+    "name": "Walton Community Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/waltonlibraryops%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Wakefield",
+    "limit": 300,
+    "_metro": "Leeds, United Kingdom"
+  },
+  {
+    "name": "Youlgrave Village Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/youlgravevillagehall%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Bakewell",
+    "limit": 300,
+    "_metro": "Sheffield, United Kingdom"
+  },
+  {
+    "name": "Tideswell Community Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_30i9nv852fnlfljn96joloa1l8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tideswell",
+    "limit": 300,
+    "_metro": "Sheffield, United Kingdom"
+  },
+  {
+    "name": "Monkey Park",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kbrfegfl4aglo9kni1if3mvouo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chesterfield",
+    "limit": 300,
+    "_metro": "Sheffield, United Kingdom"
+  },
+  {
+    "name": "The Hut",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ushawmooractiongroup%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Durham",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "Cullercoats Fishermans Lookout",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cullercoats.watchhouse%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", North Shields",
+    "limit": 300,
+    "_metro": "Newcastle upon Tyne, United Kingdom"
+  },
+  {
+    "name": "Diseworth Village Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/diseworthvhbookings%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Derby",
+    "limit": 300,
+    "_metro": "Nottingham, United Kingdom"
+  },
+  {
+    "name": "Fritchley Village Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c9lfg7vtgahcsiffvi8pogt3f4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Belper",
+    "limit": 300,
+    "_metro": "Nottingham, United Kingdom"
+  },
+  {
+    "name": "East Bridgford Village Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ebvillagehall2%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Nottingham",
+    "limit": 300,
+    "_metro": "Nottingham, United Kingdom"
+  },
+  {
+    "name": "Good Old Lower East Side",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/jvd84ei4mrkb7f0rlki57vm0a4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Woodbridge Public Library",
+    "category": "learning",
+    "_found": "osm:library -> libcal+civicplus",
+    "url": "https://woodbridgelibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+    "geocode_suffix": ", Woodbridge, NJ",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Perth Amboy Public Library",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.pafpl.org/index.php?option=com_dpcalendar&task=ical.download&id=188",
+    "geocode_suffix": ", Perth Amboy, NJ",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "Great Neck House",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.gnparksny.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+    "geocode_suffix": ", Great Neck, NY",
+    "limit": 300,
+    "_metro": "New York, United States"
+  },
+  {
+    "name": "East Rutherford Community Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.eastrutherfordnj.net/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+    "geocode_suffix": ", New York, United States",
+    "limit": 300,
+    "_metro": "New York, United States"
   }
 ]
