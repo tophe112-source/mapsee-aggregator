@@ -50,10 +50,11 @@
   },
   {
     "name": "City of Long Beach Events (Los Angeles)",
-    "url": "https://www.trumba.com/calendars/homepagesidebarevents.ics",
+    "url": "https://www.trumba.com/calendars/homepagesidebarevents.ics?events=2000",
     "category": "community",
     "geocode_suffix": ", Los Angeles, CA",
-    "limit": 300
+    "limit": 900,
+    "_note": "Measured 2026-10-10: FIX for Trumba's default cap: the configured URL returned 200 VEVENTs reaching 14 days (2026-10-10..10-24). With ?events=2000 (Trumba's own parameter, as montgomery-county.ics and kalendaro.ics are configured) the same calendar returns 756 VEVENTs, the whole of it (under 2000), out to 2027-04-07; 661 start in the next 90 days (reaching day 90) and they hold all 200 of the old feed's UIDs. limit 300 -> 900: 8.9 events/day Oct-Dec, so about 800 in a busy 90 days. 104 distinct LOCATION strings (67 before), 6 VEVENTs with none. Body 3.7 MB, over FEED_BODY_MAX, so it is fetched whole each run. Unchanged from before and worth a follow-up: 32 of the 661 are City Council and commission meetings (the entry is not civic-tagged and has no skip_title). Trumba's ceiling is 2000: ?events=2001 and ?events=4000 both fall back to the 200 default (measured on SAPL's calendar). trumba.com robots.txt: 'Disallow:' (allows all), no Crawl-delay."
   },
   {
     "name": "Beverly Hills Public Library Events (Los Angeles)",
@@ -14024,12 +14025,12 @@
   },
   {
     "name": "San Antonio Public Library (San Antonio, TX)",
-    "url": "https://www.trumba.com/calendars/san-antonio-public-library.ics?events=500",
+    "url": "https://www.trumba.com/calendars/san-antonio-public-library.ics?events=2000",
     "category": "learning",
     "geocode_suffix": ", San Antonio, TX",
-    "limit": 500,
+    "limit": 2000,
     "_metro": "San Antonio, US",
-    "_note": "SAPL's Trumba calendar (web name from mysapl.org's spud); ?events=500 lifts Trumba's 200 default. trumba.com robots allows. Branch storytimes, tutoring, clubs; no overlap with sanantonio.ics."
+    "_note": "SAPL's Trumba calendar (web name from mysapl.org's spud); ?events=500 lifts Trumba's 200 default. trumba.com robots allows. Branch storytimes, tutoring, clubs; no overlap with sanantonio.ics. Measured 2026-10-10: FIX, PARTIAL: ?events=500 returned 500 VEVENTs reaching 12 days (to 2026-10-22). ?events=2000 returns 2,000 VEVENTs in date order, 1,998 of them in the next 90 days, holding all 498 of the old feed's in-window UIDs; it is still at Trumba's ceiling and stops at 2026-12-19 (2 events that day against about 28/day), so it reaches 70 of 90 days. Trumba's ceiling is 2000: ?events=2001 and ?events=4000 both fall back to the 200 default (measured on SAPL's calendar). No disjoint split was found: the calendar's own filter spud (trumba.com/s.aspx?calendar=san-antonio-public-library&widget=filter) offers only Event Type(s) (field 17736), Audience (17733, multi-valued: 349 rows are 'Kids,Family') and a featured-event field (17738), no branch, and mysapl.org's robots.txt disallows / for *. limit 500 -> 2000. 40 distinct LOCATIONs (35 before). Body 4.5 MB, fetched whole each run. Branch storytimes, tutoring, clubs; 0 UIDs shared with the configured sanantonio.ics. trumba.com robots.txt: 'Disallow:' (allows all), no Crawl-delay."
   },
   {
     "name": "Richmond Public Library (Richmond, VA)",
@@ -15073,21 +15074,21 @@
   },
   {
     "name": "Brisbane City Council Libraries (Brisbane, Australia)",
-    "url": "https://www.trumba.com/calendars/libraries.ics",
+    "url": "https://www.trumba.com/calendars/libraries.ics?events=2000",
     "category": "learning",
     "geocode_suffix": ", Brisbane, Queensland, Australia",
-    "limit": 300,
+    "limit": 2000,
     "_metro": "Brisbane, Australia",
-    "_note": "Brisbane City Council's library-events Trumba calendar (storytime, English conversation, tech help), all free. trumba.com robots.txt allows all. First council library feed for Brisbane."
+    "_note": "Brisbane City Council's library-events Trumba calendar (storytime, English conversation, tech help), all free. trumba.com robots.txt allows all. First council library feed for Brisbane. Measured 2026-10-10: FIX for Trumba's default cap: the configured URL returned 200 VEVENTs reaching 9 days (2026-10-10..10-19). With ?events=2000 the same calendar returns 1,836 VEVENTs, the whole of it (under 2000), out to 2027-02-26; 1,622 start in the next 90 days (reaching day 90) and hold all 200 of the old feed's UIDs. limit 300 -> 2000: 21 events/day Oct-Dec, so about 1,900 in a busy 90 days. 40 distinct LOCATIONs (38 before). Body 4.9 MB, fetched whole each run. 0 UIDs shared with the other 10 configured Brisbane-area Trumba calendars. Storytime, English conversation, tech help, all free. trumba.com robots.txt: 'Disallow:' (allows all), no Crawl-delay."
   },
   {
     "name": "Brisbane Active Parks (Brisbane, Australia)",
-    "url": "https://www.trumba.com/calendars/active-parks.ics",
+    "url": "https://www.trumba.com/calendars/active-parks.ics?events=2000",
     "category": "fitness",
     "geocode_suffix": ", Brisbane, Queensland, Australia",
-    "limit": 300,
+    "limit": 2000,
     "_metro": "Brisbane, Australia",
-    "_note": "Brisbane City Council's Active and Healthy parks programme on Trumba: free yoga, pilates, aqua aerobics in local parks and pools. trumba.com robots.txt allows all. Fills fitness in Brisbane."
+    "_note": "Brisbane City Council's Active and Healthy parks programme on Trumba: free yoga, pilates, aqua aerobics in local parks and pools. trumba.com robots.txt allows all. Fills fitness in Brisbane. Measured 2026-10-10: FIX for Trumba's default cap: the configured URL returned 200 VEVENTs reaching 9 days (2026-10-10..10-19). With ?events=2000 the feed returns 2,000 VEVENTs (Trumba's ceiling) in date order out to 2027-02-22, so the 90-day window is whole: 1,341 start in the next 90 days (the last on day 87; the programme thins over the summer break) and they hold all 200 of the old feed's UIDs. limit 300 -> 2000: 19 events/day Oct-Dec, so about 1,700 in a 90 days without the break. 118 distinct LOCATIONs (100 before). Body 5.4 MB, fetched whole each run. 0 UIDs shared with the other 10 configured Brisbane-area Trumba calendars. Free yoga, pilates, aqua aerobics in parks and pools. trumba.com robots.txt: 'Disallow:' (allows all), no Crawl-delay."
   },
   {
     "name": "Brisbane Green Events (Brisbane, Australia)",
@@ -15100,12 +15101,12 @@
   },
   {
     "name": "Brisbane Creative Events (Brisbane, Australia)",
-    "url": "https://www.trumba.com/calendars/LIVE.ics",
+    "url": "https://www.trumba.com/calendars/LIVE.ics?events=2000",
     "category": "arts",
     "geocode_suffix": ", Brisbane, Queensland, Australia",
-    "limit": 300,
+    "limit": 800,
     "_metro": "Brisbane, Australia",
-    "_note": "Brisbane City Council's creative-events Trumba calendar: Museum of Brisbane, City Hall, Bands in Parks; mostly free. trumba.com robots.txt allows all."
+    "_note": "Brisbane City Council's creative-events Trumba calendar: Museum of Brisbane, City Hall, Bands in Parks; mostly free. trumba.com robots.txt allows all. Measured 2026-10-10: FIX for Trumba's default cap: the configured URL returned 200 VEVENTs (198 future) reaching 20 days (to 2026-10-30). With ?events=2000 the same calendar returns 667 VEVENTs, the whole of it (under 2000), out to 2027-04-03; 573 start in the next 90 days (reaching day 90) and hold all 198 of the old feed's in-window UIDs. limit 300 -> 800: 7.2 events/day Oct-Dec, so about 650 in a busy 90 days. 32 distinct LOCATIONs (16 before); 24 VEVENTs carry no LOCATION and are dropped unplaced (16 before). Body 2.3 MB. 0 UIDs shared with the other 10 configured Brisbane-area Trumba calendars. Museum of Brisbane, City Hall, Bands in Parks; mostly free. trumba.com robots.txt: 'Disallow:' (allows all), no Crawl-delay."
   },
   {
     "name": "Redland City Council Events (Brisbane, Australia)",
@@ -15118,12 +15119,12 @@
   },
   {
     "name": "City of Armadale Events (Perth, Australia)",
-    "url": "https://www.trumba.com/calendars/cityofarmadale.ics",
+    "url": "https://www.trumba.com/calendars/cityofarmadale.ics?events=2000",
     "category": "community",
     "geocode_suffix": ", Armadale, Western Australia, Australia",
-    "limit": 300,
+    "limit": 600,
     "_metro": "Perth, Australia",
-    "_note": "City of Armadale (Perth) Trumba calendar: library rhyme time, tech help, community centre and park events; 172 of 200 marked Free. trumba.com robots.txt allows all. Perth had no source."
+    "_note": "City of Armadale (Perth) Trumba calendar: library rhyme time, tech help, community centre and park events; 172 of 200 marked Free. trumba.com robots.txt allows all. Perth had no source. Measured 2026-10-10: FIX for Trumba's default cap: the configured URL returned 200 VEVENTs (198 future) reaching 33 days (to 2026-11-12). With ?events=2000 the same calendar returns 434 VEVENTs, the whole of it (under 2000), out to 2027-04-06; 398 start in the next 90 days (the last on day 88) and hold all 198 of the old feed's in-window UIDs. limit 300 -> 600: 5.5 events/day Oct-Dec, so about 500 in a busy 90 days. 34 distinct LOCATIONs (32 before); 7 VEVENTs carry no LOCATION. Body 1.3 MB. Library rhyme time, tech help, community centre and park events. trumba.com robots.txt: 'Disallow:' (allows all), no Crawl-delay."
   },
   {
     "name": "Wellington City Libraries (Wellington, New Zealand)",
@@ -15172,12 +15173,12 @@
   },
   {
     "name": "Brisbane GOLD Seniors Activities (Brisbane, Australia)",
-    "url": "https://www.trumba.com/calendars/gold.ics",
+    "url": "https://www.trumba.com/calendars/gold.ics?events=2000",
     "category": "fitness",
     "geocode_suffix": ", Brisbane, Queensland, Australia",
-    "limit": 300,
+    "limit": 1500,
     "_metro": "Brisbane, Australia",
-    "_note": "Brisbane City Council's GOLD (Growing Older and Living Dangerously) programme on Trumba: tai chi, chair yoga, Zumba Gold for 50+; 151 of 200 Free, rest $6. trumba.com robots.txt allows all."
+    "_note": "Brisbane City Council's GOLD (Growing Older and Living Dangerously) programme on Trumba: tai chi, chair yoga, Zumba Gold for 50+; 151 of 200 Free, rest $6. trumba.com robots.txt allows all. Measured 2026-10-10: FIX for Trumba's default cap: the configured URL returned 200 VEVENTs reaching 12 days (2026-10-10..10-22). With ?events=2000 the feed returns 2,000 VEVENTs (Trumba's ceiling) in date order out to 2027-03-24, so the 90-day window is whole: 1,011 start in the next 90 days and hold all 200 of the old feed's UIDs. The last of them is 2026-12-18: the programme breaks for summer and resumes 2027-01-11, after the window ends. limit 300 -> 1500: 14.4 events/day in term, so about 1,300 in a 90 days without the break. 88 distinct LOCATIONs (86 before). Body 5.4 MB, fetched whole each run. 0 UIDs shared with the other 10 configured Brisbane-area Trumba calendars (gold-n-kids.ics included). Tai chi, chair yoga, Zumba Gold for 50+. trumba.com robots.txt: 'Disallow:' (allows all), no Crawl-delay."
   },
   {
     "name": "Brisbane Chillout Youth Activities (Brisbane, Australia)",

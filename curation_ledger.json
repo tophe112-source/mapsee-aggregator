@@ -305592,6 +305592,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "trumba.com/calendars/LIVE.ics?events=2000": {
+    "checked": 20261010,
+    "name": "Brisbane Creative Events - Full calendar (Brisbane, Australia)",
+    "reason": "653 vevents / 651 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "trumba.com/calendars/Ogden_Nature_Center.ics": {
     "checked": 20260927,
     "name": "Ogden Nature Center (Ogden)",
@@ -305610,6 +305617,13 @@
     "checked": 20260927,
     "name": "Brisbane Active Parks (Brisbane, Australia)",
     "reason": "200 future, 200 placeable",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trumba.com/calendars/active-parks.ics?events=2000": {
+    "checked": 20261010,
+    "name": "Brisbane Active Parks - Full calendar (Brisbane, Australia)",
+    "reason": "2000 vevents / 2000 future",
     "status": "ok",
     "type": "ics"
   },
@@ -305662,6 +305676,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "trumba.com/calendars/cityofarmadale.ics?events=2000": {
+    "checked": 20261010,
+    "name": "City of Armadale Events - Full calendar (Perth, Australia)",
+    "reason": "434 vevents / 432 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "trumba.com/calendars/cleanupnola.ics": {
     "checked": 20260928,
     "name": "City of New Orleans - Community CleanUps (New Orleans)",
@@ -305704,6 +305725,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "trumba.com/calendars/gold.ics?events=2000": {
+    "checked": 20261010,
+    "name": "Brisbane GOLD Seniors Activities - Full calendar (Brisbane, Australia)",
+    "reason": "2000 vevents / 2000 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "trumba.com/calendars/green-events.ics": {
     "checked": 20260927,
     "name": "Brisbane Green Events (Brisbane, Australia)",
@@ -305718,6 +305746,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "trumba.com/calendars/homepagesidebarevents.ics?events=2000": {
+    "checked": 20261010,
+    "name": "City of Long Beach Events - Full calendar (Los Angeles)",
+    "reason": "756 vevents / 756 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "trumba.com/calendars/kalendaro.ics?events=500": {
     "checked": 20261010,
     "name": "The Seattle Public Library - events (Seattle)",
@@ -305729,6 +305764,13 @@
     "checked": 20260927,
     "name": "Brisbane City Council Libraries (Brisbane, Australia)",
     "reason": "200 future, 200 placeable",
+    "status": "ok",
+    "type": "ics"
+  },
+  "trumba.com/calendars/libraries.ics?events=2000": {
+    "checked": 20261010,
+    "name": "Brisbane City Council Libraries - All branches (Brisbane, Australia)",
+    "reason": "1828 vevents / 1828 future",
     "status": "ok",
     "type": "ics"
   },
@@ -305779,6 +305821,13 @@
     "name": "City of New Orleans - Office of Resilience & Sustainability (New Orleans)",
     "reason": "0 vevents / 0 future",
     "status": "fail",
+    "type": "ics"
+  },
+  "trumba.com/calendars/san-antonio-public-library.ics?events=2000": {
+    "checked": 20261010,
+    "name": "San Antonio Public Library - All branches (San Antonio, TX)",
+    "reason": "2000 vevents / 1998 future",
+    "status": "ok",
     "type": "ics"
   },
   "trumba.com/calendars/san-antonio-public-library.ics?events=500": {
