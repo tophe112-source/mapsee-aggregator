@@ -11389,6 +11389,27 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "anythinklibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI4OTYiLCIyOTEwIiwiNDM0OCIsIjI5MTIiLCIzMTcxIiwiNDU4NCIsIjI5MTEiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Anythink Libraries - Bennett, Thornton Community Center, Nature Library, The Studio at Anythink Wright Farms, Anythink in Motion/Bookmobile, Reunion Express (Denver)",
+    "reason": "242 vevents / 242 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "anythinklibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI5MDEiLCIyOTAyIiwiMjkwOCIsIjQxOTIiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Anythink Libraries - Brighton, Commerce City, Perl Mack, The Studio at Thornton Community Center (Denver)",
+    "reason": "287 vevents / 287 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "anythinklibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI5MDUiLCIyOTA5Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Anythink Libraries - Huron Street, Wright Farms (Denver)",
+    "reason": "408 vevents / 408 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "anythinklibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260927,
     "name": "Anythink Libraries (Adams County, Denver)",
@@ -13982,6 +14003,62 @@
     "name": "Arlington Public Library TX - Kids (Dallas)",
     "reason": "a filtered view (src=p/aud) of a LibCal calendar that is configured whole",
     "status": "fail",
+    "type": "ics"
+  },
+  "arlingtontx.libcal.com/ical_subscribe.php?src=p&cid=20065&cam=7989": {
+    "checked": 20261010,
+    "name": "Arlington Public Library (TX) - George W. Hawkes Downtown Library (Dallas)",
+    "reason": "334 vevents / 249 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "arlingtontx.libcal.com/ical_subscribe.php?src=p&cid=20065&cam=7991": {
+    "checked": 20261010,
+    "name": "Arlington Public Library (TX) - East Library & Recreation Center (Dallas)",
+    "reason": "94 vevents / 71 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "arlingtontx.libcal.com/ical_subscribe.php?src=p&cid=20065&cam=8367": {
+    "checked": 20261010,
+    "name": "Arlington Public Library (TX) - Southwest Branch Library (Dallas)",
+    "reason": "70 vevents / 44 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "arlingtontx.libcal.com/ical_subscribe.php?src=p&cid=20065&cam=8368": {
+    "checked": 20261010,
+    "name": "Arlington Public Library (TX) - Southeast Branch Library (Dallas)",
+    "reason": "129 vevents / 90 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "arlingtontx.libcal.com/ical_subscribe.php?src=p&cid=20065&cam=8369": {
+    "checked": 20261010,
+    "name": "Arlington Public Library (TX) - Woodland West Branch Library (Dallas)",
+    "reason": "27 vevents / 18 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "arlingtontx.libcal.com/ical_subscribe.php?src=p&cid=20065&cam=8370": {
+    "checked": 20261010,
+    "name": "Arlington Public Library (TX) - Northeast Branch Library (Dallas)",
+    "reason": "20 vevents / 17 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "arlingtontx.libcal.com/ical_subscribe.php?src=p&cid=20065&cam=8372": {
+    "checked": 20261010,
+    "name": "Arlington Public Library (TX) - Offsite programmes (Dallas)",
+    "reason": "14 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "arlingtontx.libcal.com/ical_subscribe.php?src=p&cid=20065&cam=8375": {
+    "checked": 20261010,
+    "name": "Arlington Public Library (TX) - Ron Wright Lake Arlington Branch Library (Dallas)",
+    "reason": "65 vevents / 39 future",
+    "status": "ok",
     "type": "ics"
   },
   "arlingtonva.libcal.com/ical_subscribe.php?cid=12881": {
@@ -24845,6 +24922,41 @@
     "checked": 20260927,
     "name": "Milton Public Library (Milton, Canada)",
     "reason": "299 future, 298 placeable",
+    "status": "ok",
+    "type": "ics"
+  },
+  "beinspired.libcal.com/ical_subscribe.php?src=p&cid=8238&cam=4257&cat=35761": {
+    "checked": 20261010,
+    "name": "Milton Public Library - Main Library, children's programmes (Toronto, Canada)",
+    "reason": "319 vevents / 264 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "beinspired.libcal.com/ical_subscribe.php?src=p&cid=8238&cam=4257&cat=37474,35755,35758,36603,36602,35760,36656,37475,35759,35757,37473,35756": {
+    "checked": 20261010,
+    "name": "Milton Public Library - Main Library, other programmes (Toronto, Canada)",
+    "reason": "235 vevents / 187 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "beinspired.libcal.com/ical_subscribe.php?src=p&cid=8238&cam=4258": {
+    "checked": 20261010,
+    "name": "Milton Public Library - Sherwood Branch (Toronto, Canada)",
+    "reason": "460 vevents / 353 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "beinspired.libcal.com/ical_subscribe.php?src=p&cid=8238&cam=4259": {
+    "checked": 20261010,
+    "name": "Milton Public Library - Beaty Branch (Toronto, Canada)",
+    "reason": "34 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "beinspired.libcal.com/ical_subscribe.php?src=p&cid=8238&cam=4261": {
+    "checked": 20261010,
+    "name": "Milton Public Library - Sherwood Community Centre (Toronto, Canada)",
+    "reason": "39 vevents / 32 future",
     "status": "ok",
     "type": "ics"
   },
@@ -39339,6 +39451,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "boulderlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQ1NDEiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Boulder Public Library - Main Library (Boulder)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "boulderlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQ1NjAiLCI0NTg3IiwiNDU4NSIsIjQ1NTciXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Boulder Public Library - Meadows, NoBo Makerspace STUDIO 24, Main Library Theater (Boulder)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "boulderlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQ1NjEiLCI0NTU5Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Boulder Public Library - NoBo, Gunbarrel (Boulder)",
+    "reason": "402 vevents / 402 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "boulderlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQ1ODYiLCI0NTU4Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Boulder Public Library - Main Library Makerspace BLDG 61, Reynolds (Boulder)",
+    "reason": "455 vevents / 455 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "boulderlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260927,
     "name": "Boulder Public Library (Boulder)",
@@ -40276,6 +40416,27 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bramlib.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE0MjAiLCIxNDI2IiwiMTQyMiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Brampton Library - Cyril Clark, Springdale, Four Corners (Brampton, Canada)",
+    "reason": "349 vevents / 349 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bramlib.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE0MjMiLCIxNDIxIiwiNDI0OCIsIjQ1MTMiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Brampton Library - Gore Meadows, Chinguacousy, Claireville, Community Location (Brampton, Canada)",
+    "reason": "336 vevents / 336 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "bramlib.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE0MjUiLCIxNDI0IiwiMjExMCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Brampton Library - South Fletcher's, Mount Pleasant Village, South West (Brampton, Canada)",
+    "reason": "342 vevents / 342 future",
+    "status": "ok",
+    "type": "ics"
   },
   "bramlib.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGVybSI6IiIsImRheXMiOjMwfX0=": {
     "checked": 20260927,
@@ -42140,6 +42301,90 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxMjEiLCIyMTQ0Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Broward County Library - Main Library, Margate Catharine Young (Miami)",
+    "reason": "441 vevents / 441 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxMzYiLCIyMTIyIiwiMjEzOSIsIjIxMzUiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Broward County Library - Hallandale Beach, African American Research Library, Imperial Point, Galt Ocean Mile Reading Center (Miami)",
+    "reason": "301 vevents / 301 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxMzgiLCIyMTQwIiwiMjE1MiIsIjIxNTAiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Broward County Library - Hollywood, Jan Moran Collier City Learning, Pompano Beach, NSU Alvin Sherman Library (Miami)",
+    "reason": "336 vevents / 336 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNDUiLCIyMTMwIiwiMjEzNyIsIjIxNjAiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Broward County Library - Miramar, Dania Beach Paul DeMaio, Hollywood Beach Bernice P. Oster, Tyrone Bryant (Miami)",
+    "reason": "414 vevents / 414 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNDciLCIyMTQyIiwiMjEzMSIsIjIxNTkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Broward County Library - North Regional/Broward College, Lauderhill Central Park, Davie/Cooper City, Tamarac (Miami)",
+    "reason": "301 vevents / 301 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNDkiLCIyMTI0IiwiMjEyNSIsIjIxMzMiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Broward County Library - Northwest Regional (Miami)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNTQiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Broward County Library - South Regional/Broward College (Miami)",
+    "reason": "488 vevents / 488 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNTYiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Broward County Library - Southwest Regional (Miami)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNTciLCIyMTUxIiwiMjE0NiIsIjIxNDEiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Broward County Library - Marta-Beth Friedman Stirling Road, Pembroke Pines/Walter C. Young, North Lauderdale Saraniero, Lauderdale Lakes (Miami)",
+    "reason": "302 vevents / 302 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNTgiLCIyMTQzIiwiMjEyOCIsIjIxNTMiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Broward County Library - Sunrise Dan Pearl, Lauderhill Towne Centre, Carver Ranches, Riverland (Miami)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNjEiLCIyMTYzIiwiMjEyMyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Broward County Library - West Regional, Young At Art, Beach (Miami)",
+    "reason": "368 vevents / 368 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNjIiLCIyMTMyIiwiMjEyOSIsIjIxNDgiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Broward County Library - Weston, Deerfield Beach Percy White, Century Plaza/Leon Slatin, Northwest (Miami)",
+    "reason": "367 vevents / 367 future",
+    "status": "ok",
+    "type": "ics"
   },
   "broward.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
@@ -58498,6 +58743,76 @@
     "status": "fail",
     "type": "ics"
   },
+  "chesterfield.libcal.com/ical_subscribe.php?src=p&cid=23106&cam=9873": {
+    "checked": 20261010,
+    "name": "Chesterfield County Public Library - Bon Air Library (Richmond, VA)",
+    "reason": "94 vevents / 65 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.libcal.com/ical_subscribe.php?src=p&cid=23106&cam=9874": {
+    "checked": 20261010,
+    "name": "Chesterfield County Public Library - Central Library (Richmond, VA)",
+    "reason": "69 vevents / 44 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.libcal.com/ical_subscribe.php?src=p&cid=23106&cam=9875": {
+    "checked": 20261010,
+    "name": "Chesterfield County Public Library - Chester Library (Richmond, VA)",
+    "reason": "68 vevents / 45 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.libcal.com/ical_subscribe.php?src=p&cid=23106&cam=9876": {
+    "checked": 20261010,
+    "name": "Chesterfield County Public Library - Clover Hill Library (Richmond, VA)",
+    "reason": "83 vevents / 44 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.libcal.com/ical_subscribe.php?src=p&cid=23106&cam=9877": {
+    "checked": 20261010,
+    "name": "Chesterfield County Public Library - Enon Library (Richmond, VA)",
+    "reason": "16 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.libcal.com/ical_subscribe.php?src=p&cid=23106&cam=9878": {
+    "checked": 20261010,
+    "name": "Chesterfield County Public Library - Ettrick-Matoaca Library (Richmond, VA)",
+    "reason": "61 vevents / 43 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.libcal.com/ical_subscribe.php?src=p&cid=23106&cam=9879": {
+    "checked": 20261010,
+    "name": "Chesterfield County Public Library - LaPrade Library (Richmond, VA)",
+    "reason": "138 vevents / 80 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.libcal.com/ical_subscribe.php?src=p&cid=23106&cam=9880": {
+    "checked": 20261010,
+    "name": "Chesterfield County Public Library - Meadowdale Library (Richmond, VA)",
+    "reason": "53 vevents / 31 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.libcal.com/ical_subscribe.php?src=p&cid=23106&cam=9881": {
+    "checked": 20261010,
+    "name": "Chesterfield County Public Library - Midlothian Library (Richmond, VA)",
+    "reason": "128 vevents / 85 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "chesterfield.libcal.com/ical_subscribe.php?src=p&cid=23106&cam=9882": {
+    "checked": 20261010,
+    "name": "Chesterfield County Public Library - North Courthouse Road Library (Richmond, VA)",
+    "reason": "124 vevents / 60 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "chesterlittletheatre.co.uk": {
     "checked": 20260819,
     "name": "Chester Little Theatre",
@@ -72908,6 +73223,153 @@
     "status": "fail",
     "type": "tribe"
   },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk2NyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Canal Winchester (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk2OSIsIjQyNDIiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Dublin, Main Library Special Events (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk3MCIsIjk4MCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Franklinton, New Albany (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk3MSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Gahanna (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk3MiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Hilliard (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk3MyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Hilltop (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk3NCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Karl Road (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk3NSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Linden (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk3NiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Barnett (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk3NyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Main Library (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk3OCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Marion-Franklin (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk3OSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Martin Luther King (Columbus)",
+    "reason": "349 vevents / 349 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk4MSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Northern Lights (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk4MiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Northside (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk4MyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Parsons (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk4NCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Reynoldsburg (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk4NSIsIjk2OCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Shepard, Driving Park (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk4NiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - South High (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk4NyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Southeast (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk4OCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Whetstone (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjk4OSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Columbus Metropolitan Library - Whitehall (Columbus)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "columbus.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Columbus Metropolitan Library (Columbus)",
@@ -79272,6 +79734,90 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMwNSIsIjMxNSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - Brook Park, Middleburg Heights (Cleveland)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMwNiIsIjMyMiIsIjMwMCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - Brooklyn, Parma-Snow (Cleveland)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMwOCIsIjMwMSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - Fairview Park, Bay Village (Cleveland)",
+    "reason": "390 vevents / 390 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMwOSIsIjMxMSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - Garfield Heights, Independence (Cleveland)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMxMiIsIjMyNiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - Maple Heights, Bedford (Cleveland)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMxMyIsIjMyMyIsIjMxMCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - Mayfield, Richmond Heights, Gates Mills (Cleveland)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMxNiIsIjMxOCIsIjMwMyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - North Olmsted, Olmsted Falls, Berea (Cleveland)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMyMCIsIjMyMSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - Parma-Powers, Parma Heights (Cleveland)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMyNCIsIjMwNyIsIjMxOSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - Solon, Chagrin Falls, Orange (Cleveland)",
+    "reason": "470 vevents / 470 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMyNSIsIjI2NjkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - South Euclid-Lyndhurst (Cleveland)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMyNyIsIjMxNyIsIjMwNCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - Strongsville, North Royalton, Brecksville (Cleveland)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMyOCIsIjMwMiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Cuyahoga County Public Library - Warrensville Heights, Beachwood (Cleveland)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
   },
   "cuyahoga.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
@@ -101207,6 +101753,27 @@
     "status": "ok",
     "type": "localist"
   },
+  "events.dekalblibrary.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjEwNzgiLCIxMDkwIiwiMTA4OSIsIjEwODQiLCIxMDkxIiwiMTA4OCIsIjEwODIiLCIxMDgwIiwiMTE1NyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "DeKalb County Public Library - Chamblee, Redan-Trotti, Northlake-Barbara Loar, Embry Hills, Salem-Panola, Lithonia-Davidson, Doraville, Covington (Atlanta)",
+    "reason": "336 vevents / 336 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.dekalblibrary.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjEwODEiLCIxMDk0IiwiMTA5MyIsIjEwOTUiLCIxMDg3IiwiMTA4NSIsIjE3NTkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "DeKalb County Public Library - Decatur, Stone Mountain-Sue Kellogg, Scottdale-Tobie Grant Homework Center, Stonecrest, Hairston Crossing, Flat Shoals, County Line-Ellenwood (Atlanta)",
+    "reason": "337 vevents / 337 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.dekalblibrary.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjEwOTIiLCIxMDk2IiwiMTA5OCIsIjEwODMiLCIxMDc5IiwiMTA5NyIsIjEwNzciLCIxMDg2Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "DeKalb County Public Library - Scott Candler, Toco Hill-Avis G. Williams, Wesley Chapel-William C. Brown, Dunwoody, Clarkston, Tucker-Reid H. Cofer, Brookhaven, Gresham (Atlanta)",
+    "reason": "337 vevents / 337 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "events.dekalblibrary.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "DeKalb County Public Library (Atlanta)",
@@ -101282,6 +101849,41 @@
     "name": "Heights Libraries Lee Road - Kids (Cleveland)",
     "reason": "kids-filtered view of cid=16443, which is added whole",
     "status": "fail",
+    "type": "ics"
+  },
+  "events.heightslibrary.org/ical_subscribe.php?src=p&cid=16443&cam=7091": {
+    "checked": 20261010,
+    "name": "Heights Libraries - Lee Road (Cleveland Heights)",
+    "reason": "500 vevents / 336 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.heightslibrary.org/ical_subscribe.php?src=p&cid=16443&cam=7092": {
+    "checked": 20261010,
+    "name": "Heights Libraries - Coventry Village (Cleveland Heights)",
+    "reason": "217 vevents / 176 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.heightslibrary.org/ical_subscribe.php?src=p&cid=16443&cam=7093": {
+    "checked": 20261010,
+    "name": "Heights Libraries - Noble Neighborhood (Cleveland Heights)",
+    "reason": "271 vevents / 220 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.heightslibrary.org/ical_subscribe.php?src=p&cid=16443&cam=7094": {
+    "checked": 20261010,
+    "name": "Heights Libraries - University Heights (Cleveland Heights)",
+    "reason": "500 vevents / 412 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.heightslibrary.org/ical_subscribe.php?src=p&cid=16443&cam=9986": {
+    "checked": 20261010,
+    "name": "Heights Libraries - Coventry PEACE Park (Cleveland Heights)",
+    "reason": "19 vevents / 16 future",
+    "status": "ok",
     "type": "ics"
   },
   "events.htu.at": {
@@ -101424,6 +102026,83 @@
     "status": "ok",
     "type": "ics"
   },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1MyIsIjM1OTAiLCIzMTk5IiwiMzUzMyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - Centennial Hills, Sandy Valley, Mt. Charleston, Moapa Town (Las Vegas)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1NCIsIjM1OTEiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - Clark County, Meadows (Las Vegas)",
+    "reason": "491 vevents / 491 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1NSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - Enterprise (Las Vegas)",
+    "reason": "485 vevents / 485 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1OCIsIjE3MSIsIjM1MzUiLCIyMDY0Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - Rainbow, Laughlin, Searchlight (Las Vegas)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1OSIsIjE2MyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - Sahara West, West Charleston (Las Vegas)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE2MCIsIjM1MzIiLCIzNTM0IiwiMzYyMSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - Spring Valley, Indian Springs, Moapa Valley, Bunkerville (Las Vegas)",
+    "reason": "394 vevents / 394 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE2NSIsIjE2NiIsIjM1MzEiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - Whitney, Windmill, Goodsprings (Las Vegas)",
+    "reason": "462 vevents / 462 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE3MiIsIjE2MSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - Mesquite, Summerlin (Las Vegas)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE5MzAiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - East Las Vegas (Las Vegas)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM1MzAiLCIyMDMxIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - Blue Diamond, Sunrise (Las Vegas)",
+    "reason": "353 vevents / 353 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQzNjkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Las Vegas-Clark County Library District - West Las Vegas (Las Vegas)",
+    "reason": "488 vevents / 488 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "events.thelibrarydistrict.org/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260927,
     "name": "Las Vegas-Clark County Library District (Las Vegas)",
@@ -101498,6 +102177,69 @@
     "checked": 20260927,
     "name": "Yolo County Library (Davis/West Sacramento/Woodland)",
     "reason": "248 future, 248 placeable",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.yolocountylibrary.org/ical_subscribe.php?src=p&cid=21064&cam=8981": {
+    "checked": 20261010,
+    "name": "Yolo County Library - Mary L. Stephens Davis Branch Library (Sacramento)",
+    "reason": "500 vevents / 384 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.yolocountylibrary.org/ical_subscribe.php?src=p&cid=21064&cam=8982": {
+    "checked": 20261010,
+    "name": "Yolo County Library - Arthur F. Turner Community Library (Sacramento)",
+    "reason": "452 vevents / 400 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.yolocountylibrary.org/ical_subscribe.php?src=p&cid=21064&cam=8983": {
+    "checked": 20261010,
+    "name": "Yolo County Library - Clarksburg Branch Library (Sacramento)",
+    "reason": "35 vevents / 29 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.yolocountylibrary.org/ical_subscribe.php?src=p&cid=21064&cam=8984": {
+    "checked": 20261010,
+    "name": "Yolo County Library - Esparto Regional Library (Sacramento)",
+    "reason": "40 vevents / 28 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.yolocountylibrary.org/ical_subscribe.php?src=p&cid=21064&cam=8985": {
+    "checked": 20261010,
+    "name": "Yolo County Library - Knights Landing Branch Library (Sacramento)",
+    "reason": "17 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.yolocountylibrary.org/ical_subscribe.php?src=p&cid=21064&cam=8986": {
+    "checked": 20261010,
+    "name": "Yolo County Library - Winters Community Library (Sacramento)",
+    "reason": "105 vevents / 92 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.yolocountylibrary.org/ical_subscribe.php?src=p&cid=21064&cam=8987": {
+    "checked": 20261010,
+    "name": "Yolo County Library - Yolo Branch Library (Sacramento)",
+    "reason": "46 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.yolocountylibrary.org/ical_subscribe.php?src=p&cid=21064&cam=9100": {
+    "checked": 20261010,
+    "name": "Yolo County Library - Yolo Bibliobus (Sacramento)",
+    "reason": "73 vevents / 49 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "events.yolocountylibrary.org/ical_subscribe.php?src=p&cid=21064&cam=9108": {
+    "checked": 20261010,
+    "name": "Yolo County Library - South Davis Montgomery Library (Sacramento)",
+    "reason": "11 vevents / 3 future",
     "status": "ok",
     "type": "ics"
   },
@@ -126631,6 +127373,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gwinnettpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNjYiLCIyMTc2IiwiMjE3MSIsIjIxNjkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Gwinnett County Public Library - Collins Hill, Peachtree Corners, Hamilton Mill, Five Forks (Atlanta)",
+    "reason": "278 vevents / 278 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "gwinnettpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNjgiLCIyMTcwIiwiMjE2NCIsIjIyNzkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Gwinnett County Public Library - Duluth, Grayson, Buford-Sugar Hill, Offsite (Atlanta)",
+    "reason": "246 vevents / 246 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "gwinnettpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNzIiLCIyMTc3IiwiMjE2NyIsIjIxNzQiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Gwinnett County Public Library - Lawrenceville Hooper-Renwick, Snellville, Dacula, Mountain Park (Atlanta)",
+    "reason": "284 vevents / 284 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "gwinnettpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjIxNzMiLCIyMTc1IiwiMjE2NSIsIjIxNzgiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Gwinnett County Public Library - Lilburn, Norcross, Centerville, Suwanee (Atlanta)",
+    "reason": "300 vevents / 300 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "gwinnettpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Gwinnett County Public Library (Atlanta)",
@@ -130813,6 +131583,62 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM3NDQiLCIzNzY0IiwiMzc2NyIsIjM3NzAiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Hillsborough County Public Library Cooperative - Bloomingdale, Seminole Heights, Thonotosassa, West Tampa (Tampa)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM3NDUiLCIzNzYyIiwiMzc0NyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Hillsborough County Public Library Cooperative - Brandon, Ruskin, C. Blythe Andrews, Jr. (Tampa)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM3NDYiLCIzNzYxIiwiMzc1OSIsIjM3NDkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Hillsborough County Public Library Cooperative - Bruton, Robert W. Saunders, Sr., Port Tampa, Egypt Lake (Tampa)",
+    "reason": "445 vevents / 445 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM3NTAiLCIzNzQzIiwiMzc0MSIsIjM1NzciXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Hillsborough County Public Library Cooperative - John F. Germany, Austin Davis, 78th Street, Tampa-Hillsborough County (Tampa)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM3NTIiLCIzNzU4IiwiMzc0MiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Hillsborough County Public Library Cooperative - Jimmie B. Keel, North Tampa, Arthenia L. Joyner University Area (Tampa)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM3NTMiLCIzNzY4IiwiMzc1NSIsIjM3NjYiLCI0NTcwIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Hillsborough County Public Library Cooperative - Jan Kaminis Platt, Town 'N Country, Lutz, Temple Terrace (Tampa)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM3NTciLCIzNzU2IiwiMzc2MyIsIjM3NTQiLCIzNzY1Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Hillsborough County Public Library Cooperative - New Tampa, Maureen B. Gauzza, Seffner-Mango (Tampa)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM3NjAiLCIzNzQ4Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Hillsborough County Public Library Cooperative - Riverview, Charles J. Fendig (Tampa)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "hcplc.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Hillsborough County Public Library Cooperative (Tampa)",
@@ -133246,6 +134072,69 @@
     "checked": 20260927,
     "name": "Henrico County Public Library (Richmond, VA)",
     "reason": "317 future, 317 placeable",
+    "status": "ok",
+    "type": "ics"
+  },
+  "henricolibrary-va.libcal.com/ical_subscribe.php?src=p&cid=12755&cam=5227": {
+    "checked": 20261010,
+    "name": "Henrico County Public Library - Gayton Branch Library (Richmond, VA)",
+    "reason": "70 vevents / 58 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "henricolibrary-va.libcal.com/ical_subscribe.php?src=p&cid=12755&cam=5228": {
+    "checked": 20261010,
+    "name": "Henrico County Public Library - Libbie Mill Area Library (Richmond, VA)",
+    "reason": "172 vevents / 135 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "henricolibrary-va.libcal.com/ical_subscribe.php?src=p&cid=12755&cam=5443": {
+    "checked": 20261010,
+    "name": "Henrico County Public Library - Fairfield Area Library (Richmond, VA)",
+    "reason": "219 vevents / 175 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "henricolibrary-va.libcal.com/ical_subscribe.php?src=p&cid=12755&cam=5444": {
+    "checked": 20261010,
+    "name": "Henrico County Public Library - Glen Allen Branch Library (Richmond, VA)",
+    "reason": "44 vevents / 38 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "henricolibrary-va.libcal.com/ical_subscribe.php?src=p&cid=12755&cam=5445": {
+    "checked": 20261010,
+    "name": "Henrico County Public Library - North Park Branch Library (Richmond, VA)",
+    "reason": "71 vevents / 55 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "henricolibrary-va.libcal.com/ical_subscribe.php?src=p&cid=12755&cam=5446": {
+    "checked": 20261010,
+    "name": "Henrico County Public Library - Sandston Branch Library (Richmond, VA)",
+    "reason": "43 vevents / 34 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "henricolibrary-va.libcal.com/ical_subscribe.php?src=p&cid=12755&cam=5447": {
+    "checked": 20261010,
+    "name": "Henrico County Public Library - Tuckahoe Area Library (Richmond, VA)",
+    "reason": "187 vevents / 147 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "henricolibrary-va.libcal.com/ical_subscribe.php?src=p&cid=12755&cam=5448": {
+    "checked": 20261010,
+    "name": "Henrico County Public Library - Twin Hickory Area Library (Richmond, VA)",
+    "reason": "172 vevents / 136 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "henricolibrary-va.libcal.com/ical_subscribe.php?src=p&cid=12755&cam=5449": {
+    "checked": 20261010,
+    "name": "Henrico County Public Library - Varina Area Library (Richmond, VA)",
+    "reason": "120 vevents / 94 future",
     "status": "ok",
     "type": "ics"
   },
@@ -136116,6 +137005,27 @@
     "checked": 20260927,
     "name": "Hussey-Mayfield Memorial Public Library (Indianapolis)",
     "reason": "220 future, 220 placeable",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hmmpl.libcal.com/ical_subscribe.php?src=p&cid=20337&cam=8484": {
+    "checked": 20261010,
+    "name": "Hussey-Mayfield Memorial Public Library - Whitestown Branch (Indianapolis)",
+    "reason": "418 vevents / 297 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hmmpl.libcal.com/ical_subscribe.php?src=p&cid=20337&cam=8485&cat=74514,75933,74515,83967,74499,74503,74500,74501,74502,74505,74504,77083,74507,74508,74509,74513,75972,74512,74510": {
+    "checked": 20261010,
+    "name": "Hussey-Mayfield Memorial Public Library - Zionsville Branch, other programmes (Indianapolis)",
+    "reason": "500 vevents / 373 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hmmpl.libcal.com/ical_subscribe.php?src=p&cid=20337&cam=8485&cat=75193": {
+    "checked": 20261010,
+    "name": "Hussey-Mayfield Memorial Public Library - Zionsville Branch, MakerStudio (Indianapolis)",
+    "reason": "156 vevents / 111 future",
     "status": "ok",
     "type": "ics"
   },
@@ -138991,6 +139901,76 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE0MDEiLCIxMzg1Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Hamilton Public Library - Terryberry, Barton (Hamilton, Canada)",
+    "reason": "337 vevents / 337 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE0MDIiLCIxMzk1IiwiMTM4NyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Hamilton Public Library - Turner Park, Lynden, Carlisle (Hamilton, Canada)",
+    "reason": "365 vevents / 365 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE0MDMiLCIxNDAwIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Hamilton Public Library - Valley Park, Stoney Creek (Hamilton, Canada)",
+    "reason": "352 vevents / 352 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE0MDQiLCIxMzk5Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Hamilton Public Library - Waterdown, Sherwood (Hamilton, Canada)",
+    "reason": "351 vevents / 351 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjEzODYiLCIxMzg0Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Hamilton Public Library - Binbrook, Ancaster (Hamilton, Canada)",
+    "reason": "327 vevents / 327 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjEzODgiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Hamilton Public Library - Central Library (Hamilton, Canada)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjEzOTAiLCIxMzk0IiwiMTM5MSIsIjIzNDUiLCIxNTg5Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Hamilton Public Library - Dundas, Locke, Freelton, External Events (Hamilton, Canada)",
+    "reason": "336 vevents / 336 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjEzOTMiLCIxNDA1IiwiMTM5NiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Hamilton Public Library - Kenilworth, Westdale, Mount Hope (Hamilton, Canada)",
+    "reason": "366 vevents / 366 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjEzOTciLCI0MzMxIiwiMjk0NyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Hamilton Public Library - Red Hill, West Harbour, Parkdale (Hamilton, Canada)",
+    "reason": "357 vevents / 357 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjEzOTgiLCIxMzg5IiwiMTM5MiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Hamilton Public Library - Saltfleet, Concession, Greensville (Hamilton, Canada)",
+    "reason": "375 vevents / 375 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "hpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGVybSI6IiIsImRheXMiOjMwfX0=": {
     "checked": 20260927,
     "name": "Hamilton Public Library (Hamilton, Canada)",
@@ -141457,6 +142437,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ideaexchange.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI2ODMiLCIyNjg0Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Idea Exchange - Cambridge Public Library - Queen's Square, Preston (Cambridge, Canada)",
+    "reason": "295 vevents / 295 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ideaexchange.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI2ODUiLCIyNjg2IiwiMjY4NyIsIjMxNzAiLCIyOTkzIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Idea Exchange - Cambridge Public Library - Old Post Office, Hespeler, Clemens Mill, Multiple Locations, In the Community (Cambridge, Canada)",
+    "reason": "314 vevents / 314 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "ideaexchange.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGVybSI6IiIsImRheXMiOjMwfX0=": {
     "checked": 20260927,
     "name": "Idea Exchange - Cambridge Public Library (Cambridge, Canada)",
@@ -143635,6 +144629,41 @@
     "reason": "37 future, 34 placeable",
     "status": "ok",
     "type": "tribe"
+  },
+  "indianapolis.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1OTAiLCIyOTM0IiwiMTYzMCIsIjE2MTYiLCIxNjIzIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Indianapolis Public Library - Central, West Perry, Warren, Michigan Road, InfoZone (Indianapolis)",
+    "reason": "314 vevents / 314 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "indianapolis.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE2MTEiLCIxNjI2IiwiMTYyNyIsIjE2MzIiLCIxNjI0IiwiMjg0MiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Indianapolis Public Library - College Avenue, Nora, Pike, West Indianapolis, Irvington, Library Services Center (Indianapolis)",
+    "reason": "315 vevents / 315 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "indianapolis.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE2MTQiLCIzNDkxIiwiMTYwOSIsIjE2MjIiLCIxNjE5IiwiMTY2MSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Indianapolis Public Library - East 38th Street, Fort Ben, Beech Grove, Haughville, Garfield Park, Community Location (Indianapolis)",
+    "reason": "304 vevents / 304 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "indianapolis.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE2MjAiLCIxNjEwIiwiMTYyOCIsIjE2MTMiLCIxNjE4Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Indianapolis Public Library - Glendale, Martindale-Brightwood, Southport, Eagle, Franklin Road (Indianapolis)",
+    "reason": "318 vevents / 318 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "indianapolis.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE2MjUiLCIxNjMxIiwiMTYyOSIsIjE2MTUiLCIxNjEyIiwiMTY2MCIsIjM0MjIiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Indianapolis Public Library - Lawrence, Wayne, Spades Park, East Washington, Decatur (Indianapolis)",
+    "reason": "321 vevents / 321 future",
+    "status": "ok",
+    "type": "ics"
   },
   "indianapolis.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
@@ -148283,6 +149312,41 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "jaxpubliclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE4MDIiLCIxODE2IiwiMTgxNSIsIjE4MjIiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Jacksonville Public Library - Beaches, San Marco, Regency Square, West (Jacksonville)",
+    "reason": "211 vevents / 211 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "jaxpubliclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE4MDkiLCIxNzkwIiwiMTgxMiIsIjE4MDgiLCIxODEzIiwiMTgxOSIsIjE4MjAiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Jacksonville Public Library - Highlands Regional, Argyle, Bill Brinton Murray Hill, Dallas Graham (Jacksonville)",
+    "reason": "270 vevents / 270 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "jaxpubliclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE4MTQiLCIxODA2IiwiMTgxMSIsIjE4MDQiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Jacksonville Public Library - Pablo Creek Regional, Charles Webb Wesconnett Regional, Maxville, Brentwood (Jacksonville)",
+    "reason": "280 vevents / 280 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "jaxpubliclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE4MTciLCIxODEwIiwiMTgyNCIsIjE4MDUiLCI0MjE2Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Jacksonville Public Library - South Mandarin, Mandarin, Willow, Brown Eastside, Bookmobile (Jacksonville)",
+    "reason": "283 vevents / 283 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "jaxpubliclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE4MTgiLCIxNzgyIiwiMTgyMSIsIjE4MDMiLCIxODIzIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Jacksonville Public Library - Southeast Regional, Main Library, University Park, Bradham and Brooks, Westbrook (Jacksonville)",
+    "reason": "253 vevents / 253 future",
+    "status": "ok",
+    "type": "ics"
   },
   "jaxpubliclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
@@ -167951,6 +169015,62 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lacountylibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI3MDEiLCIyNzQ1IiwiMjc3NSIsIjI3NjUiLCIyNzM4IiwiMjc0OSIsIjI3MjgiLCIyNzIyIiwiMjcwMiIsIjI3MjUiLCIyNzY3Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "LA County Library - Agoura Hills, Lawndale, Temple City, Rosemead, La Ca\u00f1ada Flintridge, Live Oak, Gardena Mayme Dear, Duarte, Alondra, El Camino Real, San Dimas (Los Angeles)",
+    "reason": "189 vevents / 189 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lacountylibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI3MDYiLCIyNzIwIiwiMjc0NiIsIjI2OTkiLCIyNzU0IiwiMjcwNSIsIjI3ODMiLCIyNzAwIiwiMjcwOSIsIjM5ODciXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "LA County Library - Avalon, Diamond Bar, Leland R. Weaver, A C Bilbrew, Malibu, Artesia, Wiseburn, Acton Agua Dulce, Bell Express, Off-Site (Los Angeles)",
+    "reason": "204 vevents / 204 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lacountylibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI3MTAiLCIyNzA3IiwiMjc1OSIsIjI3NDMiLCIyNzI0IiwiMjc4MiIsIjI3NjkiLCIyNzUxIiwiMjc3MSIsIjI3NDIiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "LA County Library - Carson, Baldwin Park, Norwalk, Lake Los Angeles, East Rancho Dominguez, Willowbrook, San Gabriel, Lomita, South El Monte, La Verne (Los Angeles)",
+    "reason": "207 vevents / 207 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lacountylibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI3MTkiLCIyNzMyIiwiMjc1NiIsIjI3MDQiLCIyNzE2IiwiMjc3MiIsIjI3NjMiLCIyNzM0IiwiMjc2MiIsIjI3MTMiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "LA County Library - Culver City Julian Dixon, Hacienda Heights, Masao W. Satow, Anthony Quinn, Clifton M. Brakensiek, South Whittier, Quartz Hill, Hawthorne, Pico Rivera, Chet Holifield (Los Angeles)",
+    "reason": "203 vevents / 203 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lacountylibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI3MjMiLCIyNzE3IiwiMjcxNSIsIjI3NzkiLCIyNzE4IiwiMjcwMyIsIjI3ODEiLCIyNzcwIiwiMjcxNCIsIjI3MzMiLCIyNzU3Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "LA County Library - East Los Angeles, Compton, Claremont Helen Renwick, West Covina, Cudahy, Angelo M. Iacoboni, Westlake Village, Sorensen, City Terrace, Hawaiian Gardens, Maywood (Los Angeles)",
+    "reason": "190 vevents / 190 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lacountylibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI3MjciLCIyNzI2IiwiMjc1MCIsIjI3NjgiLCIyNzM5IiwiMjc1MiIsIjI3NDAiLCIyNzMwIiwiMjc0MSIsIjI3MjkiLCIyNzIxIiwiMjczNyIsIjI3NTgiLCIyNzYwIiwiMjc2NCIsIjI5ODUiLCIyOTg2IiwiMjk4NyIsIjI5ODgiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "LA County Library - Florence, El Monte, Lloyd Taber-Marina del Rey, San Fernando, La Crescenta, Los Nietos, La Mirada, Graham, La Puente, George Nye Jr. (Los Angeles)",
+    "reason": "182 vevents / 182 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lacountylibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI3NDQiLCIyNzU1IiwiMjc3NyIsIjI3NzQiLCIyNzc4IiwiMjc3MyIsIjI3NzYiLCIyNzUzIiwiMjczNiIsIjI3MTIiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "LA County Library - Lancaster, Manhattan Beach, View Park Bebe Moore Campbell, Sunkist, Walnut, Stevenson Ranch, Topanga, Lynwood, Hollydale, Charter Oak (Los Angeles)",
+    "reason": "184 vevents / 184 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "lacountylibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI3ODAiLCIyNzM1IiwiMjc0NyIsIjI3MDgiLCIyNzY2IiwiMjcxMSIsIjI3ODQiLCIyNzYxIiwiMjc0OCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "LA County Library - West Hollywood, Hermosa Beach, Lennox, Bell Gardens, Rowland Heights, Castaic, Woodcrest, Paramount, Littlerock (Los Angeles)",
+    "reason": "212 vevents / 212 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "lacountylibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260927,
     "name": "LA County Library (Los Angeles)",
@@ -183340,6 +184460,48 @@
     "status": "ok",
     "type": "ics"
   },
+  "loudoun.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM1NTkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Loudoun County Public Library - Ashburn (Washington)",
+    "reason": "282 vevents / 282 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "loudoun.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM1NjMiLCIzNTY5Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Loudoun County Public Library - Brambleton, Purcellville (Washington)",
+    "reason": "346 vevents / 346 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "loudoun.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM1NjQiLCIzNTY2Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Loudoun County Public Library - Cascades (Washington)",
+    "reason": "258 vevents / 258 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "loudoun.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM1NjUiLCIzNTY4Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Loudoun County Public Library - Gum Spring, Middleburg (Washington)",
+    "reason": "328 vevents / 328 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "loudoun.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM1NzAiLCIzNTc5Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Loudoun County Public Library - Rust, Offsite (Washington)",
+    "reason": "288 vevents / 288 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "loudoun.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM1NzEiLCIzNTY3Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Loudoun County Public Library - Sterling, Lovettsville (Washington)",
+    "reason": "259 vevents / 259 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "loudoun.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Loudoun County Public Library (Washington)",
@@ -191804,6 +192966,111 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1MDkiLCIxNTc0IiwiMTUzNiIsIjE1MzQiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Main Library, Palmetto Bay, Bay Harbor Islands, North Shore (Miami)",
+    "reason": "413 vevents / 413 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1MTEiLCIxNTQ2IiwiMTU1MSIsIjE1MTciXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Culmer/Overtown, Sunset, California Club, Edison Center (Miami)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1MTUiLCIxODczIiwiMTU0MCIsIjE1MzMiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Shenandoah, Country Walk, International Mall, North Central (Miami)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1MjUiLCIxNTc5IiwiMTUyOCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Miami Beach Regional, Naranja, Little River (Miami)",
+    "reason": "449 vevents / 449 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1MzIiLCIxNTI3IiwiMTUyNiIsIjE1NDQiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Miami Springs, West Flagler, Coral Gables, Doral (Miami)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1MzciLCIxNTEyIiwiMTU0OSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Pinecrest, Hispanic, Sunny Isles Beach (Miami)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1MzkiLCIxNTUyIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Westchester Regional, Tamiami (Miami)",
+    "reason": "394 vevents / 394 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1NDMiLCIxNTQyIiwiMTUyNCIsIjE1MTkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Hialeah Gardens, Kendall, Virrick Park, Model City (Miami)",
+    "reason": "480 vevents / 480 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1NDUiLCIxNTMxIiwiMTU3NSIsIjE1MTMiLCIxNTMwIiwiMTk2NSIsIjE5NjYiLCIxOTY3IiwiMTk2OCIsIjE5NjkiLCIxOTcwIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Concord, Fairlawn, Palm Springs North (Miami)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1NDciLCIxNTE4IiwiMTUxNiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - North Dade Regional, Lemon City, South Shore (Miami)",
+    "reason": "433 vevents / 433 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1NTAiLCIxNTM4IiwiMTU0MSIsIjE1MzUiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Northeast Dade-Aventura, Opa-locka, Golden Glades, South Miami (Miami)",
+    "reason": "434 vevents / 434 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1NTMiLCIxNTIyIiwiNDU2MyIsIjQ0OTYiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Coral Reef, Arcola Lakes, Allapattah (Temporary Location), Key Biscayne (Temporary Location) (Miami)",
+    "reason": "439 vevents / 439 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1NzciXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Kendale Lakes (Miami)",
+    "reason": "396 vevents / 396 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1NzgiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - West Kendall Regional (Miami)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMwODAiLCIxNTIzIiwiMTU3NiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Miami-Dade Public Library System - Westchester Health and Wellness Information Center, Coconut Grove, Lakes of the Meadow (Miami)",
+    "reason": "417 vevents / 417 future",
+    "status": "ok",
+    "type": "ics"
   },
   "mdpls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
@@ -202688,6 +203955,34 @@
     "status": "fail",
     "type": "tribe"
   },
+  "mpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQwMzQiLCI0MDM5IiwiNDAzMSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Milwaukee Public Library - Good Hope, Washington Park, Capitol (Milwaukee)",
+    "reason": "217 vevents / 217 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQwMzUiLCI0MDMyIiwiNDAyOSIsIjQwMzgiLCI0MTA0Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Milwaukee Public Library - Martin Luther King, Center Street, Atkinson, Villard Square (Milwaukee)",
+    "reason": "266 vevents / 266 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQwMzYiLCI0MDMwIiwiNDAzNyIsIjQwNDAiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Milwaukee Public Library - Mitchell Street, Bay View, Tippecanoe, Zablocki (Milwaukee)",
+    "reason": "316 vevents / 316 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "mpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQwNDIiLCIzOTA2IiwiNDAzMyIsIjQxMDIiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Milwaukee Public Library - Central Library, Centennial Hall, East (Milwaukee)",
+    "reason": "433 vevents / 433 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "mpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Milwaukee Public Library (Milwaukee)",
@@ -213482,6 +214777,20 @@
     "status": "ok",
     "type": "tribe"
   },
+  "neworleans.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1OTIiLCIxNTkzIiwiMTYwNyIsIjE2MDYiLCIxNjA0IiwiMTU5NCIsIjM1MjkiLCIxNTk3IiwiMzE1NSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "New Orleans Public Library - Main Library, Algiers Regional, Robert E. Smith, Nix, Mid-City, Alvar, REACH Center, Children's Resource Center, In the Community (New Orleans)",
+    "reason": "296 vevents / 296 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "neworleans.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE1OTgiLCIxNjAyIiwiMTU5OSIsIjE2MDMiLCIxNTk1IiwiMTYwMSIsIjE2MDUiLCIxNjAwIiwiMzkyNyIsIjQ1NzEiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "New Orleans Public Library - East New Orleans Regional, Milton H. Latter Memorial, Cita Dennis Hubbell, Norman Mayer, Central City, Dr. Martin Luther King Jr., Nora Navra, Rosa F. Keller, Desire/Florida Satellite (New Orleans)",
+    "reason": "300 vevents / 300 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "neworleans.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "New Orleans Public Library (New Orleans)",
@@ -215086,6 +216395,181 @@
     "checked": 20260727,
     "name": "National Library Board GoLibrary (Singapore)",
     "reason": "500 vevents / 86 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5737": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Ang Mo Kio Library (Singapore)",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5738": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Bedok Library (Singapore)",
+    "reason": "20 vevents / 14 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5739": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Bishan Library (Singapore)",
+    "reason": "26 vevents / 15 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5740": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Bukit Batok Library (Singapore)",
+    "reason": "30 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5741": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Bukit Panjang Library (Singapore)",
+    "reason": "31 vevents / 18 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5742": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Central Arts Library (Singapore)",
+    "reason": "33 vevents / 17 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5743": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Central Library (Singapore)",
+    "reason": "80 vevents / 44 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5745": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Choa Chu Kang Library (Singapore)",
+    "reason": "39 vevents / 16 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5746": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Clementi Library (Singapore)",
+    "reason": "24 vevents / 11 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5747": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Geylang East Library (Singapore)",
+    "reason": "40 vevents / 24 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5748": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Jurong Library (Singapore)",
+    "reason": "61 vevents / 33 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5749": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Jurong West Library (Singapore)",
+    "reason": "18 vevents / 5 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5751": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Harbourfront Library (Singapore)",
+    "reason": "52 vevents / 35 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5755": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - National Archives of Singapore (Singapore)",
+    "reason": "1 vevents / 1 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5756": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - National Library Building (Singapore)",
+    "reason": "84 vevents / 40 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5758": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Pasir Ris Library (Singapore)",
+    "reason": "18 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5759": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Punggol Library (Singapore)",
+    "reason": "143 vevents / 85 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5761": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Sembawang Library (Singapore)",
+    "reason": "10 vevents / 4 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5762": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Sengkang Library (Singapore)",
+    "reason": "18 vevents / 9 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5763": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Tampines Library (Singapore)",
+    "reason": "65 vevents / 34 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5764": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Serangoon Library (Singapore)",
+    "reason": "17 vevents / 7 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5765": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Toa Payoh Library (Singapore)",
+    "reason": "26 vevents / 15 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5766": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Woodlands Library (Singapore)",
+    "reason": "68 vevents / 36 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5767": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Yishun Library (Singapore)",
+    "reason": "12 vevents / 6 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "nlb.libcal.com/ical_subscribe.php?src=p&cid=11498&cam=5789": {
+    "checked": 20261010,
+    "name": "National Library Board GoLibrary - Chinatown Library (Singapore)",
+    "reason": "13 vevents / 5 future",
     "status": "ok",
     "type": "ics"
   },
@@ -220287,6 +221771,83 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQ1NjkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Orange County Library System - Horizon West (Orlando)",
+    "reason": "362 vevents / 362 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjYwOCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Orange County Library System - Alafaya (Orlando)",
+    "reason": "374 vevents / 374 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjYwOSIsIjYxMSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Orange County Library System - Chickasaw, Fairview Shores (Orlando)",
+    "reason": "389 vevents / 389 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjYxNSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Orange County Library System - North Orange (Orlando)",
+    "reason": "313 vevents / 313 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjYxNiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Orange County Library System - Orlando Public Library (Orlando)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjYxOCIsIjQzNjgiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Orange County Library System - South Trail, Offsite (Orlando)",
+    "reason": "428 vevents / 428 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjYxOSIsIjYxMCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Orange County Library System - Southeast, Eatonville (Orlando)",
+    "reason": "492 vevents / 492 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjYyMCIsIjYyMSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Orange County Library System - Southwest, Washington Park (Orlando)",
+    "reason": "359 vevents / 359 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjYyMiIsIjYxNyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Orange County Library System - West Oaks, South Creek (Orlando)",
+    "reason": "469 vevents / 469 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjYyMyIsIjYxMyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Orange County Library System - Windermere, Hiawassee (Orlando)",
+    "reason": "421 vevents / 421 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjYyNCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Orange County Library System - Winter Garden (Orlando)",
+    "reason": "307 vevents / 307 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "ocls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Orange County Library System (Orlando)",
@@ -224418,6 +225979,27 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "opl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE2ODIiLCIxNjc3IiwiMTY4NiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Oakville Public Library - Glen Abbey, Central, Woodside (Toronto)",
+    "reason": "354 vevents / 354 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "opl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE2ODQiLCIxNjgzIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Oakville Public Library - Sixteen Mile, Iroquois Ridge (Toronto)",
+    "reason": "330 vevents / 330 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "opl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE2ODUiLCIxNjgxIiwiMTg3NiIsIjI2NjgiLCIzMjY2Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Oakville Public Library - White Oaks, Clearview (Toronto)",
+    "reason": "213 vevents / 213 future",
+    "status": "ok",
+    "type": "ics"
   },
   "opl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGVybSI6IiIsImRheXMiOjMwfX0=": {
     "checked": 20260927,
@@ -232561,6 +234143,34 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pascolibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM5OTQiLCI0MDE1IiwiNDE3MyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Pasco County Public Library Cooperative - Land O'Lakes (Tampa)",
+    "reason": "290 vevents / 290 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "pascolibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM5OTgiLCIzOTk2IiwiMzk5NyIsIjM5OTEiLCIzOTkyIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Pasco County Public Library Cooperative - Starkey Ranch, Regency Park, South Holiday, Centennial Park, Hudson Regional (Tampa)",
+    "reason": "325 vevents / 325 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "pascolibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM5OTkiLCIzOTkzIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Pasco County Public Library Cooperative - Zephyrhills, Hugh Embry (Dade City) (Tampa)",
+    "reason": "321 vevents / 321 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "pascolibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQ0OTkiLCIzOTk1Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Pasco County Public Library Cooperative - Wesley Chapel, New River (Tampa)",
+    "reason": "180 vevents / 180 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "pascolibraries.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
     "name": "Pasco County Libraries (Tampa)",
@@ -237584,6 +239194,20 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "plano.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMyMTkiLCIzMjIyIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Plano Public Library - Haggard, Schimelpfenig (Dallas)",
+    "reason": "289 vevents / 289 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "plano.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMyMjAiLCIzMjE4IiwiMzIyMSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Plano Public Library - Harrington, Davis, Parr (Dallas)",
+    "reason": "391 vevents / 391 future",
+    "status": "ok",
+    "type": "ics"
   },
   "plano.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
@@ -242705,6 +244329,34 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "pueblolibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI2MDAiLCIyNjA5IiwiMjY3MSIsIjM0ODciXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Pueblo City-County Library - Rawlings (Main Branch) (Pueblo)",
+    "reason": "286 vevents / 286 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "pueblolibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI2MDQiLCIyNjAzIiwiMjY4MSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Pueblo City-County Library - Greenhorn Valley, Barkman, Library @ the Y (Pueblo)",
+    "reason": "314 vevents / 314 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "pueblolibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI2MTAiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Pueblo City-County Library - Pueblo West (Pueblo)",
+    "reason": "366 vevents / 366 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "pueblolibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjI2MTIiLCIyNjA1IiwiMjYwOCIsIjQ0ODkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Pueblo City-County Library - Giodone, Lamb, Patrick A. Lucero, Ryals Grand Event Space (Pueblo)",
+    "reason": "294 vevents / 294 future",
+    "status": "ok",
+    "type": "ics"
   },
   "pueblolibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260927,
@@ -253531,6 +255183,34 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "rpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM5NSIsIjQ2MiIsIjQ2NSIsIjMyNDEiLCI0NjQiLCI4NzAiLCI1MjQiLCIzMDk1Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Regina Public Library - Central Library (Regina)",
+    "reason": "340 vevents / 340 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "rpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM5OCIsIjM5NyIsIjM5NiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Regina Public Library - George Bothwell, Connaught, Albert (Regina)",
+    "reason": "272 vevents / 272 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "rpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQwMSIsIjQwMiIsIjQ2NiIsIjIyODAiLCI0NjEiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Regina Public Library - Regent Place, Sherwood Village (Regina)",
+    "reason": "383 vevents / 383 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "rpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQwMyIsIjM5OSIsIjQwMCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Regina Public Library - Sunrise, Glen Elm, Prince of Wales (Regina)",
+    "reason": "306 vevents / 306 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "rpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGVybSI6IiIsImRheXMiOjMwfX0=": {
     "checked": 20260927,
     "name": "Regina Public Library (Regina, Canada)",
@@ -255133,6 +256813,41 @@
     "reason": "probe 2026-09-28: Wix events page with no server-rendered event slugs; jsonld adapter reads nothing",
     "status": "fail",
     "type": "jsonld"
+  },
+  "saclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM4NzQiLCIzODkzIiwiNDA1NCIsIjM5MDQiLCIzODg5IiwiMzg4MiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Sacramento Public Library - Arden-Dimick, North Natomas, Offsite, Valley Hi-North Laguna, Martin Luther King, Jr., Ella K. McClatchy (Sacramento)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "saclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM4NzgiLCIzODk4IiwiMzkwMiIsIjM5MDUiLCIzODg2Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Sacramento Public Library - Central, Robbie Waters Pocket-Greenhaven, Sylvan Oaks, Walnut Grove, Isleton (Sacramento)",
+    "reason": "391 vevents / 391 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "saclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM4OTUiLCIzODczIiwiMzg4MyIsIjM4ODUiLCI0NTk0IiwiMzg5MCIsIjM4NzciLCIzOTAzIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Sacramento Public Library - Orangevale, Arcade, Fair Oaks, Galt-Marian O. Lawrence, Elk Grove, McKinley, Carmichael, Tsakopoulos Library Galleria (Sacramento)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "saclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM4OTYiLCIzODkyIiwiMzg3NiIsIjM5MDAiLCIzODkxIiwiMzg4MCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Sacramento Public Library - Rancho Cordova, North Highlands-Antelope, Belle Cooledge, South Natomas, Nonie Wetzel Courtland, Del Paso Heights (Sacramento)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "saclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM5MDEiLCIzODg0IiwiMzg3OSIsIjM4OTciLCI0MDU1IiwiMzg5NCIsIjM4OTkiLCIzODgxIiwiNDA1NiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Sacramento Public Library - Southgate, Franklin, Colonial Heights, Rio Linda, Bookmobile, North Sacramento-Hagginwood, Sacramento Room (Sacramento)",
+    "reason": "495 vevents / 495 future",
+    "status": "ok",
+    "type": "ics"
   },
   "saclibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260927,
@@ -259149,6 +260864,27 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "santacruzpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQzMDQiLCI0MzIxIiwiNDMxOCIsIjQzMjMiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Santa Cruz Public Libraries - Aptos, Scotts Valley, Garfield Park, Live Oak Annex (LOLA) (Santa Cruz)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "santacruzpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQzMTEiLCI0MzE3IiwiNDMxNiIsIjQzMjAiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Santa Cruz Public Libraries - Capitola, Felton, Branciforte, Live Oak (Santa Cruz)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "santacruzpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQzMTIiLCI0MzE5IiwiNDMxNSIsIjQzMzQiLCI0MzM1IiwiNDMyMiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Santa Cruz Public Libraries - Downtown, La Selva Beach, Boulder Creek, Offsite, Systemwide (Santa Cruz)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "santacruzpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260927,
     "name": "Santa Cruz Public Libraries (Santa Cruz)",
@@ -262391,6 +264127,27 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "sclsnj.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQ3MiIsIjQ3NyIsIjQ3NiIsIjQ3OSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Somerset County Library System of New Jersey - Hillsborough, Somerville, Peapack and Gladstone, Watchung (New York)",
+    "reason": "354 vevents / 354 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "sclsnj.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQ3MyIsIjQ3NSIsIjMwOTIiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Somerset County Library System of New Jersey - Manville, North Plainfield, Montgomery (New York)",
+    "reason": "337 vevents / 337 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "sclsnj.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjQzMDMiLCI0NzEiLCI0NzgiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Somerset County Library System of New Jersey - Raritan, Bridgewater, Warren Township (New York)",
+    "reason": "426 vevents / 426 future",
+    "status": "ok",
+    "type": "ics"
   },
   "sclsnj.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260928,
@@ -271157,6 +272914,55 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "slcls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMxMjQiLCI1MTEiLCI3NDciXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Salt Lake County Library - Granite, Millcreek (Salt Lake City)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "slcls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjUwOCIsIjUxNiIsIjUxOCIsIjY4NyIsIjUyMSIsIjUwMyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Salt Lake County Library - Hunter, Taylorsville, West Jordan, Bingham Creek (Salt Lake City)",
+    "reason": "457 vevents / 457 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "slcls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjUwOSIsIjIyODQiLCI2NDYiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Salt Lake County Library - Kearns (Salt Lake City)",
+    "reason": "391 vevents / 391 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "slcls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjUxMyIsIjUyMCIsIjUwNSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Salt Lake County Library - Sandy, Whitmore, Draper (Salt Lake City)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "slcls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjUxNSIsIjUxMiIsIjMwODIiLCI1MDYiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Salt Lake County Library - South Jordan, Riverton, Daybreak, Herriman (Salt Lake City)",
+    "reason": "443 vevents / 443 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "slcls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjUxNyIsIjUwNyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Salt Lake County Library - Tyler (Midvale), Holladay (Salt Lake City)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "slcls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjUxOSIsIjUxMCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19": {
+    "checked": 20261010,
+    "name": "Salt Lake County Library - West Valley, Magna (Salt Lake City)",
+    "reason": "398 vevents / 398 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "slcls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260927,
     "name": "Salt Lake County Library (Salt Lake City)",
@@ -272780,6 +274586,27 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "solanolibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM0OTIiLCIzNDk2IiwiMzQ5MyIsIjM0OTQiLCI0Mjc1IiwiNDI0NyIsIjQzOTEiLCI0Mjk0Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Solano County Library - Fairfield Civic Center, Suisun City, Fairfield Cordelia (San Francisco)",
+    "reason": "418 vevents / 418 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "solanolibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM0OTciLCIzNDk4Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Solano County Library - Vacaville Cultural Center, Vacaville Town Square (San Francisco)",
+    "reason": "500 vevents / 500 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "solanolibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjM0OTkiLCIzNTAwIiwiMzQ4OSIsIjM0OTUiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Solano County Library - Vallejo John F. Kennedy, Vallejo Springstowne, Dixon, Rio Vista (San Francisco)",
+    "reason": "340 vevents / 340 future",
+    "status": "ok",
+    "type": "ics"
   },
   "solanolibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20260927,
@@ -323135,6 +324962,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "wellington.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMwMTQiLCIzMDA5IiwiMzAxNyIsIjMwMTkiLCIzMDIxIiwiMzAxMCIsIjMwMjAiLCIzMDI0Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=": {
+    "checked": 20261010,
+    "name": "Wellington County Library - Erin Village, Aboyne, Hillsburgh, Mount Forest, Puslinch, Arthur, Palmerston (Wellington County, Canada)",
+    "reason": "356 vevents / 356 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wellington.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjMwMTUiLCIzMDIyIiwiMzAxMSIsIjMwMTIiLCIzMDE2IiwiMzAxMyIsIjMwMTgiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==": {
+    "checked": 20261010,
+    "name": "Wellington County Library - Fergus, Rockwood, Clifford, Drayton, Harriston, Elora, Marden (Wellington County, Canada)",
+    "reason": "339 vevents / 339 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "wellington.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGVybSI6IiIsImRheXMiOjMwfX0=": {
     "checked": 20260927,
     "name": "Wellington County Library (Wellington County, Canada)",
@@ -324273,6 +326114,41 @@
     "checked": 20260927,
     "name": "Wexford Public Libraries (Wexford, Ireland)",
     "reason": "260 future, 260 placeable",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wexfordcoco.libcal.com/ical_subscribe.php?src=p&cid=8033&cam=3995": {
+    "checked": 20261010,
+    "name": "Wexford Public Libraries - Bunclody Library (Wexford, Ireland)",
+    "reason": "95 vevents / 58 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wexfordcoco.libcal.com/ical_subscribe.php?src=p&cid=8033&cam=3996": {
+    "checked": 20261010,
+    "name": "Wexford Public Libraries - Enniscorthy Library (Wexford, Ireland)",
+    "reason": "163 vevents / 117 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wexfordcoco.libcal.com/ical_subscribe.php?src=p&cid=8033&cam=3997": {
+    "checked": 20261010,
+    "name": "Wexford Public Libraries - Gorey Library (Wexford, Ireland)",
+    "reason": "382 vevents / 327 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wexfordcoco.libcal.com/ical_subscribe.php?src=p&cid=8033&cam=3998": {
+    "checked": 20261010,
+    "name": "Wexford Public Libraries - New Ross Library (Wexford, Ireland)",
+    "reason": "111 vevents / 71 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wexfordcoco.libcal.com/ical_subscribe.php?src=p&cid=8033&cam=3999": {
+    "checked": 20261010,
+    "name": "Wexford Public Libraries - Wexford Town Library (Wexford, Ireland)",
+    "reason": "172 vevents / 102 future",
     "status": "ok",
     "type": "ics"
   },
@@ -327950,6 +329826,146 @@
     "checked": 20260727,
     "name": "Winnipeg Public Library (Winnipeg, Canada)",
     "reason": "500 vevents / 223 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=1060": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Millennium Library (Winnipeg, Canada)",
+    "reason": "222 vevents / 161 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=1061": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Louis Riel Library (Winnipeg, Canada)",
+    "reason": "79 vevents / 58 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2118": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Cornish Library (Winnipeg, Canada)",
+    "reason": "76 vevents / 54 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2119": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Charleswood Library (Winnipeg, Canada)",
+    "reason": "62 vevents / 44 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2120": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Fort Garry Library (Winnipeg, Canada)",
+    "reason": "67 vevents / 51 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2121": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Henderson Library (Winnipeg, Canada)",
+    "reason": "186 vevents / 125 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2123": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Munroe Library (Winnipeg, Canada)",
+    "reason": "88 vevents / 79 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2124": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Osborne Library (Winnipeg, Canada)",
+    "reason": "58 vevents / 43 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2125": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Pembina Trail Library (Winnipeg, Canada)",
+    "reason": "72 vevents / 58 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2126": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Bill and Helen Norrie Library (Winnipeg, Canada)",
+    "reason": "51 vevents / 39 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2127": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Biblioth\u00e8que de Saint-Boniface (Winnipeg, Canada)",
+    "reason": "78 vevents / 55 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2128": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - St. James-Assiniboia Library (Winnipeg, Canada)",
+    "reason": "81 vevents / 62 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2129": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - St. John's Library (Winnipeg, Canada)",
+    "reason": "62 vevents / 44 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2130": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - St. Vital Library (Winnipeg, Canada)",
+    "reason": "73 vevents / 56 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2131": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Sir William Stephenson Library (Winnipeg, Canada)",
+    "reason": "49 vevents / 36 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2132": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Transcona Library (Winnipeg, Canada)",
+    "reason": "163 vevents / 118 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2133": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Harvey Smith Library (Winnipeg, Canada)",
+    "reason": "93 vevents / 69 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2134": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - West Kildonan Library (Winnipeg, Canada)",
+    "reason": "88 vevents / 70 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2135": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Westwood Library (Winnipeg, Canada)",
+    "reason": "86 vevents / 62 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "wpl.libcal.com/ical_subscribe.php?src=p&cid=1677&cam=2136": {
+    "checked": 20261010,
+    "name": "Winnipeg Public Library - Windsor Park Library (Winnipeg, Canada)",
+    "reason": "72 vevents / 50 future",
     "status": "ok",
     "type": "ics"
   },

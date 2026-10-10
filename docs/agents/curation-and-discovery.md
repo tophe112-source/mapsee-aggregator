@@ -1398,9 +1398,14 @@
   - One read of every configured feed on the three platforms, under the production User-Agent, found 57 at the cap and reaching less than 60 days ahead: 34 Communico, 15 LibCal, 8 Trumba.
     - Fairfax County Public Library and Winnipeg: 500 events and 0 in the future (LibCal sorts the oldest first). Singapore's NLB GoLibrary: 1.
     - Arlington: 5 days. Montgomery County MD's Trumba calendar: 7 days. Brisbane's Trumba calendars: 9 days.
-    - Most Communico systems reached 22 days: LA County, Miami-Dade, Las Vegas-Clark County, Sacramento, Salt Lake County, Indianapolis, Columbus, Cuyahoga, Loudoun.
+    - The Communico systems reached 7-17 days: Las Vegas-Clark County and Orange County 7, LA County and Hamilton 11, Sacramento 17. The audit's first figure of 22 days was wrong. It counted the VTIMEZONE block's `DTSTART:20261101` (the daylight-saving change) as an event. Count `BEGIN:VEVENT` blocks, never bare DTSTART lines.
   - The fixes are each platform's own parameters, not a new adapter:
     - LibCal: one feed per branch, `src=p&cid=N&cam=M`. A `cam` view is a location filter, not the audience view of the note above, so it is not the same calendar. FCPL's 9 branch views share 0 UIDs pairwise, and Arlington's 8 do too.
     - Communico: a location filter inside the base64 `data` (ids from the site's own eeventcaldata), grouped to stay under 500. MCPL's 8 groups share 0 UIDs and hold 485 of the all-branch feed's 500.
     - Trumba: `?events=2000`. Seattle Public Library's calendar then returns 1,074 VEVENTs (all of it) and Montgomery County's 1,571.
   - The capped entry is removed in the same commit, or its rows double-list.
+  - Outcome on 2026-10-10: 45 systems split into 319 feeds and 8 Trumba calendars widened, all verified, with UIDs disjoint within each system. Examples of rows in the next 90 days:
+    - Columbus Metropolitan: 500 to 6,759. Miami-Dade: 500 to 5,236. Las Vegas-Clark County: 500 to 3,764.
+    - Winnipeg: 0 to 1,085. Singapore's GoLibrary: 1 to 489.
+  - Not splittable: Newark (NJ) and Oceanside (CA) have no branch filter. Airdrie and White Plains are single buildings over the cap on their own. Partial (still capped in one feed): Heights' Lee Road reaches 68 days, Hamilton's Central and Orlando's main library under 90.
+  - Every split adds a request to the ICS step. That step already stops at its 220-minute budget after about 438 of the 2,200 feeds (run 120), so it reads the config in about 5 days.
