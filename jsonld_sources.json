@@ -7546,6 +7546,190 @@
       "_metro": "Seattle, WA",
       "_found": "manual:2026-10-10 dnda.org homepage (Modern Events Calendar; 12 inline Event JSON-LD blocks)",
       "_note": "Delridge Neighborhoods Development Association runs Youngstown Cultural Arts Center, the West Seattle Tool Library and park restoration. MEC's ?mec-ical-feed=1 is disabled (HTML) and /events/, /youngstown/calendar/, /nature/calendar/ render by AJAX with no JSON-LD, so the homepage's rolling block of upcoming events is the listing; the adapter's MEC wall-clock handling applies. Restoration events carry their own park address (Roxhill Park, Dragonfly Pavilion), which the block does not override. skip_title drops Jazzercise (a franchise class renting the hall)."
+    },
+    {
+      "name": "Berkeley Public Library",
+      "category": "learning",
+      "_found": "osm:library -> wix",
+      "listing": [
+        "https://www.berkeleypl.org/events-calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Berkeley Public Library",
+        "address": "1637 Taft Avenue",
+        "city": "Berkeley",
+        "region": "IL",
+        "postal_code": "60163",
+        "lat": 41.8840604,
+        "lon": -87.9127965
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Maywood Public Library",
+      "category": "learning",
+      "_found": "osm:library -> wix",
+      "listing": [
+        "https://www.maywoodlibrary.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Maywood Public Library",
+        "address": "121 South 5th Avenue",
+        "city": "Maywood",
+        "region": "IL",
+        "postal_code": "60153",
+        "lat": 41.8873629,
+        "lon": -87.8388346
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Dialogue Institute Dallas (formerly Raindrop Dallas)",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.dialoguedallas.org/event"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Dialogue Institute Dallas (formerly Raindrop Dallas)",
+        "lat": 32.9673923,
+        "lon": -96.6981111
+      },
+      "_metro": "Dallas, United States"
+    },
+    {
+      "name": "AHEPA 29",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.ahepa29.org/upcoming-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "AHEPA 29",
+        "lat": 29.7329925,
+        "lon": -95.3785964
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "Our Texas",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "http://ourtx.org/upcoming-events/"
+      ],
+      "link_pattern": "https://ourtx\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Our Texas",
+        "address": "2337 Bissonnet Street",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77005",
+        "lat": 29.7253472,
+        "lon": -95.4143668
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "The Old Fire House",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://mcleancenter.org/calendar/"
+      ],
+      "link_pattern": "https://mcleancenter\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Old Fire House",
+        "address": "1440 Chain Bridge Road",
+        "lat": 38.9332886,
+        "lon": -77.1790513
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "The Library Company",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://librarycompany.org/calendar-2/"
+      ],
+      "link_pattern": "https://librarycompany\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Library Company",
+        "address": "1314 Locust Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19107",
+        "lat": 39.9478867,
+        "lon": -75.1631682
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Rutgers Law School Complex",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event+ics",
+      "listing": [
+        "https://events.law.rutgers.edu/"
+      ],
+      "link_pattern": "https://events\\.law\\.rutgers\\.edu/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Rutgers Law School Complex",
+        "lat": 39.9477204,
+        "lon": -75.120971
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Collingswood Public Library",
+      "category": "learning",
+      "_found": "osm:library -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.collingswoodlib.org/eventcalendar/"
+      ],
+      "link_pattern": "https://www\\.collingswoodlib\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Collingswood Public Library",
+        "region": "NJ",
+        "lat": 39.915872,
+        "lon": -75.0667123
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "The Interlock",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://theinterlockatl.com/event-calendar-2/"
+      ],
+      "link_pattern": "https://theinterlockatl\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Interlock",
+        "address": "1115 Howell Mill Road Northwest",
+        "postal_code": "30318",
+        "lat": 33.7848937,
+        "lon": -84.4108705
+      },
+      "_metro": "Atlanta, United States"
     }
   ],
   "_not_included": {

@@ -2309,6 +2309,89 @@
       "_metro": "Seattle, United States",
       "_found": "running cell 2026-10-10: RRCA club directory (rrca.org/clubs) -> /club/west-seattle-runner/ -> westseattlerunner.com, server: Squarespace, /events is an events collection",
       "_note": "Measured 2026-10-10: Row check 2026-10-10 (the bare collection page, as the adapter reads it): 33 event articles, 3 upcoming and all 3 inside 90 days - Halloween Light Run (Oct 28, 6:15 PM, from the shop), the 17th annual Gobble Gobble Group Run (Nov 26, Alki), the Christmas Light Run (Dec 20) - all free community group runs. The 30 past articles show the store posts its weekly runs a few weeks ahead (Wednesday group run, Track Tuesday, Saturday morning group, hill sessions, shake-out runs) plus a few PT injury-screen nights. Every article's map link is the shop, 2743 California Avenue Southwest, Seattle, WA 98116, which the venue block repeats. robots.txt: stock Squarespace, the bare collection page allowed."
+    },
+    {
+      "name": "Terasaki Budokan",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.terasakibudokan.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Terasaki Budokan",
+        "address": "249 South Los Angeles Street",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90012",
+        "lat": 34.0493921,
+        "lon": -118.2444936
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Barcroft Community House",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.bscl.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Barcroft Community House",
+        "address": "800 South Buchanan Street",
+        "city": "Arlington",
+        "region": "VA",
+        "postal_code": "22204",
+        "lat": 38.8596204,
+        "lon": -77.1103671
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Folcroft Library",
+      "category": "learning",
+      "_found": "osm:library -> squarespace",
+      "collection": "https://www.folcroftborough.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Folcroft Library",
+        "address": "1725 Delmar Drive",
+        "city": "Folcroft",
+        "region": "PA",
+        "postal_code": "19032",
+        "lat": 39.8940737,
+        "lon": -75.2788512
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "The Substation",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://thesubstation.space/events-all",
+      "max_events": 200,
+      "venue": {
+        "name": "The Substation",
+        "address": "4228 Washington Street",
+        "postal_code": "02131",
+        "lat": 42.2861569,
+        "lon": -71.1280702
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "James Library",
+      "category": "learning",
+      "_found": "osm:library -> squarespace",
+      "collection": "https://www.jameslibrary.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "James Library",
+        "address": "24 West Street",
+        "city": "Norwell",
+        "region": "MA",
+        "postal_code": "02061",
+        "lat": 42.1608947,
+        "lon": -70.7938507
+      },
+      "_metro": "Boston, United States"
     }
   ],
   "_not_included": {

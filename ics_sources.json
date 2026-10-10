@@ -31142,5 +31142,231 @@
     "_metro": "Paris, France",
     "_found": "manual:2026-10-10 OpenAgenda agenda search ('chantier nature') -> iledefrance-nature -> events.v2.ics",
     "_note": "OpenAgenda robots.txt is 'Disallow:' (allow all). Agenda uid 68165804 is not among the 58 configured OpenAgenda ids. DTSTART values are UTC 'Z' (08:00Z = 10:00 Paris)."
+  },
+  {
+    "name": "Pasadena Senior Center",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/charmainefiumosnelson%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Pasadena, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Disability Community Resource Center",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dcrcbyyourside%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Los Angeles, United States",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Inglewood Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.cityofinglewood.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Inglewood, CA",
+    "limit": 300,
+    "_metro": "Los Angeles, United States"
+  },
+  {
+    "name": "Chicago Alliance Against Racist and Political Oppression",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/n8hm747silf17qc6h20qaasi5mvvqngr%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, United States",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Warming House Youth Center",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/warminghousewa%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Wilmette, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Lincolnwood Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.lincolnwoodil.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Lincolnwood, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Hamilton B. Maher Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.evergreenpark-ill.com/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Evergreen Park, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Indian Head Park Heritage Center Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.indianheadpark-il.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "geocode_suffix": ", Indian Head Park, IL",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Katherine Legge Memorial Lodge",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/thelodgeklm%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Chicago, United States",
+    "limit": 300,
+    "_metro": "Chicago, United States"
+  },
+  {
+    "name": "Duncanville Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.duncanvilletx.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", Dallas, United States",
+    "limit": 300,
+    "_metro": "Dallas, United States"
+  },
+  {
+    "name": "Nash-Davis Recreation Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.dallasparks.org/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar",
+    "geocode_suffix": ", Dallas, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States"
+  },
+  {
+    "name": "Bryan Place Swimming Pool Association",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bryanplacepoolassociation%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Dallas, United States",
+    "limit": 300,
+    "_metro": "Dallas, United States"
+  },
+  {
+    "name": "Cedar Hill Recreation Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.cedarhilltx.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Cedar Hill, TX",
+    "limit": 300,
+    "_metro": "Dallas, United States"
+  },
+  {
+    "name": "Williford Parish Library",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://stmaximilian.org/icalendar0.ics",
+    "geocode_suffix": ", Houston, United States",
+    "limit": 300,
+    "_metro": "Houston, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "West Pearland Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.mybcls.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Houston, United States",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Clyde and Nancy Jacks Conference Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.sugarlandtx.gov/common/modules/iCalendar/iCalendar.aspx?catID=55&feed=calendar",
+    "geocode_suffix": ", Houston, United States",
+    "limit": 300,
+    "_metro": "Houston, United States"
+  },
+  {
+    "name": "Lower Providence Rod and Gun Club",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.google.com/calendar/ical/stdtn7r41o8b43evs3rms5c0rs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, United States",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "William Maxwell Scott Church School Building",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/greatvalleybaptist%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Philadelphia, United States",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Cherry Hill Chinese Christian Church",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ulr4lecoe4le2a35flk17qf3tc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cherry Hill, NJ",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Claymont Public Library",
+    "category": "learning",
+    "_found": "osm:library -> libcal+civicplus",
+    "url": "https://www.newcastlede.gov/common/modules/iCalendar/iCalendar.aspx?catID=61&feed=calendar",
+    "geocode_suffix": ", Claymont, DE",
+    "limit": 300,
+    "_metro": "Philadelphia, United States"
+  },
+  {
+    "name": "Christian Science Reading Room",
+    "category": "learning",
+    "_found": "osm:library -> events-manager+ics",
+    "url": "https://christianscienceatlanta.com/events/the-science-of-christianity-divine-love-in-action/ical/",
+    "geocode_suffix": ", Atlanta",
+    "limit": 300,
+    "_metro": "Atlanta, United States"
+  },
+  {
+    "name": "Weston Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.westonlibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Weston, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Americal Civic Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/okkeqfqbvsne2i48imj1av5p3c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wakefield, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Center at the Heights",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.needhamma.gov/common/modules/iCalendar/iCalendar.aspx?catID=84&feed=calendar",
+    "geocode_suffix": ", Needham, MA",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Wellesley Council on Aging",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://wellesleyma.gov/common/modules/iCalendar/iCalendar.aspx?catID=78&feed=calendar",
+    "geocode_suffix": ", Wellesley",
+    "limit": 300,
+    "_metro": "Boston, United States"
   }
 ]

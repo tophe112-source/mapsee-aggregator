@@ -16742,6 +16742,544 @@
       "default_region": null,
       "default_country": "BE",
       "_metro": "Woluwe-Saint-Pierre, Belgium"
+    },
+    {
+      "name": "The Boys' Club of New York",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://bcny.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Boys' Club of New York",
+        "address": "321 East 111th Street",
+        "lat": 40.7933643,
+        "lon": -73.9387277
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Roselle Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://rosellelibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Roselle Public Library",
+        "address": "104 West 4th Avenue",
+        "city": "Roselle",
+        "postal_code": "07203",
+        "lat": 40.6565099,
+        "lon": -74.2635098
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Kearny Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://kearnylibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kearny Branch Library",
+        "region": "NJ",
+        "lat": 40.7781452,
+        "lon": -74.1415755
+      },
+      "_metro": "New York, United States"
+    },
+    {
+      "name": "Jackie Robinson Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cityofpasadena.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jackie Robinson Center",
+        "address": "1020 North Fair Oaks Avenue",
+        "city": "Pasadena",
+        "region": "CA",
+        "postal_code": "91103",
+        "lat": 34.1636092,
+        "lon": -118.1501584
+      },
+      "_metro": "Los Angeles, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "J-Town Senior Connection",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ltsc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "J-Town Senior Connection",
+        "address": "353 East 1st Street",
+        "city": "Los Angeles",
+        "region": "CA",
+        "postal_code": "90012",
+        "lat": 34.0495853,
+        "lon": -118.2395246
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "South Asian Network",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://southasiannetwork.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South Asian Network",
+        "address": "154 South Vermont Avenue",
+        "postal_code": "90004",
+        "lat": 34.0715291,
+        "lon": -118.2912218
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "Joan & Ephraim Sales Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://templeisaiah.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Joan & Ephraim Sales Community Center",
+        "lat": 34.0481796,
+        "lon": -118.4143943
+      },
+      "_metro": "Los Angeles, United States"
+    },
+    {
+      "name": "BUILD",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.buildchicago.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "BUILD",
+        "address": "5100 West Harrison Street",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60644",
+        "lat": 41.8733254,
+        "lon": -87.754035
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "North Riverside Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.nrpl.info",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Riverside Public Library",
+        "address": "2400 Des Plaines Avenue",
+        "city": "North Riverside",
+        "region": "IL",
+        "postal_code": "60546",
+        "lat": 41.8462524,
+        "lon": -87.8237654
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Broadway Youth Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://howardbrown.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Broadway Youth Center",
+        "address": "4009 North Broadway",
+        "city": "Chicago",
+        "region": "IL",
+        "postal_code": "60613",
+        "lat": 41.9549971,
+        "lon": -87.6504652
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Bridgeview Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://bridgeviewlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bridgeview Public Library",
+        "address": "7840 79th Street",
+        "city": "Bridgeview",
+        "region": "IL",
+        "postal_code": "60455",
+        "lat": 41.7481839,
+        "lon": -87.8157346
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "Northlake Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.northlakelibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Northlake Public Library",
+        "address": "231 North Wolf Road",
+        "city": "Northlake",
+        "region": "IL",
+        "postal_code": "60164",
+        "lat": 41.9113625,
+        "lon": -87.9029546
+      },
+      "_metro": "Chicago, United States"
+    },
+    {
+      "name": "The Montrose Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://montrosecenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Montrose Center",
+        "address": "401 Branard Street",
+        "city": "Houston",
+        "region": "TX",
+        "postal_code": "77006",
+        "lat": 29.7365152,
+        "lon": -95.3848053
+      },
+      "_metro": "Houston, United States"
+    },
+    {
+      "name": "The Society of the Cincinnati Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.societyofthecincinnati.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Society of the Cincinnati Library",
+        "postal_code": "20008",
+        "lat": 38.9106526,
+        "lon": -77.047541
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "The PARC at Tysons",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://celebratefairfax.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The PARC at Tysons",
+        "address": "8508 Leesburg Pike",
+        "lat": 38.9266837,
+        "lon": -77.2383918
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Festival Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://festivalcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Festival Center",
+        "address": "1640 Columbia Road Northwest",
+        "city": "Washington",
+        "lat": 38.925282,
+        "lon": -77.0381531
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "JBAB Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://jbabfss.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "JBAB Library",
+        "address": "4439 Tinker Street Southwest",
+        "city": "Bolling",
+        "region": "MD",
+        "lat": 38.8409984,
+        "lon": -77.0194533
+      },
+      "_metro": "Washington DC, United States"
+    },
+    {
+      "name": "Library of Accessible Media for Pennsylvanians",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://mylamp.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Library of Accessible Media for Pennsylvanians",
+        "address": "1500 Spring Garden Street",
+        "city": "Philadelphia",
+        "region": "PA",
+        "postal_code": "19130",
+        "lat": 39.9623438,
+        "lon": -75.1639843
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "The Attic Youth Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://atticyouthcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Attic Youth Center",
+        "lat": 39.9477404,
+        "lon": -75.1678528
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "West Deptford Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://westdeptford.lib.nj.us",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "West Deptford Library",
+        "lat": 39.8452925,
+        "lon": -75.1905172
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Audubon Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://audubonlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Audubon Public Library",
+        "region": "NJ",
+        "lat": 39.8908603,
+        "lon": -75.0690678
+      },
+      "_metro": "Philadelphia, United States"
+    },
+    {
+      "name": "Marietta Educational Garden Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://mariettagardencenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Marietta Educational Garden Center",
+        "address": "505 Kennesaw Avenue Northwest",
+        "city": "Marietta",
+        "region": "GA",
+        "postal_code": "30060",
+        "lat": 33.9640839,
+        "lon": -84.5597381
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Sheffield Botanical Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://atlantabg.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sheffield Botanical Library",
+        "lat": 33.7901619,
+        "lon": -84.3741385
+      },
+      "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Congregational Library and Archives",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://congregationallibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Congregational Library and Archives",
+        "address": "14 Beacon Street",
+        "city": "Boston",
+        "region": "MA",
+        "lat": 42.3578627,
+        "lon": -71.0624482
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Nahant Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://nahantlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nahant Public Library",
+        "address": "15 Pleasant Street",
+        "city": "Nahant",
+        "region": "MA",
+        "postal_code": "01908",
+        "lat": 42.4241772,
+        "lon": -70.9129179
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Paul M. Scott Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.montserrat.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Paul M. Scott Library",
+        "address": "23 Essex Street",
+        "city": "Beverly",
+        "region": "MA",
+        "postal_code": "01915",
+        "lat": 42.5501059,
+        "lon": -70.8760872
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Edith M. Fox Branch Robbins Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event",
+      "base_url": "https://www.robbinslibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Edith M. Fox Branch Robbins Library",
+        "address": "175 Massachusetts Avenue",
+        "city": "Arlington",
+        "region": "MA",
+        "postal_code": "02476",
+        "lat": 42.4056087,
+        "lon": -71.1415807
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Community Music Center of Boston",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://cmcb.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Community Music Center of Boston",
+        "address": "34 Warren Avenue",
+        "city": "Boston",
+        "region": "MA",
+        "postal_code": "02116",
+        "lat": 42.3449241,
+        "lon": -71.0714971
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "All Bright Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://allstonbrightoncdc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "All Bright Community Center",
+        "lat": 42.3495058,
+        "lon": -71.1335839
+      },
+      "_metro": "Boston, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Salem Athenæum",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://salemathenaeum.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Salem Athenæum",
+        "address": "337 Essex Street",
+        "city": "Salem",
+        "region": "MA",
+        "postal_code": "01970",
+        "country": "US",
+        "lat": 42.5204377,
+        "lon": -70.9004821
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Lucius Beebe Memorial Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://wakefieldlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lucius Beebe Memorial Library",
+        "address": "345 Main Street",
+        "city": "Wakefield",
+        "region": "MA",
+        "postal_code": "01880",
+        "lat": 42.5045911,
+        "lon": -71.0719069
+      },
+      "_metro": "Boston, United States"
+    },
+    {
+      "name": "Walpole Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.walpolelibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Walpole Public Library",
+        "address": "143 School Street",
+        "city": "Walpole",
+        "region": "MA",
+        "postal_code": "02081",
+        "lat": 42.1447283,
+        "lon": -71.2502303
+      },
+      "_metro": "Boston, United States",
+      "crawl_delay": 5.0
     }
   ],
   "_not_included": {
