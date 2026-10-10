@@ -257,5 +257,28 @@
     "_metro": "Edmonton, Canada",
     "_note": "City of Edmonton 'Recreation Facilities_Drop-in Fitness' (Socrata, refreshed daily, rolling 7-day window), filtered to the 'Free Drop-In Skate' subgroup: free public skating, parent-and-tot, older-adult and early skates at City arenas. Measured 2026-10-03: the where clause returns 54 sessions at 19 arenas for 2026-10-03..10-10, 100% free, 0 registration; ~700 over 90 days of daily runs. The dataset has no coordinates; Photon resolves 19 of the 21 arena names to the right ice rink. The two excluded by facilityid resolve WRONG (4061 Mill Woods Twin Arena -> a residential 'Twin Terrace'; 7212 The Meadows Twin Arena -> 'KC Twin Arenas', the other side of the city), 11 of 65 sessions. Do NOT join the facility table buc9-mag8 for coordinates: 21 of its 22 arena rows sit 0.2 deg south of Edmonton (its street addresses are right). 5 of 49 title/date/venue fingerprints carry two start times, so the store keeps one of them. robots.txt allows /resource/; Socrata is a documented API either way. Not overlapping the configured Edmonton Public Events Calendar (0 skate rows there).",
     "_found": "opendata-canada 2026-10-03: Socrata catalog search domains=data.edmonton.ca q=drop-in -> mdkr-4c27, subgroup filter measured row by row"
+  },
+  {
+    "name": "NYC Permitted Events - runs and races (New York)",
+    "url": "https://data.cityofnewyork.us/resource/tvpp-9vvx.json?$select=*",
+    "_url_note": "?$select=* is the SODA default and changes nothing in the answer (tested 2026-10-10: same 12 columns, 109 rows). It is there only because the configured community entry 'NYC Permitted Events' uses the bare resource URL, and _canon() would otherwise treat this as already configured. Alternative: fold this where clause into that entry instead.",
+    "app_token": null,
+    "category": "running",
+    "where": "start_date_time > '{now}' AND event_type in ('Special Event','Athletic Race / Tour','Street Event') AND upper(event_name) not like '%BIKE%' AND upper(event_name) not like '%CYCL%' AND upper(event_name) not like '%PROTEST%' AND upper(event_name) not like '%TRUNK%' AND upper(event_name) not like '%MOTORCYCLE%' AND upper(event_name) not like '%TOY RUN%' AND upper(event_name) not like '%OPEN RUN%' AND upper(event_name) not like '%FIELD DAY%' AND upper(event_name) not like '%ROCKAWAY%' AND (upper(event_name) like '%5K%' OR upper(event_name) like '%10K%' OR upper(event_name) like '%MARATHON%' OR upper(event_name) like '%TROT%' OR upper(event_name) like '%FUN RUN%' OR upper(event_name) like '%RUN/WALK%' OR upper(event_name) like '%WALK/RUN%' OR upper(event_name) like '%RUN WALK%' OR upper(event_name) like '%WALK RUN%' OR upper(event_name) like '%WALK AND RUN%' OR upper(event_name) like '%RUNNING%' OR upper(event_name) like '%SHAKEOUT%' OR upper(event_name) like '%RUN YOUR CITY%' OR upper(event_name) like '%COMMUNITY RUN%' OR upper(event_name) like '%DASH%' OR upper(event_name) like '%RACE FOR%' OR event_type = 'Athletic Race / Tour')",
+    "order": "start_date_time",
+    "limit": 500,
+    "timezone": "America/New_York",
+    "geocode_venue": true,
+    "geocode_suffix": ", New York, NY",
+    "map": {
+      "title": "event_name",
+      "start": "start_date_time",
+      "end": "end_date_time",
+      "venue": "event_location",
+      "venue2": "event_borough"
+    },
+    "_metro": "New York, United States",
+    "_found": "running cell 2026-10-10: event_type census of tvpp-9vvx; the configured 'NYC Permitted Events' entry (limit 250, ordered by start) reads about three hours of permits per run - measured 2026-10-10 its 250 rows ran 12:10-15:00 that one afternoon and were 117 Sport - Youth and 72 Sport - Adult field permits, 51 Special Events - so a race more than a few hours out never reaches the map through it",
+    "_note": "Measured 2026-10-10: Row check 2026-10-10 (one SoQL request): the where clause returns 120 rows for 2026-10-10..2027-01-08 - 63 NYRR Open Run sessions (free weekly community runs at 14 city parks: Astoria, Canarsie, Inwood, Highland, Crocheron, Soundview, Morningside, Baisley Pond, St Mary's, Shore Road, Marine, Cunningham, Conference House, Flushing Meadows) and 57 races (Staten Island Half, Rockaway Beach Marathon, Manhattan Turkey Trot, Sri Chinmoy 5K/10K, charity 5Ks). Every row has a park/street venue; the same geocode_venue path the configured entry already uses. Name-word filter excludes Trunk-or-Treat, Toy Run, motorcycle runs, 'Marathon Protests', bike tours; Sport - Youth/PSAL/CYO school meets are out by event_type. Known residue: one race can hold 2-3 permits (Staten Island Half x3: two venues and a 'NYRR'-prefixed name), so a few races pin twice."
   }
 ]

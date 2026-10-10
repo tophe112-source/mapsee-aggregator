@@ -42,20 +42,6 @@
     "limit": 200
   },
   {
-    "name": "Fairfax County Public Library (DC metro)",
-    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?cid=6524",
-    "category": "learning",
-    "geocode_suffix": ", Fairfax County, VA",
-    "limit": 300
-  },
-  {
-    "name": "Arlington Public Library (DC metro)",
-    "url": "https://arlingtonva.libcal.com/ical_subscribe.php?cid=12881",
-    "category": "learning",
-    "geocode_suffix": ", Arlington, VA",
-    "limit": 300
-  },
-  {
     "name": "San Antonio City Calendar",
     "url": "https://www.trumba.com/calendars/sanantonio.ics",
     "category": "community",
@@ -17242,26 +17228,6 @@
     "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 5 branches, storytime-heavy. Dallas kids door had 38 events in 14 days."
   },
   {
-    "name": "Prince George's County Memorial Library System (Washington)",
-    "url": "https://pgcmls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
-    "category": "learning",
-    "geocode_suffix": ", Prince George's County, MD",
-    "limit": 500,
-    "url_home": "https://pgcmls.libnet.info/events",
-    "_metro": "Washington, United States",
-    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 19 branches east of DC; many storytimes."
-  },
-  {
-    "name": "Montgomery County Public Libraries (Washington)",
-    "url": "https://mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
-    "category": "learning",
-    "geocode_suffix": ", Montgomery County, MD",
-    "limit": 500,
-    "url_home": "https://mcpl.libnet.info/events",
-    "_metro": "Washington, United States",
-    "_note": "Communico public iCal (the events page's Subscribe link, no key); robots.txt allows /feeds. Rows carry GEO. 21 branches north of DC; many storytimes."
-  },
-  {
     "name": "Alexandria Library (Washington)",
     "url": "https://alexandria.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
     "category": "learning",
@@ -18533,22 +18499,6 @@
     }
   },
   {
-    "name": "Montgomery County, MD — County Calendar",
-    "category": "community",
-    "url": "https://www.trumba.com/calendars/montgomery-county.ics",
-    "geocode_suffix": ", Montgomery County, MD",
-    "limit": 300,
-    "skip_title": "\\b(by appointment|appointments?|by phone only|delivery only|help requests? for food|hearings?|meetings?|advisory (board|council|committee)|commission|board of|council session|bill \\d+-\\d+)\\b|^\\s*(TE|PHP|PS|ECON|GO)\\s*$|\\([A-Z]{2,6}\\)\\s*$",
-    "_found": "civic:county -> trumba[montgomery-county] (hand-curated)",
-    "_seed": "seed:dc-community-centres -> ics",
-    "_metro": "Washington, DC",
-    "url_home": "https://www.montgomerycountymd.gov/calendar",
-    "_note": "Slug read off /calendar's own page data (trumbaCalendarId 'montgomery-county'). Measured 2026-10-04: 198 future, all within 90 days; Trumba Category field: Food Distribution 69, Seniors 44, Boards 21, Community 18, Council 9. skip_title drops appointment-only/phone-only/delivery-only food help, council bills and hearings, board/commission meetings and the bare polling-site rows ('Glenmont United Methodist Church (GLEN)', 'GO', 'TE'), leaving 105: senior-centre and Active Aging drop-ins (Yoga 55+, Tai Chi, chair yoga, Senior Shape, kayaking 55+, Active Aging luncheon), English conversation groups, crochet circles, food distributions anyone can walk up to, food-scrap drop-offs, health testing. 177 of 198 carry a LOCATION.",
-    "_measured_2026_10_04": {
-      "kept_90d": 105
-    }
-  },
-  {
     "name": "Alexandria, VA — City Calendar",
     "category": "community",
     "url": "https://apps.alexandriava.gov/Calendar/iCal.aspx?in=Events+%26+Public+Meetings",
@@ -19774,5 +19724,2574 @@
     "geocode_suffix": ", New York, United States",
     "limit": 300,
     "_metro": "New York, United States"
+  },
+  {
+    "name": "Fairfax County Public Library - Reston Regional Library (DC metro)",
+    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?src=p&cid=6524&cam=3453",
+    "category": "learning",
+    "geocode_suffix": ", Reston, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ](?:on|to)[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization|board of trustees|library advisory comm?itt?ee|\\(LAC\\)|^\\s*joint meeting\\s*$|\\s[-–]\\s*\\*?\\s*virtual\\s*$",
+    "venue": {
+      "name": "Reston Regional Library",
+      "address": "11925 Bowman Towne Drive",
+      "city": "Reston",
+      "region": "VA",
+      "postal_code": "20190",
+      "country": "US",
+      "lat": 38.961469,
+      "lon": -77.358505
+    },
+    "location_overrides": [
+      {
+        "location": "Reston Camcorder Conversion Station, Reston Photo Scanning Station, Reston VHS Conversion Station, Reston z3.5\" Disk Conversion Station, Reston zAudio Cassette Conversion Station, Reston Regional Library",
+        "venue": {
+          "name": "Reston Regional Library",
+          "address": "11925 Bowman Towne Drive",
+          "city": "Reston",
+          "region": "VA",
+          "postal_code": "20190",
+          "country": "US",
+          "lat": 38.961469,
+          "lon": -77.358505
+        }
+      },
+      {
+        "location": "Reston Children's Department, Reston Regional Library",
+        "venue": {
+          "name": "Reston Regional Library",
+          "address": "11925 Bowman Towne Drive",
+          "city": "Reston",
+          "region": "VA",
+          "postal_code": "20190",
+          "country": "US",
+          "lat": 38.961469,
+          "lon": -77.358505
+        }
+      },
+      {
+        "location": "Reston ELL and Citizenship Center, Reston Regional Library",
+        "venue": {
+          "name": "Reston Regional Library",
+          "address": "11925 Bowman Towne Drive",
+          "city": "Reston",
+          "region": "VA",
+          "postal_code": "20190",
+          "country": "US",
+          "lat": 38.961469,
+          "lon": -77.358505
+        }
+      },
+      {
+        "location": "Reston Large Print Area, Reston Regional Library",
+        "venue": {
+          "name": "Reston Regional Library",
+          "address": "11925 Bowman Towne Drive",
+          "city": "Reston",
+          "region": "VA",
+          "postal_code": "20190",
+          "country": "US",
+          "lat": 38.961469,
+          "lon": -77.358505
+        }
+      },
+      {
+        "location": "Reston Library East Wing, Reston Regional Library",
+        "venue": {
+          "name": "Reston Regional Library",
+          "address": "11925 Bowman Towne Drive",
+          "city": "Reston",
+          "region": "VA",
+          "postal_code": "20190",
+          "country": "US",
+          "lat": 38.961469,
+          "lon": -77.358505
+        }
+      },
+      {
+        "location": "Reston Meeting Room 1 , Reston Meeting Room 2 , Reston Regional Library",
+        "venue": {
+          "name": "Reston Regional Library",
+          "address": "11925 Bowman Towne Drive",
+          "city": "Reston",
+          "region": "VA",
+          "postal_code": "20190",
+          "country": "US",
+          "lat": 38.961469,
+          "lon": -77.358505
+        }
+      },
+      {
+        "location": "Reston Meeting Room 1 , Reston Regional Library",
+        "venue": {
+          "name": "Reston Regional Library",
+          "address": "11925 Bowman Towne Drive",
+          "city": "Reston",
+          "region": "VA",
+          "postal_code": "20190",
+          "country": "US",
+          "lat": 38.961469,
+          "lon": -77.358505
+        }
+      },
+      {
+        "location": "Reston Meeting Room 2 , Reston Regional Library",
+        "venue": {
+          "name": "Reston Regional Library",
+          "address": "11925 Bowman Towne Drive",
+          "city": "Reston",
+          "region": "VA",
+          "postal_code": "20190",
+          "country": "US",
+          "lat": 38.961469,
+          "lon": -77.358505
+        }
+      },
+      {
+        "location": "Reston Regional Library",
+        "venue": {
+          "name": "Reston Regional Library",
+          "address": "11925 Bowman Towne Drive",
+          "city": "Reston",
+          "region": "VA",
+          "postal_code": "20190",
+          "country": "US",
+          "lat": 38.961469,
+          "lon": -77.358505
+        }
+      },
+      {
+        "location": "Reston Teen Space, Reston Regional Library",
+        "venue": {
+          "name": "Reston Regional Library",
+          "address": "11925 Bowman Towne Drive",
+          "city": "Reston",
+          "region": "VA",
+          "postal_code": "20190",
+          "country": "US",
+          "lat": 38.961469,
+          "lon": -77.358505
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://librarycalendar.fairfaxcounty.gov/calendar?cid=6524",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=6524 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=6524 returns LibCal's 500-event cap, every one past (2026-09-01..09-17; 0 future, ledger 'empty' since 2026-08-09), so FCPL puts nothing on the map. This branch's cam=3453 view, fetched 2026-10-10: 174 events in the next 90 days, 150 after skip_title drops one-on-one appointment slots; every row has a LOCATION naming the branch (room variants pinned by location_overrides, because Photon misses 'Room X, Branch' strings). Free public library programmes (storytimes, ESL conversation groups, crafts, author talks). robots.txt allows the path, Crawl-delay 10. Precedent: Pamunkey's src=p&cam per-branch entries. Not an audience view: the plain calendar is broken by the cap."
+  },
+  {
+    "name": "Fairfax County Public Library - Centreville Regional Library (DC metro)",
+    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?src=p&cid=6524&cam=3437",
+    "category": "learning",
+    "geocode_suffix": ", Centreville, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Centreville Regional Library",
+      "address": "14200 Saint Germain Drive",
+      "city": "Centreville",
+      "region": "VA",
+      "postal_code": "20121",
+      "country": "US",
+      "lat": 38.83746,
+      "lon": -77.440858
+    },
+    "location_overrides": [
+      {
+        "location": "Centreville 3.5\" Disk Conversion Station, Centreville Audio Cassette Conversion Station, Centreville Photo Scanning Station, Centreville VHS Conversion Station, Centreville Vinyl Record (and Audiocassette) Conversion Station, Centreville Regional Library",
+        "venue": {
+          "name": "Centreville Regional Library",
+          "address": "14200 Saint Germain Drive",
+          "city": "Centreville",
+          "region": "VA",
+          "postal_code": "20121",
+          "country": "US",
+          "lat": 38.83746,
+          "lon": -77.440858
+        }
+      },
+      {
+        "location": "Centreville Audio Cassette Conversion Station, Centreville Camcorder Conversion Station, Centreville Photo Scanning Station, Centreville VHS Conversion Station, Centreville Vinyl Record (and Audiocassette) Conversion Station, Centreville Regional Library",
+        "venue": {
+          "name": "Centreville Regional Library",
+          "address": "14200 Saint Germain Drive",
+          "city": "Centreville",
+          "region": "VA",
+          "postal_code": "20121",
+          "country": "US",
+          "lat": 38.83746,
+          "lon": -77.440858
+        }
+      },
+      {
+        "location": "Centreville Audio Cassette Conversion Station, Centreville Camcorder Conversion Station, Centreville Reel-to-Reel Conversion Station, Centreville VHS Conversion Station, Centreville Regional Library",
+        "venue": {
+          "name": "Centreville Regional Library",
+          "address": "14200 Saint Germain Drive",
+          "city": "Centreville",
+          "region": "VA",
+          "postal_code": "20121",
+          "country": "US",
+          "lat": 38.83746,
+          "lon": -77.440858
+        }
+      },
+      {
+        "location": "Centreville Conference Room, Centreville Regional Library",
+        "venue": {
+          "name": "Centreville Regional Library",
+          "address": "14200 Saint Germain Drive",
+          "city": "Centreville",
+          "region": "VA",
+          "postal_code": "20121",
+          "country": "US",
+          "lat": 38.83746,
+          "lon": -77.440858
+        }
+      },
+      {
+        "location": "Centreville Lobby, Centreville Regional Library",
+        "venue": {
+          "name": "Centreville Regional Library",
+          "address": "14200 Saint Germain Drive",
+          "city": "Centreville",
+          "region": "VA",
+          "postal_code": "20121",
+          "country": "US",
+          "lat": 38.83746,
+          "lon": -77.440858
+        }
+      },
+      {
+        "location": "Centreville Meeting Room 1, Centreville Meeting Room 2, Centreville Regional Library",
+        "venue": {
+          "name": "Centreville Regional Library",
+          "address": "14200 Saint Germain Drive",
+          "city": "Centreville",
+          "region": "VA",
+          "postal_code": "20121",
+          "country": "US",
+          "lat": 38.83746,
+          "lon": -77.440858
+        }
+      },
+      {
+        "location": "Centreville Meeting Room 1, Centreville Regional Library",
+        "venue": {
+          "name": "Centreville Regional Library",
+          "address": "14200 Saint Germain Drive",
+          "city": "Centreville",
+          "region": "VA",
+          "postal_code": "20121",
+          "country": "US",
+          "lat": 38.83746,
+          "lon": -77.440858
+        }
+      },
+      {
+        "location": "Centreville Meeting Room 2, Centreville Regional Library",
+        "venue": {
+          "name": "Centreville Regional Library",
+          "address": "14200 Saint Germain Drive",
+          "city": "Centreville",
+          "region": "VA",
+          "postal_code": "20121",
+          "country": "US",
+          "lat": 38.83746,
+          "lon": -77.440858
+        }
+      },
+      {
+        "location": "Centreville Regional Library",
+        "venue": {
+          "name": "Centreville Regional Library",
+          "address": "14200 Saint Germain Drive",
+          "city": "Centreville",
+          "region": "VA",
+          "postal_code": "20121",
+          "country": "US",
+          "lat": 38.83746,
+          "lon": -77.440858
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://librarycalendar.fairfaxcounty.gov/calendar?cid=6524",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=6524 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=6524 returns LibCal's 500-event cap, every one past (2026-09-01..09-17; 0 future, ledger 'empty' since 2026-08-09), so FCPL puts nothing on the map. This branch's cam=3437 view, fetched 2026-10-10: 353 events in the next 90 days, 118 after skip_title drops one-on-one appointment slots; every row has a LOCATION naming the branch (room variants pinned by location_overrides, because Photon misses 'Room X, Branch' strings). Free public library programmes (storytimes, ESL conversation groups, crafts, author talks). robots.txt allows the path, Crawl-delay 10. Precedent: Pamunkey's src=p&cam per-branch entries. Not an audience view: the plain calendar is broken by the cap."
+  },
+  {
+    "name": "Fairfax County Public Library - Chantilly Regional Library (DC metro)",
+    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?src=p&cid=6524&cam=3438",
+    "category": "learning",
+    "geocode_suffix": ", Chantilly, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ](?:on|to)[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization|board of trustees|library advisory comm?itt?ee|\\(LAC\\)|^\\s*joint meeting\\s*$|\\s[-–]\\s*\\*?\\s*virtual\\s*$",
+    "venue": {
+      "name": "Chantilly Regional Library",
+      "address": "4000 Stringfellow Road",
+      "city": "Chantilly",
+      "region": "VA",
+      "postal_code": "20151",
+      "country": "US",
+      "lat": 38.882637,
+      "lon": -77.408189
+    },
+    "location_overrides": [
+      {
+        "location": "Chantilly Conference Room, Chantilly Meeting Room, Chantilly Regional Library",
+        "venue": {
+          "name": "Chantilly Regional Library",
+          "address": "4000 Stringfellow Road",
+          "city": "Chantilly",
+          "region": "VA",
+          "postal_code": "20151",
+          "country": "US",
+          "lat": 38.882637,
+          "lon": -77.408189
+        }
+      },
+      {
+        "location": "Chantilly Conference Room, Chantilly Regional Library",
+        "venue": {
+          "name": "Chantilly Regional Library",
+          "address": "4000 Stringfellow Road",
+          "city": "Chantilly",
+          "region": "VA",
+          "postal_code": "20151",
+          "country": "US",
+          "lat": 38.882637,
+          "lon": -77.408189
+        }
+      },
+      {
+        "location": "Chantilly Lobby, Chantilly Regional Library",
+        "venue": {
+          "name": "Chantilly Regional Library",
+          "address": "4000 Stringfellow Road",
+          "city": "Chantilly",
+          "region": "VA",
+          "postal_code": "20151",
+          "country": "US",
+          "lat": 38.882637,
+          "lon": -77.408189
+        }
+      },
+      {
+        "location": "Chantilly Meeting Room, Chantilly Regional Library",
+        "venue": {
+          "name": "Chantilly Regional Library",
+          "address": "4000 Stringfellow Road",
+          "city": "Chantilly",
+          "region": "VA",
+          "postal_code": "20151",
+          "country": "US",
+          "lat": 38.882637,
+          "lon": -77.408189
+        }
+      },
+      {
+        "location": "Chantilly Regional Library",
+        "venue": {
+          "name": "Chantilly Regional Library",
+          "address": "4000 Stringfellow Road",
+          "city": "Chantilly",
+          "region": "VA",
+          "postal_code": "20151",
+          "country": "US",
+          "lat": 38.882637,
+          "lon": -77.408189
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://librarycalendar.fairfaxcounty.gov/calendar?cid=6524",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=6524 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=6524 returns LibCal's 500-event cap, every one past (2026-09-01..09-17; 0 future, ledger 'empty' since 2026-08-09), so FCPL puts nothing on the map. This branch's cam=3438 view, fetched 2026-10-10: 251 events in the next 90 days, 129 after skip_title drops one-on-one appointment slots; every row has a LOCATION naming the branch (room variants pinned by location_overrides, because Photon misses 'Room X, Branch' strings). Free public library programmes (storytimes, ESL conversation groups, crafts, author talks). robots.txt allows the path, Crawl-delay 10. Precedent: Pamunkey's src=p&cam per-branch entries. Not an audience view: the plain calendar is broken by the cap."
+  },
+  {
+    "name": "Fairfax County Public Library - City of Fairfax Regional Library (DC metro)",
+    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?src=p&cid=6524&cam=3439",
+    "category": "learning",
+    "geocode_suffix": ", Fairfax, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ](?:on|to)[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization|board of trustees|library advisory comm?itt?ee|\\(LAC\\)|^\\s*joint meeting\\s*$|\\s[-–]\\s*\\*?\\s*virtual\\s*$",
+    "venue": {
+      "name": "City of Fairfax Regional Library",
+      "address": "10360 North Street",
+      "city": "Fairfax",
+      "region": "VA",
+      "postal_code": "22030",
+      "country": "US",
+      "lat": 38.846964,
+      "lon": -77.303717
+    },
+    "location_overrides": [
+      {
+        "location": "City of Fairfax Conference Room 103, City of Fairfax Meeting Room 101A, City of Fairfax Meeting Room 101B, City of Fairfax Regional Library",
+        "venue": {
+          "name": "City of Fairfax Regional Library",
+          "address": "10360 North Street",
+          "city": "Fairfax",
+          "region": "VA",
+          "postal_code": "22030",
+          "country": "US",
+          "lat": 38.846964,
+          "lon": -77.303717
+        }
+      },
+      {
+        "location": "City of Fairfax Conference Room 103, City of Fairfax Regional Library",
+        "venue": {
+          "name": "City of Fairfax Regional Library",
+          "address": "10360 North Street",
+          "city": "Fairfax",
+          "region": "VA",
+          "postal_code": "22030",
+          "country": "US",
+          "lat": 38.846964,
+          "lon": -77.303717
+        }
+      },
+      {
+        "location": "City of Fairfax Group Study Room 214, City of Fairfax Regional Library",
+        "venue": {
+          "name": "City of Fairfax Regional Library",
+          "address": "10360 North Street",
+          "city": "Fairfax",
+          "region": "VA",
+          "postal_code": "22030",
+          "country": "US",
+          "lat": 38.846964,
+          "lon": -77.303717
+        }
+      },
+      {
+        "location": "City of Fairfax Lobby, City of Fairfax Regional Library",
+        "venue": {
+          "name": "City of Fairfax Regional Library",
+          "address": "10360 North Street",
+          "city": "Fairfax",
+          "region": "VA",
+          "postal_code": "22030",
+          "country": "US",
+          "lat": 38.846964,
+          "lon": -77.303717
+        }
+      },
+      {
+        "location": "City of Fairfax Meeting Room 101A, City of Fairfax Meeting Room 101B, City of Fairfax Regional Library",
+        "venue": {
+          "name": "City of Fairfax Regional Library",
+          "address": "10360 North Street",
+          "city": "Fairfax",
+          "region": "VA",
+          "postal_code": "22030",
+          "country": "US",
+          "lat": 38.846964,
+          "lon": -77.303717
+        }
+      },
+      {
+        "location": "City of Fairfax Meeting Room 101A, City of Fairfax Regional Library",
+        "venue": {
+          "name": "City of Fairfax Regional Library",
+          "address": "10360 North Street",
+          "city": "Fairfax",
+          "region": "VA",
+          "postal_code": "22030",
+          "country": "US",
+          "lat": 38.846964,
+          "lon": -77.303717
+        }
+      },
+      {
+        "location": "City of Fairfax Meeting Room 101B, City of Fairfax Regional Library",
+        "venue": {
+          "name": "City of Fairfax Regional Library",
+          "address": "10360 North Street",
+          "city": "Fairfax",
+          "region": "VA",
+          "postal_code": "22030",
+          "country": "US",
+          "lat": 38.846964,
+          "lon": -77.303717
+        }
+      },
+      {
+        "location": "City of Fairfax Regional Library",
+        "venue": {
+          "name": "City of Fairfax Regional Library",
+          "address": "10360 North Street",
+          "city": "Fairfax",
+          "region": "VA",
+          "postal_code": "22030",
+          "country": "US",
+          "lat": 38.846964,
+          "lon": -77.303717
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://librarycalendar.fairfaxcounty.gov/calendar?cid=6524",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=6524 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=6524 returns LibCal's 500-event cap, every one past (2026-09-01..09-17; 0 future, ledger 'empty' since 2026-08-09), so FCPL puts nothing on the map. This branch's cam=3439 view, fetched 2026-10-10: 181 events in the next 90 days, 124 after skip_title drops one-on-one appointment slots; every row has a LOCATION naming the branch (room variants pinned by location_overrides, because Photon misses 'Room X, Branch' strings). Free public library programmes (storytimes, ESL conversation groups, crafts, author talks). robots.txt allows the path, Crawl-delay 10. Precedent: Pamunkey's src=p&cam per-branch entries. Not an audience view: the plain calendar is broken by the cap."
+  },
+  {
+    "name": "Fairfax County Public Library - Kingstowne Regional Library (DC metro)",
+    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?src=p&cid=6524&cam=9693",
+    "category": "learning",
+    "geocode_suffix": ", Kingstowne, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Kingstowne Regional Library",
+      "address": "7130 Silver Lake Boulevard",
+      "city": "Alexandria",
+      "region": "VA",
+      "postal_code": "22315",
+      "country": "US",
+      "lat": 38.763445,
+      "lon": -77.155535
+    },
+    "location_overrides": [
+      {
+        "location": "Conference Room (E151), Kingstowne Regional Library",
+        "venue": {
+          "name": "Kingstowne Regional Library",
+          "address": "7130 Silver Lake Boulevard",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22315",
+          "country": "US",
+          "lat": 38.763445,
+          "lon": -77.155535
+        }
+      },
+      {
+        "location": "Conference Room (E151), Meeting Room (E103), Kingstowne Regional Library",
+        "venue": {
+          "name": "Kingstowne Regional Library",
+          "address": "7130 Silver Lake Boulevard",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22315",
+          "country": "US",
+          "lat": 38.763445,
+          "lon": -77.155535
+        }
+      },
+      {
+        "location": "Kingstowne Regional Library",
+        "venue": {
+          "name": "Kingstowne Regional Library",
+          "address": "7130 Silver Lake Boulevard",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22315",
+          "country": "US",
+          "lat": 38.763445,
+          "lon": -77.155535
+        }
+      },
+      {
+        "location": "Meeting Room (E103), Kingstowne Regional Library",
+        "venue": {
+          "name": "Kingstowne Regional Library",
+          "address": "7130 Silver Lake Boulevard",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22315",
+          "country": "US",
+          "lat": 38.763445,
+          "lon": -77.155535
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://librarycalendar.fairfaxcounty.gov/calendar?cid=6524",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=6524 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=6524 returns LibCal's 500-event cap, every one past (2026-09-01..09-17; 0 future, ledger 'empty' since 2026-08-09), so FCPL puts nothing on the map. This branch's cam=9693 view, fetched 2026-10-10: 76 events in the next 90 days, 72 after skip_title drops one-on-one appointment slots; every row has a LOCATION naming the branch (room variants pinned by location_overrides, because Photon misses 'Room X, Branch' strings). Free public library programmes (storytimes, ESL conversation groups, crafts, author talks). robots.txt allows the path, Crawl-delay 10. Precedent: Pamunkey's src=p&cam per-branch entries. Not an audience view: the plain calendar is broken by the cap."
+  },
+  {
+    "name": "Fairfax County Public Library - Pohick Regional Library (DC metro)",
+    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?src=p&cid=6524&cam=3452",
+    "category": "learning",
+    "geocode_suffix": ", Burke, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Pohick Regional Library",
+      "address": "6450 Sydenstricker Road",
+      "city": "Burke",
+      "region": "VA",
+      "postal_code": "22015",
+      "country": "US",
+      "lat": 38.774932,
+      "lon": -77.268109
+    },
+    "location_overrides": [
+      {
+        "location": "PO DIY, Pohick Regional Library",
+        "venue": {
+          "name": "Pohick Regional Library",
+          "address": "6450 Sydenstricker Road",
+          "city": "Burke",
+          "region": "VA",
+          "postal_code": "22015",
+          "country": "US",
+          "lat": 38.774932,
+          "lon": -77.268109
+        }
+      },
+      {
+        "location": "Pohick Lobby, Pohick Regional Library",
+        "venue": {
+          "name": "Pohick Regional Library",
+          "address": "6450 Sydenstricker Road",
+          "city": "Burke",
+          "region": "VA",
+          "postal_code": "22015",
+          "country": "US",
+          "lat": 38.774932,
+          "lon": -77.268109
+        }
+      },
+      {
+        "location": "Pohick Meeting Room 1, Pohick Meeting Room 2, Pohick Regional Library",
+        "venue": {
+          "name": "Pohick Regional Library",
+          "address": "6450 Sydenstricker Road",
+          "city": "Burke",
+          "region": "VA",
+          "postal_code": "22015",
+          "country": "US",
+          "lat": 38.774932,
+          "lon": -77.268109
+        }
+      },
+      {
+        "location": "Pohick Meeting Room 1, Pohick Regional Library",
+        "venue": {
+          "name": "Pohick Regional Library",
+          "address": "6450 Sydenstricker Road",
+          "city": "Burke",
+          "region": "VA",
+          "postal_code": "22015",
+          "country": "US",
+          "lat": 38.774932,
+          "lon": -77.268109
+        }
+      },
+      {
+        "location": "Pohick Meeting Room 2, Pohick Regional Library",
+        "venue": {
+          "name": "Pohick Regional Library",
+          "address": "6450 Sydenstricker Road",
+          "city": "Burke",
+          "region": "VA",
+          "postal_code": "22015",
+          "country": "US",
+          "lat": 38.774932,
+          "lon": -77.268109
+        }
+      },
+      {
+        "location": "Pohick Regional Library",
+        "venue": {
+          "name": "Pohick Regional Library",
+          "address": "6450 Sydenstricker Road",
+          "city": "Burke",
+          "region": "VA",
+          "postal_code": "22015",
+          "country": "US",
+          "lat": 38.774932,
+          "lon": -77.268109
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://librarycalendar.fairfaxcounty.gov/calendar?cid=6524",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=6524 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=6524 returns LibCal's 500-event cap, every one past (2026-09-01..09-17; 0 future, ledger 'empty' since 2026-08-09), so FCPL puts nothing on the map. This branch's cam=3452 view, fetched 2026-10-10: 289 events in the next 90 days, 289 after skip_title drops one-on-one appointment slots; every row has a LOCATION naming the branch (room variants pinned by location_overrides, because Photon misses 'Room X, Branch' strings). Free public library programmes (storytimes, ESL conversation groups, crafts, author talks). robots.txt allows the path, Crawl-delay 10. Precedent: Pamunkey's src=p&cam per-branch entries. Not an audience view: the plain calendar is broken by the cap."
+  },
+  {
+    "name": "Fairfax County Public Library - Sherwood Regional Library (DC metro)",
+    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?src=p&cid=6524&cam=3455",
+    "category": "learning",
+    "geocode_suffix": ", Alexandria, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Sherwood Regional Library",
+      "address": "2501 Sherwood Hall Lane",
+      "city": "Alexandria",
+      "region": "VA",
+      "postal_code": "22306",
+      "country": "US",
+      "lat": 38.74346,
+      "lon": -77.074866
+    },
+    "location_overrides": [
+      {
+        "location": "Sherwood Conference Room 1, Sherwood Regional Library",
+        "venue": {
+          "name": "Sherwood Regional Library",
+          "address": "2501 Sherwood Hall Lane",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22306",
+          "country": "US",
+          "lat": 38.74346,
+          "lon": -77.074866
+        }
+      },
+      {
+        "location": "Sherwood Conference Room 3, Sherwood Regional Library",
+        "venue": {
+          "name": "Sherwood Regional Library",
+          "address": "2501 Sherwood Hall Lane",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22306",
+          "country": "US",
+          "lat": 38.74346,
+          "lon": -77.074866
+        }
+      },
+      {
+        "location": "Sherwood Conference Room 4, Sherwood Regional Library",
+        "venue": {
+          "name": "Sherwood Regional Library",
+          "address": "2501 Sherwood Hall Lane",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22306",
+          "country": "US",
+          "lat": 38.74346,
+          "lon": -77.074866
+        }
+      },
+      {
+        "location": "Sherwood Group Study Room, Sherwood Regional Library",
+        "venue": {
+          "name": "Sherwood Regional Library",
+          "address": "2501 Sherwood Hall Lane",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22306",
+          "country": "US",
+          "lat": 38.74346,
+          "lon": -77.074866
+        }
+      },
+      {
+        "location": "Sherwood Meeting Room, Sherwood Regional Library",
+        "venue": {
+          "name": "Sherwood Regional Library",
+          "address": "2501 Sherwood Hall Lane",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22306",
+          "country": "US",
+          "lat": 38.74346,
+          "lon": -77.074866
+        }
+      },
+      {
+        "location": "Sherwood Regional Library",
+        "venue": {
+          "name": "Sherwood Regional Library",
+          "address": "2501 Sherwood Hall Lane",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22306",
+          "country": "US",
+          "lat": 38.74346,
+          "lon": -77.074866
+        }
+      },
+      {
+        "location": "Sherwood TechLab, Sherwood Regional Library",
+        "venue": {
+          "name": "Sherwood Regional Library",
+          "address": "2501 Sherwood Hall Lane",
+          "city": "Alexandria",
+          "region": "VA",
+          "postal_code": "22306",
+          "country": "US",
+          "lat": 38.74346,
+          "lon": -77.074866
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://librarycalendar.fairfaxcounty.gov/calendar?cid=6524",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=6524 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=6524 returns LibCal's 500-event cap, every one past (2026-09-01..09-17; 0 future, ledger 'empty' since 2026-08-09), so FCPL puts nothing on the map. This branch's cam=3455 view, fetched 2026-10-10: 121 events in the next 90 days, 118 after skip_title drops one-on-one appointment slots; every row has a LOCATION naming the branch (room variants pinned by location_overrides, because Photon misses 'Room X, Branch' strings). Free public library programmes (storytimes, ESL conversation groups, crafts, author talks). robots.txt allows the path, Crawl-delay 10. Precedent: Pamunkey's src=p&cam per-branch entries. Not an audience view: the plain calendar is broken by the cap."
+  },
+  {
+    "name": "Fairfax County Public Library - Tysons-Pimmit Regional Library (DC metro)",
+    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?src=p&cid=6524&cam=3459",
+    "category": "learning",
+    "geocode_suffix": ", Falls Church, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Tysons-Pimmit Regional Library",
+      "address": "7584 Leesburg Pike",
+      "city": "Falls Church",
+      "region": "VA",
+      "postal_code": "22043",
+      "country": "US",
+      "lat": 38.906937,
+      "lon": -77.206436
+    },
+    "location_overrides": [
+      {
+        "location": "Tysons-Pimmit Conference Room, Tysons-Pimmit Meeting Room 1, Tysons-Pimmit Meeting Room 2, Tysons-Pimmit Regional Library",
+        "venue": {
+          "name": "Tysons-Pimmit Regional Library",
+          "address": "7584 Leesburg Pike",
+          "city": "Falls Church",
+          "region": "VA",
+          "postal_code": "22043",
+          "country": "US",
+          "lat": 38.906937,
+          "lon": -77.206436
+        }
+      },
+      {
+        "location": "Tysons-Pimmit Conference Room, Tysons-Pimmit Regional Library",
+        "venue": {
+          "name": "Tysons-Pimmit Regional Library",
+          "address": "7584 Leesburg Pike",
+          "city": "Falls Church",
+          "region": "VA",
+          "postal_code": "22043",
+          "country": "US",
+          "lat": 38.906937,
+          "lon": -77.206436
+        }
+      },
+      {
+        "location": "Tysons-Pimmit Meeting Room 1, Tysons-Pimmit Meeting Room 2, Tysons-Pimmit Regional Library",
+        "venue": {
+          "name": "Tysons-Pimmit Regional Library",
+          "address": "7584 Leesburg Pike",
+          "city": "Falls Church",
+          "region": "VA",
+          "postal_code": "22043",
+          "country": "US",
+          "lat": 38.906937,
+          "lon": -77.206436
+        }
+      },
+      {
+        "location": "Tysons-Pimmit Meeting Room 1, Tysons-Pimmit Regional Library",
+        "venue": {
+          "name": "Tysons-Pimmit Regional Library",
+          "address": "7584 Leesburg Pike",
+          "city": "Falls Church",
+          "region": "VA",
+          "postal_code": "22043",
+          "country": "US",
+          "lat": 38.906937,
+          "lon": -77.206436
+        }
+      },
+      {
+        "location": "Tysons-Pimmit Meeting Room 2, Tysons-Pimmit Regional Library",
+        "venue": {
+          "name": "Tysons-Pimmit Regional Library",
+          "address": "7584 Leesburg Pike",
+          "city": "Falls Church",
+          "region": "VA",
+          "postal_code": "22043",
+          "country": "US",
+          "lat": 38.906937,
+          "lon": -77.206436
+        }
+      },
+      {
+        "location": "Tysons-Pimmit Regional Library",
+        "venue": {
+          "name": "Tysons-Pimmit Regional Library",
+          "address": "7584 Leesburg Pike",
+          "city": "Falls Church",
+          "region": "VA",
+          "postal_code": "22043",
+          "country": "US",
+          "lat": 38.906937,
+          "lon": -77.206436
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://librarycalendar.fairfaxcounty.gov/calendar?cid=6524",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=6524 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=6524 returns LibCal's 500-event cap, every one past (2026-09-01..09-17; 0 future, ledger 'empty' since 2026-08-09), so FCPL puts nothing on the map. This branch's cam=3459 view, fetched 2026-10-10: 169 events in the next 90 days, 133 after skip_title drops one-on-one appointment slots; every row has a LOCATION naming the branch (room variants pinned by location_overrides, because Photon misses 'Room X, Branch' strings). Free public library programmes (storytimes, ESL conversation groups, crafts, author talks). robots.txt allows the path, Crawl-delay 10. Precedent: Pamunkey's src=p&cam per-branch entries. Not an audience view: the plain calendar is broken by the cap."
+  },
+  {
+    "name": "Fairfax County Public Library - Burke Centre Library (DC metro)",
+    "url": "https://librarycalendar.fairfaxcounty.gov/ical_subscribe.php?src=p&cid=6524&cam=3436",
+    "category": "learning",
+    "geocode_suffix": ", Burke, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Burke Centre Library",
+      "address": "5935 Freds Oak Road",
+      "city": "Burke",
+      "region": "VA",
+      "postal_code": "22015",
+      "country": "US",
+      "lat": 38.787439,
+      "lon": -77.317124
+    },
+    "location_overrides": [
+      {
+        "location": "Burke Centre Group Study Room, Burke Centre Library",
+        "venue": {
+          "name": "Burke Centre Library",
+          "address": "5935 Freds Oak Road",
+          "city": "Burke",
+          "region": "VA",
+          "postal_code": "22015",
+          "country": "US",
+          "lat": 38.787439,
+          "lon": -77.317124
+        }
+      },
+      {
+        "location": "Burke Centre Library",
+        "venue": {
+          "name": "Burke Centre Library",
+          "address": "5935 Freds Oak Road",
+          "city": "Burke",
+          "region": "VA",
+          "postal_code": "22015",
+          "country": "US",
+          "lat": 38.787439,
+          "lon": -77.317124
+        }
+      },
+      {
+        "location": "Burke Centre Meeting Room 116, Burke Centre Meeting Room 117, Burke Centre Library",
+        "venue": {
+          "name": "Burke Centre Library",
+          "address": "5935 Freds Oak Road",
+          "city": "Burke",
+          "region": "VA",
+          "postal_code": "22015",
+          "country": "US",
+          "lat": 38.787439,
+          "lon": -77.317124
+        }
+      },
+      {
+        "location": "Burke Centre Meeting Room 117, Burke Centre Library",
+        "venue": {
+          "name": "Burke Centre Library",
+          "address": "5935 Freds Oak Road",
+          "city": "Burke",
+          "region": "VA",
+          "postal_code": "22015",
+          "country": "US",
+          "lat": 38.787439,
+          "lon": -77.317124
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://librarycalendar.fairfaxcounty.gov/calendar?cid=6524",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=6524 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=6524 returns LibCal's 500-event cap, every one past (2026-09-01..09-17; 0 future, ledger 'empty' since 2026-08-09), so FCPL puts nothing on the map. This branch's cam=3436 view, fetched 2026-10-10: 188 events in the next 90 days, 99 after skip_title drops one-on-one appointment slots; every row has a LOCATION naming the branch (room variants pinned by location_overrides, because Photon misses 'Room X, Branch' strings). Free public library programmes (storytimes, ESL conversation groups, crafts, author talks). robots.txt allows the path, Crawl-delay 10. Precedent: Pamunkey's src=p&cam per-branch entries. Not an audience view: the plain calendar is broken by the cap."
+  },
+  {
+    "name": "Arlington Public Library - Central Library (DC metro)",
+    "url": "https://arlingtonva.libcal.com/ical_subscribe.php?src=p&cid=12881&cam=406",
+    "category": "learning",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Central Library",
+      "address": "1015 North Quincy Street",
+      "city": "Arlington",
+      "region": "VA",
+      "postal_code": "22201",
+      "country": "US",
+      "lat": 38.883787,
+      "lon": -77.107184
+    },
+    "location_overrides": [
+      {
+        "location": "Barbara M. Donnellan Auditorium, Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "Bluemont Room, Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "CCCLH Reading Room, Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "Children's Area, Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "Glebe Room, Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "Lobby, Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "Outside, Central Library Plaza, 1015 N Quincy St, Arlington, VA 22201 , Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "Quincy Park, Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "Quincy Room, Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "The Shop, Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      },
+      {
+        "location": "Wilson Room, Central Library",
+        "venue": {
+          "name": "Central Library",
+          "address": "1015 North Quincy Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.883787,
+          "lon": -77.107184
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://arlingtonva.libcal.com/calendar?cid=12881",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=12881 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=12881 hits LibCal's 500 cap and reaches only 4 days ahead (2026-10-10..10-14, 53 future of 500). This branch's cam=406 view, fetched 2026-10-10: 314 events in the next 90 days, 313 after skip_title; all with LOCATION '<room>, Central Library' (pinned by location_overrides; Photon misses room-prefixed strings). Storytimes, ESL/Spanish/Arabic conversation, crafts, job help - free, walk-in. robots.txt allows, Crawl-delay 10. The 8 branches together: 1,053 kept vs 53 today."
+  },
+  {
+    "name": "Arlington Public Library - Courthouse Library (DC metro)",
+    "url": "https://arlingtonva.libcal.com/ical_subscribe.php?src=p&cid=12881&cam=411",
+    "category": "learning",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Courthouse Library",
+      "address": "2100 Clarendon Boulevard",
+      "city": "Arlington",
+      "region": "VA",
+      "postal_code": "22201",
+      "country": "US",
+      "lat": 38.890554,
+      "lon": -77.085362
+    },
+    "location_overrides": [
+      {
+        "location": "Azalea Conference Room, Courthouse Library",
+        "venue": {
+          "name": "Courthouse Library",
+          "address": "2100 Clarendon Boulevard",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.890554,
+          "lon": -77.085362
+        }
+      },
+      {
+        "location": "Birch Conference Room, Courthouse Library",
+        "venue": {
+          "name": "Courthouse Library",
+          "address": "2100 Clarendon Boulevard",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.890554,
+          "lon": -77.085362
+        }
+      },
+      {
+        "location": "Cherry Conference Room, Courthouse Library",
+        "venue": {
+          "name": "Courthouse Library",
+          "address": "2100 Clarendon Boulevard",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.890554,
+          "lon": -77.085362
+        }
+      },
+      {
+        "location": "Children's Area, Courthouse Library",
+        "venue": {
+          "name": "Courthouse Library",
+          "address": "2100 Clarendon Boulevard",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.890554,
+          "lon": -77.085362
+        }
+      },
+      {
+        "location": "Courthouse Library",
+        "venue": {
+          "name": "Courthouse Library",
+          "address": "2100 Clarendon Boulevard",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.890554,
+          "lon": -77.085362
+        }
+      },
+      {
+        "location": "Courthouse Plaza / 2100 Clarendon Blvd, Arlington, VA 22201, Courthouse Library",
+        "venue": {
+          "name": "Courthouse Library",
+          "address": "2100 Clarendon Boulevard",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.890554,
+          "lon": -77.085362
+        }
+      },
+      {
+        "location": "Dogwood Conference Room, Courthouse Library",
+        "venue": {
+          "name": "Courthouse Library",
+          "address": "2100 Clarendon Boulevard",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.890554,
+          "lon": -77.085362
+        }
+      },
+      {
+        "location": "Elm Room 3rd floor Bozman Government Center, Courthouse Library",
+        "venue": {
+          "name": "Courthouse Library",
+          "address": "2100 Clarendon Boulevard",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22201",
+          "country": "US",
+          "lat": 38.890554,
+          "lon": -77.085362
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://arlingtonva.libcal.com/calendar?cid=12881",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=12881 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=12881 hits LibCal's 500 cap and reaches only 4 days ahead (2026-10-10..10-14, 53 future of 500). This branch's cam=411 view, fetched 2026-10-10: 150 events in the next 90 days, 143 after skip_title; all with LOCATION '<room>, Courthouse Library' (pinned by location_overrides; Photon misses room-prefixed strings). Storytimes, ESL/Spanish/Arabic conversation, crafts, job help - free, walk-in. robots.txt allows, Crawl-delay 10. The 8 branches together: 1,053 kept vs 53 today."
+  },
+  {
+    "name": "Arlington Public Library - Aurora Hills Library (DC metro)",
+    "url": "https://arlingtonva.libcal.com/ical_subscribe.php?src=p&cid=12881&cam=407",
+    "category": "learning",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Aurora Hills Library",
+      "address": "735 18th Street South",
+      "city": "Arlington",
+      "region": "VA",
+      "postal_code": "22202",
+      "country": "US",
+      "lat": 38.85749,
+      "lon": -77.059018
+    },
+    "location_overrides": [
+      {
+        "location": "Aurora Hills Library",
+        "venue": {
+          "name": "Aurora Hills Library",
+          "address": "735 18th Street South",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22202",
+          "country": "US",
+          "lat": 38.85749,
+          "lon": -77.059018
+        }
+      },
+      {
+        "location": "Aurora Hills Senior Center (735 18th St S, Arlington, VA 22202), Aurora Hills Library",
+        "venue": {
+          "name": "Aurora Hills Library",
+          "address": "735 18th Street South",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22202",
+          "country": "US",
+          "lat": 38.85749,
+          "lon": -77.059018
+        }
+      },
+      {
+        "location": "Eads Room, Aurora Hills Library",
+        "venue": {
+          "name": "Aurora Hills Library",
+          "address": "735 18th Street South",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22202",
+          "country": "US",
+          "lat": 38.85749,
+          "lon": -77.059018
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://arlingtonva.libcal.com/calendar?cid=12881",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=12881 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=12881 hits LibCal's 500 cap and reaches only 4 days ahead (2026-10-10..10-14, 53 future of 500). This branch's cam=407 view, fetched 2026-10-10: 99 events in the next 90 days, 96 after skip_title; all with LOCATION '<room>, Aurora Hills Library' (pinned by location_overrides; Photon misses room-prefixed strings). Storytimes, ESL/Spanish/Arabic conversation, crafts, job help - free, walk-in. robots.txt allows, Crawl-delay 10. The 8 branches together: 1,053 kept vs 53 today."
+  },
+  {
+    "name": "Arlington Public Library - Shirlington Library (DC metro)",
+    "url": "https://arlingtonva.libcal.com/ical_subscribe.php?src=p&cid=12881&cam=408",
+    "category": "learning",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Shirlington Library",
+      "address": "4200 Campbell Avenue",
+      "city": "Arlington",
+      "region": "VA",
+      "postal_code": "22206",
+      "country": "US",
+      "lat": 38.840939,
+      "lon": -77.090316
+    },
+    "location_overrides": [
+      {
+        "location": "Campbell Room, Shirlington Library",
+        "venue": {
+          "name": "Shirlington Library",
+          "address": "4200 Campbell Avenue",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22206",
+          "country": "US",
+          "lat": 38.840939,
+          "lon": -77.090316
+        }
+      },
+      {
+        "location": "Outside: Shirlington Library Plaza, Shirlington Library",
+        "venue": {
+          "name": "Shirlington Library",
+          "address": "4200 Campbell Avenue",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22206",
+          "country": "US",
+          "lat": 38.840939,
+          "lon": -77.090316
+        }
+      },
+      {
+        "location": "Shirlington Library",
+        "venue": {
+          "name": "Shirlington Library",
+          "address": "4200 Campbell Avenue",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22206",
+          "country": "US",
+          "lat": 38.840939,
+          "lon": -77.090316
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://arlingtonva.libcal.com/calendar?cid=12881",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=12881 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=12881 hits LibCal's 500 cap and reaches only 4 days ahead (2026-10-10..10-14, 53 future of 500). This branch's cam=408 view, fetched 2026-10-10: 96 events in the next 90 days, 96 after skip_title; all with LOCATION '<room>, Shirlington Library' (pinned by location_overrides; Photon misses room-prefixed strings). Storytimes, ESL/Spanish/Arabic conversation, crafts, job help - free, walk-in. robots.txt allows, Crawl-delay 10. The 8 branches together: 1,053 kept vs 53 today."
+  },
+  {
+    "name": "Arlington Public Library - Glencarlyn Library (DC metro)",
+    "url": "https://arlingtonva.libcal.com/ical_subscribe.php?src=p&cid=12881&cam=410",
+    "category": "learning",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Glencarlyn Library",
+      "address": "300 South Kensington Street",
+      "city": "Arlington",
+      "region": "VA",
+      "postal_code": "22204",
+      "country": "US",
+      "lat": 38.863589,
+      "lon": -77.125889
+    },
+    "location_overrides": [
+      {
+        "location": "Glencarlyn Library",
+        "venue": {
+          "name": "Glencarlyn Library",
+          "address": "300 South Kensington Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22204",
+          "country": "US",
+          "lat": 38.863589,
+          "lon": -77.125889
+        }
+      },
+      {
+        "location": "Glencarlyn Library Community Garden, 300 S Kensington St, Arlington, VA 22204, Glencarlyn Library",
+        "venue": {
+          "name": "Glencarlyn Library",
+          "address": "300 South Kensington Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22204",
+          "country": "US",
+          "lat": 38.863589,
+          "lon": -77.125889
+        }
+      },
+      {
+        "location": "Glencarlyn Library, 300 S Kensington St, Arlington, VA 22204, Glencarlyn Library",
+        "venue": {
+          "name": "Glencarlyn Library",
+          "address": "300 South Kensington Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22204",
+          "country": "US",
+          "lat": 38.863589,
+          "lon": -77.125889
+        }
+      },
+      {
+        "location": "Outside, Glencarlyn Library",
+        "venue": {
+          "name": "Glencarlyn Library",
+          "address": "300 South Kensington Street",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22204",
+          "country": "US",
+          "lat": 38.863589,
+          "lon": -77.125889
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://arlingtonva.libcal.com/calendar?cid=12881",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=12881 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=12881 hits LibCal's 500 cap and reaches only 4 days ahead (2026-10-10..10-14, 53 future of 500). This branch's cam=410 view, fetched 2026-10-10: 94 events in the next 90 days, 94 after skip_title; all with LOCATION '<room>, Glencarlyn Library' (pinned by location_overrides; Photon misses room-prefixed strings). Storytimes, ESL/Spanish/Arabic conversation, crafts, job help - free, walk-in. robots.txt allows, Crawl-delay 10. The 8 branches together: 1,053 kept vs 53 today."
+  },
+  {
+    "name": "Arlington Public Library - Columbia Pike Library (DC metro)",
+    "url": "https://arlingtonva.libcal.com/ical_subscribe.php?src=p&cid=12881&cam=409",
+    "category": "learning",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Columbia Pike Library",
+      "address": "816 South Walter Reed Drive",
+      "city": "Arlington",
+      "region": "VA",
+      "postal_code": "22204",
+      "country": "US",
+      "lat": 38.864689,
+      "lon": -77.087939
+    },
+    "location_overrides": [
+      {
+        "location": "2nd Floor , Columbia Pike Library",
+        "venue": {
+          "name": "Columbia Pike Library",
+          "address": "816 South Walter Reed Drive",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22204",
+          "country": "US",
+          "lat": 38.864689,
+          "lon": -77.087939
+        }
+      },
+      {
+        "location": "Children's Area, Columbia Pike Library",
+        "venue": {
+          "name": "Columbia Pike Library",
+          "address": "816 South Walter Reed Drive",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22204",
+          "country": "US",
+          "lat": 38.864689,
+          "lon": -77.087939
+        }
+      },
+      {
+        "location": "Columbia Pike Library",
+        "venue": {
+          "name": "Columbia Pike Library",
+          "address": "816 South Walter Reed Drive",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22204",
+          "country": "US",
+          "lat": 38.864689,
+          "lon": -77.087939
+        }
+      },
+      {
+        "location": "Drew Room, Columbia Pike Library",
+        "venue": {
+          "name": "Columbia Pike Library",
+          "address": "816 South Walter Reed Drive",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22204",
+          "country": "US",
+          "lat": 38.864689,
+          "lon": -77.087939
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://arlingtonva.libcal.com/calendar?cid=12881",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=12881 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=12881 hits LibCal's 500 cap and reaches only 4 days ahead (2026-10-10..10-14, 53 future of 500). This branch's cam=409 view, fetched 2026-10-10: 80 events in the next 90 days, 80 after skip_title; all with LOCATION '<room>, Columbia Pike Library' (pinned by location_overrides; Photon misses room-prefixed strings). Storytimes, ESL/Spanish/Arabic conversation, crafts, job help - free, walk-in. robots.txt allows, Crawl-delay 10. The 8 branches together: 1,053 kept vs 53 today."
+  },
+  {
+    "name": "Arlington Public Library - Westover Library (DC metro)",
+    "url": "https://arlingtonva.libcal.com/ical_subscribe.php?src=p&cid=12881&cam=412",
+    "category": "learning",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Westover Library",
+      "address": "1644 North McKinley Road",
+      "city": "Arlington",
+      "region": "VA",
+      "postal_code": "22205",
+      "country": "US",
+      "lat": 38.88642,
+      "lon": -77.142146
+    },
+    "location_overrides": [
+      {
+        "location": "Children's Area, Westover Library",
+        "venue": {
+          "name": "Westover Library",
+          "address": "1644 North McKinley Road",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22205",
+          "country": "US",
+          "lat": 38.88642,
+          "lon": -77.142146
+        }
+      },
+      {
+        "location": "Longfellow Room, Westover Library",
+        "venue": {
+          "name": "Westover Library",
+          "address": "1644 North McKinley Road",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22205",
+          "country": "US",
+          "lat": 38.88642,
+          "lon": -77.142146
+        }
+      },
+      {
+        "location": "McKinley Room, Westover Library",
+        "venue": {
+          "name": "Westover Library",
+          "address": "1644 North McKinley Road",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22205",
+          "country": "US",
+          "lat": 38.88642,
+          "lon": -77.142146
+        }
+      },
+      {
+        "location": "Outside, Westover Library",
+        "venue": {
+          "name": "Westover Library",
+          "address": "1644 North McKinley Road",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22205",
+          "country": "US",
+          "lat": 38.88642,
+          "lon": -77.142146
+        }
+      },
+      {
+        "location": "Westover Library",
+        "venue": {
+          "name": "Westover Library",
+          "address": "1644 North McKinley Road",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22205",
+          "country": "US",
+          "lat": 38.88642,
+          "lon": -77.142146
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://arlingtonva.libcal.com/calendar?cid=12881",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=12881 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=12881 hits LibCal's 500 cap and reaches only 4 days ahead (2026-10-10..10-14, 53 future of 500). This branch's cam=412 view, fetched 2026-10-10: 73 events in the next 90 days, 73 after skip_title; all with LOCATION '<room>, Westover Library' (pinned by location_overrides; Photon misses room-prefixed strings). Storytimes, ESL/Spanish/Arabic conversation, crafts, job help - free, walk-in. robots.txt allows, Crawl-delay 10. The 8 branches together: 1,053 kept vs 53 today."
+  },
+  {
+    "name": "Arlington Public Library - Cherrydale Library (DC metro)",
+    "url": "https://arlingtonva.libcal.com/ical_subscribe.php?src=p&cid=12881&cam=413",
+    "category": "learning",
+    "geocode_suffix": ", Arlington, VA",
+    "limit": 400,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "venue": {
+      "name": "Cherrydale Library",
+      "address": "2190 Military Road",
+      "city": "Arlington",
+      "region": "VA",
+      "postal_code": "22207",
+      "country": "US",
+      "lat": 38.898717,
+      "lon": -77.109269
+    },
+    "location_overrides": [
+      {
+        "location": "Cherrydale Library",
+        "venue": {
+          "name": "Cherrydale Library",
+          "address": "2190 Military Road",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22207",
+          "country": "US",
+          "lat": 38.898717,
+          "lon": -77.109269
+        }
+      },
+      {
+        "location": "Loft, Cherrydale Library",
+        "venue": {
+          "name": "Cherrydale Library",
+          "address": "2190 Military Road",
+          "city": "Arlington",
+          "region": "VA",
+          "postal_code": "22207",
+          "country": "US",
+          "lat": 38.898717,
+          "lon": -77.109269
+        }
+      }
+    ],
+    "crawl_delay": 10.0,
+    "url_home": "https://arlingtonva.libcal.com/calendar?cid=12881",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> libcal cid=12881 location (cam) view",
+    "_note": "Measured 2026-10-10: FIX: the configured plain cid=12881 hits LibCal's 500 cap and reaches only 4 days ahead (2026-10-10..10-14, 53 future of 500). This branch's cam=413 view, fetched 2026-10-10: 59 events in the next 90 days, 58 after skip_title; all with LOCATION '<room>, Cherrydale Library' (pinned by location_overrides; Photon misses room-prefixed strings). Storytimes, ESL/Spanish/Arabic conversation, crafts, job help - free, walk-in. robots.txt allows, Crawl-delay 10. The 8 branches together: 1,053 kept vs 53 today."
+  },
+  {
+    "name": "Montgomery County Public Libraries - Rockville Memorial, Twinbrook, Potomac (Washington)",
+    "url": "https://mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE3NzUiLCIxNzc3IiwiMTc3MyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19",
+    "category": "learning",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ](?:on|to)[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization|board of trustees|library advisory comm?itt?ee|\\(LAC\\)|^\\s*joint meeting\\s*$|\\s[-–]\\s*\\*?\\s*virtual\\s*$",
+    "url_home": "https://mcpl.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch MCPL feed is capped at 500 VEVENTs and reaches only 12 days (2026-10-10..10-22). This location-filtered feed (Communico location ids 1775,1777,1773, days=90), fetched 2026-10-10: 407 events in the next 90 days, under the 500 cap with its in-window rows complete; every row carries GEO at its branch. Storytimes, tech help, clubs, ESOL - free library programmes. robots.txt disallows only /results, /sitesearch. The 8 groups together: ~2,330 rows in 90 days vs ~500 today."
+  },
+  {
+    "name": "Montgomery County Public Libraries - Gaithersburg, Quince Orchard, Damascus, Maggie Nightingale (Washington)",
+    "url": "https://mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE3NjQiLCIxNzc0IiwiMTc2MiIsIjE3NjkiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==",
+    "category": "learning",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "url_home": "https://mcpl.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch MCPL feed is capped at 500 VEVENTs and reaches only 12 days (2026-10-10..10-22). This location-filtered feed (Communico location ids 1764,1774,1762,1769, days=90), fetched 2026-10-10: 348 events in the next 90 days, under the 500 cap with its in-window rows complete; every row carries GEO at its branch. Storytimes, tech help, clubs, ESOL - free library programmes. robots.txt disallows only /results, /sitesearch. The 8 groups together: ~2,330 rows in 90 days vs ~500 today."
+  },
+  {
+    "name": "Montgomery County Public Libraries - Olney (Washington)",
+    "url": "https://mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE3NzIiXSwiYWdlcyI6WyJhbGwiXSwidHlwZXMiOlsiYWxsIl0sInRhZ3MiOltdLCJ0ZXJtIjoiIiwiZGF5cyI6OTB9fQ==",
+    "category": "learning",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "url_home": "https://mcpl.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch MCPL feed is capped at 500 VEVENTs and reaches only 12 days (2026-10-10..10-22). This location-filtered feed (Communico location ids 1772, days=90), fetched 2026-10-10: 151 events in the next 90 days, under the 500 cap with its in-window rows complete; every row carries GEO at its branch. Storytimes, tech help, clubs, ESOL - free library programmes. robots.txt disallows only /results, /sitesearch. The 8 groups together: ~2,330 rows in 90 days vs ~500 today."
+  },
+  {
+    "name": "Montgomery County Public Libraries - Germantown, Marilyn J. Praisner (Washington)",
+    "url": "https://mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE3NjUiLCIxNzcwIl0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=",
+    "category": "learning",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "url_home": "https://mcpl.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch MCPL feed is capped at 500 VEVENTs and reaches only 12 days (2026-10-10..10-22). This location-filtered feed (Communico location ids 1765,1770, days=90), fetched 2026-10-10: 272 events in the next 90 days, under the 500 cap with its in-window rows complete; every row carries GEO at its branch. Storytimes, tech help, clubs, ESOL - free library programmes. robots.txt disallows only /results, /sitesearch. The 8 groups together: ~2,330 rows in 90 days vs ~500 today."
+  },
+  {
+    "name": "Montgomery County Public Libraries - Connie Morella, Little Falls (Washington)",
+    "url": "https://mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE3NjEiLCIxNzY3Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=",
+    "category": "learning",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "url_home": "https://mcpl.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch MCPL feed is capped at 500 VEVENTs and reaches only 12 days (2026-10-10..10-22). This location-filtered feed (Communico location ids 1761,1767, days=90), fetched 2026-10-10: 259 events in the next 90 days, under the 500 cap with its in-window rows complete; every row carries GEO at its branch. Storytimes, tech help, clubs, ESOL - free library programmes. robots.txt disallows only /results, /sitesearch. The 8 groups together: ~2,330 rows in 90 days vs ~500 today."
+  },
+  {
+    "name": "Montgomery County Public Libraries - Davis, Chevy Chase, Kensington Park (Washington)",
+    "url": "https://mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE3NjMiLCIxNzYwIiwiMTc2NiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19",
+    "category": "learning",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ](?:on|to)[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization|board of trustees|library advisory comm?itt?ee|\\(LAC\\)|^\\s*joint meeting\\s*$|\\s[-–]\\s*\\*?\\s*virtual\\s*$",
+    "url_home": "https://mcpl.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch MCPL feed is capped at 500 VEVENTs and reaches only 12 days (2026-10-10..10-22). This location-filtered feed (Communico location ids 1763,1760,1766, days=90), fetched 2026-10-10: 343 events in the next 90 days, under the 500 cap with its in-window rows complete; every row carries GEO at its branch. Storytimes, tech help, clubs, ESOL - free library programmes. robots.txt disallows only /results, /sitesearch. The 8 groups together: ~2,330 rows in 90 days vs ~500 today."
+  },
+  {
+    "name": "Montgomery County Public Libraries - McGee (Silver Spring), Long Branch, White Oak (Washington)",
+    "url": "https://mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE3NzYiLCIxNzY4IiwiMTc3OSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19",
+    "category": "learning",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ](?:on|to)[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization|board of trustees|library advisory comm?itt?ee|\\(LAC\\)|^\\s*joint meeting\\s*$|\\s[-–]\\s*\\*?\\s*virtual\\s*$",
+    "url_home": "https://mcpl.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch MCPL feed is capped at 500 VEVENTs and reaches only 12 days (2026-10-10..10-22). This location-filtered feed (Communico location ids 1776,1768,1779, days=90), fetched 2026-10-10: 341 events in the next 90 days, under the 500 cap with its in-window rows complete; every row carries GEO at its branch. Storytimes, tech help, clubs, ESOL - free library programmes. robots.txt disallows only /results, /sitesearch. The 8 groups together: ~2,330 rows in 90 days vs ~500 today."
+  },
+  {
+    "name": "Montgomery County Public Libraries - Wheaton, Aspen Hill (Washington)",
+    "url": "https://mcpl.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE3NzgiLCIxNzQ3Il0sImFnZXMiOlsiYWxsIl0sInR5cGVzIjpbImFsbCJdLCJ0YWdzIjpbXSwidGVybSI6IiIsImRheXMiOjkwfX0=",
+    "category": "learning",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ](?:on|to)[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization|board of trustees|library advisory comm?itt?ee|\\(LAC\\)|^\\s*joint meeting\\s*$|\\s[-–]\\s*\\*?\\s*virtual\\s*$",
+    "url_home": "https://mcpl.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch MCPL feed is capped at 500 VEVENTs and reaches only 12 days (2026-10-10..10-22). This location-filtered feed (Communico location ids 1778,1747, days=90), fetched 2026-10-10: 211 events in the next 90 days, under the 500 cap with its in-window rows complete; every row carries GEO at its branch. Storytimes, tech help, clubs, ESOL - free library programmes. robots.txt disallows only /results, /sitesearch. The 8 groups together: ~2,330 rows in 90 days vs ~500 today."
+  },
+  {
+    "name": "Prince George's County Memorial Library System - Hyattsville, Bladensburg, Mount Rainier (Washington)",
+    "url": "https://pgcmls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE4NyIsIjE4MSIsIjE5MCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19",
+    "category": "learning",
+    "geocode_suffix": ", Prince George's County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "url_home": "https://pgcmls.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch PGCMLS feed is capped at 500 VEVENTs and reaches only 24 days (2026-10-10..11-03). This location-filtered feed (ids 187,181,190, days=90), fetched 2026-10-10: 220 events in the next 90 days (PGCMLS publishes ~8 weeks ahead), under the cap. Rows carry GEO. The 6 groups together: ~1,010 rows vs 500 today."
+  },
+  {
+    "name": "Prince George's County Memorial Library System - New Carrollton, Greenbelt, Glenarden, Fairmount Heights (Washington)",
+    "url": "https://pgcmls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE5MSIsIjE4NSIsIjE4NCIsIjE4MyJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19",
+    "category": "learning",
+    "geocode_suffix": ", Prince George's County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "url_home": "https://pgcmls.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch PGCMLS feed is capped at 500 VEVENTs and reaches only 24 days (2026-10-10..11-03). This location-filtered feed (ids 191,185,184,183, days=90), fetched 2026-10-10: 200 events in the next 90 days (PGCMLS publishes ~8 weeks ahead), under the cap. Rows carry GEO. The 6 groups together: ~1,010 rows vs 500 today."
+  },
+  {
+    "name": "Prince George's County Memorial Library System - Bowie, South Bowie, Largo-Kettering, Upper Marlboro (Washington)",
+    "url": "https://pgcmls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE4MiIsIjE5MyIsIjE4OCIsIjE5NiJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19",
+    "category": "learning",
+    "geocode_suffix": ", Prince George's County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "url_home": "https://pgcmls.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch PGCMLS feed is capped at 500 VEVENTs and reaches only 24 days (2026-10-10..11-03). This location-filtered feed (ids 182,193,188,196, days=90), fetched 2026-10-10: 202 events in the next 90 days (PGCMLS publishes ~8 weeks ahead), under the cap. Rows carry GEO. The 6 groups together: ~1,010 rows vs 500 today."
+  },
+  {
+    "name": "Prince George's County Memorial Library System - Laurel, Beltsville (Washington)",
+    "url": "https://pgcmls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE4OSIsIjE4MCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19",
+    "category": "learning",
+    "geocode_suffix": ", Prince George's County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "url_home": "https://pgcmls.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch PGCMLS feed is capped at 500 VEVENTs and reaches only 24 days (2026-10-10..11-03). This location-filtered feed (ids 189,180, days=90), fetched 2026-10-10: 115 events in the next 90 days (PGCMLS publishes ~8 weeks ahead), under the cap. Rows carry GEO. The 6 groups together: ~1,010 rows vs 500 today."
+  },
+  {
+    "name": "Prince George's County Memorial Library System - Oxon Hill, Hillcrest Heights, Surratts-Clinton (Washington)",
+    "url": "https://pgcmls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE5MiIsIjE4NiIsIjE5NSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19",
+    "category": "learning",
+    "geocode_suffix": ", Prince George's County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "url_home": "https://pgcmls.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "location_overrides": [
+      {
+        "location": "Surratts-Clinton -",
+        "venue": {
+          "name": "Surratts-Clinton Branch Library",
+          "address": "9400 Piscataway Road",
+          "city": "Clinton",
+          "region": "MD",
+          "postal_code": "20735",
+          "country": "US",
+          "lat": 38.760844,
+          "lon": -76.915046
+        }
+      },
+      {
+        "location": "Surratts-Clinton - Auditorium (150)",
+        "venue": {
+          "name": "Surratts-Clinton Branch Library",
+          "address": "9400 Piscataway Road",
+          "city": "Clinton",
+          "region": "MD",
+          "postal_code": "20735",
+          "country": "US",
+          "lat": 38.760844,
+          "lon": -76.915046
+        }
+      },
+      {
+        "location": "Surratts-Clinton - Conference Room",
+        "venue": {
+          "name": "Surratts-Clinton Branch Library",
+          "address": "9400 Piscataway Road",
+          "city": "Clinton",
+          "region": "MD",
+          "postal_code": "20735",
+          "country": "US",
+          "lat": 38.760844,
+          "lon": -76.915046
+        }
+      }
+    ],
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch PGCMLS feed is capped at 500 VEVENTs and reaches only 24 days (2026-10-10..11-03). This location-filtered feed (ids 192,186,195, days=90), fetched 2026-10-10: 197 events in the next 90 days (PGCMLS publishes ~8 weeks ahead), under the cap. Rows carry GEO except Surratts-Clinton's 69 (GEO:0;0), pinned by location_overrides. The 6 groups together: ~1,010 rows vs 500 today."
+  },
+  {
+    "name": "Prince George's County Memorial Library System - Spauldings, Accokeek, Baden (Washington)",
+    "url": "https://pgcmls.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbIjE5NCIsIjE3OCIsIjE3OSJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo5MH19",
+    "category": "learning",
+    "geocode_suffix": ", Prince George's County, MD",
+    "limit": 500,
+    "skip_title": "\\b(?:one[- ]on[- ]one|1[- ]on[- ]1)\\b|display case|conversion station|digitization",
+    "url_home": "https://pgcmls.libnet.info/events",
+    "_metro": "Washington, DC",
+    "_found": "manual:2026-10-10 dc-community -> communico /feeds with a location filter (ids from the site's own eeventcaldata)",
+    "_note": "Measured 2026-10-10: FIX: the configured all-branch PGCMLS feed is capped at 500 VEVENTs and reaches only 24 days (2026-10-10..11-03). This location-filtered feed (ids 194,178,179, days=90), fetched 2026-10-10: 78 events in the next 90 days (PGCMLS publishes ~8 weeks ahead), under the cap. Rows carry GEO. The 6 groups together: ~1,010 rows vs 500 today."
+  },
+  {
+    "name": "Montgomery County, MD — County Calendar (full window)",
+    "category": "community",
+    "url": "https://www.trumba.com/calendars/montgomery-county.ics?events=2000",
+    "geocode_suffix": ", Montgomery County, MD",
+    "limit": 800,
+    "skip_title": "\\b(by appointment|appointments?|by phone only|delivery only|help requests? for food|hearings?|meetings?|advisory (board|council|committee)|commission|board of|council session|bill \\d+-\\d+)\\b|^\\s*(TE|PHP|PS|ECON|GO)\\s*$|\\([A-Z]{2,6}\\)\\s*$|^\\s*(?:resolution to approve|SA #\\s*\\d)|supplemental appropriation|meals on wheels|^\\s*cafecito con mariela\\s*$|^\\s*(?:Navaratri|Indigenous Peoples\\S* Day|Durga Puja/Ashtami|Dusshera|Dussehra|Kathina|Pavarana|All Saints Day|Lhabab Duchen|Bandi Chhor Divas.*|Diwali|Birth of (?:the B|Bah|Guru).*|Gyan Panchami|Gujarati New Year|Martyrdom of Guru Tegh Bahadur|American Indian Heritage Day|Hann?ukk?ah(?: \\(Chanukah\\))?|Chanukah|Bodhi Day|Feast of the Immaculate Conception|Gita Jayanti|Yaldaa|Pitru Paksh|New Year\\S*s Day)\\s*$",
+    "_found": "civic:county -> trumba[montgomery-county] (hand-curated)",
+    "_metro": "Washington, DC",
+    "url_home": "https://www.montgomerycountymd.gov/calendar",
+    "_note": "Measured 2026-10-10: FIX: the configured URL returns Trumba's default 200 events = 7 days (2026-10-10..10-17), which its _note read as '198 future, all within 90 days' (105 kept). With ?events=2000 (Trumba's own parameter; emory-events.ics?events=500 is configured the same way) the same calendar returns 1,577 VEVENTs, 1,114 in the next 90 days, and 644 pass the configured skip_title (senior-centre drop-ins, walk-up food distributions, English conversation, health testing). limit raised 300 -> 800 so the window is not cut. trumba.com robots allows.",
+    "location_overrides": [
+      {
+        "location": "Gilchrist Immigrant Resource Center - Gaithersburg, 18330 Montgomery Village Ave, 2nd Floor., Gaithersburg, MD 20879",
+        "venue": {
+          "name": "Gilchrist Immigrant Resource Center - Gaithersburg",
+          "address": "18330 Montgomery Village Avenue",
+          "city": "Gaithersburg",
+          "region": "MD",
+          "postal_code": "20879",
+          "country": "US",
+          "lat": 39.1581138,
+          "lon": -77.2054053
+        }
+      },
+      {
+        "location": "Gilchrist Immigrant Resource Center, 11002 Veirs Mill Rd, Suite 506, Wheaton, MD",
+        "venue": {
+          "name": "Gilchrist Immigrant Resource Center - Wheaton",
+          "address": "11002 Veirs Mill Road, Suite 506",
+          "city": "Wheaton",
+          "region": "MD",
+          "postal_code": "20902",
+          "country": "US",
+          "lat": 39.0365464,
+          "lon": -77.0504814
+        }
+      },
+      {
+        "location": "501 Sligo Ave",
+        "venue": {
+          "name": "Adventist Community Services of Greater Washington",
+          "address": "501 Sligo Avenue",
+          "city": "Silver Spring",
+          "region": "MD",
+          "postal_code": "20910",
+          "country": "US",
+          "lat": 38.9931235,
+          "lon": -77.0117905
+        }
+      },
+      {
+        "location": "Wisconsin Place Community Recreation Center",
+        "venue": {
+          "name": "Wisconsin Place Community Recreation Center",
+          "address": "5311 Friendship Boulevard",
+          "city": "Chevy Chase",
+          "region": "MD",
+          "postal_code": "20815",
+          "country": "US",
+          "lat": 38.9631036,
+          "lon": -77.0896726
+        }
+      },
+      {
+        "location": "Gwendolyn E. Coffield Community Recreation Center",
+        "venue": {
+          "name": "Gwendolyn E. Coffield Community Recreation Center",
+          "address": "2450 Lyttonsville Road",
+          "city": "Silver Spring",
+          "region": "MD",
+          "postal_code": "20910",
+          "country": "US",
+          "lat": 38.9995982,
+          "lon": -77.0502912
+        }
+      },
+      {
+        "location": "Damascus Community Recreation Center",
+        "venue": {
+          "name": "Damascus Community Recreation Center",
+          "address": "25520 Oak Drive",
+          "city": "Damascus",
+          "region": "MD",
+          "postal_code": "20872",
+          "country": "US",
+          "lat": 39.2781938,
+          "lon": -77.2169554
+        }
+      },
+      {
+        "location": "Burtonsville Volunteer Fire Department",
+        "venue": {
+          "name": "Burtonsville Volunteer Fire Department",
+          "address": "13900 Old Columbia Pike",
+          "city": "Burtonsville",
+          "region": "MD",
+          "postal_code": "20866",
+          "country": "US",
+          "lat": 39.1123179,
+          "lon": -76.9343221
+        }
+      }
+    ]
+  },
+  {
+    "name": "Falls Church — City of Falls Church 250",
+    "category": "learning",
+    "url": "https://www.fallschurchva.gov/common/modules/iCalendar/iCalendar.aspx?catID=87&feed=calendar",
+    "geocode_suffix": ", Falls Church, VA",
+    "limit": 100,
+    "_found": "civic:city -> civicplus[catID=87] (hand-curated 2026-10-10)",
+    "_metro": "Washington, DC",
+    "_note": "Measured 2026-10-10: The city's America-250 programme calendar, 2026-10-10: 8 events in 90 days, 0 of them in the configured catID=14 feed: Oakwood Cemetery history walks, lectures and an author talk at Mary Riley Styles Public Library (120 N. Virginia Ave), a transcribe-a-thon, a reading group. All carry CivicPlus 'Venue - street' LOCATIONs. robots.txt allows.",
+    "location_overrides": [
+      {
+        "location": "Mary Riley Styles Public Library > Main Level Conference Room - 120 N. Virginia Ave. Main Level, behind the Service Desk Falls Church VA 22046",
+        "venue": {
+          "name": "Mary Riley Styles Public Library",
+          "address": "120 N. Virginia Ave",
+          "city": "Falls Church",
+          "region": "VA",
+          "postal_code": "22046",
+          "country": "US",
+          "lat": 38.8858606,
+          "lon": -77.1746367
+        }
+      },
+      {
+        "location": "Mary Riley Styles Public Library > Lower Floor Conference Room - 120 N. Virginia Ave. Main Level, behind the Service Desk Falls Church VA 22046",
+        "venue": {
+          "name": "Mary Riley Styles Public Library",
+          "address": "120 N. Virginia Ave",
+          "city": "Falls Church",
+          "region": "VA",
+          "postal_code": "22046",
+          "country": "US",
+          "lat": 38.8858606,
+          "lon": -77.1746367
+        }
+      }
+    ],
+    "skip_title": "^sold out\\b"
+  },
+  {
+    "name": "Brentwood, MD — Town Events",
+    "category": "community",
+    "url": "https://www.brentwoodmd.gov/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+    "geocode_suffix": ", Brentwood, MD",
+    "limit": 100,
+    "_found": "civic:city -> civicplus[catID=28] (hand-curated 2026-10-10)",
+    "_metro": "Washington, DC",
+    "_note": "Measured 2026-10-10: Town of Brentwood (Prince George's, next to Mount Rainier) events, 2026-10-10: 15 in 90 days, all placeable: the weekly walk-up Food Pantry at 4300 39th Pl (13) and two Brentwood Arts Exchange listening-room concerts. Meetings sit in other catIDs (22, 27). robots.txt allows."
+  },
+  {
+    "name": "Capitol Heights, MD — Town Calendar",
+    "category": "community",
+    "url": "https://www.capitolheightsmd.gov/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+    "geocode_suffix": ", Capitol Heights, MD",
+    "limit": 100,
+    "skip_title": "\\b(?:meetings?|committee|commitee|toastmasters|work session|public session)\\b",
+    "_found": "civic:city -> civicplus[catID=33] (hand-curated 2026-10-10)",
+    "_metro": "Washington, DC",
+    "_note": "Measured 2026-10-10: Town's only calendar, 2026-10-10: 40 in 90 days, 30 meeting-like; skip_title + the civic filter leave 10: the recurring Grocery Giveaway at 1 Capitol Heights Blvd (9) and a domestic-violence prayer vigil. Thin but it is the town's public food distribution, which anyone can walk up to. robots.txt allows. Row review 2026-10-10: the feed is written newest first (790 VEVENTs, 2034 down to tomorrow), so before mapsee_ingest_ics walked events soonest-first limit=100 kept only 2032-2034 rows; it keeps the next ones now."
+  },
+  {
+    "name": "Mount Rainier, MD — Events",
+    "category": "community",
+    "url": "https://www.mountrainiermd.org/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Mount Rainier, MD",
+    "limit": 100,
+    "skip_title": "\\b(?:waste|compost|trash|recycl\\w*|bulk)\\b|\\bmonth\\s*$|\\bheritage day\\b|first responders day|\\belection\\b|\\b(?:legos|computer basics|job seekers|english conversation club|storytime|stem fun)\\b|women'?s day|\\barbor day\\b",
+    "_found": "civic:city -> civicplus[catID=23] (hand-curated 2026-10-10)",
+    "_metro": "Washington, DC",
+    "_note": "Measured 2026-10-10: City events calendar, 2026-10-10: 49 in 90 days, mostly trash/compost pickups, observances and copies of the PGCMLS Mount Rainier branch's programmes (the library group feed above carries those). skip_title + the civic filter leave the city's own: Halloween Parade & Trunk or Treat (Richardson Park), Veterans Day flag raising at City Hall, Breakfast with Santa at the Nature Center, Sweaty Sweater Fun Run, a community-led book discussion - 5 to 6 rows. Thin; kept because Mount Rainier is otherwise unrepresented. robots.txt allows."
+  },
+  {
+    "name": "Chevy Chase Village, MD — Village Calendar",
+    "category": "community",
+    "url": "https://www.chevychasevillagemd.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Chevy Chase, MD",
+    "limit": 100,
+    "skip_title": "\\b(?:meetings?|private event|board|election|extended)\\b|holiday gala|many hands|\\br\\.a\\.d\\.",
+    "_found": "civic:city -> civicplus[catID=14] (hand-curated 2026-10-10)",
+    "_metro": "Washington, DC",
+    "_note": "Measured 2026-10-10: The Village's only calendar, 2026-10-10: 45 in 90 days at Village Hall (5906 Connecticut Ave); skip_title + civic filter drop meetings and private hires -> 16: Halloween party and costume parade, gingerbread-house decorating, Red Cross blood drive, vaccine clinic, vocal recital, Chevy Chase At Home knitting group and speaker series, R.A.D. for Seniors. Some village socials may be resident-oriented. robots.txt allows."
+  },
+  {
+    "name": "Adeochrono - upcoming races (Ile-de-France)",
+    "url": "https://openagenda.com/agendas/69833185/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "running",
+    "geocode_suffix": ", France",
+    "limit": 300,
+    "_metro": "Paris, France",
+    "_found": "running cell 2026-10-10: openagenda.com/fr/agendas?search=running -> /evenements-a-venir-adeochrono (agenda page carries agendas/69833185)",
+    "_note": "Measured 2026-10-10: Row check 2026-10-10: the same events.v2.ics shape as the 58 OpenAgenda feeds already configured; 21 VEVENTs, all future, 15 in the next 90 days, 21/21 with GEO and a town LOCATION. The agenda of an Ile-de-France race-timing company listing the community races it times: Les Foulees Roses de Puteaux, Tour de Ballainvilliers, Les Foulees Longjumelloises, La corrida d'Aulnay, Les 20 bornes d'Andresy, Grand Cross de Massy, Cross des Titans (Venette, Oise). Town and club races with paid entry; nothing online. robots.txt: 'Disallow:' (allow all)."
+  },
+  {
+    "name": "The Seattle Public Library - events (Seattle)",
+    "url": "https://www.trumba.com/calendars/kalendaro.ics?events=2000",
+    "category": "learning",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 2000,
+    "url_home": "https://www.spl.org/event-calendar",
+    "skip_title": "^Library Closed|Closed in observance",
+    "location_overrides": [
+      {
+        "location": "Central Library",
+        "venue": {
+          "name": "The Seattle Public Library - Central Library",
+          "address": "1000 4th Avenue",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98104",
+          "country": "US",
+          "lat": 47.6067142,
+          "lon": -122.3326983
+        }
+      },
+      {
+        "location": "Lake City Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Lake City Branch",
+          "address": "12501 28th Avenue Northeast",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98125",
+          "country": "US",
+          "lat": 47.7197568,
+          "lon": -122.2981467
+        }
+      },
+      {
+        "location": "Broadview Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Broadview Branch",
+          "address": "12755 Greenwood Avenue North",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98133",
+          "country": "US",
+          "lat": 47.7229389,
+          "lon": -122.3560533
+        }
+      },
+      {
+        "location": "Southwest Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Southwest Branch",
+          "address": "9010 35th Avenue Southwest",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98126",
+          "country": "US",
+          "lat": 47.5224554,
+          "lon": -122.3762757
+        }
+      },
+      {
+        "location": "Northgate Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Northgate Branch",
+          "address": "10548 5th Avenue Northeast",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98125",
+          "country": "US",
+          "lat": 47.7059787,
+          "lon": -122.3228531
+        }
+      },
+      {
+        "location": "Ballard Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Ballard Branch",
+          "address": "5614 22nd Avenue Northwest",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98107",
+          "country": "US",
+          "lat": 47.6698052,
+          "lon": -122.3843388
+        }
+      },
+      {
+        "location": "Beacon Hill Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Beacon Hill Branch",
+          "address": "2821 Beacon Avenue South",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98144",
+          "country": "US",
+          "lat": 47.5780047,
+          "lon": -122.3114259
+        }
+      },
+      {
+        "location": "South Park Branch",
+        "venue": {
+          "name": "The Seattle Public Library - South Park Branch",
+          "address": "8604 8th Avenue South",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98108",
+          "country": "US",
+          "lat": 47.5262943,
+          "lon": -122.322579
+        }
+      },
+      {
+        "location": "NewHolly Branch",
+        "venue": {
+          "name": "The Seattle Public Library - NewHolly Branch",
+          "address": "7058 32nd Avenue South",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98118",
+          "country": "US",
+          "lat": 47.5390048,
+          "lon": -122.2909854
+        }
+      },
+      {
+        "location": "High Point Branch",
+        "venue": {
+          "name": "The Seattle Public Library - High Point Branch",
+          "address": "3411 Southwest Raymond Street",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98126",
+          "country": "US",
+          "lat": 47.5480967,
+          "lon": -122.375868
+        }
+      },
+      {
+        "location": "Rainier Beach Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Rainier Beach Branch",
+          "address": "9125 Rainier Avenue South",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98118",
+          "country": "US",
+          "lat": 47.5213448,
+          "lon": -122.2705027
+        }
+      },
+      {
+        "location": "Douglass-Truth Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Douglass-Truth Branch",
+          "address": "2300 East Yesler Way",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98122",
+          "country": "US",
+          "lat": 47.6019269,
+          "lon": -122.3016706
+        }
+      },
+      {
+        "location": "Columbia Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Columbia Branch",
+          "address": "4721 Rainier Avenue South",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98118",
+          "country": "US",
+          "lat": 47.5599225,
+          "lon": -122.2869741
+        }
+      },
+      {
+        "location": "Delridge Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Delridge Branch",
+          "address": "5423 Delridge Way Southwest",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98106",
+          "country": "US",
+          "lat": 47.5531844,
+          "lon": -122.3632981
+        }
+      },
+      {
+        "location": "Magnolia Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Magnolia Branch",
+          "address": "2801 34th Avenue West",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98199",
+          "country": "US",
+          "lat": 47.645351,
+          "lon": -122.4014407
+        }
+      },
+      {
+        "location": "Capitol Hill Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Capitol Hill Branch",
+          "address": "425 Harvard Avenue East",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98102",
+          "country": "US",
+          "lat": 47.6229165,
+          "lon": -122.3223263
+        }
+      },
+      {
+        "location": "Green Lake Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Green Lake Branch",
+          "address": "7364 East Green Lake Drive North",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98115",
+          "country": "US",
+          "lat": 47.681505,
+          "lon": -122.3266653
+        }
+      },
+      {
+        "location": "Greenwood Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Greenwood Branch",
+          "address": "8016 Greenwood Avenue North",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98103",
+          "country": "US",
+          "lat": 47.687404,
+          "lon": -122.354802
+        }
+      },
+      {
+        "location": "Queen Anne Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Queen Anne Branch",
+          "address": "400 West Garfield Street",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98119",
+          "country": "US",
+          "lat": 47.633813,
+          "lon": -122.3627512
+        }
+      },
+      {
+        "location": "Wallingford Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Wallingford Branch",
+          "address": "1501 North 45th Street",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98103",
+          "country": "US",
+          "lat": 47.6612296,
+          "lon": -122.3387805
+        }
+      },
+      {
+        "location": "Northeast Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Northeast Branch",
+          "address": "6801 35th Avenue Northeast",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98115",
+          "country": "US",
+          "lat": 47.6779357,
+          "lon": -122.2907143
+        }
+      },
+      {
+        "location": "International District/Chinatown Branch",
+        "venue": {
+          "name": "The Seattle Public Library - International District/Chinatown Branch",
+          "address": "713 8th Avenue South",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98108",
+          "country": "US",
+          "lat": 47.5961613,
+          "lon": -122.322621
+        }
+      },
+      {
+        "location": "Madrona/Sally Goldmark Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Madrona/Sally Goldmark Branch",
+          "address": "1134 33rd Avenue",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98122",
+          "country": "US",
+          "lat": 47.612686,
+          "lon": -122.2900219
+        }
+      },
+      {
+        "location": "Montlake Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Montlake Branch",
+          "address": "2401 24th Avenue East",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98112",
+          "country": "US",
+          "lat": 47.6405304,
+          "lon": -122.3023952
+        }
+      },
+      {
+        "location": "Fremont Branch",
+        "venue": {
+          "name": "The Seattle Public Library - Fremont Branch",
+          "address": "731 North 35th Street",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98103",
+          "country": "US",
+          "lat": 47.6500339,
+          "lon": -122.3484473
+        }
+      },
+      {
+        "location": "University Branch",
+        "venue": {
+          "name": "The Seattle Public Library - University Branch",
+          "address": "5009 Roosevelt Way Northeast",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98105",
+          "country": "US",
+          "lat": 47.6652129,
+          "lon": -122.3179374
+        }
+      },
+      {
+        "location": "West Seattle Branch",
+        "venue": {
+          "name": "The Seattle Public Library - West Seattle Branch",
+          "address": "2306 42nd Avenue Southwest",
+          "city": "Seattle",
+          "region": "WA",
+          "postal_code": "98116",
+          "country": "US",
+          "lat": 47.5827314,
+          "lon": -122.3847038
+        }
+      }
+    ],
+    "_metro": "Seattle, WA",
+    "_found": "manual:2026-10-10 spl.org/event-calendar embeds Trumba spuds with webName 'kalendaro' (read off the page, not guessed)",
+    "_note": "SPL's own Trumba calendar. BiblioCommons refuses SPL (403), and the configured seattlegov-city-wide.ics shares 0 of these 500 UIDs (and 0 title+date pairs). LOCATION is a bare branch name ('Ballard Branch'), so location_overrides pin all 27 branches to their OSM library nodes (Photon, osm_tag amenity:library, each name 'The Seattle Public Library - <branch>'). 'Online' (30 rows) is refused by ONLINE_LOC_RX; 'non-library location' (11) returns no Photon hit and is dropped unplaced; the closure row has no LOCATION. Titles carry HTML entities (&quot; &#26222;) that the sync html-unescapes. ?events=500 reaches ~3.5 weeks ahead (2026-10-10..11-03) and is 4.5 MB, over FEED_BODY_MAX, so it is fetched whole each run. Measured 2026-10-10 through the real adapter: ?events=500 stops at 2026-11-04 (446 unique rows, about 3.5 weeks). ?events=2000 returns the whole published calendar, 1,074 VEVENTs (fewer than 2000, so nothing was cut), and keeps 934 unique rows out to 2026-12-29 (83 online and 28 unplaceable dropped). The body is about twice the 4.5 MB of ?events=500."
+  },
+  {
+    "name": "Pierce County Library System (Pierce County, WA)",
+    "url": "https://piercecounty.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19",
+    "category": "learning",
+    "geocode_suffix": ", Pierce County, WA",
+    "limit": 500,
+    "url_home": "https://calendar.piercecountylibrary.org/events",
+    "skip_title": "^Virtual\\b|Staff In-Service|WIC Clinic|Library Closed|Board of Trustees|Friends of the .*Library Meeting",
+    "_metro": "Tacoma, WA",
+    "_found": "manual:2026-10-10 mypcls.org/calendar redirects to calendar.piercecountylibrary.org (Communico, libnet.info assets); the vendor host's /feeds with the same base64 filter the configured PGCMLS/MCPL entries use",
+    "_note": "Communico public iCal; piercecounty.libnet.info/robots.txt allows /feeds; mypcls.org robots.txt is Yoast 'Disallow:' (empty). Not in BiblioCommons, so not covered by bibliocommons_sources.json (Tacoma Public Library is a different system). Every row carries GEO of its branch except the 17 'Virtual Pierce County Library' rows, which carry GEO 0;0 and whose titles all begin 'Virtual' (skip_title); ONLINE_LOC_RX does not match 'Virtual Pierce County Library - Virtual Room 3', hence the title rule."
+  },
+  {
+    "name": "Everett Public Library - Youth Services (Everett, WA)",
+    "url": "https://www.epls.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "category": "kids",
+    "geocode_suffix": ", Everett, WA",
+    "limit": 300,
+    "_metro": "Seattle, WA",
+    "_found": "manual:2026-10-10 epls.org/iCalendar.aspx (CivicPlus) category list",
+    "_note": "Everett Public Library runs its own CivicPlus site (epls.org), separate from everettwa.gov (configured catID=31, which carried 7 EPL programmes in 90 days). LOCATION is 'Main Library > Activity Room - 2702 Hoyt Ave Everett WA 98201' / 'Evergreen Branch ... 9512 Evergreen Way', so location_attempts' dash split geocodes the street. Other categories measured: 32 (Storytimes, 28 rows) is a subset of 27; 14 is 'Library Closed' notices only; 35 empty; 26 (Adult Services), 30 and 33 were not read (host request budget spent; one attempt was a proxy reset) and are worth a verify pass."
+  },
+  {
+    "name": "WSU Extension Thurston County Master Gardeners - Dirt Works open garden and workshops (Olympia)",
+    "url": "https://extension.wsu.edu/thurston/events/category/mg/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "community",
+    "geocode_suffix": ", Olympia, WA",
+    "limit": 200,
+    "_metro": "Olympia, WA",
+    "_found": "manual:2026-10-10 extension.wsu.edu/thurston (The Events Calendar), category 'mg' iCal export (the ?tribe_events_cat=mg form redirects here)",
+    "_note": "Category-filtered so the 4-H project meetings (13 of 34 REST rows) never arrive. iCal rather than the tribe adapter because extension.wsu.edu is one host for many county subsites and tribe IDs are scoped by host."
+  },
+  {
+    "name": "WSU Extension Pierce County Master Gardeners - garden talks (Puyallup, Tacoma)",
+    "url": "https://extension.wsu.edu/pierce/events/category/master-gardener-program/?post_type=tribe_events&ical=1&eventDisplay=list",
+    "category": "learning",
+    "geocode_suffix": ", Pierce County, WA",
+    "limit": 100,
+    "_metro": "Tacoma, WA",
+    "_found": "manual:2026-10-10 extension.wsu.edu/pierce (The Events Calendar), category 'master-gardener-program' iCal export",
+    "_note": "Same multisite caveat as the Thurston entry. The other 11 of 18 REST rows are 4-H board/leader meetings, excluded by the category."
+  },
+  {
+    "name": "Puget Soundkeeper Alliance - cleanups (Seattle, WA)",
+    "url": "https://pugetsoundkeeper.org/events/list/?ical=1",
+    "category": "volunteer",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States",
+    "_found": "manual:2026-10-10 volunteer seed (Seattle watershed groups) -> The Events Calendar iCal list export",
+    "_note": "robots.txt disallows /wp-json/ (so NOT the tribe REST route) and nothing that matches /events/list/?ical=1; no Crawl-delay. TZID=America/Los_Angeles on every VEVENT. The list export serialises the current view only, which today is the whole upcoming calendar (4 of 4)."
+  },
+  {
+    "name": "DC Greens - The Well at Oxon Run urban farm (Washington, DC)",
+    "url": "https://dcgreens.org/events/list/?ical=1",
+    "category": "community",
+    "geocode_suffix": ", Washington, DC",
+    "limit": 300,
+    "utc_is_wall_clock": true,
+    "_metro": "Washington, United States",
+    "_found": "manual:2026-10-10 volunteer seed (D.C. urban farms) -> The Events Calendar iCal list export",
+    "_note": "The WordPress site is left on UTC: the REST API says timezone=UTC and the iCal stamps TZID=UTC over D.C. wall-clock digits ('Mending, Creating, and Viewing Soil' 11:00 in the page = DTSTART;TZID=UTC:20261010T110000). Read through tribe it would land 4-5 hours early, so it is proposed as ics with utc_is_wall_clock (the option documented in dates-and-timezones.md). robots.txt allows /events/list/?ical=1."
+  },
+  {
+    "name": "Île-de-France Nature - free guided nature outings (Paris region, France)",
+    "url": "https://openagenda.com/agendas/68165804/events.v2.ics?relative%5B0%5D=current&relative%5B1%5D=upcoming",
+    "category": "outdoors",
+    "geocode_suffix": ", Île-de-France, France",
+    "limit": 300,
+    "_metro": "Paris, France",
+    "_found": "manual:2026-10-10 OpenAgenda agenda search ('chantier nature') -> iledefrance-nature -> events.v2.ics",
+    "_note": "OpenAgenda robots.txt is 'Disallow:' (allow all). Agenda uid 68165804 is not among the 58 configured OpenAgenda ids. DTSTART values are UTC 'Z' (08:00Z = 10:00 Paris)."
   }
 ]

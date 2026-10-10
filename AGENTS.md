@@ -9,7 +9,7 @@ GitHub Actions runs a set of Python scripts on a schedule, and they write into
 the same Supabase the product reads.
 
 **This file is deliberately small, because every model loads it on every
-session.** The measured notes about what bites — 400 of them — live in
+session.** The measured notes about what bites — 402 of them — live in
 [`docs/agents/`](docs/agents/), one file per topic. `docs/agents/INDEX.md` lists
 every note's headline: grep it for the symptom, then open ONE file. Nothing in a
 note is a guess; each records a measurement, and the number is the point.
@@ -124,11 +124,11 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 | File | Notes | Covers |
 |---|---|---|
-| `docs/agents/curation-and-discovery.md` | 90 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic, the live per-door census, what a row-level review refuses, LibCal views, the civic marker, Communico's two hostnames, the 127 configured requests robots.txt refuses, Google Sites calendar blocks, pinning a calendar to its venue by hand, the infrastructure APIs' own robots.txt, retiring what robots.txt refuses and whose file a platform's is |
+| `docs/agents/curation-and-discovery.md` | 91 | the ledger, statuses, `_not_included`, sitemaps, robots, bot challenges, site builders, plugins, deep pages, licences, the coverage report's own arithmetic, the live per-door census, what a row-level review refuses, LibCal views, the civic marker, Communico's two hostnames, the 127 configured requests robots.txt refuses, Google Sites calendar blocks, pinning a calendar to its venue by hand, the infrastructure APIs' own robots.txt, retiring what robots.txt refuses and whose file a platform's is |
 | `docs/agents/osm-amenities.md` | 32 | which civic places earn a pin or a sheet, the four buildings that list without hours, deny-lists, facts vs names, the cached element list, hall contacts |
 | `docs/agents/openactive-and-standing-rows.md` | 22 | RPDE paging, `ScheduledSession`, booking grids, collapse, standing rows, retirements |
 | `docs/agents/ci-and-jobs.md` | 25 | timeouts, `always()`, budgets, job order, the one-deep concurrency queue, secrets, configs a guarded job needs, a sweep that resumes where it stopped |
-| `docs/agents/adapters-and-sources.md` | 34 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar read through the Calendar API, exact source ticket and organizer facts |
+| `docs/agents/adapters-and-sources.md` | 35 | Luma, parkrun, businesses vs events, malformed records, webcal, JSON-LD, Overpass, seattlecenter, online-only rows, Plus Codes, a venue block that names itself, Communico's online rooms, an iCalendar feed with no charset, a Google calendar read through the Calendar API, exact source ticket and organizer facts |
 | `docs/agents/classification-and-categories.md` | 36 | lens keys, promotion regexes, kids/food/market/music, non-English kids words, keyword-sweep demotions, category defaults, order pickup, what a description must say to reach volunteer, title-only kids words, markets named for a day, a shift is not the event, a play is not the verb, what the refresh backfills |
 | `docs/agents/cancelled-events.md` | 41 | an upsert cannot delete, ingest vs post-hoc, what counts as evidence, prose and 403s, hide vs delete, a title that says off or shut, tombstones, absence, who may lift one |
 | `docs/agents/sync-eventstore-and-paging.md` | 20 | upserts, OFFSET vs keyset, PostgREST errors, fingerprints, `series_id`, cursors, an unhide walk and its dry-run overcount, moving a row whose identity changed |

@@ -603,6 +603,15 @@ def _legacy_fingerprint(old_ev: Dict[str, Any], date_key: str, venue: Optional[D
     return make_fingerprint(title, date_key, loc)
 
 
+def _start_key(ev) -> str:
+    """DTSTART as a sortable "YYYYMMDDHHMMSS" (zone ignored: an ordering, not an
+    instant). A VEVENT with no readable DTSTART sorts last; the loop skips it."""
+    raw = ev.get("DTSTART", ("", {}))
+    value = raw[0] if isinstance(raw, tuple) else raw
+    digits = re.sub(r"[^0-9]", "", str(value or ""))
+    return (digits + "000000")[:14] if len(digits) >= 8 else "99999999999999"
+
+
 def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=0, start_kept=0, deadline=None) -> int:
     details_reader = None
     if src.get("details") == "ramart":
@@ -631,6 +640,16 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         else:
             print(f"::warning::[ics] {src['name']}: read as {legacy_enc} it has {len(old)} VEVENTs "
                   f"and as UTF-8 {len(events)}; its rows keep no legacy fingerprint", flush=True)
+    # SOONEST FIRST, because `limit` is counted in walk order. CivicPlus writes
+    # some calendars newest first: Capitol Heights, MD lists 790 VEVENTs from
+    # 2034-11-27 down to tomorrow, so limit=100 kept 78 'Grocery Giveaway' rows
+    # dated 2032-2034 and none in the next 90 days (row review, 2026-10-10).
+    # The legacy reading is paired with these index for index, so it is
+    # permuted the same way; the store keys rows by fingerprint, not position.
+    order = sorted(range(len(events)), key=lambda i: (_start_key(events[i]), i))
+    events = [events[i] for i in order]
+    if old_events is not None:
+        old_events = [old_events[i] for i in order]
     label = "ics:" + src["name"].lower().replace(" ", "-")
     geocode = make_location_geocoder(session, src.get("geocode_suffix", ""))
     now_key = datetime.now(timezone.utc).strftime("%Y-%m-%d")

@@ -1393,3 +1393,14 @@
   sources answer robots.txt with a challenge but serve their feed to
   production. An empty calendar is not a dead one: the audit read Edina's
   Braemar Arena as "0 vevents" the same weekend production kept 300 of 432.
+
+- **A PLATFORM'S EVENT CAP HID MOST OF A LIBRARY'S PROGRAMME: 57 OF 244 CONFIGURED LIBCAL, COMMUNICO AND TRUMBA FEEDS REACHED LESS THAN 60 DAYS (2026-10-10).** LibCal's `ical_subscribe.php` returns at most 500 VEVENTs, as does Communico's `/feeds?data=`. Trumba returns 200 unless asked for `?events=N`. `verify` passes a capped feed because it still has future rows.
+  - One read of every configured feed on the three platforms, under the production User-Agent, found 57 at the cap and reaching less than 60 days ahead: 34 Communico, 15 LibCal, 8 Trumba.
+    - Fairfax County Public Library and Winnipeg: 500 events and 0 in the future (LibCal sorts the oldest first). Singapore's NLB GoLibrary: 1.
+    - Arlington: 5 days. Montgomery County MD's Trumba calendar: 7 days. Brisbane's Trumba calendars: 9 days.
+    - Most Communico systems reached 22 days: LA County, Miami-Dade, Las Vegas-Clark County, Sacramento, Salt Lake County, Indianapolis, Columbus, Cuyahoga, Loudoun.
+  - The fixes are each platform's own parameters, not a new adapter:
+    - LibCal: one feed per branch, `src=p&cid=N&cam=M`. A `cam` view is a location filter, not the audience view of the note above, so it is not the same calendar. FCPL's 9 branch views share 0 UIDs pairwise, and Arlington's 8 do too.
+    - Communico: a location filter inside the base64 `data` (ids from the site's own eeventcaldata), grouped to stay under 500. MCPL's 8 groups share 0 UIDs and hold 485 of the all-branch feed's 500.
+    - Trumba: `?events=2000`. Seattle Public Library's calendar then returns 1,074 VEVENTs (all of it) and Montgomery County's 1,571.
+  - The capped entry is removed in the same commit, or its rows double-list.

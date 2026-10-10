@@ -2274,6 +2274,41 @@
         "lon": -73.953081
       },
       "_metro": "New York, United States"
+    },
+    {
+      "name": "Workhouse Arts Center (Lorton)",
+      "category": "arts",
+      "collection": "https://www.workhousearts.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Workhouse Arts Center",
+        "address": "9518 Workhouse Way",
+        "city": "Lorton",
+        "region": "VA",
+        "postal_code": "22079",
+        "lat": 38.698071,
+        "lon": -77.255393
+      },
+      "_metro": "Washington, DC",
+      "_found": "manual:2026-10-10 dc-community fairfax arts campus -> squarespace",
+      "_note": "Measured 2026-10-10: Fairfax County's arts campus in the former Lorton prison. The bare collection page (parse_articles, as the adapter reads it) on 2026-10-10: 101 upcoming, 52 in the next 90 days, all on the campus (16 carry an address; the venue block covers the rest): 2nd Saturday Open House & Art Walk and exhibition receptions (free), historic campus walking tours, Learning at Lunch, Fall Fest, mini-golf tournament, sound baths, plus ticketed theatre (Bat Boy) and the HAUNT attraction. robots.txt allows the collection path."
+    },
+    {
+      "name": "West Seattle Runner group runs (Seattle)",
+      "category": "running",
+      "collection": "https://www.westseattlerunner.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "West Seattle Runner",
+        "address": "2743 California Avenue Southwest",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98116",
+        "country": "US"
+      },
+      "_metro": "Seattle, United States",
+      "_found": "running cell 2026-10-10: RRCA club directory (rrca.org/clubs) -> /club/west-seattle-runner/ -> westseattlerunner.com, server: Squarespace, /events is an events collection",
+      "_note": "Measured 2026-10-10: Row check 2026-10-10 (the bare collection page, as the adapter reads it): 33 event articles, 3 upcoming and all 3 inside 90 days - Halloween Light Run (Oct 28, 6:15 PM, from the shop), the 17th annual Gobble Gobble Group Run (Nov 26, Alki), the Christmas Light Run (Dec 20) - all free community group runs. The 30 past articles show the store posts its weekly runs a few weeks ahead (Wednesday group run, Track Tuesday, Saturday morning group, hill sessions, shake-out runs) plus a few PT injury-screen nights. Every article's map link is the shop, 2743 California Avenue Southwest, Seattle, WA 98116, which the venue block repeats. robots.txt: stock Squarespace, the bare collection page allowed."
     }
   ],
   "_not_included": {

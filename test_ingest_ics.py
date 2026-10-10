@@ -561,6 +561,21 @@ check('a home-only info fallback never fetches per-event source details',
       not detail_calls and len(detail_store.rows) == 2
       and all(r.ticket_url == LINK_HOME for r in detail_store.rows), detail_calls)
 
+# --- `limit` keeps the SOONEST future events, whatever order the file is in ---
+# Capitol Heights, MD's CivicPlus feed is written newest first (790 VEVENTs,
+# 2034 down to tomorrow); in file order limit=100 kept only 2032-2034 rows.
+NEWEST_FIRST_ICS = "BEGIN:VCALENDAR\r\n" + "".join(
+    f"BEGIN:VEVENT\r\nUID:g{y}\r\nSUMMARY:Grocery Giveaway {y}\r\nDTSTART:{y}0110T150000Z\r\n"
+    f"LOCATION:Town Hall\r\nEND:VEVENT\r\n" for y in range(2099, 2089, -1)) + "END:VCALENDAR\r\n"
+with patch.object(ICS, "_fetch_ics", return_value=(NEWEST_FIRST_ICS, "200")), \
+     patch.object(ICS, "make_location_geocoder", side_effect=lambda *_: (lambda loc: (38.9, -76.9))):
+    order_store = VenueStore()
+    ICS.ingest_ics(order_store, None, {"name": "capitol-heights", "url": "x", "limit": 3})
+    check("a newest-first feed over its limit keeps its SOONEST events, not the farthest",
+          sorted(r.name for r in order_store.rows) == ["Grocery Giveaway 2090", "Grocery Giveaway 2091",
+                                                      "Grocery Giveaway 2092"],
+          [r.name for r in order_store.rows])
+
 if fails:
     raise SystemExit(f"{len(fails)} ICS test(s) failed: {', '.join(fails)}")
 print("all ICS tests passed")

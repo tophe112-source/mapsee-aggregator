@@ -7502,6 +7502,50 @@
         "lon": -73.9465571
       },
       "_metro": "New York, United States"
+    },
+    {
+      "name": "Kubota Garden Foundation - tours and garden events (Rainier Beach)",
+      "category": "outdoors",
+      "listing": [
+        "https://www.kubotagarden.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 40,
+      "skip_title": "[Oo]nline",
+      "venue": {
+        "name": "Kubota Garden",
+        "address": "9817 55th Ave S",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98118",
+        "country": "US",
+        "lat": 47.5128166,
+        "lon": -122.266071
+      },
+      "_metro": "Seattle, WA",
+      "_found": "manual:2026-10-10 kubotagarden.org (Wix events app)",
+      "_note": "Wix: the event-list page embeds all 16 event slugs; event-details pages carry schema.org Event JSON-LD with location 'Kubota Garden, 9817 55th Ave S' and AggregateOffer lowPrice 0.00 (checked on fall-color-tour-2026-10-17-10-00). robots.txt: '*' Allow / except *?lightbox=. skip_title drops the online houseplant sale."
+    },
+    {
+      "name": "DNDA / Youngstown Cultural Arts Center - community calendar (Delridge, West Seattle)",
+      "category": "community",
+      "listing": [
+        "https://dnda.org/"
+      ],
+      "max_events": 60,
+      "skip_title": "Jazzercise|^West Seattle Tool Library$",
+      "venue": {
+        "name": "Youngstown Cultural Arts Center",
+        "address": "4408 Delridge Way SW",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98106",
+        "country": "US"
+      },
+      "_metro": "Seattle, WA",
+      "_found": "manual:2026-10-10 dnda.org homepage (Modern Events Calendar; 12 inline Event JSON-LD blocks)",
+      "_note": "Delridge Neighborhoods Development Association runs Youngstown Cultural Arts Center, the West Seattle Tool Library and park restoration. MEC's ?mec-ical-feed=1 is disabled (HTML) and /events/, /youngstown/calendar/, /nature/calendar/ render by AJAX with no JSON-LD, so the homepage's rolling block of upcoming events is the listing; the adapter's MEC wall-clock handling applies. Restoration events carry their own park address (Roxhill Park, Dragonfly Pavilion), which the block does not override. skip_title drops Jazzercise (a franchise class renting the hall)."
     }
   ],
   "_not_included": {
