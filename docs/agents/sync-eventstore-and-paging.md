@@ -282,3 +282,17 @@
   - In run 120, 6 jobs' syncs stopped with "Could not verify imported event ownership": Races at 13:24, Ticketmaster at 13:27, OpenActive at 13:54, then Meetup, local and civic. `rec` (14:09) and `ics` (17:03) synced fine after the blip.
   - Each chunk now gets `STATE_READ_TRIES` = 3 attempts, backing off 2 s then 4 s. A retry re-reads the chunk from offset 0 and keeps nothing from a failed try.
   - A persistent failure still fails closed before any write. Its message now names the reason (our own check's words, or an exception's class, never its text, which can carry the URL).
+
+- **CLEANUP MUST NOT COUNT THE CATALOG BEFORE EVERY BOUNDED DELETE RUN.**
+  On 2026-10-09, run 37951179234 hit 57014 while counting, then deleted only
+  **46** rows before even a **10**-ID fetch timed out. October 10 live EXPLAIN
+  already used the valid `events_aggregator_cleanup_idx`; adding
+  `ORDER BY starts_at,id` only added Incremental Sort (limit cost 1,436.65 to
+  1,456.77), so no sort or duplicate index was shipped. Apply now goes directly
+  to bounded candidate fetches; dry-run alone requests `count=planned`, since
+  `count=estimated` can still perform an exact count. The source/start/end
+  safety predicates remain on every delete. The behavioral fixture makes
+  **3** requests to fetch/delete two rows and observe exhaustion, with **0**
+  preliminary count requests; a failed dry-run count remains a visible error.
+  All **73** CI test scripts passed. This removes wasted work; it does not prove
+  the Micro database's separate memory/I/O pressure has been resolved.

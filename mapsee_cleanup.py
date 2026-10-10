@@ -141,33 +141,29 @@ def main() -> int:
     # but events cascade: event_messages, event_rsvps, invites and cohosts go
     # with it. The event comes back empty, mid-run, with its guest list gone.
     #
-    # ORDER MATTERS for the query plan: starts_at stays the leading, indexed
-    # predicate (migration 0113, events_aggregator_cleanup_idx) and the ends_at
-    # test filters the far smaller set it returns. Making ends_at the leading
-    # term would drop the index and bring back the statement timeouts this file
-    # was rewritten to survive.
+    # The cleanup index is keyed by external_source and starts_at; ends_at stays
+    # in the filter as the running-event safety check. SQL predicate text order
+    # does not control index selection. Keep the full eligibility scope on both
+    # candidate reads and deletes.
     flt = (f"external_source=eq.mapsee&starts_at=lt.{cutoff}"
            f"&or=(ends_at.is.null,ends_at.lt.{cutoff})")
     assert "external_source=eq.mapsee" in flt and "starts_at=lt." in flt, "refusing an unscoped delete"
     base = url.rstrip("/") + "/rest/v1/events?" + flt
     auth = {"apikey": key, "Authorization": f"Bearer {key}"}
 
-    # How many match? ESTIMATED, from the planner. An exact count walks every
-    # matching row and was itself timing out — and when it did, the old code read
-    # the missing Content-Range as "?" and carried on as though it had an answer.
-    # This number is only ever printed, so a planner estimate is the right price.
-    cnt = _req("GET", base + "&select=id",
-               headers=dict(auth, **{"Range-Unit": "items", "Range": "0-0",
-                                     "Prefer": "count=estimated"}),
-               timeout=60)
-    if cnt.status_code >= 300:
-        print(f"Couldn't count matching events [{cnt.status_code}]: {cnt.text[:200]}")
-        total = "unknown"
-    else:
-        total = cnt.headers.get("Content-Range", "*/unknown").split("/")[-1]
-    print(f"Aggregator events that started before {cutoff}: ~{total}")
-
+    # A count is useful for a dry run, but it adds a database request before
+    # every mutation run. Keep that planner estimate out of the path that is
+    # already bounded by page size and max-seconds. `planned` asks PostgREST for
+    # a statistics-based estimate; an exact count can scan the whole match set.
     if a.dry_run:
+        cnt = _req("GET", base + "&select=id",
+                   headers=dict(auth, **{"Range-Unit": "items", "Range": "0-0",
+                                         "Prefer": "count=planned"}),
+                   timeout=60)
+        if cnt.status_code >= 300:
+            sys.exit(f"Couldn't count matching events [{cnt.status_code}]: {cnt.text[:200]}")
+        total = cnt.headers.get("Content-Range", "*/unknown").split("/")[-1]
+        print(f"Aggregator events that started before {cutoff}: ~{total}")
         print("Dry run — nothing deleted.")
         return 0
 
@@ -182,16 +178,16 @@ def main() -> int:
                   f"where this left off.")
             break
 
+        # No OFFSET: every successful delete removes its page from the candidate
+        # set, so the bounded limit fetch advances without a count or cursor.
         page = _req("GET", f"{base}&select=id&limit={batch}", headers=auth,
                     timeout=min(120, max(10, int(left))))
-        # No `order`: sorting is work the database does not need to do here.
-        # Paging is stable without it because every row this returns is deleted
-        # before the next fetch, so the window always moves forward.
         if _timed_out(page):
             if batch <= BATCH_MIN:
-                sys.exit(f"Even {batch} ids time out on fetch — apply migration 0113 "
-                         f"(events_aggregator_cleanup_idx), which is what makes this "
-                         f"filter index-backed.")
+                sys.exit(f"Even {batch} ids time out on fetch. Check whether migration "
+                         f"0113's events_aggregator_cleanup_idx exists and is valid, "
+                         f"then inspect the live query plan; the timeout may have "
+                         f"another cause.")
             batch = max(BATCH_MIN, batch // 2)
             print(f"Fetch timed out — retrying with batches of {batch}.")
             continue
@@ -231,7 +227,7 @@ def main() -> int:
         deleted += got
         print(f"  deleted {deleted}…", flush=True)
 
-    print(f"Deleted {deleted} past aggregator events (est. {total} were eligible).")
+    print(f"Deleted {deleted} past aggregator events.")
     return 0
 
 

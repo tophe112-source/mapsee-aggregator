@@ -23,6 +23,8 @@ run stalls; do not retry the 503 and a provider blip is a red build. Run:
 """
 import sys
 import types
+from contextlib import redirect_stdout
+from io import StringIO
 
 import mapsee_cleanup as C
 
@@ -36,8 +38,13 @@ def check(label, cond, detail=""):
 
 
 class Resp:
-    def __init__(self, code, text=""):
+    def __init__(self, code, text="", *, headers=None, body=None):
         self.status_code, self.text = code, text
+        self.headers = headers or {}
+        self.body = body
+
+    def json(self):
+        return self.body
 
 
 TIMEOUT_BODY = '{"code":"57014","message":"canceling statement due to statement timeout"}'
@@ -92,6 +99,86 @@ r, n = run([ConnectionError("connection reset by peer")])
 check("a transport that never answers exits with an explanation",
       isinstance(r, SystemExit) and "unreachable" in str(r) and n == C.ATTEMPTS, (r, n))
 check("...and says the work is safe to retry", isinstance(r, SystemExit) and "Nothing was deleted" in str(r), r)
+
+
+def run_main(dry_run=False, fetch_timeouts=0, count_failure=False):
+    """Run main with scripted PostgREST replies and return calls/output/result."""
+    calls = []
+    timeouts_left = fetch_timeouts
+    pages = [
+        Resp(200, headers={}, body=[{"id": "event-a"}, {"id": "event-b"}]),
+        Resp(200, headers={}, body=[]),
+    ]
+
+    def request(method, url, **kw):
+        nonlocal timeouts_left
+        calls.append((method, url, kw))
+        if method == "DELETE":
+            return Resp(204, headers={"Content-Range": "0-1/2"})
+        if dry_run:
+            if count_failure:
+                return Resp(503, "count service unavailable")
+            return Resp(200, headers={"Content-Range": "0-0/estimate"}, body=[])
+        if timeouts_left:
+            timeouts_left -= 1
+            return Resp(500, TIMEOUT_BODY)
+        return pages.pop(0)
+
+    real_req, real_time = C._req, C.time
+    real_env = dict(C.os.environ)
+    real_argv = sys.argv
+    C._req = request
+    C.time = types.SimpleNamespace(monotonic=lambda: 0, sleep=lambda _s: None)
+    C.os.environ["SUPABASE_URL"] = "https://example.test"
+    C.os.environ["SUPABASE_SERVICE_ROLE_KEY"] = "test-key"
+    sys.argv = ["mapsee_cleanup.py"] + (["--dry-run"] if dry_run else [])
+    out = StringIO()
+    try:
+        with redirect_stdout(out):
+            try:
+                result = C.main()
+            except BaseException as ex:
+                result = ex
+        return calls, out.getvalue(), result
+    finally:
+        C._req, C.time, sys.argv = real_req, real_time, real_argv
+        C.os.environ.clear()
+        C.os.environ.update(real_env)
+
+
+calls, output, result = run_main()
+get_calls = [call for call in calls if call[0] == "GET"]
+check("apply starts with bounded candidate fetches, without a count request",
+      result == 0 and len(calls) == 3 and len(get_calls) == 2
+      and all("Range-Unit" not in call[2].get("headers", {}) for call in calls), calls)
+candidate_url = get_calls[0][1]
+delete_url = next(call[1] for call in calls if call[0] == "DELETE")
+check("candidate pages use a bounded limit without ordering work",
+      "&limit=100" in candidate_url and "order=" not in candidate_url, candidate_url)
+check("delete rechecks source, start cutoff and end-time eligibility",
+      all(part in delete_url for part in (
+          "external_source=eq.mapsee", "starts_at=lt.",
+          "ends_at.is.null", "ends_at.lt.", "id=in.(event-a,event-b)")), delete_url)
+check("apply reports actual deletes without an eligible-count claim",
+      "Deleted 2 past aggregator events." in output and "eligible" not in output, output)
+
+calls, output, result = run_main(dry_run=True)
+check("dry run uses a planned estimate and returns without listing or deleting",
+      result == 0 and len(calls) == 1 and calls[0][0] == "GET"
+      and calls[0][2]["headers"]["Prefer"] == "count=planned"
+      and "~estimate" in output and "nothing deleted" in output.lower(), (calls, output))
+
+calls, output, result = run_main(dry_run=True, count_failure=True)
+check("a failed dry-run count exits visibly instead of reporting a successful dry run",
+      isinstance(result, SystemExit) and "Couldn't count matching events [503]" in str(result)
+      and "Dry run" not in output and len(calls) == 1, (result, output, calls))
+
+calls, output, result = run_main(fetch_timeouts=5)
+limits = [call[1].split("&limit=")[-1] for call in calls]
+check("fetch timeouts halve the limit to the minimum and remain a visible failure",
+      isinstance(result, SystemExit) and limits == ["100", "50", "25", "12", "10"]
+      and "exists and is valid" in str(result) and "apply migration" not in str(result),
+      (limits, result))
 
 # The safety rail this file must never lose: the delete is scoped, always.
 import inspect
