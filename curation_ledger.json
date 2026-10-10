@@ -69,6 +69,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "1030.be": {
+    "checked": 20261010,
+    "name": "Q12887",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "104.fr": {
     "checked": 20261005,
     "name": "Le Centquatre - 104",
@@ -1183,6 +1190,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "8x8chessacademy.com": {
+    "checked": 20261010,
+    "name": "8x8 chess",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "90graus.com.br": {
     "checked": 20261004,
     "name": "90 Graus escalada esportiva",
@@ -1581,6 +1595,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "aalst.be": {
+    "checked": 20261010,
+    "name": "Aalst",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "aalst.be/adressen-openingsuren/bestuur-en-stadsdiensten/ocmw": {
     "checked": 20260911,
@@ -2289,6 +2310,13 @@
     "reason": "29 future, 29 placeable",
     "status": "ok",
     "type": "ics"
+  },
+  "ableelavatisks.org": {
+    "checked": 20261010,
+    "name": "Akhil Bhartiya smt Leelawati Manila nal Jafri kya samaan Kalyan samiti",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "ablisboa.pt": {
     "checked": 20260901,
@@ -3014,6 +3042,20 @@
   "achern.de/de/Leben+Lernen/Stadtbibliothek": {
     "checked": 20261006,
     "name": "Stadtbibliothek Achern",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "achieverslibrary.com/dwarka.html": {
+    "checked": 20261010,
+    "name": "Achievers Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "achieverslibrary.com/paschim-vihar.html": {
+    "checked": 20261010,
+    "name": "Achievers Library",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -5783,6 +5825,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "aitpune.com/Library.aspx": {
+    "checked": 20261010,
+    "name": "Aryabhatta Center",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "aivovammayhdistykset.fi/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20261004,
@@ -10204,6 +10253,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "anderlecht.be": {
+    "checked": 20261010,
+    "name": "Anderlecht",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "anderlecht.be/fr/bibliotheque": {
     "checked": 20260911,
     "name": "Biblioth\u00e8que de l'Espace Car\u00eame",
@@ -11185,6 +11241,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "antwerpen.be/en": {
+    "checked": 20261010,
+    "name": "Antwerp",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "antwerpen.be/info/52d5051d39d8a6ec798b46d7/openluchtzwembad-de-molen": {
     "checked": 20260913,
@@ -19889,6 +19952,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "azizaa.weds.guru": {
+    "checked": 20261010,
+    "name": "Azizaa Banquet",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "azkunazentroa.eus/az/cast/inicio": {
     "checked": 20260916,
     "name": "Azkuna Zentroa",
@@ -25962,6 +26032,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "beringen.be": {
+    "checked": 20261010,
+    "name": "Beringen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "berinzenne.be/musee": {
     "checked": 20260914,
     "name": "Mus\u00e9e de la For\u00eat et des Eaux",
@@ -27544,6 +27621,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "beveren.be": {
+    "checked": 20261010,
+    "name": "Beveren",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "beverley.gov.uk": {
     "checked": 20260927,
@@ -34637,6 +34721,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "birlasciencemuseum.org": {
+    "checked": 20261010,
+    "name": "B M Birla Science Museum",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "birmingham.gov.uk": {
     "checked": 20260927,
     "name": "Birmingham",
@@ -38336,6 +38427,13 @@
     "name": "Books Kubrick",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "booksmeridian.com": {
+    "checked": 20261010,
+    "name": "Books Meridian",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "booksonhigh.com/pages/9615-ContactOpeningHours": {
@@ -42218,6 +42316,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "brugge.be": {
+    "checked": 20261010,
+    "name": "Bruges",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "bruis.nl": {
     "checked": 20260930,
     "name": "Bruis",
@@ -42498,6 +42603,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bruxelles.be": {
+    "checked": 20261010,
+    "name": "Brussels",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "bruxelles.be/centre-sportif-et-culturel-pole-nord": {
     "checked": 20260911,
@@ -57579,6 +57691,14 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "charleroi.be": {
+    "checked": 20261010,
+    "name": "Q81046",
+    "offsite_url": "https://www.facebook.com/CharleroiEvenements/",
+    "reason": "civic probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "charlessturtmuseum.org.au": {
     "checked": 20260819,
@@ -77557,6 +77677,13 @@
     "status": "empty",
     "type": "jsonld"
   },
+  "csclub.in": {
+    "checked": 20261010,
+    "name": "Central Secretariat Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "csclub.uwaterloo.ca": {
     "checked": 20260819,
     "name": "Computer Science Club",
@@ -77662,6 +77789,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "csh-delhi.com": {
+    "checked": 20261010,
+    "name": "?",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "csi-rocourt.be": {
     "checked": 20260914,
     "name": "Centre Social Italien",
@@ -77744,6 +77878,13 @@
     "name": "Centro di Scienze Naturali di Galceti",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "csoi.org.in": {
+    "checked": 20261010,
+    "name": "Civil Services Officers' Institute",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "csol.cz": {
@@ -82906,6 +83047,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "deinze.be": {
+    "checked": 20261010,
+    "name": "Deinze",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "deinze.be/engel": {
     "checked": 20260913,
     "name": "De Engel",
@@ -83768,6 +83916,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "dendermonde.be": {
+    "checked": 20261010,
+    "name": "Dendermonde",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "dendermonderugbyclub.be": {
     "checked": 20260911,
@@ -85489,6 +85644,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dhaneshwarprachinshivalay.in": {
+    "checked": 20261010,
+    "name": "Shree Dhaneshwar Mahadev Mandir",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "dhbw-stuttgart.de/service/bibliothek": {
     "checked": 20261003,
     "name": "DHBW Bibliothek Stuttgart",
@@ -86126,6 +86288,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "dilbeek.be": {
+    "checked": 20261010,
+    "name": "Dilbeek",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "dima.uniroma1.it/dima/strutture/biblioteca": {
     "checked": 20260921,
@@ -88353,6 +88522,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dopt.gov.in/welfare/civil-services-officers-institute": {
+    "checked": 20261010,
+    "name": "Civil Services Officers Institute",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "dorcas.org.br": {
     "checked": 20261006,
     "name": "Grupo Escoteiro Dorcas 209 / Pr",
@@ -90001,6 +90177,13 @@
   "dsgmc.in": {
     "checked": 20260927,
     "name": "Gurudwara Bangla Sahib Sikh Temple",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dsgmc.in/DharmParchar/GurdwaraRakabGanjSahib#": {
+    "checked": 20261010,
+    "name": "Gurdwara Rakab Ganj Sahib",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -100051,6 +100234,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "etterbeek.brussels": {
+    "checked": 20261010,
+    "name": "Etterbeek",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "etterbeeksport.be": {
     "checked": 20260912,
     "name": "Etterbeek Sport",
@@ -101310,6 +101500,13 @@
     "reason": "248 future, 248 placeable",
     "status": "ok",
     "type": "ics"
+  },
+  "evere.brussels": {
+    "checked": 20261010,
+    "name": "Evere",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "evere.brussels/fr/que-faire/bibliotheque-fr": {
     "checked": 20260911,
@@ -105089,6 +105286,13 @@
     "name": "Falcon & Friends",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "falconpublishers.com": {
+    "checked": 20261010,
+    "name": "Falcon Medical Books",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "falelalagavillage.org.nz": {
@@ -116927,6 +117131,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gandhipeace.foundation": {
+    "checked": 20261010,
+    "name": "Gandhi Peace Foundation",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "ganesha.org.br": {
     "checked": 20261009,
     "name": "Ag\u00eancia Ganesha",
@@ -118180,6 +118391,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "geel.be": {
+    "checked": 20261010,
+    "name": "Geel",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "geencinema.be": {
     "checked": 20260911,
     "name": "CINEMA",
@@ -118732,6 +118950,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "genk.be": {
+    "checked": 20261010,
+    "name": "Genk",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "genkakuji.or.jp": {
     "checked": 20260924,
@@ -126028,6 +126253,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "gulmohorbanquet.com": {
+    "checked": 20261010,
+    "name": "Gulmohor Banquet",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "gulpener.nl": {
     "checked": 20260913,
     "name": "Gulpener",
@@ -126486,6 +126718,13 @@
   "gympik.com": {
     "checked": 20261009,
     "name": "Pulse Fitness",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "gympik.com/delhi/pacific-sports-complex-andrews-ganj": {
+    "checked": 20261010,
+    "name": "Pacific Sports Complex",
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -127589,6 +127828,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "halle.be": {
+    "checked": 20261010,
+    "name": "Halle",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "halle.be/denast": {
     "checked": 20260911,
@@ -129566,6 +129812,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "hasselt.be": {
+    "checked": 20261010,
+    "name": "Hasselt",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "hastalavista.pl": {
     "checked": 20260910,
     "name": "Hasta La Vista",
@@ -131532,6 +131785,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "heist-op-den-berg.be": {
+    "checked": 20261010,
+    "name": "Heist-op-den-Berg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "heist-op-den-berg.be/activiteiten/detail/99/treinmuseum": {
     "checked": 20260913,
@@ -134703,6 +134963,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "hilltopgreens.co.in": {
+    "checked": 20261010,
+    "name": "Hilltop Greens",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "hillviewchurch.ca": {
     "checked": 20260819,
@@ -141967,6 +142234,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "iicdelhi.nic.in": {
+    "checked": 20261010,
+    "name": "India International Center",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "iicpraga.esteri.it": {
     "checked": 20260904,
     "name": "Italsk\u00fd kulturn\u00ed institut v Praze",
@@ -146953,6 +147227,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ixelles.be": {
+    "checked": 20261010,
+    "name": "Q208713",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ixelles.be/site/222-piscine": {
     "checked": 20260912,
     "name": "Piscine communale d'Ixelles - Gemeentelijk Zwembad van Elsene",
@@ -148838,6 +149119,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "jette.irisnet.be": {
+    "checked": 20261010,
+    "name": "Jette",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "jette.irisnet.be/fr/cpas/le-cpas": {
     "checked": 20260911,
@@ -160952,6 +161240,13 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "knma.org/whats-on/workshops": {
+    "checked": 20261010,
+    "name": "Kiran Nadar Museum of Art",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "knmc.nl": {
     "checked": 20260930,
     "name": "Koninklijke Nederlandsche Motorboot Club",
@@ -162499,6 +162794,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kortrijk.be": {
+    "checked": 20261010,
+    "name": "Kortrijk",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kortrijk.be/bibliotheek": {
     "checked": 20261006,
@@ -169064,6 +169366,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lamakaan.com": {
+    "checked": 20261010,
+    "name": "Lamakaan",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lamaletafilms.com": {
     "checked": 20260916,
     "name": "La Maleta Films",
@@ -169083,6 +169392,13 @@
     "name": "La Manovella",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "lamansion.weds.guru": {
+    "checked": 20261010,
+    "name": "La Mansion Banquet",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "lamanuco.fr": {
@@ -172099,6 +172415,13 @@
   "lds.org.br": {
     "checked": 20261008,
     "name": "Igreja de Jesus Cristo dos Santos dos \u00daltimos Dias",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "lds.org.in/new-delhi-1": {
+    "checked": 20261010,
+    "name": "The Church of Jesus Christ of Latter-day Saints",
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -175478,6 +175801,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "leuven.be": {
+    "checked": 20261010,
+    "name": "Leuven",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "leuven.be/contact/buurtcentrum-mannenstraat": {
     "checked": 20260911,
@@ -182387,6 +182717,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lokeren.be": {
+    "checked": 20261010,
+    "name": "Lokeren",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "lokeren.be/vrije-tijd/sport/zwembad": {
     "checked": 20260913,
     "name": "Zwembad Durmehal",
@@ -185863,6 +186200,13 @@
     "name": "Magyar H\u00e1z Br\u00fcsszel",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "mahabodhihyd.org": {
+    "checked": 20261010,
+    "name": "\u0100nandavih\u0101ra",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "mahabodhimeditation.org": {
@@ -191594,6 +191938,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mechelen.be": {
+    "checked": 20261010,
+    "name": "Mechelen",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "mechelen.be/kinderboerderij": {
     "checked": 20260912,
     "name": "Kinderboerderij Tivoli",
@@ -193156,6 +193507,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "meherpunecentre.org": {
+    "checked": 20261010,
+    "name": "Avatar Meher Baba Pune Centre",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "mehralswohnen.ch/genossenschaft/allmendkommission": {
     "checked": 20260917,
     "name": "Treffpunkt",
@@ -194450,6 +194808,13 @@
     "reason": "39 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "metrocityhealthclub.com": {
+    "checked": 20261010,
+    "name": "Metrocity Sports Club",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "metrocomedyclub.cz": {
     "checked": 20260904,
@@ -199267,6 +199632,13 @@
   "molde.kommune.no": {
     "checked": 20260930,
     "name": "Molde Municipality",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "molenbeek.irisnet.be": {
+    "checked": 20261010,
+    "name": "Q180775",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
@@ -210293,6 +210665,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "namurtourisme.be": {
+    "checked": 20261010,
+    "name": "Namur",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "nanagei.com": {
     "checked": 20260925,
     "name": "\u7b2c\u4e03\u85dd\u8853\u5287\u5834",
@@ -210811,6 +211190,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nationalcraftsmuseum.nic.in": {
+    "checked": 20261010,
+    "name": "National Handicrafts Museum",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "nationalgallery.sg": {
     "checked": 20260910,
     "name": "National Gallery Singapore",
@@ -210851,6 +211237,13 @@
     "name": "Nationalmuseum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "nationalmuseumindia.gov.in": {
+    "checked": 20261010,
+    "name": "National Museum",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "nationalopal.com/opal-showrooms-museums/our-museums.html": {
@@ -214282,6 +214675,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ninove.be": {
+    "checked": 20261010,
+    "name": "Ninove",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "nipc.or.jp/nsp/plaza.html": {
     "checked": 20260926,
@@ -222661,6 +223061,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "oostende.be": {
+    "checked": 20261010,
+    "name": "Ostend",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "oosterhout.nl": {
     "checked": 20261008,
     "name": "Oosterhout",
@@ -223660,6 +224067,13 @@
     "name": "Open Factory",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "openfoodnetwork.in/manahub": {
+    "checked": 20261010,
+    "name": "Manahub",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "opengym.be": {
@@ -240722,6 +241136,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "pressclubhyderabad.com": {
+    "checked": 20261010,
+    "name": "Press Club of Hyderabad",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "pressenshus.no": {
     "checked": 20260906,
     "name": "Pressens Hus",
@@ -241506,6 +241927,13 @@
     "offsite_url": "https://www.facebook.com/ProMagnoCentrodeEventos",
     "reason": "osm probe: offsite:facebook.com",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "promenadebooks.com": {
+    "checked": 20261010,
+    "name": "Promenade Books",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "promente.wien/wohnen/garconnierenverbund-22": {
@@ -248546,6 +248974,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "resourcefuleducationfoundation.in": {
+    "checked": 20261010,
+    "name": "Resourceful Education Foundation",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "rest-home.co.nz": {
     "checked": 20260824,
     "name": "Royal Heights - Rest Home",
@@ -253080,6 +253515,13 @@
     "name": "\u6771\u9808\u78e8\u6559\u4f1a",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "rpf.indianrailways.gov.in/RPF/OurInstitutions/Vatika.jsp": {
+    "checked": 20261010,
+    "name": "Railway Protection Force Officers' Mess",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "rpfc.com.br/blog": {
@@ -258075,6 +258517,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sangeetnatak.gov.in/constituent-units-akademi/rabindra-rangshala": {
+    "checked": 20261010,
+    "name": "Rabindra Rangshala",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "sanghasaleve.wixsite.com/shedrubchoekhorling": {
     "checked": 20260919,
     "name": "Shedrub Choekhor Ling",
@@ -259756,6 +260205,13 @@
     "name": "Le Sarment",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "sarnamwelfarefoundation.org": {
+    "checked": 20261010,
+    "name": "Satnam Welfare Foundation Satnam street",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "saron.se": {
@@ -265002,6 +265458,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "seraing.be": {
+    "checked": 20261010,
+    "name": "Seraing",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "seraing.be/les-services-communaux/services-delocalises/bibliotheques/bibliotheque-de-la-cite": {
     "checked": 20260913,
     "name": "Biblioth\u00e8que de la Cit\u00e9",
@@ -266017,6 +266480,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "shabdabooks.com": {
+    "checked": 20261010,
+    "name": "\u0936\u092c\u094d\u0926\u093e",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "shabelo.co.za": {
     "checked": 20260930,
     "name": "Shabelo",
@@ -266414,6 +266884,13 @@
     "name": "She Drup Ling",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "sheetlamatamandir.com": {
+    "checked": 20261010,
+    "name": "Sheetla Mata Mandir",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "sheffield.gov.uk": {
@@ -267750,6 +268227,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "siddhconvention.com": {
+    "checked": 20261010,
+    "name": "Siddh Convention Center",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "siddhisubrahmanyeshwara.pages.dev": {
     "checked": 20260927,
     "name": "Shri Siddhi Subrahmanyeshwara Devasthanam",
@@ -268669,6 +269153,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sint-niklaas.be": {
+    "checked": 20261010,
+    "name": "Sint-Niklaas",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "sint-niklaas.be/onze-dienstverlening/cultuur-en-vrije-tijd/sport/sportkringpark": {
     "checked": 20260913,
     "name": "Sportkringpark",
@@ -268710,6 +269201,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "sint-truiden.be": {
+    "checked": 20261010,
+    "name": "Sint-Truiden",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "sintannakapel.be": {
     "checked": 20260913,
@@ -270524,6 +271022,13 @@
     "name": "SkyMax",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "skyzonesouthindia.com": {
+    "checked": 20261010,
+    "name": "Sky Zone",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "skz.sopot.pl": {
@@ -277272,6 +277777,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stad.gent": {
+    "checked": 20261010,
+    "name": "Ghent",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "stad.gent/nl/openingsuren-adressen/bibliotheek-sint-amandsberg": {
     "checked": 20260913,
     "name": "Sint-Amandsberg",
@@ -280906,6 +281418,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "stgillis.brussels": {
+    "checked": 20261010,
+    "name": "Saint-Gilles",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "stgregsqueanbeyan.com": {
     "checked": 20260819,
@@ -299965,6 +300484,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "theyachtclub.in": {
+    "checked": 20261010,
+    "name": "Yacht Club of Hyderabad",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "theyogastudiocalgary.com": {
     "checked": 20260819,
     "name": "The Yoga Studio of Calgary",
@@ -303125,6 +303651,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "tournai.be": {
+    "checked": 20261010,
+    "name": "Tournai",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "tournelle.ch": {
     "checked": 20260920,
@@ -306368,6 +306901,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "turnhout.be": {
+    "checked": 20261010,
+    "name": "Turnhout",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "turnstyle.org.au": {
     "checked": 20261007,
@@ -316467,6 +317007,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "vilvoorde.be": {
+    "checked": 20261010,
+    "name": "Vilvoorde",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "vilvoorde.be/stedelijk-zwembad-t-zeepaardje": {
     "checked": 20260911,
     "name": "Stedelijk Zwembad 't Zeepaardje",
@@ -317056,6 +317603,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitbruges.be": {
+    "checked": 20261010,
+    "name": "Bruges",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "visitbuford.com": {
     "checked": 20260913,
     "name": "Buford",
@@ -317356,6 +317910,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "visitleuven.be": {
+    "checked": 20261010,
+    "name": "Leuven",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
   },
   "visitlexingtonnc.org": {
     "checked": 20260913,
@@ -317704,6 +318265,13 @@
   "visitsvendborg.dk": {
     "checked": 20261006,
     "name": "Svendborg",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
+  "visittournai.be": {
+    "checked": 20261010,
+    "name": "Tournai",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-dmo"
@@ -318974,6 +319542,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "vorst.brussels": {
+    "checked": 20261010,
+    "name": "Forest",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "vorstadttheaterbasel.ch": {
     "checked": 20260919,
@@ -320641,6 +321216,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "waregem.be": {
+    "checked": 20261010,
+    "name": "Waregem",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "waregem.be/koetshuis": {
     "checked": 20260913,
     "name": "Koetshuis",
@@ -321481,6 +322063,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "wcd.delhi.gov.in": {
+    "checked": 20261010,
+    "name": "Widow Home",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "wchandymemphis.org": {
     "checked": 20260927,
     "name": "W. C. Handy Home and Museum",
@@ -322089,6 +322678,83 @@
     "name": "we do not work alone",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "weds.guru/nevaeh": {
+    "checked": 20261010,
+    "name": "Nevaeh The Heavenly Experience",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "weds.guru/pro/aura": {
+    "checked": 20261010,
+    "name": "Aura Bhawan",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "weds.guru/pro/gola": {
+    "checked": 20261010,
+    "name": "Gola Banquet",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "weds.guru/pro/golden": {
+    "checked": 20261010,
+    "name": "The Golden By Shakti Tent and decorators",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "weds.guru/pro/greenaura": {
+    "checked": 20261010,
+    "name": "The Green Aura By Shakti Tents",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "weds.guru/pro/j3s": {
+    "checked": 20261010,
+    "name": "J3S Party Hall",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "weds.guru/pro/jmd": {
+    "checked": 20261010,
+    "name": "Grand Moments By JMD Tents",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "weds.guru/pro/lagoona": {
+    "checked": 20261010,
+    "name": "Lagoona Banquet Wazirpur",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "weds.guru/pro/royalkingdom": {
+    "checked": 20261010,
+    "name": "SR Royal Kingdom",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "weds.guru/pro/saawariya": {
+    "checked": 20261010,
+    "name": "Saawariya Seth Tents",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "weds.guru/pro/urban": {
+    "checked": 20261010,
+    "name": "Urban Banquet Hall",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "weeffabriek.nl": {
@@ -326468,12 +327134,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "woluwe1150.be": {
+    "checked": 20261010,
+    "name": "Woluwe-Saint-Pierre",
+    "reason": "44 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "woluwe1150.be/culture-et-loisirs/centres-de-quartier/centre-communautaire-de-joli-bois": {
     "checked": 20260911,
     "name": "Centre communautaire de Joli-Bois - Gemeenschapcentrum van Mooi Bos",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "woluwe1200.be": {
+    "checked": 20261010,
+    "name": "Woluwe-Saint-Lambert",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "wolvas.org.uk/events/?ical=1": {
     "checked": 20260727,
@@ -330037,6 +330717,13 @@
   "youtube.com/channel/UCH4Iq0vtcQD38o6HoKvQSrQ": {
     "checked": 20261005,
     "name": "Est\u00fadio Ian Martinelle",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "youtube.com/channel/UCgnRp52sN6TMl240wE9RdSA": {
+    "checked": 20261010,
+    "name": "TV channel Russia RTR",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"

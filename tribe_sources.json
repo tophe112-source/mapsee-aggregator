@@ -16730,6 +16730,18 @@
       "_metro": "Nashville, United States",
       "_found": "manual:2026-10-10 volunteer seed (river/watershed groups) -> tribe REST",
       "_note": "robots.txt allows /wp-json/, no Crawl-delay; timezone America/Chicago. Its plugin category 'volunteer-opportunities' is not a mapsee key, so cleanups reach volunteer through their titles ('Cleanup' matches _VOLUNTEER_RX; outdoors is promotable). skip_title removes the Tennessee Science Teachers Association conference, which is not a public event."
+    },
+    {
+      "name": "Woluwe-Saint-Pierre",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.woluwe1150.be",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Woluwe-Saint-Pierre",
+      "default_region": null,
+      "default_country": "BE",
+      "_metro": "Woluwe-Saint-Pierre, Belgium"
     }
   ],
   "_not_included": {
