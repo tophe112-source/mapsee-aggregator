@@ -55,3 +55,18 @@ Two things that table is really saying:
   row" - which is the right gate for a small venue calendar and too weak for a
   4,000-row municipal archive. Not changed here, because re-cutting a shared
   threshold on one example is how you break the sources it was right for.
+
+City open data, council what's-on sites and a community-club platform that the
+community-centre survey of 2026-10-03 could not read, or should not. Production
+User-Agent; nothing was retried with another. What each held is in
+`community-centres.md`.
+
+| Platform | Result | What it means |
+|---|---|---|
+| **ottrec** (`data.ottrec.ca/export/latest.json`, Ottawa) | **no open licence, not read** | An unofficial compilation of ottawa.ca's drop-in schedules: 25,396 occurrences in 90 days at 132 facilities with coordinates. robots.txt allows the export, but the data is "Compiled data (c) Patrick Gaskin" and "Facility information and schedules (c) City of Ottawa", so it needs the author's and the City's yes. ottawa.ca's own drop-in pools page served a bot challenge (a 212-byte interstitial) |
+| **onePA** (`www.onepa.gov.sg`, People's Association, Singapore) | **terms forbid republishing; not built** | robots.txt allows `/events/*` (it disallows only `/search` and `/cart`), and the event sitemap lists 2,175 pages of server-rendered JSON. The terms of use say "no part(s) of this Website shall be reproduced, republished ... without prior permission", the same kind of clause that keeps ActiveNet out. The owner decides, or PA is asked. data.gov.sg publishes only the clubs' locations |
+| OurAuckland (`ourauckland.aucklandcouncil.govt.nz/events/`) | **bot challenge on robots.txt** | Cloudflare "Just a moment..." with a 403 on `/robots.txt` itself, so permission cannot be established. Auckland Council says its community centres' programmes live there |
+| Taiwan Ministry of Culture 藝文活動 (`cloud.culture.tw`) | **robots.txt refuses** | `Disallow: /` for `*`. One GET was made before the gate, which the survey disclosed: 4 of 8,106 future occurrences were at community-activity-centre venues and 8,010 were on sale, so it is not a community source anyway |
+| Toronto Festivals and Events (CKAN `festivals-events`) | **robots.txt refuses; no API route** | The JSON is a download under `/dataset/*/resource/*/download/*`, which robots.txt disallows, and the resource is not `datastore_active`, so `datastore_search` cannot reach it. The drop-in tables are read through the datastore (`toronto_rec_sources.json`) |
+| City and national open-data catalogues | **refused, not retried** | open.hamilton.ca's Hub search: 403 with a Cloudflare challenge. dados.cm-lisboa.pt: 403 with a challenge, and robots.txt `Disallow: /api/`. dati.comune.roma.it: robots.txt `Disallow: /` for the whole host. datos.gob.mx and datosabiertos.gob.ec: 403. Houston's Hub search API: 401. nycgovparks.org/bigapps: CloudFront 403 "Request blocked"; the same events are configured through Socrata `w3wp-dpdi` |
+| Cardiff Hubs (`cardiffhubs.co.uk`) | **robots.txt refuses** | `Disallow: /` for `*` on the council's community-hub site |
