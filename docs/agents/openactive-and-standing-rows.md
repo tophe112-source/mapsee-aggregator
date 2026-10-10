@@ -216,3 +216,16 @@
 
 - **OPENACTIVE IS NEVER A COMPLETE READ, BECAUSE ITS ROWS ARE FOLDS AND THE FOLDS CHANGE ON THEIR OWN.** The same snapshot converted 24 h later unfolded 7 of Castlepoint's 102 rows and 51 of Pembrokeshire's 529, every one a weekly standing row, with nothing changed at the source. That is right at the absence circuit breaker's 10%. An RPDE `deleted` item carries no name or date, so it cannot be fingerprinted. Explicit eventStatus Cancelled/Postponed is the only signal (0 among 9 publishers on 2026-10-05). It becomes a tombstone on whatever an all-live read would have stored: the session row, the grid day, or the weekly row.
   - The weekly row is tombstoned only when what is still live no longer folds into it; a live write lifts that once the arrangement is listed again. One cancelled week of a class that still folds keeps the standing row, which starts "⚠️ Not on Tue 13 Oct: cancelled by the publisher." That description change reaches the table on the Wednesday refresh.
+
+- **BETTER'S 9,787 CANCELLED SESSIONS ARE CLOSURES, AND A WHOLE READ MAY NOW LIFT WHAT THEY HID (2026-10-10).** The first run with tombstones (run 116, 2026-10-06) hid 4,401 stored Better (GLL) rows. That is 8,340 of 117,677 sessions marked cancelled or postponed, while 0 were so marked among the 9 publishers measured on 2026-10-05.
+  - The feed walk of 2026-10-06 holds 9,787 `EventCancelled` of 118,151 occurrences (none `EventPostponed`), 9,698 of them in the future.
+  - They are whole ranges of days, not scattered slots:
+    - Arnos Pools' Swim For All is off on 123 days from 2026-10-06 to 2027-03-09 (1,140 of 1,189).
+    - Yarborough has all 555 future sessions off, with nothing else live.
+    - Workington's climbing wall has 242 of 242 off, until 2026-12-05.
+    - Wimbledon's pool is off from 2026-12-01, with nothing live at those hours.
+  - No replacement series exists, and the slots show full availability (20 of 20), so this is not "sold out".
+  - 767 cancelled slots have a live session of the same series at the same start (cancel and recreate), and those rows are never hidden.
+  - Better's own Arnos Pools page lists normal opening hours, so the centre is open; it is the public swim that is off.
+  - The flaw was elsewhere. The sync lifts only for a source read whole, and OpenActive never was, so a weekly row hidden while a pool is shut would never come back under its unchanged key.
+  - A publisher whose every feed reached "end of feed" is now `mark_complete(..., absence=False)`: whole for lifting, never compared for absence.

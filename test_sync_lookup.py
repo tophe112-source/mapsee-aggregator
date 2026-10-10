@@ -10,10 +10,11 @@ import mapsee_supabase_sync as sync
 
 
 class Store:
-    def __init__(self, rows, cap=1000, fail_page=None):
+    def __init__(self, rows, cap=1000, fail_page=None, fail_from=None):
         self.rows = rows
         self.cap = cap
-        self.fail_page = fail_page
+        self.fail_page = fail_page          # this one call answers 503 (a blip)
+        self.fail_from = fail_from          # every call from this one on does (an outage)
         self.calls = []
         self.headers = {}
 
@@ -28,7 +29,8 @@ class Store:
         start = int(q.get("offset", [0])[0])
         limit = min(self.cap, int(q.get("limit", [10000])[0]))
         page = [dict(external_id=eid, claimed_at=self.rows[eid]) for eid in matched[start:start+limit]]
-        failed = len(self.calls) == self.fail_page
+        failed = len(self.calls) == self.fail_page or (self.fail_from is not None
+                                                        and len(self.calls) >= self.fail_from)
 
         class Response:
             status_code = 503 if failed else 200
@@ -39,6 +41,11 @@ class Store:
 
 
 class LookupTests(unittest.TestCase):
+    def setUp(self):
+        sleeper = patch.object(sync, "_patch_sleep")       # the retry's backoff costs nothing here
+        sleeper.start()
+        self.addCleanup(sleeper.stop)
+
     def lookup(self, store, ids):
         return sync.fetch_import_state(store, "https://db.example", "unused-test-key", ids)
 
@@ -134,10 +141,18 @@ class LookupTests(unittest.TestCase):
         self.assertEqual(store.calls, [])
 
     def test_partial_lookup_failure_is_not_permission_to_write(self):
-        store = Store({str(i): None for i in range(5)}, cap=2, fail_page=2)
-        with self.assertRaisesRegex(RuntimeError, "no events were written"):
+        store = Store({str(i): None for i in range(5)}, cap=2, fail_from=2)
+        with self.assertRaisesRegex(RuntimeError, r"HTTP 503, 3 tries\); no events were written"):
             self.lookup(store, list(store.rows))
-        self.assertEqual(len(store.calls), 2)
+        # page 1, then page 2 fails; each retry re-reads the chunk from its first page
+        self.assertEqual(len(store.calls), 1 + sync.STATE_READ_TRIES)
+
+    def test_a_blip_is_retried_and_the_whole_chunk_read_again(self):
+        # 2026-10-09: six jobs lost the day's writes to one failed read each.
+        store = Store({str(i): None for i in range(5)}, cap=2, fail_page=2)
+        self.assertEqual(self.lookup(store, list(store.rows)), {str(i): False for i in range(5)})
+        offsets = [parse_qs(urlsplit(u).query)["offset"][0] for u, _ in store.calls]
+        self.assertEqual(offsets, ["0", "2", "0", "2", "4"], "the retry starts the chunk again")
 
     def test_missing_ownership_field_and_repeated_page_fail_closed(self):
         for rows in ([{"external_id":"a"}], [{"external_id":"a", "claimed_at":None}]):
@@ -241,7 +256,7 @@ class LookupTests(unittest.TestCase):
             path = os.path.join(folder, "store.json")
             with open(path, "w", encoding="utf-8") as fh:
                 json.dump({"events": [rec]}, fh)
-            store = Store({"new": None}, fail_page=1)
+            store = Store({"new": None}, fail_from=1)
             with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID": "host", "SUPABASE_URL": "https://db.example",
                                         "SUPABASE_SERVICE_ROLE_KEY": "unused-test-key"}), \
                  patch("sys.argv", ["sync", "--store", path, "--only-new"]), \
@@ -251,13 +266,13 @@ class LookupTests(unittest.TestCase):
                  patch.object(sync, "upsert") as write, redirect_stdout(io.StringIO()):
                 with self.assertRaisesRegex(SystemExit, "no events were written"):
                     sync.main()
-            self.assertEqual(len(store.calls), 1)
+            self.assertEqual(len(store.calls), sync.STATE_READ_TRIES)
             enrich.assert_not_called()
             geocode.assert_not_called()
             write.assert_not_called()
 
     def test_main_cannot_write_after_a_failed_ownership_read(self):
-        store = Store({"claimed":"2026-09-05"}, fail_page=1)
+        store = Store({"claimed":"2026-09-05"}, fail_from=1)
         with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID":"host", "SUPABASE_URL":"https://db.example",
                                     "SUPABASE_SERVICE_ROLE_KEY":"unused-test-key"}), \
              patch("sys.argv", ["sync"]), patch("requests.Session", return_value=store), \
@@ -291,6 +306,11 @@ class Writable(Store):
 
 class LegacyRekeyTests(unittest.TestCase):
     """A row garbled by the old ics reader is MOVED to its new key, never duplicated."""
+    def setUp(self):
+        sleeper = patch.object(sync, "_patch_sleep")
+        sleeper.start()
+        self.addCleanup(sleeper.stop)
+
     def rekey(self, store, pairs):
         return sync.rekey_legacy(store, "https://db.example", "unused-test-key", pairs)
 
@@ -331,9 +351,13 @@ class LegacyRekeyTests(unittest.TestCase):
         self.assertEqual(self.quiet(store, {"new": ["old"]}), (set(), {"new"}))
 
     def test_a_failed_lookup_holds_every_record_that_has_an_old_key(self):
-        store = Writable({"old": None}, fail_page=1)
+        store = Writable({"old": None}, fail_from=1)
         self.assertEqual(self.quiet(store, {"new": ["old"], "new2": ["old2"]}), (set(), {"new", "new2"}))
         self.assertEqual(store.patches, [])
+
+    def test_a_lookup_blip_is_ridden_out_and_the_row_still_moves(self):
+        store = Writable({"old": None}, fail_page=1)
+        self.assertEqual(self.quiet(store, {"new": ["old"]}), ({"new"}, set()))
 
     def test_nothing_to_move_costs_nothing(self):
         store = Writable({})

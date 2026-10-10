@@ -2214,60 +2214,80 @@ def fetch_import_state(session, url: str, key: str, candidates, fields=(), detai
             raise RuntimeError("Import identity exceeds lookup URL budget; no events were written.")
     if chunk:
         chunks.append(chunk)
-    state = {}
-    for chunk in chunks:
+    def read_chunk(chunk):
+        """One bounded IN query, paged; its rows only once the whole chunk read."""
+        got, got_detail = {}, {}
         wanted, seen, offset, expected_count = set(chunk), set(), 0, None
         while expected_count is None or offset < expected_count:
+            response = session.get(endpoint(chunk, offset), headers=headers, timeout=30)
+            if response.status_code == 400 and fields and _missing_column(response):
+                raise StateColumnMissing("unknown state column")
+            if response.status_code not in (200, 206):
+                raise ValueError(f"HTTP {response.status_code}")
+            rows = response.json()
+            if not isinstance(rows, list):
+                raise ValueError("invalid response")
+            cr = getattr(response, "headers", {}).get("Content-Range", "")
+            match = re.fullmatch(r"(\d+)-(\d+)/(\d+)", cr)
+            empty_match = re.fullmatch(r"\*/(\d+)", cr)
+            if empty_match:
+                if rows:
+                    raise ValueError("non-empty response has empty range")
+                count = int(empty_match.group(1))
+                if count > len(chunk) or offset != count:
+                    raise ValueError("premature empty response")
+            elif match:
+                start, end, count = map(int, match.groups())
+                if not rows or start != offset or end != start + len(rows) - 1:
+                    raise ValueError("inconsistent response range")
+                if len(rows) > len(chunk) or count > len(chunk) or not end < count:
+                    raise ValueError("inconsistent response count")
+            else:
+                raise ValueError("missing or malformed response range")
+            if expected_count is None:
+                expected_count = count
+            elif count != expected_count:
+                raise ValueError("response count changed during lookup")
+            if not rows:
+                break
+            for row in rows:
+                if not isinstance(row, dict) or "claimed_at" not in row:
+                    raise ValueError("ownership field missing")
+                eid = row.get("external_id")
+                if eid not in wanted or eid in seen:
+                    raise ValueError("unexpected or repeated identity")
+                seen.add(eid)
+                got[eid] = row["claimed_at"] is not None
+                got_detail[eid] = {f: row[f] for f in fields if f in row}
+            offset += len(rows)
+        return got, got_detail
+
+    state = {}
+    for chunk in chunks:
+        # A FAILED READ IS RETRIED, then fails closed. One 503 or timeout among
+        # ~690 chunks (OpenActive's 68,000 keys) used to stop the whole sync:
+        # on 2026-10-09 six jobs lost the day's writes to a 30-minute database
+        # blip that the next try would have ridden out. A retry re-reads the
+        # whole chunk from offset 0, and nothing from a failed try is kept.
+        for attempt in range(STATE_READ_TRIES):
             try:
-                response = session.get(endpoint(chunk, offset), headers=headers, timeout=30)
-                if response.status_code == 400 and fields and _missing_column(response):
-                    raise StateColumnMissing("unknown state column")
-                if response.status_code not in (200, 206):
-                    raise ValueError(f"HTTP {response.status_code}")
-                rows = response.json()
-                if not isinstance(rows, list):
-                    raise ValueError("invalid response")
-                cr = getattr(response, "headers", {}).get("Content-Range", "")
-                match = re.fullmatch(r"(\d+)-(\d+)/(\d+)", cr)
-                empty_match = re.fullmatch(r"\*/(\d+)", cr)
-                if empty_match:
-                    if rows:
-                        raise ValueError("non-empty response has empty range")
-                    count = int(empty_match.group(1))
-                    if count > len(chunk) or offset != count:
-                        raise ValueError("premature empty response")
-                elif match:
-                    start, end, count = map(int, match.groups())
-                    if not rows or start != offset or end != start + len(rows) - 1:
-                        raise ValueError("inconsistent response range")
-                    if len(rows) > len(chunk) or count > len(chunk) or not end < count:
-                        raise ValueError("inconsistent response count")
-                else:
-                    raise ValueError("missing or malformed response range")
-                if expected_count is None:
-                    expected_count = count
-                elif count != expected_count:
-                    raise ValueError("response count changed during lookup")
-                if not rows:
-                    break
-                for row in rows:
-                    if not isinstance(row, dict) or "claimed_at" not in row:
-                        raise ValueError("ownership field missing")
-                    eid = row.get("external_id")
-                    if eid not in wanted or eid in seen:
-                        raise ValueError("unexpected or repeated identity")
-                    seen.add(eid)
-                    state[eid] = row["claimed_at"] is not None
-                    if detail is not None:
-                        detail[eid] = {f: row[f] for f in fields if f in row}
-                offset += len(rows)
+                got, got_detail = read_chunk(chunk)
+                break
             except StateColumnMissing:
                 raise
-            except Exception:
-                # Do not echo request exceptions: their URL/headers can carry
-                # credentials. A retry of this feed is safe; a partial guard is not.
-                raise RuntimeError("Could not verify imported event ownership; no events were written. "
-                                   "Retry this sync when the database is available.") from None
+            except Exception as error:                # noqa: BLE001
+                if attempt + 1 == STATE_READ_TRIES:
+                    # Do not echo request exceptions: their URL/headers can carry
+                    # credentials. Our own checks' words are safe; anything else
+                    # is named by its class only. A partial guard is never a write.
+                    why = str(error) if type(error) is ValueError else type(error).__name__
+                    raise RuntimeError(f"Could not verify imported event ownership ({why}, "
+                                       f"{STATE_READ_TRIES} tries); no events were written. "
+                                       f"Retry this sync when the database is available.") from None
+                _patch_sleep(2.0 * (attempt + 1))
+        state.update(got)
+        if detail is not None:
+            detail.update(got_detail)
     return state
 
 
@@ -2435,6 +2455,8 @@ ABSENT_WHOLE_UNIT_MIN = 2
 # A failed cancellation write is retried this many times (a transient 503 must
 # not cost the night: patch_imports used to give up on the first answer).
 PATCH_TRIES = 3
+# ...and so is a failed chunk of the import-state read (fetch_import_state).
+STATE_READ_TRIES = 3
 
 
 def _utc(value) -> Optional[datetime]:
@@ -2572,6 +2594,8 @@ def write_manifest(path: str, previous: Optional[Dict[str, Any]], inputs: Dict[s
     seen = inputs.get("seen") or set()
     ident = inputs.get("ident") or {}
     for unit, read in inputs["complete"].items():
+        if isinstance(read, dict) and read.get("absence") is False:
+            continue                                  # never an absence baseline
         starts = dict(inputs["units"].get(unit, {}))
         prev = (previous or {}).get(unit)
         prev_starts = prev.get("starts") if isinstance(prev, dict) else None
@@ -2606,6 +2630,8 @@ def absent_fingerprints(previous: Optional[Dict[str, Any]], inputs: Dict[str, An
         return absent, lines, warnings
     gone_anywhere = inputs["live"] | set(inputs["tombstones"]) | set(inputs.get("seen") or ())
     for unit, read in sorted(inputs["complete"].items()):
+        if isinstance(read, dict) and read.get("absence") is False:
+            continue                                  # whole for LIFTING only (OpenActive's folds)
         prev = previous.get(unit)
         if not isinstance(prev, dict) or not isinstance(prev.get("starts"), dict):
             lines.append(f"  {unit}: no previous complete read, baseline written")
@@ -3445,7 +3471,10 @@ def main() -> None:
               f"another reason"
               + (f"; {len(failed)} OWED (request failed)" if failed else "") + ".", flush=True)
     # ONLY A SOURCE READ WHOLE THIS RUN MAY LIFT, and only a row it wrote live:
-    # a session listed again, a centre reopened. Two sources can share a
+    # a session listed again, a centre reopened. That includes a read marked
+    # whole for lifting only (mark_complete(absence=False): OpenActive, whose
+    # weekly rows come back under the same key when a closure ends, and which
+    # could otherwise never lift one). Two sources can share a
     # fingerprint (a venue's feed and a platform's copy); if one says cancelled
     # and another, read in passing, still lists it, the cancellation stands -
     # the owner's line is that nobody is sent to an event that is off. A row

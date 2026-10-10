@@ -652,8 +652,28 @@ def cancel_checks_2026_10_05():
     checks.append((len(whole.get("tombstones") or []) == 1 and len(whole["events"]) == 1
                    and "cancelled 1" in buf.getvalue(),
                    "the CLI writes the tombstone beside the live row, and its log line counts it"))
-    checks.append((not whole.get("complete_reads"),
-                   "OpenActive is never a complete read: its folds move as sessions pass, so absence would guess"))
+    reads = whole.get("complete_reads") or {}
+    unit = f"openactive:{SRC2['name']}"
+    checks.append((list(reads) == [unit] and reads[unit].get("absence") is False,
+                   "a feed walked to its end is a WHOLE read for lifting only (absence=False): its folds move "
+                   "as sessions pass, so absence would guess, but a reopened pool's weekly row must come back"))
+
+    # 6. A walk that stopped early is not whole: nothing may be lifted on its word.
+    OA.walk = lambda url, *a, **k: ({r["@id"]: r for r in [one[0]]},
+                                    "PAGE CAP HIT at 1 pages — this feed was NOT read to the end")
+    OA.read_source = lambda *a, **k: real_read(*a, **dict(k, now=NOW2))
+    try:
+        with tempfile.TemporaryDirectory() as d:
+            cfg = os.path.join(d, "c.json")
+            _json.dump({"sources": [dict(SRC2, feeds=[{"kind": "Event", "url": "https://example.test/f"}])]},
+                       open(cfg, "w", encoding="utf-8"))
+            with contextlib.redirect_stdout(io.StringIO()):
+                OA.main(["--config", cfg, "--store", os.path.join(d, "s.json"), "--horizon-days", "400"])
+            partial = _json.load(open(os.path.join(d, "s.json"), encoding="utf-8"))
+    finally:
+        OA.walk, OA.read_source = real, real_read
+    checks.append((not partial.get("complete_reads") and len(partial["events"]) == 1,
+                   "a capped walk is not whole: its rows are written, but no read is recorded"))
     return checks
 
 

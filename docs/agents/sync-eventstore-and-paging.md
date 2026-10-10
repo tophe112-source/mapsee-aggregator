@@ -277,3 +277,8 @@
   row count unchanged. The only old row left is the cancellation the fixed
   reader refuses. The adapter stops emitting old keys after `LEGACY_KEYS_UNTIL`
   (2026-11-30), when every such row has moved or is past.
+
+- **ONE FAILED CHUNK OF THE STATE READ USED TO COST THE NIGHT; IT IS RETRIED NOW (2026-10-09).** `fetch_import_state` failed closed on the first non-200 among its chunks of 100 ids, and OpenActive alone has about 690 of them.
+  - In run 120, 6 jobs' syncs stopped with "Could not verify imported event ownership": Races at 13:24, Ticketmaster at 13:27, OpenActive at 13:54, then Meetup, local and civic. `rec` (14:09) and `ics` (17:03) synced fine after the blip.
+  - Each chunk now gets `STATE_READ_TRIES` = 3 attempts, backing off 2 s then 4 s. A retry re-reads the chunk from offset 0 and keeps nothing from a failed try.
+  - A persistent failure still fails closed before any write. Its message now names the reason (our own check's words, or an exception's class, never its text, which can carry the URL).

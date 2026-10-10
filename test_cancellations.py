@@ -494,6 +494,34 @@ check("a row this very store also tombstones is never lifted by it",
       (db.rows["back"]["cancelled_at"], db.rows["back"]["hidden_at"]), (old, old))
 
 print()
+print("A publisher read whole for LIFTING only (OpenActive): it may lift, it is never absence")
+OA = "openactive:Better (GLL)"
+OAW = {OA: {"source": OA, "id_prefix": "", "from": stamp(NOW - timedelta(hours=1)),
+            "to": stamp(NOW + timedelta(days=60)), "at": stamp(NOW), "absence": False}}
+p = write_store("oa_whole.json", [rec("pool", T, source=OA)], complete=OAW)
+db = FakeDB({"pool": {"starts_at": stamp(T), "cancelled_at": old, "hidden_at": old},
+             "pool_gone": {"starts_at": stamp(T)}})
+oa_man = store_path("oa_manifest.json")
+json.dump({"version": 1, "units": {OA: {"source": OA, "id_prefix": "", "from": stamp(NOW - timedelta(hours=30)),
+                                        "to": stamp(NOW + timedelta(days=60)),
+                                        "starts": {"pool": stamp(T), "pool_gone": stamp(T)}}}},
+          open(oa_man, "w", encoding="utf-8"))
+written, log, code = run_sync(p, db, ["--only-new", "--retire-absent"], manifest=oa_man)
+check("a weekly row OpenActive hid while a pool was shut comes back when the whole feed lists it again "
+      "(Better: Arnos Pools' Swim For All, off to 2027-03-09)",
+      (db.rows["pool"]["cancelled_at"], db.rows["pool"]["hidden_at"]), (None, None))
+check("  ...while a fold missing from that read is NOT cancelled for absence (folds move on their own)",
+      (db.rows["pool_gone"]["cancelled_at"], db.rows["pool_gone"]["hidden_at"]), (None, None))
+check("  ...and the read is never written into the absence baseline",
+      OA in json.load(open(oa_man))["units"] and "pool_gone" in json.load(open(oa_man))["units"][OA]["starts"], True)
+p = write_store("oa_whole_tomb.json", [rec("pool", T, source=OA)], complete=OAW,
+                tombstones=[{"fingerprint": "pool", "source": OA}])
+db = FakeDB({"pool": {"starts_at": stamp(T), "cancelled_at": old, "hidden_at": old}})
+run_sync(p, db, ["--only-new"])
+check("  ...but never a row the same store still tombstones",
+      (db.rows["pool"]["cancelled_at"], db.rows["pool"]["hidden_at"]), (old, old))
+
+print()
 print("The sync: tombstones in every run")
 p = write_store("tomb.json", [rec("live", T)],
                 tombstones=[{"fingerprint": "gone", "source": "ics:lib", "reason": "STATUS:CANCELLED"},

@@ -834,9 +834,13 @@ def read_source(source: dict, horizon_days: int, max_pages: int,
     notes: List[str] = []
     records: List[dict] = []
 
+    # WHOLE = every feed this publisher has was walked to its end. Only then may
+    # the sync lift a cancellation for it (main); a capped or broken walk may not.
+    walks: List[str] = []
     for kind in EVENT_KINDS:
         if kind in feeds:
             data, why = walk(feeds[kind], max_pages, delay)
+            walks.append(why)
             notes.append(f"{kind}: {len(data)} record(s), {why}")
             records.extend(data.values())
 
@@ -846,11 +850,13 @@ def read_source(source: dict, horizon_days: int, max_pages: int,
         if not series_kind:
             # A ScheduledSession feed with no series feed is unreadable, not
             # empty. Saying so is the point — see lesson 2.
+            walks.append("skipped")
             notes.append(f"{occurrence_kind}: SKIPPED — no SessionSeries feed to join "
                          f"against, so no occurrence has a name or a place")
         else:
             series_data, why_s = walk(feeds[series_kind], max_pages, delay)
             occ_data, why_o = walk(feeds[occurrence_kind], max_pages, delay)
+            walks += [why_s, why_o]
             notes.append(f"{series_kind}: {len(series_data)} record(s), {why_s}")
             notes.append(f"{occurrence_kind}: {len(occ_data)} record(s), {why_o}")
             by_id = {}
@@ -874,6 +880,7 @@ def read_source(source: dict, horizon_days: int, max_pages: int,
         # publishers put a real startDate on it; those are readable. The rest
         # fail the "no start date" test below and are counted, not guessed at.
         data, why = walk(feeds[series_kind], max_pages, delay)
+        walks.append(why)
         notes.append(f"{series_kind} (no occurrence feed): {len(data)} record(s), {why}")
         records.extend(data.values())
 
@@ -916,8 +923,9 @@ def read_source(source: dict, horizon_days: int, max_pages: int,
     if called:
         notes.append(f"called off: {len(called)} session(s) marked cancelled or postponed -> "
                      f"{len(cancel)} tombstone(s); {noted} standing row(s) name the week that is off")
+    whole = bool(walks) and all(w.startswith("end of feed") for w in walks)
     return kept, {"notes": notes, "refused": refused, "records": len(records),
-                  "gridded": gridded, "weekly": weekly, "cancel": cancel}
+                  "gridded": gridded, "weekly": weekly, "cancel": cancel, "whole": whole}
 
 
 # ---------------------------------------------------------------------------
@@ -967,14 +975,20 @@ def main(argv=None):
                                sorted(report["refused"].items(), key=lambda kv: -kv[1]))
             print(f"[openactive] {label}: dropped {sum(report['refused'].values())} "
                   f"of {report['records']} ({detail})", flush=True)
-        # NEVER mark_complete here, so mapsee_supabase_sync --retire-absent can
-        # never read this feed's absences as cancellations. A row's identity
-        # here is a FOLD (a session, a grid day, a weekly standing row), and
-        # the fold moves as sessions pass: the same snapshot converted 24 h
-        # later unfolded 7 of Castlepoint's 102 rows and 51 of Pembrokeshire's
-        # 529 (every one a standing row) with nothing changed at the source
-        # (2026-10-05) - at the breaker's 10%. And an RPDE `deleted` item
-        # carries no name or date to fingerprint. Explicit status only.
+        # NEVER A COMPLETE READ FOR ABSENCE, so mapsee_supabase_sync
+        # --retire-absent can never read this feed's absences as cancellations.
+        # A row's identity here is a FOLD (a session, a grid day, a weekly
+        # standing row), and the fold moves as sessions pass: the same snapshot
+        # converted 24 h later unfolded 7 of Castlepoint's 102 rows and 51 of
+        # Pembrokeshire's 529 (every one a standing row) with nothing changed at
+        # the source (2026-10-05) - at the breaker's 10%. And an RPDE `deleted`
+        # item carries no name or date to fingerprint. Explicit status only.
+        #
+        # BUT A WHOLE READ MAY LIFT what this feed cancelled (absence=False):
+        # the sync lifts only for a source read whole, and without this Better's
+        # weekly rows, hidden while a pool is shut (Arnos Pools' Swim For All,
+        # 1,140 of 1,189 sessions off to 2027-03-09, measured 2026-10-06), would
+        # stay hidden after it reopens under the same key.
         cancels = report.get("cancel") or []
         print(f"[openactive] {label}: kept {len(events)} upcoming session(s), "
               f"cancelled {len(cancels)}", flush=True)
@@ -984,6 +998,10 @@ def main(argv=None):
                 store.upsert(event)
             for event in cancels:
                 store.cancel(event, "eventStatus cancelled or postponed")
+            if report.get("whole"):
+                when = datetime.now(timezone.utc)
+                store.mark_complete(f"openactive:{source.get('name')}", when,
+                                    when + timedelta(days=a.horizon_days), absence=False)
 
     if store is not None:
         store.save()

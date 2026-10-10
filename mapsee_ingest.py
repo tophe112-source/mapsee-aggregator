@@ -1312,7 +1312,7 @@ class EventStore:
             self.seen.add(fingerprint)
 
     def mark_complete(self, source: str, window_from: Any, window_to: Any,
-                      id_prefix: Optional[str] = None) -> None:
+                      id_prefix: Optional[str] = None, absence: bool = True) -> None:
         """Record that THIS run read `source` WHOLE, for events starting in
         [window_from, window_to] (the source's own read horizon).
 
@@ -1325,7 +1325,12 @@ class EventStore:
         source_id starts with it, so one tenant of a shared source name
         ("perfectmind", source_id "slug:...") can be complete while another
         failed. Edges: an aware datetime is exact, a date or naive time is
-        rounded inward (_window_edge)."""
+        rounded inward (_window_edge).
+
+        `absence=False` records a whole read that may LIFT a cancellation (the
+        publisher lists the session again) but is never compared for absence:
+        OpenActive's rows are folds that move on their own, so a fold missing
+        from one read is not evidence of anything."""
         if not source:
             raise ValueError("mark_complete needs the rows' own source name")
         lo, hi = _window_edge(window_from, "from"), _window_edge(window_to, "to")
@@ -1334,6 +1339,8 @@ class EventStore:
         unit = f"{source}|{id_prefix}" if id_prefix else source
         self.complete_reads[unit] = {"source": source, "id_prefix": id_prefix or "",
                                      "from": lo, "to": hi, "at": iso_now()}
+        if not absence:
+            self.complete_reads[unit]["absence"] = False
 
 
 # --------------------------------------------------------------------------- #
