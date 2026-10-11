@@ -861,6 +861,106 @@ _SHIFT_RX = re.compile(
     r"volunteer\s+shifts?|ushers?|course\s+marshals?|greeters?|parking\s+attendants?)\b", re.I)
 _GUEST_KEYS = {"party", "music", "market", "food", "theater", "running"}
 
+# A WALK, RUN OR RIDE FOR A CAUSE IS A COMMUNITY EVENT, whatever key its source
+# filed it under. RunSignup files every race, walking_only included, as
+# ('running', ['fitness']), and those two keys open onto wegosie alone: a
+# Relay For Life, a breast-cancer 5K or a Walk for Sickle Cell never reached
+# awaresie (community/volunteer/learning) or plansie (community/outdoors/...),
+# the two doors that exist for exactly this. So the TITLE adds `community`.
+#
+# Measured 2026-10-11, every hit read by hand. Live running/fitness rows from
+# five metros (events_near_public, 120 days; 843 distinct titles): 47 hits, 46
+# of them a cause, the 47th a historical commemoration ("Jonas Cattell
+# Memorial 10-mile Run"). RunSignup races the adapter keeps (Oct-Feb,
+# national; 1,881 titles): 347 hits, 100 of them walking_only, and 345 newly
+# reach awaresie. US live titles of every category (2026-09-24; 20,187
+# distinct): 41 hits, every one a cause walk, run or ride or a shift at one.
+# The charities' own titles (ACS, Alzheimer's Association, Komen, NKF, CFF,
+# Arthritis Foundation): 1,833 of 1,837.
+#
+# Each word was counted before it went in, and the corpus set the shapes:
+#   * Bare `heart` is in 31 RunSignup titles beside a move word and at least
+#     13 are names: "I Heart Biddeford 5K", "Heart of the Desert Wine Run",
+#     "Sacred Heart Church 5K", "Run Your Heart Out", "Heart Attack Run
+#     Club's First Annual 5K". It counts as the AHA's Heart Walk, or with
+#     `disease` or `health` after it (the owner's own example was heart
+#     disease). Two charities go with the names: "Roofs From The Heart 5K"
+#     and a free clinic's "Heart + Sole 5K".
+#   * `memorial` is 54 titles, nearly all a 5K run in somebody's memory for a
+#     scholarship fund, but four Houston meetups walk "one lap around Memorial
+#     Park", so a place noun after it refuses. "Memorial Day" and "Veterans
+#     Day" are holidays, not causes: 13 holiday-named races and park hikes
+#     carry no cause word, and stay off.
+#   * `foundation` 40 of 40 (a school, hospital or police foundation's 5K is
+#     its fundraiser), `hunger` 12/12, "for education"/"for recovery" 12/12,
+#     `rescue`/`humane` 10/10, `pink` 9/9 (every one breast cancer),
+#     `violence` 5/5, `sickle cell` 4/4, `for a cause` 5/5, and `hope` only
+#     as "Walk of Hope"/"Run for Hope": bare, it took "New Hope" the town.
+#     "Feed the Hungry" but not bare `hungry`, which is "Hungry Turkey Trot".
+#   * `awareness` only with a word before it, the thing it is awareness OF:
+#     54 titles name one ("SIDS Awareness 5k", "Walk of Awareness"); of the
+#     two that do not, one is Berlin's "Chitta Walks - Awareness in Motion",
+#     a mindfulness walk, and the other says "Wellness & Awareness".
+#   * `MS` is the Mississippi abbreviation in a US title, so it counts only in
+#     the brand forms (Walk MS, Bike MS, MS 150). ALS, AIDS, T1D and VFW are
+#     matched in capitals for the same kind of reason.
+#   * Not "One Walk" (JDRF's brand is caught by `jdrf`/`T1D`) and not "Jingle
+#     Bell Run": the Arthritis Foundation's 59 are "2026 Jingle Bell Run -
+#     <city>", and so is many a town's holiday run with no cause at all.
+#   * Non-English scored nothing: 14,432 distinct international titles held
+#     one charity run ("NOMAD RUN for AFANOC Charity", which English takes)
+#     and no Spendenlauf, course solidaire, carrera solidaria or sponsorloop.
+#     A word that scored zero is absent.
+#
+# TITLE ONLY, because a description's "proceeds benefit" is the ordinary
+# small print of a race and its sponsors. And never from a music, theater or
+# party row, whose title is a name ("Light the Night" is also a glow party).
+_CAUSE_WALK_BRAND = (
+    r"relay\s+for\s+life|relevo\s+por\s+la\s+vida|making\s+strides|nami\s?walks?|"
+    r"out\s+of\s+the\s+darkness|light\s+the\s+night|heart\s+(?:(?:&|and)\s+stroke\s+)?walk|"
+    r"kidney\s+walk|great\s+strides|buddy\s+walk|purple\s?stride|komen|more\s+than\s+pink|"
+    r"race\s+for\s+the\s+cure|march\s+for\s+babies|aids\s+walk|toys\s+for\s+tots|"
+    r"walk\s+to\s+(?:end|cure|defeat|fight|stop|beat|conquer)|"
+    r"(?:walk|bike)\s+(?-i:MS)|(?-i:MS)\s+(?:walk|150)")
+_CAUSE_WALK_MOVE = (
+    r"walk(?:s|ers?|ing)?|run(?:s|ners?|ning)?|5\s?k|10\s?k|fun\s+run|rides?|ruck(?:s|ing)?|"
+    r"rac(?:e|es|ing)|hikes?|trot|dash|stroll|miles?|"
+    r"(?:walk|jog|run|bike|ride|swim)[\s-]?a[\s-]?thon|walkathon")
+_CAUSE_WALK_CAUSE = (
+    r"cancer|leuka?emia|lymphoma|melanoma|alzheimer['’]?s?|dementia|diabet(?:es|ic)|(?-i:T1D)|jdrf|"
+    r"suicide|mental\s+health|autism|autistic|epilepsy|lupus|multiple\s+sclerosis|kidney|"
+    r"cystic\s+fibrosis|parkinson['’]?s?|(?-i:ALS)|arthritis|sickle\s+cell|down\s+syndrome|"
+    r"(?-i:AIDS)|hiv|hospice|alopecia|hunger|feed\s+the\s+hungry|homeless(?:ness)?|violence|"
+    r"rescue|humane|for\s+(?:education|recovery)|"
+    r"veterans?(?!['’]?s?\s+day)|(?-i:VFW)|for\s+(?:the\s+)?troops|"
+    r"heart\s+(?:disease|health)|congenital\s+heart|pink|(?:of|for|4)\s+hope|for\s+(?:a|the)\s+cure|for\s+a\s+cause|"
+    r"to\s+benefit|benefit(?:t?ing)?|in\s+memory\s+of|in\s+honou?r\s+of|for\s+research|\w+\s+awareness|"
+    r"fundrais(?:er|ing)|charit(?:y|ies)|foundation|"
+    r"memorial(?!\s+(?:day|park|stadium|field|hospital|hall|drive|bridge|plaza|gardens?|cemetery|"
+    r"church|library|auditorium|coliseum|arena|high|middle|elementary|school|medical|regional|"
+    r"trail|lake|beach|pool|golf|parkway|highway|boulevard|avenue|road|hermann|sloan)\b)")
+_CAUSE_WALK_RX = re.compile(
+    rf"\b(?:{_CAUSE_WALK_BRAND})\b|"
+    rf"\b(?:{_CAUSE_WALK_MOVE})\b.*\b(?:{_CAUSE_WALK_CAUSE})\b|"
+    rf"\b(?:{_CAUSE_WALK_CAUSE})\b.*\b(?:{_CAUSE_WALK_MOVE})\b", re.I)
+# A talk ABOUT the cause is not the walk. "A Walk in Their Shoes - Dementia
+# Simulation Workshop" is a live title (classification note on bare `walks?`)
+# and it names a walk and a disease; so would "Couch to 5K Training for Relay
+# For Life" or a caregiver support group that meets after a memory walk. Nor
+# is a volunteer workday: "Chicken Run Rescue Workday" is a sanctuary's, and
+# the only one of the 42,127 distinct titles read for this rule it refuses.
+_CAUSE_WALK_NOT_RX = re.compile(
+    r"\b(?:support\s+groups?|caregiv\w*|workshops?|simulation|lectures?|seminars?|webinars?|"
+    r"class(?:es)?|training|info(?:rmation)?\s+sessions?|meetings?|committee|screenings?|"
+    r"conference|symposium|panel|talks?|presentation|clinic|work\s?days?)\b|\bwalk-in\b", re.I)
+_NO_CAUSE_WALK_FROM = {"music", "theater", "party"}
+
+
+def _cause_walk_hit(title: str) -> bool:
+    """Does this TITLE name a walk, run or ride held for a cause?"""
+    return bool(_CAUSE_WALK_RX.search(title or "")) and not _CAUSE_WALK_NOT_RX.search(title or "")
+
+
 MAX_EXTRA_CATEGORIES = 2          # DB CHECK allows 2 (migration 0108) => 3 total
 _DESC_SCAN_CHARS = 600            # enough for the real blurb, short of the boilerplate
                                   # footer ("parking info", "our sponsors") that
@@ -976,6 +1076,20 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
     #    next win, and this is the seam they plug into).
     for c in (rec.get("categories") or []):
         add(str(c).strip().lower())
+
+    # 2b. A walk, run or ride for a cause reaches the community doors (see
+    #     _CAUSE_WALK_RX). AHEAD of the keyword signals, because those read the
+    #     description and would take the last slot first: a 5K's blurb says
+    #     "food trucks" and "live music" far more often than its title names
+    #     the charity. BEHIND what the source said, so it never displaces a
+    #     key the source chose; of 347 cause-named RunSignup races only 2
+    #     arrive with both slots taken (trail plus road), and both already
+    #     reach plansie on `outdoors`. What it does displace, over the 1,881
+    #     races' titles: 17 keyword secondaries, 7 of them `running` beside a
+    #     fitness primary (the same door) and 10 `kids`, half of those words
+    #     naming who the money is for ("Toys for Tots", "Christmas for Kids").
+    if primary not in _NO_CAUSE_WALK_FROM and _cause_walk_hit(_strip_urls(rec.get("name") or "")):
+        add("community")
 
     # 3. Keyword signals, in the fixed priority of _SECONDARY_RX.
     #    URLs stripped for the same reason map_category strips them: a link in a
