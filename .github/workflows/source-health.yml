@@ -314,8 +314,13 @@ jobs:
               echo "ledger unchanged"
               exit 0
             fi
-            DEAD=$(python -c "import json;d=json.load(open('curation_ledger.json'));print(sum(1 for v in d.values() if v.get('status')=='fail'))")
-            TOTAL=$(python -c "import json;print(len(json.load(open('curation_ledger.json'))))")
+            # The AUDIT's own numbers: configured feeds it probed, and how many of
+            # them it found broken. The ledger's `fail` count is not that - it
+            # holds every discovery candidate that ever failed verification and
+            # was never configured, so on 2026-10-11 it read "42772/48760 feeds
+            # dead" for a run that had flipped 175 configured feeds to fail.
+            DEAD=$(grep -oE "^[0-9]+ entries are BROKEN" audit.log | grep -oE "^[0-9]+" || echo "?")
+            TOTAL=$(grep -cE "^\[(OK |-- |XX )\]" audit.log || true)
             git commit -m "Weekly catalog audit: ${DEAD}/${TOTAL} feeds dead"
             if git push origin "HEAD:$BRANCH"; then
               {

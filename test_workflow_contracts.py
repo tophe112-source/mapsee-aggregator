@@ -189,6 +189,20 @@ class WorkflowContracts(unittest.TestCase):
             self.assertIn('--skip-unchanged', command, name)
             self.assertNotIn('--only-new', command, name)
 
+    def test_audit_commit_counts_what_the_audit_probed_not_the_ledger(self):
+        # The ledger's `fail` count includes every discovery candidate that ever
+        # failed verification and was never configured: on 2026-10-11 the
+        # commit read "42772/48760 feeds dead" for an audit that flipped 175
+        # configured feeds to fail. The message must come from audit.log.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/source-health.yml').read_text(encoding='utf-8'))
+        commit = next(s['run'] for s in workflow['jobs']['audit']['steps']
+                      if 'Weekly catalog audit:' in (s.get('run') or ''))
+        dead = next(l for l in commit.splitlines() if l.strip().startswith('DEAD='))
+        total = next(l for l in commit.splitlines() if l.strip().startswith('TOTAL='))
+        self.assertIn('entries are BROKEN', dead)
+        self.assertIn('audit.log', total)
+        self.assertNotIn('curation_ledger.json', dead + total)
+
 
 if __name__ == '__main__':
     unittest.main()
