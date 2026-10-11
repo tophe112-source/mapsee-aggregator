@@ -2392,6 +2392,138 @@
         "lon": -70.7938507
       },
       "_metro": "Boston, United States"
+    },
+    {
+      "name": "Modus Locus",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.moduslocusmpls.com/new-events-2",
+      "max_events": 200,
+      "venue": {
+        "name": "Modus Locus",
+        "address": "3500 Bloomington Avenue",
+        "city": "Minneapolis",
+        "region": "MN",
+        "lat": 44.9394243,
+        "lon": -93.2526264
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Rondo Center of Diverse Expression",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://rcodemn.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Rondo Center of Diverse Expression",
+        "address": "315 North Fisk Street",
+        "city": "Saint Paul",
+        "region": "MN",
+        "postal_code": "55104",
+        "lat": 44.950727,
+        "lon": -93.1350498
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "MaTovu",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.matovustl.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "MaTovu",
+        "address": "4200 Blaine Avenue",
+        "city": "Saint Louis",
+        "region": "MO",
+        "postal_code": "63110",
+        "lat": 38.6200381,
+        "lon": -90.2532143
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Good Circumstance",
+      "category": "learning",
+      "_found": "osm:library -> squarespace",
+      "collection": "https://www.goodcircumstance.org/upcoming-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Good Circumstance",
+        "address": "24 Northwest 2nd Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97209",
+        "lat": 45.523743,
+        "lon": -122.6722108
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Eastside Jewish Commons",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://ejcpdx.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Eastside Jewish Commons",
+        "address": "2420 Northeast Sandy Boulevard",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97232",
+        "lat": 45.5276138,
+        "lon": -122.6405704
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Hinson Baptist Church Annex",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.hinsonchurch.org/upcomingevents",
+      "max_events": 200,
+      "venue": {
+        "name": "Hinson Baptist Church Annex",
+        "address": "1315 Southeast 20th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97214",
+        "lat": 45.5133446,
+        "lon": -122.645894
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Soul Collective",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://solcollective.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Soul Collective",
+        "address": "2574 21st Street",
+        "city": "Sacramento",
+        "region": "CA",
+        "postal_code": "95818",
+        "lat": 38.5585965,
+        "lon": -121.4864061
+      },
+      "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "Lavender Library",
+      "category": "learning",
+      "_found": "osm:library -> squarespace",
+      "collection": "https://www.lavenderlibrary.com/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Lavender Library",
+        "address": "1414 21st Street",
+        "lat": 38.5714861,
+        "lon": -121.4808661
+      },
+      "_metro": "Sacramento, United States"
     }
   ],
   "_not_included": {

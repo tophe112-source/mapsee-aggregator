@@ -17280,6 +17280,491 @@
       },
       "_metro": "Boston, United States",
       "crawl_delay": 5.0
+    },
+    {
+      "name": "826 Valencia / The Writing Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.826valencia.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "826 Valencia / The Writing Center",
+        "address": "826 Valencia Street",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94110",
+        "lat": 37.7595612,
+        "lon": -122.421556
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "Berkeley Law Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.law.berkeley.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Berkeley Law Library",
+        "lat": 37.8697651,
+        "lon": -122.2533729
+      },
+      "_metro": "San Francisco, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Richmond District Neighborhood Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://richmondsf.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Richmond District Neighborhood Center",
+        "address": "741 30th Avenue",
+        "city": "San Francisco",
+        "region": "CA",
+        "postal_code": "94121",
+        "country": "US",
+        "lat": 37.7751019,
+        "lon": -122.4903034
+      },
+      "_metro": "San Francisco, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Mission YMCA",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://www.ymcasf.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mission YMCA",
+        "address": "4080 Mission Street",
+        "lat": 37.7324329,
+        "lon": -122.4279238
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "North Mountain Visitor Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://northmountainvisitorcenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Mountain Visitor Center",
+        "address": "12950 North 7th Street",
+        "city": "Phoenix",
+        "region": "AZ",
+        "postal_code": "85022",
+        "country": "US",
+        "lat": 33.5985303,
+        "lon": -112.0668562
+      },
+      "_metro": "Phoenix, United States"
+    },
+    {
+      "name": "EarthGen",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://earthgenwa.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "EarthGen",
+        "address": "4649 Sunnyside Avenue North",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98103",
+        "country": "US",
+        "lat": 47.6643069,
+        "lon": -122.3311925
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Boys & Girls Clubs of Bellevue",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://bgcbellevue.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boys & Girls Clubs of Bellevue",
+        "address": "209 100th Avenue Northeast",
+        "city": "Bellevue",
+        "region": "WA",
+        "postal_code": "98004",
+        "lat": 47.612781,
+        "lon": -122.2073157
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Town Hall Seattle",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://townhallseattle.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Town Hall Seattle",
+        "address": "1119 8th Avenue",
+        "city": "Seattle",
+        "region": "WA",
+        "postal_code": "98101",
+        "lat": 47.6090163,
+        "lon": -122.3299396
+      },
+      "_metro": "Seattle, United States"
+    },
+    {
+      "name": "Chinese Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://acadetroit.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chinese Community Center",
+        "address": "32585 Concord Drive",
+        "city": "Madison Heights",
+        "region": "MI",
+        "postal_code": "48071",
+        "lat": 42.532199,
+        "lon": -83.1124255
+      },
+      "_metro": "Detroit, United States"
+    },
+    {
+      "name": "Whittier Recreation Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.minneapolisparks.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Whittier Recreation Center",
+        "address": "425 West 26th Street",
+        "city": "Minneapolis",
+        "region": "MN",
+        "postal_code": "55405",
+        "lat": 44.9552824,
+        "lon": -93.2844907
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "Quatrefoil Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://qlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Quatrefoil Library",
+        "lat": 44.9485691,
+        "lon": -93.2567259
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "East Side Freedom Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://eastsidefreedomlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "East Side Freedom Library",
+        "address": "1105 Greenbrier Street",
+        "lat": 44.9745075,
+        "lon": -93.0714093
+      },
+      "_metro": "Minneapolis, United States"
+    },
+    {
+      "name": "North Shore Park & Youth Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://events.miamibeachfl.gov",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Shore Park & Youth Center",
+        "address": "501 72nd Street",
+        "city": "Miami Beach",
+        "region": "FL",
+        "postal_code": "33141",
+        "lat": 25.8573601,
+        "lon": -80.1229574
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Casa Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://casapinellas.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Casa Community Center",
+        "address": "1011 1st Avenue North",
+        "city": "Saint Petersburg",
+        "region": "FL",
+        "postal_code": "33705",
+        "country": "US",
+        "lat": 27.772273,
+        "lon": -82.648869
+      },
+      "_metro": "Tampa, United States"
+    },
+    {
+      "name": "MacDill Air Force Base Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://macdillfss.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "MacDill Air Force Base Library",
+        "lat": 27.8504915,
+        "lon": -82.4894097
+      },
+      "_metro": "Tampa, United States",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Richmond Heights Memorial Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.richmondheightslibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Richmond Heights Memorial Library",
+        "address": "8001 Dale Avenue",
+        "city": "Richmond Heights",
+        "region": "MO",
+        "postal_code": "63117",
+        "lat": 38.6285629,
+        "lon": -90.3308108
+      },
+      "_metro": "St. Louis, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Jung-Kellogg Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.mobap.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jung-Kellogg Library",
+        "lat": 38.6414764,
+        "lon": -90.4625895
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Madison County Archival Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://madcohistory.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Madison County Archival Library",
+        "address": "801 North Main Street",
+        "city": "Edwardsville",
+        "region": "IL",
+        "postal_code": "62025",
+        "lat": 38.8167675,
+        "lon": -89.9621714
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Roxana Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://roxanalibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Roxana Public Library",
+        "address": "200 North Central Avenue",
+        "city": "Roxana",
+        "region": "IL",
+        "postal_code": "62084",
+        "lat": 38.8488255,
+        "lon": -90.0793145
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Sheraden Branch Carnegie Free Library of Pittsburgh",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://carnegielibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sheraden Branch Carnegie Free Library of Pittsburgh",
+        "address": "720 Sherwood Avenue",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15204",
+        "lat": 40.4551497,
+        "lon": -80.0566851
+      },
+      "_metro": "Pittsburgh, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Lauri Ann West Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://lauriannwestcc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lauri Ann West Community Center",
+        "address": "1220 Powers Run Road",
+        "city": "Pittsburgh",
+        "region": "PA",
+        "postal_code": "15238",
+        "lat": 40.5139185,
+        "lon": -79.8575287
+      },
+      "_metro": "Pittsburgh, United States"
+    },
+    {
+      "name": "Time Out Youth Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://timeoutyouth.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Time Out Youth Center",
+        "address": "3800 Monroe Road",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28211",
+        "lat": 35.1984946,
+        "lon": -80.7950168
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "Billy Graham Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://billygrahamlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Billy Graham Library",
+        "address": "4330 Westmont Drive",
+        "city": "Charlotte",
+        "region": "NC",
+        "postal_code": "28208",
+        "lat": 35.1904825,
+        "lon": -80.909309
+      },
+      "_metro": "Charlotte, United States"
+    },
+    {
+      "name": "SMILE Station",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://sellwood.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SMILE Station",
+        "address": "8210 Southeast 13th Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97202",
+        "lat": 45.4633836,
+        "lon": -122.6526589
+      },
+      "_metro": "Portland OR, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Sacramento LGBT Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://saccenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sacramento LGBT Community Center",
+        "address": "1015 20th Street",
+        "city": "Sacramento",
+        "region": "CA",
+        "postal_code": "95811",
+        "lat": 38.5762037,
+        "lon": -121.4798325
+      },
+      "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "The Sanctuary",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://cmcincy.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Sanctuary",
+        "address": "2110",
+        "lat": 39.1026072,
+        "lon": -84.5516684
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Manuel D. & Rhoda Mayerson JCC",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://mayersonjcc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Manuel D. & Rhoda Mayerson JCC",
+        "lat": 39.2158993,
+        "lon": -84.4297093
+      },
+      "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Southgate Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://southgateky.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Southgate Community Center",
+        "address": "301 West Walnut Street",
+        "city": "Southgate",
+        "region": "KY",
+        "postal_code": "41071",
+        "lat": 39.0663245,
+        "lon": -84.4809427
+      },
+      "_metro": "Cincinnati, United States"
     }
   ],
   "_not_included": {

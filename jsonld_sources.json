@@ -7730,6 +7730,805 @@
         "lon": -84.4108705
       },
       "_metro": "Atlanta, United States"
+    },
+    {
+      "name": "Japanese Cultural and Community Center of Northern California",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.jcccnc.org/programs-events/"
+      ],
+      "link_pattern": "https://www\\.jcccnc\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Japanese Cultural and Community Center of Northern California",
+        "address": "1840 Sutter Street",
+        "lat": 37.7866721,
+        "lon": -122.4309213
+      },
+      "_metro": "San Francisco, United States"
+    },
+    {
+      "name": "The Bridge",
+      "category": "community",
+      "_found": "osm:community_centre -> wp-event-manager",
+      "listing": [
+        "https://compassaz.church/events/"
+      ],
+      "link_pattern": "https://compassaz\\.church/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Bridge",
+        "address": "824 West Germann Road",
+        "city": "Chandler",
+        "region": "AZ",
+        "postal_code": "85248",
+        "lat": 33.2775076,
+        "lon": -111.8548756
+      },
+      "_metro": "Phoenix, United States"
+    },
+    {
+      "name": "The San Diego LGBT Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://thecentersd.org/calendar/"
+      ],
+      "link_pattern": "https://thecentersd\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The San Diego LGBT Community Center",
+        "address": "3909 Centre Street",
+        "city": "San Diego",
+        "postal_code": "92103",
+        "country": "US",
+        "lat": 32.7489175,
+        "lon": -117.1477237
+      },
+      "_metro": "San Diego, United States"
+    },
+    {
+      "name": "Culmer-Overtown Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/15633580"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Culmer-Overtown Library",
+        "address": "350 Northwest 13th Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33136",
+        "lat": 25.7863162,
+        "lon": -80.2012591
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "West Kendall Regional Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16383526"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "West Kendall Regional Library",
+        "address": "10201 Hammocks Boulevard",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33196",
+        "lat": 25.6728901,
+        "lon": -80.4408108
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Country Walk Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17206461"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Country Walk Branch Library",
+        "address": "15433 Southwest 137th Avenue",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33177",
+        "lat": 25.6239403,
+        "lon": -80.4130982
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Arcola Lakes Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17551588"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Arcola Lakes Branch Library",
+        "address": "8240 Northwest 7th Avenue",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33150",
+        "lat": 25.8502629,
+        "lon": -80.2097857
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Concord Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16335183"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Concord Library",
+        "address": "3882 Southwest 112th Avenue",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33165",
+        "lat": 25.7333885,
+        "lon": -80.3761988
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Coconut Grove Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16810520"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Coconut Grove Branch Library",
+        "address": "2875 Mcfarlane Road",
+        "postal_code": "33133",
+        "lat": 25.7267826,
+        "lon": -80.24034
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Bay Harbor Islands Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17151469"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bay Harbor Islands Branch Library",
+        "address": "1175 95th Street",
+        "city": "Bay Harbor Islands",
+        "region": "FL",
+        "postal_code": "33154",
+        "lat": 25.8858066,
+        "lon": -80.1325342
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Pinecrest Public Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17486705"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Pinecrest Public Library",
+        "address": "5835 Southwest 111th Street",
+        "city": "Pinecrest",
+        "region": "FL",
+        "postal_code": "33156",
+        "lat": 25.6686526,
+        "lon": -80.2868229
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Doral Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17116558"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Doral Branch Library",
+        "address": "8551 Northwest 53rd Street",
+        "city": "Doral",
+        "region": "FL",
+        "postal_code": "33166",
+        "lat": 25.8199708,
+        "lon": -80.3368042
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "California Club Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17247598"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "California Club Branch Library",
+        "address": "700 Ives Dairy Road",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33179",
+        "lat": 25.9602211,
+        "lon": -80.1883536
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Sunset Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17332079"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sunset Branch Library",
+        "address": "10855 Southwest 72nd Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33173",
+        "lat": 25.7027522,
+        "lon": -80.3694524
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Palm Springs North Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17180870"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palm Springs North Branch Library",
+        "address": "17601 Northwest 78th Avenue",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33015-3630",
+        "lat": 25.9335214,
+        "lon": -80.3265977
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Tamiami Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17017105"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Tamiami Branch Library",
+        "address": "12700 Southwest 8th Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33184",
+        "lat": 25.7605769,
+        "lon": -80.4013612
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Miami-Dade Public Library, South Shore Branch",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17290404"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Miami-Dade Public Library, South Shore Branch",
+        "address": "131 Alton Road",
+        "city": "Miami Beach",
+        "region": "FL",
+        "postal_code": "33139-6708",
+        "lat": 25.7705006,
+        "lon": -80.1378305
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Coral Gables Public Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17475501"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Coral Gables Public Library",
+        "address": "3443 Segovia Street",
+        "city": "Coral Gables",
+        "region": "FL",
+        "postal_code": "33134",
+        "country": "US",
+        "lat": 25.7396818,
+        "lon": -80.2658641
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Lemon City Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17248630"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lemon City Branch Library",
+        "address": "430 Northeast 61st Street",
+        "city": "Miami",
+        "region": "FL",
+        "lat": 25.832283,
+        "lon": -80.1871396
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Edison Center Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17264554"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Edison Center Branch Library",
+        "address": "531 Northwest 62nd Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33150",
+        "lat": 25.8326437,
+        "lon": -80.2052021
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Miami-Dade Public Library, North Shore Branch",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17555676"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Miami-Dade Public Library, North Shore Branch",
+        "address": "7501 Collins Avenue",
+        "city": "Miami Beach",
+        "region": "FL",
+        "postal_code": "33141",
+        "lat": 25.8609234,
+        "lon": -80.1206978
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Kendall Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17360310"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kendall Library",
+        "address": "9101 Southwest 97th Avenue",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33176",
+        "lat": 25.6854352,
+        "lon": -80.3505921
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Westchester Regional Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17523175"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Westchester Regional Library",
+        "address": "9445 Southwest 24th Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33165",
+        "lat": 25.7484281,
+        "lon": -80.3483918
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Coral Reef Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17378208"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Coral Reef Library",
+        "address": "9211 Coral Reef Drive",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33157",
+        "lat": 25.6293784,
+        "lon": -80.3429998
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Shenandoah Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17339777"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Shenandoah Branch Library",
+        "address": "2111 Southwest 19th Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33145",
+        "lat": 25.754717,
+        "lon": -80.2285943
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Miami-Dade Public Library, Miami Beach Regional",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17027057"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Miami-Dade Public Library, Miami Beach Regional",
+        "address": "227 22nd Street",
+        "city": "Miami Beach",
+        "region": "FL",
+        "postal_code": "33139",
+        "lat": 25.7980181,
+        "lon": -80.1288444
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Miami Springs Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/15780420"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Miami Springs Branch Library",
+        "address": "401 Westward Drive",
+        "city": "Miami Springs",
+        "region": "FL",
+        "postal_code": "33166",
+        "lat": 25.8214889,
+        "lon": -80.2876817
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Little River Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17149905"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Little River Library",
+        "address": "160 Northeast 79th Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33138;33138-4858",
+        "lat": 25.8473046,
+        "lon": -80.1936793
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "South Miami Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17225435"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "South Miami Library",
+        "address": "6000 Southwest 72nd Street",
+        "city": "South Miami",
+        "region": "FL",
+        "postal_code": "33143",
+        "lat": 25.703836,
+        "lon": -80.2912526
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Kendale Lakes Public Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17171416"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kendale Lakes Public Library",
+        "address": "15205 Southwest 88th Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33196",
+        "lat": 25.6850685,
+        "lon": -80.4417082
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Palmetto Bay Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17207660"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Palmetto Bay Branch Library",
+        "address": "17641 Old Cutler Road",
+        "city": "Palmetto Bay;Miami",
+        "region": "FL",
+        "postal_code": "33157",
+        "lat": 25.6069199,
+        "lon": -80.3112565
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Virrick Park Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17312632"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Virrick Park Branch Library",
+        "address": "3255 Plaza Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33133-4903",
+        "lat": 25.7307417,
+        "lon": -80.2505198
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Hispanic Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/16294471"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Hispanic Branch Library",
+        "address": "1398 Southwest 1st Street",
+        "city": "Miami",
+        "region": "FL",
+        "postal_code": "33135",
+        "lat": 25.7721545,
+        "lon": -80.217593
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "International Mall Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/15435544"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "International Mall Branch Library",
+        "address": "10315 Northwest 12th Street",
+        "city": "Doral",
+        "region": "FL",
+        "postal_code": "33172",
+        "lat": 25.7841842,
+        "lon": -80.3626616
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Northeast Dade - Aventura Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://mdpls.org/event/17454336"
+      ],
+      "link_pattern": "https://mdpls\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Northeast Dade - Aventura Branch Library",
+        "address": "2930 Northeast 199th Street",
+        "city": "Aventura",
+        "region": "FL",
+        "postal_code": "33180",
+        "lat": 25.9604079,
+        "lon": -80.1427537
+      },
+      "_metro": "Miami, United States"
+    },
+    {
+      "name": "Millstadt Public Library",
+      "category": "learning",
+      "_found": "osm:library -> wix",
+      "listing": [
+        "https://www.millstadt-library.org/programs-and-events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Millstadt Public Library",
+        "address": "115 West Laurel Street",
+        "city": "Millstadt",
+        "region": "IL",
+        "postal_code": "62260",
+        "lat": 38.4591869,
+        "lon": -90.093115
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "St. Louis Bridge Center",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event+ics",
+      "listing": [
+        "https://www.stlouisbridge.org/events/series-7-2026-10-13-tuesday-evening-open"
+      ],
+      "link_pattern": "https://www\\.stlouisbridge\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "St. Louis Bridge Center",
+        "address": "1270 North Price Road",
+        "city": "Saint Louis",
+        "region": "MO",
+        "postal_code": "63132",
+        "lat": 38.6806571,
+        "lon": -90.3674181
+      },
+      "_metro": "St. Louis, United States"
+    },
+    {
+      "name": "Q Center",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.pdxqcenter.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Q Center",
+        "address": "4115 North Mississippi Avenue",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97217",
+        "lat": 45.5535989,
+        "lon": -122.6758558
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Nordia House",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.nordicnorthwest.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Nordia House",
+        "address": "8800 Southwest Oleson Road",
+        "city": "Portland",
+        "region": "OR",
+        "postal_code": "97223",
+        "lat": 45.4561245,
+        "lon": -122.7673781
+      },
+      "_metro": "Portland OR, United States"
+    },
+    {
+      "name": "Gender Health Center (GHC)",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.genderhealthcenter.org/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Gender Health Center (GHC)",
+        "address": "3823 V Street",
+        "city": "Sacramento",
+        "region": "CA",
+        "postal_code": "95817",
+        "lat": 38.5575415,
+        "lon": -121.460125
+      },
+      "_metro": "Sacramento, United States"
     }
   ],
   "_not_included": {

@@ -31377,5 +31377,356 @@
     "geocode_suffix": ", Chennai, India",
     "limit": 300,
     "_metro": "Chennai, India"
+  },
+  {
+    "name": "Hingham Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.hinghamlibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "geocode_suffix": ", Boston, United States",
+    "limit": 300,
+    "_metro": "Boston, United States"
+  },
+  {
+    "name": "Manor Branch San Leandro Community Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.sanleandro.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", San Leandro, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Anthropology Reading Room",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/berkeley.edu_qod5hc5thsjkf3480ol1qs1fak%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Point Richmond Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.ci.richmond.ca.us/common/modules/iCalendar/iCalendar.aspx?catID=17&feed=calendar",
+    "geocode_suffix": ", Richmond, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Native American Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/nasd%40berkeley.edu/public/basic.ics",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Harvey Milk Recreational Arts Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://sfrecpark.org/common/modules/iCalendar/iCalendar.aspx?catID=41&feed=calendar",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Brisbane Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.brisbaneca.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Brisbane, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "El Cerrito Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.elcerrito.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "geocode_suffix": ", El Cerrito, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Sterling Park Recreation Center",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.colma.ca.gov/parks-recreation-events/?ical=1",
+    "geocode_suffix": ", Colma",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "San Rafael Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.cityofsanrafael.org/events/?ical=1",
+    "geocode_suffix": ", San Francisco, United States",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Noisebridge",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6a2a8ad7ac4d009565a90f6aafb901c2dafa352ce86b3164108721c6767271fb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", San Francisco, CA",
+    "limit": 300,
+    "_metro": "San Francisco, United States"
+  },
+  {
+    "name": "Ballard Homestead",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d5m5ei6b2l31gre7k0rmutq1e8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Estelita's Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_423210b013887b569ad0dc4ab9a26e9c2a5cb0f9fe22c90eb718e79f33628728%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Vashon Senior Center",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/uufrse542150bnjchq4ln3odfc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vashon Island, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Heron's Nest Outdoor Education Center",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/b9su5nbt4142sssfeb39i9dra4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States"
+  },
+  {
+    "name": "Shakopee Public Library",
+    "category": "learning",
+    "_found": "osm:library -> libcal+civicplus",
+    "url": "https://www.scottcountymn.gov/common/modules/iCalendar/iCalendar.aspx?catID=53&feed=calendar",
+    "geocode_suffix": ", Shakopee, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Northtown Central Library",
+    "category": "learning",
+    "_found": "osm:library -> libcal+civicplus",
+    "url": "https://www.anokacountymn.gov/common/modules/iCalendar/iCalendar.aspx?catID=78&feed=calendar",
+    "geocode_suffix": ", MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "MN Tool Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mntoollibrary.org_ua3i544837s4e1l3789o95cov0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Minneapolis, United States",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Oakdale Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.washingtoncountymn.gov/common/modules/iCalendar/iCalendar.aspx?catID=71&feed=calendar",
+    "geocode_suffix": ", Oakdale, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "B-Dale Club",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bdalecal%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Roseville, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Harriet Alexander Nature Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.cityofroseville.com/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Roseville, MN",
+    "limit": 300,
+    "_metro": "Minneapolis, United States"
+  },
+  {
+    "name": "Lua A Curtis Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.hialeahfl.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Hialeah, FL",
+    "limit": 300,
+    "_metro": "Miami, United States"
+  },
+  {
+    "name": "Fairmont City Library Center",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mvlibdist.org_7rfj8o92vtf4gkj4ts8lkbtrao%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Fairmont City, IL",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Brentwood Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.brentwoodmo.org/common/modules/iCalendar/iCalendar.aspx?catID=19&feed=calendar",
+    "geocode_suffix": ", Brentwood, MO",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Smithton Public Library District",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/smithtonpl%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Smithton, IL",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Brentwood Public Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_aaa20cde6ed76e5af03966aaa99d9f364e4caeecce1a0f1a71a9ef18f6cb5aba%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brentwood, MO",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Maplewood Public Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/maplewoodpubliclibrary%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Maplewood, MO",
+    "limit": 300,
+    "_metro": "St. Louis, United States"
+  },
+  {
+    "name": "Brookline Teen Outreach",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q167ut53m742n4rnl21o21ehr8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Pittsburgh, PA",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Peoples Library Lower Burrell",
+    "category": "learning",
+    "_found": "osm:library -> my-calendar",
+    "url": "https://www.peopleslibrary.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Pittsburgh, United States",
+    "limit": 300,
+    "_metro": "Pittsburgh, United States"
+  },
+  {
+    "name": "Lowell Branch Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://gastonlibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Lowell, NC",
+    "limit": 300,
+    "_metro": "Charlotte, United States"
+  },
+  {
+    "name": "SomaSpace",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/somaspacepdx%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Tuality Masonic Lodge",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/hhgnoih82em791ot3f7t1op6tg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hillsboro",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Beaverton City Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.beavertonlibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=28&feed=calendar",
+    "geocode_suffix": ", Beaverton, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Milwaukie Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/milwaukiecommunityclub%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukie, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Skyline Grange #894",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/skylinegrange894%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Portland",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Carvlin Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_0be06da903b37301d006508f2a6f0bad5486ff010c43e6fd84f85d51ed786234%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Portland, OR",
+    "limit": 300,
+    "_metro": "Portland OR, United States"
+  },
+  {
+    "name": "Colerain Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.colerain.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Cincinnati, United States",
+    "limit": 300,
+    "_metro": "Cincinnati, United States"
+  },
+  {
+    "name": "Claycomo Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cd05e12f70f8987db1891b552629dc091f5ed8b32d300373e2304dbd8b603d5d%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Claycomo, MO",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Roeland Park Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.roelandpark.net/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Roeland Park, KS",
+    "limit": 300,
+    "_metro": "Kansas City, United States"
   }
 ]
