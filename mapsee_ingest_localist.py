@@ -9,7 +9,14 @@ Config (localist_sources.json): a list of
     { "name": "Cornell University",
       "base_url": "https://events.cornell.edu",
       "category": "learning",       # optional fixed Mapsee KEY (else derived per-event)
-      "days": 90 }                  # optional lookahead window
+      "days": 90,                   # optional lookahead window
+      "max_pages": 40,              # optional; DEFAULT_MAX_PAGES pages of 100 otherwise
+      "crawl_delay": 1 }            # optional seconds between pages; DEFAULT_CRAWL_DELAY
+
+A `measured_<when>` beside a max_pages is the tenant's distinct events in 90
+days (distinct=true, pp=1, page.total_items): from that date, or from 2026-02-01
+(spring) or 2026-06-01 (summer). max_pages is the busiest of them x 1.25, in
+pages, rounded up to five; test_ingest_localist.py fails if one outgrows it.
 
     python mapsee_ingest_localist.py --config localist_sources.json --store mapsee_events.json
 """
@@ -18,6 +25,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from typing import Any, Dict, List, Optional
 
 try:
@@ -33,6 +41,35 @@ from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint, norm_c
 # "canceled" of 5,417. Sold out is still happening. "postponed" was not seen and
 # is here because its date, like a cancelled one's, is not happening.
 DEAD_STATUSES = frozenset({"canceled", "cancelled", "postponed"})
+
+# The API's largest page.
+PER_PAGE = 100
+
+# PAGES ARE A BUDGET, NOT A GUESS ABOUT THE CALENDAR. This was a bare
+# range(1, 11) until 2026-10-11, when one pp=1 request per configured tenant
+# (page.total_items, days=90) found 18 of 56 holding more than the 1,000
+# occurrence wraps ten pages could reach: 10,274 occurrences never read.
+# events.in.gov had 3,099 over 31 pages and page 10 ended on 2026-10-26, so no
+# Indiana state-park hike after that morning ever arrived; KU had 2,255, UT
+# Austin 1,900, Stanford 1,825. Nothing said so: the loop simply ran out.
+#
+# A page is 100 EVENTS now (distinct=true, below), not 100 occurrences. The 57
+# tenants held 25,285 distinct events on 281 pages that day, the largest KU's
+# 1,752 on 18. Their busiest 90 days, one pp=1 request each over a past window
+# (spring for a campus, summer for a state calendar): seven pass 2,000, Indiana
+# at 3,638 the most. Twelve, those seven among them, need more than 20 pages
+# once a quarter is added for growth, and carry their own `max_pages` beside
+# the measurements that sized it; 20 reads the other 45 whole with that quarter
+# to spare. The walk stops at page.total, so a cap costs nothing until a
+# calendar really is that big, and a walk that ends on the cap says so.
+DEFAULT_MAX_PAGES = 20
+
+# Every configured tenant's robots.txt, read 2026-10-11 with the production
+# User-Agent, is Localist's stock file: `Allow: /` and `Crawl-delay: 1`, 57 of
+# 57. The API is a documented one and so not bound by the file, but the delay
+# is the publisher saying how fast, and tribe and ics honour theirs; the pages
+# of one tenant used to go back to back.
+DEFAULT_CRAWL_DELAY = 1.0
 
 # Localist event_type filter name -> Mapsee frontend category KEY.
 _TYPE_MAP = {
@@ -173,7 +210,10 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
     base = (src.get("base_url") or "").rstrip("/")
     if not base:
         return 0                                           # allow note-only config entries
+    name = src.get("name", "?")
     days = src.get("days", 90)
+    max_pages = max(1, int(src.get("max_pages") or DEFAULT_MAX_PAGES))
+    delay = float(src.get("crawl_delay", DEFAULT_CRAWL_DELAY) or 0)
     # One wrap per OCCURRENCE arrives (see _instance), and they span pages, so
     # collapse by event id across the whole fetch before anything is upserted.
     # Keeping the EARLIEST occurrence makes start_local the next upcoming date
@@ -183,18 +223,49 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
     # Upserting each wrap also meant EventStore.upsert ran once per occurrence
     # for the same (source, source_id), popping and re-adding the record every
     # time. Sixty writes to arrive where one belongs.
+    #
+    # distinct=true asks the API to do that collapse itself: one wrap per event,
+    # carrying its first instance in the window, which is the occurrence the
+    # collapse keeps. Measured 2026-10-11 over all 57 tenants (days=90): 48,710
+    # wraps became 25,285 events, and 515 pages became 281. The old walk and
+    # this one, run the same evening, stored 11,246 rows in common, identical
+    # field for field; the old walk's only two others were publisher edits
+    # between the runs (one event deleted, its /api/2/events/<id> a 404; one
+    # that lost its geo). The collapse stays, for a server that ignores the
+    # parameter.
     best: Dict[Any, Dict[str, Any]] = {}
     order: List[Any] = []
     seen_wraps = 0
-    for page in range(1, 11):                              # up to ~1000 events/source
-        r = session.get(f"{base}/api/2/events",
-                        params={"days": days, "pp": 100, "page": page}, timeout=25)
-        if r.status_code != 200:
-            print(f"[localist] {src.get('name','?')} p{page} HTTP {r.status_code}")
+    pages = 0
+    total_pages: Optional[int] = None
+    last = False
+    for page in range(1, max_pages + 1):
+        if page > 1 and delay > 0:
+            time.sleep(delay)                              # robots.txt Crawl-delay
+        # A failed page ends the walk and keeps what the earlier pages brought.
+        # It used to raise into main()'s per-source handler, which threw away
+        # every page already read, and a longer walk is more pages to time out:
+        # UGA's page 9 timed out in the 2026-10-11 measurement, and the eight
+        # before it still gave 583 rows where the old code would have kept none.
+        try:
+            r = session.get(f"{base}/api/2/events",
+                            params={"days": days, "pp": PER_PAGE, "page": page,
+                                    "distinct": "true"}, timeout=25)
+        except Exception as exc:                           # noqa: BLE001
+            print(f"[localist] {name} p{page} failed: {type(exc).__name__}: {exc}")
             break
-        data = r.json()
+        if r.status_code != 200:
+            print(f"[localist] {name} p{page} HTTP {r.status_code}")
+            break
+        try:
+            data = r.json()
+        except ValueError as exc:
+            print(f"[localist] {name} p{page} bad JSON: {exc}")
+            break
+        pages += 1
         events = data.get("events") or []
         if not events:
+            last = True
             break
         for wrap in events:
             seen_wraps += 1
@@ -210,9 +281,27 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
                 order.append(key)
             elif _instance_start(event) < _instance_start(prev.get("event") or {}):
                 best[key] = wrap
+        # THE LAST PAGE IS THE ONE THE API NAMES. page.total is the page count
+        # (page.total_items the wraps it counts); a response without the block
+        # ends on its first short page instead of asking for one more empty one.
         pg = data.get("page") or {}
-        if int(pg.get("current") or page) >= int(pg.get("total") or page):
+        try:
+            total_pages = int(pg["total"]) if pg.get("total") is not None else None
+            current = int(pg.get("current") or page)
+        except (TypeError, ValueError):
+            total_pages, current = None, page
+        if total_pages is not None:
+            if current >= total_pages:
+                last = True
+                break
+        elif len(events) < PER_PAGE:
+            last = True
             break
+    if not last and pages == max_pages:
+        left = (f"{total_pages - pages} of {total_pages} pages unread" if total_pages
+                else "more pages may follow")
+        print(f"[localist] {name}: stopped at max_pages={max_pages}, {left}; "
+              f"raise its max_pages in the config")
     kept = cancelled = 0
     for key in order:
         dead = dead_status(best[key])
@@ -227,7 +316,7 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
         store.upsert(nev)
         kept += 1
     collapsed = seen_wraps - len(order)
-    print(f"[localist] {src.get('name','?')}: kept {kept}"
+    print(f"[localist] {name}: kept {kept} of {len(order)} event(s) on {pages} page(s)"
           + (f" ({collapsed} duplicate occurrence wrap(s) collapsed)" if collapsed else "")
           + (f"; {cancelled} canceled (tombstoned)" if cancelled else ""))
     return kept

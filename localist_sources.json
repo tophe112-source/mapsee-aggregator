@@ -7,7 +7,10 @@
   {
     "name": "George Washington University (DC)",
     "base_url": "https://calendar.gwu.edu",
-    "days": 90
+    "days": 90,
+    "max_pages": 30,
+    "measured_2026_10_11": 1248,
+    "measured_spring_2026": 2362
   },
   {
     "name": "DePaul University (Chicago)",
@@ -72,7 +75,10 @@
   {
     "name": "University of Pittsburgh (Pittsburgh)",
     "base_url": "https://calendar.pitt.edu",
-    "days": 90
+    "days": 90,
+    "max_pages": 25,
+    "measured_2026_10_11": 744,
+    "measured_spring_2026": 1706
   },
   {
     "name": "Towson University (Baltimore)",
@@ -82,7 +88,10 @@
   {
     "name": "UNC Charlotte (Charlotte)",
     "base_url": "https://campusevents.charlotte.edu",
-    "days": 90
+    "days": 90,
+    "max_pages": 30,
+    "measured_2026_10_11": 676,
+    "measured_spring_2026": 2292
   },
   {
     "name": "Florida Technical College (Orlando)",
@@ -117,7 +126,10 @@
   {
     "name": "University of Colorado Boulder",
     "base_url": "https://calendar.colorado.edu",
-    "days": 90
+    "days": 90,
+    "max_pages": 25,
+    "measured_2026_10_11": 909,
+    "measured_spring_2026": 1627
   },
   {
     "name": "University of Nevada Reno",
@@ -127,17 +139,26 @@
   {
     "name": "University of Kansas",
     "base_url": "https://calendar.ku.edu",
-    "days": 90
+    "days": 90,
+    "max_pages": 40,
+    "measured_2026_10_11": 1752,
+    "measured_spring_2026": 2864
   },
   {
     "name": "Kansas State",
     "base_url": "https://events.k-state.edu",
-    "days": 90
+    "days": 90,
+    "max_pages": 25,
+    "measured_2026_10_11": 794,
+    "measured_spring_2026": 1635
   },
   {
     "name": "University of Tennessee",
     "base_url": "https://calendar.utk.edu",
-    "days": 90
+    "days": 90,
+    "max_pages": 25,
+    "measured_2026_10_11": 519,
+    "measured_spring_2026": 1916
   },
   {
     "name": "NC State",
@@ -157,7 +178,10 @@
   {
     "name": "Florida State",
     "base_url": "https://calendar.fsu.edu",
-    "days": 90
+    "days": 90,
+    "max_pages": 30,
+    "measured_2026_10_11": 1109,
+    "measured_spring_2026": 2378
   },
   {
     "name": "University of Alabama",
@@ -177,7 +201,10 @@
   {
     "name": "Cornell",
     "base_url": "https://events.cornell.edu",
-    "days": 90
+    "days": 90,
+    "max_pages": 25,
+    "measured_2026_10_11": 551,
+    "measured_spring_2026": 1776
   },
   {
     "name": "University of Delaware",
@@ -213,6 +240,10 @@
     "name": "State of Indiana Events (Indiana)",
     "base_url": "https://events.in.gov",
     "days": 90,
+    "max_pages": 50,
+    "measured_2026_10_11": 1417,
+    "measured_spring_2026": 2365,
+    "measured_summer_2026": 3638,
     "_metro": "Indianapolis, US",
     "_note": "The State of Indiana's own Localist calendar (DNR state-park interpretive programs, county museums, markets). robots.txt allows /api/. 3,347 events in 90 days on 2026-09-27, 74 of 100 sampled carry geo."
   },
@@ -259,6 +290,9 @@
     "base_url": "https://calendar.unt.edu",
     "category": "learning",
     "days": 90,
+    "max_pages": 35,
+    "measured_2026_10_11": 573,
+    "measured_spring_2026": 2496,
     "_metro": "Dallas, United States",
     "_note": "UNT's Localist calendar: recitals, film series, lectures, community garden; 241 of 492 upcoming marked free, 392 carry coordinates. robots.txt allows /api/2/events."
   },
@@ -307,6 +341,10 @@
     "base_url": "https://events.dcnr.pa.gov",
     "category": "outdoors",
     "days": 90,
+    "max_pages": 35,
+    "measured_2026_10_11": 341,
+    "measured_spring_2026": 688,
+    "measured_summer_2026": 2492,
     "_metro": "Pittsburgh, United States",
     "_note": "PA DCNR's own Localist: statewide state-park and forest programs (guided hikes, fishing clinics, archery, nature backpacks), ~635 in 90 days, 96% with geo; many marked Free. robots.txt: Crawl-Delay 1, /api/ not disallowed."
   },
