@@ -2304,6 +2304,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "abhinnabangla.com": {
+    "checked": 20261011,
+    "name": "Abhinna Bangla",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "abilis.be/arc_en_ciel": {
     "checked": 20260912,
     "name": "Arc-en-Ciel",
@@ -3737,6 +3744,13 @@
     "name": "\uc544\ub2e8\ubb38\uace0",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "adanisportsline.com": {
+    "checked": 20261011,
+    "name": "Riverfront Sports Park",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "adaok.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
@@ -5405,6 +5419,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ahujaptm.com/museum": {
+    "checked": 20261011,
+    "name": "Ahuja Museum for Arts",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "ai-station.info": {
     "checked": 20260926,
     "name": "\u611b\u30ea\u30cf\u30d3\u30ea\u30b9\u30c6\u30fc\u30b7\u30e7\u30f3",
@@ -6359,6 +6380,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "akshardham.com/gujarat": {
+    "checked": 20261011,
+    "name": "Akshardham Temple Complex",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aksiazka.pl": {
     "checked": 20260909,
     "name": "aksiazka.pl \u2013 Centrum Tanich Podr\u0119cznik\u00f3w",
@@ -6610,6 +6638,13 @@
     "reason": "no schema.org Event blocks found -- reopened 2026-10-04: verified against the host root, which 404s on a free <user>.wixsite.com/<site>/ calendar; the route keeps the /<site>/ prefix since bdce1f6, so the next probe gets an honest answer",
     "status": "reopened",
     "type": "jsonld"
+  },
+  "albany.wa.gov.au": {
+    "checked": 20261011,
+    "name": "Albany",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "albanyca.org": {
     "checked": 20260913,
@@ -7458,6 +7493,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "alicesprings.nt.gov.au": {
+    "checked": 20261011,
+    "name": "Alice Springs",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "alienrock.co.uk": {
     "checked": 20260819,
@@ -9939,6 +9981,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "amritapuri.org": {
+    "checked": 20261011,
+    "name": "Mata Amritanandamayi Math, Bhramastanam Temple",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "amrtranscultural.org": {
     "checked": 20260901,
     "name": "Associa\u00e7\u00e3o para a Mudan\u00e7a e Representa\u00e7\u00e3o Transcultural - Polo",
@@ -10182,6 +10231,13 @@
     "name": "\u00c1namdam Yoga e Cultura",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "ananthapadmanabhaswamytemple.org": {
+    "checked": 20261011,
+    "name": "Sri Anantha Padmanaba Swamy Temple",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "anantnaad.com": {
@@ -10755,6 +10811,13 @@
   "annajeller.at": {
     "checked": 20260907,
     "name": "Anna Jeller",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "annanagarayyappatemple.org": {
+    "checked": 20261011,
+    "name": "Ayyappan Temple",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -12384,6 +12447,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "aquaelegance.in": {
+    "checked": 20261011,
+    "name": "Aquaelegance",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "aquafield-ssg.co.kr/goyang/index.af": {
     "checked": 20260902,
     "name": "Aquafield",
@@ -12614,6 +12684,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ararat.vic.gov.au": {
+    "checked": 20261011,
+    "name": "Ararat",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "arariomuseum.org": {
     "checked": 20260902,
@@ -12915,6 +12992,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "archdioceseofmadrasmylapore.in": {
+    "checked": 20261011,
+    "name": "St. Thomas Cathedral Basilica",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "arche-chaville.fr": {
     "checked": 20260829,
@@ -14397,6 +14481,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "armidaleregional.nsw.gov.au": {
+    "checked": 20261011,
+    "name": "Armidale",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "armilla.es": {
     "checked": 20260927,
@@ -19525,6 +19616,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "avmrajeswaritheatre.com": {
+    "checked": 20261011,
+    "name": "AVM Rajeswari Theatre",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "avoimetpuutarhat.fi/puutarhat/bjorkelundin_ruusutarha": {
     "checked": 20260903,
     "name": "Bj\u00f6rkelundin Ruusutarha",
@@ -21542,6 +21640,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ballarat.vic.gov.au": {
+    "checked": 20261011,
+    "name": "Ballarat",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ballaratobservatory.org.au/events/?ical=1": {
     "checked": 20260727,
     "name": "Ballarat Municipal Observatory (Ballarat, Australia)",
@@ -23468,6 +23573,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bathurst.nsw.au": {
+    "checked": 20261011,
+    "name": "Bathurst",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "bathyscaphe.be": {
     "checked": 20260911,
@@ -25772,6 +25884,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "bendigo.vic.gov.au": {
+    "checked": 20261011,
+    "name": "Bendigo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "bendumc.org/events.ics": {
     "checked": 20260920,
@@ -35338,9 +35457,23 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "biswabanglamelaprangan.org": {
+    "checked": 20261011,
+    "name": "Biswa Bangla Mela Prangan",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "bitcoincenterseoul.com": {
     "checked": 20260902,
     "name": "Bitcoin Center Seoul",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "bitm.gov.in": {
+    "checked": 20261011,
+    "name": "Birla Industrial & Technological Museum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -40320,6 +40453,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bpaindia.org": {
+    "checked": 20261011,
+    "name": "Andhajan Mandal",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "bpct.org.nz": {
     "checked": 20260928,
     "name": "bpct.org.nz",
@@ -41847,6 +41987,13 @@
     "reason": "osm probe: unreachable (ConnectionError)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "brisbane.qld.gov.au": {
+    "checked": 20261011,
+    "name": "Brisbane",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "brisbane.qld.gov.au/coopers-plains-library": {
     "checked": 20261007,
@@ -45338,6 +45485,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bunbury.wa.gov.au": {
+    "checked": 20261011,
+    "name": "Bunbury",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "bundeskanzleramt.gv.at/service/administrative-bibliothek": {
     "checked": 20260907,
     "name": "Administrative Bibliothek des Bundes",
@@ -46185,6 +46339,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "busselton.wa.gov.au": {
+    "checked": 20261011,
+    "name": "Busselton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "bussigny.ch/culture-loisirs/culture/bibliotheque-communale": {
     "checked": 20260920,
@@ -48329,6 +48490,13 @@
     "checked": 20260919,
     "name": "Montlake Community Club (Seattle)",
     "reason": "65 vevents / 2 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/c_c5tapb8movl7b9i4roq94oi6ig%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261011,
+    "name": "Ramakrishna Math Universal Temple",
+    "reason": "50 vevents / 50 future",
     "status": "ok",
     "type": "ics"
   },
@@ -54720,6 +54888,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "ccfc1792.com": {
+    "checked": 20261011,
+    "name": "Calcutta Cricket and Football Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ccfd-terresolidaire.org": {
     "checked": 20260830,
     "name": "CCFD-Terre Solidaire",
@@ -58049,6 +58224,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cgg.wa.gov.au": {
+    "checked": 20261011,
+    "name": "Geraldton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cgi.city.yokohama.lg.jp/shimin/chikucenter/center.php?d=c02100": {
     "checked": 20260924,
     "name": "\u4e2d\u5ddd\u5730\u533a\u30bb\u30f3\u30bf\u30fc",
@@ -58771,6 +58953,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "charterstowers.qld.gov.au": {
+    "checked": 20261011,
+    "name": "Charters Towers",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "charthouse.co.nz": {
     "checked": 20260825,
@@ -69719,6 +69908,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofsydney.nsw.gov.au": {
+    "checked": 20261011,
+    "name": "Sydney",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cityofsydney.nsw.gov.au/community-centres/juanita-nielsen-community-centre": {
     "checked": 20260819,
     "name": "Juanita Nielsen Community Centre",
@@ -71478,6 +71674,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "clubbabylon.in": {
+    "checked": 20261011,
+    "name": "Club Babylon",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "clubbelrose.au": {
     "checked": 20260819,
     "name": "Club Belrose",
@@ -71882,6 +72085,13 @@
   "clubnordicdesglieres.fr": {
     "checked": 20260918,
     "name": "Club Nordic des Gli\u00e8res",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "clubo7.com": {
+    "checked": 20261011,
+    "name": "Club O7",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -73629,6 +73839,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "coffsharbour.nsw.gov.au": {
+    "checked": 20261011,
+    "name": "Coffs Harbour",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "coffsharbourlandcare.org.au": {
     "checked": 20261004,
@@ -79322,6 +79539,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cspt.in/thechennaisnakepark.php?t=1": {
+    "checked": 20261011,
+    "name": "Chennai Snake Park",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "csr.wum.edu.pl": {
     "checked": 20260909,
     "name": "Centrum Sportowo-Rehabilitacyjne WUM",
@@ -81366,6 +81590,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dadabhagwan.org": {
+    "checked": 20261011,
+    "name": "Dadabhagwan Trimandir - Adalaj",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dadarmath.com": {
     "checked": 20260927,
     "name": "?",
@@ -81537,6 +81768,13 @@
   "dakossomeren.nl": {
     "checked": 20260930,
     "name": "Dakos Someren",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dakshineswar.com": {
+    "checked": 20261011,
+    "name": "Dakshineswar Kali Hindu Temple",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -82395,6 +82633,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "darwin.nt.gov.au": {
+    "checked": 20261011,
+    "name": "Darwin",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "darwin.nt.gov.au/community/community-facilities/casuarina-aquatic-leisure-centre": {
     "checked": 20260819,
@@ -87362,6 +87607,13 @@
   "dgkz-koeln-porz.de": {
     "checked": 20261003,
     "name": "Deutsch-Griechisches-Kulturzentrum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dglofmadras.org": {
+    "checked": 20261011,
+    "name": "Freemasons Hall - Grand District Lodge of Madras",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -93799,6 +94051,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "earthcarebooks.com": {
+    "checked": 20261011,
+    "name": "Earthcare Bookstore",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "earthcorps.org/events/?ical=1": {
     "checked": 20260803,
     "name": "EarthCorps (Seattle)",
@@ -94524,6 +94783,111 @@
   "economie.gouv.fr/cedef": {
     "checked": 20260829,
     "name": "Centre de documentation \u00c9conomie - Finances",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/home/Harinalaya": {
+    "checked": 20261011,
+    "name": "Harinalaya",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/BambooGarden": {
+    "checked": 20261011,
+    "name": "Bamboo Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/BengalVillage": {
+    "checked": 20261011,
+    "name": "Bengal Village",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/ButterflyGarden": {
+    "checked": 20261011,
+    "name": "Butterfly Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/FoodCourt": {
+    "checked": 20261011,
+    "name": "Food Court",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/FormalGarden": {
+    "checked": 20261011,
+    "name": "Formal Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/FruitsGarden": {
+    "checked": 20261011,
+    "name": "Fruits Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/HeliconiaGarden": {
+    "checked": 20261011,
+    "name": "Heliconia Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/HerbalGarden": {
+    "checked": 20261011,
+    "name": "Herbal Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/JapaneseGarden": {
+    "checked": 20261011,
+    "name": "hidco eco park",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/SevenWonders": {
+    "checked": 20261011,
+    "name": "Seven Wonders",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/meadow": {
+    "checked": 20261011,
+    "name": "Meadow Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/rosegarden": {
+    "checked": 20261011,
+    "name": "Rose Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/teagarden": {
+    "checked": 20261011,
+    "name": "Tea Garden",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ecoparknewtown.com/thematic/treegarden": {
+    "checked": 20261011,
+    "name": "Tropical Rainforest",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -100643,6 +101007,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eshkol.in": {
+    "checked": 20261011,
+    "name": "Eshkol Event Space",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "eshop.cirkev.cz": {
     "checked": 20260904,
     "name": "Karmelit\u00e1nsk\u00e9 knihkupectv\u00ed",
@@ -103814,6 +104185,13 @@
     "reason": "1 events, 1/1 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "evpcinemas.com": {
+    "checked": 20261011,
+    "name": "Vels Theatre",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "evref.ch": {
     "checked": 20260919,
@@ -116541,6 +116919,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fullgospeltelugubaptistchurch.in": {
+    "checked": 20261011,
+    "name": "Full Gospel Telugu Baptist Church",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "fullofbooks.com.au/index.php?language=ja": {
     "checked": 20260819,
     "name": "Hondarake",
@@ -117519,6 +117904,20 @@
     "name": "\u3042\u3051\u307c\u306e\u5150\u7ae5\u4f1a\u9928",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "g.co/kgs/g663jR": {
+    "checked": 20261011,
+    "name": "Star Theatre",
+    "reason": "osm probe: robots.txt Disallow: /search (https://www.google.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "g.co/kgs/kTfPg1": {
+    "checked": 20261011,
+    "name": "Jagat Mukherjee Park Sadharan Durgotsab",
+    "reason": "osm probe: robots.txt Disallow: /search (https://www.google.com/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "gaahandball.ie": {
@@ -124308,6 +124707,13 @@
     "reason": "50 future, 50 placeable",
     "status": "ok",
     "type": "ics"
+  },
+  "goldcoast.qld.gov.au": {
+    "checked": 20261011,
+    "name": "Gold Coast",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "goldcoast.qld.gov.au/Services/Venues-facilities/Community-centres/Broadbeach-Cultural-Precinct": {
     "checked": 20260819,
@@ -131850,6 +132256,13 @@
   "hardtofind.co.nz": {
     "checked": 20260824,
     "name": "Hard To Find",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "harekrishnamandir.org": {
+    "checked": 20261011,
+    "name": "Hare Krishna Mandir, Bhadaj",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -147727,6 +148140,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "instagram.com/gee_hing_church": {
+    "checked": 20261011,
+    "name": "Gee Hing Chinese Temple",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "instagram.com/gotaekmusicfesta": {
     "checked": 20260902,
     "name": "\ud074\ub798\uc2dd\uace0\ud0dd \ub514\ud1a0",
@@ -149003,6 +149423,13 @@
   },
   "ipswich.gov.uk": {
     "checked": 20260927,
+    "name": "Ipswich",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "ipswich.qld.gov.au": {
+    "checked": 20261011,
     "name": "Ipswich",
     "reason": "civic probe: no-calendar",
     "status": "fail",
@@ -156329,6 +156756,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kalakshetra.com": {
+    "checked": 20261011,
+    "name": "Kalakshetra Foundation",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kalamazoocity.org": {
     "checked": 20260903,
     "name": "Kalamazoo",
@@ -156405,6 +156839,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kalgoorlietourism.com": {
+    "checked": 20261011,
+    "name": "Kalgoorlie",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
   },
   "kaliber.pl": {
     "checked": 20260909,
@@ -157624,6 +158065,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "karnavaticlub.com/events": {
+    "checked": 20261011,
+    "name": "Karnavati Club",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "karol.gdynia.pl": {
     "checked": 20260909,
     "name": "Ko\u015bci\u00f3\u0142 pw. \u015awi\u0119tego Karola Boromeusza",
@@ -158232,6 +158680,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "katherine.nt.gov.au": {
+    "checked": 20261011,
+    "name": "Katherine",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kathhoengg.ch": {
     "checked": 20260918,
@@ -165171,6 +165626,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kolkatacentreforcreativity.org": {
+    "checked": 20261011,
+    "name": "Kolkata Centre for Creativity",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kollektiv-kaorle.at": {
     "checked": 20260907,
     "name": "Kollektiv Kaorle",
@@ -166946,6 +167408,13 @@
   "kriseninterventionszentrum.at": {
     "checked": 20260907,
     "name": "Kriseninterventionszentrum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "krishnaganasabha.org": {
+    "checked": 20261011,
+    "name": "Sri Krishna Gana Sabha - Auditorium",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -175062,6 +175531,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "launceston.tas.gov.au/lcc": {
+    "checked": 20261011,
+    "name": "Launceston",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "launchpadgolf.com": {
     "checked": 20260819,
     "name": "LaunchPad Golf",
@@ -175947,6 +176423,13 @@
   "ldk.com.au/our-villages/act/amberfield": {
     "checked": 20260819,
     "name": "LDK Amberfield",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ldmuseum.co.in": {
+    "checked": 20261011,
+    "name": "Lalbhai Dalpatbhai Museum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -184946,6 +185429,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lismore.nsw.gov.au": {
+    "checked": 20261011,
+    "name": "Lismore",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "lissy-haus.de": {
     "checked": 20261003,
     "name": "Li\u00dfy-Haus",
@@ -188564,6 +189054,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "luzchurch.co.in": {
+    "checked": 20261011,
+    "name": "Church of Our Lady of Light (Luz Church)",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "luzecaridade.org.br": {
     "checked": 20261009,
     "name": "Centro Espirita Luz e Caridade",
@@ -188982,6 +189479,13 @@
     "name": "Igreja Crist\u00e3 Sal da Terra",
     "reason": "osm probe: robots.txt Disallow: / (https://m.facebook.com/robots.txt)",
     "status": "refused",
+    "type": "osm-venue"
+  },
+  "m.inoxmovies.com": {
+    "checked": 20261011,
+    "name": "INOX Cinema",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "m.luton.gov.uk": {
@@ -189469,6 +189973,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "mackay.qld.gov.au": {
+    "checked": 20261011,
+    "name": "Mackay",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "mackintoshchurch.com": {
     "checked": 20260819,
     "name": "The Mackintosh Church, Queen's Cross",
@@ -189735,12 +190246,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "madras.afindia.org": {
+    "checked": 20261011,
+    "name": "Alliance Francais",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
   "madras.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise de Madras (Chennai, India)",
     "reason": "435 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "madraskalibari.org": {
+    "checked": 20261011,
+    "name": "MADRAS KALI BARI",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "madrenapoli.it": {
     "checked": 20260922,
@@ -190256,6 +190781,13 @@
   "mahaganapathytemple.com": {
     "checked": 20260819,
     "name": "Maha Ganapathy Temple",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "mahalakshmitemple.com": {
+    "checked": 20261011,
+    "name": "Sri Mahalakshmi Temple",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -192255,6 +192787,13 @@
     "reason": "0 events / 0 future",
     "status": "fail",
     "type": "tribe"
+  },
+  "mangalambanquets.com": {
+    "checked": 20261011,
+    "name": "Mangalam Banquets Kolkata",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "mangapark.jp": {
     "checked": 20260925,
@@ -202930,6 +203469,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mmkinfo.com": {
+    "checked": 20261011,
+    "name": "\u0bae\u0ba9\u0bbf\u0ba4 \u0ba8\u0bc7\u0baf \u0bae\u0b95\u0bcd\u0b95\u0bb3\u0bcd \u0b95\u0b9f\u0bcd\u0b9a\u0bbf \u0ba4\u0bb2\u0bc8\u0bae\u0bc8 \u0b85\u0bb2\u0bc1\u0bb5\u0bb2\u0b95\u0bae\u0bcd",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "mmm-ginza.org/top.html": {
     "checked": 20260924,
     "name": "MMM Maison des Musees du Monde",
@@ -206326,6 +206872,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "motherswaxmuseum.in": {
+    "checked": 20261011,
+    "name": "Mother's Wax Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "motionera.stockholm/hitta-utomhusbassang/utomhusbassang/alvsjobadet": {
     "checked": 20260905,
     "name": "\u00c4lvsj\u00f6badet",
@@ -206662,6 +207215,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "mountgambier.sa.gov.au": {
+    "checked": 20261011,
+    "name": "Mount Gambier",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "mountherbertparish.wordpress.com": {
     "checked": 20260824,
     "name": "Saint Kentigern's Church",
@@ -206675,6 +207235,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mountisa.qld.gov.au": {
+    "checked": 20261011,
+    "name": "Mount Isa",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "mountmerrionparish.ie/community-centre": {
     "checked": 20261001,
@@ -207585,6 +208152,13 @@
     "reason": "5 events",
     "status": "ok",
     "type": "localist"
+  },
+  "msum.in": {
+    "checked": 20261011,
+    "name": "Magalir Satta Uthavi Maiyam (MSUM)",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "msv-hannover.com/index.php?i=63&seite=projektbeschreibung": {
     "checked": 20261005,
@@ -216440,6 +217014,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "nazrultirtha.co.in": {
+    "checked": 20261011,
+    "name": "Nazrul Tirtha",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "nb.admin.ch": {
     "checked": 20260919,
     "name": "Schweizerische Nationalbibliothek",
@@ -217659,6 +218240,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "newbooklands.com": {
+    "checked": 20261011,
+    "name": "?",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "newbrightoncommunity.uk": {
     "checked": 20261009,
     "name": "New Brighton Community Centre",
@@ -217700,6 +218288,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "newcastle.nsw.gov.au": {
+    "checked": 20261011,
+    "name": "Newcastle",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "newcastle.nsw.gov.au/Library/Home": {
     "checked": 20260821,
@@ -232699,6 +233294,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "oxfordbookstore.com": {
+    "checked": 20261011,
+    "name": "Oxford Bookstore",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "oxfordhouse.org.uk": {
     "checked": 20261009,
     "name": "Oxford House",
@@ -234179,6 +234781,13 @@
   "panassilibrerie.it": {
     "checked": 20260922,
     "name": "Panassi",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "panchavatikishkinta.com": {
+    "checked": 20261011,
+    "name": "Panchavati Kishkinta",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -236576,6 +237185,13 @@
     "reason": "18 vevents / 18 future",
     "status": "ok",
     "type": "ics"
+  },
+  "parkes.nsw.gov.au/Home": {
+    "checked": 20261011,
+    "name": "Parkes",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "parkfarmcommunitycentre.co.uk": {
     "checked": 20261009,
@@ -239946,6 +240562,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "perth.wa.gov.au": {
+    "checked": 20261011,
+    "name": "Perth",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "perth.wa.gov.au/community/community-services-and-facilities/city-of-perth-library": {
     "checked": 20261007,
@@ -245270,6 +245893,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "porthedland.wa.gov.au": {
+    "checked": 20261011,
+    "name": "Port Hedland",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "porthunter.skiffclub.net": {
     "checked": 20260821,
     "name": "Port Hunter 16ft Sailing Skiff Club",
@@ -245339,6 +245969,13 @@
     "reason": "8 vevents / 8 future",
     "status": "ok",
     "type": "ics"
+  },
+  "portmacquarieinfo.com.au": {
+    "checked": 20261011,
+    "name": "Port Macquarie",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "portmarnockden.com": {
     "checked": 20260822,
@@ -245806,6 +246443,13 @@
   "powerhouse.com.au/visit/ultimo": {
     "checked": 20260819,
     "name": "Powerhouse Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "powerhousechurch.org": {
+    "checked": 20261011,
+    "name": "PowerHouse Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -247618,6 +248262,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "proserpine.com": {
+    "checked": 20261011,
+    "name": "Proserpine",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "prospectpark.org/events/?ical=1": {
     "checked": 20260727,
     "name": "Prospect Park Alliance (Brooklyn, NY)",
@@ -249208,6 +249859,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "qprc.nsw.gov.au": {
+    "checked": 20261011,
+    "name": "Queanbeyan",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "qprc.nsw.gov.au/Facilities-Recreation/Venues-and-Open-Spaces-for-Hire/Henderson-Road-train-carriage": {
     "checked": 20260819,
@@ -250868,6 +251526,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rahmath.net": {
+    "checked": 20261011,
+    "name": "\u0bb0\u0bb9\u0bcd\u0bae\u0ba4\u0bcd \u0baa\u0ba4\u0bbf\u0baa\u0bcd\u0baa\u0b95\u0bae\u0bcd",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "raholanliikuntakeskus.fi": {
     "checked": 20260904,
     "name": "Raholan liikuntakeskus",
@@ -251082,6 +251747,13 @@
   "rajska.info/pl/arteteka": {
     "checked": 20260909,
     "name": "Arteteka Wojew\u00f3dzkiej Biblioteki Publicznej",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rakkicinemas.com": {
+    "checked": 20261011,
+    "name": "Rakki Cinemas",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -253548,6 +254220,13 @@
     "name": "Rehearsal Factory",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "rehobothassembly.org": {
+    "checked": 20261011,
+    "name": "Rehoboth Christian Assembly",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "rehwinkel.ch": {
@@ -256717,6 +257396,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "rkmyogodyan.org": {
+    "checked": 20261011,
+    "name": "Ramakrishna Math Yogodyan",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "rkowa.com/medical-book-center": {
     "checked": 20260929,
     "name": "\u8003\u6587\u5802\u30e1\u30c7\u30a3\u30ab\u30eb\u30d6\u30c3\u30af\u30bb\u30f3\u30bf\u30fc",
@@ -256995,6 +257681,13 @@
     "name": "roja muthiah research library",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "rmycofficial.in": {
+    "checked": 20261011,
+    "name": "Royal Madras Yacht Club",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "rnzys.org.nz": {
@@ -263315,6 +264008,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "salvobetbonuslar.com": {
+    "checked": 20261011,
+    "name": "Casino",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "salwega.nl": {
     "checked": 20260930,
     "name": "Scouting Salwega",
@@ -266242,6 +266942,13 @@
   "sats.fi/kuntokeskukset/espoo/espoonlahti-elixia": {
     "checked": 20260903,
     "name": "ELIXIA Lippulaiva",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sattapanchayat.org": {
+    "checked": 20261011,
+    "name": "\u0b9a\u0b9f\u0bcd\u0b9f \u0baa\u0b9e\u0bcd\u0b9a\u0bbe\u0baf\u0ba4\u0bcd\u0ba4\u0bc1 \u0b87\u0baf\u0b95\u0bcd\u0b95\u0bae\u0bcd",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -269740,6 +270447,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "seagullindia.com": {
+    "checked": 20261011,
+    "name": "Seagull",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sealbeachca.gov": {
     "checked": 20260913,
     "name": "Seal Beach",
@@ -272589,6 +273303,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "shanti-sadan.net": {
+    "checked": 20261011,
+    "name": "Shanti Sadan",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "shantihome.be/events": {
     "checked": 20260911,
     "name": "Shanti Home",
@@ -273415,6 +274136,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "shjesuschurch.org": {
+    "checked": 20261011,
+    "name": "Sacred Heart of Jesus Church",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "shjlib.gov.ae": {
     "checked": 20260902,
     "name": "Sharjah Public Library",
@@ -273968,6 +274696,13 @@
   "sia.or.at": {
     "checked": 20260908,
     "name": "Haus Rafael",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "siaapindia.org": {
+    "checked": 20261011,
+    "name": "South India AIDS Action Programme",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -282989,6 +283724,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sreeragasedutech.in": {
+    "checked": 20261011,
+    "name": "Sree Ragas Trust",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "srfk.com": {
     "checked": 20260905,
     "name": "Stockholm Radioflygklubb",
@@ -283001,6 +283743,13 @@
     "name": "Self-Realisation Fellowship Sydney Centre",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "srilakshmikuberar.com": {
+    "checked": 20261011,
+    "name": "Sri Lakshmi Kuberar Temple",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "srisambuddhaviharaya.com": {
@@ -291779,6 +292528,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "suhridsangha.org": {
+    "checked": 20261011,
+    "name": "Suhrid Sangha",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "suidorekishi.jp": {
     "checked": 20260925,
     "name": "\u6771\u4eac\u90fd\u6c34\u9053\u6b74\u53f2\u9928",
@@ -292129,6 +292885,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "sunaadalahari.org": {
+    "checked": 20261011,
+    "name": "Sunaadalahari",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sunalta.net/eventscalender": {
     "checked": 20261006,
     "name": "Sunalta Community Association",
@@ -292176,6 +292939,13 @@
     "name": "Sundarayya Vignana Kendram",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "sundarvan.org": {
+    "checked": 20261011,
+    "name": "Sundarvan",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "sundbyberg.se/kultur-fritid/idrott-motion-och-friluftsliv/idrottshallar-och-gymnastiksalar.html": {
@@ -292359,6 +293129,13 @@
     "reason": "183 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "sunsetdriveincinema.com": {
+    "checked": 20261011,
+    "name": "Sunset Drive-in Cinema",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "sunsethillcommunity.org": {
     "checked": 20261004,
@@ -294414,6 +295191,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "swaminarayan.in": {
+    "checked": 20261011,
+    "name": "Swaminarayan Temple Bavla",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "swaminarayanbangalore.com": {
     "checked": 20261009,
     "name": "Shri Swaminarayan Mandir Vadtal Sansthan",
@@ -294462,6 +295246,13 @@
     "reason": "30 events / 0 future",
     "status": "empty",
     "type": "squarespace"
+  },
+  "swaraajsports.com": {
+    "checked": 20261011,
+    "name": "Savvy Swaraaj Sports Club",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "swarnanagrioldagehomes.com": {
     "checked": 20260927,
@@ -295138,6 +295929,13 @@
   "swzygmunt.pl": {
     "checked": 20260909,
     "name": "Ko\u015bci\u00f3\u0142 parafialny pw. \u015bw. Zygmunta",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "sxccal.edu/fr-depelchin-auditorium": {
+    "checked": 20261011,
+    "name": "Father Depelchin Auditorium",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -305390,6 +306188,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thekirk.in": {
+    "checked": 20261011,
+    "name": "St. Andrew's Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "thekitchenlab.ch": {
     "checked": 20260917,
     "name": "The Kitchen Lab",
@@ -308101,6 +308906,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tnhrce.in": {
+    "checked": 20261011,
+    "name": "Arulmigu Karaneeswarar Temple",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "tnm.jp": {
     "checked": 20260925,
     "name": "\u6771\u4eac\u56fd\u7acb\u535a\u7269\u9928",
@@ -308997,6 +309809,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "toowoomba.qld.gov.au": {
+    "checked": 20261011,
+    "name": "Toowoomba",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "top-ev.de": {
     "checked": 20261002,
@@ -323726,6 +324545,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "visahanuman.com": {
+    "checked": 20261011,
+    "name": "Visa Hanuman",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "visansvanner.com": {
     "checked": 20260905,
     "name": "Kustens Hus",
@@ -323880,6 +324706,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitalburywodonga.com": {
+    "checked": 20261011,
+    "name": "Wodonga",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "visitashlandky.com": {
     "checked": 20260913,
     "name": "Ashland",
@@ -323909,6 +324742,13 @@
     "status": "fail",
     "type": "civic-dmo"
   },
+  "visitbrokenhill.com.au": {
+    "checked": 20261011,
+    "name": "Broken Hill",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "visitbruges.be": {
     "checked": 20261010,
     "name": "Bruges",
@@ -323919,6 +324759,13 @@
   "visitbuford.com": {
     "checked": 20260913,
     "name": "Buford",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
+  "visitcanberra.com.au": {
+    "checked": 20261011,
+    "name": "Canberra",
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-dmo"
@@ -324315,6 +325162,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "visitmildura.com.au": {
+    "checked": 20261011,
+    "name": "Mildura",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "visitmontespertoli.it": {
     "checked": 20260923,
     "name": "MuTer - Museo del Territorio di Montespertoli",
@@ -324406,6 +325260,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "visitqueanbeyanpalerang.com.au": {
+    "checked": 20261011,
+    "name": "Queanbeyan",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
   },
   "visitranders.com": {
     "checked": 20261006,
@@ -324567,6 +325428,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-dmo"
+  },
+  "visitsunshinecoast.com/guide/things-to-do-in-maleny": {
+    "checked": 20261011,
+    "name": "Maleny",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "visitsvendborg.dk": {
     "checked": 20261006,
@@ -327451,6 +328319,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "wangaratta.vic.gov.au": {
+    "checked": 20261011,
+    "name": "Wangaratta",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "wangen-bruettisellen.ch": {
     "checked": 20260918,
@@ -336707,6 +337582,13 @@
   "ymcahouston.org/locations/d-bradley-mcwilliams-ymca-cypress-creek?utm_source=GMB&utm_medium=referral": {
     "checked": 20261010,
     "name": "D. Bradley McWilliams YMCA at Cypress Creek",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ymcaic.com": {
+    "checked": 20261011,
+    "name": "YMCA Club",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"

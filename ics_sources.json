@@ -31368,5 +31368,14 @@
     "geocode_suffix": ", Wellesley",
     "limit": 300,
     "_metro": "Boston, United States"
+  },
+  {
+    "name": "Ramakrishna Math Universal Temple",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_c5tapb8movl7b9i4roq94oi6ig%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Chennai, India",
+    "limit": 300,
+    "_metro": "Chennai, India"
   }
 ]
