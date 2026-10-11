@@ -1,0 +1,27 @@
+{
+  "_comment": "Charity walks on Neon One RallyBound / Neon Fundraise. mapsee_ingest_rallybound.py reads each tenant's own event-finder widget API (GET /widgetapi/EventsLite, optionally ?eventSeriesId=N): one request per tenant. robots.txt on both hosts ends in 'Allow: /' with nothing under /widgetapi/ (checked 2026-10-11; the adapter asks again every run). No usage policy for the widget API was found, so it is read as a publisher feed bound by robots.txt. Measured 2026-10-11: Kidney Walk 20 walks (all placed), Great Strides 7 (5 placed, 2 'TBD'). Read the adapter's header before changing a rule.",
+  "_within_days": "Walks starting within this many days are written. Both programmes are seasonal (fall, spring), so 180 days reaches the next season's first walks without listing a whole year ahead.",
+  "within_days": 180,
+  "pause": 1.0,
+  "sources": [
+    {
+      "name": "National Kidney Foundation Kidney Walk",
+      "org": "National Kidney Foundation",
+      "program": "Kidney Walk",
+      "url": "https://www.kidneywalk.org/widgetapi/EventsLite",
+      "about": "A walk raising money for the National Kidney Foundation.",
+      "categories": ["fitness", "outdoors"],
+      "_free": "Not stated in the feed and not confirmed on kidneywalk.org; the row says nothing about price."
+    },
+    {
+      "name": "Cystic Fibrosis Foundation Great Strides",
+      "org": "Cystic Fibrosis Foundation",
+      "program": "Great Strides",
+      "url": "https://fundraise.cff.org/widgetapi/EventsLite?eventSeriesId=9",
+      "about": "A walk raising money for the Cystic Fibrosis Foundation.",
+      "categories": ["fitness", "outdoors"],
+      "_series": "eventSeriesId=9 is Great Strides, as greatstrides.cff.org's own search widget asks for it. Without it the tenant returns every CF Foundation event series.",
+      "_free": "Not checked; the row says nothing about price."
+    }
+  ]
+}

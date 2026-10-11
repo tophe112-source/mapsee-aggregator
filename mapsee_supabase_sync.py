@@ -183,6 +183,29 @@ _PARTY_RX = re.compile(
     r"tap\s?takeover|pub\s+quiz)\b", re.I)
 _PROMOTABLE_TO_PARTY = {"community", "food", "other"}
 
+# A WALK ON NEW YEAR'S EVE IS NOT A NIGHT OUT. The American Volkssport
+# Association's calendar (mapsee_ingest_ava) held 5 such rows of 120 on
+# 2026-10-11 - "New Year's Eve Walk" at 3:30 pm from a Seattle church, "New
+# Years Eve Day Walk #1" at 9 am in Savage, MD - and "new year's eve" alone made
+# each a party and put a 5 km walk on bar.ventures. The date is the only
+# nightlife word there, so a title (or text) whose every party match is New
+# Year's Eve and which names a walk, a hike, a 5k or 10k, a fun run, a bike
+# ride, a swim or a plunge keeps its layer. A pub crawl on New Year's Eve still
+# has "pub crawl" and is still a party, and "walk-ins welcome" is not a walk.
+_NYE_RX = re.compile(r"new\s+year'?s?\s+eve", re.I)
+_DAYTIME_ACTIVITY_RX = re.compile(
+    r"\b(?:walk(?:s|ing)?(?![-\s]ins?\b)|hikes?|hiking|volksmarch\w*|5k|10k|fun\s+run|bike\s+ride|swim|"
+    r"polar\s+plunge)\b", re.I)
+
+
+def _nightlife(text: str) -> bool:
+    """_PARTY_RX, except a walk or a run whose only party word is the date."""
+    hits = [m.group(0) for m in _PARTY_RX.finditer(text or "")]
+    if not hits:
+        return False
+    return not (all(_NYE_RX.fullmatch(h) for h in hits) and _DAYTIME_ACTIVITY_RX.search(text))
+
+
 # Source prefixes of the community-centre timetable adapters. A lane swim or a
 # seniors' bingo is not a show: without this the 70,953 PerfectMind sessions of
 # 2026-10-03 would each have carried a "More on this show" web search and a
@@ -1127,7 +1150,7 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
         # and the shape recurs every time a venue names a night after a lyric.
         if key == "market" and _NOT_A_MARKET_RX.search(text):
             continue
-        if key == "party" and _from_civic_timetable(rec):
+        if key == "party" and (_from_civic_timetable(rec) or not _nightlife(text)):
             continue
         # A volunteer shift keeps no door a guest would choose it from - see
         # _SHIFT_RX for the Silent Disco set-up crew that reached bar.ventures.
@@ -1314,7 +1337,7 @@ def map_category(rec: Dict[str, Any]) -> str:
             and not _ABOUT_KIDS_RX.search(rec.get("name") or "") \
             and not _ADULTS_ONLY_RX.search(_classify_text(rec, _DESC_SCAN_CHARS)):
         return "kids"              # storytime/family day hiding in community/learning
-    if key in _PROMOTABLE_TO_PARTY and _PARTY_RX.search(rec.get("name") or "") \
+    if key in _PROMOTABLE_TO_PARTY and _nightlife(rec.get("name") or "") \
             and not _from_civic_timetable(rec):
         return "party"             # crawls/happy hours/karaoke -> the nightlife layer
     # Last in the chain deliberately: a volunteer trail-work party, a kids' karate

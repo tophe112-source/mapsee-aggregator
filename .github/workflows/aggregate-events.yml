@@ -424,6 +424,57 @@ jobs:
           else
             echo "no fair_sources.json — skipping state fairs"
           fi
+      # WALKS ANYBODY CAN JOIN, three sources measured 2026-10-11 (each adapter's
+      # header has the rules). AVA volksmarches: one year list plus one page per
+      # event starting within 120 days, at 1 s - 123 requests and 2.0 minutes for
+      # 120 walks in 27 states, every one on its club's own map pin. The config's
+      # run_weekdays keeps it to Wednesday (the refresh day, so a changed start
+      # reaches the stored row) and Sunday: a daily read of ~120 pages from a
+      # volunteer association's server is wasted work. --max-minutes is a
+      # deadline no request starts after; the store is saved every 25 events.
+      - name: Import American Volkssport Association walks (volksmarches; Wednesday and Sunday)
+        id: ingest_ava
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 15
+        run: |
+          if [ -f ava_sources.json ]; then
+            python mapsee_ingest_ava.py --config ava_sources.json --store feeds_events.json --max-minutes 10
+          else
+            echo "no ava_sources.json - skipping AVA walks"
+          fi
+      # Charity walks on RallyBound / Neon Fundraise: the National Kidney
+      # Foundation's Kidney Walks and the CF Foundation's Great Strides. One
+      # request per charity (24 placed walks on 2026-10-11), so it runs daily.
+      - name: Import charity walks on RallyBound (Kidney Walk, Great Strides)
+        id: ingest_rallybound
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 10
+        run: |
+          if [ -f rallybound_sources.json ]; then
+            python mapsee_ingest_rallybound.py --config rallybound_sources.json --store feeds_events.json
+          else
+            echo "no rallybound_sources.json - skipping RallyBound walks"
+          fi
+      # PARKED: charity walks on Luminate TeamRaiser (ACS Making Strides and
+      # Relay For Life, Walk to End Alzheimer's, Komen). Each request carries the
+      # charity's own published api_key, which is the owner's decision, so the
+      # config ships as luminate_sources.json.pending-permission and this step
+      # skips. Renaming the file is the whole switch: 7 requests, 435 rows within
+      # 180 days on 2026-10-11's pull, 396 of them placed by the sync's Census
+      # batch and the Alzheimer's Association's own pins.
+      - name: Import charity walks on Luminate TeamRaiser (Making Strides, Relay, Alzheimer's, Komen; parked)
+        id: ingest_luminate
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 10
+        run: |
+          if [ -f luminate_sources.json ]; then
+            python mapsee_ingest_luminate.py --config luminate_sources.json --store feeds_events.json
+          else
+            echo "no luminate_sources.json - skipping Luminate walks (parked: luminate_sources.json.pending-permission)"
+          fi
       - name: Import curated recurring community programs (e.g. free summer meals, expanded to dated occurrences)
         id: ingest_programs
         if: matrix.group == 'local'

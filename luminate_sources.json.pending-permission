@@ -1,0 +1,75 @@
+{
+  "_comment": "PARKED (2026-10-11): charity walks on Blackbaud Luminate Online TeamRaiser, read by mapsee_ingest_luminate.py through the client API each charity's own event finder calls (CRTeamraiserAPI method=getTeamraisersByInfo, name=%%%, list_page_size=500). Every request carries the charity's api_key, which each one publishes in its own finder page; Blackbaud's help says the key 'is not a secure password. You can include this key in a hidden field of a web form', and robots.txt on all three hosts has no rule touching /site/CRTeamraiserAPI. It is still another organisation's credential, which the repo's DICE note says is not ours to read with, so this waits for the owner. TO SWITCH IT ON: record the decision in `_decision` (who, when, and whether the charities were asked), rename this file to luminate_sources.json, and add the AGENTS.md row; the workflow step already runs whenever the file exists. Read the adapter's header before changing a rule.",
+  "_decision": "",
+  "_measured": "2026-10-11, replaying that day's pulls (7 requests, made by the discovery run): Making Strides 175 records, Relay For Life 1,055, Walk to End Alzheimer's (event_type 'Walk 2026') 624, Komen 59. Within 180 days the adapter writes 435 rows (Strides 97, Relay 82, Alzheimer's 239, Komen 17); the Census batch plus the Alzheimer's pins place 396 of them (143 of 179 ACS, 238 of 239 Alzheimer's, 15 of 17 Komen). 253 say 'Free to register.' (all Alzheimer's rows, 14 Komen MORE THAN PINK walks).",
+  "within_days": 180,
+  "_pause": "Seconds between requests. One run is 7 requests across three hosts; nothing asks for a crawl-delay.",
+  "pause": 2.0,
+  "_placeholder_days": "MM-DD a record is never written on: December 31 is the charities' fiscal year-end, where 189 of 1,055 Relay records and 36 of 175 Making Strides records sat on 2026-10-11 (tests, 'Venue Name', 'NO EVENT THIS YEAR.', and real chapters with no date yet).",
+  "placeholder_days": ["12-31"],
+  "sources": [
+    {
+      "name": "American Cancer Society Making Strides Against Breast Cancer",
+      "org": "American Cancer Society",
+      "api": "https://secure.acsevents.org/site/CRTeamraiserAPI",
+      "api_key": "ACSAPI",
+      "_key_seen_at": "https://secure.acsevents.org/site/SPageServer/?pagename=relay_find_event (thm.extendConfig.apiKey)",
+      "event_types": ["Making Strides Against Breast Cancer"],
+      "name_must_match": "Making\\s+Strides",
+      "about": "A Making Strides Against Breast Cancer walk, organised by the American Cancer Society.",
+      "categories": ["fitness", "outdoors"],
+      "_free": "Unconfirmed: the registration fee loads by script, so the row says nothing about price."
+    },
+    {
+      "name": "American Cancer Society Relay For Life",
+      "org": "American Cancer Society",
+      "api": "https://secure.acsevents.org/site/CRTeamraiserAPI",
+      "api_key": "ACSAPI",
+      "_key_seen_at": "https://secure.acsevents.org/site/SPageServer/?pagename=relay_find_event (thm.extendConfig.apiKey)",
+      "event_types": ["Relay For Life"],
+      "name_must_match": "Relay\\s+for\\s+Life|Relevo\\s+por\\s+la\\s+Vida",
+      "_name_must_match": "Puerto Rico's relays are 'Relevo Por La Vida' (13 records on 2026-10-11).",
+      "about": "A Relay For Life event, organised by the American Cancer Society.",
+      "categories": ["fitness"],
+      "_categories": "Fitness only: a relay is often held on a school track or in a gym ('Britton-Hecla High School gym', 'RecWell').",
+      "_free": "Unconfirmed, and a test event is named '$25 and $0 P-type', so fees vary by event; the row says nothing about price."
+    },
+    {
+      "name": "Alzheimer's Association Walk to End Alzheimer's",
+      "org": "Alzheimer's Association",
+      "api": "https://act.alz.org/site/CRTeamraiserAPI",
+      "api_key": "ALZADARDA",
+      "_key_seen_at": "https://act.alz.org/walk_homepage (luminateExtend apiKey, and <input type=hidden name=api_key value=ALZADARDA>)",
+      "_event_types": "The type is named for its year ('Walk 2026'), so the adapter asks for this year's and next year's.",
+      "event_types": ["Walk {year}", "Walk {next_year}"],
+      "name_must_match": "Walk\\s+to\\s+End\\s+Alzheimer",
+      "coords_from_area": true,
+      "_coords_from_area": "621 of the 624 records carry the walk's own point in `area` ('35.2847...,-86.3705...'); the sync's Census pass still replaces it when the street matches.",
+      "about": "A Walk to End Alzheimer's, organised by the Alzheimer's Association.",
+      "categories": ["fitness", "outdoors"],
+      "free_to_register": ".",
+      "_free": "'There is no registration fee for Walk. However, we ask every participant to make a personal donation' (act.alz.org event FAQ, e.g. https://act.alz.org/site/DocServer/2024FoxboroFAQ_s.pdf)."
+    },
+    {
+      "name": "Susan G. Komen MORE THAN PINK Walk and Race for the Cure",
+      "org": "Susan G. Komen",
+      "api": "https://secure.info-komen.org/site/CRTeamraiserAPI",
+      "api_key": "pink",
+      "_key_seen_at": "https://secure.info-komen.org/site/SPageNavigator/mtpw_home.html (luminateExtend apiKey; also the literal api_key=pink in the page's own CRTeamraiserAPI URLs)",
+      "event_types": ["Race for the Cure"],
+      "name_must_match": "MORE\\s+THAN\\s+PINK\\s+Walk|Race\\s+for\\s+the\\s+Cure",
+      "strip_name": "\\s*\\|\\s*Susan\\s+G\\.?\\s+Komen\\s*$",
+      "_strip_name": "Komen's names end ' | Susan G. Komen' (42 of the 59 records on 2026-10-11).",
+      "about": "A Susan G. Komen walk.",
+      "categories": ["fitness", "outdoors"],
+      "free_to_register": "MORE\\s+THAN\\s+PINK\\s+Walk",
+      "_free": "'There is no fee to register for the MORE THAN PINK Walk, but we encourage participants to fundraise' (secure.info-komen.org/site/SPageNavigator/mtpw_faq.html). Race for the Cure: unconfirmed, so those rows say nothing about price."
+    }
+  ],
+  "_not_included": [
+    {"org": "American Heart Association (Heart Walk)", "api": "https://www2.heart.org/site/CRTeamraiserAPI", "why": "robots.txt 'User-agent: *' 'Disallow: /site/CRTeamraiserAPI' (Crawl-delay 10); www.heart.org answers 403 (Cloudflare). 2026-10-11."},
+    {"org": "Breakthrough T1D (One Walk)", "api": "https://www2.breakthrought1d.org/site/CRTeamraiserAPI", "why": "robots.txt 'User-agent: *' 'Disallow: /site/CRTeamraiserAPI' (Crawl-delay 10); walk.jdrf.org redirects there. 2026-10-11."},
+    {"org": "Leukemia & Lymphoma Society (Light The Night)", "why": "lightthenight.org and pages.lls.org answer 403 (Cloudflare) on /robots.txt itself. 2026-10-11."},
+    {"org": "American Lung Association", "api": "https://action.lung.org/site/CRTeamraiserAPI", "why": "Not probed beyond robots.txt, which disallows the event pages (/site/TR/RunWalk, /site/TR/Climb); the owner's call."}
+  ]
+}

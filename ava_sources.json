@@ -1,0 +1,13 @@
+{
+  "_comment": "American Volkssport Association traditional events (volksmarches): free, non-competitive 5/10 km walks run by local clubs, plus the few bike rides and swims on the same calendar. my.ava.org publishes no feed, so mapsee_ingest_ava.py reads the year list once and then each in-window event's page (the start-table window, the start place and the club's map pin). robots.txt on my.ava.org answers 404 (RFC 9309: no rules); legal.php is a software warranty disclaimer with no clause on automated access. Measured 2026-10-11: 166 events listed for the year, 122 within 120 days (Walk 112, Swim 6, Bike 3), 26 states. Read the adapter's header before changing a rule.",
+  "list_url": "https://my.ava.org/regional-te-list.php?time=year&rsel=all",
+  "detail_url": "https://my.ava.org/event-view.php?sn={sn}",
+  "_within_days": "Event pages are read only for events starting within this many days (one request each, at `pause`). 120 days is ~122 pages, about two minutes.",
+  "within_days": 120,
+  "pause": 1.0,
+  "_run_weekdays": "Wednesday and Sunday (0 = Monday). A club's walk is listed months ahead and rarely changes, so a daily read of ~120 pages from a volunteer association's server is wasted work. Wednesday is the feeds job's refresh day (the sync drops --only-new), so a changed start time reaches the stored row; Sunday adds what was listed since, and means one lost run costs three or four days rather than a week (the parkrun lesson).",
+  "run_weekdays": [2, 6],
+  "_not_included": [
+    {"what": "Seasonal and year-round self-guided routes (~2,084 for 2026)", "why": "Behind the stateful POST search (find-an-event.php, state by state). A standing route open for months is not a dated event; taking them is a separate decision, not a rule of this adapter."}
+  ]
+}
