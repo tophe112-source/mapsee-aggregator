@@ -23,7 +23,9 @@ street addresses and distances. One keyless request per page.
 
 WHAT IT EMITS
 -------------
-One event per race, on the race's next date.
+One event per race, on the earliest of its sub-events that does not start
+before today (see _upcoming: the API returns races that merely overlap the
+window).
 
   running_race / running_only / trail_race / walking_only / wheelchair
       -> category 'running', secondary 'fitness' (+ 'outdoors' for trail)
@@ -75,7 +77,8 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
-from mapsee_ingest import NormalizedEvent, EventStore, make_fingerprint, norm_categories
+from mapsee_ingest import (NormalizedEvent, EventStore, USER_AGENT, make_fingerprint,
+                           norm_categories)
 
 API_URL = "https://runsignup.com/rest/races"
 
@@ -140,6 +143,16 @@ DEFAULTS = {
 }
 
 
+def _today() -> date:
+    """MAPSEE_TODAY=YYYYMMDD fixes "today" for the tests, as everywhere else.
+    Otherwise the runner's date: the races job runs at 06:17 UTC, when it is
+    the same date in the Eastern time RunSignup states its dates in."""
+    fixed = os.environ.get("MAPSEE_TODAY")
+    if fixed:
+        return datetime.strptime(fixed, "%Y%m%d").date()
+    return date.today()
+
+
 # --- the feed ---------------------------------------------------------------
 
 def _get_page(session, page: int, cfg: Dict[str, Any], start: str, end: str,
@@ -176,8 +189,38 @@ def _fetch_partition(session, cfg, start, end, state) -> tuple[List[dict], bool]
     return out, len(out) >= RESULT_CAP
 
 
+def _fetch_window(session, cfg, start: date, end: date, state,
+                  capped: List[str]) -> List[dict]:
+    """One state's races from `start` to `end`, halving the dates while over the cap.
+
+    A state is the partition that gets under the cap, and a state can outgrow
+    it. On 2026-10-11 Florida's 120 days answered exactly 1,000, and the cap
+    cuts by the API's default sort, the NAME: page 4 ended at "Volusia Flagler
+    HS XC". The halves held 701 and 431, 1,042 races once, so the 42 lost were
+    W to Z, 31 of them kept by to_event ("Zonta ABC Run/Walk", "Your Next Step
+    is the Cure 5K"). Ten requests instead of five. A capped answer is thrown
+    away and each half asked for instead; a race whose dates straddle the cut
+    comes back from both, and fetch() keeps it once by race_id. Only a single
+    day still over the cap has nothing narrower to ask for: the one NOTE left.
+    """
+    races, hit_cap = _fetch_partition(session, cfg, start.isoformat(), end.isoformat(), state)
+    if not hit_cap:
+        return races
+    if start >= end:
+        capped.append(f"{state or '(unpartitioned)'} {start.isoformat()}")
+        return races
+    mid = start + (end - start) // 2
+    print(f"[runsignup] {state or '(unpartitioned)'} {start}..{end} is at the "
+          f"{RESULT_CAP}-race cap; asking for {start}..{mid} and "
+          f"{mid + timedelta(days=1)}..{end} instead")
+    time.sleep(cfg["pause_s"])
+    first = _fetch_window(session, cfg, start, mid, state, capped)
+    time.sleep(cfg["pause_s"])
+    return first + _fetch_window(session, cfg, mid + timedelta(days=1), end, state, capped)
+
+
 def fetch(session, cfg: Dict[str, Any]) -> List[dict]:
-    """Every race in the horizon, partitioned by state.
+    """Every race in the horizon, partitioned by state, and by date within one.
 
     WHY PARTITION AT ALL. The API silently caps any one query at RESULT_CAP
     rows: four pages of 250, then empty pages for ever, and the envelope carries
@@ -186,27 +229,29 @@ def fetch(session, cfg: Dict[str, Any]) -> List[dict]:
     identical either way — the failure this adapter's own docstring warns about,
     which the first draft walked straight into.
 
-    Narrowing the DATE window does not help: measured, even a seven-day window
-    is over the cap. State does. Over 120 days the largest is Texas at 910,
-    which fits with room to spare, and a state that does reach the cap prints a
-    NOTE rather than quietly losing its tail.
+    Narrowing the DATE window of the WHOLE sweep does not help: measured, even a
+    seven-day window is over the cap. State does. Over 120 days the largest was
+    Texas at 910 when this was written; a state that reaches the cap later is
+    split by date inside the state (_fetch_window), which is the same partition
+    one level down. The API matches a race on any overlap with the window
+    (`search_start_date_only` defaults to F), so halves cannot lose a race.
 
     `states` is a partition, not a filter — dropping one does not narrow the
     catalogue, it blinds the sweep to a state. Use `country_codes` to filter.
     """
-    start = "today"
-    end = (date.today() + timedelta(days=cfg["horizon_days"])).isoformat()
+    start = _today()
+    end = start + timedelta(days=cfg["horizon_days"])
     states = list(cfg.get("states") or [None])
     out: List[dict] = []
     seen: set = set()
     capped: List[str] = []
     for state in states:
-        races, hit_cap = _fetch_partition(session, cfg, start, end, state)
-        if hit_cap:
-            capped.append(state or "(unpartitioned)")
+        races = _fetch_window(session, cfg, start, end, state, capped)
         for r in races:
-            # A race sits at one address, so a duplicate across partitions means
-            # the API answered a state filter loosely; keep the first either way.
+            # A race sits at one address, so a duplicate across states means the
+            # API answered a state filter loosely, and one within a state that
+            # its dates straddle a date cut (90 of the 1,132 rows in Florida's
+            # two halves); keep the first either way.
             rid = r.get("race_id")
             if rid is not None and rid in seen:
                 continue
@@ -215,9 +260,8 @@ def fetch(session, cfg: Dict[str, Any]) -> List[dict]:
             out.append(r)
         time.sleep(cfg["pause_s"])
     if capped:
-        print(f"[runsignup] NOTE: {len(capped)} partition(s) hit the {RESULT_CAP}-race "
-              f"API cap and lost their tail: {', '.join(capped)}. "
-              f"Shorten horizon_days.")
+        print(f"[runsignup] NOTE: {len(capped)} single day(s) still hit the "
+              f"{RESULT_CAP}-race API cap and lost their tail: {', '.join(capped)}.")
     return out
 
 
@@ -266,29 +310,64 @@ def categorise(events: List[dict]) -> tuple[str, List[str]]:
     return primary, norm_categories(primary, secondaries)
 
 
-def _parse_start(events: List[dict], next_date: str) -> Optional[str]:
+def _start_of(e: dict) -> Optional[datetime]:
+    """A sub-event's naive local start ("10/10/2026 09:00"), or None."""
+    raw = (e.get("start_time") or "").strip()
+    try:
+        return datetime.strptime(raw, "%m/%d/%Y %H:%M")
+    except ValueError:
+        return None
+
+
+def _upcoming(events: List[dict], today: date) -> List[dict]:
+    """Sub-events that do not start before today. One with no start is kept: it
+    says nothing either way, and _parse_start dates it from next_date.
+
+    THE WINDOW IS NOT A DATE FILTER ON THE RACE. The API matches a race whose
+    dates merely OVERLAP the window, so a race that began before today comes
+    back with it. Ohio on 2026-10-11: 45 of 453 races had a next_date already
+    past, and dating each by its earliest sub-event wrote 32 rows on a day
+    already gone, 12 of which the sync placed. Most are one of two shapes, and
+    neither has an upcoming date at the race's address. Yesterday's in-person 5k
+    whose virtual week runs on: the place is done. And a season: the Tidewater
+    Striders Walking Grand Prix (1/1 to 12/6, a year of walks in many places), a
+    Dallas Running Club training programme (8/15 to 12/8). Comparing the START
+    rather than the end is what keeps a season off the map. 27 of the 32 go.
+    The other 5 have a sub-event from today on and are dated by it, which is the
+    same fix seen from the other side: NAMI's Ending the Silence 5K was dated by
+    its early-bird sign-up on 8/3 and is a walk on 11/7, the Mississippi Retina
+    Vision Walk by a T-shirt-only entry on 8/2 and is on 2/6 (2,047 races asked
+    by keyword: 34 of 45 past rows go, 11 move to their real date).
+    """
+    out = []
+    for e in events:
+        s = _start_of(e)
+        if s is None or s.date() >= today:
+            out.append(e)
+    return out
+
+
+def _parse_start(events: List[dict], next_date: str,
+                 today: Optional[date] = None) -> Optional[str]:
     """Naive local ISO start, from the earliest sub-event that states one.
 
     RunSignup writes "10/10/2026 09:00". The sync turns a naive local string
     into a real UTC instant using the event's coordinates, so passing the local
     wall-clock through unchanged is correct and inventing a UTC one is not.
+    With no stamp, next_date stands in, and not when it is already past: that is
+    the same overlap as in _upcoming, with nothing else to date it by.
     """
-    stamps = []
-    for e in events:
-        raw = (e.get("start_time") or "").strip()
-        if not raw:
-            continue
-        try:
-            stamps.append(datetime.strptime(raw, "%m/%d/%Y %H:%M"))
-        except ValueError:
-            continue
+    stamps = [s for s in (_start_of(e) for e in events) if s is not None]
     if stamps:
         return min(stamps).strftime("%Y-%m-%dT%H:%M:%S")
     # No time anywhere: an all-day event on the right date beats a made-up 9am.
     try:
-        return datetime.strptime(next_date, "%m/%d/%Y").date().isoformat()
+        day = datetime.strptime(next_date, "%m/%d/%Y").date()
     except (ValueError, TypeError):
         return None
+    if today is not None and day < today:
+        return None
+    return day.isoformat()
 
 
 def _distances(events: List[dict]) -> str:
@@ -300,35 +379,72 @@ def _distances(events: List[dict]) -> str:
     return ", ".join(seen[:6])
 
 
-def to_event(race: dict, cfg: Dict[str, Any]) -> Optional[NormalizedEvent]:
-    if str(race.get("is_draft_race") or "F").upper() == "T":
-        return None
-    if str(race.get("is_private_race") or "F").upper() == "T":
-        return None
+def _geocode_line(addr: dict) -> str:
+    """The street line the sync hands the Census batch geocoder (`address`).
+
+    Organisers often write the PLACE in `street` and the numbered street in
+    `street2`: "FDR Park (at the boathouse)" / "1500 Pattison Avenue". The sync
+    sends `address` alone as the street, and Census cannot place a park's name:
+    of 388 such races (in person, 2026-10-11..2027-02-08) it matched 8 as sent
+    and 315 when sent street2. An unmatched row is dropped at the sync, so this
+    shape never reached the map. Ohio the same day, through the sync's own
+    build_rows: this shape was 110 of 415 rows and 2 were placed; with street2,
+    84 of 99, and 237 placed rows became 307 with none lost. street2 is taken
+    only when `street` is not itself numbered and street2 is: the other way
+    round ("4000 Parnell Ave." / "Allen County War Memorial Coliseum") street is
+    already the right line. 3 of 420 numbered street2s are not a house number
+    ("7th Avenue"), and Census fails them as it failed the venue name.
+    """
+    street = (addr.get("street") or "").strip()
+    street2 = (addr.get("street2") or "").strip()
+    if street and not street[0].isdigit() and street2[:1].isdigit():
+        return street2
+    return street
+
+
+def refusal(race: dict, cfg: Dict[str, Any], today: date) -> Optional[str]:
+    """Why a race does not become an event, or None when it does. One function
+    for to_event and for ingest()'s tally, so the log counts the reason that
+    actually applied rather than a re-derivation that can drift from it."""
+    if str(race.get("is_draft_race") or "F").upper() == "T" or \
+       str(race.get("is_private_race") or "F").upper() == "T":
+        return "draft_or_private"
     name = (race.get("name") or "").strip()
     next_date = (race.get("next_date") or "").strip()
     if not (name and next_date):
-        return None
-
-    events = _usable_events(race)
+        return "no_date"
+    usable = _usable_events(race)
+    if not usable:
+        return "virtual_or_volunteer"
+    events = _upcoming(usable, today)
     if not events:
-        return None                       # virtual-only, or volunteer-only
+        return "begun_before_today"
+    addr = race.get("address") or {}
+    only = {c.upper() for c in (cfg.get("country_codes") or [])}
+    if only and (addr.get("country_code") or "").strip().upper() not in only:
+        return "other_country"
+    # A race with no city cannot be placed: the geocoder would fall back to the
+    # street alone, which resolves to whichever town it hits first.
+    if not (addr.get("city") or "").strip():
+        return "no_city"
+    if not _parse_start(events, next_date, today):
+        # Undated sub-events and a next_date already past is the overlap again.
+        return "begun_before_today" if _parse_start(events, next_date) else "no_date"
+    return None
 
+
+def to_event(race: dict, cfg: Dict[str, Any],
+             today: Optional[date] = None) -> Optional[NormalizedEvent]:
+    today = today or _today()
+    if refusal(race, cfg, today):
+        return None
+    name = (race.get("name") or "").strip()
+    events = _upcoming(_usable_events(race), today)
+    start_local = _parse_start(events, (race.get("next_date") or "").strip(), today)
     addr = race.get("address") or {}
     city = (addr.get("city") or "").strip()
     region = (addr.get("state") or "").strip()
     country = (addr.get("country_code") or "").strip()
-    only = {c.upper() for c in (cfg.get("country_codes") or [])}
-    if only and country.upper() not in only:
-        return None
-    # A race with no city cannot be placed: the geocoder would fall back to the
-    # street alone, which resolves to whichever town it hits first.
-    if not city:
-        return None
-
-    start_local = _parse_start(events, next_date)
-    if not start_local:
-        return None
 
     primary, secondaries = categorise(events)
     dist = _distances(events)
@@ -342,9 +458,13 @@ def to_event(race: dict, cfg: Dict[str, Any]) -> Optional[NormalizedEvent]:
     # does NOT start with a number is usually a real venue ("Honda - Alabama Auto
     # Plant"), so keep those. The exact street survives either way in `address`,
     # which the sync appends to the description as "📍 ...".
+    # `venue` is read from `street` alone, and so is the fingerprint: when the
+    # geocoder's line moved to street2 (_geocode_line), the label and every
+    # stored row's identity stayed where they were.
     street = (addr.get("street") or "").strip()
     venue = street if (street and not street[0].isdigit()) else city
     fp = make_fingerprint(name, start_local[:10], venue, city)
+    line1 = _geocode_line(addr)
     ev = NormalizedEvent(
         source="runsignup",
         source_id=str(race.get("race_id") or fp),
@@ -352,7 +472,7 @@ def to_event(race: dict, cfg: Dict[str, Any]) -> Optional[NormalizedEvent]:
         description=description,
         start_local=start_local,
         venue_name=venue,
-        address=street or None,
+        address=line1 or None,
         city=city or None,
         region=region or None,
         country=country or None,
@@ -371,30 +491,19 @@ def to_event(race: dict, cfg: Dict[str, Any]) -> Optional[NormalizedEvent]:
 
 def ingest(store: EventStore, session, cfg: Dict[str, Any]) -> int:
     races = fetch(session, cfg)
+    today = _today()
     kept = 0
     dropped = {"virtual_or_volunteer": 0, "no_city": 0, "draft_or_private": 0,
-               "no_date": 0, "other_country": 0}
+               "no_date": 0, "other_country": 0, "begun_before_today": 0}
     by_cat: Dict[str, int] = {}
     for race in races:
-        ev = to_event(race, cfg)
-        if ev is None:
-            # Cheap re-derivation for the tally only — the numbers are the point
-            # of the log line, and "N races, M ingested" with no reason why is
-            # how a filter that swallows everything goes unnoticed.
-            addr = race.get("address") or {}
-            only = {c.upper() for c in (cfg.get("country_codes") or [])}
-            if str(race.get("is_draft_race") or "F").upper() == "T" or \
-               str(race.get("is_private_race") or "F").upper() == "T":
-                dropped["draft_or_private"] += 1
-            elif not _usable_events(race):
-                dropped["virtual_or_volunteer"] += 1
-            elif only and (addr.get("country_code") or "").upper() not in only:
-                dropped["other_country"] += 1
-            elif not (addr.get("city") or "").strip():
-                dropped["no_city"] += 1
-            else:
-                dropped["no_date"] += 1
+        # The numbers are the point of the log line: "N races, M ingested" with
+        # no reason why is how a filter that swallows everything goes unnoticed.
+        why = refusal(race, cfg, today)
+        if why:
+            dropped[why] += 1
             continue
+        ev = to_event(race, cfg, today)
         store.upsert(ev)
         by_cat[ev.category] = by_cat.get(ev.category, 0) + 1
         kept += 1
@@ -423,9 +532,7 @@ def main(argv=None) -> int:
         print(f"[runsignup] no {a.config} — using defaults")
 
     session = requests.Session()
-    session.headers.update(
-        {"User-Agent": "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)",
-         "Accept": "application/json"})
+    session.headers.update({"User-Agent": USER_AGENT, "Accept": "application/json"})
     store = EventStore(a.store)
     try:
         ingest(store, session, cfg)
