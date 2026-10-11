@@ -43131,12 +43131,26 @@
     "status": "ok",
     "type": "ics"
   },
+  "brooklinebirdclub.org": {
+    "checked": 20261011,
+    "name": "Brookline Bird Club (Boston area)",
+    "reason": "72 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "brooklinelibrary.libcal.com/ical_subscribe.php?cid=20102": {
     "checked": 20261011,
     "name": "Public Library of Brookline Events (Boston)",
     "reason": "500 vevents / 349 future",
     "status": "ok",
     "type": "ics"
+  },
+  "brooklynbirdclub.org": {
+    "checked": 20261011,
+    "name": "Brooklyn Bird Club",
+    "reason": "44 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "brooklynbrewery.com/events/?ical=1": {
     "checked": 20260727,
@@ -82264,9 +82278,9 @@
     "type": "osm-venue"
   },
   "cvc.ca": {
-    "checked": 20261004,
-    "name": "Credit Valley Conservation - Tree Planting, Clean-ups & Invasive Removal (Mississauga, ON)",
-    "reason": "15 events, 10/10 on page 1 future",
+    "checked": 20261011,
+    "name": "Credit Valley Conservation - tree planting, clean-ups and invasive removal (Mississauga, ON)",
+    "reason": "13 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
   },
@@ -88091,6 +88105,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "desertriversaudubon.org": {
+    "checked": 20261011,
+    "name": "Desert Rivers Audubon (Gilbert / East Valley, Phoenix)",
+    "reason": "22 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "desgensquilisent.fr": {
     "checked": 20260828,
@@ -105061,6 +105082,13 @@
     "reason": "1277 upcoming, sample: Offener Techniktreff des Space 47 e.V.",
     "status": "ok",
     "type": "mobilizon"
+  },
+  "events.dncr.nc.gov": {
+    "checked": 20261011,
+    "name": "NC Natural and Cultural Resources - State Parks, historic sites and museums (North Carolina)",
+    "reason": "5 events / 5 future instance(s)",
+    "status": "ok",
+    "type": "localist"
   },
   "events.fedibikes.social": {
     "checked": 20260808,
@@ -183498,6 +183526,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "libertybirdalliance.org": {
+    "checked": 20261011,
+    "name": "Liberty Bird Alliance (formerly Wyncote Audubon, Philadelphia suburbs)",
+    "reason": "20 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "libertyloft.cz": {
     "checked": 20260904,
     "name": "LibertyLoft",
@@ -199248,6 +199283,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mdbirds.org": {
+    "checked": 20261011,
+    "name": "Maryland Ornithological Society (statewide bird clubs)",
+    "reason": "119 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "mdbr.it": {
     "checked": 20260920,
@@ -237354,6 +237396,13 @@
     "reason": "10 vevents / 10 future",
     "status": "ok",
     "type": "ics"
+  },
+  "ozarktrail.com": {
+    "checked": 20261011,
+    "name": "Ozark Trail Association (trail builds)",
+    "reason": "8 events, 8/8 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "ozcare.org.au/aged-care/aged-care-facilities/facilities/ozanam-villa-burleigh-heads": {
     "checked": 20260819,
@@ -319367,6 +319416,13 @@
     "reason": "43 events, 10/10 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "tucsonbirds.org/field-trips": {
+    "checked": 20261011,
+    "name": "Tucson Bird Alliance field trips",
+    "reason": "25/25 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "tucsonchinese.org/calendar": {
     "checked": 20261011,

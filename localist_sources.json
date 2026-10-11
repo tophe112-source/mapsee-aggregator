@@ -316,5 +316,13 @@
     "days": 90,
     "_metro": "San Antonio, United States",
     "_note": "Localist API; public lectures (Maverick, Lennox series), recitals, concerts, athletics. robots allow /api/2/events. About 40 placeable events per 90 days."
+  },
+  {
+    "name": "NC Natural and Cultural Resources - State Parks, historic sites and museums (North Carolina)",
+    "base_url": "https://events.dncr.nc.gov",
+    "days": 90,
+    "_metro": "Raleigh, United States",
+    "_found": "parks family 2026-10-11: ncparks.gov/events redirects to /localist-events-calendar, whose widget is events.dncr.nc.gov (departments=north-carolina-state-parks-and-recreation)",
+    "_note": "DNCR's own Localist (documented public read API; robots.txt also Allow: / with Crawl-delay 1). Measured 2026-10-11, days=90: 795 occurrence wraps on 8 pages (under the adapter's 10-page cap), 239 distinct events; NC State Parks is the largest department with 104 distinct (100 with geo, 0 virtual, 35 hike/walk/bird titles, ticket_cost blank on 79 and 'Free' on 12). The rest is Symphony 21, Historic Sites 21, museums: mixed, so no fixed category (derived per event)."
   }
 ]

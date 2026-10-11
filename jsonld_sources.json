@@ -8529,6 +8529,16 @@
         "lon": -121.460125
       },
       "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "Tucson Bird Alliance field trips",
+      "listing": [
+        "https://tucsonbirds.org/field-trips/"
+      ],
+      "category": "outdoors",
+      "max_events": 80,
+      "_metro": "Tucson, United States",
+      "_note": "Probed 2026-10-11. robots.txt '*' allows /field-trips/. Modern Events Calendar page carries the Event JSON-LD INLINE: the adapter's own _prepared() read 25 Event blocks off the listing (2026-10-13..10-31), 18 with a street address, the rest a park/venue name only. No link_pattern needed. Registration runs through Neon (tas.app.neoncrm.com), which this entry never fetches. Field trips are free with registration."
     }
   ],
   "_not_included": {

@@ -17765,6 +17765,75 @@
         "lon": -84.4809427
       },
       "_metro": "Cincinnati, United States"
+    },
+    {
+      "name": "Maryland Ornithological Society (statewide bird clubs)",
+      "base_url": "https://mdbirds.org",
+      "category": "outdoors",
+      "crawl_delay": 15,
+      "within_days": 120,
+      "max_pages": 5,
+      "_metro": "Baltimore, United States",
+      "_note": "Probed 2026-10-11 (hiking/walks family). robots.txt: '*' group, no rule matches /wp-json/, Crawl-delay 15. The Events Calendar REST: 119 events 2026-10-11..2027-02-08 over 3 pages; 109 with a street address, 98 with non-zero geo, 116 placeable, 1 without a venue, cost blank on all 119. Chapter field trips (Baltimore 31, Howard 14, Talbot 11, Anne Arundel 11, Frederick 11 Bird Club) plus 17 chapter meetings; MOS field trips are free and open to the public."
+    },
+    {
+      "name": "Brookline Bird Club (Boston area)",
+      "base_url": "https://www.brooklinebirdclub.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 4,
+      "_metro": "Boston, United States",
+      "_note": "Probed 2026-10-11. robots.txt '*' group allows /wp-json/, no crawl-delay. TEC REST: 72 field trips in 120 days, 59 street address, 69 non-zero geo, cost blank on all; categories 'Birding 101' 36, 'Public Transport' 30, 'Family Friendly' 10, 'Limited Mobility' 11. Free walks, no membership needed."
+    },
+    {
+      "name": "Brooklyn Bird Club",
+      "base_url": "https://brooklynbirdclub.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 2,
+      "_metro": "New York, United States",
+      "_note": "Probed 2026-10-11 (www. redirects to the bare host; both answer). robots.txt '*' allows /wp-json/. TEC REST: 44 events in 120 days (43 'Field Trips', 25 seasonal Prospect Park walks), 30 placeable (27 street address, 30 geo), 14 without a venue, 1 title says CANCELED; cost blank on all."
+    },
+    {
+      "name": "Liberty Bird Alliance (formerly Wyncote Audubon, Philadelphia suburbs)",
+      "base_url": "https://libertybirdalliance.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 2,
+      "_metro": "Philadelphia, United States",
+      "_note": "Probed 2026-10-11 (wyncoteaudubon.org redirects here). robots.txt '*' allows /wp-json/. TEC REST: 20 events in 120 days ('Bird Town Walks' 9, 'Field Trips and Bird Walks' 6), 18 with a street address, 0 geo, cost blank on all. Includes two community fairs at Richard Wall House."
+    },
+    {
+      "name": "Desert Rivers Audubon (Gilbert / East Valley, Phoenix)",
+      "base_url": "https://desertriversaudubon.org",
+      "category": "outdoors",
+      "within_days": 120,
+      "max_pages": 2,
+      "_metro": "Phoenix, United States",
+      "_note": "Probed 2026-10-11. robots.txt '*' allows /wp-json/. TEC REST: 22 events in 120 days, 21 with a street address, cost 'Free' on 20 and blank on 2; bird walks at Gilbert Riparian Preserve and Veterans Oasis Park plus speaker talks."
+    },
+    {
+      "name": "Ozark Trail Association (trail builds)",
+      "base_url": "https://ozarktrail.com",
+      "category": "volunteer",
+      "within_days": 120,
+      "max_pages": 1,
+      "_metro": "St. Louis, United States",
+      "skip_title": "OT100|Endurance Run",
+      "_note": "Probed 2026-10-11, small. robots.txt '*' allows /wp-json/. TEC REST: 8 events in 120 days, 6 with an address; trail-build volunteer days, plus the OT100 endurance run (a paid race) which skip_title drops. Verdict maybe."
+    },
+    {
+      "name": "Credit Valley Conservation - tree planting, clean-ups and invasive removal (Mississauga, ON)",
+      "base_url": "https://cvc.ca",
+      "category": "volunteer",
+      "within_days": 120,
+      "max_pages": 3,
+      "default_city": "Mississauga",
+      "default_region": "Ontario",
+      "default_country": "Canada",
+      "skip_title": "Wagon Rides|Belfountain by Night|Analysis to Action",
+      "_metro": "Toronto, Canada",
+      "_note": "Ledger has cvc.ca ok since 2026-10-04 but it was never merged. Measured 2026-10-11: 13 events in 120 days, 13/13 with a venue address, 7 'Free Event' tree plantings/invasive pulls; the skip_title drops the paid wagon rides ($60 / admission) and the online talk. Small."
     }
   ],
   "_not_included": {
