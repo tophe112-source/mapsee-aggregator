@@ -159,6 +159,9 @@ check("delete rechecks source, start cutoff and end-time eligibility",
       all(part in delete_url for part in (
           "external_source=eq.mapsee", "starts_at=lt.",
           "ends_at.is.null", "ends_at.lt.", "id=in.(event-a,event-b)")), delete_url)
+check("candidate reads and deletes spare a live standing row (the roller's to bring back)",
+      all("and=(or(recurring_hours.is.null,hidden_at.not.is.null))" in u
+          for u in (candidate_url, delete_url)), (candidate_url, delete_url))
 check("apply reports actual deletes without an eligible-count claim",
       "Deleted 2 past aggregator events." in output and "eligible" not in output, output)
 
@@ -185,6 +188,8 @@ import inspect
 src = inspect.getsource(C.main)
 check("the delete is still refused unless it is scoped to imported, past events",
       'assert "external_source=eq.mapsee" in flt and "starts_at=lt." in flt' in src)
+check("the delete is still refused if it could reach a live standing row",
+      'assert "recurring_hours.is.null" in flt' in src)
 
 print()
 print(f"{'FAILURES: ' + ', '.join(fails) if fails else 'all checks passed'}")

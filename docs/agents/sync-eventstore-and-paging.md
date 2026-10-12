@@ -305,3 +305,15 @@
   requests instead of 5), a race that straddles the cut is kept once by
   race_id, and only a single day still over the cap prints the NOTE. Texas was
   at 910. `python test_ingest_runsignup.py`.
+
+- **THE JANITOR NEVER DELETES A LIVE STANDING ROW (2026-10-12).** mapsee_cleanup
+  deleted every imported row whose window ended 7 days ago, standing rows too,
+  and a delete cascades to the row's chat and RSVPs. A centre, library or pool
+  is one standing row the database's roller moves to today, and the roller was
+  doing 5,000 rolls an hour against ~20,800 due (../mapsee 0234): its queue head
+  sat at 2026-10-08T21:59Z, four days old, so from about 10-15 the janitor would
+  have started deleting centres. The filter now carries
+  `and=(or(recurring_hours.is.null,hidden_at.not.is.null))`: a hidden (retired)
+  standing row still goes, a live one is the roller's to bring back. PostgREST
+  accepts the nested form (anon GET, 200; Polish Home's standing row falls
+  outside it). `python test_cleanup.py` (2 checks fail with the guard removed).

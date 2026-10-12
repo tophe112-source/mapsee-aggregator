@@ -438,7 +438,7 @@ def _venue_pin(venue) -> bool:
 # event of those would have been drawn on one hall (2026-10-12). Such an event
 # stays unplaceable, as it was before the block existed, and is counted, so a
 # person reading the log knows what deleting the key would add. A block
-# without the key (every hand-written one) is the full fallback, as before.
+# without the key (most hand-written ones) is the full fallback, as before.
 def _pins_unnamed(venue) -> bool:
     return _venue_pin(venue) and venue.get("pin_unnamed", True) is not False
 

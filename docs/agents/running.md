@@ -66,13 +66,14 @@ python test_spam.py                 # the advertisement gate, and mostly what it
 python test_coverage_rows.py        # the coverage report's arithmetic: no source counted twice, no ccTLD left under "?"
 python test_robots.py               # robots.txt per RFC 9309, and verify never fetching a feed its host refuses
 python test_gcal.py                 # a Google calendar read through the Calendar API keeps its rows
+python test_ics_venue_location.py   # a LOCATION that names the venue lands on its pin, one that names elsewhere does not, pin_unnamed holds bare events
 python catalog_curate.py coverage   # where the catalog is thin, per lens category
 python catalog_curate.py robots     # which configured requests robots.txt refuses (report only, network)
 python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
 python mapsee_uncancel.py --since 2026-10-06T06:00:00Z   # report the pipeline's own cancellations since then; --apply lifts them
 ```
 
-The 80 test scripts are the CI gate (`tests.yml`). They print one line per
+The 81 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

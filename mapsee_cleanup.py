@@ -145,9 +145,21 @@ def main() -> int:
     # in the filter as the running-event safety check. SQL predicate text order
     # does not control index selection. Keep the full eligibility scope on both
     # candidate reads and deletes.
+    #
+    # A STANDING ROW IS NEVER DELETED BY AGE UNLESS IT IS HIDDEN. A community
+    # centre, a library or a pool is one row whose window the database's hourly
+    # roller (0188; 0234 in ../mapsee) moves to today. Measured 2026-10-12, the
+    # roller did 5,000 rolls an hour against ~20,800 due, so its queue head sat
+    # four days old (2026-10-08T21:59Z) and 65 of the 70 facility-hours centres
+    # were stale. Seven days stale, this filter would have deleted them, and
+    # the delete cascades to each centre's chat and RSVPs. A live standing row
+    # is the roller's to bring back, not the janitor's to remove; a hidden one
+    # (retired by its own script) still goes.
     flt = (f"external_source=eq.mapsee&starts_at=lt.{cutoff}"
-           f"&or=(ends_at.is.null,ends_at.lt.{cutoff})")
+           f"&or=(ends_at.is.null,ends_at.lt.{cutoff})"
+           f"&and=(or(recurring_hours.is.null,hidden_at.not.is.null))")
     assert "external_source=eq.mapsee" in flt and "starts_at=lt." in flt, "refusing an unscoped delete"
+    assert "recurring_hours.is.null" in flt, "refusing a delete that can reach a live standing row"
     base = url.rstrip("/") + "/rest/v1/events?" + flt
     auth = {"apikey": key, "Authorization": f"Bearer {key}"}
 

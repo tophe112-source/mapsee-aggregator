@@ -922,8 +922,10 @@
 - **An ics feed with an empty LOCATION is placeable after all, and the option
   already exists.** The church's 27 VEVENTs each carry `LOCATION:` with nothing
   after it, and the adapter kept 0 with "27 unplaceable — more than half this
-  feed has no location". `ics_sources.json` takes a `venue` block "used ONLY for
-  a VEVENT that carries neither LOCATION nor GEO", added for a neighbourhood
+  feed has no location". `ics_sources.json` takes a `venue` block, then "used
+  ONLY for a VEVENT that carries neither LOCATION nor GEO" (since 2026-10-12 also
+  for a LOCATION that names the venue, and not for a bare VEVENT when the block
+  says `pin_unnamed: false`; see adapters-and-sources.md), added for a neighbourhood
   yard sale that is a few hundred porches; with the church's surveyed OSM point
   it kept 27 of 27, pinned correctly. It came out anyway, for being standing
   rows — but a single-venue calendar with no LOCATION is a `venue` block away
@@ -1423,3 +1425,63 @@
     - Winnipeg: 0 to 1,085. Singapore's GoLibrary: 1 to 489.
   - Not splittable: Newark (NJ) and Oceanside (CA) have no branch filter. Airdrie and White Plains are single buildings over the cap on their own. Partial (still capped in one feed): Heights' Lee Road reaches 68 days, Hamilton's Central and Orlando's main library under 90.
   - Every split adds a request to the ICS step. That step already stops at its 220-minute budget after about 438 of the 2,200 feeds (run 120), so it reads the config in about 5 days.
+
+- **A GOOGLE CALENDAR HAS SEVERAL PLACES ON A PAGE, NOT ONLY THE IFRAME
+  (2026-10-12).** Polish Home (polishhome.org, Seattle) was filed no-calendar on
+  2026-10-11 by a walk that HAD followed its /calendar/ page: Pretty Google
+  Calendar keeps the id in an inline script, `pgcal_inlineScript({"gcal":...,
+  "google_api":<the site's own key>})`. `mapsee_gcal.page_ids` reads iframes,
+  pgcal "gcal"/"cal_ids", FullCalendar `googleCalendarId`, subscribe `cid=`,
+  event-link `eid=` (base64 '<event> <calendar>', @m=gmail.com,
+  @g=group.calendar.google.com; how a Simple Calendar page names its calendar)
+  and bare export URLs. It never reads `google_api` or `googleCalendarApiKey`
+  and returns nothing without an '@'. Measured honestly: of 55 readable
+  no-calendar centre homepages and the pages they link, 1 carried an id in one
+  of these forms, and 4 published their programme only as plain HTML.
+
+- **A VERDICT THE PROBE REACHED RECORDS WHICH PROBE REACHED IT.** osm-venue rows
+  carry `probe` (catalog_discover_osm.PROBE_VERSION, 2 since 2026-10-12) and the
+  `cal_url` the probe read (never the homepage, never a URL carrying an
+  address). A no-calendar or offsite row from an older probe has lapsed in
+  `_dead_recently`, now the one predicate both the walk and verify ask (verify
+  kept its own copy, and proposed-then-dropped a centre whose old row sat under
+  its candidate's own key). The bump released 37,806 no-calendar and 632
+  offsite rows (they would have expired by 2027-01 anyway). Bump PROBE_VERSION
+  only when the probe learns to see a calendar it could not see before.
+
+- **A CENTRE'S CALENDAR IS PROPOSED ON THE CENTRE, AND PINS ONLY WHAT NAMES
+  IT.** An ics find through community_centre, library or social_centre gets a
+  venue block from the OSM element: name, lat, lon, city/region/postcode/country,
+  `street_hint` (100 of 106 Seattle-area centres with a website have one),
+  `aliases` (16 of 106), `pin_unnamed: false`, and NO `address` (the sync's
+  Census re-geocode needs a street, and would move the row off the centre's
+  4-decimal key). About 10 of 30 community_centre ics finds belonged to another
+  body (sport clubs, scouts, a church, a youth group, hall-booking diaries) and
+  20-25 of the 259 configured centre/library finds are wider than the building,
+  and curate-catalog.yml merges with no person in between: so an event that
+  names no place stays unplaceable until a person who has read the calendar
+  deletes `pin_unnamed`. The adapter logs how many that holds back.
+
+- **WHAT A CENTRE CALLS ITS PROGRAMME, AND WHAT IT YIELDED.** CAL_LINK_RX ranks
+  programme words behind calendar words: programs, classes, activit-,
+  actividad/atividad, aktivit/attivit, termine (Gemeindetermine yes, Determine
+  no), diary, schedule; "What's On" is a calendar word. MAX_FOLLOW is 3 in the
+  osm walk, 2 in the civic walk (city homepages unmeasured). Over the 55 saved
+  centre homepages the words add 11 follows on 8 homepages and the third follow
+  6 on 6 (requests +31%), and none of the 17 new pages carries a
+  machine-readable calendar. Offsite links are read on followed pages too, but
+  never a link to ONE event (/e/, /event/, /events/<n>): a centre's events page
+  lists other organisers' events. Share buttons, posts, photos and videos are
+  never offsite (17 of 632 offsite rows were these).
+
+- **A DISCOVERED PERSONAL ADDRESS IS HELD, AND APPEARS IN NOTHING COMMITTED OR
+  PUBLIC.** A discovered ics entry whose Google id is @gmail.com or
+  @googlemail.com is judged by verify and written to the ledger under
+  `held:<sha256(id)[:16]>` with the venue's homepage, metro and provenance; it
+  never reaches merge, its log lines print the name only, and a URL carrying '@'
+  is printed host-only. `catalog_curate.py ledger --held` is the owner's list.
+  Expected share: 40 of 110 Google calendars found through a community_centre,
+  4 of 15 through a library. 70 ledger keys committed before this change still
+  contain an @gmail.com id. amenity=social_centre is a selector now, and the
+  pinned community walk (community_centre, library, social_centre) kept its place
+  (US:Kansas City, 205 of 261).

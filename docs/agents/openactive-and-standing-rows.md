@@ -93,7 +93,13 @@
   not reading it. `max_pages` is per-source now and Better has 700; the walk is
   affordable precisely because `collapse_booking_grids` takes what it returns
   from ~59,700 rows to ~9,200, so the expensive half is the HTTP and the cheap
-  half is what survives.
+  half is what survives. Everyone Active needed the same (2026-10-12):
+  production logged PAGE CAP HIT at 250 pages on 10-11 and 10-12, and a walk to
+  the end found 358 pages and 142,185 live occurrences. The feed is in
+  modification order, so the cap cut off exactly what changed last: the newest
+  published day (11,316 sessions on 10-26) and the sessions being booked (55% of
+  the 36,062 past page 260 had remainingAttendeeCapacity below the maximum,
+  against 14% before it). It has `max_pages: 600`, about 1.2 minutes more.
 
 - **EVERY SLOT IN THAT GRID WAS PUBLISHED TWICE, and only counting distinct
   start times showed it.** 255 live "Swim For Fitness" rows held 217 distinct
@@ -229,3 +235,41 @@
   - Better's own Arnos Pools page lists normal opening hours, so the centre is open; it is the public swim that is off.
   - The flaw was elsewhere. The sync lifts only for a source read whole, and OpenActive never was, so a weekly row hidden while a pool is shut would never come back under its unchanged key.
   - A publisher whose every feed reached "end of feed" is now `mark_complete(..., absence=False)`: whole for lifting, never compared for absence.
+
+- **BOOKING AVAILABILITY IS MARKED IN `icon` (U+1F39F), FROM THE PUBLISHER'S
+  DATA, NEVER THE TITLE (2026-10-12).** ../mapsee hides 🎟 rows by default and
+  shows them under "Venues"; `icon` is the only kind-of-row column its map read
+  returns. Everyone Active titles classes and slots alike ("Bodypump Tue 19:00",
+  "Lane Swim Med Mon 12:00"): London's zoom-12 view held 211 slot-titled rows of
+  350, and of the 174 whose series could be read, 121 are availability, 24
+  classes and 29 coached bookings. `booking_slot` reads `beta:isScheduledAsSlots`
+  when stated (Better states it on all 1,629 series: 225 true, every one a public
+  swim, jump, skate, climb or soft play), else, under the per-source switch
+  `uncoached_are_slots`, an uncoached session whose activities are ALL in
+  `FACILITY_ACTIVITIES` and not empty. The switch is per publisher because the
+  convention is: Everyone Active sets isCoached on all 20,917 coached series and
+  omits it otherwise, Pembrokeshire leaves Group Cycling and Aqua Fit uncoached,
+  Places has 2,577 uncoached series that name no activity. Court and walking
+  sports stay out on purpose (104 Places series). Grid day rows carry the marker,
+  and so do weekly folds whose every row is marked. Replayed: Everyone Active
+  47,010 of 67,772 rows marked; Places 1,442 of 4,710 (5 wrong: 4 virtual
+  cycling grid rows, 1 Gentle Water Exercise); a random 120 of London's stored
+  marked rows were 120 of 120 availability. Hidden by default with them, an owner
+  decision recorded here: Swim Disco, Rollerdisco, GP Referral Swimming and the
+  dedicated-audience swims (Disabled 123 series, Sensory 66, Inclusive Quiet
+  Adult 177, Women and Girls ~127, Senior 171). Coached bookings stay events:
+  PT tasters have capacity 1 on 2,006 of 2,006 occurrences.
+  `python test_ingest_openactive.py`.
+
+- **A MARKER REACHES A STORED ROW ONLY IF THE RUN PRODUCES IT AGAIN, AND IT
+  DOES SO DAILY.** `icon` is not in the fingerprint, so a reproduced row is
+  rewritten in place on the first `--only-new` run: `needs_detail_sync` keeps
+  every row whose record carries admission facts (67,102 of Everyone Active's
+  67,772) and skip-unchanged compares icon. What is never reproduced keeps a
+  null icon: 2,131 of London's 2,704 stored dated Everyone Active rows whose
+  sessions now fold into a standing row (they pass by 10-24, or
+  `retire-openactive-slots` hides them), and standing rows whose series left the
+  feed (85) or no longer fold (100). `icon` is not in `EventStore._FILLABLE`, so
+  a local run against an existing `--store` file would sync stale icons; CI
+  starts the store empty. The first run after landing writes ~57,000 Everyone
+  Active rows, ~17 minutes of upsert at the 58 rows/s measured that day.

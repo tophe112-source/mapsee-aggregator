@@ -591,3 +591,30 @@
   800-character cut, and no fingerprint moved; stored rows take them on the
   Thursday refresh of the extra sources. `python test_ingest_localist.py`,
   `python test_ingest_nps.py` (13 and 25 checks fail with the change reverted).
+
+- **A CENTRE CALENDAR'S LOCATION THAT NAMES THE CENTRE LANDS ON THE CENTRE'S
+  OWN POINT (2026-10-12).** A `venue` block used to pin only VEVENTs with
+  neither LOCATION nor GEO; a LOCATION naming the venue went to Photon and
+  reached the OSM listing's 4-decimal key only by luck, and 0 of 172 Google
+  calendars used location_overrides. `mapsee_ingest_ics._names_venue` pins a
+  LOCATION when one part names the venue (its name or `aliases`, generic words
+  such as community/centre/hall ignored, a kind word such as library/park/church
+  meaning another place unless the venue's own name carries it) or carries the
+  `street_hint` house number and street; never when another house number is
+  written, when a part says Out of Building / Offsite / Online, or when the
+  publisher's GEO is more than 100 m off. A pinned row keeps the feed's LOCATION
+  as its place name. Against the 479 hand-written overrides on 112 venue sources
+  it names 464 of 474 at-venue strings and 1 of 5 elsewhere ones (whose exact
+  override is read first). Replaying 127 of 128 non-Google venue feeds (18,201
+  VEVENTs) moved 229 rows, all onto their own venue, and lost 0. A pin meant to
+  link to an OSM listing must be the LIVE listing's lat/lon with no street
+  address: Polish Home's Postpass centroid 47.616949 rounds to 47.6169 while the
+  listing is drawn at 47.6169525 (47.6170). Polish Home (way/229910960, its
+  Pretty Google Calendar's "gcal" id; the page's own key never read) and the
+  four 2026-10-11 Seattle Google calendars carry `pin_unnamed: false` until
+  smoke-gcal --show (it now lists every distinct LOCATION, labelled the way the
+  adapter places it) shows their bare titles are the venue's own programme: of
+  the 7 older Google venue blocks, Lasswade's 56 and Betlehem's 53 bare events
+  turned out to be elsewhere. The Urban League feed was misfiled as Rainier Beach
+  Community Center (0 of its 30 VEVENTs are there). `python
+  test_ics_venue_location.py`.
