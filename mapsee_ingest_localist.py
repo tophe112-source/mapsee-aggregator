@@ -11,7 +11,9 @@ Config (localist_sources.json): a list of
       "category": "learning",       # optional fixed Mapsee KEY (else derived per-event)
       "days": 90,                   # optional lookahead window
       "max_pages": 40,              # optional; DEFAULT_MAX_PAGES pages of 100 otherwise
-      "crawl_delay": 1 }            # optional seconds between pages; DEFAULT_CRAWL_DELAY
+      "crawl_delay": 1,             # optional seconds between pages; DEFAULT_CRAWL_DELAY
+      "skip_title": "regex",        # optional, case-insensitive, as in ics and tribe
+      "_found": "civic:state ..." } # a town hall's calendar: the town-hall filter applies
 
 A `measured_<when>` beside a max_pages is the tenant's distinct events in 90
 days (distinct=true, pp=1, page.total_items): from that date, or from 2026-02-01
@@ -24,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 from typing import Any, Dict, List, Optional
@@ -33,8 +36,9 @@ try:
 except ImportError:  # pragma: no cover
     sys.exit("This script needs 'requests'.  Install it with:  pip install requests")
 
+from catalog_discover_osm import CIVIC_TITLE_RX, CIVIC_HOLIDAY_RX
 from mapsee_ingest import (NormalizedEvent, EventStore, make_fingerprint, norm_categories,
-                           notice_reason, strip_notice)
+                           notice_reason, strip_notice, USER_AGENT)
 
 # Event.status values that take an event off the map. Measured 2026-10-05 on the
 # first page (days=90, pp=100) of all 56 sources: 5,410 "live", 4 "soldout", 3
@@ -214,6 +218,32 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
     days = src.get("days", 90)
     max_pages = max(1, int(src.get("max_pages") or DEFAULT_MAX_PAGES))
     delay = float(src.get("crawl_delay", DEFAULT_CRAWL_DELAY) or 0)
+    # A STATE'S CALENDAR IS A TOWN HALL'S TOO, and reading it to the end reads
+    # its meetings to the end. events.in.gov is every Indiana county and town
+    # posting into one Localist: the walk past page 10 (2026-10-11) took its
+    # rows from 496 to 870, and its town-hall titles from 69 to 151 against
+    # hike and walk titles from 65 to 95. "Town Council Meeting" x8, "Board of
+    # Commissioners - Hybrid" x8, "Board of Zoning Appeals", "Thanksgiving Day
+    # Holiday" (the courthouse is shut), and every one of them on the community
+    # door: Indiana's only event_type is "Events". Same phrases and same gate
+    # as ics and tribe, a `_found` that starts with civic:; read title by
+    # title, none of the 151 is an event. Never for a campus: across the other
+    # tenants the phrases hit 45 rows and some are real ("BTV City Council
+    # Meeting and Insomnia Cookies", UVM), so a campus that needs it gets a
+    # skip_title instead.
+    is_civic = str(src.get("_found", "")).startswith("civic:")
+    # ...and for a calendar whose meetings are named some other way, or that
+    # programmes its holidays: the eleven events NC DNCR types "Public Meetings"
+    # include "Fall 2026 Quarterly Meeting" (the American Indian Heritage
+    # Commission), which the phrases miss, while its one holiday title,
+    # "Indigenous Peoples Day", is a free day of canoeing and flintknapping at
+    # Hanging Rock State Park, which the holiday rule would have refused.
+    skip_title = None
+    if src.get("skip_title"):
+        try:
+            skip_title = re.compile(src["skip_title"], re.I)
+        except (re.error, TypeError) as exc:
+            raise ValueError(f"{name}: invalid skip_title regex: {exc}") from exc
     # One wrap per OCCURRENCE arrives (see _instance), and they span pages, so
     # collapse by event id across the whole fetch before anything is upserted.
     # Keeping the EARLIEST occurrence makes start_local the next upcoming date
@@ -302,22 +332,33 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
                 else "more pages may follow")
         print(f"[localist] {name}: stopped at max_pages={max_pages}, {left}; "
               f"raise its max_pages in the config")
-    kept = cancelled = 0
+    kept = cancelled = governance = title_filtered = 0
     for key in order:
         dead = dead_status(best[key])
         nev = to_event(best[key], src, tombstone=bool(dead))
         if not nev:
             continue
         if dead:
-            # Refused, it stayed on the map if an earlier run stored it.
+            # Refused, it stayed on the map if an earlier run stored it. Not
+            # filtered by title: a meeting stored before the filter existed is
+            # still on the map, and its cancellation is what takes it off.
             if store.cancel(nev, f"status:{dead}") == "cancelled":
                 cancelled += 1
+            continue
+        if is_civic and (CIVIC_TITLE_RX.search(nev.name)
+                         or CIVIC_HOLIDAY_RX.match(nev.name.strip())):
+            governance += 1
+            continue
+        if skip_title and skip_title.search(nev.name):
+            title_filtered += 1
             continue
         store.upsert(nev)
         kept += 1
     collapsed = seen_wraps - len(order)
     print(f"[localist] {name}: kept {kept} of {len(order)} event(s) on {pages} page(s)"
           + (f" ({collapsed} duplicate occurrence wrap(s) collapsed)" if collapsed else "")
+          + (f" ({governance} town-hall row(s) refused)" if governance else "")
+          + (f" ({title_filtered} title-filtered)" if title_filtered else "")
           + (f"; {cancelled} canceled (tombstoned)" if cancelled else ""))
     return kept
 
@@ -329,7 +370,7 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     sources = json.loads(open(a.config, encoding="utf-8").read())
     session = requests.Session()
-    session.headers.update({"User-Agent": "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"})
+    session.headers.update({"User-Agent": USER_AGENT})
     store = EventStore(a.store)
     total = 0
     for src in sources:

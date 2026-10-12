@@ -245,6 +245,8 @@
     "measured_spring_2026": 2365,
     "measured_summer_2026": 3638,
     "_metro": "Indianapolis, US",
+    "_found": "civic:state -> localist (hand-curated)",
+    "_why": "Every Indiana county and town posts into this one calendar, and its only event_type is 'Events'. Read to its last page on 2026-10-11: 870 rows, 151 of them town-hall titles (Town Council Meeting x8, Board of Commissioners - Hybrid x8, Board of Zoning Appeals, courthouse holidays) against 95 hike and walk titles; read title by title, none of the 151 is an event. The civic: prefix is what turns the town-hall filter on.",
     "_note": "The State of Indiana's own Localist calendar (DNR state-park interpretive programs, county museums, markets). robots.txt allows /api/. 3,347 events in 90 days on 2026-09-27, 74 of 100 sampled carry geo."
   },
   {
@@ -359,6 +361,8 @@
     "name": "NC Natural and Cultural Resources - State Parks, historic sites and museums (North Carolina)",
     "base_url": "https://events.dncr.nc.gov",
     "days": 90,
+    "skip_title": "\\b(?:commission|committee|board of trustees|advisory board)\\b|\\b(?:board|quarterly) meeting\\b",
+    "_why": "skip_title, not a civic: prefix. Measured 2026-10-11 on all 239 events: the pattern matches 11, exactly the 11 DNCR itself types 'Public Meetings' (8 of them placed: NCLWF Board Meeting (Q4-2026) and its three committees, the Museum of Art's Board of Trustees, State Library Commission, the Librarian Certification Commission, and 'Fall 2026 Quarterly Meeting', which is the American Indian Heritage Commission's). The town-hall phrases miss that last one, and their holiday rule would refuse 'Indigenous Peoples Day', a free day of canoeing and flintknapping at Hanging Rock State Park.",
     "_metro": "Raleigh, United States",
     "_found": "parks family 2026-10-11: ncparks.gov/events redirects to /localist-events-calendar, whose widget is events.dncr.nc.gov (departments=north-carolina-state-parks-and-recreation)",
     "_note": "DNCR's own Localist (documented public read API; robots.txt also Allow: / with Crawl-delay 1). Measured 2026-10-11, days=90: 795 occurrence wraps on 8 pages (under the adapter's 10-page cap), 239 distinct events; NC State Parks is the largest department with 104 distinct (100 with geo, 0 virtual, 35 hike/walk/bird titles, ticket_cost blank on 79 and 'Free' on 12). The rest is Symphony 21, Historic Sites 21, museums: mixed, so no fixed category (derived per event)."

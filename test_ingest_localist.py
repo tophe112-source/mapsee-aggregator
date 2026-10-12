@@ -21,6 +21,17 @@ API's own `page` block:
   * the publisher's Crawl-delay (1 s on all 57 tenants) is slept between pages;
   * a page that fails keeps the pages already read.
 
+Reading Indiana to its end also read its town halls to their end: 69
+council, commission and courthouse-holiday rows became 151 of its 870, all
+on the community door, against 95 hike and walk titles. So, as in ics and
+tribe:
+
+  * a source whose `_found` starts with civic: refuses the town-hall phrases
+    and the bare holiday, and a source without it refuses nothing;
+  * `skip_title` refuses what its regex finds (NC DNCR's meetings), and the
+    configured one keeps DNCR's programmed holiday;
+  * a canceled meeting is still tombstoned, filter or no filter.
+
 No network, no database.
 """
 import copy
@@ -35,6 +46,7 @@ from unittest.mock import patch
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import mapsee_ingest_localist as L  # noqa: E402
+from catalog_discover_osm import CIVIC_HOLIDAY_RX  # noqa: E402
 from mapsee_ingest import EventStore  # noqa: E402
 
 fails = []
@@ -317,6 +329,148 @@ measured_over = [s.get("name") for s in cfg
                  > 100 * int(s.get("max_pages") or DEFAULT)]
 check("no tenant's measured distinct events exceed what its max_pages can read",
       not measured_over, measured_over)
+
+# --------------------------------------------------------------------------- #
+# 10. a state calendar is a town hall's too
+# --------------------------------------------------------------------------- #
+# events.in.gov, distinct=true, 2026-10-11: page 10, 12 and 7 of 15. Every
+# Indiana county and town posts into this one calendar, and its only
+# event_type is "Events", so all three reached the community door.
+TOWN_COUNCIL = {"event": {
+    "id": 49673925425232, "title": "Town Council Meeting", "status": "live", "first_date": "2026-07-01",
+    "event_instances": [{"event_instance": {"id": 52434972581783,
+                                            "start": "2026-11-04T17:30:00-05:00",
+                                            "end": "2026-11-04T18:30:00-05:00", "all_day": False}}],
+    "geo": {"latitude": "40.579681", "longitude": "-85.872959", "street": "210 North Jefferson Street",
+            "city": "Converse", "state": "IN", "country": "US", "zip": "46919"},
+    "location_name": "Converse Town Hall",
+    "description_text": "The public is welcome to attend our town council meeting.",
+    "filters": {"event_types": [{"name": "Events"}]},
+    "photo_url": "https://localist-images.azureedge.net/photos/34245778578292/huge/a4ac721492f784826e99f556686251105e92faa4.jpg",
+    "localist_url": "https://events.in.gov/event/town-council-meeting-7773",
+    "url": None, "ticket_cost": None, "free": False}}
+THANKSGIVING = {"event": {
+    "id": 52764096586293, "title": "Thanksgiving Day Holiday", "status": "live", "first_date": "2026-11-26",
+    "event_instances": [{"event_instance": {"id": 52764096587318, "start": "2026-11-26T00:00:00-05:00",
+                                            "end": None, "all_day": True}}],
+    "geo": {"latitude": "40.433885", "longitude": "-84.978747", "street": "120 North Court Street",
+            "city": "Portland", "state": "IN", "country": "US", "zip": "47371"},
+    "location_name": "Jay County Courthouse",
+    "description_text": "Jay County Courthouse and Annexes will be closed on Thursday November 26th and "
+                        "Friday November 27th 2026 for Thanksgiving holiday.",
+    "filters": {"event_types": [{"name": "Events"}]},
+    "photo_url": "https://localist-images.azureedge.net/photos/34245717485962/huge/f972ca543964516d9b4f75a3367ec90b346218bc.jpg",
+    "localist_url": "https://events.in.gov/event/thanksgiving-day-holiday",
+    "url": "https://jaycounty.net/plugins/live_stream/view.php", "ticket_cost": None, "free": False}}
+BZA_DEADLINE = {"event": {
+    "id": 51355946045671,
+    "title": "Board of Zoning Appeals Deadline for Appeals, Variances, and Special Exceptions",
+    "status": "live", "first_date": "2025-12-26",
+    "event_instances": [{"event_instance": {"id": 51355946057970, "start": "2026-10-26T16:30:00-04:00",
+                                            "end": None, "all_day": False}}],
+    "geo": {"latitude": "38.204526", "longitude": "-86.122896", "street": "245 Atwood Street",
+            "city": "Corydon", "state": "IN", "country": "US", "zip": "47112"},
+    "location_name": "Harrison County Planning Commission",
+    "description_text": "", "filters": {"event_types": []},
+    "photo_url": "https://localist-images.azureedge.net/photos/34245778578292/huge/a4ac721492f784826e99f556686251105e92faa4.jpg",
+    "localist_url": "https://events.in.gov/event/board-of-zoning-appeals-deadline-for-appeals-variances-and-special-exceptions",
+    "url": None, "ticket_cost": None, "free": False}}
+
+# events.dncr.nc.gov, distinct=true, 2026-10-11: two of the eleven DNCR types
+# "Public Meetings" (page 1 and page 3), and its one holiday title, which is a
+# programme at a state park and not a closure (page 1).
+QUARTERLY = {"event": {
+    "id": 54188509364031, "title": "Fall 2026 Quarterly Meeting", "status": "live",
+    "first_date": "2026-10-22",
+    "event_instances": [{"event_instance": {"id": 54188509365056, "start": "2026-10-22T10:00:00-04:00",
+                                            "end": "2026-10-22T14:00:00-04:00", "all_day": False}}],
+    "geo": {"latitude": "35.78292", "longitude": "-78.637155", "street": "109 East Jones Street",
+            "city": "Raleigh", "state": "NC", "country": "US", "zip": "27601"},
+    "location_name": "DNCR",
+    "description_text": "The N.C. American Indian Heritage Commission will hold a regular quarterly "
+                        "business meeting on Thursday, October 22, 2026.",
+    "filters": {"event_types": [{"name": "Organizational"}, {"name": "Public Meetings"}]},
+    "photo_url": "https://localist-images.azureedge.net/photos/52623009451167/huge/b625146ed7a879184596e1784080de9367485784.jpg",
+    "localist_url": "https://events.dncr.nc.gov/event/fall-2026-quarterly-meeting",
+    "url": "", "ticket_cost": "", "free": False}}
+NCLWF_BOARD = {"event": {
+    "id": 51764793806574, "title": "NCLWF Board Meeting (Q4-2026)", "status": "live",
+    "first_date": "2026-12-15",
+    "event_instances": [{"event_instance": {"id": 51764797089996, "start": "2026-12-15T13:00:00-05:00",
+                                            "end": "2026-12-15T17:00:00-05:00", "all_day": False}}],
+    "geo": {"latitude": "35.782138", "longitude": "-78.641055", "street": "121 West Jones Street",
+            "city": "Raleigh", "state": "NC", "country": "US", "zip": "27601"},
+    "location_name": " Nature Research Center",
+    "description_text": "This meeting will be held via video conference and will have a physical "
+                        "location on the 4th floor of the Nature Research Center located at 121 West "
+                        "Jones Street",
+    "filters": {"event_types": [{"name": "Organizational"}, {"name": "Public Meetings"},
+                                {"name": "Board & Committee Meetings"}]},
+    "photo_url": "https://localist-images.azureedge.net/photos/51764793779949/huge/bb9beed49044f5b421c565d100a0eb8e52098add.jpg",
+    "localist_url": "https://events.dncr.nc.gov/event/copy-of-nclwf-board-meeting-q3-2026",
+    "url": "https://nclwf.nc.gov/events", "ticket_cost": "Free", "free": True}}
+INDIGENOUS_DAY = {"event": {
+    "id": 53737117371556, "title": "Indigenous Peoples Day", "status": "live", "first_date": "2026-10-12",
+    "event_instances": [{"event_instance": {"id": 53737117372581, "start": "2026-10-12T11:00:00-04:00",
+                                            "end": "2026-10-12T14:00:00-04:00", "all_day": False}}],
+    "geo": {"latitude": "36.395044", "longitude": "-80.266541", "street": "1790 Hanging Rock Park Road",
+            "city": "Danbury", "state": "NC", "country": "US", "zip": "27016"},
+    "location_name": "Hanging Rock State Park",
+    "description_text": "Join us for a day of fun, history, and celebration! Enjoy interactive exhibits, "
+                        "historical artifacts, flintknapping demonstrations, games, and free canoeing on ",
+    "filters": {"event_types": [{"name": "Celebrations & Commemorations"}, {"name": "Festivals & Fairs"}]},
+    "photo_url": "https://localist-images.azureedge.net/photos/53737117470894/huge/3f91d1be6cc1dc5dbbf339033a4ccd0160680aaa.jpg",
+    "localist_url": "https://events.dncr.nc.gov/event/indigenous-peoples-day",
+    "url": "", "ticket_cost": "", "free": False}}
+
+
+def _names(store):
+    return sorted(r["name"] for r in store.records.values())
+
+
+INDIANA_CIVIC = {"name": "State of Indiana Events (Indiana)", "base_url": "https://events.in.gov",
+                 "days": 90, "_found": "civic:state -> localist (hand-curated)"}
+town = [[TOWN_COUNCIL, THANKSGIVING, BZA_DEADLINE, MOON_HIKE]]
+kept, store, log, _ = run(INDIANA_CIVIC, Tenant(town))
+check("a civic: source refuses the council meeting, the courthouse holiday and the BZA deadline",
+      _names(store) == ["October Moon Hike, Mounds State Park"], _names(store))
+check("...keeps the moon hike, and counts the refusals",
+      kept == 1 and "3 town-hall row(s) refused" in log, (kept, log))
+campus = {k: v for k, v in INDIANA_CIVIC.items() if k != "_found"}
+kept, store, log, _ = run(campus, Tenant(town))
+check("a source without the civic: marker refuses none of them (never a campus)",
+      kept == 4 and "refused" not in log, (kept, log))
+
+# A canceled meeting stays a cancellation: a row stored before the filter
+# existed is still on the map, and only the tombstone takes it off.
+dead_council = copy.deepcopy(TOWN_COUNCIL)
+dead_council["event"]["status"] = "canceled"
+kept, store, log, _ = run(INDIANA_CIVIC, Tenant([[dead_council, MOON_HIKE]]))
+check("a canceled council meeting on a civic: source is still tombstoned",
+      len(store.tombstones) == 1 and "1 canceled (tombstoned)" in log
+      and "refused" not in log, (store.tombstones, log))
+
+# skip_title, as ics and tribe read it: a case-insensitive search.
+dncr_cfg = next((s for s in cfg if "events.dncr.nc.gov" in (s.get("base_url") or "")), {})
+dncr_pages = [[QUARTERLY, NCLWF_BOARD, INDIGENOUS_DAY, NIGHT_HIKE, BIRD_HIKE_NOV]]
+kept, store, log, _ = run(dncr_cfg, Tenant(dncr_pages))
+check("DNCR's configured skip_title refuses its two meetings",
+      not ({"Fall 2026 Quarterly Meeting", "NCLWF Board Meeting (Q4-2026)"} & set(_names(store))),
+      _names(store))
+check("...keeps Indigenous Peoples Day at Hanging Rock and both hikes, and counts the two",
+      _names(store) == ["Bird Hike", "In the Park After Dark - Night Hike", "Indigenous Peoples Day"]
+      and "2 title-filtered" in log, (_names(store), log))
+check("...because DNCR is not civic: (the holiday rule would refuse that programme)",
+      not str(dncr_cfg.get("_found", "")).startswith("civic:")
+      and CIVIC_HOLIDAY_RX.match(INDIGENOUS_DAY["event"]["title"]) is not None, dncr_cfg.get("_found"))
+kept, _, log, _ = run(dict(DNCR, skip_title="(unclosed"), Tenant(dncr_pages))
+check("an invalid skip_title fails the source loudly, naming it",
+      isinstance(kept, str) and "ValueError" in kept and "invalid skip_title" in kept, kept)
+
+# The config: events.in.gov carries the marker that turns the filter on.
+ind_cfg = next((s for s in cfg if "events.in.gov" in (s.get("base_url") or "")), {})
+check("events.in.gov is configured civic:", str(ind_cfg.get("_found", "")).startswith("civic:"),
+      ind_cfg.get("_found"))
 
 print()
 if fails:
