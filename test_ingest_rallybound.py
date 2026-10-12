@@ -10,7 +10,9 @@ The fixtures are rows of the two live EventsLite answers of 2026-10-11
     Louisville). The row carries the naive wall clock and the sync zones it.
   * "TBD" with no coordinates is not a place.
   * the one-line Address: ZIP and state off the end, a named place before a
-    numbered street is the venue, "&amp;" unescaped.
+    numbered street is the venue, "&amp;" unescaped, and the town that had no
+    comma before it ("9151 NW 2nd Street   Plantation", "3000 Downs Blvd.
+    Metairie": 2 of 25 placed walks had no town).
   * A SESSION-WIDE "Accept: application/json" MADE BOTH HOSTS ANSWER /robots.txt
     WITH 406 - a 4xx, which RFC 9309 reads as "no rules" - so the robots check
     passed without reading a rule (and Cloudflare cached that 406 for
@@ -27,6 +29,7 @@ from datetime import date
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import mapsee_ingest_rallybound as RB
+import offers_0227 as O
 from mapsee_supabase_sync import _to_utc_if_naive, derive_categories, to_row
 
 fails = []
@@ -227,9 +230,17 @@ ADDRS = [
     (("Siesta Key Beach, 948 Beach Road, Siesta Key, FL 34242", "FL"),
      {"venue": "Siesta Key Beach", "street": "948 Beach Road", "city": "Siesta Key", "region": "FL",
       "postal_code": "34242"}),
+    # a run of spaces is the comma the form left out (Ft. Lauderdale), and the
+    # words after a street's suffix are the town when nothing else is (New Orleans)
     (("9151 NW 2nd Street   Plantation, FL 33324", "FL"),
-     {"venue": None, "street": "9151 NW 2nd Street Plantation", "city": None, "region": "FL",
+     {"venue": None, "street": "9151 NW 2nd Street", "city": "Plantation", "region": "FL",
       "postal_code": "33324"}),
+    (("3000 Downs Blvd. Metairie, LA 70003", "LA"),
+     {"venue": None, "street": "3000 Downs Blvd.", "city": "Metairie", "region": "LA", "postal_code": "70003"}),
+    (("1 Main Street NW   Washington, DC 20004", "DC"),
+     {"venue": None, "street": "1 Main Street NW", "city": "Washington", "region": "DC", "postal_code": "20004"}),
+    (("400 Snelling Ave N, MN 55105", "MN"),
+     {"venue": None, "street": "400 Snelling Ave N", "city": None, "region": "MN", "postal_code": "55105"}),
     (("Independence Ave SW &amp; 15th Street NW , Washington , DC , 20004", "DC"),
      {"venue": None, "street": "Independence Ave SW & 15th Street NW", "city": "Washington", "region": "DC",
       "postal_code": "20004"}),
@@ -265,6 +276,15 @@ check("the sync keeps it on community", derive_categories(tc.as_record("x"))[0] 
 
 li, why = ev[33202]
 check("Long Island in May 2027 is beyond 180 days", li is None and why == "beyond the window", why)
+past = dict(NKF[2], EventDateTimeLocal="2026-10-10T13:00:00")
+check("a walk the day before today is not written", RB.to_event(past, NKF_SRC, host, TODAY, 180) == (None, "past"),
+      RB.to_event(past, NKF_SRC, host, TODAY, 180))
+today_walk, _w = RB.to_event(dict(NKF[2], EventDateTimeLocal="2026-10-11T07:00:00"), NKF_SRC, host, TODAY, 180)
+check("...while one this morning still is (the day is the test, not the hour)", today_walk is not None)
+ends = RB.to_event(dict(NKF[2], EndDateTimeLocal="2026-10-18T15:00:00"), NKF_SRC, host, TODAY, 180)[0]
+check("an end after the start is kept", ends.end_local == "2026-10-18T15:00:00", ends.end_local)
+before = RB.to_event(dict(NKF[2], EndDateTimeLocal="2026-10-18T11:00:00"), NKF_SRC, host, TODAY, 180)[0]
+check("an end before the start (13:00) is no end", before.end_local is None, before.end_local)
 check("the rest of the kidney walks are written", sum(1 for e, _ in ev.values() if e) == 5,
       {k: w for k, (e, w) in ev.items() if not e})
 
@@ -371,6 +391,7 @@ check("robots.txt says no: refused before the request",
       raises(lambda: RB.fetch(s, "https://www.kidneywalk.org/widgetapi/EventsLite", Robots()), RB.Refused)
       and s.calls == 0)
 check("a 403 is a refusal", raises(lambda: RB.fetch(One(403), "https://x/widgetapi/EventsLite"), RB.Refused))
+check("a 429 is a refusal, not a retry", raises(lambda: RB.fetch(One(429), "https://x/widgetapi/EventsLite"), RB.Refused))
 check("a bot challenge is a refusal",
       raises(lambda: RB.fetch(One(200, "<title>Just a moment...</title>"), "https://x/widgetapi/EventsLite"),
              RB.Refused))
@@ -386,6 +407,12 @@ check("rallybound_sources.json lists the Kidney Walk and Great Strides finders",
                "https://fundraise.cff.org/widgetapi/EventsLite?eventSeriesId=9"], urls)
 check("no source claims a free registration it has not measured",
       not any("free" in (s.get("about") or "").lower() for s in cfg["sources"]))
+# ...and the row the sync stores says nothing ../mapsee migration 0227 reads as
+# a price: no free tag, no deal (offers_0227 is 0227's predicate, vendored).
+row = to_row(tc.as_record("2026-10-11T00:00:00Z"), "host")
+tags = O.classify({"title": row["title"], "description": row["description"]})[0]
+check("a kidney walk is not tagged free, nor a discount or an intro offer, by 0227",
+      not (tags & {"free", "discount", "intro", "pwyw", "sale"}), tags)
 
 print()
 if fails:

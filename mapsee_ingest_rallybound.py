@@ -35,9 +35,12 @@ WHY THESE RULES:
 
 3. THE ADDRESS IS ONE STRING. "1123 Coleman Ave , San Jose , CA , 95110",
    "Siesta Key Beach, 948 Beach Road, Siesta Key, FL 34242", "9151 NW 2nd
-   Street   Plantation, FL 33324": the ZIP and the state come off the end, a
-   named place before the street becomes the venue, and what is left is the
-   street. The coordinates are the platform's own and are kept as they are
+   Street   Plantation, FL 33324", "3000 Downs Blvd. Metairie, LA 70003": the
+   ZIP and the state come off the end, a run of spaces is a comma, a named
+   place before the street becomes the venue, the words after a street's
+   suffix with no comma left for a town are the town, and what is left is the
+   street (2 of the 25 placed walks of 2026-10-11 had no town before the last
+   two rules). The coordinates are the platform's own and are kept as they are
    (coords_exact); the street is for reading.
 
 4. NOTHING ABOUT PRICE. Neither charity's registration fee is in the feed, and
@@ -67,6 +70,11 @@ SOURCE = "rallybound"
 DEFAULT_WITHIN_DAYS = 180
 _PLACEHOLDER_RX = re.compile(r"^\s*(tbd|tba|to be (?:determined|announced)|virtual|online|n/?a)\.?\s*$", re.I)
 _STREET_START_RX = re.compile(r"^\s*\d{1,6}[A-Za-z]?\s+\S")
+# "3000 Downs Blvd. Metairie": a numbered street, its suffix, then the town.
+_STREET_THEN_TOWN_RX = re.compile(
+    r"^(\d{1,6}[A-Za-z]?\s+.*?\b(?:St|Street|Ave|Avenue|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Hwy|"
+    r"Highway|Pkwy|Parkway|Ct|Court|Pl|Place|Cir|Circle|Ter|Terrace|Pike|Trail|Loop|Plaza|Square)\b\.?)"
+    r"\s+((?!(?:N|S|E|W|NE|NW|SE|SW|North|South|East|West)\b)[A-Z][A-Za-z.'-]+(?:\s+[A-Z][A-Za-z.'-]+){0,2})$")
 
 
 def _clean(s: Any) -> str:
@@ -78,7 +86,9 @@ def split_address(raw: Optional[str], state: Optional[str]) -> Dict[str, Optiona
     Address (rule 3). Anything unreadable stays in `street` as given."""
     out: Dict[str, Optional[str]] = {"venue": None, "street": None, "city": None,
                                      "region": (state or "").strip().upper() or None, "postal_code": None}
-    s = _clean(raw)
+    # A run of spaces is where the organiser's form put a comma: "9151 NW 2nd
+    # Street   Plantation, FL 33324" (Ft. Lauderdale's walk).
+    s = _clean(re.sub(r"(?<=\S) {2,}(?=\S)", ", ", str(raw or "")))
     if not s or _PLACEHOLDER_RX.match(s):
         return out
     parts = [p.strip() for p in s.split(",") if p.strip()]
@@ -96,6 +106,10 @@ def split_address(raw: Optional[str], state: Optional[str]) -> Dict[str, Optiona
                 parts.pop()
     if len(parts) >= 2:
         out["city"] = parts.pop()
+    elif parts:
+        m = _STREET_THEN_TOWN_RX.match(parts[0])
+        if m:
+            parts[0], out["city"] = m.group(1), m.group(2)
     if len(parts) >= 2 and not _STREET_START_RX.match(parts[0]) and _STREET_START_RX.match(parts[1]):
         out["venue"] = parts.pop(0)
     out["street"] = ", ".join(parts) or None
