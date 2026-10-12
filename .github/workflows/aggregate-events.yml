@@ -463,7 +463,11 @@ jobs:
       # config ships as luminate_sources.json.pending-permission and this step
       # skips. Renaming the file is the whole switch: 7 requests, 435 rows within
       # 180 days on 2026-10-11's pull, 396 of them placed by the sync's Census
-      # batch and the Alzheimer's Association's own pins.
+      # batch and the Alzheimer's Association's own pins. --max-minutes 7 starts
+      # no request after 7 minutes: a run is 8 API requests at up to 90 s each
+      # plus 3 robots.txt reads (~13 minutes at worst), and each page is written
+      # before the next request and the store saved after each programme, so
+      # the 10-minute cap cannot cost what was read.
       - name: Import charity walks on Luminate TeamRaiser (Making Strides, Relay, Alzheimer's, Komen; parked)
         id: ingest_luminate
         if: matrix.group == 'local'
@@ -471,7 +475,7 @@ jobs:
         timeout-minutes: 10
         run: |
           if [ -f luminate_sources.json ]; then
-            python mapsee_ingest_luminate.py --config luminate_sources.json --store feeds_events.json
+            python mapsee_ingest_luminate.py --config luminate_sources.json --store feeds_events.json --max-minutes 7
           else
             echo "no luminate_sources.json - skipping Luminate walks (parked: luminate_sources.json.pending-permission)"
           fi

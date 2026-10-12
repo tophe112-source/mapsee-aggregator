@@ -15,8 +15,12 @@ the fields the adapter reads. Each is a trap that pull held:
   * "Location TBD" with a street under it, "Students Only", a correctional
     facility, Second Life, "Community Fundraising Event Only";
   * a street that carries its own town, or a lot name before the number;
-  * the Alzheimer's Association's pin in `area`, which places "Paducah AK";
-  * "Free to register." only where the charity's FAQ says so.
+  * the Alzheimer's Association's pin in `area`, which places "Paducah AK" (and
+    whose box says "AK" is a typo: the row carries no state rather than Alaska);
+  * "Free to join: there is no registration fee." only where the charity's FAQ
+    says so, worded so ../mapsee migration 0227's free predicate tags it
+    (offers_0227) - the first draft's "Free to register." was tagged on 0 rows;
+  * the run's own deadline, and a refusal that ends the host's reads.
 
 No network: fake readers and literal records.
 """
@@ -386,6 +390,12 @@ wf = open(os.path.join(HERE, ".github", "workflows", "aggregate-events.yml"), en
 check("the workflow step runs only when luminate_sources.json exists",
       "if [ -f luminate_sources.json ]; then\n            python mapsee_ingest_luminate.py --config "
       "luminate_sources.json" in wf)
+step = wf[wf.index("id: ingest_luminate"):]
+step = step[:step.index("\n      - name:")]
+cap = re.search(r"timeout-minutes:\s*(\d+)", step)
+mm = re.search(r"--max-minutes\s+(\d+(?:\.\d+)?)", step)
+check("the step passes a deadline that leaves one 90 s request and a robots.txt read under its cap",
+      cap and mm and float(mm.group(1)) + 1.5 + 0.25 < int(cap.group(1)), step)
 check("four programmes, each on its charity's own TeamRaiser API",
       len(cfg["sources"]) == 4 and all(s["api"].endswith("/site/CRTeamraiserAPI") and s.get("api_key")
                                        for s in cfg["sources"]), [s.get("api") for s in cfg["sources"]])
@@ -411,8 +421,9 @@ check("Bend is written as an all-day row on its own date", e is not None and e.s
 check("the walk carries the Association's own pin from `area`", (e.latitude, e.longitude) == (44.043368, -121.320267),
       (e.latitude, e.longitude))
 check("and is not marked exact: Census still replaces it when the street matches", not e.coords_exact)
-check("Bend says 'Free to register.' first (the Association's FAQ)", e.description.startswith("Free to register."),
-      e.description[:40])
+check("Bend says it is free to join first (the Association's FAQ)",
+      e.description.startswith("Free to join: there is no registration fee."), e.description[:40])
+check("an Id is the host's: source_id carries act.alz.org", e.source_id == "act.alz.org:19864", e.source_id)
 check("community, with fitness and outdoors", (e.category, e.categories) == ("community", ["fitness", "outdoors"]))
 check("the link is the walk's entry page", e.ticket_url.startswith("https://act.alz.org/site/TR/Walk2026/"),
       e.ticket_url)
@@ -423,6 +434,17 @@ check("a park road with no number is no street, but the pin still places it",
 e, _ = alz["19647"]
 check("'Paducah AK 42001' (a Kentucky ZIP) is placed by the pin, not lost", e is not None and e.latitude == 37.085231,
       e and e.latitude)
+check("...and its pin, outside Alaska's box, drops the mistyped state rather than publish it",
+      e is not None and e.region is None and e.city == "Paducah", e and (e.city, e.region))
+check("a pin inside its own state's box keeps the state (Bend, OR)", alz["19864"][0].region == "OR")
+gone = dict(REC["alz_walk2026"][0], event_date="2026-10-10T11:25:37.450-05:00")
+check("a walk the day before today is not written", L.to_event(gone, ALZ, TODAY, 180, PH) == (None, "past"),
+      L.to_event(gone, ALZ, TODAY, 180, PH))
+far = dict(REC["alz_walk2026"][0], event_date="2027-04-10T11:25:37.450-05:00")
+check("a walk 181 days out is beyond the 180-day window", L.to_event(far, ALZ, TODAY, 180, PH) == (None, "beyond the window"),
+      L.to_event(far, ALZ, TODAY, 180, PH))
+edge = dict(REC["alz_walk2026"][0], event_date="2027-04-09T11:25:37.450-05:00")
+check("...while day 180 is inside it", L.to_event(edge, ALZ, TODAY, 180, PH)[0] is not None)
 check("an Alzheimer's walk on December 31 is a placeholder", alz["19906"] == (None, "placeholder date"),
       alz["19906"])
 
@@ -466,7 +488,7 @@ check("Bowling Green's relay is written, fitness only (a relay is often a gym or
 ko = run(KOMEN, REC["komen_rftc"])
 e, _ = ko["11255"]
 check("Komen's ' | Susan G. Komen' comes off the name", e.name == "2026 Massachusetts MORE THAN PINK Walk", e.name)
-check("a MORE THAN PINK Walk says 'Free to register.'", e.description.startswith("Free to register."))
+check("a MORE THAN PINK Walk says it is free to join", e.description.startswith(L.FREE_LINE), e.description[:50])
 e, _ = ko["11239"]
 check("a Race for the Cure says nothing about price", e is not None and "free" not in e.description.lower(),
       e and e.description)
@@ -521,6 +543,137 @@ check("a whole programme: 3 walks written, the placeholder skipped, all 3 on the
       (rep["kept"], rep["placed_by_area"], rep["skipped"]) == (3, 3, {"placeholder date": 1}), rep)
 check("the sync keeps them on community",
       {derive_categories(e.as_record("x"))[0] for e in got} == {"community"})
+
+# --------------------------------------------------------------------------- #
+# a refusal ends the host's reads; the deadline ends the run and keeps what was read
+# --------------------------------------------------------------------------- #
+asked = []
+
+
+def refuse(url):
+    asked.append(url)
+    raise L.Refused("HTTP 403")
+
+
+try:
+    L.ingest_source(ALZ, refuse, lambda: None, TODAY, cfg["within_days"], PH, lambda e: None)
+    raised = False
+except L.Refused:
+    raised = True
+check("a 403 on 'Walk 2026' is raised, and 'Walk 2027' is never asked of that host",
+      raised and len(asked) == 1 and "Walk%202026" in asked[0], asked)
+got, asked = [], []
+
+
+def one_page_then_deadline(url):
+    asked.append(url)
+    if "list_page_offset=0" in url:
+        return {"getTeamraisersResponse": {"totalNumberResults": "900", "teamraiser": REC["alz_walk2026"]}}
+    raise L.Stop("run deadline reached")
+
+
+try:
+    L.ingest_source(ALZ, one_page_then_deadline, lambda: None, TODAY, cfg["within_days"], PH, got.append)
+    raised = False
+except L.Stop:
+    raised = True
+check("the deadline on page 2 ends the run after page 1's walks are written",
+      raised and len(got) == 3 and len(asked) == 2, (raised, len(got), len(asked)))
+
+
+class Clock:
+    t = 0.0
+
+    def __call__(self):
+        return self.t
+
+
+class Resp:
+    def __init__(self, code, text):
+        self.status_code, self.text, self.content, self.url = code, text, text.encode(), ""
+
+
+class Hosts:
+    """The three hosts as a run meets them: robots.txt allows, ACS refuses its
+    API, and each Alzheimer's page costs 61 s of a 1-minute deadline."""
+
+    def __init__(self, clock):
+        self.headers, self.calls, self.clock = {}, [], clock
+
+    def get(self, url, **kw):
+        self.calls.append(url)
+        if url.endswith("/robots.txt"):
+            return Resp(200, "User-agent: *\nAllow: /\n")
+        if "acsevents" in url:
+            return Resp(403, "Forbidden")
+        self.clock.t += 61
+        return Resp(200, json.dumps({"getTeamraisersResponse": {"totalNumberResults": "900",
+                                                                "teamraiser": REC["alz_walk2026"]}}))
+
+
+import tempfile  # noqa: E402
+
+import requests  # noqa: E402
+
+clock, made = Clock(), []
+with tempfile.TemporaryDirectory() as d:
+    cpath, spath = os.path.join(d, "lum.json"), os.path.join(d, "store.json")
+    json.dump(dict(cfg, pause=0, sources=[STRIDES, RELAY, ALZ]), open(cpath, "w"))
+    saved = (requests.Session, L.time.monotonic, L.time.sleep)
+    requests.Session = lambda: made.append(Hosts(clock)) or made[-1]
+    L.time.monotonic, L.time.sleep = clock, (lambda s: None)
+    os.environ["MAPSEE_TODAY"] = "20261011"
+    try:
+        L.main(["--config", cpath, "--store", spath, "--max-minutes", "1"])
+    finally:
+        requests.Session, L.time.monotonic, L.time.sleep = saved
+        os.environ.pop("MAPSEE_TODAY", None)
+    calls = made[0].calls
+    api = [u for u in calls if "CRTeamraiserAPI" in u]
+    check("ACS refuses Making Strides with a 403, and Relay For Life is not asked of the same host",
+          sum("acsevents" in u for u in api) == 1 and not any("Relay" in u for u in api), api)
+    check("no request starts after the deadline: Walk 2026 page 1 only, at 61 s of 60",
+          [u for u in api if "alz" in u] == [L.request_url(ALZ, "Walk 2026", 0)], [u for u in api if "alz" in u])
+    stored = json.load(open(spath, encoding="utf-8"))["events"] if os.path.exists(spath) else []
+    check("...and the walks read before it are saved", len(stored) == 3, len(stored))
+
+# --------------------------------------------------------------------------- #
+# the free line is a contract with ../mapsee migration 0227's offer tagger,
+# judged on the row the sync stores (offers_0227 is that predicate, vendored)
+# --------------------------------------------------------------------------- #
+import offers_0227 as O  # noqa: E402
+from mapsee_ingest import EventStore  # noqa: E402
+from mapsee_supabase_sync import to_row  # noqa: E402
+
+drift = O.twin_drift()
+if drift is None:
+    print("skip the vendored 0227 patterns are not compared: ../mapsee is not checked out here")
+else:
+    check("offers_0227's patterns equal ../mapsee/tools/measure_deals.py's", drift == [], drift)
+
+
+def stored_tags(e):
+    with tempfile.TemporaryDirectory() as d:
+        st = EventStore(os.path.join(d, "s.json"))
+        st.upsert(e)
+        rec = next(iter(st.records.values()))
+    row = to_row(rec, "00000000-0000-0000-0000-000000000000")
+    return O.classify({"title": row["title"], "description": row["description"]})[0]
+
+
+free_rows = [alz["19864"][0], alz["19903"][0], ko["11255"][0]]
+silent = [st["112394"][0], st["112459"][0], rl["112219"][0], ko["11239"][0]]
+check("the Alzheimer's walks and the MORE THAN PINK Walk ARE tagged free by 0227",
+      all("free" in stored_tags(e) for e in free_rows), [stored_tags(e) for e in free_rows])
+check("Making Strides, Relay and Race for the Cure, which say nothing about price, are NOT tagged free",
+      not any("free" in stored_tags(e) for e in silent), [stored_tags(e) for e in silent])
+check("the old 'Free to register.' was never tagged free: the wording is the contract",
+      "free" not in O.classify({"title": "2026 Walk to End Alzheimer's - Bend, OR",
+                                "description": "Free to register."})[0])
+check("no row is tagged a discount, an intro offer, a sale or pay-what-you-can",
+      not any(stored_tags(e) & {"discount", "intro", "sale", "pwyw", "happyhr"} for e in free_rows + silent))
+# Luminate writes no walker fee: no charity's fee is in the record, so no row
+# carries one (the AVA and RallyBound tests hold the fee and no-price cases too).
 
 print()
 if fails:

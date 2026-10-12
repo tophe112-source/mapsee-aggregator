@@ -58,14 +58,26 @@ WHY THESE RULES, each one a record from the 2026-10-11 pull:
    the Jack Daniel's visitor centre it names). With `coords_from_area` the row
    carries that point, and the sync's Census pass still replaces it when the
    street matches: it is what places a walk whose state is mistyped ("Paducah
-   AK 42001") or whose street is a park road.
+   AK 42001") or whose street is a park road. A typed state whose box the pin
+   is outside is dropped rather than published (Paducah, 1 of 238 pins).
 
 6. FREE ONLY WHERE THE CHARITY SAYS SO. "There is no registration fee for Walk"
    (act.alz.org's event FAQ) and "There is no fee to register for the MORE THAN
    PINK Walk" (secure.info-komen.org mtpw_faq.html): those rows say "Free to
-   register." ACS loads its fees by script and one test event is named "$25 and
-   $0 P-type", so Making Strides and Relay say nothing about price, nor does a
+   join: there is no registration fee." - worded so that ../mapsee migration
+   0227's free predicate reads it ("free to join"); the first draft's "Free to
+   register." matched none of its patterns, and 0 of the 253 rows were tagged
+   free. ACS loads its fees by script and one test event is named "$25 and $0
+   P-type", so Making Strides and Relay say nothing about price, nor does a
    Komen Race for the Cure.
+
+7. THE RUN ENDS ITSELF. No request starts after --max-minutes (7 in the
+   workflow, under the step's 10): one run is 8 API requests at up to 90 s each
+   plus 3 robots.txt reads, ~13 minutes at worst. Each page's rows are written
+   before the next request and the store is saved after each programme and on
+   the way out, so a deadline or a cancelled step keeps what was read. A
+   401/403/429 or a challenge ends that host's reads for the run, ACS's second
+   programme included.
 
 Category: community, with fitness and outdoors for the walks (Relay is often
 an indoor track or gym: fitness only).
@@ -88,8 +100,10 @@ from mapsee_ingest import (EventStore, NormalizedEvent, USER_AGENT, looks_online
 
 SOURCE = "luminate"
 DEFAULT_WITHIN_DAYS = 180
+DEFAULT_MAX_MINUTES = 7.0
 PAGE_SIZE = 500
 MAX_PAGES = 6
+FREE_LINE = "Free to join: there is no registration fee."
 
 # Rule 3: not an event anybody can turn up to.
 _NOT_PUBLIC_RX = re.compile(
@@ -125,6 +139,43 @@ US_STATES = {
     "washington": "WA", "west virginia": "WV", "wisconsin": "WI", "wyoming": "WY",
     "puerto rico": "PR",
 }
+
+
+# Each state's bounding box (lat_min, lat_max, lon_min, lon_max), to catch a
+# mistyped state beside the charity's own pin: "Paducah AK 42001" carries a pin
+# at 37.085,-88.618, in Kentucky, and was published as Alaska. The only pin of
+# the 238 placed Alzheimer's rows outside its state's box (2026-10-11). A box
+# is wider than its state, so a pin outside it is certainly elsewhere; inside
+# proves nothing and changes nothing.
+_STATE_BOX = {
+    "AL": (30.14, 35.01, -88.47, -84.89), "AK": (51.2, 71.4, -180.0, -129.9), "AZ": (31.33, 37.0, -114.82, -109.04),
+    "AR": (33.0, 36.5, -94.62, -89.64), "CA": (32.53, 42.01, -124.41, -114.13), "CO": (36.99, 41.0, -109.06, -102.04),
+    "CT": (40.98, 42.05, -73.73, -71.79), "DE": (38.45, 39.84, -75.79, -75.05), "DC": (38.79, 39.0, -77.12, -76.91),
+    "FL": (24.4, 31.0, -87.63, -80.03), "GA": (30.36, 35.0, -85.61, -80.84), "HI": (18.91, 22.24, -160.25, -154.81),
+    "ID": (41.99, 49.0, -117.24, -111.04), "IL": (36.97, 42.51, -91.51, -87.02), "IN": (37.77, 41.76, -88.1, -84.78),
+    "IA": (40.37, 43.5, -96.64, -90.14), "KS": (36.99, 40.0, -102.05, -94.59), "KY": (36.5, 39.15, -89.57, -81.96),
+    "LA": (28.93, 33.02, -94.04, -88.82), "ME": (43.06, 47.46, -71.08, -66.95), "MD": (37.91, 39.72, -79.49, -75.05),
+    "MA": (41.24, 42.89, -73.51, -69.93), "MI": (41.7, 48.31, -90.42, -82.12), "MN": (43.5, 49.38, -97.24, -89.49),
+    "MS": (30.17, 35.01, -91.66, -88.1), "MO": (35.99, 40.61, -95.77, -89.1), "MT": (44.36, 49.0, -116.05, -104.04),
+    "NE": (40.0, 43.0, -104.05, -95.31), "NV": (35.0, 42.0, -120.01, -114.04), "NH": (42.7, 45.31, -72.56, -70.61),
+    "NJ": (38.93, 41.36, -75.56, -73.89), "NM": (31.33, 37.0, -109.05, -103.0), "NY": (40.5, 45.02, -79.76, -71.86),
+    "NC": (33.84, 36.59, -84.32, -75.46), "ND": (45.94, 49.0, -104.05, -96.55), "OH": (38.4, 41.98, -84.82, -80.52),
+    "OK": (33.62, 37.0, -103.0, -94.43), "OR": (41.99, 46.29, -124.57, -116.46), "PA": (39.72, 42.27, -80.52, -74.69),
+    "RI": (41.15, 42.02, -71.86, -71.12), "SC": (32.03, 35.22, -83.35, -78.54), "SD": (42.48, 45.95, -104.06, -96.44),
+    "TN": (34.98, 36.68, -90.31, -81.65), "TX": (25.84, 36.5, -106.65, -93.51), "UT": (37.0, 42.0, -114.05, -109.04),
+    "VT": (42.73, 45.02, -73.44, -71.46), "VA": (36.54, 39.47, -83.68, -75.24), "WA": (45.54, 49.0, -124.85, -116.92),
+    "WV": (37.2, 40.64, -82.64, -77.72), "WI": (42.49, 47.31, -92.89, -86.25), "WY": (40.99, 45.01, -111.06, -104.05),
+    "PR": (17.88, 18.52, -67.95, -65.22),
+}
+
+
+def outside_state(point: Tuple[float, float], region: Optional[str], margin: float = 0.3) -> bool:
+    """True when the pin is certainly not in that state (outside its box)."""
+    box = _STATE_BOX.get(region or "")
+    if not box:
+        return False
+    lat, lon = point
+    return not (box[0] - margin <= lat <= box[1] + margin and box[2] - margin <= lon <= box[3] + margin)
 
 
 def _clean(v: Any) -> Optional[str]:
@@ -231,6 +282,8 @@ def to_event(rec: Dict[str, Any], src: Dict[str, Any], today: date, within_days:
     region = _region(rec.get("state"))
     street = clean_street(rec.get("street_address"), city)
     point = area_point(rec.get("area")) if src.get("coords_from_area") else None
+    if point and outside_state(point, region):
+        region = None                # the pin is the charity's own; the typed state is not
     if not (city and region) and not point:
         return None, "no town"
     if not street and not point:
@@ -245,7 +298,9 @@ def to_event(rec: Dict[str, Any], src: Dict[str, Any], today: date, within_days:
     lines = []
     free_rx = src.get("free_to_register")
     if free_rx and re.search(free_rx, name, re.I):
-        lines.append("Free to register.")
+        # Worded for ../mapsee migration 0227, whose free predicate reads "free
+        # to join" and did not read the earlier "Free to register.".
+        lines.append(FREE_LINE)
     if src.get("about"):
         lines.append(src["about"])
     lines.append("Start time, route and registration on the event page.")
@@ -274,8 +329,15 @@ class Refused(Exception):
     """The host said no: 401/403/429, a bot challenge or robots.txt."""
 
 
-def fetch(session, url: str, robots=None) -> Any:
+class Stop(Exception):
+    """The run's deadline passed; no request starts after it."""
+
+
+def fetch(session, url: str, robots=None, deadline: Optional[float] = None,
+          clock: Optional[Callable[[], float]] = None) -> Any:
     from robots_txt import CHALLENGE_RX
+    if deadline is not None and (clock or time.monotonic)() >= deadline:
+        raise Stop("run deadline reached")
     if robots is not None:
         v = robots.check(url)
         if v.get("allowed") is not True:
@@ -291,18 +353,23 @@ def fetch(session, url: str, robots=None) -> Any:
     return json.loads(text)
 
 
-def read_type(src: Dict[str, Any], event_type: str, get_json: Callable[[str], Any],
-              pause: Callable[[], None]) -> Tuple[List[Dict[str, Any]], Optional[int], Optional[str]]:
-    """(records, totalNumberResults, error) for one event type, every page."""
-    rows: List[Dict[str, Any]] = []
-    total = None
+class ApiError(Exception):
+    """TeamRaiser answered with an errorResponse."""
+
+
+def iter_pages(src: Dict[str, Any], event_type: str, get_json: Callable[[str], Any],
+               pause: Callable[[], None]):
+    """Yield (records, totalNumberResults) for one event type, page by page, so
+    a caller writes each page before the next request (a deadline or a refusal
+    on page 2 keeps page 1). Raises ApiError on an errorResponse."""
+    n = 0
     for page in range(MAX_PAGES):
         if page:
             pause()
         data = get_json(request_url(src, event_type, page))
         if isinstance(data, dict) and "errorResponse" in data:
             err = data["errorResponse"] or {}
-            return rows, total, f"errorResponse {err.get('code')}: {err.get('message')}"
+            raise ApiError(f"errorResponse {err.get('code')}: {err.get('message')}")
         resp = (data or {}).get("getTeamraisersResponse") or {}
         try:
             total = int(resp.get("totalNumberResults") or 0)
@@ -311,42 +378,60 @@ def read_type(src: Dict[str, Any], event_type: str, get_json: Callable[[str], An
         got = resp.get("teamraiser") or []
         if isinstance(got, dict):
             got = [got]
-        rows.extend(r for r in got if isinstance(r, dict))
-        if not got or len(rows) >= total:
+        got = [r for r in got if isinstance(r, dict)]
+        n += len(got)
+        yield got, total
+        if not got or n >= total:
             break
+
+
+def read_type(src: Dict[str, Any], event_type: str, get_json: Callable[[str], Any],
+              pause: Callable[[], None]) -> Tuple[List[Dict[str, Any]], Optional[int], Optional[str]]:
+    """(records, totalNumberResults, error) for one event type, every page."""
+    rows: List[Dict[str, Any]] = []
+    total = None
+    try:
+        for got, total in iter_pages(src, event_type, get_json, pause):
+            rows.extend(got)
+    except ApiError as exc:
+        return rows, total, str(exc)
     return rows, total, None
 
 
 def ingest_source(src: Dict[str, Any], get_json: Callable[[str], Any], pause: Callable[[], None],
                   today: date, within_days: int, placeholder_days: List[str],
                   emit: Callable[[NormalizedEvent], None]) -> Dict[str, Any]:
+    """Every type of one programme. A refusal or the deadline (Stop) ends the
+    whole run and is raised after what was read has been emitted; any other
+    error costs that type only."""
     rep: Dict[str, Any] = {"read": 0, "total": 0, "kept": 0, "placed_by_area": 0, "skipped": {}, "errors": []}
     seen = set()
     for i, t in enumerate(_types(src, today)):
         if i:
             pause()
+        type_total = 0
         try:
-            rows, total, err = read_type(src, t, get_json, pause)
-        except Refused:
+            for rows, type_total in iter_pages(src, t, get_json, pause):
+                rep["read"] += len(rows)
+                for rec in rows:
+                    if rec.get("id") in seen:
+                        continue
+                    seen.add(rec.get("id"))
+                    ev, why = to_event(rec, src, today, within_days, placeholder_days)
+                    if ev is None:
+                        rep["skipped"][why] = rep["skipped"].get(why, 0) + 1
+                        continue
+                    emit(ev)
+                    rep["kept"] += 1
+                    rep["placed_by_area"] += ev.latitude is not None
+        except (Refused, Stop):
             raise
+        except ApiError as exc:
+            rep["errors"].append(f"{t}: {exc}")
         except Exception as exc:                          # noqa: BLE001
             rep["errors"].append(f"{t}: {type(exc).__name__}: {exc}")
-            continue
-        if err:
-            rep["errors"].append(f"{t}: {err}")
-        rep["read"] += len(rows)
-        rep["total"] += total or 0
-        for rec in rows:
-            if rec.get("id") in seen:
-                continue
-            seen.add(rec.get("id"))
-            ev, why = to_event(rec, src, today, within_days, placeholder_days)
-            if ev is None:
-                rep["skipped"][why] = rep["skipped"].get(why, 0) + 1
-                continue
-            emit(ev)
-            rep["kept"] += 1
-            rep["placed_by_area"] += ev.latitude is not None
+        finally:
+            rep["total"] += type_total or 0
     return rep
 
 
@@ -361,6 +446,8 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Import charity walks from Blackbaud Luminate TeamRaiser.")
     ap.add_argument("--config", default="luminate_sources.json")
     ap.add_argument("--store", default="feeds_events.json")
+    ap.add_argument("--max-minutes", type=float, default=DEFAULT_MAX_MINUTES,
+                    help="whole-run deadline; no request starts after it (0 = none)")
     ap.add_argument("--dry-run", action="store_true", help="read and report, write nothing")
     a = ap.parse_args(argv)
 
@@ -381,35 +468,60 @@ def main(argv=None) -> int:
     within = int(cfg.get("within_days", DEFAULT_WITHIN_DAYS))
     placeholder_days = list(cfg.get("placeholder_days") or [])
     gap = float(cfg.get("pause", 2.0))
-    total = 0
-    for src in cfg.get("sources", []):
-        if src.get("skip"):
-            continue
+    deadline = time.monotonic() + a.max_minutes * 60 if a.max_minutes else None
+    written = [0]
+
+    def emit(ev: NormalizedEvent) -> None:
+        written[0] += 1
+        if store is not None:
+            store.upsert(ev)
+
+    stopped = None
+    refused_hosts = set()
+    for i, src in enumerate(s for s in cfg.get("sources", []) if not s.get("skip")):
         name = src.get("name") or src.get("api")
+        host = urlsplit(src["api"]).netloc
+        if host in refused_hosts:
+            # ACS's two programmes share one host: its refusal of the first is
+            # its answer to the second too.
+            print(f"[{SOURCE}] {name}: skipped - {host} refused this run", flush=True)
+            continue
+        if i:
+            time.sleep(gap)
+        rep = None
         try:
-            rep = ingest_source(src, lambda u: fetch(session, u, robots), lambda: time.sleep(gap), today,
-                                within, placeholder_days,
-                                (store.upsert if store is not None else (lambda ev: None)))
+            rep = ingest_source(src, lambda u: fetch(session, u, robots, deadline), lambda: time.sleep(gap), today,
+                                within, placeholder_days, emit)
         except Refused as exc:
+            refused_hosts.add(host)
             print(f"[{SOURCE}] {name}: REFUSED - {exc}; not retried", flush=True)
             continue
+        except Stop as exc:
+            stopped = f"{exc} during {name}"
         except Exception as exc:                          # noqa: BLE001
             print(f"[{SOURCE}] {name} FAILED: {type(exc).__name__}: {exc}", flush=True)
             continue
         finally:
-            time.sleep(gap)
+            # After each programme, and on the way out of the deadline or a
+            # refusal: a step cancelled by its timeout-minutes keeps the rows it
+            # read (docs/agents/ci-and-jobs.md).
+            if store is not None:
+                store.save()
+        if stopped:
+            break
         skipped = ", ".join(f"{k} {v}" for k, v in sorted(rep["skipped"].items())) or "none"
         print(f"[{SOURCE}] {name}: read {rep['read']} of {rep['total']}, kept {rep['kept']} within "
               f"{within} days ({rep['placed_by_area']} placed by the charity's own pin); skipped: {skipped}",
               flush=True)
         for e in rep["errors"]:
             print(f"[{SOURCE}] {name}: {e}", flush=True)
-        total += rep["kept"]
+    if stopped:
+        print(f"[{SOURCE}] STOPPED - {stopped}; what was read is saved", flush=True)
     if store is not None:
-        store.save()
-        print(f"[{SOURCE}] done: +{total} events; store now holds {len(store.records)} unique events.", flush=True)
+        print(f"[{SOURCE}] done: +{written[0]} events; store now holds {len(store.records)} unique events.",
+              flush=True)
     else:
-        print(f"[{SOURCE}] dry run - {total} event(s) would be written", flush=True)
+        print(f"[{SOURCE}] dry run - {written[0]} event(s) would be written", flush=True)
     return 0
 
 
