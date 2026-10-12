@@ -5377,6 +5377,13 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "ahimsagram.in/who-we-are": {
+    "checked": 20261012,
+    "name": "AhimsaGram",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ahipaoeats.co.nz": {
     "checked": 20260824,
     "name": "Ahipao",
@@ -9291,6 +9298,13 @@
   "amarillosviejos.com": {
     "checked": 20260914,
     "name": "Amarillos Viejos",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "amarsaath.org": {
+    "checked": 20261012,
+    "name": "Amar Saath Foundation",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -18074,6 +18088,13 @@
     "reason": "44 vevents / 21 future",
     "status": "ok",
     "type": "ics"
+  },
+  "atlantiisjaipur.com": {
+    "checked": 20261012,
+    "name": "Atlantiis",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "atlantisaquarium-madrid.es": {
     "checked": 20260914,
@@ -27519,6 +27540,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bern.ch/it": {
+    "checked": 20261012,
+    "name": "Bern",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "bern.ch/leben_in_bern/freizeit/sport/sportanlagen": {
     "checked": 20260920,
     "name": "Turnhalle Matte",
@@ -36460,6 +36488,13 @@
     "status": "fail",
     "type": "tribe"
   },
+  "blessingtoday.tv": {
+    "checked": 20261012,
+    "name": "Blessing Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "blessingtongaa.ie": {
     "checked": 20260822,
     "name": "Blessington GAA",
@@ -43929,6 +43964,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "bs.ch": {
+    "checked": 20261012,
+    "name": "Basel",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "bs.ch/themen/kultur-sport-und-freizeit/baeder-kunsteisbahnen-sportanlagen-und-raeume/gartenbaeder/gartenbad-bachgraben": {
     "checked": 20260919,
@@ -57197,6 +57239,13 @@
     "status": "refused",
     "type": "osm-venue"
   },
+  "centralauditorium.com": {
+    "checked": 20261012,
+    "name": "Central Auditorium",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "centralbaptist.org.au": {
     "checked": 20260819,
     "name": "Central Baptist Church",
@@ -59551,6 +59600,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "chandigarhtourism.gov.in": {
+    "checked": 20261012,
+    "name": "The Le Corbusier Centre",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "chandlerlibrary.org/locations/3": {
     "checked": 20261011,
     "name": "Downtown Library",
@@ -60291,6 +60347,27 @@
   "chctcrp.org.uk": {
     "checked": 20261009,
     "name": "St Luke's Community Centre",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "chdmuseum.gov.in/home/architecturemuseum": {
+    "checked": 20261012,
+    "name": "Chandigarh Architecture Museum",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "chdmuseum.gov.in/home/govtmuseum": {
+    "checked": 20261012,
+    "name": "Government Museum and Art Gallery",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "chdmuseum.gov.in/home/naturalhistorymuseum": {
+    "checked": 20261012,
+    "name": "Natural History Museum",
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
@@ -61911,6 +61988,13 @@
     "name": "\u9577\u751f\u5bfa",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "chottanikarabhagavathy.org/home.html": {
+    "checked": 20261012,
+    "name": "Chottanikkara Bhagavathi Temple",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "chottawa.com": {
@@ -65293,6 +65377,13 @@
     "name": "Village Cinema Wien Mitte",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "cinepluscinemas.com": {
+    "checked": 20261012,
+    "name": "Cineplus Cinemas",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "cinepol.ch": {
@@ -74805,6 +74896,13 @@
     "reason": "50 future, 50 placeable",
     "status": "ok",
     "type": "tribe"
+  },
+  "cochinsyn.com/page-kada-erna.html": {
+    "checked": 20261012,
+    "name": "Kadavumbhagam Ernakulam Synagogue",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "cocklebaytennis.co.nz": {
     "checked": 20260824,
@@ -98905,6 +99003,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "elefantastic.in": {
+    "checked": 20261012,
+    "name": "Elefantastic",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "elefanteblancomadrid.com": {
     "checked": 20260914,
     "name": "Elefante Blanco",
@@ -115702,6 +115807,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "forplay-society.org": {
+    "checked": 20261012,
+    "name": "Forplay Society",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "forresthillchurch.org.nz": {
     "checked": 20260824,
     "name": "Forrest Hill Presbyterian Church",
@@ -123418,6 +123530,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "geneve.ch": {
+    "checked": 20261012,
+    "name": "Geneva",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "geneve.ch/centre-sportif-bout-monde": {
     "checked": 20260919,
     "name": "Centre Sportif du Bout du Monde",
@@ -131102,6 +131221,13 @@
   "gunzesports.com/tsukashin": {
     "checked": 20260925,
     "name": "\u30b0\u30f3\u30bc\u30b9\u30dd\u30fc\u30c4",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "guptvrindavandham.org": {
+    "checked": 20261012,
+    "name": "Gupt Vrindavan Dham",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -150314,6 +150440,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "instagram.com/lasertag_kochi": {
+    "checked": 20261012,
+    "name": "Laser Tag Kochi",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "instagram.com/lesBesossades": {
     "checked": 20260922,
     "name": "Casal Popular les Besossades",
@@ -150473,6 +150606,13 @@
     "name": "Sinestesia",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "instagram.com/speedway_kochi/?hl=en": {
+    "checked": 20261012,
+    "name": "Speedway Kochi",
+    "reason": "osm probe: robots.txt Disallow: / (https://www.instagram.com/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "instagram.com/sportclubmackenzierj": {
@@ -150950,6 +151090,13 @@
     "reason": "28 vevents / 28 future",
     "status": "ok",
     "type": "ics"
+  },
+  "internationalfitnesssystems.com": {
+    "checked": 20261012,
+    "name": "International Gym",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "internationalhousedavis.org/rent-i-house/?ical=1": {
     "checked": 20261011,
@@ -153058,6 +153205,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jacobitesyrianchurch.org": {
+    "checked": 20261012,
+    "name": "Puthencruz Jacobite Patriarchal Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jacobmaris.com": {
     "checked": 20260930,
     "name": "Jacob Maris",
@@ -153142,12 +153296,26 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jaintemplecochin.org": {
+    "checked": 20261012,
+    "name": "Dharmanath Desar Jain Mandir",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "jaipur.afindia.org/events/?ical=1": {
     "checked": 20260722,
     "name": "Alliance Francaise de Jaipur (Jaipur, India)",
     "reason": "1 vevents / 0 future",
     "status": "fail",
     "type": "ics"
+  },
+  "jaipurwaxmuseum.com": {
+    "checked": 20261012,
+    "name": "Jaipur Wax Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "jakinbide.eus": {
     "checked": 20260916,
@@ -159007,6 +159175,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kalaneri.com": {
+    "checked": 20261012,
+    "name": "Kalaneri Art Gallery",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kalari7.com": {
     "checked": 20260828,
     "name": "Kalari 7",
@@ -162695,6 +162870,42 @@
     "name": "Keplerraum",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "keralafolkloremuseum.org": {
+    "checked": 20261012,
+    "name": "Kerala Folklore Museum",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "keralamuseum.org": {
+    "checked": 20261012,
+    "name": "Kerala Museum",
+    "offsite_url": "https://www.instagram.com/p/DDB5UsDybl3/",
+    "reason": "osm probe: offsite:instagram.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "keralas.info/ernakulam": {
+    "checked": 20261012,
+    "name": "Indo French contemporary art space",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "keralatourism.org/destination/hill-palace-museum/182": {
+    "checked": 20261012,
+    "name": "Hill Palace Complex",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "keralatourism.org/kochi/paradeso-synagogue-mattancherry.php": {
+    "checked": 20261012,
+    "name": "Mattancherry Paradesi Synagogue",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "kerava.fi": {
@@ -168673,6 +168884,13 @@
   "kooloora.org": {
     "checked": 20260819,
     "name": "Kooloora Community Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "koonankurishu.com": {
+    "checked": 20261012,
+    "name": "St. George Orthodox Koonan Kurish Church",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -178342,6 +178560,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "lausanne.ch": {
+    "checked": 20261012,
+    "name": "Lausanne",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "lausanne.ch/agenda-et-actualites/agenda/evenement/ecal-after-schmid": {
     "checked": 20261011,
@@ -190644,6 +190869,13 @@
     "status": "ok",
     "type": "jsonld"
   },
+  "lotusclubcochin.com": {
+    "checked": 20261012,
+    "name": "Lotus Club",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "loudoun.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar": {
     "checked": 20261011,
     "name": "Loudoun County Parks, VA \u2014 Parks, Recreation and Community Services",
@@ -195127,6 +195359,13 @@
   "malaletra.org": {
     "checked": 20260914,
     "name": "malaletra",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "malanadunews.com": {
+    "checked": 20261012,
+    "name": "Malanadu Media Hub",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -229659,6 +229898,20 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "obms-tourist.rajasthan.gov.in/place-details/Government-Central-Museum-Albert-Hall-Jaipur": {
+    "checked": 20261012,
+    "name": "Albert Hall Museum",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "obms-tourist.rajasthan.gov.in/place-details/Isarlat": {
+    "checked": 20261012,
+    "name": "Iswari Minar Swarga Sali",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "obms.us/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20261011,
     "name": "Olive Branch \u2014 Official City Events",
@@ -237572,6 +237825,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "padamugalorthodoxpally.com": {
+    "checked": 20261012,
+    "name": "St. John The Baptist Orthodox Syrian Church",
+    "offsite_url": "https://www.facebook.com/share/p/xGzS5QQbK1F1RrQ9/",
+    "reason": "osm probe: offsite:facebook.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "paddelclub-stoecken.de/index.php/start.html": {
     "checked": 20261005,
     "name": "Paddel-Club St\u00f6cken",
@@ -240217,6 +240478,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "paramaradevi.org/events": {
+    "checked": 20261012,
+    "name": "Sree Paramara Devi Temple",
+    "reason": "1 events / 0 future",
+    "status": "empty",
+    "type": "jsonld"
   },
   "paramfoundation.org/?post_type=event_listing&amp;p=55860": {
     "checked": 20260927,
@@ -243211,6 +243479,13 @@
   "pauwkenshof.be": {
     "checked": 20260913,
     "name": "Pauwkenshof",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "pavakkulamtemple.in": {
+    "checked": 20261012,
+    "name": "Pavakulam Sree Mahadeva Kshetram",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -257753,6 +258028,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "reccaclub.in": {
+    "checked": 20261012,
+    "name": "Recca Club",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "receptionhouse.ca": {
     "checked": 20260819,
     "name": "Reception House Waterloo Region",
@@ -264686,6 +264968,13 @@
   "rspl.be": {
     "checked": 20260913,
     "name": "Le Relais Social",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "rssb.org/index.html": {
+    "checked": 20261012,
+    "name": "Radha Soami Satsang Ghar",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -279364,6 +279653,13 @@
     "name": "Centre \u00e9questre r\u00e9gional du Waldeck",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "shmanattuparamb.org": {
+    "checked": 20261012,
+    "name": "Sacred Heart Church",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "shmh.de/de/museum-der-arbeit": {
@@ -298780,6 +299076,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sunnyconventioncentre.in": {
+    "checked": 20261012,
+    "name": "Sunny Convention Centre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sunnylife-group.co.jp/ebina": {
     "checked": 20260925,
     "name": "\u30b5\u30cb\u30fc\u30e9\u30a4\u30d5\u6d77\u8001\u540d",
@@ -302048,6 +302351,13 @@
   "syriaque.be": {
     "checked": 20260911,
     "name": "\u00c9glise Sainte-Marie M\u00e8re de Dieu - Sint-Maria Moeder Godskerk",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "syromalabarchurch.in": {
+    "checked": 20261012,
+    "name": "Mount St Thomas The Syro-Malabar Major Archiepiscopal Curia",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -309266,6 +309576,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "thali.dhamma.org": {
+    "checked": 20261012,
+    "name": "?",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "thalmattsport.ch": {
     "checked": 20260920,
     "name": "Oro Sport Thalmatt",
@@ -313677,6 +313994,13 @@
     "name": "THW-Jugend Gelsenkirchen",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "thykkattudevaswom.org": {
+    "checked": 20261012,
+    "name": "Vennala Thykkatt Sri Mahadeva Temple",
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "ti.bfh.ch/de/service/bibliothek.html": {
@@ -325749,6 +326073,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "vallarpadambasilica.com": {
+    "checked": 20261012,
+    "name": "Vallarpadam Church",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "vallee-aux-loups.hauts-de-seine.fr": {
     "checked": 20260830,
