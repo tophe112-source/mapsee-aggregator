@@ -70,3 +70,33 @@ User-Agent; nothing was retried with another. What each held is in
 | Toronto Festivals and Events (CKAN `festivals-events`) | **robots.txt refuses; no API route** | The JSON is a download under `/dataset/*/resource/*/download/*`, which robots.txt disallows, and the resource is not `datastore_active`, so `datastore_search` cannot reach it. The drop-in tables are read through the datastore (`toronto_rec_sources.json`) |
 | City and national open-data catalogues | **refused, not retried** | open.hamilton.ca's Hub search: 403 with a Cloudflare challenge. dados.cm-lisboa.pt: 403 with a challenge, and robots.txt `Disallow: /api/`. dati.comune.roma.it: robots.txt `Disallow: /` for the whole host. datos.gob.mx and datosabiertos.gob.ec: 403. Houston's Hub search API: 401. nycgovparks.org/bigapps: CloudFront 403 "Request blocked"; the same events are configured through Socrata `w3wp-dpdi` |
 | Cardiff Hubs (`cardiffhubs.co.uk`) | **robots.txt refuses** | `Disallow: /` for `*` on the council's community-hub site |
+
+Walks, hikes and walks for causes, surveyed 2026-10-11 for the owner's ask:
+"free and community oriented events such as nearby hikes and walks for causes".
+Six families, production User-Agent, robots read before every request, at most
+one request a second per host, nothing retried after a refusal. What WORKS is
+built or configured (Luminate TeamRaiser, RallyBound, AVA, RunSignup, NPS,
+Localist, six bird clubs, OC Parks); this table is what does not, and why.
+
+| Platform | Result | What it means |
+|---|---|---|
+| American Heart Association Heart Walk (`www2.heart.org` TeamRaiser) | **robots.txt refuses** | `Disallow: /site/CRTeamraiserAPI` (and every CR/SR servlet), Crawl-delay 10. The finder on `www.heart.org` answers a Cloudflare 403 on `/robots.txt`. The same TeamRaiser call works at ACS, the Alzheimer's Association and Komen, whose hosts allow it |
+| Breakthrough T1D One Walk (`www2.breakthrought1d.org`, formerly JDRF) | **robots.txt refuses** | the same `Disallow: /site/CRTeamraiserAPI`; `walk.jdrf.org` redirects there |
+| Autism Speaks Walk (`act.autismspeaks.org`) | **robots.txt refuses** | `Disallow: /site/CRTeamraiserAPI`, Crawl-delay 10 |
+| Leukemia & Lymphoma Society Light The Night (`lightthenight.org`, `pages.lls.org`) | **bot challenge on robots.txt** | Cloudflare 403 on `/robots.txt` itself |
+| DonorDrive `/api/events` (Walk MS, Arthritis Foundation, AFSP Out of the Darkness, NAMIWalks) | **HTTP 401** | the documented Public API's list endpoint answers 401 on every tenant tried, as DonorDrive's own docs warn ("may require additional credentials"); `/api/about` answers. Ask support@donordrive.com or the charities |
+| Classy / GoFundMe Pro, JustGiving, Qgiv, Funraise | **refused** | OAuth (Classy), `Disallow: /` (JustGiving's API, Qgiv beyond event pages), 403 on robots.txt (api.funraise.io) |
+| Sierra Club outings (`sierraclub.org`, Campfire) | **bot challenge on robots.txt; login** | every sierraclub.org host challenges `/robots.txt`; Campfire redirects to a login page. Chapters that post to Meetup already arrive through the Meetup sweep |
+| The Mountaineers (Seattle) | **HTTP 403 challenge** | Cloudflare "Just a moment" on the activities page, though robots.txt allows the path |
+| Washington Trails Association work parties | **terms forbid reproduction** | robots allows `workparties.json` (Crawl-delay 60), but the Terms of Use limit content to "internal informational purposes". About 116 placeable volunteer days per 120 days if WTA agrees in writing |
+| Appalachian Mountain Club activities (`activities.outdoors.org`) | **no feed** | robots allows it, but the 20,000 activity pages render in the browser from an undocumented Salesforce Aura call, which was not made. Ask AMC |
+| Neon CRM event lists (bird alliances in SF, Austin, San Diego) | **robots.txt refuses** | `Disallow: /nx/` covers the event-list API and the RSS |
+| Tockify calendars (Birds Connect Seattle, Bushwalking Victoria) | **robots.txt refuses, platform-wide** | `tockify.com` `Disallow: /api/` covers every calendar's ICS |
+| WebTrac park districts (Cleveland, Huron-Clinton, Great Parks of Hamilton County, Columbus Metro Parks programmes, Dakota County, Suffolk County) | **robots.txt refuses or challenges** | the platform row above; their naturalist programmes live there |
+| State park calendars (Florida, Tennessee, Colorado CPW, Michigan DNR, Delaware, Minnesota DNR event pages) | **403, challenge or robots.txt** | each stopped at its first refusal; Minnesota's robots.txt disallows `/state_parks/event.html` by name |
+| Ramblers Walks Manager API and ramblers.org.uk | **robots.txt refuses; 403** | `walks-manager.ramblers.org.uk` is `Disallow: /`; www.ramblers.org.uk answers 403 to `/robots.txt`. 242 group sites on Ramblers-Webs embed the same JSON and allow it (Bristol: 22 walks, all with coordinates): ask Central Office before reading them |
+| Walking Scotland Health Walks, LDWA group walks | **terms forbid redistribution** | robots allows both; the terms require written permission (724 free weekly walks in Scotland; 152 LDWA walks in 120 days) |
+| Heart Foundation Walking (Australia), Funraisin platform | **robots.txt refuses** | `Disallow: /customcode` covers the group finder, plus `/api` |
+| Bruce Trail Conservancy hike schedule | **HTTP 403 challenge** | the ICS export (`calendar_id=392`) challenges the production UA; 244 October club hikes on the page |
+| Recreation.gov RIDB events | **dead** | the keyed adapter keeps 0 of 3 events every run; the endpoint holds almost nothing |
+| Mazamas, Colorado Mountain Club iCal | **no LOCATION** | 113 and 51 future events with no place at all; a club-office pin would be wrong |
