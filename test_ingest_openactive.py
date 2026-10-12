@@ -402,6 +402,7 @@ def main():
 
     checks.extend(fix_checks_2026_10_05())
     checks.extend(cancel_checks_2026_10_05())
+    checks.extend(booking_checks_2026_10_12())
 
     failed = 0
     for ok, why in checks:
@@ -674,6 +675,293 @@ def cancel_checks_2026_10_05():
         OA.walk, OA.read_source = real, real_read
     checks.append((not partial.get("complete_reads") and len(partial["events"]) == 1,
                    "a capped walk is not whole: its rows are written, but no read is recorded"))
+    return checks
+
+
+# ---------------------------------------------------------------------------
+# 2026-10-12: BOOKING AVAILABILITY CARRIES \U0001F39F IN `icon`, the one column of
+# the 21 the map read returns that an adapter sets for a KIND of row; ../mapsee
+# hides it by default and shows it under "Venues". London's default view that
+# day had 212 of 350 rows titled like a slot, and Everyone Active titles its
+# classes the same way ("Bodypump Tue 19:00"), so the test is the publisher's
+# data, never the title. The series below are REAL records read 2026-10-12
+# from the live feeds, trimmed to the fields the adapter reads; the occurrences
+# carry the live leisurecloud ScheduledSession shape, re-dated around NOW3.
+NOW3 = datetime(2026, 10, 12, tzinfo=timezone.utc)
+TICKET = "\U0001F39F"
+EA_SRC = {"name": "Everyone Active", "category": "fitness", "country": "GB",
+          "uncoached_are_slots": True}
+PLAIN_SRC = {"name": "Test Publisher", "category": "fitness", "country": "GB"}
+
+EA_LANE = {'@type': 'SessionSeries',
+ '@id': 'https://data.everyoneactive.com/OpenActive/api/session-series/1574WS4MM1230HK',
+ 'name': 'Lane Swim Med Thu 14:30',
+ 'location': {'name': 'Marshall Street Leisure Centre and Spa',
+              'geo': {'latitude': 51.5136070072842, 'longitude': -0.137963811639338},
+              'address': {'streetAddress': '15 Marshall Street',
+                          'addressLocality': 'London',
+                          'postalCode': 'W1F 7EL'}},
+ 'offers': [{'name': 'Oxygen - Adult', 'price': 9.35, 'priceCurrency': 'GBP'}],
+ 'superEvent': {'@type': 'EventSeries',
+                'name': 'Lane Swimming - Medium Lanes',
+                'activity': [{'@id': 'https://openactive.io/activity-list#2750229d-b725-4171-9276-376be913957c',
+                              'prefLabel': 'Swimming'}]}}
+
+EA_PUMP = {'@type': 'SessionSeries',
+ '@id': 'https://data.everyoneactive.com/OpenActive/api/session-series/0952CBP19000226',
+ 'name': 'Bodypump Tue 19:00',
+ 'location': {'name': 'Northolt Leisure Centre',
+              'geo': {'latitude': 51.54895899624, 'longitude': -0.368393999999966},
+              'address': {'streetAddress': 'Eastcote Lane North',
+                          'addressLocality': 'Northolt',
+                          'postalCode': 'UB5 4AB'}},
+ 'offers': [{'name': 'Oxygen - Adult', 'price': 8.8, 'priceCurrency': 'GBP'}],
+ 'superEvent': {'@type': 'EventSeries',
+                'name': 'BODYPUMP',
+                'isCoached': True,
+                'activity': [{'@id': 'https://openactive.io/activity-list#5e78bcbe-36db-425a-9064-bf96d09cc351',
+                              'prefLabel': 'Bodypump™'}]}}
+
+EA_COMP = {'@type': 'SessionSeries',
+ '@id': 'https://data.everyoneactive.com/OpenActive/api/session-series/1626KT012300226',
+ 'name': 'Climb Comp Test Sat 12:30',
+ 'location': {'name': 'Westway Sports and Fitness Centre',
+              'geo': {'latitude': 51.516081, 'longitude': -0.219316571163972},
+              'address': {'streetAddress': '1 Crowthorne Road',
+                          'addressLocality': 'London',
+                          'postalCode': 'W10 6RP'}},
+ 'offers': [{'name': 'Oxygen - Adult', 'price': 0, 'priceCurrency': 'GBP'}],
+ 'superEvent': {'@type': 'EventSeries',
+                'name': 'Climbing Wall Competency Test',
+                'isCoached': True,
+                'activity': [{'@id': 'https://openactive.io/activity-list#d09970bc-e11c-40cc-a594-38e4ff32d611',
+                              'prefLabel': 'Climbing'}]}}
+
+EA_SEATED = {'@type': 'SessionSeries',
+ '@id': 'https://data.everyoneactive.com/OpenActive/api/session-series/2583CSI13150126',
+ 'name': 'Seated Pilates Wed 13:15',
+ 'location': {'name': 'Grange Paddocks Lc',
+              'geo': {'latitude': 51.8779416883367, 'longitude': 0.162931500000013},
+              'address': {'streetAddress': 'Rye Street  ',
+                          'addressLocality': 'Bishop’s Stortford',
+                          'postalCode': 'CM23 2HH'}},
+ 'offers': [{'name': 'Oxygen - Adult', 'price': 9.35, 'priceCurrency': 'GBP'}],
+ 'superEvent': {'@type': 'EventSeries',
+                'name': 'Seated Pilates',
+                'activity': [{'@id': 'https://openactive.io/activity-list#ced88c35-a39f-4b1c-9d94-093ee4fc0e7e',
+                              'prefLabel': 'Rehab Pilates'}]}}
+
+EA_PJ = {'@type': 'SessionSeries',
+ '@id': 'https://data.everyoneactive.com/OpenActive/api/session-series/1603B4314300921',
+ 'name': 'Parent & Junior Wed 14:30',
+ 'location': {'name': 'Moberly Sports Centre',
+              'geo': {'latitude': 51.5307050061998, 'longitude': -0.215732113844978},
+              'address': {'streetAddress': '25 Chamberlayne Road',
+                          'addressLocality': 'London',
+                          'postalCode': 'NW10 3NB'}},
+ 'offers': [{'name': 'Oxygen - Junior', 'price': 4.4, 'priceCurrency': 'GBP'}],
+ 'superEvent': {'@type': 'EventSeries',
+                'name': '11-15 Years Parent Supervised Gym Sessions',
+                'activity': [{'@id': 'https://openactive.io/activity-list#08d9368c-6c6c-44a3-84ef-a42ed00d529a',
+                              'prefLabel': 'Gym Workout'}]}}
+
+BETTER_SWIM = {'@type': 'SessionSeries',
+ '@id': 'https://better-admin.org.uk/api/openactive/better/session-series/activity_recurrence_group:3082',
+ 'name': 'Swim For All',
+ 'isCoached': False,
+ 'beta:isScheduledAsSlots': True,
+ 'activity': [{'@id': 'https://openactive.io/activity-list#2750229d-b725-4171-9276-376be913957c',
+               'prefLabel': 'Swimming'}],
+ 'location': {'name': 'Crystal Palace National Sports Centre',
+              'geo': {'latitude': 51.4189989, 'longitude': -0.0677686},
+              'address': {'streetAddress': 'Ledrington Rd',
+                          'addressLocality': 'Crystal Palace',
+                          'postalCode': 'SE192BB'}},
+ 'offers': [{'name': 'Adult', 'price': 5.9, 'priceCurrency': 'GBP'}]}
+
+BETTER_YOGA = {'@type': 'SessionSeries',
+ '@id': 'https://better-admin.org.uk/api/openactive/better/session-series/activity_recurrence_group:10159',
+ 'name': 'Yoga',
+ 'isCoached': False,
+ 'beta:isScheduledAsSlots': False,
+ 'activity': [{'@id': 'https://openactive.io/activity-list#90611f8f-fea2-402e-827f-41b487a5f3a0',
+               'prefLabel': 'Hatha Yoga'},
+              {'@id': 'https://openactive.io/activity-list#bf1a5e00-cdcf-465d-8c5a-6f57040b7f7e',
+               'prefLabel': 'Yoga'}],
+ 'location': {'name': 'West Norwood Health and Leisure Centre',
+              'geo': {'latitude': 51.4315858, 'longitude': -0.105045},
+              'address': {'streetAddress': '25 Devane Way',
+                          'addressLocality': 'West Norwood',
+                          'postalCode': 'SE27 0DF'}},
+ 'offers': [{'name': 'Adult', 'price': 9.85, 'priceCurrency': 'GBP'}]}
+
+BETTER_SOFT = {'@type': 'SessionSeries',
+ '@id': 'https://better-admin.org.uk/api/openactive/better/session-series/activity_recurrence_group:20436',
+ 'name': 'Soft Play',
+ 'isCoached': False,
+ 'beta:isScheduledAsSlots': False,
+ 'activity': [{'@id': 'https://openactive.io/activity-list#b3a34a20-b4ef-402c-8763-a54ce9da422d',
+               'prefLabel': 'Soft Play'}],
+ 'location': {'name': 'Botwell Green Sports and Leisure Centre',
+              'geo': {'latitude': 51.5075, 'longitude': -0.418212},
+              'address': {'streetAddress': 'East Avenue',
+                          'addressLocality': 'Hayes',
+                          'postalCode': 'UB3 2HW'}},
+ 'offers': [{'name': 'Additional Adult', 'price': 5.2, 'priceCurrency': 'GBP'}]}
+
+PEMB_CYCLE = {'@type': 'SessionSeries',
+ '@id': 'https://connect.pembrokeshire.gov.uk/OpenActive/api/session-series/C121022BB',
+ 'name': 'Group Cycling',
+ 'location': {'name': 'Crymych Leisure Centre',
+              'geo': {'latitude': 51.971134302485055, 'longitude': -4.646642504397847},
+              'address': {'streetAddress': 'Canolfan Hamdden Crymych',
+                          'addressLocality': 'Crymych',
+                          'postalCode': 'SA413QH'}},
+ 'offers': [{'name': 'Adult Non Member', 'price': 7.0, 'priceCurrency': 'GBP'}],
+ 'superEvent': {'@type': 'EventSeries',
+                'name': 'Group Cycling',
+                'activity': [{'@id': 'https://openactive.io/activity-list#5f09c2ca-ceeb-4e0c-871f-e2d0b9971317',
+                              'prefLabel': 'Indoor Cycling'}]}}
+
+OS_GYM = {'@type': 'SessionSeries',
+ '@id': 'https://opensessions.io/api/rpde/session-series/18602',
+ 'name': 'Open Gym - Fitness: Female session (female only led by a female coach, ages 18+)',
+ 'isCoached': False,
+ 'activity': [{'@id': 'https://openactive.io/activity-list#08d9368c-6c6c-44a3-84ef-a42ed00d529a',
+               'prefLabel': 'Gym Workout'}],
+ 'location': {'name': 'Black Prince Community Trust 5 Beaufoy Walk Off Black Prince Road Lambeth '
+                      'London SE11 6AA',
+              'geo': {'latitude': 51.491792, 'longitude': -0.116059},
+              'address': 'Black Prince Community Trust 5 Beaufoy Walk Off Black Prince Road '
+                         'Lambeth London SE11 6AA'},
+ 'offers': [{'price': 0.0, 'priceCurrency': 'GBP'}]}
+
+PW_SWIM = {'@type': 'SessionSeries',
+ '@id': 'https://playwaze.com/opendata/identifiers/session-series/PhysicalListOnlySeries/19681-B',
+ 'name': 'Disability Swim Club',
+ 'activity': [{'@id': 'https://openactive.io/activity-list#2750229d-b725-4171-9276-376be913957c',
+               'prefLabel': 'Swimming'}],
+ 'location': {'name': 'Moberly Sports Centre',
+              'geo': {'latitude': 51.5307928, 'longitude': -0.2163291},
+              'address': '25 Chamberlayne Rd\r\nLondon\r\nNW10 3NB'},
+ 'offers': [{'name': 'Standard', 'price': 2.0, 'priceCurrency': 'GBP'}]}
+
+
+def occ3(series, ident, day, hh, mm=0, minutes=60, cap=8):
+    """One ScheduledSession in the live leisurecloud shape: a date, a capacity
+    and a superEvent URL naming its series, and nothing a person could read."""
+    start = datetime(2026, 10, day, hh, mm, tzinfo=timezone.utc)
+    return {"@type": "ScheduledSession",
+            "@id": f"https://data.example.test/scheduled-sessions/{ident}",
+            "startDate": start.isoformat(),
+            "endDate": (start + timedelta(minutes=minutes)).isoformat(),
+            "superEvent": series["@id"], "duration": f"PT{minutes}M",
+            "maximumAttendeeCapacity": cap, "remainingAttendeeCapacity": cap}
+
+
+def ev3(series, source, day=14, hh=13, mm=30, minutes=60, ident=None):
+    occ = occ3(series, ident or f"{day}-{hh}-{mm}", day, hh, mm, minutes)
+    return OA.to_event(OA.merge_occurrence(occ, series), source, NOW3, 120)[0]
+
+
+def booking_checks_2026_10_12():
+    """Which rows carry the booking-availability marker, and that every fold
+    and the sync keep it. Each case fails when its half of the rule is reverted
+    (see the commit that added it)."""
+    import json as _json
+    import os
+    checks = []
+    # ------------------------------------------- 1. what the data says, per row
+    lane = ev3(EA_LANE, EA_SRC)
+    checks.append((lane is not None and lane.icon == TICKET,
+                   "an uncoached lane swim at a publisher measured for the convention is availability"))
+    checks.append((ev3(EA_PJ, EA_SRC).icon == TICKET,
+                   "so is junior gym time a parent supervises (uncoached Gym Workout)"))
+    checks.append((ev3(EA_PUMP, EA_SRC).icon is None,
+                   "a coached BODYPUMP titled 'Bodypump Tue 19:00' stays an event: the title is not the test"))
+    checks.append((ev3(EA_COMP, EA_SRC).icon is None,
+                   "a coached climbing-wall competency test stays an event, though Climbing is a facility"))
+    checks.append((ev3(EA_SEATED, EA_SRC).icon is None,
+                   "an uncoached Seated Pilates (Rehab Pilates) stays an event: not a facility activity"))
+    checks.append((ev3(PEMB_CYCLE, EA_SRC).icon is None,
+                   "uncoached Group Cycling (Pembrokeshire's convention) is not a facility activity either"))
+    checks.append((ev3(EA_LANE, PLAIN_SRC).icon is None,
+                   "the same lane swim from a publisher NOT measured is unmarked: there a missing isCoached says nothing"))
+    checks.append((ev3(OS_GYM, PLAIN_SRC).icon is None,
+                   "Open Sessions' gym session 'led by a female coach' is isCoached false and stays an event"))
+    checks.append((ev3(PW_SWIM, PLAIN_SRC).icon is None,
+                   "Playwaze's Disability Swim Club, at the Moberly centre that sells lane time, stays an event"))
+    checks.append((ev3(BETTER_SWIM, PLAIN_SRC).icon == TICKET,
+                   "beta:isScheduledAsSlots true is the publisher's own answer, flag or no flag (Better's Swim For All)"))
+    checks.append((ev3(dict(BETTER_SWIM, **{"beta:isScheduledAsSlots": "true"}), PLAIN_SRC).icon == TICKET,
+                   "and is read when a publisher serialises it as a string"))
+    checks.append((ev3(BETTER_YOGA, PLAIN_SRC).icon is None,
+                   "Better's Yoga, isCoached false and isScheduledAsSlots false, stays an event"))
+    checks.append((ev3(BETTER_SOFT, EA_SRC).icon is None,
+                   "isScheduledAsSlots false beats the uncoached rule: the publisher has answered"))
+    checks.append((lane.fingerprint == ev3(EA_LANE, dict(EA_SRC, uncoached_are_slots=False)).fingerprint,
+                   "the marker never moves a row's identity, so a refresh rewrites the stored row in place"))
+
+    # ------------------------------------------- 2. the folds keep it
+    grid_rows = [ev3(EA_LANE, PLAIN_SRC, hh=6 + i // 6, mm=(i % 6) * 10, minutes=10, ident=f"g{i}")
+                 for i in range(8)]
+    unmarked = all(e.icon is None for e in grid_rows)          # before the fold rewrites one
+    day, _, _ = OA.collapse_booking_grids(list(grid_rows), OA.GRID_MIN_PER_DAY)
+    checks.append((unmarked and len(day) == 1 and day[0].icon == TICKET
+                   and (day[0].description or "").startswith(TICKET + " 8 bookable slots"),
+                   "a booking-grid day row carries the marker in icon, not only in its description"))
+
+    def weeks(series, source, hh=13, mm=30):
+        return [ev3(series, source, day=d, hh=hh, mm=mm) for d in (14, 21)]
+    out, _, _ = OA.collapse_weekly_series(weeks(EA_LANE, EA_SRC), OA.WEEKLY_MIN_REPEATS)
+    checks.append((len(out) == 1 and out[0].recurring_days and out[0].icon == TICKET,
+                   "two consecutive weeks of a lane swim fold into ONE standing row that keeps the marker"))
+    out, _, _ = OA.collapse_weekly_series(weeks(EA_PUMP, EA_SRC, hh=18, mm=0), OA.WEEKLY_MIN_REPEATS)
+    checks.append((len(out) == 1 and out[0].recurring_days and out[0].icon is None,
+                   "a weekly BODYPUMP folds into a standing row with none"))
+    mixed = weeks(EA_LANE, EA_SRC)
+    mixed[1].icon = None
+    out, _, _ = OA.collapse_weekly_series(mixed, OA.WEEKLY_MIN_REPEATS)
+    checks.append((len(out) == 1 and out[0].icon is None,
+                   "a fold is marked only when EVERY row it stands for is a slot"))
+    pool = [ev3(EA_LANE, PLAIN_SRC, day=d, hh=6 + i // 6, mm=(i % 6) * 10, minutes=10, ident=f"h{d}-{i}")
+            for d in (14, 21) for i in range(8)]
+    pool, _, _ = OA.collapse_booking_grids(pool, OA.GRID_MIN_PER_DAY)
+    pool, _, _ = OA.collapse_weekly_series(pool, OA.WEEKLY_MIN_REPEATS)
+    checks.append((len(pool) == 1 and pool[0].recurring_days and pool[0].icon == TICKET,
+                   "grid days folded weekly stay marked: the pool open those hours is availability"))
+
+    # ------------------------------------------- 3. end to end, through the join
+    feeds = {"S": {s["@id"]: s for s in (EA_LANE, EA_PUMP)},
+             "O": {o["@id"]: o for o in ([occ3(EA_LANE, f"l{d}", d, 13, 30) for d in (14, 21)]
+                                         + [occ3(EA_PUMP, f"p{d}", d, 18) for d in (14, 21)]
+                                         + [occ3(EA_LANE, "l28", 28, 7)])}}
+    real = OA.walk
+    OA.walk = lambda url, *a, **k: (feeds[url], "end of feed (1 page(s))")
+    try:
+        rows, rep = OA.read_source(dict(EA_SRC, feeds=[{"kind": "SessionSeries", "url": "S"},
+                                                       {"kind": "ScheduledSession", "url": "O"}]),
+                                   120, 5, 0, now=NOW3)
+    finally:
+        OA.walk = real
+    got = sorted((bool(e.recurring_days), e.name, e.icon or "") for e in rows)
+    checks.append((got == [(False, "Lane Swim Med Thu 14:30", TICKET),
+                           (True, "Bodypump Tue 19:00", ""),
+                           (True, "Lane Swim Med Thu 14:30", TICKET)],
+                   "read_source: the joined lane swims are marked (standing and the dated one-off), the class is not"))
+    checks.append((any(n.startswith("booking availability: 2 of 3 row(s)") for n in rep["notes"]),
+                   "and the run's log says how many rows it marked"))
+
+    # ------------------------------------------- 4. the sync, the config, the glyph
+    row = S.to_row(dict(lane.as_record("2026-10-12T00:00:00+00:00")), "host")
+    checks.append((row.get("icon") == TICKET, "to_row carries the marker into the table's icon column"))
+    cfg = _json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                       "openactive_sources.json"), encoding="utf-8"))
+    flagged = sorted(s["name"] for s in cfg["sources"] if s.get("uncoached_are_slots"))
+    checks.append((flagged == ["Castlepoint Leisure", "Everyone Active", "Places Leisure"],
+                   "only the publishers measured to mark every coached session carry uncoached_are_slots"))
+    checks.append((OA.BOOKING_ICON == "\U0001F39F",
+                   "the marker is U+1F39F alone, no variation selector: the product compares it by equality"))
     return checks
 
 

@@ -53,6 +53,8 @@
    "category": "fitness",
    "country": "GB",
    "page": "https://castlepoint.gs-signature.cloud/OpenActive/",
+   "uncoached_are_slots": true,
+   "_uncoached_are_slots": "Measured 2026-10-12 on the whole SessionSeries feed (3 pages, 724 series): booking_slot marks 449 of 7 kinds (Gym Session 198, Sauna & Steam 74, Open Swimming 61, Lane & Programmed 56, Soft Play 29, Length Swimming 16+ 27, Family Fun Swim 4). The uncoached Group Exercise 'Combat' and 'Active Bowls' stay events.",
    "feeds": [
     {
      "kind": "CourseInstance",
@@ -73,6 +75,7 @@
    "category": "fitness",
    "country": "GB",
    "page": "https://connect.pembrokeshire.gov.uk/OpenActive/",
+   "_uncoached_are_slots": "NOT set, measured 2026-10-12 (1,083 series, 44 coached): Group Cycling 30, Aqua Fit 15, Pilates 13 and Les Mills Bodypump 12 series are uncoached here, so a missing isCoached says nothing about this publisher. Only its booking-grid days carry the marker.",
    "feeds": [
     {
      "kind": "CourseInstance",
@@ -93,6 +96,8 @@
    "category": "fitness",
    "country": "GB",
    "page": "https://data.everyoneactive.com/OpenActive/",
+   "uncoached_are_slots": true,
+   "_uncoached_are_slots": "Measured 2026-10-12 on the whole SessionSeries feed (148 pages, 71,896 series): isCoached is true on 20,917, including every class concept (BODYPUMP, Aqua Aerobics, Yoga, Pilates, Group Cycling), absent on 50,838 and false on 141. booking_slot marks 50,436 series of 55 kinds, every one lane, public or family swimming, parent-supervised junior gym, sauna, spa, soft play, climbing or skating. London's census rows (2026-10-12): 3,144 of its 4,628 rows marked; a random 120 of all marked London rows hand-read as availability, 120 of 120, and so are all 43 marked series kinds. Coached bookings stay events: Climbing Wall Competency Test 383 series, Personal Training Taster 1,186, Fitness Team Supervised Gym 5,637.",
    "feeds": [
     {
      "kind": "CourseInstance",
@@ -133,6 +138,8 @@
    "category": "fitness",
    "country": "GB",
    "page": "https://placesleisure.gs-signature.cloud/OpenActive/",
+   "uncoached_are_slots": true,
+   "_uncoached_are_slots": "Measured 2026-10-12 on the whole SessionSeries feed (40 pages, 18,825 series): 9,646 coached (Junior Gym, New Member Tour, BODYPUMP, Aquafit). booking_slot marks 6,437 series of 46 kinds: lane and just swims, family fun, soft play, spa, sauna, clip and climb, adventure golf, athletics track. One class among them (Gentle Water Exercise, 1 series). 2,577 series carry no EventSeries (Good Boost, Ex Ref) and are never marked. Uncoached court and walking sports (Walking Football, Badminton Social, Forever Active) stay events: not facility activities.",
    "feeds": [
     {
      "kind": "CourseInstance",

@@ -155,6 +155,17 @@ GRID_MIN_PER_DAY = 6
 # for a publisher whose sessions really are one-offs.
 WEEKLY_MIN_REPEATS = 2
 
+# BOOKING AVAILABILITY, MARKED WHERE THE MAP CAN SEE IT. ../mapsee draws from
+# the 21 columns its map read returns, and `icon` is the only one an adapter
+# sets for a KIND of row; the description arrives only when a dot is peeked.
+# The product hides a row carrying this glyph by default and shows it under the
+# "Venues" filter, and its default map read leaves these rows out so they stop
+# spending the 350-row cap. London's zoom-12 view, 2026-10-12: 212 of 350 rows
+# titled like a slot ("Lane Swim Med Mon 12:00"); of the 186 OpenActive rows
+# whose series could be read, booking_slot marks 124. One codepoint, U+1F39F,
+# no variation selector: the product compares it by string equality.
+BOOKING_ICON = "\U0001F39F"
+
 
 # ---------------------------------------------------------------------------
 # RPDE
@@ -377,6 +388,66 @@ def is_free(record: dict) -> bool:
     return bool(prices) and all(p == 0 for p in prices)
 
 
+# The OpenActive activity-list concepts (prefLabel, lower case) that name USE
+# OF A FACILITY rather than a programme: water, a gym floor, a wall, a sauna, a
+# soft-play frame, a rink, a track. An UNCOACHED session of one of these is time
+# booked at the place. Court and team sports are deliberately absent: uncoached
+# "Walking Football", "Badminton Social" and "Short Mat Bowls" are sessions
+# people turn up to together (Places Leisure 2026-10-12: 104 such series), and
+# hiding an event is worse than showing availability. ParkPlay is absent too: the
+# list defines it as organised community play, an occasion.
+FACILITY_ACTIVITIES = frozenset({
+    "swimming", "open water swimming", "cold water swimming", "diving", "platform diving",
+    "gym workout", "sauna", "steam room", "spa", "soft play", "early years play",
+    "climbing", "bouldering", "top rope climbing", "lead climbing",
+    "ice skating", "roller skating", "trampolining", "adventure golf", "athletics",
+})
+
+
+def booking_slot(record: dict, source: dict) -> Optional[str]:
+    """Why this session is BOOKING AVAILABILITY rather than an occasion, or None.
+
+    Only what the publisher's own data says; never the title. Everyone Active
+    names every series "<what> <Day> <HH:MM>" ("Lane Swim Med Mon 12:00" and
+    "Bodypump Thu 18:00" alike). Of the 174 slot-titled rows in London's
+    zoom-12 view whose series could be read (2026-10-12), 121 are marked here,
+    24 are classes (Group Cycling, Zumba, BODYPUMP) and 29 are coached bookings
+    (inductions, PT tasters, supervised junior gym) that stay events.
+
+    1. `beta:isScheduledAsSlots`, when the publisher states it, is its answer
+       either way. Better (GLL) states it on all 1,629 series (2026-10-12): 225
+       true, every one a public swim, a trampoline-park jump, a skate, a climb
+       or a soft-play session.
+    2. A publisher configured `uncoached_are_slots` (measured to set `isCoached`
+       true on every coached session, so its ABSENCE is a statement): a session
+       whose EventSeries names only facility activities and is not coached.
+       Everyone Active: 20,917 of 71,896 series coached, and every class among
+       them (Bodypump, Aqua Aerobics, Yoga) is; the uncoached facility series are
+       lane swims, public swims, junior gym time, sauna, spa, soft play and
+       climbing. The switch is per publisher because the convention is:
+       Pembrokeshire leaves Group Cycling, Pilates and Aqua Fit uncoached, and
+       Open Sessions marks 1,652 of 1,687 community series isCoached false.
+    """
+    sup = record.get("superEvent") if isinstance(record.get("superEvent"), dict) else {}
+    said = record.get("beta:isScheduledAsSlots", sup.get("beta:isScheduledAsSlots"))
+    if isinstance(said, str):
+        said = {"true": True, "false": False}.get(said.strip().lower())
+    if isinstance(said, bool):
+        return "scheduled as slots" if said else None
+    if not source.get("uncoached_are_slots"):
+        return None
+    # The session must SAY what it is: a record naming no activity says nothing
+    # about coaching either (Places Leisure's 2,577 series with no EventSeries,
+    # Good Boost and Ex Ref classes among them).
+    acts = {str(a.get("prefLabel") or a.get("name") or "").strip().lower()
+            for a in (sup.get("activity") or record.get("activity") or []) if isinstance(a, dict)}
+    if not acts or not acts <= FACILITY_ACTIVITIES:
+        return None
+    if record.get("isCoached", sup.get("isCoached")) is True:
+        return None
+    return "uncoached facility use"
+
+
 def activity_names(record: dict) -> List[str]:
     out = []
     for act in (record.get("activity") or []):
@@ -538,6 +609,10 @@ def to_event(record: dict, source: dict, now: datetime,
         coords_exact=True,
         source_details=facts,
         admission_checked=facts is not None,
+        # A bookable slot (a lane, a gym hour, a sauna visit) rather than a
+        # class: hidden by default on the map, shown under "Venues". See
+        # booking_slot for what the data has to say before it is marked.
+        icon=BOOKING_ICON if booking_slot(record, source) else None,
     ), None
 
 
@@ -623,6 +698,11 @@ def collapse_booking_grids(events: List[NormalizedEvent], min_per_day: int
             f"🎟 {len(rows)} bookable slots on this day, from "
             f"{_hhmm(first.start_utc)} to {_hhmm(last_end)}.\n\n"
             + (first.description or "")).strip()
+        # AND SAY IT WHERE THE MAP CAN READ IT. The description reaches the
+        # client only when a dot is peeked; the icon is one of the 21 columns the
+        # map read returns, so it is the only place a grid day can be told from
+        # an event at draw time (see BOOKING_ICON).
+        first.icon = BOOKING_ICON
         # IDENTITY IS THE DAY NOW, not the slot that happened to be first. Keyed
         # on the slot's own id, a pool opening at 05:50 instead of 05:40
         # tomorrow would write a second row and orphan today's.
@@ -742,6 +822,11 @@ def collapse_weekly_series(events: List[NormalizedEvent], min_repeats: int
             if win not in pattern.setdefault(str(wd), []):
                 pattern[str(wd)].append(win)
         rep.recurring_days = pattern
+        # A WEEK OF SLOTS FOLDED IS STILL SLOTS: a standing "Lane Swim Med Mon
+        # 12:00" is the pool's availability every Monday, not a class. Only when
+        # EVERY row it stands for says so, so one class in the group keeps it an
+        # event; a grid day folded weekly (the pool open those hours) carries it.
+        rep.icon = BOOKING_ICON if all(e.icon == BOOKING_ICON for e in folded) else None
         days = len(pattern)
         rep.description = (
             f"🔁 Runs weekly — {len(folded)} sessions scheduled over the next "
@@ -919,6 +1004,13 @@ def read_source(source: dict, horizon_days: int, max_pages: int,
         notes.extend("  " + n for n in weekly_notes[:8])
         if len(weekly_notes) > 8:
             notes.append(f"  ...and {len(weekly_notes) - 8} more")
+    # SAY HOW MUCH OF IT IS AVAILABILITY, so a run's log shows the marker moving
+    # if a publisher changes its convention (BOOKING_ICON, booking_slot).
+    slots = [e for e in kept if e.icon == BOOKING_ICON]
+    if slots:
+        notes.append(f"booking availability: {len(slots)} of {len(kept)} row(s) marked "
+                     f"{BOOKING_ICON} ({sum(1 for e in slots if e.recurring_days)} standing, "
+                     f"{sum(1 for e in slots if (e.description or '').startswith(BOOKING_ICON))} dated grid day(s))")
     cancel, noted = cancellations(kept, before_folds, called, source)
     if called:
         notes.append(f"called off: {len(called)} session(s) marked cancelled or postponed -> "
