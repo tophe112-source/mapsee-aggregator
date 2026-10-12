@@ -160,7 +160,7 @@ WEEKLY_MIN_REPEATS = 2
 # sets for a KIND of row; the description arrives only when a dot is peeked.
 # The product hides a row carrying this glyph by default and shows it under the
 # "Venues" filter, and its default map read leaves these rows out so they stop
-# spending the 350-row cap. London's zoom-12 view, 2026-10-12: 212 of 350 rows
+# spending the 350-row cap. London's zoom-12 view, 2026-10-12: 211 of 350 rows
 # titled like a slot ("Lane Swim Med Mon 12:00"); of the 186 OpenActive rows
 # whose series could be read, booking_slot marks 124. One codepoint, U+1F39F,
 # no variation selector: the product compares it by string equality.
@@ -429,23 +429,38 @@ def booking_slot(record: dict, source: dict) -> Optional[str]:
        Open Sessions marks 1,652 of 1,687 community series isCoached false.
     """
     sup = record.get("superEvent") if isinstance(record.get("superEvent"), dict) else {}
-    said = record.get("beta:isScheduledAsSlots", sup.get("beta:isScheduledAsSlots"))
-    if isinstance(said, str):
-        said = {"true": True, "false": False}.get(said.strip().lower())
-    if isinstance(said, bool):
+    said = _stated(record.get("beta:isScheduledAsSlots", sup.get("beta:isScheduledAsSlots")))
+    if said is not None:
         return "scheduled as slots" if said else None
     if not source.get("uncoached_are_slots"):
         return None
     # The session must SAY what it is: a record naming no activity says nothing
-    # about coaching either (Places Leisure's 2,577 series with no EventSeries,
-    # Good Boost and Ex Ref classes among them).
+    # about coaching either. Places Leisure has 2,577 uncoached series with no
+    # EventSeries and no activity (2026-10-12), Good Boost and Junior Gym Group
+    # Intro classes among them; without this guard every one would be marked.
     acts = {str(a.get("prefLabel") or a.get("name") or "").strip().lower()
             for a in (sup.get("activity") or record.get("activity") or []) if isinstance(a, dict)}
+    # ONLY facility activities, not ANY: "Swimming" beside "Swimming Lessons" or
+    # "Aqua Aerobics" is a lesson or a class held in the pool (Open Sessions and
+    # Better publish both shapes; 0 such series at the three flagged publishers
+    # on 2026-10-12, so this is the rule's edge, not today's traffic).
     if not acts or not acts <= FACILITY_ACTIVITIES:
         return None
-    if record.get("isCoached", sup.get("isCoached")) is True:
+    if _stated(record.get("isCoached", sup.get("isCoached"))) is True:
         return None
     return "uncoached facility use"
+
+
+def _stated(value: Any) -> Optional[bool]:
+    """A boolean a publisher STATED, or None when it said nothing readable.
+    JSON-LD allows "true"/"false" as strings; no publisher sent either field as
+    a string on 2026-10-12, but a string "true" read as unstated would mark a
+    coached class as a slot and hide it, the expensive direction."""
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return {"true": True, "false": False}.get(value.strip().lower())
+    return None
 
 
 def activity_names(record: dict) -> List[str]:

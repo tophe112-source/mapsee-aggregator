@@ -682,7 +682,7 @@ def cancel_checks_2026_10_05():
 # 2026-10-12: BOOKING AVAILABILITY CARRIES \U0001F39F IN `icon`, the one column of
 # the 21 the map read returns that an adapter sets for a KIND of row; ../mapsee
 # hides it by default and shows it under "Venues". London's default view that
-# day had 212 of 350 rows titled like a slot, and Everyone Active titles its
+# day had 211 of 350 rows titled like a slot, and Everyone Active titles its
 # classes the same way ("Bodypump Tue 19:00"), so the test is the publisher's
 # data, never the title. The series below are REAL records read 2026-10-12
 # from the live feeds, trimmed to the fields the adapter reads; the occurrences
@@ -846,6 +846,37 @@ PW_SWIM = {'@type': 'SessionSeries',
               'address': '25 Chamberlayne Rd\r\nLondon\r\nNW10 3NB'},
  'offers': [{'name': 'Standard', 'price': 2.0, 'priceCurrency': 'GBP'}]}
 
+# The two guards inside the uncoached rule, each on a real series (read
+# 2026-10-12). Places publishes 2,577 uncoached series with no EventSeries and
+# no activity; this one is "a supportive class ... led by a friendly
+# instructor". Open Sessions' learn-to-swim names Swimming AND Swimming Lessons.
+PLACES_SRC = {"name": "Places Leisure", "category": "fitness", "country": "GB",
+              "uncoached_are_slots": True}
+
+PLACES_AQUA = {'@type': 'SessionSeries',
+ '@id': 'https://placesleisure.gs-signature.cloud/OpenActive/api/session-series/01221130SGC0926',
+ 'name': 'Good Boost Course Aqua',
+ 'category': ['Good Boost Course'],
+ 'location': {'name': 'Putney Leisure Centre',
+              'geo': {'latitude': 51.46404422792266, 'longitude': -0.22881396238444876},
+              'address': {'streetAddress': 'Dryburgh Road',
+                          'addressLocality': 'Putney',
+                          'postalCode': 'SW15 1BL'}},
+ 'offers': [{'name': 'Adult', 'price': 0, 'priceCurrency': 'GBP'}]}
+
+OS_LEARN = {'@type': 'SessionSeries',
+ '@id': 'https://opensessions.io/api/rpde/session-series/21454',
+ 'name': 'Active Communities Learn to Swim Programme! St Pauls Swimming Pool',
+ 'isCoached': False,
+ 'activity': [{'@id': 'https://openactive.io/activity-list#2750229d-b725-4171-9276-376be913957c',
+               'prefLabel': 'Swimming'},
+              {'@id': 'https://openactive.io/activity-list#dfaf6bb4-d2fe-4db5-a271-4ceeaaaf55b9',
+               'prefLabel': 'Swimming Lessons'}],
+ 'location': {'name': 'London SW13 9JT, UK',
+              'geo': {'latitude': 51.487696, 'longitude': -0.237439},
+              'address': 'London SW13 9JT, UK'},
+ 'offers': [{'price': 9.5, 'priceCurrency': 'GBP'}]}
+
 
 def occ3(series, ident, day, hh, mm=0, minutes=60, cap=8):
     """One ScheduledSession in the live leisurecloud shape: a date, a capacity
@@ -899,8 +930,17 @@ def booking_checks_2026_10_12():
                    "Better's Yoga, isCoached false and isScheduledAsSlots false, stays an event"))
     checks.append((ev3(BETTER_SOFT, EA_SRC).icon is None,
                    "isScheduledAsSlots false beats the uncoached rule: the publisher has answered"))
+    checks.append((ev3(PLACES_AQUA, PLACES_SRC).icon is None,
+                   "an uncoached series naming NO activity stays an event at a flagged publisher "
+                   "(Places' instructor-led Good Boost Course Aqua): silence is not 'facility'"))
+    checks.append((ev3(OS_LEARN, EA_SRC).icon is None,
+                   "Swimming beside Swimming Lessons is a lesson in the pool: ONLY facility "
+                   "activities mark a session, not any one of them"))
+    checks.append((ev3(dict(EA_LANE, isCoached="true"), EA_SRC).icon is None,
+                   "isCoached serialised as the string 'true' still says coached"))
     checks.append((lane.fingerprint == ev3(EA_LANE, dict(EA_SRC, uncoached_are_slots=False)).fingerprint,
-                   "the marker never moves a row's identity, so a refresh rewrites the stored row in place"))
+                   "the marker never moves a row's identity, so a run that produces the row again "
+                   "rewrites the stored row in place"))
 
     # ------------------------------------------- 2. the folds keep it
     grid_rows = [ev3(EA_LANE, PLAIN_SRC, hh=6 + i // 6, mm=(i % 6) * 10, minutes=10, ident=f"g{i}")
@@ -953,8 +993,16 @@ def booking_checks_2026_10_12():
                    "and the run's log says how many rows it marked"))
 
     # ------------------------------------------- 4. the sync, the config, the glyph
-    row = S.to_row(dict(lane.as_record("2026-10-12T00:00:00+00:00")), "host")
+    rec = dict(lane.as_record("2026-10-12T00:00:00+00:00"))
+    row = S.to_row(rec, "host")
     checks.append((row.get("icon") == TICKET, "to_row carries the marker into the table's icon column"))
+    # WHEN a stored row is re-stamped: the DAILY --only-new run still writes a
+    # stored row whose record carries admission facts (needs_detail_sync), and
+    # skip-unchanged compares icon. 67,102 of 67,772 Everyone Active rows carry
+    # them (whole-feed replay, 2026-10-12), so the marker reaches the table on
+    # the first daily run, not the Wednesday refresh.
+    checks.append((S.needs_detail_sync(rec, {rec["fingerprint"]: False}),
+                   "a stored OpenActive slot with admission facts is rewritten by the daily run"))
     cfg = _json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                        "openactive_sources.json"), encoding="utf-8"))
     flagged = sorted(s["name"] for s in cfg["sources"] if s.get("uncoached_are_slots"))
@@ -962,6 +1010,25 @@ def booking_checks_2026_10_12():
                    "only the publishers measured to mark every coached session carry uncoached_are_slots"))
     checks.append((OA.BOOKING_ICON == "\U0001F39F",
                    "the marker is U+1F39F alone, no variation selector: the product compares it by equality"))
+
+    # ------------------------------------------- 5. a marker reaches only rows the run READS
+    # A stored row is re-stamped only when the run produces it again, and
+    # Everyone Active's occurrence feed ended at 358 pages on 2026-10-12 (the
+    # default cap is 250; production logged PAGE CAP HIT on 10-11 and 10-12).
+    # The feed is in modification order, so the cut-off tail is the sessions
+    # being booked: reading 260 pages reproduced 1,357 of London's 1,924 stored
+    # standing rows, reading to the end 1,739.
+    ea_cfg = next(s for s in cfg["sources"] if s["name"] == "Everyone Active")
+    asked = []
+    real = OA.walk
+    OA.walk = lambda url, max_pages=OA.MAX_PAGES, *a, **k: (asked.append(max_pages) or {}, "end of feed (1 page(s))")
+    try:
+        OA.read_source(ea_cfg, 120, OA.MAX_PAGES, 0, now=NOW3)
+    finally:
+        OA.walk = real
+    checks.append((len(asked) == 2 and min(asked) >= 358,
+                   "Everyone Active is walked past the 358 pages its occurrence feed measured, "
+                   f"not the default {OA.MAX_PAGES} (asked {asked})"))
     return checks
 
 

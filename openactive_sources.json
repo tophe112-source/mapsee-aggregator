@@ -97,7 +97,7 @@
    "country": "GB",
    "page": "https://data.everyoneactive.com/OpenActive/",
    "uncoached_are_slots": true,
-   "_uncoached_are_slots": "Measured 2026-10-12 on the whole SessionSeries feed (148 pages, 71,896 series): isCoached is true on 20,917, including every class concept (BODYPUMP, Aqua Aerobics, Yoga, Pilates, Group Cycling), absent on 50,838 and false on 141. booking_slot marks 50,436 series of 55 kinds, every one lane, public or family swimming, parent-supervised junior gym, sauna, spa, soft play, climbing or skating. London's census rows (2026-10-12): 3,144 of its 4,628 rows marked; a random 120 of all marked London rows hand-read as availability, 120 of 120, and so are all 43 marked series kinds. Coached bookings stay events: Climbing Wall Competency Test 383 series, Personal Training Taster 1,186, Fitness Team Supervised Gym 5,637.",
+   "_uncoached_are_slots": "Measured 2026-10-12 on the whole SessionSeries feed (148 pages, 71,896 series): isCoached is true on 20,917, including every class concept (BODYPUMP, Aqua Aerobics, Yoga, Pilates, Group Cycling), absent on 50,838 and false on 141. booking_slot marks 50,436 series of 55 kinds, every one lane, public or family swimming, parent-supervised junior gym, sauna, spa, soft play, climbing or skating. London's census rows (2026-10-12): 3,144 of its 4,628 stored rows belong to series booking_slot marks; a random 120 of all 3,244 marked London OpenActive rows (Everyone Active, Places, Better) hand-read as availability, 120 of 120, and so are all 43 series kinds those 3,244 belong to (25 of them Everyone Active's). Coached bookings stay events: Climbing Wall Competency Test 383 series, Personal Training Taster 1,186, Fitness Team Supervised Gym 5,637.",
    "feeds": [
     {
      "kind": "CourseInstance",
@@ -111,7 +111,9 @@
      "kind": "ScheduledSession",
      "url": "https://opendata.leisurecloud.live/api/feeds/EveryoneActive-live-scheduled-sessions"
     }
-   ]
+   ],
+   "max_pages": 600,
+   "_max_pages": "250 pages was not the end of it (production 2026-10-11 and -12: 'PAGE CAP HIT at 250 pages'). A walk on 2026-10-12 reached the end of the ScheduledSession feed at 358 pages, 142,185 live occurrences; the first 260 pages held 107,433. The feed is in modification order, so the cap cut off what changed last: the newest published day (11,316 sessions on 2026-10-26) and sessions being booked (55% of the 36,062 past page 260 had remainingAttendeeCapacity below the maximum, against 14% before it). Replaying read_source over the whole feed reproduced 1,739 of London's 1,924 stored Everyone Active standing rows, against 1,357 from 260 pages. 600 covers the feed with room. Cost: the 2026-10-12 run walked 398 pages (series + occurrences) in 4.3 minutes, so about 1.2 minutes more, and 67,772 rows instead of 59,151 at the same instant."
   },
   {
    "name": "Oxford University Sport",
