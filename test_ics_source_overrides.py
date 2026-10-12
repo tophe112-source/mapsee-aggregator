@@ -1,4 +1,4 @@
-"""Ponce City Winery's source-specific venue and timezone corrections."""
+"""Source-specific ICS location and timezone corrections."""
 import json
 from pathlib import Path
 from datetime import datetime, timezone
@@ -192,5 +192,61 @@ assert (zoned["waremme"].start_local, zoned["waremme"].start_utc, zoned["waremme
     "2026-10-24T09:30:00", None, "2026-10-24T12:30:00"), zoned["waremme"].start_local
 assert zoned["jette"].start_utc == "2026-10-24T12:00:00Z"            # a real zone is kept
 assert zoned["z"].start_utc == "2026-10-25T10:00:00Z"                # Z is UTC unless utc_is_wall_clock
+
+# Communico's exact Norman Mayer room LOCATION gets its published postal
+# address and uses the known branch pin, while wall-clock times and event
+# identity remain as supplied. The same rule applies across titles at this room;
+# another library branch remains untouched.
+NEW_ORLEANS = "\r\n".join((
+    "BEGIN:VCALENDAR",
+    "BEGIN:VEVENT", "UID:storytime-oct13", "SUMMARY:Storytime",
+    "DTSTART;TZID=America/Chicago:20261013T103000",
+    "DTEND;TZID=America/Chicago:20261013T113000",
+    "LOCATION:Norman Mayer Library - Children's Area",
+    "GEO:29.997569;-90.0615029", "END:VEVENT",
+    "BEGIN:VEVENT", "SUMMARY:Toddler Play",
+    "DTSTART;TZID=America/Chicago:20261020T103000",
+    "LOCATION:Norman Mayer Library - Children's Area",
+    "GEO:29.997569;-90.0615029", "END:VEVENT",
+    "BEGIN:VEVENT", "UID:other-branch", "SUMMARY:Storytime",
+    "DTSTART;TZID=America/Chicago:20261013T103000",
+    "LOCATION:Algiers Regional Library - Children's Area",
+    "GEO:29.949;-90.066", "END:VEVENT",
+    "END:VCALENDAR", "",
+))
+new_orleans_source = next(s for s in config if s["name"].startswith("New Orleans Public Library - East ") and "Norman Mayer" in s["name"])
+geocode_calls.clear()
+with patch.object(ICS, "_fetch_ics", return_value=(NEW_ORLEANS, "200")), \
+     patch.object(ICS, "datetime", AuditClock), \
+     patch.object(ICS, "make_location_geocoder", side_effect=fake_geocoder):
+    store = Store()
+    assert ICS.ingest_ics(store, None, new_orleans_source) == 3
+new_orleans = {row.source_id: row for row in store.rows}
+storytime = new_orleans["storytime-oct13"]
+storytime_location = "Norman Mayer Library - Children's Area"
+assert storytime.source_id == "storytime-oct13"
+assert (storytime.start_local, storytime.start_utc, storytime.end_local, storytime.end_utc) == (
+    "2026-10-13T10:30:00-05:00", "2026-10-13T15:30:00Z",
+    "2026-10-13T11:30:00-05:00", "2026-10-13T16:30:00Z",
+), (storytime.start_local, storytime.start_utc, storytime.end_local, storytime.end_utc)
+assert storytime.fingerprint == make_fingerprint("Storytime", "2026-10-13", storytime_location)
+assert (storytime.venue_name, storytime.address, storytime.city, storytime.region,
+        storytime.postal_code, storytime.country, storytime.latitude, storytime.longitude) == (
+    storytime_location, "3001 Gentilly Boulevard", "New Orleans", "LA", "70122", "US",
+    29.997569, -90.0615029,
+)
+assert storytime.source_details is None
+toddler = new_orleans[make_fingerprint("Toddler Play", "2026-10-20", storytime_location)]
+assert (toddler.address, toddler.city, toddler.region, toddler.postal_code,
+        toddler.latitude, toddler.longitude) == (
+    "3001 Gentilly Boulevard", "New Orleans", "LA", "70122", 29.997569, -90.0615029,
+)
+other_branch = new_orleans["other-branch"]
+assert (other_branch.venue_name, other_branch.address, other_branch.city,
+        other_branch.region, other_branch.postal_code, other_branch.latitude,
+        other_branch.longitude) == (
+    "Algiers Regional Library - Children's Area", None, None, None, None, 29.949, -90.066,
+)
+assert geocode_calls == [], geocode_calls
 
 print("ICS source overrides passed")

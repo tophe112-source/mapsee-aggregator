@@ -168,3 +168,18 @@
   Parks' own park pins. OC Parks' pin for Laguna Coast is a staging area 4.6 km
   from the park's address. The drupal_fullcalendar street book holds 13 OC
   Parks pins and 4 OSM pins. `python test_ingest_drupal_fullcalendar.py`.
+
+- **A ROOM NAME CAN CARRY A REAL BRANCH ADDRESS THAT THE ROW DID NOT.** The
+  public Mapsee preview for New Orleans Public Library's Oct 13, 2026 Storytime
+  had a Norman Mayer Library - Children's Area name and source GEO, but all four
+  address columns were NULL. The library's own calendar entry confirms the same
+  event at 3001 Gentilly Boulevard, New Orleans, LA 70122:
+  https://neworleans.libnet.info/event/17285306. Add that address with the
+  existing exact location_overrides rule for this branch-room LOCATION. In the
+  3-event ICS fixture, both matching Norman Mayer rows get the address, the
+  Algiers row keeps its own GEO and no address, and the exact override uses the
+  known Norman Mayer branch pin. The Oct 13 wall clock remains 10:30–11:30
+  America/Chicago (15:30–16:30 UTC). The source UID and the
+  title/date/original-LOCATION fingerprint stay intact. This is one confirmed
+  room string, not a rule for all 15 branches; do not infer an address for a
+  different branch or room.
