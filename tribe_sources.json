@@ -17834,6 +17834,289 @@
       "skip_title": "Wagon Rides|Belfountain by Night|Analysis to Action",
       "_metro": "Toronto, Canada",
       "_note": "Ledger has cvc.ca ok since 2026-10-04 but it was never merged. Measured 2026-10-11: 13 events in 120 days, 13/13 with a venue address, 7 'Free Event' tree plantings/invasive pulls; the skip_title drops the paid wagon rides ($60 / admission) and the online talk. Small."
+    },
+    {
+      "name": "Community Room",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event",
+      "base_url": "https://eastontowncenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Community Room",
+        "address": "3981 Gramercy Street",
+        "city": "Columbus",
+        "region": "OH",
+        "postal_code": "43219",
+        "lat": 40.0516066,
+        "lon": -82.9160214
+      },
+      "_metro": "Columbus, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "The Well",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://recandparks.hilliardohio.gov",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Well",
+        "address": "3393 Cosgray Road",
+        "city": "Hilliard",
+        "region": "OH",
+        "postal_code": "43026",
+        "lat": 40.0321447,
+        "lon": -83.1804537
+      },
+      "_metro": "Columbus, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "LGBT Community Center of Greater Cleveland",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://lgbtcleveland.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "LGBT Community Center of Greater Cleveland",
+        "address": "6705 Detroit Avenue",
+        "city": "Cleveland",
+        "region": "OH",
+        "postal_code": "44102",
+        "lat": 41.4835622,
+        "lon": -81.7315982
+      },
+      "_metro": "Cleveland, United States"
+    },
+    {
+      "name": "Austin Hindu Temple and Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://austinhindutemple.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Austin Hindu Temple and Community Center",
+        "address": "9801 Decker Lake Road",
+        "city": "Austin",
+        "region": "TX",
+        "postal_code": "78724",
+        "lat": 30.2823797,
+        "lon": -97.6190535
+      },
+      "_metro": "Austin, United States"
+    },
+    {
+      "name": "Goethe House Wisconsin",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ghwisconsin.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Goethe House Wisconsin",
+        "address": "10437 West Innovation Drive",
+        "city": "Wauwatosa",
+        "postal_code": "53226",
+        "lat": 43.0440144,
+        "lon": -88.0446058
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Harry & Rose Samson Family Jewish Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.jccmilwaukee.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Harry & Rose Samson Family Jewish Community Center",
+        "address": "6255 North Santa Monica Boulevard",
+        "city": "Whitefish Bay",
+        "region": "WI",
+        "postal_code": "53217",
+        "lat": 43.1307424,
+        "lon": -87.9075134
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Southwest YMCA",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.gwcymca.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Southwest YMCA",
+        "address": "11311 West Howard Avenue",
+        "city": "Greenfield",
+        "region": "WI",
+        "postal_code": "53228",
+        "lat": 42.9725627,
+        "lon": -88.0560569
+      },
+      "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "The Belle Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://thebellecenter.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Belle Center",
+        "lat": 42.8946382,
+        "lon": -78.8885989
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Community Activity Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.orchardparkny.gov",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Community Activity Center",
+        "address": "4520 California Road",
+        "city": "Orchard Park",
+        "region": "NY",
+        "postal_code": "14127",
+        "lat": 42.7570784,
+        "lon": -78.7766318
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Asia Institute Crane House",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://crane-house.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Asia Institute Crane House",
+        "address": "1244 South 3rd Street",
+        "city": "Louisville",
+        "region": "KY",
+        "postal_code": "40203",
+        "lat": 38.2333453,
+        "lon": -85.7593009
+      },
+      "_metro": "Louisville, United States"
+    },
+    {
+      "name": "Hillview Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+my-calendar",
+      "base_url": "https://bcplib.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hillview Branch Library",
+        "address": "155 Terry Boulevard",
+        "city": "Louisville",
+        "region": "KY",
+        "postal_code": "40229-4011",
+        "lat": 38.0772686,
+        "lon": -85.6890232
+      },
+      "_metro": "Louisville, United States"
+    },
+    {
+      "name": "Plough Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cbu.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Plough Library",
+        "lat": 35.127968,
+        "lon": -89.982118
+      },
+      "_metro": "Memphis, United States"
+    },
+    {
+      "name": "YWCA Hartford Region",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ywcahartford.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "YWCA Hartford Region",
+        "address": "135 Broad Street",
+        "city": "Hartford",
+        "region": "CT",
+        "postal_code": "06105",
+        "lat": 41.7677272,
+        "lon": -72.6866854
+      },
+      "_metro": "Hartford, United States",
+      "crawl_delay": 30.0
+    },
+    {
+      "name": "Archbishop Henry J. O’Brien Memorial Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://archdioceseofhartford.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Archbishop Henry J. O’Brien Memorial Library",
+        "address": "467 Bloomfield Avenue",
+        "city": "Bloomfield",
+        "region": "CT",
+        "postal_code": "06002",
+        "lat": 41.806893,
+        "lon": -72.733689
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Connecticut Society of Genealogists Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://csginc.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Connecticut Society of Genealogists Library",
+        "address": "175 Maple Street",
+        "city": "East Hartford",
+        "region": "CT",
+        "postal_code": "06118",
+        "lat": 41.7339617,
+        "lon": -72.6147785
+      },
+      "_metro": "Hartford, United States"
+    },
+    {
+      "name": "Avon Free Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.avonctlibrary.info",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Avon Free Public Library",
+        "address": "281 Country Club Road",
+        "city": "Avon",
+        "region": "CT",
+        "postal_code": "06001",
+        "lat": 41.7897295,
+        "lon": -72.8604524
+      },
+      "_metro": "Hartford, United States",
+      "crawl_delay": 10.0
     }
   ],
   "_not_included": {

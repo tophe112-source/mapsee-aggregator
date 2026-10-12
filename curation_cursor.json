@@ -241,8 +241,8 @@
   "stuck": {}
  },
  "osm|community_centre,library": {
-  "metro": 205,
-  "metro_key": "US:Kansas City",
+  "metro": 225,
+  "metro_key": "US:Albuquerque",
   "stuck": {}
  },
  "socrata": {

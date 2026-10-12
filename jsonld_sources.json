@@ -8539,6 +8539,204 @@
       "max_events": 80,
       "_metro": "Tucson, United States",
       "_note": "Probed 2026-10-11. robots.txt '*' allows /field-trips/. Modern Events Calendar page carries the Event JSON-LD INLINE: the adapter's own _prepared() read 25 Event blocks off the listing (2026-10-13..10-31), 18 with a street address, the rest a park/venue name only. No link_pattern needed. Registration runs through Neon (tas.app.neoncrm.com), which this entry never fetches. Field trips are free with registration."
+    },
+    {
+      "name": "STARS",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://starsnashville.org/events/"
+      ],
+      "link_pattern": "https://starsnashville\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "STARS",
+        "address": "1704 Charlotte Avenue",
+        "city": "Nashville",
+        "region": "TN",
+        "postal_code": "37203",
+        "lat": 36.1589047,
+        "lon": -86.7991512
+      },
+      "_metro": "Nashville, United States"
+    },
+    {
+      "name": "BiblioTech South",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://bibliotech.org/programs/"
+      ],
+      "link_pattern": "https://bibliotech\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "BiblioTech South",
+        "address": "3505 Pleasanton Rd",
+        "lat": 29.3439697,
+        "lon": -98.5051422
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "Alamo Masonic Lodge No 44",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.alamolodge44.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Alamo Masonic Lodge No 44",
+        "address": "308 Ave E",
+        "city": "San Antonio",
+        "region": "TX",
+        "postal_code": "78205",
+        "lat": 29.4096807,
+        "lon": -98.3962523
+      },
+      "_metro": "San Antonio, United States"
+    },
+    {
+      "name": "Clay Pots",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.claypotsbaltimore.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Clay Pots",
+        "lat": 39.2852187,
+        "lon": -76.643457
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Reisterstown Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://events.bcpl.info/event/17047600"
+      ],
+      "link_pattern": "https://events\\.bcpl\\.info/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Reisterstown Library",
+        "address": "21 Cockeys Mill Road",
+        "city": "Reisterstown",
+        "region": "MD",
+        "postal_code": "21136",
+        "lat": 39.4636571,
+        "lon": -76.8310244
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Baltimore County Public Library - Pikesville Branch",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://events.bcpl.info/event/16882083"
+      ],
+      "link_pattern": "https://events\\.bcpl\\.info/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Baltimore County Public Library - Pikesville Branch",
+        "address": "1301 Reisterstown Road",
+        "region": "MD",
+        "postal_code": "21208",
+        "country": "US",
+        "lat": 39.3756683,
+        "lon": -76.7233624
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Essex Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://events.bcpl.info/event/17157434"
+      ],
+      "link_pattern": "https://events\\.bcpl\\.info/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Essex Library",
+        "address": "1110 Eastern Boulevard",
+        "city": "Essex",
+        "region": "MD",
+        "postal_code": "21221",
+        "lat": 39.3148295,
+        "lon": -76.4638038
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Centro Cívico Mexicano",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.centrocivicomexicano.org/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Centro Cívico Mexicano",
+        "address": "155 South 600 West",
+        "city": "Salt Lake City",
+        "region": "UT",
+        "postal_code": "84101",
+        "country": "US",
+        "lat": 40.7659098,
+        "lon": -111.9076244
+      },
+      "_metro": "Salt Lake City, United States"
+    },
+    {
+      "name": "Amherst Center for Senior Services",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.amherstcenterforseniorservices.com/general-1"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Amherst Center for Senior Services",
+        "address": "370 John James Audubon Parkway",
+        "city": "Amherst",
+        "region": "NY",
+        "postal_code": "14228",
+        "lat": 43.0156688,
+        "lon": -78.7790665
+      },
+      "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Centro Culturale Italiano Di Buffalo",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://ccibuffalo.org/events/"
+      ],
+      "link_pattern": "https://ccibuffalo\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Centro Culturale Italiano Di Buffalo",
+        "address": "2351 Delaware Avenue",
+        "city": "Buffalo",
+        "region": "NY",
+        "postal_code": "14216",
+        "lat": 42.9481404,
+        "lon": -78.8679499
+      },
+      "_metro": "Buffalo, United States"
     }
   ],
   "_not_included": {

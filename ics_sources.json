@@ -31743,5 +31743,159 @@
     "geocode_suffix": ", Roeland Park, KS",
     "limit": 300,
     "_metro": "Kansas City, United States"
+  },
+  {
+    "name": "Salahadeen Center of Nashville",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://outlook.office365.com/owa/calendar/a753b574ac14463fa4022216d2799d85@scntn.org/defc2df5023d427690fc31587e1f87fe7689917169395488812/calendar.ics",
+    "geocode_suffix": ", Nashville, United States",
+    "limit": 300,
+    "_metro": "Nashville, United States"
+  },
+  {
+    "name": "Mt. Juliet-Wilson County Public Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/wilsoncolibrary.org_0ns13gct4gnrof4r119p6330ng%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Mt. Juliet, TN",
+    "limit": 300,
+    "_metro": "Nashville, United States"
+  },
+  {
+    "name": "Senior Citizens Center",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://amld.org/icalendar0.ics",
+    "geocode_suffix": ", Austin, United States",
+    "limit": 300,
+    "_metro": "Austin, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Wells Branch Community Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/78p64jmfj3tif4g4o1gp6nnbn4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Austin, TX",
+    "limit": 300,
+    "_metro": "Austin, United States"
+  },
+  {
+    "name": "Filbert Street Garden",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/c_i6s4apg4aob4iu23fcooj5uhfk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Locust Point Community U.C.C. Parish Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/locustpointcommunitychurch%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Baltimore, MD",
+    "limit": 300,
+    "_metro": "Baltimore, United States"
+  },
+  {
+    "name": "Oak Creek Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.oakcreeklibrary.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", Oak Creek, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "Nigerian Community Conference Center",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/iujugs9gfv3h58lv7ngt68up5c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milwaukee, WI",
+    "limit": 300,
+    "_metro": "Milwaukee, United States"
+  },
+  {
+    "name": "801 Labs",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_tkd568kpfmfdnus9frvsv5ffs0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salt Lake City, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Giovale Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/giovale.instruction%40gmail.com/public/basic.ics",
+    "geocode_suffix": ", Salt Lake City, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "South Jordan Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.sjc.utah.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", South Jordan, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Central Park Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://sslc.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+    "geocode_suffix": ", South Salt Lake, UT",
+    "limit": 300,
+    "_metro": "Salt Lake City, United States"
+  },
+  {
+    "name": "Apex Senior Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.apexnc.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Apex, NC",
+    "limit": 300,
+    "_metro": "Raleigh, United States"
+  },
+  {
+    "name": "Cromwell Belden Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.cromwellct.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", Cromwell, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Windsor Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.windsorlibrary.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Windsor, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "Enfield Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.enfield-ct.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Enfield, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
+  },
+  {
+    "name": "?",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.windsorct.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Windsor, CT",
+    "limit": 300,
+    "_metro": "Hartford, United States"
   }
 ]

@@ -2524,6 +2524,38 @@
         "lon": -121.4808661
       },
       "_metro": "Sacramento, United States"
+    },
+    {
+      "name": "Baltimore Unity Hall",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.baltimoreunityhall.org/calendar",
+      "max_events": 200,
+      "venue": {
+        "name": "Baltimore Unity Hall",
+        "address": "1505 Eutaw Place",
+        "postal_code": "21217",
+        "lat": 39.3059504,
+        "lon": -76.6280488
+      },
+      "_metro": "Baltimore, United States"
+    },
+    {
+      "name": "Italian Community Center of Milwaukee",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.iccmilwaukee.com/events-2",
+      "max_events": 200,
+      "venue": {
+        "name": "Italian Community Center of Milwaukee",
+        "address": "631 East Chicago Street",
+        "city": "Milwaukee",
+        "region": "WI",
+        "postal_code": "53202",
+        "lat": 43.032604,
+        "lon": -87.9022248
+      },
+      "_metro": "Milwaukee, United States"
     }
   ],
   "_not_included": {
