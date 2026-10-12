@@ -470,6 +470,7 @@ def smoke(config_path: str = "ics_sources.json", show: str = "", n: int = 12) ->
     their titles before anyone pins them there.
     """
     import json
+    from collections import Counter
     import requests
     import mapsee_ingest_ics as ICS
 
@@ -516,6 +517,15 @@ def smoke(config_path: str = "ics_sources.json", show: str = "", n: int = 12) ->
                     desc = ICS._unescape(e.get("DESCRIPTION", ("", {}))[0])
                     desc = " ".join(re.sub(r"<[^>]+>", " ", desc).split())[:90]
                     print(f"[gcal]     {day} | {ICS._summary(e)[:70]} | {desc}")
+                # ...and the LOCATIONs it does write, each marked with where
+                # the adapter puts it: on the source's `venue` pin because the
+                # text names it, or to the geocoder. Read before trusting the rule.
+                locs = Counter(loc for loc in (ICS._location(e) for e in ICS.parse_ics(text)) if loc)
+                if locs:
+                    print(f"[gcal]   {len(locs)} distinct LOCATIONs; the commonest {min(n, len(locs))}:")
+                    for loc, count in locs.most_common(n):
+                        where = "venue" if ICS._names_venue(src.get("venue"), loc) else "geocode"
+                        print(f"[gcal]     {count:4d} x {where:7s} | {loc[:110]}")
     finally:
         ICS.make_location_geocoder = real_geocoder
     print(f"[gcal] {read} of {len(sources)} Google calendars read through the Calendar API; {refused} not.")

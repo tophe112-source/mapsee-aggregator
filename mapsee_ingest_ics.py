@@ -16,14 +16,21 @@ Config per source (JSON list):
     geocode_suffix   appended to LOCATION for Photon lookups (", Seattle, WA")
     limit            max future events to keep (default 500)
     venue            optional {name, address, city, region, postal_code, country,
-                     lat, lon} used ONLY for a VEVENT that carries neither
-                     LOCATION nor GEO. A neighbourhood council's annual yard
+                     lat, lon, aliases, street_hint} used for a VEVENT that
+                     carries neither LOCATION nor GEO, and for one whose
+                     LOCATION NAMES the venue (its name or an alias, or the
+                     house number and street in `street_hint`; see
+                     _names_venue). A neighbourhood council's annual yard
                      sale is a few hundred porches and a map, not an address,
                      so the one event such a calendar exists for is exactly the
                      one with no LOCATION - and it was being dropped as
                      unplaceable. The pin is the neighbourhood centroid. A
                      LOCATION that fails to geocode is still dropped: this is
                      for events that HAVE no place, not for places Photon missed.
+                     A block with no `address` keeps its point exact through
+                     the sync (no Census re-geocode); `aliases` and
+                     `street_hint` are only ever matched, never geocoded or
+                     written to a row.
 
 Events need coordinates to land on the map: a VEVENT GEO property wins;
 otherwise the LOCATION string is geocoded via Photon (OSM) — one polite
@@ -40,6 +47,7 @@ import json
 import re
 import sys
 import time
+import unicodedata
 from mapsee_geo_budget import geocode_allowed
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
@@ -512,6 +520,165 @@ def _location_override(src: Dict[str, Any], location: Optional[str]) -> Optional
     return None
 
 
+# A LOCATION THAT NAMES THE SOURCE'S OWN VENUE IS AT THE VENUE. A community
+# centre's own calendar writes "Polish Home", "Dom Polski - Main Hall" or
+# "1714 18th Ave, Seattle, WA 98122" on its events, and until this rule every
+# one of those went to Photon, which puts it on the 4-decimal point the
+# centre's OpenStreetMap listing is drawn at - the only key the map links an
+# event to its venue by - only when it happens to answer with that same OSM
+# element (Vashon Senior Center's 3 live rows did, 2026-10-12); a street
+# address lands on the address point, a room name anywhere. `location_overrides`
+# fixed that one exact string at a time, and 0 of the 172 Google calendars
+# used it. So a LOCATION is pinned to the source's `venue` when it names it:
+#
+#   * by NAME: one comma-, dash- or bracket-separated part of the LOCATION
+#     carries every distinctive word of the venue's name (or of one part of it:
+#     "Polish Home Association - Dom Polski" is two names). Case, accents,
+#     punctuation, a possessive 's and generic words ("community", "centre",
+#     "hall", "association") are ignored. A name with ONE distinctive word must
+#     be the whole part ("Vrankrijk", not "Vrankrijk Bar"), and carry one of
+#     the name's own generic words when it has any ("Ballard Center", not
+#     "Ballard"): one word is too easily somebody else's name, or the town's.
+#   * by STREET: the venue block's `street_hint` ("1714 18th Ave") or its
+#     `address`, house number and street, abbreviations folded (Avenue =
+#     Ave), and no different direction after it (18th Ave S is another
+#     street). `street_hint` is read here and nowhere else: never sent to a
+#     geocoder, never written to a row, so a venue pinned to an OpenStreetMap
+#     point stays on it (`address` sends the row to the Census re-geocode at
+#     the sync).
+#   * never by name when the LOCATION carries some OTHER house number: that
+#     is a street address of its own, and the geocoder places it as before.
+#   * never at all when one part says "not here": "Out of Building, Lee
+#     Road", "All Locations, Zionsville Branch", "Offsite - <branch>".
+#
+# A LOCATION that names anywhere else is geocoded exactly as before, and a
+# title `venue_skip` places elsewhere is never pinned, however it is located.
+#
+# Checked 2026-10-12 against the config's own ground truth, the 479
+# location_overrides strings on the 112 sources that also carry a `venue`:
+# of the 474 a person pinned AT the venue, the rule names 411 and misses 63
+# (LibCal's short campus names, "Lee Road" for "Lee Road Library"; making
+# "library" generic would catch them, and also pin "Café, Lee Road", so it is
+# not); of the 5 pinned elsewhere it names 4, all one shape - a room in
+# another building filed under the branch ("Fort Rouge Leisure Centre - MPR,
+# Osborne Library") - and all 4 keep their exact override, which is read
+# first. Replayed over the 68 non-Google venue feeds read that day (4,770
+# kept events) it moved 2 rows, both onto their own library. The 185 live
+# rows of the three neighbourhood Google calendars (Montlake, Overlook,
+# Lyndale; 141 with a LOCATION) are all unchanged: none names its centroid.
+_VENUE_GENERIC = frozenset("""
+    community centre center centres centers hall halls association associations
+    assn assoc society club inc ltd
+    the of and at in on for a an de la le les du des del der die das und et y el
+""".split())
+_STREET_ABBR = {
+    "avenue": "ave", "av": "ave", "street": "st", "road": "rd", "boulevard": "blvd",
+    "drive": "dr", "place": "pl", "lane": "ln", "court": "ct", "terrace": "ter",
+    "parkway": "pkwy", "highway": "hwy", "square": "sq", "circle": "cir",
+    "north": "n", "south": "s", "east": "e", "west": "w",
+    "northeast": "ne", "northwest": "nw", "southeast": "se", "southwest": "sw",
+    "junior": "jr",
+}
+_DIRECTIONS = frozenset({"n", "s", "e", "w", "ne", "nw", "se", "sw"})
+_NAME_PARTS_RX = re.compile(r"\s+[-–—]\s+|[,;:/|()\[\]（）]")
+_VENUE_NAME_CACHE: Dict[Tuple[str, ...], List[Tuple[frozenset, frozenset]]] = {}
+_HOUSE_NUMBER_RX = re.compile(r"\s*\d+[A-Za-z]?(?:-\d+)?\s+\w")     # "1714 18th Ave", "11 Eskdale Drive"
+# A part of a LOCATION that says "not here": the ELSEWHERE words below, minus
+# the bare countries (Google ends every picked place with ", USA"); an online
+# room (ingest drops those first, ONLINE_LOC_RX, but the smoke read asks this
+# function directly); and LibCal's "Out of Building", under which Heights
+# Libraries' four branch feeds filed 19 outreach VEVENTs (read 2026-10-12).
+_NOT_HERE_PART_RX = re.compile(
+    r"^\s*(?:off[\s-]?site|outreach|external|bookmobile|various(?: locations)?|multiple locations|"
+    r"in the community|community location|outside venue|all (?:library )?(?:locations|branches)|"
+    r"out of (?:the )?building|(?:online|virtual)(?: (?:events?|rooms?|programs?|branch|library))?)\s*$",
+    re.I)
+
+
+def _words(text: str) -> List[str]:
+    """Lower-case words without accents, possessives or punctuation."""
+    t = unicodedata.normalize("NFKD", text or "")
+    t = "".join(c for c in t if not unicodedata.combining(c)).lower()
+    t = re.sub(r"['’`]s\b", "", t)                # Heron's Nest -> heron nest
+    t = re.sub(r"['’`]", "", t)
+    return [w for w in re.split(r"[\W_]+", t) if w]
+
+
+def _distinctive(text: str) -> frozenset:
+    return frozenset(w for w in _words(text) if w not in _VENUE_GENERIC)
+
+
+def _venue_names(venue: Dict[str, Any]) -> List[Tuple[frozenset, frozenset]]:
+    """The venue's names as (distinctive words, generic words) pairs: its `name`,
+    its `aliases` (OpenStreetMap's alt_name and name:<lang> are where these come
+    from), and each part of each."""
+    aliases = venue.get("aliases")
+    names = (str(venue.get("name") or ""),) + tuple(
+        str(a) for a in (aliases if isinstance(aliases, list) else []) if a)
+    got = _VENUE_NAME_CACHE.get(names)
+    if got is None:
+        got = []
+        for name in names:
+            for part in [name] + _NAME_PARTS_RX.split(name):
+                words = _distinctive(part)
+                pair = (words, frozenset(_words(part)) - words)
+                if words and pair not in got:
+                    got.append(pair)
+        _VENUE_NAME_CACHE[names] = got
+    return got
+
+
+def _street_words(text: str) -> List[str]:
+    return [_STREET_ABBR.get(w, w) for w in _words(text)]
+
+
+def _names_street(hint: str, location: str) -> bool:
+    want = _street_words(hint)
+    if len(want) < 2 or not want[0][:1].isdigit():
+        return False                                  # a house number and a street, or nothing
+    for part in location.split(","):
+        got = _street_words(part)
+        for i in range(len(got) - len(want) + 1):
+            if got[i:i + len(want)] == want:
+                after = got[i + len(want)] if i + len(want) < len(got) else None
+                if after not in _DIRECTIONS:          # "18th Ave S" is not "18th Ave"
+                    return True
+    return False
+
+
+def _names_venue(venue: Any, location: Optional[str]) -> bool:
+    """True when a LOCATION names the source's own venue (see above)."""
+    if not location or not _venue_pin(venue):
+        return False
+    # "Out of Building, Noble Neighborhood": the part before the comma says
+    # the event is NOT at the branch the part after it names.
+    if any(_NOT_HERE_PART_RX.match(p) for p in _NAME_PARTS_RX.split(location)):
+        return False
+    streets = [s for s in (venue.get("street_hint"), venue.get("address"))
+               if isinstance(s, str) and s.strip()]
+    if any(_names_street(street, location) for street in streets):
+        return True
+    # A LOCATION that writes its own house number names THAT address. It is
+    # the venue's only when it matched above; otherwise the geocoder places
+    # it, as before. "Lyndale Neighborhood Association, 3537 Nicollet Ave S"
+    # is an office, not the neighbourhood centroid its source's venue is.
+    if any(_HOUSE_NUMBER_RX.match(p) for p in location.split(",")):
+        return False
+    parts = [(_distinctive(p), frozenset(_words(p))) for p in _NAME_PARTS_RX.split(location)]
+    for name, generic in _venue_names(venue):
+        for distinct, every in parts:
+            if len(name) >= 2 and name <= distinct:
+                return True
+            # One distinctive word is often a PLACE: "Ballard" in "Ballard
+            # Community Center" is the neighbourhood, so "Pottery, Ballard" is
+            # not the centre. The part must be that word alone, and carry one
+            # of the name's own generic words when it has any ("Ballard
+            # Center" names it; "Ballard" does not).
+            if len(name) == 1 and distinct == name and (not generic or generic & every):
+                return True
+    return False
+
+
 def _datetime_override(src: Dict[str, Any], title: str, location: Optional[str],
                        value: str, params: Dict[str, str]) -> Optional[Dict[str, str]]:
     """Match only a source's exact timed local-wall-clock correction rule."""
@@ -680,6 +847,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     # carries venues the iCal export omits), and the log has to be able to say so.
     unplaceable = 0
     pinned_by_venue = 0
+    pinned_by_name = 0
     off_venue = 0
     past = 0
     governance = 0
@@ -770,6 +938,14 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         fingerprint_loc = loc
         had_source_location = bool(loc)
         venue = _location_override(src, loc)
+        # Before GEO, as an exact override is: the venue pin is a checked
+        # point, and the only one the map links the venue's events by.
+        if venue is None and _names_venue(src.get("venue"), loc):
+            if _off_venue(src, title):
+                off_venue += 1                        # named, but its title says elsewhere
+            else:
+                venue = src["venue"]
+                pinned_by_name += 1
         if venue:
             lat, lon = float(venue["lat"]), float(venue["lon"])
             loc = venue.get("name") or loc
@@ -851,6 +1027,8 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     note = f" ({how})" if how != "200" else ""
     if pinned_by_venue:
         note += f" — {pinned_by_venue} pinned to the source's venue (no LOCATION/GEO)"
+    if pinned_by_name:
+        note += f" — {pinned_by_name} pinned to the source's venue (LOCATION names it)"
     if off_venue:
         note += f" — {off_venue} kept off the venue by venue_skip"
     if unplaceable:

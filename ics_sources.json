@@ -16196,7 +16196,7 @@
     "limit": 300,
     "_found": "manual: neighborhood yard sale -> google calendar embed -> public ics",
     "_metro": "Seattle, WA",
-    "_note": "The neighbourhood council behind the annual Montlake Yard Sale (montlake.net/yard-sale, 11th edition 2026-09-20). Its /calendar page is a public Google Calendar embed; the ical export carried 65 VEVENTs on 2026-09-19, 2 upcoming. The yard sale itself has NO LOCATION - a neighbourhood-wide sale is a few hundred porches and a map, not an address - so without `venue` the ICS adapter drops the one event this source is for. `venue` is used only for VEVENTs with neither LOCATION nor GEO; the pin is Photon's centroid for the Montlake neighbourhood.",
+    "_note": "The neighbourhood council behind the annual Montlake Yard Sale (montlake.net/yard-sale, 11th edition 2026-09-20). Its /calendar page is a public Google Calendar embed; the ical export carried 65 VEVENTs on 2026-09-19, 2 upcoming. The yard sale itself has NO LOCATION - a neighbourhood-wide sale is a few hundred porches and a map, not an address - so without `venue` the ICS adapter drops the one event this source is for. `venue` is used for VEVENTs with neither LOCATION nor GEO, and since 2026-10-12 for one whose LOCATION names 'Montlake neighborhood' (none of the 7 LOCATIONs on its 25 live rows on 2026-10-12 did); the pin is Photon's centroid for the Montlake neighbourhood.",
     "venue": {
       "name": "Montlake neighborhood",
       "city": "Seattle",
@@ -31500,7 +31500,14 @@
     "url": "https://calendar.google.com/calendar/ical/d5m5ei6b2l31gre7k0rmutq1e8%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Seattle, WA",
     "limit": 300,
-    "_metro": "Seattle, United States"
+    "_metro": "Seattle, United States",
+    "venue": {
+      "name": "Ballard Homestead",
+      "lat": 47.6770363,
+      "lon": -122.3867766,
+      "street_hint": "6541 Jones Ave NW"
+    },
+    "_venue_source": "OpenStreetMap way/217372881 (amenity=community_centre, community_hall; addr 6541 Jones Avenue Northwest), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No address on purpose: an address sends the row through the sync's Census re-geocode, off the key. street_hint is only matched against LOCATION."
   },
   {
     "name": "Estelita's Library",
@@ -31509,7 +31516,14 @@
     "url": "https://calendar.google.com/calendar/ical/c_423210b013887b569ad0dc4ab9a26e9c2a5cb0f9fe22c90eb718e79f33628728%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Seattle, WA",
     "limit": 300,
-    "_metro": "Seattle, United States"
+    "_metro": "Seattle, United States",
+    "venue": {
+      "name": "Estelita's Library",
+      "lat": 47.6005203,
+      "lon": -122.2973001,
+      "street_hint": "241 Martin Luther King Jr Way S"
+    },
+    "_venue_source": "OpenStreetMap way/228735419 (amenity=library; addr 241 Martin Luther King Junior Way South), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No address on purpose: an address sends the row through the sync's Census re-geocode, off the key. street_hint is only matched against LOCATION."
   },
   {
     "name": "Vashon Senior Center",
@@ -31518,7 +31532,17 @@
     "url": "https://calendar.google.com/calendar/ical/uufrse542150bnjchq4ln3odfc%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Vashon Island, WA",
     "limit": 300,
-    "_metro": "Seattle, United States"
+    "_metro": "Seattle, United States",
+    "venue": {
+      "name": "Vashon Senior Center",
+      "lat": 47.447596,
+      "lon": -122.4620197,
+      "aliases": [
+        "Vashon Maury Senior Center"
+      ],
+      "street_hint": "10004 SW Bank Rd"
+    },
+    "_venue_source": "OpenStreetMap way/452815645 (amenity=community_centre, senior_centre; alt_name Vashon Maury Senior Center; addr 10004 Southwest Bank Road), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No address on purpose: an address sends the row through the sync's Census re-geocode, off the key. street_hint is only matched against LOCATION. Measured live 2026-10-12: 3 'Wacky Wednesdays at the Senior Center!' rows (LOCATION 'Vashon Senior Center') already sit on this key, placed by Photon."
   },
   {
     "name": "Heron's Nest Outdoor Education Center",
@@ -31527,7 +31551,38 @@
     "url": "https://calendar.google.com/calendar/ical/b9su5nbt4142sssfeb39i9dra4%40group.calendar.google.com/public/basic.ics",
     "geocode_suffix": ", Seattle, WA",
     "limit": 300,
-    "_metro": "Seattle, United States"
+    "_metro": "Seattle, United States",
+    "venue": {
+      "name": "Heron's Nest Outdoor Education Center",
+      "lat": 47.5590902,
+      "lon": -122.3537607,
+      "aliases": [
+        "The Heron's Nest"
+      ],
+      "street_hint": "4818 Puget Way SW"
+    },
+    "_venue_source": "OpenStreetMap way/1450825499 (amenity=community_centre; addr 4818 Puget Way Southwest), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No address on purpose: an address sends the row through the sync's Census re-geocode, off the key. street_hint is only matched against LOCATION. The alias is the name its own site goes by (theheronsnest.org, the OSM website tag)."
+  },
+  {
+    "name": "Polish Home Association – Dom Polski",
+    "category": "community",
+    "_found": "hand: owner's example 2026-10-12 (Pretty Google Calendar on polishhome.org/calendar/)",
+    "url": "https://calendar.google.com/calendar/ical/d83853455e5cebb55a95bc30f0719941cc219c65f48a1cd6228d3f1ed34a7e09%40group.calendar.google.com/public/basic.ics",
+    "url_home": "https://polishhome.org/calendar/",
+    "geocode_suffix": ", Seattle, WA",
+    "limit": 300,
+    "_metro": "Seattle, United States",
+    "venue": {
+      "name": "Polish Home Association – Dom Polski",
+      "lat": 47.6169525,
+      "lon": -122.30845,
+      "aliases": [
+        "Seattle Polish Cultural Center",
+        "Dom Polski"
+      ],
+      "street_hint": "1714 18th Ave"
+    },
+    "_venue_source": "OpenStreetMap way/229910960 (amenity=community_centre, community_hall, community_centre:for=polish; alt_name 'Seattle Polish Cultural Center;Dom Polski'; addr 1714 18th Avenue), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No address on purpose: an address sends the row through the sync's Census re-geocode, off the key. street_hint is only matched against LOCATION. The calendar id is the 'gcal' value of the page's pgcal_inlineScript; the page's own Google API key is not read or kept. Its events page listed 5 upcoming events on 2026-10-12, all at 'Polish Home Association – Dom Polski, 1714 18th Ave'."
   },
   {
     "name": "Shakopee Public Library",
