@@ -549,3 +549,21 @@
   gate (154 wraps refused, all 95 hikes kept), and NC DNCR a `skip_title` for
   its 11 'Public Meetings'. Localist's `free` flag (14% of 25,197 events) and
   `ticket_cost` are still not read. `python test_ingest_localist.py`.
+
+- **THE WALK ADAPTERS: A DATE IS A DAY, AND "FREE" IS WORDED FOR 0227
+  (2026-10-11/12).** Luminate's `event_date` is a day and its clock is noise
+  (San Diego 00:00:00.568 for an 8:00 AM walk), so a row is all-day. December
+  31 is the charities' fiscal placeholder (189 of 1,055 Relay, 36 of 175 Making
+  Strides records), while AVA's 5 Dec 31 rows are real New Year's Eve walks.
+  AVA is mostly not free: 35 of 122 event pages state a walker fee ($4 on 33)
+  and 4 more carry an "additional fee" notice with no amount. "Free to walk."
+  and "Free to register." match none of ../mapsee 0227's free patterns (0 rows
+  tagged); "Free to join" does (AVA 1 of 119, Luminate 253 of 435: every
+  Alzheimer's row and 14 Komen MORE THAN PINK walks). A club's hotel "reduced
+  rate" was tagged discount until lodging and parking price prose was kept out.
+  `offers_0227.py` is 0227's predicate copied verbatim, with a drift check
+  against ../mapsee when it sits beside the checkout. A session-wide
+  `Accept: application/json` made both RallyBound hosts answer /robots.txt
+  with 406, which RFC 9309 reads as "no rules", and kidneywalk.org's Cloudflare
+  edge cached it for 4 hours: only the API request may ask for JSON.
+  `python test_ingest_ava.py`, `test_ingest_rallybound.py`, `test_ingest_luminate.py`.

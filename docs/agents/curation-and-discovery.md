@@ -632,6 +632,20 @@
   else. If you ever need more than the page carries, that is the signal to get a
   real `DICE_API_KEY`, not to borrow one.
 
+- **A publisher's OWN published client key is the owner's call, and he made
+  it once (2026-10-11).** Luminate TeamRaiser walk finders carry a client key
+  in the charity's own page (ACS `ACSAPI`, Alzheimer's `ALZADARDA` in a hidden
+  input, Komen `pink` in a plain URL); Blackbaud documents it as "not a secure
+  password. You can include this key in a hidden field of a web form". Unlike
+  DICE's, the key is the DATA OWNER's, the call is the one their own finder
+  makes, and robots.txt on all three hosts has no rule touching
+  /site/CRTeamraiserAPI. Asked, the owner said "Yes use them";
+  `luminate_sources.json` records it in `_decision`, including that the
+  charities were not asked. It is not a general licence: the Heart Walk,
+  Breakthrough T1D and Autism Speaks hosts disallow the same path in
+  robots.txt and stay unread, and a third party's widget key on somebody
+  else's page is still DICE's case.
+
 - **The stock Squarespace robots.txt disallows `?format=json`, on every site on
   the platform.** It is not a per-site choice a friendly organiser could waive —
   the same file ships with volunteerparktrust.org and sfmamarkets.com alike, and

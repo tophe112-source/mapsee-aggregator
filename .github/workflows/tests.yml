@@ -458,11 +458,18 @@ jobs:
       # the park. AVA: a distance is not a clock, a walker fee is not free, the
       # club's pin is the place. RallyBound: the organiser's wall clock, not the
       # platform's zone; robots.txt read without the API's Accept header.
-      # Luminate: the day, not the noise clock; Dec 31 placeholders, closed,
-      # test and not-public records refused. "Free to join" only where the
-      # charity or club says so, in words 0227's free tag reads.
+      # Luminate (switched on by the owner, 2026-10-11): the day, not the noise
+      # clock; Dec 31 placeholders, closed, test and not-public records refused.
+      # "Free to join" only where the charity or club says so, judged by
+      # ../mapsee migration 0227's own predicate (offers_0227.py).
       - name: National Park Service events (pageNumber paging, every state, a park point only where the location names the park)
         run: python test_ingest_nps.py
+      - name: AVA volksmarches (start-table windows, walker fees, 0227's free tag)
+        run: python test_ingest_ava.py
+      - name: RallyBound charity walks (the wall clock, not the zone; the town with no comma)
+        run: python test_ingest_rallybound.py
+      - name: Luminate TeamRaiser charity walks (the date is a day; switched on by the owner)
+        run: python test_ingest_luminate.py
 
       # The gate that keeps advertisements out of the catalogue, and the ONE
       # place it must be graded is the half nobody would notice failing. Letting

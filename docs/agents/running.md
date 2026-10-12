@@ -59,6 +59,9 @@ python test_ingest_lcsd.py          # walk-in only, only the dates the event's t
 python test_ingest_madrid.py        # parked: robots.txt names the datastore, so 0 rows without a recorded permission; a fiesta's all-day programme is not its 21:00 concert
 python test_ingest_facility_hours.py # opening hours parsed never approximated, one writer per OSM centre, a refused centre rewritten not skipped
 python test_ingest_nps.py           # pageNumber not start, the API's 50-row page, a park point only for a location that names the park, doors from `types`, days the park called off
+python test_ingest_ava.py           # volksmarches: a distance is not a clock, a walker fee is not free, the club's pin is the place
+python test_ingest_rallybound.py    # charity walks: the organiser's wall clock, robots.txt read without the API's Accept header
+python test_ingest_luminate.py      # charity walks: the day not the noise clock, Dec 31 placeholders, closed and test records refused
 python test_spam.py                 # the advertisement gate, and mostly what it must never refuse
 python test_coverage_rows.py        # the coverage report's arithmetic: no source counted twice, no ccTLD left under "?"
 python test_robots.py               # robots.txt per RFC 9309, and verify never fetching a feed its host refuses
@@ -69,7 +72,7 @@ python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE
 python mapsee_uncancel.py --since 2026-10-06T06:00:00Z   # report the pipeline's own cancellations since then; --apply lifts them
 ```
 
-The 77 test scripts are the CI gate (`tests.yml`). They print one line per
+The 80 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

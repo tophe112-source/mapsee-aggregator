@@ -57,12 +57,13 @@ a hand-maintained marketing estimate.
 | DICE venue pages | `mapsee_ingest_dice_venue.py` | For venues whose own site is only a DICE widget (The Vera Project). Reads the public venue page, never `api.dice.fm` — the one path DICE's robots.txt disallows. Carries exact venue coordinates, so no geocoding |
 | Races (RunSignup) | `mapsee_ingest_runsignup.py` | RunSignup's public race API, partitioned by US state (its terms of 2026-09-03 ask for registration, which is pending). The whole `running` and `fitness` supply: ~12,500 events, both lenses were at zero curated sources before it |
 | Cycling (BikeReg) | `mapsee_ingest_bikereg.py` | The AthleteReg GraphQL calendar — keyless, cursor-paged, coordinates included. ~1,270 races, gravel days, gran fondos and velodrome series. wegosie promised "Rides" and the catalogue had no cycling source at all: 0.17% of the map named a bike. **Not** the REST `/api/search`, which answers 200 with exactly 100 events and ignores every paging parameter |
-| Localist | `mapsee_ingest_localist.py` | University/city calendars (`/api/2/events`) |
+| Localist | `mapsee_ingest_localist.py` | University, city and state calendars (`/api/2/events`), each read to its own last page; NC State Parks and Indiana's state parks among them |
+| Walks anybody can join | `mapsee_ingest_ava.py`, `_rallybound.py`, `_luminate.py` | American Volkssport Association volksmarches; the National Kidney Foundation's Kidney Walks and CF Foundation's Great Strides (RallyBound); the American Cancer Society's Making Strides and Relay For Life, the Alzheimer's Association's Walk to End Alzheimer's and Komen's MORE THAN PINK Walk (Blackbaud Luminate TeamRaiser). "Free to join" only where the charity or club says so. See [Conduct](#conduct) |
 | schema.org JSON-LD | `mapsee_ingest_jsonld.py` | Venue sites that embed `Event` blocks |
 | MyListing directories | `mapsee_ingest_mylisting.py` | The WordPress theme behind chambers of commerce, tourism boards and "what's on in &lt;town&gt;" sites — a whole small town's calendar, none of which reaches a ticketing platform. Reads the explore endpoint the page itself names. One result is one *occurrence*, and `horizon_days` is what stops an open-ended annual recurrence from projecting pins to 2050 |
 | Ticketmaster / SeatGeek / DICE / AXS / Moshtix | `mapsee_ingest*.py` | Keyed APIs, skipped silently when unset |
 | Eventbrite | `mapsee_ingest_eventbrite.py` | Official API, organizer feeds |
-| Parks / recreation | `mapsee_ingest_nps.py`, `_recreation.py` | US National Park Service, Recreation.gov |
+| Parks / recreation | `mapsee_ingest_nps.py`, `_recreation.py` | US National Park Service (every state and territory, ranger walks and hikes placed at their visitor centre), Recreation.gov |
 | parkrun | `mapsee_ingest_parkrun.py` | Free weekly 5k runs on Saturdays and junior 2k runs on Sundays: ~2,965 events in 20 countries, from the public event list parkrun's own map reads, each weekly schedule expanded to dated occurrences six weeks ahead. A listing is the event's name, place and day, and links to its own parkrun page for the start time and the course. No results and no runner data. Read twice a week. See [Conduct](#conduct) |
 | Farmers markets | `mapsee_ingest_markets.py` | City open data, OpenStreetMap `amenity=marketplace`, and the **USDA Local Food Directories** (`USDA_LOCALFOOD_API_KEY`, free at [usdalocalfoodportal.com](https://www.usdalocalfoodportal.com/fe/datasharing)). All three publish weekly schedules, which this expands into dated occurrences |
 | Seoul Open Data | `mapsee_ingest_seoul.py` | Korea's own government API standard |
@@ -248,6 +249,18 @@ stay out are retired the same way, each with the rule it quoted. Madrid's
 municipal agenda (datos.madrid.es) is not read either: its `robots.txt` refuses
 the paths that hold it, so its reader waits for the City's written permission
 (`madrid_sources.json.pending-permission`) before it asks for a single row.
+
+**A charity's own published key.** The American Cancer Society, the Alzheimer's
+Association and Susan G. Komen each run their walk finder on Blackbaud
+Luminate, and each publishes the finder's client key in its own page;
+Blackbaud documents that key as "not a secure password". Their `robots.txt`
+does not refuse the call. We read their walk lists with those keys, in the same
+call their own finders make, by the owner's decision of 2026-10-11
+(`_decision` in `luminate_sources.json`). The charities were not asked first;
+if any of them would rather we did not, renaming that file stops it at the next
+run. The American Heart Association, Breakthrough T1D and Autism Speaks run the
+same platform and their `robots.txt` refuses the call, so their walks are not
+read.
 
 ## Running it
 
