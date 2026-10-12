@@ -467,7 +467,9 @@ def smoke(config_path: str = "ics_sources.json", show: str = "", n: int = 12) ->
     `show` (comma-separated name fragments) also lists up to `n` of a
     calendar's events that carry no LOCATION and no GEO - the ones a `venue`
     block would pin - so whether they happen AT the venue can be read off
-    their titles before anyone pins them there.
+    their titles before anyone pins them there; and every distinct LOCATION
+    (up to 100) with where the adapter puts it (mapsee_ingest_ics._where), so
+    a LOCATION that names the venue and is not marked "venue" can be seen.
     """
     import json
     from collections import Counter
@@ -518,14 +520,15 @@ def smoke(config_path: str = "ics_sources.json", show: str = "", n: int = 12) ->
                     desc = " ".join(re.sub(r"<[^>]+>", " ", desc).split())[:90]
                     print(f"[gcal]     {day} | {ICS._summary(e)[:70]} | {desc}")
                 # ...and the LOCATIONs it does write, each marked with where
-                # the adapter puts it: on the source's `venue` pin because the
-                # text names it, or to the geocoder. Read before trusting the rule.
+                # the adapter puts it (ICS._where: override, venue, geocode,
+                # online, unplaceable). Read before trusting the name rule.
                 locs = Counter(loc for loc in (ICS._location(e) for e in ICS.parse_ics(text)) if loc)
                 if locs:
-                    print(f"[gcal]   {len(locs)} distinct LOCATIONs; the commonest {min(n, len(locs))}:")
-                    for loc, count in locs.most_common(n):
-                        where = "venue" if ICS._names_venue(src.get("venue"), loc) else "geocode"
-                        print(f"[gcal]     {count:4d} x {where:7s} | {loc[:110]}")
+                    print(f"[gcal]   {len(locs)} distinct LOCATIONs:")
+                    for loc, count in locs.most_common(100):
+                        print(f"[gcal]     {count:4d} x {ICS._where(src, loc):11s} | {loc[:110]}")
+                    if len(locs) > 100:
+                        print(f"[gcal]     ... and {len(locs) - 100} more")
     finally:
         ICS.make_location_geocoder = real_geocoder
     print(f"[gcal] {read} of {len(sources)} Google calendars read through the Calendar API; {refused} not.")

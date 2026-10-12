@@ -31503,11 +31503,16 @@
     "_metro": "Seattle, United States",
     "venue": {
       "name": "Ballard Homestead",
+      "city": "Seattle",
+      "region": "WA",
+      "country": "US",
       "lat": 47.6770363,
       "lon": -122.3867766,
-      "street_hint": "6541 Jones Ave NW"
+      "street_hint": "6541 Jones Ave NW",
+      "pin_unnamed": false
     },
-    "_venue_source": "OpenStreetMap way/217372881 (amenity=community_centre, community_hall; addr 6541 Jones Avenue Northwest), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No address on purpose: an address sends the row through the sync's Census re-geocode, off the key. street_hint is only matched against LOCATION."
+    "_venue_source": "OpenStreetMap way/217372881 (amenity=community_centre, community_hall; addr 6541 Jones Avenue Northwest), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No street address on purpose: an address sends the row through the sync's Census re-geocode, off the key (city, region and country alone do not). street_hint is only matched against LOCATION.",
+    "_note": "pin_unnamed is false until this calendar's events with no LOCATION have been read: run smoke-gcal with show set to its name, read the '[gcal]   N with no LOCATION or GEO' titles, and only then delete pin_unnamed (adding a venue_skip for any title that says it is elsewhere), as the seven older Google venue blocks were (Lasswade 56 and Betlehem 53 bare events turned out to be elsewhere). Until then only a LOCATION that names the venue takes its pin; a bare event is dropped as unplaceable, as before the venue block. Added 2026-10-12."
   },
   {
     "name": "Estelita's Library",
@@ -31519,11 +31524,16 @@
     "_metro": "Seattle, United States",
     "venue": {
       "name": "Estelita's Library",
+      "city": "Seattle",
+      "region": "WA",
+      "country": "US",
       "lat": 47.6005203,
       "lon": -122.2973001,
-      "street_hint": "241 Martin Luther King Jr Way S"
+      "street_hint": "241 Martin Luther King Jr Way S",
+      "pin_unnamed": false
     },
-    "_venue_source": "OpenStreetMap way/228735419 (amenity=library; addr 241 Martin Luther King Junior Way South), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No address on purpose: an address sends the row through the sync's Census re-geocode, off the key. street_hint is only matched against LOCATION."
+    "_venue_source": "OpenStreetMap way/228735419 (amenity=library; addr 241 Martin Luther King Junior Way South), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No street address on purpose: an address sends the row through the sync's Census re-geocode, off the key (city, region and country alone do not). street_hint is only matched against LOCATION.",
+    "_note": "pin_unnamed is false until this calendar's events with no LOCATION have been read: run smoke-gcal with show set to its name, read the '[gcal]   N with no LOCATION or GEO' titles, and only then delete pin_unnamed (adding a venue_skip for any title that says it is elsewhere), as the seven older Google venue blocks were (Lasswade 56 and Betlehem 53 bare events turned out to be elsewhere). Until then only a LOCATION that names the venue takes its pin; a bare event is dropped as unplaceable, as before the venue block. Added 2026-10-12."
   },
   {
     "name": "Vashon Senior Center",
@@ -31535,14 +31545,19 @@
     "_metro": "Seattle, United States",
     "venue": {
       "name": "Vashon Senior Center",
+      "city": "Vashon Island",
+      "region": "WA",
+      "country": "US",
       "lat": 47.447596,
       "lon": -122.4620197,
       "aliases": [
         "Vashon Maury Senior Center"
       ],
-      "street_hint": "10004 SW Bank Rd"
+      "street_hint": "10004 SW Bank Rd",
+      "pin_unnamed": false
     },
-    "_venue_source": "OpenStreetMap way/452815645 (amenity=community_centre, senior_centre; alt_name Vashon Maury Senior Center; addr 10004 Southwest Bank Road), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No address on purpose: an address sends the row through the sync's Census re-geocode, off the key. street_hint is only matched against LOCATION. Measured live 2026-10-12: 3 'Wacky Wednesdays at the Senior Center!' rows (LOCATION 'Vashon Senior Center') already sit on this key, placed by Photon."
+    "_venue_source": "OpenStreetMap way/452815645 (amenity=community_centre, senior_centre; alt_name Vashon Maury Senior Center; addr 10004 Southwest Bank Road), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No street address on purpose: an address sends the row through the sync's Census re-geocode, off the key (city, region and country alone do not). street_hint is only matched against LOCATION. Measured live 2026-10-12: 3 'Wacky Wednesdays at the Senior Center!' rows (LOCATION 'Vashon Senior Center') already sit on this key, placed by Photon.",
+    "_note": "pin_unnamed is false until this calendar's events with no LOCATION have been read: run smoke-gcal with show set to its name, read the '[gcal]   N with no LOCATION or GEO' titles, and only then delete pin_unnamed (adding a venue_skip for any title that says it is elsewhere), as the seven older Google venue blocks were (Lasswade 56 and Betlehem 53 bare events turned out to be elsewhere). Until then only a LOCATION that names the venue takes its pin; a bare event is dropped as unplaceable, as before the venue block. Added 2026-10-12."
   },
   {
     "name": "Heron's Nest Outdoor Education Center",
@@ -31554,14 +31569,19 @@
     "_metro": "Seattle, United States",
     "venue": {
       "name": "Heron's Nest Outdoor Education Center",
+      "city": "Seattle",
+      "region": "WA",
+      "country": "US",
       "lat": 47.5590902,
       "lon": -122.3537607,
       "aliases": [
         "The Heron's Nest"
       ],
-      "street_hint": "4818 Puget Way SW"
+      "street_hint": "4818 Puget Way SW",
+      "pin_unnamed": false
     },
-    "_venue_source": "OpenStreetMap way/1450825499 (amenity=community_centre; addr 4818 Puget Way Southwest), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No address on purpose: an address sends the row through the sync's Census re-geocode, off the key. street_hint is only matched against LOCATION. The alias is the name its own site goes by (theheronsnest.org, the OSM website tag)."
+    "_venue_source": "OpenStreetMap way/1450825499 (amenity=community_centre; addr 4818 Puget Way Southwest), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No street address on purpose: an address sends the row through the sync's Census re-geocode, off the key (city, region and country alone do not). street_hint is only matched against LOCATION. The alias is the name its own site goes by (theheronsnest.org, the OSM website tag).",
+    "_note": "pin_unnamed is false until this calendar's events with no LOCATION have been read: run smoke-gcal with show set to its name, read the '[gcal]   N with no LOCATION or GEO' titles, and only then delete pin_unnamed (adding a venue_skip for any title that says it is elsewhere), as the seven older Google venue blocks were (Lasswade 56 and Betlehem 53 bare events turned out to be elsewhere). Until then only a LOCATION that names the venue takes its pin; a bare event is dropped as unplaceable, as before the venue block. Added 2026-10-12."
   },
   {
     "name": "Polish Home Association – Dom Polski",
@@ -31574,15 +31594,20 @@
     "_metro": "Seattle, United States",
     "venue": {
       "name": "Polish Home Association – Dom Polski",
+      "city": "Seattle",
+      "region": "WA",
+      "country": "US",
       "lat": 47.6169525,
       "lon": -122.30845,
       "aliases": [
         "Seattle Polish Cultural Center",
         "Dom Polski"
       ],
-      "street_hint": "1714 18th Ave"
+      "street_hint": "1714 18th Ave",
+      "pin_unnamed": false
     },
-    "_venue_source": "OpenStreetMap way/229910960 (amenity=community_centre, community_hall, community_centre:for=polish; alt_name 'Seattle Polish Cultural Center;Dom Polski'; addr 1714 18th Avenue), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No address on purpose: an address sends the row through the sync's Census re-geocode, off the key. street_hint is only matched against LOCATION. The calendar id is the 'gcal' value of the page's pgcal_inlineScript; the page's own Google API key is not read or kept. Its events page listed 5 upcoming events on 2026-10-12, all at 'Polish Home Association – Dom Polski, 1714 18th Ave'."
+    "_venue_source": "OpenStreetMap way/229910960 (amenity=community_centre, community_hall, community_centre:for=polish; alt_name 'Seattle Polish Cultural Center;Dom Polski'; addr 1714 18th Avenue), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No street address on purpose: an address sends the row through the sync's Census re-geocode, off the key (city, region and country alone do not). street_hint is only matched against LOCATION. The calendar id is the 'gcal' value of the page's pgcal_inlineScript; the page's own Google API key is not read or kept. Its events page listed 5 upcoming events on 2026-10-12, all at 'Polish Home Association – Dom Polski, 1714 18th Ave'.",
+    "_note": "pin_unnamed is false until this calendar's events with no LOCATION have been read: run smoke-gcal with show set to its name, read the '[gcal]   N with no LOCATION or GEO' titles, and only then delete pin_unnamed (adding a venue_skip for any title that says it is elsewhere), as the seven older Google venue blocks were (Lasswade 56 and Betlehem 53 bare events turned out to be elsewhere). Until then only a LOCATION that names the venue takes its pin; a bare event is dropped as unplaceable, as before the venue block. Added 2026-10-12."
   },
   {
     "name": "Shakopee Public Library",

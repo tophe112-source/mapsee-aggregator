@@ -16,11 +16,15 @@ Config per source (JSON list):
     geocode_suffix   appended to LOCATION for Photon lookups (", Seattle, WA")
     limit            max future events to keep (default 500)
     venue            optional {name, address, city, region, postal_code, country,
-                     lat, lon, aliases, street_hint} used for a VEVENT that
-                     carries neither LOCATION nor GEO, and for one whose
+                     lat, lon, aliases, street_hint, pin_unnamed} used for a
+                     VEVENT that carries neither LOCATION nor GEO (unless
+                     `pin_unnamed` is false: until a calendar's bare titles
+                     have been read, see _pins_unnamed), and for one whose
                      LOCATION NAMES the venue (its name or an alias, or the
                      house number and street in `street_hint`; see
-                     _names_venue). A neighbourhood council's annual yard
+                     _names_venue); such a row keeps the feed's own LOCATION
+                     as its place name and takes only the venue's point.
+                     A neighbourhood council's annual yard
                      sale is a few hundred porches and a map, not an address,
                      so the one event such a calendar exists for is exactly the
                      one with no LOCATION - and it was being dropped as
@@ -28,9 +32,9 @@ Config per source (JSON list):
                      LOCATION that fails to geocode is still dropped: this is
                      for events that HAVE no place, not for places Photon missed.
                      A block with no `address` keeps its point exact through
-                     the sync (no Census re-geocode); `aliases` and
-                     `street_hint` are only ever matched, never geocoded or
-                     written to a row.
+                     the sync (no Census re-geocode; city, region and country
+                     alone send nothing to it); `aliases` and `street_hint`
+                     are only ever matched, never geocoded or written to a row.
 
 Events need coordinates to land on the map: a VEVENT GEO property wins;
 otherwise the LOCATION string is geocoded via Photon (OSM) — one polite
@@ -44,6 +48,7 @@ import argparse
 import codecs
 import html as _html
 import json
+import math
 import re
 import sys
 import time
@@ -520,6 +525,29 @@ def _location_override(src: Dict[str, Any], location: Optional[str]) -> Optional
     return None
 
 
+def _geo_point(ev: Dict[str, Any]) -> Optional[Tuple[float, float]]:
+    """A VEVENT's GEO as (lat, lon), or None when absent, unreadable or 0;0."""
+    if "GEO" not in ev:                               # "lat;lon"
+        return None
+    try:
+        lat, lon = (float(x) for x in ev["GEO"][0].split(";")[:2])
+    except Exception:                                 # noqa: BLE001
+        return None
+    if abs(lat) < 1e-9 and abs(lon) < 1e-9:
+        return None                                   # GEO:0;0 is "unset", not the Gulf of Guinea
+    return lat, lon
+
+
+def _geo_agrees(geo: Optional[Tuple[float, float]], venue: Dict[str, Any]) -> bool:
+    """No GEO, or one within _GEO_AGREES_M of the venue pin."""
+    if geo is None:
+        return True
+    lat, lon = float(venue["lat"]), float(venue["lon"])
+    dy = (geo[0] - lat) * 111_195.0
+    dx = (geo[1] - lon) * 111_195.0 * math.cos(math.radians(lat))
+    return math.hypot(dx, dy) <= _GEO_AGREES_M
+
+
 # A LOCATION THAT NAMES THE SOURCE'S OWN VENUE IS AT THE VENUE. A community
 # centre's own calendar writes "Polish Home", "Dom Polski - Main Hall" or
 # "1714 18th Ave, Seattle, WA 98122" on its events, and until this rule every
@@ -529,16 +557,35 @@ def _location_override(src: Dict[str, Any], location: Optional[str]) -> Optional
 # element (Vashon Senior Center's 3 live rows did, 2026-10-12); a street
 # address lands on the address point, a room name anywhere. `location_overrides`
 # fixed that one exact string at a time, and 0 of the 172 Google calendars
-# used it. So a LOCATION is pinned to the source's `venue` when it names it:
+# used it. So a LOCATION is pinned to the source's `venue` when it names it.
+#
+# Words first. Case, accents, punctuation, a possessive 's and articles are
+# ignored, and every word is one of three kinds:
+#   * GENERIC: says what kind of building, never which ("community", "centre",
+#     "hall", "association");
+#   * a KIND of place ("library", "branch", "park", "school", "church", "club",
+#     "booth"...): generic for a venue whose own name carries it ("Atlee
+#     Branch Library" is "Atlee"), and ANOTHER place when a LOCATION carries
+#     one the venue's name does not ("Queen Anne Library" is not "Queen Anne
+#     Community Center", "Green Lake Park" not "Green Lake Community Center");
+#   * DISTINCTIVE: everything else, the words that say which venue.
+# The venue's names are its `name` and its `aliases` (OpenStreetMap's
+# alt_name), each without a bracketed descriptor ("Thame Town Hall (town
+# centre)") or what follows a comma ("MAECare, Cranmer Bank" is MAECare; the
+# rest is where it is), and each " - " part of those ("Polish Home
+# Association - Dom Polski" is two names).
 #
 #   * by NAME: one comma-, dash- or bracket-separated part of the LOCATION
-#     carries every distinctive word of the venue's name (or of one part of it:
-#     "Polish Home Association - Dom Polski" is two names). Case, accents,
-#     punctuation, a possessive 's and generic words ("community", "centre",
-#     "hall", "association") are ignored. A name with ONE distinctive word must
-#     be the whole part ("Vrankrijk", not "Vrankrijk Bar"), and carry one of
-#     the name's own generic words when it has any ("Ballard Center", not
-#     "Ballard"): one word is too easily somebody else's name, or the town's.
+#     carries every distinctive word of a name and no kind of place the name
+#     lacks; when it carries more distinctive words than the name it must also
+#     carry one of the name's own generic or kind words ("Vashon Senior Center
+#     Dining Room", not "Vashon Senior Living"). A name with ONE distinctive
+#     word must be the whole part and carry one of the name's own generic or
+#     kind words when it has any ("Ballard Center", not "Ballard" or
+#     "Pottery, Ballard"): one word is too
+#     easily somebody else's name, or the town's. And no part BEFORE it may
+#     name another place ("Marra Farm, South Park"; "Fort Rouge Leisure Centre
+#     - MPR, Osborne Library"), unless that part starts with a number.
 #   * by STREET: the venue block's `street_hint` ("1714 18th Ave") or its
 #     `address`, house number and street, abbreviations folded (Avenue =
 #     Ave), and no different direction after it (18th Ave S is another
@@ -551,26 +598,47 @@ def _location_override(src: Dict[str, Any], location: Optional[str]) -> Optional
 #   * never at all when one part says "not here": "Out of Building, Lee
 #     Road", "All Locations, Zionsville Branch", "Offsite - <branch>".
 #
-# A LOCATION that names anywhere else is geocoded exactly as before, and a
-# title `venue_skip` places elsewhere is never pinned, however it is located.
+# A LOCATION that names anywhere else is geocoded exactly as before; a title
+# `venue_skip` places elsewhere is never pinned, however it is located; and a
+# publisher's own GEO more than _GEO_AGREES_M from the pin wins over the name.
 #
 # Checked 2026-10-12 against the config's own ground truth, the 479
 # location_overrides strings on the 112 sources that also carry a `venue`:
-# of the 474 a person pinned AT the venue, the rule names 411 and misses 63
-# (LibCal's short campus names, "Lee Road" for "Lee Road Library"; making
-# "library" generic would catch them, and also pin "Café, Lee Road", so it is
-# not); of the 5 pinned elsewhere it names 4, all one shape - a room in
-# another building filed under the branch ("Fort Rouge Leisure Centre - MPR,
-# Osborne Library") - and all 4 keep their exact override, which is read
-# first. Replayed over the 68 non-Google venue feeds read that day (4,770
-# kept events) it moved 2 rows, both onto their own library. The 185 live
-# rows of the three neighbourhood Google calendars (Montlake, Overlook,
-# Lyndale; 141 with a LOCATION) are all unchanged: none names its centroid.
-_VENUE_GENERIC = frozenset("""
-    community centre center centres centers hall halls association associations
-    assn assoc society club inc ltd
+# of the 474 a person pinned AT the venue the rule names 464, and the 10 it
+# misses each put another place before the branch ("Quincy Park, Central
+# Library", "Lee Road Children's Garden, Lee Road", "Park Level Room B,
+# Coventry Village"), which goes to the geocoder as before; of the 5 pinned
+# elsewhere it names 1 ("Fort Rouge - Kitchen, Osborne Library"), and that
+# string's exact override, read first, keeps it right. Replayed offline over
+# 127 of the 128 non-Google venue feeds (the other refused by robots.txt;
+# 18,201 VEVENTs, 11,790 kept) it moved 229 rows, every one onto its own
+# venue (Pamunkey's Atlee and Hanover branches 217, MAECare 6, Temple
+# University Japan 3, three Singapore libraries 3), lost none, and left 189 to
+# the geocoder where the rule off leaves 418: rooms that name no branch,
+# outreach, and places that are elsewhere. Without the "not here" guard 19
+# Heights Libraries outreach VEVENTs would have been pinned to the branch. The
+# 185 live rows of the three neighbourhood Google calendars (Montlake,
+# Overlook, Lyndale; 141 with a LOCATION) are all unchanged.
+_VENUE_STOP = frozenset("""
     the of and at in on for a an de la le les du des del der die das und et y el
 """.split())
+_VENUE_GENERIC = frozenset("community center hall association society inc ltd regional public".split())
+_VENUE_KIND = frozenset("""
+    library branch park school church chapel cathedral mosque synagogue farm field
+    garden playground pool museum stadium arena booth club college university
+    hospital cemetery beach zoo theater cinema hotel
+    biblioteca bibliotheque bibliothek bibliotheek parque parc escuela escola ecole
+    schule iglesia igreja eglise kirche kerk teatro museo musee estadio piscina
+""".split())
+_WORD_FOLD = {
+    "centre": "center", "centres": "center", "centers": "center", "halls": "hall",
+    "associations": "association", "assn": "association", "assoc": "association",
+    "libraries": "library", "branches": "branch", "parks": "park", "schools": "school",
+    "churches": "church", "fields": "field", "gardens": "garden", "clubs": "club",
+    "pools": "pool", "theatre": "theater", "theatres": "theater", "theaters": "theater",
+}
+# What a part BEFORE the named one must not be: another place's name.
+_ELSEWHERE_KIND = _VENUE_KIND | {"center"}
 _STREET_ABBR = {
     "avenue": "ave", "av": "ave", "street": "st", "road": "rd", "boulevard": "blvd",
     "drive": "dr", "place": "pl", "lane": "ln", "court": "ct", "terrace": "ter",
@@ -581,8 +649,12 @@ _STREET_ABBR = {
 }
 _DIRECTIONS = frozenset({"n", "s", "e", "w", "ne", "nw", "se", "sw"})
 _NAME_PARTS_RX = re.compile(r"\s+[-–—]\s+|[,;:/|()\[\]（）]")
-_VENUE_NAME_CACHE: Dict[Tuple[str, ...], List[Tuple[frozenset, frozenset]]] = {}
+_BRACKETED_RX = re.compile(r"\s*[(\[（][^)\]）]*[)\]）]")
+_VENUE_NAME_CACHE: Dict[Tuple[str, ...], List[Tuple[frozenset, frozenset, frozenset]]] = {}
 _HOUSE_NUMBER_RX = re.compile(r"\s*\d+[A-Za-z]?(?:-\d+)?\s+\w")     # "1714 18th Ave", "11 Eskdale Drive"
+# A publisher's GEO this close to the venue pin is the venue; farther, it is
+# somewhere the publisher placed on purpose, and a word match does not move it.
+_GEO_AGREES_M = 100
 # A part of a LOCATION that says "not here": the ELSEWHERE words below, minus
 # the bare countries (Google ends every picked place with ", USA"); an online
 # room (ingest drops those first, ONLINE_LOC_RX, but the smoke read asks this
@@ -604,14 +676,19 @@ def _words(text: str) -> List[str]:
     return [w for w in re.split(r"[\W_]+", t) if w]
 
 
-def _distinctive(text: str) -> frozenset:
-    return frozenset(w for w in _words(text) if w not in _VENUE_GENERIC)
+def _name_words(text: str) -> frozenset:
+    """A name's words, folded ("Centre" = "Center"), articles dropped."""
+    return frozenset(_WORD_FOLD.get(w, w) for w in _words(text) if w not in _VENUE_STOP)
 
 
-def _venue_names(venue: Dict[str, Any]) -> List[Tuple[frozenset, frozenset]]:
-    """The venue's names as (distinctive words, generic words) pairs: its `name`,
-    its `aliases` (OpenStreetMap's alt_name and name:<lang> are where these come
-    from), and each part of each."""
+def _distinctive(words: frozenset) -> frozenset:
+    return frozenset(w for w in words if w not in _VENUE_GENERIC and w not in _VENUE_KIND)
+
+
+def _venue_names(venue: Dict[str, Any]) -> List[Tuple[frozenset, frozenset, frozenset]]:
+    """The venue's names as (distinctive words, generic and kind words, kind
+    words) triples: its `name` and `aliases`, each without a bracketed
+    descriptor or what follows a comma, and each " - " part of those."""
     aliases = venue.get("aliases")
     names = (str(venue.get("name") or ""),) + tuple(
         str(a) for a in (aliases if isinstance(aliases, list) else []) if a)
@@ -619,11 +696,13 @@ def _venue_names(venue: Dict[str, Any]) -> List[Tuple[frozenset, frozenset]]:
     if got is None:
         got = []
         for name in names:
-            for part in [name] + _NAME_PARTS_RX.split(name):
-                words = _distinctive(part)
-                pair = (words, frozenset(_words(part)) - words)
-                if words and pair not in got:
-                    got.append(pair)
+            first = _BRACKETED_RX.sub(" ", name).split(",")[0]
+            for part in [first] + re.split(r"\s+[-–—]\s+", first):
+                words = _name_words(part)
+                distinct = _distinctive(words)
+                triple = (distinct, words - distinct, words & _VENUE_KIND)
+                if distinct and triple not in got:
+                    got.append(triple)
         _VENUE_NAME_CACHE[names] = got
     return got
 
@@ -650,9 +729,10 @@ def _names_venue(venue: Any, location: Optional[str]) -> bool:
     """True when a LOCATION names the source's own venue (see above)."""
     if not location or not _venue_pin(venue):
         return False
+    parts = _NAME_PARTS_RX.split(location)
     # "Out of Building, Noble Neighborhood": the part before the comma says
     # the event is NOT at the branch the part after it names.
-    if any(_NOT_HERE_PART_RX.match(p) for p in _NAME_PARTS_RX.split(location)):
+    if any(_NOT_HERE_PART_RX.match(p) for p in parts):
         return False
     streets = [s for s in (venue.get("street_hint"), venue.get("address"))
                if isinstance(s, str) and s.strip()]
@@ -664,19 +744,43 @@ def _names_venue(venue: Any, location: Optional[str]) -> bool:
     # is an office, not the neighbourhood centroid its source's venue is.
     if any(_HOUSE_NUMBER_RX.match(p) for p in location.split(",")):
         return False
-    parts = [(_distinctive(p), frozenset(_words(p))) for p in _NAME_PARTS_RX.split(location)]
-    for name, generic in _venue_names(venue):
-        for distinct, every in parts:
-            if len(name) >= 2 and name <= distinct:
-                return True
-            # One distinctive word is often a PLACE: "Ballard" in "Ballard
-            # Community Center" is the neighbourhood, so "Pottery, Ballard" is
-            # not the centre. The part must be that word alone, and carry one
-            # of the name's own generic words when it has any ("Ballard
-            # Center" names it; "Ballard" does not).
-            if len(name) == 1 and distinct == name and (not generic or generic & every):
-                return True
+    words = [_name_words(p) for p in parts]
+    for distinct, generic, kinds in _venue_names(venue):
+        for i, every in enumerate(words):
+            got = _distinctive(every)
+            if not distinct <= got or (every & _VENUE_KIND) - kinds:
+                continue                              # not this name, or another kind of place
+            if len(distinct) == 1:
+                if got != distinct or (generic and not generic & every):
+                    continue                          # one word: the whole part, with its own kind word
+            elif got != distinct and generic and not generic & every:
+                continue                              # more words, none of the name's own kind words
+            if any((words[j] & _ELSEWHERE_KIND) - generic and _distinctive(words[j])
+                   for j in range(i) if not re.match(r"\s*\d", parts[j])):
+                continue                              # an earlier part names another place
+            return True
     return False
+
+
+def _where(src: Dict[str, Any], location: Optional[str]) -> str:
+    """Where ingest_ics puts a VEVENT with this LOCATION and no GEO, in the
+    adapter's own order, for the smoke read to print: "online" and
+    "unplaceable" are dropped, "override" (an exact location_overrides string)
+    and "venue" (no place named, or one that names the venue) are pinned to a
+    configured point, "geocode" goes to Photon. A title `venue_skip` matches is
+    kept off the venue whatever this says."""
+    venue = src.get("venue")
+    bare = "venue" if _pins_unnamed(venue) else "unplaceable"
+    if location and ONLINE_LOC_RX.search(location):
+        return "online"
+    if location and (PLACEHOLDER_LOC_RX.match(location) or _all_placeholders(location)):
+        elsewhere = bool(ELSEWHERE_LOC_RX.match(location)) or _all_placeholders(location, ELSEWHERE_LOC_RX)
+        return "unplaceable" if elsewhere else bare
+    if not location:
+        return bare
+    if _location_override(src, location):
+        return "override"
+    return "venue" if _names_venue(venue, location) else "geocode"
 
 
 def _datetime_override(src: Dict[str, Any], title: str, location: Optional[str],
@@ -938,26 +1042,29 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         fingerprint_loc = loc
         had_source_location = bool(loc)
         venue = _location_override(src, loc)
+        geo = _geo_point(ev)
         # Before GEO, as an exact override is: the venue pin is a checked
-        # point, and the only one the map links the venue's events by.
-        if venue is None and _names_venue(src.get("venue"), loc):
-            if _off_venue(src, title):
-                off_venue += 1                        # named, but its title says elsewhere
-            else:
-                venue = src["venue"]
-                pinned_by_name += 1
+        # point, and the only one the map links the venue's events by. But a
+        # word match is not a checked string, so the publisher's own GEO wins
+        # when it puts the event somewhere else (_GEO_AGREES_M). The row keeps
+        # the feed's own LOCATION as its place name - the room and the street
+        # people read - and takes only the point.
+        named = False
+        if venue is None and _names_venue(src.get("venue"), loc) and _geo_agrees(geo, src["venue"]):
+            if not _off_venue(src, title):
+                venue, named = src["venue"], True
+            # Counted for the log only when a row is written: a tombstone places nothing.
+            if not is_cancelled:
+                if named:
+                    pinned_by_name += 1
+                else:
+                    off_venue += 1                    # named, but its title says elsewhere
         if venue:
             lat, lon = float(venue["lat"]), float(venue["lon"])
-            loc = venue.get("name") or loc
+            if not named:
+                loc = venue.get("name") or loc
         else:
-            lat = lon = None
-        if venue is None and "GEO" in ev:             # "lat;lon"
-            try:
-                lat, lon = (float(x) for x in ev["GEO"][0].split(";")[:2])
-            except Exception:
-                lat = lon = None
-            if lat is not None and abs(lat) < 1e-9 and abs(lon) < 1e-9:
-                lat = lon = None                      # GEO:0;0 is "unset", not the Gulf of Guinea
+            lat, lon = geo if geo else (None, None)   # GEO:0;0 is "unset", not the Gulf of Guinea
         if venue is None and (lat is None or lon is None) and loc and not is_cancelled:
             lat, lon = geocode(loc)
         if (venue is None and lat is None and not loc and not elsewhere and not is_cancelled

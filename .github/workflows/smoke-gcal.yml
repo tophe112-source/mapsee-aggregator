@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       show:
-        description: "Comma-separated calendar name fragments: also list their events with no LOCATION (the ones a venue block would pin)"
+        description: "Comma-separated calendar name fragments: also list their events with no LOCATION (the ones a venue block would pin) and every distinct LOCATION, marked with where the adapter puts it (override, venue, geocode, online, unplaceable)"
         required: false
         default: ""
 
