@@ -518,3 +518,17 @@
   and Walk 18. Now `types` and the title decide: outdoors 27 (all 23 hikes and
   walks), learning 66, arts 2, kids 2, volunteer 1. Stored rows move on the
   Thursday refresh of the extra sources. `python test_ingest_nps.py`.
+
+- **A STATE PARK'S HIKES REACHED THE COMMUNITY DOOR BECAUSE ITS TYPE NAMES WERE
+  NOT IN LOCALIST'S MAP (2026-10-12).** `_TYPE_MAP` matches an event_type by
+  its exact name. On the 2026-10-11 walk of all 57 tenants (25,197 events), 200
+  events were titled a hike, paddle or guided walk, and 199 had community as
+  their primary, 0 outdoors. NC DNCR types them "Outdoor & Recreation",
+  "Nature & Wildlife Programs" and "Outdoor Recreation (kayak, paddle, hikes)",
+  UVM "Outdoor Recreation": 69 events, every one an outdoor programme by title.
+  Mapped to outdoors, 63 of the 65 that place are outdoors after the sync's
+  derive_categories; the other two are a volunteer day (volunteer) and a Junior
+  Ranger Hike (kids), both keeping outdoors. The campus "Sports & Recreation"
+  family (252 events: varsity games, gym classes) stays unmapped. Indiana types
+  everything "Events", so its hikes still need a title rule. Stored rows move
+  on Thursday's refresh. `python test_ingest_localist.py`.

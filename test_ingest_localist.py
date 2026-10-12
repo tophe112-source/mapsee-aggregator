@@ -743,6 +743,27 @@ check("the log counts what the cost lines said",
       "cost: 2 free, 1 priced, 1 restricted, 0 flagged free but contradicted" in log, log)
 
 print()
+print("a state park's own outdoor types")
+
+def _typed(*names):
+    return {"filters": {"event_types": [{"name": n} for n in names]}}
+
+# NC DNCR's types, verbatim from the 2026-10-11 walk: all 69 events carrying
+# one of these four landed on community, hikes and paddles alike.
+check("'Fall Colors Hike' (Outdoor & Recreation, Nature & Wildlife Programs) is outdoors",
+      L._categories(_typed("Outdoor & Recreation", "Nature & Wildlife Programs"), None)[0] == "outdoors",
+      L._categories(_typed("Outdoor & Recreation", "Nature & Wildlife Programs"), None))
+check("'Animals of Jones Lake' (an unmapped type first) is still outdoors",
+      L._categories(_typed("Education Programs", "Outdoor & Recreation"), None)[0] == "outdoors")
+check("'Hunter's Moon Paddle' (Outdoor Recreation (kayak, paddle, hikes)) is outdoors",
+      L._categories(_typed("Outdoor Recreation (kayak, paddle, hikes)"), None)[0] == "outdoors")
+check("UVM's 'Wednesday Walks' (Outdoor Recreation) is outdoors",
+      L._categories(_typed("Meetings and gatherings", "Outdoor Recreation"), None)[0] == "outdoors")
+check("a campus 'Sports & Recreation' game is NOT outdoors (varsity games, gym classes)",
+      L._categories(_typed("Sports & Recreation"), None)[0] == "community",
+      L._categories(_typed("Sports & Recreation"), None))
+
+print()
 if fails:
     print(f"{len(fails)} check(s) FAILED")
     sys.exit(1)

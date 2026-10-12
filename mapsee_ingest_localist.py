@@ -98,6 +98,19 @@ _TYPE_MAP = {
     "fitness": "fitness", "wellness": "fitness", "exercise": "fitness",
     "yoga": "fitness", "intramural": "fitness", "run": "running",
     "walk": "fitness", "hike": "outdoors", "bike": "fitness",
+    # A STATE PARKS CALENDAR'S OWN OUTDOOR TYPES. Matching is by exact name, and
+    # NC DNCR (events.dncr.nc.gov) types its ranger hikes, paddles and bird walks
+    # "Outdoor & Recreation", "Nature & Wildlife Programs" and "Outdoor Recreation
+    # (kayak, paddle, hikes)"; UVM's walking groups are "Outdoor Recreation". On
+    # the 2026-10-11 walk of all 57 tenants (25,197 events) those four names were
+    # on 69 events, every one an outdoor programme read by title (Fall Colors Hike,
+    # Hunter's Moon Paddle, Beginner Bird Walk, Night Hike), and all 69 landed on
+    # community; of the 200 events titled a hike, paddle or guided walk, 199 did.
+    # The campus "Sports & Recreation" family stays unmapped: it is varsity games
+    # and gym classes (Men's Water Polo, Body HIIT).
+    "outdoor & recreation": "outdoors", "outdoor recreation": "outdoors",
+    "outdoor recreation (kayak, paddle, hikes)": "outdoors",
+    "nature & wildlife programs": "outdoors",
 }
 
 
