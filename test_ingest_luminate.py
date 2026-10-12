@@ -1,9 +1,10 @@
 """Does the Luminate TeamRaiser adapter write only real, public, placeable walks?
 
-The adapter ships PARKED (luminate_sources.json.pending-permission): each
-request carries a charity's own published api_key, and using it is the
-owner's decision. These checks pin the rules it will run under the day it is
-switched on, and that it stays off until then.
+Each request carries a charity's own published api_key. The owner switched
+the adapter on 2026-10-11 (luminate_sources.json `_decision`; the charities
+were not asked), so these checks pin that the LIVE config runs, records that
+decision and how to take it back, and has no parked twin beside it to drift
+from - and the rules it runs under.
 
 The records are verbatim from the TeamRaiser answers of 2026-10-11 (ACS Making
 Strides and Relay For Life, Walk to End Alzheimer's 2026, Komen), trimmed to
@@ -357,12 +358,12 @@ RECORDS_JSON = r'''{
 
 REC = json.loads(RECORDS_JSON)
 
-# The config the adapter will run: the parked twin, or the live file once the
-# owner has switched it on (then `_decision` must say so).
+# The config the job runs. Switched on by the owner on 2026-10-11; to switch it
+# off, rename it to luminate_sources.json.pending-permission and flip the
+# first checks below (test_ingest_parkrun.py has the same pattern).
 LIVE = os.path.join(HERE, "luminate_sources.json")
 TWIN = LIVE + ".pending-permission"
-cfg_path = LIVE if os.path.exists(LIVE) else TWIN
-cfg = json.load(open(cfg_path, encoding="utf-8"))
+cfg = json.load(open(LIVE if os.path.exists(LIVE) else TWIN, encoding="utf-8"))
 ALZ = next(s for s in cfg["sources"] if "alz.org" in s["api"])
 STRIDES = next(s for s in cfg["sources"] if s["event_types"] == ["Making Strides Against Breast Cancer"])
 RELAY = next(s for s in cfg["sources"] if s["event_types"] == ["Relay For Life"])
@@ -378,14 +379,17 @@ def run(src, recs):
 
 
 # --------------------------------------------------------------------------- #
-# parked until the owner says otherwise
+# switched on by the owner, 2026-10-11
 # --------------------------------------------------------------------------- #
-if os.path.exists(LIVE):
-    check("switched on: the live config records the owner's decision", bool(cfg.get("_decision")),
-          "luminate_sources.json exists with an empty _decision")
-else:
-    check("parked: luminate_sources.json is absent and its .pending-permission twin is beside it",
-          os.path.exists(TWIN))
+check("luminate_sources.json exists: the step runs", os.path.exists(LIVE))
+check("and no parked .pending-permission twin sits beside it, to drift from the one that runs",
+      not os.path.exists(TWIN))
+decision = cfg.get("_decision") or ""
+check("it records the owner's decision: who, when, that the charities were not asked, and the way back",
+      bool(decision.strip()) and "owner" in decision and "2026-10-11" in decision
+      and "NOT asked" in decision and ".pending-permission" in decision, decision[:200])
+check("nothing in the live config still calls it parked",
+      "PARKED" not in json.dumps({k: v for k, v in cfg.items() if k != "_decision"}))
 wf = open(os.path.join(HERE, ".github", "workflows", "aggregate-events.yml"), encoding="utf-8").read()
 check("the workflow step runs only when luminate_sources.json exists",
       "if [ -f luminate_sources.json ]; then\n            python mapsee_ingest_luminate.py --config "

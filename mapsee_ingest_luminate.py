@@ -7,15 +7,18 @@ Susan G. Komen's MORE THAN PINK Walk / Race for the Cure.
 
     python mapsee_ingest_luminate.py --config luminate_sources.json --store feeds_events.json
 
-PARKED. The config ships as luminate_sources.json.pending-permission and the
-workflow step is guarded `[ -f luminate_sources.json ]`, so nothing runs until
-the owner renames it. The api_key each request carries is the charity's own,
-published in its own event finder (ACS 'ACSAPI', Alzheimer's 'ALZADARDA' in an
-<input type=hidden name=api_key>, Komen 'pink' in a plain-text API URL on its
-page). Blackbaud's help says of that key: "This is not a secure password. You
-can include this key in a hidden field of a web form." robots.txt on all three
-hosts has no rule touching /site/CRTeamraiserAPI (2026-10-11). Using somebody
-else's key is still the owner's decision, not this file's: see the config.
+THE KEY IS THE CHARITY'S, AND USING IT IS THE OWNER'S DECISION (2026-10-11,
+recorded in luminate_sources.json `_decision`; the charities were not asked).
+The api_key each request carries is the charity's own, published in its own
+event finder (ACS 'ACSAPI', Alzheimer's 'ALZADARDA' in an <input type=hidden
+name=api_key>, Komen 'pink' in a plain-text API URL on its page). Blackbaud's
+help says of that key: "This is not a secure password. You can include this
+key in a hidden field of a web form." robots.txt on all three hosts has no rule
+touching /site/CRTeamraiserAPI (2026-10-11). The workflow step is guarded
+`[ -f luminate_sources.json ]`: renaming the config to
+luminate_sources.json.pending-permission switches it off from the next run.
+The owner also asked for the walk's route; neither the record nor the event
+pages publish a course, so none is read.
 
 WHAT IT READS. CRTeamraiserAPI method=getTeamraisersByInfo with name=%%% (the
 wildcard), the programme's event_type and list_page_size=500 - the client-side

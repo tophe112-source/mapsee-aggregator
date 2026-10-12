@@ -457,18 +457,19 @@ jobs:
           else
             echo "no rallybound_sources.json - skipping RallyBound walks"
           fi
-      # PARKED: charity walks on Luminate TeamRaiser (ACS Making Strides and
-      # Relay For Life, Walk to End Alzheimer's, Komen). Each request carries the
-      # charity's own published api_key, which is the owner's decision, so the
-      # config ships as luminate_sources.json.pending-permission and this step
-      # skips. Renaming the file is the whole switch: 7 requests, 435 rows within
-      # 180 days on 2026-10-11's pull, 396 of them placed by the sync's Census
-      # batch and the Alzheimer's Association's own pins. --max-minutes 7 starts
-      # no request after 7 minutes: a run is 8 API requests at up to 90 s each
-      # plus 3 robots.txt reads (~13 minutes at worst), and each page is written
-      # before the next request and the store saved after each programme, so
-      # the 10-minute cap cannot cost what was read.
-      - name: Import charity walks on Luminate TeamRaiser (Making Strides, Relay, Alzheimer's, Komen; parked)
+      # Charity walks on Luminate TeamRaiser (ACS Making Strides and Relay For
+      # Life, Walk to End Alzheimer's, Komen). Each request carries the charity's
+      # own published api_key: the owner switched it on 2026-10-11
+      # (luminate_sources.json `_decision`), and renaming the config to
+      # luminate_sources.json.pending-permission switches it off again. 8
+      # requests, 435 rows within 180 days on 2026-10-11's pull, 396 of them
+      # placed by the sync's Census batch and the Alzheimer's Association's own
+      # pins. --max-minutes 7 starts no request after 7 minutes: a run is 8 API
+      # requests at up to 90 s each plus 3 robots.txt reads (~13 minutes at
+      # worst), and each page is written before the next request and the store
+      # saved after each programme, so the 10-minute cap cannot cost what was
+      # read.
+      - name: Import charity walks on Luminate TeamRaiser (Making Strides, Relay, Alzheimer's, Komen)
         id: ingest_luminate
         if: matrix.group == 'local'
         continue-on-error: true
@@ -477,7 +478,7 @@ jobs:
           if [ -f luminate_sources.json ]; then
             python mapsee_ingest_luminate.py --config luminate_sources.json --store feeds_events.json --max-minutes 7
           else
-            echo "no luminate_sources.json - skipping Luminate walks (parked: luminate_sources.json.pending-permission)"
+            echo "no luminate_sources.json - skipping Luminate walks (switched off if a .pending-permission twin is here)"
           fi
       - name: Import curated recurring community programs (e.g. free summer meals, expanded to dated occurrences)
         id: ingest_programs
