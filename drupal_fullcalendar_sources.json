@@ -1,5 +1,5 @@
 {
- "_comment": "Drupal sites whose events calendar is the fullcalendar_view module, read by mapsee_ingest_drupal_fullcalendar.py. One entry per site. calendar_url is the page carrying drupalSettings.fullCalendarView; detail_rewrite maps an event's calendar path to the page that says where it is; map_centres are the geolocation widget's default view (never a venue unless the node's street is that street); venues is the venue book (longest path prefix wins), used only when a page has neither its own point nor a street.",
+ "_comment": "Drupal sites whose events calendar is the fullcalendar_view module, read by mapsee_ingest_drupal_fullcalendar.py. One entry per site. calendar_url is the page carrying drupalSettings.fullCalendarView; detail_rewrite maps an event's calendar path to the page that says where it is; map_centres are the geolocation widget's default view (never a venue unless the node's street is that street); venues is the venue book (longest path prefix wins), used only when a page has neither its own point nor a street. street_pins is the street book: a pin and a name for a street a page prints without a point. area_streets are addresses of a whole open space that place nothing; blurb_start reads 'This program begins at <place>, <street>, <town>, <ST> <ZIP>' from the blurb and lets it beat the location field; cost_in_blurb lifts the blurb's own cost sentence to the price line when there is no price field; list_cap is the calendar's own cap on events listed, at which a read never counts as complete (lesson 7 in the adapter, OC Parks).",
  "sources": [
   {
    "key": "fairfax-county",
@@ -76,6 +76,59 @@
     {"path": "/events/parks/sully-historic-site/", "name": "Sully Historic Site", "lat": 38.9076663, "lon": -77.4308043, "address": "3650 Historic Sully Way", "city": "Chantilly", "region": "VA", "postal": "20151", "node": "/parks/sully-historic-site/location"},
     {"path": "/events/parks/turner-farm/", "name": "Observatory Park at Turner Farm", "lat": 38.995559, "lon": -77.312735, "address": "925 Springvale Road", "city": "Great Falls", "region": "VA", "postal": "22066", "node": "/parks/observatory-park-turner-farm"},
     {"path": "/events/parks/rivebend/", "name": "Riverbend Park", "lat": 39.0176208, "lon": -77.2554268, "address": "8700 Potomac Hills St.", "city": "Great Falls", "region": "VA", "postal": "22066", "node": "/parks/riverbend-park-location"}
+   ]
+  },
+  {
+   "key": "oc-parks",
+   "name": "OC Parks events calendar (Orange County, CA)",
+   "source": "drupal-fullcalendar:oc-parks",
+   "calendar_url": "https://parks.oc.gov/events",
+   "timezone": "America/Los_Angeles",
+   "city": "Irvine",
+   "region": "CA",
+   "country": "US",
+   "bbox": [33.38, -118.13, 33.95, -117.41],
+   "attribution": "From OC Parks' events calendar (parks.oc.gov/events).",
+   "promoter": "OC Parks",
+   "category": "outdoors",
+   "require_visible_date": true,
+   "_require_visible_date_why": "Every one of 111 sampled pages (2026-10-11) shows 'Sat, November 7, 2026 2:30 pm - 5:00 pm PST' in .info-date-time__body, and all 111 agree with the calendar's own start and end.",
+   "page_selectors": {
+    "date": ["info-date-time__body"],
+    "location": ["address"],
+    "description": {"classes": ["field-wysiwyg"], "within": "main"},
+    "registration_text": "\\bregister\\b"
+   },
+   "_page_selectors_why": "The theme puts a block_content field-wysiwyg (an accessibility script) before the event, so the first .field-wysiwyg read 'Body' on 39 of 39 rows of the first run; the event's own body is the one inside <main>, and the related-event cards after </main> carry other events' bodies. 'address' is the location node's <p class=address>: 'field-location' makes split_address take its 'Location'/'Address' labels for the venue. No page has a form block: the registration is the blurb's 'Learn more and register here' link (letsgooutside.org or lagunacanyon.org).",
+   "cost_in_blurb": true,
+   "_cost_in_blurb_why": "No page has a price field; 57 of 58 rows built on 2026-10-11 say their cost in a sentence of the blurb ('The program is free and parking is $3 per vehicle.'), and the cut that fits the sync's 800 characters took that sentence from 30 of them. Lifted word for word to the head, it survives on all 57.",
+   "blurb_start": true,
+   "_blurb_start_why": "Laguna Canyon Foundation and Jr. Ranger pages put the start in the blurb: '*This program begins at Canyon View Park, 22144 Canyon Vistas, Aliso Viejo, CA 92656*', while the location field holds the park's address. On 2026-10-11, 20 of the 28 'This program begins/takes place at' sentences on 109 pages end in a street, and all 20 parse; the Aliso and Wood Canyons starts sit 3.1 to 5.0 km from that park's address, Laguna Coast's Willow Staging Area 3.2 km from its own.",
+   "list_cap": 500,
+   "_list_cap_why": "drupalSettings lists exactly 500 events, newest node first (eid 43451 down to 40851, 2026-07-20 to 2026-12-16): the view's cap. On 2026-10-11 the deepest event still to come sat at list position 290, so nothing upcoming was cut, but a read at the cap can never prove an absence.",
+   "area_streets": [
+    {"street": "13333 Black Star Canyon Rd", "name": "Irvine Ranch Open Space",
+     "_why": "The location field of every Irvine Ranch Open Space programme (60 of 152 rows in the 2026-10-11 window, by title; 45 pages read). OC Parks' own pin for it (node 76: 33.764933,-117.678412) is Black Star Canyon's gate. The 9 pages that say where they start name the Portola, Augustine, Baker Canyon, Creek, Hicks Haul Road, Weir (Outdoor Education Center) and Canyons staging areas, 2.6 to 11.2 km from that pin; none starts at it, not even 'Wilderness Access Day: Black Star Canyon' (Baker Canyon Staging Area)."}
+   ],
+   "_street_pins_why": "Census batch, 2026-10-11, as the sync calls it: 7 of 21 streets these rows carry got no match (28373 Alicia Parkway among them, the street of 21 rows), and '10 Phillips St, Laguna Beach' matched Phillips Circle in Laguna Niguel, 10.1 km away. Park streets carry OC Parks' own location-node pin (geofield, read from each park page's drupalSettings), named by the node's title; Laguna Coast's node pin is the Big Bend Staging Area (10 m), 4.6 km from its address, so 18751 Laguna Canyon Road carries OSM's pin for the building at that address. Banner streets the Census cannot place carry OSM's (via Geofabrik's Postpass).",
+   "street_pins": [
+    {"street": "28373 Alicia Parkway", "name": "Aliso and Wood Canyons Wilderness Park", "lat": 33.551329, "lon": -117.720442, "city": "Laguna Niguel", "region": "CA", "postal": "92677", "_source": "OC Parks location node 6 (parks.oc.gov/alisowood); OSM's visitor centre at the same address is 35 m away"},
+    {"street": "4442 Carbon Canyon Road", "name": "Carbon Canyon Regional Park", "lat": 33.921791, "lon": -117.837496, "city": "Brea", "region": "CA", "postal": "92823", "_source": "OC Parks location node 26"},
+    {"street": "25151 Serrano Road", "name": "Heritage Hill Historical Park", "lat": 33.646734, "lon": -117.689346, "city": "Lake Forest", "region": "CA", "postal": "92630", "_source": "OC Parks location node 66"},
+    {"street": "1 Irvine Park Rd.", "name": "Irvine Regional Park", "lat": 33.796935, "lon": -117.753463, "city": "Orange", "region": "CA", "postal": "92869", "_source": "OC Parks location nodes 2881 (Irvine Regional Park) and 116 (OC Zoo, '1 Irvine Park Road'): one pin for both"},
+    {"street": "16801 Euclid St.", "name": "Mile Square Regional Park", "lat": 33.727486, "lon": -117.938584, "city": "Fountain Valley", "region": "CA", "postal": "92708", "_source": "OC Parks location node 101"},
+    {"street": "8548 E. Canyon View Ave.", "name": "Peters Canyon Regional Park", "lat": 33.783909, "lon": -117.762107, "city": "Orange", "region": "CA", "postal": "92869", "_source": "OC Parks location node 126"},
+    {"street": "8800 Rosecrans Ave.", "name": "Ralph B. Clark Regional Park", "lat": 33.893138, "lon": -117.977892, "city": "Buena Park", "region": "CA", "postal": "90621", "_source": "OC Parks location node 36"},
+    {"street": "33401 Ortega Hwy.", "name": "Ronald W. Caspers Wilderness Park", "lat": 33.53351, "lon": -117.551625, "city": "San Juan Capistrano", "region": "CA", "postal": "92675", "_source": "OC Parks location node 31"},
+    {"street": "33333 S. Pacific Coast Hwy.", "name": "Salt Creek Beach Park", "lat": 33.480469, "lon": -117.720117, "city": "Dana Point", "region": "CA", "postal": "92629", "_source": "OC Parks location node 141"},
+    {"street": "2145 N. Windes Drive", "name": "Santiago Oaks Regional Park", "lat": 33.816145, "lon": -117.779097, "city": "Orange", "region": "CA", "postal": "92869", "_source": "OC Parks location node 146"},
+    {"street": "2301 University Drive", "name": "Upper Newport Bay Nature Preserve", "lat": 33.653427, "lon": -117.88528, "city": "Newport Beach", "region": "CA", "postal": "92660", "_source": "OC Parks location node 166; OSM's Peter and Mary Muth Interpretive Center is 13 m away"},
+    {"street": "7600 E. La Palma Ave.", "name": "Yorba Regional Park", "lat": 33.86917, "lon": -117.76625, "city": "Anaheim", "region": "CA", "postal": "92807", "_source": "OC Parks location node 181 (parks.oc.gov/yorbapark)"},
+    {"street": "18751 Laguna Canyon Road", "name": "Laguna Coast Wilderness Park (Nix Nature Center)", "lat": 33.608013, "lon": -117.764021, "city": "Laguna Beach", "region": "CA", "postal": "92651", "_source": "OSM way 660812107 (James and Rosemary Nix Nature Center, addr 18751 Laguna Canyon Road); OC Parks' node 86 pin is the Big Bend Staging Area, 4.6 km south"},
+    {"street": "22144 Canyon Vistas", "name": "Canyon View Park", "lat": 33.584002, "lon": -117.744595, "city": "Aliso Viejo", "region": "CA", "postal": "92656", "_source": "OSM way 44947869 (leisure=park, Canyon View Park), centroid; Census: no match"},
+    {"street": "150 Cedarbrook", "name": "Aliso Viejo Community Park", "lat": 33.578574, "lon": -117.714622, "city": "Aliso Viejo", "region": "CA", "postal": "92656", "_source": "OSM way 44709633 (leisure=park), centroid; Census: no match"},
+    {"street": "350 Artisan Drive", "name": "James Dilley Preserve", "lat": 33.594562, "lon": -117.752271, "city": "Laguna Beach", "region": "CA", "postal": "92651", "_source": "OSM way 1146112223 (addr 350 Artisan Drive); Census: no match"},
+    {"street": "10 Phillips St.", "name": "Laguna Canyon Foundation Headquarters", "lat": 33.581521, "lon": -117.760866, "city": "Laguna Beach", "region": "CA", "postal": "92651", "_source": "OSM way 724264230 (Phillips Street, Laguna Beach, 110 m long), centroid; the Census matched Phillips Circle in Laguna Niguel, 10.1 km away"}
    ]
   }
  ]

@@ -16,6 +16,14 @@ whole source, and the second of two same-day sessions merging into the first.
 One check needs the sync to treat 'drupal-fullcalendar:' as a civic
 timetable (CIVIC_TIMETABLE_SOURCES); it fails until that line is there.
 
+Section 10 is OC Parks (Orange County, CA), the 5.x tenant, from real pages of
+2026-10-11: a row keyed on the view's row number instead of its node, a blurb
+read from the accessibility block ("Body"), an open space's one address pinned
+under hikes that start 2.6 to 11.2 km away, a start line in the blurb ignored
+for the park's address, a cost sentence cut by the 800, a free walk-in bird
+walk told it needs "Tickets", a capped list read as complete, and a member of
+staff's name, direct line and own email address carried into a bird walk's row.
+
     python test_ingest_drupal_fullcalendar.py
 """
 import io
@@ -680,6 +688,286 @@ with tempfile.TemporaryDirectory() as tmp:
             check(f"{label} is refused at load", False)
         except ValueError:
             check(f"{label} is refused at load", True)
+
+# ---------------------------------------------------------------------------
+# 10. OC Parks (Orange County, CA): a 5.x tenant, and where its programmes are
+# ---------------------------------------------------------------------------
+# Real pages read 2026-10-11, trimmed to what the adapter reads and what used to
+# fool it: the theme's accessibility block (the page's FIRST .field-wysiwyg),
+# the date and the location field above <main>, <main> itself, and the related
+# event card after it. Each trimmed page parsed exactly like the full one when
+# it was cut. The calendar rows are real rows of that day's drupalSettings.
+# One thing is NOT real: the staff contact sentences in 'yorba' and 'walk_ins'
+# keep their shape ("contact Resource Specialist <First> <Last> at (714) ...
+# or <first>.<last>@...") with a made-up person, a 555-01xx number and an
+# example.org address, so this public repo publishes nobody's direct line.
+OC = next(s for s in CFG["sources"] if s["key"] == "oc-parks")
+OC_TZ = ZoneInfo(OC["timezone"])
+OC_PAGES = {
+    'open_space': '<html><body>\n<div\n class="body field-wysiwyg text-long" id="wysiwyg-body-block_content-na-0" data-wysiwyg-a11y="true"\n>\n <span\n id="wysiwyg-body-block_content-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n <script async src="https://docaccess.com/docbox.js"></script>\n</div>\n<div class="info-date-time">\n <div class="info-date-time__content">\n <div class="info-date-time__content-left">\n <div class="ico-location"><span class="material-icons" translate="no" aria-hidden="true">calendar_today</span></div>\n </div>\n <div class="info-date-time__content-right">\n <div class="info-date-time__heading">\n Date and time\n </div>\n <div class="info-date-time__body">\n Sat, November 7, 2026<br />\n 2:30 pm - 5:00 pm PST\n </div>\n </div>\n </div>\n</div>\n<div class="info-location">\n <div class="info-location__content">\n <div class="info-location__content-left">\n <div class="ico-location"><span class="material-icons" translate="no" aria-hidden="true">location_on</span></div>\n </div>\n <div class="info-location__content-right">\n <div class="info-location__heading">\n Location\n </div>\n <div class="info-location__body">\n<p class="info-location__paragraph">\n <div class="field-location" id="field-1186505886">\n <span\n id="field-1186505886-label"\n class="visually-hidden"\n >\n Location\n </span>\n <div\n role="group"\n aria-labelledby="field-1186505886-label"\n >\n <div >\n<article class="node">\n <div>\n <div class="field-address" id="field-1994914447">\n <span\n id="field-1994914447-label"\n class="visually-hidden"\n >\n Address\n </span>\n <div\n role="group"\n aria-labelledby="field-1994914447-label"\n >\n <p class="address" translate="no"><span class="address-line1">13333 Black Star Canyon Rd</span><br>\n<span class="locality">Silverado</span>, <span class="administrative-area">CA</span> <span class="postal-code">92676</span><br>\n<span class="country">United States</span></p>\n </div>\n </div>\n </div>\n</article>\n </div>\n </div>\n </div>\n </p>\n </div>\n<a\n class="info-location__link"\n href="/node/76#geofield-map-node-location-76-field-lat-long"\n title="/node/76#geofield-map-node-location-76-field-lat-long"\n >\n View Map\n </a>\n </div>\n </div>\n</div>\n </div>\n<main id="main-content" tabindex="-1">\n <section\n aria-label="Content"\n >\n<div\n id="block-countyoc-content" class="block system-main-block"\n id="block-countyoc-content"\n role="region"\n aria-labelledby="block-countyoc-content-title"\n>\n <p\n id="block-countyoc-content-title"\n class="visually-hidden"\n >\n Content block block-countyoc-content\n </p>\n<article class="node">\n <div>\n<div\n class="body field-wysiwyg text-long" id="wysiwyg-body-node-na-0" data-wysiwyg-a11y="true"\n>\n <span\n id="wysiwyg-body-node-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n <p>Enjoy nature with friends and family in Round Canyon. We hike along a fairly flat trail as we watch for red-tailed hawks and mule deer. This activity originates in the City of Irvine and travels into OC Parks’ Irvine Ranch Open Space. The hike averages 2-3 miles round trip at an easy pace with a medium level of interpretation. This program is for participants who would like a slower-paced and level hike. Wear comfortable clothes and sturdy shoes and bring water for the hike.</p><p>Please note, advanced registration required, <strong>no walk-up registration is permitted.</strong></p><p>Reviewing the 1-through-5 <a href="https://letsgooutside.org/resources/difficulty-ratings/hiking-and-fitness-difficulty-rating/">Difficulty Ratings</a> will help you evaluate your readiness to participate in this level-2 activity on the land. Please visit our <a href="https://letsgooutside.org/activities/faq/">FAQ</a><a href="https://letsgooutside.org/resources/faq/">&nbsp;page</a> for answers to activity specific questions you may have prior to registering. To learn more about the staging areas and activity locations, please visit our <a href="https://www.youtube.com/playlist?list=PL2ElxBcaA80CrAEO6BWSO5A4uNsSc4t19">Staging Areas Playlist</a> page.</p><p><a href="https://letsgooutside.org/activities/2026/11/07/family-hike-round-canyon-136/">Learn more and register here</a></p>\n <span class="visually-hidden">\n Links in this section relate to Body\n </span>\n</div>\n </div>\n</article>\n</div>\n </section>\n </main>\n<div class="event-card__body"><div class="body field-wysiwyg text-long">\n <span\n id="wysiwyg-body-node-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n Join OC Parks staff and volunteers for a slow paced, beginner friendly mountain bike ride through Limestone Canyon to The Sinks. This trip is approximately 8 miles total, and 400 foot elevation gain. Riders must supply their own mountain bike and helmet. Please bring sufficient water and food for a...\n</div></div>\n</body></html>',
+    'willow': '<html><body>\n<div\n class="body field-wysiwyg text-long" id="wysiwyg-body-block_content-na-0" data-wysiwyg-a11y="true"\n>\n <span\n id="wysiwyg-body-block_content-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n <script async src="https://docaccess.com/docbox.js"></script>\n</div>\n<div class="info-date-time">\n <div class="info-date-time__content">\n <div class="info-date-time__content-left">\n <div class="ico-location"><span class="material-icons" translate="no" aria-hidden="true">calendar_today</span></div>\n </div>\n <div class="info-date-time__content-right">\n <div class="info-date-time__heading">\n Date and time\n </div>\n <div class="info-date-time__body">\n Wed, October 14, 2026<br />\n 8:30 am - 11:00 am PST\n </div>\n </div>\n </div>\n</div>\n<div class="info-location">\n <div class="info-location__content">\n <div class="info-location__content-left">\n <div class="ico-location"><span class="material-icons" translate="no" aria-hidden="true">location_on</span></div>\n </div>\n <div class="info-location__content-right">\n <div class="info-location__heading">\n Location\n </div>\n <div class="info-location__body">\n<p class="info-location__paragraph">\n <div class="field-location" id="field-1305794208">\n <span\n id="field-1305794208-label"\n class="visually-hidden"\n >\n Location\n </span>\n <div\n role="group"\n aria-labelledby="field-1305794208-label"\n >\n <div >\n<article class="node">\n <div>\n <div class="field-address" id="field-1084981408">\n <span\n id="field-1084981408-label"\n class="visually-hidden"\n >\n Address\n </span>\n <div\n role="group"\n aria-labelledby="field-1084981408-label"\n >\n <p class="address" translate="no"><span class="address-line1">18751 Laguna Canyon Road</span><br>\n<span class="locality">Laguna Beach</span>, <span class="administrative-area">CA</span> <span class="postal-code">92651</span><br>\n<span class="country">United States</span></p>\n </div>\n </div>\n </div>\n</article>\n </div>\n </div>\n </div>\n </p>\n </div>\n<a\n class="info-location__link"\n href="/node/86#geofield-map-node-location-86-field-lat-long"\n title="/node/86#geofield-map-node-location-86-field-lat-long"\n >\n View Map\n </a>\n </div>\n </div>\n</div>\n </div>\n<main id="main-content" tabindex="-1">\n <section\n aria-label="Content"\n >\n<div\n id="block-countyoc-content" class="block system-main-block"\n id="block-countyoc-content"\n role="region"\n aria-labelledby="block-countyoc-content-title"\n>\n <p\n id="block-countyoc-content-title"\n class="visually-hidden"\n >\n Content block block-countyoc-content\n </p>\n<article class="node">\n <div>\n<div\n class="body field-wysiwyg text-long" id="wysiwyg-body-node-na-0" data-wysiwyg-a11y="true"\n>\n <span\n id="wysiwyg-body-node-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n <p><span class="expand-sub"></span></p><p class="visually-hidden">Content block block-countyoc-content</p><p><span class="visually-hidden">Body</span></p><p><em><strong>*This program begins at the Willow Staging Area, 20070 Laguna Canyon Road, Laguna Beach,&nbsp;CA&nbsp;92651*</strong></em></p><p><span>Join OC Parks on a guided hike and learn about key landmarks, trail connections, scenic viewpoints and the incredible wildlife and native plants within Laguna Coast Wilderness Park. We’ll share tips for exploring and stewarding the land responsibly along the way. This program is perfect for first-time visitors, new volunteers or anyone who wants to feel more at home in the coastal canyons.&nbsp;</span></p><p><span>This moderate difficulty hike is approximately 3.5 miles with 600 feet of elevation&nbsp;gain. Closed-toe shoes, sun protection and plenty of water are recommended.&nbsp;</span></p><p>The program is designed for ages 12 and older. Participants 18 and younger must be accompanied by a guardian.&nbsp;</p><p><span>Advance registration required. </span><a class="ext" href="https://lagunacanyon.org/event/explorers-hike-laurel-canyon-loop-3/" title="(opens in a new window)" target="_blank">Learn more and register for Explorers Hike: Laurel Canyon Loop.</a></p><p>The program is free and parking is $3 per vehicle.</p><p>Adverse weather may cancel the program. &nbsp;</p>\n <span class="visually-hidden">\n Links in this section relate to Body\n </span>\n</div>\n </div>\n</article>\n</div>\n </section>\n </main>\n<div class="event-card__body"><div class="body field-wysiwyg text-long">\n <span\n id="wysiwyg-body-node-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n Join OC Parks staff and volunteers for a slow paced, beginner friendly mountain bike ride through Limestone Canyon to The Sinks. This trip is approximately 8 miles total, and 400 foot elevation gain. Riders must supply their own mountain bike and helmet. Please bring sufficient water and food for a...\n</div></div>\n</body></html>',
+    'aliso': '<html><body>\n<div\n class="body field-wysiwyg text-long" id="wysiwyg-body-block_content-na-0" data-wysiwyg-a11y="true"\n>\n <span\n id="wysiwyg-body-block_content-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n <script async src="https://docaccess.com/docbox.js"></script>\n</div>\n<div class="info-date-time">\n <div class="info-date-time__content">\n <div class="info-date-time__content-left">\n <div class="ico-location"><span class="material-icons" translate="no" aria-hidden="true">calendar_today</span></div>\n </div>\n <div class="info-date-time__content-right">\n <div class="info-date-time__heading">\n Date and time\n </div>\n <div class="info-date-time__body">\n Wed, November 11, 2026<br />\n 8:00 am - 11:00 am PST\n </div>\n </div>\n </div>\n</div>\n<div class="info-location">\n <div class="info-location__content">\n <div class="info-location__content-left">\n <div class="ico-location"><span class="material-icons" translate="no" aria-hidden="true">location_on</span></div>\n </div>\n <div class="info-location__content-right">\n <div class="info-location__heading">\n Location\n </div>\n <div class="info-location__body">\n<p class="info-location__paragraph">\n <div class="field-location" id="field-499172085">\n <span\n id="field-499172085-label"\n class="visually-hidden"\n >\n Location\n </span>\n <div\n role="group"\n aria-labelledby="field-499172085-label"\n >\n <div >\n<article class="node">\n <div>\n <div class="field-address" id="field-257869035">\n <span\n id="field-257869035-label"\n class="visually-hidden"\n >\n Address\n </span>\n <div\n role="group"\n aria-labelledby="field-257869035-label"\n >\n <p class="address" translate="no"><span class="address-line1">28373 Alicia Parkway</span><br>\n<span class="locality">Laguna Niguel</span>, <span class="administrative-area">CA</span> <span class="postal-code">92677</span><br>\n<span class="country">United States</span></p>\n </div>\n </div>\n </div>\n</article>\n </div>\n </div>\n </div>\n </p>\n </div>\n<a\n class="info-location__link"\n href="/node/6#geofield-map-node-location-6-field-lat-long"\n title="/node/6#geofield-map-node-location-6-field-lat-long"\n >\n View Map\n </a>\n </div>\n </div>\n</div>\n </div>\n<main id="main-content" tabindex="-1">\n <section\n aria-label="Content"\n >\n<div\n id="block-countyoc-content" class="block system-main-block"\n id="block-countyoc-content"\n role="region"\n aria-labelledby="block-countyoc-content-title"\n>\n <p\n id="block-countyoc-content-title"\n class="visually-hidden"\n >\n Content block block-countyoc-content\n </p>\n<article class="node">\n <div>\n<div\n class="body field-wysiwyg text-long" id="wysiwyg-body-node-na-0" data-wysiwyg-a11y="true"\n>\n <span\n id="wysiwyg-body-node-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n <p>Please be aware this is a fitness hike and not for beginners; the pace is approximately a 19-minute mile.</p><p>Raise your heart rate and your spirits on this strenuous, fast-paced, 8-mile hike over very steep and uneven terrain with approximately 730 feet of elevation gain. This route begins at Aliso Creek Trail East, continues up Sheep Run and down Meadows Trail. Your hard work will be rewarded with sweeping views of Aliso and Wood Canyons Wilderness Park!&nbsp;</p><p><span>Please wear long pants, closed-toe shoes and sun protection, and bring water. </span>Participants must be 16 or older. Minors under 18 must be accompanied by a guardian.&nbsp;</p><p>The program will meet at the visitor center.</p><p>Advance registration required. <a class="ext" href="https://lagunacanyon.org/event/advanced-fitness-hike-3/" title="(opens in a new window)" target="_blank">Learn more and register for Advanced Fitness Hike - Aliso and Wood Canyons.</a></p><p>The program is free and parking is $3 per vehicle.</p><p>Please review safety precautions and protocols when registering.&nbsp;</p><p>For questions, call 949-497-8324 on weekdays or 949-923-2200 on weekends.</p>\n <span class="visually-hidden">\n Links in this section relate to Body\n </span>\n</div>\n </div>\n</article>\n</div>\n </section>\n </main>\n<div class="event-card__body"><div class="body field-wysiwyg text-long">\n <span\n id="wysiwyg-body-node-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n Join OC Parks staff and volunteers for a slow paced, beginner friendly mountain bike ride through Limestone Canyon to The Sinks. This trip is approximately 8 miles total, and 400 foot elevation gain. Riders must supply their own mountain bike and helmet. Please bring sufficient water and food for a...\n</div></div>\n</body></html>',
+    'yorba': '<html><body>\n<div\n class="body field-wysiwyg text-long" id="wysiwyg-body-block_content-na-0" data-wysiwyg-a11y="true"\n>\n <span\n id="wysiwyg-body-block_content-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n <script async src="https://docaccess.com/docbox.js"></script>\n</div>\n<div class="info-date-time">\n <div class="info-date-time__content">\n <div class="info-date-time__content-left">\n <div class="ico-location"><span class="material-icons" translate="no" aria-hidden="true">calendar_today</span></div>\n </div>\n <div class="info-date-time__content-right">\n <div class="info-date-time__heading">\n Date and time\n </div>\n <div class="info-date-time__body">\n Wed, November 4, 2026<br />\n 2:00 pm - 4:00 pm PST\n </div>\n </div>\n </div>\n</div>\n<div class="info-location">\n <div class="info-location__content">\n <div class="info-location__content-left">\n <div class="ico-location"><span class="material-icons" translate="no" aria-hidden="true">location_on</span></div>\n </div>\n <div class="info-location__content-right">\n <div class="info-location__heading">\n Location\n </div>\n <div class="info-location__body">\n<p class="info-location__paragraph">\n Multiple Locations\n </p>\n </div>\n </div>\n </div>\n</div>\n </div>\n<main id="main-content" tabindex="-1">\n <section\n aria-label="Content"\n >\n<div\n id="block-countyoc-content" class="block system-main-block"\n id="block-countyoc-content"\n role="region"\n aria-labelledby="block-countyoc-content-title"\n>\n <p\n id="block-countyoc-content-title"\n class="visually-hidden"\n >\n Content block block-countyoc-content\n </p>\n<article class="node">\n <div>\n<div\n class="body field-wysiwyg text-long" id="wysiwyg-body-node-na-0" data-wysiwyg-a11y="true"\n>\n <span\n id="wysiwyg-body-node-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n <p><em><strong>*This program takes places at Yorba Regional Park, </strong><span class="address-line1"><strong>7600 E. La Palma Ave., </strong></span><span class="locality"><strong>Anaheim</strong></span><strong>,&nbsp;</strong><span class="administrative-area"><strong>CA</strong></span><strong>&nbsp;</strong><span class="postal-code"><strong>92807</strong></span><strong>*</strong></em></p><p>The OC Parks Jr. Ranger Program encourages park guests to explore the outdoor world within OC Parks by developing a sense of belonging, becoming a part of nature and feeling empowered to be stewards of Orange County’s natural and cultural resources.</p><p>Participants will explore Yorba Regional Park, complete activities and take the OC Parks Jr. Ranger Oath to earn a unique Jr. Ranger badge.</p><p>The program will meet in parking lot J.</p><p>This program is designed for ages 7 to 12, but all are welcome.</p><p>Minors must be accompanied by a parent or guardian during the program. Sunscreen, sturdy footwear and water are recommended.</p><p>The program is free and parking is $3 per vehicle. Inclement weather will cancel the program.</p><p>Advance registration is required. <a href="https://letsgooutside.org/activities/2026/11/04/jr-ranger-adventure-yorba-regional-park-4/">Learn more and register for Jr. Ranger Adventure: Yorba Regional Park.</a></p><p>For questions, please contact Resource Specialist Alex Example at&nbsp;<a href="mailto:alex.example@example.org">alex.example@example.org</a>.</p><p><a href="https://ocparks.com/jr-ranger">Learn more about the OC Parks Jr. Ranger Program.</a></p><p>&nbsp;</p>\n <span class="visually-hidden">\n Links in this section relate to Body\n </span>\n</div>\n </div>\n</article>\n</div>\n </section>\n </main>\n<div class="event-card__body"><div class="body field-wysiwyg text-long">\n <span\n id="wysiwyg-body-node-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n Join OC Parks staff and volunteers for a slow paced, beginner friendly mountain bike ride through Limestone Canyon to The Sinks. This trip is approximately 8 miles total, and 400 foot elevation gain. Riders must supply their own mountain bike and helmet. Please bring sufficient water and food for a...\n</div></div>\n</body></html>',
+    'walk_ins': '<html><body>\n<div\n class="body field-wysiwyg text-long" id="wysiwyg-body-block_content-na-0" data-wysiwyg-a11y="true"\n>\n <span\n id="wysiwyg-body-block_content-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n <script async src="https://docaccess.com/docbox.js"></script>\n</div>\n<div class="info-date-time">\n <div class="info-date-time__content">\n <div class="info-date-time__content-left">\n <div class="ico-location"><span class="material-icons" translate="no" aria-hidden="true">calendar_today</span></div>\n </div>\n <div class="info-date-time__content-right">\n <div class="info-date-time__heading">\n Date and time\n </div>\n <div class="info-date-time__body">\n Wed, October 21, 2026<br />\n 7:30 am - 9:30 am PST\n </div>\n </div>\n </div>\n</div>\n<div class="info-location">\n <div class="info-location__content">\n <div class="info-location__content-left">\n <div class="ico-location"><span class="material-icons" translate="no" aria-hidden="true">location_on</span></div>\n </div>\n <div class="info-location__content-right">\n <div class="info-location__heading">\n Location\n </div>\n <div class="info-location__body">\n<p class="info-location__paragraph">\n <div class="field-location" id="field-463594646">\n <span\n id="field-463594646-label"\n class="visually-hidden"\n >\n Location\n </span>\n <div\n role="group"\n aria-labelledby="field-463594646-label"\n >\n <div >\n<article class="node">\n <div>\n <div class="field-address" id="field-1608719418">\n <span\n id="field-1608719418-label"\n class="visually-hidden"\n >\n Address\n </span>\n <div\n role="group"\n aria-labelledby="field-1608719418-label"\n >\n <p class="address" translate="no"><span class="address-line1">8548 E. Canyon View Ave.</span><br>\n<span class="locality">Orange</span>, <span class="administrative-area">CA</span> <span class="postal-code">92869</span><br>\n<span class="country">United States</span></p>\n </div>\n </div>\n </div>\n</article>\n </div>\n </div>\n </div>\n </p>\n </div>\n<a\n class="info-location__link"\n href="/node/126#geofield-map-node-location-126-field-lat-long"\n title="/node/126#geofield-map-node-location-126-field-lat-long"\n >\n View Map\n </a>\n </div>\n </div>\n</div>\n </div>\n<main id="main-content" tabindex="-1">\n <section\n aria-label="Content"\n >\n<div\n id="block-countyoc-content" class="block system-main-block"\n id="block-countyoc-content"\n role="region"\n aria-labelledby="block-countyoc-content-title"\n>\n <p\n id="block-countyoc-content-title"\n class="visually-hidden"\n >\n Content block block-countyoc-content\n </p>\n<article class="node">\n <div>\n<div\n class="body field-wysiwyg text-long" id="wysiwyg-body-node-na-0" data-wysiwyg-a11y="true"\n>\n <span\n id="wysiwyg-body-node-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n <p>Join an experienced OC Parks volunteer and stroll through Peters Canyon Regional Park searching high in the trees for flittering friends and low in the scrubs for bouncing birds. Bring your binoculars, sun protection, comfortable shoes and an eye for spotting birds!</p><p>This program begins near the flagpole by the park office.</p><p>Advance registration is recommended, but walk-ins are welcome. <a class="ext" href="https://letsgooutside.org/activities/2026/10/21/sage-scrub-bird-walk-3/" title="(opens in a new window)" target="_blank">Learn more and register for the Sage Scrub Bird Walk.</a></p><p>The program is free and parking is $3 per vehicle.</p><p>For questions, please contact Resource Specialist Sam Sample at (714) 555-0100 or&nbsp;<a href="mailto:sam.sample@example.org">sam.sample@example.org.</a></p><p>Inclement weather will cancel the program.</p>\n <span class="visually-hidden">\n Links in this section relate to Body\n </span>\n</div>\n </div>\n</article>\n</div>\n </section>\n </main>\n<div class="event-card__body"><div class="body field-wysiwyg text-long">\n <span\n id="wysiwyg-body-node-na-0-label"\n class="visually-hidden"\n >\n Body\n </span>\n Join OC Parks staff and volunteers for a slow paced, beginner friendly mountain bike ride through Limestone Canyon to The Sinks. This trip is approximately 8 miles total, and 400 foot elevation gain. Riders must supply their own mountain bike and helmet. Please bring sufficient water and food for a...\n</div></div>\n</body></html>',
+}
+OC_ROWS = {r["eid"]: r for r in json.loads('[{"title": "Family Hike: Round Canyon", "id": "0-0", "eid": "43451", "url": "/events/family-hike-round-canyon-0", "des": "", "editable": false, "start": "2026-11-07T14:30:00", "end": "2026-11-07T17:00:00", "backgroundColor": "#3b87ae"}, {"title": "Explorers Hike: Laurel Canyon Loop", "id": "143-0", "eid": "42681", "url": "/events/explorers-hike-laurel-canyon-loop-1", "des": "", "editable": false, "start": "2026-10-14T08:30:00", "end": "2026-10-14T11:00:00", "backgroundColor": "#3b87ae"}, {"title": "Advanced Fitness Hike – Aliso and Wood Canyons", "id": "38-0", "eid": "43261", "url": "/events/advanced-fitness-hike-aliso-and-wood-canyons-7", "des": "", "editable": false, "start": "2026-11-11T08:00:00", "end": "2026-11-11T11:00:00", "backgroundColor": "#3b87ae"}, {"title": "Jr. Ranger Adventure: Yorba Regional Park", "id": "60-0", "eid": "43141", "url": "/events/jr-ranger-adventure-yorba-regional-park", "des": "", "editable": false, "start": "2026-11-04T14:00:00", "end": "2026-11-04T16:00:00", "backgroundColor": "#3b87ae"}, {"title": "Sage Scrub Bird Walk", "id": "193-0", "eid": "42421", "url": "/events/sage-scrub-bird-walk-1", "des": "", "editable": false, "start": "2026-10-21T07:30:00", "end": "2026-10-21T09:30:00", "backgroundColor": "#3b87ae"}, {"title": "EarthCraft", "id": "30-0", "eid": "43301", "url": "/events/earthcraft-6", "des": "", "editable": false, "start": "2026-11-21T14:00:00", "end": "2026-11-21T15:30:00", "backgroundColor": "#3b87ae"}, {"title": "Land Tending with LCF – Aliso Creek", "id": "31-0", "eid": "43296", "url": "/events/land-tending-lcf-aliso-creek-2", "des": "", "editable": false, "start": "2026-11-21T08:00:00", "end": "2026-11-21T11:00:00", "backgroundColor": "#3b87ae"}, {"title": "Birds of a Feather: Beginners Birding", "id": "32-0", "eid": "43291", "url": "/events/birds-feather-beginners-birding-9", "des": "", "editable": false, "start": "2026-11-21T07:30:00", "end": "2026-11-21T10:00:00", "backgroundColor": "#3b87ae"}, {"title": "Upper Newport Bay Habitat Stewards ", "id": "44-0", "eid": "43226", "url": "/events/upper-newport-bay-habitat-stewards-7", "des": "", "editable": false, "start": "2026-11-21T09:00:00", "end": "2026-11-21T11:00:00", "backgroundColor": "#3b87ae"}, {"title": "EVENT FULL: Boo at the Oaks", "id": "189-0", "eid": "42441", "url": "/events/event-full-boo-oaks", "des": "", "editable": false, "start": "2026-10-17T17:30:00", "end": "2026-10-17T21:00:00", "backgroundColor": "#3b87ae"}]')}
+
+
+def oc_settings(rows):
+    """A 5.x drupalSettings: one view, its events inside calendar_options (a JSON string)."""
+    view = {"eventBundleType": "event", "startField": "field_start_date", "endField": "field_end_date",
+            "entityType": "node", "calendar_options": json.dumps(
+                {"initialView": "dayGridMonth", "timeZone": "America/Los_Angeles", "events": rows})}
+    return ('<html><head><script type="application/json" data-drupal-selector="drupal-settings-json">'
+            + json.dumps({"path": {"baseUrl": "/"}, "fullCalendarView": [view]}) + "</script></head></html>")
+
+
+def oc_build(eid, page_key, src=OC, page=None, **over):
+    ev = dict(OC_ROWS[eid], **over)
+    stats = {}
+    out = D.build_event(ev, D.parse_event_page(page or OC_PAGES[page_key], src.get("page_selectors")),
+                        "https://parks.oc.gov" + ev["url"], src, OC_TZ, stats)
+    return out, stats
+
+
+# 10a. identity: 5.x's `id` is a row in the view, its node is `eid`
+evs = D.calendar_events(oc_settings(list(OC_ROWS.values())))
+check("5.x: OC Parks' events are read from calendar_options (real rows)", len(evs) == len(OC_ROWS), len(evs))
+check("the node is `eid` (43451), not the view's row `id` ('0-0'); 8.x-2.x's `id` is still the node",
+      D.node_id(OC_ROWS["43451"]) == "43451" and D.node_id({"id": "32403"}) == "32403", D.node_id(OC_ROWS["43451"]))
+
+# 10b. the page: the event's own blurb, the shown date, the location field, the form
+info = D.parse_event_page(OC_PAGES["open_space"], OC["page_selectors"])
+desc = info["description"] or ""
+check("the blurb is the event's own (inside <main>), not the accessibility block's 'Body' that comes first",
+      desc.startswith("Enjoy nature with friends and family in Round Canyon."), desc[:80])
+check("...without a screen reader's labels ('Body', 'Links in this section relate to Body')",
+      "Links in this section" not in desc and "Body" not in desc.split("\n"), desc[-120:])
+check("...and not the related event's card after </main>", "beginner friendly mountain bike ride" not in desc)
+check("the shown date and time are read ('Sat, November 7, 2026 2:30 pm - 5:00 pm PST')",
+      info["visible_date"] == "Sat, November 7, 2026 2:30 pm - 5:00 pm PST", info["visible_date"])
+check("the location field is the node's <p class=address>, without its 'Location'/'Address' labels",
+      info["location_lines"][:2] == ["13333 Black Star Canyon Rd", "Silverado , CA 92676"], info["location_lines"])
+check("no form block: the registration is the blurb's link that SAYS register ('Learn more and register here')",
+      info["registration"] == "https://letsgooutside.org/activities/2026/11/07/family-hike-round-canyon-136/",
+      info["registration"])
+
+# 10c. an open space's address is not where anybody meets
+ev, st = oc_build("43451", "open_space")
+check("an Irvine Ranch Open Space hike whose page names no start is NOT pinned on the open space's address "
+      "(its stated starts sit 2.6 to 11.2 km from it)",
+      ev is None and st.get("dropped: only an open space's address, and no start named") == 1
+      and st.get("page street refused: an open space's address, not where it meets") == 1, (ev and ev.address, st))
+
+# 10d. the start the blurb names beats the park's address
+ev, st = oc_build("42681", "willow")
+check("Laguna Coast: '*This program begins at the Willow Staging Area, 20070 Laguna Canyon Road...*' beats "
+      "the location field's 18751 Laguna Canyon Road (3.2 km away)",
+      ev and (ev.venue_name, ev.address, ev.city, ev.region, ev.postal_code)
+      == ("Willow Staging Area", "20070 Laguna Canyon Road", "Laguna Beach", "CA", "92651"),
+      ev and (ev.venue_name, ev.address, ev.city))
+check("...sent with no coordinates for the sync's Census pass (86 m from OSM's Willow Staging Area)",
+      ev and ev.latitude is None and not ev.coords_exact
+      and _addr_parts({"address": ev.address, "city": ev.city, "region": ev.region}) is not None)
+check("...the blurb's pasted <p class=visually-hidden>Content block ...</p> is not text",
+      ev and "Content block" not in ev.description, ev and ev.description[:200])
+check("...the blurb's own cost sentence first (no price field; the 800 cut took it from 30 of 57 rows), "
+      "then 'Registration required.'",
+      ev and ev.description.split("\n\n")[:2] == ["🎟 The program is free and parking is $3 per vehicle.",
+                                                  "Registration required."]
+      and ev.description.count("The program is free") == 1, ev and ev.description[:160])
+check("...and the ticket link is the organiser's own registration page",
+      ev and ev.ticket_url == "https://lagunacanyon.org/event/explorers-hike-laurel-canyon-loop-3/", ev and ev.ticket_url)
+ev, st = oc_build("42681", "willow", src=dict(OC, cost_in_blurb=False))
+check("...without `cost_in_blurb` (Fairfax) no sentence is lifted", ev and not ev.description.startswith("🎟"),
+      ev and ev.description[:80])
+willow = OC_PAGES["willow"].replace("the Willow Staging Area, 20070 Laguna Canyon Road, Laguna Beach,",
+                                    "Irvine Ranch Open Space, 13333 Black Star Canyon Rd, Silverado,")
+ev, st = oc_build("42681", "willow", page=willow)
+check("a start line naming the open space's address is refused too, and the park's own street places it "
+      "(synthetic)", ev and st.get("start line refused: an open space's address") == 1
+      and ev.venue_name == "Laguna Coast Wilderness Park (Nix Nature Center)", (ev and ev.venue_name, st))
+
+# 10e. the park's street: OC Parks' own pin, named for the park
+ev, st = oc_build("43261", "aliso")
+pin = D.street_pin("28373 Alicia Parkway", OC.get("street_pins"))
+check("Aliso and Wood Canyons (no start line; the Census has no match for 28373 Alicia Parkway): OC Parks' own "
+      "node pin, exactly, under the park's name",
+      ev and pin and (ev.latitude, ev.longitude) == (pin["lat"], pin["lon"]) and ev.coords_exact
+      and ev.venue_name == "Aliso and Wood Canyons Wilderness Park", ev and (ev.venue_name, ev.latitude))
+
+# 10f. a page with no address at all, and a start line that has one
+ev, st = oc_build("43141", "yorba")
+check("Jr. Ranger at Yorba: no address on the page; '*This program takes places at Yorba Regional Park, 7600 E. "
+      "La Palma Ave., Anaheim , CA 92807*' places it on OC Parks' own Yorba pin",
+      ev and ev.venue_name == "Yorba Regional Park" and ev.coords_exact
+      and (ev.latitude, ev.longitude) == (33.86917, -117.76625) and ev.city == "Anaheim"
+      and st.get("placed: the start the blurb names (the street book's pin)") == 1, (ev and ev.venue_name, st))
+check("...its form is the first link that says register, not 'Learn more about the OC Parks Jr. Ranger Program'",
+      ev and ev.ticket_url.startswith("https://letsgooutside.org/activities/2026/11/04/jr-ranger-adventure-yorba"),
+      ev and ev.ticket_url)
+
+# 10g. walk-ins, and free in the source's own words
+ev, st = oc_build("42421", "walk_ins")
+check("'registration is recommended, but walk-ins are welcome' says so: no 'Registration required.', no 'Tickets'",
+      ev and ev.description.split("\n\n")[1:2] == ["Registration online, or walk in."]
+      and "Tickets" not in ev.description and "Registration required." not in ev.description,
+      ev and ev.description[:120])
+check("...and 'The program is free' reaches 0227's free tag in the source's words, with no price invented",
+      ev and tagged_free(ev) and "Price:" not in ev.description, ev and ev.description[:300])
+for text, want in (("Please wear closed-toe shoes.\nThe program is free and parking is $3 per vehicle.\nFor questions, call.",
+                    "The program is free and parking is $3 per vehicle."),
+                   ("Cost is $5 per child (one parent included). Parent must accompany child for entire program.",
+                    "Cost is $5 per child (one parent included)."),
+                   ("Reservations are not needed. Activities are free with paid zoo admission ($2 per person, ages 2 & "
+                    "under are free).", "Activities are free with paid zoo admission ($2 per person, ages 2 & under are free)."),
+                   ("Parking fee is $5 per vehicle on weekends.", None),
+                   ("This program is designed for ages 7 to 12, but all are welcome.", None)):
+    check(f"the blurb's cost sentence: {text[:44]!r} -> {want and want[:30]!r}", D.cost_sentence(text) == want,
+          D.cost_sentence(text))
+
+# 10h. the start line itself (real sentences)
+for text, want in (
+        ("*This program begins at the Willow Staging Area, 20070 Laguna Canyon Road, Laguna Beach, CA 92651*",
+         ("Willow Staging Area", "20070 Laguna Canyon Road", "Laguna Beach", "92651")),
+        ("* This program begins at Laguna Canyon Foundation Headquarters, 10 Phillips St. Laguna Beach, CA 92651.*",
+         ("Laguna Canyon Foundation Headquarters", "10 Phillips St.", "Laguna Beach", "92651")),
+        ("*This program begins at the Hollyleaf cul-de-sac near Aliso and Wood Canyons Wilderness Park (where West "
+         "Ridge Trail meets Hollyleaf, near 65 Hollyleaf, Aliso Viejo, CA 92656). *",
+         ("Hollyleaf cul-de-sac near Aliso and Wood Canyons Wilderness Park", "65 Hollyleaf", "Aliso Viejo", "92656")),
+        ("*This program takes places at Yorba Regional Park, 7600 E. La Palma Ave., Anaheim , CA 92807 *",
+         ("Yorba Regional Park", "7600 E. La Palma Ave.", "Anaheim", "92807"))):
+    got = D.start_place(text)
+    check(f"start line {text[1:48]!r}... -> {want[1]!r}, {want[2]!r}",
+          got is not None and (got["venue"], got["address"], got["city"], got["postal"]) == want, got)
+for text in ("This program begins at the visitor center. Please wear closed-toe shoes and bring snacks and water.",
+             "This ride starts at the Augustine Staging Area in Limestone Canyon Nature Preserve and rides out "
+             "Limestone Canyon Road to the geological feature call The Sinks.",
+             "This activity originates in the City of Irvine (Portola Staging Area) and travels into OC Parks' "
+             "Irvine Ranch Open Space.",
+             "The program will meet in parking lot J.",
+             "We will start with a gentle climb up Gypsum Canyon Road for about one mile."):
+    check(f"...a start with no street is left to the location field: {text[:50]!r}", D.start_place(text) is None,
+          D.start_place(text))
+pin = D.street_pin("10 Phillips St.", OC.get("street_pins"))
+check("'10 Phillips St.' carries OSM's pin: the Census batch put it on Phillips Circle in Laguna Niguel, 10.1 km off",
+      pin is not None and D._metres((pin["lat"], pin["lon"]), (33.506572673424, -117.699942442402)) > 9000, pin)
+
+# 10i. refused by the title
+check("'EVENT FULL: Boo at the Oaks' (real; 'no walkups') is sold out by another name",
+      D.json_exclusion(OC_ROWS["42441"], OC) == "sold out", D.json_exclusion(OC_ROWS["42441"], OC))
+check("...while 'Full Moon Hike' is not (synthetic)",
+      D.json_exclusion(dict(OC_ROWS["42441"], title="Full Moon Hike"), OC) is None)
+
+# 10j. identity across reads, and a capped list is never a complete read
+with tempfile.TemporaryDirectory() as tmp:
+    base = "https://parks.oc.gov"
+    # Real rows, all on 2026-11-21 (EarthCraft, Land Tending, Birds of a
+    # Feather), numbered as the view numbers them; then a node created ahead of
+    # them (Upper Newport Bay Habitat Stewards, the same day) renumbers all three.
+    day = [OC_ROWS[e] for e in ("43301", "43296", "43291")]
+    first = [dict(r, id=f"{i}-0") for i, r in enumerate(day)]
+    second = [dict(OC_ROWS["43226"], id="0-0")] + [dict(r, id=f"{i + 1}-0") for i, r in enumerate(day)]
+    served = {base + r["url"]: OC_PAGES["aliso"] for r in day + [OC_ROWS["43226"]]}
+
+    def oc_run(rows, path, src=OC):
+        site = Site(dict(served, **{base + "/events": oc_settings(rows)}))
+        store, stats = EventStore(path), {}
+        with redirect_stdout(io.StringIO()):
+            D.ingest_source(store, D.Reader(site, robots=Robots(), min_interval=0, sleep=lambda s: None),
+                            dict(src, calendar_url=base + "/events"), 90, stats)
+        store.save()
+        return store, stats
+    path = os.path.join(tmp, "oc.json")
+    st1, s1 = oc_run(first, path)
+    ids = sorted(ref["source_id"] for rec in st1.records.values() for ref in rec.get("sources") or [])
+    check("each row's source_id is the node and its day ('oc-parks:43291:2026-11-21'), never the view's row",
+          ids == ["oc-parks:43291:2026-11-21", "oc-parks:43296:2026-11-21", "oc-parks:43301:2026-11-21"], ids)
+    st2, s2 = oc_run(second, path)
+    check("a node created ahead of three others renumbers them: the next read adds 1 row and rekeys none",
+          st2.stats.get("added") == 1 and st2.stats.get("rekeyed", 0) == 0 and st2.stats.get("updated") == 3
+          and len(st2.records) == 4, st2.stats)
+    _, s3 = oc_run(first, os.path.join(tmp, "cap.json"), dict(OC, list_cap=3))
+    check("a calendar listing exactly its cap (OC Parks: 500, newest node first) is never a complete read",
+          s3.get("read complete (absence may cancel)") is None
+          and any(k.startswith("read NOT complete") and "cap of 3" in k for k in s3), s3)
+    check("...under the cap it is, and the log says how deep the last upcoming event sits",
+          s1.get("read complete (absence may cancel)") == 1 and s1.get("deepest in-window event: list position") == 3, s1)
+
+# 10k. the config
+check("OC Parks' street book: every pin inside its box, one entry per street, and the open space's street not in it",
+      all(D._in_box((v["lat"], v["lon"]), OC["bbox"]) for v in OC["street_pins"])
+      and len({D._norm_street(v["street"]) for v in OC["street_pins"]}) == len(OC["street_pins"])
+      and not any(D.area_street(v["street"], OC) for v in OC["street_pins"]))
+with tempfile.TemporaryDirectory() as tmp:
+    p = os.path.join(tmp, "dfc_area.json")
+    with open(p, "w") as fh:
+        json.dump({"sources": [dict(OC, street_pins=OC["street_pins"] + [
+            {"street": "13333 Black Star Canyon Rd", "lat": 33.764933, "lon": -117.678412}])]}, fh)
+    try:
+        D.load_config(p)
+        check("an open space's address that is also a street pin is refused at load", False)
+    except ValueError:
+        check("an open space's address that is also a street pin is refused at load", True)
+
+# 10l. no person reaches a row: 31 of 111 pages give an email in the blurb, 29
+# of them a member of staff's own (six people), most beside a direct line; 4 of
+# 58 rows kept one past the 800 cut (2026-10-11). Names here are made up.
+EMAIL = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
+PHONE = re.compile(r"\(?\b\d{3}\)?[\s.-]*\d{3}[\s.-]*\d{4}\b")
+ev, st = oc_build("42421", "walk_ins")
+check("Sage Scrub Bird Walk: 'For questions, please contact Resource Specialist <name> at (714) ... or <address>' "
+      "is left out of the row: no address, no name, no direct line",
+      ev and not EMAIL.search(ev.description) and "Sam Sample" not in ev.description
+      and "555-0100" not in ev.description and "Resource Specialist" not in ev.description
+      and st.get("contact sentences left out (an email address or a named person)") == 1, ev and ev.description)
+check("...and the blurb around it stays (the sentence after it: 'Inclement weather will cancel the program.')",
+      ev and "Inclement weather will cancel the program." in ev.description
+      and "searching high in the trees" in ev.description, ev and ev.description[-200:])
+ev, st = oc_build("43141", "yorba")
+check("Jr. Ranger at Yorba: 'contact Resource Specialist <name> at <address>' is left out too, before the 800 cut "
+      "(which happened to take it here, and kept it on 4 other rows)",
+      ev and not EMAIL.search(ev.description) and "Alex Example" not in ev.description
+      and st.get("contact sentences left out (an email address or a named person)") == 1, (st, ev and ev.description))
+synced = []
+for eid, key in (("42421", "walk_ins"), ("43141", "yorba"), ("43261", "aliso"), ("42681", "willow")):
+    ev, _ = oc_build(eid, key)
+    if ev:
+        synced.append(SYNC.to_row(ev.as_record("2026-10-11T00:00:00Z"), "00000000-0000-0000-0000-000000000000"))
+check("...no synced OC row carries an email or a staff member's name (as test_ingest_toronto_rec.py asks)",
+      len(synced) == 4 and not [r["title"] for r in synced if EMAIL.search(r.get("description") or "")
+                                 or re.search(r"Sam Sample|Alex Example", r.get("description") or "")],
+      [r["description"][-160:] for r in synced])
+for text, want in (
+        # Real sentences of 2026-10-11 (people renamed), one blurb line each.
+        ("For questions, please contact Resource Specialist, Sam Sample at 714-555-0100 or sam.sample@example.org .",
+         ""),
+        ("For large group registration or general questions, please contact Resource Specialist "
+         "sam.sample@example.org or call (714)555-0101.", ""),
+        ("Si tienes alguna pregunta, comunícate con la Especialista en Recursos Alex Example a "
+         "alex.example@example.org .", ""),
+        ("For questions, please email unbic@ocparks.com or call (949) 923-2290.", ""),
+        ("If you are an equestrian, there is a separate registration for you. Once registered, please email "
+         "irvineranchopenspace@ocparks.com at least 72 hours prior to the event. Trailer parking is very limited.",
+         "If you are an equestrian, there is a separate registration for you. Trailer parking is very limited."),
+        # A venue's number, in a sentence that names nobody: kept (17 on 2026-10-11).
+        ("For questions, call 949-497-8324 on weekdays or 949-923-2200 on weekends.",
+         "For questions, call 949-497-8324 on weekdays or 949-923-2200 on weekends."),
+        ("We will be meeting at the Library of the Canyons. You can contact the library at 714-649-2216 if you "
+         "need directions.", "We will be meeting at the Library of the Canyons. You can contact the library at "
+         "714-649-2216 if you need directions."),
+        # Synthetic: a person and a direct line with no address; an initial.
+        ("Bring water. For questions, please contact Resource Specialist Sam Sample at (714) 555-0100.",
+         "Bring water."),
+        ("Please contact Ranger J. Sample at (714) 555-0102 to reserve. The walk is free.", "The walk is free.")):
+    got, n = D.without_contacts(text)
+    check(f"contact sentences: {text[:58]!r}... -> {want[:30]!r}", got == want, got)
+page = OC_PAGES["walk_ins"].replace('href="https://letsgooutside.org/activities/2026/10/21/sage-scrub-bird-walk-3/"',
+                                    'href="mailto:sam.sample@example.org"')
+ev, st = oc_build("42421", "walk_ins", page=page)
+check("a 'register' link that is mailto: is no ticket link: the row links its own page (synthetic)",
+      ev and ev.ticket_url == "https://parks.oc.gov/events/sage-scrub-bird-walk-1"
+      and st.get("registration link refused: not a web page (mailto: or tel:)") == 1, ev and ev.ticket_url)
 
 print(f"\n{len(fails)} failure(s)" if fails else "\nall passed")
 sys.exit(1 if fails else 0)

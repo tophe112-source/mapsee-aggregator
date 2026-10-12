@@ -24,8 +24,8 @@ centres, one occasion at a time.
 
 The module is not Fairfax's: fullcalendar_view is a contributed Drupal module,
 and both shapes it has shipped are read. 8.x-2.x (Fairfax) puts the event list
-itself in `fullCalendarView`; 5.x puts one entry per view, each carrying
-`calendar_options` (a JSON string) with the events inside. Everything
+itself in `fullCalendarView`; 5.x (OC Parks, lesson 7) puts one entry per
+view, each carrying `calendar_options` (a JSON string) with the events inside. Everything
 site-specific - which paths to rewrite, which agency is which promoter, which
 category, where the map's default centre is, the venue book - is config.
 
@@ -126,6 +126,82 @@ LESSONS (measured 2026-10-04)
    second session the same evening is its own row - while E.C. Lawrence's
    "House of Reptiles", posted as two nodes both at 18:00, merges into one.
 
+------------------------------------------------------------------------------
+LESSON 7: A 5.x TENANT, OC PARKS (Orange County, CA; measured 2026-10-11)
+------------------------------------------------------------------------------
+
+parks.oc.gov/events lists 500 events, newest node first (2026-07-20 to
+2026-12-16), 152 of them in the 90-day window: guided hikes, bird walks,
+trail and habitat stewardship, Jr. Ranger days, zoo and nature-centre
+programmes. 109 of their pages were read (the first 40 in the list, then one
+per distinct title), 39 more judged by a read page with the same title. "The
+first build" below is this adapter before these changes, with the discovery
+sweep's config, over the same 109 pages. Eight things Fairfax never showed:
+
+ a. IDENTITY. 5.x's `id` is "<row>-<date delta>", the event's row in the view
+    ("26-0"); the node is `eid`. Every one of 103 rows the first build wrote
+    was keyed on a row number that one node created ahead of it renumbers.
+    node_id() reads `eid` and falls back to 8.x-2.x's `id`.
+ b. THE FIRST .field-wysiwyg IS NOT THE EVENT. The theme's accessibility
+    block comes first, so all 103 blurbs read "Body". A page selector may be
+    {"classes": [...], "within": "main"}, and screen-reader labels (a
+    visually-hidden span or paragraph: "Body", "Links in this section relate
+    to Body", a pasted "Content block block-countyoc-content") are not text.
+ c. AN OPEN SPACE'S ADDRESS IS NOT WHERE ANYBODY MEETS. Every Irvine Ranch
+    Open Space programme (60 of 152) carries 13333 Black Star Canyon Rd,
+    Silverado, and OC Parks' own pin for it is Black Star Canyon's gate. The
+    9 of 45 pages read that say where they start name seven staging areas
+    2.6 to 11.2 km from it; none starts at it, not even "Wilderness Access
+    Day: Black Star Canyon" (the Baker Canyon Staging Area). `area_streets`
+    makes such a street place nothing: the row is placed by a start its page
+    names, or dropped and counted ("only an open space's address": 60).
+ d. THE START IS IN THE BLURB. Laguna Canyon Foundation and Jr. Ranger pages
+    say "*This program begins at Canyon View Park, 22144 Canyon Vistas, Aliso
+    Viejo, CA 92656*" while the location field holds the park's address. With
+    `blurb_start` that sentence beats the location field: 20 of the 28 "This
+    program begins/takes place at" sentences end in a street and all 20 parse
+    (one with no comma between street and town: "10 Phillips St. Laguna
+    Beach"); the 8 that name a place without a street (the visitor center, a
+    staging area) are left alone. The Aliso and Wood Canyons starts sit 3.1
+    to 5.0 km from that park's address, Laguna Coast's Willow Staging Area
+    3.2 km from its own.
+ e. THE CENSUS AGAIN (lesson 3). Of the 21 streets these rows carry, the
+    batch matched 14; 28373 Alicia Parkway (Aliso and Wood Canyons, 21 rows)
+    was not one, and "10 Phillips St, Laguna Beach" matched Phillips Circle in
+    Laguna Niguel, 10.1 km away. The street book holds OC Parks' own node pins
+    for its parks and OpenStreetMap's for the starts the Census misses: 52 of
+    the 58 rows built from the pages read sit on an exact pin, and 6 on a
+    street the Census places within 150 m of OSM's feature.
+ f. THE LIST IS CAPPED. drupalSettings holds exactly 500 events; the deepest
+    one still to come sat at position 291. A node created long before its
+    date can fall off a capped list while still ahead, so with `list_cap` a
+    read at the cap is never complete and absence cancels nothing.
+ g. THE PRICE IS A SENTENCE. No page has a price field; 57 of the 58 rows
+    built say their cost in the blurb, near its end ("The program is free and
+    parking is $3 per vehicle."), and lesson 5's cut took that sentence from
+    30 of them. With `cost_in_blurb` it is the price line, word for word:
+    after the sync's to_row it survives on 57 of 57, and 0227's twin tags 34
+    rows free where it tagged 18 (the other 22 free rows say "The program and
+    parking are free.", which 0227's strict "is free" does not read).
+ h. A PERSON IS NOT A CONTACT LINE. 31 of the 111 pages read give an email
+    address in the blurb, 29 of them a member of staff's own
+    firstname.lastname@parks.oc.gov (six people), most beside a direct line:
+    "For questions, please contact Resource Specialist <name> at (714) ...
+    or <address>". 4 of the 58 rows kept one past the 800 cut, by where the
+    cut fell. A sentence that gives an email address or names a person to
+    contact is left out (32 sentences: 28 name a person and give an
+    address, 4 an address alone), and a "register" link that is mailto: or
+    tel: is no link; the row's Tickets / info link reaches the page. A
+    venue's number in a sentence that names nobody stays (17 sentences).
+
+Result for the window: 80 of 152 placed, 41 of them walks, hikes or nature
+outings by title and 7 trail or habitat stewardship days; 2 refused by title
+(a cancellation, "EVENT FULL"), 6 phone-registration zoo classes, 60 open-space
+rows unplaced, 2 pages with no place at all, 2 never read (HTTP 503). 54 of
+the 58 rows built link to the organiser's own registration page, found by the
+blurb link's words (`registration_text`), and 11 that say "walk-ins are
+welcome" say so instead of "Registration required."
+
 Every request carries the MapseeAggregator UA, is checked against the host's
 robots.txt (robots_txt.Robots, Crawl-delay honoured) and is paced >= 1.1 s on
 its host. Redirects are followed by hand, only to an origin whose robots.txt is
@@ -140,7 +216,10 @@ refusals are made before any page is asked for, so 151 of the 195 rows need a
 page: the live run of 2026-10-04 was 153 requests (robots.txt, the calendar,
 151 pages) in 198 s. A slow day (3.6 s a
 page was measured the same morning) is about 9 minutes, inside the default
---max-minutes 12.
+--max-minutes 12. OC Parks is read after it: 40 of its pages took 52 s live on
+2026-10-11 (1.24 s a request), so its ~153 requests are about 3 more minutes,
+and on Fairfax's slow day the 12-minute deadline stops OC Parks part-way (the
+rows so far are kept; the read is not complete).
 """
 from __future__ import annotations
 
@@ -333,6 +412,14 @@ def calendar_events(page: str) -> List[Dict[str, Any]]:
     return events
 
 
+def node_id(ev: Dict[str, Any]) -> str:
+    """The Drupal node an event is. 8.x-2.x's `id` is the node; 5.x's `id` is
+    "<row>-<date delta>", the event's position in the view, and its node is
+    `eid` (lesson 7). A position is not an identity: one node created ahead of
+    it shifts every row after it."""
+    return str(ev.get("eid") or ev.get("id"))
+
+
 def _parse_iso(s: Any) -> Optional[datetime]:
     if not s or not isinstance(s, str):
         return None
@@ -401,10 +488,44 @@ def _element(page: str, classes: List[str], start: int = 0) -> Optional[Tuple[in
     return None
 
 
+# A screen reader's label is not the publisher's text: OC Parks prints "Body"
+# before every blurb and "Links in this section relate to Body" after it, in
+# <span class="visually-hidden">, and some blurbs carry a pasted-in
+# <p class="visually-hidden">Content block block-countyoc-content</p>.
+_HIDDEN_RX = re.compile(r"(?is)<(span|p)\b[^>]*\bclass\s*=\s*[\"'][^\"']*\bvisually-hidden\b[^\"']*[\"'][^>]*>.*?</\1>")
+
+
+def _within(page: str, tag: Optional[str]) -> str:
+    """The inner HTML of the page's first <tag> element, or the page when no
+    tag is named. A page without the tag gives "" - nothing found is the honest
+    answer, not the whole page and whatever block comes first in it."""
+    if not tag:
+        return page
+    m = re.search(rf"<{tag}\b[^>]*>", page, re.I)
+    if not m:
+        return ""
+    depth = 1
+    for t in re.finditer(rf"<(/?){tag}\b[^>]*>", page[m.end():], re.I):
+        depth += -1 if t.group(1) else 1
+        if depth == 0:
+            return page[m.end():m.end() + t.start()]
+    return page[m.end():]
+
+
+def _selector(spec: Any) -> Tuple[List[str], Optional[str]]:
+    """(classes, within) of a page selector: a list of classes, or
+    {"classes": [...], "within": "main"} when the same class is also used
+    outside the part of the page that is the event (lesson 7)."""
+    if isinstance(spec, dict):
+        return list(spec.get("classes") or []), spec.get("within")
+    return list(spec or []), None
+
+
 def _text_lines(fragment: Optional[str]) -> List[str]:
     if not fragment:
         return []
     s = re.sub(r"(?is)<(script|style)\b.*?</\1>", " ", fragment)
+    s = _HIDDEN_RX.sub(" ", s)
     s = _BLOCK_RX.sub("\n", s)
     s = htmlmod.unescape(_TAG_RX.sub(" ", s)).replace("\xa0", " ")
     return _lines(s)
@@ -438,18 +559,21 @@ def parse_event_page(page: str, selectors: Optional[Dict[str, List[str]]] = None
     sel = dict(DEFAULT_PAGE)
     sel.update(selectors or {})
     found: Dict[str, Optional[str]] = {}
-    for key, classes in sel.items():
-        if key == "date":
+    for key, spec in sel.items():
+        if key in ("date", "registration_text"):
             continue
-        got = _element(page, classes)
+        classes, within = _selector(spec)
+        got = _element(_within(page, within), classes)
         found[key] = got[1] if got else None
     # The date the publisher SHOWS. Fairfax's template also carries an empty
     # modal twin ("related_modal_event_cost event_date value"), so the first
     # element with a date in it is the one read.
     visible_date = None
     pos = 0
-    while sel.get("date"):
-        got = _element(page, sel["date"], pos)
+    date_classes, date_within = _selector(sel.get("date"))
+    date_page = _within(page, date_within)
+    while date_classes:
+        got = _element(date_page, date_classes, pos)
         if not got:
             break
         text = " ".join(_text_lines(got[1]))
@@ -481,6 +605,14 @@ def parse_event_page(page: str, selectors: Optional[Dict[str, List[str]]] = None
     if reg_html:
         a = re.search(r"<a\b[^>]*>", reg_html, re.I)
         reg = _attrs(a.group(0)).get("href") if a else None
+    if reg is None and sel.get("registration_text"):
+        # No form block: the blurb's own link, found by what it says ("Learn
+        # more and register here", lesson 7). The first one that says so.
+        said = re.compile(sel["registration_text"], re.I)
+        for a in re.finditer(r"(?is)<a\b([^>]*)>(.*?)</a>", found.get("description") or ""):
+            if said.search(" ".join(_text_lines(a.group(2)))):
+                reg = _attrs("<a " + a.group(1) + ">").get("href")
+                break
     return {
         "visible_date": visible_date,
         "points": sorted(set(points)),
@@ -598,6 +730,62 @@ def street_pin(street: Optional[str], book: List[Dict[str, Any]]) -> Optional[Di
     return next((b for b in book or [] if _norm_street(b.get("street", "")) == key), None)
 
 
+def area_street(street: Optional[str], src: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """The config's `area_streets` entry when `street` is the address of a whole
+    open space rather than of anywhere its programmes meet (lesson 7)."""
+    key = _norm_street(street or "")
+    if not key:
+        return None
+    return next((a for a in src.get("area_streets") or [] if _norm_street(a.get("street", "")) == key), None)
+
+
+# Lesson 7: "*This program begins at the Willow Staging Area, 20070 Laguna
+# Canyon Road, Laguna Beach, CA 92651*", "This program takes place(s) at Yorba
+# Regional Park, 7600 E. La Palma Ave., Anaheim , CA 92807". Only a sentence
+# about THIS programme that ends in a street, a town, a state and a ZIP: "The
+# program will meet in parking lot J" names no street and is left alone.
+START_RX = re.compile(
+    r"\bthis\s+(?:program(?:me)?|activity|event|hike|walk|ride|tour)\s+"
+    r"(?:begins|starts|meets|originates|takes\s+places?|is\s+held|will\s+(?:begin|start|meet|be\s+held))\s+"
+    r"(?:at|in|from)\s+(?:the\s+)?(?P<rest>[^*\n]{6,240})", re.I)
+_STATE_ZIP_RX = re.compile(r",\s*(?P<region>[A-Z]{2})\s+(?P<postal>\d{5})(?:-\d{4})?\b")
+# "10 Phillips St. Laguna Beach, CA 92651" (no comma after the street): split
+# after the street's own type word, or not at all.
+_GLUED_RX = re.compile(
+    r"^(?P<street>\d+[A-Za-z]?\s+.*?\b(?:st|street|ave|avenue|rd|road|dr|drive|blvd|boulevard|pkwy|parkway|"
+    r"way|ln|lane|ct|court|pl|place|hwy|highway|cir|circle|ter|terrace)\.?)\s+(?P<city>[A-Za-z][A-Za-z .'-]*)$", re.I)
+
+
+def start_place(text: Optional[str]) -> Optional[Dict[str, Optional[str]]]:
+    """{venue, address, city, region, postal} of the start the blurb names in
+    its own words, or None."""
+    m = START_RX.search(text or "")
+    if not m:
+        return None
+    rest = m.group("rest")
+    z = _STATE_ZIP_RX.search(rest)
+    if not z:
+        return None
+    parts = [p.strip() for p in rest[:z.start()].split(",")]
+    if len(parts) < 2:
+        return None
+    city, cut = parts[-1], len(parts) - 2
+    street = re.sub(r"(?i)^(?:near|at)\s+", "", parts[-2])
+    if _STREET_RX.match(city):
+        glued = _GLUED_RX.match(city)
+        if not glued:
+            return None
+        street, city, cut = glued.group("street"), glued.group("city"), len(parts) - 1
+    city = city.strip()
+    if not _STREET_RX.match(street) or not re.fullmatch(r"[A-Za-z .'-]{2,40}", city):
+        return None
+    # "the Hollyleaf cul-de-sac near ... Park (where West Ridge Trail meets
+    # Hollyleaf, near 65 Hollyleaf, ...)": the place is what precedes the aside.
+    venue = ", ".join(parts[:cut]).split("(")[0].strip(" ,.-")
+    return {"venue": venue or None, "address": street.strip().rstrip(","), "city": city,
+            "region": z.group("region"), "postal": z.group("postal")}
+
+
 def book_entry(path: str, book: List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:
     """The venue book's entry for a calendar path: the longest matching prefix."""
     best = None
@@ -615,7 +803,9 @@ GOVERNANCE_RX = re.compile(
     r"\b(?:board|committee|commission|council|authority|panel|task\s+force|advisory)\b[^|]*\bmeeting\b|"
     r"\bpublic\s+hearing\b|\bwork\s+session\b|\bbudget\s+(?:hearing|town\s+hall)\b", re.I)
 CLOSURE_RX = re.compile(r"\b(?:closed|closures?|cancel+ed|cancel+ation|postponed)\b", re.I)
-SOLD_OUT_RX = re.compile(r"\bsold[\s-]+out\b", re.I)
+# "EVENT FULL: Boo at the Oaks" (OC Parks, 2026-10-11: "Only those who have
+# registered will be able to attend, no walkups") is sold out by another name.
+SOLD_OUT_RX = re.compile(r"\bsold[\s-]+out\b|\bevent\s+(?:is\s+)?full\b|\b(?:registration|program)\s+is\s+full\b", re.I)
 ONLINE_TITLE_RX = re.compile(
     r"^\s*virtual\b|\(\s*virtual\s*\)|\bwebinar\b|\bonline\s+(?:session|class|workshop|training)\b|"
     r"\bvirtual\s+(?:parent|caf[eé]|training|workshop|session|class|info(?:rmation)?\s+session|meeting)\b|"
@@ -769,6 +959,72 @@ def price_line(price: Optional[str]) -> Tuple[Optional[str], str]:
     return f"🎟 Price: {text}.", "unclear"
 
 
+# Lesson 7: with no price field the cost is a sentence of the blurb, near its
+# end - "The program is free and parking is $3 per vehicle.", "The program and
+# parking are free.", "Cost is $5 per child (one parent included)." - and the
+# cut that fits the 800 took it from 30 of the 57 OC Parks rows that say it
+# (2026-10-11). With `cost_in_blurb` that sentence, word for word, is the price
+# line. A sentence about something else that costs (parking alone) is not.
+_COST_SENTENCE_RX = re.compile(
+    r"(?:the\s+|this\s+)?(?:program(?:me)?s?|events?|activit(?:y|ies)|hikes?|walks?|tours?|admission|entry|"
+    r"participation|cost|price|fee)\b[^.!?\n]*?(?:\bfree\b|\$\s*\d)[^\n]*?(?:[.!?](?=\s|$)|$)", re.I)
+
+
+def cost_sentence(body: Optional[str]) -> Optional[str]:
+    """The blurb's first sentence that says what the programme costs, or None."""
+    for line in (body or "").split("\n"):
+        for s in re.split(r"(?<=[.!?])\s+(?=[A-Z*])", line.strip()):
+            m = _COST_SENTENCE_RX.match(s.strip())
+            if m and m.end() == len(s.strip()):
+                return s.strip()
+    return None
+
+
+# ---------------------------------------------------------------------------
+# people
+# ---------------------------------------------------------------------------
+# Lesson 7h: a sentence that hands out an email address, or names a person to
+# contact, is not the row's to carry. 31 of the 111 OC Parks pages read on
+# 2026-10-11 give an email address in their blurb, 29 of them a member of
+# staff's own firstname.lastname@parks.oc.gov (six people), most with a
+# direct line in the same sentence: "For questions, please contact Resource
+# Specialist <name> at (714) ... or <address>". Whether it survived the 800
+# cut depended only on where the cut fell (4 of 58 rows kept one). The row's
+# Tickets / info link reaches the page that carries them. Of the 32 sentences
+# that go, 28 name a person AND give an address; the other 4 give an address
+# alone (two of them a venue's: unbic@, irvineranchopenspace@). A venue's own
+# number in a sentence that names nobody ("For questions, call 949-497-8324
+# on weekdays", "contact the library at 714-649-2216") stays: 17 such.
+# Fairfax (its first 40 pages, read 2026-10-12): 1 of 31 blurbs gave an
+# address, a department's (VolunteerSolutions@), and that sentence goes too.
+_EMAIL_RX = re.compile(r"[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
+# Two to six capitalised words between the verb and "at"/"on": a title and a
+# name ("contact Resource Specialist, <First> <Last> at"); "contact the
+# library at" is not one.
+_NAMED_CONTACT_RX = re.compile(r"\b(?:contact|e-?mail|call|ask\s+for|reach)\s+(?:[A-Z][\w'.-]*,?\s+){2,6}(?:at|on)\b")
+# A sentence ends at . ! or ? (or one closing a quote), never after an
+# initial ("J. Smith"), and only before a capital, a quote or a bracket.
+_SENTENCE_END_RX = re.compile(
+    r"(?:(?<=[.!?])|(?<=[.!?][\"'”’)]))(?<!\s[A-Z]\.)\s+(?=[^a-z0-9\s])")
+
+
+def without_contacts(body: str) -> Tuple[str, int]:
+    """(the blurb without any sentence that gives an email address or names a
+    person to contact, how many sentences went)."""
+    kept_lines: List[str] = []
+    gone = 0
+    for line in body.split("\n"):
+        kept = []
+        for s in _SENTENCE_END_RX.split(line.strip()):
+            if _EMAIL_RX.search(s) or _NAMED_CONTACT_RX.search(s):
+                gone += 1
+            else:
+                kept.append(s)
+        if any(kept):
+            kept_lines.append(" ".join(kept).strip())
+    return ("\n".join(kept_lines) if gone else body), gone
+
+
 # ---------------------------------------------------------------------------
 # rows
 # ---------------------------------------------------------------------------
@@ -814,7 +1070,7 @@ def build_event(ev: Dict[str, Any], info: Dict[str, Any], page_url: str, src: Di
     be placed."""
     title = _clean(ev.get("title")).replace("\n", " ")
     path = ev.get("url") or ""
-    body = _clean(info.get("description") or ev.get("fulldescription") or ev.get("description"))
+    body = _clean(info.get("description") or ev.get("fulldescription") or ev.get("description") or ev.get("des"))
     why = page_exclusion(title, body, info, src)
     if why:
         _bump(stats, f"excluded: {why}")
@@ -834,24 +1090,49 @@ def build_event(ev: Dict[str, Any], info: Dict[str, Any], page_url: str, src: Di
         el = None
         _bump(stats, "end over 12 h after a same-day start (an am/pm slip): written with no end")
 
-    # PLACE (lesson 3) ---------------------------------------------------
+    # PLACE (lessons 3 and 7) ---------------------------------------------
     # The location node's street, else the location block's.
     node = split_address(info.get("location_address") or [])
     block = split_address(info.get("location_lines") or [])
+    # Lesson 7: the address of a whole open space is not where anybody meets,
+    # so it places nothing (a start the page names still can).
+    area = None
+    for part in (node, block):
+        if area_street(part["address"], src):
+            area = part["address"]
+            part.update(address=None, city=None, postal=None)
+    if area:
+        _bump(stats, "page street refused: an open space's address, not where it meets")
     if not node["address"] and block["address"]:
         node = dict(block, venue=node["venue"] or block["venue"])
+    # Lesson 7: the start the blurb names in its own words, street and all,
+    # beats the park's address in the location field.
+    start = start_place(body) if src.get("blurb_start") else None
+    if start and area_street(start["address"], src):
+        _bump(stats, "start line refused: an open space's address")
+        start = None
     point = page_point(info, node["address"], src, stats)
     lat = lon = None
     exact = False
     venue = address = city = region = postal = None
     entry = book_entry(path, src.get("venues") or [])
-    pinned = None if point else street_pin(node["address"] or block["address"], src.get("street_pins") or [])
+    pinned = None if point else street_pin((start or {}).get("address") or node["address"] or block["address"],
+                                           src.get("street_pins") or [])
     if point:
         lat, lon = point
         exact = True
         venue = info.get("location_title") or node["venue"] or block["venue"]
         address, city, region, postal = node["address"], node["city"], node["region"], node["postal"]
         _bump(stats, "placed: the page's own location point")
+    elif start:
+        venue = start["venue"] or (pinned or {}).get("name")
+        address, city, region, postal = start["address"], start["city"], start["region"], start["postal"]
+        if pinned:
+            lat, lon = pinned["lat"], pinned["lon"]
+            exact = True
+            _bump(stats, "placed: the start the blurb names (the street book's pin)")
+        else:
+            _bump(stats, "placed: the start the blurb names (the sync geocodes it)")
     elif pinned:
         # A street the page names without a point, which the US Census batch
         # the sync geocodes with cannot place (lesson 3): its surveyed pin.
@@ -873,6 +1154,9 @@ def build_event(ev: Dict[str, Any], info: Dict[str, Any], page_url: str, src: Di
         venue, address = entry.get("name"), entry.get("address")
         city, region, postal = entry.get("city"), entry.get("region"), entry.get("postal")
         _bump(stats, "placed: the venue book")
+    elif area:
+        _bump(stats, "dropped: only an open space's address, and no start named")
+        return None
     else:
         _bump(stats, "dropped: unplaceable (no point, no street, no venue-book entry)")
         return None
@@ -885,12 +1169,33 @@ def build_event(ev: Dict[str, Any], info: Dict[str, Any], page_url: str, src: Di
     # cut so the whole stays inside the sync's 800: the sync cuts the END of
     # long prose, and a price line there was lost on 9 rows (the "(not free)"
     # veto with it) before this order.
+    # Lesson 7h: first, no staff member's address, name or direct line.
+    body, gone = without_contacts(body)
+    if gone:
+        _bump(stats, "contact sentences left out (an email address or a named person)", gone)
     p_line, tier = price_line(info.get("price"))
+    said = cost_sentence(body) if p_line is None and src.get("cost_in_blurb") else None
+    if said:
+        # Lesson 7: the blurb's own cost sentence leads, and is not said twice.
+        p_line, tier = f"🎟 {said}", "the blurb's own cost sentence"
+        body = body.replace(said, "", 1).replace("\n\n", "\n").strip()
     _bump(stats, f"price: {tier}")
     reg = info.get("registration")
     reg_url = urljoin(page_url, reg) if reg else None
+    if reg_url and urlsplit(reg_url).scheme not in ("http", "https"):
+        # Lesson 7h: a "register" link that is mailto: or tel: is a person's
+        # address, not a page (0 of OC Parks' 96 on 2026-10-11; a staff email
+        # reached 11 Toronto rows' ticket link that way). The page is the link.
+        reg_url = None
+        _bump(stats, "registration link refused: not a web page (mailto: or tel:)")
     head: List[str] = [p_line] if p_line else []
-    if reg_url and DOOR_RX.search(body):
+    door = DOOR_RX.search(body) if reg_url else None
+    if door and door.group(0).lower().startswith("walk"):
+        # "Advance registration is recommended, but walk-ins are welcome" (11
+        # of 58 OC Parks rows, 2026-10-11, every one free): nothing is sold.
+        head.append("Registration online, or walk in.")
+        _bump(stats, "registration link, walk-ins welcome")
+    elif door:
         head.append("Tickets online or at the door.")
         _bump(stats, "registration link, tickets also at the door")
     elif reg_url:
@@ -909,8 +1214,9 @@ def build_event(ev: Dict[str, Any], info: Dict[str, Any], page_url: str, src: Di
         source=src.get("source") or f"drupal-fullcalendar:{src['key']}",
         # Lesson 6: each occasion is its own node, so the node id IS the
         # occasion; the date joins it so a node re-dated to another day is a
-        # new row, not a silently moved one.
-        source_id=f"{src['key']}:{ev.get('id')}:{day}",
+        # new row, not a silently moved one. Lesson 7: in 5.x the node id is
+        # `eid`, and `id` is the event's row in the view ("26-0").
+        source_id=f"{src['key']}:{node_id(ev)}:{day}",
         name=title,
         description=desc,
         start_local=sl.strftime("%Y-%m-%dT%H:%M:00"),
@@ -946,7 +1252,8 @@ def ingest_source(store: EventStore, reader: Reader, src: Dict[str, Any], days: 
     events = calendar_events(page)
     stats["calendar events"] = len(events)
     todo = []
-    for ev in events:
+    deepest = 0
+    for i, ev in enumerate(events, 1):
         start = _parse_iso(ev.get("start"))
         if start is None or not ev.get("url"):
             _bump(stats, "skipped: no start or no url")
@@ -956,6 +1263,7 @@ def ingest_source(store: EventStore, reader: Reader, src: Dict[str, Any], days: 
             _bump(stats, "outside the window")
             continue
         _bump(stats, "in the window")
+        deepest = i
         end = _parse_iso(ev.get("end"))
         # Lesson 6: a day or more of clock time is a series written as one row
         # ("Botanical Journaling" 10-07 13:30 to 10-21 15:30); an overnight
@@ -1028,6 +1336,13 @@ def ingest_source(store: EventStore, reader: Reader, src: Dict[str, Any], days: 
         # A calendar that lists nothing is a broken page or a moved setting,
         # not a county that called everything off.
         lost.append("the calendar listed nothing")
+    if src.get("list_cap"):
+        # Lesson 7: a view that lists its newest N nodes cuts the oldest, and
+        # an occasion created long before its date can fall off the list while
+        # it is still to come. Its absence is then the cap, not the publisher.
+        stats["deepest in-window event: list position"] = deepest
+        if len(events) >= int(src["list_cap"]):
+            lost.append(f"the calendar lists its cap of {src['list_cap']} nodes")
     if lost:
         _bump(stats, "read NOT complete: " + ", ".join(lost))
     else:
@@ -1075,6 +1390,11 @@ def load_config(path: str) -> Dict[str, Any]:
                     _metres((v["lat"], v["lon"]), (c["lat"], c["lon"])) <= CENTRE_RADIUS_M
                     for c in src.get("map_centres") or []):
                 raise ValueError(f"{src['key']}: street pin {v.get('street')} lies outside bbox or on a map centre")
+            if area_street(v["street"], src):
+                raise ValueError(f"{src['key']}: {v['street']} is both an open space's address and a street pin")
+        for a in src.get("area_streets") or []:
+            if not _STREET_RX.match(a.get("street") or ""):
+                raise ValueError(f"{src['key']}: an area street needs a numbered street: {a}")
     return cfg
 
 
