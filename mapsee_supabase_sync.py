@@ -188,22 +188,30 @@ _PROMOTABLE_TO_PARTY = {"community", "food", "other"}
 # 2026-10-11 - "New Year's Eve Walk" at 3:30 pm from a Seattle church, "New
 # Years Eve Day Walk #1" at 9 am in Savage, MD - and "new year's eve" alone made
 # each a party and put a 5 km walk on bar.ventures. The date is the only
-# nightlife word there, so a title (or text) whose every party match is New
-# Year's Eve and which names a walk, a hike, a 5k or 10k, a fun run, a bike
-# ride, a swim or a plunge keeps its layer. A pub crawl on New Year's Eve still
-# has "pub crawl" and is still a party, and "walk-ins welcome" is not a walk.
+# nightlife word there, so a row whose every party match is New Year's Eve and
+# whose TITLE names a walk, a hike, a 5k or 10k, a fun run, a bike ride, a swim
+# or a plunge keeps its layer. A pub crawl on New Year's Eve still has "pub
+# crawl" and is still a party, and "walk-ins welcome" is not a walk.
+# THE ACTIVITY IS READ IN THE TITLE ONLY. A New Year's Eve gala whose blurb says
+# "within walking distance of the light rail", "a short walk from the Metro" or
+# "swim-suit optional hot tub" is still a night out (the review of 2026-10-12
+# probed both: each lost its party secondary while the description was read).
+# Every one of the 5 AVA rows names its walk in the title.
 _NYE_RX = re.compile(r"new\s+year'?s?\s+eve", re.I)
 _DAYTIME_ACTIVITY_RX = re.compile(
     r"\b(?:walk(?:s|ing)?(?![-\s]ins?\b)|hikes?|hiking|volksmarch\w*|5k|10k|fun\s+run|bike\s+ride|swim|"
     r"polar\s+plunge)\b", re.I)
 
 
-def _nightlife(text: str) -> bool:
-    """_PARTY_RX, except a walk or a run whose only party word is the date."""
+def _nightlife(text: str, title: Optional[str] = None) -> bool:
+    """_PARTY_RX over `text`, except a walk or a run whose only party word is
+    the date. The activity is looked for in `title` (the text itself when no
+    title is given: map_category passes the name alone)."""
     hits = [m.group(0) for m in _PARTY_RX.finditer(text or "")]
     if not hits:
         return False
-    return not (all(_NYE_RX.fullmatch(h) for h in hits) and _DAYTIME_ACTIVITY_RX.search(text))
+    activity = _DAYTIME_ACTIVITY_RX.search(text if title is None else title)
+    return not (all(_NYE_RX.fullmatch(h) for h in hits) and activity)
 
 
 # Source prefixes of the community-centre timetable adapters. A lane swim or a
@@ -1150,7 +1158,7 @@ def derive_categories(rec: Dict[str, Any]) -> Tuple[str, Optional[List[str]]]:
         # and the shape recurs every time a venue names a night after a lyric.
         if key == "market" and _NOT_A_MARKET_RX.search(text):
             continue
-        if key == "party" and (_from_civic_timetable(rec) or not _nightlife(text)):
+        if key == "party" and (_from_civic_timetable(rec) or not _nightlife(text, title)):
             continue
         # A volunteer shift keeps no door a guest would choose it from - see
         # _SHIFT_RX for the Silent Disco set-up crew that reached bar.ventures.

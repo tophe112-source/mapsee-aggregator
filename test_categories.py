@@ -930,4 +930,28 @@ ok = p == "party"
 print(f"{'ok ' if ok else 'FAIL'} ...while a bar's karaoke night from any other source still does -> {p}")
 if not ok:
     cfails.append("Karaoke Night")
+# A WALK ON NEW YEAR'S EVE IS NOT A NIGHT OUT, and a night out whose blurb says
+# "walking distance" still is (_nightlife reads the activity in the TITLE only).
+# The galas are the review's probes of 2026-10-12: each lost its party secondary
+# while the description was read. The swim leaves one secondary slot free (the
+# walk's fitness + outdoors fill both, so it cannot show the secondary guard),
+# and "Walk-ins welcome" names no walk.
+for rec, want_party in (
+        ({"name": "Midnight Gala", "category": "music",
+          "description": "New Year's Eve party, live band. Within walking distance of the light rail."}, True),
+        ({"name": "New Year's Eve Gala", "category": "music",
+          "description": "Dinner, dancing and a champagne toast. The hotel is a short walk from the Metro."}, True),
+        ({"name": "New Year's Eve Countdown", "category": "theater",
+          "description": "Doors 9pm. Swim-suit optional hot tub on the roof. 5k worth of balloons at midnight."}, True),
+        ({"name": "New Year's Eve Bash - Walk-ins Welcome", "category": "community", "description": ""}, True),
+        ({"name": "New Year's Eve Walk", "category": "community", "categories": ["fitness", "outdoors"],
+          "description": "Start table open: 3:30 - 6:30 PM. Christmas lights in West Seattle."}, False),
+        ({"name": "New Year's Eve Swim (volkssport swim)", "category": "community", "categories": ["fitness"],
+          "description": "Volkssport swim by First State Webfooters, distance 300m."}, False)):
+    p, e = derive_categories(rec)
+    ok = ("party" in {p, *(e or [])}) == want_party and (want_party or p == "community")
+    print(f"{'ok ' if ok else 'FAIL'} {rec['name']!r} ({rec['description'][:40]!r}) "
+          f"{'keeps' if want_party else 'is kept off'} the party door -> {p} + {e}")
+    if not ok:
+        cfails.append(rec["name"])
 sys.exit(1 if (fails or cfails or bfails or ifails) else 0)
