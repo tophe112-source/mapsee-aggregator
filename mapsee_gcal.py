@@ -299,20 +299,158 @@ def _maybe_b64(s: str) -> str:
     return text if "@" in text and text.isprintable() else s
 
 
+def _googles_own(cid: str) -> bool:
+    return cid.lower().endswith("group.v.calendar.google.com")
+
+
+def _embed_src_ids(query: str) -> List[str]:
+    out: List[str] = []
+    for m in re.finditer(r"(?:^|&)src=([^&#]+)", _html.unescape(query)):
+        cid = _maybe_b64(unquote(m.group(1)).strip())
+        if cid and not _googles_own(cid) and cid not in out:
+            out.append(cid)
+    return out
+
+
 def embed_ids(html: str) -> List[str]:
     """Calendar ids embedded in a page, in page order, without Google's own
     calendars (holidays, contacts, phases of the moon all live on
     `group.v.calendar.google.com`), which are nobody's local programme."""
     out: List[str] = []
     for query in EMBED_RX.findall(html or ""):
-        query = _html.unescape(query)
-        for m in re.finditer(r"(?:^|&)src=([^&#]+)", query):
-            cid = _maybe_b64(unquote(m.group(1)).strip())
-            if not cid or cid.lower().endswith("group.v.calendar.google.com"):
-                continue
+        for cid in _embed_src_ids(query):
             if cid not in out:
                 out.append(cid)
     return out
+
+
+# ---- every other place a page keeps a calendar id ------------------------------
+# AN IFRAME IS ONE FORM OF SEVERAL. Polish Home (polishhome.org/calendar/, a
+# Seattle community centre) runs Pretty Google Calendar, a WordPress plugin
+# that draws the calendar itself from the Calendar API and leaves no iframe:
+# the id sits in an inline script, `pgcal_inlineScript({"gcal":"<id>",
+# "cal_ids":"", ... "google_api":"<the SITE OWNER's own API key>"})`. The walk
+# followed that page on 2026-10-11 and filed it `no-calendar`; replaying
+# today's code on the saved page still did (2026-10-12). Simple Calendar
+# (the google-calendar-events plugin) renders its events server-side and keeps
+# the id on the server, but every event links to Google as
+# `google.com/calendar/event?eid=<base64 of "<event id> <calendar id>">`, the
+# calendar's domain shortened to `@m` (gmail.com) or `@g`
+# (group.calendar.google.com): artisticdynamicassociation.eu, one of the 55
+# no-calendar centres re-read on 2026-10-12. FullCalendar's own Google plugin
+# takes `googleCalendarId: '<id>'`, and a "subscribe" button links
+# `calendar.google.com/calendar/r?cid=<id, plain or base64>`. How often: of 55
+# readable homepages of no-calendar centres (and the 67 pages they linked),
+# 1 carried an id in one of these forms and none an iframe, so about 44 of
+# the ledger's 2,408 centre-like no-calendar rows (95% interval 8 to 231).
+#
+# THE KEY BESIDE THE ID IS NEVER READ. Pretty Google Calendar ships the site's
+# key as "google_api" and FullCalendar as `googleCalendarApiKey`; every pattern
+# here names the one field that holds an id, and nothing comes back that is
+# not shaped like a calendar id (it has an `@`; a key never does). Using a
+# site's key would be borrowing an identity that is not ours: the reader
+# uses mapsee's own (GOOGLE_CALENDAR_API_KEY).
+_PGCAL_RX = re.compile(r'"(?:gcal|cal_ids)"\s*:\s*"([^"]*)"')
+_FC_GCAL_RX = re.compile(r"""\bgoogleCalendarId["']?\s*:\s*["']([^"']+)["']""")
+_CID_RX = re.compile(
+    r"(?:calendar|www)\.google\.com/calendar(?:/u/\d+)?(?:/r|/render)?/?\?[^\"'<>\s]*?\bcid=([^&\"'<>\s#]+)",
+    re.I)
+_EID_RX = re.compile(
+    r"(?:calendar|www)\.google\.com/calendar(?:/u/\d+)?(?:/r)?/event\?[^\"'<>\s]*?\beid=([A-Za-z0-9_-]+)",
+    re.I)
+_PAGE_ICAL_RX = re.compile(
+    r"(?:calendar|www)\.google\.com/calendar/ical/([^/\"'<>\s]+)/public/basic\.ics", re.I)
+# What a calendar id looks like: an address. Group calendars are
+# `<hex>@group.calendar.google.com`, Google's own `en.usa#holiday@...`.
+_ID_SHAPE_RX = re.compile(r"[\w.%+#~-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+", re.A)
+# How an event link shortens the calendar's domain. Only these two are
+# expanded: an abbreviation not on this list is not guessed at.
+_EID_DOMAINS = {"m": "gmail.com", "g": "group.calendar.google.com",
+                "v": "group.v.calendar.google.com"}
+
+
+def _clean_id(raw: str) -> Optional[str]:
+    cid = unquote((raw or "").strip())
+    m = ICAL_RX.match(cid)
+    if m:                                   # a cid= that is the export URL itself
+        cid = unquote(m.group(1))
+    else:
+        cid = _maybe_b64(cid)
+    cid = cid.strip()
+    if not _ID_SHAPE_RX.fullmatch(cid) or _googles_own(cid):
+        return None
+    return cid
+
+
+def _eid_calendar(eid: str) -> Optional[str]:
+    """The calendar an event link belongs to: base64("<event id> <calendar>")."""
+    try:
+        text = base64.urlsafe_b64decode(eid + "=" * (-len(eid) % 4)).decode("ascii")
+    except Exception:                                             # noqa: BLE001
+        return None
+    parts = text.split()
+    if len(parts) != 2 or "@" not in parts[1]:
+        return None
+    local, _, dom = parts[1].rpartition("@")
+    if "." not in dom:
+        dom = _EID_DOMAINS.get(dom)
+        if not dom:
+            return None
+    return _clean_id(f"{local}@{dom}")
+
+
+def page_ids(html: str) -> List[str]:
+    """Every Google calendar id a page carries, in page order, once each:
+    iframe embeds (embed_ids), Pretty Google Calendar's "gcal" and "cal_ids",
+    FullCalendar's googleCalendarId, subscribe links (`cid=`), event links
+    (`eid=`, which is how a Simple Calendar page names its calendar) and a
+    bare export URL. Google's own calendars (group.v) are left out. Never a
+    site's API key: see the block above."""
+    # A substring test first, because almost no page has any of this and the
+    # patterns are not free: on the 270 pages of the 2026-10-12 re-probe the
+    # six of them took 3.3 s (worst 157 ms, an 800 KB homepage), and the
+    # iframe pattern alone 0.63 s. Asked only where the words are: 0.26 s,
+    # worst 26 ms.
+    raw = html or ""
+    links = "google.com/calendar" in raw.lower()
+    pgcal = "gcal" in raw or "cal_ids" in raw
+    fcal = "googleCalendarId" in raw
+    if not (links or pgcal or fcal):
+        return []
+    text = _html.unescape(raw)
+    found: List[Tuple[int, str]] = []
+    if links:
+        for m in EMBED_RX.finditer(text):
+            found += [(m.start(), cid) for cid in _embed_src_ids(m.group(1))]
+    if pgcal:
+        for m in _PGCAL_RX.finditer(text):
+            found += [(m.start(), cid) for cid in map(_clean_id, m.group(1).split(",")) if cid]
+    forms = ([(_FC_GCAL_RX, _clean_id)] if fcal else []) + (
+        [(_CID_RX, _clean_id), (_EID_RX, _eid_calendar), (_PAGE_ICAL_RX, _clean_id)] if links else [])
+    for rx, read in forms:
+        for m in rx.finditer(text):
+            cid = read(m.group(1))
+            if cid:
+                found.append((m.start(), cid))
+    out: List[str] = []
+    for _pos, cid in sorted(found, key=lambda x: x[0]):
+        if cid not in out:
+            out.append(cid)
+    return out
+
+
+# A CALENDAR ID CAN BE SOMEBODY'S ADDRESS. A group calendar's id is a random
+# string at group.calendar.google.com; a personal calendar's id is its owner's
+# email address. 51 of the 172 configured Google calendars are @gmail.com
+# (2026-10-12), 40 of them found through an OSM community centre. The repo is
+# public, and its rule is that a personal address is never committed, so a
+# discovered calendar at one of these domains is HELD at merge for the owner
+# (catalog_curate.cmd_merge); verify still judges it.
+PERSONAL_DOMAINS = ("gmail.com", "googlemail.com")
+
+
+def personal_address(cid: Optional[str]) -> bool:
+    return bool(cid) and cid.lower().rpartition("@")[2] in PERSONAL_DOMAINS
 
 
 # ---- the smoke test ----------------------------------------------------------

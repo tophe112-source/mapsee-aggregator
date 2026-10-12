@@ -25,6 +25,7 @@ No network.
 """
 from __future__ import annotations
 
+import base64
 import json
 import os
 import sys
@@ -303,6 +304,127 @@ labels, ics = OSM.fingerprint('<a href="/events.ics">Subscribe</a>' + SITES_BLOC
 check("a page that links its own .ics keeps that link", ics == "/events.ics" and "gcal-embed" not in labels, (labels, ics))
 check("the embed outranks the page's own Event block", OSM.adapter_for(["gcal-embed", "jsonld-event"]) == "ics")
 check("...and a real events platform outranks the embed", OSM.adapter_for(["tribe", "gcal-embed"]) == "tribe")
+
+
+# --- 5b. every other form a page keeps a calendar id in (page_ids) --------------
+# polishhome.org/calendar/ (a Seattle community centre), 2026-10-12, trimmed:
+# Pretty Google Calendar draws the calendar itself, so there is no iframe. The
+# site's own key sits beside the id as "google_api"; the real one is replaced
+# by FAKE_SITE_KEY, and nothing may ever hand it back.
+PH_ID = "d83853455e5cebb55a95bc30f0719941cc219c65f48a1cd6228d3f1ed34a7e09@group.calendar.google.com"
+FAKE_SITE_KEY = "AIzaSyFAKE-site-owners-key-not-real-0000"
+POLISH_HOME_CAL = """<html><head><title>Calendar - Polish Home Association</title>
+<script id="pgcal_helpers-js" src="https://polishhome.org/wp-content/plugins/pretty-google-calendar/public/js/helpers.js?ver=2.2.1"></script>
+</head><body><h1 class="entry-title">Calendar</h1><div class="entry-content">
+ <p class="wp-block-paragraph">
+ <div id='pgcalendar-0b319af336f45404d0e731b9f8f3c058bda1fd75a1190e981aa1aad7acf93aca' class='pgcal-container'>loading...</div>
+ <div class='pgcal-branding'>Powered by <a href='https://wordpress.org/plugins/pretty-google-calendar/'>Pretty Google Calendar</a></div>
+ </p></div>
+<script id="pgcal_loader-js" src="https://polishhome.org/wp-content/plugins/pretty-google-calendar/public/js/pgcal.js?ver=2.2.1"></script>
+<script id="pgcal_loader-js-after">
+document.addEventListener('DOMContentLoaded', function() {
+      function pgcal_inlineScript(settings) {
+        var ajaxurl = 'https://polishhome.org/wp-admin/admin-ajax.php';
+        var pgcal_ajax_nonce = '9e5a276a62';
+        pgcal_render_calendar(settings, ajaxurl, pgcal_ajax_nonce);
+      }
+
+      pgcal_inlineScript({"gcal":"%s","cal_ids":"","locale":"en","list_type":"listCustom","custom_list_button":"list","custom_days":"28","views":"dayGridMonth, listCustom","initial_view":"dayGridMonth","enforce_listview_on_mobile":"true","show_today_button":"true","show_title":"true","id_hash":"0b319af336f45404d0e731b9f8f3c058bda1fd75a1190e981aa1aad7acf93aca","use_tooltip":"true","no_link":"false","hide_past":"false","fc_args":"{}","google_api":"%s"});
+    });
+</script></body></html>""" % (PH_ID, FAKE_SITE_KEY)
+# A Simple Calendar page (the google-calendar-events plugin), trimmed from
+# artisticdynamicassociation.eu/calendar/ada-is-programm/ (2026-10-12). It
+# renders server-side and keeps the id on the server; each event links to
+# Google with eid=base64("<event id> <calendar>"), the domain shortened to @m.
+# The calendar id is replaced by a made-up one: this repository is public.
+SIMCAL_EID = ("XzYwcjMyZTlrODkyMzZiOWo4ZDJqYWI5azZwMTM2YjlwNzUyamFiYTY3NHJqMmdobDY0czM2aGk1"
+              "OGsgZXhhbXBsZWFydHNhc3NvY2lhdGlvbkBt")
+SIMCAL_PAGE = """<html><head>
+<link rel='stylesheet' href='https://example.eu/wp-content/plugins/google-calendar-events/assets/generated/default-calendar-grid.min.css?ver=4.3.1'>
+</head><body><div class="simcal-calendar simcal-default-calendar simcal-default-calendar-grid" data-calendar-id="1723" data-timezone="Europe/Vienna">
+<td class="simcal-day-2 simcal-weekday-5 simcal-day simcal-day-has-events" data-events-count="1"><div>
+<ul class="simcal-events"><li class="simcal-event simcal-events-calendar-1723 simcal-tooltip">
+<span class="simcal-event-title">Open studio evening</span>
+<div class="simcal-event-details simcal-tooltip-content" style="display: none;">
+<p><span class="simcal-event-start simcal-event-start-date" itemprop="startDate" content="2026-10-02T18:00:00+02:00">02/10/2026</span></p>
+<p> <a href="https://www.google.com/calendar/event?eid=%s&#038;ctz=Europe/Vienna" target="_blank" >Weitere Details anzeigen</a></p></div>
+</li></ul></div></td></div>
+<script src='https://example.eu/wp-content/plugins/google-calendar-events/assets/generated/default-calendar.min.js?ver=4.3.1'></script>
+</body></html>""" % SIMCAL_EID
+FC_PAGE = ("<script>new FullCalendar.Calendar(el, {plugins: [googleCalendarPlugin], "
+           "googleCalendarApiKey: '" + FAKE_SITE_KEY + "', "
+           "events: {googleCalendarId: 'a1b2c3@group.calendar.google.com'}});</script>")
+
+
+def _eid(text):
+    import base64
+    return base64.urlsafe_b64encode(text.encode("ascii")).decode("ascii").rstrip("=")
+
+
+check("Pretty Google Calendar's \"gcal\" is read (Polish Home)", G.page_ids(POLISH_HOME_CAL) == [PH_ID],
+      G.page_ids(POLISH_HOME_CAL))
+check("...where the iframe reader finds nothing", G.embed_ids(POLISH_HOME_CAL) == [])
+check("...and \"cal_ids\" too, a comma list, after \"gcal\"",
+      G.page_ids('pgcal_inlineScript({"gcal":"g1@group.calendar.google.com","cal_ids":'
+                 '"g2@group.calendar.google.com, g3@group.calendar.google.com","google_api":"%s"})' % FAKE_SITE_KEY)
+      == ["g1@group.calendar.google.com", "g2@group.calendar.google.com", "g3@group.calendar.google.com"])
+check("a \"gcal\" that is not an id is not one", G.page_ids('{"gcal":"1","cal_ids":"","google_api":"x"}') == [])
+check("Simple Calendar's event link names its calendar (@m is gmail.com)",
+      G.page_ids(SIMCAL_PAGE) == ["exampleartsassociation@gmail.com"], G.page_ids(SIMCAL_PAGE))
+check("...and that one is a personal address", G.personal_address(G.page_ids(SIMCAL_PAGE)[0]))
+check("...a group calendar's is not", not G.personal_address(PH_ID))
+check("@g is a group calendar",
+      G.page_ids('<a href="https://calendar.google.com/calendar/event?eid=%s">x</a>' % _eid("ev1 5f2a9c41e0b7d3a8@g"))
+      == ["5f2a9c41e0b7d3a8@group.calendar.google.com"])
+check("a full domain in an eid is kept",
+      G.page_ids('<a href="https://www.google.com/calendar/event?eid=%s">x</a>' % _eid("ev1 events@hall.example.org"))
+      == ["events@hall.example.org"])
+check("an abbreviation that is not @m or @g is not guessed at",
+      G.page_ids('<a href="https://www.google.com/calendar/event?eid=%s">x</a>' % _eid("ev1 hall@x")) == [])
+check("Google's own calendars stay out, as an eid (@v) and as \"gcal\"",
+      G.page_ids('<a href="https://www.google.com/calendar/event?eid=%s">x</a>' % _eid("ev1 en.usa#holiday@v")
+                 + '{"gcal":"en.usa#holiday@group.v.calendar.google.com"}') == [])
+check("FullCalendar's googleCalendarId is read, its googleCalendarApiKey is not",
+      G.page_ids(FC_PAGE) == ["a1b2c3@group.calendar.google.com"], G.page_ids(FC_PAGE))
+CID_FORMS = {
+    "a subscribe link, plain": '<a href="https://calendar.google.com/calendar/r?cid=s1@group.calendar.google.com">+</a>',
+    "...under /u/0/": '<a href="https://calendar.google.com/calendar/u/0/r?cid=s1%40group.calendar.google.com">+</a>',
+    "...as render?cid=, base64": '<a href="https://calendar.google.com/calendar/render?cid=' + base64.b64encode(
+        b"s1@group.calendar.google.com").decode() + '">+</a>',
+    "...as ?cid= the export URL itself": '<a href="https://calendar.google.com/calendar/?cid=webcal://calendar.google.com'
+                                         '/calendar/ical/s1%40group.calendar.google.com/public/basic.ics">+</a>',
+    "...with the cid after another parameter (&amp;)": '<a href="https://calendar.google.com/calendar/r?pli=1&amp;cid=s1@group.calendar.google.com">+</a>',
+}
+for label, page in CID_FORMS.items():
+    check(label, G.page_ids(page) == ["s1@group.calendar.google.com"], G.page_ids(page))
+check("a cid= that is somebody else's feed is not a Google calendar id",
+      G.page_ids('<a href="https://calendar.google.com/calendar/r?cid=https://www.trumba.com/calendars/x.ics">+</a>') == [])
+check("the iframe forms are still read, through page_ids", G.page_ids(MULTI) == G.embed_ids(MULTI)
+      and G.page_ids(B64) == ["ssbc@swordssailing.ie"])
+check("page order across forms, once each",
+      G.page_ids(LINK + FC_PAGE + LINK) == ["0j1667ft5gdld6esbsctjt6eg0@group.calendar.google.com",
+                                            "a1b2c3@group.calendar.google.com"])
+check("no id on a page with none", G.page_ids("<html><body><a href='/events'>Events</a></body></html>") == [])
+check("the quick test in front of the patterns hides no form: an id in an HTML attribute",
+      G.page_ids("<div data-settings='{&quot;gcal&quot;:&quot;h1@group.calendar.google.com&quot;}'></div>")
+      == ["h1@group.calendar.google.com"])
+check("...nor an embed written in capitals",
+      G.page_ids('<iframe src="HTTPS://CALENDAR.GOOGLE.COM/calendar/embed?src=h2%40group.calendar.google.com">')
+      == ["h2@group.calendar.google.com"])
+
+labels, ics = OSM.fingerprint(POLISH_HOME_CAL)
+check("discovery reads Polish Home as a Google calendar, under its export URL",
+      labels == ["gcal-embed"] and ics == G.ical_url(PH_ID), (labels, ics))
+labels, ics = OSM.fingerprint(SIMCAL_PAGE)
+check("...and a Simple Calendar page the same way", labels == ["gcal-embed"]
+      and G.calendar_id(ics) == "exampleartsassociation@gmail.com", (labels, ics))
+# THE SITE'S KEY NEVER COMES BACK, from any reader, in any output.
+outs = [G.page_ids(POLISH_HOME_CAL), G.page_ids(FC_PAGE), OSM.fingerprint(POLISH_HOME_CAL), OSM.fingerprint(FC_PAGE),
+        G.page_ids(POLISH_HOME_CAL.replace('"gcal":"' + PH_ID + '"', '"gcal":""'))]
+check("the site owner's key is in none of what the readers return",
+      FAKE_SITE_KEY not in json.dumps(outs) and "AIza" not in json.dumps(outs), json.dumps(outs)[:200])
+check("...and a page whose only id field is empty returns nothing at all, not the key",
+      G.page_ids(POLISH_HOME_CAL.replace('"gcal":"' + PH_ID + '"', '"gcal":""')) == [])
 
 
 # --- 6. verify: skipped without the key, read through the API with it ----------

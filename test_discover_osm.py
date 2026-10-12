@@ -51,6 +51,14 @@ What is pinned is what the first real sweeps got wrong:
   * A PLATFORM CAN IMPLY A FEED URL. My Calendar publishes iCal at a fixed path
     and never links to it, so scraping for an .ics href finds nothing and a
     readable site looks unreadable.
+  * A CENTRE'S CALENDAR IS NOT ALWAYS AN IFRAME, AND IT BELONGS ON THE CENTRE
+    (2026-10-12). Polish Home was filed no-calendar on a page whose Google
+    calendar sits in Pretty Google Calendar's inline script, beside the site
+    owner's own API key, which no output may carry. A centre's find is
+    proposed on the OSM point with no street, so its events share the
+    centre's four-decimal key; a discovered personal address is held at
+    merge; the programme words, the third follow, the platform link on a
+    followed page and the probe version in the ledger are pinned too.
 """
 import json
 import re
@@ -258,8 +266,9 @@ def main():
           _f["offsite_url"], "https://www.eventbrite.com/o/hall-105655500371")
 
     # A community centre's timetable on its city's booking platform. The link
-    # says "Register" or "Drop-in schedule", which CAL_LINK_RX does not read, so
-    # the host is the signal for these platforms and these only.
+    # says "Register", which CAL_LINK_RX does not read (it has read "Drop-in
+    # schedule" since 2026-10-12), so the host is the signal for these
+    # platforms and these only.
     _PM = "https://cityofsurrey.perfectmind.com/23615/Clients/BookMe4?widgetId=b4059e75-9755-401f-a7b5-d7c75361420d"
 
     def _page(html):
@@ -1265,12 +1274,318 @@ def main():
           "whichever probe finishes first", named, [["First Centre"], ["First Centre"]])
     check("...and the collision is tallied", sk9.get("same-calendar"), 1)
 
+    centre_calendars(C)
+
     print()
     if FAILURES:
         print(f"{len(FAILURES)} FAILED: " + "; ".join(FAILURES))
         return 1
     print("all osm discovery checks passed")
     return 0
+
+
+# ---- a community centre's own calendar (2026-10-12) ------------------------
+# polishhome.org, trimmed. The walk followed /calendar/ on 2026-10-11 and filed
+# the centre no-calendar: Pretty Google Calendar keeps the id in an inline
+# script, beside the SITE OWNER's own Google API key ("google_api"). The real
+# key is replaced by FAKE_SITE_KEY, and no output of the walk may contain it.
+PH_ID = "d83853455e5cebb55a95bc30f0719941cc219c65f48a1cd6228d3f1ed34a7e09@group.calendar.google.com"
+FAKE_SITE_KEY = "AIzaSyFAKE-site-owners-key-not-real-0000"
+PH_HOME = """<html><body><nav><a href="https://polishhome.org/calendar/">Calendar</a>
+<a href="https://polishhome.org/about-us/">About Us</a></nav>
+<a
+					href="/aec-events/"
+					class="sowb-button ow-icon-placement-left ow-button-hover" 	>
+		<span>MORE EVENTS</span></a>
+<a href="https://polishhome.org/blog/aec_events/domowka-u-syreny/" title="Domowka u Syreny">Domowka u Syreny</a>
+</body></html>"""
+PH_CAL = """<html><head>
+<script id="pgcal_helpers-js" src="https://polishhome.org/wp-content/plugins/pretty-google-calendar/public/js/helpers.js?ver=2.2.1"></script>
+</head><body><h1 class="entry-title">Calendar</h1>
+ <div id='pgcalendar-0b319af336f45404d0e731b9f8f3c058bda1fd75a1190e981aa1aad7acf93aca' class='pgcal-container'>loading...</div>
+ <div class='pgcal-branding'>Powered by <a href='https://wordpress.org/plugins/pretty-google-calendar/'>Pretty Google Calendar</a></div>
+<script id="pgcal_loader-js-after">
+document.addEventListener('DOMContentLoaded', function() {
+      function pgcal_inlineScript(settings) {
+        var ajaxurl = 'https://polishhome.org/wp-admin/admin-ajax.php';
+        pgcal_render_calendar(settings, ajaxurl, pgcal_ajax_nonce);
+      }
+      pgcal_inlineScript({"gcal":"%s","cal_ids":"","locale":"en","list_type":"listCustom","views":"dayGridMonth, listCustom","fc_args":"{}","google_api":"%s"});
+    });
+</script></body></html>""" % (PH_ID, FAKE_SITE_KEY)
+# The OSM element: amenity=community_centre, way/229910960.
+PH_VENUE = {"name": "Polish Home Association", "url": "https://polishhome.org",
+            "kind": "community_centre", "lat": 47.6169525, "lon": -122.30845,
+            "street": "1714 18th Avenue", "city": "Seattle"}
+# A Simple Calendar page: its events link to Google with eid=base64("<event
+# id> <calendar id>"), the domain shortened to @m. Markup from
+# artisticdynamicassociation.eu (2026-10-12), the calendar id made up.
+SIMCAL = ('<link rel="stylesheet" href="/wp-content/plugins/google-calendar-events/assets/generated/'
+          'default-calendar-grid.min.css?ver=4.3.1"><div class="simcal-calendar" data-calendar-id="1723">'
+          '<li class="simcal-event"><span class="simcal-event-title">Open studio evening</span>'
+          '<a href="https://www.google.com/calendar/event?eid=XzYwcjMyZTlrODkyMzZiOWo4ZDJqYWI5azZwMTM2Ymlw'
+          'NzUyamFiYTY3NHJqMmdobDY0czM2aGk1OGsgZXhhbXBsZWFydHNhc3NvY2lhdGlvbkBt&#038;ctz=Europe/Vienna" '
+          'target="_blank" >Weitere Details anzeigen</a></li></div>')
+
+
+class _Site:
+    """A whole site from a dict of pages; anything else is unreachable."""
+
+    def __init__(self, pages):
+        self.pages, self.asked = pages, []
+
+    def get(self, u, timeout=None, allow_redirects=True, **kw):
+        self.asked.append(u)
+        if u not in self.pages:
+            raise ConnectionError(u)
+        page = self.pages[u]
+
+        class _R:
+            status_code, url, text = 200, u, page
+            headers = {"Content-Type": "text/html"}
+        return _R()
+
+
+def centre_calendars(C):
+    import contextlib
+    import dataclasses
+    import io
+    import os
+    import tempfile
+    from unittest.mock import patch
+
+    import mapsee_gcal as G
+    import mapsee_ingest_ics as ICS
+    import mapsee_supabase_sync as SYNC
+
+    print()
+    print("a centre's own calendar, in a form that is not an iframe")
+    site = _Site({"https://polishhome.org": PH_HOME, "https://polishhome.org/calendar/": PH_CAL,
+                  "https://polishhome.org/aec-events/": "<html>Future Events</html>"})
+    f = osm.find_calendar(site, "https://polishhome.org")
+    check("Polish Home's Pretty Google Calendar is found (it was filed no-calendar)",
+          (f["status"], f["labels"], f["ics"]), ("ok", ["gcal-embed"], G.ical_url(PH_ID)))
+    check("...on the page the walk had already followed", f["cal_url"], "https://polishhome.org/calendar/")
+    c = osm.to_candidate(PH_VENUE, f, "Seattle, United States")
+    check("...proposed to the ics adapter under its export URL",
+          (c["type"], c["url"], c["category"]), ("ics", G.ical_url(PH_ID), "community"))
+    check("a centre's calendar carries the OSM point, with NO street, so the sync keeps it exact",
+          c.get("venue"), {"name": "Polish Home Association", "city": "Seattle",
+                           "lat": 47.6169525, "lon": -122.30845})
+    check("...a library's and a social centre's too",
+          [bool((osm.to_candidate(dict(PH_VENUE, kind=k), f) or {}).get("venue"))
+           for k in ("library", "social_centre")], [True, True])
+    check("...but not a church's, a club's or a theatre's: pinned by hand, from the events",
+          [(osm.to_candidate(dict(PH_VENUE, kind=k), f) or {}).get("venue")
+           for k in ("place_of_worship", "club", "theatre")], [None, None, None])
+    _tribe = {"adapter": "tribe", "labels": ["tribe"], "cal_url": "https://polishhome.org/events/"}
+    check("a centre's block has no street for any adapter",
+          "address" in osm.to_candidate(PH_VENUE, _tribe)["venue"], False)
+    check("...while a theatre's keeps the street OSM had",
+          osm.to_candidate(dict(PH_VENUE, kind="theatre"), _tribe)["venue"].get("address"), "1714 18th Avenue")
+    check("the site owner's key is in nothing the probe or the candidate holds",
+          FAKE_SITE_KEY in json.dumps([f, c]), False)
+    fs = osm.find_calendar(_Site({"https://ada.example": '<a href="/calendar/">Kalender</a>',
+                                  "https://ada.example/calendar/": SIMCAL}), "https://ada.example")
+    check("a Simple Calendar page is found through its event links",
+          (fs["status"], G.calendar_id(fs["ics"] or "")), ("ok", "exampleartsassociation@gmail.com"))
+
+    print()
+    print("the walk, end to end, never says the site's key")
+    real = (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger)
+    real_fc = osm.find_calendar
+    C._save_ledger = lambda led: None
+    osm.metros = lambda: [{"name": "Seattle", "country": "US", "country_name": "United States",
+                           "bbox": (0, 0, 1, 1)}]
+    osm.overpass_venues = lambda sess, bbox, lab, **kw: [dict(PH_VENUE)]
+    osm.find_calendar = lambda sess, url: real_fc(
+        _Site({"https://polishhome.org": PH_HOME, "https://polishhome.org/calendar/": PH_CAL}), url)
+    led, out = {"polishhome.org": {"checked": C._today_int(), "name": "Polish Home Association",
+                                   "reason": "osm probe: no-calendar", "status": "fail",
+                                   "type": "osm-venue"}}, io.StringIO()
+    try:
+        with contextlib.redirect_stdout(out):
+            found, sk = C._discover_osm(C._session(), set(), led, 500, {}, metros_per_run=1, workers=1)
+    finally:
+        (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real
+    check("a no-calendar row an older probe wrote YESTERDAY no longer parks the centre",
+          [cc.get("url") for cc in found.values()], [G.ical_url(PH_ID)])
+    check("...and the key is in none of the log, the candidates or the ledger",
+          [FAKE_SITE_KEY in s for s in (out.getvalue(), json.dumps(found), json.dumps(led))],
+          [False, False, False])
+
+    print()
+    print("the venue block reaches the config, and the ics adapter pins with it")
+    tmp = tempfile.mkdtemp(prefix="osm-merge-")
+    json.dump([], open(os.path.join(tmp, "ics_sources.json"), "w", encoding="utf-8"), indent=1)
+    held = dict(osm.to_candidate(PH_VENUE, fs, "Vienna, Austria"), name="An Arts Association")
+    curated = {"type": "ics", "name": "A curated club calendar", "category": "community",
+               "url": G.ical_url("someclub@gmail.com")}
+    path = os.path.join(tmp, "cand.verified.json")
+    json.dump([c, held, curated], open(path, "w", encoding="utf-8"))
+    keep_here, log = C.HERE, io.StringIO()
+    C.HERE = tmp
+    try:
+        with contextlib.redirect_stdout(log):
+            C.cmd_merge(path)
+    finally:
+        C.HERE = keep_here
+    cfg = json.load(open(os.path.join(tmp, "ics_sources.json"), encoding="utf-8"))
+    check("merge writes the centre's calendar with its venue block",
+          [(e["name"], e.get("venue")) for e in cfg if e["url"] == G.ical_url(PH_ID)],
+          [("Polish Home Association", c["venue"])])
+    check("a DISCOVERED calendar whose id is a personal address is held for the owner",
+          [e["name"] for e in cfg if e["name"] == "An Arts Association"], [])
+    check("...and merge says so", "[HOLD]" in log.getvalue() and "An Arts Association" in log.getvalue(), True)
+    check("...while one a person curated (no _found) is written as before",
+          [e["name"] for e in cfg if e["name"] == "A curated club calendar"], ["A curated club calendar"])
+
+    src = next(e for e in cfg if e["url"] == G.ical_url(PH_ID))
+    when = "20261114T030000Z"
+    feed = "\r\n".join([
+        "BEGIN:VCALENDAR", "VERSION:2.0",
+        "BEGIN:VEVENT", "DTSTART:" + when, "UID:bazaar@google.com", "SUMMARY:Polish Fall Bazaar", "END:VEVENT",
+        "BEGIN:VEVENT", "DTSTART:" + when, "UID:away@google.com", "SUMMARY:Choir at the cathedral",
+        "LOCATION:St. James Cathedral\\, Seattle", "END:VEVENT", "END:VCALENDAR", ""])
+
+    class _Store:
+        def __init__(self):
+            self.events = []
+
+        def upsert(self, ev):
+            self.events.append(ev)
+            return "new"
+    store = _Store()
+    with patch.object(ICS, "_fetch_ics", return_value=(feed, "200", None)), \
+         patch.object(ICS, "make_location_geocoder", side_effect=lambda _s, _x: (lambda _loc: (47.6070, -122.3260))), \
+         contextlib.redirect_stdout(io.StringIO()):
+        ICS.ingest_ics(store, None, src)
+    by = {e.name: e for e in store.events}
+    bz = by.get("Polish Fall Bazaar")
+    check("an event that names no place lands ON the centre's point",
+          bz and (bz.latitude, bz.longitude, bz.venue_name), (47.6169525, -122.30845, "Polish Home Association"))
+    check("...with no street, so the sync never re-geocodes it",
+          bz and (bz.address, SYNC._addr_parts(dataclasses.asdict(bz))), (None, None))
+    check("...and shares the centre's four-decimal key",
+          bz and (round(bz.latitude, 4), round(bz.longitude, 4)),
+          (round(PH_VENUE["lat"], 4), round(PH_VENUE["lon"], 4)))
+    ch = by.get("Choir at the cathedral")
+    check("an event that names another place is still geocoded there, not pinned",
+          ch and (ch.latitude, ch.longitude), (47.6070, -122.3260))
+
+    print()
+    print("a centre calls its programme Programs, Classes, Activities, Termine, What's On")
+    for word, want in (("Programs", True), ("Classes", True), ("Activités", True), ("Activiteiten", True),
+                       ("Gottesdiensttermine", True), ("Termine", True), ("Diary", True),
+                       ("Centre Schedule", True), ("What&#8217;s On", True), ("What's on", True),
+                       ("determine eligibility", False), ("radioactivity", False), ("Our history", False)):
+        site = _Site({"https://hall.example": f'<a href="/p1">{word}</a>',
+                      "https://hall.example/p1": "<html>nothing machine-readable</html>"})
+        osm.find_calendar(site, "https://hall.example")
+        check(f"  {word!r} {'is' if want else 'is not'} followed", site.asked[1:], ["https://hall.example/p1"] if want else [])
+    order = osm._follow_order({"https://h.example/classes": False, "https://h.example/about/events-policy": True,
+                               "https://h.example/events": True, "https://h.example/programs": False,
+                               "https://h.example/calendar": True})
+    check("a calendar word outranks a programme word, however short its path",
+          order, ["https://h.example/events", "https://h.example/calendar",
+                  "https://h.example/about/events-policy", "https://h.example/classes",
+                  "https://h.example/programs"])
+    check("three of a site's own links are followed, not two", osm.MAX_FOLLOW, 3)
+    links = "".join(f'<a href="/{p}">{p}</a>' for p in ("events", "calendar", "whats-on", "programs"))
+    site = _Site({"https://hall.example": links})
+    osm.find_calendar(site, "https://hall.example")
+    check("...the calendar words first", site.asked[1:],
+          ["https://hall.example/events", "https://hall.example/calendar", "https://hall.example/whats-on"])
+
+    print()
+    print("a calendar page can be where the ticketing link is")
+    EB = "https://www.eventbrite.com/e/painting-workshop-tickets-185868657157"
+    site = _Site({"https://hall.example": '<a href="/whats-on.html">Whats On</a>',
+                  "https://hall.example/whats-on.html": f'<p>Painting workshop</p><a href="{EB}">Book</a>'})
+    f2 = osm.find_calendar(site, "https://hall.example")
+    check("an Eventbrite link on the followed page routes the venue",
+          (f2["status"], f2["offsite_url"]), ("offsite:eventbrite", EB))
+    site = _Site({"https://hall.example": '<a href="/whats-on.html">Whats On</a>'
+                                          '<a href="https://www.meetup.com/hall-group/events/">Events</a>',
+                  "https://hall.example/whats-on.html": f'<a href="{EB}">Book</a>'})
+    check("...the homepage's own link still wins",
+          osm.find_calendar(site, "https://hall.example")["offsite_url"], "https://www.meetup.com/hall-group/events/")
+    share = ("https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhall.example%2fCommunity%2fEvents")
+    site = _Site({"https://hall.example": '<a href="/Community/Events">Events</a>',
+                  "https://hall.example/Community/Events": f'<a href="{share}">Share</a>'})
+    check("a share button is not where the calendar is",
+          osm.find_calendar(site, "https://hall.example")["status"], "no-calendar")
+    check("...nor a post, nor the page widget",
+          [osm._offsite(u) for u in ("https://www.facebook.com/1423854946413991/posts/1739734338159382",
+                                     "https://www.facebook.com/plugins/page.php?href=x",
+                                     "https://www.facebook.com/sharer.php?u=x")], [None, None, None])
+    check("...while a page's events still are", osm._offsite("https://www.facebook.com/hall/events"), "facebook.com")
+    site = _Site({"https://hall.example": '<a href="/whats-on.html">Whats On</a>',
+                  "https://hall.example/whats-on.html": f'<a href="{EB}">Book</a>' + PH_CAL})
+    check("...and a calendar on that page beats its ticketing link",
+          osm.find_calendar(site, "https://hall.example")["status"], "ok")
+
+    print()
+    print("amenity=social_centre is a centre too")
+    check("it is a selector kind, under amenity", osm.kind_keys().get("social_centre"), "amenity")
+    check("...proposed as community", osm.KIND_CATEGORY.get("social_centre"), "community")
+    try:
+        _q = osm._overpass_query("1,2,3,4", ["community_centre", "library", "social_centre"])
+    except ValueError as exc:                 # an unknown kind is a loud error
+        _q = str(exc)
+    check("...and asked for by the pinned community walk",
+          'nwr["amenity"~"^(community_centre|library|social_centre)$"]' in _q, True)
+
+    print()
+    print("the ledger says which probe gave up, so a better one asks again")
+    old_row = {"checked": C._today_int(), "name": "Hall", "reason": "osm probe: no-calendar",
+               "status": "fail", "type": "osm-venue"}
+    led = {"old.example": dict(old_row), "new.example": dict(old_row, probe=osm.PROBE_VERSION),
+           "off.example": dict(old_row, reason="osm probe: offsite:eventbrite"),
+           "ver.example": {"checked": C._today_int(), "status": "fail", "type": "jsonld",
+                           "reason": "no schema.org Event blocks found"}}
+    check("a no-calendar row an older probe wrote has lapsed", C._dead_recently(led, "old.example"), False)
+    check("...one this probe wrote has not", C._dead_recently(led, "new.example"), True)
+    check("...nor an offsite verdict, nor a verify's", [C._dead_recently(led, k) for k in ("off.example", "ver.example")],
+          [True, True])
+    real = (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger)
+    asked = []
+    C._save_ledger = lambda led: None
+    osm.metros = lambda: [{"name": "Hallton", "country": "GB", "bbox": (0, 0, 1, 1)}]
+    osm.overpass_venues = lambda sess, bbox, lab, **kw: [
+        {"url": f"https://{h}", "name": h, "kind": "community_centre"} for h in ("old.example", "new.example")]
+
+    def _fc(sess, url):
+        asked.append(url)
+        return {"status": "no-calendar", "cal_url": url + "/whats-on"}
+    osm.find_calendar = _fc
+    try:
+        C._discover_osm(C._session(), set(), led, 500, {}, metros_per_run=1, workers=1)
+    finally:
+        (osm.overpass_venues, osm.find_calendar, osm.metros, C._save_ledger) = real
+    check("the walk re-asks the lapsed centre and only that one", asked, ["https://old.example"])
+    check("...and writes down which probe it was, and the page it read",
+          {k: led["old.example"].get(k) for k in ("probe", "cal_url", "reason")},
+          {"probe": osm.PROBE_VERSION, "cal_url": "https://old.example/whats-on",
+           "reason": "osm probe: no-calendar"})
+
+    print()
+    print("a widened walk keeps its place")
+    cur = {"osm": {"metro_key": "NZ:Auckland"},
+           "osm|community_centre,library": {"metro": 205, "metro_key": "US:Kansas City", "stuck": {}},
+           "osm|club": {"metro_key": "GB:Leeds"}}
+    with contextlib.redirect_stdout(io.StringIO()):
+        slot = C._pinned_slot(cur, ("community_centre", "library", "social_centre"))
+    check("the new slot starts where the narrower walk had got to",
+          (slot, cur.get(slot, {}).get("metro_key")), ("osm|community_centre,library,social_centre", "US:Kansas City"))
+    check("...the narrower one is left as it was", cur["osm|community_centre,library"]["metro_key"], "US:Kansas City")
+    cur.setdefault(slot, {})["metro_key"] = "US:Omaha"
+    C._pinned_slot(cur, ("community_centre", "library", "social_centre"))
+    check("...and once it has its own place, that is the place", cur[slot]["metro_key"], "US:Omaha")
+    fresh = {"osm|club": {"metro_key": "GB:Leeds"}, "osm": {"metro_key": "NZ:Auckland"}}
+    C._pinned_slot(fresh, ("community_centre", "social_centre"))
+    check("a walk that widens nothing starts at the top, as before",
+          fresh.get("osm|community_centre,social_centre"), None)
 
 
 if __name__ == "__main__":

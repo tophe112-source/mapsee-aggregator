@@ -328,7 +328,28 @@ def _dead_recently(led, key, ttl=DEAD_TTL):
     # worth the look.
     if not rec or rec.get("status") not in ("fail", "empty", "refused"):
         return False
+    # A NO-CALENDAR VERDICT IS ONLY AS GOOD AS THE PROBE THAT REACHED IT. One
+    # written by an older probe (catalog_discover_osm.PROBE_VERSION; rows
+    # before 2026-10-12 carry no number and are version 1) has lapsed, so the
+    # walk asks again with what the probe can see now. Only that verdict: an
+    # offsite link, a robots.txt refusal or a failed verify is not something
+    # a better fingerprint changes.
+    if (rec.get("type") == "osm-venue" and rec.get("reason") == "osm probe: no-calendar"
+            and _probe_version(rec) < _osm_probe_version()):
+        return False
     return _days_since(rec.get("checked", 0)) < ttl
+
+
+def _probe_version(rec):
+    try:
+        return int(rec.get("probe") or 1)
+    except (TypeError, ValueError):
+        return 1
+
+
+def _osm_probe_version():
+    import catalog_discover_osm as osm
+    return osm.PROBE_VERSION
 
 
 # --- discovery cursor ------------------------------------------------------
@@ -1860,7 +1881,13 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         if status in ("no-calendar",) or status.startswith("offsite"):
             led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
                          "reason": f"osm probe: {status}", "status": "fail",
-                         "type": "osm-venue"}
+                         "type": "osm-venue", "probe": osm.PROBE_VERSION}
+            # The page the probe took for the calendar and found nothing on.
+            # It is what a later probe needs to look at again, and it was
+            # computed and thrown away (find_calendar records the first page
+            # it followed). Never the homepage itself: that is the key.
+            if f.get("cal_url") and _canon(f["cal_url"]) != home:
+                led[home]["cal_url"] = f["cal_url"][:300]
             # AND THE LINK, for the ones that name an adapter we have.
             # `offsite:eventbrite` is a finished discovery wearing a
             # failure's clothes: the venue's events exist, they are on a
@@ -1876,14 +1903,16 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
             note = f" ({f['note']})" if f.get("note") else ""
             led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
                          "reason": f"osm probe: unreachable{note}",
-                         "status": "unreachable", "type": "osm-venue"}
+                         "status": "unreachable", "type": "osm-venue",
+                         "probe": osm.PROBE_VERSION}
         elif status == "robots-disallowed" and (led.get(home) or {}).get("type") in (None, "osm-venue"):
             # The same status, and so the same DEAD_TTL, a verify gives a
             # source robots.txt refuses; the rule is in the reason.
             why = next((r for _u, w, r in refusals if w == "RobotsDisallowed"), "")
             led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
                          "reason": f"osm probe: robots.txt {why}"[:300],
-                         "status": "refused", "type": "osm-venue"}
+                         "status": "refused", "type": "osm-venue",
+                         "probe": osm.PROBE_VERSION}
         # A probe that SUCCEEDED and still yielded nothing is not the same
         # event as a probe that failed, and lumping them under the status
         # word reported 25 of them as "ok" in one sweep. Name the gap.
@@ -2213,6 +2242,33 @@ def _discover_mobilizon(session, seen_keys, led, limit):
     return found, skipped
 
 
+def _pinned_slot(all_cursors, kinds):
+    """The cursor slot of a kind-pinned osm walk, carried over when it WIDENS.
+
+    The slot is named by its kinds, so adding one (social_centre joined
+    community_centre,library on 2026-10-12) names a slot nobody has written,
+    and an empty slot starts at the top of the metro list: the community walk
+    had reached US:Kansas City, metro 205 of 261, and would have gone back to
+    re-read 204 metros before reaching new ground. A new slot therefore starts
+    where the widest pinned walk whose kinds it contains had got to. The
+    metros behind that point are read for the new kind when the cursor wraps.
+    """
+    slot = f"osm|{','.join(kinds)}"
+    if slot in all_cursors:
+        return slot
+    want, best = set(kinds), None
+    for k, v in all_cursors.items():
+        have = set(k.split("|", 1)[1].split(",")) if k.startswith("osm|") else set()
+        if have and have < want and isinstance(v, dict) and v.get("metro_key"):
+            if best is None or len(have) > len(best[0]):
+                best = (have, k, v)
+    if best:
+        all_cursors[slot] = {"metro": best[2].get("metro"), "metro_key": best[2]["metro_key"]}
+        print(f"  a widened walk: {slot!r} starts where {best[1]!r} had got to "
+              f"({best[2]['metro_key']})")
+    return slot
+
+
 def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
                  metros=None, max_minutes=0.0, kinds=()):
     """`only` pins the sweep to specific lens categories.
@@ -2231,7 +2287,10 @@ def cmd_discover(limit=400, out="candidates.json", backend="socrata", only=(),
     # A kind-pinned osm walk is a different walk and keeps its own place —
     # see _discover_osm. `osm|community_centre,library`, so the slot names
     # what it is walking for.
-    slot = backend if not (backend == "osm" and kinds) else f"osm|{','.join(kinds)}"
+    if backend == "osm" and kinds:
+        slot = _pinned_slot(all_cursors, kinds)
+    else:
+        slot = backend
     cursor = all_cursors.setdefault(slot, {})
     src = "mapsee.me/api/lenses" if CURATED_FROM_LIVE else "committed fallback"
     print(f"targets via {src}: {', '.join(cats)}")
@@ -2604,10 +2663,36 @@ def _file_indent(text, default=1):
     return len(m.group(1)) if m else default
 
 
+def _held(e):
+    """Why `merge` may not write this verified entry by itself, or None.
+
+    A DISCOVERED GOOGLE CALENDAR WHOSE ID IS A PERSONAL ADDRESS. A personal
+    calendar's id is its owner's email address (`<name>@gmail.com`); the repo
+    is public and its rule is that a personal address is never committed, so
+    a discovery may find, propose and verify one but not write it into a
+    config: the owner decides. 51 of the 172 configured Google calendars are
+    @gmail.com (2026-10-12), 40 of them found through a community centre, and
+    page_ids now also reads the id a Simple Calendar page's event links
+    carry: the one such page measured (2026-10-12) named a @gmail.com
+    calendar. Only a DISCOVERED entry (it carries `_found`) is held; one a
+    person curated and merges by hand passes.
+    """
+    if not e.get("_found") or e.get("type") != "ics":
+        return None
+    cid = mapsee_gcal.calendar_id(e.get("url") or "")
+    if cid and mapsee_gcal.personal_address(cid):
+        return "its calendar id is a personal address; the owner decides"
+    return None
+
+
 def cmd_merge(path):
     verified = json.load(open(path, encoding="utf-8"))
     by_type = {}
     for e in verified:
+        why = _held(e)
+        if why:
+            print(f"[HOLD] {e.get('type')} {e.get('name', '?')[:50]}: {why} ({e.get('url')})")
+            continue
         by_type.setdefault(e.get("type"), []).append(e)
     for t, adds in by_type.items():
         if t not in CONFIG:

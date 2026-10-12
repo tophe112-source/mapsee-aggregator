@@ -94,25 +94,31 @@ on:
     # two runs land on the same day, which is all it was ever doing.
     - cron: "50 3 * * 3"
     # Daily 09:30 UTC — THE COMMUNITY WALK: `discover osm` pinned to
-    # community_centre,library over 40 metros, so every civic building the
-    # amenity adapter now pins gets asked for its own programme. The full osm
-    # sweep does 3 metros a day and had reached metro 42 of 261 (Milan) after a
-    # month with the whole US sorted last. The first estimate (a pinned metro
-    # ~75 s, Hong Kong's 43 venues, so 40 fit and the globe takes a week) held
-    # only over ground the full sweep had already probed: past it, a metro costs
-    # one live probe per venue the ledger has not settled, 2.3-3.5 s each, at
-    # 155-516 venues a metro, so a run reads 3-7 metros and `40` never bound in
-    # 13 runs (2026-09-22..10-03; docs/agents/curation-and-discovery.md). The
-    # shared ledger still makes a repeat visit nearly free (a dead probe is not
-    # re-asked for 90 days, a merged source never). Its own cursor
-    # slot (`osm|community_centre,library`), so it never moves the full
-    # sweep's place. 09:30 because it is the one run here that queries
-    # Overpass 40 times, and every Overpass-tiling job (osm-food Tue 05:10,
-    # osm-secondhand Sat 05:10, osm-amenities Sun 05:40) and the 06:17 ingest
-    # are finished by then — and it is six hours clear of the two crons above,
-    # which matters more than it looks: the concurrency queue holds ONE pending
-    # run, and a third arriving while the daily is running and the Wednesday
-    # sweep is queued would cancel the Wednesday sweep, not wait behind it.
+    # community_centre,library,social_centre over 40 metros, so every civic
+    # building the amenity adapter now pins gets asked for its own programme.
+    # The full osm sweep does 3 metros a day and had reached metro 42 of 261
+    # (Milan) after a month with the whole US sorted last. The first estimate
+    # (a pinned metro ~75 s, Hong Kong's 43 venues, so 40 fit and the globe
+    # takes a week) held only over ground the full sweep had already probed:
+    # past it, a metro costs one live probe per venue the ledger has not
+    # settled, 2.3-3.5 s each, at 155-516 venues a metro, so a run reads 3-7
+    # metros and `40` never bound in 13 runs (2026-09-22..10-03;
+    # docs/agents/curation-and-discovery.md). The shared ledger still makes a
+    # repeat visit nearly free (a dead probe is not re-asked for 90 days, a
+    # merged source never) EXCEPT once after the probe learns something: a
+    # no-calendar row an older probe version wrote is asked again
+    # (catalog_discover_osm.PROBE_VERSION, 2 since 2026-10-12). Its own cursor
+    # slot (`osm|community_centre,library,social_centre`), so it never moves
+    # the full sweep's place. social_centre joined on 2026-10-12; a widened
+    # walk starts where the narrower one had got to (catalog_curate
+    # _pinned_slot), not back at the top. 09:30 because it is the one run
+    # here that queries Overpass 40 times, and every Overpass-tiling job
+    # (osm-food Tue 05:10, osm-secondhand Sat 05:10, osm-amenities Sun 05:40)
+    # and the 06:17 ingest are finished by then — and it is six hours clear of
+    # the two crons above, which matters more than it looks: the concurrency
+    # queue holds ONE pending run, and a third arriving while the daily is
+    # running and the Wednesday sweep is queued would cancel the Wednesday
+    # sweep, not wait behind it.
     - cron: "30 9 * * *"
   workflow_dispatch:
     inputs:
@@ -267,14 +273,14 @@ jobs:
         run: |
           set +e
           # The 09:30 cron is the community walk (see the schedule block): osm
-          # only, pinned to the two kinds, 40 metros. A dispatch that names
+          # only, pinned to the three kinds, 40 metros. A dispatch that names
           # osm_kinds is the same walk by hand.
           OSM_KINDS="${{ inputs.osm_kinds }}"
           OSM_METROS="${{ inputs.osm_metros }}"
           BACKEND_WANT="${{ inputs.backend || 'all' }}"
           if [ "${{ github.event.schedule }}" = "30 9 * * *" ]; then
             BACKEND_WANT="osm"
-            OSM_KINDS="community_centre,library"
+            OSM_KINDS="community_centre,library,social_centre"
             OSM_METROS="40"
             echo "The community walk: osm pinned to $OSM_KINDS, $OSM_METROS metros"
           fi
