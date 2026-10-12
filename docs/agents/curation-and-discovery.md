@@ -1118,9 +1118,9 @@
   already plain), and the adapter check caught 1. The refused URLs are in the
   ledger as `fail`.
 
-- **A TOWN CALENDAR CURATED BY HAND SKIPS THE TOWN-HALL FILTER.** Both
+- **A TOWN CALENDAR CURATED BY HAND SKIPS THE TOWN-HALL FILTER.** The
   adapters apply the filter only when `_found` starts with `civic:`: ics has
-  for a long time, and tribe has since 2026-09-27. Civic discovery writes that
+  for a long time, tribe since 2026-09-27 and localist since 2026-10-12. Civic discovery writes that
   prefix. A person or an agent pasting a CivicPlus `iCalendar.aspx` URL does
   not. Of the 607 feeds merged on 2026-09-27, 46 were town calendars with no
   marker: 43 CivicPlus feeds and 3 municipal Events Calendar sites. Unmarked,

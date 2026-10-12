@@ -52,7 +52,7 @@ jobs:
       # failed run, it is thousands of wrong rows — and the dry run below would
       # cheerfully print a tidy transition table for all of them.
       - name: Classifier tests must pass before touching live rows
-        run: python test_categories.py
+        run: python test_categories.py && python test_cause_walks.py
 
       # ALWAYS a dry run first, printed in full, whatever the inputs say. It
       # costs one pass and it is the only artifact that shows what a write would

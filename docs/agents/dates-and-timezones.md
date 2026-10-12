@@ -151,3 +151,16 @@
   and 19:00 in Hamburg is 17:00Z. The date digits do not change, so neither does
   the fingerprint. `test_ics_source_overrides.py` pins all of it. A UK
   Restarters feed needs no flag, because London is where its groups are.
+
+- **A DATE WINDOW THAT MATCHES ON OVERLAP RETURNS RACES THAT BEGAN BEFORE
+  TODAY, AND A RACE THAT IS OVER CAN STILL SELL A GALA (RunSignup,
+  2026-10-11).** start_date/end_date match any race whose dates overlap the
+  window (`search_start_date_only` defaults to F): 45 of 453 Ohio races had a
+  next_date already past, and dating by the earliest sub-event wrote 32 rows
+  before today (yesterday's 5k beside a virtual week, a walking grand prix
+  since 1/1). The adapter now reads only sub-events that do not START before
+  today: 27 Ohio rows go and 5 move to their next real date. The next sub-event
+  has its own trap: StRides Against Suicide & Overdose ran its walk, 5k and
+  four rides on 8/1, leaving a "Silent Auction Gala" on 11/8, which was written
+  as an 11/8 fitness event. A race with typed sub-events none of which is
+  upcoming is refused (1 of 3,274). `python test_ingest_runsignup.py`.

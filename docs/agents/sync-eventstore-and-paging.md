@@ -296,3 +296,12 @@
   preliminary count requests; a failed dry-run count remains a visible error.
   All **73** CI test scripts passed. This removes wasted work; it does not prove
   the Micro database's separate memory/I/O pressure has been resolved.
+
+- **RUNSIGNUP'S 1,000 CAP CUTS BY NAME, SO AN OVER-CAP STATE LOSES THE END OF
+  THE ALPHABET (2026-10-11).** Florida's 120 days answered exactly 1,000 and
+  page 4 ended at "Volusia Flagler HS XC". Two date halves held 701 and 431,
+  1,042 unique races: the lost 42 ran W to Z and 31 were keepable ("Zonta ABC
+  Run/Walk"). A capped state is now halved by date until each half fits (10
+  requests instead of 5), a race that straddles the cut is kept once by
+  race_id, and only a single day still over the cap prints the NOTE. Texas was
+  at 910. `python test_ingest_runsignup.py`.

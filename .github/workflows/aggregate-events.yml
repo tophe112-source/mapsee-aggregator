@@ -840,17 +840,21 @@ jobs:
       # time. 2026-10-04: 195 in 90 days, 123 rows written (122 stored), every one
       # placed (112 on the publisher's or a surveyed pin, 10 streets the Census
       # matches). About 153 requests at 1.1 s in 198 s; a slow day is ~9 min.
-      # 15 minutes with the deadline inside it: no request starts after
-      # --max-minutes 12, the slowest request is 30 s x 3 tries, and the store
+      # OC PARKS, CA (fullcalendar_view 5.x), 2026-10-11: 500 listed (capped,
+      # newest node first), 152 in 90 days, 80 placed, most of them guided hikes,
+      # bird walks and trail stewardship; about 153 more requests at 1.24 s. A
+      # read at the 500 cap is never complete, so absence cancels nothing.
+      # 22 minutes with the deadline inside it: no request starts after
+      # --max-minutes 18, the slowest request is 30 s x 3 tries, and the store
       # is saved after each source (docs/agents/ci-and-jobs.md).
-      - name: Import Drupal fullcalendar_view calendars (Fairfax County, VA)
+      - name: Import Drupal fullcalendar_view calendars (Fairfax County VA, OC Parks CA)
         id: ingest_drupal_fullcalendar
         if: matrix.group == 'rec'
         continue-on-error: true
-        timeout-minutes: 15
+        timeout-minutes: 22
         run: |
           if [ -f drupal_fullcalendar_sources.json ]; then
-            python mapsee_ingest_drupal_fullcalendar.py --config drupal_fullcalendar_sources.json --store feeds_events.json --max-minutes 12
+            python mapsee_ingest_drupal_fullcalendar.py --config drupal_fullcalendar_sources.json --store feeds_events.json --max-minutes 18
           else
             echo "no drupal_fullcalendar_sources.json — skipping"
           fi

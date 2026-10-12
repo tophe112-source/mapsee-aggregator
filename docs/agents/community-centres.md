@@ -244,3 +244,33 @@
   - **Unreachable from the sandbox, so no verdict.** Amsterdam's open.data.amsterdam.nl Activiteiten.json (CC BY 4.0, dataset last modified 2022-04-07), opendatabilbao.eus, aperto.comune.torino.it, open.regina.ca, Saskatoon's open data, Tucson's CKAN, and Gold Coast, Logan, Moreton Bay and Ipswich. For CDMX's Cartelera and PILARES and Joondalup's Event Espresso feed, robots.txt did not answer, so RFC 9309 says assume Disallow. A connect error is a fact about the probing host: re-probe from CI before writing a verdict.
   - **Leads nobody read.** Queensland's 'Neighbourhood Centres' dataset (data.qld.gov.au) is a ready seed list: 130 centres with lat/lon and 126 websites, on 108 hosts, of which 7 are in the ledger and 1 is configured. Also unread: donneesquebec's sit-quebec-evenements (tourism events, CC BY 4.0) and Melbourne's What's On (robots.txt allows all).
   - **Dead datasets by id; the conclusion is in the open-data note above.** Edmonton courses nr35-h9xv: 1 free of 1,432. Edmonton y7pw-4xyu and 7afh-aawr: 15-minute occupancy grids of mdkr-4c27. Halifax Arena Bookings: 7,543 in 90 days, 72% hockey. Laval and Longueuil: 0 future rows. Montgomery County MD Fall Programs q3jz-uk6h: 383 of 397 paid, and the 4x4 id changes every season. Charlotte CMPD Events: 68 of 108 are HOA or community meetings. Cary's open-gym: an attendance log last modified 2016-08-02. Euskadi Kulturklik: municipality centroids only, 1,834 priced against 33 free. Fáilte Ireland events CSV: 2,978 rows, about 5 at community centres. Málaga agenda-2026: 95 in 90 days, 0 at centres. Minato's events on Tokyo's CKAN: 31 rows with free-text dates and no coordinates. Brisbane's unconfigured ODS event sets: active-and-healthy duplicates active-parks; classes-and-workshops has 34 rows, 26 already in BCC events; 11 more hold 6-122 rows each.
+
+- **A PARK'S ADDRESS IS NOT WHERE ITS HIKE STARTS, AND OC PARKS SAYS SO IN THE
+  BLURB (2026-10-11).** parks.oc.gov/events (Drupal fullcalendar_view 5.x)
+  lists 500 events, 152 in 90 days; 109 pages were read. Every Irvine Ranch Open
+  Space programme (60 of 152, 42 hikes, rides or walks) carries 13333 Black Star
+  Canyon Rd, whose pin is a gate; the 9 pages that say where they start name
+  staging areas 2.6 to 11.2 km from it, so `area_streets` makes that street
+  place nothing and the 60 rows are dropped and counted. Laguna Canyon
+  Foundation and Jr. Ranger pages say "*This program begins at <place>,
+  <street>...*" (20 of 28 such sentences carry a street, all parse; 3.1 to 5.0
+  km from the park's address), and `blurb_start` lets that sentence win. 5.x's
+  `id` is the view's row and `eid` the node, so source_id uses the node (3 of 3
+  rows rekeyed before). The first .field-wysiwyg is an accessibility block
+  ("Body" on 103 of 103), hence `"within": "main"`. The 800 cut removed the only
+  cost sentence on 30 of 57 rows; `cost_in_blurb` lifts it, and 0227 tags 34
+  free instead of 18. 80 of 152 placed: 41 walks, hikes or nature outings and 7
+  stewardship days. The list is capped at 500 nodes, newest first, so
+  `list_cap` keeps such a read from ever counting as complete.
+
+- **A BLURB'S "FOR QUESTIONS" LINE IS A PERSON'S DIRECT LINE, AND THE 800 CUT
+  DECIDES WHETHER IT SHIPS (OC Parks, 2026-10-11).** 31 of 111 blurbs give an
+  email and 29 are a staff member's own (six people), mostly beside a direct
+  line; 4 of 58 rows still carried one after to_row, depending only on where
+  the cut fell. `without_contacts` in mapsee_ingest_drupal_fullcalendar.py now
+  drops, for every source and before the cut, any sentence that gives an email
+  or names a person to contact: 32 sentences on the 111 pages; the 17 that give
+  a venue's number and name nobody stay. Synced rows with an email went 5 -> 0;
+  the free tag, fingerprints and placement did not move. A mailto: or tel:
+  register link is never the ticket link. Fixtures use a made-up person, a
+  555-01xx number and example.org: this repo is public.

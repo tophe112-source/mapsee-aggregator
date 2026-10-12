@@ -7,6 +7,7 @@
 pip install -r requirements.txt
 
 python test_categories.py           # the classifier: which lens an event reaches
+python test_cause_walks.py          # a walk, run or ride for a cause reaches awaresie and plansie; an ordinary race does not
 python test_ingest_categories.py    # adapters + the shared vocabulary
 python test_link_series.py          # which repeats count as one thing
 python test_health_check.py         # the alarm itself, against a faked transport
@@ -18,7 +19,9 @@ python test_sweep_global.py         # the international sweep's argv, below the 
 python test_ingest_slu.py           # occurrence vs series start; end_time vs end_date
 python test_ingest_mylisting.py     # which of a card's two dates is the occurrence
 python test_ingest_bikereg.py       # cycling: the server's offset, and one id per occurrence
+python test_ingest_runsignup.py     # street2 for the geocoder, no race dated before today or by its gala, a capped state split by date, cause races on community
 python test_ingest_tribe.py         # feed shapes: one bad record must not cost a whole site
+python test_ingest_localist.py      # Localist: max_pages, distinct=true, the API's own last page, Crawl-delay, civic: and skip_title
 python test_ingest_jsonld.py        # placeholder locations, naive times, and calendar entries that are not events
 python test_discover_osm.py         # discovery: a site builder is not a calendar, and a 200 can be a refusal
 python test_indexnow.py             # paging our own database: keyset, not offset
@@ -55,6 +58,7 @@ python test_ingest_barcelona.py     # the timetable's clock not start_date's 03:
 python test_ingest_lcsd.py          # walk-in only, only the dates the event's text names, the room in the fingerprint, SmartPlay skipped without facility lists
 python test_ingest_madrid.py        # parked: robots.txt names the datastore, so 0 rows without a recorded permission; a fiesta's all-day programme is not its 21:00 concert
 python test_ingest_facility_hours.py # opening hours parsed never approximated, one writer per OSM centre, a refused centre rewritten not skipped
+python test_ingest_nps.py           # pageNumber not start, the API's 50-row page, a park point only for a location that names the park, doors from `types`, days the park called off
 python test_spam.py                 # the advertisement gate, and mostly what it must never refuse
 python test_coverage_rows.py        # the coverage report's arithmetic: no source counted twice, no ccTLD left under "?"
 python test_robots.py               # robots.txt per RFC 9309, and verify never fetching a feed its host refuses
@@ -65,7 +69,7 @@ python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE
 python mapsee_uncancel.py --since 2026-10-06T06:00:00Z   # report the pipeline's own cancellations since then; --apply lifts them
 ```
 
-The 72 test scripts are the CI gate (`tests.yml`). They print one line per
+The 77 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.

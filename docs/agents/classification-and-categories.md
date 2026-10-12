@@ -485,3 +485,36 @@
   U+00C3 U+00A9): that was the ics adapter taking `resp.text` from a
   `text/calendar` with no charset, fixed on 2026-09-29 together with the move
   of every row it renamed (adapters-and-sources.md, sync-eventstore-and-paging.md).
+
+- **A WALK, RUN OR RIDE FOR A CAUSE IS A COMMUNITY EVENT, and the race adapter
+  could not say so (2026-10-11).** RunSignup files every race, walking_only
+  included, as ('running', ['fitness']), which only wegosie shows: of 3,274
+  races, 208 written rows named a cause and 0 reached `community`. Two rules,
+  both TITLE only (a description's "proceeds benefit" is a race's small print):
+  `CAUSE_RX` in mapsee_ingest_runsignup.py puts community in the running row's
+  fitness slot (all 208 reach it; non-cause rows unchanged, 2,678 of 2,678),
+  and `_CAUSE_WALK_RX` in the sync adds it for any source, after the source's
+  own keys and before the description keywords. Every hit was read: 45 in 1,267
+  live running/fitness rows (44 causes, the 45th a 1777 commemoration); 340 of
+  1,881 RunSignup races; 40 of 20,187 US titles, all cause walks; 1,833 of the
+  charities' own 1,837 titles. The corpus set the shapes: bare `heart` is a
+  name in at least 13 of 31 race titles ("I Heart Biddeford 5K"), bare `hope`
+  is New Hope the town, bare `MS` is Mississippi, `awareness` must name what of
+  (Berlin's "Awareness in Motion" is mindfulness), and bare `veterans` was the
+  only cause word in 29 titles of which 16 name no beneficiary (a brewery's
+  5k, a bridge), so it counts only as the ones helped. Veterans Day, Memorial
+  Day and Memorial Park are not causes. Non-English scored nothing. Backfill is
+  Wednesday's races refresh, NOT `mapsee_reclassify.py`, which recomputes with
+  `categories=[]` and would strip the adapter's own fitness.
+  `python test_cause_walks.py`, `python test_ingest_runsignup.py`.
+
+- **NPS SENT EVENTS TO DOORS ON SUBSTRINGS OF RAW HTML (2026-10-11).**
+  `_category` looked for 'art', 'kid' and 'volunteer' anywhere in the title
+  plus the raw description. Over Virginia's first 100 events: arts 16, 12 of
+  them substrings ('earth' 6, 'heart' 2, 'artillery', 'depart', 'smart',
+  'start'); kids 12, including 'font-family: Calibri' and 'the Wood family';
+  volunteer 6, 5 of them rangers "and volunteers" on site. 14 of the 23 hike
+  and walk titles were off outdoors, while the API's own `types` said Hike 14
+  and Walk 18. Now `types` and the title decide: outdoors 27 (all 23 hikes and
+  walks), learning 66, arts 2, kids 2, volunteer 1. Stored rows move on the
+  Thursday refresh of the extra sources. `python test_ingest_nps.py`.

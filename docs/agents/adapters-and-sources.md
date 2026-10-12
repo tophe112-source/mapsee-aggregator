@@ -509,3 +509,43 @@
   - `verify` passed it, because those far-future rows count as future.
   - `ingest_ics` now orders VEVENTs by DTSTART before the loop. The legacy reading is permuted the same way, since it is paired with the events index for index.
   - `test_ingest_ics.py` holds a newest-first case.
+
+- **NPS PAGED WITH `start`, WHICH /events DOES NOT HAVE, SO EVERY STATE WAS ITS
+  FIRST PAGE (2026-10-11).** The swagger lists only pageSize and pageNumber;
+  start=0 and start=50 returned byte-identical Virginia pages, so the adapter
+  read 50 of Virginia's 254 events and upserted them 6 or 7 times (the
+  2026-10-08 log's "VA 903" was page 1's 129 occurrences 7 times over).
+  pageSize=500 returns 50 rows and echoes `"pagesize": "50"`, so the end test
+  reads the ECHOED size. The sweep was 23 states; it is now all 50, DC, PR, VI,
+  GU, AS and MP. 30 of Virginia's first 100 events have no lat/lon: 21 name a
+  visitor centre of their park, which is the place. A park's own point is NOT
+  bounded by the 5 km spread of its known places, which is a lower bound on the
+  park's size: Civil War Defenses of Washington's four located events sat
+  within 9 m of one cemetery, so a Shepherd Parkway clean-up would have taken a
+  point 9 to 14 km off. The order is a named visitor centre; else a US street
+  in the location, sent to the sync with no point (12 of 47 distinct locations,
+  no false reads; Census matched 11); else the park point only when the
+  location is empty or names the park and the 5 km test passes; else left out.
+  `dates` ignores exclusions (13 of 13 future EXDATEs listed), so the called-off
+  days are tombstoned. The key allows 1,000 requests an hour: a 429 or 403 ends
+  the run, as do X-RateLimit-Remaining 20 and --max-requests 900.
+  `python test_ingest_nps.py`.
+
+- **LOCALIST READ TEN PAGES, WHATEVER THE CALENDAR HELD, AND SAID "KEPT" AS IF
+  THAT WERE ALL OF IT.** `range(1, 11)` at pp=100: one pp=1 request per tenant
+  on 2026-10-11 found 18 of 56 tenants above 1,000 occurrence wraps, 10,274
+  unread. events.in.gov held 3,099 over 31 pages and page 10 ended on
+  2026-10-26, so no Indiana state-park hike after that morning ever arrived.
+  `distinct=true` makes one wrap per event (48,710 wraps became 25,285 events,
+  515 pages became 281; the old and new walks stored 11,246 common rows
+  identical field for field). `max_pages` per source (default 20; twelve
+  tenants carry 25 to 50, the busiest past 90 days x 1.25, with `measured_*`
+  beside them), 1 s between pages (the Crawl-delay in 57 of 57 robots.txt), and
+  a failed page keeps the pages before it (UGA's page 9 timed out; 583 rows
+  survived). Live, all 57 tenants: 404 pages, 2,082 s and 11,437 kept became 280
+  pages, 1,466 s and 12,933 kept. Read to its end, a STATE calendar brings its
+  town halls (Indiana's titles went 69 -> 151 town-hall rows beside 65 -> 95
+  hikes), so events.in.gov is `civic:state` and gets the ics/tribe town-hall
+  gate (154 wraps refused, all 95 hikes kept), and NC DNCR a `skip_title` for
+  its 11 'Public Meetings'. Localist's `free` flag (14% of 25,197 events) and
+  `ticket_cost` are still not read. `python test_ingest_localist.py`.

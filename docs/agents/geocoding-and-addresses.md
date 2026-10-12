@@ -147,3 +147,24 @@
   - All of them are inside the island's box. Two were written: 68 rows, 44 of them free Zumba and basketball, marked coords_exact so the sync never re-geocoded them.
   - **The check:** compare a point with the distinct points of other sites sharing its FSA, and refuse it when strictly more of them lie beyond 5 km than within. Correct sites sit a median 0.8 km from their peers (p90 1.6, max 3.1); the 8 wrong ones sit 8-34 km off.
   - **Limit:** 17 points share their postal area with no other site, so this check cannot reach them.
+
+- **RUNSIGNUP PUTS THE PLACE IN `street` AND THE NUMBER IN `street2`, AND
+  CENSUS CANNOT PLACE A PARK'S NAME (2026-10-11).** One race in four writes
+  "FDR Park (at the boathouse)" over "1500 Pattison Avenue", and the sync
+  dropped the unmatched row. Ohio through `build_rows` with a real Census batch:
+  110 of 415 rows had this shape and 2 were placed; sent street2, 84 of 99
+  (p2p's 1,830-race sample: 8 of 388 as sent, 315 of 388 with street2). Placed
+  upcoming rows went 225 -> 307 and none was lost. `_geocode_line` takes street2
+  only when street is not numbered and street2 is; the label and fingerprint
+  still come from `street`, so the 383 rows already stored kept their identity.
+  28 of 244 venue-only lines carry the number inside the name ("Wicker Memorial
+  Park 8554 Indianapolis Blvd") and are not split. `python test_ingest_runsignup.py`.
+
+- **THE CENSUS BATCH CAN MATCH THE SAME STREET NAME IN THE NEXT TOWN, AND A
+  PUBLISHER'S PIN CAN DISAGREE WITH ITS OWN ADDRESS (OC Parks, 2026-10-11).**
+  batch_geocode matched 14 of 21 streets: 28373 Alicia Parkway (21 rows in 90
+  days) got nothing, and "10 Phillips St, Laguna Beach" matched Phillips Circle
+  in Laguna Niguel, 10.1 km away; the matches landed 59 to 1,041 m from OC
+  Parks' own park pins. OC Parks' pin for Laguna Coast is a staging area 4.6 km
+  from the park's address. The drupal_fullcalendar street book holds 13 OC
+  Parks pins and 4 OSM pins. `python test_ingest_drupal_fullcalendar.py`.

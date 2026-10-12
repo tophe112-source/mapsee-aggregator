@@ -41,6 +41,10 @@ on:
       - "facility_hours_sources.json"
       - "madrid_sources.json.pending-permission"
       - "openactive_sources.json"
+      - "localist_sources.json"
+      - "ava_sources.json"
+      - "rallybound_sources.json"
+      - "luminate_sources.json"
       - ".github/workflows/tests.yml"
   pull_request:
     paths:
@@ -63,6 +67,10 @@ on:
       - "facility_hours_sources.json"
       - "madrid_sources.json.pending-permission"
       - "openactive_sources.json"
+      - "localist_sources.json"
+      - "ava_sources.json"
+      - "rallybound_sources.json"
+      - "luminate_sources.json"
       - ".github/workflows/tests.yml"
   workflow_dispatch:
 
@@ -111,6 +119,13 @@ jobs:
       # so the job log IS the report — no test runner needed to read it.
       - name: Category classifier (which lens an event reaches)
         run: python test_categories.py
+      # A walk, run or ride for a cause reaches the community doors (awaresie,
+      # plansie), whatever key its source filed it under. TITLE only, every word
+      # counted before it went in (2026-10-11): 47 hits in 843 live
+      # running/fitness titles, 46 of them a cause; 1,833 of the charities' own
+      # 1,837 titles. Veterans count only when the title names who is helped.
+      - name: Cause walks (a walk, run or ride for a cause reaches the community doors)
+        run: python test_cause_walks.py
 
       - name: Adapter categories (secondaries survive into the sync)
         run: python test_ingest_categories.py
@@ -168,6 +183,14 @@ jobs:
       # pins where nothing is happening.
       - name: Cycling traps (BikeReg date offset, per-occurrence identity)
         run: python test_ingest_bikereg.py
+      # Running and the cause walks (measured 2026-10-11). A venue name in
+      # `street` with the house number in `street2` went to Census as the street:
+      # Ohio placed 2 of 110 such rows, 84 of 99 when sent street2. The API
+      # matches races that merely OVERLAP the window, so 32 Ohio rows went out
+      # dated before today, and a race whose walk was over could be dated by its
+      # gala. Florida outgrew the silent 1,000-race cap, which cuts by name.
+      - name: Races (RunSignup street2, past dates, the 1,000 cap, cause walks)
+        run: python test_ingest_runsignup.py
 
       # The Overpass sweep is 245 bboxes against a free endpoint, so a handful
       # lose their slot every run — measured, New York and Los Angeles both came
@@ -202,6 +225,13 @@ jobs:
       # it in a line that looks like the host was down.
       - name: Feed shapes (one bad record must not cost a whole site)
         run: python test_ingest_tribe.py
+      # Localist read range(1, 11): ten pages of 100 occurrence wraps, whatever
+      # the calendar held. 18 of 56 tenants held more (10,274 occurrences unread,
+      # 2026-10-11). Read to the end, events.in.gov's town halls came too (151
+      # council/commission/holiday rows), so a civic: source gets the town-hall
+      # filter ics and tribe use, and DNCR a skip_title.
+      - name: Localist paging and town-hall rows (max_pages, distinct=true, civic:, skip_title)
+        run: python test_ingest_localist.py
 
       # The generic JSON-LD importer read WP Event Manager sites correctly by
       # ACCIDENT: schema.org says `location`, that plugin writes `Location`, so
@@ -398,7 +428,7 @@ jobs:
         run: python test_ingest_linkedevents.py
       - name: PerfectMind municipal drop-ins
         run: python test_ingest_perfectmind.py
-      - name: Drupal fullcalendar_view calendars (Fairfax County)
+      - name: Drupal fullcalendar_view calendars (Fairfax County, OC Parks)
         run: python test_ingest_drupal_fullcalendar.py
       - name: Revize town calendars (Manassas VA)
         run: python test_ingest_revize.py
@@ -421,6 +451,18 @@ jobs:
         run: python test_ingest_madrid.py
       - name: Civic facility opening hours (city open data)
         run: python test_ingest_facility_hours.py
+
+      # Walks anybody can join (2026-10-11). NPS: /events pages by pageNumber
+      # (start= returned page 1 every time, so 50 of Virginia's 254 were read),
+      # every state and territory, a park point only for a location that names
+      # the park. AVA: a distance is not a clock, a walker fee is not free, the
+      # club's pin is the place. RallyBound: the organiser's wall clock, not the
+      # platform's zone; robots.txt read without the API's Accept header.
+      # Luminate: the day, not the noise clock; Dec 31 placeholders, closed,
+      # test and not-public records refused. "Free to join" only where the
+      # charity or club says so, in words 0227's free tag reads.
+      - name: National Park Service events (pageNumber paging, every state, a park point only where the location names the park)
+        run: python test_ingest_nps.py
 
       # The gate that keeps advertisements out of the catalogue, and the ONE
       # place it must be graded is the half nobody would notice failing. Letting
