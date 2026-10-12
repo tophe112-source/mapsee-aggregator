@@ -31508,11 +31508,11 @@
       "country": "US",
       "lat": 47.6770363,
       "lon": -122.3867766,
-      "street_hint": "6541 Jones Ave NW",
-      "pin_unnamed": false
+      "street_hint": "6541 Jones Ave NW"
     },
     "_venue_source": "OpenStreetMap way/217372881 (amenity=community_centre, community_hall; addr 6541 Jones Avenue Northwest), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No street address on purpose: an address sends the row through the sync's Census re-geocode, off the key (city, region and country alone do not). street_hint is only matched against LOCATION.",
-    "_note": "pin_unnamed is false until this calendar's events with no LOCATION have been read: run smoke-gcal with show set to its name, read the '[gcal]   N with no LOCATION or GEO' titles, and only then delete pin_unnamed (adding a venue_skip for any title that says it is elsewhere), as the seven older Google venue blocks were (Lasswade 56 and Betlehem 53 bare events turned out to be elsewhere). Until then only a LOCATION that names the venue takes its pin; a bare event is dropped as unplaceable, as before the venue block. Added 2026-10-12."
+    "_note": "Read 2026-10-12 through smoke-gcal (CI, run 38314170414): 37 VEVENTs; 25 name 'Ballard Homestead, 6541 Jones Ave NW' and take the pin; the 12 bare ones are its own house concerts and workshops (Family Constellation Workshop, Matt Pond PA, Harp Twins, The Suitcase Junket ...), so pin_unnamed is deleted; venue_skip leaves its placeholder 'Tentative Event' unplaced.",
+    "venue_skip": "^tentative\\b"
   },
   {
     "name": "Estelita's Library",
@@ -31603,11 +31603,24 @@
         "Seattle Polish Cultural Center",
         "Dom Polski"
       ],
-      "street_hint": "1714 18th Ave",
-      "pin_unnamed": false
+      "street_hint": "1714 18th Ave"
     },
     "_venue_source": "OpenStreetMap way/229910960 (amenity=community_centre, community_hall, community_centre:for=polish; alt_name 'Seattle Polish Cultural Center;Dom Polski'; addr 1714 18th Avenue), read 2026-10-12. Map point © OpenStreetMap (ODbL). lat/lon are the point its live OSM listing (osm_amenities) is drawn at, so events whose LOCATION names it share that listing's 4-decimal key. No street address on purpose: an address sends the row through the sync's Census re-geocode, off the key (city, region and country alone do not). street_hint is only matched against LOCATION. The calendar id is the 'gcal' value of the page's pgcal_inlineScript; the page's own Google API key is not read or kept. Its events page listed 5 upcoming events on 2026-10-12, all at 'Polish Home Association – Dom Polski, 1714 18th Ave'.",
-    "_note": "pin_unnamed is false until this calendar's events with no LOCATION have been read: run smoke-gcal with show set to its name, read the '[gcal]   N with no LOCATION or GEO' titles, and only then delete pin_unnamed (adding a venue_skip for any title that says it is elsewhere), as the seven older Google venue blocks were (Lasswade 56 and Betlehem 53 bare events turned out to be elsewhere). Until then only a LOCATION that names the venue takes its pin; a bare event is dropped as unplaceable, as before the venue block. Added 2026-10-12."
+    "_note": "Read 2026-10-12 through smoke-gcal (CI, run 38314170414): 148 VEVENTs, 142 with no LOCATION. Their titles are the hall's own programme (Pierogi making, Friday Dinner, Vivat Musica Choir practice, Syrena Seattle Folk Dance Group practice, Polish School, Domówka u Syreny, La Garua Of Seattle dance in the Upper Hall, Kolo Pan Meeting in the lower conference room), so pin_unnamed is deleted and a bare event takes the venue pin. venue_skip keeps the Seattle Polish Film Festival's entries off the pin (the festival screens elsewhere; such a row is left unplaced, never guessed). The only LOCATION used, 'Lower Conference Room' (6 events), is a room in the building, pinned by location_overrides so it never goes to Photon.",
+    "venue_skip": "film festival|\\bSPFF\\b",
+    "location_overrides": [
+      {
+        "location": "Lower Conference Room",
+        "venue": {
+          "name": "Polish Home Association – Dom Polski",
+          "city": "Seattle",
+          "region": "WA",
+          "country": "US",
+          "lat": 47.6169525,
+          "lon": -122.30845
+        }
+      }
+    ]
   },
   {
     "name": "Shakopee Public Library",
