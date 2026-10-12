@@ -100,3 +100,35 @@ Localist, six bird clubs, OC Parks); this table is what does not, and why.
 | Bruce Trail Conservancy hike schedule | **HTTP 403 challenge** | the ICS export (`calendar_id=392`) challenges the production UA; 244 October club hikes on the page |
 | Recreation.gov RIDB events | **dead** | the keyed adapter keeps 0 of 3 events every run; the endpoint holds almost nothing |
 | Mazamas, Colorado Mountain Club iCal | **no LOCATION** | 113 and 51 future events with no place at all; a club-office pin would be wrong |
+
+**RunSignup's API terms now require registration, and `mapsee_ingest_runsignup.py`
+has none.** "The RunSignup API Developer Contract", effective 2026-09-03
+(`runsignup.com/About-Us/APIDeveloper-Contract`, robots allows it, read
+2026-10-12): "You must register and agree to these Terms before accessing the
+RunSignup API", "rate-limited to 2 concurrent calls", and no scraping "beyond
+what is necessary for your Application's ordinary function". The adapter calls
+`/rest/races` with no `api_key` (it is sequential, so the concurrency limit is
+kept), and the README called it "keyless". About 12,500 rows come from it. The
+repo's line exempts a documented API from robots.txt only when it is used
+within its usage policy, so this is the owner's to settle: register, or park
+the config. Ask in the same contact whether a registered key returns
+`racejoy_uploaded_file_url` (`include_racejoy_settings=T`), the only course file
+a walk source was seen to carry.
+
+Walk ROUTES, surveyed 2026-10-12 for the owner's "map the route so users can
+see where the event walks". About 2,500 API rows and 230 event pages across
+the walk families, robots read before every request. Every family is 0 except
+RunSignup, where 2 of 60 walking-only race pages link a course file that can
+be drawn, and both are the 5K run's course, not the walk's ("1 Mile Walk"
+beside a 5.00 km My Map; RaceJoy's KML says "Route For: 5K").
+
+| Where a course might be | Result | What it means |
+|---|---|---|
+| Luminate TeamRaiser (Making Strides, Relay For Life, Walk to End Alzheimer's, Komen) | **none published** | 0 of 1,913 API rows (address and date fields only) and 0 of 31 pages. Making Strides' "Download course maps" slot is an empty `mapsengine.google.com` embed inside an HTML comment on 10 of 10 pages; the Alzheimer's Association links one national image for every walk |
+| RallyBound (NKF Kidney Walk, CFF Great Strides) | **none published** | 27 of 27 pages: venue pins and "Route Length: 2 miles" only |
+| AVA volksmarches | **prose only** | 0 of 24 pages carry a file or a route link; about 8 describe the route in words |
+| NPS events API, bird clubs (Events Calendar) | **no field** | the NPS schema has no route geometry (0 of 100 rows carry `geometryPoiId`); 0 of 138 bird-club events |
+| Google My Maps KML export (`/maps/d/kml?mid=`) | **allowed, owner's call** | robots allows `/maps/d/` for our UA and the export needs no auth; the Maps terms allow displaying with attribution but forbid "mass download or bulk feeds", so it would be one organiser's map per event |
+| RaceJoy (`triperta-web1.racejoy.com`) | **allowed, terms unread** | robots.txt 404; the KML name is read from inline JavaScript on a legacy host. 0 of 20 random non-walk races had a RaceJoy course page |
+| MapMyRun, Strava, OnTheGoMap, AllTrails, Garmin Connect, Plotaroute | **refused or barred** | Strava: robots disallows `/routes/*/export` and its API agreement bars showing other users' data. MapMyRun: the terms sit behind a robots-disallowed login and the API's terms forbid extraction. OnTheGoMap and AllTrails: terms forbid automated use. Garmin: `Disallow: /modern/`. Plotaroute: Cloudflare 403 |
+| A trail DERIVED from the listing's words (OSM) | **not built** | 17 of 224 walks name a trail; under a strict name-and-radius gate 5 pass and only 2 could be drawn as the walk; 23 of 40 walks that name no trail sit within 2 km of an unrelated hiking route. Overpass reset every connection from the sandbox |
