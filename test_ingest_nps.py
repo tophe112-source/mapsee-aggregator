@@ -5,7 +5,8 @@ and how much of it the old reader threw away.
 
 Every event below is a row read live off developer.nps.gov/api/v1/events
 (stateCode=VA) on 2026-10-11, trimmed to the fields the adapter reads and to
-dates up to 2026-11-01; the visitor centres are the /visitorcenters rows for
+dates up to 2026-11-01 (the Shepherd Parkway clean-up keeps its two, in
+November and December); the visitor centres are the /visitorcenters rows for
 the Blue Ridge Parkway from the same day. The fake API behaves the way the
 live one was measured to: it pages with pageNumber and never reads `start`,
 caps a page at 50 whatever pageSize asks for, and echoes "pagesize": "50".
@@ -18,16 +19,26 @@ The expensive cases are the ones that looked fine in the log:
     Gardens hike names its visitor centre, which is the place. The Parkway
     itself is 470 km of visitor centres, so its park point places nothing,
     and a park we know nothing else about places nothing either.
+  * A PLACE FINER THAN THE PARK. Civil War Defenses of Washington's four
+    coordinated programmes sit within 9 m of each other at Battleground
+    National Cemetery, so a park point near them passes the 5 km size test,
+    and the clean-up at 555 Newcomb St SE, 14.1 km south, took it. Its
+    street address goes to the sync's geocoder instead.
+  * THE DOOR. The old rule matched "art", "kid" and "volunteer" anywhere in
+    the raw HTML: "shook the earth" was arts, "font-family" kids, a bird
+    walk "Volunteer Guided" volunteer, "Hike Smart" arts.
   * DAYS THE PARK CALLED OFF are still in `dates`: an EXDATE, a cancelled
     day. And the Mabry Mill open house is published twice, one copy
     excluding the weekend days the other lists live.
   * THE KEY. 1,000 requests an hour: a 429 or a 403 ends the run unretried.
 
 PARKS: /parks was not read live (the DEMO_KEY quota ended the session's
-reads first), so the four /parks rows here follow the API's swagger (parkCode,
+reads first), so the five /parks rows here follow the API's swagger (parkCode,
 latitude and longitude as strings) with points set by hand: each compact
-park's within a kilometre of its own events' coordinates, the Parkway's in
-its middle. The PAGING-* events are copies of a real one under made-up ids.
+park's within a kilometre of its own events' coordinates (Civil War Defenses
+of Washington's 1.2 km from Battleground), the Parkway's in its middle. The
+PAGING-* events are copies of a real one under made-up ids, and the
+FORT_DUPONT row and one "(Folk Art Center - Milepost 382)" title are made up.
 
     python test_ingest_nps.py
 """
@@ -50,6 +61,7 @@ os.environ["MAPSEE_TODAY"] = "20261011"
 import requests  # noqa: E402
 
 import mapsee_ingest_nps as N  # noqa: E402
+import mapsee_supabase_sync as S  # noqa: E402
 from mapsee_ingest import make_fingerprint  # noqa: E402
 
 if hasattr(N, "MIN_INTERVAL_S"):
@@ -65,18 +77,46 @@ def check(label, cond, detail=""):
 
 
 # ---------------------------------------------------------------- fixtures --
-HAFE_SUN = {"id": "6C379815-E9FE-E050-73B4202C9C070029", "title": "The Story Behind the Scenery", "location": "Arsenal Square, near the John Brown Fort in Lower Town.", "sitecode": "hafe", "sitetype": "park", "parkfullname": "Harpers Ferry National Historical Park", "latitude": "39.322795", "longitude": "-77.729709", "dates": ["2026-10-11", "2026-10-18", "2026-10-25", "2026-11-01"], "recurrencerule": "DTSTART=20260301T050000Z;UNTIL=20270103T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU;COUNT=0;INTERVAL=1|EXDATE=2026-10-18", "cancelleddatelist": [], "times": [{"timestart": "02:00 PM", "timeend": "03:00 PM"}], "isfree": "true"}  # noqa: E501
-HAFE_SAT = {"id": "6C31EB7F-9A3A-6605-93D93CE4A803358C", "title": "The Story Behind the Scenery", "location": "Arsenal Square in historic Lower Town, Harpers Ferry", "sitecode": "hafe", "sitetype": "park", "parkfullname": "Harpers Ferry National Historical Park", "latitude": "", "longitude": "", "dates": ["2026-10-17", "2026-10-24", "2026-10-31"], "recurrencerule": "DTSTART=20260307T050000Z;UNTIL=20270102T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1|EXDATE=2026-05-23,2026-05-30,2026-06-20,2026-10-10,2026-10-17,2026-11-14,2026-04-25,2026-04-04,2026-09-05", "cancelleddatelist": [], "times": [{"timestart": "11:00 AM", "timeend": "12:00 PM"}], "isfree": "true"}  # noqa: E501
-BOWA_TOUR = {"id": "B2FC6D20-C58F-8E33-877E55097BB07E19", "title": "Born Here, Freed Here Walking Tour", "location": "", "sitecode": "bowa", "sitetype": "park", "parkfullname": "Booker T. Washington National Monument", "latitude": "37.119489", "longitude": "-79.731654", "dates": ["2026-10-11", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25", "2026-10-28", "2026-10-29", "2026-10-30", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20261001T040000Z;UNTIL=20270331T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,WE,TH,FR,SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "02:00 PM", "timeend": "02:45 PM"}], "isfree": "true"}  # noqa: E501
-BOWA_HIKE = {"id": "B895E3B2-9D16-28E9-AB8DA576513C7790", "title": "Footsteps of Freedom Guided Hike", "location": "", "sitecode": "bowa", "sitetype": "park", "parkfullname": "Booker T. Washington National Monument", "latitude": "", "longitude": "", "dates": ["2026-10-17", "2026-10-24", "2026-10-31"], "recurrencerule": "DTSTART=20261001T040000Z;UNTIL=20270331T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "10:00 AM", "timeend": "11:30 AM"}], "isfree": "true"}  # noqa: E501
-GEWA = {"id": "FA0B4C09-E90E-06E9-98A4347E94A3D11B", "title": "Step into the Memorial House Museum", "location": "", "sitecode": "gewa", "sitetype": "park", "parkfullname": "George Washington Birthplace National Monument", "latitude": "", "longitude": "", "dates": ["2026-10-11", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-21"], "recurrencerule": "DTSTART=20260526T040000Z;UNTIL=20261231T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,WE,TH,FR,SA;COUNT=0;INTERVAL=1|EXDATE=2026-06-17", "cancelleddatelist": [], "times": [{"timestart": "10:00 AM", "timeend": "12:00 PM"}], "isfree": "true"}  # noqa: E501
-CRAGGY = {"id": "ECDD046B-9D54-4DEE-0133CFB91A7066FC", "title": "The Ramblin’ Bald: Guided High Elevation Hike (Craggy Gardens Visitor Center - Milepost 364)", "location": "Meet in front of the Craggy Gardens Visitor Center.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "", "longitude": "", "dates": ["2026-10-11"], "recurrencerule": "", "cancelleddatelist": [], "times": [{"timestart": "01:45 PM", "timeend": "03:15 PM"}], "isfree": "true"}  # noqa: E501
-BUCK = {"id": "EA1C0944-00B5-9485-8B4223BBEE439CAB", "title": "Friends of the Forests: Guided Hikes near Mt Pisgah and Buck Spring (Buck Spring Gap Overlook-MP 407.6)", "location": "Meet at the Buck Spring Overlook, at Milepost 407.6. It’s the first overlook after you turn off the main Parkway, heading in the direction of the Mt Pisgah Parking Area.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "", "longitude": "", "dates": ["2026-10-11"], "recurrencerule": "", "cancelleddatelist": ["10/11/2026"], "times": [{"timestart": "10:45 AM", "timeend": "12:15 PM"}], "isfree": "true"}  # noqa: E501
+HAFE_SUN = {"id": "6C379815-E9FE-E050-73B4202C9C070029", "title": "The Story Behind the Scenery", "location": "Arsenal Square, near the John Brown Fort in Lower Town.", "sitecode": "hafe", "sitetype": "park", "parkfullname": "Harpers Ferry National Historical Park", "latitude": "39.322795", "longitude": "-77.729709", "dates": ["2026-10-11", "2026-10-18", "2026-10-25", "2026-11-01"], "recurrencerule": "DTSTART=20260301T050000Z;UNTIL=20270103T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU;COUNT=0;INTERVAL=1|EXDATE=2026-10-18", "cancelleddatelist": [], "times": [{"timestart": "02:00 PM", "timeend": "03:00 PM"}], "types": ["Talk"], "isfree": "true"}  # noqa: E501
+HAFE_SAT = {"id": "6C31EB7F-9A3A-6605-93D93CE4A803358C", "title": "The Story Behind the Scenery", "location": "Arsenal Square in historic Lower Town, Harpers Ferry", "sitecode": "hafe", "sitetype": "park", "parkfullname": "Harpers Ferry National Historical Park", "latitude": "", "longitude": "", "dates": ["2026-10-17", "2026-10-24", "2026-10-31"], "recurrencerule": "DTSTART=20260307T050000Z;UNTIL=20270102T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1|EXDATE=2026-05-23,2026-05-30,2026-06-20,2026-10-10,2026-10-17,2026-11-14,2026-04-25,2026-04-04,2026-09-05", "cancelleddatelist": [], "times": [{"timestart": "11:00 AM", "timeend": "12:00 PM"}], "types": ["Talk"], "isfree": "true"}  # noqa: E501
+BOWA_TOUR = {"id": "B2FC6D20-C58F-8E33-877E55097BB07E19", "title": "Born Here, Freed Here Walking Tour", "location": "", "sitecode": "bowa", "sitetype": "park", "parkfullname": "Booker T. Washington National Monument", "latitude": "37.119489", "longitude": "-79.731654", "dates": ["2026-10-11", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25", "2026-10-28", "2026-10-29", "2026-10-30", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20261001T040000Z;UNTIL=20270331T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,WE,TH,FR,SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "02:00 PM", "timeend": "02:45 PM"}], "types": ["Guided Tour", "Talk", "Walk"], "isfree": "true"}  # noqa: E501
+BOWA_HIKE = {"id": "B895E3B2-9D16-28E9-AB8DA576513C7790", "title": "Footsteps of Freedom Guided Hike", "location": "", "sitecode": "bowa", "sitetype": "park", "parkfullname": "Booker T. Washington National Monument", "latitude": "", "longitude": "", "dates": ["2026-10-17", "2026-10-24", "2026-10-31"], "recurrencerule": "DTSTART=20261001T040000Z;UNTIL=20270331T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "10:00 AM", "timeend": "11:30 AM"}], "types": ["Guided Tour", "Hike", "Walk"], "isfree": "true"}  # noqa: E501
+GEWA = {"id": "FA0B4C09-E90E-06E9-98A4347E94A3D11B", "title": "Step into the Memorial House Museum", "location": "", "sitecode": "gewa", "sitetype": "park", "parkfullname": "George Washington Birthplace National Monument", "latitude": "", "longitude": "", "dates": ["2026-10-11", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-21"], "recurrencerule": "DTSTART=20260526T040000Z;UNTIL=20261231T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,WE,TH,FR,SA;COUNT=0;INTERVAL=1|EXDATE=2026-06-17", "cancelleddatelist": [], "times": [{"timestart": "10:00 AM", "timeend": "12:00 PM"}], "types": ["Guided Tour"], "isfree": "true"}  # noqa: E501
+CRAGGY = {"id": "ECDD046B-9D54-4DEE-0133CFB91A7066FC", "title": "The Ramblin’ Bald: Guided High Elevation Hike (Craggy Gardens Visitor Center - Milepost 364)", "location": "Meet in front of the Craggy Gardens Visitor Center.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "", "longitude": "", "dates": ["2026-10-11"], "recurrencerule": "", "cancelleddatelist": [], "times": [{"timestart": "01:45 PM", "timeend": "03:15 PM"}], "types": ["Hike", "Walk"], "isfree": "true"}  # noqa: E501
+BUCK = {"id": "EA1C0944-00B5-9485-8B4223BBEE439CAB", "title": "Friends of the Forests: Guided Hikes near Mt Pisgah and Buck Spring (Buck Spring Gap Overlook-MP 407.6)", "location": "Meet at the Buck Spring Overlook, at Milepost 407.6. It’s the first overlook after you turn off the main Parkway, heading in the direction of the Mt Pisgah Parking Area.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "", "longitude": "", "dates": ["2026-10-11"], "recurrencerule": "", "cancelleddatelist": ["10/11/2026"], "times": [{"timestart": "10:45 AM", "timeend": "12:15 PM"}], "types": ["Hike"], "isfree": "true"}  # noqa: E501
 BUCK_TALK = dict(BUCK, id="EA365DB5-D034-9A6F-501C2969789A20D7", cancelleddatelist=[], dates=["2026-10-12"],
                  title="The View from Here: Ranger-Led Talks and Activities (Buck Spring Gap Overlook-MP 407.6)",
-                 location="This talk will be at the Buck Spring Overlook, Milepost 407.6.")
-MABRY_A = {"id": "BE052848-9A01-D282-DEC221000669E709", "title": "Historic Mill Open House (Mabry Mill - Milepost 176.2)", "location": "Blue Ridge Parkway - Mabry Mill - Milepost 176.2", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.751712", "longitude": "-80.405357", "dates": ["2026-10-11", "2026-10-17", "2026-10-18", "2026-10-24", "2026-10-25", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20260606T040000Z;UNTIL=20261101T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,SA;COUNT=0;INTERVAL=1|EXDATE=2026-06-27,2026-06-28,2026-07-18,2026-10-11,2026-10-18,2026-10-25,2026-10-10,2026-10-17,2026-10-24,2026-10-31,2026-11-01", "cancelleddatelist": [], "times": [{"timestart": "10:30 AM", "timeend": "02:00 PM"}], "isfree": "true"}  # noqa: E501
-MABRY_B = {"id": "231194B0-B92C-0355-920979708938A3E2", "title": "Historic Mill Open House (Mabry Mill - Milepost 176.2)", "location": "Blue Ridge Parkway - Mabry Mill - Milepost 176.2", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.751712", "longitude": "-80.405357", "dates": ["2026-10-11", "2026-10-12", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25", "2026-10-26", "2026-10-29", "2026-10-30", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20260905T040000Z;UNTIL=20261101T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,MO,TH,FR,SA;COUNT=0;INTERVAL=1|EXDATE=2026-10-11", "cancelleddatelist": [], "times": [{"timestart": "10:30 AM", "timeend": "04:00 PM"}], "isfree": "true"}  # noqa: E501
+                 location="This talk will be at the Buck Spring Overlook, Milepost 407.6.",
+                 types=["Cultural/Craft Demonstration", "Other", "Talk"])
+MABRY_A = {"id": "BE052848-9A01-D282-DEC221000669E709", "title": "Historic Mill Open House (Mabry Mill - Milepost 176.2)", "location": "Blue Ridge Parkway - Mabry Mill - Milepost 176.2", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.751712", "longitude": "-80.405357", "dates": ["2026-10-11", "2026-10-17", "2026-10-18", "2026-10-24", "2026-10-25", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20260606T040000Z;UNTIL=20261101T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,SA;COUNT=0;INTERVAL=1|EXDATE=2026-06-27,2026-06-28,2026-07-18,2026-10-11,2026-10-18,2026-10-25,2026-10-10,2026-10-17,2026-10-24,2026-10-31,2026-11-01", "cancelleddatelist": [], "times": [{"timestart": "10:30 AM", "timeend": "02:00 PM"}], "types": ["Talk"], "isfree": "true"}  # noqa: E501
+MABRY_B = {"id": "231194B0-B92C-0355-920979708938A3E2", "title": "Historic Mill Open House (Mabry Mill - Milepost 176.2)", "location": "Blue Ridge Parkway - Mabry Mill - Milepost 176.2", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.751712", "longitude": "-80.405357", "dates": ["2026-10-11", "2026-10-12", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25", "2026-10-26", "2026-10-29", "2026-10-30", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20260905T040000Z;UNTIL=20261101T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,MO,TH,FR,SA;COUNT=0;INTERVAL=1|EXDATE=2026-10-11", "cancelleddatelist": [], "times": [{"timestart": "10:30 AM", "timeend": "04:00 PM"}], "types": ["Talk"], "isfree": "true"}  # noqa: E501
+
+# Civil War Defenses of Washington: four programmes at Battleground National
+# Cemetery, all within 9 m of each other, and the Shepherd Parkway clean-up,
+# 14.1 km south of them by the Census geocoder (555 Newcomb St SE ->
+# 38.8457,-76.9992, read 2026-10-11). The clean-up keeps both its dates.
+CW_JR = {"id": "A736D2E5-9089-8284-5E46F94050628669", "title": "Junior Ranger Discovery Club: Explore, Learn, Protect (CANCELLED)", "location": "Battleground National Cemetery \n6625 Georgia Ave NW\nWashington DC", "sitecode": "cwdw", "sitetype": "park", "parkfullname": "Civil War Defenses of Washington ", "latitude": "38.970787", "longitude": "-77.026745", "dates": ["2026-10-15", "2026-10-22", "2026-10-29"], "recurrencerule": "DTSTART=20261001T040000Z;UNTIL=20270325T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=TH;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "03:00 PM", "timeend": "04:00 PM"}], "isfree": "true", "types": ["Children’s Program", "Cultural/Craft Demonstration", "Talk"], "description": "<div>Calling all future Junior Rangers! Get ready to travel back in time, uncover amazing stories, and discover what life was really like during the Civil War!</div>"}  # noqa: E501
+CW_STONE = {"id": "A7115921-B645-232C-5FDF613CC8CA5248", "title": "Stories in Stone: Monuments at Battleground National Cemetery", "location": "6625 Georgia Ave NW, Washington, DC", "sitecode": "cwdw", "sitetype": "park", "parkfullname": "Civil War Defenses of Washington ", "latitude": "38.970754", "longitude": "-77.026697", "dates": ["2026-10-17", "2026-10-24", "2026-10-31"], "recurrencerule": "DTSTART=20261003T040000Z;UNTIL=20270327T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "10:00 AM", "timeend": "10:30 AM"}], "isfree": "true", "types": ["Talk"], "description": "<p>Join a National Park Service ranger for a guided walk-through Battleground National Cemetery to explore Civil War monuments, their symbols, and the stories they were built to preserve. Discover how art, memory, and history come together in this quiet landscape where Washington, DC’s past is written in stone. As a part of the Freedom 250 commemoration, this program invites visitors to reflect on sacrifice, citizenship, and the enduring power of public memory.   <br /> <br />Please note that parking is limited to public streets.   </p>"}  # noqa: E501
+CW_HEROES = {"id": "A6E146DE-B965-23A4-793385D42D061348", "title": "Heroes Remembered: Stories from Battleground National Cemetery", "location": "Battleground National Cemetery\n6625 Georgia Avenue NW \nWashington, DC", "sitecode": "cwdw", "sitetype": "park", "parkfullname": "Civil War Defenses of Washington ", "latitude": "38.970712", "longitude": "-77.026777", "dates": ["2026-10-14", "2026-10-21", "2026-10-28"], "recurrencerule": "DTSTART=20261007T040000Z;UNTIL=20270331T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=WE;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "11:00 AM", "timeend": "11:30 AM"}], "isfree": "true", "types": ["Talk"], "description": "<p><span data-contrast=\"auto\"> Join a ranger for a 30-minute, family-friendly walk through Battleground National Cemetery and discover the stories of the soldiers buried here.</span></p>"}  # noqa: E501
+CW_HEROES_2 = {"id": "A7286A74-FAE3-A88E-739FE5F812F8CF52", "title": "Heroes Remembered: Stories from Battleground National Cemetery", "location": "Battleground National Cemetery\n6625 Georgia Avenue NW \nWashington, DC", "sitecode": "cwdw", "sitetype": "park", "parkfullname": "Civil War Defenses of Washington ", "latitude": "38.970712", "longitude": "-77.026777", "dates": ["2026-10-17", "2026-10-24", "2026-10-31"], "recurrencerule": "DTSTART=20261007T040000Z;UNTIL=20270331T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "12:30 PM", "timeend": "01:00 PM"}], "isfree": "true", "types": ["Talk"], "description": "<p><span data-contrast=\"auto\"> Join a ranger for a 30-minute, family-friendly walk through Battleground National Cemetery and discover the stories of the soldiers buried here.</span></p>"}  # noqa: E501
+CLEANUP = {"id": "1B8EC426-E91D-BCB0-3AD2BCD43E0521A1", "title": "Monthly Shepherd Parkway Community Clean-Up", "location": "555 Newcomb St SE \nWashington, DC 20032", "sitecode": "cwdw", "sitetype": "park", "parkfullname": "Civil War Defenses of Washington ", "latitude": "", "longitude": "", "dates": ["2026-11-14", "2026-12-12"], "recurrencerule": "DTSTART=20260509T040000Z;UNTIL=20261212T050000Z;FREQ=MONTHLY;BYSETPOS=2;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "10:30 AM", "timeend": "01:00 PM"}], "isfree": "true", "types": ["Volunteer Event"], "regresurl": "https://www.volunteer.gov/s/global-search/shepherd%20parkway", "description": "<p>Come cleanup Shepherd Parkway with Ward 8 Woods!</p>\n<p>Meet at 555 Newcomb St SE at 10:30 AM to receive instructions and supplies (gloves, bags, and trash grabbers will be provided.)</p>\n<p><strong>Sign-up here: </strong><a href=\"https://www.volunteer.gov/s/global-search/shepherd%20parkway\">https://www.volunteer.gov/s/global-search/shepherd%20parkway</a></p>"}  # noqa: E501
+# Made up: the clean-up's row with a location that names a place inside the
+# park and no street, so neither a centre nor the sync's geocoder can place it.
+FORT_DUPONT = dict(CLEANUP, id="MADE-UP-FORT-DUPONT", title="Fort Dupont Park Community Clean-Up",
+                   location="Fort Dupont Park, at the Activity Center")
+CWDW = [CW_JR, CW_STONE, CW_HEROES, CW_HEROES_2, CLEANUP, FORT_DUPONT]
+STONE_POINT = (38.970754, -77.026697)
+
+# Doors: rows whose blurb or title fooled the old substring rule. Descriptions
+# are cut to the sentence that did it, HTML and all.
+CRATER = {"id": "6ABAC5E9-C366-5BCB-07D54B8E11A07F51", "title": "Battle of the Crater", "location": "", "sitecode": "pete", "sitetype": "park", "parkfullname": "Petersburg National Battlefield", "latitude": "37.216821", "longitude": "-77.377037", "dates": ["2026-10-11", "2026-10-17", "2026-10-18", "2026-10-24", "2026-10-25", "2026-10-31"], "recurrencerule": "DTSTART=20260905T040000Z;UNTIL=20261031T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "11:00 AM", "timeend": "11:45 AM"}], "isfree": "true", "types": ["Talk"], "description": "<p>An explosion shook the earth early in the morning, on July 30, 1864. Soon after the battle of the Crater begins.</p>\n<p>Join a Park Ranger for a 30-45-minute program discussing the Pennsylvania soldiers who engineered and constructed the over 500-foot tunnel.</p>"}  # noqa: E501
+GROUND_UP = {"id": "0C93CCCE-CCEE-1667-5626A884B312D2CA", "title": "From the Ground Up", "location": "Fort Monroe Visitor & Education Center\n30 Ingalls Road\nFort Monroe, VA 23651", "sitecode": "fomr", "sitetype": "park", "parkfullname": "Fort Monroe National Monument", "latitude": "37.002193", "longitude": "-76.310863", "dates": ["2026-10-13", "2026-10-14", "2026-10-15", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-27", "2026-10-28", "2026-10-29"], "recurrencerule": "DTSTART=20260901T040000Z;UNTIL=20261029T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=TU,WE,TH;COUNT=0;INTERVAL=1|EXDATE=2026-09-02,2026-09-03,2026-09-16,2026-09-23,2026-09-24,2026-10-01,2026-09-30", "cancelleddatelist": [], "times": [{"timestart": "01:00 PM", "timeend": "02:00 PM"}], "isfree": "true", "types": ["Guided Tour", "Walk"], "description": "<p class=\"xmsonormal\" style=\"background: white; vertical-align: baseline;\"><span style=\"font-family: 'Calibri',sans-serif; color: black;\">Join us on a ranger-led walk to explore and learn about some of the individually listed buildings on the National Register. Discover how these locations contribute the \"building\" of Fort Monroe \"From the Ground Up.\" Comfortable footwear and water are recommended. Exterior views of the included structures only.  </span></p>"}  # noqa: E501
+BIRD_WALK = {"id": "25675C61-09EB-8A68-D0D7DE78C187294F", "title": "Bird Walk at Great Falls Park", "location": "", "sitecode": "gwmp", "sitetype": "park", "parkfullname": "George Washington Memorial Parkway", "latitude": "38.996876", "longitude": "-77.254821", "dates": ["2026-10-11", "2026-10-18", "2026-10-25", "2026-11-01"], "recurrencerule": "DTSTART=20260927T040000Z;UNTIL=20261231T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "08:00 AM", "timeend": "11:00 AM"}], "isfree": "true", "types": ["Guided Tour", "Volunteer Event", "Walk"], "description": "<p>Bird Walk at Great Falls Park</p>\n<p>Volunteer Guided - Every Sunday 8:00 am. Meet in Great Falls Park Main Parking Lot.</p>"}  # noqa: E501
+HIKE_SMART = {"id": "87DE22FB-C639-B37B-26BF070448FD51B3", "title": "Hike Smart: The Ten Essentials and Leave No Trace Principles (Peaks of Otter - Milepost 86)", "location": "Located by the Sharp Top Store.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "37.443389", "longitude": "-79.609278", "dates": ["2026-10-14"], "recurrencerule": "", "cancelleddatelist": [], "times": [{"timestart": "02:00 PM", "timeend": "03:00 PM"}], "isfree": "true", "types": ["Talk"], "description": "<div class=\"x_elementToProof\" data-ogsc=\"rgb(0, 0, 0)\" data-olk-copy-source=\"MessageBody\">Before your next adventure in the park, talk to a Ranger about the Ten Essentials and Leave No Trace Principles.</div>"}  # noqa: E501
+POLLY = {"id": "ED95A928-05D1-B6F3-6A7AEB1926FDDD6E", "title": "Polly Wood's Ordinary Open House (Peaks of Otter - Milepost 86)", "location": "Polly Wood's Ordinary can be accessed from the Peaks of Otter Picnic Area or the Abbott Lake Trail located behind the Peaks of Otter Lodge.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "37.443650", "longitude": "-79.599822", "dates": ["2026-10-17"], "recurrencerule": "DTSTART=20260613T040000Z;UNTIL=20261017T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "01:00 PM", "timeend": "04:00 PM"}], "isfree": "true", "types": ["Guided Tour", "Talk"], "description": "<p>Step into history with a ranger as we unveil the fascinating story of the Wood Family, their Ordinary, and tourism at Peaks of Otter!</p>"}  # noqa: E501
+BRINEGAR = {"id": "90BFD138-E6AA-3CBA-B6DF090507BC716F", "title": "Brinegar Cabin Open House (Doughton Park - Milepost 238.5)", "location": "Brinegar Cabin is located at milepost 238.5 on the Blue Ridge Parkway. Park in the parking and follow the paved walkway to the cabin.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.418721", "longitude": "-81.146435", "dates": ["2026-10-12", "2026-10-15", "2026-10-19", "2026-10-22", "2026-10-26", "2026-10-29"], "recurrencerule": "DTSTART=20260511T040000Z;UNTIL=20261031T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=MO,TH;COUNT=0;INTERVAL=1|EXDATE=2026-06-15,2026-08-31,2026-08-24", "cancelleddatelist": [], "times": [{"timestart": "01:00 PM", "timeend": "04:00 PM"}], "isfree": "true", "types": ["Talk"], "description": "<div>Step back into the late 1800s at one of Doughton Park’s most cherished historic sites. Completed in 1889, the Brinegar family home offers visitors a window into mountain life.</div>\n<div>Rangers and volunteers are on site to share stories of the Brinegar Family.</div>"}  # noqa: E501
+MIDDAY = {"id": "EB178B2A-BA9F-55CE-1A9EB5756E17B294", "title": "Midday Mountain Music (Blue Ridge Music Center - Milepost 213)", "location": "The Blue Ridge Music Center is located on Music Center Road, Galax, VA 24333 or milepost 213 on the Blue Ridge Parkway", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.573197", "longitude": "-80.850001", "dates": ["2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17"], "recurrencerule": "DTSTART=20261001T040000Z;UNTIL=20261101T040000Z;FREQ=DAILY;WKST=SU;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "12:00 PM", "timeend": "03:00 PM"}], "isfree": "true", "types": ["Partner Program", "Performance"], "description": "<p>Midday Mountain Music is a free, informal music presentation featuring local and regional musicians held in the Blue Ridge Music Center's covered breezeway.</p>"}  # noqa: E501
+DOORS = [CRATER, GROUND_UP, BIRD_WALK, HIKE_SMART, POLLY, BRINEGAR, MIDDAY]
 
 CENTERS = [
     {"id": "378AF0F6-F593-496E-890E-3C5B5AF07D58", "parkCode": "blri", "name": "Waterrock Knob Visitor Center (Milepost 451.2)", "latitude": "35.46018574549927", "longitude": "-83.14102427298599"},  # noqa: E501
@@ -102,7 +142,9 @@ PARKS = [
     {"id": "P-bowa", "parkCode": "bowa", "fullName": "Booker T. Washington National Monument", "latitude": "37.1220", "longitude": "-79.7330"},  # noqa: E501
     {"id": "P-gewa", "parkCode": "gewa", "fullName": "George Washington Birthplace National Monument", "latitude": "38.1860", "longitude": "-76.9200"},  # noqa: E501
     {"id": "P-blri", "parkCode": "blri", "fullName": "Blue Ridge Parkway", "latitude": "36.6000", "longitude": "-80.4000"},  # noqa: E501
+    {"id": "P-cwdw", "parkCode": "cwdw", "fullName": "Civil War Defenses of Washington", "latitude": "38.9600", "longitude": "-77.0300"},  # noqa: E501
 ]
+CWDW_PARK = (38.9600, -77.0300)                  # 1.2 km from Battleground: the size test passes
 BOWA_PARK = (37.1220, -79.7330)
 HAFE_PARK = (39.3220, -77.7290)
 
@@ -260,6 +302,7 @@ logged = [int(w) for w, nxt in zip(done.split(), done.split()[1:]) if w.isdigit(
 check("the log's row count is the store's (Virginia's log said 903 for 129)",
       logged == [len(store["events"])], f"{done!r} vs {len(store['events'])} rows")
 
+sweep_store = store
 craggy = rows_of(store, CRAGGY)
 check("a hike with no coordinates that names its visitor centre is pinned there",
       bool(craggy) and all(abs(r["latitude"] - CRAGGY_VC[0]) < 1e-9 and abs(r["longitude"] - CRAGGY_VC[1]) < 1e-9
@@ -314,6 +357,84 @@ check("identity is unchanged: fingerprint title|day|park, source_id id|day, cloc
       r.get("fingerprint") == fp(BOWA_TOUR, "2026-10-14")
       and any(s.get("source_id") == f"{BOWA_TOUR['id']}|2026-10-14" for s in r.get("sources") or [])
       and r.get("start_local") == "2026-10-14T14:00:00", r)
+
+# ------------------------------------------------ a place finer than the park --
+api = FakeAPI({"DC": CWDW, "VA": DOORS})
+rc, out, store = run_main(api, ["--states", "DC,VA"])
+clean = rows_of(store, CLEANUP)
+check("a clean-up 14 km from the park's other events is not pinned at the park's point (Shepherd Parkway)",
+      bool(clean) and all(r.get("latitude") is None and r.get("longitude") is None for r in clean.values()),
+      {d: (r.get("latitude"), r.get("longitude")) for d, r in clean.items()} or out)
+r = next(iter(clean.values()), {})
+check("...it goes to the sync as street, city and state, which the sync's Census pass reads",
+      (r.get("address"), r.get("city"), r.get("region"), r.get("postal_code"))
+      == ("555 Newcomb St SE", "Washington", "DC", "20032")
+      and S._addr_parts(r) == ("555 Newcomb St SE", "Washington", "DC"),
+      {k: r.get(k) for k in ("address", "city", "region", "postal_code")})
+check("a location naming a place inside the park, and no street, places nothing (made-up Fort Dupont row)",
+      not rows_of(store, FORT_DUPONT), rows_of(store, FORT_DUPONT))
+stone = rows_of(store, CW_STONE)
+check("an event with its own point keeps it, with no address for the sync's geocoder to move it by",
+      bool(stone) and all((s_["latitude"], s_["longitude"]) == STONE_POINT and not s_.get("address")
+                          for s_ in stone.values()), stone)
+
+sa = getattr(N, "street_address", None)
+check("street_address reads the four shapes NPS writes: lines, commas, no ZIP, in brackets",
+      sa is not None
+      and sa("555 Newcomb St SE \nWashington, DC 20032") == ("555 Newcomb St SE", "Washington", "DC", "20032")
+      and sa("Cold Harbor Battlefield Visitor Center,5515 Anderson-Wright Drive, Mechanicsville, VA 23111.")
+      == ("5515 Anderson-Wright Drive", "Mechanicsville", "VA", "23111")
+      and sa("Battleground National Cemetery \n6625 Georgia Ave NW\nWashington DC")
+      == ("6625 Georgia Ave NW", "Washington", "DC", None)
+      and sa("Meet outside behind the Peaks of Otter Lodge (85554 Blue Ridge Parkway, Bedford, VA 24523) by the lake.")
+      == ("85554 Blue Ridge Parkway", "Bedford", "VA", "24523"), "street_address" if sa is None else "")
+check("...and nothing that is not a whole one: no city, a milepost, a street run into its town",
+      sa is not None
+      and sa("Rain location will be inside Visitor Center, Great Falls Park, "
+             "9200 Old Dominion Dr. McLean, VA 22102") is None
+      and sa("Meet at the Buck Spring Overlook, at Milepost 407.6.") is None
+      and sa("Meet at St. Thomas Chapel, 7854 Church Street in Middletown, Va.") is None)
+
+# ------------------------------------------------------------------- doors --
+def door(st, ev):
+    got = rows_of(st, ev)
+    rec = got[min(got)] if got else {}
+    return rec.get("category"), rec.get("categories") or []
+
+
+check("a talk whose blurb says the explosion 'shook the earth' is learning, not arts (Battle of the Crater)",
+      door(store, CRATER) == ("learning", []), door(store, CRATER))
+check("a walk whose HTML says font-family is outdoors and learning, not kids (From the Ground Up)",
+      door(store, GROUND_UP) == ("outdoors", ["learning"]), door(store, GROUND_UP))
+check("a bird walk 'Volunteer Guided' is outdoors, not volunteer (its leaders volunteer; it asks nobody to)",
+      door(store, BIRD_WALK)[0] == "outdoors", door(store, BIRD_WALK))
+check("'Hike Smart' is outdoors, not arts (sm-ART)", door(store, HIKE_SMART)[0] == "outdoors", door(store, HIKE_SMART))
+check("'the Wood Family' and 'rangers and volunteers are on site' are learning (Polly Wood's, Brinegar Cabin)",
+      door(store, POLLY)[0] == "learning" and door(store, BRINEGAR)[0] == "learning",
+      (door(store, POLLY), door(store, BRINEGAR)))
+check("a Volunteer Event that signs up on volunteer.gov is volunteer (the clean-up)",
+      door(store, CLEANUP)[0] == "volunteer", door(store, CLEANUP))
+check("a Performance by musicians is music (Midday Mountain Music)", door(store, MIDDAY)[0] == "music",
+      door(store, MIDDAY))
+check("'family-friendly' and 'art, memory' in a talk's blurb are learning (Battleground's Heroes and Stones)",
+      door(store, CW_HEROES)[0] == "learning" and door(store, CW_STONE)[0] == "learning",
+      (door(store, CW_HEROES), door(store, CW_STONE)))
+check("every hike and walk title in the fixtures is outdoors (the old rule sent 14 of Virginia's 23 elsewhere)",
+      all(door(st, ev)[0] == "outdoors" for st, ev in
+          ((store, GROUND_UP), (store, BIRD_WALK), (store, HIKE_SMART),
+           (sweep_store, CRAGGY), (sweep_store, BOWA_TOUR), (sweep_store, BOWA_HIKE))),
+      [door(st, ev) for st, ev in ((store, GROUND_UP), (sweep_store, BOWA_TOUR), (sweep_store, BOWA_HIKE))])
+check("a title's '(Folk Art Center - Milepost 382)' is a place, not an art word (made-up title)",
+      N._category(dict(HAFE_SUN, title="Ranger Talk (Folk Art Center - Milepost 382)")) == "learning",
+      N._category(dict(HAFE_SUN, title="Ranger Talk (Folk Art Center - Milepost 382)")))
+check("with no types, the blurb is read as whole words: 'earth' is not art",
+      N._category(dict(CRATER, types=[])) != "arts", N._category(dict(CRATER, types=[])))
+check("the sync keeps each door: derive_categories on the stored rows",
+      [S.derive_categories(next(iter(rows_of(store, ev).values()), {}))[0]
+       for ev in (CRATER, GROUND_UP, BIRD_WALK, HIKE_SMART, POLLY, CLEANUP)]
+      == ["learning", "outdoors", "outdoors", "outdoors", "learning", "volunteer"],
+      [S.derive_categories(next(iter(rows_of(store, ev).values()), {"name": ""}))[0]
+       for ev in (CRATER, GROUND_UP, BIRD_WALK, HIKE_SMART, POLLY, CLEANUP)])
 
 # ------------------------------------------------------------- the budget --
 api = FakeAPI({"VA": paging_events(103)})

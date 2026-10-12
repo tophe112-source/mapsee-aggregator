@@ -6,7 +6,8 @@ tours, talks, family + volunteer programs) into the Mapsee store.
 Official, free API — get a key at https://www.nps.gov/subjects/developer/get-started.htm
 (1,000 req/hr). Great for the outdoors / kids / learning / volunteer layers near
 metros with national parks, monuments, seashores and historic sites. Most events
-carry their own lat/lon; the rest are placed from their park (item 5).
+carry their own lat/lon; the rest are placed from their park or their street
+address (item 5).
 
     export NPS_API_KEY=...
     python mapsee_ingest_nps.py --states WA,OR,CA --within-days 90 --store mapsee_events.json
@@ -46,12 +47,27 @@ against the 2026-10-08 Actions log (run 37788997741, the Mon/Thu extra_sources j
      - a visitor centre of that park whose name the title or location names
        is the place ("(Craggy Gardens Visitor Center - Milepost 364)"; 21 of
        the 23 Parkway events name one of its centres);
-     - otherwise the park's own point, but only when everything else we know
-       is in that park (its visitor centres, and the coordinates its other
-       events carried this run) lies within FALLBACK_KM of that point. In the
-       same pages a compact park's events spread 1.7 km (Cumberland Gap), 3.5
-       (Petersburg) and 3.6 (Cedar Creek); a scattered one's 16 km
-       (Fredericksburg & Spotsylvania) and 120 km (Chesapeake Bay);
+     - otherwise a street address in the location ("555 Newcomb St SE /
+       Washington, DC 20032") goes to the sync as address, city and state,
+       with no point, for its Census geocoder to place or to drop. 12 of the
+       47 distinct locations in those 100 events read as one (no false
+       reads); the sync's batch_geocode matched 11, and the 9 whose events
+       carry NPS coordinates too landed 11 to 387 m from them (723 Second St,
+       Annapolis did not match, and an unmatched row without a point is
+       dropped, not guessed);
+     - otherwise the park's own point, but only when the location says
+       nothing (Booker T. Washington's two) or names the park itself
+       ("Arsenal Square in historic Lower Town, Harpers Ferry"; "Great Falls
+       Park"), AND everything else we know is in that park (its visitor
+       centres, and the coordinates its other events carried this run) lies
+       within FALLBACK_KM of that point. In the same pages a compact park's
+       events spread 1.7 km (Cumberland Gap), 3.5 (Petersburg) and 3.6 (Cedar
+       Creek); a scattered one's 16 km (Fredericksburg & Spotsylvania) and
+       120 km (Chesapeake Bay). The spread is only a LOWER bound on a park's
+       size: Civil War Defenses of Washington's four coordinated events all
+       sat within 9 m of Battleground National Cemetery, so a park point
+       anywhere within 5 km of it passed, and its clean-up 14.1 km away at
+       Shepherd Parkway took that point. Hence the location test before it;
      - otherwise the event is counted as unplaced and left out. A park with
        nothing else we know of (George Washington Birthplace: no centre, no
        coordinated event) is left out rather than guessed at.
@@ -80,10 +96,36 @@ against the 2026-10-08 Actions log (run 37788997741, the Mon/Thu extra_sources j
    the next RECUR_DAYS days, and never fewer than MIN_RECUR, is 212
    occurrences for those 100 events where the cap wrote 200 (uncapped: 820).
    mapsee_link_series chains the rest of a programme after the sync.
+
+9. THE DOOR COMES FROM THE API'S OWN `types` AND THE TITLE, NOT FROM
+   SUBSTRINGS OF THE HTML. The old rule looked for "art", "kid", "volunteer"
+   anywhere in title + raw description, first hit wins, and the sync keeps an
+   arts, kids or volunteer primary as it finds it. Over Virginia's first 100
+   events it said arts 16 (12 of them "earth", "heart", "artillery",
+   "depart", "smart", "start"), kids 12 (4 of them "the Wood family", "the
+   Cone family" twice, and "font-family: 'Calibri'" in a span's style) and
+   volunteer 6 (5 of them two bird walks "Volunteer Guided", a butterfly
+   walk "alongside a Park Ranger, volunteers", and two open houses where
+   "rangers and volunteers are on site"). 14 of the 23 hike and walk
+   titles reached a door other than outdoors. `types` already says Hike 14,
+   Walk 18, Talk 66, Guided Tour 31, Children's Program 2, Volunteer Event 3,
+   Performance 2. Now: a hike or a walk (by type or by the title's own word)
+   is outdoors, with learning beside it when it is also a tour or a talk;
+   Children's Program or Junior Ranger is kids; a Volunteer Event is
+   volunteer only when the title names the work or the sign-up is
+   volunteer.gov (Shepherd Parkway's clean-up; the bird walks are
+   volunteer-LED); music needs a concert in the title, or Performance and a
+   music word; arts needs an art word in the title, read without its "(Folk
+   Art Center - Milepost 382)"; a talk, tour, living history or
+   demonstration is learning. On those 100: outdoors 27 (all 23 hike and
+   walk titles), learning 66, arts 2, kids 2, volunteer 1, music 1,
+   community 1, and the sync's derive_categories keeps every one of those
+   primaries.
 """
 from __future__ import annotations
 
 import argparse
+import html
 import math
 import os
 import re
@@ -123,6 +165,8 @@ RECUR_DAYS = 7            # write every occurrence this many days ahead (item 8)
 MIN_RECUR = 3             # ...and never fewer than this many
 SAVE_EVERY_S = 120        # a sweep cut short by the job's timeout keeps what it read
 
+Address = Tuple[str, str, str, Optional[str]]          # street, city, state, ZIP (item 5)
+
 
 def _today() -> date:
     """MAPSEE_TODAY=YYYYMMDD fixes "today" for the tests; otherwise today in UTC."""
@@ -132,17 +176,70 @@ def _today() -> date:
     return datetime.now(timezone.utc).date()
 
 
+# --------------------------------------------------------------------------- #
+# Which door an event is for (item 9)
+# --------------------------------------------------------------------------- #
+_TAG_RX = re.compile(r"<[^>]+>")
+_PAREN_RX = re.compile(r"\([^)]*\)")
+_LEARNING_TYPES = {"talk", "guided tour", "living history", "cultural craft demonstration"}
+_HIKE_RX = re.compile(r"\b(hik(?:e|es|ing)|walk(?:s|ing)?|rambles?|treks?|trekking)\b", re.I)
+_VOLUNTEER_WORK_RX = re.compile(
+    r"\b(volunteers?|volunteering|clean[\s-]?ups?|stewardship|work\s?days?|trail\s+work|"
+    r"restoration|invasives?|litter|tree\s+planting)\b", re.I)
+_JUNIOR_RANGER_RX = re.compile(r"\bjunior\s+rangers?\b", re.I)
+_CONCERT_RX = re.compile(r"\b(concerts?|live\s+music)\b", re.I)
+_MUSIC_RX = re.compile(
+    r"\b(music|musicians?|concerts?|bands?|bluegrass|fiddl(?:e|es|ers?|ing)|banjos?|singers?|singing|choirs?)\b",
+    re.I)
+_ART_RX = re.compile(
+    r"\b(art|arts|artists?|painting|paint|studios?|sketch(?:es|ing)?|drawing|pottery|printmaking|"
+    r"watercolou?rs?)\b", re.I)
+_TALK_RX = re.compile(r"\b(talks?|tours?|lectures?|presentations?|demonstrations?)\b", re.I)
+
+
+def _plain(value: Any) -> str:
+    """The words a reader sees: tags out, entities decoded, one space."""
+    return " ".join(html.unescape(_TAG_RX.sub(" ", str(value or ""))).split())
+
+
+def _categories(ev: Dict[str, Any]) -> Tuple[str, List[str]]:
+    """(primary, extras) from the API's own `types` and the title (item 9).
+
+    The description is read only when the event has no types, and then as
+    text with whole words: the old rule matched substrings of the raw HTML."""
+    types = {_norm(t) for t in ev.get("types") or []}
+    title = _plain(_PAREN_RX.sub(" ", str(ev.get("title") or "")))     # "(Folk Art Center - Milepost 382)"
+    learning = ["learning"] if types & _LEARNING_TYPES else []
+    # "Volunteer Event" also marks a programme volunteers LEAD (Great Falls'
+    # bird walks, "Volunteer Guided"), so the work has to be named, or the
+    # sign-up has to be volunteer.gov.
+    signup = f"{ev.get('regresurl') or ''} {ev.get('description') or ''}".lower()
+    if "volunteer event" in types and (_VOLUNTEER_WORK_RX.search(title) or "volunteer.gov" in signup):
+        return "volunteer", []
+    if "children s program" in types or _JUNIOR_RANGER_RX.search(title):
+        return "kids", learning
+    if types & {"hike", "walk"} or _HIKE_RX.search(title):
+        return "outdoors", learning
+    if _CONCERT_RX.search(title) \
+            or ("performance" in types and _MUSIC_RX.search(f"{title} {_plain(ev.get('description'))}")):
+        return "music", []
+    if _ART_RX.search(title):
+        return "arts", []
+    if learning:
+        return "learning", []
+    if "festival" in types:
+        return "community", []
+    if not types:
+        desc = _plain(ev.get("description"))
+        if _HIKE_RX.search(desc):
+            return "outdoors", []
+        if _TALK_RX.search(desc):
+            return "learning", []
+    return "outdoors", []
+
+
 def _category(ev: Dict[str, Any]) -> str:
-    txt = " ".join(str(ev.get(k) or "") for k in ("category", "title", "description")).lower()
-    for kw, key in (("volunteer", "volunteer"), ("cleanup", "volunteer"), ("stewardship", "volunteer"),
-                    ("family", "kids"), ("junior ranger", "kids"), ("kid", "kids"),
-                    ("art", "arts"), ("music", "music"), ("concert", "music"),
-                    ("guided tour", "learning"), ("tour", "learning"), ("talk", "learning"),
-                    ("workshop", "learning"), ("lecture", "learning"), ("demonstration", "learning"),
-                    ("hike", "outdoors"), ("walk", "outdoors"), ("bird", "outdoors")):
-        if kw in txt:
-            return key
-    return "outdoors"
+    return _categories(ev)[0]
 
 
 def _hm(t):
@@ -174,6 +271,10 @@ def _f(ev, *keys):
         if v not in (None, ""):
             return v
     return None
+
+
+def _norm(s: Any) -> str:
+    return " ".join(re.findall(r"[a-z0-9]+", str(s or "").lower()))
 
 
 def _int(v) -> Optional[int]:
@@ -267,9 +368,12 @@ def occurrences(ev: Dict[str, Any], today: date, within_days: int) -> Tuple[List
     return live, [d for d in days if d in off and d <= near]
 
 
-def _build(ev: Dict[str, Any], day: date, point: Optional[Tuple[float, float]]) -> NormalizedEvent:
+def _build(ev: Dict[str, Any], day: date, point: Optional[Tuple[float, float]],
+           address: Optional[Address] = None) -> NormalizedEvent:
     """The one builder for a live row and for its tombstone, so both carry the
-    same fingerprint, source and source_id (docs/agents/cancelled-events.md)."""
+    same fingerprint, source and source_id (docs/agents/cancelled-events.md).
+    `address` only ever comes without a point: the sync's Census pass would
+    otherwise replace the park's own coordinates with its geocode."""
     title = (ev.get("title") or "").strip()
     times = ev.get("times") or []
     t0 = times[0] if (times and isinstance(times[0], dict)) else {}
@@ -285,6 +389,8 @@ def _build(ev: Dict[str, Any], day: date, point: Optional[Tuple[float, float]]) 
     if desc:
         desc = " ".join(desc.split())
     d = day.isoformat()
+    primary, extras = _categories(ev)
+    street, city, region, postal = address if (address and not point) else (None, None, None, None)
     nev = NormalizedEvent(
         source="nps",
         source_id=f"{eid or title}|{d}",
@@ -295,7 +401,12 @@ def _build(ev: Dict[str, Any], day: date, point: Optional[Tuple[float, float]]) 
         venue_name=ev.get("location") or site,
         latitude=point[0] if point else None,
         longitude=point[1] if point else None,
-        category=_category(ev),
+        address=street,
+        city=city,
+        region=region,
+        postal_code=postal,
+        category=primary,
+        categories=extras,
         poster_image_url=_f(ev, "imageUrl", "imageURL") or None,
         ticket_url=link,
     )
@@ -305,16 +416,18 @@ def _build(ev: Dict[str, Any], day: date, point: Optional[Tuple[float, float]]) 
 
 def to_events(ev: Dict[str, Any], within_days: int,
               point: Optional[Tuple[float, float]] = None,
-              today: Optional[date] = None) -> List[NormalizedEvent]:
-    """The rows to write for one NPS event. Its own coordinates win; `point` is
-    the place ParkPlaces found for an event that has none (item 5)."""
+              today: Optional[date] = None,
+              address: Optional[Address] = None) -> List[NormalizedEvent]:
+    """The rows to write for one NPS event. Its own coordinates win; `point`,
+    or else `address`, is the place ParkPlaces found for one that has none
+    (item 5)."""
     if not (ev.get("title") or "").strip():
         return []
     where = own_point(ev) or point
-    if where is None:
+    if where is None and address is None:
         return []
     live, _ = occurrences(ev, today or _today(), within_days)
-    return [_build(ev, d, where) for d in live]
+    return [_build(ev, d, where, address) for d in live]
 
 
 def called_off(ev: Dict[str, Any], within_days: int, today: Optional[date] = None) -> List[NormalizedEvent]:
@@ -402,15 +515,58 @@ _GENERIC_WORDS = {"visitor", "visitors", "center", "centre", "contact", "station
                   "info", "the", "and", "of", "at", "park", "museum", "headquarters"}
 
 
-def _norm(s: Any) -> str:
-    return " ".join(re.findall(r"[a-z0-9]+", str(s or "").lower()))
-
-
 def _center_key(name: Any) -> Optional[str]:
     """A centre's name as an event would write it: '(Milepost 384)' dropped,
     and a name that says only 'Visitor Center' is no evidence of anything."""
     key = _norm(re.sub(r"\([^)]*\)", " ", str(name or "")))
     return key if set(key.split()) - _GENERIC_WORDS else None
+
+
+# A park's name as a location writes it: "Harpers Ferry National Historical
+# Park" is "Harpers Ferry", "Great Falls Park" is "Great Falls".
+_DESIGNATION_RX = re.compile(
+    r"(?:\s+(?:national|state|international|historical|historic|memorial|military|battlefields?|"
+    r"monuments?|parks?|parkway|sites?|preserve|reserve|recreation|area|seashore|lakeshore|scenic|"
+    r"trails?|heritage|corridor|riverways?|of|and|the))+$")
+
+_US_STATES = frozenset(ALL_STATES.split(","))
+_STREET_RX = re.compile(r"(?:^|\s)(\d{1,6}[a-z]?(?:\s+[\w.'\u2019#&-]+){1,7})\s*$", re.I)
+_CITY_RX = re.compile(r"^([A-Za-z][A-Za-z.'\u2019 -]{1,40}?)(?:\s+([A-Z]{2})(?:\s+(\d{5})(?:-\d{4})?)?)?\.?$")
+_STATE_RX = re.compile(r"^([A-Z]{2})(?:\s+(\d{5})(?:-\d{4})?)?\b")
+
+
+def street_address(text: Any) -> Optional[Address]:
+    """(street, city, state, ZIP) when a location carries a US postal address:
+    a numbered street, then a city, then a state code (a ZIP may follow).
+    "555 Newcomb St SE / Washington, DC 20032", "Cold Harbor Battlefield
+    Visitor Center, 5515 Anderson-Wright Drive, Mechanicsville, VA 23111.",
+    "... Peaks of Otter Lodge (85554 Blue Ridge Parkway, Bedford, VA 24523)".
+    A street and a state with no city between them is not one: the sync's
+    geocoder asks for all three."""
+    segs = [x.strip() for x in re.split(r"[,\n()]", str(text or ""))]
+    for i, seg in enumerate(segs[:-1]):
+        street = _STREET_RX.search(seg)
+        town = _CITY_RX.match(segs[i + 1])
+        if not (street and town):
+            continue
+        state, zip5 = town.group(2), town.group(3)
+        if not state and i + 2 < len(segs):
+            tail = _STATE_RX.match(segs[i + 2])
+            if tail:
+                state, zip5 = tail.group(1), tail.group(2)
+        if state in _US_STATES:
+            return street.group(1).strip().rstrip("."), town.group(1).strip(), state, zip5
+    return None
+
+
+def _names_only_the_park(ev: Dict[str, Any]) -> bool:
+    """True when the location says nothing, or names the event's own park: the
+    only two cases where the park's point is not a guess at a finer place."""
+    loc = _norm(ev.get("location"))
+    if not loc:
+        return True
+    name = _DESIGNATION_RX.sub("", _norm(_f(ev, "parkFullName", "parkfullname"))).strip()
+    return bool(name) and f" {name} " in f" {loc} "
 
 
 def _km(a: Tuple[float, float], b: Tuple[float, float]) -> float:
@@ -472,25 +628,31 @@ class ParkPlaces:
         if code and where and key:
             self.centers[code].append((key, where))
 
-    def place(self, ev: Dict[str, Any]) -> Tuple[Optional[Tuple[float, float]], str]:
-        """(point, how) for an event without coordinates; point None says why not."""
+    def place(self, ev: Dict[str, Any]) -> Tuple[Optional[Tuple[float, float]], Optional[Address], str]:
+        """(point, address, how) for an event without coordinates, in item 5's
+        order. Both None says why not."""
         code = park_code(ev)
-        if not code:
-            return None, "no park"
         text = f" {_norm(ev.get('title'))} {_norm(ev.get('location'))} "
-        named = [(k, w) for k, w in self.centers.get(code, []) if f" {k} " in text]
+        named = [(k, w) for k, w in self.centers.get(code or "", []) if f" {k} " in text]
         if named:
-            return max(named, key=lambda kw: len(kw[0]))[1], "visitor centre"
+            return max(named, key=lambda kw: len(kw[0]))[1], None, "visitor centre"
+        addr = street_address(ev.get("location"))
+        if addr:
+            return None, addr, "street address"
+        if not code:
+            return None, None, "no park"
+        if not _names_only_the_park(ev):
+            return None, None, "location names another place"
         park = self.parks.get(code)
         if park is None:
-            return None, "park has no point"
+            return None, None, "park has no point"
         known = [w for _, w in self.centers.get(code, [])] + self.seen.get(code, [])
         if not known:
-            return None, "park size unknown"
+            return None, None, "park size unknown"
         far = max(_km(park, w) for w in known)
         if far > FALLBACK_KM:
-            return None, "park too large"
-        return park, "park"
+            return None, None, "park too large"
+        return park, None, "park"
 
 
 # --------------------------------------------------------------------------- #
@@ -519,8 +681,9 @@ class Sweep:
                 "dateEnd": (self.today + timedelta(days=self.within_days)).isoformat(),
                 "expandRecurring": "false"}
 
-    def _write(self, ev: Dict[str, Any], point: Optional[Tuple[float, float]]) -> None:
-        for nev in to_events(ev, self.within_days, point, self.today):
+    def _write(self, ev: Dict[str, Any], point: Optional[Tuple[float, float]],
+               address: Optional[Address] = None) -> None:
+        for nev in to_events(ev, self.within_days, point, self.today, address):
             if self.store.upsert(nev) in ("added", "updated", "merged"):
                 self.rows.add(nev.fingerprint)
 
@@ -580,12 +743,12 @@ class Sweep:
             return
         self.places.fetch(park_code(ev) for ev in self.pending)
         for ev in self.pending:
-            where, how = self.places.place(ev)
-            if where is None:
+            where, addr, how = self.places.place(ev)
+            if where is None and addr is None:
                 self.unplaced[how] += 1
                 continue
             self.placed_by[how] += 1
-            self._write(ev, where)
+            self._write(ev, where, addr)
         self.pending = []
 
     def pending_parks(self) -> int:
