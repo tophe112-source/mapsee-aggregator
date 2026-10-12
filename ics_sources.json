@@ -5127,11 +5127,12 @@
     "limit": 300
   },
   {
-    "name": "Rainier Beach Community Center (Seattle)",
+    "name": "Urban League of Metropolitan Seattle (Seattle)",
     "url": "https://urbanleague.org/?ical=1&eventDisplay=list",
     "category": "community",
     "geocode_suffix": ", Seattle, WA",
-    "limit": 300
+    "limit": 300,
+    "_note": "Renamed 2026-10-12: it was filed as 'Rainier Beach Community Center (Seattle)', which made a name match count that centre as covered. The feed's own X-WR-CALNAME is 'Urban League of Metropolitan Seattle', and its 30 VEVENTs are at ULMS's annex (1404 E Yesler Way, 11), its office (105 14th Ave, 2), Van Asselt Community Center (1), or nowhere (16)."
   },
   {
     "name": "El Centro de la Raza (Seattle)",
