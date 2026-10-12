@@ -28,6 +28,7 @@ same text the production reader hands the adapter. Nobody in them is real.
 """
 import io
 import json
+import re
 import os
 import sys
 import tempfile
@@ -109,8 +110,23 @@ check("its venue carries NO street address (an address goes to the Census re-geo
       not V.get("address"), V)
 check("...but does carry its town, for the row's locality",
       (V.get("city"), V.get("region"), V.get("country")) == ("Seattle", "WA", "US"), V)
-check("its LOCATION-less events are not pinned until their titles have been read",
-      V.get("pin_unnamed") is False and "smoke-gcal" in (POLISH.get("_note") or ""), V)
+# Its LOCATION-less titles were read in CI on 2026-10-12 (smoke-gcal run 38314170414:
+# 142 of 148, the hall's own programme), so pin_unnamed is gone; the film festival,
+# which screens elsewhere, is kept off the pin, and its one room LOCATION is pinned.
+check("its bare titles were read in CI, so its LOCATION-less events take the pin (no pin_unnamed)",
+      "pin_unnamed" not in V and "smoke-gcal" in (POLISH.get("_note") or ""), V)
+_skip = re.compile(POLISH.get("venue_skip") or "(?!)", re.I)
+check("venue_skip keeps the Seattle Polish Film Festival off the pin, and nothing of the hall's own",
+      all(_skip.search(t) for t in ("Seattle Polish Film Festival", "SPFF Opening Ceremony with Marek Probosz"))
+      and not any(_skip.search(t) for t in ("Friday Dinner", "Pierogi making", "Polish School",
+                                              "Vivat Musica Choir practice", "Domówka u Syreny")),
+      POLISH.get("venue_skip"))
+_lcr = [o for o in POLISH.get("location_overrides") or [] if o.get("location") == "Lower Conference Room"]
+check("'Lower Conference Room' (a room in the building) is pinned to the listing by override, with no address",
+      len(_lcr) == 1 and (_lcr[0]["venue"].get("lat"), _lcr[0]["venue"].get("lon")) == LISTING
+      and not _lcr[0]["venue"].get("address"), _lcr)
+# The held-back rule itself, on a copy of the block as it was before the read.
+HELD = dict(POLISH, venue=dict(V, pin_unnamed=False))
 check("its street is a hint, only matched", V.get("street_hint") == "1714 18th Ave", V.get("street_hint"))
 check("no Google API key is stored with it",
       not any(k in json.dumps(POLISH).lower() for k in ("google_api", "apikey", "key=")), POLISH)
@@ -176,7 +192,7 @@ def run_ics(src, vevents):
 
 
 FEED_LOC = {uid: loc for uid, _t, loc in ITEMS}
-rows, log = run(POLISH, ITEMS)
+rows, log = run(HELD, ITEMS)
 for uid in ("pierogi", "dance", "street", "alias", "short"):
     r = rows.get(uid)
     check(f"a LOCATION naming the hall lands on its listing's point, keeping its own text: {uid}",
@@ -352,13 +368,20 @@ SEATTLE = {
     "Vashon Senior Center": (47.447596, -122.4620197),
     "Heron's Nest Outdoor Education Center": (47.5590902, -122.3537607),
 }
+# Read through smoke-gcal on 2026-10-12 (run 38314170414): Ballard Homestead's 12 bare
+# titles are its own concerts and workshops; the others are still held.
+READ = {"Ballard Homestead"}
 for name, point in SEATTLE.items():
     s = BY_NAME.get(name) or {}
     v = s.get("venue") or {}
     check(f"{name} is pinned to its OSM listing's point, with no street address",
           (v.get("lat"), v.get("lon")) == point and not v.get("address") and v.get("name") == name, v)
-    check(f"{name}: its LOCATION-less events wait for smoke-gcal (pin_unnamed false, said in _note)",
-          v.get("pin_unnamed") is False and "smoke-gcal" in (s.get("_note") or ""), v)
+    if name in READ:
+        check(f"{name}: its bare titles were read in CI, so pin_unnamed is gone and its _note says so",
+              "pin_unnamed" not in v and "smoke-gcal" in (s.get("_note") or ""), v)
+    else:
+        check(f"{name}: its LOCATION-less events wait for smoke-gcal (pin_unnamed false, said in _note)",
+              v.get("pin_unnamed") is False and "smoke-gcal" in (s.get("_note") or ""), v)
     check(f"{name} credits the point in its config, not in rows",
           "Map point © OpenStreetMap (ODbL)" in (s.get("_venue_source") or "")
           and "way/" in (s.get("_venue_source") or ""), s.get("_venue_source"))
@@ -437,7 +460,7 @@ check("control: a venue WITH an address is re-geocoded off the pin",
 # --- the smoke run prints where each LOCATION goes ------------------------
 with tempfile.TemporaryDirectory() as tmp:
     cfg = os.path.join(tmp, "one.json")
-    Path(cfg).write_text(json.dumps([POLISH]), encoding="utf-8")
+    Path(cfg).write_text(json.dumps([HELD]), encoding="utf-8")
     meta = {"summary": "Polish Home", "timeZone": "America/Los_Angeles"}
     out = io.StringIO()
     with patch.object(mapsee_gcal, "api_key", return_value="test-key"), \
@@ -452,16 +475,17 @@ check("smoke reads it and lists its LOCATIONs, each marked with where the adapte
       and "5 pinned to the source's venue (LOCATION names it)" in text
       and "1 unplaceable (no LOCATION/GEO)" in text, text)
 # The labels are the adapter's own decisions, not a second opinion: compare with ingest, item by item.
-rows, _ = run(POLISH, ITEMS)
+rows, _ = run(HELD, ITEMS)
 for uid, _title, loc in ITEMS:
     r = rows.get(uid)
     did = ("unplaceable" if r is None else "venue" if (r.latitude, r.longitude) == LISTING
            else "geocode" if (r.latitude, r.longitude) == GEOCODED else "?")
-    check(f"smoke's label for {loc!r} is where ingest put it ({did})", ICS._where(POLISH, loc) == did,
-          ICS._where(POLISH, loc))
+    check(f"smoke's label for {loc!r} is where ingest put it ({did})", ICS._where(HELD, loc) == did,
+          ICS._where(HELD, loc))
 check("smoke marks an exact override 'override', an online room 'online'",
       ICS._where(override, "Polish Home") == "override" and ICS._where(POLISH, "Online") == "online"
-      and ICS._where(OPEN, "") == "venue" and ICS._where(POLISH, "") == "unplaceable",
+      and ICS._where(OPEN, "") == "venue" and ICS._where(HELD, "") == "unplaceable"
+      and ICS._where(POLISH, "") == "venue",
       (ICS._where(override, "Polish Home"), ICS._where(POLISH, "Online"), ICS._where(OPEN, "")))
 
 print(f"\n{len(fails)} failure(s)")
