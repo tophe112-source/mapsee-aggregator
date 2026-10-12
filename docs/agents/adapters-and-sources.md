@@ -567,3 +567,27 @@
   with 406, which RFC 9309 reads as "no rules", and kidneywalk.org's Cloudflare
   edge cached it for 4 hours: only the API request may ask for JSON.
   `python test_ingest_ava.py`, `test_ingest_rallybound.py`, `test_ingest_luminate.py`.
+
+- **A PUBLISHER'S OWN "FREE" NEVER REACHED THE FREE TAG, BECAUSE 0227 READS
+  ONLY WORDS (2026-10-12).** Localist carries `free` and `ticket_cost`, NPS
+  `isfree` and `feeinfo`, and neither adapter wrote a word of them, so
+  /c/<city>/free could not show a free hike unless its blurb happened to say
+  so. Localist, all 57 tenants (25,197 events): 3,592 flagged free, and 133 of
+  them say otherwise in their own fields, every one read: 60 price
+  `ticket_cost` ("Admission Cost $15 Student Cost FREE"), 31 name who it is
+  free FOR ("Free for students and Rec Sports members"), 42 say it in the blurb
+  (a fee, "day use fees may apply", "available only to University of
+  Rochester Employees"). So the flag is right 3,461 times in 3,592 (96.4%).
+  `cost_line()` leads the description with "🎟 Free to attend." only for a
+  flag nothing contradicts, says a price as its AMOUNTS with "(not free)"
+  (0227's FREE_NEG veto; quoting the field whole carried 13 discount and 2
+  pwyw tags in), and names an audience as restricted. Replayed through
+  to_row, 12,547 rows went from 884 tagged free to 2,980 (2,135 gained, 39
+  lost: priced or restricted rows whose prose had said free), and no other tag
+  moved. NPS, Virginia's first 100: 95 isfree, 5 of them still need the
+  park's $20 entrance or a pass (Harpers Ferry, Great Falls), and those lead
+  with a line whose "isn't free" vetoes the tag; the 78 with a day in 90 days
+  went from 4 tagged free to 69. Both lines lead, ahead of the sync's
+  800-character cut, and no fingerprint moved; stored rows take them on the
+  Thursday refresh of the extra sources. `python test_ingest_localist.py`,
+  `python test_ingest_nps.py` (13 and 25 checks fail with the change reverted).

@@ -31,6 +31,14 @@ The expensive cases are the ones that looked fine in the log:
     day. And the Mabry Mill open house is published twice, one copy
     excluding the weekend days the other lists live.
   * THE KEY. 1,000 requests an hour: a 429 or a 403 ends the run unretried.
+  * WHAT IT COSTS. `isfree` and `feeinfo` were never read, and ../mapsee's
+    0227 tags offer:free from the title and description only. An isfree
+    program now leads with "Free to attend." and is tagged; one whose feeinfo
+    says the park's entrance fee or a pass still applies (Harpers Ferry,
+    Great Falls) says that in words 0227 does not tag, and vetoes a blurb
+    that says free; an event not isfree gets no line. Judged by 0227's own
+    predicate on the rows the sync stores (offers_0227). The feeinfo on the
+    fixtures is the live value, verbatim.
 
 PARKS: /parks was not read live (the DEMO_KEY quota ended the session's
 reads first), so the five /parks rows here follow the API's swagger (parkCode,
@@ -77,19 +85,19 @@ def check(label, cond, detail=""):
 
 
 # ---------------------------------------------------------------- fixtures --
-HAFE_SUN = {"id": "6C379815-E9FE-E050-73B4202C9C070029", "title": "The Story Behind the Scenery", "location": "Arsenal Square, near the John Brown Fort in Lower Town.", "sitecode": "hafe", "sitetype": "park", "parkfullname": "Harpers Ferry National Historical Park", "latitude": "39.322795", "longitude": "-77.729709", "dates": ["2026-10-11", "2026-10-18", "2026-10-25", "2026-11-01"], "recurrencerule": "DTSTART=20260301T050000Z;UNTIL=20270103T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU;COUNT=0;INTERVAL=1|EXDATE=2026-10-18", "cancelleddatelist": [], "times": [{"timestart": "02:00 PM", "timeend": "03:00 PM"}], "types": ["Talk"], "isfree": "true"}  # noqa: E501
-HAFE_SAT = {"id": "6C31EB7F-9A3A-6605-93D93CE4A803358C", "title": "The Story Behind the Scenery", "location": "Arsenal Square in historic Lower Town, Harpers Ferry", "sitecode": "hafe", "sitetype": "park", "parkfullname": "Harpers Ferry National Historical Park", "latitude": "", "longitude": "", "dates": ["2026-10-17", "2026-10-24", "2026-10-31"], "recurrencerule": "DTSTART=20260307T050000Z;UNTIL=20270102T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1|EXDATE=2026-05-23,2026-05-30,2026-06-20,2026-10-10,2026-10-17,2026-11-14,2026-04-25,2026-04-04,2026-09-05", "cancelleddatelist": [], "times": [{"timestart": "11:00 AM", "timeend": "12:00 PM"}], "types": ["Talk"], "isfree": "true"}  # noqa: E501
+HAFE_SUN = {"id": "6C379815-E9FE-E050-73B4202C9C070029", "title": "The Story Behind the Scenery", "location": "Arsenal Square, near the John Brown Fort in Lower Town.", "sitecode": "hafe", "sitetype": "park", "parkfullname": "Harpers Ferry National Historical Park", "latitude": "39.322795", "longitude": "-77.729709", "dates": ["2026-10-11", "2026-10-18", "2026-10-25", "2026-11-01"], "recurrencerule": "DTSTART=20260301T050000Z;UNTIL=20270103T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU;COUNT=0;INTERVAL=1|EXDATE=2026-10-18", "cancelleddatelist": [], "times": [{"timestart": "02:00 PM", "timeend": "03:00 PM"}], "types": ["Talk"], "isfree": "true", "feeinfo": "Free with valid park entry pass."}  # noqa: E501
+HAFE_SAT = {"id": "6C31EB7F-9A3A-6605-93D93CE4A803358C", "title": "The Story Behind the Scenery", "location": "Arsenal Square in historic Lower Town, Harpers Ferry", "sitecode": "hafe", "sitetype": "park", "parkfullname": "Harpers Ferry National Historical Park", "latitude": "", "longitude": "", "dates": ["2026-10-17", "2026-10-24", "2026-10-31"], "recurrencerule": "DTSTART=20260307T050000Z;UNTIL=20270102T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1|EXDATE=2026-05-23,2026-05-30,2026-06-20,2026-10-10,2026-10-17,2026-11-14,2026-04-25,2026-04-04,2026-09-05", "cancelleddatelist": [], "times": [{"timestart": "11:00 AM", "timeend": "12:00 PM"}], "types": ["Talk"], "isfree": "true", "feeinfo": "Free with valid park admission or pass"}  # noqa: E501
 BOWA_TOUR = {"id": "B2FC6D20-C58F-8E33-877E55097BB07E19", "title": "Born Here, Freed Here Walking Tour", "location": "", "sitecode": "bowa", "sitetype": "park", "parkfullname": "Booker T. Washington National Monument", "latitude": "37.119489", "longitude": "-79.731654", "dates": ["2026-10-11", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-21", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25", "2026-10-28", "2026-10-29", "2026-10-30", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20261001T040000Z;UNTIL=20270331T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,WE,TH,FR,SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "02:00 PM", "timeend": "02:45 PM"}], "types": ["Guided Tour", "Talk", "Walk"], "isfree": "true"}  # noqa: E501
 BOWA_HIKE = {"id": "B895E3B2-9D16-28E9-AB8DA576513C7790", "title": "Footsteps of Freedom Guided Hike", "location": "", "sitecode": "bowa", "sitetype": "park", "parkfullname": "Booker T. Washington National Monument", "latitude": "", "longitude": "", "dates": ["2026-10-17", "2026-10-24", "2026-10-31"], "recurrencerule": "DTSTART=20261001T040000Z;UNTIL=20270331T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "10:00 AM", "timeend": "11:30 AM"}], "types": ["Guided Tour", "Hike", "Walk"], "isfree": "true"}  # noqa: E501
-GEWA = {"id": "FA0B4C09-E90E-06E9-98A4347E94A3D11B", "title": "Step into the Memorial House Museum", "location": "", "sitecode": "gewa", "sitetype": "park", "parkfullname": "George Washington Birthplace National Monument", "latitude": "", "longitude": "", "dates": ["2026-10-11", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-21"], "recurrencerule": "DTSTART=20260526T040000Z;UNTIL=20261231T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,WE,TH,FR,SA;COUNT=0;INTERVAL=1|EXDATE=2026-06-17", "cancelleddatelist": [], "times": [{"timestart": "10:00 AM", "timeend": "12:00 PM"}], "types": ["Guided Tour"], "isfree": "true"}  # noqa: E501
-CRAGGY = {"id": "ECDD046B-9D54-4DEE-0133CFB91A7066FC", "title": "The Ramblin’ Bald: Guided High Elevation Hike (Craggy Gardens Visitor Center - Milepost 364)", "location": "Meet in front of the Craggy Gardens Visitor Center.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "", "longitude": "", "dates": ["2026-10-11"], "recurrencerule": "", "cancelleddatelist": [], "times": [{"timestart": "01:45 PM", "timeend": "03:15 PM"}], "types": ["Hike", "Walk"], "isfree": "true"}  # noqa: E501
-BUCK = {"id": "EA1C0944-00B5-9485-8B4223BBEE439CAB", "title": "Friends of the Forests: Guided Hikes near Mt Pisgah and Buck Spring (Buck Spring Gap Overlook-MP 407.6)", "location": "Meet at the Buck Spring Overlook, at Milepost 407.6. It’s the first overlook after you turn off the main Parkway, heading in the direction of the Mt Pisgah Parking Area.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "", "longitude": "", "dates": ["2026-10-11"], "recurrencerule": "", "cancelleddatelist": ["10/11/2026"], "times": [{"timestart": "10:45 AM", "timeend": "12:15 PM"}], "types": ["Hike"], "isfree": "true"}  # noqa: E501
+GEWA = {"id": "FA0B4C09-E90E-06E9-98A4347E94A3D11B", "title": "Step into the Memorial House Museum", "location": "", "sitecode": "gewa", "sitetype": "park", "parkfullname": "George Washington Birthplace National Monument", "latitude": "", "longitude": "", "dates": ["2026-10-11", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-21"], "recurrencerule": "DTSTART=20260526T040000Z;UNTIL=20261231T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,WE,TH,FR,SA;COUNT=0;INTERVAL=1|EXDATE=2026-06-17", "cancelleddatelist": [], "times": [{"timestart": "10:00 AM", "timeend": "12:00 PM"}], "types": ["Guided Tour"], "isfree": "true", "feeinfo": "Free"}  # noqa: E501
+CRAGGY = {"id": "ECDD046B-9D54-4DEE-0133CFB91A7066FC", "title": "The Ramblin’ Bald: Guided High Elevation Hike (Craggy Gardens Visitor Center - Milepost 364)", "location": "Meet in front of the Craggy Gardens Visitor Center.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "", "longitude": "", "dates": ["2026-10-11"], "recurrencerule": "", "cancelleddatelist": [], "times": [{"timestart": "01:45 PM", "timeend": "03:15 PM"}], "types": ["Hike", "Walk"], "isfree": "true", "feeinfo": "The program is free with no tickets or reservations required."}  # noqa: E501
+BUCK = {"id": "EA1C0944-00B5-9485-8B4223BBEE439CAB", "title": "Friends of the Forests: Guided Hikes near Mt Pisgah and Buck Spring (Buck Spring Gap Overlook-MP 407.6)", "location": "Meet at the Buck Spring Overlook, at Milepost 407.6. It’s the first overlook after you turn off the main Parkway, heading in the direction of the Mt Pisgah Parking Area.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "", "longitude": "", "dates": ["2026-10-11"], "recurrencerule": "", "cancelleddatelist": ["10/11/2026"], "times": [{"timestart": "10:45 AM", "timeend": "12:15 PM"}], "types": ["Hike"], "isfree": "true", "feeinfo": "The program is free with no tickets or reservations required."}  # noqa: E501
 BUCK_TALK = dict(BUCK, id="EA365DB5-D034-9A6F-501C2969789A20D7", cancelleddatelist=[], dates=["2026-10-12"],
                  title="The View from Here: Ranger-Led Talks and Activities (Buck Spring Gap Overlook-MP 407.6)",
                  location="This talk will be at the Buck Spring Overlook, Milepost 407.6.",
                  types=["Cultural/Craft Demonstration", "Other", "Talk"])
-MABRY_A = {"id": "BE052848-9A01-D282-DEC221000669E709", "title": "Historic Mill Open House (Mabry Mill - Milepost 176.2)", "location": "Blue Ridge Parkway - Mabry Mill - Milepost 176.2", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.751712", "longitude": "-80.405357", "dates": ["2026-10-11", "2026-10-17", "2026-10-18", "2026-10-24", "2026-10-25", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20260606T040000Z;UNTIL=20261101T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,SA;COUNT=0;INTERVAL=1|EXDATE=2026-06-27,2026-06-28,2026-07-18,2026-10-11,2026-10-18,2026-10-25,2026-10-10,2026-10-17,2026-10-24,2026-10-31,2026-11-01", "cancelleddatelist": [], "times": [{"timestart": "10:30 AM", "timeend": "02:00 PM"}], "types": ["Talk"], "isfree": "true"}  # noqa: E501
-MABRY_B = {"id": "231194B0-B92C-0355-920979708938A3E2", "title": "Historic Mill Open House (Mabry Mill - Milepost 176.2)", "location": "Blue Ridge Parkway - Mabry Mill - Milepost 176.2", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.751712", "longitude": "-80.405357", "dates": ["2026-10-11", "2026-10-12", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25", "2026-10-26", "2026-10-29", "2026-10-30", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20260905T040000Z;UNTIL=20261101T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,MO,TH,FR,SA;COUNT=0;INTERVAL=1|EXDATE=2026-10-11", "cancelleddatelist": [], "times": [{"timestart": "10:30 AM", "timeend": "04:00 PM"}], "types": ["Talk"], "isfree": "true"}  # noqa: E501
+MABRY_A = {"id": "BE052848-9A01-D282-DEC221000669E709", "title": "Historic Mill Open House (Mabry Mill - Milepost 176.2)", "location": "Blue Ridge Parkway - Mabry Mill - Milepost 176.2", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.751712", "longitude": "-80.405357", "dates": ["2026-10-11", "2026-10-17", "2026-10-18", "2026-10-24", "2026-10-25", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20260606T040000Z;UNTIL=20261101T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,SA;COUNT=0;INTERVAL=1|EXDATE=2026-06-27,2026-06-28,2026-07-18,2026-10-11,2026-10-18,2026-10-25,2026-10-10,2026-10-17,2026-10-24,2026-10-31,2026-11-01", "cancelleddatelist": [], "times": [{"timestart": "10:30 AM", "timeend": "02:00 PM"}], "types": ["Talk"], "isfree": "true", "feeinfo": "Free"}  # noqa: E501
+MABRY_B = {"id": "231194B0-B92C-0355-920979708938A3E2", "title": "Historic Mill Open House (Mabry Mill - Milepost 176.2)", "location": "Blue Ridge Parkway - Mabry Mill - Milepost 176.2", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.751712", "longitude": "-80.405357", "dates": ["2026-10-11", "2026-10-12", "2026-10-15", "2026-10-16", "2026-10-17", "2026-10-18", "2026-10-19", "2026-10-22", "2026-10-23", "2026-10-24", "2026-10-25", "2026-10-26", "2026-10-29", "2026-10-30", "2026-10-31", "2026-11-01"], "recurrencerule": "DTSTART=20260905T040000Z;UNTIL=20261101T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,MO,TH,FR,SA;COUNT=0;INTERVAL=1|EXDATE=2026-10-11", "cancelleddatelist": [], "times": [{"timestart": "10:30 AM", "timeend": "04:00 PM"}], "types": ["Talk"], "isfree": "true", "feeinfo": "Free"}  # noqa: E501
 
 # Civil War Defenses of Washington: four programmes at Battleground National
 # Cemetery, all within 9 m of each other, and the Shepherd Parkway clean-up,
@@ -111,10 +119,10 @@ STONE_POINT = (38.970754, -77.026697)
 # are cut to the sentence that did it, HTML and all.
 CRATER = {"id": "6ABAC5E9-C366-5BCB-07D54B8E11A07F51", "title": "Battle of the Crater", "location": "", "sitecode": "pete", "sitetype": "park", "parkfullname": "Petersburg National Battlefield", "latitude": "37.216821", "longitude": "-77.377037", "dates": ["2026-10-11", "2026-10-17", "2026-10-18", "2026-10-24", "2026-10-25", "2026-10-31"], "recurrencerule": "DTSTART=20260905T040000Z;UNTIL=20261031T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU,SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "11:00 AM", "timeend": "11:45 AM"}], "isfree": "true", "types": ["Talk"], "description": "<p>An explosion shook the earth early in the morning, on July 30, 1864. Soon after the battle of the Crater begins.</p>\n<p>Join a Park Ranger for a 30-45-minute program discussing the Pennsylvania soldiers who engineered and constructed the over 500-foot tunnel.</p>"}  # noqa: E501
 GROUND_UP = {"id": "0C93CCCE-CCEE-1667-5626A884B312D2CA", "title": "From the Ground Up", "location": "Fort Monroe Visitor & Education Center\n30 Ingalls Road\nFort Monroe, VA 23651", "sitecode": "fomr", "sitetype": "park", "parkfullname": "Fort Monroe National Monument", "latitude": "37.002193", "longitude": "-76.310863", "dates": ["2026-10-13", "2026-10-14", "2026-10-15", "2026-10-20", "2026-10-21", "2026-10-22", "2026-10-27", "2026-10-28", "2026-10-29"], "recurrencerule": "DTSTART=20260901T040000Z;UNTIL=20261029T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=TU,WE,TH;COUNT=0;INTERVAL=1|EXDATE=2026-09-02,2026-09-03,2026-09-16,2026-09-23,2026-09-24,2026-10-01,2026-09-30", "cancelleddatelist": [], "times": [{"timestart": "01:00 PM", "timeend": "02:00 PM"}], "isfree": "true", "types": ["Guided Tour", "Walk"], "description": "<p class=\"xmsonormal\" style=\"background: white; vertical-align: baseline;\"><span style=\"font-family: 'Calibri',sans-serif; color: black;\">Join us on a ranger-led walk to explore and learn about some of the individually listed buildings on the National Register. Discover how these locations contribute the \"building\" of Fort Monroe \"From the Ground Up.\" Comfortable footwear and water are recommended. Exterior views of the included structures only.  </span></p>"}  # noqa: E501
-BIRD_WALK = {"id": "25675C61-09EB-8A68-D0D7DE78C187294F", "title": "Bird Walk at Great Falls Park", "location": "", "sitecode": "gwmp", "sitetype": "park", "parkfullname": "George Washington Memorial Parkway", "latitude": "38.996876", "longitude": "-77.254821", "dates": ["2026-10-11", "2026-10-18", "2026-10-25", "2026-11-01"], "recurrencerule": "DTSTART=20260927T040000Z;UNTIL=20261231T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "08:00 AM", "timeend": "11:00 AM"}], "isfree": "true", "types": ["Guided Tour", "Volunteer Event", "Walk"], "description": "<p>Bird Walk at Great Falls Park</p>\n<p>Volunteer Guided - Every Sunday 8:00 am. Meet in Great Falls Park Main Parking Lot.</p>"}  # noqa: E501
+BIRD_WALK = {"id": "25675C61-09EB-8A68-D0D7DE78C187294F", "title": "Bird Walk at Great Falls Park", "location": "", "sitecode": "gwmp", "sitetype": "park", "parkfullname": "George Washington Memorial Parkway", "latitude": "38.996876", "longitude": "-77.254821", "dates": ["2026-10-11", "2026-10-18", "2026-10-25", "2026-11-01"], "recurrencerule": "DTSTART=20260927T040000Z;UNTIL=20261231T050000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SU;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "08:00 AM", "timeend": "11:00 AM"}], "isfree": "true", "feeinfo": "Great Falls Park entrance fee remains in effect, no additional fee to attend the weekly Sunday Bird Walk.", "types": ["Guided Tour", "Volunteer Event", "Walk"], "description": "<p>Bird Walk at Great Falls Park</p>\n<p>Volunteer Guided - Every Sunday 8:00 am. Meet in Great Falls Park Main Parking Lot.</p>"}  # noqa: E501
 HIKE_SMART = {"id": "87DE22FB-C639-B37B-26BF070448FD51B3", "title": "Hike Smart: The Ten Essentials and Leave No Trace Principles (Peaks of Otter - Milepost 86)", "location": "Located by the Sharp Top Store.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "37.443389", "longitude": "-79.609278", "dates": ["2026-10-14"], "recurrencerule": "", "cancelleddatelist": [], "times": [{"timestart": "02:00 PM", "timeend": "03:00 PM"}], "isfree": "true", "types": ["Talk"], "description": "<div class=\"x_elementToProof\" data-ogsc=\"rgb(0, 0, 0)\" data-olk-copy-source=\"MessageBody\">Before your next adventure in the park, talk to a Ranger about the Ten Essentials and Leave No Trace Principles.</div>"}  # noqa: E501
 POLLY = {"id": "ED95A928-05D1-B6F3-6A7AEB1926FDDD6E", "title": "Polly Wood's Ordinary Open House (Peaks of Otter - Milepost 86)", "location": "Polly Wood's Ordinary can be accessed from the Peaks of Otter Picnic Area or the Abbott Lake Trail located behind the Peaks of Otter Lodge.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "37.443650", "longitude": "-79.599822", "dates": ["2026-10-17"], "recurrencerule": "DTSTART=20260613T040000Z;UNTIL=20261017T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=SA;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "01:00 PM", "timeend": "04:00 PM"}], "isfree": "true", "types": ["Guided Tour", "Talk"], "description": "<p>Step into history with a ranger as we unveil the fascinating story of the Wood Family, their Ordinary, and tourism at Peaks of Otter!</p>"}  # noqa: E501
-BRINEGAR = {"id": "90BFD138-E6AA-3CBA-B6DF090507BC716F", "title": "Brinegar Cabin Open House (Doughton Park - Milepost 238.5)", "location": "Brinegar Cabin is located at milepost 238.5 on the Blue Ridge Parkway. Park in the parking and follow the paved walkway to the cabin.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.418721", "longitude": "-81.146435", "dates": ["2026-10-12", "2026-10-15", "2026-10-19", "2026-10-22", "2026-10-26", "2026-10-29"], "recurrencerule": "DTSTART=20260511T040000Z;UNTIL=20261031T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=MO,TH;COUNT=0;INTERVAL=1|EXDATE=2026-06-15,2026-08-31,2026-08-24", "cancelleddatelist": [], "times": [{"timestart": "01:00 PM", "timeend": "04:00 PM"}], "isfree": "true", "types": ["Talk"], "description": "<div>Step back into the late 1800s at one of Doughton Park’s most cherished historic sites. Completed in 1889, the Brinegar family home offers visitors a window into mountain life.</div>\n<div>Rangers and volunteers are on site to share stories of the Brinegar Family.</div>"}  # noqa: E501
+BRINEGAR = {"id": "90BFD138-E6AA-3CBA-B6DF090507BC716F", "title": "Brinegar Cabin Open House (Doughton Park - Milepost 238.5)", "location": "Brinegar Cabin is located at milepost 238.5 on the Blue Ridge Parkway. Park in the parking and follow the paved walkway to the cabin.", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.418721", "longitude": "-81.146435", "dates": ["2026-10-12", "2026-10-15", "2026-10-19", "2026-10-22", "2026-10-26", "2026-10-29"], "recurrencerule": "DTSTART=20260511T040000Z;UNTIL=20261031T040000Z;FREQ=WEEKLY;WKST=SU;BYDAY=MO,TH;COUNT=0;INTERVAL=1|EXDATE=2026-06-15,2026-08-31,2026-08-24", "cancelleddatelist": [], "times": [{"timestart": "01:00 PM", "timeend": "04:00 PM"}], "isfree": "true", "feeinfo": "Free", "types": ["Talk"], "description": "<div>Step back into the late 1800s at one of Doughton Park’s most cherished historic sites. Completed in 1889, the Brinegar family home offers visitors a window into mountain life.</div>\n<div>Rangers and volunteers are on site to share stories of the Brinegar Family.</div>"}  # noqa: E501
 MIDDAY = {"id": "EB178B2A-BA9F-55CE-1A9EB5756E17B294", "title": "Midday Mountain Music (Blue Ridge Music Center - Milepost 213)", "location": "The Blue Ridge Music Center is located on Music Center Road, Galax, VA 24333 or milepost 213 on the Blue Ridge Parkway", "sitecode": "blri", "sitetype": "park", "parkfullname": "Blue Ridge Parkway", "latitude": "36.573197", "longitude": "-80.850001", "dates": ["2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17"], "recurrencerule": "DTSTART=20261001T040000Z;UNTIL=20261101T040000Z;FREQ=DAILY;WKST=SU;COUNT=0;INTERVAL=1", "cancelleddatelist": [], "times": [{"timestart": "12:00 PM", "timeend": "03:00 PM"}], "isfree": "true", "types": ["Partner Program", "Performance"], "description": "<p>Midday Mountain Music is a free, informal music presentation featuring local and regional musicians held in the Blue Ridge Music Center's covered breezeway.</p>"}  # noqa: E501
 DOORS = [CRATER, GROUND_UP, BIRD_WALK, HIKE_SMART, POLLY, BRINEGAR, MIDDAY]
 
@@ -464,6 +472,111 @@ api = FakeAPI({"VA": VA_SAMPLE}, script=[(502, None)])
 rc, out, store = run_main(api, ["--states", "VA"])
 check("a 502 is retried once, and the state is then read",
       len(api.events_calls()) == 2 and bool(rows_of(store, BOWA_TOUR)), f"{len(api.events_calls())} requests")
+
+# ------------------------------------------------------------ what it costs --
+# `isfree` and `feeinfo` were never read, and ../mapsee's 0227 tags offer:free
+# from a row's title and description only: 4 of the 78 sampled Virginia events
+# with a day in the window were tagged, off their blurbs. Judged by 0227's own
+# predicate (offers_0227) on the rows the sync stores. HENSLEY and POINTER are
+# read off the same 2026-10-11 pages (blurbs cut).
+import offers_0227 as O  # noqa: E402
+from mapsee_ingest import EventStore  # noqa: E402
+
+HENSLEY = {"id": "AAC67549-9043-774B-5E9A65E3D5558FD5", "title": "Hensley Settlement Tour", "location": "Meet at the Cumberland Gap National Historical Park", "sitecode": "cuga", "sitetype": "park", "parkfullname": "Cumberland Gap National Historical Park", "latitude": "36.602737", "longitude": "-83.695304", "dates": ["2026-10-11", "2026-10-12", "2026-10-13"], "recurrencerule": "", "cancelleddatelist": [], "times": [{"timestart": "10:00 AM", "timeend": "02:30 PM"}], "isfree": "false", "feeinfo": "Adults: $10.00\nInteragency Senior Pass Holders: $5.00\nInteragency Access Pass Holders: $5.00\nChildren (ages 12 and under): $5.00", "types": ["Guided Tour"], "description": "<p>Travel to the top of Cumberland Mountain with park staff and explore a place where families once lived, worked, learned, and built a community.</p>"}  # noqa: E501
+POINTER = {"id": "28078605-9141-6E60-08FA30EA6A6797F3", "title": "Captain George Pointer Birthday Commemoration and Great Falls Park 60th Anniversary/A250 Freedom Event", "location": "Rain location will be inside Visitor Center, Great Falls Park, 9200 Old Dominion Dr. McLean, VA 22102", "sitecode": "grfa", "sitetype": "park", "parkfullname": "Great Falls Park", "latitude": "", "longitude": "", "dates": ["2026-10-11"], "recurrencerule": "", "cancelleddatelist": [], "times": [{"timestart": "10:00 AM", "timeend": "02:00 PM"}], "isfree": "true", "feeinfo": "Event Free; Regular Great Falls Park entrance fee or America The Beautiful pass still required for park entrance.", "types": ["Children’s Program", "Cultural/Craft Demonstration", "Living History", "Other", "Performance", "Talk"], "description": "<p>Explore the important role of Captain George Pointer in the building the new United States' first canal system, the Patowmack Canal.</p>"}  # noqa: E501
+# The words are the contract with 0227, so they are pinned here, not read back.
+FREE_LINE = "🎟 Free to attend."
+PARK_FEE_LINE = "🎟 No extra charge for this program, but the park's entrance fee applies, so it isn't free."
+GREAT_FALLS = (38.9985, -77.2552)                 # a place for POINTER, which has none; not what is measured
+
+
+def stored(ev, point=GREAT_FALLS):
+    """[(title, description, record)] the sync writes for one NPS event's rows."""
+    with tempfile.TemporaryDirectory() as d:
+        st = EventStore(os.path.join(d, "s.json"))
+        for nev in N.to_events(ev, 90, point):
+            st.upsert(nev)
+        return [(row["title"], row["description"], rec)
+                for rec in st.records.values() for row in [S.to_row(rec, "00000000-0000-0000-0000-000000000000")]]
+
+
+def unflagged(ev):
+    """The same event with neither field the adapter now reads: the rows it wrote before."""
+    return {k: v for k, v in ev.items() if k not in ("isfree", "feeinfo")}
+
+
+print()
+print("what it costs, as 0227 reads it")
+_drift = O.drift()
+if _drift is None:
+    print("skip offers_0227 is not compared: ../mapsee is not checked out here (MAPSEE_DIR names it)")
+else:
+    check("offers_0227's patterns and verdicts equal ../mapsee/tools/measure_deals.py's", _drift == [], _drift)
+
+for ev, why in ((CRAGGY, "feeinfo 'The program is free with no tickets or reservations required.'"),
+                (MABRY_B, "feeinfo 'Free'"), (BOWA_HIKE, "no feeinfo"), (MIDDAY, "no feeinfo")):
+    rows, before = stored(ev), stored(unflagged(ev))
+    check(f"an isfree program ({ev['title'][:40]}; {why}) leads every row with 'Free to attend.'",
+          bool(rows) and all(d.startswith(FREE_LINE + "\n\n") for _, d, _ in rows), [d[:50] for _, d, _ in rows])
+    check("...and 0227 tags every stored row free, where the rows written before were NOT",
+          all(O.tagged_free(t, d) for t, d, _ in rows) and not any(O.tagged_free(t, d) for t, d, _ in before),
+          [(O.tagged_free(t, d), d[:60]) for t, d, _ in rows + before])
+
+for ev, why in ((HAFE_SUN, "'Free with valid park entry pass.'"),
+                (HAFE_SAT, "'Free with valid park admission or pass'"),
+                (BIRD_WALK, "'Great Falls Park entrance fee remains in effect'"),
+                (POINTER, "'Regular Great Falls Park entrance fee or America The Beautiful pass still required'")):
+    rows = stored(ev)
+    check(f"a free program at a park that charges entrance ({ev['parkfullname'][:28]}: {why[:60]}) says so",
+          bool(rows) and all(d.startswith(PARK_FEE_LINE + "\n\n") for _, d, _ in rows),
+          [d[:60] for _, d, _ in rows])
+    check("...and 0227 does NOT tag it free", not any(O.tagged_free(t, d) for t, d, _ in rows),
+          [d[:100] for _, d, _ in rows])
+check("the park-fee line itself reads as no offer at all, and vetoes a blurb that says free",
+      O.tags("", getattr(N, "PARK_FEE_LINE", "")) == set()
+      and not O.tagged_free("Bird Walk", getattr(N, "PARK_FEE_LINE", "") + "\n\nJoin a free tour of the falls.")
+      and O.tagged_free("Bird Walk", "Join a free tour of the falls."))
+rows = stored(dict(BIRD_WALK, description=BIRD_WALK["description"] + "<p>Join a free tour of the falls.</p>"))
+check("...so a Great Falls bird walk whose blurb said 'a free tour' (made up) is still NOT tagged",
+      bool(rows) and not any(O.tagged_free(t, d) for t, d, _ in rows), [d[:100] for _, d, _ in rows])
+
+rows = stored(HENSLEY)
+check("an event the park does not mark isfree ($10 Hensley Settlement tour) gets no cost line",
+      bool(rows) and not any(d.startswith("🎟") for _, d, _ in rows), [d[:60] for _, d, _ in rows])
+check("...and 0227 does NOT tag it free", not any(O.tagged_free(t, d) for t, d, _ in rows))
+
+fee = getattr(N, "cost_line", lambda ev: (None, "none"))
+for text, want in (("Free", "free"), ("Free to attend.", "free"), ("", "free"),
+                   ("The program is free with no tickets or reservations required.", "free"),
+                   ("* Reservations are STRONGLY encouraged, as tours are limited to 18 people.  The program is free "
+                    "with no tickets required.", "free"),
+                   ("Free with valid park entry pass.", "park fee"),
+                   ("Free with valid park admission or pass", "park fee"),
+                   ("Great Falls Park entrance fee remains in effect, no additional fee to attend the weekly Sunday "
+                    "Bird Walk.", "park fee"),
+                   ("Event Free; Regular Great Falls Park entrance fee or America The Beautiful pass still required "
+                    "for park entrance.", "park fee"),
+                   ("Free; a $5 materials fee covers the kit.", "other fee")):   # the last is made up
+    got = fee(dict(HAFE_SUN, feeinfo=text))[1]
+    check(f"isfree with feeinfo {text[:58]!r} -> {want}", got == want, got)
+
+drift = []
+moved = []
+for ev in (CRAGGY, MABRY_B, BOWA_HIKE, MIDDAY, HAFE_SUN, BIRD_WALK, POINTER, HENSLEY, CW_STONE, CRATER):
+    after = {r["fingerprint"]: (O.tags(t, d) - {"free"}, r["sources"]) for t, d, r in stored(ev)}
+    before = {r["fingerprint"]: (O.tags(t, d) - {"free"}, r["sources"]) for t, d, r in stored(unflagged(ev))}
+    if set(after) != set(before) or any(after[k][1] != before[k][1] for k in after):
+        moved.append(ev["title"][:40])
+    elif any(after[k][0] != before[k][0] for k in after):
+        drift.append(ev["title"][:40])
+check("no row gains or loses discount, intro, pwyw, sale or happy_hour by its cost line", not drift, drift)
+check("...and no row's fingerprint or source id moves: the line is in the description only", not moved, moved)
+
+api = FakeAPI({"VA": VA_SAMPLE})
+rc, out, store = run_main(api, ["--states", "VA"])
+done = next((ln for ln in out.splitlines() if ln.startswith("[nps] done:")), "")
+check("the log says how many free programs name a fee (Harpers Ferry's two, in the VA sample)",
+      "2 of those name a fee: 2 the park's entrance, 0 other" in done, done)
 
 print()
 if fails:

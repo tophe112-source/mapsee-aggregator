@@ -121,6 +121,30 @@ against the 2026-10-08 Actions log (run 37788997741, the Mon/Thu extra_sources j
    walk titles), learning 66, arts 2, kids 2, volunteer 1, music 1,
    community 1, and the sync's derive_categories keeps every one of those
    primaries.
+
+10. "FREE" IS THE PARK'S `isfree`, AND ITS `feeinfo` CAN TAKE IT BACK. ../mapsee's
+   0227 tags offer:free (and so /c/<city>/free) from a row's title and
+   description only, and this adapter wrote neither field's word: of
+   Virginia's first 100 events 95 are isfree, and of the 78 with a day in
+   the next 90, 4 were tagged, off their blurbs. 5 of the 95 name in feeinfo
+   what a visitor still pays to get in:
+   Harpers Ferry's "Free with valid park entry pass." and "...park admission
+   or pass", and Great Falls Park's three ("entrance fee remains in effect,
+   no additional fee to attend"; "Event Free; Regular Great Falls Park
+   entrance fee or America The Beautiful pass still required"). Both parks
+   charge $20 a vehicle (their nps.gov fees pages, 2026-10-12), so those 5
+   lead with PARK_FEE_LINE, whose "isn't free" is 0227's veto. The other 90
+   lead with "Free to attend.": their feeinfo is empty, "Free", or "The
+   program is free with no tickets or reservations required", and all 10 of
+   their parks (Blue Ridge Parkway, Richmond, Petersburg, Civil War Defenses,
+   Cedar Creek, Fredericksburg, Cumberland Gap, Fort Monroe, Booker T.
+   Washington, Washington's Birthplace) say "No entrance pass required" on
+   the same pages. Replayed through to_row, the 78 went from 4 tagged free
+   to 69 (149 of their 173 rows), and the 5 behind a park fee and the 4 not
+   isfree stayed untagged. A charge feeinfo names that is not
+   the park's (a price, a fee) writes nothing: no free claim, and no claim
+   that it is not. The line leads, ahead of the sync's 800-character cut;
+   the description is not part of the fingerprint.
 """
 from __future__ import annotations
 
@@ -240,6 +264,49 @@ def _categories(ev: Dict[str, Any]) -> Tuple[str, List[str]]:
 
 def _category(ev: Dict[str, Any]) -> str:
     return _categories(ev)[0]
+
+
+# --------------------------------------------------------------------------- #
+# What it costs (item 10)
+# --------------------------------------------------------------------------- #
+FREE_LINE = "🎟 Free to attend."
+# Free program, paid park: true, and in words 0227 does not tag. "isn't free"
+# is its FREE_NEG veto, so a blurb that says "free ranger-led tour" cannot tag
+# the row either.
+PARK_FEE_LINE = "🎟 No extra charge for this program, but the park's entrance fee applies, so it isn't free."
+# "no tickets or reservations required", "no additional fee to attend": what
+# the program does NOT charge, taken out before the fee words are looked for.
+_NO_CHARGE_RX = re.compile(
+    r"\b(?:no|without)\s+(?:additional\s+|extra\s+|separate\s+)?(?:entrance\s+|entry\s+|admission\s+)?"
+    r"(?:fees?|charges?|costs?|tickets?|passes?|reservations?)\b"
+    r"(?:\s+or\s+(?:fees?|charges?|costs?|tickets?|passes?|reservations?)\b)?", re.I)
+# What a visitor pays to get INTO the park: "Free with valid park entry pass.",
+# "Great Falls Park entrance fee remains in effect", "America The Beautiful
+# pass still required for park entrance".
+_PARK_FEE_RX = re.compile(
+    r"\b(?:entrance|entry|admission|day[- ]use)\s+(?:fees?|pass(?:es)?|charges?)\b"
+    r"|\bvalid\s+(?:park\s+)?(?:entry|entrance|admission|pass)\b"
+    r"|\bamerica\s+the\s+beautiful\b|\b(?:annual|interagency|senior|access|park)\s+pass(?:es)?\b"
+    r"|\bpass(?:es)?\s+(?:is\s+|are\s+)?(?:still\s+)?required\b", re.I)
+# Any other charge: a price, or a fee the program does not waive.
+_OTHER_CHARGE_RX = re.compile(r"\$\s*\d|\b(?:fees?|charges?|costs?|paid|purchase)\b", re.I)
+
+
+def cost_line(ev: Dict[str, Any]) -> Tuple[Optional[str], str]:
+    """(the description's leading cost line or None, what it says): item 10.
+
+    "free" when the park marks the event `isfree` and its `feeinfo` names no
+    charge; "park fee" when feeinfo says the park's entrance fee or a pass is
+    still needed; "other fee" (no line, no claim) for any other charge it
+    names; "none" when the event is not marked free."""
+    if str(ev.get("isfree") or "").strip().lower() != "true":
+        return None, "none"
+    fee = _NO_CHARGE_RX.sub(" ", _plain(_f(ev, "feeinfo", "feeInfo")))
+    if _PARK_FEE_RX.search(fee):
+        return PARK_FEE_LINE, "park fee"
+    if _OTHER_CHARGE_RX.search(fee):
+        return None, "other fee"
+    return FREE_LINE, "free"
 
 
 def _hm(t):
@@ -388,6 +455,11 @@ def _build(ev: Dict[str, Any], day: date, point: Optional[Tuple[float, float]],
     desc = (ev.get("description") or "").strip() or None
     if desc:
         desc = " ".join(desc.split())
+    # The cost line LEADS, ahead of the sync's 800-character cut (item 10). The
+    # description is not part of the fingerprint below.
+    line, _ = cost_line(ev)
+    if line:
+        desc = f"{line}\n\n{desc}" if desc else line
     d = day.isoformat()
     primary, extras = _categories(ev)
     street, city, region, postal = address if (address and not point) else (None, None, None, None)
@@ -699,6 +771,9 @@ class Sweep:
         rep["new"] += 1
         if str(ev.get("isfree") or "").strip().lower() == "true":
             rep["free"] += 1
+            kind = cost_line(ev)[1]
+            if kind != "free":
+                rep[kind] += 1                            # "park fee" / "other fee": no free line (item 10)
         for nev in called_off(ev, self.within_days, self.today):
             if self.store.cancel(nev, "nps: the park lists this day as cancelled or excluded") == "cancelled":
                 rep["tombstoned"] += 1
@@ -789,7 +864,11 @@ class Sweep:
         placed = sum(self.placed_by.values())
         free_share = f"{100 * s['free'] / s['new']:.0f}%" if s["new"] else "n/a"
         left = self.client.remaining if self.client.remaining is not None else "?"
-        return (f"[nps] done: {s['new']} events ({free_share} free) in {s['pages']} page(s), "
+        held = s["park fee"] + s["other fee"]
+        # Item 10: the free programs whose feeinfo names a charge get no free line.
+        fees = (f"; {held} of those name a fee: {s['park fee']} the park's entrance, {s['other fee']} other"
+                if held else "")
+        return (f"[nps] done: {s['new']} events ({free_share} free{fees}) in {s['pages']} page(s), "
                 f"{len(self.rows)} row(s) written, {s['tombstoned']} called-off day(s) tombstoned; "
                 f"{s['pending']} without coordinates: {placed} placed "
                 f"({', '.join(f'{k} {v}' for k, v in self.placed_by.most_common()) or 'none'}), "

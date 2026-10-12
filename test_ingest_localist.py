@@ -32,6 +32,20 @@ tribe:
     configured one keeps DNCR's programmed holiday;
   * a canceled meeting is still tombstoned, filter or no filter.
 
+And what it costs. Localist's own `free` and `ticket_cost` were never read, so
+a free hike reached ../mapsee's offer:free (0227, which reads only the title
+and description) only if its blurb said so. Judged by 0227's own predicate on
+the row the sync stores (offers_0227):
+
+  * a flagged-free event leads with "Free to attend." and is tagged free, past
+    the sync's 800-character cut;
+  * a flagged-free event whose ticket_cost prices it, names who it is free
+    for, or whose blurb charges a fee is NOT tagged, and a priced row whose
+    blurb says FREE for some is no longer tagged;
+  * an unflagged event gets no line and is NOT tagged;
+  * a price is said as its amounts, so the line carries no discount or intro
+    of its own; no row gains or loses one, or its fingerprint.
+
 No network, no database.
 """
 import copy
@@ -471,6 +485,262 @@ check("an invalid skip_title fails the source loudly, naming it",
 ind_cfg = next((s for s in cfg if "events.in.gov" in (s.get("base_url") or "")), {})
 check("events.in.gov is configured civic:", str(ind_cfg.get("_found", "")).startswith("civic:"),
       ind_cfg.get("_found"))
+
+# --------------------------------------------------------------------------- #
+# 11. what it costs, judged by ../mapsee's 0227 on the row the sync stores
+# --------------------------------------------------------------------------- #
+# Every Localist event carries `free` and `ticket_cost`, and neither was read:
+# 3,592 of 25,197 events say free=true (2026-10-11), and 0227 tags offer:free
+# from a row's title and description only. Each case below goes through
+# ingest() and mapsee_supabase_sync.to_row (its 800-character cut, its machine
+# tail) and is judged by 0227's own predicate (offers_0227: measure_deals.py's
+# patterns, vendored verbatim and compared with ../mapsee when it is here).
+# Fixtures: the walk of 2026-10-11, fields the adapter reads, blurbs cut where
+# marked.
+import offers_0227 as O  # noqa: E402
+import mapsee_supabase_sync as SY  # noqa: E402
+from mapsee_admission import admission_description  # noqa: E402
+
+print()
+print("what it costs, as 0227 reads it")
+_drift = O.drift()
+if _drift is None:
+    print("skip offers_0227 is not compared: ../mapsee is not checked out here (MAPSEE_DIR names it)")
+else:
+    check("offers_0227's patterns and verdicts equal ../mapsee/tools/measure_deals.py's", _drift == [], _drift)
+
+# events.dcnr.pa.gov, free=true: a 1,876-character blurb, longer than the
+# sync keeps (cut here at 1,016, still past it).
+NIGHT_SCAVENGER = {"event": {
+    "id": 54091846175818, "title": "Night Hike Scavenger Hunt", "status": "live", "first_date": "2026-10-23",
+    "event_instances": [{"event_instance": {"id": 54091846176843, "start": "2026-10-23T18:30:00-04:00",
+                                            "end": "2026-10-23T20:00:00-04:00", "all_day": False}}],
+    "geo": {"latitude": "40.463421", "longitude": "-75.241791", "street": "1542 Mountain View Drive",
+            "city": "Quakertown", "state": "PA", "country": "US", "zip": "18951"},
+    "location_name": "Nockamixon State Park",
+    "description_text": "The Sun has gone down, and it's too dark to explore--or is it? A whole new world of fascinating "
+                        "objects, critters, and phenomena is revealed at night, and we're going to see what there is "
+                        "to find. Kids and their grownups are invited to join the park naturalist for a nighttime "
+                        "scavenger hunt. We'll talk about some of the things we're looking for, then take a one-mile "
+                        "hike with stops along the way to find those things! **Registration is required for this "
+                        "program. Please register each person attending, both kids and grownups, by clicking the "
+                        "\"Register\" button.** This program is best suited for children ages 8 and up, but younger "
+                        "kids are welcome if they can manage a 1-mile hike and sit quietly during a night sounds "
+                        "listening stop. All children must be accompanied by an adult guardian, though we will be "
+                        "splitting up (while remaining in view) for some activities. Please wear sturdy shoes and "
+                        "bring water and a flashlight or headlamp. We will meet at the Environmental Education "
+                        "Center, which is accessed by a wooded path from Parking Lot 12.",
+    "filters": {"event_types": []},
+    "photo_url": "https://localist-images.azureedge.net/photos/54091846257749/huge/d7560c0b4e49b055633cda708e0580a7c140abe6.jpg",
+    "localist_url": "https://events.dcnr.pa.gov/event/night-hike-scavenger-hunt",
+    "url": "", "ticket_cost": "Free - Registration Required", "free": True}}
+# events.dcnr.pa.gov, free=true, blurb cut after the $5 that is a souvenir,
+# not a fee for the walk.
+BARK_WALK = {"event": {
+    "id": 54035803389021, "title": "B.A.R.K. Ranger Walk", "status": "live", "first_date": "2026-09-26",
+    "event_instances": [{"event_instance": {"id": 54035803404386, "start": "2026-10-11T12:00:00-04:00",
+                                            "end": None, "all_day": False}}],
+    "geo": {"latitude": "40.4585", "longitude": "-77.168198", "street": "2511 Little Buffalo Road",
+            "city": "Newport", "state": "PA", "country": "US", "zip": "17074"},
+    "location_name": "Little Buffalo State Park",
+    "description_text": "A B.A.R.K. Ranger is a pet that follows the 4 principles of B.A.R.K.: Bag your pet's waste. "
+                        "Always leash your pet. Respect Wildlife. Know where you can go. Join the park resource "
+                        "ranger on a hike to complete the B.A.R.K. Ranger pamphlet with your pet. After the hike, the "
+                        "resource ranger will sign your pamphlet, and you will receive a certificate showing that you "
+                        "have successfully completed the program. If the park office is open, a commemorative tag "
+                        "can be purchased for $5 to go on your pet's collar or leash.",
+    "filters": {"event_types": []},
+    "photo_url": "https://localist-images.azureedge.net/photos/54035803490409/huge/caeae66d878de7f5af3fd9532f736e88b4f4ae1c.jpg",
+    "localist_url": "https://events.dcnr.pa.gov/event/bark-ranger-walk-9730",
+    "url": "", "ticket_cost": "FREE", "free": True}}
+# events.dncr.nc.gov, free=true, and the cost field prices the adults.
+FALL_FESTIVAL = {"event": {
+    "id": 52267025269801, "title": "Fall Festival", "status": "live", "first_date": "2026-11-14",
+    "event_instances": [{"event_instance": {"id": 53885345259586, "start": "2026-11-14T10:00:00-05:00",
+                                            "end": "2026-11-14T16:00:00-05:00", "all_day": False}}],
+    "geo": {"latitude": "35.301887", "longitude": "-78.322773", "street": "5466 Harper House Road",
+            "city": "Four Oaks", "state": "NC", "country": "US", "zip": "27524"},
+    "location_name": "Bentonville Battlefield State Historic Site",
+    "description_text": "Bring the family and celebrate fall at Bentonville Battlefield! See demonstrations of "
+                        "historic trades and activities. Also don’t miss wagon rides, old timey kids games, crafts "
+                        "and activities, community groups, and much more! Bring a blanket or chair and listen to "
+                        "live music. Food trucks will be onsite!",
+    "filters": {"event_types": [{"name": "Celebrations & Commemorations"}, {"name": "Festivals & Fairs"}]},
+    "photo_url": "https://localist-images.azureedge.net/photos/53885372860649/huge/4dfc2aed9d1500a9d9a2dc86e102e1a9251d4093.jpg",
+    "localist_url": "https://events.dncr.nc.gov/event/fall-festival",
+    "url": "", "ticket_cost": "Adults $5, Children 8 and under are free ", "free": True}}
+# events.oregonstate.edu, free=true, free for some, and the blurb says FREE.
+CORNHOLE = {"event": {
+    "id": 53870830029431, "title": "Cornhole Tournament", "status": "live", "first_date": "2026-10-16",
+    "event_instances": [{"event_instance": {"id": 53870830032505, "start": "2026-10-16T18:00:00-07:00",
+                                            "end": "2026-10-16T22:00:00-07:00", "all_day": False}}],
+    "geo": {"latitude": "44.563137", "longitude": "-123.278729", "street": "425 Southwest 26th Street",
+            "city": "Corvallis", "state": "OR", "country": "US", "zip": "97331"},
+    "location_name": "Dixon Recreation Center",
+    "description_text": "This is a FREE event. No IM PASS required. Register online through IMLeagues by 2 p.m. on "
+                        "Oct. 16. This event takes place on Oct. 16 from 6-10 p.m. All participants must create an "
+                        "IMLeagues account to register for intramural leagues, tournaments and events for that term.",
+    "filters": {"event_types": [{"name": "Sporting Event"}]},
+    "photo_url": "https://localist-images.azureedge.net/photos/54039446041456/huge/c714d277d38025d3f54761b07a9eef5987d59773.jpg",
+    "localist_url": "https://events.oregonstate.edu/event/cornhole-tournament",
+    "url": "http://www.imleagues.com/spa/intramural/f68be0657e2047dc89b8877bb233effa/home",
+    "ticket_cost": "Free for students and Rec Sports members", "free": True}}
+# events.in.gov, free=true, and the blurb charges (cut to its first and fee
+# sentences).
+DEER_WORKSHOP = {"event": {
+    "id": 54106905996706, "title": "Basic Deer Processing Workshop, West Lafayette", "status": "live",
+    "first_date": "2026-10-19",
+    "event_instances": [{"event_instance": {"id": 54106928991873, "start": "2026-10-19T18:00:00-04:00",
+                                            "end": "2026-10-19T21:00:00-04:00", "all_day": False}}],
+    "geo": {"latitude": "40.431312", "longitude": "-87.037944", "street": "1007 North 725 West",
+            "city": "West Lafayette", "state": "IN", "country": "US", "zip": "47906"},
+    "location_name": "John S Wright Center",
+    "description_text": "Join Indiana DNR for this basic deer processing workshop on Oct. 19 from 6 p.m. – 9 p.m. ET "
+                        "at the John S Wright Center in West Lafayette. Registration is required to attend. There "
+                        "will be a small $10 dollar fee for this event, which will be charged at the door. See you "
+                        "there!",
+    "filters": {"event_types": [{"name": "Events"}]},
+    "photo_url": "https://localist-images.azureedge.net/photos/54106905877920/huge/41e9b974f5d63cebe91e1e7d3a16c6a247a5073a.jpg",
+    "localist_url": "https://events.in.gov/event/basic-deer-processing-workshop-w-lafayette",
+    "url": "https://on.IN.gov/learn2hunt", "ticket_cost": None, "free": True}}
+# calendar.ucsd.edu, free=false: a priced game whose blurb says FREE (for
+# undergraduates), which 0227 read as a free event.
+UCSD_GAME = {"event": {
+    "id": 54126634030882, "title": "Men's Basketball: UC San Diego vs. USC (Exhibition)", "status": "live",
+    "first_date": "2026-10-17",
+    "event_instances": [{"event_instance": {"id": 54126634031907, "start": "2026-10-17T19:00:00-07:00",
+                                            "end": "2026-10-17T21:00:00-07:00", "all_day": False}}],
+    "geo": {"latitude": "32.885191", "longitude": "-117.23981", "street": "9860 Hopkins Drive",
+            "city": "San Diego", "state": "CA", "country": "US", "zip": "92093"},
+    "location_name": "LionTree Arena",
+    "description_text": "The UC San Diego men's basketball team returns to LionTree Arena in an exhibition game against "
+                        "USC on Saturday, Oct. 17. Tip-off is scheduled for 7 p.m., and tickets are now on sale at the "
+                        "Triton Box Office. Admission is FREE for UC San Diego undergraduate students. Go Tritons!",
+    "filters": {"event_types": [{"name": "Sports and Recreation"}]},
+    "photo_url": "https://localist-images.azureedge.net/photos/54126641994427/huge/28b4d959e4b3860ee17e4d72b3dddf5f2cbd6e3d.jpg",
+    "localist_url": "https://calendar.ucsd.edu/event/mens-basketball-uc-san-diego-vs-usc-exhibition",
+    "url": "https://ucsdtritons.com/sports/2021/10/15/mens-basketball-gameday",
+    "ticket_cost": "Tickets: Adult - $22+; Youth (3-12), Senior (65+), Fac/Staff - $17", "free": False}}
+# calendar.ucsd.edu, free=false: a cost field that names a member discount
+# (blurb cut to two of its sentences, leaving out its own "Members Save 20%
+# Off Tickets", so a discount could only come from the cost line).
+OCEANS_AT_NIGHT = {"event": {
+    "id": 54064237800884, "title": "Oceans at Night: Halloween", "status": "live", "first_date": "2026-10-22",
+    "event_instances": [{"event_instance": {"id": 54064298897342, "start": "2026-10-22T18:30:00-07:00",
+                                            "end": "2026-10-22T21:30:00-07:00", "all_day": False}}],
+    "geo": {"latitude": "32.865974", "longitude": "-117.250736", "street": "2300 Expedition Way",
+            "city": "San Diego", "state": "CA", "country": "US", "zip": "92037"},
+    "location_name": "Birch Aquarium",
+    "description_text": "Grab your ghoul-friends and join us for a night of skele-fun at Oceans at Night: Halloween, "
+                        "our 21+ Halloween celebration! Discover the weird and wonderful research happening at "
+                        "Scripps Oceanography!",
+    "filters": {"event_types": [{"name": "Social"}]},
+    "photo_url": "https://localist-images.azureedge.net/photos/54064299271117/huge/6f520e031e8dc1dbe7e43c7c4649fd52c5465b17.jpg",
+    "localist_url": "https://calendar.ucsd.edu/event/oceans-at-night-halloween",
+    "url": "https://aquarium.ucsd.edu/events/oceans-night-halloween",
+    "ticket_cost": "$59.95, Members receive 20% discount", "free": False}}
+
+HOST = "00000000-0000-0000-0000-000000000000"
+# The words are the contract with 0227, so they are pinned here, not read back.
+FREE_LINE = "🎟 Free to attend."
+RESTRICTED_LINE = "🎟 Not a free public admission offer. Eligibility restrictions apply."
+
+
+def stored(wrap, src=DNCR):
+    """(title, description, record) as the sync writes the one row a wrap makes."""
+    _, store, _, _ = run(src, Tenant([[wrap]]))
+    recs = list(store.records.values())
+    if len(recs) != 1:
+        return None, None, None
+    row = SY.to_row(recs[0], HOST)
+    return row["title"], row["description"], recs[0]
+
+
+def uncosted(wrap):
+    """The same wrap with neither field the adapter now reads: the row it wrote before."""
+    w = copy.deepcopy(wrap)
+    w["event"]["free"] = False
+    w["event"]["ticket_cost"] = None
+    return w
+
+
+def prose(description):
+    """The part of a stored description 0227 reads (before the 📍 tail)."""
+    return (description or "").split("\n\n📍")[0]
+
+
+for label, wrap in (("a flagged-free night hike (cost field 'Free - Registration Required')", NIGHT_SCAVENGER),
+                    ("a flagged-free walk whose blurb sells a $5 souvenir tag", BARK_WALK)):
+    title, desc, _ = stored(wrap)
+    check(f"{label} leads with 'Free to attend.'", (desc or "").startswith(FREE_LINE + "\n\n"),
+          (desc or "")[:80])
+    t0, d0, _ = stored(uncosted(wrap))
+    check("...and 0227 tags the stored row free, where the row it wrote before was NOT",
+          O.tagged_free(title, desc) and not O.tagged_free(t0, d0), ((desc or "")[:120], (d0 or "")[:120]))
+title, desc, _ = stored(NIGHT_SCAVENGER)
+check("the free line survives the sync's 800-character cut of a 1,016-character blurb",
+      len(NIGHT_SCAVENGER["event"]["description_text"]) > 800 and desc.startswith(FREE_LINE)
+      and prose(desc).endswith("…"), (len(prose(desc)), prose(desc)[-40:]))
+
+title, desc, _ = stored(FALL_FESTIVAL)
+check("a flagged-free festival whose cost field says 'Adults $5' leads with its price, not free",
+      desc.startswith("🎟 Price as listed: $5 (not free for everyone).\n\n"), desc[:80])
+check("...and 0227 does NOT tag it free", not O.tagged_free(title, desc), desc[:120])
+
+title, desc, _ = stored(CORNHOLE)
+check("a flag the cost field limits ('Free for students and Rec Sports members') says so",
+      desc.startswith(RESTRICTED_LINE + "\n\n"), desc[:90])
+t0, d0, _ = stored(uncosted(CORNHOLE))
+check("...and 0227 does NOT tag it, though its blurb says 'This is a FREE event.' (the row written before WAS)",
+      not O.tagged_free(title, desc) and O.tagged_free(t0, d0), (desc[:120], d0[:120]))
+check("the restricted line is mapsee_admission's own words",
+      getattr(L, "RESTRICTED_LINE", None) == RESTRICTED_LINE
+      == "🎟 " + admission_description(None, {"free": False, "restricted": True}),
+      getattr(L, "RESTRICTED_LINE", None))
+
+title, desc, _ = stored(DEER_WORKSHOP, dict(INDIANA_CIVIC))
+check("a flagged-free workshop whose blurb charges 'a small $10 dollar fee' gets no cost line",
+      bool(desc) and not desc.startswith("🎟"), (desc or "")[:80])
+check("...and 0227 does NOT tag it free", not O.tagged_free(title, desc), (desc or "")[:120])
+
+title, desc, _ = stored(NIGHT_HIKE)
+check("an unflagged row (free=false, no ticket_cost) gets no cost line", not desc.startswith("🎟"), desc[:60])
+check("...and 0227 does NOT tag it free", not O.tagged_free(title, desc), desc[:120])
+
+title, desc, _ = stored(UCSD_GAME)
+check("a priced game ($22+, $17) leads with its price", desc.startswith("🎟 Price as listed: $22, $17 (not free).\n\n"),
+      desc[:80])
+t0, d0, _ = stored(uncosted(UCSD_GAME))
+check("...and 0227 does NOT tag it, though its blurb says 'Admission is FREE for UC San Diego undergraduate "
+      "students' (the row written before WAS)", not O.tagged_free(title, desc) and O.tagged_free(t0, d0),
+      (desc[:160], d0[:120]))
+
+title, desc, _ = stored(OCEANS_AT_NIGHT)
+line = desc.split("\n\n", 1)[0]
+check("a price is said as its amounts: '$59.95, Members receive 20% discount' -> '$59.95'",
+      line == "🎟 Price as listed: $59.95 (not free).", line)
+check("...so the line carries no offer tag of its own (quoted whole, it read as a discount)",
+      O.tags("", line) == set() and "discount" in O.tags("", "$59.95, Members receive 20% discount"),
+      O.tags("", line))
+
+ALL_COSTS = (NIGHT_SCAVENGER, BARK_WALK, FALL_FESTIVAL, CORNHOLE, UCSD_GAME, OCEANS_AT_NIGHT, NIGHT_HIKE,
+             BIRD_HIKE_NOV, MOON_HIKE)
+gained = []
+moved = []
+for wrap in ALL_COSTS:
+    title, desc, rec = stored(wrap)
+    t0, d0, rec0 = stored(uncosted(wrap))
+    extra = (O.tags(title, desc) - {"free"}) ^ (O.tags(t0, d0) - {"free"})
+    if extra:
+        gained.append((wrap["event"]["title"], extra))
+    if (rec["fingerprint"], rec["sources"]) != (rec0["fingerprint"], rec0["sources"]):
+        moved.append(wrap["event"]["title"])
+check("no row gains or loses discount, intro, pwyw, sale or happy_hour by its cost line", not gained, gained)
+check("...and no row's fingerprint or source id moves: the line is in the description only", not moved, moved)
+
+_, _, log, _ = run(DNCR, Tenant([[NIGHT_SCAVENGER, BARK_WALK, FALL_FESTIVAL, CORNHOLE, NIGHT_HIKE]]))
+check("the log counts what the cost lines said",
+      "cost: 2 free, 1 priced, 1 restricted, 0 flagged free but contradicted" in log, log)
 
 print()
 if fails:

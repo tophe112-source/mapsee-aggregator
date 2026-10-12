@@ -29,7 +29,8 @@ import json
 import re
 import sys
 import time
-from typing import Any, Dict, List, Optional
+from collections import Counter
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import requests
@@ -98,6 +99,154 @@ _TYPE_MAP = {
     "yoga": "fitness", "intramural": "fitness", "run": "running",
     "walk": "fitness", "hike": "outdoors", "bike": "fitness",
 }
+
+
+# WHAT IT COSTS, IN WORDS ../mapsee's 0227 READS. Every Localist event carries
+# `free` (a bool) and `ticket_cost` (free text), and until 2026-10-12 neither
+# was read: the publisher's own "free" never reached the map, and 0227 (which
+# tags offer:free from a row's TITLE and DESCRIPTION only) could not put a free
+# hike or concert on /c/<city>/free unless its blurb happened to say so.
+#
+# Measured on the 2026-10-11 walk of all 57 tenants (25,197 distinct events,
+# days=90): 3,592 carry free=true, and 133 of them say otherwise in their own
+# fields, every one read by hand:
+#   * 60 name a price in ticket_cost: "Admission Cost $15 Student Cost FREE"
+#     (OSU, x6), "$53–68 | UCSD Student: Free tickets via SSO" (x11),
+#     "Free-$390", "Adults $5, Children 8 and under are free" (DNCR);
+#   * 31 say in ticket_cost who it is free FOR: "Free for students and Rec
+#     Sports members" (OSU, x11), "Free for students/staff/faculty with ID"
+#     (UT Dallas, x10), "Students Free", "Free with Eagle ID";
+#   * 42 say it in the blurb: a fee (7: "General admission is $2.00", "a small
+#     $10 dollar fee for this event", "$300 certification fee", "THB
+#     250/person"), "day use fees may apply" (1), or an audience (34:
+#     "available only to University of Rochester Employees", x8; "All enrolled
+#     students are eligible", Stanford CAPS, x5). 2 of the 42 are this rule
+#     being cautious ("Film tickets are $7" beside a free gallery;
+#     "invitation-only discussions and a public keynote") and cost only the
+#     free line.
+# So the flag is right 3,461 times in 3,592 (96.4%). The rule below writes
+# "Free to attend." on 3,459 of them, and 100 of those read at random name no
+# price for getting in. The 7 unflagged events whose ticket_cost says "No cost"
+# stay unflagged: the publisher did not tick it.
+#
+# A price in ticket_cost (1,104 events, flagged or not) is said as AMOUNTS, not
+# quoted: quoting the field whole carried 13 discount and 2 pay-what-you-can
+# tags into 0227 ("Members receive 20% discount", and one false: "Cornell
+# discounts do not apply to this event"). "(not free)" is 0227's veto
+# (FREE_NEG), so a priced row cannot be tagged free from its own prose: the
+# UC San Diego basketball games ($22, $17) were, off "Admission is FREE for UC
+# San Diego undergraduate students". The line goes FIRST, ahead of the sync's
+# 800-character cut (mapsee_supabase_sync._cap_prose).
+#
+# Replayed through ingest() and the sync's to_row, the 12,547 rows those pages
+# store went from 884 tagged offer:free by 0227's own predicate to 2,980: 2,135
+# gained (every "Free to attend." row is tagged), 39 lost (30 priced and 9
+# restricted rows whose prose had said free), and no row gained or lost any
+# other tag. Fingerprints are untouched: the description is not part of one.
+# The line does cost the sync's keyword scan (_DESC_SCAN_CHARS, the first 600
+# characters) its last few words: 5 of the 12,547 lost a secondary door.
+FREE_LINE = "🎟 Free to attend."
+RESTRICTED_LINE = "🎟 Not a free public admission offer. Eligibility restrictions apply."   # mapsee_admission's words
+
+# "$12", "$8.50", "$1,795", "$53–68", "$5 - $10", "THB 250": one listed price.
+# A comma is a thousands separator only before three digits: "$12, $10" is two.
+_NUM = r"(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?|\.\d+"
+_NUM_RX = re.compile(_NUM)
+_PRICE_RX = re.compile(
+    rf"(?:US\s?)?[$€£]\s*(?:{_NUM})(?:\s*[-–]\s*[$€£]?\s*(?:{_NUM}))?"
+    rf"|\b(?:USD|CAD|THB|EUR|GBP)\s?(?:{_NUM})", re.I)
+# A cost field that is only a number ("10", "15.99", "0.00") is that price.
+_BARE_PRICE_RX = re.compile(r"^\s*\d{1,5}(?:\.\d{1,2})?\s*$")
+_ZERO_TIER_RX = re.compile(r"\bfree\b|\bno\s+(?:cost|charge)\b|\bcomplimentary\b", re.I)
+# A cost field that names an audience names who it is free FOR.
+_AUDIENCE_RX = re.compile(
+    r"(?i:\b(?:students?|members?|membership|faculty|staff|employees?|alumni|cardholders?|pass\s*holders?|"
+    r"residents?|military|veterans?|seniors?|children|kids|youth)\b)|\bID\b")
+_FEES_MAY_APPLY_RX = re.compile(
+    r"\b(?:day[- ]use|entrance|entry|park(?:ing)?)\s+fees?\s+(?:may\s+)?(?:appl(?:y|ies)|required|remains?)\b"
+    r"|\bfees?\s+may\s+apply\b", re.I)
+# A blurb sentence with a price is a fee for getting in when it says so...
+_FEE_WORD_RX = re.compile(
+    r"\b(?:fees?|admission|costs?|price[sd]?|tickets?|registration|charged?|"
+    r"per\s+(?:person|pair|adult|child|team|family|couple|ticket))\b", re.I)
+# ...and not when the money is a prize, a perk, a purchase, a donation or
+# somebody else's fee (the Halloween pet parade is free to watch; "Entry fee
+# for all pets participating is $10").
+_NOT_ADMISSION_RX = re.compile(
+    r"\b(?:prizes?|awards?|grants?|gift\s*cards?|scholarships?|funding|funds?|raised|million|billion|"
+    r"parking|lunch|dinner|breakfast|meals?|books?|purchased?|optional|merch\w*|raffle|budget|salary|"
+    r"tax(?:es)?|less\s+than|valued|worth|virtual|online|participa\w*|vendors?|exhibitors?|sponsors?|"
+    r"booths?|teams?)\b|\bsuggested\s+(?:donation|contribution)\b"
+    r"|\bdonations?\s+(?:of|are|is|will|welcome|accepted|appreciated|encouraged|support)\b", re.I)
+# ...and a blurb that names who may come names who it is free for.
+_ONLY_FOR_RX = re.compile(
+    r"\bonly\s+(?:intended\s+)?(?:for|to|open\s+to)\s+(?:\w+\s+){0,3}(?:students?|staff|faculty|employees?|members?|majors?)\b"
+    r"|\b(?:students?|staff|faculty|employees?|members?|majors?|alumni|veterans)\s+only\b"
+    r"(?!\s+(?:need|needs|have|want|get|know|can|to)\b)"
+    r"|\b(?:by\s+)?invitation[- ]only\b|\bopen\s+only\s+to\b"
+    r"|\bexclusively\s+for\s+(?:\w+\s+){0,3}(?:students?|staff|faculty|employees?|members?)\b"
+    r"|\bbenefits?[- ]eligible\b|\bfee[- ]paying\b"
+    r"|\b(?:enrolled\s+students|community|employees|staff|faculty)\s+(?:is|are)\s+eligible\s+to\s+"
+    r"(?:attend|receive|participate)\b"
+    r"|\bfree\s+(?:only\s+)?(?:for|to)\s+(?:\w+\s+){0,3}(?:employees?|faculty|staff)\b"
+    r"|\bmust\s+be\s+(?:employed|enrolled|an?\s+(?:current\s+)?(?:\w+\s+)?(?:student|member|employee))\b"
+    r"|\baccompanied\s+by\s+(?:an?\s+)?(?:\w+\s+){0,3}member\b", re.I)
+# Sentences, and the run-together ones Localist's description_text makes of
+# "<p>Admission</p><p>General admission is $2.00</p>" ("...is $2.00Admission is").
+_SENTENCE_RX = re.compile(r"(?<=[.!?;])\s+|(?<=[a-z0-9])(?=[A-Z][a-z]+ is\b)")
+
+
+def _amounts(text: str) -> List[Tuple[str, List[float]]]:
+    """(price as written, its numbers) for each price in `text`."""
+    out = []
+    found = [m.group(0) for m in _PRICE_RX.finditer(text or "")]
+    if not found and _BARE_PRICE_RX.match(text or ""):
+        found = [text.strip()]
+    for tok in found:
+        nums = [float(n.replace(",", "")) for n in _NUM_RX.findall(tok)]
+        out.append((" ".join(tok.split()), nums))
+    return out
+
+
+def _blurb_says_otherwise(text: str) -> Optional[str]:
+    """Why a blurb contradicts a free=true flag, or None."""
+    for sentence in _SENTENCE_RX.split(text or ""):
+        if (any(n > 0 for _, nums in _amounts(sentence) for n in nums)
+                and _FEE_WORD_RX.search(sentence) and not _NOT_ADMISSION_RX.search(sentence)):
+            return "a fee in the blurb"
+    if _ONLY_FOR_RX.search(text or ""):
+        return "an audience in the blurb"
+    if _FEES_MAY_APPLY_RX.search(text or ""):
+        return "fees may apply"
+    return None
+
+
+def cost_line(event: Dict[str, Any]) -> Tuple[Optional[str], str]:
+    """(the description's leading cost line or None, what it says).
+
+    "free" only when the publisher ticked `free` and neither ticket_cost nor
+    the blurb says otherwise; "priced" when ticket_cost names a price, said as
+    its amounts, "(not free)" or "(not free for everyone)" beside a free tier;
+    "restricted" when the flag is ticked and ticket_cost names who it is for.
+    A flag the blurb contradicts ("contradicted"), and no flag ("none"), write
+    nothing: the row says what its own text says, as it did before."""
+    cost = " ".join(str(event.get("ticket_cost") or "").split())
+    prices = _amounts(cost)
+    positive = [tok for tok, nums in prices if any(n > 0 for n in nums)]
+    if positive:
+        some_free = bool(_ZERO_TIER_RX.search(cost)) or any(n == 0 for _, nums in prices for n in nums)
+        tail = "not free for everyone" if some_free else "not free"
+        listed = ", ".join(dict.fromkeys(positive[:4]))
+        return f"🎟 Price as listed: {listed} ({tail}).", "priced"
+    if event.get("free") is not True:
+        return None, "none"
+    if _FEES_MAY_APPLY_RX.search(cost):
+        return None, "contradicted"
+    if _AUDIENCE_RX.search(cost):
+        return RESTRICTED_LINE, "restricted"
+    if _blurb_says_otherwise(" ".join((event.get("description_text") or "").split())):
+        return None, "contradicted"
+    return FREE_LINE, "free"
 
 
 def _categories(event: Dict[str, Any], default: Optional[str]) -> tuple:
@@ -190,6 +339,11 @@ def to_event(wrap: Dict[str, Any], src: Dict[str, Any], *,
     desc = (event.get("description_text") or "").strip() or None
     if desc:
         desc = " ".join(desc.split())
+    # The cost line LEADS (see FREE_LINE): the description is not part of the
+    # fingerprint, so this changes no row's identity.
+    line, _ = cost_line(event)
+    if line:
+        desc = f"{line}\n\n{desc}" if desc else line
     place = event.get("location_name") or geo.get("street")
     nev = NormalizedEvent(
         source="localist:" + src["name"].lower().replace(" ", "-"),
@@ -333,6 +487,7 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
         print(f"[localist] {name}: stopped at max_pages={max_pages}, {left}; "
               f"raise its max_pages in the config")
     kept = cancelled = governance = title_filtered = 0
+    costs: Counter = Counter()                            # what cost_line said of each kept row
     for key in order:
         dead = dead_status(best[key])
         nev = to_event(best[key], src, tombstone=bool(dead))
@@ -354,12 +509,15 @@ def ingest(store: EventStore, session, src: Dict[str, Any]) -> int:
             continue
         store.upsert(nev)
         kept += 1
+        costs[cost_line((best[key].get("event") or {}))[1]] += 1
     collapsed = seen_wraps - len(order)
     print(f"[localist] {name}: kept {kept} of {len(order)} event(s) on {pages} page(s)"
           + (f" ({collapsed} duplicate occurrence wrap(s) collapsed)" if collapsed else "")
           + (f" ({governance} town-hall row(s) refused)" if governance else "")
           + (f" ({title_filtered} title-filtered)" if title_filtered else "")
-          + (f"; {cancelled} canceled (tombstoned)" if cancelled else ""))
+          + (f"; {cancelled} canceled (tombstoned)" if cancelled else "")
+          + (f"; cost: {costs['free']} free, {costs['priced']} priced, {costs['restricted']} restricted, "
+             f"{costs['contradicted']} flagged free but contradicted" if kept else ""))
     return kept
 
 

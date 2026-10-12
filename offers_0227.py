@@ -211,3 +211,22 @@ def twin_drift():
     g = globals()
     return [n for n in _NAMES
             if (getattr(md, n).pattern, getattr(md, n).flags) != (g[n].pattern, g[n].flags)]
+
+
+# The six tags 0227 writes (classify() above also says priced, cheap and flea,
+# which the trigger does not store), as the adapters' tests ask for them.
+TAGS_0227 = ("free", "pwyw", "discount", "happyhr", "intro", "sale")
+
+
+def tags(title, description):
+    """The offer tags 0227 would store for this title and description."""
+    c, _ = classify({"title": title, "description": description})
+    return {t for t in c if t in TAGS_0227}
+
+
+def tagged_free(title, description):
+    """Would 0227 tag this row free (and so put it on /c/<city>/free)?"""
+    return "free" in tags(title, description)
+
+
+drift = twin_drift
