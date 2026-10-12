@@ -31,6 +31,9 @@ _upcoming: the API returns races that merely overlap the window).
       -> category 'running', secondary 'fitness' (+ 'outdoors' for trail)
   triathlon / duathlon / swim / bike_race / obstacle_course / ...
       -> category 'fitness', secondary 'outdoors'
+  a race whose name, or an upcoming sub-event's, names a cause (CAUSE_RX)
+      -> secondary 'community' too, in place of a running row's 'fitness'
+         (with_community): awaresie and plansie, not only wegosie
 
 Both zero categories fill from the one adapter, which is the point of the
 secondary-category column (migration 0108): a lens matches
@@ -67,6 +70,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 import time
 from datetime import date, datetime, timedelta
@@ -115,6 +119,31 @@ EVENT_TYPES = {
 # the honest generic. 'virtual_race' is the one that must never be ingested.
 VIRTUAL_TYPES = {"virtual_race", "virtual_challenge"}
 GENERIC_TYPES = {"nonprofit_event", "other", None, ""}
+
+# A RACE FOR A CAUSE IS ALSO A COMMUNITY EVENT, and EVENT_TYPES alone filed
+# every walk for cancer, heart disease or Alzheimer's on the running and fitness
+# layers, which only wegosie shows. awaresie and plansie, the two doors whose
+# readers turn up for exactly this, open onto `community`. Measured 2026-10-11
+# over 3,274 races (2,047 asked by cause keyword, plus every Ohio and Florida
+# race in 120 days), through the sync's own derive_categories: 208 written rows
+# name a cause, in the race's name (198) or an upcoming sub-event's (10:
+# "ENDING THE SILENCE 5K" is NAMI's only in its in-person entry). 0 reached
+# community and 181 reached wegosie alone. Read one by one, all 208 are a
+# fundraiser or an awareness event for the cause they name; a few are not runs
+# (a symposium, a conference, a golf day), and for those community is still the
+# truer key. The unbiased half: 36 of 1,269 Ohio and Florida rows.
+#
+# The words are the ones the discovery pass used to find cause walks, kept
+# whole. NAMES ONLY, never the description: a race's blurb lists its sponsors
+# and beneficiaries, and a hospital sponsoring a turkey trot is not a cause.
+CAUSE_RX = re.compile(
+    r"\bheart (?:walk|& stroke|and stroke|association)|\bheart ?walk|\bheart disease|\bcardiac|"
+    r"\bstroke walk|american heart|\bcancer|\bbreast|\bmaking strides|\bprostate|\bleukemia|"
+    r"\blymphoma|light the night|\bpancreatic|purplestride|\bcolon\b|colorectal|\bovarian|"
+    r"\bmelanoma|\bsurvivor|relay for life|\bpink\b|alzheimer|dementia|\bmemory walk|suicide|"
+    r"out of the darkness|\bnami\b|mental health|\bmental illness|\bdepression|diabet|\bjdrf|"
+    r"kidney|cystic|multiple sclerosis|arthritis|autism|parkinson|buddy walk|down syndrome|"
+    r"epilepsy|lupus|crohn|colitis|\bals\b|march of dimes|hospice", re.I)
 
 # The API answers at most RESULT_CAP rows for any one query — four pages of 250,
 # then empty pages for ever, with no total anywhere in the envelope to say the
@@ -310,6 +339,28 @@ def categorise(events: List[dict]) -> tuple[str, List[str]]:
     return primary, norm_categories(primary, secondaries)
 
 
+def for_a_cause(name: str, events: List[dict]) -> bool:
+    """The race's name, or an upcoming sub-event's, names a cause (CAUSE_RX)."""
+    return bool(CAUSE_RX.search(name)
+                or any(CAUSE_RX.search(e.get("name") or "") for e in events))
+
+
+def with_community(primary: str, secondaries: List[str]) -> List[str]:
+    """`community` added to a cause race's secondaries, inside the cap of two.
+
+    The cap is what makes this a choice. Appended after 'fitness', community
+    fills a running row's second slot, and the sync's keyword secondary that
+    used to land there is cut: over the 208 cause rows, 9 lost unsie (a kids'
+    fun run in the title) and 4 lost bar.ventures and oneday.cafe (food). So a
+    running row gives up 'fitness' instead, which reaches no door that
+    'running' does not (wegosie shows both); only mapsee.me's fitness chip
+    loses it. Then 3 rows lose unsie, all fitness-primary rows whose
+    'outdoors' slot was already taken.
+    """
+    keep = [s for s in secondaries if not (primary == "running" and s == "fitness")]
+    return norm_categories(primary, keep, "community")
+
+
 def _start_of(e: dict) -> Optional[datetime]:
     """A sub-event's naive local start ("10/10/2026 09:00"), or None."""
     raw = (e.get("start_time") or "").strip()
@@ -469,6 +520,8 @@ def to_event(race: dict, cfg: Dict[str, Any],
     country = (addr.get("country_code") or "").strip()
 
     primary, secondaries = categorise(events)
+    if for_a_cause(name, events):
+        secondaries = with_community(primary, secondaries)
     dist = _distances(events)
     blurb = (race.get("description") or "").strip()
     parts = [f"Distances: {dist}." if dist else "", blurb]

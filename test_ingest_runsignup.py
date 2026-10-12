@@ -27,6 +27,10 @@ row, and a log line that looked like a normal day.
   query, sorted by name, with no total. Florida's 120 days held 1,042, so the
   sweep lost W to Z ("Zonta ABC Run/Walk", "Your Next Step is the Cure 5K").
 
+And one way a race reached the map but not the doors that want it: a walk to
+end colon cancer was filed running + fitness, which only wegosie shows. 208
+rows of 2,886 name a cause and 0 reached `community` (awaresie, plansie).
+
 Literal payloads trimmed from the live answers (only the fields the adapter
 reads), a fake API that answers the way the live one was measured to, and the
 sync's own _addr_parts. No network, no database; one temporary store file.
@@ -363,6 +367,49 @@ check("1,001 races on ONE day: the halving stops at a day and says so",
       "NOTE" in out.getvalue() and "TX" in out.getvalue(), out.getvalue()[-300:])
 check("... having asked a bounded number of pages (7 halvings of 120 days)",
       len(api.asked) < 80, len(api.asked))
+
+
+# --- 4. a walk for a cause reaches the community doors -----------------------
+# 208 of 2,886 rows written from 3,274 sampled races name a cause, and 0 reached
+# `community`: 181 reached wegosie alone. Run through the sync's own
+# derive_categories, which is what decides the doors.
+
+def cats_at_sync(e):
+    primary, secondaries = SYNC.derive_categories(dict(e.__dict__))
+    return primary, secondaries or []
+
+
+e = to_event(COLON)
+check("Walk to End Colon Cancer (cause in the race's name): running, secondary community",
+      e is not None and e.category == "running" and e.categories == ["community"],
+      e and (e.category, e.categories))
+check("... and the sync keeps community, so awaresie and plansie show it",
+      e is not None and "community" in cats_at_sync(e)[1], e and cats_at_sync(e))
+e = to_event(NAMI)
+check("NAMI's Ending the Silence (cause only in its in-person entry's name): community",
+      e is not None and "community" in (e.categories or []), e and e.categories)
+
+FAMILY = race(152289, "Tomorrow's Voices - Move your Feet for Autism 5K Family Walk.",
+              "10/11/2026", "11/30/2026", "60 Middle Road", None, "Warwick", "",
+              [ev("5K Family Walk", "running_race", "10/11/2026 15:00", distance="5K"),
+               ev("5K Virtual Walk", "virtual_race", "10/11/2026 15:00", "11/30/2026 23:59")])
+e = to_event(FAMILY)
+check("a cause walk with a kids word in its title keeps unsie too: community and kids",
+      e is not None and cats_at_sync(e) == ("running", ["community", "kids"]),
+      e and cats_at_sync(e))
+
+ride = json.loads(json.dumps(COLON))
+ride["events"] = [ev("Ride to End Colon Cancer", "bike_ride", "11/7/2026 08:30")]
+e = to_event(ride)
+check("a cause ride (fitness, outdoors): community takes the second slot",
+      e is not None and (e.category, e.categories) == ("fitness", ["outdoors", "community"]),
+      e and (e.category, e.categories))
+
+for r in (SPOOKY, CIDER, WIT):
+    e = to_event(r)
+    check(f"no cause named ({r['name'][:30]}...): running, fitness as before",
+          e is not None and (e.category, e.categories) == ("running", ["fitness"]),
+          e and (e.category, e.categories))
 
 print()
 print(f"{len(fails)} failure(s)" if fails else "all ok")
