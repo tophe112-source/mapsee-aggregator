@@ -24,8 +24,8 @@ street addresses and distances. One keyless request per page.
 WHAT IT EMITS
 -------------
 One event per race, on the earliest of its sub-events that does not start
-before today (see _upcoming: the API returns races that merely overlap the
-window).
+before today, and none once every run, walk or ride in it is past (see
+_upcoming: the API returns races that merely overlap the window).
 
   running_race / running_only / trail_race / walking_only / wheelchair
       -> category 'running', secondary 'fitness' (+ 'outdoors' for trail)
@@ -319,6 +319,12 @@ def _start_of(e: dict) -> Optional[datetime]:
         return None
 
 
+def _is_typed(e: dict) -> bool:
+    """A sub-event that says what is run, walked or ridden (EVENT_TYPES), not how
+    the race is sold ('nonprofit_event', 'other')."""
+    return (e.get("event_type") or "") in EVENT_TYPES
+
+
 def _upcoming(events: List[dict], today: date) -> List[dict]:
     """Sub-events that do not start before today. One with no start is kept: it
     says nothing either way, and _parse_start dates it from next_date.
@@ -336,14 +342,30 @@ def _upcoming(events: List[dict], today: date) -> List[dict]:
     The other 5 have a sub-event from today on and are dated by it, which is the
     same fix seen from the other side: NAMI's Ending the Silence 5K was dated by
     its early-bird sign-up on 8/3 and is a walk on 11/7, the Mississippi Retina
-    Vision Walk by a T-shirt-only entry on 8/2 and is on 2/6 (2,047 races asked
-    by keyword: 34 of 45 past rows go, 11 move to their real date).
+    Vision Walk by a T-shirt-only entry on 8/2 and is on 2/6.
+
+    WHEN THE RACES ARE OVER, THE RACE IS OVER, whatever else it still sells. If
+    a race has typed sub-events and none is upcoming, nothing is: an upcoming
+    'nonprofit_event' beside them is not the race. StRides Against Suicide &
+    Overdose ran its walk, its 5k and four rides on 8/1; what is left is a
+    "Silent Auction Gala" on 11/8, which dated it as an 11/8 fitness event at
+    the park, and street2 placed it. 1 race of 3,274 sampled is this shape, so
+    refusing it costs nothing measured. A race with no typed sub-event at all
+    ("Epilepsy Alliance Ohio Seminar Series", six 'other' entries) is still
+    dated by its next one, as before. Of the 2,047 races asked by keyword, 35
+    of 45 past rows now go and 10 move to a later date; 6 of those 10 are the
+    race itself on its own day at its own address. The other 4 are the seminar
+    series and three races filed from many towns under one address, where the
+    next sub-event can be another town's (9/11 Heroes Run Shadow Events, the
+    Empty Stroller walks, WALK FOR A PURPOSE).
     """
     out = []
     for e in events:
         s = _start_of(e)
         if s is None or s.date() >= today:
             out.append(e)
+    if any(_is_typed(e) for e in events) and not any(_is_typed(e) for e in out):
+        return []
     return out
 
 

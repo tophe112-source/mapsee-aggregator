@@ -19,7 +19,9 @@ row, and a log line that looked like a normal day.
   sub-event, 32 rows went out on a day already gone, 12 of them placed: a 5k
   run yesterday beside a virtual week, a year-long walking series. And a real
   walk could hide behind its own past early-bird entry: NAMI's Ending the
-  Silence 5K was dated 8/3 and is on 11/7.
+  Silence 5K was dated 8/3 and is on 11/7. The other way round, a race whose
+  walk and rides are over must not be dated by the gala it still sells
+  (StRides Against Suicide & Overdose: 8/1, then a "Silent Auction Gala" 11/8).
 
   FLORIDA OUTGREW THE 1,000-RACE CAP. The API answers at most 1,000 rows for a
   query, sorted by name, with no total. Florida's 120 days held 1,042, so the
@@ -119,6 +121,30 @@ WIT = race(148193, "7th Annual WIT 5K on International Day of the Girl Child",
                "10/11/2026 11:59", "1 Miles"),
             ev("Virtual WIT 5K Run/Walk Race", "virtual_race", "10/10/2026 00:00",
                "10/11/2026 23:59", "3.1 Miles")])
+# The walk, the run and the rides were all on 8/1. What is left on 11/8 is the
+# gala, typed nonprofit_event, and it dated the race as an 11/8 fitness event at
+# the park (street2 then placed it).
+STRIDES = race(126866, "StRides Against Suicide & Overdose", "08/01/2026", "11/08/2026",
+               "Rogers-Lakewood Park", "5501 N. Campbell St.", "Valparaiso", "IN",
+               [ev("5K Run", "running_only", "8/1/2026 10:00", "8/1/2026 11:30", "5K"),
+                ev("5K Walk", "walking_only", "8/1/2026 10:10", "8/1/2026 11:30", "5K"),
+                ev("100 Mile Bike Ride", "bike_ride", "8/1/2026 06:30", "8/1/2026 13:00",
+                   "100 Miles"),
+                ev("Virtual 5K Walk/Run", "virtual_race", "8/1/2026 06:00", "8/1/2026 23:59", "5K"),
+                ev("Silent Auction Gala [General Admission]", "nonprofit_event",
+                   "11/8/2026 14:00", "11/8/2026 18:00"),
+                ev("Silent Auction Gala [VIP Admission]", "nonprofit_event",
+                   "11/8/2026 12:00", "11/8/2026 18:00")])
+# No typed sub-event at all, only 'other': still dated by the next one.
+SEMINARS = race(59894, "Epilepsy Alliance Ohio Professional Seminar Series",
+                "07/30/2026", "12/10/2026",
+                "Residence Inn by Marriott - Rookwood", "3815 Edwards Road", "Cincinnati", "OH",
+                [ev("Epilepsy Alliance Ohio Seminar Series - \"Helping People Change\"", "other",
+                    "7/30/2026 09:00", "7/30/2026 12:15"),
+                 ev("Epilepsy Alliance Ohio Seminar Series - \"ADHD in Children Through Adults\"",
+                    "other", "10/29/2026 09:00", "10/29/2026 12:15"),
+                 ev("Epilepsy Alliance Ohio Seminar Series - \"Executive Functioning\"", "other",
+                    "11/19/2026 09:00", "11/19/2026 12:15")])
 
 
 def to_event(r):
@@ -209,10 +235,20 @@ e = to_event(undated)
 check("no sub-event time and a future next_date: an all-day row on it, as before",
       e is not None and e.start_local == "2026-10-17", e and e.start_local)
 
-LIVE = [COLON, SPOOKY, CIDER, LARS, FIT4FALL, STRIDERS, NAMI, WIT]
+e = to_event(STRIDES)
+check("walk, run and rides all over, only a gala to come: not written",
+      e is None, e and (e.start_local, e.category))
+check("... and refused as begun_before_today",
+      RS.refusal(STRIDES, CFG, date.fromisoformat(TODAY)) == "begun_before_today",
+      RS.refusal(STRIDES, CFG, date.fromisoformat(TODAY)))
+e = to_event(SEMINARS)
+check("no typed sub-event at all ('other' only): dated by its next one, as before",
+      e is not None and e.start_local == "2026-10-29T09:00:00", e and e.start_local)
+
+LIVE = [COLON, SPOOKY, CIDER, LARS, FIT4FALL, STRIDERS, NAMI, WIT, STRIDES, SEMINARS]
 written = [to_event(r) for r in LIVE]
 past = [x.name for x in written if x and x.start_local[:10] < TODAY]
-check("over all eight live payloads, no row dated before today", not past, past)
+check("over all ten live payloads, no row dated before today", not past, past)
 
 # The run's own log line names why, so a filter that swallows a state is visible.
 with tempfile.TemporaryDirectory() as tmp:
@@ -226,9 +262,9 @@ with tempfile.TemporaryDirectory() as tmp:
     finally:
         RS.fetch = real_fetch
 log = out.getvalue()
-check("ingest() keeps the six upcoming races", kept == 6, (kept, log))
-check("ingest() counts the two that had begun as 'begun_before_today'",
-      "2 begun_before_today" in log, log)
+check("ingest() keeps the seven upcoming races", kept == 7, (kept, log))
+check("ingest() counts the three that had begun as 'begun_before_today'",
+      "3 begun_before_today" in log, log)
 
 
 # --- 3. a state over the cap ------------------------------------------------
