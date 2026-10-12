@@ -6,12 +6,12 @@ which only wegosie opens onto; awaresie (community/volunteer/learning) and
 plansie (community/outdoors/arts/theater) showed none of them. _CAUSE_WALK_RX
 reads the TITLE and adds `community`. Every title below is a real one, from
 the live map (events_near_public, five metros, 2026-10-11), RunSignup's race
-list, the US live corpus of 2026-09-24, or the charities' own platforms; the
-three marked SHAPE are the collision a real title of that form would hit.
-The source category and secondaries are what the adapter sends: RunSignup's
-walking_only and running races arrive as ('running', ['fitness']), a trail
-race as ('running', ['outdoors', 'fitness']), a ride as ('fitness',
-['outdoors']).
+list, the US live corpus of 2026-09-24, the AVA's volkssport calendar, or the
+charities' own platforms; the four marked SHAPE are the collision a real
+title of that form would hit. The source category and secondaries are what
+the adapter sends: RunSignup's walking_only and running races arrive as
+('running', ['fitness']), a trail race as ('running', ['outdoors',
+'fitness']), a ride as ('fitness', ['outdoors']).
 
     python test_cause_walks.py
 """
@@ -56,6 +56,11 @@ CASES = [
      "running", RACE, "", "running", True),
     ("12th Annual Veterans Haven 5K Run and 1 Mile Walk", "running", RACE, "", "running", True),
     ("Trot for Troops 5K or 1Mi Walk", "running", RACE, "", "running", True),
+    # veterans count when the title names them as the ones helped
+    ("Victoria Helping Veterans- First Annual Battle Buddy 5k", "running", RACE, "", "running", True),
+    ("YLS 5K Run for Veterans Rights", "running", RACE, "", "running", True),
+    ("Gulf Coast Veterans Association 5k Run/Walk + 1 Mile Fun Run", "running", RACE, "", "running", True),
+    ("5K VFW 6527 RUN/WALK FOR WARRIORS", "running", RACE, "", "running", True),
     ("Rescue Run/Walk 5K", "running", RACE, "", "running", True),
     ("CCD’s Holiday Race for Recovery 5K", "running", RACE, "", "running", True),
     ("Mary's Meals \"Run for Hope\" 5K Run/Walk", "running", RACE, "", "running", True),
@@ -93,6 +98,19 @@ CASES = [
     ("Langhorne American Legion Veteran’s Day 5K", "running", RACE, "", "running", False),
     ("Veteran's Day Nature Hike at Ridley Creek State Park", "outdoors", None, "", "outdoors", False),
     ("Memorial Day 5K", "running", RACE, "", "running", False),                      # SHAPE
+    # veterans thanked, not helped: none of these names a beneficiary even in
+    # its own RunSignup description (FL and OH, 2026-10-11)
+    ("Veterans United Brewing Boos and Brews 5k Race / 1 mile fun run", "running", RACE, "", "running", False),
+    ("Veterans Memorial Bridge 5K", "running", RACE, "", "running", False),
+    ("2026 Honor Our Veterans 5k presented by Diadora", "running", RACE, "", "running", False),
+    ("ORRRC Veterans Land 5k, Sea 10k and Air 15k", "running", RACE, "", "running", False),
+    ("Salute to Veterans 5K/10K/Half Marathon - Atlanta", "running", RACE, "", "running", False),
+    ("Honoring America's Veterans (volkssport walk)", "outdoors", None, "", "outdoors", False),
+    # a holiday is still a holiday after "for"
+    ("Fun Run for Veterans Day", "running", RACE, "", "running", False),            # SHAPE
+    # a second mention must not beat the holiday guard
+    ("Dunedin Veterans Day 5K 10K and Kids HONOR Dash Celebrating All USA Veterans",
+     "running", RACE, "", "running", False),
     # a park is not a memorial
     ("Causal Run/Walk at Memorial Park", "outdoors", None, "", "outdoors", False),
     # MS is Mississippi in a US title; only Walk MS / Bike MS / MS 150 are the society's

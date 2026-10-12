@@ -869,12 +869,12 @@ _GUEST_KEYS = {"party", "music", "market", "food", "theater", "running"}
 # the two doors that exist for exactly this. So the TITLE adds `community`.
 #
 # Measured 2026-10-11, every hit read by hand. Live running/fitness rows from
-# five metros (events_near_public, 120 days; 843 distinct titles): 47 hits, 46
-# of them a cause, the 47th a historical commemoration ("Jonas Cattell
+# five metros (events_near_public, 120 days; 843 distinct titles): 45 hits, 44
+# of them a cause, the 45th a historical commemoration ("Jonas Cattell
 # Memorial 10-mile Run"). RunSignup races the adapter keeps (Oct-Feb,
-# national; 1,881 titles): 347 hits, 100 of them walking_only, and 345 newly
+# national; 1,881 titles): 340 hits, 96 of them walking_only, and 338 newly
 # reach awaresie. US live titles of every category (2026-09-24; 20,187
-# distinct): 41 hits, every one a cause walk, run or ride or a shift at one.
+# distinct): 40 hits, every one a cause walk, run or ride or a shift at one.
 # The charities' own titles (ACS, Alzheimer's Association, Komen, NKF, CFF,
 # Arthritis Foundation): 1,833 of 1,837.
 #
@@ -891,6 +891,19 @@ _GUEST_KEYS = {"party", "music", "market", "food", "theater", "running"}
 #     Park", so a place noun after it refuses. "Memorial Day" and "Veterans
 #     Day" are holidays, not causes: 13 holiday-named races and park hikes
 #     carry no cause word, and stay off.
+#   * `veterans` only as the one helped ("Helping Veterans", "for Veterans
+#     Rights", "Wounded Veterans") or as a veterans' charity ("Veterans
+#     Haven", "Gulf Coast Veterans Association"), with VFW and "for the
+#     troops". Bare, it was the only cause word in 29 of 309,358 distinct
+#     titles, and read race by race 16 of those name no beneficiary even in
+#     their own description; veterans are the people being thanked: a
+#     brewery ("Veterans United Brewing Boos and Brews 5k"), a bridge, a
+#     running club's member race, a running store's "Honor Our Veterans 5k",
+#     the Salute to Veterans series, five volkssport and park walks. A second
+#     mention also beat the holiday guard ("Dunedin Veterans Day 5K ...
+#     Celebrating All USA Veterans"). Narrowed it keeps 8, every one naming
+#     who is helped. The price is 4 real causes that say so only in the small
+#     print ("VETERANS MILE and 5K", "No Veteran Left Behind 5K").
 #   * `foundation` 40 of 40 (a school, hospital or police foundation's 5K is
 #     its fundraiser), `hunger` 12/12, "for education"/"for recovery" 12/12,
 #     `rescue`/`humane` 10/10, `pink` 9/9 (every one breast cancer),
@@ -932,7 +945,10 @@ _CAUSE_WALK_CAUSE = (
     r"cystic\s+fibrosis|parkinson['’]?s?|(?-i:ALS)|arthritis|sickle\s+cell|down\s+syndrome|"
     r"(?-i:AIDS)|hiv|hospice|alopecia|hunger|feed\s+the\s+hungry|homeless(?:ness)?|violence|"
     r"rescue|humane|for\s+(?:education|recovery)|"
-    r"veterans?(?!['’]?s?\s+day)|(?-i:VFW)|for\s+(?:the\s+)?troops|"
+    r"(?:for|benefit\w*|help(?:s|ing)?|support\w*|wounded|disabled)\s+"
+    r"(?:our\s+|all\s+|the\s+|local\s+)?veterans?(?!['’]?s?\s+day)|"
+    r"veterans?\s+(?:haven|association|advocacy|outreach|alliance|rights)|"
+    r"(?-i:VFW)|for\s+(?:the\s+)?troops|"
     r"heart\s+(?:disease|health)|congenital\s+heart|pink|(?:of|for|4)\s+hope|for\s+(?:a|the)\s+cure|for\s+a\s+cause|"
     r"to\s+benefit|benefit(?:t?ing)?|in\s+memory\s+of|in\s+honou?r\s+of|for\s+research|\w+\s+awareness|"
     r"fundrais(?:er|ing)|charit(?:y|ies)|foundation|"
