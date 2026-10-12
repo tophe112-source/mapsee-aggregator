@@ -8,12 +8,20 @@ check is a trap that pass measured:
   * a distance read as a clock ("10K will start at 9:00am" opened at 10:00),
     a month's day read as one ("Oct. 17: Start Table 9:00 AM" became 5 am), and
     "closes at" taken for the end of a walk that closes its START table;
-  * "free": 30 of the 122 pages state a walker fee, usually $4, 1 says everyone
-    walks free, and "Children under 12 walk for free" is not free for everyone;
+  * "free": 35 of the 122 pages state a walker fee, usually $4 (five of them in
+    ways the first draft missed: "Parking limited before 9:30 AM Walk fee
+    $4.00."), 4 say a fee is required with no amount, 1 says everyone walks
+    free, and "Children under 12 walk for free" is not free for everyone; the
+    free row says "Free to join.", which ../mapsee migration 0227's free
+    predicate reads (offers_0227), and a hotel's "reduced rate" or a parking
+    "not free" never reaches the description;
   * the start place typed for a map app ("Get directions to ...", a street with
     its town glued on) and a venue in the town's cell;
   * "New Year's Eve Walk" put on the party door by the sync's nightlife rule;
-  * only events inside the window cost a request.
+  * a cancellation written into the title, whose tombstone must carry the
+    live row's fingerprint; a club's double listing; a town cell that is a park;
+  * only events inside the window cost a request, and the store is saved as
+    the run goes.
 
 Pure functions, literal pages and a fake client: no network, no store file.
     MAPSEE_TODAY is not needed: every date here is passed explicitly.
@@ -21,12 +29,17 @@ Pure functions, literal pages and a fake client: no network, no store file.
 import json
 import os
 import sys
-from datetime import date
+import tempfile
+from datetime import date, timedelta
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import requests
+
 import mapsee_ingest_ava as A
-from mapsee_supabase_sync import DESCRIPTION_MAX, derive_categories
+import offers_0227 as O
+from mapsee_ingest import EventStore
+from mapsee_supabase_sync import DESCRIPTION_MAX, derive_categories, to_row
 
 fails = []
 
@@ -528,6 +541,16 @@ WINDOWS = [
     ("Register between 9:00a - Noon. Finish by 3:00p.", (9, 0), (15, 0)),
     ("TBD", None, None),
     ("Pool operational hours", None, None),
+    # no am/pm anywhere: 1-6 is the afternoon (sn 131781 and 132650, live)
+    ("9-11, Finish by 1", (9, 0), (13, 0)),
+    ("8:30 - 11:30, finish by 2:30", (8, 30), (14, 30)),
+    # "ends" inside a word is not a finish (the review's probes, 2026-10-12)
+    ("Weekends 9 am - 3 pm", (9, 0), None),
+    ("Saturday 8am-noon; weekends 9-1", (8, 0), None),
+    ("9:00 am - 12:00 pm, friends 2 welcome", (9, 0), None),
+    # a finish before the start is a misreading, not an end: Omaha's window with
+    # its last "p.m." dropped
+    ("4:00 p.m. to 6:00 p.m.; off trail by 8:00", (16, 0), None),
 ]
 for text, opens, finish in WINDOWS:
     got = A.parse_window(text)
@@ -547,6 +570,22 @@ PRICES = [
     ("Registration Fee is $4.00 and (optional) \"A\" Award will be available (Only $5.00 Santa 2026 Logo).",
      ("$4", False)),
     ("Everyone walks for free! The fee for IVV credit is $3.", ("$3", False)),
+    # the five the first draft missed (live, 2026-10-11)
+    ("Parking limited before 9:30 AM Walk fee $4.00. Children 12 and under walk at no charge with adult.",
+     ("$4", False)),
+    ("So much history here! $4.00 fee for all walkers unless it's your first AVA walk, or a child not walking "
+     "for credit. 3 hour parking limit around the Plaza.", ("$4", False)),
+    ("Fees/Awards: All Walkers over 12 years pay the $4.00 participation fee. Children under 12 may earn IVV "
+     "credit for no charge.", ("$4", False)),
+    ("Award: Bat on Halloween Pumpkin leather pin. Cost: Award, $9; IVVevent book credit, $4; walk only, $4.",
+     ("$4", False)),
+    ("Registration for all of the pre-cruise and cruise port walks is $4. Other currencies will be considered.",
+     ("$4", False)),
+    # ...and what the money buys still decides
+    ("Walkers can pay $10 for lunch at the finish.", (None, False)),
+    # a sentence starts at "$" or a digit too: else "$4 per walker" shares one
+    # with "3 hour parking" and the parking word vetoes the fee
+    ("A lot of history here! $4 per walker. 3 hour parking limit around the Plaza.", ("$4", False)),
 ]
 for text, want in PRICES:
     got = A.walk_price(text)
@@ -629,10 +668,12 @@ e = ev["133359"]
 check("'10K will start at 9:00am' opens at 09:00, not 10:00", e.start_local == "2026-12-12T09:00:00", e.start_local)
 
 e = ev["131756"]
-check("Omaha, whose sponsors pay, says 'Free to walk.'", e.description.startswith("Free to walk."), e.description[:40])
+check("Omaha, whose sponsors pay, says 'Free to join.'", e.description.startswith("Free to join."), e.description[:40])
+check("...and its 'Parking in the Old Market is not free.' is not copied (0227's FREE_NEG would veto the row)",
+      "not free" not in e.description and "pay lot" not in e.description.lower(), e.description)
 e = ev["132078"]
 check("Annapolis: a $4 fee and children free is not free",
-      e.description.startswith("Walker fee $4") and "Free to walk" not in e.description, e.description[:60])
+      e.description.startswith("Walker fee $4") and "Free to join" not in e.description, e.description[:60])
 e = ev["129527"]
 check("Dayton's 'Get directions to ...' is a venue name",
       e.venue_name == "Comfort Suites Dayton Wright Patterson", e.venue_name)
@@ -662,6 +703,171 @@ A.ingest({"within_days": 120}, FakeClient(gone), TODAY, written2.append, lambda 
 check("a page whose status says cancelled is cancelled, not written",
       [c.source_id for c in cancelled2] == ["131979"] and "131979" not in {w.source_id for w in written2},
       [c.source_id for c in cancelled2])
+
+# A CANCELLATION IN THE TITLE. The tombstone must carry the fingerprint of the
+# row as it was written - the title without the word - or the sync finds nothing
+# to hide. The first draft built it from "CANCELLED - Small city ..." and missed.
+live_fp = ev["131979"].fingerprint
+for marked in ("CANCELLED - Small city and paved trails!", "Small city and paved trails! CANCELLED",
+               "Small city and paved trails! - cancelled due to weather"):
+    page = PAGE_131979.replace(">Small city and paved trails!<", f">{marked}<")
+    w3, c3 = [], []
+    A.ingest({"within_days": 120}, FakeClient(dict(PAGES, list=LIST, **{"131979": page})), TODAY, w3.append,
+             lambda ev, why: c3.append(ev))
+    tomb = next((c for c in c3 if c.source_id == "131979"), None)
+    check(f"title {marked[:44]!r}: a tombstone with the live row's fingerprint, and no row",
+          tomb is not None and tomb.fingerprint == live_fp and "131979" not in {w.source_id for w in w3},
+          (tomb and tomb.fingerprint, live_fp))
+with tempfile.TemporaryDirectory() as d:
+    st = EventStore(os.path.join(d, "s.json"))
+    st.upsert(ev["131979"])
+    page = PAGE_131979.replace(">Small city and paved trails!<", ">CANCELLED - Small city and paved trails!<")
+    A.ingest({"within_days": 120}, FakeClient(dict(PAGES, list=LIST, **{"131979": page})), TODAY, st.upsert,
+             lambda e, why: st.cancel(e, why))
+    check("...so a store holding the live walk drops it and keeps the tombstone",
+          live_fp not in st.records and live_fp in st.tombstones, (len(st.records), list(st.tombstones)))
+
+# A page with no map pin is not written: the pin is the place (rule 1).
+no_pin = A.parse_detail(PAGE_131979.replace("google.maps.LatLng( 38.75122, -90.65127 )", "null"))
+check("a page with no google.maps.LatLng is not written", A.to_event(by["131979"], no_pin, TODAY, 120) == (None, "no map pin"),
+      A.to_event(by["131979"], no_pin, TODAY, 120))
+# The page's own date wins, and a page whose date has passed is not written.
+moved = A.parse_detail(PAGE_131979.replace("Starting Sat, Oct 17th, 2026", "Starting Sat, Oct 3rd, 2026"))
+check("a page whose own date has passed is not written, whatever the list says",
+      A.to_event(by["131979"], moved, TODAY, 120) == (None, "past"), A.to_event(by["131979"], moved, TODAY, 120))
+
+# A serial number listed twice costs one request (the copy sits right under
+# the original, inside the window).
+_row = LIST[LIST.index("<tr>\n<td class='bordered'><button class='submit-s2' onclick='window.open(&quot;https://my.ava.org/event-view.php?sn=131979"):
+            LIST.index("<tr style='background: #90F0FF;'>\n<td class='bordered' colspan='9' style='font-weight: bold;color: #FF0000;'>2026&nbsp;-&nbsp;November")]
+twice = LIST.replace(_row, _row + _row)
+check("(the list really does carry 131979 twice)", [r["sn"] for r in A.parse_list(twice)].count("131979") == 2)
+c2 = FakeClient(dict(PAGES, list=twice))
+A.ingest({"within_days": 120}, c2, TODAY, lambda e: None, lambda e, w: None)
+check("a serial number the list repeats is read once", sum("sn=131979" in u for u in c2.asked) == 1,
+      [u for u in c2.asked if "131979" in u])
+
+# THE ACTIVITY. "Sea Witch Festival Swim" (sn 129766) is typed Bike at 300 m;
+# "Pumpkin Paddle" (133194) did not parse in the list and its page names no type.
+check("a title naming one activity corrects a listing that is not a walk",
+      A._kind_key("Bike", "Traditional Bike", "Sea Witch Festival Swim") == "swim")
+check("...but never a walk's: 'Kayak Point Park' typed Walk is a walk",
+      A._kind_key("Walk", "Traditional Walk", "Kayak Point Park") == "walk")
+check("a title naming two activities leaves the listing's", A._kind_key("Bike", None, "Bike & Walk Day") == "bike")
+paddle_row = {"sn": "133194", "first": date(2026, 10, 24), "last": date(2026, 10, 24), "type": "", "rating": "",
+              "city": "", "region": "", "name": "", "club": ""}
+paddle_page = (PAGE_131979.replace("Small city and paved trails!", "Pumpkin Paddle")
+               .replace("<p class='large notice text' style='margin-bottom:8px'>Traditional Walk</p>", "")
+               .replace("Starting Sat, Oct 17th, 2026", "Starting Sat, Oct 24th, 2026")
+               .replace("Cottleville, Missouri", "Rockport, Texas")
+               .replace("Legacy Park Cottleville MO", "1495 E Laurel St, Rockport, TX 78382"))
+pe, _w = A.to_event(paddle_row, A.parse_detail(paddle_page), TODAY, 120)
+check("'Pumpkin Paddle' with no type is a paddle, not a walk",
+      pe is not None and pe.name == "Pumpkin Paddle" and pe.description.startswith("Volkssport paddle by"),
+      pe and (pe.name, pe.description[:40]))
+check("...and its empty town cell takes the page's WHERE heading: Rockport, TX",
+      pe is not None and (pe.city, pe.region, pe.address) == ("Rockport", "TX", "1495 E Laurel St"),
+      pe and (pe.city, pe.region, pe.address))
+sw_row = dict(by["131578"], sn="129766", name="Sea Witch Festival Swim")
+sw = A.parse_detail(PAGE_131578.replace("US FreedomWalk Festival Bike", "Sea Witch Festival Swim")
+                    .replace("Rating: 1C, Distance: 13, 31km", "Rating: 1A, Distance: 300m")
+                    .replace("Starting Fri, Oct 16th, 2026 for 3 days", "Starting Fri, Oct 16th, 2026 for 1 day"))
+se, _w = A.to_event(sw_row, sw, TODAY, 120)
+check("the Bike-typed 'Sea Witch Festival Swim' is written as a swim (fitness only), not 'Traditional Bike'",
+      se is not None and se.categories == ["fitness"] and se.description.startswith("Volkssport swim by")
+      and "Bike" not in se.description.split("\n\n")[0], se and (se.categories, se.description[:50]))
+
+# A CLUB'S DOUBLE LISTING IS ONE ROW, the one with a start place - whichever
+# the list gives first (sn 129766 came before 131852 on 2026-10-11).
+bare = PAGE_131979.replace("<p class='indent2 large notice text'>Legacy Park Cottleville MO</p>",
+                           "<p class='indent2 large notice text'></p>")
+row_html = LIST[LIST.index("<tr>\n<td class='bordered'><button class='submit-s2' onclick='window.open(&quot;https://my.ava.org/event-view.php?sn=131979"):
+                LIST.index("<tr style='background: #90F0FF;'>\n<td class='bordered' colspan='9' style='font-weight: bold;color: #FF0000;'>2026&nbsp;-&nbsp;November")]
+double = LIST.replace(row_html, row_html.replace("131979", "131900") + row_html)
+w4 = []
+r4 = A.ingest({"within_days": 120}, FakeClient(dict(PAGES, list=double, **{"131900": bare})), TODAY, w4.append,
+              lambda e, w: None)
+small = [e for e in w4 if e.name.startswith("Small city")]
+check("two listings of one outing (club, title, start, pin) are one row, the one with a start place",
+      len(small) == 1 and small[0].venue_name == "Legacy Park" and r4["duplicates"] == 1,
+      [(e.source_id, e.venue_name) for e in small])
+check("...and every other walk is still written", len(w4) == 7, len(w4))
+
+# THE TOWN. Live cells and the club's own addresses, 2026-10-11.
+TOWNS_IN = [
+    (("1495 E Laurel St, Rockport, TX 78382", "TX", None), "Rockport"),
+    (("Register at the Trail Center. 39797 Park Trail, Center City, MN. From North Branch, drive east", "MN", None),
+     "Center City"),
+    (("Visitor Center10901 Tanager Loop Laurel, MD 20708From BW Parkway towards Baltimore", "MD", None), "Laurel"),
+    (("1712 Charles Dr. Papillion, NE Take Cornhusker to S. 66th St.", "NE", None), "Papillion"),
+    (("Robinson Preserve North Entrance, Bradenton FL", "FL", None), "Bradenton"),
+    (("Gemini Springs Park DeBary Florida", "FL", "Gemini Springs Park"), "DeBary"),
+    (("13827 S. River Rd., Grand Rapids, OH 43522Take I-75/US23 N to exit 4B", "OH", None), "Grand Rapids"),
+    (("1 Calle San Gerónimo, San Juan 00901; Caribe Hilton Hotel.", "PR", None), "San Juan"),
+    (("St. Louis, MO 63102", "MO", None), "St. Louis"),
+    (("Holiday Inn Express and Suites", "MO", None), None),
+]
+for (text, region, venue), want in TOWNS_IN:
+    got = A.town_in(text, region, venue)
+    check(f"town in {text[:46]!r} -> {want!r}", got == want, got)
+LOCALITY = [
+    ({"city": "Wild River State Park, MN", "region": "MN"},
+     {"place": None, "driving": "Register at the Trail Center. 39797 Park Trail, Center City, MN."},
+     ("Center City", "MN", "Wild River State Park")),
+    ({"city": "De Soto National Prsv", "region": "FL"},
+     {"place": "Robinson Preserve North Entrance, Bradenton FL"}, ("Bradenton", "FL", "De Soto National Prsv")),
+    ({"city": "Providence and Grand Rapids", "region": "OH"},
+     {"place": "Providence Metropark shelter area", "driving": "13827 S. River Rd., Grand Rapids, OH 43522Take I-75"},
+     ("Grand Rapids", "OH", None)),
+    ({"city": "San Juan Condado", "region": "PR"},
+     {"place": "Caribe Hilton", "driving": "1 Calle San Gerónimo, San Juan 00901; Caribe Hilton Hotel."},
+     ("San Juan", "PR", None)),
+    ({"city": "Clifton Park", "region": "NY"},
+     {"place": "St. Edward's Church, 569 Clifton Park Center Rd", "driving": "Halfmoon, NY 12065"},
+     ("Clifton Park", "NY", None)),
+    ({"city": "", "region": ""}, {"where": "Rockport, Texas", "place": "1495 E Laurel St, Rockport, TX 78382"},
+     ("Rockport", "TX", None)),
+]
+for row, det, want in LOCALITY:
+    got = A.locality(row, det)
+    check(f"town cell {row['city']!r} -> {want}", got == want, got)
+
+# A FEE THE SITE STATES WITHOUT AN AMOUNT, in its boxed notice above the event
+# (4 pages on 2026-10-11), and a state park's entrance fee (3): neither is free,
+# whatever the club's words say.
+NOTE = "<p class='space-above indent large in-box-note'>{}</p>\t\t<img class='png-line-space' src='graphics/lines/evnt-what.png'"
+fest = A.parse_detail(PAGE_131756.replace(
+    "<img class='png-line-space' src='graphics/lines/evnt-what.png'",
+    NOTE.format("This event is part of a club festival and an additional fee is required to participate."), 1))
+fe, _w = A.to_event(by["131756"], fest, TODAY, 120)
+check("'an additional fee is required' says so, and the club's 'everyone walks free' does not make it free",
+      fe.description.startswith("A fee is required; see the event page.") and "Free to join" not in fe.description,
+      fe.description[:60])
+park = A.parse_detail(PAGE_131979.replace(
+    "<img class='png-line-space' src='graphics/lines/evnt-what.png'",
+    NOTE.format("This event is held inside a state park that has a required entrance fee."), 1))
+pk, _w = A.to_event(by["131979"], park, TODAY, 120)
+check("a state park's entrance fee is said", "The state park charges an entrance fee." in pk.description,
+      pk.description[:80])
+check("the page's 'None provided' is no prose (16 of 120 rows carried it)",
+      not any("None provided" in e.description for e in ev.values()),
+      [sn for sn, e in ev.items() if "None provided" in e.description])
+
+# HOTEL AND PARKING PRICES STAY OUT. Williamsburg's comments (sn 132594), verbatim:
+# 0227 tagged the walk "discount" on "reduced rate".
+HOTEL = ("The Best Western is offering special room rates of $84 plus tax per night for a double room with 2 queen "
+         "beds. Cost with tax is $96.08. To make a reservation at the reduced rate, call (757) 229-4100 and mention "
+         "the Peninsula Pathfinders' group. After 1 November 2026, the rate is not guaranteed.")
+he, _w = A.to_event(by["131979"], dict(A.parse_detail(PAGE_131979), comments=HOTEL), TODAY, 120)
+check("a hotel's room rate is not copied into the walk's description",
+      not any(x in he.description for x in ("$84", "reduced rate", "$96.08", "room rate", "not guaranteed")),
+      he.description)
+check("...and the list's blurb stands in for prose that was all hotel",
+      "Both the 5k and 10k will explore" in he.description, he.description[-200:])
+check("parking price prose is dropped and the directions around it kept",
+      A.side_prices_out("Turn left on Main St. Parking in the Old Market is not free. We suggest using a pay lot. "
+                        "There is one at 10th & Jones. Street Meters accept credit cards and cash. The 10k route "
+                        "crosses the river.") == "Turn left on Main St. The 10k route crosses the river.")
 
 # --------------------------------------------------------------------------- #
 # the HTTP client: refusals, deadline, pace
@@ -715,6 +921,132 @@ c = A.Client(Session(Resp(200, "ok")), 1.0, None, clock=lambda: 100.0, sleep=sle
 c.get("https://my.ava.org/a")
 c.get("https://my.ava.org/b")
 check("requests are paced at the config's pause", slept == [1.0], slept)
+
+
+
+class DelayRobots:
+    def check(self, url):
+        return {"allowed": True, "status": "ok", "rule": None, "crawl_delay": 5.0}
+
+
+slept = []
+c = A.Client(Session(Resp(200, "ok")), 1.0, None, robots=DelayRobots(), clock=lambda: 100.0, sleep=slept.append)
+c.get("https://my.ava.org/a")
+c.get("https://my.ava.org/b")
+check("a robots.txt Crawl-delay longer than the pause is adopted", c.pause == 5.0 and slept == [5.0], (c.pause, slept))
+check("a redirect off the site is not read",
+      A.Client(Session(Resp(200, "ok", url="https://elsewhere.example/x")), 0, None).get("https://my.ava.org/a") is None)
+
+
+class Down:
+    def get(self, url, **kw):
+        raise requests.ConnectionError("connection reset")
+
+
+check("a network error costs the page, not the run",
+      A.Client(Down(), 0, None).get("https://my.ava.org/a") is None)
+
+# --------------------------------------------------------------------------- #
+# the store is saved as the run goes: a step cancelled by timeout-minutes keeps
+# what it read (docs/agents/ci-and-jobs.md). 30 walks on 30 days; when the 28th
+# page is asked for, the file on disk must already hold the first 25.
+# --------------------------------------------------------------------------- #
+DAYS = [date(2026, 10, 12) + timedelta(days=i) for i in range(30)]
+MON = {10: "October", 11: "November"}
+
+
+def list_of(days):
+    out, month = ["<table class='indent bordered'>"], None
+    for i, d in enumerate(days):
+        if d.month != month:
+            month = d.month
+            out.append(f"<tr style='background: #90F0FF;'>\n<td class='bordered' colspan='9'>{d.year}&nbsp;-&nbsp;"
+                       f"{MON[d.month]}</td>\n</tr>")
+        out.append(f"<tr>\n<td class='bordered'><button onclick='window.open(&quot;https://my.ava.org/event-view.php?"
+                   f"sn={900000 + i}&quot;)'>View</button></td>\n<td class='bordered'>Add</td>\n"
+                   f"<td class='bordered'>{d.day}</td>\n<td class='bordered'><img alt='Walk'></td>\n"
+                   f"<td class='bordered'>1A</td>\n<td class='bordered'>Cottleville,<br>MO</td>\n"
+                   f"<td class='bordered'>{900000 + i} -<br>Walk {i}</td>\n<td class='bordered'>Gateway Milers NFP</td>\n</tr>")
+    return "\n".join(out + ["</table>"])
+
+
+class SiteSession:
+    """my.ava.org as the run sees it, which reads the store file at the 28th page."""
+
+    def __init__(self, store_path):
+        self.headers, self.pages, self.store_path, self.on_disk = {}, 0, store_path, None
+
+    def get(self, url, **kw):
+        if url.endswith("/robots.txt"):
+            return SResp(404, "", url)
+        if "regional-te-list" in url:
+            return SResp(200, list_of(DAYS), url)
+        self.pages += 1
+        if self.pages == 28:
+            self.on_disk = (len(json.load(open(self.store_path, encoding="utf-8"))["events"])
+                            if os.path.exists(self.store_path) else 0)
+        i = int(url.rsplit("=", 1)[1]) - 900000
+        d = DAYS[i]
+        return SResp(200, PAGE_131979.replace("Small city and paved trails!", f"Walk {i}")
+                     .replace("Starting Sat, Oct 17th, 2026", f"Starting Day, {d.strftime('%b')} {d.day}th, {d.year}"),
+                     url)
+
+
+class SResp:
+    def __init__(self, code, text, url):
+        self.status_code, self.text, self.url, self.content = code, text, url, text.encode()
+
+
+with tempfile.TemporaryDirectory() as d:
+    cfg_path, store_path = os.path.join(d, "ava.json"), os.path.join(d, "store.json")
+    json.dump({"list_url": A.LIST_URL, "detail_url": A.DETAIL_URL, "within_days": 120, "pause": 0}, open(cfg_path, "w"))
+    made = []
+    saved_session, os.environ["MAPSEE_TODAY"] = requests.Session, "20261011"
+    requests.Session = lambda: made.append(SiteSession(store_path)) or made[-1]
+    try:
+        A.main(["--config", cfg_path, "--store", store_path, "--force"])
+    finally:
+        requests.Session = saved_session
+        os.environ.pop("MAPSEE_TODAY", None)
+    final = len(json.load(open(store_path, encoding="utf-8"))["events"])
+    check(f"the store is saved every {A.SAVE_EVERY} walks: 25 on disk at the 28th page, 30 at the end",
+          made and made[0].on_disk == 25 and final == 30, (made and made[0].on_disk, final))
+
+# --------------------------------------------------------------------------- #
+# the free line is a contract with ../mapsee migration 0227's offer tagger,
+# judged on the row the sync stores (offers_0227 is that predicate, vendored)
+# --------------------------------------------------------------------------- #
+drift = O.twin_drift()
+if drift is None:
+    print("skip the vendored 0227 patterns are not compared: ../mapsee is not checked out here")
+else:
+    check("offers_0227's patterns equal ../mapsee/tools/measure_deals.py's", drift == [], drift)
+
+
+def stored_tags(e):
+    """0227's tags for the row the sync writes from this event."""
+    with tempfile.TemporaryDirectory() as d:
+        st = EventStore(os.path.join(d, "s.json"))
+        st.upsert(e)
+        rec = next(iter(st.records.values()))
+    row = to_row(rec, "00000000-0000-0000-0000-000000000000")
+    return O.classify({"title": row["title"], "description": row["description"]})[0]
+
+
+tags = {sn: stored_tags(e) for sn, e in ev.items()}
+check("the free walk (Omaha, 'everyone walks free') IS tagged free", "free" in tags["131756"], tags["131756"])
+check("a walk with a walker fee is NOT tagged free (Annapolis and Dayton, $4)",
+      "free" not in tags["132078"] and "free" not in tags["129527"], (tags["132078"], tags["129527"]))
+check("a walk whose page says nothing about price is NOT tagged free (Cottleville)",
+      "free" not in tags["131979"], tags["131979"])
+check("no walk is tagged a discount, an intro offer, a sale or pay-what-you-can",
+      not any(t & {"discount", "intro", "sale", "pwyw", "happyhr"} for t in tags.values()), tags)
+check("...not even the one whose club copied its hotel's 'reduced rate' (sn 132594)",
+      not (stored_tags(he) & {"discount", "intro"}), stored_tags(he))
+check("'A fee is required; see the event page.' claims no freedom and no deal",
+      not (O.classify({"title": "Great Columbia Crossing (volkssport walk)",
+                       "description": "A fee is required; see the event page."})[0]
+           & {"free", "discount", "intro"}))
 
 # --------------------------------------------------------------------------- #
 # the config the job runs

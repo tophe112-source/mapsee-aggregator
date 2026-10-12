@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
 mapsee_ingest_ava.py - American Volkssport Association traditional events
-(volksmarches): free, non-competitive 5 and 10 km walks run by local clubs,
-plus the few bike rides and swims the same calendar carries.
+(volksmarches): non-competitive 5 and 10 km walks run by local clubs, open to
+anybody, plus the few bike rides, swims and paddles the same calendar carries.
+Most are not free: see rule 5.
 
     python mapsee_ingest_ava.py --config ava_sources.json --store feeds_events.json \
         [--max-minutes 10] [--force] [--dry-run]
@@ -19,8 +20,8 @@ Event on any page (checked 2026-10-11). Two pages carry everything:
     the start place as the club typed it for map apps, a map pin, distances,
     restrooms/pets/strollers/wheelchairs, and the club's own words. On the
     live pass of 2026-10-11 all 122 in-window pages had a pin, 117 a start time
-    this reads and 103 a start place: 120 rows (two pairs of listings share a
-    title, a day and a start) in 27 states, 123 requests, 2.0 minutes.
+    this reads and 103 a start place: 119 rows in 26 states (a club's double
+    listing is one row: rule 6), 123 requests, 2.0 minutes.
 
 So a run is one list read and one detail read per event in the window, at the
 config's pause (1 s): ~2 minutes for ~120 events. Events outside the window are
@@ -62,16 +63,42 @@ WHY THESE RULES:
    occasion ("Falling Leaves", "St. Nicholas Catholic Church Fall Bazaar"). A
    title that names no activity gets "(volkssport walk)" appended, so the map
    says it is a walk and the market classifier is not left reading "Bazaar".
+   A title that names one activity corrects a listing that does not say walk:
+   "Sea Witch Festival Swim" was typed Bike (300 m), "Pumpkin Paddle" had no
+   type. A cancellation in the title ("CANCELLED - Small city ...") is cut off
+   before the row is built, so its tombstone carries the live row's
+   fingerprint and the sync can find that row.
 
 5. FREE IS THE CLUB'S WORD, AND MOSTLY IT IS NOT FREE. No membership is
    required ("No membership is required, only the motivation to walk!",
-   ava.org/about), but of the 122 event pages read on 2026-10-11, 30 state a
-   walker fee ($4 on 28 of them: "The fee for Non-IVV & IVV credit is $4.00",
-   "All walkers will be assessed the $4 walker's fee") and 1 says everyone
-   walks free (Omaha's, whose sponsors pay). The other 91 say nothing. So a
-   row says "Free to walk." only where its own text says so for everyone
-   ("Children under 12 walk for free" is not that), states the fee where the
-   club does, and otherwise says nothing about price.
+   ava.org/about), but of the 122 event pages read on 2026-10-11, 35 state a
+   walker fee ($4 on 33 of them: "The fee for Non-IVV & IVV credit is $4.00",
+   "All walkers will be assessed the $4 walker's fee", "Parking limited before
+   9:30 AM Walk fee $4.00.", "walk only, $4"), 4 more carry the site's boxed
+   notice that "an additional fee is required" with no amount, 3 that the
+   state park charges an entrance fee, and 1 says everyone walks free
+   (Omaha's, whose sponsors pay). 81 say nothing. So a row says "Free to
+   join." only where its own text says so for everyone ("Children under 12
+   walk for free" is not that), states the fee where the club does ("A fee is
+   required; see the event page." where it gives no amount), and otherwise
+   says nothing about price. "Free to join." is worded for ../mapsee
+   migration 0227, whose free predicate reads "free to join" and did not read
+   the earlier "Free to walk.". A sentence pricing a hotel room or a parking
+   space is not copied into the description: 0227 read Williamsburg's "reduced
+   rate" for rooms as a discount on the walk, and Omaha's "Parking ... is not
+   free." would veto its "Free to join.".
+
+6. A CLUB'S DOUBLE LISTING IS ONE ROW. Rows are held for one listed day; two
+   with the same club, title and start whose pins are within ~50 m are one
+   outing, and the one with a start place is kept (Sea Witch Festival Swim,
+   sn 129766 and 131852).
+
+7. THE TOWN IS A TOWN. The list's town cell is free text: empty (Pumpkin
+   Paddle), a place ("Wild River State Park", "NeighborGood Pantry"), two towns
+   ("Providence and Grand Rapids") or a town and its district ("San Juan
+   Condado"). Then the page's WHERE heading, or the town the club's own address
+   names, is the row's town (6 rows had none and 4 a place on 2026-10-11; 1 row
+   is left with none, at a hotel whose page names no town).
 
 Category: community, with fitness and outdoors (a swim: fitness only - the
 2026 swims are indoor pools at a YMCA and at motels).
@@ -81,6 +108,7 @@ from __future__ import annotations
 import argparse
 import html as htmllib
 import json
+import math
 import os
 import re
 import sys
@@ -90,7 +118,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import urlsplit
 
 from mapsee_ingest import (EventStore, NormalizedEvent, USER_AGENT, looks_online_only,
-                           make_fingerprint, norm_categories)
+                           make_fingerprint, norm_categories, normalize_text, strip_notice)
 
 SOURCE = "ava"
 LIST_URL = "https://my.ava.org/regional-te-list.php?time=year&rsel=all"
@@ -112,19 +140,26 @@ KINDS = {
     "swim": ("volkssport swim", ["fitness"]),
     "ski": ("volkssport ski", ["fitness", "outdoors"]),
     "snowshoe": ("volkssport snowshoe", ["fitness", "outdoors"]),
+    # "Pumpkin Paddle" (Rockport, TX, 2026-10-24): the list row did not parse and
+    # the page names no type, so it was written as a "Volkssport walk".
+    "paddle": ("volkssport paddle", ["fitness", "outdoors"]),
 }
+# The activity a word in a title names, for the kinds above.
+_KIND_WORD_RX = re.compile(
+    r"\b(?:(walk|walks|walking|volksmarch\w*)|(bike|biking|bicycle|cycl\w*)|(swim\w*)|(ski|skiing)|"
+    r"(snowshoe\w*)|(paddl\w*|kayak\w*|canoe\w*))\b", re.I)
+_KIND_KEYS = ("walk", "bike", "swim", "ski", "snowshoe", "paddle")
 # A title already naming its activity is left alone (rule 4).
 # "Trail" is not on it: "South Hill Park and Chapman Trail" says where, not what.
 _ACTIVITY_RX = re.compile(
     r"\b(walk|walks|walking|walkers?|hike|hikes|hiking|stroll|ramble|trek|"
-    r"volks\w*|bike|biking|bicycle|ride|cycl\w*|swim\w*|ski|skiing|snowshoe\w*|paddle)\b",
+    r"volks\w*|bike|biking|bicycle|ride|cycl\w*|swim\w*|ski|skiing|snowshoe\w*|paddl\w*|kayak\w*|canoe\w*)\b",
     re.I)
-# PRICE IS READ SENTENCE BY SENTENCE, FROM THE CLUB'S OWN TEXT (rule 5). Of the
-# 122 event pages of 2026-10-11, 30 state a walker fee - "All walkers will be
-# assessed the $4 walker's fee", "The fee for Non-IVV & IVV credit is $4.00",
-# "Exact change is appreciated ($4)" - and 1 says everyone walks free. A sentence
-# about a hotel room, parking or an optional award is not the walk's price, and
-# "Children under 12 walk for free" is not free for everyone.
+# PRICE IS READ SENTENCE BY SENTENCE, FROM THE CLUB'S OWN TEXT (rule 5): "All
+# walkers will be assessed the $4 walker's fee", "The fee for Non-IVV & IVV
+# credit is $4.00", "Exact change is appreciated ($4)", and once "everyone walks
+# free". A sentence about a hotel room, parking or an optional award is not the
+# walk's price, and "Children under 12 walk for free" is not free for everyone.
 _FREE_RX = re.compile(
     r"\b(?:(?:everyone|anyone|all)\s+(?:walks?|can\s+walk)\s+(?:for\s+)?free|free\s+to\s+(?:walk|participate)|"
     r"no\s+(?:charge|cost|fee)\s+(?:to|for)\s+(?:walk|the\s+walk|walkers|participants)|"
@@ -139,8 +174,28 @@ _NOT_THE_WALK_RX = re.compile(
 _SOME_ONLY_RX = re.compile(
     r"\b(child|children|kids?|under\s+\d+|\d+\s+(?:and|&)\s+under|ages?\s+\d+|youth|students?|members?|scouts?)\b",
     re.I)
-_AMOUNT_RX = re.compile(r"\$\s?(\d{1,3}(?:\.\d{2})?)")
+_AMT = r"\$\s?(\d{1,3}(?:\.\d{2})?)"
+_AMOUNT_RX = re.compile(_AMT)
+# A PHRASE THAT NAMES THE WALKER'S FEE WINS OVER A PARKING OR AWARD WORD BESIDE
+# IT. The review of 2026-10-12 found five pages whose fee the clause rule missed:
+# "Parking limited before 9:30 AM Walk fee $4.00." (no full stop between them),
+# "Fees/Awards: All Walkers over 12 years pay the $4.00 participation fee.",
+# "Cost: Award, $9; IVVevent book credit, $4; walk only, $4.", "Registration for
+# all of the pre-cruise and cruise port walks is $4." (the " and " split left the
+# amount without its fee word) and "$4.00 fee for all walkers unless ..." (no
+# sentence break before "$", so it shared a sentence with "3 hour parking").
+_WALK_FEE_RX = re.compile(
+    r"\bwalk(?:er|ers|ing)?(?:'s|s')?\s+(?:fee|cost|price)\b[^$.;]{0,30}?" + _AMT + "|"
+    + _AMT + r"\s+(?:walk(?:er)?(?:'s|s')?\s+|participation\s+|registration\s+)?fee\s+for\s+"
+    r"(?:all\s+|each\s+|every\s+)?(?:walkers?|participants?)\b|"
+    r"\b(?:walkers?|participants?)\b[^$.;]{0,50}?\bpays?\b[^$.;]{0,20}?" + _AMT + "|"
+    r"\bwalk(?:ing)?\s+only\W{0,3}" + _AMT + "|"
+    r"\bregistration\b[^$.;]{0,80}?\b(?:is|are)\s+" + _AMT, re.I)
 _CANCELLED_RX = re.compile(r"\b(cancel+ed|cancel+ation|postponed)\b", re.I)
+
+
+def _fee(amount: str) -> str:
+    return "$" + re.sub(r"\.00$", "", amount)
 
 
 def walk_price(text: str) -> Tuple[Optional[str], bool]:
@@ -150,7 +205,16 @@ def walk_price(text: str) -> Tuple[Optional[str], bool]:
     somebody pays."""
     fee = None
     free = False
-    for sentence in re.split(r"(?<=[.!?])\s+(?=[A-Z(])|\n+", text or ""):
+    # A sentence starts at a capital, a bracket, a "$" or a digit: "... here! $4.00
+    # fee for all walkers ... 3 hour parking limit ..." is three sentences.
+    for sentence in re.split(r"(?<=[.!?])\s+(?=[A-Z($\d])|\n+", text or ""):
+        if fee is None:
+            m = _WALK_FEE_RX.search(sentence)
+            # ...unless what follows says what the money buys: "Walkers can pay $10
+            # for lunch" is not the walk's price.
+            tail = re.split(r"[;.]\s", sentence[m.end():], maxsplit=1)[0] if m else ""
+            if m and not _NOT_THE_WALK_RX.search(m.group(0) + tail):
+                fee = _fee(next(g for g in m.groups() if g))
         # A clause, not the sentence: "Registration Fee is $4.00 and (optional)
         # "A" Award will be available (Only $5.00 ...)" is a walk fee beside an
         # award, while "a $2.00 fee for the train station parking lot" is not.
@@ -158,10 +222,62 @@ def walk_price(text: str) -> Tuple[Optional[str], bool]:
             amount = _AMOUNT_RX.search(clause)
             if (fee is None and amount and _FEE_WORD_RX.search(clause)
                     and not _NOT_THE_WALK_RX.search(clause)):
-                fee = "$" + re.sub(r"\.00$", "", amount.group(1))
+                fee = _fee(amount.group(1))
         if _FREE_RX.search(sentence) and not _SOME_ONLY_RX.search(sentence):
             free = True
     return fee, (free and fee is None)
+
+
+# A FEE THE CLUB STATES WITHOUT AN AMOUNT. my.ava.org prints a boxed notice above
+# the event, outside the club's own paragraphs (4 of 122 pages on 2026-10-11: "This
+# event is part of a club festival and an additional fee is required to
+# participate.", "This event requires an additional fee from all participants."),
+# and 3 more say "This event is held inside a state park that has a required
+# entrance fee." Neither is free, whatever else the page says.
+_FEE_NOTICE_RX = re.compile(r"\badditional\s+fee\b|\bfee\s+is\s+required\b|\brequires?\s+(?:an?\s+)?\w*\s*fee\b", re.I)
+_PARK_FEE_RX = re.compile(r"\b(?:state|national|county)\s+park\b.*\b(?:entrance|entry|admission)\s+fee\b", re.I)
+
+# HOTEL AND PARKING PRICES ARE NOT THE WALK'S, AND THE PRODUCT READS THEM AS IF
+# THEY WERE. Williamsburg's Holiday Night Walk (sn 132594) copied "special room
+# rates of $84 plus tax per night ... To make a reservation at the reduced rate,
+# call ..." into the description, and ../mapsee's offer tagger (migration 0227)
+# tagged the walk "discount" on "reduced rate"; Omaha's "Parking in the Old
+# Market is not free." is 0227's FREE_NEG, which would veto the walk's own "Free
+# to join.". So a sentence that prices a room or a parking space is not prose,
+# and nor is the price talk that runs on after it ("Cost with tax is $96.08.",
+# "After 1 November 2026, the rate is not guaranteed.").
+_LODGING_RX = re.compile(r"\b(?:hotels?|motels?|lodging|rooms?|suites|resort|accommodations?|reservations?|"
+                         r"campgrounds?|campsites?|cabins?|inn)\b", re.I)
+_PARKING_RX = re.compile(r"\b(?:parking|park\s+and\s+ride|garages?|meters?|metered|pay\s+lot)\b", re.I)
+_PRICE_TALK_RX = re.compile(r"\$\s?\d|\b(?:rates?|per\s+night|nightly|reduced|discount\w*|special\s+offers?|tax|"
+                            r"fees?|pay|paid|costs?|charged?|charges|free|book(?:ing)?|reserve)\b", re.I)
+# What ends that run: the walk again, or the driving directions it sat among.
+_WALK_TALK_RX = re.compile(r"\b(?:walk\w*|trails?|routes?|participants?|children|kids|registration|ivv|"
+                           r"awards?|swim\w*|bike|ride|turn|left|right|exit|miles?|continue|follow|go|head|"
+                           r"drive|north\w*|south\w*|east\w*|west\w*)\b", re.I)
+
+
+def side_prices_out(text: Optional[str]) -> Optional[str]:
+    """The club's prose without the sentences that price a room or a parking
+    space, or None when nothing else is left."""
+    if not text:
+        return None
+    out: List[str] = []
+    run = False
+    for sentence in re.split(r"(?<=[.!?])\s+", text.strip()):
+        priced = _PRICE_TALK_RX.search(sentence)
+        if priced and (_LODGING_RX.search(sentence) or _PARKING_RX.search(sentence)):
+            run = True
+            continue
+        # What runs on after it, until the walk comes back: "Cost with tax is
+        # $96.08.", Omaha's "There is one at 10th & Jones. Street Meters accept
+        # credit cards and cash." after "We suggest using a pay lot."
+        if run and not _WALK_TALK_RX.search(sentence) and (
+                priced or _LODGING_RX.search(sentence) or _PARKING_RX.search(sentence) or len(sentence) < 60):
+            continue
+        run = False
+        out.append(sentence)
+    return " ".join(out).strip() or None
 
 
 # THE START PLACE IS TYPED FOR A MAP APP, AND IT SHOWS. Read live 2026-10-11:
@@ -250,7 +366,67 @@ def clean_city(city: Optional[str], region: Optional[str],
     norm = lambda x: re.sub(r"[^a-z0-9]+", " ", (x or "").lower().replace("&", "and")).strip()
     if _VENUE_WORD_RX.search(c) and place and norm(_DIRECTIONS_RX.sub("", place)).startswith(norm(c)):
         return None, c
+    if _NOT_A_TOWN_RX.search(c):
+        return None, c                                   # "Wild River State Park", "De Soto National Prsv"
     return c or None, None
+
+
+# A TOWN CELL THAT IS NEVER A TOWN, whatever the start place says. Narrower than
+# _VENUE_WORD_RX on purpose: "Clifton Park", "College Park" and "Winter Park" are
+# towns; "Wild River State Park" (with no start place at all) and "De Soto
+# National Prsv" (beside a start place in Bradenton) were written as the city on
+# 2026-10-11.
+_NOT_A_TOWN_RX = re.compile(
+    r"\b(?:(?:state|national|county|regional|metro)\s+(?:park|forest|preserve|prsv|refuge|seashore|memorial|"
+    r"recreation\s+area|historic(?:al)?\s+(?:site|park))|preserve|prsv|refuge|pantry|inn|suites|hotel|motel|"
+    r"resort|church|museum|mall|trailhead|campground|marina|ymca)\b", re.I)
+_STATE_CODES = {v.lower(): k for k, v in US_STATES.items()}
+_SUFFIX = (r"St|Street|Ave|Avenue|Rd|Road|Dr|Drive|Blvd|Boulevard|Ln|Lane|Way|Hwy|Highway|Pkwy|Parkway|Ct|Court|"
+           r"Pl|Place|Cir|Circle|Ter|Terrace|Pike|Trail|Loop|Plaza|Square|Row")
+_NOT_TOWN_WORDS = {"from", "take", "turn", "exit", "go", "head", "drive", "continue", "follow", "parking",
+                   "register", "start", "north", "south", "east", "west", "ne", "nw", "se", "sw", "n", "s", "e", "w"}
+
+
+def _town_ok(s: str) -> bool:
+    words = s.split()
+    if not 1 <= len(words) <= 4 or len(s) > 30 or any(ch.isdigit() for ch in s):
+        return False
+    if words[0].lower() in _NOT_TOWN_WORDS or not words[0][0].isupper():
+        return False
+    if not all(w[0].isupper() or w in ("de", "del", "la", "las", "los", "du", "of", "on") for w in words):
+        return False
+    return s.upper() not in US_STATES and s.lower() not in _STATE_CODES and not _NOT_A_TOWN_RX.search(s)
+
+
+def town_in(text: Optional[str], region: Optional[str], venue: Optional[str] = None) -> Optional[str]:
+    """The town an address in the club's own text names just before this row's
+    state, or None. Read live 2026-10-11: "1495 E Laurel St, Rockport, TX 78382",
+    "Register at the Trail Center. 39797 Park Trail, Center City, MN.", "Visitor
+    Center10901 Tanager Loop Laurel, MD 20708From BW Parkway ...", "1712 Charles
+    Dr. Papillion, NE Take Cornhusker ...", "Robinson Preserve North Entrance,
+    Bradenton FL", "Gemini Springs Park DeBary Florida" (the venue is cut off the
+    front), and Puerto Rico's "1 Calle San Gerónimo, San Juan 00901", which names
+    no state."""
+    if not text or not region:
+        return None
+    t = re.sub(r"(\d{5})(?=[A-Za-z])", r"\1 ", text)           # "20708From"
+    t = re.sub(r"(?<=[a-z])(?=\d)", " ", t)                     # "Center10901"
+    code = region.upper()
+    names = [re.escape(code)] + ([f"(?i:{re.escape(US_STATES[code])})"] if code in US_STATES else [])
+    state = re.compile(rf"(?:,\s*|\s+)(?:{'|'.join(names)})\.?(?:,?\s*\d{{5}}(?:-\d{{4}})?)?(?![\w'])")
+    found = [m.start() for m in state.finditer(t)]
+    if code in ("PR", "VI", "GU"):
+        found += [m.end(1) for m in re.finditer(r"(?:^|[,;]\s*)([A-Z][^\d,;.]{1,30}?)\s+\d{5}(?![\d-])", t)]
+    for end in sorted(found):
+        seg = re.split(r"[,;:]", t[:end])[-1]
+        if re.search(r"\d", seg):                           # "1712 Charles Dr. Papillion": after the street
+            seg = re.split(rf"\d+\w*|\b(?:{_SUFFIX})\b\.?", seg)[-1]
+        seg = seg.strip(" .-")
+        if venue and seg.lower().startswith(venue.lower() + " "):
+            seg = seg[len(venue):].strip(" .-")
+        if seg and _town_ok(seg):
+            return seg
+    return None
 
 
 def _text(fragment: str) -> str:
@@ -343,12 +519,17 @@ def _paragraphs(page: str) -> List[Tuple[str, str]]:
     return out
 
 
+# "None provided" is the page's own filler for an empty field; it was the prose
+# of 16 of the 120 rows of 2026-10-11 before it was read as nothing.
+_NOTHING_RX = re.compile(r"^\s*(?:none\s+provided|none|n/?a|tbd)\.?\s*$", re.I)
+
+
 def _after(paras: List[Tuple[str, str]], label: str) -> Optional[str]:
     """The paragraph after a heading paragraph that reads `label`."""
     for i, (_c, t) in enumerate(paras):
         if t.lower() == label.lower() and i + 1 < len(paras):
             nxt = paras[i + 1][1]
-            return nxt or None
+            return None if not nxt or _NOTHING_RX.match(nxt) else nxt
     return None
 
 
@@ -362,6 +543,12 @@ def parse_detail(page: str) -> Dict[str, Any]:
     d["kind"] = next((t for c, t in paras if "large notice text" in c and re.search(
         r"\b(walk|bike|swim|ski|snowshoe)\b", t, re.I) and not t.startswith("SN:")), None)
     d["status"] = next((t for c, t in paras if "alert" in c and "large" in c), None)
+    # The boxed notices above the event ("... an additional fee is required to
+    # participate.") sit before evnt-what, so they are read off the whole page.
+    d["notices"] = [_text(m.group(1)) for m in re.finditer(
+        r"(?is)<p\b[^>]*class=['\"][^'\"]*\bin-box-note\b[^'\"]*['\"][^>]*>(.*?)</p>", page)]
+    # "Rockport, Texas": the town cell and the state, as the page heads its WHERE.
+    d["where"] = next((t for c, t in paras if c.split() == ["large", "note", "text", "space"] and t), None)
     when = next((_STARTING_RX.search(t) for t in texts if _STARTING_RX.search(t)), None)
     d["first"] = d["days"] = None
     if when:
@@ -431,9 +618,12 @@ _CLOCK_RX = re.compile(r"(?<![\d$.])\b(\d{1,2})" + _NOT_A_CLOCK + r"(?::(\d{2}))
 _MONTH_DAY_RX = re.compile(
     r"\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\.?\s+\d{1,2}(?:st|nd|rd|th)?\b:?", re.I)
 # The END of the walk, when the club states one. "Closes" is deliberately not
-# here: "9am-11am; closes at 11am" is the start table closing, not the walk.
+# here: "9am-11am; closes at 11am" is the start table closing, not the walk. The
+# words start a word (or follow "noon", as in "9 AM - 12 NoonFinish: 3 PM"):
+# without that, "weekends 9 am - 3 pm" read "ends 9" as the finish and the window
+# as all day, and "friends 2 welcome" ended a walk at 2 pm.
 _FINISH_RX = re.compile(
-    r"(?:finish(?:ed)?(?:\s+(?:the\s+)?walk)?|off\s+(?:the\s+)?trails?|done|back|ends?|end\s+by|"
+    r"(?:(?<=noon)|\b)(?:finish(?:ed)?(?:\s+(?:the\s+)?walk)?|off\s+(?:the\s+)?trails?|done|back|ends?|end\s+by|"
     r"(?:be\s+)?completed?)\s*(?:by|at|:|no\s+later\s+than|nlt)?\s*"
     r"(?:(\d{1,2})" + _NOT_A_CLOCK + r"(?::(\d{2}))?\s*" + _MARKER + r"?|(noon))", re.I)
 
@@ -492,12 +682,39 @@ def parse_window(text: Optional[str]) -> Tuple[Optional[Tuple[int, int]], Option
 # --------------------------------------------------------------------------- #
 # One row
 
-def _kind_key(list_type: str, detail_kind: Optional[str]) -> str:
+def _kind_key(list_type: str, detail_kind: Optional[str], title: Optional[str] = None) -> str:
+    """The activity: the list's type glyph, else the page's kind, else "walk" -
+    unless the TITLE names exactly one activity and the listing does not say walk.
+    "Sea Witch Festival Swim" (sn 129766) is typed Bike, 300 m, and "Pumpkin
+    Paddle" (133194) has no type at all; no title of the 113 typed Walk on
+    2026-10-11 named another activity, while "Kayak Point" is a park."""
+    base = None
     for hay in (list_type or "", detail_kind or ""):
-        m = re.search(r"\b(walk|bike|swim|ski|snowshoe)\b", hay, re.I)
+        m = re.search(r"\b(walk|bike|swim|ski|snowshoe|paddle|kayak)\b", hay, re.I)
         if m:
-            return m.group(1).lower()
-    return "walk"
+            base = "paddle" if m.group(1).lower() == "kayak" else m.group(1).lower()
+            break
+    named = {_KIND_KEYS[next(i for i, g in enumerate(m.groups()) if g)]
+             for m in _KIND_WORD_RX.finditer(title or "")}
+    if len(named) == 1 and base != "walk":
+        return named.pop()
+    return base or "walk"
+
+
+def own_title(title: str) -> str:
+    """The club's title without a cancellation written into it: the title the
+    live row was written under, so its tombstone carries that row's
+    fingerprint. "CANCELLED - Small city and paved trails!" and "Small city and
+    paved trails! CANCELLED" are both "Small city and paved trails" (the core's
+    strip_notice; make_fingerprint ignores the "!"), and "River Walk - cancelled
+    due to weather" is "River Walk"."""
+    if not _CANCELLED_RX.search(title or ""):
+        return title
+    cut = strip_notice(title)
+    if not cut:
+        cut = re.sub(r"\s*[-–—:(\[|*,]+\s*(?:cancel+ed|cancel+ation|postponed)\b.*$", "", title,
+                     flags=re.I).strip()
+    return cut if cut and normalize_text(cut) else title
 
 
 def _cap(s: Optional[str], n: int) -> Optional[str]:
@@ -508,6 +725,32 @@ def _cap(s: Optional[str], n: int) -> Optional[str]:
         return s
     cut = s[:n].rsplit(" ", 1)[0].rstrip(",;:")
     return cut + "..."
+
+
+def locality(row: Dict[str, Any], det: Dict[str, Any]) -> Tuple[Optional[str], Optional[str], Optional[str]]:
+    """(town, state, venue-from-the-town-cell). The list's town cell first;
+    when it is empty the page's WHERE heading ("Rockport, Texas"); when it is a
+    place ("Wild River State Park", "NeighborGood Pantry"), two towns
+    ("Providence and Grand Rapids") or a town plus its district ("San Juan
+    Condado"), the town the club's own address names (town_in). Measured
+    2026-10-11: 6 of 120 rows had no town and 4 carried a place as one; after
+    this, 1 row (two listings at "Holiday Inn Express and Suites", whose page
+    names no town) has none."""
+    region = (row.get("region") or "").strip().upper() or None
+    cell = row.get("city")
+    if not (cell or "").strip() and det.get("where"):
+        head, _, tail = det["where"].rpartition(",")
+        cell = head.strip() or None
+        region = region or _STATE_CODES.get(tail.strip().lower()) or (
+            tail.strip().upper() if tail.strip().upper() in US_STATES else None)
+    city, cell_venue = clean_city(cell, region, det.get("place"))
+    two = bool(city and re.search(r"\s(?:and|&)\s", city))
+    if city is None or two or (city and len(city.split()) > 1):
+        town = next((x for x in (town_in(det.get(k), region, cell_venue)
+                                 for k in ("place", "driving", "comments", "information")) if x), None)
+        if town and (city is None or two or city.lower().startswith(town.lower() + " ")):
+            city = town
+    return city, region, cell_venue
 
 
 def to_event(row: Dict[str, Any], det: Dict[str, Any], today: date,
@@ -525,11 +768,11 @@ def to_event(row: Dict[str, Any], det: Dict[str, Any], today: date,
         return None, "beyond the window"
     if det.get("lat") is None:
         return None, "no map pin"
-    key = _kind_key(row.get("type", ""), det.get("kind"))
+    title = own_title((det.get("title") or row.get("name") or "").strip())
+    key = _kind_key(row.get("type", ""), det.get("kind"), title)
     noun, extras = KINDS.get(key, KINDS["walk"])
-    title = (det.get("title") or row.get("name") or "").strip()
     if not title:
-        title = f"{row.get('club') or 'AVA club'} {noun}"
+        title = f"{det.get('club') or row.get('club') or 'AVA club'} {noun}"
     name = title if _ACTIVITY_RX.search(title) else f"{title} ({noun})"
     body = " ".join(x for x in (det.get("comments"), det.get("information"), row.get("blurb")) if x)
     if looks_online_only(name, body):
@@ -542,8 +785,7 @@ def to_event(row: Dict[str, Any], det: Dict[str, Any], today: date,
         start_local = f"{first.isoformat()}T{opens[0]:02d}:{opens[1]:02d}:00"
         end_local = f"{first.isoformat()}T{finish[0]:02d}:{finish[1]:02d}:00" if finish else None
 
-    region = row.get("region") or None
-    city, cell_venue = clean_city(row.get("city"), region, det.get("place"))
+    city, region, cell_venue = locality(row, det)
     venue, street = split_place(det.get("place"), city, region)
     venue = venue or cell_venue
     club = det.get("club") or row.get("club") or None
@@ -552,11 +794,23 @@ def to_event(row: Dict[str, Any], det: Dict[str, Any], today: date,
     lines: List[str] = []
     fee, free = walk_price(" ".join(x for x in (det.get("comments"), det.get("information"),
                                                 row.get("blurb"), det.get("window")) if x))
-    if free:
-        lines.append("Free to walk.")
+    notices = " ".join(det.get("notices") or [])
+    fee_notice, park_fee = bool(_FEE_NOTICE_RX.search(notices)), bool(_PARK_FEE_RX.search(notices))
+    # "Free to join." is the wording ../mapsee 0227's free predicate reads ("free
+    # to join"); "Free to walk." matched none of its patterns, so the one walk
+    # whose club says everyone walks free was never tagged free.
+    if free and not (fee_notice or park_fee):
+        lines.append("Free to join.")
     elif fee:
         lines.append(f"Walker fee {fee}, as the club lists it.")
-    facts = [f"{det.get('kind') or noun.capitalize()} by {club}" if club else (det.get("kind") or noun.capitalize())]
+    elif fee_notice:
+        lines.append("A fee is required; see the event page.")
+    if park_fee:
+        lines.append("The state park charges an entrance fee.")
+    # The page's own kind ("Traditional Night Walk") unless the title corrected
+    # it: sn 129766's page says "Traditional Bike" for a 300 m swim.
+    kind_text = det.get("kind") if re.search(rf"\b{key}\b", det.get("kind") or "", re.I) else noun.capitalize()
+    facts = [f"{kind_text} by {club}" if club else kind_text]
     if det.get("distance"):
         facts.append(f"distance {det['distance']}")
     rating = det.get("rating") or row.get("rating")
@@ -574,12 +828,14 @@ def to_event(row: Dict[str, Any], det: Dict[str, Any], today: date,
         lines.append(" ".join(f.rstrip(".") + "." for f in det["facilities"]))
     # The sync keeps 800 characters (DESCRIPTION_MAX) plus a short last line, so
     # the facts above go first, then how to find the start, then the club's own
-    # words in whatever room is left.
-    if det.get("driving"):
-        lines.append("Getting there: " + _cap(det["driving"], 260))
+    # words in whatever room is left - none of it a room rate or a parking price.
+    driving = side_prices_out(det.get("driving"))
+    if driving:
+        lines.append("Getting there: " + _cap(driving, 260))
     closing = "Listed by the American Volkssport Association (my.ava.org); no membership needed."
     room = DESCRIPTION_ROOM - sum(len(x) + 2 for x in lines) - len(closing)
-    prose = det.get("comments") or row.get("blurb") or det.get("information")
+    prose = next((p for p in (side_prices_out(x) for x in (det.get("comments"), row.get("blurb"),
+                                                             det.get("information"))) if p), None)
     if prose and room >= 80:
         lines.append(_cap(prose, room))
     lines.append(closing)
@@ -668,12 +924,30 @@ class Client:
 
 # --------------------------------------------------------------------------- #
 
+def _same_listing(a: NormalizedEvent, b: NormalizedEvent) -> bool:
+    """One club's two listings of one outing: same club, title and start, pins
+    within ~50 m. Sea Witch Festival Swim was listed twice on 2026-10-11 (sn
+    129766 typed Bike with no start place, 131852 typed Swim at the Sussex
+    County YMCA), one pin, two fingerprints only because one had no venue."""
+    return (normalize_text(a.promoter) == normalize_text(b.promoter)
+            and normalize_text(a.name) == normalize_text(b.name)
+            and a.start_local == b.start_local
+            and abs(a.latitude - b.latitude) < 0.00045
+            and abs(a.longitude - b.longitude) < 0.00045 / max(0.2, math.cos(math.radians(a.latitude))))
+
+
 def ingest(cfg: Dict[str, Any], client: Client, today: date,
            emit: Callable[[NormalizedEvent], None],
            cancel: Callable[[NormalizedEvent, str], None]) -> Dict[str, Any]:
-    """Read the list, then each in-window event's page. Returns counts."""
+    """Read the list, then each in-window event's page. Returns counts.
+
+    Rows are held for one listed day before they are emitted, so a club's
+    double listing (_same_listing) leaves one row, the one with a start place.
+    The list is in date order, so nothing waits longer than the next day's
+    first page, and whatever was read is emitted on the way out of a deadline,
+    a refusal or an error."""
     within = int(cfg.get("within_days", DEFAULT_WITHIN_DAYS))
-    rep: Dict[str, Any] = {"listed": 0, "in_window": 0, "kept": 0, "cancelled": 0,
+    rep: Dict[str, Any] = {"listed": 0, "in_window": 0, "kept": 0, "cancelled": 0, "duplicates": 0,
                            "skipped": {}, "kinds": {}, "stopped": None}
     page = client.get(cfg.get("list_url") or LIST_URL)
     if page is None:
@@ -683,34 +957,51 @@ def ingest(cfg: Dict[str, Any], client: Client, today: date,
     rep["listed"] = len(rows)
     horizon = today + timedelta(days=within)
     seen = set()
-    for row in rows:
-        if row["sn"] in seen:
-            continue
-        seen.add(row["sn"])
-        if row["last"] < today or row["first"] > horizon:
-            continue
-        rep["in_window"] += 1
-        try:
-            body = client.get((cfg.get("detail_url") or DETAIL_URL).format(sn=row["sn"]))
-        except Stop as exc:
-            rep["stopped"] = f"{exc} after {rep['in_window'] - 1} event page(s)"
-            break
-        if body is None:
-            rep["skipped"]["page not read"] = rep["skipped"].get("page not read", 0) + 1
-            continue
-        det = parse_detail(body)
-        ev, why = to_event(row, det, today, within)
-        if ev is None:
-            rep["skipped"][why] = rep["skipped"].get(why, 0) + 1
-            continue
-        if _CANCELLED_RX.search(det.get("status") or "") or _CANCELLED_RX.search(det.get("title") or ""):
-            cancel(ev, "the AVA calendar marks it cancelled")
-            rep["cancelled"] += 1
-            continue
-        emit(ev)
-        rep["kept"] += 1
-        k = _kind_key(row.get("type", ""), det.get("kind"))
-        rep["kinds"][k] = rep["kinds"].get(k, 0) + 1
+    held: List[Tuple[NormalizedEvent, str]] = []
+
+    def release() -> None:
+        for ev, k in held:
+            emit(ev)
+            rep["kept"] += 1
+            rep["kinds"][k] = rep["kinds"].get(k, 0) + 1
+        held.clear()
+
+    try:
+        for row in rows:
+            if row["sn"] in seen:
+                continue
+            seen.add(row["sn"])
+            if row["last"] < today or row["first"] > horizon:
+                continue
+            rep["in_window"] += 1
+            try:
+                body = client.get((cfg.get("detail_url") or DETAIL_URL).format(sn=row["sn"]))
+            except Stop as exc:
+                rep["stopped"] = f"{exc} after {rep['in_window'] - 1} event page(s)"
+                break
+            if body is None:
+                rep["skipped"]["page not read"] = rep["skipped"].get("page not read", 0) + 1
+                continue
+            det = parse_detail(body)
+            ev, why = to_event(row, det, today, within)
+            if ev is None:
+                rep["skipped"][why] = rep["skipped"].get(why, 0) + 1
+                continue
+            if _CANCELLED_RX.search(det.get("status") or "") or _CANCELLED_RX.search(det.get("title") or ""):
+                cancel(ev, "the AVA calendar marks it cancelled")
+                rep["cancelled"] += 1
+                continue
+            if held and held[0][0].start_local[:10] != ev.start_local[:10]:
+                release()
+            twin = next((i for i, (h, _k) in enumerate(held) if _same_listing(h, ev)), None)
+            if twin is not None:
+                rep["duplicates"] += 1
+                if not (held[twin][0].venue_name or held[twin][0].address) and (ev.venue_name or ev.address):
+                    held[twin] = (ev, _kind_key(row.get("type", ""), det.get("kind"), ev.name))
+                continue
+            held.append((ev, _kind_key(row.get("type", ""), det.get("kind"), ev.name)))
+    finally:
+        release()
     return rep
 
 
@@ -781,7 +1072,8 @@ def main(argv=None) -> int:
         kinds = ", ".join(f"{k} {v}" for k, v in sorted(rep["kinds"].items())) or "none"
         print(f"[{SOURCE}] listed {rep['listed']}, {rep['in_window']} in the "
               f"{cfg.get('within_days', DEFAULT_WITHIN_DAYS)}-day window, kept {rep['kept']} "
-              f"({kinds}), cancelled {rep['cancelled']}; skipped: {skipped}; "
+              f"({kinds}), cancelled {rep['cancelled']}, double listings {rep['duplicates']}; "
+              f"skipped: {skipped}; "
               f"{client.requests} request(s) in {took:.1f} min", flush=True)
         if rep.get("stopped"):
             print(f"[{SOURCE}] STOPPED - {rep['stopped']}", flush=True)
