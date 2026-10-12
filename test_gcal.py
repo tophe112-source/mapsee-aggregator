@@ -373,6 +373,9 @@ check("Simple Calendar's event link names its calendar (@m is gmail.com)",
       G.page_ids(SIMCAL_PAGE) == ["exampleartsassociation@gmail.com"], G.page_ids(SIMCAL_PAGE))
 check("...and that one is a personal address", G.personal_address(G.page_ids(SIMCAL_PAGE)[0]))
 check("...a group calendar's is not", not G.personal_address(PH_ID))
+check("...Google's other personal domain is one, in any case",
+      G.personal_address("someone@googlemail.com") and G.personal_address("Someone@GMail.com"))
+check("...a domain that only ends like one is not", not G.personal_address("someone@notgmail.com"))
 check("@g is a group calendar",
       G.page_ids('<a href="https://calendar.google.com/calendar/event?eid=%s">x</a>' % _eid("ev1 5f2a9c41e0b7d3a8@g"))
       == ["5f2a9c41e0b7d3a8@group.calendar.google.com"])

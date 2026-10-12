@@ -106,7 +106,7 @@ on:
     # docs/agents/curation-and-discovery.md). The shared ledger still makes a
     # repeat visit nearly free (a dead probe is not re-asked for 90 days, a
     # merged source never) EXCEPT once after the probe learns something: a
-    # no-calendar row an older probe version wrote is asked again
+    # no-calendar or offsite row an older probe version wrote is asked again
     # (catalog_discover_osm.PROBE_VERSION, 2 since 2026-10-12). Its own cursor
     # slot (`osm|community_centre,library,social_centre`), so it never moves
     # the full sweep's place. social_centre joined on 2026-10-12; a widened

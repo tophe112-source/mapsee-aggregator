@@ -722,6 +722,9 @@ def civicplus_candidates(session, place: Dict[str, Any], origin: str,
     return out, rejected
 
 
+CIVIC_MAX_FOLLOW = 2
+
+
 def probe(session, place: Dict[str, Any], timeout: int = 18
           ) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
     """Fetch a city's site and return (candidates, find).
@@ -730,7 +733,12 @@ def probe(session, place: Dict[str, Any], timeout: int = 18
     the platform has no whole-calendar export — see civicplus_feeds. Anything
     else is at most one.
     """
-    found = osm.find_calendar(session, place["url"], timeout=timeout)
+    # TWO FOLLOWS, as before 2026-10-12. The osm walk's MAX_FOLLOW went to 3
+    # with the centre programme words, measured on 56 centre homepages; no
+    # city's homepage was measured, so the civic walk keeps the request
+    # budget it was sized on (CIVIC_CITIES_PER_RUN). The programme words can
+    # still fill a slot here, behind every calendar-word link.
+    found = osm.find_calendar(session, place["url"], timeout=timeout, max_follow=CIVIC_MAX_FOLLOW)
     cands: List[Dict[str, Any]] = []
     if "civicplus" in (found.get("labels") or []):
         cands, dropped = civicplus_candidates(session, place, place["url"], timeout)
@@ -750,7 +758,7 @@ def probe_dmo(session, place: Dict[str, Any], home: str, timeout: int = 18
     that is what the events are about — and it is what makes a Visit Issaquah
     entry say Issaquah, WA even though nothing on the domain does.
     """
-    found = osm.find_calendar(session, home, timeout=timeout)
+    found = osm.find_calendar(session, home, timeout=timeout, max_follow=CIVIC_MAX_FOLLOW)
     one = to_candidate(place, found, "dmo")
     cands = [one] if one else []
     if not cands and "civicplus" in (found.get("labels") or []):

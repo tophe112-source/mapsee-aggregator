@@ -414,6 +414,22 @@ def _venue_pin(venue) -> bool:
     return -90 <= lat <= 90 and -180 <= lon <= 180 and (lat, lon) != (0.0, 0.0)
 
 
+# `pin_unnamed: false` ON A VENUE BLOCK: the block places an event whose
+# LOCATION names the venue, never one that names no place at all. Discovery
+# writes it on the block it proposes for a calendar found through a community
+# centre, library or social centre (catalog_discover_osm.to_candidate), because
+# being found on a centre's website does not make a calendar the centre's own
+# programme: a reviewer's sample put about 10 of 30 such calendars under
+# another body (a club, a scout group, a church) and 20-25 of 259 wider than
+# the building (a city's, a county library system's), and every LOCATION-less
+# event of those would have been drawn on one hall (2026-10-12). Such an event
+# stays unplaceable, as it was before the block existed, and is counted, so a
+# person reading the log knows what deleting the key would add. A block
+# without the key (every hand-written one) is the full fallback, as before.
+def _pins_unnamed(venue) -> bool:
+    return _venue_pin(venue) and venue.get("pin_unnamed", True) is not False
+
+
 def make_location_geocoder(session, suffix: str):
     cache = _GEO_CACHE
 
@@ -672,6 +688,7 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
     online = 0
     skipped_title = 0
     is_civic = str(src.get("_found", "")).startswith("civic:")
+    unnamed_held = 0                                  # see _pins_unnamed
     for offset in range(start_offset, len(events)):
         if kept >= limit:
             break
@@ -767,7 +784,10 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
                 lat = lon = None                      # GEO:0;0 is "unset", not the Gulf of Guinea
         if venue is None and (lat is None or lon is None) and loc and not is_cancelled:
             lat, lon = geocode(loc)
-        if venue is None and lat is None and not loc and not elsewhere and _venue_pin(src.get("venue")):
+        if (venue is None and lat is None and not loc and not elsewhere and not is_cancelled
+                and _venue_pin(src.get("venue")) and not _pins_unnamed(src.get("venue"))):
+            unnamed_held += 1                         # counted below with the unplaceable
+        if venue is None and lat is None and not loc and not elsewhere and _pins_unnamed(src.get("venue")):
             if _off_venue(src, title):
                 off_venue += 1                        # its own title says it is somewhere else
             else:
@@ -837,6 +857,9 @@ def ingest_ics(store: EventStore, session, src: Dict[str, Any], *, start_offset=
         note += f" — {unplaceable} unplaceable (no LOCATION/GEO)"
         if events and unplaceable >= max(3, len(events) // 2):
             note += "; more than half this feed has no location — check whether the source offers a richer feed"
+        if unnamed_held:
+            note += (f"; {unnamed_held} of them name no place and the venue block says "
+                     f"pin_unnamed false: delete it if this is the venue's own programme")
     # A FEED THAT IS ENTIRELY IN THE PAST IS A CONFIG PROBLEM, NOT A QUIET DAY,
     # and until this line it looked exactly like a venue between seasons.
     #

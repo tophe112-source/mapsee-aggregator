@@ -64,6 +64,8 @@ Usage:
   # the venues whose events are on a platform we already ingest, with the link
   python catalog_curate.py ledger --offsite [--refresh]   # --refresh re-probes
          # the routable finds recorded before the link was kept
+  # the discovered calendars held for the owner (a personal address is their id)
+  python catalog_curate.py ledger --held
   python catalog_curate.py coverage                   # where the catalog is thin (no network)
   # prove a civic country before it ships: rows, seconds and the largest city
   python catalog_curate.py cityclass [US CH DE ...]   # every CITY_CLASSES entry if none named
@@ -72,6 +74,7 @@ Usage:
   python catalog_curate.py reapply .curate-snapshot
 """
 import datetime
+import hashlib
 import json
 import os
 import re
@@ -79,7 +82,7 @@ import statistics
 import sys
 import time
 
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import requests
 
@@ -244,6 +247,22 @@ def _verify_with_retry(fn, s, e):
     return last
 
 
+# A URL THAT CARRIES AN ADDRESS (`@`, `%40`) is a personal Google calendar's
+# id in the making: a site whose "Calendar" link redirects to Google's embed
+# page lands its probe there, and that URL is what the walk prints and the
+# ledger keeps as `cal_url`. Printed as its host only, and never written.
+_ADDRESS_IN_URL_RX = re.compile(r"@|%40", re.I)
+
+
+def _public_url(u):
+    """`u` for a public log: itself, or only its host when it carries an address."""
+    u = str(u or "")
+    if _ADDRESS_IN_URL_RX.search(u):
+        p = urlparse(u)
+        return f"{p.scheme}://{p.hostname or '?'}/(an address)"
+    return u
+
+
 def _canon(u):
     """Canonical dedup key for a feed URL: drop scheme, lowercase + strip a
     leading www. on the host, and strip a trailing slash when there's no query.
@@ -328,13 +347,20 @@ def _dead_recently(led, key, ttl=DEAD_TTL):
     # worth the look.
     if not rec or rec.get("status") not in ("fail", "empty", "refused"):
         return False
-    # A NO-CALENDAR VERDICT IS ONLY AS GOOD AS THE PROBE THAT REACHED IT. One
-    # written by an older probe (catalog_discover_osm.PROBE_VERSION; rows
-    # before 2026-10-12 carry no number and are version 1) has lapsed, so the
-    # walk asks again with what the probe can see now. Only that verdict: an
-    # offsite link, a robots.txt refusal or a failed verify is not something
-    # a better fingerprint changes.
-    if (rec.get("type") == "osm-venue" and rec.get("reason") == "osm probe: no-calendar"
+    # A VERDICT THE PROBE REACHED IS ONLY AS GOOD AS THE PROBE. A no-calendar
+    # or offsite row written by an older probe (catalog_discover_osm
+    # .PROBE_VERSION; rows before 2026-10-12 carry no number and are version 1)
+    # has lapsed, so the walk asks again with what the probe can see now. An
+    # offsite verdict too: find_calendar says offsite only after the
+    # fingerprint failed on the homepage and every page it followed, so a
+    # probe that reads more forms can turn it into a find, and version 2 also
+    # stopped reading share buttons, posts and page widgets as a calendar (17
+    # of the ledger's 632 offsite osm-venue rows were those, 2026-10-12). Not
+    # a robots.txt refusal, an unreachable site or a failed verify: a better
+    # fingerprint changes none of them.
+    reason = rec.get("reason") or ""
+    if (rec.get("type") == "osm-venue"
+            and (reason == "osm probe: no-calendar" or reason.startswith("osm probe: offsite:"))
             and _probe_version(rec) < _osm_probe_version()):
         return False
     return _days_since(rec.get("checked", 0)) < ttl
@@ -1722,7 +1748,7 @@ def _discover_civic(session, seen_keys, led, limit, cursor, cities_per_run=None,
                 found[ckey] = cand
                 new += 1
                 print(f"    + {cand['type']:5} {cand['name'][:46]:46} "
-                      f"{str(cand.get('url') or cand.get('base_url'))[:44]}")
+                      f"{_public_url(cand.get('url') or cand.get('base_url'))[:44]}")
             if new:
                 continue
             # Same rule the venue backend follows: park the STABLE findings only.
@@ -1843,12 +1869,31 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
         cand = osm.to_candidate(v, f, label) if status in ("ok", "ok-homepage") else None
         if cand:
             key = _canon(_key_of(cand))
+            # THE HOMEPAGE'S OLD VERDICT IS NOW WRONG. A row an older probe
+            # wrote (no-calendar, offsite) has lapsed, but left alone it still
+            # says so, and the ledger is what `ledger` and every later reader
+            # believe. Rewritten as what this probe saw; `found` parks nothing.
+            if (led.get(home) or {}).get("type") == "osm-venue" and led[home].get("status") != "found":
+                led[home] = {"checked": _today_int(), "name": v.get("name", "?")[:80],
+                             "reason": f"osm probe: found {cand.get('type')}",
+                             "status": "found", "type": "osm-venue",
+                             "probe": osm.PROBE_VERSION}
             if key in seen_keys or key in declined:
                 bump("configured")
                 return
-            if _dead_recently(led, key):
+            # A PERSONAL ADDRESS IS ITS ID (see _held): its ledger row is keyed
+            # by a hash, never by the URL, and one the owner already has in the
+            # held list is not proposed again.
+            held = _held(cand)
+            lkey = _held_key(cand) if held else key
+            if _dead_recently(led, lkey):
                 bump("known-dead")
                 return
+            if held:
+                if (led.get(lkey) or {}).get("status") == "held":
+                    bump("held")
+                    return
+                cand["_home"] = v.get("url")      # for the owner's list; merge never writes it
             # TWO VENUES, ONE CALENDAR (a city's events page linked from each
             # of its centres): the FIRST in map order proposes it, whichever
             # probe finished first, so the candidate's name and venue block do
@@ -1858,7 +1903,7 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
                 if found_rank[key] <= rank:
                     return
             else:
-                print(f"    + {cand['type']:11} {cand['name'][:36]:36} {str(f.get('cal_url'))[:52]}")
+                print(f"    + {cand['type']:11} {cand['name'][:36]:36} {_public_url(f.get('cal_url'))[:52]}")
             cand["_metro"] = label
             found[key] = cand
             found_rank[key] = rank
@@ -1886,7 +1931,8 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
             # It is what a later probe needs to look at again, and it was
             # computed and thrown away (find_calendar records the first page
             # it followed). Never the homepage itself: that is the key.
-            if f.get("cal_url") and _canon(f["cal_url"]) != home:
+            if (f.get("cal_url") and _canon(f["cal_url"]) != home
+                    and not _ADDRESS_IN_URL_RX.search(f["cal_url"])):
                 led[home]["cal_url"] = f["cal_url"][:300]
             # AND THE LINK, for the ones that name an adapter we have.
             # `offsite:eventbrite` is a finished discovery wearing a
@@ -1895,7 +1941,7 @@ def _discover_osm(session, seen_keys, led, limit, cursor, metros_per_run=None,
             # organizer id — which is in the link. Written beside the entry
             # so `catalog_curate.py ledger --offsite` can list them without
             # fetching 26,000 sites again.
-            if f.get("offsite_url"):
+            if f.get("offsite_url") and not _ADDRESS_IN_URL_RX.search(f["offsite_url"]):
                 led[home]["offsite_url"] = f["offsite_url"][:300]
         elif status == "unreachable" and (led.get(home) or {}).get("type") in (None, "osm-venue"):
             # Never over a row some other probe of this URL wrote (a verify's
@@ -2485,6 +2531,10 @@ def cmd_verify(path, recheck=False, ttl=90):
     for e in cands:
         t = e.get("type")
         key = _canon(_key_of(e))
+        # A held entry's row is never keyed by its URL: the URL carries the
+        # personal address, and the ledger is committed (see _held).
+        held = _held(e)
+        lkey = _held_key(e) if held else key
         if t not in VERIFIERS:
             print(f"[SKIP] unknown type={t!r} {e.get('name')}")
             continue
@@ -2492,14 +2542,23 @@ def cmd_verify(path, recheck=False, ttl=90):
             print(f"[SKIP] {t:8} already in config: {e.get('name','?')[:44]}")
             skipped += 1
             continue
-        rec = led.get(key)
-        if not recheck and rec and rec.get("status") in ("fail", "empty", "refused"):
+        rec = led.get(lkey)
+        # THE SAME PREDICATE THE WALK ASKS (_dead_recently), so a row the walk
+        # treats as lapsed is not skipped here: a centre whose old no-calendar
+        # row sits under the very key its candidate has (a tribe base_url at
+        # the site root) was proposed by the walk and then dropped here as
+        # known-dead until the row's 90 days ran out (reviewed 2026-10-12).
+        if not recheck and _dead_recently(led, lkey, ttl):
             age = _days_since(rec.get("checked", 0))
-            if age < ttl:
-                print(f"[SKIP] {t:8} known-dead {age}d ago ({rec.get('reason','')[:30]}): "
-                      f"{e.get('name','?')[:36]}")
-                skipped += 1
-                continue
+            print(f"[SKIP] {t:8} known-dead {age}d ago ({rec.get('reason','')[:30]}): "
+                  f"{e.get('name','?')[:36]}")
+            skipped += 1
+            continue
+        if held and not recheck and (rec or {}).get("status") == "held":
+            print(f"[SKIP] {t:8} held for the owner since {rec.get('checked')}: "
+                  f"{e.get('name','?')[:36]}")
+            skipped += 1
+            continue
         # A Google calendar can only be read with the Calendar API key, because
         # robots.txt refuses its iCal export. Without the key it is skipped and
         # NOT recorded: a `refused` row would park it for 90 days, and the key
@@ -2509,19 +2568,29 @@ def cmd_verify(path, recheck=False, ttl=90):
                   f"{mapsee_gcal.KEY_ENV} (its iCal export is refused by robots.txt)")
             skipped += 1
             continue
+        # The owner's list (`ledger --held`) needs where a held one was found,
+        # never its id; a failed one is parked under the same hashed key.
+        where = ({k: e[f] for k, f in (("home", "_home"), ("metro", "_metro"), ("found", "_found"))
+                  if e.get(f)} if held else {})
         gate = _robots_gate(robots, t, e)
         if gate:
             status, note = gate
-            led[key] = {"type": t, "name": e.get("name"), "status": status,
-                        "reason": note, "checked": _today_int()}
+            led[lkey] = {"type": t, "name": e.get("name"), "status": status,
+                         "reason": note, "checked": _today_int(), **where}
             print(f"[XX ] {t:8} {e.get('name','?')[:46]:46} {note}")
             continue
         try:
             ok, note = VERIFIERS[t](s, e)
         except Exception as ex:  # noqa: BLE001
             ok, note = False, f"{type(ex).__name__}: {str(ex)[:70]}"
-        led[key] = {"type": t, "name": e.get("name"), "status": _status_for(ok, note),
-                    "reason": note, "checked": _today_int()}
+        led[lkey] = {"type": t, "name": e.get("name"), "status": _status_for(ok, note),
+                     "reason": note, "checked": _today_int(), **where}
+        if held:
+            if ok:
+                led[lkey].update(status="held", reason=f"{note}; {held}")
+                print(f"[HELD] {t:8} {e.get('name','?')[:46]:46} {note}: {held} "
+                      f"(catalog_curate.py ledger --held)")
+                continue
         print(f"[{'OK ' if ok else 'XX '}] {t:8} {e.get('name','?')[:46]:46} {note}")
         if ok:
             passed.append(e)
@@ -2676,6 +2745,17 @@ def _held(e):
     carry: the one such page measured (2026-10-12) named a @gmail.com
     calendar. Only a DISCOVERED entry (it carries `_found`) is held; one a
     person curated and merges by hand passes.
+
+    HELD MEANS THE ADDRESS IS NOWHERE PUBLIC. Not in a config, and not in the
+    ledger either, which is committed (verify writes a held entry's row under
+    _held_key, a hash, with status `held` and the venue's homepage), nor in
+    the step summary, which is public on this repo (merge and verify print the
+    name, never the URL). The owner's list is `catalog_curate.py ledger
+    --held`; the walk does not propose a calendar already on it. In today's
+    configs 40 of the 110 Google calendars found through a community centre
+    and 4 of the 15 found through a library are @gmail.com (2026-10-12), so
+    about a third of the centre Google calendars discovery finds will wait for
+    the owner.
     """
     if not e.get("_found") or e.get("type") != "ics":
         return None
@@ -2685,13 +2765,22 @@ def _held(e):
     return None
 
 
+def _held_key(e):
+    """The ledger key of a held entry: a hash of its calendar id, so the row
+    can be found again without the address being written down."""
+    cid = (mapsee_gcal.calendar_id(e.get("url") or "") or "").strip().lower()
+    return "held:" + hashlib.sha256(cid.encode("utf-8")).hexdigest()[:16]
+
+
 def cmd_merge(path):
     verified = json.load(open(path, encoding="utf-8"))
     by_type = {}
     for e in verified:
         why = _held(e)
         if why:
-            print(f"[HOLD] {e.get('type')} {e.get('name', '?')[:50]}: {why} ({e.get('url')})")
+            # The name only: this line goes to the public step summary.
+            print(f"[HOLD] {e.get('type')} {e.get('name', '?')[:50]}: {why} "
+                  f"(catalog_curate.py ledger --held)")
             continue
         by_type.setdefault(e.get("type"), []).append(e)
     for t, adds in by_type.items():
@@ -3088,6 +3177,27 @@ def cmd_ledger_offsite(refresh=False):
               f"ledger's 90-day TTL")
         for key, v in with_url[:6]:
             print(f"         {v.get('name', '?')[:34]:34} {v['offsite_url'][:74]}")
+    return 0
+
+
+def cmd_ledger_held():
+    """The discovered calendars held for the owner, because a personal address
+    is their id (see _held). The address is in none of these rows: each names
+    the venue and its homepage, where the calendar can be read again."""
+    led = _load_ledger()
+    rows = sorted(((k, v) for k, v in led.items()
+                   if isinstance(v, dict) and v.get("status") == "held"),
+                  key=lambda kv: (kv[1].get("metro") or "", kv[1].get("name") or ""))
+    if not rows:
+        print("nothing is held")
+        return 0
+    print(f"{len(rows)} discovered calendar(s) held for the owner: each one's id is "
+          f"a personal address, which this public repo does not commit by itself")
+    for _k, v in rows:
+        print(f"  {str(v.get('name') or '?')[:40]:40} {str(v.get('metro') or '?')[:24]:24} "
+              f"{v.get('home') or '?'}  ({v.get('checked')}: {str(v.get('reason') or '')[:50]})")
+    print("To keep one: read the calendar on the venue's site, decide that its address may "
+          "be published, and add the entry by hand without `_found`; merge writes those.")
     return 0
 
 
@@ -4343,6 +4453,8 @@ def main(argv):
     if cmd == "ledger":
         if "--offsite" in argv:
             return cmd_ledger_offsite(refresh="--refresh" in argv)
+        if "--held" in argv:
+            return cmd_ledger_held()
         return cmd_ledger()
     if cmd == "coverage":
         if "--delta" in argv:

@@ -155,28 +155,40 @@ DEFAULT_CATEGORY = "community"
 # quietly make it a US/UK tool wearing a global name.
 _CAL_WORDS = (
     r"events?|calendar|kalender|calendrier|calendario|agenda|programm|programme|"
-    r"programa|whats[-_ ]?on|shows?|gigs?|concerts?|veranstaltung|evenement|"
+    r"programa|what[-'\u2019]?s[-_ ]?on|shows?|gigs?|concerts?|veranstaltung|evenement|"
     r"evenimente|aktiviteter|tapahtumat|arrangement")
+# "What's On" with its apostrophe (and the WordPress slug `what-s-on`) is the
+# same calendar word as "Whats On", so it ranks with it: as a programme word
+# it would have queued behind every calendar-word link and, under MAX_FOLLOW,
+# not been followed on a site with three (reviewed 2026-10-12). On the 270
+# saved pages it names 51 links on 28 pages, all already followable; this
+# changes their rank only.
+#
 # ...AND WHAT A COMMUNITY CENTRE CALLS ITS PROGRAMME, which is rarely "events":
 # US "Programs" with one m, "Classes", "Activities"/"Activités", German
-# "Termine", a village hall's "Diary", "What's On" spelled with its
-# apostrophe. Measured offline on the 56 saved homepages of the 2026-10-12
-# re-probe (55 no-calendar centres and Polish Home): 9 link a page of their
-# own only one of these words names (programs 3, classes 3, activit- 5,
-# termine 1, schedule 2, what's on 1, diary 0). Under the three-link walk
-# that is 9 new follows on 6 homepages, 2 of them not the programme (a
-# federation's "Europe et International" page, one activity's own page), and
-# none of the 9 carried a machine-readable calendar: a yield of 0 in this
-# sample, kept because a centre's programme page is where the forms above
-# would be. WEAKER than the calendar words and ranked behind them (see
-# _follow_order), so a site's own /events is followed first and these fill the
-# slot MAX_FOLLOW added. Word-bounded, because `activit` is inside
-# "radioactivity"; `termine` closes German compounds (Gottesdiensttermine,
-# Veranstaltungstermine), so it is bounded behind only, and kept out of
-# "determine".
+# "Termine", a village hall's "Diary". WEAKER than the calendar words and
+# ranked behind them (see _follow_order), so a site's own /events is followed
+# first and these fill the slot MAX_FOLLOW added. Word-bounded, because
+# `activit` is inside "radioactivity"; `termine` closes German compounds
+# (Gottesdiensttermine, Gemeindetermine, Veranstaltungstermine), so it is
+# bounded behind only, and kept out of "determine" by refusing a `de` that
+# STARTS the word (a bare "(?<!de)" also refused Gemeindetermine, the
+# commonest of them). Spanish/Portuguese "Actividades"/"Atividades", German
+# "Aktivitäten", Czech "Aktivity" and Italian "Attività" were missed by
+# `activit` until the review (2026-10-12).
+#
+# What they cost and found, replayed offline over the 55 readable homepages
+# of the 2026-10-12 re-probe (all filed no-calendar): 11 new follows on 8
+# homepages (per word, homepages it adds / links the walk follows: programs
+# 4/1, classes 2/2, activit 5/4, actividad 2/1, aktivit 1/1, termine 1/2,
+# schedule 2/0, diary 0/0). None carried a machine-readable calendar; 3 are
+# not the programme at all (a federation's "Europe et International" page,
+# an annual "Relatório de atividades", one activity's own page) and 1 was not
+# saved, so is unjudged. A yield of 0 in this sample, kept because a centre's
+# programme page is where the calendar forms page_ids reads would be.
 PROGRAMME_WORDS = (
-    r"\bprograms?\b", r"\bclasses\b", r"\bactivit", r"(?<!de)termine\b", r"\bdiary\b",
-    r"\bschedules?\b", r"\bwhat['\u2019]s[-_ ]?on\b")
+    r"\bprograms?\b", r"\bclasses\b", r"\bactivit", r"\b(?:acti|ati)vidad", r"\b(?:akti|atti)vit",
+    r"(?<!\bde)termine\b", r"\bdiary\b", r"\bschedules?\b")
 CAL_LINK_RX = re.compile("(" + _CAL_WORDS + "|" + "|".join(PROGRAMME_WORDS) + ")", re.I)
 _CAL_WORD_RX = re.compile("(" + _CAL_WORDS + ")", re.I)
 
@@ -916,8 +928,36 @@ def overpass_venues(session, bbox: str, name: str = "?",
             "region": t.get("addr:state") or t.get("addr:province"),
             "postal_code": t.get("addr:postcode"),
             "country": t.get("addr:country"),
+            "aliases": osm_aliases(t),
         })
     return out
+
+
+# THE OTHER NAMES A MAPPER GAVE THE BUILDING, which is how its own calendar
+# often writes it: Polish Home Association is `name:pl` "Dom Polski" and
+# `alt_name` "Seattle Polish Cultural Center;Dom Polski", and its events'
+# LOCATION reads "Polish Home Association - Dom Polski, 1714 18th Ave". A
+# centre's venue block carries these as `aliases`, which the ics adapter only
+# MATCHES against a LOCATION (never geocodes, never writes to a row). Of the
+# 106 Seattle-area community centres, libraries and social centres with a
+# website (OSM, 2026-10-12), 16 carry at least one of these tags (and 100 a
+# house number and street, the block's `street_hint`). `old_name`
+# is left out: a former name can be another building's now. Semicolons are
+# OSM's list separator. At most 8, each at most 80 characters.
+_ALIAS_TAGS = ("alt_name", "official_name", "short_name", "loc_name")
+_NAME_LANG_RX = re.compile(r"^name:[a-z]{2,3}(?:-[A-Za-z]{2,4})?$")
+
+
+def osm_aliases(tags: Dict[str, Any]) -> List[str]:
+    name = (tags.get("name") or "").strip().casefold()
+    keys = list(_ALIAS_TAGS) + sorted(k for k in tags if _NAME_LANG_RX.match(k))
+    out: List[str] = []
+    for k in keys:
+        for a in str(tags.get(k) or "").split(";"):
+            a = " ".join(a.split())[:80]
+            if a and a.casefold() != name and a.casefold() not in {x.casefold() for x in out}:
+                out.append(a)
+    return out[:8]
 
 
 # ---- finding the calendar on a venue's own site ------------------------------
@@ -1147,14 +1187,27 @@ PROBE_CONNECT_S = 6
 
 
 _ANCHOR_RX = re.compile(r'<a[^>]+href="([^"#]+)"[^>]*>(.*?)</a>', re.S | re.I)
+# A LINK TO ONE EVENT, not to whoever runs them: Eventbrite /e/<slug>-<id>,
+# Ticketmaster's and DICE's /event/<id>, a Facebook or Meetup event
+# /events/<number>. Read on the homepage as it always was; NOT on a followed
+# page (see find_calendar), because a calendar page that lists other people's
+# ticketed events is a programme, and a city's or a tourism board's events
+# page (the civic walk shares find_calendar) lists dozens of organisers: the
+# first one's event is not where that site's calendar is. Maiden Lane
+# Community Centre's what's-on page was the one followed-page offsite verdict
+# in the 2026-10-12 replay, through an /e/ link, and Eventbrite is
+# reference-only here (catalog_curate.REFERENCE_OFFSITE), so it bought
+# nothing but a 90-day park.
+_ONE_EVENT_RX = re.compile(r"^/e/|/event/|/events/\d", re.I)
 
 
-def _cal_links(base: str, body: str):
+def _cal_links(base: str, body: str, one_event_ok: bool = True):
     """(onsite, offsite) calendar links on one page.
 
     onsite: {url: strong}, in page order, `strong` when a calendar word (not
     only a programme word) named it. offsite: (host, url) of the first link to
-    a platform OFFSITE_HOSTS routes, or None.
+    a platform OFFSITE_HOSTS routes, or None; with `one_event_ok` False, never
+    a link to one event (_ONE_EVENT_RX).
     """
     onsite: Dict[str, bool] = {}
     offsite = None
@@ -1176,7 +1229,7 @@ def _cal_links(base: str, body: str):
             # <slug>-<id>. Recording the host alone made 46 venues a statistic
             # instead of 46 candidates, and re-finding each one costs the fetch
             # again. First hit wins, matching the host rule it replaces.
-            if offsite is None:
+            if offsite is None and (one_event_ok or not _ONE_EVENT_RX.search(urlparse(u).path or "/")):
                 offsite = (off, u)
         elif _same_host(u, base):
             strong = bool(_CAL_WORD_RX.search(href) or _CAL_WORD_RX.search(text))
@@ -1195,7 +1248,9 @@ def _follow_order(onsite: Dict[str, bool]) -> List[str]:
 # hornsby.nsw.gov.au 20); three, with the programme words ranked behind the
 # calendar ones, keeps every follow the two-link walk made and adds one.
 # Replayed offline over the 56 saved homepages (the 55 and Polish Home):
-# 52 follow requests became 66, on 12 homepages.
+# 52 follow requests became 68 (+31%): the third follow 6 more on 6
+# homepages, the programme words 11 on 8, Polish Home one fewer (its calendar
+# is now read on the first page followed).
 MAX_FOLLOW = 3
 
 # WHICH PROBE WROTE A LEDGER ROW. A `no-calendar` verdict is parked for 90
@@ -1203,14 +1258,16 @@ MAX_FOLLOW = 3
 # probe that learned to see more could not reach a site an older one had
 # given up on: Polish Home was filed no-calendar on 2026-10-11, parked to
 # 2027-01-09, the day before page_ids could read it. The walk writes this
-# number on every osm-venue row, and a no-calendar row from an older probe
-# counts as lapsed (catalog_curate._dead_recently), so the next pass over a
-# metro asks again. Bump it when the probe learns to see a calendar it could
-# not see before; that re-asks every no-calendar venue once (37,806 rows on
-# 2026-10-12, all of which lapse by themselves by 2027-01 anyway: 8,473 in
-# November, 23,633 in December, 5,700 in January).
+# number on every osm-venue row, and a no-calendar or offsite row from an
+# older probe counts as lapsed (catalog_curate._dead_recently), so the next
+# pass over a metro asks again. Bump it when the probe learns to see a
+# calendar it could not see before; that re-asks every such venue once
+# (37,806 no-calendar and 632 offsite rows on 2026-10-12, which lapse by
+# themselves by 2027-01 anyway: 8,473 + 142 in November, 23,633 + 299 in
+# December, 5,700 + 191 in January).
 #   1  every row written before 2026-10-12 (they carry no number)
-#   2  page_ids, PROGRAMME_WORDS, MAX_FOLLOW 3, offsite links on followed pages
+#   2  page_ids, PROGRAMME_WORDS, MAX_FOLLOW 3, organiser links on followed
+#      pages, share buttons and posts never offsite
 PROBE_VERSION = 2
 
 
@@ -1308,13 +1365,15 @@ def find_calendar(session, home_url: str, timeout: int = 18,
                        adapter=adapter, status="ok")
             return out
         out["cal_url"] = out["cal_url"] or str(r2.url)
-        # THE CALENDAR PAGE CAN BE WHERE THE PLATFORM LINK IS. Maiden Lane
-        # Community Centre's homepage links no ticketer; its what's-on page
-        # links each event on Eventbrite (2026-10-12), and only the homepage
-        # was read for offsite links. Read here by the homepage's rules, and
-        # the homepage's own link still wins (it was found first).
+        # THE CALENDAR PAGE CAN BE WHERE THE PLATFORM LINK IS: a centre whose
+        # homepage links no ticketer can link its organiser page, or its
+        # booking platform's timetable, from its what's-on page. Read here by
+        # the homepage's rules except one: a link to ONE event is not read
+        # (_ONE_EVENT_RX), so a page listing other people's events does not
+        # turn into an offsite verdict. The homepage's own link still wins (it
+        # was found first).
         if offsite_hit is None:
-            _more, off2 = _cal_links(str(r2.url), r2.text)
+            _more, off2 = _cal_links(str(r2.url), r2.text, one_event_ok=False)
             if off2:
                 offsite_hit, offsite_url = off2
 
@@ -1355,13 +1414,29 @@ def find_calendar(session, home_url: str, timeout: int = 18,
 # (mapsee_supabase_sync._addr_parts), so a block with no street keeps the point
 # exact. City, region, postcode and country stay, because nothing geocodes
 # them and the coverage report reads the country off the block.
+#
+# THE STREET IS STILL THERE, AS A HINT. A Google-picked place reads "Polish
+# Home Association, 1714 18th Ave, Seattle, WA 98122, USA", and the ics
+# adapter's LOCATION-names-the-venue rule refuses a LOCATION that writes a
+# house number unless the number and street are the venue's own. With no
+# street under any key, every such event went to the geocoder and missed the
+# centre's four-decimal key (reviewed 2026-10-12, run against the ics rule).
+# So a centre's block carries the OSM house number and street as
+# `street_hint`, which the adapter only matches (never geocodes, never writes
+# to a row), and the other names OSM holds as `aliases` (osm_aliases). Only
+# when OSM has a house number: the rule needs one, and a bare street name
+# would name a whole road.
 CENTRE_KINDS = ("community_centre", "library", "social_centre")
+# "1714", "11A", "12-14": a house number, which is what overpass_venues puts
+# first. Not "18th": that is the street ("18th Avenue" with no number).
+_HOUSE_NUMBER_RX = re.compile(r"\d+[A-Za-z]?(?:-\d+)?")
 
 
 def _venue_block(v: Dict[str, Any]) -> Dict[str, Any]:
     """The config `venue` block, from the survey. This is what makes a
     single-venue calendar placeable AND time-correct — see the module header.
-    A centre's (CENTRE_KINDS) has no `address`, so its events keep the point."""
+    A centre's (CENTRE_KINDS) has no `address`, so its events keep the point;
+    its street is a `street_hint`, and its other names are `aliases`."""
     b = {"name": v.get("name")}
     centre = v.get("kind") in CENTRE_KINDS
     for src, dst in (("street", "address"), ("city", "city"), ("region", "region"),
@@ -1370,6 +1445,12 @@ def _venue_block(v: Dict[str, Any]) -> Dict[str, Any]:
             b[dst] = v[src]
     if v.get("lat") is not None:
         b["lat"], b["lon"] = round(float(v["lat"]), 7), round(float(v["lon"]), 7)
+    if centre:
+        street = (v.get("street") or "").split()
+        if len(street) >= 2 and _HOUSE_NUMBER_RX.fullmatch(street[0]):
+            b["street_hint"] = " ".join(street)
+        if v.get("aliases"):
+            b["aliases"] = list(v["aliases"])
     return b
 
 
@@ -1431,18 +1512,27 @@ def to_candidate(v: Dict[str, Any], found: Dict[str, Any],
         # agenda, two scout troops' trips, and a rowing club's meetings in
         # Lausanne and camp in St. Moritz. Pin by hand, from the events.
         #
-        # EXCEPT A CENTRE'S (CENTRE_KINDS, 2026-10-12). None of those nine was
-        # found through one: the five wrong to pin came through a
-        # social_facility (the diocese), three `club`s (two scout troops, the
-        # rowing club) and a scout_camp. A centre's calendar is the building's
-        # programme, so it gets the OSM point and its events can share the
-        # centre's four-decimal key. The row-level review of merged rows still
-        # applies: a youth group can keep its calendar under the hall it meets
-        # in (Chiro Tsjoef came through a community_centre).
+        # A CENTRE'S GETS ONE, FOR ITS NAMED EVENTS ONLY (CENTRE_KINDS,
+        # 2026-10-12). Its block (the OSM point, no address, a street_hint and
+        # aliases) says `pin_unnamed: false`: an event whose LOCATION names
+        # the centre, by name, alias or house number and street, lands on the
+        # centre's point and shares its four-decimal key; an event that names
+        # no place is left unplaceable, as it was before. Not the whole
+        # fallback, because "found through a centre" is not "the centre's
+        # programme": of the 259 configured ics sources that came through a
+        # community_centre, library or social_centre, a reviewer's hand sample
+        # put about 10 of 30 community_centre ones under another body (a
+        # tennis club, a scout group, a church, a youth group, a hall-bookings
+        # diary) and 20-25 of the 259 wider than the building (a city's, a
+        # county library system's, a faculty's calendar). Their LOCATION-less
+        # events would all have been drawn on one hall, and the curate
+        # workflow commits a merge with no person in between. A person who
+        # has read the calendar deletes `pin_unnamed` and the rest follow;
+        # the ics adapter logs how many each source is holding back.
         cand = dict(common, type="ics", url=_https(urljoin(cal, ics)),
                     geocode_suffix=_suffix(v, metro), limit=300)
         if v.get("kind") in CENTRE_KINDS and v.get("lat") is not None:
-            cand["venue"] = _venue_block(v)
+            cand["venue"] = dict(_venue_block(v), pin_unnamed=False)
         return cand
     if adapter == "tribe":
         o = urlparse(cal)
