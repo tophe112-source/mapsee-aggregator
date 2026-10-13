@@ -22,7 +22,8 @@ name: Hide duplicate imported events (manual)
 #                  that run's copies. Allowed with the switch off, because the
 #                  undo has to work on the day the switch was turned off.
 #
-# Inputs reach the shell through env, never pasted into `run:`.
+# Inputs reach the shell through env, never pasted into `run:`, and days and
+# lookback are each checked on their own: digits only, not empty, at most 120.
 #
 # Required repo secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 # Optional repo variable: DEDUPE_APPLY ('bounded' allows a bounded apply here
@@ -85,7 +86,18 @@ jobs:
           APPLY_SWITCH: ${{ vars.DEDUPE_APPLY }}
         run: |
           set -o pipefail
-          case "$DAYS$LOOKBACK" in *[!0-9]*|"") echo "::error::days and lookback must be whole numbers"; exit 2;; esac
+          # Each number on its own: digits only, not empty, at most MAX_DAYS. A
+          # number bash cannot compare (2^63, an empty field) made `[ -gt ]` fail,
+          # the `if` read that as false, and the bounded apply went ahead.
+          MAX_DAYS=120
+          for v in "$DAYS" "$LOOKBACK"; do
+            case "$v" in
+              ''|*[!0-9]*) echo "::error::days and lookback must each be a whole number (got '$DAYS' and '$LOOKBACK')"; exit 2 ;;
+            esac
+            if [ "${#v}" -gt 3 ] || [ "$v" -gt "$MAX_DAYS" ]; then
+              echo "::error::days and lookback must each be at most $MAX_DAYS (got '$DAYS' and '$LOOKBACK')"; exit 2
+            fi
+          done
           case "$MODE" in
             report)
               ARGS=(--days "$DAYS" --lookback "$LOOKBACK" --max-seconds 1200 --report dedupe_report.json) ;;
@@ -93,7 +105,8 @@ jobs:
               case "$APPLY_SWITCH" in
                 true) ;;
                 bounded)
-                  if [ "$DAYS" -gt 7 ] || [ "$LOOKBACK" -gt 7 ]; then
+                  # fails closed: anything but two numbers of 7 or less is refused
+                  if ! { [ "$DAYS" -le 7 ] && [ "$LOOKBACK" -le 7 ]; } 2>/dev/null; then
                     echo "::error title=Dedupe: refused::DEDUPE_APPLY is 'bounded': days and lookback must be 7 or less (got $DAYS and $LOOKBACK). Set it to 'true' for a wider apply."
                     exit 1
                   fi ;;

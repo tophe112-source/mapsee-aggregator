@@ -227,8 +227,15 @@ class WorkflowContracts(unittest.TestCase):
         self.assertEqual(set(job['needs']), set(workflow['jobs']['indexnow']['needs']) - {'dedupe'})
         run = next(s['run'] for s in job['steps'] if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
         self.assertIn('set -o pipefail', run)
-        seconds = int(re.search(r'--max-seconds (\d+)', run).group(1))
-        self.assertLess(seconds / 60 + 3, job['timeout-minutes'])
+        # EVERY call's budget, added up, in every position of the switch: with
+        # only the first --max-seconds read (300), 'bounded' spent 300 + 1200 s,
+        # the whole 25 minutes, before checkout, pip and the test step.
+        if shutil.which('bash'):
+            for value in ('', 'bounded', 'true'):
+                code, calls = self._dedupe_calls(run, {'DEDUPE_APPLY': value})
+                total = sum(int(c[c.index('--max-seconds') + 1]) for c in calls)
+                self.assertTrue(calls and all('--max-seconds' in c for c in calls), value)
+                self.assertLessEqual(total / 60 + 5, job['timeout-minutes'], (value, total))
         for name, other in workflow['jobs'].items():
             if name != 'dedupe':
                 for step in other.get('steps', []):
@@ -238,6 +245,8 @@ class WorkflowContracts(unittest.TestCase):
         mrun = next(s['run'] for s in manual['jobs']['dedupe']['steps'] if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
         self.assertNotIn('${{', mrun)
         self.assertEqual(manual['concurrency']['group'], job['concurrency']['group'])
+        for seconds in re.findall(r'--max-seconds (\d+)', mrun):
+            self.assertLessEqual(int(seconds) / 60 + 5, manual['jobs']['dedupe']['timeout-minutes'])
 
     @staticmethod
     def _dedupe_calls(run, env):
@@ -267,14 +276,19 @@ class WorkflowContracts(unittest.TestCase):
             kept = [c for c in calls if c not in full]
             if value == 'bounded':
                 # it keeps what was hidden (categories, no-room un-hides) and hides nothing new
-                self.assertEqual(kept, [['--apply', '--days', '0', '--lookback', '0', '--max-seconds', '300']])
+                self.assertEqual(kept, [['--apply', '--days', '0', '--lookback', '0', '--max-seconds', '240']])
             else:
                 self.assertEqual(kept, [], value)
         manual = yaml.safe_load((ROOT / '.github/workflows/dedupe-events.yml').read_text(encoding='utf-8'))
         mrun = next(s['run'] for s in manual['jobs']['dedupe']['steps'] if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
+        # Each input on its own, and fail closed: a number bash cannot compare
+        # (2^63) or an empty field used to fall through to the bounded apply.
         cases = [('', '3', '3', False), ('false', '3', '3', False), ('bounded', '3', '3', True),
                  ('bounded', '7', '7', True), ('bounded', '8', '3', False), ('bounded', '3', '21', False),
-                 ('true', '21', '60', True)]
+                 ('bounded', '9223372036854775808', '3', False), ('bounded', '3', '99999999999999999999', False),
+                 ('bounded', '', '3', False), ('bounded', '3', '', False), ('bounded', '-1', '3', False),
+                 ('bounded', '3 ', '3', False), ('bounded', '007', '3', True), ('true', '21', '60', True),
+                 ('true', '121', '60', False), ('true', '21', '9223372036854775808', False), ('true', '', '60', False)]
         for value, days, lookback, allowed in cases:
             code, calls = self._dedupe_calls(mrun, {'APPLY_SWITCH': value, 'MODE': 'apply', 'DAYS': days,
                                                     'LOOKBACK': lookback, 'STAMP': ''})

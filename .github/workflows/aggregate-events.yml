@@ -1510,21 +1510,25 @@ jobs:
   # nothing this hides is announced.
   #
   # AFTER EVERY RUN THAT SYNCS, not only the daily one. The Mon/Thu run (and an
-  # extra_only dispatch) syncs SeatGeek and Eventbrite, and 247 of the 866 hides
-  # in a replay of the census involved a SeatGeek row: on the daily schedule
-  # alone their copies stayed visible until the next morning. The 17:23 UTC
-  # festival-schedules sync is a separate workflow; its copies wait for the next
-  # 06:17 run (about 13 hours).
+  # extra_only dispatch) syncs SeatGeek and Eventbrite, and about 3 in 10 of the
+  # hides in a replay of the census involved a SeatGeek row (the count is in
+  # docs/agents/ci-and-jobs.md): on the daily schedule alone their copies stayed
+  # visible until the next morning. The 17:23 UTC festival-schedules sync is a
+  # separate workflow; its copies wait for the next 06:17 run (about 13 hours).
   #
-  # IT WRITES NOTHING UNTIL THE OWNER TURNS IT ON. The switch is the repository
-  # variable DEDUPE_APPLY (exactly 'true'), as SPAM_PURGE_APPLY is for the purge:
-  # until then the run reports what it would hide and uploads every pair as the
-  # dedupe-report artifact. --apply without events.duplicate_of also only reports
-  # (and exits 1). Reverse one run: dedupe-events.yml, mode unhide, its stamp.
+  # IT HIDES NOTHING UNTIL THE OWNER TURNS IT ON. The switch is the repository
+  # variable DEDUPE_APPLY, with three positions (the step below): unset or any
+  # other value reports what it would hide and uploads every pair as the
+  # dedupe-report artifact; 'bounded' also keeps what dedupe-events.yml hid (the
+  # kept rows' categories) and hides nothing new; 'true' hides. --apply without
+  # events.duplicate_of also only reports (and exits 1). Reverse one run:
+  # dedupe-events.yml, mode unhide, its stamp.
   #
-  # --max-seconds covers the listing, the reads and the writes; 1200 s inside 25
-  # minutes leaves the checkout, pip and the test step their time. Move one,
-  # move the other. A budget that runs out exits 1 and says BACKLOG.
+  # --max-seconds covers the listing, the reads and the writes. Every call's
+  # budget together is 1200 s in every position ('bounded': 240 for the kept
+  # pass, 960 for the report), inside 25 minutes, which leaves the checkout,
+  # pip and the test step their time; test_workflow_contracts adds them up.
+  # Move one, move the other. A budget that runs out exits 1 and says BACKLOG.
   dedupe:
     name: Hide duplicate imported events
     runs-on: ubuntu-latest
@@ -1564,23 +1568,25 @@ jobs:
       #   'true'       this job hides too, every run.
       # So the bounded first write (rollout step 5) cannot arm the 9 scheduled
       # runs a week: that takes a second, deliberate change of the variable.
-      - name: Hide duplicate imported events (reports unless DEDUPE_APPLY is 'true')
+      - name: Hide duplicate imported events (hides only when DEDUPE_APPLY is 'true')
         shell: bash
         run: |
           set -o pipefail
           rc=0
           MODE=""
+          BUDGET=1200          # every call's --max-seconds together, in every position
           case "$DEDUPE_APPLY" in
             true)
               MODE="--apply"
               echo "::warning title=Dedupe: APPLY::DEDUPE_APPLY is 'true': copies are hidden in production (hidden_at + duplicate_of)." ;;
             bounded)
               echo "::notice title=Dedupe: BOUNDED::DEDUPE_APPLY is 'bounded': this run reports; it hides nothing new and keeps what dedupe-events.yml hid."
-              python -u mapsee_dedupe_events.py --apply --days 0 --lookback 0 --max-seconds 300 | tee dedupe_kept.log || rc=$? ;;
+              python -u mapsee_dedupe_events.py --apply --days 0 --lookback 0 --max-seconds 240 | tee dedupe_kept.log || rc=$?
+              BUDGET=$((BUDGET - 240)) ;;
             *)
               echo "::notice title=Dedupe: REPORT ONLY::DEDUPE_APPLY is '${DEDUPE_APPLY:-unset}', not 'true' or 'bounded': reporting only." ;;
           esac
-          python -u mapsee_dedupe_events.py $MODE --days 21 --lookback 60 --max-seconds 1200 \
+          python -u mapsee_dedupe_events.py $MODE --days 21 --lookback 60 --max-seconds "$BUDGET" \
             --report dedupe_report.json | tee dedupe.log || rc=$?
           exit $rc
       - name: Summary
