@@ -132,9 +132,12 @@ def main():
 
     def run(argv):
         """Drive the REAL main() and report (exit code, PATCH bodies, output)."""
-        patched, pages = [], []
+        patched, pages, probes = [], [], []
 
         def fake_req(path, method="GET", body=None, extra=None):
+            if "select=duplicate_of&limit=0" in path:   # ../mapsee 0236 is applied
+                probes.append(path)
+                return []
             if method == "PATCH":
                 patched.append((path, body))
                 return []
@@ -152,7 +155,7 @@ def main():
         finally:
             R._req, sys.argv = real_req, real_argv
             R.SUPABASE_URL, R.SERVICE_KEY = real_url, real_key
-        return code, patched, out.getvalue()
+        return code, patched, out.getvalue(), pages, probes
 
     for argv, writes, why in [
         ([], 0, "a DRY run finishes and writes nothing"),
@@ -160,7 +163,7 @@ def main():
         (["--apply", "--unhide"], 1, "--apply --unhide finishes and writes"),
     ]:
         try:
-            code, patched, text = run(argv)
+            code, patched, text, pages, probes = run(argv)
         except Exception as e:                       # NameError lands here
             checks.append((False, f"main() {' '.join(argv) or '(dry)'} raised {e!r}"))
             continue
@@ -172,8 +175,12 @@ def main():
             want_null = "--unhide" in argv
             checks.append(((sets is None) == want_null,
                            f"...hidden_at is {'cleared' if want_null else 'stamped'}"))
-            checks.append((patched[0][0].count(",") + 1 == len(thin),
+            checks.append((patched[0][0].split("&")[0].count(",") + 1 == len(thin),
                            f"...and only the {len(thin)} thin rows, not the named one"))
+        guarded = [p for p, _ in patched] + pages
+        checks.append((("--unhide" in argv) == bool(probes) and all(
+            ("duplicate_of=is.null" in p) == ("--unhide" in argv) for p in guarded),
+            "...--unhide asks for duplicate_of=is.null on every read and write; a hide never does"))
 
     failed = sum(0 if ok else 1 for ok, _ in checks)
     for ok, why in checks:

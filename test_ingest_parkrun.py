@@ -206,6 +206,8 @@ def main():
 
     def fake_sb(path, method="GET", body=None, prefer=""):
         calls.append((method, path))
+        if "select=duplicate_of&limit=0" in path:   # ../mapsee 0236 is applied
+            return []
         if method == "PATCH":
             ids = set(_re.search(r"id=in\.\(([^)]*)\)", path).group(1).split(","))
             for r in table:
@@ -276,7 +278,12 @@ def main():
         check_true("descriptions are read only for rows whose title names parkrun",
                    all("11" not in p.split("id=in.(")[1] for m, p in calls if m == "GET" and "id=in.(" in p))
         _sys.argv = ["mapsee_retire_parkrun.py", "--apply", "--unhide"]
+        before = len(calls)
         rp.main()
+        unhide_calls = [p for m, p in calls[before:] if "select=duplicate_of&limit=0" not in p
+                        and "id=in.(" not in p or m == "PATCH"]
+        check_true("--unhide reads and writes only rows mapsee_dedupe_events did not hide (duplicate_of=is.null)",
+                   bool(unhide_calls) and all("duplicate_of=is.null" in p for p in unhide_calls))
         check("--unhide puts every one of them back", [r["id"] for r in table if r["hidden_at"]], [])
         check("the cluster's own rows are never hidden",
               [r["id"] for r in table if r["title"] == "Standing shop" and r["hidden_at"]], [])

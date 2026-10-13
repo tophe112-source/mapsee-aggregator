@@ -103,6 +103,23 @@ def sb(path, method="GET", body=None, prefer=""):
         return json.loads(raw) if raw.strip() else None
 
 
+def _dedupe_guard():
+    """'&duplicate_of=is.null' once ../mapsee 0236 exists, '' before it.
+
+    A row mapsee_dedupe_events.py hid is a COPY of a visible row, recorded in
+    events.duplicate_of, not this script's retirement: --unhide must not put it
+    back beside the row it copied. Before the column exists no such copy can
+    exist, so a 400 for the column means "as before"; any other failure stops
+    the run rather than guessing."""
+    try:
+        sb("events?select=duplicate_of&limit=0")
+        return "&duplicate_of=is.null"
+    except urllib.error.HTTPError as e:
+        if e.code == 400:
+            return ""
+        raise
+
+
 def should_retire(row):
     """The same predicate the adapter now refuses on, over the stored row.
 
@@ -144,6 +161,7 @@ def main():
     verb = "un-hide" if args.unhide else "hide"
     past = "un-hid" if args.unhide else "hid"
     stamp = None if args.unhide else time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    keep_copies = _dedupe_guard() if args.unhide else ""
 
     written = [0]
 
@@ -160,7 +178,8 @@ def main():
         for i in range(0, len(ids), PATCH_IDS):
             chunk = ids[i:i + PATCH_IDS]
             try:
-                sb(f"events?id=in.({','.join(chunk)})" + ("&cancelled_at=is.null" if args.unhide else ""), "PATCH",
+                sb(f"events?id=in.({','.join(chunk)})" + ("&cancelled_at=is.null" if args.unhide else "") + keep_copies,
+                   "PATCH",
                    {"hidden_at": stamp}, prefer="return=minimal")
                 written[0] += len(chunk)
                 done += len(chunk)
@@ -184,7 +203,7 @@ def main():
         q = ("events?select=id,title,description,claimed_by,starts_at"
              "&external_source=eq.mapsee&is_private=eq.false"
              f"&hidden_at={want_hidden}"
-             + ("&cancelled_at=is.null" if args.unhide else "") +
+             + ("&cancelled_at=is.null" if args.unhide else "") + keep_copies +
              f"&starts_at=gte.{w_a}&starts_at=lt.{w_b}&order=starts_at.asc&limit={PAGE}")
         offset = 0
         while True:

@@ -38,6 +38,7 @@ import json
 import os
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -59,6 +60,23 @@ def sb(path, method="GET", body=None, prefer=""):
     with urllib.request.urlopen(req, timeout=60) as r:
         raw = r.read().decode("utf-8", "replace")
         return json.loads(raw) if raw.strip() else None
+
+
+def _dedupe_guard():
+    """'&duplicate_of=is.null' once ../mapsee 0236 exists, '' before it.
+
+    A row mapsee_dedupe_events.py hid is a COPY of a visible row, recorded in
+    events.duplicate_of, not this script's retirement: --unhide must not put it
+    back beside the row it copied. Before the column exists no such copy can
+    exist, so a 400 for the column means "as before"; any other failure stops
+    the run rather than guessing."""
+    try:
+        sb("events?select=duplicate_of&limit=0")
+        return "&duplicate_of=is.null"
+    except urllib.error.HTTPError as e:
+        if e.code == 400:
+            return ""
+        raise
 
 
 def key(lat, lon):
@@ -166,7 +184,8 @@ def main():
     replaced = {key(r["lat"], r["lon"]) for r in new_rows if r.get("lat") is not None}
 
     if args.unhide:
-        old, _ = scan(f"{base}&recurring_hours=is.null&hidden_at=not.is.null"
+        keep_copies = _dedupe_guard()
+        old, _ = scan(f"{base}&recurring_hours=is.null&hidden_at=not.is.null{keep_copies}"
                       f"&description=ilike.{mark}",
                       "hidden per-day rows", args.days, args.back, args.max_pages)
         print(f"\n  would un-hide {len(old)} rows")
@@ -176,7 +195,7 @@ def main():
         n = 0
         for r in old:
             try:
-                sb(f"events?id=eq.{r['id']}", "PATCH", {"hidden_at": None}, prefer="return=minimal")
+                sb(f"events?id=eq.{r['id']}{keep_copies}", "PATCH", {"hidden_at": None}, prefer="return=minimal")
                 n += 1
             except Exception as e:
                 print(f"    {r['id']} failed: {e}", file=sys.stderr)

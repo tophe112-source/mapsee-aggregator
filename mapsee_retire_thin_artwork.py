@@ -126,6 +126,25 @@ class Timeout(RuntimeError):
     """A 57014. The caller shrinks rather than re-asking."""
 
 
+def _dedupe_guard():
+    """True once ../mapsee 0236 exists, False before it.
+
+    A row mapsee_dedupe_events.py hid is a COPY of a visible row, recorded in
+    events.duplicate_of, not this script's retirement: --unhide must not put it
+    back beside the row it copied. Before the column exists no such copy can
+    exist, so a 400 for the column means "as before"; any other failure stops
+    the run rather than guessing."""
+    try:
+        _req("events?select=duplicate_of&limit=0")
+        return True
+    except Timeout:
+        raise
+    except RuntimeError as e:
+        if str(e).startswith("HTTP 400"):
+            return False
+        raise
+
+
 # The edge refuses a request line past ~8 KB with a bare 400 and no body, so
 # this is the ceiling that matters and it is asserted rather than assumed.
 MAX_URL = 6000
@@ -187,6 +206,7 @@ def main() -> int:
     past = "un-hid" if a.unhide else "hid"
     sel = "id,title,description,poster_path"
     stamp = None if a.unhide else time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    keep_copies = _dedupe_guard() if a.unhide else False
 
     def flush(batch):
         """Write one batch NOW rather than at the end.
@@ -209,6 +229,7 @@ def main() -> int:
         # too big in the same edit.
         done = 0
         for path in patch_paths([r["id"] for r in batch]):
+            path += "&duplicate_of=is.null" if keep_copies else ""
             _req(path, method="PATCH", body={"hidden_at": stamp},
                  extra={"prefer": "return=minimal"})
             done += path.count(",") + 1
@@ -220,6 +241,8 @@ def main() -> int:
         q = {"select": sel, "external_source": "eq.mapsee", "hidden_at": want_hidden,
              "claimed_at": "is.null", "category": "eq.arts", "pin_only": "is.true",
              "limit": str(page)}
+        if keep_copies:
+            q["duplicate_of"] = "is.null"
         # NO `description=ilike.*public artwork*`. It reads as the obvious filter
         # and it is a wildcard scan of 622,291 rows with no index to serve it —
         # it is what raised 57014 on the first real run. `is_thin` re-reads the

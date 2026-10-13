@@ -966,6 +966,8 @@ calls = []
 
 
 def ret_sb(path, method="GET", body=None, prefer=""):
+    if "select=duplicate_of&limit=0" in path:          # ../mapsee 0236 is applied
+        return []
     calls.append((method, path))
     if method == "GET" and len([c for c in calls if c[0] == "GET"]) == 1:
         return [{"id": 7, "title": "Zoom Book Club (online)", "description": "Join us on Zoom. Online only.",
@@ -980,6 +982,8 @@ with patch.object(RET, "sb", ret_sb), patch.object(RET, "SUPABASE_URL", "https:/
 check("retire_online_events --unhide reads AND writes only rows with cancelled_at null",
       (bool(calls), all("cancelled_at=is.null" in path for _m, path in calls),
        any(m == "PATCH" for m, _p in calls)), (True, True, True))
+check("... and never a copy mapsee_dedupe_events hid (duplicate_of=is.null on every read and write)",
+      all("duplicate_of=is.null" in path for _m, path in calls), True)
 
 print()
 if FAILS:
