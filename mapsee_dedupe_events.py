@@ -21,21 +21,30 @@ the copy.
     listing, the reads and the writes.
   • Two rows are one event when they are at most RADIUS_M apart, neither title
     is a ticket add-on, and one of three rules holds (match()):
-      same-page     the same event page ("Tickets / info:" link, not a listing
-                    page), the same start instant, similar titles, and rows
-                    created at least TOGETHER_H apart (one read that lists two
-                    records on one page is two records);
+      same-page     the same event page ("Tickets / info:" link that names an
+                    event, not a listing page), the same start instant, similar
+                    titles, and rows created at least TOGETHER_H apart (one read
+                    that lists two records on one page is two records);
       same-slot     the same start instant, on different pages or none: equal
                     titles with no link, an anchored or typo-level title match
-                    across two publishers, word-for-word containment within one;
+                    across two publishers, word-for-word containment within one
+                    - but never two pages of a booking platform (two sessions),
+                    nor one publisher's two place names made in one read (two
+                    venues it pins to one coordinate);
       all-day-copy  the same event page, one row a one-day span (23-25 h) that
                     holds the other's start: a feed that gives a date where the
-                    other gives a clock.
-    Category is NOT compared: 305 of 1,012 matched pairs are filed under two.
+                    other gives a clock (made in one read: one title only).
+    Two rows that start together but end END_GAP_H+ apart are two (an
+    exhibition and its vernissage). Category is NOT compared: 305 of 1,012
+    matched pairs are filed under two.
   • One row of each cluster survives: claimed, then one people are on (an RSVP,
     chat, a live promotion), then a row with a clock over a clockless copy, then
-    the newest import (the source's current title), then id. Only a member that
-    matched the survivor DIRECTLY, is unclaimed and has nobody on it is hidden.
+    a row whose link is its own page (not another date's), then the whole event
+    over a part of it on another page, then the newest import (the source's
+    current title); an exact creation tie goes to not a 'Copy of', then to the
+    fewer title words, then id. Only a member that matched the survivor
+    DIRECTLY, is unclaimed, has nobody on it and does not say the event is off
+    when the survivor does not ('Canceled:': left for a person) is hidden.
   • A hidden copy gets hidden_at AND duplicate_of = the survivor's id (../mapsee
     migration 0236). Nothing is deleted: a delete cascades RSVPs and chat, and
     the next sync's existence read would have re-inserted the key. A hidden row
@@ -50,16 +59,22 @@ WHY IT CHANGED. Measured 2026-10-13 (census of 25,369 live imported rows in 11
 metros): 1,153 redundant rows (4.5%; Chicago 11.1%). The old rule (same
 normalized title + category + start, 1.5 km single-link) reached 282 of 1,373
 true pairs and none of the renames or all-day copies, and its listing had no
-starts_at floor (~1.49M planned rows, sized for 193k), so the step was killed at
-its 12-minute timeout on 2026-09-29..10-07 and hit 57014 from 10-08 on: it
-removed nothing for weeks while its step showed green. The rules above, run over
-the census's 15,632 labelled candidate pairs: 1,005 matched, 1,000 true, 5 on a
-listing link, 0 sessions or branches; 854 rows hidden, 74% of the redundancy.
-Deliberately left out: re-timed and re-dated copies (the shape of a matinee or a
-weekly occurrence), cross-posts whose titles name different things, standing
-rows, and the 6 cross-source pairs whose starts differ (which includes the
-market whose sources disagree about the clock: the market adapter's name +
-geohash identity collapses those at import now).
+starts_at floor (~1.49M planned rows, sized for 193k): the step ran 12m12s, its
+12-minute timeout, on most runs 2026-09-22..10-07 and 4-5 minutes from 10-08,
+exiting 1 every time while it showed green (its log was never read; a statement
+timeout from 10-08 is inferred, not seen). The rules above, replayed through
+main() over the census rows: 866 hidden, 1,040 of 1,373 true pairs resolved,
+redundancy 1,153 -> 308 rows (1.2%), 4 hides on links it labelled listing pages;
+over its 15,632 labelled pairs, with each link's titles counted census-wide, 994
+true matched and 0 that it labelled not-a-duplicate. Deliberately left out: re-timed
+and re-dated copies (the shape of a matinee or a weekly occurrence), cross-posts
+whose titles name different things, standing rows, and the 6 cross-source pairs
+whose starts differ (which includes the market whose sources disagree about the
+clock: the market adapter's name + geohash identity collapses those at import
+now). REVISED the same day after two reviews of the first build's 1,069
+production report hides: the booking, two-venue, end-gap, listing-page and
+survivor terms above; re-decided, 914 of those are unchanged, 107 no longer
+hidden, 47 keep the other row, 1 is left for a person.
 
 HISTORY — what this file was for before, kept because the reasons still hold.
 
@@ -110,6 +125,7 @@ import os
 import re
 import sys
 import time
+import unicodedata
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
@@ -131,11 +147,16 @@ ID_BATCH = 100                 # ids per id=in.(...) read or write
 WORKERS = 8                    # concurrent hide PATCHes
 SHARE_FLOOR = 25               # a window may always hide this many
 TIMEOUT_CODE = "57014"         # postgres: canceling statement due to statement timeout
-SELECT = "id,title,lat,lon,starts_at,ends_at,created_at,claimed_at,last_message_at,promoted_until"
+SELECT = ("id,title,lat,lon,starts_at,ends_at,created_at,claimed_at,last_message_at,promoted_until,"
+          "place_name")
 LIVE = "&hidden_at=is.null&pin_only=not.is.true&recurring_hours=is.null&is_private=is.false"
 
 RADIUS_M = 150.0          # census: 287 of the old rule's 728 drops were >150 m (branches, centres)
 TOGETHER_H = 12.0         # census: 0 false positives; NYC Tennis, Status Mic were made in one read
+# Same start, ends further apart than this: an exhibition and its vernissage.
+# Census: 1,098 of 1,100 true same-start pairs end under 6 h apart, 0 at 6-48 h;
+# production: a 25 h pop-up beside its 1 h slot ends exactly 24 h apart.
+END_GAP_H = 12.0
 GENERIC_PATHS = {"", "events", "event", "calendar", "whats-on", "agenda"}
 GENERIC_TITLES = 2        # a link carrying more than this many distinct titles is a listing page
 ALL_DAY_MIN_H, ALL_DAY_MAX_H = 23.0 - 1.0 / 60.0, 25.0
@@ -148,6 +169,42 @@ NOT_AN_EVENT = re.compile(r"not a (concert )?ticket|not an event|\badd[ -]?on\b|
 STOP = {"the", "a", "an", "and", "at", "vs", "v", "versus", "with", "w", "featuring", "feat",
         "ft", "presents", "live", "in", "of", "de", "la", "le"}
 ARMS = ("same-page", "same-slot", "all-day-copy")
+
+# One host, many publishers: two groups on it are two publishers, so "made in
+# one read" says nothing about one venue (see two_venues).
+MULTI_TENANT = ("meetup.com", "openagenda.com", "eventbrite", "facebook.com", "lu.ma", "luma.com")
+# Booking platforms: one timetable, a page per session, and sessions that share a
+# title and a start are different pools, studios or centres (Everyone Active
+# 'Public Swimming Tue 19:00' ...AM190096 / ...AT190096). Two of their pages at
+# one slot are two sessions; only the SAME page can be one session listed twice.
+# The census's own c1? kind excluded the first four for this reason.
+BOOKING_HOSTS = ("book.everyoneactive.com", "bookings.better.org.uk", "apm.activecommunities.com",
+                 "sfpl.org", "placesleisure.org", "operations.daxko.com", "perfectmind.com")
+# A word naming WHO a session is for, in the languages the census met that the
+# sync's _AUDIENCE_WORD lacks. Local on purpose: the sync's absent_successors
+# uses that one, and widening it there changes what a re-keyed row matches.
+AUDIENCE_EXTRA = re.compile(
+    r"frauen|manner|maenner|kinder|jugendliche|senioren|eltern|familien?|mujeres|hombres|ninos|ninas|"
+    r"jovenes|mayores|donne|uomini|bambini|ragazzi|anziani|vrouwen|mannen|kinderen|ouderen|kvinnor|"
+    r"barn|ungdom|damer|herrer|kvinder|børn")     # NFKD does not fold ø: Danish 'børn' stays
+# A title that says the event is off. Never hidden behind one that does not
+# say so: which is current is for a person (cancelled-events.md).
+# Matched against _ident_words (lower case, accents folded: 'inställt' is
+# 'installt'); 'Not cancelled - ...' is not a mark.
+CANCEL_MARK = re.compile(r"(?<!\bnot )\b(cancel+ed|postponed|abgesagt|annulee?|aplazad[oa]|cancelad[oa]|"
+                         r"suspendid[oa]|annullat[oa]|rinviat[oa]|afgelast|geannuleerd|aflyst|avlyst|"
+                         r"installt|peruttu)\b")
+COPY_OF = re.compile(r"^\W*copy of\b", re.I)
+LINK_DATE = re.compile(r"/(20\d\d-\d\d-\d\d)(?:\b|$)")
+PLACE_STOP = {"the", "de", "la", "le", "at", "of", "and", "a", "du", "des", "ny", "nyc", "co", "mo", "in", "on"}
+# Words that name the KIND of room, not which one: 'The Yard at Chicago
+# Shakespeare' is a stage of 'Chicago Shakespeare Theater', not another venue.
+VENUE_WORDS = {"theater", "theatre", "centre", "center", "hall", "stage", "auditorium", "venue", "building"}
+# A longer title that is "<a part> <separator> <the shorter title>": a booth at
+# a carnival, an activity at a market, club seating for a concert (part_of).
+PART_SEPS = {"|", ":", "@", "-", "–", "—", "at", "bei", "au", "im"}
+PART_ARTICLES = {"the", "der", "die", "das", "le", "la", "les"}
+_SEQ_RX = re.compile(r"\w+|[|:@–—]|(?<!\S)-(?!\S)")
 
 _sleep = time.sleep            # patched by the tests
 _clock = time.monotonic
@@ -201,12 +258,129 @@ def same_publisher(la: str, lb: str) -> bool:
     return ha == hb or ha.endswith("." + hb) or hb.endswith("." + ha)
 
 
-def is_generic(link: str, titles_by_link: Dict[str, Set[str]]) -> bool:
+def _on(host: str, names: Iterable[str]) -> bool:
+    return any(host == n or host.endswith("." + n) or ("." not in n and n in host.split("."))
+               for n in names)
+
+
+def multi_tenant(link: str) -> bool:
+    return _on(link_host(link), MULTI_TENANT)
+
+
+def booking_host(link: str) -> bool:
+    return _on(link_host(link), BOOKING_HOSTS)
+
+
+_LEAF_DROP = re.compile(r"\d{1,2}|(?:19|20)\d\d|(?:19|20)\d\d-?(?:0[1-9]|1[0-2])-?(?:0[1-9]|[12]\d|3[01])")
+_STRONG_ID = re.compile(r"\d{5,}|[0-9a-f]{12,}")
+_ID_TOKEN = re.compile(r"(?=[a-z0-9_]*\d)(?=[a-z0-9_]*[a-z])[a-z0-9_]{6,}")
+_WORD3 = re.compile(r"[^\W\d_]{3,}")
+_WORD_STOP = STOP | {"for", "von", "und", "der", "die", "das", "les", "des", "del", "los", "las", "con",
+                     "pour", "avec", "une", "event", "events"}
+# The segment before a leaf that names a PLACE: the leaf is that place's page.
+VENUE_PATH = {"centre", "centres", "center", "centers", "branch", "branches", "location", "locations",
+              "venue", "venues", "facility", "facilities", "complex", "site", "sites"}
+
+
+def _words(text: str) -> Set[str]:
+    return set(_WORD3.findall(_ident_words(text))) - _WORD_STOP
+
+
+def names_an_event(link: str, titles: Iterable[str] = ()) -> bool:
+    """The link is one event's page: its last segment (a trailing date or day
+    number dropped: /event/<slug>/2026-10-14) carries an event id (5+ digits,
+    12+ hex, a 6+-character token of letters and digits like Luma's 'zzaa4x39',
+    3+ digits on their own like /m/4480), or one of the two segments before it
+    carries a 5+-digit or hex id (/evento/1285675556092/comunicacion), or the
+    query has 3+ digits, or the last two segments share a 3+-letter word with
+    one of these titles. A centre's or branch's page
+    (placesleisure.org/centres/<centre>), a dataset link or a group's calendar
+    (luma.com/cmevents) does none of these, however few titles this run has
+    seen on it."""
+    path, _, query = link.partition("?")
+    segs = [s.lower() for s in path.split("/")[1:] if s]
+    while segs and _LEAF_DROP.fullmatch(segs[-1]):
+        segs.pop()
+    if re.search(r"\d{3,}", query):
+        return True
+    if not segs:
+        return False
+    leaf = segs[-1]
+    if _STRONG_ID.search(leaf) or any(_ID_TOKEN.fullmatch(w) for w in re.split(r"[^a-z0-9_]+", leaf)):
+        return True
+    if len(segs) > 1 and segs[-2] in VENUE_PATH:
+        return False                              # /centres/<centre>, /branch/<branch>
+    if re.fullmatch(r"\d{3,}", leaf) or any(_STRONG_ID.search(x) for x in segs[-3:-1]):
+        return True
+    words = _words(" ".join(segs[-2:]))
+    return any(words & _words(t) for t in titles)
+
+
+def is_generic(link: str, titles_by_link: Dict[str, Set[str]], titles: Iterable[str] = ()) -> bool:
     """A listing page rather than this event's page: its path is a calendar's
-    front (/events, /calendar ...), or it carries more than GENERIC_TITLES
-    distinct titles among the rows read this run."""
+    front (/events, /calendar ...), it names no event (names_an_event), or it
+    carries more than GENERIC_TITLES distinct titles among the rows read this
+    run. The last test alone is order-dependent (it counts only rows read so
+    far): 9 replayed census hides sat on links where it had seen 2 titles or
+    fewer and the census 3 to 65."""
     path = link.split("/", 1)[1] if "/" in link else ""
-    return path.strip("/") in GENERIC_PATHS or len(titles_by_link.get(link, ())) > GENERIC_TITLES
+    return (path.strip("/") in GENERIC_PATHS or not names_an_event(link, titles)
+            or len(titles_by_link.get(link, ())) > GENERIC_TITLES)
+
+
+def _place_words(s: Optional[str]) -> Set[str]:
+    return set(_ident_words(s or "").split()) - PLACE_STOP - VENUE_WORDS
+
+
+def two_venues(a: Dict[str, Any], b: Dict[str, Any]) -> bool:
+    """Each place name carries a word the other lacks ('Familienzentrum Thekla'
+    / 'Familienzentrum Mockau'); one contained in the other is one venue."""
+    pa, pb = _place_words(a.get("place_name")), _place_words(b.get("place_name"))
+    return bool(pa and pb and (pa - pb) and (pb - pa))
+
+
+def link_ok(r: Dict[str, Any]) -> bool:
+    """False when the row's link carries a date more than a day from the row's
+    own start: another site's event (an adapter bug), not this row's page."""
+    m = LINK_DATE.search(r.get("link") or "")
+    if not m:
+        return True
+    try:
+        d = datetime.strptime(m.group(1), "%Y-%m-%d").date()
+    except ValueError:
+        return True
+    return abs((d - utc(r["starts_at"]).date()).days) <= 1
+
+
+def says_off(r: Dict[str, Any]) -> bool:
+    return bool(CANCEL_MARK.search(_ident_words(r.get("title"))))
+
+
+def _seq(title: str) -> List[str]:
+    folded = unicodedata.normalize("NFKD", str(title or "")).lower()
+    return _SEQ_RX.findall("".join(c for c in folded if not unicodedata.combining(c)))
+
+
+def part_of(whole: str, title: str) -> bool:
+    """`title` is '<a part> <separator> <whole>': 'Strong Complex Booth |
+    Children's Carnival', 'Nourish Moves at the Market Square Farmers Market',
+    'Paramount Theatre Club Seating: Gary Clark Jr.', 'Copy of – <whole>'. The
+    whole title must be the entire tail; a title that only ADDS words after
+    another ('Rhyme Time – Safety Bay') is not this shape."""
+    s = [t for t in _seq(whole) if t[0].isalnum()]
+    seq = _seq(title)
+    at = [i for i, t in enumerate(seq) if t[0].isalnum()]
+    n = len(s)
+    if not n or len(at) <= n or [seq[i] for i in at[-n:]] != s:
+        return False
+    before = seq[:at[-n]]
+    if before and before[-1] in PART_ARTICLES and len(before) > 1:
+        before = before[:-1]
+    return bool(before) and before[-1] in PART_SEPS
+
+
+def _audience(w: str) -> bool:
+    return bool(_AUDIENCE_WORD.fullmatch(w) or AUDIENCE_EXTRA.fullmatch(w))
 
 
 def _toks(title: str) -> List[str]:
@@ -215,20 +389,21 @@ def _toks(title: str) -> List[str]:
 
 def title_relation(a: str, b: str) -> Dict[str, bool]:
     """eq: the same title. sim: one contains the other word for word, with the
-    sync's audience guard. typo: same length, 1-2 words differ slightly and none
+    sync's audience guard and AUDIENCE_EXTRA ('Schwimmen fuer Frauen' is not
+    'Schwimmen'). typo: same length, 1-2 words differ slightly and none
     is an audience word. anchored: the shorter's words are a subset of the
     longer's and sit at its start, its end, or share its first word. loose: any
     of those, or token Jaccard >= 0.5 (only ever used with the same page)."""
     ia, ib = _ident_words(a), _ident_words(b)
     eq = normalize_text(a) == normalize_text(b) or (bool(ia) and ia.replace(" ", "") == ib.replace(" ", ""))
-    sim = _similar_titles(ia, ib)
+    sim = _similar_titles(ia, ib) and not any(_audience(w) for w in set(ia.split()) ^ set(ib.split()))
     ta, tb = _toks(a), _toks(b)
     typo = False
     if ta and len(ta) == len(tb):
         diff = [(x, y) for x, y in zip(ta, tb) if x != y]
         typo = 0 < len(diff) <= 2 and all(
             difflib.SequenceMatcher(None, x, y).ratio() >= 0.8
-            and not _AUDIENCE_WORD.fullmatch(x) and not _AUDIENCE_WORD.fullmatch(y) for x, y in diff)
+            and not _audience(x) and not _audience(y) for x, y in diff)
     anchored = False
     if ta and tb:
         s, l = (ta, tb) if len(ta) <= len(tb) else (tb, ta)
@@ -284,13 +459,19 @@ def _decide(a, b, titles_by_link) -> Tuple[Optional[str], Optional[str]]:
         return None, "ticket add-on"
     if a.get("lat") is None or b.get("lat") is None or metres(a, b) > RADIUS_M:
         return None, "distance"
-    t = title_relation(a.get("title") or "", b.get("title") or "")
+    ta, tb = a.get("title") or "", b.get("title") or ""
+    t = title_relation(ta, tb)
     la, lb = a.get("link"), b.get("link")
     if utc(a["starts_at"]) == utc(b["starts_at"]):
+        if abs((_ends(a) - _ends(b)).total_seconds()) / 3600.0 > END_GAP_H:
+            # An exhibition and its vernissage, a run and its first show: hiding
+            # the long one takes it off the map for its whole run (production
+            # 2026-10-13: a 59-day exhibition behind a 2 h row of it).
+            return None, "same start, ends 12 h+ apart"
         if la and lb and la == lb:
             if gap_hours(a, b) < TOGETHER_H:
                 return None, "same page, made together"     # one read listed both: two records
-            if is_generic(la, titles_by_link):
+            if is_generic(la, titles_by_link, (ta, tb)):
                 return None, "same page, a listing page"    # not this event's page
             return ("same-page", None) if t["loose"] else (None, "same page, titles")
         if not (la and lb):
@@ -298,15 +479,30 @@ def _decide(a, b, titles_by_link) -> Tuple[Optional[str], Optional[str]]:
         if not same_publisher(la, lb):
             return (("same-slot", None) if (t["eq"] or t["anchored"] or t["typo"])
                     else (None, "same slot, two publishers, titles"))
+        if booking_host(la):
+            return None, "same slot, a booking platform's two sessions"
+        if not multi_tenant(la) and gap_hours(a, b) < TOGETHER_H and two_venues(a, b):
+            # One publisher, one read, two place names: centres it pins to one
+            # coordinate (fiz-leipzig, bona-peiser, a YMCA's branches).
+            return None, "one read, two venues"
         return (("same-slot", None) if (t["eq"] or t["sim"] or t["typo"])
                 else (None, "same slot, one publisher, titles"))
     if within_day(a, b):
         if not (la and lb and la == lb):
             return None, "all-day, different pages"
-        if is_generic(la, titles_by_link):
+        if is_generic(la, titles_by_link, (ta, tb)):
             return None, "all-day, a listing page"
+        if gap_hours(a, b) < TOGETHER_H and not (t["eq"] or t["typo"]):
+            # One read wrote a day and a timed row under different titles: a
+            # festival and its parade. The census's 45 all-day copies made in
+            # one read (CPL's two adapters in one sync) carry one title.
+            return None, "all-day, made together, titles differ"
         return ("all-day-copy", None) if t["loose"] else (None, "all-day, titles")
     return None, "other start"
+
+
+def _ends(r: Dict[str, Any]) -> datetime:
+    return utc(r["ends_at"]) if r.get("ends_at") else utc(r["starts_at"])
 
 
 def engaged(r: Dict[str, Any], rsvp_ids: Set[str], now: datetime) -> bool:
@@ -317,23 +513,40 @@ def engaged(r: Dict[str, Any], rsvp_ids: Set[str], now: datetime) -> bool:
 _EPOCH = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
 
-def survivor_key(r: Dict[str, Any], rsvp_ids: Set[str], now: datetime) -> Tuple:
+def survivor_key(r: Dict[str, Any], rsvp_ids: Set[str], now: datetime, part: bool = False) -> Tuple:
     """Claimed, then people on it, then a row with a clock over a clockless
-    copy, then the newest import (the source's current title), then id.
+    copy, then a row whose link is its own page, then the whole event over a
+    part of it (`part`: on another page at the same slot, this row's title is
+    '<a part> <separator> <that row's title>'), then the newest import (the
+    source's current title); on an exact creation tie (one read), not a 'Copy
+    of', then the fewer title words, then id.
 
     The clock term sits before age on purpose: in 193 of 219 all-day copies the
     clockless row is the NEWER one, because both keys are still emitted (by two
-    adapters), so 'newest' would keep the row without a time 88% of the time."""
+    adapters), so 'newest' would keep the row without a time 88% of the time.
+    The link term too: 24 of 1,069 production hides (2026-10-13) would have kept
+    a newer row whose link was another site's event on another date (a yacht
+    club's 'Musical Bingo' linking a Minnesota council meeting) and hidden the
+    venue's own. The part term: 'Strong Complex Booth | Children's Carnival'
+    (made two months later) would have hidden the carnival, and an exact tie
+    broken by id alone kept 'Nourish Moves at the Market Square Farmers Market'
+    over the market and a club-seating upsell over the concert. It counts only
+    across same-slot edges: on one page, the newer title is the one the source
+    still emits."""
     made = utc(r["created_at"]) if r.get("created_at") else _EPOCH
-    return (bool(r.get("claimed_at")), engaged(r, rsvp_ids, now), not is_all_day(r), made, r["id"])
+    title = r.get("title") or ""
+    return (bool(r.get("claimed_at")), engaged(r, rsvp_ids, now), not is_all_day(r), link_ok(r), not part,
+            made, not COPY_OF.match(title), -len(_ident_words(title).split()), r["id"])
 
 
 def plan(rows: Dict[str, Dict[str, Any]], edges: Dict[Tuple[str, str], str],
          rsvp_ids: Set[str], now: datetime, max_cluster: int = 12) -> List[Dict[str, Any]]:
     """Union-find over matched pairs; one survivor per component; hide only
     members with a DIRECT match to the survivor, unclaimed and with nobody
-    on them (a star, not a chain). Raises ValueError on a component over
-    max_cluster."""
+    on them (a star, not a chain), and never a row whose title says the event
+    is off ('Canceled:', 'Postponed:') behind one whose title does not: which
+    of the two is current is for a person. Raises ValueError on a component
+    over max_cluster."""
     par: Dict[str, str] = {}
 
     def find(x: str) -> str:
@@ -354,11 +567,15 @@ def plan(rows: Dict[str, Dict[str, Any]], edges: Dict[Tuple[str, str], str],
         if len(comp) > max_cluster:
             raise ValueError(f"cluster of {len(comp)} rows (limit {max_cluster}): "
                              f"{sorted(str(rows[i].get('title')) for i in comp)[:3]}")
-        s = max(comp, key=lambda i: survivor_key(rows[i], rsvp_ids, now))
+        parts = {i for i in comp for j, arm in adj[i].items()
+                 if arm == "same-slot" and part_of(rows[j].get("title") or "", rows[i].get("title") or "")}
+        s = max(comp, key=lambda i: survivor_key(rows[i], rsvp_ids, now, i in parts))
         hide, left = [], []
+        off = says_off(rows[s])
         for i in sorted(comp - {s}):
             r = rows[i]
-            if i in adj[s] and not r.get("claimed_at") and not engaged(r, rsvp_ids, now):
+            if (i in adj[s] and not r.get("claimed_at") and not engaged(r, rsvp_ids, now)
+                    and (off or not says_off(r))):
                 hide.append((i, adj[s][i]))
             else:
                 left.append(i)
@@ -651,12 +868,14 @@ def visible_ids(db: Db, ids: Iterable[str]) -> Optional[Set[str]]:
     return out
 
 
-def write(db: Db, plans: List[Dict[str, Any]], stamp: str, budget, workers: int = WORKERS
-          ) -> Dict[str, int]:
+def write(db: Db, plans: List[Dict[str, Any]], stamp: str, budget, now: datetime,
+          workers: int = WORKERS) -> Dict[str, int]:
     """Hide each plan's copies, naming the survivor. Re-checked at write time:
     the survivor must still be visible, and a copy somebody RSVPed to since the
-    listing is skipped. The filter carries claimed_at=is.null and
-    hidden_at=is.null, so the database has the last word."""
+    listing is skipped. The filter carries claimed_at=is.null, hidden_at=is.null,
+    last_message_at=is.null and no unexpired promotion, so a claim, a first chat
+    message or a paid promotion that lands after the listing still keeps the copy:
+    the database has the last word."""
     res = {"hidden": 0, "skipped": 0, "owed": 0, "survivor_gone": 0, "late_rsvp": 0}
     todo = [p for p in plans if p["hide"]]
     if not todo:
@@ -681,7 +900,8 @@ def write(db: Db, plans: List[Dict[str, Any]], stamp: str, budget, workers: int 
         survivor, ids = job
         if budget():
             return "owed", 0, len(ids)
-        url = (f"{db.base}&claimed_at=is.null&hidden_at=is.null&select=id"
+        url = (f"{db.base}&claimed_at=is.null&hidden_at=is.null&last_message_at=is.null"
+               f"&or=(promoted_until.is.null,promoted_until.lt.{Z(now)})&select=id"
                f"&id=in.({','.join(ids)})")
         resp = db.patch(url, {"hidden_at": stamp, "duplicate_of": survivor})
         if not _ok(resp):
@@ -841,6 +1061,7 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
     left_out: List[Dict[str, Any]] = []
     windows: List[Dict[str, Any]] = []
     examples: Dict[str, List[str]] = defaultdict(list)
+    misdated: List[Dict[str, Any]] = []
 
     for d in window_order(a.days, a.lookback):
         lo = midnight + timedelta(days=d)
@@ -880,6 +1101,13 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
             r["link"] = links.get(i)
             if r["link"]:
                 titles_by_link[r["link"]].add(normalize_text(r.get("title")))
+                if not link_ok(r):
+                    # Another site's event on another date: an adapter's bug
+                    # (it ranks below the venue's own row; see survivor_key).
+                    totals["link_names_another_date"] += 1
+                    if len(misdated) < 200:
+                        misdated.append({"id": i, "title": r.get("title"), "starts_at": r.get("starts_at"),
+                                         "link": r["link"], "day": day})
         edges: Dict[Tuple[str, str], str] = {}
         w_near: Counter = Counter()
         for x, y in pairs:
@@ -933,7 +1161,9 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
                 left_out.append({"id": i, "title": by_id[i].get("title"), "survivor": s["id"],
                                  "why": ("claimed" if by_id[i].get("claimed_at") else
                                          "people on it" if engaged(by_id[i], rsvp, now) else
-                                         "no direct match to the survivor"), "day": day})
+                                         "no direct match to the survivor" if (
+                                             (i, s["id"]) not in edges and (s["id"], i) not in edges) else
+                                         "it says the event is off; the survivor does not"), "day": day})
         hidden_now = {h for p in plans for h, _ in p["hide"]}
         allday_by_day[d] = [r for r in allday_by_day[d] if r["id"] not in hidden_now]
         line = (f"[{day} {d:+d}] {len(rows)} rows" + (" (PARTIAL)" if missed else "")
@@ -942,7 +1172,7 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
                 + (", ".join(f"{k} {v}" for k, v in sorted(arms.items())) or "nothing")
                 + f" to hide in {len(plans)} cluster(s)" + (f", {left} left" if left else ""))
         if apply and n:
-            res = write(db, plans, stamp, budget)
+            res = write(db, plans, stamp, budget, now)
             owed += res["owed"]
             w["written"] = res
             totals.update(hidden=res["hidden"], skipped_at_write=res["skipped"] + res["survivor_gone"]
@@ -968,6 +1198,9 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
     if near:
         _p("Near misses (candidates no rule took): "
            + ", ".join(f"{k} {v}" for k, v in near.most_common()))
+    if totals["link_names_another_date"]:
+        _p(f"Rows whose link names another date (an adapter's bug; listed in the report as "
+           f"'link_names_another_date'): {totals['link_names_another_date']}")
     orphans = orphaned_copies(db, now) if has_col else None
     if orphans:
         _p(f"Copies whose survivor another writer has hidden since: {orphans} (they stay hidden)")
@@ -989,7 +1222,7 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
                        "near_misses": dict(near), "orphaned_copies": orphans, "backlog": backlog,
                        "owed_windows": owed_windows, "refused": refused, "owed": owed, "exit": code,
                        "requests": dict(db.calls), "windows": windows, "hidden": hidden_out,
-                       "left": left_out}, fh, indent=1, default=str)
+                       "left": left_out, "link_names_another_date": misdated}, fh, indent=1, default=str)
         _p(f"Report: {a.report}")
     return code
 

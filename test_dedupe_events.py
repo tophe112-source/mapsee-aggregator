@@ -6,7 +6,11 @@ the same filters the real one would, so a write that loses its scope or its
 claimed_at guard reaches rows it must not.
 
 Rows are the census's real rows (2026-10-13, ids shortened) plus the guards it
-measured. One line per case; exits non-zero on any failure."""
+measured, and every production false positive the two reviews of the first
+build found (its own report runs re-read by id, and the census replay): one
+pin for two centres, booking-platform sessions, listing pages, a long event
+beside its first show, the wrong survivor, a 'Canceled:' title. One line per
+case; exits non-zero on any failure."""
 import contextlib
 import io
 import json
@@ -155,8 +159,9 @@ talk = row("x2", "Dinosaur Hall: curator talk", "2026-10-14T01:00:00+00:00", "20
 check("a talk inside a months-long exhibition is not an all-day copy", D.match(exhibit, talk, NO_LINKS) is None)
 
 print("\nwho survives")
-a = row("o1", "Open Mic", "2026-10-14T02:00:00+00:00", "2026-10-14T04:00:00+00:00", 47.6, -122.3, "2026-09-01T07:00:00+00:00", "m.com/x", claimed_at="2026-09-05T00:00:00+00:00")
-b = row("o2", "Open Mic Night", "2026-10-14T02:00:00+00:00", "2026-10-14T04:00:00+00:00", 47.6, -122.3, "2026-09-20T07:00:00+00:00", "m.com/x")
+mic = "m.example/events/open-mic-4471"
+a = row("o1", "Open Mic", "2026-10-14T02:00:00+00:00", "2026-10-14T04:00:00+00:00", 47.6, -122.3, "2026-09-01T07:00:00+00:00", mic, claimed_at="2026-09-05T00:00:00+00:00")
+b = row("o2", "Open Mic Night", "2026-10-14T02:00:00+00:00", "2026-10-14T04:00:00+00:00", 47.6, -122.3, "2026-09-20T07:00:00+00:00", mic)
 _, p = decide([a, b])
 check("a claimed row is kept, though older", p[0]["survivor"] == "o1" and p[0]["hide"] == [("o2", "same-page")])
 a["claimed_at"] = None
@@ -178,6 +183,294 @@ try:
     check("thirteen rows in one cluster refuse", False)
 except ValueError:
     check("thirteen rows in one cluster refuse", True)
+
+
+# --------------------------------------------------------------------------- #
+# Production false positives the two reviews of 2026-10-13 found: real rows of
+# the build's own report runs (re-read by id, anon) and of the census replay.
+# --------------------------------------------------------------------------- #
+def real(i, title, start, end, made, link, place=None, lat=47.6, lon=-122.3, **kw):
+    return row(i, title, start, end, lat, lon, made, link, place_name=place, **kw)
+
+
+def survivor_of(rows, rsvp=()):
+    _, p = decide(rows, rsvp=rsvp)
+    return p[0]["survivor"] if p else None
+
+
+def hidden_of(rows, rsvp=()):
+    _, p = decide(rows, rsvp=rsvp)
+    return {h for x in p for h, _ in x["hide"]}
+
+
+print("\none publisher, one read, one pin: two venues are two events")
+fiz = "fiz-leipzig.de/veranstaltung/"
+a = real("7bbb8a78", "Offener Familientreff", "2026-10-14T08:00:00+00:00", "2026-10-14T11:30:00+00:00",
+         "2026-10-05T17:06:07.251511+00:00", fiz + "offener-familientreff-8/2026-10-14", "Familienzentrum Thekla")
+b = real("cc5a4b34", "Offener Familientreff", "2026-10-14T08:00:00+00:00", "2026-10-14T16:00:00+00:00",
+         "2026-10-05T17:06:07.251511+00:00", fiz + "offener-familientreff-4/2026-10-14", "Familienzentrum Mockau")
+check("fiz-leipzig: Offener Familientreff at Thekla and at Mockau", D.why_not(a, b, NO_LINKS) == "one read, two venues")
+a = real("459ce54f", "Offener Familientreff", "2026-10-14T07:00:00+00:00", "2026-10-14T11:00:00+00:00",
+         "2026-10-05T17:06:07.251511+00:00", fiz + "offener-familientreff-11/2026-10-14", "„MüZeL“ Familienzentrum Grünau")
+b = real("ccd0bda7", "Offener Familientreff", "2026-10-14T07:00:00+00:00", "2026-10-14T11:30:00+00:00",
+         "2026-10-05T17:06:07.251511+00:00", fiz + "offener-familientreff-2-2-2/2026-10-14", "Familienzentrum Paunsdorf")
+check("fiz-leipzig: at Grünau and at Paunsdorf", D.match(a, b, NO_LINKS) is None)
+a = real("4828c5ec", "Sprechcafé für Frauen – Deutsch lernen für Frauen mit Deutschlehrerin (kostenfre",
+         "2026-10-14T08:30:00+00:00", "2026-10-14T10:00:00+00:00", "2026-10-05T17:06:07.251511+00:00",
+         fiz + "sprechcafe-fuer-frauen-3-4-2/2026-10-14", "Familienzentrum „Treffpunkt Linde“ Plagwitz")
+b = real("df198a3c", "Sprechcafé", "2026-10-14T08:30:00+00:00", "2026-10-14T10:00:00+00:00",
+         "2026-10-05T17:06:07.251511+00:00", fiz + "sprachcafe/2026-10-14", "Familienzentrum Thekla")
+check("fiz-leipzig: the women's Sprechcafé at Plagwitz is not the Sprechcafé at Thekla", D.match(a, b, NO_LINKS) is None)
+a = real("acb015ce", "Alphabetisierungskurs für Frauen", "2026-10-14T22:00:00+00:00", "2026-10-15T21:59:59+00:00",
+         "2026-10-13T15:20:08.136761+00:00", "bona-peiser.de/events/alphabetisierungskurs-fuer-frauen", "Bona Peiser")
+b = real("37a188c8", "Alphabetisierungskurs für Frauen (KuB)", "2026-10-14T22:00:00+00:00", "2026-10-15T21:59:59+00:00",
+         "2026-10-13T15:20:14.283889+00:00", "bona-peiser.de/events/alphabetisierungskurs-fuer-frauen-kub", "MGH")
+check("bona-peiser: the literacy course at Bona Peiser is not the one at MGH", D.match(a, b, NO_LINKS) is None)
+dx = "operations.daxko.com/online/5096/programsv2/offeringdetails.mvc?program_id="
+for t, x, y in (("Preschool Swim Stage 2 (3-5)", ("e239fb45", "TMP5912&amp;offering_id=SES1514074&amp;location_id=B340", "Mukwonago YMCA"),
+                 ("fc03408e", "TMP5935&amp;offering_id=SES1515790&amp;location_id=B342", "Tri County YMCA")),
+                ("T-Ball Skills (4-6)", ("05263175", "TMP5923&amp;offering_id=SES1516179&amp;location_id=B341", "Southwest YMCA"),
+                 ("1d1e87c2", "TMP5971&amp;offering_id=SES1513994&amp;location_id=B340", "Mukwonago YMCA")),
+                ("Moving for Better Balance", ("273fa5a4", "TMP6005&amp;offering_id=SES1516196&amp;location_id=B343", "West Suburban YMCA"),
+                 ("c148da06", "TMP27603&amp;offering_id=SES1516193&amp;location_id=B607", "New Berlin YMCA Wellness Center"))):
+    a = real(x[0], t, "2026-10-13T22:00:00+00:00", "2026-10-13T22:30:00+00:00", "2026-10-13T16:31:23.142523+00:00", dx + x[1], x[2])
+    b = real(y[0], t, "2026-10-13T22:00:00+00:00", "2026-10-13T22:30:00+00:00", "2026-10-13T16:31:23.142523+00:00", dx + y[1], y[2])
+    check(f"daxko YMCA {t!r} at {x[2]} and at {y[2]}", D.match(a, b, NO_LINKS) is None)
+a = real("4913a44f", "The Winter's Tale", "2026-10-15T00:00:00+00:00", "2026-10-15T03:00:00+00:00",
+         "2026-09-29T13:03:10.829147+00:00", "ticketmaster.com/event/z7r9jz1a7004e", "Chicago Shakespeare Theater")
+b = real("cb4a8133", "The Winter's Tale", "2026-10-15T00:00:00+00:00", "2026-10-15T03:00:00+00:00",
+         "2026-09-29T13:03:10.829147+00:00", "ticketmaster.com/event/z7r9jz1aaz_ak", "The Yard at Chicago Shakespeare")
+check("control: a stage named inside its venue ('The Yard at Chicago Shakespeare') is that venue",
+      D.match(a, b, NO_LINKS) == "same-slot")
+a = real("70fe9a0e", 'Exposition "Couleurs Terrestres"', "2026-10-14T07:00:00+00:00", "2026-10-14T15:00:00+00:00",
+         "2026-10-10T16:20:08.245742+00:00", "openagenda.com/ocac/events/85046427_exposition-couleurs-terrestres",
+         "OCAC - 38 rue pasteur 33150 cenon")
+b = real("cbaab49c", "Couleurs Terrestres", "2026-10-14T07:00:00+00:00", "2026-10-14T15:00:00+00:00",
+         "2026-10-10T16:20:08.245742+00:00", "openagenda.com/ville-de-cenon/events/88181405_couleurs-terrestres",
+         "Les ateliers 38 - 38 rue Pasteur Cenon")
+check("control: two OpenAgenda agendas (a multi-tenant host), one address spelled two ways, one read: one event",
+      D.match(a, b, NO_LINKS) == "same-slot")
+
+print("\nbooking platforms: two pages at one slot are two sessions")
+ea = "book.everyoneactive.com/connect/landing.aspx?Site="
+a = real("b0b87210", "Public Swimming Tue 19:00", "2026-10-13T18:00:00+00:00", "2026-10-13T19:00:00+00:00",
+         "2026-10-07T14:10:18.306224+00:00", ea + "0334&Activities=3342WS4AM190096&Culture=en-GB", "Green bank Leisure Centre")
+b = real("f3176cde", "Public Swimming Tue 19:00", "2026-10-13T18:00:00+00:00", "2026-10-13T19:00:00+00:00",
+         "2026-10-12T16:03:49.824045+00:00", ea + "0334&Activities=3342WS4AT190096&Culture=en-GB", "Green bank Leisure Centre")
+check("Everyone Active 'Public Swimming Tue 19:00', activity codes AM / AT",
+      D.why_not(a, b, NO_LINKS) == "same slot, a booking platform's two sessions")
+a = real("eba53522", "Lane Swim Slow Wed 06:00", "2026-10-14T05:00:00+00:00", "2026-10-14T06:00:00+00:00",
+         "2026-10-01T13:59:09.074916+00:00", ea + "0083&Activities=0833WS4SM060196&Culture=en-GB", "Westminster Lodge Leisure Centre")
+b = real("00679154", "Lane Swim Slow Wed 06:00", "2026-10-14T05:00:00+00:00", "2026-10-14T06:00:00+00:00",
+         "2026-10-07T14:10:25.298089+00:00", ea + "0083&Activities=0833WS4SM060096&Culture=en-GB", "Westminster Lodge Leisure Centre")
+check("Everyone Active 'Lane Swim Slow Wed 06:00', ...060196 / ...060096", D.match(a, b, NO_LINKS) is None)
+a = real("037cd63d", "Vir Bodybalance Tue 20:00", "2026-10-13T19:00:00+00:00", "2026-10-13T19:55:00+00:00",
+         "2026-10-05T15:27:22.62925+00:00", ea + "0056&Activities=0562CBB20000425&Culture=en-GB", "Watford Woodside Leisure Centre")
+b = real("08768019", "BodyBalance Tue 20:00", "2026-10-13T19:00:00+00:00", "2026-10-13T19:45:00+00:00",
+         "2026-10-10T13:19:46.796901+00:00", ea + "0056&Activities=0562CBB20000125&Culture=en-GB", "Watford Woodside Leisure Centre")
+check("Everyone Active 'Vir Bodybalance' (virtual) is not 'BodyBalance'", D.match(a, b, NO_LINKS) is None)
+a = real("d7d6154a", "Lane Swim Fast Wed 14:00", "2026-10-14T13:00:00+00:00", "2026-10-14T14:00:00+00:00",
+         "2026-10-10T13:15:57.716501+00:00", ea + "0330&Activities=3303WS4FT140096&Culture=en-GB", "London Aquatics Centre")
+b = real("358fe75c", "Lane Swim Fast Wed 14:00", "2026-10-14T13:00:00+00:00", "2026-10-14T14:00:00+00:00",
+         "2026-10-07T14:10:48.308481+00:00", ea + "0330&Activities=3303WS4FC140096&Culture=en-GB", "London Aquatics Centre")
+check("census c1 'Lane Swim Fast Wed 14:00', pools FT / FC", D.match(a, b, NO_LINKS) is None)
+a = real("76c4821d", "Zumba Tue 19:00", "2026-10-13T18:00:00+00:00", "2026-10-13T18:55:00+00:00",
+         "2026-10-01T13:59:03.109053+00:00", ea + "0158&Activities=1582CZU19000135&Culture=en-GB", "Little Venice Sports Centre")
+b = real("1ef93387", "Zumba Tue 19:00", "2026-10-13T18:00:00+00:00", "2026-10-13T18:55:00+00:00",
+         "2026-10-05T15:27:16.163379+00:00", ea + "0158&Activities=1582CZU19000326&Culture=en-GB", "Little Venice Sports Centre")
+check("census c1 'Zumba Tue 19:00', two studios", D.match(a, b, NO_LINKS) is None)
+cpd = "apm.activecommunities.com/chicagoparkdistrict/activity_search/"
+a = real("04d20b82", "Ice Skating - Parent-Tot Skate at McFetridge", "2026-10-22T15:15:00+00:00", "2026-10-22T16:00:00+00:00",
+         "2026-10-10T12:45:27.067904+00:00", cpd + "622591", "McFetridge Sports Center")
+b = real("dcb1cbe7", "Ice Skating - Parent-Tot Skate at McFetridge", "2026-10-22T15:15:00+00:00", "2026-12-17T17:00:00+00:00",
+         "2026-10-05T15:09:24.367929+00:00", cpd + "622590", "McFetridge Ice Rink (Indoor)")
+check("census c1 McFetridge Parent-Tot 622591 / 622590 (a session and a season)", D.match(a, b, NO_LINKS) is None)
+a["ends_at"] = b["ends_at"] = "2026-10-22T16:00:00+00:00"
+check("... and with equal ends, still two activity pages on a booking platform", D.match(a, b, NO_LINKS) is None)
+b["link"] = a["link"]
+check("control: the SAME booking page twice, made apart, is one session listed twice", D.match(a, b, NO_LINKS) == "same-page")
+
+print("\na link that names no event is a listing page, however few titles the run has seen")
+pl = "placesleisure.org/centres/latchmere-leisure-centre"
+a = real("1c9e9db6", "New Member Tour", "2026-10-14T11:00:00+00:00", "2026-10-14T11:30:00+00:00",
+         "2026-09-30T13:26:05.700708+00:00", pl, "Latchmere Leisure Centre")
+b = real("5817465e", "New Member Tour", "2026-10-14T11:00:00+00:00", "2026-10-14T17:30:00+00:00",
+         "2026-10-07T14:13:20.25011+00:00", pl, "Latchmere Leisure Centre")
+check("placesleisure /centres/<centre>: 'New Member Tour' 0.5 h vs a 6.5 h day row",
+      D.why_not(a, b, NO_LINKS) == "same page, a listing page")
+a = real("f4789cae", "Soft Play", "2026-10-14T08:00:00+00:00", "2026-10-14T09:15:00+00:00",
+         "2026-09-30T13:25:32.270317+00:00", "placesleisure.org/centres/morpeth-sports-and-leisure-centre")
+b = real("005a7be8", "Soft Play", "2026-10-14T08:00:00+00:00", "2026-10-14T16:45:00+00:00",
+         "2026-10-07T14:13:11.680422+00:00", "placesleisure.org/centres/morpeth-sports-and-leisure-centre")
+check("placesleisure Morpeth 'Soft Play' (production 10-14)", D.match(a, b, NO_LINKS) is None)
+a = real("19f7818f", "Fundamentals For Startups", "2026-10-16T19:00:00+00:00", "2026-10-16T20:00:00+00:00",
+         "2026-09-15T15:58:22.579495+00:00", "luma.com/cmevents")
+b = real("b1d4c362", "Fundamentals for Startups: The good, the bad and the ugly about non-dilutive funding",
+         "2026-10-16T19:00:00+00:00", "2026-10-16T20:00:00+00:00", "2026-09-24T16:01:06.716461+00:00", "luma.com/cmevents")
+check("luma.com/cmevents is a group's calendar, not one talk's page", D.why_not(a, b, NO_LINKS) == "same page, a listing page")
+a = real("39160086", "Fright to Repair", "2026-10-25T23:00:00+00:00", "2026-10-26T01:00:00+00:00",
+         "2026-10-06T14:26:54.628406+00:00", "luma.com/zzaa4x39")
+b = real("d1aebb9f", "Fright to Repair: Costume & Mending Workshop", "2026-10-25T23:00:00+00:00", "2026-10-26T01:00:00+00:00",
+         "2026-10-09T14:25:16.739538+00:00", "luma.com/zzaa4x39")
+check("control: a Luma event id (zzaa4x39) names one event: the rename is caught", D.match(a, b, NO_LINKS) == "same-page")
+jc = "bibliotecas.jcyl.es/web/jcyl/bibliotecasoria/es/plantilla100detalle/1284347458759/evento/1285675556092/comunicacion"
+a = real("f0ccd488", "Club de lectura de los Jueves", "2026-10-14T22:00:00+00:00", "2026-10-15T21:59:59+00:00",
+         "2026-09-03T15:06:03.693832+00:00", jc)
+b = real("253f8d4e", "Club de lectura de los Jueves", "2026-10-14T22:00:00+00:00", "2026-10-15T21:59:59+00:00",
+         "2026-09-11T12:40:45.330214+00:00", jc)
+check("control: an id one segment up (/evento/<id>/comunicacion) names one event", D.match(a, b, NO_LINKS) == "same-page")
+check("control: /m/4480 names one event, /centres/<centre> and a dataset id do not",
+      D.names_an_event("calendar.clonmel.town/federation/m/4480") and not D.names_an_event(pl, ["Lane Swim"])
+      and not D.names_an_event("data.cityofnewyork.us/d/tvpp-9vvx", ["Tennis"]))
+check("a calendar's front page is a listing even when a title shares its word ('Advent Calendar Craft')",
+      D.is_generic("library.example/calendar", {}, ["Advent Calendar Craft"]))
+check("control: a page under a centre, branch or facility path is that place's page, even with a number or a shared word",
+      not D.names_an_event("toronto.ca/data/parks/prd/facilities/complex/123", ["Pickleball"])
+      and not D.names_an_event("placesleisure.org/centres/kings-centre", ["Kings Centre Open Day"]))
+gm = "grownyc.org/greenmarket"
+a = real("e34b3dc7", "Rockefeller Center Greenmarket", "2026-10-14T04:00:00+00:00", "2026-10-15T03:59:59+00:00",
+         "2026-09-03T13:33:20.122107+00:00", gm)
+b = real("db85aa3a", "Greenmarket at Rockefeller Center", "2026-10-14T12:00:00+00:00", "2026-10-14T21:00:00+00:00",
+         "2026-09-03T13:33:15.468958+00:00", gm)
+check("GrowNYC's one page for every Greenmarket: a day row and a timed row made in one read, titles differ",
+      D.why_not(a, b, NO_LINKS) == "all-day, made together, titles differ")
+kc = "chipublib.bibliocommons.com/events/6a21ec655459385f1bd2730a"
+a = real("e4d81d8f", "Knit and Crochet Circle", "2026-10-13T21:00:00+00:00", "2026-10-13T23:00:00+00:00",
+         "2026-10-11T13:01:35.565442+00:00", kc, lat=41.9254709, lon=-87.6580587)
+b = real("fd1dffce", "Knit and Crochet Circle", "2026-10-13T05:00:00+00:00", "2026-10-14T04:59:59+00:00",
+         "2026-10-11T13:01:41.206385+00:00", kc, lat=41.9255981, lon=-87.6580963)
+check("control: CPL's two adapters in one sync, one title: still an all-day copy", D.match(a, b, NO_LINKS) == "all-day-copy")
+fest = real("f7", "Day of the Dead Festival", "2026-11-01T07:00:00+00:00", "2026-11-02T07:00:00+00:00",
+            "2026-09-01T07:00:00+00:00", "city.example/dia-de-los-muertos-2026")
+parade = real("f8", "Day of the Dead Festival: Parade", "2026-11-01T18:00:00+00:00", "2026-11-01T19:00:00+00:00",
+              "2026-09-01T07:00:00+00:00", "city.example/dia-de-los-muertos-2026")
+check("[synthetic] a one-day festival is not hidden behind its parade (one page, one read)", "f7" not in hidden_of([fest, parade]))
+
+print("\na long event is not hidden behind a short one that starts with it")
+for la_, lb_, t1, t2, e1, e2 in (
+        ("a98b8ce9", "d525f756", "Dance First Think Later", "Dance First Think Later - Vernissage",
+         "2026-11-15T17:00:00+00:00", "2026-10-13T19:30:00+00:00"),
+        ("427d998b", "b9e1509d", 'Exposition "Couleurs Terrestres"', 'Exposition "Couleurs Terrestres"',
+         "2026-12-11T16:00:00+00:00", "2026-10-13T18:00:00+00:00"),
+        ("35cb2284", "996f121c", "EN MÊME TEMPS Olivia Grandville, Mille Plateaux, CCN La Rochelle", "En même temps",
+         "2026-10-15T18:45:00+00:00", "2026-10-13T18:45:00+00:00")):
+    a = real(la_, t1, "2026-10-13T16:00:00+00:00", e1, "2026-09-09T15:02:33+00:00", f"openagenda.com/x/events/{la_}-1")
+    b = real(lb_, t2, "2026-10-13T16:00:00+00:00", e2, "2026-09-24T13:21:53+00:00", f"openagenda.com/y/events/{lb_}-2")
+    check(f"{t1[:32]!r} ({D.hours(a):.0f} h) is not hidden behind {t2[:32]!r} ({D.hours(b):.1f} h)",
+          D.why_not(a, b, NO_LINKS) == "same start, ends 12 h+ apart")
+a = real("e7a3a920", "Luuttumusiikin pop-up", "2026-10-14T12:00:00+00:00", "2026-10-15T13:00:00+00:00",
+         "2026-10-06T14:11:14.750536+00:00", "tapahtumat.hel.fi/fi/events/helsinki:agqraaxhvy", "Itäkeskuksen kirjasto")
+b = real("038ea384", "Luuttumusiikin pop-up", "2026-10-14T12:00:00+00:00", "2026-10-14T13:00:00+00:00",
+         "2026-10-13T15:04:36.466958+00:00", "tapahtumat.hel.fi/fi/events/helsinki:agqtj62nfi", "Itäkeskuksen kirjasto")
+check("a 25 h pop-up beside its 1 h slot (ends exactly 24 h apart) is two rows", D.match(a, b, NO_LINKS) is None)
+
+print("\nwho survives: the venue's own row, the whole event, the original")
+good = real("f9ddae2b", "Musical Bingo", "2026-10-14T07:30:00+00:00", "2026-10-14T07:30:00+00:00",
+            "2026-08-22T09:42:25.464466+00:00", "ofbrciyc.com.au/event/musical-bingo-2/2026-10-14", "Illawarra Yacht Club")
+wrong = real("54ac843f", "Musical Bingo", "2026-10-14T07:30:00+00:00", "2026-10-14T07:30:00+00:00",
+             "2026-09-19T12:35:56.215794+00:00", "hutchinsonmn.gov/event/city-council-meeting-2/2026-12-22", "Illawarra Yacht Club")
+check("the yacht club's own row survives, not the newer one linking a Minnesota council meeting on 12-22",
+      survivor_of([good, wrong]) == "f9ddae2b")
+good = real("acee419d", "Bön och samtal", "2026-10-14T16:00:00+00:00", "2026-10-14T16:45:00+00:00",
+            "2026-09-05T14:33:04.571285+00:00", "triangelkyrkan.se/kalender/bon-och-samtal-4/2026-10-14", "Triangelkyrkan")
+wrong = real("149a978a", "Bön och samtal", "2026-10-14T16:00:00+00:00", "2026-10-14T16:45:00+00:00",
+             "2026-09-19T12:35:39.277961+00:00", "shakerlakes.org/event/fall-bird-banding-3/2026-09-21", "Triangelkyrkan")
+check("the church's own row survives, not the one linking an Ohio bird-banding on 09-21", survivor_of([good, wrong]) == "acee419d")
+good = real("a405e749", "Drawing Workshop", "2026-10-14T09:25:00+00:00", "2026-10-14T10:45:00+00:00",
+            "2026-08-20T09:49:30.882127+00:00", "wecl.org.uk/activities-and-events/drawing-workshop-40/2026-10-14")
+wrong = real("3e6add67", "Drawing Workshop", "2026-10-14T09:25:00+00:00", "2026-10-14T10:45:00+00:00",
+             "2026-09-20T12:53:43.546297+00:00", "muskegon-mi.gov/event/city-hall-closed-10-2/2027-04-16")
+check("the library's own row survives, not the one linking 'City Hall closed' on 2027-04-16", survivor_of([good, wrong]) == "a405e749")
+check("D.link_ok: a link dated within a day of the start is the row's own (a Sydney date is the UTC day after)",
+      D.link_ok(dict(good, starts_at="2026-10-13T13:00:00+00:00")) and not D.link_ok(wrong))
+nk = "nourishknoxville.org/event/"
+mkt = real("7c98ae7b", "Market Square Farmers Market", "2026-10-14T14:00:00+00:00", "2026-10-14T17:00:00+00:00",
+           "2026-09-04T14:36:20.140931+00:00", nk + "market-square-farmers-market-4/2026-10-14")
+mov = real("8c545236", "Nourish Moves at the Market Square Farmers Market", "2026-10-14T14:00:00+00:00",
+           "2026-10-14T17:00:00+00:00", "2026-09-04T14:36:20.140931+00:00",
+           nk + "nourish-moves-at-the-market-square-farmers-market/2026-10-14")
+check("the farmers market survives an activity held at it (one read: the id used to break the tie)",
+      survivor_of([mkt, mov]) == "7c98ae7b")
+gc = real("afb1eaa8", "Gary Clark Jr.", "2026-10-14T02:00:00+00:00", "2026-10-14T05:00:00+00:00",
+          "2026-08-30T12:12:41.694383+00:00", "ticketmaster.com/gary-clark-jr-denver-colorado-10-13-2026/event/1e0064bcc893fb99",
+          "Paramount Theatre")
+cs = real("be9788b0", "Paramount Theatre Club Seating: Gary Clark Jr.", "2026-10-14T02:00:00+00:00",
+          "2026-10-14T05:00:00+00:00", "2026-08-30T12:12:41.694383+00:00",
+          "ticketmaster.com/paramount-theatre-club-seating-gary-clark-denver-colorado-10-13-2026/event/1e0065129938919c",
+          "Paramount Theatre")
+sgc = real("d7475e22", "Gary Clark Jr.", "2026-10-14T02:00:00+00:00", "2026-10-14T05:00:00+00:00",
+           "2026-08-02T18:04:40.562452+00:00",
+           "seatgeek.com/gary-clark-jr-tickets/denver-colorado-paramount-theatre-co-2026-10-13-8-pm/concert/18280694",
+           "Paramount Theatre - CO")
+check("the concert survives its club-seating upsell (one read)", survivor_of([gc, cs]) == "afb1eaa8")
+check("... and with SeatGeek's row too, a concert survives and the upsell is hidden",
+      survivor_of([gc, cs, sgc]) in ("afb1eaa8", "d7475e22") and "be9788b0" in hidden_of([gc, cs, sgc]))
+car = real("fc176740", "Children's Carnival", "2026-10-14T22:30:00+00:00", "2026-10-15T00:00:00+00:00",
+           "2026-08-05T21:00:17.623591+00:00", "events.k-state.edu/event/childrens-carnival", "K-State Student Union")
+booth = real("29b14ea3", "Strong Complex Booth | Children's Carnival", "2026-10-14T22:30:00+00:00",
+             "2026-10-15T00:00:00+00:00", "2026-10-08T19:54:38.022779+00:00",
+             "events.k-state.edu/event/strong-complex-booth-childrens-carnival", "K-State Student Union")
+check("the carnival survives one booth at it, though the booth is two months newer", survivor_of([car, booth]) == "fc176740")
+cp = "commonpoint.org/event/"
+orig = real("330050e3", "2.1 Oct-June – 5 day program", "2026-10-14T18:00:00+00:00", "2026-10-14T22:00:00+00:00",
+            "2026-10-10T14:37:26.944857+00:00", cp + "2-1-oct-june-5-day-program/2026-10-14", "Central Queens (Forest Hills)")
+copy = real("17687e70", "Copy of – 2.1 Oct-June – 5 day program", "2026-10-14T18:00:00+00:00", "2026-10-14T22:00:00+00:00",
+            "2026-10-10T14:37:27.44076+00:00", cp + "copy-of-2-1-oct-june-5-day-program/2026-10-14", "Central Queens (Forest Hills)")
+check("the original survives its 'Copy of', made half a second later", survivor_of([orig, copy]) == "330050e3")
+a = real("77791a43", "Frank Catalano", "2026-10-13T23:00:00+00:00", "2026-10-14T02:00:00+00:00",
+         "2026-10-10T12:43:17.678623+00:00", "ticketmaster.com/event/z7r9jz1aav9-n", "Birdland")
+b = real("c3241ce2", "Frank Catalano Quintet feat. Randy Brecker", "2026-10-13T23:00:00+00:00", "2026-10-14T02:00:00+00:00",
+         "2026-10-10T12:43:17.678623+00:00",
+         "ticketweb.com/event/frank-catalano-quintet-feat-randy-birdland-jazz-club-tickets/14224924", "Birdland Jazz Club")
+check("an exact creation tie is broken by the fewer title words, not by id (the id favoured the longer)",
+      survivor_of([a, b]) == "77791a43")
+a = real("b502de15", "IDENTIDADES EN ESCENA", "2026-10-13T16:30:00+00:00", "2026-10-13T18:00:00+00:00",
+         "2026-10-07T15:58:28.50647+00:00", "mad.convoca.la/event/identidades-en-escena-2", "CS La Cheli")
+b = real("c01571b0", "CURSO IDENTIDADES EN ESCENA", "2026-10-13T16:30:00+00:00", "2026-10-13T18:00:00+00:00",
+         "2026-10-07T15:58:28.50647+00:00", "mad.convoca.la/event/curso-identidades-en-escena-3", "CS La Cheli")
+check("... and within one publisher ('CURSO IDENTIDADES EN ESCENA', one read)", survivor_of([a, b]) == "b502de15")
+renamed = real("rn2", "Paramount Theatre presents: Gary Clark Jr.", "2026-10-14T02:00:00+00:00", "2026-10-14T05:00:00+00:00",
+               "2026-09-30T12:12:41+00:00", gc["link"])
+check("control: on ONE page the newer title still wins (the key the source still emits)", survivor_of([gc, renamed]) == "rn2")
+
+print("\na title that says the event is off is never hidden behind one that does not")
+pr = "calendar.prattlibrary.org/event/preschool_storytime_8477"
+old_ = real("8ddb5af5", "Preschool Storytime", "2026-10-14T14:15:00+00:00", "2026-10-14T15:15:00+00:00",
+            "2026-08-04T09:56:45.695545+00:00", pr, "Patterson Park")
+cur = real("2d3fad89", "Canceled: Preschool Storytime", "2026-10-14T14:15:00+00:00", "2026-10-14T15:15:00+00:00",
+           "2026-09-24T16:01:08.232031+00:00", pr, "Patterson Park")
+check("control: nobody on either, the newer 'Canceled:' row survives and the stale one is hidden",
+      survivor_of([old_, cur]) == "2d3fad89" and hidden_of([old_, cur]) == {"8ddb5af5"})
+_, p = decide([old_, cur], rsvp={"8ddb5af5"})
+check("an RSVP on the stale row keeps it, and the 'Canceled:' row is left for a person, not hidden",
+      p[0]["survivor"] == "8ddb5af5" and p[0]["hide"] == [] and p[0]["left"] == ["2d3fad89"])
+kyr = "calendar.prattlibrary.org/event/know-your-rights-renter-tenant-advocacy-chr-2026"
+a = real("85c1e7f8", "Postponed: Know Your Rights - Renter/Tenant Advocacy with the Pro Bono Resource Center of Maryland",
+         "2026-10-14T17:30:00+00:00", "2026-10-14T18:30:00+00:00", "2026-08-27T19:27:24.848079+00:00", kyr)
+b = real("41a172a0", "Know Your Rights - Renter/Tenant Advocacy with the Pro Bono Resource Center of Maryland",
+         "2026-10-14T17:30:00+00:00", "2026-10-14T18:30:00+00:00", "2026-08-28T20:29:26.07291+00:00", kyr)
+_, p = decide([a, b])
+check("'Postponed: Know Your Rights' is left for a person, not hidden behind the plain title",
+      p[0]["hide"] == [] and p[0]["left"] == ["85c1e7f8"])
+a = real("d3a384ba", "Not cancelled - Live band karaoke / multigroup event", "2026-10-21T01:00:00+00:00",
+         "2026-10-21T05:00:00+00:00", "2026-10-07T15:22:02.565139+00:00", "meetup.com/iwanttodothatchicago/events/316360819",
+         "All Star Seafood and Sports")
+b = real("fa046719", "Live band karaoke/ Multigroup event", "2026-10-21T01:00:00+00:00", "2026-10-21T05:00:00+00:00",
+         "2026-10-06T15:16:39.042968+00:00", "meetup.com/chicagoismyoyster/events/316789935", "All Star Seafood and sports")
+check("control: 'Not cancelled - ...' is not a cancel mark (two Meetup groups, one karaoke night)",
+      not D.says_off(a) and len(hidden_of([a, b])) == 1)
+
+print("\naudience words the sync's list lacks (kept local to the collapser)")
+a = real("f1", "Schwimmen für Frauen", "2026-10-15T17:00:00+00:00", "2026-10-15T18:00:00+00:00",
+         "2026-09-01T07:00:00+00:00", "baeder.example.de/kurs/schwimmen-1", "Stadtbad")
+b = real("f2", "Schwimmen", "2026-10-15T17:00:00+00:00", "2026-10-15T18:00:00+00:00",
+         "2026-09-20T07:00:00+00:00", "baeder.example.de/kurs/schwimmen-2", "Stadtbad")
+check("[synthetic] a women's swim is not the public swim ('Frauen')", D.match(a, b, NO_LINKS) is None)
+a.update(title="Natación para mujeres")
+b.update(title="Natación")
+check("[synthetic] 'Natación para mujeres' is not 'Natación'", D.match(a, b, NO_LINKS) is None)
+check("the sync's own audience list is unchanged (absent_successors reads it)",
+      not D._AUDIENCE_WORD.fullmatch("frauen") and D.AUDIENCE_EXTRA.fullmatch("frauen"))
 
 print("\ncandidates (the grid the job pairs rows on before reading any link)")
 pairs = D.candidate_pairs([old, new])
@@ -228,7 +521,8 @@ def _split(s):
 def _val(col, v):
     if v is None:
         return None
-    return datetime.fromisoformat(str(v).replace("Z", "+00:00")) if col.endswith("_at") else str(v)
+    return (datetime.fromisoformat(str(v).replace("Z", "+00:00")) if col.endswith(("_at", "_until"))
+            else str(v))
 
 
 def _test(r, col, opv):
@@ -288,6 +582,9 @@ class FakeRest:
         for k, v in q:
             if k in ("select", "order", "limit", "offset"):
                 meta[k] = v
+                continue
+            if k == "or":                          # a top-level or=(...), as PostgREST takes it
+                rows = [r for r in rows if _cond(r, "or" + v)]
                 continue
             expr = v[1:-1] if k == "and" else None
             rows = [r for r in rows if (all(_cond(r, e) for e in _split(expr)) if expr is not None
@@ -382,9 +679,13 @@ code, out, rep = run(fake, "--apply", "--days", "2", "--lookback", "1")
 w = patches(fake)
 check("one PATCH", len(w) == 1 and code == 0)
 url, body = w[0][1], w[0][2]
-check("the PATCH carries the scope and both guards",
+check("the PATCH carries the scope and every guard (claim, hidden, chat, a live promotion)",
       all(s in url for s in ("external_source=eq.mapsee", "claimed_at=is.null", "hidden_at=is.null",
+                             "last_message_at=is.null",
+                             "or=(promoted_until.is.null,promoted_until.lt.2026-10-13T12%3A00%3A00.000000Z)",
                              f"id=in.({SLU_OLD})")))
+check("the listing asks for place_name (two venues on one pin)",
+      any("place_name" in u for m, u, _ in fake.calls if "and=(" in u))
 check("the body is exactly hidden_at and duplicate_of",
       set(body) == {"hidden_at", "duplicate_of"} and body["duplicate_of"] == SLU_NEW)
 check("the stamp is the run's now (MAPSEE_TODAY at 12:00Z)", body["hidden_at"] == "2026-10-13T12:00:00+00:00")
@@ -429,6 +730,30 @@ late = FakeRest(slu_rows(), hook=late_rsvp)
 code, out, rep = run(late, "--apply", "--days", "2", "--lookback", "1")
 check("an RSVP arriving before the write: that row is skipped",
       patches(late) == [] and late.events[SLU_OLD]["hidden_at"] is None and "late RSVP 1" in out)
+
+
+def arrives(**kw):
+    def hook(m, u, n):
+        if m == "PATCH":
+            arriving.events[SLU_OLD].update(kw)
+    return hook
+
+
+for what, kw in (("a first chat message", {"last_message_at": "2026-10-13T12:00:30+00:00"}),
+                 ("a paid promotion", {"promoted_until": "2026-10-20T00:00:00+00:00"})):
+    arriving = FakeRest(slu_rows(), hook=arrives(**kw))
+    code, out, rep = run(arriving, "--apply", "--days", "2", "--lookback", "1")
+    check(f"{what} arriving after the listing keeps the copy visible (the PATCH filter decides)",
+          arriving.events[SLU_OLD]["hidden_at"] is None and "skipped 1" in out)
+arriving = FakeRest(slu_rows(), hook=arrives(promoted_until="2026-10-12T00:00:00+00:00"))
+code, out, rep = run(arriving, "--apply", "--days", "2", "--lookback", "1")
+check("control: a promotion that ended before the run does not keep it", arriving.events[SLU_OLD]["duplicate_of"] == SLU_NEW)
+misdated = slu_rows()
+misdated[1]["description"] = "x\nTickets / info: https://hutchinsonmn.gov/event/city-council-meeting-2/2026-12-22/"
+code, out, rep = run(FakeRest(misdated), "--days", "2", "--lookback", "1")
+check("a link naming another date is counted and listed in the report (an adapter's bug to find)",
+      [r["id"] for r in rep["link_names_another_date"]] == [SLU_NEW] and rep["totals"]["link_names_another_date"] == 1
+      and "link names another date" in out)
 engaged = FakeRest(slu_rows(), rsvps=[SLU_OLD])
 code, out, rep = run(engaged, "--days", "2", "--lookback", "1")
 check("a row people are on survives, though older", [h["id"] for h in rep["hidden"]] == [SLU_NEW])
