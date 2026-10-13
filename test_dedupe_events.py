@@ -274,6 +274,11 @@ a = real("d7d6154a", "Lane Swim Fast Wed 14:00", "2026-10-14T13:00:00+00:00", "2
 b = real("358fe75c", "Lane Swim Fast Wed 14:00", "2026-10-14T13:00:00+00:00", "2026-10-14T14:00:00+00:00",
          "2026-10-07T14:10:48.308481+00:00", ea + "0330&Activities=3303WS4FC140096&Culture=en-GB", "London Aquatics Centre")
 check("census c1 'Lane Swim Fast Wed 14:00', pools FT / FC", D.match(a, b, NO_LINKS) is None)
+a = real("801c3f32", "Lane Swim Med Wed 18:30", "2026-10-14T17:30:00+00:00", "2026-10-14T18:30:00+00:00",
+         "2026-10-08T14:17:40.871502+00:00", ea + "0330&Activities=3303WS4MC183096&Culture=en-GB", "London Aquatics Centre")
+b = real("9f7ccf6b", "Lane Swim Med Wed 18:30", "2026-10-14T17:30:00+00:00", "2026-10-14T18:30:00+00:00",
+         "2026-10-07T14:10:55.629323+00:00", ea + "0330&Activities=3303WS4MT183096&Culture=en-GB", "London Aquatics Centre")
+check("census c1 'Lane Swim Med Wed 18:30', pools MC / MT", D.match(a, b, NO_LINKS) is None)
 a = real("76c4821d", "Zumba Tue 19:00", "2026-10-13T18:00:00+00:00", "2026-10-13T18:55:00+00:00",
          "2026-10-01T13:59:03.109053+00:00", ea + "0158&Activities=1582CZU19000135&Culture=en-GB", "Little Venice Sports Centre")
 b = real("1ef93387", "Zumba Tue 19:00", "2026-10-13T18:00:00+00:00", "2026-10-13T18:55:00+00:00",
@@ -298,6 +303,16 @@ b = real("5817465e", "New Member Tour", "2026-10-14T11:00:00+00:00", "2026-10-14
          "2026-10-07T14:13:20.25011+00:00", pl, "Latchmere Leisure Centre")
 check("placesleisure /centres/<centre>: 'New Member Tour' 0.5 h vs a 6.5 h day row",
       D.why_not(a, b, NO_LINKS) == "same page, a listing page")
+a = real("216b39bb", "Lane Swim", "2026-10-15T05:30:00+00:00", "2026-10-15T06:30:00+00:00",
+         "2026-10-01T13:59:15.575844+00:00", pl, "Latchmere Leisure Centre")
+b = real("ebd0d244", "Lane Swim", "2026-10-15T05:30:00+00:00", "2026-10-15T20:15:00+00:00",
+         "2026-10-08T14:20:52.509001+00:00", pl, "Latchmere Leisure Centre")
+c = real("45a352ef", "New Member Tour", "2026-10-15T11:00:00+00:00", "2026-10-15T11:30:00+00:00",
+         "2026-10-01T13:59:18.110713+00:00", pl, "Latchmere Leisure Centre")
+d = real("dfaeff0c", "New Member Tour", "2026-10-15T11:00:00+00:00", "2026-10-15T17:30:00+00:00",
+         "2026-10-08T14:20:49.021371+00:00", pl, "Latchmere Leisure Centre")
+check("Latchmere's other two replayed hides ('Lane Swim', 'New Member Tour' 10-15) stay apart",
+      D.match(a, b, NO_LINKS) is None and D.match(c, d, NO_LINKS) is None)
 a = real("f4789cae", "Soft Play", "2026-10-14T08:00:00+00:00", "2026-10-14T09:15:00+00:00",
          "2026-09-30T13:25:32.270317+00:00", "placesleisure.org/centres/morpeth-sports-and-leisure-centre")
 b = real("005a7be8", "Soft Play", "2026-10-14T08:00:00+00:00", "2026-10-14T16:45:00+00:00",
@@ -429,6 +444,53 @@ a = real("b502de15", "IDENTIDADES EN ESCENA", "2026-10-13T16:30:00+00:00", "2026
 b = real("c01571b0", "CURSO IDENTIDADES EN ESCENA", "2026-10-13T16:30:00+00:00", "2026-10-13T18:00:00+00:00",
          "2026-10-07T15:58:28.50647+00:00", "mad.convoca.la/event/curso-identidades-en-escena-3", "CS La Cheli")
 check("... and within one publisher ('CURSO IDENTIDADES EN ESCENA', one read)", survivor_of([a, b]) == "b502de15")
+# All 24 of the build's production hides that kept a row whose link names
+# another date (its "Tickets / info" is another site's event: an adapter bug)
+# and hid the venue's own: (hidden, kept, titles, start, ends, made, links).
+WRONG_SITE = [
+    ('a9cf2f01', '01e79168', 'Thursday Club 9am Shotgun Start course reopens at 1pm', 'Thursday Club 9am Shotgun Start course reopens at 1pm', '2026-10-14T20:00:00+00:00', '2026-10-15T00:00:00+00:00', '2026-10-15T00:00:00+00:00', '2026-08-24T10:16:58.59894+00:00', '2026-08-30T15:00:41.296136+00:00', 'kaiapoigolf.co.nz/event/thursday-club-9am-shotgun-start-course-reopens-at-1pm-17-5-2/2026-10-15', 'bagneuxenvironnement.org/evenement/invendus-alimentaires-95/2026-09-22'),
+    ('08c1a2a9', '5234dec5', 'Brugermøde', 'Brugermøde', '2026-10-14T11:00:00+00:00', '2026-10-14T12:00:00+00:00', '2026-10-14T12:00:00+00:00', '2026-08-31T17:22:13.997229+00:00', '2026-09-05T14:33:02.991684+00:00', 'mmnv.dk/begivenheder/brugermoede/2026-10-14', 'kvakare.se/event/digital-andakt-13/2026-09-06'),
+    ('1268c447', '0ad1808c', 'Edinburgh College', 'Edinburgh College', '2026-10-14T08:00:00+00:00', '2026-10-14T13:45:00+00:00', '2026-10-14T13:45:00+00:00', '2026-08-20T09:49:36.325049+00:00', '2026-09-19T12:35:33.053893+00:00', 'duncanplace.org/event/edinburgh-college-6-2/2026-10-14', 'pgparks.com/event_list/community-center-teen-nights/2026-10-24'),
+    ('acee419d', '149a978a', 'Bön och samtal', 'Bön och samtal', '2026-10-14T16:00:00+00:00', '2026-10-14T16:45:00+00:00', '2026-10-14T16:45:00+00:00', '2026-09-05T14:33:04.571285+00:00', '2026-09-19T12:35:39.277961+00:00', 'triangelkyrkan.se/kalender/bon-och-samtal-4/2026-10-14', 'shakerlakes.org/event/fall-bird-banding-3/2026-09-21'),
+    ('1e2371f4', 'c5d68695', 'Healthy Yucaipa Walking Group', 'Healthy Yucaipa Walking Group', '2026-10-14T02:00:00+00:00', '2026-10-14T03:00:00+00:00', '2026-10-14T03:00:00+00:00', '2026-09-09T15:01:48.102923+00:00', '2026-09-11T12:40:38.410936+00:00', 'yucaipa.gov/calendar/healthy-yucaipa-walking-group/2026-10-13', 'chapelforeurope.eu/event/morning-prayer-6-2/2026-09-11'),
+    ('1e399b89', '71a1683e', 'Community Pickleball (Beginner)', 'Community Pickleball (Beginner)', '2026-10-14T23:00:00+00:00', '2026-10-15T01:00:00+00:00', '2026-10-15T01:00:00+00:00', '2026-08-20T09:49:38.51374+00:00', '2026-09-09T15:01:54.141194+00:00', 'shantzmc.ca/event/community-pickleball-beginner-4/2026-10-14', 'homechurch.at/termin/jog-pray/2026-12-01'),
+    ('22cfd373', 'a59375d1', 'Warmteplek', 'Warmteplek', '2026-10-14T08:30:00+00:00', '2026-10-14T12:00:00+00:00', '2026-10-14T12:00:00+00:00', '2026-09-11T12:40:34.701723+00:00', '2026-09-19T12:35:19.903791+00:00', 'facebook.com/huisvandemenstongerenbilzensinttruiden', 'michigancityin.gov/city-event/city-council-regular-meeting-2/2027-01-19'),
+    ('2ddc40a4', '297ff25e', 'Free Wednesday Trivia', 'Free Wednesday Trivia', '2026-10-14T08:00:00+00:00', '2026-10-14T10:00:00+00:00', '2026-10-14T10:00:00+00:00', '2026-08-20T09:49:44.47862+00:00', '2026-08-30T15:00:45.125977+00:00', 'clubkirrawee.com.au/event/free-wednesday-trivia/2026-10-14', 'sacre-coeur-montmartre.com/evenement/office-du-matin/2026-10-04'),
+    ('351248bd', '7f4aac93', 'Customer Service Point', 'Customer Service Point', '2026-10-14T09:00:00+00:00', '2026-10-14T16:00:00+00:00', '2026-10-14T16:00:00+00:00', '2026-08-20T09:49:30.882127+00:00', '2026-09-19T12:36:22.244797+00:00', 'wecl.org.uk/activities-and-events/customer-service-point-4-2/2026-10-14', 'la-passerelle.fr/agenda/atelier-bois-2/2026-09-26'),
+    ('94082a8b', '7f4aac93', 'Customer Service Point', 'Customer Service Point', '2026-10-14T09:00:00+00:00', '2026-10-14T16:00:00+00:00', '2026-10-14T16:00:00+00:00', '2026-08-28T21:41:12.28551+00:00', '2026-09-19T12:36:22.244797+00:00', 'tickets.rivajgroup.com/fr/manifestation/9185/nash', 'la-passerelle.fr/agenda/atelier-bois-2/2026-09-26'),
+    ('3549ae02', '598e7a9f', '40% OFF CLUB CLASSICS', '40% OFF CLUB CLASSICS', '2026-10-14T00:30:00+00:00', '2026-10-14T03:30:00+00:00', '2026-10-14T03:30:00+00:00', '2026-08-22T09:42:27.991023+00:00', '2026-09-21T14:27:02.881113+00:00', 'theshellharbourclub.com.au/event/40-off-club-classics/2026-10-14', 'sacre-coeur-montmartre.com/evenement/confessions/2026-10-31'),
+    ('a405e749', '3e6add67', 'Drawing Workshop', 'Drawing Workshop', '2026-10-14T09:25:00+00:00', '2026-10-14T10:45:00+00:00', '2026-10-14T10:45:00+00:00', '2026-08-20T09:49:30.882127+00:00', '2026-09-20T12:53:43.546297+00:00', 'wecl.org.uk/activities-and-events/drawing-workshop-40/2026-10-14', 'muskegon-mi.gov/event/city-hall-closed-10-2/2027-04-16'),
+    ('7ee8c3f2', '54ac843f', 'Bingo', 'Musical Bingo', '2026-10-14T07:30:00+00:00', '2026-10-14T07:30:00+00:00', '2026-10-14T07:30:00+00:00', '2026-09-03T15:03:16.820356+00:00', '2026-09-19T12:35:56.215794+00:00', 'ofbrciyc.com.au/event/bingo/2026-10-14', 'hutchinsonmn.gov/event/city-council-meeting-2/2026-12-22'),
+    ('f9ddae2b', '54ac843f', 'Musical Bingo', 'Musical Bingo', '2026-10-14T07:30:00+00:00', '2026-10-14T07:30:00+00:00', '2026-10-14T07:30:00+00:00', '2026-08-22T09:42:25.464466+00:00', '2026-09-19T12:35:56.215794+00:00', 'ofbrciyc.com.au/event/musical-bingo-2/2026-10-14', 'hutchinsonmn.gov/event/city-council-meeting-2/2026-12-22'),
+    ('f6346e10', '69676548', '$5 Happy Hour', '$5 Happy Hour', '2026-10-14T06:00:00+00:00', '2026-10-14T07:00:00+00:00', '2026-10-14T07:00:00+00:00', '2026-08-20T09:49:45.341991+00:00', '2026-09-25T13:48:06.740055+00:00', 'manlyleagues.com.au/event/happy-hour-49-off/2026-10-14', 'overtonpark.org/event/field-notes-2/2026-11-16'),
+    ('f894eb5c', '8cd86eee', 'We Love Schnitzels Wednesday Night', 'We Love Schnitzels Wednesday Night', '2026-10-14T06:30:00+00:00', '2026-10-14T09:30:00+00:00', '2026-10-14T09:30:00+00:00', '2026-08-20T09:49:44.47862+00:00', '2026-09-11T12:40:33.421221+00:00', 'clubkirrawee.com.au/event/we-love-schnitzels-wednesday-night/2026-10-14', 'demens.nu/evenement/najaarsontmoetingen/2026-09-21'),
+    ('baf7eb85', '9e96684c', 'Tapestry Weaving', 'Tapestry Weaving', '2026-10-14T11:00:00+00:00', '2026-10-14T13:00:00+00:00', '2026-10-14T13:00:00+00:00', '2026-09-11T12:40:33.421221+00:00', '2026-09-27T14:01:44.961441+00:00', 'creatiefschrijven.be/cursussen/nieuw-een-mozaiek-van-jouw-verhaal', 'sacre-coeur-montmartre.com/evenement/office-du-matin/2026-10-22'),
+    ('d7330a27', '9e96684c', 'Tapestry Weaving', 'Tapestry Weaving', '2026-10-14T11:00:00+00:00', '2026-10-14T13:00:00+00:00', '2026-10-14T13:00:00+00:00', '2026-08-20T09:49:30.882127+00:00', '2026-09-27T14:01:44.961441+00:00', 'wecl.org.uk/activities-and-events/tapestry-weaving-40/2026-10-14', 'sacre-coeur-montmartre.com/evenement/office-du-matin/2026-10-22'),
+    ('121af009', '35066988', 'The Tween Thing', 'The Tween Thing', '2026-10-13T22:00:00+00:00', '2026-10-13T23:30:00+00:00', '2026-10-13T23:30:00+00:00', '2026-09-19T12:35:54.168946+00:00', '2026-09-25T13:48:06.145102+00:00', 'laurelms.com/event/the-tween-thing-3/2026-10-13', 'lafittegreenway.org/event/move-groove-2/2026-10-07'),
+    ('8f7a47bc', '15fec2cb', 'Third Hill Brewing Pub Run', 'Third Hill Brewing Pub Run', '2026-10-13T22:00:00+00:00', '2026-10-13T23:00:00+00:00', '2026-10-13T23:00:00+00:00', '2026-08-04T09:57:02.057244+00:00', '2026-08-26T15:30:52.489328+00:00', 'mcrrc.org/calendar-event/pub-runs-2-2/2026-10-13', 'lgbthealth.org.uk/event/building-us-2/2026-11-16'),
+    ('38a770ec', '48386a4c', 'Girls Brigade', 'Girls Brigade', '2026-10-13T17:30:00+00:00', '2026-10-13T19:00:00+00:00', '2026-10-13T19:00:00+00:00', '2026-08-20T09:49:32.28088+00:00', '2026-09-03T15:03:19.421286+00:00', 'paisleystgeorges.org.uk/event/girls-brigade-160', 'thesporties.com.au/event/tradies-happy-hour/2026-09-25'),
+    ('6687fa5c', '66ceb356', 'Banko', 'Banko', '2026-10-13T17:00:00+00:00', '2026-10-13T20:00:00+00:00', '2026-10-13T20:00:00+00:00', '2026-09-01T15:26:54.706686+00:00', '2026-09-11T12:40:33.848241+00:00', 'xn--lsbyforsamlingshus-4tb.dk/arrangement/banko-3/2026-10-13', 'demens.nu/evenement/koffieklets/2026-10-05'),
+    ('a2b24b3e', '704f6f3c', '(10AM-12AM Hourly) The Hollywood Comedy (in LA)', '(10AM-12AM Hourly) The Hollywood Comedy (in LA)', '2026-10-13T17:00:00+00:00', '2026-10-14T06:00:00+00:00', '2026-10-14T06:00:00+00:00', '2026-08-19T09:30:27.969218+00:00', '2026-09-04T20:38:35.551752+00:00', 'slotted.co/thehollywoodcomedy', 'ylojarvi.fi/tapahtuma/tiurankammarin-tuolijumppa-3/2026-09-08'),
+    ('abc14914', 'a7dfc5ee', 'Tuesdays at Twilight', 'Tuesdays at Twilight', '2026-10-13T23:00:00+00:00', '2026-10-14T01:00:00+00:00', '2026-10-14T01:00:00+00:00', '2026-09-28T16:38:22.487545+00:00', '2026-10-01T15:26:23.473186+00:00', 'neworleanscitypark.org/event/tuesdays-at-twilight/2026-10-13', 'taumarunui.co.nz/event/progressive-hatha-yoga-for-all/2026-12-22'),
+]
+for h_, k_, ht, kt, st, he, ke, hc, kc, hl, kl in WRONG_SITE:
+    pair = [real(h_, ht, st, he, hc, hl), real(k_, kt, st, ke, kc, kl)]
+    if survivor_of(pair) != h_:
+        check(f"the venue's own {ht[:30]!r} ({h_}) survives the row linking {kl[:40]}", False)
+check(f"all {len(WRONG_SITE)} production wrong-site survivors give way to the venue's own row",
+      all(survivor_of([real(h_, ht, st, he, hc, hl), real(k_, kt, st, ke, kc, kl)]) == h_
+          for h_, k_, ht, kt, st, he, ke, hc, kc, hl, kl in WRONG_SITE))
+# The build's 5 commonpoint hides that kept 'Copy of - X' over X.
+COPIES = [
+    ('330050e3', '17687e70', '2.1 Oct-June – 5 day program', 'Copy of – 2.1 Oct-June – 5 day program', '2026-10-14T18:00:00+00:00', '2026-10-14T22:00:00+00:00', '2026-10-10T14:37:26.944857+00:00', '2026-10-10T14:37:27.44076+00:00', 'commonpoint.org/event/2-1-oct-june-5-day-program/2026-10-14', 'commonpoint.org/event/copy-of-2-1-oct-june-5-day-program/2026-10-14'),
+    ('a16e4d8f', '30e49d13', '2.1 Oct-June – 5 day Bus', 'Copy of – 2.1 Oct-June – 5 day Bus', '2026-10-14T18:00:00+00:00', '2026-10-14T22:00:00+00:00', '2026-10-10T14:37:26.944857+00:00', '2026-10-10T14:37:27.44076+00:00', 'commonpoint.org/event/2-1-oct-june-5-day-bus/2026-10-14', 'commonpoint.org/event/copy-of-2-1-oct-june-5-day-bus/2026-10-14'),
+    ('698954fc', '2934156d', '2.1 Oct-June – 5 day Bus', 'Copy of – 2.1 Oct-June – 5 day Bus', '2026-10-13T18:00:00+00:00', '2026-10-13T22:00:00+00:00', '2026-10-10T14:37:26.516731+00:00', '2026-10-10T14:37:26.944857+00:00', 'commonpoint.org/event/2-1-oct-june-5-day-bus/2026-10-13', 'commonpoint.org/event/copy-of-2-1-oct-june-5-day-bus/2026-10-13'),
+    ('722bc04e', 'a072c7a6', 'Bronx – Tuesday – Level 1 – (5-9 years) – 5:15PM-6:00PM', 'Copy of – Bronx – Tuesday – Level 1 – (5-9 years) – 5:15PM-6:00PM', '2026-10-13T21:15:00+00:00', '2026-10-13T22:00:00+00:00', '2026-10-10T14:37:26.944857+00:00', '2026-10-10T14:37:26.944857+00:00', 'commonpoint.org/event/bronx-tuesday-level-1-5-9-years-515pm-600pm/2026-10-13', 'commonpoint.org/event/copy-of-bronx-tuesday-level-1-5-9-years-515pm-600pm/2026-10-13'),
+    ('b3850a74', 'c9f6b65d', '2.1 Oct-June – 5 day program', 'Copy of – 2.1 Oct-June – 5 day program', '2026-10-13T18:00:00+00:00', '2026-10-13T22:00:00+00:00', '2026-10-10T14:37:26.516731+00:00', '2026-10-10T14:37:26.516731+00:00', 'commonpoint.org/event/2-1-oct-june-5-day-program/2026-10-13', 'commonpoint.org/event/copy-of-2-1-oct-june-5-day-program/2026-10-13'),
+]
+check(f"all {len(COPIES)} commonpoint originals survive their 'Copy of' twins (made in one read)",
+      all(survivor_of([real(h_, ht, st, en, hc, hl), real(k_, kt, st, en, kc, kl)]) == h_
+          for h_, k_, ht, kt, st, en, hc, kc, hl, kl in COPIES))
 renamed = real("rn2", "Paramount Theatre presents: Gary Clark Jr.", "2026-10-14T02:00:00+00:00", "2026-10-14T05:00:00+00:00",
                "2026-09-30T12:12:41+00:00", gc["link"])
 check("control: on ONE page the newer title still wins (the key the source still emits)", survivor_of([gc, renamed]) == "rn2")
