@@ -138,6 +138,14 @@ jobs:
       - name: Series linking (which repeats are one thing)
         run: python test_link_series.py
 
+      # The collapser HIDES production rows on a judgement that two rows are one
+      # event, and its failure mode is as silent as series linking's: hide the
+      # wrong one and an event vanishes behind another. The rules (the census's
+      # real pairs and its measured false positives) and what it sends: the scope,
+      # claimed_at/hidden_at guards, the keyset, the unhide filter. No network.
+      - name: Duplicate imported events (which rows are one event, what is hidden)
+        run: python test_dedupe_events.py
+
       # The alarm, not the pipeline. source-health.yml failed its first eight
       # runs against a retired RPC and reported it as sources going quiet; both
       # halves of that — which endpoint is called, and whether the server's own

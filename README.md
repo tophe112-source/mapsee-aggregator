@@ -87,11 +87,16 @@ One case the fingerprint cannot close on its own is a **market carried by
 several sources at once** — a curated city list, OpenStreetMap and the USDA
 directories agree on the name and the coordinates but not on the address string.
 Market identity is therefore the name plus a ~5km geohash cell rather than the
-address, and `mapsee_dedupe_events.py` collapses what is left (a market sitting
-on a cell boundary, or rows imported before that change) in the database, which
-is the only place every source's rows meet — the sources run on different
-weekdays into a store that is rebuilt each run. It runs after each feeds sync,
-keeps the claimed or oldest row, and is safe to re-run.
+address. What import cannot see is left to `mapsee_dedupe_events.py`, which
+works in the database, the only place every source's rows meet: the sources run
+on different weekdays into a store that is rebuilt each run. It finds one event
+filed twice (a source that renamed it, two adapters reading one library, two
+ticket sites listing one show) and **hides** the copy, recording which row it
+copied (`duplicate_of`); it never deletes. It keeps a claimed row first, then
+one people are going to, then a row with a start time over an all-day copy, then
+the newest import. It runs nightly after every sync, reports only until the
+repository variable `DEDUPE_APPLY` is `true`, and one run can be reversed with
+`--unhide --stamp`.
 
 ## Curation tooling
 

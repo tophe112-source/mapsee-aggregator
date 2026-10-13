@@ -1,0 +1,113 @@
+name: Hide duplicate imported events (manual)
+
+# The nightly run of mapsee_dedupe_events.py is the `dedupe` job in
+# aggregate-events.yml. This is the same script by hand: a report, a bounded
+# first write, or the undo of one run.
+#
+# workflow_dispatch ONLY. Never add a pull_request trigger: this repo is public
+# and that would expose SUPABASE_SERVICE_ROLE_KEY to fork code.
+#
+# MODES
+#   report         list what would be hidden; write nothing (the default)
+#   apply          hide the copies (hidden_at + duplicate_of). REFUSED unless the
+#                  repository variable DEDUPE_APPLY is exactly 'true', the same
+#                  switch the nightly job reads. The script itself also reports
+#                  (and exits 1) while events.duplicate_of does not exist.
+#   unhide-report  list the copies one run hid (needs `stamp`, from that run's
+#                  report or log: "Mode: APPLY (hidden_at=...)")
+#   unhide         put them back: clears hidden_at and duplicate_of on exactly
+#                  that run's copies. Allowed with the switch off, because the
+#                  undo has to work on the day the switch was turned off.
+#
+# Inputs reach the shell through env, never pasted into `run:`.
+#
+# Required repo secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+# Optional repo variable: DEDUPE_APPLY ('true' allows mode apply)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "report | apply (needs DEDUPE_APPLY=true) | unhide-report | unhide"
+        type: choice
+        options: [report, apply, unhide-report, unhide]
+        default: report
+      days:
+        description: "Forward horizon in UTC days (report/apply)"
+        type: string
+        default: "21"
+      lookback:
+        description: "Rows that started up to this many days ago and are still running (report/apply)"
+        type: string
+        default: "60"
+      stamp:
+        description: "unhide modes: the hidden_at stamp of the run to reverse, e.g. 2026-10-14T06:41:07+00:00"
+        type: string
+        default: ""
+
+concurrency:
+  group: dedupe-events
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  dedupe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: The rules about to be applied still pass their own tests
+        run: python test_dedupe_events.py
+      - name: Run
+        shell: bash
+        env:
+          MODE: ${{ inputs.mode }}
+          DAYS: ${{ inputs.days }}
+          LOOKBACK: ${{ inputs.lookback }}
+          STAMP: ${{ inputs.stamp }}
+          APPLY_SWITCH: ${{ vars.DEDUPE_APPLY }}
+        run: |
+          set -o pipefail
+          case "$DAYS$LOOKBACK" in *[!0-9]*|"") echo "::error::days and lookback must be whole numbers"; exit 2;; esac
+          case "$MODE" in
+            report)
+              ARGS=(--days "$DAYS" --lookback "$LOOKBACK" --max-seconds 1200 --report dedupe_report.json) ;;
+            apply)
+              if [ "$APPLY_SWITCH" != "true" ]; then
+                echo "::error title=Dedupe: refused::mode apply needs the repository variable DEDUPE_APPLY set to 'true' (it is '${APPLY_SWITCH:-unset}')."
+                exit 1
+              fi
+              ARGS=(--apply --days "$DAYS" --lookback "$LOOKBACK" --max-seconds 1200 --report dedupe_report.json) ;;
+            unhide-report|unhide)
+              if [ -z "$STAMP" ]; then
+                echo "::error::the unhide modes need the stamp of the run to reverse"
+                exit 2
+              fi
+              ARGS=(--unhide --stamp "$STAMP" --show 200)
+              if [ "$MODE" = "unhide" ]; then ARGS+=(--apply); fi ;;
+            *)
+              echo "::error::unknown mode '$MODE'"; exit 2 ;;
+          esac
+          echo "MODE: $MODE"
+          python -u mapsee_dedupe_events.py "${ARGS[@]}" | tee dedupe.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dedupe-report
+          path: |
+            dedupe_report.json
+            dedupe.log
+          retention-days: 30
+          if-no-files-found: ignore

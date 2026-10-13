@@ -204,6 +204,35 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('audit.log', total)
         self.assertNotIn('curation_ledger.json', dead + total)
 
+    def test_dedupe_is_its_own_red_job_behind_its_switch_before_indexnow(self):
+        # The collapser was a continue-on-error step inside indexnow: killed at
+        # its 12-minute timeout on 2026-09-29..10-07, 57014 from 10-08, and green
+        # on all 25 runs (09-19..10-12) that annotated exit 1. It hides
+        # production rows, so it writes only when vars.DEDUPE_APPLY is 'true'.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        job = workflow['jobs']['dedupe']
+        self.assertNotIn('continue-on-error', job)
+        self.assertFalse(any('continue-on-error' in s for s in job['steps']))
+        self.assertIn('dedupe', workflow['jobs']['indexnow']['needs'])
+        self.assertEqual(workflow['jobs']['indexnow']['if'], 'always()')
+        self.assertTrue(job['if'].startswith('${{ always() &&'))
+        self.assertEqual(set(job['needs']), set(workflow['jobs']['indexnow']['needs']) - {'dedupe'})
+        run = next(s['run'] for s in job['steps'] if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
+        self.assertIn('if [ "$DEDUPE_APPLY" = "true" ]; then', run)
+        self.assertIn('set -o pipefail', run)
+        seconds = int(re.search(r'--max-seconds (\d+)', run).group(1))
+        self.assertLess(seconds / 60 + 3, job['timeout-minutes'])
+        for name, other in workflow['jobs'].items():
+            if name != 'dedupe':
+                for step in other.get('steps', []):
+                    self.assertNotIn('mapsee_dedupe_events.py', step.get('run') or '', name)
+        manual = yaml.safe_load((ROOT / '.github/workflows/dedupe-events.yml').read_text(encoding='utf-8'))
+        self.assertEqual(set(manual.get('on', manual.get(True))), {'workflow_dispatch'})
+        mrun = next(s['run'] for s in manual['jobs']['dedupe']['steps'] if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
+        self.assertIn('if [ "$APPLY_SWITCH" != "true" ]; then', mrun)
+        self.assertNotIn('${{', mrun)
+        self.assertEqual(manual['concurrency']['group'], job['concurrency']['group'])
+
 
 if __name__ == '__main__':
     unittest.main()
