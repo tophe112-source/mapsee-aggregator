@@ -31991,5 +31991,130 @@
     "geocode_suffix": ", Windsor, CT",
     "limit": 300,
     "_metro": "Hartford, United States"
+  },
+  {
+    "name": "All Saints Birkenhead Scout Group",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_1tt8k2so2eui6i26028u5dl210%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Auckland, New Zealand",
+    "limit": 300,
+    "venue": {
+      "name": "All Saints Birkenhead Scout Group",
+      "postal_code": "0626",
+      "lat": -36.8053439,
+      "lon": 174.7242792,
+      "street_hint": "3 Recreation Drive",
+      "pin_unnamed": false
+    },
+    "_metro": "Auckland, New Zealand"
+  },
+  {
+    "name": "Saint Stephen's Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mrp3v8reps787k0v6vlcd9mmlc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Whangaparāoa",
+    "limit": 300,
+    "_metro": "Auckland, New Zealand"
+  },
+  {
+    "name": "Calliope Sea Scout Group",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gjt1gh30rqljtrm2edqlghfvfnkbghom%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Auckland",
+    "limit": 300,
+    "_metro": "Auckland, New Zealand"
+  },
+  {
+    "name": "Dorje Chang Institute for Wisdom Culture",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dci.org.nz_tn1adk84bdm15qcherq0v7etf8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Auckland",
+    "limit": 300,
+    "_metro": "Auckland, New Zealand"
+  },
+  {
+    "name": "Island Bay Tennis & Squash Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/48f9158b2bd312f5e6f07b6d43a218ff148a11b0bd939d161e035d936fa2058e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wellington, New Zealand",
+    "limit": 300,
+    "_metro": "Wellington, New Zealand"
+  },
+  {
+    "name": "Saint Peter's on Willis Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_b9dijkclggd1c86df2p4i0mqs8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wellington",
+    "limit": 300,
+    "_metro": "Wellington, New Zealand"
+  },
+  {
+    "name": "St Anthony's Parish",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a357ghsdj25qf4bq7if96dmfls%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wellington",
+    "limit": 300,
+    "_metro": "Wellington, New Zealand"
+  },
+  {
+    "name": "Our Lady of Grace Parish Heretaunga",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40olov.org.nz/public/basic.ics",
+    "geocode_suffix": ", Upper Hutt",
+    "limit": 300,
+    "_metro": "Wellington, New Zealand"
+  },
+  {
+    "name": "Our Lady of Fatima Church - Tawa",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mycatholic.life_6edgf1f10bgli159mgs4uc0r90%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Wellington",
+    "limit": 300,
+    "_metro": "Wellington, New Zealand"
+  },
+  {
+    "name": "The Rehearsal Studio",
+    "category": "community",
+    "_found": "osm:events_venue -> ics",
+    "url": "https://thepiano.makemedia.nz/media/calendar-events/3370.ics",
+    "geocode_suffix": ", Christchurch, New Zealand",
+    "limit": 300,
+    "_metro": "Christchurch, New Zealand"
+  },
+  {
+    "name": "Oxford Terrace Baptist Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0kh9k7qumlk4pmb15lhe9v7eg8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Christchurch",
+    "limit": 300,
+    "_metro": "Christchurch, New Zealand"
+  },
+  {
+    "name": "Saint Anne’s Catholic Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/stannes.co.nz_jk09dci6hroesa5ojc226l7jio%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Christchurch",
+    "limit": 300,
+    "_metro": "Christchurch, New Zealand"
+  },
+  {
+    "name": "St Augustines Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/office%40staugustines.org.nz/public/basic.ics",
+    "geocode_suffix": ", Christchurch",
+    "limit": 300,
+    "_metro": "Christchurch, New Zealand"
   }
 ]

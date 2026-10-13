@@ -8737,6 +8737,23 @@
         "lon": -78.8679499
       },
       "_metro": "Buffalo, United States"
+    },
+    {
+      "name": "Every Nation Auckland City",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event+ics",
+      "listing": [
+        "https://www.everynationauckland.city/event/mfw2026"
+      ],
+      "link_pattern": "https://www\\.everynationauckland\\.city/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Every Nation Auckland City",
+        "address": "9 Karaka Street",
+        "lat": -36.8616011,
+        "lon": 174.7569815
+      },
+      "_metro": "Auckland, New Zealand"
     }
   ],
   "_not_included": {

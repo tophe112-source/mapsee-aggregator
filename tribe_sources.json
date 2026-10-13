@@ -18117,6 +18117,40 @@
       },
       "_metro": "Hartford, United States",
       "crawl_delay": 10.0
+    },
+    {
+      "name": "Our Lady of the Assumption Catholic Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://onehungacatholic.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Our Lady of the Assumption Catholic Church",
+        "address": "130 Church Street",
+        "city": "Auckland",
+        "postal_code": "1061",
+        "lat": -36.9223881,
+        "lon": 174.7881061
+      },
+      "_metro": "Auckland, New Zealand"
+    },
+    {
+      "name": "Kumeu Baptist Church",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kumeubaptist.org.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kumeu Baptist Church",
+        "address": "21 Access Road",
+        "city": "Kumeū",
+        "postal_code": "0810",
+        "lat": -36.7784564,
+        "lon": 174.5561105
+      },
+      "_metro": "Auckland, New Zealand"
     }
   ],
   "_not_included": {
