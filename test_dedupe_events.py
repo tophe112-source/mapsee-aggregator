@@ -534,6 +534,192 @@ check("[synthetic] 'Natación para mujeres' is not 'Natación'", D.match(a, b, N
 check("the sync's own audience list is unchanged (absent_successors reads it)",
       not D._AUDIENCE_WORD.fullmatch("frauen") and D.AUDIENCE_EXTRA.fullmatch("frauen"))
 
+# --------------------------------------------------------------------------- #
+# The second safety review (2026-10-13): its report run of the revised module
+# over 2026-10-15 (anon, read only; 558 planned hides re-read by id and read
+# by hand, 13 wrong) and its 23-case adversarial suite. Every case is here.
+# A case marked KNOWN pins a shape no rule refuses yet, with what the rule
+# that would refuse it costs, so changing it is a decision and not a drift.
+# --------------------------------------------------------------------------- #
+print("\nproduction rows of 2026-10-15 (the second safety review)")
+gig = real("8b849a01", "Hazlett", "2026-10-15T02:00:00+00:00", "2026-10-15T05:00:00+00:00",
+           "2026-07-19T07:31:41.111435+00:00", "ticketmaster.ca/hazlett-vancouver-british-columbia-10-14-2026/event/110064efdcf0b40a",
+           "Commodore Ballroom", 49.2806462, -123.1208652, category="music")
+pre = real("c0cf381f", "The Pre-Show Speakeasy with Hazlett - NOT A SHOW TICKET", "2026-10-15T02:00:00+00:00",
+           "2026-10-15T05:00:00+00:00", "2026-07-30T09:33:02.169778+00:00",
+           "ticketmaster.ca/the-preshow-speakeasy-with-hazlett-not-vancouver-british-columbia-10-14-2026/event/110064f6bdbfabda",
+           "Commodore Ballroom", 49.2806462, -123.1208652, category="other")
+check("the Hazlett concert is not hidden behind 'The Pre-Show Speakeasy with Hazlett - NOT A SHOW TICKET'",
+      D.why_not(gig, pre, NO_LINKS) == "ticket add-on")
+tmx = "ticketmaster.com/san-antonio-spurs-vs-phoenix-suns-san-antonio-texas-10-14-2026/event/"
+spurs = [real("2704d952", "San Antonio Spurs vs. Phoenix Suns", "2026-10-15T00:00:00+00:00", "2026-10-15T03:00:00+00:00",
+              "2026-07-17T01:09:43.157476+00:00", tmx + "3a0064eee408dcfc", "Frost Bank Center", 29.4330386, -98.4337987,
+              category="sports")]
+for i_, t_, e_ in (("1e527495", "Courtside Experience", "3a006515ae79eb85"), ("edd874cc", "Frost Club Level Access", "3a006515ae79eb86"),
+                   ("d9455050", "Post-Game Free Throw", "3a006515ae79eb87")):
+    spurs.append(real(i_, "San Antonio Spurs vs. Phoenix Suns " + t_, "2026-10-15T00:00:00+00:00", "2026-10-15T03:00:00+00:00",
+                      "2026-10-06T13:28:44.688413+00:00", tmx + e_, "Frost Bank Center", 29.4330386, -98.4337987, category="other"))
+check("the Spurs-Suns game survives its 'Courtside Experience' package (a newer row, sports -> other)",
+      survivor_of(spurs[:2]) == "2704d952")
+check("... and the 4-row cluster production had (Courtside, Frost Club Level Access, Post-Game Free Throw) keeps the game",
+      survivor_of(spurs) == "2704d952" and hidden_of(spurs) == {"1e527495", "edd874cc", "d9455050"})
+atel = real("dceff9c9", 'Atelier "Handicap et Fonction Publique"', "2026-10-15T12:00:00+00:00", "2026-10-15T14:30:00+00:00",
+            "2026-10-06T16:48:43.697913+00:00", "openagenda.com/francetravail/events/atelier-handicap-et-fonction-publique-5749624",
+            "Agence LYON CROIX-ROUSSE", 45.726933, 4.837876)
+web = real("5fb1c752", "Handicap et Fonction Publique", "2026-10-15T12:00:00+00:00", "2026-10-15T13:30:00+00:00",
+           "2026-10-08T15:56:28.240817+00:00", "openagenda.com/francetravail/events/handicap-et-fonction-publique-8618991",
+           "Lyon - Agence VENISSIEUX", 45.726933, 4.837876)
+check("KNOWN: Croix-Rousse's in-person workshop still matches Vénissieux's webinar (one agenda pins both to 69007; "
+      "'one read, two venues' per agenda refuses 2 likely-true France Travail pairs; an online word in one title "
+      "refuses 6 hybrid IBM watch parties on 10-15 and 2 census true pairs)", D.match(atel, web, NO_LINKS) == "same-slot")
+ton = real("f1fff4b6", "Recreation: Zumba Toning", "2026-10-15T07:00:00+00:00", "2026-10-16T06:59:59+00:00",
+           "2026-10-08T14:34:34.442318+00:00", "cnh.bc.ca/event/zumba-toning", "CNH Main House", 49.2367332, -123.032835)
+zum = real("28d6fb5b", "Recreation: Zumba", "2026-10-15T07:00:00+00:00", "2026-10-16T06:59:59+00:00",
+           "2026-10-08T14:34:34.442318+00:00", "cnh.bc.ca/event/zumba", "CNH Main House", 49.2367332, -123.032835)
+check("'Zumba Toning' is not hidden behind 'Zumba': two clockless day rows made in one read, titles differ",
+      D.why_not(zum, ton, NO_LINKS) == "two clockless day rows, one read, titles differ")
+check("control: two clockless day rows made in one read with ONE title still match",
+      D.match(dict(zum, link="cnh.bc.ca/event/zumba-2"), zum, NO_LINKS) == "same-slot")
+for own_, wrong_, t_, s_, e_, mo, mw, lo, lw, pl, la_, lo_ in (
+        ("fc87af74", "8cc6b770", "Plateau Stand-Up Gold Edition", "2026-10-15T17:30:00+00:00", "2026-10-15T19:00:00+00:00",
+         "2026-09-11T12:40:37.492561+00:00", "2026-09-24T13:21:30.466213+00:00", "comedyket.be",
+         "espaciomujermadrid.es/evento/taller-de-canto-coral-y-reparacion-emocional-desde-la-voz-2",
+         "Comedy Ket – rue Haute", 50.8471433, 4.3471005),
+        ("7e1b66bc", "043c0ed7", "Thursday Night Club Raffles", "2026-10-15T08:00:00+00:00", "2026-10-15T08:00:00+00:00",
+         "2026-08-22T09:42:27.113083+00:00", "2026-09-19T12:35:59.817839+00:00",
+         "thesporties.com.au/event/thursday-night-club-raffles/2026-10-15",
+         "espaciomujermadrid.es/evento/monografico-empoderamiento-genero-y-autoestima", "Warilla Sports Club", -34.5586459, 150.8622122),
+        ("b6dcffc9", "f36cda3a", "Initiation à l’électricité et l’électronique niveau débutant", "2026-10-15T18:00:00+00:00",
+         "2026-10-15T19:30:00+00:00", "2026-09-20T12:53:42.395085+00:00", "2026-09-25T13:48:08.254887+00:00",
+         "culture-numerique.com/agenda/initiation-a-lelectricite-et-lelectronique-niveau-debutant-4",
+         "sfct.org/event/stand-up-for-nature-2", "Culture numerique", 48.6924296, 2.4329022)):
+    a = real(own_, t_, s_, e_, mo, lo, pl, la_, lo_)
+    b = real(wrong_, t_, s_, e_, mw, lw, pl, la_, lo_)
+    check(f"the venue's own {t_[:30]!r} survives the newer row whose undated link is {lw.split('/')[0]}'s "
+          f"{lw.rsplit('/', 1)[-1][:28]!r}", survivor_of([a, b]) == own_)
+check("D.link_names_row: a slug of 2+ words none of which is in the title or place is another event's page",
+      not D.link_names_row(b) and D.link_names_row(a)
+      and D.link_names_row(dict(a, link="meetup.com/some-group/events/316254383"))
+      and D.link_names_row(dict(a, link="comedyket.be")))
+
+print("\nshapes the rules allow (the second safety review's synthetic cases)")
+a = real("b1", "Lane 50m Med Thu 12:45", "2026-10-15T11:45:00+00:00", "2026-10-15T12:45:00+00:00", "2026-10-10T07:00:00+00:00",
+         "book.everyoneactive.com/connect/landing.aspx?Site=0353&Activities=3534", "Ponds Forge Sports Centre")
+b = real("b2", "Lane 50m Med Thu 12:45", "2026-10-15T11:45:00+00:00", "2026-10-15T12:45:00+00:00", "2026-10-11T07:00:00+00:00",
+         "everyoneactive.com/centre/ponds-forge-international-sports-centre", "Ponds Forge Sports Centre")
+check("[production shape] the booking-platform refusal does not depend on which row has the smaller id",
+      D.match(a, b, NO_LINKS) is None and D.match(b, a, NO_LINKS) is None)
+t1 = real("t1", "Offener Familientreff", "2026-10-14T08:00:00+00:00", "2026-10-14T11:30:00+00:00", "2026-10-05T17:06:07+00:00",
+          "fiz-leipzig.de/veranstaltung/offener-familientreff-8/2026-10-14", "Familienzentrum Thekla")
+t2 = real("t2", "Offener Familientreff", "2026-10-14T08:00:00+00:00", "2026-10-14T11:30:00+00:00", "2026-10-08T17:06:07+00:00",
+          "fiz-leipzig.de/veranstaltung/offener-familientreff-4/2026-10-14", "Familienzentrum Mockau")
+check("KNOWN: Thekla and Mockau still match when the source added one 3 days later ('two venues' without the "
+      "one-read condition refuses 3 census true pairs and ~3 of 6 production ones)", D.match(t1, t2, NO_LINKS) == "same-slot")
+lib = real("e1", "Toddler Time", "2026-10-15T14:00:00+00:00", "2026-10-15T15:00:00+00:00", "2026-10-04T17:01:16+00:00",
+           "library.example.org", "Danforth Library", 43.69177, -79.30157)
+cc = real("e2", "Toddler Time", "2026-10-15T14:00:00+00:00", "2026-10-15T16:00:00+00:00", "2026-10-04T17:01:28+00:00",
+          "ymca.example.org", "East YMCA", 43.69238, -79.30183)
+check("KNOWN: two operators' centres 70 m apart, one read, both 'Toddler Time' (the EarlyON shape) still match "
+      "(a two-publisher two-venue rule costs 1 census true pair and 1 production one)", D.match(lib, cc, NO_LINKS) == "same-slot")
+a = real("y1", "Yoga", "2026-10-15T16:00:00+00:00", "2026-10-15T17:00:00+00:00", "2026-09-01T07:00:00+00:00",
+         "communitycentre.example/events/yoga-1234", "Hillside Community Centre", 47.6000, -122.3000)
+b = real("y2", "Yoga for Seniors", "2026-10-15T16:00:00+00:00", "2026-10-15T17:00:00+00:00", "2026-09-20T07:00:00+00:00",
+         "library.example/event/yoga-for-seniors-5678", "Hillside Branch Library", 47.6008, -122.3000)
+check("[synthetic] two publishers 90 m apart: 'Yoga' is not 'Yoga for Seniors' (1 census true pair, Lenny Pearce's "
+      "'Toddler Rave', is the cost)", D.why_not(a, b, NO_LINKS) == "same slot, two publishers, titles")
+check("control: across two publishers a show's '(16+)' or '3.0' is still the show",
+      D.match(dict(a, title="Seun Kuti"), dict(b, title="Seun Kuti and Egypt 80 (16+)"), NO_LINKS) == "same-slot")
+a = real("n1", "Storytime", "2026-10-15T17:30:00+00:00", "2026-10-15T18:00:00+00:00", "2026-09-01T07:00:00+00:00", None,
+         "Central Library", 47.6000, -122.3000)
+b = real("n2", "Storytime", "2026-10-15T17:30:00+00:00", "2026-10-15T18:00:00+00:00", "2026-09-20T07:00:00+00:00", None,
+         "Downtown YMCA", 47.6010, -122.3000)
+check("KNOWN: no links, 111 m apart, 'Storytime' at a library and at a YMCA still match (a no-link two-venue rule "
+      "drops 5 likely-true production hides and prevents none seen)", D.match(a, b, NO_LINKS) == "same-slot")
+fest = real("f1", "Day of the Dead Festival", "2026-11-01T07:00:00+00:00", "2026-11-02T07:00:00+00:00",
+            "2026-09-01T07:00:00+00:00", "city.example/events/day-of-the-dead-festival")
+par = real("f2", "Day of the Dead Festival: Parade", "2026-11-01T18:00:00+00:00", "2026-11-01T19:00:00+00:00",
+           "2026-10-01T07:00:00+00:00", "city.example/events/day-of-the-dead-festival")
+check("[synthetic] a one-day festival is not hidden behind its parade added a month later on its page",
+      D.why_not(fest, par, NO_LINKS) == "all-day, a part of the day's event" and "f1" not in hidden_of([fest, par]))
+lst = "library.example/events/list?tribe-bar-date=2026-10-15"
+a = real("l1", "Storytime", "2026-10-15T17:30:00+00:00", "2026-10-15T18:00:00+00:00", "2026-09-01T07:00:00+00:00", lst)
+b = real("l2", "Storytime for Toddlers", "2026-10-15T17:30:00+00:00", "2026-10-15T18:00:00+00:00",
+         "2026-09-20T07:00:00+00:00", lst)
+check("[synthetic] a listing link with a date in its query is not 'the same event page'",
+      D.why_not(a, b, NO_LINKS) == "same page, a listing page")
+a["link"] = b["link"] = "example.org/whats-on/october2026"
+check("[synthetic] a month's listing ('october2026', letters and digits) is not 'the same event page'",
+      D.why_not(a, b, NO_LINKS) == "same page, a listing page")
+check("control: an id in the query still names an event (Brisbane's trumba eventid), and a Luma token still does",
+      D.names_an_event("brisbane.qld.gov.au/trumba?trumbaembed=view%3devent%26eventid%3d201608453")
+      and D.names_an_event("luma.com/zzaa4x39"))
+treff = real("c1", "Offener Treff", "2026-10-15T15:00:00+00:00", "2026-10-15T17:00:00+00:00", "2026-09-01T07:00:00+00:00",
+           "verein.example.de/veranstaltung/offener-treff", "Nachbarschaftshaus")
+treff_off = real("c2", "Entfällt: Offener Treff", "2026-10-15T15:00:00+00:00", "2026-10-15T17:00:00+00:00",
+           "2026-10-12T07:00:00+00:00", "verein.example.de/veranstaltung/entfaellt-offener-treff", "Nachbarschaftshaus")
+check("'Entfällt: Offener Treff' (the import's own off-word) is not hidden behind the stale 'Offener Treff'",
+      "c2" not in hidden_of([treff, treff_off]))
+treff_off["title"] = "Fällt aus: Offener Treff"
+check("'Fällt aus: ...' likewise, and 'verschoben' is a mark too",
+      "c2" not in hidden_of([treff, treff_off]) and D.says_off({"title": "Verschoben: Offener Treff"}))
+
+print("\nthe kept row carries its copies' categories (every door, every category chip)")
+M = D.merged_categories
+check("no copies: the row's own value comes back as it is (the same list, in its order, or None)",
+      M("music", ["party", "food"], []) == ["party", "food"] and M("music", None, []) is None)
+check("a copy's primary becomes a secondary of the kept row", M("music", None, [("theater", None)]) == ["theater"])
+check("never 'other' (no door), never the kept row's primary (0108's CHECK)", M("music", None, [("other", ["music"])]) is None)
+check("its own secondaries first and never displaced, then the copies' primaries, then theirs; at most 2",
+      M("kids", ["learning"], [("community", ["party"])]) == ["learning", "community"]
+      and M("arts", None, [("kids", ["learning"]), ("party", ["fitness"])]) == ["kids", "party"])
+once = M("kids", ["learning"], [("community", ["party"])])
+check("applying it twice changes nothing", M("kids", once, [("community", ["party"])]) == once)
+check("categories_cover: 'other' never needs carrying, a missing secondary does",
+      D.categories_cover("music", None, "other", None) and not D.categories_cover("music", ["theater"], "kids", None))
+bv = "Gerald Schoenfeld Theatre"
+bv_sg = real("7b45a950", "Buena Vista Social Club", "2026-10-15T23:00:00+00:00", "2026-10-16T02:00:00+00:00",
+             "2026-10-12T21:46:45.765836+00:00",
+             "seatgeek.com/buena-vista-social-club-tickets/new-york-new-york-gerald-schoenfeld-theatre-2026-10-15-7-pm/concert/18208918",
+             bv, 40.758551626649, -73.987100705462, category="music", categories=None)
+bv_mu = real("1a6496d3", "Buena Vista Social Club - The Musical - New York", "2026-10-15T23:00:00+00:00",
+             "2026-10-16T02:00:00+00:00", "2026-10-08T19:53:21.350604+00:00",
+             "seatgeek.com/buena-vista-social-club-the-musical-tickets/broadway/2026-10-15-7-pm/18208918",
+             bv, 40.758551626649, -73.987100705462, category="theater", categories=None)
+bv_tm = real("8431e506", "Buena Vista Social Club", "2026-10-15T23:00:00+00:00", "2026-10-16T02:00:00+00:00",
+             "2026-10-11T13:01:39.944328+00:00",
+             "ticketmaster.com/buena-vista-social-club-new-york-new-york-10-15-2026/event/z1r9uzruzqgz1avz6at",
+             bv, 40.758551626649, -73.987100705462, category="theater", categories=None)
+_, p = decide([bv_sg, bv_mu, bv_tm])
+check("production 10-15: Broadway's 'Buena Vista Social Club' kept as SeatGeek's 'music' row carries 'theater' "
+      "from the two copies, so plansie.com keeps the show",
+      p[0]["survivor"] == "7b45a950" and len(p[0]["hide"]) == 2 and p[0]["categories"] == ["theater"]
+      and p[0]["was"] == ("music", None))
+tv = "Sherwood Public Library"
+keep_ = real("35413982", "Teen Volunteer Club", "2026-10-15T23:00:00+00:00", "2026-10-16T00:00:00+00:00",
+             "2026-10-02T14:46:29.771222+00:00", "sherwoodoregon.gov/events_detail/teen-volunteer-club-5/2026-10-15", tv,
+             45.3566509, -122.8401164, category="volunteer", categories=["community", "kids"])
+copy_ = real("ffd57b8e", "Teen Volunteer Club", "2026-10-15T23:00:00+00:00", "2026-10-16T00:00:00+00:00",
+             "2026-09-25T13:50:43.242248+00:00", "wccls.bibliocommons.com/events/69fe74250c0f2c4503f98b72", tv,
+             45.3567779, -122.8401462, category="kids", categories=["learning", "volunteer"])
+_, p = decide([keep_, copy_])
+check("production 10-15: a copy whose 'learning' has no room on the kept row (two secondaries already) stays visible",
+      p[0]["hide"] == [] and p[0]["no_room"] == ["ffd57b8e"] and p[0]["left"] == ["ffd57b8e"] and p[0]["categories"] is None)
+copy_["categories"] = ["volunteer"]
+_, p = decide([keep_, copy_])
+check("... and once everything it carries is on the kept row, it is hidden with nothing to write",
+      [h for h, _ in p[0]["hide"]] == ["ffd57b8e"] and p[0]["categories"] is None)
+m1 = real("5f394f03", "Mindful Yoga", "2026-10-13T15:30:00+00:00", "2026-10-13T16:30:00+00:00", "2026-09-15T13:11:39+00:00",
+          cpl, None, 41.903937, -87.636761, category="fitness", categories=["learning"])
+m2 = real("a61187ae", "Mindful Yoga", "2026-10-13T15:30:00+00:00", "2026-10-13T16:30:00+00:00", "2026-10-10T12:45:22+00:00",
+          cpl, None, 41.9041255, -87.6365797, category="fitness", categories=None)
+_, p = decide([m1, m2])
+check("census: CPL's Mindful Yoga kept as the open-data row ('fitness') takes BiblioCommons' 'learning' (awaresie.com)",
+      p[0]["survivor"] == "a61187ae" and p[0]["categories"] == ["learning"])
+m2["claimed_at"] = "2026-10-11T00:00:00+00:00"
+_, p = decide([m1, m2])
+check("a CLAIMED kept row is never written: the copy that would need its categories stays visible",
+      p[0]["survivor"] == "a61187ae" and p[0]["hide"] == [] and p[0]["no_room"] == ["5f394f03"])
+
 print("\ncandidates (the grid the job pairs rows on before reading any link)")
 pairs = D.candidate_pairs([old, new])
 check("the reported pair is a candidate", pairs == [("36d74bf7", "5ec4afa8")])
@@ -583,6 +769,8 @@ def _split(s):
 def _val(col, v):
     if v is None:
         return None
+    if isinstance(v, list):                       # text[] as PostgREST spells it in a filter
+        return "{" + ",".join(v) + "}"
     return (datetime.fromisoformat(str(v).replace("Z", "+00:00")) if col.endswith(("_at", "_until"))
             else str(v))
 
@@ -837,6 +1025,225 @@ check("30 hides in 60 rows (limit max(25, 15%)) refuse the window, exit 1",
       patches(share) == [] and code == 1 and "REFUSED" in out and rep["refused"])
 code, out, rep = run(FakeRest(crowd), "--days", "1", "--lookback", "0", "--max-share", "0.6")
 check("the same window under a deliberate --max-share 0.6 reports 30", code == 0 and len(rep["hidden"]) == 30)
+
+print("\nthe kept row's categories, written before its copies are hidden")
+
+
+def cat_rows(keep_cats=None, copy_cat="kids", copy_cats=None):
+    rows = slu_rows()
+    rows[0].update(category=copy_cat, categories=copy_cats)          # the old title: hidden
+    rows[1].update(category="community", categories=keep_cats)       # the new title: kept
+    return rows
+
+
+fake = FakeRest(cat_rows())
+code, out, rep = run(fake, "--apply", "--days", "2", "--lookback", "1")
+w = patches(fake)
+check("two PATCHes: the kept row's categories, then the hide", len(w) == 2 and code == 0
+      and w[0][2] == {"categories": ["kids"]} and set(w[1][2]) == {"hidden_at", "duplicate_of"})
+check("the categories PATCH names the row and everything it was read with (unclaimed, visible, its category "
+      "and categories): the database decides",
+      all(s in w[0][1] for s in (f"id=eq.{SLU_NEW}", "external_source=eq.mapsee", "claimed_at=is.null",
+                                 "hidden_at=is.null", "category=eq.community", "categories=is.null")))
+check("the kept row now carries the copy's category, and the copy is hidden behind it",
+      fake.events[SLU_NEW]["categories"] == ["kids"] and fake.events[SLU_OLD]["duplicate_of"] == SLU_NEW
+      and rep["hidden"][0]["survivor_categories_to"] == ["kids"])
+code, out, rep = run(fake, "--apply", "--days", "2", "--lookback", "1")
+check("the next night finds the union in place and writes nothing",
+      len(patches(fake)) == 2 and "Hidden copies: 1 behind 1 kept row(s)" in out and "lacked" not in out)
+fake.events[SLU_NEW]["categories"] = None                             # a refresh wrote the row's own value
+code, out, rep = run(fake, "--apply", "--days", "2", "--lookback", "1")
+w = patches(fake)
+check("a kept row a sync rewrote without the union gets it back first thing, from the copy behind it",
+      fake.events[SLU_NEW]["categories"] == ["kids"] and len(w) == 3 and "categories=is.null" in w[2][1]
+      and "1 kept row(s) lacked a copy's category: given the union 1" in out and rep["kept_rows"]["given"] == 1)
+fake.events[SLU_NEW]["categories"] = ["music", "food"]               # two secondaries: no room for 'kids'
+code, out, rep = run(fake, "--days", "2", "--lookback", "1")
+check("report mode only counts it: 1 copy to un-hide, nothing written",
+      len(patches(fake)) == 3 and rep["kept_rows"]["unhidden"] == 1 and fake.events[SLU_OLD]["hidden_at"])
+code, out, rep = run(fake, "--apply", "--days", "2", "--lookback", "1")
+check("--apply UN-hides a copy whose categories no longer fit (it is the only row left in that door)",
+      fake.events[SLU_OLD]["hidden_at"] is None and fake.events[SLU_OLD]["duplicate_of"] is None
+      and "duplicate_of=eq." + SLU_NEW in patches(fake)[3][1] and "cancelled_at=is.null" in patches(fake)[3][1])
+check("... and that night's window does not hide it again: no room is 'left for a person'",
+      [l["why"] for l in rep["left"]] == ["its categories do not fit on the kept row"] and rep["hidden"] == [])
+
+
+def moved(m, u, n):
+    if m == "PATCH" and "categories=" in u and "duplicate_of" not in u:
+        moving.events[SLU_NEW]["categories"] = ["arts"]              # the sync wrote it a moment ago
+
+
+moving = FakeRest(cat_rows(), hook=moved)
+code, out, rep = run(moving, "--apply", "--days", "2", "--lookback", "1")
+check("a kept row whose categories moved since the listing is not written, and neither are its copies",
+      moving.events[SLU_OLD]["hidden_at"] is None and moving.events[SLU_NEW]["categories"] == ["arts"]
+      and "kept row moved 1" in out and code == 0)
+mine = cat_rows()
+mine[1]["claimed_at"] = "2026-10-01T00:00:00+00:00"
+fake = FakeRest(mine)
+code, out, rep = run(fake, "--apply", "--days", "2", "--lookback", "1")
+check("a claimed kept row is never written; the copy that needs its categories stays visible",
+      patches(fake) == [] and rep["left"][0]["why"] == "its categories do not fit on the kept row")
+hid = cat_rows()
+hid[0].update(hidden_at="2026-10-12T12:00:00+00:00", duplicate_of=SLU_NEW)
+hid[1].update(hidden_at="2026-10-12T13:00:00+00:00")                 # taken down since
+code, out, rep = run(FakeRest(hid), "--days", "2", "--lookback", "1")
+check("a copy whose kept row another writer hid since is counted, and stays hidden",
+      rep["kept_rows"]["orphaned"] == 1 and rep["orphaned_copies"] == 1 and "another writer has hidden since" in out)
+code, out, rep = run(FakeRest(cat_rows(), has_column=False), "--days", "2", "--lookback", "1")
+check("without the column the pass is skipped, as everything that names duplicate_of is", rep["kept_rows"] is None and code == 0)
+
+kept_only = cat_rows()
+kept_only[0].update(hidden_at="2026-10-12T12:00:00+00:00", duplicate_of=SLU_NEW)   # hidden on an earlier night
+fake = FakeRest(kept_only + [ev("88888888-0000-4000-8000-000000000001", "Halloween Pet Portraits Fundraiser",
+                                 "2026-10-13T18:00:00+00:00", "2026-10-13T21:00:00+00:00", 47.620131, -122.339691,
+                                 "2026-10-01T07:00:00+00:00", slu)])
+code, out, rep = run(fake, "--apply", "--days", "0", "--lookback", "0")
+check("DEDUPE_APPLY=bounded's nightly '--apply --days 0 --lookback 0' lists nothing and hides nothing new, "
+      "and still gives a kept row its copies' categories back",
+      code == 0 and not any("and=(starts_at" in u for _, u, _ in fake.calls) and rep["windows"] == []
+      and fake.events[SLU_NEW]["categories"] == ["kids"]
+      and fake.events["88888888-0000-4000-8000-000000000001"]["hidden_at"] is None)
+
+print("\nwrite-time races and bounds (the second safety review's I/O cases)")
+
+
+def rsvp_lands(m, u, n):
+    if m == "PATCH" and "hidden_at" in json.dumps(racing.calls[-1][2] or {}):
+        racing.rsvps.append({"event_id": SLU_OLD})
+
+
+racing = FakeRest(slu_rows(), hook=rsvp_lands)
+code, out, rep = run(racing, "--apply", "--days", "2", "--lookback", "1")
+check("KNOWN: an RSVP landing after the batch's RSVP re-read and before its PATCH is not seen (events has no column "
+      "that says 'has an RSVP', so the PATCH filter cannot ask); the window is one batch",
+      racing.events[SLU_OLD]["duplicate_of"] == SLU_NEW)
+two = slu_rows() + [ev("77777777-0000-4000-8000-000000000001", "Board Game Night", "2026-10-13T20:00:00+00:00",
+                       "2026-10-13T23:00:00+00:00", 40.1, -75.1, "2026-09-01T07:00:00+00:00", "games.example/night-881"),
+                    ev("77777777-0000-4000-8000-000000000002", "Board Game Night!", "2026-10-13T20:00:00+00:00",
+                       "2026-10-13T23:00:00+00:00", 40.1, -75.1, "2026-09-20T07:00:00+00:00", "games.example/night-881")]
+D.ID_BATCH = 1
+order = FakeRest(two)
+code, out, rep = run(order, "--apply", "--days", "2", "--lookback", "1")
+D.ID_BATCH = 100
+at = next(k for k, (m, u, _) in enumerate(order.calls) if "select=id&hidden_at=is.null" in u)
+seq = "".join("P" if m == "PATCH" else "R" for m, u, _ in order.calls[at:] if m == "PATCH" or "/event_rsvps?" in u)
+check("the RSVP re-read is made per batch, just before that batch's PATCH (window: one batch, not the day)",
+      code == 0 and seq == "RPRP" and len(patches(order)) == 2)
+user = ev("u9", "Mine", "2026-10-13T18:00:00+00:00", "2026-10-13T21:00:00+00:00", 47.6, -122.3, "2026-09-01T00:00:00+00:00",
+          slu, external_source="user", hidden_at="2026-10-01T00:00:00+00:00", duplicate_of=SLU_NEW)
+fake = FakeRest(slu_rows() + [user])
+code, out, _ = run(fake, "--unhide", "--id", "u9", "--apply")
+check("--unhide --id on a user's own hidden row (duplicate_of set by hand) leaves it hidden",
+      fake.events["u9"]["hidden_at"] == "2026-10-01T00:00:00+00:00" and patches(fake) == [])
+
+
+def endless_listing(m, u, n):
+    if m == "GET" and "and=(starts_at" in u:
+        return Resp(200, [{"id": f"r{i:04d}", "title": f"T{i}", "lat": 0.0, "lon": float(i), "category": None,
+                           "categories": None, "starts_at": "2026-10-13T18:00:00+00:00",
+                           "ends_at": "2026-10-13T19:00:00+00:00", "created_at": "2026-09-01T00:00:00+00:00",
+                           "claimed_at": None, "last_message_at": None, "promoted_until": None, "place_name": None}
+                          for i in range(1000)])
+
+
+D._clock = lambda: float(next(ticks))
+endless = FakeRest([], hook=endless_listing)
+code, out, rep = run(endless, "--days", "1", "--lookback", "0", "--max-seconds", "30")
+D._clock = lambda: 0.0
+listed = sum(1 for m, u, _ in endless.calls if "and=(starts_at" in u)
+check(f"a server that ignores the keyset cannot keep the listing going: {listed} pages, then BACKLOG, exit 1",
+      code == 1 and listed < 40 and "BACKLOG" in out)
+
+
+def endless_rsvps(m, u, n):
+    if "/event_rsvps?" in u:
+        return Resp(200, [{"event_id": SLU_OLD}] * 1000)
+
+
+ignoring = FakeRest(slu_rows(), hook=endless_rsvps)
+code, out, rep = run(ignoring, "--days", "2", "--lookback", "1")
+reads = sum(1 for m, u, _ in ignoring.calls if "/event_rsvps?" in u)
+check(f"the RSVP read is a keyset on event_id: a server that ignores it costs {reads} reads, then the window is owed",
+      reads == 2 and code == 1 and rep["owed_windows"])
+probe = FakeRest([], rsvps=[SLU_OLD] * 1000 + [SLU_NEW])
+got = D.read_rsvp_ids(D.Db("https://db.example", "k", probe), [SLU_OLD, SLU_NEW])
+reads = [u for m, u, _ in probe.calls if "/event_rsvps?" in u]
+check("an event with 1,000 RSVPs fills a page; the next page starts after it (event_id.gt), never offset=",
+      got == {SLU_OLD, SLU_NEW} and len(reads) == 2 and f"and=(event_id.gt.{SLU_OLD})" in reads[1]
+      and not any("offset=" in u for u in reads))
+crowd_ = [dict(e) for e in crowd]
+
+
+def deaf(m, u, n):
+    if m == "PATCH":
+        return Resp(200, [])                                         # a filter the database reads differently
+
+
+code, out, rep = run(FakeRest(crowd_, hook=deaf), "--apply", "--days", "1", "--lookback", "0", "--max-share", "0.6")
+check("a hide filter that matches nothing is an error, not a green run ('hid 0 of 30' exits 1)",
+      code == 1 and "::error::The hide filter matched 0 of 30" in out)
+
+print("\nthe sync keeps the union when it rewrites a kept row (mapsee_supabase_sync)")
+import mapsee_supabase_sync as SY  # noqa: E402
+
+
+class SyncStub:
+    def __init__(self, pages, status=200, body=None):
+        self.pages, self.status, self.body, self.calls = list(pages), status, body, []
+
+    def get(self, url, headers=None, timeout=None):
+        self.calls.append(url)
+        return Resp(self.status, self.body if self.body is not None else (self.pages.pop(0) if self.pages else []))
+
+
+page1 = [{"id": f"c{i:04d}", "duplicate_of": "k1" if i < 999 else "k2", "category": "kids", "categories": None}
+         for i in range(1000)]
+page2 = [{"id": "c9999", "duplicate_of": "k2", "category": "theater", "categories": ["music"]}]
+st = SyncStub([page1, page2])
+got = SY.read_hidden_copies(st, "https://db.example", "k", datetime(2026, 10, 13, tzinfo=timezone.utc))
+check("the sync reads the hidden copies in one keyset over the partial index (duplicate_of, then id)",
+      len(got["k1"]) == 999 and got["k2"] == [("kids", None), ("theater", ["music"])] and len(st.calls) == 2
+      and "duplicate_of=not.is.null" in st.calls[0] and "hidden_at=not.is.null" in st.calls[0]
+      and "external_source=eq.mapsee" in st.calls[0]
+      and "and=(duplicate_of.gte.k2,or(duplicate_of.gt.k2,id.gt.c0999))" in st.calls[1])
+check("before 0236 (a 400 naming the column) there is nothing to merge; any other failure is None",
+      SY.read_hidden_copies(SyncStub([], 400, {"code": "42703", "message": "column events.duplicate_of does not exist"}),
+                            "https://db.example", "k", NOW) == {}
+      and SY.read_hidden_copies(SyncStub([], 503, {}), "https://db.example", "k", NOW) is None)
+check("a server that ignores the copies' keyset is a failed read (None), not a loop",
+      SY.read_hidden_copies(SyncStub([page1, page1, page1]), "https://db.example", "k", NOW) is None)
+kept_row = {"external_id": "fp-kept", "category": "music", "categories": None, "title": "Buena Vista Social Club"}
+new_row = {"external_id": "fp-new", "category": "music", "categories": None, "title": "Something new"}
+n = SY.merge_copy_categories(SyncStub([[{"id": "x1", "duplicate_of": "k-uuid", "category": "theater",
+                                          "categories": None}]]), "https://db.example", "k", [kept_row, new_row],
+                             {"fp-kept": {"id": "k-uuid"}}, NOW)
+check("a STORED row the collapser kept is written with the union; a new row is not touched",
+      n == 1 and kept_row["categories"] == ["theater"] and new_row["categories"] is None)
+st = SyncStub([])
+check("no stored row in the write: no read at all",
+      SY.merge_copy_categories(st, "https://db.example", "k", [dict(new_row)], {}, NOW) == 0 and st.calls == [])
+check("a failed read leaves the rows as derived (None: the sync warns, the nightly pass restores the union)",
+      SY.merge_copy_categories(SyncStub([], 500, {}), "https://db.example", "k", [dict(kept_row, categories=None)],
+                               {"fp-kept": {"id": "k-uuid"}}, NOW) is None)
+check("the state read asks for the row's id in the same request", "id" in SY.ID_FIELD)
+
+
+class Stored:
+    def __init__(self, row):
+        self.row = row
+
+    def get(self, url, headers=None, timeout=None):
+        sel = unquote(url.split("select=", 1)[1].split("&", 1)[0]).split(",")
+        return Resp(200, [{k: v for k, v in self.row.items() if k in sel}])
+
+
+stored = dict(kept_row, external_source="mapsee", categories=["theater"])
+check("skip-unchanged then sees the merged row as unchanged: a kept row is not rewritten every day",
+      SY.unchanged_ids(Stored(stored), "https://db.example", "k", [dict(kept_row)]) == {"fp-kept"})
+check("... while a row written WITHOUT the union would differ (the daily flip this prevents)",
+      SY.unchanged_ids(Stored(stored), "https://db.example", "k", [dict(kept_row, categories=None)]) == set())
 
 print("\npaging, timeouts and the budget")
 D.PAGE = 3

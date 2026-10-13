@@ -1014,6 +1014,55 @@ _DESC_SCAN_CHARS = 600            # enough for the real blurb, short of the boil
                                   # would otherwise tag half a feed 'learning'
 
 
+# --------------------------------------------------------------------------- #
+# A KEPT ROW CARRIES THE CATEGORIES OF THE COPIES HIDDEN BEHIND IT
+# --------------------------------------------------------------------------- #
+# mapsee_dedupe_events hides the second row of one event and names the row it
+# kept (events.duplicate_of, ../mapsee 0236). A door shows a row when
+# `category = any(keys) OR categories && keys`, and every door's category chips
+# filter the same way, so before a hide the event was in the UNION of both rows'
+# categories and after it only in the kept row's. Measured on the 2026-10-15
+# production plan (558 hides): 127 copies carried a category the kept row
+# lacked, 93 of them a whole door (theater lost Broadway shows kept as a
+# Ticketmaster 'other' row; kids, learning, music). So the kept row carries its
+# copies' categories, and THIS function is the one place that decides how: the
+# collapser writes it when it hides, and the sync applies it whenever it writes a
+# kept row, so a refresh never puts the row back to its own categories (and the
+# skip-unchanged comparison sees the merged value, not a difference every day).
+def merged_categories(primary: Optional[str], extras: Optional[List[str]],
+                      copies) -> Optional[List[str]]:
+    """The secondaries a kept row carries once its hidden copies add theirs.
+
+    `copies` is [(category, categories)] of the rows hidden behind it. With no
+    copies the row's own value comes back UNCHANGED (same list, same order), so
+    a row nobody copied never differs from what to_row derived. The primary
+    stays the primary (it is the pin, the colour and the sheet). Its own
+    secondaries come first and are never displaced; the copies' primaries fill
+    what is left, then their secondaries, each group sorted, never 'other' (no
+    door) and never the primary (0108's CHECK). At most MAX_EXTRA_CATEGORIES,
+    so a copy whose categories do not all fit is one the collapser must leave
+    visible (categories_cover). Applying it twice changes nothing."""
+    if not copies:
+        return extras
+    own = list(extras or [])
+    have = set(own) | {primary or DEFAULT_CATEGORY_KEY}
+
+    def usable(c) -> bool:
+        return c in MAPSEE_CATEGORY_KEYS and c != DEFAULT_CATEGORY_KEY and c not in have
+
+    prims = sorted({c for c, _ in copies if usable(c)})
+    rest = sorted({x for _, cs in copies for x in (cs or []) if usable(x) and x not in prims})
+    out = (own + prims + rest)[:MAX_EXTRA_CATEGORIES]
+    return out or None
+
+
+def categories_cover(primary: Optional[str], extras: Optional[List[str]], category: Optional[str],
+                     categories: Optional[List[str]]) -> bool:
+    """Every category of one copy (but 'other') is on the kept row."""
+    kept = {primary or DEFAULT_CATEGORY_KEY, DEFAULT_CATEGORY_KEY} | set(extras or [])
+    return not ({category or DEFAULT_CATEGORY_KEY} | set(categories or [])) - kept
+
+
 # "workout" is a live metaphor and the classifier kept believing it. A glass-
 # fusing craft class opens "Your weekly creative workout starts here!" and was
 # promoted to fitness on that phrase alone — the description-reading rule's one
@@ -2462,6 +2511,70 @@ def _missing_column(response) -> bool:
                                        or "does not exist" in str(body.get("message", "")))
 
 
+def read_hidden_copies(session, url: str, key: str, now: datetime):
+    """{kept row's id: [(category, categories)]} for every row the collapser
+    hid (duplicate_of set, still hidden) that ended no more than a day ago.
+    One keyset over 0236's partial index (duplicate_of is not null), in
+    duplicate_of order, 1,000 a page. {} when the column does not exist yet
+    (before 0236: nothing has been hidden); None when the read failed."""
+    base = (url.rstrip("/") + "/rest/v1/events?external_source=eq.mapsee&duplicate_of=not.is.null"
+            "&hidden_at=not.is.null&ends_at=gte."
+            + urllib.parse.quote((now - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ"), safe="")
+            + "&select=id,duplicate_of,category,categories&order=duplicate_of.asc,id.asc&limit=1000")
+    headers = {"apikey": key, "Authorization": f"Bearer {key}"}
+    out: Dict[str, List[Tuple[Any, Any]]] = {}
+    after = None
+    for _ in range(1000):                             # 1M copies; a cursor that stops moving ends it
+        page_url = base + (f"&and=(duplicate_of.gte.{after[0]},or(duplicate_of.gt.{after[0]},id.gt.{after[1]}))"
+                           if after else "")
+        try:
+            r = session.get(page_url, headers=headers, timeout=60)
+            if r.status_code == 400 and _missing_column(r):
+                return {}
+            if r.status_code not in (200, 206):
+                return None
+            rows = r.json()
+        except Exception:                             # noqa: BLE001 - a failed read, never a failed sync
+            return None
+        if not isinstance(rows, list) or not all(isinstance(x, dict) for x in rows):
+            return None
+        for row in rows:
+            out.setdefault(str(row.get("duplicate_of")), []).append((row.get("category"), row.get("categories")))
+        if len(rows) < 1000:
+            return out
+        nxt = (str(rows[-1].get("duplicate_of")), str(rows[-1].get("id")))
+        if after is not None and nxt <= after:
+            return None
+        after = nxt
+    return None
+
+
+def merge_copy_categories(session, url: str, key: str, rows: List[Dict[str, Any]],
+                          detail: Dict[str, Dict[str, Any]], now: datetime) -> Optional[int]:
+    """Give each STORED row this run writes the categories of the copies the
+    collapser hid behind it (merged_categories), in place. -> how many rows
+    changed, or None when the copies could not be read: then the rows go as
+    derived and the collapser's nightly pass puts the union back."""
+    ids = {}
+    for r in rows:
+        rid = (detail.get(r.get("external_id")) or {}).get("id")
+        if rid:
+            ids[str(rid)] = r
+    if not ids:
+        return 0
+    copies = read_hidden_copies(session, url, key, now)
+    if copies is None:
+        return None
+    n = 0
+    for rid, r in ids.items():
+        if rid in copies:
+            merged = merged_categories(r.get("category"), r.get("categories"), copies[rid])
+            if merged != r.get("categories"):
+                r["categories"] = merged
+                n += 1
+    return n
+
+
 # --------------------------------------------------------------------------- #
 # A ROW WHOSE IDENTITY CHANGED BECAUSE WE LEARNED TO READ ITS SOURCE
 # --------------------------------------------------------------------------- #
@@ -2588,6 +2701,9 @@ def rekey_legacy(session, url: str, key: str, pairs: Dict[str, List[str]]):
 # The import-state read also returns these, in the same bounded chunks (no
 # extra request): what a daily run needs to see a time change or a cancellation.
 STATE_FIELDS = ("starts_at", "ends_at", "hidden_at", "cancelled_at")
+# ...and the row's id, so a stored row the collapser KEPT can be found among the
+# copies' duplicate_of (merge_copy_categories). Same read, no extra request.
+ID_FIELD = ("id",)
 
 # A cancellation younger than this is never undone by a live listing. Only a
 # source read WHOLE this run can lift one at all (main), and only a row whose two
@@ -3478,7 +3594,7 @@ def main() -> None:
         t0 = time.monotonic()
         try:
             try:
-                got = fetch_import_state(geo, url, key, ids, fields=STATE_FIELDS, detail=detail)
+                got = fetch_import_state(geo, url, key, ids, fields=STATE_FIELDS + ID_FIELD, detail=detail)
             except StateColumnMissing:
                 # A column the database has not got YET costs the daily time
                 # changes and un-cancels, never the night (test_sync_unknown_column's
@@ -3579,6 +3695,18 @@ def main() -> None:
     # Before skip-unchanged, which drops an identical row from the WRITE but not
     # from the fact that the source lists it live today.
     relist = sorted(r["external_id"] for r in rows if import_cancelled(detail.get(r["external_id"]), now))
+
+    # A ROW THE COLLAPSER KEPT carries the categories of the copies it hid
+    # (merged_categories): without this a refresh writes the row back to its
+    # own categories and the event drops out of the copies' doors until the
+    # next dedupe pass, hours later. BEFORE skip-unchanged, so the comparison
+    # sees the merged value and a kept row is not rewritten every day.
+    merged = merge_copy_categories(geo, url, key, rows, detail, now) if rows else 0
+    if merged is None:
+        print("::warning::Hidden copies' categories could not be read: kept rows are written with "
+              "their own; mapsee_dedupe_events' nightly pass restores the union.", flush=True)
+    elif merged:
+        print(f"Kept rows: {merged} carry the categories of the copies hidden behind them.", flush=True)
 
     # LAST, so nothing is read back for a row the filters above already dropped.
     if a.skip_unchanged and rows and should_compare_unchanged(a.only_new, rows, state):

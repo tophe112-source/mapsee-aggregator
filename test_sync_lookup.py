@@ -190,6 +190,56 @@ class LookupTests(unittest.TestCase):
                 self.assertEqual([row["external_id"] for row in write.call_args.args[0]], expected)
                 self.assertEqual(len(store.calls), 1, "one read supplies both guards")
 
+    def test_main_writes_a_kept_row_with_the_categories_of_its_hidden_copies(self):
+        # mapsee_dedupe_events hides a copy behind a kept row and gives the kept
+        # row the copy's categories, so the event stays on every door. A refresh
+        # that wrote the row's own categories would take it off them until the
+        # next dedupe run (a median 4.8 h later over 8 runs). The state read
+        # brings each stored row's id; one read of the hidden copies finds the
+        # kept rows among them; the rows go out merged, before skip-unchanged.
+        rows = [dict(external_id="kept", category="music", categories=None),
+                dict(external_id="new", category="music", categories=None)]
+
+        class Kept(Store):
+            def __init__(self, rows, copies_status=200):
+                super().__init__(rows)
+                self.copies_status = copies_status
+
+            def get(self, url, **kwargs):
+                if "duplicate_of=not.is.null" in url:
+                    self.calls.append((url, kwargs))
+                    status = self.copies_status
+
+                    class Copies:
+                        status_code = status
+                        headers = {}
+
+                        def json(self):
+                            return [{"id": "c1", "duplicate_of": "k-uuid", "category": "theater", "categories": None}]
+                    return Copies()
+                resp = super().get(url, **kwargs)
+                for r in resp.json():
+                    r["id"] = "k-uuid" if r["external_id"] == "kept" else "other-uuid"
+                return resp
+
+        for status, want, line in ((200, ["theater"], "Kept rows: 1 carry the categories"),
+                                   (503, None, "::warning::Hidden copies' categories could not be read")):
+            store = Kept({"kept": None}, copies_status=status)
+            out = io.StringIO()
+            with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID": "host", "SUPABASE_URL": "https://db.example",
+                                        "SUPABASE_SERVICE_ROLE_KEY": "unused-test-key"}), \
+                 patch("sys.argv", ["sync"]), patch("requests.Session", return_value=store), \
+                 patch.object(sync, "build_rows", return_value=[dict(r) for r in rows]), \
+                 patch.object(sync, "load_blocklist", return_value=[]), \
+                 patch.object(sync, "upsert", return_value=(2, 0, 0)) as write, redirect_stdout(out):
+                sync.main()
+            sent = {r["external_id"]: r["categories"] for r in write.call_args.args[0]}
+            self.assertEqual(sent, {"kept": want, "new": None}, status)
+            self.assertIn(line, out.getvalue())
+            state = parse_qs(urlsplit(store.calls[0][0]).query)["select"][0].split(",")
+            self.assertIn("id", state, "the row's id rides the state read")
+            self.assertEqual(sum("duplicate_of=not.is.null" in u for u, _ in store.calls), 1)
+
     def test_only_new_reads_state_before_geocoding_and_refresh_is_unchanged(self):
         # 2026-09-12: Meetup's final sync geocoded 22,276 of 53,871 rows to write
         # 2,480, because --only-new filtered AFTER build_rows. Under --only-new
