@@ -580,6 +580,13 @@ check("--apply clears hidden_at and duplicate_of on that run's copies only",
       and fake.events["eeeeeeee-0000-4000-8000-000000000001"]["hidden_at"] == "2026-10-12T12:00:00+00:00"
       and fake.events["eeeeeeee-0000-4000-8000-000000000002"]["hidden_at"] == STAMP
       and all(set(b) == {"hidden_at", "duplicate_of"} for _, _, b in patches(fake)))
+help_out = io.StringIO()
+try:
+    with contextlib.redirect_stdout(help_out):
+        D.main(["--help"])
+    check("--help prints and exits 0 (argparse %-formats help text)", False)
+except SystemExit as exc:
+    check("--help prints and exits 0 (argparse %-formats help text)", exc.code == 0 and "--max-share" in help_out.getvalue())
 try:
     with contextlib.redirect_stdout(io.StringIO()):
         D.main(["--unhide"], http=FakeRest([]))

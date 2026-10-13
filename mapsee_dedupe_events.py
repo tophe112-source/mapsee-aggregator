@@ -791,7 +791,7 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
                     help="Refuse a window in which one event clusters more rows than this (default 12).")
     ap.add_argument("--max-share", type=float, default=0.15,
                     help=f"Refuse a window whose hides exceed max({SHARE_FLOOR}, this share of its rows) "
-                         "(default 0.15; the census measured 3.4% overall, Chicago 11.1%).")
+                         "(default 0.15; the census measured 3.4%% overall, Chicago 11.1%%).")
     ap.add_argument("--report", default=None, help="Write the full report (every pair) as JSON here.")
     ap.add_argument("--show", type=int, default=15, help="Examples to print per rule (default 15).")
     ap.add_argument("--unhide", action="store_true",
