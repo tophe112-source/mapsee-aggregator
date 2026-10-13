@@ -18151,6 +18151,108 @@
         "lon": 174.5561105
       },
       "_metro": "Auckland, New Zealand"
+    },
+    {
+      "name": "Mountain View Club",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://kirtlandforcesupport.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mountain View Club",
+        "city": "Albuquerque",
+        "region": "NM",
+        "postal_code": "87117",
+        "lat": 35.0649999,
+        "lon": -106.538965,
+        "street_hint": "22000 Club Road Southeast"
+      },
+      "_metro": "Albuquerque, United States",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Bennington Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://benningtonlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bennington Public Library",
+        "city": "Bennington",
+        "region": "NE",
+        "postal_code": "68007",
+        "lat": 41.3633365,
+        "lon": -96.1580314,
+        "street_hint": "11401 North 156th Street"
+      },
+      "_metro": "Omaha, United States"
+    },
+    {
+      "name": "John Trigg Ester Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.esterlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "John Trigg Ester Library",
+        "city": "Ester",
+        "region": "AK",
+        "postal_code": "99725",
+        "lat": 64.8462597,
+        "lon": -148.0152601,
+        "street_hint": "3629 Main Street"
+      },
+      "_metro": "Fairbanks, United States"
+    },
+    {
+      "name": "Idaho State Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://libraries.idaho.gov",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Idaho State Library",
+        "city": "Boise",
+        "region": "ID",
+        "postal_code": "83702",
+        "country": "US",
+        "lat": 43.6154986,
+        "lon": -116.1953915,
+        "street_hint": "325 West State Street"
+      },
+      "_metro": "Boise, United States"
+    },
+    {
+      "name": "Dunn Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event",
+      "base_url": "https://simpson.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dunn Library",
+        "lat": 41.3655296,
+        "lon": -93.5635673
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Clarence B. Hanson, Jr. Library & Archives",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.artsbma.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Clarence B. Hanson, Jr. Library & Archives",
+        "lat": 33.5223913,
+        "lon": -86.8095577
+      },
+      "_metro": "Birmingham AL, United States"
     }
   ],
   "_not_included": {

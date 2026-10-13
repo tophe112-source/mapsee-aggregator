@@ -2217,6 +2217,22 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "abclibrary.org/eastmountain": {
+    "checked": 20261013,
+    "name": "East Mountain Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "abclibrary.org/tonyhillerman": {
+    "checked": 20261013,
+    "name": "Tony Hillerman Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "abconcerts.be": {
     "checked": 20260911,
     "name": "Ancienne Belgique",
@@ -2544,6 +2560,23 @@
     "name": "Salle de pri\u00e8re ABPE",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "abqlibrary.org/juantabo": {
+    "cal_url": "https://abqlibrary.org/events",
+    "checked": 20261013,
+    "name": "Juan Tabo Public Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "abqlibrary.org/sanpedro": {
+    "checked": 20261013,
+    "name": "San Pedro Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "abra-studio.pl": {
@@ -3879,6 +3912,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "adalib.org": {
+    "checked": 20261013,
+    "name": "Star Branch Library",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "adalpha.com.br": {
     "checked": 20261004,
     "name": "Adalpha",
@@ -3912,6 +3952,14 @@
   "adamstuenantikvariat.no": {
     "checked": 20260906,
     "name": "Adamstuen Antikvariat",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "adamsville.lib.al.us": {
+    "checked": 20261013,
+    "name": "Adamsville Public Library",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -4761,6 +4809,15 @@
   "aet03.at": {
     "checked": 20260908,
     "name": "ASK Erlaa Torpedo 03",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "afabq.com/index.php": {
+    "cal_url": "https://afabq.com/events/",
+    "checked": 20261013,
+    "name": "Alliance Fran\u00e7aise d'Albuquerque",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -16085,6 +16142,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "artsbma.org": {
+    "checked": 20261013,
+    "name": "Clarence B. Hanson, Jr. Library & Archives",
+    "reason": "13 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "artscentre.org.nz": {
     "cal_url": "https://www.artscentre.org.nz/whats-on/",
     "checked": 20261013,
@@ -25018,6 +25082,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "bcctucson.org": {
+    "checked": 20261013,
+    "name": "Blacklidge Community Collective",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
+  },
   "bcdedriehoek.nl": {
     "checked": 20260930,
     "name": "Buurtcentrum De Driehoek",
@@ -27047,6 +27118,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "benningtonlibrary.org": {
+    "checked": 20261013,
+    "name": "Bennington Public Library",
+    "reason": "109 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "benowabowlsclub.com.au": {
     "checked": 20260819,
     "name": "Benowa Bowls Club",
@@ -28454,6 +28532,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "bessemerlibrary.com": {
+    "checked": 20261013,
+    "name": "Bessemer Public Library",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "best-care.jp": {
     "checked": 20260925,
@@ -38908,6 +38993,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "boiseurbangardenschool.org/events": {
+    "checked": 20261013,
+    "name": "Boise Urban Garden School",
+    "reason": "23 events / 0 future",
+    "status": "empty",
+    "type": "squarespace"
+  },
   "bojanowski.org": {
     "checked": 20260909,
     "name": "Parafia b\u0142. Edmunda Bojanowskiego w Warszawie",
@@ -41777,6 +41869,134 @@
     "name": "Prosser Library",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "bplonline.org": {
+    "checked": 20261013,
+    "name": "Birmingham Public Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/Avondale": {
+    "checked": 20261013,
+    "name": "Avondale Regional Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/EastEnsley": {
+    "checked": 20261013,
+    "name": "East Ensley Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/EastLake": {
+    "checked": 20261013,
+    "name": "East Lake Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/Ensley": {
+    "checked": 20261013,
+    "name": "Ensley Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/FivePointsWest": {
+    "checked": 20261013,
+    "name": "Five Points West Regional Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/NorthAvondale": {
+    "checked": 20261013,
+    "name": "North Avondale Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/NorthBirmingham": {
+    "checked": 20261013,
+    "name": "North Birmingham Regional Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/Powderly": {
+    "checked": 20261013,
+    "name": "Powderly Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/PrattCity": {
+    "checked": 20261013,
+    "name": "Pratt City Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/Smithfield": {
+    "checked": 20261013,
+    "name": "Smithfield Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/SpringvilleRoad": {
+    "checked": 20261013,
+    "name": "Springville Road Regional Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/Titusville": {
+    "checked": 20261013,
+    "name": "Titusville Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/WestEnd": {
+    "checked": 20261013,
+    "name": "West End Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/Woodlawn": {
+    "checked": 20261013,
+    "name": "Woodlawn Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "bplonline.org/locations/branch/Wylam": {
+    "checked": 20261013,
+    "name": "Wylam Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "bplusc.nl/onze-vestigingen/vestiging.268631.html/bplusc--locatie-stevenshof": {
@@ -48838,12 +49058,92 @@
     "status": "ok",
     "type": "ics"
   },
+  "cabq.gov/family/facilities-centers/community-center-locations/northeast/mesa-verde-community-center": {
+    "cal_url": "https://www.cabq.gov/events",
+    "checked": 20261013,
+    "name": "Mesa Verde Community Center",
+    "offsite_url": "https://web2.myvscloud.com/wbwsc/nmalbuquerquewt.wsc/search.html?display=calendar&amp;module=event&amp;location=mvcc&amp;_csrf_token=173d7619c0bb91755a40f68931ab70b21cbc03b894910cdae1dfb9189e9e0352",
+    "probe": 2,
+    "reason": "osm probe: offsite:myvscloud.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cabq.gov/family/facilities-centers/community-center-locations/northwest/los-duranes-community-center": {
+    "cal_url": "https://www.cabq.gov/events",
+    "checked": 20261013,
+    "name": "Los Duranes Community Center",
+    "offsite_url": "https://web2.myvscloud.com/wbwsc/nmalbuquerquewt.wsc/search.html?display=calendar&amp;module=event&amp;location=ldcc&amp;_csrf_token=173d7619c0bb91755a40f68931ab70b21cbc03b894910cdae1dfb9189e9e0352",
+    "probe": 2,
+    "reason": "osm probe: offsite:myvscloud.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cabq.gov/family/facilities-centers/community-center-locations/northwest/west-mesa-community-center/west-mesa-community-center": {
+    "cal_url": "https://www.cabq.gov/events",
+    "checked": 20261013,
+    "name": "West Mesa Community Center",
+    "offsite_url": "https://web2.myvscloud.com/wbwsc/nmalbuquerquewt.wsc/search.html?display=calendar&amp;module=event&amp;location=wmcc&amp;_csrf_token=64b90b00dbb686dcbf279ab17458a265eff602e4f500ffa474f42d35eb78e381",
+    "probe": 2,
+    "reason": "osm probe: offsite:myvscloud.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cabq.gov/family/facilities-centers/community-center-locations/southeast/cesar-chavez-community-center": {
+    "cal_url": "https://www.cabq.gov/events",
+    "checked": 20261013,
+    "name": "Cesar Chavez Community Center",
+    "offsite_url": "https://nmalbuquerqueweb.myvscloud.com/webtrac/web/search.html?module=AR&amp;type=commctrs&amp;location=cccc&amp;_csrf_token=aL6A1A6U1F133V361R353Z5R704C6L4S03575X6N4V015P616I4X1H5O5Y6E4Y0200466J53026S5Y5D6A1C5T4M584W055E4T4T571E6R4F6M521B5M4K6I596W6Z5Q5F",
+    "probe": 2,
+    "reason": "osm probe: offsite:myvscloud.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cabq.gov/family/facilities-centers/community-center-locations/southeast/dennis-chavez-community-center/dennis-chavez-community-center": {
+    "cal_url": "https://www.cabq.gov/events",
+    "checked": 20261013,
+    "name": "Dennis Chavez Community Center",
+    "offsite_url": "https://nmalbuquerqueweb.myvscloud.com/webtrac/web/search.html?module=AR&amp;type=commctrs&amp;location=dccc&amp;_csrf_token=cd0L6Z6B0H5Z2D2V214S3R5Q5Z616B5B1C5K5S656I616S4G5G581A6X4W5E4Z0F6X4E4Z4G1F5Z4E5054055K4G5P5172635X53666L5P4T544R09735U565B1D5L4X58",
+    "probe": 2,
+    "reason": "osm probe: offsite:myvscloud.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "cabq.gov/parksandrecreation/open-space/events/open-space-upcoming-events/ics_view": {
     "checked": 20260928,
     "name": "Albuquerque Open Space - Upcoming Events",
     "reason": "review: 21 upcoming, none with LOCATION; outdoors programmes, not volunteering.",
     "status": "fail",
     "type": "ics"
+  },
+  "cabq.gov/seniors/centers/bear-canyon-senior-center": {
+    "cal_url": "https://www.cabq.gov/events",
+    "checked": 20261013,
+    "name": "Bear Canyon Multigenerational Center",
+    "offsite_url": "https://nmalbuquerqueweb.myvscloud.com/webtrac/web/donation.html",
+    "probe": 2,
+    "reason": "osm probe: offsite:myvscloud.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cabq.gov/seniors/centers/manzano-mesa-multigenerational-center": {
+    "cal_url": "https://www.cabq.gov/events",
+    "checked": 20261013,
+    "name": "Manzano Mesa Multigenerational Center",
+    "offsite_url": "https://nmalbuquerqueweb.myvscloud.com/webtrac/web/donation.html",
+    "probe": 2,
+    "reason": "osm probe: offsite:myvscloud.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cabq.gov/seniors/senior-multigenerational-centers/highland-senior-center": {
+    "cal_url": "https://www.cabq.gov/events",
+    "checked": 20261013,
+    "name": "Hiland Senior Activity Center",
+    "offsite_url": "https://nmalbuquerqueweb.myvscloud.com/webtrac/web/donation.html",
+    "probe": 2,
+    "reason": "osm probe: offsite:myvscloud.com",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "cabracc.org.au": {
     "checked": 20261007,
@@ -49650,6 +49950,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "calendar.google.com/calendar/ical/3ut4d8q82c1pf792dbeipr497c%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261013,
+    "name": "Tucson Indian Center",
+    "reason": "115 vevents / 115 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "calendar.google.com/calendar/ical/479e8b208f2300bda55595689ee050c4b077ac7115e04a79f8a749f4bb327241%40group.calendar.google.com/public/basic.ics": {
     "checked": 20261011,
     "name": "Par\u00f3quia Sagrado Cora\u00e7\u00e3o de Jesus",
@@ -49893,6 +50200,13 @@
     "name": "Centro Esp\u00edrita Allan Kardec",
     "reason": "11 vevents / 11 future",
     "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/alaska.edu_hrdt4ffm3jv6vs4a7ae5cc251s%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261013,
+    "name": "Keith B. Mather Library",
+    "reason": "calendar api 404 notFound: Not Found",
+    "status": "fail",
     "type": "ics"
   },
   "calendar.google.com/calendar/ical/albnm57akpcvt8v1ijk5h5ibuk%40group.calendar.google.com/public/basic.ics": {
@@ -50249,6 +50563,13 @@
     "checked": 20261011,
     "name": "Overlook Neighborhood Association (Portland)",
     "reason": "12 vevents / 12 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/c_c8db4dff42487282fea802aa7543afeffa28f7fb6b9120de7475b735ff41aedf%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261013,
+    "name": "Lakeside Library",
+    "reason": "48 vevents / 48 future",
     "status": "ok",
     "type": "ics"
   },
@@ -51054,6 +51375,13 @@
     "checked": 20261011,
     "name": "Saint John's Episcopal Church",
     "reason": "342 vevents / 342 future",
+    "status": "ok",
+    "type": "ics"
+  },
+  "calendar.google.com/calendar/ical/sanpedrochapel.com_7qi2dqhm3a1cksqroph6r9sag8%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261013,
+    "name": "San Pedro Chapel",
+    "reason": "101 vevents / 101 future",
     "status": "ok",
     "type": "ics"
   },
@@ -51980,6 +52308,22 @@
     "probe": 2,
     "reason": "osm probe: found ics",
     "status": "found",
+    "type": "osm-venue"
+  },
+  "cals.org/nixon-library": {
+    "checked": 20261013,
+    "name": "Esther DeWitt Nixon Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "cals.org/thompson-library": {
+    "checked": 20261013,
+    "name": "Roosevelt Thompson Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
     "type": "osm-venue"
   },
   "calton-books.co.uk": {
@@ -58561,6 +58905,15 @@
   "centerkita.church": {
     "checked": 20260924,
     "name": "\u30bb\u30f3\u30bf\u30fc\u5317\u6559\u4f1a",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "centerpointlibrary.org": {
+    "cal_url": "https://centerpointlibrary.org/events/",
+    "checked": 20261013,
+    "name": "Center Point Public Library",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -71042,6 +71395,22 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofclive.com/library": {
+    "checked": 20261013,
+    "name": "Clive Public Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.cityofclive.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "cityofclive.com/parkandrecreation/facilities/harbach_public_library.php": {
+    "checked": 20261013,
+    "name": "Harbach Public Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.cityofclive.com/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "cityofcorcoran.com": {
     "checked": 20260913,
     "name": "Corcoran",
@@ -71726,6 +72095,13 @@
     "name": "Laurel \u2014 Laurel Police Events",
     "reason": "0 vevents / 0 future",
     "status": "fail",
+    "type": "ics"
+  },
+  "cityoflavista.org/common/modules/iCalendar/iCalendar.aspx?catID=17&feed=calendar": {
+    "checked": 20261013,
+    "name": "La Vista Public Library",
+    "reason": "28 vevents / 20 future",
+    "status": "ok",
     "type": "ics"
   },
   "cityoflawrence.org": {
@@ -72787,6 +73163,15 @@
     "reason": "7 events, 7/7 on page 1 future",
     "status": "ok",
     "type": "tribe"
+  },
+  "cityoftarrant.com/library": {
+    "cal_url": "https://www.cityoftarrant.com/meetings",
+    "checked": 20261013,
+    "name": "Tarrant Public Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "cityofthornton.net/aac/Pages/default.aspx": {
     "checked": 20261011,
@@ -83733,6 +84118,14 @@
     "status": "fail",
     "type": "tribe"
   },
+  "culxr.house": {
+    "checked": 20261013,
+    "name": "Culxr House",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "cumberland.nsw.gov.au/auburn-botanic-gardens": {
     "checked": 20260819,
     "name": "Auburn Botanic Gardens",
@@ -88870,6 +89263,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "delwebbmirehaven.com": {
+    "checked": 20261013,
+    "name": "The Sandia Center",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "demaalbeek.be": {
     "checked": 20260911,
     "name": "GC De Maalbeek",
@@ -92602,6 +93003,24 @@
     "status": "ok",
     "type": "tribe"
   },
+  "dmgov.org/Departments/Parks/Pages/FourMileRecreation.aspx": {
+    "cal_url": "https://www.dsm.city/calendar.php",
+    "checked": 20261013,
+    "name": "Four Mile Community Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "dmgov.org/Departments/Parks/Pages/PioneerColumbusRecreation.aspx": {
+    "cal_url": "https://www.dsm.city/calendar.php",
+    "checked": 20261013,
+    "name": "Pioneer Columbus Community Recreation Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "dmh-chrischona.org": {
     "checked": 20260919,
     "name": "Diakonissen-Mutterhaus",
@@ -92672,12 +93091,51 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "dmpl.org/locations-hours/central-library": {
+    "checked": 20261013,
+    "name": "Des Moines Central Public Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://dmpl.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "dmpl.org/locations-hours/east-side-library": {
+    "checked": 20261013,
+    "name": "East Side Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://dmpl.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "dmpl.org/locations-hours/forest-avenue": {
+    "checked": 20261013,
+    "name": "Des Moines Forest Avenue Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.dmpl.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "dmpl.org/locations-hours/south-side-library": {
+    "checked": 20261013,
+    "name": "Des Moines South Side Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://dmpl.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "dmr.ch": {
     "checked": 20260920,
     "name": "DM",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "dmscottishrite.org/public-events": {
+    "checked": 20261013,
+    "name": "Scottish Rite Consistory Building",
+    "reason": "15/45 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "dmstudentska.cz": {
     "checked": 20260904,
@@ -97340,6 +97798,13 @@
     "reason": "3 vevents / 3 future",
     "status": "ok",
     "type": "ics"
+  },
+  "eaglepubliclibrary.org": {
+    "checked": 20261013,
+    "name": "Eagle Public Library",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "eaglequestgolf.com/locations/the-dome": {
     "checked": 20260819,
@@ -103458,6 +103923,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "eolib.org": {
+    "checked": 20261013,
+    "name": "Mountain Brook - Emmet O`Neal Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "eonet.ne.jp/~catholic-otsu": {
     "checked": 20260925,
     "name": "\u5927\u6d25\u30ab\u30c8\u30ea\u30c3\u30af\u6559\u4f1a",
@@ -105760,6 +106233,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "esterlibrary.org": {
+    "checked": 20261013,
+    "name": "John Trigg Ester Library",
+    "reason": "81 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "estgalerie.com": {
     "checked": 20260829,
@@ -111527,6 +112007,14 @@
     "status": "ok",
     "type": "ics"
   },
+  "fairfield.lib.al.us": {
+    "checked": 20261013,
+    "name": "Fairfield - Walter J. Hanna Memorial Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "fairfieldcity.gov.au/library": {
     "checked": 20261007,
     "name": "Fairfield Library and Cafe",
@@ -112016,6 +112504,15 @@
   "family.poleungkuk.org.hk/tc/page.aspx?pageid=1876": {
     "checked": 20260831,
     "name": "\u6df1\u6c34\u57d7\u5340\u8b70\u6703\u4fdd\u826f\u5c40\u77f3\u7864\u5c3e\u793e\u5340\u670d\u52d9\u4e2d\u5fc3 Sham Shui Po District Council Po Leung Kuk Shek Kip Mei Commu",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "familyprogramshawaii.org/program/family-strengthening-center": {
+    "cal_url": "https://familyprogramshawaii.org/news/",
+    "checked": 20261013,
+    "name": "Family Strengthening Center",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -114636,6 +115133,14 @@
   "filarmonica.org": {
     "checked": 20260916,
     "name": "Sociedad Filarm\u00f3nica de Bilbao",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "filcom.org": {
+    "checked": 20261013,
+    "name": "Filipino Community Center",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -120943,6 +121448,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "fultondale.lib.al.us": {
+    "checked": 20261013,
+    "name": "Fultondale Public Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "fulviobernardiniuisp.com": {
     "checked": 20260921,
     "name": "Centro Sportivo Comunale \"Fulvio Bernardini\"",
@@ -124075,6 +124588,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "gardendalelibrary.org/library-events": {
+    "checked": 20261013,
+    "name": "Gardendale - Martha Moore Public Library",
+    "reason": "13/13 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "gardenfreshgrooves.eu/club-analog": {
     "checked": 20260909,
@@ -131999,6 +132519,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "grimeslibrary.org": {
+    "checked": 20261013,
+    "name": "Grimes Public Library",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "grimm-zentrum.hu-berlin.de": {
     "checked": 20261002,
     "name": "Jacob-und-Wilhelm-Grimm-Zentrum",
@@ -139559,6 +140086,16 @@
     "status": "held",
     "type": "ics"
   },
+  "held:6c906567a621dc4e": {
+    "checked": 20261013,
+    "found": "osm:community_centre -> gcal-embed",
+    "home": "https://huoa.org/",
+    "metro": "Honolulu, United States",
+    "name": "Hawaii United Okinawa Association",
+    "reason": "101 vevents / 101 future; its calendar id is a personal address; the owner decides",
+    "status": "held",
+    "type": "ics"
+  },
   "held:734a2fa6d2593bb0": {
     "checked": 20261013,
     "found": "osm:place_of_worship -> gcal-embed",
@@ -139576,6 +140113,16 @@
     "metro": "Christchurch, New Zealand",
     "name": "Christchurch Amateur Radio Club",
     "reason": "1570 vevents / 1570 future; its calendar id is a personal address; the owner decides",
+    "status": "held",
+    "type": "ics"
+  },
+  "held:935dadfb7148674f": {
+    "checked": 20261013,
+    "found": "osm:community_centre -> gcal-embed",
+    "home": "http://www.pearlcityfoundation.org/",
+    "metro": "Honolulu, United States",
+    "name": "Momilani Community Center",
+    "reason": "379 vevents / 378 future; its calendar id is a personal address; the owner decides",
     "status": "held",
     "type": "ics"
   },
@@ -145460,6 +146007,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "homewoodpubliclibrary.org": {
+    "cal_url": "https://www.homewoodpubliclibrary.org/events?v=list&amp;r=thisweek&amp;t=Kid+Events",
+    "checked": 20261013,
+    "name": "Homewood Public Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "homyoji.or.jp": {
     "checked": 20260924,
     "name": "\u5a01\u5149\u5c71\u6cd5\u660e\u5bfa",
@@ -145791,6 +146347,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hopenow.org": {
+    "checked": 20261013,
+    "name": "Hope Now",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "hopetouncrescentgarden.org.uk": {
     "checked": 20260819,
@@ -147552,6 +148115,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "hueytownlibrary.org": {
+    "checked": 20261013,
+    "name": "Hueytown Public Library",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "tribe"
+  },
   "hug.ch/sante-sexuelle-planning-familial/centre-de-documentation": {
     "checked": 20260918,
     "name": "Centre de documentation de l'Unit\u00e9 de sant\u00e9 sexuelle et planning familial",
@@ -148659,6 +149229,16 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "iaccofia.org": {
+    "cal_url": "https://iaccofia.org/?p=3855",
+    "checked": 20261013,
+    "name": "Italian-American Cultural Center of Iowa",
+    "offsite_url": "https://www.eventbrite.com/e/bella-italia-childrens-day-camp-tickets-1992175962933?keep_tld=true",
+    "probe": 2,
+    "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "iaelille.fr": {
     "checked": 20261006,
     "name": "Centre de documentation de l\u2019IAE",
@@ -148690,6 +149270,15 @@
   "iai.spk-berlin.de": {
     "checked": 20261002,
     "name": "Ibero-Amerikanisches Institut",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ialegion.org": {
+    "cal_url": "https://ialegion.org/calendar/",
+    "checked": 20261013,
+    "name": "American Legion Post #42",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -154627,6 +155216,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "irondalelibrary.org": {
+    "checked": 20261013,
+    "name": "Irondale Public Library",
+    "reason": "0 events / 0 future",
+    "status": "fail",
+    "type": "tribe"
   },
   "ironwoodstage.ca": {
     "checked": 20260819,
@@ -166499,6 +167095,15 @@
     "status": "ok",
     "type": "mobilizon"
   },
+  "kidscan.org": {
+    "cal_url": "https://kidscan.org/donate/previous-events/",
+    "checked": 20261013,
+    "name": "Kids Can Community Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "kidscraftosaka.jp": {
     "checked": 20260925,
     "name": "\u30ad\u30c3\u30ba\u30af\u30e9\u30d5\u30c8",
@@ -168495,6 +169100,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "kirtlandforcesupport.com": {
+    "checked": 20261013,
+    "name": "Mountain View Club",
+    "reason": "107 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "kishimojin.jp": {
     "checked": 20260925,
@@ -173250,6 +173862,15 @@
   "kroccenterchicago.com": {
     "checked": 20261010,
     "name": "Ray and Joan Kroc Community Center",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "kroccenterhawaii.org/index.html": {
+    "cal_url": "https://kroccenterhawaii.org/kroc-hawaii/rentals",
+    "checked": 20261013,
+    "name": "The Salvation Army",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -179076,6 +179697,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "lamanlibrary.org": {
+    "checked": 20261013,
+    "name": "Argenta Branch Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "lamanovellacampana.it/index.php?option=com_contact&view=contact&id=1&catid=12&Itemid=114": {
     "checked": 20260922,
     "name": "La Manovella",
@@ -181970,6 +182599,23 @@
     "status": "ok",
     "type": "tribe"
   },
+  "law.creighton.edu/academics/law-library": {
+    "cal_url": "https://www.creighton.edu/events",
+    "checked": 20261013,
+    "name": "Klutznick Law Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "law.hawaii.edu/library": {
+    "checked": 20261013,
+    "name": "William S. Richardson Law Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "law.ucla.edu/library": {
     "checked": 20261010,
     "name": "Hugh & Hazel Darling Law Library",
@@ -182527,6 +183173,15 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "leagueofhumandignity.com": {
+    "cal_url": "https://leagueofhumandignity.com/events/",
+    "checked": 20261013,
+    "name": "League of Human Dignity",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "leahsyard.com/meetings": {
     "checked": 20261009,
@@ -183241,6 +183896,14 @@
     "name": "Leeds Conservatoire Library",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "leedslibrary.com": {
+    "checked": 20261013,
+    "name": "Leeds - Jane Culbreth Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "leedsmarkets.co.uk/events/?ical=1": {
@@ -186763,6 +187426,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "libertylakewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
+    "checked": 20261013,
+    "name": "Liberty Lake Municiple Library",
+    "reason": "9 vevents / 8 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "libertyloft.cz": {
     "checked": 20260904,
     "name": "LibertyLoft",
@@ -187841,6 +188511,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "libraries.idaho.gov": {
+    "checked": 20261013,
+    "name": "Idaho State Library",
+    "reason": "6 events, 6/6 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "libraries.kingston.gov.uk/digital-content/libraries/library-branches/kingston": {
     "checked": 20260819,
     "name": "Kingston Library",
@@ -188555,6 +189232,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "library.drake.edu": {
+    "cal_url": "https://library.drake.edu/archives/records-management/about",
+    "checked": 20261013,
+    "name": "Cowles Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "library.drexel.edu": {
     "checked": 20261010,
     "name": "W. W. Hagerty Library",
@@ -188579,6 +189265,14 @@
   "library.fiu.edu": {
     "checked": 20261011,
     "name": "Steven and Dorothea Green Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "library.fresnostate.edu": {
+    "checked": 20261013,
+    "name": "Fresno State Library",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -188849,6 +189543,60 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "library.pima.gov": {
+    "cal_url": "https://www.library.pima.gov/news/found-magazine-a-special-after-hours-event/",
+    "checked": 20261013,
+    "name": "W. Anne Gibson-Esmond Station Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "library.pima.gov/locations/ELP": {
+    "cal_url": "https://www.library.pima.gov/adult-education/",
+    "checked": 20261013,
+    "name": "Frank De La Cruz-El Pueblo Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "library.pima.gov/locations/NAN": {
+    "cal_url": "https://www.library.pima.gov/adult-education/",
+    "checked": 20261013,
+    "name": "Nanini Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "library.pima.gov/locations/columbus": {
+    "cal_url": "https://www.library.pima.gov/adult-education/",
+    "checked": 20261013,
+    "name": "Eckstrom-Columbus Branch Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "library.pima.gov/locations/glf": {
+    "cal_url": "https://www.library.pima.gov/adult-education/",
+    "checked": 20261013,
+    "name": "Miller-Golf Links Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "library.pima.gov/locations/woods": {
+    "cal_url": "https://www.library.pima.gov/adult-education/",
+    "checked": 20261013,
+    "name": "Woods Branch Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "library.pref.hyogo.lg.jp": {
     "checked": 20260924,
     "name": "\u5175\u5eab\u770c\u7acb\u56f3\u66f8\u9928",
@@ -188996,6 +189744,15 @@
     "status": "refused",
     "type": "osm-venue"
   },
+  "library.uab.edu": {
+    "cal_url": "https://library.uab.edu/about/news-and-events",
+    "checked": 20261013,
+    "name": "Mervyn H. Sterne Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "library.uarts.edu/about/greenfield.html": {
     "checked": 20261010,
     "name": "Albert M. Greenfield Library",
@@ -189076,6 +189833,15 @@
   "library.unlv.edu": {
     "checked": 20261011,
     "name": "Lied Library",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "library.unm.edu/about/libraries/pml.php": {
+    "cal_url": "https://library.unm.edu/services/inlp.php",
+    "checked": 20261013,
+    "name": "Parish Library",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -194579,6 +195345,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "luanasavingsbank.com/about/community-facility": {
+    "cal_url": "https://www.luanasavingsbank.com/media/3splfa5e/luana-savings-bank-fee-schedule-2026-02-02.pdf",
+    "checked": 20261013,
+    "name": "Luana Savings Bank Community Facility",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "lubliner.art": {
     "checked": 20260829,
     "name": "Lubliner Art",
@@ -197084,6 +197859,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "magiccityacceptancecenter.org/programs": {
+    "checked": 20261013,
+    "name": "Magic City Acceptance Center",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
   },
   "magicfly.it": {
     "checked": 20260921,
@@ -207475,6 +208257,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "micklecenter.com": {
+    "cal_url": "http://micklecenter.com/Calendar/",
+    "checked": 20261013,
+    "name": "Robert Mickle Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "micomilano.it": {
     "checked": 20260922,
     "name": "Allianz MiCo",
@@ -207618,6 +208409,14 @@
   "middlewoodhouse.co.uk": {
     "checked": 20261009,
     "name": "Middlewood House",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "midfield.lib.al.us": {
+    "checked": 20261013,
+    "name": "Midfield Public Library",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -210374,6 +211173,46 @@
     "name": "San Diego Padres",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "mld.org/locations/cherry-lane": {
+    "checked": 20261013,
+    "name": "Cherry Lane Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.mld.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "mld.org/locations/orchard-park": {
+    "checked": 20261013,
+    "name": "Meridian Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.mld.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "mld.org/locations/pinnacle": {
+    "checked": 20261013,
+    "name": "Pinnacle Branch",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.mld.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "mld.org/locations/tiny-library": {
+    "checked": 20261013,
+    "name": "Tiny Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.mld.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "mld.org/locations/unbound": {
+    "checked": 20261013,
+    "name": "unBound",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.mld.org/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "mlejn.cz": {
@@ -213376,6 +214215,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "moranprairiegrange.org": {
+    "checked": 20261013,
+    "name": "Moran Prairie Grange #161",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "moravian.org.uk": {
     "checked": 20260819,
     "name": "Hornsey Moravian Church",
@@ -214792,6 +215639,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mowspokane.org/events": {
+    "checked": 20261013,
+    "name": "Meals on Wheels",
+    "reason": "4/9 upcoming",
+    "status": "ok",
+    "type": "squarespace"
   },
   "mowstrazacka.com": {
     "checked": 20260909,
@@ -220739,6 +221593,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "mutual-housing.org/kulia": {
+    "checked": 20261013,
+    "name": "?",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "mutuellelamayotte.fr/itep-angela-davis-jr": {
     "checked": 20260828,
     "name": "ITEP Angela Davis",
@@ -225138,6 +226000,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ndnm.org": {
+    "cal_url": "https://ndnm.org/events/",
+    "checked": 20261013,
+    "name": "The Space",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ndrc.ca": {
     "checked": 20260819,
     "name": "Notre Dame Community Centre",
@@ -225148,6 +226019,15 @@
   "ndsouveraine.fr": {
     "checked": 20260830,
     "name": "\u00c9glise Orthodoxe Russe Notre-Dame Souveraine",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ne.aflcio.org": {
+    "cal_url": "https://ne.aflcio.org/events",
+    "checked": 20261013,
+    "name": "Omaha Federation-Labor Afl-Cio",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -228596,6 +229476,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nmbc-cc.org": {
+    "checked": 20261013,
+    "name": "NM Black Cat Cultural center",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "nmbe.ch": {
     "checked": 20260920,
     "name": "Naturhistorisches Museum",
@@ -228671,6 +229559,14 @@
     "name": "Ko\u015bci\u00f3\u0142 Naj\u015bwi\u0119tszej Maryi Panny Matki Pocieszenia",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "nmpost49.org": {
+    "checked": 20261013,
+    "name": "American Legion Post 49",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "nms.unl.pt/pt-pt/biblioteca": {
@@ -230142,6 +231038,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "northshelbylibrary.org": {
+    "cal_url": "https://northshelbylibrary.org/computer-classes/",
+    "checked": 20261013,
+    "name": "North Shelby County Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "northshoppingjoquei.com.br/cinema": {
     "checked": 20261006,
     "name": "Cin\u00e9polis",
@@ -230328,6 +231233,15 @@
     "cal_url": "https://www.northwestchchparish.org.nz/events",
     "checked": 20261013,
     "name": "St Silas Anglican Church - Redwood",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "northwestmuseum.org/collections/research-archives": {
+    "cal_url": "https://www.northwestmuseum.org/programs/special-events/",
+    "checked": 20261013,
+    "name": "Joel E. Ferris Research Library and Archives",
     "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
@@ -234807,6 +235721,15 @@
     "status": "ok",
     "type": "ods"
   },
+  "odysseyyouth.org": {
+    "cal_url": "https://www.odysseyyouth.org/programs",
+    "checked": 20261013,
+    "name": "Odyssey Youth Movement",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "odyssud.com": {
     "checked": 20261006,
     "name": "Odyssud",
@@ -236154,6 +237077,16 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "olliewebbinc.org": {
+    "cal_url": "https://olliewebbinc.org/events/",
+    "checked": 20261013,
+    "name": "Ollie Webb Center, Inc.",
+    "offsite_url": "https://www.eventbrite.com/e/roger-and-louise-a-nebraska-folktale-tickets-1997508989158?aff=ebdssbdestsearch",
+    "probe": 2,
+    "reason": "osm probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "olln.be/fr/ca-bouge-olln/organiser-evenement/louer-salle-communale/jules-ginion": {
     "checked": 20260911,
     "name": "Salle Jules Ginion",
@@ -236371,6 +237304,59 @@
   "om1911.no": {
     "checked": 20260906,
     "name": "Oslo Motorb\u00e5tforening",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "omahakroc.org": {
+    "checked": 20261013,
+    "name": "Salvation Army Kroc Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "omahalibrary.org": {
+    "cal_url": "https://omahalibrary.org/discovery-pass/",
+    "checked": 20261013,
+    "name": "Willa Cather Branch Omaha Public Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "omahalibrary.org/bess-johnson-elkhorn-branch": {
+    "cal_url": "https://omahalibrary.org/discovery-pass/",
+    "checked": 20261013,
+    "name": "Bess Johnson Elkhorn Branch",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "omahalibrary.org/locations/27": {
+    "cal_url": "https://omahalibrary.org/discovery-pass/",
+    "checked": 20261013,
+    "name": "Florence Branch",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "omahalibrary.org/locations/OV": {
+    "cal_url": "https://omahalibrary.org/discovery-pass/",
+    "checked": 20261013,
+    "name": "A V Sorenson Branch Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "omahalibrary.org/locations/central": {
+    "cal_url": "https://omahalibrary.org/discovery-pass/",
+    "checked": 20261013,
+    "name": "Omaha Central Library",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -243605,6 +244591,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "papillion.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar": {
+    "checked": 20261013,
+    "name": "Sump Memorial Library",
+    "reason": "3 vevents / 3 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "papilonia.cz": {
     "checked": 20260904,
     "name": "Papilonia - Mot\u00fdl\u00ed d\u016fm Praha",
@@ -244684,6 +245677,15 @@
     "name": "PARSEC - Param Science Experience Centre",
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "paramount-idaho.com": {
+    "cal_url": "https://www.brighton.co/wp-content/uploads/2025/11/37.1-Thirty-Seventh-Amendment-PM30-re-rec.2016.08.16-2016-075121.pdf",
+    "checked": 20261013,
+    "name": "Paramount Community Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
     "type": "osm-venue"
   },
   "paranaclube.com.br": {
@@ -248897,6 +249899,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "peregrinefund.org/library": {
+    "cal_url": "https://peregrinefund.org/wcbp-events",
+    "checked": 20261013,
+    "name": "The Peregrine Fund Research Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "peregum.org.br/hub-peregum": {
     "checked": 20261005,
     "name": "Casa Peregum",
@@ -251644,6 +252655,15 @@
     "reason": "http 500",
     "status": "fail",
     "type": "tribe"
+  },
+  "pinsonlibrary.com": {
+    "cal_url": "https://www.pinsonlibrary.com/events.html",
+    "checked": 20261013,
+    "name": "Pinson Public Library and Community Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "piolalibri.be": {
     "checked": 20260911,
@@ -255484,6 +256504,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ppcahawaii.org": {
+    "cal_url": "https://ppcahawaii.org/pages/rentals",
+    "checked": 20261013,
+    "name": "Pacific Palisades Community Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ppcc.org.sg": {
     "checked": 20260910,
     "name": "Pasir Panjang Christ Church",
@@ -256718,6 +257747,15 @@
   "primefighters.fi": {
     "checked": 20260903,
     "name": "Prime Fighters",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "primehomedds.com": {
+    "cal_url": "https://primehomedds.com/about-us/current-events/month.calendar/2026/10/13/-",
+    "checked": 20261013,
+    "name": "Prime Home Developmental Disabilities",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -258367,6 +259405,15 @@
   "pumphousetheatre.ca": {
     "checked": 20260819,
     "name": "Pumphouse Theatre",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "punahou.edu/archives-facilities-detail?pk=158218": {
+    "cal_url": "https://www.punahou.edu/alumni/events",
+    "checked": 20261013,
+    "name": "Cooke Library",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -267186,6 +268233,15 @@
     "reason": "3/33 upcoming",
     "status": "ok",
     "type": "squarespace"
+  },
+  "robertslibrary.org": {
+    "cal_url": "https://robertslibrary.org/blog/fall2026-art-at-cals-events-and-news/",
+    "checked": 20261013,
+    "name": "Bobby L. Roberts Library of Arkansas History & Art",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "robi-spiel-aktionen.ch/spielplaetze.php": {
     "checked": 20260919,
@@ -281777,6 +282833,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "seniorcenter.cityofboise.org": {
+    "cal_url": "https://www.cityofboise.org/departments-programs/",
+    "checked": 20261013,
+    "name": "Dick Eardley Boise Senior Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "seniorcentrumblansko.cz": {
     "checked": 20260905,
     "name": "Senior centrum Blansko",
@@ -285886,6 +286951,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "simpson.edu": {
+    "checked": 20261013,
+    "name": "Dunn Library",
+    "reason": "12 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
+  },
   "simpsonville.com": {
     "checked": 20260913,
     "name": "Simpsonville",
@@ -286340,6 +287412,14 @@
     "name": "MFC-TB Sint-Lievenspoort",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "sintocenter.com": {
+    "checked": 20261013,
+    "name": "Sinto Senior Activity Center",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "sintpietersabdijgent.be": {
@@ -290861,6 +291941,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sonsofitalyne.org": {
+    "cal_url": "https://sonsofitalyne.org/american-income-life-insurance-program/",
+    "checked": 20261013,
+    "name": "Order Sons and Daughters of Italy in America",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "sonysdance.com": {
     "checked": 20260925,
     "name": "\u30bd\u30cb\u30ba\u30ec\u30f3\u30bf\u30eb\u30b9\u30bf\u30b8\u30aa",
@@ -291826,6 +292915,14 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "southsidescc.org": {
+    "checked": 20261013,
+    "name": "South Side Community Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "southsidevictory.com": {
     "checked": 20260819,
@@ -293249,6 +294346,86 @@
     "reason": "probe 2026-09-28: no readable calendar (find_calendar: no-calendar; no Events Calendar REST route)",
     "status": "fail",
     "type": "tribe"
+  },
+  "spokanelibrary.org/downtown": {
+    "checked": 20261013,
+    "name": "Central Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "spokanelibrary.org/five-mile": {
+    "checked": 20261013,
+    "name": "Five Mile Library Kiosk",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "spokanelibrary.org/hillyard": {
+    "checked": 20261013,
+    "name": "Hillyard Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "spokanelibrary.org/indian-trail": {
+    "checked": 20261013,
+    "name": "Indian Trail Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "spokanelibrary.org/latah": {
+    "checked": 20261013,
+    "name": "Latah Library Kiosk",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "spokanelibrary.org/liberty-park": {
+    "checked": 20261013,
+    "name": "Liberty Park Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "spokanelibrary.org/logan": {
+    "checked": 20261013,
+    "name": "Logan Library Kiosk",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "spokanelibrary.org/shadle": {
+    "checked": 20261013,
+    "name": "Spokane Public Library - Shadle Park",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "spokanelibrary.org/south-hill": {
+    "checked": 20261013,
+    "name": "South Hill Library",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
+  "spokanelibrary.org/west-central": {
+    "checked": 20261013,
+    "name": "West Central Library Kiosk",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "spokaneriverkeeper.org/calendar": {
     "checked": 20260924,
@@ -307432,6 +308609,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "sylvanspringsal.com": {
+    "cal_url": "https://sylvanspringsal.com/calendar/",
+    "checked": 20261013,
+    "name": "Sylvan Springs Community Center",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "symbiosis-ambedkarmemorial.org": {
     "checked": 20260927,
     "name": "Dr. Babasaheb Ambedkar Museum",
@@ -308350,6 +309536,14 @@
     "name": "\u65e7\u6771\u4eac\u97f3\u697d\u5b66\u6821\u594f\u697d\u5802",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "taivillage.org": {
+    "checked": 20261013,
+    "name": "Robert D. Ray \u201cTai House\u201d Welcome Center",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "taiwakyodan.org": {
@@ -314815,6 +316009,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tgrcnm.org": {
+    "cal_url": "https://tgrcnm.org/calendar",
+    "checked": 20261013,
+    "name": "Transgender Resource Center of New Mexico",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tgrom.be/agenda": {
     "checked": 20260911,
     "name": "Midzelen",
@@ -317292,6 +318495,15 @@
   "thegap.ie": {
     "checked": 20260822,
     "name": "Glencullen Adventure Park",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "thegentlemensec.com": {
+    "cal_url": "http://thegentlemensec.com/project/shave-soap/",
+    "checked": 20261013,
+    "name": "The Gentlemen Social Event Club",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -329792,6 +331004,15 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "unmc.edu": {
+    "cal_url": "https://www.unmc.edu/eventscenter/index.html",
+    "checked": 20261013,
+    "name": "McGoogan Library of Medicine",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "unort.art": {
     "checked": 20260917,
     "name": "Unort",
@@ -333777,6 +334998,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "vfw549.org/?feed=my-calendar-ics": {
+    "checked": 20261013,
+    "name": "VFW Post 549",
+    "reason": "21 vevents / 10 future",
+    "status": "ok",
+    "type": "ics"
   },
   "vfwpost76ontheriverwalk.org": {
     "checked": 20261012,
@@ -339828,6 +341056,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "waikikicommunitycenter.org/our-events": {
+    "checked": 20261013,
+    "name": "Waikiki Community Center",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "waimakariri.govt.nz": {
     "checked": 20261007,
     "name": "Waimakariri District",
@@ -341190,6 +342425,15 @@
     "status": "fail",
     "type": "ics"
   },
+  "waukeepubliclibrary.org": {
+    "cal_url": "https://www.waukeepubliclibrary.org/events-guide",
+    "checked": 20261013,
+    "name": "Waukee Public Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "wavecinemas.com": {
     "checked": 20260927,
     "name": "Wave Cinemas Kaushambi",
@@ -341613,6 +342857,14 @@
     "name": "N\u00facleo Museol\u00f3gico do Cemit\u00e9rio dos Prazeres",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "web.facebook.com/uafiji": {
+    "checked": 20261013,
+    "name": "Phi Gamma Delta",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://web.facebook.com/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "web.godpia.com/wkc/index.htm": {
@@ -350027,6 +351279,16 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "ymcahonolulu.org/locations/leeward-y": {
+    "cal_url": "https://www.ymcahonolulu.org/programs/health-fitness/specialty-wellness-programs/arthritis",
+    "checked": 20261013,
+    "name": "Leeward Y",
+    "offsite_url": "https://anc.apm.activecommunities.com/ymcahonolulu/home",
+    "probe": 2,
+    "reason": "osm probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "ymcahouston.org/locations/d-bradley-mcwilliams-ymca-cypress-creek?utm_source=GMB&utm_medium=referral": {
     "checked": 20261010,
     "name": "D. Bradley McWilliams YMCA at Cypress Creek",
@@ -351261,6 +352523,13 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "zagazigshrine.org": {
+    "checked": 20261013,
+    "name": "Za-Ga-Zig Shrine",
+    "reason": "1/1 sampled events future",
+    "status": "ok",
+    "type": "jsonld"
   },
   "zagorje.si": {
     "checked": 20260923,

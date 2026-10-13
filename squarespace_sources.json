@@ -2556,6 +2556,40 @@
         "lon": -87.9022248
       },
       "_metro": "Milwaukee, United States"
+    },
+    {
+      "name": "Meals on Wheels",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.mowspokane.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Meals on Wheels",
+        "city": "Spokane",
+        "region": "WA",
+        "postal_code": "99201",
+        "lat": 47.6547549,
+        "lon": -117.4304339,
+        "street_hint": "1222 West 2nd Avenue"
+      },
+      "_metro": "Spokane, United States"
+    },
+    {
+      "name": "Scottish Rite Consistory Building",
+      "category": "community",
+      "_found": "osm:social_centre -> squarespace",
+      "collection": "https://www.dmscottishrite.org/public-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Scottish Rite Consistory Building",
+        "city": "Des Moines",
+        "region": "IA",
+        "postal_code": "50309",
+        "lat": 41.5909129,
+        "lon": -93.6252882,
+        "street_hint": "519 Park Street"
+      },
+      "_metro": "Des Moines, United States"
     }
   ],
   "_not_included": {

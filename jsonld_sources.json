@@ -8754,6 +8754,46 @@
         "lon": 174.7569815
       },
       "_metro": "Auckland, New Zealand"
+    },
+    {
+      "name": "Za-Ga-Zig Shrine",
+      "category": "community",
+      "_found": "osm:social_centre -> jsonld-event",
+      "listing": [
+        "https://www.zagazigshrine.org/"
+      ],
+      "link_pattern": "https://www\\.zagazigshrine\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Za-Ga-Zig Shrine",
+        "city": "Altoona",
+        "region": "IA",
+        "postal_code": "50009",
+        "lat": 41.66108,
+        "lon": -93.4859996,
+        "street_hint": "1000 Shriners Parkway"
+      },
+      "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "Gardendale - Martha Moore Public Library",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://gardendalelibrary.org/library-events/"
+      ],
+      "link_pattern": "https://gardendalelibrary\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gardendale - Martha Moore Public Library",
+        "city": "Gardendale",
+        "region": "AL",
+        "postal_code": "35071-4654",
+        "lat": 33.6503698,
+        "lon": -86.817737,
+        "street_hint": "995 Mount Olive Road"
+      },
+      "_metro": "Birmingham AL, United States"
     }
   ],
   "_not_included": {

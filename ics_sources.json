@@ -32116,5 +32116,130 @@
     "geocode_suffix": ", Christchurch",
     "limit": 300,
     "_metro": "Christchurch, New Zealand"
+  },
+  {
+    "name": "La Vista Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.cityoflavista.org/common/modules/iCalendar/iCalendar.aspx?catID=17&feed=calendar",
+    "geocode_suffix": ", NE",
+    "limit": 300,
+    "venue": {
+      "name": "La Vista Public Library",
+      "region": "NE",
+      "lat": 41.1771322,
+      "lon": -96.0542654,
+      "street_hint": "9110 Giles Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Omaha, United States"
+  },
+  {
+    "name": "Sump Memorial Library",
+    "category": "learning",
+    "_found": "osm:library -> libcal+civicplus",
+    "url": "https://www.papillion.org/common/modules/iCalendar/iCalendar.aspx?catID=34&feed=calendar",
+    "geocode_suffix": ", NE",
+    "limit": 300,
+    "venue": {
+      "name": "Sump Memorial Library",
+      "region": "NE",
+      "postal_code": "68046",
+      "lat": 41.1577174,
+      "lon": -96.0422528,
+      "street_hint": "222 North Jefferson Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Omaha, United States"
+  },
+  {
+    "name": "VFW Post 549",
+    "category": "community",
+    "_found": "osm:social_centre -> my-calendar+jsonld-event",
+    "url": "https://vfw549.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Tucson, United States",
+    "limit": 300,
+    "venue": {
+      "name": "VFW Post 549",
+      "lat": 32.2201842,
+      "lon": -110.8128117,
+      "aliases": [
+        "Veterans of Foreign Wars of the United States"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Tucson, United States",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "San Pedro Chapel",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sanpedrochapel.com_7qi2dqhm3a1cksqroph6r9sag8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tucson, United States",
+    "limit": 300,
+    "venue": {
+      "name": "San Pedro Chapel",
+      "lat": 32.2607248,
+      "lon": -110.8809024,
+      "pin_unnamed": false
+    },
+    "_metro": "Tucson, United States"
+  },
+  {
+    "name": "Tucson Indian Center",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3ut4d8q82c1pf792dbeipr497c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tucson, AZ",
+    "limit": 300,
+    "venue": {
+      "name": "Tucson Indian Center",
+      "city": "Tucson",
+      "region": "AZ",
+      "lat": 32.2241874,
+      "lon": -110.9712795,
+      "street_hint": "160 North Stone Avenue",
+      "pin_unnamed": false
+    },
+    "_metro": "Tucson, United States"
+  },
+  {
+    "name": "Liberty Lake Municiple Library",
+    "category": "learning",
+    "_found": "osm:library -> libcal+civicplus",
+    "url": "https://www.libertylakewa.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", Liberty Lake, WA",
+    "limit": 300,
+    "venue": {
+      "name": "Liberty Lake Municiple Library",
+      "city": "Liberty Lake",
+      "region": "WA",
+      "postal_code": "99019",
+      "lat": 47.6717931,
+      "lon": -117.0942897,
+      "street_hint": "23123 East Mission Avenue",
+      "pin_unnamed": false
+    },
+    "_metro": "Spokane, United States"
+  },
+  {
+    "name": "Lakeside Library",
+    "category": "learning",
+    "_found": "osm:library -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_c8db4dff42487282fea802aa7543afeffa28f7fb6b9120de7475b735ff41aedf%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nine Mile Falls, WA",
+    "limit": 300,
+    "venue": {
+      "name": "Lakeside Library",
+      "city": "Nine Mile Falls",
+      "region": "WA",
+      "postal_code": "99026",
+      "lat": 47.8107946,
+      "lon": -117.5627977,
+      "street_hint": "5919 WA 291",
+      "pin_unnamed": false
+    },
+    "_metro": "Spokane, United States"
   }
 ]

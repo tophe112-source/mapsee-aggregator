@@ -247,6 +247,13 @@
   "metro_key": "US:Albuquerque",
   "stuck": {}
  },
+ "osm|community_centre,library,social_centre": {
+  "metro": 236,
+  "metro_key": "US:Knoxville",
+  "stuck": {
+   "US:Knoxville": 1
+  }
+ },
  "socrata": {
   "art events": 0,
   "community events": 200,
