@@ -76,8 +76,10 @@
   beside bibliocommons chipublib, under other fingerprints. The census: 329 of
   1,373 true pairs (24%) are all-day copies (201) or one key drifted (128) on a
   chipublib link; every chipublib true pair, renames 18, one-source 8 and
-  re-timed 3 included, is 358 (26%). 246 of the 866 rows the collapser hides in
-  a replay of the census sit on chipublib links. Neither adapter, run that
+  re-timed 3 included, is 358 (26%). 246 of the 866 rows the first revision
+  hid in a replay of the census sat on chipublib links; 190 of 805 now, because
+  56 CPL copies whose two adapters' categories do not fit on one row stay
+  visible. Neither adapter, run that
   morning, produced the clockless 05:00Z copies (all records had a clock), so
   which writer makes them is not known; the timed row outranks them anyway.
   Parity, both adapters run that morning into
@@ -89,13 +91,22 @@
   only configured or recently dead keys, so a re-proposal is caught by that
   test, not prevented.
 
-- **TURN THE COLLAPSER ON 3+ DAYS AFTER THE OPEN-DATA FEED STOPS (2026-10-13).**
+- **TURN THE COLLAPSER ON 5+ DAYS AFTER THE OPEN-DATA FEED STOPS (2026-10-13).**
   Its survivor is the newest import, and the open-data copies are the newer
-  ones: in a replay of the census, 120 of 137 CPL same-page hides keep a row made
-  1.2-2.3 days (median 2.0) before its start and hide the BiblioCommons row made
-  weeks before (by key for "Mindful Yoga": a61187ae kept, 5f394f03 hidden). Once
-  vsdy-d8k7 is retired nothing updates or cancels that kept row, and the sync's
-  cancel filters hidden_at=is.null, so it would not even mark the hidden one.
-  Those kept rows last 8 h at most, so 3 days after the first daily run without
-  vsdy-d8k7 none is live and the collapser keeps the BiblioCommons row: set
-  DEDUPE_APPLY no sooner (the steps are in the collapser's notes and 0236).
+  ones: in a replay of the census, 131 of 137 CPL same-page hides keep a row made
+  1.18-3.24 days (median 1.99) before its start and hide the BiblioCommons row
+  made weeks before (by key for "Mindful Yoga": a61187ae, made 3.11 days ahead,
+  kept; 5f394f03 hidden). Once vsdy-d8k7 is retired nothing updates or cancels
+  that kept row, and the sync's cancel filters hidden_at=is.null, so it would
+  not even mark the hidden one. The kept rows last 8 h at most; the worst ends
+  81.2 h after it was made. The 11 made more than 3 days ahead (3.11-3.24) were
+  all read on Saturday 10-10, before a Sunday and the 10-12 holiday: the read is
+  one page of 200 records, so thin days stretch it, and 3 days (the first
+  version of this note, from a count cut at 3 days: "120 of 137, 1.2-2.3 days")
+  left 8 h of margin. Wait 5 days after the first daily run without vsdy-d8k7
+  (about 2 days of margin on runs that start as late as 16:05Z) and until 0236's
+  CPL check returns 0: live chipublib rows made before that run, less than 4
+  days before their start, at most 25 h long (1 of the 137 BiblioCommons rows
+  in the census was made under 4 days ahead, so a late addition can hold it up
+  a day; never the other way). The steps are in sync-eventstore-and-paging.md
+  and 0236.

@@ -337,8 +337,10 @@
   alone climbed 0.81, 0.45, 0.85, 1.52, 2.03 s over five pages on the anon key;
   with `starts_at.gte.X` beside the or(), 0.77, 0.45, 0.52, 0.48, 0.49, 1.01 s.
   One sample each, and the faster ran second over the same pages (a warm
-  cache can explain part of it); the job's own 29-page listing of 10-14 (28,759
-  rows, median 1.26 s, max 3.23 s) is the better evidence. `count=exact` hit
+  cache can explain part of it); the job's own listing of 10-14 (28,759 rows in
+  29 pages, median 1.09 s, max 1.95 s) is the better evidence. 1.26 s and 3.23 s,
+  quoted here before, were over all 35 list requests of that run, 6 of them
+  57014s at 3.13-3.23 s on the started days. `count=exact` hit
   57014 at 3.2-3.6 s on three of four days. The collapser's cursor is
   `and=(starts_at.gte.S,or(starts_at.gt.S,id.gt.I),starts_at.lt.H)` and it never
   sends offset= or count=; `test_dedupe_events.py` pins both.
@@ -347,7 +349,7 @@
   ON (2026-10-13).** Live rows (`ends_at >= now`) by a `starts_at` range cost the
   rows the range scans. Anon key, 3 s ceiling: today and yesterday as whole days
   hit 57014 on page 1, as did five of six 3-hour slices of today, while
-  tomorrow (all upcoming) listed 28,759 rows in 29 pages (median 1.26 s). So
+  tomorrow (all upcoming) listed 28,759 rows in 29 pages (median 1.09 s). So
   `list_window` splits a day at now: the started part goes in 6-hour slices
   that HALVE on a timeout down to 15 minutes (re-asking the same range only
   repeats the scan), the rest is the plain keyset. Run that way, today listed
@@ -444,22 +446,30 @@
   with another start, and two bars 78 m apart both running "Trivia Night" from
   two publishers (a place-name test there would refuse 9 census true pairs:
   "Garcias" / "Garcia's Chicago"). Read 50 pairs per rule from the first nightly
-  dedupe-report before DEDUPE_APPLY goes on.
+  dedupe-report before DEDUPE_APPLY goes on. The third version (below: add-ons,
+  clockless classes, undated wrong-site links, the categories union): labelled
+  pairs 991 true and 0 not; the replay 805 hidden (same-slot 417, same-page
+  275, all-day copy 113), 973 of 1,373 true pairs, redundancy 369 (1.45%;
+  Chicago 81, 2.5%), because 58 copies whose categories do not fit stay
+  visible, 56 of them CPL's two adapters; without that rule 863, 1,037 and 311.
 
 - **"NEWEST WINS" MEANS "THE KEY THE SOURCE STILL EMITS", WHILE ITS SOURCE IS
   STILL CONFIGURED (2026-10-13).** For a rename it does: 1 of 1 rename page
-  checked (Discover SLU) shows the newer title, and 7 of 7 re-dated or re-timed
-  Meetup pages show only the newer value. For an all-day copy both keys are
+  checked (Discover SLU) shows the newer title, and 6 of 7 re-dated or re-timed
+  Meetup pages show the newer row's value (Randonnée 316422086's says 10-11,
+  neither row's: 10-18 newer, 10-24 older). For an all-day copy both keys are
   still emitted, by two adapters, and in 193 of 219 the clockless row is the
   newer one, so newest-wins would keep the row without a time 88% of the time.
-  It fails when the newer row's source is retired: 120 of 137 Chicago Public
-  Library same-page hides in the replay keep the row made at most 3 days before
-  its start (the open-data shape this branch retires), and once that feed is
-  gone nothing updates or cancels the kept row (libraries-bibliocommons.md says
-  when to switch on). The order now: claimed, people on it (RSVP, chat,
-  promotion), a row with a clock, a row whose link is its own page, the whole
-  event over '<a part> <sep> <it>' on another page at the slot, newest import;
-  on an exact creation tie not a 'Copy of', then the fewer title words, then id.
+  It fails when the newer row's source is retired: 131 of 137 Chicago Public
+  Library same-page hides in the replay keep a newer row made 1.18-3.24 days
+  (median 1.99) before its start, the open-data shape this branch retires, and
+  once that feed is gone nothing updates or cancels the kept row
+  (libraries-bibliocommons.md says when to switch on). The order now: claimed,
+  people on it (RSVP, chat, promotion), a row with a clock, a row whose link is
+  its own page (no other date), the whole event over '<a part> <sep> <it>' or
+  '<it> <a package>' on another page at the slot and over a row whose undated
+  link names another event, newest import; on an exact creation tie not a 'Copy
+  of', then the fewer title words, then id.
 
 - **WHO SURVIVES: THE VENUE'S OWN LINK, THE WHOLE EVENT (2026-10-13).** Of the
   build's 1,069 production hides, 24 kept a newer row whose "Tickets / info"
@@ -473,3 +483,86 @@
   of an exact tie. The report lists every row whose link names another date
   (`link_names_another_date`): that is an adapter's bug to find, not the
   collapser's to fix.
+
+- **THE SECOND SAFETY READ: ADD-ONS, CLOCKLESS CLASSES, UNDATED WRONG-SITE LINKS
+  (2026-10-13).** A report run of the revised rules over a day nobody had seen
+  (2026-10-15, anon, 558 planned hides, all re-read by id and read by hand)
+  found 13 wrong (2.3%): 3 distinct events hidden ('Hazlett' behind 'The
+  Pre-Show Speakeasy with Hazlett - NOT A SHOW TICKET'; 'Recreation: Zumba
+  Toning' behind 'Recreation: Zumba', two 24 h rows made 0 s apart; a France
+  Travail workshop behind another agency's webinar on one pin) and 10 wrong
+  survivors (9 rows whose undated link is another site's event; the Spurs game
+  behind its 'Courtside Experience'). Now: NOT_AN_EVENT takes 'not a <1-2
+  words> ticket'; '<event> <package word>' (courtside, VIP, access, experience,
+  post-game ...) ranks with the parts; two clockless day rows made in one read
+  under two titles are two; a link whose last slug spells 2+ words, none in the
+  row's title or place, ranks below a neighbour whose own link names it; the
+  booking-platform test looks at both links (match(a, b) was not match(b, a));
+  'Entfällt', 'Fällt aus', 'verschoben' are cancel marks; across publishers a
+  1-2 word title beside one that adds an audience word ('Yoga' / 'Yoga for
+  Seniors') is two; an all-day row and '<its title>: <part>' are two; a
+  listing link with a date in its query or a month token ('october2026') names
+  no event. Cost on the census's labelled pairs: 994 -> 991 true (Bona Peiser's
+  two clockless courses, Lenny Pearce's 'Toddler Rave'), 0 not-true. That day
+  re-planned cluster by cluster: 541 unchanged, 8 keep the other row, 2 behind
+  another row, 3 no longer matched, 4 left visible (categories); 4 of 553
+  still wrong (the France Travail pair; 'Weekly Specials', 'Potters Wheel
+  Taster' and 'AA Rush Hour' keep a wrong-site row, whose slug shares a word
+  with the title or has only one: counting a single word fixed 'AA Rush Hour'
+  but flipped 3 Ticketmaster rows whose ids read as words). The build's 1,069: 1,054 as the revision
+  decided, 13 other survivors, 1 more no longer hidden. Pinned as KNOWN in
+  test_dedupe_events.py, each with what refusing it costs: the France Travail
+  pair, Thekla/Mockau made days apart (3 census true pairs), two operators'
+  centres 70 m apart (1 + 1), no-link 'Storytime' 111 m apart (5 production
+  hides), and an RSVP that lands between a batch's re-read and its PATCH
+  (events has no column that says 'has an RSVP'; the re-read is now per batch
+  of 100 copies, so the window is one batch, not the day). The RSVP read is a
+  keyset on event_id: a server that ignored offset= kept it going 28 reads.
+
+- **A HIDE TOOK THE EVENT OFF THE COPY'S DOORS: THE KEPT ROW CARRIES ITS COPIES'
+  CATEGORIES (2026-10-13).** A door and its category chips match `category =
+  any(keys) OR categories && keys`. On the 2026-10-15 plan (categories re-read
+  for all 1,093 rows, 11 anon GETs), 127 copies carried a category the kept row
+  lacked and 93 lost a whole door (plansie 31, unsie 26, bar 21, vivosie 20;
+  theater lost Broadway shows kept as Ticketmaster 'other' rows). One function
+  (`merged_categories` in mapsee_supabase_sync) is applied in three places:
+  the collapser PATCHes the kept row's categories before hiding (only if the
+  row still holds what was read, unclaimed and visible); the sync merges the
+  copies' categories into every stored kept row it writes
+  (`merge_copy_categories`: the row's id rides the state read, the copies are
+  one keyset in duplicate_of order, which 0236's partial index serves; its plan
+  is unmeasured until 0236 is applied), BEFORE skip-unchanged, so a refresh
+  neither drops the union nor rewrites the row every day; and each collapser
+  run starts with `kept_rows_pass`, which gives a kept row that lost it the
+  union back and un-hides a copy that no longer fits. The window the sync
+  merge closes, measured on 8 runs of aggregate-events (67 sync steps): a sync
+  step finished a median 4.8 h, at most 5.9 h, before the dedupe job could
+  start, and the exact-detail adapters (Meetup, JSON-LD, Tribe, OpenActive, ICS
+  organizers) rewrite their stored rows daily, every adapter on Wednesday; the
+  17:23 festival sync would wait for the next run. A product projection
+  (events_map_src) was not needed. 0108 allows 2 secondaries: the row's own
+  stay, copies' primaries fill first; a copy that does not fit stays visible
+  (4 of 557 copies on 10-15; 58 of 863 in the census replay, 56 of them CPL's
+  two adapters). Re-planned, 0 of 553 hides lose a door or a category, and of
+  the re-review's 122 (primary differs, a category lost) 118 stay hidden with
+  every door, 2 are no longer hidden ('Hazlett'; the Spurs game, now kept) and
+  2 stay visible for want of room. A claimed kept row is never written; its
+  copies that need it stay visible. mapsee_reclassify.py rewrites categories
+  without the merge: the next collapser run restores it.
+
+- **TURNING THE COLLAPSER ON: A SWITCH WITH THREE POSITIONS AND SIX STEPS
+  (2026-10-13).** One switch ('true') used to arm both the bounded first write
+  and the 9 scheduled runs a week (21 days ahead, 60 back). DEDUPE_APPLY is now
+  unset (report), 'bounded' (the nightly job reports and runs `--apply --days 0
+  --lookback 0`, which only keeps what was hidden; dedupe-events.yml may apply
+  at most 7 days each way) or 'true' (the nightly job hides).
+  test_workflow_contracts.py runs both workflows' shell for each value. The
+  steps (also in ../mapsee 0236's ORDER): 1. land this branch (CPL's open-data
+  feed goes with it); 2. read the first nightly report, 50 pairs per rule, at
+  most 1 wrong in 50; 3. apply 0236 and VERIFY; 4. dispatch mode report: it
+  prints "duplicate_of present" and "Hidden copies: 0"; 5. no sooner than 5 days
+  after the first daily run without vsdy-d8k7, and once 0236's CPL check returns
+  0, set 'bounded' and dispatch apply with days 3, lookback 3, then open 20 kept
+  rows' /e/ pages (copy gone from the place sheet, kept row on each door the
+  copy was on); 6. set 'true'. Undo a run with unhide-report then unhide and its
+  stamp; unsetting the variable stops new hides only.

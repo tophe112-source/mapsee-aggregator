@@ -292,3 +292,8 @@
   put a copy back beside its survivor: test_ingest_parkrun.py,
   test_cancellations.py and test_retire_thin_artwork.py pin it.
   `--unhide --stamp S` reverses exactly one run, and reports unless `--apply`.
+  The one other writer that clears it is the collapser itself: a copy whose
+  categories no longer fit on its kept row (0108: two secondaries; or the kept
+  row was claimed) is un-hidden by the next run's `kept_rows_pass`, filtered on
+  `duplicate_of=eq.<kept row>` and `cancelled_at=is.null`, because it is then
+  the only row that keeps the event in that door.
