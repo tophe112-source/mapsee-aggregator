@@ -65,6 +65,11 @@ new = row("36d74bf7", "Halloween Pet Portraits Fundraiser", "2026-10-13T18:00:00
           47.620131471803, -122.339691742701, "2026-09-29T13:53:51+00:00", slu)
 check("canonical link drops scheme, www and trailing slash",
       D.canonical_link("x\nTickets / info: https://www.discoverslu.com/events/halloween-pet-portraits-3-2/") == slu)
+# urlparse raises ValueError on a malformed host; one such row must read as "no
+# link", not abort the nightly run or a sync step (verify3, 2026-10-13).
+check("a malformed link is no link, never an exception",
+      all(D.canonical_link(f"Tickets / info: {u}") is None
+          for u in ("https://[object Object]", "https://foo]/x", "https://exa\uff0fmple.com/a")))
 edges, p = decide([old, new])
 check("same-page", edges == {("5ec4afa8", "36d74bf7"): "same-page"})
 check("keeps the newest import (the source's current title)", p[0]["survivor"] == "36d74bf7")

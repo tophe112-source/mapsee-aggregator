@@ -124,7 +124,8 @@ Library links, every one beside or behind a row of the open-data feed this
 branch retires (50 BiblioCommons rows beside an open-data kept row); without
 that rule 862, 1,036 and 312. Replayed without the 238 open-data-shaped CPL
 rows (the state once the feed is gone): 629 hidden, 308 redundant (1.23%;
-Chicago 19, 0.6%), 2 left for want of room, 0 doors lost. Labelled pairs: 990
+Chicago 19, 0.6%), 2 left for want of room, 0 doors lost but a wrong-site
+copy's own. Labelled pairs: 990
 true, 0 not.
 
 HISTORY — what this file was for before, kept because the reasons still hold.

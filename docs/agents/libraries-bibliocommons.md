@@ -108,7 +108,8 @@
   left 8 h of margin. Wait 5 days after the first daily run without vsdy-d8k7
   (about 2 days of margin on runs that start as late as 16:05Z) and until 0236's
   CPL check returns 0: live chipublib rows the open-data adapter wrote, told
-  apart by their pin colour (color_hex '#0891b2', city open data; BiblioCommons
+  apart by their pin colour (color_hex '#0891b2', city open data, or '#e11d48'
+  when to_row files one under volunteer, 0 of 553 in the census; BiblioCommons
   rows are '#7c3aed'): in the census 237 of the 238 chipublib rows made under 4
   days ahead are teal and 0 of the 315 made 4+ days ahead. The check used to
   ask for the shape instead (made under 4 days ahead, at most 25 h), which

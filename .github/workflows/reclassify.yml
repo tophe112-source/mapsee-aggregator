@@ -63,6 +63,11 @@ jobs:
             ${{ github.event.inputs.only && format('--only {0}', github.event.inputs.only) || '' }} \
             --days ${{ github.event.inputs.days }}
 
+      # --apply refuses (exit 2, nothing written) when the read of the copies
+      # the collapser hid behind kept rows fails: writing without them would
+      # drop the kept rows' merged categories. A transient read failure needs
+      # a re-run, not a fix. (A missing duplicate_of column, before ../mapsee
+      # 0236, is not a failure: there are no copies yet.)
       - name: Apply the named transitions
         if: ${{ github.event.inputs.allow != '' }}
         run: |

@@ -1129,8 +1129,14 @@ def canonical_link(description: Optional[str]) -> Optional[str]:
     m = LINK_RX.search(description or "")
     if not m:
         return None
-    u = urllib.parse.urlparse(m.group(1).rstrip(".,)"))
-    host = u.netloc.lower()
+    # urlparse RAISES on a malformed host ('https://[object Object]', a stray ']',
+    # a fullwidth '/' or ':' that NFKC folds into one). One such row must not
+    # abort a sync step or the nightly collapser: it is a row with no link.
+    try:
+        u = urllib.parse.urlparse(m.group(1).rstrip(".,)"))
+        host = u.netloc.lower()
+    except ValueError:
+        return None
     host = host[4:] if host.startswith("www.") else host
     if not host:
         return None

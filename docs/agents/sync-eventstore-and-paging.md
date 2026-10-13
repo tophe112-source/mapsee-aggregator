@@ -460,7 +460,8 @@
   other way round); without that rule 862, 1,036 and 312 (1.23%). Replayed
   without the 238 open-data-shaped CPL rows, the state once the feed is gone:
   629 hidden, 308 redundant (1.23% of 25,131; Chicago 19, 0.6%), 699 of the
-  1,032 true pairs that remain, 2 copies left for want of room, 0 doors lost.
+  1,032 true pairs that remain, 2 copies left for want of room, 0 doors lost
+  other than a wrong-site copy's own (3 kept rows lose wegosie).
 
 - **"NEWEST WINS" MEANS "THE KEY THE SOURCE STILL EMITS", WHILE ITS SOURCE IS
   STILL CONFIGURED (2026-10-13).** For a rename it does: 1 of 1 rename page
@@ -552,8 +553,9 @@
   (events_map_src) was not needed. 0108 allows 2 secondaries: the row's own
   stay, copies' primaries fill first; a copy that does not fit stays visible
   (4 of 557 copies on 10-15; 58 of 862 in the census replay, 56 of them on
-  chipublib links beside or behind an open-data row). Re-planned, 0 of 553
-  hides lose a door or a category, and of
+  chipublib links beside or behind an open-data row). Re-planned at that
+  revision, 0 of 553 hides lost a door or a category (at HEAD, 2 lose a door
+  and 7 a category on 10-15, all wrong-site copies' own, by design), and of
   the re-review's 122 (primary differs, a category lost) 118 stay hidden with
   every door, 2 are no longer hidden ('Hazlett'; the Spurs game, now kept) and
   2 stay visible for want of room. A claimed kept row is never written; its
