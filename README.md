@@ -94,7 +94,8 @@ filed twice (a source that renamed it, two adapters reading one library, two
 ticket sites listing one show) and **hides** the copy, recording which row it
 copied (`duplicate_of`); it never deletes. It keeps a claimed row first, then
 one people are going to, then a row with a start time over an all-day copy, then
-the newest import. It runs nightly after every sync, reports only until the
+a row whose link is its own page, then the whole event over a part of it, then
+the newest import. It runs after every scheduled sync, reports only until the
 repository variable `DEDUPE_APPLY` is `true`, and one run can be reversed with
 `--unhide --stamp`.
 

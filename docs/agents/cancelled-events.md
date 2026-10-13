@@ -275,9 +275,15 @@
 
 - **A COLLAPSER HIDE SAYS WHAT IT COPIED, AND NOTHING ELSE LIFTS IT (2026-10-13).**
   `mapsee_dedupe_events.py` sets `hidden_at` and `duplicate_of` (the survivor's
-  id, ../mapsee 0236) in one PATCH filtered on `claimed_at=is.null` and
-  `hidden_at=is.null`; never `cancelled_at`, never DELETE (a delete cascades
-  RSVPs and chat, and the next sync's existence read would re-insert the key).
+  id, ../mapsee 0236) in one PATCH filtered on `claimed_at=is.null`,
+  `hidden_at=is.null`, `last_message_at=is.null` and no unexpired promotion (a
+  claim, a first message or a paid promotion landing between the listing and
+  the write keeps the copy; it re-reads RSVPs itself); never `cancelled_at`,
+  never DELETE (a delete cascades RSVPs and chat, and the next sync's existence
+  read would re-insert the key). A row titled "Canceled:" or "Postponed:" is
+  never hidden behind one that is not: it is left for a person (1 of the
+  build's 1,069 production hides, "Postponed: Know Your Rights"; unengaged, the
+  newer "Canceled:" row is the one kept, as for Pratt's "Preschool Storytime").
   The sync's equal-stamp lift never matches it, `fetch_import_state` still
   counts the row so `--only-new` never re-inserts it, and `to_row` writes
   neither column. The four retire scripts' `--unhide` now ask for

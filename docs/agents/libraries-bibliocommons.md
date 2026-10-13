@@ -70,12 +70,17 @@
   (2,202 total); the stored start dates run 2026-09-25 through 2026-12-24.
   This is event yield, not a count of calendar URLs or portal facets.
 
-- **CHICAGO PUBLIC LIBRARY WAS IMPORTED TWICE: 26% OF ALL DUPLICATE PAIRS
-  (2026-10-13).** opendata_sources.json's "Chicago Library Events" (Socrata
-  vsdy-d8k7, keyed on event_page) wrote CPL's calendar again beside
-  bibliocommons chipublib, under other fingerprints. The census: 358 of 1,373
-  true pairs (all-day copies 201, same key drifted 128, renames 18), 343 of the
-  854 rows the collapser would hide. Parity, both adapters run that morning into
+- **CHICAGO PUBLIC LIBRARY WAS IMPORTED TWICE: 329 OF 1,373 TRUE PAIRS ARE TWO
+  KEYS ON ONE CPL PAGE (2026-10-13).** opendata_sources.json's "Chicago Library
+  Events" (Socrata vsdy-d8k7, keyed on event_page) wrote CPL's calendar again
+  beside bibliocommons chipublib, under other fingerprints. The census: 329 of
+  1,373 true pairs (24%) are all-day copies (201) or one key drifted (128) on a
+  chipublib link; every chipublib true pair, renames 18, one-source 8 and
+  re-timed 3 included, is 358 (26%). 246 of the 866 rows the collapser hides in
+  a replay of the census sit on chipublib links. Neither adapter, run that
+  morning, produced the clockless 05:00Z copies (all records had a clock), so
+  which writer makes them is not known; the timed row outranks them anyway.
+  Parity, both adapters run that morning into
   scratch stores: the open-data read returned 188 records (one page of 200,
   about two days ahead); 187 were in the BiblioCommons store by event id
   (99.5%), 186 at the same start, 0 with the same fingerprint. Retired;
@@ -83,3 +88,14 @@
   configured. The curation ledger still lists it as `ok`, and discovery skips
   only configured or recently dead keys, so a re-proposal is caught by that
   test, not prevented.
+
+- **TURN THE COLLAPSER ON 3+ DAYS AFTER THE OPEN-DATA FEED STOPS (2026-10-13).**
+  Its survivor is the newest import, and the open-data copies are the newer
+  ones: in a replay of the census, 120 of 137 CPL same-page hides keep a row made
+  1.2-2.3 days (median 2.0) before its start and hide the BiblioCommons row made
+  weeks before (by key for "Mindful Yoga": a61187ae kept, 5f394f03 hidden). Once
+  vsdy-d8k7 is retired nothing updates or cancels that kept row, and the sync's
+  cancel filters hidden_at=is.null, so it would not even mark the hidden one.
+  Those kept rows last 8 h at most, so 3 days after the first daily run without
+  vsdy-d8k7 none is live and the collapser keeps the BiblioCommons row: set
+  DEDUPE_APPLY no sooner (the steps are in the collapser's notes and 0236).

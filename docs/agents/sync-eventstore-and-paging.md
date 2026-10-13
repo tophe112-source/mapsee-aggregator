@@ -318,14 +318,16 @@
   accepts the nested form (anon GET, 200; Polish Home's standing row falls
   outside it). `python test_cleanup.py` (2 checks fail with the guard removed).
 
-- **THE COLLAPSER HID NOTHING FOR WEEKS WHILE ITS STEP SHOWED GREEN (2026-10-13).**
+- **THE COLLAPSER FAILED FOR WEEKS WHILE ITS STEP SHOWED GREEN (2026-10-13).**
   `mapsee_dedupe_events.py` listed every imported row with no `starts_at` floor
   (about 1.49M planned rows; it was sized for 193k) and its --max-seconds bounded
-  only the deletes. The step ran 12m12s, its timeout, on most runs 09-22..10-07,
-  and annotated exit 1 on all 25 runs 09-19..10-12 (ci-and-jobs.md). A census of
-  25,369 live imported rows in 11 metros then found 1,153 redundant rows (4.5%;
-  Chicago 11.1%), among them the owner's report: "Halloween Pet Portraits" and
-  "... Fundraiser" at 9th & Thomas, one Discover SLU page renamed, so two
+  only the deletes. The step ran 12m12s, its timeout, on most runs 09-22..10-07
+  and 4-5 minutes from 10-08, and annotated exit 1 on all 25 runs 09-19..10-12
+  (ci-and-jobs.md); its log was never read (gh refuses the blob redirect), so
+  why it failed from 10-08 is inferred, not seen. A census of 25,369 live
+  imported rows in 11 metros then found 1,153 redundant rows (4.5%; Chicago
+  11.1%), among them the owner's report: "Halloween Pet Portraits" and "...
+  Fundraiser" at 9th & Thomas, one Discover SLU page renamed, so two
   fingerprints. It now lists one UTC day of live rows at a time under a budget
   that covers the listing, the reads and the writes, and it hides rather than
   deletes (cancelled-events.md). `python test_dedupe_events.py`.
@@ -334,9 +336,12 @@
   Paging one day of live rows by `or(starts_at.gt.X,and(starts_at.eq.X,id.gt.Y))`
   alone climbed 0.81, 0.45, 0.85, 1.52, 2.03 s over five pages on the anon key;
   with `starts_at.gte.X` beside the or(), 0.77, 0.45, 0.52, 0.48, 0.49, 1.01 s.
-  `count=exact` hit 57014 at 3.2-3.6 s on three of four days. The collapser's
-  cursor is `and=(starts_at.gte.S,or(starts_at.gt.S,id.gt.I),starts_at.lt.H)`
-  and it never sends offset= or count=; `test_dedupe_events.py` pins both.
+  One sample each, and the faster ran second over the same pages (a warm
+  cache can explain part of it); the job's own 29-page listing of 10-14 (28,759
+  rows, median 1.26 s, max 3.23 s) is the better evidence. `count=exact` hit
+  57014 at 3.2-3.6 s on three of four days. The collapser's cursor is
+  `and=(starts_at.gte.S,or(starts_at.gt.S,id.gt.I),starts_at.lt.H)` and it never
+  sends offset= or count=; `test_dedupe_events.py` pins both.
 
 - **A DAY THAT HAS STARTED SCANS EVERY ROW THAT STARTED, TO RETURN THE FEW STILL
   ON (2026-10-13).** Live rows (`ends_at >= now`) by a `starts_at` range cost the
@@ -345,14 +350,15 @@
   tomorrow (all upcoming) listed 28,759 rows in 29 pages (median 1.26 s). So
   `list_window` splits a day at now: the started part goes in 6-hour slices
   that HALVE on a timeout down to 15 minutes (re-asking the same range only
-  repeats the scan), the rest is the plain keyset. Run that way today listed
-  13,324 rows in 70 pages with 16 timeouts, and four quarter-hours still failed
-  (04:00, 05:00, 07:00, 15:00Z: thousands of rows on one instant, which no
-  slice splits). A failed part is reported, exits 1, and the rest of the day is
-  used: a row missing from a window can only lose a match. The service role
+  repeats the scan), the rest is the plain keyset. Run that way, today listed
+  13,324 rows in 70 pages with 9 statement timeouts (the run had 16: the other
+  7 were yesterday's 28 requests for 111 rows), and four quarter-hours still
+  failed (04:00, 05:00, 07:00, 15:00Z: thousands of rows on one instant, which
+  no slice splits). A failed part is reported, exits 1, and the rest of the day
+  is used: a row missing from a window can only lose a match. The service role
   (8 s, no RLS) is not measured. Older running days go LAST: 3 of the census's
-  854 hides involve a row started 2+ days before (Chicago Park District season
-  programmes, 21-29 days back).
+  854 reference hides involve a row started 2+ days before (Chicago Park
+  District season programmes, 21-29 days back).
 
 - **ONE EVENT, TWO CATEGORIES (2026-10-13).** 305 of 1,012 matched pairs carry
   two different categories: all-day copies 127, same key drifted 54, one source
@@ -376,25 +382,94 @@
   page to be created at least 12 h apart left 0 false positives in the census
   and gave up 18 true pairs.
 
-- **THE COLLAPSER'S RULE, MEASURED (2026-10-13).** Over the census's 15,632
-  labelled candidate pairs: 1,005 matched, 1,000 true, 5 on a link the census
-  called a listing page, 0 of 11,871 timetable sessions, 0 of 161 chain
-  branches; 854 rows hidden, 74% of the 1,153 redundant (Chicago 343 of 364).
-  Left out on purpose: re-timed (24) and re-dated (18) copies, cross-posts whose
-  titles name different things (269), standing rows (154 + 17), 6 cross-source
-  pairs with another start. The job's own pipeline over the same rows (day
-  windows, the candidate grid, the carry) hides those 854 and 22 pairs the
-  census never labelled: 17 sat 75-150 m apart, outside its candidates; 5 are on
-  a leisure-centre or calendar page whose third title had not been read yet
-  (generic-link detection counts only the rows read this run). Production, anon
-  key, report only: 736 to hide in 28,759 rows of 2026-10-14 (2.6%: same-page
-  281, same-slot 372, all-day copy 83) and 333 in 13,435 live rows of 10-12/13,
-  the reported pair among them (hide 5ec4afa8, keep 36d74bf7). Read 50 pairs per
-  rule from the first nightly dedupe-report before DEDUPE_APPLY goes on.
+- **ONE PUBLISHER'S TWO PLACES ON ONE PIN ARE TWO EVENTS, AND A BOOKING
+  PLATFORM'S TWO PAGES AT ONE SLOT ARE TWO SESSIONS (2026-10-13).** fiz-leipzig,
+  bona-peiser and a YMCA (operations.daxko.com) geocode several sites to one
+  coordinate: 7 of the 1,069 hides the build planned on production (10-12..14)
+  were one programme at two centres, 0.0 m apart, made in one read. Now one
+  publisher (not a multi-tenant host: Meetup, OpenAgenda, Eventbrite, Facebook,
+  Luma), made under 12 h apart, with place names that each carry a word the
+  other lacks, is two venues; room words do not count ("The Yard at Chicago
+  Shakespeare" is "Chicago Shakespeare Theater": 5 census c1 pairs). On a
+  booking platform (Everyone Active, Better, ActiveCommunities, PerfectMind,
+  Daxko, Places Leisure, SFPL) two pages at one slot never match: 55 of the
+  1,069 were such pairs, 52 Everyone Active ("Public Swimming Tue 19:00"
+  ...AM190096 / ...AT190096), unverified at the source but distinct by code.
+  The census labels "one domain, equal title, same start" true by rule (c1 has
+  no booking exclusion; c1? did), so its "0 of 11,871 sessions" was partly
+  circular: 4 c1 pairs are given up, 3 Everyone Active pools and McFetridge's
+  session beside its season.
 
-- **"NEWEST WINS" MEANS "THE KEY THE SOURCE STILL EMITS" (2026-10-13).** For a
-  rename it does: 8 of 8 source pages checked show the newer title or time. For
-  an all-day copy both keys are still emitted, by two adapters, and in 193 of 219
-  the clockless row is the newer one, so newest-wins would keep the row without
-  a time 88% of the time. The survivor order is claimed, people on it (RSVP,
-  chat, promotion), a row with a clock, newest import, id.
+- **A LONG EVENT AND A SHORT ONE THAT START TOGETHER ARE TWO (2026-10-13).**
+  1,098 of 1,100 census true same-start pairs end under 6 h apart, 0 at 6-48 h.
+  The build hid a 59-day exhibition behind a 2 h row of it, a 33-day one behind
+  its vernissage, a 49 h run behind its first 1.2 h show, and a 25 h pop-up
+  behind its 1 h slot: their ends are exactly 24 h apart, so "more than 24 h"
+  (the review prototype) missed it. END_GAP_H is 12: 26 of the 1,069 planned
+  hides refused (12 OpenAgenda / Ticketmaster.fr runs, 12 Places Leisure day
+  rows, the pop-up, 1 Everyone Active). On the census, 2 true-labelled
+  same-start pairs end 48 h+ apart; the one the build matched (McFetridge's
+  session beside its season, c1 by rule) is refused, and 12 rather than 24
+  costs nothing there.
+
+- **A LINK THAT NAMES NO EVENT IS A LISTING PAGE, HOWEVER FEW TITLES THE RUN HAS
+  SEEN ON IT (2026-10-13).** The title count per link grows only from rows read
+  so far: in a replay of the census 9 hides sat on links where it had seen 2
+  titles or fewer and the census 3 to 65 (placesleisure.org/centres/latchmere
+  12, grownyc.org/greenmarket 65). `names_an_event` now asks the link itself:
+  an id in its last segment (5+ digits, 12+ hex, Luma's "zzaa4x39", /m/4480) or
+  one or two up (/evento/1285675556092/comunicacion), 3+ digits in the query,
+  or a title word in the last two segments, and never a page under /centres/,
+  /branch/, /facilities/. 0 census true pairs lost; 20 of the 1,069 refused (16
+  Places Leisure centre pages). A day row and a timed row made in one read on
+  one page must carry one title (GrowNYC's page for every Greenmarket; a
+  festival and its parade): CPL's 45 such copies do, 1 does not ("Adult Basic
+  Computer Skills Help").
+
+- **THE COLLAPSER'S RULE, MEASURED (2026-10-13, revised after two reviews).**
+  Over the census's 15,632 labelled candidate pairs, with each link's titles
+  counted census-wide: the build matched 999 true and 0 labelled not-a-duplicate,
+  the revision 994 and 0 (the 5 given up are in the notes above). Through the
+  job's own main() over the census rows (replay, now = 10-13T15:00Z): 866
+  hidden (same-slot 422, same-page 325, all-day copy 119), 1,040 of 1,373 true
+  pairs resolved (75.7%), redundancy 1,153 -> 308 rows (4.5% -> 1.21%;
+  Chicago 0.8%); 4 hides on links the census labelled listing pages (One Story
+  Time x2, which the census read as a rename; Select Budget Committee x2,
+  ambiguous) and 17 on pairs it never labelled (the coverage review re-read
+  them with production links). The build: 875, 1,045, 304, 9 and 17. Its
+  1,069 production report hides (anon key, report only), re-decided: 914
+  unchanged, 107 no longer hidden, 47 keep the other row, 1 left for a person.
+  Left out on purpose: re-timed (24) and re-dated (18) copies, cross-posts whose
+  titles name different things, standing rows (154 + 17), 6 cross-source pairs
+  with another start, and two bars 78 m apart both running "Trivia Night" from
+  two publishers (a place-name test there would refuse 9 census true pairs:
+  "Garcias" / "Garcia's Chicago"). Read 50 pairs per rule from the first nightly
+  dedupe-report before DEDUPE_APPLY goes on.
+
+- **"NEWEST WINS" MEANS "THE KEY THE SOURCE STILL EMITS", WHILE ITS SOURCE IS
+  STILL CONFIGURED (2026-10-13).** For a rename it does: 1 of 1 rename page
+  checked (Discover SLU) shows the newer title, and 7 of 7 re-dated or re-timed
+  Meetup pages show only the newer value. For an all-day copy both keys are
+  still emitted, by two adapters, and in 193 of 219 the clockless row is the
+  newer one, so newest-wins would keep the row without a time 88% of the time.
+  It fails when the newer row's source is retired: 120 of 137 Chicago Public
+  Library same-page hides in the replay keep the row made at most 3 days before
+  its start (the open-data shape this branch retires), and once that feed is
+  gone nothing updates or cancels the kept row (libraries-bibliocommons.md says
+  when to switch on). The order now: claimed, people on it (RSVP, chat,
+  promotion), a row with a clock, a row whose link is its own page, the whole
+  event over '<a part> <sep> <it>' on another page at the slot, newest import;
+  on an exact creation tie not a 'Copy of', then the fewer title words, then id.
+
+- **WHO SURVIVES: THE VENUE'S OWN LINK, THE WHOLE EVENT (2026-10-13).** Of the
+  build's 1,069 production hides, 24 kept a newer row whose "Tickets / info"
+  named another site's event on another date (a yacht club's "Musical Bingo"
+  linking a Minnesota council meeting on 12-22) and hid the venue's own; a
+  booth two months newer hid "Children's Carnival"; ties inside one read went to
+  the id, keeping "Nourish Moves at the Market Square Farmers Market" over the
+  market and a club-seating upsell over the concert. Re-decided: 24 keep the
+  venue's row (`link_ok`), 12 the whole event (`part_of`, same-slot edges only:
+  on one page the newer title is the one the source emits), 11 the shorter title
+  of an exact tie. The report lists every row whose link names another date
+  (`link_names_another_date`): that is an adapter's bug to find, not the
+  collapser's to fix.

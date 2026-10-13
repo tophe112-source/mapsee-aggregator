@@ -372,5 +372,8 @@
   continue-on-error, gets 25 minutes for `--max-seconds 1200`, shares one
   concurrency group with the manual dedupe-events.yml, runs its own tests first,
   and reports until the repository variable DEDUPE_APPLY is 'true'. indexnow
-  needs it, so nothing it hides is announced. `test_workflow_contracts.py` pins
-  all of it.
+  needs it, so nothing it hides is announced. It runs after BOTH schedules and
+  an extra_only dispatch: the Mon/Thu run syncs SeatGeek and Eventbrite, and
+  247 of the 866 hides in a replay of the census involve a SeatGeek row (on the
+  daily schedule alone they waited a day). The 17:23 UTC festival sync waits
+  for the next 06:17 run. `test_workflow_contracts.py` pins all of it.
