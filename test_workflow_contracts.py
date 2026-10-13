@@ -1,6 +1,10 @@
 """Offline contracts for the automation that can otherwise fail hours later."""
 from pathlib import Path
+import os
 import re
+import shutil
+import subprocess
+import tempfile
 import unittest
 import yaml
 from workflow_report import report
@@ -222,7 +226,6 @@ class WorkflowContracts(unittest.TestCase):
         self.assertNotIn('extra_only', job['if'])
         self.assertEqual(set(job['needs']), set(workflow['jobs']['indexnow']['needs']) - {'dedupe'})
         run = next(s['run'] for s in job['steps'] if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
-        self.assertIn('if [ "$DEDUPE_APPLY" = "true" ]; then', run)
         self.assertIn('set -o pipefail', run)
         seconds = int(re.search(r'--max-seconds (\d+)', run).group(1))
         self.assertLess(seconds / 60 + 3, job['timeout-minutes'])
@@ -233,9 +236,54 @@ class WorkflowContracts(unittest.TestCase):
         manual = yaml.safe_load((ROOT / '.github/workflows/dedupe-events.yml').read_text(encoding='utf-8'))
         self.assertEqual(set(manual.get('on', manual.get(True))), {'workflow_dispatch'})
         mrun = next(s['run'] for s in manual['jobs']['dedupe']['steps'] if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
-        self.assertIn('if [ "$APPLY_SWITCH" != "true" ]; then', mrun)
         self.assertNotIn('${{', mrun)
         self.assertEqual(manual['concurrency']['group'], job['concurrency']['group'])
+
+    @staticmethod
+    def _dedupe_calls(run, env):
+        """Run a workflow step's shell with the script replaced by an echo:
+        -> (exit code, [the argument list of each call])."""
+        script = run.replace('python -u mapsee_dedupe_events.py', 'echo CALL')
+        with tempfile.TemporaryDirectory() as tmp:
+            out = subprocess.run(['bash', '-eo', 'pipefail', '-c', script], cwd=tmp, capture_output=True, text=True,
+                                 env=dict(os.environ, **env))
+        calls = [line.split()[1:] for line in out.stdout.splitlines() if line.startswith('CALL')]
+        return out.returncode, calls
+
+    @unittest.skipUnless(shutil.which('bash'), 'needs bash')
+    def test_dedupe_switch_has_three_positions_and_bounded_never_arms_the_nightly_hide(self):
+        # Rollout step 5 is a BOUNDED first write by hand. With one switch
+        # ('true') for both, that write also armed every scheduled run (9 a
+        # week) to apply 21 days ahead and 60 back. 'bounded' separates them.
+        workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
+        run = next(s['run'] for s in workflow['jobs']['dedupe']['steps']
+                   if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
+        for value in ('', 'false', 'True', 'yes', 'bounded', 'true'):
+            code, calls = self._dedupe_calls(run, {'DEDUPE_APPLY': value})
+            self.assertEqual(code, 0, value)
+            full = [c for c in calls if '--days' in c and c[c.index('--days') + 1] != '0']
+            self.assertEqual(len(full), 1, value)
+            self.assertEqual('--apply' in full[0], value == 'true', value)
+            kept = [c for c in calls if c not in full]
+            if value == 'bounded':
+                # it keeps what was hidden (categories, no-room un-hides) and hides nothing new
+                self.assertEqual(kept, [['--apply', '--days', '0', '--lookback', '0', '--max-seconds', '300']])
+            else:
+                self.assertEqual(kept, [], value)
+        manual = yaml.safe_load((ROOT / '.github/workflows/dedupe-events.yml').read_text(encoding='utf-8'))
+        mrun = next(s['run'] for s in manual['jobs']['dedupe']['steps'] if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
+        cases = [('', '3', '3', False), ('false', '3', '3', False), ('bounded', '3', '3', True),
+                 ('bounded', '7', '7', True), ('bounded', '8', '3', False), ('bounded', '3', '21', False),
+                 ('true', '21', '60', True)]
+        for value, days, lookback, allowed in cases:
+            code, calls = self._dedupe_calls(mrun, {'APPLY_SWITCH': value, 'MODE': 'apply', 'DAYS': days,
+                                                    'LOOKBACK': lookback, 'STAMP': ''})
+            self.assertEqual((code == 0, bool(calls)), (allowed, allowed), (value, days, lookback))
+            if allowed:
+                self.assertEqual(calls[0][:5], ['--apply', '--days', days, '--lookback', lookback])
+        code, calls = self._dedupe_calls(mrun, {'APPLY_SWITCH': '', 'MODE': 'unhide', 'DAYS': '21', 'LOOKBACK': '60',
+                                                'STAMP': '2026-10-14T06:41:07+00:00'})
+        self.assertEqual((code, calls[0][:3]), (0, ['--unhide', '--stamp', '2026-10-14T06:41:07+00:00']))
 
 
 if __name__ == '__main__':

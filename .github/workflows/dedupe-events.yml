@@ -9,10 +9,13 @@ name: Hide duplicate imported events (manual)
 #
 # MODES
 #   report         list what would be hidden; write nothing (the default)
-#   apply          hide the copies (hidden_at + duplicate_of). REFUSED unless the
-#                  repository variable DEDUPE_APPLY is exactly 'true', the same
-#                  switch the nightly job reads. The script itself also reports
-#                  (and exits 1) while events.duplicate_of does not exist.
+#   apply          hide the copies (hidden_at + duplicate_of), after giving each
+#                  kept row its copies' categories. REFUSED unless the
+#                  repository variable DEDUPE_APPLY is 'bounded' (then days and
+#                  lookback are at most 7 each: the bounded first write) or
+#                  'true' (any horizon; the nightly job then hides too). The
+#                  script itself also reports (and exits 1) while
+#                  events.duplicate_of does not exist.
 #   unhide-report  list the copies one run hid (needs `stamp`, from that run's
 #                  report or log: "Mode: APPLY (hidden_at=...)")
 #   unhide         put them back: clears hidden_at and duplicate_of on exactly
@@ -22,13 +25,15 @@ name: Hide duplicate imported events (manual)
 # Inputs reach the shell through env, never pasted into `run:`.
 #
 # Required repo secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
-# Optional repo variable: DEDUPE_APPLY ('true' allows mode apply)
+# Optional repo variable: DEDUPE_APPLY ('bounded' allows a bounded apply here
+# only; 'true' allows any apply here and arms the nightly job). The six rollout
+# steps are in docs/agents/sync-eventstore-and-paging.md and ../mapsee 0236.
 
 on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "report | apply (needs DEDUPE_APPLY=true) | unhide-report | unhide"
+        description: "report | apply (needs DEDUPE_APPLY=bounded, days/lookback <= 7, or =true) | unhide-report | unhide"
         type: choice
         options: [report, apply, unhide-report, unhide]
         default: report
@@ -85,10 +90,17 @@ jobs:
             report)
               ARGS=(--days "$DAYS" --lookback "$LOOKBACK" --max-seconds 1200 --report dedupe_report.json) ;;
             apply)
-              if [ "$APPLY_SWITCH" != "true" ]; then
-                echo "::error title=Dedupe: refused::mode apply needs the repository variable DEDUPE_APPLY set to 'true' (it is '${APPLY_SWITCH:-unset}')."
-                exit 1
-              fi
+              case "$APPLY_SWITCH" in
+                true) ;;
+                bounded)
+                  if [ "$DAYS" -gt 7 ] || [ "$LOOKBACK" -gt 7 ]; then
+                    echo "::error title=Dedupe: refused::DEDUPE_APPLY is 'bounded': days and lookback must be 7 or less (got $DAYS and $LOOKBACK). Set it to 'true' for a wider apply."
+                    exit 1
+                  fi ;;
+                *)
+                  echo "::error title=Dedupe: refused::mode apply needs the repository variable DEDUPE_APPLY set to 'bounded' or 'true' (it is '${APPLY_SWITCH:-unset}')."
+                  exit 1 ;;
+              esac
               ARGS=(--apply --days "$DAYS" --lookback "$LOOKBACK" --max-seconds 1200 --report dedupe_report.json) ;;
             unhide-report|unhide)
               if [ -z "$STAMP" ]; then

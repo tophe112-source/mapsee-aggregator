@@ -1553,19 +1553,36 @@ jobs:
       # as spam-purge.yml does: a red test must stop the hide, not merely be seen.
       - name: The rules about to be applied still pass their own tests
         run: python test_dedupe_events.py
-      - name: Hide duplicate imported events (reports until DEDUPE_APPLY is 'true')
+      # THE SWITCH HAS THREE POSITIONS (repository variable DEDUPE_APPLY):
+      #   unset/other  report only, here and in dedupe-events.yml;
+      #   'bounded'    this job still only REPORTS the 21 days ahead and 60 back,
+      #                and only keeps what earlier runs hid (--apply --days 0
+      #                --lookback 0: the kept rows' categories and un-hiding a
+      #                copy that no longer fits, nothing new is hidden); new
+      #                copies are hidden only by dedupe-events.yml's apply mode,
+      #                with the days and lookback it is given (at most 7 each);
+      #   'true'       this job hides too, every run.
+      # So the bounded first write (rollout step 5) cannot arm the 9 scheduled
+      # runs a week: that takes a second, deliberate change of the variable.
+      - name: Hide duplicate imported events (reports unless DEDUPE_APPLY is 'true')
         shell: bash
         run: |
           set -o pipefail
+          rc=0
           MODE=""
-          if [ "$DEDUPE_APPLY" = "true" ]; then
-            MODE="--apply"
-            echo "::warning title=Dedupe: APPLY::DEDUPE_APPLY is 'true': copies are hidden in production (hidden_at + duplicate_of)."
-          else
-            echo "::notice title=Dedupe: REPORT ONLY::DEDUPE_APPLY is '${DEDUPE_APPLY:-unset}', not 'true': reporting only."
-          fi
+          case "$DEDUPE_APPLY" in
+            true)
+              MODE="--apply"
+              echo "::warning title=Dedupe: APPLY::DEDUPE_APPLY is 'true': copies are hidden in production (hidden_at + duplicate_of)." ;;
+            bounded)
+              echo "::notice title=Dedupe: BOUNDED::DEDUPE_APPLY is 'bounded': this run reports; it hides nothing new and keeps what dedupe-events.yml hid."
+              python -u mapsee_dedupe_events.py --apply --days 0 --lookback 0 --max-seconds 300 | tee dedupe_kept.log || rc=$? ;;
+            *)
+              echo "::notice title=Dedupe: REPORT ONLY::DEDUPE_APPLY is '${DEDUPE_APPLY:-unset}', not 'true' or 'bounded': reporting only." ;;
+          esac
           python -u mapsee_dedupe_events.py $MODE --days 21 --lookback 60 --max-seconds 1200 \
-            --report dedupe_report.json | tee dedupe.log
+            --report dedupe_report.json | tee dedupe.log || rc=$?
+          exit $rc
       - name: Summary
         if: always()
         shell: bash
@@ -1574,7 +1591,8 @@ jobs:
             echo "### Duplicate imported events"
             echo ""
             echo '```'
-            grep -E "^(Mode|Rows listed|Copies|  that is|Near misses|BACKLOG|OWED|REFUSED|Requests)" dedupe.log 2>/dev/null \
+            grep -hE "^(Mode|Hidden copies|Rows listed|Copies|  that is|Kept rows|Near misses|BACKLOG|OWED|REFUSED|::error|Requests)" \
+              dedupe_kept.log dedupe.log 2>/dev/null \
               || echo "(no output: the run failed before the script)"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
@@ -1585,6 +1603,7 @@ jobs:
           path: |
             dedupe_report.json
             dedupe.log
+            dedupe_kept.log
           retention-days: 30
           if-no-files-found: ignore
 
