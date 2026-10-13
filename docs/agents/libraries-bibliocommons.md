@@ -77,9 +77,10 @@
   1,373 true pairs (24%) are all-day copies (201) or one key drifted (128) on a
   chipublib link; every chipublib true pair, renames 18, one-source 8 and
   re-timed 3 included, is 358 (26%). 246 of the 866 rows the first revision
-  hid in a replay of the census sat on chipublib links; 190 of 805 now, because
-  56 CPL copies whose two adapters' categories do not fit on one row stay
-  visible. Neither adapter, run that
+  hid in a replay of the census sat on chipublib links; 190 of 804 now, because
+  56 CPL copies whose categories do not fit on the kept row stay visible: 50
+  are BiblioCommons rows beside an open-data kept row, 4 two open-data rows, 2
+  the other way round, so all 56 go with the feed. Neither adapter, run that
   morning, produced the clockless 05:00Z copies (all records had a clock), so
   which writer makes them is not known; the timed row outranks them anyway.
   Parity, both adapters run that morning into
@@ -93,20 +94,27 @@
 
 - **TURN THE COLLAPSER ON 5+ DAYS AFTER THE OPEN-DATA FEED STOPS (2026-10-13).**
   Its survivor is the newest import, and the open-data copies are the newer
-  ones: in a replay of the census, 131 of 137 CPL same-page hides keep a row made
-  1.18-3.24 days (median 1.99) before its start and hide the BiblioCommons row
+  ones: in a replay of the census, 81 of 87 CPL same-page hides keep a row made
+  1.18-3.24 days (median 2.01) before its start and hide the BiblioCommons row
   made weeks before (by key for "Mindful Yoga": a61187ae, made 3.11 days ahead,
   kept; 5f394f03 hidden). Once vsdy-d8k7 is retired nothing updates or cancels
   that kept row, and the sync's cancel filters hidden_at=is.null, so it would
-  not even mark the hidden one. The kept rows last 8 h at most; the worst ends
-  81.2 h after it was made. The 11 made more than 3 days ahead (3.11-3.24) were
+  not even mark the hidden one. The kept rows last 8 h at most; the worst timed
+  one ends 81.2 h after it was made (a clockless open-data row, never kept
+  over a timed one, 88.2 h). The 11 made more than 3 days ahead (3.11-3.24) were
   all read on Saturday 10-10, before a Sunday and the 10-12 holiday: the read is
   one page of 200 records, so thin days stretch it, and 3 days (the first
   version of this note, from a count cut at 3 days: "120 of 137, 1.2-2.3 days")
   left 8 h of margin. Wait 5 days after the first daily run without vsdy-d8k7
   (about 2 days of margin on runs that start as late as 16:05Z) and until 0236's
-  CPL check returns 0: live chipublib rows made before that run, less than 4
-  days before their start, at most 25 h long (1 of the 137 BiblioCommons rows
-  in the census was made under 4 days ahead, so a late addition can hold it up
-  a day; never the other way). The steps are in sync-eventstore-and-paging.md
-  and 0236.
+  CPL check returns 0: live chipublib rows the open-data adapter wrote, told
+  apart by their pin colour (color_hex '#0891b2', city open data; BiblioCommons
+  rows are '#7c3aed'): in the census 237 of the 238 chipublib rows made under 4
+  days ahead are teal and 0 of the 315 made 4+ days ahead. The check used to
+  ask for the shape instead (made under 4 days ahead, at most 25 h), which
+  could not see the longer-lead row it was there to catch: every row it
+  counted ends within about 5.04 days of the cutoff, so it reached 0 on its own
+  with the wait. By colour there is no lead limit: a row the feed made further
+  ahead keeps it up until it ends, and a teal row made after the cutoff means
+  the feed was not retired. The steps are in sync-eventstore-and-paging.md and
+  0236.

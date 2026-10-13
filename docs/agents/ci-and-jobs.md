@@ -369,13 +369,15 @@
   non-skipped run 2026-09-19..10-12, 25 runs, while the jobs API reported the
   step as success; it ran 12m12s, its timeout, on most runs 09-22..10-07. The
   collapser is now its own `dedupe` job: it needs every ingest job, has no
-  continue-on-error, gets 25 minutes for `--max-seconds 1200`, shares one
+  continue-on-error, gets 25 minutes for 1,200 s of `--max-seconds` across its
+  calls in every position of the switch ('bounded': 240 for the kept pass, 960
+  for the report; `test_workflow_contracts.py` adds every call up), shares one
   concurrency group with the manual dedupe-events.yml, runs its own tests first,
   and hides only when the repository variable DEDUPE_APPLY is 'true' ('bounded'
   lets only the manual dedupe-events.yml hide, at most 7 days each way, while
   this job reports and keeps what was hidden: sync-eventstore-and-paging.md).
   indexnow needs it, so nothing it hides is announced. It runs after BOTH
   schedules and an extra_only dispatch: the Mon/Thu run syncs SeatGeek and
-  Eventbrite, and 246 of the 805 hides in a replay of the census involve a
+  Eventbrite, and 246 of the 804 hides in a replay of the census involve a
   SeatGeek row (on the daily schedule alone they waited a day). The 17:23 UTC festival sync waits
   for the next 06:17 run. `test_workflow_contracts.py` pins all of it.

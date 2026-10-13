@@ -450,8 +450,17 @@
   clockless classes, undated wrong-site links, the categories union): labelled
   pairs 991 true and 0 not; the replay 805 hidden (same-slot 417, same-page
   275, all-day copy 113), 973 of 1,373 true pairs, redundancy 369 (1.45%;
-  Chicago 81, 2.5%), because 58 copies whose categories do not fit stay
-  visible, 56 of them CPL's two adapters; without that rule 863, 1,037 and 311.
+  Chicago 81, 2.5%). The fourth (below: two levels, a service held at the
+  other, the door rules, wrong-site copies): labelled pairs 990 true and 0 not
+  (the talk 'au Salon SME', c1?, is now two); the replay 804 hidden (same-slot
+  416), 972 of 1,373, redundancy 370 (1.46%; Chicago 81, 2.5%), because 58
+  copies whose categories do not fit stay visible, 56 of them on chipublib
+  links and every one of those beside or behind an open-data row (50
+  BiblioCommons rows beside an open-data kept row, 4 two open-data rows, 2 the
+  other way round); without that rule 862, 1,036 and 312 (1.23%). Replayed
+  without the 238 open-data-shaped CPL rows, the state once the feed is gone:
+  629 hidden, 308 redundant (1.23% of 25,131; Chicago 19, 0.6%), 699 of the
+  1,032 true pairs that remain, 2 copies left for want of room, 0 doors lost.
 
 - **"NEWEST WINS" MEANS "THE KEY THE SOURCE STILL EMITS", WHILE ITS SOURCE IS
   STILL CONFIGURED (2026-10-13).** For a rename it does: 1 of 1 rename page
@@ -460,9 +469,9 @@
   neither row's: 10-18 newer, 10-24 older). For an all-day copy both keys are
   still emitted, by two adapters, and in 193 of 219 the clockless row is the
   newer one, so newest-wins would keep the row without a time 88% of the time.
-  It fails when the newer row's source is retired: 131 of 137 Chicago Public
+  It fails when the newer row's source is retired: 81 of 87 Chicago Public
   Library same-page hides in the replay keep a newer row made 1.18-3.24 days
-  (median 1.99) before its start, the open-data shape this branch retires, and
+  (median 2.01) before its start, the open-data shape this branch retires, and
   once that feed is gone nothing updates or cancels the kept row
   (libraries-bibliocommons.md says when to switch on). The order now: claimed,
   people on it (RSVP, chat, promotion), a row with a clock, a row whose link is
@@ -542,13 +551,14 @@
   17:23 festival sync would wait for the next run. A product projection
   (events_map_src) was not needed. 0108 allows 2 secondaries: the row's own
   stay, copies' primaries fill first; a copy that does not fit stays visible
-  (4 of 557 copies on 10-15; 58 of 863 in the census replay, 56 of them CPL's
-  two adapters). Re-planned, 0 of 553 hides lose a door or a category, and of
+  (4 of 557 copies on 10-15; 58 of 862 in the census replay, 56 of them on
+  chipublib links beside or behind an open-data row). Re-planned, 0 of 553
+  hides lose a door or a category, and of
   the re-review's 122 (primary differs, a category lost) 118 stay hidden with
   every door, 2 are no longer hidden ('Hazlett'; the Spurs game, now kept) and
   2 stay visible for want of room. A claimed kept row is never written; its
-  copies that need it stay visible. mapsee_reclassify.py rewrites categories
-  without the merge: the next collapser run restores it.
+  copies that need it stay visible. mapsee_reclassify.py now applies the
+  union too (the third safety read, below).
 
 - **TURNING THE COLLAPSER ON: A SWITCH WITH THREE POSITIONS AND SIX STEPS
   (2026-10-13).** One switch ('true') used to arm both the bounded first write
@@ -566,3 +576,52 @@
   rows' /e/ pages (copy gone from the place sheet, kept row on each door the
   copy was on); 6. set 'true'. Undo a run with unhide-report then unhide and its
   stamp; unsetting the variable stops new hides only.
+
+- **THE THIRD SAFETY READ: ONE PUBLISHER'S TWO SESSIONS, A SERVICE HELD AT A
+  PROGRAMME, A DOOR THAT LEAVES OUT A MARKET, A COPY'S MISFILE (2026-10-13).**
+  A report run over 2026-10-16 (547 planned hides, all re-read by id and read
+  by hand) found 8 wrong, all same-slot: 5 of the 103 within one publisher
+  ('Intermediate Indoor volleyball' behind 'High Intermediate ... (invite
+  only)', one Meetup group, one court; four services 'X at Our Space', each its
+  own organisation, page and text, behind the Pima library's 'Our Space'), a
+  'Discovery Club' at two branches geocoded 31 m apart, and two wrong-site
+  survivors whose slugs carry no words. The created-apart rule would not have
+  helped: those parts were made 0-169 h apart, the volleyball 95.5 h, and
+  within one publisher 56 of the 103 hides were made under 12 h apart, 37 of
+  them on a multi-tenant host (two Meetup or OpenAgenda groups cross-posting). Now: two titles whose level words
+  differ (beginner ... invite; 'high', 'upper', 'lower' only before one;
+  'only' never, or 'Clint Black ... 8 Nights Only' went on 10-15) are two
+  sessions, and '<something> at|@|bei|au|im <the other title>' on its own page,
+  with no package word, is a service held at the other, a listing of its own.
+  Cost: 0 and 1 census labelled pairs (a talk 'au Salon SME', c1?), 0 and 1 of
+  the build's 1,069 ('Nourish Moves at the Market Square Farmers Market',
+  judged distinct), 0 and 0 of 10-15. The bar.ventures rule (../mapsee
+  src/lens.js `notPrimary`: never a market primary) now binds the union both
+  ways (NOT_PRIMARY_DOORS in the sync): a market copy's food is not carried
+  onto a non-market kept row, and a food copy behind a market kept row is not
+  covered; both stay visible (0 such clusters on 10-15, 10-16 or the census,
+  pinned in test_dedupe_events.py). A copy whose link is another event's page
+  (another date, or a slug naming another event) carries nothing: 3 kept rows
+  on 10-16, 6 on 10-15 (7 copies), 3 in the census (two events) would have
+  gained a category from one, and every one read by hand was the other event's
+  ('fitness' on a comedy show from a parks department's fitness class,
+  'volunteer' on a heritage walk from a lake clean-up, 'theater' on a youth
+  drop-in from a council meeting). The sync drops such a category the next
+  time it writes the kept row; to know which copies count it reads the text of
+  only the copies that would add a category (one in.() request per 100), and
+  the nightly pass reads only the copies its kept row does not cover.
+  mapsee_reclassify.py had been a fourth writer without the union (on 10-16
+  it would have dropped a union category from 89 of the 91 kept rows given
+  one): it now reads the hidden copies (refusing --apply if it cannot), sweeps
+  them with their kept rows, and compares the kept row's own recomputed
+  categories PLUS its copies'. Re-planned offline from the saved 10-16 listing
+  and descriptions (the old module reproduces the reported 547 exactly): 542
+  hides, the 5 wrong ones gone and nothing new, 3 wrong left (Discovery Club,
+  the two wrong-site survivors: 0.55%); 10-15 re-planned: the same 553, 4
+  wrong. 0 doors lost or widened on either day or in the census replay, other
+  than the wrong-site copies' own. Left as they are: 'Discovery Club' at two
+  branches with no links (refusing two place names without links costs 3
+  likely-true 10-15 hides and 2 of the 1,069), and kept rows whose link is a
+  shop with nothing in its slug (klappei.stager.co for a Galway Candlelight
+  concert, amazone.be for a Brno puppet show): step 2's read of 50 pairs per
+  rule should open the kept row's link, not only the hidden one's.

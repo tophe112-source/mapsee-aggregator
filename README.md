@@ -96,7 +96,9 @@ copied (`duplicate_of`); it never deletes. It keeps a claimed row first, then
 one people are going to, then a row with a start time over an all-day copy, then
 a row whose link is its own page, then the whole event over a part of it, then
 the newest import. The row it keeps takes on the copies' categories, so the
-event stays on every front door it was on. It runs after every scheduled sync
+event stays on every front door it was on (a copy whose link is another event's
+page carries none, and a copy that would move the event across a door that
+leaves out a primary, as bar.ventures leaves out markets, stays visible). It runs after every scheduled sync
 and reports only until the repository variable `DEDUPE_APPLY` is `true`
 (`bounded` allows one manual, bounded apply first); one run can be reversed
 with `--unhide --stamp`.
