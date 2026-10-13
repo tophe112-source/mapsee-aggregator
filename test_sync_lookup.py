@@ -200,12 +200,29 @@ class LookupTests(unittest.TestCase):
         rows = [dict(external_id="kept", category="music", categories=None),
                 dict(external_id="new", category="music", categories=None)]
 
+        own = "Tickets / info: https://seatgeek.com/buena-vista-social-club-the-musical-tickets/broadway/17465311"
+        other = "Tickets / info: https://www.pgparks.com/event_list/get-fit-mobile-fitness-on-the-fly/2026-09-24"
+
         class Kept(Store):
-            def __init__(self, rows, copies_status=200):
+            def __init__(self, rows, copies_status=200, link=own):
                 super().__init__(rows)
-                self.copies_status = copies_status
+                self.copies_status, self.link = copies_status, link
 
             def get(self, url, **kwargs):
+                if "select=id,title,place_name,starts_at,description" in url:
+                    # the copy's text: only a copy that would add a category is read
+                    self.calls.append((url, kwargs))
+                    link = self.link
+
+                    class Text:
+                        status_code = 200
+                        headers = {}
+
+                        def json(self):
+                            return [{"id": "c1", "title": "Buena Vista Social Club - The Musical",
+                                     "place_name": "Gerald Schoenfeld Theatre",
+                                     "starts_at": "2026-10-16T23:00:00+00:00", "description": link}]
+                    return Text()
                 if "duplicate_of=not.is.null" in url:
                     self.calls.append((url, kwargs))
                     status = self.copies_status
@@ -222,9 +239,14 @@ class LookupTests(unittest.TestCase):
                     r["id"] = "k-uuid" if r["external_id"] == "kept" else "other-uuid"
                 return resp
 
-        for status, want, line in ((200, ["theater"], "Kept rows: 1 carry the categories"),
-                                   (503, None, "::warning::Hidden copies' categories could not be read")):
-            store = Kept({"kept": None}, copies_status=status)
+        # A copy whose link is another event's page (a parks department's
+        # fitness class on a show's copy) carries nothing: its categories are
+        # that event's, and a misfile an earlier union put on the row comes off.
+        for status, link, want, line in (
+                (200, own, ["theater"], "Kept rows: 1 carry the categories"),
+                (503, own, None, "::warning::Hidden copies' categories could not be read"),
+                (200, other, None, "Upserted 2 events")):
+            store = Kept({"kept": None}, copies_status=status, link=link)
             out = io.StringIO()
             with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID": "host", "SUPABASE_URL": "https://db.example",
                                         "SUPABASE_SERVICE_ROLE_KEY": "unused-test-key"}), \
@@ -236,6 +258,8 @@ class LookupTests(unittest.TestCase):
             sent = {r["external_id"]: r["categories"] for r in write.call_args.args[0]}
             self.assertEqual(sent, {"kept": want, "new": None}, status)
             self.assertIn(line, out.getvalue())
+            if link == other:
+                self.assertNotIn("Kept rows:", out.getvalue())
             state = parse_qs(urlsplit(store.calls[0][0]).query)["select"][0].split(",")
             self.assertIn("id", state, "the row's id rides the state read")
             self.assertEqual(sum("duplicate_of=not.is.null" in u for u, _ in store.calls), 1)

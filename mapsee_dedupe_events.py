@@ -34,7 +34,10 @@ the copy.
                     two clockless day rows made in one read under two titles
                     (two weekdays' classes), nor across publishers a title of
                     one or two words beside one that adds who it is for ('Yoga'
-                    / 'Yoga for Seniors');
+                    / 'Yoga for Seniors'), nor two titles whose level words
+                    differ ('Intermediate' / 'High Intermediate ... (invite
+                    only)'), nor '<a service> at <the other title>' on its own
+                    page ('Vote Riders Identification Clinic at Our Space');
       all-day-copy  the same event page, one row a one-day span (23-25 h) that
                     holds the other's start: a feed that gives a date where the
                     other gives a clock (made in one read: one title only; a
@@ -54,14 +57,17 @@ the copy.
     nobody on it and does not say the event is off when the survivor does not
     ('Canceled:', 'Entfällt:': left for a person) is hidden.
   • THE KEPT ROW CARRIES ITS COPIES' CATEGORIES (merged_categories, one function
-    in mapsee_supabase_sync, which applies it whenever it rewrites a kept row):
-    a door, and every door's category chips, match `category = any(keys) OR
-    categories && keys`, so without it a hide took the event out of the copy's
-    doors (2026-10-15: 127 of 558 planned hides, 93 of them a whole door). A
-    copy whose categories do not fit (0108 allows two secondaries) stays
-    visible. Every run first checks the rows hidden on earlier nights
-    (kept_rows_pass): a kept row that lost the union gets it back, and a copy
-    that no longer fits is un-hidden.
+    in mapsee_supabase_sync, which applies it whenever it rewrites a kept row,
+    as mapsee_reclassify.py does): a door, and every door's category chips,
+    match `category = any(keys) OR categories && keys`, so without it a hide
+    took the event out of the copy's doors (2026-10-15: 127 of 558 planned
+    hides, 93 of them a whole door). A copy whose categories do not fit stays
+    visible: 0108 allows two secondaries, and a door that leaves out a primary
+    (bar.ventures: never a market) must neither gain nor lose the event. A
+    copy whose link is another event's page carries nothing (copy_counts): its
+    categories are that event's. Every run first checks the rows hidden on
+    earlier nights (kept_rows_pass): a kept row that lost the union gets it
+    back, and a copy that no longer fits is un-hidden.
   • A hidden copy gets hidden_at AND duplicate_of = the survivor's id (../mapsee
     migration 0236). Nothing is deleted: a delete cascades RSVPs and chat, and
     the next sync's existence read would have re-inserted the key. A hidden row
@@ -104,9 +110,22 @@ import's off-words, and the kept row's categories. Re-planned cluster by cluster
 4 left visible because their categories do not fit; 4 of the 553 hides remain
 wrong (a France Travail workshop beside another agency's webinar, three wrong-site
 survivors). The census replay through main(): 805 hidden, 973 of 1,373 true pairs
-resolved, redundancy 1,153 -> 369 (1.45%); 58 copies stay visible for want of
-room, 56 of them Chicago Public Library rows from the open-data feed this branch
-retires (without that rule: 863, 1,037, 311). Labelled pairs: 991 true, 0 not.
+resolved, redundancy 1,153 -> 369 (1.45%). Labelled pairs: 991 true, 0 not.
+REVISED A THIRD TIME after a third safety read of a fresh day (2026-10-16, 547
+planned hides, 8 wrong: 5 of the 103 same-slot hides within one publisher were
+distinct sessions) and the coverage re-read: two level words, a service held at
+the other, the door that leaves out a market, and a copy whose link is another
+event's page. 10-16 re-planned offline from the saved listing (the old module
+reproduces its 547 exactly): 542, of which 3 wrong (two branches on one pin, two
+wrong-site survivors); 10-15: the same 553, 4 wrong. The census replay: 804
+hidden, 972 of 1,373 true pairs resolved, redundancy 370 (1.46%; Chicago 81,
+2.5%); 58 copies stay visible for want of room, 56 of them on Chicago Public
+Library links, every one beside or behind a row of the open-data feed this
+branch retires (50 BiblioCommons rows beside an open-data kept row); without
+that rule 862, 1,036 and 312. Replayed without the 238 open-data-shaped CPL
+rows (the state once the feed is gone): 629 hidden, 308 redundant (1.23%;
+Chicago 19, 0.6%), 2 left for want of room, 0 doors lost. Labelled pairs: 990
+true, 0 not.
 
 HISTORY — what this file was for before, kept because the reasons still hold.
 
@@ -164,7 +183,7 @@ from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
-from urllib.parse import quote, urlparse
+from urllib.parse import quote
 
 try:
     import requests
@@ -178,7 +197,10 @@ from mapsee_supabase_sync import _AUDIENCE_WORD, _ident_words, _missing_column, 
 # ...and the sync's one rule for what a kept row carries of its copies'
 # categories: the sync applies the same function whenever it rewrites a kept
 # row, so the two writers never disagree about the value.
-from mapsee_supabase_sync import categories_cover, merged_categories
+from mapsee_supabase_sync import adds_categories, categories_cover, copy_counts, merged_categories
+# ...and how a row's own link is read: the union leaves out a copy whose link is
+# another event's page (copy_counts), and the survivor terms use the same tests.
+from mapsee_supabase_sync import _LEAF_DROP, _STRONG_ID, canonical_link, link_names_row, link_ok
 
 PAGE = 1000                    # rows per listing page
 ID_BATCH = 100                 # ids per id=in.(...) read or write
@@ -201,7 +223,6 @@ ALL_DAY_MIN_H, ALL_DAY_MAX_H = 23.0 - 1.0 / 60.0, 25.0
 GRID_DEG = 0.002          # candidate grid: 222 m of latitude, wider than RADIUS_M
 RUNNING_SLICE = timedelta(hours=6)       # first slice of the part of a window that has started
 RUNNING_FLOOR = timedelta(minutes=15)    # a statement timeout halves the slice down to this
-LINK_RX = re.compile(r"Tickets / info: (https?://\S+)")
 # 'NOT A SHOW TICKET', 'not a concert ticket', 'not an event': a row that sells
 # something beside the event. Up to two words between 'not a' and 'ticket'
 # (production 2026-10-15: 'The Pre-Show Speakeasy with Hazlett - NOT A SHOW
@@ -240,7 +261,6 @@ CANCEL_MARK = re.compile(r"(?<!\bnot )\b(cancel+ed|postponed|abgesagt|annulee?|a
                          r"suspendid[oa]|annullat[oa]|rinviat[oa]|afgelast|geannuleerd|aflyst|avlyst|"
                          r"installt|peruttu|entfallt|verschoben|fallt aus)\b")
 COPY_OF = re.compile(r"^\W*copy of\b", re.I)
-LINK_DATE = re.compile(r"/(20\d\d-\d\d-\d\d)(?:\b|$)")
 PLACE_STOP = {"the", "de", "la", "le", "at", "of", "and", "a", "du", "des", "ny", "nyc", "co", "mo", "in", "on"}
 # Words that name the KIND of room, not which one: 'The Yard at Chicago
 # Shakespeare' is a stage of 'Chicago Shakespeare Theater', not another venue.
@@ -259,6 +279,25 @@ ADDON_WORDS = {"courtside", "seating", "vip", "package", "packages", "upgrade", 
                "premium", "preshow", "speakeasy", "suite", "suites", "warmup", "warmups", "parking",
                "access", "experience", "postgame", "pregame"}
 PART_ARTICLES = {"the", "der", "die", "das", "le", "la", "les"}
+# A part whose separator says WHERE it is held ('<a clinic> at <the programme>')
+# is a listing of its own, not a copy (held_at). Production 2026-10-16: four
+# services 'X at Our Space' (VoteRiders, a resource navigator, a veterans'
+# housing charity, the county's mental-health team), each on its own library
+# page with its own text, hidden behind the library's 'Our Space', whose text
+# names none of them. Refusing the shape costs 1 census pair (labelled c1?: a
+# talk 'au Salon SME' beside the fair) and 1 of the build's 1,069 hides
+# ('Nourish Moves at the Market Square Farmers Market', judged distinct).
+HELD_AT_SEPS = {"at", "@", "bei", "au", "im"}
+# Words that name a session's LEVEL. Two titles at one slot whose level words
+# differ are two sessions ('Intermediate Indoor volleyball' was hidden behind
+# 'High Intermediate Indoor Volleyball (invite only)', one Meetup group, one
+# court, 2026-10-16). 'high', 'upper', 'lower' count only before a level word
+# ('high intermediate'), and 'only' is not one: with it, 'Clint Black ... 8
+# Nights Only' would have been refused on 10-15. Cost: 0 census pairs, 0 of the
+# 10-15 plan, 0 of the build's 1,069.
+LEVEL_WORDS = {"beginner", "beginners", "intermediate", "advanced", "improver", "improvers", "novice", "elite",
+               "invite", "competitive", "recreational"}
+LEVEL_QUALIFIERS = {"high", "upper", "lower"}
 _SEQ_RX = re.compile(r"\w+|[|:@–—]|(?<!\S)-(?!\S)")
 
 _sleep = time.sleep            # patched by the tests
@@ -290,20 +329,6 @@ def metres(a: Dict[str, Any], b: Dict[str, Any]) -> float:
     return 2 * r * math.asin(math.sqrt(min(1.0, h)))
 
 
-def canonical_link(description: Optional[str]) -> Optional[str]:
-    """The row's own 'Tickets / info:' URL as host+path(+query): no scheme,
-    no www., no fragment, path lower-cased without a trailing slash."""
-    m = LINK_RX.search(description or "")
-    if not m:
-        return None
-    u = urlparse(m.group(1).rstrip(".,)"))
-    host = u.netloc.lower()
-    host = host[4:] if host.startswith("www.") else host
-    if not host:
-        return None
-    return host + u.path.rstrip("/").lower() + (f"?{u.query}" if u.query else "")
-
-
 def link_host(link: str) -> str:
     return link.split("/", 1)[0]
 
@@ -326,8 +351,6 @@ def booking_host(link: str) -> bool:
     return _on(link_host(link), BOOKING_HOSTS)
 
 
-_LEAF_DROP = re.compile(r"\d{1,2}|(?:19|20)\d\d|(?:19|20)\d\d-?(?:0[1-9]|1[0-2])-?(?:0[1-9]|[12]\d|3[01])")
-_STRONG_ID = re.compile(r"\d{5,}|[0-9a-f]{12,}")
 _ID_TOKEN = re.compile(r"(?=[a-z0-9_]*\d)(?=[a-z0-9_]*[a-z])[a-z0-9_]{6,}")
 # A month and a year is a listing's page ('/whats-on/october2026'), not an id;
 # a date in the query is a calendar's day view ('?tribe-bar-date=2026-10-15').
@@ -401,52 +424,6 @@ def two_venues(a: Dict[str, Any], b: Dict[str, Any]) -> bool:
     return bool(pa and pb and (pa - pb) and (pb - pa))
 
 
-def link_ok(r: Dict[str, Any]) -> bool:
-    """False when the row's link carries a date more than a day from the row's
-    own start: another site's event (an adapter bug), not this row's page."""
-    m = LINK_DATE.search(r.get("link") or "")
-    if not m:
-        return True
-    try:
-        d = datetime.strptime(m.group(1), "%Y-%m-%d").date()
-    except ValueError:
-        return True
-    return abs((d - utc(r["starts_at"]).date()).days) <= 1
-
-
-def _fold(s: Optional[str]) -> str:
-    folded = unicodedata.normalize("NFKD", str(s or "")).lower()
-    return "".join(c for c in folded if not unicodedata.combining(c))
-
-
-# Path words that say what KIND of page it is, not which event.
-_SLUG_GENERIC = {"event", "events", "evento", "eventos", "evenement", "evenements", "veranstaltung", "calendar",
-                 "kalender", "agenda", "programma", "programme", "program", "city", "tickets", "ticket", "whats"}
-
-
-def link_names_row(r: Dict[str, Any]) -> bool:
-    """False when the link's last slug (hyphenated, after any id or date)
-    spells out 2+ words of 4+ letters and none is in the row's title or place:
-    another site's event page with no date in it (a Brussels comedy night
-    whose 'Tickets / info' is espaciomujermadrid.es/evento/taller-de-canto-
-    coral-..., production 2026-10-15). Ids, bare hosts and one-word slugs say
-    nothing, so they name the row. link_ok catches the dated kind."""
-    link = r.get("link")
-    if not link or "/" not in link:
-        return True
-    segs = [x for x in link.split("/", 1)[1].split("?", 1)[0].split("/") if x]
-    while segs and (not re.search(r"[a-z]", segs[-1]) or _LEAF_DROP.fullmatch(segs[-1])
-                    or (_STRONG_ID.search(segs[-1]) and "-" not in segs[-1])):
-        segs.pop()
-    if not segs or "-" not in segs[-1]:
-        return True
-    words = {w for w in re.split(r"[^a-z]+", _fold(segs[-1])) if len(w) >= 4 and w not in _SLUG_GENERIC}
-    if len(words) < 2:
-        return True
-    own = re.sub(r"[^a-z0-9]", "", _fold((r.get("title") or "") + " " + (r.get("place_name") or "")))
-    return any(w in own for w in words)
-
-
 def addon_of(whole: str, title: str) -> bool:
     """`title` is `whole` plus words that name a package sold beside it ('...
     Courtside Experience', '- VIP Packages'): it ranks with the parts."""
@@ -465,22 +442,53 @@ def _seq(title: str) -> List[str]:
     return _SEQ_RX.findall("".join(c for c in folded if not unicodedata.combining(c)))
 
 
-def part_of(whole: str, title: str) -> bool:
-    """`title` is '<a part> <separator> <whole>': 'Strong Complex Booth |
-    Children's Carnival', 'Nourish Moves at the Market Square Farmers Market',
-    'Paramount Theatre Club Seating: Gary Clark Jr.', 'Copy of – <whole>'. The
-    whole title must be the entire tail; a title that only ADDS words after
-    another ('Rhyme Time – Safety Bay') is not this shape."""
+def _part_sep(whole: str, title: str) -> Optional[str]:
+    """The separator when `title` is '<a part> <separator> <whole>' (part_of),
+    else None."""
     s = [t for t in _seq(whole) if t[0].isalnum()]
     seq = _seq(title)
     at = [i for i, t in enumerate(seq) if t[0].isalnum()]
     n = len(s)
     if not n or len(at) <= n or [seq[i] for i in at[-n:]] != s:
-        return False
+        return None
     before = seq[:at[-n]]
     if before and before[-1] in PART_ARTICLES and len(before) > 1:
         before = before[:-1]
-    return bool(before) and before[-1] in PART_SEPS
+    return before[-1] if before and before[-1] in PART_SEPS else None
+
+
+def part_of(whole: str, title: str) -> bool:
+    """`title` is '<a part> <separator> <whole>': 'Strong Complex Booth |
+    Children's Carnival', 'Paramount Theatre Club Seating: Gary Clark Jr.',
+    'Copy of – <whole>'. The whole title must be the entire tail; a title that
+    only ADDS words after another ('Rhyme Time – Safety Bay') is not this shape."""
+    return _part_sep(whole, title) is not None
+
+
+def held_at(whole: str, title: str) -> bool:
+    """`title` is '<something> at <whole>' (or @, bei, au, im) and names no
+    package sold beside it: a service or activity HELD AT the other listing,
+    which is a listing of its own ('Vote Riders Identification Clinic at Our
+    Space' beside the library's 'Our Space', each organisation with its own
+    page and text; 'Nourish Moves at the Market Square Farmers Market')."""
+    if _part_sep(whole, title) not in HELD_AT_SEPS or COPY_OF.match(title or ""):
+        return False
+    extra = set(_ident_words(title).split()) - set(_ident_words(whole).split())
+    return not (extra & ADDON_WORDS) and not addon_of(whole, title)
+
+
+def level_marks(title: str) -> Set[str]:
+    """The level words of a session's title ('Intermediate', 'High
+    Intermediate', 'invite only'): two titles with different marks at one slot
+    are two sessions of one organiser."""
+    w = _ident_words(title).split()
+    out: Set[str] = set()
+    for i, x in enumerate(w):
+        if x in LEVEL_WORDS:
+            out.add(x)
+            if i and w[i - 1] in LEVEL_QUALIFIERS:
+                out.add(w[i - 1] + " " + x)
+    return out
 
 
 def extends(whole: str, title: str) -> bool:
@@ -608,6 +616,10 @@ def _decide(a, b, titles_by_link) -> Tuple[Optional[str], Optional[str]]:
             return None, "two clockless day rows, one read, titles differ"
         if not (la and lb):
             return ("same-slot", None) if t["eq"] else (None, "same slot, no link, titles")
+        if not t["eq"] and level_marks(ta) != level_marks(tb):
+            return None, "same slot, two levels"
+        if held_at(ta, tb) or held_at(tb, ta):
+            return None, "same slot, a service held at the other"
         if not same_publisher(la, lb):
             if t["eq"] or t["typo"] or (t["anchored"] and not adds_audience(ta, tb)):
                 return "same-slot", None
@@ -725,22 +737,30 @@ def plan(rows: Dict[str, Dict[str, Any]], edges: Dict[Tuple[str, str], str],
                 left.append(i)
         # THE KEPT ROW CARRIES ITS COPIES' CATEGORIES (merged_categories), so
         # the event stays in every door and behind every category chip it was
-        # in. A copy whose categories do not all fit (0108: 2 secondaries) is
+        # in. A copy whose link is another event's page counts for nothing
+        # (copy_counts: its categories are that event's) and is hidden without
+        # them. A counted copy whose categories do not all fit (0108: 2
+        # secondaries; or a door that leaves out the kept row's primary) is
         # left visible; a claimed row is never written, so it carries only its
         # own. Then the union is taken again over the copies actually hidden,
         # which is what the sync will compute when it next writes this row.
         k = rows[s]
-        pool = [(rows[i].get("category"), rows[i].get("categories")) for i, _ in hide]
+        uncounted = [i for i, _ in hide if not copy_counts(rows[i])]
+        counted = [i for i, _ in hide if i not in uncounted]
+        pool = [(rows[i].get("category"), rows[i].get("categories")) for i in counted]
         cats = k.get("categories") if k.get("claimed_at") else merged_categories(k.get("category"), k.get("categories"), pool)
-        no_room = [i for i, _ in hide if not categories_cover(k.get("category"), cats, rows[i].get("category"),
+        no_room = [i for i in counted if not categories_cover(k.get("category"), cats, rows[i].get("category"),
                                                               rows[i].get("categories"))]
         if no_room:
             hide = [(i, arm) for i, arm in hide if i not in no_room]
             left = sorted(left + no_room)
         if not k.get("claimed_at"):
             cats = merged_categories(k.get("category"), k.get("categories"),
-                                     [(rows[i].get("category"), rows[i].get("categories")) for i, _ in hide])
+                                     [(rows[i].get("category"), rows[i].get("categories")) for i, _ in hide
+                                      if i not in uncounted])
         out.append({"survivor": s, "hide": hide, "left": left, "no_room": no_room,
+                    "not_counted": [i for i in uncounted if adds_categories(
+                        k.get("category"), cats, rows[i].get("category"), rows[i].get("categories"))],
                     "categories": cats if hide and cats != k.get("categories") else None,
                     "was": (k.get("category"), k.get("categories"))})
     return out
@@ -1152,15 +1172,18 @@ def kept_rows_pass(db: Db, now: datetime, apply: bool, budget) -> Optional[Dict[
     (mapsee_reclassify.py). So once a night: a kept row that lacks a category
     of a copy hidden behind it is given the union again (merged_categories, the
     same function), and a copy whose categories still do not fit (0108: two
-    secondaries; or the kept row is claimed, and a claimed row is never
-    written) is UN-hidden, because it is then the only row that keeps the event
-    in that door. Also counts the copies whose kept row another writer has
-    hidden since (a cancellation, a take-down): they stay hidden, which is the
-    owner's rule that nobody is sent to an event that is off.
+    secondaries; a door that leaves out the kept row's primary; or the kept row
+    is claimed, and a claimed row is never written) is UN-hidden, because it is
+    then the only row that keeps the event in that door. A copy whose link is
+    another event's page (copy_counts) is neither: its categories are that
+    event's. Also counts the copies whose kept row another writer has hidden
+    since (a cancellation, a take-down): they stay hidden, which is the owner's
+    rule that nobody is sent to an event that is off.
 
     Reads: one keyset over 0236's partial index (duplicate_of is not null),
-    then the kept rows by id. Writes only with --apply. -> counts, or None when
-    a read failed."""
+    the kept rows by id, then the text of the copies a kept row does not cover
+    (100 a request). Writes only with --apply. -> counts, or None when a read
+    failed."""
     lo = Z(now - timedelta(days=1))
     copies: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
     after: Optional[Tuple[str, str]] = None
@@ -1186,7 +1209,7 @@ def kept_rows_pass(db: Db, now: datetime, apply: bool, budget) -> Optional[Dict[
             return None
         after = nxt
     res = {"copies": sum(len(v) for v in copies.values()), "kept_rows": len(copies), "orphaned": 0,
-           "short": 0, "given": 0, "unhidden": 0, "changed": 0, "owed": 0, "examples": []}
+           "short": 0, "given": 0, "unhidden": 0, "changed": 0, "owed": 0, "not_counted": 0, "examples": []}
     kept: Dict[str, Dict[str, Any]] = {}
     for chunk in _chunks(copies):
         if budget():
@@ -1199,9 +1222,28 @@ def kept_rows_pass(db: Db, now: datetime, apply: bool, budget) -> Optional[Dict[
         for r in resp.json() or []:
             kept[str(r["id"])] = r
     res["orphaned"] = sum(len(v) for sid, v in copies.items() if sid not in kept)
+    # A copy the kept row does not cover matters only if its categories count
+    # (copy_counts): read the text of those few, not of every copy.
+    need = [str(c["id"]) for sid, k in kept.items() for c in copies[sid]
+            if not categories_cover(k.get("category"), k.get("categories"), c.get("category"), c.get("categories"))]
+    text: Dict[str, Dict[str, Any]] = {}
+    for chunk in _chunks(need):
+        if budget():
+            return None
+        resp = db.get(f"{db.base}&select=id,title,place_name,starts_at,description&id=in.({','.join(chunk)})")
+        if not _ok(resp):
+            _p(f"  hidden copies' text read failed: {_why(resp)}")
+            return None
+        for r in resp.json() or []:
+            text[str(r["id"])] = r
     fixes = []
     for sid, k in sorted(kept.items()):
-        cs = copies[sid]
+        # Covered copies stay in the union as they are; an uncovered one only if
+        # its link is its own (one whose text is gone is left out).
+        cs = [c for c in copies[sid]
+              if categories_cover(k.get("category"), k.get("categories"), c.get("category"), c.get("categories"))
+              or (str(c["id"]) in text and copy_counts(text[str(c["id"])]))]
+        res["not_counted"] += len(copies[sid]) - len(cs)
         if all(categories_cover(k.get("category"), k.get("categories"), c.get("category"), c.get("categories"))
                for c in cs):
             continue
@@ -1359,6 +1401,7 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
               + ("given the union" if apply else "--apply gives the union")
               + f" {kept['given']}, copies {'un-hidden' if apply else 'to un-hide'} (no room) {kept['unhidden']}"
               + (f", moved since the read {kept['changed']}" if kept["changed"] else "")
+              + (f", not counted (link is another event's page) {kept['not_counted']}" if kept["not_counted"] else "")
               + (f", OWED {kept['owed']}" if kept["owed"] else "") if kept["short"] else ""))
 
     midnight = now.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -1457,7 +1500,8 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
                  clusters=len(plans), hide=n, hide_by_arm=dict(arms), left=left, near_misses=dict(w_near))
         totals.update(candidates=len(pairs), links_read=len(need), matched=len(edges), clusters=len(plans),
                       hide=n, left=left, kept_rows_given_categories=sum(1 for p in plans if p.get("categories")),
-                      left_no_room=sum(len(p["no_room"]) for p in plans))
+                      left_no_room=sum(len(p["no_room"]) for p in plans),
+                      not_counted=sum(len(p["not_counted"]) for p in plans if p["hide"]))
         by_arm.update(arms)
         near.update(w_near)
         for p in plans:
@@ -1512,7 +1556,8 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
     _p(f"Copies {'hidden' if apply else 'to hide'}: "
        + (f"{totals['hidden']} of {totals['hide']} planned" if apply else f"{totals['hide']}")
        + (" (" + ", ".join(f"{k} {v}" for k, v in sorted(by_arm.items())) + ")" if by_arm else "")
-       + (f"; {totals['left']} left for a person" if totals["left"] else ""))
+       + (f"; {totals['left']} left visible ({totals['left'] - totals['left_no_room']} for a person, "
+          f"{totals['left_no_room']} because their categories do not fit)" if totals["left"] else ""))
     if totals["rows"]:
         _p(f"  that is {totals['hide'] / totals['rows']:.1%} of the rows listed")
     for arm in ARMS:
@@ -1524,10 +1569,12 @@ def main(argv: Optional[List[str]] = None, http=None) -> int:
     if totals["link_names_another_date"]:
         _p(f"Rows whose link names another date (an adapter's bug; listed in the report as "
            f"'link_names_another_date'): {totals['link_names_another_date']}")
-    if totals["kept_rows_given_categories"]:
+    if totals["kept_rows_given_categories"] or totals["left_no_room"] or totals["not_counted"]:
         _p(f"Kept rows that carry their copies' categories: {totals['kept_rows_given_categories']}"
            + (f"; copies left visible because their categories do not fit: {totals['left_no_room']}"
-              if totals["left_no_room"] else ""))
+              if totals["left_no_room"] else "")
+           + (f"; copies hidden WITHOUT their categories, because their link is another event's page: "
+              f"{totals['not_counted']}" if totals["not_counted"] else ""))
     # A PATCH WHOSE FILTER MATCHES NOTHING MUST NOT PASS. Every planned hide that
     # reaches the database comes back skipped only if its filter no longer
     # matches (a claim, a chat message since the listing): rare. Half of them

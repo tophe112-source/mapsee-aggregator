@@ -29,6 +29,20 @@ WHAT IT WILL NOT TOUCH.
     listing we stop rewriting it underneath them
   * a row whose recomputed primary equals the stored one (the vast majority)
 
+A ROW THE COLLAPSER KEPT (mapsee_dedupe_events: other rows of the same event
+were hidden behind it, events.duplicate_of) carries the categories of those
+copies, so the event stays in every door it was in. recompute() reads only the
+row's own text, so on its own this sweep would strip that union: on the
+2026-10-16 plan it would have dropped a category from 89 of the 91 kept rows the
+union changed (community 18, learning 18, theater 15, music 15 ...), and the
+next nightly pass would put them back. So a kept row's answer is its own
+recomputed categories PLUS its copies' (merged_categories, the sync's one
+function), and the hidden copies are swept with it (a classifier fix reaches
+the categories the union reads). A copy whose link is another event's page
+counts for nothing (copy_counts), which is how a misfile an earlier union
+carried ('fitness' on a comedy show) comes off: it shows here as a
+'<primary> -<category>' transition.
+
 DRY RUN BY DEFAULT, and it prints the TRANSITION TABLE before it writes
 anything. Read that table. Re-running a classifier over live rows is exactly the
 kind of sweep that looks fine in aggregate and is wrong in the particular, and
@@ -47,11 +61,14 @@ import json
 import os
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from mapsee_supabase_sync import derive_categories
+from mapsee_supabase_sync import (categories_cover, copy_counts, derive_categories, merged_categories,
+                                  read_hidden_copies)
 
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
@@ -104,6 +121,52 @@ def recompute(row):
     })
 
 
+COPY_SELECT = "id,title,description,category,categories,place_name,starts_at,claimed_by"
+
+
+class _Resp:
+    def __init__(self, status, body):
+        self.status_code, self.text = status, body
+
+    def json(self):
+        return json.loads(self.text) if self.text.strip() else None
+
+
+class _Http:
+    """The one get() read_hidden_copies asks of a session, over urllib."""
+
+    def get(self, url, headers=None, timeout=60):
+        req = urllib.request.Request(url, headers=headers or {})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return _Resp(r.status, r.read().decode("utf-8", "replace"))
+        except urllib.error.HTTPError as e:
+            return _Resp(e.code, e.read().decode("utf-8", "replace"))
+
+
+def recompute_kept(row, copies, after):
+    """recompute(row), and for a row the collapser kept, its copies'
+    categories carried as the sync and the collapser carry them
+    (merged_categories over the copies whose link is their own, copy_counts).
+    `after(copy)` is the (category, categories) the copy has once this sweep is
+    done with it."""
+    primary, extras = recompute(row)
+    use = [after(c) for c in copies if copy_counts(c)]
+    return primary, (merged_categories(primary, extras, use) if use else extras)
+
+
+def transition(old_primary, old_extras, new_primary, new_extras):
+    """The name of a change, or None. See the note in main()."""
+    old_sorted, new_sorted = sorted(old_extras or []), sorted(new_extras or [])
+    if new_primary == old_primary and new_sorted == old_sorted:
+        return None
+    if new_primary != old_primary:
+        return f"{old_primary} -> {new_primary}"
+    dropped = [c for c in old_sorted if c not in new_sorted]
+    added = [c for c in new_sorted if c not in old_sorted]
+    return old_primary + "".join(f" -{c}" for c in dropped) + "".join(f" +{c}" for c in added)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true", help="write (default is a dry run)")
@@ -148,6 +211,20 @@ def main():
     start = now - args.back * 86400          # see --back: in-progress events count
     a = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(start))
     b = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now + args.days * 86400))
+
+    # THE COPIES THE COLLAPSER HID, by the row it kept (one keyset; {} before
+    # ../mapsee 0236). Without them a write here would strip every kept row's
+    # union, so a failed read refuses --apply.
+    copies_by_kept = read_hidden_copies(_Http(), SUPABASE_URL, SERVICE_KEY,
+                                        datetime.fromtimestamp(start, timezone.utc))
+    if copies_by_kept is None:
+        if args.apply:
+            print("refusing to write: the hidden copies (events.duplicate_of) could not be read, and a\n"
+                  "kept row written without them loses its copies' categories", file=sys.stderr)
+            return 2
+        print("  WARNING: the hidden copies could not be read; kept rows are shown without their union")
+        copies_by_kept = {}
+    copies_scanned = no_fit = 0
 
     moves = collections.Counter()
     skipped_windows = []
@@ -221,14 +298,55 @@ def main():
                 break
         pages += 1
 
+        # The copies hidden behind this window's kept rows, with their text.
+        wanted = [c["id"] for r in rows for c in copies_by_kept.get(str(r["id"]), ())]
+        copy_rows = {}
+        for i in range(0, len(wanted), 100):
+            ids = ",".join(wanted[i:i + 100])
+            try:
+                for c in sb(f"events?select={COPY_SELECT}&external_source=eq.mapsee&id=in.({ids})") or []:
+                    copy_rows[str(c["id"])] = c
+            except Exception as e:                    # noqa: BLE001
+                print(f"  window {w_a[:10]}: hidden copies' text failed ({e})", file=sys.stderr)
+                skipped_windows.append(w_a[:10])
+                copy_rows = None
+                break
+        if copy_rows is None:
+            t += step
+            continue                                  # never write a kept row without its copies
+        after = {}
+        for cid, c in copy_rows.items():
+            copies_scanned += 1
+            after[cid] = (c.get("category"), c.get("categories"))
+            if c.get("claimed_by"):
+                continue
+            new_primary, new_extras = recompute(c)
+            key = transition(c.get("category") or "", c.get("categories"), new_primary, new_extras)
+            if not key:
+                continue
+            changed += 1
+            moves[key] += 1
+            if len(examples[key]) < 3:
+                examples[key].append("[hidden copy] " + (c.get("title") or ""))
+            if args.apply and key.replace(" ", "") not in allowed:
+                held[key] += 1
+                continue
+            after[cid] = (new_primary, new_extras)
+            if args.apply:
+                sb(f"events?id=eq.{c['id']}&external_source=eq.mapsee", "PATCH",
+                   {"category": new_primary, "categories": new_extras}, prefer="return=minimal")
+                written += 1
+
         for row in rows:
             scanned += 1
             if row.get("claimed_by"):
                 continue                                  # a venue owns this listing
             old_primary = row.get("category") or ""
             old_extras = sorted(row.get("categories") or [])
-            new_primary, new_extras = recompute(row)
-            new_sorted = sorted(new_extras or [])
+            mine = [copy_rows[c["id"]] for c in copies_by_kept.get(str(row["id"]), ()) if c["id"] in copy_rows]
+            new_primary, new_extras = recompute_kept(row, mine, lambda c: after[str(c["id"])])
+            no_fit += sum(1 for c in mine if copy_counts(c) and not categories_cover(
+                new_primary, new_extras, *after[str(c["id"])]))
             # THE SECONDARIES ARE PART OF THE ANSWER. This used to be
             # `if new_primary == old_primary: continue`, which skipped every row
             # whose only fault was a wrong SECONDARY — and a secondary is enough
@@ -236,23 +354,17 @@ def main():
             # p_categories`). The yoga class on the food map was fitness+[food]
             # both before and after, so it was skipped here even once the other
             # two defects were fixed.
-            if new_primary == old_primary and new_sorted == old_extras:
+            #
+            # A secondary-only change needs a name an operator can read and
+            # then pass to --allow. `fitness -> fitness` is both meaningless
+            # and dangerous: it would authorise every row whose primary is
+            # already right. transition() names the actual edit instead —
+            # `fitness -food` is "drop the food secondary from fitness rows",
+            # which is a thing somebody can agree to on purpose.
+            key = transition(old_primary, old_extras, new_primary, new_extras)
+            if not key:
                 continue
             changed += 1
-            if new_primary != old_primary:
-                key = f"{old_primary} -> {new_primary}"
-            else:
-                # A secondary-only change needs a name an operator can read and
-                # then pass to --allow. `fitness -> fitness` is both meaningless
-                # and dangerous: it would authorise every row whose primary is
-                # already right. Name the actual edit instead — `fitness -food`
-                # is "drop the food secondary from fitness rows", which is a
-                # thing somebody can agree to on purpose.
-                dropped = [c for c in old_extras if c not in new_sorted]
-                added = [c for c in new_sorted if c not in old_extras]
-                key = (old_primary
-                       + "".join(f" -{c}" for c in dropped)
-                       + "".join(f" +{c}" for c in added))
             moves[key] += 1
             if len(examples[key]) < 3:
                 examples[key].append(row.get("title") or "")
@@ -266,8 +378,11 @@ def main():
                 written += 1
         t += step
 
-    print(f"\n  scanned {scanned} aggregator rows over {args.days} days · "
-          f"{changed} would change" + ("" if args.apply else "  (DRY RUN — nothing written)"))
+    print(f"\n  scanned {scanned} aggregator rows over {args.days} days (and {copies_scanned} hidden copies "
+          f"behind them) · {changed} would change" + ("" if args.apply else "  (DRY RUN — nothing written)"))
+    if no_fit:
+        print(f"  {no_fit} hidden copies would no longer fit on their kept row: mapsee_dedupe_events' "
+              f"nightly pass un-hides them")
     if skipped_windows:
         # Never let an incomplete sweep read as a finished one. The repo's own
         # lesson: a green run that quietly examined less than it claims is worse

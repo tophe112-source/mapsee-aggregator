@@ -1025,30 +1025,65 @@ _DESC_SCAN_CHARS = 600            # enough for the real blurb, short of the boil
 # production plan (558 hides): 127 copies carried a category the kept row
 # lacked, 93 of them a whole door (theater lost Broadway shows kept as a
 # Ticketmaster 'other' row; kids, learning, music). So the kept row carries its
-# copies' categories, and THIS function is the one place that decides how: the
-# collapser writes it when it hides, and the sync applies it whenever it writes a
-# kept row, so a refresh never puts the row back to its own categories (and the
-# skip-unchanged comparison sees the merged value, not a difference every day).
+# copies' categories, and THESE functions are the one place that decides how:
+# the collapser writes the union when it hides, the sync applies it whenever it
+# writes a kept row, mapsee_reclassify.py applies it before it compares, so a
+# refresh never puts the row back to its own categories (and the skip-unchanged
+# comparison sees the merged value, not a difference every day).
+#
+# A DOOR THAT LEAVES OUT A PRIMARY. bar.ventures opens onto party, music and food
+# but not onto a row whose PRIMARY is market (../mapsee src/lens.js
+# `notPrimary`, applied by doorRows in src/index.js and by the app's chip
+# filter): every market carries a food secondary so that it reaches oneday.cafe,
+# and 12, 10 and 11 of the first twelve listings on three bar.ventures city pages
+# were markets on 2026-09-25. A union blind to that rule moves an event across
+# the door both ways (the second re-review called the real functions): a market
+# copy's food on a community kept row put the event on bar.ventures, where
+# neither row was; a food copy hidden behind a market kept row took it off. So a
+# copy's category that would put the kept row on such a door, when no row of the
+# event was on it, is not carried, and a copy on such a door that the kept row
+# cannot reach is not covered (it stays visible). {door: (keys, primaries it
+# leaves out)}; a door added to lens.js with `notPrimary` must be added here.
+NOT_PRIMARY_DOORS = {"bar": (frozenset({"party", "music", "food"}), frozenset({"market"}))}
+
+
+def _not_primary_doors(primary: Optional[str], extras: Optional[List[str]]) -> set:
+    """The NOT_PRIMARY_DOORS this row is on."""
+    p = primary or DEFAULT_CATEGORY_KEY
+    cats = {p} | set(extras or [])
+    return {d for d, (keys, notp) in NOT_PRIMARY_DOORS.items() if cats & keys and p not in notp}
+
+
 def merged_categories(primary: Optional[str], extras: Optional[List[str]],
                       copies) -> Optional[List[str]]:
     """The secondaries a kept row carries once its hidden copies add theirs.
 
-    `copies` is [(category, categories)] of the rows hidden behind it. With no
-    copies the row's own value comes back UNCHANGED (same list, same order), so
-    a row nobody copied never differs from what to_row derived. The primary
-    stays the primary (it is the pin, the colour and the sheet). Its own
-    secondaries come first and are never displaced; the copies' primaries fill
-    what is left, then their secondaries, each group sorted, never 'other' (no
-    door) and never the primary (0108's CHECK). At most MAX_EXTRA_CATEGORIES,
-    so a copy whose categories do not all fit is one the collapser must leave
-    visible (categories_cover). Applying it twice changes nothing."""
+    `copies` is [(category, categories)] of the rows hidden behind it whose
+    categories count (copy_counts: not a copy whose link is another event's
+    page). With no copies the row's own value comes back UNCHANGED (same list,
+    same order), so a row nobody copied never differs from what to_row derived.
+    The primary stays the primary (it is the pin, the colour and the sheet). Its
+    own secondaries come first and are never displaced; the copies' primaries
+    fill what is left, then their secondaries, each group sorted, never 'other'
+    (no door), never the primary (0108's CHECK), and never a category that
+    would put the row on a NOT_PRIMARY_DOORS door no row of the event was on.
+    At most MAX_EXTRA_CATEGORIES, so a copy whose categories do not all fit is
+    one the collapser must leave visible (categories_cover). Applying it twice
+    changes nothing."""
     if not copies:
         return extras
     own = list(extras or [])
-    have = set(own) | {primary or DEFAULT_CATEGORY_KEY}
+    prim = primary or DEFAULT_CATEGORY_KEY
+    have = set(own) | {prim}
+    reach = _not_primary_doors(primary, own)
+    for c, cs in copies:
+        reach |= _not_primary_doors(c, cs)
 
     def usable(c) -> bool:
-        return c in MAPSEE_CATEGORY_KEYS and c != DEFAULT_CATEGORY_KEY and c not in have
+        if c not in MAPSEE_CATEGORY_KEYS or c == DEFAULT_CATEGORY_KEY or c in have:
+            return False
+        return not any(c in keys and prim not in notp and d not in reach
+                       for d, (keys, notp) in NOT_PRIMARY_DOORS.items())
 
     prims = sorted({c for c, _ in copies if usable(c)})
     rest = sorted({x for _, cs in copies for x in (cs or []) if usable(x) and x not in prims})
@@ -1058,9 +1093,110 @@ def merged_categories(primary: Optional[str], extras: Optional[List[str]],
 
 def categories_cover(primary: Optional[str], extras: Optional[List[str]], category: Optional[str],
                      categories: Optional[List[str]]) -> bool:
-    """Every category of one copy (but 'other') is on the kept row."""
+    """Every category of one copy (but 'other') is on the kept row, and so is
+    every NOT_PRIMARY_DOORS door the copy is on: a food copy behind a market
+    kept row is the event's only way onto bar.ventures."""
     kept = {primary or DEFAULT_CATEGORY_KEY, DEFAULT_CATEGORY_KEY} | set(extras or [])
-    return not ({category or DEFAULT_CATEGORY_KEY} | set(categories or [])) - kept
+    if ({category or DEFAULT_CATEGORY_KEY} | set(categories or [])) - kept:
+        return False
+    return _not_primary_doors(category, categories) <= _not_primary_doors(primary, extras)
+
+
+# A COPY WHOSE LINK IS ANOTHER EVENT'S PAGE. Some adapters write a row whose
+# "Tickets / info:" link, and the text classified with it, belong to another
+# site's event: 'Eliott Doyle en spectacle' (a comedy show) linking a parks
+# department's mobile-fitness page, a heritage walk linking a lake clean-up.
+# Its categories are that other event's, and a union that carried them would
+# move the misfile onto the venue's own row, where nothing could clear it
+# (measured: 3 kept rows on 2026-10-16, 4 on 10-15, 2 in the census replay,
+# 'fitness' on a comedy show, 'volunteer' on a heritage walk; every one read by
+# hand was the other event's category). So such a copy's categories do not
+# count: it is hidden without them. The two tests below are also the
+# collapser's survivor terms (another date in the link; a slug that names
+# another event).
+LINK_RX = re.compile(r"Tickets / info: (https?://\S+)")
+LINK_DATE = re.compile(r"/(20\d\d-\d\d-\d\d)(?:\b|$)")
+_LEAF_DROP = re.compile(r"\d{1,2}|(?:19|20)\d\d|(?:19|20)\d\d-?(?:0[1-9]|1[0-2])-?(?:0[1-9]|[12]\d|3[01])")
+_STRONG_ID = re.compile(r"\d{5,}|[0-9a-f]{12,}")
+# Path words that say what KIND of page it is, not which event.
+_SLUG_GENERIC = {"event", "events", "evento", "eventos", "evenement", "evenements", "veranstaltung", "calendar",
+                 "kalender", "agenda", "programma", "programme", "program", "city", "tickets", "ticket", "whats"}
+
+
+def canonical_link(description: Optional[str]) -> Optional[str]:
+    """The row's own 'Tickets / info:' URL as host+path(+query): no scheme,
+    no www., no fragment, path lower-cased without a trailing slash."""
+    m = LINK_RX.search(description or "")
+    if not m:
+        return None
+    u = urllib.parse.urlparse(m.group(1).rstrip(".,)"))
+    host = u.netloc.lower()
+    host = host[4:] if host.startswith("www.") else host
+    if not host:
+        return None
+    return host + u.path.rstrip("/").lower() + (f"?{u.query}" if u.query else "")
+
+
+def _fold(s: Optional[str]) -> str:
+    folded = unicodedata.normalize("NFKD", str(s or "")).lower()
+    return "".join(c for c in folded if not unicodedata.combining(c))
+
+
+def link_ok(r: Dict[str, Any]) -> bool:
+    """False when the row's link carries a date more than a day from the row's
+    own start: another site's event (an adapter bug), not this row's page."""
+    m = LINK_DATE.search(r.get("link") or "")
+    start = r.get("starts_at")
+    if not m or not start:
+        return True
+    try:
+        d = datetime.strptime(m.group(1), "%Y-%m-%d").date()
+        s = start if isinstance(start, datetime) else datetime.fromisoformat(str(start).replace("Z", "+00:00"))
+    except ValueError:
+        return True
+    s = s.astimezone(timezone.utc) if s.tzinfo else s
+    return abs((d - s.date()).days) <= 1
+
+
+def link_names_row(r: Dict[str, Any]) -> bool:
+    """False when the link's last slug (hyphenated, after any id or date)
+    spells out 2+ words of 4+ letters and none is in the row's title or place:
+    another site's event page with no date in it (a Brussels comedy night
+    whose 'Tickets / info' is espaciomujermadrid.es/evento/taller-de-canto-
+    coral-..., production 2026-10-15). Ids, bare hosts and one-word slugs say
+    nothing, so they name the row. link_ok catches the dated kind."""
+    link = r.get("link")
+    if not link or "/" not in link:
+        return True
+    segs = [x for x in link.split("/", 1)[1].split("?", 1)[0].split("/") if x]
+    while segs and (not re.search(r"[a-z]", segs[-1]) or _LEAF_DROP.fullmatch(segs[-1])
+                    or (_STRONG_ID.search(segs[-1]) and "-" not in segs[-1])):
+        segs.pop()
+    if not segs or "-" not in segs[-1]:
+        return True
+    words = {w for w in re.split(r"[^a-z]+", _fold(segs[-1])) if len(w) >= 4 and w not in _SLUG_GENERIC}
+    if len(words) < 2:
+        return True
+    own = re.sub(r"[^a-z0-9]", "", _fold((r.get("title") or "") + " " + (r.get("place_name") or "")))
+    return any(w in own for w in words)
+
+
+def copy_counts(r: Dict[str, Any]) -> bool:
+    """A hidden copy's categories count toward its kept row's (merged_categories,
+    categories_cover) unless its link is another event's page: another date
+    (link_ok) or a slug naming another event (link_names_row). `r` carries
+    title, place_name, starts_at and either `link` (canonical) or description."""
+    if "link" not in r:
+        r = dict(r, link=canonical_link(r.get("description")))
+    return link_ok(r) and link_names_row(r)
+
+
+def adds_categories(primary: Optional[str], extras: Optional[List[str]], category: Optional[str],
+                    categories: Optional[List[str]]) -> bool:
+    """The copy carries a category (but 'other') the kept row lacks: only such
+    a copy's link decides anything (copy_counts), so only its text is read."""
+    kept = {primary or DEFAULT_CATEGORY_KEY, DEFAULT_CATEGORY_KEY} | set(extras or [])
+    return bool(({category or DEFAULT_CATEGORY_KEY} | set(categories or [])) - kept)
 
 
 # "workout" is a live metaphor and the classifier kept believing it. A glass-
@@ -2512,7 +2648,7 @@ def _missing_column(response) -> bool:
 
 
 def read_hidden_copies(session, url: str, key: str, now: datetime):
-    """{kept row's id: [(category, categories)]} for every row the collapser
+    """{kept row's id: [{id, category, categories}]} for every row the collapser
     hid (duplicate_of set, still hidden) that ended no more than a day ago.
     One keyset over 0236's partial index (duplicate_of is not null), in
     duplicate_of order, 1,000 a page. {} when the column does not exist yet
@@ -2522,7 +2658,7 @@ def read_hidden_copies(session, url: str, key: str, now: datetime):
             + urllib.parse.quote((now - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ"), safe="")
             + "&select=id,duplicate_of,category,categories&order=duplicate_of.asc,id.asc&limit=1000")
     headers = {"apikey": key, "Authorization": f"Bearer {key}"}
-    out: Dict[str, List[Tuple[Any, Any]]] = {}
+    out: Dict[str, List[Dict[str, Any]]] = {}
     after = None
     for _ in range(1000):                             # 1M copies; a cursor that stops moving ends it
         page_url = base + (f"&and=(duplicate_of.gte.{after[0]},or(duplicate_of.gt.{after[0]},id.gt.{after[1]}))"
@@ -2539,7 +2675,8 @@ def read_hidden_copies(session, url: str, key: str, now: datetime):
         if not isinstance(rows, list) or not all(isinstance(x, dict) for x in rows):
             return None
         for row in rows:
-            out.setdefault(str(row.get("duplicate_of")), []).append((row.get("category"), row.get("categories")))
+            out.setdefault(str(row.get("duplicate_of")), []).append(
+                {"id": str(row.get("id")), "category": row.get("category"), "categories": row.get("categories")})
         if len(rows) < 1000:
             return out
         nxt = (str(rows[-1].get("duplicate_of")), str(rows[-1].get("id")))
@@ -2549,12 +2686,59 @@ def read_hidden_copies(session, url: str, key: str, now: datetime):
     return None
 
 
+COPY_TEXT = "id,title,place_name,starts_at,description"
+
+
+def read_copy_text(session, url: str, key: str, ids) -> Optional[Dict[str, Dict[str, Any]]]:
+    """{id: {title, place_name, starts_at, description}} of these hidden copies,
+    100 ids a request: what copy_counts needs. Only the copies that would add a
+    category are asked for (adds_categories), so the descriptions read are a
+    few hundred, not every hidden copy's. None when a read failed."""
+    headers = {"apikey": key, "Authorization": f"Bearer {key}"}
+    ids = sorted(set(ids))
+    out: Dict[str, Dict[str, Any]] = {}
+    for i in range(0, len(ids), 100):
+        chunk = ids[i:i + 100]
+        try:
+            r = session.get(url.rstrip("/") + "/rest/v1/events?external_source=eq.mapsee"
+                            f"&select={COPY_TEXT}&id=in.({','.join(chunk)})", headers=headers, timeout=60)
+            if r.status_code not in (200, 206):
+                return None
+            rows = r.json()
+        except Exception:                             # noqa: BLE001
+            return None
+        if not isinstance(rows, list):
+            return None
+        for row in rows:
+            if isinstance(row, dict) and row.get("id"):
+                out[str(row["id"])] = row
+    return out
+
+
+def counted_copies(primary: Optional[str], extras: Optional[List[str]], copies: List[Dict[str, Any]],
+                   text: Dict[str, Dict[str, Any]]) -> List[Tuple[Any, Any]]:
+    """[(category, categories)] of the copies whose categories count: a copy
+    that adds nothing is kept as it is (its link changes nothing); one that adds
+    a category counts only when its text was read and its link is not another
+    event's page (copy_counts)."""
+    out = []
+    for c in copies:
+        if adds_categories(primary, extras, c.get("category"), c.get("categories")):
+            t = text.get(str(c.get("id")))
+            if not t or not copy_counts(t):
+                continue
+        out.append((c.get("category"), c.get("categories")))
+    return out
+
+
 def merge_copy_categories(session, url: str, key: str, rows: List[Dict[str, Any]],
                           detail: Dict[str, Dict[str, Any]], now: datetime) -> Optional[int]:
     """Give each STORED row this run writes the categories of the copies the
-    collapser hid behind it (merged_categories), in place. -> how many rows
-    changed, or None when the copies could not be read: then the rows go as
-    derived and the collapser's nightly pass puts the union back."""
+    collapser hid behind it (merged_categories over counted_copies), in place.
+    -> how many rows changed, or None when the copies could not be read: then
+    the rows go as derived and the collapser's nightly pass puts the union back.
+    A category that came from a copy whose link is another event's page is
+    dropped here, because the row is rebuilt from its own categories."""
     ids = {}
     for r in rows:
         rid = (detail.get(r.get("external_id")) or {}).get("id")
@@ -2565,10 +2749,16 @@ def merge_copy_categories(session, url: str, key: str, rows: List[Dict[str, Any]
     copies = read_hidden_copies(session, url, key, now)
     if copies is None:
         return None
+    need = {str(c["id"]) for rid, r in ids.items() for c in copies.get(rid, ())
+            if adds_categories(r.get("category"), r.get("categories"), c.get("category"), c.get("categories"))}
+    text = read_copy_text(session, url, key, need) if need else {}
+    if text is None:
+        return None
     n = 0
     for rid, r in ids.items():
         if rid in copies:
-            merged = merged_categories(r.get("category"), r.get("categories"), copies[rid])
+            use = counted_copies(r.get("category"), r.get("categories"), copies[rid], text)
+            merged = merged_categories(r.get("category"), r.get("categories"), use)
             if merged != r.get("categories"):
                 r["categories"] = merged
                 n += 1
