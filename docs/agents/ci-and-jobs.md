@@ -362,3 +362,15 @@
   now read every run or the one after. `test_workflow_contracts.py` pins the
   flag and both cache paths, because dropping either one silently restores the
   starvation.
+
+- **continue-on-error TURNED 25 RED RUNS GREEN (2026-10-13).** "Collapse
+  duplicate imported events" (a step inside indexnow, timeout-minutes 12,
+  continue-on-error) annotated "Process completed with exit code 1" on every
+  non-skipped run 2026-09-19..10-12, 25 runs, while the jobs API reported the
+  step as success; it ran 12m12s, its timeout, on most runs 09-22..10-07. The
+  collapser is now its own `dedupe` job: it needs every ingest job, has no
+  continue-on-error, gets 25 minutes for `--max-seconds 1200`, shares one
+  concurrency group with the manual dedupe-events.yml, runs its own tests first,
+  and reports until the repository variable DEDUPE_APPLY is 'true'. indexnow
+  needs it, so nothing it hides is announced. `test_workflow_contracts.py` pins
+  all of it.

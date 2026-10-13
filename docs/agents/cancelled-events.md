@@ -272,3 +272,17 @@
   - The PATCH reply is the row AFTER the write, so a move is confirmed by the NEW key. Counting the keys sent (as `patch_imports` does) read every move as failed. The test's FakeDB answers the same way now.
   - Replayed on run 115 to run 116, exactly the 2 move and the 8 are still cancelled. An ambiguous match, a new key that is already stored, and a claimed row all fall back to the cancellation. Matching runs only inside the breaker's allowance, so a mass retitle still cancels and moves nothing. `--dry-run` reports what would move.
   - The rec manifest grows from 6.5 MB to 16.3 MB. A manifest written before 2026-10-07 has no identities and matches nothing for one run.
+
+- **A COLLAPSER HIDE SAYS WHAT IT COPIED, AND NOTHING ELSE LIFTS IT (2026-10-13).**
+  `mapsee_dedupe_events.py` sets `hidden_at` and `duplicate_of` (the survivor's
+  id, ../mapsee 0236) in one PATCH filtered on `claimed_at=is.null` and
+  `hidden_at=is.null`; never `cancelled_at`, never DELETE (a delete cascades
+  RSVPs and chat, and the next sync's existence read would re-insert the key).
+  The sync's equal-stamp lift never matches it, `fetch_import_state` still
+  counts the row so `--only-new` never re-inserts it, and `to_row` writes
+  neither column. The four retire scripts' `--unhide` now ask for
+  `duplicate_of=is.null` on every read and write, after probing the column (a
+  400 means "as before", any other failure stops the run), so their undo cannot
+  put a copy back beside its survivor: test_ingest_parkrun.py,
+  test_cancellations.py and test_retire_thin_artwork.py pin it.
+  `--unhide --stamp S` reverses exactly one run, and reports unless `--apply`.

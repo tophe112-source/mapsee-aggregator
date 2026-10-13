@@ -317,3 +317,84 @@
   standing row still goes, a live one is the roller's to bring back. PostgREST
   accepts the nested form (anon GET, 200; Polish Home's standing row falls
   outside it). `python test_cleanup.py` (2 checks fail with the guard removed).
+
+- **THE COLLAPSER HID NOTHING FOR WEEKS WHILE ITS STEP SHOWED GREEN (2026-10-13).**
+  `mapsee_dedupe_events.py` listed every imported row with no `starts_at` floor
+  (about 1.49M planned rows; it was sized for 193k) and its --max-seconds bounded
+  only the deletes. The step ran 12m12s, its timeout, on most runs 09-22..10-07,
+  and annotated exit 1 on all 25 runs 09-19..10-12 (ci-and-jobs.md). A census of
+  25,369 live imported rows in 11 metros then found 1,153 redundant rows (4.5%;
+  Chicago 11.1%), among them the owner's report: "Halloween Pet Portraits" and
+  "... Fundraiser" at 9th & Thomas, one Discover SLU page renamed, so two
+  fingerprints. It now lists one UTC day of live rows at a time under a budget
+  that covers the listing, the reads and the writes, and it hides rather than
+  deletes (cancelled-events.md). `python test_dedupe_events.py`.
+
+- **A KEYSET NEEDS A LOWER BOUND THE INDEX CAN USE, NOT JUST AN or() (2026-10-13).**
+  Paging one day of live rows by `or(starts_at.gt.X,and(starts_at.eq.X,id.gt.Y))`
+  alone climbed 0.81, 0.45, 0.85, 1.52, 2.03 s over five pages on the anon key;
+  with `starts_at.gte.X` beside the or(), 0.77, 0.45, 0.52, 0.48, 0.49, 1.01 s.
+  `count=exact` hit 57014 at 3.2-3.6 s on three of four days. The collapser's
+  cursor is `and=(starts_at.gte.S,or(starts_at.gt.S,id.gt.I),starts_at.lt.H)`
+  and it never sends offset= or count=; `test_dedupe_events.py` pins both.
+
+- **A DAY THAT HAS STARTED SCANS EVERY ROW THAT STARTED, TO RETURN THE FEW STILL
+  ON (2026-10-13).** Live rows (`ends_at >= now`) by a `starts_at` range cost the
+  rows the range scans. Anon key, 3 s ceiling: today and yesterday as whole days
+  hit 57014 on page 1, as did five of six 3-hour slices of today, while
+  tomorrow (all upcoming) listed 28,759 rows in 29 pages (median 1.26 s). So
+  `list_window` splits a day at now: the started part goes in 6-hour slices
+  that HALVE on a timeout down to 15 minutes (re-asking the same range only
+  repeats the scan), the rest is the plain keyset. Run that way today listed
+  13,324 rows in 70 pages with 16 timeouts, and four quarter-hours still failed
+  (04:00, 05:00, 07:00, 15:00Z: thousands of rows on one instant, which no
+  slice splits). A failed part is reported, exits 1, and the rest of the day is
+  used: a row missing from a window can only lose a match. The service role
+  (8 s, no RLS) is not measured. Older running days go LAST: 3 of the census's
+  854 hides involve a row started 2+ days before (Chicago Park District season
+  programmes, 21-29 days back).
+
+- **ONE EVENT, TWO CATEGORIES (2026-10-13).** 305 of 1,012 matched pairs carry
+  two different categories: all-day copies 127, same key drifted 54, one source
+  with similar titles 41, cross-source 36, one source listing twice 23, renames
+  18, loose cross-source 6. One "Halloween Bar Crawl" in two Meetup groups is
+  party in one and fitness in the other. The old key (title, category, start)
+  lost every one of them; the collapser no longer compares category.
+
+- **1.5 KM SINGLE-LINK MERGED BRANCHES AND CENTRES (2026-10-13).** The old
+  `find_duplicates` over the 25,369 census rows: 613 clusters, 728 drops, 287 of
+  them more than 150 m from the kept row (EarlyON drop-ins at other centres 123,
+  Starbucks 10, Dunkin' 8, Chipotle 7); single-link chains reached 7 Starbucks
+  in central Paris. Now 150 m, standing rows are not listed, and a member is
+  hidden only if it matched the survivor itself (a star, not a chain; 10 of 864
+  census members were left by that rule).
+
+- **TWO ROWS ON ONE PAGE MADE IN ONE READ ARE TWO RECORDS (2026-10-13).** NYC
+  Parks "Tennis" x21 on one dataset link, "Status Mic" / "Flopsauce Mic" on one
+  Instagram link, Toronto "Pickleball, ages 60+" / "Cards, ages 60+" on one
+  centre page: same page, same start, created together. Requiring rows on one
+  page to be created at least 12 h apart left 0 false positives in the census
+  and gave up 18 true pairs.
+
+- **THE COLLAPSER'S RULE, MEASURED (2026-10-13).** Over the census's 15,632
+  labelled candidate pairs: 1,005 matched, 1,000 true, 5 on a link the census
+  called a listing page, 0 of 11,871 timetable sessions, 0 of 161 chain
+  branches; 854 rows hidden, 74% of the 1,153 redundant (Chicago 343 of 364).
+  Left out on purpose: re-timed (24) and re-dated (18) copies, cross-posts whose
+  titles name different things (269), standing rows (154 + 17), 6 cross-source
+  pairs with another start. The job's own pipeline over the same rows (day
+  windows, the candidate grid, the carry) hides those 854 and 22 pairs the
+  census never labelled: 17 sat 75-150 m apart, outside its candidates; 5 are on
+  a leisure-centre or calendar page whose third title had not been read yet
+  (generic-link detection counts only the rows read this run). Production, anon
+  key, report only: 736 to hide in 28,759 rows of 2026-10-14 (2.6%: same-page
+  281, same-slot 372, all-day copy 83) and 333 in 13,435 live rows of 10-12/13,
+  the reported pair among them (hide 5ec4afa8, keep 36d74bf7). Read 50 pairs per
+  rule from the first nightly dedupe-report before DEDUPE_APPLY goes on.
+
+- **"NEWEST WINS" MEANS "THE KEY THE SOURCE STILL EMITS" (2026-10-13).** For a
+  rename it does: 8 of 8 source pages checked show the newer title or time. For
+  an all-day copy both keys are still emitted, by two adapters, and in 193 of 219
+  the clockless row is the newer one, so newest-wins would keep the row without
+  a time 88% of the time. The survivor order is claimed, people on it (RSVP,
+  chat, promotion), a row with a clock, newest import, id.

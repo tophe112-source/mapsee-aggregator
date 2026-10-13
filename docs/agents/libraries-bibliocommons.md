@@ -69,3 +69,17 @@
   `kids` accounts for 1,651 Cincinnati, 271 Stouffville and 280 Stark rows
   (2,202 total); the stored start dates run 2026-09-25 through 2026-12-24.
   This is event yield, not a count of calendar URLs or portal facets.
+
+- **CHICAGO PUBLIC LIBRARY WAS IMPORTED TWICE: 26% OF ALL DUPLICATE PAIRS
+  (2026-10-13).** opendata_sources.json's "Chicago Library Events" (Socrata
+  vsdy-d8k7, keyed on event_page) wrote CPL's calendar again beside
+  bibliocommons chipublib, under other fingerprints. The census: 358 of 1,373
+  true pairs (all-day copies 201, same key drifted 128, renames 18), 343 of the
+  854 rows the collapser would hide. Parity, both adapters run that morning into
+  scratch stores: the open-data read returned 188 records (one page of 200,
+  about two days ahead); 187 were in the BiblioCommons store by event id
+  (99.5%), 186 at the same start, 0 with the same fingerprint. Retired;
+  test_ingest_opendata.py fails if vsdy-d8k7 returns while chipublib is
+  configured. The curation ledger still lists it as `ok`, and discovery skips
+  only configured or recently dead keys, so a re-proposal is caught by that
+  test, not prevented.

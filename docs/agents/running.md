@@ -10,6 +10,7 @@ python test_categories.py           # the classifier: which lens an event reache
 python test_cause_walks.py          # a walk, run or ride for a cause reaches awaresie and plansie; an ordinary race does not
 python test_ingest_categories.py    # adapters + the shared vocabulary
 python test_link_series.py          # which repeats count as one thing
+python test_dedupe_events.py        # which rows are one event, and what the collapser sends
 python test_health_check.py         # the alarm itself, against a faked transport
 python test_ingest_places.py        # coordinates: default pins, address parsing
 python test_menu_links.py           # what may be called an "Order pickup" link
@@ -73,7 +74,7 @@ python mapsee_health_check.py       # needs SUPABASE_URL + SUPABASE_SERVICE_ROLE
 python mapsee_uncancel.py --since 2026-10-06T06:00:00Z   # report the pipeline's own cancellations since then; --apply lifts them
 ```
 
-The 81 test scripts are the CI gate (`tests.yml`). They print one line per
+The 82 test scripts are the CI gate (`tests.yml`). They print one line per
 case and exit non-zero on failure — no runner needed. `timezonefinder` has no Windows
 wheel above 6.0.1, but it is a lazy optional import with a fallback, so the tests
 run without it.
