@@ -76,6 +76,20 @@ class OpenDataTests(TestCase):
         self.assertEqual(ingest.row_to_event({**row,'fee':'12.5'},{**src,'currency':'C$'}).description.splitlines()[-1],
                          'Admission: C$12.5.')
 
+    def test_chicago_public_library_is_read_once_through_bibliocommons(self):
+        # Retired 2026-10-13. The city's copy of CPL's calendar (vsdy-d8k7, keyed
+        # on event_page) wrote every event a second time under another
+        # fingerprint: of the 188 records it returned that morning, 187 were in a
+        # BiblioCommons chipublib read of the same morning (by event id), 186 at
+        # the same start, 0 with the same fingerprint. CPL was 358 of the 1,373
+        # duplicate pairs a census of 25,369 live rows found (26%). BiblioCommons
+        # is the one reader; the open-data copy may come back only if chipublib
+        # leaves bibliocommons_sources.json (the parkrun twin rule).
+        sources=json.loads(Path('opendata_sources.json').read_text())
+        biblio=json.loads(Path('bibliocommons_sources.json').read_text())
+        if any(s.get('slug')=='chipublib' for s in biblio['sites']):
+            self.assertEqual([s['name'] for s in sources if 'vsdy-d8k7' in s.get('url','')],[])
+
     def test_failed_source_is_reported_after_other_sources_are_saved(self):
         sources=[{'name':'good'},{'name':'broken'},{'name':'also good'}]
         store=Mock(records={})

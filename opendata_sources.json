@@ -19,26 +19,6 @@
     }
   },
   {
-    "name": "Chicago Library Events",
-    "url": "https://data.cityofchicago.org/resource/vsdy-d8k7.json",
-    "app_token": null,
-    "category": "learning",
-    "where": "start > '{now}' AND cancelled = false",
-    "order": "start",
-    "limit": 200,
-    "geocode_venue": true,
-    "geocode_suffix": " Branch Library, Chicago, IL",
-    "map": {
-      "id": "event_page",
-      "title": "title",
-      "description": "description",
-      "start": "start",
-      "end": "end",
-      "venue": "location_name",
-      "url": "event_page"
-    }
-  },
-  {
     "name": "NYC Parks Events",
     "url": "https://data.cityofnewyork.us/resource/w3wp-dpdi.json",
     "app_token": null,
