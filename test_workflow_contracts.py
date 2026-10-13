@@ -205,10 +205,11 @@ class WorkflowContracts(unittest.TestCase):
         self.assertNotIn('curation_ledger.json', dead + total)
 
     def test_dedupe_is_its_own_red_job_behind_its_switch_before_indexnow(self):
-        # The collapser was a continue-on-error step inside indexnow: killed at
-        # its 12-minute timeout on 2026-09-29..10-07, 57014 from 10-08, and green
-        # on all 25 runs (09-19..10-12) that annotated exit 1. It hides
-        # production rows, so it writes only when vars.DEDUPE_APPLY is 'true'.
+        # The collapser was a continue-on-error step inside indexnow: 12m12s,
+        # its timeout, on most runs 2026-09-22..10-07, and green on all 25 runs
+        # (09-19..10-12) that annotated exit 1. It hides production rows, so it
+        # writes only when vars.DEDUPE_APPLY is 'true'. It runs after BOTH
+        # schedules: the Mon/Thu one syncs SeatGeek and Eventbrite.
         workflow = yaml.safe_load((ROOT / '.github/workflows/aggregate-events.yml').read_text(encoding='utf-8'))
         job = workflow['jobs']['dedupe']
         self.assertNotIn('continue-on-error', job)
@@ -216,6 +217,9 @@ class WorkflowContracts(unittest.TestCase):
         self.assertIn('dedupe', workflow['jobs']['indexnow']['needs'])
         self.assertEqual(workflow['jobs']['indexnow']['if'], 'always()')
         self.assertTrue(job['if'].startswith('${{ always() &&'))
+        for cron in (c['cron'] for c in workflow.get('on', workflow.get(True))['schedule']):
+            self.assertIn(f"github.event.schedule == '{cron}'", job['if'])
+        self.assertNotIn('extra_only', job['if'])
         self.assertEqual(set(job['needs']), set(workflow['jobs']['indexnow']['needs']) - {'dedupe'})
         run = next(s['run'] for s in job['steps'] if 'mapsee_dedupe_events.py' in (s.get('run') or ''))
         self.assertIn('if [ "$DEDUPE_APPLY" = "true" ]; then', run)

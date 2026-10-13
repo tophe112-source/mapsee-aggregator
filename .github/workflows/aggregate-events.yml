@@ -1502,11 +1502,19 @@ jobs:
   # (events.duplicate_of, ../mapsee 0236); it never deletes.
   #
   # ITS OWN JOB, WITH NO continue-on-error. It used to be a step inside indexnow
-  # with timeout-minutes 12 and continue-on-error: killed at 12m12s on
-  # 2026-09-29..10-07 and 57014 from 10-08, with two exit-1 annotations on 25
-  # runs (09-19..10-12) while the jobs API said "success". A red job is the
-  # point now; indexnow still runs (if: always()) and waits for it, so nothing
-  # this hides is announced.
+  # with timeout-minutes 12 and continue-on-error: 12m12s, its timeout, on most
+  # runs 2026-09-22..10-07 and 4-5 minutes from 10-08, with exit-1 annotations
+  # on all 25 runs 09-19..10-12 while the jobs API said "success" (its log was
+  # never read, so WHY it failed from 10-08 is inferred, not seen). A red job is
+  # the point now; indexnow still runs (if: always()) and waits for it, so
+  # nothing this hides is announced.
+  #
+  # AFTER EVERY RUN THAT SYNCS, not only the daily one. The Mon/Thu run (and an
+  # extra_only dispatch) syncs SeatGeek and Eventbrite, and 247 of the 866 hides
+  # in a replay of the census involved a SeatGeek row: on the daily schedule
+  # alone their copies stayed visible until the next morning. The 17:23 UTC
+  # festival-schedules sync is a separate workflow; its copies wait for the next
+  # 06:17 run (about 13 hours).
   #
   # IT WRITES NOTHING UNTIL THE OWNER TURNS IT ON. The switch is the repository
   # variable DEDUPE_APPLY (exactly 'true'), as SPAM_PURGE_APPLY is for the purge:
@@ -1521,9 +1529,10 @@ jobs:
     name: Hide duplicate imported events
     runs-on: ubuntu-latest
     needs: [ticketmaster, meetup, feeds, races, openactive, markets_osm, extra_sources]
-    if: ${{ always() && (inputs.feed_group == '' || inputs.feed_group == 'all') && inputs.extra_only != 'true' && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *') }}
+    if: ${{ always() && (inputs.feed_group == '' || inputs.feed_group == 'all') && (github.event_name != 'schedule' || github.event.schedule == '17 6 * * *' || github.event.schedule == '40 6 * * 1,4') }}
     timeout-minutes: 25
-    # One writer at a time: the manual dedupe-events.yml shares this group.
+    # One writer at a time: the manual dedupe-events.yml shares this group, and
+    # the Mon/Thu run queues behind the daily one's job here.
     concurrency:
       group: dedupe-events
       cancel-in-progress: false
