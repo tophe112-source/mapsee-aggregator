@@ -8794,6 +8794,26 @@
         "street_hint": "995 Mount Olive Road"
       },
       "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Perry Aquatic Centre",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.gowaipa.com/what-s-on"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Perry Aquatic Centre",
+        "address": "23 Williamson Street",
+        "city": "Cambridge",
+        "postal_code": "3434",
+        "lat": -37.8970759,
+        "lon": 175.4755647
+      },
+      "_metro": "Hamilton, New Zealand"
     }
   ],
   "_not_included": {

@@ -32241,5 +32241,32 @@
       "pin_unnamed": false
     },
     "_metro": "Spokane, United States"
+  },
+  {
+    "name": "Aachen",
+    "category": "community",
+    "_found": "civic:city -> ics",
+    "url": "https://www.aachen.de/kalender/veranstaltungskalender-alle-termine/event.ics?weekends=false&amp;tagMode=ALL",
+    "geocode_suffix": ", Aachen, Germany",
+    "limit": 300,
+    "_metro": "Aachen, Germany"
+  },
+  {
+    "name": "St Andrew's Anglican Church",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3721e7229623bf8bc647311c71cfe1144d21d2836d83dd6377e4b25531fd5c56%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cambridge",
+    "limit": 300,
+    "_metro": "Hamilton, New Zealand"
+  },
+  {
+    "name": "Tauranga Bridge Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/775f0826a7805c8bc8b1186025b904675c71f47ce7d93595749f7d46ca5564df%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tauranga, New Zealand",
+    "limit": 300,
+    "_metro": "Tauranga, New Zealand"
   }
 ]
