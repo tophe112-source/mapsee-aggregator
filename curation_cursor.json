@@ -250,10 +250,10 @@
   "stuck": {}
  },
  "osm|community_centre,library,social_centre": {
-  "metro": 236,
-  "metro_key": "US:Knoxville",
+  "metro": 237,
+  "metro_key": "US:Greenville SC",
   "stuck": {
-   "US:Knoxville": 1
+   "US:Greenville SC": 1
   }
  },
  "socrata": {

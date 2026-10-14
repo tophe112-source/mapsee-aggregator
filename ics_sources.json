@@ -32268,5 +32268,24 @@
     "geocode_suffix": ", Tauranga, New Zealand",
     "limit": 300,
     "_metro": "Tauranga, New Zealand"
+  },
+  {
+    "name": "Blount County Public Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.blounttn.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+    "geocode_suffix": ", Maryville, TN",
+    "limit": 300,
+    "venue": {
+      "name": "Blount County Public Library",
+      "city": "Maryville",
+      "region": "TN",
+      "postal_code": "37804",
+      "lat": 35.7586956,
+      "lon": -83.9725239,
+      "street_hint": "508 North Cusick Street;N. Cusick Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Knoxville, United States"
   }
 ]

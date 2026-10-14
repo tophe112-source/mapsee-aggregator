@@ -18253,6 +18253,24 @@
         "lon": -86.8095577
       },
       "_metro": "Birmingham AL, United States"
+    },
+    {
+      "name": "Disabled American Veterans (DAV)",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe",
+      "base_url": "https://www.dav.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Disabled American Veterans (DAV)",
+        "city": "Knoxville",
+        "region": "TN",
+        "postal_code": "37918",
+        "lat": 36.0354837,
+        "lon": -83.936821,
+        "street_hint": "2600 Holbrook Drive Northeast"
+      },
+      "_metro": "Knoxville, United States"
     }
   ],
   "_not_included": {

@@ -13455,6 +13455,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "archdesign.utk.edu": {
+    "checked": 20261014,
+    "name": "Beardsley Farm Education Center",
+    "reason": "http 404",
+    "status": "fail",
+    "type": "localist"
+  },
   "archdioceseofbombay.org": {
     "checked": 20260927,
     "name": "Roman Catholic Archdiocese of Bombay",
@@ -37760,6 +37767,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "blounttn.gov/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar": {
+    "checked": 20261014,
+    "name": "Blount County Public Library",
+    "reason": "360 vevents / 360 future",
+    "status": "ok",
+    "type": "ics"
+  },
   "bloxartscentre.ca": {
     "checked": 20260819,
     "name": "Blox Arts Centre",
@@ -51343,6 +51357,13 @@
     "status": "fail",
     "type": "ics"
   },
+  "calendar.google.com/calendar/ical/ndnm73cha0ptgsnsihnhcep70s%40group.calendar.google.com/public/basic.ics": {
+    "checked": 20261014,
+    "name": "Clinton Public Library",
+    "reason": "calendar api 404 notFound: Not Found",
+    "status": "fail",
+    "type": "ics"
+  },
   "calendar.google.com/calendar/ical/neiulibrary%40gmail.com/public/basic.ics": {
     "checked": 20261010,
     "name": "Ronald Williams Library",
@@ -63294,6 +63315,15 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "chilhoweeclub.org": {
+    "cal_url": "https://www.chilhoweeclub.org/calendar",
+    "checked": 20261014,
+    "name": "Chilhowee Club",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "chilin.org": {
     "checked": 20260831,
@@ -86948,6 +86978,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "dav.org": {
+    "checked": 20261014,
+    "name": "Disabled American Veterans (DAV)",
+    "reason": "17 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "daventry.org": {
     "checked": 20261010,
@@ -140492,6 +140529,16 @@
     "status": "held",
     "type": "ics"
   },
+  "held:c6c4642026590046": {
+    "checked": 20261014,
+    "found": "osm:community_centre -> gcal-embed",
+    "home": "https://andersoncountytn.gov/office-on-aging-senior-center/",
+    "metro": "Knoxville, United States",
+    "name": "Anderson County Office on Aging & Senior Center",
+    "reason": "209 vevents / 209 future; its calendar id is a personal address; the owner decides",
+    "status": "held",
+    "type": "ics"
+  },
   "held:e8dedde4eafaf8f1": {
     "checked": 20261013,
     "found": "osm:club -> gcal-embed",
@@ -158339,6 +158386,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "jcpls.org/parrott-wood-memorial-library": {
+    "checked": 20261014,
+    "name": "Parrott-Wood Memorial Library",
+    "reason": "no schema.org Event blocks found",
+    "status": "fail",
+    "type": "jsonld"
+  },
   "jcprd.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20261011,
     "name": "Johnson County Park & Rec, KS \u2014 Main Calendar",
@@ -160003,6 +160057,15 @@
     "reason": "civic probe: no-calendar",
     "status": "fail",
     "type": "civic-city"
+  },
+  "johnsonu.edu/library": {
+    "cal_url": "https://johnsonu.edu/events/",
+    "checked": 20261014,
+    "name": "Glass Memorial Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
   },
   "johnsonvilleanglicans.org.nz/upcoming-events": {
     "checked": 20261011,
@@ -171624,12 +171687,92 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "knoxcountylibrary.org/about/hours-and-locations/fountain-city-branch-library": {
+    "checked": 20261014,
+    "name": "Fountain City Branch Public Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.knoxcountylibrary.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "knoxcountylibrary.org/about/hours-and-locations/lawson-mcghee-library": {
+    "checked": 20261014,
+    "name": "Lawson McGhee Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.knoxcountylibrary.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "knoxcountylibrary.org/about/hours-and-locations/mascot-branch-library": {
+    "checked": 20261014,
+    "name": "Mascot Branch Public Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.knoxcountylibrary.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "knoxcountylibrary.org/about/hours-and-locations/murphy-branch-library": {
+    "checked": 20261014,
+    "name": "Murphy Branch Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.knoxcountylibrary.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "knoxcountylibrary.org/about/hours-and-locations/north-knoxville-branch-library": {
+    "checked": 20261014,
+    "name": "North Knoxville Branch Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.knoxcountylibrary.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "knoxcountylibrary.org/about/hours-and-locations/norwood-branch-library": {
+    "checked": 20261014,
+    "name": "Norwood Branch Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.knoxcountylibrary.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "knoxcountylibrary.org/about/hours-and-locations/sequoyah-branch-library": {
+    "checked": 20261014,
+    "name": "Sequoyah Branch Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.knoxcountylibrary.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "knoxcountylibrary.org/about/hours-and-locations/south-knoxville-branch-library": {
+    "checked": 20261014,
+    "name": "South Knoxville Branch Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.knoxcountylibrary.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
+  "knoxcountylibrary.org/explore-the-east-tennessee-history-center": {
+    "checked": 20261014,
+    "name": "Mcclung, E.Tn History Center & Knox Archives",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.knoxcountylibrary.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "knoxhartford.org": {
     "checked": 20260928,
     "name": "Knox Hartford (Hartford, CT)",
     "reason": "review: 7 upcoming, no venue on any; 6 are one weekly farmers market.",
     "status": "fail",
     "type": "tribe"
+  },
+  "knoxlib.org/about/hours-and-locations/halls-branch-library": {
+    "checked": 20261014,
+    "name": "Halls Branch Library",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.knoxlib.org/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
   },
   "knoxpreston.ca": {
     "checked": 20260819,
@@ -187736,6 +187879,23 @@
   "lib.utexas.edu/about/locations/benson": {
     "checked": 20261012,
     "name": "Benson Latin American Collection",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lib.utk.edu": {
+    "cal_url": "https://lib.utk.edu/news/2026/08/now-showing-rare-maps-and-atlases",
+    "checked": 20261014,
+    "name": "John C. Hodges Library",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "lib.utk.edu/agvet": {
+    "checked": 20261014,
+    "name": "Pendergrass Library",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -247389,6 +247549,16 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "parksrec.com/facilities/everett-senior-center": {
+    "cal_url": "https://www.parksrec.com/special-events-navigation",
+    "checked": 20261014,
+    "name": "Everett Senior Center",
+    "offsite_url": "https://apm.activecommunities.com/mabparksrec/Activity_Search",
+    "probe": 2,
+    "reason": "osm probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "parktc.be": {
     "checked": 20260913,
     "name": "Park TC",
@@ -259567,6 +259737,14 @@
     "name": "Plaveck\u00fd stadion Slavia",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "pstcc.edu/library": {
+    "checked": 20261014,
+    "name": "Pellissippi Educational Resource Center",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.pstcc.edu/robots.txt)",
+    "status": "refused",
     "type": "osm-venue"
   },
   "psuppersouth.org.nz": {
@@ -315985,6 +316163,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tenv.agverso.com/home?cid=tenv&lid=grainger": {
+    "checked": 20261014,
+    "name": "Blaine Public Library & City Hall",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "tenweyngaert.be": {
     "checked": 20260912,
     "name": "Gemeenschapscentrum Ten Weyngaert",
@@ -351880,6 +352066,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "yescommunities.com": {
+    "checked": 20261014,
+    "name": "Amherst Ridge",
+    "probe": 2,
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
   "yesup.kr": {
     "checked": 20260902,
     "name": "\uc608\uc232\uad50\ud68c",
@@ -352125,6 +352319,15 @@
   "ymcaic.com": {
     "checked": 20261011,
     "name": "YMCA Club",
+    "reason": "osm probe: no-calendar",
+    "status": "fail",
+    "type": "osm-venue"
+  },
+  "ymcaknoxville.org": {
+    "cal_url": "https://ymcaetn.org/events",
+    "checked": 20261014,
+    "name": "Davis Family YMCA",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
