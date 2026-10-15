@@ -18283,6 +18283,376 @@
       "default_region": null,
       "default_country": "CA",
       "_metro": "Ajax, Canada"
+    },
+    {
+      "name": "Sol Blatt Jr. Law Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://charlestonlaw.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sol Blatt Jr. Law Library",
+        "city": "Charleston",
+        "region": "SC",
+        "postal_code": "29403",
+        "lat": 32.7910006,
+        "lon": -79.937338,
+        "street_hint": "385 Meeting Street"
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Charleston Library Society",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://charlestonlibrarysociety.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Charleston Library Society",
+        "city": "Charleston",
+        "region": "SC",
+        "postal_code": "29401",
+        "lat": 32.7784457,
+        "lon": -79.9327022,
+        "street_hint": "164 King Street"
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Harbor Entrepreneur Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://harborec.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Harbor Entrepreneur Center",
+        "city": "Mount Pleasant",
+        "region": "SC",
+        "postal_code": "29464",
+        "lat": 32.8094845,
+        "lon": -79.883854,
+        "street_hint": "11 eWall Street"
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Dunes West Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://duneswestpoa.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dunes West Community Center",
+        "city": "Mount Pleasant",
+        "region": "SC",
+        "postal_code": "29466",
+        "lat": 32.8985998,
+        "lon": -79.8086881,
+        "street_hint": "3293 Harpers Ferry Way"
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Hardeeville Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://ahjlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hardeeville Public Library",
+        "city": "Hardeeville",
+        "region": "SC",
+        "postal_code": "29927",
+        "lat": 32.285823,
+        "lon": -81.0798189,
+        "street_hint": "37 Main Street"
+      },
+      "_metro": "Savannah, United States"
+    },
+    {
+      "name": "Jane Bancroft Cook Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://www.ncf.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Jane Bancroft Cook Library",
+        "lat": 27.3849416,
+        "lon": -82.558668
+      },
+      "_metro": "Sarasota, United States"
+    },
+    {
+      "name": "Our Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://ourcenterreno.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Our Center",
+        "postal_code": "89502",
+        "lat": 39.5082526,
+        "lon": -119.8033315,
+        "street_hint": "1745 South Wells Avenue"
+      },
+      "_metro": "Reno, United States"
+    },
+    {
+      "name": "Family Success Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ppunitedway.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Family Success Center",
+        "city": "Colorado Springs",
+        "region": "CO",
+        "postal_code": "80910",
+        "lat": 38.8107526,
+        "lon": -104.7707156,
+        "street_hint": "1520 Verde Drive"
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Brickstone By St. John's",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+ics",
+      "base_url": "https://www.stjohnsliving.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brickstone By St. John's",
+        "city": "Rochester",
+        "region": "NY",
+        "postal_code": "14620",
+        "lat": 43.1248013,
+        "lon": -77.6021302,
+        "street_hint": "1325 Elmwood Avenue"
+      },
+      "_metro": "Rochester NY, United States"
+    },
+    {
+      "name": "The Providence Athenaeum",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://providenceathenaeum.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Providence Athenaeum",
+        "city": "Providence",
+        "region": "RI",
+        "postal_code": "02903",
+        "lat": 41.8258067,
+        "lon": -71.4063033,
+        "street_hint": "251 Benefit Street"
+      },
+      "_metro": "Providence, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Merrill Memorial Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://yarmouthlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Merrill Memorial Library",
+        "city": "Yarmouth",
+        "region": "ME",
+        "postal_code": "04096",
+        "lat": 43.8012701,
+        "lon": -70.1871526,
+        "street_hint": "215 Main Street"
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Italian Heritage Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://italianheritagecenter.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Italian Heritage Center",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04102",
+        "lat": 43.656695,
+        "lon": -70.2964632,
+        "street_hint": "40 Westland Avenue"
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Irish Heritage Center",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://maineirish.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Irish Heritage Center",
+        "city": "Portland",
+        "region": "ME",
+        "postal_code": "04102",
+        "lat": 43.6503632,
+        "lon": -70.2625623,
+        "street_hint": "34 Gray Street"
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "North Gorham Public Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://north-gorham.lib.me.us",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "North Gorham Public Library",
+        "city": "Gorham",
+        "region": "ME",
+        "postal_code": "04038",
+        "lat": 43.7982977,
+        "lon": -70.4554913,
+        "street_hint": "2 Standish Neck Road"
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Pierson Free Library (temporary location)",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://piersonlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pierson Free Library (temporary location)",
+        "city": "Shelburne",
+        "region": "VT",
+        "postal_code": "05482",
+        "country": "US",
+        "lat": 44.3836138,
+        "lon": -73.2283371,
+        "street_hint": "166 Athletic Drive"
+      },
+      "_metro": "Burlington VT, United States",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Worthen Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://worthenlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Worthen Library",
+        "city": "South Hero",
+        "region": "VT",
+        "lat": 44.6466939,
+        "lon": -73.2965969,
+        "street_hint": "28 Community Lane"
+      },
+      "_metro": "Burlington VT, United States"
+    },
+    {
+      "name": "Brownell Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://brownelllibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Brownell Library",
+        "city": "Essex Junction",
+        "region": "VT",
+        "postal_code": "05452",
+        "country": "US",
+        "lat": 44.491425,
+        "lon": -73.1115285,
+        "street_hint": "6 Lincoln Street"
+      },
+      "_metro": "Burlington VT, United States"
+    },
+    {
+      "name": "Allen Ginsberg Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event",
+      "base_url": "https://www.naropa.edu",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Allen Ginsberg Library",
+        "lat": 40.0140583,
+        "lon": -105.2664156
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Old Buncombe County Genealogical Society & Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.obcgs.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Old Buncombe County Genealogical Society & Library",
+        "city": "Asheville",
+        "region": "NC",
+        "postal_code": "28806",
+        "lat": 35.6061634,
+        "lon": -82.5867887,
+        "street_hint": "128 Bingham Road"
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "Dr. Wesley Grant Sr. Southside Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://www.ashevillenc.gov",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dr. Wesley Grant Sr. Southside Center",
+        "city": "Asheville",
+        "region": "NC",
+        "lat": 35.5779741,
+        "lon": -82.5622038,
+        "street_hint": "285 Livingston Street"
+      },
+      "_metro": "Asheville, United States"
+    },
+    {
+      "name": "South Chattanooga Branch Library",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://chattlibrary.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "South Chattanooga Branch Library",
+        "city": "Chattanooga",
+        "region": "TN",
+        "postal_code": "37410-1501",
+        "lat": 35.0086715,
+        "lon": -85.3205404,
+        "street_hint": "925 West 39Th Street"
+      },
+      "_metro": "Chattanooga, United States"
     }
   ],
   "_not_included": {

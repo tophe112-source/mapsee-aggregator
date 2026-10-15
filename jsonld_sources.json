@@ -8814,6 +8814,115 @@
         "lon": 175.4755647
       },
       "_metro": "Hamilton, New Zealand"
+    },
+    {
+      "name": "Colorado Springs Event Center",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.coloradospringseventcenter.com/calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Colorado Springs Event Center",
+        "region": "CO",
+        "postal_code": "80909",
+        "lat": 38.855858,
+        "lon": -104.7538419,
+        "street_hint": "3960 Palmer Park Boulevard"
+      },
+      "_metro": "Colorado Springs, United States"
+    },
+    {
+      "name": "Clinton Township Public Library",
+      "category": "learning",
+      "_found": "osm:library -> wix",
+      "listing": [
+        "https://www.clintontownshiplibrary.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Clinton Township Public Library",
+        "city": "Clinton",
+        "region": "MI",
+        "postal_code": "49236-9700",
+        "lat": 42.072986,
+        "lon": -83.97227,
+        "street_hint": "100 Brown Street"
+      },
+      "_metro": "Ann Arbor, United States"
+    },
+    {
+      "name": "Pontiac Free Library Association",
+      "category": "learning",
+      "_found": "osm:library -> wix",
+      "listing": [
+        "https://www.pontiacfreelibrary.org/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Pontiac Free Library Association",
+        "city": "Warwick",
+        "region": "RI",
+        "postal_code": "2886-1217",
+        "lat": 41.7297303,
+        "lon": -71.4749867,
+        "street_hint": "101 Greenwich Avenue",
+        "aliases": [
+          "Pontiac Free Library"
+        ]
+      },
+      "_metro": "Providence, United States"
+    },
+    {
+      "name": "McArthur Public Library",
+      "category": "learning",
+      "_found": "osm:library -> modern-events+jsonld-event",
+      "listing": [
+        "https://mcarthurlibrary.org/events/"
+      ],
+      "link_pattern": "https://mcarthurlibrary\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "McArthur Public Library",
+        "city": "Biddeford",
+        "region": "ME",
+        "postal_code": "04005",
+        "lat": 43.4945475,
+        "lon": -70.4579953,
+        "street_hint": "270 Main Street"
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Vista Grande Public Library",
+      "category": "learning",
+      "_found": "osm:library -> wix",
+      "listing": [
+        "https://www.vglibrary.org/vgpl-event-calendar"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Vista Grande Public Library",
+        "city": "Eldorado at Santa Fe",
+        "region": "NM",
+        "postal_code": "87508-9199",
+        "lat": 35.537038,
+        "lon": -105.9095355,
+        "street_hint": "14 Avenida Torreon",
+        "aliases": [
+          "VGPL"
+        ]
+      },
+      "_metro": "Santa Fe, United States"
     }
   ],
   "_not_included": {

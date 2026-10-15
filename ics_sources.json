@@ -32287,5 +32287,529 @@
       "pin_unnamed": false
     },
     "_metro": "Knoxville, United States"
+  },
+  {
+    "name": "Shaw Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.charleston-sc.gov/common/modules/iCalendar/iCalendar.aspx?catID=36&feed=calendar",
+    "geocode_suffix": ", Charleston, SC",
+    "limit": 300,
+    "venue": {
+      "name": "Shaw Community Center",
+      "city": "Charleston",
+      "region": "SC",
+      "postal_code": "29403",
+      "lat": 32.7923814,
+      "lon": -79.9348298,
+      "street_hint": "20 Mary Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Charleston SC, United States"
+  },
+  {
+    "name": "Liberty City Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.savannahga.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+    "geocode_suffix": ", Savannah, GA",
+    "limit": 300,
+    "venue": {
+      "name": "Liberty City Community Center",
+      "city": "Savannah",
+      "region": "GA",
+      "postal_code": "31405",
+      "lat": 32.0508373,
+      "lon": -81.1285839,
+      "street_hint": "1401 Mills B Lane Boulevard",
+      "pin_unnamed": false
+    },
+    "_metro": "Savannah, United States"
+  },
+  {
+    "name": "Manatee River Garden Club",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2f750b866e4f74f336e3fbb855d4a60f61c0cd0b716f84b003f50257a7b81dda%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bradenton, FL",
+    "limit": 300,
+    "venue": {
+      "name": "Manatee River Garden Club",
+      "city": "Bradenton",
+      "region": "FL",
+      "postal_code": "34205",
+      "lat": 27.4995428,
+      "lon": -82.593067,
+      "street_hint": "3120 1st Ave West",
+      "pin_unnamed": false
+    },
+    "_metro": "Sarasota, United States"
+  },
+  {
+    "name": "Reno-Sparks Indian Colony Senior Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.rsic.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Reno, NV",
+    "limit": 300,
+    "venue": {
+      "name": "Reno-Sparks Indian Colony Senior Center",
+      "city": "Reno",
+      "region": "NV",
+      "postal_code": "89502",
+      "lat": 39.5237673,
+      "lon": -119.7863584,
+      "street_hint": "34 Reservation Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Reno, United States"
+  },
+  {
+    "name": "Fitchburg Senior Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.fitchburgwi.gov/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", Fitchburg, WI",
+    "limit": 300,
+    "venue": {
+      "name": "Fitchburg Senior Center",
+      "city": "Fitchburg",
+      "region": "WI",
+      "postal_code": "53711",
+      "lat": 43.0024964,
+      "lon": -89.4235179,
+      "street_hint": "5510 Lacy Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Waunakee Village Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.waunakee.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Waunakee, WI",
+    "limit": 300,
+    "venue": {
+      "name": "Waunakee Village Center",
+      "city": "Waunakee",
+      "region": "WI",
+      "postal_code": "53597",
+      "lat": 43.1890923,
+      "lon": -89.4493405,
+      "street_hint": "333 South Madison Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "The Neighborhood House",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_r4o4fclp59aup7jfsh4aiei0ec%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison",
+    "limit": 300,
+    "venue": {
+      "name": "The Neighborhood House",
+      "city": "Madison",
+      "lat": 43.0667347,
+      "lon": -89.4037365,
+      "street_hint": "29 South Mills Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Verona Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.veronawi.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Verona, WI",
+    "limit": 300,
+    "venue": {
+      "name": "Verona Community Center",
+      "city": "Verona",
+      "region": "WI",
+      "postal_code": "53593",
+      "lat": 42.9935325,
+      "lon": -89.5330812,
+      "street_hint": "130 North Franklin Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Flynn Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/towncg.net_t6aqc09b89dv6du020m3trj9j8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madison, United States",
+    "limit": 300,
+    "venue": {
+      "name": "Flynn Hall",
+      "lat": 43.0752261,
+      "lon": -89.2004376,
+      "street_hint": "116 West Reynolds Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Madison, United States"
+  },
+  {
+    "name": "Pittsfield Township Vickey Mickey Senior Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.pittsfield-mi.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Ann Arbor",
+    "limit": 300,
+    "venue": {
+      "name": "Pittsfield Township Vickey Mickey Senior Center",
+      "city": "Ann Arbor",
+      "postal_code": "48108",
+      "lat": 42.2289169,
+      "lon": -83.7394704,
+      "street_hint": "701 West Ellsworth Road",
+      "aliases": [
+        "Vickey Mickey Senior Center"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Ann Arbor, United States"
+  },
+  {
+    "name": "Chili Community Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.chiliny.gov/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Rochester, NY",
+    "limit": 300,
+    "venue": {
+      "name": "Chili Community Center",
+      "city": "Rochester",
+      "region": "NY",
+      "postal_code": "14624",
+      "lat": 43.1020436,
+      "lon": -77.746477,
+      "street_hint": "3237 Chili Avenue",
+      "pin_unnamed": false
+    },
+    "_metro": "Rochester NY, United States"
+  },
+  {
+    "name": "Salina Library",
+    "category": "learning",
+    "_found": "osm:library -> libcal+my-calendar",
+    "url": "https://salinalibrary.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Mattydale, NY",
+    "limit": 300,
+    "venue": {
+      "name": "Salina Library",
+      "city": "Mattydale",
+      "region": "NY",
+      "postal_code": "13211",
+      "country": "US",
+      "lat": 43.1000446,
+      "lon": -76.1502083,
+      "street_hint": "100 Belmont Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Syracuse, United States"
+  },
+  {
+    "name": "Unity House of Troy",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://www.unityhouseny.org/news-and-events/?ical=1",
+    "geocode_suffix": ", Albany NY, United States",
+    "limit": 300,
+    "venue": {
+      "name": "Unity House of Troy",
+      "lat": 42.7562215,
+      "lon": -73.681731,
+      "pin_unnamed": false
+    },
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "Scotia-Glenville Elks",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/h3t2lm8d1k92egiidpkjai6ibg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Scotia, NY",
+    "limit": 300,
+    "venue": {
+      "name": "Scotia-Glenville Elks",
+      "city": "Scotia",
+      "region": "NY",
+      "postal_code": "12302",
+      "lat": 42.8351335,
+      "lon": -73.9709479,
+      "street_hint": "176 Sacandaga Road",
+      "aliases": [
+        "Benevolent and Protective Order of Elks"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Albany NY, United States"
+  },
+  {
+    "name": "North Providence Pool & Fitness Center",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/l2crb5mfu7fle8lgs36nlnfn3s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", North Providence, RI",
+    "limit": 300,
+    "venue": {
+      "name": "North Providence Pool & Fitness Center",
+      "city": "North Providence",
+      "region": "RI",
+      "postal_code": "02904",
+      "lat": 41.8612267,
+      "lon": -71.4587846,
+      "street_hint": "1810 Mineral Spring Avenue",
+      "pin_unnamed": false
+    },
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "Phillips Memorial Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/haga4q0nhgbktel1c696bvamtg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", RI",
+    "limit": 300,
+    "venue": {
+      "name": "Phillips Memorial Library",
+      "region": "RI",
+      "lat": 41.842681,
+      "lon": -71.4373912,
+      "pin_unnamed": false
+    },
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "Hope Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40hopelibraryri.org/public/basic.ics",
+    "geocode_suffix": ", Scituate, RI",
+    "limit": 300,
+    "venue": {
+      "name": "Hope Library",
+      "city": "Scituate",
+      "region": "RI",
+      "postal_code": "2831-1245",
+      "lat": 41.7364768,
+      "lon": -71.5638909,
+      "street_hint": "374 North Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Providence, United States"
+  },
+  {
+    "name": "Huntington Public Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2ee0048f92822e8051f239f95413ca034f0a455e4df64bb464c30a34b135a584%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Huntington, VT",
+    "limit": 300,
+    "venue": {
+      "name": "Huntington Public Library",
+      "city": "Huntington",
+      "region": "VT",
+      "postal_code": "05462",
+      "country": "US",
+      "lat": 44.3265447,
+      "lon": -72.9879335,
+      "street_hint": "2156 Main Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Burlington VT, United States"
+  },
+  {
+    "name": "Carpenter-Carse Library",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pii892egs8e39253se44d5p22o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hinesburg, VT",
+    "limit": 300,
+    "venue": {
+      "name": "Carpenter-Carse Library",
+      "city": "Hinesburg",
+      "region": "VT",
+      "postal_code": "05461",
+      "country": "US",
+      "lat": 44.3416144,
+      "lon": -73.1185624,
+      "street_hint": "69 Ballards Corner Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Burlington VT, United States"
+  },
+  {
+    "name": "Arrowhead Senior Citizen Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://www.miltonvt.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Milton, VT",
+    "limit": 300,
+    "venue": {
+      "name": "Arrowhead Senior Citizen Center",
+      "city": "Milton",
+      "region": "VT",
+      "postal_code": "05468",
+      "lat": 44.6199245,
+      "lon": -73.1184678,
+      "street_hint": "46 Middle Road",
+      "pin_unnamed": false
+    },
+    "_metro": "Burlington VT, United States"
+  },
+  {
+    "name": "Coal Creek Community Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d1u081kv5fpvnmet9tgbg4ci90%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Boulder, United States",
+    "limit": 300,
+    "venue": {
+      "name": "Coal Creek Community Hall",
+      "lat": 39.9184556,
+      "lon": -105.360982,
+      "street_hint": "31528 Coal Creek Canyon Drive",
+      "pin_unnamed": false
+    },
+    "_metro": "Boulder, United States"
+  },
+  {
+    "name": "Elks Lodge #2541",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/55i8dggg1j2crrpgn5ubr1ivro%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Louisville, CO",
+    "limit": 300,
+    "venue": {
+      "name": "Elks Lodge #2541",
+      "city": "Louisville",
+      "region": "CO",
+      "postal_code": "80027",
+      "lat": 39.9749554,
+      "lon": -105.1324164,
+      "aliases": [
+        "Benevolent and Protective Order of Elks",
+        "BPOE"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Boulder, United States"
+  },
+  {
+    "name": "Pack Memorial Library",
+    "category": "learning",
+    "_found": "osm:library -> civicplus",
+    "url": "https://www.buncombenc.gov/common/modules/iCalendar/iCalendar.aspx?catID=31&feed=calendar",
+    "geocode_suffix": ", Asheville, NC",
+    "limit": 300,
+    "venue": {
+      "name": "Pack Memorial Library",
+      "city": "Asheville",
+      "region": "NC",
+      "postal_code": "28801",
+      "lat": 35.5967288,
+      "lon": -82.5548233,
+      "street_hint": "67 Haywood Street",
+      "pin_unnamed": false
+    },
+    "_metro": "Asheville, United States"
+  },
+  {
+    "name": "New Mexico GNU/Linux users meeting location",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://nmglug.org/calendar/?ical=1",
+    "geocode_suffix": ", Santa Fe, United States",
+    "limit": 300,
+    "venue": {
+      "name": "New Mexico GNU/Linux users meeting location",
+      "lat": 35.6831108,
+      "lon": -105.949001,
+      "pin_unnamed": false
+    },
+    "_metro": "Santa Fe, United States"
+  },
+  {
+    "name": "Harrison Center",
+    "category": "community",
+    "_found": "osm:community_centre -> civicplus",
+    "url": "https://parks.hamiltontn.gov/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Harrison, TN",
+    "limit": 300,
+    "venue": {
+      "name": "Harrison Center",
+      "city": "Harrison",
+      "region": "TN",
+      "postal_code": "37341",
+      "lat": 35.1104708,
+      "lon": -85.1422816,
+      "street_hint": "5637 Highway 58",
+      "pin_unnamed": false
+    },
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "East Ridge City Library & City Hall",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7p1sehae7dlv4uj61ev0maaqa4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", East Ridge, TN",
+    "limit": 300,
+    "venue": {
+      "name": "East Ridge City Library & City Hall",
+      "city": "East Ridge",
+      "region": "TN",
+      "postal_code": "37412-2767",
+      "lat": 34.9944079,
+      "lon": -85.2423589,
+      "street_hint": "1517 Tombras Avenue",
+      "pin_unnamed": false
+    },
+    "_metro": "Chattanooga, United States"
+  },
+  {
+    "name": "St. Helens Hall",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_de0749f9da57ea89ccf7d8ca5d553b76ff95d6a7593d39fe31971c63158b654e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bend, OR",
+    "limit": 300,
+    "venue": {
+      "name": "St. Helens Hall",
+      "city": "Bend",
+      "region": "OR",
+      "postal_code": "97703",
+      "lat": 44.0559577,
+      "lon": -121.3183173,
+      "street_hint": "231 Northwest Idaho Avenue",
+      "pin_unnamed": false
+    },
+    "_metro": "Bend OR, United States"
+  },
+  {
+    "name": "Washington State Library",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.sos.wa.gov/elections.ics",
+    "geocode_suffix": ", Tumwater, WA",
+    "limit": 300,
+    "venue": {
+      "name": "Washington State Library",
+      "city": "Tumwater",
+      "region": "WA",
+      "postal_code": "98501",
+      "lat": 46.9861946,
+      "lon": -122.9067759,
+      "street_hint": "6880 Capitol Boulevard South",
+      "pin_unnamed": false
+    },
+    "_metro": "Olympia WA, United States"
   }
 ]

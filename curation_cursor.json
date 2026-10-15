@@ -254,11 +254,9 @@
   "stuck": {}
  },
  "osm|community_centre,library,social_centre": {
-  "metro": 237,
-  "metro_key": "US:Greenville SC",
-  "stuck": {
-   "US:Greenville SC": 1
-  }
+  "metro": 0,
+  "metro_key": "HK:Hong Kong",
+  "stuck": {}
  },
  "socrata": {
   "art events": 0,

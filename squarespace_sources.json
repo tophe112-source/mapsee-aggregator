@@ -2590,6 +2590,88 @@
         "street_hint": "519 Park Street"
       },
       "_metro": "Des Moines, United States"
+    },
+    {
+      "name": "AFFA: Aliance for Full Acceptance",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.affa-sc.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "AFFA: Aliance for Full Acceptance",
+        "lat": 32.8592598,
+        "lon": -79.9684857
+      },
+      "_metro": "Charleston SC, United States"
+    },
+    {
+      "name": "Bridge Lakepoint Waunona Neighborhood Center",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.blwcenter.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Bridge Lakepoint Waunona Neighborhood Center",
+        "lat": 43.0480488,
+        "lon": -89.3471392
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Vera Court Neighborhood Center",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.veracourt.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Vera Court Neighborhood Center",
+        "lat": 43.1362204,
+        "lon": -89.3851984,
+        "street_hint": "614 Vera Court"
+      },
+      "_metro": "Madison, United States"
+    },
+    {
+      "name": "Chaplaincy Institute of Maine",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.chimeofmaine.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Chaplaincy Institute of Maine",
+        "lat": 43.6688352,
+        "lon": -70.2952592,
+        "aliases": [
+          "ChiME"
+        ]
+      },
+      "_metro": "Portland ME, United States"
+    },
+    {
+      "name": "Peak Abundance Community Center",
+      "category": "community",
+      "_found": "osm:community_centre -> squarespace",
+      "collection": "https://www.nederlandfoodpantry.org/events",
+      "max_events": 200,
+      "venue": {
+        "name": "Peak Abundance Community Center",
+        "lat": 39.961569,
+        "lon": -105.512165
+      },
+      "_metro": "Boulder, United States"
+    },
+    {
+      "name": "Scottish Rite Temple",
+      "category": "community",
+      "_found": "osm:social_centre -> squarespace",
+      "collection": "https://www.nmscottishrite.org/calendar-of-events",
+      "max_events": 200,
+      "venue": {
+        "name": "Scottish Rite Temple",
+        "lat": 35.6919549,
+        "lon": -105.936374
+      },
+      "_metro": "Santa Fe, United States"
     }
   ],
   "_not_included": {
