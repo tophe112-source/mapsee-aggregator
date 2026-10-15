@@ -2176,6 +2176,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "abbotsford.ca": {
+    "checked": 20261015,
+    "name": "Abbotsford",
+    "offsite_url": "https://abbotsford.perfectmind.com/23852/Clients/BookMe4BookingPages/BookingCoursesPage?calendarId=91057807-8b55-47ef-ac74-159ffaf288c1&amp;widgetId=15f6af07-39c5-473e-b053-96653f77a406&amp;embed=False",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "abbotsfordpc.org": {
     "checked": 20260819,
     "name": "Abbotsford Presbyterian Church",
@@ -6211,6 +6219,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ajax.ca": {
+    "checked": 20261015,
+    "name": "Ajax",
+    "reason": "52 events, 10/10 on page 1 future",
+    "status": "ok",
+    "type": "tribe"
   },
   "ajax.ca/?post_type=tribe_events&ical=1&eventDisplay=list": {
     "checked": 20261011,
@@ -19602,6 +19617,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "aurora.ca": {
+    "checked": 20261015,
+    "name": "Aurora",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "auroragov.org/things_to_do/aurora_public_library": {
     "checked": 20261011,
     "name": "Hoffman Heights Library",
@@ -23694,6 +23716,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "barrie.ca": {
+    "checked": 20261015,
+    "name": "Barrie",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "barrielibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGVybSI6IiIsImRheXMiOjMwfX0=": {
     "checked": 20261011,
     "name": "Barrie Public Library (Barrie, Canada)",
@@ -24649,8 +24678,10 @@
     "type": "osm-venue"
   },
   "baybaptistchurch.co.nz": {
-    "checked": 20260828,
+    "cal_url": "https://www.baybaptistchurch.co.nz/page/events/",
+    "checked": 20261015,
     "name": "Bay Baptist Church",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -25802,8 +25833,9 @@
     "type": "osm-venue"
   },
   "beattieandforbes.co.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Beattie and Forbes",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -42458,6 +42490,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "brampton.ca": {
+    "checked": 20261015,
+    "name": "Brampton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "brampton.ca/EN/residents/Recreation/Community-Centres/Pages/Riverstone-Community-Centre.aspx": {
     "checked": 20261006,
     "name": "Brampton Riverstone Community Centre",
@@ -42514,6 +42553,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "brandon.ca": {
+    "checked": 20261015,
+    "name": "Brandon",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "brandoseglare.fi": {
     "checked": 20260903,
@@ -42584,6 +42630,14 @@
     "reason": "345 vevents / 267 future",
     "status": "ok",
     "type": "ics"
+  },
+  "brantford.ca": {
+    "checked": 20261015,
+    "name": "Brantford",
+    "offsite_url": "https://ca.apm.activecommunities.com/brantford/Activity_Search?txtActivitySearch=camp&amp;applyFiltersDefaultValue=true&amp;cat=Activities",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "brasarte.com": {
     "checked": 20261011,
@@ -47791,6 +47845,14 @@
     "status": "ok",
     "type": "ics"
   },
+  "burlington.ca": {
+    "checked": 20261015,
+    "name": "Burlington",
+    "offsite_url": "https://cityofburlington.perfectmind.com/22818/Clients/BookMe4?widgetId=dc3cc952-5dd4-42e1-a2b4-3cf7180042d7",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "burlingtonctlibrary.org": {
     "checked": 20261012,
     "name": "Burlington Public Library",
@@ -48943,8 +49005,9 @@
     "type": "osm-venue"
   },
   "c3hawkesbay.org.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "C3 Hawke's Bay",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -52599,6 +52662,13 @@
     "reason": "24 events / 0 future",
     "status": "empty",
     "type": "squarespace"
+  },
+  "cambridge.ca": {
+    "checked": 20261015,
+    "name": "Cambridge",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cambridge.gov.uk": {
     "checked": 20260927,
@@ -62131,6 +62201,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "chatham-kent.ca/Pages/default.aspx": {
+    "checked": 20261015,
+    "name": "Chatham-Kent",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "chatkamarzen.pl": {
     "checked": 20260909,
     "name": "Chatka Spe\u0142nionych Marze\u0144",
@@ -64346,8 +64423,9 @@
     "type": "osm-venue"
   },
   "christiansciencenz.org": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Christian Science Society",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -68452,6 +68530,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "city.belleville.on.ca": {
+    "checked": 20261015,
+    "name": "Belleville",
+    "offsite_url": "https://cityofbelleville.perfectmind.com/25427/Clients/BookMe4?widgetId=2db65ef9-ad44-4c78-beb9-4c87bfa6441f",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "city.bunkyo.lg.jp/kyoiku/kosodate/nakama/kosodatehiroba.html": {
     "checked": 20260922,
     "name": "\u5b50\u80b2\u3066\u3072\u308d\u3070\u6c5f\u6238\u5ddd\u6a4b",
@@ -70877,6 +70963,13 @@
     "status": "ok",
     "type": "ics"
   },
+  "city.welland.on.ca": {
+    "checked": 20261015,
+    "name": "Welland",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "city.yamato.lg.jp/gyosei/bunka_sports/bunka_geijutsu/rekishi_bunkazai/shimotsurumafurusatokan/index.html": {
     "checked": 20260924,
     "name": "\u4e0b\u9db4\u9593\u3075\u308b\u3055\u3068\u9928",
@@ -72155,6 +72248,13 @@
     "reason": "10 vevents / 10 future",
     "status": "ok",
     "type": "ics"
+  },
+  "cityofkingston.ca": {
+    "checked": 20261015,
+    "name": "Kingston",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "cityofkingsville.com": {
     "checked": 20260913,
@@ -73505,6 +73605,13 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "cityofwoodstock.ca": {
+    "checked": 20261015,
+    "name": "Woodstock",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "cityofypsilanti.com/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar": {
     "checked": 20261011,
     "name": "Ypsilanti \u2014 Main Calendar",
@@ -73589,6 +73696,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "cityrock.nz": {
+    "checked": 20261015,
+    "name": "City Rock Church",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "citysewingroom.com": {
     "checked": 20261011,
     "name": "City Sewing Room",
@@ -73652,6 +73767,14 @@
     "reason": "27 vevents / 27 future",
     "status": "ok",
     "type": "ics"
+  },
+  "citywindsor.ca": {
+    "checked": 20261015,
+    "name": "Windsor",
+    "offsite_url": "https://anc.ca.apm.activecommunities.com/windsor/home?onlineSiteId=0&from_original_cui=true",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "citz.co.uk": {
     "checked": 20260819,
@@ -81403,8 +81526,10 @@
     "type": "osm-venue"
   },
   "cpon.org.nz": {
-    "checked": 20260828,
+    "cal_url": "https://cpon.org.nz/news-events/",
+    "checked": 20261015,
     "name": "St Patrick's",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -81781,8 +81906,10 @@
     "type": "civic-city"
   },
   "creativefibre.org.nz/areasgroups/listing/napier-weavers": {
-    "checked": 20260828,
+    "cal_url": "https://www.creativefibre.org.nz/calendar/",
+    "checked": 20261015,
     "name": "Napier Weavers",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -85754,8 +85881,9 @@
     "type": "osm-venue"
   },
   "danceexpress.co.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Dance Express",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -99875,6 +100003,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "edmonton.ca": {
+    "checked": 20261015,
+    "name": "Edmonton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "edmonton.ca/activities_parks_recreation/act": {
     "checked": 20260819,
     "name": "ACT Center",
@@ -102014,8 +102149,9 @@
     "type": "osm-venue"
   },
   "ellwoodfunctioncentre.co.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Ellwood Function Centre",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -102112,6 +102248,14 @@
     "offsite_url": "https://www.eventbrite.ca/e/a-place-to-call-home-gala-celebrating-25-years-of-impact-tickets-1676770940019",
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "elmwoodhouse.co.nz": {
+    "checked": 20261015,
+    "name": "Elmwood House",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "elmwoodparklibrary.org": {
@@ -103593,8 +103737,9 @@
     "type": "ics"
   },
   "engagechurch.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Engage Church",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -104542,8 +104687,9 @@
     "type": "osm-venue"
   },
   "equipperschurch.com/napier": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Equippers Church",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -116594,6 +116740,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "flaxmere.org.nz": {
+    "checked": 20261015,
+    "name": "Flaxmere Baptist Church",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "flechtereien.ch/index.php/flechtmuseum": {
     "checked": 20260919,
     "name": "Flechtmuseum",
@@ -120085,6 +120239,14 @@
     "status": "ok",
     "type": "ics"
   },
+  "fredericton.ca/fr": {
+    "checked": 20261015,
+    "name": "Q2138",
+    "offsite_url": "https://app.amilia.com/store/fr/city-of-fredericton/shop/programs",
+    "reason": "civic probe: offsite:amilia.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "frederiksberg-boldklub.dk": {
     "checked": 20260831,
     "name": "Frederiksberg Boldklub",
@@ -120201,8 +120363,10 @@
     "type": "osm-venue"
   },
   "freemasons.co.nz": {
-    "checked": 20260828,
+    "cal_url": "https://freemasonsnz.org/blog/category/events",
+    "checked": 20261015,
     "name": "?",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -125369,6 +125533,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "gatineau.ca": {
+    "checked": 20261015,
+    "name": "Gatineau",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "gatineau.ca/portail/default.aspx?p=guichet_municipal/bibliotheque/espace_creatif_lucy_faris": {
     "checked": 20261006,
     "name": "Biblioth\u00e8que Lucy-Faris",
@@ -126814,6 +126985,13 @@
     "reason": "osm probe: offsite:eventbrite",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "georgina.ca": {
+    "checked": 20261015,
+    "name": "Georgina",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "geqo.de/quartierszentrale/quartiersgenossenschaft-kopie.html": {
     "checked": 20261002,
@@ -128904,8 +129082,9 @@
     "type": "osm-venue"
   },
   "glidinghbw.co.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Gliding Hawkes Bay and Waipukurau",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -129017,8 +129196,10 @@
     "type": "osm-venue"
   },
   "globenapier.co.nz": {
-    "checked": 20260828,
+    "cal_url": "https://globenapier.co.nz/whats-on/",
+    "checked": 20261015,
     "name": "Globe Thetrette",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -132123,6 +132304,13 @@
     "status": "ok",
     "type": "tribe"
   },
+  "greatersudbury.ca": {
+    "checked": 20261015,
+    "name": "Greater Sudbury",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "greatfallsmt.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar": {
     "checked": 20261011,
     "name": "Great Falls \u2014 Mansfield Center Events",
@@ -133899,6 +134087,14 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "guelph.ca": {
+    "checked": 20261015,
+    "name": "Guelph",
+    "offsite_url": "https://cityofguelph.perfectmind.com/SocialSite/MemberRegistration/MemberSignIn",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "guelph.ca/living/recreation/parks/community-and-pollinator-gardens/get-involved-in-community-gardens/onwardwillow-community-garden": {
     "checked": 20260819,
@@ -136082,6 +136278,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "haltonhills.ca": {
+    "checked": 20261015,
+    "name": "Halton Hills",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "halvtolv.dk": {
     "checked": 20260831,
     "name": "B\u00e5dlauget Halvtolv",
@@ -136529,6 +136732,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "hamilton.ca": {
+    "checked": 20261015,
+    "name": "Hamilton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "hamilton.ca/things-do/recreation/facility-rentals/community-hall-rentals": {
     "checked": 20261006,
@@ -137948,15 +138158,18 @@
     "type": "osm-venue"
   },
   "hastingschurch.org.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Hastings Church",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "hastingscityartgallery.co.nz": {
-    "checked": 20260828,
+    "cal_url": "https://www.hastingscityartgallery.co.nz/events/",
+    "checked": 20261015,
     "name": "Hastings City Art Gallery",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -137969,15 +138182,18 @@
     "type": "civic-city"
   },
   "hastingselim.org.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Hastings City Elim Church",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "hastingsmosque.org": {
-    "checked": 20260828,
+    "cal_url": "https://www.hastingsmosque.org/masjid-events",
+    "checked": 20261015,
     "name": "Hastings Mosque",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -138749,8 +138965,9 @@
     "type": "osm-venue"
   },
   "hbecac.co.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Hawkes Bay and East Coast Aero Club",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -138798,8 +139015,10 @@
     "type": "ics"
   },
   "hbsfc.co.nz": {
-    "checked": 20260828,
+    "cal_url": "https://www.hbsfc.co.nz/competition-and-event-dates",
+    "checked": 20261015,
     "name": "Hawke's Bay Sports Fishing Club",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -140437,6 +140656,16 @@
     "name": "St Mary's Springston",
     "reason": "77 vevents / 77 future; its calendar id is a personal address; the owner decides",
     "status": "held",
+    "type": "ics"
+  },
+  "held:3bf3cb69ec294c2e": {
+    "checked": 20261015,
+    "found": "osm:club -> gcal-embed",
+    "home": "https://www.sporty.co.nz/cornwallcchastings",
+    "metro": "Napier, New Zealand",
+    "name": "Cornwall Cricket Club",
+    "reason": "0 vevents / 0 future",
+    "status": "fail",
     "type": "ics"
   },
   "held:4075d0595941db3d": {
@@ -160084,8 +160313,9 @@
     "type": "osm-venue"
   },
   "johnstaniford.co.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "John Staniford Studio",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -165374,6 +165604,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "kawarthalakes.ca": {
+    "checked": 20261015,
+    "name": "Kawartha Lakes",
+    "offsite_url": "https://kawarthalakes.perfectmind.com/24060/Clients/BookMe4?widgetId=f0aea357-e340-42f1-b47f-74b4a27c66cf",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "kawasaki-ac.jp": {
     "checked": 20260925,
     "name": "\u5ddd\u5d0e\u5e02\u30a2\u30fc\u30c8\u30bb\u30f3\u30bf\u30fc",
@@ -168393,6 +168631,14 @@
     "status": "ok",
     "type": "tribe"
   },
+  "kingshouse.org.nz": {
+    "checked": 20261015,
+    "name": "Kings House Church",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "kingslandcommunity.ca/whats-going-on/events": {
     "checked": 20260819,
     "name": "Kingsland Community Centre",
@@ -169722,6 +169968,13 @@
     "reason": "http 404 / no VCALENDAR",
     "status": "fail",
     "type": "ics"
+  },
+  "kitchener.ca": {
+    "checked": 20261015,
+    "name": "Kitchener",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "kitchener.ca/en/pools-and-swimming/breithaupt-centre-pool.aspx": {
     "checked": 20260819,
@@ -194982,6 +195235,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "london.ca": {
+    "checked": 20261015,
+    "name": "London",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "london.gov.uk": {
     "checked": 20260927,
     "name": "London",
@@ -202044,6 +202304,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "markham.ca": {
+    "checked": 20261015,
+    "name": "Markham",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "markhamwesley.com": {
     "checked": 20261006,
@@ -210055,6 +210322,14 @@
     "status": "fail",
     "type": "civic-city"
   },
+  "milton.ca": {
+    "checked": 20261015,
+    "name": "Milton",
+    "offsite_url": "https://townofmilton.perfectmind.com/23453/Clients/BookMe4?widgetId=15f6af07-39c5-473e-b053-96653f77a406&amp;embed=False&amp;redirectedFromEmbededMode=False",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "milwaukeedomes.org": {
     "checked": 20261011,
     "name": "Mitchell Park Domes (Milwaukee)",
@@ -210834,6 +211109,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "mississauga.ca": {
+    "checked": 20261015,
+    "name": "Mississauga",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "mississauga.ca/portal/residents/cooksvillelibrary": {
     "checked": 20261006,
@@ -213436,6 +213718,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "moncton.ca/fr": {
+    "checked": 20261015,
+    "name": "Moncton",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "mondadoristore.it/negozi/libreria/mondadori-bookstore-chieri/MFR0OW": {
     "checked": 20260923,
@@ -217078,8 +217367,10 @@
     "type": "osm-venue"
   },
   "mtghawkesbay.com": {
-    "checked": 20260828,
+    "cal_url": "https://www.hawkesbaymuseum.com/whats-on",
+    "checked": 20261015,
     "name": "MTG Hawke's Bay",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -225143,6 +225434,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "nanaimo.ca": {
+    "checked": 20261015,
+    "name": "Nanaimo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "nanaksargurdwara.ca": {
     "checked": 20260819,
     "name": "Nanaksar Gurudwara Gursikh Temple",
@@ -225269,6 +225567,14 @@
     "status": "fail",
     "type": "ics"
   },
+  "napier.elim.org.nz": {
+    "checked": 20261015,
+    "name": "The Oasis Church (Elim)",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "napier.govt.nz": {
     "checked": 20261007,
     "name": "Napier",
@@ -225277,15 +225583,18 @@
     "type": "civic-city"
   },
   "napierbaptist.org.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Napier Baptist Church",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "napiercathedral.org.nz": {
-    "checked": 20260828,
+    "cal_url": "https://napiercathedral.org.nz/events-concerts/",
+    "checked": 20261015,
     "name": "Waiapu Cathedral of Saint John the Evangelist,",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -225298,8 +225607,10 @@
     "type": "jsonld"
   },
   "napiersailingclub.org.nz": {
-    "checked": 20260828,
+    "cal_url": "https://www.napiersailingclub.org.nz/our-fleet-classes",
+    "checked": 20261015,
     "name": "Napier Sailing Club",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -225743,6 +226054,14 @@
     "name": "National Sculpture Factory",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "nationalserviceclub.co.nz": {
+    "checked": 20261015,
+    "name": "National Service Club",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "nationaltheatret.no": {
@@ -226546,8 +226865,9 @@
     "type": "jsonld"
   },
   "ncf.org.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Napier Christian Fellowship Centre",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -226665,50 +226985,64 @@
     "type": "osm-venue"
   },
   "ndmt.co.nz/retirement-villages/elbourne-street-villas": {
-    "checked": 20260828,
+    "cal_url": "https://www.ndmt.co.nz/news-events/",
+    "checked": 20261015,
     "name": "Elbourne Street Villas",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "ndmt.co.nz/retirement-villages/kensington-masonic-village": {
-    "checked": 20260828,
+    "cal_url": "https://www.ndmt.co.nz/news-events/",
+    "checked": 20261015,
     "name": "Kensington Masonic Villas",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "ndmt.co.nz/retirement-villages/knightsbridge-masonic-village": {
-    "checked": 20260828,
+    "cal_url": "https://www.ndmt.co.nz/news-events/",
+    "checked": 20261015,
     "name": "Knightsbridge Masonic Village",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "ndmt.co.nz/retirement-villages/mission-view-masonic-village": {
-    "checked": 20260828,
+    "cal_url": "https://www.ndmt.co.nz/news-events/",
+    "checked": 20261015,
     "name": "Mission View Masonic Village",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "ndmt.co.nz/retirement-villages/scinde-masonic-village": {
-    "checked": 20260828,
+    "cal_url": "https://www.ndmt.co.nz/news-events/",
+    "checked": 20261015,
     "name": "Scinde Masonic Flats",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "ndmt.co.nz/retirement-villages/taradale-masonic-village": {
-    "checked": 20260828,
+    "cal_url": "https://www.ndmt.co.nz/news-events/",
+    "checked": 20261015,
     "name": "Taradale Masonic Village",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "ndmt.co.nz/retirement-villages/waiohiki-villas": {
-    "checked": 20260828,
+    "cal_url": "https://www.ndmt.co.nz/news-events/",
+    "checked": 20261015,
     "name": "Waiohiki Masonic Flats",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -227988,6 +228322,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "newhopechurch.net.nz": {
+    "checked": 20261015,
+    "name": "New Hope Community Church",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
+  },
   "newhopeeastlake.org": {
     "checked": 20261003,
     "name": "New Hope Eastlake",
@@ -228082,6 +228424,14 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "newmarket.ca": {
+    "checked": 20261015,
+    "name": "Newmarket",
+    "offsite_url": "https://newmarket.perfectmind.com/Clients/BookMe4BookingPages/BookingCoursesPage?calendarId=642e8eb4-b5e6-4195-bdc4-98e51268d1dc&amp;widgetId=15f6af07-39c5-473e-b053-96653f77a406&amp;embed=False",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "newmartyr.info": {
     "checked": 20260819,
@@ -228931,6 +229281,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "niagarafalls.ca": {
+    "checked": 20261015,
+    "name": "Niagara Falls",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "niagarafallspubliclib.org": {
     "checked": 20261012,
@@ -231351,6 +231708,13 @@
     "reason": "robots.txt: Disallow: /wp-json/ (GET /wp-json/tribe/events/v1/events?per_page=50&start_date=2026-)",
     "status": "refused",
     "type": "tribe"
+  },
+  "northbay.ca": {
+    "checked": 20261015,
+    "name": "North Bay",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "northbranchrestoration.org": {
     "checked": 20261011,
@@ -235117,6 +235481,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "oakville.ca": {
+    "checked": 20261015,
+    "name": "Oakville",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "oakwoodcommunitycentre.co.uk": {
     "checked": 20261009,
     "name": "Oakwood Community Centre",
@@ -235794,8 +236165,9 @@
     "type": "osm-venue"
   },
   "oceaniahealthcare.co.nz/find-a-place/aged-care/atawhai-care": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Atawhai Lifestyle Care and Village",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -241833,6 +242205,13 @@
     "status": "fail",
     "type": "jsonld"
   },
+  "oshawa.ca": {
+    "checked": 20261015,
+    "name": "Oshawa",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "oshorachana.com.br": {
     "checked": 20261007,
     "name": "Comunidade Osho Rachana",
@@ -243636,6 +244015,14 @@
     "name": "Pacific SLSC",
     "reason": "osm probe: no-calendar",
     "status": "fail",
+    "type": "osm-venue"
+  },
+  "pacificsurf.org.nz": {
+    "checked": 20261015,
+    "name": "Pacific Surf Lifesaving Club",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
     "type": "osm-venue"
   },
   "package-museum.jp": {
@@ -251000,6 +251387,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "peterborough.ca": {
+    "checked": 20261015,
+    "name": "Peterborough",
+    "offsite_url": "https://cityofpeterborough.perfectmind.com/23519/Clients/BookMe4?widgetId=f1947b3a-c327-4adf-b69d-a08f27707dd5",
+    "reason": "civic probe: offsite:perfectmind.com",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "peterborough.gov.uk": {
     "checked": 20260927,
     "name": "Peterborough",
@@ -252655,8 +253050,9 @@
     "type": "osm-venue"
   },
   "phuntsokchoeling.co.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Phuntsok Choeling Buddhist Centre",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -252908,6 +253304,14 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "pickering.ca": {
+    "checked": 20261015,
+    "name": "Pickering",
+    "offsite_url": "https://anc.ca.apm.activecommunities.com/cityofpickering/home?onlineSiteId=0&amp;from_original_cui=true",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "pickeringtonlibrary.libnet.info/feeds?data=eyJmZWVkVHlwZSI6ImljYWwiLCJmaWx0ZXJzIjp7ImxvY2F0aW9uIjpbImFsbCJdLCJhZ2VzIjpbImFsbCJdLCJ0eXBlcyI6WyJhbGwiXSwidGFncyI6W10sInRlcm0iOiIiLCJkYXlzIjo2MH19": {
     "checked": 20261011,
@@ -261252,8 +261656,9 @@
     "type": "ics"
   },
   "quaygallery.co.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Quay Gallery",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -264239,8 +264644,9 @@
     "type": "civic-city"
   },
   "readingcinemas.co.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Reading Cinemas",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -264654,6 +265060,13 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "reddeer.ca": {
+    "checked": 20261015,
+    "name": "Red Deer",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "reddeerlakeuc.com": {
     "checked": 20260819,
@@ -265290,6 +265703,14 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "regina.ca": {
+    "checked": 20261015,
+    "name": "Regina",
+    "offsite_url": "https://ca.apm.activecommunities.com/regina/",
+    "reason": "civic probe: offsite:activecommunities.com",
+    "status": "fail",
+    "type": "civic-city"
   },
   "reginacoeliparish.org.au": {
     "checked": 20260819,
@@ -267501,6 +267922,13 @@
     "reason": "17 vevents / 16 future",
     "status": "ok",
     "type": "ics"
+  },
+  "richmondhill.ca": {
+    "checked": 20261015,
+    "name": "Richmond Hill",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "richmondhill.ca/en/things-to-do/Bayview-Hill-Community-Centre.aspx": {
     "checked": 20261006,
@@ -278523,6 +278951,13 @@
     "reason": "osm probe: unreachable (RobotsUnreachable)",
     "status": "unreachable",
     "type": "osm-venue"
+  },
+  "sarnia.ca": {
+    "checked": 20261015,
+    "name": "Sarnia",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "saron.se": {
     "checked": 20260905,
@@ -296046,10 +296481,11 @@
     "type": "osm-venue"
   },
   "sporty.co.nz/cornwallcchastings": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Cornwall Cricket Club",
-    "reason": "osm probe: no-calendar",
-    "status": "fail",
+    "probe": 2,
+    "reason": "osm probe: found ics",
+    "status": "found",
     "type": "osm-venue"
   },
   "sporty.co.nz/northendrowing": {
@@ -296061,8 +296497,9 @@
     "type": "osm-venue"
   },
   "sporty.co.nz/omnigymnastics": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Omni Gymnastic Centre",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -296110,8 +296547,9 @@
     "type": "osm-venue"
   },
   "sporty.co.nz/westernrangers": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Western Rangers Football Club",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -300545,6 +300983,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "stcatharines.ca": {
+    "checked": 20261015,
+    "name": "St. Catharines",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "stcc.ch/home": {
     "checked": 20260920,
     "name": "SwissTech Convention Center",
@@ -300616,8 +301061,9 @@
     "type": "ics"
   },
   "stcolumba-taradale.org.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Saint Columbas Presbyterian Church",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -301909,6 +302355,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "stjohns.ca": {
+    "checked": 20261015,
+    "name": "St. John's",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "stjohns.net.nz": {
     "checked": 20260824,
@@ -303812,6 +304265,14 @@
     "reason": "no schema.org Event blocks found",
     "status": "fail",
     "type": "jsonld"
+  },
+  "stpaulsnapier.org.nz": {
+    "checked": 20261015,
+    "name": "Saint Pauls Presbyterian Church",
+    "probe": 2,
+    "reason": "osm probe: unreachable (RobotsUnreachable)",
+    "status": "unreachable",
+    "type": "osm-venue"
   },
   "stpaulsnz.net/events": {
     "checked": 20261011,
@@ -306883,6 +307344,13 @@
     "reason": "30 vevents / 30 future",
     "status": "ok",
     "type": "ics"
+  },
+  "surrey.ca": {
+    "checked": 20261015,
+    "name": "Surrey",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "surrey.ca/culture-recreation/1777.aspx": {
     "checked": 20261006,
@@ -318821,8 +319289,10 @@
     "type": "osm-venue"
   },
   "thecan.co.nz": {
-    "checked": 20260828,
+    "cal_url": "https://www.thecan.co.nz/whats-on/",
+    "checked": 20261015,
     "name": "Community Arts Centre",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -320776,8 +321246,9 @@
     "type": "osm-venue"
   },
   "thetoolshed.co.nz": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Salvation Army Flaxmere Family Store",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -321549,6 +322020,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "thunderbay.ca": {
+    "checked": 20261015,
+    "name": "Thunder Bay",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "thunderbirdcc.ca": {
     "checked": 20261006,
@@ -322965,36 +323443,46 @@
     "type": "osm-venue"
   },
   "toitoivenues.co.nz": {
-    "checked": 20260828,
+    "cal_url": "https://www.toitoivenues.co.nz/whats-on/",
+    "checked": 20261015,
     "name": "Toitoi - Hawke's Bay Arts & Events Centre",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "toitoivenues.co.nz/our-venues/cushing-foyer": {
-    "checked": 20260828,
+    "cal_url": "https://www.toitoivenues.co.nz/whats-on/",
+    "checked": 20261015,
     "name": "Cushing Foyer",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "toitoivenues.co.nz/our-venues/functions-on-hastings": {
-    "checked": 20260828,
+    "cal_url": "https://www.toitoivenues.co.nz/whats-on/",
+    "checked": 20261015,
     "name": "Functions On Hastings",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "toitoivenues.co.nz/our-venues/municipal-building": {
-    "checked": 20260828,
+    "cal_url": "https://www.toitoivenues.co.nz/whats-on/",
+    "checked": 20261015,
     "name": "Assembly Ballroom",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
   },
   "toitoivenues.co.nz/our-venues/opera-house": {
-    "checked": 20260828,
+    "cal_url": "https://www.toitoivenues.co.nz/whats-on/",
+    "checked": 20261015,
     "name": "Toitoi - Hawke's Bay Arts & Events Centre",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -323925,11 +324413,11 @@
     "type": "osm-venue"
   },
   "toronto.ca": {
-    "checked": 20261006,
-    "name": "Beaches Recreation Centre",
-    "reason": "osm probe: no-calendar",
+    "checked": 20261015,
+    "name": "Toronto",
+    "reason": "civic probe: no-calendar",
     "status": "fail",
-    "type": "osm-venue"
+    "type": "civic-city"
   },
   "toronto.ca/311/knowledgebase/kb/docs/articles/parks,-forestry-and-recreation/community-recreation/playground-paradise.html": {
     "checked": 20261006,
@@ -324450,6 +324938,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "tourismsarnialambton.com": {
+    "checked": 20261015,
+    "name": "Sarnia",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-dmo"
+  },
   "tournai.be": {
     "checked": 20261010,
     "name": "Tournai",
@@ -324519,6 +325014,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "town.caledon.on.ca": {
+    "checked": 20261015,
+    "name": "Caledon",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "town.fuchu.hiroshima.jp/site/shakaikyouiku/1048.html": {
     "checked": 20260929,
@@ -333387,6 +333889,13 @@
     "status": "refused",
     "type": "osm-venue"
   },
+  "v3r.net": {
+    "checked": 20261015,
+    "name": "Trois-Rivi\u00e8res",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "v9gallery.com": {
     "checked": 20260909,
     "name": "Galeria V9",
@@ -336284,6 +336793,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "victoria.ca": {
+    "checked": 20261015,
+    "name": "Victoria",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "victoria.ca/community-culture/neighbourhoods/neighbourspace": {
     "checked": 20261006,
     "name": "NeighbourSpace",
@@ -338175,6 +338691,13 @@
     "status": "unreachable",
     "type": "osm-venue"
   },
+  "ville.levis.qc.ca": {
+    "checked": 20261015,
+    "name": "L\u00e9vis",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ville.montreal-est.qc.ca/services-citoyens/calendrier/?ical=1": {
     "checked": 20261011,
     "name": "Ville de Montreal-Est calendar (Montreal-Est, Canada)",
@@ -338182,12 +338705,33 @@
     "status": "ok",
     "type": "ics"
   },
+  "ville.quebec.qc.ca": {
+    "checked": 20261015,
+    "name": "Quebec City",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "ville.quebec.qc.ca/nous_joindre/311/banque-info/info.aspx?NoFiche=AC-000806": {
     "checked": 20261006,
     "name": "Centre communautaire Fernand-Dufour",
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "ville.saguenay.ca": {
+    "checked": 20261015,
+    "name": "Saguenay",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
+  "ville.terrebonne.qc.ca": {
+    "checked": 20261015,
+    "name": "Terrebonne",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "villedemalzeville.fr/vie-locale/location-de-salle": {
     "checked": 20261006,
@@ -342706,8 +343250,9 @@
     "type": "osm-venue"
   },
   "wardininapier.circlesoft.net": {
-    "checked": 20260828,
+    "checked": 20261015,
     "name": "Wardini Books",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
@@ -343252,6 +343797,13 @@
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"
+  },
+  "waterloo.ca": {
+    "checked": 20261015,
+    "name": "Waterloo",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
   },
   "waterloo.ca/en/things-to-do/albert-mccormick-community-centre.aspx": {
     "checked": 20260819,
@@ -346326,6 +346878,13 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "whitby.ca": {
+    "checked": 20261015,
+    "name": "Whitby",
+    "reason": "civic probe: no-calendar",
+    "status": "fail",
+    "type": "civic-city"
+  },
   "whitbyanglicans.com": {
     "checked": 20261013,
     "name": "St Mary's Anglican Church - Whitby",
@@ -346362,6 +346921,14 @@
     "reason": "63 future, 61 placeable",
     "status": "ok",
     "type": "ics"
+  },
+  "whitchurch-stouffville.ca": {
+    "checked": 20261015,
+    "name": "Whitchurch\u2013Stouffville",
+    "offsite_url": "https://www.eventbrite.ca/e/stouffville-community-tree-planting-tickets-2002647790451?aff=oddtdtcreator",
+    "reason": "civic probe: offsite:eventbrite",
+    "status": "fail",
+    "type": "civic-city"
   },
   "whitcoulls.co.nz": {
     "cal_url": "https://www.whitcoulls.co.nz/events",
@@ -353935,6 +354502,14 @@
     "status": "fail",
     "type": "osm-venue"
   },
+  "zeelandt.co.nz": {
+    "checked": 20261015,
+    "name": "Zeelandt Brewery",
+    "probe": 2,
+    "reason": "osm probe: robots.txt Disallow: / (https://www.zeelandt.co.nz/robots.txt)",
+    "status": "refused",
+    "type": "osm-venue"
+  },
   "zeenatul-islam.com": {
     "checked": 20260930,
     "name": "Zeenatul Islam Masjid",
@@ -354690,8 +355265,10 @@
     "type": "tribe"
   },
   "zl2gt.nz": {
-    "checked": 20260828,
+    "cal_url": "https://zl2gt.nz/category/club-meeting-programme/",
+    "checked": 20261015,
     "name": "Napier Amateur Radio Club",
+    "probe": 2,
     "reason": "osm probe: no-calendar",
     "status": "fail",
     "type": "osm-venue"

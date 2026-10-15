@@ -18271,6 +18271,18 @@
         "street_hint": "2600 Holbrook Drive Northeast"
       },
       "_metro": "Knoxville, United States"
+    },
+    {
+      "name": "Ajax",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://ajax.ca",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Ajax",
+      "default_region": null,
+      "default_country": "CA",
+      "_metro": "Ajax, Canada"
     }
   ],
   "_not_included": {
