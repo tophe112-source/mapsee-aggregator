@@ -2672,6 +2672,100 @@
         "lon": -105.936374
       },
       "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "Museum Jan",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://museumjan.nl/activiteitenkalender",
+      "max_events": 200,
+      "venue": {
+        "name": "Museum Jan",
+        "lat": 52.3023149,
+        "lon": 4.8467004
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Revival Fellowship Almere",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.revivalfellowship.nl/activiteiten",
+      "max_events": 200,
+      "venue": {
+        "name": "Revival Fellowship Almere",
+        "address": "104 Operetteweg",
+        "city": "Almere",
+        "postal_code": "1323VE",
+        "lat": 52.3632914,
+        "lon": 5.1886553
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Zaans Cultuurhuis",
+      "category": "theater",
+      "_found": "osm:theatre -> squarespace",
+      "collection": "https://zaanscultuurhuis.nl/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Zaans Cultuurhuis",
+        "address": "2 Cornelis van Uitgeeststraat",
+        "city": "Zaandam",
+        "postal_code": "1508EH",
+        "lat": 52.4569577,
+        "lon": 4.8155295
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Club Up",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.clubup.nl/program",
+      "max_events": 200,
+      "venue": {
+        "name": "Club Up",
+        "address": "26 Korte Leidsedwarsstraat",
+        "city": "Amsterdam",
+        "postal_code": "1017RC",
+        "lat": 52.3638432,
+        "lon": 4.8837791
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Oosterparkkerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.oosterparkkerk.nl/activiteiten-en-diensten",
+      "max_events": 200,
+      "venue": {
+        "name": "Oosterparkkerk",
+        "address": "4 Oosterpark",
+        "city": "Amsterdam",
+        "postal_code": "1091AC",
+        "country": "NL",
+        "lat": 52.359981,
+        "lon": 4.9157493
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Vers aan de Vecht",
+      "category": "outdoors",
+      "_found": "osm:garden -> squarespace",
+      "collection": "https://www.versaandevecht.nl/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Vers aan de Vecht",
+        "address": "18a Lange Muiderweg",
+        "city": "Weesp",
+        "postal_code": "1382LA",
+        "lat": 52.3161221,
+        "lon": 5.0601515
+      },
+      "_metro": "Amsterdam, Netherlands"
     }
   ],
   "_not_included": {

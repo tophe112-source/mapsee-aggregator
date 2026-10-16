@@ -18653,6 +18653,437 @@
         "street_hint": "925 West 39Th Street"
       },
       "_metro": "Chattanooga, United States"
+    },
+    {
+      "name": "Somerset",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cityofsomerset.com",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Somerset",
+      "default_region": "Kentucky",
+      "default_country": "US",
+      "_metro": "Somerset, Kentucky"
+    },
+    {
+      "name": "Lawrenceburg",
+      "category": "community",
+      "_found": "civic:city -> tribe+jsonld-event",
+      "base_url": "https://lawrenceburgky.org",
+      "within_days": 365,
+      "max_pages": 15,
+      "default_city": "Lawrenceburg",
+      "default_region": "Kentucky",
+      "default_country": "US",
+      "_metro": "Lawrenceburg, Kentucky",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Panama",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://panama.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Panama",
+        "address": "4 Oostelijke Handelskade",
+        "city": "Amsterdam",
+        "postal_code": "1019BM",
+        "lat": 52.3749358,
+        "lon": 4.9304264
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Hikari",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.hikari.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hikari",
+        "address": "1 Panneroodstraat",
+        "city": "Zaandam",
+        "postal_code": "1503XH",
+        "lat": 52.4448745,
+        "lon": 4.8348153
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Boeddhistisch Centrum Amsterdam Triratna",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bcatriratna.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boeddhistisch Centrum Amsterdam Triratna",
+        "address": "56 Marius van Bouwdijk Bastiaansestraat",
+        "city": "Amsterdam",
+        "postal_code": "1054SP",
+        "lat": 52.3637159,
+        "lon": 4.8706774
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Van Zantenhal",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.vanzantenhal.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Van Zantenhal",
+        "address": "1415A IJweg",
+        "city": "Nieuw-Vennep",
+        "postal_code": "2152NB",
+        "lat": 52.2860219,
+        "lon": 4.6238658
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "?",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "https://hvoquerido.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "?",
+        "address": "14 Plantage Muidergracht",
+        "city": "Amsterdam",
+        "postal_code": "1018TV",
+        "lat": 52.3646621,
+        "lon": 4.912969
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Kerk van Zunderdorp",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kerkzunderdorp.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kerk van Zunderdorp",
+        "lat": 52.4069397,
+        "lon": 4.9669114
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Museum de Zwarte Tulp",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://museumdezwartetulp.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum de Zwarte Tulp",
+        "lat": 52.2590033,
+        "lon": 4.5546004
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "B.C. Duinwijck",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "http://duinwijck.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "B.C. Duinwijck",
+        "address": "1 Badmintonplein",
+        "city": "Haarlem",
+        "postal_code": "2023BW",
+        "lat": 52.3955218,
+        "lon": 4.6242832
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Historisch Museum Ter Aar",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://chvteraar.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Historisch Museum Ter Aar",
+        "lat": 52.1655726,
+        "lon": 4.7088349
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Theater en Filmhuis De Cirkel",
+      "category": "theater",
+      "_found": "osm:cinema -> tribe",
+      "base_url": "https://www.decirkelheemskerk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theater en Filmhuis De Cirkel",
+        "address": "1 Anthonie Verherentstraat",
+        "city": "Heemskerk",
+        "postal_code": "1961GD",
+        "lat": 52.5117292,
+        "lon": 4.674212
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Amstelschutters",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.amstelschutters.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Amstelschutters",
+        "address": "2 Wimbledonpark",
+        "city": "Amstelveen",
+        "postal_code": "1185XN",
+        "lat": 52.2890978,
+        "lon": 4.8452642
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "VrIJland",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe",
+      "base_url": "https://vrijlandamsterdam.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "VrIJland",
+        "postal_code": "1087HP",
+        "lat": 52.3580291,
+        "lon": 5.0153642,
+        "street_hint": "503 Pampuslaan"
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "GROND",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://grond.community",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "GROND",
+        "address": "1 Bijdorpstraat",
+        "city": "Amsterdam",
+        "postal_code": "1096AP",
+        "lat": 52.3358778,
+        "lon": 4.9266131
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Sporting West",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.sportingwest.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sporting West",
+        "address": "10 Klönneplein",
+        "city": "Amsterdam",
+        "postal_code": "1014DD",
+        "lat": 52.387136,
+        "lon": 4.8704628
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "crawl_delay": 3.0
+    },
+    {
+      "name": "De Kleine Kerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.pknduivendrecht.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Kleine Kerk",
+        "lat": 52.3305342,
+        "lon": 4.9406665
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Maranatha",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.maranatha.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maranatha",
+        "address": "33 Cabotstraat",
+        "city": "Amsterdam",
+        "postal_code": "1057VP",
+        "country": "NL",
+        "lat": 52.3678643,
+        "lon": 4.8550162
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Sloterkerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://sloterkerk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sloterkerk",
+        "address": "28 Osdorperweg",
+        "lat": 52.3421813,
+        "lon": 4.7978211
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Westerkerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://westerkerk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Westerkerk",
+        "lat": 52.3745627,
+        "lon": 4.8839192
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Wilhelminakerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.stadshartkerkhaarlem.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Wilhelminakerk",
+        "lat": 52.3804078,
+        "lon": 4.6329787
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Evangelie Gemeente Lisse",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+events-manager+jsonld-event+ics",
+      "base_url": "http://www.eglisse.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evangelie Gemeente Lisse",
+        "lat": 52.2457578,
+        "lon": 4.5618114
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Grote Kerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://pglisse.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Grote Kerk",
+        "lat": 52.2584384,
+        "lon": 4.5528333
+      },
+      "_metro": "Amsterdam, Netherlands",
+      "crawl_delay": 3.0
+    },
+    {
+      "name": "Leliekerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.leliekerk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Leliekerk",
+        "lat": 52.5084429,
+        "lon": 4.761754
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Het Anker - Vrije Evangelische Gemeente Beverwijk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://vegbeverwijk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Het Anker - Vrije Evangelische Gemeente Beverwijk",
+        "lat": 52.4977808,
+        "lon": 4.6710623
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Fronik Buurtboerderij",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.fronikboerderij.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Fronik Buurtboerderij",
+        "address": "150 Westzanerdijk",
+        "city": "Zaandam",
+        "postal_code": "1507AL",
+        "lat": 52.4347705,
+        "lon": 4.8054813
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Roeivereniging RIC",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ricamsterdam.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Roeivereniging RIC",
+        "lat": 52.3402461,
+        "lon": 4.9159571
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Leerwerkcentrum De Sleutelbloem",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://www.de-sleutelbloem.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Leerwerkcentrum De Sleutelbloem",
+        "lat": 52.1714181,
+        "lon": 4.8516964
+      },
+      "_metro": "Amsterdam, Netherlands"
     }
   ],
   "_not_included": {

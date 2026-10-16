@@ -8923,6 +8923,458 @@
         ]
       },
       "_metro": "Santa Fe, United States"
+    },
+    {
+      "name": "Roeivereniging Willem III",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.willem3.nl/agenda"
+      ],
+      "link_pattern": "https://www\\.willem3\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roeivereniging Willem III",
+        "address": "8 Jan Vroegopsingel",
+        "city": "Amsterdam",
+        "postal_code": "1096CN",
+        "lat": 52.3358747,
+        "lon": 4.9085709
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Filmkoepel",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://filmkoepel.nl/agenda/"
+      ],
+      "link_pattern": "https://filmkoepel\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Filmkoepel",
+        "address": "1B Koepelplein",
+        "city": "Haarlem",
+        "postal_code": "2031WL",
+        "lat": 52.3834375,
+        "lon": 4.6459764
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Kanovereniging De Trekvogels",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.kv-trekvogels.nl/activiteiten/459/varen-niet-mogelijk"
+      ],
+      "link_pattern": "https://www\\.kv\\-trekvogels\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kanovereniging De Trekvogels",
+        "address": "25 Spaarndamseweg",
+        "city": "Haarlem",
+        "postal_code": "2022EG",
+        "lat": 52.4053633,
+        "lon": 4.6565302
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "The Movies",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://themovies.nl/agenda/"
+      ],
+      "link_pattern": "https://themovies\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "The Movies",
+        "address": "161 Haarlemmerdijk",
+        "city": "Amsterdam",
+        "postal_code": "1013KH",
+        "lat": 52.384009,
+        "lon": 4.8846118
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "International Institute for Environment and Development",
+      "category": "community",
+      "_found": "osm:ngo -> jsonld-event",
+      "listing": [
+        "https://www.iied.org/where-find-iied-partners-cop17-event-listing"
+      ],
+      "link_pattern": "https://www\\.iied\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "International Institute for Environment and Development",
+        "address": "2K Plantage Middenlaan",
+        "city": "Amsterdam",
+        "postal_code": "1018DD",
+        "lat": 52.3671166,
+        "lon": 4.9087256
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Salon De IJzerstaven",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.ijzerstaven.nl/agenda"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Salon De IJzerstaven",
+        "address": "10 Bickersgracht",
+        "city": "Amsterdam",
+        "postal_code": "1013LE",
+        "lat": 52.3842727,
+        "lon": 4.8887335
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Beurs van Berlage",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://beursvanberlage.com/events/elasticon/"
+      ],
+      "link_pattern": "https://beursvanberlage\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Beurs van Berlage",
+        "city": "Amsterdam",
+        "postal_code": "1012ZJ",
+        "lat": 52.3753201,
+        "lon": 4.8962311,
+        "street_hint": "243 Damrak"
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Filmhallen",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://filmhallen.nl/agenda/"
+      ],
+      "link_pattern": "https://filmhallen\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Filmhallen",
+        "address": "12 Hannie Dankbaarpassage",
+        "city": "Amsterdam",
+        "postal_code": "1053RT",
+        "lat": 52.3668213,
+        "lon": 4.8685964
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Zaankerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://zaankerk.nl/agenda/"
+      ],
+      "link_pattern": "https://zaankerk\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Zaankerk",
+        "address": "49 Drielse Wetering",
+        "city": "Zaandam",
+        "postal_code": "1509KP",
+        "lat": 52.4678009,
+        "lon": 4.8344363
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Elance Academy",
+      "category": "community",
+      "_found": "osm:ngo -> wix",
+      "listing": [
+        "https://www.elanceacademy.nl/events"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Elance Academy",
+        "address": "30 Marius van Bouwdijk Bastiaansestraat",
+        "city": "Amsterdam",
+        "postal_code": "1054SP",
+        "lat": 52.3635185,
+        "lon": 4.8704449
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Brouwerij Hoop",
+      "category": "community",
+      "_found": "osm:pub -> wix",
+      "listing": [
+        "https://www.brouwerijhoop.nl/event-list"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Brouwerij Hoop",
+        "lat": 52.4760947,
+        "lon": 4.8111585
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "WSV Noord Zuid",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.noordzuidnieuwkoop.nl/activiteiten/657/klusjesdag"
+      ],
+      "link_pattern": "https://www\\.noordzuidnieuwkoop\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "WSV Noord Zuid",
+        "lat": 52.1513333,
+        "lon": 4.7848868
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Roeivereniging Weesp",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.rvweesp.nl/activiteiten/880/snerttocht"
+      ],
+      "link_pattern": "https://www\\.rvweesp\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roeivereniging Weesp",
+        "lat": 52.3030845,
+        "lon": 5.0516059
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Chin Chin Club",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://le-souterrain.nl/dinner-show-amsterdam"
+      ],
+      "link_pattern": "https://le\\-souterrain\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Chin Chin Club",
+        "address": "133 Rozengracht",
+        "city": "Amsterdam",
+        "postal_code": "1016LV",
+        "lat": 52.3727679,
+        "lon": 4.8788419
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Dart Vereniging Kennemerland",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.dartvk.nl/agenda/"
+      ],
+      "link_pattern": "https://www\\.dartvk\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Dart Vereniging Kennemerland",
+        "lat": 52.3869228,
+        "lon": 4.6400035
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Wij | Allemaal",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://wij-allemaal.nl/agenda/"
+      ],
+      "link_pattern": "https://wij\\-allemaal\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wij | Allemaal",
+        "lat": 52.5170193,
+        "lon": 4.9557235
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Paradiso",
+      "category": "community",
+      "_found": "osm:events_venue -> jsonld-event",
+      "listing": [
+        "https://www.paradiso.nl:443/programma/felukah/2919095"
+      ],
+      "link_pattern": "https://www\\.paradiso\\.nl:443/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Paradiso",
+        "address": "6–8 Weteringschans",
+        "postal_code": "1017SG",
+        "lat": 52.3621851,
+        "lon": 4.8838199
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "De Kompaszaal",
+      "category": "community",
+      "_found": "osm:events_venue -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.kompaszaal.nl/evenementen-agenda/"
+      ],
+      "link_pattern": "https://www\\.kompaszaal\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Kompaszaal",
+        "address": "311 KNSM-laan",
+        "city": "Amsterdam",
+        "postal_code": "1019LE",
+        "lat": 52.3772351,
+        "lon": 4.9400694
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "XNRGY",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://xnrgyclub.com/events/knltb-p500-xnrgy-almere/"
+      ],
+      "link_pattern": "https://xnrgyclub\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "XNRGY",
+        "address": "10 De Flinesstraat",
+        "city": "Amsterdam-Duivendrecht",
+        "postal_code": "1114AL",
+        "lat": 52.3258043,
+        "lon": 4.9264156
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Padelhill",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.padel-hill.nl/agenda"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Padelhill",
+        "address": "34 Haarlemmerstraat",
+        "city": "Hillegom",
+        "postal_code": "2181HC",
+        "lat": 52.3120627,
+        "lon": 4.5898214
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "De Purmaryn",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://depurmaryn.nl/agenda/seizoen-2026-2027/piaf/"
+      ],
+      "link_pattern": "https://depurmaryn\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Purmaryn",
+        "lat": 52.5098755,
+        "lon": 4.9474023
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Roeivereniging De Hoop",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://karzvdehoop.nl/activiteiten/agenda/916/pubquiz"
+      ],
+      "link_pattern": "https://karzvdehoop\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roeivereniging De Hoop",
+        "lat": 52.3541403,
+        "lon": 4.9084975
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Jeruzalemkerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.jeruzalem-kerk.nl/agenda/"
+      ],
+      "link_pattern": "https://www\\.jeruzalem\\-kerk\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jeruzalemkerk",
+        "lat": 52.3714411,
+        "lon": 4.8519538
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Concertgemaal",
+      "category": "theater",
+      "_found": "osm:theatre -> wix",
+      "listing": [
+        "https://www.concertgemaal.nl/agenda"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details-registration/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Concertgemaal",
+        "address": "213 Landsmeerderdijk",
+        "city": "Amsterdam",
+        "postal_code": "1035PV",
+        "lat": 52.4090156,
+        "lon": 4.9088795
+      },
+      "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Lincolnpark voedseltuin MEERGroen",
+      "category": "outdoors",
+      "_found": "osm:garden -> modern-events+jsonld-event",
+      "listing": [
+        "https://stichtingmeergroen.nl/evenementen/"
+      ],
+      "link_pattern": "https://stichtingmeergroen\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Lincolnpark voedseltuin MEERGroen",
+        "lat": 52.2834992,
+        "lon": 4.667809
+      },
+      "_metro": "Amsterdam, Netherlands"
     }
   ],
   "_not_included": {

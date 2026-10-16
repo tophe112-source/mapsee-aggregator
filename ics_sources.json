@@ -32811,5 +32811,493 @@
       "pin_unnamed": false
     },
     "_metro": "Olympia WA, United States"
+  },
+  {
+    "name": "Palos Heights — Parks and Recreation",
+    "category": "community",
+    "url": "https://palosheights.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", Palos Heights, Illinois",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks and Recreation]",
+    "_metro": "Palos Heights, Illinois"
+  },
+  {
+    "name": "Palos Heights — Events",
+    "category": "community",
+    "url": "https://palosheights.org/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+    "geocode_suffix": ", Palos Heights, Illinois",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Palos Heights, Illinois"
+  },
+  {
+    "name": "Fenton — Events",
+    "category": "community",
+    "url": "https://www.cityoffenton.org/common/modules/iCalendar/iCalendar.aspx?catID=25&feed=calendar",
+    "geocode_suffix": ", Fenton, Michigan",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Fenton, Michigan"
+  },
+  {
+    "name": "South Miami — Special Events Calendar",
+    "category": "community",
+    "url": "https://www.somifl.gov/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+    "geocode_suffix": ", South Miami, Florida",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Special Events Calendar]",
+    "_metro": "South Miami, Florida"
+  },
+  {
+    "name": "Archdale — Police",
+    "category": "community",
+    "url": "https://www.archdale-nc.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "geocode_suffix": ", Archdale, North Carolina",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Police]",
+    "_metro": "Archdale, North Carolina"
+  },
+  {
+    "name": "Archdale — Parks & Recreation",
+    "category": "community",
+    "url": "https://www.archdale-nc.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Archdale, North Carolina",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks & Recreation]",
+    "_metro": "Archdale, North Carolina"
+  },
+  {
+    "name": "Red Bank — Community Center",
+    "category": "community",
+    "url": "https://www.redbanktn.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Red Bank, Tennessee",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Center]",
+    "_metro": "Red Bank, Tennessee"
+  },
+  {
+    "name": "East Bethel — Community Events",
+    "category": "community",
+    "url": "https://www.ci.east-bethel.mn.us/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", East Bethel, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Events]",
+    "_metro": "East Bethel, Minnesota"
+  },
+  {
+    "name": "Los Alamitos — Community Events",
+    "category": "community",
+    "url": "https://cityoflosalamitos.org/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Los Alamitos, California",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Events]",
+    "_metro": "Los Alamitos, California"
+  },
+  {
+    "name": "Los Alamitos — City Events",
+    "category": "community",
+    "url": "https://cityoflosalamitos.org/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Los Alamitos, California",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[City Events]",
+    "_metro": "Los Alamitos, California"
+  },
+  {
+    "name": "Mendota Heights — Events",
+    "category": "community",
+    "url": "https://mendotaheightsmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Mendota Heights, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Mendota Heights, Minnesota"
+  },
+  {
+    "name": "Mendota Heights — Recreation Programming",
+    "category": "community",
+    "url": "https://mendotaheightsmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Mendota Heights, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Recreation Programming]",
+    "_metro": "Mendota Heights, Minnesota"
+  },
+  {
+    "name": "Mendota Heights — Par 3 Community Events",
+    "category": "community",
+    "url": "https://mendotaheightsmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=40&feed=calendar",
+    "geocode_suffix": ", Mendota Heights, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Par 3 Community Events]",
+    "_metro": "Mendota Heights, Minnesota"
+  },
+  {
+    "name": "Mendota Heights — Municipal Campus Project",
+    "category": "community",
+    "url": "https://mendotaheightsmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=44&feed=calendar",
+    "geocode_suffix": ", Mendota Heights, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Municipal Campus Project]",
+    "_metro": "Mendota Heights, Minnesota"
+  },
+  {
+    "name": "Mendota Heights — Sustainability",
+    "category": "community",
+    "url": "https://mendotaheightsmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=39&feed=calendar",
+    "geocode_suffix": ", Mendota Heights, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Sustainability]",
+    "_metro": "Mendota Heights, Minnesota"
+  },
+  {
+    "name": "Mendota Heights — Natural Resources",
+    "category": "community",
+    "url": "https://mendotaheightsmn.gov/common/modules/iCalendar/iCalendar.aspx?catID=27&feed=calendar",
+    "geocode_suffix": ", Mendota Heights, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Natural Resources]",
+    "_metro": "Mendota Heights, Minnesota"
+  },
+  {
+    "name": "Big Lake — Community Room",
+    "category": "community",
+    "url": "https://www.biglakemn.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "geocode_suffix": ", Big Lake, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Community Room]",
+    "_metro": "Big Lake, Minnesota"
+  },
+  {
+    "name": "Big Lake — Senior Activity Center",
+    "category": "community",
+    "url": "https://www.biglakemn.org/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+    "geocode_suffix": ", Big Lake, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Senior Activity Center]",
+    "_metro": "Big Lake, Minnesota"
+  },
+  {
+    "name": "Big Lake — Lakeside Park Vendor Calendar",
+    "category": "community",
+    "url": "https://www.biglakemn.org/common/modules/iCalendar/iCalendar.aspx?catID=33&feed=calendar",
+    "geocode_suffix": ", Big Lake, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Lakeside Park Vendor Calendar]",
+    "_metro": "Big Lake, Minnesota"
+  },
+  {
+    "name": "Big Lake — City Events",
+    "category": "community",
+    "url": "https://www.biglakemn.org/common/modules/iCalendar/iCalendar.aspx?catID=32&feed=calendar",
+    "geocode_suffix": ", Big Lake, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[City Events]",
+    "_metro": "Big Lake, Minnesota"
+  },
+  {
+    "name": "Big Lake — Park Facility Rental",
+    "category": "community",
+    "url": "https://www.biglakemn.org/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar",
+    "geocode_suffix": ", Big Lake, Minnesota",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Park Facility Rental]",
+    "_metro": "Big Lake, Minnesota"
+  },
+  {
+    "name": "Norton — Event Calendar",
+    "category": "community",
+    "url": "https://www.cityofnorton.org/common/modules/iCalendar/iCalendar.aspx?catID=30&feed=calendar",
+    "geocode_suffix": ", Norton, Ohio",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Event Calendar]",
+    "_metro": "Norton, Ohio"
+  },
+  {
+    "name": "Town and Country — Parks and Recreation",
+    "category": "community",
+    "url": "https://www.town-and-country.org/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
+    "geocode_suffix": ", Town and Country, Missouri",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Parks and Recreation]",
+    "_metro": "Town and Country, Missouri"
+  },
+  {
+    "name": "Grosse Pointe Park — Main Calendar",
+    "category": "community",
+    "url": "https://www.grossepointepark.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Grosse Pointe Park, Michigan",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Main Calendar]",
+    "_metro": "Grosse Pointe Park, Michigan"
+  },
+  {
+    "name": "Oskaloosa — Home Page Calendar",
+    "category": "community",
+    "url": "https://www.oskaloosaiowa.org/common/modules/iCalendar/iCalendar.aspx?catID=14&feed=calendar",
+    "geocode_suffix": ", Oskaloosa, Iowa",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Home Page Calendar]",
+    "_metro": "Oskaloosa, Iowa"
+  },
+  {
+    "name": "Oskaloosa — Park Shelter Reservations",
+    "category": "community",
+    "url": "https://www.oskaloosaiowa.org/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar",
+    "geocode_suffix": ", Oskaloosa, Iowa",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Park Shelter Reservations]",
+    "_metro": "Oskaloosa, Iowa"
+  },
+  {
+    "name": "Port Lavaca — Events",
+    "category": "community",
+    "url": "https://www.portlavaca.gov/common/modules/iCalendar/iCalendar.aspx?catID=24&feed=calendar",
+    "geocode_suffix": ", Port Lavaca, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Events]",
+    "_metro": "Port Lavaca, Texas"
+  },
+  {
+    "name": "Port Lavaca — Police Department Training",
+    "category": "community",
+    "url": "https://www.portlavaca.gov/common/modules/iCalendar/iCalendar.aspx?catID=26&feed=calendar",
+    "geocode_suffix": ", Port Lavaca, Texas",
+    "limit": 300,
+    "_found": "civic:city -> civicplus[Police Department Training]",
+    "_metro": "Port Lavaca, Texas"
+  },
+  {
+    "name": "Leon Valley",
+    "category": "community",
+    "_found": "civic:city -> civicplus+ics",
+    "url": "https://www.leonvalleytexas.gov/calendar/ical/%2A/calendar.ics",
+    "geocode_suffix": ", Leon Valley, Texas",
+    "limit": 300,
+    "_metro": "Leon Valley, Texas",
+    "crawl_delay": 15.0
+  },
+  {
+    "name": "OCCII",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager",
+    "url": "https://occii.org/events/?ical=1",
+    "geocode_suffix": ", Amsterdam",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Boulderhal de Fabriek",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/olv2hnrns5mhe7f7n1pkan1a8g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hoofddorp",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Schietvereniging 't Fort",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://www.svtfort.com/agenda.ics",
+    "geocode_suffix": ", Hoofddorp",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "St. Radboud",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/scouting-radboud.nl_chi23o9cn2a6h8ddtlqsf4sb6g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Santpoort-Zuid",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Mezrab",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager",
+    "url": "https://mezrab.nl/events/parviz/?ical=1",
+    "geocode_suffix": ", Amsterdam",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "De Hoop",
+    "category": "theater",
+    "_found": "osm:theatre -> events-manager",
+    "url": "https://www.schuilkerkdehoop.nl/concerten/?ical=1",
+    "geocode_suffix": ", Diemen",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "AV Feniks",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://www.avfeniks.nl/kalender/?ical=1",
+    "geocode_suffix": ", Amsterdam",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "SV Laren '99",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f67e76231301c72a3b516157307855b69442a04267763a7afb681d6dafc0b84a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Laren",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Kanovereniging Zeeburg",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/kvzeeburg.nl_f3302gfi7nkmv479d80stfcseg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Amsterdam",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Scoutinggroep Shawano's",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/shawanos.nl_svsmi8ube9uds4fjdkmneemsf0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Kanovereniging Uitgeest",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/webmaster%40kanovereniging-uitgeest.nl/public/basic.ics",
+    "geocode_suffix": ", Uitgeest",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Huis van Hilde",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://www.huisvanhilde.nl/?ical=1",
+    "geocode_suffix": ", Castricum",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Scouting Zuiderkuis Hilversum",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/d6recpm06hvesrk456tp8do0og%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Hilversum",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Sint-Vituskerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://grotekerknaarden.nl/home/agenda/?ical=1",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Nieuwe Vide",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_5b49b03c86b1a4a1a22927679dbdbe02e27c0eab6b66adcdea63dd643a3bd688%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Haarlem",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Pelgrimkerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.pelgrimkerk.nl/events/?ical=1",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Lijnbaankerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agenda%40cgk-aalsmeer.nl/public/basic.ics",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Pauluskerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+    "url": "https://www.devierevangelistenamsterdam.nl/?feed=my-calendar-ics",
+    "geocode_suffix": ", Amsterdam",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Simon de Looier",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ajqhp4p31467t3q9varqm68iebd7psdv%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Hervormde Kerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://hervormdpknbennebroek.nl/agenda/?ical=1",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "De Nieuwe Gemeente",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://calendar.google.com/calendar/ical/43bdd2bdd0b7197e02a786a0df7eaf53bee10e16e3b918d6177fdce3bf130632%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Tempel Buddhavihara- วัดพุทธวิหาร อัมสเตอร์ดัม",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://buddhavihara.nl/agenda.ics",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "De Wijngaard",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.ngkdewijngaard-wormer.nl/?ical=1",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Vrije Evangelische Gemeente Wormerveer",
+    "category": "community",
+    "_found": "osm:place_of_worship -> my-calendar+jsonld-event",
+    "url": "https://www.veg-wormerveer.org/?feed=my-calendar-ics",
+    "geocode_suffix": ", Amsterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Kadam Chöling",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.kadamcholing.nl/agenda/?ical=1",
+    "geocode_suffix": ", Haarlem",
+    "limit": 300,
+    "_metro": "Amsterdam, Netherlands"
   }
 ]
