@@ -9375,6 +9375,46 @@
         "lon": 4.667809
       },
       "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Knihovna Jiřího Mahena",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.kjm.cz/akce/draci-dobrodruzstvi"
+      ],
+      "link_pattern": "https://www\\.kjm\\.cz/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Knihovna Jiřího Mahena",
+        "lat": 49.2322082,
+        "lon": 16.5900697
+      },
+      "_metro": "Brno, Czechia"
+    },
+    {
+      "name": "Lomma Folkets Hus",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.lommafolketshus.se/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Lomma Folkets Hus",
+        "city": "Lomma",
+        "postal_code": "234 32",
+        "country": "SE",
+        "lat": 55.6694432,
+        "lon": 13.0673072,
+        "street_hint": "120 Strandvägen",
+        "aliases": [
+          "Folkets Hus"
+        ]
+      },
+      "_metro": "Malmo, Sweden"
     }
   ],
   "_not_included": {

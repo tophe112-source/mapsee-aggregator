@@ -33299,5 +33299,260 @@
     "geocode_suffix": ", Haarlem",
     "limit": 300,
     "_metro": "Amsterdam, Netherlands"
+  },
+  {
+    "name": "Sjelle Forsamlingshus",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9e80u2drugiqaebb7tgfqqf2tc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Aarhus, Denmark",
+    "limit": 300,
+    "venue": {
+      "name": "Sjelle Forsamlingshus",
+      "lat": 56.1829369,
+      "lon": 9.9343041,
+      "pin_unnamed": false
+    },
+    "_metro": "Aarhus, Denmark"
+  },
+  {
+    "name": "Aconchego House",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_6b6384a38e532c4a5491cc5892269639cd0ca710153f6d7d7121da74b08589d2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lisboa",
+    "limit": 300,
+    "venue": {
+      "name": "Aconchego House",
+      "city": "Lisboa",
+      "lat": 38.7300459,
+      "lon": -9.1492379,
+      "street_hint": "72 Rua de São Sebastião da Pedreira",
+      "pin_unnamed": false
+    },
+    "_metro": "Lisbon, Portugal"
+  },
+  {
+    "name": "Helsingfors Segelsällskap r.f. (HSS)",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/qnnqsa6s2sio1rh5s6vh9u07sc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Helsinki",
+    "limit": 300,
+    "venue": {
+      "name": "Helsingfors Segelsällskap r.f. (HSS)",
+      "city": "Helsinki",
+      "postal_code": "00140",
+      "lat": 60.1514321,
+      "lon": 24.9471605,
+      "street_hint": "1 Liuskasaari",
+      "pin_unnamed": false
+    },
+    "_metro": "Helsinki, Finland"
+  },
+  {
+    "name": "Sähkökilta ry",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tqt8i5n94ih0dagg5birn7d7vk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampere",
+    "limit": 300,
+    "venue": {
+      "name": "Sähkökilta ry",
+      "city": "Tampere",
+      "postal_code": "33720",
+      "lat": 61.4502647,
+      "lon": 23.8589022,
+      "street_hint": "3 Korkeakoulunkatu",
+      "pin_unnamed": false
+    },
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Tampereen rakentajakilta",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a2h68gm23qu987d4fkogrt4qpk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampere, Finland",
+    "limit": 300,
+    "venue": {
+      "name": "Tampereen rakentajakilta",
+      "lat": 61.4507181,
+      "lon": 23.8601307,
+      "street_hint": "5 Korkeakoulunkatu",
+      "aliases": [
+        "TARAKI"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Transfeminiinit ry",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_37ef409edbd01e8561c29d51b59f22e8f4c944664883913703c655c778ce6ec9%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampere",
+    "limit": 300,
+    "venue": {
+      "name": "Transfeminiinit ry",
+      "city": "Tampere",
+      "postal_code": "33200",
+      "lat": 61.4925501,
+      "lon": 23.7561261,
+      "street_hint": "48 Näsilinnankatu",
+      "pin_unnamed": false
+    },
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Sinuiksi ry",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/tt0q8n781dn560idhfv821sgd4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampere",
+    "limit": 300,
+    "venue": {
+      "name": "Sinuiksi ry",
+      "city": "Tampere",
+      "postal_code": "33200",
+      "lat": 61.4921712,
+      "lon": 23.7562748,
+      "street_hint": "48 Näsilinnankatu",
+      "pin_unnamed": false
+    },
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Kestävän elämän kulttuurikeskus",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6535dc56d9f8167317645c5b86f97ff049f0809b19479b346d532bab6e507426%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tampere, Finland",
+    "limit": 300,
+    "venue": {
+      "name": "Kestävän elämän kulttuurikeskus",
+      "lat": 61.4920456,
+      "lon": 23.8146423,
+      "street_hint": "28 Sarvijaakonkatu",
+      "aliases": [
+        "Kalevan Halli"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Tampere, Finland"
+  },
+  {
+    "name": "Gemini z.s.",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q33bq18c2hto2ocu96k4l2gcs0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Prague, Czechia",
+    "limit": 300,
+    "venue": {
+      "name": "Gemini z.s.",
+      "lat": 50.0903288,
+      "lon": 14.4119981,
+      "pin_unnamed": false
+    },
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "Skautské klubovny",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_99631e1bbcd5d6829daef0ca05684476d2bd5215f5860ff96fd40da91e36e194%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Praha",
+    "limit": 300,
+    "venue": {
+      "name": "Skautské klubovny",
+      "city": "Praha",
+      "postal_code": "19016",
+      "lat": 50.0715376,
+      "lon": 14.6837181,
+      "street_hint": "2235 Žárovická",
+      "pin_unnamed": false
+    },
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "Komunitní centrum Matky Terezy",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/s7aaeruin9hngb0ap4cl3i3ir8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Prague, Czechia",
+    "limit": 300,
+    "venue": {
+      "name": "Komunitní centrum Matky Terezy",
+      "lat": 50.0299316,
+      "lon": 14.5235939,
+      "pin_unnamed": false
+    },
+    "_metro": "Prague, Czechia"
+  },
+  {
+    "name": "oaSen",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/s-sektionen.se_u6jpopjb3ckbg8tqjqtb4foo84%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Stockholm, Sweden",
+    "limit": 300,
+    "venue": {
+      "name": "oaSen",
+      "lat": 59.3501268,
+      "lon": 18.0691336,
+      "pin_unnamed": false
+    },
+    "_metro": "Stockholm, Sweden"
+  },
+  {
+    "name": "Konsulatet",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/fysiksektionen.se_0187vbmdcivl8mtio142e23cas%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Stockholm, Sweden",
+    "limit": 300,
+    "venue": {
+      "name": "Konsulatet",
+      "postal_code": "114 28",
+      "lat": 59.3539633,
+      "lon": 18.0658321,
+      "street_hint": "89 Brinellvägen",
+      "pin_unnamed": false
+    },
+    "_metro": "Stockholm, Sweden"
+  },
+  {
+    "name": "Omställningslabbet",
+    "category": "community",
+    "_found": "osm:social_centre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/9ca21bbb3930135dccd8db97e335318c89b4496fb1915ff982212fe5bc4ecdb3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Göteborg",
+    "limit": 300,
+    "venue": {
+      "name": "Omställningslabbet",
+      "city": "Göteborg",
+      "postal_code": "417 70",
+      "lat": 57.7163105,
+      "lon": 11.9627088,
+      "street_hint": "15 Södra Frihamnspiren",
+      "pin_unnamed": false
+    },
+    "_metro": "Gothenburg, Sweden"
+  },
+  {
+    "name": "Raknestunet",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e8ff8e4baaa56fab07997736729abb4ab8ed00e032069a89aba99445d862a848%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bergen, Norway",
+    "limit": 300,
+    "venue": {
+      "name": "Raknestunet",
+      "lat": 60.5551175,
+      "lon": 5.423181,
+      "pin_unnamed": false
+    },
+    "_metro": "Bergen, Norway"
   }
 ]
