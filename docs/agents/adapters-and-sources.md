@@ -3,6 +3,40 @@
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: Luma, parkrun, businesses vs events, a malformed record, schema.org by accident, webcal, JSON-LD, Overpass slots, seattlecenter, a helper's inherited contract.
 > Every note below was measured before it was written; keep the numbers when you edit.
 
+- **A CONCERT SERIES IS FIVE PERFORMANCES, NOT A PARISH CALENDAR.** Measured
+  2026-10-17: Epiphany Seattle's official 2026-2027 concert page yields **5**
+  upcoming occurrences: Requiem on November 1 (admission unstated), Messiah on
+  December 4/5 (**$48**), and Zelenka on April 30/May 1 (**$38**). The only
+  explicit FREE concert on the page is October 16, already past; the importer
+  creates **0** upcoming free claims. The parish ICS had **192** entries,
+  **122** future, including rehearsals and other rooms, and omitted these
+  admission facts. `mapsee_ingest_recitals.py` instead parses each concert's
+  date/admission block, reads explicit years across DST, and keeps unknown
+  admission unknown. Its **10 s** crawl delay is honored after robots.txt.
+  `recital_sources.json` pins the physical campus at OSM way **224207196**;
+  room labels remain on the listing. Daily `local` refresh uses its own tiny
+  store and `--skip-unchanged` without `--only-new`, so price/time corrections
+  reach existing rows. The tests cover paid/free perks, malformed dates,
+  same-day performances and saving successes when another source fails.
+
+- **A SINGLE-EVENT PAGE CAN PUBLISH ADMISSION OUTSIDE ITS EVENT JSON-LD.**
+  On 2026-10-17 Music Center of the Northwest's calendar exposed **72**
+  distinct detail links. A bounded read of **2** upcoming concerts returned
+  Event markup without description or offers; their matching page metadata
+  stated each was a free concert. The opt-in `meta_description: true` copies
+  only a short matching single-Event detail description, requiring matching
+  normalized `og:title` and canonical URL when present. It never overwrites
+  Event descriptions/offers or borrows listing/related-card text. Both rows
+  pass the real sync and the product's offer classifier as free, not priced:
+  CenterPiece on **October 24, 20:00–22:00 PDT**, Haydn & Beyond on
+  **November 1, 16:00–17:00 PST**. Per-event addresses are geocoded; there is
+  no blanket MCNW venue pin for partner events. Public HTML is permitted;
+  the publisher's prohibited JSON/iCal endpoints are not used. Together with
+  Benaroya and Epiphany, the live import inserted **8** new importer identities,
+  read back **8/8**, and verified **3** actual database `free` tags. Epiphany's
+  four paid performances retain **USD 48/38** source offers; its Requiem stays
+  unknown. All **83** CI scripts passed locally in **23.5 s**.
+
 - **Optional search fields need source facts, including negative admission facts.**
   The 2026-10-02 GSC audit checked 40 public URLs / 39 distinct listings. Meetup
   group names were being emitted as people with no public URL; retain the native

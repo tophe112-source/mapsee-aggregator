@@ -280,6 +280,229 @@ def jackson_event(source, fetcher, today):
         agenda=parsed['agenda'], agenda_tz=source['timezone'])
 
 
+class BenaroyaSchedule(HTMLParser):
+    """Read the official Open House's timed schedule block, not its ticket-sale cards."""
+    def __init__(self, body):
+        super().__init__(convert_charrefs=True)
+        self.active = False
+        self.stopped = False
+        self.room = None
+        self.heading = None
+        self.heading_text = []
+        self.in_room = False
+        self.in_h1 = False
+        self.in_p = False
+        self.in_strong = False
+        self.strong_text = []
+        self.p_lines = []
+        self.rows = []
+        self.feed(body)
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'div' and attrs.get('id') == 'schedule':
+            self.active = True
+        if not self.active or self.stopped:
+            return
+        if tag == 'h1':
+            self.in_h1 = True
+            self.heading_text = []
+        if tag == 'h3' and 'rte-subtitle' in attrs.get('class', '').split():
+            self.in_room = True
+            self.heading = []
+        if tag == 'p':
+            self.in_p = True
+            self.strong_text = []
+            self.p_lines = [[]]
+        elif tag == 'br' and self.in_p:
+            self.p_lines.append([])
+        if tag == 'strong' and self.in_p:
+            self.in_strong = True
+
+    def handle_data(self, value):
+        if self.in_h1:
+            self.heading_text.append(value)
+        if self.in_room and self.heading is not None:
+            self.heading.append(value)
+        if self.in_p and self.p_lines:
+            self.p_lines[-1].append(value)
+            if self.in_strong:
+                self.strong_text.append(value)
+
+    def handle_endtag(self, tag):
+        if tag == 'strong':
+            self.in_strong = False
+        if tag == 'h3' and self.in_room:
+            room = ' '.join(''.join(self.heading or []).split())
+            if room:
+                self.room = room
+            self.heading = None
+            self.in_room = False
+        if tag == 'h1' and self.in_h1:
+            heading = ' '.join(''.join(self.heading_text).split()).casefold()
+            self.in_h1 = False
+            if 'open house ticket sale' in heading or '$19 tickets' in heading:
+                self.stopped = True
+                self.active = False
+        if tag == 'p' and self.in_p:
+            label = ' '.join(''.join(self.strong_text).split())
+            lines = [' '.join(''.join(line).split()) for line in self.p_lines]
+            body = ' — '.join(line for line in lines[1:] if line)
+            if any(lines) or label:
+                self.rows.append((self.room, label, body))
+            self.in_p = False
+            self.in_strong = False
+            self.strong_text = []
+            self.p_lines = []
+
+
+_BENAROYA_CLOCK = re.compile(r'^(\d{1,2})(?::(\d{2}))?\s*(AM|PM|NOON)?$', re.I)
+
+
+def _benaroya_clock(value, inherited=None):
+    match = _BENAROYA_CLOCK.fullmatch(value.strip())
+    if not match:
+        raise ValueError('unsupported Benaroya schedule clock')
+    hour = int(match.group(1))
+    minute = int(match.group(2) or 0)
+    meridiem = (match.group(3) or inherited or '').upper()
+    if minute > 59 or hour < 1 or hour > 12 or meridiem not in ('AM', 'PM', 'NOON'):
+        raise ValueError('incomplete Benaroya schedule clock')
+    if meridiem == 'NOON':
+        if hour != 12 or minute:
+            raise ValueError('invalid noon clock')
+        hour = 12
+    elif meridiem == 'AM':
+        hour = 0 if hour == 12 else hour
+    elif meridiem == 'PM':
+        hour = 12 if hour == 12 else hour + 12
+    return f'{hour:02d}:{minute:02d}:00'
+
+
+def _benaroya_ranges(label):
+    label = label.strip().rstrip('*').strip()
+    label = re.sub(r'^STARTING\s+AT\s+', '', label, flags=re.I)
+    if label.upper() == 'ALL DAY':
+        return []
+    segments = re.split(r'\s*&\s*', label)
+    ranges = []
+    for segment in segments:
+        parts = re.split(r'\s*[–—-]\s*', segment.strip())
+        if len(parts) == 1:
+            ranges.append((_benaroya_clock(parts[0]), None))
+            continue
+        if len(parts) != 2:
+            raise ValueError('unsupported Benaroya schedule range')
+        end_match = _BENAROYA_CLOCK.fullmatch(parts[1].strip())
+        if not end_match or not end_match.group(3):
+            raise ValueError('schedule range has no explicit end meridiem')
+        end = _benaroya_clock(parts[1])
+        start = _benaroya_clock(parts[0], end_match.group(3))
+        if end <= start:
+            raise ValueError('Benaroya schedule range ends before it starts')
+        ranges.append((start, end))
+    return ranges
+
+
+def parse_benaroya_open_house(body, source, today):
+    """Parse one verified Benaroya Hall Open House HTML snapshot.
+
+    Parent hours come from the official public-hours article, not the earliest
+    timed activity (9:00 AM) nor the 4:00 PM headliner. Activities before the
+    published 10:00 AM opening stay in the parent's description; child agenda
+    entries remain inside the parent window.
+    """
+    schedule = BenaroyaSchedule(body)
+    if not schedule.stopped or not schedule.rows:
+        raise ValueError('Benaroya schedule section or sale boundary is missing')
+    zone = source.get('timezone')
+    event_date = source.get('event_date')
+    start_time = source.get('parent_start_time')
+    end_time = source.get('parent_end_time')
+    if not zone or not event_date or not start_time or not end_time:
+        raise ValueError('Benaroya parent date/window/timezone is not configured')
+    try:
+        day = date.fromisoformat(event_date)
+    except (TypeError, ValueError) as exc:
+        raise ValueError('invalid Benaroya event date') from exc
+    start = instant(f'{event_date}T{_benaroya_clock(start_time)}', zone)
+    end = instant(f'{event_date}T{_benaroya_clock(end_time)}', zone)
+    if end <= start:
+        raise ValueError('Benaroya parent window ends before it starts')
+    if not upcoming(start, end, today):
+        return None
+
+    agenda = []
+    for room, label, body_text in schedule.rows:
+        if label.strip().upper().rstrip('*').strip() == 'ALL DAY':
+            continue
+        details = [part for part in body_text.split(' — ') if part]
+        if not room or not details:
+            raise ValueError('Benaroya schedule item is missing its room or title')
+        title = details[0]
+        for detail in details[1:]:
+            candidate = title + ' — ' + detail
+            if len(candidate) > 120:
+                break
+            title = candidate
+        for segment_index, (at_clock, until_clock) in enumerate(_benaroya_ranges(label)):
+            at = instant(f'{event_date}T{at_clock}', zone)
+            until = instant(f'{event_date}T{until_clock}', zone) if until_clock else None
+            # The Hall's official article defines the public Open House window
+            # as 10:00 AM–6:30 PM. Keep earlier scheduled activities in the
+            # parent description; agenda validation correctly keeps them out
+            # of a child timetable whose parent has not opened yet.
+            if datetime.fromisoformat(at.replace('Z', '+00:00')) < datetime.fromisoformat(start.replace('Z', '+00:00')):
+                continue
+            stable = f"{source['id']}|{event_date}|{room}|{details[0]}|{segment_index}"
+            agenda.append({'id': hashlib.sha1(stable.encode('utf-8')).hexdigest(),
+                           'title': title, 'place': room, 'at': at, 'until': until,
+                           'url': source['schedule_url']})
+    if not agenda:
+        raise ValueError('Benaroya schedule has no timed items')
+
+    venue = source.get('venue')
+    if not isinstance(venue, dict):
+        raise ValueError('Benaroya venue is missing')
+    lat, lon = float(venue['lat']), float(venue['lon'])
+    if not (-90 <= lat <= 90 and -180 <= lon <= 180) or (lat == 0 and lon == 0):
+        raise ValueError('invalid Benaroya venue coordinates')
+    official_url = source['official_url']
+    schedule_url = source['schedule_url']
+    hours_url = source['hours_url']
+    retrieved_at = source['snapshot_retrieved_at']
+    try:
+        retrieved = datetime.fromisoformat(retrieved_at.replace('Z', '+00:00'))
+    except (AttributeError, TypeError, ValueError) as exc:
+        raise ValueError('invalid Benaroya snapshot retrieval time') from exc
+    if retrieved.tzinfo is None:
+        raise ValueError('Benaroya snapshot retrieval time needs a timezone')
+    description = (
+        f"Free admission to the Benaroya Hall Open House. Official public hours are "
+        f"10:00 AM–6:30 PM. The schedule lists advance activities at 9:00 AM and 9:30 AM before the public "
+        f"hours; separate free tickets for the 4:00 PM Seattle Symphony with The Head and the "
+        f"Heart performance are distributed in person beginning at 9:00 AM, limit two per person while supplies last. "
+        f"Tickets are not required for the other Open House activities. Cafe purchases are "
+        f"separate. The ticket sale on the schedule page applies to other eligible concerts, "
+        f"not Open House admission.\nOfficial schedule: {schedule_url}\n"
+        f"Public hours: {hours_url}\nOfficial event page: {official_url}\n"
+        f"Schedule snapshot retrieved: {retrieved_at}"
+    )
+    return NormalizedEvent(source='venue:festival', source_id=source['id'] + ':' + str(day.year),
+        fingerprint=identity(source['id'], str(day.year)), name=source['name'],
+        description=description, start_utc=start, end_utc=end, timezone=zone,
+        category='music', venue_name=venue['name'], address=venue['address'],
+        city=venue['city'], region=venue['region'], country=venue['country'],
+        latitude=lat, longitude=lon, coords_exact=True, ticket_url=official_url,
+        promoter='Seattle Symphony', agenda=agenda, agenda_tz=zone)
+
+
+def benaroya_event(source, fetcher, today):
+    """Fetch and parse the configured Benaroya event using normal robots gates."""
+    body = fetcher.get_text(source['schedule_url'])
+    return parse_benaroya_open_house(body, source, today)
+
+
 # schema.org/eventStatus values that take a festival, or one set in it, off the
 # map: Postponed means the dates in the markup are the ones NOT happening, and
 # MovedOnline that the grounds are empty (the same three mapsee_ingest_jsonld reads).
@@ -450,6 +673,9 @@ def run(config, candidates, state_path, store_path, report_path, max_candidates=
             dead = []
             if source.get('parser') == 'jackson-pdf':
                 event = jackson_event(source, fetcher, today)
+                events = [event] if event else []
+            elif source.get('parser') == 'benaroya-open-house':
+                event = benaroya_event(source, fetcher, today)
                 events = [event] if event else []
             else:
                 url = source.get('schedule_url') or source['official_url']

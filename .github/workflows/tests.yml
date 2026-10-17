@@ -27,6 +27,9 @@ on:
       - "requirements-*.txt"
       - ".github/workflows/*.yml"
       - "festival_sources.json"
+      - "festival_sources.benaroya-snapshot.json"
+      - "recital_sources.json"
+      - "fixtures/benaroya-open-house.html"
       - "opendata_sources.json"
       - "toronto_rec_sources.json"
       - "linkedevents_sources.json"
@@ -53,6 +56,9 @@ on:
       - "requirements-*.txt"
       - ".github/workflows/*.yml"
       - "festival_sources.json"
+      - "festival_sources.benaroya-snapshot.json"
+      - "recital_sources.json"
+      - "fixtures/benaroya-open-house.html"
       - "opendata_sources.json"
       - "toronto_rec_sources.json"
       - "linkedevents_sources.json"
@@ -114,6 +120,7 @@ jobs:
           python test_sync_agenda.py
           python test_festival_pdf.py
           python test_ingest_festivals.py
+          python test_ingest_recitals.py
           python test_discover_festivals.py
 
       # Both scripts print one line per case and exit non-zero on any failure,

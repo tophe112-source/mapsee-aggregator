@@ -22,6 +22,24 @@ normal sync's claimed-event ownership check still runs before any write.
 
 ## Running and verifying
 
+- **BENAROYA'S OPEN HOUSE HAS ONE PARENT AND 23 TIMED AGENDA ITEMS.** On
+  2026-10-17 the official page was retrieved with the production user agent
+  at **14:04:35 UTC**, then began redirecting to Queue-it, whose robots.txt
+  disallows crawling. The captured schedule excerpt is
+  `fixtures/benaroya-open-house.html`; its one-time config is
+  `festival_sources.benaroya-snapshot.json`, deliberately absent from the
+  scheduled `festival_sources.json`. No waiting-room bypass or automatic
+  refresh is claimed. `parse_benaroya_open_house` produced the October 18
+  **10:00–18:30 America/Los_Angeles** parent and **23** timed entries across
+  **6** rooms; start-only items have no invented ends, DJ windows split, and
+  the 9:00/9:30 advance activities are noted outside the bounded agenda.
+  Free headline tickets begin at **9:00**, in person, **2 per person** while
+  supplies last, for the **16:00** Symphony/Head and the Heart performance.
+  Other concert sale cards are excluded. Live sync wrote **1** parent and
+  read back all **23** agenda entries and the exact parent window at
+  `/e/e2f20d84-5672-4b33-b42a-425bafd8663c`; its database offer tag is `free`.
+
+
 ```
 pip install -r requirements-festivals.txt
 python catalog_discover_festivals.py --limit 20

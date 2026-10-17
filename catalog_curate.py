@@ -4033,6 +4033,17 @@ def _rows_bibliocommons(data):
     return rows
 
 
+def _rows_recitals(data):
+    """One row per public concert series, at its configured physical venue."""
+    rows = []
+    for entry in data.get("recitals", []):
+        venue = entry.get("venue") or {}
+        rows.append((entry.get("name") or "?", venue.get("city") or "?",
+                     _country_named(venue.get("country")) or "?",
+                     entry.get("category") or "music"))
+    return rows
+
+
 def _rows_mapasculturais(data):
     """One row per state register. Brazil is not declared per entry and does not
     need to be: the adapter exists for Mapas Culturais, which is a Brazilian
@@ -4062,6 +4073,7 @@ EXTRA_CONFIG = {
     "affiliate": ("affiliate_sources.json", _rows_affiliate),
     "openactive": ("openactive_sources.json", _rows_openactive),
     "bibliocommons": ("bibliocommons_sources.json", _rows_bibliocommons),
+    "recitals": ("recital_sources.json", _rows_recitals),
     "mapasculturais": ("mapasculturais_sources.json", _rows_mapasculturais),
 }
 # jsonld, mylisting and venuepilot are declared in BOTH tables, over the SAME

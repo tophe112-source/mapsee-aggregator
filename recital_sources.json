@@ -1,0 +1,25 @@
+{
+  "recitals": [
+    {
+      "id": "epiphany-seattle-concerts",
+      "name": "Epiphany Seattle Concert Series",
+      "url": "https://epiphanyseattle.org/music-arts/concerts/",
+      "timezone": "America/Los_Angeles",
+      "currency": "USD",
+      "category": "music",
+      "crawl_delay": 10,
+      "venue": {
+        "name": "Epiphany Parish of Seattle",
+        "address": "1805 38th Avenue",
+        "city": "Seattle",
+        "region": "Washington",
+        "country": "US",
+        "postal_code": "98122",
+        "lat": 47.6181162,
+        "lon": -122.2860891,
+        "coordinate_source": "OpenStreetMap way 224207196 via Photon, verified 2026-10-17; campus anchor, with room labels retained when published"
+      },
+      "_note": "2026-10-17: 2026-2027 concert page publishes six performances, five still upcoming. Requiem admission is unstated; Messiah is $48; Zelenka is $38. Only the past October 16 organ concert is explicitly FREE. Read each concert's own date and admission block; the parish-wide ICS omits these prices and includes rehearsals and other activities."
+    }
+  ]
+}

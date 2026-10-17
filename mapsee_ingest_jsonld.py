@@ -61,6 +61,7 @@ import os
 import re
 import sys
 import time
+from html.parser import HTMLParser
 from mapsee_geo_budget import geocode_allowed
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
@@ -365,11 +366,79 @@ def _page_events(page: str) -> List[Dict[str, Any]]:
     return out
 
 
-def _prepared(page: str, page_url: str, detail: bool):
+class _PageMetadata(HTMLParser):
+    """The page's own metadata tags, kept separate from body and card text."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.og_title = None
+        self.description = None
+        self.canonical = None
+
+    def handle_starttag(self, tag, attrs):
+        attrs = {k.lower(): v for k, v in attrs if k and v is not None}
+        if tag.lower() == "meta":
+            prop = (attrs.get("property") or "").lower()
+            name = (attrs.get("name") or "").lower()
+            if prop == "og:title" and self.og_title is None:
+                self.og_title = attrs.get("content")
+            elif name == "description" and self.description is None:
+                self.description = attrs.get("content")
+        elif tag.lower() == "link" and "canonical" in (attrs.get("rel") or "").lower().split():
+            if self.canonical is None:
+                self.canonical = attrs.get("href")
+
+
+def _title_signature(value: Optional[str]) -> str:
+    """Compare publisher and Event titles across entity and punctuation variants."""
+    cleaned = _clean(value) or ""
+    return re.sub(r"[^\w]+", " ", cleaned.casefold(), flags=re.UNICODE).strip()
+
+
+def _same_canonical_page(canonical: str, page_url: str) -> bool:
+    """A supplied canonical must resolve to this exact page, not another card."""
+    try:
+        a, b = urlparse(canonical), urlparse(page_url)
+        return (a.scheme.lower(), a.netloc.lower(), a.path.rstrip("/"), a.query) == \
+               (b.scheme.lower(), b.netloc.lower(), b.path.rstrip("/"), b.query)
+    except (AttributeError, ValueError):
+        return False
+
+
+def _detail_meta_description(item: Dict[str, Any], page: str, page_url: str) -> Optional[str]:
+    """Use only a matching single-event page's short description meta tag.
+
+    Some publishers omit Event.description and offers from schema.org but publish
+    the event's own description in the page head. The opt-in caller limits this
+    to a detail page with exactly one Event. Title agreement and canonical URL
+    prevent borrowing prose from a related card or a redirected/aggregate page.
+    Existing Event descriptions and offers always remain authoritative.
+    """
+    if _ld_get(item, "description") or _ld_get(item, "offers"):
+        return None
+    meta = _PageMetadata()
+    try:
+        meta.feed(page or "")
+    except Exception:
+        return None
+    if not meta.description or not meta.og_title:
+        return None
+    if _title_signature(_ld_get(item, "name")) != _title_signature(meta.og_title):
+        return None
+    if meta.canonical and not _same_canonical_page(meta.canonical, page_url):
+        return None
+    description = _clean(meta.description)
+    return description if description and len(description) <= 1000 else None
+
+
+def _prepared(page: str, page_url: str, detail: bool, meta_description: bool = False):
     """(item, to_event keyword arguments) for each Event on a fetched page. A
     keyword is passed only when it is set, so an ordinary page calls to_event
     exactly as it always did."""
     items = _page_events(page)
+    if detail and meta_description and len(items) == 1:
+        description = _detail_meta_description(items[0], page, page_url)
+        if description:
+            items[0] = dict(items[0], description=description)
     flags = [False] * len(items)
     if _MEC_PAGE_RX.search(page or ""):
         # MEC's own "Free" is believable only where it sits beside the one event
@@ -676,6 +745,7 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
     cap = int(site.get("max_events", 60))
     category = site.get("category", "community")
     venue_default = site.get("venue")   # fixed venue name/address/coords for single-venue sites
+    use_meta_description = site.get("meta_description") is True
     # Non-events a venue posts to its own calendar (closure and private-hire
     # notices). Matched against the event NAME, which is what they actually mean;
     # the alternative tell — a 00:00 start — would also throw away a New Year show.
@@ -724,7 +794,8 @@ def ingest_site(store: EventStore, session, site: Dict[str, Any], *, start_offse
         except Exception as exc:
             print(f"[jsonld] {name} {u} failed: {exc}")
             continue
-        for item, opts in _prepared(r.text, u, detail=True):
+        for item, opts in _prepared(r.text, u, detail=True,
+                                    meta_description=use_meta_description):
             if store_item(store, item, u, category, session, venue_default, skip_rx, opts, tally):
                 kept += 1
         time.sleep(1.0)

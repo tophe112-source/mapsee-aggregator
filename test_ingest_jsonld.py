@@ -391,6 +391,78 @@ def check_shared_urls():
           [e.source_id for e in rows if e.name != "Yoga"], [MEC_TEA_DANCE["url"]])
 
 
+def check_meta_description_fallback():
+    print()
+    print("an opted-in single-event page can lend its own verified metadata description")
+    page_url = "https://www.musiccenternw.org/events-1/centerpiece-jazz-band-oct-2026"
+    title = "In Concert: CenterPiece Jazz Band - October 2026 — Music Center of the Northwest"
+    description = "You are invited to join us as CenterPiece Jazz Band perform in a free concert!"
+    event = {
+        "@context": "https://schema.org", "@type": "Event", "name": title,
+        "url": page_url, "startDate": SOON,
+        "location": {"@type": "Place", "name": "Music Center of the Northwest",
+                     "address": {"@type": "PostalAddress", "streetAddress": "901 N 96th St",
+                                 "addressLocality": "Seattle", "addressRegion": "WA",
+                                 "postalCode": "98103", "addressCountry": "US"}},
+    }
+    head = (f'<meta property="og:title" content="{title}">'
+            f'<meta name="description" content="{description}">'
+            f'<link rel="canonical" href="{page_url}">')
+    page = _page(head, event)
+    prepared = mapsee_ingest_jsonld._prepared(page, page_url, detail=True, meta_description=True)
+    item = prepared[0][0] if prepared else {}
+    check("matching event page metadata fills only the absent description",
+          item.get("description"), description)
+    ev = to_event(item, page_url, "music", no_geocode)
+    row = to_row(ev.as_record("now"), "fixture-host") if ev else {}
+    check_true("verified free wording reaches the ordinary description field",
+               row.get("description", "").startswith(description))
+    check("metadata prose does not manufacture a structured offer", row.get("source_details"), None)
+
+    restricted_desc = "Free admission for students only; other visitors pay the regular price."
+    restricted_page = _page(head.replace(description, restricted_desc), event)
+    restricted_item = mapsee_ingest_jsonld._prepared(
+        restricted_page, page_url, detail=True, meta_description=True)[0][0]
+    restricted = to_event(restricted_item, page_url, "music", no_geocode)
+    check_true("membership/audience restrictions remain visible and veto a public-free claim",
+               restricted is not None and restricted.source_details == {"free": False, "restricted": True}
+               and restricted.description.startswith("Not a free public admission offer.")
+               and restricted_desc in restricted.description)
+
+    paid = dict(event, offers={"@type": "Offer", "price": "20", "priceCurrency": "USD"})
+    paid_item = mapsee_ingest_jsonld._prepared(_page(head, paid), page_url,
+                                                detail=True, meta_description=True)[0][0]
+    paid_ev = to_event(paid_item, page_url, "music", no_geocode)
+    check("existing Event offers are never shadowed by page metadata",
+          paid_item.get("description"), None)
+    check("a paid offer continues to veto free", paid_ev.source_details if paid_ev else None,
+          {"free": False, "offer": {"price": "20", "currency": "USD", "url": page_url}})
+
+    existing_desc = dict(event, description="Publisher Event description.")
+    existing_item = mapsee_ingest_jsonld._prepared(_page(head, existing_desc), page_url,
+                                                    detail=True, meta_description=True)[0][0]
+    check("existing Event descriptions are never overwritten",
+          existing_item.get("description"), "Publisher Event description.")
+
+    multi = _page(head, event, dict(event, name="Second Event"))
+    check("multi-event pages cannot share one metadata description",
+          [item.get("description") for item, _ in mapsee_ingest_jsonld._prepared(
+              multi, page_url, detail=True, meta_description=True)], [None, None])
+    check("listing-page metadata cannot be borrowed even with one Event",
+          mapsee_ingest_jsonld._prepared(page, page_url, detail=False,
+                                         meta_description=True)[0][0].get("description"), None)
+    mismatch = _page(head.replace(title, "Another Event"), event)
+    check("a non-matching og:title blocks metadata borrowing",
+          mapsee_ingest_jsonld._prepared(mismatch, page_url, detail=True,
+                                         meta_description=True)[0][0].get("description"), None)
+    wrong_canonical = _page(head.replace(page_url, page_url + "-other"), event)
+    check("a canonical URL naming another page blocks metadata borrowing",
+          mapsee_ingest_jsonld._prepared(wrong_canonical, page_url, detail=True,
+                                         meta_description=True)[0][0].get("description"), None)
+    check("unconfigured sources remain unchanged",
+          mapsee_ingest_jsonld._prepared(page, page_url, detail=True)[0][0].get("description"), None)
+
+
 def main():
     item = _parse_ld(LIVE_LD)
     check_true("the live JSON-LD block parses", item is not None)
@@ -576,6 +648,7 @@ def main():
     check_mec()
     check_mec_clock()
     check_shared_urls()
+    check_meta_description_fallback()
 
     print()
     if FAILURES:

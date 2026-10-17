@@ -60,6 +60,7 @@ a hand-maintained marketing estimate.
 | Localist | `mapsee_ingest_localist.py` | University, city and state calendars (`/api/2/events`), each read to its own last page; NC State Parks and Indiana's state parks among them |
 | Walks anybody can join | `mapsee_ingest_ava.py`, `_rallybound.py`, `_luminate.py` | American Volkssport Association volksmarches; the National Kidney Foundation's Kidney Walks and CF Foundation's Great Strides (RallyBound); the American Cancer Society's Making Strides and Relay For Life, the Alzheimer's Association's Walk to End Alzheimer's and Komen's MORE THAN PINK Walk (Blackbaud Luminate TeamRaiser). "Free to join" only where the charity or club says so. See [Conduct](#conduct) |
 | schema.org JSON-LD | `mapsee_ingest_jsonld.py` | Venue sites that embed `Event` blocks |
+| Published concert series | `mapsee_ingest_recitals.py` | Epiphany Seattle's dated performances and their own free/paid admission; `recital_sources.json` |
 | MyListing directories | `mapsee_ingest_mylisting.py` | The WordPress theme behind chambers of commerce, tourism boards and "what's on in &lt;town&gt;" sites — a whole small town's calendar, none of which reaches a ticketing platform. Reads the explore endpoint the page itself names. One result is one *occurrence*, and `horizon_days` is what stops an open-ended annual recurrence from projecting pins to 2050 |
 | Ticketmaster / SeatGeek / DICE / AXS / Moshtix | `mapsee_ingest*.py` | Keyed APIs, skipped silently when unset |
 | Eventbrite | `mapsee_ingest_eventbrite.py` | Official API, organizer feeds |

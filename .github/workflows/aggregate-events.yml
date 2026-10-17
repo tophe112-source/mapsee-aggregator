@@ -480,6 +480,15 @@ jobs:
           else
             echo "no luminate_sources.json - skipping Luminate walks (switched off if a .pending-permission twin is here)"
           fi
+      - name: Import published concert series with per-performance admission
+        id: ingest_recitals
+        if: matrix.group == 'local'
+        continue-on-error: true
+        timeout-minutes: 3
+        run: |
+          python mapsee_ingest_recitals.py --config recital_sources.json --store recital_events.json --max-seconds 60
+          # A tiny complete series read: refresh dates and admission daily.
+          python mapsee_supabase_sync.py --store recital_events.json --skip-unchanged
       - name: Import curated recurring community programs (e.g. free summer meals, expanded to dated occurrences)
         id: ingest_programs
         if: matrix.group == 'local'

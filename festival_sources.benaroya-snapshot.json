@@ -1,0 +1,29 @@
+{
+  "_note": "ONE-TIME SNAPSHOT IMPORT, not registered in festival_sources.json. Official page retrieved with the production user agent at 2026-10-17T14:04:35Z, before it began redirecting to a Queue-it waiting room whose robots.txt disallows crawling. No waiting-room bypass. Re-running the normal fetch wrapper must honor that refusal; offline facts come from fixtures/benaroya-open-house.html. Public 10am-6:30pm hours are independently published in the linked official article. Advance activities and ticket pickup start earlier. Do not reuse this edition for another year.",
+  "festivals": [
+    {
+      "id": "benaroya-open-house",
+      "name": "Benaroya Hall Open House",
+      "parser": "benaroya-open-house",
+      "official_url": "https://benaroyahall.org/get-tickets/benaroya-hall-open-house/",
+      "schedule_url": "https://benaroyahall.org/get-tickets/benaroya-hall-open-house/",
+      "hours_url": "https://benaroyahall.org/beyond-the-stage/come-one-come-all-to-the-benaroya-hall-open-house/",
+      "snapshot_retrieved_at": "2026-10-17T14:04:35Z",
+      "event_date": "2026-10-18",
+      "parent_start_time": "10:00AM",
+      "parent_end_time": "6:30PM",
+      "timezone": "America/Los_Angeles",
+      "venue": {
+        "name": "Benaroya Hall",
+        "address": "200 University Street",
+        "city": "Seattle",
+        "region": "Washington",
+        "country": "US",
+        "postal_code": "98101",
+        "lat": 47.6081167,
+        "lon": -122.3369704,
+        "coordinate_source": "OpenStreetMap way 69273374 via Photon, verified 2026-10-17; building anchor, agenda items name their individual rooms"
+      }
+    }
+  ]
+}

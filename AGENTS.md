@@ -21,7 +21,7 @@ the Worker this pipeline feeds), `../Fish/fishsie-repo` (the game),
 ## The shape of it
 
 ```
-59 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
+60 adapters              -> a JSON store -> mapsee_supabase_sync.py -> Supabase
 mapsee_ingest_*.py          *_events.json   (classify + geocode + upsert)
 ```
 
@@ -38,7 +38,7 @@ front doors it reaches (the roster is live at `mapsee.me/api/lenses`).
 | Where new sources come FROM | `discover <socrata\|ckan\|mobilizon\|osm>`; `curation_cursor.json` is how far each catalog query has been read |
 | Finding a VENUE's own calendar, anywhere on earth | `catalog_discover_osm.py` — OSM venues with a `website`, probed for a calendar and fingerprinted to an adapter; four at once, never two on one host, every request inside robots.txt |
 | US state fairs, as the fair itself | `mapsee_ingest_fairs.py` + `fair_sources.json` — 48 fairs, one multi-day event each. Identity and coordinates are curated; the DATES are scraped every run and never stored |
-| Music festivals with internal schedules | `mapsee_ingest_festivals.py`, `festival_pdf.py`, `catalog_discover_festivals.py`; `docs/agents/festival-schedules.md` — 24 agenda items across 12 Jackson Street stages verified 2026-09-09 |
+| Music schedules | `mapsee_ingest_festivals.py`, `mapsee_ingest_recitals.py`, `festival_pdf.py`, `catalog_discover_festivals.py`; `docs/agents/festival-schedules.md` — 24 agenda items across 12 Jackson Street stages verified 2026-09-09 |
 | Finding a whole TOWN's calendar | `catalog_discover_civic.py` — Wikidata cities with an official website (5,770 in the US alone), probed the same way. The city's own calendar, plus its tourism board where Wikipedia names one. WHICH COUNTRY is a rotation: `CITY_CLASSES` names a settlement class per country and `_civic_next_country` in `catalog_curate.py` takes the thinnest catalog first, with a cursor offset per country |
 | Which categories curation targets | `curated_categories()` in `catalog_curate.py` — read live from `mapsee.me/api/lenses` |
 | Whether a source has gone quiet | `mapsee_health_check.py` |
@@ -89,7 +89,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 - **The three daily jobs run in a load-bearing order**, every ingest step is
   deliberately failure-tolerant, and a step cancelled by `timeout-minutes` skips
   every step after it unless `always()` saves the work (`docs/agents/ci-and-jobs.md`).
-- **The 82 `test_*.py` scripts are the CI gate.** They print one line per case
+- **The 83 `test_*.py` scripts are the CI gate.** They print one line per case
   and exit non-zero; no runner. `MAPSEE_TODAY=YYYYMMDD` fixes "today".
 - **Never add `pull_request:` to a workflow that reads secrets.**
   `SUPABASE_SERVICE_ROLE_KEY` bypasses RLS; nothing in the repo holds a real key.
@@ -148,7 +148,7 @@ Source lists are the `*_sources.json` files; `CONFIG` at the top of
 
 ```bash
 pip install -r requirements.txt
-python test_categories.py            # one of the 82 gate scripts; the full list is in docs/agents/running.md
+python test_categories.py            # one of the 83 gate scripts; the full list is in docs/agents/running.md
 python catalog_curate.py coverage    # where the catalog is thin, per lens category
 python agent_notes.py                # the notes map is under budget and the index is fresh
 ```

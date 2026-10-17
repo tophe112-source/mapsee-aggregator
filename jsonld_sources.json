@@ -9745,6 +9745,20 @@
         "lon": 5.4045756
       },
       "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Music Center of the Northwest - public concerts",
+      "category": "music",
+      "_found": "manual:2026-10-17 official calendar; Squarespace Event JSON-LD pages",
+      "listing": [
+        "https://www.musiccenternw.org/events-1"
+      ],
+      "link_pattern": "/events-1/[a-zA-Z0-9-]+",
+      "max_events": 100,
+      "meta_description": true,
+      "skip_title": "\\b(?:closed|building closed|private lessons?|group classes?|classes?|lessons?|rehearsals?|auditions?)\\b|^(?:first day|last day|lessons resume)\\b",
+      "_metro": "Seattle, United States",
+      "_note": "Official calendar yields 72 unique event-page links (<100 cap); detail pages carry per-event venue addresses, including partner venues, so no single-venue pin is applied. Opted-in short HTML meta descriptions are used only on matching single-event detail pages whose Event block lacks description and offers; verified free concerts: CenterPiece Jazz Band (2026-10-24) and Haydn & Beyond Workshop Ensemble (2026-11-01). skip_title excludes closures, classes, lessons, rehearsals and auditions. Event pages omit geo coordinates; the adapter geocodes their publisher-supplied venue/address per event."
     }
   ],
   "_not_included": {

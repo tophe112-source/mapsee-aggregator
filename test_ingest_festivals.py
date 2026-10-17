@@ -2,10 +2,12 @@
 """Offline tests through production festival parser, network gate and read-back."""
 import copy
 import json
+from pathlib import Path
 import requests
 from datetime import date
 from unittest.mock import patch
-from mapsee_ingest_festivals import Page, Fetcher, instant, jackson_pdf_url, structured_events, identity
+from mapsee_ingest_festivals import (Page, Fetcher, instant, jackson_pdf_url, structured_events,
+                                     identity, parse_benaroya_open_house)
 from verify_festival_sync import verify
 
 
@@ -29,6 +31,66 @@ def refuses(fn):
     except (ValueError, RuntimeError):
         return
     raise AssertionError('invalid input accepted')
+
+
+def test_benaroya_open_house():
+    source = {
+        'id': 'benaroya-open-house',
+        'name': 'Benaroya Hall Open House',
+        'official_url': 'https://benaroyahall.org/get-tickets/benaroya-hall-open-house/',
+        'schedule_url': 'https://benaroyahall.org/get-tickets/benaroya-hall-open-house/',
+        'hours_url': 'https://benaroyahall.org/beyond-the-stage/come-one-come-all-to-the-benaroya-hall-open-house/',
+        'snapshot_retrieved_at': '2026-10-17T14:04:35Z',
+        'event_date': '2026-10-18',
+        'parent_start_time': '10:00AM',
+        'parent_end_time': '6:30PM',
+        'timezone': 'America/Los_Angeles',
+        'venue': {'name': 'Benaroya Hall', 'address': '200 University Street',
+                  'city': 'Seattle', 'region': 'Washington', 'country': 'US',
+                  'lat': 47.6081167, 'lon': -122.3369704},
+    }
+    fixture = Path(__file__).parent / 'fixtures' / 'benaroya-open-house.html'
+    body = fixture.read_text(encoding='utf-8')
+    event = parse_benaroya_open_house(body, source, date(2026, 10, 17))
+    assert event.name == 'Benaroya Hall Open House'
+    assert event.source_id == 'benaroya-open-house:2026'
+    assert event.fingerprint == identity('benaroya-open-house', '2026')
+    assert event.start_utc == '2026-10-18T17:00:00Z'  # article: 10:00 AM PDT
+    assert event.end_utc == '2026-10-19T01:30:00Z'    # article: 6:30 PM PDT
+    assert event.timezone == event.agenda_tz == 'America/Los_Angeles'
+    assert event.coords_exact and (event.latitude, event.longitude) == (47.6081167, -122.3369704)
+    assert len(event.agenda) == 23
+    assert all(item['at'] >= event.start_utc for item in event.agenda)
+    assert all(item['place'] for item in event.agenda)
+    assert not any('ALL DAY' in item['title'] or 'Portals of Imagination' in item['title']
+                   for item in event.agenda)
+    dj = [item for item in event.agenda if item['title'] == "The Residency's DJ JAM"]
+    assert len(dj) == 2
+    assert [(item['at'], item['until']) for item in dj] == [
+        ('2026-10-18T19:00:00Z', '2026-10-18T23:00:00Z'),
+        ('2026-10-19T00:00:00Z', '2026-10-19T01:00:00Z')]
+    headliner = next(item for item in event.agenda if item['title'].startswith('Seattle Symphony with'))
+    assert headliner['at'] == '2026-10-18T23:00:00Z' and headliner['until'] is None
+    assert not any('Morlot Conducts' in item['title'] or 'Stravinsky' in item['title']
+                   for item in event.agenda), 'paid related concert cards are outside the schedule block'
+    description = event.description.casefold()
+    assert 'free admission' in description and 'tickets are not required for the other open house activities' in description
+    assert '9:00 am' in description and '9:30 am' in description and '4:00 pm' in description
+    assert 'while supplies last' in description and 'not open house admission' in description
+    assert 'schedule snapshot retrieved: 2026-10-17t14:04:35z' in description
+
+    # Time corrections do not mint new agenda identities; parent identity is
+    # the source plus the event year, not the schedule's changing clock.
+    changed = body.replace('<strong>10AM–6PM</strong>', '<strong>10:30AM–6PM</strong>', 1)
+    before = next(item for item in event.agenda if item['title'].startswith('Flash Tattoos'))
+    after = next(item for item in parse_benaroya_open_house(changed, source, date(2026, 10, 17)).agenda
+                 if item['title'].startswith('Flash Tattoos'))
+    assert after['id'] == before['id'] and after['at'] != before['at']
+    assert parse_benaroya_open_house(body, source, date(2026, 10, 20)) is None
+    bad_date = dict(source, event_date='2026-18-10')
+    refuses(lambda: parse_benaroya_open_house(body, bad_date, date(2026, 10, 17)))
+    refuses(lambda: parse_benaroya_open_house(body.replace('id="schedule"', 'id="missing"', 1),
+                                               source, date(2026, 10, 17)))
 
 
 def main():
@@ -85,6 +147,7 @@ def main():
     refuses(lambda: instant('2026-03-08T02:30:00', 'America/Los_Angeles'))
     refuses(lambda: instant('2026-09-12'))
     assert identity('festival', '2026') != identity('festival', '2027')
+    test_benaroya_open_house()
 
     # Follow the currently linked builder asset rather than a frozen PDF URL.
     class Assets:
