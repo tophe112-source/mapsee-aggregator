@@ -9745,6 +9745,98 @@
         "lon": 5.4045756
       },
       "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Yoco",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.yoco.info/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Yoco",
+        "city": "Salzburg",
+        "postal_code": "5020",
+        "lat": 47.8019697,
+        "lon": 13.038565,
+        "street_hint": "16 Gstättengasse"
+      },
+      "_metro": "Salzburg, Austria"
+    },
+    {
+      "name": "Jeugdhuis Den Uitvlucht",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.denuitvlucht.com/evenementen"
+      ],
+      "link_pattern": "https://www\\.denuitvlucht\\.com/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jeugdhuis Den Uitvlucht",
+        "city": "Waregem",
+        "postal_code": "8790",
+        "lat": 50.8849701,
+        "lon": 3.4359443,
+        "street_hint": "47 Holstraat"
+      },
+      "_metro": "Ghent, Belgium"
+    },
+    {
+      "name": "Centre Culturel Theux",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://centrecultureltheux.wixsite.com/cctheux"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/cctheux/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Centre Culturel Theux",
+        "lat": 50.536029,
+        "lon": 5.8134014,
+        "street_hint": "1 Place Pascal Taskin"
+      },
+      "_metro": "Liege, Belgium"
+    },
+    {
+      "name": "Scouting Rumanzeis",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://scoutsrumanzeis.be/kalender"
+      ],
+      "link_pattern": "https://scoutsrumanzeis\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Scouting Rumanzeis",
+        "lat": 50.8079259,
+        "lon": 5.6122713,
+        "street_hint": "7 Heukelom-Dorp"
+      },
+      "_metro": "Liege, Belgium"
+    },
+    {
+      "name": "Ateneo La Maliciosa",
+      "category": "community",
+      "_found": "osm:social_centre -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://ateneomaliciosa.net/event/proyeccion-cinco-miradas/"
+      ],
+      "link_pattern": "https://ateneomaliciosa\\.net/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Ateneo La Maliciosa",
+        "city": "Madrid",
+        "lat": 40.4034156,
+        "lon": -3.7044858,
+        "street_hint": "12 Calle de las Peñuelas"
+      },
+      "_metro": "Madrid, Spain"
     }
   ],
   "_not_included": {

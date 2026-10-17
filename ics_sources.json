@@ -33815,5 +33815,196 @@
     "geocode_suffix": ", Bunschoten-Spakenburg",
     "limit": 300,
     "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Pfarrzentrum St. Severin",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/pncb46r680cuboqvpmb2a02b1s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Salzburg, Austria",
+    "limit": 300,
+    "venue": {
+      "name": "Pfarrzentrum St. Severin",
+      "lat": 47.8149236,
+      "lon": 12.952272,
+      "pin_unnamed": false
+    },
+    "_metro": "Salzburg, Austria"
+  },
+  {
+    "name": "OpenFab",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_fle7ng3r3tkmgat1s95o9bu810%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "venue": {
+      "name": "OpenFab",
+      "lat": 50.833008,
+      "lon": 4.3783441,
+      "pin_unnamed": false
+    },
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "jeugdhuis De Bar",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/90ea7b8a48a4b8e13f0ae92c73f230c0e243b215f7f832a91744216ebd835748%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "venue": {
+      "name": "jeugdhuis De Bar",
+      "lat": 50.884551,
+      "lon": 4.6628952,
+      "street_hint": "21 Snoy et d'Oppuerslaan",
+      "pin_unnamed": false
+    },
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "Familia",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cpab31q2m1i1r03ld8it901kcc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Brussels, Belgium",
+    "limit": 300,
+    "venue": {
+      "name": "Familia",
+      "lat": 50.9436267,
+      "lon": 4.6443958,
+      "street_hint": "2 Kruineikestraat",
+      "pin_unnamed": false
+    },
+    "_metro": "Brussels, Belgium"
+  },
+  {
+    "name": "De zuidpoort",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/dezuidpoortgent.be_4itrvvj48otnlosvlvrjj7j8ck%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Ghent, Belgium",
+    "limit": 300,
+    "venue": {
+      "name": "De zuidpoort",
+      "lat": 51.0236447,
+      "lon": 3.7195829,
+      "pin_unnamed": false
+    },
+    "_metro": "Ghent, Belgium"
+  },
+  {
+    "name": "Universiteitsbibliotheek",
+    "category": "learning",
+    "_found": "osm:library -> events-manager+jsonld-event+ics",
+    "url": "https://library.maastrichtuniversity.nl/events/ai-in-reviews-3/ical/",
+    "geocode_suffix": ", Liege, Belgium",
+    "limit": 300,
+    "venue": {
+      "name": "Universiteitsbibliotheek",
+      "postal_code": "6211JH",
+      "lat": 50.8445507,
+      "lon": 5.6902818,
+      "street_hint": "17 Grote Looiersstraat",
+      "pin_unnamed": false
+    },
+    "_metro": "Liege, Belgium"
+  },
+  {
+    "name": "Chiro Aterstoase",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/co1v1l2dho7ranv3l393a1be0g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Liege, Belgium",
+    "limit": 300,
+    "venue": {
+      "name": "Chiro Aterstoase",
+      "lat": 50.7816373,
+      "lon": 5.4758281,
+      "pin_unnamed": false
+    },
+    "_metro": "Liege, Belgium"
+  },
+  {
+    "name": "Biblioteca de Humanidades, Comunicación y Documentación",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/horarios%40db.uc3m.es/public/basic.ics",
+    "geocode_suffix": ", Madrid, Spain",
+    "limit": 300,
+    "venue": {
+      "name": "Biblioteca de Humanidades, Comunicación y Documentación",
+      "lat": 40.3186204,
+      "lon": -3.7275463,
+      "pin_unnamed": false
+    },
+    "_metro": "Madrid, Spain"
+  },
+  {
+    "name": "Espacio Social Okupado Autogestionado La Dragona",
+    "category": "community",
+    "_found": "osm:social_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/i5r6qbs587m4e2v4kep3kl1os4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Madrid",
+    "limit": 300,
+    "venue": {
+      "name": "Espacio Social Okupado Autogestionado La Dragona",
+      "city": "Madrid",
+      "postal_code": "28017",
+      "lat": 40.4259427,
+      "lon": -3.6451129,
+      "street_hint": "90 Avenida de Daroca",
+      "aliases": [
+        "ESOA La Dragona"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Madrid, Spain"
+  },
+  {
+    "name": "Espai Jove",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f1a651ba72a4090abf087815d499fcd875ad5a593e5100f25019ed21aafa99a8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Barcelona, Spain",
+    "limit": 300,
+    "venue": {
+      "name": "Espai Jove",
+      "lat": 41.4831748,
+      "lon": 2.2714154,
+      "pin_unnamed": false
+    },
+    "_metro": "Barcelona, Spain"
+  },
+  {
+    "name": "Espai Fènix",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40espaifenix.org/public/basic.ics",
+    "geocode_suffix": ", Barcelona, Spain",
+    "limit": 300,
+    "venue": {
+      "name": "Espai Fènix",
+      "lat": 41.5103629,
+      "lon": 2.1131931,
+      "pin_unnamed": false
+    },
+    "_metro": "Barcelona, Spain"
+  },
+  {
+    "name": "Biblioteca d'Informàtica i Documentació Enric Valor",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bibinformatica%40bib.upv.es/public/basic.ics",
+    "geocode_suffix": ", Valencia, Spain",
+    "limit": 300,
+    "venue": {
+      "name": "Biblioteca d'Informàtica i Documentació Enric Valor",
+      "postal_code": "46022",
+      "lat": 39.4831196,
+      "lon": -0.3475188,
+      "pin_unnamed": false
+    },
+    "_metro": "Valencia, Spain"
   }
 ]

@@ -19633,6 +19633,54 @@
         "lon": 5.1166547
       },
       "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Womenpreneur Initiative",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event",
+      "base_url": "https://womenpreneur-initiative.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Womenpreneur Initiative",
+        "lat": 50.8590693,
+        "lon": 4.3604814
+      },
+      "_metro": "Brussels, Belgium"
+    },
+    {
+      "name": "Centre liégeois du Beau-Mur",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://beaumur.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Centre liégeois du Beau-Mur",
+        "city": "Liège",
+        "postal_code": "4030",
+        "lat": 50.6296308,
+        "lon": 5.5883523,
+        "street_hint": "48 Rue du Beau-Mur"
+      },
+      "_metro": "Liege, Belgium"
+    },
+    {
+      "name": "Cafétaria Collective Kali",
+      "category": "community",
+      "_found": "osm:social_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.cckali.be",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cafétaria Collective Kali",
+        "city": "Liège",
+        "postal_code": "4000",
+        "lat": 50.6483388,
+        "lon": 5.5836764,
+        "street_hint": "32 Rue Saint-Thomas"
+      },
+      "_metro": "Liege, Belgium"
     }
   ],
   "_not_included": {
