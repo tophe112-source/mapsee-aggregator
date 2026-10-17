@@ -33554,5 +33554,266 @@
       "pin_unnamed": false
     },
     "_metro": "Bergen, Norway"
+  },
+  {
+    "name": "C.K.V. Oranje Wit",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://ckvoranjewit.nl/wp-content/uploads/activiteit-10434.ics",
+    "geocode_suffix": ", Dordrecht",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Munch",
+    "category": "music",
+    "_found": "osm:nightclub -> events-manager",
+    "url": "https://www.munchrotterdam.nl/agenda/?ical=1",
+    "geocode_suffix": ", Rotterdam",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "The Hague Road Runners",
+    "category": "community",
+    "_found": "osm:club -> my-calendar",
+    "url": "https://hagueroadrunners.nl/?feed=my-calendar-ics",
+    "geocode_suffix": ", Wassenaar",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Damherten",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/gtn3b8b2uqcska449f2cocosoi5ih7e0%40import.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Leidschendam",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "LTC Naaldwijk Tennis & Padel",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ltcnaaldwijk.nl_gsuferopovglfudkliljlqoi4g%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Naaldwijk",
+    "limit": 300,
+    "venue": {
+      "name": "LTC Naaldwijk Tennis & Padel",
+      "city": "Naaldwijk",
+      "postal_code": "2671MJ",
+      "lat": 51.98442,
+      "lon": 4.2117435,
+      "street_hint": "10B Hoogwerf",
+      "pin_unnamed": false
+    },
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Allart van Heemstede",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bu515qnb4fjnppn4ieblr3rkdo%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vlaardingen",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Maasgroep 18",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agenda%40maasgroep18.nl/public/basic.ics",
+    "geocode_suffix": ", Rotterdam",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Protestanse Gemeente 's-Gravenzande",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5ndjuaql1e851rc70057qc5mqs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "De Mauritsgroep",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://www.mauritsgroep.nl/agenda.ics",
+    "geocode_suffix": ", Voorschoten",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Windsurfing Delft Plané",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/lf7lvhjmtjds65ahncsmnjuqkg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Delft",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Klimopgroep",
+    "category": "community",
+    "_found": "osm:club -> events-manager",
+    "url": "https://www.klimopgroep.nl/kalender/?ical=1",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Koninklijke Maatschappij voor Natuurkunde onder de zinspreuk 'Diligentia'",
+    "category": "community",
+    "_found": "osm:club -> ics",
+    "url": "https://natuurwetenschappen-diligentia.nl/wp-content/uploads/2026/08/20261019.ics",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Kindertuin De Goudsbloem",
+    "category": "outdoors",
+    "_found": "osm:garden -> events-manager",
+    "url": "https://kindertuinendelft.nl/?ical=1",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Maranatha Kerk Vlaardingen",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_g22a1aqk5s85qj6qf3cjjcgsbc%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vlaardingen",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Clubhuis Hengelsport Den Haag",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> events-manager",
+    "url": "https://ghvgroenehart.nl/events/praat-bindavond-136/?ical=1",
+    "geocode_suffix": ", 's-Gravenhage",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Shri Sanatan Dharm Sabha Nederland",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agenda%40shrirammandir.nl/public/basic.ics",
+    "geocode_suffix": ", 's-Gravenhage",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Vierhovenkerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vierhoven-delft.nl_ujlr3qi5p5qpoem1l5iai21c6s%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Kathedraal van de Heilige Nikolaas",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/i0foh8u5am8ui8grpo1svvaun4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rotterdam",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "De Fontein",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/q2lgabud3oeproql7r9lqdkam8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Vlaardingen",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Hersteld Hervormde Kerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/e6e7ae3f819262c82b84774b9db6c3dc83cc4fba0a4303c2d8b0e7cf875bbddb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Oude Kerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://www.hghg.nl/activiteitenkalender/?ical=1",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Sebakerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://sebakerk.nl/grote-agenda/?ical=1",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Buurttuin Taste",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/anc87hq4oomre7fvc3v8tftm40%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "Waterscouting Cornelis de Houtman & Kastanujo",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://waterscoutinggouda.nl/kalender/event/6060.ics",
+    "geocode_suffix": ", Rotterdam, Netherlands",
+    "limit": 300,
+    "_metro": "Rotterdam, Netherlands"
+  },
+  {
+    "name": "De Utrechtse Kinderboekwinkel",
+    "category": "learning",
+    "_found": "osm:books -> events-manager",
+    "url": "https://www.kinderboekwinkelutrecht.nl/agenda/?ical=1",
+    "geocode_suffix": ", Utrecht",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Wilhelmina",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_9dada37e54f55d8f19ae010e2efea384d0a9cc3b20fae2744f3450c896830532%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Rugby Club Spakenburg",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/31de1d6fb219048cdda6be8f445b74ca560705c8b2d42467ca4c4fa90453a5d6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bunschoten-Spakenburg",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Hardloopvereniging Quo Vadis",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/7ea171bca76f3e8fba06df62990c4856c8f57fd65433ed72086a8a9df86c3af1%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bunschoten-Spakenburg",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
   }
 ]

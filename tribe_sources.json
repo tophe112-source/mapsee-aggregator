@@ -19084,6 +19084,555 @@
         "lon": 4.8516964
       },
       "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Folâtre",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.folatre.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Folâtre",
+        "address": "7 Sportlaan",
+        "city": "Pijnacker",
+        "postal_code": "2641AZ",
+        "lat": 52.0234086,
+        "lon": 4.4146876
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "SV Den Hoorn",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://www.svdenhoorn.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SV Den Hoorn",
+        "address": "4 Zuidhoornseweg",
+        "city": "Den Hoorn",
+        "postal_code": "2635DJ",
+        "lat": 51.9950468,
+        "lon": 4.3299444
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Christelijke Showorkesten Excelsior",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event",
+      "base_url": "https://www.excelsior-delft.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christelijke Showorkesten Excelsior",
+        "address": "5 Botenpad",
+        "city": "Delft",
+        "postal_code": "2616LG",
+        "lat": 52.0204408,
+        "lon": 4.3691398
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Avanti",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://ttvavanti.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Avanti",
+        "address": "2 Sportparklaan",
+        "city": "Hazerswoude-Dorp",
+        "postal_code": "2391AX",
+        "lat": 52.0989939,
+        "lon": 4.5942041
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Marcanto Muziekcentrum",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://stcaecilia.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Marcanto Muziekcentrum",
+        "address": "11 Groene Zoom",
+        "city": "'s-Gravenhage",
+        "postal_code": "2491EJ",
+        "lat": 52.0642612,
+        "lon": 4.3720216
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Sint Sebastiaen",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://sintsebastiaen.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Sint Sebastiaen",
+        "address": "10 Groenendaal",
+        "city": "Wassenaar",
+        "postal_code": "2244BK",
+        "lat": 52.10926,
+        "lon": 4.3334699
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Mayflower Bookshop",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://mayflowerbookshop.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Mayflower Bookshop",
+        "address": "35 Lange Poten",
+        "city": "'s-Gravenhage",
+        "postal_code": "2511CM",
+        "lat": 52.0789485,
+        "lon": 4.3152245
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Focus Health & Fitness",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://www.focushealthfitness.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Focus Health & Fitness",
+        "address": "38 Industrieweg",
+        "city": "Middelharnis",
+        "postal_code": "3241MA",
+        "lat": 51.762365,
+        "lon": 4.1867422
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Stadskwekerij De Kas",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://stadskwekerijdekas.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadskwekerij De Kas",
+        "city": "Rotterdam",
+        "postal_code": "3039WE",
+        "lat": 51.929458,
+        "lon": 4.4581139,
+        "street_hint": "22 Van Beuningenstraat"
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Biljart- en Denksportcentrum Gouda",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://bdcgouda.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Biljart- en Denksportcentrum Gouda",
+        "address": "264 Middenmolenplein",
+        "city": "Gouda",
+        "postal_code": "2807GV",
+        "lat": 52.0116856,
+        "lon": 4.7429298
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Galerie Honingen",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe+jsonld-event+ics",
+      "base_url": "https://honingen.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Galerie Honingen",
+        "address": "40 Lange Tiendeweg",
+        "city": "Gouda",
+        "postal_code": "2801KJ",
+        "lat": 52.0114555,
+        "lon": 4.7130059
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "The Hague Humanity Hub",
+      "category": "community",
+      "_found": "osm:ngo -> tribe+jsonld-event+ics",
+      "base_url": "https://www.humanityhub.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Hague Humanity Hub",
+        "lat": 52.079111,
+        "lon": 4.3188304
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Nederlands Militair Kustverdedigingsmuseum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.forthvh.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nederlands Militair Kustverdedigingsmuseum",
+        "lat": 51.9857821,
+        "lon": 4.1180465
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Lachai Roï",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.lachai-roi.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Lachai Roï",
+        "address": "11 Antoon Coolenstraat",
+        "city": "Sommelsdijk",
+        "postal_code": "3245MC",
+        "lat": 51.7625984,
+        "lon": 4.1544779
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Oude Kerk Charlois",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://oudekerkcharlois.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Oude Kerk Charlois",
+        "lat": 51.8927437,
+        "lon": 4.4660065
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Maranathakerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://maranathakerkdenhaag.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Maranathakerk",
+        "address": "156 2e Sweelinckstraat",
+        "city": "'s-Gravenhage",
+        "postal_code": "2517HB",
+        "country": "NL",
+        "lat": 52.0839421,
+        "lon": 4.2774022
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Theater De Regentes",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://theaterderegentes.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Theater De Regentes",
+        "address": "63 Weimarstraat",
+        "city": "'s-Gravenhage",
+        "postal_code": "2562GR",
+        "lat": 52.0776993,
+        "lon": 4.2837179
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Dorpskerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://www.kerkeninzuidland.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dorpskerk",
+        "lat": 51.8224079,
+        "lon": 4.2600095
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Prinses Julianakerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://prinsesjulianakerk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Prinses Julianakerk",
+        "lat": 52.0901173,
+        "lon": 4.2617395
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Christelijke Gemeente Shalom",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://gemeenteshalom.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Christelijke Gemeente Shalom",
+        "lat": 52.055099,
+        "lon": 4.6544408
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Pax Christikerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.paxchristikerk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pax Christikerk",
+        "lat": 52.091646,
+        "lon": 4.3587708
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "De Binnenhof",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe",
+      "base_url": "https://pgleidschendam.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Binnenhof",
+        "lat": 52.0795179,
+        "lon": 4.3973752
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Hervormde Kerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hervormdbleskensgraaf.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hervormde Kerk",
+        "lat": 51.8708269,
+        "lon": 4.7808921
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Vreedehuis",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.vreedehuis.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Vreedehuis",
+        "address": "1 Riouwstraat",
+        "city": "'s-Gravenhage",
+        "postal_code": "2585GP",
+        "country": "NL",
+        "lat": 52.0907146,
+        "lon": 4.2965189
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "De Ark",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ngkmaassluis.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Ark",
+        "lat": 51.9173767,
+        "lon": 4.2616157
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Aquapelle",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://sportiefcapelle.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aquapelle",
+        "address": "85 Alkenlaan",
+        "city": "Capelle aan den IJssel",
+        "postal_code": "2903EB",
+        "lat": 51.9314281,
+        "lon": 4.594502
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Gereformeerde Gemeente",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://gergemberkenwoude.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Gereformeerde Gemeente",
+        "lat": 51.944665,
+        "lon": 4.7127511
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Rietveldpaviljoen",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://033rietveldpaviljoen.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Rietveldpaviljoen",
+        "address": "8 Zonnehof",
+        "city": "Amersfoort",
+        "postal_code": "3811ND",
+        "lat": 52.151791,
+        "lon": 5.38403
+      },
+      "_metro": "Utrecht, Netherlands",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "De Tuin",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://theaterdetuin.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Tuin",
+        "address": "1b De Smidse",
+        "city": "Leusden",
+        "postal_code": "3831NT",
+        "lat": 52.1289357,
+        "lon": 5.4286534
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Musiom",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://musiom.art",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Musiom",
+        "address": "137 Stadsring",
+        "city": "Amersfoort",
+        "postal_code": "3817BA",
+        "lat": 52.1523167,
+        "lon": 5.3906003
+      },
+      "_metro": "Utrecht, Netherlands",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Poppentheater Toermalijn",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.theatertoermalijn.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Poppentheater Toermalijn",
+        "address": "119 Heiligenbergerweg",
+        "city": "Amersfoort",
+        "postal_code": "3816AJ",
+        "lat": 52.1491469,
+        "lon": 5.3987486
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Huize Molenaar",
+      "category": "community",
+      "_found": "osm:events_venue -> tribe+jsonld-event+ics",
+      "base_url": "https://www.heirloom.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Huize Molenaar",
+        "address": "6 Korte Nieuwstraat",
+        "city": "Utrecht",
+        "postal_code": "3512NM",
+        "lat": 52.0894551,
+        "lon": 5.1223361
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Nationaal Monument Kamp Amersfoort",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event",
+      "base_url": "https://kampamersfoort.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nationaal Monument Kamp Amersfoort",
+        "address": "19 Loes van Overeemlaan",
+        "city": "Leusden",
+        "postal_code": "3832RZ",
+        "lat": 52.1323319,
+        "lon": 5.3653104
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Basis",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe+jsonld-event",
+      "base_url": "https://clubbasis.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Basis",
+        "address": "97 Oudegracht aan de Werf",
+        "city": "Utrecht",
+        "postal_code": "3511AL",
+        "lat": 52.092887,
+        "lon": 5.1166547
+      },
+      "_metro": "Utrecht, Netherlands"
     }
   ],
   "_not_included": {

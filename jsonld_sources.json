@@ -9415,6 +9415,336 @@
         ]
       },
       "_metro": "Malmo, Sweden"
+    },
+    {
+      "name": "Paagman",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.paagman.nl/agenda/2026/okt/nelio-biedermann"
+      ],
+      "link_pattern": "https://www\\.paagman\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Paagman",
+        "address": "35 Lange Tiendeweg",
+        "city": "Gouda",
+        "postal_code": "2801KE",
+        "lat": 52.0117026,
+        "lon": 4.7132884
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "LantarenVenster",
+      "category": "theater",
+      "_found": "osm:cinema -> jsonld-event",
+      "listing": [
+        "https://www.lantarenvenster.nl/programma/ao/"
+      ],
+      "link_pattern": "https://www\\.lantarenvenster\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "LantarenVenster",
+        "address": "996 Otto Reuchlinweg",
+        "city": "Rotterdam",
+        "postal_code": "3072MD",
+        "lat": 51.9048543,
+        "lon": 4.4870223
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "LTC Triomf",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> jsonld-event",
+      "listing": [
+        "https://www.ltctriomf.nl/kalender/"
+      ],
+      "link_pattern": "https://www\\.ltctriomf\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "LTC Triomf",
+        "address": "3 Sporthoekpad",
+        "city": "Bergschenhoek",
+        "postal_code": "2661GV",
+        "lat": 51.9814322,
+        "lon": 4.5143766
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Bibliotheek",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.hogeschoolrotterdam.nl/voorlichting/begeleiding-en-voorzieningen/bibliotheek/eventitem/game-on/471539/"
+      ],
+      "link_pattern": "https://www\\.hogeschoolrotterdam\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliotheek",
+        "city": "Rotterdam",
+        "postal_code": "3015CX",
+        "lat": 51.9135409,
+        "lon": 4.4691951,
+        "street_hint": "40 Museumpark"
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Roeivereniging Rijnland",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.rvrijnland.nl/activiteitenlijst/2581/novembervieren"
+      ],
+      "link_pattern": "https://www\\.rvrijnland\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roeivereniging Rijnland",
+        "address": "63 Oostvlietweg",
+        "city": "Leidschendam",
+        "postal_code": "2266GN",
+        "lat": 52.1246182,
+        "lon": 4.4615515
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Paard",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://www.paard.nl/event/"
+      ],
+      "link_pattern": "https://www\\.paard\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Paard",
+        "address": "12 Prinsegracht",
+        "city": "'s-Gravenhage",
+        "postal_code": "2512GA",
+        "lat": 52.0747264,
+        "lon": 4.3076571
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Wijkberaad Vruchtenbuurt",
+      "category": "community",
+      "_found": "osm:social_facility -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://www.wijkberaad-vruchtenbuurt.nl/evenement/spelletjesmiddag-96/"
+      ],
+      "link_pattern": "https://www\\.wijkberaad\\-vruchtenbuurt\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Wijkberaad Vruchtenbuurt",
+        "address": "207 Abrikozenstraat",
+        "city": "'s-Gravenhage",
+        "postal_code": "2564VP",
+        "lat": 52.0680768,
+        "lon": 4.2546727
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "De Blije Borgh",
+      "category": "community",
+      "_found": "osm:social_facility -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.deblijeborgh.nl/ontmoeten-en-doen/"
+      ],
+      "link_pattern": "https://www\\.deblijeborgh\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Blije Borgh",
+        "address": "18 Gerard Alewijnsstraat",
+        "city": "Hendrik-Ido-Ambacht",
+        "postal_code": "3341GD",
+        "lat": 51.8420975,
+        "lon": 4.6447121
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "De Maas",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.de-maas.nl/activiteiten/1676/wilddiner"
+      ],
+      "link_pattern": "https://www\\.de\\-maas\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Maas",
+        "address": "121 Kralingse Plaslaan",
+        "city": "Rotterdam",
+        "postal_code": "3062CD",
+        "lat": 51.9331157,
+        "lon": 4.5058042
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Kano Club Rotterdam",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.kanoclubrotterdam.nl/activiteiten/21/fortentocht"
+      ],
+      "link_pattern": "https://www\\.kanoclubrotterdam\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Kano Club Rotterdam",
+        "address": "133 Kralingse Plaslaan",
+        "city": "Rotterdam",
+        "postal_code": "3062CD",
+        "lat": 51.933256,
+        "lon": 4.5053332
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "windsurfvereniging Vlietland",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.windsurfverenigingleidschendam.nl/activiteiten/1321/sunday-surf"
+      ],
+      "link_pattern": "https://www\\.windsurfverenigingleidschendam\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "windsurfvereniging Vlietland",
+        "lat": 52.1205788,
+        "lon": 4.4572842
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "De Rijstuin",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.woudtsekerk.nl/agenda/"
+      ],
+      "link_pattern": "https://www\\.woudtsekerk\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Rijstuin",
+        "lat": 51.9994379,
+        "lon": 4.3286138
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Nederlandse Protestanten Bond",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.vrijzinniginwassenaar.nl/agenda"
+      ],
+      "link_pattern": "https://www\\.vrijzinniginwassenaar\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Nederlandse Protestanten Bond",
+        "city": "Wassenaar",
+        "country": "NL",
+        "lat": 52.1398517,
+        "lon": 4.401425
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Verrezen Christus",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.deverrezenchristus.nl/agenda-vieringen"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Verrezen Christus",
+        "lat": 52.0623462,
+        "lon": 4.3506278
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Sportcentrum Mariahoeve",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://sportcentrummariahoeve.nl/padel/#toernooi"
+      ],
+      "link_pattern": "https://sportcentrummariahoeve\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sportcentrum Mariahoeve",
+        "address": "12 Het Kleine Loo",
+        "city": "'s-Gravenhage",
+        "postal_code": "2592CE",
+        "lat": 52.0890237,
+        "lon": 4.3489779
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Singer (theater)",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.theater.nl/laren/singer-laren"
+      ],
+      "link_pattern": "https://www\\.theater\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Singer (theater)",
+        "lat": 52.2595168,
+        "lon": 5.2223127
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "De Bron",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://debronamersfoort.nl/agenda/"
+      ],
+      "link_pattern": "https://debronamersfoort\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Bron",
+        "address": "1 Vogelplein",
+        "city": "Amersfoort",
+        "postal_code": "3815GV",
+        "lat": 52.1658603,
+        "lon": 5.4083839
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Protestantse gemeente",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://pgleusden.nl/agenda/"
+      ],
+      "link_pattern": "https://pgleusden\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Protestantse gemeente",
+        "address": "75 Arnhemseweg",
+        "city": "Leusden",
+        "postal_code": "3832GJ",
+        "lat": 52.1137275,
+        "lon": 5.4045756
+      },
+      "_metro": "Utrecht, Netherlands"
     }
   ],
   "_not_included": {

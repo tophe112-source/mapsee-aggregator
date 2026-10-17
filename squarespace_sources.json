@@ -2766,6 +2766,54 @@
         "lon": 5.0601515
       },
       "_metro": "Amsterdam, Netherlands"
+    },
+    {
+      "name": "Tennisvereniging De Delftse Hout",
+      "category": "community",
+      "_found": "osm:club -> squarespace",
+      "collection": "https://dedelftsehout.nl/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Tennisvereniging De Delftse Hout",
+        "address": "2 Laantje van Levenslust",
+        "city": "Delft",
+        "postal_code": "2616AB",
+        "lat": 52.0103716,
+        "lon": 4.3889031
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "Brouwerij Noordt",
+      "category": "community",
+      "_found": "osm:pub -> squarespace",
+      "collection": "https://www.brouwerijnoordt.nl/eventsproeflokaal",
+      "max_events": 200,
+      "venue": {
+        "name": "Brouwerij Noordt",
+        "address": "46 Zaagmolenkade",
+        "city": "Rotterdam",
+        "postal_code": "3035KA",
+        "lat": 51.9332511,
+        "lon": 4.4866067
+      },
+      "_metro": "Rotterdam, Netherlands"
+    },
+    {
+      "name": "De Katoendrukkerij in de Volmolen",
+      "category": "arts",
+      "_found": "osm:museum -> squarespace",
+      "collection": "https://www.dekatoendrukkerij.nl/agenda-nieuw",
+      "max_events": 200,
+      "venue": {
+        "name": "De Katoendrukkerij in de Volmolen",
+        "address": "2 Plantsoen Noord",
+        "city": "Amersfoort",
+        "postal_code": "3811GH",
+        "lat": 52.1591389,
+        "lon": 5.3856027
+      },
+      "_metro": "Utrecht, Netherlands"
     }
   ],
   "_not_included": {
