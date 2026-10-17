@@ -1,5 +1,17 @@
 # Finding sources: catalogs, discovery, verification, refusals and licences
 
+- **THE COVERAGE REPORT NEEDS ONLY THE METRO BOXES AT A VENUE'S LATITUDE.**
+  Measured 2026-10-17: indexing the **261** swept metro boxes by integer
+  latitude narrows a surveyed point to about **4** candidate boxes, then runs
+  the existing exact bbox and nearest-center tests. `test_coverage_rows.py`
+  compares indexed and exhaustive results for every surveyed point in both
+  `CONFIG` and `EXTRA_CONFIG`; country inference keeps its separate rules.
+  Seven interleaved warm coverage runs on the final catalog had a median
+  **0.1831 s** exhaustive and **0.1251 s** indexed (**1.46x** throughput), with
+  the same **5,322** rows after duplicate CPL source removal. This reduces local
+  curation work as source coverage grows; it adds **0** dependencies and makes
+  **0** network requests.
+
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: `catalog_curate`, the ledger and its statuses, `_not_included`, sitemaps and robots, bot challenges, site builders vs calendars, calendar plugins, licences.
 > Every note below was measured before it was written; keep the numbers when you edit.
 

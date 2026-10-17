@@ -2186,12 +2186,15 @@ def _enrich_music_links(recs: List[Dict[str, Any]], session) -> None:
     print(f"Spotify: resolved {resolved} exact artist pages ({len(cache)} names cached).")
 
 
-def build_rows(store_path: str, host_id: str, geo_session=None, keep=None) -> List[Dict[str, Any]]:
+def build_rows(store_path: str, host_id: str, geo_session=None, keep=None,
+               store_data=None) -> List[Dict[str, Any]]:
     """Store -> event rows. `keep`, when given, filters the placeable records
     BEFORE the Spotify lookups, the Census batch and to_row, which is where
-    --only-new's existence check belongs: see main()."""
+    --only-new's existence check belongs: see main(). `store_data` is an
+    optional parsed snapshot shared by main(); standalone callers still read
+    and parse `store_path` here."""
     import time
-    data = json.loads(open(store_path, encoding="utf-8").read())
+    data = store_data if store_data is not None else json.loads(open(store_path, encoding="utf-8").read())
     recs = []
     virtual = 0
     for rec in data.get("events", []):
@@ -2786,18 +2789,21 @@ def merge_copy_categories(session, url: str, key: str, rows: List[Dict[str, Any]
 # the row still filed under it is MOVED to the new key. Its id, its /e/ link,
 # its series and any claim on it survive. Nothing is deleted: a legacy row whose
 # new key is already taken is hidden, and a claimed one is left alone.
-def legacy_pairs(store_path: str) -> Dict[str, List[str]]:
+def legacy_pairs(store_path: str, store_data=None) -> Dict[str, List[str]]:
     """{fingerprint: its legacy fingerprints}, for the records that have any.
-    Empty on any error: main() reads the same file next and says what is wrong.
-    A store with no legacy key anywhere is not parsed twice: that is every store
-    but a feed store written before ics's LEGACY_KEYS_UNTIL."""
-    try:
-        raw = open(store_path, "rb").read()
-        if b'"legacy_fingerprints"' not in raw:
+    `store_data`, when supplied by main(), avoids another store read and parse;
+    standalone calls retain the cheap byte scan before parsing. Empty on error,
+    so the later row-building phase remains responsible for a malformed store."""
+    if store_data is None:
+        try:
+            raw = open(store_path, "rb").read()
+            if b'"legacy_fingerprints"' not in raw:
+                return {}
+            data = json.loads(raw.decode("utf-8"))
+        except Exception:
             return {}
-        data = json.loads(raw.decode("utf-8"))
-    except Exception:
-        return {}
+    else:
+        data = store_data
     return {r["fingerprint"]: list(r["legacy_fingerprints"]) for r in data.get("events", [])
             if isinstance(r, dict) and r.get("fingerprint") and r.get("legacy_fingerprints")}
 
@@ -2995,19 +3001,23 @@ def time_changed(rec: Dict[str, Any], detail: Optional[Dict[str, Any]]) -> bool:
     return False
 
 
-def cancellation_inputs(store_path: str) -> Dict[str, Any]:
+def cancellation_inputs(store_path: str, store_data=None) -> Dict[str, Any]:
     """The store's tombstones and complete reads, and for each complete unit the
-    fingerprints it holds now. Empty on a store that has neither (one byte scan,
-    like legacy_pairs), so a store nothing cancelled costs no second parse."""
+    fingerprints it holds now. `store_data`, when supplied by main(), shares its
+    parsed snapshot; standalone calls retain a cheap byte scan and only parse
+    when cancellation metadata is present."""
     out = {"tombstones": {}, "complete": {}, "live": set(), "units": {}, "standing": {}, "seen": set(),
            "ident": {}}
-    try:
-        raw = open(store_path, "rb").read()
-        if b'"tombstones"' not in raw and b'"complete_reads"' not in raw:
+    if store_data is None:
+        try:
+            raw = open(store_path, "rb").read()
+            if b'"tombstones"' not in raw and b'"complete_reads"' not in raw:
+                return out
+            data = json.loads(raw.decode("utf-8"))
+        except Exception:
             return out
-        data = json.loads(raw.decode("utf-8"))
-    except Exception:
-        return out
+    else:
+        data = store_data
     out["tombstones"] = {t["fingerprint"]: t for t in data.get("tombstones") or []
                          if isinstance(t, dict) and t.get("fingerprint")}
     complete = data.get("complete_reads")
@@ -3748,12 +3758,24 @@ def main() -> None:
         raise SystemExit("MAPSEE_HOST_PROFILE_ID is not set — it is the profile imported "
                          "events are created_by, and without it every insert is rejected.")
 
+    # All sync phases consume the same adapter snapshot. Reading it once avoids
+    # two extra full-file byte scans (legacy/cancellation probes) and any extra
+    # JSON parses when those optional metadata keys are present.
+    try:
+        store_data = json.loads(open(a.store, encoding="utf-8").read())
+    except Exception:
+        # Keep the existing phase-specific error behavior: the metadata probes
+        # are best-effort, while build_rows remains the point that reports a
+        # missing or malformed event store.
+        store_data = None
+
     if a.dry_run:
-        rows = build_rows(a.store, host_id)           # preview: skip geocoding (no network)
+        rows = build_rows(a.store, host_id, store_data=store_data)  # preview: skip geocoding (no network)
         print(f"Prepared {len(rows)} event rows from {a.store}.")
         for row in rows[:3]:
             print(json.dumps(row, ensure_ascii=False, indent=1))
-        inputs = cancellation_inputs(a.store)
+        inputs = cancellation_inputs(a.store, store_data=store_data)
+        del store_data
         previous = load_manifest(a.manifest) if a.retire_absent else None
         absent, lines, warnings = absent_fingerprints(previous, inputs)
         succ = absent_successors(previous, inputs, absent)
@@ -3808,11 +3830,11 @@ def main() -> None:
     # BEFORE ANYTHING READS EXISTENCE: a row still filed under a legacy
     # fingerprint moves to its new one first, or --only-new would call the clean
     # record new and insert it beside the garbled row. See rekey_legacy.
-    moved, held = rekey_legacy(geo, url, key, legacy_pairs(a.store))
+    moved, held = rekey_legacy(geo, url, key, legacy_pairs(a.store, store_data=store_data))
     # Absence is read off the store and the manifest, so it is known now; a gone
     # session that is only renamed or re-timed moves to its new key here, before
     # the upsert would insert it beside the old row (see absent_successors).
-    inputs = cancellation_inputs(a.store)
+    inputs = cancellation_inputs(a.store, store_data=store_data)
     previous = load_manifest(a.manifest) if a.manifest else None
     absent, absent_lines, absent_warnings = (absent_fingerprints(previous, inputs, now)
                                              if a.retire_absent else ({}, [], []))
@@ -3857,7 +3879,9 @@ def main() -> None:
               f"geocoding.", flush=True)
         return fresh
 
-    rows = build_rows(a.store, host_id, geo, keep=keep_new if a.only_new else None)
+    rows = build_rows(a.store, host_id, geo, keep=keep_new if a.only_new else None,
+                      store_data=store_data)
+    del store_data  # release the full source snapshot before the remaining DB work
     if held:
         rows = [r for r in rows if r["external_id"] not in held]
     print(f"Prepared {len(rows)} event rows from {a.store}.")

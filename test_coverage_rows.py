@@ -43,6 +43,7 @@ from __future__ import annotations
 
 import collections
 import json
+import math
 import os
 import re
 import sys
@@ -404,6 +405,93 @@ def t_a_sweep_area_is_not_a_border():
           str(C._locate_entry(e2, "X", "")))
 
 
+def t_surveyed_point_index_matches_exhaustive_bbox_scan():
+    """Latitude indexing must preserve every existing point-to-metro result."""
+    C._swept_metro_for(0, 0)  # initialize independently of earlier coverage tests
+    boxes = C._swept_boxes or []
+    buckets = C._swept_boxes_by_latitude or {}
+    points = set()
+
+    def collect_venues(value):
+        if isinstance(value, dict):
+            venue = value.get("venue")
+            lat, lon = C._venue_point(venue)
+            if lat is not None:
+                points.add((lat, lon))
+            for child in value.values():
+                collect_venues(child)
+        elif isinstance(value, list):
+            for child in value:
+                collect_venues(child)
+
+    # Include both config tables: jsonld and other expander-owned files use
+    # surveyed venue points from EXTRA_CONFIG rather than the generic path.
+    files = {fname for fname, _key in C.CONFIG.values()}
+    files.update(fname for fname, _expand in C.EXTRA_CONFIG.values())
+    for fname in files:
+        path = os.path.join(C.HERE, fname)
+        if not os.path.exists(path):
+            continue
+        with open(path, encoding="utf-8") as source:
+            data = json.load(source)
+        collect_venues(data)
+
+    def exhaustive(lat, lon):
+        best = None
+        for south, west, north, east, clat, clon, name, country in boxes:
+            if south <= lat <= north and west <= lon <= east:
+                d = (lat - clat) ** 2 + (lon - clon) ** 2
+                if best is None or d < best[0]:
+                    best = (d, name, country)
+        return (best[1], best[2]) if best else (None, None)
+
+    same = all(C._swept_metro_for(lat, lon) == exhaustive(lat, lon)
+               for lat, lon in points)
+    full_checks = len(points) * len(boxes)
+    indexed_checks = sum(len(buckets.get(math.floor(lat), ())) for lat, _lon in points)
+    check("latitude index matches exhaustive nearest-metro results for all surveyed points",
+          bool(points) and same, f"{len(points)} points, {len(boxes)} boxes")
+    check("latitude index checks under 10% of the full bbox candidates",
+          full_checks > 0 and indexed_checks * 10 < full_checks,
+          f"{indexed_checks} indexed vs {full_checks} exhaustive candidates")
+
+
+def t_nonfinite_points_and_bad_boxes_do_not_poison_the_metro_index():
+    import catalog_discover_osm as osm
+
+    old_metros = osm.metros
+    old_boxes, old_index = C._swept_boxes, C._swept_boxes_by_latitude
+    osm.metros = lambda: [
+        {"bbox": "nan,20,11,21", "name": "NaN", "country": "X"},
+        {"bbox": "10,20,inf,21", "name": "Infinite", "country": "X"},
+        {"bbox": "broken", "name": "Malformed", "country": "X"},
+        {"bbox": "12,20,11,21", "name": "Reversed", "country": "X"},
+        {"bbox": "10,20,1e300,21", "name": "Out of range", "country": "X"},
+        {"bbox": "10,20,11,21", "name": "Valid", "country": "Testland"},
+    ]
+    C._swept_boxes = None
+    C._swept_boxes_by_latitude = None
+    try:
+        nan_point = C._venue_point({"lat": "nan", "lon": 20.5})
+        inf_point = C._venue_point({"lat": 10.5, "lon": "inf"})
+        check("NaN and infinite venue coordinates safely produce no metro",
+              C._swept_metro_for(*nan_point) == (None, None)
+              and C._swept_metro_for(*inf_point) == (None, None)
+              and C._swept_metro_for(-float("inf"), 20.5) == (None, None))
+        found = C._swept_metro_for(10.5, 20.5)
+        check("malformed and nonfinite boxes are skipped while valid metros remain",
+              found == ("Valid", "Testland") and len(C._swept_boxes) == 1,
+              f"result={found}, retained={len(C._swept_boxes)}")
+
+        valid = C._swept_boxes[0]
+        malformed = (float("nan"), 20, 11, 21, 10.5, 20.5, "NaN", "X")
+        check("direct latitude indexing also skips a nonfinite bbox",
+              C._index_swept_boxes([valid, malformed]).get(10) == [valid])
+    finally:
+        osm.metros = old_metros
+        C._swept_boxes, C._swept_boxes_by_latitude = old_boxes, old_index
+
+
 def t_jsonld_keeps_its_country_rule_while_gaining_a_metro():
     """`_rows_jsonld` must not start using `_locate`: that reads a name's
     parenthetical as a city and defaults it to the US, which turned
@@ -443,6 +531,8 @@ def main() -> int:
               t_a_curated_file_the_report_cannot_see_reads_as_a_gap,
               t_a_surveyed_venue_is_a_place_the_report_can_read,
               t_a_sweep_area_is_not_a_border,
+              t_surveyed_point_index_matches_exhaustive_bbox_scan,
+              t_nonfinite_points_and_bad_boxes_do_not_poison_the_metro_index,
               t_jsonld_keeps_its_country_rule_while_gaining_a_metro):
         print(f"\n--- {t.__name__} ---")
         t()

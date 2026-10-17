@@ -76,6 +76,7 @@ Usage:
 import datetime
 import hashlib
 import json
+import math
 import os
 import re
 import statistics
@@ -2521,12 +2522,35 @@ def _robots_gate(robots, t, e):
 
 
 # --- commands --------------------------------------------------------------
+_CPL_OPENDATA_URL = "https://data.cityofchicago.org/resource/vsdy-d8k7.json"
+
+
+def _chipublib_configured():
+    """Whether BiblioCommons is the configured primary Chicago library feed."""
+    path = os.path.join(HERE, "bibliocommons_sources.json")
+    try:
+        with open(path, encoding="utf-8") as fh:
+            sites = json.load(fh).get("sites", [])
+        return any(site.get("slug") == "chipublib" for site in sites if isinstance(site, dict))
+    except Exception:  # noqa: BLE001 - a missing primary config permits the fallback
+        return False
+
+
+def _blocked_cpl_opendata(e, chipublib_configured):
+    if not chipublib_configured or e.get("type") != "opendata":
+        return False
+    candidate, primary = urlparse(str(_key_of(e) or "")), urlparse(_CPL_OPENDATA_URL)
+    return ((candidate.hostname or "").lower() == (primary.hostname or "").lower()
+            and candidate.path.rstrip("/").lower() == primary.path.rstrip("/").lower())
+
+
 def cmd_verify(path, recheck=False, ttl=90):
     cands = json.load(open(path, encoding="utf-8"))
     s = _session()
     robots = robots_txt.Robots(s)
     led = _load_ledger()
     in_config = _config_keys()
+    chipublib_configured = _chipublib_configured()
     passed, skipped = [], 0
     for e in cands:
         t = e.get("type")
@@ -2540,6 +2564,10 @@ def cmd_verify(path, recheck=False, ttl=90):
             continue
         if not recheck and key in in_config:
             print(f"[SKIP] {t:8} already in config: {e.get('name','?')[:44]}")
+            skipped += 1
+            continue
+        if _blocked_cpl_opendata(e, chipublib_configured):
+            print(f"[SKIP] opendata Chicago Public Library is read through configured BiblioCommons chipublib")
             skipped += 1
             continue
         rec = led.get(lkey)
@@ -2774,6 +2802,7 @@ def _held_key(e):
 
 def cmd_merge(path):
     verified = json.load(open(path, encoding="utf-8"))
+    chipublib_configured = _chipublib_configured()
     by_type = {}
     for e in verified:
         why = _held(e)
@@ -2800,6 +2829,9 @@ def cmd_merge(path):
                     seen.add(_canon(one))
         added = 0
         for e in adds:
+            if _blocked_cpl_opendata(e, chipublib_configured):
+                print("[SKIP] Chicago Public Library OpenData duplicate; BiblioCommons chipublib is configured")
+                continue
             entry = {k: v for k, v in e.items() if k != "type"}
             if t == "ods":
                 entry["url"] = _ods_url(entry)     # derived key, kept for dedup
@@ -3448,23 +3480,66 @@ def _parse_metro_field(text):
 
 
 _swept_boxes = None
+_swept_boxes_by_latitude = None
+
+
+def _index_swept_boxes(boxes):
+    """Index each swept bbox into the integer latitude bands it touches.
+
+    Coverage reads thousands of venue points. A linear scan of all 261 current
+    metro boxes checked about 397k boxes to place 1,520 surveyed points, though
+    only 3.9 boxes per point span its latitude. The index narrows that candidate
+    set without changing the exact bbox or nearest-centre checks below.
+    """
+    by_latitude = {}
+    for box in boxes:
+        try:
+            south, west, north, east = (float(value) for value in box[:4])
+        except (IndexError, TypeError, ValueError, OverflowError):
+            continue
+        if (not all(math.isfinite(value) for value in (south, west, north, east))
+                or not (-90 <= south <= north <= 90)
+                or not (-180 <= west <= east <= 180)):
+            continue
+        for band in range(math.floor(south), math.floor(north) + 1):
+            by_latitude.setdefault(band, []).append(box)
+    return by_latitude
 
 
 def _swept_metro_for(lat, lon):
     """The metro this repo sweeps that a surveyed point falls inside."""
-    global _swept_boxes
+    global _swept_boxes, _swept_boxes_by_latitude
+    try:
+        lat, lon = float(lat), float(lon)
+    except (TypeError, ValueError, OverflowError):
+        return None, None
+    if not math.isfinite(lat) or not math.isfinite(lon):
+        return None, None
     if _swept_boxes is None:
         try:
             import catalog_discover_osm as osm
             _swept_boxes = []
             for m in osm.metros():
-                s, w, n, e = (float(x) for x in m["bbox"].split(","))
+                try:
+                    s, w, n, e = (float(x) for x in m["bbox"].split(","))
+                    name = m["name"]
+                    country = m.get("country_name") or m["country"]
+                except (KeyError, TypeError, ValueError, OverflowError):
+                    continue
+                if (not all(math.isfinite(value) for value in (s, w, n, e))
+                        or not (-90 <= s <= n <= 90)
+                        or not (-180 <= w <= e <= 180)):
+                    continue
                 _swept_boxes.append((s, w, n, e, (s + n) / 2, (w + e) / 2,
-                                     m["name"], m.get("country_name") or m["country"]))
+                                     name, country))
+            _swept_boxes_by_latitude = _index_swept_boxes(_swept_boxes)
         except Exception:                                         # noqa: BLE001
             _swept_boxes = []                # no metro list: this fallback is off
+            _swept_boxes_by_latitude = {}
     best = None
-    for s, w, n, e, clat, clon, name, country in _swept_boxes:
+    boxes = (_swept_boxes_by_latitude.get(math.floor(lat), ())
+             if _swept_boxes_by_latitude is not None else _swept_boxes)
+    for s, w, n, e, clat, clon, name, country in boxes:
         if s <= lat <= n and w <= lon <= e:
             d = (lat - clat) ** 2 + (lon - clon) ** 2
             if best is None or d < best[0]:

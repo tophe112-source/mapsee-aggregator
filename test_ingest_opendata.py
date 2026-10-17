@@ -6,6 +6,7 @@ from unittest.mock import Mock,patch,mock_open
 from datetime import datetime,timezone
 import requests
 import mapsee_ingest_opendata as ingest
+import catalog_curate as curator
 
 
 class OpenDataTests(TestCase):
@@ -89,6 +90,49 @@ class OpenDataTests(TestCase):
         biblio=json.loads(Path('bibliocommons_sources.json').read_text())
         if any(s.get('slug')=='chipublib' for s in biblio['sites']):
             self.assertEqual([s['name'] for s in sources if 'vsdy-d8k7' in s.get('url','')],[])
+
+    def test_merge_does_not_restore_retired_chicago_duplicate_while_primary_exists(self):
+        import tempfile
+        duplicate = {'type':'opendata','name':'Chicago Public Library Events',
+                     'url':'https://data.cityofchicago.org/resource/vsdy-d8k7.json?$limit=1000'}
+        other = {'type':'opendata','name':'Other Chicago Calendar',
+                 'url':'https://data.cityofchicago.org/resource/other.json'}
+        for primary_configured, expected in ((True, {'Other Chicago Calendar'}),
+                                             (False, {'Chicago Public Library Events',
+                                                      'Other Chicago Calendar'})):
+            with self.subTest(primary_configured=primary_configured), tempfile.TemporaryDirectory() as folder:
+                root = Path(folder)
+                (root/'opendata_sources.json').write_text(json.dumps([{'name':'Existing','url':'https://example.org/existing'}]))
+                (root/'bibliocommons_sources.json').write_text(json.dumps(
+                    {'sites':[{'slug':'chipublib'}] if primary_configured else []}))
+                verified = root/'verified.json'
+                verified.write_text(json.dumps([duplicate, other]))
+                with patch.object(curator, 'HERE', folder):
+                    curator.cmd_merge(str(verified))
+                merged = json.loads((root/'opendata_sources.json').read_text())
+                names = {entry['name'] for entry in merged}
+                self.assertEqual(names, {'Existing'} | expected)
+
+    def test_verify_skips_duplicate_but_allows_fallback_after_primary_removal(self):
+        import tempfile
+        candidate = {'type':'opendata','name':'Chicago Public Library Events',
+                     'url':'https://data.cityofchicago.org/resource/vsdy-d8k7.json?$limit=1000'}
+        for primary_configured, expected_count in ((True, 0), (False, 1)):
+            with self.subTest(primary_configured=primary_configured), tempfile.TemporaryDirectory() as folder:
+                root = Path(folder)
+                (root/'bibliocommons_sources.json').write_text(json.dumps(
+                    {'sites':[{'slug':'chipublib'}] if primary_configured else []}))
+                candidates = root/'candidates.json'
+                candidates.write_text(json.dumps([candidate]))
+                with patch.object(curator, 'HERE', folder), \
+                     patch.object(curator, '_session', return_value=object()), \
+                     patch.object(curator, '_load_ledger', return_value={}), \
+                     patch.object(curator, '_save_ledger'), \
+                     patch.object(curator, '_config_keys', return_value=set()), \
+                     patch.dict(curator.VERIFIERS, {'opendata': lambda _s, _e: (True, 'verified')}):
+                    curator.cmd_verify(str(candidates))
+                verified = json.loads((root/'candidates.verified.json').read_text())
+                self.assertEqual(len(verified), expected_count)
 
     def test_failed_source_is_reported_after_other_sources_are_saved(self):
         sources=[{'name':'good'},{'name':'broken'},{'name':'also good'}]

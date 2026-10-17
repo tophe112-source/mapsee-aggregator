@@ -92,6 +92,22 @@
   only configured or recently dead keys, so a re-proposal is caught by that
   test, not prevented.
 
+- **A RETIRED FEED CAN RETURN THROUGH THE NEXT VERIFIED MERGE.** Measured
+  2026-10-17: the **82**-script CI pass found **1** failure, the existing
+  Chicago duplication assertion. Commit `b7e2e48` removed Socrata dataset
+  `vsdy-d8k7` on October 13; automated curation `125f16d` re-added it on
+  October 14 because it still parsed and its ledger status was `ok`.
+  The configured `chipublib` BiblioCommons reader already supplies that
+  calendar (the prior measured overlap remains **187/188** event IDs).
+  Verification and merge now refuse that duplicate dataset while the primary
+  reader is configured, including a stale verified file and query variants;
+  removing the primary permits the fallback again. The source entry is removed
+  and `test_ingest_opendata.py` exercises the real merge. This stops new
+  duplicate ingestion; it does not remove existing database rows. The **5-day**
+  retirement window below must start from the first completed daily run without
+  the duplicate after this repair, not the superseded October 13 retirement.
+  After the repair all **82/82** CI test scripts passed locally in **22.9 s**.
+
 - **TURN THE COLLAPSER ON 5+ DAYS AFTER THE OPEN-DATA FEED STOPS (2026-10-13).**
   Its survivor is the newest import, and the open-data copies are the newer
   ones: in a replay of the census, 81 of 87 CPL same-page hides keep a row made

@@ -1,5 +1,18 @@
 # The sync, EventStore, upserts, paging, cursors, fingerprints and series
 
+- **ONE SYNC RUN READS ONE ADAPTER SNAPSHOT.** Measured 2026-10-17 with
+  production `main()` and a metadata-bearing fixture: the live path opened
+  the same store **3** times (legacy identities, cancellations, event rows);
+  dry-run opened it **2** times. Both now open it **1** time and share parsed
+  JSON with `legacy_pairs`, `cancellation_inputs` and `build_rows`. The
+  live fixture still passes the old identity to rekeying and the tombstone to
+  cancellation; dry-run still prints its event title and tombstone count.
+  Standalone helpers retain their file-reading behavior. The source snapshot
+  is released after row construction, before the remaining database writes.
+  `test_sync_lookup.py` has **29** passing tests, with unchanged-row and
+  cancellation checks also passing. Counts establish local file I/O savings,
+  not a measured reduction in network traffic or the database bill.
+
 > Part of mapsee-aggregator's agent notes — see `AGENTS.md` for the map. Read this file when the bug is about: an upsert that cannot delete, OFFSET vs keyset, PostgREST 5xx, `series_id`, `make_fingerprint`, `--ignore-cursor`, a toggle overtaken by a new kind of row.
 > Every note below was measured before it was written; keep the numbers when you edit.
 

@@ -356,6 +356,82 @@ class LookupTests(unittest.TestCase):
                 sync.main()
             write.assert_not_called()
 
+    def test_dry_run_reads_the_store_once_for_rows_and_cancellation_metadata(self):
+        import tempfile
+        rec = dict(fingerprint="event", name="Sample Library Storytime", source="test",
+                   start_utc="2026-10-20T18:00:00Z", latitude=47.6, longitude=-122.3,
+                   venue_name="Sample Library", legacy_fingerprints=["old-event"])
+        with tempfile.TemporaryDirectory() as folder:
+            path = os.path.join(folder, "store.json")
+            with open(path, "w", encoding="utf-8") as fh:
+                json.dump({"events": [rec],
+                           "tombstones": [{"fingerprint": "gone", "source": "ics:library",
+                                           "reason": "STATUS:CANCELLED"}]}, fh)
+            real_open = open
+            store_reads = []
+            out = io.StringIO()
+
+            def counted_open(file, *args, **kwargs):
+                if os.path.abspath(file) == os.path.abspath(path):
+                    store_reads.append(file)
+                return real_open(file, *args, **kwargs)
+
+            with patch("sys.argv", ["sync", "--store", path, "--dry-run"]), \
+                 patch("builtins.open", side_effect=counted_open), \
+                 redirect_stdout(out):
+                sync.main()
+        self.assertEqual(len(store_reads), 1,
+                         "rows, legacy identities, and cancellation metadata share one snapshot")
+        self.assertIn('"title": "Sample Library Storytime"', out.getvalue())
+        self.assertIn("1 tombstone(s)", out.getvalue())
+        self.assertIn("ics:library x1", out.getvalue())
+
+    def test_live_main_shares_legacy_and_tombstone_snapshot_and_reads_once(self):
+        import tempfile
+        rec = dict(fingerprint="event", name="Sample Library Storytime", source="test",
+                   start_utc="2026-10-20T18:00:00Z", latitude=47.6, longitude=-122.3,
+                   venue_name="Sample Library", legacy_fingerprints=["old-event"])
+        tombstone = {"fingerprint": "gone", "source": "ics:library", "reason": "STATUS:CANCELLED"}
+        with tempfile.TemporaryDirectory() as folder:
+            path = os.path.join(folder, "store.json")
+            with open(path, "w", encoding="utf-8") as fh:
+                json.dump({"events": [rec], "tombstones": [tombstone]}, fh)
+            real_open = open
+            store_reads = []
+
+            def counted_open(file, *args, **kwargs):
+                if os.path.abspath(file) == os.path.abspath(path):
+                    store_reads.append(file)
+                return real_open(file, *args, **kwargs)
+
+            legacy_seen, canceled = [], []
+            store = Store({})
+            out = io.StringIO()
+            with patch.dict(os.environ, {"MAPSEE_HOST_PROFILE_ID": "host", "SUPABASE_URL": "https://db.example",
+                                        "SUPABASE_SERVICE_ROLE_KEY": "unused-test-key",
+                                        "SPOTIFY_CLIENT_ID": "", "SPOTIFY_CLIENT_SECRET": ""}), \
+                 patch("sys.argv", ["sync", "--store", path]), \
+                 patch("requests.Session", return_value=store), \
+                 patch("builtins.open", side_effect=counted_open), \
+                 patch.object(sync, "rekey_legacy",
+                              side_effect=lambda _session, _url, _key, pairs:
+                                  (legacy_seen.append(pairs) or (set(), set()))), \
+                 patch.object(sync, "batch_geocode", return_value={}), \
+                 patch.object(sync, "load_blocklist", return_value=[]), \
+                 patch.object(sync, "merge_copy_categories", return_value=0), \
+                 patch.object(sync, "apply_cancellations",
+                              side_effect=lambda _session, _url, _key, targets, _now:
+                                  (canceled.append(dict(targets)) or (set(), set(), set()))), \
+                 patch.object(sync, "upsert", return_value=(1, 0, 0)), \
+                 redirect_stdout(out):
+                sync.main()
+        self.assertEqual(len(store_reads), 1,
+                         "live sync previously opened this metadata-bearing store three times")
+        self.assertEqual(legacy_seen, [{"event": ["old-event"]}])
+        self.assertEqual(canceled, [{"gone": "ics:library"}],
+                         "the production cancellation parser still feeds the expected target")
+        self.assertIn("Upserted 1 events", out.getvalue())
+
 
 class Writable(Store):
     """Store that also answers PATCH, moving or hiding a row as PostgREST would."""
