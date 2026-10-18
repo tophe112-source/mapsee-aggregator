@@ -503,6 +503,10 @@ class NormalizedEvent:
     admission_checked: bool = False
     spotify_url: Optional[str] = None      # artist's Spotify page (exact, when a source provides it)
     youtube_url: Optional[str] = None      # artist's YouTube (exact, when a source provides it)
+    # The source's own fine classification, as it names it ("MLS", "Alternative
+    # Rock") - what the sync's broadcast rules key on. Ticketmaster's sub-genre;
+    # other adapters leave it None and nothing downstream assumes it.
+    genre: Optional[str] = None
     # A WEEKLY PATTERN, for sources that describe a standing arrangement rather
     # than an occasion: {"0": ["11:00","22:00"], …}, 0=Monday…6=Sunday.
     #
@@ -620,7 +624,7 @@ _FILLABLE = (
     "description", "start_local", "start_utc", "end_local", "end_utc", "timezone", "venue_name",
     "latitude", "longitude", "address", "city", "region", "country",
     "postal_code", "category", "promoter", "poster_image_url",
-    "spotify_url", "youtube_url",
+    "spotify_url", "youtube_url", "genre",
 )
 
 
@@ -1542,6 +1546,7 @@ def parse_ticketmaster_event(raw: Dict[str, Any]) -> NormalizedEvent:
         ticket_url=raw.get("url"),
         spotify_url=spotify_url,
         youtube_url=youtube_url,
+        genre=_primary_genre(raw),           # "MLS" on a Sounders match: the sync's 📺 Watch rule reads it
     )
     ev.fingerprint = make_fingerprint(headliner, local_date, v.get("name"),
                                       (v.get("city", {}) or {}).get("name"))

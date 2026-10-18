@@ -1744,6 +1744,29 @@ def is_virtual(rec: Dict[str, Any]) -> bool:
     return False
 
 
+# WHERE A WHOLE LEAGUE IS STREAMED BY ONE SERVICE - and nowhere else. Keyed on
+# the source's own sub-genre (NormalizedEvent.genre; Ticketmaster names the
+# league there), never on a title: "Seattle vs Montreal" could be a soccer
+# match on Apple TV or a hockey game on something else, and the row knows
+# which only because Ticketmaster said "MLS". MLS is here because every MLS
+# match is on Apple TV (the league's 2023-2032 deal); a league whose games
+# split across networks per fixture has no honest single answer and is NOT a
+# candidate for this table, however big it is. The URL is the short alias
+# Apple keeps stable (it 301s to the channel page) - verified 2026-10-17; the
+# three collection/room URLs that seemed right from memory were all 404.
+BROADCAST_RULES = {
+    "MLS": (("Apple TV", "https://tv.apple.com/mls"),),
+}
+
+
+def broadcast_for(rec: Dict[str, Any], category_key: Optional[str]):
+    """((service, url), ...) for a listing whose league is streamed in one known
+    place; () otherwise. Sports only - a concert's genre is not a league."""
+    if category_key != "sports":
+        return ()
+    return BROADCAST_RULES.get(str(rec.get("genre") or "").strip(), ())
+
+
 def _pick_artist(rec: Dict[str, Any]) -> Optional[str]:
     """Best guess at the performer to build listen links from: the headliner
     (lineup[0]) if present, else the event title. Not the promoter — that's the
@@ -1987,6 +2010,17 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
         listen = [x for x in listen if x]
         if listen:
             parts.append("🎵 Listen — " + "  ·  ".join(listen))
+    # 📺 Watch — where the game is streamed. ONLY from a rule the league itself
+    # makes true (broadcast_for): the data never says where a match is shown,
+    # and a broadcaster guessed from a title is a link that lies. Written LAST,
+    # so every tail cut that stops at the first marker (0227's regexp, the two
+    # offer measurers, the app's peek blurb) already drops it along with the
+    # rest; a listing with this line and no other marker would keep it in the
+    # body those read, which no Ticketmaster row can be — they all carry
+    # "Tickets / info:".
+    watch = broadcast_for(rec, category_key)
+    if watch:
+        parts.append("📺 Watch — " + "  ·  ".join(f"{name}: {url}" for name, url in watch))
     description = "\n\n".join(parts) or None
     # Volunteering is free community time — strip any ticket price the source
     # baked in (e.g. a Ticketmaster event promoted to the volunteer layer keeps

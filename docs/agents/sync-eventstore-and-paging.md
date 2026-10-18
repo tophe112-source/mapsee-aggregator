@@ -640,3 +640,31 @@
   shop with nothing in its slug (klappei.stager.co for a Galway Candlelight
   concert, amazone.be for a Brno puppet show): step 2's read of 50 pairs per
   rule should open the kept row's link, not only the hidden one's.
+
+- **📺 WATCH IS A RULE ABOUT A LEAGUE, NEVER A GUESS ABOUT A TITLE.**
+  2026-10-17. The map now shows an "Apple TV" chip on a Sounders match. The row
+  never said where it is streamed — Ticketmaster states the league (sub-genre
+  "MLS") and nothing about broadcasters — so the sync holds `BROADCAST_RULES`,
+  keyed on `NormalizedEvent.genre` (the Ticketmaster adapter now keeps
+  `_primary_genre` as a field, and it is in `_FILLABLE` so a refresh fills it),
+  gated on category `sports`, and `to_row` writes the LAST tail line in the
+  Listen line's shape: `📺 Watch — Apple TV: https://tv.apple.com/mls`. The
+  table holds exactly the leagues with one home: MLS, because every MLS match
+  is on Apple TV (the 2023–2032 deal). A league whose games split across
+  networks per fixture (NBA, NFL) has no honest single answer and is NOT a
+  candidate, however big; "Seattle vs Montreal" is also a hockey game, and a
+  title tells you nothing. **The URL was verified, not recalled**: the short
+  alias 301s to the channel page; the three collection/room URLs that seemed
+  right from memory were all 404 (a link that 404s is worse than no button).
+  Written LAST so every cutter that stops at the first marker — 0227's SQL
+  regexp, `offers_0227.body_text`, `measure_deals.py`, the app's peek blurb —
+  drops it with the rest; the three Python/JS cutters also learnt the marker for
+  a body whose only marker it is, which no Ticketmaster row can be (they all
+  carry "Tickets / info:"). The SQL trigger was left alone: it cuts at the first
+  marker, and the line never reaches the body it tags from. `test_sync_watch.py`
+  (11) runs the adapter, the rule, the tail order and the measurer's own cutter;
+  **5 of 5 mutants caught** on this side (the sports gate dropped, the line
+  written before Listen, a title guess, the adapter dropping the field, the
+  measurer's alternation removed — that last one survived a check that compared
+  strings until the check ran the cutter). The app half is in
+  `../mapsee/docs/agents/events-and-sheets.md`.

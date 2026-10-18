@@ -400,7 +400,7 @@ INTRO = _rx(r"\b(?:first|1st|trial|intro(?:ductory)?|taster)\s+(?:class|lesson|s
 def tagged_free(title, description):
     """measure_deals.classify's `free`, on what the sync stores."""
     body = (description or "").split("\n\n📍")[0]
-    body = re.split(r"\n\nTickets / info:|\n\n🔎 More on this|\n\n🎵 Listen", body)[0]
+    body = re.split(r"\n\nTickets / info:|\n\n🔎 More on this|\n\n🎵 Listen|\n\n📺 Watch", body)[0]
     txt = (title or "") + "\n" + body
     strip = lambda s: FREE_COND.sub(" ", FREE_PERK.sub(" ", INTRO.sub(" ", s)))  # noqa: E731
     return not FREE_NEG.search(txt) and bool(FREE.search(strip(txt)) or FREE_TITLE.search(strip(title or "")))

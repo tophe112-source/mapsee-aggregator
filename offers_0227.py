@@ -139,7 +139,7 @@ def body_text(r):
     carries a price; Ticketmaster's "Approx. price:" line sits ABOVE it."""
     d = r.get("description") or ""
     body = d.split("\n\n📍")[0]
-    body = re.split(r"\n\nTickets / info:|\n\n🔎 More on this|\n\n🎵 Listen", body)[0]
+    body = re.split(r"\n\nTickets / info:|\n\n🔎 More on this|\n\n🎵 Listen|\n\n📺 Watch", body)[0]
     return (r.get("title") or "") + "\n" + body
 
 
