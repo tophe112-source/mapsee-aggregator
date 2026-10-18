@@ -34225,5 +34225,296 @@
     "geocode_suffix": ", Nuenen",
     "limit": 300,
     "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Ennetraum",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/44pbbpbcrukqur3atg1n7800pk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Zurich, Switzerland",
+    "limit": 300,
+    "venue": {
+      "name": "Ennetraum",
+      "postal_code": "5408",
+      "lat": 47.479649,
+      "lon": 8.3145719,
+      "street_hint": "8 Badstrasse",
+      "pin_unnamed": false
+    },
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Pfadiheim Türggenheim",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://outlook.office365.com/owa/calendar/81021a8a3471435bac6e7430a00a3885%40regionazur.onmicrosoft.com/5090eecfd52b4d8b900160766fde6d715996849667674657913/calendar.ics",
+    "geocode_suffix": ", Oetwil an der Limmat",
+    "limit": 300,
+    "venue": {
+      "name": "Pfadiheim Türggenheim",
+      "city": "Oetwil an der Limmat",
+      "lat": 47.4331579,
+      "lon": 8.399199,
+      "street_hint": "2 Winklenweg",
+      "aliases": [
+        "TH Altpfadi Altberg"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Zurich, Switzerland"
+  },
+  {
+    "name": "Le Pneu",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/velodrome%40levelodrome.org/public/basic.ics",
+    "geocode_suffix": ", Genève",
+    "limit": 300,
+    "venue": {
+      "name": "Le Pneu",
+      "city": "Genève",
+      "postal_code": "1205",
+      "lat": 46.1996434,
+      "lon": 6.1315509,
+      "street_hint": "18 Rue du Vélodrome",
+      "pin_unnamed": false
+    },
+    "_metro": "Geneva, Switzerland"
+  },
+  {
+    "name": "Treff Wylergut",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/0imdltkqlju8h325q9du2pisvk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Bern, Switzerland",
+    "limit": 300,
+    "venue": {
+      "name": "Treff Wylergut",
+      "lat": 46.965213,
+      "lon": 7.4486117,
+      "aliases": [
+        "Treffpunkt Wylergut"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Bern, Switzerland"
+  },
+  {
+    "name": "Maison de Quartier Sous-Gare",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager+ics",
+    "url": "https://maisondequartiersousgare.ch/events/edition-limitee/ical/",
+    "geocode_suffix": ", Lausanne",
+    "limit": 300,
+    "venue": {
+      "name": "Maison de Quartier Sous-Gare",
+      "city": "Lausanne",
+      "postal_code": "1006",
+      "country": "CH",
+      "lat": 46.5151291,
+      "lon": 6.6261227,
+      "street_hint": "50 Avenue Edouard-Dapples",
+      "pin_unnamed": false
+    },
+    "_metro": "Lausanne, Switzerland",
+    "crawl_delay": 10.0
+  },
+  {
+    "name": "Centro di Nonviolenza Attiva",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mubtqpb0p3nnbuum25k9qhapt8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Milano",
+    "limit": 300,
+    "venue": {
+      "name": "Centro di Nonviolenza Attiva",
+      "city": "Milano",
+      "postal_code": "20132",
+      "lat": 45.4913587,
+      "lon": 9.2339508,
+      "street_hint": "5 Via Guido Mazzali",
+      "pin_unnamed": false
+    },
+    "_metro": "Milan, Italy"
+  },
+  {
+    "name": "Centro sociale «Il pozzo»",
+    "category": "community",
+    "_found": "osm:social_centre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/591c4ae43a4d5fac7c7b5b32ab6a8b106b696e1b7281410a481a7b13c8692b54%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Firenze",
+    "limit": 300,
+    "venue": {
+      "name": "Centro sociale «Il pozzo»",
+      "city": "Firenze",
+      "postal_code": "50145",
+      "lat": 43.7921477,
+      "lon": 11.176171,
+      "aliases": [
+        "Comunità di base delle Piagge"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Florence, Italy"
+  },
+  {
+    "name": "板橋区立蓮根図書館",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/vbs2af6app1kqpssdqrc4p7nv8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tokyo, Japan",
+    "limit": 300,
+    "venue": {
+      "name": "板橋区立蓮根図書館",
+      "postal_code": "174-0046",
+      "lat": 35.7884976,
+      "lon": 139.6762957,
+      "aliases": [
+        "Itabashi City Hasune Library"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Tokyo, Japan"
+  },
+  {
+    "name": "板橋区立西台図書館",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/2b2fv964ke1gs8ljrot43e4s50%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tokyo, Japan",
+    "limit": 300,
+    "venue": {
+      "name": "板橋区立西台図書館",
+      "postal_code": "175-0045",
+      "lat": 35.773979,
+      "lon": 139.668886,
+      "pin_unnamed": false
+    },
+    "_metro": "Tokyo, Japan"
+  },
+  {
+    "name": "高島平図書館",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/a2af9cp4hfdodcl6fn1ja1vfa8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tokyo, Japan",
+    "limit": 300,
+    "venue": {
+      "name": "高島平図書館",
+      "postal_code": "175-0082",
+      "lat": 35.7874762,
+      "lon": 139.6590988,
+      "aliases": [
+        "Itabashi City Takashimadaira Library",
+        "たかしまだいらとしょかん"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Tokyo, Japan"
+  },
+  {
+    "name": "日本エスペラント協会",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/t8ukckns9tgfdc7tgj39bm5djs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Tokyo, Japan",
+    "limit": 300,
+    "venue": {
+      "name": "日本エスペラント協会",
+      "lat": 35.7054598,
+      "lon": 139.7228491,
+      "aliases": [
+        "Japana Esperanto-Instituto"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Tokyo, Japan"
+  },
+  {
+    "name": "清泉女子大学図書館",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_v1pd6qb1po34hhc7ma3tljq320%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", 品川区, 東京都",
+    "limit": 300,
+    "venue": {
+      "name": "清泉女子大学図書館",
+      "city": "品川区",
+      "region": "東京都",
+      "postal_code": "141-8642",
+      "lat": 35.6274296,
+      "lon": 139.7282379,
+      "aliases": [
+        "Seisen University Library"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Tokyo, Japan"
+  },
+  {
+    "name": "南原会館",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/otoiawase%40choren.jp/public/basic.ics",
+    "geocode_suffix": ", Tokyo, Japan",
+    "limit": 300,
+    "venue": {
+      "name": "南原会館",
+      "lat": 35.8035785,
+      "lon": 139.6743366,
+      "pin_unnamed": false
+    },
+    "_metro": "Tokyo, Japan"
+  },
+  {
+    "name": "大阪産業労働資料館",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ba2f9q0g167uhidlhqnplectek%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Osaka, Japan",
+    "limit": 300,
+    "venue": {
+      "name": "大阪産業労働資料館",
+      "lat": 34.6900114,
+      "lon": 135.5128464,
+      "aliases": [
+        "エル・ライブラリー"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Osaka, Japan"
+  },
+  {
+    "name": "海老名市立有馬図書館",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/3f14f0787cff5647dc51c5e4ae458ff12afd3df06d4605931287f86c4fd4e7e7%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Yokohama, Japan",
+    "limit": 300,
+    "venue": {
+      "name": "海老名市立有馬図書館",
+      "lat": 35.4078871,
+      "lon": 139.3802927,
+      "aliases": [
+        "Ebina City Arima Library"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Yokohama, Japan"
+  },
+  {
+    "name": "湘南⼯科⼤学附属図書館",
+    "category": "learning",
+    "_found": "osm:library -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_ic6301f8is574i7ln85ak72uho%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Yokohama, Japan",
+    "limit": 300,
+    "venue": {
+      "name": "湘南⼯科⼤学附属図書館",
+      "lat": 35.3256967,
+      "lon": 139.452986,
+      "pin_unnamed": false
+    },
+    "_metro": "Yokohama, Japan"
   }
 ]

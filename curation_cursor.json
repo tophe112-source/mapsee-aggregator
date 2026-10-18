@@ -257,8 +257,8 @@
   "stuck": {}
  },
  "osm|community_centre,library,social_centre": {
-  "metro": 36,
-  "metro_key": "CH:Zurich",
+  "metro": 53,
+  "metro_key": "JP:Sapporo",
   "stuck": {}
  },
  "socrata": {

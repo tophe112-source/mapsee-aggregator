@@ -20111,6 +20111,51 @@
         "lon": 5.6903422
       },
       "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Biblioteca Beato Pio IX",
+      "category": "learning",
+      "_found": "osm:library -> tribe+jsonld-event+ics",
+      "base_url": "https://www.pul.va",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Biblioteca Beato Pio IX",
+        "lat": 41.8855451,
+        "lon": 12.5035565,
+        "aliases": [
+          "Biblioteca Pia"
+        ]
+      },
+      "_metro": "Rome, Italy"
+    },
+    {
+      "name": "Cassero LGBTQIA+ Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://cassero.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Cassero LGBTQIA+ Center",
+        "lat": 44.5028624,
+        "lon": 11.3351708
+      },
+      "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "LoveMyWay",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.lovemyway.it",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "LoveMyWay",
+        "lat": 43.7696877,
+        "lon": 11.2644268
+      },
+      "_metro": "Florence, Italy"
     }
   ],
   "_not_included": {

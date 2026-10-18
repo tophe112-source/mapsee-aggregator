@@ -10167,6 +10167,101 @@
         "lon": 5.6280759
       },
       "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Karussell Familienzentrum",
+      "category": "community",
+      "_found": "osm:social_centre -> jsonld-event",
+      "listing": [
+        "https://www.karussell-baden.ch/angebote/event/60/frauentreff/"
+      ],
+      "link_pattern": "https://www\\.karussell\\-baden\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Karussell Familienzentrum",
+        "city": "Baden",
+        "postal_code": "5400",
+        "lat": 47.4785975,
+        "lon": 8.3080792,
+        "street_hint": "6 Haselstrasse"
+      },
+      "_metro": "Zurich, Switzerland"
+    },
+    {
+      "name": "Familienzentrum Rheinfelden e.V.",
+      "category": "community",
+      "_found": "osm:social_centre -> jsonld-event",
+      "listing": [
+        "https://www.familienzentrum-rheinfelden.de/events/"
+      ],
+      "link_pattern": "https://www\\.familienzentrum\\-rheinfelden\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Familienzentrum Rheinfelden e.V.",
+        "lat": 47.5578307,
+        "lon": 7.784262
+      },
+      "_metro": "Basel, Switzerland"
+    },
+    {
+      "name": "Bibliothek Frauenverein Muttenz",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://www.frauenverein-muttenz.ch/eventleser/374.html"
+      ],
+      "link_pattern": "https://www\\.frauenverein\\-muttenz\\.ch/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bibliothek Frauenverein Muttenz",
+        "city": "Muttenz",
+        "postal_code": "4132",
+        "country": "CH",
+        "lat": 47.5271481,
+        "lon": 7.6464047,
+        "street_hint": "3 Brühlweg"
+      },
+      "_metro": "Basel, Switzerland"
+    },
+    {
+      "name": "Bloom",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://bloomnet.org/calendario/2614/venerd-22-gennaio-2027-colour-haze"
+      ],
+      "link_pattern": "https://bloomnet\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Bloom",
+        "city": "Mezzago",
+        "postal_code": "20883",
+        "lat": 45.6310178,
+        "lon": 9.4419631,
+        "street_hint": "39 Via Eugenio Curiel",
+        "aliases": [
+          "Cooperativa Sociale Il Visconte di Mezzago"
+        ]
+      },
+      "_metro": "Milan, Italy"
+    },
+    {
+      "name": "Biblioteca del Navile",
+      "category": "learning",
+      "_found": "osm:library -> jsonld-event",
+      "listing": [
+        "https://navile.sba.unibo.it/agenda/structural-biology-meeting-instruct-it"
+      ],
+      "link_pattern": "https://navile\\.sba\\.unibo\\.it/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Biblioteca del Navile",
+        "city": "Bologna",
+        "postal_code": "40129",
+        "lat": 44.5217171,
+        "lon": 11.336498
+      },
+      "_metro": "Bologna, Italy"
     }
   ],
   "_not_included": {
