@@ -668,3 +668,18 @@
   measurer's alternation removed — that last one survived a check that compared
   strings until the check ran the cutter). The app half is in
   `../mapsee/docs/agents/events-and-sheets.md`.
+
+- **A LEAGUE'S SERVICES ARE ORDERED FREE-FIRST, AND A FREE ONE SAYS SO.**
+  2026-10-17. `BROADCAST_RULES` entries are now `(service, url, free)`;
+  `broadcast_for` sorts free ones first whatever order the table lists them
+  in, and `to_row` writes "(free)" after a free service's name ("📺 Watch —
+  Open TV (free): …  ·  PayWall+: …"). The app points its one chip at the
+  first service, so this order IS the recommendation, and a rule that listed
+  a paywall ahead of a free stream would be recommending the wrong one. Apple
+  TV is `False`: MLS's free matches are a weekly selection, not a fact about
+  the league. The bar for adding a league is unchanged — one verifiable home,
+  or one verifiable free home, for every fixture — and nothing was added, because
+  nothing else meets it; the structure is what this adds. `test_sync_watch.py`
+  (14) runs the ordering on a table of its own, so it is graded rather than
+  the one entry's accident; **4 of 4 mutants caught** on this side (free-first
+  removed, reversed, the flag not written, Apple TV claimed free).

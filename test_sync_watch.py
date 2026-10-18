@@ -68,7 +68,23 @@ check("the offer measurer cuts a body whose only marker is the Watch line (its o
 check("a league with no single home gets nothing, however big", "📺" not in desc(genre="NBA"))
 check("no sub-genre, nothing", "📺" not in desc(genre=None))
 check("the same word on a concert is not a league", "📺" not in desc(genre="MLS", category="music"))
-check("the rule table says exactly what it can stand behind", SY.BROADCAST_RULES == {"MLS": (("Apple TV", "https://tv.apple.com/mls"),)})
+check("the rule table says exactly what it can stand behind - and Apple TV is a subscription, not free",
+      SY.BROADCAST_RULES == {"MLS": (("Apple TV", "https://tv.apple.com/mls", False),)})
+check("...so the line carries no (free) on it", "(free)" not in d)
+# FREE GOES FIRST, whatever order the table lists them in. Run on a rule table
+# of our own, so the ordering is graded and not the one entry's accident.
+with_free = {"XYZ": (("PayWall+", "https://paywall.example/x", False), ("Open TV", "https://open.example/x", True))}
+orig = SY.BROADCAST_RULES
+try:
+    SY.BROADCAST_RULES = with_free
+    got = SY.broadcast_for({"genre": "XYZ"}, "sports")
+    check("a free service is listed ahead of a subscription one, however the table orders them",
+          [r[0] for r in got] == ["Open TV", "PayWall+"], got)
+    line = desc(genre="XYZ").split("\n\n")[-1]
+    check("...and the line says which is free, first, with the flag written once after the name",
+          line == "📺 Watch — Open TV (free): https://open.example/x  ·  PayWall+: https://paywall.example/x", line)
+finally:
+    SY.BROADCAST_RULES = orig
 check("the line's shape is the Listen line's: one marker, service-colon-url, dot-separated",
       re.fullmatch(r"📺 Watch — (?:[^:\n]+: https?://\S+)(?:  ·  [^:\n]+: https?://\S+)*", d.split("\n\n")[-1]) is not None, d.split("\n\n")[-1])
 

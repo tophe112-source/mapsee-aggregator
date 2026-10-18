@@ -1754,17 +1754,28 @@ def is_virtual(rec: Dict[str, Any]) -> bool:
 # candidate for this table, however big it is. The URL is the short alias
 # Apple keeps stable (it 301s to the channel page) - verified 2026-10-17; the
 # three collection/room URLs that seemed right from memory were all 404.
+#
+# EACH SERVICE SAYS WHETHER IT IS FREE, and free goes FIRST - in the line, and
+# so in the chip the app makes of it, which points at the first service. "No
+# subscription" is the thing a person deciding whether to watch wants to know
+# before the name of the service, and a rule that listed a paywall ahead of a
+# free stream would be recommending the wrong one. Apple TV is a subscription:
+# MLS's free matches are a weekly selection, not a fact about the league, and a
+# flag that was true for some fixtures would be a lie on the rest.
 BROADCAST_RULES = {
-    "MLS": (("Apple TV", "https://tv.apple.com/mls"),),
+    # league: ((service, url, free), ...) - keep free ones first; sorted anyway
+    "MLS": (("Apple TV", "https://tv.apple.com/mls", False),),
 }
 
 
 def broadcast_for(rec: Dict[str, Any], category_key: Optional[str]):
-    """((service, url), ...) for a listing whose league is streamed in one known
-    place; () otherwise. Sports only - a concert's genre is not a league."""
+    """((service, url, free), ...) for a listing whose league is streamed in
+    known places, FREE FIRST; () otherwise. Sports only - a concert's genre is
+    not a league."""
     if category_key != "sports":
         return ()
-    return BROADCAST_RULES.get(str(rec.get("genre") or "").strip(), ())
+    rules = BROADCAST_RULES.get(str(rec.get("genre") or "").strip(), ())
+    return tuple(sorted(rules, key=lambda r: not r[2]))
 
 
 def _pick_artist(rec: Dict[str, Any]) -> Optional[str]:
@@ -2018,9 +2029,11 @@ def to_row(rec: Dict[str, Any], host_id: str) -> Dict[str, Any]:
     # rest; a listing with this line and no other marker would keep it in the
     # body those read, which no Ticketmaster row can be — they all carry
     # "Tickets / info:".
+    # A free service wears "(free)" after its name - the one fact the app's
+    # chip wants before the name - and the free ones come first.
     watch = broadcast_for(rec, category_key)
     if watch:
-        parts.append("📺 Watch — " + "  ·  ".join(f"{name}: {url}" for name, url in watch))
+        parts.append("📺 Watch — " + "  ·  ".join(f"{name}{' (free)' if free else ''}: {url}" for name, url, free in watch))
     description = "\n\n".join(parts) or None
     # Volunteering is free community time — strip any ticket price the source
     # baked in (e.g. a Ticketmaster event promoted to the volunteer layer keeps
