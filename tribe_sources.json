@@ -19681,6 +19681,436 @@
         "street_hint": "32 Rue Saint-Thomas"
       },
       "_metro": "Liege, Belgium"
+    },
+    {
+      "name": "GO",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://go-leerdam.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "GO",
+        "address": "90 Dr. C. Voogdplein",
+        "city": "Leerdam",
+        "postal_code": "4141CN",
+        "lat": 51.8928189,
+        "lon": 5.0966425
+      },
+      "_metro": "Utrecht, Netherlands",
+      "crawl_delay": 5.0
+    },
+    {
+      "name": "Aqua Zoo Leerdam",
+      "category": "outdoors",
+      "_found": "osm:aquarium -> tribe+jsonld-event+ics",
+      "base_url": "https://www.aquazoo-leerdam.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aqua Zoo Leerdam",
+        "address": "21 Lingesteynplantsoen",
+        "city": "Leerdam",
+        "postal_code": "4141GH",
+        "lat": 51.8910898,
+        "lon": 5.1078705
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Het Beauforthuis",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.beauforthuis.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Het Beauforthuis",
+        "address": "70 Woudenbergseweg",
+        "city": "Austerlitz",
+        "postal_code": "3711AB",
+        "lat": 52.0878313,
+        "lon": 5.3028552
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Conferentiecentrum Samaya",
+      "category": "community",
+      "_found": "osm:conference_centre -> tribe",
+      "base_url": "https://www.samaya.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Conferentiecentrum Samaya",
+        "address": "20 Hollendewagenweg",
+        "city": "Werkhoven",
+        "postal_code": "3985SG",
+        "lat": 52.0028322,
+        "lon": 5.2553359
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Het Klooster",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://www.kloosterwoerden.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Het Klooster",
+        "address": "77 Wilhelminaweg",
+        "city": "Woerden",
+        "postal_code": "3441XB",
+        "lat": 52.0847256,
+        "lon": 4.8863982
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Museum Warsenhoeck",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.museumwarsenhoeck.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Museum Warsenhoeck",
+        "address": "11 Geinoord",
+        "city": "Nieuwegein",
+        "postal_code": "3432PE",
+        "lat": 52.0225868,
+        "lon": 5.08284
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Tielse Tafeltennis Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://tielsetc.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tielse Tafeltennis Club",
+        "address": "24 Beethovenstraat",
+        "city": "Tiel",
+        "postal_code": "4003KX",
+        "lat": 51.8852565,
+        "lon": 5.4118802
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Historische Collectie Verbindingsdienst",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://verbindingsdienst.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Historische Collectie Verbindingsdienst",
+        "lat": 52.1483272,
+        "lon": 5.3513443
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "De Kamers",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event",
+      "base_url": "https://www.theaterdekamers.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Kamers",
+        "address": "1 Wezeperberg",
+        "city": "Amersfoort",
+        "postal_code": "3825DJ",
+        "lat": 52.1981293,
+        "lon": 5.4167271
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Boekhandel Tomey",
+      "category": "learning",
+      "_found": "osm:books -> tribe+jsonld-event+ics",
+      "base_url": "https://www.boekhandeltomey.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boekhandel Tomey",
+        "address": "8 Markt",
+        "city": "Culemborg",
+        "postal_code": "4101BX",
+        "lat": 51.9579722,
+        "lon": 5.2251275
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "FLUOR",
+      "category": "music",
+      "_found": "osm:nightclub -> tribe",
+      "base_url": "https://fluor033.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "FLUOR",
+        "address": "22 Oliemolenhof",
+        "city": "Amersfoort",
+        "postal_code": "3812PB",
+        "lat": 52.1601275,
+        "lon": 5.3791159
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Voetbalvereniging VOP",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.voetbal-vop.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Voetbalvereniging VOP",
+        "address": "20 Olympus",
+        "city": "Amersfoort",
+        "postal_code": "3825AJ",
+        "lat": 52.1968451,
+        "lon": 5.401811
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "SportClub Houten",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://sportclubhouten.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "SportClub Houten",
+        "address": "7 Pelmolen",
+        "city": "Houten",
+        "postal_code": "3994XX",
+        "lat": 52.0283595,
+        "lon": 5.1740643
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Land in Zicht",
+      "category": "community",
+      "_found": "osm:social_facility -> tribe+jsonld-event+ics",
+      "base_url": "http://landinzicht.net",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Land in Zicht",
+        "address": "21 Achterhoekerweg",
+        "city": "Amersfoort",
+        "postal_code": "3826NA",
+        "lat": 52.2122706,
+        "lon": 5.4124204
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Springintheater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://springintheater.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Springintheater",
+        "address": "6 Vrieslantlaan",
+        "city": "Utrecht",
+        "postal_code": "3526AA",
+        "country": "NL",
+        "lat": 52.0637919,
+        "lon": 5.1048459
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Moira-Domtoren",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.moira-domtoren.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Moira-Domtoren",
+        "address": "2 Koningsweg",
+        "city": "Utrecht",
+        "postal_code": "3582GE",
+        "lat": 52.0776575,
+        "lon": 5.1334486
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "De Hoeksteen",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ngk-dehoeksteen.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Hoeksteen",
+        "lat": 51.8934695,
+        "lon": 5.1009104
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Noorderlichtkerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.noorderlichtgemeente.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Noorderlichtkerk",
+        "lat": 52.0950407,
+        "lon": 5.2443149
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Het Kruispunt",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://kruispuntvathorst.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Het Kruispunt",
+        "address": "22 Terschellingkade",
+        "city": "Amersfoort",
+        "postal_code": "3826DJ",
+        "lat": 52.1939832,
+        "lon": 5.4353309
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Slot Zuylen",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://slotzuylen.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Slot Zuylen",
+        "address": "1 Tournooiveld",
+        "city": "Oud Zuilen",
+        "postal_code": "3611AS",
+        "lat": 52.1266409,
+        "lon": 5.0729573
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Tripodia",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://tripodia.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Tripodia",
+        "lat": 52.2065591,
+        "lon": 4.4176518
+      },
+      "_metro": "The Hague, Netherlands"
+    },
+    {
+      "name": "DUNAatelier",
+      "category": "arts",
+      "_found": "osm:arts_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://schilderenaanzee.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "DUNAatelier",
+        "address": "31 Boulevard Zeezijde",
+        "city": "Katwijk",
+        "postal_code": "2225BB",
+        "lat": 52.2008399,
+        "lon": 4.3900911
+      },
+      "_metro": "The Hague, Netherlands"
+    },
+    {
+      "name": "VV SJC",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://vvsjc.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "VV SJC",
+        "lat": 52.2308992,
+        "lon": 4.4604211
+      },
+      "_metro": "The Hague, Netherlands"
+    },
+    {
+      "name": "The Nativity of the Mother of God Convent, Asten, the Netherlands",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://orthodoxasten.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "The Nativity of the Mother of God Convent, Asten, the Netherlands",
+        "address": "7 Gruttoweg",
+        "city": "Heusden",
+        "postal_code": "5725RT",
+        "lat": 51.3755142,
+        "lon": 5.8248192
+      },
+      "_metro": "Eindhoven, Netherlands",
+      "crawl_delay": 10.0
+    },
+    {
+      "name": "Pand P",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://pand-p.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Pand P",
+        "address": "65 Leenderweg",
+        "city": "Eindhoven",
+        "postal_code": "5614HL",
+        "lat": 51.4271073,
+        "lon": 5.4891089
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "TPC Boshoven",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://tpcboshoven.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TPC Boshoven",
+        "address": "4 Vrakkerveld",
+        "city": "Weert",
+        "postal_code": "6002AZ",
+        "lat": 51.2565897,
+        "lon": 5.6903422
+      },
+      "_metro": "Eindhoven, Netherlands"
     }
   ],
   "_not_included": {

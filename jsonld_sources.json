@@ -9851,6 +9851,322 @@
       "skip_title": "\\b(?:closed|building closed|private lessons?|group classes?|classes?|lessons?|rehearsals?|auditions?)\\b|^(?:first day|last day|lessons resume)\\b",
       "_metro": "Seattle, United States",
       "_note": "Official calendar yields 72 unique event-page links (<100 cap); detail pages carry per-event venue addresses, including partner venues, so no single-venue pin is applied. Opted-in short HTML meta descriptions are used only on matching single-event detail pages whose Event block lacks description and offers; verified free concerts: CenterPiece Jazz Band (2026-10-24) and Haydn & Beyond Workshop Ensemble (2026-11-01). skip_title excludes closures, classes, lessons, rehearsals and auditions. Event pages omit geo coordinates; the adapter geocodes their publisher-supplied venue/address per event."
+    },
+    {
+      "name": "Utrechtse Rugby Club",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://utrechtserugbyclub.nl/agenda/"
+      ],
+      "link_pattern": "https://utrechtserugbyclub\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Utrechtse Rugby Club",
+        "address": "5 Sportpark Rijnvliet",
+        "city": "Utrecht",
+        "postal_code": "3545EA",
+        "lat": 52.0761993,
+        "lon": 5.0632243
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "De Helling",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://dehelling.nl/agenda/"
+      ],
+      "link_pattern": "https://dehelling\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Helling",
+        "address": "7 Helling",
+        "city": "Utrecht",
+        "postal_code": "3523CB",
+        "lat": 52.0768342,
+        "lon": 5.1217676
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Villa Concordia",
+      "category": "theater",
+      "_found": "osm:theatre -> wp-event-manager+jsonld-event",
+      "listing": [
+        "https://villaconcordia.nl/agenda/aluintuin-medea/"
+      ],
+      "link_pattern": "https://villaconcordia\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Villa Concordia",
+        "address": "67A Concordiastraat",
+        "city": "Utrecht",
+        "postal_code": "3551EM",
+        "lat": 52.099809,
+        "lon": 5.0973031
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Stadsschouwburg",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://stadsschouwburg-utrecht.nl/agenda/seizoen-2026-2027/badkeremix-lageste"
+      ],
+      "link_pattern": "https://stadsschouwburg\\-utrecht\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Stadsschouwburg",
+        "address": "24 Lucasbolwerk",
+        "city": "Utrecht",
+        "postal_code": "3512EJ",
+        "lat": 52.0933912,
+        "lon": 5.1274954
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Roeivereniging Weesp",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.rvweesp.nl/activiteiten/917/botendoop-skiff"
+      ],
+      "link_pattern": "https://www\\.rvweesp\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roeivereniging Weesp",
+        "lat": 52.3030845,
+        "lon": 5.0516059
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Sint-Joriskerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://sintjoriskerk-amersfoort.nl/agenda/"
+      ],
+      "link_pattern": "https://sintjoriskerk\\-amersfoort\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sint-Joriskerk",
+        "address": "1 Hof",
+        "city": "Amersfoort",
+        "postal_code": "3811CJ",
+        "lat": 52.1566762,
+        "lon": 5.3904192
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "De Fontein",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://defontein-nijkerk.nl/agenda/"
+      ],
+      "link_pattern": "https://defontein\\-nijkerk\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Fontein",
+        "address": "2 ds. Kuypersstraat",
+        "city": "Nijkerk",
+        "postal_code": "3863CA",
+        "lat": 52.2109639,
+        "lon": 5.4672817
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Moskee El Fath",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://www.moskee-elfath.nl/kalender/"
+      ],
+      "link_pattern": "https://www\\.moskee\\-elfath\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Moskee El Fath",
+        "address": "156 Zangvogelweg",
+        "city": "Amersfoort",
+        "postal_code": "3815DR",
+        "lat": 52.165358,
+        "lon": 5.4016162
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Emmaüskerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://www.emmauskerk-amersfoort.nl/agenda/"
+      ],
+      "link_pattern": "https://www\\.emmauskerk\\-amersfoort\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Emmaüskerk",
+        "lat": 52.1603338,
+        "lon": 5.365397
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Paagman",
+      "category": "learning",
+      "_found": "osm:books -> jsonld-event",
+      "listing": [
+        "https://www.paagman.nl/agenda/2026/okt/andrea-vreede"
+      ],
+      "link_pattern": "https://www\\.paagman\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Paagman",
+        "address": "1 Choorstraat",
+        "city": "Delft",
+        "postal_code": "2611JD",
+        "country": "NL",
+        "lat": 52.0126385,
+        "lon": 4.3569972
+      },
+      "_metro": "The Hague, Netherlands"
+    },
+    {
+      "name": "Roeivereniging Rijnland",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://www.rvrijnland.nl/activiteitenlijst/2423/linge-bokaal"
+      ],
+      "link_pattern": "https://www\\.rvrijnland\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Roeivereniging Rijnland",
+        "address": "63 Oostvlietweg",
+        "city": "Leidschendam",
+        "postal_code": "2266GN",
+        "lat": 52.1246182,
+        "lon": 4.4615515
+      },
+      "_metro": "The Hague, Netherlands"
+    },
+    {
+      "name": "Studio Moio",
+      "category": "community",
+      "_found": "osm:social_facility -> wix",
+      "listing": [
+        "https://www.studiomoio.nl/agenda"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Studio Moio",
+        "address": "74B Julianastraat",
+        "city": "Leiden",
+        "postal_code": "2316NZ",
+        "lat": 52.1659546,
+        "lon": 4.501066
+      },
+      "_metro": "The Hague, Netherlands"
+    },
+    {
+      "name": "Space Expo",
+      "category": "arts",
+      "_found": "osm:museum -> jsonld-event",
+      "listing": [
+        "https://www.space-expo.nl/agenda"
+      ],
+      "link_pattern": "https://www\\.space\\-expo\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Space Expo",
+        "address": "3 Keplerlaan",
+        "city": "Noordwijk",
+        "postal_code": "2201AZ",
+        "lat": 52.2152987,
+        "lon": 4.4206153
+      },
+      "_metro": "The Hague, Netherlands"
+    },
+    {
+      "name": "Sint-Bartholomeüskerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://parochiesintmaarten.nl/agenda/"
+      ],
+      "link_pattern": "https://parochiesintmaarten\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Sint-Bartholomeüskerk",
+        "lat": 52.2214652,
+        "lon": 4.4827891
+      },
+      "_metro": "The Hague, Netherlands"
+    },
+    {
+      "name": "AG Eindhoven",
+      "category": "community",
+      "_found": "osm:social_facility -> jsonld-event",
+      "listing": [
+        "https://ag-eindhoven.nl/kalender/alle-evenementen"
+      ],
+      "link_pattern": "https://ag\\-eindhoven\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "AG Eindhoven",
+        "address": "93 Parklaan",
+        "city": "Eindhoven",
+        "postal_code": "5613BC",
+        "lat": 51.4412713,
+        "lon": 5.4906608
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Trinity Church Eindhoven",
+      "category": "community",
+      "_found": "osm:place_of_worship -> jsonld-event",
+      "listing": [
+        "https://trinitychurcheindhoven.org/church-events/"
+      ],
+      "link_pattern": "https://trinitychurcheindhoven\\.org/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Trinity Church Eindhoven",
+        "address": "1 De Pracht",
+        "city": "Waalre",
+        "postal_code": "5583CW",
+        "lat": 51.39645,
+        "lon": 5.4867367
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "De Keien Atletiek",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://dekeienatletiek.nl/agenda/"
+      ],
+      "link_pattern": "https://dekeienatletiek\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Keien Atletiek",
+        "address": "2 Sportlaan",
+        "city": "Uden",
+        "postal_code": "5404NM",
+        "lat": 51.6532591,
+        "lon": 5.6280759
+      },
+      "_metro": "Eindhoven, Netherlands"
     }
   ],
   "_not_included": {

@@ -2814,6 +2814,68 @@
         "lon": 5.3856027
       },
       "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Vogelfrei",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.vogelfrei.nl/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Vogelfrei",
+        "address": "6 Nijverheidsweg",
+        "city": "Utrecht",
+        "postal_code": "3534AM",
+        "country": "NL",
+        "lat": 52.1006682,
+        "lon": 5.0824793
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Professor Loep",
+      "category": "arts",
+      "_found": "osm:arts_centre -> squarespace",
+      "collection": "https://www.professorloep.nl/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Professor Loep",
+        "address": "94 Vlampijpstraat",
+        "city": "Utrecht",
+        "postal_code": "3534AR",
+        "lat": 52.1038629,
+        "lon": 5.0876596
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Adventkapel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> squarespace",
+      "collection": "https://www.adventkapelhth.com/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Adventkapel",
+        "lat": 52.1125835,
+        "lon": 5.2564713
+      },
+      "_metro": "Utrecht, Netherlands"
+    },
+    {
+      "name": "Thomas",
+      "category": "music",
+      "_found": "osm:nightclub -> squarespace",
+      "collection": "https://www.thomaseindhoven.nl/agenda",
+      "max_events": 200,
+      "venue": {
+        "name": "Thomas",
+        "address": "23 Stratumseind",
+        "city": "Eindhoven",
+        "postal_code": "5611EN",
+        "lat": 51.436976,
+        "lon": 5.4804283
+      },
+      "_metro": "Eindhoven, Netherlands"
     }
   ],
   "_not_included": {

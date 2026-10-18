@@ -34006,5 +34006,224 @@
       "pin_unnamed": false
     },
     "_metro": "Valencia, Spain"
+  },
+  {
+    "name": "TTV Rega Nijkerk",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/reganijkerk.nl_i09b2qv6k0f82l4evbbkg99ca4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Nijkerk",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Huis van Vrede",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40huisvanvrede.org/public/basic.ics",
+    "geocode_suffix": ", Utrecht",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Veensche Boys",
+    "category": "community",
+    "_found": "osm:club -> my-calendar+jsonld-event",
+    "url": "https://veenscheboys.nl/?feed=my-calendar-ics",
+    "geocode_suffix": ", Nijkerkerveen",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Scouting Schonauwen",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/cqi4kvpul3gn27levi1pq33lc0%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Houten",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Nederlandse Gereformeerde Kerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_i5q42lt49btep80n8011fe1q88%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht, Netherlands",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Brugkerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager",
+    "url": "https://brugkerklopik.nl/evenementen/?ical=1",
+    "geocode_suffix": ", Utrecht, Netherlands",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Het Kruispunt",
+    "category": "community",
+    "_found": "osm:place_of_worship -> ics",
+    "url": "https://www.ngkhetkruispunt.nl/index.php?option=com_dpcalendar&task=ical.download&id=i-2",
+    "geocode_suffix": ", Houten",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Torenlaan Theater",
+    "category": "arts",
+    "_found": "osm:arts_centre -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/info%40torenlaantheater.nl/public/basic.ics",
+    "geocode_suffix": ", Utrecht, Netherlands",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Rehobothkerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/htsfujdt8bsq5i1kmac87maunk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht, Netherlands",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Geloof in IJsselstein",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/998bc55ba0b37f7fbd562c08fe2fc37060d35d7617bf8bbfbb93c5a7fadd46f3%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht, Netherlands",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Jeruzalemkerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> events-manager+gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/1cddvmc0vjgt1q8b5d7aa24hq8%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Utrecht, Netherlands",
+    "limit": 300,
+    "_metro": "Utrecht, Netherlands"
+  },
+  {
+    "name": "Scouting Graaf van Lynden",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/graafvanlynden.nl_21kieg730m5s8mp11r4cpqv47c%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Lisse",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Kanovereniging Levitas",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/agenda%40levitas.nl/public/basic.ics",
+    "geocode_suffix": ", The Hague, Netherlands",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Scouting Norvicus",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_v0qhasq4pb9k5ucuhf8qgnd3hk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", The Hague, Netherlands",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Docos",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ihlthbdv4hqb3h1321uajs83ec%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", The Hague, Netherlands",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Het Spinozahuis",
+    "category": "arts",
+    "_found": "osm:museum -> events-manager",
+    "url": "https://spinozahuis.nl/agenda/?ical=1",
+    "geocode_suffix": ", Rijnsburg",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Buurtkerk",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/b8b4f19c851f11606613f0cb51994b67deede6913923d1a2b372b63822663fa6%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", The Hague, Netherlands",
+    "limit": 300,
+    "_metro": "The Hague, Netherlands"
+  },
+  {
+    "name": "Scouting Stratum",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://open-web-calendar.hosted.quelltext.eu/calendar.ics?specification_url=https://kalender.scoutingstratum.nl/boekkalender.yml",
+    "geocode_suffix": ", Eindhoven",
+    "limit": 300,
+    "venue": {
+      "name": "Scouting Stratum",
+      "city": "Eindhoven",
+      "postal_code": "5644AZ",
+      "lat": 51.4059549,
+      "lon": 5.4939696,
+      "street_hint": "10 Heihoefpad",
+      "pin_unnamed": false
+    },
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Damiaancentrum",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sis2ioq3i8g5hd2sg98192urdg%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Sint-Oedenrode",
+    "limit": 300,
+    "venue": {
+      "name": "Damiaancentrum",
+      "city": "Sint-Oedenrode",
+      "postal_code": "5491TB",
+      "lat": 51.5866223,
+      "lon": 5.459953,
+      "street_hint": "46 Schijndelseweg",
+      "pin_unnamed": false
+    },
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Helmondse Tennisvereniging",
+    "category": "community",
+    "_found": "osm:community_centre -> events-manager",
+    "url": "https://htv.nl/activiteiten/?ical=1",
+    "geocode_suffix": ", Helmond",
+    "limit": 300,
+    "venue": {
+      "name": "Helmondse Tennisvereniging",
+      "city": "Helmond",
+      "postal_code": "5703HZ",
+      "lat": 51.4875088,
+      "lon": 5.6766995,
+      "street_hint": "6 Braakse Bosdijk",
+      "aliases": [
+        "HTV"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Drijehornick",
+    "category": "community",
+    "_found": "osm:club -> my-calendar",
+    "url": "https://drijehornick.nl/?feed=my-calendar-ics",
+    "geocode_suffix": ", Nuenen",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
   }
 ]
