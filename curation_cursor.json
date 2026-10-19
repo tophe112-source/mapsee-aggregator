@@ -257,8 +257,8 @@
   "stuck": {}
  },
  "osm|community_centre,library,social_centre": {
-  "metro": 53,
-  "metro_key": "JP:Sapporo",
+  "metro": 93,
+  "metro_key": "IN:Jaipur",
   "stuck": {}
  },
  "socrata": {
