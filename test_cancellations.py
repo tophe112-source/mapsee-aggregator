@@ -30,6 +30,9 @@ from unittest.mock import patch
 from urllib.parse import parse_qs, unquote, urlsplit
 
 os.environ.setdefault("MAPSEE_TODAY", "20261005")
+# main() waits out a database that is not answering (wait_for_database); the
+# stub here answers 503 on purpose and counts its calls, so the wait is off.
+os.environ.setdefault("MAPSEE_DB_WAIT_SECONDS", "0")
 
 import mapsee_ingest as ING                               # noqa: E402
 import mapsee_supabase_sync as sync                       # noqa: E402

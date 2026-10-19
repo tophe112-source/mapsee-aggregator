@@ -7,6 +7,9 @@ from contextlib import redirect_stdout
 from unittest.mock import patch
 from urllib.parse import parse_qs, urlsplit
 import mapsee_supabase_sync as sync
+# main() waits out a database that is not answering (wait_for_database); the
+# stub here answers 503 on purpose and counts its calls, so the wait is off.
+os.environ.setdefault("MAPSEE_DB_WAIT_SECONDS", "0")
 
 
 class Store:
