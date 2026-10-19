@@ -1589,6 +1589,41 @@ _HTML_TAG = re.compile(
     r"iframe|style|script)\b[^>]*>", re.I)
 
 
+# UTF-8 READ AS WINDOWS-1252, UNDONE. "High Holidays â€“ preparing", "itâ€™s": a
+# feed decoded its own UTF-8 bytes as cp1252 before sending them, so every byte
+# 0x80-0xFF became cp1252's character for that byte. The inverse: each character
+# back to the byte cp1252 would have made it from (Latin-1 for 0xA0-FF, cp1252's
+# own table for the 27 in 0x80-9F), then decode as UTF-8 STRICTLY. A string that
+# was never mojibake fails one of the two steps and comes back untouched ("Ã la
+# carte" is C3 20, invalid). Gated on the telltales; twice, for the feed that did
+# it twice. The app makes the same repair at render for rows already stored.
+_MOJI_MARK = ("â€", "Ã", "Â")
+_CP1252_HIGH = {0x20ac: 0x80, 0x201a: 0x82, 0x0192: 0x83, 0x201e: 0x84, 0x2026: 0x85, 0x2020: 0x86, 0x2021: 0x87, 0x02c6: 0x88,
+                0x2030: 0x89, 0x0160: 0x8a, 0x2039: 0x8b, 0x0152: 0x8c, 0x017d: 0x8e, 0x2018: 0x91, 0x2019: 0x92, 0x201c: 0x93,
+                0x201d: 0x94, 0x2022: 0x95, 0x2013: 0x96, 0x2014: 0x97, 0x02dc: 0x98, 0x2122: 0x99, 0x0161: 0x9a, 0x203a: 0x9b,
+                0x0153: 0x9c, 0x017e: 0x9e, 0x0178: 0x9f}
+
+
+def _fix_mojibake(s: str) -> str:
+    for _ in range(2):
+        if not any(m in s for m in _MOJI_MARK):
+            return s
+        out = bytearray()
+        for ch in s:
+            o = ord(ch)
+            if o < 0x100:
+                out.append(o)
+            elif o in _CP1252_HIGH:
+                out.append(_CP1252_HIGH[o])
+            else:
+                return s
+        try:
+            s = bytes(out).decode("utf-8")
+        except UnicodeDecodeError:
+            return s
+    return s
+
+
 def _clean_text(s: Optional[str]) -> Optional[str]:
     """Decode HTML entities the feeds send pre-encoded (&#39; -> ', &#160; -> space,
     &amp; -> &) and normalize whitespace, so the DB stores clean display text for
@@ -1596,7 +1631,8 @@ def _clean_text(s: Optional[str]) -> Optional[str]:
     of raw entity codes. Canonical fix: clean once here at the write boundary."""
     if not s:
         return s
-    s = html.unescape(str(s))
+    s = _fix_mojibake(str(s))
+    s = html.unescape(s)
     s = _HTML_TAG.sub(" ", s)          # strip HTML tags (<p>, <span>, <br>, ...)
     s = s.replace(" ", " ")            # decoded nbsp -> normal space
     s = _WS_RUN.sub(" ", s)                 # collapse space/tab runs (keeps newlines)

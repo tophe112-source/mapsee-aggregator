@@ -683,3 +683,21 @@
   (14) runs the ordering on a table of its own, so it is graded rather than
   the one entry's accident; **4 of 4 mutants caught** on this side (free-first
   removed, reversed, the flag not written, Apple TV claimed free).
+
+- **UTF-8 READ AS WINDOWS-1252, UNDONE AT THE WRITE BOUNDARY (`_fix_mojibake`).**
+  2026-10-18. A PJ Library description arrived as "High Holidays â€“
+  preparing … itâ€™s time": the feed decoded its own UTF-8 as cp1252 before
+  sending. `_clean_text` now runs `_fix_mojibake` FIRST — before the entity
+  decode — mapping each character back to the byte cp1252 made it from
+  (Latin-1 for 0xA0–FF, `_CP1252_HIGH` for the 27 in 0x80–9F) and decoding
+  as UTF-8 strictly, twice, gated on the telltales ("â€", "Ã", "Â"). A
+  string that was never mojibake fails a step and is untouched; a character
+  no cp1252 byte makes (CJK beside a telltale) stops it. A repaired description
+  differs from the stored one, so the sync's skip-unchanged writes it on the
+  next run — which is how the rows already stored come right, aggregator-side,
+  as sources refresh; the app repairs at render meanwhile. `test_sync_mojibake.py`
+  (10): the screenshot's text, accents, curly quotes, the double case, the two
+  non-mojibake cases, and that the repair precedes `html.unescape` so `&amp;`
+  beside it still decodes. **4 of 4 mutants caught** on this side (lenient
+  decode, one pass, after the entity decode, and the lenient decode again once
+  the fixture actually reached the decoder).
