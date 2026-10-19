@@ -35,32 +35,46 @@ class Resp:
 class Session:
     """Answers from a script: an int is a status, an exception class is raised.
     The last entry repeats."""
-    def __init__(self, script):
+    def __init__(self, script, clock=None, durations=None):
         self.script = list(script)
         self.calls = []
+        self.clock = clock
+        self.durations = list(durations or [])
 
     def get(self, url, headers=None, timeout=None):
         self.calls.append((url, headers, timeout))
         item = self.script.pop(0) if len(self.script) > 1 else self.script[0]
+        if self.durations and self.clock:
+            self.clock.advance(self.durations.pop(0))
         if isinstance(item, type) and issubclass(item, BaseException):
             raise item("read timeout=15")
         return Resp(item)
 
 
 class Clock:
-    """Records the sleeps asked for: the budget is measured by them, not by a clock."""
+    """A monotonic fake clock advanced by both probe time and sleeps."""
     def __init__(self):
         self.slept = []
+        self.now = 0
+
+    def monotonic(self):
+        return self.now
+
+    def advance(self, seconds):
+        self.now += seconds
 
     def sleep(self, s):
         self.slept.append(s)
+        self.advance(s)
 
 
-def run(script, budget):
-    sess, clk = Session(script), Clock()
+def run(script, budget, durations=None):
+    clk = Clock()
+    sess = Session(script, clk, durations)
     out = io.StringIO()
     with redirect_stdout(out):
-        ok = m.wait_for_database(sess, "https://x.supabase.co/", "k", budget_s=budget, sleep=clk.sleep)
+        ok = m.wait_for_database(sess, "https://x.supabase.co/", "k", budget_s=budget,
+                                 sleep=clk.sleep, monotonic=clk.monotonic)
     return ok, sess, clk, out.getvalue()
 
 
@@ -86,14 +100,26 @@ check("a 4xx is an answer (the database is up; the problem is ours): no wait", o
 
 ok, sess, clk, out = run([503], 100)
 check("a database that never answers: the wait stops INSIDE the budget and returns False",
-      ok is False and sum(clk.slept) <= 100, (ok, clk.slept))
-check("...having used most of it (15+30 slept, the 60 s step would overrun)", clk.slept == [15, 30], clk.slept)
+      ok is False and clk.now <= 100, (ok, clk.now, clk.slept))
+check("...and caps the final sleep at the remaining 55 seconds", clk.slept == [15, 30, 55], clk.slept)
 check("...and the last line says the sync proceeds and fails closed", "proceeding - the sync fails closed" in out, out)
 
 ok, sess, clk, out = run([503], 10000)
 check("the steps cap at the last one and repeat (the budget, not the table, ends the wait)",
-      ok is False and clk.slept[:8] == [15, 30, 60, 120, 180, 240, 300, 300] and sum(clk.slept) <= 10000,
+      ok is False and clk.slept[:8] == [15, 30, 60, 120, 180, 240, 300, 300] and clk.now <= 10000,
       clk.slept[:9])
+
+ok, sess, clk, out = run([503], 60, durations=[15, 15, 15, 15])
+check("probe time and sleep time share one elapsed budget (a 15 s GET cannot buy three extra probes)",
+      ok is False and len(sess.calls) == 2 and clk.now == 60 and clk.slept == [15, 15],
+      (ok, len(sess.calls), clk.now, clk.slept))
+check("each probe timeout is capped by the budget remaining when it starts",
+      [call[2] for call in sess.calls] == [15, 15], [call[2] for call in sess.calls])
+
+ok, sess, clk, out = run([503], 10, durations=[10])
+check("a short remaining budget caps the request timeout too",
+      ok is False and len(sess.calls) == 1 and sess.calls[0][2] == 10 and clk.now == 10,
+      (ok, sess.calls, clk.now))
 
 ok, sess, clk, out = run([503], 0)
 check("a budget of 0 means do not wait: no probe at all", ok is True and sess.calls == [], (ok, sess.calls))

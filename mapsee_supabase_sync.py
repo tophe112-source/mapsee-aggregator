@@ -38,6 +38,7 @@ import json
 import os
 import re
 import sys
+import time
 import unicodedata
 import urllib.parse
 from collections import Counter
@@ -3040,17 +3041,18 @@ DB_WAIT_PROBE_TIMEOUT = 15
 DB_WAIT_STEPS = (15, 30, 60, 120, 180, 240, 300)   # between probes; the last repeats
 
 
-def wait_for_database(session, url: str, key: str, budget_s=None, sleep=None) -> bool:
+def wait_for_database(session, url: str, key: str, budget_s=None, sleep=None, monotonic=None) -> bool:
     """True when the database answered (or no wait was asked for), False when
     the budget ran out with it still not answering.
 
-    The budget is counted in SLEEP asked for, not on a clock: the sleeps go
-    through _patch_sleep, which the tests that drive main() neutralise, so a
-    stub that answers 503 costs them a few instant probes and not fifteen
-    minutes. Those tests also set MAPSEE_DB_WAIT_SECONDS=0, so the probe never
-    reaches a stub that counts its calls.
+    The elapsed budget includes probes and sleeps. Requests' timeout bounds its
+    connect/read operations, but requests does not provide a strict total-call
+    cancellation deadline; check the monotonic clock after each call as well.
+    Tests that drive main() set MAPSEE_DB_WAIT_SECONDS=0, so their stubs are not
+    probed and they do not sleep for the production backoff.
     """
     sleep = sleep or _patch_sleep
+    monotonic = monotonic or time.monotonic
     if budget_s is None:
         raw = os.environ.get("MAPSEE_DB_WAIT_SECONDS", "").strip()
         budget_s = int(raw) if raw.isdigit() else DB_WAIT_SECONDS_DEFAULT
@@ -3058,27 +3060,38 @@ def wait_for_database(session, url: str, key: str, budget_s=None, sleep=None) ->
         return True
     probe = url.rstrip("/") + "/rest/v1/events?select=id&limit=1"
     headers = {"apikey": key, "Authorization": f"Bearer {key}"}
-    waited = 0
+    started = monotonic()
+    deadline = started + budget_s
     failed = 0
+    why = "no response"
     while True:
+        remaining = deadline - monotonic()
+        if remaining <= 0:
+            waited = int(max(0, monotonic() - started))
+            print(f"::warning::Database not answering ({why}); spent {waited}s of a {budget_s}s wait; "
+                  f"proceeding - the sync fails closed if it is still down.", flush=True)
+            return False
         try:
-            r = session.get(probe, headers=headers, timeout=DB_WAIT_PROBE_TIMEOUT)
+            r = session.get(probe, headers=headers, timeout=min(DB_WAIT_PROBE_TIMEOUT, remaining))
             why = "" if r.status_code < 500 else f"HTTP {r.status_code}"
         except _TransportError as error:
             why = type(error).__name__               # never the message: it can carry the URL
+        elapsed = max(0, monotonic() - started)
+        waited = int(elapsed)
         if not why:
             if failed:
                 print(f"Database answered after {waited}s and {failed} failed probe(s).", flush=True)
             return True
-        step = DB_WAIT_STEPS[min(failed, len(DB_WAIT_STEPS) - 1)]
-        if waited + step > budget_s:
+        remaining = deadline - monotonic()
+        if remaining <= 0:
             print(f"::warning::Database not answering ({why}) after {waited}s of a {budget_s}s wait; "
                   f"proceeding - the sync fails closed if it is still down.", flush=True)
             return False
+        step = DB_WAIT_STEPS[min(failed, len(DB_WAIT_STEPS) - 1)]
+        step = min(step, remaining)
         print(f"::warning::Database not answering ({why}); waited {waited}s of {budget_s}s, "
               f"next probe in {step}s.", flush=True)
         sleep(step)
-        waited += step
         failed += 1
 
 

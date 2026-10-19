@@ -388,9 +388,14 @@
   three reads of the ownership state - about **two minutes** - and the day's
   rows were lost; the instance was back at 15:44Z, **36 minutes** after the last
   of them. `wait_for_database` (`mapsee_supabase_sync.py`, called in `main()`
-  before `rekey_legacy`) probes one row of `events` with a 15 s deadline until
-  it answers or `MAPSEE_DB_WAIT_SECONDS` (default **900**, 0 = off) is spent,
-  sleeping 15, 30, 60, 120, 180, 240 then 300 s between probes; a 4xx is an
-  answer (ours to fix), only a 5xx or no answer is waited out, and a spent
-  budget proceeds to fail closed exactly as before. `test_sync_db_wait.py`: 18
-  cases.
+  before `rekey_legacy`) probes one row of `events` until it answers or
+  `MAPSEE_DB_WAIT_SECONDS` (default **900**, 0 = off) elapses; probe time and
+  sleeps share that monotonic budget, with each request timeout and sleep capped
+  to the time remaining. A 4xx is an answer (ours to fix); only a 5xx or no
+  answer is waited out. The requests timeout bounds connect/read operations but
+  is not a strict total-call cancellation deadline. The recital sync has a
+  **30 s** wait inside its 3-minute ingest step; facility hours has **120 s**
+  inside its 10-minute step, preserving room for the sync itself. A spent
+  budget proceeds to fail closed exactly as before. `test_sync_db_wait.py`
+  simulates 15 s requests: a 60 s budget permits two probes plus 30 s of sleeps,
+  not the former three probes plus 45 s of sleeps (90 s elapsed).

@@ -485,6 +485,9 @@ jobs:
         if: matrix.group == 'local'
         continue-on-error: true
         timeout-minutes: 3
+        env:
+          # The ingest can use 60 s; leave most of this short step for the sync.
+          MAPSEE_DB_WAIT_SECONDS: "30"
         run: |
           python mapsee_ingest_recitals.py --config recital_sources.json --store recital_events.json --max-seconds 60
           # A tiny complete series read: refresh dates and admission daily.
@@ -1076,6 +1079,9 @@ jobs:
         if: matrix.group == 'rec'
         continue-on-error: true
         timeout-minutes: 10
+        env:
+          # The ingest can use 3 minutes; reserve the remaining step time for syncing.
+          MAPSEE_DB_WAIT_SECONDS: "120"
         run: |
           if [ -f facility_hours_sources.json ]; then
             python mapsee_ingest_facility_hours.py --config facility_hours_sources.json --store facility_hours_events.json --max-minutes 3
