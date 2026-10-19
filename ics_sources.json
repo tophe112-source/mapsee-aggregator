@@ -34516,5 +34516,137 @@
       "pin_unnamed": false
     },
     "_metro": "Yokohama, Japan"
+  },
+  {
+    "name": "Beachvolley Eindhoven",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/bestuur%40beachvolley-eindhoven.nl/public/basic.ics",
+    "geocode_suffix": ", Eindhoven, Netherlands",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Doederij",
+    "category": "outdoors",
+    "_found": "osm:zoo -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/doe040.nl_oc3ic9f6d1ir2uo1ncprn33cks%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Veldhoven",
+    "limit": 300,
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "Sint-Ambrosiusgilde",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://www.sint-ambrosiusgilde-lommel.be/?agenda=ics",
+    "geocode_suffix": ", Eindhoven, Netherlands",
+    "limit": 300,
+    "venue": {
+      "name": "Sint-Ambrosiusgilde",
+      "lat": 51.2270465,
+      "lon": 5.2724163,
+      "pin_unnamed": false
+    },
+    "_metro": "Eindhoven, Netherlands"
+  },
+  {
+    "name": "De Groenenberg",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/64df6e7dfdd0d920c14e7ac8aaefc732ff72bfb67d85680156d5100fa4964b2a%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Glimmen",
+    "limit": 300,
+    "venue": {
+      "name": "De Groenenberg",
+      "city": "Glimmen",
+      "postal_code": "9756BZ",
+      "lat": 53.1438223,
+      "lon": 6.6303589,
+      "street_hint": "17 Markeweg",
+      "pin_unnamed": false
+    },
+    "_metro": "Groningen, Netherlands"
+  },
+  {
+    "name": "Sociëteit Corps van Leerlingen",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/sv-cvl.nl_kp4nvcrudv6se85cr6cee0ngro%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Groningen, Netherlands",
+    "limit": 300,
+    "_metro": "Groningen, Netherlands"
+  },
+  {
+    "name": "Roeivereniging De Hertog",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://www.rvdehertog.nl/index.php?option=com_dpcalendar&task=ical.download&id=47",
+    "geocode_suffix": ", 's-Hertogenbosch",
+    "limit": 300,
+    "_metro": "Tilburg, Netherlands"
+  },
+  {
+    "name": "Evangelie Gemeente De Deur Breda",
+    "category": "community",
+    "_found": "osm:place_of_worship -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/c_3d3bb5ff8192dbcc9aaf02a42ad5807f52790672d463a5d99dc17a7d2b3ca7a2%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Breda",
+    "limit": 300,
+    "_metro": "Tilburg, Netherlands"
+  },
+  {
+    "name": "Eagle Shelter",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/p082m7l2sufofnntnnq1n1k5fk%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dongen",
+    "limit": 300,
+    "venue": {
+      "name": "Eagle Shelter",
+      "city": "Dongen",
+      "postal_code": "5101BL",
+      "lat": 51.6222179,
+      "lon": 4.9279151,
+      "street_hint": "9 Crispijnhof",
+      "pin_unnamed": false
+    },
+    "_metro": "Tilburg, Netherlands"
+  },
+  {
+    "name": "TPV Heusden",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/8tu7rdv4p4sh2bv2thptaf42is%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Oudheusden",
+    "limit": 300,
+    "_metro": "Tilburg, Netherlands"
+  },
+  {
+    "name": "Stichting Jong Nederland Drunen",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/5jj45n50bgtbanr2b6kfm6itcs%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Drunen",
+    "limit": 300,
+    "venue": {
+      "name": "Stichting Jong Nederland Drunen",
+      "city": "Drunen",
+      "postal_code": "5151JK",
+      "lat": 51.6806853,
+      "lon": 5.1302374,
+      "street_hint": "85 Torenstraat",
+      "pin_unnamed": false
+    },
+    "_metro": "Tilburg, Netherlands"
+  },
+  {
+    "name": "Stadsboerderij",
+    "category": "outdoors",
+    "_found": "osm:zoo -> my-calendar",
+    "url": "https://www.stadsboerderijturnhout.be/?feed=my-calendar-ics",
+    "geocode_suffix": ", Tilburg, Netherlands",
+    "limit": 300,
+    "_metro": "Tilburg, Netherlands"
   }
 ]

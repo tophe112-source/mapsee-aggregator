@@ -10262,6 +10262,170 @@
         "lon": 11.336498
       },
       "_metro": "Bologna, Italy"
+    },
+    {
+      "name": "KSA Roeland Lille",
+      "category": "community",
+      "_found": "osm:club -> jsonld-event",
+      "listing": [
+        "https://ksaroelandlille.be/kalender.html"
+      ],
+      "link_pattern": "https://ksaroelandlille\\.be/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "KSA Roeland Lille",
+        "address": "1 Roelanddreef",
+        "postal_code": "3910",
+        "lat": 51.2225227,
+        "lon": 5.4982368
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Lommelse T.C.",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> wix",
+      "listing": [
+        "https://www.lommelsetc.be/ltc-kalender"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Lommelse T.C.",
+        "lat": 51.2506833,
+        "lon": 5.3716944
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Dorpshuis Ten Boer",
+      "category": "community",
+      "_found": "osm:community_centre -> wix",
+      "listing": [
+        "https://www.dorpshuistenboer.com/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/events-1/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Dorpshuis Ten Boer",
+        "city": "Ten Boer",
+        "postal_code": "9791LX",
+        "lat": 53.2778068,
+        "lon": 6.7002818,
+        "street_hint": "2 Sportlaan"
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "De Oosterpoort",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.spotgroningen.nl/programma/#genres=festivals"
+      ],
+      "link_pattern": "https://www\\.spotgroningen\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "De Oosterpoort",
+        "address": "27 Trompsingel",
+        "city": "Groningen",
+        "postal_code": "9724DA",
+        "lat": 53.2142393,
+        "lon": 6.5759285
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "EM2",
+      "category": "music",
+      "_found": "osm:nightclub -> jsonld-event",
+      "listing": [
+        "https://em2groningen.nl/event/money-the-man/"
+      ],
+      "link_pattern": "https://em2groningen\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "EM2",
+        "address": "6 Suikerlaan",
+        "city": "Groningen",
+        "postal_code": "9743DA",
+        "lat": 53.2104732,
+        "lon": 6.5391945
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Immanuëlkerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://ngkmarum.nl/nieuws/"
+      ],
+      "link_pattern": "https://ngkmarum\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Immanuëlkerk",
+        "lat": 53.1454034,
+        "lon": 6.2636332
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Poppodium 013",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://www.013.nl/programma/127222/ios"
+      ],
+      "link_pattern": "https://www\\.013\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Poppodium 013",
+        "address": "44 Veemarktstraat",
+        "city": "Tilburg",
+        "postal_code": "5038CV",
+        "lat": 51.5577376,
+        "lon": 5.0928392
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Cul de Sac",
+      "category": "music",
+      "_found": "osm:nightclub -> wix",
+      "listing": [
+        "https://www.culdesactilburg.nl/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/details-en-registratie/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Cul de Sac",
+        "address": "48 Heuvel",
+        "city": "Tilburg",
+        "postal_code": "5038CS",
+        "lat": 51.5571129,
+        "lon": 5.0924809
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Grote Kerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> modern-events+jsonld-event",
+      "listing": [
+        "https://pgdenbosch.nl/agenda/"
+      ],
+      "link_pattern": "https://pgdenbosch\\.nl/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Grote Kerk",
+        "lat": 51.688627,
+        "lon": 5.3054823
+      },
+      "_metro": "Tilburg, Netherlands"
     }
   ],
   "_not_included": {

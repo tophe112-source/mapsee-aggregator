@@ -20156,6 +20156,519 @@
         "lon": 11.2644268
       },
       "_metro": "Florence, Italy"
+    },
+    {
+      "name": "Van Goghkerkje",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.vangoghkerkje.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Van Goghkerkje",
+        "lat": 51.4777284,
+        "lon": 5.5531961
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Weverkeshof",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe+jsonld-event+ics",
+      "base_url": "https://weverkeshof.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Weverkeshof",
+        "address": "5 Jonkheer Hugo van Berckellaan",
+        "city": "Nuenen",
+        "postal_code": "5671CH",
+        "lat": 51.4807742,
+        "lon": 5.5542083
+      },
+      "_metro": "Eindhoven, Netherlands",
+      "crawl_delay": 15.0
+    },
+    {
+      "name": "Protestantse Gemeente Sint-Michielsgestel/Schijndel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://pgsintmichielsgestel.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Protestantse Gemeente Sint-Michielsgestel/Schijndel",
+        "lat": 51.6378469,
+        "lon": 5.3507507
+      },
+      "_metro": "Eindhoven, Netherlands"
+    },
+    {
+      "name": "Visserijmuseum Zoutkamp",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://www.visserijmuseum.com",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Visserijmuseum Zoutkamp",
+        "address": "11 Reitdiepskade",
+        "city": "Zoutkamp",
+        "postal_code": "9974PJ",
+        "lat": 53.3369118,
+        "lon": 6.2998141
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Evangelische gemeente De Rank",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.derank-groningen.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Evangelische gemeente De Rank",
+        "address": "123 Paterswoldseweg",
+        "city": "Groningen",
+        "postal_code": "9727BE",
+        "lat": 53.2061522,
+        "lon": 6.5576376
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Boeddhistisch Rigpa Centrum",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event",
+      "base_url": "https://rigpa.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Boeddhistisch Rigpa Centrum",
+        "address": "18 Aweg",
+        "city": "Groningen",
+        "postal_code": "9718CV",
+        "lat": 53.2157071,
+        "lon": 6.5546366
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "A-Theater",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://a-theater.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "A-Theater",
+        "address": "11 Akerkstraat",
+        "city": "Groningen",
+        "postal_code": "9712BD",
+        "lat": 53.2174244,
+        "lon": 6.562411
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Dorpsmuseum De Kluis",
+      "category": "arts",
+      "_found": "osm:museum -> tribe",
+      "base_url": "https://dekluiseext.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Dorpsmuseum De Kluis",
+        "address": "3 Middenstraat",
+        "city": "Eext",
+        "postal_code": "9463PP",
+        "lat": 53.0181357,
+        "lon": 6.7368709
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Café - Bierbrouwerij Maallust",
+      "category": "community",
+      "_found": "osm:pub -> tribe+jsonld-event",
+      "base_url": "https://maallust.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Café - Bierbrouwerij Maallust",
+        "address": "140 Hoofdweg",
+        "city": "Veenhuizen",
+        "postal_code": "9341BL",
+        "lat": 53.0331989,
+        "lon": 6.3874719
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Kunstencentrum k38",
+      "category": "arts",
+      "_found": "osm:gallery -> tribe",
+      "base_url": "https://kunstencentrumk38.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kunstencentrum k38",
+        "address": "38 Kanaalstraat",
+        "city": "Roden",
+        "postal_code": "9301LT",
+        "lat": 53.1406189,
+        "lon": 6.4320817
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "De Cirkel",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+ics",
+      "base_url": "https://www.baptistengemeente.info",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Cirkel",
+        "address": "47 Korreweg",
+        "city": "Groningen",
+        "postal_code": "9714AB",
+        "lat": 53.2279423,
+        "lon": 6.5640322
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Land van Een",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://landvaneen.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Land van Een",
+        "address": "5 Rysloane",
+        "city": "Surhuizum",
+        "postal_code": "9283XS",
+        "lat": 53.2109518,
+        "lon": 6.1979954
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "S.V. RWF",
+      "category": "community",
+      "_found": "osm:club -> tribe",
+      "base_url": "https://sv-rwf.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "S.V. RWF",
+        "address": "2 Boskdobbe",
+        "city": "Frieschepalen",
+        "postal_code": "9249NR",
+        "lat": 53.1045107,
+        "lon": 6.2043353
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Nieuwe Kerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://nieuwekerkgroningen.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Nieuwe Kerk",
+        "lat": 53.2232523,
+        "lon": 6.5616692
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Ontmoetingskerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ontmoetingskerkharen.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ontmoetingskerk",
+        "lat": 53.1751983,
+        "lon": 6.6212421
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Emmaüskerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe",
+      "base_url": "https://www.hildegardparochie.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Emmaüskerk",
+        "lat": 53.2371406,
+        "lon": 6.6216354
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Martyriakerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://www.ngk-bedum.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Martyriakerk",
+        "lat": 53.3015126,
+        "lon": 6.5955328
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "De Bron",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ngkharkstede.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Bron",
+        "address": "13 Hamweg",
+        "city": "Harkstede",
+        "postal_code": "9617AP",
+        "lat": 53.2146078,
+        "lon": 6.7019185
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Aqualaren",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event",
+      "base_url": "https://aqualaren.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Aqualaren",
+        "lat": 53.0891567,
+        "lon": 6.6805709
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "De Ark",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ngk-hoogezand-sappemeer.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "De Ark",
+        "lat": 53.1643476,
+        "lon": 6.7689505
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Chinese tuin 'Het Verborgen Rijk van Ming'",
+      "category": "outdoors",
+      "_found": "osm:garden -> tribe",
+      "base_url": "https://www.hortusharen.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Chinese tuin 'Het Verborgen Rijk van Ming'",
+        "lat": 53.1808619,
+        "lon": 6.6025336
+      },
+      "_metro": "Groningen, Netherlands"
+    },
+    {
+      "name": "Podium de Azijnfabriek",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe",
+      "base_url": "https://podiumazijnfabriek.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Podium de Azijnfabriek",
+        "address": "19 Triniteitstraat",
+        "city": "'s-Hertogenbosch",
+        "postal_code": "5211KW",
+        "lat": 51.6860467,
+        "lon": 5.3082758
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Kinderboerderij Parkhoeve Geeren-Noord",
+      "category": "outdoors",
+      "_found": "osm:zoo -> tribe",
+      "base_url": "https://parkhoevebredanoord.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kinderboerderij Parkhoeve Geeren-Noord",
+        "address": "101 Tussen de Dijken",
+        "city": "Breda",
+        "postal_code": "4826GW",
+        "lat": 51.6139124,
+        "lon": 4.791912
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Bredase Rugby Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.bredaserugbyclub.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Bredase Rugby Club",
+        "address": "516 Terheijdenseweg",
+        "city": "Breda",
+        "postal_code": "4826AB",
+        "lat": 51.617587,
+        "lon": 4.7760326
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "PopPodium Phoenix",
+      "category": "theater",
+      "_found": "osm:theatre -> tribe+jsonld-event+ics",
+      "base_url": "https://poppodiumphoenix.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "PopPodium Phoenix",
+        "address": "60 Belcrumweg",
+        "city": "Breda",
+        "postal_code": "4815HA",
+        "lat": 51.5994241,
+        "lon": 4.769835
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Ontmoetingskerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://ontmoetingskerk-breda.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Ontmoetingskerk",
+        "address": "9 Terheijdenstraat",
+        "city": "Breda",
+        "postal_code": "4811AW",
+        "lat": 51.5945692,
+        "lon": 4.7841962
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "TPC Maaspoort",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://www.tpcmaaspoort.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "TPC Maaspoort",
+        "address": "2 Marathonloop",
+        "city": "'s-Hertogenbosch",
+        "postal_code": "5235AB",
+        "lat": 51.7229536,
+        "lon": 5.3173408
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Kloveniersgilde St. Antonius abt",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kloveniersgilde.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kloveniersgilde St. Antonius abt",
+        "address": "10 Hoge Vaartkant",
+        "city": "Terheijden",
+        "postal_code": "4844PT",
+        "lat": 51.651634,
+        "lon": 4.7504984
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Heemhuis Amalia van Solms",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://www.amaliavansolms.org",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Heemhuis Amalia van Solms",
+        "address": "4 Kerkstraat",
+        "city": "Baarle-Hertog",
+        "postal_code": "2387",
+        "lat": 51.4421136,
+        "lon": 4.9300885
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Beweegr",
+      "category": "fitness",
+      "_found": "osm:sports_centre -> tribe",
+      "base_url": "https://spoorparktilburg.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Beweegr",
+        "address": "6 Spoorpark",
+        "city": "Tilburg",
+        "postal_code": "5038LS",
+        "lat": 51.5617517,
+        "lon": 5.0656989
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Protestantse Kerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://wittekerkjeterheijden.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Protestantse Kerk",
+        "lat": 51.6428204,
+        "lon": 4.7536491
+      },
+      "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "Hervormde Kerk",
+      "category": "community",
+      "_found": "osm:place_of_worship -> tribe+jsonld-event+ics",
+      "base_url": "https://hervormdwijk.nl",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Hervormde Kerk",
+        "lat": 51.7601236,
+        "lon": 5.131441
+      },
+      "_metro": "Tilburg, Netherlands",
+      "crawl_delay": 3.0
     }
   ],
   "_not_included": {
