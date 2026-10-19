@@ -72,3 +72,15 @@
   `python -u ... 2>&1`, and a missing "entries are BROKEN" summary line is an
   `::error::`. `test_curate_reapply.py` runs the real `cmd_audit` over a jsonld
   list and a crashing third file, and fails on the old code.
+
+- **THE DATABASE HAS A PROBE, AND ITS VERDICT IS AN ISSUE (2026-10-19).** The
+  mapsee Worker writes `cron:probeDb` every **five minutes** (ok, ms, db_ms,
+  slow, status; the reason when it failed) into `stats_snapshot`;
+  `mapsee_db_health.py` reads it through `stats_snapshot_all()` and grades it on
+  the ROW'S clock, never this run's - a scheduled run here started **seven
+  hours** late that day: ok (0), down or slow (1), stale over **20 min** or
+  missing (2: "the alarm is off", never "healthy"). An unreadable snapshot is
+  down (three rows of a tiny table did not come back). `db-health.yml` (`*/30`
+  and dispatch; schedule + dispatch only, it reads the service key) opens
+  `db-health` / `db-health-check` issues and closes them when the probe
+  answers. `test_db_health.py`: 17 cases.

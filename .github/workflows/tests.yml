@@ -647,6 +647,14 @@ jobs:
       - name: Google calendars through the Calendar API keep their rows
         run: python test_gcal.py
 
+      # 2026-10-19: four syncs gave up two minutes into a two-hour outage and
+      # lost the day's rows; the database verdict is what db-health.yml raises
+      # an issue from. Both are pure functions over a stub session.
+      - name: The sync waits out a database that is not answering, within a budget
+        run: python test_sync_db_wait.py
+      - name: The database verdict from the Worker's probe heartbeat
+        run: python test_db_health.py
+
       # Every adapter is imported by the sweep at runtime; a syntax error or a
       # bad top-level import in one of the 25 of them currently surfaces as a
       # mid-sweep crash on a schedule, hours later. Compiling is not a test, but

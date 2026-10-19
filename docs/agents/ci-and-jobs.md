@@ -381,3 +381,16 @@
   Eventbrite, and 246 of the 804 hides in a replay of the census involve a
   SeatGeek row (on the daily schedule alone they waited a day). The 17:23 UTC festival sync waits
   for the next 06:17 run. `test_workflow_contracts.py` pins all of it.
+
+- **A SYNC WAITS OUT A DATABASE THAT IS NOT ANSWERING, WITHIN A BUDGET
+  (2026-10-19).** During the two-hour outage the races (13:25Z), Ticketmaster
+  (13:27Z), OpenActive (13:53Z) and Meetup (15:05Z) syncs each gave up after
+  three reads of the ownership state - about **two minutes** - and the day's
+  rows were lost; the instance was back at 15:44Z, **36 minutes** after the last
+  of them. `wait_for_database` (`mapsee_supabase_sync.py`, called in `main()`
+  before `rekey_legacy`) probes one row of `events` with a 15 s deadline until
+  it answers or `MAPSEE_DB_WAIT_SECONDS` (default **900**, 0 = off) is spent,
+  sleeping 15, 30, 60, 120, 180, 240 then 300 s between probes; a 4xx is an
+  answer (ours to fix), only a 5xx or no answer is waited out, and a spent
+  budget proceeds to fail closed exactly as before. `test_sync_db_wait.py`: 18
+  cases.

@@ -1,0 +1,135 @@
+name: Database health
+
+# Is the database answering? Graded from the mapsee Worker's own five-minute
+# probe (src/index.js probeDb, heartbeat kind 'cron:probeDb'), read here
+# through stats_snapshot_all() by mapsee_db_health.py, and raised as an issue
+# the way source-health raises one for a quiet source.
+#
+# WHY THIS SHAPE. On 2026-10-19 a signup flood on a sibling app starved the
+# shared 1 GB instance for about two hours; the first person to notice was the
+# owner, pasting a migration into a SQL editor that would not answer. The
+# Worker now measures every five minutes, on time; this is the free channel to
+# a person. A scheduled run here can start hours late (the 06:17Z aggregate
+# started at 13:22Z that day), so the verdict is on the probe row's OWN clock:
+# a run that starts late still grades the latest probe, and a probe that has
+# stopped is reported as "the alarm is off", never as "healthy".
+#
+# Triggers are schedule + workflow_dispatch ONLY - never pull_request: the job
+# reads SUPABASE_SERVICE_ROLE_KEY (stats_snapshot_all is anon-readable, but the
+# repository's secret is the key the other health job already holds).
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: db-health
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the one dependency
+        run: pip install requests
+
+      - name: Grade the database by the Worker's probe
+        id: db
+        continue-on-error: true
+        run: |
+          set +e
+          python mapsee_db_health.py --markdown db_health.md
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Summary
+        run: cat db_health.md >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Open or update the database issue
+        if: ${{ steps.db.outputs.status != '0' }}
+        env:
+          STATUS: ${{ steps.db.outputs.status }}
+        run: |
+          set -euo pipefail
+          if [ "$STATUS" = "2" ]; then
+            TITLE="Database health: the probe is not running"
+            LABEL="db-health-check"
+            COLOR="D93F0B"
+            LABEL_DESC="The database probe is stale or missing: nothing is measuring"
+          else
+            TITLE="Database health: the database is not answering"
+            LABEL="db-health"
+            COLOR="B60205"
+            LABEL_DESC="The Worker's five-minute probe is failing or slow"
+          fi
+          {
+            if [ "$STATUS" = "2" ]; then
+              echo "**The probe is not running.** Nothing here says the database is"
+              echo "unhealthy - only that nobody is measuring it. Fix this first."
+            else
+              echo "**The database is not answering its own probe.** Every door shares"
+              echo "it: the map, the city pages, chat and this pipeline's syncs (which"
+              echo "wait up to MAPSEE_DB_WAIT_SECONDS and then fail closed)."
+            fi
+            echo
+            if [ -s db_health.md ]; then
+              cat db_health.md
+            else
+              echo "**The check exited non-zero without writing a report.** See the run log."
+            fi
+            echo
+            echo "---"
+            echo "_Checked by [\`db-health\`](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) on $(date -u '+%Y-%m-%d %H:%M UTC'). This issue closes itself once the condition clears._"
+          } > issue_body.md
+
+          EXISTING=$(gh issue list --label "$LABEL" --state open \
+                       --json number --jq '.[0].number // empty')
+          gh label create "$LABEL" --color "$COLOR" \
+            --description "$LABEL_DESC" 2>/dev/null || true
+          if [ -n "$EXISTING" ]; then
+            echo "Updating existing issue #$EXISTING"
+            gh issue comment "$EXISTING" --body-file issue_body.md
+          else
+            echo "Opening a new issue"
+            gh issue create --title "$TITLE" --label "$LABEL" --body-file issue_body.md
+          fi
+
+      - name: Close the issues once the probe answers again
+        if: ${{ steps.db.outputs.status == '0' }}
+        run: |
+          set -euo pipefail
+          for LABEL in db-health db-health-check; do
+            EXISTING=$(gh issue list --label "$LABEL" --state open \
+                         --json number --jq '.[0].number // empty')
+            if [ -n "$EXISTING" ]; then
+              gh issue comment "$EXISTING" --body "The database answered its probe as of $(date -u '+%Y-%m-%d %H:%M UTC'). Closing."
+              gh issue close "$EXISTING"
+            fi
+          done
+
+      - name: Say which it is
+        if: ${{ steps.db.outputs.status != '0' }}
+        env:
+          STATUS: ${{ steps.db.outputs.status }}
+        run: |
+          if [ "$STATUS" = "2" ]; then
+            echo "::error::The database probe is stale or missing - nothing is measuring. See the open db-health-check issue."
+          else
+            echo "::error::The database is not answering its probe. See the open db-health issue."
+          fi
+          exit 1

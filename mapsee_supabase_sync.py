@@ -3020,6 +3020,67 @@ PATCH_TRIES = 3
 # ...and so is a failed chunk of the import-state read (fetch_import_state).
 STATE_READ_TRIES = 3
 
+# ---- waiting for the database -------------------------------------------------
+# A sync is the last step of a job that spent hours importing. On 2026-10-19 the
+# database stopped answering for about two hours (a signup flood on a sibling app
+# starved the 1 GB instance): the races, Ticketmaster, OpenActive and Meetup
+# syncs each gave up after three reads (about two minutes) and the day's rows
+# were lost, the last of them 36 minutes before the instance came back. The work
+# was done; what was missing was patience with a budget.
+#
+# So before the first read, the cheapest one the service key can make (one row
+# of events, a 15 s deadline) is tried until it answers or MAPSEE_DB_WAIT_SECONDS
+# is spent (default 15 minutes, 0 = do not wait). A 4xx is an ANSWER: the
+# database is up and the problem is ours (a key, a column), which waiting would
+# not fix; only a 5xx or no answer at all is worth waiting out. When the budget
+# runs out the sync proceeds and fails closed exactly as before: this buys time,
+# never permission.
+DB_WAIT_SECONDS_DEFAULT = 900
+DB_WAIT_PROBE_TIMEOUT = 15
+DB_WAIT_STEPS = (15, 30, 60, 120, 180, 240, 300)   # between probes; the last repeats
+
+
+def wait_for_database(session, url: str, key: str, budget_s=None, sleep=None) -> bool:
+    """True when the database answered (or no wait was asked for), False when
+    the budget ran out with it still not answering.
+
+    The budget is counted in SLEEP asked for, not on a clock: the sleeps go
+    through _patch_sleep, which the tests that drive main() neutralise, so a
+    stub that answers 503 costs them a few instant probes and not fifteen
+    minutes. Those tests also set MAPSEE_DB_WAIT_SECONDS=0, so the probe never
+    reaches a stub that counts its calls.
+    """
+    sleep = sleep or _patch_sleep
+    if budget_s is None:
+        raw = os.environ.get("MAPSEE_DB_WAIT_SECONDS", "").strip()
+        budget_s = int(raw) if raw.isdigit() else DB_WAIT_SECONDS_DEFAULT
+    if budget_s <= 0:
+        return True
+    probe = url.rstrip("/") + "/rest/v1/events?select=id&limit=1"
+    headers = {"apikey": key, "Authorization": f"Bearer {key}"}
+    waited = 0
+    failed = 0
+    while True:
+        try:
+            r = session.get(probe, headers=headers, timeout=DB_WAIT_PROBE_TIMEOUT)
+            why = "" if r.status_code < 500 else f"HTTP {r.status_code}"
+        except _TransportError as error:
+            why = type(error).__name__               # never the message: it can carry the URL
+        if not why:
+            if failed:
+                print(f"Database answered after {waited}s and {failed} failed probe(s).", flush=True)
+            return True
+        step = DB_WAIT_STEPS[min(failed, len(DB_WAIT_STEPS) - 1)]
+        if waited + step > budget_s:
+            print(f"::warning::Database not answering ({why}) after {waited}s of a {budget_s}s wait; "
+                  f"proceeding - the sync fails closed if it is still down.", flush=True)
+            return False
+        print(f"::warning::Database not answering ({why}); waited {waited}s of {budget_s}s, "
+              f"next probe in {step}s.", flush=True)
+        sleep(step)
+        waited += step
+        failed += 1
+
 
 def _utc(value) -> Optional[datetime]:
     """An aware UTC instant, or None when the stamp names no instant."""
@@ -3882,6 +3943,9 @@ def main() -> None:
     import requests, time                             # batch-geocode venue addresses (TM coords imprecise)
     geo = requests.Session()
     geo.headers.update({"User-Agent": "MapseeAggregator/1.0 (+https://mapsee.me; events@mapsee.me)"})
+    # A database that is not answering is waited out, within a budget, before
+    # the first read: hours of import must not be lost to a two-minute retry.
+    wait_for_database(geo, url, key)
 
     # Never touch CLAIMED imports (a real user owns them now) — in EITHER mode,
     # so a full refresh can't clobber a claimer's edits and only-new stays correct.
