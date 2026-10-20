@@ -20733,6 +20733,35 @@
         "lon": -9.053464
       },
       "_metro": "Galway, Ireland"
+    },
+    {
+      "name": "NZMA Dawah Center",
+      "category": "community",
+      "_found": "osm:community_centre -> tribe+jsonld-event+ics",
+      "base_url": "https://nzma.kiwi.nz",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "NZMA Dawah Center",
+        "lat": -36.8951342,
+        "lon": 174.7014733
+      },
+      "_metro": "Auckland, New Zealand"
+    },
+    {
+      "name": "Stadtbücherei Erding Zweigstelle St. Vinzenz Klettham",
+      "category": "learning",
+      "_found": "osm:library -> tribe",
+      "base_url": "https://st-vinzenz-klettham.de",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Stadtbücherei Erding Zweigstelle St. Vinzenz Klettham",
+        "lat": 48.305849,
+        "lon": 11.8987126,
+        "street_hint": "9 Vinzenzstraße"
+      },
+      "_metro": "Munich, Germany"
     }
   ],
   "_not_included": {

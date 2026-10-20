@@ -10481,6 +10481,123 @@
         "lon": -8.4763979
       },
       "_metro": "Cork, Ireland"
+    },
+    {
+      "name": "Gutshaus Altlandsberg",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.altlandsberg.de/leben-wohnen/kultur-freizeit/veranstaltungen/nachtwaechter-rundgang-10/"
+      ],
+      "link_pattern": "https://www\\.altlandsberg\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Gutshaus Altlandsberg",
+        "city": "Altlandsberg",
+        "postal_code": "15345",
+        "lat": 52.5678655,
+        "lon": 13.7274595,
+        "street_hint": "1 Krummenseestraße"
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "Helle Panke e.V.",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.helle-panke.de/de/topic/3.termine.html?id=4091"
+      ],
+      "link_pattern": "https://www\\.helle\\-panke\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Helle Panke e.V.",
+        "city": "Berlin",
+        "postal_code": "10437",
+        "lat": 52.5489907,
+        "lon": 13.4107278,
+        "street_hint": "9 Kopenhagener Straße"
+      },
+      "_metro": "Berlin, Germany"
+    },
+    {
+      "name": "HEi, Haus der Eigenarbeit",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.hei-muenchen.de/events-list-style/"
+      ],
+      "link_pattern": "https://www\\.hei\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "HEi, Haus der Eigenarbeit",
+        "city": "München",
+        "postal_code": "81667",
+        "country": "DE",
+        "lat": 48.1287308,
+        "lon": 11.6019836,
+        "street_hint": "42 Wörthstraße"
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "LeZ",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.lez-muenchen.de/aktuell-im-lez/event-details/communi-ti-theke.html?day=20261023&amp;times=1792771200,1792789200"
+      ],
+      "link_pattern": "https://www\\.lez\\-muenchen\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "LeZ",
+        "city": "München",
+        "postal_code": "80469",
+        "country": "DE",
+        "lat": 48.131591,
+        "lon": 11.5716757,
+        "street_hint": "26 Müllerstraße"
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Familientreff Moosach",
+      "category": "community",
+      "_found": "osm:community_centre -> modern-events+jsonld-event",
+      "listing": [
+        "https://familientreff-moosach.de/events/"
+      ],
+      "link_pattern": "https://familientreff\\-moosach\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Familientreff Moosach",
+        "city": "München",
+        "postal_code": "80993",
+        "lat": 48.183193,
+        "lon": 11.5213171,
+        "street_hint": "42 Feldmochinger Straße"
+      },
+      "_metro": "Munich, Germany"
+    },
+    {
+      "name": "Jugendtreff A12",
+      "category": "community",
+      "_found": "osm:community_centre -> jsonld-event",
+      "listing": [
+        "https://www.jugendtreff-a12.de/veranstaltungen/2972414/2026/11/03/ferienprogramm.html"
+      ],
+      "link_pattern": "https://www\\.jugendtreff\\-a12\\.de/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Jugendtreff A12",
+        "city": "Oberhaching",
+        "postal_code": "82041",
+        "country": "DE",
+        "lat": 48.0240091,
+        "lon": 11.5905512,
+        "street_hint": "12 Alpenstraße"
+      },
+      "_metro": "Munich, Germany"
     }
   ],
   "_not_included": {

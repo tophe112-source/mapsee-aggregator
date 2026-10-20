@@ -34763,5 +34763,158 @@
     "geocode_suffix": ", Kinsale",
     "limit": 300,
     "_metro": "Cork, Ireland"
+  },
+  {
+    "name": "Bibliothek des Deutschen Bundestages",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.bundestag.de/resource/blob/1103938/Parlamentstermine_2026_ics.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "venue": {
+      "name": "Bibliothek des Deutschen Bundestages",
+      "city": "Berlin",
+      "postal_code": "10117",
+      "country": "DE",
+      "lat": 52.5202388,
+      "lon": 13.3772992,
+      "street_hint": "1 Adele-Schreiber-Krieger-Straße",
+      "aliases": [
+        "Bundestagsbibliothek",
+        "Library of the German Bundestag"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Forum Naturfreundejugend Berlin",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://naturfreundejugend-berlin.de/termine/jwd-2026.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "venue": {
+      "name": "Forum Naturfreundejugend Berlin",
+      "city": "Berlin",
+      "postal_code": "12045",
+      "country": "DE",
+      "lat": 52.4853912,
+      "lon": 13.4346358,
+      "street_hint": "13 Weichselstraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Familienzentrum im Bucher Bürgerhaus",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/f3d323cf3e55c63daf7732332ed85e964e4d07ab7b3096b600f13a6da5049deb%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "venue": {
+      "name": "Familienzentrum im Bucher Bürgerhaus",
+      "city": "Berlin",
+      "postal_code": "13125",
+      "lat": 52.632509,
+      "lon": 13.4959551,
+      "street_hint": "8-10 Franz-Schmidt-Straße",
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "mittendrin",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "https://stz-koellnische-heide.de/events/2026/month/10/events.ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "venue": {
+      "name": "mittendrin",
+      "city": "Berlin",
+      "postal_code": "12057",
+      "country": "DE",
+      "lat": 52.4654641,
+      "lon": 13.4727003,
+      "street_hint": "319 Sonnenallee",
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "MC Birkenwerder e.V.",
+    "category": "community",
+    "_found": "osm:community_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/mcb%40no-prob.de/public/basic.ics",
+    "geocode_suffix": ", Birkenwerder",
+    "limit": 300,
+    "venue": {
+      "name": "MC Birkenwerder e.V.",
+      "city": "Birkenwerder",
+      "postal_code": "16547",
+      "lat": 52.6894641,
+      "lon": 13.2537856,
+      "street_hint": "63A Havelstraße",
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Philologische Bibliothek",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.fu-berlin.de/sites/philbib/aktuelle-schulungstermine/index.ics?format=ics",
+    "geocode_suffix": ", Berlin",
+    "limit": 300,
+    "venue": {
+      "name": "Philologische Bibliothek",
+      "city": "Berlin",
+      "postal_code": "14195",
+      "country": "DE",
+      "lat": 52.4519101,
+      "lon": 13.2882503,
+      "street_hint": "45 Habelschwerdter Allee",
+      "aliases": [
+        "Philological Library"
+      ],
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Schützengilde zu Potsdam 1465",
+    "category": "community",
+    "_found": "osm:community_centre -> ics",
+    "url": "http://sgpotsdam.de/termine/2026_Kalender.ics",
+    "geocode_suffix": ", Potsdam",
+    "limit": 300,
+    "venue": {
+      "name": "Schützengilde zu Potsdam 1465",
+      "city": "Potsdam",
+      "postal_code": "14473",
+      "country": "DE",
+      "lat": 52.3744716,
+      "lon": 13.055483,
+      "street_hint": "16a Michendorfer Chaussee",
+      "pin_unnamed": false
+    },
+    "_metro": "Berlin, Germany"
+  },
+  {
+    "name": "Stadtbücherei Dachau Zweigstelle Süd",
+    "category": "learning",
+    "_found": "osm:library -> ics",
+    "url": "https://www.stadtbibliothek-dachau.de/wp-content/uploads/kinderlesungmeinrevier-2026-10-21.ics",
+    "geocode_suffix": ", Munich, Germany",
+    "limit": 300,
+    "venue": {
+      "name": "Stadtbücherei Dachau Zweigstelle Süd",
+      "lat": 48.2414201,
+      "lon": 11.4417792,
+      "pin_unnamed": false
+    },
+    "_metro": "Munich, Germany"
   }
 ]
