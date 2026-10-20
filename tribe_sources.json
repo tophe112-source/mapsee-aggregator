@@ -20669,6 +20669,70 @@
       },
       "_metro": "Tilburg, Netherlands",
       "crawl_delay": 3.0
+    },
+    {
+      "name": "Royal St George Yacht Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://rsgyc.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Royal St George Yacht Club",
+        "city": "Dún Laoghaire",
+        "lat": 53.2944763,
+        "lon": -6.132278
+      },
+      "_metro": "Dublin, Ireland"
+    },
+    {
+      "name": "Malahide Yacht Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+ics",
+      "base_url": "https://www.myc.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Malahide Yacht Club",
+        "address": "Saint James Terrace",
+        "city": "Malahide",
+        "lat": 53.4516648,
+        "lon": -6.1505778
+      },
+      "_metro": "Dublin, Ireland"
+    },
+    {
+      "name": "Kinsale Yacht Club",
+      "category": "community",
+      "_found": "osm:club -> tribe+jsonld-event+ics",
+      "base_url": "https://www.kyc.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Kinsale Yacht Club",
+        "address": "29 Lower O'Connell Street",
+        "city": "Kinsale",
+        "postal_code": "P17KT68",
+        "lat": 51.7014923,
+        "lon": -8.5189119
+      },
+      "_metro": "Cork, Ireland"
+    },
+    {
+      "name": "Galway City Museum",
+      "category": "arts",
+      "_found": "osm:museum -> tribe+jsonld-event+ics",
+      "base_url": "https://galwaycitymuseum.ie",
+      "within_days": 120,
+      "max_pages": 10,
+      "venue": {
+        "name": "Galway City Museum",
+        "address": "Spanish Parade",
+        "city": "Galway",
+        "lat": 53.2698151,
+        "lon": -9.053464
+      },
+      "_metro": "Galway, Ireland"
     }
   ],
   "_not_included": {

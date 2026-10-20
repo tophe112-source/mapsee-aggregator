@@ -34700,5 +34700,68 @@
       "pin_unnamed": false
     },
     "_metro": "Bengaluru, India"
+  },
+  {
+    "name": "Swords Sailing and Boating Club",
+    "category": "community",
+    "_found": "osm:club -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/ssbc%40swordssailing.ie/public/basic.ics",
+    "geocode_suffix": ", Malahide",
+    "limit": 300,
+    "_metro": "Dublin, Ireland"
+  },
+  {
+    "name": "St Sylvester's GAA",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> ics",
+    "url": "https://calendar.google.com/calendar/ical/6e17fd48a66cf44416a19e55ce9eee12ccff7fb052c980e4bde39c390568080f%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Malahide",
+    "limit": 300,
+    "_metro": "Dublin, Ireland"
+  },
+  {
+    "name": "Newpark School Sports Centre",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/41e26bkr0v5pgvi3u9d6c4ca2o%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dublin, Ireland",
+    "limit": 300,
+    "_metro": "Dublin, Ireland"
+  },
+  {
+    "name": "The Kingfisher Project",
+    "category": "outdoors",
+    "_found": "osm:garden -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/891e3668493560fa6f6114e65f4e111f25d1fb6212704723552f346db6a99c2e%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Dublin, Ireland",
+    "limit": 300,
+    "_metro": "Dublin, Ireland"
+  },
+  {
+    "name": "The Kabin Studio",
+    "category": "arts",
+    "_found": "osm:arts_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/6d853318217bdacb1f8548c8c1a090640b4888478470fbe4a1a41c6356026031%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cork, Ireland",
+    "limit": 300,
+    "_metro": "Cork, Ireland"
+  },
+  {
+    "name": "Bandon GAA",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/9mr4u5t9ocok68csih4pqj3hf4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Cork, Ireland",
+    "limit": 300,
+    "_metro": "Cork, Ireland"
+  },
+  {
+    "name": "Kinsale Tennis Club",
+    "category": "fitness",
+    "_found": "osm:sports_centre -> gcal-embed",
+    "url": "https://calendar.google.com/calendar/ical/at93n0tn510edakfb8mimqq3h4%40group.calendar.google.com/public/basic.ics",
+    "geocode_suffix": ", Kinsale",
+    "limit": 300,
+    "_metro": "Cork, Ireland"
   }
 ]

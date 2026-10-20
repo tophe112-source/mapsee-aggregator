@@ -10426,6 +10426,61 @@
         "lon": 5.3054823
       },
       "_metro": "Tilburg, Netherlands"
+    },
+    {
+      "name": "DublinTown",
+      "category": "community",
+      "_found": "osm:ngo -> jsonld-event",
+      "listing": [
+        "https://www.dublintown.ie/whats-on-events/starjunk-95/"
+      ],
+      "link_pattern": "https://www\\.dublintown\\.ie/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "DublinTown",
+        "address": "43-45 Middle Abbey Street",
+        "city": "Dublin",
+        "postal_code": "D01 X8R2",
+        "lat": 53.3478712,
+        "lon": -6.2632052
+      },
+      "_metro": "Dublin, Ireland"
+    },
+    {
+      "name": "Kagyu Samye Dzong",
+      "category": "community",
+      "_found": "osm:place_of_worship -> wix",
+      "listing": [
+        "https://www.buddhism.ie/"
+      ],
+      "link_pattern": "\"slug\":\"([a-zA-Z0-9-]+)\"",
+      "url_template": "/event-details/{}",
+      "max_events": 100,
+      "venue": {
+        "name": "Kagyu Samye Dzong",
+        "address": "56 Inchicore Road",
+        "city": "Dublin",
+        "country": "IE",
+        "lat": 53.342524,
+        "lon": -6.3115414
+      },
+      "_metro": "Dublin, Ireland"
+    },
+    {
+      "name": "Triskel Art Centre",
+      "category": "theater",
+      "_found": "osm:theatre -> jsonld-event",
+      "listing": [
+        "https://triskelartscentre.ie/whats-on/"
+      ],
+      "link_pattern": "https://triskelartscentre\\.ie/(?:event|events)/[a-z0-9\\-]+/?",
+      "max_events": 150,
+      "venue": {
+        "name": "Triskel Art Centre",
+        "lat": 51.8974426,
+        "lon": -8.4763979
+      },
+      "_metro": "Cork, Ireland"
     }
   ],
   "_not_included": {
